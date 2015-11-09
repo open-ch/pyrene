@@ -1,0 +1,25 @@
+{
+  "name": "eslint-config-pyrene",
+  "version": "1.0.0",
+  "description": "Pyrene ESLint Configuration",
+  "main": "index.js",
+  "keywords": [
+    "eslint",
+    "eslintconfig"
+  ],
+  "author": "pyrene@open-systems.com",
+  "repository": "https://github.com/open-ch/pyrene.git",
+  "license": "",
+  "readme": "",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+    },
+  "dependencies": {
+    "babel-eslint": "^4.1.4"
+  },
+  "peerDependencies": {
+    "eslint": ">=1.0.0",
+    "eslint-config-airbnb": "=1.0.0",
+    "eslint-plugin-react": "^3.8.0"
+  }
+}
