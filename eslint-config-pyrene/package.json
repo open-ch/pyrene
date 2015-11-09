@@ -1,6 +1,6 @@
 {
   "name": "eslint-config-pyrene",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Pyrene ESLint Configuration",
   "main": "index.js",
   "keywords": [

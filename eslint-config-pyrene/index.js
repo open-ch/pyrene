@@ -3,8 +3,12 @@ module.exports = {
   extends: 'eslint-config-airbnb',
 
   rules: {
+    // disallow trailing commas in object literals
+    'comma-dangle': [2, 'never'],
     // this option sets a specific tab width for your code, VariableDeclarator indents are for nice alignment of multi-line var declaration
     "indent": [2, 2, { "SwitchCase": 2, "VariableDeclarator": { "var": 2, "let": 2, "const": 3 } }],
+    // disallow trailing whitespace at the end of lines, except empty lines
+    "no-trailing-spaces": [2, { "skipBlankLines": true }],
 
     // Prevent missing displayName in a React component definition
     "react/display-name": 1,
