@@ -1,10 +1,16 @@
 module.exports = {
 
-  extends: 'eslint-config-airbnb',
+  "extends": "eslint-config-airbnb",
 
-  rules: {
+  "env": {
+    "browser": "true",
+    "amd": "true",
+    "es6": "true"
+  },
+
+  "rules": {
     // disallow trailing commas in object literals
-    'comma-dangle': [2, 'never'],
+    "comma-dangle": [2, "never"],
     // this option sets a specific tab width for your code, VariableDeclarator indents are for nice alignment of multi-line var declaration
     "indent": [2, 2, { "SwitchCase": 2, "VariableDeclarator": { "var": 2, "let": 2, "const": 3 } }],
     // disallow trailing whitespace at the end of lines, except empty lines
