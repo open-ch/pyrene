@@ -1,6 +1,6 @@
 {
   "name": "eslint-config-pyrene",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Pyrene ESLint Configuration",
   "main": "index.js",
   "keywords": [
@@ -18,8 +18,8 @@
     "babel-eslint": "^4.1.4"
   },
   "peerDependencies": {
-    "eslint": ">=1.0.0",
-    "eslint-config-airbnb": "=1.0.0",
-    "eslint-plugin-react": "^3.8.0"
+    "eslint": ">=1.0.0 <2.0.0",
+    "eslint-config-airbnb": "1.0.0",
+    "eslint-plugin-react": ">=3.8.0 <4.0.0"
   }
 }
