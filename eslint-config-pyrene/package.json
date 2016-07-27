@@ -8,12 +8,14 @@
     "eslintconfig"
   ],
   "author": "pyrene@open-systems.com",
-  "repository": "https://github.com/open-ch/pyrene.git",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
   "license": "",
-  "readme": "",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
-    },
+  },
   "dependencies": {
     "babel-eslint": "^4.1.4"
   },
