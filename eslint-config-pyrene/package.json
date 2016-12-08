@@ -1,6 +1,6 @@
 {
   "name": "eslint-config-pyrene",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Pyrene ESLint Configuration",
   "main": "index.js",
   "keywords": [
@@ -17,9 +17,7 @@
     "registry": "https://registry.npmjs.org/"
   },
   "dependencies": {
-    "babel-eslint": "^4.1.4"
-  },
-  "peerDependencies": {
+    "babel-eslint": "^5.0.4",
     "eslint": ">=1.0.0 <2.0.0",
     "eslint-config-airbnb": "1.0.0",
     "eslint-plugin-react": ">=3.8.0 <4.0.0"
