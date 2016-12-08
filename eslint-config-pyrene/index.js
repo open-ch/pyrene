@@ -8,6 +8,11 @@ module.exports = {
     "es6": "true"
   },
 
+  "ecmaFeatures": {
+    // Disallow for-of loops for IE11
+    "forOf": false
+  },
+
   "rules": {
     // disallow trailing commas in object literals
     "comma-dangle": [2, "never"],
