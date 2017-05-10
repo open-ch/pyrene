@@ -32,7 +32,7 @@ module.exports = {
     // Prevent duplicate props in JSX
     "react/jsx-no-duplicate-props": 2,
     // Prevent React to be incorrectly marked as unused - covered by no-unused-vars
-    "react/jsx-uses-react": 0,
+    "react/jsx-uses-react": 2,
     // Prevent usage of dangerous JSX properties
     "react/no-danger": 2,
     // Prevent multiple component definition per file
