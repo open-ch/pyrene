@@ -19,7 +19,7 @@ module.exports = {
     // require function expressions to have a name
     "func-names": 0,
     // this option sets a specific tab width for your code, VariableDeclarator indents are for nice alignment of multi-line var declaration
-    "indent": [2, 2, { "SwitchCase": 2, "VariableDeclarator": { "var": 2, "let": 2, "const": 3 } }],
+    "indent": [2, 2, { "SwitchCase": 1, "VariableDeclarator": { "var": 2, "let": 2, "const": 3 } }],
     // disallow trailing whitespace at the end of lines, except empty lines
     "no-trailing-spaces": [2, { "skipBlankLines": true }],
 
