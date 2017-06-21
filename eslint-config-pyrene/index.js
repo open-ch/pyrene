@@ -35,7 +35,7 @@ module.exports = {
     // Prevent usage of dangerous JSX properties
     "react/no-danger": 2,
     // Prevent multiple component definition per file
-    "react/no-multi-comp": [2, "ignoreStateless"]
+    "react/no-multi-comp": [2, { "ignoreStateless": false }]
   }
 
 };
