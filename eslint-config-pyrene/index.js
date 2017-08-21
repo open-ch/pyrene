@@ -21,7 +21,18 @@ module.exports = {
     "indent": [2, 2, { "SwitchCase": 1, "VariableDeclarator": { "var": 2, "let": 2, "const": 3 } }],
     // disallow trailing whitespace at the end of lines, except empty lines
     "no-trailing-spaces": [2, { "skipBlankLines": true }],
-
+    // No warnings about _ prefixed methods
+    "no-underscore-dangle": [1, {"allowAfterThis": true}],
+    // No warnings about max length
+    "max-len": 0,
+    // Warn for templates
+    "prefer-template": 1,
+    // Allow long version
+    "object-shorthand": 0,
+    "class-methods-use-this": 0,
+    "no-pluspls": 0,
+    // Require padding on the class level
+    "padded-blocks": [1,{"classes": "always"}],
     // Prevent missing displayName in a React component definition
     "react/display-name": 1,
     // Enforce boolean attributes notation in JSX
@@ -35,7 +46,16 @@ module.exports = {
     // Prevent usage of dangerous JSX properties
     "react/no-danger": 2,
     // Prevent multiple component definition per file
-    "react/no-multi-comp": [2, { "ignoreStateless": false }]
+    "react/no-multi-comp": [2, { "ignoreStateless": false }],
+    // Allow props on the same line
+    "react/jsx-first-prop-new-line": 0,
+    "react/jsx-max-props-per-line": 0,
+    // We only have a11ly as it's a required dependency
+    "jsx-a11y/no-static-element-interactions": 0,
+    // Our imports work differently in MC
+    "import/no-extraneous-dependencies": 0,
+    "import/no-unresolved": 0,
+    "import/extensions": 0
   }
 
 };
