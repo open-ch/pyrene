@@ -7,9 +7,11 @@ module.exports = {
     "es6": "true"
   },
 
-  "ecmaFeatures": {
-    // Disallow for-of loops for IE11
-    "forOf": false
+  "parserOptions": {
+    "ecmaFeatures": {
+      // Disallow for-of loops for IE11
+      "forOf": false
+    }
   },
 
   "rules": {
