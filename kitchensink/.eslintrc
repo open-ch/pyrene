@@ -1,0 +1,9 @@
+{
+  "extends": "eslint-config-pyrene",
+  "env": {
+    "browser": true
+  },
+  "parserOptions": {
+    "sourceType": "module",
+  }
+}
