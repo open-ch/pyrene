@@ -1,0 +1,35 @@
+:root {
+  /* BLUE */
+  --blue-50: #D4E5F9;
+  --blue-100: #B3D2F5;
+  --blue-200: #80B4EF;
+  --blue-300: #4D96E9;
+  --blue-400: #267FE4;
+  --blue-500: #0069E0;
+  --blue-600: #005CC4;
+  --blue-700: #0050AC;
+  --blue-800: #004593;
+  --blue-900: #00397A;
+  --blue-950: #002E62;
+
+  /* RED */
+  --red-500: #FF504D;
+
+  /* GREEN */
+  --green-500: #14B699;
+
+  /* ORANGE */
+  --orange-500: #FFA217;
+
+  /* DARK */
+  --dark-500: #00152C;
+
+  /* WHITE */
+  --color-white: #FFFFFF;
+
+  /* INTERACTION */
+  --color-primary: var(--blue-500);
+  --color-success: var(--green-500);
+  --color-danger: var(--red-500);
+  --color-warning: var(--orange-500);
+}

@@ -1,0 +1,10 @@
+@import '/src/styles/colors.css';
+
+.button {
+  height: 32px;
+}
+
+.type-primary {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+}
