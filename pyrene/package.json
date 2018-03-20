@@ -4,9 +4,11 @@
   "description": "Open Systems Component Library",
   "main": "src/index.js",
   "repository": "https://github.com/open-ch/pyrene.git",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
   "author": "pyrene@open-systems.com",
   "license": "UNLICENSED",
-  "private": true,
   "scripts": {
     "clean": "rm -rf node_modules; rm -rf dist",
     "build": "webpack",
