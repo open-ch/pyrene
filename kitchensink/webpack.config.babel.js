@@ -11,7 +11,6 @@ const config = {
   resolve: {
     extensions: ['.js', '.jsx']
   },
-  devtool: production ? false : 'eval-source-map',
   module: {
     rules: [
       {
@@ -47,6 +46,9 @@ if (production) {
   console.warn('webpack is running in production mode\n');
 } else {
   console.warn('webpack is running in development mode\n');
+  config.devServer = {
+    historyApiFallback: true
+  };
 }
 
 export default config;
