@@ -11,7 +11,6 @@ const config = {
   resolve: {
     extensions: ['.js', '.jsx']
   },
-  devtool: production ? false : 'eval-source-map',
   module: {
     rules: [
       {
