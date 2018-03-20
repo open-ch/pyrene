@@ -1,0 +1,12 @@
+{
+    "presets": [
+      "env",
+      "react"
+    ],
+    "plugins": [
+      "transform-object-assign",
+      ["react-css-modules", {
+        "generateScopedName": "[name]__[local]--[hash:base64:10]"
+      }]
+    ]
+}
