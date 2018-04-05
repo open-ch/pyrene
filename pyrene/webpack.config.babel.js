@@ -40,7 +40,11 @@ const config = {
   },
   plugins: [
     new CleanWebpackPlugin(['dist'])
-  ]
+  ],
+  output: {
+    library: 'pyrene',
+    libraryTarget: 'umd'
+  }
 };
 
 if (production) {
