@@ -6,6 +6,7 @@ const production = process.env.NODE_ENV === 'production';
 const config = {
   mode: production ? 'production' : 'development',
   resolve: {
+    mainFiles: ['index'],
     extensions: ['.js', '.jsx']
   },
   module: {
