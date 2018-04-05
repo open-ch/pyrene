@@ -3,6 +3,7 @@ import webpack from 'webpack'; // eslint-disable-line no-unused-vars
 import path from 'path';
 
 import CleanWebpackPlugin from 'clean-webpack-plugin';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 const production = process.env.NODE_ENV === 'production';
 
@@ -15,7 +16,9 @@ const config = {
     rules: [
       {
         test: /\.jsx?$/,
-        include: path.resolve(__dirname, 'src'),
+        include: [
+          path.resolve(__dirname, 'src')
+        ],
         use: {
           loader: 'babel-loader',
           query: {
@@ -38,7 +41,11 @@ const config = {
     ]
   },
   plugins: [
-    new CleanWebpackPlugin(['dist'])
+    new CleanWebpackPlugin(['dist']),
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      template: 'src/index.html'
+    })
   ]
 };
 
