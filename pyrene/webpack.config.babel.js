@@ -1,7 +1,4 @@
-/* eslint-disable no-console */
-import webpack from 'webpack'; // eslint-disable-line no-unused-vars
 import path from 'path';
-
 import CleanWebpackPlugin from 'clean-webpack-plugin';
 
 const production = process.env.NODE_ENV === 'production';
@@ -26,14 +23,17 @@ const config = {
       {
         test: /\.css$/,
         exclude: /node_modules/,
-        use: {
-          loader: 'css-loader',
-          options: {
-            modules: true,
-            localIdentName: '[name]__[local]--[hash:base64:10]',
-            sourceMap: !production
-          }
-        }
+        use: [
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+              localIdentName: '[name]__[local]--[hash:base64:10]',
+              sourceMap: !production
+            }
+          },
+          'postcss-loader'
+        ]
       }
     ]
   },

@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import './Button.css';
+import './index.css';
 
-const button = props => (
+const Button = props => (
   <button
     styleName={
       classNames('button', {
@@ -16,12 +16,15 @@ const button = props => (
   </button>
 );
 
-button.defaultProps = {
+Button.defaultProps = {
   label: '',
   type: 'primary'
 };
 
-button.propTypes = {
+Button.propTypes = {
   label: PropTypes.string,
   type: PropTypes.oneOf(['primary', 'secondary'])
 };
+
+export default Button;
+
