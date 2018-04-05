@@ -2,7 +2,7 @@
   "name": "pyrene",
   "version": "0.0.3",
   "description": "Open Systems Component Library",
-  "main": "dist/main.js",
+  "main": "dist/pyrene.js",
   "repository": "https://github.com/open-ch/pyrene.git",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

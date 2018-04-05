@@ -42,6 +42,8 @@ const config = {
     new CleanWebpackPlugin(['dist'])
   ],
   output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'pyrene.js',
     library: 'pyrene',
     libraryTarget: 'umd'
   }
