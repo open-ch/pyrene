@@ -29,14 +29,17 @@ const config = {
       {
         test: /\.css$/,
         exclude: /node_modules/,
-        use: {
-          loader: 'css-loader',
-          options: {
-            modules: true,
-            localIdentName: '[name]__[local]--[hash:base64:10]',
-            sourceMap: !production
+        use: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+              localIdentName: '[name]__[local]--[hash:base64:10]',
+              sourceMap: !production
+            }
           }
-        }
+        ]
       }
     ]
   },

@@ -32,6 +32,7 @@
     "postcss": "^6.0.20",
     "postcss-custom-properties": "^7.0.0",
     "release-it": "^7.2.1",
+    "style-loader": "^0.20.3",
     "webpack": "^4.1.1",
     "webpack-cli": "^2.0.12",
     "webpack-dev-server": "^3.1.1"
