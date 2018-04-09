@@ -40,7 +40,7 @@
   "dependencies": {
     "classnames": "^2.2.5",
     "prop-types": "^15.6.1",
-    "pyrene": "^0.0.2",
+    "pyrene": "^0.1.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0"
   }
