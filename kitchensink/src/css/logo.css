@@ -1,0 +1,22 @@
+.kitchenSinkLogo {
+  position: relative;
+  height: 152px;
+  background: url('../images/kitchensink.svg') no-repeat center center;
+}
+
+.versionNr {
+  position: absolute;
+  left: 213px;
+  top: 105px;
+  height: 22px;
+  padding: 0 4px;
+
+  border-radius: 2px;
+  background-color: var(--neutral-010);
+
+  line-height: 22px;
+  font-size: 10px;
+  font-weight: bold;
+  text-align: center;
+  color: var(--neutral-500);
+}

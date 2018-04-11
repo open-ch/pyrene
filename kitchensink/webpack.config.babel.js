@@ -35,11 +35,21 @@ const config = {
             loader: 'css-loader',
             options: {
               modules: true,
+              importLoaders: 1,
               localIdentName: '[name]__[local]--[hash:base64:10]',
               sourceMap: !production
             }
-          }
+          },
+          'postcss-loader'
         ]
+      },
+      {
+        test: /\.svg$/,
+        loader: 'url-loader'
+      },
+      {
+        test: /\.woff$/,
+        loader: 'url-loader'
       }
     ]
   },

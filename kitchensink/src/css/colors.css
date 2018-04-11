@@ -1,0 +1,47 @@
+:root {
+  /* BLUE */
+  --blue-50: #D4E5F9;
+  --blue-100: #B3D2F5;
+  --blue-200: #80B4EF;
+  --blue-300: #4D96E9;
+  --blue-400: #267FE4;
+  --blue-500: #0069E0; /* used */
+  --blue-600: #005CC4;
+  --blue-700: #0050AC;
+  --blue-800: #004593;
+  --blue-900: #00397A;
+  --blue-950: #002E62;
+
+  /* NEUTRAL */
+  --neutral-0: #ffffff; /* used */
+  --neutral-500: #00152c; /* used */
+  --neutral-400: #334151;
+  --neutral-300: #54606d;
+  --neutral-200: #808892; /* used */
+  --neutral-100: #b3b8be; /* used */
+  --neutral-050: #e0e2e5;
+  --neutral-010: #f7f9fa; /* used */
+  --neutral-BG: #fafafa;
+
+  --neutral-sideBar: #e5e7e9; /* used */
+  --font-black: #040e27; /* used */
+  --font-gray: var(--neutral-200); /* used */
+
+  /* RED */
+  --red-500: #ff504d;
+  --red-600: #e04643;
+
+  /* GREEN */
+  --green-500: #15d355;
+  --green-600: #12b94a;
+
+  /* ORANGE */
+  --orange-500: #ffa217;
+  --orange-600: #e08e14;
+
+  /* INTERACTION */
+  --color-primary: var(--blue-500);
+  --color-success: var(--green-500);
+  --color-danger: var(--red-500);
+  --color-warning: var(--orange-500);
+}

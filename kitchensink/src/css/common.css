@@ -1,0 +1,69 @@
+@import '../css/colors.css';
+
+/* CSS Reset */
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/**** FONTS ****/
+/* AvenirNext-Regular */
+@font-face {
+  font-family: AvenirNext;
+  font-weight: 400;
+  src: url('../fonts/AvenirNextLTW01-Regular.woff') format('woff');
+}
+
+/* AvenirNext-Medium */
+@font-face {
+  font-family: AvenirNext;
+  font-weight: 500;
+  src: url('../fonts/AvenirNextLTW01-Medium.woff') format('woff');
+}
+
+/* AvenirNext-DemiBold */
+@font-face {
+  font-family: AvenirNext;
+  font-weight: 600;
+  src: url('../fonts/AvenirNextLTW01-Demi.woff') format("woff");
+}
+
+/*AvenirNext-Bold */
+@font-face {
+  font-family: AvenirNext;
+  font-weight: 700;
+  src: url('../fonts/AvenirNextLTW01-Bold.woff') format('woff');
+}
+
+body {
+  background-color: var(--neutral-BG);
+  color: var(--font-black);
+  font-family: AvenirNext, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  letter-spacing: 1px;
+}
+
+.mainContainer {
+  width: 1440px;
+  margin: 48px auto;
+  background-color: var(--neutral-0);
+  padding: 1px;
+  box-shadow:
+      inset -1px 0   0 var(--neutral-100),
+      inset  0   1px 0 var(--neutral-100),
+      inset  0  -1px 0 var(--neutral-100),
+      inset  1px 0   0 var(--neutral-100);
+}
+
+.leftContainer {
+  width: 284px;
+  height: 2550px;
+  background-color: var(--neutral-0);
+  padding-right: 1px;
+  box-shadow: inset -1px 0   0 var(--neutral-sideBar);
+}
+
+:global(.unSelectable) {
+  user-select: none;
+}
