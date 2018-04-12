@@ -7,9 +7,9 @@ import '../../../css/sideBarMenu.css';
 const SideBarMenu = props => (
   <div id={'sideBar_menu_container'}>
     <div  styleName="main">
-      <SideBarMenuSection title="Introduction" children={[]} />
-      <SideBarMenuSection title="Foundations" children={['Colors', 'Typography', 'Grids', 'Shapes']} />
-      <SideBarMenuSection title="Components" children={['Colors', 'Typography', 'Grids', 'Shapes']} />
+      <SideBarMenuSection title="Introduction" children={[]} linkToPath={'/'}/>
+      <SideBarMenuSection title="Foundations" children={[{name:'Colors', linkToPath:'#'}, {name:'Typography', linkToPath:'#'}]} />
+      <SideBarMenuSection title="Components" children={[{name:'Button', linkToPath:'/button'}, {name:'DropDown', linkToPath:'/dropdown'}]} />
     </div>
   </div>
 );
@@ -19,7 +19,7 @@ const SideBarMenu = props => (
 SideBarMenu.displayName = 'SideBarMenu';
 
 SideBarMenu.propTypes = {
-  selected: PropTypes.string, // .isRequired, // Currently selected item
+  //selected: PropTypes.string, // .isRequired, // Currently selected item
   items: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string,
     url: PropTypes.string

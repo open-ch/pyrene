@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { NavLink } from 'react-router-dom';
 
 import '../../../css/sideBarMenu.css';
 
@@ -36,18 +37,23 @@ export default class SideBarMenuSection extends React.Component {
 
   render() {
     return (
-      <div styleName={
-        classNames('section', {
-          'open':this.state.open
-        })}>
+      <div styleName={classNames('section', {'open':this.state.open})}>
         {this.props.children.length > 0 && <div styleName='indicator' />}
-        <div className='unSelectable' styleName='sectionHead' onClick={() => this.handleClick()}>{this.props.title}</div>
+
+        <NavLink exact={true} to={`${this.props.linkToPath}`} activeClassName={'active'}>
+          <div className='unSelectable' styleName='sectionHead' onClick={() => this.handleClick()}>{this.props.title}</div>
+        </NavLink>
+
         <div styleName='sectionContentWrapper' style={{height: this.state.sectionContentWrapperHeight}}>
-          {this.props.children.map(element => {
+
+          {this.props.children.map((element, index) => {
             return (
-              <div className='unSelectable' styleName='sectionElement' key={element}>{element}</div>
+              <NavLink to={element.linkToPath} activeClassName={'active'} key={index}>
+                <div className='unSelectable' styleName='sectionElement' key={element.name}>{element.name}</div>
+              </NavLink>
             );
           })}
+
         </div>
       </div>
     );
@@ -59,5 +65,10 @@ SideBarMenuSection.displayName = 'SideBarMenuSection';
 
 SideBarMenuSection.propTypes = {
   title: PropTypes.string.isRequired,
-  children: PropTypes.array
+  children: PropTypes.array,
+  linkToPath: PropTypes.string
+};
+
+SideBarMenuSection.defaultProps = {
+  linkToPath: PropTypes.string = '#'
 };
