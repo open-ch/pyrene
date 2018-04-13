@@ -1,0 +1,91 @@
+.main {
+  overflow: hidden;
+}
+
+a {
+  color:inherit;
+  text-decoration: none;
+}
+
+.section {
+  position: relative;
+  width: 100%;
+  box-shadow: inset  0  -1px 0 var(--neutral-sideBar);
+}
+
+.section .indicator {
+  background-image: url('../images/accordeon_sectionArrow.svg');
+  position: absolute;
+  right: 28px;
+  top: 28px;
+  height: 16px;
+  width: 16px;
+
+  pointer-events: none;
+  transition: all .2s ease-out;
+}
+
+.section.open .indicator {
+  transform: rotate(-180deg);
+}
+
+.main .section:first-child .sectionHead {
+  box-shadow:
+      inset  0   1px 0 var(--neutral-sideBar),
+      inset  0  -1px 0 var(--neutral-sideBar);
+}
+
+.main .section.open:first-child .sectionHead {
+  box-shadow: inset  0   1px 0 var(--neutral-sideBar);
+}
+
+.section.open .sectionHead{
+  box-shadow: none;
+  transition: box-shadow .2s step-start;
+}
+
+.sectionHead {
+  width: 100%;
+  height: 72px;
+  padding-left: 24px;
+
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 72px;
+
+  overflow: hidden;
+  cursor: pointer;
+  box-sizing: border-box;
+  background-color: var(--neutral-0);
+  box-shadow: inset  0  -1px 0 var(--neutral-sideBar);
+  transition: box-shadow .2s step-end;
+}
+
+.sectionContentWrapper {
+  background-color: var(--neutral-010);
+  color: var(--font-gray);
+  height: 0;
+  overflow: hidden;
+  box-shadow: inset  0  -1px 0 var(--neutral-sideBar);
+  transition: all .2s ease-out;
+}
+
+.sectionContentWrapper a:first-child .sectionElement{
+  margin-top: 16px;
+}
+
+.sectionElement {
+  font-size: 14px;
+  font-weight: 600;
+  padding-left: 24px;
+  line-height: 48px;
+  cursor: pointer;
+}
+
+
+.sectionHead:hover, .sectionElement:hover {
+  color: var(--blue-500);
+}
