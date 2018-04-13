@@ -40,7 +40,7 @@ export default class SideBarMenuSection extends React.Component {
       <div styleName={classNames('section', {'open':this.state.open})}>
         {this.props.children.length > 0 && <div styleName='indicator' />}
 
-        <NavLink exact={true} to={`${this.props.linkToPath}`} activeClassName={'active'}>
+        <NavLink exact={true} to={`${this.props.linkToPath}`} activeClassName={'activeSideBar'}>
           <div className='unSelectable' styleName='sectionHead' onClick={() => this.handleClick()}>{this.props.title}</div>
         </NavLink>
 
@@ -48,7 +48,7 @@ export default class SideBarMenuSection extends React.Component {
 
           {this.props.children.map((element, index) => {
             return (
-              <NavLink to={element.linkToPath} activeClassName={'active'} key={index}>
+              <NavLink to={element.linkToPath} activeClassName={'activeSideBar'} key={index}>
                 <div className='unSelectable' styleName='sectionElement' key={element.name}>{element.name}</div>
               </NavLink>
             );
@@ -63,12 +63,13 @@ export default class SideBarMenuSection extends React.Component {
 
 SideBarMenuSection.displayName = 'SideBarMenuSection';
 
+SideBarMenuSection.defaultProps = {
+  linkToPath: '#'
+};
+
 SideBarMenuSection.propTypes = {
   title: PropTypes.string.isRequired,
   children: PropTypes.array,
   linkToPath: PropTypes.string
 };
 
-SideBarMenuSection.defaultProps = {
-  linkToPath: PropTypes.string = '#'
-};

@@ -12,6 +12,9 @@ const config = {
   resolve: {
     extensions: ['.js', '.jsx']
   },
+  output: {
+    publicPath: '/'
+  },
   module: {
     rules: [
       {
