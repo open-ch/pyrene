@@ -86,7 +86,22 @@ a {
   cursor: pointer;
 }
 
-
 .sectionHead:hover, .sectionElement:hover {
   color: var(--blue-500);
+}
+
+.sectionElement.disabled {
+  color: var(--neutral-100);
+  cursor: default;
+}
+
+.sectionElement.disabled span {
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: #e64595;
+  text-transform: uppercase;
+  background-color: #fadfed;
+  padding: 5px 8px;
+  border-radius: 2px;
+  margin-left: 32px;
 }

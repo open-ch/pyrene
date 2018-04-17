@@ -61,7 +61,7 @@ export default class SideBarMenuSection extends React.Component {
           {this.props.sectionElements.map((element, index) => {
             return (
               <NavLink to={element.linkToPath} activeClassName={'activeSideBar'} key={index}>
-                <div className='unSelectable' styleName='sectionElement' key={element.name} ref={`ref${index}`}>{element.name}</div>
+                <div className='unSelectable' styleName={classNames('sectionElement', {'disabled': element.linkToPath === '#'})} key={element.name} ref={`ref${index}`}>{element.name}{element.linkToPath === '#' && <span>Coming Soon</span>}</div>
               </NavLink>
             );
           })}
