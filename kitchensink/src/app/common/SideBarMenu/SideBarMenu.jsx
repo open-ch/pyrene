@@ -18,34 +18,10 @@ const SideBarMenu = props => (
 
 SideBarMenu.displayName = 'SideBarMenu';
 
-SideBarMenu.propTypes = {
-  //selected: PropTypes.string, // .isRequired, // Currently selected item
-  items: PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string,
-    url: PropTypes.string
-  }))
-};
+//SideBarMenu.propTypes = {
+//};
 
-SideBarMenu.defaultProps = {
-  // PLACEHOLDER
-  items: [ // List of items for the main navigation
-    {
-      name: 'schedule',
-      url: 'shiftPlan.html'
-    },
-    {
-      name: 'trades',
-      url: 'trades.html'
-    },
-    {
-      name: 'reports',
-      url: 'reports.html'
-    },
-    {
-      name: 'admin',
-      url: 'admin.html'
-    }
-  ]
-};
+//SideBarMenu.defaultProps = {
+//};
 
 export default SideBarMenu;

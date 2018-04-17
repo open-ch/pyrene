@@ -51,6 +51,10 @@ const config = {
         loader: 'url-loader'
       },
       {
+        test: /\.png$/,
+        loader: 'url-loader'
+      },
+      {
         test: /\.woff$/,
         loader: 'url-loader'
       }

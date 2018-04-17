@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 
-import '../../css/pagingMenu.css';
+import '../../../css/pagingMenu.css';
 
 export default class SubPagingMenu extends React.Component {
   constructor(props){
@@ -15,7 +15,7 @@ export default class SubPagingMenu extends React.Component {
         <div styleName={'menuButtonBar'}>
           {['code','usage','style'].map(element => {
            return (
-             <NavLink to={`${this.props.currentPageUrl}/${element}`} activeClassName={'activePagingButton'}>
+             <NavLink to={`${this.props.currentPageUrl}/${element}`} key={element} activeClassName={'activePagingButton'}>
                <div styleName={'menuButton'}>{element}</div>
              </NavLink>
            );

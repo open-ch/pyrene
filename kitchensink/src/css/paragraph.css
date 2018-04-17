@@ -1,0 +1,28 @@
+.paragraph {
+  margin-top:64px;
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.33;
+  margin-bottom: 40px;
+  text-transform: capitalize;
+}
+
+.content {
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.71;
+  font-stretch: normal;
+  letter-spacing: normal;
+  text-align: left;
+}
+
+.content strong {
+  font-weight: 600;
+}
+
+.content img {
+  margin-top: 40px;
+}
