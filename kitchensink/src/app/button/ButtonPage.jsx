@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Route, Redirect } from 'react-router-dom';
 import SubPagingMenu from '../common/PageElements/SubPagingMenu';
 import ButtonUsage from './ButtonUsage';
-
+import ButtonCode from './ButtonCode';
 import '../../css/componentPage.css';
 
 const ButtonPage = ({ match }) => (
@@ -30,6 +30,8 @@ const ButtonPage = ({ match }) => (
 
 const Topic = ({ match }) => {
   switch (match.params.topicName) {
+    case 'code':
+      return <ButtonCode />;
     case 'usage':
       return <ButtonUsage />;
     default:
