@@ -2,9 +2,30 @@
 
 .button {
   height: 32px;
+  padding: 8px 16px;
+  border-radius: 2px;
+  border: none;
+
+  font-family: AvenirNext;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: normal;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.button:focus {
+  outline: 0;
 }
 
 .type-primary {
   background-color: var(--color-primary);
-  color: var(--color-white);
+  color: var(--neutral-0);
 }
+
+.type-primary:hover {
+  background-color: var(--blue-600);
+}
+
+

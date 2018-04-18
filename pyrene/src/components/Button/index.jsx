@@ -8,7 +8,7 @@ const Button = props => (
   <button
     styleName={
       classNames('button', {
-        [`type-${props.type}`]: props.type
+        [`type-${props.type}`]: true
       })
     }
   >
@@ -22,7 +22,7 @@ Button.defaultProps = {
 };
 
 Button.propTypes = {
-  label: PropTypes.string,
+  label: PropTypes.string.isRequired,
   type: PropTypes.oneOf(['primary', 'secondary'])
 };
 

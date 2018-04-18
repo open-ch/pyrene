@@ -12,20 +12,28 @@
   --blue-900: #00397A;
   --blue-950: #002E62;
 
+  /* NEUTRAL */
+  --neutral-0: #ffffff;
+  --neutral-500: #00152c;
+  --neutral-400: #334151;
+  --neutral-300: #54606d;
+  --neutral-200: #808892;
+  --neutral-100: #b3b8be;
+  --neutral-050: #e0e2e5;
+  --neutral-010: #f7f9fa;
+  --neutral-BG: #fafafa;
+
   /* RED */
-  --red-500: #FF504D;
+  --red-500: #ff504d;
+  --red-600: #e04643;
 
   /* GREEN */
-  --green-500: #14B699;
+  --green-500: #15d355;
+  --green-600: #12b94a;
 
   /* ORANGE */
-  --orange-500: #FFA217;
-
-  /* DARK */
-  --dark-500: #00152C;
-
-  /* WHITE */
-  --color-white: #FFFFFF;
+  --orange-500: #ffa217;
+  --orange-600: #e08e14;
 
   /* INTERACTION */
   --color-primary: var(--blue-500);
