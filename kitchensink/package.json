@@ -9,7 +9,9 @@
   "private": true,
   "scripts": {
     "clean": "rm -rf node_modules; rm -rf dist",
+    "prebuild": "yarn install",
     "build": "webpack",
+    "prestart": "yarn install",
     "start": "webpack-dev-server",
     "release": "release-it"
   },
