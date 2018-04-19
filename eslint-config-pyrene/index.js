@@ -35,6 +35,8 @@ module.exports = {
     "no-pluspls": 0,
     // Require padding on the class level
     "padded-blocks": [1,{"classes": "always"}],
+    // Disallow Assignment in return Statement, except if wrapped in parentheses
+    "no-return-assign": [2, "except-parens"],
     // Prevent missing displayName in a React component definition
     "react/display-name": 1,
     // Enforce boolean attributes notation in JSX
