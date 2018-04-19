@@ -14,7 +14,9 @@
   ],
   "scripts": {
     "clean": "rm -rf dist",
+    "prebuild": "yarn install",
     "build": "webpack",
+    "prewatch": "yarn install",
     "watch": "webpack -w",
     "prerelease": "yarn build",
     "release": "release-it"
