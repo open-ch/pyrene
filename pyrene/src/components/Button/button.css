@@ -22,6 +22,7 @@
 .type-primary {
   background-color: var(--color-primary);
   color: var(--neutral-0);
+}
 
 .type-primary:hover {
   background-color: var(--blue-600);

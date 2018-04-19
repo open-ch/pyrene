@@ -2,6 +2,7 @@
   "warnings": true,
   "plugins": {
     "postcss-import": {},
-    "postcss-custom-properties": {}
+    "postcss-custom-properties": {},
+    "autoprefixer": {}
   }
 }
