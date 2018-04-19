@@ -25,7 +25,6 @@
     "release-it": "^7.4.1"
   },
   "scripts": {
-    "release": "release-it",
-    "prepublish": "yarn release"
+    "release": "release-it"
   }
 }
