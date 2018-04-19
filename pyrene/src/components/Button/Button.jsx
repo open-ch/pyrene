@@ -39,7 +39,7 @@ export default class Button extends React.Component {
 
 Button.docProps = [
   {propName: 'label', isRequired: true, type: 'String', defaultValue: '', description: 'Changes what the button says.'},
-  {propName: 'type', isRequired: false, type: 'String', defaultValue: 'primary', description: 'Changes the overall button style.'}
+  {propName: 'type', isRequired: false, type: 'oneOf: primary secondary ghost danger', defaultValue: 'primary', description: 'Changes the overall button style.'},
 ];
 
 Button.displayName = 'Button';
@@ -51,5 +51,5 @@ Button.defaultProps = {
 
 Button.propTypes = {
   label: PropTypes.string.isRequired,
-  type: PropTypes.oneOf(['primary', 'secondary'])
+  type: PropTypes.oneOf(['primary', 'secondary', 'ghost', 'danger'])
 };

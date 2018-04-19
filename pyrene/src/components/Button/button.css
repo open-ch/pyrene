@@ -22,7 +22,6 @@
 .type-primary {
   background-color: var(--color-primary);
   color: var(--neutral-0);
-}
 
 .type-primary:hover {
   background-color: var(--blue-600);
@@ -35,6 +34,24 @@
 
 .type-secondary:hover {
   border: solid 1px var(--neutral-100);
+}
+
+.type-ghost {
+  background-color: var(--neutral-0);
+  color: var(--blue-500);
+}
+
+.type-ghost:hover {
+  background-color: #d4e5f9;
+}
+
+.type-danger {
+  background-color: var(--red-500);
+  color: var(--neutral-0);
+}
+
+.type-danger:hover {
+  background-color: var(--red-600);
 }
 
 
