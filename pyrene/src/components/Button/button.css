@@ -28,4 +28,13 @@
   background-color: var(--blue-600);
 }
 
+.type-secondary {
+  background-color: var(--neutral-050);
+  color: var(--neutral-300);
+}
+
+.type-secondary:hover {
+  border: solid 1px var(--neutral-100);
+}
+
 
