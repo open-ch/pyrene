@@ -1,29 +1,49 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'pyrene';
-import SyntaxHighlighter, { registerLanguage } from 'react-syntax-highlighter/prism-light';
-import jsx from 'react-syntax-highlighter/languages/prism/jsx';
-import { prism } from 'react-syntax-highlighter/styles/prism';
-
 import '../../css/componentPage.css';
+import Table from '../common/Table';
+import PropEditor from '../common/PropEditor';
+import CodeBlock from '../common/CodeBlock';
 
-registerLanguage('jsx', jsx);
 
-var html1 = `import { Button } from 'pyrene';
+export default class ButtonCode extends React.Component {
+  constructor(props){
+    super(props);
+    this.handleEditorChange = this.handleEditorChange.bind(this);
 
-<Button label={'Click Me'}
-        type={'primary'}/>`;
+    this.state = {
+      displayedComponent: <Button label={'Click Me'} type={'primary'} />
+    }
+  }
 
-const ButtonCode = props => (
-  <div className={'buttonCode'}>
-    <div styleName={'componentDisplayContainer'}>
-      <Button label={'Click Me'} type={'primary'}/>
-    </div>
-    <SyntaxHighlighter style={prism} language={'jsx'} customStyle={{marginTop: 40}}>
-      {html1}
-    </SyntaxHighlighter>
-  </div>
-);
+  handleEditorChange(target) {
+    const changedProp = { [target.name]: target.value };
+    this.setState({
+      displayedComponent: <Button {...this.state.displayedComponent.props} {...changedProp} />
+    })
+  }
+
+  render() {
+    return (
+      <div className={'buttonCode'}>
+        <div styleName={'componentDisplayContainer'}>
+          {this.state.displayedComponent}
+        </div>
+        <div styleName={'codeAndEditorShareContainer'}>
+          <CodeBlock component={this.state.displayedComponent} />
+          <PropEditor activePropValues={this.state.displayedComponent.props} componentProps={this.state.displayedComponent.type.docProps} onEditorChange={this.handleEditorChange} />
+        </div>
+        <Table
+          title={'PropTable'}
+          cellWidthArray={['200px', '100px', '100px', '150px', '']}
+          headerElementArray={['property', 'isRequired', 'type', 'default value', 'description']}
+          rowArray={this.state.displayedComponent.type.docProps.map(element => [element.propName, element.isRequired, element.type, element.defaultValue, element.description])}
+        />
+      </div>
+    );
+  }
+}
 
 
 ButtonCode.displayName = 'ButtonCode';
@@ -32,4 +52,3 @@ ButtonCode.propTypes = {};
 
 ButtonCode.defaultProps = {};
 
-export default ButtonCode;

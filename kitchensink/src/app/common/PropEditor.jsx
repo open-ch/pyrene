@@ -1,0 +1,58 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+
+import '../../css/propEditor.css';
+
+
+export default class PropEditor extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.modifiedProp = this.modifiedProp.bind(this);
+  }
+
+  modifiedProp(event){
+    this.props.onEditorChange(event.target);
+  }
+
+  render() {
+    return (
+      <div styleName={'propEditor'}>
+        {this.props.componentProps.map((prop) => {
+          switch (prop.type.split(' ')[0]) {
+            case 'String':
+              return ([`${prop.propName}: `,
+                <React.Fragment key={prop}>
+                  <input type="text" name={prop.propName} placeholder={'change me'} onChange={(event) => this.modifiedProp(event)} /><br />
+                </React.Fragment>
+              ]);
+            case 'oneOf:':
+              return ([`${prop.propName}: `,
+                <React.Fragment key={prop}>
+                  <select name={prop.propName} onChange={(event) => this.modifiedProp(event)}>
+                    {prop.type.split(' ').slice(1).map(propChoice => <option value={propChoice} key={propChoice}>{propChoice}</option>)}
+                  </select><br />
+                </React.Fragment>
+              ]);
+          }
+        })}
+      </div>
+    );
+  }
+}
+
+PropEditor.displayName = 'PropEditor';
+
+PropEditor.defaultProps = {
+};
+
+PropEditor.propTypes = {
+  componentProps: PropTypes.arrayOf(PropTypes.shape({
+    propName: PropTypes.string,
+    isRequired: PropTypes.bool,
+    type: PropTypes.string,
+    defaultValue: PropTypes.string,
+    description: PropTypes.string
+  })).isRequired,
+  onEditorChange: PropTypes.func.isRequired
+};

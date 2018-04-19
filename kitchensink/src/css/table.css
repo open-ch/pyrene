@@ -1,3 +1,11 @@
+.title {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.33;
+  margin-bottom: 40px;
+  text-transform: capitalize;
+}
+
 .table_container{
   margin-top: 64px;
 }
