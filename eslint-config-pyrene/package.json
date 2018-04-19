@@ -2,12 +2,13 @@
   "name": "eslint-config-pyrene",
   "version": "1.1.1",
   "description": "Pyrene ESLint Configuration",
+  "author": "pyrene@open-systems.com",
+  "license": "UNLICENSED",
   "main": "index.js",
   "keywords": [
     "eslint",
     "eslintconfig"
   ],
-  "author": "pyrene@open-systems.com",
   "repository": {
     "type": "git",
     "url": ""
@@ -19,5 +20,12 @@
     "eslint": ">=4.0.0 <5.0.0",
     "eslint-config-airbnb": "15.1.0",
     "eslint-plugin-react": ">=7.2.0 <8.0.0"
+  },
+  "devDependencies": {
+    "release-it": "^7.4.1"
+  },
+  "scripts": {
+    "release": "release-it",
+    "prepublish": "yarn release"
   }
 }
