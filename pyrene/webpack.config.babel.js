@@ -9,9 +9,6 @@ const config = {
     mainFiles: ['index'],
     extensions: ['.js', '.jsx']
   },
-  output: {
-    publicPath: '/'
-  },
   module: {
     rules: [
       {
