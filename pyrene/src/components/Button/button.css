@@ -1,12 +1,13 @@
-@import '../../styles/colors.css';
+@import '../../styles/common.css';
 
 .button {
+  box-sizing: border-box;
   height: 32px;
   padding: 8px 16px;
   border-radius: 2px;
   border: none;
 
-  font-family: AvenirNext;
+  font-family: AvenirNext, Helvetica, sans-serif;
   font-size: 12px;
   font-weight: bold;
   line-height: normal;
@@ -16,6 +17,27 @@
 
   &:focus {
     outline: 0;
+  }
+
+  &.hasIcon {
+    position: relative;
+    padding-left: 40px;
+
+    & span {
+      width: 16px;
+      text-transform: none;
+      top: 8px;
+      left: 16px;
+      position: absolute;
+      font-family: IconFont;
+      font-size: 16px;
+    }
+  }
+
+  &.isDisabled {
+    opacity: .5;
+    cursor: default;
+    pointer-events: none;
   }
 
   &.type-primary {
@@ -28,20 +50,11 @@
   }
 
   &.type-secondary {
-    background-color: var(--neutral-050);
+    background-color: var(--neutral-030);
     color: var(--neutral-300);
 
     &:hover {
-      border: solid 1px var(--neutral-100);
-    }
-  }
-
-  &.type-ghost {
-    background-color: var(--neutral-0);
-    color: var(--blue-500);
-
-    &:hover {
-      background-color: #d4e5f9;
+      background-color: var(--neutral-050);
     }
   }
 
@@ -54,4 +67,68 @@
     }
   }
 
+  &.type-ghost {
+    background-color: var(--neutral-0);
+    color: var(--blue-500);
+
+    &:hover {
+      background-color: var(--blue-50);
+    }
+  }
+
+  &.type-action {
+    height: 24px;
+    padding: 0 8px 0 8px;
+
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: normal;
+    text-transform: capitalize;
+    background-color: var(--neutral-0);
+    color: var(--blue-500);
+
+    &:hover {
+      background-color: var(--blue-50);
+    }
+
+    &.hasIcon {
+      padding-left: 32px;
+      & span {
+        top: 4px;
+        left: 8px;
+      }
+    }
+  }
+
+  &.type-admin {
+    height: 24px;
+    padding: 0 8px 0 8px;
+
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: normal;
+    text-transform: capitalize;
+    background-color: var(--neutral-0);
+    color: var(--red-500);
+
+    /* Box-shadow used as border messes up the layout. ! 0px border needed so box-shadow gets displayed! */
+    border: solid 0;
+    box-shadow:
+            inset 1px 0 0 0,
+            inset -1px 0 0 0,
+            inset 0 1px 0 0,
+            inset 0 -1px 0 0;
+
+    &:hover {
+      background-color: var(--red-010);
+    }
+
+    &.hasIcon {
+      padding-left: 32px;
+      & span {
+        top: 4px;
+        left: 8px;
+      }
+    }
+  }
 }

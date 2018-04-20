@@ -14,16 +14,18 @@
 
   /* NEUTRAL */
   --neutral-0: #ffffff;
-  --neutral-500: #00152c;
-  --neutral-400: #334151;
-  --neutral-300: #54606d;
-  --neutral-200: #808892;
-  --neutral-100: #b3b8be;
+  --neutral-010: #fafafa;
+  --neutral-020: #f7f9fa;
+  --neutral-030: #f2f4f5;
   --neutral-050: #e0e2e5;
-  --neutral-010: #f7f9fa;
-  --neutral-BG: #fafafa;
+  --neutral-100: #b3b8be;
+  --neutral-200: #808892;
+  --neutral-300: #54606d;
+  --neutral-400: #334151;
+  --neutral-500: #00152c;
 
   /* RED */
+  --red-010: #ffe9e9;
   --red-500: #ff504d;
   --red-600: #e04643;
 

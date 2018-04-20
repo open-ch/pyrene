@@ -44,6 +44,7 @@
     "postcss-nesting": "^4.2.1",
     "release-it": "^7.2.1",
     "style-loader": "^0.20.3",
+    "url-loader": "^1.0.1",
     "webpack": "^4.1.1",
     "webpack-cli": "^2.0.12"
   },

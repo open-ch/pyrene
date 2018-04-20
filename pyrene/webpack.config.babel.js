@@ -9,6 +9,9 @@ const config = {
     mainFiles: ['index'],
     extensions: ['.js', '.jsx']
   },
+  output: {
+    publicPath: '/'
+  },
   module: {
     rules: [
       {
@@ -36,6 +39,10 @@ const config = {
           },
           'postcss-loader'
         ]
+      },
+      {
+        test: /\.woff$/,
+        loader: 'url-loader'
       }
     ]
   },
