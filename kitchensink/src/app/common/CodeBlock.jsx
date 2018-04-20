@@ -17,9 +17,20 @@ export default class CodeBlock extends React.Component {
   _generateCodeForComponent(component) {
     let propList = `import { ${component.type.displayName} } from 'pyrene';\n`;
     propList = propList + `<${component.type.displayName}\n`;
+
     for (let val in component.props) {
-      propList = propList + `\u0009${val}={'${component.props[val]}'}\n`;
+      if (component.props[val]) {
+
+        let quote = "'";
+        if (typeof component.props[val] === 'boolean') {
+          quote = '';
+        }
+
+        let codeline = `\t${val}={${quote}${component.props[val]}${quote}}\n`;
+        propList = propList + codeline;
+      }
     }
+
     return ` ${propList}/>`;
   }
 

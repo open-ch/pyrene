@@ -13,12 +13,13 @@ export default class ButtonCode extends React.Component {
     this.handleEditorChange = this.handleEditorChange.bind(this);
 
     this.state = {
-      displayedComponent: <Button label={'Click Me'} type={'primary'} />
+      displayedComponent: <Button label={'Click Me'} icon={''} />
     }
   }
 
   handleEditorChange(target) {
-    const changedProp = { [target.name]: target.value };
+    const changedProp = (target.type === 'checkbox') ? { [target.name]: target.checked } : { [target.name]: target.value };
+    console.log(changedProp);
     this.setState({
       displayedComponent: <Button {...this.state.displayedComponent.props} {...changedProp} />
     })

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import '../../css/propEditor.css';
+import {Checkbox} from './Checkbox';
 
 
 export default class PropEditor extends React.Component {
@@ -30,8 +31,14 @@ export default class PropEditor extends React.Component {
               return ([`${prop.propName}: `,
                 <React.Fragment key={prop}>
                   <select name={prop.propName} onChange={(event) => this.modifiedProp(event)}>
-                    {prop.type.split(' ').slice(1).map(propChoice => <option value={propChoice} key={propChoice}>{propChoice}</option>)}
+                    {prop.type.split(' ').slice(1).map((propChoice, index) => <option value={propChoice} key={propChoice}>{index === 0 && 'default ('}{propChoice}{index === 0 && ')'}</option>)}
                   </select><br />
+                </React.Fragment>
+              ]);
+            case 'Bool':
+              return ([`${prop.propName}: `,
+                <React.Fragment key={prop}>
+                  <Checkbox name={prop.propName} toggledCheckbox={this.modifiedProp} /><br />
                 </React.Fragment>
               ]);
           }
