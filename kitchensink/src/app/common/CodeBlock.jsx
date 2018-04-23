@@ -22,7 +22,7 @@ export default class CodeBlock extends React.Component {
       if (component.props[val]) {
 
         let quote = "'";
-        if (typeof component.props[val] === 'boolean') {
+        if (typeof component.props[val] !== 'string') {
           quote = '';
         }
 

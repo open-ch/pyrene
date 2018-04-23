@@ -9,6 +9,7 @@ import DropDownPage from './DropDownPage';
 
 import packageJson from '../../package.json';
 import '../css/common.css';
+import LinkPage from './link/LinkPage';
 
 
 const MainComponent = () => {
@@ -19,9 +20,10 @@ const MainComponent = () => {
         <SideBarMenu/>
       </div>
       <div styleName={'pageContainer'}>
-        <Route exact={true} path={'/'} component={IntroductionPage}/>
-        <Route path={'/button'} component={ButtonPage}/>
-        <Route path={'/dropDown'} component={DropDownPage}/>
+        <Route exact={true} path={'/'} component={IntroductionPage} />
+        <Route path={'/button'} component={ButtonPage} />
+        <Route path={'/link'} component={LinkPage} />
+        <Route path={'/dropDown'} component={DropDownPage} />
       </div>
     </div>
   );

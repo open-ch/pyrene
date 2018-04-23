@@ -1,27 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button } from 'pyrene';
+import { Button } from '../../../../pyrene/dist/pyrene';
 import '../../css/componentPage.css';
 import Table from '../common/Table';
 import PropEditor from '../common/PropEditor';
 import CodeBlock from '../common/CodeBlock';
 
 
-export default class ButtonCode extends React.Component {
+export default class CodePage extends React.Component {
   constructor(props){
     super(props);
     this.handleEditorChange = this.handleEditorChange.bind(this);
 
     this.state = {
-      displayedComponent: <Button label={'Click Me'} icon={''} />
+      displayedComponent: <this.props.component {...this.props.startProps} />,
+      component: this.props.component
     }
   }
 
   handleEditorChange(target) {
     const changedProp = (target.type === 'checkbox') ? { [target.name]: target.checked } : { [target.name]: target.value };
-    console.log(changedProp);
     this.setState({
-      displayedComponent: <Button {...this.state.displayedComponent.props} {...changedProp} />
+      displayedComponent: <this.state.component {...this.state.displayedComponent.props} {...changedProp} />
     })
   }
 
@@ -47,9 +47,12 @@ export default class ButtonCode extends React.Component {
 }
 
 
-ButtonCode.displayName = 'ButtonCode';
+CodePage.displayName = 'CodePage';
 
-ButtonCode.propTypes = {};
+CodePage.propTypes = {
+  component: PropTypes.func.isRequired,
+  startProps: PropTypes.objectOf(PropTypes.any).isRequired
+};
 
-ButtonCode.defaultProps = {};
+CodePage.defaultProps = {};
 

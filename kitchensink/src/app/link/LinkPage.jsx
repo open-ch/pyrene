@@ -2,21 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Route, Redirect } from 'react-router-dom';
 import SubPagingMenu from '../common/PageElements/SubPagingMenu';
-import { Button } from 'pyrene';
-import ButtonUsage from './ButtonUsage';
+import { Link } from 'pyrene';
+import LinkUsage from './LinkUsage';
 import CodePage from '../common/CodePage';
 import '../../css/componentPage.css';
 
-const ButtonPage = ({ match }) => (
+const LinkPage = ({ match }) => (
     <div className="page">
       <div styleName="header">
-        <div styleName="title">Button</div>
+        <div styleName="title">Link</div>
         <div styleName="description">
-          Buttons are used primarily on action items.
-          Some examples include Add, Start, Save, Delete.
-          Do not use Buttons as navigational elements.
-          Instead, use Links because it takes the user to a new page and is not associated with an action.
-          Each page may have one to two primary buttons. Any remaining calls-to-action are represented as secondary buttons.
+          Links are used primarily on ....
         </div>
 
         <SubPagingMenu currentPageUrl={match.url}/>
@@ -32,9 +28,9 @@ const ButtonPage = ({ match }) => (
 const Topic = ({ match }) => {
   switch (match.params.topicName) {
     case 'code':
-      return <CodePage component={Button} startProps={{ label: 'Click Me' }} />;
+      return <CodePage component={Link} startProps={{ label: 'Click Me', path: '#' }} />;
     case 'usage':
-      return <ButtonUsage />;
+      return <LinkUsage />;
     default:
       return <h3>{match.params.topicName}</h3>
   }
@@ -42,12 +38,12 @@ const Topic = ({ match }) => {
 
 
 
-ButtonPage.displayName = 'ButtonPage';
+LinkPage.displayName = 'LinkPage';
 
-ButtonPage.propTypes = {
+LinkPage.propTypes = {
 };
 
-ButtonPage.defaultProps = {
+LinkPage.defaultProps = {
 };
 
-export default ButtonPage;
+export default LinkPage;
