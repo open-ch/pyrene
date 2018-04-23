@@ -1,0 +1,52 @@
+@import '../../styles/common.css';
+
+.link {
+  font-family: AvenirNext, Helvetica, sans-serif;
+  cursor: pointer;
+  color: var(--blue-500);
+
+  &:focus {
+    outline: 0;
+  }
+
+  &:hover {
+    text-decoration: underline;
+    text-underline: var(--blue-500);
+  }
+
+  &.type-standalone {
+    height: 24px;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.71;
+    text-transform: capitalize;
+    position: relative;
+
+    & span {
+      position: absolute;
+      padding-left: 2px;
+      font-weight: normal;
+      line-height: normal;
+      top: 4px;
+      font-size: 16px;
+      font-family: IconFont;
+    }
+
+    &.isDisabled {
+      opacity: 0.5;
+      cursor: default;
+      pointer-events: none;
+    }
+  }
+
+  &.type-inline {
+    font-size: inherit;
+    font-weight: inherit;
+
+    &.isDisabled {
+      color: inherit;
+      cursor: default;
+      pointer-events: none;
+    }
+  }
+}
