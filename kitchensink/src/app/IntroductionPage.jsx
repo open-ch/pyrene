@@ -2,12 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const IntroductionPage = props => (
-    <div className="page">
+  <div className="page">
       Introduction
-    </div>
+  </div>
 );
-
-
 
 IntroductionPage.displayName = 'IntroductionPage';
 

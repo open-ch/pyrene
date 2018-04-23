@@ -8,21 +8,21 @@ import CodePage from '../common/CodePage';
 import '../../css/componentPage.css';
 
 const LinkPage = ({ match }) => (
-    <div className="page">
-      <div styleName="header">
-        <div styleName="title">Link</div>
-        <div styleName="description">
+  <div className="page">
+    <div styleName="header">
+      <div styleName="title">Link</div>
+      <div styleName="description">
           Links are used primarily on ....
-        </div>
-
-        <SubPagingMenu currentPageUrl={match.url}/>
       </div>
 
-      <div styleName="topicContent">
-        <Route path={`${match.url}/:topicName`} component={Topic} />
-        <Route exact={true} path={match.url} render={() => <Redirect to={`${match.url}/code`}/>} />
-      </div>
+      <SubPagingMenu currentPageUrl={match.url} />
     </div>
+
+    <div styleName="topicContent">
+      <Route path={`${match.url}/:topicName`} component={Topic} />
+      <Route exact path={match.url} render={() => <Redirect to={`${match.url}/code`} />} />
+    </div>
+  </div>
 );
 
 const Topic = ({ match }) => {
@@ -32,10 +32,9 @@ const Topic = ({ match }) => {
     case 'usage':
       return <LinkUsage />;
     default:
-      return <h3>{match.params.topicName}</h3>
+      return <h3>{match.params.topicName}</h3>;
   }
 };
-
 
 
 LinkPage.displayName = 'LinkPage';
