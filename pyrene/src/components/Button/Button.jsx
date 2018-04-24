@@ -4,7 +4,6 @@ import classNames from 'classnames';
 
 import './button.css';
 
-
 export default class Button extends React.Component {
 
   constructor(props) {
@@ -27,7 +26,7 @@ export default class Button extends React.Component {
                   {['isDisabled']:this.props.isDisabled})}
               onClick={this.props.onClick}>
 
-        {this.props.icon && <span>{this.props.icon}</span>}
+        {this.props.icon && <span className={`icon-${this.props.icon}`}></span>}
         {this.props.label}
         </button>
     );

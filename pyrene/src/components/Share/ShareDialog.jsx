@@ -79,7 +79,7 @@ export default class ShareDialog extends React.Component {
 
   _renderDialog () {
     return (
-      <div styleName={'shareDialog'} style={{top: this.state.dialogPosition.top, left: this.state.dialogPosition.left}}>
+      <div styleName={'shareDialog'} style={{top: this.state.dialogPosition.top, left: this.state.dialogPosition.left}} onClick={() => this._focusAndSelectInput}>
         <div styleName={'title'}>
           Share this link
         </div>
@@ -94,7 +94,7 @@ export default class ShareDialog extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <Button label={'Share'} type={'action'} icon={'+'} onClick={this._displayShareDialogClicked} />
+        <Button label={'Share'} type={'action'} icon={'share2'} onClick={this._displayShareDialogClicked} isDisabled={this.props.isDisabled}/>
         {this.state.displayShareDialog && this._renderDialog()}
       </React.Fragment>
     );

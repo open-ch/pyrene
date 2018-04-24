@@ -1,6 +1,6 @@
-@import '../../styles/common.css';
-
 .link {
+  composes: commonFontSettings from '../../styles/common.css';
+
   cursor: pointer;
   display: inline-block;
   color: var(--blue-500);

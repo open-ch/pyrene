@@ -1,6 +1,6 @@
-@import '../../styles/common.css';
-
 .button {
+  composes: commonFontSettings from '../../styles/common.css';
+
   box-sizing: border-box;
   height: 32px;
   padding: 8px 16px;

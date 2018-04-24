@@ -1,6 +1,6 @@
-@import '../../styles/common.css';
-
 .buttonBar {
+  composes: commonFontSettings from '../../styles/common.css';
+
   box-sizing: border-box;
   width: 100%;
   padding: 16px 24px;
