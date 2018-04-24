@@ -1,8 +1,8 @@
 @import '../../styles/common.css';
 
 .link {
-  font-family: AvenirNext, Helvetica, sans-serif;
   cursor: pointer;
+  display: inline-block;
   color: var(--blue-500);
 
   &:focus {

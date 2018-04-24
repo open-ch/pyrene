@@ -11,7 +11,6 @@ export default class Button extends React.Component {
     super(props);
 
     this.state = {
-
     };
   }
 
@@ -25,7 +24,8 @@ export default class Button extends React.Component {
                 classNames('button',
                   {[`type-${this.props.type}`]: true},
                   {['hasIcon']: this.props.icon},
-                  {['isDisabled']:this.props.isDisabled})}>
+                  {['isDisabled']:this.props.isDisabled})}
+              onClick={this.props.onClick}>
 
         {this.props.icon && <span>{this.props.icon}</span>}
         {this.props.label}
@@ -58,12 +58,14 @@ Button.defaultProps = {
   icon: '',
   label: '',
   type: 'primary',
-  isDisabled: false
+  isDisabled: false,
+  onClick: () => null
 };
 
 Button.propTypes = {
   icon: PropTypes.string,
   label: PropTypes.string.isRequired,
   type: PropTypes.oneOf(['primary', 'secondary', 'danger', 'ghost', 'action', 'admin']),
-  isDisabled: PropTypes.bool
+  isDisabled: PropTypes.bool,
+  onClick: PropTypes.func
 };

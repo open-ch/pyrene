@@ -40,3 +40,13 @@
 :global(.unSelectable) {
   user-select: none;
 }
+
+* {
+  font-family: AvenirNext, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background: var(--blue-50);
+}
