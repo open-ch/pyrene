@@ -35,14 +35,6 @@
   src: url('../fonts/AvenirNextLTW01-Bold.woff') format('woff');
 }
 
-/* IconFont */
-@font-face {
-  font-family: IconFont;
-  font-style: normal;
-  font-weight: 400;
-  src: url('../fonts/iconfont.woff') format('woff');
-}
-
 body {
   background-color: var(--neutral-BG);
   color: var(--font-black);
