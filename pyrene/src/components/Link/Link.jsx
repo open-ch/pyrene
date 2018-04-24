@@ -25,7 +25,7 @@ export default class Link extends React.Component {
         href={this.props.path}
       >
         {this.props.label}
-        {this.props.type === 'standalone' && <span className={'icon-Skip-right'}></span>}
+        {this.props.type === 'standalone' && <span className={'icon-Skip-right'}/>}
       </a>
     );
   }

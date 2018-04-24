@@ -28,8 +28,8 @@
       top: 8px;
       left: 16px;
       position: absolute;
-      font-family: IconFont;
       font-size: 16px;
+      pointer-events: none;
     }
   }
 

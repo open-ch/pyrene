@@ -1,3 +1,7 @@
+.shareDialogContainer {
+  position: relative;
+}
+
 .shareDialog {
   composes: commonFontSettings from '../../styles/common.css';
 

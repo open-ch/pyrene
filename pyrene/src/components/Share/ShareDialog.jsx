@@ -12,6 +12,7 @@ export default class ShareDialog extends React.Component {
     super(props);
     this._displayShareDialogClicked = this._displayShareDialogClicked.bind(this);
     this._copyLinkToClipboard = this._copyLinkToClipboard.bind(this);
+    this._handleClickOutside = this._handleClickOutside.bind(this);
 
     this.state = {
       displayShareDialog: false,
@@ -23,52 +24,56 @@ export default class ShareDialog extends React.Component {
 
   }
 
-  componentDidMount() {
-  }
-
   componentDidUpdate(){
     if (this.state.displayShareDialog){
       this._focusAndSelectInput();
     }
   }
 
+  _handleClickOutside () {
+    if (this.dialogRef && !this.dialogRef.contains(event.target)) {
+      this._hideDialogAndRemoveListener()
+    }
+  }
+
   _copyLinkToClipboard() {
     document.execCommand("copy");
-    this._displayShareDialogClicked();
+    this._hideDialogAndRemoveListener()
+  }
+
+  _hideDialogAndRemoveListener (){
+    document.removeEventListener('mousedown', this._handleClickOutside);
+    this.setState({
+      displayShareDialog: false
+    });
   }
 
   _displayShareDialogClicked(event) {
     // If displayed remove from dom
     if (this.state.displayShareDialog){
-      this.setState({
-        displayShareDialog: false
-      })
-
+      this._hideDialogAndRemoveListener();
       // else display dialog
     } else {
+      document.addEventListener('mousedown', this._handleClickOutside);
       this.setState({
         displayShareDialog: true,
-        dialogPosition: this._computeDialogPositionFromButton(event.target.getBoundingClientRect().width,
-          event.target.getBoundingClientRect().height,
-          event.target.getBoundingClientRect().right,
-          event.target.getBoundingClientRect().left,
-          event.target.getBoundingClientRect().top,
-          event.target.getBoundingClientRect().bottom)
+        dialogPosition: this._computeDialogPositionFromButton(event.target)
       });
 
     }
   }
 
-  _computeDialogPositionFromButton (width, height, right, left, top, bottom) {
+  _computeDialogPositionFromButton (target) {
+    const targetRect = target.getBoundingClientRect();
     const dialogPosition = {top: 0, right: 0};
-    if (this.props.position === 'left') {
-      dialogPosition.top = top + height + 5;
-      dialogPosition.left = right - 400; // 400 px is the share Dialog width
-    } else if (this.props.position === 'right') {
-      dialogPosition.top = top + height + 5;
-      dialogPosition.left = left;
-    }
 
+    if (this.props.position === 'left') {
+      dialogPosition.top = targetRect.height + 5;
+      dialogPosition.left =  targetRect.width - 400; // 400 px is the share Dialog width
+    } else if (this.props.position === 'right') {
+      dialogPosition.top = targetRect.height + 5;
+      dialogPosition.left = 0;
+    }
     return dialogPosition;
   }
 
@@ -79,7 +84,7 @@ export default class ShareDialog extends React.Component {
 
   _renderDialog () {
     return (
-      <div styleName={'shareDialog'} style={{top: this.state.dialogPosition.top, left: this.state.dialogPosition.left}} onClick={() => this._focusAndSelectInput}>
+      <div className={'unSelectable'} styleName={'shareDialog'} style={{top: this.state.dialogPosition.top, left: this.state.dialogPosition.left}}>
         <div styleName={'title'}>
           Share this link
         </div>
@@ -93,10 +98,10 @@ export default class ShareDialog extends React.Component {
 
   render() {
     return (
-      <React.Fragment>
+      <div styleName="shareDialogContainer" ref={(dialog) => { this.dialogRef = dialog; }}>
         <Button label={'Share'} type={'action'} icon={'share2'} onClick={this._displayShareDialogClicked} isDisabled={this.props.isDisabled}/>
-        {this.state.displayShareDialog && this._renderDialog()}
-      </React.Fragment>
+          {this.state.displayShareDialog && this._renderDialog()}
+      </div>
     );
   }
 }
