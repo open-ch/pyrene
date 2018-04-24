@@ -8,21 +8,22 @@ import CodeBlock from '../common/CodeBlock';
 
 
 export default class CodePage extends React.Component {
-  constructor(props){
+
+  constructor(props) {
     super(props);
     this.handleEditorChange = this.handleEditorChange.bind(this);
 
     this.state = {
       displayedComponent: <this.props.component {...this.props.startProps} />,
       component: this.props.component
-    }
+    };
   }
 
   handleEditorChange(target) {
     const changedProp = (target.type === 'checkbox') ? { [target.name]: target.checked } : { [target.name]: target.value };
     this.setState({
       displayedComponent: <this.state.component {...this.state.displayedComponent.props} {...changedProp} />
-    })
+    });
   }
 
   render() {
@@ -44,6 +45,7 @@ export default class CodePage extends React.Component {
       </div>
     );
   }
+
 }
 
 

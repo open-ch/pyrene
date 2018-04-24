@@ -10,6 +10,7 @@ import DropDownPage from './DropDownPage';
 import packageJson from '../../package.json';
 import '../css/common.css';
 import LinkPage from './link/LinkPage';
+import ShareDialogPage from './shareDialog/ShareDialogPage';
 
 
 const MainComponent = () => {
@@ -23,6 +24,7 @@ const MainComponent = () => {
         <Route exact={true} path={'/'} component={IntroductionPage} />
         <Route path={'/button'} component={ButtonPage} />
         <Route path={'/link'} component={LinkPage} />
+        <Route path={'/shareDialog'} component={ShareDialogPage} />
         <Route path={'/dropDown'} component={DropDownPage} />
       </div>
     </div>
