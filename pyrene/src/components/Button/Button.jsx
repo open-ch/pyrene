@@ -6,31 +6,23 @@ import './button.css';
 
 export default class Button extends React.Component {
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-    };
-  }
-
-  componentDidMount() {
-  }
-
   render() {
     return (
-      <button className={'unSelectable'}
-              styleName={
-                classNames('button',
-                  {[`type-${this.props.type}`]: true},
-                  {['hasIcon']: this.props.icon},
-                  {['isDisabled']:this.props.isDisabled})}
-              onClick={this.props.onClick}>
-
-        {this.props.icon && <span className={`icon-${this.props.icon}`}/>}
+      <button
+        className={'unSelectable'}
+        styleName={
+          classNames('button',
+            { [`type-${this.props.type}`]: true },
+            { hasIcon: this.props.icon },
+            { isDisabled: this.props.isDisabled })}
+        onClick={this.props.onClick}
+      >
+        {this.props.icon && <span className={`icon-${this.props.icon}`} />}
         {this.props.label}
-        </button>
+      </button>
     );
   }
+
 }
 
 /**
@@ -45,10 +37,10 @@ export default class Button extends React.Component {
  */
 
 Button.docProps = [
-  {propName: 'icon', isRequired: false, type: 'String', defaultValue: '', description: 'Adds an icon in front of the label. Uses the icon-font.'},
-  {propName: 'label', isRequired: true, type: 'String', defaultValue: '', description: 'Changes what the button says.'},
-  {propName: 'type', isRequired: false, type: 'oneOf: primary secondary ghost danger action admin', defaultValue: 'primary', description: 'Changes the overall button style.'},
-  {propName: 'isDisabled', isRequired: false, type: 'Bool', defaultValue: 'false', description: 'Disables any interaction with the button.'}
+  { propName: 'icon', isRequired: false, type: 'String', defaultValue: '', description: 'Adds an icon in front of the label. Uses the icon-font.' },
+  { propName: 'label', isRequired: true, type: 'String', defaultValue: '', description: 'Changes what the button says.' },
+  { propName: 'type', isRequired: false, type: 'oneOf: primary secondary ghost danger action admin', defaultValue: 'primary', description: 'Changes the overall button style.' },
+  { propName: 'isDisabled', isRequired: false, type: 'Bool', defaultValue: 'false', description: 'Disables any interaction with the button.' }
 ];
 
 Button.displayName = 'Button';

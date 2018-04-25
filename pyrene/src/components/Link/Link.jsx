@@ -7,28 +7,18 @@ import './link.css';
 
 export default class Link extends React.Component {
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-
-    };
-  }
-
-  componentDidMount() {
-  }
-
   render() {
     return (
       <a
-        styleName={classNames('link', {[`type-${this.props.type}`]: true}, {['isDisabled']: this.props.isDisabled})}
+        styleName={classNames('link', { [`type-${this.props.type}`]: true }, { isDisabled: this.props.isDisabled })}
         href={this.props.path}
       >
         {this.props.label}
-        {this.props.type === 'standalone' && <span className={'icon-Skip-right'}/>}
+        {this.props.type === 'standalone' && <span className={'icon-Skip-right'} />}
       </a>
     );
   }
+
 }
 
 /**
@@ -43,10 +33,10 @@ export default class Link extends React.Component {
  */
 
 Link.docProps = [
-  {propName: 'type', isRequired: false, type: 'oneOf: standalone inline', defaultValue: 'standalone', description: 'To be changed according to the use case. "Inline" inherits the style from it\'s parent.'},
-  {propName: 'label', isRequired: true, type: 'String', defaultValue: '', description: 'Displayed label.'},
-  {propName: 'path', isRequired: true, type: 'String', defaultValue: '', description: 'Do you know da wae?'},
-  {propName: 'isDisabled', isRequired: false, type: 'Bool', defaultValue: 'false', description: 'Disables any interaction with the link.'}
+  { propName: 'type', isRequired: false, type: 'oneOf: standalone inline', defaultValue: 'standalone', description: 'To be changed according to the use case. "Inline" inherits the style from it\'s parent.' },
+  { propName: 'label', isRequired: true, type: 'String', defaultValue: '', description: 'Displayed label.' },
+  { propName: 'path', isRequired: true, type: 'String', defaultValue: '', description: 'Do you know da wae?' },
+  { propName: 'isDisabled', isRequired: false, type: 'Bool', defaultValue: 'false', description: 'Disables any interaction with the link.' }
 ];
 
 Link.displayName = 'Link';
