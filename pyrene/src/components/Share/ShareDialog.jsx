@@ -4,7 +4,6 @@ import Button from '../Button/Button';
 import ButtonBar from '../ButtonBar/ButtonBar';
 
 import './shareDialog.css';
-import Link from '../Link/Link';
 
 export default class ShareDialog extends React.Component {
 
@@ -92,8 +91,6 @@ export default class ShareDialog extends React.Component {
           <input type={'text'} value={this.props.link} ref={(input) => { this.textInput = input; }} readOnly />
         </div>
         <ButtonBar
-          leftButtonSectionElements={[
-            <Link path={'#'} label={'Click Me'} />]}
           rightButtonSectionElements={[
             <Button type={'ghost'} label={'Copy link'} onClick={this._copyLinkToClipboard} />,
             <Button label={'Close'} onClick={this._displayShareDialogClicked} />]}
