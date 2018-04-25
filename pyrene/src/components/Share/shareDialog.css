@@ -39,6 +39,7 @@
       border: solid 1px var(--neutral-100);
 
       &[type="text"] {
+        box-sizing: border-box;
         padding-left: 8px;
         letter-spacing: normal;
         font-family: inherit;

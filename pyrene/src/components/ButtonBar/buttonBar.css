@@ -1,34 +1,32 @@
 .buttonBar {
-  composes: commonFontSettings from '../../styles/common.css';
-
   box-sizing: border-box;
+  padding: 0 24px;
+
   width: 100%;
-  padding: 16px 24px;
-  clear:both;
+  height: 64px;
+
+  display: flex;
+  justify-content: space-between;
 }
 
 .leftButtonSection {
-  display: inline-block;
-  vertical-align: middle;
-  float: left;
+  display: flex;
+  align-items: center;
 
-  & a {
-   margin: 4px 32px 0 0;
+  & > * {
+    margin-right: 16px;
   }
-  & button {
-    margin: 0 16px 0 0;
+
+  & :last-child {
+    margin: 0;
   }
 }
 
 .rightButtonSection {
-  display: inline-block;
-  vertical-align: middle;
-  float: right;
+  display: flex;
+  align-items: center;
 
-  & a {
-    margin: 4px 16px 0 0;
-  }
-  & button {
-    margin: 0 0 0 16px;
+  & > * {
+    margin-left: 16px;
   }
 }
