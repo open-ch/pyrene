@@ -2,11 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const DropDownPage = props => (
-    <div className="page">
+  <div className="page">
       DropDown
-    </div>
+  </div>
 );
-
 
 
 DropDownPage.displayName = 'DropDownPage';

@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Route, Redirect } from 'react-router-dom';
 import SubPagingMenu from '../common/PageElements/SubPagingMenu';
 import { Link } from 'pyrene';
@@ -38,11 +37,5 @@ const Topic = ({ match }) => {
 
 
 LinkPage.displayName = 'LinkPage';
-
-LinkPage.propTypes = {
-};
-
-LinkPage.defaultProps = {
-};
 
 export default LinkPage;

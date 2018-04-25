@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import Checkbox from './Checkbox';
 import '../../css/propEditor.css';
-import {Checkbox} from './Checkbox';
 
 
 export default class PropEditor extends React.Component {
@@ -12,7 +11,7 @@ export default class PropEditor extends React.Component {
     this.modifiedProp = this.modifiedProp.bind(this);
   }
 
-  modifiedProp(event){
+  modifiedProp(event) {
     this.props.onEditorChange(event.target);
   }
 
@@ -20,38 +19,44 @@ export default class PropEditor extends React.Component {
     return (
       <div styleName={'propEditor'}>
         {this.props.componentProps.map((prop) => {
+
           switch (prop.type.split(' ')[0]) {
             case 'String':
               return ([`${prop.propName}: `,
                 <React.Fragment key={prop}>
-                  <input type="text" name={prop.propName} placeholder={'change me'} onChange={(event) => this.modifiedProp(event)} /><br />
+                  <input type="text" name={prop.propName} placeholder={'change me'} onChange={event => this.modifiedProp(event)} /><br />
                 </React.Fragment>
               ]);
+
             case 'oneOf:':
               return ([`${prop.propName}: `,
                 <React.Fragment key={prop}>
-                  <select name={prop.propName} onChange={(event) => this.modifiedProp(event)}>
-                    {prop.type.split(' ').slice(1).map((propChoice, index) => <option value={propChoice} key={propChoice}>{index === 0 && 'default ('}{propChoice}{index === 0 && ')'}</option>)}
+                  <select name={prop.propName} onChange={event => this.modifiedProp(event)}>
+                    {prop.type.split(' ').slice(1).map((propChoice, index) =>
+                      <option value={propChoice} key={propChoice}>{index === 0 && 'default ('}{propChoice}{index === 0 && ')'}</option>
+                    )}
                   </select><br />
                 </React.Fragment>
               ]);
+
             case 'Bool':
               return ([`${prop.propName}: `,
                 <React.Fragment key={prop}>
                   <Checkbox name={prop.propName} toggledCheckbox={this.modifiedProp} /><br />
                 </React.Fragment>
               ]);
+
+            default:
+              return 'Error occurred in PropEditor: PropType unknown.';
           }
         })}
       </div>
     );
   }
+
 }
 
 PropEditor.displayName = 'PropEditor';
-
-PropEditor.defaultProps = {
-};
 
 PropEditor.propTypes = {
   componentProps: PropTypes.arrayOf(PropTypes.shape({

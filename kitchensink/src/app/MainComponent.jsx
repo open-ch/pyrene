@@ -13,23 +13,21 @@ import LinkPage from './link/LinkPage';
 import ShareDialogPage from './shareDialog/ShareDialogPage';
 
 
-const MainComponent = () => {
-  return (
-    <div styleName={'mainContainer'}>
-      <div styleName={'leftContainer'}>
-        <Logo versionNr={packageJson.version}/>
-        <SideBarMenu/>
-      </div>
-      <div styleName={'pageContainer'}>
-        <Route exact={true} path={'/'} component={IntroductionPage} />
-        <Route path={'/button'} component={ButtonPage} />
-        <Route path={'/link'} component={LinkPage} />
-        <Route path={'/shareDialog'} component={ShareDialogPage} />
-        <Route path={'/dropDown'} component={DropDownPage} />
-      </div>
+const MainComponent = () => (
+  <div styleName={'mainContainer'}>
+    <div styleName={'leftContainer'}>
+      <Logo versionNr={packageJson.version} />
+      <SideBarMenu />
     </div>
-  );
-}
+    <div styleName={'pageContainer'}>
+      <Route exact path={'/'} component={IntroductionPage} />
+      <Route path={'/button'} component={ButtonPage} />
+      <Route path={'/link'} component={LinkPage} />
+      <Route path={'/shareDialog'} component={ShareDialogPage} />
+      <Route path={'/dropDown'} component={DropDownPage} />
+    </div>
+  </div>
+);
 
 MainComponent.displayName = 'MainComponent';
 
