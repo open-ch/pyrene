@@ -15,7 +15,7 @@ Paragraph.displayName = 'Paragraph';
 
 Paragraph.propTypes = {
   title: PropTypes.string.isRequired,
-  content: PropTypes.any
+  content: PropTypes.element
 };
 
 Paragraph.defaultProps = {

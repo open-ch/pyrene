@@ -8,28 +8,28 @@ import '../../../css/sideBarMenu.css';
 
 export default class SideBarMenuSection extends React.Component {
 
-  constructor(props){
+  constructor(props) {
     super(props);
 
     this.state = {
       open: false,
       sectionContentWrapperHeight: 0
-    }
+    };
   }
 
-  componentDidMount(){
-    //Open menu on page reload to display active section
-    for (var ref in this.refs) {
+  componentDidMount() {
+    // Open menu on page reload to display active section
+    for (const ref in this.refs) {
       if (this.refs[ref].parentElement.className === 'activeSideBar') {
         this.setState({
           open: true,
           sectionContentWrapperHeight: this.props.sectionElements.length * 48 + 32
         });
-      };
+      }
     }
   }
 
-  handleClick(){
+  handleClick() {
     if (this.props.sectionElements.length > 0) {
       // Close section
       if (this.state.open) {
@@ -49,23 +49,27 @@ export default class SideBarMenuSection extends React.Component {
 
   render() {
     return (
-      <div styleName={classNames('section', {'open':this.state.open})} >
-        {this.props.sectionElements.length > 0 && <div styleName='indicator' />}
-        <NavLink exact={true} to={`${this.props.linkToPath}`} activeClassName={'activeSideBar'}>
-          <div className='unSelectable' styleName='sectionHead' onClick={() => this.handleClick()}>{this.props.title}</div>
+      <div styleName={classNames('section', { open: this.state.open })} >
+        {this.props.sectionElements.length > 0 && <div styleName="indicator" />}
+        <NavLink exact to={`${this.props.linkToPath}`} activeClassName={'activeSideBar'}>
+          <div className="unSelectable" styleName="sectionHead" onClick={() => this.handleClick()}>{this.props.title}</div>
         </NavLink>
 
-        <div styleName='sectionContentWrapper' style={{height: this.state.sectionContentWrapperHeight}}>
-
-
-          {this.props.sectionElements.map((element, index) => {
-            return (
-              <NavLink to={element.linkToPath} activeClassName={'activeSideBar'} key={index}>
-                <div className='unSelectable' styleName={classNames('sectionElement', {'disabled': element.linkToPath === '#'})} key={element.name} ref={`ref${index}`}>{element.name}{element.linkToPath === '#' && <span>Coming Soon</span>}</div>
-              </NavLink>
-            );
-          })}
+        <div styleName="sectionContentWrapper" style={{ height: this.state.sectionContentWrapperHeight }}>
+          {this.props.sectionElements.map((element, index) => (
+            <NavLink to={element.linkToPath} activeClassName={'activeSideBar'} key={`${this.props.title}${element.name}`}>
+              <div
+                className="unSelectable"
+                styleName={classNames('sectionElement', { disabled: element.linkToPath === '#' })}
+                key={element.name}
+                ref={`ref${index}`}
+              >
+                {element.name}{element.linkToPath === '#' && <span>Coming Soon</span>}
+              </div>
+            </NavLink>
+          ))}
         </div>
+
       </div>
     );
   }
@@ -80,7 +84,10 @@ SideBarMenuSection.defaultProps = {
 
 SideBarMenuSection.propTypes = {
   title: PropTypes.string.isRequired,
-  sectionElements: PropTypes.array,
+  sectionElements: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string,
+    linkToPath: PropTypes.string
+  })).isRequired,
   linkToPath: PropTypes.string
 };
 

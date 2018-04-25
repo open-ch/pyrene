@@ -1,21 +1,18 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Route, Redirect } from 'react-router-dom';
 import SubPagingMenu from '../common/PageElements/SubPagingMenu';
-import { Button } from 'pyrene';
-import ButtonUsage from './ButtonUsage';
+import { ShareDialog } from 'pyrene';
+import ShareDialogUsage from './ShareDialogUsage';
 import CodePage from '../common/CodePage';
 import '../../css/componentPage.css';
 
-const ButtonPage = ({ match }) => (
+const ShareDialogPage = ({ match }) => (
   <div className="page">
     <div styleName="header">
-      <div styleName="title">Button</div>
+      <div styleName="title">Share</div>
       <div styleName="description">
-          Buttons are used primarily on action items.
-          Some examples include Add, Start, Save, Delete.
-          Do not use Buttons as navigational elements.
-          Instead, use Links because it takes the user to a new page and is not associated with an action.
-          Each page may have one to two primary buttons. Any remaining calls-to-action are represented as secondary buttons.
+          Share dialogs are used primarily on ....
       </div>
 
       <SubPagingMenu currentPageUrl={match.url} />
@@ -31,15 +28,21 @@ const ButtonPage = ({ match }) => (
 const Topic = ({ match }) => {
   switch (match.params.topicName) {
     case 'code':
-      return <CodePage component={Button} startProps={{ label: 'Click Me' }} />;
+      return <CodePage component={ShareDialog} startProps={{ position: 'left', link: 'http://www.veryveryverylonglinkonanydomainintheinternet.com' }} />;
     case 'usage':
-      return <ButtonUsage />;
+      return <ShareDialogUsage />;
     default:
       return <h3>{match.params.topicName}</h3>;
   }
 };
 
 
-ButtonPage.displayName = 'ButtonPage';
+ShareDialogPage.displayName = 'ShareDialogPage';
 
-export default ButtonPage;
+ShareDialogPage.propTypes = {
+};
+
+ShareDialogPage.defaultProps = {
+};
+
+export default ShareDialogPage;
