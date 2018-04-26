@@ -4,14 +4,14 @@ import classNames from 'classnames';
 
 import './arrowbutton.css';
 
-const ArrowButton = () => (
+const ArrowButton = props => (
   <button
     className={'unSelectable'}
     styleName={
       classNames('arrowButton',
-        { [`direction-${this.props.direction}`]: true },
-        { isDisabled: this.props.isDisabled })}
-    onClick={this.props.onClick}
+        { [`direction-${props.direction}`]: true },
+        { isDisabled: props.isDisabled })}
+    onClick={props.onClick}
   >
     <span className={'icon-Skip-right'} styleName={'icon'} />
   </button>

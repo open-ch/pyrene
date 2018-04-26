@@ -5,21 +5,16 @@ import classNames from 'classnames';
 import './link.css';
 
 
-export default class Link extends React.Component {
+const Link = props => (
+  <a
+    styleName={classNames('link', { [`type-${props.type}`]: true }, { isDisabled: props.isDisabled })}
+    href={props.path}
+  >
+    {props.label}
+    {props.type === 'standalone' && <span className={'icon-Skip-right'} />}
+  </a>
+);
 
-  render() {
-    return (
-      <a
-        styleName={classNames('link', { [`type-${this.props.type}`]: true }, { isDisabled: this.props.isDisabled })}
-        href={this.props.path}
-      >
-        {this.props.label}
-        {this.props.type === 'standalone' && <span className={'icon-Skip-right'} />}
-      </a>
-    );
-  }
-
-}
 
 /**
  *
@@ -52,3 +47,5 @@ Link.propTypes = {
   label: PropTypes.string.isRequired,
   isDisabled: PropTypes.bool
 };
+
+export default Link;
