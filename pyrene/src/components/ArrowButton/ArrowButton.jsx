@@ -4,25 +4,19 @@ import classNames from 'classnames';
 
 import './arrowbutton.css';
 
-export default class ArrowButton extends React.Component {
+const ArrowButton = () => (
+  <button
+    className={'unSelectable'}
+    styleName={
+      classNames('arrowButton',
+        { [`direction-${this.props.direction}`]: true },
+        { isDisabled: this.props.isDisabled })}
+    onClick={this.props.onClick}
+  >
+    <span className={'icon-Skip-right'} styleName={'icon'} />
+  </button>
+);
 
-
-  render() {
-    return (
-      <button
-        className={'unSelectable'}
-        styleName={
-          classNames('arrowButton',
-            { [`direction-${this.props.direction}`]: true },
-            { isDisabled: this.props.isDisabled })}
-        onClick={this.props.onClick}
-      >
-        {<span className={'icon-Skip-right'} styleName={'icon'}/>}
-      </button>
-    );
-  }
-
-}
 
 /**
  *
