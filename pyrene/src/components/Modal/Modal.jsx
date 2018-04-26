@@ -33,8 +33,10 @@ export default class Modal extends React.Component {
         <div styleName={'titleBar'}>
           {this.props.titleLabel}
         </div>
-        <div styleName={'content'}>
-          {this.props.content}
+        <div styleName={'contentContainer'}>
+          <div styleName={'content'}>
+            {this.props.content}
+          </div>
         </div>
       </Fragment>
     );
@@ -46,7 +48,7 @@ export default class Modal extends React.Component {
         <div styleName="modalOverlay">
           <div styleName={'modalContainer'} style={{width: this._sizeToPixel(this.props.size)}}>
             {this.props.isLoading ? <Loader /> : this._renderContent()}
-            <ButtonBar rightButtonSectionElements={[<Button label={'Cancel'} onClick={this.props.closeButtonClicked}/>]}/>
+            <ButtonBar rightButtonSectionElements={[<Button label={'Cancel'} onClick={this.props.closeButtonClicked} />]} />
           </div>
         </div>
       </Fragment>
@@ -67,9 +69,7 @@ export default class Modal extends React.Component {
  */
 
 Modal.docProps = [
-  { propName: 'position', isRequired: true, type: 'oneOf: left right', defaultValue: 'left', description: 'Choose where the dialog appears relative to the share button.' },
-  { propName: 'link', isRequired: true, type: 'String', defaultValue: '', description: 'Link that is in the textbox.' },
-  { propName: 'isDisabled', isRequired: false, type: 'Bool', defaultValue: 'false', description: 'Disables any interaction with the share dialog.' }
+
 ];
 
 Modal.displayName = 'Modal';
