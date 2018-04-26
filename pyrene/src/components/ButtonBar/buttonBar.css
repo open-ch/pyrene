@@ -12,21 +12,15 @@
 .leftButtonSection {
   display: flex;
   align-items: center;
-
-  & > * {
-    margin-right: 16px;
-  }
-
-  & :last-child {
-    margin: 0;
-  }
+  justify-content: flex-start;
 }
 
 .rightButtonSection {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
+}
 
-  & > * {
-    margin-left: 16px;
-  }
+.spacer {
+  width: 16px;
 }

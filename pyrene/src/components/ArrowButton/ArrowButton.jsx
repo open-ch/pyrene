@@ -17,7 +17,6 @@ const ArrowButton = props => (
   </button>
 );
 
-
 /**
  *
  *  Object which contains all props for the Proptable in Kitchensink
@@ -46,3 +45,5 @@ ArrowButton.propTypes = {
   isDisabled: PropTypes.bool,
   onClick: PropTypes.func
 };
+
+export default ArrowButton;
