@@ -4,26 +4,20 @@ import classNames from 'classnames';
 
 import './button.css';
 
-export default class Button extends React.Component {
-
-  render() {
-    return (
-      <button
-        className={'unSelectable'}
-        styleName={
-          classNames('button',
-            { [`type-${this.props.type}`]: true },
-            { hasIcon: this.props.icon },
-            { isDisabled: this.props.isDisabled })}
-        onClick={this.props.onClick}
-      >
-        {this.props.icon && <span className={`icon-${this.props.icon}`} />}
-        {this.props.label}
-      </button>
-    );
-  }
-
-}
+const Button = props => (
+  <button
+    className={'unSelectable'}
+    styleName={
+      classNames('button',
+        { [`type-${props.type}`]: true },
+        { hasIcon: props.icon },
+        { isDisabled: props.isDisabled })}
+    onClick={props.onClick}
+  >
+    {props.icon && <span className={`icon-${props.icon}`} />}
+    {props.label}
+  </button>
+);
 
 /**
  *
@@ -60,3 +54,5 @@ Button.propTypes = {
   isDisabled: PropTypes.bool,
   onClick: PropTypes.func
 };
+
+export default Button;

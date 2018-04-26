@@ -6,24 +6,20 @@ import './buttonBar.css';
 const ButtonBar = props => (
   <div styleName={'buttonBar'}>
     <div styleName={'leftButtonSection'}>
-      {props.leftButtonSectionElements.map((element) => {
-        return (
-          <Fragment>
-            <element.type {...element.props} key={`${element.type}${element.props.label}${element.props.type}`} />
-            <div styleName={'spacer'} />
-          </Fragment>
-        );
-      })}
+      {props.leftButtonSectionElements.map(element => (
+        <Fragment>
+          <element.type {...element.props} key={`${element.type}${element.props.label}${element.props.type}`} />
+          <div styleName={'spacer'} />
+        </Fragment>
+      ))}
     </div>
     <div styleName={'rightButtonSection'}>
-      {props.rightButtonSectionElements.map((element, index) => {
-        return (
-          <Fragment>
-            {index !== 0 && <div styleName={'spacer'} />}
-            <element.type {...element.props} key={`${element.props.label}${element.props.type}${element.type}`} />
-          </Fragment>
-        );
-      })}
+      {props.rightButtonSectionElements.map((element, index) => (
+        <Fragment>
+          {index !== 0 && <div styleName={'spacer'} />}
+          <element.type {...element.props} key={`${element.props.label}${element.props.type}${element.type}`} />
+        </Fragment>
+      ))}
     </div>
   </div>
 );
