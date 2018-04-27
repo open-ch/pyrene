@@ -1,0 +1,51 @@
+.checkboxContainer {
+  composes: commonFontSettings from '../../styles/common.css';
+}
+
+.checkbox {
+  display: none;
+}
+
+.checkboxIcon {
+  content: '';
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  vertical-align: text-top;
+  margin-right: 6px;
+
+  background-image: url('./checkbox-blank.svg');
+}
+
+.checkboxLabel {
+  height: 24px;
+  display: inline-block;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.71;
+  cursor: pointer;
+
+  &:hover .checkboxIcon {
+    background-image: url('./checkbox-hover.svg');
+  }
+
+  &.isChecked {
+    & .checkboxIcon {
+      background-image: url('./checkbox-selected.svg');
+    }
+    &:hover .checkboxIcon {
+      background-image: url('./checkbox-selected-hover.svg');
+    }
+    &.isDisabled .checkboxIcon {
+      opacity: 0.5;
+    }
+  }
+
+  &.isDisabled {
+    opacity: 0.5;
+    pointer-events: none;
+    &.isChecked {
+      opacity: 1;
+    }
+  }
+}

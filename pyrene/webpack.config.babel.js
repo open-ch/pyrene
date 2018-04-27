@@ -38,6 +38,10 @@ const config = {
         ]
       },
       {
+        test: /\.svg$/,
+        loader: 'url-loader'
+      },
+      {
         test: /\.woff$/,
         loader: 'url-loader'
       }
