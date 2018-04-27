@@ -1,16 +1,15 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
 import Logo from './common/Logo';
 import SideBarMenu from './common/SideBarMenu/SideBarMenu';
 import ButtonPage from './button/ButtonPage';
 import IntroductionPage from './IntroductionPage';
-import DropDownPage from './DropDownPage';
 
 import packageJson from '../../package.json';
 import '../css/common.css';
 import LinkPage from './link/LinkPage';
 import ShareDialogPage from './shareDialog/ShareDialogPage';
+import ModalPage from './modal/ModalPage';
 
 
 const MainComponent = () => (
@@ -24,7 +23,7 @@ const MainComponent = () => (
       <Route path={'/button'} component={ButtonPage} />
       <Route path={'/link'} component={LinkPage} />
       <Route path={'/shareDialog'} component={ShareDialogPage} />
-      <Route path={'/dropDown'} component={DropDownPage} />
+      <Route path={'/modal'} component={ModalPage} />
     </div>
   </div>
 );
