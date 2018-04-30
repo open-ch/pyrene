@@ -1,5 +1,5 @@
 .checkboxContainer {
-  composes: commonFontSettings from '../../styles/common.css';
+  /* composes: commonFontSettings from '../../../styles/common.css'; */
 }
 
 .checkbox {
@@ -23,6 +23,7 @@
   font-size: 14px;
   font-weight: normal;
   line-height: 1.71;
+  text-transform: capitalize;
   cursor: pointer;
 
   &:hover .checkboxIcon {

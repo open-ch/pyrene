@@ -1,0 +1,75 @@
+.radioSelectionContainer {
+  /* composes: commonFontSettings from '../../../styles/common.css'; */
+  display: flex;
+  justify-content: flex-start;
+
+  &.direction-vertical {
+    flex-direction: column;
+  }
+  &.direction-horizontal {
+    flex-direction: row;
+  }
+}
+
+.radioContainer {
+
+}
+
+.radioInput {
+  display: none;
+}
+
+.radioIcon {
+  content: '';
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  vertical-align: text-top;
+  margin-right: 6px;
+
+  background-image: url('./radio-blank.svg');
+}
+
+.radioLabel {
+  height: 24px;
+  display: inline-block;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.71;
+  text-transform: capitalize;
+  cursor: pointer;
+
+  &:hover .radioIcon {
+    background-image: url('./radio-hover.svg');
+  }
+
+  &.isChecked {
+    & .radioIcon {
+      background-image: url('./radio-selected.svg');
+    }
+    &:hover .radioIcon {
+      background-image: url('./radio-selected-hover.svg');
+    }
+    &.isDisabled .radioIcon {
+      opacity: 0.5;
+    }
+  }
+
+  &.isDisabled {
+    opacity: 0.5;
+    pointer-events: none;
+    &.isChecked {
+      opacity: 1;
+    }
+  }
+
+}
+
+.spacer-horizontal {
+  width: 16px;
+}
+
+.spacer-vertical {
+  height: 8px;
+}
+

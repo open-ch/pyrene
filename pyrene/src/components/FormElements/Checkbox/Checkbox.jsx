@@ -12,16 +12,14 @@ export default class Checkbox extends React.Component {
 
     this.toggleChange = this.toggleChange.bind(this);
     this.state = {
-      isChecked: false,
-      image: ''
+      isChecked: this.props.preChecked
     };
   }
 
-  toggleChange(event) {
+  toggleChange() {
     this.setState({
       isChecked: !this.state.isChecked
     });
-    // this.props.toggledCheckbox(event);
   }
 
   render() {
@@ -58,17 +56,19 @@ export default class Checkbox extends React.Component {
 
 Checkbox.docProps = [
   { propName: 'label', isRequired: true, type: 'String', defaultValue: '', description: 'Changes what the button says.' },
-  { propName: 'isDisabled', isRequired: false, type: 'Bool', defaultValue: 'false', description: 'Disables any interaction with the button.' }
+  { propName: 'isDisabled', isRequired: false, type: 'Bool', defaultValue: 'false', description: 'Disables any interaction with the button.' },
+  { propName: 'preChecked', isRequired: false, type: 'Bool', defaultValue: 'false', description: 'Pre-checks the component.' }
 ];
 
 Checkbox.displayName = 'Checkbox';
 
 Checkbox.defaultProps = {
-  isDisabled: false
+  isDisabled: false,
+  preChecked: false
 };
 
 Checkbox.propTypes = {
-  toggledCheckbox: PropTypes.func.isRequired,
   label: PropTypes.string.isRequired,
-  isDisabled: PropTypes.bool
+  isDisabled: PropTypes.bool,
+  preChecked: PropTypes.bool
 };
