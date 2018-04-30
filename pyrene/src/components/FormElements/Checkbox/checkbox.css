@@ -30,22 +30,22 @@
     background-image: url('./checkbox-hover.svg');
   }
 
-  &.isChecked {
+  &.checked {
     & .checkboxIcon {
       background-image: url('./checkbox-selected.svg');
     }
     &:hover .checkboxIcon {
       background-image: url('./checkbox-selected-hover.svg');
     }
-    &.isDisabled .checkboxIcon {
+    &.disabled .checkboxIcon {
       opacity: 0.5;
     }
   }
 
-  &.isDisabled {
+  &.disabled {
     opacity: 0.5;
     pointer-events: none;
-    &.isChecked {
+    &.checked {
       opacity: 1;
     }
   }

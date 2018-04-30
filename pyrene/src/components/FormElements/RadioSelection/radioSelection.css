@@ -3,10 +3,10 @@
   display: flex;
   justify-content: flex-start;
 
-  &.direction-vertical {
+  &.alignment-vertical {
     flex-direction: column;
   }
-  &.direction-horizontal {
+  &.alignment-horizontal {
     flex-direction: row;
   }
 }
@@ -43,7 +43,7 @@
     background-image: url('./radio-hover.svg');
   }
 
-  &.isChecked {
+  &.checked {
     & .radioIcon {
       background-image: url('./radio-selected.svg');
     }
@@ -58,7 +58,7 @@
   &.isDisabled {
     opacity: 0.5;
     pointer-events: none;
-    &.isChecked {
+    &.checked {
       opacity: 1;
     }
   }

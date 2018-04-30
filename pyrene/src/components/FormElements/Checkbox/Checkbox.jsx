@@ -12,14 +12,15 @@ export default class Checkbox extends React.Component {
 
     this.toggleChange = this.toggleChange.bind(this);
     this.state = {
-      isChecked: this.props.preChecked
+      checked: this.props.preChecked
     };
   }
 
   toggleChange() {
-    this.setState({
-      isChecked: !this.state.isChecked
-    });
+    this.props.onChange(!this.state.checked);
+    this.setState(state => ({
+      checked: !state.checked
+    }));
   }
 
   render() {
@@ -29,11 +30,18 @@ export default class Checkbox extends React.Component {
           id={`checkbox_${this.props.label}`}
           styleName={'checkbox'}
           type={'checkbox'}
-          checked={this.state.isChecked}
+          checked={this.state.checked}
           onChange={this.toggleChange}
         />
 
-        <label className={'unSelectable'} styleName={classNames('checkboxLabel', { isChecked: this.state.isChecked }, { isDisabled: this.props.isDisabled})} htmlFor={`checkbox_${this.props.label}`}>
+        <label
+          className={'unSelectable'}
+          styleName={
+            classNames('checkboxLabel',
+              { checked: this.state.checked },
+              { disabled: this.props.disabled })}
+          htmlFor={`checkbox_${this.props.label}`}
+        >
           <span styleName={'checkboxIcon'} />
           {this.props.label}
         </label>
@@ -56,19 +64,21 @@ export default class Checkbox extends React.Component {
 
 Checkbox.docProps = [
   { propName: 'label', isRequired: true, type: 'String', defaultValue: '', description: 'Changes what the button says.' },
-  { propName: 'isDisabled', isRequired: false, type: 'Bool', defaultValue: 'false', description: 'Disables any interaction with the button.' },
+  { propName: 'disabled', isRequired: false, type: 'Bool', defaultValue: 'false', description: 'Disables any interaction with the button.' },
   { propName: 'preChecked', isRequired: false, type: 'Bool', defaultValue: 'false', description: 'Pre-checks the component.' }
 ];
 
 Checkbox.displayName = 'Checkbox';
 
 Checkbox.defaultProps = {
-  isDisabled: false,
-  preChecked: false
+  disabled: false,
+  preChecked: false,
+  onChange: () => null
 };
 
 Checkbox.propTypes = {
   label: PropTypes.string.isRequired,
-  isDisabled: PropTypes.bool,
-  preChecked: PropTypes.bool
+  disabled: PropTypes.bool,
+  preChecked: PropTypes.bool,
+  onChange: PropTypes.func
 };

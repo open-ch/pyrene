@@ -25,10 +25,10 @@ export default class RadioSelection extends React.Component {
 
   render() {
     return (
-      <div styleName={classNames('radioSelectionContainer', { [`direction-${this.props.direction}`]: true })}>
-        {this.props.radioLabelArray.map(radioLabel => (
+      <div styleName={classNames('radioSelectionContainer', { [`alignment-${this.props.alignment}`]: true })}>
+        {this.props.radioLabels.map(radioLabel => (
           <React.Fragment key={`radio_${radioLabel}`}>
-            <div styleName={'radioContainer'} >
+            <div styleName={'radioContainer'}>
               <input
                 id={`radio_${radioLabel}`}
                 styleName={'radioInput'}
@@ -41,15 +41,15 @@ export default class RadioSelection extends React.Component {
               <label
                 styleName={
                   classNames('radioLabel',
-                    { isChecked: (this.state.selectedOption === radioLabel) },
-                    { isDisabled: this.props.isDisabled })}
+                    { checked: (this.state.selectedOption === radioLabel) },
+                    { disabled: this.props.disabled })}
                 htmlFor={`radio_${radioLabel}`}
               >
                 <span styleName={'radioIcon'} />
                 {radioLabel}
               </label>
             </div>
-            <div styleName={classNames({ [`spacer-${this.props.direction}`]: true })} />
+            <div styleName={classNames({ [`spacer-${this.props.alignment}`]: true })} />
           </React.Fragment>
         ))}
       </div>
@@ -71,24 +71,24 @@ export default class RadioSelection extends React.Component {
  */
 
 RadioSelection.docProps = [
-  { propName: 'radioLabelArray', isRequired: true, type: 'arrayOf: String', defaultValue: '', description: 'Specifies the different choices and values.' },
-  { propName: 'isDisabled', isRequired: false, type: 'Bool', defaultValue: 'false', description: 'Disables any interaction with the radio selection group.' },
-  { propName: 'direction', isRequired: false, type: 'oneOf: vertical horizontal', defaultValue: 'vertical', description: 'Specifies the orientation of the radio group.' },
+  { propName: 'radioLabels', isRequired: true, type: 'arrayOf: String', defaultValue: '', description: 'Specifies the different choices and values.' },
+  { propName: 'disabled', isRequired: false, type: 'Bool', defaultValue: 'false', description: 'Disables any interaction with the radio selection group.' },
+  { propName: 'alignment', isRequired: false, type: 'oneOf: vertical horizontal', defaultValue: 'vertical', description: 'Specifies the orientation of the radio group.' },
   { propName: 'preCheckedLabel', isRequired: false, type: 'String', defaultValue: '', description: 'Specifies a radio that is checked on page load.' }
 ];
 
 RadioSelection.displayName = 'RadioSelection';
 
 RadioSelection.defaultProps = {
-  isDisabled: false,
-  radioLabelArray: ['option 1', 'option 2', 'option 3'],
-  direction: 'vertical',
+  disabled: false,
+  radioLabels: [],
+  alignment: 'vertical',
   preCheckedLabel: ''
 };
 
 RadioSelection.propTypes = {
-  radioLabelArray: PropTypes.arrayOf(PropTypes.string),
+  radioLabels: PropTypes.arrayOf(PropTypes.string),
   preCheckedLabel: PropTypes.string,
-  isDisabled: PropTypes.bool,
-  direction: PropTypes.oneOf(['vertical', 'horizontal'])
+  disabled: PropTypes.bool,
+  alignment: PropTypes.oneOf(['vertical', 'horizontal'])
 };
