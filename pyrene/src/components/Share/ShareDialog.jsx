@@ -15,10 +15,7 @@ export default class ShareDialog extends React.Component {
 
     this.state = {
       displayShareDialog: false,
-      dialogPosition: {
-        top: 0,
-        left: 0
-      }
+      dialogPosition: {}
     };
 
   }
@@ -58,20 +55,34 @@ export default class ShareDialog extends React.Component {
         displayShareDialog: true,
         dialogPosition: this._computeDialogPositionFromButton(event.target)
       });
-
     }
   }
 
   _computeDialogPositionFromButton(target) {
     const targetRect = target.getBoundingClientRect();
-    const dialogPosition = { top: 0, right: 0 };
+    const dialogPosition = {};
+    const dialogWidth = 400;
 
-    if (this.props.position === 'left') {
-      dialogPosition.top = targetRect.height + 5;
-      dialogPosition.left = targetRect.width - 400; // 400 px is the share Dialog width
-    } else if (this.props.position === 'right') {
-      dialogPosition.top = targetRect.height + 5;
-      dialogPosition.left = 0;
+    switch (this.props.position) {
+      case 'top-right':
+        dialogPosition.bottom = targetRect.height + 5;
+        dialogPosition.left = 0;
+        break;
+      case 'top-left':
+        dialogPosition.bottom = targetRect.height + 5;
+        dialogPosition.left = targetRect.width - dialogWidth;
+        break;
+      case 'bottom-right':
+        dialogPosition.top = targetRect.height + 5;
+        dialogPosition.left = 0;
+        break;
+      case 'bottom-left':
+        dialogPosition.top = targetRect.height + 5;
+        dialogPosition.left = targetRect.width - dialogWidth;
+        break;
+      default:
+        dialogPosition.top = targetRect.height + 5;
+        dialogPosition.left = 0;
     }
     return dialogPosition;
   }
@@ -83,7 +94,7 @@ export default class ShareDialog extends React.Component {
 
   _renderDialog() {
     return (
-      <div className={'unSelectable'} styleName={'shareDialog'} style={{ top: this.state.dialogPosition.top, left: this.state.dialogPosition.left }}>
+      <div className={'unSelectable'} styleName={'shareDialog'} style={this.state.dialogPosition}>
         <div styleName={'title'}>
           Share this link
         </div>
@@ -122,7 +133,7 @@ export default class ShareDialog extends React.Component {
  */
 
 ShareDialog.docProps = [
-  { propName: 'position', isRequired: true, type: 'oneOf: left right', defaultValue: 'left', description: 'Choose where the dialog appears relative to the share button.' },
+  { propName: 'position', isRequired: true, type: 'oneOf: bottom-right bottom-left top-right top-left', defaultValue: 'right', description: 'Choose where the dialog appears relative to the share button.' },
   { propName: 'link', isRequired: true, type: 'String', defaultValue: '', description: 'Link that is in the textbox.' },
   { propName: 'isDisabled', isRequired: false, type: 'Bool', defaultValue: 'false', description: 'Disables any interaction with the share dialog.' }
 ];
@@ -134,7 +145,7 @@ ShareDialog.defaultProps = {
 };
 
 ShareDialog.propTypes = {
-  position: PropTypes.oneOf(['left', 'right']).isRequired,
+  position: PropTypes.oneOf(['bottom-right', 'bottom-left', 'top-right', 'top-left']).isRequired,
   link: PropTypes.string.isRequired,
   isDisabled: PropTypes.bool
 };
