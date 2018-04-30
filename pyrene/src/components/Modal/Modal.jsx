@@ -1,6 +1,6 @@
 import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
-
+import classNames from 'classnames';
 import './modal.css';
 import ButtonBar from '../ButtonBar/ButtonBar';
 import Button from '../Button/Button';
@@ -12,19 +12,6 @@ export default class Modal extends React.Component {
 
     this.state = {
     };
-  }
-
-  _sizeToPixel(size) {
-    switch (size) {
-      case 'small':
-        return 440;
-      case 'large':
-        return 720;
-      case 'xlarge':
-        return 960;
-      default:
-        return 440;
-    }
   }
 
   _renderContent(){
@@ -46,7 +33,7 @@ export default class Modal extends React.Component {
     return (
       <Fragment>
         <div styleName="modalOverlay">
-          <div styleName={'modalContainer'} style={{width: this._sizeToPixel(this.props.size)}}>
+          <div styleName={classNames('modalContainer', this.props.size)}>
             {this.props.isLoading ? <Loader /> : this._renderContent()}
             <ButtonBar rightButtonSectionElements={[<Button label={'Cancel'} onClick={this.props.closeButtonClicked} />]} />
           </div>
@@ -54,7 +41,6 @@ export default class Modal extends React.Component {
       </Fragment>
     );
   }
-
 }
 
 /**
