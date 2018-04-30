@@ -113,7 +113,7 @@ export default class ShareDialog extends React.Component {
   render() {
     return (
       <div styleName="shareDialogContainer" ref={(dialog) => { this.dialogRef = dialog; }}>
-        <Button label={'Share'} type={'action'} icon={'share2'} onClick={this._displayShareDialogClicked} isDisabled={this.props.isDisabled} />
+        <Button label={'Share'} type={'action'} icon={'share2'} onClick={this._displayShareDialogClicked} disabled={this.props.disabled} />
         {this.state.displayShareDialog && this._renderDialog()}
       </div>
     );
@@ -135,17 +135,17 @@ export default class ShareDialog extends React.Component {
 ShareDialog.docProps = [
   { propName: 'position', isRequired: true, type: 'oneOf: bottom-right bottom-left top-right top-left', defaultValue: 'right', description: 'Choose where the dialog appears relative to the share button.' },
   { propName: 'link', isRequired: true, type: 'String', defaultValue: '', description: 'Link that is in the textbox.' },
-  { propName: 'isDisabled', isRequired: false, type: 'Bool', defaultValue: 'false', description: 'Disables any interaction with the share dialog.' }
+  { propName: 'disabled', isRequired: false, type: 'Bool', defaultValue: 'false', description: 'Disables any interaction with the share dialog.' }
 ];
 
 ShareDialog.displayName = 'ShareDialog';
 
 ShareDialog.defaultProps = {
-  isDisabled: false
+  disabled: false
 };
 
 ShareDialog.propTypes = {
   position: PropTypes.oneOf(['bottom-right', 'bottom-left', 'top-right', 'top-left']).isRequired,
   link: PropTypes.string.isRequired,
-  isDisabled: PropTypes.bool
+  disabled: PropTypes.bool
 };

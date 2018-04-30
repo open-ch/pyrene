@@ -32,7 +32,7 @@
       font-size: 16px;
     }
 
-    &.isDisabled {
+    &.disabled {
       opacity: 0.5;
       cursor: default;
       pointer-events: none;
@@ -43,7 +43,7 @@
     font-size: inherit;
     font-weight: inherit;
 
-    &.isDisabled {
+    &.disabled {
       color: inherit;
       cursor: default;
       pointer-events: none;

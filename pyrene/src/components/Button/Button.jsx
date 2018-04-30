@@ -11,7 +11,7 @@ const Button = props => (
       classNames('button',
         { [`type-${props.type}`]: true },
         { hasIcon: props.icon },
-        { isDisabled: props.isDisabled })}
+        { disabled: props.disabled })}
     onClick={props.onClick}
   >
     {props.icon && <span className={`icon-${props.icon}`} />}
@@ -34,7 +34,7 @@ Button.docProps = [
   { propName: 'icon', isRequired: false, type: 'String', defaultValue: '', description: 'Adds an icon in front of the label. Uses the icon-font.' },
   { propName: 'label', isRequired: true, type: 'String', defaultValue: '', description: 'Changes what the button says.' },
   { propName: 'type', isRequired: false, type: 'oneOf: primary secondary ghost danger action admin', defaultValue: 'primary', description: 'Changes the overall button style.' },
-  { propName: 'isDisabled', isRequired: false, type: 'Bool', defaultValue: 'false', description: 'Disables any interaction with the button.' }
+  { propName: 'disabled', isRequired: false, type: 'Bool', defaultValue: 'false', description: 'Disables any interaction with the button.' }
 ];
 
 Button.displayName = 'Button';
@@ -43,7 +43,7 @@ Button.defaultProps = {
   icon: '',
   label: '',
   type: 'primary',
-  isDisabled: false,
+  disabled: false,
   onClick: () => null
 };
 
@@ -51,7 +51,7 @@ Button.propTypes = {
   icon: PropTypes.string,
   label: PropTypes.string.isRequired,
   type: PropTypes.oneOf(['primary', 'secondary', 'danger', 'ghost', 'action', 'admin']),
-  isDisabled: PropTypes.bool,
+  disabled: PropTypes.bool,
   onClick: PropTypes.func
 };
 

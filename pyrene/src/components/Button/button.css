@@ -33,7 +33,7 @@
     }
   }
 
-  &.isDisabled {
+  &.disabled {
     opacity: .5;
     cursor: default;
     pointer-events: none;
