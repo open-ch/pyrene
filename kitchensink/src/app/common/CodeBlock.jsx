@@ -18,6 +18,8 @@ export default class CodeBlock extends React.Component {
         // Add Code Line, for booleans only display key
         if (typeof value === 'boolean') {
           propList += `\t${key}\n`;
+        } else if (typeof value === 'function') {
+          propList += `\t${key}={\n\t${value}}\n`;
         } else {
           propList += `\t${key}={${JSON.stringify(value).replace(/"/g, "'")}}\n`;
         }
