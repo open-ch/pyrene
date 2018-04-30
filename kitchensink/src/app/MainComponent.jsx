@@ -11,6 +11,7 @@ import packageJson from '../../package.json';
 import '../css/common.css';
 import LinkPage from './link/LinkPage';
 import ShareDialogPage from './shareDialog/ShareDialogPage';
+import FormElementsPage from './formElements/FormElementsPage';
 
 
 const MainComponent = () => (
@@ -24,6 +25,7 @@ const MainComponent = () => (
       <Route path={'/button'} component={ButtonPage} />
       <Route path={'/link'} component={LinkPage} />
       <Route path={'/shareDialog'} component={ShareDialogPage} />
+      <Route path={'/formElements'} component={FormElementsPage} />
       <Route path={'/dropDown'} component={DropDownPage} />
     </div>
   </div>

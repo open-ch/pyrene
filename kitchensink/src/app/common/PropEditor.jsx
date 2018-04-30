@@ -46,6 +46,9 @@ export default class PropEditor extends React.Component {
                 </React.Fragment>
               ]);
 
+            case 'arrayOf:':
+              return (<React.Fragment key={prop}>Array functionality not included yet. <br /></React.Fragment>);
+
             default:
               return 'Error occurred in PropEditor: PropType unknown.';
           }

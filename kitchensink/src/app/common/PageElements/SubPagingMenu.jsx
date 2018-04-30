@@ -10,7 +10,7 @@ export default class SubPagingMenu extends React.Component {
     return (
       <div styleName={'pagingMenuContainer'}>
         <div styleName={'menuButtonBar'}>
-          {['code', 'usage', 'style'].map(element => (
+          {['code', 'usage'].map(element => (
             <NavLink to={`${this.props.currentPageUrl}/${element}`} key={element} activeClassName={'activePagingButton'}>
               <div styleName={'menuButton'}>{element}</div>
             </NavLink>

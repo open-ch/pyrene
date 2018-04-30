@@ -15,14 +15,12 @@ export default class CodeBlock extends React.Component {
 
     Object.entries(component.props).forEach(([key, value]) => {
       if (value) {
-
-        let quote = "'";
-        if (typeof value !== 'string') {
-          quote = '';
+        // Add Code Line, for booleans only display key
+        if (typeof value === 'boolean') {
+          propList += `\t${key}\n`;
+        } else {
+          propList += `\t${key}={${JSON.stringify(value).replace(/"/g, "'")}}\n`;
         }
-
-        // Add Code Line
-        propList += `\t${key}={${quote}${value}${quote}}\n`;
       }
     });
 
