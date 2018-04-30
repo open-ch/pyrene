@@ -17,6 +17,7 @@ describe('<Button />', () => {
         rendered.find('button').simulate('click');
 
         expect(onClick).to.have.property('callCount', 1);
+        expect(onClick).to.have.been.calledOnce;
     });
 
     it('renders the label', () => {
