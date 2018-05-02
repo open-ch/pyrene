@@ -75,7 +75,7 @@ export default class Checkbox extends React.Component {
 Checkbox.docProps = [
   { propName: 'label', isRequired: true, type: 'String', defaultValue: '', description: 'Changes what the button says.' },
   { propName: 'disabled', isRequired: false, type: 'Bool', defaultValue: 'false', description: 'Disables any interaction with the button.' },
-  { propName: 'preChecked', isRequired: false, type: 'Bool', defaultValue: 'false', description: 'Pre-checks the component.' }
+  { propName: 'checked', isRequired: false, type: 'Bool', defaultValue: 'false', description: 'Pre-checks the component.' }
 ];
 
 Checkbox.displayName = 'Checkbox';
