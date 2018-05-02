@@ -49,7 +49,8 @@ export default class Checkbox extends React.Component {
           styleName={
             classNames('checkboxLabel',
               { checked: this.state.checked },
-              { disabled: this.props.disabled })}
+              { disabled: this.props.disabled },
+              { invalid: this.props.invalid && !this.state.checked })}
           htmlFor={`checkbox_${this.props.label}_${rand}`}
         >
           <span styleName={'checkboxIcon'} />
@@ -75,7 +76,8 @@ export default class Checkbox extends React.Component {
 Checkbox.docProps = [
   { propName: 'label', isRequired: true, type: 'String', defaultValue: '', description: 'Changes what the button says.' },
   { propName: 'disabled', isRequired: false, type: 'Bool', defaultValue: 'false', description: 'Disables any interaction with the button.' },
-  { propName: 'checked', isRequired: false, type: 'Bool', defaultValue: 'false', description: 'Pre-checks the component.' }
+  { propName: 'checked', isRequired: false, type: 'Bool', defaultValue: 'false', description: 'Pre-checks the component.' },
+  { propName: 'invalid', isRequired: false, type: 'Bool', defaultValue: 'false', description: 'Flag to set when checkbox should have been set.' },
 ];
 
 Checkbox.displayName = 'Checkbox';
@@ -83,6 +85,7 @@ Checkbox.displayName = 'Checkbox';
 Checkbox.defaultProps = {
   disabled: false,
   checked: false,
+  invalid: false,
   onChange: () => null
 };
 
@@ -90,5 +93,6 @@ Checkbox.propTypes = {
   label: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
   checked: PropTypes.bool,
+  invalid: PropTypes.bool,
   onChange: PropTypes.func
 };

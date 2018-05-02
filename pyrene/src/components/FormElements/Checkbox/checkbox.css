@@ -49,4 +49,13 @@
       opacity: 1;
     }
   }
+
+  &.invalid {
+    & .checkboxIcon {
+      background-image: url('./checkbox-invalid.svg');
+    }
+    &:hover .checkboxIcon {
+      background-image: url('./checkbox-invalid-hover.svg');
+    }
+  }
 }

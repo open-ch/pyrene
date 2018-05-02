@@ -9,6 +9,15 @@
   &.alignment-horizontal {
     flex-direction: row;
   }
+
+  &.invalid .radioLabel {
+    & .radioIcon {
+      background-image: url('./radio-invalid.svg');
+    }
+    &:hover .radioIcon {
+      background-image: url('./radio-invalid-hover.svg');
+    }
+  }
 }
 
 .radioContainer {

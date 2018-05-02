@@ -11,14 +11,14 @@ export default class RadioSelection extends React.Component {
 
     this._handleRadioSelection = this._handleRadioSelection.bind(this);
     this.state = {
-      selectedOption: this.props.checkedLabel
+      selectedOption: this.props.selectedOption
     };
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    if (prevState.selectedOption !== nextProps.checkedLabel) {
+    if (prevState.selectedOption !== nextProps.selectedOption) {
       return {
-        selectedOption: nextProps.checkedLabel
+        selectedOption: nextProps.selectedOption
       };
     }
     return null;
@@ -34,7 +34,7 @@ export default class RadioSelection extends React.Component {
   render() {
     const rand = Math.floor(Math.random() * 1e10);
     return (
-      <div styleName={classNames('radioSelectionContainer', { [`alignment-${this.props.alignment}`]: true })}>
+      <div styleName={classNames('radioSelectionContainer', { [`alignment-${this.props.alignment}`]: true }, { invalid: this.props.invalid && !this.state.selectedOption})}>
         {this.props.radioLabels.map(radioLabel => (
           <React.Fragment key={`radio_${radioLabel}`}>
             <div styleName={'radioContainer'}>
@@ -83,7 +83,8 @@ RadioSelection.docProps = [
   { propName: 'radioLabels', isRequired: true, type: 'arrayOf: String', defaultValue: '', description: 'Specifies the different choices and values.' },
   { propName: 'disabled', isRequired: false, type: 'Bool', defaultValue: 'false', description: 'Disables any interaction with the radio selection group.' },
   { propName: 'alignment', isRequired: false, type: 'oneOf: vertical horizontal', defaultValue: 'vertical', description: 'Specifies the orientation of the radio group.' },
-  { propName: 'checkedLabel', isRequired: false, type: 'String', defaultValue: '', description: 'Specifies a radio that is checked on page load.' }
+  { propName: 'selectedOption', isRequired: false, type: 'String', defaultValue: '', description: 'Specifies a radio that is checked on page load.' },
+  { propName: 'invalid', isRequired: false, type: 'Bool', defaultValue: 'false', description: 'Flag to set when checkbox should have been set.' },
 ];
 
 RadioSelection.displayName = 'RadioSelection';
@@ -92,12 +93,14 @@ RadioSelection.defaultProps = {
   disabled: false,
   radioLabels: [],
   alignment: 'vertical',
-  checkedLabel: ''
+  selectedOption: '',
+  invalid: false
 };
 
 RadioSelection.propTypes = {
   radioLabels: PropTypes.arrayOf(PropTypes.string),
-  checkedLabel: PropTypes.string,
+  selectedOption: PropTypes.string,
   disabled: PropTypes.bool,
+  invalid: PropTypes.bool,
   alignment: PropTypes.oneOf(['vertical', 'horizontal'])
 };
