@@ -31,8 +31,8 @@ const Topic = ({ match }) => {
     case 'code':
       return (
         <React.Fragment>
-          <CodePage component={Checkbox} startProps={{ label: 'Click Me' }} />
-          <CodePage component={ RadioSelection } startProps={{radioLabels:['option 1', 'option 2', 'option 3'], preCheckedLabel: 'option 1' }} />
+          <CodePage component={Checkbox} startProps={{ label: 'Click Me'}} />
+          <CodePage component={ RadioSelection } startProps={{radioLabels:['option 1', 'option 2', 'option 3'], selectedOption: 'option 1' }} />
         </React.Fragment>
       );
     case 'usage':

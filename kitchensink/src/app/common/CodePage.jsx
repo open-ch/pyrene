@@ -13,8 +13,10 @@ export default class CodePage extends React.Component {
     super(props);
     this.handleEditorChange = this.handleEditorChange.bind(this);
 
+    this.displayedComponentRef = React.createRef();
+
     this.state = {
-      displayedComponent: <this.props.component {...this.props.startProps} />,
+      displayedComponent: <this.props.component {...this.props.startProps} ref={this.displayedComponentRef} />,
       component: this.props.component
     };
   }
@@ -22,7 +24,7 @@ export default class CodePage extends React.Component {
   handleEditorChange(target) {
     const changedProp = (target.type === 'checkbox') ? { [target.name]: target.checked } : { [target.name]: target.value };
     this.setState({
-      displayedComponent: <this.state.component {...this.state.displayedComponent.props} {...changedProp} />
+      displayedComponent: <this.state.component {...this.state.displayedComponent.props} {...this.displayedComponentRef.current.state} {...changedProp} ref={this.displayedComponentRef} />
     });
   }
 
