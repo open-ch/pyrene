@@ -25,7 +25,6 @@ const MainComponent = () => (
       <Route path={'/link'} component={LinkPage} />
       <Route path={'/shareDialog'} component={ShareDialogPage} />
       <Route path={'/formElements'} component={FormElementsPage} />
-      <Route path={'/dropDown'} component={DropDownPage} />
       <Route path={'/modal'} component={ModalPage} />
     </div>
   </div>
