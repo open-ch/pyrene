@@ -28,7 +28,7 @@ const ShareDialogPage = ({ match }) => (
 const Topic = ({ match }) => {
   switch (match.params.topicName) {
     case 'code':
-      return <CodePage component={ShareDialog} startProps={{ position: 'left', link: 'http://www.veryveryverylonglinkonanydomainintheinternet.com' }} />;
+      return <CodePage component={ShareDialog} startProps={{ position: 'bottom-right', link: 'http://www.veryveryverylonglinkonanydomainintheinternet.com' }} />;
     case 'usage':
       return <ShareDialogUsage />;
     default:
