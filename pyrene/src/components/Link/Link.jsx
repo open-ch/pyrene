@@ -5,31 +5,16 @@ import classNames from 'classnames';
 import './link.css';
 
 
-export default class Link extends React.Component {
+const Link = props => (
+  <a
+    styleName={classNames('link', { [`type-${props.type}`]: true }, { disabled: props.disabled })}
+    href={props.path}
+  >
+    {props.label}
+    {props.type === 'standalone' && <span className={'icon-Skip-right'} />}
+  </a>
+);
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-
-    };
-  }
-
-  componentDidMount() {
-  }
-
-  render() {
-    return (
-      <a
-        styleName={classNames('link', {[`type-${this.props.type}`]: true}, {['isDisabled']: this.props.isDisabled})}
-        href={this.props.path}
-      >
-        {this.props.label}
-        <span>{this.props.type === 'standalone' && 'Q'}</span>
-      </a>
-    );
-  }
-}
 
 /**
  *
@@ -43,22 +28,24 @@ export default class Link extends React.Component {
  */
 
 Link.docProps = [
-  {propName: 'type', isRequired: false, type: 'oneOf: standalone inline', defaultValue: 'standalone', description: 'To be changed according to the use case. "Inline" inherits the style from it\'s parent.'},
-  {propName: 'label', isRequired: true, type: 'String', defaultValue: '', description: 'Displayed label.'},
-  {propName: 'path', isRequired: true, type: 'String', defaultValue: '', description: 'Do you know da wae?'},
-  {propName: 'isDisabled', isRequired: false, type: 'Bool', defaultValue: 'false', description: 'Disables any interaction with the link.'}
+  { propName: 'type', isRequired: false, type: 'oneOf: standalone inline', defaultValue: 'standalone', description: 'To be changed according to the use case. "Inline" inherits the style from it\'s parent.' },
+  { propName: 'label', isRequired: true, type: 'String', defaultValue: '', description: 'Displayed label.' },
+  { propName: 'path', isRequired: true, type: 'String', defaultValue: '', description: 'Do you know da wae?' },
+  { propName: 'disabled', isRequired: false, type: 'Bool', defaultValue: 'false', description: 'Disables any interaction with the link.' }
 ];
 
 Link.displayName = 'Link';
 
 Link.defaultProps = {
   type: 'standalone',
-  isDisabled: false
+  disabled: false
 };
 
 Link.propTypes = {
   type: PropTypes.oneOf(['standalone', 'inline']),
   path: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
-  isDisabled: PropTypes.bool
+  disabled: PropTypes.bool
 };
+
+export default Link;
