@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-
 import './radioSelection.css';
 
 
@@ -24,13 +23,14 @@ export default class RadioSelection extends React.Component {
   }
 
   render() {
+    const rand = Math.floor(Math.random() * 1e10);
     return (
       <div styleName={classNames('radioSelectionContainer', { [`alignment-${this.props.alignment}`]: true })}>
         {this.props.radioLabels.map(radioLabel => (
           <React.Fragment key={`radio_${radioLabel}`}>
             <div styleName={'radioContainer'}>
               <input
-                id={`radio_${radioLabel}`}
+                id={`radio_${radioLabel}_${rand}`}
                 styleName={'radioInput'}
                 type="radio"
                 value={radioLabel}
@@ -43,7 +43,7 @@ export default class RadioSelection extends React.Component {
                   classNames('radioLabel',
                     { checked: (this.state.selectedOption === radioLabel) },
                     { disabled: this.props.disabled })}
-                htmlFor={`radio_${radioLabel}`}
+                htmlFor={`radio_${radioLabel}_${rand}`}
               >
                 <span styleName={'radioIcon'} />
                 {radioLabel}

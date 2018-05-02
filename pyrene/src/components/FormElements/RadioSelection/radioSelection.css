@@ -50,12 +50,12 @@
     &:hover .radioIcon {
       background-image: url('./radio-selected-hover.svg');
     }
-    &.isDisabled .radioIcon {
+    &.disabled .radioIcon {
       opacity: 0.5;
     }
   }
 
-  &.isDisabled {
+  &.disabled {
     opacity: 0.5;
     pointer-events: none;
     &.checked {

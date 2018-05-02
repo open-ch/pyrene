@@ -24,10 +24,11 @@ export default class Checkbox extends React.Component {
   }
 
   render() {
+    const rand = Math.floor(Math.random() * 1e10);
     return (
       <div styleName={'checkboxContainer'}>
         <input
-          id={`checkbox_${this.props.label}`}
+          id={`checkbox_${this.props.label}_${rand}`}
           styleName={'checkbox'}
           type={'checkbox'}
           checked={this.state.checked}
@@ -40,7 +41,7 @@ export default class Checkbox extends React.Component {
             classNames('checkboxLabel',
               { checked: this.state.checked },
               { disabled: this.props.disabled })}
-          htmlFor={`checkbox_${this.props.label}`}
+          htmlFor={`checkbox_${this.props.label}_${rand}`}
         >
           <span styleName={'checkboxIcon'} />
           {this.props.label}
