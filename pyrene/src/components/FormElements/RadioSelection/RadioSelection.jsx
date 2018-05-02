@@ -11,8 +11,17 @@ export default class RadioSelection extends React.Component {
 
     this._handleRadioSelection = this._handleRadioSelection.bind(this);
     this.state = {
-      selectedOption: this.props.preCheckedLabel
+      selectedOption: this.props.checkedLabel
     };
+  }
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (prevState.selectedOption !== nextProps.checkedLabel) {
+      return {
+        selectedOption: nextProps.checkedLabel
+      };
+    }
+    return null;
   }
 
 
@@ -74,7 +83,7 @@ RadioSelection.docProps = [
   { propName: 'radioLabels', isRequired: true, type: 'arrayOf: String', defaultValue: '', description: 'Specifies the different choices and values.' },
   { propName: 'disabled', isRequired: false, type: 'Bool', defaultValue: 'false', description: 'Disables any interaction with the radio selection group.' },
   { propName: 'alignment', isRequired: false, type: 'oneOf: vertical horizontal', defaultValue: 'vertical', description: 'Specifies the orientation of the radio group.' },
-  { propName: 'preCheckedLabel', isRequired: false, type: 'String', defaultValue: '', description: 'Specifies a radio that is checked on page load.' }
+  { propName: 'checkedLabel', isRequired: false, type: 'String', defaultValue: '', description: 'Specifies a radio that is checked on page load.' }
 ];
 
 RadioSelection.displayName = 'RadioSelection';
@@ -83,12 +92,12 @@ RadioSelection.defaultProps = {
   disabled: false,
   radioLabels: [],
   alignment: 'vertical',
-  preCheckedLabel: ''
+  checkedLabel: ''
 };
 
 RadioSelection.propTypes = {
   radioLabels: PropTypes.arrayOf(PropTypes.string),
-  preCheckedLabel: PropTypes.string,
+  checkedLabel: PropTypes.string,
   disabled: PropTypes.bool,
   alignment: PropTypes.oneOf(['vertical', 'horizontal'])
 };

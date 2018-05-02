@@ -12,8 +12,17 @@ export default class Checkbox extends React.Component {
 
     this.toggleChange = this.toggleChange.bind(this);
     this.state = {
-      checked: this.props.preChecked
+      checked: this.props.checked
     };
+  }
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (prevState.checked !== nextProps.checked) {
+      return {
+        checked: nextProps.checked
+      };
+    }
+    return null;
   }
 
   toggleChange() {
@@ -73,13 +82,13 @@ Checkbox.displayName = 'Checkbox';
 
 Checkbox.defaultProps = {
   disabled: false,
-  preChecked: false,
+  checked: false,
   onChange: () => null
 };
 
 Checkbox.propTypes = {
   label: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
-  preChecked: PropTypes.bool,
+  checked: PropTypes.bool,
   onChange: PropTypes.func
 };
