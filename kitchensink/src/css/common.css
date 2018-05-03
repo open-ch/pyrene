@@ -55,12 +55,12 @@ body {
       inset  1px 0   0 var(--neutral-100);
   display: flex;
   flex: 0;
+  min-height: 2440px;
 }
 
 .leftContainer {
   display: block;
   width: 284px;
-  height: 2550px;
   background-color: var(--neutral-0);
   padding-right: 1px;
   box-shadow: inset -1px 0   0 var(--neutral-sideBar);

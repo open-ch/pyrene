@@ -45,12 +45,18 @@ export default class PropEditor extends React.Component {
                   <Checkbox name={prop.propName} toggledCheckbox={this.modifiedProp} /><br />
                 </React.Fragment>
               ]);
+            case 'Int':
+              return ([`${prop.propName}: `,
+                <React.Fragment key={prop}>
+                  <input type="number" name={prop.propName} value={this.props.activePropValues[prop.propName]} placeholder={'change me'} onChange={event => this.modifiedProp(event)} /><br />
+                </React.Fragment>
+              ]);
 
             case 'arrayOf:':
               return (<React.Fragment key={prop}>Array functionality not included yet. <br /></React.Fragment>);
 
             default:
-              return 'Error occurred in PropEditor: PropType unknown.';
+              return (<React.Fragment key={prop}>Error occurred in PropEditor: PropType unknown. <br /></React.Fragment>);
           }
         })}
       </div>
