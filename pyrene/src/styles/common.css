@@ -1,42 +1,13 @@
-@import '../styles/colors.css';
-
-/**** FONTS ****/
-/* AvenirNext-Regular */
-@font-face {
-  font-family: AvenirNext;
-  font-weight: 400;
-  src: url('/src/fonts/AvenirNextLTW01-Regular.woff') format('woff');
-}
-
-/* AvenirNext-Medium */
-@font-face {
-  font-family: AvenirNext;
-  font-weight: 500;
-  src: url('/src/fonts/AvenirNextLTW01-Medium.woff') format('woff');
-}
-
-/* AvenirNext-DemiBold */
-@font-face {
-  font-family: AvenirNext;
-  font-weight: 600;
-  src: url('/src/fonts/AvenirNextLTW01-Demi.woff') format("woff");
-}
-
-/* AvenirNext-Bold */
-@font-face {
-  font-family: AvenirNext;
-  font-weight: 700;
-  src: url('/src/fonts/AvenirNextLTW01-Bold.woff') format('woff');
-}
-
-/* IconFont */
-@font-face {
-  font-family: IconFont;
-  font-style: normal;
-  font-weight: 400;
-  src: url('/src/fonts/iconfont.woff') format('woff');
-}
-
 :global(.unSelectable) {
   user-select: none;
+}
+
+.commonFontSettings {
+  font-family: AvenirNext, Helvetica, sans-serif !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background: var(--blue-50);
 }

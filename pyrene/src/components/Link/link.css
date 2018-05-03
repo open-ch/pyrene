@@ -1,8 +1,8 @@
-@import '../../styles/common.css';
-
 .link {
-  font-family: AvenirNext, Helvetica, sans-serif;
+  composes: commonFontSettings from '../../styles/common.css';
+
   cursor: pointer;
+  display: inline-block;
   color: var(--blue-500);
 
   &:focus {
@@ -23,16 +23,16 @@
     position: relative;
 
     & span {
-      position: absolute;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: inherit;
+      width: 16px;
       padding-left: 2px;
       font-weight: normal;
-      line-height: normal;
-      top: 4px;
       font-size: 16px;
-      font-family: IconFont;
     }
 
-    &.isDisabled {
+    &.disabled {
       opacity: 0.5;
       cursor: default;
       pointer-events: none;
@@ -43,7 +43,7 @@
     font-size: inherit;
     font-weight: inherit;
 
-    &.isDisabled {
+    &.disabled {
       color: inherit;
       cursor: default;
       pointer-events: none;

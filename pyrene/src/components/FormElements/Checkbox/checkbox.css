@@ -1,5 +1,5 @@
 .checkboxContainer {
-  /* composes: commonFontSettings from '../../../styles/common.css'; */
+  composes: commonFontSettings from '../../../styles/common.css';
 }
 
 .checkbox {
