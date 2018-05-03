@@ -1,0 +1,68 @@
+.textFieldContainer {
+  composes: commonFontSettings from '../../../styles/common.css';
+
+  &.disabled {
+    opacity: .5;
+    pointer-events: none;
+  }
+
+  &.invalid {
+    & .textField {
+      border-color: var(--red-500);
+    }
+    & .textFieldHelper {
+      color: var(--red-500);
+    }
+  }
+}
+
+.textFieldTitle {
+  font-size: 13px;
+  font-weight: 600;
+  text-align: left;
+  color: var(--neutral-400);
+  margin-bottom: 3px;
+
+  &.required:after {
+    content: '*';
+    color: var(--red-500);
+  }
+}
+
+.textField {
+  box-sizing: border-box;
+
+  height: 32px;
+  width: 100%;
+
+  border-radius: 2px;
+  border: solid 1px var(--neutral-100);
+  background-color: var(--neutral-020);
+  outline: none;
+
+  &:hover, &:focus {
+    border-color: var(--blue-500);
+  }
+
+  &[type=text] {
+    padding: 7px 0 6px 8px;
+
+    font-family: AvenirNext, Helvetica, sans-serif;
+    font-size: 14px;
+    text-align: left;
+    color: var(--neutral-500);
+  }
+
+  &::placeholder {
+    font-size: 14px;
+    color: var(--neutral-200);
+  }
+}
+
+.textFieldHelper {
+  margin-top: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  text-align: left;
+  color: var(--neutral-100);
+}
