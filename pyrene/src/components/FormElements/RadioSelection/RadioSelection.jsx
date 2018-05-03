@@ -24,7 +24,6 @@ export default class RadioSelection extends React.Component {
     return null;
   }
 
-
   _handleRadioSelection(event) {
     this.setState({
       selectedOption: event.target.value
@@ -37,7 +36,7 @@ export default class RadioSelection extends React.Component {
       <div styleName={classNames('radioSelectionContainer', { [`alignment-${this.props.alignment}`]: true }, { invalid: this.props.invalid && !this.state.selectedOption})}>
         {this.props.radioLabels.map(radioLabel => (
           <React.Fragment key={`radio_${radioLabel}`}>
-            <div styleName={'radioContainer'}>
+            <div className={'radioContainer'}>
               <input
                 id={`radio_${radioLabel}_${rand}`}
                 styleName={'radioInput'}

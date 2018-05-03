@@ -1,5 +1,5 @@
 .radioSelectionContainer {
-  /* composes: commonFontSettings from '../../../styles/common.css'; */
+  /*composes: commonFontSettings from '../../../styles/common.css';*/
   display: flex;
   justify-content: flex-start;
 
@@ -18,10 +18,6 @@
       background-image: url('./radio-invalid-hover.svg');
     }
   }
-}
-
-.radioContainer {
-
 }
 
 .radioInput {
