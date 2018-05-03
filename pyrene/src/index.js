@@ -9,4 +9,5 @@ export { default as Checkbox } from './components/FormElements/Checkbox/Checkbox
 export { default as RadioSelection } from './components/FormElements/RadioSelection/RadioSelection';
 export { default as ShareDialog } from './components/Share/ShareDialog';
 export { default as TextField } from './components/FormElements/TextField/TextField';
+export { default as TextArea } from './components/FormElements/TextArea/TextArea';
 

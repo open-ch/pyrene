@@ -1,0 +1,80 @@
+.textAreaContainer {
+  composes: commonFontSettings from '../../../styles/common.css';
+
+  &.disabled {
+    opacity: .5;
+    pointer-events: none;
+  }
+
+  &.invalid {
+    & .textArea {
+      border-color: var(--red-500);
+    }
+    & .textAreaHelper {
+      color: var(--red-500);
+    }
+  }
+}
+
+.textAreaTitle {
+  font-size: 13px;
+  font-weight: 600;
+  text-align: left;
+  color: var(--neutral-400);
+  margin-bottom: 3px;
+
+  &.required:after {
+    content: '*';
+    color: var(--red-500);
+  }
+}
+
+.textArea {
+  box-sizing: border-box;
+  width: 100%;
+
+  border-radius: 2px;
+  border: solid 1px var(--neutral-100);
+  background-color: var(--neutral-020);
+  outline: none;
+
+  padding: 7px 0 6px 8px;
+
+  font-family: AvenirNext, Helvetica, sans-serif;
+  font-size: 14px;
+  text-align: left;
+  color: var(--neutral-500);
+
+  resize: none;
+
+  &.resizeable {
+    resize: both;
+  }
+
+  &:hover, &:focus {
+    border-color: var(--blue-500);
+  }
+
+  &::placeholder {
+    font-size: 14px;
+    color: var(--neutral-200);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 2px;
+    width: 3px;
+    background-color: var(--neutral-400);
+  }
+
+  &::-webkit-scrollbar {
+    width: 3px;
+  }
+}
+
+.textAreaHelper {
+  margin-top: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  text-align: left;
+  color: var(--neutral-100);
+}
