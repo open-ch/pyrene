@@ -1,4 +1,6 @@
 .modalOverlay {
+  composes: commonFontSettings from '../../styles/common.css';
+
   position: fixed;
   width: 100%;
   height: 100%;
