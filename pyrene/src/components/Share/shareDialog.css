@@ -1,0 +1,56 @@
+.shareDialogContainer {
+  position: relative;
+}
+
+.shareDialog {
+  composes: commonFontSettings from '../../styles/common.css';
+
+  box-sizing: border-box;
+  width: 400px;
+  height: 184px;
+
+  background-color: var(--neutral-0);
+  box-shadow:
+          0 4px 8px -2px rgba(0, 21, 44, 0.2),
+          0 0 1px 0 rgba(0, 21, 44, 0.3);
+  border-radius: 4px;
+
+  position: absolute;
+
+  & .title{
+    margin: 24px 24px 0 24px;
+    height: 32px;
+
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.78;
+    color: var(--neutral-500);
+  }
+
+  & .content {
+    margin: 16px 24px;
+    height: 32px;
+
+    & input {
+      width: 350px;
+      height: 30px; /* 2 px less for border */
+
+      border-radius: 2px;
+      border: solid 1px var(--neutral-100);
+
+      &[type="text"] {
+        box-sizing: border-box;
+        padding-left: 8px;
+        letter-spacing: normal;
+        font-family: inherit;
+        font-style: normal;
+        font-stretch: normal;
+        font-size: 14px;
+        font-weight: normal;
+        line-height: 1.71;
+        text-align: left;
+        color: var(--neutral-500);
+      }
+    }
+  }
+}

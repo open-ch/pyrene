@@ -1,7 +1,6 @@
 {
   "warnings": true,
   "plugins": {
-    "postcss-import": {},
     "postcss-custom-properties": {},
     "postcss-nesting": {},
     "autoprefixer": {}
