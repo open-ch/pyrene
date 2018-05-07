@@ -12,7 +12,7 @@ export default class TextArea extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.state = {
       inputText: '',
-      lengthCounter: this.props.maxLength,
+      maxLength: this.props.maxLength,
       lengthCounterStyle: {
         color: 'inherit'
       }
@@ -30,10 +30,10 @@ export default class TextArea extends React.Component {
   }
 
   handleChange(event) {
-    const updatedLengthCounter = this.props.maxLength - event.target.value.length;
+    const updatedmaxLength = this.props.maxLength - event.target.value.length;
     this.setState({
       inputText: event.target.value,
-      lengthCounter: updatedLengthCounter
+      maxLength: updatedmaxLength
     });
     this.props.onChange(event);
   }
@@ -50,7 +50,7 @@ export default class TextArea extends React.Component {
       <div styleName={classNames('textAreaContainer', { disabled: this.props.disabled }, { invalid: this.props.invalid && !this.props.disabled})} style={{ width: this._getWidth() }}>
         <div styleName={'textAreaTitleBar'}>
           <span styleName={classNames('textAreaTitle', { required: this.props.required && !this.props.disabled })}>{this.props.title}</span>
-          <span styleName={classNames('characterCounter', { full: this.state.lengthCounter < 0 })}>{this.state.lengthCounter}</span>
+          <span styleName={classNames('characterCounter', { full: this.state.maxLength < 0 })}>{this.state.maxLength}</span>
         </div>
         <textarea
           styleName={classNames('textArea', {resizeable: this.props.resizeable})}
