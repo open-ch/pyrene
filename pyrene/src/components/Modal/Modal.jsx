@@ -5,43 +5,32 @@ import './modal.css';
 import ButtonBar from '../ButtonBar/ButtonBar';
 import Button from '../Button/Button';
 
-export default class Modal extends React.Component {
+const Modal = (props) => {
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-    };
-  }
-
-  _renderContent(){
-    return (
-      <Fragment>
-        <div styleName={'titleBar'}>
-          {this.props.titleLabel}
+  const ModalContent = (
+    <Fragment>
+      <div styleName={'titleBar'}>
+        {props.titleLabel}
+      </div>
+      <div styleName={'contentContainer'}>
+        <div styleName={'content'}>
+          {props.content}
         </div>
-        <div styleName={'contentContainer'}>
-          <div styleName={'content'}>
-            {this.props.content}
-          </div>
-        </div>
-      </Fragment>
-    );
-  }
+      </div>
+    </Fragment>
+  );
 
-  render() {
-    return (
-      <Fragment>
-        <div styleName="modalOverlay">
-          <div styleName={classNames('modalContainer', this.props.size)}>
-            {this.props.isLoading ? <Loader /> : this._renderContent()}
-            <ButtonBar rightButtonSectionElements={[<Button label={'Cancel'} onClick={this.props.closeButtonClicked} />]} />
-          </div>
+  return (
+    <Fragment>
+      <div styleName="modalOverlay">
+        <div styleName={classNames('modalContainer', props.size)}>
+          {props.isLoading ? <Loader /> : ModalContent}
+          <ButtonBar rightButtonSectionElements={[<Button label={'Cancel'} onClick={props.closeButtonClicked} />]} />
         </div>
-      </Fragment>
-    );
-  }
-}
+      </div>
+    </Fragment>
+  );
+};
 
 /**
  *
@@ -80,3 +69,5 @@ Modal.propTypes = {
   nextButtonClicked: PropTypes.func,
   closeButtonClicked: PropTypes.func
 };
+
+export default Modal;

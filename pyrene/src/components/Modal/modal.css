@@ -58,9 +58,11 @@
 }
 
 .content {
+  box-sizing: border-box;
   padding: 7px 14px 15px 24px;
   overflow: auto;
-  max-height: 504px;
+  min-height: 70px;
+  max-height: 510px;
 }
 
 ::-webkit-scrollbar-button{
