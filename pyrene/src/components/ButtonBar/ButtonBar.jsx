@@ -7,18 +7,18 @@ const ButtonBar = props => (
   <div styleName={'buttonBar'}>
     <div styleName={'leftButtonSection'}>
       {props.leftButtonSectionElements.map(element => (
-        <Fragment>
-          <element.type {...element.props} key={`${element.type}${element.props.label}${element.props.type}`} />
+        <React.Fragment key={`${element.type}${element.props.label}${element.props.type}`}>
+          <element.type {...element.props} />
           <div styleName={'spacer'} />
-        </Fragment>
+        </React.Fragment>
       ))}
     </div>
     <div styleName={'rightButtonSection'}>
       {props.rightButtonSectionElements.map((element, index) => (
-        <Fragment>
+        <React.Fragment key={`${element.props.label}${element.props.type}${element.type}`}>
           {index !== 0 && <div styleName={'spacer'} />}
-          <element.type {...element.props} key={`${element.props.label}${element.props.type}${element.type}`} />
-        </Fragment>
+          <element.type {...element.props} />
+        </React.Fragment>
       ))}
     </div>
   </div>

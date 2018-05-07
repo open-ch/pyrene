@@ -8,4 +8,6 @@ export { default as Link } from './components/Link/Link';
 export { default as Checkbox } from './components/FormElements/Checkbox/Checkbox';
 export { default as RadioSelection } from './components/FormElements/RadioSelection/RadioSelection';
 export { default as ShareDialog } from './components/Share/ShareDialog';
+export { default as Modal } from './components/Modal/Modal';
+export { default as ArrowButton } from './components/ArrowButton/ArrowButton';
 

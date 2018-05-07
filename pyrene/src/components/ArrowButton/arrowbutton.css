@@ -1,0 +1,36 @@
+.arrowButton {
+  box-sizing: border-box;
+  height: 32px;
+  width: 32px;
+
+  border-radius: 2px;
+  border: solid 1px #b2b8bf;
+
+  font-size: 18px;
+
+  outline: none;
+  cursor: pointer;
+
+  &.direction-up {
+    transform: rotate(-90deg);
+  }
+  &.direction-down {
+    transform: rotate(90deg);
+  }
+  &.direction-left {
+    transform: rotate(180deg);
+  }
+  &.direction-right {
+
+  }
+
+  &.isDisabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+}
+
+.icon {
+  display: block;
+  margin-left: 1px;
+}
