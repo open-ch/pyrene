@@ -11,7 +11,11 @@ export default class TextArea extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.state = {
-      inputText: ''
+      inputText: '',
+      lengthCounter: this.props.maxLength,
+      lengthCounterStyle: {
+        color: 'inherit'
+      }
     };
   }
 
@@ -26,7 +30,11 @@ export default class TextArea extends React.Component {
   }
 
   handleChange(event) {
-    this.setState({ inputText: event.target.value });
+    const updatedLengthCounter = this.props.maxLength - event.target.value.length;
+    this.setState({
+      inputText: event.target.value,
+      lengthCounter: updatedLengthCounter
+    });
     this.props.onChange(event);
   }
 
@@ -39,8 +47,11 @@ export default class TextArea extends React.Component {
 
   render() {
     return (
-      <div styleName={classNames('textAreaContainer', { disabled: this.props.disabled }, { invalid: this.props.invalid && !this.props.disabled})} style={{width: this._getWidth()}}>
-        <div styleName={classNames('textAreaTitle', { required: this.props.required && !this.props.disabled },)}>{this.props.title}</div>
+      <div styleName={classNames('textAreaContainer', { disabled: this.props.disabled }, { invalid: this.props.invalid && !this.props.disabled})} style={{ width: this._getWidth() }}>
+        <div styleName={'textAreaTitleBar'}>
+          <span styleName={classNames('textAreaTitle', { required: this.props.required && !this.props.disabled })}>{this.props.title}</span>
+          <span styleName={classNames('characterCounter', { full: this.state.lengthCounter < 0 })}>{this.state.lengthCounter}</span>
+        </div>
         <textarea
           styleName={classNames('textArea', {resizeable: this.props.resizeable})}
           wrap={'hard'}
@@ -74,8 +85,9 @@ TextArea.docProps = [
   { propName: 'placeholder', isRequired: true, type: 'String', defaultValue: '', description: 'Changes what the text area placeholder says.' },
   { propName: 'inputText', isRequired: true, type: 'String', defaultValue: '', description: 'Changes what the text area says.' },
   { propName: 'helperLabel', isRequired: true, type: 'String', defaultValue: '', description: 'Helper text below the input field, also used to display error messages if prop invalid is set.'},
-  { propName: 'width', isRequired: false, type: 'Int', defaultValue: '', description: 'Changes the width of the input field in px. Use -1 to inherit parent width.' },
+  { propName: 'width', isRequired: false, type: 'Int', defaultValue: '-1', description: 'Changes the width of the input field in px. Use -1 to inherit parent width.' },
   { propName: 'rows', isRequired: false, type: 'Int', defaultValue: '3', description: 'Changes the height of the input field.' },
+  { propName: 'maxLength', isRequired: false, type: 'Int', defaultValue: '3000', description: 'Sets a character count limit for the field.' },
   { propName: 'resizeable', isRequired: false, type: 'Bool', defaultValue: 'false', description: 'Let\'s the user resize the text area.' },
   { propName: 'required', isRequired: false, type: 'Bool', defaultValue: 'false', description: 'Adds a visual indication that the field is required.' },
   { propName: 'invalid', isRequired: false, type: 'Bool', defaultValue: 'false', description: 'Changes the fields and helpers visual appearance to indicate a validation error.' },
@@ -88,9 +100,11 @@ TextArea.displayName = 'TextArea';
 TextArea.defaultProps = {
   title: '',
   inputText: '',
+  placeholder: '',
   helperLabel: '',
   width: -1,
   rows: 3,
+  maxLength: 3000,
   resizeable: false,
   required: false,
   disabled: false,
@@ -102,11 +116,12 @@ TextArea.defaultProps = {
 
 TextArea.propTypes = {
   title: PropTypes.string,
-  placeholder: PropTypes.string.isRequired,
+  placeholder: PropTypes.string,
   inputText: PropTypes.string,
   helperLabel: PropTypes.string,
   width: PropTypes.number,
   rows: PropTypes.number,
+  maxLength: PropTypes.number,
   resizeable: PropTypes.bool,
   required: PropTypes.bool,
   disabled: PropTypes.bool,

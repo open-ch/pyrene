@@ -16,16 +16,28 @@
   }
 }
 
-.textAreaTitle {
+.textAreaTitleBar {
   font-size: 13px;
   font-weight: 600;
-  text-align: left;
   color: var(--neutral-400);
   margin-bottom: 3px;
+  display: flex;
+  justify-content: space-between;
 
-  &.required:after {
-    content: '*';
-    color: var(--red-500);
+  & .textAreaTitle {
+    &.required:after {
+      content: '*';
+      color: var(--red-500);
+    }
+  }
+
+  & .characterCounter {
+    font-size: 12px;
+    color: var(--neutral-100);
+
+    &.full {
+      color: var(--red-500);
+    }
   }
 }
 

@@ -73,7 +73,7 @@ TextField.docProps = [
   { propName: 'placeholder', isRequired: true, type: 'String', defaultValue: '', description: 'Changes what the text field placeholder says.' },
   { propName: 'inputText', isRequired: true, type: 'String', defaultValue: '', description: 'Changes what the text field says.' },
   { propName: 'helperLabel', isRequired: true, type: 'String', defaultValue: '', description: 'Helper text below the input field, also used to display error messages if prop invalid is set.'},
-  { propName: 'width', isRequired: false, type: 'Int', defaultValue: '', description: 'Changes the width of the input field in px. Use -1 to inherit parent width.' },
+  { propName: 'width', isRequired: false, type: 'Int', defaultValue: '-1', description: 'Changes the width of the input field in px. Use -1 to inherit parent width.' },
   { propName: 'required', isRequired: false, type: 'Bool', defaultValue: 'false', description: 'Adds a visual indication that the field is required.' },
   { propName: 'invalid', isRequired: false, type: 'Bool', defaultValue: 'false', description: 'Changes the fields and helpers visual appearance to indicate a validation error.' },
   { propName: 'disabled', isRequired: false, type: 'Bool', defaultValue: 'false', description: 'Disables any interaction with the text field.' }
@@ -85,6 +85,7 @@ TextField.displayName = 'TextField';
 TextField.defaultProps = {
   title: '',
   inputText: '',
+  placeholder: '',
   helperLabel: '',
   width: -1,
   required: false,
@@ -97,7 +98,7 @@ TextField.defaultProps = {
 
 TextField.propTypes = {
   title: PropTypes.string,
-  placeholder: PropTypes.string.isRequired,
+  placeholder: PropTypes.string,
   inputText: PropTypes.string,
   helperLabel: PropTypes.string,
   width: PropTypes.number,
