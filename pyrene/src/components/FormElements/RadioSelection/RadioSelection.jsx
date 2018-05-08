@@ -90,7 +90,7 @@ RadioSelection.propTypes = {
    */
   disabled: PropTypes.bool,
   /**
-   * Flag to set when checkbox should have been set.
+   * Changes the visual appearance, to signal that the usage was invalid.
    */
   invalid: PropTypes.bool,
   /**

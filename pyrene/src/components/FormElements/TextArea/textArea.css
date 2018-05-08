@@ -15,36 +15,50 @@
       color: var(--red-500);
     }
   }
+
+  &.full {
+    & .characterCounter {
+      color: var(--red-500);
+    }
+    & .textArea {
+      border-color: var(--red-500);
+    }
+    & .textAreaHelper {
+      color: var(--red-500);
+    }
+  }
 }
 
-.textAreaTitleBar {
+.textAreaTitle {
   font-size: 13px;
   font-weight: 600;
   color: var(--neutral-400);
   margin-bottom: 3px;
-  display: flex;
-  justify-content: space-between;
 
-  & .textAreaTitle {
-    &.required:after {
-      content: '*';
-      color: var(--red-500);
-    }
-  }
-
-  & .characterCounter {
-    font-size: 12px;
-    color: var(--neutral-100);
-
-    &.full {
-      color: var(--red-500);
-    }
+  &.required:after {
+    content: '*';
+    color: var(--red-500);
   }
 }
+
+.textAreaInputContainer{
+  position: relative;
+}
+
+.characterCounter {
+  position: absolute;
+  top: -15px;
+  right: 0px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--neutral-100);
+}
+
 
 .textArea {
   box-sizing: border-box;
   width: 100%;
+  min-width: 144px;
 
   border-radius: 2px;
   border: solid 1px var(--neutral-100);

@@ -73,7 +73,7 @@ Checkbox.defaultProps = {
 
 Checkbox.propTypes = {
   /**
-   * Changes what the button says.
+   * Displayed label.
    */
   label: PropTypes.string.isRequired,
   /**
@@ -85,7 +85,7 @@ Checkbox.propTypes = {
    */
   checked: PropTypes.bool,
   /**
-   * Flag to set when checkbox should have been set.
+   * Changes the visual appearance, to signal that the usage was invalid.
    */
   invalid: PropTypes.bool,
   /**

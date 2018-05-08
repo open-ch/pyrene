@@ -40,16 +40,19 @@ export default class TextField extends React.Component {
   render() {
     return (
       <div styleName={classNames('textFieldContainer', { disabled: this.props.disabled }, { invalid: this.props.invalid && !this.props.disabled})} style={{width: this._getWidth()}}>
-        <div styleName={classNames('textFieldTitle', { required: this.props.required && !this.props.disabled },)}>{this.props.title}</div>
-        <input
-          type="text"
-          styleName={'textField'}
-          placeholder={this.props.placeholder}
-          value={this.state.inputText}
-          onChange={this.handleChange}
-          onBlur={this.props.onBlur}
-          onFocus={this.props.onFocus}
-        />
+        <div styleName={classNames('textFieldTitle', { required: this.props.required && !this.props.disabled })}>{this.props.title}</div>
+        <div styleName={'textFieldIconLayoutContainer'}>
+          <input
+            type="text"
+            styleName={classNames('textField', { hasIcon: this.props.icon })}
+            placeholder={this.props.placeholder}
+            value={this.state.inputText}
+            onChange={this.handleChange}
+            onBlur={this.props.onBlur}
+            onFocus={this.props.onFocus}
+          />
+          <span className={`icon-${this.props.icon}`} styleName={'textFieldIcon'} />
+        </div>
         <div styleName={classNames('textFieldHelper')}>{this.props.helperLabel}</div>
       </div>
     );
@@ -64,6 +67,7 @@ TextField.defaultProps = {
   inputText: '',
   placeholder: '',
   helperLabel: '',
+  icon: '',
   width: -1,
   required: false,
   disabled: false,
@@ -91,7 +95,11 @@ TextField.propTypes = {
    */
   helperLabel: PropTypes.string,
   /**
-   * Changes the width of the input field in px. Use -1 to inherit parent width..
+   * Adds an interactive icon to the textField.
+   */
+  icon: PropTypes.string,
+  /**
+   * Changes the width of the input field in px. Use -1 to inherit parent width.
    */
   width: PropTypes.number,
   /**
