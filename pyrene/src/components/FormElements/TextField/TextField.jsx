@@ -57,29 +57,6 @@ export default class TextField extends React.Component {
 
 }
 
-/**
- *
- *  Object which contains all props for the Proptable in Kitchensink
- *  Each prop should be passed as key-value pair following this scheme:
- *
- *  propName:{isRequired(bool): true|false, type(string): 'String|Bool|OneOf|...', default(string): 'defaultValue', description(string): 'This prop changes...'}
- *
- *  Note: default is only required if isRequired is false.
- *
- */
-
-TextField.docProps = [
-  { propName: 'title', isRequired: false, type: 'String', defaultValue: '', description: 'Changes what the title says.' },
-  { propName: 'placeholder', isRequired: true, type: 'String', defaultValue: '', description: 'Changes what the text field placeholder says.' },
-  { propName: 'inputText', isRequired: true, type: 'String', defaultValue: '', description: 'Changes what the text field says.' },
-  { propName: 'helperLabel', isRequired: true, type: 'String', defaultValue: '', description: 'Helper text below the input field, also used to display error messages if prop invalid is set.'},
-  { propName: 'width', isRequired: false, type: 'Int', defaultValue: '-1', description: 'Changes the width of the input field in px. Use -1 to inherit parent width.' },
-  { propName: 'required', isRequired: false, type: 'Bool', defaultValue: 'false', description: 'Adds a visual indication that the field is required.' },
-  { propName: 'invalid', isRequired: false, type: 'Bool', defaultValue: 'false', description: 'Changes the fields and helpers visual appearance to indicate a validation error.' },
-  { propName: 'disabled', isRequired: false, type: 'Bool', defaultValue: 'false', description: 'Disables any interaction with the text field.' }
-];
-
-
 TextField.displayName = 'TextField';
 
 TextField.defaultProps = {
@@ -97,16 +74,49 @@ TextField.defaultProps = {
 };
 
 TextField.propTypes = {
+  /**
+   * Changes what the title says.
+   */
   title: PropTypes.string,
+  /**
+   * Changes what the text field placeholder says.
+   */
   placeholder: PropTypes.string,
+  /**
+   * Changes what the text field says.
+   */
   inputText: PropTypes.string,
+  /**
+   * Helper text below the input field, also used to display error messages if prop invalid is set.
+   */
   helperLabel: PropTypes.string,
+  /**
+   * Changes the width of the input field in px. Use -1 to inherit parent width..
+   */
   width: PropTypes.number,
+  /**
+   * Adds a visual indication that the field is required..
+   */
   required: PropTypes.bool,
+  /**
+   * Disables any interaction with the component.
+   */
   disabled: PropTypes.bool,
+  /**
+   * Changes the fields and helpers visual appearance to indicate a validation error.
+   */
   invalid: PropTypes.bool,
+  /**
+   * Event handler.
+   */
   onBlur: PropTypes.func,
+  /**
+   * Event handler.
+   */
   onChange: PropTypes.func,
+  /**
+   * Event handler.
+   */
   onFocus: PropTypes.func
 };
 

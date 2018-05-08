@@ -66,26 +66,6 @@ export default class RadioSelection extends React.Component {
 
 }
 
-/**
- *
- *
- *  Object which contains all props for the Proptable in Kitchensink
- *  Each prop should be passed as key-value pair following this scheme:
- *
- *  propName:{isRequired(bool): true|false, type(string): 'String|Bool|OneOf|...', default(string): 'defaultValue', description(string): 'This prop changes...'}
- *
- *  Note: default is only required if isRequired is false.
- *
- */
-
-RadioSelection.docProps = [
-  { propName: 'radioLabels', isRequired: true, type: 'arrayOf: String', defaultValue: '', description: 'Specifies the different choices and values.' },
-  { propName: 'disabled', isRequired: false, type: 'Bool', defaultValue: 'false', description: 'Disables any interaction with the radio selection group.' },
-  { propName: 'alignment', isRequired: false, type: 'oneOf: vertical horizontal', defaultValue: 'vertical', description: 'Specifies the orientation of the radio group.' },
-  { propName: 'selectedOption', isRequired: false, type: 'String', defaultValue: '', description: 'Specifies a radio that is checked on page load.' },
-  { propName: 'invalid', isRequired: false, type: 'Bool', defaultValue: 'false', description: 'Flag to set when checkbox should have been set.' },
-];
-
 RadioSelection.displayName = 'RadioSelection';
 
 RadioSelection.defaultProps = {
@@ -97,9 +77,24 @@ RadioSelection.defaultProps = {
 };
 
 RadioSelection.propTypes = {
+  /**
+   * Specifies the different choices and values.
+   */
   radioLabels: PropTypes.arrayOf(PropTypes.string),
+  /**
+   * Specifies a radio that is checked on page load.
+   */
   selectedOption: PropTypes.string,
+  /**
+   * Disables any interaction with the component.
+   */
   disabled: PropTypes.bool,
+  /**
+   * Flag to set when checkbox should have been set.
+   */
   invalid: PropTypes.bool,
+  /**
+   * Specifies the orientation of the radio group.
+   */
   alignment: PropTypes.oneOf(['vertical', 'horizontal'])
 };

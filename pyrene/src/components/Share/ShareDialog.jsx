@@ -121,23 +121,6 @@ export default class ShareDialog extends React.Component {
 
 }
 
-/**
- *
- *  Object which contains all props for the Proptable in Kitchensink
- *  Each prop should be passed as key-value pair following this scheme:
- *
- *  propName:{isRequired(bool): true|false, type(string): 'String|Bool|OneOf|...', default(string): 'defaultValue', description(string): 'This prop changes...'}
- *
- *  Note: default is only required if isRequired is false.
- *
- */
-
-ShareDialog.docProps = [
-  { propName: 'position', isRequired: true, type: 'oneOf: bottom-right bottom-left top-right top-left', defaultValue: 'right', description: 'Choose where the dialog appears relative to the share button.' },
-  { propName: 'link', isRequired: true, type: 'String', defaultValue: '', description: 'Link that is in the textbox.' },
-  { propName: 'disabled', isRequired: false, type: 'Bool', defaultValue: 'false', description: 'Disables any interaction with the share dialog.' }
-];
-
 ShareDialog.displayName = 'ShareDialog';
 
 ShareDialog.defaultProps = {
@@ -145,7 +128,16 @@ ShareDialog.defaultProps = {
 };
 
 ShareDialog.propTypes = {
+  /**
+   * Choose where the dialog appears relative to the share button.
+   */
   position: PropTypes.oneOf(['bottom-right', 'bottom-left', 'top-right', 'top-left']).isRequired,
+  /**
+   * Link that is in the share dialog.
+   */
   link: PropTypes.string.isRequired,
+  /**
+   * Disables any interaction with the share dialog.
+   */
   disabled: PropTypes.bool
 };

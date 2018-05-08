@@ -19,24 +19,6 @@ const Button = props => (
   </button>
 );
 
-/**
- *
- *  Object which contains all props for the Proptable in Kitchensink
- *  Each prop should be passed as key-value pair following this scheme:
- *
- *  propName:{isRequired(bool): true|false, type(string): 'String|Bool|OneOf|...', default(string): 'defaultValue', description(string): 'This prop changes...'}
- *
- *  Note: default is only required if isRequired is false.
- *
- */
-
-Button.docProps = [
-  { propName: 'icon', isRequired: false, type: 'String', defaultValue: '', description: 'Adds an icon in front of the label. Uses the icon-font.' },
-  { propName: 'label', isRequired: true, type: 'String', defaultValue: '', description: 'Changes what the button says.' },
-  { propName: 'type', isRequired: false, type: 'oneOf: primary secondary ghost danger action admin', defaultValue: 'primary', description: 'Changes the overall button style.' },
-  { propName: 'disabled', isRequired: false, type: 'Bool', defaultValue: 'false', description: 'Disables any interaction with the button.' }
-];
-
 Button.displayName = 'Button';
 
 Button.defaultProps = {
@@ -48,10 +30,25 @@ Button.defaultProps = {
 };
 
 Button.propTypes = {
+  /**
+   *  Adds an icon in front of the label. Uses the icon-font.
+   */
   icon: PropTypes.string,
+  /**
+   *  Changes what the button says.
+   */
   label: PropTypes.string.isRequired,
+  /**
+   * Changes the overall button style.
+   */
   type: PropTypes.oneOf(['primary', 'secondary', 'danger', 'ghost', 'action', 'admin']),
+  /**
+   *  Disables any interaction with the button.
+   */
   disabled: PropTypes.bool,
+  /**
+   *  onClick function
+   */
   onClick: PropTypes.func
 };
 

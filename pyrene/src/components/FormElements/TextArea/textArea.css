@@ -1,6 +1,7 @@
 .textAreaContainer {
   composes: commonFontSettings from '../../../styles/common.css';
 
+  min-width: 72px;
   &.disabled {
     opacity: .5;
     pointer-events: none;
