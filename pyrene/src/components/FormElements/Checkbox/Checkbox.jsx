@@ -62,24 +62,6 @@ export default class Checkbox extends React.Component {
 
 }
 
-/**
- *
- *  Object which contains all props for the Proptable in Kitchensink
- *  Each prop should be passed as key-value pair following this scheme:
- *
- *  propName:{isRequired(bool): true|false, type(string): 'String|Bool|OneOf|...', default(string): 'defaultValue', description(string): 'This prop changes...'}
- *
- *  Note: default is only required if isRequired is false.
- *
- */
-
-Checkbox.docProps = [
-  { propName: 'label', isRequired: true, type: 'String', defaultValue: '', description: 'Changes what the button says.' },
-  { propName: 'disabled', isRequired: false, type: 'Bool', defaultValue: 'false', description: 'Disables any interaction with the button.' },
-  { propName: 'checked', isRequired: false, type: 'Bool', defaultValue: 'false', description: 'Pre-checks the component.' },
-  { propName: 'invalid', isRequired: false, type: 'Bool', defaultValue: 'false', description: 'Flag to set when checkbox should have been set.' },
-];
-
 Checkbox.displayName = 'Checkbox';
 
 Checkbox.defaultProps = {
@@ -90,9 +72,24 @@ Checkbox.defaultProps = {
 };
 
 Checkbox.propTypes = {
+  /**
+   * Changes what the button says.
+   */
   label: PropTypes.string.isRequired,
+  /**
+   * Disables any interaction with the component.
+   */
   disabled: PropTypes.bool,
+  /**
+   * Pre-checks the checkbox.
+   */
   checked: PropTypes.bool,
+  /**
+   * Flag to set when checkbox should have been set.
+   */
   invalid: PropTypes.bool,
+  /**
+   * Event handler.
+   */
   onChange: PropTypes.func
 };
