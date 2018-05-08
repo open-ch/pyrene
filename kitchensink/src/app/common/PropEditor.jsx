@@ -18,45 +18,44 @@ export default class PropEditor extends React.Component {
   render() {
     return (
       <div styleName={'propEditor'}>
-        {this.props.componentProps.map((prop) => {
-
-          switch (prop.type.split(' ')[0]) {
-            case 'String':
-              return ([`${prop.propName}: `,
-                <React.Fragment key={prop}>
-                  <input type="text" name={prop.propName} placeholder={'change me'} onChange={event => this.modifiedProp(event)} /><br />
+        {Object.entries(this.props.componentProps).map(([propName, propProps]) => {
+          switch (propProps.type.name) {
+            case 'string':
+              return ([`${propName}: `,
+                <React.Fragment key={propName}>
+                  <input type="text" name={propName} placeholder={'change me'} onChange={event => this.modifiedProp(event)} /><br />
                 </React.Fragment>
               ]);
 
-            case 'oneOf:':
-              return ([`${prop.propName}: `,
-                <React.Fragment key={prop}>
-                  <select name={prop.propName} onChange={event => this.modifiedProp(event)}>
-                    {prop.type.split(' ').slice(1).map((propChoice, index) =>
-                      <option value={propChoice} key={propChoice}>{index === 0 && 'default ('}{propChoice}{index === 0 && ')'}</option>
+            case 'enum':
+              return ([`${propName}: `,
+                <React.Fragment key={propName}>
+                  <select name={propName} onChange={event => this.modifiedProp(event)}>
+                    {propProps.type.value.map((propChoice, index) =>
+                      <option value={propChoice.value} key={propChoice.value}>{index === 0 && 'default ('}{propChoice.value.replace(/'/g, '')}{index === 0 && ')'}</option>
                     )}
                   </select><br />
                 </React.Fragment>
               ]);
 
-            case 'Bool':
-              return ([`${prop.propName}: `,
-                <React.Fragment key={prop}>
-                  <Checkbox name={prop.propName} toggledCheckbox={this.modifiedProp} /><br />
+            case 'bool':
+              return ([`${propName}: `,
+                <React.Fragment key={propName}>
+                  <Checkbox name={propName} toggledCheckbox={this.modifiedProp} /><br />
                 </React.Fragment>
               ]);
-            case 'Int':
-              return ([`${prop.propName}: `,
-                <React.Fragment key={prop}>
-                  <input type="number" name={prop.propName} value={this.props.activePropValues[prop.propName]} placeholder={'change me'} onChange={event => this.modifiedProp(event)} /><br />
+            case 'number':
+              return ([`${propName}: `,
+                <React.Fragment key={propName}>
+                  <input type="number" name={propName} value={this.props.activePropValues[propName]} placeholder={'change me'} onChange={event => this.modifiedProp(event)} /><br />
                 </React.Fragment>
               ]);
 
-            case 'arrayOf:':
-              return (<React.Fragment key={prop}>Array functionality not included yet. <br /></React.Fragment>);
+            case 'arrayOf':
+              return (<React.Fragment key={propName}>Array functionality not included yet. <br /></React.Fragment>);
 
             default:
-              return (<React.Fragment key={prop}>Error occurred in PropEditor: PropType unknown. <br /></React.Fragment>);
+              return (<React.Fragment key={propName}>Error occurred in PropEditor: PropType unknown. <br /></React.Fragment>);
           }
         })}
       </div>
@@ -68,12 +67,17 @@ export default class PropEditor extends React.Component {
 PropEditor.displayName = 'PropEditor';
 
 PropEditor.propTypes = {
-  componentProps: PropTypes.arrayOf(PropTypes.shape({
-    propName: PropTypes.string,
-    isRequired: PropTypes.bool,
-    type: PropTypes.string,
-    defaultValue: PropTypes.string,
-    description: PropTypes.string
+  componentProps: PropTypes.objectOf(PropTypes.shape({
+    propName: PropTypes.objectOf(PropTypes.shape({
+      defaultValue: PropTypes.string,
+      description: PropTypes.string,
+      required: PropTypes.bool,
+      type: PropTypes.shape({
+        name: PropTypes.string
+      })
+    }))
   })).isRequired,
-  onEditorChange: PropTypes.func.isRequired
+  onEditorChange: PropTypes.func.isRequired,
+  activePropValues: PropTypes.object
 };
+

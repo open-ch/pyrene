@@ -29,7 +29,7 @@ const ModalPage = ({ match }) => (
 const Topic = ({ match }) => {
   switch (match.params.topicName) {
     case 'code':
-      return <Modal size={'small'} titleLabel={'Title'} content={
+      return <Modal size={'small'} height titleLabel={'Title'} content={
         <Table cellWidthArray={['100px','200px']}
                headerElementArray={['Test','Test2']}
                rowArray={[
