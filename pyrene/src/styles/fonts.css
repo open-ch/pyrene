@@ -35,7 +35,7 @@
   font-variant: normal;
   text-transform: none;
 
-  src: url('../fonts/iconfont.woff') format('woff');
+  src: url('../fonts/pyrene-iconfont.woff') format('woff');
 }
 
 [class^="icon-"], [class*=" icon-"] {
@@ -53,250 +53,31 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-:global(.icon-share2:before) {
-  content: "\b6";
-}
-:global(.icon-Reset:before) {
-  content: "\2e";
-}
-:global(.icon-Down:before) {
-  content: "\3c";
-}
-:global(.icon-Downdown:before) {
-  content: "\3e";
-}
-:global(.icon-Neutral:before) {
-  content: "\5f";
-}
-:global(.icon-Up:before) {
-  content: "\60";
-}
-:global(.icon-Upup:before) {
-  content: "\5e";
-}
-:global(.icon-More:before) {
-  content: "\27";
-}
-:global(.icon-Cloud-Default:before) {
-  content: "\28";
-}
-:global(.icon-Cloud-Error:before) {
-  content: "\2a";
-}
-:global(.icon-Cloud-Ok:before) {
-  content: "\2f";
-}
-:global(.icon-Cloud:before) {
-  content: "\201c";
-}
-:global(.icon-CSR:before) {
-  content: "\29";
-}
-:global(.icon-Import:before) {
-  content: "\22";
-}
-:global(.icon-Compare:before) {
-  content: "\3b";
-}
-:global(.icon-Certificate:before) {
-  content: "\3a";
-}
-:global(.icon-Skip-left:before) {
-  content: "\50";
-}
-:global(.icon-Skip-right:before) {
-  content: "\51";
-}
-:global(.icon-Remove:before) {
-  content: "\57";
-}
-:global(.icon-add-circle-black:before) {
-  content: "\58";
-}
-:global(.icon-delete-circle:before) {
-  content: "\56";
-}
-:global(.icon-info:before) {
-  content: "\55";
-}
-:global(.icon-save:before) {
-  content: "\53";
-}
-:global(.icon-arrow:before) {
-  content: "\4f";
-}
-:global(.icon-archived:before) {
-  content: "\4e";
-}
-:global(.icon-bin:before) {
-  content: "\4d";
-}
-:global(.icon-forward:before) {
-  content: "\4b";
-}
-:global(.icon-lock-filled:before) {
-  content: "\4a";
-}
-:global(.icon-rejected:before) {
-  content: "\49";
-}
-:global(.icon-flash:before) {
-  content: "\48";
-}
-:global(.icon-infected:before) {
-  content: "\46";
-}
-:global(.icon-check-circle:before) {
-  content: "\45";
-}
-:global(.icon-clock:before) {
-  content: "\44";
-}
-:global(.icon-Ticket:before) {
-  content: "\54";
-}
-:global(.icon-Group:before) {
-  content: "\47";
-}
-:global(.icon-Lock:before) {
-  content: "\4c";
-}
-:global(.icon-check:before) {
-  content: "\3d";
-}
-:global(.icon-Help:before) {
-  content: "\2d";
-}
-:global(.icon-Share:before) {
-  content: "\2b";
-}
-:global(.icon-Play:before) {
-  content: "\25";
-}
-:global(.icon-O .path1:before) {
-  content: "\41";
-}
-:global(.icon-O .path2:before) {
-  content: "\42";
-  margin-left: -1em;
-}
-:global(.icon-collaps-closed:before) {
-  content: "\21";
-}
-:global(.icon-collaps-open:before) {
-  content: "\a3";
-}
-:global(.icon-triangle-up:before) {
-  content: "\43";
-}
-:global(.icon-triangle-down:before) {
-  content: "\24";
-}
-:global(.icon-monitoring:before) {
-  content: "\26";
-}
-:global(.icon-request:before) {
-  content: "\3f";
-}
-:global(.icon-change:before) {
-  content: "\7a";
-}
-:global(.icon-incident:before) {
-  content: "\79";
-}
-:global(.icon-rdparty:before) {
-  content: "\78";
-}
-:global(.icon-customer-incident:before) {
-  content: "\77";
-}
-:global(.icon-installation:before) {
-  content: "\76";
-}
-:global(.icon-maintenance:before) {
-  content: "\75";
-}
-:global(.icon-migration:before) {
-  content: "\74";
-}
-:global(.icon-problem:before) {
-  content: "\73";
-}
-:global(.icon-purchase-order:before) {
-  content: "\72";
-}
-:global(.icon-star:before) {
-  content: "\71";
-}
-:global(.icon-radio_off:before) {
-  content: "\70";
-}
-:global(.icon-radio_on:before) {
-  content: "\6f";
-}
-:global(.icon-checkbox_unselected:before) {
-  content: "\6e";
-}
-:global(.icon-checkbox_selected:before) {
-  content: "\6d";
-}
-:global(.icon-bell:before) {
-  content: "\6c";
-}
-:global(.icon-fax:before) {
-  content: "\6b";
-}
-:global(.icon-heart:before) {
-  content: "\69";
-}
-:global(.icon-internet:before) {
-  content: "\68";
-}
-:global(.icon-location:before) {
-  content: "\67";
-}
-:global(.icon-phone:before) {
-  content: "\66";
-}
-:global(.icon-schedule:before) {
-  content: "\65";
-}
-:global(.icon-setting:before) {
-  content: "\64";
-}
-:global(.icon-warning:before) {
-  content: "\63";
-}
-:global(.icon-arrow_left:before) {
-  content: "\62";
-}
-:global(.icon-arrow_right:before) {
-  content: "\61";
-}
-:global(.icon-filter:before) {
-  content: "\39";
-}
-:global(.icon-edit:before) {
-  content: "\38";
-}
-:global(.icon-add:before) {
-  content: "\31";
-}
-:global(.icon-clear:before) {
-  content: "\32";
-}
-:global(.icon-delete:before) {
-  content: "\33";
-}
-:global(.icon-download:before) {
-  content: "\34";
-}
-:global(.icon-file:before) {
-  content: "\35";
-}
-:global(.icon-loupe:before) {
+/* handy dandy regex when adding a lot of new icons:
+   CMD + R -> activate Regex checkbox
+   Search field: \.icon\-.*:before(?!\))
+   Replace field: :global($0)
+*/
+
+:global(.icon-error-outline:before) {
   content: "\36";
 }
-:global(.icon-refresh:before) {
-  content: "\37";
+:global(.icon-filter:before) {
+  content: "\35";
 }
+:global(.icon-collaps-down:before) {
+  content: "\33";
+}
+:global(.icon-collaps-up:before) {
+  content: "\34";
+}
+:global(.icon-chevron-left:before) {
+  content: "\32";
+}
+:global(.icon-chevron-right:before) {
+  content: "\31";
+}
+:global(.icon-share:before) {
+  content: "\30";
+}
+
