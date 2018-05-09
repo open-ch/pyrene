@@ -79,7 +79,15 @@
 .textFieldHelper {
   margin-top: 4px;
   font-size: 12px;
+  line-height: 16px;
+  height: 16px;
   font-weight: 600;
   text-align: left;
   color: var(--neutral-100);
+}
+
+.errorIcon {
+  font-size: 14px;
+  margin-right: 4px;
+  vertical-align: text-top;
 }

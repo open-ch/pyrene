@@ -29,43 +29,41 @@
   }
 }
 
-.textAreaTitle {
-  font-size: 13px;
+.textAreaTitleBar {
+  display: flex;
+  justify-content: space-between;
   font-weight: 600;
-  color: var(--neutral-400);
   margin-bottom: 3px;
 
-  &.required:after {
-    content: '*';
-    color: var(--red-500);
+  & .textAreaTitle {
+    font-size: 13px;
+    color: var(--neutral-400);
+
+    &.required:after {
+      content: '*';
+      color: var(--red-500);
+    }
+  }
+
+  & .characterCounter {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--neutral-100);
   }
 }
-
-.textAreaInputContainer{
-  position: relative;
-}
-
-.characterCounter {
-  position: absolute;
-  top: -15px;
-  right: 0px;
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--neutral-100);
-}
-
 
 .textArea {
   box-sizing: border-box;
   width: 100%;
   min-width: 144px;
+  vertical-align: bottom; /* Weird textArea bug: need to add this to prevent 4px bottom margin */
 
   border-radius: 2px;
   border: solid 1px var(--neutral-100);
   background-color: var(--neutral-020);
   outline: none;
 
-  padding: 7px 0 6px 8px;
+  padding: 7px 8px 6px 8px;
 
   font-family: AvenirNext, Helvetica, sans-serif;
   font-size: 14px;
@@ -75,7 +73,7 @@
   resize: none;
 
   &.resizeable {
-    resize: both;
+    resize: vertical;
   }
 
   &:hover, &:focus {
@@ -101,7 +99,15 @@
 .textAreaHelper {
   margin-top: 4px;
   font-size: 12px;
+  height: 16px;
+  line-height: 16px;
   font-weight: 600;
   text-align: left;
   color: var(--neutral-100);
+}
+
+.errorIcon {
+  font-size: 14px;
+  margin-right: 4px;
+  vertical-align: text-top;
 }
