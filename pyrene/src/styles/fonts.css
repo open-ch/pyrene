@@ -58,6 +58,13 @@
    Replace field: :global($0)
 */
 
+
+:global(.icon-Search:before) {
+  content: "\38";
+}
+:global(.icon-Delete:before) {
+  content: "\37";
+}
 :global(.icon-error-outline:before) {
   content: "\36";
 }
