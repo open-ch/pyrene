@@ -51,6 +51,10 @@ export default class PropEditor extends React.Component {
                 </React.Fragment>
               ]);
 
+            case 'func':
+              return ([`Function: ${propName}`, <br />]);
+
+
             case 'arrayOf':
               return (<React.Fragment key={propName}>Array functionality not included yet. <br /></React.Fragment>);
 

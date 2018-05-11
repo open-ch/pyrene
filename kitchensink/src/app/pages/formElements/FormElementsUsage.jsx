@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Paragraph from '../common/PageElements/Paragraph';
-import Table from '../common/Table';
+import Paragraph from '../../common/PageElements/Paragraph';
+import Table from '../../common/Table';
 
-import testImg from '../../images/iconUsageTestIMG.png';
+import testImg from '../../../images/iconUsageTestIMG.png';
 
-const ModalUsage = props => (
+const FormElementsUsage = props => (
   <div className={'buttonCode_container'}>
     <Table
       cellWidthArray={['206px', 'auto']}
@@ -51,10 +51,10 @@ const ModalUsage = props => (
 );
 
 
-ModalUsage.displayName = 'ModalUsage';
+FormElementsUsage.displayName = 'FormElementsUsage';
 
-ModalUsage.propTypes = {};
+FormElementsUsage.propTypes = {};
 
-ModalUsage.defaultProps = {};
+FormElementsUsage.defaultProps = {};
 
-export default ModalUsage;
+export default FormElementsUsage;

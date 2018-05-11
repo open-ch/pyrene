@@ -1,11 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import Paragraph from '../common/PageElements/Paragraph';
-import Table from '../common/Table';
+import Paragraph from '../../common/PageElements/Paragraph';
+import Table from '../../common/Table';
 
-import testImg from '../../images/iconUsageTestIMG.png';
+import testImg from '../../../images/iconUsageTestIMG.png';
 
-const FormElementsUsage = props => (
+const ButtonUsage = props => (
   <div className={'buttonCode_container'}>
     <Table
       cellWidthArray={['206px', 'auto']}
@@ -51,10 +50,6 @@ const FormElementsUsage = props => (
 );
 
 
-FormElementsUsage.displayName = 'FormElementsUsage';
+ButtonUsage.displayName = 'ButtonUsage';
 
-FormElementsUsage.propTypes = {};
-
-FormElementsUsage.defaultProps = {};
-
-export default FormElementsUsage;
+export default ButtonUsage;

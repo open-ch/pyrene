@@ -20,6 +20,7 @@ const SideBarMenu = props => (
           { name: 'Link', linkToPath: '/link' },
           { name: 'Share', linkToPath: '/shareDialog' },
           { name: 'Form Elements', linkToPath: '/formElements' },
+          { name: 'Selection Elements', linkToPath: '/select' },
           { name: 'Modal', linkToPath: '/modal' }]}
       />
     </div>

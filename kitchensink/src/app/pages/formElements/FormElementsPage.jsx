@@ -1,14 +1,14 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import SubPagingMenu from '../common/PageElements/SubPagingMenu';
+import SubPagingMenu from '../../common/PageElements/SubPagingMenu';
 import { Link } from 'pyrene';
 import { Checkbox } from 'pyrene';
 import { RadioSelection } from 'pyrene';
 import { TextField } from 'pyrene';
 import { TextArea } from 'pyrene';
 import FormElementsUsage from './FormElementsUsage';
-import CodePage from '../common/CodePage';
-import '../../css/componentPage.css';
+import CodePage from '../../common/CodePage';
+import '../../../css/componentPage.css';
 
 const FormElementsPage = ({ match }) => (
   <div className="page">
@@ -36,7 +36,7 @@ const Topic = ({ match }) => {
           <CodePage component={Checkbox} startProps={{ label: 'Click Me'}} />
           <CodePage component={RadioSelection} startProps={{radioLabels:['option 1', 'option 2', 'option 3'], selectedOption: 'option 1' }} />
           <CodePage component={TextField} startProps={{ title: 'Field Label', placeholder: 'Placeholder Text', helperLabel: 'Helper text for instructions', width: 499 }} />
-          <CodePage component={TextArea} startProps={{ title: 'Label', placeholder: 'Placeholder Text', helperLabel: 'Helper text for instructions', width: 499, rows: 3 }} />
+          <CodePage component={TextArea} startProps={{ title: 'Label', placeholder: 'Placeholder Text', helperLabel: 'Helper text for instructions', width: 499, rows: 3, maxLength: 50 }} />
         </React.Fragment>
       );
     case 'usage':

@@ -1,17 +1,17 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import SubPagingMenu from '../common/PageElements/SubPagingMenu';
-import { Link } from 'pyrene';
-import LinkUsage from './LinkUsage';
-import CodePage from '../common/CodePage';
-import '../../css/componentPage.css';
+import SubPagingMenu from '../../common/PageElements/SubPagingMenu';
+import { SingleSelect } from 'pyrene';
+import SelectUsage from './SelectUsage';
+import CodePage from '../../common/CodePage';
+import '../../../css/componentPage.css';
 
-const LinkPage = ({ match }) => (
+const SelectPage = ({ match }) => (
   <div className="page">
     <div styleName="header">
-      <div styleName="title">Link</div>
+      <div styleName="title">Selection</div>
       <div styleName="description">
-          Links are used primarily on ....
+         Selection elements are used primarily on ....
       </div>
 
       <SubPagingMenu currentPageUrl={match.url} />
@@ -27,15 +27,19 @@ const LinkPage = ({ match }) => (
 const Topic = ({ match }) => {
   switch (match.params.topicName) {
     case 'code':
-      return <CodePage component={Link} startProps={{ label: 'Click Me', path: '#' }} />;
+      return (
+        <React.Fragment>
+          <CodePage component={SingleSelect} startProps={{label: 'yo' }} />
+        </React.Fragment>
+      );
     case 'usage':
-      return <LinkUsage />;
+      return <SelectUsage />;
     default:
       return <h3>{match.params.topicName}</h3>;
   }
 };
 
 
-LinkPage.displayName = 'LinkPage';
+SelectPage.displayName = 'SelectPage';
 
-export default LinkPage;
+export default SelectPage;

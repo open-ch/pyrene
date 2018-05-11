@@ -1,10 +1,10 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import SubPagingMenu from '../common/PageElements/SubPagingMenu';
-import { Button } from 'pyrene';
+import SubPagingMenu from '../../common/PageElements/SubPagingMenu';
+import {Button, Button2, Checkbox, RadioSelection, TextArea, TextField} from 'pyrene';
 import ButtonUsage from './ButtonUsage';
-import CodePage from '../common/CodePage';
-import '../../css/componentPage.css';
+import CodePage from '../../common/CodePage';
+import '../../../css/componentPage.css';
 
 const ButtonPage = ({ match }) => (
   <div className="page">
@@ -31,7 +31,12 @@ const ButtonPage = ({ match }) => (
 const Topic = ({ match }) => {
   switch (match.params.topicName) {
     case 'code':
-      return <CodePage component={Button} startProps={{ label: 'Click Me' }} />;
+      return (
+        <React.Fragment>
+          <CodePage component={Button} startProps={{ label: 'Click Me' }} />
+          <CodePage component={Button2} startProps={{ label: 'Click Me' }} />
+        </React.Fragment>
+      );
     case 'usage':
       return <ButtonUsage />;
     default:

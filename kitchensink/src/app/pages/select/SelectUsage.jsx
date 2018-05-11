@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Paragraph from '../common/PageElements/Paragraph';
-import Table from '../common/Table';
+import Paragraph from '../../common/PageElements/Paragraph';
+import Table from '../../common/Table';
 
-import testImg from '../../images/iconUsageTestIMG.png';
+import testImg from '../../../images/iconUsageTestIMG.png';
 
-const ShareDialogUsage = props => (
+const SelectUsage = props => (
   <div className={'buttonCode_container'}>
     <Table
       cellWidthArray={['206px', 'auto']}
@@ -51,10 +51,10 @@ const ShareDialogUsage = props => (
 );
 
 
-ShareDialogUsage.displayName = 'ShareDialogUsage';
+SelectUsage.displayName = 'SelectUsage';
 
-ShareDialogUsage.propTypes = {};
+SelectUsage.propTypes = {};
 
-ShareDialogUsage.defaultProps = {};
+SelectUsage.defaultProps = {};
 
-export default ShareDialogUsage;
+export default SelectUsage;
