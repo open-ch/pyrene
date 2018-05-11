@@ -30,12 +30,11 @@
 }
 
 .textAreaTitleBar {
-  display: flex;
-  justify-content: space-between;
   font-weight: 600;
   margin-bottom: 3px;
 
   & .textAreaTitle {
+    float: left;
     font-size: 13px;
     color: var(--neutral-400);
 
@@ -46,9 +45,18 @@
   }
 
   & .characterCounter {
+    float: right;
     font-size: 12px;
     font-weight: 600;
     color: var(--neutral-100);
+  }
+
+  &:after {
+    content: "";
+    visibility: hidden;
+    display: block;
+    height: 0;
+    clear: both;
   }
 }
 

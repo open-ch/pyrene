@@ -40,7 +40,7 @@ export default class TextField extends React.Component {
   render() {
     return (
       <div styleName={classNames('textFieldContainer', { disabled: this.props.disabled }, { invalid: this.props.invalid && !this.props.disabled })} style={{ width: this._getWidth() }}>
-        <div styleName={classNames('textFieldTitle', { required: this.props.required && !this.props.disabled })}>{this.props.title}</div>
+        {this.props.title && <div styleName={classNames('textFieldTitle', { required: this.props.required && !this.props.disabled })}>{this.props.title}</div>}
         <div styleName={'textFieldIconLayoutContainer'}>
           <input
             type="text"
@@ -53,10 +53,10 @@ export default class TextField extends React.Component {
           />
           <span className={`icon-${this.props.icon}`} styleName={'textFieldIcon'} />
         </div>
-        <div styleName={classNames('textFieldHelper')}>
+        {(this.props.helperLabel || this.props.invalid) && <div styleName={classNames('textFieldHelper')}>
           {this.props.invalid && <span className={'icon-error-outline'} styleName={'errorIcon'} />}
           {this.props.helperLabel}
-        </div>
+        </div>}
       </div>
     );
   }
