@@ -5,7 +5,7 @@ import sinon from 'sinon';
 import Button from './Button.jsx';
 
 
-describe('<Button />', () => {
+describe('<SingleSelect />', () => {
 
     it('renders without crashing', () => {
         const rendered = shallow(<Button />);

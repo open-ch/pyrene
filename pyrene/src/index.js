@@ -10,4 +10,4 @@ export { default as RadioSelection } from './components/FormElements/RadioSelect
 export { default as ShareDialog } from './components/Share/ShareDialog';
 export { default as Modal } from './components/Modal/Modal';
 export { default as ArrowButton } from './components/ArrowButton/ArrowButton';
-
+export { default as SingleSelect } from './components/SelectElements/SingleSelect/SingleSelect';
