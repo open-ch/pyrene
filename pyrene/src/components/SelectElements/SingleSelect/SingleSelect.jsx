@@ -3,37 +3,31 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Select from 'react-select';
 
-import '../react-osag-select.css';
+
+const options = [
+  { value: 'chocolate', label: 'Chocolate' },
+  { value: 'strawberry', label: 'Strawberry' },
+  { value: 'vanilla', label: 'Vanilla' }
+];
+
+const customStyles = {
+  container: (base, state) => ({
+    ...base,
+    width: '100%'
+  })
+};
 
 export default class SingleSelect extends React.Component {
 
   constructor(props) {
     super(props);
 
-    this.state = {
-      selectedOption: ''
-    };
   }
 
-
-  handleChange(selectedOption) {
-    this.setState({ selectedOption });
-    console.log(`Selected: ${selectedOption.label}`);
-  }
 
   render() {
-    const { selectedOption } = this.state;
-
     return (
-      <Select
-        name="form-field-name"
-        value={selectedOption}
-        onChange={() => this.handleChange}
-        options={[
-          { value: 'one', label: 'One' },
-          { value: 'two', label: 'Two' }
-        ]}
-      />
+      <Select options={options} className={'singleSelect'} styles={customStyles}/>
     );
   }
 

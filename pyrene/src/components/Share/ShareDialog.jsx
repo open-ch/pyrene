@@ -113,7 +113,7 @@ export default class ShareDialog extends React.Component {
   render() {
     return (
       <div styleName="shareDialogContainer" ref={(dialog) => { this.dialogRef = dialog; }}>
-        <Button label={'Share'} type={'action'} icon={'share2'} onClick={this._displayShareDialogClicked} disabled={this.props.disabled} />
+        <Button label={'Share'} type={'action'} icon={'share'} onClick={this._displayShareDialogClicked} disabled={this.props.disabled} />
         {this.state.displayShareDialog && this._renderDialog()}
       </div>
     );
