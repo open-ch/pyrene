@@ -15,8 +15,8 @@ module.exports = {
   },
 
   "rules": {
-    // disallow trailing commas in object literals
-    "comma-dangle": [2, "never"],
+    // require trailing commas for multiline (arrays, objects, imports, exports & functions), disallowed for same line
+    "comma-dangle": [2, "always-multiline"],
     // require function expressions to have a name
     "func-names": 0,
     // this option sets a specific tab width for your code, VariableDeclarator indents are for nice alignment of multi-line var declaration
