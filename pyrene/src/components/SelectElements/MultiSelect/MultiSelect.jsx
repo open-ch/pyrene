@@ -3,27 +3,28 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Select from 'react-select';
 import '../select.css';
-import SelectStyle from './singleSelectCSS';
+import SelectStyle from './multiSelectCSS';
 
 
-export default class SingleSelect extends React.Component {
+export default class MultiSelect extends React.Component {
 
   render() {
     return (
       <div styleName={classNames('selectContainer', {disabled: this.props.disabled}, {invalid: this.props.invalid && !this.props.disabled})}>
         {this.props.title && <div styleName={classNames('selectTitle', { required: this.props.required && !this.props.disabled })}>{this.props.title}</div>}
         <Select
-          className={'singleSelect'}
+          className={'multiSelect'}
           styles={SelectStyle}
           placeholder={this.props.placeholder}
           options={this.props.options}
           defaultValue={this.props.defaultValue}
           isClearable={this.props.clearable}
-          isSearchable={this.props.searchable}
           isDisabled={this.props.disabled}
           isInvalid={this.props.invalid}
           onChange={(option) => this.props.onChange(option)}
 
+          isMulti
+          isSearchable
           blurInputOnSelect
           escapeClearsValue
           captureMenuScroll
@@ -38,14 +39,13 @@ export default class SingleSelect extends React.Component {
 
 }
 
-SingleSelect.displayName = 'SingleSelect';
+MultiSelect.displayName = 'MultiSelect';
 
-SingleSelect.defaultProps = {
+MultiSelect.defaultProps = {
   placeholder: 'Select',
   disabled: false,
   invalid: false,
   required: false,
-  searchable: false,
   clearable: false,
   options: {},
   defaultValue: {},
@@ -54,18 +54,18 @@ SingleSelect.defaultProps = {
   onChange: () => null
 };
 
-SingleSelect.propTypes = {
+MultiSelect.propTypes = {
   /**
    * Let's the user clear his selection.
    */
   clearable: PropTypes.bool,
   /**
-   * Set's a preselected option.
+   * Set's one or multiple preselected options.
    */
-  defaultValue: PropTypes.shape({
+  defaultValue: PropTypes.arrayOf(PropTypes.shape({
     value: PropTypes.any,
     label: PropTypes.string
-  }),
+  })),
   /**
    * Disables any interaction with the component.
    */

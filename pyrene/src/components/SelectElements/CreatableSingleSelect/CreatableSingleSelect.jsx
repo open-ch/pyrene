@@ -17,6 +17,7 @@ export default class CreatableSingleSelect extends React.Component {
           styles={SelectStyle}
           placeholder={this.props.placeholder}
           options={this.props.options}
+          defaultValue={this.props.defaultValue}
           isClearable={this.props.clearable}
           isDisabled={this.props.disabled}
           isInvalid={this.props.invalid}
@@ -46,6 +47,7 @@ CreatableSingleSelect.defaultProps = {
   required: false,
   clearable: false,
   options: {},
+  defaultValue: {},
   helperLabel: '',
   title: '',
   onChange: () => null
@@ -56,6 +58,13 @@ CreatableSingleSelect.propTypes = {
    * Let's the user clear his selection.
    */
   clearable: PropTypes.bool,
+  /**
+   * Set's a preselected option.
+   */
+  defaultValue: PropTypes.shape({
+    value: PropTypes.any,
+    label: PropTypes.string
+  }),
   /**
    * Disables any interaction with the component.
    */
