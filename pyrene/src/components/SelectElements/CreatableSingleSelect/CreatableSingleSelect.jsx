@@ -8,13 +8,9 @@ import SelectStyle from './creatableSingleSelectCSS';
 
 export default class CreatableSingleSelect extends React.Component {
 
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
-      <div styleName={classNames('selectContainer', {disabled: this.props.disabled}, {invalid: this.props.invalid && !this.props.disabled})}>
+      <div styleName={classNames('selectContainer', { disabled: this.props.disabled }, { invalid: this.props.invalid && !this.props.disabled })}>
         {this.props.title && <div styleName={classNames('selectTitle', { required: this.props.required && !this.props.disabled })}>{this.props.title}</div>}
         <CreatableSelect
           className={'creatableSingleSelect'}
@@ -22,11 +18,11 @@ export default class CreatableSingleSelect extends React.Component {
           placeholder={this.props.placeholder}
           options={this.props.options}
           isClearable={this.props.clearable}
-          isSearchable={this.props.searchable}
           isDisabled={this.props.disabled}
           isInvalid={this.props.invalid}
-          onChange={(option) => this.props.onChange(option)}
+          onChange={option => this.props.onChange(option)}
 
+          isSearchable
           blurInputOnSelect
           escapeClearsValue
           captureMenuScroll
@@ -48,7 +44,6 @@ CreatableSingleSelect.defaultProps = {
   disabled: false,
   invalid: false,
   required: false,
-  searchable: false,
   clearable: false,
   options: {},
   helperLabel: '',
@@ -93,12 +88,8 @@ CreatableSingleSelect.propTypes = {
    */
   required: PropTypes.bool,
   /**
-   * Let's the user type in the inputbox.
-   */
-  searchable: PropTypes.bool,
-  /**
    * Changes what the title says.
    */
-  title: PropTypes.string,
+  title: PropTypes.string
 };
 

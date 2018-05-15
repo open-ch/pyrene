@@ -8,10 +8,6 @@ import SelectStyle from './singleSelectCSS';
 
 export default class SingleSelect extends React.Component {
 
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <div styleName={classNames('selectContainer', {disabled: this.props.disabled}, {invalid: this.props.invalid && !this.props.disabled})}>
