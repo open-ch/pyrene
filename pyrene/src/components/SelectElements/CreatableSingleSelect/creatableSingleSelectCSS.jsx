@@ -72,19 +72,19 @@ const selectStyle = {
     borderRadius: 2,
     cursor: 'pointer',
 
-    '& .singleSelect__dropdown-indicator:after': {
+    '& .creatableSingleSelect__dropdown-indicator:after': {
       color: state.isFocused ? 'var(--blue-500)' : 'var(--neutral-300)',
       transform: state.isFocused ? 'rotate(180deg)' : 'rotate(0deg)'
     },
 
-    '& .singleSelect__single-value': {
+    '& .creatableSingleSelect__single-value': {
       backgroundColor: state.hasValue && state.isFocused ? 'var(--blue-50)' : 'transparent'
     },
 
     ':hover': {
       border: 'solid 1px var(--blue-500)',
 
-      '& .singleSelect__dropdown-indicator:after': {
+      '& .creatableSingleSelect__dropdown-indicator:after': {
         color: 'var(--blue-500)'
       },
     },
