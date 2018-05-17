@@ -14,7 +14,7 @@ export default class MultiSelect extends React.Component {
         {this.props.title && <div styleName={classNames('selectTitle', { required: this.props.required && !this.props.disabled })}>{this.props.title}</div>}
         <Select
           className={'multiSelect'}
-          styles={SelectStyle}
+          styles={SelectStyle()}
           placeholder={this.props.placeholder}
           options={this.props.options}
           defaultValue={this.props.defaultValue}
@@ -23,11 +23,15 @@ export default class MultiSelect extends React.Component {
           isInvalid={this.props.invalid}
           onChange={(option) => this.props.onChange(option)}
 
+          maxMenuHeight={264}
+          noOptionsMessage={() => 'no matches found'}
+
           isMulti
           isSearchable
-          blurInputOnSelect
           escapeClearsValue
           captureMenuScroll
+          backspaceRemovesValue
+          closeMenuOnSelect={false}
         />
         {(this.props.helperLabel || this.props.invalid) && <div styleName={'selectHelper'}>
           {this.props.invalid && !this.props.disabled && <span className={'icon-error-outline'} styleName={'errorIcon'} />}
@@ -48,7 +52,7 @@ MultiSelect.defaultProps = {
   required: false,
   clearable: false,
   options: {},
-  defaultValue: {},
+  defaultValue: null,
   helperLabel: '',
   title: '',
   onChange: () => null

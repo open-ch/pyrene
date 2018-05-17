@@ -13,3 +13,4 @@ export { default as ArrowButton } from './components/ArrowButton/ArrowButton';
 export { default as SingleSelect } from './components/SelectElements/SingleSelect/SingleSelect';
 export { default as CreatableSingleSelect } from './components/SelectElements/CreatableSingleSelect/CreatableSingleSelect';
 export { default as MultiSelect } from './components/SelectElements/MultiSelect/MultiSelect';
+export { default as MultiSelecttest } from './components/SelectElements/MultiSelect/testMulti';

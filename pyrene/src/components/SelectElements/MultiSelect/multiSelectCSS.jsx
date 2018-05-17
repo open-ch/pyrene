@@ -43,7 +43,7 @@
    }
  */
 
-const selectStyle = {
+const selectStyle = (height) => ({
   container: base => ({
     ...base,
     fontFamily: 'AvenirNext, Helvetica, sans-serif !important',
@@ -64,10 +64,11 @@ const selectStyle = {
     outline: '0 !important',
     position: 'relative',
     alignItems: 'center',
+    overflow:'hidden',
 
     minHeight: 32,
-    height: 32,
-    backgroundColor: state.isFocused ? 'var(--neutral-0)' : 'var(--neutral-020)',
+    maxHeight: 76,
+    backgroundColor: (state.isFocused || state.hasValue) ? 'var(--neutral-0)' : 'var(--neutral-020)',
     border: state.selectProps.isInvalid && !state.isDisabled ? 'solid 1px var(--red-500)' : state.isFocused ? 'solid 1px var(--blue-500)' : 'solid 1px var(--neutral-100)',
     borderRadius: 2,
     cursor: 'pointer',
@@ -92,10 +93,10 @@ const selectStyle = {
 
   valueContainer: base => ({
     ...base,
-    height: 32,
-    '& :last-child': {
-      zIndex: 2
-    }
+    overflow: 'auto',
+    paddingLeft: 6,
+    paddingRight: 6,
+    maxHeight: 76,
   }),
 
   placeholder: base => ({
@@ -171,7 +172,6 @@ const selectStyle = {
     boxShadow: '0 4px 8px -2px rgba(0, 21, 44, 0.2), 0 0 1px 0 rgba(0, 21, 44, 0.3)',
     borderRadius: 2,
     marginTop: 4,
-    maxHeight: 308
   }),
 
   option: (base, { isSelected, isFocused }) => ({
@@ -183,10 +183,66 @@ const selectStyle = {
       backgroundColor: 'var(--neutral-030)'
     },
     backgroundColor: (isSelected || isFocused) ? 'var(--neutral-030)' : 'var(--neutral-0)',
-    height: 30,
+    height: 32,
     color: 'var(--neutral-400)',
     cursor: 'pointer'
+  }),
+
+  multiValue: (base, {data}) => ({
+    ...base,
+    height: 20,
+    alignItems: 'center',
+    backgroundColor: data.valid ? 'var(--neutral-030)' : 'var(--red-500)',
+    flexShrink: 0,
+  }),
+
+  multiValueLabel: (base, {data}) => ({
+    boxSizing: 'border-box',
+    paddingLeft: 8,
+    fontSize: 13,
+    color: data.valid ? 'var(--neutral-400)' : 'var(--neutral-0)',
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
+  }),
+
+  multiValueRemove: (base, {data}) => ({
+    display: 'flex',
+    alignItems: 'center',
+    paddingLeft: 4,
+    paddingRight: 4,
+    '& svg': {
+      display: 'none'
+    },
+    ':after': {
+      fontFamily: 'IconFont !important',
+      fontSize: 14,
+      color: data.valid ? 'var(--neutral-300)' : 'var(--neutral-0)',
+      speak: 'none',
+      fontStyle: 'normal',
+      fontWeight: 'normal',
+      fontVariant: 'normal',
+      textTransform: 'none',
+      lineHeight: 1,
+      WebkitFontSmoothing: 'antialiased',
+      MozOsxFontSmoothing: 'grayscale',
+      content: '"7"',
+
+
+      borderRadius: 2
+    },
+    ':hover:after': {
+      color: 'var(--red-500)',
+      backgroundColor: data.valid ? 'var(--neutral-050)' : 'var(--neutral-0)'
+    }
+  }),
+  noOptionsMessage: (base, state) => ({
+    ...base,
+    fontStyle: 'italic',
+    color: 'var(--neutral-200)',
+    textAlign: 'left'
   })
-};
+
+});
 
 export default selectStyle;

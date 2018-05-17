@@ -9,6 +9,7 @@
         "generateScopedName": "[name]__[local]--[hash:base64:10]"
       }],
       "react-docgen",
-      "transform-object-rest-spread"
+      "transform-object-rest-spread",
+      "transform-class-properties"
     ]
 }

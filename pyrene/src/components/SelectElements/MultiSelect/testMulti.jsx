@@ -1,20 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import CreatableSelect from 'react-select/lib/Creatable';
 import '../select.css';
-import SelectStyle from './creatableSingleSelectCSS';
+import SelectStyle from './multiSelectCSS';
 
+import Select from 'react-select';
 
-export default class CreatableSingleSelect extends React.Component {
+export default class testMulti extends React.Component {
 
   render() {
     return (
       <div styleName={classNames('selectContainer', { disabled: this.props.disabled }, { invalid: this.props.invalid && !this.props.disabled })}>
         {this.props.title && <div styleName={classNames('selectTitle', { required: this.props.required && !this.props.disabled })}>{this.props.title}</div>}
-        <CreatableSelect
-          className={'creatableSingleSelect'}
-          styles={SelectStyle}
+        <Select
+          className={'multiSelect'}
+          styles={SelectStyle()}
           placeholder={this.props.placeholder}
           options={this.props.options}
           defaultValue={this.props.defaultValue}
@@ -25,12 +25,13 @@ export default class CreatableSingleSelect extends React.Component {
 
           maxMenuHeight={264}
           noOptionsMessage={() => 'no matches found'}
-          formatCreateLabel={inputValue => `Create new tag "${inputValue}"`}
 
+          isMulti
           isSearchable
-          blurInputOnSelect
           escapeClearsValue
           captureMenuScroll
+          backspaceRemovesValue
+          closeMenuOnSelect={false}
         />
         {(this.props.helperLabel || this.props.invalid) && <div styleName={'selectHelper'}>
           {this.props.invalid && !this.props.disabled && <span className={'icon-error-outline'} styleName={'errorIcon'} />}
@@ -42,9 +43,9 @@ export default class CreatableSingleSelect extends React.Component {
 
 }
 
-CreatableSingleSelect.displayName = 'CreatableSingleSelect';
+testMulti.displayName = 'testMulti';
 
-CreatableSingleSelect.defaultProps = {
+testMulti.defaultProps = {
   placeholder: 'Select',
   disabled: false,
   invalid: false,
@@ -57,18 +58,18 @@ CreatableSingleSelect.defaultProps = {
   onChange: () => null
 };
 
-CreatableSingleSelect.propTypes = {
+testMulti.propTypes = {
   /**
    * Let's the user clear his selection.
    */
   clearable: PropTypes.bool,
   /**
-   * Set's a preselected option.
+   * Set's one or multiple preselected options.
    */
-  defaultValue: PropTypes.shape({
+  defaultValue: PropTypes.arrayOf(PropTypes.shape({
     value: PropTypes.any,
     label: PropTypes.string
-  }),
+  })),
   /**
    * Disables any interaction with the component.
    */
@@ -100,6 +101,10 @@ CreatableSingleSelect.propTypes = {
    * Adds a visual indication that the field is required..
    */
   required: PropTypes.bool,
+  /**
+   * Let's the user type in the inputbox.
+   */
+  searchable: PropTypes.bool,
   /**
    * Changes what the title says.
    */

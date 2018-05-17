@@ -24,6 +24,9 @@ export default class SingleSelect extends React.Component {
           isInvalid={this.props.invalid}
           onChange={(option) => this.props.onChange(option)}
 
+          maxMenuHeight={264}
+          noOptionsMessage={() => 'no matches found'}
+
           blurInputOnSelect
           escapeClearsValue
           captureMenuScroll
@@ -48,7 +51,7 @@ SingleSelect.defaultProps = {
   searchable: false,
   clearable: false,
   options: {},
-  defaultValue: {},
+  defaultValue: null,
   helperLabel: '',
   title: '',
   onChange: () => null
