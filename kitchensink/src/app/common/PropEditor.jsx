@@ -52,7 +52,7 @@ export default class PropEditor extends React.Component {
               ]);
 
             case 'func':
-              return ([`Function: ${propName}`, <br />]);
+              return (<React.Fragment key={propName}>Function: {propName}<br /></React.Fragment>);
 
 
             case 'arrayOf':
