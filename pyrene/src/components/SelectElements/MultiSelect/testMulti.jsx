@@ -14,7 +14,7 @@ export default class testMulti extends React.Component {
         {this.props.title && <div styleName={classNames('selectTitle', { required: this.props.required && !this.props.disabled })}>{this.props.title}</div>}
         <Select
           className={'multiSelect'}
-          styles={SelectStyle()}
+          styles={SelectStyle(this.props.rows)}
           placeholder={this.props.placeholder}
           options={this.props.options}
           defaultValue={this.props.defaultValue}
@@ -47,14 +47,15 @@ testMulti.displayName = 'testMulti';
 
 testMulti.defaultProps = {
   placeholder: 'Select',
+  helperLabel: '',
+  title: '',
+  defaultValue: null,
+  rows: -1,
   disabled: false,
   invalid: false,
   required: false,
   clearable: false,
   options: {},
-  defaultValue: null,
-  helperLabel: '',
-  title: '',
   onChange: () => null
 };
 
@@ -101,6 +102,10 @@ testMulti.propTypes = {
    * Adds a visual indication that the field is required..
    */
   required: PropTypes.bool,
+  /**
+   * Let's you set a fixed height to the multiselect. Default behaviour is one row that expands up to 3, then starts scrolling.
+   */
+  rows: PropTypes.number,
   /**
    * Let's the user type in the inputbox.
    */

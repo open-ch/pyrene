@@ -43,7 +43,7 @@
    }
  */
 
-const selectStyle = (height) => ({
+const selectStyle = (rows) => ({
   container: base => ({
     ...base,
     fontFamily: 'AvenirNext, Helvetica, sans-serif !important',
@@ -63,11 +63,12 @@ const selectStyle = (height) => ({
     justifyContent: 'space-between',
     outline: '0 !important',
     position: 'relative',
-    alignItems: 'center',
-    overflow:'hidden',
+    alignItems: rows < 0 ? 'center' : 'flex-start',
+    overflow: 'hidden',
 
     minHeight: 32,
-    maxHeight: 76,
+    height: rows < 0 ? 'none' : (rows * 24) + 4,
+    maxHeight: rows < 0 ? 76 : 'none',
     backgroundColor: (state.isFocused || state.hasValue) ? 'var(--neutral-0)' : 'var(--neutral-020)',
     border: state.selectProps.isInvalid && !state.isDisabled ? 'solid 1px var(--red-500)' : state.isFocused ? 'solid 1px var(--blue-500)' : 'solid 1px var(--neutral-100)',
     borderRadius: 2,
@@ -96,7 +97,7 @@ const selectStyle = (height) => ({
     overflow: 'auto',
     paddingLeft: 6,
     paddingRight: 6,
-    maxHeight: 76,
+    maxHeight: rows < 0 ? 76 : (rows * 24) + 4,
   }),
 
   placeholder: base => ({
@@ -236,6 +237,7 @@ const selectStyle = (height) => ({
       backgroundColor: data.valid ? 'var(--neutral-050)' : 'var(--neutral-0)'
     }
   }),
+
   noOptionsMessage: (base, state) => ({
     ...base,
     fontStyle: 'italic',
