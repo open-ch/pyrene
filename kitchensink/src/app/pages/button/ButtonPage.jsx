@@ -34,7 +34,6 @@ const Topic = ({ match }) => {
       return (
         <React.Fragment>
           <CodePage component={Button} startProps={{ label: 'Click Me' }} />
-          <CodePage component={Button2} startProps={{ label: 'Click Me' }} />
         </React.Fragment>
       );
     case 'usage':
