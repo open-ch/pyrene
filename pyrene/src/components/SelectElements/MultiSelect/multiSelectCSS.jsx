@@ -43,7 +43,7 @@
    }
  */
 
-const selectStyle = (rows) => ({
+const multiSelectStyle = (rows) => ({
   container: base => ({
     ...base,
     fontFamily: 'AvenirNext, Helvetica, sans-serif !important',
@@ -67,8 +67,8 @@ const selectStyle = (rows) => ({
     overflow: 'hidden',
 
     minHeight: 32,
-    height: rows < 0 ? 'none' : (rows * 24) + 4,
-    maxHeight: rows < 0 ? 76 : 'none',
+    height: rows < 0 ? 'none' : (rows * 24) + 6,
+    maxHeight: rows < 0 ? 78 : 'none',
     backgroundColor: (state.isFocused || state.hasValue) ? 'var(--neutral-0)' : 'var(--neutral-020)',
     border: state.selectProps.isInvalid && !state.isDisabled ? 'solid 1px var(--red-500)' : state.isFocused ? 'solid 1px var(--blue-500)' : 'solid 1px var(--neutral-100)',
     borderRadius: 2,
@@ -193,7 +193,7 @@ const selectStyle = (rows) => ({
     ...base,
     height: 20,
     alignItems: 'center',
-    backgroundColor: data.valid ? 'var(--neutral-030)' : 'var(--red-500)',
+    backgroundColor: data.valid ? 'var(--neutral-030)' : 'var(--red-100)',
     flexShrink: 0,
   }),
 
@@ -201,7 +201,7 @@ const selectStyle = (rows) => ({
     boxSizing: 'border-box',
     paddingLeft: 8,
     fontSize: 13,
-    color: data.valid ? 'var(--neutral-400)' : 'var(--neutral-0)',
+    color: 'var(--neutral-400)',
     overflow: 'hidden',
     whiteSpace: 'nowrap',
     textOverflow: 'ellipsis',
@@ -218,7 +218,7 @@ const selectStyle = (rows) => ({
     ':after': {
       fontFamily: 'IconFont !important',
       fontSize: 14,
-      color: data.valid ? 'var(--neutral-300)' : 'var(--neutral-0)',
+      color: 'var(--neutral-300)',
       speak: 'none',
       fontStyle: 'normal',
       fontWeight: 'normal',
@@ -247,4 +247,4 @@ const selectStyle = (rows) => ({
 
 });
 
-export default selectStyle;
+export default multiSelectStyle;
