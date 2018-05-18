@@ -44,13 +44,13 @@ export default class multiSelect extends React.Component {
             isClearable={this.props.clearable}
             isDisabled={this.props.disabled}
             isInvalid={this.props.invalid}
+            isSearchable={this.props.searchable}
             onChange={option => this.props.onChange(option)}
 
             maxMenuHeight={264}
             noOptionsMessage={() => 'no matches found'}
 
             isMulti
-            isSearchable
             escapeClearsValue
             captureMenuScroll
             backspaceRemovesValue
@@ -80,6 +80,7 @@ multiSelect.defaultProps = {
   invalid: false,
   required: false,
   clearable: false,
+  searchable: false,
   options: {},
   onChange: () => null
 };
