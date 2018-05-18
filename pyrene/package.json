@@ -18,7 +18,7 @@
     "build": "webpack",
     "prewatch": "yarn install",
     "watch": "webpack -w",
-    "test": "mocha --require babel-register --require ignore-styles src/test.js src/**/*.spec.js",
+    "test": "mocha --require babel-register --require ignore-styles src/test.js src/**/*.spec.js src/jsdomSetup.js",
     "prerelease": "yarn build",
     "release": "release-it"
   },
@@ -43,6 +43,7 @@
     "eslint-plugin-jsx-a11y": "5.1.1",
     "eslint-plugin-react": "^7.7.0",
     "ignore-styles": "^5.0.1",
+    "jsdom": "^11.10.0",
     "mocha": "^5.1.1",
     "postcss": "^6.0.20",
     "postcss-custom-properties": "^7.0.0",

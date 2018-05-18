@@ -10,9 +10,9 @@ const Button = props => (
     styleName={
       classNames('button',
         { [`type-${props.type}`]: true },
-        { hasIcon: props.icon },
-        { disabled: props.disabled })}
+        { hasIcon: props.icon })}
     onClick={props.onClick}
+    disabled={props.disabled}
   >
     {props.icon && <span className={`icon-${props.icon}`} />}
     {props.label}
