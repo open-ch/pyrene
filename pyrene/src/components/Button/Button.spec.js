@@ -30,4 +30,9 @@ describe('<Button />', () => {
     const rendered = shallow(<Button label="My Label" />);
     expect(rendered.contains('My Label')).to.equal(true);
   });
+
+  it('renders the span for icons', () => {
+    const rendered = shallow(<Button icon={'someIcon'}/>);
+    expect(rendered.find('.icon-someIcon')).to.have.length(1);
+  });
 });

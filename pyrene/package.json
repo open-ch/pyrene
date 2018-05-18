@@ -18,6 +18,7 @@
     "build": "webpack",
     "prewatch": "yarn install",
     "watch": "webpack -w",
+    "testWatch": "webpack --config webpackTest.config.babel.js -w",
     "test": "NODE_ENV=test mocha --require babel-register --require ignore-styles src/test.js src/**/*.spec.js",
     "prerelease": "yarn build",
     "release": "release-it"
