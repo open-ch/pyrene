@@ -18,7 +18,7 @@
     "build": "webpack",
     "prewatch": "yarn install",
     "watch": "webpack -w",
-    "test": "mocha --require babel-register --require ignore-styles src/test.js src/**/*.spec.js src/jsdomSetup.js",
+    "test": "NODE_ENV=test mocha --require babel-register --require ignore-styles src/test.js src/**/*.spec.js",
     "prerelease": "yarn build",
     "release": "release-it"
   },
@@ -29,6 +29,7 @@
     "babel-plugin-react-css-modules": "^3.3.3",
     "babel-plugin-react-docgen": "^1.9.0",
     "babel-plugin-transform-object-assign": "^6.22.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "chai": "^4.1.2",

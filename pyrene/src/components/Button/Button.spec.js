@@ -16,15 +16,14 @@ describe('<Button />', () => {
     rendered.find('button').simulate('click');
 
     expect(onClick).to.have.property('callCount', 1);
-    expect(onClick).to.have.been.calledOnce;
   });
 
   it('is not clickable if disabled', () => {
     const onClick = sinon.spy();
     const rendered = mount(<Button onClick={onClick} disabled={true} />);
-    rendered.find('button').click();
+    rendered.find('button').simulate('click');
 
-    expect(onClick).to.have.not.been.called;
+    expect(onClick).to.have.property('callCount', 0);
   });
 
   it('renders the label', () => {

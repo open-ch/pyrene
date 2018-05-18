@@ -1,29 +1,48 @@
 import React from 'react';
-import {expect} from 'chai';
-import {shallow} from 'enzyme';
+import { expect } from 'chai';
+import { shallow, mount } from 'enzyme';
 import sinon from 'sinon';
 import ShareDialog from './ShareDialog';
 
+const props = {
+  link: 'someLink',
+};
 
 describe('<ShareDialog />', () => {
   it('renders without crashing', () => {
-    const rendered = shallow( <ShareDialog />);
+    const rendered = shallow(<ShareDialog {...props} />);
   });
 
-
-  it('is clickable', () => {
+  it('renders dialog on click', () => {
     const onClick = sinon.spy();
-    const rendered = shallow(<ShareDialog onClick={onClick} />);
+    const rendered = mount(<ShareDialog {...props} onClick={onClick} />);
     rendered.find('button').simulate('click');
 
-    expect(onClick).to.have.property('callCount', 1);
-    expect(onClick).to.have.been.calledOnce;
+    expect(rendered.find('.shareDialog')).to.have.length(1);
   });
 
-  /** Some Render
-  it('renders the label', () => {
-    const rendered = shallow(<Button label="My Label" />);
-    expect(rendered.contains('My Label')).to.equal(true);
-  }); */
+  it('is not clickable if disabled', () => {
+    const onClick = sinon.spy();
+    const rendered = mount(<ShareDialog {...props} onClick={onClick} disabled={true} />);
+    rendered.find('button').simulate('click');
+
+    expect(onClick).to.have.property('callCount', 0);
+  });
+
+  it('renders elements of dialog and their content', () => {
+    const onClick = sinon.spy();
+    const rendered = mount(<ShareDialog {...props} onClick={onClick} />);
+    rendered.find('button').simulate('click');
+
+    expect(rendered.find('.title')).to.have.length(1);
+
+    expect(rendered.find('input')).to.have.length(1);
+    expect(rendered.find('input').props()).to.have.property('value', props.link);
+
+    expect(rendered.find('button')).to.have.length(3);
+    rendered.find('button').last().simulate('click');
+
+    expect(rendered.find('.shareDialog')).to.have.length(0);
+  });
 
 });

@@ -10,7 +10,8 @@ const Button = props => (
     styleName={
       classNames('button',
         { [`type-${props.type}`]: true },
-        { hasIcon: props.icon })}
+        { hasIcon: props.icon },
+        { disabled: props.disabled })}
     onClick={props.onClick}
     disabled={props.disabled}
   >
