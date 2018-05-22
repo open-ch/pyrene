@@ -45,7 +45,7 @@ const config = {
       {
         test: /\.woff$/,
         loader: 'url-loader'
-      }
+      },
     ]
   },
   plugins: [
