@@ -5,5 +5,11 @@
   },
   "parserOptions": {
     "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "rules": {
+    "react/sort-prop-types": "error",
   }
 }

@@ -42,6 +42,7 @@ export default class Checkbox extends React.Component {
           type={'checkbox'}
           checked={this.state.checked}
           onChange={this.toggleChange}
+          name={this.props.name}
         />
 
         <label
@@ -73,21 +74,21 @@ Checkbox.defaultProps = {
 
 Checkbox.propTypes = {
   /**
-   * Displayed label.
+   * Pre-checks the checkbox.
    */
-  label: PropTypes.string.isRequired,
+  checked: PropTypes.bool,
   /**
    * Disables any interaction with the component.
    */
   disabled: PropTypes.bool,
   /**
-   * Pre-checks the checkbox.
-   */
-  checked: PropTypes.bool,
-  /**
    * Changes the visual appearance, to signal that the usage was invalid.
    */
   invalid: PropTypes.bool,
+  /**
+   * Displayed label.
+   */
+  label: PropTypes.string.isRequired,
   /**
    * Event handler.
    */
