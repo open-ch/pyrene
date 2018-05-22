@@ -18,7 +18,7 @@ describe('<ArrowButton />', () => {
     const rendered = shallow(<ArrowButton {...props} onClick={onClick} />);
     rendered.find('button').simulate('click');
 
-    expect(onClick).to.have.property('callCount', 1);
+    expect(onClick).to.have.been.calledOnce;
   });
 
   it('is not clickable if disabled', () => {
@@ -26,6 +26,6 @@ describe('<ArrowButton />', () => {
     const rendered = mount(<ArrowButton {...props} onClick={onClick} disabled={true} />);
     rendered.find('button').simulate('click');
 
-    expect(onClick).to.have.property('callCount', 0);
+    expect(onClick).to.have.not.been.called;
   });
 });

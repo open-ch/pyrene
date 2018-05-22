@@ -26,7 +26,7 @@ describe('<ShareDialog />', () => {
     const rendered = mount(<ShareDialog {...props} onClick={onClick} disabled={true} />);
     rendered.find('button').simulate('click');
 
-    expect(onClick).to.have.property('callCount', 0);
+    expect(onClick).to.have.not.been.called;
   });
 
   it('renders elements of dialog and their content', () => {

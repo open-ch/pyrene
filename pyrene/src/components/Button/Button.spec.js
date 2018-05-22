@@ -15,7 +15,7 @@ describe('<Button />', () => {
     const rendered = shallow(<Button onClick={onClick} />);
     rendered.find('button').simulate('click');
 
-    expect(onClick).to.have.property('callCount', 1);
+    expect(onClick).to.have.been.calledOnce;
   });
 
   it('is not clickable if disabled', () => {
@@ -23,7 +23,7 @@ describe('<Button />', () => {
     const rendered = mount(<Button onClick={onClick} disabled={true} />);
     rendered.find('button').simulate('click');
 
-    expect(onClick).to.have.property('callCount', 0);
+    expect(onClick).to.have.not.been.called;
   });
 
   it('renders the label', () => {

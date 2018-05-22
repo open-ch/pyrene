@@ -16,14 +16,13 @@ describe('<Checkbox />', () => {
   it('changes state on click', () => {
     const onChange = sinon.spy();
     const rendered = shallow(<Checkbox {...props} onChange={onChange} />);
-    rendered.find('input[type="checkbox"]').simulate('change');
 
-    expect(onChange).to.have.property('callCount', 1);
+    rendered.find('input[type="checkbox"]').simulate('change');
+    expect(onChange).to.have.been.calledOnce;
     expect(rendered.state().checked).to.equal(true);
 
     rendered.find('input[type="checkbox"]').simulate('change');
-
-    expect(onChange).to.have.property('callCount', 2);
+    expect(onChange).to.have.been.calledTwice;
     expect(rendered.state().checked).to.equal(false);
   });
 
