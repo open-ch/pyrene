@@ -11,5 +11,6 @@
   },
   "rules": {
     "react/sort-prop-types": "error",
+    "comma-dangle": "off"
   }
 }

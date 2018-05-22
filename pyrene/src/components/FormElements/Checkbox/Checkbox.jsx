@@ -69,7 +69,8 @@ Checkbox.defaultProps = {
   disabled: false,
   checked: false,
   invalid: false,
-  onChange: () => null
+  name: '',
+  onChange: () => null,
 };
 
 Checkbox.propTypes = {
@@ -89,6 +90,10 @@ Checkbox.propTypes = {
    * Displayed label.
    */
   label: PropTypes.string.isRequired,
+  /**
+   * Sets the html name property of the form element.
+   */
+  name: PropTypes.string,
   /**
    * Event handler.
    */
