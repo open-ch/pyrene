@@ -25,9 +25,8 @@ export default class RadioSelection extends React.Component {
   }
 
   _handleRadioSelection(event) {
-    this.setState({
-      selectedOption: event.target.value
-    });
+    this.setState((prevState, props) =>
+      ({ selectedOption: event.target.value }));
   }
 
   render() {

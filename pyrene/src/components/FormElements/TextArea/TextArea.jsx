@@ -27,10 +27,9 @@ export default class TextArea extends React.Component {
   }
 
   handleChange(event) {
-    this.setState({
-      value: event.target.value
-    });
-    this.props.onChange(event.target.value);
+    this.setState((prevState, props) =>
+      ({ value: event.target.value }),
+    () => this.props.onChange(event.target.value));
   }
 
   render() {
