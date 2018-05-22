@@ -30,16 +30,10 @@ export default class TextField extends React.Component {
     this.props.onChange(event);
   }
 
-  _getWidth() {
-    if (this.props.width >= 0) {
-      return `${this.props.width}px`;
-    }
-    return '100%';
-  }
-
   render() {
+    const width = (this.props.width >= 0) ? `${this.props.width}px` : '100%';
     return (
-      <div styleName={classNames('textFieldContainer', { disabled: this.props.disabled }, { invalid: this.props.invalid && !this.props.disabled })} style={{ width: this._getWidth() }}>
+      <div styleName={classNames('textFieldContainer', { disabled: this.props.disabled }, { invalid: this.props.invalid && !this.props.disabled })} style={{ width: width }}>
         {this.props.title && <div styleName={classNames('textFieldTitle', { required: this.props.required && !this.props.disabled })}>{this.props.title}</div>}
         <div styleName={'textFieldIconLayoutContainer'}>
           <input
