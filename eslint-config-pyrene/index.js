@@ -54,6 +54,10 @@ module.exports = {
     // Allow props on the same line
     "react/jsx-first-prop-new-line": 0,
     "react/jsx-max-props-per-line": 0,
+    // require to sort props alphabetically in the prop-type declaration
+    "react/sort-prop-types": 2,
+    // short hand props must be listed after all other props (Component, not prop declaration)
+    "react/jsx-sort-props": [2, {"shorthandLast": true, "noSortAlphabetically": true}],
     // We only have a11ly as it's a required dependency
     "jsx-a11y/no-static-element-interactions": 0,
     // Our imports work differently in MC
