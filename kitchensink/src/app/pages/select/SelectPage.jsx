@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import SubPagingMenu from '../../common/PageElements/SubPagingMenu';
-import { SingleSelect, CreatableSingleSelect, MultiSelect, MultiSelecttest } from 'pyrene';
+import { SingleSelect, MultiSelect } from 'pyrene';
 import SelectUsage from './SelectUsage';
 import CodePage from '../../common/CodePage';
 import '../../../css/componentPage.css';
@@ -70,26 +70,11 @@ const Topic = ({ match }) => {
             options: testOptions
           }}
           />
-          <CodePage component={CreatableSingleSelect} startProps={{
-            title: 'Creatable-Single-Select',
-            placeholder: 'Choose your favorite ice cream',
-            helperLabel: 'Ice cream is delicious',
-            options: testOptions
-          }}
-          />
           <CodePage component={MultiSelect} startProps={{
             title: 'Multi-Select',
             placeholder: 'Choose your favorite ice cream',
             helperLabel: 'Ice cream is delicious',
             defaultValue: [testOptions[1], testOptions[2]],
-            options: testOptions
-          }}
-          />
-          <CodePage component={MultiSelecttest} startProps={{
-            title: 'Multi-Select-Test',
-            placeholder: 'Please choose your phone number',
-            helperLabel: 'Ice cream is delicious',
-            defaultValue: testOptions,
             options: testOptions
           }}
           />
