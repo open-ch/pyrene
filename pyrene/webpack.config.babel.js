@@ -23,25 +23,6 @@ const config = {
       },
       {
         test: /\.css$/,
-        exclude: [
-          /node_modules/,
-          path.resolve(__dirname, 'src', 'components', 'SelectElements', 'react-osag-select')
-        ],
-        use: [
-          'style-loader',
-          {
-            loader: 'css-loader',
-            options: {
-              modules: true,
-              localIdentName: '[name]__[local]--[hash:base64:10]',
-              sourceMap: !production
-            }
-          },
-          'postcss-loader'
-        ]
-      },
-      {
-        test: /\.css$/,
         include: path.resolve(__dirname, 'src', 'components', 'SelectElements', 'react-osag-select'),
         use: [
           'style-loader',
