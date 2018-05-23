@@ -56,7 +56,7 @@ const config = {
           const changedTimes = compiler.watchFileSystem.watcher.mtimes;
           const changedFiles = Object.keys(changedTimes).map(file => `${file.replace(/\.jsx/g, '.spec.js')}`).join(' ');
 
-          const runTestsCommand = `NODE_ENV=test mocha --reporter nyan  --require babel-register --require ignore-styles src/test.js ${changedFiles}`;
+          const runTestsCommand = `NODE_ENV=test mocha --color --require babel-register --require ignore-styles src/test.js ${changedFiles}`;
           exec(runTestsCommand, (err, stdout, stderr) => {
             if (stdout) process.stdout.write(stdout);
             if (stderr) process.stderr.write(stderr);
