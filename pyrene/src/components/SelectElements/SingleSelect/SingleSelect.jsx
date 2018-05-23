@@ -7,64 +7,58 @@ import SelectStyle from './singleSelectCSS';
 import '../select.css';
 
 
-export default class SingleSelect extends React.Component {
+const SingleSelect = props => (
+  <div styleName={classNames('selectContainer', {disabled: props.disabled}, {invalid: props.invalid && !props.disabled})}>
+    {props.title && <div styleName={classNames('selectTitle', { required: props.required && !props.disabled })}>{props.title}</div>}
 
-  render() {
-    return (
-      <div styleName={classNames('selectContainer', {disabled: this.props.disabled}, {invalid: this.props.invalid && !this.props.disabled})}>
-        {this.props.title && <div styleName={classNames('selectTitle', { required: this.props.required && !this.props.disabled })}>{this.props.title}</div>}
+    {props.creatable ?
+      <CreatableSelect
+        className={'singleSelect'}
+        styles={SelectStyle}
+        placeholder={props.placeholder}
+        options={props.options}
+        defaultValue={props.defaultValue}
+        isClearable={props.clearable}
+        isDisabled={props.disabled}
+        isInvalid={props.invalid}
+        onChange={option => props.onChange(option)}
 
-        {this.props.creatable ?
-          <CreatableSelect
-            className={'singleSelect'}
-            styles={SelectStyle}
-            placeholder={this.props.placeholder}
-            options={this.props.options}
-            defaultValue={this.props.defaultValue}
-            isClearable={this.props.clearable}
-            isDisabled={this.props.disabled}
-            isInvalid={this.props.invalid}
-            onChange={option => this.props.onChange(option)}
+        maxMenuHeight={264}
+        noOptionsMessage={() => 'no matches found'}
+        formatCreateLabel={inputValue => `Create new tag "${inputValue}"`}
 
-            maxMenuHeight={264}
-            noOptionsMessage={() => 'no matches found'}
-            formatCreateLabel={inputValue => `Create new tag "${inputValue}"`}
+        isSearchable
+        blurInputOnSelect
+        escapeClearsValue
+        captureMenuScroll
+      />
+      :
+      <Select
+        className={'singleSelect'}
+        styles={SelectStyle}
+        placeholder={props.placeholder}
+        options={props.options}
+        defaultValue={props.defaultValue}
+        isClearable={props.clearable}
+        isSearchable={props.searchable}
+        isDisabled={props.disabled}
+        isInvalid={props.invalid}
+        onChange={(option) => props.onChange(option)}
 
-            isSearchable
-            blurInputOnSelect
-            escapeClearsValue
-            captureMenuScroll
-          />
-          :
-          <Select
-            className={'singleSelect'}
-            styles={SelectStyle}
-            placeholder={this.props.placeholder}
-            options={this.props.options}
-            defaultValue={this.props.defaultValue}
-            isClearable={this.props.clearable}
-            isSearchable={this.props.searchable}
-            isDisabled={this.props.disabled}
-            isInvalid={this.props.invalid}
-            onChange={(option) => this.props.onChange(option)}
+        maxMenuHeight={264}
+        noOptionsMessage={() => 'no matches found'}
 
-            maxMenuHeight={264}
-            noOptionsMessage={() => 'no matches found'}
-
-            blurInputOnSelect
-            escapeClearsValue
-            captureMenuScroll
-          />
-        }
-        {(this.props.helperLabel || this.props.invalid) && <div styleName={'selectHelper'}>
-          {this.props.invalid && !this.props.disabled && <span className={'icon-error-outline'} styleName={'errorIcon'} />}
-          {this.props.helperLabel}
-        </div>}
-      </div>
-    );
-  }
-
-}
+        blurInputOnSelect
+        escapeClearsValue
+        captureMenuScroll
+      />
+    }
+    {(props.helperLabel || props.invalid) && <div styleName={'selectHelper'}>
+      {props.invalid && !props.disabled && <span className={'icon-error-outline'} styleName={'errorIcon'} />}
+      {props.helperLabel}
+    </div>}
+  </div>
+);
 
 SingleSelect.displayName = 'SingleSelect';
 
@@ -139,3 +133,5 @@ SingleSelect.propTypes = {
    */
   title: PropTypes.string,
 };
+
+export default SingleSelect;

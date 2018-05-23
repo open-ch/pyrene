@@ -6,70 +6,64 @@ import Select from 'react-select';
 import CreatableSelect from 'react-select/lib/Creatable';
 import MultiSelectStyle from './multiSelectCSS';
 
-export default class multiSelect extends React.Component {
+const MultiSelect = props => (
+  <div styleName={classNames('selectContainer', { disabled: props.disabled }, { invalid: props.invalid && !props.disabled })}>
+    {props.title && <div styleName={classNames('selectTitle', { required: props.required && !props.disabled })}>{props.title}</div>}
+    {props.creatable ?
+      <CreatableSelect
+        className={'multiSelect'}
+        styles={MultiSelectStyle(props.rows)}
+        placeholder={props.placeholder}
+        options={props.options}
+        defaultValue={props.defaultValue}
+        isClearable={props.clearable}
+        isDisabled={props.disabled}
+        isInvalid={props.invalid}
+        onChange={option => props.onChange(option)}
 
-  render() {
-    return (
-      <div styleName={classNames('selectContainer', { disabled: this.props.disabled }, { invalid: this.props.invalid && !this.props.disabled })}>
-        {this.props.title && <div styleName={classNames('selectTitle', { required: this.props.required && !this.props.disabled })}>{this.props.title}</div>}
-        {this.props.creatable ?
-          <CreatableSelect
-            className={'multiSelect'}
-            styles={MultiSelectStyle(this.props.rows)}
-            placeholder={this.props.placeholder}
-            options={this.props.options}
-            defaultValue={this.props.defaultValue}
-            isClearable={this.props.clearable}
-            isDisabled={this.props.disabled}
-            isInvalid={this.props.invalid}
-            onChange={option => this.props.onChange(option)}
+        maxMenuHeight={264}
+        noOptionsMessage={() => 'no matches found'}
+        formatCreateLabel={inputValue => `Create new tag "${inputValue}"`}
 
-            maxMenuHeight={264}
-            noOptionsMessage={() => 'no matches found'}
-            formatCreateLabel={inputValue => `Create new tag "${inputValue}"`}
+        isMulti
+        isSearchable
+        blurInputOnSelect
+        escapeClearsValue
+        captureMenuScroll
+      />
+      :
+      <Select
+        className={'multiSelect'}
+        styles={MultiSelectStyle(props.rows)}
+        placeholder={props.placeholder}
+        options={props.options}
+        defaultValue={props.defaultValue}
+        isClearable={props.clearable}
+        isDisabled={props.disabled}
+        isInvalid={props.invalid}
+        isSearchable={props.searchable}
+        onChange={option => props.onChange(option)}
 
-            isMulti
-            isSearchable
-            blurInputOnSelect
-            escapeClearsValue
-            captureMenuScroll
-          />
-          :
-          <Select
-            className={'multiSelect'}
-            styles={MultiSelectStyle(this.props.rows)}
-            placeholder={this.props.placeholder}
-            options={this.props.options}
-            defaultValue={this.props.defaultValue}
-            isClearable={this.props.clearable}
-            isDisabled={this.props.disabled}
-            isInvalid={this.props.invalid}
-            isSearchable={this.props.searchable}
-            onChange={option => this.props.onChange(option)}
+        maxMenuHeight={264}
+        noOptionsMessage={() => 'no matches found'}
 
-            maxMenuHeight={264}
-            noOptionsMessage={() => 'no matches found'}
+        isMulti
+        escapeClearsValue
+        captureMenuScroll
+        backspaceRemovesValue
+        closeMenuOnSelect={false}
+      />
+    }
+    {(props.helperLabel || props.invalid) && <div styleName={'selectHelper'}>
+      {props.invalid && !props.disabled && <span className={'icon-error-outline'} styleName={'errorIcon'} />}
+      {props.helperLabel}
+    </div>}
+  </div>
+);
 
-            isMulti
-            escapeClearsValue
-            captureMenuScroll
-            backspaceRemovesValue
-            closeMenuOnSelect={false}
-          />
-        }
-        {(this.props.helperLabel || this.props.invalid) && <div styleName={'selectHelper'}>
-          {this.props.invalid && !this.props.disabled && <span className={'icon-error-outline'} styleName={'errorIcon'} />}
-          {this.props.helperLabel}
-        </div>}
-      </div>
-    );
-  }
+MultiSelect.displayName = 'MultiSelect';
 
-}
-
-multiSelect.displayName = 'multiSelect';
-
-multiSelect.defaultProps = {
+MultiSelect.defaultProps = {
   placeholder: 'Select',
   helperLabel: '',
   title: '',
@@ -85,7 +79,7 @@ multiSelect.defaultProps = {
   onChange: () => null
 };
 
-multiSelect.propTypes = {
+MultiSelect.propTypes = {
   /**
    * Let's the user clear his selection.
    */
@@ -146,3 +140,4 @@ multiSelect.propTypes = {
   title: PropTypes.string
 };
 
+export default MultiSelect;
