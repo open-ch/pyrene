@@ -25,33 +25,34 @@ export default class RadioSelection extends React.Component {
   }
 
   _handleRadioSelection(event) {
-    this.setState({
-      selectedOption: event.target.value
-    });
+    this.setState((prevState, props) =>
+      ({ selectedOption: event.target.value }));
   }
 
   render() {
     const rand = Math.floor(Math.random() * 1e10);
     return (
-      <div styleName={classNames('radioSelectionContainer', { [`alignment-${this.props.alignment}`]: true }, { invalid: this.props.invalid && !this.state.selectedOption})}>
+      <div styleName={classNames('radioSelectionContainer', { [`alignment-${this.props.alignment}`]: true }, { invalid: this.props.invalid && !this.state.selectedOption })}>
         {this.props.radioLabels.map(radioLabel => (
           <React.Fragment key={`radio_${radioLabel}`}>
             <div className={'radioContainer'}>
               <input
-                id={`radio_${radioLabel}_${rand}`}
                 styleName={'radioInput'}
+                checked={this.state.selectedOption === radioLabel}
+                name={this.props.name}
+                id={`radio_${radioLabel}_${rand}`}
+                name={this.props.name}
+                onChange={this._handleRadioSelection}
                 type="radio"
                 value={radioLabel}
-                checked={this.state.selectedOption === radioLabel}
-                onChange={this._handleRadioSelection}
               />
 
               <label
+                htmlFor={`radio_${radioLabel}_${rand}`}
                 styleName={
                   classNames('radioLabel',
                     { checked: (this.state.selectedOption === radioLabel) },
                     { disabled: this.props.disabled })}
-                htmlFor={`radio_${radioLabel}_${rand}`}
               >
                 <span styleName={'radioIcon'} />
                 {radioLabel}
@@ -73,10 +74,27 @@ RadioSelection.defaultProps = {
   radioLabels: [],
   alignment: 'vertical',
   selectedOption: '',
-  invalid: false
+  invalid: false,
+  name: '',
 };
 
 RadioSelection.propTypes = {
+  /**
+   * Specifies the orientation of the radio group.
+   */
+  alignment: PropTypes.oneOf(['vertical', 'horizontal']),
+  /**
+   * Disables any interaction with the component.
+   */
+  disabled: PropTypes.bool,
+  /**
+   * Changes the visual appearance, to signal that the usage was invalid.
+   */
+  invalid: PropTypes.bool,
+  /**
+   * Sets the html name property of the form element.
+   */
+  name: PropTypes.string,
   /**
    * Specifies the different choices and values.
    */
@@ -85,16 +103,4 @@ RadioSelection.propTypes = {
    * Specifies a radio that is checked on page load.
    */
   selectedOption: PropTypes.string,
-  /**
-   * Disables any interaction with the component.
-   */
-  disabled: PropTypes.bool,
-  /**
-   * Flag to set when checkbox should have been set.
-   */
-  invalid: PropTypes.bool,
-  /**
-   * Specifies the orientation of the radio group.
-   */
-  alignment: PropTypes.oneOf(['vertical', 'horizontal'])
 };

@@ -12,14 +12,14 @@ export default class TextArea extends React.Component {
     this.textAreaRef = React.createRef();
     this.handleChange = this.handleChange.bind(this);
     this.state = {
-      inputText: ''
+      value: ''
     };
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    if (prevState.inputText !== nextProps.inputText) {
+    if (prevState.value !== nextProps.value) {
       return {
-        inputText: nextProps.inputText
+        value: nextProps.value
       };
     }
     // No State Change
@@ -27,41 +27,45 @@ export default class TextArea extends React.Component {
   }
 
   handleChange(event) {
-    this.setState({
-      inputText: event.target.value,
-    });
-    this.props.onChange(event);
-  }
-
-  _getWidth() {
-    if (this.props.resizeable) {
-    }
-    if (this.props.width >= 0) {
-      return `${this.props.width}px`;
-    }
-    return '100%';
+    this.setState((prevState, props) =>
+      ({ value: event.target.value }),
+    () => this.props.onChange(event.target.value));
   }
 
   render() {
-    const characterCount = this.props.maxLength - this.state.inputText.length;
+    const characterCount = this.props.maxLength - this.state.value.length;
+    const characterLimitReached = characterCount < 0;
+    const width = this.props.width >= 0 ? `${this.props.width}px` : '100%';
     return (
-      <div styleName={classNames('textAreaContainer', { disabled: this.props.disabled }, { invalid: this.props.invalid && !this.props.disabled})} style={{ width: this._getWidth() }}>
+      <div
+        style={{ width: width }}
+        styleName={classNames(
+          'textAreaContainer',
+          { disabled: this.props.disabled },
+          { invalid: this.props.invalid && !this.props.disabled },
+          { full: characterLimitReached && !this.props.disabled && this.props.maxLength >= 0 })
+        }
+      >
         <div styleName={'textAreaTitleBar'}>
-          <span styleName={classNames('textAreaTitle', { required: this.props.required && !this.props.disabled })}>{this.props.title}</span>
-          <span styleName={classNames('characterCounter', { full: characterCount < 0 })}>{characterCount}</span>
+          {this.props.title && <span styleName={classNames('textAreaTitle', { required: this.props.required && !this.props.disabled })}>{this.props.title}</span>}
+          {this.props.maxLength >= 0 && <span styleName={'characterCounter'}>{characterCount}</span>}
         </div>
         <textarea
-          styleName={classNames('textArea', {resizeable: this.props.resizeable})}
-          wrap={'hard'}
-          rows={this.props.rows}
-          value={this.state.inputText}
+          styleName={classNames('textArea', { resizeable: this.props.resizeable })}
+          name={this.props.name}
           placeholder={this.props.placeholder}
-          onChange={this.handleChange}
-          onBlur={this.props.onBlur}
-          onFocus={this.props.onFocus}
           ref={this.textAreaRef}
+          rows={this.props.rows}
+          value={this.state.value}
+          wrap={'hard'}
+          onBlur={this.props.onBlur}
+          onChange={this.handleChange}
+          onFocus={this.props.onFocus}
         />
-        <div styleName={classNames('textAreaHelper')}>{this.props.helperLabel}</div>
+        {(this.props.helperLabel || characterLimitReached || this.props.invalid) && <div styleName={'textAreaHelper'}>
+          {(this.props.invalid || (characterLimitReached && !this.props.disabled && this.props.maxLength >= 0)) && <span className={'icon-error-outline'} styleName={'errorIcon'} />}
+          {(characterLimitReached && !this.props.disabled && this.props.maxLength >= 0) ? 'Maximum number of characters reached' : this.props.helperLabel}
+        </div>}
       </div>
     );
   }
@@ -72,12 +76,13 @@ TextArea.displayName = 'TextArea';
 
 TextArea.defaultProps = {
   title: '',
-  inputText: '',
+  value: '',
   placeholder: '',
   helperLabel: '',
+  name: '',
   width: -1,
   rows: 3,
-  maxLength: 3000,
+  maxLength: -1,
   resizeable: false,
   required: false,
   disabled: false,
@@ -89,49 +94,25 @@ TextArea.defaultProps = {
 
 TextArea.propTypes = {
   /**
-   * Changes what the title says.
+   * Disables any interaction with the component.
    */
-  title: PropTypes.string,
-  /**
-   * Changes what the text area placeholder says.
-   */
-  placeholder: PropTypes.string,
-  /**
-   * Changes what the text area says.
-   */
-  inputText: PropTypes.string,
+  disabled: PropTypes.bool,
   /**
    * Helper text below the input field, also used to display error messages if prop invalid is set.
    */
   helperLabel: PropTypes.string,
   /**
-   * Changes the width of the input field in px. Use -1 to inherit parent width..
-   */
-  width: PropTypes.number,
-  /**
-   * Changes the height of the input field..
-   */
-  rows: PropTypes.number,
-  /**
-   * Changes the height of the input field..
-   */
-  maxLength: PropTypes.number,
-  /**
-   * Let's the user resize the text area.
-   */
-  resizeable: PropTypes.bool,
-  /**
-   * Adds a visual indication that the field is required..
-   */
-  required: PropTypes.bool,
-  /**
-   * Disables any interaction with the component.
-   */
-  disabled: PropTypes.bool,
-  /**
    * Changes the fields and helpers visual appearance to indicate a validation error.
    */
   invalid: PropTypes.bool,
+  /**
+   * Sets a maximum character count. Default allows any length.
+   */
+  maxLength: PropTypes.number,
+  /**
+   * Sets the html name property of the form element.
+   */
+  name: PropTypes.string,
   /**
    * Event handler.
    */
@@ -143,6 +124,34 @@ TextArea.propTypes = {
   /**
    * Event handler.
    */
-  onFocus: PropTypes.func
+  onFocus: PropTypes.func,
+  /**
+   * Changes what the text area placeholder says.
+   */
+  placeholder: PropTypes.string,
+  /**
+   * Adds a visual indication that the field is required.
+   */
+  required: PropTypes.bool,
+  /**
+   * Let's the user resize the text area.
+   */
+  resizeable: PropTypes.bool,
+  /**
+   * Changes the height of the input field.
+   */
+  rows: PropTypes.number,
+  /**
+   * Changes what the title says.
+   */
+  title: PropTypes.string,
+  /**
+   * Predefines a typed value inside the input field
+   */
+  value: PropTypes.string,
+  /**
+   * Changes the width of the input field in px. Use -1 to inherit parent width.
+   */
+  width: PropTypes.number,
 };
 

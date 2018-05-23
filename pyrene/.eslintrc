@@ -4,6 +4,6 @@
     "browser": true
   },
   "parserOptions": {
-    "sourceType": "module",
+    "sourceType": "module"
   }
 }

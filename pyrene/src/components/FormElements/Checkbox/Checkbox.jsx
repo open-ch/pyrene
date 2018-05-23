@@ -27,8 +27,8 @@ export default class Checkbox extends React.Component {
 
   toggleChange() {
     this.props.onChange(!this.state.checked);
-    this.setState(state => ({
-      checked: !state.checked
+    this.setState((prevState, props) => ({
+      checked: !prevState.checked
     }));
   }
 
@@ -42,6 +42,7 @@ export default class Checkbox extends React.Component {
           type={'checkbox'}
           checked={this.state.checked}
           onChange={this.toggleChange}
+          name={this.props.name}
         />
 
         <label
@@ -68,26 +69,31 @@ Checkbox.defaultProps = {
   disabled: false,
   checked: false,
   invalid: false,
-  onChange: () => null
+  name: '',
+  onChange: () => null,
 };
 
 Checkbox.propTypes = {
-  /**
-   * Changes what the button says.
-   */
-  label: PropTypes.string.isRequired,
-  /**
-   * Disables any interaction with the component.
-   */
-  disabled: PropTypes.bool,
   /**
    * Pre-checks the checkbox.
    */
   checked: PropTypes.bool,
   /**
-   * Flag to set when checkbox should have been set.
+   * Disables any interaction with the component.
+   */
+  disabled: PropTypes.bool,
+  /**
+   * Changes the visual appearance, to signal that the usage was invalid.
    */
   invalid: PropTypes.bool,
+  /**
+   * Displayed label.
+   */
+  label: PropTypes.string.isRequired,
+  /**
+   * Sets the html name property of the form element.
+   */
+  name: PropTypes.string,
   /**
    * Event handler.
    */
