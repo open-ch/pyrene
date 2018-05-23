@@ -124,14 +124,15 @@ export default class ShareDialog extends React.Component {
 ShareDialog.displayName = 'ShareDialog';
 
 ShareDialog.defaultProps = {
-  disabled: false
+  disabled: false,
+  position: 'bottom-right',
 };
 
 ShareDialog.propTypes = {
   /**
    * Choose where the dialog appears relative to the share button.
    */
-  position: PropTypes.oneOf(['bottom-right', 'bottom-left', 'top-right', 'top-left']).isRequired,
+  position: PropTypes.oneOf(['bottom-right', 'bottom-left', 'top-right', 'top-left']),
   /**
    * Link that is in the share dialog.
    */

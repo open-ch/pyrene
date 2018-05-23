@@ -10,8 +10,9 @@ const ArrowButton = props => (
     styleName={
       classNames('arrowButton',
         { [`direction-${props.direction}`]: true },
-        { isDisabled: props.isDisabled })}
+        { disabled: props.disabled })}
     onClick={props.onClick}
+    disabled={props.disabled}
   >
     <span className={'icon-Skip-right'} styleName={'icon'} />
   </button>
@@ -30,19 +31,19 @@ const ArrowButton = props => (
 
 ArrowButton.docProps = [
   { propName: 'direction', isRequired: false, type: 'oneOf: up down right left', defaultValue: '', description: 'Arrow direction.' },
-  { propName: 'isDisabled', isRequired: false, type: 'Bool', defaultValue: 'false', description: 'Disables any interaction with the button.' }
+  { propName: 'disabled', isRequired: false, type: 'Bool', defaultValue: 'false', description: 'Disables any interaction with the button.' }
 ];
 
 ArrowButton.displayName = 'ArrowButton';
 
 ArrowButton.defaultProps = {
-  isDisabled: false,
+  disabled: false,
   onClick: () => null
 };
 
 ArrowButton.propTypes = {
   direction: PropTypes.oneOf(['up', 'down', 'right', 'left']).isRequired,
-  isDisabled: PropTypes.bool,
+  disabled: PropTypes.bool,
   onClick: PropTypes.func
 };
 
