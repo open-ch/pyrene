@@ -67,7 +67,7 @@ const Topic = ({ match }) => {
             title: 'Single-Select',
             placeholder: 'Choose your favorite ice cream',
             helperLabel: 'Ice cream is delicious',
-            options: testOptions
+            options: testOptions,
           }}
           />
           <CodePage component={MultiSelect} startProps={{
@@ -75,7 +75,7 @@ const Topic = ({ match }) => {
             placeholder: 'Choose your favorite ice cream',
             helperLabel: 'Ice cream is delicious',
             defaultValue: [testOptions[1], testOptions[2]],
-            options: testOptions
+            options: testOptions,
           }}
           />
         </React.Fragment>
