@@ -3,11 +3,32 @@
       "env",
       "react"
     ],
+    "env": {
+      "test": {
+        "plugins": [
+          ["react-css-modules", {
+            "generateScopedName": "[local]"
+          }],
+        ]
+      },
+      "development": {
+        "plugins": [
+          ["react-css-modules", {
+            "generateScopedName": "[name]__[local]--[hash:base64:10]"
+          }],
+          "react-docgen",
+        ]
+      },
+      "production": {
+        "plugins": [
+          ["react-css-modules", {
+            "generateScopedName": "[name]__[local]--[hash:base64:10]"
+          }],
+        ]
+      }
+    },
     "plugins": [
       "transform-object-assign",
-      ["react-css-modules", {
-        "generateScopedName": "[name]__[local]--[hash:base64:10]"
-      }],
-      "react-docgen"
+      "transform-object-rest-spread",
     ]
 }

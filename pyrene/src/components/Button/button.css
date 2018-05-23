@@ -36,7 +36,7 @@
   &.disabled {
     opacity: .5;
     cursor: default;
-    pointer-events: none;
+    pointer-events: none; /* deactivate hover */
   }
 
   &.type-primary {

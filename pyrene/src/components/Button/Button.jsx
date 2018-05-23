@@ -13,6 +13,7 @@ const Button = props => (
         { hasIcon: props.icon },
         { disabled: props.disabled })}
     onClick={props.onClick}
+    disabled={props.disabled}
   >
     {props.icon && <span className={`icon-${props.icon}`} />}
     {props.label}
