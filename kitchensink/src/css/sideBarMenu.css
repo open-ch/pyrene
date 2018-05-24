@@ -60,7 +60,7 @@ a {
   overflow: hidden;
   cursor: pointer;
   box-sizing: border-box;
-  background-color: var(--neutral-0);
+  background-color: var(--neutral-000);
   box-shadow: inset  0  -1px 0 var(--neutral-sideBar);
   transition: box-shadow .2s step-end;
 }

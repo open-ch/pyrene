@@ -1,0 +1,91 @@
+.colorBoxContainer {
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  font-size: 12px;
+  letter-spacing: 2px;
+  white-space: nowrap;
+
+  & .title {
+    height: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    color: #667280;
+  }
+
+  & .infoLabel {
+    margin-top: 8px;
+    height: 16px;
+    letter-spacing: 1px;
+    color: #7f8a95;
+  }
+}
+
+.colorBox {
+  box-sizing: border-box;
+  width: 188px;
+
+  text-transform: uppercase;
+  color: var(--neutral-000);
+
+  &.size-large {
+    height: 104px;
+    padding: 20px 16px;
+  }
+
+  &.size-medium {
+    height: 80px;
+    padding: 16px 16px;
+  }
+
+  &.size-small {
+    height: 64px;
+    padding: 12px 16px;
+  }
+
+  &.stack-none {
+    border-radius: 4px;
+  }
+
+  &.stack-top {
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+  }
+
+  &.stack-middle {
+    border-radius: 0;
+  }
+
+  &.stack-bottom {
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+  }
+
+  &.darkFont {
+    color: var(--neutral-500);
+  }
+
+  &.bordered {
+    border: solid 1px var(--neutral-050);
+  }
+
+  & .colorName {
+    height: 16px;
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+
+  & .variableName {
+    height: 16px;
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+
+  & .hexValue {
+    height: 16px;
+    font-weight: 500;
+  }
+
+
+}

@@ -1,12 +1,12 @@
 .paragraph {
-  margin-top:64px;
+  margin-top:80px;
 }
 
 .title {
   font-size: 18px;
   font-weight: 600;
   line-height: 1.33;
-  margin-bottom: 40px;
+  margin-bottom: 16px;
   text-transform: capitalize;
 }
 
@@ -17,11 +17,12 @@
   font-stretch: normal;
   letter-spacing: normal;
   text-align: left;
+
+  &:after {
+    clear: both;
+  }
 }
 
-.content strong {
-  font-weight: 600;
-}
 
 .content img {
   margin-top: 40px;
