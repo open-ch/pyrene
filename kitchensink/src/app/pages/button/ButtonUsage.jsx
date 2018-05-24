@@ -1,6 +1,6 @@
 import React from 'react';
 import Paragraph from '../../common/PageElements/Paragraph';
-import Table from '../../common/Table';
+import Table from '../../common/PageElements/Table';
 
 import testImg from '../../../images/iconUsageTestIMG.png';
 

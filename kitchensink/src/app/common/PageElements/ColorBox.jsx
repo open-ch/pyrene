@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import '../../../css/colorBox.css';
+import './colorBox.css';
 
 const ColorBox = props => (
   <div styleName={'colorBoxContainer'}>

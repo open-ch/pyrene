@@ -6,7 +6,7 @@ import { Modal } from 'pyrene';
 import ModalUsage from './ModalUsage';
 import CodePage from '../../common/CodePage';
 import '../../../css/componentPage.css';
-import Table from '../../common/Table';
+import Table from '../../common/PageElements/Table';
 
 const ModalPage = ({ match }) => (
   <div className="page">

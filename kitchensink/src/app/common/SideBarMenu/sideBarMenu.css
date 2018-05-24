@@ -15,7 +15,7 @@ a {
 }
 
 .section .indicator {
-  background-image: url('../images/accordeon_sectionArrow.svg');
+  background-image: url('../../../images/accordeon_sectionArrow.svg');
   position: absolute;
   right: 28px;
   top: 28px;

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import '../../css/componentPage.css';
-import Table from '../common/Table';
+import Table from './PageElements/Table';
 import PropEditor from '../common/PropEditor';
 import CodeBlock from '../common/CodeBlock';
 

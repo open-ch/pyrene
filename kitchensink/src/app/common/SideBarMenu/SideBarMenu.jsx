@@ -1,7 +1,7 @@
 import React from 'react';
 import SideBarMenuSection from './SideBarMenuSection';
 
-import '../../../css/sideBarMenu.css';
+import './sideBarMenu.css';
 
 const SideBarMenu = props => (
   <div id={'sideBar_menu_container'}>

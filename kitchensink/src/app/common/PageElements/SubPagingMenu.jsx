@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 
-import '../../../css/pagingMenu.css';
+import './subPagingMenu.css';
 
 export default class SubPagingMenu extends React.Component {
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import '../../../css/descriptionBox.css';
+import './descriptionBox.css';
 
 const DescriptionBox = props => (
   <div styleName={'descriptionBox'}>
