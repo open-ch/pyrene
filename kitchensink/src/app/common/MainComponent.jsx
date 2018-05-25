@@ -13,6 +13,7 @@ import FormElementsPage from '../pages/formElements/FormElementsPage';
 import ModalPage from '../pages/modal/ModalPage';
 import SelectPage from '../pages/select/SelectPage';
 import ColorsPage from '../pages/foundations/ColorsPage';
+import IconsPage from '../pages/foundations/IconsPage';
 
 
 const MainComponent = () => (
@@ -23,7 +24,10 @@ const MainComponent = () => (
     </div>
     <div styleName={'pageContainer'}>
       <Route path={'/'} component={IntroductionPage} exact />
+
       <Route path={'/colors'} component={ColorsPage} />
+      <Route path={'/icons'} component={IconsPage} />
+
       <Route path={'/button'} component={ButtonPage} />
       <Route path={'/link'} component={LinkPage} />
       <Route path={'/shareDialog'} component={ShareDialogPage} />

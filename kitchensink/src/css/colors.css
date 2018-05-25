@@ -15,25 +15,19 @@
   --font-black: var(--neutral-500); /* used */
   --font-gray: var(--neutral-200); /* used */
 
-  /* INTERACTION */
-  --color-primary: var(--blue-500);
-  --color-success: var(--green-500);
-  --color-danger: var(--red-500);
-  --color-warning: var(--orange-500);
-
   /* BLUE */
-  --blue-010: #F7FAFE;
-  --blue-050: #D4E5F9;
-  --blue-100: #B3D2F5;
-  --blue-200: #80B4EF;
-  --blue-300: #4D96E9;
-  --blue-400: #267FE4;
-  --blue-500: #0069E0;
-  --blue-600: #005CC4;
-  --blue-700: #0050AC;
+  --blue-010: #f7fafe;
+  --blue-050: #d4e5f9;
+  --blue-100: #b3d2f5;
+  --blue-200: #80b4ef;
+  --blue-300: #4d96e9;
+  --blue-400: #267fe4;
+  --blue-500: #0069e0;
+  --blue-600: #005cc4;
+  --blue-700: #0050ac;
   --blue-800: #004593;
-  --blue-900: #00397A;
-  --blue-950: #002E62;
+  --blue-900: #00397a;
+  --blue-950: #002e62;
 
   /* RED */
   --red-010: #fff9f9;

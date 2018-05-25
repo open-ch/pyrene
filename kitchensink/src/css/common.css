@@ -1,4 +1,5 @@
-@import '../css/colors.css';
+@import './colors.css';
+@import './icons.css';
 
 /* CSS Reset */
 * {
@@ -72,13 +73,6 @@ body {
   margin-top: 64px;
 }
 
-:global(.colorGrid) {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-column-gap: 59px;
-  grid-row-gap: 40px;
-}
-
 :global(.unSelectable) {
   user-select: none;
 }
@@ -86,3 +80,19 @@ body {
 :global(.activeSideBar) {
   color: var(--blue-500);
 }
+
+/* GRIDS */
+
+:global(.colorGrid) {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-column-gap: 59px;
+  grid-row-gap: 40px;
+}
+
+:global(.iconGrid) {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr; /* repeat(12, 1fr) not well enough supported yet.. */
+  grid-gap: 16px;
+}
+

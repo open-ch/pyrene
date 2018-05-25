@@ -1,0 +1,22 @@
+.iconBox {
+  box-sizing: border-box;
+  text-align: center;
+
+  width: 64px;
+  height: 64px;
+  border-radius: 4px;
+  border: solid 1px var(--neutral-030);
+
+  &:hover {
+    cursor: pointer;
+    border-color: var(--blue-500);
+  }
+
+  & .icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 64px;
+    font-size: 26px;
+  }
+}

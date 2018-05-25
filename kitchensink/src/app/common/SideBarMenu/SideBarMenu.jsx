@@ -11,6 +11,7 @@ const SideBarMenu = props => (
         title="Foundations"
         sectionElements={[
           { name: 'Colors', linkToPath: '/colors' },
+          { name: 'Icons', linkToPath: '/icons' },
           { name: 'Typography', linkToPath: '#' }]}
       />
       <SideBarMenuSection

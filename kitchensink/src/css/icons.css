@@ -1,0 +1,47 @@
+@font-face {
+  font-family: 'PyreneIconfont';
+  font-weight: normal;
+  font-style: normal;
+  font-variant: normal;
+
+  src: url('../fonts/pyrene-iconfont-v1_1.woff') format('woff');
+}
+
+[class^="pyreneIcon-"], [class*=" pyreneIcon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'PyreneIconfont' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+/* handy dandy regex when adding a lot of new icons:
+   CMD + R -> activate Regex checkbox
+   Search field: \.icon\-.*:before(?!\))
+   Replace field: :global($0)
+*/
+
+:global(.pyreneIcon-share:before) {
+  content: "\64";
+}
+:global(.pyreneIcon-filter:before) {
+  content: "\63";
+}
+:global(.pyreneIcon-chevronLeft:before) {
+  content: "\62";
+}
+:global(.pyreneIcon-chevronRight:before) {
+  content: "\61";
+}
+:global(.pyreneIcon-collapsDown:before) {
+  content: "\39";
+}
+:global(.pyreneIcon-collapsUp:before) {
+  content: "\38";
+}
