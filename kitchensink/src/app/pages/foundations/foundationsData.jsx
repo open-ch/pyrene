@@ -1,4 +1,6 @@
-import React from 'react';
+/**
+ * COLORS
+ */
 
 const primaryColors = [
   { title: '',
@@ -202,9 +204,34 @@ const extendedColors = [
   },
 ];
 
+
+/**
+ * ICONS
+ */
+
+const icons = [
+  { name: 'share', tags: [] },
+  { name: 'filter', tags: [] },
+  { name: 'chevronLeft', tags: [] },
+  { name: 'chevronRight', tags: [] },
+  { name: 'collapsDown', tags: [] },
+  { name: 'collapsUp', tags: [] },
+];
+
+const svgs = [
+  { name: 'share', tags: [], path: '' },
+  { name: 'filter', tags: [], path: '' },
+  { name: 'chevronLeft', tags: [], path: '' },
+  { name: 'chevronRight', tags: [], path: '' },
+  { name: 'collapsDown', tags: [], path: '' },
+  { name: 'collapsUp', tags: [], path: '' },
+];
+
 export {
   primaryColors,
   neutralColors,
   interactionColors,
   extendedColors,
+  icons,
+  svgs
 };

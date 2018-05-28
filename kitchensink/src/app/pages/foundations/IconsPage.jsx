@@ -2,6 +2,7 @@ import React from 'react';
 import '../../../css/componentPage.css';
 import Paragraph from '../../common/PageElements/Paragraph';
 import DescriptionBox from '../../common/PageElements/DescriptionBox';
+import {icons, svgs} from './foundationsData';
 import IconBox from '../../common/PageElements/IconBox';
 
 const IconsPage = () => (
@@ -22,55 +23,7 @@ const IconsPage = () => (
           Explore or search for an icon and copy the reference by clicking on a icon to use it in your project.
         </DescriptionBox>
         <div className="iconGrid">
-          <IconBox name={'collapsUp'} />
-          <IconBox name={'share'} />
-          <IconBox name={'filter'} />
-          <IconBox name={'chevronLeft'} />
-          <IconBox name={'collapsUp'} />
-          <IconBox name={'chevronRight'} />
-          <IconBox name={'collapsDown'} />
-          <IconBox name={'collapsUp'} />
-          <IconBox name={'share'} />
-          <IconBox name={'filter'} />
-          <IconBox name={'chevronLeft'} />
-          <IconBox name={'collapsUp'} />
-          <IconBox name={'chevronRight'} />
-          <IconBox name={'collapsDown'} />
-          <IconBox name={'collapsUp'} />
-          <IconBox name={'share'} />
-          <IconBox name={'filter'} />
-          <IconBox name={'chevronLeft'} />
-          <IconBox name={'collapsUp'} />
-          <IconBox name={'chevronRight'} />
-          <IconBox name={'collapsDown'} />
-          <IconBox name={'collapsUp'} />
-          <IconBox name={'share'} />
-          <IconBox name={'filter'} />
-          <IconBox name={'chevronLeft'} />
-          <IconBox name={'collapsUp'} />
-          <IconBox name={'chevronRight'} />
-          <IconBox name={'collapsDown'} />
-          <IconBox name={'collapsUp'} />
-          <IconBox name={'share'} />
-          <IconBox name={'filter'} />
-          <IconBox name={'chevronLeft'} />
-          <IconBox name={'collapsUp'} />
-          <IconBox name={'chevronRight'} />
-          <IconBox name={'collapsDown'} />
-          <IconBox name={'collapsUp'} />
-          <IconBox name={'share'} />
-          <IconBox name={'filter'} />
-          <IconBox name={'chevronLeft'} />
-          <IconBox name={'collapsUp'} />
-          <IconBox name={'chevronRight'} />
-          <IconBox name={'collapsDown'} />
-          <IconBox name={'share'} />
-          <IconBox name={'filter'} />
-          <IconBox name={'chevronLeft'} />
-          <IconBox name={'collapsUp'} />
-          <IconBox name={'chevronRight'} />
-          <IconBox name={'collapsDown'} />
-
+          {icons.map(icon => <IconBox name={icon.name} key={icon.name} />)}
         </div>
 
       </Paragraph>
@@ -80,6 +33,9 @@ const IconsPage = () => (
           Two-tone and multi-color icons are not available in the icon font. These icons are available as SVG assets.
         </DescriptionBox>
 
+        <div className="iconGrid">
+          {svgs.map(svg => <IconBox name={svg.name} key={svg.name} downloadable/>)}
+        </div>
       </Paragraph>
 
 
