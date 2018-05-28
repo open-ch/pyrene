@@ -95,12 +95,12 @@ const interactionColors = [
   },
   { title: 'outage',
     colors: [
-      { name: 'neutral-500', hex: '#00152c', darkFont: false, bordered: false, stack: 'none' },
+      { name: 'neutral-500', hex: '#00152c', darkFont: false, bordered: false, stack: 'single' },
     ],
   },
   { title: 'inactive',
     colors: [
-      { name: 'neutral-100', hex: '#b3b8be', darkFont: true, bordered: false, stack: 'none' },
+      { name: 'neutral-100', hex: '#b3b8be', darkFont: true, bordered: false, stack: 'single' },
     ],
   },
 ];

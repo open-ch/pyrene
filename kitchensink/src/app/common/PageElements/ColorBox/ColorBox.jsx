@@ -29,7 +29,7 @@ ColorBox.propTypes = {
   hexValue: PropTypes.string,
   infoLabel: PropTypes.string,
   size: PropTypes.oneOf(['small', 'medium', 'large']),
-  stackPosition: PropTypes.oneOf(['top', 'middle', 'bottom', 'none']),
+  stackPosition: PropTypes.oneOf(['top', 'middle', 'bottom', 'single']),
   title: PropTypes.string,
   variableName: PropTypes.string,
 };
@@ -43,7 +43,7 @@ ColorBox.defaultProps = {
   hexValue: '',
   infoLabel: '',
   size: 'large',
-  stackPosition: 'none',
+  stackPosition: 'single',
 };
 
 export default ColorBox;

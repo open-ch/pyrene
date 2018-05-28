@@ -1,8 +1,8 @@
 import React from 'react';
 import '../../../css/componentPage.css';
-import Paragraph from '../../common/PageElements/Paragraph';
-import ColorBox from '../../common/PageElements/ColorBox';
-import DescriptionBox from '../../common/PageElements/DescriptionBox';
+import Paragraph from '../../common/PageElements/Paragraph/Paragraph';
+import ColorBox from '../../common/PageElements/ColorBox/ColorBox';
+import DescriptionBox from '../../common/PageElements/DescriptionBox/DescriptionBox';
 import {primaryColors, neutralColors, interactionColors , extendedColors} from './foundationsData';
 
 const createStackedColors = (data, colorBoxSize) => data.map(element => (

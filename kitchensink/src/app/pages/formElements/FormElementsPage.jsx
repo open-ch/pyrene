@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import SubPagingMenu from '../../common/PageElements/SubPagingMenu';
+import SubPagingMenu from '../../common/PageElements/SubPagingMenu/SubPagingMenu';
 import { Link } from 'pyrene';
 import { Checkbox } from 'pyrene';
 import { RadioSelection } from 'pyrene';

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import SubPagingMenu from '../../common/PageElements/SubPagingMenu';
+import SubPagingMenu from '../../common/PageElements/SubPagingMenu/SubPagingMenu';
 import { SingleSelect, MultiSelect } from 'pyrene';
 import SelectUsage from './SelectUsage';
 import CodePage from '../../common/CodePage';

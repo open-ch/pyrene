@@ -1,9 +1,9 @@
 import React from 'react';
 import '../../../css/componentPage.css';
-import Paragraph from '../../common/PageElements/Paragraph';
-import DescriptionBox from '../../common/PageElements/DescriptionBox';
+import Paragraph from '../../common/PageElements/Paragraph/Paragraph';
+import DescriptionBox from '../../common/PageElements/DescriptionBox/DescriptionBox';
 import {icons, svgs} from './foundationsData';
-import IconBox from '../../common/PageElements/IconBox';
+import IconBox from '../../common/PageElements/IconBox/IconBox';
 
 const IconsPage = () => (
   <div className="page">
