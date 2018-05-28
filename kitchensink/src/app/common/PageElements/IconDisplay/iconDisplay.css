@@ -10,6 +10,12 @@
   border-radius: 2px;
   border: solid 1px var(--neutral-050);
 
+  outline: none;
+
+  &:hover, &:focus {
+    border: solid 1px var(--blue-500);
+  }
+
   &[type=text] {
     font-family: AvenirNext;
     font-size: 13px;

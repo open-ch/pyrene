@@ -56,6 +56,7 @@ export default class IconDisplay extends React.Component {
           type={'text'}
           placeholder={'Search for icons'}
           onChange={(event) => this.updateSearch(event.target.value)}
+          onFocus={(event) => event.target.select()}
         />
         <div className="iconGrid">
           {this.displaySearchResults()}
