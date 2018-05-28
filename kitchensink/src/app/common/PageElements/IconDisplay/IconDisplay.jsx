@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import IconBox from '../IconBox/IconBox';
 import './iconDisplay.css';
 
@@ -52,7 +53,7 @@ export default class IconDisplay extends React.Component {
     return (
       <div styleName={'iconDisplay'}>
         <input
-          styleName={'iconSearchBar'}
+          styleName={classNames('iconSearchBar', {filled: this.state.filterElements[0] !== '' && this.state.filterElements.length > 0})}
           type={'text'}
           placeholder={'Search for icons'}
           onChange={(event) => this.updateSearch(event.target.value)}

@@ -29,6 +29,14 @@
     font-size: 26px;
   }
 
+  & .svg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 64px;
+    background: no-repeat center;
+  }
+
   & .iconBoxTooltip {
     box-sizing: border-box;
     display: block;
@@ -45,6 +53,7 @@
     line-height: 16px;
     font-size: 12px;
     font-weight: 600;
+    white-space: nowrap;
 
     padding: 4px 8px;
     border-radius: 2px;

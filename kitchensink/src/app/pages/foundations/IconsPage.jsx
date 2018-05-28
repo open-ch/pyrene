@@ -2,7 +2,7 @@ import React from 'react';
 import '../../../css/componentPage.css';
 import Paragraph from '../../common/PageElements/Paragraph/Paragraph';
 import DescriptionBox from '../../common/PageElements/DescriptionBox/DescriptionBox';
-import {icons, svgs} from './foundationsData';
+import {icons, svgs} from '../../data/foundationsData';
 import IconBox from '../../common/PageElements/IconBox/IconBox';
 import IconDisplay from '../../common/PageElements/IconDisplay/IconDisplay';
 
@@ -33,7 +33,7 @@ const IconsPage = () => (
         </DescriptionBox>
 
         <div className="iconGrid">
-          {svgs.map(svg => <IconBox name={svg.name} key={svg.name} downloadable/>)}
+          {svgs.map(svg => <IconBox name={svg.name} key={svg.name} path={svg.path} downloadable />)}
         </div>
       </Paragraph>
 

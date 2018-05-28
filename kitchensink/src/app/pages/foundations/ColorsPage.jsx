@@ -3,7 +3,7 @@ import '../../../css/componentPage.css';
 import Paragraph from '../../common/PageElements/Paragraph/Paragraph';
 import ColorBox from '../../common/PageElements/ColorBox/ColorBox';
 import DescriptionBox from '../../common/PageElements/DescriptionBox/DescriptionBox';
-import {primaryColors, neutralColors, interactionColors , extendedColors} from './foundationsData';
+import {primaryColors, neutralColors, interactionColors , extendedColors} from '../../data/foundationsData';
 
 const createStackedColors = (data, colorBoxSize) => data.map(element => (
   <div key={`${element.colors[0].hex}`}>

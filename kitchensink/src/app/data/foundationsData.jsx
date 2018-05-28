@@ -219,12 +219,12 @@ const icons = [
 ];
 
 const svgs = [
-  { name: 'share', tags: [], path: '' },
-  { name: 'filter', tags: [], path: '' },
-  { name: 'chevronLeft', tags: [], path: '' },
-  { name: 'chevronRight', tags: [], path: '' },
-  { name: 'collapsDown', tags: [], path: '' },
-  { name: 'collapsUp', tags: [], path: '' },
+  { name: 'checkbox-blank', tags: [], path: 'src/app/data/checkbox-blank.svg' },
+  { name: 'checkbox-hover', tags: [], path: 'src/app/data/checkbox-hover.svg' },
+  { name: 'checkbox-invalid', tags: [], path: 'src/app/data/checkbox-invalid.svg' },
+  { name: 'checkbox-invalid-hover', tags: [], path: 'src/app/data/checkbox-invalid-hover.svg' },
+  { name: 'checkbox-selected', tags: [], path: 'src/app/data/checkbox-selected.svg' },
+  { name: 'checkbox-selected-hover', tags: [], path: 'src/app/data/checkbox-selected-hover.svg' },
 ];
 
 export {

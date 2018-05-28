@@ -12,6 +12,10 @@
 
   outline: none;
 
+  &.filled {
+    border: solid 1px var(--neutral-200);
+  }
+
   &:hover, &:focus {
     border: solid 1px var(--blue-500);
   }
