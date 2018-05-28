@@ -1,0 +1,29 @@
+.iconDisplay {
+
+}
+
+.iconSearchBar {
+  box-sizing: border-box;
+  width: 304px;
+  height: 32px;
+  margin-bottom: 40px;
+  border-radius: 2px;
+  border: solid 1px var(--neutral-050);
+
+  &[type=text] {
+    font-family: AvenirNext;
+    font-size: 13px;
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.46;
+    letter-spacing: normal;
+
+    padding-left: 8px;
+
+    &::placeholder {
+      color: var(--neutral-200);
+    }
+  }
+
+}

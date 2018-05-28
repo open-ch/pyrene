@@ -4,6 +4,7 @@ import Paragraph from '../../common/PageElements/Paragraph/Paragraph';
 import DescriptionBox from '../../common/PageElements/DescriptionBox/DescriptionBox';
 import {icons, svgs} from './foundationsData';
 import IconBox from '../../common/PageElements/IconBox/IconBox';
+import IconDisplay from '../../common/PageElements/IconDisplay/IconDisplay';
 
 const IconsPage = () => (
   <div className="page">
@@ -22,9 +23,7 @@ const IconsPage = () => (
           For web projects, the best format is our icon font.
           Explore or search for an icon and copy the reference by clicking on a icon to use it in your project.
         </DescriptionBox>
-        <div className="iconGrid">
-          {icons.map(icon => <IconBox name={icon.name} key={icon.name} />)}
-        </div>
+        <IconDisplay data={icons} />
 
       </Paragraph>
 

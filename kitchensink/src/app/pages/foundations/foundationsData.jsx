@@ -210,12 +210,12 @@ const extendedColors = [
  */
 
 const icons = [
-  { name: 'share', tags: [] },
-  { name: 'filter', tags: [] },
-  { name: 'chevronLeft', tags: [] },
-  { name: 'chevronRight', tags: [] },
-  { name: 'collapsDown', tags: [] },
-  { name: 'collapsUp', tags: [] },
+  { name: 'share', tags: ['social'] },
+  { name: 'filter', tags: [''] },
+  { name: 'chevronLeft', tags: ['arrow'] },
+  { name: 'chevronRight', tags: ['arrow'] },
+  { name: 'collapsDown', tags: ['arrow'] },
+  { name: 'collapsUp', tags: ['arrow'] },
 ];
 
 const svgs = [

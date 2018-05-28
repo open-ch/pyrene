@@ -8,6 +8,10 @@
   border-radius: 4px;
   border: solid 1px var(--neutral-030);
 
+  &.disabled {
+    pointer-events: none;
+  }
+
   &:hover {
     cursor: pointer;
     border-color: var(--blue-500);
