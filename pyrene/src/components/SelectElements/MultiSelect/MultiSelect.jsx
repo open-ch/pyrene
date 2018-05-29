@@ -15,7 +15,7 @@ const MultiSelect = props => (
         styles={MultiSelectStyle(props.rows)}
         placeholder={props.placeholder}
         options={props.options}
-        defaultValue={props.defaultValue}
+        defaultValue={props.options.filter(option => props.defaultValues.includes(option.value))}
         isClearable={props.clearable}
         isDisabled={props.disabled}
         isInvalid={props.invalid}
@@ -37,7 +37,7 @@ const MultiSelect = props => (
         styles={MultiSelectStyle(props.rows)}
         placeholder={props.placeholder}
         options={props.options}
-        defaultValue={props.defaultValue}
+        defaultValue={props.options.filter(option => props.defaultValues.includes(option.value))}
         isClearable={props.clearable}
         isDisabled={props.disabled}
         isInvalid={props.invalid}
@@ -67,7 +67,8 @@ MultiSelect.defaultProps = {
   placeholder: 'Select',
   helperLabel: '',
   title: '',
-  defaultValue: null,
+  defaultValues: [],
+  options: [],
   rows: -1,
   creatable: false,
   disabled: false,
@@ -75,7 +76,6 @@ MultiSelect.defaultProps = {
   required: false,
   clearable: false,
   searchable: false,
-  options: {},
   onChange: () => null
 };
 
@@ -91,10 +91,10 @@ MultiSelect.propTypes = {
   /**
    * Set's one or multiple preselected options.
    */
-  defaultValue: PropTypes.arrayOf(PropTypes.shape({
-    value: PropTypes.any,
-    label: PropTypes.string
-  })),
+  defaultValues: PropTypes.arrayOf(PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number
+  ])),
   /**
    * Disables any interaction with the component.
    */

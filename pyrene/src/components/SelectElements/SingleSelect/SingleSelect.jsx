@@ -17,7 +17,7 @@ const SingleSelect = props => (
         styles={SelectStyle}
         placeholder={props.placeholder}
         options={props.options}
-        defaultValue={props.defaultValue}
+        defaultValue={props.options.filter(o => o.value === props.defaultValue).pop()}
         isClearable={props.clearable}
         isDisabled={props.disabled}
         isInvalid={props.invalid}
@@ -38,7 +38,7 @@ const SingleSelect = props => (
         styles={SelectStyle}
         placeholder={props.placeholder}
         options={props.options}
-        defaultValue={props.defaultValue}
+        defaultValue={props.options.filter(o => o.value === props.defaultValue).pop()}
         isClearable={props.clearable}
         isSearchable={props.searchable}
         isDisabled={props.disabled}
@@ -70,7 +70,7 @@ SingleSelect.defaultProps = {
   required: false,
   searchable: false,
   clearable: false,
-  options: {},
+  options: [],
   defaultValue: null,
   helperLabel: '',
   title: '',
@@ -89,10 +89,10 @@ SingleSelect.propTypes = {
   /**
    * Set's a preselected option.
    */
-  defaultValue: PropTypes.shape({
-    value: PropTypes.any,
-    label: PropTypes.string
-  }),
+  defaultValue: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number
+  ]),
   /**
    * Disables any interaction with the component.
    */
