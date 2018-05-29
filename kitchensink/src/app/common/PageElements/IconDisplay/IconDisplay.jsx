@@ -34,8 +34,10 @@ export default class IconDisplay extends React.Component {
 
   padArrayToSize = (array, size) => {
     const slicedArray = array.slice(0, size+1);
+    let i = 0;
     while (slicedArray.length < size) {
-      slicedArray.push({disabled: true})
+      slicedArray.push({disabled: true, name: `empty${i}`});
+      i += 1;
     }
     return slicedArray;
   };
