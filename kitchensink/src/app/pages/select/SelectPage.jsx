@@ -68,13 +68,14 @@ const Topic = ({ match }) => {
             placeholder: 'Choose your favorite ice cream',
             helperLabel: 'Ice cream is delicious',
             options: testOptions,
+            defaultValue: 'spearmint',
           }}
           />
           <CodePage component={MultiSelect} startProps={{
             title: 'Multi-Select',
             placeholder: 'Choose your favorite ice cream',
             helperLabel: 'Ice cream is delicious',
-            defaultValue: [testOptions[1], testOptions[2]],
+            defaultValue: [testOptions[1].value, testOptions[2].value],
             options: testOptions,
           }}
           />
