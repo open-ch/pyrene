@@ -29,7 +29,7 @@
     line-height: 1.46;
     letter-spacing: normal;
 
-    padding-left: 8px;
+    padding-left: 32px;
 
     &::placeholder {
       color: var(--neutral-200);
@@ -37,3 +37,16 @@
   }
 
 }
+
+.iconPlacementContainer {
+  position: relative;
+}
+
+.searchIcon {
+  font-size: 16px;
+  color: var(--neutral-300);
+  position: absolute;
+  left: 8px;
+  top: 8px;
+}
+

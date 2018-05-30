@@ -216,6 +216,9 @@ const icons = [
   { name: 'chevronRight', tags: ['arrow'] },
   { name: 'collapsDown', tags: ['arrow'] },
   { name: 'collapsUp', tags: ['arrow'] },
+  { name: 'errorOutline', tags: ['arrow'] },
+  { name: 'delete', tags: ['arrow'] },
+  { name: 'search', tags: ['loupe'] },
 ];
 
 const svgs = [

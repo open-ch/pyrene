@@ -32,35 +32,29 @@ export default class IconDisplay extends React.Component {
     return matchCounter === this.state.filterElements.length;
   };
 
-  padArrayToSize = (array, size) => {
-    const slicedArray = array.slice(0, size+1);
-    let i = 0;
-    while (slicedArray.length < size) {
-      slicedArray.push({disabled: true, name: `empty${i}`});
-      i += 1;
-    }
-    return slicedArray;
-  };
-
   displaySearchResults = () => {
     const filteredData = this.props.data.filter((icon) => {
         return this.filterIcon(icon);
     });
 
-    const paddedData = this.padArrayToSize(filteredData, 48);
-    return paddedData.map(icon => <IconBox name={icon.name} key={icon.name} disabled={icon.disabled}/>);
+    // Display a max of 48 icons at once
+    const slicedArray = filteredData.slice(0, 49);
+    return slicedArray.map(icon => <IconBox name={icon.name} key={icon.name} disabled={icon.disabled}/>);
   };
 
   render() {
     return (
       <div styleName={'iconDisplay'}>
-        <input
-          styleName={classNames('iconSearchBar', {filled: this.state.filterElements[0] !== '' && this.state.filterElements.length > 0})}
-          type={'text'}
-          placeholder={'Search for icons'}
-          onChange={(event) => this.updateSearch(event.target.value)}
-          onFocus={(event) => event.target.select()}
-        />
+        <div styleName={'iconPlacementContainer'}>
+          <input
+            styleName={classNames('iconSearchBar', {filled: this.state.filterElements[0] !== '' && this.state.filterElements.length > 0})}
+            type={'text'}
+            placeholder={'Search for icons'}
+            onChange={(event) => this.updateSearch(event.target.value)}
+            onFocus={(event) => event.target.select()}
+          />
+          <span className={'pyreneIcon-search'} styleName={'searchIcon'}/>
+        </div>
         <div className="iconGrid">
           {this.displaySearchResults()}
         </div>
