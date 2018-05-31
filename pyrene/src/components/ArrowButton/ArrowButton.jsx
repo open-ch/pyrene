@@ -14,7 +14,7 @@ const ArrowButton = props => (
     onClick={props.onClick}
     disabled={props.disabled}
   >
-    <span className={'icon-Skip-right'} styleName={'icon'} />
+    <span className={'icon-chevronRight'} styleName={'icon'} />
   </button>
 );
 

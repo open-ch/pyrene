@@ -63,7 +63,7 @@ export default class TextArea extends React.Component {
           onFocus={this.props.onFocus}
         />
         {(this.props.helperLabel || characterLimitReached || this.props.invalid) && <div styleName={'textAreaHelper'}>
-          {(this.props.invalid || (characterLimitReached && !this.props.disabled && this.props.maxLength >= 0)) && <span className={'icon-error-outline'} styleName={'errorIcon'} />}
+          {(this.props.invalid || (characterLimitReached && !this.props.disabled && this.props.maxLength >= 0)) && <span className={'icon-errorOutline'} styleName={'errorIcon'} />}
           {(characterLimitReached && !this.props.disabled && this.props.maxLength >= 0) ? 'Maximum number of characters reached' : this.props.helperLabel}
         </div>}
       </div>
