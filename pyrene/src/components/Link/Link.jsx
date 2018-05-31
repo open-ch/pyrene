@@ -11,7 +11,7 @@ const Link = props => (
     href={props.path}
   >
     {props.label}
-    {props.type === 'standalone' && <span className={'icon-chevron-right'} />}
+    {props.type === 'standalone' && <span className={'icon-chevronRight'} />}
   </a>
 );
 

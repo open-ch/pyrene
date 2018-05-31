@@ -34,7 +34,7 @@
   font-weight: normal;
   font-variant: normal;
 
-  src: url('../fonts/pyrene-iconfont.woff') format('woff');
+  src: url('../fonts/pyrene-iconfont-v1_2.woff') format('woff');
 }
 
 [class^="icon-"], [class*=" icon-"] {
@@ -58,29 +58,28 @@
    Replace field: :global($0)
 */
 
-
-:global(.icon-Search:before) {
+:global(.icon-search:before) {
   content: "\38";
 }
-:global(.icon-Delete:before) {
+:global(.icon-delete:before) {
   content: "\37";
 }
-:global(.icon-error-outline:before) {
+:global(.icon-errorOutline:before) {
   content: "\36";
 }
 :global(.icon-filter:before) {
   content: "\35";
 }
-:global(.icon-collaps-down:before) {
+:global(.icon-collapsDown:before) {
   content: "\33";
 }
-:global(.icon-collaps-up:before) {
+:global(.icon-collapsUp:before) {
   content: "\34";
 }
-:global(.icon-chevron-left:before) {
+:global(.icon-chevronLeft:before) {
   content: "\32";
 }
-:global(.icon-chevron-right:before) {
+:global(.icon-chevronRight:before) {
   content: "\31";
 }
 :global(.icon-share:before) {

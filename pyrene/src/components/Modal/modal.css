@@ -20,7 +20,7 @@
   transform: translate(-50%,-50%);
   -ms-transform: translate(-50%,-50%);
 
-  background-color: var(--neutral-0);
+  background-color: var(--neutral-000);
   border-radius: 4px;
   box-shadow:
           5px 15px 30px 0 rgba(0, 21, 44, 0.15),
