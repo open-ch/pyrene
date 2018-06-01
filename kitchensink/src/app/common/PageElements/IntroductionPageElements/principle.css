@@ -1,0 +1,58 @@
+.principleContainer {
+  box-sizing: border-box;
+  display: flex;
+  justify-content: flex-start;
+  width: 400px;
+  min-height: 144px;
+  padding: 8px 8px 0 8px;
+
+  & .icon {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+
+    &.accuracy {
+      background: url('/src/images/introduction/accuracy.svg') no-repeat center;
+    }
+    &.all {
+      background: url('/src/images/introduction/all.svg') no-repeat center;
+    }
+    &.clarity {
+      background: url('/src/images/introduction/clarity.svg') no-repeat center;
+    }
+    &.coherence {
+      background: url('/src/images/introduction/coherence.svg') no-repeat center;
+    }
+    &.efficiency {
+      background: url('/src/images/introduction/efficiency.svg') no-repeat center;
+    }
+    &.system {
+      background: url('/src/images/introduction/system.svg') no-repeat center;
+    }
+  }
+
+  & .textArea {
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    letter-spacing: normal;
+    color: var(--neutral-500);
+    margin-left: 16px;
+
+    & .title {
+      display: block;
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 1.33;
+      margin-top: 8px;
+    }
+
+    & .description {
+      display: block;
+      font-size: 16px;
+      line-height: 1.5;
+      margin-top: 8px;
+    }
+  }
+}
+

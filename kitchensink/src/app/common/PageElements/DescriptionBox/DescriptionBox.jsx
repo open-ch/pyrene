@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import './descriptionBox.css';
 
 const DescriptionBox = props => (
-  <div styleName={'descriptionBox'}>
+  <div styleName={classNames('descriptionBox', { large: props.large })}>
     {props.children}
   </div>
 );
@@ -12,8 +13,12 @@ const DescriptionBox = props => (
 
 DescriptionBox.displayName = 'DescriptionBox';
 
-DescriptionBox.propTypes = {};
+DescriptionBox.propTypes = {
+  large: PropTypes.bool,
+};
 
-DescriptionBox.defaultProps = {};
+DescriptionBox.defaultProps = {
+  large: false,
+};
 
 export default DescriptionBox;

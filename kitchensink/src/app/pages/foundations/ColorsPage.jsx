@@ -71,7 +71,7 @@ const ColorsPage = () => (
         </div>
       </Paragraph>
 
-      <Paragraph title={'Interaction Colors'}>
+      <Paragraph title={'Extended Palette'}>
         <DescriptionBox>
           The extended palette consists of all the useable tints and shades.
           These palette is also used in graphs and data visualizations.

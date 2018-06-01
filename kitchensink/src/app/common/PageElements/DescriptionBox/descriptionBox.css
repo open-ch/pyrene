@@ -7,8 +7,12 @@
   text-align: left;
   margin-bottom: 40px;
 
+  &.large {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
   & strong {
     font-weight: 600;
   }
-
 }
