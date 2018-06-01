@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../../css/componentPage.css';
 import Paragraph from '../../common/PageElements/Paragraph/Paragraph';
-import ColorBox from '../../common/PageElements/ColorBox/ColorBox';
+import ColorBox from '../../common/PageElements/FoundationElements/ColorBox/ColorBox';
 import DescriptionBox from '../../common/PageElements/DescriptionBox/DescriptionBox';
 import { primaryColors, neutralColors, interactionColors , extendedColors } from '../../data/foundationsData';
 

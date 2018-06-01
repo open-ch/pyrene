@@ -2,15 +2,15 @@ import React from 'react';
 import '../../css/componentPage.css';
 import Paragraph from '../common/PageElements/Paragraph/Paragraph';
 import DescriptionBox from '../common/PageElements/DescriptionBox/DescriptionBox';
-import DesignSystemBox from '../common/PageElements/IntroductionPageElements/DesignSystemBox';
-import Principle from '../common/PageElements/IntroductionPageElements/Principle';
+import DesignSystemBox from '../common/PageElements/IntroductionElements/DesignSystemBox';
+import Principle from '../common/PageElements/IntroductionElements/Principle';
 
 
 const IntroductionPage = () => (
   <div className="page">
     <div className="header">
       <div styleName="title">Introduction</div>
-      <div styleName="description large">
+      <div styleName="description">
         <p>
           Open Systems is growing. As the business evolves, maintaining a coherent and captivating user experience for our interfaces is challenging.
           To keep our user interfaces coherent, we have created <strong>Kitchensink</strong> as a live inventory for our UI components and the underlying design principles and foundations.
@@ -27,7 +27,7 @@ const IntroductionPage = () => (
 
     <div className="topicContent">
       <Paragraph title={'Design System'} large>
-        <DescriptionBox large>
+        <DescriptionBox>
           Our Design System helps us to increase speed and efficiency of how we design and build our products.
           Understanding the system and adopting the library will help us to use up-to-date and consistent markup, styles and behavior in prototype or production work.
           It does also improve and keep the quality of our user experiences.
@@ -61,7 +61,7 @@ const IntroductionPage = () => (
       </Paragraph>
 
       <Paragraph title={'Principles'} large>
-        <DescriptionBox large>
+        <DescriptionBox>
           What we do is important.
           But how we do it is even more important.
           Our principles will guide us and help us to make decisions that are sustainable.

@@ -24,6 +24,7 @@ const SideBarMenu = props => (
           { name: 'Selection Elements', linkToPath: '/select' },
           { name: 'Modal', linkToPath: '/modal' }]}
       />
+      <SideBarMenuSection title="Resources" sectionElements={[]} linkToPath={'/resources'} />
     </div>
   </div>
 );

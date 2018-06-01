@@ -1,3 +1,7 @@
+.header {
+
+}
+
 .title {
   margin-left: 0;
   margin-bottom: 24px;
@@ -7,22 +11,21 @@
 }
 
 .description {
-  font-size: 16px;
+  font-size: 18px;
+  line-height: 24px;
   font-weight: normal;
   font-style: normal;
   font-stretch: normal;
-  line-height: 1.5;
   letter-spacing: normal;
   text-align: left;
 
   & strong {
     font-weight: 600;
   }
+}
 
-  &.large {
-    font-size: 18px;
-    line-height: 24px;
-  }
+.topicContent {
+
 }
 
 .componentDisplayContainer {

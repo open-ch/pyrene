@@ -1,16 +1,11 @@
 .descriptionBox {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: normal;
   line-height: 1.71;
   font-stretch: normal;
   letter-spacing: normal;
   text-align: left;
   margin-bottom: 40px;
-
-  &.large {
-    font-size: 16px;
-    line-height: 1.5;
-  }
 
   & strong {
     font-weight: 600;

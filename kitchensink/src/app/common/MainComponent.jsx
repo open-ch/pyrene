@@ -14,6 +14,7 @@ import ModalPage from '../pages/modal/ModalPage';
 import SelectPage from '../pages/select/SelectPage';
 import ColorsPage from '../pages/foundations/ColorsPage';
 import IconsPage from '../pages/foundations/IconsPage';
+import ResourcesPage from '../pages/ResourcesPage';
 
 
 const MainComponent = () => (
@@ -34,6 +35,8 @@ const MainComponent = () => (
       <Route path={'/formElements'} component={FormElementsPage} />
       <Route path={'/modal'} component={ModalPage} />
       <Route path={'/select'} component={SelectPage} />
+
+      <Route path={'/resources'} component={ResourcesPage} />
     </div>
   </div>
 );
