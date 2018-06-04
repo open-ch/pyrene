@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import SyntaxHighlighter, { registerLanguage } from 'react-syntax-highlighter/prism-light';
 import jsx from 'react-syntax-highlighter/languages/prism/jsx';
 import { prism } from 'react-syntax-highlighter/styles/prism';
+import Utils from './Utils';
 
 import '../../css/propEditor.css';
 
@@ -28,16 +29,17 @@ export default class CodeBlock extends React.Component {
       }
     });
 
-    return ` ${propList}/>`;
+    return `${propList}/>`;
   }
 
   render() {
+    const generatedCode = this._generateCodeForComponent(this.props.component);
     return (
       <div styleName={'codeContainer'}>
         <SyntaxHighlighter style={prism} language={'jsx'} customStyle={{ margin: 0 }}>
-          {this._generateCodeForComponent(this.props.component)}
+          {generatedCode}
         </SyntaxHighlighter>
-        <img styleName={'copyToCBIcon'} src={'/src/images/copy.svg'} onClick={()=> alert('test')}/>
+        <div styleName={'copyToCBIcon'} onClick={() => Utils.copyStringToClipboard(generatedCode)} />
       </div>
     );
   }

@@ -13,11 +13,16 @@
 .copyToCBIcon {
   display: block;
   position: absolute;
-  z-index: 1;
-  top: -10px;
-
+  width: 24px;
+  height: 24px;
+  top: 8px;
+  right: 8px;
+  background: url('/src/images/copy.svg') no-repeat center;
 }
 
 .copyToCBIcon:hover {
-    cursor: pointer;
+  cursor: pointer;
+  background: url("") var(--blue-500);
+  -webkit-mask: url('/src/images/copy.svg') no-repeat center;
+  mask: url('/src/images/copy.svg') no-repeat center;
 }
