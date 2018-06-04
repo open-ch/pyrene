@@ -4,3 +4,20 @@
   padding: 16px;
   background-color: white;
 }
+
+.codeContainer {
+  position: relative;
+  width: 50%;
+}
+
+.copyToCBIcon {
+  display: block;
+  position: absolute;
+  z-index: 1;
+  top: -10px;
+
+}
+
+.copyToCBIcon:hover {
+    cursor: pointer;
+}

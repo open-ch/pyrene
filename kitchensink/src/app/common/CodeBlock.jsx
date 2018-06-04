@@ -4,6 +4,8 @@ import SyntaxHighlighter, { registerLanguage } from 'react-syntax-highlighter/pr
 import jsx from 'react-syntax-highlighter/languages/prism/jsx';
 import { prism } from 'react-syntax-highlighter/styles/prism';
 
+import '../../css/propEditor.css';
+
 registerLanguage('jsx', jsx);
 
 
@@ -31,9 +33,12 @@ export default class CodeBlock extends React.Component {
 
   render() {
     return (
-      <SyntaxHighlighter style={prism} language={'jsx'} customStyle={{ margin: 0, width: '50%' }}>
-        {this._generateCodeForComponent(this.props.component)}
-      </SyntaxHighlighter>
+      <div styleName={'codeContainer'}>
+        <SyntaxHighlighter style={prism} language={'jsx'} customStyle={{ margin: 0 }}>
+          {this._generateCodeForComponent(this.props.component)}
+        </SyntaxHighlighter>
+        <img styleName={'copyToCBIcon'} src={'/src/images/copy.svg'} onClick={()=> alert('test')}/>
+      </div>
     );
   }
 
