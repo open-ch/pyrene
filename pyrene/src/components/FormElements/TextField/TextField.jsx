@@ -50,16 +50,21 @@ export default class TextField extends React.Component {
           />
           <span className={`icon-${this.props.icon}`} styleName={'textFieldIcon'} />
         </div>
+
         {this.props.invalid && this.props.invalidLabel && !this.props.disabled ?
           <div styleName={'invalidLabel'}>
             <span className={'icon-errorOutline'} styleName={'errorIcon'} />
             {this.props.invalidLabel}
           </div>
           :
-          <div styleName={'textFieldHelper'}>
-            {this.props.helperLabel}
-          </div>
+          <React.Fragment>
+            {this.props.helperLabel &&
+            <div styleName={'textFieldHelper'}>
+              {this.props.helperLabel}
+            </div>}
+          </React.Fragment>
         }
+
       </div>
     );
   }

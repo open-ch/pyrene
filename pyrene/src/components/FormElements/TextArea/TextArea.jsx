@@ -63,14 +63,21 @@ export default class TextArea extends React.Component {
           onChange={this.handleChange}
           onFocus={this.props.onFocus}
         />
-        {(this.props.helperLabel || characterLimitReached || this.props.invalid) &&
-        <div styleName={'textAreaHelper'}>
 
-          {(this.props.invalid || (characterLimitReached && !this.props.disabled && this.props.maxLength >= 0)) &&
-          <span className={'icon-errorOutline'} styleName={'errorIcon'} />}
-          {(characterLimitReached && !this.props.disabled && this.props.maxLength >= 0) ? 'Maximum number of characters reached' : this.props.helperLabel}
+        {((this.props.invalid && this.props.invalidLabel) || characterLimitReached) && !this.props.disabled ?
+          <div styleName={'invalidLabel'}>
+            <span className={'icon-errorOutline'} styleName={'errorIcon'} />
+            {characterLimitReached ? 'Maximum number of characters reached' : this.props.invalidLabel}
+          </div>
+          :
+          <React.Fragment>
+            {this.props.helperLabel &&
+            <div styleName={'textAreaHelper'}>
+              {this.props.helperLabel}
+            </div>}
+          </React.Fragment>
+        }
 
-        </div>}
       </div>
     );
   }
