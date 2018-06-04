@@ -20,7 +20,10 @@ const SideBarMenu = props => (
           { name: 'Button', linkToPath: '/button' },
           { name: 'Link', linkToPath: '/link' },
           { name: 'Share', linkToPath: '/shareDialog' },
-          { name: 'Form Elements', linkToPath: '/formElements' },
+          { name: 'Checkbox', linkToPath: '/checkbox' },
+          { name: 'Radio', linkToPath: '/radio' },
+          { name: 'Textfield', linkToPath: '/textField' },
+          { name: 'Textarea', linkToPath: '/textArea' },
           { name: 'Selection Elements', linkToPath: '/select' },
           { name: 'Modal', linkToPath: '/modal' }]}
       />
