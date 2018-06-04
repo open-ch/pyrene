@@ -153,5 +153,6 @@ TextArea.propTypes = {
    * Changes the width of the input field in px. Use -1 to inherit parent width.
    */
   width: PropTypes.number,
+
 };
 
