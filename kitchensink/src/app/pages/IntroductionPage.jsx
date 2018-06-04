@@ -21,23 +21,23 @@ const IntroductionPage = () => (
           It provides our engineers a collection of reusable components to build user interfaces.
         </p>
         <br/>
-        The <strong>Kitchensink</strong> is a living place that will be updated as we continue to develop and explore the specifics of our user facing products.
+        The <strong>Kitchensink</strong> is a living place that will be updated as we continue to develop and explore the specifics of our user-facing products.
       </div>
     </div>
 
     <div className="topicContent">
       <Paragraph title={'Design System'} large>
         <DescriptionBox>
-          Our Design System helps us to increase speed and efficiency of how we design and build our products.
+          Our design system helps us to increase speed and efficiency of how we design and build our products.
           Understanding the system and adopting the library will help us to use up-to-date and consistent markup, styles and behavior in prototype or production work.
-          It does also improve and keep the quality of our user experiences.
+          It also improves and keeps the quality of our user experiences.
         </DescriptionBox>
         <div className={'designSystemGrid'}>
           <DesignSystemBox
             number={4}
             icon={'pages'}
             title={'pages'}
-            description={'Pages are the final stage and show what a UI looks like with real representative content in place.'}
+            description={'Pages are the final stage and show what a user interfaces looks like with real representative content in place.'}
           />
           <DesignSystemBox
             number={3}
