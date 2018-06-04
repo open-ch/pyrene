@@ -146,8 +146,13 @@ TextArea.propTypes = {
    */
   title: PropTypes.string,
   /**
+   * Prefilled text area input.
+   */
+  value: PropTypes.string,
+  /**
    * Changes the width of the input field in px. Use -1 to inherit parent width.
    */
   width: PropTypes.number,
+
 };
 

@@ -11,14 +11,14 @@ export default class TextField extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.state = {
-      inputText: ''
+      inputText: '',
     };
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
     if (prevState.inputText !== nextProps.inputText) {
       return {
-        inputText: nextProps.inputText
+        inputText: nextProps.inputText,
       };
     }
     // No State Change
@@ -74,7 +74,7 @@ TextField.defaultProps = {
   invalid: false,
   onBlur: () => null,
   onChange: () => null,
-  onFocus: () => null
+  onFocus: () => null,
 };
 
 TextField.propTypes = {
