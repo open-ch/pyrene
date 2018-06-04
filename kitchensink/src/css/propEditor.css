@@ -22,7 +22,7 @@
 
 .copyToCBIcon:hover {
   cursor: pointer;
-  background: url("") var(--blue-500);
+  background: url('/src/images/copy.svg') var(--blue-500);
   -webkit-mask: url('/src/images/copy.svg') no-repeat center;
   mask: url('/src/images/copy.svg') no-repeat center;
 }
