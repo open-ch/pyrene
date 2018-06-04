@@ -36,7 +36,7 @@ const Topic = ({ match }) => {
             title: 'Multi-Select',
             placeholder: 'Choose your favorite ice cream',
             helperLabel: 'Ice cream is delicious',
-            defaultValue: [testOptions[1].value, testOptions[2].value],
+            defaultValues: [testOptions[1].value, testOptions[2].value],
             options: testOptions,
           }}
           />
