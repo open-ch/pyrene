@@ -1,6 +1,7 @@
 import React from 'react';
 import '../../css/componentPage.css';
 import Paragraph from '../common/PageElements/Paragraph/Paragraph';
+import DownloadButton from '../common/PageElements/DownloadButton/DownloadButton';
 
 
 const ResourcesPage = () => (
@@ -22,11 +23,11 @@ const ResourcesPage = () => (
 
     <div className="topicContent">
       <Paragraph title={'Adobe Photoshop and Illustrator'}>
-
+        <DownloadButton path={'/src/images/download.svg'} />
       </Paragraph>
 
       <Paragraph title={'Sketch App'}>
-
+        <DownloadButton path={'/src/images/download.svg'} />
       </Paragraph>
     </div>
   </div>
