@@ -8,7 +8,7 @@ import '../select.css';
 
 
 const SingleSelect = props => (
-  <div styleName={classNames('selectContainer', {disabled: props.disabled}, {invalid: props.invalid && !props.disabled})}>
+  <div styleName={classNames('selectContainer', {disabled: props.disabled})}>
     {props.title && <div styleName={classNames('selectTitle', { required: props.required && !props.disabled })}>{props.title}</div>}
 
     {props.creatable ?
@@ -53,10 +53,21 @@ const SingleSelect = props => (
         captureMenuScroll
       />
     }
-    {(props.helperLabel || props.invalid) && <div styleName={'selectHelper'}>
-      {props.invalid && !props.disabled && <span className={'icon-error-outline'} styleName={'errorIcon'} />}
-      {props.helperLabel}
-    </div>}
+
+    {props.invalid && props.invalidLabel && !props.disabled ?
+      <div styleName={'invalidLabel'}>
+        <span className={'icon-errorOutline'} styleName={'errorIcon'} />
+        {props.invalidLabel}
+      </div>
+      :
+      <React.Fragment>
+        {props.helperLabel &&
+        <div styleName={'selectHelper'}>
+          {props.helperLabel}
+        </div>}
+      </React.Fragment>
+    }
+
   </div>
 );
 
@@ -73,6 +84,7 @@ SingleSelect.defaultProps = {
   options: [],
   defaultValue: null,
   helperLabel: '',
+  invalidLabel: '',
   title: '',
   onChange: () => null
 };
@@ -105,6 +117,10 @@ SingleSelect.propTypes = {
    * Changes the fields and helpers visual appearance to indicate a validation error.
    */
   invalid: PropTypes.bool,
+  /**
+   * Displayed instead of the helperLabel if specified & invalid is set.
+   */
+  invalidLabel: PropTypes.string,
   /**
    * Event Handler. Param option: {value: , label:}
    */
