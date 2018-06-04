@@ -10,7 +10,6 @@ import '../../css/common.css';
 import LinkPage from '../pages/link/LinkPage';
 import ShareDialogPage from '../pages/shareDialog/ShareDialogPage';
 import ModalPage from '../pages/modal/ModalPage';
-import SelectPage from '../pages/select/SelectPage';
 import ColorsPage from '../pages/foundations/ColorsPage';
 import IconsPage from '../pages/foundations/IconsPage';
 import ResourcesPage from '../pages/ResourcesPage';
@@ -18,6 +17,8 @@ import CheckboxPage from '../pages/formElements/CheckboxPage';
 import RadioSelectionPage from '../pages/formElements/RadioSelectionPage';
 import TextFieldPage from '../pages/formElements/TextFieldPage';
 import TextAreaPage from '../pages/formElements/TextAreaPage';
+import SingleSelectPage from '../pages/select/SingleSelectPage';
+import MultiSelectPage from '../pages/select/MultiSelectPage';
 
 
 const MainComponent = () => (
@@ -40,7 +41,8 @@ const MainComponent = () => (
       <Route path={'/textField'} component={TextFieldPage} />
       <Route path={'/textArea'} component={TextAreaPage} />
       <Route path={'/modal'} component={ModalPage} />
-      <Route path={'/select'} component={SelectPage} />
+      <Route path={'/singleSelect'} component={SingleSelectPage} />
+      <Route path={'/multiSelect'} component={MultiSelectPage} />
 
       <Route path={'/resources'} component={ResourcesPage} />
     </div>
