@@ -12,14 +12,14 @@ export default class TextArea extends React.Component {
     this.textAreaRef = React.createRef();
     this.handleChange = this.handleChange.bind(this);
     this.state = {
-      value: ''
+      value: '',
     };
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
     if (prevState.value !== nextProps.value) {
       return {
-        value: nextProps.value
+        value: nextProps.value,
       };
     }
     // No State Change
@@ -89,7 +89,7 @@ TextArea.defaultProps = {
   invalid: false,
   onBlur: () => null,
   onChange: () => null,
-  onFocus: () => null
+  onFocus: () => null,
 };
 
 TextArea.propTypes = {
