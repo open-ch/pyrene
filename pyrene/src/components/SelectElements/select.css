@@ -1,0 +1,61 @@
+.selectContainer {
+  composes: commonFontSettings from '../../styles/common.css';
+  width: 100%;
+
+  &.disabled {
+    opacity: .5;
+    pointer-events: none;
+  }
+
+  &.invalid {
+    & .selectHelper {
+      color: var(--red-500);
+    }
+  }
+
+  & ::-webkit-scrollbar-thumb {
+    border-right: solid 2px white;
+    border-top: solid 2px white;
+    border-bottom: solid 2px white;
+    background-color: var(--neutral-400);
+  }
+  & ::-webkit-scrollbar-track {
+    border-right: solid 2px white;
+    border-top: solid 2px white;
+    border-bottom: solid 2px white;
+  }
+
+  & ::-webkit-scrollbar {
+    width: 5px;
+    background-color: rgba(255,255,255,0);
+  }
+}
+
+.selectTitle {
+  font-size: 13px;
+  font-weight: 600;
+  text-align: left;
+  color: var(--neutral-400);
+  margin-bottom: 3px;
+
+  &.required:after {
+    content: '*';
+    color: var(--red-500);
+  }
+}
+
+.selectHelper {
+  margin-top: 4px;
+  font-size: 12px;
+  line-height: 16px;
+  height: 16px;
+  font-weight: 600;
+  text-align: left;
+  color: var(--neutral-100);
+}
+
+.errorIcon {
+  font-size: 14px;
+  margin-right: 4px;
+  vertical-align: text-top;
+}
