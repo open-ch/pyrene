@@ -27,9 +27,10 @@ export default class TextArea extends React.Component {
   }
 
   handleChange(event) {
+    const newValue = event.target.value;
     this.setState((prevState, props) =>
-      ({ value: event.target.value }),
-    () => this.props.onChange(event.target.value));
+      ({ value: newValue }),
+    () => this.props.onChange(newValue));
   }
 
   render() {
@@ -62,9 +63,13 @@ export default class TextArea extends React.Component {
           onChange={this.handleChange}
           onFocus={this.props.onFocus}
         />
-        {(this.props.helperLabel || characterLimitReached || this.props.invalid) && <div styleName={'textAreaHelper'}>
-          {(this.props.invalid || (characterLimitReached && !this.props.disabled && this.props.maxLength >= 0)) && <span className={'icon-errorOutline'} styleName={'errorIcon'} />}
+        {(this.props.helperLabel || characterLimitReached || this.props.invalid) &&
+        <div styleName={'textAreaHelper'}>
+
+          {(this.props.invalid || (characterLimitReached && !this.props.disabled && this.props.maxLength >= 0)) &&
+          <span className={'icon-errorOutline'} styleName={'errorIcon'} />}
           {(characterLimitReached && !this.props.disabled && this.props.maxLength >= 0) ? 'Maximum number of characters reached' : this.props.helperLabel}
+
         </div>}
       </div>
     );
@@ -79,6 +84,7 @@ TextArea.defaultProps = {
   value: '',
   placeholder: '',
   helperLabel: '',
+  invalidLabel: '',
   name: '',
   width: -1,
   rows: 3,
@@ -105,6 +111,10 @@ TextArea.propTypes = {
    * Changes the fields and helpers visual appearance to indicate a validation error.
    */
   invalid: PropTypes.bool,
+  /**
+   * Displayed instead of the helperLabel if specified & invalid is set.
+   */
+  invalidLabel: PropTypes.string,
   /**
    * Sets a maximum character count. Default allows any length.
    */

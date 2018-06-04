@@ -26,9 +26,10 @@ export default class TextField extends React.Component {
   }
 
   handleChange(event) {
+    const newValue = event.target.value;
     this.setState((prevState, props) =>
-      ({ inputText: event.target.value }),
-    () => this.props.onChange(event));
+      ({ inputText: newValue }),
+    () => this.props.onChange(newValue));
   }
 
   render() {
@@ -49,10 +50,16 @@ export default class TextField extends React.Component {
           />
           <span className={`icon-${this.props.icon}`} styleName={'textFieldIcon'} />
         </div>
-        {(this.props.helperLabel || this.props.invalid) && <div styleName={classNames('textFieldHelper')}>
-          {this.props.invalid && <span className={'icon-errorOutline'} styleName={'errorIcon'} />}
-          {this.props.helperLabel}
-        </div>}
+        {this.props.invalid && this.props.invalidLabel && !this.props.disabled ?
+          <div styleName={'invalidLabel'}>
+            <span className={'icon-errorOutline'} styleName={'errorIcon'} />
+            {this.props.invalidLabel}
+          </div>
+          :
+          <div styleName={'textFieldHelper'}>
+            {this.props.helperLabel}
+          </div>
+        }
       </div>
     );
   }
@@ -66,6 +73,7 @@ TextField.defaultProps = {
   inputText: '',
   placeholder: '',
   helperLabel: '',
+  invalidLabel: '',
   icon: '',
   name: '',
   width: -1,
@@ -98,6 +106,10 @@ TextField.propTypes = {
    * Changes the fields and helpers visual appearance to indicate a validation error.
    */
   invalid: PropTypes.bool,
+  /**
+   * Displayed instead of the helperLabel if specified & invalid is set.
+   */
+  invalidLabel: PropTypes.string,
   /**
    * Sets the html name property of the form element.
    */
