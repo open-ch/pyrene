@@ -1,8 +1,5 @@
 import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
-import SubPagingMenu from '../../common/PageElements/SubPagingMenu/SubPagingMenu';
 import { Link } from 'pyrene';
-import LinkUsage from './LinkUsage';
 import CodePage from '../../common/CodePage';
 import '../../../css/componentPage.css';
 
@@ -14,26 +11,13 @@ const LinkPage = ({ match }) => (
           Links are used primarily on ....
       </div>
 
-      <SubPagingMenu currentPageUrl={match.url} />
     </div>
 
     <div styleName="topicContent">
-      <Route path={`${match.url}/:topicName`} component={Topic} />
-      <Route exact path={match.url} render={() => <Redirect to={`${match.url}/code`} />} />
+      <CodePage component={Link} startProps={{ label: 'Click Me', path: '#' }} />;
     </div>
   </div>
 );
-
-const Topic = ({ match }) => {
-  switch (match.params.topicName) {
-    case 'code':
-      return <CodePage component={Link} startProps={{ label: 'Click Me', path: '#' }} />;
-    case 'usage':
-      return <LinkUsage />;
-    default:
-      return <h3>{match.params.topicName}</h3>;
-  }
-};
 
 
 LinkPage.displayName = 'LinkPage';

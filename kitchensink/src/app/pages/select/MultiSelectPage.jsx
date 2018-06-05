@@ -1,9 +1,5 @@
 import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
 import { MultiSelect } from 'pyrene';
-
-import SubPagingMenu from '../../common/PageElements/SubPagingMenu/SubPagingMenu';
-import SelectUsage from './SelectUsage';
 import CodePage from '../../common/CodePage';
 import '../../../css/componentPage.css';
 
@@ -16,39 +12,20 @@ const MultiSelectPage = ({ match }) => (
       <div styleName="description">
         Single-Select elements are used primarily on ....
       </div>
-
-      <SubPagingMenu currentPageUrl={match.url} />
     </div>
 
     <div styleName="topicContent">
-      <Route path={`${match.url}/:topicName`} component={Topic} />
-      <Route exact path={match.url} render={() => <Redirect to={`${match.url}/code`} />} />
+      <CodePage component={MultiSelect} startProps={{
+        title: 'Multi-Select',
+        placeholder: 'Choose your favorite ice cream',
+        helperLabel: 'Ice cream is delicious',
+        defaultValues: [testOptions[1].value, testOptions[2].value],
+        options: testOptions,
+      }}
+      />
     </div>
   </div>
 );
-
-const Topic = ({ match }) => {
-  switch (match.params.topicName) {
-    case 'code':
-      return (
-        <React.Fragment>
-          <CodePage component={MultiSelect} startProps={{
-            title: 'Multi-Select',
-            placeholder: 'Choose your favorite ice cream',
-            helperLabel: 'Ice cream is delicious',
-            defaultValues: [testOptions[1].value, testOptions[2].value],
-            options: testOptions,
-          }}
-          />
-        </React.Fragment>
-      );
-    case 'usage':
-      return <SelectUsage />;
-    default:
-      return <h3>{match.params.topicName}</h3>;
-  }
-};
-
 
 MultiSelectPage.displayName = 'MultiSelectPage';
 
