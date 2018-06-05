@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 /**
  *
  * React Select want's you to style the component in JS using the following convention.
@@ -43,17 +44,18 @@
    }
  */
 
-const multiSelectStyle = (rows) => ({
+
+const multiSelectStyle = rows => ({
   container: base => ({
     ...base,
     fontFamily: 'AvenirNext, Helvetica, sans-serif !important',
     fontSize: 13,
     fontWeight: 500,
-    width: '100%'
+    width: '100%',
   }),
 
   indicatorSeparator: () => ({
-    display: 'none'
+    display: 'none',
   }),
 
   control: (base, state) => ({
@@ -76,20 +78,20 @@ const multiSelectStyle = (rows) => ({
 
     '& .multiSelect__dropdown-indicator:after': {
       color: state.isFocused ? 'var(--blue-500)' : 'var(--neutral-300)',
-      transform: state.isFocused ? 'rotate(180deg)' : 'rotate(0deg)'
+      transform: state.isFocused ? 'rotate(180deg)' : 'rotate(0deg)',
     },
 
     '& .multiSelect__single-value': {
-      backgroundColor: state.hasValue && state.isFocused ? 'var(--blue-50)' : 'transparent'
+      backgroundColor: state.hasValue && state.isFocused ? 'var(--blue-50)' : 'transparent',
     },
 
     ':hover': {
       border: 'solid 1px var(--blue-500)',
 
       '& .multiSelect__dropdown-indicator:after': {
-        color: 'var(--blue-500)'
-      }
-    }
+        color: 'var(--blue-500)',
+      },
+    },
   }),
 
   valueContainer: base => ({
@@ -102,12 +104,12 @@ const multiSelectStyle = (rows) => ({
 
   placeholder: base => ({
     ...base,
-    color: 'var(--neutral-200)'
+    color: 'var(--neutral-200)',
   }),
 
   clearIndicator: () => ({
     '& svg': {
-      display: 'none'
+      display: 'none',
     },
     ':after': {
       fontFamily: 'IconFont !important',
@@ -124,16 +126,16 @@ const multiSelectStyle = (rows) => ({
 
       display: 'inline-block',
       verticalAlign: 'middle',
-      content: '"7"'
+      content: '"7"',
     },
     ':hover:after': {
-      color: 'var(--red-500)'
-    }
+      color: 'var(--red-500)',
+    },
   }),
 
   dropdownIndicator: () => ({
     '& svg': {
-      display: 'none'
+      display: 'none',
     },
     ':after': {
       fontFamily: 'IconFont !important',
@@ -152,8 +154,8 @@ const multiSelectStyle = (rows) => ({
       display: 'inline-block',
       verticalAlign: 'middle',
       content: '"3"',
-      marginRight: 8
-    }
+      marginRight: 8,
+    },
   }),
 
   input: base => ({
@@ -164,8 +166,8 @@ const multiSelectStyle = (rows) => ({
       fontWeight: 500,
       color: 'var(--neutral-400)',
       WebkitFontSmoothing: 'antialiased',
-      MozOsxFontSmoothing: 'grayscale'
-    }
+      MozOsxFontSmoothing: 'grayscale',
+    },
   }),
 
   menu: base => ({
@@ -178,18 +180,18 @@ const multiSelectStyle = (rows) => ({
   option: (base, { isSelected, isFocused }) => ({
     ...base,
     ':active': {
-      backgroundColor: 'var(--neutral-030)'
+      backgroundColor: 'var(--neutral-030)',
     },
     ':hover': {
-      backgroundColor: 'var(--neutral-030)'
+      backgroundColor: 'var(--neutral-030)',
     },
     backgroundColor: (isSelected || isFocused) ? 'var(--neutral-030)' : 'var(--neutral-0)',
     height: 32,
     color: 'var(--neutral-400)',
-    cursor: 'pointer'
+    cursor: 'pointer',
   }),
 
-  multiValue: (base, {data}) => ({
+  multiValue: (base, { data }) => ({
     ...base,
     height: 20,
     alignItems: 'center',
@@ -197,7 +199,7 @@ const multiSelectStyle = (rows) => ({
     flexShrink: 0,
   }),
 
-  multiValueLabel: (base, {data}) => ({
+  multiValueLabel: (base, { data }) => ({
     boxSizing: 'border-box',
     paddingLeft: 8,
     fontSize: 13,
@@ -207,13 +209,13 @@ const multiSelectStyle = (rows) => ({
     textOverflow: 'ellipsis',
   }),
 
-  multiValueRemove: (base, {data}) => ({
+  multiValueRemove: (base, { data }) => ({
     display: 'flex',
     alignItems: 'center',
     paddingLeft: 4,
     paddingRight: 4,
     '& svg': {
-      display: 'none'
+      display: 'none',
     },
     ':after': {
       fontFamily: 'IconFont !important',
@@ -230,20 +232,20 @@ const multiSelectStyle = (rows) => ({
       content: '"7"',
 
 
-      borderRadius: 2
+      borderRadius: 2,
     },
     ':hover:after': {
       color: 'var(--red-500)',
-      backgroundColor: data.valid ? 'var(--neutral-050)' : 'var(--neutral-0)'
-    }
+      backgroundColor: data.valid ? 'var(--neutral-050)' : 'var(--neutral-0)',
+    },
   }),
 
   noOptionsMessage: (base, state) => ({
     ...base,
     fontStyle: 'italic',
     color: 'var(--neutral-200)',
-    textAlign: 'left'
-  })
+    textAlign: 'left',
+  }),
 
 });
 

@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 /**
  *
  * React Select want's you to style the component in JS using the following convention.
@@ -49,11 +50,11 @@ const selectStyle = {
     fontFamily: 'AvenirNext, Helvetica, sans-serif !important',
     fontSize: 13,
     fontWeight: 500,
-    width: '100%'
+    width: '100%',
   }),
 
   indicatorSeparator: () => ({
-    display: 'none'
+    display: 'none',
   }),
 
   control: (base, state) => ({
@@ -74,38 +75,38 @@ const selectStyle = {
 
     '& .singleSelect__dropdown-indicator:after': {
       color: state.isFocused ? 'var(--blue-500)' : 'var(--neutral-300)',
-      transform: state.isFocused ? 'rotate(180deg)' : 'rotate(0deg)'
+      transform: state.isFocused ? 'rotate(180deg)' : 'rotate(0deg)',
     },
 
     '& .singleSelect__single-value': {
-      backgroundColor: state.hasValue && state.isFocused ? 'var(--blue-50)' : 'transparent'
+      backgroundColor: state.hasValue && state.isFocused ? 'var(--blue-50)' : 'transparent',
     },
 
     ':hover': {
       border: 'solid 1px var(--blue-500)',
 
       '& .singleSelect__dropdown-indicator:after': {
-        color: 'var(--blue-500)'
-      }
-    }
+        color: 'var(--blue-500)',
+      },
+    },
   }),
 
   valueContainer: base => ({
     ...base,
     height: 32,
     '& :last-child': {
-      zIndex: 2
-    }
+      zIndex: 2,
+    },
   }),
 
   placeholder: base => ({
     ...base,
-    color: 'var(--neutral-200)'
+    color: 'var(--neutral-200)',
   }),
 
   clearIndicator: () => ({
     '& svg': {
-      display: 'none'
+      display: 'none',
     },
     ':after': {
       fontFamily: 'IconFont !important',
@@ -122,16 +123,16 @@ const selectStyle = {
 
       display: 'inline-block',
       verticalAlign: 'middle',
-      content: '"7"'
+      content: '"7"',
     },
     ':hover:after': {
-      color: 'var(--red-500)'
-    }
+      color: 'var(--red-500)',
+    },
   }),
 
   dropdownIndicator: () => ({
     '& svg': {
-      display: 'none'
+      display: 'none',
     },
     ':after': {
       fontFamily: 'IconFont !important',
@@ -150,8 +151,8 @@ const selectStyle = {
       display: 'inline-block',
       verticalAlign: 'middle',
       content: '"3"',
-      marginRight: 8
-    }
+      marginRight: 8,
+    },
   }),
 
   input: base => ({
@@ -162,8 +163,8 @@ const selectStyle = {
       fontWeight: 500,
       color: 'var(--neutral-400)',
       WebkitFontSmoothing: 'antialiased',
-      MozOsxFontSmoothing: 'grayscale'
-    }
+      MozOsxFontSmoothing: 'grayscale',
+    },
   }),
 
   menu: base => ({
@@ -171,22 +172,22 @@ const selectStyle = {
     boxShadow: '0 4px 8px -2px rgba(0, 21, 44, 0.2), 0 0 1px 0 rgba(0, 21, 44, 0.3)',
     borderRadius: 2,
     marginTop: 4,
-    maxHeight: 308
+    maxHeight: 308,
   }),
 
   option: (base, { isSelected, isFocused }) => ({
     ...base,
     ':active': {
-      backgroundColor: 'var(--neutral-030)'
+      backgroundColor: 'var(--neutral-030)',
     },
     ':hover': {
-      backgroundColor: 'var(--neutral-030)'
+      backgroundColor: 'var(--neutral-030)',
     },
     backgroundColor: (isSelected || isFocused) ? 'var(--neutral-030)' : 'var(--neutral-0)',
     height: 30,
     color: 'var(--neutral-400)',
-    cursor: 'pointer'
-  })
+    cursor: 'pointer',
+  }),
 };
 
 export default selectStyle;

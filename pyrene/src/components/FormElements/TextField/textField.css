@@ -10,9 +10,6 @@
     & .textField {
       border-color: var(--red-500);
     }
-    & .textFieldHelper {
-      color: var(--red-500);
-    }
   }
 }
 
@@ -84,6 +81,16 @@
   font-weight: 600;
   text-align: left;
   color: var(--neutral-100);
+}
+
+.invalidLabel {
+  margin-top: 4px;
+  font-size: 12px;
+  line-height: 16px;
+  height: 16px;
+  font-weight: 600;
+  text-align: left;
+  color: var(--red-500);
 }
 
 .errorIcon {
