@@ -36,6 +36,13 @@
   src: url('../fonts/AvenirNextLTW01-Bold.woff') format('woff');
 }
 
+/*Roboto */
+@font-face {
+  font-family: Roboto;
+  font-weight: 400;
+  src: url('../fonts/roboto-mono-v5-latin-ext_latin-regular.woff') format('woff');
+}
+
 body {
   background-color: var(--neutral-010);
   color: var(--font-black);
@@ -79,6 +86,10 @@ body {
 
 :global(.activeSideBar) {
   color: var(--blue-500);
+}
+
+::selection {
+  background: var(--blue-050);
 }
 
 /* GRIDS */

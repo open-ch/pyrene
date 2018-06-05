@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import SyntaxHighlighter, { registerLanguage } from 'react-syntax-highlighter/prism-light';
 import jsx from 'react-syntax-highlighter/languages/prism/jsx';
-import { prism } from 'react-syntax-highlighter/styles/prism';
+import osagCodeColorScheme from '../../css/osagCodeColorScheme';
 import Utils from './Utils';
 
 import '../../css/propEditor.css';
@@ -36,10 +36,10 @@ export default class CodeBlock extends React.Component {
     const generatedCode = this._generateCodeForComponent(this.props.component);
     return (
       <div styleName={'codeContainer'}>
-        <SyntaxHighlighter style={prism} language={'jsx'} customStyle={{ margin: 0 }}>
+        <SyntaxHighlighter style={osagCodeColorScheme} language={'jsx'} customStyle={{ margin: 0, borderRadius: 4}}>
           {generatedCode}
         </SyntaxHighlighter>
-        <div styleName={'copyToCBIcon'} onClick={() => Utils.copyStringToClipboard(generatedCode)} />
+        <div className={'unSelectable'} styleName={'copyToCBIcon'} onClick={() => Utils.copyStringToClipboard(generatedCode)}>Copy code</div>
       </div>
     );
   }
