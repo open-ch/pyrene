@@ -10,7 +10,6 @@ const LinkPage = ({ match }) => (
       <div styleName="description">
           Links are used primarily on ....
       </div>
-
     </div>
 
     <div styleName="topicContent">

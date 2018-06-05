@@ -29,7 +29,11 @@
 }
 
 .componentDisplayContainer {
-  margin-top: 64px;
+  margin-top: 40px;
+  box-sizing: border-box;
+  padding: 24px 0;
+  border-radius: 4px;
+  border: solid 1px var(--neutral-050);
   display: flex;
   justify-content: center;
 }

@@ -12,14 +12,13 @@ export default class CodePage extends React.Component {
     super(props);
     this.handleEditorChange = this.handleEditorChange.bind(this);
 
-    this.displayedComponentRef = React.createRef();
     this.state = {
-      displayedComponent: <this.props.component {...this.props.startProps} ref={this.displayedComponentRef} />,
+      displayedComponent: <this.props.component {...this.props.startProps} />,
       component: this.props.component
     };
   }
 
-  handleEditorChange(target) {
+  /**handleEditorChange(target) {
     const changedProp = (target.type === 'checkbox') ? { [target.name]: target.checked } : { [target.name]: target.value };
     if (target.type === 'select-one') {
       changedProp[target.name] = changedProp[target.name].replace(/'/g, '');
@@ -36,6 +35,14 @@ export default class CodePage extends React.Component {
         displayedComponent: <this.state.component {...this.state.displayedComponent.props} {...changedProp} ref={this.displayedComponentRef} />
       });
     }
+  }
+   */
+  handleEditorChange(prop, newValue) {
+    console.log(prop, newValue);
+    const changedProp = { [prop]: newValue };
+    this.setState(() => ({
+      displayedComponent: <this.state.component {...this.state.displayedComponent.props} {...changedProp} />
+    }));
   }
 
   render() {

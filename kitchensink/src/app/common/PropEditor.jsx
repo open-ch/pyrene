@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Checkbox from './Checkbox';
+import { TextField, SingleSelect, Checkbox } from 'pyrene';
 import '../../css/propEditor.css';
 
 
@@ -8,11 +8,11 @@ export default class PropEditor extends React.Component {
 
   constructor(props) {
     super(props);
-    this.modifiedProp = this.modifiedProp.bind(this);
+    this.handlePropEditorChange = this.handlePropEditorChange.bind(this);
   }
 
-  modifiedProp(event) {
-    this.props.onEditorChange(event.target);
+  handlePropEditorChange(prop, newValue) {
+    this.props.onEditorChange(prop, newValue);
   }
 
   render() {
@@ -21,29 +21,39 @@ export default class PropEditor extends React.Component {
         {Object.entries(this.props.componentProps).map(([propName, propProps]) => {
           switch (propProps.type.name) {
             case 'string':
-              return ([`${propName}: `,
+              return (
                 <React.Fragment key={propName}>
-                  <input type="text" name={propName} placeholder={'change me'} onChange={event => this.modifiedProp(event)} /><br />
+                  <TextField
+                    title={propName}
+                    name={propName}
+                    placeholder={'Change me'}
+                    inputText={this.props.activePropValues[propName]}
+                    onChange={changedValue => this.handlePropEditorChange(propName, changedValue)}
+                  />
+                  <br />
                 </React.Fragment>
-              ]);
+              );
 
             case 'enum':
-              return ([`${propName}: `,
+              const options = propProps.type.value.map((propChoice, index) => ({value: index, label: propChoice.value.replace(/'/g, '')}));
+              return (
                 <React.Fragment key={propName}>
-                  <select name={propName} onChange={event => this.modifiedProp(event)}>
-                    {propProps.type.value.map((propChoice, index) =>
-                      <option value={propChoice.value} key={propChoice.value}>{index === 0 && 'default ('}{propChoice.value.replace(/'/g, '')}{index === 0 && ')'}</option>
-                    )}
-                  </select><br />
+                  <SingleSelect
+                    title={propName}
+                    options={options}
+                    onChange={changedOption => this.handlePropEditorChange(propName, changedOption.label)}
+                    defaultValue={0}
+                  />
                 </React.Fragment>
-              ]);
+              );
 
             case 'bool':
-              return ([`${propName}: `,
+              return (
                 <React.Fragment key={propName}>
-                  <Checkbox name={propName} toggledCheckbox={this.modifiedProp} /><br />
+                  <Checkbox label={propName} checked={this.props.activePropValues[propName]} onChange={value => this.handlePropEditorChange(propName, value)} /><br />
                 </React.Fragment>
-              ]);
+              );
+
             case 'number':
               return ([`${propName}: `,
                 <React.Fragment key={propName}>
@@ -53,7 +63,6 @@ export default class PropEditor extends React.Component {
 
             case 'func':
               return (<React.Fragment key={propName}>Function: {propName}<br /></React.Fragment>);
-
 
             case 'arrayOf':
               return (<React.Fragment key={propName}>Array functionality not included yet. <br /></React.Fragment>);
