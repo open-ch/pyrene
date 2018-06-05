@@ -11,22 +11,24 @@ export default class RadioSelection extends React.Component {
 
     this._handleRadioSelection = this._handleRadioSelection.bind(this);
     this.state = {
-      selectedOption: this.props.selectedOption
+      selectedOption: this.props.selectedOption,
     };
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
     if (prevState.selectedOption !== nextProps.selectedOption) {
       return {
-        selectedOption: nextProps.selectedOption
+        selectedOption: nextProps.selectedOption,
       };
     }
     return null;
   }
 
   _handleRadioSelection(event) {
+    const newValue = event.target.value;
     this.setState((prevState, props) =>
-      ({ selectedOption: event.target.value }));
+      ({ selectedOption: newValue }),
+    () => this.props.onChange(newValue));
   }
 
   render() {
@@ -76,6 +78,7 @@ RadioSelection.defaultProps = {
   selectedOption: '',
   invalid: false,
   name: '',
+  onChange: () => null,
 };
 
 RadioSelection.propTypes = {
@@ -95,6 +98,10 @@ RadioSelection.propTypes = {
    * Sets the html name property of the form element.
    */
   name: PropTypes.string,
+  /**
+   * Event handler.
+   */
+  onChange: PropTypes.func,
   /**
    * Specifies the different choices and values.
    */
