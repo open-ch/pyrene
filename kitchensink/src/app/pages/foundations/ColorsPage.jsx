@@ -1,7 +1,32 @@
 import React from 'react';
 import '../../../css/componentPage.css';
+import Paragraph from '../../common/PageElements/Paragraph/Paragraph';
+import ColorBox from '../../common/PageElements/FoundationElements/ColorBox/ColorBox';
+import DescriptionBox from '../../common/PageElements/DescriptionBox/DescriptionBox';
+import { primaryColors, neutralColors, interactionColors , extendedColors } from '../../data/foundationsData';
 
-const ColorsPage = ({ match }) => (
+const createStackedColors = (data, colorBoxSize) => data.map(element => (
+  <div key={`${element.colors[0].hex}`}>
+    {element.colors.map((color, index) => {
+      const title = index === 0 ? element.title : '';
+      return (
+        <ColorBox
+          title={title}
+          colorName={color.colorName}
+          variableName={color.name}
+          hexValue={color.hex}
+          size={colorBoxSize}
+          darkFont={color.darkFont}
+          bordered={color.bordered}
+          stackPosition={color.stack}
+          infoLabel={color.infoLabel}
+          key={color.hex}
+        />);
+    })}
+  </div>
+));
+
+const ColorsPage = () => (
   <div className="page">
     <div styleName="header">
       <div styleName="title">Colors</div>
@@ -13,7 +38,49 @@ const ColorsPage = ({ match }) => (
     </div>
 
     <div styleName="topicContent">
-      Test
+      <Paragraph title={'Primary Colors'}>
+        <DescriptionBox>
+          The primary colors give our applications the characteristic look and feel.
+          These colors enjoy priority. White plays an important role in structuring content and the overall impression.
+          Blue is used as accent color while Dark is the main color for type.
+        </DescriptionBox>
+        <div className={'colorGrid'}>
+          {createStackedColors(primaryColors, 'large')}
+        </div>
+      </Paragraph>
+
+      <Paragraph title={'Neutrals'}>
+        <DescriptionBox>
+          Neutral colors are used for text, backgrounds, shadows, lines, dividers and borders. Those colors give our elements structure.
+        </DescriptionBox>
+        <div className={'colorGrid'}>
+          {createStackedColors(neutralColors, 'medium')}
+        </div>
+      </Paragraph>
+
+      <Paragraph title={'Interaction Colors'}>
+        <DescriptionBox>
+          The Interaction colors are used for buttons, alert messages, form elements and status of services/hosts.
+          Input fields, for example, can get positive and negative feedback, whereas alert messages can have warning feedback.
+          Each Interaction color has a darker and lighter shade.
+          The darker shades of Green, Red and Orange are used for type to improve readability.
+          The darker shade of Blue is used for hover states on buttons or links.
+        </DescriptionBox>
+        <div className={'colorGrid'}>
+          {createStackedColors(interactionColors, 'medium')}
+        </div>
+      </Paragraph>
+
+      <Paragraph title={'Extended Palette'}>
+        <DescriptionBox>
+          The extended palette consists of all the useable tints and shades.
+          These palette is also used in graphs and data visualizations.
+          Each grade is derived from the base color (-500), by adjusting saturation and brightness.
+        </DescriptionBox>
+        <div className={'colorGrid'}>
+          {createStackedColors(extendedColors, 'small')}
+        </div>
+      </Paragraph>
     </div>
   </div>
 );

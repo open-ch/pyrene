@@ -1,0 +1,30 @@
+.paragraph {
+  margin-top:80px;
+
+  & .title {
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.33;
+    margin-bottom: 16px;
+    text-transform: capitalize;
+  }
+
+  & .content {
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.71;
+    font-stretch: normal;
+    letter-spacing: normal;
+    text-align: left;
+
+    &:after {
+      clear: both;
+    }
+  }
+
+  &.large {
+    & .title {
+      font-size: 24px;
+    }
+  }
+}

@@ -11,14 +11,17 @@
 }
 
 .description {
-  font-size: 16px;
+  font-size: 18px;
+  line-height: 24px;
   font-weight: normal;
   font-style: normal;
   font-stretch: normal;
-  line-height: 1.5;
   letter-spacing: normal;
   text-align: left;
-  margin-bottom: 40px;
+
+  & strong {
+    font-weight: 600;
+  }
 }
 
 .topicContent {

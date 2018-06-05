@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Paragraph from '../../common/PageElements/Paragraph';
-import Table from '../../common/Table';
+import Paragraph from '../../common/PageElements/Paragraph/Paragraph';
+import Table from '../../common/PageElements/Table/Table';
 
 import testImg from '../../../images/iconUsageTestIMG.png';
 

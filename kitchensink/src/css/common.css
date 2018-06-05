@@ -1,4 +1,5 @@
-@import '../css/colors.css';
+@import './colors.css';
+@import './icons.css';
 
 /* CSS Reset */
 * {
@@ -36,7 +37,7 @@
 }
 
 body {
-  background-color: var(--neutral-BG);
+  background-color: var(--neutral-010);
   color: var(--font-black);
   font-family: AvenirNext, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -46,7 +47,7 @@ body {
 .mainContainer {
   width: 1440px;
   margin: 48px auto;
-  background-color: var(--neutral-0);
+  background-color: var(--neutral-000);
   padding: 1px;
   box-shadow:
       inset -1px 0   0 var(--neutral-100),
@@ -55,13 +56,13 @@ body {
       inset  1px 0   0 var(--neutral-100);
   display: flex;
   flex: 0;
-  min-height: 2440px;
+  min-height: 4000px;
 }
 
 .leftContainer {
   display: block;
   width: 284px;
-  background-color: var(--neutral-0);
+  background-color: var(--neutral-000);
   padding-right: 1px;
   box-shadow: inset -1px 0   0 var(--neutral-sideBar);
 }
@@ -78,4 +79,30 @@ body {
 
 :global(.activeSideBar) {
   color: var(--blue-500);
+}
+
+/* GRIDS */
+
+:global(.colorGrid) {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-column-gap: 59px;
+  grid-row-gap: 40px;
+}
+
+:global(.iconGrid) {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr; /* repeat(12, 1fr) not well enough supported yet.. */
+  grid-gap: 16px;
+}
+
+:global(.designSystemGrid) {
+  display: grid;
+  grid-gap: 24px;
+}
+
+:global(.principlesGrid) {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-row-gap: 40px;
 }

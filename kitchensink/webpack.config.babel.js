@@ -10,24 +10,24 @@ const production = process.env.NODE_ENV === 'production';
 const config = {
   mode: production ? 'production' : 'development',
   resolve: {
-    extensions: ['.js', '.jsx']
+    extensions: ['.js', '.jsx'],
   },
   output: {
-    publicPath: '/'
+    publicPath: '/',
   },
   module: {
     rules: [
       {
         test: /\.jsx?$/,
         include: [
-          path.resolve(__dirname, 'src')
+          path.resolve(__dirname, 'src'),
         ],
         use: {
           loader: 'babel-loader',
           query: {
-            cacheDirectory: true
-          }
-        }
+            cacheDirectory: true,
+          },
+        },
       },
       {
         test: /\.css$/,
@@ -40,33 +40,33 @@ const config = {
               modules: true,
               importLoaders: 1,
               localIdentName: '[name]__[local]--[hash:base64:10]',
-              sourceMap: !production
-            }
+              sourceMap: !production,
+            },
           },
-          'postcss-loader'
-        ]
+          'postcss-loader',
+        ],
       },
       {
         test: /\.svg$/,
-        loader: 'url-loader'
+        loader: 'url-loader',
       },
       {
         test: /\.png$/,
-        loader: 'url-loader'
+        loader: 'url-loader',
       },
       {
         test: /\.woff$/,
-        loader: 'url-loader'
-      }
-    ]
+        loader: 'url-loader',
+      },
+    ],
   },
   plugins: [
     new CleanWebpackPlugin(['dist']),
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      template: 'src/index.html'
-    })
-  ]
+      template: 'src/index.html',
+    }),
+  ],
 };
 
 if (production) {
@@ -74,7 +74,7 @@ if (production) {
 } else {
   console.warn('webpack is running in development mode\n');
   config.devServer = {
-    historyApiFallback: true
+    historyApiFallback: true,
   };
 }
 

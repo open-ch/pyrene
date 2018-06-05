@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Route, Redirect } from 'react-router-dom';
-import SubPagingMenu from '../../common/PageElements/SubPagingMenu';
+import SubPagingMenu from '../../common/PageElements/SubPagingMenu/SubPagingMenu';
 import { ShareDialog } from 'pyrene';
 import ShareDialogUsage from './ShareDialogUsage';
 import CodePage from '../../common/CodePage';

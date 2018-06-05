@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import '../../css/table.css';
+import './table.css';
 
 const Table = props => (
   <div styleName={'table_container'}>

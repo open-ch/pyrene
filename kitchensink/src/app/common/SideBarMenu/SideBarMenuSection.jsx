@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { NavLink } from 'react-router-dom';
 
-import '../../../css/sideBarMenu.css';
+import './sideBarMenu.css';
 
 
 export default class SideBarMenuSection extends React.Component {

@@ -9,10 +9,16 @@ import packageJson from '../../../package.json';
 import '../../css/common.css';
 import LinkPage from '../pages/link/LinkPage';
 import ShareDialogPage from '../pages/shareDialog/ShareDialogPage';
-import FormElementsPage from '../pages/formElements/FormElementsPage';
 import ModalPage from '../pages/modal/ModalPage';
-import SelectPage from '../pages/select/SelectPage';
 import ColorsPage from '../pages/foundations/ColorsPage';
+import IconsPage from '../pages/foundations/IconsPage';
+import ResourcesPage from '../pages/ResourcesPage';
+import CheckboxPage from '../pages/formElements/CheckboxPage';
+import RadioSelectionPage from '../pages/formElements/RadioSelectionPage';
+import TextFieldPage from '../pages/formElements/TextFieldPage';
+import TextAreaPage from '../pages/formElements/TextAreaPage';
+import SingleSelectPage from '../pages/select/SingleSelectPage';
+import MultiSelectPage from '../pages/select/MultiSelectPage';
 
 
 const MainComponent = () => (
@@ -23,13 +29,22 @@ const MainComponent = () => (
     </div>
     <div styleName={'pageContainer'}>
       <Route path={'/'} component={IntroductionPage} exact />
+
       <Route path={'/colors'} component={ColorsPage} />
+      <Route path={'/icons'} component={IconsPage} />
+
       <Route path={'/button'} component={ButtonPage} />
       <Route path={'/link'} component={LinkPage} />
       <Route path={'/shareDialog'} component={ShareDialogPage} />
-      <Route path={'/formElements'} component={FormElementsPage} />
+      <Route path={'/checkbox'} component={CheckboxPage} />
+      <Route path={'/radio'} component={RadioSelectionPage} />
+      <Route path={'/textField'} component={TextFieldPage} />
+      <Route path={'/textArea'} component={TextAreaPage} />
       <Route path={'/modal'} component={ModalPage} />
-      <Route path={'/select'} component={SelectPage} />
+      <Route path={'/singleSelect'} component={SingleSelectPage} />
+      <Route path={'/multiSelect'} component={MultiSelectPage} />
+
+      <Route path={'/resources'} component={ResourcesPage} />
     </div>
   </div>
 );

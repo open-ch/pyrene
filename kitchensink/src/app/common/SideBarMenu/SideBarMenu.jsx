@@ -1,7 +1,7 @@
 import React from 'react';
 import SideBarMenuSection from './SideBarMenuSection';
 
-import '../../../css/sideBarMenu.css';
+import './sideBarMenu.css';
 
 const SideBarMenu = props => (
   <div id={'sideBar_menu_container'}>
@@ -11,6 +11,7 @@ const SideBarMenu = props => (
         title="Foundations"
         sectionElements={[
           { name: 'Colors', linkToPath: '/colors' },
+          { name: 'Icons', linkToPath: '/icons' },
           { name: 'Typography', linkToPath: '#' }]}
       />
       <SideBarMenuSection
@@ -19,10 +20,15 @@ const SideBarMenu = props => (
           { name: 'Button', linkToPath: '/button' },
           { name: 'Link', linkToPath: '/link' },
           { name: 'Share', linkToPath: '/shareDialog' },
-          { name: 'Form Elements', linkToPath: '/formElements' },
-          { name: 'Selection Elements', linkToPath: '/select' },
+          { name: 'Checkbox', linkToPath: '/checkbox' },
+          { name: 'Radio', linkToPath: '/radio' },
+          { name: 'Textfield', linkToPath: '/textField' },
+          { name: 'Textarea', linkToPath: '/textArea' },
+          { name: 'Select', linkToPath: '/singleSelect' },
+          { name: 'Multi-Select', linkToPath: '/multiSelect' },
           { name: 'Modal', linkToPath: '/modal' }]}
       />
+      <SideBarMenuSection title="Resources" sectionElements={[]} linkToPath={'/resources'} />
     </div>
   </div>
 );

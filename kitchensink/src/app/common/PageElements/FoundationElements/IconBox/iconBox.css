@@ -1,0 +1,92 @@
+.iconBox {
+  box-sizing: border-box;
+  text-align: center;
+  position: relative;
+
+  width: 64px;
+  height: 64px;
+  border-radius: 4px;
+  border: solid 1px var(--neutral-030);
+
+  &.disabled {
+    pointer-events: none;
+  }
+
+  &:hover {
+    cursor: pointer;
+    border-color: var(--blue-500);
+
+    & .iconBoxTooltip {
+      visibility: visible;
+    }
+  }
+
+  & .icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 64px;
+    font-size: 26px;
+  }
+
+  & .svg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 64px;
+    background: no-repeat center;
+  }
+
+  & .iconBoxTooltip {
+    box-sizing: border-box;
+    display: block;
+    z-index: 1;
+    visibility: hidden;
+    position: absolute;
+    margin-top: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    background-color: var(--neutral-400);
+
+    color: var(--neutral-000);
+    line-height: 16px;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+
+    padding: 4px 8px;
+    border-radius: 2px;
+  }
+
+  & .copyNotification {
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+    z-index: 1;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+
+    background-color: var(--green-500);
+
+    color: var(--neutral-000);
+    line-height: 16px;
+    font-size: 12px;
+    font-weight: 600;
+
+    padding-top: 2px;
+    padding-bottom: 2px;
+    border-radius: 2px;
+
+    transition: opacity .5s ease-in-out;
+
+
+    &.display {
+      opacity: 1;
+    }
+  }
+
+}

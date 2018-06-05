@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Route, Redirect } from 'react-router-dom';
-import SubPagingMenu from '../../common/PageElements/SubPagingMenu';
+import SubPagingMenu from '../../common/PageElements/SubPagingMenu/SubPagingMenu';
 import { Modal } from 'pyrene';
 import ModalUsage from './ModalUsage';
 import CodePage from '../../common/CodePage';
 import '../../../css/componentPage.css';
-import Table from '../../common/Table';
+import Table from '../../common/PageElements/Table/Table';
 
 const ModalPage = ({ match }) => (
   <div className="page">

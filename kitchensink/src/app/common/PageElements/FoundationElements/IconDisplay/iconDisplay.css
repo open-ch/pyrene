@@ -1,0 +1,52 @@
+.iconDisplay {
+
+}
+
+.iconSearchBar {
+  box-sizing: border-box;
+  width: 304px;
+  height: 32px;
+  margin-bottom: 40px;
+  border-radius: 2px;
+  border: solid 1px var(--neutral-050);
+
+  outline: none;
+
+  &.filled {
+    border: solid 1px var(--neutral-200);
+  }
+
+  &:hover, &:focus {
+    border: solid 1px var(--blue-500);
+  }
+
+  &[type=text] {
+    font-family: AvenirNext;
+    font-size: 13px;
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.46;
+    letter-spacing: normal;
+
+    padding-left: 32px;
+
+    &::placeholder {
+      color: var(--neutral-200);
+    }
+  }
+
+}
+
+.iconPlacementContainer {
+  position: relative;
+}
+
+.searchIcon {
+  font-size: 16px;
+  color: var(--neutral-300);
+  position: absolute;
+  left: 8px;
+  top: 8px;
+}
+
