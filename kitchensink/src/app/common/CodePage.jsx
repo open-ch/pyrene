@@ -31,9 +31,7 @@ export default class CodePage extends React.Component {
         <div styleName={'componentDisplayContainer'}>
           {this.state.displayedComponent}
         </div>
-        <div styleName={'codeContainer'}>
-          <CodeBlock component={this.state.displayedComponent} />
-        </div>
+        <CodeBlock component={this.state.displayedComponent} />
         <PropEditor activePropValues={this.state.displayedComponent.props} componentProps={this.props.component.__docgenInfo.props} onEditorChange={this.handleEditorChange} />
         <Table
           title={'PropTable'}
