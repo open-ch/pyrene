@@ -2,9 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import '../../css/componentPage.css';
-import Table from './PageElements/Tables/Table';
-import PropEditor from '../common/PropEditor';
 import CodeBlock from '../common/CodeBlock';
+import PropTableEditor from './PageElements/Tables/PropTableEditor';
 
 
 export default class CodePage extends React.Component {
@@ -41,18 +40,7 @@ export default class CodePage extends React.Component {
           <div styleName={classNames('pin', { pinned: this.state.pinned })} onClick={() => this.handlePinClick()} />
         </div>
         <CodeBlock component={this.state.displayedComponent} />
-        <PropEditor activePropValues={this.state.displayedComponent.props} componentProps={this.props.component.__docgenInfo.props} onEditorChange={this.handleEditorChange} />
-        <Table
-          title={'PropTable'}
-          cellWidthArray={['200px', '100px', '100px', '150px', '']}
-          headerElementArray={['property', 'isRequired', 'type', 'default value', 'description']}
-          rowArray={Object.entries(this.props.component.__docgenInfo.props).map(([propName, propProps]) => {
-            if (typeof propProps.defaultValue === 'undefined') {
-              return [propName, propProps.required, propProps.type.name, '', propProps.description];
-            }
-            return [propName, propProps.required, propProps.type.name, propProps.defaultValue.value, propProps.description];
-          })}
-        />
+        <PropTableEditor componentProps={this.props.component.__docgenInfo.props} activePropValues={this.state.displayedComponent.props} onEditorChange={this.handleEditorChange} />
       </div>
     );
   }

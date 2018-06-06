@@ -16,18 +16,27 @@ const Table = props => (
         </tr>
       </thead>
       <tbody>
-        {props.rowArray.map(row => (<tr key={row}>{row.map((cell) => {
-          if (typeof cell === 'boolean') {
-            // Check mark & cross to display booleans
-            const mark = cell ? '\u2714' : '\u2718';
-            return <td key={mark}>{mark}</td>;
-          }
-          return (
-            <td key={cell}>{cell}</td>
-          );
-        })}
-        </tr>)
-        )}
+        {props.rowArray.map(row => (
+          <React.Fragment>
+            <tr key={row}>{row.map((cell, index) => {
+              if (index < 5) {
+                let returnedCell = cell;
+                if (typeof cell === 'boolean') {
+                  returnedCell = cell ? 'yes' : 'no';
+                }
+                if (typeof cell === 'string') {
+                  // Remove ' from strings
+                  returnedCell = cell.replace(/'/g, '');
+                }
+                return <td key={returnedCell}><div styleName={'cell'}>{returnedCell}</div></td>;
+              }
+            })}
+            </tr>
+            <tr styleName={'descriptionRow'}>
+              <td colSpan={5}><div styleName={'descriptionCell'}>{row[5]}</div></td>
+            </tr>
+          </React.Fragment>
+        ))}
       </tbody>
     </table>
   </div>
@@ -40,11 +49,11 @@ Table.propTypes = {
   title: PropTypes.string,
   cellWidthArray: PropTypes.arrayOf(PropTypes.string).isRequired,
   headerElementArray: PropTypes.arrayOf(PropTypes.string).isRequired,
-  rowArray: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.any)).isRequired
+  rowArray: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.any)).isRequired,
 };
 
 Table.defaultProps = {
-  title: ''
+  title: '',
 };
 
 export default Table;
