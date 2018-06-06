@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import '../../css/componentPage.css';
-import Table from './PageElements/Table/Table';
+import Table from './PageElements/Tables/Table';
 import PropEditor from '../common/PropEditor';
 import CodeBlock from '../common/CodeBlock';
 
@@ -19,7 +19,6 @@ export default class CodePage extends React.Component {
   }
 
   handleEditorChange(prop, newValue) {
-    // console.log(prop, newValue);
     const changedProp = { [prop]: newValue };
     this.setState(() => ({
       displayedComponent: <this.state.component {...this.state.displayedComponent.props} {...changedProp} />

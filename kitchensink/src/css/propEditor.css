@@ -2,10 +2,12 @@
   content: '';
   padding: 16px;
   background-color: white;
+
 }
 
 .codeContainer {
   position: relative;
+  margin-top: 40px;
   width: 100%;
 
   & ::selection {

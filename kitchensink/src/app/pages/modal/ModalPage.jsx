@@ -1,7 +1,7 @@
 import React from 'react';
 import { Modal } from 'pyrene';
 import '../../../css/componentPage.css';
-import Table from '../../common/PageElements/Table/Table';
+import Table from '../../common/PageElements/Tables/Table';
 
 const ModalPage = ({ match }) => (
   <div className="page">

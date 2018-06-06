@@ -36,7 +36,7 @@ export default class CodeBlock extends React.Component {
     const generatedCode = this._generateCodeForComponent(this.props.component);
     return (
       <div styleName={'codeContainer'}>
-        <SyntaxHighlighter style={osagCodeColorScheme} language={'jsx'} customStyle={{ margin: 0, borderRadius: 4}}>
+        <SyntaxHighlighter style={osagCodeColorScheme} language={'jsx'} customStyle={{ margin: 0, borderRadius: 4, overflow: 'hidden', padding: '16px 0 16px 16px', height: '64px', boxSizing: 'border-box'}}>
           {generatedCode}
         </SyntaxHighlighter>
         <div className={'unSelectable'} styleName={'copyToCBIcon'} onClick={() => Utils.copyStringToClipboard(generatedCode)}>Copy code</div>
