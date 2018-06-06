@@ -11,7 +11,7 @@ const Option = (props) => {
   const { getStyles, children, innerProps } = props;
   return (
     <Div {...innerProps} style={getStyles('option', props)}>
-      <span className={`icon-${children}`} style={{verticalAlign: 'middle', marginRight: 4}}/> {children}
+      <span className={`icon-${children}`} style={{verticalAlign: 'text-top', marginRight: 8, fontSize: 16}}/> {children}
     </Div>
   );
 };
