@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { TextField, SingleSelect, Checkbox } from 'pyrene';
 import '../../css/propEditor.css';
+import IconSelect from './PageElements/IconSelect/IconSelect';
 
 
 export default class PropEditor extends React.Component {
@@ -23,13 +24,17 @@ export default class PropEditor extends React.Component {
             case 'string':
               return (
                 <React.Fragment key={propName}>
-                  <TextField
-                    title={propName}
-                    name={propName}
-                    placeholder={'Change me'}
-                    inputText={this.props.activePropValues[propName]}
-                    onChange={changedValue => this.handlePropEditorChange(propName, changedValue)}
-                  />
+                  {propName === 'icon' ?
+                    <IconSelect />
+                    :
+                    <TextField
+                      title={propName}
+                      name={propName}
+                      placeholder={'Change me'}
+                      inputText={this.props.activePropValues[propName]}
+                      onChange={changedValue => this.handlePropEditorChange(propName, changedValue)}
+                    />
+                  }
                   <br />
                 </React.Fragment>
               );

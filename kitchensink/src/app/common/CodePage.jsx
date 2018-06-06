@@ -18,27 +18,8 @@ export default class CodePage extends React.Component {
     };
   }
 
-  /**handleEditorChange(target) {
-    const changedProp = (target.type === 'checkbox') ? { [target.name]: target.checked } : { [target.name]: target.value };
-    if (target.type === 'select-one') {
-      changedProp[target.name] = changedProp[target.name].replace(/'/g, '');
-    }
-    if (target.type === 'number') {
-      changedProp[target.name] = parseInt(changedProp[target.name], 10);
-    }
-    if (this.displayedComponentRef.current) {
-      this.setState({
-        displayedComponent: <this.state.component {...this.state.displayedComponent.props} {...this.displayedComponentRef.current.state} {...changedProp} ref={this.displayedComponentRef} />
-      });
-    } else {
-      this.setState({
-        displayedComponent: <this.state.component {...this.state.displayedComponent.props} {...changedProp} ref={this.displayedComponentRef} />
-      });
-    }
-  }
-   */
   handleEditorChange(prop, newValue) {
-    console.log(prop, newValue);
+    // console.log(prop, newValue);
     const changedProp = { [prop]: newValue };
     this.setState(() => ({
       displayedComponent: <this.state.component {...this.state.displayedComponent.props} {...changedProp} />
