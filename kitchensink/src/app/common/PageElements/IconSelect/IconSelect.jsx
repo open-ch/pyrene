@@ -1,16 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Select from 'react-select';
-import SelectStyle from './iconSelectCSS';
+import Select, { components }from 'react-select';
+import { Div, Span } from 'react-select/lib/primitives';
+import SelectStyle  from './iconSelectCSS';
 import { icons } from '../../../data/foundationsData';
 import './select.css';
 
+const Option = (props) => {
+  const { getStyles, children, innerProps } = props;
+  return (
+    <Div {...innerProps} style={getStyles('option', props)}>
+      <span className={`icon-${children}`} style={{verticalAlign: 'middle', marginRight: 4}}/> {children}
+    </Div>
+  );
+};
 
 const IconSelect = props => (
   <div styleName={classNames('selectContainer')}>
     {props.title && <div styleName={classNames('selectTitle', { required: props.required && !props.disabled })}>{props.title}</div>}
     <Select
+      components={{ Option }}
       className={'singleSelect'}
       styles={SelectStyle}
       placeholder={'Change to add icon'}
@@ -39,7 +49,6 @@ const IconSelect = props => (
 IconSelect.displayName = 'IconSelect';
 
 IconSelect.defaultProps = {
-  options: [],
   helperLabel: '',
   title: '',
   onChange: () => null,
@@ -54,13 +63,6 @@ IconSelect.propTypes = {
    * Event Handler. Param option: {value: , label:}
    */
   onChange: PropTypes.func,
-  /**
-   * Supplies the available options to the dropdown.
-   */
-  options: PropTypes.arrayOf(PropTypes.shape({
-    value: PropTypes.any,
-    label: PropTypes.string,
-  })),
   /**
    * Changes what the title says.
    */

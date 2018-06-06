@@ -25,7 +25,10 @@ export default class PropEditor extends React.Component {
               return (
                 <React.Fragment key={propName}>
                   {propName === 'icon' ?
-                    <IconSelect />
+                    <IconSelect
+                      title={propName}
+                      onChange={changedOption => this.handlePropEditorChange(propName, changedOption.label)}
+                    />
                     :
                     <TextField
                       title={propName}
