@@ -42,7 +42,6 @@
 
     & .icon {
       background: var(--blue-500);
-      -webkit-mask: url('/src/images/download.svg') no-repeat center;
       mask: url('/src/images/download.svg') no-repeat center;
     }
     & .name, & .fileSize {

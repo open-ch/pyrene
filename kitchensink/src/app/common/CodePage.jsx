@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import '../../css/componentPage.css';
 import Table from './PageElements/Tables/Table';
 import PropEditor from '../common/PropEditor';
@@ -14,7 +15,8 @@ export default class CodePage extends React.Component {
 
     this.state = {
       displayedComponent: <this.props.component {...this.props.startProps} />,
-      component: this.props.component
+      component: this.props.component,
+      pinned: true,
     };
   }
 
@@ -25,11 +27,18 @@ export default class CodePage extends React.Component {
     }));
   }
 
+  handlePinClick() {
+    this.setState((prevState, props) => ({
+      pinned: !prevState.pinned,
+    }));
+  }
+
   render() {
     return (
       <div className={'buttonCode'}>
-        <div styleName={'componentDisplayContainer'}>
+        <div styleName={classNames('componentDisplayContainer', { pinned: this.state.pinned })}>
           {this.state.displayedComponent}
+          <div styleName={classNames('pin', { pinned: this.state.pinned })} onClick={() => this.handlePinClick()} />
         </div>
         <CodeBlock component={this.state.displayedComponent} />
         <PropEditor activePropValues={this.state.displayedComponent.props} componentProps={this.props.component.__docgenInfo.props} onEditorChange={this.handleEditorChange} />

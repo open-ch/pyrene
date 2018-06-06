@@ -29,6 +29,7 @@
 }
 
 .componentDisplayContainer {
+  background-color: var(--neutral-000);
   margin-top: 40px;
   box-sizing: border-box;
   padding: 24px 24px;
@@ -36,4 +37,33 @@
   border: solid 1px var(--neutral-050);
   display: flex;
   justify-content: center;
+  position: relative;
+
+  &.pinned {
+    position: sticky;
+    top: 4px;
+    z-index: 2;
+  }
+
+  & .pin {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    background-size: contain;
+    background-color: var(--neutral-100);
+    mask: url('../images/pin.svg') no-repeat center;
+    mask-size: contain;
+
+    top: 8px;
+    right: 8px;
+
+    &:hover {
+      cursor: pointer;
+      background: var(--neutral-500) url('../images/pin.svg') no-repeat center;
+    }
+
+    &.pinned {
+      background: var(--neutral-500) url('../images/pin.svg') no-repeat center;
+    }
+  }
 }

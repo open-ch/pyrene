@@ -25,7 +25,6 @@ export default class CodeBlock extends React.Component {
       borderRadius: 4,
       overflow: 'hidden',
       boxSizing: 'border-box',
-      transition: 'height 2s ease-in-out',
     };
 
     if (this.state.expanded) {
@@ -37,7 +36,6 @@ export default class CodeBlock extends React.Component {
       syntaxHighlighterStyle.paddingLeft = '16px';
       syntaxHighlighterStyle.height = '64px';
       syntaxHighlighterStyle.lineHeight = '36px';
-
     }
     return syntaxHighlighterStyle;
   }
@@ -50,10 +48,10 @@ export default class CodeBlock extends React.Component {
     );
   }
 
-  generateCodeForComponent(component) {
+  generateCodeForComponent(component, entireCodeWanted) {
     let propList = `import { ${component.type.displayName} } from 'pyrene';\n`;
     // Stop right here if the box is collapsed
-    if (!this.state.expanded) {
+    if (!entireCodeWanted) {
       return propList;
     }
 
@@ -75,14 +73,15 @@ export default class CodeBlock extends React.Component {
   }
 
   render() {
-    const generatedCode = this.generateCodeForComponent(this.props.component);
+    const displayedCode = this.generateCodeForComponent(this.props.component, this.state.expanded);
+    const entireCode = this.generateCodeForComponent(this.props.component, true);
     return (
       <div styleName={'codeContainer'}>
         <SyntaxHighlighter style={osagCodeColorScheme} language={'jsx'} customStyle={this.handleCodeBlockStyle()}>
-          {generatedCode}
+          {displayedCode}
         </SyntaxHighlighter>
 
-        <div className={'unSelectable'} styleName={'copyToCBButton'} onClick={() => Utils.copyStringToClipboard(generatedCode)}>Copy code</div>
+        <div className={'unSelectable'} styleName={'copyToCBButton'} onClick={() => Utils.copyStringToClipboard(entireCode)}>Copy code</div>
         <div className={'unSelectable'} styleName={'expandButton'} onClick={() => this.handleExpand()}>{`</>`}</div>
       </div>
     );
