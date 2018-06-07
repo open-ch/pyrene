@@ -23,7 +23,6 @@ export default class PropTableEditor extends React.Component {
       case 'string':
         return (
           <React.Fragment key={propName}>
-            {console.log(this.props.activePropValues[propName])}
             {propName === 'icon' ?
               <IconSelect
                 inputValue={this.props.activePropValues[propName]}
