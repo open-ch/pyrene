@@ -5,6 +5,7 @@ import '../../css/componentPage.css';
 import CodeBlock from '../common/CodeBlock';
 import PropTableEditor from './PageElements/Tables/PropTableEditor';
 import Paragraph from './PageElements/Paragraph/Paragraph';
+import ExampleBox from './PageElements/ExampleBox/ExampleBox';
 
 
 export default class CodePage extends React.Component {
@@ -12,6 +13,7 @@ export default class CodePage extends React.Component {
   constructor(props) {
     super(props);
     this.handleEditorChange = this.handleEditorChange.bind(this);
+    this.handleExampleClick = this.handleExampleClick.bind(this);
 
     this.state = {
       displayedComponent: <this.props.component {...this.props.startProps} />,
@@ -33,9 +35,18 @@ export default class CodePage extends React.Component {
     }));
   }
 
+  handleExampleClick(exampleProps){
+    this.setState(() => ({
+      displayedComponent: <this.state.component {...exampleProps} />,
+    }));
+  }
+
   render() {
     return (
-      <div className={'buttonCode'}>
+      <div className={'componentPlayground'}>
+        <Paragraph title={'Examples'} large>
+          <ExampleBox component={this.props.component} onExampleClick={this.handleExampleClick}/>
+        </Paragraph>
         <Paragraph title={'Props'} large>
           <div styleName={classNames('componentDisplayContainer', { pinned: this.state.pinned })}>
             {this.state.displayedComponent}

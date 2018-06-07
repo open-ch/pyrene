@@ -30,7 +30,6 @@
 
 .componentDisplayContainer {
   background-color: var(--neutral-000);
-  margin-top: 40px;
   box-sizing: border-box;
   padding: 24px 24px;
   border-radius: 4px;

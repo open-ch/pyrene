@@ -17,8 +17,8 @@ const Table = props => (
       </thead>
       <tbody>
         {props.rowArray.map(row => (
-          <React.Fragment>
-            <tr key={row}>{row.map((cell, index) => {
+          <React.Fragment key={row}>
+            <tr>{row.map((cell, index) => {
               if (index < 5) {
                 let returnedCell = cell;
                 if (typeof cell === 'boolean') {
