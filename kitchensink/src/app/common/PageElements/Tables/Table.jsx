@@ -28,6 +28,9 @@ const Table = props => (
                   // Remove ' from strings
                   returnedCell = cell.replace(/'/g, '');
                 }
+                if (typeof cell === 'object') {
+                  return <td key={returnedCell}><div styleName={'propModifierCell'}>{returnedCell}</div></td>;
+                }
                 return <td key={returnedCell}><div styleName={'cell'}>{returnedCell}</div></td>;
               }
             })}
