@@ -53,4 +53,12 @@ Button.propTypes = {
   onClick: PropTypes.func
 };
 
+Button.examples = [
+  {label: 'primary', description: 'For all principle actions on a page. Used to highlight the most important actions. Avoid overwhelming usage of primary buttons.'},
+  {label: 'secondary', type: 'secondary'},
+  {label: 'danger', type: 'danger', icon: 'errorOutline'},
+  {label: 'Delete', type: 'action', icon: 'errorOutline'},
+  {label: 'admin', type: 'admin'},
+];
+
 export default Button;

@@ -17,6 +17,7 @@ const SingleSelect = props => (
         styles={SelectStyle}
         placeholder={props.placeholder}
         options={props.options}
+        value={props.value}
         defaultValue={props.options.filter(o => o.value === props.defaultValue).pop()}
         isClearable={props.clearable}
         isDisabled={props.disabled}
@@ -38,6 +39,7 @@ const SingleSelect = props => (
         styles={SelectStyle}
         placeholder={props.placeholder}
         options={props.options}
+        value={props.value}
         defaultValue={props.options.filter(o => o.value === props.defaultValue).pop()}
         isClearable={props.clearable}
         isSearchable={props.searchable}
@@ -86,6 +88,7 @@ SingleSelect.defaultProps = {
   helperLabel: '',
   invalidLabel: '',
   title: '',
+  value: null,
   onChange: () => null
 };
 
@@ -148,6 +151,10 @@ SingleSelect.propTypes = {
    * Changes what the title says.
    */
   title: PropTypes.string,
+  /**
+   * Changes the currently chosen option.
+   */
+  value: PropTypes.string,
 };
 
 export default SingleSelect;
