@@ -58,7 +58,7 @@ IconSelect.defaultProps = {
 
 IconSelect.propTypes = {
   helperLabel: PropTypes.string,
-  updateInputValue: PropTypes.string,
+  inputValue: PropTypes.string,
   onChange: PropTypes.func,
   title: PropTypes.string,
 };

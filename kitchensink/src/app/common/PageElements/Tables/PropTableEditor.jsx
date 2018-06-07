@@ -27,7 +27,13 @@ export default class PropTableEditor extends React.Component {
             {propName === 'icon' ?
               <IconSelect
                 inputValue={this.props.activePropValues[propName]}
-                onChange={changedOption => this.handlePropEditorChange(propName, changedOption.label)}
+                onChange={changedOption => {
+                  if (changedOption !== null) {
+                    this.handlePropEditorChange(propName, changedOption.label);
+                  } else {
+                    this.handlePropEditorChange(propName, changedOption);
+                  }
+                }}
               />
               :
               <TextField
@@ -47,7 +53,13 @@ export default class PropTableEditor extends React.Component {
           <React.Fragment key={propName}>
             <SingleSelect
               options={options}
-              onChange={changedOption => this.handlePropEditorChange(propName, changedOption.label)}
+              onChange={changedOption => {
+                if (changedOption !== null) {
+                  this.handlePropEditorChange(propName, changedOption.label);
+                } else {
+                  this.handlePropEditorChange(propName, changedOption);
+                }
+              }}
               defaultValue={0}
               value={this.props.activePropValues[propName] && {value: this.props.activePropValues[propName], label: this.props.activePropValues[propName]}}
             />
@@ -74,7 +86,7 @@ export default class PropTableEditor extends React.Component {
               name={propName}
               value={this.props.activePropValues[propName]}
               placeholder={'change me'}
-              onChange={event => this.modifiedProp(event)}
+              onChange={value => this.handlePropEditorChange(propName, value)}
             />
             <br />
           </React.Fragment>

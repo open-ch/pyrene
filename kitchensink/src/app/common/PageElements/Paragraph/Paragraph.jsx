@@ -7,7 +7,7 @@ import './paragraph.css';
 const Paragraph = props => (
   <div styleName={classNames('paragraph', { large: props.large })}>
     <div styleName={'title'}>{props.title}</div>
-    <div styleName={'content'}>
+    <div>
       {props.children}
     </div>
   </div>
