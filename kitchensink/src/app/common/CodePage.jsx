@@ -51,6 +51,7 @@ export default class CodePage extends React.Component {
           <div styleName={classNames('componentDisplayContainer', { pinned: this.state.pinned })}>
             {this.state.displayedComponent}
             <div styleName={classNames('pin', { pinned: this.state.pinned })} onClick={() => this.handlePinClick()} />
+            <div styleName={'ufo'} onClick={() => this.handlePinClick()} />
           </div>
           <CodeBlock component={this.state.displayedComponent} />
           <PropTableEditor componentProps={this.props.component.__docgenInfo.props} activePropValues={this.state.displayedComponent.props} onEditorChange={this.handleEditorChange} />
