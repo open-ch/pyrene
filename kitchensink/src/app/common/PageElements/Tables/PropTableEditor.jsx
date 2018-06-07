@@ -23,8 +23,10 @@ export default class PropTableEditor extends React.Component {
       case 'string':
         return (
           <React.Fragment key={propName}>
+            {console.log(this.props.activePropValues[propName])}
             {propName === 'icon' ?
               <IconSelect
+                inputValue={this.props.activePropValues[propName]}
                 onChange={changedOption => this.handlePropEditorChange(propName, changedOption.label)}
               />
               :
@@ -47,6 +49,7 @@ export default class PropTableEditor extends React.Component {
               options={options}
               onChange={changedOption => this.handlePropEditorChange(propName, changedOption.label)}
               defaultValue={0}
+              value={this.props.activePropValues[propName] && {value: this.props.activePropValues[propName], label: this.props.activePropValues[propName]}}
             />
           </React.Fragment>
         );

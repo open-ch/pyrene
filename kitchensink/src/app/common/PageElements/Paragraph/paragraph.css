@@ -9,19 +9,6 @@
     text-transform: capitalize;
   }
 
-  & .content {
-    font-size: 14px;
-    font-weight: normal;
-    line-height: 1.71;
-    font-stretch: normal;
-    letter-spacing: normal;
-    text-align: left;
-
-    &:after {
-      clear: both;
-    }
-  }
-
   &.large {
     & .title {
       font-size: 24px;

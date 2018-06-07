@@ -24,7 +24,8 @@ const IconSelect = props => (
       className={'singleSelect'}
       styles={SelectStyle}
       placeholder={'Change to add icon'}
-      options={icons.map((icon, index) => ({ value: index, label: icon.name }))}
+      value={props.inputValue && {label: props.inputValue, value: props.inputValue}}
+      options={icons.map(icon => ({ value: icon.name, label: icon.name }))}
 
       closeMenuOnSelect={false}
       onChange={option => props.onChange(option)}
@@ -50,22 +51,15 @@ IconSelect.displayName = 'IconSelect';
 
 IconSelect.defaultProps = {
   helperLabel: '',
+  inputValue: null,
   title: '',
   onChange: () => null,
 };
 
 IconSelect.propTypes = {
-  /**
-   * Helper text below the input field, also used to display error messages if prop invalid is set.
-   */
   helperLabel: PropTypes.string,
-  /**
-   * Event Handler. Param option: {value: , label:}
-   */
+  updateInputValue: PropTypes.string,
   onChange: PropTypes.func,
-  /**
-   * Changes what the title says.
-   */
   title: PropTypes.string,
 };
 
