@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import '../../css/componentPage.css';
 import CodeBlock from '../common/CodeBlock';
 import PropTableEditor from './PageElements/Tables/PropTableEditor';
+import Paragraph from './PageElements/Paragraph/Paragraph';
 
 
 export default class CodePage extends React.Component {
@@ -35,12 +36,14 @@ export default class CodePage extends React.Component {
   render() {
     return (
       <div className={'buttonCode'}>
-        <div styleName={classNames('componentDisplayContainer', { pinned: this.state.pinned })}>
-          {this.state.displayedComponent}
-          <div styleName={classNames('pin', { pinned: this.state.pinned })} onClick={() => this.handlePinClick()} />
-        </div>
-        <CodeBlock component={this.state.displayedComponent} />
-        <PropTableEditor componentProps={this.props.component.__docgenInfo.props} activePropValues={this.state.displayedComponent.props} onEditorChange={this.handleEditorChange} />
+        <Paragraph title={'Props'} large>
+          <div styleName={classNames('componentDisplayContainer', { pinned: this.state.pinned })}>
+            {this.state.displayedComponent}
+            <div styleName={classNames('pin', { pinned: this.state.pinned })} onClick={() => this.handlePinClick()} />
+          </div>
+          <CodeBlock component={this.state.displayedComponent} />
+          <PropTableEditor componentProps={this.props.component.__docgenInfo.props} activePropValues={this.state.displayedComponent.props} onEditorChange={this.handleEditorChange} />
+        </Paragraph>
       </div>
     );
   }
