@@ -44,9 +44,11 @@ export default class CodePage extends React.Component {
   render() {
     return (
       <div className={'componentPlayground'}>
+        {this.props.component.examples &&
         <Paragraph title={'Examples'} large>
           <ExampleBox component={this.props.component} onExampleClick={this.handleExampleClick}/>
         </Paragraph>
+        }
         <Paragraph title={'Props'} large>
           <div styleName={classNames('componentDisplayContainer', { pinned: this.state.pinned })}>
             {this.state.displayedComponent}

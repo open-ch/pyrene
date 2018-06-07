@@ -33,7 +33,7 @@ export default class ExampleBox extends React.Component {
     return (
       <div styleName={'exampleBox'}>
         <div styleName={'exampleDisplay'}>
-          {this.props.component.examples && this.props.component.examples.map(exampleProps => (
+          {this.props.component.examples.map(exampleProps => (
             <div
               styleName={'example'}
               onMouseOver={() => this.handleExampleHover(exampleProps.description)}

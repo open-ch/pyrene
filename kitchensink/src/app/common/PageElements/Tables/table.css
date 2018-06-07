@@ -25,8 +25,7 @@
   font-size: 14px;
   font-weight: 600;
   line-height: 1.36;
-  color: var(--neutral-500);
-  opacity: 0.5;
+  color: rgba(0,21,44, 0.5);
 }
 
 .table_container table th:first-child {
@@ -34,7 +33,10 @@
 }
 
 .table_container table td:first-child {
-  padding: 0 0 0 8px !important;
+  padding-left: 8px;
+}
+
+.table_container table td:first-child .cell{
   font-weight: 600;
   text-transform: capitalize;
 }
