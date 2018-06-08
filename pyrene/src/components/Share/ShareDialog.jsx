@@ -15,7 +15,7 @@ export default class ShareDialog extends React.Component {
 
     this.state = {
       displayShareDialog: false,
-      dialogPosition: {}
+      dialogPosition: {},
     };
 
   }
@@ -40,7 +40,7 @@ export default class ShareDialog extends React.Component {
   _hideDialogAndRemoveListener() {
     document.removeEventListener('mousedown', this._handleClickOutside);
     this.setState((prevState, props) => ({
-      displayShareDialog: false
+      displayShareDialog: false,
     }));
   }
 
@@ -51,9 +51,10 @@ export default class ShareDialog extends React.Component {
       // else display dialog
     } else {
       document.addEventListener('mousedown', this._handleClickOutside);
+      const target = event.target;
       this.setState((prevState, props) => ({
         displayShareDialog: true,
-        dialogPosition: this._computeDialogPositionFromButton(event.target)
+        dialogPosition: this._computeDialogPositionFromButton(target),
       }));
     }
   }
@@ -140,5 +141,5 @@ ShareDialog.propTypes = {
   /**
    * Disables any interaction with the share dialog.
    */
-  disabled: PropTypes.bool
+  disabled: PropTypes.bool,
 };

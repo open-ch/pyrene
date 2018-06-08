@@ -16,6 +16,7 @@
   border-radius: 4px;
 
   position: absolute;
+  z-index: 5;
 
   & .title{
     margin: 24px 24px 0 24px;
