@@ -24,21 +24,26 @@ Link.defaultProps = {
 
 Link.propTypes = {
   /**
-   * To be changed according to the use case. "Inline" inherits the style from it's parent.
+   * Disables any interaction with the component.
    */
-  type: PropTypes.oneOf(['standalone', 'inline']),
-  /**
-   * Do you know da wae?
-   */
-  path: PropTypes.string.isRequired,
+  disabled: PropTypes.bool,
   /**
    * Displayed label.
    */
   label: PropTypes.string.isRequired,
   /**
-   * Disables any interaction with the component.
+   * Do you know da wae?
    */
-  disabled: PropTypes.bool
+  path: PropTypes.string.isRequired,
+  /**
+   * To be changed according to the use case. "Inline" inherits the style from it's parent.
+   */
+  type: PropTypes.oneOf(['standalone', 'inline']),
 };
+
+Link.examples = [
+  {label: 'standalone', path: '#'},
+  {type: 'inline', label: 'inline link', path: '#'},
+];
 
 export default Link;
