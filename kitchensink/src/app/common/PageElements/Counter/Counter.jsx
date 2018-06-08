@@ -29,18 +29,31 @@ export default class Counter extends React.Component {
     newValue = newValue.match(/\d+/g);
     if (newValue !== null) {
       newValue = parseInt(newValue.join(''), 10);
+    } else {
+      newValue = 0;
     }
     this.setState((prevState, props) => ({
       number: newValue,
-    }));
+    }),
+    () => this.props.onChange(newValue)
+    );
   }
+
+  changeCounterBy(number) {
+    this.setState((prevState, props) => ({
+      number: prevState.number + number,
+    }),
+    () => this.props.onChange(this.state.number)
+    );
+  }
+
 
   render() {
     return (
       <div styleName={'counter'}>
-        <div className={'unSelectable'} styleName={'modifier decrement'}>-</div>
-        <input styleName={'numberDisplay'} type={'text'} onChange={(event) => this.handleInputChange(event)} value={this.state.number} />
-        <div className={'unSelectable'} styleName={'modifier increment'}>+</div>
+        <div className={'unSelectable'} styleName={'modifier decrement'} onClick={() => this.changeCounterBy(-1)}>-</div>
+        <input styleName={'numberDisplay'} type={'text'} onChange={event => this.handleInputChange(event)} value={this.state.number} />
+        <div className={'unSelectable'} styleName={'modifier increment'} onClick={() => this.changeCounterBy(1)}>+</div>
       </div>
     );
   }
@@ -50,9 +63,10 @@ export default class Counter extends React.Component {
 Counter.displayName = 'Counter';
 
 Counter.defaultProps = {
-
+  onChange: () => null,
 };
 
 Counter.propTypes = {
   number: PropTypes.number.isRequired,
+  onChange: PropTypes.func,
 };

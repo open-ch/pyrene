@@ -76,7 +76,11 @@ export default class PropTableEditor extends React.Component {
 
       case 'number':
         return (
-          <Counter key={propName} />
+          <Counter
+            key={propName}
+            number={this.props.activePropValues[propName]}
+            onChange={value => this.handlePropEditorChange(propName, value)}
+          />
         );
 
       case 'func':
