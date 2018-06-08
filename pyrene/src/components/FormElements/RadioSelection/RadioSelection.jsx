@@ -33,9 +33,10 @@ export default class RadioSelection extends React.Component {
 
   render() {
     const rand = Math.floor(Math.random() * 1e10);
+    const lastElementIndex = this.props.radioLabels.length - 1;
     return (
       <div styleName={classNames('radioSelectionContainer', { [`alignment-${this.props.alignment}`]: true }, { invalid: this.props.invalid && !this.state.selectedOption })}>
-        {this.props.radioLabels.map(radioLabel => (
+        {this.props.radioLabels.map((radioLabel, index) => (
           <React.Fragment key={`radio_${radioLabel}`}>
             <div className={'radioContainer'}>
               <input
@@ -60,7 +61,7 @@ export default class RadioSelection extends React.Component {
                 {radioLabel}
               </label>
             </div>
-            <div styleName={classNames({ [`spacer-${this.props.alignment}`]: true })} />
+            {index !== lastElementIndex && <div styleName={classNames({ [`spacer-${this.props.alignment}`]: true })} />}
           </React.Fragment>
         ))}
       </div>
@@ -113,6 +114,6 @@ RadioSelection.propTypes = {
 };
 
 RadioSelection.examples = [
-  {alignment: 'vertical', radioLabels: ['option 1']},
+  {alignment: 'vertical', radioLabels: ['option 1', 'option 2', 'option 3']},
   {alignment: 'horizontal', radioLabels: ['option 1', 'option 2', 'option 3']},
 ];
