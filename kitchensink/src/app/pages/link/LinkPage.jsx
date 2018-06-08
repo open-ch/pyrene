@@ -11,9 +11,8 @@ const LinkPage = ({ match }) => (
           Links are used primarily on ....
       </div>
     </div>
-
     <div styleName="topicContent">
-      <CodePage component={Link} startProps={{ label: 'Click Me', path: '#' }} />;
+      <CodePage component={Link} startProps={{ label: 'Click Me', path: '#' }} />
     </div>
   </div>
 );

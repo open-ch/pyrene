@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import IconSelect from '../IconSelect/IconSelect';
 
 import './propTableEditor.css';
+import Counter from '../Counter/Counter';
 
 
 export default class PropTableEditor extends React.Component {
@@ -26,7 +27,7 @@ export default class PropTableEditor extends React.Component {
             {propName === 'icon' ?
               <IconSelect
                 inputValue={this.props.activePropValues[propName]}
-                onChange={changedOption => {
+                onChange={(changedOption) => {
                   if (changedOption !== null) {
                     this.handlePropEditorChange(propName, changedOption.label);
                   } else {
@@ -42,67 +43,61 @@ export default class PropTableEditor extends React.Component {
                 onChange={changedValue => this.handlePropEditorChange(propName, changedValue)}
               />
             }
-            <br />
           </React.Fragment>
         );
 
       case 'enum':
-        const options = propProps.type.value.map((propChoice, index) => ({value: index, label: propChoice.value.replace(/'/g, '')}));
+        const options = propProps.type.value.map((propChoice, index) => ({ value: index, label: propChoice.value.replace(/'/g, '') }));
         return (
-          <React.Fragment key={propName}>
-            <SingleSelect
-              options={options}
-              onChange={changedOption => {
-                if (changedOption !== null) {
-                  this.handlePropEditorChange(propName, changedOption.label);
-                } else {
-                  this.handlePropEditorChange(propName, changedOption);
-                }
-              }}
-              defaultValue={0}
-              value={this.props.activePropValues[propName] && {value: this.props.activePropValues[propName], label: this.props.activePropValues[propName]}}
-            />
-          </React.Fragment>
+          <SingleSelect
+            options={options}
+            onChange={(changedOption) => {
+              if (changedOption !== null) {
+                this.handlePropEditorChange(propName, changedOption.label);
+              } else {
+                this.handlePropEditorChange(propName, changedOption);
+              }
+            }}
+            defaultValue={0}
+            value={this.props.activePropValues[propName] && { value: this.props.activePropValues[propName], label: this.props.activePropValues[propName] }}
+            key={propName}
+          />
         );
 
       case 'bool':
         return (
-          <React.Fragment key={propName}>
-            <Checkbox
-              label={propName}
-              checked={this.props.activePropValues[propName]}
-              onChange={value => this.handlePropEditorChange(propName, value)}
-            />
-            <br />
-          </React.Fragment>
+          <Checkbox
+            key={propName}
+            label={propName}
+            checked={this.props.activePropValues[propName]}
+            onChange={value => this.handlePropEditorChange(propName, value)}
+          />
         );
 
       case 'number':
-        return ([`${propName}: `,
-          <React.Fragment key={propName}>
-            <input
+        return (
+          <Counter key={propName} />
+        );
+
+      case 'func':
+        return (<React.Fragment key={propName}> - </React.Fragment>);
+
+      default:
+        return (<React.Fragment key={propName}>PropType not handled yet.</React.Fragment>);
+    }
+  }
+
+  /* <input
               type="number"
               name={propName}
               value={this.props.activePropValues[propName]}
               placeholder={'change me'}
               onChange={value => this.handlePropEditorChange(propName, value)}
-            />
-            <br />
-          </React.Fragment>
-        ]);
-
-      case 'func':
-        return (<React.Fragment key={propName}> - <br /></React.Fragment>);
-
-      default:
-        return (<React.Fragment key={propName}>PropType not handled yet.<br /></React.Fragment>);
-    }
-  }
-
+            /> */
 
   render() {
     return (
-      <div styleName='propTableEditor'>
+      <div styleName={'propTableEditor'}>
         <Table
           cellWidthArray={['212px', '106px', '106px', '212px', '']}
           headerElementArray={['property', 'type', 'required', 'default value', 'playground']}
