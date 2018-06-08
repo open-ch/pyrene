@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import './modal.css';
@@ -39,7 +39,7 @@ Modal.defaultProps = {
   buttonBarElements: [],
   previousButtonClicked: () => null,
   nextButtonClicked: () => null,
-  closeButtonClicked: () => null
+  closeButtonClicked: () => null,
 };
 
 Modal.propTypes = {
@@ -50,7 +50,7 @@ Modal.propTypes = {
   buttonBarElements: PropTypes.arrayOf(PropTypes.element),
   previousButtonClicked: PropTypes.func,
   nextButtonClicked: PropTypes.func,
-  closeButtonClicked: PropTypes.func
+  closeButtonClicked: PropTypes.func,
 };
 
 export default Modal;

@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import './buttonBar.css';
 
@@ -29,12 +29,12 @@ ButtonBar.displayName = 'ButtonBar';
 
 ButtonBar.defaultProps = {
   leftButtonSectionElements: [],
-  rightButtonSectionElements: []
+  rightButtonSectionElements: [],
 };
 
 ButtonBar.propTypes = {
   leftButtonSectionElements: PropTypes.arrayOf(PropTypes.element),
-  rightButtonSectionElements: PropTypes.arrayOf(PropTypes.element)
+  rightButtonSectionElements: PropTypes.arrayOf(PropTypes.element),
 };
 
 export default ButtonBar;

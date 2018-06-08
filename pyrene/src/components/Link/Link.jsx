@@ -19,7 +19,7 @@ Link.displayName = 'Link';
 
 Link.defaultProps = {
   type: 'standalone',
-  disabled: false
+  disabled: false,
 };
 
 Link.propTypes = {
@@ -42,8 +42,8 @@ Link.propTypes = {
 };
 
 Link.examples = [
-  {label: 'standalone', path: '#'},
-  {type: 'inline', label: 'inline link', path: '#'},
+  { label: 'standalone', path: '#' },
+  { type: 'inline', label: 'inline link', path: '#' },
 ];
 
 export default Link;
