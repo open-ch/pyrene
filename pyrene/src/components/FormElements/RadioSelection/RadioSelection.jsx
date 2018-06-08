@@ -111,3 +111,8 @@ RadioSelection.propTypes = {
    */
   selectedOption: PropTypes.string,
 };
+
+RadioSelection.examples = [
+  {alignment: 'vertical', radioLabels: ['option 1']},
+  {alignment: 'horizontal', radioLabels: ['option 1', 'option 2', 'option 3']},
+];

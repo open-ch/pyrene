@@ -55,10 +55,10 @@ Button.propTypes = {
 
 Button.examples = [
   {label: 'primary', description: 'For all principle actions on a page. Used to highlight the most important actions. Avoid overwhelming usage of primary buttons.'},
-  {label: 'secondary', type: 'secondary'},
-  {label: 'danger', type: 'danger', icon: 'errorOutline'},
-  {label: 'Delete', type: 'action', icon: 'errorOutline'},
-  {label: 'admin', type: 'admin'},
+  {label: 'secondary', type: 'secondary', description: 'For secondary actions such as ‘Discard’ in combination with a primary button.'},
+  {label: 'danger', type: 'danger', icon: 'errorOutline', description: 'When an action has harmful intentions to the users data (delete, remove, etc). To draw more attention on what the button does add and icon. Icons are always paired with a label.'},
+  {label: 'Delete', type: 'action', icon: 'errorOutline', description: 'Used for table actions. They are paired with icon and label.'},
+  {label: 'admin', type: 'admin', description: 'Used when an action is accessible for MC Engineers only.'},
 ];
 
 export default Button;
