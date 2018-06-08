@@ -31,20 +31,20 @@ const ArrowButton = props => (
 
 ArrowButton.docProps = [
   { propName: 'direction', isRequired: false, type: 'oneOf: up down right left', defaultValue: '', description: 'Arrow direction.' },
-  { propName: 'disabled', isRequired: false, type: 'Bool', defaultValue: 'false', description: 'Disables any interaction with the button.' }
+  { propName: 'disabled', isRequired: false, type: 'Bool', defaultValue: 'false', description: 'Disables any interaction with the button.' },
 ];
 
 ArrowButton.displayName = 'ArrowButton';
 
 ArrowButton.defaultProps = {
   disabled: false,
-  onClick: () => null
+  onClick: () => null,
 };
 
 ArrowButton.propTypes = {
   direction: PropTypes.oneOf(['up', 'down', 'right', 'left']).isRequired,
   disabled: PropTypes.bool,
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
 };
 
 export default ArrowButton;

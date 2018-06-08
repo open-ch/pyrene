@@ -88,7 +88,7 @@ MultiSelect.defaultProps = {
   required: false,
   clearable: false,
   searchable: false,
-  onChange: () => null
+  onChange: () => null,
 };
 
 MultiSelect.propTypes = {
@@ -105,7 +105,7 @@ MultiSelect.propTypes = {
    */
   defaultValues: PropTypes.arrayOf(PropTypes.oneOfType([
     PropTypes.string,
-    PropTypes.number
+    PropTypes.number,
   ])),
   /**
    * Disables any interaction with the component.
@@ -132,7 +132,7 @@ MultiSelect.propTypes = {
    */
   options: PropTypes.arrayOf(PropTypes.shape({
     value: PropTypes.any,
-    label: PropTypes.string
+    label: PropTypes.string,
   })),
   /**
    * Placeholder inside the input.
@@ -153,7 +153,7 @@ MultiSelect.propTypes = {
   /**
    * Changes what the title says.
    */
-  title: PropTypes.string
+  title: PropTypes.string,
 };
 
 export default MultiSelect;

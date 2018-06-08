@@ -8,7 +8,7 @@ import '../select.css';
 
 
 const SingleSelect = props => (
-  <div styleName={classNames('selectContainer', {disabled: props.disabled})}>
+  <div styleName={classNames('selectContainer', { disabled: props.disabled })}>
     {props.title && <div styleName={classNames('selectTitle', { required: props.required && !props.disabled })}>{props.title}</div>}
 
     {props.creatable ?
@@ -45,7 +45,7 @@ const SingleSelect = props => (
         isSearchable={props.searchable}
         isDisabled={props.disabled}
         isInvalid={props.invalid}
-        onChange={(option) => props.onChange(option)}
+        onChange={option => props.onChange(option)}
 
         maxMenuHeight={264}
         noOptionsMessage={() => 'no matches found'}
@@ -89,7 +89,7 @@ SingleSelect.defaultProps = {
   invalidLabel: '',
   title: '',
   value: null,
-  onChange: () => null
+  onChange: () => null,
 };
 
 SingleSelect.propTypes = {
@@ -106,7 +106,7 @@ SingleSelect.propTypes = {
    */
   defaultValue: PropTypes.oneOfType([
     PropTypes.string,
-    PropTypes.number
+    PropTypes.number,
   ]),
   /**
    * Disables any interaction with the component.
@@ -133,7 +133,7 @@ SingleSelect.propTypes = {
    */
   options: PropTypes.arrayOf(PropTypes.shape({
     value: PropTypes.any,
-    label: PropTypes.string
+    label: PropTypes.string,
   })),
   /**
    * Placeholder inside the input.
