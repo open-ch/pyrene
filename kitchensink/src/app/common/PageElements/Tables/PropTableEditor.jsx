@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextField, SingleSelect, Checkbox } from 'pyrene';
+import { TextField, SingleSelect, MultiSelect, Checkbox } from 'pyrene';
 import Table from './Table';
 import PropTypes from 'prop-types';
 import IconSelect from '../IconSelect/IconSelect';
@@ -18,6 +18,35 @@ export default class PropTableEditor extends React.Component {
   handlePropEditorChange(prop, newValue) {
     this.props.onEditorChange(prop, newValue);
   }
+
+  handleArrays(propName, propProps) {
+    if (propProps.type.value.name === 'string') {
+      const options = this.props.activePropValues[propName].map(propChoice => ({ value: propChoice, label: propChoice }));
+      return (
+        <MultiSelect
+          key={propName}
+          placeholder={'Select or create multiple options'}
+          options={options}
+
+          defaultValues={options.map(option => option.value)}
+          value={this.props.activePropValues[propName] && options}
+
+          onChange={(changedOption) => {
+            if (changedOption !== null) {
+              this.handlePropEditorChange(propName, changedOption.map(option => option.label));
+            } else {
+              this.handlePropEditorChange(propName, changedOption);
+            }
+          }}
+          clearable
+          creatable
+        />
+      );
+    }
+    return (<React.Fragment key={propName}>-</React.Fragment>);
+  }
+
+  // this.handlePropEditorChange(propName, changedOption.map(option => option.label))
 
   renderModifierFor(propName, propProps) {
     switch (propProps.type.name) {
@@ -86,18 +115,13 @@ export default class PropTableEditor extends React.Component {
       case 'func':
         return (<React.Fragment key={propName}> - </React.Fragment>);
 
+      case 'arrayOf':
+        return this.handleArrays(propName, propProps);
+
       default:
         return (<React.Fragment key={propName}>PropType not handled yet.</React.Fragment>);
     }
   }
-
-  /* <input
-              type="number"
-              name={propName}
-              value={this.props.activePropValues[propName]}
-              placeholder={'change me'}
-              onChange={value => this.handlePropEditorChange(propName, value)}
-            /> */
 
   render() {
     return (
