@@ -17,6 +17,7 @@ const SideBarMenu = props => (
       <SideBarMenuSection
         title="Components"
         sectionElements={[
+          { name: 'Arrow-Button', linkToPath: '/arrowButton' },
           { name: 'Button', linkToPath: '/button' },
           { name: 'Link', linkToPath: '/link' },
           { name: 'Share', linkToPath: '/shareDialog' },
@@ -25,8 +26,8 @@ const SideBarMenu = props => (
           { name: 'Textfield', linkToPath: '/textField' },
           { name: 'Textarea', linkToPath: '/textArea' },
           { name: 'Select', linkToPath: '/singleSelect' },
-          { name: 'Multi-Select', linkToPath: '/multiSelect' },
-          { name: 'Modal', linkToPath: '/modal' }]}
+          { name: 'Select (Multi)', linkToPath: '/multiSelect' },
+          { name: 'Modal', linkToPath: '#' }].sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0))}
       />
       <SideBarMenuSection title="Resources" sectionElements={[]} linkToPath={'/resources'} />
     </div>

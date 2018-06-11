@@ -19,7 +19,7 @@ import TextFieldPage from '../pages/formElements/TextFieldPage';
 import TextAreaPage from '../pages/formElements/TextAreaPage';
 import SingleSelectPage from '../pages/select/SingleSelectPage';
 import MultiSelectPage from '../pages/select/MultiSelectPage';
-
+import ArrowButtonPage from '../pages/button/ArrowButtonPage';
 
 const MainComponent = () => (
   <div styleName={'mainContainer'}>
@@ -33,6 +33,7 @@ const MainComponent = () => (
       <Route path={'/colors'} component={ColorsPage} />
       <Route path={'/icons'} component={IconsPage} />
 
+      <Route path={'/arrowButton'} component={ArrowButtonPage} />
       <Route path={'/button'} component={ButtonPage} />
       <Route path={'/link'} component={LinkPage} />
       <Route path={'/shareDialog'} component={ShareDialogPage} />
