@@ -158,7 +158,7 @@ MultiSelect.propTypes = {
    */
   title: PropTypes.string,
   /**
-   * Changes the currently chosen option. Only set when needed, do not keep prop set at all times, as this prevents user interaction.
+   * Changes the currently chosen option. Only set when needed, do not keep prop set at all times as this prevents user interaction.
    */
   value: PropTypes.arrayOf(PropTypes.shape({
     label: PropTypes.string.isRequired,

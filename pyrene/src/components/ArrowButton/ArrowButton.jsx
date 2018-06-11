@@ -37,12 +37,13 @@ ArrowButton.docProps = [
 ArrowButton.displayName = 'ArrowButton';
 
 ArrowButton.defaultProps = {
+  direction: 'right',
   disabled: false,
   onClick: () => null,
 };
 
 ArrowButton.propTypes = {
-  direction: PropTypes.oneOf(['up', 'down', 'right', 'left']).isRequired,
+  direction: PropTypes.oneOf(['up', 'down', 'right', 'left']),
   disabled: PropTypes.bool,
   onClick: PropTypes.func,
 };
