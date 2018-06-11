@@ -106,16 +106,16 @@ exports.default = {
     color: '#ffcd17',
   },
   boolean: {
-    color: '#905',
+    color: 'orange',
   },
   number: {
-    color: '#905',
+    color: '#00d8ff',
   },
   constant: {
     color: '#905',
   },
   symbol: {
-    color: '#905',
+    color: 'white',
   },
   deleted: {
     color: '#905',
@@ -139,8 +139,7 @@ exports.default = {
     color: '#690',
   },
   operator: {
-    color: '#9a6e3a',
-    background: 'hsla(0, 0%, 100%, .5)',
+    color: '#00d8ff',
   },
   entity: {
     color: '#9a6e3a',

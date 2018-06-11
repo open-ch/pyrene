@@ -83,7 +83,7 @@ export default class CodeBlock extends React.Component {
         if (typeof value === 'boolean') {
           propList += `\t${key}\n`;
         } else if (typeof value === 'function') {
-          propList += `\t${key}={${key}()}\n`;
+          propList += `\t${key}={() => null}\n`;
         } else {
           propList += `\t${key}={${JSON.stringify(value).replace(/"/g, "'")}}\n`;
         }
