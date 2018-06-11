@@ -8,6 +8,7 @@
     height: 32px;
     text-align: center;
     outline: 0;
+    border: none;
 
     &[type=text] {
       padding: 7px 0 6px 8px;
@@ -41,13 +42,6 @@
       background-color: var(--neutral-000);
       border: solid 1px var(--blue-500);
       color: var(--neutral-500);
-    }
-
-    &.increment {
-
-    }
-    &.decrement {
-
     }
   }
 }
