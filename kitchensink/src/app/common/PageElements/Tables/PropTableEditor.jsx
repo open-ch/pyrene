@@ -46,8 +46,6 @@ export default class PropTableEditor extends React.Component {
     return (<React.Fragment key={propName}>-</React.Fragment>);
   }
 
-  // this.handlePropEditorChange(propName, changedOption.map(option => option.label))
-
   renderModifierFor(propName, propProps) {
     switch (propProps.type.name) {
       case 'string':
