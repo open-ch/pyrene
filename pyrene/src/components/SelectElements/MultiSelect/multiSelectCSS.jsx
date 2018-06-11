@@ -195,7 +195,7 @@ const multiSelectStyle = rows => ({
     ...base,
     height: 20,
     alignItems: 'center',
-    backgroundColor: data.valid ? 'var(--neutral-030)' : 'var(--red-100)',
+    backgroundColor: data.invalid ? 'var(--red-100)' : 'var(--neutral-030)',
     flexShrink: 0,
   }),
 
@@ -236,7 +236,7 @@ const multiSelectStyle = rows => ({
     },
     ':hover:after': {
       color: 'var(--red-500)',
-      backgroundColor: data.valid ? 'var(--neutral-050)' : 'var(--neutral-0)',
+      backgroundColor: data.invalid ? 'var(--neutral-0)' : 'var(--neutral-050)',
     },
   }),
 
