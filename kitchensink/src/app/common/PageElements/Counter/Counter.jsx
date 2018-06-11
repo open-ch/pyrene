@@ -65,7 +65,7 @@ export default class Counter extends React.Component {
     return (
       <div styleName={'counter'}>
         <div className={'unSelectable'} styleName={'modifier decrement'} onClick={() => this.changeCounterBy(-1)}>-</div>
-        <input styleName={'numberDisplay'} type={'text'} onChange={event => this.handleInputChange(event)} value={this.state.number} />
+        <input styleName={'numberDisplay'} type={'text'} onChange={event => this.handleInputChange(event)} value={this.state.number} autoComplete="nope" />
         <div className={'unSelectable'} styleName={'modifier increment'} onClick={() => this.changeCounterBy(1)}>+</div>
       </div>
     );

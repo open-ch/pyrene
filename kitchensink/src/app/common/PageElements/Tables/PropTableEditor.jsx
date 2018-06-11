@@ -110,14 +110,11 @@ export default class PropTableEditor extends React.Component {
           />
         );
 
-      case 'func':
-        return (<React.Fragment key={propName}> - </React.Fragment>);
-
       case 'arrayOf':
         return this.handleArrays(propName, propProps);
 
       default:
-        return (<React.Fragment key={propName}>PropType not handled yet.</React.Fragment>);
+        return (<React.Fragment key={propName}> - </React.Fragment>);
     }
   }
 
