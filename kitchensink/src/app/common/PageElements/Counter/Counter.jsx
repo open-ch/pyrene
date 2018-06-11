@@ -24,6 +24,16 @@ export default class Counter extends React.Component {
     return null;
   }
 
+  adjustBounds(number) {
+    if (this.props.maxNumber && number > this.props.maxNumber) {
+      return this.props.maxNumber;
+    }
+    if (this.props.minNumber && number < this.props.minNumber) {
+      return this.props.minNumber;
+    }
+    return number;
+  }
+
   handleInputChange(event) {
     let newValue = event.target.value;
     newValue = newValue.match(/\d+/g);
@@ -32,6 +42,9 @@ export default class Counter extends React.Component {
     } else {
       newValue = 0;
     }
+
+    newValue = this.adjustBounds(newValue);
+
     this.setState((prevState, props) => ({
       number: newValue,
     }),
@@ -41,7 +54,7 @@ export default class Counter extends React.Component {
 
   changeCounterBy(number) {
     this.setState((prevState, props) => ({
-      number: prevState.number + number,
+      number: this.adjustBounds(prevState.number + number),
     }),
     () => this.props.onChange(this.state.number)
     );
@@ -63,10 +76,14 @@ export default class Counter extends React.Component {
 Counter.displayName = 'Counter';
 
 Counter.defaultProps = {
+  minNumber: null,
+  maxNumber: null,
   onChange: () => null,
 };
 
 Counter.propTypes = {
+  minNumber: PropTypes.number,
+  maxNumber: PropTypes.number,
   number: PropTypes.number.isRequired,
   onChange: PropTypes.func,
 };
