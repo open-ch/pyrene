@@ -47,6 +47,7 @@ export default class TextField extends React.Component {
             onChange={this.handleChange}
             onBlur={this.props.onBlur}
             onFocus={this.props.onFocus}
+            autoComplete="nope"
           />
           <span className={`icon-${this.props.icon}`} styleName={'textFieldIcon'} />
         </div>
