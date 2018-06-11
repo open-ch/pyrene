@@ -152,7 +152,7 @@ SingleSelect.propTypes = {
    */
   title: PropTypes.string,
   /**
-   * Changes the currently chosen option.
+   * Changes the currently chosen option. Only set when needed, do not keep prop set at all times, as this prevents user interaction.
    */
   value: PropTypes.shape({
     label: PropTypes.string.isRequired,

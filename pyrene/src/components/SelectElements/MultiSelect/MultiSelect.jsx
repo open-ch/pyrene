@@ -15,6 +15,7 @@ const MultiSelect = props => (
         styles={MultiSelectStyle(props.rows)}
         placeholder={props.placeholder}
         options={props.options}
+        value={props.value ? props.value : undefined}
         defaultValue={props.options.filter(option => props.defaultValues.includes(option.value))}
         isClearable={props.clearable}
         isDisabled={props.disabled}
@@ -37,6 +38,7 @@ const MultiSelect = props => (
         styles={MultiSelectStyle(props.rows)}
         placeholder={props.placeholder}
         options={props.options}
+        value={props.value ? props.value : undefined}
         defaultValue={props.options.filter(option => props.defaultValues.includes(option.value))}
         isClearable={props.clearable}
         isDisabled={props.disabled}
@@ -88,6 +90,7 @@ MultiSelect.defaultProps = {
   required: false,
   clearable: false,
   searchable: false,
+  value: null,
   onChange: () => null,
 };
 
@@ -154,6 +157,13 @@ MultiSelect.propTypes = {
    * Changes what the title says.
    */
   title: PropTypes.string,
+  /**
+   * Changes the currently chosen option. Only set when needed, do not keep prop set at all times, as this prevents user interaction.
+   */
+  value: PropTypes.arrayOf(PropTypes.shape({
+    label: PropTypes.string.isRequired,
+    value: PropTypes.string.isRequired,
+  })),
 };
 
 export default MultiSelect;
