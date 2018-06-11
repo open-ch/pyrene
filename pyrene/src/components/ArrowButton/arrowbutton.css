@@ -21,7 +21,11 @@
     transform: rotate(180deg);
   }
   &.direction-right {
+    transform: none;
+  }
 
+  &:hover {
+    border-color: var(--blue-500);
   }
 
   &.disabled {
