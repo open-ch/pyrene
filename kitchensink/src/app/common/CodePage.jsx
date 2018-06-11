@@ -35,6 +35,12 @@ export default class CodePage extends React.Component {
     }));
   }
 
+  codeBlockPinClicked(codeBlockPinned) {
+    if (codeBlockPinned && this.state.pinned) {
+      this.handlePinClick();
+    }
+  }
+
   handleExampleClick(exampleProps){
     this.setState(() => ({
       displayedComponent: <this.state.component {...exampleProps} />,
@@ -55,7 +61,7 @@ export default class CodePage extends React.Component {
             <div styleName={classNames('pin', { pinned: this.state.pinned })} onClick={() => this.handlePinClick()} />
             <div styleName={'ufo'} onClick={() => this.handlePinClick()} />
           </div>
-          <CodeBlock component={this.state.displayedComponent} />
+          <CodeBlock component={this.state.displayedComponent} onCodeBlockHoverClick={(codeBlockPinned) => this.codeBlockPinClicked(codeBlockPinned)} displayComponentPinned={this.state.pinned} />
           <PropTableEditor componentProps={this.props.component.__docgenInfo.props} activePropValues={this.state.displayedComponent.props} onEditorChange={this.handleEditorChange} />
         </Paragraph>
       </div>

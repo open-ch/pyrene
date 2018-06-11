@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import SyntaxHighlighter, { registerLanguage } from 'react-syntax-highlighter/prism-light';
 import jsx from 'react-syntax-highlighter/languages/prism/jsx';
 import osagCodeColorScheme from '../../css/osagCodeColorScheme';
@@ -16,8 +17,28 @@ export default class CodeBlock extends React.Component {
     super(props);
     this.state = {
       expanded: false,
+      pinned: false,
     };
   }
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.displayComponentPinned && prevState.pinned) {
+      return {
+        pinned: !prevState.pinned,
+      };
+    }
+    // No State Change
+    return null;
+  }
+
+
+  handlePinClick() {
+    this.setState((prevState, props) => ({
+      pinned: !prevState.pinned,
+    }),
+    () => this.props.onCodeBlockHoverClick(this.state.pinned));
+  }
+
 
   handleCodeBlockStyle() {
     const syntaxHighlighterStyle = {
@@ -76,13 +97,14 @@ export default class CodeBlock extends React.Component {
     const displayedCode = this.generateCodeForComponent(this.props.component, this.state.expanded);
     const entireCode = this.generateCodeForComponent(this.props.component, true);
     return (
-      <div styleName={'codeContainer'}>
+      <div styleName={classNames('codeContainer', { pinned: this.state.pinned })}>
+        <div styleName={classNames('ufo', { pinned: this.state.pinned })} onClick={() => this.handlePinClick()} />
         <SyntaxHighlighter style={osagCodeColorScheme} language={'jsx'} customStyle={this.handleCodeBlockStyle()}>
           {displayedCode}
         </SyntaxHighlighter>
 
         <div className={'unSelectable'} styleName={'copyToCBButton'} onClick={() => Utils.copyStringToClipboard(entireCode)}>Copy code</div>
-        <div className={'unSelectable'} styleName={'expandButton'} onClick={() => this.handleExpand()}>{`</>`}</div>
+        <div className={'unSelectable'} styleName={'expandButton'} onClick={() => this.handleExpand()}>{'</>'}</div>
       </div>
     );
   }
@@ -95,4 +117,6 @@ CodeBlock.defaultProps = {};
 
 CodeBlock.propTypes = {
   component: PropTypes.element.isRequired,
+  onCodeBlockHoverClick: PropTypes.func.isRequired,
+  displayComponentPinned: PropTypes.bool.isRequired,
 };
