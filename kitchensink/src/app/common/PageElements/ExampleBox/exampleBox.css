@@ -34,3 +34,21 @@
   line-height: 1.71;
   color: var(--neutral-200);
 }
+
+.exampleDescription {
+  min-height: 70px;
+  max-height: 70px;
+  display: flex;
+  align-items: center;
+  overflow: auto;
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 2px;
+    width: 3px;
+    background-color: var(--neutral-400);
+  }
+
+  &::-webkit-scrollbar {
+    width: 3px;
+  }
+}

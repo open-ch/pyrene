@@ -49,7 +49,9 @@ export default class ExampleBox extends React.Component {
 
         </div>
         <div className={'unSelectable'} styleName={'exampleDescriptionBox'}>
-          {this.state.displayedDescription}
+          <div styleName={'exampleDescription'}>
+            <div>{this.state.displayedDescription}</div>
+          </div>
         </div>
       </div>
     );

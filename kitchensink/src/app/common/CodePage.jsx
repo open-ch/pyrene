@@ -18,7 +18,7 @@ export default class CodePage extends React.Component {
     this.state = {
       displayedComponent: <this.props.component {...this.props.startProps} />,
       component: this.props.component,
-      pinned: false,
+      pinned: true,
     };
   }
 
