@@ -10,19 +10,6 @@
   align-items: center;
 }
 
-.example {
-  padding: 24px;
-
-  &:hover {
-    cursor: pointer;
-    border-radius: 4px;
-    box-shadow: inset 0px 0px 0px 1px var(--blue-500);
-  }
-}
-
-.componentOverlay {
-  pointer-events: none;
-}
 
 .exampleDescriptionBox {
   box-sizing: border-box;

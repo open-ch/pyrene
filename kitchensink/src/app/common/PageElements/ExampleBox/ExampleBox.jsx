@@ -4,6 +4,7 @@ import hash from 'object-hash';
 import PropTypes from 'prop-types';
 
 import './exampleBox.css';
+import Example from './Example';
 
 
 export default class ExampleBox extends React.Component {
@@ -11,42 +12,40 @@ export default class ExampleBox extends React.Component {
   constructor(props) {
     super(props);
 
+    this.handleExampleHover = this.handleExampleHover.bind(this);
+
     this.descriptionPlaceholder = 'Hover over an example to see its description.';
     this.state = {
       displayedDescription: this.descriptionPlaceholder,
+      selectBoxIndex: null,
     };
   }
 
-  handleExampleHover(description) {
+  handleExampleHover(description, index) {
     if (typeof description !== 'undefined') {
       this.setState((prevState, props) => ({
         displayedDescription: description,
-      }));
-    } else {
-      this.setState((prevState, props) => ({
-        displayedDescription: this.descriptionPlaceholder,
+        selectBoxIndex: index,
       }));
     }
   }
+
 
   render() {
     return (
       <div styleName={'exampleBox'}>
         <div styleName={'exampleDisplay'}>
-          {this.props.component.examples.map(exampleProps => (
-            <div
-              styleName={'example'}
-              onMouseOver={() => this.handleExampleHover(exampleProps.description)}
-              onMouseLeave={() => this.handleExampleHover()}
-              onClick={() => this.props.onExampleClick(exampleProps)}
+          {this.props.component.examples.map((exampleProps, index) => (
+            <Example
+              index={index}
+              component={this.props.component}
+              hoveredLast={this.state.selectBoxIndex === index}
+              exampleProps={exampleProps}
+              onMouseOver={this.handleExampleHover}
+              onExampleClick={this.props.onExampleClick}
               key={hash(exampleProps)}
-            >
-              <div styleName={'componentOverlay'}>
-                <this.props.component {...exampleProps} />
-              </div>
-            </div>
+            />
           ))}
-
         </div>
         <div className={'unSelectable'} styleName={'exampleDescriptionBox'}>
           <div styleName={'exampleDescription'}>
