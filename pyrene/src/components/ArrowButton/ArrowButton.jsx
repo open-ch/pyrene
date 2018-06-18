@@ -18,23 +18,7 @@ const ArrowButton = props => (
   </button>
 );
 
-/**
- *
- *  Object which contains all props for the Proptable in Kitchensink
- *  Each prop should be passed as key-value pair following this scheme:
- *
- *  propName:{isRequired(bool): true|false, type(string): 'String|Bool|OneOf|...', default(string): 'defaultValue', description(string): 'This prop changes...'}
- *
- *  Note: default is only required if isRequired is false.
- *
- */
-
-ArrowButton.docProps = [
-  { propName: 'direction', isRequired: false, type: 'oneOf: up down right left', defaultValue: '', description: 'Arrow direction.' },
-  { propName: 'disabled', isRequired: false, type: 'Bool', defaultValue: 'false', description: 'Disables any interaction with the button.' },
-];
-
-ArrowButton.displayName = 'ArrowButton';
+ArrowButton.displayName = 'Arrow Button';
 
 ArrowButton.defaultProps = {
   direction: 'right',
@@ -43,8 +27,17 @@ ArrowButton.defaultProps = {
 };
 
 ArrowButton.propTypes = {
+  /**
+   *  Specifies the direction that the arrow is pointing.
+   */
   direction: PropTypes.oneOf(['up', 'down', 'right', 'left']),
+  /**
+   *  Disables any interaction with the button.
+   */
   disabled: PropTypes.bool,
+  /**
+   *  onClick function
+   */
   onClick: PropTypes.func,
 };
 
