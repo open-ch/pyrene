@@ -32,6 +32,10 @@ Button.defaultProps = {
 
 Button.propTypes = {
   /**
+   *  Disables any interaction with the button.
+   */
+  disabled: PropTypes.bool,
+  /**
    *  Adds an icon in front of the label. Uses the icon-font.
    */
   icon: PropTypes.string,
@@ -40,17 +44,13 @@ Button.propTypes = {
    */
   label: PropTypes.string.isRequired,
   /**
-   * Changes the overall button style.
-   */
-  type: PropTypes.oneOf(['primary', 'secondary', 'danger', 'ghost', 'action', 'admin']),
-  /**
-   *  Disables any interaction with the button.
-   */
-  disabled: PropTypes.bool,
-  /**
    *  onClick function
    */
   onClick: PropTypes.func,
+  /**
+   * Changes the overall button style.
+   */
+  type: PropTypes.oneOf(['primary', 'secondary', 'danger', 'ghost', 'action', 'admin']),
 };
 
 Button.examples = [
