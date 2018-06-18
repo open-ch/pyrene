@@ -1,16 +1,15 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 import Components from 'pyrene';
+import packageJson from '../../../package.json';
 import Logo from './Logo';
 import SideBarMenu from './SideBarMenu/SideBarMenu';
 import IntroductionPage from '../pages/IntroductionPage';
-
-import packageJson from '../../../package.json';
-import '../../css/common.css';
 import ColorsPage from '../pages/foundations/ColorsPage';
 import IconsPage from '../pages/foundations/IconsPage';
 import ResourcesPage from '../pages/ResourcesPage';
 import ComponentPage from './ComponentPage';
+import '../../css/common.css';
 
 
 const Main = () => (
@@ -37,6 +36,7 @@ const Main = () => (
                 component={component}
                 description={component.__docgenInfo.description}
                 name={component.displayName}
+                lowercaseName={lowercaseComponentName}
               />)}
           />
         );

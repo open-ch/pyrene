@@ -1,6 +1,6 @@
 import React from 'react';
-import SideBarMenuSection from './SideBarMenuSection';
 import Components from 'pyrene';
+import SideBarMenuSection from './SideBarMenuSection';
 
 import './sideBarMenu.css';
 
@@ -12,7 +12,6 @@ const SideBarMenu = props => (
         title="Foundations"
         sectionElements={[
           { name: 'Colors', linkToPath: '/colors' },
-          { name: 'Test', linkToPath: '/test' },
           { name: 'Icons', linkToPath: '/icons' },
           { name: 'Typography', linkToPath: '#' }]}
       />

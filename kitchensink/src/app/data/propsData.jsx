@@ -32,4 +32,56 @@ const testOptions = [
   { value: 'moosetracks', label: 'Moose Tracks', invalid: false },
 ];
 
-export default testOptions;
+
+const startProps = {
+  button: {
+    label: 'Click Me Button',
+  },
+  arrowbutton: {},
+  checkbox: {
+    label: 'Click Me Checkbox',
+  },
+  radioselection: {
+    radioLabels: ['option 1', 'option 2', 'option 3'],
+    selectedOption: 'option 1',
+  },
+  textarea: {
+    title: 'Label',
+    placeholder: 'Placeholder Text',
+    helperLabel: 'Helper text for instructions',
+    width: 500,
+    rows: 3,
+    maxLength: 50,
+  },
+  textfield: {
+    title: 'Field Label',
+    placeholder: 'Placeholder Text',
+    helperLabel: 'Helper text for instructions',
+    width: 500,
+  },
+  link: {
+    label: 'Click Me',
+    path: '#',
+  },
+  multiselect: {
+    title: 'Multi-Select',
+    placeholder: 'Choose your favorite ice cream',
+    helperLabel: 'Ice cream is delicious',
+    defaultValues: [testOptions[1].value, testOptions[2].value],
+    options: testOptions,
+  },
+  singleselect: {
+    title: 'Single-Select',
+    placeholder: 'Choose your favorite ice cream',
+    helperLabel: 'Ice cream is delicious',
+    defaultValue: 'spearmint',
+    options: testOptions,
+  },
+  sharedialog: {
+    position: 'bottom-right',
+    link: 'http://www.veryveryverylonglinkonanydomainintheinternet.com',
+  },
+};
+
+
+export default startProps;
