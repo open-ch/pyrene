@@ -4,6 +4,9 @@ import classNames from 'classnames';
 import './textArea.css';
 
 
+/**
+ * Textareas are used primarily on ....
+ */
 export default class TextArea extends React.Component {
 
   constructor(props) {

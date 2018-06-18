@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import './radioSelection.css';
 
-
+/**
+ * Radio groups are used primarily on ....
+ */
 export default class RadioSelection extends React.Component {
 
   constructor(props) {

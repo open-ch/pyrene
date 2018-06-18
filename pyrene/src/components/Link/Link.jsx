@@ -4,7 +4,9 @@ import classNames from 'classnames';
 
 import './link.css';
 
-
+/**
+ * Links are used primarily on ....
+ */
 const Link = props => (
   <a
     styleName={classNames('link', { [`type-${props.type}`]: true }, { disabled: props.disabled })}
