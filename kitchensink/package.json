@@ -18,6 +18,7 @@
   "devDependencies": {
     "autoprefixer": "^8.3.0",
     "babel-core": "^6.26.0",
+    "babel-eslint": "^8.2.3",
     "babel-loader": "^7.1.4",
     "babel-plugin-react-css-modules": "^3.3.3",
     "babel-plugin-transform-class-properties": "^6.24.1",
