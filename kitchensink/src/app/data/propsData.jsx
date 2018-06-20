@@ -35,11 +35,11 @@ const testOptions = [
 
 const startProps = {
   button: {
-    label: 'Click Me Button',
+    label: 'Click Me',
   },
   arrowbutton: {},
   checkbox: {
-    label: 'Click Me Checkbox',
+    label: 'Click Me',
   },
   radioselection: {
     radioLabels: ['option 1', 'option 2', 'option 3'],

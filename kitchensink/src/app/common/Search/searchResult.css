@@ -1,5 +1,14 @@
 .searchResult {
   margin-top: 40px;
+  border-radius: 4px;
+
+  &:hover {
+    cursor: pointer;
+    & .title {
+      color: var(--blue-500);
+    }
+    background-color: var(--neutral-030);
+  }
 
   & .title {
     font-size: 18px;
@@ -10,8 +19,8 @@
 
   & .description {
     margin-top: 16px;
-    font-size: 14px;
-    line-height: 1.71;
+    font-size: 16px;
+    line-height: 1.5;
     color: var(--neutral-500);
   }
 }

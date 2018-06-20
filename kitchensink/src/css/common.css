@@ -119,5 +119,5 @@ body {
 }
 
 :global(.highlighted) {
-  background-color: var(--blue-100);
+  background-color: var(--acqua-100);
 }

@@ -47,7 +47,7 @@ export default class ResultsPage extends React.Component {
   renderNoResultsPage = () => (
     <React.Fragment>
       <div styleName="header">
-        <div styleName="title">{`No matches for "${this.props.match.params.searchInput}"`}</div>
+        <div styleName="title">{`No matches for \u00AB${this.props.match.params.searchInput}\u00BB`}</div>
       </div>
       <div styleName={'topicContent'}>
         <Paragraph>
