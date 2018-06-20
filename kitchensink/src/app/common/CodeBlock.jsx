@@ -17,26 +17,35 @@ export default class CodeBlock extends React.Component {
     super(props);
     this.state = {
       expanded: false,
+      pinned: false,
     };
+  }
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.displayComponentPinned !== prevState.pinned) {
+      return {
+        pinned: nextProps.displayComponentPinned,
+      };
+    }
+    // No State Change
+    return null;
   }
 
   handleCodeBlockStyle() {
     const syntaxHighlighterStyle = {
       margin: 0,
-      borderRadius: 4,
+      borderRadius: '0 0 4px 4px',
       overflow: 'hidden',
       boxSizing: 'border-box',
     };
 
     if (this.state.expanded) {
       syntaxHighlighterStyle.padding = '16px 0 16px 16px';
-      delete syntaxHighlighterStyle.height;
-      delete syntaxHighlighterStyle.lineHeight;
     } else {
-      delete syntaxHighlighterStyle.padding;
       syntaxHighlighterStyle.paddingLeft = '16px';
-      syntaxHighlighterStyle.height = '64px';
-      syntaxHighlighterStyle.lineHeight = '36px';
+      syntaxHighlighterStyle.height = '56px';
+      syntaxHighlighterStyle.display = 'flex';
+      syntaxHighlighterStyle.alignItems = 'center';
     }
     return syntaxHighlighterStyle;
   }
@@ -82,8 +91,8 @@ export default class CodeBlock extends React.Component {
           {displayedCode}
         </SyntaxHighlighter>
 
-        <div className={'unSelectable'} styleName={'copyToCBButton'} onClick={() => Utils.copyStringToClipboard(entireCode)}>Copy code</div>
-        <div className={'unSelectable'} styleName={'expandButton'} onClick={() => this.handleExpand()}>{'</>'}</div>
+        <div className={'unSelectable'} styleName={'copyToCBButton'} onClick={() => Utils.copyStringToClipboard(entireCode)} />
+        <div className={'unSelectable'} styleName={'expandButton'} onClick={() => this.handleExpand()} />
       </div>
     );
   }
@@ -96,6 +105,5 @@ CodeBlock.defaultProps = {};
 
 CodeBlock.propTypes = {
   component: PropTypes.element.isRequired,
-  onCodeBlockHoverClick: PropTypes.func.isRequired,
   displayComponentPinned: PropTypes.bool.isRequired,
 };

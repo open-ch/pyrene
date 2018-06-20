@@ -50,10 +50,12 @@ export default class ComponentEditor extends React.Component {
         </Paragraph>
         }
         <Paragraph title={'Props'} large>
-          <div styleName={classNames('componentDisplayContainer', { pinned: this.state.pinned })}>
-            {this.state.displayedComponent}
+          <div styleName={classNames('displayContainer', { pinned: this.state.pinned })}>
             <div styleName={classNames('pin', { pinned: this.state.pinned })} onClick={() => this.handlePinClick()} />
-            <CodeBlock component={this.state.displayedComponent} />
+            <div styleName={'componentDisplay'}>
+              {this.state.displayedComponent}
+            </div>
+            <CodeBlock component={this.state.displayedComponent} displayComponentPinned={this.state.pinned} />
           </div>
           <DynamicPropTable componentProps={this.props.component.__docgenInfo.props} activePropValues={this.state.displayedComponent.props} onEditorChange={this.handleEditorChange} />
         </Paragraph>
