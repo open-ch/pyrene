@@ -6,8 +6,10 @@
 
 .exampleDisplay {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
+  padding: 40px;
+  box-sizing: border-box;
 }
 
 
@@ -19,7 +21,7 @@
 
   font-size: 14px;
   line-height: 1.71;
-  color: var(--neutral-200);
+  color: var(--neutral-500);
 }
 
 .exampleDescription {

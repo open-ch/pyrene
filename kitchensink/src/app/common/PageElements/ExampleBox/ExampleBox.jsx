@@ -14,18 +14,20 @@ export default class ExampleBox extends React.Component {
 
     this.handleExampleHover = this.handleExampleHover.bind(this);
 
-    this.descriptionPlaceholder = 'Hover over an example to see its description.';
+    this.descriptionPlaceholder = 'Hover over an example to see its description. Click on an example to copy all its props into the playground';
     this.state = {
       displayedDescription: this.descriptionPlaceholder,
-      selectBoxIndex: null,
     };
   }
 
-  handleExampleHover(description, index) {
+  handleExampleHover(description) {
     if (typeof description !== 'undefined') {
       this.setState((prevState, props) => ({
         displayedDescription: description,
-        selectBoxIndex: index,
+      }));
+    } else {
+      this.setState((prevState, props) => ({
+        displayedDescription: this.descriptionPlaceholder,
       }));
     }
   }
@@ -35,13 +37,12 @@ export default class ExampleBox extends React.Component {
     return (
       <div styleName={'exampleBox'}>
         <div styleName={'exampleDisplay'}>
-          {this.props.component.examples.map((exampleProps, index) => (
+          {this.props.component.examples.map(exampleProps => (
             <Example
-              index={index}
               component={this.props.component}
-              hoveredLast={this.state.selectBoxIndex === index}
               exampleProps={exampleProps}
               onMouseOver={this.handleExampleHover}
+              onMouseLeave={this.handleExampleHover}
               onExampleClick={this.props.onExampleClick}
               key={hash(exampleProps)}
             />
