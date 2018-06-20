@@ -35,12 +35,6 @@ export default class ComponentEditor extends React.Component {
     }));
   }
 
-  codeBlockPinClicked(codeBlockPinned) {
-    if (codeBlockPinned && this.state.pinned) {
-      this.handlePinClick();
-    }
-  }
-
   handleExampleClick(exampleProps){
     this.setState(() => ({
       displayedComponent: <this.state.component {...exampleProps} />,
@@ -59,9 +53,8 @@ export default class ComponentEditor extends React.Component {
           <div styleName={classNames('componentDisplayContainer', { pinned: this.state.pinned })}>
             {this.state.displayedComponent}
             <div styleName={classNames('pin', { pinned: this.state.pinned })} onClick={() => this.handlePinClick()} />
-            {/*<div styleName={'ufo'} onClick={() => this.handlePinClick()} />*/}
+            <CodeBlock component={this.state.displayedComponent} />
           </div>
-          <CodeBlock component={this.state.displayedComponent} onCodeBlockHoverClick={(codeBlockPinned) => this.codeBlockPinClicked(codeBlockPinned)} displayComponentPinned={this.state.pinned} />
           <DynamicPropTable componentProps={this.props.component.__docgenInfo.props} activePropValues={this.state.displayedComponent.props} onEditorChange={this.handleEditorChange} />
         </Paragraph>
       </div>

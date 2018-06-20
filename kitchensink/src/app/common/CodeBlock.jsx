@@ -17,28 +17,8 @@ export default class CodeBlock extends React.Component {
     super(props);
     this.state = {
       expanded: false,
-      pinned: false,
     };
   }
-
-  static getDerivedStateFromProps(nextProps, prevState) {
-    if (nextProps.displayComponentPinned && prevState.pinned) {
-      return {
-        pinned: !prevState.pinned,
-      };
-    }
-    // No State Change
-    return null;
-  }
-
-
-  handlePinClick() {
-    this.setState((prevState, props) => ({
-      pinned: !prevState.pinned,
-    }),
-    () => this.props.onCodeBlockHoverClick(this.state.pinned));
-  }
-
 
   handleCodeBlockStyle() {
     const syntaxHighlighterStyle = {
@@ -98,7 +78,6 @@ export default class CodeBlock extends React.Component {
     const entireCode = this.generateCodeForComponent(this.props.component, true);
     return (
       <div styleName={classNames('codeContainer', { pinned: this.state.pinned })}>
-        <div styleName={classNames('ufo', { pinned: this.state.pinned })} onClick={() => this.handlePinClick()} />
         <SyntaxHighlighter style={osagCodeColorScheme} language={'jsx'} customStyle={this.handleCodeBlockStyle()}>
           {displayedCode}
         </SyntaxHighlighter>
