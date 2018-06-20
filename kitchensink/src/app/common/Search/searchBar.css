@@ -47,5 +47,16 @@
       color: var(--neutral-200);
     }
   }
+
+  & .clearIcon {
+    width: 16px;
+    height: 16px;
+    color: var(--neutral-300);
+
+    &:hover {
+      cursor: pointer;
+      color: var(--red-500);
+    }
+  }
 }
 

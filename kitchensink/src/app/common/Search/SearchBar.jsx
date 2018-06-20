@@ -16,6 +16,12 @@ class SearchBar extends React.Component {
     lastPathBeforeSearch: '',
   };
 
+  handleClear = () => {
+    this.setState(() => ({
+      searchInput: '',
+    }));
+  };
+
   // On focus check if we already are on a search page (refresh or direct url call to such a link)
   // if this is the case set the path to redirect on searchbar clear to home: '/'
   // else we are on some page of the kitchensink, save it to lastPathBeforeSearch to be able to
@@ -45,7 +51,7 @@ class SearchBar extends React.Component {
 
   handleChange = (event) => {
     // Starting point of search, normalise function returns lowercased and trimmed string
-    const searchInput = SearchUtils.normalise(event.target.value);
+    const searchInput = event.target.value;
     this.setState(() => ({
       searchInput: searchInput,
     }));
@@ -101,8 +107,9 @@ class SearchBar extends React.Component {
           onFocus={this.handleFocus}
           onBlur={this.handleBlur}
           onChange={this.handleChange}
-          value={this.props.value}
+          value={this.state.searchInput}
         />
+        {this.props.value && <span className={'pyreneIcon-delete'} styleName={'clearIcon'} onClick={this.handleClear} />}
 
         {this.handleSearchResultsDisplay()}
       </div>

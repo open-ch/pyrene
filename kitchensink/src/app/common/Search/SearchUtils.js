@@ -9,8 +9,9 @@ export default class SearchUtils {
 
   // Get's the relevant matches from a searched string
   static getMatches(searchInput, componentLibrary) {
+    const normalisedSearchInput = this.normalise(searchInput);
     return (Object.values(componentLibrary).map(component => ({[component.displayName]: component.__docgenInfo.description}))
-      .filter(component => (this.normalise(Object.keys(component)[0]).includes(searchInput) || this.normalise(Object.values(component)[0]).includes(searchInput))));
+      .filter(component => (this.normalise(Object.keys(component)[0]).includes(normalisedSearchInput) || this.normalise(Object.values(component)[0]).includes(normalisedSearchInput))));
   };
 
 }
