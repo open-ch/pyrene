@@ -10,7 +10,7 @@ import IconsPage from '../pages/foundations/IconsPage';
 import ResourcesPage from '../pages/ResourcesPage';
 import ComponentPage from './ComponentPage';
 import '../../css/common.css';
-import SearchBar from './Search/SearchBar';
+import SearchBar from './Search/SearchBar/SearchBar';
 import ResultsPage from './Search/ResultsPage';
 
 

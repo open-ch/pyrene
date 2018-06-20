@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Redirect, withRouter} from 'react-router-dom';
 import classNames from 'classnames';
 
-import SearchUtils from './SearchUtils';
+import SearchUtils from '../SearchUtils';
 import './searchBar.css';
 
 

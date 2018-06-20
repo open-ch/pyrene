@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 
 import './searchResult.css';
-import SearchUtils from './SearchUtils';
+import SearchUtils from '../SearchUtils';
 
 export default class SearchResult extends React.Component {
   state = {

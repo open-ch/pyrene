@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import '../../../css/componentPage.css';
 import Components from 'pyrene';
 import SearchUtils from './SearchUtils';
-import SearchResult from './SearchResult';
+import SearchResult from './SearchResult/SearchResult';
 import Paragraph from '../PageElements/Paragraph/Paragraph';
 
 
