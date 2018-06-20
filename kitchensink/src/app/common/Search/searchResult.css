@@ -1,0 +1,17 @@
+.searchResult {
+  margin-top: 40px;
+
+  & .title {
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.33;
+    color: var(--neutral-500);
+  }
+
+  & .description {
+    margin-top: 16px;
+    font-size: 14px;
+    line-height: 1.71;
+    color: var(--neutral-500);
+  }
+}

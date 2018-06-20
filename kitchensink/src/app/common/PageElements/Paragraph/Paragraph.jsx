@@ -6,7 +6,7 @@ import './paragraph.css';
 
 const Paragraph = props => (
   <div styleName={classNames('paragraph', { large: props.large })}>
-    <div styleName={'title'}>{props.title}</div>
+    {props.title && <div styleName={'title'}>{props.title}</div>}
     <div>
       {props.children}
     </div>
@@ -17,11 +17,12 @@ const Paragraph = props => (
 Paragraph.displayName = 'Paragraph';
 
 Paragraph.propTypes = {
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
   large: PropTypes.bool,
 };
 
 Paragraph.defaultProps = {
+  title: '',
   large: false,
 };
 

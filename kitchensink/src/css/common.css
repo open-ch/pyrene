@@ -117,3 +117,7 @@ body {
   grid-template-columns: 1fr 1fr;
   grid-row-gap: 40px;
 }
+
+:global(.highlighted) {
+  background-color: var(--blue-100);
+}
