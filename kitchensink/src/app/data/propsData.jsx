@@ -34,18 +34,18 @@ const testOptions = [
 
 
 const startProps = {
-  button: {
+  'button': {
     label: 'Click Me',
   },
-  arrowbutton: {},
+  'arrowbutton': {},
   checkbox: {
     label: 'Click Me',
   },
-  radioselection: {
+  'radioselection': {
     radioLabels: ['option 1', 'option 2', 'option 3'],
     selectedOption: 'option 1',
   },
-  textarea: {
+  'textarea': {
     title: 'Label',
     placeholder: 'Placeholder Text',
     helperLabel: 'Helper text for instructions',
@@ -53,31 +53,31 @@ const startProps = {
     rows: 3,
     maxLength: 50,
   },
-  textfield: {
+  'textfield': {
     title: 'Field Label',
     placeholder: 'Placeholder Text',
     helperLabel: 'Helper text for instructions',
     width: 500,
   },
-  link: {
+  'link': {
     label: 'Click Me',
     path: '#',
   },
-  multiselect: {
+  'multi-select': {
     title: 'Multi-Select',
     placeholder: 'Choose your favorite ice cream',
     helperLabel: 'Ice cream is delicious',
     defaultValues: [testOptions[1].value, testOptions[2].value],
     options: testOptions,
   },
-  singleselect: {
+  'select': {
     title: 'Single-Select',
     placeholder: 'Choose your favorite ice cream',
     helperLabel: 'Ice cream is delicious',
     defaultValue: 'spearmint',
     options: testOptions,
   },
-  sharedialog: {
+  'sharedialog': {
     position: 'bottom-right',
     link: 'http://www.veryveryverylonglinkonanydomainintheinternet.com',
   },
