@@ -22,6 +22,11 @@
   font-size: 14px;
   line-height: 1.71;
   color: var(--neutral-500);
+
+  &.placeholder {
+    color: var(--neutral-200);
+    font-style: italic;
+  }
 }
 
 .exampleDescription {

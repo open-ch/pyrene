@@ -1,9 +1,8 @@
+/* eslint-disable react/no-did-update-set-state,react/sort-comp */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Redirect, withRouter} from 'react-router-dom';
 import classNames from 'classnames';
-
-import SearchUtils from '../SearchUtils';
 import './searchBar.css';
 
 
@@ -14,6 +13,55 @@ class SearchBar extends React.Component {
     shouldRedirectToResultsPage: false,
     shouldRedirectToPageBeforeSearch: false,
     lastPathBeforeSearch: '',
+  };
+
+  MINIMUM_NUMBER_OF_CHARACTERS_IN_SEARCH = 2;
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    // If there is an input and it is different from the one before,
+    // set redirect flag which triggers a redirect via the handleSearchResultsDisplay function
+    if (this.state.searchInput !== prevState.searchInput && this.state.searchInput.length >= this.MINIMUM_NUMBER_OF_CHARACTERS_IN_SEARCH) {
+      this.setState(() => ({
+        shouldRedirectToResultsPage: true,
+      }));
+
+      // If the input changed but now it is empty set a flag to redirect back
+      // to the page where the user started the search
+    } else if (this.state.searchInput !== prevState.searchInput && this.state.searchInput.length < this.MINIMUM_NUMBER_OF_CHARACTERS_IN_SEARCH) {
+      this.setState(() => ({
+        shouldRedirectToPageBeforeSearch: true,
+      }));
+
+      // Both of the state changes above trigger a rerendering,
+      // to avoid an endless rerendering loop, the states have to be reset
+    } else if (this.state.shouldRedirectToResultsPage) {
+      this.setState(() => ({
+        shouldRedirectToResultsPage: false,
+      }));
+    } else if (this.state.shouldRedirectToPageBeforeSearch) {
+      this.setState(() => ({
+        shouldRedirectToPageBeforeSearch: false,
+      }));
+    }
+  }
+
+  // function that renders the redirects accordingly to the set flags
+  // the searchinput is given to the resultspage via the path
+  handleSearchResultsDisplay = () => {
+    if (this.state.shouldRedirectToResultsPage) {
+      return <Redirect to={`/search/${this.state.searchInput}`} push />;
+    }
+    if (this.state.shouldRedirectToPageBeforeSearch) {
+      return <Redirect to={this.state.lastPathBeforeSearch} push />;
+    }
+  };
+
+  handleChange = (event) => {
+    // Starting point of search, normalise function returns lowercased and trimmed string
+    const searchInput = event.target.value;
+    this.setState(() => ({
+      searchInput: searchInput,
+    }));
   };
 
   handleClear = () => {
@@ -49,52 +97,6 @@ class SearchBar extends React.Component {
     }));
   };
 
-  handleChange = (event) => {
-    // Starting point of search, normalise function returns lowercased and trimmed string
-    const searchInput = event.target.value;
-    this.setState(() => ({
-      searchInput: searchInput,
-    }));
-  };
-
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    // If there is an input and it is different from the one before,
-    // set redirect flag which triggers a redirect via the handleSearchResultsDisplay function
-    if (this.state.searchInput !== prevState.searchInput && this.state.searchInput) {
-      this.setState(() => ({
-        shouldRedirectToResultsPage: true,
-      }));
-
-      // If the input changed but now it is empty set a flag to redirect back
-      // to the page where the user started the search
-    } else if (this.state.searchInput !== prevState.searchInput && !this.state.searchInput) {
-      this.setState(() => ({
-        shouldRedirectToPageBeforeSearch: true,
-      }));
-
-      // Both of the state changes above trigger a rerendering,
-      // to avoid an endless rerendering loop, the states have to be reset
-    } else if (this.state.shouldRedirectToResultsPage) {
-      this.setState(() => ({
-        shouldRedirectToResultsPage: false,
-      }));
-    } else if (this.state.shouldRedirectToPageBeforeSearch) {
-      this.setState(() => ({
-        shouldRedirectToPageBeforeSearch: false,
-      }));
-    }
-  }
-
-  // function that renders the redirects accordingly to the set flags
-  // the searchinput is given to the resultspage via the path
-  handleSearchResultsDisplay = () => {
-    if (this.state.shouldRedirectToResultsPage) {
-      return <Redirect to={`/search/${this.state.searchInput}`} push />;
-    }
-    if (this.state.shouldRedirectToPageBeforeSearch) {
-      return <Redirect to={this.state.lastPathBeforeSearch} push />;
-    }
-  };
 
   render() {
     return (

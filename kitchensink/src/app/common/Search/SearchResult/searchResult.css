@@ -1,12 +1,10 @@
 .searchResult {
   margin-top: 40px;
+  padding: 16px;
   border-radius: 4px;
 
   &:hover {
     cursor: pointer;
-    & .title {
-      color: var(--blue-500);
-    }
     background-color: var(--neutral-030);
   }
 

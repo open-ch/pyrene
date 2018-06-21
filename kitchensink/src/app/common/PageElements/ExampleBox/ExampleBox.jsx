@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from 'pyrene';
 import hash from 'object-hash';
 import PropTypes from 'prop-types';
-
+import classNames from 'classnames';
 import './exampleBox.css';
 import Example from './Example';
 
@@ -14,7 +14,7 @@ export default class ExampleBox extends React.Component {
 
     this.handleExampleHover = this.handleExampleHover.bind(this);
 
-    this.descriptionPlaceholder = 'Hover over an example to see its description. Click on an example to copy all its props into the playground';
+    this.descriptionPlaceholder = 'Hover on example to learn more. Click on an example to copy all its props into the playground.';
     this.state = {
       displayedDescription: this.descriptionPlaceholder,
     };
@@ -48,7 +48,7 @@ export default class ExampleBox extends React.Component {
             />
           ))}
         </div>
-        <div className={'unSelectable'} styleName={'exampleDescriptionBox'}>
+        <div className={'unSelectable'} styleName={classNames('exampleDescriptionBox', {placeholder: this.state.displayedDescription === this.descriptionPlaceholder})}>
           <div styleName={'exampleDescription'}>
             <div>{this.state.displayedDescription}</div>
           </div>
