@@ -37,15 +37,16 @@ export default class ExampleBox extends React.Component {
     return (
       <div styleName={'exampleBox'}>
         <div styleName={'exampleDisplay'}>
-          {this.props.component.examples.map(exampleProps => (
-            <Example
-              component={this.props.component}
-              exampleProps={exampleProps}
-              onMouseOver={this.handleExampleHover}
-              onMouseLeave={this.handleExampleHover}
-              onExampleClick={this.props.onExampleClick}
-              key={hash(exampleProps)}
-            />
+          {this.props.component.examples.map((exampleProps, index) => (
+            <React.Fragment key={hash(exampleProps)}>
+              <Example
+                component={this.props.component}
+                exampleProps={exampleProps}
+                onMouseOver={this.handleExampleHover}
+                onMouseLeave={this.handleExampleHover}
+                onExampleClick={this.props.onExampleClick}
+              />
+            </React.Fragment>
           ))}
         </div>
         <div className={'unSelectable'} styleName={classNames('exampleDescriptionBox', {placeholder: this.state.displayedDescription === this.descriptionPlaceholder})}>

@@ -1,15 +1,17 @@
 .exampleBox {
   box-sizing: border-box;
-  border-radius: 4px;
-  border: solid 1px var(--neutral-050);
+
 }
 
 .exampleDisplay {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   padding: 40px;
   box-sizing: border-box;
+
+  border-radius: 4px;
+  border: solid 1px var(--neutral-050);
 }
 
 
@@ -17,7 +19,6 @@
   box-sizing: border-box;
   width: 100%;
   padding: 16px;
-  background-color: var(--neutral-020);
 
   font-size: 14px;
   line-height: 1.71;
@@ -33,7 +34,6 @@
   min-height: 70px;
   max-height: 70px;
   display: flex;
-  align-items: center;
   overflow: auto;
 
   &::-webkit-scrollbar-thumb {

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Markdown from 'markdown-to-jsx';
 import ComponentEditor from './ComponentEditor';
 import StartProps from '../data/propsData';
 import '../../css/componentPage.css';
@@ -9,7 +10,7 @@ const ComponentPage = props => (
     <div styleName="header">
       <div styleName="title">{props.name}</div>
       <div styleName="description">
-        {props.description}
+        <Markdown>{props.description}</Markdown>
       </div>
     </div>
 
