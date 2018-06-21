@@ -18,11 +18,12 @@
 .exampleDescriptionBox {
   box-sizing: border-box;
   width: 100%;
-  padding: 16px;
 
   font-size: 14px;
   line-height: 1.71;
   color: var(--neutral-500);
+  position: relative;
+  height: 56px;
 
   &.placeholder {
     color: var(--neutral-200);
@@ -33,16 +34,6 @@
 .exampleDescription {
   min-height: 70px;
   max-height: 70px;
-  display: flex;
-  overflow: auto;
-
-  &::-webkit-scrollbar-thumb {
-    border-radius: 2px;
-    width: 3px;
-    background-color: var(--neutral-400);
-  }
-
-  &::-webkit-scrollbar {
-    width: 3px;
-  }
+  padding: 16px;
+  position: absolute;
 }

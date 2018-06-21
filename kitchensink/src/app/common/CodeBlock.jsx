@@ -18,6 +18,7 @@ export default class CodeBlock extends React.Component {
     this.state = {
       expanded: false,
       pinned: false,
+      displayCopyNotification: false,
     };
   }
 
@@ -49,6 +50,26 @@ export default class CodeBlock extends React.Component {
     }
     return syntaxHighlighterStyle;
   }
+
+  displayCopyNotifier = (displayTimeMS) => {
+    this.setState(() => ({
+      displayCopyNotification: true,
+    }),
+    () => {
+      setTimeout(() => (
+        this.setState(() => ({
+          displayCopyNotification: false,
+        }))
+      ), displayTimeMS);
+    }
+    );
+  };
+
+  copyCodeToClipBoard(code) {
+    this.displayCopyNotifier(500);
+    Utils.copyStringToClipboard(code);
+  };
+
 
   handleExpand() {
     this.setState((prevState, props) => ({
@@ -91,7 +112,10 @@ export default class CodeBlock extends React.Component {
           {displayedCode}
         </SyntaxHighlighter>
 
-        <div className={'unSelectable'} styleName={'copyToCBButton'} onClick={() => Utils.copyStringToClipboard(entireCode)} />
+        <div className={'unSelectable'} styleName={'copyToCBButton'} onClick={() => this.copyCodeToClipBoard(entireCode)} />
+        <div styleName={classNames('copyNotification', { display: this.state.displayCopyNotification })}>
+          <div styleName={'label'}>Copied to Clipboard</div>
+        </div>
         <div className={'unSelectable'} styleName={'expandButton'} onClick={() => this.handleExpand()} />
       </div>
     );
