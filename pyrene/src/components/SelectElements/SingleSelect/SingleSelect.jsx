@@ -75,7 +75,7 @@ const SingleSelect = props => (
   </div>
 );
 
-SingleSelect.displayName = 'SingleSelect';
+SingleSelect.displayName = 'Select';
 
 SingleSelect.defaultProps = {
   placeholder: 'Select',

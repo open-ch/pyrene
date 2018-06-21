@@ -72,7 +72,7 @@ export default class RadioSelection extends React.Component {
 
 }
 
-RadioSelection.displayName = 'RadioSelection';
+RadioSelection.displayName = 'Radio Selection';
 
 RadioSelection.defaultProps = {
   disabled: false,

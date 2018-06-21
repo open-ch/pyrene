@@ -77,7 +77,7 @@ const MultiSelect = props => (
   </div>
 );
 
-MultiSelect.displayName = 'MultiSelect';
+MultiSelect.displayName = 'Multi-Select';
 
 MultiSelect.defaultProps = {
   placeholder: 'Select',

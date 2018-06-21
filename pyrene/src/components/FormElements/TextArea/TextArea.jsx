@@ -87,7 +87,7 @@ export default class TextArea extends React.Component {
 
 }
 
-TextArea.displayName = 'TextArea';
+TextArea.displayName = 'Textarea';
 
 TextArea.defaultProps = {
   title: '',

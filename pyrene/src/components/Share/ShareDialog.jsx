@@ -125,7 +125,7 @@ export default class ShareDialog extends React.Component {
 
 }
 
-ShareDialog.displayName = 'ShareDialog';
+ShareDialog.displayName = 'Share Dialog';
 
 ShareDialog.defaultProps = {
   disabled: false,

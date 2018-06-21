@@ -74,7 +74,7 @@ export default class TextField extends React.Component {
 
 }
 
-TextField.displayName = 'TextField';
+TextField.displayName = 'Textfield';
 
 TextField.defaultProps = {
   title: '',
