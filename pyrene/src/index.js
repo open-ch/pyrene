@@ -3,14 +3,42 @@ import './styles/colors.css';
 import './styles/fonts.css';
 
 /* eslint-disable import/prefer-default-export */
-export { default as Button } from './components/Button/Button';
-export { default as Link } from './components/Link/Link';
-export { default as Checkbox } from './components/FormElements/Checkbox/Checkbox';
-export { default as RadioSelection } from './components/FormElements/RadioSelection/RadioSelection';
-export { default as ShareDialog } from './components/Share/ShareDialog';
-export { default as Modal } from './components/Modal/Modal';
-export { default as ArrowButton } from './components/ArrowButton/ArrowButton';
-export { default as TextField } from './components/FormElements/TextField/TextField';
-export { default as TextArea } from './components/FormElements/TextArea/TextArea';
-export { default as SingleSelect } from './components/SelectElements/SingleSelect/SingleSelect';
-export { default as MultiSelect } from './components/SelectElements/MultiSelect/MultiSelect';
+import { default as Button } from './components/Button/Button';
+import { default as Link } from './components/Link/Link';
+import { default as Checkbox } from './components/FormElements/Checkbox/Checkbox';
+import { default as RadioSelection } from './components/FormElements/RadioSelection/RadioSelection';
+import { default as ShareDialog } from './components/Share/ShareDialog';
+import { default as Modal } from './components/Modal/Modal';
+import { default as ArrowButton } from './components/ArrowButton/ArrowButton';
+import { default as TextField } from './components/FormElements/TextField/TextField';
+import { default as TextArea } from './components/FormElements/TextArea/TextArea';
+import { default as SingleSelect } from './components/SelectElements/SingleSelect/SingleSelect';
+import { default as MultiSelect } from './components/SelectElements/MultiSelect/MultiSelect';
+
+const Components = {
+  Button,
+  Link,
+  Checkbox,
+  RadioSelection,
+  ShareDialog,
+  Modal,
+  ArrowButton,
+  TextField,
+  TextArea,
+  SingleSelect,
+  MultiSelect,
+};
+
+export {Button};
+export {Link};
+export {Checkbox};
+export {RadioSelection};
+export {ShareDialog};
+export {Modal};
+export {ArrowButton};
+export {TextField};
+export {TextArea};
+export {SingleSelect};
+export {MultiSelect};
+
+export default Components;

@@ -5,6 +5,9 @@ import ButtonBar from '../ButtonBar/ButtonBar';
 
 import './shareDialog.css';
 
+/**
+ * Share dialogs are used primarily on ....
+ */
 export default class ShareDialog extends React.Component {
 
   constructor(props) {
@@ -122,7 +125,7 @@ export default class ShareDialog extends React.Component {
 
 }
 
-ShareDialog.displayName = 'ShareDialog';
+ShareDialog.displayName = 'Share Dialog';
 
 ShareDialog.defaultProps = {
   disabled: false,

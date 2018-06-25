@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import './textField.css';
 
-
+/**
+ * Textfields are used primarily on ....
+ */
 export default class TextField extends React.Component {
 
   constructor(props) {
@@ -72,7 +74,7 @@ export default class TextField extends React.Component {
 
 }
 
-TextField.displayName = 'TextField';
+TextField.displayName = 'Textfield';
 
 TextField.defaultProps = {
   title: '',

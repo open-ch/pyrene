@@ -4,6 +4,14 @@ import classNames from 'classnames';
 
 import './button.css';
 
+
+/**
+ * Buttons are used primarily on action items and to communicate what action the user can take.
+ * They are placed throughout the UI and can be found in places like forms, modals, dialogues etc.
+ *
+ * Do not use Buttons as navigational elements.
+ * Instead, use Links because it takes the user to a new page and is not associated with an action.
+ */
 const Button = props => (
   <button
     className={'unSelectable'}

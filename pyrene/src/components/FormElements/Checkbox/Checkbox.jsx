@@ -4,7 +4,9 @@ import classNames from 'classnames';
 
 import './checkbox.css';
 
-
+/**
+ * Checkboxes are used primarily on ....
+ */
 export default class Checkbox extends React.Component {
 
   constructor(props) {
