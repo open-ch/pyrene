@@ -2,7 +2,7 @@ import React from 'react';
 import '../../../css/componentPage.css';
 import Paragraph from '../../common/PageElements/Paragraph/Paragraph';
 import DescriptionBox from '../../common/PageElements/DescriptionBox/DescriptionBox';
-import {icons, svgs} from '../../data/foundationsData';
+import { icons, svgs } from '../../data/foundationsData';
 import IconBox from '../../common/PageElements/FoundationElements/IconBox/IconBox';
 import IconDisplay from '../../common/PageElements/FoundationElements/IconDisplay/IconDisplay';
 

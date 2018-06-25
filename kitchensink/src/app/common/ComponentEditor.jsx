@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import '../../css/componentPage.css';
 import CodeBlock from '../common/CodeBlock';
-import PropTableEditor from './PageElements/Tables/PropTableEditor';
+import DynamicPropTable from './PageElements/Tables/DynamicPropTable';
 import Paragraph from './PageElements/Paragraph/Paragraph';
 import ExampleBox from './PageElements/ExampleBox/ExampleBox';
 
 
-export default class CodePage extends React.Component {
+export default class ComponentEditor extends React.Component {
 
   constructor(props) {
     super(props);
@@ -35,12 +35,6 @@ export default class CodePage extends React.Component {
     }));
   }
 
-  codeBlockPinClicked(codeBlockPinned) {
-    if (codeBlockPinned && this.state.pinned) {
-      this.handlePinClick();
-    }
-  }
-
   handleExampleClick(exampleProps){
     this.setState(() => ({
       displayedComponent: <this.state.component {...exampleProps} />,
@@ -56,13 +50,14 @@ export default class CodePage extends React.Component {
         </Paragraph>
         }
         <Paragraph title={'Props'} large>
-          <div styleName={classNames('componentDisplayContainer', { pinned: this.state.pinned })}>
-            {this.state.displayedComponent}
+          <div styleName={classNames('displayContainer', { pinned: this.state.pinned })}>
             <div styleName={classNames('pin', { pinned: this.state.pinned })} onClick={() => this.handlePinClick()} />
-            {/*<div styleName={'ufo'} onClick={() => this.handlePinClick()} />*/}
+            <div styleName={'componentDisplay'}>
+              {this.state.displayedComponent}
+            </div>
+            <CodeBlock component={this.state.displayedComponent} displayComponentPinned={this.state.pinned} />
           </div>
-          <CodeBlock component={this.state.displayedComponent} onCodeBlockHoverClick={(codeBlockPinned) => this.codeBlockPinClicked(codeBlockPinned)} displayComponentPinned={this.state.pinned} />
-          <PropTableEditor componentProps={this.props.component.__docgenInfo.props} activePropValues={this.state.displayedComponent.props} onEditorChange={this.handleEditorChange} />
+          <DynamicPropTable componentProps={this.props.component.__docgenInfo.props} activePropValues={this.state.displayedComponent.props} onEditorChange={this.handleEditorChange} />
         </Paragraph>
       </div>
     );
@@ -71,12 +66,12 @@ export default class CodePage extends React.Component {
 }
 
 
-CodePage.displayName = 'CodePage';
+ComponentEditor.displayName = 'ComponentEditor';
 
-CodePage.propTypes = {
+ComponentEditor.propTypes = {
   component: PropTypes.func.isRequired,
   startProps: PropTypes.objectOf(PropTypes.any).isRequired
 };
 
-CodePage.defaultProps = {};
+ComponentEditor.defaultProps = {};
 

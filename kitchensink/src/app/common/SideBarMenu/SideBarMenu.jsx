@@ -1,4 +1,5 @@
 import React from 'react';
+import Components from 'pyrene';
 import SideBarMenuSection from './SideBarMenuSection';
 
 import './sideBarMenu.css';
@@ -16,18 +17,11 @@ const SideBarMenu = props => (
       />
       <SideBarMenuSection
         title="Components"
-        sectionElements={[
-          { name: 'Arrow-Button', linkToPath: '/arrowButton' },
-          { name: 'Button', linkToPath: '/button' },
-          { name: 'Link', linkToPath: '/link' },
-          { name: 'Share', linkToPath: '/shareDialog' },
-          { name: 'Checkbox', linkToPath: '/checkbox' },
-          { name: 'Radio', linkToPath: '/radio' },
-          { name: 'Textfield', linkToPath: '/textField' },
-          { name: 'Textarea', linkToPath: '/textArea' },
-          { name: 'Select', linkToPath: '/singleSelect' },
-          { name: 'Select (Multi)', linkToPath: '/multiSelect' },
-          { name: 'Modal', linkToPath: '#' }].sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0))}
+        sectionElements={
+          Object.values(Components).map((component) => {
+            const lowercaseComponentName = component.displayName.replace(/\s/g, '').toLowerCase();
+            return ({ name: component.displayName, linkToPath: `/${lowercaseComponentName}` });
+          }).sort((a, b) => ((a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0)))}
       />
       <SideBarMenuSection title="Resources" sectionElements={[]} linkToPath={'/resources'} />
     </div>

@@ -1,0 +1,24 @@
+.searchResult {
+  margin-top: 40px;
+  padding: 16px;
+  border-radius: 4px;
+
+  &:hover {
+    cursor: pointer;
+    background-color: var(--neutral-030);
+  }
+
+  & .title {
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.33;
+    color: var(--neutral-500);
+  }
+
+  & .description {
+    margin-top: 16px;
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--neutral-500);
+  }
+}

@@ -1,157 +1,93 @@
 .codeContainer {
   position: relative;
-  margin-top: 40px;
   width: 100%;
-  border-radius: 4px;
   transition: box-shadow 0.4s ease-in-out;
+  border-radius: 4px;
 
   & ::selection {
     background: var(--neutral-500);
   }
 
   &.pinned {
-    position: sticky;
-    top: 4px;
-    z-index: 2;
-
     box-shadow:
-            5px 15px 30px 0 rgba(0, 21, 44, 0.15),
-            0 0 1px 0 rgba(0, 21, 44, 0.3),
-            0 4px 8px -2px rgba(0, 0, 0, 0.2);
-  }
-
-  & .ufo {
-    cursor: pointer;
-    content: '';
-    position: absolute;
-    z-index: 1;
-    width: 4px;
-    height: 20px;
-    top: 8px;
-    right: 16px;
-    color: var(--neutral-200);
-    background-color: currentColor;
-    border-radius: 50%;
-    transform: rotate(-90deg);
-    border: solid 1px currentColor;
-
-    transition: top 0.4s ease-in-out;
-
-
-    &:before {
-      content: '';
-      color: var(--neutral-200);
-      position: absolute;
-      margin-left: 2px;
-      margin-top: 6px;
-      width: 8px;
-      height: 6px;
-      border-radius: 0 4px 4px 0;
-      background-color: currentColor;
-      border-top: solid 1px currentColor;
-      border-bottom: solid 1px currentColor;
-    }
-
-    &:after {
-      content: '';
-      position: absolute;
-
-
-      width: 2px;
-      height: 20px;
-
-      top: -1px;
-      left: 3px;
-      background-color: transparent;
-      border: solid 1px transparent;
-      border-radius: 50%;
-
-      box-shadow: -6px 0 1px 0 var(--neutral-030);
-      opacity: 0;
-      transition:
-              opacity 0.4s ease-in-out,
-              left 0.4s ease-in-out;
-    }
-
-    &:hover {
-      color: var(--neutral-000);
-      &:before {
-        color: var(--neutral-000);
-      }
-    }
-
-  }
-
-  &.pinned .ufo {
-    color: var(--neutral-000);
-    top: 4px;
-
-    &:before {
-      color: var(--neutral-000);
-    }
-    &:after {
-      left: -1px;
-      opacity: 1;
-    }
+            0 4px 8px -2px rgba(0, 21, 44, 0.2),
+            0 0 1px 0 rgba(0, 21, 44, 0.3);
   }
 }
 
 .copyToCBButton {
   position: absolute;
-  top: 16px;
-  right: 88px;
-  box-sizing: border-box;
-  height: 32px;
-  padding: 8px 16px;
-  border-radius: 2px;
-  border: none;
+  top: 20px;
+  right: 56px;
+  height: 16px;
+  width: 16px;
 
-  font-size: 12px;
-  color: var(--neutral-000);
-  font-weight: bold;
-  line-height: normal;
-  letter-spacing: 1px;
-  text-transform: uppercase;
   cursor: pointer;
+  background-color: var(--neutral-000);
+  mask: url('/src/images/copy.svg') no-repeat;
 
-  &:focus {
-    outline: 0;
-  }
   transition: all .15s ease-in-out;
 }
 
 .copyToCBButton:hover {
-  cursor: pointer;
-  border-radius: 4px;
-  box-shadow: inset 0 0 0 1px rgba(255,255,255,1);
+  background-color: #3afba6;
 }
 
 .expandButton {
   position: absolute;
-  top: 16px;
-  right: 40px;
-  box-sizing: border-box;
-  height: 32px;
-  padding: 8px 8px;
-  border-radius: 2px;
-  border: none;
+  top: 20px;
+  right: 16px;
+  height: 16px;
+  width: 16px;
 
-  font-size: 12px;
-  color: var(--neutral-000);
-  font-weight: bold;
-  line-height: normal;
-  letter-spacing: 1px;
-  text-transform: uppercase;
   cursor: pointer;
+  background-color: var(--neutral-000);
+  mask: url('/src/images/code.svg') no-repeat;
 
-  &:focus {
-    outline: 0;
-  }
   transition: all .15s ease-in-out;
 }
 
 .expandButton:hover {
-  cursor: pointer;
-  border-radius: 4px;
-  box-shadow: inset 0 0 0 1px rgba(255,255,255,1);
+  background-color: #3afba6;
+}
+
+.copyNotification {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+
+  background-color: rgba(91, 224, 136, .6);
+
+  border-radius: 0 0 4px 4px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: -1;
+  opacity: 0;
+  transition:
+          opacity .5s ease-in-out,
+          z-index .5s step-end;
+
+
+  &.display {
+    z-index: 1;
+    opacity: 1;
+
+    transition:
+            opacity .2s ease-in-out,
+            z-index .2s step-start;
+  }
+
+  & .label {
+    text-transform: uppercase;
+    color: var(--neutral-000);
+    line-height: 16px;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 1px;
+  }
 }

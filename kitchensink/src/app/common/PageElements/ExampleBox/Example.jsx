@@ -7,8 +7,8 @@ import './example.css';
 
 export default class Example extends React.Component {
 
-  handleMouseOver(description, index) {
-    this.props.onMouseOver(description, index);
+  handleMouseOver(description) {
+    this.props.onMouseOver(description);
   }
 
   render() {
@@ -16,7 +16,8 @@ export default class Example extends React.Component {
       <div
         styleName={classNames('example', { hoveredLast: this.props.hoveredLast })}
         onClick={() => this.props.onExampleClick(this.props.exampleProps)}
-        onMouseOver={() => this.handleMouseOver(this.props.exampleProps.description, this.props.index)}
+        onMouseOver={() => this.handleMouseOver(this.props.exampleProps.description)}
+        onMouseLeave={() => this.handleMouseOver()}
       >
         <div styleName={'componentOverlay'}>
           <this.props.component {...this.props.exampleProps} />
@@ -34,8 +35,6 @@ Example.defaultProps = {};
 Example.propTypes = {
   component: PropTypes.func.isRequired,
   exampleProps: PropTypes.shape().isRequired,
-  index: PropTypes.number.isRequired,
-  hoveredLast: PropTypes.bool.isRequired,
   onExampleClick: PropTypes.func.isRequired,
   onMouseOver: PropTypes.func.isRequired,
 };

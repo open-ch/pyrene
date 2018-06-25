@@ -4,11 +4,11 @@ import Table from './Table';
 import PropTypes from 'prop-types';
 import IconSelect from '../IconSelect/IconSelect';
 
-import './propTableEditor.css';
+import './dynamicPropTable.css';
 import Counter from '../Counter/Counter';
 
 
-export default class PropTableEditor extends React.Component {
+export default class DynamicPropTable extends React.Component {
 
   constructor(props) {
     super(props);
@@ -137,13 +137,13 @@ export default class PropTableEditor extends React.Component {
 
 }
 
-PropTableEditor.displayName = 'PropTableEditor';
+DynamicPropTable.displayName = 'DynamicPropTable';
 
-PropTableEditor.defaultProps = {
+DynamicPropTable.defaultProps = {
 
 };
 
-PropTableEditor.propTypes = {
+DynamicPropTable.propTypes = {
   componentProps: PropTypes.objectOf(PropTypes.shape({
     propName: PropTypes.objectOf(PropTypes.shape({
       defaultValue: PropTypes.string,

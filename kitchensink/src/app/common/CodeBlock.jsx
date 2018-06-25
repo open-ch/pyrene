@@ -18,48 +18,58 @@ export default class CodeBlock extends React.Component {
     this.state = {
       expanded: false,
       pinned: false,
+      displayCopyNotification: false,
     };
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    if (nextProps.displayComponentPinned && prevState.pinned) {
+    if (nextProps.displayComponentPinned !== prevState.pinned) {
       return {
-        pinned: !prevState.pinned,
+        pinned: nextProps.displayComponentPinned,
       };
     }
     // No State Change
     return null;
   }
 
-
-  handlePinClick() {
-    this.setState((prevState, props) => ({
-      pinned: !prevState.pinned,
-    }),
-    () => this.props.onCodeBlockHoverClick(this.state.pinned));
-  }
-
-
   handleCodeBlockStyle() {
     const syntaxHighlighterStyle = {
       margin: 0,
-      borderRadius: 4,
+      borderRadius: '0 0 4px 4px',
       overflow: 'hidden',
       boxSizing: 'border-box',
     };
 
     if (this.state.expanded) {
       syntaxHighlighterStyle.padding = '16px 0 16px 16px';
-      delete syntaxHighlighterStyle.height;
-      delete syntaxHighlighterStyle.lineHeight;
     } else {
-      delete syntaxHighlighterStyle.padding;
       syntaxHighlighterStyle.paddingLeft = '16px';
-      syntaxHighlighterStyle.height = '64px';
-      syntaxHighlighterStyle.lineHeight = '36px';
+      syntaxHighlighterStyle.height = '56px';
+      syntaxHighlighterStyle.display = 'flex';
+      syntaxHighlighterStyle.alignItems = 'center';
     }
     return syntaxHighlighterStyle;
   }
+
+  displayCopyNotifier = (displayTimeMS) => {
+    this.setState(() => ({
+      displayCopyNotification: true,
+    }),
+    () => {
+      setTimeout(() => (
+        this.setState(() => ({
+          displayCopyNotification: false,
+        }))
+      ), displayTimeMS);
+    }
+    );
+  };
+
+  copyCodeToClipBoard(code) {
+    this.displayCopyNotifier(500);
+    Utils.copyStringToClipboard(code);
+  };
+
 
   handleExpand() {
     this.setState((prevState, props) => ({
@@ -98,13 +108,15 @@ export default class CodeBlock extends React.Component {
     const entireCode = this.generateCodeForComponent(this.props.component, true);
     return (
       <div styleName={classNames('codeContainer', { pinned: this.state.pinned })}>
-        <div styleName={classNames('ufo', { pinned: this.state.pinned })} onClick={() => this.handlePinClick()} />
         <SyntaxHighlighter style={osagCodeColorScheme} language={'jsx'} customStyle={this.handleCodeBlockStyle()}>
           {displayedCode}
         </SyntaxHighlighter>
 
-        <div className={'unSelectable'} styleName={'copyToCBButton'} onClick={() => Utils.copyStringToClipboard(entireCode)}>Copy code</div>
-        <div className={'unSelectable'} styleName={'expandButton'} onClick={() => this.handleExpand()}>{'</>'}</div>
+        <div className={'unSelectable'} styleName={'copyToCBButton'} onClick={() => this.copyCodeToClipBoard(entireCode)} />
+        <div styleName={classNames('copyNotification', { display: this.state.displayCopyNotification })}>
+          <div styleName={'label'}>Copied to Clipboard</div>
+        </div>
+        <div className={'unSelectable'} styleName={'expandButton'} onClick={() => this.handleExpand()} />
       </div>
     );
   }
@@ -117,6 +129,5 @@ CodeBlock.defaultProps = {};
 
 CodeBlock.propTypes = {
   component: PropTypes.element.isRequired,
-  onCodeBlockHoverClick: PropTypes.func.isRequired,
   displayComponentPinned: PropTypes.bool.isRequired,
 };

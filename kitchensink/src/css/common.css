@@ -7,6 +7,10 @@
   padding: 0;
 }
 
+p {
+  margin-top: 1em;
+}
+
 /**** FONTS ****/
 /* AvenirNext-Regular */
 @font-face {
@@ -116,4 +120,8 @@ body {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-row-gap: 40px;
+}
+
+:global(.highlighted) {
+  background-color: var(--acqua-100);
 }
