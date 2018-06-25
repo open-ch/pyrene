@@ -6,7 +6,9 @@ import CreatableSelect from 'react-select/lib/Creatable';
 import SelectStyle from './singleSelectCSS';
 import '../select.css';
 
-
+/**
+ * Selection elements are used primarily on ....
+ */
 const SingleSelect = props => (
   <div styleName={classNames('selectContainer', { disabled: props.disabled })}>
     {props.title && <div styleName={classNames('selectTitle', { required: props.required && !props.disabled })}>{props.title}</div>}
@@ -73,7 +75,7 @@ const SingleSelect = props => (
   </div>
 );
 
-SingleSelect.displayName = 'SingleSelect';
+SingleSelect.displayName = 'Select';
 
 SingleSelect.defaultProps = {
   placeholder: 'Select',

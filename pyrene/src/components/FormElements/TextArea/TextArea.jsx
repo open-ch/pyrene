@@ -4,6 +4,9 @@ import classNames from 'classnames';
 import './textArea.css';
 
 
+/**
+ * Textareas are used primarily on ....
+ */
 export default class TextArea extends React.Component {
 
   constructor(props) {
@@ -84,7 +87,7 @@ export default class TextArea extends React.Component {
 
 }
 
-TextArea.displayName = 'TextArea';
+TextArea.displayName = 'Textarea';
 
 TextArea.defaultProps = {
   title: '',

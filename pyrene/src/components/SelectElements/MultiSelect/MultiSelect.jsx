@@ -6,6 +6,9 @@ import Select from 'react-select';
 import CreatableSelect from 'react-select/lib/Creatable';
 import MultiSelectStyle from './multiSelectCSS';
 
+/**
+ * Selection elements are used primarily on ....
+ */
 const MultiSelect = props => (
   <div styleName={classNames('selectContainer', { disabled: props.disabled })}>
     {props.title && <div styleName={classNames('selectTitle', { required: props.required && !props.disabled })}>{props.title}</div>}
@@ -74,7 +77,7 @@ const MultiSelect = props => (
   </div>
 );
 
-MultiSelect.displayName = 'MultiSelect';
+MultiSelect.displayName = 'Multi-Select';
 
 MultiSelect.defaultProps = {
   placeholder: 'Select',
