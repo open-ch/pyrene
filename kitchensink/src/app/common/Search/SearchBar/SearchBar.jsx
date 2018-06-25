@@ -54,6 +54,7 @@ class SearchBar extends React.Component {
     if (this.state.shouldRedirectToPageBeforeSearch) {
       return <Redirect to={this.state.lastPathBeforeSearch} push />;
     }
+    return null;
   };
 
   handleChange = (event) => {
