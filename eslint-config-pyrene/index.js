@@ -15,8 +15,6 @@ module.exports = {
   },
 
   "rules": {
-    // No need to return something in an arrow function
-    "consistent-return": 0,
     // require trailing commas for multiline (arrays, objects, imports, exports & functions), disallowed for same line
     "comma-dangle": [2, "always-multiline"],
     // require function expressions to have a name
