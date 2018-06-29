@@ -14,14 +14,20 @@ export default class Checkbox extends React.Component {
 
     this.toggleChange = this.toggleChange.bind(this);
     this.state = {
-      checked: this.props.checked,
+      checked: props.checked,
+      lastProps: {
+        checked: props.checked,
+      },
     };
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    if (prevState.checked !== nextProps.checked) {
+    if (prevState.lastProps.checked !== nextProps.checked) {
       return {
         checked: nextProps.checked,
+        lastProps: {
+          checked: nextProps.checked
+        },
       };
     }
     return null;

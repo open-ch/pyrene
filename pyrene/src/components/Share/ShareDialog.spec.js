@@ -17,7 +17,6 @@ describe('<ShareDialog />', () => {
     const onClick = sinon.spy();
     const rendered = mount(<ShareDialog {...props} onClick={onClick} />);
     rendered.find('button').simulate('click');
-    console.log(rendered.debug());
 
     expect(rendered.find('.shareDialog')).to.have.length(1);
   });

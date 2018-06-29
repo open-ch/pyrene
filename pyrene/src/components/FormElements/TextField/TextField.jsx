@@ -13,14 +13,20 @@ export default class TextField extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.state = {
-      inputText: '',
+      inputText: props.inputText,
+      lastProps: {
+        inputText: props.inputText,
+      },
     };
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    if (prevState.inputText !== nextProps.inputText) {
+    if (prevState.lastProps.inputText !== nextProps.inputText) {
       return {
         inputText: nextProps.inputText,
+        lastProps: {
+          inputText: nextProps.inputText,
+        },
       };
     }
     // No State Change

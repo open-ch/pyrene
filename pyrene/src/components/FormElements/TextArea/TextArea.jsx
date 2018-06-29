@@ -15,19 +15,26 @@ export default class TextArea extends React.Component {
     this.textAreaRef = React.createRef();
     this.handleChange = this.handleChange.bind(this);
     this.state = {
-      value: '',
+      value: props.value,
+      lastProps: {
+        value: props.value,
+      },
     };
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    if (prevState.value !== nextProps.value) {
+    if (prevState.lastProps.value !== nextProps.value) {
       return {
         value: nextProps.value,
+        lastProps: {
+          value: nextProps.value,
+        },
       };
     }
     // No State Change
     return null;
   }
+
 
   handleChange(event) {
     const newValue = event.target.value;
