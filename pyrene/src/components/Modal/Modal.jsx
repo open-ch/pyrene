@@ -5,6 +5,10 @@ import './modal.css';
 import ButtonBar from '../ButtonBar/ButtonBar';
 import Button from '../Button/Button';
 
+/**
+ * I'm pretty modal.
+ *
+ */
 const Modal = (props) => {
 
   const ModalContent = (
@@ -43,14 +47,40 @@ Modal.defaultProps = {
 };
 
 Modal.propTypes = {
-  loading: PropTypes.bool,
-  titleLabel: PropTypes.string.isRequired,
-  content: PropTypes.element.isRequired,
-  size: PropTypes.oneOf(['small', 'large', 'xlarge']).isRequired,
+  /**
+   * Specifies the buttons that are displayed on the bottom of the modal
+   */
   buttonBarElements: PropTypes.arrayOf(PropTypes.element),
-  previousButtonClicked: PropTypes.func,
-  nextButtonClicked: PropTypes.func,
+  /**
+   * Closebutton clickhandler
+   */
   closeButtonClicked: PropTypes.func,
+  /**
+   * Content displayed by Modal
+   */
+  content: PropTypes.element.isRequired,
+  /**
+   * Displays a loader when true
+   */
+  loading: PropTypes.bool,
+  /**
+   * Top right next button click handler
+   */
+  nextButtonClicked: PropTypes.func,
+  /**
+   * Top right previous button click handler
+   */
+  previousButtonClicked: PropTypes.func,
+  /**
+   * Specifies the size
+   */
+  size: PropTypes.oneOf(['small', 'large', 'xlarge']).isRequired,
+  /**
+   * Sets the title
+   */
+  titleLabel: PropTypes.string.isRequired,
 };
+
+Modal.needsTrigger = true;
 
 export default Modal;
