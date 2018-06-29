@@ -6,6 +6,9 @@ import CodeBlock from '../common/CodeBlock';
 import DynamicPropTable from './PageElements/Tables/DynamicPropTable';
 import Paragraph from './PageElements/Paragraph/Paragraph';
 import ExampleBox from './PageElements/ExampleBox/ExampleBox';
+import Frame from 'react-frame-component';
+import Select from 'react-select';
+import ParentButton from './PageElements/ParentButton/ParentButton';
 
 
 export default class ComponentEditor extends React.Component {
@@ -53,7 +56,7 @@ export default class ComponentEditor extends React.Component {
           <div styleName={classNames('displayContainer', { pinned: this.state.pinned })}>
             <div styleName={classNames('pin', { pinned: this.state.pinned })} onClick={() => this.handlePinClick()} />
             <div styleName={'componentDisplay'}>
-              {this.state.displayedComponent}
+              {this.props.component.needsTrigger ? <ParentButton component={this.state.displayedComponent} /> : this.state.displayedComponent}
             </div>
             <CodeBlock component={this.state.displayedComponent} displayComponentPinned={this.state.pinned} />
           </div>
@@ -70,7 +73,7 @@ ComponentEditor.displayName = 'ComponentEditor';
 
 ComponentEditor.propTypes = {
   component: PropTypes.func.isRequired,
-  startProps: PropTypes.objectOf(PropTypes.any).isRequired
+  startProps: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 ComponentEditor.defaultProps = {};
