@@ -12,7 +12,7 @@
     "prebuild": "yarn install",
     "build": "webpack",
     "prestart": "yarn install",
-    "start": "webpack-dev-server",
+    "start": "yarn link pyrene; webpack-dev-server",
     "release": "release-it"
   },
   "devDependencies": {
@@ -56,7 +56,6 @@
     "pyrene": "^0.1.0",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
-    "react-frame-component": "^4.0.0",
     "react-select": "^2.0.0-beta.6"
   }
 }

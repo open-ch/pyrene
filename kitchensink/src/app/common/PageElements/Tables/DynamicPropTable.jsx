@@ -140,7 +140,6 @@ export default class DynamicPropTable extends React.Component {
 DynamicPropTable.displayName = 'DynamicPropTable';
 
 DynamicPropTable.defaultProps = {
-
 };
 
 DynamicPropTable.propTypes = {

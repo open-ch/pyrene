@@ -6,8 +6,8 @@ import CodeBlock from '../common/CodeBlock';
 import DynamicPropTable from './PageElements/Tables/DynamicPropTable';
 import Paragraph from './PageElements/Paragraph/Paragraph';
 import ExampleBox from './PageElements/ExampleBox/ExampleBox';
-import Frame from 'react-frame-component';
-import Select from 'react-select';
+import Utils from './Utils';
+
 import ParentButton from './PageElements/ParentButton/ParentButton';
 
 
@@ -18,8 +18,12 @@ export default class ComponentEditor extends React.Component {
     this.handleEditorChange = this.handleEditorChange.bind(this);
     this.handleExampleClick = this.handleExampleClick.bind(this);
 
+    if (!Utils.isStateless(this.props.component)) {
+      this.displayedComponentRef = React.createRef();
+    }
+
     this.state = {
-      displayedComponent: <this.props.component {...this.props.startProps} />,
+      displayedComponent: <this.props.component ref={this.displayedComponentRef} {...this.props.startProps} onChange={this.handleComponentInteraction} />,
       component: this.props.component,
       pinned: true,
     };
@@ -28,9 +32,17 @@ export default class ComponentEditor extends React.Component {
   handleEditorChange(prop, newValue) {
     const changedProp = { [prop]: newValue };
     this.setState(() => ({
-      displayedComponent: <this.state.component {...this.state.displayedComponent.props} {...changedProp} />
+      displayedComponent: <this.state.component ref={this.displayedComponentRef} {...this.state.displayedComponent.props} {...changedProp} />,
     }));
   }
+
+  handleComponentInteraction = () => {
+    if (typeof this.displayedComponentRef !== 'undefined') {
+      this.setState(() => ({
+        displayedComponent: <this.state.component ref={this.displayedComponentRef} {...this.state.displayedComponent.props} {...this.displayedComponentRef.current.state} />,
+      }));
+    }
+  };
 
   handlePinClick() {
     this.setState((prevState, props) => ({
@@ -43,6 +55,7 @@ export default class ComponentEditor extends React.Component {
       displayedComponent: <this.state.component {...exampleProps} />,
     }));
   }
+
 
   render() {
     return (
@@ -60,7 +73,11 @@ export default class ComponentEditor extends React.Component {
             </div>
             <CodeBlock component={this.state.displayedComponent} displayComponentPinned={this.state.pinned} />
           </div>
-          <DynamicPropTable componentProps={this.props.component.__docgenInfo.props} activeValues={this.state.displayedComponent.props} onEditorChange={this.handleEditorChange} />
+          <DynamicPropTable
+            componentProps={this.props.component.__docgenInfo.props}
+            activeValues={this.state.displayedComponent.props}
+            onEditorChange={this.handleEditorChange}
+          />
         </Paragraph>
       </div>
     );

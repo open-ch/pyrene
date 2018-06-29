@@ -17,4 +17,8 @@ export default class Utils {
     }
   }
 
+  static isStateless(component) {
+    return typeof component !== 'string' && !component.prototype.render;
+  }
+
 }
