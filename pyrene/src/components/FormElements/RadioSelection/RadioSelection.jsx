@@ -13,14 +13,20 @@ export default class RadioSelection extends React.Component {
 
     this._handleRadioSelection = this._handleRadioSelection.bind(this);
     this.state = {
-      selectedOption: this.props.selectedOption,
+      selectedOption: props.selectedOption,
+      lastProps: {
+        selectedOption: props.selectedOption,
+      },
     };
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    if (prevState.selectedOption !== nextProps.selectedOption) {
+    if (prevState.lastProps.selectedOption !== nextProps.selectedOption) {
       return {
         selectedOption: nextProps.selectedOption,
+        lastProps: {
+          selectedOption: nextProps.selectedOption
+        },
       };
     }
     return null;
