@@ -57,7 +57,7 @@ export default class ComponentEditor extends React.Component {
             </div>
             <CodeBlock component={this.state.displayedComponent} displayComponentPinned={this.state.pinned} />
           </div>
-          <DynamicPropTable componentProps={this.props.component.__docgenInfo.props} activePropValues={this.state.displayedComponent.props} onEditorChange={this.handleEditorChange} />
+          <DynamicPropTable componentProps={this.props.component.__docgenInfo.props} activeValues={this.state.displayedComponent.props} onEditorChange={this.handleEditorChange} />
         </Paragraph>
       </div>
     );

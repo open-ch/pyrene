@@ -1,12 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import '../../css/logo.css';
-
+import { Link } from 'react-router-dom';
 
 const Logo = props => (
-  <div styleName={'kitchenSinkLogo'}>
-    <div styleName={'versionNr'}>{props.versionNr}</div>
-  </div>
+  <Link to={'/'}>
+    <div styleName={'kitchenSinkLogo'}>
+      <div styleName={'versionNr'}>{props.versionNr}</div>
+    </div>
+  </Link>
 );
 
 Logo.displayName = 'Logo';

@@ -21,7 +21,7 @@ export default class DynamicPropTable extends React.Component {
 
   handleArrays(propName, propProps) {
     if (propProps.type.value.name === 'string') {
-      const options = this.props.activePropValues[propName].map(propChoice => ({ value: propChoice, label: propChoice }));
+      const options = this.props.activeValues[propName].map(propChoice => ({ value: propChoice, label: propChoice }));
       return (
         <MultiSelect
           key={propName}
@@ -29,7 +29,7 @@ export default class DynamicPropTable extends React.Component {
           options={options}
 
           defaultValues={options.map(option => option.value)}
-          value={this.props.activePropValues[propName] && options}
+          value={this.props.activeValues[propName] && options}
 
           onChange={(changedOption) => {
             if (changedOption !== null) {
@@ -53,7 +53,7 @@ export default class DynamicPropTable extends React.Component {
           <React.Fragment key={propName}>
             {propName === 'icon' ?
               <IconSelect
-                inputValue={this.props.activePropValues[propName]}
+                inputValue={this.props.activeValues[propName]}
                 onChange={(changedOption) => {
                   if (changedOption !== null) {
                     this.handlePropEditorChange(propName, changedOption.label);
@@ -66,7 +66,7 @@ export default class DynamicPropTable extends React.Component {
               <TextField
                 name={propName}
                 placeholder={'Change me'}
-                inputText={this.props.activePropValues[propName]}
+                inputText={this.props.activeValues[propName]}
                 onChange={changedValue => this.handlePropEditorChange(propName, changedValue)}
               />
             }
@@ -86,7 +86,7 @@ export default class DynamicPropTable extends React.Component {
               }
             }}
             defaultValue={0}
-            value={this.props.activePropValues[propName] && { value: this.props.activePropValues[propName], label: this.props.activePropValues[propName] }}
+            value={this.props.activeValues[propName] && { value: this.props.activeValues[propName], label: this.props.activeValues[propName] }}
             key={propName}
           />
         );
@@ -96,7 +96,7 @@ export default class DynamicPropTable extends React.Component {
           <Checkbox
             key={propName}
             label={propName}
-            checked={this.props.activePropValues[propName]}
+            checked={this.props.activeValues[propName]}
             onChange={value => this.handlePropEditorChange(propName, value)}
           />
         );
@@ -105,7 +105,7 @@ export default class DynamicPropTable extends React.Component {
         return (
           <Counter
             key={propName}
-            number={this.props.activePropValues[propName]}
+            number={this.props.activeValues[propName]}
             onChange={value => this.handlePropEditorChange(propName, value)}
           />
         );
@@ -155,5 +155,5 @@ DynamicPropTable.propTypes = {
     })),
   })).isRequired,
   onEditorChange: PropTypes.func.isRequired,
-  activePropValues: PropTypes.object,
+  activeValues: PropTypes.object,
 };

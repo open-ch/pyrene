@@ -51,7 +51,7 @@ export default class ResultsPage extends React.Component {
       </div>
       <div styleName={'topicContent'}>
         <Paragraph>
-          <SearchResult description={'We searched far and wide and couldn’t find any content matching your search. Please give it another try.'} />
+          We searched far and wide and couldn’t find any content matching your search. Please give it another try.
         </Paragraph>
         <img src={'/src/images/galaxy.svg'} style={{ marginTop: 130 }} alt={'Placeholder where are you?'} />
       </div>

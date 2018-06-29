@@ -20,7 +20,7 @@ export default class SearchResult extends React.Component {
     }
   };
 
-  render () {
+  render() {
     return (
       <div styleName={'searchResult'} onClick={this.handleClick}>
         {this.props.title && <div styleName={'title'}>
