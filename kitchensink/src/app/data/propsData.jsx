@@ -1,25 +1,21 @@
 import React from 'react';
-import Table from '../common/PageElements/Tables/Table';
 
-const testTable = (
-  <Table
-    cellWidthArray={['100px', '200px']}
-    headerElementArray={['Test', 'Test2']}
-    rowArray={[
-      ['test1', 'test2'],
-      ['test1', 'test2'],
-      ['test1', 'test2'],
-      ['test1', 'test2'],
-      ['test1', 'test2'],
-      ['test1', 'test2'],
-      ['test1', 'test2'],
-      ['test1', 'test2'],
-      ['test1', 'test2'],
-      ['test1', 'test2'],
-      ['test1', 'test2'],
-      ['test1', 'test2'],
-      ['test1', 'test2']]}
-  />
+const ContentFiller = (props) => (
+  <div style={{ width: props.width,
+    height: props.height,
+    backgroundColor: 'var(--neutral-020)',
+    textAlign: 'center',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: 'var(--neutral-100)',
+    fontSize: 32,
+    fontWeight: 'bold',
+    textTransform: 'uppercase',
+    letterSpacing: 1 }}
+  >
+    Content Filler
+  </div>
 );
 
 const testOptions = [
@@ -65,12 +61,17 @@ const startProps = {
   'checkbox': {
     label: 'Click Me',
   },
+  'collapsible': {
+    title: 'Show More',
+    titleExpanded: 'Show Less',
+    children: <ContentFiller width={500} height={300} />,
+  },
   'link': {
     label: 'Click Me',
     path: '#',
   },
   'modal': {
-    content: testTable,
+    content: <ContentFiller width={400} height={600} />,
     size: 'small',
     titleLabel: 'Modal',
   },
