@@ -9,31 +9,41 @@ import Button from '../Button/Button';
  * I'm pretty modal.
  *
  */
-const Modal = (props) => {
+export default class Modal extends React.Component {
 
-  const ModalContent = (
+  componentDidMount() {
+    document.body.style.overflow = 'hidden';
+  }
+
+  componentWillUnmount() {
+    document.body.style.overflow = 'auto';
+  }
+
+  modalContent = (
     <Fragment>
       <div styleName={'titleBar'}>
-        {props.titleLabel}
+        {this.props.titleLabel}
       </div>
       <div styleName={'contentContainer'}>
         <div styleName={'content'}>
-          {props.content}
+          {this.props.content}
         </div>
       </div>
     </Fragment>
   );
 
-  return (
-    <Fragment>
-      <div styleName="modalOverlay">
-        <div styleName={classNames('modalContainer', props.size)}>
-          {props.loading ? <Loader /> : ModalContent}
-          <ButtonBar rightButtonSectionElements={[<Button label={'Cancel'} onClick={props.closeButtonClicked} />]} />
+  render() {
+    return (
+      <Fragment>
+        <div styleName="modalOverlay">
+          <div styleName={classNames('modalContainer', this.props.size)}>
+            {this.props.loading ? <Loader/> : this.modalContent}
+            <ButtonBar rightButtonSectionElements={[<Button label={'Cancel'} onClick={this.props.closeButtonClicked}/>]}/>
+          </div>
         </div>
-      </div>
-    </Fragment>
-  );
+      </Fragment>
+    );
+  }
 };
 
 Modal.displayName = 'Modal';
@@ -82,5 +92,3 @@ Modal.propTypes = {
 };
 
 Modal.needsTrigger = true;
-
-export default Modal;
