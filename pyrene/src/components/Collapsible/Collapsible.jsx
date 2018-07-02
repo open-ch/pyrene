@@ -9,20 +9,20 @@ export default class Collapsible extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      collapsed: props.collapsed,
+      expanded: props.expanded,
       lastProps: {
-        collapsed: props.collapsed,
+        expanded: props.expanded,
       },
     };
   }
 
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    if (prevState.lastProps.collapsed !== nextProps.collapsed) {
+    if (prevState.lastProps.expanded !== nextProps.expanded) {
       return {
-        collapsed: nextProps.collapsed,
+        expanded: nextProps.expanded,
         lastProps: {
-          collapsed: nextProps.collapsed,
+          expanded: nextProps.expanded,
         },
       };
     }
@@ -32,15 +32,18 @@ export default class Collapsible extends React.Component {
 
   toggleCollapse = () => {
     this.setState((prevState, props) => ({
-      collapsed: !prevState.collapsed,
-    }));
+      expanded: !prevState.expanded,
+    }),
+    () => this.props.onChange(this.state.expanded)
+    );
   };
 
   render() {
     return (
-      <div styleName={classNames('collapsibleBox', {collapsed: this.state.collapsed})}>
+      <div styleName={classNames('collapsibleBox', {expanded: this.state.expanded})}>
         <div styleName="collapsibleHeader" onClick={this.toggleCollapse}>
-          {this.state.collapsed && this.props.titleCollapsed ? this.props.titleCollapsed : this.props.title}
+          {this.state.expanded && this.props.titleExpanded ? this.props.titleExpanded : this.props.title}
+          <span className={'icon-collapsDown'} styleName={'collapsArrow'}/>
         </div>
         <div styleName="collapsibleBody">
           {this.props.children}
@@ -53,15 +56,16 @@ export default class Collapsible extends React.Component {
 Collapsible.displayName = 'Collapsible';
 
 Collapsible.defaultProps = {
-  collapsed: false,
+  expanded: false,
   title: '',
-  titleCollapsed: '',
+  titleExpanded: '',
 };
 
 // properties validation
 Collapsible.propTypes = {
   children: PropTypes.node.isRequired,
-  collapsed: PropTypes.bool,
+  expanded: PropTypes.bool,
   title: PropTypes.string.isRequired,
-  titleCollapsed: PropTypes.string,
+  titleExpanded: PropTypes.string,
+  onChange: PropTypes.func,
 };
