@@ -1,0 +1,44 @@
+/* mc.css */
+.collapsibleBox .collapsibleHeader div {
+  height: 24px;
+}
+
+.collapsibleBox.collapsed .collapsibleBody {
+  display: none;
+}
+/* VirtualPacketTrackerShared/view.css */
+.collapsibleBox .collapsibleHeader {
+  background: #fafafa url('/mc/img/icons/icon-arrow-down.svg') no-repeat scroll right 64px center;
+  box-shadow: inset 0 1px 0 0 #e5e5e5;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.7;
+  color: #00152c;
+}
+
+.collapsibleBox .collapsibleHeader div {
+  height: 24px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.7;
+  color: #00152c;
+}
+
+.collapsibleBox.collapsed .collapsibleHeader {
+  margin-bottom: -1px; /** Avoid flicker on collapse/un-collapse **/
+}
+
+.collapsibleBox.collapsed:last-child .collapsibleHeader,
+.collapsibleBox.expanded .collapsibleHeader {
+  box-shadow: inset 0 1px 0 0 #e5e5e5, inset 0 -1px 0 0 #e5e5e5;
+}
+
+.collapsibleBox.collapsed .collapsibleBody {
+  display: none;
+}
+
+.collapsibleBox.expanded .collapsibleHeader {
+  background: #fafafa url('/mc/img/icons/icon-arrow-up.svg') no-repeat scroll right 64px center;
+}

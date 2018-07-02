@@ -14,6 +14,8 @@ import { default as TextField } from './components/FormElements/TextField/TextFi
 import { default as TextArea } from './components/FormElements/TextArea/TextArea';
 import { default as SingleSelect } from './components/SelectElements/SingleSelect/SingleSelect';
 import { default as MultiSelect } from './components/SelectElements/MultiSelect/MultiSelect';
+import { default as Collapsible } from './components/Collapsible/Collapsible';
+
 
 const Components = {
   Button,
@@ -27,6 +29,7 @@ const Components = {
   TextArea,
   SingleSelect,
   MultiSelect,
+  Collapsible,
 };
 
 export {Button};
@@ -40,5 +43,6 @@ export {TextField};
 export {TextArea};
 export {SingleSelect};
 export {MultiSelect};
+export {Collapsible};
 
 export default Components;
