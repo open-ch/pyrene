@@ -4,6 +4,9 @@ import classNames from 'classnames';
 
 import './collapsible.css';
 
+/**
+ * Click on me to reveal my secrets...
+ */
 export default class Collapsible extends React.Component {
 
   constructor(props) {
@@ -59,13 +62,28 @@ Collapsible.defaultProps = {
   expanded: false,
   title: '',
   titleExpanded: '',
+  onChange: () => null,
 };
 
-// properties validation
 Collapsible.propTypes = {
+  /**
+   * React private content prop
+   */
   children: PropTypes.node.isRequired,
+  /**
+   * Whether or not to display the specified children
+   */
   expanded: PropTypes.bool,
-  title: PropTypes.string.isRequired,
-  titleExpanded: PropTypes.string,
+  /**
+   * Event handler.
+   */
   onChange: PropTypes.func,
+  /**
+   * Displayed label when collapsed
+   */
+  title: PropTypes.string.isRequired,
+  /**
+   * Displayed label when expanded
+   */
+  titleExpanded: PropTypes.string,
 };
