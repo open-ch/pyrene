@@ -1,3 +1,5 @@
+import React from 'react';
+
 const testOptions = [
   { value: 'chocolate', label: 'Chocolate', invalid: false },
   { value: 'strawberry', label: 'Strawberry', invalid: false },
@@ -34,12 +36,21 @@ const testOptions = [
 
 
 const startProps = {
+  'arrowbutton': {},
   'button': {
     label: 'Click Me',
   },
-  'arrowbutton': {},
-  checkbox: {
+  'checkbox': {
     label: 'Click Me',
+  },
+  'link': {
+    label: 'Click Me',
+    path: '#',
+  },
+  'modal': {
+    content: <React.Fragment />,
+    size: 'small',
+    titleLabel: 'Modal',
   },
   'radioselection': {
     radioLabels: ['option 1', 'option 2', 'option 3'],
@@ -59,10 +70,7 @@ const startProps = {
     helperLabel: 'Helper text for instructions',
     width: 500,
   },
-  'link': {
-    label: 'Click Me',
-    path: '#',
-  },
+
   'multi-select': {
     title: 'Multi-Select',
     placeholder: 'Choose your favorite ice cream',

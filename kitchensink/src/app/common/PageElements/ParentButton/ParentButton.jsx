@@ -41,5 +41,5 @@ ParentButton.displayName = 'ParentButton';
 ParentButton.defaultProps = {};
 
 ParentButton.propTypes = {
-  component: PropTypes.func.isRequired,
+  component: PropTypes.element.isRequired,
 };
