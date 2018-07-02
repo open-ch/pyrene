@@ -1,4 +1,26 @@
 import React from 'react';
+import Table from '../common/PageElements/Tables/Table';
+
+const testTable = (
+  <Table
+    cellWidthArray={['100px', '200px']}
+    headerElementArray={['Test', 'Test2']}
+    rowArray={[
+      ['test1', 'test2'],
+      ['test1', 'test2'],
+      ['test1', 'test2'],
+      ['test1', 'test2'],
+      ['test1', 'test2'],
+      ['test1', 'test2'],
+      ['test1', 'test2'],
+      ['test1', 'test2'],
+      ['test1', 'test2'],
+      ['test1', 'test2'],
+      ['test1', 'test2'],
+      ['test1', 'test2'],
+      ['test1', 'test2']]}
+  />
+);
 
 const testOptions = [
   { value: 'chocolate', label: 'Chocolate', invalid: false },
@@ -48,7 +70,7 @@ const startProps = {
     path: '#',
   },
   'modal': {
-    content: <React.Fragment />,
+    content: testTable,
     size: 'small',
     titleLabel: 'Modal',
   },
