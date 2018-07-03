@@ -4,31 +4,32 @@ import classNames from 'classnames';
 
 import './tabView.css';
 
-
+/**
+ * Feed me data and i shall give you tabs
+ */
 export default class TabView extends React.Component {
 
   constructor(props) {
     super(props);
 
-    const [visibleTabs, moreTabs] = this.props.moreTabCutoff && this.props.tabs.length > this.props.moreTabCutoff
+    this.state = {
+      selectedTabIndex: props.tabs.map(t => t.name).indexOf(props.initialTabName),
+      displayMoreMenu: false,
+      moreTabLabel: 'More',
+    };
+  }
+
+  computeTabs = () => {
+    return this.props.directAccessTabs && this.props.tabs.length > this.props.directAccessTabs
       ? [
-        this.props.tabs.slice(0, this.props.moreTabCutoff),
-        this.props.tabs.slice(this.props.moreTabCutoff),
+        this.props.tabs.slice(0, this.props.directAccessTabs),
+        this.props.tabs.slice(this.props.directAccessTabs),
       ]
       : [
         this.props.tabs,
         null,
       ];
-
-    this.state = {
-      selectedTabIndex: props.tabs.map(t => t.name).indexOf(props.initialTabName),
-      visibleTabs,
-      moreTabs,
-      displayMoreMenu: false,
-      moreTabLabel: 'More',
-    };
-
-  }
+  };
 
   _tabChanged(tabName, index, event) {
     event.stopPropagation();
@@ -39,7 +40,7 @@ export default class TabView extends React.Component {
       }),
       () => this.props.tabChanged(tabName, index));
     }
-    if (index >= this.state.visibleTabs.length) {
+    if (this.props.directAccessTabs && index >= this.props.directAccessTabs) {
       this.setState(() => ({
         moreTabLabel: tabName,
       }));
@@ -56,7 +57,7 @@ export default class TabView extends React.Component {
     }));
   };
 
-  renderMoreMenu = () => (
+  renderMoreMenu = (moreTabs, visibleTabs) => (
     <div styleName={'moreMenu'}>
 
       <div styleName={'title'}>
@@ -64,8 +65,8 @@ export default class TabView extends React.Component {
         <span className={'icon-collapsDown'} styleName={'moreArrow'} />
       </div>
 
-      {this.state.moreTabs.map((tab, index) =>
-        <div styleName={'option'} key={tab.name} onClick={(event) => !tab.disabled && this._tabChanged(tab.name, index + this.state.visibleTabs.length, event)}>
+      {moreTabs.map((tab, index) =>
+        <div styleName={'option'} key={tab.name} onClick={(event) => !tab.disabled && this._tabChanged(tab.name, index + visibleTabs.length, event)}>
           {tab.name}
         </div>
       )}
@@ -74,13 +75,14 @@ export default class TabView extends React.Component {
   );
 
   render() {
+    const [visibleTabs, moreTabs] = this.computeTabs();
 
     return (
-      <div styleName={'tabView'}>
+      <div styleName={classNames('tabView', {disabled: this.props.disabled})}>
 
         <div styleName={'tabBar'}>
           {
-            this.state.visibleTabs.map((tab, index) => (
+            visibleTabs.map((tab, index) => (
                 <div
                   styleName={classNames(
                       'tab',
@@ -96,20 +98,20 @@ export default class TabView extends React.Component {
             ))
           }
 
-          {this.state.moreTabs && this.state.moreTabs.length > 0 &&
+          {moreTabs && moreTabs.length > 0 &&
           <div
             styleName={
               classNames(
                 'moreTab',
                 {displayMenu: this.state.displayMoreMenu},
-                {selected: this.state.selectedTabIndex >= this.state.visibleTabs.length},
-                {hidden: !this.state.moreTabs.some((element) => (element.disabled === false))}
+                {selected: this.state.selectedTabIndex >= visibleTabs.length},
+                {hidden: !moreTabs.some((element) => (element.disabled === false))}
               )}
             className={'unSelectable'}
             onClick={this.toggleMoreMenu}>
             {this.state.moreTabLabel}
             <span className={'icon-collapsDown'} styleName={'moreArrow'} />
-            {this.renderMoreMenu()}
+            {this.renderMoreMenu(moreTabs, visibleTabs)}
           </div>
           }
         </div>
@@ -128,15 +130,15 @@ TabView.displayName = 'TabView';
 
 TabView.defaultProps = {
   disabled: false,
-  tabChanged: () => {},
-  moreTabCutoff: null,
+  tabChanged: () => null,
+  directAccessTabs: null,
 };
 
 TabView.propTypes = {
   disabled: PropTypes.bool,
   initialTabName: PropTypes.string.isRequired,
   tabChanged: PropTypes.func,
-  moreTabCutoff: PropTypes.number,
+  directAccessTabs: PropTypes.number,
   tabs: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string.isRequired,
     renderCallback: PropTypes.func.isRequired,
