@@ -65,7 +65,7 @@ export default class TabView extends React.Component {
       </div>
 
       {this.state.moreTabs.map((tab, index) =>
-        <div styleName={'option'} onClick={(event) => !tab.disabled && this._tabChanged(tab.name, index + this.state.visibleTabs.length, event)}>
+        <div styleName={'option'} key={tab.name} onClick={(event) => !tab.disabled && this._tabChanged(tab.name, index + this.state.visibleTabs.length, event)}>
           {tab.name}
         </div>
       )}
