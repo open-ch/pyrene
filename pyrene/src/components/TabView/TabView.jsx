@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import './tabView.css';
 
@@ -11,8 +12,8 @@ export default class TabView extends React.Component {
 
     const [visibleTabs, moreTabs] = this.props.moreTabCutoff && this.props.tabs.length > this.props.moreTabCutoff
       ? [
-        this.props.tabs.slice(0, this.props.moreTabCutoff + 1),
-        this.props.tabs.slice(this.props.moreTabCutoff + 1),
+        this.props.tabs.slice(0, this.props.moreTabCutoff),
+        this.props.tabs.slice(this.props.moreTabCutoff),
       ]
       : [
         this.props.tabs,
@@ -23,62 +24,103 @@ export default class TabView extends React.Component {
       selectedTabIndex: props.tabs.map(t => t.name).indexOf(props.initialTabName),
       visibleTabs,
       moreTabs,
+      displayMoreMenu: false,
+      moreTabLabel: 'More',
     };
 
   }
 
-  _tabChanged(tab, index) {
+  _tabChanged(tabName, index, event) {
+    event.stopPropagation();
     if (!this.props.disabled) {
-      this.setState({
+      this.setState((prevState, props) => ({
         selectedTabIndex: index,
-      });
-      this.props.tabChanged(tab, index);
+        displayMoreMenu: false,
+      }),
+      () => this.props.tabChanged(tabName, index));
+    }
+    if (index >= this.state.visibleTabs.length) {
+      this.setState(() => ({
+        moreTabLabel: tabName,
+      }));
+    } else {
+      this.setState(() => ({
+        moreTabLabel: 'More',
+      }))
     }
   }
+
+  toggleMoreMenu = () => {
+    this.setState((prevState, props) => ({
+      displayMoreMenu: !prevState.displayMoreMenu,
+    }));
+  };
+
+  renderMoreMenu = () => (
+    <div styleName={'moreMenu'}>
+      <div styleName={'title'}>
+        {this.state.moreTabLabel}
+        <span className={'icon-collapsUp'} styleName={'moreArrow'} />
+      </div>
+      {this.state.moreTabs.map((tab, index) => <div styleName={'option'} onClick={(event) => !tab.disabled && this._tabChanged(tab.name, index + this.state.visibleTabs.length, event)}>{tab.name}</div>)}
+    </div>
+  );
 
   render() {
 
     return (
-      <div>
-        <ul id="tabBar">
-          {
-            this.state.visibleTabs.map((tab, index) => {
-              const classNames = [];
-              if (index === this.state.selectedTabIndex) {
-                classNames.push('selected');
-              }
-              if (tab.disabled) {
-                classNames.push('disabled');
-              }
+      <div styleName={'tabView'}>
 
-              return (
-                <li key={tab.name}>
-                  <a
-                    id={`${tab.name}Tab`} href={`#${tab.name}`}
-                    className={classNames.join(' ')}
-                    onClick={() => !tab.disabled && this._tabChanged(tab.name, index)}
-                  >
-                    {tab.name}
-                  </a>
-                </li>
-              );
-            })
+        <div styleName={'tabBar'}>
+          {
+            this.state.visibleTabs.map((tab, index) => (
+                <div
+                  styleName={classNames(
+                      'tab',
+                      { selected: index === this.state.selectedTabIndex },
+                      { disabled: tab.disabled })
+                  }
+                  className={'unSelectable'}
+                  onClick={(event) => !tab.disabled && this._tabChanged(tab.name, index, event)}
+                  key={tab.name}
+                >
+                  {tab.name}
+                </div>
+            ))
           }
 
-          {this.state.moreTabs && this.state.moreTabs.length > 0 && (() => {
+          {this.state.moreTabs && this.state.moreTabs.length > 0 &&
+          <div
+            styleName={
+              classNames(
+                'moreTab',
+                {displayMenu: this.state.displayMoreMenu},
+                {selected: this.state.selectedTabIndex >= this.state.visibleTabs.length},
+                {disabled: !this.state.moreTabs.some((element) => (element.disabled === false))}
+              )}
+            className={'unSelectable'}
+            onClick={this.toggleMoreMenu}>
+            {this.state.moreTabLabel}
+            <span className={'icon-collapsDown'} styleName={'moreArrow'} />
+            {this.state.displayMoreMenu && this.renderMoreMenu()}
+          </div>
+          }
+        </div>
 
-            const showMoreOption = this.state.selectedTabIndex <= this.props.moreTabCutoff;
-            const classNames = ['moreTab'];
+        <div id="tabContent">
+          {this.props.tabs.map((e, i) => (i === this.state.selectedTabIndex ? (<div key={e.name}>{e.renderCallback()}</div>) : null))}
+        </div>
 
-            if (this.state.selectedTabIndex > this.props.moreTabCutoff) {
-              classNames.push('selected');
-            }
+      </div>
+    );
+  }
+}
 
-            return (
-              <li className="moreTab">
-                <select
-                  className={classNames.join(' ')}
-                  onChange={(event) => {
+/**
+<li className="moreTab">
+ <select
+ className={classNames.join(' ')}
+ onChange={(event) => {
 
                     const index = showMoreOption
                       ? parseInt(event.target.value) + 1
@@ -91,35 +133,22 @@ export default class TabView extends React.Component {
                     }
 
                   }}
-                >
-                  {showMoreOption && <option value="none" selected>MORE</option>}
-                  {
-                    this.state.moreTabs.map((tab, index) => {
-                      return (
-                        <option
-                          key={tab.name}
-                          value={index + this.props.moreTabCutoff}
-                        >{tab.name}</option>
-                      )
-                    })
-                  }
-                </select>
-              </li>
-            )
+ >
+ {showMoreOption && <option value="none" selected>MORE</option>}
+ {
+   this.state.moreTabs.map((tab, index) => {
+     return (
+       <option
+         key={tab.name}
+         value={index + this.props.moreTabCutoff}
+       >{tab.name}</option>
+     )
+   })
+ }
+ </select>
+ </li>
 
-          })()
-
-          }
-
-        </ul>
-
-        <div id="tabContent">
-          {this.props.tabs.map((e, i) => (i === this.state.selectedTabIndex ? (<div key={e.name}>{e.renderCallback()}</div>) : null))}
-        </div>
-      </div>
-    );
-  }
-}
+ */
 
 TabView.displayName = 'TabView';
 
