@@ -1,0 +1,145 @@
+/* new style tabBar (fw policy exporter and ticket statistics) */
+
+#tabBar {
+  height: 43px;
+  float: none;
+  margin: 0 16px 0 16px;
+  padding: 0;
+  border-bottom: 1px solid #e5e7e9;
+}
+
+#tabBar li {
+  list-style: none;
+  line-height: 29px;
+  float: left;
+  cursor: pointer;
+  padding-right: 31px;
+}
+
+#tabBar li a,
+#tabBar select {
+  color: #7f8a95;
+  line-height: 29px;
+  display: block;
+  text-decoration: none;
+  outline: none;
+  border: none;
+  font-family: AvenirNext;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.33;
+  letter-spacing: 1px;
+  text-align: left;
+  text-transform: uppercase;
+  padding: 8px 0 16px 0;
+}
+
+#tabBar li.moreTab select {
+  background: #fff url('/mc/img/icons/triangle-down.svg') no-repeat scroll left top 8px;
+  background-size: 16px 16px;
+  padding-left: 20px;
+}
+
+#tabBar li a.selected, #content_div_tabs li a.selected:hover {
+  color: #00152c;
+  border-right: 1px solid #e5e7e9;
+  border-top: 1px solid #e5e7e9;
+  border-bottom: 2px solid #fff;
+}
+
+#tabBar li a.disabled {
+  opacity: 0.5;
+}
+
+#tabBar li a.selected,
+#tabBar li select.selected {
+  border: none;
+  color: #00152c;
+  border-bottom: 4px solid black;
+}
+
+#tabBar li select.selected {
+  background: #fff url('/mc/img/icons/triangle-down-black.svg') no-repeat scroll left top 8px;
+}
+
+#tabBar li select {
+  cursor: pointer;
+}
+
+
+#tabContent {
+  margin: 24px 16px;
+}
+
+
+/* tabs styling */
+#content_div_tabs {
+  background-color: #ffffff;
+  box-shadow: inset 0 -1px 0 0 #d1d4d9;
+  margin-bottom: 16px;
+  width: 100%;
+}
+
+#content_div_tabs > div {
+  margin-left: auto;
+  margin-right: auto;
+  height: 48px;
+}
+
+#content_div_tabs div.tab {
+  border: none;
+  height: 24px;
+  color: #1f2532;
+}
+
+#content_div_tabs div.tab.selected {
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  border-bottom: 3px solid #3897f0;
+}
+
+#content_div_tabs div.tab {
+  min-width: 20px;
+  margin-right: 40px;
+  height: 44px;
+}
+
+#content_div_tabs div.tab a, #content_div_tabs div.tab span {
+  height: 47px;
+  line-height: 47px;
+  padding: 0 4px;
+  opacity: 0.5;
+  font-family: AvenirNext;
+  font-size: 14px;
+  font-weight: 500;
+  font-style: normal;
+  font-stretch: normal;
+  color: #1f2532;
+}
+
+#content_div_tabs div.tab.selected a, #content_div_tabs div.tab.selected span {
+  background-color: transparent;
+  opacity: 1;
+  color: #1f2532;
+}
+
+#content_div_tabs div.tab.selected a:hover,
+#content_div_tabs div.tab.selected span:hover {
+  opacity: 1;
+  color: #1f2532;
+  background-color: transparent;
+}
+
+#content_div_tabs div.tab a:hover,
+#content_div_tabs div.tab span:hover {
+  opacity: 1;
+  color: #1f2532;
+  background-color: transparent;
+}
+
+#content_div_tabs div.tab a:active {
+  opacity: 1;
+  color: #1f2532;
+  background-color: transparent;
+}
