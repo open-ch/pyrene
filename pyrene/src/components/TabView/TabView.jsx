@@ -58,11 +58,18 @@ export default class TabView extends React.Component {
 
   renderMoreMenu = () => (
     <div styleName={'moreMenu'}>
+
       <div styleName={'title'}>
         {this.state.moreTabLabel}
-        <span className={'icon-collapsUp'} styleName={'moreArrow'} />
+        <span className={'icon-collapsDown'} styleName={'moreArrow'} />
       </div>
-      {this.state.moreTabs.map((tab, index) => <div styleName={'option'} onClick={(event) => !tab.disabled && this._tabChanged(tab.name, index + this.state.visibleTabs.length, event)}>{tab.name}</div>)}
+
+      {this.state.moreTabs.map((tab, index) =>
+        <div styleName={'option'} onClick={(event) => !tab.disabled && this._tabChanged(tab.name, index + this.state.visibleTabs.length, event)}>
+          {tab.name}
+        </div>
+      )}
+
     </div>
   );
 
@@ -96,19 +103,19 @@ export default class TabView extends React.Component {
                 'moreTab',
                 {displayMenu: this.state.displayMoreMenu},
                 {selected: this.state.selectedTabIndex >= this.state.visibleTabs.length},
-                {disabled: !this.state.moreTabs.some((element) => (element.disabled === false))}
+                {hidden: !this.state.moreTabs.some((element) => (element.disabled === false))}
               )}
             className={'unSelectable'}
             onClick={this.toggleMoreMenu}>
             {this.state.moreTabLabel}
             <span className={'icon-collapsDown'} styleName={'moreArrow'} />
-            {this.state.displayMoreMenu && this.renderMoreMenu()}
+            {this.renderMoreMenu()}
           </div>
           }
         </div>
 
         <div id="tabContent">
-          {this.props.tabs.map((e, i) => (i === this.state.selectedTabIndex ? (<div key={e.name}>{e.renderCallback()}</div>) : null))}
+          {this.props.tabs[this.state.selectedTabIndex].renderCallback()}
         </div>
 
       </div>
