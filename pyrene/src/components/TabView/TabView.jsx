@@ -19,18 +19,6 @@ export default class TabView extends React.Component {
     };
   }
 
-  computeTabs = () => {
-    return this.props.directAccessTabs && this.props.tabs.length > this.props.directAccessTabs
-      ? [
-        this.props.tabs.slice(0, this.props.directAccessTabs),
-        this.props.tabs.slice(this.props.directAccessTabs),
-      ]
-      : [
-        this.props.tabs,
-        null,
-      ];
-  };
-
   _tabChanged(tabName, index, event) {
     event.stopPropagation();
     if (!this.props.disabled) {
@@ -59,27 +47,35 @@ export default class TabView extends React.Component {
 
   renderMoreMenu = (moreTabs, visibleTabs) => (
     <div styleName={'moreMenu'}>
-
       <div styleName={'title'}>
         {this.state.moreTabLabel}
         <span className={'icon-collapsDown'} styleName={'moreArrow'} />
       </div>
-
       {moreTabs.map((tab, index) =>
         <div styleName={'option'} key={tab.name} onClick={(event) => !tab.disabled && this._tabChanged(tab.name, index + visibleTabs.length, event)}>
           {tab.name}
         </div>
       )}
-
     </div>
   );
+
+  computeTabs = () => {
+    return this.props.directAccessTabs && this.props.tabs.length > this.props.directAccessTabs
+      ? [
+        this.props.tabs.slice(0, this.props.directAccessTabs),
+        this.props.tabs.slice(this.props.directAccessTabs),
+      ]
+      : [
+        this.props.tabs,
+        null,
+      ];
+  };
 
   render() {
     const [visibleTabs, moreTabs] = this.computeTabs();
 
     return (
       <div styleName={classNames('tabView', {disabled: this.props.disabled})}>
-
         <div styleName={'tabBar'}>
           {
             visibleTabs.map((tab, index) => (
@@ -97,7 +93,6 @@ export default class TabView extends React.Component {
                 </div>
             ))
           }
-
           {moreTabs && moreTabs.length > 0 &&
           <div
             styleName={
