@@ -116,39 +116,6 @@ export default class TabView extends React.Component {
   }
 }
 
-/**
-<li className="moreTab">
- <select
- className={classNames.join(' ')}
- onChange={(event) => {
-
-                    const index = showMoreOption
-                      ? parseInt(event.target.value) + 1
-                      : parseInt(event.target.value);
-
-                    const tab = this.props.tabs[index];
-
-                    if (!tab.disabled) {
-                      this._tabChanged(tab.name, index);
-                    }
-
-                  }}
- >
- {showMoreOption && <option value="none" selected>MORE</option>}
- {
-   this.state.moreTabs.map((tab, index) => {
-     return (
-       <option
-         key={tab.name}
-         value={index + this.props.moreTabCutoff}
-       >{tab.name}</option>
-     )
-   })
- }
- </select>
- </li>
-
- */
 
 TabView.displayName = 'TabView';
 
