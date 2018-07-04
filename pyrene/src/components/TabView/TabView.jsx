@@ -39,14 +39,25 @@ export default class TabView extends React.Component {
     }
   }
 
+  handleClickOutside = () => {
+    if (this.menuRef && !this.menuRef.contains(event.target) && this.state.displayMoreMenu) {
+      this.toggleMoreMenu();
+    }
+    document.removeEventListener('mousedown', this.handleClickOutside);
+  };
+
   toggleMoreMenu = () => {
-    this.setState((prevState, props) => ({
-      displayMoreMenu: !prevState.displayMoreMenu,
+    const displayMenu = !this.state.displayMoreMenu;
+    this.setState(() => ({
+      displayMoreMenu: displayMenu,
     }));
+    if (displayMenu) {
+      document.addEventListener('mousedown', this.handleClickOutside);
+    }
   };
 
   renderMoreMenu = (moreTabs, visibleTabs) => (
-    <div styleName={'moreMenu'}>
+    <div styleName={'moreMenu'} ref={(menu) => { this.menuRef = menu; }}>
       <div styleName={'title'}>
         {this.state.moreTabLabel}
         <span className={'icon-collapsDown'} styleName={'moreArrow'} />

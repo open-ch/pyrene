@@ -1,3 +1,5 @@
+@import '../../styles/colors.css';
+
 .tabView {
   width: 100%;
 
@@ -82,7 +84,7 @@
 
     & .moreArrow {
       display: inline-block;
-      font-size: 16px;
+      font-size: 17px;
       height: 16px;
       width: 16px;
       vertical-align: sub;
@@ -92,7 +94,7 @@
     }
 
     &.displayMenu .moreArrow {
-      transform: rotate(180deg);
+      transform: rotate(180deg) translateY(-2px);
       transition: all 0.4s ease-in-out;
     }
 
@@ -108,7 +110,7 @@
       opacity: 0;
       visibility: hidden;
       top: 0;
-      left: -8px;
+      right: -8px;
       width: 200px;
       box-sizing: border-box;
       background-color: var(--neutral-000);
@@ -121,8 +123,9 @@
 
 
       & .title {
+        text-align: right;
         line-height: 48px;
-        padding-left: 8px;
+        padding-right: 8px;
       }
 
       & .option {

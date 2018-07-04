@@ -1,3 +1,5 @@
+@import '../../styles/colors.css';
+
 .selectContainer {
   composes: commonFontSettings from '../../styles/common.css';
   width: 100%;
