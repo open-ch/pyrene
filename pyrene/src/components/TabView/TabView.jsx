@@ -58,13 +58,13 @@ export default class TabView extends React.Component {
 
   renderMoreMenu = (moreTabs, visibleTabs) => (
     <div styleName={'moreMenu'} ref={(menu) => { this.menuRef = menu; }}>
-      <div styleName={'title'}>
-        {this.state.moreTabLabel}
+      <div styleName={'titleBox'}>
+        <span styleName={'title'}> {this.state.moreTabLabel} </span>
         <span className={'icon-collapsDown'} styleName={'moreArrow'} />
       </div>
       {moreTabs.map((tab, index) =>
         <div styleName={'option'} key={tab.name} onClick={(event) => !tab.disabled && this._tabChanged(tab.name, index + visibleTabs.length, event)}>
-          {tab.name}
+          <span styleName={'optionLabel'}>{tab.name}</span>
         </div>
       )}
     </div>
@@ -115,8 +115,10 @@ export default class TabView extends React.Component {
               )}
             className={'unSelectable'}
             onClick={this.toggleMoreMenu}>
-            {this.state.moreTabLabel}
-            <span className={'icon-collapsDown'} styleName={'moreArrow'} />
+            <div styleName={'titleBox'}>
+              <span styleName={'title'}> {this.state.moreTabLabel} </span>
+              <span className={'icon-collapsDown'} styleName={'moreArrow'} />
+            </div>
             {this.renderMoreMenu(moreTabs, visibleTabs)}
           </div>
           }
