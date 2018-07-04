@@ -14,7 +14,7 @@ const ContentFiller = (props) => (
     textTransform: 'uppercase',
     letterSpacing: 1 }}
   >
-    Content Filler
+    {props.label ? props.label : 'Content Filler'}
   </div>
 );
 
@@ -78,6 +78,17 @@ const startProps = {
   'radioselection': {
     radioLabels: ['option 1', 'option 2', 'option 3'],
     selectedOption: 'option 1',
+  },
+  'tabview': {
+    initialTabName: 'Tab 1',
+    directAccessTabs: 3,
+    tabs: [
+      { name: 'Tab 1', renderCallback: () => <ContentFiller height={200} width={848} label={'tab 1'} />, disabled: false },
+      { name: 'Tab 2', renderCallback: () => <ContentFiller height={200} width={848} label={'tab 2'} />, disabled: false },
+      { name: 'Tab 3', renderCallback: () => <ContentFiller height={200} width={848} label={'tab 3'} />, disabled: false },
+      { name: 'Looooooooooooooooooooooooooooooooooooooong Name', renderCallback: () => <ContentFiller height={200} width={848} label={'tab 4'} />, disabled: false },
+      { name: 'Tab 5', renderCallback: () => <ContentFiller height={200} width={848} label={'tab 5'} />, disabled: false },
+    ],
   },
   'textarea': {
     title: 'Label',

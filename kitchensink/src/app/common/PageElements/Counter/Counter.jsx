@@ -10,19 +10,27 @@ export default class Counter extends React.Component {
     super(props);
 
     this.state = {
-      number: 0,
+      number: props.number,
+      lastProps: {
+        number: props.number,
+      },
     };
   }
 
+
   static getDerivedStateFromProps(nextProps, prevState) {
-    if (prevState.number !== nextProps.number) {
+    if (prevState.lastProps.number !== nextProps.number) {
       return {
         number: nextProps.number,
+        lastProps: {
+          number: nextProps.number,
+        },
       };
     }
     // No State Change
     return null;
   }
+
 
   adjustBounds(number) {
     if (this.props.maxNumber && number > this.props.maxNumber) {
