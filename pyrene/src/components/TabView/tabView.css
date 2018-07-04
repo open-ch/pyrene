@@ -132,7 +132,7 @@
       box-shadow:
               0 4px 8px -2px rgba(0, 21, 44, 0.2),
               0 0 1px 0 rgba(0, 21, 44, 0.3);
-      transition: visibility 0.25s step-end, opacity 0.25s ease-in-out;
+
 
       & .titleBox {
         display: flex;
