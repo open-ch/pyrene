@@ -44,9 +44,11 @@ export default class Collapsible extends React.Component {
   render() {
     return (
       <div styleName={classNames('collapsibleBox', {expanded: this.state.expanded})}>
-        <div styleName="collapsibleHeader" onClick={this.toggleCollapse}>
-          {this.state.expanded && this.props.titleExpanded ? this.props.titleExpanded : this.props.title}
-          <span className={'icon-collapsDown'} styleName={'collapsArrow'}/>
+        <div styleName="collapsibleButton" onClick={this.toggleCollapse}>
+          <div styleName="centeringBox">
+            {this.state.expanded && this.props.titleExpanded ? this.props.titleExpanded : this.props.title}
+            <span className={'icon-collapsDown'} styleName={'collapsArrow'}/>
+          </div>
         </div>
         <div styleName="collapsibleBody">
           {this.props.children}

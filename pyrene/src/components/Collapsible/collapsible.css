@@ -8,31 +8,41 @@
       display: block;
     }
     & .collapsArrow {
-      transform: rotate(180deg);
+      transform: rotate(180deg) translateY(-1px);
     }
   }
-}
 
-.collapsibleHeader {
-  height: 24px;
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 1.7;
-  color: var(--blue-500);
-  cursor: pointer;
+  & .collapsibleButton {
 
-  &:hover {
-    text-decoration: underline;
+    padding: 0 8px;
+    border-radius: 2px;
+    display: inline-block;
+
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--blue-500);
+
+    cursor: pointer;
+    &:hover {
+      background-color: var(--blue-010);
+    }
+
+    & .centeringBox {
+      height: 32px;
+      display: flex;
+      align-items: center;
+
+      & .collapsArrow {
+        width: 16px;
+        height: 16px;
+        font-size: 16px;
+        margin-left: 4px;
+        margin-top: 2px;
+        display: inline-block;
+        vertical-align: text-bottom;
+
+        transition: all 0.4s ease-in-out;
+      }
+    }
   }
-}
-
-.collapsArrow {
-  width: 16px;
-  height: 16px;
-  font-size: 16px;
-  margin-left: 4px;
-  display: inline-block;
-  vertical-align: text-bottom;
-
-  transition: all 0.4s ease-in-out;
 }
