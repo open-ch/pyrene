@@ -1,0 +1,44 @@
+.container {
+  box-shadow: 0 0 1px 0 rgba(0, 21, 44, 0.3);
+  width: 100%;
+
+  & .header {
+    box-sizing: border-box;
+    padding: 0 16px;
+    height: 40px;
+    background-color: var(--neutral-020);
+
+    display: grid;
+    align-items: center;
+    grid-template-columns: auto 50px 20px;
+
+    & .title {
+      font-size: 12px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      color: var(--neutral-500);
+      text-transform: uppercase;
+    }
+  }
+
+  & .collapsArrow {
+    grid-column: 3;
+    width: 16px;
+    height: 16px;
+    font-size: 16px;
+    margin-left: 4px;
+    display: inline-block;
+    vertical-align: text-bottom;
+
+    transition: all 0.4s ease-in-out;
+  }
+
+  &.expanded .collapsArrow {
+    transform: rotate(180deg);
+  }
+
+  & .content {
+    border-top: 1px solid rgba(0, 21, 44, 0.3);
+    padding: 24px;
+  }
+}

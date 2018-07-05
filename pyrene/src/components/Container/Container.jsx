@@ -1,14 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
-import './collapsible.css';
+import './container.css';
 
-/**
- * Click on me to reveal my secrets...
- */
-export default class Collapsible extends React.Component {
-
+export default class Container extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -33,44 +28,49 @@ export default class Collapsible extends React.Component {
   }
 
   toggleCollapse = () => {
-    this.setState((prevState, props) => ({
-      expanded: !prevState.expanded,
-    }),
-    () => this.props.onChange(this.state.expanded)
-    );
+    if (this.props.collapsible) {
+      this.setState((prevState, props) => ({
+          expanded: !prevState.expanded,
+        }),
+        () => this.props.onChange(this.state.expanded)
+      );
+    }
   };
+
 
   render() {
     return (
-      <div styleName={classNames('collapsibleBox', {expanded: this.state.expanded})}>
-        <div styleName="collapsibleButton" onClick={this.toggleCollapse}>
-          <div styleName="centeringBox">
-            {this.state.expanded && this.props.titleExpanded ? this.props.titleExpanded : this.props.title}
-            <span className={'icon-collapsDown'} styleName={'collapsArrow'}/>
-          </div>
+      <div styleName={'container'}>
+        <div styleName={'header'} onClick={this.toggleCollapse}>
+          <span styleName={'title'}> {this.props.title}</span>
+          <span className={'icon-collapsDown'} styleName={'collapsArrow'} />
         </div>
-        <div styleName="collapsibleBody">
-          {this.props.children}
+        <div styleName={'content'}>
+        {this.props.children}
         </div>
       </div>
     );
   }
 }
 
-Collapsible.displayName = 'Collapsible';
 
-Collapsible.defaultProps = {
+Container.displayName = 'Container';
+
+Container.defaultProps = {
   expanded: false,
-  title: '',
-  titleExpanded: '',
   onChange: () => null,
+  collapsible: false,
 };
 
-Collapsible.propTypes = {
+Container.propTypes = {
   /**
    * React private content prop
    */
   children: PropTypes.node.isRequired,
+  /**
+   * collapsible
+   */
+  collapsible: PropTypes.bool,
   /**
    * Whether or not to display the specified children
    */
@@ -83,8 +83,4 @@ Collapsible.propTypes = {
    * Displayed label when collapsed
    */
   title: PropTypes.string.isRequired,
-  /**
-   * Displayed label when expanded
-   */
-  titleExpanded: PropTypes.string,
 };
