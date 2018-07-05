@@ -17,7 +17,6 @@
   & .tab {
     box-sizing: border-box;
     height: 48px;
-    max-width: 128px;
     margin-right: 24px;
 
     color: var(--neutral-200);
@@ -55,13 +54,13 @@
   & .moreTab {
     color: var(--neutral-200);
     font-size: 12px;
+    height: 48px;
     font-weight: bold;
     letter-spacing: 1px;
     text-transform: uppercase;
     font-style: normal;
     font-stretch: normal;
     line-height: 48px;
-    max-width: 128px;
 
     transition: box-shadow .1s ease-in;
     cursor: pointer;
@@ -164,6 +163,15 @@
         letter-spacing: normal;
         color: var(--neutral-400);
         text-transform: capitalize;
+
+        &.disabled {
+          opacity: .5;
+          cursor: default;
+
+          &:hover {
+            background-color: var(--neutral-000);
+          }
+        }
 
         & .optionLabel {
           overflow: hidden;

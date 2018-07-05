@@ -63,7 +63,7 @@ export default class TabView extends React.Component {
         <span className={'icon-collapsDown'} styleName={'moreArrow'} />
       </div>
       {moreTabs.map((tab, index) =>
-        <div styleName={'option'} key={tab.name} onClick={(event) => !tab.disabled && this._tabChanged(tab.name, index + visibleTabs.length, event)}>
+        <div styleName={classNames('option', {disabled: tab.disabled})} key={tab.name} onClick={(event) => !tab.disabled && this._tabChanged(tab.name, index + visibleTabs.length, event)}>
           <span styleName={'optionLabel'}>{tab.name}</span>
         </div>
       )}
@@ -97,6 +97,7 @@ export default class TabView extends React.Component {
                       { disabled: tab.disabled })
                   }
                   className={'unSelectable'}
+                  style={{maxWidth: this.props.maxTabWidth}}
                   onClick={(event) => !tab.disabled && this._tabChanged(tab.name, index, event)}
                   key={tab.name}
                 >
@@ -111,9 +112,10 @@ export default class TabView extends React.Component {
                 'moreTab',
                 {displayMenu: this.state.displayMoreMenu},
                 {selected: this.state.selectedTabIndex >= visibleTabs.length},
-                {hidden: !moreTabs.some((element) => (element.disabled === false))}
+                {hidden: !moreTabs.some((element) => (typeof element.disabled === 'undefined' || element.disabled === false))}
               )}
             className={'unSelectable'}
+            style={{maxWidth: this.props.maxTabWidth}}
             onClick={this.toggleMoreMenu}>
             <div styleName={'titleBox'}>
               <span styleName={'title'}> {this.state.moreTabLabel} </span>
@@ -140,13 +142,33 @@ TabView.defaultProps = {
   disabled: false,
   tabChanged: () => null,
   directAccessTabs: null,
+  maxTabWidth: 127,
 };
 
 TabView.propTypes = {
-  disabled: PropTypes.bool,
-  initialTabName: PropTypes.string.isRequired,
-  tabChanged: PropTypes.func,
+  /**
+   * Number of tabs that are displayed before the "more" tab.
+   */
   directAccessTabs: PropTypes.number,
+  /**
+   * Whether or not the tabView is active.
+   */
+  disabled: PropTypes.bool,
+  /**
+   * Name of the tab to preselect on firs load.
+   */
+  initialTabName: PropTypes.string.isRequired,
+  /**
+   * Maximum allowed width of the tabs.
+   */
+  maxTabWidth: PropTypes.number,
+  /**
+   * Event handler. Triggered the selected tab changes.
+   */
+  tabChanged: PropTypes.func,
+  /**
+   * Data input array for the tabs. [{name: string required, renderCallback: func required, disabled: bool}]
+   */
   tabs: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string.isRequired,
     renderCallback: PropTypes.func.isRequired,
