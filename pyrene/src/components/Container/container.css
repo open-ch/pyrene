@@ -1,6 +1,23 @@
 .container {
   box-shadow: 0 0 1px 0 rgba(0, 21, 44, 0.3);
   width: 100%;
+  border-radius: 4px;
+  overflow: hidden;
+
+  &.expanded {
+    & .collapsArrow {
+      transform: rotate(180deg);
+    }
+
+    & .contentContainer {
+      height: auto;
+    }
+
+    & .header {
+      box-shadow: inset 0 -1px 0 0 var(--neutral-030);
+      transition: box-shadow 0s step-start;
+    }
+  }
 
   & .header {
     box-sizing: border-box;
@@ -11,6 +28,17 @@
     display: grid;
     align-items: center;
     grid-template-columns: auto 50px 20px;
+
+    transition: box-shadow 0.4s step-end;
+
+    &.collapsible:hover {
+      background-color: var(--neutral-030);
+      cursor: pointer;
+    }
+
+    &.collapsible:hover .collapsArrow {
+      color: var(--blue-500);
+    }
 
     & .title {
       font-size: 12px;
@@ -30,15 +58,15 @@
     display: inline-block;
     vertical-align: text-bottom;
 
-    transition: all 0.4s ease-in-out;
+    transition: transform 0.4s ease-in-out;
   }
 
-  &.expanded .collapsArrow {
-    transform: rotate(180deg);
+  & .contentContainer {
+    box-sizing: border-box;
+    height: 0;
+    overflow: hidden;
+
+    transition: height 0.4s ease-in-out;
   }
 
-  & .content {
-    border-top: 1px solid rgba(0, 21, 44, 0.3);
-    padding: 24px;
-  }
 }

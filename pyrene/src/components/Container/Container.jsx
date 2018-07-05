@@ -1,12 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import './container.css';
 
+/**
+ * What's in the Booooooox?
+ */
 export default class Container extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      contentHeight: null,
       expanded: props.expanded,
       lastProps: {
         expanded: props.expanded,
@@ -37,16 +42,25 @@ export default class Container extends React.Component {
     }
   };
 
+  componentDidMount() {
+    if (this.contentRef) {
+      this.setState(() => ({
+        contentHeight: this.contentRef.clientHeight
+      }));
+    }
+  }
 
   render() {
     return (
-      <div styleName={'container'}>
-        <div styleName={'header'} onClick={this.toggleCollapse}>
-          <span styleName={'title'}> {this.props.title}</span>
-          <span className={'icon-collapsDown'} styleName={'collapsArrow'} />
+      <div styleName={classNames('container', {expanded: this.state.expanded || !this.props.collapsible})}>
+        <div styleName={classNames('header', {collapsible: this.props.collapsible})} onClick={this.toggleCollapse}>
+          <span styleName={'title'} className={'unSelectable'}> {this.props.title}</span>
+          {this.props.collapsible && <span className={'icon-collapsDown'} styleName={'collapsArrow'} />}
         </div>
-        <div styleName={'content'}>
-        {this.props.children}
+        <div styleName={'contentContainer'} style={{height: (this.state.expanded || !this.props.collapsible) && this.state.contentHeight ? this.state.contentHeight : null}}>
+          <div style={{padding: 24}} ref={(contentRef) => {this.contentRef = contentRef;}}>
+             {this.props.children}
+          </div>
         </div>
       </div>
     );
