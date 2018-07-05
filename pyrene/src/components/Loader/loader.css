@@ -1,0 +1,23 @@
+.pyreneLoader {
+  border-radius: 50%;
+  border: 2px solid transparent;
+  box-sizing: border-box;
+  width: 12px;
+  height: 12px;
+  animation: spin 1.2s cubic-bezier( .6, .14, .33, .9) infinite;
+
+  &.type-default {
+    border-top: 2px solid var(--neutral-400);
+  }
+
+  &.type-inverted {
+    background-color: black;
+    box-shadow: 0px 0px 0px 15px black;
+    border-top: 2px solid var(--neutral-000);
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
