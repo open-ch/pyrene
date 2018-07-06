@@ -58,7 +58,7 @@ export default class Collapsible extends React.Component {
           </div>
         </div>
         <div styleName={"collapsibleBody"} style={{height: (this.state.expanded && this.state.contentHeight) ? this.state.contentHeight : null}}>
-          <div ref={(contentRef) => {this.contentRef = contentRef;}}>
+          <div ref={(contentRef) => {this.contentRef = contentRef;}} style={{paddingTop: 16}}>
             {this.props.children}
           </div>
         </div>
