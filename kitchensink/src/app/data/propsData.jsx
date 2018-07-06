@@ -1,13 +1,14 @@
 import React from 'react';
 
 const ContentFiller = (props) => (
-  <div style={{ width: props.width,
+  <div className={'unSelectable'} style={{ width: props.width,
     height: props.height,
     backgroundColor: 'var(--neutral-020)',
     textAlign: 'center',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    borderRadius: 2,
     color: 'var(--neutral-100)',
     fontSize: 32,
     fontWeight: 'bold',
@@ -66,9 +67,21 @@ const startProps = {
     titleExpanded: 'Show Less',
     children: <ContentFiller width={500} height={300} />,
   },
+  'container': {
+    title: 'Show More',
+    collapsible: true,
+    children: <ContentFiller width={800} height={300} />,
+    adminAction: {
+      label: 'admin button with long label',
+      action: (event) => alert('Admin action triggered'),
+    }
+  },
   'link': {
     label: 'Click Me',
     path: '#',
+  },
+  'loader': {
+    type: 'default',
   },
   'modal': {
     content: <ContentFiller width={400} height={600} />,
@@ -81,13 +94,13 @@ const startProps = {
   },
   'tabview': {
     initialTabName: 'Tab 1',
-    directAccessTabs: 3,
+    directAccessTabs: 2,
     tabs: [
       { name: 'Tab 1', renderCallback: () => <ContentFiller height={200} width={848} label={'tab 1'} />, disabled: false },
       { name: 'Tab 2', renderCallback: () => <ContentFiller height={200} width={848} label={'tab 2'} />, disabled: false },
-      { name: 'Tab 3', renderCallback: () => <ContentFiller height={200} width={848} label={'tab 3'} />, disabled: false },
-      { name: 'Looooooooooooooooooooooooooooooooooooooong Name', renderCallback: () => <ContentFiller height={200} width={848} label={'tab 4'} />, disabled: false },
-      { name: 'Tab 5', renderCallback: () => <ContentFiller height={200} width={848} label={'tab 5'} />, disabled: false },
+      { name: 'Tab 3', renderCallback: () => <ContentFiller height={200} width={848} label={'tab 3'} />, disabled: true },
+      { name: 'Looooooooooooooooooooooooooooooooooooooong Name', renderCallback: () => <ContentFiller height={200} width={848} label={'tab 4'} />},
+      { name: 'Tab 5', renderCallback: () => <ContentFiller height={200} width={848} label={'tab 5'} /> },
     ],
   },
   'textarea': {
