@@ -14,6 +14,7 @@ import { default as TextField } from './components/FormElements/TextField/TextFi
 import { default as TextArea } from './components/FormElements/TextArea/TextArea';
 import { default as SingleSelect } from './components/SelectElements/SingleSelect/SingleSelect';
 import { default as MultiSelect } from './components/SelectElements/MultiSelect/MultiSelect';
+import { default as Banner } from './components/Banner/Banner';
 
 const Components = {
   Button,
@@ -27,6 +28,7 @@ const Components = {
   TextArea,
   SingleSelect,
   MultiSelect,
+  Banner
 };
 
 export {Button};
@@ -40,5 +42,6 @@ export {TextField};
 export {TextArea};
 export {SingleSelect};
 export {MultiSelect};
+export {Banner};
 
 export default Components;
