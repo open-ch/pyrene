@@ -8,7 +8,9 @@ import './loader.css';
  * You spin my head right round..
  */
 const Loader = (props) => (
-  <div styleName={classNames('pyreneLoader', {[`type-${props.type}`]: true})} />
+  <div styleName={'canvas'}>
+    <div styleName={classNames('pyreneLoader', {[`type-${props.type}`]: true})} />
+  </div>
 );
 
 Loader.displayName = 'Loader';

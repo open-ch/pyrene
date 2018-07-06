@@ -29,7 +29,7 @@ const Components = {
   TextArea,
   SingleSelect,
   MultiSelect,
-  Banner
+  Banner,
   Loader,
 };
 
