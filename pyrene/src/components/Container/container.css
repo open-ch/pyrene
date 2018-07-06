@@ -21,13 +21,14 @@
 
   & .header {
     box-sizing: border-box;
-    padding: 0 16px;
+    padding: 0 24px;
     height: 40px;
     background-color: var(--neutral-020);
 
     display: grid;
     align-items: center;
-    grid-template-columns: auto 50px 20px;
+    grid-template-columns: 1fr auto 20px;
+    grid-column-gap: 24px;
 
     transition: box-shadow 0.4s step-end;
 

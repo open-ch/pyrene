@@ -1,11 +1,13 @@
 .collapsibleBox {
   & .collapsibleBody {
-    display: none;
+    height: 0;
+    overflow: hidden;
+    transition: height 0.4s ease-in-out;
   }
 
   &.expanded {
     & .collapsibleBody {
-      display: block;
+      height: auto;
     }
     & .collapsArrow {
       transform: rotate(180deg) translateY(-1px);

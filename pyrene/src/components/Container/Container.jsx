@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import Button from '../Button/Button';
 
 import './container.css';
 
@@ -55,6 +56,7 @@ export default class Container extends React.Component {
       <div styleName={classNames('container', {expanded: this.state.expanded || !this.props.collapsible})}>
         <div styleName={classNames('header', {collapsible: this.props.collapsible})} onClick={this.toggleCollapse}>
           <span styleName={'title'} className={'unSelectable'}> {this.props.title}</span>
+          {this.props.adminAction && <Button type={'admin'} label={this.props.adminAction.label} onClick={(event) => {this.props.adminAction.action(event); event.stopPropagation()}}/>}
           {this.props.collapsible && <span className={'icon-collapsDown'} styleName={'collapsArrow'} />}
         </div>
         <div styleName={'contentContainer'} style={{height: (this.state.expanded || !this.props.collapsible) && this.state.contentHeight ? this.state.contentHeight : null}}>
@@ -71,12 +73,20 @@ export default class Container extends React.Component {
 Container.displayName = 'Container';
 
 Container.defaultProps = {
+  adminAction: null,
   expanded: false,
   onChange: () => null,
   collapsible: false,
 };
 
 Container.propTypes = {
+  /**
+   * Admin Button specification, need to stop event propagation in the action
+   */
+  adminAction: PropTypes.shape({
+    label: PropTypes.string.isRequired,
+    action: PropTypes.func.isRequired,
+  }),
   /**
    * React private content prop
    */

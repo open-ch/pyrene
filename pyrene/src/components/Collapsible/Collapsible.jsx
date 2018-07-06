@@ -40,17 +40,27 @@ export default class Collapsible extends React.Component {
     );
   };
 
+  componentDidMount() {
+    if (this.contentRef) {
+      this.setState(() => ({
+        contentHeight: this.contentRef.clientHeight
+      }));
+    }
+  }
+
   render() {
     return (
       <div styleName={classNames('collapsibleBox', {expanded: this.state.expanded})}>
-        <div styleName="collapsibleButton" onClick={this.toggleCollapse}>
-          <div styleName="centeringBox">
+        <div styleName={'collapsibleButton'} onClick={this.toggleCollapse}>
+          <div styleName={"centeringBox"}>
             {this.state.expanded && this.props.titleExpanded ? this.props.titleExpanded : this.props.title}
             <span className={'icon-collapsDown'} styleName={'collapsArrow'}/>
           </div>
         </div>
-        <div styleName="collapsibleBody">
-          {this.props.children}
+        <div styleName={"collapsibleBody"} style={{height: (this.state.expanded && this.state.contentHeight) ? this.state.contentHeight : null}}>
+          <div ref={(contentRef) => {this.contentRef = contentRef;}}>
+            {this.props.children}
+          </div>
         </div>
       </div>
     );
