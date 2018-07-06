@@ -76,7 +76,7 @@ const startProps = {
     collapsible: true,
     children: <ContentFiller width={800} height={300} />,
     adminAction: {
-      label: 'admin button with long label',
+      label: 'admin',
       action: (event) => alert('Admin action triggered'),
     }
   },
@@ -86,6 +86,7 @@ const startProps = {
   },
   'loader': {
     type: 'default',
+    size: 'small',
   },
   'modal': {
     content: <ContentFiller width={400} height={600} />,
