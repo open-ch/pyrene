@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import './button.css';
+import {Loader} from '../../index';
 
 
 /**
@@ -34,6 +35,7 @@ Button.defaultProps = {
   icon: '',
   label: '',
   type: 'primary',
+  loading: false,
   disabled: false,
   onClick: () => null,
 };
@@ -51,6 +53,10 @@ Button.propTypes = {
    *  Changes what the button says.
    */
   label: PropTypes.string.isRequired,
+  /**
+   * Disables the button and displays a loader inside of it.
+   */
+  loading: PropTypes.bool,
   /**
    *  onClick function
    */
