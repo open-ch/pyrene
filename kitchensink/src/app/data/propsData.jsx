@@ -56,6 +56,10 @@ const testOptions = [
 
 const startProps = {
   'arrowbutton': {},
+  'banner': {
+    message: 'This is a test message',
+    type: 'info',
+  },
   'button': {
     label: 'Click Me',
   },

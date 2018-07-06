@@ -38,7 +38,6 @@
 
 .table_container table td:first-child .cell{
   font-weight: 600;
-  text-transform: capitalize;
 }
 
 .table_container table td:last-child {
