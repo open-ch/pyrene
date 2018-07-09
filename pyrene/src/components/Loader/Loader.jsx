@@ -8,15 +8,15 @@ import './loader.css';
  * You spin my head right round..
  */
 const Loader = (props) => (
-  <div styleName={classNames('canvas', {[`size-${props.size}`]: true })}>
-    <div styleName={classNames('pyreneLoader', {[`type-${props.type}`]: true}, {[`size-${props.size}`]: true })} />
+  <div styleName={classNames('canvas', { [`size-${props.size}`]: true })}>
+    <div styleName={classNames('pyreneLoader', { [`type-${props.type}`]: true }, { [`size-${props.size}`]: true })} />
   </div>
 );
 
 Loader.displayName = 'Loader';
 
 Loader.defaultProps = {
-  type: 'default',
+  type: 'dark',
 };
 
 Loader.propTypes = {
@@ -27,7 +27,7 @@ Loader.propTypes = {
   /**
    * Changes the overall appearance of the loader.
    */
-  type: PropTypes.oneOf(['default', 'inverted']),
+  type: PropTypes.oneOf(['dark', 'light']),
 };
 
 export default Loader;

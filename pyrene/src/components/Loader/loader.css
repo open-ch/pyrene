@@ -4,11 +4,11 @@
   box-sizing: border-box;
   animation: spin 1.2s cubic-bezier( .6, .14, .33, .9) infinite;
 
-  &.type-default {
+  &.type-dark {
     border-top-color: var(--neutral-400);
   }
 
-  &.type-inverted {
+  &.type-light {
     border-top-color: var(--neutral-000);
   }
 
