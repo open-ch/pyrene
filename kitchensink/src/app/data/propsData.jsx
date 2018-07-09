@@ -85,8 +85,7 @@ const startProps = {
     path: '#',
   },
   'loader': {
-    type: 'default',
-    size: 'small',
+    size: 'large',
   },
   'modal': {
     content: <ContentFiller width={400} height={600} />,
