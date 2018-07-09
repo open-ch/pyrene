@@ -3,6 +3,7 @@ import CleanWebpackPlugin from 'clean-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin';
 import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
+import UnminifiedWebpackPlugin from 'unminified-webpack-plugin';
 
 const production = process.env.NODE_ENV === 'production';
 
@@ -10,7 +11,7 @@ const config = {
   mode: production ? 'production' : 'development',
   resolve: {
     mainFiles: ['index'],
-    extensions: ['.js', '.jsx']
+    extensions: ['.js', '.jsx'],
   },
   module: {
     rules: [
@@ -20,14 +21,14 @@ const config = {
         use: {
           loader: 'babel-loader',
           query: {
-            cacheDirectory: false
-          }
-        }
+            cacheDirectory: false,
+          },
+        },
       },
       {
         test: /\.css$/,
         exclude: [
-          /node_modules/
+          /node_modules/,
         ],
         use: [
           MiniCssExtractPlugin.loader,
@@ -36,21 +37,21 @@ const config = {
             options: {
               modules: true,
               localIdentName: '[name]__[local]--[hash:base64:10]',
-              sourceMap: !production
-            }
+              sourceMap: !production,
+            },
           },
-          'postcss-loader'
-        ]
+          'postcss-loader',
+        ],
       },
       {
         test: /\.svg$/,
-        loader: 'url-loader'
+        loader: 'url-loader',
       },
       {
         test: /\.woff$/,
-        loader: 'url-loader'
-      }
-    ]
+        loader: 'url-loader',
+      },
+    ],
   },
   plugins: [
     new CleanWebpackPlugin(['dist']),
@@ -58,22 +59,25 @@ const config = {
       filename: 'pyrene.css',
     }),
     new OptimizeCSSAssetsPlugin({}),
+    new UnminifiedWebpackPlugin({
+      exclude: /\.css$/,
+    }),
   ],
   optimization: {
     minimizer: [
       new UglifyJsPlugin({
         cache: true,
         parallel: true,
-        sourceMap: !production, // set to true if you want JS source maps
+        sourceMap: !production,
       }),
     ],
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'pyrene.js',
+    filename: 'pyrene.min.js',
     library: 'pyrene',
-    libraryTarget: 'umd'
-  }
+    libraryTarget: 'umd',
+  },
 };
 
 if (production) {
