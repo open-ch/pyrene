@@ -16,14 +16,13 @@
   "scripts": {
     "clean": "rm -rf dist",
     "prebuild": "yarn install",
-    "build": "webpack",
+    "build": "NODE_ENV=production webpack",
     "prewatch": "yarn install",
     "watch": "webpack -w",
     "testWatch": "webpack --config webpackTest.config.babel.js -w",
     "test": "NODE_ENV=test mocha --reporter nyan --require babel-register --require ignore-styles src/test.js src/**/*.spec.js",
     "prerelease": "yarn build",
-    "release": "release-it",
-    "css": "NODE_ENV=production webpack"
+    "release": "release-it"
   },
   "devDependencies": {
     "autoprefixer": "^8.3.0",
@@ -61,6 +60,7 @@
     "sinon-chai": "^3.0.0",
     "style-loader": "^0.20.3",
     "uglifyjs-webpack-plugin": "^1.2.7",
+    "unminified-webpack-plugin": "^2.0.0",
     "url-loader": "^1.0.1",
     "webpack": "^4.1.1",
     "webpack-cli": "^2.0.12"
