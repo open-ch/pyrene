@@ -12,25 +12,10 @@ export default class Collapsible extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      expanded: props.expanded,
-      lastProps: {
-        expanded: props.expanded,
-      },
+      expanded: props.defaultExpanded,
     };
   }
 
-  static getDerivedStateFromProps(nextProps, prevState) {
-    if (prevState.lastProps.expanded !== nextProps.expanded) {
-      return {
-        expanded: nextProps.expanded,
-        lastProps: {
-          expanded: nextProps.expanded,
-        },
-      };
-    }
-    // No State Change
-    return null;
-  }
 
   toggleCollapse = () => {
     this.setState((prevState, props) => ({
@@ -59,7 +44,7 @@ export default class Collapsible extends React.Component {
         </div>
         <div styleName={"collapsibleBody"} style={{height: (this.state.expanded && this.state.contentHeight) ? this.state.contentHeight : null}}>
           <div ref={(contentRef) => {this.contentRef = contentRef;}} style={{paddingTop: 16}}>
-            {this.props.children}
+            {this.props.renderCallback()}
           </div>
         </div>
       </div>
@@ -70,25 +55,25 @@ export default class Collapsible extends React.Component {
 Collapsible.displayName = 'Collapsible';
 
 Collapsible.defaultProps = {
-  expanded: false,
-  title: '',
-  titleExpanded: '',
+  defaultExpanded: false,
+  title: 'Show More',
+  titleExpanded: 'Hide',
   onChange: () => null,
 };
 
 Collapsible.propTypes = {
   /**
-   * React private content prop
+   * Whether or not to display the content when the component is mounted
    */
-  children: PropTypes.node.isRequired,
-  /**
-   * Whether or not to display the specified children
-   */
-  expanded: PropTypes.bool,
+  defaultExpanded: PropTypes.bool,
   /**
    * Event handler.
    */
   onChange: PropTypes.func,
+  /**
+   * Render function for the content
+   */
+  renderCallback: PropTypes.func.isRequired,
   /**
    * Displayed label when collapsed
    */

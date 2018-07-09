@@ -13,24 +13,8 @@ export default class Container extends React.Component {
     super(props);
     this.state = {
       contentHeight: null,
-      expanded: props.expanded,
-      lastProps: {
-        expanded: props.expanded,
-      },
+      expanded: props.defaultExpanded,
     };
-  }
-
-  static getDerivedStateFromProps(nextProps, prevState) {
-    if (prevState.lastProps.expanded !== nextProps.expanded) {
-      return {
-        expanded: nextProps.expanded,
-        lastProps: {
-          expanded: nextProps.expanded,
-        },
-      };
-    }
-    // No State Change
-    return null;
   }
 
   toggleCollapse = () => {
@@ -61,7 +45,7 @@ export default class Container extends React.Component {
         </div>
         <div styleName={'contentContainer'} style={{height: (this.state.expanded || !this.props.collapsible) && this.state.contentHeight ? this.state.contentHeight : null}}>
           <div style={{padding: 24}} ref={(contentRef) => {this.contentRef = contentRef;}}>
-             {this.props.children}
+             {this.props.renderCallback()}
           </div>
         </div>
       </div>
@@ -74,7 +58,7 @@ Container.displayName = 'Container';
 
 Container.defaultProps = {
   adminAction: null,
-  expanded: false,
+  defaultExpanded: false,
   onChange: () => null,
   collapsible: false,
 };
@@ -88,21 +72,21 @@ Container.propTypes = {
     action: PropTypes.func.isRequired,
   }),
   /**
-   * React private content prop
-   */
-  children: PropTypes.node.isRequired,
-  /**
    * collapsible
    */
   collapsible: PropTypes.bool,
   /**
-   * Whether or not to display the specified children
+   * Whether or not to display the content when the component is mounted
    */
-  expanded: PropTypes.bool,
+  defaultExpanded: PropTypes.bool,
   /**
    * Event handler.
    */
   onChange: PropTypes.func,
+  /**
+   * Render function for the content
+   */
+  renderCallback: PropTypes.func.isRequired,
   /**
    * Displayed label when collapsed
    */
