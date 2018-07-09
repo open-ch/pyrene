@@ -1,0 +1,188 @@
+@import '../../styles/colors.css';
+
+.tabView {
+  width: 100%;
+
+  &.disabled {
+    pointer-events: none;
+    opacity: .5;
+  }
+}
+
+.tabBar {
+  display: flex;
+  justify-content: flex-start;
+  box-shadow: inset 0 -1px 0 0 var(--neutral-050);
+
+  & .tab {
+    box-sizing: border-box;
+    height: 48px;
+    margin-right: 24px;
+
+    color: var(--neutral-200);
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 48px;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    transition: box-shadow .1s ease-in;
+    cursor: pointer;
+
+    &:hover {
+      box-shadow: inset 0 -3px var(--neutral-200);
+    }
+
+    &.selected {
+      color: var(--neutral-500);
+      box-shadow: inset 0 -3px var(--neutral-500);
+    }
+
+    &.disabled {
+      pointer-events: none;
+      opacity: .5;
+    }
+
+  }
+
+  & .moreTab {
+    color: var(--neutral-200);
+    font-size: 12px;
+    height: 48px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 48px;
+
+    transition: box-shadow .1s ease-in;
+    cursor: pointer;
+    position: relative;
+
+    &.displayMenu, &.selected {
+      color: var(--neutral-500);
+    }
+
+    &:hover {
+      box-shadow: inset 0 -3px var(--neutral-200);
+    }
+
+    &.selected {
+      box-shadow: inset 0 -3px var(--neutral-500);
+    }
+
+    &.hidden {
+      display: none;
+    }
+
+    & .moreArrow {
+      display: inline-block;
+      font-size: 17px;
+      height: 16px;
+      width: 16px;
+      vertical-align: sub;
+      margin-left: 2px;
+
+      transition: all 0.4s ease-in-out;
+    }
+
+    & .titleBox {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    & .titleBox .title {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    &.displayMenu .moreArrow {
+      transform: rotate(180deg) translateY(-1px);
+      transition: all 0.4s ease-in-out;
+    }
+
+    &.displayMenu .moreMenu {
+      opacity: 1;
+      visibility: visible;
+      transition: visibility 0.25s step-start, opacity 0.25s ease-in-out;
+    }
+
+    & .moreMenu {
+      position: absolute;
+      z-index: 1;
+      opacity: 0;
+      visibility: hidden;
+      top: 0;
+      right: -8px;
+      width: 200px;
+      box-sizing: border-box;
+      background-color: var(--neutral-000);
+      border-radius: 2px;
+      padding-bottom: 4px;
+      box-shadow:
+              0 4px 8px -2px rgba(0, 21, 44, 0.2),
+              0 0 1px 0 rgba(0, 21, 44, 0.3);
+
+
+      & .titleBox {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        margin-right: 8px;
+      }
+
+      & .titleBox .title {
+        padding-left: 8px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      & .option {
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        height: 32px;
+
+        padding-left: 8px;
+
+        font-size: 13px;
+        font-weight: 500;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
+        letter-spacing: normal;
+        color: var(--neutral-400);
+        text-transform: capitalize;
+
+        &.disabled {
+          opacity: .5;
+          cursor: default;
+
+          &:hover {
+            background-color: var(--neutral-000);
+          }
+        }
+
+        & .optionLabel {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+
+        &:hover {
+          background-color: var(--neutral-030);
+        }
+      }
+    }
+  }
+}

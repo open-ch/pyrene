@@ -1,5 +1,8 @@
 import path from 'path';
 import CleanWebpackPlugin from 'clean-webpack-plugin';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin';
+import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
 
 const production = process.env.NODE_ENV === 'production';
 
@@ -27,7 +30,7 @@ const config = {
           /node_modules/
         ],
         use: [
-          'style-loader',
+          MiniCssExtractPlugin.loader,
           {
             loader: 'css-loader',
             options: {
@@ -50,8 +53,21 @@ const config = {
     ]
   },
   plugins: [
-    new CleanWebpackPlugin(['dist'])
+    new CleanWebpackPlugin(['dist']),
+    new MiniCssExtractPlugin({
+      filename: 'pyrene.css',
+    }),
+    new OptimizeCSSAssetsPlugin({}),
   ],
+  optimization: {
+    minimizer: [
+      new UglifyJsPlugin({
+        cache: true,
+        parallel: true,
+        sourceMap: !production, // set to true if you want JS source maps
+      }),
+    ],
+  },
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'pyrene.js',

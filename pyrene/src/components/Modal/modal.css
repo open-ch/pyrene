@@ -1,3 +1,5 @@
+@import '../../styles/colors.css';
+
 .modalOverlay {
   composes: commonFontSettings from '../../styles/common.css';
 
