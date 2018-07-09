@@ -22,7 +22,10 @@
     "testWatch": "webpack --config webpackTest.config.babel.js -w",
     "test": "NODE_ENV=test mocha --reporter nyan --require babel-register --require ignore-styles src/test.js src/**/*.spec.js",
     "prerelease": "yarn build",
-    "release": "release-it"
+    "release": "release-it",
+
+    "prew": "yarn install",
+    "w": "webpack -w"
   },
   "devDependencies": {
     "autoprefixer": "^8.3.0",
