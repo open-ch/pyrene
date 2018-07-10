@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import '../../css/componentPage.css';
 
 const NotFoundPage = props => (
-  <div className="page">
-    <div className="page">
+  <div styleName="page">
+    <div styleName="page">
       <div className="header">
         <div styleName="title">404: Page not found</div>
         <div styleName="description">

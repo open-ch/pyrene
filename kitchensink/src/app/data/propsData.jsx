@@ -53,6 +53,8 @@ const testOptions = [
   { value: 'moosetracks', label: 'Moose Tracks', invalid: false },
 ];
 
+const adminAction = (event) => alert('Admin action triggered.');
+
 
 const startProps = {
   'arrowbutton': {},
@@ -67,17 +69,17 @@ const startProps = {
     label: 'Click Me',
   },
   'collapsible': {
-    title: 'Show More',
-    titleExpanded: 'Show Less',
-    children: <ContentFiller width={500} height={300} />,
+    defaultExpanded: true,
+    renderCallback: () => <ContentFiller width={500} height={300} />,
   },
   'container': {
     title: 'Show More',
     collapsible: true,
-    children: <ContentFiller width={800} height={300} />,
+    defaultExpanded: true,
+    renderCallback: () => <ContentFiller width={800} height={300} />,
     adminAction: {
       label: 'admin',
-      action: (event) => alert('Admin action triggered'),
+      action: adminAction,
     }
   },
   'link': {
@@ -98,13 +100,13 @@ const startProps = {
   },
   'tabview': {
     initialTabName: 'Tab 1',
-    directAccessTabs: 2,
+    directAccessTabs: 3,
     tabs: [
       { name: 'Tab 1', renderCallback: () => <ContentFiller height={200} width={848} label={'tab 1'} />, disabled: false },
       { name: 'Tab 2', renderCallback: () => <ContentFiller height={200} width={848} label={'tab 2'} />, disabled: false },
       { name: 'Tab 3', renderCallback: () => <ContentFiller height={200} width={848} label={'tab 3'} />, disabled: true },
       { name: 'Looooooooooooooooooooooooooooooooooooooong Name', renderCallback: () => <ContentFiller height={200} width={848} label={'tab 4'} />},
-      { name: 'Tab 5', renderCallback: () => <ContentFiller height={200} width={848} label={'tab 5'} /> },
+      { name: 'Tab 5', renderCallback: () => <ContentFiller height={200} width={848} label={'tab 5'} />, disabled: true },
     ],
   },
   'textarea': {

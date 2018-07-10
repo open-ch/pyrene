@@ -27,7 +27,7 @@ const createStackedColors = (data, colorBoxSize) => data.map(element => (
 ));
 
 const ColorsPage = () => (
-  <div className="page">
+  <div styleName="page">
     <div styleName="header">
       <div styleName="title">Colors</div>
       <div styleName="description">

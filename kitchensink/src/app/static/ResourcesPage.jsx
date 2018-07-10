@@ -5,7 +5,7 @@ import DownloadButton from '../common/PageElements/DownloadButton/DownloadButton
 
 
 const ResourcesPage = () => (
-  <div className="page">
+  <div styleName="page">
     <div className="header">
       <div styleName="title">Resources</div>
       <div styleName="description">
