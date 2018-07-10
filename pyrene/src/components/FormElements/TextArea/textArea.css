@@ -82,6 +82,11 @@
 
   &:hover, &:focus {
     border-color: var(--blue-500);
+    background-color: var(--neutral-000);
+  }
+
+  &.filled {
+    background-color: var(--neutral-000);
   }
 
   &::placeholder {
