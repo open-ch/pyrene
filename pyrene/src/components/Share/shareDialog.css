@@ -19,6 +19,16 @@
 
   position: absolute;
   z-index: 5;
+  visibility: hidden;
+  opacity: 0;
+
+  transition: opacity 0.2s ease-out, visibility 0.2s step-end;
+
+  &.display {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 0.2s ease-out, visibility 0.2s step-start;
+  }
 
   & .title{
     margin: 24px 24px 0 24px;

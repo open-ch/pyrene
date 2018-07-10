@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Button from '../Button/Button';
 import ButtonBar from '../ButtonBar/ButtonBar';
+import classNames from 'classnames';
 
 import './shareDialog.css';
 
@@ -96,29 +97,25 @@ export default class ShareDialog extends React.Component {
     this.textInput.select();
   }
 
-  _renderDialog() {
-    return (
-      <div className={'unSelectable'} styleName={'shareDialog'} style={this.state.dialogPosition}>
-        <div styleName={'title'}>
-          Share this link
-        </div>
-        <div styleName={'content'}>
-          <input type={'text'} value={this.props.link} ref={(input) => { this.textInput = input; }} readOnly />
-        </div>
-        <ButtonBar
-          rightButtonSectionElements={[
-            <Button type={'ghost'} label={'Copy link'} onClick={this._copyLinkToClipboard} />,
-            <Button label={'Close'} onClick={this._displayShareDialogClicked} />]}
-        />
-      </div>
-    );
-  }
 
   render() {
     return (
       <div styleName="shareDialogContainer" ref={(dialog) => { this.dialogRef = dialog; }}>
         <Button label={'Share'} type={'action'} icon={'share'} onClick={this._displayShareDialogClicked} disabled={this.props.disabled} />
-        {this.state.displayShareDialog && this._renderDialog()}
+
+        <div className={'unSelectable'} styleName={classNames('shareDialog', {display: this.state.displayShareDialog})} style={this.state.dialogPosition}>
+          <div styleName={'title'}>
+            Share this link
+          </div>
+          <div styleName={'content'}>
+            <input type={'text'} value={this.props.link} ref={(input) => { this.textInput = input; }} readOnly />
+          </div>
+          <ButtonBar
+            rightButtonSectionElements={[
+              <Button type={'ghost'} label={'Copy link'} onClick={this._copyLinkToClipboard} />,
+              <Button label={'Close'} onClick={this._displayShareDialogClicked} />]}
+          />
+        </div>
       </div>
     );
   }
