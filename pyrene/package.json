@@ -23,7 +23,6 @@
     "test": "NODE_ENV=test mocha --reporter nyan --require babel-register --require ignore-styles src/test.js src/**/*.spec.js",
     "prerelease": "yarn build",
     "release": "release-it",
-
     "prew": "yarn install",
     "w": "webpack -w"
   },
@@ -74,6 +73,6 @@
     "prop-types": "^15.6.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
-    "react-select": "^2.0.0-beta.6"
+    "react-select": "^2.0.0-beta.7"
   }
 }

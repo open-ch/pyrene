@@ -13,6 +13,12 @@
   outline: none;
   cursor: pointer;
 
+  background-color: var(--neutral-000);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   &.direction-up {
     transform: rotate(-90deg);
   }
@@ -38,5 +44,7 @@
 
 .icon {
   display: block;
+  width: 18px;
+  height: 18px;
   margin-left: 1px;
 }

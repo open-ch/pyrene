@@ -21,12 +21,14 @@
 
 .checkboxLabel {
   height: 24px;
-  display: inline-block;
   font-size: 14px;
   font-weight: normal;
   line-height: 1.71;
   text-transform: capitalize;
   cursor: pointer;
+
+  display: flex;
+  align-items: center;
 
   &:hover .checkboxIcon {
     background-image: url('./checkbox-hover.svg');
