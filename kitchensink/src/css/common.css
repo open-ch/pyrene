@@ -59,14 +59,32 @@ body {
   background-color: var(--neutral-000);
   display: flex;
   flex: 0;
+  min-height: 100vh;
 }
 
 .leftContainer {
+  position: relative;
   display: block;
   min-width: 284px;
   background-color: var(--neutral-000);
   padding-right: 1px;
   box-shadow: inset -1px 0 0 var(--neutral-sideBar);
+}
+
+.copyRight {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  white-space: nowrap;
+
+  font-size: 12px;
+  font-weight: 500;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  color: #7f8a95;
 }
 
 .pageContainer {

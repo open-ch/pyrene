@@ -31,6 +31,7 @@ export default class Main extends React.Component {
           <Logo versionNr={packageJson.version} />
           <SearchBar value={searchBarValue} />
           <SideBarMenu />
+          <div styleName={'copyRight'}>&copy; Open Systems 2018</div>
         </div>
         <div styleName={'pageContainer'}>
           <Switch>
