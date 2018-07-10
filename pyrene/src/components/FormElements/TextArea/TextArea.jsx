@@ -62,7 +62,7 @@ export default class TextArea extends React.Component {
           {this.props.maxLength >= 0 && <span styleName={'characterCounter'}>{characterCount}</span>}
         </div>
         <textarea
-          styleName={classNames('textArea', { resizeable: this.props.resizeable })}
+          styleName={classNames('textArea', { resizeable: this.props.resizeable }, { filled: this.state.value })}
           name={this.props.name}
           placeholder={this.props.placeholder}
           ref={this.textAreaRef}

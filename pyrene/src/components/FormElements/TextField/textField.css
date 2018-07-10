@@ -46,6 +46,7 @@
 
   &:hover, &:focus {
     border-color: var(--blue-500);
+    background-color: var(--neutral-000);
   }
 
   &[type=text] {
@@ -59,6 +60,10 @@
 
   &.hasIcon[type=text] {
     padding-right: 22px;
+  }
+
+  &.filled {
+    background-color: var(--neutral-000);
   }
 
   &::placeholder {

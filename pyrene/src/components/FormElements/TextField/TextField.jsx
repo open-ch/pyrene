@@ -47,7 +47,7 @@ export default class TextField extends React.Component {
         {this.props.title && <div styleName={classNames('textFieldTitle', { required: this.props.required && !this.props.disabled })}>{this.props.title}</div>}
         <div styleName={'textFieldIconLayoutContainer'}>
           <input
-            styleName={classNames('textField', { hasIcon: this.props.icon })}
+            styleName={classNames('textField', { hasIcon: this.props.icon }, { filled: this.state.inputText })}
             type="text"
             name={this.props.name}
             placeholder={this.props.placeholder}
