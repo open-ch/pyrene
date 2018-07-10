@@ -29,7 +29,7 @@ export default class ShareDialog extends React.Component {
     }
   }
 
-  _handleClickOutside() {
+  _handleClickOutside(event) {
     if (this.dialogRef && !this.dialogRef.contains(event.target)) {
       this._hideDialogAndRemoveListener();
     }
@@ -37,7 +37,7 @@ export default class ShareDialog extends React.Component {
 
   _copyLinkToClipboard() {
     document.execCommand('copy');
-    this._hideDialogAndRemoveListener();
+    this._focusAndSelectInput();
   }
 
   _hideDialogAndRemoveListener() {

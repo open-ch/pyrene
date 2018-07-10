@@ -39,7 +39,8 @@
 
 .radioLabel {
   height: 24px;
-  display: inline-block;
+  display: flex;
+  align-items: center;
   font-size: 14px;
   font-weight: normal;
   line-height: 1.71;

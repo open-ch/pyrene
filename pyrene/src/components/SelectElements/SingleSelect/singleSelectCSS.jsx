@@ -68,7 +68,7 @@ const selectStyle = {
 
     minHeight: 32,
     height: 32,
-    backgroundColor: state.isFocused ? 'var(--neutral-0)' : 'var(--neutral-020)',
+    backgroundColor: (state.isFocused || state.hasValue) ? 'var(--neutral-0)' : 'var(--neutral-020)',
     border: state.selectProps.isInvalid && !state.isDisabled ? 'solid 1px var(--red-500)' : state.isFocused ? 'solid 1px var(--blue-500)' : 'solid 1px var(--neutral-100)',
     borderRadius: 2,
     cursor: 'pointer',
