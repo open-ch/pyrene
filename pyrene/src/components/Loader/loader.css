@@ -1,0 +1,69 @@
+.pyreneLoader {
+  border-radius: 50%;
+  border: solid transparent;
+  box-sizing: border-box;
+  animation: spin 1.2s cubic-bezier( .6, .14, .33, .9) infinite;
+
+  &.type-dark {
+    border-top-color: var(--neutral-400);
+  }
+
+  &.type-light {
+    border-top-color: var(--neutral-000);
+  }
+
+  &.size-small {
+    border-width: 2px;
+    width: 12px;
+    height: 12px;
+  }
+
+  &.size-medium {
+    border-width: 3px;
+    width: 18px;
+    height: 18px;
+  }
+
+  &.size-large {
+    border-width: 5px;
+    width: 30px;
+    height: 30px;
+  }
+
+  &.size-xlarge {
+    border-width: 7px;
+    width: 48px;
+    height: 48px;
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.canvas {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &.size-small {
+    width: 16px;
+    height: 16px;
+  }
+
+  &.size-medium {
+    width: 24px;
+    height: 24px;
+  }
+
+  &.size-large {
+    width: 40px;
+    height: 40px;
+  }
+
+  &.size-xlarge {
+    width: 64px;
+    height: 64px;
+  }
+}

@@ -17,7 +17,8 @@ import { default as MultiSelect } from './components/SelectElements/MultiSelect/
 import { default as TabView } from './components/TabView/TabView';
 import { default as Collapsible } from './components/Collapsible/Collapsible';
 import { default as Container } from './components/Container/Container';
-
+import { default as Banner } from './components/Banner/Banner';
+import { default as Loader } from './components/Loader/Loader';
 
 const Components = {
   Button,
@@ -34,6 +35,8 @@ const Components = {
   TabView,
   Collapsible,
   Container
+  Banner,
+  Loader,
 };
 
 export {Button};
@@ -50,5 +53,7 @@ export {MultiSelect};
 export {TabView};
 export {Collapsible};
 export {Container};
+export {Banner};
+export {Loader};
 
 export default Components;

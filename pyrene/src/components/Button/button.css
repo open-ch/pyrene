@@ -1,5 +1,16 @@
 @import '../../styles/colors.css';
 
+.buttonContainer {
+  position: relative;
+
+  & .loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
 .button {
   composes: commonFontSettings from '../../styles/common.css';
 
@@ -8,31 +19,38 @@
   padding: 8px 16px;
   border-radius: 2px;
   border: none;
+  display: flex;
+  align-items: center;
 
-  font-size: 12px;
-  font-weight: bold;
-  line-height: normal;
-  letter-spacing: 1px;
-  text-transform: uppercase;
   cursor: pointer;
 
   &:focus {
     outline: 0;
   }
 
-  &.hasIcon {
-    position: relative;
-    padding-left: 40px;
+  & .label {
+    font-size: 12px;
+    font-weight: bold;
+    line-height: normal;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    display: inline-block;
+  }
 
-    & span {
-      width: 16px;
-      text-transform: none;
-      top: 8px;
-      left: 16px;
-      position: absolute;
-      font-size: 16px;
-      pointer-events: none;
+  &.loading {
+    & .label, & .icon {
+      visibility: hidden;
     }
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  & .icon {
+    font-size: 16px;
+    margin-right: 8px;
+    width: 16px;
+    height: 16px;
+    display: inline-block;
   }
 
   &.disabled {
@@ -81,23 +99,11 @@
     height: 24px;
     padding: 0 8px 0 8px;
 
-    font-size: 14px;
-    font-weight: 600;
-    letter-spacing: normal;
-    text-transform: capitalize;
     background-color: var(--neutral-000);
     color: var(--blue-500);
 
     &:hover {
       background-color: var(--blue-050);
-    }
-
-    &.hasIcon {
-      padding-left: 32px;
-      & span {
-        top: 4px;
-        left: 8px;
-      }
     }
   }
 
@@ -105,10 +111,6 @@
     height: 24px;
     padding: 0 8px 0 8px;
 
-    font-size: 14px;
-    font-weight: 600;
-    letter-spacing: normal;
-    text-transform: capitalize;
     background-color: var(--neutral-000);
     color: var(--red-500);
 
@@ -123,13 +125,12 @@
     &:hover {
       background-color: var(--red-010);
     }
+  }
 
-    &.hasIcon {
-      padding-left: 32px;
-      & span {
-        top: 4px;
-        left: 8px;
-      }
-    }
+  &.type-action .label, &.type-admin .label {
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: normal;
+    text-transform: capitalize;
   }
 }
