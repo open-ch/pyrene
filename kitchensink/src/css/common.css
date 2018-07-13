@@ -78,6 +78,7 @@ body {
   transform: translateX(-50%);
 
   white-space: nowrap;
+  letter-spacing: 0.7px;
 
   font-size: 12px;
   font-weight: 500;
