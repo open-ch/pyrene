@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import './button.css';
+import {Loader} from '../../index';
 
 
 /**
@@ -13,19 +14,26 @@ import './button.css';
  * Instead, use Links because it takes the user to a new page and is not associated with an action.
  */
 const Button = props => (
-  <button
-    className={'unSelectable'}
-    styleName={
-      classNames('button',
-        { [`type-${props.type}`]: true },
-        { hasIcon: props.icon },
-        { disabled: props.disabled })}
-    onClick={props.onClick}
-    disabled={props.disabled}
-  >
-    {props.icon && <span className={`icon-${props.icon}`} />}
-    {props.label}
-  </button>
+  <div styleName="buttonContainer">
+    <button
+      className={'unSelectable'}
+      styleName={
+        classNames('button',
+          { [`type-${props.type}`]: true },
+          { disabled: props.disabled },
+          { loading: props.loading})}
+      onClick={props.onClick}
+      disabled={props.disabled}
+    >
+      {props.icon && <span styleName={'icon'} className={`icon-${props.icon}`} />}
+      <span styleName={'label'}>{props.label}</span>
+    </button>
+    {props.loading && ((props.type === 'primary' || props.type === 'danger') ?
+      <span styleName={'loader'}><Loader size={'small'} type={'light'} /></span>
+      :
+      <span styleName={'loader'}><Loader size={'small'} type={'dark'} /></span>)
+    }
+  </div>
 );
 
 Button.displayName = 'Button';
@@ -34,6 +42,7 @@ Button.defaultProps = {
   icon: '',
   label: '',
   type: 'primary',
+  loading: false,
   disabled: false,
   onClick: () => null,
 };
@@ -51,6 +60,10 @@ Button.propTypes = {
    *  Changes what the button says.
    */
   label: PropTypes.string.isRequired,
+  /**
+   * Disables the button and displays a loader inside of it.
+   */
+  loading: PropTypes.bool,
   /**
    *  onClick function
    */

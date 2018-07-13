@@ -1,0 +1,94 @@
+.banner {
+  box-sizing: border-box;
+  padding: 0 24px;
+  height: 40px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 16px 1fr 16px;
+  grid-column-gap: 16px;
+  align-items: center;
+
+  font-size: 14px;
+  font-weight: 500;
+  font-style: normal;
+  font-stretch: normal;
+
+  border: solid 1px;
+  border-radius: 2px;
+
+  &.type-info {
+    background-color: var(--blue-010);
+    border-color: var(--blue-100);
+    color: var(--blue-700);
+    & .bannerIcon {
+      color: var(--blue-500);
+    }
+    & .clearIcon {
+      color: var(--blue-300);
+      &:hover {
+        color: var(--blue-500);
+      }
+    }
+  }
+
+  &.type-success {
+    background-color: var(--green-010);
+    border-color: var(--green-200);
+    color: var(--green-800);
+    & .clearIcon {
+      color: var(--green-600);
+      &:hover {
+        color: var(--green-800);
+      }
+    }
+  }
+
+  &.type-error {
+    background-color: var(--red-010);
+    border-color: var(--red-200);
+    color: var(--red-700);
+  }
+
+  &.type-warning {
+    background-color: var(--orange-010);
+    border-color: var(--orange-200);
+    color: var(--neutral-500);
+    & .bannerIcon {
+      color: var(--orange-500);
+    }
+    & .clearIcon {
+      color: var(--orange-500);
+      &:hover {
+        color: var(--orange-700);
+      }
+    }
+  }
+
+  &.type-loading {
+    border-color: transparent;
+  }
+
+  & .bannerIcon {
+    height: 16px;
+    width: 16px;
+    font-size: 16px;
+  }
+
+  & .message {
+    grid-column: 2;
+  }
+
+  & .clearIcon {
+    display: none;
+    height: 18px;
+    width: 18px;
+    font-size: 18px;
+    cursor: pointer;
+  }
+
+  &.clearable {
+    & .clearIcon {
+      display: block;
+    }
+  }
+}
