@@ -16,6 +16,9 @@ const iconNameForBannerType = (type) => {
   }
 };
 
+/**
+ * Use a Banner whenever you want the user to click it away.
+ */
 const Banner = props => (
   <div styleName={className('banner', { [`type-${props.type}`]: true }, { clearable: props.clearable })}>
     <span styleName={'bannerIcon'}>{props.type === 'loading' ? <Loader size={'small'} /> : <span className={`icon-${iconNameForBannerType(props.type)}`} />}</span>
@@ -33,9 +36,21 @@ Banner.defaultProps = {
 };
 
 Banner.propTypes = {
+  /**
+   * Let's the user clear the Banner.
+   */
   clearable: PropTypes.bool,
+  /**
+   * Text displayed inside of the Banner.
+   */
   message: PropTypes.string.isRequired,
+  /**
+   * Event handler.
+   */
   onClear: PropTypes.func,
+  /**
+   * Specifies the overall style and usecase.
+   */
   type: PropTypes.oneOf(['info', 'success', 'error', 'warning', 'loading']).isRequired,
 };
 

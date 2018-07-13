@@ -34,7 +34,7 @@ const Components = {
   MultiSelect,
   TabView,
   Collapsible,
-  Container
+  Container,
   Banner,
   Loader,
 };
