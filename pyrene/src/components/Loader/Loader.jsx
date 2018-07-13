@@ -17,13 +17,14 @@ Loader.displayName = 'Loader';
 
 Loader.defaultProps = {
   type: 'dark',
+  size: 'medium',
 };
 
 Loader.propTypes = {
   /**
    * Sets the size of the loader.
    */
-  size: PropTypes.oneOf(['small', 'medium', 'large', 'xlarge']).isRequired,
+  size: PropTypes.oneOf(['small', 'medium', 'large', 'xlarge']),
   /**
    * Changes the overall appearance of the loader.
    */
