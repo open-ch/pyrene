@@ -128,14 +128,14 @@ const startProps = {
     title: 'Multi-Select',
     placeholder: 'Choose your favorite ice cream',
     helperLabel: 'Ice cream is delicious',
-    defaultValues: [testOptions[1].value, testOptions[2].value],
+    defaultValues: [],
     options: testOptions,
   },
   'select': {
     title: 'Single-Select',
     placeholder: 'Choose your favorite ice cream',
     helperLabel: 'Ice cream is delicious',
-    defaultValue: 'spearmint',
+    defaultValue: null,
     options: testOptions,
   },
   'sharedialog': {
