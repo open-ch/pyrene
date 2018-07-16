@@ -91,19 +91,26 @@
     color: var(--blue-500);
 
     &:hover {
-      background-color: var(--blue-050);
+      background-color: var(--neutral-030);
     }
   }
 
   &.type-action {
-    height: 24px;
-    padding: 0 8px 0 8px;
-
+    padding-left: 8px;
+    padding-right: 8px;
     background-color: var(--neutral-000);
     color: var(--blue-500);
 
     &:hover {
-      background-color: var(--blue-050);
+      background-color: var(--neutral-030);
+    }
+
+    &.disabled {
+      box-shadow: inset 0 0 0 1px var(--neutral-050);
+    }
+
+    & .label {
+      height: 16px;
     }
   }
 
@@ -123,7 +130,7 @@
             inset 0 -1px 0 0;
 
     &:hover {
-      background-color: var(--red-010);
+      background-color: var(--red-050);
     }
   }
 
