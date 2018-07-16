@@ -7,71 +7,35 @@ import './checkbox.css';
 /**
  * Checkboxes are used primarily on ....
  */
-export default class Checkbox extends React.Component {
+const Checkbox = (props) => {
 
-  constructor(props) {
-    super(props);
+  const rand = Math.floor(Math.random() * 1e10);
+  return (
+    <div styleName={'checkboxContainer'}>
+      <input
+        id={`checkbox_${props.label}_${rand}`}
+        styleName={'checkbox'}
+        type={'checkbox'}
+        checked={props.checked}
+        onChange={props.onCheckBoxChange}
+        name={props.name}
+      />
 
-    this.toggleChange = this.toggleChange.bind(this);
-    this.state = {
-      checked: props.checked,
-      lastProps: {
-        checked: props.checked,
-      },
-    };
-  }
-
-  static getDerivedStateFromProps(nextProps, prevState) {
-    if (prevState.lastProps.checked !== nextProps.checked) {
-      return {
-        checked: nextProps.checked,
-        lastProps: {
-          checked: nextProps.checked
-        },
-      };
-    }
-    return null;
-  }
-
-  toggleChange() {
-    if (!this.props.disabled) {
-      this.setState((prevState, props) => ({
-        checked: !prevState.checked,
-      }),
-      () => this.props.onChange(this.state.checked));
-    }
-  }
-
-  render() {
-    const rand = Math.floor(Math.random() * 1e10);
-    return (
-      <div styleName={'checkboxContainer'}>
-        <input
-          id={`checkbox_${this.props.label}_${rand}`}
-          styleName={'checkbox'}
-          type={'checkbox'}
-          checked={this.state.checked}
-          onChange={this.toggleChange}
-          name={this.props.name}
-        />
-
-        <label
-          className={'unSelectable'}
-          styleName={
-            classNames('checkboxLabel',
-              { checked: this.state.checked },
-              { disabled: this.props.disabled },
-              { invalid: this.props.invalid && !this.state.checked })}
-          htmlFor={`checkbox_${this.props.label}_${rand}`}
-        >
-          <span styleName={'checkboxIcon'} />
-          {this.props.label}
-        </label>
-      </div>
-    );
-  }
-
-}
+      <label
+        className={'unSelectable'}
+        styleName={
+          classNames('checkboxLabel',
+            { checked: props.checked },
+            { disabled: props.disabled },
+            { invalid: props.invalid && !props.checked })}
+        htmlFor={`checkbox_${props.label}_${rand}`}
+      >
+        <span styleName={'checkboxIcon'} />
+        {props.label}
+      </label>
+    </div>
+  );
+};
 
 Checkbox.displayName = 'Checkbox';
 
@@ -80,7 +44,7 @@ Checkbox.defaultProps = {
   checked: false,
   invalid: false,
   name: '',
-  onChange: () => null,
+  onCheckBoxChange: () => null,
 };
 
 Checkbox.propTypes = {
@@ -107,5 +71,7 @@ Checkbox.propTypes = {
   /**
    * Event handler.
    */
-  onChange: PropTypes.func,
+  onCheckBoxChange: PropTypes.func,
 };
+
+export default Checkbox;
