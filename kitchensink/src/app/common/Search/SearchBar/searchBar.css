@@ -41,6 +41,8 @@
       font-stretch: normal;
       color: var(--neutral-400);
       background-color: var(--neutral-020);
+      box-sizing: border-box;
+      margin-top: 1px;
     }
 
     &::placeholder {
