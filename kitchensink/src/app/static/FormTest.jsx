@@ -11,19 +11,10 @@ const Form = (props) => (
     <TextField width={300} placeholder={'Email'} disabled={props.values.checkBox1} {...props.initField('email', props.errors)} />
     <TextField width={300} placeholder={'Password'} {...props.initField('password', props.errors)} />
 
-    <Button label={'Submit'} type={'danger'} disabled={props.submitDisabled} />
+    <Button label={'Submit'} type={'danger'} disabled={props.submitDisabled} loading={props.isSubmitting}/>
   </React.Fragment>
 );
 
-function delayAlert(values, ms){
-  console.log('Submitting', values);
-  var ctr, rej, p = new Promise(function (resolve, reject) {
-    ctr = setTimeout(resolve, ms);
-    rej = reject;
-  });
-  p.cancel = function(){ clearTimeout(ctr); rej(Error("Cancelled"))};
-  return p;
-}
 
 const WrappedForm = withFormLogic(Form)({
   initialValues: {
@@ -57,3 +48,13 @@ const FormTest = () => (
 );
 
 export default FormTest;
+
+function delayAlert(values, ms){
+  console.log('Submitting', values);
+  var ctr, rej, p = new Promise(function (resolve, reject) {
+    ctr = setTimeout(resolve, ms);
+    rej = reject;
+  });
+  p.cancel = function(){ clearTimeout(ctr); rej(Error("Cancelled"))};
+  return p;
+}
