@@ -8,16 +8,15 @@ import './checkbox.css';
  * Checkboxes are used primarily on ....
  */
 const Checkbox = (props) => {
-
   const rand = Math.floor(Math.random() * 1e10);
   return (
-    <div styleName={'checkboxContainer'}>
+    <div styleName={'checkboxContainer'} id={props.name} onBlur={props.onBlur} tabIndex={0}>
       <input
         id={`checkbox_${props.label}_${rand}`}
         styleName={'checkbox'}
         type={'checkbox'}
-        checked={props.checked}
-        onChange={props.onCheckBoxChange}
+        checked={props.value}
+        onChange={props.onChange}
         name={props.name}
       />
 
@@ -25,12 +24,12 @@ const Checkbox = (props) => {
         className={'unSelectable'}
         styleName={
           classNames('checkboxLabel',
-            { checked: props.checked },
-            { disabled: props.disabled },
-            { invalid: props.invalid && !props.checked })}
+            {checked: props.value},
+            {disabled: props.disabled},
+            {invalid: props.invalid && !props.value})}
         htmlFor={`checkbox_${props.label}_${rand}`}
       >
-        <span styleName={'checkboxIcon'} />
+        <span styleName={'checkboxIcon'}/>
         {props.label}
       </label>
     </div>
@@ -41,17 +40,13 @@ Checkbox.displayName = 'Checkbox';
 
 Checkbox.defaultProps = {
   disabled: false,
-  checked: false,
+  value: false,
   invalid: false,
   name: '',
-  onCheckBoxChange: () => null,
+  onChange: () => null,
 };
 
 Checkbox.propTypes = {
-  /**
-   * Pre-checks the checkbox.
-   */
-  checked: PropTypes.bool,
   /**
    * Disables any interaction with the component.
    */
@@ -71,7 +66,11 @@ Checkbox.propTypes = {
   /**
    * Event handler.
    */
-  onCheckBoxChange: PropTypes.func,
+  onChange: PropTypes.func,
+  /**
+   * Sets the Checkbox to either true or false.
+   */
+  value: PropTypes.bool,
 };
 
 export default Checkbox;

@@ -26,13 +26,25 @@ export default class Form extends React.Component {
     };
   }
 
-  onButtonClick = (event) => {
-    const buttonName = event.target.name;
-    alert('submit');
+  handleSubmit = (event) => {
+    event.preventDefault();
+
+    if (!this.canBeSubmitted()) {
+      alert()
+    } else {
+      const { email, password, checkBox1, checkBox2, checkBox3 } = this.state;
+      alert(`Signed up with email: ${email} password: ${password} male: ${checkBox1} female: ${checkBox2} helicopter: ${checkBox3}`);
+    }
   };
 
+  canBeSubmitted() {
+    const errors = this.validate(this.state.email, this.state.password, this.state.checkBox1, this.state.checkBox2, this.state.checkBox3);
+    const isDisabled = Object.keys(errors).some(x => errors[x]);
+    return !isDisabled;
+  }
+
   handleBlur = (event) => {
-    const inputName = event.target.name;
+    const inputName = event.target.name ? event.target.name : event.target.id;
     this.setState(() => ({
       touched: { ...this.state.touched, [inputName]: true}
     }));
@@ -44,25 +56,29 @@ export default class Form extends React.Component {
     this.setState(() => ({
       [inputName]: newValue
     }));
+  };
 
-    if (event.target.type === 'checkbox') {
-      this.setState(() => ({
-        touched: { ...this.state.touched, [inputName]: true}
-      }));
-    }
+  initField = (fieldName, errors) => {
+    return {
+      name: fieldName,
+      value: this.state[fieldName],
+      invalid: this.shouldMarkError(fieldName, errors),
+      onChange: this.handleInputChange,
+      onBlur: this.handleBlur,
+    };
   };
 
   validate = (email, password, checkBox1, checkBox2, checkBox3) => ({
     email: email.length === 0,
     password: password.length === 0,
     checkBox1: checkBox1 === checkBox2,
-    checkBox2: checkBox2,
-    checkBox3: checkBox3,
+    checkBox2: false,
+    checkBox3: checkBox3 !== checkBox2,
   });
 
-  shouldMarkError = (error, field) => {
-    const shouldShow = this.state.touched[field];
-    return error ? shouldShow : false;
+  shouldMarkError = (fieldName, errors) => {
+    const shouldShow = this.state.touched[fieldName];
+    return errors[fieldName] ? shouldShow : false;
   };
 
 
@@ -70,15 +86,15 @@ export default class Form extends React.Component {
     const errors = this.validate(this.state.email, this.state.password, this.state.checkBox1, this.state.checkBox2, this.state.checkBox3);
 
     return (
-      <form>
-        <Checkbox label={'Male'} onCheckBoxChange={this.handleInputChange} name={'checkBox1'} checked={this.state.checkBox1} invalid={this.shouldMarkError(errors.checkBox1, 'checkBox1')} onBlur={this.handleBlur} />
-        <Checkbox label={'Female'} onCheckBoxChange={this.handleInputChange} name={'checkBox2'} checked={this.state.checkBox2} invalid={this.shouldMarkError(errors.checkBox2, 'checkBox2')} onBlur={this.handleBlur} />
-        <Checkbox label={'Helicopter'} onCheckBoxChange={this.handleInputChange} name={'checkBox3'} checked={this.state.checkBox3} invalid={this.shouldMarkError(errors.checkBox3, 'checkBox3')} onBlur={this.handleBlur} />
+      <form onSubmit={this.handleSubmit}>
+        <Checkbox label={'Male'} {...this.initField('checkBox1', errors)} />
+        <Checkbox label={'Female'} {...this.initField('checkBox2', errors)} />
+        <Checkbox label={'Helicopter'} {...this.initField('checkBox3', errors)} />
 
-        <TextField name={'email'} onChange={this.handleInputChange} inputText={this.state.email} width={300} placeholder={'Email'} invalid={this.shouldMarkError(errors.email, 'email')} onBlur={this.handleBlur} />
-        <TextField name={'password'} onChange={this.handleInputChange} inputText={this.state.password} width={300} placeholder={'Password'} invalid={this.shouldMarkError(errors.password, 'password')} onBlur={this.handleBlur} />
+        <TextField width={300} placeholder={'Email'} {...this.initField('email', errors)} />
+        <TextField width={300} placeholder={'Password'} {...this.initField('password', errors)} />
 
-        <Button label={'Submit'} onClick={this.onButtonClick} type={'danger'} disabled={Object.keys(errors).some(x => errors[x])}/>
+        <Button label={'Submit'} type={'danger'} disabled={Object.keys(errors).some(x => errors[x])}/>
       </form>
     );
   }

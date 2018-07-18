@@ -11,11 +11,11 @@ const TextField = (props) => (
     {props.title && <div styleName={classNames('textFieldTitle', { required: props.required && !props.disabled })}>{props.title}</div>}
     <div styleName={'textFieldIconLayoutContainer'}>
       <input
-        styleName={classNames('textField', { hasIcon: props.icon }, { filled: props.inputText })}
+        styleName={classNames('textField', { hasIcon: props.icon }, { filled: props.value })}
         type="text"
         name={props.name}
         placeholder={props.placeholder}
-        value={props.inputText}
+        value={props.value}
         onChange={props.onChange}
         onBlur={props.onBlur}
         onFocus={props.onFocus}
@@ -43,7 +43,7 @@ TextField.displayName = 'Textfield';
 
 TextField.defaultProps = {
   title: '',
-  inputText: '',
+  value: '',
   placeholder: '',
   helperLabel: '',
   invalidLabel: '',
@@ -71,10 +71,6 @@ TextField.propTypes = {
    * Adds an interactive icon to the textField.
    */
   icon: PropTypes.string,
-  /**
-   * Changes what the text field says.
-   */
-  inputText: PropTypes.string,
   /**
    * Changes the fields and helpers visual appearance to indicate a validation error.
    */
@@ -111,6 +107,10 @@ TextField.propTypes = {
    * Changes what the title says.
    */
   title: PropTypes.string,
+  /**
+   * Changes what the text field says.
+   */
+  value: PropTypes.string,
   /**
    * Changes the width of the input field in px. Use -1 to inherit parent width.
    */
