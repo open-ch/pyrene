@@ -2,6 +2,7 @@
 
 .buttonContainer {
   position: relative;
+  display: inline-block;
 
   & .loader {
     position: absolute;
