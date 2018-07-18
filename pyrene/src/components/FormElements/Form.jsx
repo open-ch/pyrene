@@ -15,8 +15,8 @@ const withFormLogic = (WrappedForm) => ({initialValues, validation, onSubmit}) =
 
     state = {
       ...initialValues,
-      base: null,
       touched: this.getTouchedState(initialValues),
+      isSubmitting: false,
     };
 
     handleSubmit = (event) => {
@@ -25,13 +25,25 @@ const withFormLogic = (WrappedForm) => ({initialValues, validation, onSubmit}) =
       if (!this.canBeSubmitted()) {
         alert('Submit not possible, check validation!');
       } else {
-        onSubmit(this.state);
+
+        this.setState(() => ({
+          isSubmitting: true,
+        }));
+
+        // Should we use promises for onSubmit ???
+        onSubmit(this.state)
+          .then(() => this.setState({ isSubmitting: false }))
+          .then(() => alert('Done'))
       }
+    };
+
+    anyError = errors => {
+      return Object.keys(errors).some(x => errors[x]);
     };
 
     canBeSubmitted() {
       const errors = validation(this.state);
-      const isDisabled = Object.keys(errors).some(x => errors[x]);
+      const isDisabled = this.anyError(errors);
       return !isDisabled;
     }
 
@@ -51,13 +63,21 @@ const withFormLogic = (WrappedForm) => ({initialValues, validation, onSubmit}) =
     };
 
     initField = (fieldName, errors) => {
-      return {
+      // Standard boilerplate
+      let fieldProps = {
         name: fieldName,
         value: this.state[fieldName],
         invalid: this.shouldMarkError(fieldName, errors),
         onChange: this.handleInputChange,
         onBlur: this.handleBlur,
       };
+
+      // Overriding state of all inputs for special cases
+      if (this.state.isSubmitting) {
+        fieldProps.disabled = this.state.isSubmitting;
+      }
+
+      return fieldProps;
     };
 
     shouldMarkError = (fieldName, errors) => {
@@ -67,9 +87,11 @@ const withFormLogic = (WrappedForm) => ({initialValues, validation, onSubmit}) =
 
     render() {
       const errors = validation(this.state);
+      const submitDisabled = this.anyError(errors);
+
       return (
         <form onSubmit={this.handleSubmit}>
-          <WrappedForm initField={this.initField} errors={errors} />
+          <WrappedForm initField={this.initField} errors={errors} submitDisabled={submitDisabled} values={this.state} isSubmitting={this.state.isSubmitting} />
         </form>
       );
     }
