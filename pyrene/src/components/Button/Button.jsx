@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import './button.css';
-import {Loader} from '../../index';
+import Loader from '../Loader/Loader';
 
 
 /**
