@@ -12,6 +12,7 @@
     "prebuild": "yarn install",
     "build": "webpack",
     "prestart": "yarn install",
+    "start:prod": "node server.js",
     "start": "yarn link pyrene; webpack-dev-server",
     "release": "release-it"
   },
@@ -53,7 +54,7 @@
     "classnames": "^2.2.5",
     "markdown-to-jsx": "^6.6.7",
     "prop-types": "^15.6.1",
-    "pyrene": "^0.1.0",
+    "pyrene": "^0.1.4",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
     "react-select": "^2.0.0-beta.6"

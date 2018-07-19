@@ -1,0 +1,3 @@
+# ignore following folders/files
+node_modules
+dist
