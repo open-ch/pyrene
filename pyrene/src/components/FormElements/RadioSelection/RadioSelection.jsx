@@ -43,10 +43,13 @@ export default class RadioSelection extends React.Component {
     const rand = Math.floor(Math.random() * 1e10);
     const lastElementIndex = this.props.radioLabels.length - 1;
     return (
-      <div styleName={classNames('radioSelectionContainer', { [`alignment-${this.props.alignment}`]: true }, { invalid: this.props.invalid && !this.state.selectedOption })}>
+      <div
+        styleName={classNames('radioSelectionContainer', { [`alignment-${this.props.alignment}`]: true }, { invalid: this.props.invalid && !this.state.selectedOption })}
+        role="radiogroup"
+      >
         {this.props.radioLabels.map((radioLabel, index) => (
           <React.Fragment key={`radio_${radioLabel}`}>
-            <div className={'radioContainer'}>
+            <div className={'radioContainer'} role="radio">
               <input
                 styleName={'radioInput'}
                 checked={this.state.selectedOption === radioLabel}

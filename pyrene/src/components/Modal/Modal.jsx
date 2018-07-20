@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import './modal.css';
 import ButtonBar from '../ButtonBar/ButtonBar';
 import Button from '../Button/Button';
+import Loader from '../Loader/Loader';
 
 /**
  * I'm pretty modal.
@@ -36,7 +37,7 @@ export default class Modal extends React.Component {
     return (
       <Fragment>
         <div styleName="modalOverlay">
-          <div styleName={classNames('modalContainer', this.props.size)}>
+          <div styleName={classNames('modalContainer', this.props.size)} role="dialog">
             {this.props.loading ? <Loader/> : this.modalContent}
             <ButtonBar rightButtonSectionElements={[<Button label={'Cancel'} onClick={this.props.closeButtonClicked}/>]}/>
           </div>
