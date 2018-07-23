@@ -41,7 +41,7 @@ Tooltip.defaultProps = {
   preferredPosition: [],
   align: 'center',
   repositioning: true,
-  width: null,
+  width: 0,
   distanceToTarget: 8,
 };
 
