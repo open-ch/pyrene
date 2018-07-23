@@ -1,6 +1,6 @@
 import React from 'react';
 import '../../css/componentPage.css';
-import { withFormLogic, Checkbox, Button, TextField } from 'pyrene';
+import { withFormLogic, Checkbox, Button, TextField, TextArea, RadioGroup } from 'pyrene';
 
 const Form = (props) => (
   <React.Fragment>
@@ -10,6 +10,14 @@ const Form = (props) => (
 
     <TextField width={300} placeholder={'Email'} disabled={props.values.checkBox1} {...props.initField('email', props.errors)} />
     <TextField width={300} placeholder={'Password'} {...props.initField('password', props.errors)} />
+
+    <TextArea width={300} maxLength={1} placeholder={'text'} {...props.initField('textArea', props.errors)} />
+
+    <RadioGroup
+      alignment={'vertical'}
+      radioLabels={['option 1','option 2','option 3']}
+      {...props.initField('radioGroup', props.errors)}
+    />
 
     <Button label={'Submit'} type={'danger'} disabled={props.submitDisabled} loading={props.isSubmitting}/>
   </React.Fragment>
@@ -22,7 +30,9 @@ const WrappedForm = withFormLogic(Form)({
     checkBox2: true,
     checkBox3: true,
     email: 'blablabla',
-    password: 'secure'
+    password: 'secure',
+    textArea: '',
+    radioGroup: 'option 1'
   },
   validation: (values) => ({
     email: values.email.length === 0,
