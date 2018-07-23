@@ -19,6 +19,7 @@ import { default as Collapsible } from './components/Collapsible/Collapsible';
 import { default as Container } from './components/Container/Container';
 import { default as Banner } from './components/Banner/Banner';
 import { default as Loader } from './components/Loader/Loader';
+import { default as Tooltip } from './components/Tooltip/Tooltip';
 
 const Components = {
   Button,
@@ -37,6 +38,7 @@ const Components = {
   Container,
   Banner,
   Loader,
+  Tooltip
 };
 
 export {Button};
@@ -55,5 +57,6 @@ export {Collapsible};
 export {Container};
 export {Banner};
 export {Loader};
+export {Tooltip};
 
 export default Components;
