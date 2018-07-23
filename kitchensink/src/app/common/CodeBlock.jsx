@@ -80,13 +80,13 @@ export default class CodeBlock extends React.Component {
   }
 
   generateCodeForComponent(component, entireCodeWanted) {
-    let propList = `import { ${component.type.displayName} } from 'pyrene';\n`;
+    let propList = `import { ${component.type.name} } from 'pyrene';\n`;
     // Stop right here if the box is collapsed
     if (!entireCodeWanted) {
       return propList;
     }
 
-    propList += `<${component.type.displayName}\n`;
+    propList += `<${component.type.name}\n`;
     Object.entries(component.props).forEach(([key, value]) => {
       if (value) {
         // Add Code Line, for booleans only display key
