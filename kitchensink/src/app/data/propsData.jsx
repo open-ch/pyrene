@@ -10,7 +10,7 @@ const ContentFiller = (props) => (
     alignItems: 'center',
     borderRadius: 2,
     color: 'var(--neutral-100)',
-    fontSize: 32,
+    fontSize: props.fontSize ? props.fontSize : 32,
     fontWeight: 'bold',
     textTransform: 'uppercase',
     letterSpacing: 1 }}
@@ -123,7 +123,12 @@ const startProps = {
     helperLabel: 'Helper text for instructions',
     width: 500,
   },
-
+  'tooltip': {
+    label: 'Tooltip text from props',
+    preferredPosition: ['top'],
+    align: 'center',
+    children: <ContentFiller width={100} height={50} fontSize={14} />
+  },
   'multi-select': {
     title: 'Multi-Select',
     placeholder: 'Choose your favorite ice cream',
