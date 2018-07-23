@@ -6,7 +6,7 @@ import './styles/fonts.css';
 import { default as Button } from './components/Button/Button';
 import { default as Link } from './components/Link/Link';
 import { default as Checkbox } from './components/FormElements/Checkbox/Checkbox';
-import { default as RadioSelection } from './components/FormElements/RadioSelection/RadioSelection';
+import { default as RadioGroup } from './components/FormElements/RadioGroup/RadioGroup';
 import { default as ShareDialog } from './components/Share/ShareDialog';
 import { default as Modal } from './components/Modal/Modal';
 import { default as ArrowButton } from './components/ArrowButton/ArrowButton';
@@ -25,7 +25,7 @@ const Components = {
   Button,
   Link,
   Checkbox,
-  RadioSelection,
+  RadioGroup,
   ShareDialog,
   Modal,
   ArrowButton,
@@ -44,7 +44,7 @@ const Components = {
 export {Button};
 export {Link};
 export {Checkbox};
-export {RadioSelection};
+export {RadioGroup};
 export {ShareDialog};
 export {Modal};
 export {ArrowButton};
