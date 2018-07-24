@@ -15,49 +15,54 @@ const Option = (props) => {
   );
 };
 
-const IconSelect = props => (
-  <div styleName={classNames('selectContainer')}>
-    {props.title && <div styleName={classNames('selectTitle', { required: props.required && !props.disabled })}>{props.title}</div>}
-    <Select
-      components={{ Option }}
-      className={'singleSelect'}
-      styles={SelectStyle}
-      placeholder={'Change to add icon'}
-      value={props.inputValue && {label: props.inputValue, value: props.inputValue}}
-      options={icons.map(icon => ({ value: icon.name, label: icon.name }))}
+const IconSelect = props => {
+  const options = icons.map(icon => ({ value: icon.name, label: icon.name }));
+  return (
+    <div styleName={classNames('selectContainer')}>
+      {props.title && <div styleName={classNames('selectTitle', { required: props.required && !props.disabled })}>{props.title}</div>}
+      <Select
+        components={{ Option }}
+        className={'singleSelect'}
+        styles={SelectStyle}
+        placeholder={'Change to add icon'}
+        value={props.value ? options.filter(o => o.value === props.value).pop() : null}
+        options={options}
+        onChange={(option) => props.onChange({target: {name: props.name, value: option, type: 'singleSelect' } })}
+        onBlur={props.onBlur}
+        name={props.name}
+        id={props.name}
+        inputId={props.name}
 
-      closeMenuOnSelect={false}
-      onChange={option => props.onChange(option)}
+        closeMenuOnSelect={false}
+        maxMenuHeight={264}
+        noOptionsMessage={() => 'no matches found'}
+        isClearable
+        isSearchable
+        blurInputOnSelect
+        escapeClearsValue
+        captureMenuScroll
+      />
 
-      maxMenuHeight={264}
-      noOptionsMessage={() => 'no matches found'}
-
-      isClearable
-      isSearchable
-      blurInputOnSelect
-      escapeClearsValue
-      captureMenuScroll
-    />
-
-    {props.helperLabel &&
-    <div styleName={'selectHelper'}>
-      {props.helperLabel}
-    </div>}
-  </div>
-);
+      {props.helperLabel &&
+      <div styleName={'selectHelper'}>
+        {props.helperLabel}
+      </div>}
+    </div>
+  );
+};
 
 IconSelect.displayName = 'IconSelect';
 
 IconSelect.defaultProps = {
   helperLabel: '',
-  inputValue: null,
+  value: null,
   title: '',
   onChange: () => null,
 };
 
 IconSelect.propTypes = {
   helperLabel: PropTypes.string,
-  inputValue: PropTypes.string,
+  value: PropTypes.string,
   onChange: PropTypes.func,
   title: PropTypes.string,
 };

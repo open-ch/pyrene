@@ -10,20 +10,20 @@ export default class Counter extends React.Component {
     super(props);
 
     this.state = {
-      number: props.number,
+      value: props.value,
       lastProps: {
-        number: props.number,
+        value: props.value,
       },
     };
   }
 
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    if (prevState.lastProps.number !== nextProps.number) {
+    if (prevState.lastProps.value !== nextProps.value) {
       return {
-        number: nextProps.number,
+        value: nextProps.value,
         lastProps: {
-          number: nextProps.number,
+          value: nextProps.value,
         },
       };
     }
@@ -32,14 +32,14 @@ export default class Counter extends React.Component {
   }
 
 
-  adjustBounds(number) {
-    if (this.props.maxNumber && number > this.props.maxNumber) {
-      return this.props.maxNumber;
+  adjustBounds(value) {
+    if (this.props.maxvalue && value > this.props.maxvalue) {
+      return this.props.maxvalue;
     }
-    if (this.props.minNumber && number < this.props.minNumber) {
-      return this.props.minNumber;
+    if (this.props.minvalue && value < this.props.minvalue) {
+      return this.props.minvalue;
     }
-    return number;
+    return value;
   }
 
   handleInputChange(event) {
@@ -54,17 +54,17 @@ export default class Counter extends React.Component {
     newValue = this.adjustBounds(newValue);
 
     this.setState((prevState, props) => ({
-      number: newValue,
+      value: newValue,
     }),
     () => this.props.onChange(newValue)
     );
   }
 
-  changeCounterBy(number) {
+  changeCounterBy(value) {
     this.setState((prevState, props) => ({
-      number: this.adjustBounds(prevState.number + number),
+      value: this.adjustBounds(prevState.value + value),
     }),
-    () => this.props.onChange(this.state.number)
+    () => this.props.onChange(this.state.value)
     );
   }
 
@@ -73,7 +73,7 @@ export default class Counter extends React.Component {
     return (
       <div styleName={'counter'}>
         <div className={'unSelectable'} styleName={'modifier'} onClick={() => this.changeCounterBy(-1)}>-</div>
-        <input styleName={'numberDisplay'} type={'text'} onChange={event => this.handleInputChange(event)} value={this.state.number} autoComplete="nope" />
+        <input styleName={'valueDisplay'} type={'text'} onChange={event => this.handleInputChange(event)} value={this.state.value} autoComplete="nope" />
         <div className={'unSelectable'} styleName={'modifier'} onClick={() => this.changeCounterBy(1)}>+</div>
       </div>
     );
@@ -84,14 +84,14 @@ export default class Counter extends React.Component {
 Counter.displayName = 'Counter';
 
 Counter.defaultProps = {
-  minNumber: null,
-  maxNumber: null,
+  minvalue: null,
+  maxvalue: null,
   onChange: () => null,
 };
 
 Counter.propTypes = {
-  minNumber: PropTypes.number,
-  maxNumber: PropTypes.number,
-  number: PropTypes.number.isRequired,
+  minvalue: PropTypes.number,
+  maxvalue: PropTypes.number,
+  value: PropTypes.number.isRequired,
   onChange: PropTypes.func,
 };

@@ -10,18 +10,9 @@ import Counter from '../Counter/Counter';
 
 export default class DynamicPropTable extends React.Component {
 
-  constructor(props) {
-    super(props);
-    this.handlePropEditorChange = this.handlePropEditorChange.bind(this);
-  }
-
-  handlePropEditorChange(prop, newValue) {
-    this.props.onEditorChange(prop, newValue);
-  }
-
-  handleArrays(propName, propProps) {
+  /*handleArrays(propName, propProps) {
     if (propProps.type.value.name === 'string') {
-      const options = this.props.activeValues[propName].map(propChoice => ({ value: propChoice, label: propChoice }));
+      const options = this.props.propValues[propName].map(propChoice => ({ value: propChoice, label: propChoice }));
       return (
         <MultiSelect
           key={propName}
@@ -29,13 +20,13 @@ export default class DynamicPropTable extends React.Component {
           options={options}
 
           defaultValues={options.map(option => option.value)}
-          value={this.props.activeValues[propName] && options}
+          value={this.props.propValues[propName] && options}
 
           onChange={(changedOption) => {
             if (changedOption !== null) {
-              this.handlePropEditorChange(propName, changedOption.map(option => option.label));
+              this.props.onEditorChange(propName, event);
             } else {
-              this.handlePropEditorChange(propName, changedOption);
+              this.props.onEditorChange(propName, event);
             }
           }}
           clearable
@@ -44,7 +35,7 @@ export default class DynamicPropTable extends React.Component {
       );
     }
     return (<React.Fragment key={propName}>-</React.Fragment>);
-  }
+  } */
 
   renderModifierFor(propName, propProps) {
     switch (propProps.type.name) {
@@ -52,66 +43,43 @@ export default class DynamicPropTable extends React.Component {
         return (
           <React.Fragment key={propName}>
             {propName === 'icon' ?
-              <IconSelect
-                inputValue={this.props.activeValues[propName]}
-                onChange={(changedOption) => {
-                  if (changedOption !== null) {
-                    this.handlePropEditorChange(propName, changedOption.label);
-                  } else {
-                    this.handlePropEditorChange(propName, changedOption);
-                  }
-                }}
-              />
+              <IconSelect {...this.props.initField(propName)} />
               :
               <TextField
-                name={propName}
                 placeholder={'Change me'}
-                inputText={this.props.activeValues[propName]}
-                onChange={changedValue => this.handlePropEditorChange(propName, changedValue)}
+                {...this.props.initField(propName)}
               />
             }
           </React.Fragment>
         );
 
       case 'enum':
-        const options = propProps.type.value.map((propChoice, index) => ({ value: index, label: propChoice.value.replace(/'/g, '') }));
+        const options = propProps.type.value.map(propChoice => ({ value: propChoice.value.replace(/'/g, ''), label: propChoice.value.replace(/'/g, '') }));
         return (
           <SingleSelect
             options={options}
-            onChange={(changedOption) => {
-              if (changedOption !== null) {
-                this.handlePropEditorChange(propName, changedOption.label);
-              } else {
-                this.handlePropEditorChange(propName, changedOption);
-              }
-            }}
-            defaultValue={0}
-            value={this.props.activeValues[propName] && { value: this.props.activeValues[propName], label: this.props.activeValues[propName] }}
-            key={propName}
+            {...this.props.initField(propName)}
           />
         );
 
       case 'bool':
         return (
           <Checkbox
-            key={propName}
             label={propName}
-            checked={this.props.activeValues[propName]}
-            onChange={value => this.handlePropEditorChange(propName, value)}
+            {...this.props.initField(propName)}
           />
         );
 
       case 'number':
         return (
           <Counter
-            key={propName}
-            number={this.props.activeValues[propName]}
-            onChange={value => this.handlePropEditorChange(propName, value)}
+            {...this.props.initField(propName)}
           />
         );
 
-      case 'arrayOf':
+      /*case 'arrayOf':
         return this.handleArrays(propName, propProps);
+        */
 
       default:
         return (<React.Fragment key={propName}> - </React.Fragment>);
@@ -124,7 +92,7 @@ export default class DynamicPropTable extends React.Component {
         <Table
           cellWidthArray={['212px', '106px', '106px', '212px', '']}
           headerElementArray={['property', 'type', 'required', 'default value', 'playground']}
-          rowArray={this.props.componentProps ? Object.entries(this.props.componentProps).map(([propName, propProps]) => {
+          rowArray={this.props.propDocumentation ? Object.entries(this.props.propDocumentation).map(([propName, propProps]) => {
             if (typeof propProps.defaultValue === 'undefined' || propProps.defaultValue.value === "''") {
               return [propName, propProps.type.name, propProps.required, '-', this.renderModifierFor(propName, propProps), propProps.description];
             }
@@ -143,7 +111,7 @@ DynamicPropTable.defaultProps = {
 };
 
 DynamicPropTable.propTypes = {
-  componentProps: PropTypes.objectOf(PropTypes.shape({
+  propDocumentation: PropTypes.objectOf(PropTypes.shape({
     propName: PropTypes.objectOf(PropTypes.shape({
       defaultValue: PropTypes.string,
       description: PropTypes.string,
@@ -153,6 +121,6 @@ DynamicPropTable.propTypes = {
       }),
     })),
   })).isRequired,
-  onEditorChange: PropTypes.func.isRequired,
-  activeValues: PropTypes.object,
+  propValues: PropTypes.object,
+  initField: PropTypes.func.isRequired,
 };

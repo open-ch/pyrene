@@ -26,7 +26,7 @@ const Form = (props) => (
       <MultiSelect options={testOptions} {...props.initField('multiselect')} />
     </div>
 
-    <Button label={'Submit'} type={'danger'} disabled={props.submitDisabled} loading={props.isSubmitting}/>
+    <Button label={'Submit'} type={'danger'} disabled={props.submitDisabled} loading={props.isSubmitting} />
   </React.Fragment>
 );
 
