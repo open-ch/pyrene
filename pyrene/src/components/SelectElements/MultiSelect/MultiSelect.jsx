@@ -18,12 +18,12 @@ const MultiSelect = props => (
         styles={MultiSelectStyle(props.rows)}
         placeholder={props.placeholder}
         options={props.options}
-        value={props.value ? props.value : undefined}
+        value={props.value}
         defaultValue={props.options.filter(option => props.defaultValues.includes(option.value))}
         isClearable={props.clearable}
         isDisabled={props.disabled}
         isInvalid={props.invalid}
-        onChange={option => props.onChange(option)}
+        onChange={props.onChange}
 
         maxMenuHeight={264}
         noOptionsMessage={() => 'no matches found'}
@@ -41,13 +41,13 @@ const MultiSelect = props => (
         styles={MultiSelectStyle(props.rows)}
         placeholder={props.placeholder}
         options={props.options}
-        value={props.value ? props.value : undefined}
+        value={props.value}
         defaultValue={props.options.filter(option => props.defaultValues.includes(option.value))}
         isClearable={props.clearable}
         isDisabled={props.disabled}
         isInvalid={props.invalid}
         isSearchable={props.searchable}
-        onChange={option => props.onChange(option)}
+        onChange={props.onChange}
 
         maxMenuHeight={264}
         noOptionsMessage={() => 'no matches found'}

@@ -19,12 +19,12 @@ const SingleSelect = props => (
         styles={SelectStyle}
         placeholder={props.placeholder}
         options={props.options}
-        value={props.value ? props.value : undefined}
+        value={props.value}
         defaultValue={props.options.filter(o => o.value === props.defaultValue).pop()}
         isClearable={props.clearable}
         isDisabled={props.disabled}
         isInvalid={props.invalid}
-        onChange={option => props.onChange(option)}
+        onChange={props.onChange}
 
         maxMenuHeight={264}
         noOptionsMessage={() => 'no matches found'}
@@ -41,13 +41,13 @@ const SingleSelect = props => (
         styles={SelectStyle}
         placeholder={props.placeholder}
         options={props.options}
-        value={props.value ? props.value : undefined}
+        value={props.value}
         defaultValue={props.options.filter(o => o.value === props.defaultValue).pop()}
         isClearable={props.clearable}
         isSearchable={props.searchable}
         isDisabled={props.disabled}
         isInvalid={props.invalid}
-        onChange={option => props.onChange(option)}
+        onChange={props.onChange}
 
         maxMenuHeight={264}
         noOptionsMessage={() => 'no matches found'}
