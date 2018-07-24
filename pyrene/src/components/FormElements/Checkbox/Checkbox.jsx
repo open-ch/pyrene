@@ -44,6 +44,7 @@ Checkbox.defaultProps = {
   invalid: false,
   name: '',
   onChange: () => null,
+  onBlur: () => null,
 };
 
 Checkbox.propTypes = {
@@ -63,6 +64,10 @@ Checkbox.propTypes = {
    * Sets the html name property of the form element.
    */
   name: PropTypes.string,
+  /**
+   * Event handler.
+   */
+  onBlur: PropTypes.func,
   /**
    * Event handler.
    */
