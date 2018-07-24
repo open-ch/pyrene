@@ -48,6 +48,7 @@ const withFormLogic = (WrappedForm) => ({initialValues, validation, onSubmit}) =
     }
 
     handleBlur = (event) => {
+      console.log(event.target);
       const inputName = event.target.name ? event.target.name : event.target.id;
       this.setState(() => ({
         touched: { ...this.state.touched, [inputName]: true}
@@ -56,18 +57,27 @@ const withFormLogic = (WrappedForm) => ({initialValues, validation, onSubmit}) =
 
     handleInputChange = (event) => {
       const inputName = event.target.name;
-      const newValue = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
+      const newValue = this.getValueFromInput(event.target);
       this.setState(() => ({
         [inputName]: newValue
       }));
     };
 
-    initField = (fieldName, errors) => {
+    getValueFromInput = (target) => {
+      switch(target.type) {
+        case 'checkbox':
+          return target.checked;
+        default:
+          return target.value;
+      }
+    };
+
+    initField = (fieldName, error) => {
       // Standard boilerplate
       let fieldProps = {
         name: fieldName,
         value: this.state[fieldName],
-        invalid: this.shouldMarkError(fieldName, errors),
+        invalid: this.shouldMarkError(fieldName, error),
         onChange: this.handleInputChange,
         onBlur: this.handleBlur,
       };
@@ -80,18 +90,20 @@ const withFormLogic = (WrappedForm) => ({initialValues, validation, onSubmit}) =
       return fieldProps;
     };
 
-    shouldMarkError = (fieldName, errors) => {
+    shouldMarkError = (fieldName, error) => {
       const shouldShow = this.state.touched[fieldName];
-      return errors[fieldName] ? shouldShow : false;
+      return error ? shouldShow : false;
     };
 
     render() {
       const errors = validation(this.state);
       const submitDisabled = this.anyError(errors);
 
+      console.log(this.state);
+
       return (
         <form onSubmit={this.handleSubmit}>
-          <WrappedForm initField={this.initField} errors={errors} submitDisabled={submitDisabled} values={this.state} isSubmitting={this.state.isSubmitting} />
+          <WrappedForm initField={name => this.initField(name, errors[name])} errors={errors} submitDisabled={submitDisabled} values={this.state} isSubmitting={this.state.isSubmitting} />
         </form>
       );
     }

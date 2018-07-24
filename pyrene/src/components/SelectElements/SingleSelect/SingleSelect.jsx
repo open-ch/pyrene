@@ -19,12 +19,16 @@ const SingleSelect = props => (
         styles={SelectStyle}
         placeholder={props.placeholder}
         options={props.options}
-        value={props.value}
+        value={props.value ? props.options.filter(o => o.value === props.defaultValue).pop() : null}
         defaultValue={props.options.filter(o => o.value === props.defaultValue).pop()}
         isClearable={props.clearable}
         isDisabled={props.disabled}
         isInvalid={props.invalid}
-        onChange={props.onChange}
+        onChange={(option) => props.onChange({target: {name: props.name, value: option}})}
+        onBlur={props.onBlur}
+        name={props.name}
+        id={props.name}
+        inputId={props.name}
 
         maxMenuHeight={264}
         noOptionsMessage={() => 'no matches found'}
@@ -41,13 +45,17 @@ const SingleSelect = props => (
         styles={SelectStyle}
         placeholder={props.placeholder}
         options={props.options}
-        value={props.value}
+        value={props.value ? props.options.filter(o => o.value === props.defaultValue).pop() : null}
         defaultValue={props.options.filter(o => o.value === props.defaultValue).pop()}
         isClearable={props.clearable}
         isSearchable={props.searchable}
         isDisabled={props.disabled}
         isInvalid={props.invalid}
-        onChange={props.onChange}
+        onChange={(option) => props.onChange({target: {name: props.name, value: option}})}
+        onBlur={props.onBlur}
+        name={props.name}
+        id={props.name}
+        inputId={props.name}
 
         maxMenuHeight={264}
         noOptionsMessage={() => 'no matches found'}
@@ -79,6 +87,7 @@ SingleSelect.displayName = 'Select';
 
 SingleSelect.defaultProps = {
   placeholder: 'Select',
+  name: '',
   creatable: false,
   disabled: false,
   invalid: false,
@@ -92,6 +101,7 @@ SingleSelect.defaultProps = {
   title: '',
   value: null,
   onChange: () => null,
+  onBlur: () => null,
 };
 
 SingleSelect.propTypes = {
@@ -127,6 +137,14 @@ SingleSelect.propTypes = {
    */
   invalidLabel: PropTypes.string,
   /**
+   * Html input name tag
+   */
+  name: PropTypes.string,
+  /**
+   * Event Handler.
+   */
+  onBlur: PropTypes.func,
+  /**
    * Event Handler. Param option: {value: , label:}
    */
   onChange: PropTypes.func,
@@ -158,7 +176,7 @@ SingleSelect.propTypes = {
    */
   value: PropTypes.shape({
     label: PropTypes.string.isRequired,
-    value: PropTypes.string.isRequired,
+    value: PropTypes.any.isRequired,
   }),
 };
 

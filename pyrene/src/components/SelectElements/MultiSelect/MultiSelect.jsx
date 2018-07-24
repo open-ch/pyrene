@@ -18,12 +18,16 @@ const MultiSelect = props => (
         styles={MultiSelectStyle(props.rows)}
         placeholder={props.placeholder}
         options={props.options}
-        value={props.value}
+        value={props.value ? props.value : null}
         defaultValue={props.options.filter(option => props.defaultValues.includes(option.value))}
         isClearable={props.clearable}
         isDisabled={props.disabled}
         isInvalid={props.invalid}
-        onChange={props.onChange}
+        onChange={(option) => props.onChange({target: {name: props.name, value: option}})}
+        onBlur={props.onBlur}
+        name={props.name}
+        id={props.name}
+        inputId={props.name}
 
         maxMenuHeight={264}
         noOptionsMessage={() => 'no matches found'}
@@ -41,13 +45,17 @@ const MultiSelect = props => (
         styles={MultiSelectStyle(props.rows)}
         placeholder={props.placeholder}
         options={props.options}
-        value={props.value}
+        value={props.value ? props.value : null}
         defaultValue={props.options.filter(option => props.defaultValues.includes(option.value))}
         isClearable={props.clearable}
         isDisabled={props.disabled}
         isInvalid={props.invalid}
         isSearchable={props.searchable}
-        onChange={props.onChange}
+        onChange={(option) => props.onChange({target: {name: props.name, value: option}})}
+        onBlur={props.onBlur}
+        name={props.name}
+        id={props.name}
+        inputId={props.name}
 
         maxMenuHeight={264}
         noOptionsMessage={() => 'no matches found'}
@@ -80,10 +88,11 @@ const MultiSelect = props => (
 MultiSelect.displayName = 'Multi-Select';
 
 MultiSelect.defaultProps = {
-  placeholder: 'Select',
+  placeholder: 'Multi-Select',
   helperLabel: '',
   invalidLabel: '',
   title: '',
+  name: '',
   defaultValues: [],
   options: [],
   rows: -1,
@@ -95,6 +104,7 @@ MultiSelect.defaultProps = {
   searchable: false,
   value: null,
   onChange: () => null,
+  onBlur: () => null,
 };
 
 MultiSelect.propTypes = {
@@ -129,6 +139,14 @@ MultiSelect.propTypes = {
    * Displayed instead of the helperLabel if specified & invalid is set.
    */
   invalidLabel: PropTypes.string,
+  /**
+   * Html input name tag
+   */
+  name: PropTypes.string,
+  /**
+   * Event Handler.
+   */
+  onBlur: PropTypes.func,
   /**
    * Event Handler. Param option: {value: , label:}
    */
@@ -165,7 +183,7 @@ MultiSelect.propTypes = {
    */
   value: PropTypes.arrayOf(PropTypes.shape({
     label: PropTypes.string.isRequired,
-    value: PropTypes.string.isRequired,
+    value: PropTypes.any.isRequired,
   })),
 };
 
