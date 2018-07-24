@@ -1,23 +1,30 @@
 import React from 'react';
 import '../../css/componentPage.css';
-import { withFormLogic, Checkbox, Button, TextField, TextArea, RadioGroup } from 'pyrene';
+import { withFormLogic, Checkbox, Button, TextField, TextArea, RadioGroup, SingleSelect, MultiSelect } from 'pyrene';
+import {testOptions} from '../data/propsData';
 
 const Form = (props) => (
   <React.Fragment>
-    <Checkbox label={'Male'} {...props.initField('checkBox1', props.errors)} />
-    <Checkbox label={'Female'} {...props.initField('checkBox2', props.errors)} />
-    <Checkbox label={'Helicopter'} {...props.initField('checkBox3', props.errors)} />
+    <Checkbox label={'Male'} {...props.initField('checkBox1')} />
+    <Checkbox label={'Female'} {...props.initField('checkBox2')} />
+    <Checkbox label={'Helicopter'} {...props.initField('checkBox3')} />
 
-    <TextField width={300} placeholder={'Email'} disabled={props.values.checkBox1} {...props.initField('email', props.errors)} />
-    <TextField width={300} placeholder={'Password'} {...props.initField('password', props.errors)} />
+    <TextField width={300} placeholder={'Email'} disabled={props.values.checkBox1} {...props.initField('email')} />
+    <TextField width={300} placeholder={'Password'} {...props.initField('password')} />
 
-    <TextArea width={300} maxLength={1} placeholder={'text'} {...props.initField('textArea', props.errors)} />
+    <TextArea width={300} maxLength={1} placeholder={'text'} {...props.initField('textArea')} />
 
-    <RadioGroup
-      alignment={'vertical'}
-      radioLabels={['option 1','option 2','option 3']}
-      {...props.initField('radioGroup', props.errors)}
-    />
+    <div style={{width: 300}}>
+      <RadioGroup
+        alignment={'vertical'}
+        radioLabels={['option 1','option 2','option 3', 'option 22','option 32']}
+        {...props.initField('radioGroup')}
+      />
+    </div>
+    <div style={{width: 300}}>
+      <SingleSelect options={testOptions} {...props.initField('select')} />
+      <MultiSelect options={testOptions} {...props.initField('multiselect')} />
+    </div>
 
     <Button label={'Submit'} type={'danger'} disabled={props.submitDisabled} loading={props.isSubmitting}/>
   </React.Fragment>
@@ -32,11 +39,13 @@ const WrappedForm = withFormLogic(Form)({
     email: 'blablabla',
     password: 'secure',
     textArea: '',
-    radioGroup: 'option 1'
+    radioGroup: '',
+    select: null,
+    multiselect: [],
   },
   validation: (values) => ({
-    email: values.email.length === 0,
-    password: values.password.length === 0,
+    email: values.email.length === 0 ? 'Email must be longer than 0 Characters' : null,
+    password: values.password.length === 0 ? 'Password must be longer than 0 Characters' : null,
     checkBox1: values.checkBox1 === values.checkBox2,
     checkBox2: false,
     checkBox3: values.checkBox3 !== values.checkBox2,

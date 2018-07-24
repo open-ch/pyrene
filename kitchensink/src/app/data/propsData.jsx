@@ -37,7 +37,7 @@ const testOptions = [
   { value: 'caramel', label: 'Caramel', invalid: false },
   { value: 'banana', label: 'Banana', invalid: false },
   { value: 'garlic', label: 'Garlic', invalid: true },
-  { value: 'twix', label: 'Twix', invalid: false },
+  { value:  123, label: 'Twix', invalid: false },
   { value: 'mintchocolatechip', label: 'Mint Chocolate Chip', invalid: false },
   { value: 'spearmint', label: 'Spearmint', invalid: false },
   { value: 'oyster', label: 'Oyster', invalid: false },
@@ -146,3 +146,4 @@ const startProps = {
 
 
 export default startProps;
+export { testOptions };
