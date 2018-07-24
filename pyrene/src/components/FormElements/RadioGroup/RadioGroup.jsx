@@ -10,18 +10,23 @@ const RadioGroup = (props) => {
   const rand = Math.floor(Math.random() * 1e10);
   const lastElementIndex = props.radioLabels.length - 1;
   return (
-    <div styleName={classNames('radioSelectionContainer', { [`alignment-${props.alignment}`]: true }, { invalid: props.invalid && !props.selectedOption })}>
+    <div
+      styleName={classNames('radioSelectionContainer', { [`alignment-${props.alignment}`]: true }, { invalid: props.invalid && !props.selectedOption })}
+      tabIndex={0}
+      onBlur={props.onBlur}
+      id={props.name}
+    >
       {props.radioLabels.map((radioLabel, index) => (
         <React.Fragment key={`radio_${radioLabel}`}>
           <div className={'radioContainer'}>
             <input
               styleName={'radioInput'}
               checked={props.value === radioLabel}
-              name={props.name}
               id={`radio_${radioLabel}_${rand}`}
               onChange={props.onChange}
               type="radio"
               value={radioLabel}
+              name={props.name}
             />
 
             <label
@@ -52,6 +57,7 @@ RadioGroup.defaultProps = {
   invalid: false,
   name: '',
   onChange: () => null,
+  onBlur: () => null,
 };
 
 RadioGroup.propTypes = {
@@ -71,6 +77,10 @@ RadioGroup.propTypes = {
    * Sets the html name property of the form element.
    */
   name: PropTypes.string,
+  /**
+   * Event handler.
+   */
+  onBlur: PropTypes.func,
   /**
    * Event handler.
    */

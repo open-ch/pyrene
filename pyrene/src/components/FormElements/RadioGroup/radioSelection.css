@@ -5,6 +5,8 @@
   display: flex;
   justify-content: flex-start;
 
+  outline: 0 !important;
+
   &.alignment-vertical {
     flex-direction: column;
   }
