@@ -48,7 +48,6 @@ const withFormLogic = (WrappedForm) => ({initialValues, validation, onSubmit}) =
     }
 
     handleBlur = (event) => {
-      console.log(event.target);
       const inputName = event.target.name ? event.target.name : event.target.id;
       this.setState(() => ({
         touched: { ...this.state.touched, [inputName]: true}
@@ -78,6 +77,7 @@ const withFormLogic = (WrappedForm) => ({initialValues, validation, onSubmit}) =
         name: fieldName,
         value: this.state[fieldName],
         invalid: this.shouldMarkError(fieldName, error),
+        invalidLabel: error,
         onChange: this.handleInputChange,
         onBlur: this.handleBlur,
       };
@@ -98,8 +98,6 @@ const withFormLogic = (WrappedForm) => ({initialValues, validation, onSubmit}) =
     render() {
       const errors = validation(this.state);
       const submitDisabled = this.anyError(errors);
-
-      console.log(this.state);
 
       return (
         <form onSubmit={this.handleSubmit}>
