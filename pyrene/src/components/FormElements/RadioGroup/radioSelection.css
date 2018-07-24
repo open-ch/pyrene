@@ -2,15 +2,16 @@
 
 .radioSelectionContainer {
   composes: commonFontSettings from '../../../styles/common.css';
-  display: flex;
-  justify-content: flex-start;
-
   outline: 0 !important;
 
   &.alignment-vertical {
-    flex-direction: column;
+    display: inline-block;
   }
+
   &.alignment-horizontal {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
     flex-direction: row;
   }
 
