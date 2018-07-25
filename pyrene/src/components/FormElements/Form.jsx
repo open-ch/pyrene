@@ -101,7 +101,14 @@ const withFormLogic = (WrappedForm) => ({initialValues, validation, onSubmit}) =
 
       return (
         <form onSubmit={this.handleSubmit}>
-          <WrappedForm initField={name => this.initField(name, errors[name])} errors={errors} submitDisabled={submitDisabled} values={this.state} isSubmitting={this.state.isSubmitting} />
+          <WrappedForm
+            initField={name => this.initField(name, errors[name])}
+            errors={errors}
+            submitDisabled={submitDisabled}
+            values={this.state}
+            isSubmitting={this.state.isSubmitting}
+            {...this.props}
+          />
         </form>
       );
     }

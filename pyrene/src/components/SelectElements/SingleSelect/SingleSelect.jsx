@@ -19,12 +19,12 @@ const SingleSelect = props => (
         styles={SelectStyle}
         placeholder={props.placeholder}
         options={props.options}
-        value={props.value ? props.options.filter(o => o.value === props.defaultValue).pop() : null}
+        value={props.value ? props.options.filter(o => o.value === props.value).pop() : null}
         defaultValue={props.options.filter(o => o.value === props.defaultValue).pop()}
         isClearable={props.clearable}
         isDisabled={props.disabled}
         isInvalid={props.invalid}
-        onChange={(option) => props.onChange({target: {name: props.name, value: option}})}
+        onChange={option => props.onChange({ target: { name: props.name, value: option, type: 'singleSelect' } })}
         onBlur={props.onBlur}
         name={props.name}
         id={props.name}
@@ -45,13 +45,13 @@ const SingleSelect = props => (
         styles={SelectStyle}
         placeholder={props.placeholder}
         options={props.options}
-        value={props.value ? props.options.filter(o => o.value === props.defaultValue).pop() : null}
+        value={props.value ? props.options.filter(o => o.value === props.value).pop() : null}
         defaultValue={props.options.filter(o => o.value === props.defaultValue).pop()}
         isClearable={props.clearable}
         isSearchable={props.searchable}
         isDisabled={props.disabled}
         isInvalid={props.invalid}
-        onChange={(option) => props.onChange({target: {name: props.name, value: option}})}
+        onChange={option => props.onChange({ target: { name: props.name, value: option, type: 'singleSelect' } })}
         onBlur={props.onBlur}
         name={props.name}
         id={props.name}
@@ -174,10 +174,10 @@ SingleSelect.propTypes = {
   /**
    * Changes the currently chosen option. Only set when needed, do not keep prop set at all times as this prevents user interaction.
    */
-  value: PropTypes.shape({
-    label: PropTypes.string.isRequired,
-    value: PropTypes.any.isRequired,
-  }),
+  value: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
 };
 
 export default SingleSelect;
