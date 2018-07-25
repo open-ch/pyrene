@@ -1,3 +1,6 @@
-# ignore following folders/files
 node_modules
 dist
+.git
+.gitignore
+Dockerfile
+README.md

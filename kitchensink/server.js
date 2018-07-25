@@ -5,7 +5,7 @@ const path = require('path');
 
 const port = 9000;
 
-http.createServer((req, res) => {
+const server = http.createServer((req, res) => {
   // parse URL
   const parsedUrl = url.parse(req.url);
   // extract URL path
@@ -55,3 +55,10 @@ http.createServer((req, res) => {
   });
 }).listen(parseInt(port));
 console.log(`Server listening on port ${port}`);
+
+process.on('SIGTERM', function () {
+  server.close(function () {
+    process.exit(0);
+  });
+});
+

@@ -12,7 +12,7 @@
     "prebuild": "yarn install",
     "build": "webpack",
     "prestart": "yarn install",
-    "start:prod": "node server.js",
+    "server": "node server.js",
     "start": "yarn link pyrene; webpack-dev-server",
     "release": "release-it"
   },
