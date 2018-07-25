@@ -66,6 +66,11 @@ const withFormLogic = (WrappedForm) => ({initialValues, validation, onSubmit}) =
       switch(target.type) {
         case 'checkbox':
           return target.checked;
+        case 'singleSelect':
+          if (target.value == null) {
+            return null;
+          }
+          return target.value.label;
         default:
           return target.value;
       }

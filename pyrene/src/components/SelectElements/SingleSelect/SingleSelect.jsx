@@ -116,10 +116,7 @@ SingleSelect.propTypes = {
   /**
    * Set's a preselected option.
    */
-  defaultValue: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-  ]),
+  defaultValue: PropTypes.string,
   /**
    * Disables any interaction with the component.
    */
@@ -152,8 +149,9 @@ SingleSelect.propTypes = {
    * Supplies the available options to the dropdown.
    */
   options: PropTypes.arrayOf(PropTypes.shape({
-    value: PropTypes.any,
+    value: PropTypes.string,
     label: PropTypes.string,
+    invalid: PropTypes.bool,
   })),
   /**
    * Placeholder inside the input.
@@ -174,10 +172,7 @@ SingleSelect.propTypes = {
   /**
    * Changes the currently chosen option. Only set when needed, do not keep prop set at all times as this prevents user interaction.
    */
-  value: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-  ]),
+  value: PropTypes.string,
 };
 
 export default SingleSelect;

@@ -18,12 +18,11 @@ const MultiSelect = props => (
         styles={MultiSelectStyle(props.rows)}
         placeholder={props.placeholder}
         options={props.options}
-        value={props.value ? props.value : null}
         defaultValue={props.options.filter(option => props.defaultValues.includes(option.value))}
         isClearable={props.clearable}
         isDisabled={props.disabled}
         isInvalid={props.invalid}
-        onChange={(option) => props.onChange({target: {name: props.name, value: option}})}
+        onChange={(option) => props.onChange({target: {name: props.name, value: option, type: 'multiSelect'}})}
         onBlur={props.onBlur}
         name={props.name}
         id={props.name}
@@ -33,9 +32,9 @@ const MultiSelect = props => (
         noOptionsMessage={() => 'no matches found'}
         formatCreateLabel={inputValue => `Create new tag "${inputValue}"`}
 
+        closeMenuOnSelect={!props.keepMenuOnSelect}
         isMulti
         isSearchable
-        blurInputOnSelect
         escapeClearsValue
         captureMenuScroll
       />
@@ -45,13 +44,12 @@ const MultiSelect = props => (
         styles={MultiSelectStyle(props.rows)}
         placeholder={props.placeholder}
         options={props.options}
-        value={props.value ? props.value : null}
         defaultValue={props.options.filter(option => props.defaultValues.includes(option.value))}
         isClearable={props.clearable}
         isDisabled={props.disabled}
         isInvalid={props.invalid}
         isSearchable={props.searchable}
-        onChange={(option) => props.onChange({target: {name: props.name, value: option}})}
+        onChange={(option) => props.onChange({target: {name: props.name, value: option, type: 'multiSelect'}})}
         onBlur={props.onBlur}
         name={props.name}
         id={props.name}
@@ -60,11 +58,11 @@ const MultiSelect = props => (
         maxMenuHeight={264}
         noOptionsMessage={() => 'no matches found'}
 
+        closeMenuOnSelect={!props.keepMenuOnSelect}
         isMulti
         escapeClearsValue
         captureMenuScroll
         backspaceRemovesValue
-        closeMenuOnSelect={false}
       />
     }
 
@@ -102,6 +100,7 @@ MultiSelect.defaultProps = {
   required: false,
   clearable: false,
   searchable: false,
+  keepMenuOnSelect: false,
   value: null,
   onChange: () => null,
   onBlur: () => null,
@@ -112,6 +111,10 @@ MultiSelect.propTypes = {
    * Let's the user clear his selection.
    */
   clearable: PropTypes.bool,
+  /**
+   * Keep the menu open on select if false
+   */
+  keepMenuOnSelect: PropTypes.bool,
   /**
    * Allows to create new options.
    */
@@ -155,8 +158,9 @@ MultiSelect.propTypes = {
    * Supplies the available options to the dropdown.
    */
   options: PropTypes.arrayOf(PropTypes.shape({
-    value: PropTypes.any,
+    value: PropTypes.string,
     label: PropTypes.string,
+    invalid: PropTypes.bool,
   })),
   /**
    * Placeholder inside the input.

@@ -39,7 +39,7 @@ export default class TabView extends React.Component {
     }
   }
 
-  handleClickOutside = () => {
+  handleClickOutside = (event) => {
     if (this.menuRef && !this.menuRef.contains(event.target) && this.state.displayMoreMenu) {
       this.toggleMoreMenu();
     }
