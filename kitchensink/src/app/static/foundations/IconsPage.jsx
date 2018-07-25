@@ -7,7 +7,7 @@ import IconBox from '../../common/PageElements/FoundationElements/IconBox/IconBo
 import IconDisplay from '../../common/PageElements/FoundationElements/IconDisplay/IconDisplay';
 
 const IconsPage = () => (
-  <div className="page">
+  <div styleName="page">
     <div styleName="header">
       <div styleName="title">Icons</div>
       <div styleName="description">

@@ -6,7 +6,7 @@ import StartProps from '../data/propsData';
 import '../../css/componentPage.css';
 
 const ComponentPage = props => (
-  <div className="page">
+  <div styleName="page">
     <div styleName="header">
       <div styleName="title">{props.name}</div>
       <div styleName="description">

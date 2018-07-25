@@ -4,7 +4,7 @@
   font-style: normal;
   font-variant: normal;
 
-  src: url('../fonts/pyrene-iconfont-v1_2.woff') format('woff');
+  src: url('../fonts/pyrene-iconfont-13.woff') format('woff');
 }
 
 [class^="pyreneIcon-"], [class*=" pyreneIcon-"] {
@@ -28,6 +28,15 @@
 */
 
 
+:global(.pyreneIcon-warning:before) {
+  content: "\62";
+}
+:global(.pyreneIcon-check:before) {
+  content: "\61";
+}
+:global(.pyreneIcon-info:before) {
+  content: "\39";
+}
 :global(.pyreneIcon-search:before) {
   content: "\38";
 }

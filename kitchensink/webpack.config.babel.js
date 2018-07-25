@@ -4,6 +4,7 @@ import path from 'path';
 
 import CleanWebpackPlugin from 'clean-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
 const production = process.env.NODE_ENV === 'production';
 
@@ -33,7 +34,7 @@ const config = {
         test: /\.css$/,
         exclude: /node_modules/,
         use: [
-          'style-loader',
+          MiniCssExtractPlugin.loader,
           {
             loader: 'css-loader',
             options: {
@@ -65,6 +66,9 @@ const config = {
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: 'src/index.html',
+    }),
+    new MiniCssExtractPlugin({
+      filename: 'kitchensink.css',
     }),
   ],
 };

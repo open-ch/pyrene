@@ -5,7 +5,7 @@
 const primaryColors = [
   { title: '',
     colors: [
-      { colorName: 'blue', name: 'blue-500', hex: '#0069e0', darkFont: false, bordered: false, infoLabel: 'For accent and highlight'},
+      { colorName: 'blue', name: 'blue-500', hex: '#0069e0', darkFont: false, bordered: false, infoLabel: 'For accent and highlight' },
     ],
   },
   { title: '',
@@ -211,14 +211,17 @@ const extendedColors = [
 
 const icons = [
   { name: 'share', tags: ['social'] },
-  { name: 'filter', tags: [''] },
-  { name: 'chevronLeft', tags: ['arrow'] },
-  { name: 'chevronRight', tags: ['arrow'] },
-  { name: 'collapsDown', tags: ['arrow'] },
-  { name: 'collapsUp', tags: ['arrow'] },
-  { name: 'errorOutline', tags: ['arrow'] },
-  { name: 'delete', tags: ['arrow'] },
+  { name: 'filter', tags: ['lines'] },
+  { name: 'chevronLeft', tags: ['arrow', 'link'] },
+  { name: 'chevronRight', tags: ['arrow', 'link'] },
+  { name: 'collapsDown', tags: ['arrow', 'dropdown'] },
+  { name: 'collapsUp', tags: ['arrow', 'dropdown'] },
+  { name: 'errorOutline', tags: ['problem', 'invalid'] },
+  { name: 'delete', tags: ['clear', 'x', 'remove', 'cross'] },
   { name: 'search', tags: ['loupe'] },
+  { name: 'info', tags: ['info', 'information', 'banner'] },
+  { name: 'check', tags: ['checkmark', 'ok', 'done'] },
+  { name: 'warning', tags: ['warning', 'caution', 'attention'] },
 ];
 
 const svgs = [
@@ -236,5 +239,5 @@ export {
   interactionColors,
   extendedColors,
   icons,
-  svgs
+  svgs,
 };

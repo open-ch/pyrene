@@ -7,7 +7,7 @@ import Principle from '../common/PageElements/IntroductionElements/Principle';
 
 
 const IntroductionPage = () => (
-  <div className="page">
+  <div styleName="page">
     <div className="header">
       <div styleName="title">Introduction</div>
       <div styleName="description">

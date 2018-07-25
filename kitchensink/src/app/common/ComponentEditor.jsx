@@ -26,6 +26,7 @@ export default class ComponentEditor extends React.Component {
       displayedComponent: <this.props.component ref={this.displayedComponentRef} {...this.props.startProps} onChange={this.handleComponentInteraction} />,
       component: this.props.component,
       pinned: true,
+      darkMode: false,
     };
   }
 
@@ -50,6 +51,12 @@ export default class ComponentEditor extends React.Component {
     }));
   }
 
+  handleSunClick = () => {
+    this.setState((prevState, props) => ({
+      darkMode: !prevState.darkMode,
+    }));
+  };
+
   handleExampleClick(exampleProps){
     this.setState(() => ({
       displayedComponent: <this.state.component {...exampleProps} />,
@@ -66,8 +73,9 @@ export default class ComponentEditor extends React.Component {
         </Paragraph>
         }
         <Paragraph title={'Props'} large>
-          <div styleName={classNames('displayContainer', { pinned: this.state.pinned })}>
+          <div styleName={classNames('displayContainer', { pinned: this.state.pinned }, { darkMode: this.state.darkMode })}>
             <div styleName={classNames('pin', { pinned: this.state.pinned })} onClick={() => this.handlePinClick()} />
+            <div styleName={classNames('sun', { darkMode: this.state.darkMode })} onClick={() =>this.handleSunClick()} />
             <div styleName={'componentDisplay'}>
               {this.props.component.needsTrigger ? <ParentButton component={this.state.displayedComponent} /> : this.state.displayedComponent}
             </div>

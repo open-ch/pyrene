@@ -5,7 +5,7 @@ import SideBarMenuSection from './SideBarMenuSection';
 import './sideBarMenu.css';
 
 const SideBarMenu = props => (
-  <div id={'sideBar_menu_container'}>
+  <div styleName={'sideBar_menu_container'}>
     <div styleName="main">
       <SideBarMenuSection title="Introduction" sectionElements={[]} linkToPath={'/'} />
       <SideBarMenuSection

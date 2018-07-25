@@ -1,20 +1,21 @@
 import React from 'react';
 
 const ContentFiller = (props) => (
-  <div style={{ width: props.width,
+  <div className={'unSelectable'} style={{ width: props.width,
     height: props.height,
     backgroundColor: 'var(--neutral-020)',
     textAlign: 'center',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    borderRadius: 2,
     color: 'var(--neutral-100)',
-    fontSize: 32,
+    fontSize: props.fontSize ? props.fontSize : 32,
     fontWeight: 'bold',
     textTransform: 'uppercase',
     letterSpacing: 1 }}
   >
-    Content Filler
+    {props.label ? props.label : 'Content Filler'}
   </div>
 );
 
@@ -52,9 +53,15 @@ const testOptions = [
   { value: 'moosetracks', label: 'Moose Tracks', invalid: false },
 ];
 
+const adminAction = (event) => alert('Admin action triggered.');
+
 
 const startProps = {
   'arrowbutton': {},
+  'banner': {
+    message: 'This is a test message',
+    type: 'info',
+  },
   'button': {
     label: 'Click Me',
   },
@@ -62,13 +69,25 @@ const startProps = {
     label: 'Click Me',
   },
   'collapsible': {
+    defaultExpanded: true,
+    renderCallback: () => <ContentFiller width={500} height={300} />,
+  },
+  'container': {
     title: 'Show More',
-    titleExpanded: 'Show Less',
-    children: <ContentFiller width={500} height={300} />,
+    collapsible: true,
+    defaultExpanded: true,
+    renderCallback: () => <ContentFiller width={800} height={300} />,
+    adminAction: {
+      label: 'admin',
+      action: adminAction,
+    }
   },
   'link': {
     label: 'Click Me',
     path: '#',
+  },
+  'loader': {
+    size: 'large',
   },
   'modal': {
     content: <ContentFiller width={400} height={600} />,
@@ -78,6 +97,17 @@ const startProps = {
   'radioselection': {
     radioLabels: ['option 1', 'option 2', 'option 3'],
     selectedOption: 'option 1',
+  },
+  'tabview': {
+    initialTabName: 'Tab 1',
+    directAccessTabs: 3,
+    tabs: [
+      { name: 'Tab 1', renderCallback: () => <ContentFiller height={200} width={848} label={'tab 1'} />, disabled: false },
+      { name: 'Tab 2', renderCallback: () => <ContentFiller height={200} width={848} label={'tab 2'} />, disabled: false },
+      { name: 'Tab 3', renderCallback: () => <ContentFiller height={200} width={848} label={'tab 3'} />, disabled: true },
+      { name: 'Looooooooooooooooooooooooooooooooooooooong Name', renderCallback: () => <ContentFiller height={200} width={848} label={'tab 4'} />},
+      { name: 'Tab 5', renderCallback: () => <ContentFiller height={200} width={848} label={'tab 5'} />, disabled: true },
+    ],
   },
   'textarea': {
     title: 'Label',
@@ -93,19 +123,24 @@ const startProps = {
     helperLabel: 'Helper text for instructions',
     width: 500,
   },
-
+  'tooltip': {
+    label: 'Tooltip text from props',
+    preferredPosition: ['top'],
+    align: 'center',
+    children: <ContentFiller width={100} height={50} fontSize={14} />
+  },
   'multi-select': {
     title: 'Multi-Select',
     placeholder: 'Choose your favorite ice cream',
     helperLabel: 'Ice cream is delicious',
-    defaultValues: [testOptions[1].value, testOptions[2].value],
+    defaultValues: [],
     options: testOptions,
   },
   'select': {
     title: 'Single-Select',
     placeholder: 'Choose your favorite ice cream',
     helperLabel: 'Ice cream is delicious',
-    defaultValue: 'spearmint',
+    defaultValue: null,
     options: testOptions,
   },
   'sharedialog': {

@@ -124,12 +124,12 @@ export default class DynamicPropTable extends React.Component {
         <Table
           cellWidthArray={['212px', '106px', '106px', '212px', '']}
           headerElementArray={['property', 'type', 'required', 'default value', 'playground']}
-          rowArray={Object.entries(this.props.componentProps).map(([propName, propProps]) => {
+          rowArray={this.props.componentProps ? Object.entries(this.props.componentProps).map(([propName, propProps]) => {
             if (typeof propProps.defaultValue === 'undefined' || propProps.defaultValue.value === "''") {
               return [propName, propProps.type.name, propProps.required, '-', this.renderModifierFor(propName, propProps), propProps.description];
             }
             return [propName, propProps.type.name, propProps.required, propProps.defaultValue.value, this.renderModifierFor(propName, propProps), propProps.description];
-          })}
+          }) : []}
         />
       </div>
     );

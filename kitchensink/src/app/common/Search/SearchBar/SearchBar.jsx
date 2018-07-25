@@ -9,13 +9,31 @@ import './searchBar.css';
 class SearchBar extends React.Component {
   state = {
     focused: false,
-    searchInput: this.props.value,
     shouldRedirectToResultsPage: false,
     shouldRedirectToPageBeforeSearch: false,
     lastPathBeforeSearch: '',
+
+    searchInput: this.props.value,
+    lastProps: {
+      searchInput: this.props.value,
+    },
   };
 
   MINIMUM_NUMBER_OF_CHARACTERS_IN_SEARCH = 2;
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (prevState.lastProps.searchInput !== nextProps.value) {
+      return {
+        searchInput: nextProps.value,
+        lastProps: {
+          searchInput: nextProps.value,
+        },
+      };
+    }
+    // No State Change
+    return null;
+  }
+
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     // If there is an input and it is different from the one before,
@@ -27,7 +45,7 @@ class SearchBar extends React.Component {
 
       // If the input changed but now it is empty set a flag to redirect back
       // to the page where the user started the search
-    } else if (this.state.searchInput !== prevState.searchInput && this.state.searchInput.length < this.MINIMUM_NUMBER_OF_CHARACTERS_IN_SEARCH) {
+    } else if (this.state.searchInput !== prevState.searchInput && this.state.searchInput.length < this.MINIMUM_NUMBER_OF_CHARACTERS_IN_SEARCH && this.state.searchInput) {
       this.setState(() => ({
         shouldRedirectToPageBeforeSearch: true,
       }));
@@ -68,6 +86,7 @@ class SearchBar extends React.Component {
   handleClear = () => {
     this.setState(() => ({
       searchInput: '',
+      shouldRedirectToPageBeforeSearch: true,
     }));
   };
 
@@ -112,7 +131,7 @@ class SearchBar extends React.Component {
           onChange={this.handleChange}
           value={this.state.searchInput}
         />
-        {this.props.value && <span className={'pyreneIcon-delete'} styleName={'clearIcon'} onClick={this.handleClear} />}
+        {(this.props.value || this.state.searchInput) && <span className={'pyreneIcon-delete'} styleName={'clearIcon'} onClick={this.handleClear} />}
 
         {this.handleSearchResultsDisplay()}
       </div>

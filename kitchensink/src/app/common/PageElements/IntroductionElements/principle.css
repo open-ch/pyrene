@@ -12,22 +12,22 @@
     height: 40px;
 
     &.accuracy {
-      background: url('/src/images/introduction/accuracy.svg') no-repeat center;
+      background: url('../../../../images/introduction/accuracy.svg') no-repeat center;
     }
     &.all {
-      background: url('/src/images/introduction/all.svg') no-repeat center;
+      background: url('../../../../images/introduction/all.svg') no-repeat center;
     }
     &.clarity {
-      background: url('/src/images/introduction/clarity.svg') no-repeat center;
+      background: url('../../../../images/introduction/clarity.svg') no-repeat center;
     }
     &.coherence {
-      background: url('/src/images/introduction/coherence.svg') no-repeat center;
+      background: url('../../../../images/introduction/coherence.svg') no-repeat center;
     }
     &.efficiency {
-      background: url('/src/images/introduction/efficiency.svg') no-repeat center;
+      background: url('../../../../images/introduction/efficiency.svg') no-repeat center;
     }
     &.system {
-      background: url('/src/images/introduction/system.svg') no-repeat center;
+      background: url('../../../../images/introduction/system.svg') no-repeat center;
     }
   }
 

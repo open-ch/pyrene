@@ -60,7 +60,7 @@ export default class ResultsPage extends React.Component {
 
   render() {
     return (
-      <div className="page">
+      <div styleName="page">
         { this.state.matches && this.state.matches.length > 0 ? this.renderSearchResults() : this.renderNoResultsPage() }
       </div>
     );

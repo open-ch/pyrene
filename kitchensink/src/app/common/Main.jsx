@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import Components from 'pyrene';
 import packageJson from '../../../package.json';
 import Logo from './Logo';
@@ -12,7 +12,7 @@ import ComponentPage from './ComponentPage';
 import '../../css/common.css';
 import SearchBar from './Search/SearchBar/SearchBar';
 import ResultsPage from './Search/ResultsPage';
-
+import NotFoundPage from '../static/NotFoundPage';
 
 export default class Main extends React.Component {
 
@@ -30,33 +30,35 @@ export default class Main extends React.Component {
           <Logo versionNr={packageJson.version} />
           <SearchBar value={searchBarValue} />
           <SideBarMenu />
+          <div styleName={'copyRight'}>&copy; Open Systems 2018</div>
         </div>
         <div styleName={'pageContainer'}>
-          <Route path={'/'} component={IntroductionPage} exact />
-          <Route path={'/colors'} component={ColorsPage} />
-          <Route path={'/icons'} component={IconsPage} />
-          <Route path={'/resources'} component={ResourcesPage} />
+          <Switch>
+            <Route path={'/'} component={IntroductionPage} exact />
+            <Route path={'/colors'} component={ColorsPage} />
+            <Route path={'/icons'} component={IconsPage} />
+            <Route path={'/resources'} component={ResourcesPage} />
 
-          {Object.values(Components).map((component) => {
-            const lowercaseComponentName = component.displayName.replace(/\s/g, '').toLowerCase();
-            return (
-              <Route
-                key={lowercaseComponentName}
-                path={`/${lowercaseComponentName}`}
-                render={routeProps => (
-                  <ComponentPage
-                    {...routeProps}
-                    component={component}
-                    description={component.__docgenInfo.description}
-                    name={component.displayName}
-                    lowercaseName={lowercaseComponentName}
-                  />)}
-              />
-            );
-          })}
-
-          <Route path={'/search/:searchInput'} component={ResultsPage} />
-
+            {Object.values(Components).map((component) => {
+              const lowercaseComponentName = component.displayName.replace(/\s/g, '').toLowerCase();
+              return (
+                <Route
+                  key={lowercaseComponentName}
+                  path={`/${lowercaseComponentName}`}
+                  render={routeProps => (
+                    <ComponentPage
+                      {...routeProps}
+                      component={component}
+                      description={component.__docgenInfo.description}
+                      name={component.displayName}
+                      lowercaseName={lowercaseComponentName}
+                    />)}
+                />
+              );
+            })}
+            <Route path={'/search/:searchInput'} component={ResultsPage} />
+            <Route component={NotFoundPage} />
+          </Switch>
         </div>
       </div>
     );

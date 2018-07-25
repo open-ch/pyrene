@@ -1,6 +1,6 @@
 {
   "name": "kitchensink",
-  "version": "0.0.1",
+  "version": "0.5.0",
   "description": "Pyrene Kitchensink",
   "main": "src/index.jsx",
   "repository": "https://github.com/open-ch/pyrene.git",
@@ -36,6 +36,7 @@
     "eslint-plugin-jsx-a11y": "5.1.1",
     "eslint-plugin-react": "^7.7.0",
     "html-webpack-plugin": "^3.2.0",
+    "mini-css-extract-plugin": "^0.4.1",
     "object-hash": "^1.3.0",
     "postcss": "^6.0.21",
     "postcss-custom-properties": "^7.0.0",

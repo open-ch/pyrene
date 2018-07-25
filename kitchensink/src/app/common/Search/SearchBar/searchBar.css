@@ -18,7 +18,7 @@
   }
 
   & .searchIcon {
-    font-size: 16px;
+    font-size: 20px;
     color: var(--neutral-300);
   }
 
@@ -41,6 +41,8 @@
       font-stretch: normal;
       color: var(--neutral-400);
       background-color: var(--neutral-020);
+      box-sizing: border-box;
+      margin-top: 1px;
     }
 
     &::placeholder {
@@ -49,8 +51,9 @@
   }
 
   & .clearIcon {
-    width: 16px;
-    height: 16px;
+    width: 18px;
+    height: 18px;
+    font-size: 18px;
     color: var(--neutral-300);
 
     &:hover {

@@ -1,12 +1,6 @@
 @import './colors.css';
 @import './icons.css';
 
-/* CSS Reset */
-* {
-  margin: 0;
-  padding: 0;
-}
-
 p {
   margin-top: 1em;
 }
@@ -48,6 +42,8 @@ p {
 }
 
 body {
+  margin: 0;
+  padding: 0;
   background-color: var(--neutral-010);
   color: var(--font-black);
   font-family: AvenirNext, Helvetica, sans-serif;
@@ -56,32 +52,40 @@ body {
 }
 
 .mainContainer {
-  width: 1440px;
-  margin: 48px auto;
   background-color: var(--neutral-000);
-  padding: 1px;
-  box-shadow:
-      inset -1px 0   0 var(--neutral-100),
-      inset  0   1px 0 var(--neutral-100),
-      inset  0  -1px 0 var(--neutral-100),
-      inset  1px 0   0 var(--neutral-100);
   display: flex;
   flex: 0;
-  min-height: 4000px;
+  min-height: 100vh;
 }
 
 .leftContainer {
+  position: relative;
   display: block;
-  width: 284px;
+  min-width: 284px;
   background-color: var(--neutral-000);
   padding-right: 1px;
-  box-shadow: inset -1px 0   0 var(--neutral-sideBar);
+  box-shadow: inset -1px 0 0 var(--neutral-sideBar);
+}
+
+.copyRight {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  white-space: nowrap;
+  letter-spacing: 0.7px;
+
+  font-size: 12px;
+  font-weight: 500;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  color: #7f8a95;
 }
 
 .pageContainer {
-  width: 930px;
-  margin-left: 113px;
-  margin-top: 64px;
+  margin: 64px auto 200px auto;
 }
 
 :global(.unSelectable) {
