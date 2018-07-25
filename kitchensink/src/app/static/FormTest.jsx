@@ -22,8 +22,8 @@ const Form = (props) => (
       />
     </div>
     <div style={{width: 300}}>
-      <SingleSelect options={testOptions} {...props.initField('select')} />
-      <MultiSelect options={testOptions} {...props.initField('multiselect')} />
+      <SingleSelect options={testOptions} clearable {...props.initField('select')} />
+      <MultiSelect options={testOptions} creatable clearable keepMenuOnSelect {...props.initField('multiselect')} />
     </div>
 
     <Button label={'Submit'} type={'danger'} disabled={props.submitDisabled} loading={props.isSubmitting} />

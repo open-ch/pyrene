@@ -37,7 +37,7 @@ const testOptions = [
   { value: 'caramel', label: 'Caramel', invalid: false },
   { value: 'banana', label: 'Banana', invalid: false },
   { value: 'garlic', label: 'Garlic', invalid: true },
-  { value:  123, label: 'Twix', invalid: false },
+  { value: 'twix', label: 'Twix', invalid: false },
   { value: 'mintchocolatechip', label: 'Mint Chocolate Chip', invalid: false },
   { value: 'spearmint', label: 'Spearmint', invalid: false },
   { value: 'oyster', label: 'Oyster', invalid: false },
@@ -81,7 +81,7 @@ const startProps = {
       icon: 'info',
       label: 'admin',
       action: adminAction,
-    }
+    },
   },
   'link': {
     label: 'Click Me',
@@ -95,9 +95,27 @@ const startProps = {
     size: 'small',
     titleLabel: 'Modal',
   },
-  'radioselection': {
+  'multi-select': {
+    title: 'Multi-Select',
+    placeholder: 'Choose your favorite ice cream',
+    helperLabel: 'Ice cream is delicious',
+    defaultValues: [],
+    options: testOptions,
+  },
+  'radiogroup': {
     radioLabels: ['option 1', 'option 2', 'option 3'],
     selectedOption: 'option 1',
+  },
+  'select': {
+    title: 'Single-Select',
+    placeholder: 'Choose your favorite ice cream',
+    helperLabel: 'Ice cream is delicious',
+    defaultValue: null,
+    options: testOptions,
+  },
+  'sharedialog': {
+    position: 'bottom-right',
+    link: 'http://www.veryveryverylonglinkonanydomainintheinternet.com',
   },
   'tabview': {
     initialTabName: 'Tab 1',
@@ -123,25 +141,6 @@ const startProps = {
     placeholder: 'Placeholder Text',
     helperLabel: 'Helper text for instructions',
     width: 500,
-  },
-
-  'multi-select': {
-    title: 'Multi-Select',
-    placeholder: 'Choose your favorite ice cream',
-    helperLabel: 'Ice cream is delicious',
-    defaultValues: [],
-    options: testOptions,
-  },
-  'select': {
-    title: 'Single-Select',
-    placeholder: 'Choose your favorite ice cream',
-    helperLabel: 'Ice cream is delicious',
-    defaultValue: null,
-    options: testOptions,
-  },
-  'sharedialog': {
-    position: 'bottom-right',
-    link: 'http://www.veryveryverylonglinkonanydomainintheinternet.com',
   },
 };
 

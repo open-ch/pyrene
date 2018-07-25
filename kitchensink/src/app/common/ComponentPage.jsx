@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Markdown from 'markdown-to-jsx';
-import ComponentEditor from './ComponentEditorNew';
+import ComponentEditor from './ComponentEditor';
 import StartProps from '../data/propsData';
 import '../../css/componentPage.css';
 
