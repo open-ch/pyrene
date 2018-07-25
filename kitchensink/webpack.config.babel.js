@@ -32,7 +32,7 @@ const config = {
       },
       {
         test: /\.css$/,
-        exclude: /node_modules/,
+        exclude: /node_modules|pyrene\/dist/,
         use: [
           MiniCssExtractPlugin.loader,
           {
@@ -52,7 +52,7 @@ const config = {
         loader: 'url-loader',
       },
       {
-        test: /node_modules.*\.css$/,
+        test: /(node_modules|pyrene\/dist).*\.css$/,
         use: ['style-loader', 'css-loader'],
       },
       {
