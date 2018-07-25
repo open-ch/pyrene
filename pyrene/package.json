@@ -16,7 +16,7 @@
   "scripts": {
     "clean": "rm -rf dist",
     "prebuild": "yarn install",
-    "build": "NODE_ENV=production webpack",
+    "build": "webpack",
     "prewatch": "yarn install",
     "watch": "webpack -w",
     "testWatch": "webpack --config webpackTest.config.babel.js -w",
@@ -73,6 +73,6 @@
     "prop-types": "^15.6.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
-    "react-select": "^2.0.0-beta.7"
+    "react-select": "^2.0.0"
   }
 }
