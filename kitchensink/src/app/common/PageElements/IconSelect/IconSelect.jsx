@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Select, { components } from 'react-select';
+import Select from 'react-select';
 import SelectStyle  from './iconSelectCSS';
 import { icons } from '../../../data/foundationsData';
 import './select.css';
