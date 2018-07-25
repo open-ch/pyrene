@@ -52,6 +52,10 @@ const config = {
         loader: 'url-loader',
       },
       {
+        test: /node_modules.*\.css$/,
+        use: ['style-loader', 'css-loader'],
+      },
+      {
         test: /\.png$/,
         loader: 'url-loader',
       },

@@ -40,6 +40,7 @@ export default class Main extends React.Component {
             <Route path={'/resources'} component={ResourcesPage} />
 
             {Object.values(Components).map((component) => {
+                console.log(component);
               const lowercaseComponentName = component.displayName.replace(/\s/g, '').toLowerCase();
               return (
                 <Route

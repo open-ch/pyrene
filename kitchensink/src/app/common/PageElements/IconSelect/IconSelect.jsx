@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Select, { components }from 'react-select';
-import { Div, Span } from 'react-select/lib/primitives';
 import SelectStyle  from './iconSelectCSS';
 import { icons } from '../../../data/foundationsData';
 import './select.css';
@@ -10,9 +9,9 @@ import './select.css';
 const Option = (props) => {
   const { getStyles, children, innerProps } = props;
   return (
-    <Div {...innerProps} style={getStyles('option', props)}>
+    <div {...innerProps} style={getStyles('option', props)}>
       <span className={`icon-${children}`} style={{verticalAlign: 'text-top', marginRight: 8, fontSize: 16}}/> {children}
-    </Div>
+    </div>
   );
 };
 
