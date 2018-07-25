@@ -78,6 +78,7 @@ const startProps = {
     defaultExpanded: true,
     renderCallback: () => <ContentFiller width={800} height={300} />,
     adminAction: {
+      icon: 'info',
       label: 'admin',
       action: adminAction,
     }

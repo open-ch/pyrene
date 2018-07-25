@@ -57,6 +57,9 @@ export default class ComponentEditor extends React.Component {
     const newValue = this.getValueFromInput(event.target);
     const changedProp = { [inputName]: newValue };
 
+    if (event.target.name === 'displayedComponent') {
+      console.log('wowowowo');
+    }
     this.setState((prevState, props) => ({
       componentProps: { ...prevState.componentProps, ...changedProp },
     }));
@@ -79,7 +82,7 @@ export default class ComponentEditor extends React.Component {
   };
 
   render() {
-    const displayedComponent = <this.props.component {...this.state.componentProps} />;
+    const displayedComponent = <this.props.component {...this.initField('displayedComponent')} {...this.state.componentProps} />;
     return (
       <div className={'componentPlayground'}>
         {this.props.component.examples &&
