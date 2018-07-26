@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import './modal.css';
 import ButtonBar from '../ButtonBar/ButtonBar';
 import Button from '../Button/Button';
+import Loader from '../Loader/Loader';
 
 /**
  * I'm pretty modal.
@@ -19,7 +20,7 @@ export default class Modal extends React.Component {
     document.body.style.overflow = 'auto';
   }
 
-  modalContent = (
+  renderContent = () => (
     <Fragment>
       <div styleName={'titleBar'}>
         {this.props.titleLabel}
@@ -32,12 +33,18 @@ export default class Modal extends React.Component {
     </Fragment>
   );
 
+  renderLoader = () => (
+    <div styleName={'loaderContainer'}>
+      <Loader size={'large'} />
+    </div>
+  );
+
   render() {
     return (
       <Fragment>
         <div styleName="modalOverlay">
           <div styleName={classNames('modalContainer', this.props.size)}>
-            {this.props.loading ? <Loader/> : this.modalContent}
+            {this.props.loading ? this.renderLoader() : this.renderContent()}
             <ButtonBar rightButtonSectionElements={[<Button label={'Cancel'} onClick={this.props.closeButtonClicked}/>]}/>
           </div>
         </div>
