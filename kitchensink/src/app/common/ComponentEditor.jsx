@@ -13,43 +13,27 @@ import ParentButton from './PageElements/ParentButton/ParentButton';
 
 export default class ComponentEditor extends React.Component {
 
-  constructor(props) {
-    super(props);
-    this.handleEditorChange = this.handleEditorChange.bind(this);
-    this.handleExampleClick = this.handleExampleClick.bind(this);
-
-    if (!Utils.isStateless(this.props.component)) {
-      this.displayedComponentRef = React.createRef();
-    }
-
-    this.state = {
-      displayedComponent: <this.props.component ref={this.displayedComponentRef} {...this.props.startProps} onChange={this.handleComponentInteraction} />,
-      component: this.props.component,
-      pinned: true,
-      darkMode: false,
-    };
-  }
-
-  handleEditorChange(prop, newValue) {
-    const changedProp = { [prop]: newValue };
-    this.setState(() => ({
-      displayedComponent: <this.state.component ref={this.displayedComponentRef} {...this.state.displayedComponent.props} {...changedProp} />,
+  handleComponentInteraction = (event) => {
+    const newValue = this.getValueFromInput(event.target);
+    this.setState((prevState, props) => ({
+      componentProps: { ...prevState.componentProps, value: newValue },
     }));
-  }
-
-  handleComponentInteraction = () => {
-    if (typeof this.displayedComponentRef !== 'undefined') {
-      this.setState(() => ({
-        displayedComponent: <this.state.component ref={this.displayedComponentRef} {...this.state.displayedComponent.props} {...this.displayedComponentRef.current.state} />,
-      }));
-    }
   };
 
-  handlePinClick() {
+  state = {
+    component: this.props.component,
+    componentProps: {...this.props.component.defaultProps, ...this.props.startProps, onChange: this.handleComponentInteraction },
+
+    pinned: true,
+    darkMode: false,
+  };
+
+
+  handlePinClick = () => {
     this.setState((prevState, props) => ({
       pinned: !prevState.pinned,
     }));
-  }
+  };
 
   handleSunClick = () => {
     this.setState((prevState, props) => ({
@@ -57,14 +41,46 @@ export default class ComponentEditor extends React.Component {
     }));
   };
 
-  handleExampleClick(exampleProps){
+  handleExampleClick = (exampleProps) => {
     this.setState(() => ({
-      displayedComponent: <this.state.component {...exampleProps} />,
+      componentProps: { ...this.props.component.defaultProps, ...exampleProps },
     }));
-  }
+  };
 
+  getValueFromInput = (target) => {
+    switch (target.type) {
+      case 'checkbox':
+        return target.checked;
+      case 'singleSelect':
+        if (target.value == null) {
+          return null;
+        }
+        return target.value.label;
+      default:
+        return target.value;
+    }
+  };
+
+  handleEditorChange = (event) => {
+    const inputName = event.target.name;
+    const newValue = this.getValueFromInput(event.target);
+    const changedProp = { [inputName]: newValue };
+
+    this.setState((prevState, props) => ({
+      componentProps: { ...prevState.componentProps, ...changedProp },
+    }));
+  };
+
+  initField = (fieldName) => {
+    return ({
+      name: fieldName,
+      value: this.state.componentProps[fieldName],
+      onChange: this.handleEditorChange,
+    });
+  };
 
   render() {
+    const displayedComponent = <this.props.component {...this.state.componentProps} />;
     return (
       <div className={'componentPlayground'}>
         {this.props.component.examples &&
@@ -77,14 +93,13 @@ export default class ComponentEditor extends React.Component {
             <div styleName={classNames('pin', { pinned: this.state.pinned })} onClick={() => this.handlePinClick()} />
             <div styleName={classNames('sun', { darkMode: this.state.darkMode })} onClick={() =>this.handleSunClick()} />
             <div styleName={'componentDisplay'}>
-              {this.props.component.needsTrigger ? <ParentButton component={this.state.displayedComponent} /> : this.state.displayedComponent}
+              {this.props.component.needsTrigger ? <ParentButton component={displayedComponent} /> : displayedComponent}
             </div>
-            <CodeBlock component={this.state.displayedComponent} displayComponentPinned={this.state.pinned} />
+            <CodeBlock component={displayedComponent} displayComponentPinned={this.state.pinned} />
           </div>
           <DynamicPropTable
-            componentProps={this.props.component.__docgenInfo.props}
-            activeValues={this.state.displayedComponent.props}
-            onEditorChange={this.handleEditorChange}
+            propDocumentation={this.props.component.__docgenInfo.props}
+            initField={this.initField}
           />
         </Paragraph>
       </div>

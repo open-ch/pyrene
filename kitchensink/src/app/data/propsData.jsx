@@ -78,9 +78,10 @@ const startProps = {
     defaultExpanded: true,
     renderCallback: () => <ContentFiller width={800} height={300} />,
     adminAction: {
+      icon: 'info',
       label: 'admin',
       action: adminAction,
-    }
+    },
   },
   'link': {
     label: 'Click Me',
@@ -94,9 +95,27 @@ const startProps = {
     size: 'small',
     titleLabel: 'Modal',
   },
-  'radioselection': {
+  'multi-select': {
+    title: 'Multi-Select',
+    placeholder: 'Choose your favorite ice cream',
+    helperLabel: 'Ice cream is delicious',
+    defaultValues: [],
+    options: testOptions,
+  },
+  'radiogroup': {
     radioLabels: ['option 1', 'option 2', 'option 3'],
     selectedOption: 'option 1',
+  },
+  'select': {
+    title: 'Single-Select',
+    placeholder: 'Choose your favorite ice cream',
+    helperLabel: 'Ice cream is delicious',
+    defaultValue: null,
+    options: testOptions,
+  },
+  'sharedialog': {
+    position: 'bottom-right',
+    link: 'http://www.veryveryverylonglinkonanydomainintheinternet.com',
   },
   'tabview': {
     initialTabName: 'Tab 1',
@@ -151,3 +170,4 @@ const startProps = {
 
 
 export default startProps;
+export { testOptions };

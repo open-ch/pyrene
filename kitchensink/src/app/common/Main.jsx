@@ -41,6 +41,9 @@ export default class Main extends React.Component {
 
             {Object.values(Components).map((component) => {
               const lowercaseComponentName = component.displayName.replace(/\s/g, '').toLowerCase();
+              if (component.hoc === true) {
+                return null;
+              }
               return (
                 <Route
                   key={lowercaseComponentName}
