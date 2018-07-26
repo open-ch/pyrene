@@ -18,20 +18,23 @@ const MultiSelect = props => (
         styles={MultiSelectStyle(props.rows)}
         placeholder={props.placeholder}
         options={props.options}
-        value={props.value ? props.value : undefined}
         defaultValue={props.options.filter(option => props.defaultValues.includes(option.value))}
         isClearable={props.clearable}
         isDisabled={props.disabled}
         isInvalid={props.invalid}
-        onChange={option => props.onChange(option)}
+        onChange={(option) => props.onChange({target: {name: props.name, value: option, type: 'multiSelect'}})}
+        onBlur={props.onBlur}
+        name={props.name}
+        id={props.name}
+        inputId={props.name}
 
         maxMenuHeight={264}
         noOptionsMessage={() => 'no matches found'}
         formatCreateLabel={inputValue => `Create new tag "${inputValue}"`}
 
+        closeMenuOnSelect={!props.keepMenuOnSelect}
         isMulti
         isSearchable
-        blurInputOnSelect
         escapeClearsValue
         captureMenuScroll
       />
@@ -41,22 +44,25 @@ const MultiSelect = props => (
         styles={MultiSelectStyle(props.rows)}
         placeholder={props.placeholder}
         options={props.options}
-        value={props.value ? props.value : undefined}
         defaultValue={props.options.filter(option => props.defaultValues.includes(option.value))}
         isClearable={props.clearable}
         isDisabled={props.disabled}
         isInvalid={props.invalid}
         isSearchable={props.searchable}
-        onChange={option => props.onChange(option)}
+        onChange={(option) => props.onChange({target: {name: props.name, value: option, type: 'multiSelect'}})}
+        onBlur={props.onBlur}
+        name={props.name}
+        id={props.name}
+        inputId={props.name}
 
         maxMenuHeight={264}
         noOptionsMessage={() => 'no matches found'}
 
+        closeMenuOnSelect={!props.keepMenuOnSelect}
         isMulti
         escapeClearsValue
         captureMenuScroll
         backspaceRemovesValue
-        closeMenuOnSelect={false}
       />
     }
 
@@ -80,10 +86,11 @@ const MultiSelect = props => (
 MultiSelect.displayName = 'Multi-Select';
 
 MultiSelect.defaultProps = {
-  placeholder: 'Select',
+  placeholder: 'Multi-Select',
   helperLabel: '',
   invalidLabel: '',
   title: '',
+  name: '',
   defaultValues: [],
   options: [],
   rows: -1,
@@ -93,8 +100,10 @@ MultiSelect.defaultProps = {
   required: false,
   clearable: false,
   searchable: false,
+  keepMenuOnSelect: false,
   value: null,
   onChange: () => null,
+  onBlur: () => null,
 };
 
 MultiSelect.propTypes = {
@@ -102,6 +111,10 @@ MultiSelect.propTypes = {
    * Let's the user clear his selection.
    */
   clearable: PropTypes.bool,
+  /**
+   * Keep the menu open on select if false
+   */
+  keepMenuOnSelect: PropTypes.bool,
   /**
    * Allows to create new options.
    */
@@ -130,6 +143,14 @@ MultiSelect.propTypes = {
    */
   invalidLabel: PropTypes.string,
   /**
+   * Html input name tag
+   */
+  name: PropTypes.string,
+  /**
+   * Event Handler.
+   */
+  onBlur: PropTypes.func,
+  /**
    * Event Handler. Param option: {value: , label:}
    */
   onChange: PropTypes.func,
@@ -137,8 +158,9 @@ MultiSelect.propTypes = {
    * Supplies the available options to the dropdown.
    */
   options: PropTypes.arrayOf(PropTypes.shape({
-    value: PropTypes.any,
+    value: PropTypes.string,
     label: PropTypes.string,
+    invalid: PropTypes.bool,
   })),
   /**
    * Placeholder inside the input.
@@ -165,7 +187,7 @@ MultiSelect.propTypes = {
    */
   value: PropTypes.arrayOf(PropTypes.shape({
     label: PropTypes.string.isRequired,
-    value: PropTypes.string.isRequired,
+    value: PropTypes.any.isRequired,
   })),
 };
 
