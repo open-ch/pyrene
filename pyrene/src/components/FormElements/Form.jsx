@@ -14,7 +14,7 @@ const withFormLogic = (WrappedForm) => ({initialValues, validation, onSubmit}) =
     };
 
     state = {
-      ...initialValues,
+      values: {...initialValues},
       touched: this.getTouchedState(initialValues),
       isSubmitting: false,
     };
@@ -31,7 +31,7 @@ const withFormLogic = (WrappedForm) => ({initialValues, validation, onSubmit}) =
         }));
 
         // Should we use promises for onSubmit ???
-        onSubmit(this.state)
+        onSubmit(this.state.values)
           .then(() => this.setState({ isSubmitting: false }))
           .then(() => alert('Done'))
       }
@@ -42,23 +42,23 @@ const withFormLogic = (WrappedForm) => ({initialValues, validation, onSubmit}) =
     };
 
     canBeSubmitted() {
-      const errors = validation(this.state);
+      const errors = validation(this.state.values);
       const isDisabled = this.anyError(errors);
       return !isDisabled;
     }
 
     handleBlur = (event) => {
       const inputName = event.target.name ? event.target.name : event.target.id;
-      this.setState(() => ({
-        touched: { ...this.state.touched, [inputName]: true}
+      this.setState((prevState, props) => ({
+        touched: { ...prevState.touched, [inputName]: true}
       }));
     };
 
     handleInputChange = (event) => {
       const inputName = event.target.name;
       const newValue = this.getValueFromInput(event.target);
-      this.setState(() => ({
-        [inputName]: newValue
+      this.setState((prevState, props) => ({
+        values: { ...prevState.values, [inputName]: newValue }
       }));
     };
 
@@ -80,7 +80,7 @@ const withFormLogic = (WrappedForm) => ({initialValues, validation, onSubmit}) =
       // Standard boilerplate
       let fieldProps = {
         name: fieldName,
-        value: this.state[fieldName],
+        value: this.state.values[fieldName],
         invalid: this.shouldMarkError(fieldName, error),
         invalidLabel: error,
         onChange: this.handleInputChange,
@@ -101,17 +101,20 @@ const withFormLogic = (WrappedForm) => ({initialValues, validation, onSubmit}) =
     };
 
     render() {
-      const errors = validation(this.state);
+      const errors = validation(this.state.values);
       const submitDisabled = this.anyError(errors);
 
       return (
         <form onSubmit={this.handleSubmit}>
           <WrappedForm
-            initField={name => this.initField(name, errors[name])}
+            values={this.state.values}
             errors={errors}
-            submitDisabled={submitDisabled}
-            values={this.state}
+            touched={this.state.touched}
             isSubmitting={this.state.isSubmitting}
+            submitDisabled={submitDisabled}
+
+
+            initField={name => this.initField(name, errors[name])}
             {...this.props}
           />
         </form>
