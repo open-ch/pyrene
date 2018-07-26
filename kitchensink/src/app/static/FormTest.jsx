@@ -1,13 +1,16 @@
 import React from 'react';
 import '../../css/componentPage.css';
 import { withFormLogic, Checkbox, Button, TextField, TextArea, RadioGroup, SingleSelect, MultiSelect } from 'pyrene';
-import {testOptions} from '../data/propsData';
+import { testOptionsWithoutInvalid } from '../data/propsData';
+
 
 const Form = (props) => (
   <React.Fragment>
     <Checkbox label={'Male'} {...props.initField('checkBox1')} />
     <Checkbox label={'Female'} {...props.initField('checkBox2')} />
     <Checkbox label={'Helicopter'} {...props.initField('checkBox3')} />
+    {props.errors.checkBox1 && <div>{props.errors.checkBox1}</div>}
+    {props.errors.checkBox3 && <div>{props.errors.checkBox3}</div>}
 
     <TextField width={300} placeholder={'Email'} disabled={props.values.checkBox1} {...props.initField('email')} />
     <TextField width={300} placeholder={'Password'} {...props.initField('password')} />
@@ -20,10 +23,11 @@ const Form = (props) => (
         radioLabels={['option 1','option 2','option 3', 'option 22','option 32']}
         {...props.initField('radioGroup')}
       />
+      {props.errors.radioGroup && <div>{props.errors.radioGroup}</div>}
     </div>
-    <div style={{width: 300}}>
-      <SingleSelect options={testOptions} clearable {...props.initField('select')} />
-      <MultiSelect options={testOptions} creatable clearable keepMenuOnSelect {...props.initField('multiselect')} />
+    <div style={{ width: 300 }}>
+      <SingleSelect options={testOptionsWithoutInvalid} clearable {...props.initField('select')} />
+      <MultiSelect options={testOptionsWithoutInvalid} creatable clearable keepMenuOnSelect {...props.initField('multiselect1')} />
     </div>
 
     <Button label={'Submit'} type={'danger'} disabled={props.submitDisabled} loading={props.isSubmitting} />
@@ -41,15 +45,22 @@ const WrappedForm = withFormLogic(Form)({
     textArea: '',
     radioGroup: '',
     select: null,
-    multiselect: [],
+    multiselect1: [],
   },
   validation: (values) => ({
     email: values.email.length === 0 ? 'Email must be longer than 0 Characters' : null,
     password: values.password.length === 0 ? 'Password must be longer than 0 Characters' : null,
-    checkBox1: values.checkBox1 === values.checkBox2,
-    checkBox2: false,
-    checkBox3: values.checkBox3 !== values.checkBox2,
+    checkBox1: values.checkBox1 === values.checkBox2 ? 'Must choose male or female' : null,
+    checkBox2: values.checkBox1 === values.checkBox2 ? 'Must choose male or female' : null,
+    checkBox3: !values.checkBox3 ? null : values.checkBox3 === values.checkBox2 ? 'Can not be a female helicopter' : null,
+    textArea: values.textArea.length > 1 ? 'TextArea is overfilled!' : null,
+    select: (values.select === 'oyster' || values.select === 'chickenliver') ? 'Yuck this is disgusting..' : null,
+    radioGroup: values.radioGroup === 'option 1' ? 'Can\'t select option 1' : null,
+    multiselect1: values.multiselect1.map(selectedOption => selectedOption.invalid).indexOf(true) !== -1 ? 'You selected an invalid element' : null,
   }),
+  multiSelectOptionValidation: (multiSelectName, values, selectedOption) => {
+    return (/a/g.test(selectedOption.value));
+  },
   onSubmit: (values) => delayAlert(values, 2000),
 });
 
