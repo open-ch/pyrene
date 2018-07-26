@@ -122,4 +122,6 @@ const withFormLogic = (WrappedForm) => ({initialValues, validation, onSubmit}) =
 
 withFormLogic.displayName = 'withFormLogic';
 
+withFormLogic.hoc = true;
+
 export default withFormLogic;
