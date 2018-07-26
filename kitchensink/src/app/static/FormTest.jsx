@@ -3,33 +3,55 @@ import '../../css/componentPage.css';
 import { withFormLogic, Checkbox, Button, TextField, TextArea, RadioGroup, SingleSelect, MultiSelect } from 'pyrene';
 import { testOptionsWithoutInvalid } from '../data/propsData';
 
+const errorStyle = {
+  marginTop: 4,
+  fontSize: 12,
+  fontWeight: 600,
+  textAlign: 'left',
+  color: 'var(--red-500)',
+};
 
 const Form = (props) => (
   <React.Fragment>
+    <div style={{
+      display: 'flex',
+      width: 300,
+      justifyContent: 'space-between',
+    }}>
     <Checkbox label={'Male'} {...props.initField('checkBox1')} />
     <Checkbox label={'Female'} {...props.initField('checkBox2')} />
-    <Checkbox label={'Helicopter'} {...props.initField('checkBox3')} />
-    {props.errors.checkBox1 && <div>{props.errors.checkBox1}</div>}
-    {props.errors.checkBox3 && <div>{props.errors.checkBox3}</div>}
+    <Checkbox label={'Apache Helicopter'} {...props.initField('checkBox3')} />
+    </div>
+    {props.errors.checkBox1 && <div style={errorStyle}>{props.errors.checkBox1}</div>}
+    {props.errors.checkBox3 && <div style={errorStyle}>{props.errors.checkBox3}</div>}
 
-    <TextField width={300} placeholder={'Email'} disabled={props.values.checkBox1} {...props.initField('email')} />
-    <TextField width={300} placeholder={'Password'} {...props.initField('password')} />
+    <div style={{height: 24}} />
 
-    <TextArea width={300} maxLength={1} placeholder={'text'} {...props.initField('textArea')} />
+    <TextField width={300} title={'Email'} placeholder={'Email'} disabled={props.values.checkBox1} {...props.initField('email')} />
+    <div style={{height: 24}} />
+    <TextField width={300} title={'Password in plain text'} placeholder={'Password'} {...props.initField('password')} />
+    <div style={{height: 24}} />
 
+    <TextArea width={300} maxLength={1} title={'What\'s on your mind?'} placeholder={'text'} {...props.initField('textArea')} />
+
+    <div style={{height: 24}} />
     <div style={{width: 300}}>
       <RadioGroup
         alignment={'vertical'}
         radioLabels={['option 1','option 2','option 3', 'option 22','option 32']}
         {...props.initField('radioGroup')}
       />
-      {props.errors.radioGroup && <div>{props.errors.radioGroup}</div>}
-    </div>
-    <div style={{ width: 300 }}>
-      <SingleSelect options={testOptionsWithoutInvalid} clearable {...props.initField('select')} />
-      <MultiSelect options={testOptionsWithoutInvalid} creatable clearable keepMenuOnSelect {...props.initField('multiselect1')} />
+      {props.errors.radioGroup && <div style={errorStyle}>{props.errors.radioGroup}</div>}
     </div>
 
+    <div style={{height: 24}} />
+    <div style={{ width: 300 }}>
+      <SingleSelect title={'Select favorite icecream'} options={testOptionsWithoutInvalid} clearable {...props.initField('select')} />
+      <div style={{height: 24}} />
+      <MultiSelect title={'Select icecream.. again'} options={testOptionsWithoutInvalid} creatable clearable keepMenuOnSelect {...props.initField('multiselect1')} />
+    </div>
+
+    <div style={{height: 24}} />
     <Button label={'Submit'} type={'danger'} disabled={props.submitDisabled} loading={props.isSubmitting} />
   </React.Fragment>
 );
@@ -56,7 +78,7 @@ const WrappedForm = withFormLogic(Form)({
     textArea: values.textArea.length > 1 ? 'TextArea is overfilled!' : null,
     select: (values.select === 'oyster' || values.select === 'chickenliver') ? 'Yuck this is disgusting..' : null,
     radioGroup: values.radioGroup === 'option 1' ? 'Can\'t select option 1' : null,
-    multiselect1: values.multiselect1.map(selectedOption => selectedOption.invalid).indexOf(true) !== -1 ? 'You selected an invalid element' : null,
+    multiselect1: values.multiselect1.map(selectedOption => selectedOption.invalid).indexOf(true) !== -1 ? 'Icecreams must contain an A' : null,
   }),
   multiSelectOptionValidation: (multiSelectName, values, selectedOption) => {
     return (/a/g.test(selectedOption.value));
