@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 
-const withFormLogic = (WrappedForm) => ({initialValues, validation, onSubmit}) => {
+const withFormLogic = (WrappedForm) => ({initialValues, validation, multiSelectOptionValidation, onSubmit}) => {
   return class FormWithLogic extends React.Component {
 
     getTouchedState = initialValues => {
@@ -70,7 +70,14 @@ const withFormLogic = (WrappedForm) => ({initialValues, validation, onSubmit}) =
           if (target.value == null) {
             return null;
           }
-          return target.value.label;
+          return target.value.value;
+        case 'multiSelect':
+          const selectedOptions = target.value;
+          const multiSelectName = target.name;
+          return (
+            selectedOptions.map(selectedOption =>
+            ({value: selectedOption.value, label: selectedOption.label, invalid: !multiSelectOptionValidation(multiSelectName, this.state.values, selectedOption)}))
+          );
         default:
           return target.value;
       }
@@ -112,7 +119,6 @@ const withFormLogic = (WrappedForm) => ({initialValues, validation, onSubmit}) =
             touched={this.state.touched}
             isSubmitting={this.state.isSubmitting}
             submitDisabled={submitDisabled}
-
 
             initField={name => this.initField(name, errors[name])}
             {...this.props}
