@@ -2,6 +2,7 @@
 
 .checkboxContainer {
   composes: commonFontSettings from '../../../styles/common.css';
+  outline: none !important;
 }
 
 .checkbox {

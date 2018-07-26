@@ -6,84 +6,44 @@ import './textField.css';
 /**
  * Textfields are used primarily on ....
  */
-export default class TextField extends React.Component {
+const TextField = (props) => (
+  <div styleName={classNames('textFieldContainer', { disabled: props.disabled }, { invalid: props.invalid && !props.disabled })} style={{ width: (props.width >= 0) ? `${props.width}px` : '100%' }}>
+    {props.title && <div styleName={classNames('textFieldTitle', { required: props.required && !props.disabled })}>{props.title}</div>}
+    <div styleName={'textFieldIconLayoutContainer'}>
+      <input
+        styleName={classNames('textField', { hasIcon: props.icon }, { filled: props.value })}
+        type="text"
+        name={props.name}
+        placeholder={props.placeholder}
+        value={props.value}
+        onChange={props.onChange}
+        onBlur={props.onBlur}
+        onFocus={props.onFocus}
+      />
+      <span className={`icon-${props.icon}`} styleName={'textFieldIcon'} />
+    </div>
 
-  constructor(props) {
-    super(props);
-
-    this.handleChange = this.handleChange.bind(this);
-    this.state = {
-      inputText: props.inputText,
-      lastProps: {
-        inputText: props.inputText,
-      },
-    };
-  }
-
-  static getDerivedStateFromProps(nextProps, prevState) {
-    if (prevState.lastProps.inputText !== nextProps.inputText) {
-      return {
-        inputText: nextProps.inputText,
-        lastProps: {
-          inputText: nextProps.inputText,
-        },
-      };
-    }
-    // No State Change
-    return null;
-  }
-
-  handleChange(event) {
-    const newValue = event.target.value;
-    this.setState((prevState, props) =>
-      ({ inputText: newValue }),
-    () => this.props.onChange(newValue));
-  }
-
-  render() {
-    const width = (this.props.width >= 0) ? `${this.props.width}px` : '100%';
-    return (
-      <div styleName={classNames('textFieldContainer', { disabled: this.props.disabled }, { invalid: this.props.invalid && !this.props.disabled })} style={{ width: width }}>
-        {this.props.title && <div styleName={classNames('textFieldTitle', { required: this.props.required && !this.props.disabled })}>{this.props.title}</div>}
-        <div styleName={'textFieldIconLayoutContainer'}>
-          <input
-            styleName={classNames('textField', { hasIcon: this.props.icon }, { filled: this.state.inputText })}
-            type="text"
-            name={this.props.name}
-            placeholder={this.props.placeholder}
-            value={this.state.inputText}
-            onChange={this.handleChange}
-            onBlur={this.props.onBlur}
-            onFocus={this.props.onFocus}
-          />
-          <span className={`icon-${this.props.icon}`} styleName={'textFieldIcon'} />
-        </div>
-
-        {this.props.invalid && this.props.invalidLabel && !this.props.disabled ?
-          <div styleName={'invalidLabel'}>
-            <span className={'icon-errorOutline'} styleName={'errorIcon'} />
-            {this.props.invalidLabel}
-          </div>
-          :
-          <React.Fragment>
-            {this.props.helperLabel &&
-            <div styleName={'textFieldHelper'}>
-              {this.props.helperLabel}
-            </div>}
-          </React.Fragment>
-        }
-
+    {props.invalid && props.invalidLabel && !props.disabled ?
+      <div styleName={'invalidLabel'}>
+        <span className={'icon-errorOutline'} styleName={'errorIcon'} />
+        {props.invalidLabel}
       </div>
-    );
-  }
-
-}
+      :
+      <React.Fragment>
+        {props.helperLabel &&
+        <div styleName={'textFieldHelper'}>
+          {props.helperLabel}
+        </div>}
+      </React.Fragment>
+    }
+  </div>
+);
 
 TextField.displayName = 'Textfield';
 
 TextField.defaultProps = {
   title: '',
-  inputText: '',
+  value: '',
   placeholder: '',
   helperLabel: '',
   invalidLabel: '',
@@ -111,10 +71,6 @@ TextField.propTypes = {
    * Adds an interactive icon to the textField.
    */
   icon: PropTypes.string,
-  /**
-   * Changes what the text field says.
-   */
-  inputText: PropTypes.string,
   /**
    * Changes the fields and helpers visual appearance to indicate a validation error.
    */
@@ -152,8 +108,13 @@ TextField.propTypes = {
    */
   title: PropTypes.string,
   /**
+   * Changes what the text field says.
+   */
+  value: PropTypes.string,
+  /**
    * Changes the width of the input field in px. Use -1 to inherit parent width.
    */
   width: PropTypes.number,
 };
 
+export default TextField;

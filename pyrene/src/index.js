@@ -6,7 +6,7 @@ import './styles/fonts.css';
 import { default as Button } from './components/Button/Button';
 import { default as Link } from './components/Link/Link';
 import { default as Checkbox } from './components/FormElements/Checkbox/Checkbox';
-import { default as RadioSelection } from './components/FormElements/RadioSelection/RadioSelection';
+import { default as RadioGroup } from './components/FormElements/RadioGroup/RadioGroup';
 import { default as ShareDialog } from './components/Share/ShareDialog';
 import { default as Modal } from './components/Modal/Modal';
 import { default as ArrowButton } from './components/ArrowButton/ArrowButton';
@@ -19,12 +19,13 @@ import { default as Collapsible } from './components/Collapsible/Collapsible';
 import { default as Container } from './components/Container/Container';
 import { default as Banner } from './components/Banner/Banner';
 import { default as Loader } from './components/Loader/Loader';
+import { default as withFormLogic } from './components/FormElements/Form';
 
 const Components = {
   Button,
   Link,
   Checkbox,
-  RadioSelection,
+  RadioGroup,
   ShareDialog,
   Modal,
   ArrowButton,
@@ -37,12 +38,13 @@ const Components = {
   Container,
   Banner,
   Loader,
+  withFormLogic,
 };
 
 export {Button};
 export {Link};
 export {Checkbox};
-export {RadioSelection};
+export {RadioGroup};
 export {ShareDialog};
 export {Modal};
 export {ArrowButton};
@@ -55,5 +57,6 @@ export {Collapsible};
 export {Container};
 export {Banner};
 export {Loader};
+export {withFormLogic};
 
 export default Components;

@@ -19,9 +19,6 @@
     & .characterCounter {
       color: var(--red-500);
     }
-    & .textArea {
-      border-color: var(--red-500);
-    }
   }
 }
 

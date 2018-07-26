@@ -19,12 +19,16 @@ const SingleSelect = props => (
         styles={SelectStyle}
         placeholder={props.placeholder}
         options={props.options}
-        value={props.value ? props.value : undefined}
+        value={props.value ? props.options.filter(o => o.value === props.value).pop() : null}
         defaultValue={props.options.filter(o => o.value === props.defaultValue).pop()}
         isClearable={props.clearable}
         isDisabled={props.disabled}
         isInvalid={props.invalid}
-        onChange={option => props.onChange(option)}
+        onChange={option => props.onChange({ target: { name: props.name, value: option, type: 'singleSelect' } })}
+        onBlur={props.onBlur}
+        name={props.name}
+        id={props.name}
+        inputId={props.name}
 
         maxMenuHeight={264}
         noOptionsMessage={() => 'no matches found'}
@@ -41,13 +45,17 @@ const SingleSelect = props => (
         styles={SelectStyle}
         placeholder={props.placeholder}
         options={props.options}
-        value={props.value ? props.value : undefined}
+        value={props.value ? props.options.filter(o => o.value === props.value).pop() : null}
         defaultValue={props.options.filter(o => o.value === props.defaultValue).pop()}
         isClearable={props.clearable}
         isSearchable={props.searchable}
         isDisabled={props.disabled}
         isInvalid={props.invalid}
-        onChange={option => props.onChange(option)}
+        onChange={option => props.onChange({ target: { name: props.name, value: option, type: 'singleSelect' } })}
+        onBlur={props.onBlur}
+        name={props.name}
+        id={props.name}
+        inputId={props.name}
 
         maxMenuHeight={264}
         noOptionsMessage={() => 'no matches found'}
@@ -79,6 +87,7 @@ SingleSelect.displayName = 'Select';
 
 SingleSelect.defaultProps = {
   placeholder: 'Select',
+  name: '',
   creatable: false,
   disabled: false,
   invalid: false,
@@ -92,6 +101,7 @@ SingleSelect.defaultProps = {
   title: '',
   value: null,
   onChange: () => null,
+  onBlur: () => null,
 };
 
 SingleSelect.propTypes = {
@@ -106,10 +116,7 @@ SingleSelect.propTypes = {
   /**
    * Set's a preselected option.
    */
-  defaultValue: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-  ]),
+  defaultValue: PropTypes.string,
   /**
    * Disables any interaction with the component.
    */
@@ -127,6 +134,14 @@ SingleSelect.propTypes = {
    */
   invalidLabel: PropTypes.string,
   /**
+   * Html input name tag
+   */
+  name: PropTypes.string,
+  /**
+   * Event Handler.
+   */
+  onBlur: PropTypes.func,
+  /**
    * Event Handler. Param option: {value: , label:}
    */
   onChange: PropTypes.func,
@@ -134,8 +149,9 @@ SingleSelect.propTypes = {
    * Supplies the available options to the dropdown.
    */
   options: PropTypes.arrayOf(PropTypes.shape({
-    value: PropTypes.any,
+    value: PropTypes.string,
     label: PropTypes.string,
+    invalid: PropTypes.bool,
   })),
   /**
    * Placeholder inside the input.
@@ -156,10 +172,7 @@ SingleSelect.propTypes = {
   /**
    * Changes the currently chosen option. Only set when needed, do not keep prop set at all times as this prevents user interaction.
    */
-  value: PropTypes.shape({
-    label: PropTypes.string.isRequired,
-    value: PropTypes.string.isRequired,
-  }),
+  value: PropTypes.string,
 };
 
 export default SingleSelect;

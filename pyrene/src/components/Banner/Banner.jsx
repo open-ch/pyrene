@@ -37,7 +37,7 @@ Banner.defaultProps = {
 
 Banner.propTypes = {
   /**
-   * Let's the user clear the Banner.
+   * Let's the user clear the Banner. Error banners can not be cleared.
    */
   clearable: PropTypes.bool,
   /**
