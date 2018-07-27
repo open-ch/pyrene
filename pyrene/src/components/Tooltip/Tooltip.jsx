@@ -22,7 +22,7 @@ export default class Tooltip extends React.Component {
           </div>
         )}
         containerStyle={{zIndex: 9999}}
-        disableReposition={!this.props.repositioning}
+        disableReposition={!this.props.autoRepositioning}
       >
         <div
           onMouseOver={() => this.setState({ isPopoverOpen: true })}
@@ -40,7 +40,7 @@ Tooltip.displayName = 'Tooltip';
 Tooltip.defaultProps = {
   preferredPosition: [],
   align: 'center',
-  repositioning: true,
+  autoRepositioning: true,
   width: 0,
   distanceToTarget: 8,
 };
@@ -53,7 +53,7 @@ Tooltip.propTypes = {
   /**
    * Automatic repositioning switch
    */
-  repositioning: PropTypes.bool,
+  autoRepositioning: PropTypes.bool,
   /**
    * Text displayed by the tooltip.
    */
