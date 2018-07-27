@@ -178,7 +178,7 @@ const startProps = {
   },
   'tooltip': {
     label: 'Tooltip text from props',
-    preferredPosition: ['top'],
+    preferredPosition: ['top', 'bottom'],
     align: 'center',
     children: <ContentFiller width={100} height={50} fontSize={14} />
   },

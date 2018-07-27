@@ -10,33 +10,6 @@ import Counter from '../Counter/Counter';
 
 export default class DynamicPropTable extends React.Component {
 
-  /*handleArrays(propName, propProps) {
-    if (propProps.type.value.name === 'string') {
-      const options = this.props.propValues[propName].map(propChoice => ({ value: propChoice, label: propChoice }));
-      return (
-        <MultiSelect
-          key={propName}
-          placeholder={'Select or create multiple options'}
-          options={options}
-
-          defaultValues={options.map(option => option.value)}
-          value={this.props.propValues[propName] && options}
-
-          onChange={(changedOption) => {
-            if (changedOption !== null) {
-              this.props.onEditorChange(propName, event);
-            } else {
-              this.props.onEditorChange(propName, event);
-            }
-          }}
-          clearable
-          creatable
-        />
-      );
-    }
-    return (<React.Fragment key={propName}>-</React.Fragment>);
-  } */
-
   renderModifierFor(propName, propProps) {
     switch (propProps.type.name) {
       case 'string':
@@ -77,12 +50,8 @@ export default class DynamicPropTable extends React.Component {
           />
         );
 
-      /*case 'arrayOf':
-        return this.handleArrays(propName, propProps);
-        */
-
       default:
-        return (<React.Fragment key={propName}> - </React.Fragment>);
+        return '-';
     }
   }
 

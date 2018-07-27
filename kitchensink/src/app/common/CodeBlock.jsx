@@ -17,19 +17,8 @@ export default class CodeBlock extends React.Component {
     super(props);
     this.state = {
       expanded: false,
-      pinned: false,
       displayCopyNotification: false,
     };
-  }
-
-  static getDerivedStateFromProps(nextProps, prevState) {
-    if (nextProps.displayComponentPinned !== prevState.pinned) {
-      return {
-        pinned: nextProps.displayComponentPinned,
-      };
-    }
-    // No State Change
-    return null;
   }
 
   handleCodeBlockStyle() {
@@ -86,21 +75,29 @@ export default class CodeBlock extends React.Component {
       return propList;
     }
 
+    let hasChildren = false;
+
     propList += `<${component.type.name}\n`;
     Object.entries(component.props).forEach(([key, value]) => {
       if (value) {
         // Add Code Line, for booleans only display key
         if (typeof value === 'boolean') {
           propList += `\t${key}\n`;
-        } else if (typeof value === 'function') {
+        } else if (typeof value === 'function') { // for functions write () => null
           propList += `\t${key}={() => null}\n`;
+        } else if (key === 'children') {
+          hasChildren = true;
         } else {
           propList += `\t${key}={${JSON.stringify(value).replace(/"/g, "'")}}\n`;
         }
       }
     });
 
-    return `${propList}/>`;
+    if (!hasChildren) {
+      return `${propList}/>`;
+    }
+
+    return `${propList}>\n\t<Children />\n</${component.type.name}>`;
   }
 
   render() {
@@ -129,5 +126,4 @@ CodeBlock.defaultProps = {};
 
 CodeBlock.propTypes = {
   component: PropTypes.element.isRequired,
-  displayComponentPinned: PropTypes.bool.isRequired,
 };
