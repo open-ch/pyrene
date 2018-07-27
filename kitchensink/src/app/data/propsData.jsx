@@ -144,7 +144,6 @@ const startProps = {
     title: 'Single-Select',
     placeholder: 'Choose your favorite ice cream',
     helperLabel: 'Ice cream is delicious',
-    defaultValue: null,
     options: testOptions,
   },
   'sharedialog': {

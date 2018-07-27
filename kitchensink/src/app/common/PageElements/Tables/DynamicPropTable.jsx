@@ -51,7 +51,7 @@ export default class DynamicPropTable extends React.Component {
         );
 
       default:
-        return '-';
+        return <React.Fragment key={propName}>-</React.Fragment>;
     }
   }
 
