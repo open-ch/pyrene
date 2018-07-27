@@ -29,7 +29,7 @@ const Checkbox = (props) => {
             {invalid: props.invalid && !props.value})}
         htmlFor={`checkbox_${props.label}_${rand}`}
         role="checkbox"
-        aria-checked={this.state.checked}
+        aria-checked={props.checked}
       >
         <span styleName={'checkboxIcon'}/>
         {props.label}
