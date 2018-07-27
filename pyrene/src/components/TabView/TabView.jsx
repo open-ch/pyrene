@@ -57,13 +57,16 @@ export default class TabView extends React.Component {
   };
 
   renderMoreMenu = (moreTabs, visibleTabs) => (
-    <div styleName={'moreMenu'} ref={(menu) => { this.menuRef = menu; }}>
+    <div styleName={'moreMenu'} ref={(menu) => { this.menuRef = menu; }} role="listbox">
       <div styleName={'titleBox'}>
         <span styleName={'title'}> {this.state.moreTabLabel} </span>
         <span className={'icon-collapsDown'} styleName={'moreArrow'} />
       </div>
       {moreTabs.map((tab, index) =>
-        <div styleName={classNames('option', {disabled: tab.disabled})} key={tab.name} onClick={(event) => !tab.disabled && this._tabChanged(tab.name, index + visibleTabs.length, event)}>
+        <div
+          styleName={classNames('option', {disabled: tab.disabled})} key={tab.name} onClick={(event) => !tab.disabled && this._tabChanged(tab.name, index + visibleTabs.length, event)}
+          role="option"
+        >
           <span styleName={'optionLabel'}>{tab.name}</span>
         </div>
       )}
@@ -87,7 +90,7 @@ export default class TabView extends React.Component {
 
     return (
       <div styleName={classNames('tabView', {disabled: this.props.disabled})}>
-        <div styleName={'tabBar'}>
+        <div styleName={'tabBar'} role="tablist">
           {
             visibleTabs.map((tab, index) => (
                 <div
@@ -100,6 +103,7 @@ export default class TabView extends React.Component {
                   style={{maxWidth: this.props.maxTabWidth}}
                   onClick={(event) => !tab.disabled && this._tabChanged(tab.name, index, event)}
                   key={tab.name}
+                  role="tab"
                 >
                   {tab.name}
                 </div>
@@ -126,7 +130,7 @@ export default class TabView extends React.Component {
           }
         </div>
 
-        <div id="tabContent">
+        <div className="tabContent" role="tabpanel">
           {this.props.tabs[this.state.selectedTabIndex].renderCallback()}
         </div>
 

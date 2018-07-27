@@ -39,7 +39,7 @@ export default class Container extends React.Component {
   render() {
     return (
       <div styleName={classNames('container', {expanded: this.state.expanded || !this.props.collapsible})}>
-        <div styleName={classNames('header', {collapsible: this.props.collapsible})} onClick={this.toggleCollapse}>
+        <div styleName={classNames('header', {collapsible: this.props.collapsible})} onClick={this.toggleCollapse} role="button" aria-label="Show or hide container">
           <span styleName={'title'} className={'unSelectable'}> {this.props.title}</span>
           {this.props.adminAction && <Button type={'admin'} label={this.props.adminAction.label} icon={this.props.adminAction.icon} onClick={(event) => {this.props.adminAction.action(event); event.stopPropagation()}}/>}
           {this.props.collapsible && <span className={'icon-collapsDown'} styleName={'collapsArrow'} />}
