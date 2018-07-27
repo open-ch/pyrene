@@ -1,4 +1,5 @@
 import React from 'react';
+import * as yup from 'yup';
 import '../../css/componentPage.css';
 import { withFormLogic, Checkbox, Button, TextField, TextArea, RadioGroup, SingleSelect, MultiSelect } from 'pyrene';
 import { testOptionsWithoutInvalid } from '../data/propsData';
@@ -9,6 +10,9 @@ const errorStyle = {
   fontWeight: 600,
   textAlign: 'left',
   color: 'var(--red-500)',
+};
+
+const CONSTANTS = {
 };
 
 const Form = (props) => (
@@ -56,6 +60,13 @@ const Form = (props) => (
   </React.Fragment>
 );
 
+const validationSchema = yup.object({
+  email: yup.string()
+    .required('No Email passed')
+    .email('Not an email'),
+  password: yup.string()
+    .required(),
+});
 
 const WrappedForm = withFormLogic(Form)({
   initialValues: {
@@ -63,23 +74,21 @@ const WrappedForm = withFormLogic(Form)({
     checkBox2: true,
     checkBox3: true,
     email: 'blablabla',
-    password: 'secure',
+    password: '',
     textArea: '',
     radioGroup: '',
     select: null,
     multiselect1: [],
   },
-  validation: (values) => ({
-    email: values.email.length === 0 ? 'Email must be longer than 0 Characters' : null,
-    password: values.password.length === 0 ? 'Password must be longer than 0 Characters' : null,
-    checkBox1: values.checkBox1 === values.checkBox2 ? 'Must choose male or female' : null,
-    checkBox2: values.checkBox1 === values.checkBox2 ? 'Must choose male or female' : null,
-    checkBox3: !values.checkBox3 ? null : values.checkBox3 === values.checkBox2 ? 'Can not be a female helicopter' : null,
-    textArea: values.textArea.length > 1 ? 'TextArea is overfilled!' : null,
-    select: (values.select === 'oyster' || values.select === 'chickenliver') ? 'Yuck this is disgusting..' : null,
-    radioGroup: values.radioGroup === 'option 1' ? 'Can\'t select option 1' : null,
-    multiselect1: values.multiselect1.map(selectedOption => selectedOption.invalid).indexOf(true) !== -1 ? 'Icecreams must contain an A' : null,
-  }),
+  validation: (values) => {
+    try {
+      validationSchema.validateSync(values);
+    }
+    catch(err) {
+      console.log(err);
+    }
+    return validationSchema.isValidSync(values);
+  },
   multiSelectOptionValidation: (multiSelectName, values, selectedOption) => {
     return (/a/g.test(selectedOption.value));
   },
@@ -110,3 +119,14 @@ function delayAlert(values, ms){
   p.cancel = function(){ clearTimeout(ctr); rej(Error("Cancelled"))};
   return p;
 }
+
+/*  email: values.email.length === 0 ? 'Email must be longer than 0 Characters' : null,
+    password: values.password.length === 0 ? 'Password must be longer than 0 Characters' : null,
+    checkBox1: values.checkBox1 === values.checkBox2 ? 'Must choose male or female' : null,
+    checkBox2: values.checkBox1 === values.checkBox2 ? 'Must choose male or female' : null,
+    checkBox3: !values.checkBox3 ? null : values.checkBox3 === values.checkBox2 ? 'Can not be a female helicopter' : null,
+    textArea: values.textArea.length > 1 ? 'TextArea is overfilled!' : null,
+    select: (values.select === 'oyster' || values.select === 'chickenliver') ? 'Yuck this is disgusting..' : null,
+    radioGroup: values.radioGroup === 'option 1' ? 'Can\'t select option 1' : null,
+    multiselect1: values.multiselect1.map(selectedOption => selectedOption.invalid).indexOf(true) !== -1 ? 'Icecreams must contain an A' : null,
+*/
