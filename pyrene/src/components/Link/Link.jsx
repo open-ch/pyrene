@@ -18,8 +18,8 @@ const Link = props => (
     styleName={classNames('link', { [`type-${props.type}`]: true }, { disabled: props.disabled })}
     href={props.path}
   >
-    {props.label}
-    {props.type === 'standalone' && <span className={'icon-chevronRight'} />}
+    <span styleName={'label'}>{props.label}</span>
+    {props.type === 'standalone' && <span styleName={'icon'} className={'icon-chevronRight'} />}
   </a>
 );
 

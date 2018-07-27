@@ -13,8 +13,10 @@
   }
 
   &:hover {
-    text-decoration: underline;
-    text-underline: var(--blue-500);
+    & .label {
+      text-decoration: underline;
+      text-underline: var(--blue-500);
+    }
   }
 
   &.type-standalone {
@@ -25,7 +27,7 @@
     text-transform: capitalize;
     position: relative;
 
-    & span {
+    & .icon {
       width: 16px;
       height: 14px;
       padding-left: 2px;
