@@ -103,7 +103,7 @@ export default class ShareDialog extends React.Component {
       <div styleName="shareDialogContainer" ref={(dialog) => { this.dialogRef = dialog; }}>
         <Button label={'Share'} type={'action'} icon={'share'} onClick={this._displayShareDialogClicked} disabled={this.props.disabled} />
 
-        <div className={'unSelectable'} styleName={classNames('shareDialog', {display: this.state.displayShareDialog})} style={this.state.dialogPosition}>
+        <div className={'unSelectable'} styleName={classNames('shareDialog', {display: this.state.displayShareDialog})} style={this.state.dialogPosition} role="dialog">
           <div styleName={'title'}>
             Share this link
           </div>

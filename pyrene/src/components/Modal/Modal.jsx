@@ -43,7 +43,7 @@ export default class Modal extends React.Component {
     return (
       <Fragment>
         <div styleName="modalOverlay">
-          <div styleName={classNames('modalContainer', this.props.size)}>
+          <div styleName={classNames('modalContainer', this.props.size)} role="dialog">
             {this.props.loading ? this.renderLoader() : this.renderContent()}
             <ButtonBar rightButtonSectionElements={[<Button label={'Cancel'} onClick={this.props.closeButtonClicked}/>]}/>
           </div>
