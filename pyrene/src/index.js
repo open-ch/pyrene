@@ -20,6 +20,7 @@ import { default as Container } from './components/Container/Container';
 import { default as Banner } from './components/Banner/Banner';
 import { default as Loader } from './components/Loader/Loader';
 import { default as withFormLogic } from './components/FormElements/Form';
+import { default as Tooltip } from './components/Tooltip/Tooltip';
 
 const Components = {
   Button,
@@ -39,6 +40,7 @@ const Components = {
   Banner,
   Loader,
   withFormLogic,
+  Tooltip
 };
 
 export {Button};
@@ -58,5 +60,6 @@ export {Container};
 export {Banner};
 export {Loader};
 export {withFormLogic};
+export {Tooltip};
 
 export default Components;
