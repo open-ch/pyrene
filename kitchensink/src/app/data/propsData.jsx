@@ -53,6 +53,40 @@ const testOptions = [
   { value: 'moosetracks', label: 'Moose Tracks', invalid: false },
 ];
 
+const testOptionsWithoutInvalid = [
+  { value: 'chocolate', label: 'Chocolate' },
+  { value: 'strawberry', label: 'Strawberry' },
+  { value: 'vanilla', label: 'Vanilla' },
+  { value: 'bacon', label: 'Bacon' },
+  { value: 'cookiedough', label: 'Cookie Dough' },
+  { value: 'beer', label: 'Beer' },
+  { value: 'cottoncandy', label: 'Cotton Candy' },
+  { value: 'crab', label: 'Crab' },
+  { value: 'greentea', label: 'Green Tea' },
+  { value: 'mango', label: 'Mango' },
+  { value: 'tuttifrutti', label: 'Tutti Frutti' },
+  { value: 'grape', label: 'Grape' },
+  { value: 'coconutmilk', label: 'Coconut Milk' },
+  { value: 'dulce', label: 'Dulce de Leche' },
+  { value: 'caramel', label: 'Caramel' },
+  { value: 'banana', label: 'Banana' },
+  { value: 'garlic', label: 'Garlic' },
+  { value: 'twix', label: 'Twix' },
+  { value: 'mintchocolatechip', label: 'Mint Chocolate Chip' },
+  { value: 'spearmint', label: 'Spearmint' },
+  { value: 'oyster', label: 'Oyster' },
+  { value: 'pistachio', label: 'Pistachio' },
+  { value: 'rice', label: 'Rice' },
+  { value: 'chickenliver', label: 'Chicken Liver' },
+  { value: 'superman', label: 'Superman' },
+  { value: 'lucuma', label: 'Lucuma' },
+  { value: 'bluemoon', label: 'Blue Moon' },
+  { value: 'charcoal', label: 'Charcoal' },
+  { value: 'cheesecake', label: 'Cheesecake' },
+  { value: 'rumandraisin', label: 'Rum and Raisin' },
+  { value: 'moosetracks', label: 'Moose Tracks' },
+];
+
 const adminAction = (event) => alert('Admin action triggered.');
 
 
@@ -78,9 +112,10 @@ const startProps = {
     defaultExpanded: true,
     renderCallback: () => <ContentFiller width={800} height={300} />,
     adminAction: {
+      icon: 'info',
       label: 'admin',
       action: adminAction,
-    }
+    },
   },
   'link': {
     label: 'Click Me',
@@ -94,9 +129,26 @@ const startProps = {
     size: 'small',
     titleLabel: 'Modal',
   },
-  'radioselection': {
+  'multi-select': {
+    title: 'Multi-Select',
+    placeholder: 'Choose your favorite ice cream',
+    helperLabel: 'Ice cream is delicious',
+    defaultValues: [],
+    options: testOptions,
+  },
+  'radiogroup': {
     radioLabels: ['option 1', 'option 2', 'option 3'],
     selectedOption: 'option 1',
+  },
+  'select': {
+    title: 'Single-Select',
+    placeholder: 'Choose your favorite ice cream',
+    helperLabel: 'Ice cream is delicious',
+    options: testOptions,
+  },
+  'sharedialog': {
+    position: 'bottom-right',
+    link: 'http://www.veryveryverylonglinkonanydomainintheinternet.com',
   },
   'tabview': {
     initialTabName: 'Tab 1',
@@ -125,29 +177,12 @@ const startProps = {
   },
   'tooltip': {
     label: 'Tooltip text from props',
-    preferredPosition: ['top'],
+    preferredPosition: ['top', 'bottom'],
     align: 'center',
     children: <ContentFiller width={100} height={50} fontSize={14} />
-  },
-  'multi-select': {
-    title: 'Multi-Select',
-    placeholder: 'Choose your favorite ice cream',
-    helperLabel: 'Ice cream is delicious',
-    defaultValues: [],
-    options: testOptions,
-  },
-  'select': {
-    title: 'Single-Select',
-    placeholder: 'Choose your favorite ice cream',
-    helperLabel: 'Ice cream is delicious',
-    defaultValue: null,
-    options: testOptions,
-  },
-  'sharedialog': {
-    position: 'bottom-right',
-    link: 'http://www.veryveryverylonglinkonanydomainintheinternet.com',
   },
 };
 
 
 export default startProps;
+export { testOptions, testOptionsWithoutInvalid };
