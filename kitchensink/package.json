@@ -12,7 +12,6 @@
     "prebuild": "yarn install",
     "build": "webpack",
     "prestart": "yarn install",
-    "server": "node server.js",
     "start": "yarn link pyrene; webpack-dev-server",
     "release": "release-it"
   },
