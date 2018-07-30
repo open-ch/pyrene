@@ -11,18 +11,10 @@ import './shareDialog.css';
  */
 export default class ShareDialog extends React.Component {
 
-  constructor(props) {
-    super(props);
-    this._displayShareDialogClicked = this._displayShareDialogClicked.bind(this);
-    this._copyLinkToClipboard = this._copyLinkToClipboard.bind(this);
-    this._handleClickOutside = this._handleClickOutside.bind(this);
-
-    this.state = {
-      displayShareDialog: false,
-      dialogPosition: {},
-    };
-
-  }
+  state = {
+    displayShareDialog: false,
+    dialogPosition: {},
+  };
 
   componentDidUpdate() {
     if (this.state.displayShareDialog) {
@@ -30,25 +22,25 @@ export default class ShareDialog extends React.Component {
     }
   }
 
-  _handleClickOutside(event) {
+  _handleClickOutside = (event) => {
     if (this.dialogRef && !this.dialogRef.contains(event.target)) {
       this._hideDialogAndRemoveListener();
     }
-  }
+  };
 
-  _copyLinkToClipboard() {
+  _copyLinkToClipboard = () => {
     document.execCommand('copy');
     this._focusAndSelectInput();
-  }
+  };
 
-  _hideDialogAndRemoveListener() {
+  _hideDialogAndRemoveListener = () => {
     document.removeEventListener('mousedown', this._handleClickOutside);
     this.setState((prevState, props) => ({
       displayShareDialog: false,
     }));
-  }
+  };
 
-  _displayShareDialogClicked(event) {
+  _displayShareDialogClicked = (event) => {
     // If displayed remove from dom
     if (this.state.displayShareDialog) {
       this._hideDialogAndRemoveListener();
@@ -61,9 +53,9 @@ export default class ShareDialog extends React.Component {
         dialogPosition: this._computeDialogPositionFromButton(target),
       }));
     }
-  }
+  };
 
-  _computeDialogPositionFromButton(target) {
+  _computeDialogPositionFromButton = (target) => {
     const targetRect = target.getBoundingClientRect();
     const dialogPosition = {};
     const dialogWidth = 400;
@@ -90,12 +82,12 @@ export default class ShareDialog extends React.Component {
         dialogPosition.left = 0;
     }
     return dialogPosition;
-  }
+  };
 
-  _focusAndSelectInput() {
+  _focusAndSelectInput = () => {
     this.textInput.focus();
     this.textInput.select();
-  }
+  };
 
 
   render() {

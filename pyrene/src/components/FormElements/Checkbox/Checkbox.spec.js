@@ -13,24 +13,22 @@ describe('<Checkbox />', () => {
     const rendered = shallow(<Checkbox {...props} />);
   });
 
-  it('changes state on click', () => {
+  it('calls onchange on click', () => {
     const onChange = sinon.spy();
     const rendered = shallow(<Checkbox {...props} onChange={onChange} />);
 
     rendered.find('input[type="checkbox"]').simulate('change');
     expect(onChange).to.have.been.calledOnce;
-    expect(rendered.state().checked).to.equal(true);
 
     rendered.find('input[type="checkbox"]').simulate('change');
     expect(onChange).to.have.been.calledTwice;
-    expect(rendered.state().checked).to.equal(false);
   });
 
-  it('does not change state if disabled', () => {
+  it('does not call onclick when disabled', () => {
     const onChange = sinon.spy();
     const rendered = shallow(<Checkbox {...props} onChange={onChange} disabled={true} />);
     rendered.find('input[type="checkbox"]').simulate('change');
 
-    expect(rendered.state().checked).to.equal(false);
+    expect(onChange).to.not.have.been.called;
   });
 });

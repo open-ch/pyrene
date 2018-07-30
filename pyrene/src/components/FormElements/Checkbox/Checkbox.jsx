@@ -16,7 +16,7 @@ const Checkbox = (props) => {
         styleName={'checkbox'}
         type={'checkbox'}
         checked={props.value}
-        onChange={props.onChange}
+        onChange={!props.disabled && props.onChange}
         name={props.name}
       />
 
