@@ -79,7 +79,7 @@ const validationSchema = yup.object({
 });
 
 
-const WrappedForm = withFormLogic(Form)({ // wrapping form for
+const WrappedForm = withFormLogic(Form)({ // wrapping form
   initialValues: { // Form filled with these initial values, every field that is connected to the form with initField() needs an initial value!
     checkBox1: false,
     checkBox2: true,
