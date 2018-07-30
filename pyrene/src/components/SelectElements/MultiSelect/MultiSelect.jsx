@@ -23,6 +23,7 @@ const MultiSelect = props => (
         isClearable={props.clearable}
         isDisabled={props.disabled}
         isInvalid={props.invalid}
+        isLoading={props.loading}
         onChange={(option) => props.onChange({target: {name: props.name, value: option, type: 'multiSelect'}})}
         onBlur={props.onBlur}
         name={props.name}
@@ -50,6 +51,7 @@ const MultiSelect = props => (
         isClearable={props.clearable}
         isDisabled={props.disabled}
         isInvalid={props.invalid}
+        isLoading={props.loading}
         isSearchable={props.searchable}
         onChange={(option) => props.onChange({target: {name: props.name, value: option, type: 'multiSelect'}})}
         onBlur={props.onBlur}
@@ -99,6 +101,7 @@ MultiSelect.defaultProps = {
   creatable: false,
   disabled: false,
   invalid: false,
+  loading: false,
   required: false,
   clearable: false,
   searchable: false,
@@ -113,10 +116,6 @@ MultiSelect.propTypes = {
    * Let's the user clear his selection.
    */
   clearable: PropTypes.bool,
-  /**
-   * Keep the menu open on select if false
-   */
-  keepMenuOnSelect: PropTypes.bool,
   /**
    * Allows to create new options.
    */
@@ -144,6 +143,14 @@ MultiSelect.propTypes = {
    * Displayed instead of the helperLabel if specified & invalid is set.
    */
   invalidLabel: PropTypes.string,
+  /**
+   * Keep the menu open on select if false
+   */
+  keepMenuOnSelect: PropTypes.bool,
+  /**
+   * When true, displays a loading indicator
+   */
+  loading: PropTypes.bool,
   /**
    * Html input name tag
    */

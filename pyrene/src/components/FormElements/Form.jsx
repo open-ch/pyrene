@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 
-const withFormLogic = (WrappedForm) => ({initialValues, validation, multiSelectOptionValidation, onSubmit}) => {
+const withFormLogic = (WrappedForm) => ({initialValues, validationFunction, validationSchema, multiSelectOptionValidation, onSubmit, onChange}) => {
   return class FormWithLogic extends React.Component {
 
     getTouchedState = initialValues => {
@@ -42,7 +42,7 @@ const withFormLogic = (WrappedForm) => ({initialValues, validation, multiSelectO
     };
 
     canBeSubmitted() {
-      const errors = validation(this.state.values);
+      const errors = validationFunction(this.state.values);
       const isDisabled = this.anyError(errors);
       return !isDisabled;
     }
@@ -54,12 +54,27 @@ const withFormLogic = (WrappedForm) => ({initialValues, validation, multiSelectO
       }));
     };
 
+    setFieldValue = (fieldName, value) => {
+      this.setState((prevState, props) => ({
+        values: {...prevState.values, [fieldName]: value},
+      }));
+    };
+
     handleInputChange = (event) => {
       const inputName = event.target.name;
       const newValue = this.getValueFromInput(event.target);
-      this.setState((prevState, props) => ({
-        values: { ...prevState.values, [inputName]: newValue }
-      }));
+
+      if (typeof onChange !== 'undefined') {
+        this.setState((prevState, props) => ({
+            values: { ...prevState.values, [inputName]: newValue }
+          }),
+          () => onChange(this.state.values, this.setFieldValue)
+        );
+      } else {
+        this.setState((prevState, props) => ({
+            values: { ...prevState.values, [inputName]: newValue }
+        }));
+      }
     };
 
     getValueFromInput = (target) => {
@@ -74,10 +89,13 @@ const withFormLogic = (WrappedForm) => ({initialValues, validation, multiSelectO
         case 'multiSelect':
           const selectedOptions = target.value;
           const multiSelectName = target.name;
-          return (
-            selectedOptions.map(selectedOption =>
-            ({value: selectedOption.value, label: selectedOption.label, invalid: !multiSelectOptionValidation(multiSelectName, this.state.values, selectedOption)}))
-          );
+          if (typeof multiSelectOptionValidation !== 'undefined') {
+            return (
+              selectedOptions.map(selectedOption =>
+                ({value: selectedOption.value, label: selectedOption.label, invalid: !multiSelectOptionValidation(multiSelectName, this.state.values, selectedOption)}))
+            );
+          }
+          return selectedOptions;
         default:
           return target.value;
       }
@@ -107,8 +125,43 @@ const withFormLogic = (WrappedForm) => ({initialValues, validation, multiSelectO
       return error ? shouldShow : false;
     };
 
+    regroupErrors = (errors) => {
+      // regroups the errors from beeing an array of error objects to an object of errors grouped by field name
+      const groupedErrors = errors.inner.map(validationError => ({[validationError.path]: validationError.errors})).reduce((acc, obj) => {
+        Object.keys(obj).forEach((k) => {
+          acc[k] = (acc[k] || []).concat(obj[k]);
+        });
+        return acc;
+      }, {});
+
+      let flatGroupedErrors = {};
+      for (const key in groupedErrors) {
+        if (groupedErrors.hasOwnProperty(key)) {
+          flatGroupedErrors[key] = groupedErrors[key].join(' ');
+        }
+      }
+
+      return flatGroupedErrors;
+    };
+
+    validateYupSchema = (values) => {
+      try {
+        validationSchema.validateSync(values, { abortEarly: false });
+      }
+      catch(err) {
+        return this.regroupErrors(err);
+      }
+    };
+
+    validate = (values) => {
+      if (typeof validationSchema !== 'undefined') {
+        return this.validateYupSchema(values);
+      }
+      return validationFunction(values);
+    };
+
     render() {
-      const errors = validation(this.state.values);
+      const errors = this.validate(this.state.values);
       const submitDisabled = this.anyError(errors);
 
       return (
