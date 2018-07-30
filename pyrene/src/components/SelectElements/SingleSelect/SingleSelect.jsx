@@ -24,6 +24,7 @@ const SingleSelect = props => (
         isClearable={props.clearable}
         isDisabled={props.disabled}
         isInvalid={props.invalid}
+        isLoading={props.loading}
         onChange={option => props.onChange({ target: { name: props.name, value: option, type: 'singleSelect' } })}
         onBlur={props.onBlur}
         name={props.name}
@@ -51,6 +52,7 @@ const SingleSelect = props => (
         isSearchable={props.searchable}
         isDisabled={props.disabled}
         isInvalid={props.invalid}
+        isLoading={props.loading}
         onChange={option => props.onChange({ target: { name: props.name, value: option, type: 'singleSelect' } })}
         onBlur={props.onBlur}
         name={props.name}
@@ -91,6 +93,7 @@ SingleSelect.defaultProps = {
   creatable: false,
   disabled: false,
   invalid: false,
+  loading: false,
   required: false,
   searchable: false,
   clearable: false,
@@ -133,6 +136,10 @@ SingleSelect.propTypes = {
    * Displayed instead of the helperLabel if specified & invalid is set.
    */
   invalidLabel: PropTypes.string,
+  /**
+   * When true, displays a loading indicator
+   */
+  loading: PropTypes.bool,
   /**
    * Html input name tag
    */
