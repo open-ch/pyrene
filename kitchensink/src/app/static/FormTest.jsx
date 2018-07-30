@@ -67,6 +67,13 @@ const validationSchema = yup.object({
     .min(8, 'Needs at least 8 chars.')
     .matches(/[a-z]/, 'Needs one lowercase char.')
     .matches(/[A-Z]/, 'Needs one uppercase char.'),
+
+  checkBox3: yup.boolean(),
+  checkBox1: yup.boolean()
+    .when('checkBox3', {
+      is: true,
+      then: yup.boolean().oneOf([true], 'If helicopter, you have to be male.'),
+    }),
 });
 
 const WrappedForm = withFormLogic(Form)({
@@ -74,7 +81,7 @@ const WrappedForm = withFormLogic(Form)({
     checkBox1: false,
     checkBox2: true,
     checkBox3: true,
-    email: 'blablabla',
+    email: 'blabl@abla.com',
     password: '',
     textArea: '',
     radioGroup: '',
