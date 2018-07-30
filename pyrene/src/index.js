@@ -21,6 +21,7 @@ import { default as Banner } from './components/Banner/Banner';
 import { default as Loader } from './components/Loader/Loader';
 import { default as withFormLogic } from './components/FormElements/Form';
 import { default as Tooltip } from './components/Tooltip/Tooltip';
+import { default as Table } from './components/Table/Table';
 
 const Components = {
   Button,
@@ -40,7 +41,8 @@ const Components = {
   Banner,
   Loader,
   withFormLogic,
-  Tooltip
+  Tooltip,
+  Table
 };
 
 export {Button};
@@ -61,5 +63,6 @@ export {Banner};
 export {Loader};
 export {withFormLogic};
 export {Tooltip};
+export {Table};
 
 export default Components;

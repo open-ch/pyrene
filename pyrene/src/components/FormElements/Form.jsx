@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-
+/**
+ * HOC for form logic
+ */
 const withFormLogic = (WrappedForm) => ({initialValues, validationFunction, validationSchema, multiSelectOptionValidation, onSubmit, onChange}) => {
   return class FormWithLogic extends React.Component {
 
