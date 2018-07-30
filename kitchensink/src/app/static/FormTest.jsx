@@ -12,6 +12,7 @@ const errorStyle = {
   color: 'var(--red-500)',
 };
 
+// Form is built here
 const Form = props => (
   <React.Fragment>
     <div style={{
@@ -20,7 +21,7 @@ const Form = props => (
       justifyContent: 'space-between',
     }}
     >
-      <Checkbox label={'Male'} {...props.initField('checkBox1')} />
+      <Checkbox label={'Male'} {...props.initField('checkBox1')} /> {/* Fields need {...props.initField('fieldName')} to be recognised by the form */}
       <Checkbox label={'Female'} {...props.initField('checkBox2')} />
       <Checkbox label={'Apache Helicopter'} {...props.initField('checkBox3')} />
     </div>
@@ -68,6 +69,7 @@ const validationSchema = yup.object({
     .matches(/[a-z]/, 'Needs one lowercase char.')
     .matches(/[A-Z]/, 'Needs one uppercase char.'),
 
+  // conditional validation for checkbox 1 depending on checkbox 3
   checkBox3: yup.boolean(),
   checkBox1: yup.boolean()
     .when('checkBox3', {
@@ -76,8 +78,9 @@ const validationSchema = yup.object({
     }),
 });
 
-const WrappedForm = withFormLogic(Form)({
-  initialValues: {
+
+const WrappedForm = withFormLogic(Form)({ // wrapping form for
+  initialValues: { // Form filled with these initial values, every field that is connected to the form with initField() needs an initial value!
     checkBox1: false,
     checkBox2: true,
     checkBox3: true,
@@ -88,7 +91,7 @@ const WrappedForm = withFormLogic(Form)({
     select: null,
     multiselect1: [],
   },
-  validationFunction: values => ({
+  validationFunction: values => ({ // NOT USED AS VALIDATION SCHEMA IS DEFINED
     email: values.email.length === 0 ? 'Email must be longer than 0 Characters' : null,
     password: values.password.length === 0 ? 'Password must be longer than 0 Characters' : null,
     checkBox1: values.checkBox1 === values.checkBox2 ? 'Must choose male or female' : null,
@@ -99,10 +102,12 @@ const WrappedForm = withFormLogic(Form)({
     radioGroup: values.radioGroup === 'option 1' ? 'Can\'t select option 1' : null,
     multiselect1: values.multiselect1.map(selectedOption => selectedOption.invalid).indexOf(true) !== -1 ? 'Icecreams must contain an A' : null,
   }),
-  validationSchema: validationSchema,
-  multiSelectOptionValidation: (multiSelectName, values, selectedOption) => (/a/g.test(selectedOption.value)),
-  onSubmit: values => delayAlert(values, 2000),
-  onChange: (values, setFieldValue) => {
+  validationSchema: validationSchema, // PREFERRED TO VALIDATIONFUNCTION
+  multiSelectOptionValidation: (multiSelectName, values, selectedOption) => { // Validation for multiselect options
+    return /a/g.test(selectedOption.value);
+  },
+  onSubmit: values => delayAlert(values, 2000), // Promise triggered on submit
+  onChange: (values, setFieldValue) => { // Used to override values conditionally
     if (values.select === 'vanilla') {
       setFieldValue('radioGroup', 'option 3');
     }
