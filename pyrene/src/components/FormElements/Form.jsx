@@ -19,6 +19,59 @@ const withFormLogic = (WrappedForm) => ({initialValues, validationFunction, vali
       isSubmitting: false,
     };
 
+    validateYupSchema = (values) => {
+      try {
+        validationSchema.validateSync(values, { abortEarly: false });
+      }
+      catch(err) {
+        return this.regroupErrors(err);
+      }
+      // No errors return empty error
+      return {};
+    };
+
+    validate = (values) => {
+      if (typeof validationSchema !== 'undefined') {
+        return this.validateYupSchema(values);
+      }
+      return validationFunction(values);
+    };
+
+    anyError = errors => {
+      return Object.keys(errors).some(x => errors[x]);
+    };
+
+    canBeSubmitted() {
+      const errors = this.validate(this.state.values);
+      const isDisabled = this.anyError(errors);
+      return !isDisabled;
+    }
+
+    shouldMarkError = (fieldName, error) => {
+      const shouldShow = this.state.touched[fieldName];
+      return error ? shouldShow : false;
+    };
+
+    regroupErrors = (errors) => {
+      // regroups the errors from beeing an array of error objects to an object of errors grouped by field name
+      const groupedErrors = errors.inner.map(validationError => ({[validationError.path]: validationError.errors})).reduce((acc, obj) => {
+        Object.keys(obj).forEach((k) => {
+          acc[k] = (acc[k] || []).concat(obj[k]);
+        });
+        return acc;
+      }, {});
+
+      let flatGroupedErrors = {};
+      for (const key in groupedErrors) {
+        if (groupedErrors.hasOwnProperty(key)) {
+          flatGroupedErrors[key] = groupedErrors[key].join(' ');
+        }
+      }
+
+      return flatGroupedErrors;
+    };
+
+
     handleSubmit = (event) => {
       event.preventDefault();
 
@@ -36,16 +89,6 @@ const withFormLogic = (WrappedForm) => ({initialValues, validationFunction, vali
           .then(() => alert('Done'))
       }
     };
-
-    anyError = errors => {
-      return Object.keys(errors).some(x => errors[x]);
-    };
-
-    canBeSubmitted() {
-      const errors = validationFunction(this.state.values);
-      const isDisabled = this.anyError(errors);
-      return !isDisabled;
-    }
 
     handleBlur = (event) => {
       const inputName = event.target.name ? event.target.name : event.target.id;
@@ -118,46 +161,6 @@ const withFormLogic = (WrappedForm) => ({initialValues, validationFunction, vali
       }
 
       return fieldProps;
-    };
-
-    shouldMarkError = (fieldName, error) => {
-      const shouldShow = this.state.touched[fieldName];
-      return error ? shouldShow : false;
-    };
-
-    regroupErrors = (errors) => {
-      // regroups the errors from beeing an array of error objects to an object of errors grouped by field name
-      const groupedErrors = errors.inner.map(validationError => ({[validationError.path]: validationError.errors})).reduce((acc, obj) => {
-        Object.keys(obj).forEach((k) => {
-          acc[k] = (acc[k] || []).concat(obj[k]);
-        });
-        return acc;
-      }, {});
-
-      let flatGroupedErrors = {};
-      for (const key in groupedErrors) {
-        if (groupedErrors.hasOwnProperty(key)) {
-          flatGroupedErrors[key] = groupedErrors[key].join(' ');
-        }
-      }
-
-      return flatGroupedErrors;
-    };
-
-    validateYupSchema = (values) => {
-      try {
-        validationSchema.validateSync(values, { abortEarly: false });
-      }
-      catch(err) {
-        return this.regroupErrors(err);
-      }
-    };
-
-    validate = (values) => {
-      if (typeof validationSchema !== 'undefined') {
-        return this.validateYupSchema(values);
-      }
-      return validationFunction(values);
     };
 
     render() {
