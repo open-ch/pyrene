@@ -24,7 +24,7 @@
 
   cursor: pointer;
   background-color: var(--neutral-000);
-  mask: url('/src/images/copy.svg') no-repeat;
+  mask: url('../images/copy.svg') no-repeat;
 
   transition: all .15s ease-in-out;
 }
@@ -42,7 +42,7 @@
 
   cursor: pointer;
   background-color: var(--neutral-000);
-  mask: url('/src/images/code.svg') no-repeat;
+  mask: url('../images/code.svg') no-repeat;
 
   transition: all .15s ease-in-out;
 }

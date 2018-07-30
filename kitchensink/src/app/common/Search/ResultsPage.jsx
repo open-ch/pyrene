@@ -5,7 +5,7 @@ import Components from 'pyrene';
 import SearchUtils from './SearchUtils';
 import SearchResult from './SearchResult/SearchResult';
 import Paragraph from '../PageElements/Paragraph/Paragraph';
-
+import GalaxyImage from '../../../images/galaxy.svg';
 
 export default class ResultsPage extends React.Component {
 
@@ -53,7 +53,7 @@ export default class ResultsPage extends React.Component {
         <Paragraph>
           We searched far and wide and couldn’t find any content matching your search. Please give it another try.
         </Paragraph>
-        <img src={'/src/images/galaxy.svg'} style={{ marginTop: 130 }} alt={'Placeholder where are you?'} />
+        <img src={GalaxyImage} style={{ marginTop: 130 }} alt={'Placeholder where are you?'} />
       </div>
     </React.Fragment>
   );

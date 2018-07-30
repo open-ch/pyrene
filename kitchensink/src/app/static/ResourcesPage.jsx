@@ -2,6 +2,7 @@ import React from 'react';
 import '../../css/componentPage.css';
 import Paragraph from '../common/PageElements/Paragraph/Paragraph';
 import DownloadButton from '../common/PageElements/DownloadButton/DownloadButton';
+import downloadResourcePath from '../../images/download.svg';
 
 
 const ResourcesPage = () => (
@@ -23,11 +24,11 @@ const ResourcesPage = () => (
 
     <div className="topicContent">
       <Paragraph title={'Adobe Photoshop and Illustrator'}>
-        <DownloadButton path={'/src/images/download.svg'} />
+        <DownloadButton path={downloadResourcePath} name={'Download Arrow.svg'} />
       </Paragraph>
 
       <Paragraph title={'Sketch App'}>
-        <DownloadButton path={'/src/images/download.svg'} />
+        <DownloadButton path={downloadResourcePath} name={'Download Arrow.svg'} />
       </Paragraph>
     </div>
   </div>

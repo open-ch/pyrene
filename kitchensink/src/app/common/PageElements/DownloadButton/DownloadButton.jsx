@@ -4,15 +4,13 @@ import PropTypes from 'prop-types';
 import './downloadButton.css';
 
 const DownloadButton = (props) => {
-  const nameFromPath = props.path.split('.')[0].split('/').pop();
-  const preparedName = `${nameFromPath.charAt(0).toUpperCase() + nameFromPath.slice(1)} (.${props.path.split('.')[1]})`;
   return (
     <a href={props.path} download>
       <div styleName={'downloadButton'}>
         <div styleName={'iconContainer'}>
           <div styleName={'icon'} />
         </div>
-        <div styleName={'name'}>{preparedName}</div>
+        <div styleName={'name'}>{props.name}</div>
       </div>
     </a>
   );
@@ -22,6 +20,7 @@ const DownloadButton = (props) => {
 DownloadButton.displayName = 'DownloadButton';
 
 DownloadButton.propTypes = {
+  name: PropTypes.string.isRequired,
   path: PropTypes.string.isRequired,
 };
 

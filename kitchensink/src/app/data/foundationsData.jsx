@@ -226,11 +226,6 @@ const icons = [
 
 const svgs = [
   { name: 'checkbox-blank', tags: [], path: '/src/app/data/svgs/checkbox-blank.svg' },
-  { name: 'checkbox-hover', tags: [], path: '/src/app/data/svgs/checkbox-hover.svg' },
-  { name: 'checkbox-invalid', tags: [], path: '/src/app/data/svgs/checkbox-invalid.svg' },
-  { name: 'checkbox-invalid-hover', tags: [], path: '/src/app/data/svgs/checkbox-invalid-hover.svg' },
-  { name: 'checkbox-selected', tags: [], path: '/src/app/data/svgs/checkbox-selected.svg' },
-  { name: 'checkbox-selected-hover', tags: [], path: '/src/app/data/svgs/checkbox-selected-hover.svg' },
 ];
 
 export {
