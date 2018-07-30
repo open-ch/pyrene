@@ -3,61 +3,73 @@ import PropTypes from 'prop-types';
 import ReactTable from 'react-table';
 
 import './table.css';
+import SingleSelect from '../SelectElements/SingleSelect/SingleSelect';
 
-const Table = props => {
-  const data = [
-    {
-      name: 'Tanner Linsley',
-      age: 26,
-      friend: {
-        name: 'Jason Maurer',
-        age: 23,
-      },
-    },
-    {
-      name: 'Linsley Tanner',
-      age: 62,
-      friend: {
-        name: 'Maurer Jason',
-        age: 32,
-      },
-    },
-  ];
+/**
+ * All mighty table
+ */
+const Table = props => (
+  <div>
+    <ReactTable
+      defaultPageSize={3}
+      data={props.data}
+      columns={props.columns}
 
-  const columns = [{
-    Header: 'Name',
-    accessor: 'name' // String-based value accessors!
-  }, {
-    Header: 'Age',
-    accessor: 'age',
-  }, {
-    id: 'friendName', // Required because our accessor is not a string
-    Header: 'Friend Name',
-    accessor: d => d.friend.name // Custom value accessors!
-  }, {
-    Header: props => <span>Friend Age</span>, // Custom header components!
-    accessor: 'friend.age'
-  }];
+      filterable={props.filterable}
+      multiSort={props.multiSort}
+      PadRowComponent={props.PadRowComponent}
+      showPageSizeOptions={props.showPageSizeOptions}
 
-  return (
-    <div>
-      <ReactTable
-        defaultPageSize={3}
-        data={data}
-        columns={columns}
-      />
-    </div>
-  );
-};
+      resizable={false}
+      showPaginationBottom={false}
+      showPagination
+      showPaginationTop
+
+      PaginationComponent={(props) => {
+        console.log(props);
+        return <SingleSelect
+          options={props.pageSizeOptions.map(e => ({label: `${e}`, value: `${e}`}))}
+          onChange={(e) => props.onPageSizeChange(parseInt(e.target.value.value, 10))}
+          value={`${props.pageSize}`}
+        />;
+      }}
+
+      sortable
+    />
+  </div>
+);
 
 
 Table.displayName = 'Table';
 
-Table.defaultProps = {};
+Table.defaultProps = {
+  defaultPageSize: 10,
+  defaultSortDesc: true,
+  filterable: false,
+  loading: false,
+  multiSort: true,
+  showPageSizeOptions: true,
+  PadRowComponent: () => <span>&nbsp;</span>,
+  pageSizeOptions: [5, 10, 20, 50, 100],
+};
 
 Table.propTypes = {
-  data: PropTypes.array,
-  columns: PropTypes.array,
+  columns: PropTypes.array.isRequired,
+  data: PropTypes.array.isRequired,
+
+  defaultPageSize: PropTypes.number,
+  defaultSortDesc: PropTypes.bool,
+
+  filterable: PropTypes.bool,
+
+  loading: PropTypes.bool,
+
+  multiSort: PropTypes.bool,
+
+  PadRowComponent: PropTypes.func, // the content rendered inside of a padding row
+  pageSizeOptions: PropTypes.arrayOf(PropTypes.number),
+
+  showPageSizeOptions: PropTypes.bool,
 };
 
 export default Table;
