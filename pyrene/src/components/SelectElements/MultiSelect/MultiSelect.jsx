@@ -1,10 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import '../select.css';
 import Select from 'react-select';
 import CreatableSelect from 'react-select/lib/Creatable';
+import '../select.css';
 import MultiSelectStyle from './multiSelectCSS';
+import Loader from '../../Loader/Loader';
+
+
+const LoadingIndicator = () => {
+  return <Loader />;
+};
 
 /**
  * Selection elements are used primarily on ....
@@ -16,6 +22,7 @@ const MultiSelect = props => (
       <CreatableSelect
         className={'multiSelect'}
         styles={MultiSelectStyle(props.rows)}
+        components={{ LoadingIndicator }}
         placeholder={props.placeholder}
         options={props.options}
         value={props.value ? props.value : null}
@@ -44,6 +51,7 @@ const MultiSelect = props => (
       <Select
         className={'multiSelect'}
         styles={MultiSelectStyle(props.rows)}
+        components={{ LoadingIndicator }}
         placeholder={props.placeholder}
         options={props.options}
         value={props.value ? props.value : null}

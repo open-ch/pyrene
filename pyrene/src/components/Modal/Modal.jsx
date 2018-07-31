@@ -5,6 +5,8 @@ import './modal.css';
 import ButtonBar from '../ButtonBar/ButtonBar';
 import Button from '../Button/Button';
 import Loader from '../Loader/Loader';
+import ArrowButton from '../ArrowButton/ArrowButton';
+
 
 /**
  * I'm pretty modal.
@@ -20,10 +22,19 @@ export default class Modal extends React.Component {
     document.body.style.overflow = 'auto';
   }
 
+  renderNavigationArrows = () => (
+    <div styleName={'arrowButtonContainer'}>
+      <ArrowButton direction={'down'} onClick={this.props.onNextArrowClick} disabled={!this.props.canNext} />
+      <div style={{width: 16}} />
+      <ArrowButton direction={'up'} onClick={this.props.onPreviousArrowClick} disabled={!this.props.canPrevious} />
+    </div>
+  );
+
   renderContent = () => (
     <Fragment>
       <div styleName={'titleBar'}>
         {this.props.titleLabel}
+        {this.props.displayNavigationArrows && this.renderNavigationArrows()}
       </div>
       <div styleName={'contentContainer'}>
         <div styleName={'content'}>
@@ -45,7 +56,7 @@ export default class Modal extends React.Component {
         <div styleName="modalOverlay">
           <div styleName={classNames('modalContainer', this.props.size)} role="dialog">
             {this.props.loading ? this.renderLoader() : this.renderContent()}
-            <ButtonBar rightButtonSectionElements={[<Button label={'Cancel'} onClick={this.props.closeButtonClicked}/>]}/>
+            <ButtonBar rightButtonSectionElements={[<Button label={'Cancel'} onClick={this.props.onClose}/>]}/>
           </div>
         </div>
       </Fragment>
@@ -58,9 +69,12 @@ Modal.displayName = 'Modal';
 Modal.defaultProps = {
   loading: false,
   buttonBarElements: [],
-  previousButtonClicked: () => null,
-  nextButtonClicked: () => null,
-  closeButtonClicked: () => null,
+  onPreviousArrowClick: () => null,
+  onNextArrowClick: () => null,
+  displayNavigationArrows: false,
+  onClose: () => null,
+  canNext: false,
+  canPrevious: false,
 };
 
 Modal.propTypes = {
@@ -69,25 +83,37 @@ Modal.propTypes = {
    */
   buttonBarElements: PropTypes.arrayOf(PropTypes.element),
   /**
-   * Closebutton clickhandler
+   * Enables next arrow button
    */
-  closeButtonClicked: PropTypes.func,
+  canNext: PropTypes.bool,
+  /**
+   * Enables previous arrow button
+   */
+  canPrevious: PropTypes.bool,
   /**
    * Content displayed by Modal
    */
   content: PropTypes.element.isRequired,
   /**
+   * Hide or show the navigationArrows in the upper right corner.
+   */
+  displayNavigationArrows: PropTypes.bool,
+  /**
    * Displays a loader when true
    */
   loading: PropTypes.bool,
   /**
+   * Closebutton clickhandler
+   */
+  onClose: PropTypes.func,
+  /**
    * Top right next button click handler
    */
-  nextButtonClicked: PropTypes.func,
+  onNextArrowClick: PropTypes.func,
   /**
    * Top right previous button click handler
    */
-  previousButtonClicked: PropTypes.func,
+  onPreviousArrowClick: PropTypes.func,
   /**
    * Specifies the size
    */
