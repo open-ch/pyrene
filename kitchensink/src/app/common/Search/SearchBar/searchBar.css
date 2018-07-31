@@ -1,3 +1,5 @@
+@import '../../../../css/colors.css';
+
 .searchBarContainer {
   box-sizing: border-box;
   height: 40px;

@@ -39,6 +39,7 @@
     "object-hash": "^1.3.0",
     "postcss": "^6.0.21",
     "postcss-custom-properties": "^7.0.0",
+    "postcss-import": "^11.1.0",
     "postcss-loader": "^2.1.4",
     "postcss-nesting": "^5.0.0",
     "react-router-dom": "^4.2.2",
