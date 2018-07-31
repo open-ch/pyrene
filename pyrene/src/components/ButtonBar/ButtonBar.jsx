@@ -1,10 +1,11 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import './buttonBar.css';
 
 
 const ButtonBar = props => (
-  <div styleName={'buttonBar'}>
+  <div styleName={classNames('buttonBar', {noPadding: props.noPadding})}>
     <div styleName={'leftButtonSection'}>
       {props.leftButtonSectionElements.map(element => (
         <React.Fragment key={`${element.type}${element.props.label}${element.props.type}`}>
@@ -30,10 +31,12 @@ ButtonBar.displayName = 'ButtonBar';
 ButtonBar.defaultProps = {
   leftButtonSectionElements: [],
   rightButtonSectionElements: [],
+  noPadding: false,
 };
 
 ButtonBar.propTypes = {
   leftButtonSectionElements: PropTypes.arrayOf(PropTypes.element),
+  noPadding: PropTypes.bool,
   rightButtonSectionElements: PropTypes.arrayOf(PropTypes.element),
 };
 

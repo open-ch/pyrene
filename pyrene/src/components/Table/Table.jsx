@@ -1,43 +1,84 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReactTable from 'react-table';
+import classNames from 'classnames';
 
 import './table.css';
-import SingleSelect from '../SelectElements/SingleSelect/SingleSelect';
+import TablePagination from './TablePagination';
+import ButtonBar from '../ButtonBar/ButtonBar';
+import Button from '../Button/Button';
+import Loader from '../Loader/Loader';
 
 /**
  * All mighty table
  */
-const Table = props => (
-  <div>
-    <ReactTable
-      defaultPageSize={3}
-      data={props.data}
-      columns={props.columns}
+export default class Table extends React.Component {
 
-      filterable={props.filterable}
-      multiSort={props.multiSort}
-      PadRowComponent={props.PadRowComponent}
-      showPageSizeOptions={props.showPageSizeOptions}
+  state = {
+    selected: null,
+  };
 
-      resizable={false}
-      showPaginationBottom={false}
-      showPagination
-      showPaginationTop
+  renderLoader = () => (
+    <div styleName={'loader'}>
+      <Loader size={'large'} />
+    </div>
+  );
 
-      PaginationComponent={(props) => {
-        console.log(props);
-        return <SingleSelect
-          options={props.pageSizeOptions.map(e => ({label: `${e}`, value: `${e}`}))}
-          onChange={(e) => props.onPageSizeChange(parseInt(e.target.value.value, 10))}
-          value={`${props.pageSize}`}
-        />;
-      }}
 
-      sortable
-    />
-  </div>
-);
+  render() {
+    return (
+      <div styleName={'tableContainer'}>
+        {this.props.loading && this.renderLoader()}
+        <div styleName={classNames('tableAndActions',{loading: this.props.loading})}>
+          <ButtonBar noPadding leftButtonSectionElements={[
+            <Button label={'Yalla'} type={'action'} icon={'warning'} />,
+            <Button label={'Yallo'} type={'action'} icon={'errorOutline'} />,
+            <Button label={'Yola'} type={'action'} icon={'search'} />,
+            <Button label={'Yolo'} type={'action'} icon={'filter'} />
+          ]}/>
+          <ReactTable
+            defaultPageSize={this.props.defaultPageSize}
+            data={this.props.data}
+            columns={this.props.columns}
+
+            filterable={this.props.filterable}
+            multiSort={this.props.multiSort}
+            PadRowComponent={this.props.PadRowComponent}
+            showPageSizeOptions={this.props.showPageSizeOptions}
+
+
+            getTrProps={(state, rowInfo) => {
+              // no row selected yet
+              const selectedIndex = this.state.selected == null ? null : this.state.selected.index;
+              return {
+                onClick: (e) => {
+                  this.setState({
+                    selected: rowInfo
+                  })
+                },
+                onDoubleClick: (e) => {
+                  this.props.onRowDoubleClick(rowInfo);
+                },
+                style: {
+                  background: typeof rowInfo === 'undefined' ? 'white' : rowInfo.index === selectedIndex ? '#00afec' : 'white',
+                  color: typeof rowInfo === 'undefined' ? 'black' : rowInfo.index === selectedIndex ? 'white' : 'black'
+                }
+              }
+            }}
+
+
+            PaginationComponent={(props) => <TablePagination {...props} />}
+            resizable={false}
+            showPaginationBottom={false}
+            showPagination
+            showPaginationTop
+            sortable
+          />
+        </div>
+      </div>
+    );
+  }
+}
 
 
 Table.displayName = 'Table';
@@ -51,6 +92,7 @@ Table.defaultProps = {
   showPageSizeOptions: true,
   PadRowComponent: () => <span>&nbsp;</span>,
   pageSizeOptions: [5, 10, 20, 50, 100],
+  onRowDoubleClick: () => null,
 };
 
 Table.propTypes = {
@@ -66,10 +108,10 @@ Table.propTypes = {
 
   multiSort: PropTypes.bool,
 
+  onRowDoubleClick: PropTypes.func,
+
   PadRowComponent: PropTypes.func, // the content rendered inside of a padding row
   pageSizeOptions: PropTypes.arrayOf(PropTypes.number),
 
   showPageSizeOptions: PropTypes.bool,
 };
-
-export default Table;

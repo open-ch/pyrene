@@ -1,0 +1,27 @@
+.tablePagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pageNavigation {
+  display: flex;
+  align-items: center;
+}
+
+.pageTracker {
+  white-space: nowrap;
+}
+
+.pageSizeSelect {
+  width: 64px;
+}
+
+.spacer {
+  &.small {
+    width: 16px;
+  }
+  &.medium {
+    width: 24px;
+  }
+}

@@ -7,6 +7,10 @@
 
   display: flex;
   justify-content: space-between;
+
+  &.noPadding {
+    padding: 0;
+  }
 }
 
 .leftButtonSection {
