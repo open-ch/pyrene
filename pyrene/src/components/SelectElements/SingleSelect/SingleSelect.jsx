@@ -5,6 +5,11 @@ import Select from 'react-select';
 import CreatableSelect from 'react-select/lib/Creatable';
 import SelectStyle from './singleSelectCSS';
 import '../select.css';
+import Loader from '../../Loader/Loader';
+
+const LoadingIndicator = () => {
+  return <Loader />;
+};
 
 /**
  * Selection elements are used primarily on ....
@@ -17,6 +22,7 @@ const SingleSelect = props => (
       <CreatableSelect
         className={'singleSelect'}
         styles={SelectStyle}
+        components={{ LoadingIndicator }}
         placeholder={props.placeholder}
         options={props.options}
         value={props.value ? props.options.filter(o => o.value === props.value).pop() : null}
@@ -44,6 +50,7 @@ const SingleSelect = props => (
       <Select
         className={'singleSelect'}
         styles={SelectStyle}
+        components={{ LoadingIndicator }}
         placeholder={props.placeholder}
         options={props.options}
         value={props.value ? props.options.filter(o => o.value === props.value).pop() : null}

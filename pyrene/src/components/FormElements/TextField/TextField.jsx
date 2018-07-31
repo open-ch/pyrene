@@ -10,8 +10,9 @@ const TextField = (props) => (
   <div styleName={classNames('textFieldContainer', { disabled: props.disabled }, { invalid: props.invalid && !props.disabled })} style={{ width: (props.width >= 0) ? `${props.width}px` : '100%' }}>
     {props.title && <div styleName={classNames('textFieldTitle', { required: props.required && !props.disabled })}>{props.title}</div>}
     <div styleName={'textFieldIconLayoutContainer'}>
+      {/*{ hasIcon: props.icon }*/}
       <input
-        styleName={classNames('textField', { hasIcon: props.icon }, { filled: props.value })}
+        styleName={classNames('textField', { filled: props.value })}
         type="text"
         name={props.name}
         placeholder={props.placeholder}
@@ -20,7 +21,7 @@ const TextField = (props) => (
         onBlur={props.onBlur}
         onFocus={props.onFocus}
       />
-      <span className={`icon-${props.icon}`} styleName={'textFieldIcon'} />
+      {/* Future use of an api with predefined icons - <span className={`icon-${props.icon}`} styleName={'textFieldIcon'} />*/}
     </div>
 
     {props.invalid && props.invalidLabel && !props.disabled ?
@@ -47,7 +48,6 @@ TextField.defaultProps = {
   placeholder: '',
   helperLabel: '',
   invalidLabel: '',
-  icon: '',
   name: '',
   width: -1,
   required: false,
@@ -67,10 +67,6 @@ TextField.propTypes = {
    * Helper text below the input field, also used to display error messages if prop invalid is set.
    */
   helperLabel: PropTypes.string,
-  /**
-   * Adds an interactive icon to the textField.
-   */
-  icon: PropTypes.string,
   /**
    * Changes the fields and helpers visual appearance to indicate a validation error.
    */
