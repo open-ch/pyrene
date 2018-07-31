@@ -1,40 +1,4 @@
 /* eslint-disable no-nested-ternary */
-/**
- *
- * React Select want's you to style the component in JS using the following convention.
- * Following is part of the style documentation:
- *
- * DOCS
- ***************************************************
- * Styles
- * React-Select is using emotion.
- *
- * @param {Object} base -- the component's default style
- * @param {Object} state -- the component's current state e.g. `isFocused`
- * @returns {Object}
- *
- * function styleFn(base, state) {
- *  // optionally spread base styles
- *  return { ...base, color: state.isFocused ? 'blue' : 'red' };
- * }
- *
- * Style Object
- * Each component is keyed, and ships with default styles. The component's default style object is passed as the first argument to the function when it's resolved.
- * The second argument is the current state of the select, features like isFocused, isSelected etc. allowing you to implement dynamic styles for each of the components.
- *
- * STYLE KEYS
- * clearIndicator container control dropdownIndicator group groupHeading
- * indicatorsContainer indicatorSeparator input loadingIndicator loadingMessage
- * menu menuList multiValue multiValueLabel multiValueRemove noOptionsMessage
- * option placeholder singleValue valueContainer
- *
- * Base and State
- * Spreading the base styles into your returned object let's you extend it
- * however you like while maintaining existing styles.
- * Alternatively, you can omit the base and completely take control of the component's styles.
- *
- */
-
 
 /* Print style to console:
    object: (base, state) => {

@@ -24,8 +24,11 @@ const Banner = props => (
     styleName={className('banner', { [`type-${props.type}`]: true }, { clearable: props.clearable })}
     role="banner"
   >
-    <span styleName={'bannerIcon'}>{props.type === 'loading' ? <Loader size={'small'} /> : <span className={`icon-${iconNameForBannerType(props.type)}`} />}</span>
-    <span styleName={'message'}>{props.message}</span>
+    <div styleName={'iconMessageContainer'}>
+      <span styleName={'bannerIcon'}>{props.type === 'loading' ? <Loader size={'small'} /> : <span className={`icon-${iconNameForBannerType(props.type)}`} />}</span>
+      <div styleName={'spacer'} />
+      <span styleName={'message'}>{props.message}</span>
+    </div>
     {props.type !== 'error' && props.type !== 'loading' && <span className={'icon-delete'} styleName={'clearIcon'} onClick={props.onClear} role="button" aria-label="Clear Banner"/>}
   </div>
 );
