@@ -24,7 +24,7 @@ export default class ComponentEditor extends React.Component {
     component: this.props.component,
     componentProps: {...this.props.component.defaultProps, ...this.props.startProps, onChange: this.handleComponentInteraction },
 
-    pinned: true,
+    pinned: false, //console change this back to true
     darkMode: false,
   };
 
