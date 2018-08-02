@@ -4,11 +4,12 @@ import { Button, Container } from 'pyrene';
 import Paragraph from '../../common/PageElements/Paragraph/Paragraph';
 import DisplayBox from './DisplayBox';
 import DescriptionBox from '../../common/PageElements/DescriptionBox/DescriptionBox';
-import {ContentFiller} from '../propsData';
+import { ContentFiller } from '../propsData';
 
 
 const ButtonHTU = props => (
   <Paragraph title={'How to use'} large>
+
     <Paragraph title={'Icon Usage'}>
       <DescriptionBox>
         Buttons can use icon to emphasise the functionality or convey more meaning to it.
@@ -21,23 +22,23 @@ const ButtonHTU = props => (
         <Button icon={'warning'} label={'Admin'} type={'admin'} />
       </DisplayBox>
     </Paragraph>
+
     <Paragraph title={'Admin Button'} >
       <DescriptionBox>
         Admin buttons have a different visual style and are used, when a certain action or view is accessible for MC Engineers only.
       </DescriptionBox>
       <DisplayBox width={286}>
-
         <Container
           title={'network interfaces'}
-          adminAction={{label: 'Admin', action: () => (console.log('wowowow'))}}
+          adminAction={{ label: 'Admin', action: () => (console.log('wowowow')) }}
           renderCallback={() =>
-            <ContentFiller
+            (<ContentFiller
               height={250}
-            />}
+            />)}
         />
-
       </DisplayBox>
     </Paragraph>
+
   </Paragraph>
 );
 

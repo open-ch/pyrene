@@ -8,7 +8,7 @@ import HowToUse from '../data/howToElements';
 
 const ComponentPage = (props) => {
 
-  const component = <props.component />;
+  const component = <props.component {...StartProps[props.lowercaseName]} />;
   const componentName = component.type.name;
   const HowTo = HowToUse[componentName] ? HowToUse[componentName] : null;
 
