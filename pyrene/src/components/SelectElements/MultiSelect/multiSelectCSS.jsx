@@ -59,10 +59,10 @@ const multiSelectStyle = rows => ({
   valueContainer: (base, state) => ({
     ...base,
     minHeight: 30,
-    height: rows < 0 ? 'inherit' : (rows * 24) + 6,
+    height: rows < 0 ? 'inherit' : (rows * 25) + 6,
     overflow: state.hasValue ? 'auto' : 'hidden',
     padding: '2px 6px',
-    maxHeight: rows < 0 ? 76 : (rows * 24) + 4,
+    maxHeight: rows < 0 ? 79 : (rows * 25) + 4,
   }),
 
   placeholder: base => ({
