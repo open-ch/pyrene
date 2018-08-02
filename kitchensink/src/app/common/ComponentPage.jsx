@@ -4,9 +4,15 @@ import Markdown from 'markdown-to-jsx';
 import ComponentEditor from './ComponentEditor';
 import StartProps from '../data/propsData';
 import '../../css/componentPage.css';
+import HowToUse from '../data/howToElements';
 
-const ComponentPage = props => (
-  <div styleName="page">
+const ComponentPage = (props) => {
+
+  const component = <props.component />;
+  const componentName = component.type.name;
+  const HowTo = HowToUse[componentName] ? HowToUse[componentName] : null;
+
+  return (<div styleName="page">
     <div styleName="header">
       <div styleName="title">{props.name}</div>
       <div styleName="description">
@@ -20,8 +26,11 @@ const ComponentPage = props => (
         startProps={StartProps[props.lowercaseName]}
       />
     </div>
+
+    {HowTo ? <HowTo /> : null}
   </div>
-);
+  );
+};
 
 
 ComponentPage.displayName = 'ComponentPage';

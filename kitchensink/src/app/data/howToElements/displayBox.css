@@ -1,0 +1,17 @@
+.displayBox {
+  display: flex;
+  justify-content: center;
+
+  box-sizing: border-box;
+  padding: 40px;
+
+  border-radius: 4px;
+  background-color: var(--neutral-010);
+  box-shadow: 0 0 1px 0 rgba(0, 21, 44, 0.3);
+}
+
+.positioningBox {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
