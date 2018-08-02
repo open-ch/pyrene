@@ -60,7 +60,6 @@ const MultiSelect = props => (
         isDisabled={props.disabled}
         isInvalid={props.invalid}
         isLoading={props.loading}
-        isSearchable={props.searchable}
         onChange={(option) => props.onChange({target: {name: props.name, value: option, type: 'multiSelect'}})}
         onBlur={props.onBlur}
         name={props.name}
@@ -71,7 +70,9 @@ const MultiSelect = props => (
         noOptionsMessage={() => 'no matches found'}
 
         closeMenuOnSelect={!props.keepMenuOnSelect}
+
         isMulti
+        isSearchable
         escapeClearsValue
         captureMenuScroll
         backspaceRemovesValue
@@ -112,7 +113,6 @@ MultiSelect.defaultProps = {
   loading: false,
   required: false,
   clearable: false,
-  searchable: false,
   keepMenuOnSelect: false,
   value: null,
   onChange: () => null,
@@ -191,10 +191,6 @@ MultiSelect.propTypes = {
    * Let's you set a fixed height to the multiselect. Default behaviour is one row that expands up to 3, then starts scrolling.
    */
   rows: PropTypes.number,
-  /**
-   * Let's the user type in the inputbox.
-   */
-  searchable: PropTypes.bool,
   /**
    * Changes what the title says.
    */
