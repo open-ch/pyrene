@@ -33,9 +33,6 @@ const multiSelectStyle = rows => ({
     alignItems: rows < 0 ? 'center' : 'flex-start',
     overflow: 'hidden',
 
-    minHeight: 32,
-    height: rows < 0 ? 'none' : (rows * 24) + 6,
-    maxHeight: rows < 0 ? 78 : 'none',
     backgroundColor: (state.isFocused || state.hasValue) ? colorConstants.neutral000 : colorConstants.neutral020,
     border: state.selectProps.isInvalid && !state.isDisabled ? `solid 1px ${colorConstants.red500}` : state.isFocused ? `solid 1px ${colorConstants.blue500}` : `solid 1px ${colorConstants.neutral100}`,
     borderRadius: 2,
@@ -59,11 +56,12 @@ const multiSelectStyle = rows => ({
     },
   }),
 
-  valueContainer: base => ({
+  valueContainer: (base, state) => ({
     ...base,
-    overflow: 'auto',
-    paddingLeft: 6,
-    paddingRight: 6,
+    minHeight: 30,
+    height: rows < 0 ? 'inherit' : (rows * 24) + 6,
+    overflow: state.hasValue ? 'auto' : 'hidden',
+    padding: '2px 6px',
     maxHeight: rows < 0 ? 76 : (rows * 24) + 4,
   }),
 
@@ -158,13 +156,13 @@ const multiSelectStyle = rows => ({
 
   multiValue: (base, { data }) => ({
     ...base,
-    height: 20,
     alignItems: 'center',
     backgroundColor: data.invalid ? colorConstants.red100 : colorConstants.neutral030,
     flexShrink: 0,
   }),
 
   multiValueLabel: (base, { data }) => ({
+    ...base,
     boxSizing: 'border-box',
     paddingLeft: 8,
     fontSize: 13,
@@ -175,8 +173,8 @@ const multiSelectStyle = rows => ({
   }),
 
   multiValueRemove: (base, { data }) => ({
-    display: 'flex',
-    alignItems: 'center',
+    display: 'block',
+    height: 14,
     paddingLeft: 4,
     paddingRight: 4,
     '& svg': {
