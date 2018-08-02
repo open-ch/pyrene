@@ -1,39 +1,4 @@
 /* eslint-disable no-nested-ternary */
-/**
- *
- * React Select want's you to style the component in JS using the following convention.
- * Following is part of the style documentation:
- *
- * DOCS
- ***************************************************
- * Styles
- * React-Select is using emotion.
- *
- * @param {Object} base -- the component's default style
- * @param {Object} state -- the component's current state e.g. `isFocused`
- * @returns {Object}
- *
- * function styleFn(base, state) {
- *  // optionally spread base styles
- *  return { ...base, color: state.isFocused ? 'blue' : 'red' };
- * }
- *
- * Style Object
- * Each component is keyed, and ships with default styles. The component's default style object is passed as the first argument to the function when it's resolved.
- * The second argument is the current state of the select, features like isFocused, isSelected etc. allowing you to implement dynamic styles for each of the components.
- *
- * STYLE KEYS
- * clearIndicator container control dropdownIndicator group groupHeading
- * indicatorsContainer indicatorSeparator input loadingIndicator loadingMessage
- * menu menuList multiValue multiValueLabel multiValueRemove noOptionsMessage
- * option placeholder singleValue valueContainer
- *
- * Base and State
- * Spreading the base styles into your returned object let's you extend it
- * however you like while maintaining existing styles.
- * Alternatively, you can omit the base and completely take control of the component's styles.
- *
- */
 
 
 /* Print style to console:
@@ -43,6 +8,8 @@
     return {...base};
    }
  */
+
+import colorConstants from '../../../styles/colorConstants';
 
 const selectStyle = {
   container: base => ({
@@ -68,25 +35,25 @@ const selectStyle = {
 
     minHeight: 32,
     height: 32,
-    backgroundColor: (state.isFocused || state.hasValue) ? 'var(--neutral-0)' : 'var(--neutral-020)',
-    border: state.selectProps.isInvalid && !state.isDisabled ? 'solid 1px var(--red-500)' : state.isFocused ? 'solid 1px var(--blue-500)' : 'solid 1px var(--neutral-100)',
+    backgroundColor: (state.isFocused || state.hasValue) ? colorConstants.neutral000 : colorConstants.neutral020,
+    border: state.selectProps.isInvalid && !state.isDisabled ? `solid 1px ${colorConstants.red500}` : state.isFocused ? `solid 1px ${colorConstants.blue500}` : `solid 1px ${colorConstants.neutral100}`,
     borderRadius: 2,
     cursor: 'pointer',
 
     '& .singleSelect__dropdown-indicator:after': {
-      color: state.isFocused ? 'var(--blue-500)' : 'var(--neutral-300)',
+      color: state.isFocused ? colorConstants.blue500 : colorConstants.neutral300,
       transform: state.isFocused ? 'rotate(180deg)' : 'rotate(0deg)',
     },
 
     '& .singleSelect__single-value': {
-      backgroundColor: state.hasValue && state.isFocused ? 'var(--blue-50)' : 'transparent',
+      backgroundColor: state.hasValue && state.isFocused ? colorConstants.blue050 : 'transparent',
     },
 
     ':hover': {
-      border: 'solid 1px var(--blue-500)',
+      border: `solid 1px ${colorConstants.blue500}`,
 
       '& .singleSelect__dropdown-indicator:after': {
-        color: 'var(--blue-500)',
+        color: colorConstants.blue500,
       },
     },
   }),
@@ -101,7 +68,7 @@ const selectStyle = {
 
   placeholder: base => ({
     ...base,
-    color: 'var(--neutral-200)',
+    color: colorConstants.neutral200,
   }),
 
   clearIndicator: () => ({
@@ -111,7 +78,7 @@ const selectStyle = {
     ':after': {
       fontFamily: 'IconFont !important',
       fontSize: 18,
-      color: 'var(--neutral-300)',
+      color: colorConstants.neutral300,
       speak: 'none',
       fontStyle: 'normal',
       fontWeight: 'normal',
@@ -126,7 +93,7 @@ const selectStyle = {
       content: '"7"',
     },
     ':hover:after': {
-      color: 'var(--red-500)',
+      color: colorConstants.red500,
     },
   }),
 
@@ -137,7 +104,7 @@ const selectStyle = {
     ':after': {
       fontFamily: 'IconFont !important',
       fontSize: 18,
-      color: 'var(--neutral-300)',
+      color: colorConstants.neutral300,
       speak: 'none',
       fontStyle: 'normal',
       fontWeight: 'normal',
@@ -161,7 +128,7 @@ const selectStyle = {
       fontFamily: 'AvenirNext, Helvetica, sans-serif !important',
       fontSize: 13,
       fontWeight: 500,
-      color: 'var(--neutral-400)',
+      color: colorConstants.neutral400,
       WebkitFontSmoothing: 'antialiased',
       MozOsxFontSmoothing: 'grayscale',
     },
@@ -178,14 +145,14 @@ const selectStyle = {
   option: (base, { isSelected, isFocused }) => ({
     ...base,
     ':active': {
-      backgroundColor: 'var(--neutral-030)',
+      backgroundColor: colorConstants.neutral030,
     },
     ':hover': {
-      backgroundColor: 'var(--neutral-030)',
+      backgroundColor: colorConstants.neutral030,
     },
-    backgroundColor: (isSelected || isFocused) ? 'var(--neutral-030)' : 'var(--neutral-0)',
+    backgroundColor: (isSelected || isFocused) ? colorConstants.neutral030 : colorConstants.neutral000,
     height: 30,
-    color: 'var(--neutral-400)',
+    color: colorConstants.neutral400,
     cursor: 'pointer',
   }),
 };
