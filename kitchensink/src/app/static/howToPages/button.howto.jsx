@@ -2,14 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, Container } from 'pyrene';
 import Paragraph from '../../common/PageElements/Paragraph/Paragraph';
-import DisplayBox from './DisplayBox';
+import DisplayBox from '../../common/PageElements/HowToElements/DisplayBox/DisplayBox';
 import DescriptionBox from '../../common/PageElements/DescriptionBox/DescriptionBox';
-import { ContentFiller } from '../propsData';
+import { ContentFiller } from '../../data/propsData';
 
 
 const ButtonHTU = props => (
-  <Paragraph title={'How to use'} large>
-
+  <React.Fragment>
     <Paragraph title={'Icon Usage'}>
       <DescriptionBox>
         Buttons can use icon to emphasise the functionality or convey more meaning to it.
@@ -38,8 +37,7 @@ const ButtonHTU = props => (
         />
       </DisplayBox>
     </Paragraph>
-
-  </Paragraph>
+  </React.Fragment>
 );
 
 

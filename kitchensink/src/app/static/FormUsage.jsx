@@ -3,6 +3,8 @@ import * as yup from 'yup';
 import '../../css/componentPage.css';
 import { withFormLogic, Checkbox, Button, TextField, TextArea, RadioGroup, SingleSelect, MultiSelect } from 'pyrene';
 import { testOptionsWithoutInvalid } from '../data/propsData';
+import CodeBox from '../common/PageElements/HowToElements/CodeBox/CodeBox';
+import Paragraph from '../common/PageElements/Paragraph/Paragraph';
 
 const errorStyle = {
   marginTop: 4,
@@ -114,19 +116,104 @@ const WrappedForm = withFormLogic(Form)({ // wrapping form
   },
 });
 
-const FormTest = () => (
+const FormCode1 = `const Form = (props) => (
+  <React.Fragment>
+  
+    <TextField
+      width={300}
+      title={'Email'}
+      placeholder={'Email'}
+      disabled={props.values.checkBox1}
+      {...props.initField('email')} 
+    />
+    
+    <TextField
+      width={300}
+      title={'Password in plain text'}
+      placeholder={'Password'}
+      {...props.initField('password')} // Adding textfield 'password' to the form via initField
+    />
+    
+    // A button pressed inside of the form, or hitting enter on a textfield triggers a submit
+    // No need to add an onSubmit handler to the button
+    <Button
+      label={'Submit'}
+      type={'danger'}
+      disabled={props.submitDisabled}
+      loading={props.isSubmitting}
+    />
+  </React.Fragment>
+);`;
+
+const FormCode2 = `const WrappedForm = withFormLogic(Form)({
+ // Every field that is connected to the form with initField() needs an initial value!
+  initialValues: {
+    email: 'blabl@abla.com',
+    password: '',
+  },
+  // Pass Yup validation schema
+  validationSchema: validationSchema,
+  // Define what to do on submit
+  onSubmit: () => (), 
+});`;
+
+const FormCode3 = `class YesThisIsDog extends React.Component {
+  render() {
+    return <WrappedForm />;
+  }
+}`;
+
+const Yupscheme = `const validationSchema = yup.object({
+  email: yup.string()
+    .required('No Email passed.')
+    .email('Not an email.'),
+  password: yup.string()
+    .required('Password is required.')
+    .min(8, 'Needs at least 8 chars.')
+    .matches(/[a-z]/, 'Needs one lowercase char.')
+    .matches(/[A-Z]/, 'Needs one uppercase char.'),
+
+  // conditional validation for checkbox 1 depending on checkbox 3
+  checkBox2: yup.boolean(),
+  checkBox1: yup.boolean()
+    .when('checkBox2', {
+      is: true,
+      then: yup.boolean().oneOf([true], 'Error message'),
+    }),
+});`;
+
+const FormUsage = () => (
   <div styleName="page">
     <div className="header">
       <div styleName="title">Form</div>
       <div styleName="description" />
       <div className="topicContent">
+        <Paragraph title={'First steps'}>
+          Start by declaring a functional component containing all the form elements that you need.
+          Register each element with the initField function and add a button for submission at the end of the form.
+          <CodeBox>
+            {FormCode1}
+          </CodeBox>
+          Wrap the created component.
+          <CodeBox>
+            {FormCode2}
+          </CodeBox>
+        </Paragraph>
+        Add a yup validation schema for validation.
+        <CodeBox>
+          {Yupscheme}
+        </CodeBox>
+        Use the wrapped component in your app.
+        <CodeBox>
+          {FormCode3}
+        </CodeBox>
         <WrappedForm />
       </div>
     </div>
   </div>
 );
 
-export default FormTest;
+export default FormUsage;
 
 function delayAlert(values, ms) {
   console.log('Submitting', values);

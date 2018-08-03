@@ -13,7 +13,7 @@ import '../../css/common.css';
 import SearchBar from './Search/SearchBar/SearchBar';
 import ResultsPage from './Search/ResultsPage';
 import NotFoundPage from '../static/NotFoundPage';
-import FormTest from '../static/FormTest';
+import FormTest from '../static/FormUsage';
 
 export default class Main extends React.Component {
 
