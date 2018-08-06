@@ -17,8 +17,6 @@ describe('<ShareDialog />', () => {
   it('renders dialog on click', () => {
     const rendered = mount(<ShareDialog {...props} />);
     rendered.find(Button).simulate('click');
-
-    expect(rendered.find()))
   });
 
 });
