@@ -606,7 +606,8 @@ const startProps = {
     options: testOptions,
   },
   'sharedialog': {
-    position: 'bottom-right',
+    position: 'top',
+    align: 'start',
     link: 'http://www.veryveryverylonglinkonanydomainintheinternet.com',
   },
   'table': {
