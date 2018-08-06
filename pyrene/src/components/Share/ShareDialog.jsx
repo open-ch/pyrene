@@ -85,7 +85,8 @@ ShareDialog.displayName = 'Share Dialog';
 
 ShareDialog.defaultProps = {
   disabled: false,
-  position: 'bottom-right',
+  position: 'bottom',
+  align: 'start',
 };
 
 ShareDialog.propTypes = {
