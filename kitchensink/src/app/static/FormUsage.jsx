@@ -1,10 +1,25 @@
 import React from 'react';
 import * as yup from 'yup';
 import '../../css/componentPage.css';
-import { withFormLogic, Checkbox, Button, TextField, TextArea, RadioGroup, SingleSelect, MultiSelect } from 'pyrene';
+import { withFormLogic, Checkbox, Button, TextField, TextArea, RadioGroup, SingleSelect, MultiSelect, Link } from 'pyrene';
 import { testOptionsWithoutInvalid } from '../data/propsData';
 import CodeBox from '../common/PageElements/HowToElements/CodeBox/CodeBox';
 import Paragraph from '../common/PageElements/Paragraph/Paragraph';
+import DescriptionBox from '../common/PageElements/DescriptionBox/DescriptionBox';
+import DisplayBox from '../common/PageElements/HowToElements/DisplayBox/DisplayBox';
+
+
+function delayAlert(values, ms) {
+  console.log('Submitting', values);
+  let ctr,
+    rej,
+    p = new Promise(((resolve, reject) => {
+      ctr = setTimeout(resolve, ms);
+      rej = reject;
+    }));
+  p.cancel = function () { clearTimeout(ctr); rej(Error('Cancelled')); };
+  return p;
+}
 
 const errorStyle = {
   marginTop: 4,
@@ -14,7 +29,6 @@ const errorStyle = {
   color: 'var(--red-500)',
 };
 
-// Form is built here
 const Form = props => (
   <React.Fragment>
     <div style={{
@@ -23,7 +37,7 @@ const Form = props => (
       justifyContent: 'space-between',
     }}
     >
-      <Checkbox label={'Male'} {...props.initField('checkBox1')} /> {/* Fields need {...props.initField('fieldName')} to be recognised by the form */}
+      <Checkbox label={'Male'} {...props.initField('checkBox1')} />
       <Checkbox label={'Female'} {...props.initField('checkBox2')} />
       <Checkbox label={'Apache Helicopter'} {...props.initField('checkBox3')} />
     </div>
@@ -37,7 +51,6 @@ const Form = props => (
     <TextField width={300} title={'Password in plain text'} placeholder={'Password'} {...props.initField('password')} />
     <div style={{ height: 24 }} />
 
-    <TextArea width={300} maxLength={1} title={'What\'s on your mind?'} placeholder={'text'} {...props.initField('textArea')} />
 
     <div style={{ height: 24 }} />
     <div style={{ width: 300 }}>
@@ -71,7 +84,6 @@ const validationSchema = yup.object({
     .matches(/[a-z]/, 'Needs one lowercase char.')
     .matches(/[A-Z]/, 'Needs one uppercase char.'),
 
-  // conditional validation for checkbox 1 depending on checkbox 3
   checkBox3: yup.boolean(),
   checkBox1: yup.boolean()
     .when('checkBox3', {
@@ -81,57 +93,97 @@ const validationSchema = yup.object({
 });
 
 
-const WrappedForm = withFormLogic(Form)({ // wrapping form
-  initialValues: { // Form filled with these initial values, every field that is connected to the form with initField() needs an initial value!
+const WrappedForm = withFormLogic(Form)({
+  initialValues: {
     checkBox1: false,
     checkBox2: true,
     checkBox3: true,
     email: 'blabl@abla.com',
     password: '',
-    textArea: '',
     radioGroup: '',
     select: null,
     multiselect1: [],
   },
-  validationFunction: values => ({ // NOT USED AS VALIDATION SCHEMA IS DEFINED
-    email: values.email.length === 0 ? 'Email must be longer than 0 Characters' : null,
-    password: values.password.length === 0 ? 'Password must be longer than 0 Characters' : null,
-    checkBox1: values.checkBox1 === values.checkBox2 ? 'Must choose male or female' : null,
-    checkBox2: values.checkBox1 === values.checkBox2 ? 'Must choose male or female' : null,
-    checkBox3: !values.checkBox3 ? null : values.checkBox3 === values.checkBox2 ? 'Can not be a female helicopter' : null,
-    textArea: values.textArea.length > 1 ? 'TextArea is overfilled!' : null,
-    select: (values.select === 'oyster' || values.select === 'chickenliver') ? 'Yuck this is disgusting..' : null,
-    radioGroup: values.radioGroup === 'option 1' ? 'Can\'t select option 1' : null,
-    multiselect1: values.multiselect1.map(selectedOption => selectedOption.invalid).indexOf(true) !== -1 ? 'Icecreams must contain an A' : null,
-  }),
-  validationSchema: validationSchema, // PREFERRED TO VALIDATIONFUNCTION
-  multiSelectOptionValidation: (multiSelectName, values, selectedOption) => { // Validation for multiselect options
+  validationSchema: validationSchema,
+  multiSelectOptionValidation: (multiSelectName, values, selectedOption) => {
     return /a/g.test(selectedOption.value);
   },
-  onSubmit: values => delayAlert(values, 2000), // Promise triggered on submit
-  onChange: (values, setFieldValue) => { // Used to override values conditionally
+  onSubmit: values => delayAlert(values, 2000),
+  onChange: (values, setFieldValue) => {
     if (values.select === 'vanilla') {
       setFieldValue('radioGroup', 'option 3');
     }
   },
 });
 
+const SmallForm = (props) => (
+  <React.Fragment>
+    <TextField
+      width={300}
+      title={'Email'}
+      placeholder={'Email'}
+      {...props.initField('email')}
+    />
+    <TextField
+      width={300}
+      title={'Password in plain text 👀'}
+      placeholder={'Password'}
+      disabled={props.values.checkBox}
+      {...props.initField('password')}
+    />
+    <Checkbox
+      label={'Lock password input'}
+      {...props.initField('checkBox')}
+    />
+
+    <Button
+      label={'Submit'}
+      type={'danger'}
+      disabled={props.submitDisabled}
+      loading={props.isSubmitting}
+    />
+  </React.Fragment>
+);
+
+const ExampleForm = withFormLogic(SmallForm)({
+  initialValues: {
+    email: 'blabl@abla.com',
+    password: '',
+    checkBox: false,
+  },
+  validationSchema: yup.object({}),
+  onSubmit: (values) => delayAlert(values, 3000),
+});
+
 const FormCode1 = `const Form = (props) => (
+  // PROPS: 
+  // All props passed to the wrapped form +
+  // values: object, all the current element values
+  // errors: object, error messages
+  // touched: object, true for each element that the user interacted with
+  // isSubmitting: bool, true between submission and completion of onSubmit
+  // initField: func, used to connect an element to the form
+  
   <React.Fragment>
   
     <TextField
       width={300}
       title={'Email'}
       placeholder={'Email'}
-      disabled={props.values.checkBox1}
-      {...props.initField('email')} 
+      {...props.initField('email')} // Adding textfield 'email' to the form via initField
     />
     
     <TextField
       width={300}
       title={'Password in plain text'}
       placeholder={'Password'}
+      disabled={props.values.checkBox}  // Conditionaly disable this field if the checkbox is set
       {...props.initField('password')} // Adding textfield 'password' to the form via initField
+    />
+    
+    <Checkbox
+      label={'Lock password input'}
+      {...props.initField('checkBox')}
     />
     
     // A button pressed inside of the form, or hitting enter on a textfield triggers a submit
@@ -148,13 +200,23 @@ const FormCode1 = `const Form = (props) => (
 const FormCode2 = `const WrappedForm = withFormLogic(Form)({
  // Every field that is connected to the form with initField() needs an initial value!
   initialValues: {
-    email: 'blabl@abla.com',
+    email: 'blabl@abla.com', // Note that the keys must match the string in the initField functions
     password: '',
+    checkBox: false,
   },
-  // Pass Yup validation schema
-  validationSchema: validationSchema,
-  // Define what to do on submit
-  onSubmit: () => (), 
+  // Pass Yup validation schema, more info below
+  validationSchema: yup.object({}),
+  
+  // Define your onSubmit function, needs to be a Promise
+  onSubmit: (values) => null, 
+  
+  // Conditionally change other field values
+  /* Example
+  if (values.select === 'vanilla') {
+      setFieldValue('radioGroup', 'option 3');
+  }
+  */
+  onChange: (values, setFieldValue) => null,
 });`;
 
 const FormCode3 = `class YesThisIsDog extends React.Component {
@@ -173,7 +235,7 @@ const Yupscheme = `const validationSchema = yup.object({
     .matches(/[a-z]/, 'Needs one lowercase char.')
     .matches(/[A-Z]/, 'Needs one uppercase char.'),
 
-  // conditional validation for checkbox 1 depending on checkbox 3
+  // conditional validation for checkbox 1 depending on checkbox 2
   checkBox2: yup.boolean(),
   checkBox1: yup.boolean()
     .when('checkBox2', {
@@ -182,32 +244,111 @@ const Yupscheme = `const validationSchema = yup.object({
     }),
 });`;
 
+const CustomValidation = `const WrappedForm = withFormLogic(Form)({
+  ...
+  validationFunction: values => ({ 
+    email: values.email.length === 0 ? 'Email is required' :
+           values.email.includes('@') ? 'No @ symbol in email' : null,
+           
+    password: values.password.length === 0 ? 'Password is required' : null,
+    checkBox: values.checkBox === values.checkBox ? 'Must choose male or female' : null,
+  }),
+  ...
+});`;
+
+const ErrorDisplay = `const Form = (props) => (
+  ...
+    <Checkbox
+      label={'Lock password input'}
+      {...props.initField('checkBox')}
+    />
+    
+    // Display errors for the checkbox
+    {props.errors.checkBox && <div style={errorStyle}>{props.errors.checkBox}</div>}
+  ...
+);`;
+
+const MultiSelectValidation = `const WrappedForm = withFormLogic(Form)({
+  ...
+  multiSelectOptionValidation: (multiSelectName, values, selectedOption) => {
+    return /a/g.test(selectedOption.value);
+  },
+  ...
+});`;
+
 const FormUsage = () => (
   <div styleName="page">
     <div className="header">
       <div styleName="title">Form</div>
       <div styleName="description" />
       <div className="topicContent">
-        <Paragraph title={'First steps'}>
-          Start by declaring a functional component containing all the form elements that you need.
-          Register each element with the initField function and add a button for submission at the end of the form.
+        <Paragraph title={'Getting started'}>
+          <DescriptionBox>
+            <p>
+            Start by declaring a functional component containing all the form elements that you need.
+            Register each element with the initField function and add a button for submission at the end of the form.
+            </p>
+            <strong>Note:</strong> The initField function needs to be called with the spread operator and as the *LAST* prop of the element.
+          </DescriptionBox>
           <CodeBox>
             {FormCode1}
           </CodeBox>
-          Wrap the created component.
+          <DescriptionBox>
+            Wrap the created component...
+          </DescriptionBox>
           <CodeBox>
             {FormCode2}
           </CodeBox>
+          <DescriptionBox>
+            Use the wrapped component in your app.
+          </DescriptionBox>
+          <CodeBox>
+            {FormCode3}
+          </CodeBox>
+          <DescriptionBox>
+            Let's have a look at that beauty. ✨
+          </DescriptionBox>
+          <DisplayBox>
+            <ExampleForm />
+          </DisplayBox>
         </Paragraph>
-        Add a yup validation schema for validation.
-        <CodeBox>
-          {Yupscheme}
-        </CodeBox>
-        Use the wrapped component in your app.
-        <CodeBox>
-          {FormCode3}
-        </CodeBox>
-        <WrappedForm />
+
+        <Paragraph title={'Validation'}>
+          <DescriptionBox>
+            It is highly encouraged to use <Link type={'inline'} label={'Yup'} path={'https://github.com/jquense/yup'} /> for validation.
+            Simply create your validation schema like below and pass it to the wrapped form via the validationScheme property. For further information go to the <Link type={'inline'} label={'Yup github page'} path={'https://github.com/jquense/yup'} />. Remember that the keys used in the schema need to equal the names given to the fields with the initField method.
+          </DescriptionBox>
+          <CodeBox>
+            {Yupscheme}
+          </CodeBox>
+          <DescriptionBox>
+            <p>
+              Alternatively you can also specify a custom validation function by passing a function to the validationFunction property of the wrapped form. For each field you need to chain the errors with ternary expressions and return null if everything is fine.
+            </p>
+            <strong>Note: </strong> Please really try to use Yup instead. Only use this if there is no other way.
+          </DescriptionBox>
+          <CodeBox>
+            {CustomValidation}
+          </CodeBox>
+          <DescriptionBox>
+            Displaying the errors is handled by the form automatically if the corresponding form element has an invalidLabel prop. Otherwise you need to add a visual indication in the form yourself. For example:
+          </DescriptionBox>
+          <CodeBox>
+            {ErrorDisplay}
+          </CodeBox>
+          <DescriptionBox>
+            Multiselect elements need another validation if you wish to validate their inner selected options and not only the entire multiselect as true or false. In order to do this add the multiSelectOptionValidation function when wrapping the form.
+          </DescriptionBox>
+          <CodeBox>
+            {MultiSelectValidation}
+          </CodeBox>
+          <DescriptionBox>
+            Example of a bigger form with validation:
+          </DescriptionBox>
+          <DisplayBox>
+            <WrappedForm />
+          </DisplayBox>
+        </Paragraph>
       </div>
     </div>
   </div>
@@ -215,14 +356,4 @@ const FormUsage = () => (
 
 export default FormUsage;
 
-function delayAlert(values, ms) {
-  console.log('Submitting', values);
-  let ctr,
-      rej,
-      p = new Promise(((resolve, reject) => {
-        ctr = setTimeout(resolve, ms);
-        rej = reject;
-      }));
-  p.cancel = function () { clearTimeout(ctr); rej(Error('Cancelled')); };
-  return p;
-}
+

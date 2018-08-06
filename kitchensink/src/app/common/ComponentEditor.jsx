@@ -43,7 +43,7 @@ export default class ComponentEditor extends React.Component {
 
   handleExampleClick = (exampleProps) => {
     this.setState(() => ({
-      componentProps: { ...this.props.component.defaultProps, ...exampleProps },
+      componentProps: { ...this.props.component.defaultProps, ...exampleProps, onChange: this.handleComponentInteraction },
     }));
   };
 
