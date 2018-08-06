@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Popover from 'react-tiny-popover';
 import Button from '../Button/Button';
 import ButtonBar from '../ButtonBar/ButtonBar';
 import classNames from 'classnames';
@@ -22,66 +23,15 @@ export default class ShareDialog extends React.Component {
     }
   }
 
-  _handleClickOutside = (event) => {
-    if (this.dialogRef && !this.dialogRef.contains(event.target)) {
-      this._hideDialogAndRemoveListener();
-    }
-  };
-
   _copyLinkToClipboard = () => {
     document.execCommand('copy');
     this._focusAndSelectInput();
   };
 
-  _hideDialogAndRemoveListener = () => {
-    document.removeEventListener('mousedown', this._handleClickOutside);
-    this.setState((prevState, props) => ({
-      displayShareDialog: false,
-    }));
-  };
-
   _displayShareDialogClicked = (event) => {
-    // If displayed remove from dom
-    if (this.state.displayShareDialog) {
-      this._hideDialogAndRemoveListener();
-      // else display dialog
-    } else {
-      document.addEventListener('mousedown', this._handleClickOutside);
-      const target = event.target;
-      this.setState((prevState, props) => ({
-        displayShareDialog: true,
-        dialogPosition: this._computeDialogPositionFromButton(target),
-      }));
-    }
-  };
-
-  _computeDialogPositionFromButton = (target) => {
-    const targetRect = target.getBoundingClientRect();
-    const dialogPosition = {};
-    const dialogWidth = 400;
-
-    switch (this.props.position) {
-      case 'top-right':
-        dialogPosition.bottom = targetRect.height + 5;
-        dialogPosition.left = 0;
-        break;
-      case 'top-left':
-        dialogPosition.bottom = targetRect.height + 5;
-        dialogPosition.left = targetRect.width - dialogWidth;
-        break;
-      case 'bottom-right':
-        dialogPosition.top = targetRect.height + 5;
-        dialogPosition.left = 0;
-        break;
-      case 'bottom-left':
-        dialogPosition.top = targetRect.height + 5;
-        dialogPosition.left = targetRect.width - dialogWidth;
-        break;
-      default:
-        dialogPosition.top = targetRect.height + 5;
-        dialogPosition.left = 0;
-    }
-    return dialogPosition;
+    this.setState((prevState, props) => ({
+      displayShareDialog: !prevState.displayShareDialog,
+    }));
   };
 
   _focusAndSelectInput = () => {
@@ -92,22 +42,39 @@ export default class ShareDialog extends React.Component {
 
   render() {
     return (
-      <div styleName="shareDialogContainer" ref={(dialog) => { this.dialogRef = dialog; }}>
-        <Button label={'Share'} type={'action'} icon={'share'} onClick={this._displayShareDialogClicked} disabled={this.props.disabled} />
-
-        <div className={'unSelectable'} styleName={classNames('shareDialog', {display: this.state.displayShareDialog})} style={this.state.dialogPosition} role="dialog">
-          <div styleName={'title'}>
-            Share this link
-          </div>
-          <div styleName={'content'}>
-            <input type={'text'} value={this.props.link} ref={(input) => { this.textInput = input; }} readOnly />
-          </div>
-          <ButtonBar
-            rightButtonSectionElements={[
-              <Button type={'ghost'} label={'Copy link'} onClick={this._copyLinkToClipboard} />,
-              <Button label={'Close'} onClick={this._displayShareDialogClicked} />]}
-          />
-        </div>
+      <div styleName="shareDialogContainer">
+        <Popover
+          isOpen={this.state.displayShareDialog}
+          position={[this.props.position ]}
+          align={this.props.align}
+          padding={16}
+          onClickOutside={() => this.setState({ displayShareDialog: false })}
+          containerStyle={{
+            borderRadius: '4px',
+            boxSizing: 'borderBox',
+            backgroundColor: 'white',
+            boxShadow: '0 4px 8px -2px rgba(0, 21, 44, 0.2), 0 0 1px 0 rgba(0, 21, 44, 0.3)',
+            zIndex: 9999
+          }}
+          disableReposition
+          content={({ position, nudgedLeft, nudgedTop, targetRect, popoverRect }) => (
+            <div className={'unSelectable'} styleName={'shareDialog'} role="dialog">
+              <div styleName={'title'}>
+                Share this link
+              </div>
+              <div styleName={'content'}>
+                <input type={'text'} value={this.props.link} ref={(input) => { this.textInput = input; }} readOnly />
+              </div>
+              <ButtonBar
+                rightButtonSectionElements={[
+                  <Button type={'ghost'} label={'Copy link'} onClick={this._copyLinkToClipboard} />,
+                  <Button label={'Close'} onClick={this._displayShareDialogClicked} />]}
+              />
+            </div>
+          )}
+        >
+          <Button label={'Share'} type={'action'} icon={'share'} onClick={this._displayShareDialogClicked} disabled={this.props.disabled} />
+        </Popover>
       </div>
     );
   }
@@ -123,9 +90,13 @@ ShareDialog.defaultProps = {
 
 ShareDialog.propTypes = {
   /**
+   * Alignment of the dialogue
+   */
+  align: PropTypes.oneOf(['start', 'center', 'end']),
+  /**
    * Choose where the dialog appears relative to the share button.
    */
-  position: PropTypes.oneOf(['bottom-right', 'bottom-left', 'top-right', 'top-left']),
+  position: PropTypes.oneOf(['top', 'right', 'bottom', 'left']),
   /**
    * Link that is in the share dialog.
    */
