@@ -17,6 +17,7 @@ const withFormLogic = (WrappedForm) => ({initialValues, validationFunction, vali
       values: {...initialValues},
       touched: this.getTouchedState(initialValues),
       isSubmitting: false,
+      errors: {},
     };
 
     validateYupSchema = (values) => {
@@ -133,10 +134,19 @@ const withFormLogic = (WrappedForm) => ({initialValues, validationFunction, vali
           const selectedOptions = target.value;
           const multiSelectName = target.name;
           if (typeof multiSelectOptionValidation !== 'undefined') {
-            return (
-              selectedOptions.map(selectedOption =>
-                ({value: selectedOption.value, label: selectedOption.label, invalid: !multiSelectOptionValidation(multiSelectName, this.state.values, selectedOption)}))
-            );
+            const validatedSelectedOptions = selectedOptions.map(selectedOption =>
+                ({value: selectedOption.value, label: selectedOption.label, invalid: !multiSelectOptionValidation(multiSelectName, this.state.values, selectedOption)}));
+            const invalidOptionError = validatedSelectedOptions.map(selectedOption => selectedOption.invalid).indexOf(true) !== -1;
+            if (invalidOptionError) {
+              this.setState((prevState, props) => ({
+                errors: { ...prevState.errors, [multiSelectName]: 'Please remove the invalid option(s).'}
+              }));
+            } else {
+              this.setState((prevState, props) => ({
+                errors: { ...prevState.errors, [multiSelectName]: '' }
+              }));
+            }
+            return validatedSelectedOptions;
           }
           return selectedOptions;
         default:
@@ -164,7 +174,7 @@ const withFormLogic = (WrappedForm) => ({initialValues, validationFunction, vali
     };
 
     render() {
-      const errors = this.validate(this.state.values);
+      const errors = {...this.validate(this.state.values), ...this.state.errors};
       const submitDisabled = this.anyError(errors);
 
       return (
