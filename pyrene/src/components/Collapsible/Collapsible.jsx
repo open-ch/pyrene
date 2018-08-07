@@ -58,7 +58,7 @@ Collapsible.displayName = 'Collapsible';
 Collapsible.defaultProps = {
   defaultExpanded: false,
   title: 'Show More',
-  titleExpanded: 'Hide',
+  titleExpanded: 'Show Less',
   onChange: () => null,
 };
 
