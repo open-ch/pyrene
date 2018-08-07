@@ -78,7 +78,7 @@ Collapsible.propTypes = {
   /**
    * Displayed label when collapsed
    */
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
   /**
    * Displayed label when expanded
    */
