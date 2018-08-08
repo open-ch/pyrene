@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 
-const withFormLogic = (WrappedForm) => ({initialValues, validationFunction, validationSchema, multiSelectOptionValidation, onSubmit, onChange}) => {
+const withFormLogic = (WrappedForm) => ({initialValues, validationSchema, onSubmit, onChange}) => {
   return class FormWithLogic extends React.Component {
 
     getTouchedState = initialValues => {
@@ -34,7 +34,7 @@ const withFormLogic = (WrappedForm) => ({initialValues, validationFunction, vali
       if (typeof validationSchema !== 'undefined') {
         return this.validateYupSchema(values);
       }
-      return validationFunction(values);
+      return {};
     };
 
     anyError = errors => {
@@ -75,6 +75,7 @@ const withFormLogic = (WrappedForm) => ({initialValues, validationFunction, vali
     handleSubmit = (event) => {
       event.preventDefault();
 
+      // Where to put this??
       if (!this.canBeSubmitted()) {
         alert('Submit not possible, check validation!');
       } else {
@@ -120,23 +121,17 @@ const withFormLogic = (WrappedForm) => ({initialValues, validationFunction, vali
     };
 
     validateMultiSelectOption = (multiSelectName, selectedOption) => {
-      if (typeof validationSchema !== 'undefined') {
+      if (typeof validationSchema !== 'undefined' && typeof validationSchema.fields[multiSelectName] === 'undefined') {
         // No validation in yup schema for this field -> invalid: false
-        if (typeof validationSchema.fields[multiSelectName] === 'undefined') {
-          return false;
-        }
         try {
           validationSchema.fields[multiSelectName].validateSync([selectedOption], {abortEarly: false});
         } catch (e) {
           // Error thrown for this selectedOption -> invalid: true
           return true;
         }
-        // No error thrown for this selectedOption -> invalid: false
-        return false;
       }
-
-      // No Yup schema defined
-      return !multiSelectOptionValidation(multiSelectName, this.state.values, selectedOption);
+      // No error thrown for this selectedOption -> invalid: false
+      return false;
     };
 
     getValueFromInput = (target) => {
@@ -180,7 +175,7 @@ const withFormLogic = (WrappedForm) => ({initialValues, validationFunction, vali
     };
 
     render() {
-      const errors = {...this.validate(this.state.values), ...this.state.errors};
+      const errors = {...this.validate(this.state.values)};
       const submitDisabled = this.anyError(errors);
 
       return (
