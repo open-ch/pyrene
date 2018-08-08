@@ -17,14 +17,13 @@ const withFormLogic = (WrappedForm) => ({initialValues, validationFunction, vali
       values: {...initialValues},
       touched: this.getTouchedState(initialValues),
       isSubmitting: false,
-      errors: {},
     };
 
     validateYupSchema = (values) => {
       try {
-        validationSchema.validateSync(values, { abortEarly: false });
+        validationSchema.validateSync(values, {abortEarly: false});
       }
-      catch(err) {
+      catch (err) {
         return this.regroupErrors(err);
       }
       // No errors return empty error
@@ -55,7 +54,7 @@ const withFormLogic = (WrappedForm) => ({initialValues, validationFunction, vali
 
     regroupErrors = (errors) => {
       // regroups the errors from beeing an array of error objects to an object of errors grouped by field name
-      const groupedErrors = errors.inner.map(validationError => ({[validationError.path]: validationError.errors})).reduce((acc, obj) => {
+      const groupedErrors = errors.inner.map(validationError => ({[validationError.path.split("[")[0]]: validationError.errors})).reduce((acc, obj) => {
         Object.keys(obj).forEach((k) => {
           acc[k] = (acc[k] || []).concat(obj[k]);
         });
@@ -65,7 +64,7 @@ const withFormLogic = (WrappedForm) => ({initialValues, validationFunction, vali
       let flatGroupedErrors = {};
       for (const key in groupedErrors) {
         if (groupedErrors.hasOwnProperty(key)) {
-          flatGroupedErrors[key] = groupedErrors[key].join(' ');
+          flatGroupedErrors[key] = [...new Set(groupedErrors[key])].join(' ');
         }
       }
 
@@ -86,7 +85,7 @@ const withFormLogic = (WrappedForm) => ({initialValues, validationFunction, vali
 
         // Should we use promises for onSubmit ???
         onSubmit(this.state.values)
-          .then(() => this.setState({ isSubmitting: false }))
+          .then(() => this.setState({isSubmitting: false}))
           .then(() => alert('Done'))
       }
     };
@@ -94,7 +93,7 @@ const withFormLogic = (WrappedForm) => ({initialValues, validationFunction, vali
     handleBlur = (event) => {
       const inputName = event.target.name ? event.target.name : event.target.id;
       this.setState((prevState, props) => ({
-        touched: { ...prevState.touched, [inputName]: true}
+        touched: {...prevState.touched, [inputName]: true}
       }));
     };
 
@@ -110,15 +109,35 @@ const withFormLogic = (WrappedForm) => ({initialValues, validationFunction, vali
 
       if (typeof onChange !== 'undefined') {
         this.setState((prevState, props) => ({
-            values: { ...prevState.values, [inputName]: newValue }
+            values: {...prevState.values, [inputName]: newValue}
           }),
           () => onChange(this.state.values, this.setFieldValue)
         );
       } else {
         this.setState((prevState, props) => ({
-            values: { ...prevState.values, [inputName]: newValue }
+          values: {...prevState.values, [inputName]: newValue}
         }));
       }
+    };
+
+    validateMultiSelectOption = (multiSelectName, selectedOption) => {
+      if (typeof validationSchema !== 'undefined') {
+        // No validation in yup schema for this field -> invalid: false
+        if (typeof validationSchema.fields[multiSelectName] === 'undefined') {
+          return false;
+        }
+        try {
+          validationSchema.fields[multiSelectName].validateSync([selectedOption], {abortEarly: false});
+        } catch (e) {
+          // Error thrown for this selectedOption -> invalid: true
+          return true;
+        }
+        // No error thrown for this selectedOption -> invalid: false
+        return false;
+      }
+
+      // No Yup schema defined
+      return !multiSelectOptionValidation(multiSelectName, this.state.values, selectedOption);
     };
 
     getValueFromInput = (target) => {
@@ -127,28 +146,16 @@ const withFormLogic = (WrappedForm) => ({initialValues, validationFunction, vali
           return target.checked;
         case 'singleSelect':
           if (target.value == null) {
-            return null;
+            return '';
           }
           return target.value.value;
         case 'multiSelect':
           const selectedOptions = target.value;
           const multiSelectName = target.name;
-          if (typeof multiSelectOptionValidation !== 'undefined') {
-            const validatedSelectedOptions = selectedOptions.map(selectedOption =>
-                ({value: selectedOption.value, label: selectedOption.label, invalid: !multiSelectOptionValidation(multiSelectName, this.state.values, selectedOption)}));
-            const invalidOptionError = validatedSelectedOptions.map(selectedOption => selectedOption.invalid).indexOf(true) !== -1;
-            if (invalidOptionError) {
-              this.setState((prevState, props) => ({
-                errors: { ...prevState.errors, [multiSelectName]: 'Please remove the invalid option(s).'}
-              }));
-            } else {
-              this.setState((prevState, props) => ({
-                errors: { ...prevState.errors, [multiSelectName]: '' }
-              }));
-            }
-            return validatedSelectedOptions;
-          }
-          return selectedOptions;
+          const validatedSelectedOptions = selectedOptions.map(selectedOption => (
+            {value: selectedOption.value, label: selectedOption.label, invalid: this.validateMultiSelectOption(multiSelectName, selectedOption)}
+          ));
+          return validatedSelectedOptions;
         default:
           return target.value;
       }

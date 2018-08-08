@@ -21,7 +21,7 @@ const RadioGroup = (props) => {
           <div className={'radioContainer'}>
             <input
               styleName={'radioInput'}
-              checked={props.value === radioLabel}
+              checked={props.value.toLowerCase() === radioLabel.toLowerCase()}
               id={`radio_${radioLabel}_${rand}`}
               onChange={props.onChange}
               type="radio"
@@ -33,7 +33,7 @@ const RadioGroup = (props) => {
               htmlFor={`radio_${radioLabel}_${rand}`}
               styleName={
                 classNames('radioLabel',
-                  { checked: (props.value === radioLabel) },
+                  { checked: (props.value.toLowerCase() === radioLabel.toLowerCase()) },
                   { disabled: props.disabled })}
             >
               <span styleName={'radioIcon'} />
