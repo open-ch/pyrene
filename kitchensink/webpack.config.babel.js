@@ -70,6 +70,7 @@ const config = {
   plugins: [
     new CleanWebpackPlugin(['dist']),
     new HtmlWebpackPlugin({
+      favicon: 'src/images/favicon.ico',
       filename: 'index.html',
       template: 'src/index.html',
     }),
