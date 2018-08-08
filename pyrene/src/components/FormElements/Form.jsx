@@ -83,10 +83,9 @@ const withFormLogic = (WrappedForm) => ({initialValues, validationFunction, vali
           isSubmitting: true,
         }));
 
-        // Should we use promises for onSubmit ???
+        // Should use promise for onSubmit
         onSubmit(this.state.values)
           .then(() => this.setState({isSubmitting: false}))
-          .then(() => alert('Done'))
       }
     };
 
