@@ -25,7 +25,12 @@ const SideBarMenu = props => (
               return ({ name: component.displayName, linkToPath: `/${lowercaseComponentName}` });
             }).sort((a, b) => ((a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0)))}
       />
-      <SideBarMenuSection title="HoC" sectionElements={[]} linkToPath={'/test'} />
+      <SideBarMenuSection
+        title="Cookbooks"
+        sectionElements={[
+          { name: 'Form', linkToPath: '/form' },
+        ]}
+      />
       <SideBarMenuSection title="Resources" sectionElements={[]} linkToPath={'/resources'} />
 
     </div>

@@ -4,7 +4,7 @@ import React from 'react';
 const ContentFiller = (props) => (
   <div className={'unSelectable'} style={{ width: props.width,
     height: props.height,
-    backgroundColor: 'var(--neutral-020)',
+    backgroundColor: props.backgroundColor ? props.backgroundColor : 'var(--neutral-020)',
     textAlign: 'center',
     display: 'flex',
     justifyContent: 'center',
@@ -650,4 +650,4 @@ const startProps = {
 
 
 export default startProps;
-export { testOptions, testOptionsWithoutInvalid, tableData };
+export { testOptions, testOptionsWithoutInvalid, tableData, ContentFiller };

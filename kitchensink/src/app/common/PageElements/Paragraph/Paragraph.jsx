@@ -17,8 +17,8 @@ const Paragraph = props => (
 Paragraph.displayName = 'Paragraph';
 
 Paragraph.propTypes = {
-  title: PropTypes.string,
   large: PropTypes.bool,
+  title: PropTypes.string,
 };
 
 Paragraph.defaultProps = {

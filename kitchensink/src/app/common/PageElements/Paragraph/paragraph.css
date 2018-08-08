@@ -1,20 +1,22 @@
 @import '../../../../css/colors.css';
 
 .paragraph {
-  margin-top: 80px;
+  margin-bottom: 80px;
 
   & .title {
     font-size: 18px;
     font-weight: 600;
     line-height: 1.33;
-    margin-bottom: 16px;
+    margin-bottom: 24px;
     text-transform: capitalize;
   }
 
   &.large {
-    & .title {
+    margin-top: 80px;
+
+    & > .title {
       font-size: 24px;
-      margin-bottom: 24px;
+      margin-bottom: 40px;
     }
   }
 }
