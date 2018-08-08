@@ -9,7 +9,7 @@ import DescriptionBox from '../common/PageElements/DescriptionBox/DescriptionBox
 import DisplayBox from '../common/PageElements/HowToElements/DisplayBox/DisplayBox';
 
 
-function delayAlert(values, ms) {
+function delay(values, ms) {
   console.log('Submitting', values);
   let ctr,
     rej,
@@ -116,7 +116,7 @@ const WrappedForm = withFormLogic(Form)({
     spam: false,
   },
   validationSchema: validationSchema,
-  onSubmit: values => delayAlert(values, 2000),
+  onSubmit: values => delay(values, 2000),
   onChange: (values, setFieldValue) => {
     if (values.iceSelect === 'vanilla') {
       setFieldValue('radioGroup', 'coffeebeer');
@@ -160,7 +160,7 @@ const ExampleForm = withFormLogic(SmallForm)({
     checkBox: false,
   },
   validationSchema: yup.object({}),
-  onSubmit: (values) => delayAlert(values, 3000),
+  onSubmit: (values) => delay(values, 3000),
 });
 
 const FormCode1 = `const Form = (props) => (
@@ -263,22 +263,6 @@ const Yupscheme = `const validationSchema = yup.object({
     }),
 });`;
 
-const CustomValidation = `const WrappedForm = withFormLogic(Form)({
-  ...
-  validationFunction: values => ({ 
-    email: values.email.length === 0 ? 'Email is required' :
-           values.email.includes('@') ? 'No @ symbol in email' : null,
-           
-    password: values.password.length === 0 ? 'Password is required' : null,
-    checkBox: values.checkBox === values.checkBox ? 'Must choose male or female' : null,
-  }),
-  ...
-  multiSelectOptionValidation: (multiSelectName, values, selectedOption) => {
-    return /a/g.test(selectedOption.value);
-  },
-  ...
-});`;
-
 const ErrorDisplay = `const Form = (props) => (
   ...
     <Checkbox
@@ -355,7 +339,7 @@ const WrappedBigForm = `const WrappedForm = withFormLogic(Form)({
     spam: false,
   },
   validationSchema: validationSchema,
-  onSubmit: values => delayAlert(values, 2000),
+  onSubmit: (values) => null,
   onChange: (values, setFieldValue) => {
     if (values.iceSelect === 'vanilla') {
       setFieldValue('radioGroup', 'coffeebeer');
@@ -402,23 +386,13 @@ const FormUsage = () => (
           </DisplayBox>
         </Paragraph>
 
-
         <Paragraph title={'Forms with validation'} large>
           <DescriptionBox>
-            It is highly encouraged to use <Link type={'inline'} label={'Yup'} path={'https://github.com/jquense/yup'} /> for validation.
+            For validation we use <Link type={'inline'} label={'Yup'} path={'https://github.com/jquense/yup'} />.
             Simply create your validation schema like below and pass it to the wrapped form via the validationScheme property. For further information go to the <Link type={'inline'} label={'Yup github page'} path={'https://github.com/jquense/yup'} />. Remember that the keys used in the schema need to equal the names given to the fields with the initField method.
           </DescriptionBox>
           <CodeBox>
             {Yupscheme}
-          </CodeBox>
-          <DescriptionBox>
-            <p>
-              Alternatively you can also specify a custom validation function by passing a function to the validationFunction property of the wrapped form. For each field you need to chain the errors with ternary expressions and return null if everything is fine. Multiselect elements need another validation if you wish to validate their inner selected options and not only the entire multiselect as true or false. In order to do this add the multiSelectOptionValidation function when wrapping the form.
-            </p>
-            <strong>Note: </strong> Please really try to use Yup instead. Only use this if there is no other way.
-          </DescriptionBox>
-          <CodeBox>
-            {CustomValidation}
           </CodeBox>
           <DescriptionBox>
             Displaying the errors is handled by the form automatically if the corresponding form element has an invalidLabel prop. Otherwise you need to add a visual indication in the form yourself. For example:
