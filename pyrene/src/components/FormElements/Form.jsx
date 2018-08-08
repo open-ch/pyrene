@@ -75,8 +75,8 @@ const withFormLogic = (WrappedForm) => ({initialValues, validationSchema, onSubm
     handleSubmit = (event) => {
       event.preventDefault();
 
-      // Where to put this??
       if (!this.canBeSubmitted()) {
+        // better solution than alert needed..
         alert('Submit not possible, check validation!');
       } else {
 
@@ -146,10 +146,9 @@ const withFormLogic = (WrappedForm) => ({initialValues, validationSchema, onSubm
         case 'multiSelect':
           const selectedOptions = target.value;
           const multiSelectName = target.name;
-          const validatedSelectedOptions = selectedOptions.map(selectedOption => (
+          return selectedOptions.map(selectedOption => (
             {value: selectedOption.value, label: selectedOption.label, invalid: this.validateMultiSelectOption(multiSelectName, selectedOption)}
           ));
-          return validatedSelectedOptions;
         default:
           return target.value;
       }
