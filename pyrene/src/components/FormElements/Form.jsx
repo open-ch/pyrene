@@ -121,7 +121,7 @@ const withFormLogic = (WrappedForm) => ({initialValues, validationSchema, onSubm
     };
 
     validateMultiSelectOption = (multiSelectName, selectedOption) => {
-      if (typeof validationSchema !== 'undefined' && typeof validationSchema.fields[multiSelectName] === 'undefined') {
+      if ((typeof validationSchema !== 'undefined') && (typeof validationSchema.fields[multiSelectName] !== 'undefined')) {
         // No validation in yup schema for this field -> invalid: false
         try {
           validationSchema.fields[multiSelectName].validateSync([selectedOption], {abortEarly: false});
