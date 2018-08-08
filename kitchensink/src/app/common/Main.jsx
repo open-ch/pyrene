@@ -13,7 +13,7 @@ import '../../css/common.css';
 import SearchBar from './Search/SearchBar/SearchBar';
 import ResultsPage from './Search/ResultsPage';
 import NotFoundPage from '../static/NotFoundPage';
-import FormTest from '../static/FormUsage';
+import FormUsage from '../static/FormUsage';
 
 export default class Main extends React.Component {
 
@@ -39,7 +39,7 @@ export default class Main extends React.Component {
             <Route path={'/colors'} component={ColorsPage} />
             <Route path={'/icons'} component={IconsPage} />
             <Route path={'/resources'} component={ResourcesPage} />
-            <Route path={'/test'} component={FormTest} />
+            <Route path={'/form'} component={FormUsage} />
 
             {Object.values(Components).map((component) => {
               const lowercaseComponentName = component.displayName.replace(/\s/g, '').toLowerCase();
