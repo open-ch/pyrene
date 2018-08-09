@@ -188,7 +188,7 @@ MultiSelect.propTypes = {
    */
   required: PropTypes.bool,
   /**
-   * Let's you set a fixed height to the multiselect. Default behaviour is one row that expands up to 3, then starts scrolling.
+   * Sets a fixed height for the input field. Default behaviour is one row expanding up to 3, then starts scrolling.
    */
   rows: PropTypes.number,
   /**
