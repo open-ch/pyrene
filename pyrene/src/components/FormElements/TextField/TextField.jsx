@@ -64,15 +64,15 @@ TextField.propTypes = {
    */
   disabled: PropTypes.bool,
   /**
-   * Helper text below the input field, also used to display error messages if prop invalid is set.
+   * Sets a label below the input field to display additional information for the user.
    */
   helperLabel: PropTypes.string,
   /**
-   * Changes the fields and helpers visual appearance to indicate a validation error.
+   * Sets the visual appearance, to signal that the input is invalid.
    */
   invalid: PropTypes.bool,
   /**
-   * Displayed instead of the helperLabel if specified & invalid is set.
+   * Sets the label displayed instead of the helperLabel when the input is invalid.
    */
   invalidLabel: PropTypes.string,
   /**
@@ -80,35 +80,35 @@ TextField.propTypes = {
    */
   name: PropTypes.string,
   /**
-   * Event handler.
+   * Javascript event handler.
    */
   onBlur: PropTypes.func,
   /**
-   * Event handler.
+   * Javascript event handler.
    */
   onChange: PropTypes.func,
   /**
-   * Event handler.
+   * Javascript event handler.
    */
   onFocus: PropTypes.func,
   /**
-   * Changes what the text field placeholder says.
+   * Sets the placeholder label.
    */
   placeholder: PropTypes.string,
   /**
-   * Adds a visual indication that the field is required..
+   * Adds a visual indication to display that the field is required.
    */
   required: PropTypes.bool,
   /**
-   * Changes what the title says.
+   * Sets the title above the input field.
    */
   title: PropTypes.string,
   /**
-   * Changes what the text field says.
+   * Sets the value of the input field.
    */
   value: PropTypes.string,
   /**
-   * Changes the width of the input field in px. Use -1 to inherit parent width.
+   * Sets a fixed width (px) for the input field.
    */
   width: PropTypes.number,
 };

@@ -116,15 +116,15 @@ SingleSelect.defaultProps = {
 
 SingleSelect.propTypes = {
   /**
-   * Let's the user clear his selection.
+   * Whether the selection is clearable.
    */
   clearable: PropTypes.bool,
   /**
-   * Allows to create new options.
+   * Whether the user can create new options.
    */
   creatable: PropTypes.bool,
   /**
-   * Set's a preselected option.
+   * Sets a preselected option.
    */
   defaultValue: PropTypes.string,
   /**
@@ -132,27 +132,27 @@ SingleSelect.propTypes = {
    */
   disabled: PropTypes.bool,
   /**
-   * Helper text below the input field, also used to display error messages if prop invalid is set.
+   * Sets a label below the input field to display additional information for the user.
    */
   helperLabel: PropTypes.string,
   /**
-   * Changes the fields and helpers visual appearance to indicate a validation error.
+   * Sets the visual appearance, to signal that the input is invalid.
    */
   invalid: PropTypes.bool,
   /**
-   * Displayed instead of the helperLabel if specified & invalid is set.
+   * Sets the label displayed instead of the helperLabel when the input is invalid.
    */
   invalidLabel: PropTypes.string,
   /**
-   * When true, displays a loading indicator
+   * Displays a loading indicator inside of the input.
    */
   loading: PropTypes.bool,
   /**
-   * Html input name tag
+   * Sets the html name property of the form element.
    */
   name: PropTypes.string,
   /**
-   * Event Handler.
+   * Javascript event handler.
    */
   onBlur: PropTypes.func,
   /**
@@ -160,31 +160,31 @@ SingleSelect.propTypes = {
    */
   onChange: PropTypes.func,
   /**
-   * Supplies the available options to the dropdown.
+   * Data input array. Type: [{ value: string (required), label: string (required), invalid: bool }]
    */
   options: PropTypes.arrayOf(PropTypes.shape({
-    value: PropTypes.string,
-    label: PropTypes.string,
+    value: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired,
     invalid: PropTypes.bool,
   })),
   /**
-   * Placeholder inside the input.
+   * Sets the placeholder label.
    */
   placeholder: PropTypes.string,
   /**
-   * Adds a visual indication that the field is required..
+   * Adds a visual indication to display that the field is required.
    */
   required: PropTypes.bool,
   /**
-   * Let's the user type in the inputbox. Ignored if creatable is set true.
+   * Whether the user is allowed to type to search elements. Ignored if creatable is set true.
    */
   searchable: PropTypes.bool,
   /**
-   * Changes what the title says.
+   * Sets the title above the input field.
    */
   title: PropTypes.string,
   /**
-   * Changes the currently chosen option. Only set when needed, do not keep prop set at all times as this prevents user interaction.
+   * Sets the value of the input field. Same type as supplied options.
    */
   value: PropTypes.string,
 };

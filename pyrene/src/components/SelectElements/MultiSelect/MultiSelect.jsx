@@ -121,15 +121,15 @@ MultiSelect.defaultProps = {
 
 MultiSelect.propTypes = {
   /**
-   * Let's the user clear his selection.
+   * Whether the selection is clearable.
    */
   clearable: PropTypes.bool,
   /**
-   * Allows to create new options.
+   * Whether the user can create new options.
    */
   creatable: PropTypes.bool,
   /**
-   * Set's one or multiple preselected options.
+   * Sets a preselected options. Type: [ string | number ]
    */
   defaultValues: PropTypes.arrayOf(PropTypes.oneOfType([
     PropTypes.string,
@@ -140,39 +140,39 @@ MultiSelect.propTypes = {
    */
   disabled: PropTypes.bool,
   /**
-   * Helper text below the input field, also used to display error messages if prop invalid is set.
+   * Sets a label below the input field to display additional information for the user.
    */
   helperLabel: PropTypes.string,
   /**
-   * Changes the fields and helpers visual appearance to indicate a validation error.
+   * Sets the visual appearance, to signal that the input is invalid.
    */
   invalid: PropTypes.bool,
   /**
-   * Displayed instead of the helperLabel if specified & invalid is set.
+   * Sets the label displayed instead of the helperLabel when the input is invalid.
    */
   invalidLabel: PropTypes.string,
   /**
-   * Keep the menu open on select if false
+   * Whether to keep the menu open on select.
    */
   keepMenuOnSelect: PropTypes.bool,
   /**
-   * When true, displays a loading indicator
+   * Displays a loading indicator inside of the input.
    */
   loading: PropTypes.bool,
   /**
-   * Html input name tag
+   * Sets the html name property of the form element.
    */
   name: PropTypes.string,
   /**
-   * Event Handler.
+   * Javascript event handler.
    */
   onBlur: PropTypes.func,
   /**
-   * Event Handler. Param option: {value: , label:}
+   * Custom event handler, returns selected options from the options array.
    */
   onChange: PropTypes.func,
   /**
-   * Supplies the available options to the dropdown.
+   * Data input array. Type: [{ value: string (required), label: string (required), invalid: bool }]
    */
   options: PropTypes.arrayOf(PropTypes.shape({
     value: PropTypes.string,
@@ -180,11 +180,11 @@ MultiSelect.propTypes = {
     invalid: PropTypes.bool,
   })),
   /**
-   * Placeholder inside the input.
+   * Sets the placeholder label.
    */
   placeholder: PropTypes.string,
   /**
-   * Adds a visual indication that the field is required..
+   * Adds a visual indication to display that the field is required.
    */
   required: PropTypes.bool,
   /**
@@ -192,11 +192,11 @@ MultiSelect.propTypes = {
    */
   rows: PropTypes.number,
   /**
-   * Changes what the title says.
+   * Sets the title above the input field.
    */
   title: PropTypes.string,
   /**
-   * Changes the currently chosen option. Only set when needed, do not keep prop set at all times as this prevents user interaction.
+   * Sets the value of the input field. Same type as supplied options.
    */
   value: PropTypes.arrayOf(PropTypes.shape({
     label: PropTypes.string.isRequired,

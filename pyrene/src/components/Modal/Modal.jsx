@@ -33,12 +33,12 @@ export default class Modal extends React.Component {
   renderContent = () => (
     <Fragment>
       <div styleName={'titleBar'}>
-        {this.props.titleLabel}
+        {this.props.title}
         {this.props.displayNavigationArrows && this.renderNavigationArrows()}
       </div>
       <div styleName={'contentContainer'}>
         <div styleName={'content'}>
-          {this.props.content}
+          {this.props.renderCallback()}
         </div>
       </div>
     </Fragment>
@@ -79,49 +79,49 @@ Modal.defaultProps = {
 
 Modal.propTypes = {
   /**
-   * Specifies the buttons that are displayed on the bottom of the modal
+   * Sets the buttons that are displayed on the bottom of the modal.
    */
   buttonBarElements: PropTypes.arrayOf(PropTypes.element),
   /**
-   * Enables next arrow button
+   * Whether interaction with the next button is allowed.
    */
   canNext: PropTypes.bool,
   /**
-   * Enables previous arrow button
+   * Whether interaction with the previous button is allowed.
    */
   canPrevious: PropTypes.bool,
   /**
-   * Content displayed by Modal
+   * Sets the content to be rendered inside the component.
    */
-  content: PropTypes.element.isRequired,
+  renderCallback: PropTypes.func.isRequired,
   /**
-   * Hide or show the navigationArrows in the upper right corner.
+   * Whether to display the navigationArrows in the upper right corner.
    */
   displayNavigationArrows: PropTypes.bool,
   /**
-   * Displays a loader when true
+   * Disables the component and displays a loader inside of it.
    */
   loading: PropTypes.bool,
   /**
-   * Closebutton clickhandler
+   * Called when the user clicks on the close button.
    */
   onClose: PropTypes.func,
   /**
-   * Top right next button click handler
+   * Called when the user clicks on the next button.
    */
   onNextArrowClick: PropTypes.func,
   /**
-   * Top right previous button click handler
+   * Called when the user clicks on the previous button.
    */
   onPreviousArrowClick: PropTypes.func,
   /**
-   * Specifies the size
+   * Sets the size.
    */
   size: PropTypes.oneOf(['small', 'large', 'xlarge']).isRequired,
   /**
-   * Sets the title
+   * Sets the title.
    */
-  titleLabel: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
 };
 
 Modal.needsTrigger = true;

@@ -62,7 +62,7 @@ RadioGroup.defaultProps = {
 
 RadioGroup.propTypes = {
   /**
-   * Specifies the orientation of the radio group.
+   * Sets the orientation of the radio group.
    */
   alignment: PropTypes.oneOf(['vertical', 'horizontal']),
   /**
@@ -70,7 +70,7 @@ RadioGroup.propTypes = {
    */
   disabled: PropTypes.bool,
   /**
-   * Changes the visual appearance, to signal that the usage was invalid.
+   * Sets the visual appearance, to signal that the input is invalid.
    */
   invalid: PropTypes.bool,
   /**
@@ -78,19 +78,19 @@ RadioGroup.propTypes = {
    */
   name: PropTypes.string,
   /**
-   * Event handler.
+   * Javascript event handler.
    */
   onBlur: PropTypes.func,
   /**
-   * Event handler.
+   * Javascript event handler.
    */
   onChange: PropTypes.func,
   /**
-   * Specifies the different choices and values.
+   * Set the values that the user can choose from.
    */
   radioLabels: PropTypes.arrayOf(PropTypes.string),
   /**
-   * Specifies a radio that is checked on page load.
+   * Sets the selected choice of the user.
    */
   value: PropTypes.string,
 };

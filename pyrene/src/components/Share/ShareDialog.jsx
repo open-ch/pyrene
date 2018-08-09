@@ -91,19 +91,19 @@ ShareDialog.defaultProps = {
 
 ShareDialog.propTypes = {
   /**
-   * Alignment of the dialogue
+   * Sets the alignment of the popover.
    */
   align: PropTypes.oneOf(['start', 'center', 'end']),
   /**
-   * Choose where the dialog appears relative to the share button.
+   * Sets the position of the popover relative to the share button.
    */
   position: PropTypes.oneOf(['top', 'right', 'bottom', 'left']),
   /**
-   * Link that is in the share dialog.
+   * Sets the link to be shared via the popover.
    */
   link: PropTypes.string.isRequired,
   /**
-   * Disables any interaction with the share dialog.
+   * Disables any interaction with the share popover.
    */
   disabled: PropTypes.bool,
 };
