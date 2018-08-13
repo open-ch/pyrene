@@ -352,7 +352,7 @@ const FormUsage = () => (
     <div className="header">
       <div styleName="title">Form</div>
       <div styleName="description">
-        Forms need a central place to keep the state of all the components in order to allow the implementation of important features like dynamic input disabling based on other inputs and to guarantee a single source of truth. This makes the Form component a very custom implementation as it needs to manage a lot of different input components. With this higher order component we try to standardise the general behaviour and logic behind the React way of doing forms with the intent to reduce boilerplate code.
+        Forms need a central place to keep the state of all the components in order to allow the implementation of important features like dynamic input disabling and to guarantee a <strong>single source of truth</strong>. As it needs to manage a lot of different input components and types, the Form component needs a very custom implementation. With this higher order component we try to standardise the general behaviour and logic behind the React way of doing forms with the intent to reduce boilerplate code.
       </div>
       <div className="topicContent">
         <Paragraph title={'Getting started'} large>

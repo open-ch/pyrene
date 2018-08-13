@@ -581,7 +581,7 @@ const startProps = {
     size: 'large',
   },
   'modal': {
-    content: <ContentFiller width={400} height={600} />,
+    renderCallback: () => <ContentFiller width={400} height={600} />,
     canNext: true,
     canPrevious: true,
     displayNavigationArrows: true,
@@ -609,6 +609,11 @@ const startProps = {
     position: 'top',
     align: 'start',
     link: 'http://www.veryveryverylonglinkonanydomainintheinternet.com',
+  },
+  'spacer': {
+    direction: 'vertical',
+    children: <ContentFiller width={100} height={100} fontSize={10}/>,
+    spacing: 48,
   },
   'table': {
     data: tableData,
