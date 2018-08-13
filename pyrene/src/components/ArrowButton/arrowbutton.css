@@ -5,10 +5,9 @@
   height: 32px;
   width: 32px;
 
-  border-radius: 2px;
-  border: solid 1px #b2b8bf;
-
   font-size: 18px;
+
+  border: none;
 
   outline: none;
   cursor: pointer;
@@ -18,6 +17,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
+
+  &.border {
+    border-radius: 2px;
+    border: solid 1px #b2b8bf;
+  }
 
   &.direction-up {
     transform: rotate(-90deg);

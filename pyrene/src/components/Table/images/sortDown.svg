@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51.2 (57519) - http://www.bohemiancoding.com/sketch -->
+    <title>sortDown</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Iconsheet" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g transform="translate(-961.000000, -314.000000)" id="sortDown">
+            <g transform="translate(961.000000, 314.000000)">
+                <rect id="Rectangle-6" x="0" y="0" width="16" height="16"></rect>
+                <g id="Triangle" transform="translate(8.000000, 5.000000) rotate(-180.000000) translate(-8.000000, -5.000000) translate(5.500000, 3.000000)" fill="#B3B8BE" fill-rule="nonzero">
+                    <path d="M0.11435708,0.615351319 C-0.102154402,0.275502167 -0.00221819516,0 0.337990681,0 L4.66126538,0 C5.00128632,0 5.1031952,0.272700799 4.88489901,0.615351319 L2.89165677,3.74406151 C2.67514529,4.08391071 2.32589552,4.08671207 2.10759933,3.74406151 L0.11435708,0.615351319 Z" id="path-1"></path>
+                </g>
+                <g id="Triangle" transform="translate(5.500000, 9.000000)" fill="#00152C" fill-rule="nonzero">
+                    <path d="M0.11435708,0.615351319 C-0.102154402,0.275502167 -0.00221819516,0 0.337990681,0 L4.66126538,0 C5.00128632,0 5.1031952,0.272700799 4.88489901,0.615351319 L2.89165677,3.74406151 C2.67514529,4.08391071 2.32589552,4.08671207 2.10759933,3.74406151 L0.11435708,0.615351319 Z" id="path-1"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -4,10 +4,13 @@ import ReactTable from 'react-table';
 import classNames from 'classnames';
 
 import './table.css';
-import TablePagination from './TablePagination';
+import TablePagination from './TablePagination/TablePagination';
 import ButtonBar from '../ButtonBar/ButtonBar';
 import Button from '../Button/Button';
 import Loader from '../Loader/Loader';
+import TableFilter from './TableFilter/TableFilter';
+import TableHeaderCell from './TableHeader/TableHeaderCell';
+import TableHeader from './TableHeader/TableHeader';
 
 /**
  * All mighty table
@@ -29,13 +32,19 @@ export default class Table extends React.Component {
     return (
       <div styleName={'tableContainer'}>
         {this.props.loading && this.renderLoader()}
+        <div styleName={classNames('filterContainer', {loading: this.props.loading})}>
+          <TableFilter />
+        </div>
         <div styleName={classNames('tableAndActions',{loading: this.props.loading})}>
-          <ButtonBar noPadding leftButtonSectionElements={[
-            <Button label={'Yalla'} type={'action'} icon={'warning'} />,
-            <Button label={'Yallo'} type={'action'} icon={'errorOutline'} />,
-            <Button label={'Yola'} type={'action'} icon={'search'} />,
-            <Button label={'Yolo'} type={'action'} icon={'filter'} />
-          ]}/>
+        <div styleName={'toolbar'}>
+          <Button label={'Yalla'} type={'action'} icon={'warning'} />
+          <div style={{width: 16}} />
+          <Button label={'Yallo'} type={'action'} icon={'errorOutline'} />
+          <div style={{width: 16}} />
+          <Button label={'Yola'} type={'action'} icon={'search'} />
+          <div style={{width: 16}} />
+          <Button label={'Yolo'} type={'action'} icon={'filter'} />
+        </div>
           <ReactTable
             defaultPageSize={this.props.defaultPageSize}
             data={this.props.data}
@@ -44,8 +53,6 @@ export default class Table extends React.Component {
             filterable={this.props.filterable}
             multiSort={this.props.multiSort}
             PadRowComponent={this.props.PadRowComponent}
-            showPageSizeOptions={this.props.showPageSizeOptions}
-
 
             getTrProps={(state, rowInfo) => {
               // no row selected yet
@@ -66,12 +73,15 @@ export default class Table extends React.Component {
               }
             }}
 
-
-            PaginationComponent={(props) => <TablePagination {...props} />}
+            TheadComponent={props => <TableHeader {...props} />}
+            ThComponent={props => <TableHeaderCell {...props} />}
+            PaginationComponent={props => <TablePagination {...props} />}
+            TfootComponent={props => <TablePagination {...props} />}
             resizable={false}
-            showPaginationBottom={false}
+            showPaginationBottom
             showPagination
             showPaginationTop
+            showPageSizeOptions
             sortable
           />
         </div>
@@ -89,7 +99,6 @@ Table.defaultProps = {
   filterable: false,
   loading: false,
   multiSort: true,
-  showPageSizeOptions: true,
   PadRowComponent: () => <span>&nbsp;</span>,
   pageSizeOptions: [5, 10, 20, 50, 100],
   onRowDoubleClick: () => null,
@@ -113,5 +122,4 @@ Table.propTypes = {
   PadRowComponent: PropTypes.func, // the content rendered inside of a padding row
   pageSizeOptions: PropTypes.arrayOf(PropTypes.number),
 
-  showPageSizeOptions: PropTypes.bool,
 };
