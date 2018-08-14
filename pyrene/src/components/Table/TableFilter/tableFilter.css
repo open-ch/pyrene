@@ -1,13 +1,14 @@
 .tableFilter {
-
+  display: flex;
+  justify-content: flex-start;
 }
 
 
-.iconPlacementContainer {
+.filterSearchBar {
   position: relative;
 }
 
-.filterSearchBar {
+.filterSearchBarInput {
   box-sizing: border-box;
   width: 204px;
   height: 32px;
@@ -54,4 +55,8 @@
   position: absolute;
   top: 6px;
   left: 8px;
+}
+
+.spacer {
+  width: 16px;
 }

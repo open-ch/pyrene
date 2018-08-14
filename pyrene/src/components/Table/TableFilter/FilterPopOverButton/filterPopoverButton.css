@@ -1,0 +1,35 @@
+.filterButton {
+  box-sizing: border-box;
+  padding: 0 8px;
+  border: solid 1px var(--neutral-050);
+  height: 32px;
+  display: flex;
+  align-items: center;
+
+  &.noBorder {
+    border: none;
+  }
+
+  &:hover {
+    cursor: pointer;
+    background-color: var(--neutral-030);
+  }
+}
+
+.buttonLabel {
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.23;
+  color: var(--neutral-500);
+  padding: 0 8px;
+}
+
+.arrowIcon {
+  padding: 0 !important;
+
+  height: 16px;
+  width: 16px;
+
+  font-size: 16px;
+  color: var(--neutral-300);
+}
