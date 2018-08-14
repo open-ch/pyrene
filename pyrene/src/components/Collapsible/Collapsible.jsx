@@ -39,7 +39,7 @@ export default class Collapsible extends React.Component {
       <div styleName={classNames('collapsibleBox', {expanded: this.state.expanded})}>
         <div styleName={'collapsibleButton'} onClick={this.toggleCollapse} role="button" aria-label="Show or hide content">
           <div styleName={"centeringBox"}>
-            {this.state.expanded && this.props.titleExpanded ? this.props.titleExpanded : this.props.title}
+            {this.state.expanded && this.props.labelExpanded ? this.props.labelExpanded : this.props.labelCollapsed}
             <span className={'icon-collapsDown'} styleName={'collapsArrow'}/>
           </div>
         </div>
@@ -57,30 +57,30 @@ Collapsible.displayName = 'Collapsible';
 
 Collapsible.defaultProps = {
   defaultExpanded: false,
-  title: 'Show More',
-  titleExpanded: 'Hide',
+  labelCollapsed: 'Show More',
+  labelExpanded: 'Show Less',
   onChange: () => null,
 };
 
 Collapsible.propTypes = {
   /**
-   * Whether or not to display the content when the component is mounted
+   * Whether to display the content when the component is first mounted.
    */
   defaultExpanded: PropTypes.bool,
   /**
-   * Event handler.
+   * Javascript event handler.
    */
   onChange: PropTypes.func,
   /**
-   * Render function for the content
+   * Sets the content to be rendered inside the component.
    */
   renderCallback: PropTypes.func.isRequired,
   /**
-   * Displayed label when collapsed
+   * Sets the label displayed to the user when the component is collapsed.
    */
-  title: PropTypes.string.isRequired,
+  labelCollapsed: PropTypes.string,
   /**
-   * Displayed label when expanded
+   * Sets the label displayed to the user when the component is expanded.
    */
-  titleExpanded: PropTypes.string,
+  labelExpanded: PropTypes.string,
 };

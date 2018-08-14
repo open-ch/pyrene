@@ -36,15 +36,15 @@ ArrowButton.defaultProps = {
 
 ArrowButton.propTypes = {
   /**
-   *  Specifies the direction that the arrow is pointing.
+   * Sets the direction of the arrow.
    */
   direction: PropTypes.oneOf(['up', 'down', 'right', 'left']),
   /**
-   *  Disables any interaction with the button.
+   * Disables any interaction with the component.
    */
   disabled: PropTypes.bool,
   /**
-   *  onClick function
+   * Javascript event handler.
    */
   onClick: PropTypes.func,
   /**

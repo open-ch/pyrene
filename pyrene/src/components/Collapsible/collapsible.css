@@ -1,3 +1,5 @@
+@import '../../styles/colors.css';
+
 .collapsibleBox {
   & .collapsibleBody {
     height: 0;
@@ -26,7 +28,7 @@
 
     cursor: pointer;
     &:hover {
-      background-color: var(--blue-010);
+      background-color: var(--neutral-030);
     }
 
     & .centeringBox {

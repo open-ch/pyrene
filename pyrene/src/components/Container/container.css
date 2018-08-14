@@ -1,3 +1,5 @@
+@import '../../styles/colors.css';
+
 .container {
   box-shadow: 0 0 1px 0 rgba(0, 21, 44, 0.3);
   width: 100%;
@@ -25,10 +27,9 @@
     height: 40px;
     background-color: var(--neutral-020);
 
-    display: grid;
+    display: flex;
     align-items: center;
-    grid-template-columns: 1fr auto 20px;
-    grid-column-gap: 24px;
+    justify-content: space-between;
 
     transition: box-shadow 0.4s step-end;
 
@@ -50,12 +51,16 @@
     }
   }
 
+  & .adminAndArrowContainer {
+    display: flex;
+    align-items: center;
+  }
+
   & .collapsArrow {
-    grid-column: 3;
     width: 16px;
     height: 16px;
     font-size: 16px;
-    margin-left: 4px;
+    margin-left: 24px;
     display: inline-block;
     vertical-align: text-bottom;
 
@@ -67,6 +72,7 @@
     height: 0;
     overflow: hidden;
 
+    background-color: var(--neutral-000);
     transition: height 0.4s ease-in-out;
   }
 

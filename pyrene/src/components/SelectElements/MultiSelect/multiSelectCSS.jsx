@@ -1,40 +1,4 @@
 /* eslint-disable no-nested-ternary */
-/**
- *
- * React Select want's you to style the component in JS using the following convention.
- * Following is part of the style documentation:
- *
- * DOCS
- ***************************************************
- * Styles
- * React-Select is using emotion.
- *
- * @param {Object} base -- the component's default style
- * @param {Object} state -- the component's current state e.g. `isFocused`
- * @returns {Object}
- *
- * function styleFn(base, state) {
- *  // optionally spread base styles
- *  return { ...base, color: state.isFocused ? 'blue' : 'red' };
- * }
- *
- * Style Object
- * Each component is keyed, and ships with default styles. The component's default style object is passed as the first argument to the function when it's resolved.
- * The second argument is the current state of the select, features like isFocused, isSelected etc. allowing you to implement dynamic styles for each of the components.
- *
- * STYLE KEYS
- * clearIndicator container control dropdownIndicator group groupHeading
- * indicatorsContainer indicatorSeparator input loadingIndicator loadingMessage
- * menu menuList multiValue multiValueLabel multiValueRemove noOptionsMessage
- * option placeholder singleValue valueContainer
- *
- * Base and State
- * Spreading the base styles into your returned object let's you extend it
- * however you like while maintaining existing styles.
- * Alternatively, you can omit the base and completely take control of the component's styles.
- *
- */
-
 
 /* Print style to console:
    object: (base, state) => {
@@ -42,8 +6,9 @@
     console.log(base);
     return {...base};
    }
- */
+*/
 
+import colorConstants from '../../../styles/colorConstants';
 
 const multiSelectStyle = rows => ({
   container: base => ({
@@ -68,43 +33,41 @@ const multiSelectStyle = rows => ({
     alignItems: rows < 0 ? 'center' : 'flex-start',
     overflow: 'hidden',
 
-    minHeight: 32,
-    height: rows < 0 ? 'none' : (rows * 24) + 6,
-    maxHeight: rows < 0 ? 78 : 'none',
-    backgroundColor: (state.isFocused || state.hasValue) ? 'var(--neutral-0)' : 'var(--neutral-020)',
-    border: state.selectProps.isInvalid && !state.isDisabled ? 'solid 1px var(--red-500)' : state.isFocused ? 'solid 1px var(--blue-500)' : 'solid 1px var(--neutral-100)',
+    backgroundColor: (state.isFocused || state.hasValue) ? colorConstants.neutral000 : colorConstants.neutral020,
+    border: state.selectProps.isInvalid && !state.isDisabled ? `solid 1px ${colorConstants.red500}` : state.isFocused ? `solid 1px ${colorConstants.blue500}` : `solid 1px ${colorConstants.neutral100}`,
     borderRadius: 2,
     cursor: 'pointer',
 
     '& .multiSelect__dropdown-indicator:after': {
-      color: state.isFocused ? 'var(--blue-500)' : 'var(--neutral-300)',
+      color: state.isFocused ? colorConstants.blue500 : colorConstants.neutral300,
       transform: state.isFocused ? 'rotate(180deg)' : 'rotate(0deg)',
     },
 
     '& .multiSelect__single-value': {
-      backgroundColor: state.hasValue && state.isFocused ? 'var(--blue-50)' : 'transparent',
+      backgroundColor: state.hasValue && state.isFocused ? colorConstants.blue050 : 'transparent',
     },
 
     ':hover': {
-      border: 'solid 1px var(--blue-500)',
+      border: `solid 1px ${colorConstants.blue500}`,
 
       '& .multiSelect__dropdown-indicator:after': {
-        color: 'var(--blue-500)',
+        color: colorConstants.blue500,
       },
     },
   }),
 
-  valueContainer: base => ({
+  valueContainer: (base, state) => ({
     ...base,
-    overflow: 'auto',
-    paddingLeft: 6,
-    paddingRight: 6,
-    maxHeight: rows < 0 ? 76 : (rows * 24) + 4,
+    minHeight: 30,
+    height: rows < 0 ? 'inherit' : (rows * 25) + 6,
+    overflow: state.hasValue ? 'auto' : 'hidden',
+    padding: '2px 6px',
+    maxHeight: rows < 0 ? 79 : (rows * 25) + 4,
   }),
 
   placeholder: base => ({
     ...base,
-    color: 'var(--neutral-200)',
+    color: colorConstants.neutral200,
   }),
 
   clearIndicator: () => ({
@@ -114,7 +77,7 @@ const multiSelectStyle = rows => ({
     ':after': {
       fontFamily: 'IconFont !important',
       fontSize: 18,
-      color: 'var(--neutral-300)',
+      color: colorConstants.neutral300,
       speak: 'none',
       fontStyle: 'normal',
       fontWeight: 'normal',
@@ -129,7 +92,7 @@ const multiSelectStyle = rows => ({
       content: '"7"',
     },
     ':hover:after': {
-      color: 'var(--red-500)',
+      color: colorConstants.red500,
     },
   }),
 
@@ -140,7 +103,7 @@ const multiSelectStyle = rows => ({
     ':after': {
       fontFamily: 'IconFont !important',
       fontSize: 18,
-      color: 'var(--neutral-300)',
+      color: colorConstants.neutral300,
       speak: 'none',
       fontStyle: 'normal',
       fontWeight: 'normal',
@@ -164,7 +127,7 @@ const multiSelectStyle = rows => ({
       fontFamily: 'AvenirNext, Helvetica, sans-serif !important',
       fontSize: 13,
       fontWeight: 500,
-      color: 'var(--neutral-400)',
+      color: colorConstants.neutral400,
       WebkitFontSmoothing: 'antialiased',
       MozOsxFontSmoothing: 'grayscale',
     },
@@ -180,38 +143,38 @@ const multiSelectStyle = rows => ({
   option: (base, { isSelected, isFocused }) => ({
     ...base,
     ':active': {
-      backgroundColor: 'var(--neutral-030)',
+      backgroundColor: colorConstants.neutral030,
     },
     ':hover': {
-      backgroundColor: 'var(--neutral-030)',
+      backgroundColor: colorConstants.neutral030,
     },
-    backgroundColor: (isSelected || isFocused) ? 'var(--neutral-030)' : 'var(--neutral-0)',
+    backgroundColor: (isSelected || isFocused) ? colorConstants.neutral030 : colorConstants.neutral000,
     height: 32,
-    color: 'var(--neutral-400)',
+    color: colorConstants.neutral400,
     cursor: 'pointer',
   }),
 
   multiValue: (base, { data }) => ({
     ...base,
-    height: 20,
     alignItems: 'center',
-    backgroundColor: data.invalid ? 'var(--red-100)' : 'var(--neutral-030)',
+    backgroundColor: data.invalid ? colorConstants.red100 : colorConstants.neutral030,
     flexShrink: 0,
   }),
 
   multiValueLabel: (base, { data }) => ({
+    ...base,
     boxSizing: 'border-box',
     paddingLeft: 8,
     fontSize: 13,
-    color: 'var(--neutral-400)',
+    color: colorConstants.neutral400,
     overflow: 'hidden',
     whiteSpace: 'nowrap',
     textOverflow: 'ellipsis',
   }),
 
   multiValueRemove: (base, { data }) => ({
-    display: 'flex',
-    alignItems: 'center',
+    display: 'block',
+    height: 14,
     paddingLeft: 4,
     paddingRight: 4,
     '& svg': {
@@ -220,7 +183,7 @@ const multiSelectStyle = rows => ({
     ':after': {
       fontFamily: 'IconFont !important',
       fontSize: 14,
-      color: 'var(--neutral-300)',
+      color: colorConstants.neutral300,
       speak: 'none',
       fontStyle: 'normal',
       fontWeight: 'normal',
@@ -235,15 +198,15 @@ const multiSelectStyle = rows => ({
       borderRadius: 2,
     },
     ':hover:after': {
-      color: 'var(--red-500)',
-      backgroundColor: data.invalid ? 'var(--neutral-0)' : 'var(--neutral-050)',
+      color: colorConstants.red500,
+      backgroundColor: data.invalid ? colorConstants.neutral030 : colorConstants.neutral050,
     },
   }),
 
   noOptionsMessage: (base, state) => ({
     ...base,
     fontStyle: 'italic',
-    color: 'var(--neutral-200)',
+    color: colorConstants.neutral200,
     textAlign: 'left',
   }),
 

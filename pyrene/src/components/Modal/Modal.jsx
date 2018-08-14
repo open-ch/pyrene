@@ -5,6 +5,8 @@ import './modal.css';
 import ButtonBar from '../ButtonBar/ButtonBar';
 import Button from '../Button/Button';
 import Loader from '../Loader/Loader';
+import ArrowButton from '../ArrowButton/ArrowButton';
+
 
 /**
  * I'm pretty modal.
@@ -20,14 +22,23 @@ export default class Modal extends React.Component {
     document.body.style.overflow = 'auto';
   }
 
+  renderNavigationArrows = () => (
+    <div styleName={'arrowButtonContainer'}>
+      <ArrowButton direction={'down'} onClick={this.props.onNextArrowClick} disabled={!this.props.canNext} />
+      <div style={{width: 16}} />
+      <ArrowButton direction={'up'} onClick={this.props.onPreviousArrowClick} disabled={!this.props.canPrevious} />
+    </div>
+  );
+
   renderContent = () => (
     <Fragment>
       <div styleName={'titleBar'}>
-        {this.props.titleLabel}
+        {this.props.title}
+        {this.props.displayNavigationArrows && this.renderNavigationArrows()}
       </div>
       <div styleName={'contentContainer'}>
         <div styleName={'content'}>
-          {this.props.content}
+          {this.props.renderCallback()}
         </div>
       </div>
     </Fragment>
@@ -45,7 +56,7 @@ export default class Modal extends React.Component {
         <div styleName="modalOverlay">
           <div styleName={classNames('modalContainer', this.props.size)} role="dialog">
             {this.props.loading ? this.renderLoader() : this.renderContent()}
-            <ButtonBar rightButtonSectionElements={[<Button label={'Cancel'} onClick={this.props.closeButtonClicked}/>]}/>
+            <ButtonBar rightButtonSectionElements={[<Button label={'Cancel'} onClick={this.props.onClose}/>]}/>
           </div>
         </div>
       </Fragment>
@@ -58,44 +69,59 @@ Modal.displayName = 'Modal';
 Modal.defaultProps = {
   loading: false,
   buttonBarElements: [],
-  previousButtonClicked: () => null,
-  nextButtonClicked: () => null,
-  closeButtonClicked: () => null,
+  onPreviousArrowClick: () => null,
+  onNextArrowClick: () => null,
+  displayNavigationArrows: false,
+  onClose: () => null,
+  canNext: false,
+  canPrevious: false,
 };
 
 Modal.propTypes = {
   /**
-   * Specifies the buttons that are displayed on the bottom of the modal
+   * Sets the buttons that are displayed on the bottom of the modal.
    */
   buttonBarElements: PropTypes.arrayOf(PropTypes.element),
   /**
-   * Closebutton clickhandler
+   * Whether interaction with the next button is allowed.
    */
-  closeButtonClicked: PropTypes.func,
+  canNext: PropTypes.bool,
   /**
-   * Content displayed by Modal
+   * Whether interaction with the previous button is allowed.
    */
-  content: PropTypes.element.isRequired,
+  canPrevious: PropTypes.bool,
   /**
-   * Displays a loader when true
+   * Sets the content to be rendered inside the component.
+   */
+  renderCallback: PropTypes.func.isRequired,
+  /**
+   * Whether to display the navigationArrows in the upper right corner.
+   */
+  displayNavigationArrows: PropTypes.bool,
+  /**
+   * Disables the component and displays a loader inside of it.
    */
   loading: PropTypes.bool,
   /**
-   * Top right next button click handler
+   * Called when the user clicks on the close button.
    */
-  nextButtonClicked: PropTypes.func,
+  onClose: PropTypes.func,
   /**
-   * Top right previous button click handler
+   * Called when the user clicks on the next button.
    */
-  previousButtonClicked: PropTypes.func,
+  onNextArrowClick: PropTypes.func,
   /**
-   * Specifies the size
+   * Called when the user clicks on the previous button.
+   */
+  onPreviousArrowClick: PropTypes.func,
+  /**
+   * Sets the size.
    */
   size: PropTypes.oneOf(['small', 'large', 'xlarge']).isRequired,
   /**
-   * Sets the title
+   * Sets the title.
    */
-  titleLabel: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
 };
 
 Modal.needsTrigger = true;
