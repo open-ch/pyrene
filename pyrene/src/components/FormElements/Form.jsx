@@ -54,6 +54,9 @@ const withFormLogic = (WrappedForm) => ({initialValues, validationSchema, onSubm
 
     regroupErrors = (errors) => {
       // regroups the errors from beeing an array of error objects to an object of errors grouped by field name
+      // the path for multiselect options points out the exact object inside the multiselect like 'multiselect[x]'
+      // to group all of these errors together under multiselect the .split("[") function is used
+      // for other elements like a checkbox that do not have "[" in their name, the name remains unchanged
       const groupedErrors = errors.inner.map(validationError => ({[validationError.path.split("[")[0]]: validationError.errors})).reduce((acc, obj) => {
         Object.keys(obj).forEach((k) => {
           acc[k] = (acc[k] || []).concat(obj[k]);
@@ -122,7 +125,6 @@ const withFormLogic = (WrappedForm) => ({initialValues, validationSchema, onSubm
 
     validateMultiSelectOption = (multiSelectName, selectedOption) => {
       if ((typeof validationSchema !== 'undefined') && (typeof validationSchema.fields[multiSelectName] !== 'undefined')) {
-        // No validation in yup schema for this field -> invalid: false
         try {
           validationSchema.fields[multiSelectName].validateSync([selectedOption], {abortEarly: false});
         } catch (e) {
@@ -140,7 +142,7 @@ const withFormLogic = (WrappedForm) => ({initialValues, validationSchema, onSubm
           return target.checked;
         case 'singleSelect':
           if (target.value == null) {
-            return '';
+            return null;
           }
           return target.value.value;
         case 'multiSelect':

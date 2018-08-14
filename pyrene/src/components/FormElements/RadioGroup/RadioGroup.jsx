@@ -16,16 +16,16 @@ const RadioGroup = (props) => {
       onBlur={props.onBlur}
       id={props.name}
     >
-      {props.radioLabels.map((radioLabel, index) => (
-        <React.Fragment key={`radio_${radioLabel}`}>
+      {props.options.map((option, index) => (
+        <React.Fragment key={`radio_${option.label}_${option.value}`}>
           <div className={'radioContainer'}>
             <input
               styleName={'radioInput'}
-              checked={props.value.toLowerCase() === radioLabel.toLowerCase()}
-              id={`radio_${radioLabel}_${rand}`}
+              checked={props.value === option.value}
+              id={`radio_${option.label}_${option.value}_${rand}`}
               onChange={props.onChange}
               type="radio"
-              value={radioLabel}
+              value={option.value}
               name={props.name}
             />
 
@@ -33,11 +33,11 @@ const RadioGroup = (props) => {
               htmlFor={`radio_${radioLabel}_${rand}`}
               styleName={
                 classNames('radioLabel',
-                  { checked: (props.value.toLowerCase() === radioLabel.toLowerCase()) },
+                  { checked: props.value === option.value },
                   { disabled: props.disabled })}
             >
               <span styleName={'radioIcon'} />
-              {radioLabel}
+              {option.label}
             </label>
           </div>
           {index !== lastElementIndex && <div styleName={classNames({ [`spacer-${props.alignment}`]: true })} />}
@@ -51,7 +51,7 @@ RadioGroup.displayName = 'Radio Group';
 
 RadioGroup.defaultProps = {
   disabled: false,
-  radioLabels: [],
+  options: [],
   alignment: 'vertical',
   value: '',
   invalid: false,
@@ -88,11 +88,14 @@ RadioGroup.propTypes = {
   /**
    * Specifies the different choices and values.
    */
-  radioLabels: PropTypes.arrayOf(PropTypes.string),
+  options: PropTypes.arrayOf(PropTypes.shape({
+    value: PropTypes.oneOf([PropTypes.number, PropTypes.string]).isRequired,
+    label: PropTypes.string.isRequired,
+  })),
   /**
    * Specifies a radio that is checked on page load.
    */
-  value: PropTypes.string,
+  value: PropTypes.oneOf([PropTypes.number, PropTypes.string]).isRequired,
 };
 
 RadioGroup.examples = [
