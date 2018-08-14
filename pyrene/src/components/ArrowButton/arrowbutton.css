@@ -2,14 +2,8 @@
 
 .arrowButton {
   box-sizing: border-box;
-  height: 32px;
-  width: 32px;
 
-  border-radius: 2px;
-  border: solid 1px #b2b8bf;
-
-  font-size: 18px;
-
+  border: none;
   outline: none;
   cursor: pointer;
 
@@ -19,32 +13,47 @@
   justify-content: center;
   align-items: center;
 
-  &.direction-up {
-    transform: rotate(-90deg);
-  }
-  &.direction-down {
-    transform: rotate(90deg);
-  }
-  &.direction-left {
-    transform: rotate(180deg);
-  }
-  &.direction-right {
-    transform: none;
+  border-radius: 2px;
+  padding: 0 !important;
+
+  &.type-bordered {
+
+    border: solid 1px #b2b8bf;
+    height: 32px;
+    width: 32px;
+
+    font-size: 18px;
+
+    & .icon {
+      display: block;
+      width: 18px;
+      height: 18px;
+      margin-left: 1px;
+    }
+
+    &:hover {
+      border-color: var(--blue-500);
+    }
   }
 
-  &:hover {
-    border-color: var(--blue-500);
+  &.type-minimal {
+    height: 16px;
+    width: 16px;
+    font-size: 16px;
+
+    & .icon {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+    }
+
+    &:hover {
+      background-color: var(--neutral-030);
+    }
   }
 
   &.disabled {
     opacity: 0.5;
     pointer-events: none;
   }
-}
-
-.icon {
-  display: block;
-  width: 18px;
-  height: 18px;
-  margin-left: 1px;
 }
