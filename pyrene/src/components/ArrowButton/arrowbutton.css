@@ -13,8 +13,11 @@
   justify-content: center;
   align-items: center;
 
+  border-radius: 2px;
+  padding: 0 !important;
+
   &.type-bordered {
-    border-radius: 2px;
+
     border: solid 1px #b2b8bf;
     height: 32px;
     width: 32px;
@@ -48,21 +51,6 @@
       background-color: var(--neutral-030);
     }
   }
-
-  &.direction-up {
-    transform: rotate(-90deg);
-  }
-  &.direction-down {
-    transform: rotate(90deg);
-  }
-  &.direction-left {
-    transform: rotate(180deg);
-  }
-  &.direction-right {
-    transform: none;
-  }
-
-
 
   &.disabled {
     opacity: 0.5;

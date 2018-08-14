@@ -21,15 +21,28 @@
 
 }
 
+.selectedRow {
+  background-color: var(--neutral-030);
+}
+
+.titleBar {
+  margin-bottom: 24px;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--neutral-500);
+  text-transform: capitalize;
+}
+
+.filterContainer {
+  margin-bottom: 8px;
+}
+
 .toolbar {
   position: absolute;
   z-index: 1;
   top: 8px;
   display: flex;
-}
-
-.filterContainer {
-
 }
 
 /*
@@ -186,6 +199,10 @@
 :global(.ReactTable .rt-tbody .rt-tr-group) {
   border-bottom: solid 1px var(--neutral-050);
   height: 32px;
+}
+
+:global(.ReactTable .rt-tbody .rt-tr:hover) {
+  background-color: var(--neutral-030);
 }
 
 /*:global(.ReactTable .rt-tbody .rt-tr-group:last-child) {

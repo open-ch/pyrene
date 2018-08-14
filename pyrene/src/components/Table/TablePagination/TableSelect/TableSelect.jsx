@@ -21,6 +21,8 @@ const TableSelect = props => (
 
       noOptionsMessage={() => 'no matches found'}
 
+      isSearchable={false}
+      isClearable={false}
       blurInputOnSelect
       escapeClearsValue
       captureMenuScroll

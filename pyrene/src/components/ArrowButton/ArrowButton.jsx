@@ -10,20 +10,23 @@ import './arrowbutton.css';
  * Do not use Buttons as navigational elements.
  * Instead, use Links because it takes the user to a new page and is not associated with an action.
  */
-const ArrowButton = props => (
-  <button
-    className={'unSelectable'}
-    styleName={
-      classNames('arrowButton',
-        { [`direction-${props.direction}`]: true },
-        { disabled: props.disabled },
-        { [`type-${props.type}`]: true })}
-    onClick={props.onClick}
-    disabled={props.disabled}
-  >
-    <span className={'icon-chevronRight'} styleName={'icon'} />
-  </button>
-);
+const ArrowButton = props => {
+  const capitalisedDirection = props.direction.charAt(0).toUpperCase() + props.direction.slice(1);
+  const iconName = `icon-chevron${capitalisedDirection}`;
+  return (
+    <button
+      className={'unSelectable'}
+      styleName={
+        classNames('arrowButton',
+          {disabled: props.disabled},
+          {[`type-${props.type}`]: true})}
+      onClick={props.onClick}
+      disabled={props.disabled}
+    >
+      <span className={iconName} styleName={'icon'} />
+    </button>
+  );
+}
 
 ArrowButton.displayName = 'Arrow Button';
 

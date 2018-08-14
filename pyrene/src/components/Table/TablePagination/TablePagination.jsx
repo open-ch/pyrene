@@ -5,7 +5,7 @@ import TableSelect from './TableSelect/TableSelect';
 import './tablePagination.css';
 
 const TablePagination = props => {
-  // console.log(props);
+  // console.log(props); onChange={(e) => props.onPageSizeChange(parseInt(e.target.value.value, 10))}
   return (
     <div styleName={'tablePagination'}>
       <div styleName={'resultsCounter'}>
@@ -19,7 +19,7 @@ const TablePagination = props => {
           <TableSelect
             placeholder={`${props.pageSize}`}
             options={props.pageSizeOptions.map(e => ({label: `${e}`, value: `${e}`}))}
-            onChange={(e) => props.onPageSizeChange(parseInt(e.target.value.value, 10))}
+            onChange={(e) => props.onPageSizeChange(parseInt(e.value, 10))}
             value={`${props.pageSize}`}
           />
         </div>
@@ -31,7 +31,9 @@ const TablePagination = props => {
 
       <div styleName={'pageNavigation'}>
         <ArrowButton direction={'left'} disabled={!props.canPrevious} onClick={() => props.onPageChange(props.page - 1)} type={'minimal'} />
+        <div styleName={'spacer small'}/>
         <div styleName={'pageTracker'}>{props.page + 1} of {props.pages}</div>
+        <div styleName={'spacer small'}/>
         <ArrowButton direction={'right'} disabled={!props.canNext} onClick={() => props.onPageChange(props.page + 1)} type={'minimal'} />
       </div>
     </div>

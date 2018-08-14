@@ -36,7 +36,7 @@ const selectStyle = {
     minHeight: 32,
     height: 32,
     backgroundColor: (state.isFocused || state.hasValue) ? colorConstants.neutral000 : colorConstants.neutral020,
-    border: state.selectProps.isInvalid && !state.isDisabled ? `solid 1px ${colorConstants.red500}` : state.isFocused ? `solid 1px ${colorConstants.blue500}` : `solid 1px ${colorConstants.neutral100}`,
+    border: 'none',
     borderRadius: 2,
     cursor: 'pointer',
 
@@ -50,16 +50,15 @@ const selectStyle = {
     },
 
     ':hover': {
-      border: `solid 1px ${colorConstants.blue500}`,
-
-      '& .singleSelect__dropdown-indicator:after': {
-        color: colorConstants.blue500,
-      },
+      backgroundColor: colorConstants.neutral030,
     },
   }),
 
   valueContainer: base => ({
     ...base,
+    display: 'flex',
+    padding: '0 8px 0 0',
+    justifyContent: 'flex-end',
     height: 32,
     '& :last-child': {
       zIndex: 2,
