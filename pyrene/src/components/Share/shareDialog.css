@@ -5,12 +5,11 @@
 
 .shareDialog {
   composes: commonFontSettings from '../../styles/common.css';
+  padding: 24px 24px 0 24px;
 
   & .title {
     box-sizing: border-box;
-    margin: 0 24px;
-    padding-top: 24px;
-    height: 56px;
+    padding-bottom: 16px;
 
     font-size: 18px;
     font-weight: 600;
@@ -19,29 +18,28 @@
   }
 
   & .content {
-    margin: 16px 24px;
     height: 32px;
+    padding-bottom: 16px;
+    width: 350px;
 
-    & input {
-      width: 350px;
+    & .urlField[type="text"] {
+      box-sizing: border-box;
+      padding-left: 8px;
+      height: 32px;
+      width: 100%;
 
       border-radius: 2px;
       border: solid 1px var(--neutral-100);
 
-      &[type="text"] {
-        box-sizing: border-box;
-        padding-left: 8px;
-        height: 32px;
-        letter-spacing: normal;
-        font-family: inherit;
-        font-style: normal;
-        font-stretch: normal;
-        font-size: 14px;
-        font-weight: normal;
-        line-height: 1.71;
-        text-align: left;
-        color: var(--neutral-500);
-      }
+      letter-spacing: normal;
+      font-family: inherit;
+      font-style: normal;
+      font-stretch: normal;
+      font-size: 14px;
+      font-weight: normal;
+      line-height: 1.71;
+      text-align: left;
+      color: var(--neutral-500);
     }
   }
 }

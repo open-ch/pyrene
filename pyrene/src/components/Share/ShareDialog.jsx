@@ -63,7 +63,7 @@ export default class ShareDialog extends React.Component {
                 Share this link
               </div>
               <div styleName={'content'}>
-                <input type={'text'} value={this.props.link} ref={(input) => { this.textInput = input; }} readOnly />
+                <input styleName={'urlField'} type={'text'} value={this.props.link} ref={(input) => { this.textInput = input; }} readOnly />
               </div>
               <ButtonBar
                 rightButtonSectionElements={[

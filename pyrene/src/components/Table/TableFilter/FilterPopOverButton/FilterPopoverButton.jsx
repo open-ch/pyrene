@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import Popover from 'react-tiny-popover';
 
 import './filterPopoverButton.css';
+import FilterPopover from '../FilterPopover/FilterPopover';
 
 const FilterPopoverButton = props => {
   return (
@@ -11,17 +12,15 @@ const FilterPopoverButton = props => {
       isOpen={props.displayPopover}
       position={['bottom']}
       align={'start'}
-      padding={16}
+      padding={8}
       content={({ position, nudgedLeft, nudgedTop, targetRect, popoverRect }) => (
-        <div>
-          Test
-        </div>
+        <FilterPopover />
       )}
-      containerStyle={{zIndex: 10}}
-      disableReposition={true}
+      containerClassName={'filterPopover'}
       onClickOutside={props.onClick}
+      disableReposition
     >
-      <div styleName={classNames('filterButton', { noBorder: props.noBorder })} onClick={props.onClick}>
+      <div styleName={classNames('filterButton', { noBorder: props.noBorder }, { popoverOpen: props.displayPopover })} onClick={props.onClick}>
         <div styleName={'buttonLabel'}>
           {props.label}
         </div>
