@@ -68,7 +68,7 @@ Container.defaultProps = {
 
 Container.propTypes = {
   /**
-   * Admin Button specification. When used an admin button is automatically rendered.
+   * Creates an admin type button in the header. Type: { icon: string, label: string (required), action: func (required) }
    */
   adminAction: PropTypes.shape({
     icon: PropTypes.string,
@@ -76,23 +76,23 @@ Container.propTypes = {
     action: PropTypes.func.isRequired,
   }),
   /**
-   * collapsible
+   * Whether the container is collapsible when the user clicks on the header.
    */
   collapsible: PropTypes.bool,
   /**
-   * Whether or not to display the content when the component is mounted
+   * Whether to display the content when the component is first mounted.
    */
   defaultExpanded: PropTypes.bool,
   /**
-   * Event handler.
+   * Javascript event handler.
    */
   onChange: PropTypes.func,
   /**
-   * Render function for the content
+   * Sets the content to be rendered inside the component.
    */
   renderCallback: PropTypes.func.isRequired,
   /**
-   * Displayed label when collapsed
+   * Sets the title displayed in the header of the component.
    */
   title: PropTypes.string.isRequired,
 };

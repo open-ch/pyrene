@@ -49,27 +49,27 @@ Button.defaultProps = {
 
 Button.propTypes = {
   /**
-   *  Disables any interaction with the button.
+   * Disables any interaction with the component.
    */
   disabled: PropTypes.bool,
   /**
-   *  Adds an icon in front of the label. Uses the icon-font.
+   * Adds an icon to the element.
    */
   icon: PropTypes.string,
   /**
-   *  Changes what the button says.
+   * Sets the label displayed to the user.
    */
   label: PropTypes.string.isRequired,
   /**
-   * Disables the button and displays a loader inside of it.
+   * Disables the component and displays a loader inside of it.
    */
   loading: PropTypes.bool,
   /**
-   *  onClick function
+   * Javascript event handler.
    */
   onClick: PropTypes.func,
   /**
-   * Changes the overall button style.
+   * Sets the overall style.
    */
   type: PropTypes.oneOf(['primary', 'secondary', 'danger', 'ghost', 'action', 'admin']),
 };

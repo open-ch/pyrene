@@ -47,27 +47,27 @@ Tooltip.defaultProps = {
 
 Tooltip.propTypes = {
   /**
-   * Alignment of the tooltip
+   * Sets the alignment of the tooltip.
    */
   align: PropTypes.oneOf(['start', 'center', 'end']),
   /**
-   * Automatic repositioning switch
+   * Whether automatic repositioning is allowed.
    */
   autoRepositioning: PropTypes.bool,
   /**
-   * Text displayed by the tooltip.
+   * Sets the label displayed inside of the tooltip.
    */
   label: PropTypes.string.isRequired,
   /**
-   * Preferred position array ordered by priority
+   * Sets the preferred position array ordered by priority for auto repositioning.
    */
   preferredPosition: PropTypes.arrayOf(PropTypes.oneOf(['top', 'right', 'bottom', 'left'])),
   /**
-   * Maximum Tooltip width
+   * Sets the Tooltip width. Only to be used to enforce line breaks.
    */
   width: PropTypes.number,
   /**
-   * Distance to target
+   * Sets the distance of the tooltip to its target.
    */
   distanceToTarget: PropTypes.number,
 };

@@ -27,7 +27,7 @@ const Banner = props => (
     <div styleName={'iconMessageContainer'}>
       <span styleName={'bannerIcon'}>{props.type === 'loading' ? <Loader size={'small'} /> : <span className={`icon-${iconNameForBannerType(props.type)}`} />}</span>
       <div styleName={'spacer'} />
-      <span styleName={'message'}>{props.message}</span>
+      <span styleName={'message'}>{props.label}</span>
     </div>
     {props.type !== 'error' && props.type !== 'loading' && <span className={'icon-delete'} styleName={'clearIcon'} onClick={props.onClear} role="button" aria-label="Clear Banner"/>}
   </div>
@@ -43,19 +43,19 @@ Banner.defaultProps = {
 
 Banner.propTypes = {
   /**
-   * Let's the user clear the Banner. Error banners can not be cleared.
+   * Whether the user can clear the banner. Error and loading banners can not be cleared.
    */
   clearable: PropTypes.bool,
   /**
-   * Text displayed inside of the Banner.
+   * Sets the label displayed to the user.
    */
-  message: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
   /**
-   * Event handler.
+   * Called when the user click on the clear icon.
    */
   onClear: PropTypes.func,
   /**
-   * Specifies the overall style and usecase.
+   * Sets the overall style.
    */
   type: PropTypes.oneOf(['info', 'success', 'error', 'warning', 'loading']).isRequired,
 };

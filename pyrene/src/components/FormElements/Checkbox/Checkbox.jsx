@@ -55,11 +55,11 @@ Checkbox.propTypes = {
    */
   disabled: PropTypes.bool,
   /**
-   * Changes the visual appearance, to signal that the usage was invalid.
+   * Sets the visual appearance, to signal that the input is invalid.
    */
   invalid: PropTypes.bool,
   /**
-   * Displayed label.
+   * Sets the label displayed to the user.
    */
   label: PropTypes.string.isRequired,
   /**
@@ -67,15 +67,15 @@ Checkbox.propTypes = {
    */
   name: PropTypes.string,
   /**
-   * Event handler.
+   * Javascript event handler.
    */
   onBlur: PropTypes.func,
   /**
-   * Event handler.
+   * Javascript event handler.
    */
   onChange: PropTypes.func,
   /**
-   * Sets the Checkbox to either true or false.
+   * Sets whether the checkbox is checked.
    */
   value: PropTypes.bool,
 };
