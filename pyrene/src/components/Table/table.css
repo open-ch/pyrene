@@ -24,6 +24,7 @@
 .toolbar {
   position: absolute;
   z-index: 1;
+  top: 8px;
   display: flex;
 }
 
@@ -62,7 +63,6 @@
   width: 100%;
   border-collapse: collapse;
   overflow: auto;
-  border-top: solid 1px var(--neutral-050);
 }
 
 :global(.ReactTable .rt-thead) {

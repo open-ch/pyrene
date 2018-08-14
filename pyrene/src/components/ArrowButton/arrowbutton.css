@@ -2,13 +2,8 @@
 
 .arrowButton {
   box-sizing: border-box;
-  height: 32px;
-  width: 32px;
-
-  font-size: 18px;
 
   border: none;
-
   outline: none;
   cursor: pointer;
 
@@ -18,9 +13,40 @@
   justify-content: center;
   align-items: center;
 
-  &.border {
+  &.type-bordered {
     border-radius: 2px;
     border: solid 1px #b2b8bf;
+    height: 32px;
+    width: 32px;
+
+    font-size: 18px;
+
+    & .icon {
+      display: block;
+      width: 18px;
+      height: 18px;
+      margin-left: 1px;
+    }
+
+    &:hover {
+      border-color: var(--blue-500);
+    }
+  }
+
+  &.type-minimal {
+    height: 16px;
+    width: 16px;
+    font-size: 16px;
+
+    & .icon {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+    }
+
+    &:hover {
+      background-color: var(--neutral-030);
+    }
   }
 
   &.direction-up {
@@ -36,19 +62,10 @@
     transform: none;
   }
 
-  &:hover {
-    border-color: var(--blue-500);
-  }
+
 
   &.disabled {
     opacity: 0.5;
     pointer-events: none;
   }
-}
-
-.icon {
-  display: block;
-  width: 18px;
-  height: 18px;
-  margin-left: 1px;
 }

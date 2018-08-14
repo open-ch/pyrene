@@ -1,6 +1,6 @@
 import React from 'react';
 import ArrowButton from '../../ArrowButton/ArrowButton';
-import SingleSelect from '../../SelectElements/SingleSelect/SingleSelect';
+import TableSelect from './TableSelect/TableSelect';
 
 import './tablePagination.css';
 
@@ -16,7 +16,7 @@ const TablePagination = props => {
 
       <div styleName={'pageSizeSelectOptions'}>
         <div styleName={'pageSizeSelect'}>
-          <SingleSelect
+          <TableSelect
             placeholder={`${props.pageSize}`}
             options={props.pageSizeOptions.map(e => ({label: `${e}`, value: `${e}`}))}
             onChange={(e) => props.onPageSizeChange(parseInt(e.target.value.value, 10))}
@@ -30,9 +30,9 @@ const TablePagination = props => {
       <div styleName={'separator'} />
 
       <div styleName={'pageNavigation'}>
-        <ArrowButton direction={'left'} disabled={!props.canPrevious} onClick={() => props.onPageChange(props.page - 1)} noBorder />
+        <ArrowButton direction={'left'} disabled={!props.canPrevious} onClick={() => props.onPageChange(props.page - 1)} type={'minimal'} />
         <div styleName={'pageTracker'}>{props.page + 1} of {props.pages}</div>
-        <ArrowButton direction={'right'} disabled={!props.canNext} onClick={() => props.onPageChange(props.page + 1)} noBorder />
+        <ArrowButton direction={'right'} disabled={!props.canNext} onClick={() => props.onPageChange(props.page + 1)} type={'minimal'} />
       </div>
     </div>
   );

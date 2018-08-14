@@ -17,7 +17,7 @@ const ArrowButton = props => (
       classNames('arrowButton',
         { [`direction-${props.direction}`]: true },
         { disabled: props.disabled },
-        { border: !props.noBorder })}
+        { [`type-${props.type}`]: true })}
     onClick={props.onClick}
     disabled={props.disabled}
   >
@@ -29,16 +29,12 @@ ArrowButton.displayName = 'Arrow Button';
 
 ArrowButton.defaultProps = {
   direction: 'right',
-  noBorder: true,
+  type: 'bordered',
   disabled: false,
   onClick: () => null,
 };
 
 ArrowButton.propTypes = {
-  /**
-   * Whether the border is not displayed around the button.
-   */
-  noBorder: PropTypes.bool,
   /**
    *  Specifies the direction that the arrow is pointing.
    */
@@ -51,6 +47,10 @@ ArrowButton.propTypes = {
    *  onClick function
    */
   onClick: PropTypes.func,
+  /**
+   * Sets the overall style.
+   */
+  type: PropTypes.oneOf(['bordered', 'minimal']),
 };
 
 export default ArrowButton;
