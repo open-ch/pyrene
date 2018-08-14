@@ -22,11 +22,11 @@ Loader.defaultProps = {
 
 Loader.propTypes = {
   /**
-   * Sets the size of the loader.
+   * Sets the size.
    */
   size: PropTypes.oneOf(['small', 'medium', 'large', 'xlarge']),
   /**
-   * Changes the overall appearance of the loader.
+   * Sets the overall style.
    */
   type: PropTypes.oneOf(['dark', 'light']),
 };

@@ -151,27 +151,27 @@ TabView.defaultProps = {
 
 TabView.propTypes = {
   /**
-   * Number of tabs that are displayed before the "more" tab.
+   * Sets the number of tabs that are displayed before the more tab.
    */
   directAccessTabs: PropTypes.number,
   /**
-   * Whether or not the tabView is active.
+   * Disables any interaction with the component.
    */
   disabled: PropTypes.bool,
   /**
-   * Name of the tab to preselect on firs load.
+   * Sets the tab to preselect when the component is first mounted.
    */
   initialTabName: PropTypes.string.isRequired,
   /**
-   * Maximum allowed width of the tabs.
+   * Sets a maximum allowed width for the tabs.
    */
   maxTabWidth: PropTypes.number,
   /**
-   * Event handler. Triggered the selected tab changes.
+   * Called when the selected tab changes.
    */
   tabChanged: PropTypes.func,
   /**
-   * Data input array for the tabs. [{name: string required, renderCallback: func required, disabled: bool}]
+   * Data input array for the tabs. Type: [{ name: string (required), renderCallback: func (required), disabled: bool }]
    */
   tabs: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string.isRequired,
