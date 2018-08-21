@@ -85,6 +85,12 @@
 :global(.icon-collapsUp:before) {
   content: "\34";
 }
+:global(.icon-chevronDown:before) {
+  content: "\63";
+}
+:global(.icon-chevronUp:before) {
+  content: "\64";
+}
 :global(.icon-chevronLeft:before) {
   content: "\32";
 }
@@ -94,4 +100,3 @@
 :global(.icon-share:before) {
   content: "\30";
 }
-
