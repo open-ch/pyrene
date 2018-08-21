@@ -74,7 +74,7 @@ const config = {
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'pyrene.js',
+    filename: 'pyrene.min.js',
     library: 'pyrene',
     libraryTarget: 'umd',
   },
