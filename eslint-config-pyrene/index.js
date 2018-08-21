@@ -14,6 +14,15 @@ module.exports = {
     }
   },
 
+  "parser": "babel-eslint",
+
+  "settings": {
+    "react": {
+      "pragma": "React",
+      "version": "16.4"
+    }
+  },
+
   "rules": {
     // require trailing commas for multiline (arrays, objects, imports, exports & functions), disallowed for same line
     "comma-dangle": [2, "always-multiline"],
@@ -58,6 +67,8 @@ module.exports = {
     "react/sort-prop-types": 2,
     // short hand props must be listed after all other props (Component, not prop declaration)
     "react/jsx-sort-props": [2, {"shorthandLast": true, "noSortAlphabetically": true}],
+    // do not allow deprecated lifecycle methods according to the react version provided above
+    "react/no-deprecated": 2,
     // We only have a11ly as it's a required dependency
     "jsx-a11y/no-static-element-interactions": 0,
     // Our imports work differently in MC
