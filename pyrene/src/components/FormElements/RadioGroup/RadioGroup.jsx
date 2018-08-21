@@ -95,7 +95,7 @@ RadioGroup.propTypes = {
   /**
    * Specifies a radio that is checked on page load.
    */
-  value: PropTypes.oneOf([PropTypes.number, PropTypes.string]).isRequired,
+  value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
 };
 
 RadioGroup.examples = [
