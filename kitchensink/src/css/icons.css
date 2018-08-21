@@ -55,6 +55,12 @@
 :global(.pyreneIcon-collapsUp:before) {
   content: "\34";
 }
+:global(.pyreneIcon-chevronDown:before) {
+  content: "\63";
+}
+:global(.pyreneIcon-chevronUp:before) {
+  content: "\64";
+}
 :global(.pyreneIcon-chevronLeft:before) {
   content: "\32";
 }

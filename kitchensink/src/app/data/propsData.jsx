@@ -586,7 +586,7 @@ const startProps = {
     canPrevious: true,
     displayNavigationArrows: true,
     size: 'small',
-    titleLabel: 'Modal',
+    title: 'Modal',
   },
   'multi-select': {
     title: 'Multi-Select',

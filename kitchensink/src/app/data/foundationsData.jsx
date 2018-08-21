@@ -212,8 +212,10 @@ const extendedColors = [
 const icons = [
   { name: 'share', tags: ['social'] },
   { name: 'filter', tags: ['lines'] },
-  { name: 'chevronLeft', tags: ['arrow', 'link'] },
-  { name: 'chevronRight', tags: ['arrow', 'link'] },
+  { name: 'chevronLeft', tags: ['arrow', 'link', 'navigation'] },
+  { name: 'chevronRight', tags: ['arrow', 'link', 'navigation'] },
+  { name: 'chevronUp', tags: ['arrow', 'navigation'] },
+  { name: 'chevronDown', tags: ['arrow', 'navigation'] },
   { name: 'collapsDown', tags: ['arrow', 'dropdown'] },
   { name: 'collapsUp', tags: ['arrow', 'dropdown'] },
   { name: 'errorOutline', tags: ['problem', 'invalid'] },
