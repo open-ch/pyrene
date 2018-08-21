@@ -32,6 +32,7 @@ ArrowButton.displayName = 'Arrow Button';
 
 ArrowButton.defaultProps = {
   direction: 'right',
+  type: 'bordered',
   disabled: false,
   onClick: () => null,
 };
@@ -49,6 +50,10 @@ ArrowButton.propTypes = {
    * Javascript event handler.
    */
   onClick: PropTypes.func,
+  /**
+   * Sets the overall style.
+   */
+  type: PropTypes.oneOf(['bordered', 'minimal']),
 };
 
 export default ArrowButton;
