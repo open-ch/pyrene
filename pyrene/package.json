@@ -16,7 +16,7 @@
   "scripts": {
     "clean": "rm -rf dist",
     "prebuild": "yarn install",
-    "build": "webpack",
+    "build": "NODE_ENV=production webpack",
     "prewatch": "yarn install",
     "watch": "webpack -w",
     "testWatch": "webpack --config webpackTest.config.babel.js -w",
