@@ -8,7 +8,7 @@ import './radioSelection.css';
  */
 const RadioGroup = (props) => {
   const rand = Math.floor(Math.random() * 1e10);
-  const lastElementIndex = props.radioLabels.length - 1;
+  const lastElementIndex = props.options.length - 1;
   return (
     <div
       styleName={classNames('radioSelectionContainer', { [`alignment-${props.alignment}`]: true }, { invalid: props.invalid && !props.selectedOption })}
@@ -30,7 +30,7 @@ const RadioGroup = (props) => {
             />
 
             <label
-              htmlFor={`radio_${radioLabel}_${rand}`}
+              htmlFor={`radio_${option.label}_${option.value}_${rand}`}
               styleName={
                 classNames('radioLabel',
                   { checked: props.value === option.value },
@@ -89,7 +89,7 @@ RadioGroup.propTypes = {
    * Specifies the different choices and values.
    */
   options: PropTypes.arrayOf(PropTypes.shape({
-    value: PropTypes.oneOf([PropTypes.number, PropTypes.string]).isRequired,
+    value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
     label: PropTypes.string.isRequired,
   })),
   /**
@@ -99,8 +99,8 @@ RadioGroup.propTypes = {
 };
 
 RadioGroup.examples = [
-  { alignment: 'vertical', radioLabels: ['option 1', 'option 2', 'option 3'] },
-  { alignment: 'horizontal', radioLabels: ['option 1', 'option 2', 'option 3', 'option 4', 'option 5'] },
+  { alignment: 'vertical', options: [{label: 'Coffee', value: 'coffee'}, {label: 'Whisky', value: 'whisky'}, {label: 'Irish Coffee', value: 'irishcoffee'}] },
+  { alignment: 'horizontal', options: [{label: 'Coffee', value: 'coffee'}, {label: 'Whisky', value: 'whisky'}, {label: 'Irish Coffee', value: 'irishcoffee'}] },
 ];
 
 export default RadioGroup;
