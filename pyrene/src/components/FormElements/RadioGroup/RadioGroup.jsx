@@ -8,7 +8,7 @@ import './radioSelection.css';
  */
 const RadioGroup = (props) => {
   const rand = Math.floor(Math.random() * 1e10);
-  const lastElementIndex = props.radioLabels.length - 1;
+  const lastElementIndex = props.options.length - 1;
   return (
     <div
       styleName={classNames('radioSelectionContainer', { [`alignment-${props.alignment}`]: true }, { invalid: props.invalid && !props.selectedOption })}
@@ -16,28 +16,28 @@ const RadioGroup = (props) => {
       onBlur={props.onBlur}
       id={props.name}
     >
-      {props.radioLabels.map((radioLabel, index) => (
-        <React.Fragment key={`radio_${radioLabel}`}>
+      {props.options.map((option, index) => (
+        <React.Fragment key={`radio_${option.label}_${option.value}`}>
           <div className={'radioContainer'}>
             <input
               styleName={'radioInput'}
-              checked={props.value === radioLabel}
-              id={`radio_${radioLabel}_${rand}`}
+              checked={props.value === option.value}
+              id={`radio_${option.label}_${option.value}_${rand}`}
               onChange={props.onChange}
               type="radio"
-              value={radioLabel}
+              value={option.value}
               name={props.name}
             />
 
             <label
-              htmlFor={`radio_${radioLabel}_${rand}`}
+              htmlFor={`radio_${option.label}_${option.value}_${rand}`}
               styleName={
                 classNames('radioLabel',
-                  { checked: (props.value === radioLabel) },
+                  { checked: props.value === option.value },
                   { disabled: props.disabled })}
             >
               <span styleName={'radioIcon'} />
-              {radioLabel}
+              {option.label}
             </label>
           </div>
           {index !== lastElementIndex && <div styleName={classNames({ [`spacer-${props.alignment}`]: true })} />}
@@ -51,7 +51,7 @@ RadioGroup.displayName = 'Radio Group';
 
 RadioGroup.defaultProps = {
   disabled: false,
-  radioLabels: [],
+  options: [],
   alignment: 'vertical',
   value: '',
   invalid: false,
@@ -88,16 +88,19 @@ RadioGroup.propTypes = {
   /**
    * Set the values that the user can choose from.
    */
-  radioLabels: PropTypes.arrayOf(PropTypes.string),
+  options: PropTypes.arrayOf(PropTypes.shape({
+    value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+    label: PropTypes.string.isRequired,
+  })),
   /**
    * Sets the selected choice of the user.
    */
-  value: PropTypes.string,
+  value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
 };
 
 RadioGroup.examples = [
-  { alignment: 'vertical', radioLabels: ['option 1', 'option 2', 'option 3'] },
-  { alignment: 'horizontal', radioLabels: ['option 1', 'option 2', 'option 3', 'option 4', 'option 5'] },
+  { alignment: 'vertical', options: [{label: 'Coffee', value: 'coffee'}, {label: 'Whisky', value: 'whisky'}, {label: 'Irish Coffee', value: 'irishcoffee'}] },
+  { alignment: 'horizontal', options: [{label: 'Coffee', value: 'coffee'}, {label: 'Whisky', value: 'whisky'}, {label: 'Irish Coffee', value: 'irishcoffee'}] },
 ];
 
 export default RadioGroup;
