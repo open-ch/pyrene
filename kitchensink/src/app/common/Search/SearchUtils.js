@@ -11,6 +11,7 @@ export default class SearchUtils {
   static getMatches(searchInput, componentLibrary) {
     const normalisedSearchInput = this.normalise(searchInput);
     return (Object.values(componentLibrary)
+      .filter(component => !component.hoc)
       .map(component => {
         const componentDescription = (typeof component.__docgenInfo === 'undefined') ? '' : component.__docgenInfo.description;
         return {[component.displayName]: componentDescription}})

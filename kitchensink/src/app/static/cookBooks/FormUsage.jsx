@@ -1,12 +1,12 @@
 import React from 'react';
 import * as yup from 'yup';
-import '../../css/componentPage.css';
+import '../../../css/componentPage.css';
 import { withFormLogic, Checkbox, Button, TextField, TextArea, RadioGroup, SingleSelect, MultiSelect, Link } from 'pyrene';
-import { testOptionsWithoutInvalid } from '../data/propsData';
-import CodeBox from '../common/PageElements/HowToElements/CodeBox/CodeBox';
-import Paragraph from '../common/PageElements/Paragraph/Paragraph';
-import DescriptionBox from '../common/PageElements/DescriptionBox/DescriptionBox';
-import DisplayBox from '../common/PageElements/HowToElements/DisplayBox/DisplayBox';
+import { testOptionsWithoutInvalid } from '../../data/propsData';
+import CodeBox from '../../common/PageElements/HowToElements/CodeBox/CodeBox';
+import Paragraph from '../../common/PageElements/Paragraph/Paragraph';
+import DescriptionBox from '../../common/PageElements/DescriptionBox/DescriptionBox';
+import DisplayBox from '../../common/PageElements/HowToElements/DisplayBox/DisplayBox';
 
 
 function delay(values, ms) {
@@ -32,15 +32,19 @@ const errorStyle = {
 
 const Form = props => (
   <React.Fragment>
-    <TextField width={300} title={'Email'} placeholder={'Email'} disabled={props.values.checkBox1} {...props.initField('email')} />
+    <TextField width={300} title={'Email'} placeholder={'Email'} disabled={props.values.checkBox1} required {...props.initField('email')} />
     <div style={{ height: 24 }} />
-    <TextField width={300} title={'Password in plain text 👀'} placeholder={'Password'} {...props.initField('password')} />
+    <TextField width={300} title={'Password in plain text 👀'} placeholder={'Password'} required {...props.initField('password')} />
     <div style={{ height: 24 }} />
 
     <div style={{ width: 300 }}>
       <RadioGroup
         alignment={'horizontal'}
-        radioLabels={['Beer', 'Coffee', 'Coffeebeer']}
+        options={[
+          {label: 'Beer', value: 'beer'},
+          {label:'Coffee', value: 'coffee'},
+          {label:'Coffeebeer', value: 'coffeebeer'}
+        ]}
         {...props.initField('radioGroup')}
       />
       {props.errors.radioGroup && props.touched.radioGroup && <div style={errorStyle}>{props.errors.radioGroup}</div>}
@@ -48,9 +52,9 @@ const Form = props => (
 
     <div style={{ height: 24 }} />
     <div style={{ width: 300 }}>
-      <SingleSelect title={'Select favorite icecream'} options={testOptionsWithoutInvalid} clearable {...props.initField('iceSelect')} />
+      <SingleSelect title={'Select favorite icecream'} options={testOptionsWithoutInvalid} required clearable {...props.initField('iceSelect')} />
       <div style={{ height: 24 }} />
-      <MultiSelect title={'Select icecream.. again'} options={testOptionsWithoutInvalid} creatable clearable keepMenuOnSelect {...props.initField('iceMultiselect')} />
+      <MultiSelect title={'Select icecream.. again'} options={testOptionsWithoutInvalid} required creatable clearable keepMenuOnSelect {...props.initField('iceMultiselect')} />
     </div>
 
     <div style={{ height: 24 }} />
@@ -109,7 +113,7 @@ const WrappedForm = withFormLogic(Form)({
   initialValues: {
     email: 'blabl@abla.com',
     password: '',
-    radioGroup: '',
+    radioGroup: null,
     iceSelect: null,
     iceMultiselect: [],
     terms: false,
@@ -255,7 +259,8 @@ const Yupscheme = `const validationSchema = yup.object({
   })),
 
   // conditional validation for spam checkbox depending on terms checkbox
-  terms: yup.boolean().test('acceptTerms', 'You need to accept the terms of conditioners for nicer hair!', value => value === true),
+  terms: yup.boolean()
+    .test('acceptTerms', 'You need to accept the terms of conditioners for nicer hair!', value => value === true),
   spam: yup.boolean()
     .when('terms', {
       is: true,
@@ -282,18 +287,24 @@ const Form = props => (
       title={'Email'}
       placeholder={'Email'}
       disabled={props.values.checkBox1}
+      required // Note that the required prop only applies some styling 
       {...props.initField('email')}
      />
      
     <TextField 
       title={'Password in plain text 👀'}
       placeholder={'Password'}
+      required
       {...props.initField('password')}
     />
    
     <RadioGroup
       alignment={'horizontal'}
-      radioLabels={['Beer', 'Coffee', 'Coffeebeer']}
+      options={[
+        {label: 'Beer', value: 'beer'},
+        {label:'Coffee', value: 'coffee'},
+        {label:'Coffeebeer', value: 'coffeebeer'}
+      ]}
       {...props.initField('radioGroup')}
     />
     {props.errors.radioGroup && props.touched.radioGroup && <div>{props.errors.radioGroup}</div>}
@@ -302,6 +313,7 @@ const Form = props => (
       title={'Select favorite icecream'}
       options={iceOptions}
       clearable
+      required
       {...props.initField('iceSelect')}
     />
      
@@ -310,6 +322,7 @@ const Form = props => (
       options={iceOptions}
       creatable
       clearable
+      required
       keepMenuOnSelect
       {...props.initField('iceMultiselect')}
     />

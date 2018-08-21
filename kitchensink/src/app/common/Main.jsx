@@ -13,7 +13,7 @@ import '../../css/common.css';
 import SearchBar from './Search/SearchBar/SearchBar';
 import ResultsPage from './Search/ResultsPage';
 import NotFoundPage from '../static/NotFoundPage';
-import FormUsage from '../static/FormUsage';
+import FormUsage from '../static/cookBooks/FormUsage';
 
 export default class Main extends React.Component {
 
@@ -28,7 +28,7 @@ export default class Main extends React.Component {
     return (
       <div styleName={'mainContainer'}>
         <div styleName={'leftContainer'}>
-          <Logo versionNr={packageJson.version} />
+          <Logo pyreneVersion={packageJson.dependencies.pyrene} />
           <SearchBar value={searchBarValue} />
           <SideBarMenu />
           <div styleName={'copyRight'}>&copy; Open Systems 2018</div>

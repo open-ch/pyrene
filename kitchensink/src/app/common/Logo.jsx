@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 const Logo = props => (
   <Link to={'/'}>
     <div styleName={'kitchenSinkLogo'}>
-      <div styleName={'versionNr'}>{props.versionNr}</div>
+      <div styleName={'versionNr'}>{props.pyreneVersion.replace(/\^/, '')}</div>
     </div>
   </Link>
 );
@@ -14,7 +14,7 @@ const Logo = props => (
 Logo.displayName = 'Logo';
 
 Logo.propTypes = {
-  versionNr: PropTypes.string.isRequired
+  pyreneVersion: PropTypes.string.isRequired
 };
 
 export default Logo;
