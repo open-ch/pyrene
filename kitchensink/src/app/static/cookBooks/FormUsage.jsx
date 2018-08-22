@@ -62,7 +62,7 @@ const Form = props => (
       width: 300,
     }}
     >
-      <Checkbox label={'I accept the terms of conditioners.'} {...props.initField('terms')} />
+      <Checkbox label={'I accept the terms of conditioners.'} required {...props.initField('terms')} />
       <Checkbox label={'Hit me with them juicy spam mails.'} {...props.initField('spam')} />
     </div>
     {props.errors.terms && props.touched.terms && <div style={errorStyle}>{props.errors.terms}</div>}
@@ -327,7 +327,7 @@ const Form = props => (
       {...props.initField('iceMultiselect')}
     />
    
-    <Checkbox label={'I accept the terms of conditioners.'} {...props.initField('terms')} />
+    <Checkbox label={'I accept the terms of conditioners.'} required {...props.initField('terms')} />
     <Checkbox label={'Hit me with them juicy spam mails.'} {...props.initField('spam')} />
     {props.errors.terms && props.touched.terms && <div style={errorStyle}>{props.errors.terms}</div>}
     {props.errors.spam && <div style={errorStyle}>{props.errors.spam}</div>}
