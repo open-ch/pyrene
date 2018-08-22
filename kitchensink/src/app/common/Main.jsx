@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import Components from 'pyrene';
+import Components from 'pyrene/dist/pyrene.dev';
 import packageJson from '../../../package.json';
 import Logo from './Logo';
 import SideBarMenu from './SideBarMenu/SideBarMenu';
