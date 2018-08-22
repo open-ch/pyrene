@@ -24,9 +24,14 @@
           ["react-css-modules", {
             "generateScopedName": "[name]__[local]--[hash:base64:10]"
           }],
+          "react-docgen",
         ]
       }
     },
+
+
+
+
     "plugins": [
       "transform-object-assign",
       "transform-object-rest-spread",

@@ -63,4 +63,9 @@
       background-image: url('./checkbox-invalid-hover.svg');
     }
   }
+
+  &.required:after {
+    content: '*';
+    color: var(--red-500);
+  }
 }

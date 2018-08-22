@@ -26,7 +26,8 @@ const Checkbox = (props) => {
           classNames('checkboxLabel',
             {checked: props.value},
             {disabled: props.disabled},
-            {invalid: props.invalid && !props.value})}
+            {invalid: props.invalid && !props.value},
+            {required: props.required})}
         htmlFor={`checkbox_${props.label}_${rand}`}
         role="checkbox"
         aria-checked={props.checked}
@@ -44,6 +45,7 @@ Checkbox.defaultProps = {
   disabled: false,
   value: false,
   invalid: false,
+  required: false,
   name: '',
   onChange: () => null,
   onBlur: () => null,
@@ -74,6 +76,10 @@ Checkbox.propTypes = {
    * Javascript event handler.
    */
   onChange: PropTypes.func,
+  /**
+   * Adds a visual indication to display that the field is required.
+   */
+  required: PropTypes.bool,
   /**
    * Sets whether the checkbox is checked.
    */

@@ -61,6 +61,7 @@ const config = {
     new OptimizeCSSAssetsPlugin({}),
     new UnminifiedWebpackPlugin({
       exclude: /\.css$/,
+      postfix: 'dev',
     }),
   ],
   optimization: {
@@ -74,7 +75,7 @@ const config = {
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'pyrene.min.js',
+    filename: 'pyrene.js',
     library: 'pyrene',
     libraryTarget: 'umd',
   },
