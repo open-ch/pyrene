@@ -55,6 +55,10 @@ Tooltip.propTypes = {
    */
   autoRepositioning: PropTypes.bool,
   /**
+   * Component(s) that the tooltip is wrapping.
+   */
+  children: PropTypes.func.isRequired,
+  /**
    * Sets the label displayed inside of the tooltip.
    */
   label: PropTypes.string.isRequired,
