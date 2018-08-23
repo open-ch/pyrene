@@ -7,6 +7,7 @@ import DynamicPropTable from './PageElements/Tables/DynamicPropTable';
 import Paragraph from './PageElements/Paragraph/Paragraph';
 import ExampleBox from './PageElements/ExampleBox/ExampleBox';
 import examplesData from '../data/examplesData';
+import specialComponentHandlingData from '../data/specialComponentHandlingData';
 
 import ParentButton from './PageElements/ParentButton/ParentButton';
 
@@ -79,11 +80,15 @@ export default class ComponentEditor extends React.Component {
     });
   };
 
+  getComponentName = (component) => {
+    return component.displayName.toLowerCase().replace(/\s/g, '');
+  };
+
   render() {
     const displayedComponent = <this.props.component {...this.state.componentProps} />;
     return (
       <div className={'componentPlayground'}>
-        {examplesData[this.props.component.displayName.toLowerCase().replace(/\s/g, '')] &&
+        {examplesData[this.getComponentName(this.props.component)] &&
         <Paragraph title={'Examples'} large>
           <ExampleBox component={this.props.component} onExampleClick={this.handleExampleClick}/>
         </Paragraph>
@@ -93,7 +98,7 @@ export default class ComponentEditor extends React.Component {
             <div styleName={classNames('pin', { pinned: this.state.pinned })} onClick={() => this.handlePinClick()} />
             <div styleName={classNames('sun', { darkMode: this.state.darkMode })} onClick={() =>this.handleSunClick()} />
             <div styleName={'componentDisplay'}>
-              {this.props.component.needsTrigger ? <ParentButton component={displayedComponent} /> : displayedComponent}
+              {specialComponentHandlingData[this.getComponentName(this.props.component)] && specialComponentHandlingData[this.getComponentName(this.props.component)].needsTrigger ? <ParentButton component={displayedComponent} /> : displayedComponent}
             </div>
             <CodeBlock component={displayedComponent} displayComponentPinned={this.state.pinned} />
           </div>

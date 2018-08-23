@@ -14,6 +14,7 @@ import SearchBar from './Search/SearchBar/SearchBar';
 import ResultsPage from './Search/ResultsPage';
 import NotFoundPage from '../static/NotFoundPage';
 import FormUsage from '../static/cookBooks/FormUsage';
+import specialComponentHandlingData from '../data/specialComponentHandlingData';
 
 export default class Main extends React.Component {
 
@@ -43,7 +44,7 @@ export default class Main extends React.Component {
 
             {Object.values(Components).map((component) => {
               const lowercaseComponentName = component.displayName.replace(/\s/g, '').toLowerCase();
-              if (component.hoc === true) {
+              if (specialComponentHandlingData[lowercaseComponentName] && specialComponentHandlingData[lowercaseComponentName].noComponentPage) {
                 return null;
               }
               return (

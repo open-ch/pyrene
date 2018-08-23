@@ -33,18 +33,22 @@ export default class ExampleBox extends React.Component {
     }
   }
 
+  getComponentName = (component) => {
+    return component.displayName.toLowerCase().replace(/\s/g, '');
+  };
+
 
   render() {
     return (
       <div styleName={'exampleBox'}>
         <div styleName={'exampleDisplay'}>
-          {examplesData[this.props.component.displayName.toLowerCase().replace(/\s/g, '')].examples.map((exampleProps, index) => (
+          {examplesData[this.getComponentName(this.props.component)].examples.map((exampleProps, index) => (
             <React.Fragment key={hash(exampleProps)}>
 
               <Example
                 component={this.props.component}
                 exampleProps={exampleProps}
-                description={examplesData[this.props.component.displayName.toLowerCase().replace(/\s/g, '')].exampleDescriptions && examplesData[this.props.component.displayName.toLowerCase().replace(/\s/g, '')].exampleDescriptions[index]}
+                description={examplesData[this.getComponentName(this.props.component)].exampleDescriptions && examplesData[this.getComponentName(this.props.component)].exampleDescriptions[index]}
                 onMouseOver={this.handleExampleHover}
                 onMouseLeave={this.handleExampleHover}
                 onExampleClick={this.props.onExampleClick}

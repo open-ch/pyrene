@@ -1,6 +1,7 @@
 import React from 'react';
 import Components from 'pyrene';
 import SideBarMenuSection from './SideBarMenuSection';
+import specialComponentHandlingData from '../../data/specialComponentHandlingData';
 
 import './sideBarMenu.css';
 
@@ -19,7 +20,7 @@ const SideBarMenu = props => (
         title="Components"
         sectionElements={
           Object.values(Components)
-            .filter(component => component.hoc !== true)
+            .filter(component => specialComponentHandlingData[component.displayName.toLowerCase().replace(/\s/g, '')] ? !specialComponentHandlingData[component.displayName.toLowerCase().replace(/\s/g, '')].noComponentPage : true)
             .map((component) => {
               const lowercaseComponentName = component.displayName.replace(/\s/g, '').toLowerCase();
               return ({ name: component.displayName, linkToPath: `/${lowercaseComponentName}` });
