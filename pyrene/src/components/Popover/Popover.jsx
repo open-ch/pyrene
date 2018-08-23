@@ -51,6 +51,10 @@ Popover.propTypes = {
    */
   autoReposition: PropTypes.bool,
   /**
+   * Wrapped component(s) that the popover is using for its positioning.
+   */
+  children: PropTypes.func.isRequired,
+  /**
    * Whether to display the popover.
    */
   displayPopover: PropTypes.bool,
