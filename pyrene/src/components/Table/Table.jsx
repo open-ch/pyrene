@@ -42,13 +42,12 @@ export default class Table extends React.Component {
         */}
         <div styleName={classNames('tableAndActions', {loading: this.props.loading})}>
         <div styleName={'toolbar'}>
-          <Button label={'Yalla'} type={'action'} icon={'warning'} />
-          <div style={{width: 16}} />
-          <Button label={'Yallo'} type={'action'} icon={'errorOutline'} />
-          <div style={{width: 16}} />
-          <Button label={'Yola'} type={'action'} icon={'search'} />
-          <div style={{width: 16}} />
-          <Button label={'Yolo'} type={'action'} icon={'filter'} />
+          {this.props.actions.map((action, index) => (
+            <React.Fragment>
+              <Button label={action.label} icon={action.icon ? action.icon : undefined} onClick={action.callBack} type={'action'} />
+              {index + 1 < this.props.actions.length && <div styleName={'spacer'} />}
+            </React.Fragment>
+          ))}
         </div>
           <ReactTable
             defaultPageSize={this.props.defaultPageSize}
@@ -111,6 +110,12 @@ Table.defaultProps = {
 };
 
 Table.propTypes = {
+  actions: PropTypes.arrayOf(PropTypes.shape({
+    icon: PropTypes.string,
+    label: PropTypes.string.isRequired,
+    callBack: PropTypes.func.isRequired,
+  })),
+
   columns: PropTypes.array.isRequired,
 
   data: PropTypes.array.isRequired,

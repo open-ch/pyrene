@@ -45,6 +45,10 @@
   display: flex;
 }
 
+.spacer {
+  width: 16px;
+}
+
 /*
    Search field: \..*(?=\{)
    Replace field: :global($0)
