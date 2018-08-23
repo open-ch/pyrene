@@ -1,7 +1,7 @@
 import React from 'react';
 import * as yup from 'yup';
 import '../../../css/componentPage.css';
-import { withFormLogic, Checkbox, Button, TextField, TextArea, RadioGroup, SingleSelect, MultiSelect, Link } from 'pyrene';
+import { withFormLogic, Checkbox, Button, TextField, TextArea, RadioGroup, SingleSelect, MultiSelect, Link } from 'pyrene/dist/pyrene.dev';
 import { testOptionsWithoutInvalid } from '../../data/propsData';
 import CodeBox from '../../common/PageElements/HowToElements/CodeBox/CodeBox';
 import Paragraph from '../../common/PageElements/Paragraph/Paragraph';

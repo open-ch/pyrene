@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextField, SingleSelect, MultiSelect, Checkbox } from 'pyrene';
+import { TextField, SingleSelect, MultiSelect, Checkbox } from 'pyrene/dist/pyrene.dev';
 import Table from './Table';
 import PropTypes from 'prop-types';
 import IconSelect from '../IconSelect/IconSelect';

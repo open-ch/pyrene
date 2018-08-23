@@ -1,5 +1,5 @@
 import React from 'react';
-import Components from 'pyrene';
+import Components from 'pyrene/dist/pyrene.dev';
 import SideBarMenuSection from './SideBarMenuSection';
 import specialComponentHandlingData from '../../data/specialComponentHandlingData';
 

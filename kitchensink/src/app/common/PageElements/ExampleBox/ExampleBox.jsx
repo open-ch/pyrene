@@ -1,5 +1,4 @@
 import React from 'react';
-import { Button } from 'pyrene';
 import hash from 'object-hash';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';

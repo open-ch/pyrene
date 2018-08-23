@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import '../../../css/componentPage.css';
-import Components from 'pyrene';
+import Components from 'pyrene/dist/pyrene.dev';
 import SearchUtils from './SearchUtils';
 import SearchResult from './SearchResult/SearchResult';
 import Paragraph from '../PageElements/Paragraph/Paragraph';
