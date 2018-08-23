@@ -16,7 +16,7 @@ export default class Example extends React.Component {
       <div
         styleName={classNames('example', { hoveredLast: this.props.hoveredLast })}
         onClick={() => this.props.onExampleClick(this.props.exampleProps)}
-        onMouseOver={() => this.handleMouseOver(this.props.exampleProps.description)}
+        onMouseOver={() => this.handleMouseOver(this.props.description)}
         onMouseLeave={() => this.handleMouseOver()}
       >
         <div styleName={'componentOverlay'}>
@@ -33,6 +33,7 @@ Example.displayName = 'Example';
 Example.defaultProps = {};
 
 Example.propTypes = {
+  description: PropTypes.string,
   component: PropTypes.func.isRequired,
   exampleProps: PropTypes.shape().isRequired,
   onExampleClick: PropTypes.func.isRequired,

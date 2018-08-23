@@ -6,7 +6,7 @@ import CodeBlock from '../common/CodeBlock';
 import DynamicPropTable from './PageElements/Tables/DynamicPropTable';
 import Paragraph from './PageElements/Paragraph/Paragraph';
 import ExampleBox from './PageElements/ExampleBox/ExampleBox';
-import Utils from './Utils';
+import examplesData from '../data/examplesData';
 
 import ParentButton from './PageElements/ParentButton/ParentButton';
 
@@ -83,7 +83,7 @@ export default class ComponentEditor extends React.Component {
     const displayedComponent = <this.props.component {...this.state.componentProps} />;
     return (
       <div className={'componentPlayground'}>
-        {this.props.component.examples &&
+        {examplesData[this.props.component.displayName.toLowerCase().replace(/\s/g, '')] &&
         <Paragraph title={'Examples'} large>
           <ExampleBox component={this.props.component} onExampleClick={this.handleExampleClick}/>
         </Paragraph>
