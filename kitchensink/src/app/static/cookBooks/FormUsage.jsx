@@ -1,7 +1,7 @@
 import React from 'react';
 import * as yup from 'yup';
 import '../../../css/componentPage.css';
-import { withFormLogic, Checkbox, Button, TextField, TextArea, RadioGroup, SingleSelect, MultiSelect, Link } from 'pyrene/dist/pyrene.dev';
+import { Form, Checkbox, Button, TextField, TextArea, RadioGroup, SingleSelect, MultiSelect, Link } from 'pyrene/dist/pyrene.dev';
 import { testOptionsWithoutInvalid } from '../../data/propsData';
 import CodeBox from '../../common/PageElements/HowToElements/CodeBox/CodeBox';
 import Paragraph from '../../common/PageElements/Paragraph/Paragraph';
@@ -29,49 +29,6 @@ const errorStyle = {
   textAlign: 'left',
   color: 'var(--red-500)',
 };
-
-const Form = props => (
-  <React.Fragment>
-    <TextField width={300} title={'Email'} placeholder={'Email'} disabled={props.values.checkBox1} required {...props.initField('email')} />
-    <div style={{ height: 24 }} />
-    <TextField width={300} title={'Password in plain text 👀'} placeholder={'Password'} required {...props.initField('password')} />
-    <div style={{ height: 24 }} />
-
-    <div style={{ width: 300 }}>
-      <RadioGroup
-        alignment={'horizontal'}
-        options={[
-          {label: 'Beer', value: 'beer'},
-          {label:'Coffee', value: 'coffee'},
-          {label:'Coffeebeer', value: 'coffeebeer'}
-        ]}
-        {...props.initField('radioGroup')}
-      />
-      {props.errors.radioGroup && props.touched.radioGroup && <div style={errorStyle}>{props.errors.radioGroup}</div>}
-    </div>
-
-    <div style={{ height: 24 }} />
-    <div style={{ width: 300 }}>
-      <SingleSelect title={'Select favorite icecream'} options={testOptionsWithoutInvalid} required clearable {...props.initField('iceSelect')} />
-      <div style={{ height: 24 }} />
-      <MultiSelect title={'Select icecream.. again'} options={testOptionsWithoutInvalid} required creatable clearable keepMenuOnSelect {...props.initField('iceMultiselect')} />
-    </div>
-
-    <div style={{ height: 24 }} />
-    <div style={{
-      width: 300,
-    }}
-    >
-      <Checkbox label={'I accept the terms of conditioners.'} required {...props.initField('terms')} />
-      <Checkbox label={'Hit me with them juicy spam mails.'} {...props.initField('spam')} />
-    </div>
-    {props.errors.terms && props.touched.terms && <div style={errorStyle}>{props.errors.terms}</div>}
-    {props.errors.spam && <div style={errorStyle}>{props.errors.spam}</div>}
-
-    <div style={{ height: 24 }} />
-    <Button label={'Submit'} type={'danger'} disabled={props.submitDisabled} loading={props.isSubmitting} />
-  </React.Fragment>
-);
 
 const validationSchema = yup.object({
   email: yup.string()
@@ -108,7 +65,71 @@ const validationSchema = yup.object({
     }),
 });
 
+const Form2 = (
+  <Form
+    render={(values, errors, touched, isSubmitting, submitDisabled, initField) => (
+      <React.Fragment>
+        <TextField width={300} title={'Email'} placeholder={'Email'} disabled={values.checkBox1} required {...initField('email')} />
+        <div style={{ height: 24 }} />
+        <TextField width={300} title={'Password in plain text 👀'} placeholder={'Password'} required {...initField('password')} />
+        <div style={{ height: 24 }} />
 
+        <div style={{ width: 300 }}>
+          <RadioGroup
+            alignment={'horizontal'}
+            options={[
+              {label: 'Beer', value: 'beer'},
+              {label:'Coffee', value: 'coffee'},
+              {label:'Coffeebeer', value: 'coffeebeer'}
+            ]}
+            {...initField('radioGroup')}
+          />
+          {errors.radioGroup && touched.radioGroup && <div style={errorStyle}>{errors.radioGroup}</div>}
+        </div>
+
+        <div style={{ height: 24 }} />
+        <div style={{ width: 300 }}>
+          <SingleSelect title={'Select favorite icecream'} options={testOptionsWithoutInvalid} required clearable {...initField('iceSelect')} />
+          <div style={{ height: 24 }} />
+          <MultiSelect title={'Select icecream.. again'} options={testOptionsWithoutInvalid} required creatable clearable keepMenuOnSelect {...initField('iceMultiselect')} />
+        </div>
+
+        <div style={{ height: 24 }} />
+        <div style={{
+          width: 300,
+        }}
+        >
+          <Checkbox label={'I accept the terms of conditioners.'} required {...initField('terms')} />
+          <Checkbox label={'Hit me with them juicy spam mails.'} {...initField('spam')} />
+        </div>
+        {errors.terms && touched.terms && <div style={errorStyle}>{errors.terms}</div>}
+        {errors.spam && <div style={errorStyle}>{errors.spam}</div>}
+
+        <div style={{ height: 24 }} />
+        <Button label={'Submit'} type={'danger'} disabled={submitDisabled} loading={isSubmitting} />
+      </React.Fragment>
+    )}
+
+    validationSchema={validationSchema}
+    initialValues={{
+      email: 'blabl@abla.com',
+      password: '',
+      radioGroup: null,
+      iceSelect: null,
+      iceMultiselect: [],
+      terms: false,
+      spam: false,
+    }}
+    onSubmit={values => delay(values, 2000)}
+    onChange={(values, setFieldValue) => {
+      if (values.iceSelect === 'vanilla') {
+        setFieldValue('radioGroup', 'coffeebeer');
+      }
+    }}
+/>);
+
+
+/*
 const WrappedForm = withFormLogic(Form)({
   initialValues: {
     email: 'blabl@abla.com',
@@ -166,6 +187,8 @@ const ExampleForm = withFormLogic(SmallForm)({
   validationSchema: yup.object({}),
   onSubmit: (values) => delay(values, 3000),
 });
+
+*/
 
 const FormCode1 = `const Form = (props) => (
   // PROPS: 
@@ -395,7 +418,7 @@ const FormUsage = () => (
             Let's have a look at that beauty. ✨
           </DescriptionBox>
           <DisplayBox>
-            <ExampleForm />
+            {/*<ExampleForm />*/}
           </DisplayBox>
         </Paragraph>
 
@@ -419,7 +442,7 @@ const FormUsage = () => (
             Using the yup validation from above:
           </DescriptionBox>
           <DisplayBox>
-            <WrappedForm />
+            {Form2}
           </DisplayBox>
           <CodeBox>
             {BigForm}

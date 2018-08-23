@@ -7,7 +7,7 @@ const specialComponentHandlingData = {
   modal: {
     needsTrigger: true,
   },
-  withformlogic: {
+  form: {
     noComponentPage: true,
   },
 };
