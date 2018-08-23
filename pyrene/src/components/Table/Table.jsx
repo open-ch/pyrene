@@ -35,9 +35,11 @@ export default class Table extends React.Component {
           {this.props.title}
         </div>}
         {this.props.loading && this.renderLoader()}
+        {/* Future Filter component
         <div styleName={classNames('filterContainer', {loading: this.props.loading})}>
           <TableFilter />
         </div>
+        */}
         <div styleName={classNames('tableAndActions', {loading: this.props.loading})}>
         <div styleName={'toolbar'}>
           <Button label={'Yalla'} type={'action'} icon={'warning'} />
