@@ -1,0 +1,22 @@
+.tableHeaderCell {
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  height: 32px;
+  line-height: 20px;
+}
+
+.sortIcon {
+  display: block;
+  width: 16px;
+  height: 16px;
+  background-image: url('../images/sort.svg');
+
+  &.-sort-asc {
+    background-image: url('../images/sortDown.svg');
+  }
+
+  &.-sort-desc {
+    background-image: url('../images/sortUp.svg');
+  }
+}

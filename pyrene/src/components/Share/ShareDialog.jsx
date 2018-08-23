@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Popover from 'react-tiny-popover';
+import Popover from '../Popover/Popover';
 import Button from '../Button/Button';
 import ButtonBar from '../ButtonBar/ButtonBar';
-import classNames from 'classnames';
 
 import './shareDialog.css';
 
@@ -17,11 +16,11 @@ export default class ShareDialog extends React.Component {
     dialogPosition: {},
   };
 
-  componentDidUpdate() {
+  /*componentDidUpdate() {
     if (this.state.displayShareDialog) {
       this._focusAndSelectInput();
     }
-  }
+  }*/
 
   _copyLinkToClipboard = () => {
     document.execCommand('copy');
@@ -44,26 +43,18 @@ export default class ShareDialog extends React.Component {
     return (
       <div styleName="shareDialogContainer">
         <Popover
-          isOpen={this.state.displayShareDialog}
-          position={[this.props.position ]}
+          displayPopover={this.state.displayShareDialog}
+          position={[this.props.position]}
           align={this.props.align}
           padding={16}
           onClickOutside={() => this.setState({ displayShareDialog: false })}
-          containerStyle={{
-            borderRadius: '4px',
-            boxSizing: 'borderBox',
-            backgroundColor: 'white',
-            boxShadow: '0 4px 8px -2px rgba(0, 21, 44, 0.2), 0 0 1px 0 rgba(0, 21, 44, 0.3)',
-            zIndex: 9999
-          }}
-          disableReposition
-          content={({ position, nudgedLeft, nudgedTop, targetRect, popoverRect }) => (
+          renderPopoverContent={() => (
             <div className={'unSelectable'} styleName={'shareDialog'} role="dialog">
               <div styleName={'title'}>
                 Share this link
               </div>
               <div styleName={'content'}>
-                <input type={'text'} value={this.props.link} ref={(input) => { this.textInput = input; }} readOnly />
+                <input styleName={'urlField'} type={'text'} value={this.props.link} ref={(input) => { this.textInput = input; }} readOnly />
               </div>
               <ButtonBar
                 rightButtonSectionElements={[
