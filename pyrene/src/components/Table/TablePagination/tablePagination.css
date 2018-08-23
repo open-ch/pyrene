@@ -1,0 +1,53 @@
+.tablePagination {
+  height: 48px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  font-size: 13px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: var(--neutral-200);
+}
+
+.pageNavigation {
+  display: flex;
+  align-items: center;
+}
+
+.pageTracker {
+  color: var(--neutral-500);
+  white-space: nowrap;
+}
+
+.pageSizeSelectOptions {
+  display: flex;
+  align-items: center;
+}
+
+.pageSizeSelect {
+  width: 64px;
+}
+
+.spacer {
+  &.small {
+    width: 8px;
+  }
+  &.medium {
+    width: 24px;
+  }
+}
+
+.separator {
+  width: 1px;
+  height: 32px;
+  background-color: var(--neutral-050);
+  margin: 0 16px;
+}
+
+.resultsCounter {
+
+}

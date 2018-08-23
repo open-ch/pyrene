@@ -2,7 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 
-const withFormLogic = (WrappedForm) => ({initialValues, validationSchema, onSubmit, onChange}) => {
+/**
+ * HOC for form logic
+ */
+const withFormLogic = (WrappedForm) => ({initialValues, validationFunction, validationSchema, multiSelectOptionValidation, onSubmit, onChange}) => {
   return class FormWithLogic extends React.Component {
 
     getTouchedState = initialValues => {

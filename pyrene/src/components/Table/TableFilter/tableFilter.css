@@ -1,0 +1,62 @@
+.tableFilter {
+  display: flex;
+  justify-content: flex-start;
+}
+
+
+.filterSearchBar {
+  position: relative;
+}
+
+.filterSearchBarInput {
+  box-sizing: border-box;
+  width: 204px;
+  height: 32px;
+  border-radius: 2px;
+  border: solid 1px var(--neutral-050);
+
+  outline: none;
+
+  &.filled {
+    border: solid 1px var(--neutral-200);
+  }
+
+  &:hover, &:focus {
+    border: solid 1px var(--blue-500);
+  }
+
+  &[type=text] {
+    font-family: AvenirNext;
+    font-size: 13px;
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.46;
+    letter-spacing: normal;
+
+    padding-left: 32px;
+
+    &::placeholder {
+      color: var(--neutral-200);
+    }
+  }
+
+}
+
+.searchIcon {
+  display: block;
+  padding: 0 !important;
+  width: 20px;
+  height: 20px;
+
+  font-size: 20px;
+  color: var(--neutral-400);
+
+  position: absolute;
+  top: 6px;
+  left: 8px;
+}
+
+.spacer {
+  width: 16px;
+}
