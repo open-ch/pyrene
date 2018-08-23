@@ -623,7 +623,7 @@ const startProps = {
     data: tableData,
     columns: tableColumns,
     onRowDoubleClick: (rowInfo) => console.log(rowInfo),
-    actions: [{icon: 'search', label: 'Test', callBack: 'callbackFunction'}]
+    actions: [{icon: 'search', label: 'Test', callBack: () => console.log('test')}]
   },
   'tabview': {
     initialTabName: 'Tab 1',
