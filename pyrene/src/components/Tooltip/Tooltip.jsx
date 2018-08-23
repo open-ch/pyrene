@@ -55,7 +55,7 @@ Tooltip.propTypes = {
    */
   autoRepositioning: PropTypes.bool,
   /**
-   * Component(s) that the tooltip is wrapping.
+   * Wrapped component(s) that the tooltip is using for its positioning.
    */
   children: PropTypes.func.isRequired,
   /**
