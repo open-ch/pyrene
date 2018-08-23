@@ -16,9 +16,9 @@
   "scripts": {
     "clean": "rm -rf dist",
     "prebuild": "yarn install",
-    "build": "NODE_ENV=production webpack",
+    "build": "NODE_ENV=production webpack && webpack",
     "prewatch": "yarn install",
-    "watch": "NODE_ENV=production webpack -w",
+    "watch": "webpack -w",
     "testWatch": "webpack --config webpackTest.config.babel.js -w",
     "test": "NODE_ENV=test mocha --reporter nyan --require babel-register --require ignore-styles src/test.js src/**/*.spec.js",
     "test:bamboo": "NODE_ENV=test mocha --reporter mocha-bamboo-reporter --require babel-register --require ignore-styles src/test.js src/**/*.spec.js",
@@ -64,7 +64,6 @@
     "sinon-chai": "^3.0.0",
     "style-loader": "^0.20.3",
     "uglifyjs-webpack-plugin": "^1.2.7",
-    "unminified-webpack-plugin": "^2.0.0",
     "url-loader": "^1.0.1",
     "webpack": "^4.1.1",
     "webpack-cli": "^2.0.12"
