@@ -15,6 +15,8 @@ import { default as Checkbox } from './components/FormElements/Checkbox/Checkbox
 import { default as Collapsible } from './components/Collapsible/Collapsible';
 import { default as Container } from './components/Container/Container';
 
+import { default as Form } from './components/FormElements/Form';
+
 import { default as Link } from './components/Link/Link';
 import { default as Loader } from './components/Loader/Loader';
 
@@ -30,11 +32,11 @@ import { default as SingleSelect } from './components/SelectElements/SingleSelec
 
 import { default as Table } from './components/Table/Table';
 import { default as TabView } from './components/TabView/TabView';
+
 import { default as TextArea } from './components/FormElements/TextArea/TextArea';
 import { default as TextField } from './components/FormElements/TextField/TextField';
 import { default as Tooltip } from './components/Tooltip/Tooltip';
 
-import { default as withFormLogic } from './components/FormElements/Form';
 
 
 // Sort alphabetically to find stuff easily
@@ -45,6 +47,7 @@ const Components = {
   Checkbox,
   Collapsible,
   Container,
+  Form,
   Link,
   Loader,
   Modal,
@@ -58,29 +61,28 @@ const Components = {
   TextArea,
   TextField,
   Tooltip,
-  withFormLogic,
 };
 
 // Sort alphabetically to find stuff easily
-export { Button };
-export { Link };
-export { Checkbox };
-export { RadioGroup };
-export { ShareDialog };
-export { Modal };
 export { ArrowButton };
-export { TextField };
-export { TextArea };
-export { SingleSelect };
-export { MultiSelect };
-export { TabView };
+export { Banner };
+export { Button };
+export { Checkbox };
 export { Collapsible };
 export { Container };
-export { Banner };
+export { Form };
+export { Link };
 export { Loader };
-export { withFormLogic };
-export { Tooltip };
-export { Table };
+export { Modal };
+export { MultiSelect };
 export { Popover };
+export { RadioGroup };
+export { ShareDialog };
+export { SingleSelect };
+export { Table };
+export { TabView };
+export { TextArea };
+export { TextField };
+export { Tooltip };
 
 export default Components;

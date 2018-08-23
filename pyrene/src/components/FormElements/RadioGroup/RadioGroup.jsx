@@ -95,7 +95,7 @@ RadioGroup.propTypes = {
   /**
    * Sets the selected choice of the user.
    */
-  value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+  value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 };
 
 export default RadioGroup;
