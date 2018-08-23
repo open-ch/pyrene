@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 
-const withFormLogic = (WrappedForm) => ({initialValues, validationSchema, onSubmit, onChange}) => {
-  return class FormWithLogic extends React.Component {
+
+class Form extends React.Component {
 
     getTouchedState = initialValues => {
       const touchedState = Object.keys(initialValues).reduce((allValues, value) => {
@@ -14,14 +14,14 @@ const withFormLogic = (WrappedForm) => ({initialValues, validationSchema, onSubm
     };
 
     state = {
-      values: {...initialValues},
-      touched: this.getTouchedState(initialValues),
+      values: {...this.props.initialValues},
+      touched: this.getTouchedState(...this.props.initialValues),
       isSubmitting: false,
     };
 
     validateYupSchema = (values) => {
       try {
-        validationSchema.validateSync(values, {abortEarly: false});
+        this.props.validationSchema.validateSync(values, {abortEarly: false});
       }
       catch (err) {
         return this.regroupErrors(err);
@@ -31,7 +31,7 @@ const withFormLogic = (WrappedForm) => ({initialValues, validationSchema, onSubm
     };
 
     validate = (values) => {
-      if (typeof validationSchema !== 'undefined') {
+      if (typeof this.props.validationSchema !== 'undefined') {
         return this.validateYupSchema(values);
       }
       return {};
@@ -88,7 +88,7 @@ const withFormLogic = (WrappedForm) => ({initialValues, validationSchema, onSubm
         }));
 
         // Should use promise for onSubmit
-        onSubmit(this.state.values)
+        this.props.onSubmit(this.state.values)
           .then(() => this.setState({isSubmitting: false}))
       }
     };
@@ -110,11 +110,11 @@ const withFormLogic = (WrappedForm) => ({initialValues, validationSchema, onSubm
       const inputName = event.target.name;
       const newValue = this.getValueFromInput(event.target);
 
-      if (typeof onChange !== 'undefined') {
+      if (typeof this.props.onChange !== 'undefined') {
         this.setState((prevState, props) => ({
             values: {...prevState.values, [inputName]: newValue}
           }),
-          () => onChange(this.state.values, this.setFieldValue)
+          () => this.props.onChange(this.state.values, this.setFieldValue)
         );
       } else {
         this.setState((prevState, props) => ({
@@ -124,9 +124,9 @@ const withFormLogic = (WrappedForm) => ({initialValues, validationSchema, onSubm
     };
 
     validateMultiSelectOption = (multiSelectName, selectedOption) => {
-      if ((typeof validationSchema !== 'undefined') && (typeof validationSchema.fields[multiSelectName] !== 'undefined')) {
+      if ((typeof this.props.validationSchema !== 'undefined') && (typeof this.props.validationSchema.fields[multiSelectName] !== 'undefined')) {
         try {
-          validationSchema.fields[multiSelectName].validateSync([selectedOption], {abortEarly: false});
+          this.props.validationSchema.fields[multiSelectName].validateSync([selectedOption], {abortEarly: false});
         } catch (e) {
           // Error thrown for this selectedOption -> invalid: true
           return true;
@@ -181,6 +181,7 @@ const withFormLogic = (WrappedForm) => ({initialValues, validationSchema, onSubm
 
       return (
         <form onSubmit={this.handleSubmit}>
+          {this.props.render(this.state.values, errors, this.state.touched, this.state.isSubmitting, submitDisabled)}
           <WrappedForm
             values={this.state.values}
             errors={errors}
@@ -197,6 +198,6 @@ const withFormLogic = (WrappedForm) => ({initialValues, validationSchema, onSubm
   };
 };
 
-withFormLogic.displayName = 'withFormLogic';
+Form.displayName = 'Form';
 
-export default withFormLogic;
+export default Form;
