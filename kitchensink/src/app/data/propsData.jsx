@@ -16,7 +16,7 @@ const ContentFiller = (props) => (
     textTransform: 'uppercase',
     letterSpacing: 1 }}
   >
-    {props.label ? props.label : 'Content Filler'}
+    {props.label ? props.label : 'Content'}
   </div>
 );
 
@@ -549,7 +549,7 @@ const tableColumns = [{
 const startProps = {
   'arrowbutton': {},
   'banner': {
-    message: 'This is a test message',
+    label: 'This is a test message',
     type: 'info',
   },
   'button': {
@@ -595,6 +595,10 @@ const startProps = {
     defaultValues: [],
     options: testOptions,
   },
+  'popover': {
+    renderPopoverContent: () => <div style={{boxSizing: 'borderBox', padding: 24}}><ContentFiller height={200} width={400} /></div>,
+    children: <ContentFiller height={100} width={200} />
+  },
   'radiogroup': {
     options: [{label: 'Beer', value: 'beer'}, {label:'Coffee', value: 'coffee'}, {label:'Coffeebeer', value: 'coffeebeer'}],
     selectedOption: 'option 1',
@@ -619,6 +623,7 @@ const startProps = {
     data: tableData,
     columns: tableColumns,
     onRowDoubleClick: (rowInfo) => console.log(rowInfo),
+    actions: [{icon: 'search', label: 'Test', callBack: 'callbackFunction'}]
   },
   'tabview': {
     initialTabName: 'Tab 1',

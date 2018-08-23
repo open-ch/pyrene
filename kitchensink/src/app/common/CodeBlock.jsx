@@ -78,8 +78,8 @@ export default class CodeBlock extends React.Component {
     let hasChildren = false;
 
     propList += `<${component.type.name}\n`;
-    Object.entries(component.props).forEach(([key, value]) => {
-      if (value) {
+    Object.entries(component.props).sort().forEach(([key, value]) => {
+      if (value && Object.keys(component.type.__docgenInfo.props).indexOf(key) > -1) {
         // Add Code Line, for booleans only display key
         if (typeof value === 'boolean') {
           propList += `\t${key}\n`;
