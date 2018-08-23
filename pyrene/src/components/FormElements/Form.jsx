@@ -2,9 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 
-
 class Form extends React.Component {
-
     getTouchedState = initialValues => {
       const touchedState = Object.keys(initialValues).reduce((allValues, value) => {
         allValues[value] = false;
@@ -14,8 +12,8 @@ class Form extends React.Component {
     };
 
     state = {
-      values: {...this.props.initialValues},
-      touched: this.getTouchedState(...this.props.initialValues),
+      values: this.props.initialValues,
+      touched: this.getTouchedState(this.props.initialValues),
       isSubmitting: false,
     };
 
@@ -178,24 +176,13 @@ class Form extends React.Component {
     render() {
       const errors = {...this.validate(this.state.values)};
       const submitDisabled = this.anyError(errors);
-
+      const initField = (name) => this.initField(name, errors[name]);
       return (
         <form onSubmit={this.handleSubmit}>
-          {this.props.render(this.state.values, errors, this.state.touched, this.state.isSubmitting, submitDisabled)}
-          <WrappedForm
-            values={this.state.values}
-            errors={errors}
-            touched={this.state.touched}
-            isSubmitting={this.state.isSubmitting}
-            submitDisabled={submitDisabled}
-
-            initField={name => this.initField(name, errors[name])}
-            {...this.props}
-          />
+          {this.props.render(this.state.values, errors, this.state.touched, this.state.isSubmitting, submitDisabled, initField)}
         </form>
       );
     }
-  };
 };
 
 Form.displayName = 'Form';

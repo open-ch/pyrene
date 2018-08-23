@@ -19,7 +19,7 @@ import { default as Collapsible } from './components/Collapsible/Collapsible';
 import { default as Container } from './components/Container/Container';
 import { default as Banner } from './components/Banner/Banner';
 import { default as Loader } from './components/Loader/Loader';
-import { default as withFormLogic } from './components/FormElements/Form';
+import { default as Form } from './components/FormElements/Form';
 import { default as Tooltip } from './components/Tooltip/Tooltip';
 
 const Components = {
@@ -39,7 +39,7 @@ const Components = {
   Container,
   Banner,
   Loader,
-  withFormLogic,
+  Form,
   Tooltip
 };
 
@@ -59,7 +59,7 @@ export {Collapsible};
 export {Container};
 export {Banner};
 export {Loader};
-export {withFormLogic};
+export {Form};
 export {Tooltip};
 
 export default Components;
