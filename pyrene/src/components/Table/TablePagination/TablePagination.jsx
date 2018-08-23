@@ -5,7 +5,6 @@ import TableSelect from './TableSelect/TableSelect';
 import './tablePagination.css';
 
 const TablePagination = props => {
-  // console.log(props); onChange={(e) => props.onPageSizeChange(parseInt(e.target.value.value, 10))}
   return (
     <div styleName={'tablePagination'}>
       <div styleName={'resultsCounter'}>
