@@ -55,7 +55,6 @@ export default class Table extends React.Component {
             columns={this.props.columns}
             pageSizeOptions={this.props.pageSizeOptions}
 
-            filterable={this.props.filterable}
             multiSort={this.props.multiSort}
             PadRowComponent={this.props.PadRowComponent}
 
@@ -101,37 +100,51 @@ Table.defaultProps = {
   title: 'Table',
   defaultPageSize: 10,
   defaultSortDesc: true,
-  filterable: false,
   loading: false,
   multiSort: true,
-  PadRowComponent: () => <span>&nbsp;</span>,
   pageSizeOptions: [10, 20, 50, 100, 250],
   onRowDoubleClick: () => null,
 };
 
 Table.propTypes = {
+  /**
+   * Sets the table actions. Type: [{ icon: string, label: string (required), action: func (required) }]
+   */
   actions: PropTypes.arrayOf(PropTypes.shape({
     icon: PropTypes.string,
     label: PropTypes.string.isRequired,
     callBack: PropTypes.func.isRequired,
   })),
-
+  /**
+   * Sets the Table columns. For a detailed prop description check the react-table docs.
+   */
   columns: PropTypes.array.isRequired,
-
+  /**
+   * Sets the Table data displayed in the rows. For a detailed prop description check the react-table docs.
+   */
   data: PropTypes.array.isRequired,
+  /**
+   * Sets the page size when the component is first mounted.
+   */
   defaultPageSize: PropTypes.number,
-  defaultSortDesc: PropTypes.bool,
-
-  filterable: PropTypes.bool,
-
+  /**
+   * Disables the component and displays a loader inside of it.
+   */
   loading: PropTypes.bool,
-
+  /**
+   * Whether multiSorting via shift click is possible.
+   */
   multiSort: PropTypes.bool,
-
+  /**
+   * Called when the user double clicks on a row.
+   */
   onRowDoubleClick: PropTypes.func,
-
-  PadRowComponent: PropTypes.func, // the content rendered inside of a padding row
+  /**
+   * Sets the page sizes that the user can choose from.
+   */
   pageSizeOptions: PropTypes.arrayOf(PropTypes.number),
-
+  /**
+   * Sets the title.
+   */
   title: PropTypes.string,
 };
