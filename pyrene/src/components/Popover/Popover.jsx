@@ -8,7 +8,7 @@ import TinyPopover from 'react-tiny-popover';
 const Popover = props => (
   <TinyPopover
     isOpen={props.displayPopover}
-    position={props.position}
+    position={props.preferredPosition}
     align={props.align}
     padding={props.distanceToTarget}
     content={({ position, nudgedLeft, nudgedTop, targetRect, popoverRect }) => (
@@ -36,7 +36,7 @@ Popover.defaultProps = {
   autoReposition: false,
   displayPopover: false,
   distanceToTarget: 8,
-  position: ['top', 'bottom'],
+  preferredPosition: ['top', 'bottom'],
   renderPopoverContent: () => null,
   onClickOutside: () => null,
 };
@@ -46,17 +46,30 @@ Popover.propTypes = {
    * Sets the alignment of the popover.
    */
   align: PropTypes.oneOf(['start', 'center', 'end']),
+  /**
+   * Whether automatic repositioning is enabled.
+   */
   autoReposition: PropTypes.bool,
-  children: PropTypes.node.isRequired,
+  /**
+   * Whether to display the popover.
+   */
   displayPopover: PropTypes.bool,
+  /**
+   * Sets the distance of the popover to its target.
+   */
   distanceToTarget: PropTypes.number,
+  /**
+   * Called when the user clicks outside of the popover. To be used to toggle the displayPopover prop.
+   */
   onClickOutside: PropTypes.func,
   /**
-   * Sets the position of the popover relative to the share button.
+   * Sets the preferred position array ordered by priority for auto repositioning.
    */
-  position: PropTypes.arrayOf(PropTypes.oneOf(['top', 'right', 'bottom', 'left'])),
+  preferredPosition: PropTypes.arrayOf(PropTypes.oneOf(['top', 'right', 'bottom', 'left'])),
+  /**
+   * Sets the content displayed inside the popover.
+   */
   renderPopoverContent: PropTypes.func.isRequired,
-
 };
 
 export default Popover;

@@ -22,7 +22,7 @@ export default class Tooltip extends React.Component {
           </div>
         )}
         containerStyle={{zIndex: 9999}}
-        disableReposition={!this.props.autoRepositioning}
+        disableReposition={!this.props.autoReposition}
       >
         <div
           onMouseOver={() => this.setState({ isPopoverOpen: true })}
@@ -51,9 +51,9 @@ Tooltip.propTypes = {
    */
   align: PropTypes.oneOf(['start', 'center', 'end']),
   /**
-   * Whether automatic repositioning is allowed.
+   * Whether automatic repositioning is enabled.
    */
-  autoRepositioning: PropTypes.bool,
+  autoReposition: PropTypes.bool,
   /**
    * Sets the label displayed inside of the tooltip.
    */
