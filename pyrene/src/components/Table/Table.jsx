@@ -43,7 +43,7 @@ export default class Table extends React.Component {
         <div styleName={classNames('tableAndActions', {loading: this.props.loading})}>
         <div styleName={'toolbar'}>
           {this.props.actions.map((action, index) => (
-            <React.Fragment>
+            <React.Fragment key={action.label}>
               <Button label={action.label} icon={action.icon ? action.icon : undefined} onClick={action.callBack} type={'action'} />
               {index + 1 < this.props.actions.length && <div styleName={'spacer'} />}
             </React.Fragment>
@@ -99,7 +99,6 @@ Table.displayName = 'Table';
 Table.defaultProps = {
   title: 'Table',
   defaultPageSize: 10,
-  defaultSortDesc: true,
   loading: false,
   multiSort: true,
   pageSizeOptions: [10, 20, 50, 100, 250],
