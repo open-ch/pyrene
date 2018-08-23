@@ -98,9 +98,4 @@ RadioGroup.propTypes = {
   value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
 };
 
-RadioGroup.examples = [
-  { alignment: 'vertical', options: [{label: 'Coffee', value: 'coffee'}, {label: 'Whisky', value: 'whisky'}, {label: 'Irish Coffee', value: 'irishcoffee'}] },
-  { alignment: 'horizontal', options: [{label: 'Coffee', value: 'coffee'}, {label: 'Whisky', value: 'whisky'}, {label: 'Irish Coffee', value: 'irishcoffee'}] },
-];
-
 export default RadioGroup;

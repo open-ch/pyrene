@@ -49,9 +49,4 @@ Link.propTypes = {
   type: PropTypes.oneOf(['standalone', 'inline']),
 };
 
-Link.examples = [
-  { label: 'standalone', path: '#' },
-  { type: 'inline', label: 'inline link', path: '#' },
-];
-
 export default Link;

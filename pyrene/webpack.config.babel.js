@@ -3,7 +3,6 @@ import CleanWebpackPlugin from 'clean-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin';
 import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
-import UnminifiedWebpackPlugin from 'unminified-webpack-plugin';
 
 const production = process.env.NODE_ENV === 'production';
 
@@ -54,15 +53,10 @@ const config = {
     ],
   },
   plugins: [
-    new CleanWebpackPlugin(['dist']),
     new MiniCssExtractPlugin({
       filename: 'pyrene.css',
     }),
     new OptimizeCSSAssetsPlugin({}),
-    new UnminifiedWebpackPlugin({
-      exclude: /\.css$/,
-      postfix: 'dev',
-    }),
   ],
   optimization: {
     minimizer: [
@@ -75,7 +69,7 @@ const config = {
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'pyrene.js',
+    filename: production ? 'pyrene.js' : 'pyrene.dev.js',
     library: 'pyrene',
     libraryTarget: 'umd',
   },
@@ -83,6 +77,7 @@ const config = {
 
 if (production) {
   console.warn('webpack is running in production mode\n');
+  config.plugins.unshift(new CleanWebpackPlugin(['dist']));
 } else {
   console.warn('webpack is running in development mode\n');
 }

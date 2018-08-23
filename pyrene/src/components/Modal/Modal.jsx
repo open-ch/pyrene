@@ -9,8 +9,7 @@ import ArrowButton from '../ArrowButton/ArrowButton';
 
 
 /**
- * I'm pretty modal.
- *
+ * I modal for calvin klein.
  */
 export default class Modal extends React.Component {
 
@@ -123,5 +122,3 @@ Modal.propTypes = {
    */
   title: PropTypes.string.isRequired,
 };
-
-Modal.needsTrigger = true;
