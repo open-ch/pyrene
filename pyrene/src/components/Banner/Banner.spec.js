@@ -5,7 +5,7 @@ import sinon from 'sinon';
 import Banner from './Banner.jsx';
 
 const props = {
-  message: 'TestMessage',
+  label: 'TestMessage',
   type: 'info',
 };
 
@@ -24,26 +24,26 @@ describe('<Banner />', () => {
   });
 
   it('has a clearIcon', () => {
-    let rendered = shallow(<Banner type={'info'} message={'test'} />);
+    let rendered = shallow(<Banner {...props} type={'info'} />);
     expect(rendered.find('.clearIcon')).to.have.length(1);
 
-    rendered = shallow(<Banner type={'success'} message={'test'} />);
+    rendered = shallow(<Banner {...props} type={'success'}  />);
     expect(rendered.find('.clearIcon')).to.have.length(1);
 
-    rendered = shallow(<Banner type={'warning'} message={'test'} />);
+    rendered = shallow(<Banner {...props} type={'warning'} />);
     expect(rendered.find('.clearIcon')).to.have.length(1);
   });
 
   it('has no clearIcon when the type is error or loading', () => {
-    let rendered = shallow(<Banner type={'error'} message={'test'} />);
+    let rendered = shallow(<Banner {...props} type={'error'} />);
     expect(rendered.find('.clearIcon')).to.have.length(0);
 
-    rendered = shallow(<Banner type={'loading'} message={'test'} />);
+    rendered = shallow(<Banner {...props} type={'loading'} />);
     expect(rendered.find('.clearIcon')).to.have.length(0);
   });
 
   it('renders the icon', () => {
-    const rendered = shallow(<Banner type={'info'} message={'test'} />);
+    const rendered = shallow(<Banner {...props} />);
     expect(rendered.find('.bannerIcon')).to.have.length(1);
   });
 

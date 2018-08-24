@@ -57,7 +57,7 @@ Tooltip.propTypes = {
   /**
    * Wrapped component(s) that the tooltip is using for its positioning.
    */
-  children: PropTypes.func.isRequired,
+  children: PropTypes.element.isRequired,
   /**
    * Sets the label displayed inside of the tooltip.
    */

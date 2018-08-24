@@ -16,13 +16,14 @@ export default class ShareDialog extends React.Component {
     dialogPosition: {},
   };
 
-  /*componentDidUpdate() {
+  componentDidUpdate() {
     if (this.state.displayShareDialog) {
       this._focusAndSelectInput();
     }
-  }*/
+  }
 
   _copyLinkToClipboard = () => {
+    this._focusAndSelectInput();
     document.execCommand('copy');
     this._focusAndSelectInput();
   };

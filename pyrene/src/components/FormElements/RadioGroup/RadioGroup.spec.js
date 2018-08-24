@@ -5,7 +5,7 @@ import sinon from 'sinon';
 import RadioGroup from './RadioGroup';
 
 const props = {
-  radioLabels: ['one', 'two'],
+  options: [{label: 'one', value: 'one'}, {label: 'two', value: 'two'}],
 };
 
 describe('<RadioGroup />', () => {

@@ -53,7 +53,7 @@ Popover.propTypes = {
   /**
    * Wrapped component(s) that the popover is using for its positioning.
    */
-  children: PropTypes.func.isRequired,
+  children: PropTypes.element.isRequired,
   /**
    * Whether to display the popover.
    */
