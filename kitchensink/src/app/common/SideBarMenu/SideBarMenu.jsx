@@ -29,6 +29,7 @@ const SideBarMenu = props => (
         title="Cookbooks"
         sectionElements={[
           { name: 'Form', linkToPath: '/form' },
+          { name: 'Pyrene', linkToPath: '/pyrene' },
         ]}
       />
       {/* Site not ready yet as it has no relevant content

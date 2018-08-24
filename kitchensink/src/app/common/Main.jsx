@@ -15,6 +15,7 @@ import ResultsPage from './Search/ResultsPage';
 import NotFoundPage from '../static/NotFoundPage';
 import FormUsage from '../static/cookBooks/FormUsage';
 import specialComponentHandlingData from '../data/specialComponentHandlingData';
+import PyreneTutorial from '../static/cookBooks/PyreneTutorial';
 
 export default class Main extends React.Component {
 
@@ -41,6 +42,7 @@ export default class Main extends React.Component {
             <Route path={'/icons'} component={IconsPage} />
             <Route path={'/resources'} component={ResourcesPage} />
             <Route path={'/form'} component={FormUsage} />
+            <Route path={'/pyrene'} component={PyreneTutorial} />
 
             {Object.values(Components).map((component) => {
               const lowercaseComponentName = component.displayName.replace(/\s/g, '').toLowerCase();
