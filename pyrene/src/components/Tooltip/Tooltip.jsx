@@ -4,6 +4,9 @@ import Popover from 'react-tiny-popover';
 
 import './tooltip.css';
 
+/**
+ * Tooltip
+ */
 export default class Tooltip extends React.Component {
   state = {
     isPopoverOpen: false,
@@ -40,7 +43,7 @@ Tooltip.displayName = 'Tooltip';
 Tooltip.defaultProps = {
   preferredPosition: [],
   align: 'center',
-  autoRepositioning: true,
+  autoReposition: true,
   width: 0,
   distanceToTarget: 8,
 };
