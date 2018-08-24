@@ -26,7 +26,7 @@ const IntroductionPage = () => (
     </div>
 
     <div className="topicContent">
-      <Paragraph title={'Design System'} large>
+      <Paragraph title={'Design System'}>
         <DescriptionBox>
           Our design system helps us to increase speed and efficiency of how we design and build our products.
           Understanding the system and adopting the library will help us to use up-to-date and consistent markup, styles and behavior in prototype or production work.
@@ -60,7 +60,7 @@ const IntroductionPage = () => (
         </div>
       </Paragraph>
 
-      <Paragraph title={'Principles'} large>
+      <Paragraph title={'Principles'}>
         <DescriptionBox>
           What we do is important.
           But how we do it is even more important.

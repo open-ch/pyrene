@@ -356,7 +356,7 @@ const FormUsage = () => (
         <p>As it needs to manage a lot of different input components and types, the Form component has a very custom implementation. With this component using the <strong>render props pattern</strong> we try to standardise the general behaviour and logic behind the React way of doing forms with the intent to reduce boilerplate code.</p>
       </div>
       <div className="topicContent">
-        <Paragraph title={'Getting started'} large>
+        <Paragraph title={'Getting started'}>
           <DescriptionBox>
             <p>
             Start by using the Form component and fill its render prop with all the form elements that you need.
@@ -375,7 +375,7 @@ const FormUsage = () => (
           </DisplayBox>
         </Paragraph>
 
-        <Paragraph title={'Forms with validation'} large>
+        <Paragraph title={'Forms with validation'}>
           <DescriptionBox>
             For validation we use <Link type={'inline'} label={'Yup'} path={'https://github.com/jquense/yup'} />.
             Simply create your validation schema like below and pass it to the wrapped form via the validationScheme property. For further information go to the <Link type={'inline'} label={'Yup github page'} path={'https://github.com/jquense/yup'} />. Remember that the keys used in the schema need to equal the names given to the fields with the initField method.

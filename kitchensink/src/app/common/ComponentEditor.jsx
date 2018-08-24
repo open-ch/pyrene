@@ -89,11 +89,11 @@ export default class ComponentEditor extends React.Component {
     return (
       <div className={'componentPlayground'}>
         {examplesData[this.getComponentName(this.props.component)] &&
-        <Paragraph title={'Examples'} large>
+        <Paragraph title={'Examples'}>
           <ExampleBox component={this.props.component} onExampleClick={this.handleExampleClick}/>
         </Paragraph>
         }
-        <Paragraph title={'Props'} large>
+        <Paragraph title={'Props'}>
           <div styleName={classNames('displayContainer', { pinned: this.state.pinned }, { darkMode: this.state.darkMode })}>
             <div styleName={classNames('pin', { pinned: this.state.pinned })} onClick={() => this.handlePinClick()} />
             <div styleName={classNames('sun', { darkMode: this.state.darkMode })} onClick={() =>this.handleSunClick()} />

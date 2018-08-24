@@ -18,7 +18,7 @@ const IconsPage = () => (
     </div>
 
     <div styleName="topicContent">
-      <Paragraph title={'Icon font'} large>
+      <Paragraph title={'Icon font'}>
         <DescriptionBox>
           For web projects, the best format is our icon font.
           Explore or search for an icon and copy the reference by clicking on a icon to use it in your project.
@@ -27,7 +27,7 @@ const IconsPage = () => (
 
       </Paragraph>
 
-      <Paragraph title={'Two-tone and multi-color icons'} large>
+      <Paragraph title={'Two-tone and multi-color icons'}>
         <DescriptionBox>
           Two-tone and multi-color icons are not available in the icon font. These icons are available as SVG assets.
         </DescriptionBox>
