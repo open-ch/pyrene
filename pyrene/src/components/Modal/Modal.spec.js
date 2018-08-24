@@ -5,26 +5,24 @@ import sinon from 'sinon';
 import Modal from './Modal';
 
 const props = {
-  titleLabel: 'titleLabel',
+  title: 'titleLabel',
   size: 'large',
-  content: <div>Content</div>,
+  renderCallback: () => <div>Content</div>,
 };
 
 describe('<Modal />', () => {
   it('renders without crashing', () => {
-    let rendered = shallow(<Modal {...props} size={'small'}/>);
-    rendered = shallow(<Modal {...props} size={'large'} />);
-    rendered = shallow(<Modal {...props} size={'xlarge'} />);
+    const rendered = shallow(<Modal {...props} />);
   });
 
   it('renders its content', () => {
     const rendered = shallow(<Modal {...props} />);
 
     expect(rendered.find('.titleBar')).to.have.length(1);
-    expect(rendered.contains(props.titleLabel)).to.equal(true);
+    expect(rendered.contains(props.title)).to.equal(true);
 
     expect(rendered.find('.contentContainer')).to.have.length(1);
-    expect(rendered.contains(props.content)).to.equal(true);
+    expect(rendered.contains(props.renderCallback())).to.equal(true);
 
     expect(rendered.find('ButtonBar')).to.have.length(1);
   });

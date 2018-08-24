@@ -5,12 +5,13 @@ import sinon from 'sinon';
 import Tooltip from './Tooltip';
 
 const props = {
-  label: 'TooltipLabel'
+  label: 'TooltipLabel',
+  children: <div>Test</div>
 };
 
 describe('<Tooltip />', () => {
   it('renders without crashing', () => {
-    const rendered = shallow(<Tooltip {...props}><div>Test</div></Tooltip>);
+    const rendered = shallow(<Tooltip {...props} />);
   });
 
 });
