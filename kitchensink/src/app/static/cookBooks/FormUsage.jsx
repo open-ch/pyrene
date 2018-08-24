@@ -352,7 +352,8 @@ const FormUsage = () => (
     <div className="header">
       <div styleName="title">Form</div>
       <div styleName="description">
-        Forms need a central place to keep the state of all the components in order to allow the implementation of important features like dynamic input disabling and to guarantee a <strong>single source of truth</strong>. As it needs to manage a lot of different input components and types, the Form component needs a very custom implementation. With this component using the <strong>render props pattern</strong> we try to standardise the general behaviour and logic behind the React way of doing forms with the intent to reduce boilerplate code.
+        <p>Forms need a central place to keep the state of all the components in order to allow the implementation of important features like dynamic input disabling and to guarantee a <strong>single source of truth</strong>.</p>
+        <p>As it needs to manage a lot of different input components and types, the Form component has a very custom implementation. With this component using the <strong>render props pattern</strong> we try to standardise the general behaviour and logic behind the React way of doing forms with the intent to reduce boilerplate code.</p>
       </div>
       <div className="topicContent">
         <Paragraph title={'Getting started'} large>
@@ -383,13 +384,13 @@ const FormUsage = () => (
             {Yupscheme}
           </CodeBox>
           <DescriptionBox>
-            Displaying the errors is handled by the form automatically if the corresponding form element has an invalidLabel prop. Otherwise you need to add a visual indication in the form yourself. For example:
+            Displaying the errors is handled by the form automatically if the corresponding form element has an invalidLabel prop. Otherwise you need to add a visual indication in the form yourself like this:
           </DescriptionBox>
           <CodeBox>
             {ErrorDisplay}
           </CodeBox>
         </Paragraph>
-        <Paragraph title={'Full Example'}>
+        <Paragraph title={'Detailed Example'}>
           <DescriptionBox>
             Using the yup validation from above:
           </DescriptionBox>

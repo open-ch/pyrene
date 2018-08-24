@@ -5,7 +5,6 @@ import ComponentEditor from './ComponentEditor';
 import StartProps from '../data/propsData';
 import '../../css/componentPage.css';
 import HowToUse from '../static/howToPages';
-import Paragraph from './PageElements/Paragraph/Paragraph';
 
 const ComponentPage = (props) => {
 
@@ -29,13 +28,7 @@ const ComponentPage = (props) => {
     </div>
 
 
-    {HowTo ?
-      <Paragraph title={'How to use'} large>
-        <HowTo />
-      </Paragraph>
-      :
-      null
-    }
+    { HowTo ? <HowTo /> : null }
   </div>
   );
 };

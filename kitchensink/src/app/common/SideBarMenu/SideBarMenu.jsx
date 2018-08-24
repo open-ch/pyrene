@@ -13,8 +13,7 @@ const SideBarMenu = props => (
         title="Foundations"
         sectionElements={[
           { name: 'Colors', linkToPath: '/colors' },
-          { name: 'Icons', linkToPath: '/icons' },
-          { name: 'Typography', linkToPath: '#' }]}
+          { name: 'Icons', linkToPath: '/icons' }]}
       />
       <SideBarMenuSection
         title="Components"
@@ -32,7 +31,9 @@ const SideBarMenu = props => (
           { name: 'Form', linkToPath: '/form' },
         ]}
       />
-      <SideBarMenuSection title="Resources" sectionElements={[]} linkToPath={'/resources'} />
+      {/* Site not ready yet as it has no relevant content
+         <SideBarMenuSection title="Resources" sectionElements={[]} linkToPath={'/resources'} />
+      */}
 
     </div>
   </div>

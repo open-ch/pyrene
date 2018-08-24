@@ -596,6 +596,7 @@ const startProps = {
     options: testOptions,
   },
   'popover': {
+    displayPopover: true,
     renderPopoverContent: () => <div style={{boxSizing: 'borderBox', padding: 24}}><ContentFiller height={200} width={400} /></div>,
     children: <ContentFiller height={100} width={200} />
   },
@@ -651,7 +652,7 @@ const startProps = {
     width: 500,
   },
   'tooltip': {
-    label: 'Tooltip text from props',
+    label: 'Tooltip Label',
     preferredPosition: ['top', 'bottom'],
     align: 'center',
     children: <ContentFiller width={100} height={50} fontSize={14} />

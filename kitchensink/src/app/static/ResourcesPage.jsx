@@ -8,7 +8,7 @@ import downloadResourcePath from '../../images/download.svg';
 const ResourcesPage = () => (
   <div styleName="page">
     <div className="header">
-      <div styleName="title">Resources</div>
+      <div styleName="title">Resources (Dummy Page)</div>
       <div styleName="description">
         <p>
           These downloadable zip files contain Adobe Photoshop, Adobe Illustrator and Sketchapp color swatches.

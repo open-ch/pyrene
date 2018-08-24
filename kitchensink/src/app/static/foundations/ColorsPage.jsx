@@ -61,10 +61,8 @@ const ColorsPage = () => (
       <Paragraph title={'Interaction Colors'}>
         <DescriptionBox>
           The Interaction colors are used for buttons, alert messages, form elements and status of services/hosts.
-          Input fields, for example, can get positive and negative feedback, whereas alert messages can have warning feedback.
-          Each Interaction color has a darker and lighter shade.
+          Interaction colors can have a darker and lighter shade.
           The darker shades of Green, Red and Orange are used for type to improve readability.
-          The darker shade of Blue is used for hover states on buttons or links.
         </DescriptionBox>
         <div className={'colorGrid'}>
           {createStackedColors(interactionColors, 'medium')}
