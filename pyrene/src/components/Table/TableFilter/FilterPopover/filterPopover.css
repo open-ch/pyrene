@@ -1,3 +1,6 @@
+@import '../../../../styles/colors.css';
+
+
 .filterPopover {
   box-sizing: border-box;
   padding: 24px 24px 0 24px;
