@@ -88,7 +88,7 @@ const PyreneTutorial = () => (
     <div className="header">
       <div styleName="title">Pyrene Guide</div>
       <div styleName="description">
-        <p>Or how not to get burned 🔥 at the stake when I come back in 3 weeks.</p>
+        <p>[pahy-reen] noun. A polycyclic, atomic component library, consisting of endless fused brainpower, found in coffee tea and believed to be the secret ingredient in the new stack.</p>
       </div>
       <div className="topicContent">
         <Paragraph title={'General'}>
@@ -98,7 +98,7 @@ const PyreneTutorial = () => (
         </Paragraph>
         <Paragraph title={'Components'}>
           <DescriptionBox>
-              When creating a new component try to see if it will need to store information in its state. If it does not need any state, keep it as a functional component. Further sort all props alphabetically in its propTypes declaration and add comments like shown to automatically create the docs in kitchensink (the displayName is the title of the generated page).
+              When creating a new component try to see if it will need to store information in its state. If it does not need any state, keep it as a functional component. Further sort all props alphabetically in its propTypes declaration and add comments like shown to automatically create the docs in Kitchensink (the displayName is the title of the generated page).
           </DescriptionBox>
           <CodeBox>
             {ComponentType}
