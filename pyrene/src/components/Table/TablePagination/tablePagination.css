@@ -1,3 +1,6 @@
+@import '../../../styles/colors.css';
+
+
 .tablePagination {
   height: 48px;
   display: flex;
