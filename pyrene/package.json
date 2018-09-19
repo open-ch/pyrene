@@ -19,7 +19,7 @@
     "build": "NODE_ENV=production webpack && webpack",
     "prewatch": "yarn install",
     "watch": "webpack -w",
-    "testWatch": "webpack --config webpackTest.config.babel.js -w",
+    "test:watch": "NODE_ENV=test mocha --watch --reporter nyan --require babel-register --require ignore-styles src/test.js src/**/*.spec.js",
     "test": "NODE_ENV=test mocha --reporter nyan --require babel-register --require ignore-styles src/test.js src/**/*.spec.js",
     "test:bamboo": "NODE_ENV=test mocha --reporter mocha-bamboo-reporter --require babel-register --require ignore-styles src/test.js src/**/*.spec.js",
     "prerelease": "yarn build",
