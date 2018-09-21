@@ -11,12 +11,12 @@ const FilterPopover = props => (
     <div styleName={'title'}>Select Filter</div>
     <div styleName={'filterOptions'}>
       {props.filters.map(filter =>
-        <FilterOption {...filter} handleFilterChange={props.handleFilterChange} key={filter.filterKey} />
+        <FilterOption {...filter} handleFilterChange={props.handleFilterChange} filterValues={props.filterValues} key={filter.filterKey}/>
       )}
     </div>
     <ButtonBar
       rightButtonSectionElements={[
-        <Button label={'Clear'} type={'ghost'} />,
+        <Button label={'Clear'} type={'ghost'} onClick={props.onFilterClear}/>,
         <Button label={'Cancel'} type={'secondary'} />,
         <Button label={'Apply'} type={'primary'} />,
       ]}
@@ -36,7 +36,9 @@ FilterPopover.propTypes = {
     key: PropTypes.string,
     options: PropTypes.array,
   })).isRequired,
+  filterValues: PropTypes.object,
   handleFilterChange: PropTypes.func.isRequired,
+  onFilterClear: PropTypes.func.isRequired,
 };
 
 export default FilterPopover;

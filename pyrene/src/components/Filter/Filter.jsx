@@ -5,9 +5,29 @@ import PropTypes from 'prop-types';
 import './filter.css';
 import FilterPopoverButton from './FilterPopOverButton/FilterPopoverButton';
 
+const initDataType = (type) => {
+  switch (type) {
+    case 'select':
+      return '';
+    case 'text':
+      return '';
+    case 'multiSelect':
+      return [];
+    default:
+      return null;
+  }
+};
+
+const initFilterState = (filters) => {
+  return filters.reduce((accumulator, currentValue) => {
+    return {...accumulator, [currentValue.filterKey]: initDataType(currentValue.type)};
+  }, {});
+};
+
 export default class Filter extends React.Component {
   state = {
     displayFilterPopover: false,
+    filterValues: initFilterState(this.props.filters),
   };
 
   displayFilterPopover = () => {
@@ -16,9 +36,31 @@ export default class Filter extends React.Component {
     }));
   };
 
+  getValueFromInput = (target) => {
+    switch(target.type) {
+      case 'checkbox':
+        return target.checked;
+      case 'select':
+        if (target.value == null) {
+          return null;
+        }
+        return target.value.value;
+      default:
+        return target.value;
+    }
+  };
 
-  filterDidChange = (target) => {
-    console.log(target);
+  filterDidChange = (event) => {
+    const target = event.target;
+    this.setState((prevState, props) => ({
+      filterValues: {...prevState.filterValues, [target.name]: this.getValueFromInput(target)},
+    }));
+  };
+
+  onFilterClear = () => {
+    this.setState((prevState, props) => ({
+      filterValues: initFilterState(this.props.filters),
+    }))
   };
 
   render() {
@@ -36,7 +78,7 @@ export default class Filter extends React.Component {
           <span className={'icon-search'} styleName={'searchIcon'} />
         </div>
         <div styleName="spacer" /> */}
-        <FilterPopoverButton label={'Filter'} displayPopover={this.state.displayFilterPopover} onClick={this.displayFilterPopover} filters={this.props.filters} handleFilterChange={this.filterDidChange}/>
+        <FilterPopoverButton label={'Filter'} displayPopover={this.state.displayFilterPopover} onClick={this.displayFilterPopover} filters={this.props.filters} handleFilterChange={this.filterDidChange} filterValues={this.state.filterValues} onFilterClear={this.onFilterClear} />
       </div>
     );
   }
