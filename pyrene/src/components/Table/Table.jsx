@@ -7,10 +7,11 @@ import './table.css';
 import TablePagination from './TablePagination/TablePagination';
 import Button from '../Button/Button';
 import Loader from '../Loader/Loader';
-import TableFilter from './TableFilter/TableFilter';
+import Filter from '../Filter/Filter';
 import TableHeaderCell from './TableHeader/TableHeaderCell';
 import TableHeader from './TableHeader/TableHeader';
 import colorConstants from '../../styles/colorConstants';
+import TableColumnPopover from './TableColumnButton/TableColumnPopover/TableColumnPopover';
 
 /**
  * All mighty table
@@ -35,12 +36,11 @@ export default class Table extends React.Component {
           {this.props.title}
         </div>}
         {this.props.loading && this.renderLoader()}
-        {/* Future Filter component
         <div styleName={classNames('filterContainer', {loading: this.props.loading})}>
-          <TableFilter />
+          <Filter filters={this.props.filters}/>
         </div>
-        */}
         <div styleName={classNames('tableAndActions', {loading: this.props.loading})}>
+          <TableColumnPopover />
         <div styleName={'toolbar'}>
           {this.props.actions.map((action, index) => (
             <React.Fragment key={action.label}>
@@ -102,6 +102,7 @@ Table.defaultProps = {
   loading: false,
   multiSort: true,
   pageSizeOptions: [10, 20, 50, 100, 250],
+  filters: [],
   onRowDoubleClick: () => null,
 };
 
@@ -126,6 +127,15 @@ Table.propTypes = {
    * Sets the page size when the component is first mounted.
    */
   defaultPageSize: PropTypes.number,
+  /**
+   * Sets the available filters.
+   */
+  filters: PropTypes.arrayOf(PropTypes.shape({
+    label: PropTypes.string,
+    type: PropTypes.string,
+    key: PropTypes.string,
+    options: PropTypes.array,
+  })).isRequired,
   /**
    * Disables the component and displays a loader inside of it.
    */

@@ -1,0 +1,51 @@
+@import '../../../../styles/colors.css';
+
+.tableColumnButton {
+  position: absolute;
+  right: 0;
+  top: -40px;
+}
+
+.columnButton {
+  box-sizing: border-box;
+  border-radius: 2px;
+  padding: 0 8px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+
+  &:hover {
+    cursor: pointer;
+    background-color: var(--neutral-030);
+
+    & .buttonLabel {
+      color: var(--neutral-500);
+    }
+  }
+
+  &.popoverOpen {
+    background-color: var(--neutral-030);
+
+    & .buttonLabel {
+      color: var(--neutral-500);
+    }
+  }
+}
+
+.buttonLabel {
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.23;
+  color: var(--neutral-200);
+  padding: 0 8px;
+}
+
+.arrowIcon {
+  padding: 0 !important;
+
+  height: 16px;
+  width: 16px;
+
+  font-size: 16px;
+  color: var(--neutral-300);
+}

@@ -1,15 +1,17 @@
 @import '../../../../styles/colors.css';
 
-
-.filterPopover {
-  box-sizing: border-box;
-  padding: 24px 24px 0 24px;
+.columnList {
+  padding: 24px;
 }
 
 .title {
-  text-transform: uppercase;
   font-size: 12px;
   font-weight: bold;
   letter-spacing: 1px;
   color: var(--neutral-500);
+  text-transform: uppercase;
+}
+
+.list {
+
 }

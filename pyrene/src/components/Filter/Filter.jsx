@@ -2,10 +2,10 @@ import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 
-import './tableFilter.css';
+import './filter.css';
 import FilterPopoverButton from './FilterPopOverButton/FilterPopoverButton';
 
-export default class TableFilter extends React.Component {
+export default class Filter extends React.Component {
   state = {
     displayFilterPopover: false,
   };
@@ -17,9 +17,14 @@ export default class TableFilter extends React.Component {
   };
 
 
+  filterDidChange = (target) => {
+    console.log(target);
+  };
+
   render() {
     return (
       <div styleName={'tableFilter'}>
+        {/* No Searchbar for now
         <div styleName={'filterSearchBar'}>
           <input
             styleName={'filterSearchBarInput'}
@@ -30,16 +35,23 @@ export default class TableFilter extends React.Component {
           />
           <span className={'icon-search'} styleName={'searchIcon'} />
         </div>
-        <div styleName="spacer" />
-        <FilterPopoverButton label={'Filter'} displayPopover={this.state.displayFilterPopover} onClick={this.displayFilterPopover}/>
+        <div styleName="spacer" /> */}
+        <FilterPopoverButton label={'Filter'} displayPopover={this.state.displayFilterPopover} onClick={this.displayFilterPopover} filters={this.props.filters} handleFilterChange={this.filterDidChange}/>
       </div>
     );
   }
 }
 
 
-TableFilter.displayName = 'TableFilter';
+Filter.displayName = 'Filter';
 
-TableFilter.defaultProps = {};
+Filter.defaultProps = {};
 
-TableFilter.propTypes = {};
+Filter.propTypes = {
+  filters: PropTypes.arrayOf(PropTypes.shape({
+    label: PropTypes.string,
+    type: PropTypes.string,
+    key: PropTypes.string,
+    options: PropTypes.array,
+  })).isRequired,
+};

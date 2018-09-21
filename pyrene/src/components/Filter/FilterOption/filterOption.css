@@ -1,0 +1,20 @@
+@import '../../../styles/colors.css';
+
+.filterOption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  height: 32px;
+}
+
+.label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--neutral-400);
+  text-transform: capitalize;
+}
+
+.interface {
+  width: 200px;
+}

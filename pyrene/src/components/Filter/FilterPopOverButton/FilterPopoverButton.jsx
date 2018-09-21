@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Popover from '../../../Popover/Popover';
+import Popover from '../../Popover/Popover';
 
 import './filterPopoverButton.css';
 import FilterPopover from '../FilterPopover/FilterPopover';
@@ -13,7 +13,7 @@ const FilterPopoverButton = props => {
       distanceToTarget={8}
       displayPopover={props.displayPopover}
       preferredPosition={['bottom']}
-      renderPopoverContent={() => <FilterPopover />}
+      renderPopoverContent={() => <FilterPopover filters={props.filters} handleFilterChange={props.handleFilterChange}/>}
       onClickOutside={props.onClick}
     >
       <div styleName={classNames('filterButton', { noBorder: props.noBorder }, { popoverOpen: props.displayPopover })} onClick={props.onClick}>
@@ -39,6 +39,13 @@ FilterPopoverButton.propTypes = {
   label: PropTypes.string.isRequired,
   noBorder: PropTypes.bool,
   onClick: PropTypes.func,
+  filters: PropTypes.arrayOf(PropTypes.shape({
+    label: PropTypes.string,
+    type: PropTypes.string,
+    key: PropTypes.string,
+    options: PropTypes.array,
+  })).isRequired,
+  handleFilterChange: PropTypes.func.isRequired,
 };
 
 export default FilterPopoverButton;

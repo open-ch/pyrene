@@ -1,10 +1,11 @@
-@import '../../../../styles/colors.css';
+@import '../../../styles/colors.css';
 
 
 .filterButton {
   box-sizing: border-box;
   padding: 0 8px;
   border: solid 1px var(--neutral-050);
+  border-radius: 2px;
   height: 32px;
   display: flex;
   align-items: center;
