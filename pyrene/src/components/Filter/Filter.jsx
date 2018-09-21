@@ -28,10 +28,12 @@ export default class Filter extends React.Component {
   state = {
     displayFilterPopover: false,
     filterValues: initFilterState(this.props.filters),
+    unAppliedValues: initFilterState(this.props.filters)
   };
 
-  displayFilterPopover = () => {
+  toggleFilterPopover = () => {
     this.setState((prevState, props) => ({
+      unAppliedValues: prevState.filterValues,
       displayFilterPopover: !prevState.displayFilterPopover,
     }));
   };
@@ -53,14 +55,21 @@ export default class Filter extends React.Component {
   filterDidChange = (event) => {
     const target = event.target;
     this.setState((prevState, props) => ({
-      filterValues: {...prevState.filterValues, [target.name]: this.getValueFromInput(target)},
+      unAppliedValues: {...prevState.unAppliedValues, [target.name]: this.getValueFromInput(target)},
     }));
   };
 
-  onFilterClear = () => {
+  clearFilter = () => {
     this.setState((prevState, props) => ({
-      filterValues: initFilterState(this.props.filters),
+      unAppliedValues: initFilterState(this.props.filters),
     }))
+  };
+
+  applyFilter = () => {
+    this.setState((prevState, props) => ({
+      filterValues: prevState.unAppliedValues,
+      displayFilterPopover: false
+    }));
   };
 
   render() {
@@ -78,7 +87,16 @@ export default class Filter extends React.Component {
           <span className={'icon-search'} styleName={'searchIcon'} />
         </div>
         <div styleName="spacer" /> */}
-        <FilterPopoverButton label={'Filter'} displayPopover={this.state.displayFilterPopover} onClick={this.displayFilterPopover} filters={this.props.filters} handleFilterChange={this.filterDidChange} filterValues={this.state.filterValues} onFilterClear={this.onFilterClear} />
+        <FilterPopoverButton
+          label={'Filter'}
+          displayPopover={this.state.displayFilterPopover}
+          onClick={this.toggleFilterPopover}
+          filters={this.props.filters}
+          handleFilterChange={this.filterDidChange}
+          filterValues={this.state.unAppliedValues}
+          onFilterClear={this.clearFilter}
+          onFilterApply={this.applyFilter}
+        />
       </div>
     );
   }

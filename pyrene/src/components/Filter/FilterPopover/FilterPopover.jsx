@@ -16,9 +16,9 @@ const FilterPopover = props => (
     </div>
     <ButtonBar
       rightButtonSectionElements={[
-        <Button label={'Clear'} type={'ghost'} onClick={props.onFilterClear}/>,
-        <Button label={'Cancel'} type={'secondary'} />,
-        <Button label={'Apply'} type={'primary'} />,
+        <Button label={'Clear'} type={'ghost'} onClick={props.onFilterClear} />,
+        <Button label={'Cancel'} type={'secondary'} onClick={props.onClose} />,
+        <Button label={'Apply'} type={'primary'} onClick={props.onFilterApply} />,
       ]}
     />
   </div>
@@ -38,6 +38,8 @@ FilterPopover.propTypes = {
   })).isRequired,
   filterValues: PropTypes.object,
   handleFilterChange: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
+  onFilterApply: PropTypes.func.isRequired,
   onFilterClear: PropTypes.func.isRequired,
 };
 

@@ -13,8 +13,16 @@ const FilterPopoverButton = props => {
       distanceToTarget={8}
       displayPopover={props.displayPopover}
       preferredPosition={['bottom']}
-      renderPopoverContent={() => <FilterPopover filters={props.filters} handleFilterChange={props.handleFilterChange} filterValues={props.filterValues} onFilterClear={props.onFilterClear} />}
-      onClickOutside={props.onClick}
+      renderPopoverContent={() => (
+        <FilterPopover
+          filters={props.filters}
+          handleFilterChange={props.handleFilterChange}
+          filterValues={props.filterValues}
+          onFilterClear={props.onFilterClear}
+          onClose={props.onClick}
+          onFilterApply={props.onFilterApply}
+        />
+      )}
     >
       <div styleName={classNames('filterButton', { noBorder: props.noBorder }, { popoverOpen: props.displayPopover })} onClick={props.onClick}>
         <div styleName={'buttonLabel'}>
@@ -47,6 +55,7 @@ FilterPopoverButton.propTypes = {
   label: PropTypes.string.isRequired,
   noBorder: PropTypes.bool,
   onClick: PropTypes.func,
+  onFilterApply: PropTypes.func.isRequired,
   onFilterClear: PropTypes.func.isRequired,
 };
 
