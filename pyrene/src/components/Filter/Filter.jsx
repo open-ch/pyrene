@@ -42,11 +42,11 @@ export default class Filter extends React.Component {
     switch(target.type) {
       case 'checkbox':
         return target.checked;
-      case 'select':
-        if (target.value == null) {
-          return null;
+      case 'singleSelect':
+        if (target.value === null) {
+          return [];
         }
-        return target.value.value;
+        return target.value;
       default:
         return target.value;
     }

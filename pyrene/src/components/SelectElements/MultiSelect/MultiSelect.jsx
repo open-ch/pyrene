@@ -1,16 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Select from 'react-select';
+import Select, { components } from 'react-select';
 import CreatableSelect from 'react-select/lib/Creatable';
 import '../select.css';
 import MultiSelectStyle from './multiSelectCSS';
 import Loader from '../../Loader/Loader';
+import MultiSelectMenuWithOptions from './MultiSelectMenuWithOptions';
 
 
 const LoadingIndicator = () => {
   return <Loader />;
 };
+
+const MultiValue = (props) => (
+  <React.Fragment>
+    {props.data.label}
+    {props.data.value !== props.getValue()[props.getValue().length-1].value ? ', ' : ' '}
+  </React.Fragment>
+);
+
+
+const componentsNormal = {LoadingIndicator};
+const componentsOptionsInDropdown = {Menu: MultiSelectMenuWithOptions, MultiValue, LoadingIndicator};
 
 /**
  * Selection elements are used primarily on ....
@@ -21,8 +33,8 @@ const MultiSelect = props => (
     {props.creatable ?
       <CreatableSelect
         className={'multiSelect'}
-        styles={MultiSelectStyle(props.rows)}
-        components={{ LoadingIndicator }}
+        styles={MultiSelectStyle(props)}
+        components={props.selectedOptionsInDropdown ? componentsOptionsInDropdown : componentsNormal}
         placeholder={props.placeholder}
         options={props.options}
         value={props.value ? props.value : null}
@@ -50,8 +62,8 @@ const MultiSelect = props => (
       :
       <Select
         className={'multiSelect'}
-        styles={MultiSelectStyle(props.rows)}
-        components={{ LoadingIndicator }}
+        styles={MultiSelectStyle(props)}
+        components={props.selectedOptionsInDropdown ? componentsOptionsInDropdown : componentsNormal}
         placeholder={props.placeholder}
         options={props.options}
         value={props.value ? props.value : null}
@@ -107,6 +119,7 @@ MultiSelect.defaultProps = {
   defaultValues: [],
   options: [],
   rows: -1,
+  selectedOptionsInDropdown: false,
   creatable: false,
   disabled: false,
   invalid: false,
@@ -191,6 +204,10 @@ MultiSelect.propTypes = {
    * Sets a fixed height for the input field. Default behaviour is one row expanding up to 3, then starts scrolling.
    */
   rows: PropTypes.number,
+  /**
+   * Displays the selected options in the dropdown and prevents the input from growing vertically.
+   */
+  selectedOptionsInDropdown: PropTypes.bool,
   /**
    * Sets the title above the input field.
    */

@@ -10,7 +10,7 @@
 
 import colorConstants from '../../../styles/colorConstants';
 
-const multiSelectStyle = rows => ({
+const multiSelectStyle = props => ({
   container: base => ({
     ...base,
     fontFamily: 'AvenirNext, Helvetica, sans-serif !important',
@@ -30,7 +30,7 @@ const multiSelectStyle = rows => ({
     justifyContent: 'space-between',
     outline: '0 !important',
     position: 'relative',
-    alignItems: rows < 0 ? 'center' : 'flex-start',
+    alignItems: props.rows <= 0 ? 'center' : 'flex-start',
     overflow: 'hidden',
 
     backgroundColor: (state.isFocused || state.hasValue) ? colorConstants.neutral000 : colorConstants.neutral020,
@@ -56,14 +56,27 @@ const multiSelectStyle = rows => ({
     },
   }),
 
-  valueContainer: (base, state) => ({
-    ...base,
-    minHeight: 30,
-    height: rows < 0 ? 'inherit' : (rows * 25) + 6,
-    overflow: state.hasValue ? 'auto' : 'hidden',
-    padding: '2px 6px',
-    maxHeight: rows < 0 ? 79 : (rows * 25) + 4,
-  }),
+  valueContainer: (base, state) => {
+    if (props.selectedOptionsInDropdown) {
+      return {
+        ...base,
+        overflow: 'hidden',
+        flexWrap: 'nowrap',
+        whiteSpace: 'nowrap',
+        padding: '2px 6px',
+        minHeight: '30px',
+      };
+    }
+
+    return {
+      ...base,
+      minHeight: 30,
+      height: props.rows <= 0 ? 'inherit' : (props.rows * 25) + 6,
+      overflow: state.hasValue ? 'auto' : 'hidden',
+      padding: '2px 6px',
+      maxHeight: props.rows <= 0 ? 79 : (props.rows * 25) + 4,
+    };
+  },
 
   placeholder: base => ({
     ...base,
