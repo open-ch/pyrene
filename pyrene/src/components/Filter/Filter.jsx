@@ -69,7 +69,8 @@ export default class Filter extends React.Component {
     this.setState((prevState, props) => ({
       filterValues: prevState.unAppliedValues,
       displayFilterPopover: false
-    }));
+    }),
+    () => this.props.onFilterSubmit(this.state.filterValues));
   };
 
   render() {
@@ -105,7 +106,9 @@ export default class Filter extends React.Component {
 
 Filter.displayName = 'Filter';
 
-Filter.defaultProps = {};
+Filter.defaultProps = {
+  onFilterSubmit: () => null,
+};
 
 Filter.propTypes = {
   filters: PropTypes.arrayOf(PropTypes.shape({
@@ -114,4 +117,5 @@ Filter.propTypes = {
     key: PropTypes.string,
     options: PropTypes.array,
   })).isRequired,
+  onFilterSubmit: PropTypes.func,
 };

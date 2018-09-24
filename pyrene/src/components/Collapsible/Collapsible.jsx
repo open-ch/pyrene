@@ -37,10 +37,12 @@ export default class Collapsible extends React.Component {
   render() {
     return (
       <div styleName={classNames('collapsibleBox', {expanded: this.state.expanded})}>
-        <div styleName={'collapsibleButton'} onClick={this.toggleCollapse} role="button" aria-label="Show or hide content">
-          <div styleName={"centeringBox"}>
-            {this.state.expanded && this.props.labelExpanded ? this.props.labelExpanded : this.props.labelCollapsed}
-            <span className={'icon-collapsDown'} styleName={'collapsArrow'}/>
+        <div styleName={classNames('buttonAlignmentBox', {[`align-${this.props.align}`]: true})}>
+          <div styleName={'collapsibleButton'} className={'unSelectable'} onClick={this.toggleCollapse} role="button" aria-label="Show or hide content">
+            <div styleName={"centeringBox"}>
+              {this.state.expanded && this.props.labelExpanded ? this.props.labelExpanded : this.props.labelCollapsed}
+              <span className={'icon-collapsDown'} styleName={'collapsArrow'}/>
+            </div>
           </div>
         </div>
         <div styleName={"collapsibleBody"} style={{height: (this.state.expanded && this.state.contentHeight) ? this.state.contentHeight : null}}>
@@ -56,6 +58,7 @@ export default class Collapsible extends React.Component {
 Collapsible.displayName = 'Collapsible';
 
 Collapsible.defaultProps = {
+  align: 'start',
   defaultExpanded: false,
   labelCollapsed: 'Show More',
   labelExpanded: 'Show Less',
@@ -63,6 +66,10 @@ Collapsible.defaultProps = {
 };
 
 Collapsible.propTypes = {
+  /**
+   * Sets the alignment of the popover.
+   */
+  align: PropTypes.oneOf(['start', 'center', 'end']),
   /**
    * Whether to display the content when the component is first mounted.
    */

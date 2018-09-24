@@ -5,14 +5,31 @@ import './filterPopover.css';
 import ButtonBar from '../../ButtonBar/ButtonBar';
 import Button from '../../Button/Button';
 import FilterOption from '../FilterOption/FilterOption';
+import Collapsible from '../../Collapsible/Collapsible';
 
 const FilterPopover = props => (
   <div styleName={'filterPopover'}>
     <div styleName={'title'}>Select Filter</div>
     <div styleName={'filterOptions'}>
-      {props.filters.map(filter =>
-        <FilterOption {...filter} handleFilterChange={props.handleFilterChange} filterValues={props.filterValues} key={filter.filterKey}/>
-      )}
+      {props.filters.length <= 6 ?
+        props.filters.map(filter =>
+          <FilterOption {...filter} handleFilterChange={props.handleFilterChange} filterValues={props.filterValues} key={filter.filterKey} />
+        )
+        :
+        <React.Fragment>
+          {props.filters.slice(0, 6).map(filter =>
+            <FilterOption {...filter} handleFilterChange={props.handleFilterChange} filterValues={props.filterValues} key={filter.filterKey} />
+          )}
+          <Collapsible
+            align={'end'}
+            labelCollapsed={'More Filter Options'}
+            labelExpanded={'Less Filter Options'}
+            renderCallback={() => props.filters.slice(6).map(filter => (
+              <FilterOption {...filter} handleFilterChange={props.handleFilterChange} filterValues={props.filterValues} key={filter.filterKey} />
+            ))}
+          />
+        </React.Fragment>
+      }
     </div>
     <ButtonBar
       rightButtonSectionElements={[
