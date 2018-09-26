@@ -7,7 +7,7 @@ import FilterPopoverButton from './FilterPopOverButton/FilterPopoverButton';
 
 const initDataType = (type) => {
   switch (type) {
-    case 'select':
+    case 'singleSelect':
       return '';
     case 'text':
       return '';
@@ -30,6 +30,7 @@ const initFilterState = (filters) => {
 export default class Filter extends React.Component {
   state = {
     displayFilterPopover: false,
+    defaultValues: initFilterState(this.props.filters),
     filterValues: initFilterState(this.props.filters),
     unAppliedValues: initFilterState(this.props.filters)
   };
@@ -116,13 +117,14 @@ Filter.defaultProps = {
 Filter.propTypes = {
   /**
    * Sets the available filters.
-   * Type: [{ label: string (required), type: oneOf('singleSelect', 'multiSelect', 'text') (required), key: string (required), options: array }]
+   * Type: [{ label: string (required), type: oneOf('singleSelect', 'multiSelect', 'text') (required), key: string (required), options: array, defaultValue: string | array (multiSelects) }]
    */
   filters: PropTypes.arrayOf(PropTypes.shape({
     label: PropTypes.string.isRequired,
     type: PropTypes.oneOf(['singleSelect', 'multiSelect', 'text']).isRequired,
     filterKey: PropTypes.string.isRequired,
     options: PropTypes.array,
+    defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   })).isRequired,
   /**
    * Called when the user clicks on the apply button. Contains all the filter information as its argument.

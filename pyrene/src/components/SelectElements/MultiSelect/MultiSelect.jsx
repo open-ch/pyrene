@@ -37,7 +37,7 @@ const MultiSelect = props => (
         components={props.selectedOptionsInDropdown ? componentsOptionsInDropdown : componentsNormal}
         placeholder={props.placeholder}
         options={props.options}
-        value={props.value ? props.value : null}
+        value={props.value ? props.value : undefined}
         defaultValue={props.options.filter(option => props.defaultValues.includes(option.value))}
         isClearable={props.clearable}
         isDisabled={props.disabled}
@@ -66,7 +66,7 @@ const MultiSelect = props => (
         components={props.selectedOptionsInDropdown ? componentsOptionsInDropdown : componentsNormal}
         placeholder={props.placeholder}
         options={props.options}
-        value={props.value ? props.value : null}
+        value={props.value ? props.value : undefined}
         defaultValue={props.options.filter(option => props.defaultValues.includes(option.value))}
         isClearable={props.clearable}
         isDisabled={props.disabled}

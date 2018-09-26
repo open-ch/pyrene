@@ -14,15 +14,31 @@ const filterInterface = (filterProps) => {
           name={filterProps.filterKey}
           options={filterProps.options}
           onChange={filterProps.handleFilterChange}
-          value={filterProps.filterValues[filterProps.filterKey] ? filterProps.filterValues[filterProps.filterKey].value : null}
+          value={filterProps.filterValues[filterProps.filterKey] ? filterProps.filterValues[filterProps.filterKey].value : filterProps.defaultValue}
           clearable
           searchable
         />
       );
     case 'multiSelect':
-      return <MultiSelect name={filterProps.filterKey} options={filterProps.options} onChange={filterProps.handleFilterChange} value={filterProps.filterValues[filterProps.filterKey]} selectedOptionsInDropdown keepMenuOnSelect clearable />;
+      return (<MultiSelect
+        name={filterProps.filterKey}
+        options={filterProps.options}
+        onChange={filterProps.handleFilterChange}
+        value={filterProps.filterValues[filterProps.filterKey].length > 0 ? filterProps.filterValues[filterProps.filterKey] : null}
+        defaultValues={filterProps.defaultValue}
+        selectedOptionsInDropdown
+        keepMenuOnSelect
+        clearable
+      />);
     case 'text':
-      return <TextField name={filterProps.filterKey} onChange={filterProps.handleFilterChange} placeholder={'Type'} value={filterProps.filterValues[filterProps.filterKey]} />;
+      return (
+        <TextField
+          name={filterProps.filterKey}
+          onChange={filterProps.handleFilterChange}
+          placeholder={'Type'}
+          value={filterProps.filterValues[filterProps.filterKey] ? filterProps.filterValues[filterProps.filterKey] : filterProps.defaultValue}
+        />
+      );
     default:
       return null;
   }
