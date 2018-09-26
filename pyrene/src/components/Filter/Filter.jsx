@@ -88,7 +88,7 @@ export default class Filter extends React.Component {
             onChange={() => null}
             onFocus={() => null}
           />
-          <span className={'icon-search'} styleName={'searchIcon'} />
+          <span className={'pyreneIcon-search'} styleName={'searchIcon'} />
         </div>
         <div styleName="spacer" /> */}
         <FilterPopoverButton

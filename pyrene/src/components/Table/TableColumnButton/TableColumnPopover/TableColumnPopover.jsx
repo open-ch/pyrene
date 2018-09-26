@@ -33,7 +33,7 @@ export default class TableColumnPopover extends React.Component {
             <div styleName={'buttonLabel'}>
               Columns
             </div>
-            <div styleName={'arrowIcon'} className={'icon-collapsDown'} />
+            <div styleName={'arrowIcon'} className={'pyreneIcon-collapsDown'} />
           </div>
 
         </Popover>
