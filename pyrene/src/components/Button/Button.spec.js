@@ -31,8 +31,8 @@ describe('<Button />', () => {
     expect(rendered.contains('My Label')).to.equal(true);
   });
 
-  it('renders the span for icons', () => {
+  it('renders the html for icons', () => {
     const rendered = shallow(<Button icon={'someIcon'}/>);
-    expect(rendered.find('.icon-someIcon')).to.have.length(1);
+    expect(rendered.find('.pyreneIcon-someIcon')).to.have.length(1);
   });
 });
