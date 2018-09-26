@@ -37,10 +37,10 @@ export default class Table extends React.Component {
         </div>}
         {this.props.loading && this.renderLoader()}
         <div styleName={classNames('filterContainer', {loading: this.props.loading})}>
-          <Filter filters={this.props.filters}/>
+          {this.props.filters.length > 0 && <Filter filters={this.props.filters} onFilterSubmit={this.props.onFilterChange} />}
         </div>
         <div styleName={classNames('tableAndActions', {loading: this.props.loading})}>
-          <TableColumnPopover />
+          {/*<TableColumnPopover />*/}
         <div styleName={'toolbar'}>
           {this.props.actions.map((action, index) => (
             <React.Fragment key={action.label}>
@@ -104,6 +104,7 @@ Table.defaultProps = {
   pageSizeOptions: [10, 20, 50, 100, 250],
   filters: [],
   onRowDoubleClick: () => null,
+  onFilterChange: () => null,
 };
 
 Table.propTypes = {
@@ -129,13 +130,14 @@ Table.propTypes = {
   defaultPageSize: PropTypes.number,
   /**
    * Sets the available filters.
+   * Type: [{ label: string (required), type: oneOf('singleSelect', 'multiSelect', 'text') (required), key: string (required), options: array }]
    */
   filters: PropTypes.arrayOf(PropTypes.shape({
-    label: PropTypes.string,
-    type: PropTypes.string,
-    key: PropTypes.string,
+    label: PropTypes.string.isRequired,
+    type: PropTypes.oneOf(['singleSelect', 'multiSelect', 'text']).isRequired,
+    filterKey: PropTypes.string.isRequired,
     options: PropTypes.array,
-  })).isRequired,
+  })),
   /**
    * Disables the component and displays a loader inside of it.
    */
@@ -144,6 +146,10 @@ Table.propTypes = {
    * Whether multiSorting via shift click is possible.
    */
   multiSort: PropTypes.bool,
+  /**
+   * Called when the filter changes.
+   */
+  onFilterChange: PropTypes.func,
   /**
    * Called when the user double clicks on a row.
    */
