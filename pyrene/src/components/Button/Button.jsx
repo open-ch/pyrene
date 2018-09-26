@@ -25,7 +25,7 @@ const Button = props => (
       onClick={props.onClick}
       disabled={props.disabled}
     >
-      {props.icon && <span styleName={'icon'} className={`icon-${props.icon}`} />}
+      {props.icon && <span styleName={'icon'} className={`pyreneIcon-${props.icon}`} />}
       <span styleName={'label'}>{props.label}</span>
     </button>
     {props.loading && ((props.type === 'primary' || props.type === 'danger') ?

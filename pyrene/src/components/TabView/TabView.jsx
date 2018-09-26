@@ -60,7 +60,7 @@ export default class TabView extends React.Component {
     <div styleName={'moreMenu'} ref={(menu) => { this.menuRef = menu; }} role="listbox">
       <div styleName={'titleBox'}>
         <span styleName={'title'}> {this.state.moreTabLabel} </span>
-        <span className={'icon-collapsDown'} styleName={'moreArrow'} />
+        <span className={'pyreneIcon-collapsDown'} styleName={'moreArrow'} />
       </div>
       {moreTabs.map((tab, index) =>
         <div
@@ -123,7 +123,7 @@ export default class TabView extends React.Component {
             onClick={this.toggleMoreMenu}>
             <div styleName={'titleBox'}>
               <span styleName={'title'}> {this.state.moreTabLabel} </span>
-              <span className={'icon-collapsDown'} styleName={'moreArrow'} />
+              <span className={'pyreneIcon-collapsDown'} styleName={'moreArrow'} />
             </div>
             {this.renderMoreMenu(moreTabs, visibleTabs)}
           </div>

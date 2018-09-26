@@ -20,7 +20,7 @@ const FilterPopoverButton = props => {
         <div styleName={'buttonLabel'}>
           {props.label}
         </div>
-        <div styleName={'arrowIcon'} className={'icon-collapsDown'} />
+        <div styleName={'arrowIcon'} className={'pyreneIcon-collapsDown'} />
       </div>
     </Popover>
   );

@@ -19,7 +19,7 @@ const Link = props => (
     href={props.path}
   >
     <span styleName={'label'}>{props.label}</span>
-    {props.type === 'standalone' && <span styleName={'icon'} className={'icon-chevronRight'} />}
+    {props.type === 'standalone' && <span styleName={'icon'} className={'pyreneIcon-chevronRight'} />}
   </a>
 );
 
