@@ -24,6 +24,9 @@ const initFilterState = (filters) => {
   }, {});
 };
 
+/**
+ * We all look at things through the filter of our own experiences.
+ */
 export default class Filter extends React.Component {
   state = {
     displayFilterPopover: false,
@@ -111,11 +114,18 @@ Filter.defaultProps = {
 };
 
 Filter.propTypes = {
+  /**
+   * Data input array for the displayed filters.
+   * Type: [{ label: string (required), type: oneOf('singleSelect', 'multiSelect', 'text') (required), key: string (required), options: array }]
+   */
   filters: PropTypes.arrayOf(PropTypes.shape({
-    label: PropTypes.string,
-    type: PropTypes.string,
-    key: PropTypes.string,
+    label: PropTypes.string.isRequired,
+    type: PropTypes.oneOf(['singleSelect', 'multiSelect', 'text']).isRequired,
+    filterKey: PropTypes.string.isRequired,
     options: PropTypes.array,
   })).isRequired,
+  /**
+   * Called when the user clicks on the apply button. Contains all the filter information as its argument.
+   */
   onFilterSubmit: PropTypes.func,
 };
