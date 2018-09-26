@@ -21,12 +21,12 @@ const TextField = (props) => (
         onBlur={props.onBlur}
         onFocus={props.onFocus}
       />
-      {/* Future use of an api with predefined icons - <span className={`icon-${props.icon}`} styleName={'textFieldIcon'} />*/}
+      {/* Future use of an api with predefined icons - <span className={`pyreneIcon-${props.icon}`} styleName={'textFieldIcon'} />*/}
     </div>
 
     {props.invalid && props.invalidLabel && !props.disabled ?
       <div styleName={'invalidLabel'}>
-        <span className={'icon-errorOutline'} styleName={'errorIcon'} />
+        <span className={'pyreneIcon-errorOutline'} styleName={'errorIcon'} />
         {props.invalidLabel}
       </div>
       :

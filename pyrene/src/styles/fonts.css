@@ -37,7 +37,7 @@
   src: url('../fonts/pyrene-iconfont-14.woff') format('woff');
 }
 
-[class^="icon-"], [class*=" icon-"] {
+[class^="pyreneIcon-"], [class*=" pyreneIcon-"] {
   /* use !important to prevent issues with browser extensions that change fonts */
   font-family: IconFont !important;
   speak: none;
@@ -54,49 +54,49 @@
 
 /* handy dandy regex when adding a lot of new icons:
    CMD + R -> activate Regex checkbox
-   Search field: \.icon\-.*:before(?!\))
-   Replace field: :global($0)
+   Search field: (\.)(icon)(\-.*:before(?!\)))
+   Replace field: :global($1pyreneIcon$3)
 */
 
-:global(.icon-warning:before) {
+:global(.pyreneIcon-warning:before) {
   content: "\62";
 }
-:global(.icon-check:before) {
+:global(.pyreneIcon-check:before) {
   content: "\61";
 }
-:global(.icon-info:before) {
+:global(.pyreneIcon-info:before) {
   content: "\39";
 }
-:global(.icon-search:before) {
+:global(.pyreneIcon-search:before) {
   content: "\38";
 }
-:global(.icon-delete:before) {
+:global(.pyreneIcon-delete:before) {
   content: "\37";
 }
-:global(.icon-errorOutline:before) {
+:global(.pyreneIcon-errorOutline:before) {
   content: "\36";
 }
-:global(.icon-filter:before) {
+:global(.pyreneIcon-filter:before) {
   content: "\35";
 }
-:global(.icon-collapsDown:before) {
+:global(.pyreneIcon-collapsDown:before) {
   content: "\33";
 }
-:global(.icon-collapsUp:before) {
+:global(.pyreneIcon-collapsUp:before) {
   content: "\34";
 }
-:global(.icon-chevronDown:before) {
+:global(.pyreneIcon-chevronDown:before) {
   content: "\63";
 }
-:global(.icon-chevronUp:before) {
+:global(.pyreneIcon-chevronUp:before) {
   content: "\64";
 }
-:global(.icon-chevronLeft:before) {
+:global(.pyreneIcon-chevronLeft:before) {
   content: "\32";
 }
-:global(.icon-chevronRight:before) {
+:global(.pyreneIcon-chevronRight:before) {
   content: "\31";
 }
-:global(.icon-share:before) {
+:global(.pyreneIcon-share:before) {
   content: "\30";
 }

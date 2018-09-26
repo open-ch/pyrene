@@ -40,7 +40,7 @@ export default class Collapsible extends React.Component {
         <div styleName={'collapsibleButton'} onClick={this.toggleCollapse} role="button" aria-label="Show or hide content">
           <div styleName={"centeringBox"}>
             {this.state.expanded && this.props.labelExpanded ? this.props.labelExpanded : this.props.labelCollapsed}
-            <span className={'icon-collapsDown'} styleName={'collapsArrow'}/>
+            <span className={'pyreneIcon-collapsDown'} styleName={'collapsArrow'}/>
           </div>
         </div>
         <div styleName={"collapsibleBody"} style={{height: (this.state.expanded && this.state.contentHeight) ? this.state.contentHeight : null}}>
