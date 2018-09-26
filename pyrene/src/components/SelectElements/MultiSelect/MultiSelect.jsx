@@ -81,7 +81,7 @@ const MultiSelect = props => (
 
     {props.invalid && props.invalidLabel && !props.disabled ?
       <div styleName={'invalidLabel'}>
-        <span className={'icon-errorOutline'} styleName={'errorIcon'} />
+        <span className={'pyreneIcon-errorOutline'} styleName={'errorIcon'} />
         {props.invalidLabel}
       </div>
       :

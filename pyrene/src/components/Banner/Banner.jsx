@@ -25,11 +25,11 @@ const Banner = props => (
     role="banner"
   >
     <div styleName={'iconMessageContainer'}>
-      <span styleName={'bannerIcon'}>{props.type === 'loading' ? <Loader size={'small'} /> : <span className={`icon-${iconNameForBannerType(props.type)}`} />}</span>
+      <span styleName={'bannerIcon'}>{props.type === 'loading' ? <Loader size={'small'} /> : <span className={`pyreneIcon-${iconNameForBannerType(props.type)}`} />}</span>
       <div styleName={'spacer'} />
       <span styleName={'message'}>{props.label}</span>
     </div>
-    {props.type !== 'error' && props.type !== 'loading' && <span className={'icon-delete'} styleName={'clearIcon'} onClick={props.onClear} role="button" aria-label="Clear Banner"/>}
+    {props.type !== 'error' && props.type !== 'loading' && <span className={'pyreneIcon-delete'} styleName={'clearIcon'} onClick={props.onClear} role="button" aria-label="Clear Banner"/>}
   </div>
 );
 

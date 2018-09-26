@@ -28,7 +28,7 @@ export default class TableFilter extends React.Component {
             onChange={() => null}
             onFocus={() => null}
           />
-          <span className={'icon-search'} styleName={'searchIcon'} />
+          <span className={'pyreneIcon-search'} styleName={'searchIcon'} />
         </div>
         <div styleName="spacer" />
         <FilterPopoverButton label={'Filter'} displayPopover={this.state.displayFilterPopover} onClick={this.displayFilterPopover}/>

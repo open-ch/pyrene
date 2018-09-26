@@ -12,7 +12,7 @@ import './arrowbutton.css';
  */
 const ArrowButton = props => {
   const capitalisedDirection = props.direction.charAt(0).toUpperCase() + props.direction.slice(1);
-  const iconName = `icon-chevron${capitalisedDirection}`;
+  const iconName = `pyreneIcon-chevron${capitalisedDirection}`;
   return (
     <button
       className={'unSelectable'}
