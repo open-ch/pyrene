@@ -573,6 +573,9 @@ const startProps = {
       action: adminAction,
     },
   },
+  'filter': {
+    filters: [{label: 'first', type: 'singleSelect', filterKey: 'testKey', options: testOptionsWithoutInvalid}, {label: 'second', type: 'multiSelect', filterKey: 'testKey2', options: testOptionsWithoutInvalid}, {label: 'third', type: 'text', filterKey: 'testKey3', options: null}, {label: 'fourth', type: 'text', filterKey: 'testKey4', options: null}, {label: 'fifth', type: 'text', filterKey: 'testKey5', options: null}, {label: 'sixth', type: 'text', filterKey: 'testKey6', options: null}, {label: 'seventh', type: 'text', filterKey: 'testKey7', options: null}, {label: 'eighth', type: 'text', filterKey: 'testKey8', options: null}, {label: 'ninth', type: 'text', filterKey: 'testKey9', options: null}, {label: 'tenth', type: 'text', filterKey: 'testKey10', options: null}, {label: 'eleventh', type: 'text', filterKey: 'testKey11', options: null}, {label: 'twelfth', type: 'text', filterKey: 'testKey12', options: null}]
+  },
   'link': {
     label: 'Click Me',
     path: '#',
@@ -581,12 +584,13 @@ const startProps = {
     size: 'large',
   },
   'modal': {
-    renderCallback: () => <ContentFiller width={400} height={600} />,
+    renderCallback: () => <ContentFiller width={'100%'} height={600} />,
     canNext: true,
     canPrevious: true,
     displayNavigationArrows: true,
     size: 'small',
     title: 'Modal',
+    rightButtonBarElements: [{type: 'secondary', label: 'Cancel', action: () => null}, {type: 'primary', label: 'Apply', action: () => null}]
   },
   'multi-select': {
     title: 'Multi-Select',
@@ -624,7 +628,8 @@ const startProps = {
     data: tableData,
     columns: tableColumns,
     onRowDoubleClick: (rowInfo) => console.log(rowInfo),
-    actions: [{icon: 'search', label: 'Test', callBack: () => console.log('test')}]
+    actions: [{icon: 'search', label: 'Test', callBack: () => console.log('test')}],
+    filters: [{label: 'first column', type: 'singleSelect', filterKey: 'testKey', options: testOptions}, {label: 'second column', type: 'multiSelect', filterKey: 'testKey2', options: testOptions}]
   },
   'tabview': {
     initialTabName: 'Tab 1',

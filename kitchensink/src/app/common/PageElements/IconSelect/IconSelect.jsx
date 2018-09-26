@@ -10,7 +10,7 @@ const Option = (props) => {
   const { getStyles, children, innerProps } = props;
   return (
     <div {...innerProps} style={getStyles('option', props)}>
-      <span className={`icon-${children}`} style={{verticalAlign: 'text-top', marginRight: 8, fontSize: 16}}/> {children}
+      <span className={`pyreneIcon-${children}`} style={{verticalAlign: 'text-top', marginRight: 8, fontSize: 16}}/> {children}
     </div>
   );
 };
