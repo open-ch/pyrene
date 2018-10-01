@@ -1,0 +1,68 @@
+@import '../../../styles/colors.css';
+
+.selectContainer {
+  width: 300px;
+  height: 32px;
+  box-sizing: border-box;
+  padding: 0 8px 0 0;
+}
+
+.selectMenuWithOptions {
+  box-sizing: border-box;
+  padding: 4px;
+  display: flex;
+  flex-wrap: wrap;
+  border-bottom: 1px solid lightgrey;
+  max-height: 79px;
+  overflow: auto;
+}
+
+.selectOption {
+  box-sizing: border-box;
+  height: 20px;
+  padding: 0 6px 0 8px;
+  margin: 2px;
+
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+
+  background-color: var(--neutral-030);
+  border-radius: 2px;
+  min-width: 0;
+
+  &.invalid {
+    background-color: var(--red-100);
+  }
+}
+
+
+.optionLabel {
+  font-size: 13px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: var(--neutral-500);
+  cursor: default;
+}
+
+.clearBox {
+  width: 12px;
+  height: 12px;
+
+  margin-left: 2px;
+  border-radius: 2px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.clearIcon {
+  font-size: 12px;
+  color: var(--neutral-300);
+
+  &:hover {
+    color: var(--red-500);
+  }
+}

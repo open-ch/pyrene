@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Popover from '../../../Popover/Popover';
+import Popover from '../../Popover/Popover';
 
 import './filterPopoverButton.css';
 import FilterPopover from '../FilterPopover/FilterPopover';
@@ -13,8 +13,16 @@ const FilterPopoverButton = props => {
       distanceToTarget={8}
       displayPopover={props.displayPopover}
       preferredPosition={['bottom']}
-      renderPopoverContent={() => <FilterPopover />}
-      onClickOutside={props.onClick}
+      renderPopoverContent={() => (
+        <FilterPopover
+          filters={props.filters}
+          handleFilterChange={props.handleFilterChange}
+          filterValues={props.filterValues}
+          onFilterClear={props.onFilterClear}
+          onClose={props.onClick}
+          onFilterApply={props.onFilterApply}
+        />
+      )}
     >
       <div styleName={classNames('filterButton', { noBorder: props.noBorder }, { popoverOpen: props.displayPopover })} onClick={props.onClick}>
         <div styleName={'buttonLabel'}>
@@ -36,9 +44,19 @@ FilterPopoverButton.defaultProps = {
 
 FilterPopoverButton.propTypes = {
   displayPopover: PropTypes.bool,
+  filters: PropTypes.arrayOf(PropTypes.shape({
+    label: PropTypes.string,
+    type: PropTypes.string,
+    key: PropTypes.string,
+    options: PropTypes.array,
+  })).isRequired,
+  filterValues: PropTypes.object.isRequired,
+  handleFilterChange: PropTypes.func.isRequired,
   label: PropTypes.string.isRequired,
   noBorder: PropTypes.bool,
   onClick: PropTypes.func,
+  onFilterApply: PropTypes.func.isRequired,
+  onFilterClear: PropTypes.func.isRequired,
 };
 
 export default FilterPopoverButton;
