@@ -12,7 +12,7 @@ const MultiSelectMenuWithOptions = props => (
           <div styleName={classNames('selectOption', {invalid: option.invalid})} key={option.value}>
             <div styleName={'optionLabel'}>{option.label}</div>
             <div styleName={'clearBox'} onClick={() => props.setValue(props.getValue().filter(e => e !== option))}>
-              <div styleName={'clearIcon'} className={'icon-delete'} />
+              <div styleName={'clearIcon'} className={'pyreneIcon-delete'} />
             </div>
           </div>
         );

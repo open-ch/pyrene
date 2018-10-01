@@ -79,7 +79,7 @@ export default class Filter extends React.Component {
 
   render() {
     return (
-      <div styleName={'tableFilter'}>
+      <div styleName={'filter'}>
         {/* No Searchbar for now
         <div styleName={'filterSearchBar'}>
           <input

@@ -47,8 +47,9 @@ FilterPopoverButton.propTypes = {
   filters: PropTypes.arrayOf(PropTypes.shape({
     label: PropTypes.string,
     type: PropTypes.string,
-    key: PropTypes.string,
+    filterKey: PropTypes.string,
     options: PropTypes.array,
+    defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   })).isRequired,
   filterValues: PropTypes.object.isRequired,
   handleFilterChange: PropTypes.func.isRequired,
