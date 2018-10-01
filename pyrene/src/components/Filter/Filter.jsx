@@ -117,7 +117,7 @@ Filter.defaultProps = {
 Filter.propTypes = {
   /**
    * Sets the available filters.
-   * Type: [{ label: string (required), type: oneOf('singleSelect', 'multiSelect', 'text') (required), key: string (required), options: array, defaultValue: string | array (multiSelects) }]
+   * Type: [{ label: string (required), type: oneOf('singleSelect', 'multiSelect', 'text') (required), key: string (required), options: array, defaultValue: string | arrayOf string (multiSelects) }]
    */
   filters: PropTypes.arrayOf(PropTypes.shape({
     label: PropTypes.string.isRequired,
