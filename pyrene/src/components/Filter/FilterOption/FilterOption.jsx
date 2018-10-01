@@ -6,26 +6,26 @@ import SingleSelect from '../../SelectElements/SingleSelect/SingleSelect';
 import TextField from '../../FormElements/TextField/TextField';
 import MultiSelect from '../../SelectElements/MultiSelect/MultiSelect';
 
-const filterInterface = (filterProps) => {
-  switch (filterProps.type) {
+const getFilterInterface = (props) => {
+  switch (props.type) {
     case 'singleSelect':
       return (
         <SingleSelect
-          name={filterProps.filterKey}
-          options={filterProps.options}
-          onChange={filterProps.handleFilterChange}
-          value={filterProps.filterValues[filterProps.filterKey] ? filterProps.filterValues[filterProps.filterKey].value : filterProps.defaultValue}
+          name={props.filterKey}
+          options={props.options}
+          onChange={props.handleFilterChange}
+          value={props.filterValues[props.filterKey] ? props.filterValues[props.filterKey].value : props.defaultValue}
           clearable
           searchable
         />
       );
     case 'multiSelect':
       return (<MultiSelect
-        name={filterProps.filterKey}
-        options={filterProps.options}
-        onChange={filterProps.handleFilterChange}
-        value={filterProps.filterValues[filterProps.filterKey].length > 0 ? filterProps.filterValues[filterProps.filterKey] : null}
-        defaultValues={filterProps.defaultValue}
+        name={props.filterKey}
+        options={props.options}
+        onChange={props.handleFilterChange}
+        value={props.filterValues[props.filterKey].length > 0 ? props.filterValues[props.filterKey] : null}
+        defaultValues={props.defaultValue}
         selectedOptionsInDropdown
         keepMenuOnSelect
         clearable
@@ -33,10 +33,10 @@ const filterInterface = (filterProps) => {
     case 'text':
       return (
         <TextField
-          name={filterProps.filterKey}
-          onChange={filterProps.handleFilterChange}
+          name={props.filterKey}
+          onChange={props.handleFilterChange}
           placeholder={'Type'}
-          value={filterProps.filterValues[filterProps.filterKey] ? filterProps.filterValues[filterProps.filterKey] : filterProps.defaultValue}
+          value={props.filterValues[props.filterKey] ? props.filterValues[props.filterKey] : props.defaultValue}
         />
       );
     default:
@@ -50,7 +50,7 @@ const FilterOption = props => (
       {props.label}
     </div>
     <div styleName={'interface'}>
-      {filterInterface(props)}
+      {getFilterInterface(props)}
     </div>
   </div>
 );
@@ -58,8 +58,19 @@ const FilterOption = props => (
 
 FilterOption.displayName = 'FilterOption';
 
-FilterOption.defaultProps = {};
+FilterOption.defaultProps = {
+  options: [],
+  defaultValue: undefined,
+};
 
-FilterOption.propTypes = {};
+FilterOption.propTypes = {
+  defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
+  filterKey: PropTypes.string.isRequired,
+  filterValues: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.array, PropTypes.string])).isRequired,
+  handleFilterChange: PropTypes.func.isRequired,
+  label: PropTypes.string.isRequired,
+  options: PropTypes.array,
+  type: PropTypes.string.isRequired,
+};
 
 export default FilterOption;
