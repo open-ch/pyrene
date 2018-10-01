@@ -41,14 +41,14 @@ export default class Table extends React.Component {
         </div>
         <div styleName={classNames('tableAndActions', {loading: this.props.loading})}>
           {/*<TableColumnPopover />*/}
-        <div styleName={'toolbar'}>
+          {this.props.actions.length > 0 && <div styleName={'toolbar'}>
           {this.props.actions.map((action, index) => (
             <React.Fragment key={action.label}>
               <Button label={action.label} icon={action.icon ? action.icon : undefined} onClick={action.callBack} type={'action'} />
               {index + 1 < this.props.actions.length && <div styleName={'spacer'} />}
             </React.Fragment>
           ))}
-        </div>
+        </div>}
           <ReactTable
             defaultPageSize={this.props.defaultPageSize}
             data={this.props.data}
@@ -97,7 +97,8 @@ export default class Table extends React.Component {
 Table.displayName = 'Table';
 
 Table.defaultProps = {
-  title: 'Table',
+  actions: [],
+  title: '',
   defaultPageSize: 10,
   loading: false,
   multiSort: true,
