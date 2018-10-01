@@ -15,6 +15,7 @@ import { default as Checkbox } from './components/FormElements/Checkbox/Checkbox
 import { default as Collapsible } from './components/Collapsible/Collapsible';
 import { default as Container } from './components/Container/Container';
 
+import { default as Filter } from './components/Filter/Filter';
 import { default as Form } from './components/FormElements/Form';
 
 import { default as Link } from './components/Link/Link';
@@ -38,7 +39,6 @@ import { default as TextField } from './components/FormElements/TextField/TextFi
 import { default as Tooltip } from './components/Tooltip/Tooltip';
 
 
-
 // Sort alphabetically to find stuff easily
 const Components = {
   ArrowButton,
@@ -47,6 +47,7 @@ const Components = {
   Checkbox,
   Collapsible,
   Container,
+  Filter,
   Form,
   Link,
   Loader,
@@ -70,6 +71,7 @@ export { Button };
 export { Checkbox };
 export { Collapsible };
 export { Container };
+export { Filter };
 export { Form };
 export { Link };
 export { Loader };

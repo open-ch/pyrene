@@ -7,10 +7,11 @@ import './table.css';
 import TablePagination from './TablePagination/TablePagination';
 import Button from '../Button/Button';
 import Loader from '../Loader/Loader';
-import TableFilter from './TableFilter/TableFilter';
+import Filter from '../Filter/Filter';
 import TableHeaderCell from './TableHeader/TableHeaderCell';
 import TableHeader from './TableHeader/TableHeader';
 import colorConstants from '../../styles/colorConstants';
+import TableColumnPopover from './TableColumnButton/TableColumnPopover/TableColumnPopover';
 
 /**
  * All mighty table
@@ -35,12 +36,11 @@ export default class Table extends React.Component {
           {this.props.title}
         </div>}
         {this.props.loading && this.renderLoader()}
-        {/* Future Filter component
         <div styleName={classNames('filterContainer', {loading: this.props.loading})}>
-          <TableFilter />
+          {this.props.filters.length > 0 && <Filter filters={this.props.filters} onFilterSubmit={this.props.onFilterChange} />}
         </div>
-        */}
         <div styleName={classNames('tableAndActions', {loading: this.props.loading})}>
+          {/*<TableColumnPopover />*/}
         <div styleName={'toolbar'}>
           {this.props.actions.map((action, index) => (
             <React.Fragment key={action.label}>
@@ -102,7 +102,9 @@ Table.defaultProps = {
   loading: false,
   multiSort: true,
   pageSizeOptions: [10, 20, 50, 100, 250],
+  filters: [],
   onRowDoubleClick: () => null,
+  onFilterChange: () => null,
 };
 
 Table.propTypes = {
@@ -127,6 +129,16 @@ Table.propTypes = {
    */
   defaultPageSize: PropTypes.number,
   /**
+   * Sets the available filters.
+   * Type: [{ label: string (required), type: oneOf('singleSelect', 'multiSelect', 'text') (required), key: string (required), options: array }]
+   */
+  filters: PropTypes.arrayOf(PropTypes.shape({
+    label: PropTypes.string.isRequired,
+    type: PropTypes.oneOf(['singleSelect', 'multiSelect', 'text']).isRequired,
+    filterKey: PropTypes.string.isRequired,
+    options: PropTypes.array,
+  })),
+  /**
    * Disables the component and displays a loader inside of it.
    */
   loading: PropTypes.bool,
@@ -134,6 +146,10 @@ Table.propTypes = {
    * Whether multiSorting via shift click is possible.
    */
   multiSort: PropTypes.bool,
+  /**
+   * Called when the filter changes.
+   */
+  onFilterChange: PropTypes.func,
   /**
    * Called when the user double clicks on a row.
    */

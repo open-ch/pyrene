@@ -1,0 +1,17 @@
+@import '../../../../styles/colors.css';
+
+.columnList {
+  padding: 24px;
+}
+
+.title {
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  color: var(--neutral-500);
+  text-transform: uppercase;
+}
+
+.list {
+
+}
