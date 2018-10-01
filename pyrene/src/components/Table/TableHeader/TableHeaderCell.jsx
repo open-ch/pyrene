@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import './tableHeaderCell.css';
 
 const TableHeaderCell = props => {
-  const ClassName = props.className.replace(/-cursor-pointer/g, '');
+  const iconClassName = props.className.replace(/-cursor-pointer/g, '');
   return (
     <div styleName={'tableHeaderCell'} className={classNames(props.className, 'unSelectable')} style={props.style} onClick={(event) => props.toggleSort(event)}>
       {props.children}
