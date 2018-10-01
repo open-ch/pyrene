@@ -49,13 +49,29 @@ export default class Modal extends React.Component {
     </div>
   );
 
+  createButtonArray = (buttonInfo) => {
+    return buttonInfo.map(buttonProps => (
+      <Button
+        icon={buttonProps.icon}
+        type={buttonProps.type}
+        label={buttonProps.label}
+        disabled={buttonProps.disabled}
+        onClick={buttonProps.action}
+      />));
+  };
+
   render() {
     return (
       <Fragment>
         <div styleName="modalOverlay">
           <div styleName={classNames('modalContainer', this.props.size)} role="dialog">
             {this.props.loading ? this.renderLoader() : this.renderContent()}
-            <ButtonBar rightButtonSectionElements={[<Button label={'Cancel'} onClick={this.props.onClose}/>]}/>
+            <div styleName="buttonBarContainer">
+              <ButtonBar
+                rightButtonSectionElements={this.createButtonArray(this.props.rightButtonBarElements)}
+                leftButtonSectionElements={this.createButtonArray(this.props.leftButtonBarElements)}
+              />
+            </div>
           </div>
         </div>
       </Fragment>
@@ -67,7 +83,8 @@ Modal.displayName = 'Modal';
 
 Modal.defaultProps = {
   loading: false,
-  buttonBarElements: [],
+  rightButtonBarElements: [],
+  leftButtonBarElements: [],
   onPreviousArrowClick: () => null,
   onNextArrowClick: () => null,
   displayNavigationArrows: false,
@@ -77,10 +94,6 @@ Modal.defaultProps = {
 };
 
 Modal.propTypes = {
-  /**
-   * Sets the buttons that are displayed on the bottom of the modal.
-   */
-  buttonBarElements: PropTypes.arrayOf(PropTypes.element),
   /**
    * Whether interaction with the next button is allowed.
    */
@@ -98,6 +111,16 @@ Modal.propTypes = {
    */
   displayNavigationArrows: PropTypes.bool,
   /**
+   * Sets the buttons that are displayed on the bottom left of the modal.
+   */
+  leftButtonBarElements: PropTypes.arrayOf(PropTypes.shape({
+    icon: PropTypes.string,
+    type: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired,
+    action: PropTypes.func.isRequired,
+    disabled: PropTypes.bool,
+  })),
+  /**
    * Disables the component and displays a loader inside of it.
    */
   loading: PropTypes.bool,
@@ -113,6 +136,17 @@ Modal.propTypes = {
    * Called when the user clicks on the previous button.
    */
   onPreviousArrowClick: PropTypes.func,
+  /**
+   * Sets the buttons that are displayed on the bottom right of the modal.
+   * Type: [{ icon: string, type: string (required), label: string (required), action: func (required)}]
+   */
+  rightButtonBarElements: PropTypes.arrayOf(PropTypes.shape({
+    icon: PropTypes.string,
+    type: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired,
+    action: PropTypes.func.isRequired,
+    disabled: PropTypes.bool,
+  })),
   /**
    * Sets the size.
    */
