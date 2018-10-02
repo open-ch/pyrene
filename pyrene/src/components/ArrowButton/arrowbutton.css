@@ -25,14 +25,16 @@
     font-size: 18px;
 
     & .icon {
+      color: var(--font-black) !important;
       display: block;
       width: 18px;
       height: 18px;
       margin-left: 1px;
     }
 
-    &:hover {
-      border-color: var(--blue-500);
+    &:hover, &:focus, &:active {
+      border-color: var(--blue-500) !important;
+      background-color: var(--neutral-000) !important;
     }
   }
 
@@ -42,13 +44,15 @@
     font-size: 16px;
 
     & .icon {
+      color: var(--font-black) !important;
       display: inline-block;
       width: 16px;
       height: 16px;
     }
 
-    &:hover {
-      background-color: var(--neutral-030);
+    &:hover, &:focus, &:active {
+      background-color: var(--neutral-030) !important;
+      border: none !important;
     }
   }
 
