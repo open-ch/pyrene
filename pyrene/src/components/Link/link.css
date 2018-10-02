@@ -13,9 +13,13 @@
   }
 
   &:hover {
+    text-decoration: none !important;
     & .label {
       text-decoration: underline;
       text-underline: var(--blue-500);
+    }
+    & .icon {
+      text-decoration: none !important;
     }
   }
 
