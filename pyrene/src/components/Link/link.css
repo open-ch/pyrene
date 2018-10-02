@@ -13,13 +13,9 @@
   }
 
   &:hover {
-    text-decoration: none !important;
     & .label {
       text-decoration: underline;
       text-underline: var(--blue-500);
-    }
-    & .icon {
-      text-decoration: none !important;
     }
   }
 
@@ -55,6 +51,16 @@
       color: inherit;
       cursor: default;
       pointer-events: none;
+    }
+  }
+}
+
+/* mc.css overrides */
+.link {
+  &:hover {
+    text-decoration: none !important;
+    & .icon {
+      text-decoration: none !important;
     }
   }
 }

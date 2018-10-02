@@ -25,16 +25,14 @@
     font-size: 18px;
 
     & .icon {
-      color: var(--font-black) !important;
       display: block;
       width: 18px;
       height: 18px;
       margin-left: 1px;
     }
 
-    &:hover, &:focus, &:active {
-      border-color: var(--blue-500) !important;
-      background-color: var(--neutral-000) !important;
+    &:hover {
+      border-color: var(--blue-500);
     }
   }
 
@@ -44,10 +42,41 @@
     font-size: 16px;
 
     & .icon {
-      color: var(--font-black) !important;
       display: inline-block;
       width: 16px;
       height: 16px;
+    }
+
+    &:hover {
+      background-color: var(--neutral-030);
+    }
+  }
+
+  &.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+}
+
+/* mc.css overrides */
+.arrowButton {
+
+  &.type-bordered {
+
+    & .icon {
+      color: var(--font-black) !important;
+    }
+
+    &:hover, &:focus, &:active {
+      border-color: var(--blue-500) !important;
+      background-color: var(--neutral-000) !important;
+    }
+
+  }
+
+  &.type-minimal {
+    & .icon {
+      color: var(--font-black) !important;
     }
 
     &:hover, &:focus, &:active {
@@ -56,8 +85,4 @@
     }
   }
 
-  &.disabled {
-    opacity: 0.5;
-    pointer-events: none;
-  }
 }
