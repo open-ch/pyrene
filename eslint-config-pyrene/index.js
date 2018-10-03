@@ -4,7 +4,9 @@ module.exports = {
 
   "env": {
     "browser": "true",
-    "es6": "true"
+    "es6": "true",
+    "jest/globals": "true",
+    "shallow": "true"
   },
 
   "parserOptions": {
@@ -74,7 +76,21 @@ module.exports = {
     // Our imports work differently in MC
     "import/no-extraneous-dependencies": 0,
     "import/no-unresolved": 0,
-    "import/extensions": 0
-  }
+    "import/extensions": 0,
+    // warn on disabled tests
+    "jest/no-disabled-tests": "warn",
+    // do not allow .only in tests
+    "jest/no-focused-tests": "error",
+    // do not allow tests with the same name
+    "jest/no-identical-title": "error",
+    // expect(files).toHaveLength(1); instead of expect(files.length).toBe(1);
+    "jest/prefer-to-have-length": "warn",
+    // Ensure expect() is called with a single argument
+    "jest/valid-expect": "error"
+  },
+
+  "plugins": [
+    "jest"
+  ]
 
 };
