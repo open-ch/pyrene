@@ -64,7 +64,7 @@
   &.type-bordered {
 
     & .icon {
-      color: var(--font-black) !important;
+      color: var(--neutral-500) !important;
     }
 
     &:hover, &:focus, &:active {
@@ -76,7 +76,7 @@
 
   &.type-minimal {
     & .icon {
-      color: var(--font-black) !important;
+      color: var(--neutral-500) !important;
     }
 
     &:hover, &:focus, &:active {
