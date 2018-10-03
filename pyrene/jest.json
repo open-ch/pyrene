@@ -1,0 +1,278 @@
+{
+  "stats": {
+    "tests": 44,
+    "passes": 44,
+    "failures": 0,
+    "duration": 6212,
+    "start": "2018-10-03T10:56:03.202Z",
+    "end": "2018-10-03T10:56:09.414Z"
+  },
+  "failures": [],
+  "passes": [
+    {
+      "title": "renders without crashing",
+      "fullTitle": "<ShareDialog /> renders without crashing",
+      "duration": 386,
+      "errorCount": 0
+    },
+    {
+      "title": "renders dialog on click",
+      "fullTitle": "<ShareDialog /> renders dialog on click",
+      "duration": 386,
+      "errorCount": 0
+    },
+    {
+      "title": "renders without crashing",
+      "fullTitle": "<RadioGroup /> renders without crashing",
+      "duration": 113,
+      "errorCount": 0
+    },
+    {
+      "title": "calls onchange on click",
+      "fullTitle": "<RadioGroup /> calls onchange on click",
+      "duration": 113,
+      "errorCount": 0
+    },
+    {
+      "title": "renders without crashing",
+      "fullTitle": "<TabView /> renders without crashing",
+      "duration": 113,
+      "errorCount": 0
+    },
+    {
+      "title": "displays the content",
+      "fullTitle": "<TabView /> displays the content",
+      "duration": 113,
+      "errorCount": 0
+    },
+    {
+      "title": "has clickable tabs",
+      "fullTitle": "<TabView /> has clickable tabs",
+      "duration": 113,
+      "errorCount": 0
+    },
+    {
+      "title": "has tabs that are not clickable if disabled",
+      "fullTitle": "<TabView /> has tabs that are not clickable if disabled",
+      "duration": 113,
+      "errorCount": 0
+    },
+    {
+      "title": "renders without crashing",
+      "fullTitle": "<TextArea /> renders without crashing",
+      "duration": 112,
+      "errorCount": 0
+    },
+    {
+      "title": "is calling onChange when changed",
+      "fullTitle": "<TextArea /> is calling onChange when changed",
+      "duration": 112,
+      "errorCount": 0
+    },
+    {
+      "title": "renders without crashing",
+      "fullTitle": "<Container /> renders without crashing",
+      "duration": 109,
+      "errorCount": 0
+    },
+    {
+      "title": "renders the content",
+      "fullTitle": "<Container /> renders the content",
+      "duration": 109,
+      "errorCount": 0
+    },
+    {
+      "title": "renders the admin button and triggers the action onclick",
+      "fullTitle": "<Container /> renders the admin button and triggers the action onclick",
+      "duration": 109,
+      "errorCount": 0
+    },
+    {
+      "title": "renders without crashing",
+      "fullTitle": "<TextField /> renders without crashing",
+      "duration": 109,
+      "errorCount": 0
+    },
+    {
+      "title": "is calling onChange when changed",
+      "fullTitle": "<TextField /> is calling onChange when changed",
+      "duration": 109,
+      "errorCount": 0
+    },
+    {
+      "title": "renders without crashing",
+      "fullTitle": "<Banner /> renders without crashing",
+      "duration": 112,
+      "errorCount": 0
+    },
+    {
+      "title": "is clearable except if it is of type error",
+      "fullTitle": "<Banner /> is clearable except if it is of type error",
+      "duration": 112,
+      "errorCount": 0
+    },
+    {
+      "title": "has a clearIcon",
+      "fullTitle": "<Banner /> has a clearIcon",
+      "duration": 112,
+      "errorCount": 0
+    },
+    {
+      "title": "has no clearIcon when the type is error or loading",
+      "fullTitle": "<Banner /> has no clearIcon when the type is error or loading",
+      "duration": 112,
+      "errorCount": 0
+    },
+    {
+      "title": "renders the icon",
+      "fullTitle": "<Banner /> renders the icon",
+      "duration": 112,
+      "errorCount": 0
+    },
+    {
+      "title": "renders the message",
+      "fullTitle": "<Banner /> renders the message",
+      "duration": 112,
+      "errorCount": 0
+    },
+    {
+      "title": "renders without crashing",
+      "fullTitle": "<Modal /> renders without crashing",
+      "duration": 112,
+      "errorCount": 0
+    },
+    {
+      "title": "renders its content",
+      "fullTitle": "<Modal /> renders its content",
+      "duration": 112,
+      "errorCount": 0
+    },
+    {
+      "title": "renders without crashing",
+      "fullTitle": "<ButtonBar /> renders without crashing",
+      "duration": 115,
+      "errorCount": 0
+    },
+    {
+      "title": "renders its content",
+      "fullTitle": "<ButtonBar /> renders its content",
+      "duration": 115,
+      "errorCount": 0
+    },
+    {
+      "title": "renders without crashing",
+      "fullTitle": "<Link /> renders without crashing",
+      "duration": 98,
+      "errorCount": 0
+    },
+    {
+      "title": "renders label",
+      "fullTitle": "<Link /> renders label",
+      "duration": 98,
+      "errorCount": 0
+    },
+    {
+      "title": "has path corresponding to prop",
+      "fullTitle": "<Link /> has path corresponding to prop",
+      "duration": 98,
+      "errorCount": 0
+    },
+    {
+      "title": "renders without crashing",
+      "fullTitle": "<Button /> renders without crashing",
+      "duration": 109,
+      "errorCount": 0
+    },
+    {
+      "title": "is clickable",
+      "fullTitle": "<Button /> is clickable",
+      "duration": 109,
+      "errorCount": 0
+    },
+    {
+      "title": "is not clickable if disabled",
+      "fullTitle": "<Button /> is not clickable if disabled",
+      "duration": 109,
+      "errorCount": 0
+    },
+    {
+      "title": "renders the label",
+      "fullTitle": "<Button /> renders the label",
+      "duration": 109,
+      "errorCount": 0
+    },
+    {
+      "title": "renders the html for icons",
+      "fullTitle": "<Button /> renders the html for icons",
+      "duration": 109,
+      "errorCount": 0
+    },
+    {
+      "title": "renders without crashing",
+      "fullTitle": "<Tooltip /> renders without crashing",
+      "duration": 107,
+      "errorCount": 0
+    },
+    {
+      "title": "renders without crashing",
+      "fullTitle": "<Collapsible /> renders without crashing",
+      "duration": 100,
+      "errorCount": 0
+    },
+    {
+      "title": "renders the content",
+      "fullTitle": "<Collapsible /> renders the content",
+      "duration": 100,
+      "errorCount": 0
+    },
+    {
+      "title": "renders without crashing",
+      "fullTitle": "<Checkbox /> renders without crashing",
+      "duration": 102,
+      "errorCount": 0
+    },
+    {
+      "title": "calls onchange on click",
+      "fullTitle": "<Checkbox /> calls onchange on click",
+      "duration": 102,
+      "errorCount": 0
+    },
+    {
+      "title": "does not call onclick when disabled",
+      "fullTitle": "<Checkbox /> does not call onclick when disabled",
+      "duration": 102,
+      "errorCount": 0
+    },
+    {
+      "title": "renders without crashing",
+      "fullTitle": "<ArrowButton /> renders without crashing",
+      "duration": 99,
+      "errorCount": 0
+    },
+    {
+      "title": "is clickable",
+      "fullTitle": "<ArrowButton /> is clickable",
+      "duration": 99,
+      "errorCount": 0
+    },
+    {
+      "title": "is not clickable if disabled",
+      "fullTitle": "<ArrowButton /> is not clickable if disabled",
+      "duration": 99,
+      "errorCount": 0
+    },
+    {
+      "title": "renders without crashing",
+      "fullTitle": "<Loader /> renders without crashing",
+      "duration": 94,
+      "errorCount": 0
+    },
+    {
+      "title": "renders without crashing",
+      "fullTitle": "<Popover /> renders without crashing",
+      "duration": 92,
+      "errorCount": 0
+    }
+  ],
+  "skipped": []
+}
