@@ -21,6 +21,7 @@ function copyProps(src, target) {
 
 global.window = window;
 global.shallow = Enzyme.shallow;
+global.mount = Enzyme.mount;
 global.document = window.document;
 global.navigator = {
   userAgent: 'node.js',
