@@ -47,6 +47,7 @@ Checkbox.defaultProps = {
   invalid: false,
   required: false,
   name: '',
+  label: '',
   onChange: () => null,
   onBlur: () => null,
 };
@@ -63,7 +64,7 @@ Checkbox.propTypes = {
   /**
    * Sets the label displayed to the user.
    */
-  label: PropTypes.string.isRequired,
+  label: PropTypes.string,
   /**
    * Sets the html name property of the form element.
    */

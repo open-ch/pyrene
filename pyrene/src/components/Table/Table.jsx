@@ -93,6 +93,13 @@ export default class Table extends React.Component {
     return this.state.selection.includes(key);
   };
 
+  resetSelection = () => {
+    this.setState((prevState, props) => ({
+      selection: [],
+      selectAll: false,
+    }));
+  };
+
 
   render() {
 
@@ -116,6 +123,19 @@ export default class Table extends React.Component {
             background: selected ? colorConstants.neutral030 : "inherit",
           }
         }
+      },
+
+      onPageChange: () => {
+        this.resetSelection();
+      },
+      onPageSizeChange: () => {
+        this.resetSelection();
+      },
+      onSortedChange: () => {
+        this.resetSelection();
+      },
+      onFilteredChange: () => {
+        this.resetSelection();
       },
 
       TheadComponent: props => <TableHeader multiSelect={this.props.multiSelect} {...props} />,
