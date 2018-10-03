@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReactTable from 'react-table';
+import checkboxHOC from "react-table/lib/hoc/selectTable";
 import classNames from 'classnames';
 
 import './table.css';
@@ -12,6 +13,9 @@ import TableHeaderCell from './TableHeader/TableHeaderCell';
 import TableHeader from './TableHeader/TableHeader';
 import colorConstants from '../../styles/colorConstants';
 import TableColumnPopover from './TableColumnButton/TableColumnPopover/TableColumnPopover';
+import Checkbox from '../FormElements/Checkbox/Checkbox';
+
+const CheckboxTable = checkboxHOC(ReactTable);
 
 /**
  * All mighty table
@@ -19,7 +23,8 @@ import TableColumnPopover from './TableColumnButton/TableColumnPopover/TableColu
 export default class Table extends React.Component {
 
   state = {
-    selected: null,
+    selection: [],
+    selectAll: false
   };
 
   renderLoader = () => (
@@ -28,8 +33,102 @@ export default class Table extends React.Component {
     </div>
   );
 
+  toggleSelection = (key, shift, row) => {
+    // start off with the existing state
+    let selection = [...this.state.selection];
+
+    if (this.props.multiSelect) {
+      const keyIndex = selection.indexOf(key);
+      // check to see if the key exists
+      if (keyIndex >= 0) {
+        // it does exist so we will remove it using destructing
+        selection = [
+          ...selection.slice(0, keyIndex),
+          ...selection.slice(keyIndex + 1)
+        ];
+      } else {
+        // it does not exist so add it
+        selection.push(key);
+      }
+    } else {
+      selection = [key];
+    }
+
+    // if the current selection array has the same length as the pageSize then all the visible elements have to be selected
+    this.setState((prevState, props) => ({
+      selection: selection,
+      selectAll: selection.length === this.checkboxTable.getWrappedInstance().getResolvedState().pageSize,
+    }));
+  };
+
+  toggleAll = () => {
+    // Only selects what is visible to the user (page size matters)
+    const selectAll = !this.state.selectAll;
+    const selection = [];
+
+    if (selectAll) {
+      // we need to get at the internals of ReactTable
+      const resolvedState = this.checkboxTable.getWrappedInstance().getResolvedState();
+      // the 'sortedData' property contains the currently accessible records based on the filter and sort
+
+      const currentPageSize = resolvedState.pageSize;
+      const currentPage = resolvedState.page;
+
+      const currentRecords = resolvedState.sortedData.slice(currentPage * currentPageSize, currentPage * currentPageSize + currentPageSize);
+
+      // we just push all the IDs onto the selection array
+      currentRecords.forEach(item => {
+        selection.push(item._original[this.props.keyField]);
+      });
+    }
+
+    this.setState((prevState, props) => ({
+      selection: selection,
+      selectAll: selectAll,
+    }));
+  };
+
+
+  isSelected = key => {
+    return this.state.selection.includes(key);
+  };
+
 
   render() {
+
+    const commonProps = {
+      columns: this.props.columns,
+      defaultPageSize: this.props.defaultPageSize,
+      data: this.props.data,
+      pageSizeOptions: this.props.pageSizeOptions,
+
+      multiSort: this.props.multiSort,
+
+      getTrProps: (state, rowInfo) => {
+        // no row selected yet
+        const selected = this.isSelected(rowInfo.original[this.props.keyField]);
+        // const selectedIndex = this.state.selection == null ? null : this.state.selection.index;
+        return {
+          onClick: () => {this.toggleSelection(rowInfo.original[this.props.keyField])},
+          onDoubleClick: () => {this.props.onRowDoubleClick(rowInfo);
+          },
+          style: {
+            background: selected ? colorConstants.neutral030 : "inherit",
+          }
+        }
+      },
+
+      TheadComponent: props => <TableHeader multiSelect={this.props.multiSelect} {...props} />,
+      ThComponent: props => <TableHeaderCell {...props} />,
+      PaginationComponent: props => <TablePagination {...props} />,
+      TfootComponent: props => <TablePagination {...props} />,
+      resizable: false,
+      showPaginationBottom: true,
+      showPagination: true,
+      showPaginationTop: true,
+      showPageSizeOptions: true,
+    };
+
     return (
       <div styleName={'tableContainer'}>
         {this.props.title && <div styleName={'titleBar'}>
@@ -49,44 +148,24 @@ export default class Table extends React.Component {
             </React.Fragment>
           ))}
         </div>}
-          <ReactTable
-            defaultPageSize={this.props.defaultPageSize}
-            data={this.props.data}
-            columns={this.props.columns}
-            pageSizeOptions={this.props.pageSizeOptions}
-
-            multiSort={this.props.multiSort}
-            PadRowComponent={this.props.PadRowComponent}
-
-            getTrProps={(state, rowInfo) => {
-              // no row selected yet
-              const selectedIndex = this.state.selected == null ? null : this.state.selected.index;
-              return {
-                onClick: (e) => {
-                  this.setState({
-                    selected: rowInfo
-                  })
-                },
-                onDoubleClick: (e) => {
-                  this.props.onRowDoubleClick(rowInfo);
-                },
-                style: {
-                  background: typeof rowInfo === 'undefined' ? null : rowInfo.index === selectedIndex ? colorConstants.neutral030 : null,
-                }
-              }
-            }}
-
-            TheadComponent={props => <TableHeader {...props} />}
-            ThComponent={props => <TableHeaderCell {...props} />}
-            PaginationComponent={props => <TablePagination {...props} />}
-            TfootComponent={props => <TablePagination {...props} />}
-            resizable={false}
-            showPaginationBottom
-            showPagination
-            showPaginationTop
-            showPageSizeOptions
-            sortable
-          />
+          {this.props.multiSelect ?
+            <CheckboxTable
+              {...commonProps}
+              ref={r => (this.checkboxTable = r)}
+              selectType={"checkbox"}
+              selectAll={this.state.selectAll}
+              isSelected={this.isSelected}
+              toggleSelection={this.toggleSelection}
+              toggleAll={this.toggleAll}
+              keyField={this.props.keyField}
+              SelectAllInputComponent={(props) => <Checkbox value={props.checked} onChange={props.onClick} />}
+              SelectInputComponent={(props) => <Checkbox value={props.checked} onChange={props.onClick} />}
+            />
+            :
+            <ReactTable
+              {...commonProps}
+            />
+          }
         </div>
       </div>
     );
@@ -102,6 +181,8 @@ Table.defaultProps = {
   defaultPageSize: 10,
   loading: false,
   multiSort: true,
+  keyField: 'id',
+  multiSelect: false,
   pageSizeOptions: [10, 20, 50, 100, 250],
   filters: [],
   onRowDoubleClick: () => null,
@@ -140,9 +221,17 @@ Table.propTypes = {
     options: PropTypes.array,
   })),
   /**
+   * Sets the data key for multiSelect (checkbox) tables. Should be a unique identifier. Required when multiSelect prop is used.
+   */
+  keyField: PropTypes.string,
+  /**
    * Disables the component and displays a loader inside of it.
    */
   loading: PropTypes.bool,
+  /**
+   * Changes the overall appearance of the table to become multi-selectable (checkbox table). Requires keyField prop.
+   */
+  multiSelect: PropTypes.bool,
   /**
    * Whether multiSorting via shift click is possible.
    */
