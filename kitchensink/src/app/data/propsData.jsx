@@ -511,6 +511,8 @@ const tableColumns = [{
   Header: 'Age',
   accessor: 'age',
   pivot: true,
+  minWidth: 300,
+  resizable: false,
   Cell: row => ( // Custom Cell rendering
     <div
       style={{
@@ -545,7 +547,6 @@ const tableColumns = [{
   accessor: 'friend.age'
 }];
 
-
 const startProps = {
   'arrowbutton': {},
   'banner': {
@@ -574,7 +575,7 @@ const startProps = {
     },
   },
   'filter': {
-    filters: [{label: 'first', type: 'singleSelect', filterKey: 'testKey', options: testOptionsWithoutInvalid}, {label: 'second', type: 'multiSelect', filterKey: 'testKey2', options: testOptionsWithoutInvalid}, {label: 'third', type: 'text', filterKey: 'testKey3', options: null}, {label: 'fourth', type: 'text', filterKey: 'testKey4', options: null}, {label: 'fifth', type: 'text', filterKey: 'testKey5', options: null}, {label: 'sixth', type: 'text', filterKey: 'testKey6', options: null}, {label: 'seventh', type: 'text', filterKey: 'testKey7', options: null}, {label: 'eighth', type: 'text', filterKey: 'testKey8', options: null}, {label: 'ninth', type: 'text', filterKey: 'testKey9', options: null}, {label: 'tenth', type: 'text', filterKey: 'testKey10', options: null}, {label: 'eleventh', type: 'text', filterKey: 'testKey11', options: null}, {label: 'twelfth', type: 'text', filterKey: 'testKey12', options: null}]
+    filters: [{label: 'first', type: 'singleSelect', filterKey: 'testKey', options: testOptionsWithoutInvalid, defaultValue: 'vanilla'}, {label: 'second', type: 'multiSelect', filterKey: 'testKey2', options: testOptionsWithoutInvalid, defaultValue: ['vanilla', 'chocolate']}, {label: 'third', type: 'text', filterKey: 'testKey3', options: null, defaultValue: 'defaultFill'}, {label: 'fourth', type: 'text', filterKey: 'testKey4', options: null}, {label: 'fifth', type: 'text', filterKey: 'testKey5', options: null}, {label: 'sixth', type: 'text', filterKey: 'testKey6', options: null}, {label: 'seventh', type: 'text', filterKey: 'testKey7', options: null}, {label: 'eighth', type: 'text', filterKey: 'testKey8', options: null}, {label: 'ninth', type: 'text', filterKey: 'testKey9', options: null}, {label: 'tenth', type: 'text', filterKey: 'testKey10', options: null}, {label: 'eleventh', type: 'text', filterKey: 'testKey11', options: null}, {label: 'twelfth', type: 'text', filterKey: 'testKey12', options: null}]
   },
   'link': {
     label: 'Click Me',
@@ -625,10 +626,15 @@ const startProps = {
     spacing: 48,
   },
   'table': {
+    multiSelect: true,
+    resizable: true,
+    pivotBy: ["age"],
+    title: 'Table',
+    keyField: 'name',
     data: tableData,
     columns: tableColumns,
     onRowDoubleClick: (rowInfo) => console.log(rowInfo),
-    actions: [{icon: 'search', label: 'Test', callBack: () => console.log('test')}],
+    actions: [{icon: 'search', label: 'Single', callBack: () => console.log('single'), active: 'single'}, {icon: 'delete', label: 'Multi', callBack: () => console.log('multi'), active: 'multi'}, {icon: 'info', label: 'Always', callBack: () => console.log('always'), active: 'always'}],
     filters: [{label: 'first column', type: 'singleSelect', filterKey: 'testKey', options: testOptions}, {label: 'second column', type: 'multiSelect', filterKey: 'testKey2', options: testOptions}]
   },
   'tabview': {
