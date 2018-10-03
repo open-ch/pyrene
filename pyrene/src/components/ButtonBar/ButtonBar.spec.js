@@ -1,7 +1,5 @@
 import React from 'react';
-import { expect } from 'chai';
-import { shallow } from 'enzyme';
-import sinon from 'sinon';
+
 import ButtonBar from './ButtonBar';
 import Button from '../Button/Button';
 
@@ -12,14 +10,14 @@ const props = {
 
 describe('<ButtonBar />', () => {
   it('renders without crashing', () => {
-    const rendered = shallow(<ButtonBar {...props} />);
+    shallow(<ButtonBar {...props} />);
   });
 
   it('renders its content', () => {
     const rendered = shallow(<ButtonBar {...props} />);
 
-    expect(rendered.find('.leftButtonSection')).to.have.length(1);
-    expect(rendered.find('.rightButtonSection')).to.have.length(1);
-    expect(rendered.find('Button')).to.have.length(2);
+    expect(rendered.find('.leftButtonSection')).toHaveLength(1);
+    expect(rendered.find('.rightButtonSection')).toHaveLength(1);
+    expect(rendered.find('Button')).toHaveLength(2);
   });
 });
