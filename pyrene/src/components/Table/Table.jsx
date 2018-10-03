@@ -35,7 +35,6 @@ export default class Table extends React.Component {
 
   toggleSelection = (key, shift, row) => {
     // start off with the existing state
-    console.log('checkbox clicked');
     let selection = [...this.state.selection];
 
     if (this.props.multiSelect) {
