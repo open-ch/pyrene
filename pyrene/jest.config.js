@@ -75,7 +75,6 @@ module.exports = {
 
   // A map from regular expressions to module names that allow to stub out resources with a single module
   moduleNameMapper: {
-    "^es6[/](.+)": "<rootDir>/../es6/$1",
     "\\.css$": "identity-obj-proxy"
   },
 
