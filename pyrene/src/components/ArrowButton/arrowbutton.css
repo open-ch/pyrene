@@ -57,3 +57,32 @@
     pointer-events: none;
   }
 }
+
+/* mc.css overrides */
+.arrowButton {
+
+  &.type-bordered {
+
+    & .icon {
+      color: var(--font-black) !important;
+    }
+
+    &:hover, &:focus, &:active {
+      border-color: var(--blue-500) !important;
+      background-color: var(--neutral-000) !important;
+    }
+
+  }
+
+  &.type-minimal {
+    & .icon {
+      color: var(--font-black) !important;
+    }
+
+    &:hover, &:focus, &:active {
+      background-color: var(--neutral-030) !important;
+      border: none !important;
+    }
+  }
+
+}
