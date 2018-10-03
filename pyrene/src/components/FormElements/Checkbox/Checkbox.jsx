@@ -17,6 +17,7 @@ const Checkbox = (props) => {
         type={'checkbox'}
         checked={props.value}
         onChange={!props.disabled && props.onChange}
+        onClick={(e) => e.stopPropagation()}
         name={props.name}
       />
 

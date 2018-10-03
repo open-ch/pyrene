@@ -35,6 +35,7 @@ export default class Table extends React.Component {
 
   toggleSelection = (key, shift, row) => {
     // start off with the existing state
+    console.log('checkbox clicked');
     let selection = [...this.state.selection];
 
     if (this.props.multiSelect) {
@@ -58,6 +59,13 @@ export default class Table extends React.Component {
     this.setState((prevState, props) => ({
       selection: selection,
       selectAll: selection.length === this.checkboxTable.getWrappedInstance().getResolvedState().pageSize,
+    }));
+  };
+
+  singleRowSelection = (key) => {
+    this.setState((prevState, props) => ({
+      selection: [key],
+      selectAll: false,
     }));
   };
 
@@ -116,13 +124,29 @@ export default class Table extends React.Component {
         const selected = this.isSelected(rowInfo.original[this.props.keyField]);
         // const selectedIndex = this.state.selection == null ? null : this.state.selection.index;
         return {
-          onClick: () => {this.toggleSelection(rowInfo.original[this.props.keyField])},
-          onDoubleClick: () => {this.props.onRowDoubleClick(rowInfo);
-          },
+          onDoubleClick: () => {this.props.onRowDoubleClick(rowInfo)},
           style: {
             background: selected ? colorConstants.neutral030 : "inherit",
           }
         }
+      },
+
+      getTdProps: (state, rowInfo, column) => {
+        return {
+          onClick: (e, handleOriginal) => {
+            if (column.id !== '_selector') {
+              this.singleRowSelection(rowInfo.original[this.props.keyField])
+            }
+            // IMPORTANT! React-Table uses onClick internally to trigger
+            // events like expanding SubComponents and pivots.
+            // By default a custom 'onClick' handler will override this functionality.
+            // If you want to fire the original onClick handler, call the
+            // 'handleOriginal' function.
+            if (handleOriginal) {
+              handleOriginal();
+            }
+          }
+        };
       },
 
       onPageChange: () => {
@@ -179,7 +203,12 @@ export default class Table extends React.Component {
               toggleAll={this.toggleAll}
               keyField={this.props.keyField}
               SelectAllInputComponent={(props) => <Checkbox value={props.checked} onChange={props.onClick} />}
-              SelectInputComponent={(props) => <Checkbox value={props.checked} onChange={props.onClick} />}
+              SelectInputComponent={(props) => <Checkbox value={props.checked} onChange={(e) => {
+                  const { shiftKey } = e;
+                  e.stopPropagation();
+                  props.onClick(props.id, shiftKey, props.row)
+                }}
+              />}
             />
             :
             <ReactTable
