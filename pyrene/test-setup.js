@@ -1,16 +1,12 @@
-import Enzyme from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
-import sinonChai from 'sinon-chai';
-import chai from 'chai';
+const Enzyme = require('enzyme');
+const Adapter = require('enzyme-adapter-react-16');
+const JSDOM = require('jsdom').JSDOM;
 
 Enzyme.configure({ adapter: new Adapter() });
-chai.use(sinonChai);
 
-/* jsdomSetup */
-
-import { JSDOM } from 'jsdom';
-
-const jsdom = new JSDOM('<!doctype html><html><body></body></html>');
+const jsdom = new JSDOM('<!doctype html><html><body></body></html>', {
+  url: 'http://localhost',
+});
 const { window } = jsdom;
 
 function copyProps(src, target) {
@@ -24,8 +20,17 @@ function copyProps(src, target) {
 }
 
 global.window = window;
+global.shallow = Enzyme.shallow;
+global.mount = Enzyme.mount;
 global.document = window.document;
 global.navigator = {
   userAgent: 'node.js',
 };
+
+global.requestAnimationFrame = (callback) => {
+  setTimeout(callback, 0);
+};
+
+global.shallow = Enzyme.shallow;
+
 copyProps(window, global);

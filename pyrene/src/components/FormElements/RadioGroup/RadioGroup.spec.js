@@ -1,7 +1,5 @@
 import React from 'react';
-import { expect } from 'chai';
-import { shallow } from 'enzyme';
-import sinon from 'sinon';
+
 import RadioGroup from './RadioGroup';
 
 const props = {
@@ -10,18 +8,18 @@ const props = {
 
 describe('<RadioGroup />', () => {
   it('renders without crashing', () => {
-    const rendered = shallow(<RadioGroup {...props} />);
+    shallow(<RadioGroup {...props} />);
   });
 
   it('calls onchange on click', () => {
-    const onChange = sinon.spy();
+    const onChange = jest.fn();
     const rendered = shallow(<RadioGroup {...props} onChange={onChange} />);
 
     rendered.find('input[type="radio"]').first().simulate('change');
-    expect(onChange).to.have.been.calledOnce;
+    expect(onChange).toHaveBeenCalledTimes(1);
 
     rendered.find('input[type="radio"]').last().simulate('change');
-    expect(onChange).to.have.been.calledTwice;
+    expect(onChange).toHaveBeenCalledTimes(2);
   });
 
 });

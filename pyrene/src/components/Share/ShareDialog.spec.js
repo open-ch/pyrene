@@ -1,7 +1,5 @@
 import React from 'react';
-import { expect } from 'chai';
-import { shallow, mount } from 'enzyme';
-import sinon from 'sinon';
+
 import ShareDialog from './ShareDialog';
 import Button from '../Button/Button';
 
@@ -11,7 +9,7 @@ const props = {
 
 describe('<ShareDialog />', () => {
   it('renders without crashing', () => {
-    const rendered = mount(<ShareDialog {...props} />);
+    mount(<ShareDialog {...props} />);
   });
 
   it('renders dialog on click', () => {

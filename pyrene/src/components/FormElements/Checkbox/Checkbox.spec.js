@@ -1,7 +1,5 @@
 import React from 'react';
-import { expect } from 'chai';
-import { shallow } from 'enzyme';
-import sinon from 'sinon';
+
 import Checkbox from './Checkbox';
 
 const props = {
@@ -10,25 +8,25 @@ const props = {
 
 describe('<Checkbox />', () => {
   it('renders without crashing', () => {
-    const rendered = shallow(<Checkbox {...props} />);
+    shallow(<Checkbox {...props} />);
   });
 
   it('calls onchange on click', () => {
-    const onChange = sinon.spy();
+    const onChange = jest.fn();
     const rendered = shallow(<Checkbox {...props} onChange={onChange} />);
 
     rendered.find('input[type="checkbox"]').simulate('change');
-    expect(onChange).to.have.been.calledOnce;
+    expect(onChange).toHaveBeenCalledTimes(1);
 
     rendered.find('input[type="checkbox"]').simulate('change');
-    expect(onChange).to.have.been.calledTwice;
+    expect(onChange).toHaveBeenCalledTimes(2);
   });
 
   it('does not call onclick when disabled', () => {
-    const onChange = sinon.spy();
+    const onChange = jest.fn();
     const rendered = shallow(<Checkbox {...props} onChange={onChange} disabled={true} />);
     rendered.find('input[type="checkbox"]').simulate('change');
 
-    expect(onChange).to.not.have.been.called;
+    expect(onChange).not.toHaveBeenCalled();
   });
 });
