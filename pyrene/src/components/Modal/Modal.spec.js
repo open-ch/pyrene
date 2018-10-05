@@ -1,7 +1,5 @@
 import React from 'react';
-import { expect } from 'chai';
-import { shallow, mount } from 'enzyme';
-import sinon from 'sinon';
+
 import Modal from './Modal';
 
 const props = {
@@ -12,18 +10,18 @@ const props = {
 
 describe('<Modal />', () => {
   it('renders without crashing', () => {
-    const rendered = shallow(<Modal {...props} />);
+    shallow(<Modal {...props} />);
   });
 
   it('renders its content', () => {
     const rendered = shallow(<Modal {...props} />);
 
-    expect(rendered.find('.titleBar')).to.have.length(1);
-    expect(rendered.contains(props.title)).to.equal(true);
+    expect(rendered.find('.titleBar')).toHaveLength(1);
+    expect(rendered.contains(props.title)).toBe(true);
 
-    expect(rendered.find('.contentContainer')).to.have.length(1);
-    expect(rendered.contains(props.renderCallback())).to.equal(true);
+    expect(rendered.find('.contentContainer')).toHaveLength(1);
+    expect(rendered.contains(props.renderCallback())).toBe(true);
 
-    expect(rendered.find('ButtonBar')).to.have.length(1);
+    expect(rendered.find('ButtonBar')).toHaveLength(1);
   });
 });
