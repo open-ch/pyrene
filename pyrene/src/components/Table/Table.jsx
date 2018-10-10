@@ -108,12 +108,12 @@ export default class Table extends React.Component {
   };
 
   handleActionAvailability = (actionType) => {
-    // je nach action type und selection length
+    // enable actions based on selection length and actionType
     if (actionType === 'always') {
       return true;
     } else if (this.state.selection.length === 1 && actionType === 'single') {
       return true;
-    } else if (this.state.selection.length > 1 && actionType === 'multi') {
+    } else if (this.state.selection.length >= 1 && actionType === 'multi') {
       return true;
     } else {
       return false;
@@ -130,7 +130,8 @@ export default class Table extends React.Component {
 
     getTrProps: (state, rowInfo) => {
       // no row selected yet
-      const selected = this.isSelected(rowInfo.original[this.props.keyField]);
+      const key = rowInfo && rowInfo.original[this.props.keyField];
+      const selected = this.isSelected(key);
       // const selectedIndex = this.state.selection == null ? null : this.state.selection.index;
       return {
         onDoubleClick: () => {this.props.onRowDoubleClick(rowInfo)},
@@ -143,7 +144,7 @@ export default class Table extends React.Component {
     getTdProps: (state, rowInfo, column) => {
       return {
         onClick: (e, handleOriginal) => {
-          if (column.id !== '_selector') {
+          if (column.id !== '_selector' && (typeof rowInfo !== 'undefined')) {
             this.singleRowSelection(rowInfo.original[this.props.keyField])
           }
           // IMPORTANT! React-Table uses onClick internally to trigger
@@ -198,7 +199,7 @@ export default class Table extends React.Component {
           {this.props.actions.length > 0 && <div styleName={'toolbar'}>
           {this.props.actions.map((action, index) => (
             <React.Fragment key={action.label}>
-              <Button label={action.label} icon={action.icon ? action.icon : undefined} onClick={action.callBack} type={'action'} disabled={!this.handleActionAvailability(action.active)}/>
+              <Button label={action.label} icon={action.icon ? action.icon : undefined} onClick={action.callback(this.state.selection)} type={'action'} disabled={!this.handleActionAvailability(action.active)}/>
               {index + 1 < this.props.actions.length && <div styleName={'spacer'} />}
             </React.Fragment>
           ))}
@@ -241,7 +242,6 @@ Table.defaultProps = {
   defaultPageSize: 10,
   loading: false,
   multiSort: true,
-  keyField: 'id',
   multiSelect: false,
   pageSizeOptions: [10, 20, 50, 100, 250],
   filters: [],
@@ -251,12 +251,12 @@ Table.defaultProps = {
 
 Table.propTypes = {
   /**
-   * Sets the table actions. Type: [{ icon: string, label: string (required), callBack: func (required), active: oneOf('single', 'multi', 'always') (required) }]
+   * Sets the table actions. Type: [{ icon: string, label: string (required), callback: func (required), active: oneOf('single', 'multi', 'always') (required) }]
    */
   actions: PropTypes.arrayOf(PropTypes.shape({
     icon: PropTypes.string,
     label: PropTypes.string.isRequired,
-    callBack: PropTypes.func.isRequired,
+    callback: PropTypes.func.isRequired,
     active: PropTypes.oneOf(['single', 'multi', 'always']).isRequired,
   })),
   /**
@@ -282,9 +282,9 @@ Table.propTypes = {
     options: PropTypes.array,
   })),
   /**
-   * Sets the data key for multiSelect (checkbox) tables. Should be a unique identifier. Required when multiSelect prop is used.
+   * Sets the data key for each row. Should be unique. Is used for selections.
    */
-  keyField: PropTypes.string,
+  keyField: PropTypes.string.isRequired,
   /**
    * Disables the component and displays a loader inside of it.
    */
