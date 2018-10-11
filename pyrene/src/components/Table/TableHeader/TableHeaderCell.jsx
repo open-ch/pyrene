@@ -9,7 +9,7 @@ const TableHeaderCell = props => {
   return (
     <div styleName={'tableHeaderCell'} className={classNames(props.className, 'unSelectable')} style={props.style} onClick={(event) => props.toggleSort(event)}>
       {props.children}
-      <span styleName={classNames('sortIcon', [iconClassName]: true)} />
+      {props.className && <span styleName={classNames('sortIcon', [iconClassName]: true)} />}
     </div>
   );
 };
