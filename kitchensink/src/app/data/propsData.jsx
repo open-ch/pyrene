@@ -634,7 +634,7 @@ const startProps = {
     data: tableData,
     columns: tableColumns,
     onRowDoubleClick: (rowInfo) => console.log(rowInfo),
-    actions: [{icon: 'search', label: 'Single', callBack: () => console.log('single'), active: 'single'}, {icon: 'delete', label: 'Multi', callBack: () => console.log('multi'), active: 'multi'}, {icon: 'info', label: 'Always', callBack: () => console.log('always'), active: 'always'}],
+    actions: [{icon: 'search', label: 'Single', callback: () => console.log('single'), active: 'single'}, {icon: 'delete', label: 'Multi', callback: () => console.log('multi'), active: 'multi'}, {icon: 'info', label: 'Always', callback: () => console.log('always'), active: 'always'}],
     filters: [{label: 'first column', type: 'singleSelect', filterKey: 'testKey', options: testOptions}, {label: 'second column', type: 'multiSelect', filterKey: 'testKey2', options: testOptions}]
   },
   'tabview': {
