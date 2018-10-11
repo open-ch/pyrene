@@ -17,6 +17,7 @@ const Checkbox = (props) => {
         type={'checkbox'}
         checked={props.value}
         onChange={!props.disabled && props.onChange}
+        onClick={(e) => e.stopPropagation()}
         name={props.name}
       />
 
@@ -47,6 +48,7 @@ Checkbox.defaultProps = {
   invalid: false,
   required: false,
   name: '',
+  label: '',
   onChange: () => null,
   onBlur: () => null,
 };
@@ -63,7 +65,7 @@ Checkbox.propTypes = {
   /**
    * Sets the label displayed to the user.
    */
-  label: PropTypes.string.isRequired,
+  label: PropTypes.string,
   /**
    * Sets the html name property of the form element.
    */
