@@ -7,6 +7,19 @@
   font-weight: 600;
   height: 32px;
   line-height: 20px;
+
+  &:first-child {
+    padding-left: 8px;
+  }
+
+  &.-hidden {
+  }
+
+  &.rt-header-pivot {
+  }
+  &.-cursor-pointer {
+
+  }
 }
 
 .sortIcon {
