@@ -1,0 +1,9 @@
+@import '../../../styles/colors.css';
+    
+.treeTableHeader {
+  display: flex;
+}
+
+.treeTableHeaderCell {
+  text-transform: capitalize;
+}
