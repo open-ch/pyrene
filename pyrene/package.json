@@ -77,6 +77,7 @@
     "react-dom": "^16.2.0",
     "react-select": "^2.0.0",
     "react-table": "^6.8.6",
-    "react-tiny-popover": "^3.4.2"
+    "react-tiny-popover": "^3.4.2",
+    "uniqid": "^5.0.3"
   }
 }

@@ -33,10 +33,10 @@ import { default as SingleSelect } from './components/SelectElements/SingleSelec
 
 import { default as Table } from './components/Table/Table';
 import { default as TabView } from './components/TabView/TabView';
-
 import { default as TextArea } from './components/FormElements/TextArea/TextArea';
 import { default as TextField } from './components/FormElements/TextField/TextField';
 import { default as Tooltip } from './components/Tooltip/Tooltip';
+import { default as TreeTable } from './components/TreeTable/TreeTable';
 
 
 // Sort alphabetically to find stuff easily
@@ -62,6 +62,7 @@ const Components = {
   TextArea,
   TextField,
   Tooltip,
+  TreeTable
 };
 
 // Sort alphabetically to find stuff easily
@@ -86,5 +87,6 @@ export { TabView };
 export { TextArea };
 export { TextField };
 export { Tooltip };
+export { TreeTable };
 
 export default Components;

@@ -1,0 +1,31 @@
+@import '../../../styles/colors.css';
+
+.treeTableRow {
+
+  &.parent {
+    cursor: pointer;
+  }
+}
+
+.parentRowElementsContainer {
+  min-height: 32px;
+  display: flex;
+  align-items: center;
+  border-bottom: solid 1px var(--neutral-100);
+}
+
+.childrenRowsContainer {
+  min-height: 32px;
+  &.hidden {
+    visibility: hidden;
+    display: none;
+  }
+}
+
+.pivotIcon {
+
+  transition: all 0.2s ease-in-out;
+  &.sectionOpen {
+    transform: rotate(-180deg);
+  }
+}
