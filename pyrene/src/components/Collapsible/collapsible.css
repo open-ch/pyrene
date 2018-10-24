@@ -1,6 +1,7 @@
 @import '../../styles/colors.css';
 
 .collapsibleBox {
+  composes: commonFontSettings from '../../styles/common.css';
   & .collapsibleBody {
     height: 0;
     overflow: hidden;

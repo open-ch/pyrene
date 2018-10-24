@@ -1,6 +1,7 @@
 @import '../../../styles/colors.css';
 
 .filterOption {
+  composes: commonFontSettings from '../../../styles/common.css';
   display: flex;
   align-items: center;
   justify-content: space-between;

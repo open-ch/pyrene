@@ -1,6 +1,7 @@
 @import '../../styles/colors.css';
 
 .arrowButton {
+  composes: commonFontSettings from '../../styles/common.css';
   box-sizing: border-box;
 
   border: none;

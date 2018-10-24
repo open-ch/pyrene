@@ -1,6 +1,7 @@
 @import '../../../../styles/colors.css';
 
 .columnList {
+  composes: commonFontSettings from '../../../../styles/common.css';
   padding: 24px;
 }
 

@@ -1,6 +1,7 @@
 @import '../../styles/colors.css';
 
 .tooltip {
+  composes: commonFontSettings from '../../styles/common.css';
   background-color: var(--neutral-400);
   border-radius: 2px;
 
