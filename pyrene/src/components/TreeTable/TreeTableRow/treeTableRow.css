@@ -7,7 +7,7 @@
   }
 }
 
-.parentRowElementsContainer {
+.rowElementsContainer {
   min-height: 32px;
   display: flex;
   align-items: center;
@@ -16,9 +16,13 @@
 
 .childrenRowsContainer {
   min-height: 32px;
-  &.hidden {
-    visibility: hidden;
-    display: none;
+
+  visibility: hidden;
+  display: none;
+
+  &.display {
+    visibility: visible;
+    display: block;
   }
 }
 

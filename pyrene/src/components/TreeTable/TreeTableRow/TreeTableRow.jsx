@@ -5,6 +5,7 @@ import uniqid from 'uniqid';
 
 import './treeTableRow.css';
 import TreeTableUtils from '../TreeTableUtils';
+import TreeTableCell from '../TreeTableCell/TreeTableCell';
 
 export default class TreeTableRow extends React.Component {
 
@@ -12,37 +13,58 @@ export default class TreeTableRow extends React.Component {
     displayChildren: false,
   };
 
-  handleOnRowClick = (event) => {
-    event.stopPropagation();
-    this.setState((prevState, props) => ({
-      displayChildren: !prevState.displayChildren,
-    }));
+  manageRowExpansion = () => {
+    const { treeIndex, expandedRows } = this.props;
+
+    let expandRow = false;
+    expandedRows.forEach(rowIndex => {
+      if (rowIndex.startsWith(treeIndex) && rowIndex.includes(treeIndex)) {
+        expandRow = true;
+      }
+    });
+
+    return expandRow;
   };
 
-  render () {
+  render() {
+
     return (
-      <div styleName={classNames('treeTableRow', {parent: this.props.parent})} onClick={e => this.handleOnRowClick(e)}>
+      <div styleName={classNames('treeTableRow', { parent: this.props.parent })} onClick={e => this.props.onRowClick(e, this.props.treeIndex, this.props.parent)}>
 
-        <div styleName={'parentRowElementsContainer'}>
+        {/* Row Elements are the elements displayed inside header rows */}
+        <div styleName={'rowElementsContainer'}>
 
-          {this.props.parent && <div styleName={classNames('pivotIcon', {sectionOpen: this.state.displayChildren})} className={'pyreneIcon-chevronDown'} />}
+          {this.props.parent && <div styleName={classNames('pivotIcon', { sectionOpen: this.state.displayChildren })} className={'pyreneIcon-chevronDown'} />}
 
           {this.props.columns.map((column, index) => {
+
             const styling = {};
-            if (index === 0 && !this.props.parent) {
-              styling.marginLeft = this.props.treeLevel * 20;
+            if (index === 0) {
+              styling.marginLeft = (this.props.treeIndex.split('.').length - 2) * 20;
             }
-            return <div style={styling} key={uniqid()}>{this.props.data[column.accessor]}</div>;
+
+            return (
+              <TreeTableCell style={styling} key={uniqid()}>
+                {this.props.data[column.accessor]}
+              </TreeTableCell>
+            );
           })}
+
+          <div style={{marginLeft: 45}}>
+            {this.props.treeIndex}
+          </div>
 
         </div>
 
-        {this.props.parent && <div styleName={classNames('childrenRowsContainer', {hidden: !this.state.displayChildren})}>
-          {TreeTableUtils.generateRowsFromData(this.props.data.children, this.props.columns, this.props.treeLevel + 1)}
+        {/* These are the */}
+
+        {this.props.parent && <div styleName={classNames('childrenRowsContainer', { display: this.manageRowExpansion() })}>
+          {this.props.generateRowsFromData(this.props.data.children, this.props.columns, this.props.treeIndex, this.props.expandedRows)}
         </div>}
       </div>
     );
   }
+
 }
 
 TreeTableRow.displayName = 'TreeTableRow';
@@ -54,11 +76,12 @@ TreeTableRow.defaultProps = {
 };
 
 TreeTableRow.propTypes = {
-  treeLevel: PropTypes.number,
+  expandedRows: PropTypes.arrayOf(PropTypes.string),
+  treeIndex: PropTypes.number,
   data: PropTypes.object,
   columns: PropTypes.array,
   parent: PropTypes.bool,
-  displayChildren: PropTypes.bool,
-  displayAllChildren: PropTypes.bool,
+  generateRowsFromData: PropTypes.func.isRequired,
+  onRowClick: PropTypes.func.isRequired,
 };
 
