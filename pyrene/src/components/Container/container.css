@@ -1,6 +1,7 @@
 @import '../../styles/colors.css';
 
 .container {
+  composes: commonFontSettings from '../../styles/common.css';
   box-shadow: 0 0 1px 0 rgba(0, 21, 44, 0.3);
   width: 100%;
   border-radius: 4px;

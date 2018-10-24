@@ -1,6 +1,7 @@
 @import '../../styles/colors.css';
 
 .banner {
+  composes: commonFontSettings from '../../styles/common.css';
   box-sizing: border-box;
   padding: 0 24px;
   height: 40px;

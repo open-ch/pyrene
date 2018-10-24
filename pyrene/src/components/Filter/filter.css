@@ -2,6 +2,7 @@
 
 
 .filter {
+  composes: commonFontSettings from '../../styles/common.css';
   display: flex;
   justify-content: flex-start;
 }

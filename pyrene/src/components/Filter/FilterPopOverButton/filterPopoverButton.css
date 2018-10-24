@@ -2,6 +2,7 @@
 
 
 .filterButton {
+  composes: commonFontSettings from '../../../styles/common.css';
   box-sizing: border-box;
   padding: 0 8px;
   border: solid 1px var(--neutral-050);

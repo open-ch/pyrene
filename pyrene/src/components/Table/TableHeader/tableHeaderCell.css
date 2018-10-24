@@ -2,6 +2,7 @@
 
 
 .tableHeaderCell {
+  composes: commonFontSettings from '../../../styles/common.css';
   display: flex;
   align-items: center;
   font-weight: 600;

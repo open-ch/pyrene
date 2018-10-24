@@ -1,6 +1,7 @@
 @import '../../../../styles/colors.css';
 
 .tableColumnButton {
+  composes: commonFontSettings from '../../../../styles/common.css';
   position: absolute;
   right: 0;
   top: -40px;

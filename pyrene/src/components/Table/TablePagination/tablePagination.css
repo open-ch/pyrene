@@ -2,6 +2,7 @@
 
 
 .tablePagination {
+  composes: commonFontSettings from '../../../styles/common.css';
   height: 48px;
   display: flex;
   justify-content: flex-end;

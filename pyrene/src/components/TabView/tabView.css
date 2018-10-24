@@ -1,6 +1,7 @@
 @import '../../styles/colors.css';
 
 .tabView {
+  composes: commonFontSettings from '../../styles/common.css';
   width: 100%;
 
   &.disabled {
