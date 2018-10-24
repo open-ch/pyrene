@@ -1,9 +1,25 @@
 @import '../../../styles/colors.css';
     
 .treeTableHeader {
+  box-sizing: border-box;
   display: flex;
+  align-items: center;
+  height: 32px;
+  border-top: solid 1px var(--neutral-050);
+  border-bottom: solid 1px var(--neutral-050);
 }
 
 .treeTableHeaderCell {
+  &:first-child {
+    margin-left: 32px;
+  }
+
+  width: 50px;
   text-transform: capitalize;
+  font-size: 13px;
+  font-weight: 600;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
 }

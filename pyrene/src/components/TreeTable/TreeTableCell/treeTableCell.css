@@ -1,5 +1,16 @@
 @import '../../../styles/colors.css';
     
 .treeTableCell {
+  box-sizing: border-box;
 
+  display: flex;
+  align-items: center;
+
+  font-size: 13px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: var(--neutral-500)
 }

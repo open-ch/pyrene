@@ -26,6 +26,12 @@ export default class TreeTable extends React.Component {
     }));
   };
 
+  collapseAll = () => {
+    this.setState((prevState, props) => ({
+      expandedRows: [],
+    }));
+  };
+
   handleOnRowClick = (event, clickedRowIndex, isParent) => {
     event.stopPropagation();
 
@@ -78,7 +84,7 @@ export default class TreeTable extends React.Component {
         {this.props.title && <div styleName={'treeTableTitle'}>
           {this.props.title}
         </div>}
-        <TreeTableActionBar expandAll={this.expandAll} />
+        <TreeTableActionBar expandAll={this.expandAll} collapseAll={this.collapseAll} />
         <TreeTableHeader headers={this.props.columns.map(col => (col.header ? col.header : col.accessor))} />
         <div styleName={'treeTableData'}>
           {this.generateRowsFromData(this.props.data, this.props.columns, '0', this.state.expandedRows)}

@@ -1,6 +1,7 @@
 @import '../../styles/colors.css';
 
 .treeTableContainer {
+  font-family: AvenirNext;
   width: 100%;
 }
 
