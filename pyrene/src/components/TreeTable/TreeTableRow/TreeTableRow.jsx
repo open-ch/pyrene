@@ -37,10 +37,12 @@ export default class TreeTableRow extends React.Component {
 
             const styling = {};
             if (index === 0) {
-              styling.paddingLeft = (this.props.treeIndex.split('.').length - 2) * 24;
+              styling.paddingLeft = ((this.props.treeIndex.split('.').length - 2) * 24) + 8;
               return (
                 <TreeTableCell style={styling} key={uniqid()}>
-                  {this.props.parent && <div styleName={classNames('pivotIcon', { sectionOpen: displaySection })} className={'pyreneIcon-chevronDown'} />}
+                  {this.props.parent ? <div styleName={classNames('pivotIcon', { sectionOpen: displaySection })} className={'pyreneIcon-chevronDown'} />
+                  : <div styleName={'iconSpaceholder'} />}
+
                   {this.props.data[column.accessor]}
                 </TreeTableCell>
               );
@@ -76,7 +78,7 @@ TreeTableRow.defaultProps = {
 
 TreeTableRow.propTypes = {
   expandedRows: PropTypes.arrayOf(PropTypes.string),
-  treeIndex: PropTypes.number,
+  treeIndex: PropTypes.string,
   data: PropTypes.object,
   columns: PropTypes.array,
   parent: PropTypes.bool,

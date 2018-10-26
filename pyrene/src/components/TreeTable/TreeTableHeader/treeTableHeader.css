@@ -1,6 +1,7 @@
 @import '../../../styles/colors.css';
     
 .treeTableHeader {
+  composes: commonFontSettings from '../../../styles/common.css';
   box-sizing: border-box;
   display: flex;
   align-items: center;
@@ -11,10 +12,10 @@
 
 .treeTableHeaderCell {
   &:first-child {
-    margin-left: 32px;
+    padding-left: 32px;
   }
 
-  width: 50px;
+  box-sizing: border-box;
   text-transform: capitalize;
   font-size: 13px;
   font-weight: 600;
@@ -22,4 +23,7 @@
   font-stretch: normal;
   line-height: normal;
   letter-spacing: normal;
+
+  width: 100px;
+  flex: 100 0 auto;
 }

@@ -1,6 +1,7 @@
 @import '../../../styles/colors.css';
     
 .treeTableCell {
+  composes: commonFontSettings from '../../../styles/common.css';
   box-sizing: border-box;
 
   display: flex;
@@ -12,5 +13,8 @@
   font-stretch: normal;
   line-height: normal;
   letter-spacing: normal;
-  color: var(--neutral-500)
+  color: var(--neutral-500);
+
+  width: 100px;
+  flex: 100 0 auto;
 }

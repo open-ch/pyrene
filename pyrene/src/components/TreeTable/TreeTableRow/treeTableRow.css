@@ -1,6 +1,7 @@
 @import '../../../styles/colors.css';
 
 .treeTableRow {
+  composes: commonFontSettings from '../../../styles/common.css';
 
   &.parent {
     cursor: pointer;
@@ -8,14 +9,11 @@
 }
 
 .rowElementsContainer {
+  box-sizing: border-box;
   min-height: 32px;
   display: flex;
   align-items: center;
   border-bottom: solid 1px var(--neutral-050);
-
-  &:first-child {
-    padding-left: 8px;
-  }
 }
 
 .childrenRowsContainer {
@@ -39,4 +37,10 @@
   &.sectionOpen {
     transform: rotate(-180deg);
   }
+}
+
+.iconSpaceholder {
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
 }
