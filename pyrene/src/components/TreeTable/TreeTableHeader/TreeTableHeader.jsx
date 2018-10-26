@@ -6,11 +6,21 @@ import './treeTableHeader.css';
 const TreeTableHeader = props => (
   <div styleName={'treeTableHeader'}>
 
-    {props.headers.map(header => (
-      <div styleName={'treeTableHeaderCell'} key={header}>
-        {header}
-      </div>
-    ))}
+    {props.columns.map((column) => {
+
+      // Do not display hidden columns
+      if (column.hidden) {
+        return null;
+      }
+
+      const header = column.header ? column.header : column.accessor;
+
+      return (
+        <div styleName={'treeTableHeaderCell'} key={header}>
+          {header}
+        </div>
+      );
+    })}
 
   </div>
 );
@@ -21,7 +31,7 @@ TreeTableHeader.displayName = 'TreeTableHeader';
 TreeTableHeader.defaultProps = {};
 
 TreeTableHeader.propTypes = {
-  headers: PropTypes.arrayOf(PropTypes.string).isRequired,
+  columns: PropTypes.arrayOf(PropTypes.object),
 };
 
 export default TreeTableHeader;

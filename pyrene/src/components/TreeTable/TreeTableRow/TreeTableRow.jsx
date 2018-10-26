@@ -30,34 +30,39 @@ export default class TreeTableRow extends React.Component {
     return (
       <div styleName={classNames('treeTableRow', { parent: this.props.parent })} onClick={e => this.props.onRowClick(e, this.props.treeIndex, this.props.parent)}>
 
-        {/* Row Elements are the elements displayed inside header rows */}
+        {/* Row Elements are rendered here */}
         <div styleName={'rowElementsContainer'}>
 
           {this.props.columns.map((column, index) => {
 
+            // Do not display column if it is hidden
+            if (column.hidden) {
+              return null;
+            }
+
             const styling = {};
+            let firstColumn = false;
             if (index === 0) {
               styling.paddingLeft = ((this.props.treeIndex.split('.').length - 2) * 24) + 8;
-              return (
-                <TreeTableCell style={styling} key={uniqid()}>
-                  {this.props.parent ? <div styleName={classNames('pivotIcon', { sectionOpen: displaySection })} className={'pyreneIcon-chevronDown'} />
-                  : <div styleName={'iconSpaceholder'} />}
-
-                  {this.props.data[column.accessor]}
-                </TreeTableCell>
-              );
+              firstColumn = true;
             }
 
             return (
-              <TreeTableCell key={uniqid()}>
-                {this.props.data[column.accessor]}
-              </TreeTableCell>
+              <TreeTableCell
+                style={styling}
+                key={uniqid()}
+                columnProps={column}
+                firstColumn={firstColumn}
+                parent={this.props.parent}
+                sectionOpen={displaySection}
+                cellData={this.props.data[column.accessor]}
+              />
             );
           })}
 
         </div>
 
-        {/* These are the */}
+        {/* Children rows are rendered here */}
 
         {this.props.parent && <div styleName={classNames('childrenRowsContainer', { display: displaySection })}>
           {this.props.generateRowsFromData(this.props.data.children, this.props.columns, this.props.treeIndex, this.props.expandedRows)}

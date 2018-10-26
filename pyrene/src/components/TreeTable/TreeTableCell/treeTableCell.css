@@ -15,6 +15,36 @@
   letter-spacing: normal;
   color: var(--neutral-500);
 
+  height: 31px;
+
   width: 100px;
   flex: 100 0 auto;
+
+  padding-right: 16px;
+  &:last-child {
+    padding-right: 8px;
+  }
+}
+
+.cellDataContainer {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pivotIcon {
+  width: 16px;
+  height: 16px;
+  font-size: 16px;
+
+  margin-right: 8px;
+  &.sectionOpen {
+    transform: rotate(-180deg);
+  }
+}
+
+.iconSpaceholder {
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
 }

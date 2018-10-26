@@ -85,7 +85,7 @@ export default class TreeTable extends React.Component {
           {this.props.title}
         </div>}
         <TreeTableActionBar expandAll={this.expandAll} collapseAll={this.collapseAll} />
-        <TreeTableHeader headers={this.props.columns.map(col => (col.header ? col.header : col.accessor))} />
+        <TreeTableHeader columns={this.props.columns} />
         <div styleName={'treeTableData'}>
           {this.generateRowsFromData(this.props.data, this.props.columns, '0', this.state.expandedRows)}
         </div>
@@ -98,14 +98,14 @@ export default class TreeTable extends React.Component {
 TreeTable.displayName = 'TreeTable';
 
 TreeTable.defaultProps = {
-  title: '1',
-  defaultExpanded: false,
-  sectionToOpen: '',
+  title: '',
+  defaultAllExpanded: false,
+  defaultExpandedSection: '',
 };
 
 TreeTable.propTypes = {
-  sectionToOpen: PropTypes.string,
-  defaultExpanded: PropTypes.bool,
+  defaultExpandedSection: PropTypes.string,
+  defaultAllExpanded: PropTypes.bool,
   title: PropTypes.string,
   columns: PropTypes.array.isRequired,
   /**

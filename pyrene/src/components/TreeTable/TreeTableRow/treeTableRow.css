@@ -3,6 +3,7 @@
 .treeTableRow {
   composes: commonFontSettings from '../../../styles/common.css';
 
+  cursor: default;
   &.parent {
     cursor: pointer;
   }
@@ -28,19 +29,3 @@
   }
 }
 
-.pivotIcon {
-  width: 16px;
-  height: 16px;
-  font-size: 16px;
-
-  margin-right: 8px;
-  &.sectionOpen {
-    transform: rotate(-180deg);
-  }
-}
-
-.iconSpaceholder {
-  width: 16px;
-  height: 16px;
-  margin-right: 8px;
-}
