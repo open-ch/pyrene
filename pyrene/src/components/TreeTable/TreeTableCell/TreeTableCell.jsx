@@ -8,7 +8,7 @@ const TreeTableCell = props => (
   <div style={props.style} styleName={'treeTableCell'}>
 
     {props.firstColumn && (props.parent ?
-      <div styleName={classNames('pivotIcon', { sectionOpen: props.sectionOpen })} className={'pyreneIcon-chevronDown'} />
+      <div styleName={classNames('pivotIcon', { sectionOpen: props.sectionOpen })} className={'pyreneIcon-chevronDown'} onClick={e => props.onExpandClick(e, props.treeIndex, props.parent)} />
       :
       <div styleName={'iconSpaceholder'} />
     )}
@@ -40,6 +40,8 @@ TreeTableCell.propTypes = {
   parent: PropTypes.bool,
   firstColumn: PropTypes.bool,
   sectionOpen: PropTypes.bool,
+  onExpandClick: PropTypes.func.isRequired,
+  treeIndex: PropTypes.string.isRequired,
 };
 
 export default TreeTableCell;

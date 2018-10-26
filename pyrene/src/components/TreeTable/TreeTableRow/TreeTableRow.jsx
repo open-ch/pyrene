@@ -28,10 +28,13 @@ export default class TreeTableRow extends React.Component {
   render() {
     const displaySection = this.manageRowExpansion();
     return (
-      <div styleName={classNames('treeTableRow', { parent: this.props.parent })} onClick={e => this.props.onRowClick(e, this.props.treeIndex, this.props.parent)}>
+      <div styleName={classNames('treeTableRow', { parent: this.props.parent })}>
 
         {/* Row Elements are rendered here */}
-        <div styleName={'rowElementsContainer'}>
+        <div
+          styleName={'rowElementsContainer'}
+          onDoubleClick={e => this.props.onDoubleRowClick(this.props.data)}
+        >
 
           {this.props.columns.map((column, index) => {
 
@@ -40,7 +43,12 @@ export default class TreeTableRow extends React.Component {
               return null;
             }
 
-            const styling = {};
+            const colWidth = (typeof column.width !== 'undefined' || column.width !== 0) ? column.width : 100;
+            const styling = {
+              width: colWidth,
+              flex: colWidth ? `${colWidth} 0 auto` : '100 0 auto',
+            };
+
             let firstColumn = false;
             if (index === 0) {
               styling.paddingLeft = ((this.props.treeIndex.split('.').length - 2) * 24) + 8;
@@ -56,6 +64,8 @@ export default class TreeTableRow extends React.Component {
                 parent={this.props.parent}
                 sectionOpen={displaySection}
                 cellData={this.props.data[column.accessor]}
+                onExpandClick={this.props.onExpandClick}
+                treeIndex={this.props.treeIndex}
               />
             );
           })}
@@ -82,12 +92,15 @@ TreeTableRow.defaultProps = {
 };
 
 TreeTableRow.propTypes = {
-  expandedRows: PropTypes.arrayOf(PropTypes.string),
-  treeIndex: PropTypes.string,
-  data: PropTypes.object,
   columns: PropTypes.array,
-  parent: PropTypes.bool,
+  data: PropTypes.object,
+  expandedRows: PropTypes.arrayOf(PropTypes.string),
   generateRowsFromData: PropTypes.func.isRequired,
-  onRowClick: PropTypes.func.isRequired,
+
+  onDoubleRowClick: PropTypes.func.isRequired,
+  onExpandClick: PropTypes.func.isRequired,
+
+  parent: PropTypes.bool,
+  treeIndex: PropTypes.string.isRequired,
 };
 

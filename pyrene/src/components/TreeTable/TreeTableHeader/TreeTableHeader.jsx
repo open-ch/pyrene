@@ -12,11 +12,16 @@ const TreeTableHeader = props => (
       if (column.hidden) {
         return null;
       }
-
       const header = column.header ? column.header : column.accessor;
 
+      const colWidth = (typeof column.width !== 'undefined' || column.width !== 0) ? column.width : null;
+
+      const styling = {
+        width: colWidth,
+        flex: colWidth ? `${colWidth} 0 auto` : null,
+      };
       return (
-        <div styleName={'treeTableHeaderCell'} key={header}>
+        <div style={styling} styleName={'treeTableHeaderCell'} key={header}>
           {header}
         </div>
       );
