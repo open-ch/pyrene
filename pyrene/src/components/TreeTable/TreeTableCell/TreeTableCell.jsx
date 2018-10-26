@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import PROPCONSTANTS from '../TreeTablePropConstants';
 
 import './treeTableCell.css';
-import classNames from 'classnames';
 
 const TreeTableCell = props => (
   <div style={props.style} styleName={'treeTableCell'}>
@@ -29,18 +30,22 @@ const TreeTableCell = props => (
 TreeTableCell.displayName = 'TreeTableCell';
 
 TreeTableCell.defaultProps = {
+  cellData: '',
+  columnProps: {},
   parent: false,
   sectionOpen: false,
   firstColumn: false,
+  style: {},
 };
 
 TreeTableCell.propTypes = {
-  cellData: PropTypes.any,
-  columnProps: PropTypes.object,
-  parent: PropTypes.bool,
+  cellData: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  columnProps: PROPCONSTANTS.COLUMN,
   firstColumn: PropTypes.bool,
-  sectionOpen: PropTypes.bool,
   onExpandClick: PropTypes.func.isRequired,
+  parent: PropTypes.bool,
+  sectionOpen: PropTypes.bool,
+  style: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
   treeIndex: PropTypes.string.isRequired,
 };
 

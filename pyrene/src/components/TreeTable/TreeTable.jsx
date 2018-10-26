@@ -6,6 +6,7 @@ import './treeTable.css';
 import TreeTableHeader from './TreeTableHeader/TreeTableHeader';
 import TreeTableActionBar from './TreeTableActionBar/TreeTableActionBar';
 import TreeTableRow from './TreeTableRow/TreeTableRow';
+import PROPCONSTANTS from './TreeTablePropConstants';
 import uniqid from 'uniqid';
 
 
@@ -17,7 +18,7 @@ export default class TreeTable extends React.Component {
 
   expandAllParentSectionsFor = (rowIndex) => {
     let i;
-    let parentIndices = [];
+    const parentIndices = [];
     for (i = rowIndex.split('.').length; i > 1; i -= 1) {
       parentIndices.push(rowIndex.split('.').slice(-i).join('.'));
     }
@@ -113,18 +114,20 @@ export default class TreeTable extends React.Component {
 TreeTable.displayName = 'TreeTable';
 
 TreeTable.defaultProps = {
+  data: [],
+  columns: [],
   title: '',
   defaultExpandedSection: '',
   onDoubleRowClick: () => null,
 };
 
 TreeTable.propTypes = {
-  defaultExpandedSection: PropTypes.string,
-  title: PropTypes.string,
-  columns: PropTypes.array.isRequired,
+  columns: PROPCONSTANTS.COLUMNS,
   /**
    * Needs description & better type
    */
-  data: PropTypes.array.isRequired,
+  data: PROPCONSTANTS.DATA,
+  defaultExpandedSection: PropTypes.string,
   onDoubleRowClick: PropTypes.func,
+  title: PropTypes.string,
 };

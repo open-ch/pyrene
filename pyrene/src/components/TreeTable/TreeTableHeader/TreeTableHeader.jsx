@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import PROPCONSTANTS from '../TreeTablePropConstants';
 
 import './treeTableHeader.css';
 
@@ -33,10 +34,12 @@ const TreeTableHeader = props => (
 
 TreeTableHeader.displayName = 'TreeTableHeader';
 
-TreeTableHeader.defaultProps = {};
+TreeTableHeader.defaultProps = {
+  columns: [],
+};
 
 TreeTableHeader.propTypes = {
-  columns: PropTypes.arrayOf(PropTypes.object),
+  columns: PROPCONSTANTS.COLUMNS,
 };
 
 export default TreeTableHeader;

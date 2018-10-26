@@ -5,6 +5,7 @@ import uniqid from 'uniqid';
 
 import './treeTableRow.css';
 import TreeTableCell from '../TreeTableCell/TreeTableCell';
+import PROPCONSTANTS from '../TreeTablePropConstants';
 
 export default class TreeTableRow extends React.Component {
 
@@ -86,15 +87,17 @@ export default class TreeTableRow extends React.Component {
 TreeTableRow.displayName = 'TreeTableRow';
 
 TreeTableRow.defaultProps = {
+  columns: [],
+  data: [],
   parent: false,
   displayChildren: false,
   displayAllChildren: false,
 };
 
 TreeTableRow.propTypes = {
-  columns: PropTypes.array,
-  data: PropTypes.object,
-  expandedRows: PropTypes.arrayOf(PropTypes.string),
+  columns: PROPCONSTANTS.COLUMNS,
+  data: PROPCONSTANTS.DATA,
+  expandedRows: PropTypes.arrayOf(PropTypes.string).isRequired,
   generateRowsFromData: PropTypes.func.isRequired,
 
   onDoubleRowClick: PropTypes.func.isRequired,
