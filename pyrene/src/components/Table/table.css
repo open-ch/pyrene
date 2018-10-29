@@ -209,10 +209,6 @@
   min-height: 32px;
 }
 
-:global(.ReactTable .rt-tbody .rt-tr:hover) {
-  background-color: var(--neutral-030);
-}
-
 /*:global(.ReactTable .rt-tbody .rt-tr-group:last-child) {
   border-bottom: 0;
 }*/
@@ -229,7 +225,7 @@
 }
 
 :global(.ReactTable .rt-tbody .rt-td:last-child) {
-  padding-right: 0;
+  padding-right: 8px;
 }
 
 :global(.ReactTable .rt-tbody .rt-expandable) {
@@ -247,7 +243,7 @@
 :global(.ReactTable .rt-tr) {
   flex: 1 0 auto;
   display: inline-flex;
-  min-height: 32px;
+  min-height: 31px;
 }
 
 :global(.ReactTable .rt-th,.ReactTable .rt-td) {
@@ -324,8 +320,8 @@
   background: rgba(0, 0, 0, 0.03);
 }
 
-:global(.ReactTable.-highlight .rt-tbody .rt-tr:not(.-padRow):hover) {
-  background: rgba(0, 0, 0, 0.05);
+:global(.ReactTable .rt-tbody .rt-tr:not(.-padRow):hover) {
+  background-color: var(--neutral-030);
 }
 
 :global(.ReactTable .-pagination) {
