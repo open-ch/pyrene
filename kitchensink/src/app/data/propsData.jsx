@@ -494,6 +494,7 @@ const tableData = [
 ];
 
 const tableColumns = [{
+  id: 'name',
   Header: 'Name',
   accessor: 'name', // String-based value accessors!
   sortMethod: (a, b, desc) => { // Custom sorting by last letter of name, must use the native javascript Array.sort
@@ -508,6 +509,7 @@ const tableColumns = [{
     }
   }
 }, {
+  id: 'age',
   Header: 'Age',
   accessor: 'age',
   pivot: true,
@@ -518,8 +520,7 @@ const tableColumns = [{
       style={{
         width: "100%",
         height: "100%",
-        backgroundColor: "#dadada",
-        borderRadius: "2px"
+        backgroundColor: "var(--neutral-020)",
       }}
     >
       <div
@@ -528,11 +529,10 @@ const tableColumns = [{
           height: "100%",
           backgroundColor:
             ((row.value - 20)/20) * 100 > 66
-              ? "#01b7ff"
+              ? "var(--acqua-300)"
               : ((row.value - 20)/20) * 100 > 33
-              ? "#21b41b"
-              : "#ff2e00",
-          borderRadius: "2px",
+              ? "var(--teal-300)"
+              : "var(--red-200)",
           transition: "all .2s ease-out"
         }}
       />
@@ -543,9 +543,128 @@ const tableColumns = [{
   Header: 'Friend Name',
   accessor: d => d.friend.name // Custom value accessors!
 }, {
-  Header: props => <span>Friend Age</span>, // Custom header components!
-  accessor: 'friend.age'
+  id: 'friendAge',
+  Header: 'Friend Age',
+  accessor: 'friend.age',
+  show: false,
 }];
+
+const treeTableData = [
+  {
+    'name': 'Some Name 1',
+    'height': 25,
+    'width': 10,
+    'children': [
+      {
+        'name': '[2](1)',
+        'height': 'write stuff',
+        'width': 50,
+        'children': [
+          {
+            'name': '[3](1)',
+            'height': 'everywhere 😱',
+            'width': 75,
+          },
+          {
+            'name': '[3](2)',
+          },
+          {
+            'name': '[3](3)',
+          }
+        ],
+      },
+      {
+        'name': '[2](2) Height: 40px.',
+        'height': 40,
+      }
+    ],
+  },
+  {
+    'name': '[1](2) Height: 30px.',
+    'height': 30,
+  },
+  {
+    'name': '[1](3) Height: 30px.',
+    'height': 30,
+  },
+  {
+    'name': 'Some Name 1',
+    'height': 25,
+    'children': [
+      {
+        'name': '[2](1)',
+        'children': [
+          {
+            'name': '[3](1)',
+          },
+          {
+            'name': '[3](2)',
+          },
+          {
+            'name': '[3](3)',
+          }
+        ],
+      },
+      {
+        'name': '[2](2) Height: 40px.',
+        'height': 40,
+      }
+    ],
+  },
+  {
+    'name': '[1](2) Height: 30px.',
+    'height': 30,
+  },
+  {
+    'name': '[1](3) Height: 30px.',
+    'height': 30,
+  },
+];
+
+const treeTableColumns = [
+  {
+    header: '',
+    headerStyle: {justifyContent: 'flexEnd'},
+    cellStyle: {},
+    accessor: 'name',
+    hidden: false,
+    width: 300,
+  },
+  {
+    header: '',
+    accessor: 'height',
+    hidden: false,
+    width: 100,
+  },
+  {
+    header: '',
+    accessor: 'width',
+    renderCallback: data => ( // Custom Cell rendering
+      <div
+        style={{
+          width: "100%",
+          height: "100%",
+          backgroundColor: "var(--neutral-020)",
+        }}
+      >
+        <div
+          style={{
+            width: typeof data === 'undefined' ?  0: `${data}%`,
+            height: "100%",
+            backgroundColor:
+              data > 66
+                ? "var(--acqua-300)"
+                : data > 33
+                ? "var(--teal-300)"
+                : "var(--red-200)",
+            transition: "all .2s ease-out"
+          }}
+        />
+      </div>
+    ),
+    hidden: false,
+  },
+];
 
 const startProps = {
   'arrowbutton': {},
@@ -626,7 +745,6 @@ const startProps = {
     spacing: 48,
   },
   'table': {
-    multiSelect: true,
     resizable: true,
     pivotBy: ["age"],
     title: 'Table',
@@ -668,6 +786,13 @@ const startProps = {
     align: 'center',
     children: <ContentFiller width={100} height={50} fontSize={14} />
   },
+ 'treetable': {
+    defaultExpandedSection: '0.0.0',
+    columns: treeTableColumns,
+    data: treeTableData,
+    title: 'Tree Table',
+    onDoubleRowClick: data => console.log(data),
+ },
 };
 
 

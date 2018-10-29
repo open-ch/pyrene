@@ -12,7 +12,7 @@
     "prebuild": "yarn install",
     "build": "webpack",
     "prestart": "yarn install",
-    "start": "yarn link pyrene; webpack-dev-server",
+    "watch": "yarn link pyrene; webpack-dev-server",
     "release": "release-it"
   },
   "devDependencies": {
