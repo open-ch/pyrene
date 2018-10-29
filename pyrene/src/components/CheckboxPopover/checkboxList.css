@@ -1,0 +1,37 @@
+@import '../../styles/colors.css';
+
+.checkboxList {
+  composes: commonFontSettings from '../../styles/common.css';
+
+  box-sizing: border-box;
+  padding: 4px 0 4px 0;
+  width: 152px;
+  max-height: 296px;
+}
+
+.title {
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  color: var(--neutral-500);
+  text-transform: uppercase;
+}
+
+.listHeader {
+  box-sizing: border-box;
+  border-bottom: solid 1px var(--neutral-050);
+  display: flex;
+  justify-content: center;
+  padding-bottom: 4px;
+}
+
+.list {
+  box-sizing: border-box;
+  padding-left: 8px;
+}
+
+.listItem {
+  display: flex;
+  align-items: center;
+  height: 32px;
+}

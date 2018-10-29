@@ -12,9 +12,9 @@ import Filter from '../Filter/Filter';
 import TableHeaderCell from './TableHeader/TableHeaderCell';
 import TableHeader from './TableHeader/TableHeader';
 import colorConstants from '../../styles/colorConstants';
-import TableColumnPopover from './TableColumnButton/TableColumnPopover/TableColumnPopover';
 import Checkbox from '../FormElements/Checkbox/Checkbox';
 import TableCell from './TableCell/TableCell';
+import CheckboxPopover from '../CheckboxPopover/CheckboxPopover';
 
 const CheckboxTable = checkboxHOC(ReactTable);
 
@@ -26,13 +26,8 @@ export default class Table extends React.Component {
   state = {
     selection: [],
     selectAll: false,
+    columns: this.props.columns,
   };
-
-  renderLoader = () => (
-    <div styleName={'loader'}>
-      <Loader size={'large'} />
-    </div>
-  );
 
   toggleSelection = (key, shift, row) => {
     // start off with the existing state
@@ -119,70 +114,99 @@ export default class Table extends React.Component {
     
   };
 
-  commonProps = {
-    columns: this.props.columns,
-    defaultPageSize: this.props.defaultPageSize,
-    data: this.props.data,
-    pageSizeOptions: this.props.pageSizeOptions,
-
-    multiSort: this.props.multiSort,
-
-    getTrProps: (state, rowInfo) => {
-      // no row selected yet
-      const key = rowInfo && rowInfo.original[this.props.keyField];
-      const selected = this.isSelected(key);
-      // const selectedIndex = this.state.selection == null ? null : this.state.selection.index;
-      return {
-        onDoubleClick: () => { this.props.onRowDoubleClick(rowInfo); },
-        style: {
-          background: selected ? colorConstants.neutral030 : '',
-        },
-      };
-    },
-
-    getTdProps: (state, rowInfo, column) => ({
-      onClick: (e, handleOriginal) => {
-        if (column.id !== '_selector' && (typeof rowInfo !== 'undefined')) {
-          this.singleRowSelection(rowInfo.original[this.props.keyField]);
-        }
-        // IMPORTANT! React-Table uses onClick internally to trigger
-        // events like expanding SubComponents and pivots.
-        // By default a custom 'onClick' handler will override this functionality.
-        // If you want to fire the original onClick handler, call the
-        // 'handleOriginal' function.
-        if (handleOriginal) {
-          handleOriginal();
-        }
-      },
-    }),
-
-    onPageChange: () => {
-      this.resetSelection();
-    },
-    onPageSizeChange: () => {
-      this.resetSelection();
-    },
-    onSortedChange: () => {
-      this.resetSelection();
-    },
-    onFilteredChange: () => {
-      this.resetSelection();
-    },
-
-    PadRowComponent: props => null,
-    TheadComponent: props => <TableHeader multiSelect={this.props.multiSelect} {...props} />,
-    ThComponent: props => <TableHeaderCell {...props} />,
-    TdComponent: props => <TableCell {...props} />,
-    PaginationComponent: props => <TablePagination {...props} />,
-    TfootComponent: props => <TablePagination {...props} />,
-    resizable: false,
-    showPaginationBottom: true,
-    showPagination: true,
-    showPaginationTop: true,
-    showPageSizeOptions: true,
+  isColumnDisplayed = (show) => {
+    return typeof show === 'undefined' || show === true;
   };
 
+  toggleColumnDisplay = (columnId, showValue) => {
+    const updatedColumns = this.state.columns.map(col => {
+      if (col.id === columnId) {
+        return { ...col, show: !showValue };
+      }
+      return col;
+    });
+
+    this.setState((prevState, props) => ({
+      columns: updatedColumns,
+    }));
+  };
+
+  restoreColumnDefaults = () => {
+    this.setState((prevState, props) => ({
+      columns: this.props.columns,
+    }));
+  };
+
+  renderLoader = () => (
+    <div styleName={'loader'}>
+      <Loader size={'large'} />
+    </div>
+  );
+
   render() {
+
+    const commonProps = {
+      columns: this.state.columns,
+      defaultPageSize: this.props.defaultPageSize,
+      data: this.props.data,
+      pageSizeOptions: this.props.pageSizeOptions,
+
+      multiSort: this.props.multiSort,
+
+      getTrProps: (state, rowInfo) => {
+        // no row selected yet
+        const key = rowInfo && rowInfo.original[this.props.keyField];
+        const selected = this.isSelected(key);
+        // const selectedIndex = this.state.selection == null ? null : this.state.selection.index;
+        return {
+          onDoubleClick: () => { this.props.onRowDoubleClick(rowInfo); },
+          style: {
+            background: selected ? colorConstants.neutral030 : '',
+          },
+        };
+      },
+
+      getTdProps: (state, rowInfo, column) => ({
+        onClick: (e, handleOriginal) => {
+          if (column.id !== '_selector' && (typeof rowInfo !== 'undefined')) {
+            this.singleRowSelection(rowInfo.original[this.props.keyField]);
+          }
+          // IMPORTANT! React-Table uses onClick internally to trigger
+          // events like expanding SubComponents and pivots.
+          // By default a custom 'onClick' handler will override this functionality.
+          // If you want to fire the original onClick handler, call the
+          // 'handleOriginal' function.
+          if (handleOriginal) {
+            handleOriginal();
+          }
+        },
+      }),
+
+      onPageChange: () => {
+        this.resetSelection();
+      },
+      onPageSizeChange: () => {
+        this.resetSelection();
+      },
+      onSortedChange: () => {
+        this.resetSelection();
+      },
+      onFilteredChange: () => {
+        this.resetSelection();
+      },
+
+      PadRowComponent: props => null,
+      TheadComponent: props => <TableHeader multiSelect={this.props.multiSelect} {...props} />,
+      ThComponent: props => <TableHeaderCell {...props} />,
+      TdComponent: props => <TableCell {...props} />,
+      PaginationComponent: props => <TablePagination {...props} />,
+      TfootComponent: props => <TablePagination {...props} />,
+      resizable: false,
+      showPaginationBottom: true,
+      showPagination: true,
+      showPaginationTop: true,
+      showPageSizeOptions: true,
+    };
 
     return (
       <div styleName={'tableContainer'}>
@@ -190,11 +214,26 @@ export default class Table extends React.Component {
           {this.props.title}
         </div>}
         {this.props.loading && this.renderLoader()}
-        <div styleName={classNames('filterContainer', { loading: this.props.loading })}>
-          {this.props.filters.length > 0 && <Filter filters={this.props.filters} onFilterSubmit={this.props.onFilterChange} />}
+
+        <div styleName={'filterBar'}>
+          <div styleName={classNames('filterContainer', { loading: this.props.loading })}>
+            {this.props.filters.length > 0 &&
+              <Filter
+                filters={this.props.filters}
+                onFilterSubmit={this.props.onFilterChange}
+              />
+            }
+          </div>
+          <CheckboxPopover
+            buttonLabel={'Columns'}
+            listItems={this.state.columns.map(col => ({id: col.id, label: col.Header, value: this.isColumnDisplayed(col.show)}))}
+            onItemClick={(item, value) => this.toggleColumnDisplay(item, value)}
+            onRestoreDefault={() => this.restoreColumnDefaults()}
+          />
         </div>
+
         <div styleName={classNames('tableAndActions', { loading: this.props.loading })}>
-          {/* <TableColumnPopover /> */}
+
           {this.props.actions.length > 0 && <div styleName={'toolbar'}>
             {this.props.actions.map((action, index) => (
               <React.Fragment key={action.label}>
@@ -203,9 +242,10 @@ export default class Table extends React.Component {
               </React.Fragment>
             ))}
           </div>}
+
           {this.props.multiSelect ?
             <CheckboxTable
-              {...this.commonProps}
+              {...commonProps}
               ref={r => (this.checkboxTable = r)}
               selectType={'checkbox'}
               selectAll={this.state.selectAll}
@@ -223,9 +263,10 @@ export default class Table extends React.Component {
             />
             :
             <ReactTable
-              {...this.commonProps}
+              {...commonProps}
             />
           }
+
         </div>
       </div>
     );
