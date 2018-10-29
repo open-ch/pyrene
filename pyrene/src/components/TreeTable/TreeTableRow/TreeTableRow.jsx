@@ -58,7 +58,7 @@ export default class TreeTableRow extends React.Component {
 
             return (
               <TreeTableCell
-                style={styling}
+                style={{...styling, ...column.cellStyle}}
                 key={uniqid()}
                 columnProps={column}
                 firstColumn={firstColumn}
@@ -96,7 +96,7 @@ TreeTableRow.defaultProps = {
 
 TreeTableRow.propTypes = {
   columns: PROPCONSTANTS.COLUMNS,
-  data: PROPCONSTANTS.DATA,
+  data: PROPCONSTANTS.DATAOBJECT,
   expandedRows: PropTypes.arrayOf(PropTypes.string).isRequired,
   generateRowsFromData: PropTypes.func.isRequired,
 

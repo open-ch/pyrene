@@ -11,10 +11,6 @@
 }
 
 .treeTableHeaderCell {
-  &:first-child {
-    padding-left: 32px;
-  }
-
   box-sizing: border-box;
   text-transform: capitalize;
   font-size: 13px;
@@ -26,4 +22,12 @@
 
   width: 100px;
   flex: 100 0 auto;
+  padding-right: 16px;
+
+  &:first-child {
+    padding-left: 32px;
+  }
+  &:last-child {
+    padding-right: 8px;
+  }
 }

@@ -22,7 +22,7 @@ const TreeTableHeader = props => (
         flex: colWidth ? `${colWidth} 0 auto` : null,
       };
       return (
-        <div style={styling} styleName={'treeTableHeaderCell'} key={header}>
+        <div style={{...styling, ...column.headerStyle}} styleName={'treeTableHeaderCell'} key={header}>
           {header}
         </div>
       );
