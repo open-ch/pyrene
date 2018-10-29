@@ -8,9 +8,14 @@
   font-weight: 600;
   height: 32px;
   line-height: 20px;
+  padding-right: 16px;
 
   &:first-child {
     padding-left: 8px;
+  }
+
+  &:last-child {
+    padding-right: 8px;
   }
 
   &.-hidden {

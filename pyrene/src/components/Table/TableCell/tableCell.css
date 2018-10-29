@@ -1,0 +1,17 @@
+@import '../../../styles/colors.css';
+
+
+.tableCell {
+  composes: commonFontSettings from '../../../styles/common.css';
+}
+
+.tableData {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+  height: 100%;
+  vertical-align: middle;
+  line-height: 31px;
+}
+ 
