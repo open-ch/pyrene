@@ -34,7 +34,7 @@ export default class TreeTableRow extends React.Component {
         {/* Row Elements are rendered here */}
         <div
           styleName={'rowElementsContainer'}
-          onDoubleClick={e => this.props.onDoubleRowClick(this.props.data)}
+          onDoubleClick={e => this.props.onRowDoubleClick(this.props.data)}
         >
 
           {this.props.columns.map((column, index) => {
@@ -100,7 +100,7 @@ TreeTableRow.propTypes = {
   expandedRows: PropTypes.arrayOf(PropTypes.string).isRequired,
   generateRowsFromData: PropTypes.func.isRequired,
 
-  onDoubleRowClick: PropTypes.func.isRequired,
+  onRowDoubleClick: PropTypes.func.isRequired,
   onExpandClick: PropTypes.func.isRequired,
 
   parent: PropTypes.bool,

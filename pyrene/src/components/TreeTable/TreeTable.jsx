@@ -76,7 +76,7 @@ export default class TreeTable extends React.Component {
       expandedRows={expandedRows}
       generateRowsFromData={this.generateRowsFromData}
       onExpandClick={this.handleOnExpandClick}
-      onDoubleRowClick={this.props.onDoubleRowClick}
+      onRowDoubleClick={this.props.onRowDoubleClick}
     />
   ), this);
 
@@ -118,16 +118,28 @@ TreeTable.defaultProps = {
   columns: [],
   title: '',
   defaultExpandedSection: '',
-  onDoubleRowClick: () => null,
+  onRowDoubleClick: () => null,
 };
 
 TreeTable.propTypes = {
+  /**
+   * Sets the Table columns.
+   */
   columns: PROPCONSTANTS.COLUMNS,
   /**
-   * Needs description & better type
+   * Sets the Table data displayed in the rows.
    */
   data: PROPCONSTANTS.DATA,
+  /**
+   * Sets a section to expand when the component is mounted.
+   */
   defaultExpandedSection: PropTypes.string,
-  onDoubleRowClick: PropTypes.func,
+  /**
+   * Called when the user double clicks on a row.
+   */
+  onRowDoubleClick: PropTypes.func,
+  /**
+   * Sets the title.
+   */
   title: PropTypes.string,
 };
