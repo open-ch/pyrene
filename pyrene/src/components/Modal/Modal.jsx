@@ -15,11 +15,19 @@ export default class Modal extends React.Component {
 
   componentDidMount() {
     document.body.style.overflow = 'hidden';
+    document.addEventListener('keydown', this.escFunction, false);
   }
 
   componentWillUnmount() {
     document.body.style.overflow = 'auto';
+    document.removeEventListener('keydown', this.escFunction, false);
   }
+
+  escFunction = (event) => {
+    if (event.key === 'Escape') {
+      this.props.onESC();
+    }
+  };
 
   renderNavigationArrows = () => (
     <div styleName={'arrowButtonContainer'}>
@@ -88,7 +96,7 @@ Modal.defaultProps = {
   onPreviousArrowClick: () => null,
   onNextArrowClick: () => null,
   displayNavigationArrows: false,
-  onClose: () => null,
+  onESC: () => null,
   canNext: false,
   canPrevious: false,
 };
@@ -102,10 +110,6 @@ Modal.propTypes = {
    * Whether interaction with the previous button is allowed.
    */
   canPrevious: PropTypes.bool,
-  /**
-   * Sets the content to be rendered inside the component.
-   */
-  renderCallback: PropTypes.func.isRequired,
   /**
    * Whether to display the navigationArrows in the upper right corner.
    */
@@ -125,9 +129,9 @@ Modal.propTypes = {
    */
   loading: PropTypes.bool,
   /**
-   * Called when the user clicks on the close button.
+   * Called when the user hits the escape button.
    */
-  onClose: PropTypes.func,
+  onESC: PropTypes.func,
   /**
    * Called when the user clicks on the next button.
    */
@@ -136,6 +140,10 @@ Modal.propTypes = {
    * Called when the user clicks on the previous button.
    */
   onPreviousArrowClick: PropTypes.func,
+  /**
+   * Sets the content to be rendered inside the component.
+   */
+  renderCallback: PropTypes.func.isRequired,
   /**
    * Sets the buttons that are displayed on the bottom right of the modal.
    * Type: [{ icon: string, type: string (required), label: string (required), action: func (required)}]
