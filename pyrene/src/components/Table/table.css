@@ -209,7 +209,7 @@
   min-height: 32px;
 }
 
-:global(.ReactTable .rt-tbody .rt-tr:hover) {
+:global(.ReactTable .rt-tbody .rt-tr-group:hover) {
   background-color: var(--neutral-030);
 }
 
@@ -229,7 +229,7 @@
 }
 
 :global(.ReactTable .rt-tbody .rt-td:last-child) {
-  padding-right: 0;
+  padding-right: 8px;
 }
 
 :global(.ReactTable .rt-tbody .rt-expandable) {
@@ -247,7 +247,7 @@
 :global(.ReactTable .rt-tr) {
   flex: 1 0 auto;
   display: inline-flex;
-  min-height: 32px;
+  min-height: 31px;
 }
 
 :global(.ReactTable .rt-th,.ReactTable .rt-td) {

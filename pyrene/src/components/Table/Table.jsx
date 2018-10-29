@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReactTable from 'react-table';
-import checkboxHOC from "react-table/lib/hoc/selectTable";
+import checkboxHOC from 'react-table/lib/hoc/selectTable';
 import classNames from 'classnames';
 
 import './table.css';
@@ -14,6 +14,7 @@ import TableHeader from './TableHeader/TableHeader';
 import colorConstants from '../../styles/colorConstants';
 import TableColumnPopover from './TableColumnButton/TableColumnPopover/TableColumnPopover';
 import Checkbox from '../FormElements/Checkbox/Checkbox';
+import TableCell from './TableCell/TableCell';
 
 const CheckboxTable = checkboxHOC(ReactTable);
 
@@ -24,7 +25,7 @@ export default class Table extends React.Component {
 
   state = {
     selection: [],
-    selectAll: false
+    selectAll: false,
   };
 
   renderLoader = () => (
@@ -44,7 +45,7 @@ export default class Table extends React.Component {
         // it does exist so we will remove it using destructing
         selection = [
           ...selection.slice(0, keyIndex),
-          ...selection.slice(keyIndex + 1)
+          ...selection.slice(keyIndex + 1),
         ];
       } else {
         // it does not exist so add it
@@ -84,7 +85,7 @@ export default class Table extends React.Component {
       const currentRecords = resolvedState.sortedData.slice(currentPage * currentPageSize, currentPage * currentPageSize + currentPageSize);
 
       // we just push all the IDs onto the selection array
-      currentRecords.forEach(item => {
+      currentRecords.forEach((item) => {
         selection.push(item._original[this.props.keyField]);
       });
     }
@@ -96,9 +97,7 @@ export default class Table extends React.Component {
   };
 
 
-  isSelected = key => {
-    return this.state.selection.includes(key);
-  };
+  isSelected = key => this.state.selection.includes(key);
 
   resetSelection = () => {
     this.setState((prevState, props) => ({
@@ -115,9 +114,9 @@ export default class Table extends React.Component {
       return true;
     } else if (this.state.selection.length >= 1 && actionType === 'multi') {
       return true;
-    } else {
-      return false;
     }
+    return false;
+    
   };
 
   commonProps = {
@@ -134,30 +133,28 @@ export default class Table extends React.Component {
       const selected = this.isSelected(key);
       // const selectedIndex = this.state.selection == null ? null : this.state.selection.index;
       return {
-        onDoubleClick: () => {this.props.onRowDoubleClick(rowInfo)},
+        onDoubleClick: () => { this.props.onRowDoubleClick(rowInfo); },
         style: {
-          background: selected ? colorConstants.neutral030 : "inherit",
-        }
-      }
-    },
-
-    getTdProps: (state, rowInfo, column) => {
-      return {
-        onClick: (e, handleOriginal) => {
-          if (column.id !== '_selector' && (typeof rowInfo !== 'undefined')) {
-            this.singleRowSelection(rowInfo.original[this.props.keyField])
-          }
-          // IMPORTANT! React-Table uses onClick internally to trigger
-          // events like expanding SubComponents and pivots.
-          // By default a custom 'onClick' handler will override this functionality.
-          // If you want to fire the original onClick handler, call the
-          // 'handleOriginal' function.
-          if (handleOriginal) {
-            handleOriginal();
-          }
-        }
+          background: selected ? colorConstants.neutral030 : 'inherit',
+        },
       };
     },
+
+    getTdProps: (state, rowInfo, column) => ({
+      onClick: (e, handleOriginal) => {
+        if (column.id !== '_selector' && (typeof rowInfo !== 'undefined')) {
+          this.singleRowSelection(rowInfo.original[this.props.keyField]);
+        }
+        // IMPORTANT! React-Table uses onClick internally to trigger
+        // events like expanding SubComponents and pivots.
+        // By default a custom 'onClick' handler will override this functionality.
+        // If you want to fire the original onClick handler, call the
+        // 'handleOriginal' function.
+        if (handleOriginal) {
+          handleOriginal();
+        }
+      },
+    }),
 
     onPageChange: () => {
       this.resetSelection();
@@ -174,6 +171,7 @@ export default class Table extends React.Component {
 
     TheadComponent: props => <TableHeader multiSelect={this.props.multiSelect} {...props} />,
     ThComponent: props => <TableHeaderCell {...props} />,
+    TdComponent: props => <TableCell {...props} />,
     PaginationComponent: props => <TablePagination {...props} />,
     TfootComponent: props => <TablePagination {...props} />,
     resizable: false,
@@ -191,36 +189,36 @@ export default class Table extends React.Component {
           {this.props.title}
         </div>}
         {this.props.loading && this.renderLoader()}
-        <div styleName={classNames('filterContainer', {loading: this.props.loading})}>
+        <div styleName={classNames('filterContainer', { loading: this.props.loading })}>
           {this.props.filters.length > 0 && <Filter filters={this.props.filters} onFilterSubmit={this.props.onFilterChange} />}
         </div>
-        <div styleName={classNames('tableAndActions', {loading: this.props.loading})}>
-          {/*<TableColumnPopover />*/}
+        <div styleName={classNames('tableAndActions', { loading: this.props.loading })}>
+          {/* <TableColumnPopover /> */}
           {this.props.actions.length > 0 && <div styleName={'toolbar'}>
-          {this.props.actions.map((action, index) => (
-            <React.Fragment key={action.label}>
-              <Button label={action.label} icon={action.icon ? action.icon : undefined} onClick={action.callback(this.state.selection)} type={'action'} disabled={!this.handleActionAvailability(action.active)}/>
-              {index + 1 < this.props.actions.length && <div styleName={'spacer'} />}
-            </React.Fragment>
-          ))}
-        </div>}
+            {this.props.actions.map((action, index) => (
+              <React.Fragment key={action.label}>
+                <Button label={action.label} icon={action.icon ? action.icon : undefined} onClick={() => action.callback(this.state.selection)} type={'action'} disabled={!this.handleActionAvailability(action.active)} />
+                {index + 1 < this.props.actions.length && <div styleName={'spacer'} />}
+              </React.Fragment>
+            ))}
+          </div>}
           {this.props.multiSelect ?
             <CheckboxTable
               {...this.commonProps}
               ref={r => (this.checkboxTable = r)}
-              selectType={"checkbox"}
+              selectType={'checkbox'}
               selectAll={this.state.selectAll}
               isSelected={this.isSelected}
               toggleSelection={this.toggleSelection}
               toggleAll={this.toggleAll}
               keyField={this.props.keyField}
-              SelectAllInputComponent={(props) => <Checkbox value={props.checked} onChange={props.onClick} />}
-              SelectInputComponent={(props) => <Checkbox value={props.checked} onChange={(e) => {
-                  const { shiftKey } = e;
-                  e.stopPropagation();
-                  props.onClick(props.id, shiftKey, props.row)
-                }}
-              />}
+              SelectAllInputComponent={props => <Checkbox value={props.checked} onChange={props.onClick} />}
+              SelectInputComponent={props => (<Checkbox value={props.checked} onChange={(e) => {
+                const { shiftKey } = e;
+                e.stopPropagation();
+                props.onClick(props.id, shiftKey, props.row);
+              }}
+              />)}
             />
             :
             <ReactTable
@@ -231,6 +229,7 @@ export default class Table extends React.Component {
       </div>
     );
   }
+
 }
 
 
