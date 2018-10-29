@@ -135,7 +135,7 @@ export default class Table extends React.Component {
       return {
         onDoubleClick: () => { this.props.onRowDoubleClick(rowInfo); },
         style: {
-          background: selected ? colorConstants.neutral030 : 'inherit',
+          background: selected ? colorConstants.neutral030 : '',
         },
       };
     },
@@ -169,6 +169,7 @@ export default class Table extends React.Component {
       this.resetSelection();
     },
 
+    PadRowComponent: props => null,
     TheadComponent: props => <TableHeader multiSelect={this.props.multiSelect} {...props} />,
     ThComponent: props => <TableHeaderCell {...props} />,
     TdComponent: props => <TableCell {...props} />,
