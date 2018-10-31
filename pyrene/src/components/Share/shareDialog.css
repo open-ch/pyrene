@@ -6,40 +6,59 @@
 .shareDialog {
   composes: commonFontSettings from '../../styles/common.css';
   padding: 24px 24px 0 24px;
+}
 
-  & .title {
+.content {
+  height: 32px;
+  padding-bottom: 16px;
+  width: 350px;
+
+  & .urlField[type="text"] {
     box-sizing: border-box;
-    padding-bottom: 16px;
+    padding-left: 8px;
+    height: 32px;
+    width: 100%;
 
-    font-size: 18px;
-    font-weight: 600;
-    line-height: 1.78;
+    border-radius: 2px;
+    border: solid 1px var(--neutral-100);
+
+    letter-spacing: normal;
+    font-family: inherit;
+    font-style: normal;
+    font-stretch: normal;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.71;
+    text-align: left;
     color: var(--neutral-500);
   }
+}
 
-  & .content {
-    height: 32px;
-    padding-bottom: 16px;
-    width: 350px;
+.title {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.78;
+  color: var(--neutral-500);
+}
 
-    & .urlField[type="text"] {
-      box-sizing: border-box;
-      padding-left: 8px;
-      height: 32px;
-      width: 100%;
+.titleBar {
+  box-sizing: border-box;
+  padding-bottom: 16px;
 
-      border-radius: 2px;
-      border: solid 1px var(--neutral-100);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 
-      letter-spacing: normal;
-      font-family: inherit;
-      font-style: normal;
-      font-stretch: normal;
-      font-size: 14px;
-      font-weight: normal;
-      line-height: 1.71;
-      text-align: left;
-      color: var(--neutral-500);
-    }
+.closeButton {
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+  margin-left: 16px;
+  font-size: 24px;
+  color: var(--neutral-300);
+
+  &:hover {
+    color: var(--neutral-500);
   }
 }

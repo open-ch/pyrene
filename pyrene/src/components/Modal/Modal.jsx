@@ -15,11 +15,19 @@ export default class Modal extends React.Component {
 
   componentDidMount() {
     document.body.style.overflow = 'hidden';
+    document.addEventListener('keydown', this.escFunction, false);
   }
 
   componentWillUnmount() {
     document.body.style.overflow = 'auto';
+    document.removeEventListener('keydown', this.escFunction, false);
   }
+
+  escFunction = (event) => {
+    if (event.key === 'Escape') {
+      this.props.onClose();
+    }
+  };
 
   renderNavigationArrows = () => (
     <div styleName={'arrowButtonContainer'}>
@@ -33,7 +41,10 @@ export default class Modal extends React.Component {
     <Fragment>
       <div styleName={'titleBar'}>
         {this.props.title}
-        {this.props.displayNavigationArrows && this.renderNavigationArrows()}
+        <div styleName={'topRightSection'}>
+          {this.props.displayNavigationArrows && this.renderNavigationArrows()}
+          <div styleName={'closeButton'} className={'pyreneIcon-delete'} onClick={this.props.onClose}/>
+        </div>
       </div>
       <div styleName={'contentContainer'}>
         <div styleName={'content'}>
@@ -103,10 +114,6 @@ Modal.propTypes = {
    */
   canPrevious: PropTypes.bool,
   /**
-   * Sets the content to be rendered inside the component.
-   */
-  renderCallback: PropTypes.func.isRequired,
-  /**
    * Whether to display the navigationArrows in the upper right corner.
    */
   displayNavigationArrows: PropTypes.bool,
@@ -125,7 +132,7 @@ Modal.propTypes = {
    */
   loading: PropTypes.bool,
   /**
-   * Called when the user clicks on the close button.
+   * Called when the user hits the close button or the escape key.
    */
   onClose: PropTypes.func,
   /**
@@ -136,6 +143,10 @@ Modal.propTypes = {
    * Called when the user clicks on the previous button.
    */
   onPreviousArrowClick: PropTypes.func,
+  /**
+   * Sets the content to be rendered inside the component.
+   */
+  renderCallback: PropTypes.func.isRequired,
   /**
    * Sets the buttons that are displayed on the bottom right of the modal.
    * Type: [{ icon: string, type: string (required), label: string (required), action: func (required)}]

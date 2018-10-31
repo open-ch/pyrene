@@ -53,6 +53,24 @@
   color: var(--neutral-500);
 }
 
+.topRightSection {
+  display: flex;
+  align-items: center;
+}
+
+.closeButton {
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+  margin-left: 16px;
+  font-size: 24px;
+  color: var(--neutral-300);
+
+  &:hover {
+    color: var(--neutral-500);
+  }
+}
+
 .arrowButtonContainer {
   display: flex;
 }
