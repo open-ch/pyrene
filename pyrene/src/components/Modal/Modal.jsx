@@ -25,7 +25,7 @@ export default class Modal extends React.Component {
 
   escFunction = (event) => {
     if (event.key === 'Escape') {
-      this.props.onESC();
+      this.props.onClose();
     }
   };
 
@@ -41,7 +41,10 @@ export default class Modal extends React.Component {
     <Fragment>
       <div styleName={'titleBar'}>
         {this.props.title}
-        {this.props.displayNavigationArrows && this.renderNavigationArrows()}
+        <div styleName={'topRightSection'}>
+          {this.props.displayNavigationArrows && this.renderNavigationArrows()}
+          <div styleName={'closeButton'} className={'pyreneIcon-delete'} onClick={this.props.onClose}/>
+        </div>
       </div>
       <div styleName={'contentContainer'}>
         <div styleName={'content'}>
@@ -96,7 +99,7 @@ Modal.defaultProps = {
   onPreviousArrowClick: () => null,
   onNextArrowClick: () => null,
   displayNavigationArrows: false,
-  onESC: () => null,
+  onClose: () => null,
   canNext: false,
   canPrevious: false,
 };
@@ -129,9 +132,9 @@ Modal.propTypes = {
    */
   loading: PropTypes.bool,
   /**
-   * Called when the user hits the escape button.
+   * Called when the user hits the close button or the escape key.
    */
-  onESC: PropTypes.func,
+  onClose: PropTypes.func,
   /**
    * Called when the user clicks on the next button.
    */
