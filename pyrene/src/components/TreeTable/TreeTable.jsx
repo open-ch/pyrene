@@ -54,15 +54,13 @@ export default class TreeTable extends React.Component {
     if (clickedIndex > -1) {
       // See if any of its children is expanded as well & collapse them
       expandedRowsCopy = expandedRowsCopy.filter(item => !item.startsWith(expandedRowsCopy[clickedIndex]));
-      this.setState((prevState, props) => ({
-        expandedRows: expandedRowsCopy,
-      }));
     } else {
       expandedRowsCopy.push(clickedRowIndex);
-      this.setState((prevState, props) => ({
-        expandedRows: expandedRowsCopy,
-      }));
     }
+
+    this.setState((prevState, props) => ({
+      expandedRows: expandedRowsCopy,
+    }));
 
   };
 
@@ -82,15 +80,13 @@ export default class TreeTable extends React.Component {
 
   generateTreeStructureFromData = (data, treeIndex) => {
     const result = [];
-    let i = 0;
-    while (i < data.length) {
-      if (data[i].hasOwnProperty('children')) {
+    data.forEach((item, i) => {
+      if (item.hasOwnProperty('children')) {
         result.push(`${treeIndex}.${i}`);
-        const children = this.generateTreeStructureFromData(data[i].children, `${treeIndex}.${i}`);
+        const children = this.generateTreeStructureFromData(item.children, `${treeIndex}.${i}`);
         result.push(...children);
       }
-      i += 1;
-    }
+    });
     return result;
   };
 
