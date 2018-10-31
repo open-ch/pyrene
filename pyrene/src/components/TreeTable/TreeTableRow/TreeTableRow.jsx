@@ -15,15 +15,7 @@ export default class TreeTableRow extends React.Component {
 
   manageRowExpansion = () => {
     const { treeIndex, expandedRows } = this.props;
-
-    let expandRow = false;
-    expandedRows.forEach(rowIndex => {
-      if (rowIndex.startsWith(treeIndex) && rowIndex.includes(treeIndex)) {
-        expandRow = true;
-      }
-    });
-
-    return expandRow;
+    return expandedRows.some(rowIndex => rowIndex.startsWith(treeIndex) && rowIndex.includes(treeIndex));
   };
 
   render() {
@@ -58,7 +50,7 @@ export default class TreeTableRow extends React.Component {
 
             return (
               <TreeTableCell
-                style={{...styling, ...column.cellStyle}}
+                style={{ ...styling, ...column.cellStyle }}
                 key={uniqid()}
                 columnProps={column}
                 firstColumn={firstColumn}

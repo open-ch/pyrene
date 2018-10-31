@@ -64,19 +64,22 @@ export default class TreeTable extends React.Component {
 
   };
 
-  generateRowsFromData = (data, columns, treeIndex, expandedRows) => data.map((rowData, index) => (
-    <TreeTableRow
-      data={rowData}
-      parent={rowData.hasOwnProperty('children')}
-      treeIndex={`${treeIndex}.${index}`}
-      columns={columns}
-      key={uniqid()}
-      expandedRows={expandedRows}
-      generateRowsFromData={this.generateRowsFromData}
-      onExpandClick={this.handleOnExpandClick}
-      onRowDoubleClick={this.props.onRowDoubleClick}
-    />
-  ), this);
+  generateRowsFromData = (data, columns, treeIndex, expandedRows) => data.map((rowData, index) => {
+    const newTreeIndex = `${treeIndex}.${index}`;
+    const rowKey = this.props.setUniqueRowKey(rowData, newTreeIndex);
+    return (
+      <TreeTableRow
+        data={rowData}
+        parent={rowData.hasOwnProperty('children')}
+        treeIndex={newTreeIndex}
+        columns={columns}
+        key={rowKey ? rowKey : uniqid()}
+        expandedRows={expandedRows}
+        generateRowsFromData={this.generateRowsFromData}
+        onExpandClick={this.handleOnExpandClick}
+        onRowDoubleClick={this.props.onRowDoubleClick}
+      />);
+  }, this);
 
   generateTreeStructureFromData = (data, treeIndex) => {
     const result = [];
@@ -115,6 +118,7 @@ TreeTable.defaultProps = {
   title: '',
   defaultExpandedSection: '',
   onRowDoubleClick: () => null,
+  setUniqueRowKey: () => null,
 };
 
 TreeTable.propTypes = {
@@ -134,6 +138,10 @@ TreeTable.propTypes = {
    * Called when the user double clicks on a row.
    */
   onRowDoubleClick: PropTypes.func,
+  /**
+   * Sets a function to get a unique key for each row. Params: (rowData, treeIndex)
+   */
+  setUniqueRowKey: PropTypes.func,
   /**
    * Sets the title.
    */
