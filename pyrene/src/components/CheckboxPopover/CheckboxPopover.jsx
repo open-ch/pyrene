@@ -30,7 +30,7 @@ export default class CheckboxPopover extends React.Component {
           renderPopoverContent={() => <CheckboxList listItems={this.props.listItems} onItemClick={this.props.onItemClick} onRestoreDefault={this.props.onRestoreDefault} />}
         >
           <div styleName={classNames('popoverTriggerButton', { popoverOpen: this.state.displayPopover })} onClick={this.togglePopover}>
-            <div styleName={'buttonLabel'}>
+            <div styleName={'buttonLabel'} className={'unSelectable'}>
               {this.props.buttonLabel}
             </div>
             <div styleName={'arrowIcon'} className={'pyreneIcon-collapsDown'} />

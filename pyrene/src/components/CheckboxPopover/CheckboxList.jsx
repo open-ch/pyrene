@@ -12,11 +12,6 @@ const CheckboxList = props => (
     </div>
     <div styleName={'list'}>
       {props.listItems
-        .sort((a, b) => {
-          const nameA = a.label.toUpperCase();
-          const nameB = b.label.toUpperCase();
-          return (nameA < nameB) ? -1 : (nameA > nameB) ? 1 : 0;
-        })
         .map((item) => {
           return (
             <div styleName={'listItem'} key={item.id}>
