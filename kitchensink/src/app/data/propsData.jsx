@@ -791,7 +791,7 @@ const startProps = {
     columns: treeTableColumns,
     data: treeTableData,
     title: 'Tree Table',
-    onDoubleRowClick: data => console.log(data),
+    onRowDoubleClick: data => console.log(data),
  },
 };
 

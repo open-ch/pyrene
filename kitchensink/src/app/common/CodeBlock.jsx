@@ -88,7 +88,13 @@ export default class CodeBlock extends React.Component {
         } else if (key === 'children') {
           hasChildren = true;
         } else {
-          propList += `\t${key}={${JSON.stringify(value).replace(/"/g, "'")}}\n`;
+          const jsonReplacer = (key, val) => {
+            if (typeof val === 'function') {
+              return '() => null';
+            }
+            return val;
+          };
+          propList += `\t${key}={${JSON.stringify(value, jsonReplacer).replace(/"/g, "'")}}\n`;
         }
       }
     });
