@@ -710,7 +710,8 @@ const startProps = {
     displayNavigationArrows: true,
     size: 'small',
     title: 'Modal',
-    rightButtonBarElements: [{type: 'secondary', label: 'Cancel', action: () => null}, {type: 'primary', label: 'Apply', action: () => null}]
+    rightButtonBarElements: [{type: 'secondary', label: 'Cancel', action: () => null}, {type: 'primary', label: 'Apply', action: () => null}],
+    onClose: () => console.log('onClose Pressed'),
   },
   'multi-select': {
     title: 'Multi-Select',

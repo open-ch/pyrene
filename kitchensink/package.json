@@ -12,7 +12,7 @@
     "prebuild": "yarn install",
     "build": "webpack",
     "prestart": "yarn install",
-    "watch": "yarn link pyrene; webpack-dev-server",
+    "watch": "webpack-dev-server",
     "release": "release-it"
   },
   "devDependencies": {
@@ -57,7 +57,7 @@
     "markdown-to-jsx": "^6.6.7",
     "optimize-css-assets-webpack-plugin": "^5.0.0",
     "prop-types": "^15.6.1",
-    "pyrene": "^1.0.6",
+    "pyrene": "^1.0.11",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
     "react-select": "^2.0.0",

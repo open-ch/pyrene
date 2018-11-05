@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link, Container } from 'pyrene';
+import { Link, Container } from 'pyrene/dist/pyrene.dev';
 import Paragraph from '../../common/PageElements/Paragraph/Paragraph';
 import DisplayBox from '../../common/PageElements/HowToElements/DisplayBox/DisplayBox';
 import DescriptionBox from '../../common/PageElements/DescriptionBox/DescriptionBox';
