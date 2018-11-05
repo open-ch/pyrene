@@ -21,7 +21,6 @@
   &.type-info {
     background-color: var(--blue-010);
     border-color: var(--blue-100);
-    color: var(--blue-700);
     & .bannerIcon {
       color: var(--blue-500);
     }
@@ -36,7 +35,6 @@
   &.type-success {
     background-color: var(--green-010);
     border-color: var(--green-200);
-    color: var(--green-800);
     & .clearIcon {
       color: var(--green-600);
       &:hover {
@@ -48,13 +46,11 @@
   &.type-error {
     background-color: var(--red-010);
     border-color: var(--red-200);
-    color: var(--red-700);
   }
 
   &.type-warning {
     background-color: var(--orange-010);
     border-color: var(--orange-200);
-    color: var(--neutral-500);
     & .bannerIcon {
       color: var(--orange-500);
     }
@@ -83,7 +79,7 @@
   }
 
   & .message {
-
+    color: var(--neutral-500);
   }
 
   & .spacer {
@@ -92,9 +88,9 @@
 
   & .clearIcon {
     display: none;
-    height: 18px;
-    width: 18px;
-    font-size: 18px;
+    height: 20px;
+    width: 20px;
+    font-size: 20px;
     cursor: pointer;
   }
 
