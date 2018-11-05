@@ -27,18 +27,19 @@ export default class TreeTable extends React.Component {
 
   state = {
     expandedRows: this.props.defaultExpandedSection ? this.expandAllParentSectionsFor(this.props.defaultExpandedSection) : [],
+    displayExpandAllAction: true,
   };
 
-  expandAll = () => {
-    const tree = this.generateTreeStructureFromData(this.props.data, '0');
+  toggleAllRowsExpansion = () => {
+    let tree = [];
+
+    if (this.state.displayExpandAllAction) {
+      tree = this.generateTreeStructureFromData(this.props.data, '0');
+    }
+
     this.setState((prevState, props) => ({
       expandedRows: tree,
-    }));
-  };
-
-  collapseAll = () => {
-    this.setState((prevState, props) => ({
-      expandedRows: [],
+      displayExpandAllAction: !prevState.displayExpandAllAction,
     }));
   };
 
@@ -79,7 +80,7 @@ export default class TreeTable extends React.Component {
         onExpandClick={this.handleOnExpandClick}
         onRowDoubleClick={this.props.onRowDoubleClick}
       />);
-  }, this);
+  });
 
   generateTreeStructureFromData = (data, treeIndex) => {
     const result = [];
@@ -99,7 +100,7 @@ export default class TreeTable extends React.Component {
         {this.props.title && <div styleName={'treeTableTitle'}>
           {this.props.title}
         </div>}
-        <TreeTableActionBar expandAll={this.expandAll} collapseAll={this.collapseAll} />
+        <TreeTableActionBar toggleAll={this.toggleAllRowsExpansion} displayExpandAllAction={this.state.displayExpandAllAction} />
         <TreeTableHeader columns={this.props.columns} />
         <div styleName={'treeTableData'}>
           {this.generateRowsFromData(this.props.data, this.props.columns, '0', this.state.expandedRows)}

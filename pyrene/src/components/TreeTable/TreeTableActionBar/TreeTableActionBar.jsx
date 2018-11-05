@@ -9,10 +9,15 @@ const TreeTableActionBar = props => (
   <div styleName={'treeTableActionBar'}>
     <ButtonBar
       leftButtonSectionElements={[
-        <Button label={'Expand All'} type={'action'} icon={'chevronDown'} onClick={props.expandAll}/>,
-        <Button label={'Collapse All'} type={'action'} icon={'chevronUp'} onClick={props.collapseAll}/>,
+        <Button
+          label={props.displayExpandAllAction ? 'Expand All' : 'Collapse All'}
+          icon={props.displayExpandAllAction ? 'chevronDown' : 'chevronUp'}
+          type={'action'}
+          onClick={props.toggleAll}
+        />,
       ]}
-      noPadding />
+      noPadding
+    />
   </div>
 );
 
@@ -22,8 +27,8 @@ TreeTableActionBar.displayName = 'TreeTableActionBar';
 TreeTableActionBar.defaultProps = {};
 
 TreeTableActionBar.propTypes = {
-  collapseAll: PropTypes.func.isRequired,
-  expandAll: PropTypes.func.isRequired,
+  toggleAll: PropTypes.func.isRequired,
+  displayExpandAllAction: PropTypes.bool.isRequired,
 };
 
 export default TreeTableActionBar;
