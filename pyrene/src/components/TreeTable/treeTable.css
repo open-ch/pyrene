@@ -1,0 +1,22 @@
+@import '../../styles/colors.css';
+
+.treeTableContainer {
+  composes: commonFontSettings from '../../styles/common.css';
+  width: 100%;
+}
+
+.treeTableData {
+
+}
+
+.treeTableTitle {
+  box-sizing: border-box;
+  font-size: 16px;
+  font-weight: 600;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.5;
+  letter-spacing: normal;
+  color: var(--neutral-500);
+  padding-bottom: 24px;
+}
