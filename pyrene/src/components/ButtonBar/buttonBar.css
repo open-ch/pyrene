@@ -12,6 +12,7 @@
 
   &.noPadding {
     padding: 0;
+    height: auto;
   }
 }
 

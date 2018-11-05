@@ -1,0 +1,31 @@
+@import '../../../styles/colors.css';
+
+.treeTableRow {
+  composes: commonFontSettings from '../../../styles/common.css';
+
+  cursor: default;
+  &.parent {
+    cursor: pointer;
+  }
+}
+
+.rowElementsContainer {
+  box-sizing: border-box;
+  min-height: 32px;
+  display: flex;
+  align-items: center;
+  border-bottom: solid 1px var(--neutral-050);
+}
+
+.childrenRowsContainer {
+  min-height: 32px;
+
+  visibility: hidden;
+  display: none;
+
+  &.display {
+    visibility: visible;
+    display: block;
+  }
+}
+

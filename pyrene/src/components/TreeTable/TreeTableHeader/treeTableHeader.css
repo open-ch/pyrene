@@ -1,0 +1,33 @@
+@import '../../../styles/colors.css';
+    
+.treeTableHeader {
+  composes: commonFontSettings from '../../../styles/common.css';
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  height: 32px;
+  border-top: solid 1px var(--neutral-050);
+  border-bottom: solid 1px var(--neutral-050);
+}
+
+.treeTableHeaderCell {
+  box-sizing: border-box;
+  text-transform: capitalize;
+  font-size: 13px;
+  font-weight: 600;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+
+  width: 100px;
+  flex: 100 0 auto;
+  padding-right: 16px;
+
+  &:first-child {
+    padding-left: 32px;
+  }
+  &:last-child {
+    padding-right: 8px;
+  }
+}
