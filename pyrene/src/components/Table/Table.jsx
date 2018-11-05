@@ -119,14 +119,7 @@ export default class Table extends React.Component {
     
   };
 
-  commonProps = {
-    columns: this.props.columns,
-    defaultPageSize: this.props.defaultPageSize,
-    data: this.props.data,
-    pageSizeOptions: this.props.pageSizeOptions,
-
-    multiSort: this.props.multiSort,
-
+  commonStaticProps = {
     getTrProps: (state, rowInfo) => {
       // no row selected yet
       const key = rowInfo && rowInfo.original[this.props.keyField];
@@ -184,6 +177,15 @@ export default class Table extends React.Component {
 
   render() {
 
+    const commonVariableProps = {
+      columns: this.props.columns,
+      defaultPageSize: this.props.defaultPageSize,
+      data: this.props.data,
+      pageSizeOptions: this.props.pageSizeOptions,
+
+      multiSort: this.props.multiSort,
+    };
+
     return (
       <div styleName={'tableContainer'}>
         {this.props.title && <div styleName={'titleBar'}>
@@ -205,7 +207,8 @@ export default class Table extends React.Component {
           </div>}
           {this.props.multiSelect ?
             <CheckboxTable
-              {...this.commonProps}
+              {...commonVariableProps}
+              {...this.commonStaticProps}
               ref={r => (this.checkboxTable = r)}
               selectType={'checkbox'}
               selectAll={this.state.selectAll}
@@ -223,7 +226,8 @@ export default class Table extends React.Component {
             />
             :
             <ReactTable
-              {...this.commonProps}
+              {...commonVariableProps}
+              {...this.commonStaticProps}
             />
           }
         </div>
