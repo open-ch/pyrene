@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import PROPCONSTANTS from '../TreeTablePropConstants';
+import PROPCONSTANTS from '../TreeTablePropTypes';
 
 import './treeTableHeader.css';
 

@@ -5,7 +5,7 @@ import uniqid from 'uniqid';
 
 import './treeTableRow.css';
 import TreeTableCell from '../TreeTableCell/TreeTableCell';
-import PROPCONSTANTS from '../TreeTablePropConstants';
+import PROPCONSTANTS from '../TreeTablePropTypes';
 
 export default class TreeTableRow extends React.Component {
 

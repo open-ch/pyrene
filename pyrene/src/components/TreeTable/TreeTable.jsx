@@ -6,7 +6,7 @@ import './treeTable.css';
 import TreeTableHeader from './TreeTableHeader/TreeTableHeader';
 import TreeTableActionBar from './TreeTableActionBar/TreeTableActionBar';
 import TreeTableRow from './TreeTableRow/TreeTableRow';
-import PROPCONSTANTS from './TreeTablePropConstants';
+import PROPCONSTANTS from './TreeTablePropTypes';
 import uniqid from 'uniqid';
 
 

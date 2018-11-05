@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-const TreeTablePropConstants = {
+const TreeTablePropTypes = {
   COLUMNS: PropTypes.arrayOf(PropTypes.shape({
     header: PropTypes.string,
     headerStyle: PropTypes.object,
@@ -21,4 +21,4 @@ const TreeTablePropConstants = {
   DATAOBJECT: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array])).isRequired,
 };
 
-export default TreeTablePropConstants;
+export default TreeTablePropTypes;
