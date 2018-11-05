@@ -24,23 +24,11 @@
     & .bannerIcon {
       color: var(--blue-500);
     }
-    & .clearIcon {
-      color: var(--blue-300);
-      &:hover {
-        color: var(--blue-500);
-      }
-    }
   }
 
   &.type-success {
     background-color: var(--green-010);
     border-color: var(--green-200);
-    & .clearIcon {
-      color: var(--green-600);
-      &:hover {
-        color: var(--green-800);
-      }
-    }
   }
 
   &.type-error {
@@ -53,12 +41,6 @@
     border-color: var(--orange-200);
     & .bannerIcon {
       color: var(--orange-500);
-    }
-    & .clearIcon {
-      color: var(--orange-500);
-      &:hover {
-        color: var(--orange-700);
-      }
     }
   }
 
@@ -88,10 +70,14 @@
 
   & .clearIcon {
     display: none;
-    height: 20px;
-    width: 20px;
-    font-size: 20px;
+    height: 24px;
+    width: 24px;
+    font-size: 24px;
     cursor: pointer;
+    color: var(--neutral-300);
+    &:hover {
+      color: var(--blue-500);
+    }
   }
 
   &.clearable {
