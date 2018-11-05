@@ -143,69 +143,72 @@ export default class Table extends React.Component {
     </div>
   );
 
+
+  commonStaticProps = {
+    getTrProps: (state, rowInfo) => {
+      // no row selected yet
+      const key = rowInfo && rowInfo.original[this.props.keyField];
+      const selected = this.isSelected(key);
+      // const selectedIndex = this.state.selection == null ? null : this.state.selection.index;
+      return {
+        onDoubleClick: () => { this.props.onRowDoubleClick(rowInfo); },
+        style: {
+          background: selected ? colorConstants.neutral030 : '',
+        },
+      };
+    },
+
+    getTdProps: (state, rowInfo, column) => ({
+      onClick: (e, handleOriginal) => {
+        if (column.id !== '_selector' && (typeof rowInfo !== 'undefined')) {
+          this.singleRowSelection(rowInfo.original[this.props.keyField]);
+        }
+        // IMPORTANT! React-Table uses onClick internally to trigger
+        // events like expanding SubComponents and pivots.
+        // By default a custom 'onClick' handler will override this functionality.
+        // If you want to fire the original onClick handler, call the
+        // 'handleOriginal' function.
+        if (handleOriginal) {
+          handleOriginal();
+        }
+      },
+    }),
+
+    onPageChange: () => {
+      this.resetSelection();
+    },
+    onPageSizeChange: () => {
+      this.resetSelection();
+    },
+    onSortedChange: () => {
+      this.resetSelection();
+    },
+    onFilteredChange: () => {
+      this.resetSelection();
+    },
+
+    PadRowComponent: props => null,
+    TheadComponent: props => <TableHeader multiSelect={this.props.multiSelect} {...props} />,
+    ThComponent: props => <TableHeaderCell {...props} />,
+    TdComponent: props => <TableCell {...props} />,
+    PaginationComponent: props => <TablePagination {...props} />,
+    TfootComponent: props => <TablePagination {...props} />,
+    resizable: false,
+    showPaginationBottom: true,
+    showPagination: true,
+    showPaginationTop: true,
+    showPageSizeOptions: true,
+  };
+
   render() {
 
-    const commonProps = {
-      columns: this.state.columns,
+    const commonVariableProps = {
+      columns: this.props.columns,
       defaultPageSize: this.props.defaultPageSize,
       data: this.props.data,
       pageSizeOptions: this.props.pageSizeOptions,
 
       multiSort: this.props.multiSort,
-
-      getTrProps: (state, rowInfo) => {
-        // no row selected yet
-        const key = rowInfo && rowInfo.original[this.props.keyField];
-        const selected = this.isSelected(key);
-        // const selectedIndex = this.state.selection == null ? null : this.state.selection.index;
-        return {
-          onDoubleClick: () => { this.props.onRowDoubleClick(rowInfo); },
-          style: {
-            background: selected ? colorConstants.neutral030 : '',
-          },
-        };
-      },
-
-      getTdProps: (state, rowInfo, column) => ({
-        onClick: (e, handleOriginal) => {
-          if (column.id !== '_selector' && (typeof rowInfo !== 'undefined')) {
-            this.singleRowSelection(rowInfo.original[this.props.keyField]);
-          }
-          // IMPORTANT! React-Table uses onClick internally to trigger
-          // events like expanding SubComponents and pivots.
-          // By default a custom 'onClick' handler will override this functionality.
-          // If you want to fire the original onClick handler, call the
-          // 'handleOriginal' function.
-          if (handleOriginal) {
-            handleOriginal();
-          }
-        },
-      }),
-
-      onPageChange: () => {
-        this.resetSelection();
-      },
-      onPageSizeChange: () => {
-        this.resetSelection();
-      },
-      onSortedChange: () => {
-        this.resetSelection();
-      },
-      onFilteredChange: () => {
-        this.resetSelection();
-      },
-
-      PadRowComponent: props => null,
-      TheadComponent: props => <TableHeader multiSelect={this.props.multiSelect} {...props} />,
-      ThComponent: props => <TableHeaderCell {...props} />,
-      TdComponent: props => <TableCell {...props} />,
-      PaginationComponent: props => <TablePagination {...props} />,
-      TfootComponent: props => <TablePagination {...props} />,
-      resizable: false,
-      showPaginationBottom: true,
-      showPagination: true,
-      showPaginationTop: true,
-      showPageSizeOptions: true,
     };
 
     return (
@@ -245,7 +248,8 @@ export default class Table extends React.Component {
 
           {this.props.multiSelect ?
             <CheckboxTable
-              {...commonProps}
+              {...this.commonStaticProps}
+              {...commonVariableProps}
               ref={r => (this.checkboxTable = r)}
               selectType={'checkbox'}
               selectAll={this.state.selectAll}
@@ -263,7 +267,8 @@ export default class Table extends React.Component {
             />
             :
             <ReactTable
-              {...commonProps}
+              {...this.commonStaticProps}
+              {...commonVariableProps}
             />
           }
 
