@@ -17,6 +17,10 @@ const Link = props => (
   <a
     styleName={classNames('link', { [`type-${props.type}`]: true }, { disabled: props.disabled })}
     href={props.path}
+    onClick={props.onClick ? ((event) => {
+      event.preventDefault();
+      props.onClick(event);
+    }) : undefined}
   >
     <span styleName={'label'}>{props.label}</span>
     {props.type === 'standalone' && <span styleName={'icon'} className={'pyreneIcon-chevronRight'} />}
@@ -28,6 +32,7 @@ Link.displayName = 'Link';
 Link.defaultProps = {
   type: 'standalone',
   disabled: false,
+  onClick: undefined,
 };
 
 Link.propTypes = {
@@ -39,6 +44,10 @@ Link.propTypes = {
    * Sets the label displayed to the user.
    */
   label: PropTypes.string.isRequired,
+  /**
+   * Javascript event handler. Overrides the redirect functionality (path prop ignored).
+   */
+  onClick: PropTypes.func,
   /**
    * Sets the path the user is redirected to.
    */
