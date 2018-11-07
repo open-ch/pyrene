@@ -15,6 +15,7 @@ import colorConstants from '../../styles/colorConstants';
 import Checkbox from '../FormElements/Checkbox/Checkbox';
 import TableCell from './TableCell/TableCell';
 import CheckboxPopover from '../CheckboxPopover/CheckboxPopover';
+import TableUtils from './TableUtils';
 
 const CheckboxTable = checkboxHOC(ReactTable);
 
@@ -26,7 +27,7 @@ export default class Table extends React.Component {
   state = {
     selection: [],
     selectAll: false,
-    columns: this.props.columns,
+    columns: TableUtils.mapColumnProps(this.props.columns),
   };
 
   toggleSelection = (key, shift, row) => {
@@ -114,12 +115,10 @@ export default class Table extends React.Component {
     
   };
 
-  isColumnDisplayed = (show) => {
-    return typeof show === 'undefined' || show === true;
-  };
+  isColumnDisplayed = show => typeof show === 'undefined' || show === true;
 
   toggleColumnDisplay = (columnId, showValue) => {
-    const updatedColumns = this.state.columns.map(col => {
+    const updatedColumns = this.state.columns.map((col) => {
       if (col.id === columnId) {
         return { ...col, show: !showValue };
       }
@@ -203,7 +202,7 @@ export default class Table extends React.Component {
   render() {
 
     const commonVariableProps = {
-      columns: this.props.columns,
+      columns: TableUtils.mapColumnProps(this.props.columns),
       defaultPageSize: this.props.defaultPageSize,
       data: this.props.data,
       pageSizeOptions: this.props.pageSizeOptions,
@@ -229,7 +228,7 @@ export default class Table extends React.Component {
           </div>
           <CheckboxPopover
             buttonLabel={'Columns'}
-            listItems={this.state.columns.map(col => ({id: col.id, label: col.Header, value: this.isColumnDisplayed(col.show)}))}
+            listItems={this.state.columns.map(col => ({ id: col.id, label: col.Header, value: this.isColumnDisplayed(col.show) }))}
             onItemClick={(item, value) => this.toggleColumnDisplay(item, value)}
             onRestoreDefault={() => this.restoreColumnDefaults()}
           />
