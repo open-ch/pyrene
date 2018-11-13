@@ -8,6 +8,6 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-::selection {
+[class^="pyrene"] ::selection {
   background: var(--blue-050);
 }
