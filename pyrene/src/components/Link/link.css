@@ -44,7 +44,6 @@
 
   &.type-inline {
     display: inline;
-    font-size: 14px;
     font-weight: 600;
 
     &.disabled {
