@@ -3,7 +3,7 @@
 .banner {
   composes: commonFontSettings from '../../styles/common.css';
   box-sizing: border-box;
-  padding: 0 24px;
+  padding: 0 16px 0 24px;
   height: 40px;
   width: 100%;
   display: flex;
@@ -76,7 +76,7 @@
     cursor: pointer;
     color: var(--neutral-300);
     &:hover {
-      color: var(--blue-500);
+      background-color: rgba(29, 39, 59, 0.05);
     }
   }
 
