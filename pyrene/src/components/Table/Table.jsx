@@ -12,9 +12,10 @@ import Filter from '../Filter/Filter';
 import TableHeaderCell from './TableHeader/TableHeaderCell';
 import TableHeader from './TableHeader/TableHeader';
 import colorConstants from '../../styles/colorConstants';
-import TableColumnPopover from './TableColumnButton/TableColumnPopover/TableColumnPopover';
 import Checkbox from '../FormElements/Checkbox/Checkbox';
 import TableCell from './TableCell/TableCell';
+import CheckboxPopover from '../CheckboxPopover/CheckboxPopover';
+import TableUtils from './TableUtils';
 
 const CheckboxTable = checkboxHOC(ReactTable);
 
@@ -26,13 +27,8 @@ export default class Table extends React.Component {
   state = {
     selection: [],
     selectAll: false,
+    columns: TableUtils.mapColumnProps(this.props.columns),
   };
-
-  renderLoader = () => (
-    <div styleName={'loader'}>
-      <Loader size={'large'} />
-    </div>
-  );
 
   toggleSelection = (key, shift, row) => {
     // start off with the existing state
@@ -119,6 +115,34 @@ export default class Table extends React.Component {
     
   };
 
+  isColumnDisplayed = show => typeof show === 'undefined' || show === true;
+
+  toggleColumnDisplay = (columnId, showValue) => {
+    const updatedColumns = this.state.columns.map((col) => {
+      if (col.id === columnId) {
+        return { ...col, show: !showValue };
+      }
+      return col;
+    });
+
+    this.setState((prevState, props) => ({
+      columns: updatedColumns,
+    }));
+  };
+
+  restoreColumnDefaults = () => {
+    this.setState((prevState, props) => ({
+      columns: this.props.columns,
+    }));
+  };
+
+  renderLoader = () => (
+    <div styleName={'loader'}>
+      <Loader size={'large'} />
+    </div>
+  );
+
+
   commonStaticProps = {
     getTrProps: (state, rowInfo) => {
       // no row selected yet
@@ -178,7 +202,7 @@ export default class Table extends React.Component {
   render() {
 
     const commonVariableProps = {
-      columns: this.props.columns,
+      columns: TableUtils.mapColumnProps(this.props.columns),
       defaultPageSize: this.props.defaultPageSize,
       data: this.props.data,
       pageSizeOptions: this.props.pageSizeOptions,
@@ -192,11 +216,26 @@ export default class Table extends React.Component {
           {this.props.title}
         </div>}
         {this.props.loading && this.renderLoader()}
-        <div styleName={classNames('filterContainer', { loading: this.props.loading })}>
-          {this.props.filters.length > 0 && <Filter filters={this.props.filters} onFilterSubmit={this.props.onFilterChange} />}
+
+        <div styleName={'filterBar'}>
+          <div styleName={classNames('filterContainer', { loading: this.props.loading })}>
+            {this.props.filters.length > 0 &&
+              <Filter
+                filters={this.props.filters}
+                onFilterSubmit={this.props.onFilterChange}
+              />
+            }
+          </div>
+          <CheckboxPopover
+            buttonLabel={'Columns'}
+            listItems={this.state.columns.map(col => ({ id: col.id, label: col.Header, value: this.isColumnDisplayed(col.show) }))}
+            onItemClick={(item, value) => this.toggleColumnDisplay(item, value)}
+            onRestoreDefault={() => this.restoreColumnDefaults()}
+          />
         </div>
+
         <div styleName={classNames('tableAndActions', { loading: this.props.loading })}>
-          {/* <TableColumnPopover /> */}
+
           {this.props.actions.length > 0 && <div styleName={'toolbar'}>
             {this.props.actions.map((action, index) => (
               <React.Fragment key={action.label}>
@@ -205,10 +244,11 @@ export default class Table extends React.Component {
               </React.Fragment>
             ))}
           </div>}
+
           {this.props.multiSelect ?
             <CheckboxTable
-              {...commonVariableProps}
               {...this.commonStaticProps}
+              {...commonVariableProps}
               ref={r => (this.checkboxTable = r)}
               selectType={'checkbox'}
               selectAll={this.state.selectAll}
@@ -226,10 +266,11 @@ export default class Table extends React.Component {
             />
             :
             <ReactTable
-              {...commonVariableProps}
               {...this.commonStaticProps}
+              {...commonVariableProps}
             />
           }
+
         </div>
       </div>
     );

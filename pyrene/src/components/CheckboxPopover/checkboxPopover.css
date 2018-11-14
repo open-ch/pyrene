@@ -1,13 +1,12 @@
-@import '../../../../styles/colors.css';
+@import '../../styles/colors.css';
 
-.tableColumnButton {
-  composes: commonFontSettings from '../../../../styles/common.css';
-  position: absolute;
-  right: 0;
-  top: -40px;
+.checkboxPopover {
+  composes: commonFontSettings from '../../styles/common.css';
+  display: inline-block;
 }
 
-.columnButton {
+
+.popoverTriggerButton {
   box-sizing: border-box;
   border-radius: 2px;
   padding: 0 8px;
@@ -18,18 +17,10 @@
   &:hover {
     cursor: pointer;
     background-color: var(--neutral-030);
-
-    & .buttonLabel {
-      color: var(--neutral-500);
-    }
   }
 
   &.popoverOpen {
     background-color: var(--neutral-030);
-
-    & .buttonLabel {
-      color: var(--neutral-500);
-    }
   }
 }
 
@@ -37,7 +28,7 @@
   font-size: 13px;
   font-weight: 500;
   line-height: 1.23;
-  color: var(--neutral-200);
+  color: var(--neutral-500);
   padding: 0 8px;
 }
 

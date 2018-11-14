@@ -41,6 +41,11 @@
   margin-bottom: 8px;
 }
 
+.filterBar {
+  display: flex;
+  justify-content: space-between;
+}
+
 .toolbar {
   position: absolute;
   z-index: 1;
