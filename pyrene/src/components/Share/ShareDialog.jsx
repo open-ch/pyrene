@@ -51,8 +51,11 @@ export default class ShareDialog extends React.Component {
           onClickOutside={() => this.setState({ displayShareDialog: false })}
           renderPopoverContent={() => (
             <div className={'unSelectable'} styleName={'shareDialog'} role="dialog">
-              <div styleName={'title'}>
-                Share this link
+              <div styleName={'titleBar'}>
+                <div styleName={'title'}>
+                  Share this link
+                </div>
+                <div styleName={'closeButton'} className={'pyreneIcon-delete'} onClick={this._displayShareDialogClicked}/>
               </div>
               <div styleName={'content'}>
                 <input styleName={'urlField'} type={'text'} value={this.props.link} ref={(input) => { this.textInput = input; }} readOnly />
@@ -60,7 +63,7 @@ export default class ShareDialog extends React.Component {
               <ButtonBar
                 rightButtonSectionElements={[
                   <Button type={'ghost'} label={'Copy link'} onClick={this._copyLinkToClipboard} />,
-                  <Button label={'Close'} onClick={this._displayShareDialogClicked} />]}
+                ]}
               />
             </div>
           )}
