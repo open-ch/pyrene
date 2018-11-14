@@ -9,7 +9,3 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
-[class^="pyrene"] ::selection {
-  background: var(--blue-050);
-}
