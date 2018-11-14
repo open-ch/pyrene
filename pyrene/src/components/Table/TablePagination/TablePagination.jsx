@@ -8,7 +8,7 @@ const TablePagination = props => {
   return (
     <div styleName={'tablePagination'}>
       <div styleName={'resultsCounter'}>
-        {props.data.length} results found
+        {`${props.data.length} result${props.data.length === 1 ? '' : 's'} found`}
       </div>
 
       <div styleName={'separator'} />

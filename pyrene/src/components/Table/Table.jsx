@@ -186,7 +186,11 @@ export default class Table extends React.Component {
       this.resetSelection();
     },
 
+    // Empty Table handling
     PadRowComponent: props => null,
+    NoDataComponent: props => null,
+    minRows: 1,
+
     TheadComponent: props => <TableHeader multiSelect={this.props.multiSelect} {...props} />,
     ThComponent: props => <TableHeaderCell {...props} />,
     TdComponent: props => <TableCell {...props} />,
