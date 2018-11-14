@@ -3,7 +3,7 @@
 .banner {
   composes: commonFontSettings from '../../styles/common.css';
   box-sizing: border-box;
-  padding: 0 24px;
+  padding: 0 16px 0 24px;
   height: 40px;
   width: 100%;
   display: flex;
@@ -15,30 +15,31 @@
   font-style: normal;
   font-stretch: normal;
 
-  border: solid 1px;
   border-radius: 2px;
 
   &.type-info {
-    background-color: var(--blue-010);
-    border-color: var(--blue-100);
+    background-color: var(--blue-050);
     & .bannerIcon {
       color: var(--blue-500);
     }
   }
 
   &.type-success {
-    background-color: var(--green-010);
-    border-color: var(--green-200);
+    background-color: var(--green-050);
+    & .bannerIcon {
+      color: var(--green-500);
+    }
   }
 
   &.type-error {
-    background-color: var(--red-010);
-    border-color: var(--red-200);
+    background-color: var(--red-050);
+    & .bannerIcon {
+      color: var(--red-500);
+    }
   }
 
   &.type-warning {
-    background-color: var(--orange-010);
-    border-color: var(--orange-200);
+    background-color: var(--orange-050);
     & .bannerIcon {
       color: var(--orange-500);
     }
@@ -76,7 +77,7 @@
     cursor: pointer;
     color: var(--neutral-300);
     &:hover {
-      color: var(--blue-500);
+      background-color: rgba(29, 39, 59, 0.05);
     }
   }
 
