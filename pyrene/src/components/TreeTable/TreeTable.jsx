@@ -71,7 +71,7 @@ export default class TreeTable extends React.Component {
     return (
       <TreeTableRow
         data={rowData}
-        parent={rowData.hasOwnProperty('children')}
+        parent={rowData.hasOwnProperty('children') ? rowData.children.length > 0 : false}
         treeIndex={newTreeIndex}
         columns={columns}
         key={rowKey ? rowKey : uniqid()}
@@ -86,9 +86,11 @@ export default class TreeTable extends React.Component {
     const result = [];
     data.forEach((item, i) => {
       if (item.hasOwnProperty('children')) {
-        result.push(`${treeIndex}.${i}`);
-        const children = this.generateTreeStructureFromData(item.children, `${treeIndex}.${i}`);
-        result.push(...children);
+        if (item.children.length > 0) {
+          result.push(`${treeIndex}.${i}`);
+          const children = this.generateTreeStructureFromData(item.children, `${treeIndex}.${i}`);
+          result.push(...children);
+        }
       }
     });
     return result;
