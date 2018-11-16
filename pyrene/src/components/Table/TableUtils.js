@@ -26,7 +26,7 @@ export default class TableUtils {
       },
       initiallyHidden: {
         rtPropName: 'show',
-        transformValue: value => !value,
+        transformValue: value => typeof value !== 'undefined' ? !value : undefined,
       },
       width: {
         rtPropName: 'width',
