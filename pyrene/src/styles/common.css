@@ -1,3 +1,5 @@
+@import './colors.css';
+
 :global(.unSelectable) {
   user-select: none;
 }
@@ -6,8 +8,4 @@
   font-family: AvenirNext, Helvetica, sans-serif !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-[class^="pyrene"] ::selection {
-  background: var(--blue-050);
 }
