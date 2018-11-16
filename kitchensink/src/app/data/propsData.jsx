@@ -495,7 +495,7 @@ const tableData = [
 
 const tableColumns = [{
   id: 'name',
-  Header: 'Name',
+  headerRenderCallback: 'Name',
   accessor: 'name', // String-based value accessors!
   sortMethod: (a, b, desc) => { // Custom sorting by last letter of name, must use the native javascript Array.sort
     var lastA = a.charAt(a.length - 1);
@@ -510,12 +510,10 @@ const tableColumns = [{
   }
 }, {
   id: 'age',
-  Header: 'Age',
+  headerRenderCallback: 'Age',
   accessor: 'age',
-  pivot: true,
-  minWidth: 300,
   resizable: false,
-  Cell: row => ( // Custom Cell rendering
+  cellRenderCallback: row => ( // Custom Cell rendering
     <div
       style={{
         width: "100%",
@@ -540,13 +538,13 @@ const tableColumns = [{
   )
 }, {
   id: 'friendName', // Required because our accessor is not a string
-  Header: 'Friend Name',
-  accessor: d => d.friend.name // Custom value accessors!
+  headerRenderCallback: 'Friend Name',
+  accessor: d => d.friend.name, // Custom value accessors!
+  initiallyHidden: true,
 }, {
   id: 'friendAge',
-  Header: 'Friend Age',
+  headerRenderCallback: 'Friend Age',
   accessor: 'friend.age',
-  show: false,
 }];
 
 const treeTableData = [
@@ -669,8 +667,10 @@ const treeTableColumns = [
 const startProps = {
   'arrowbutton': {},
   'banner': {
-    label: 'This is a test message',
+    label: 'There are over 10’000 objects to load.',
     type: 'info',
+    styling: 'standard',
+    description: 'The monkey-rope is found in all whalers; but it was only in the Pequod that the monkey and his holder were ever tied together. This improvement upon the original usage was introduced by no less a man than Stubb, in order to afford the imperilled harpooneer the strongest possible guarantee for the faithfulness and vigilance.',
   },
   'button': {
     label: 'Click Me',

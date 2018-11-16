@@ -212,18 +212,20 @@ const extendedColors = [
 const icons = [
   { name: 'share', tags: ['social'] },
   { name: 'filter', tags: ['lines'] },
-  { name: 'chevronLeft', tags: ['arrow', 'link', 'navigation'] },
-  { name: 'chevronRight', tags: ['arrow', 'link', 'navigation'] },
-  { name: 'chevronUp', tags: ['arrow', 'navigation'] },
-  { name: 'chevronDown', tags: ['arrow', 'navigation'] },
+  { name: 'chevronLeft', tags: ['arrow', 'link'] },
+  { name: 'chevronRight', tags: ['arrow', 'link'] },
   { name: 'collapsDown', tags: ['arrow', 'dropdown'] },
   { name: 'collapsUp', tags: ['arrow', 'dropdown'] },
   { name: 'errorOutline', tags: ['problem', 'invalid'] },
   { name: 'delete', tags: ['clear', 'x', 'remove', 'cross'] },
   { name: 'search', tags: ['loupe'] },
-  { name: 'info', tags: ['info', 'information', 'banner'] },
+  { name: 'infoOutline', tags: ['info', 'information', 'banner', 'outline'] },
   { name: 'check', tags: ['checkmark', 'ok', 'done'] },
-  { name: 'warning', tags: ['warning', 'caution', 'attention'] },
+  { name: 'warning', tags: ['warning', 'caution', 'attention', 'solid'] },
+  { name: 'trash', tags: ['delete', 'bin', 'bucket'] },
+  { name: 'info', tags: ['information', 'banner', 'solid'] },
+  { name: 'error', tags: ['wrong', 'banner', 'invalid', 'problem', 'solid'] },
+  { name: 'success', tags: ['correct', 'match', 'true', 'done', 'ok', 'solid'] },
 ];
 
 const svgs = [
