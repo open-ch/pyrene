@@ -230,12 +230,12 @@ export default class Table extends React.Component {
               />
             }
           </div>
-          <CheckboxPopover
+          {this.props.toggleColumns && <CheckboxPopover
             buttonLabel={'Columns'}
             listItems={this.state.columns.map(col => ({ id: col.id, label: col.Header, value: this.isColumnDisplayed(col.show) }))}
             onItemClick={(item, value) => this.toggleColumnDisplay(item, value)}
             onRestoreDefault={() => this.restoreColumnDefaults()}
-          />
+          />}
         </div>
 
         <div styleName={classNames('tableAndActions', { loading: this.props.loading })}>
@@ -292,6 +292,7 @@ Table.defaultProps = {
   loading: false,
   multiSort: true,
   multiSelect: false,
+  toggleColumns: false,
   pageSizeOptions: [10, 20, 50, 100, 250],
   filters: [],
   onRowDoubleClick: () => null,
@@ -362,4 +363,8 @@ Table.propTypes = {
    * Sets the title.
    */
   title: PropTypes.string,
+  /**
+   * Whether the columns (hide/show) popover is available to the user.
+   */
+  toggleColumns: PropTypes.bool
 };
