@@ -165,13 +165,15 @@ const multiSelectStyle = props => ({
     height: 32,
     color: colorConstants.neutral400,
     cursor: 'pointer',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
   }),
 
   multiValue: (base, { data }) => ({
     ...base,
     alignItems: 'center',
     backgroundColor: data.invalid ? colorConstants.red100 : colorConstants.neutral030,
-    flexShrink: 0,
   }),
 
   multiValueLabel: (base, { data }) => ({

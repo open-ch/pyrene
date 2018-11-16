@@ -154,6 +154,9 @@ const selectStyle = {
     height: 30,
     color: colorConstants.neutral400,
     cursor: 'pointer',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
   }),
 };
 
