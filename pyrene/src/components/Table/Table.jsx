@@ -132,7 +132,7 @@ export default class Table extends React.Component {
 
   restoreColumnDefaults = () => {
     this.setState((prevState, props) => ({
-      columns: this.props.columns,
+      columns: TableUtils.mapColumnProps(this.props.columns),
     }));
   };
 
@@ -206,7 +206,7 @@ export default class Table extends React.Component {
   render() {
 
     const commonVariableProps = {
-      columns: TableUtils.mapColumnProps(this.props.columns),
+      columns: this.state.columns,
       defaultPageSize: this.props.defaultPageSize,
       data: this.props.data,
       pageSizeOptions: this.props.pageSizeOptions,
