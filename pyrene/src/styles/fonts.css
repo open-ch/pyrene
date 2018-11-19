@@ -34,7 +34,7 @@
   font-weight: normal;
   font-variant: normal;
 
-  src: url('../fonts/pyrene-iconfont-14.woff') format('woff');
+  src: url('../fonts/pyrene-iconfont-15.woff') format('woff');
 }
 
 [class^="pyreneIcon-"], [class*=" pyreneIcon-"] {
@@ -58,13 +58,25 @@
    Replace field: :global($1pyreneIcon$3)
 */
 
+:global(.pyreneIcon-trash:before) {
+  content: "\68";
+}
+:global(.pyreneIcon-info:before) {
+  content: "\67";
+}
+:global(.pyreneIcon-error:before) {
+  content: "\66";
+}
+:global(.pyreneIcon-success:before) {
+  content: "\65";
+}
 :global(.pyreneIcon-warning:before) {
   content: "\62";
 }
 :global(.pyreneIcon-check:before) {
   content: "\61";
 }
-:global(.pyreneIcon-info:before) {
+:global(.pyreneIcon-infoOutline:before) {
   content: "\39";
 }
 :global(.pyreneIcon-search:before) {

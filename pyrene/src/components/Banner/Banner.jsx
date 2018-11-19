@@ -5,31 +5,23 @@ import Loader from '../Loader/Loader';
 
 import './banner.css';
 
-const iconNameForBannerType = (type) => {
-  switch (type) {
-    case 'success':
-      return 'check';
-    case 'error':
-      return 'errorOutline';
-    default:
-      return type;
-  }
-};
-
 /**
  * Use a Banner whenever you want the user to click it away.
  */
 const Banner = props => (
   <div
-    styleName={className('banner', { [`type-${props.type}`]: true }, { clearable: props.clearable })}
+    styleName={className('banner', { [`type-${props.type}`]: true }, { [`style-${props.styling}`]: true }, { clearable: props.clearable })}
     role="banner"
   >
     <div styleName={'iconMessageContainer'}>
-      <span styleName={'bannerIcon'}>{props.type === 'loading' ? <Loader size={'small'} /> : <span className={`pyreneIcon-${iconNameForBannerType(props.type)}`} />}</span>
+      <span styleName={'bannerIcon'}>{props.type === 'loading' ? <Loader size={'small'} /> : <span className={`pyreneIcon-${props.type}`} />}</span>
       <div styleName={'spacer'} />
-      <span styleName={'message'}>{props.label}</span>
+      <div styleName={'textBox'}>
+        <div styleName={'message'}>{props.label}</div>
+        {props.styling !== 'inline' && <div styleName={'description'}>{props.description}</div>}
+      </div>
     </div>
-    {props.type !== 'error' && props.type !== 'loading' && <span className={'pyreneIcon-delete'} styleName={'clearIcon'} onClick={props.onClear} role="button" aria-label="Clear Banner"/>}
+    {props.styling === 'overlay' && <span className={'pyreneIcon-delete'} styleName={'clearIcon'} onClick={props.onClear} role="button" aria-label="Clear Banner"/>}
   </div>
 );
 
@@ -39,6 +31,7 @@ Banner.displayName = 'Banner';
 Banner.defaultProps = {
   clearable: true,
   onClear: () => null,
+  description: '',
 };
 
 Banner.propTypes = {
@@ -47,17 +40,25 @@ Banner.propTypes = {
    */
   clearable: PropTypes.bool,
   /**
+   * Sets an additional description, displayed underneath the label. Not displayed for inline banners.
+   */
+  description: PropTypes.string,
+  /**
    * Sets the label displayed to the user.
    */
   label: PropTypes.string.isRequired,
   /**
-   * Called when the user click on the clear icon.
+   * Called when the user click on the clear icon. Only available for overlay banners.
    */
   onClear: PropTypes.func,
   /**
-   * Sets the overall style.
+   * Sets the overall style according to the banner usage.
    */
-  type: PropTypes.oneOf(['info', 'success', 'error', 'warning', 'loading']).isRequired,
+  styling: PropTypes.oneOf(['standard', 'inline', 'overlay']).isRequired,
+  /**
+   * Sets the overall style according to the banner type.
+   */
+  type: PropTypes.oneOf(['info', 'success', 'error', 'warning']).isRequired,
 };
 
 export default Banner;
