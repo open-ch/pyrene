@@ -3,8 +3,11 @@ import CleanWebpackPlugin from 'clean-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin';
 import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
+import CopyWebpackPlugin from 'copy-webpack-plugin';
 
 const production = process.env.NODE_ENV === 'production';
+
+const OUTPUT_PATH = path.resolve(__dirname, 'dist');
 
 const config = {
   mode: production ? 'production' : 'development',
@@ -57,6 +60,9 @@ const config = {
       filename: 'pyrene.css',
     }),
     new OptimizeCSSAssetsPlugin({}),
+    new CopyWebpackPlugin([
+      { from: '**/colors.css', to: OUTPUT_PATH, flatten: true },
+    ])
   ],
   optimization: {
     minimizer: [
@@ -68,7 +74,7 @@ const config = {
     ],
   },
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    path: OUTPUT_PATH,
     filename: production ? 'pyrene.js' : 'pyrene.dev.js',
     library: 'pyrene',
     libraryTarget: 'umd',
