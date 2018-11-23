@@ -14,15 +14,6 @@
     flex-wrap: wrap;
     flex-direction: row;
   }
-
-  &.invalid .radioLabel {
-    & .radioIcon {
-      background-image: url('./radio-invalid.svg');
-    }
-    &:hover .radioIcon {
-      background-image: url('./radio-invalid-hover.svg');
-    }
-  }
 }
 
 .radioInput {
@@ -36,8 +27,6 @@
   height: 16px;
   vertical-align: text-top;
   margin-right: 6px;
-
-  background-image: url('./radio-blank.svg');
 }
 
 .radioLabel {
@@ -50,21 +39,11 @@
   text-transform: capitalize;
   cursor: pointer;
 
-  &:hover .radioIcon {
-    background-image: url('./radio-hover.svg');
-  }
-
   &.checked {
-    & .radioIcon {
-      background-image: url('./radio-selected.svg');
-    }
-    &:hover .radioIcon {
-      background-image: url('./radio-selected-hover.svg');
-    }
     &.disabled .radioIcon {
       opacity: 0.5;
     }
-  }
+  } 
 
   &.disabled {
     opacity: 0.5;
@@ -73,7 +52,6 @@
       opacity: 1;
     }
   }
-
 }
 
 .spacer-horizontal {
