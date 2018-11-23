@@ -44,7 +44,7 @@ const config = {
       },
       {
         test: /\.svg$/,
-        loader: 'url-loader',
+        loader: 'raw-loader'
       },
       {
         test: /\.woff$/,
