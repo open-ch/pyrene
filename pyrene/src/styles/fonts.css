@@ -27,9 +27,9 @@
   src: url('../fonts/AvenirNextLTW01-Bold.woff') format('woff');
 }
 
-/* IconFont */
+/* PyreneIconFont */
 @font-face {
-  font-family: IconFont;
+  font-family: PyreneIconFont;
   font-style: normal;
   font-weight: normal;
   font-variant: normal;
@@ -39,7 +39,7 @@
 
 [class^="pyreneIcon-"], [class*=" pyreneIcon-"] {
   /* use !important to prevent issues with browser extensions that change fonts */
-  font-family: IconFont !important;
+  font-family: PyreneIconFont !important;
   speak: none;
   font-style: normal;
   font-weight: normal;
