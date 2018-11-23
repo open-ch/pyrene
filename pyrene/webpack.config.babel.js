@@ -61,7 +61,7 @@ const config = {
     }),
     new OptimizeCSSAssetsPlugin({}),
     new CopyWebpackPlugin([
-      { from: '**/colors.css', to: OUTPUT_PATH, flatten: true },
+      { from: 'src/styles/colors.css', to: OUTPUT_PATH, flatten: true },
     ])
   ],
   optimization: {
