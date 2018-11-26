@@ -11,9 +11,13 @@ import uniqid from 'uniqid';
 
 
 /**
- *  🌳 (╯°□°）╯︵ ┻━┻
+ *  [🌳 • ┬─┬]
  *
-*/
+ * A tree table contains a hierarchical set of data structured in rows and columns and grouped into nodes.
+ * Trees are used to display and work with large amounts of hierarchical data.
+ * They have a high data density and therefore convey an immediate feeling of complexity.
+ * Ideally, you should only show trees with a lot of hierarchical data as a last resort.
+ */
 export default class TreeTable extends React.Component {
 
   expandAllParentSectionsFor = (rowIndex) => {

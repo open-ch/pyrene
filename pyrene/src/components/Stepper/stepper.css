@@ -1,6 +1,6 @@
 @import '../../styles/colors.css';
 
-.arrowButton {
+.stepper {
   composes: commonFontSettings from '../../styles/common.css';
   box-sizing: border-box;
 
@@ -60,7 +60,7 @@
 }
 
 /* mc.css overrides */
-.arrowButton {
+.stepper {
 
   &.type-bordered {
 

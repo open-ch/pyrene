@@ -6,8 +6,6 @@ import './styles/colors.css';
 import './styles/fonts.css';
 
 // Sort alphabetically to find stuff easily
-import { default as ArrowButton } from './components/ArrowButton/ArrowButton';
-
 import { default as Banner } from './components/Banner/Banner';
 import { default as Button } from './components/Button/Button';
 
@@ -30,6 +28,7 @@ import { default as RadioGroup } from './components/FormElements/RadioGroup/Radi
 
 import { default as ShareDialog } from './components/Share/ShareDialog';
 import { default as SingleSelect } from './components/SelectElements/SingleSelect/SingleSelect';
+import { default as Stepper } from './components/Stepper/Stepper';
 
 import { default as Table } from './components/Table/Table';
 import { default as TabView } from './components/TabView/TabView';
@@ -41,7 +40,6 @@ import { default as TreeTable } from './components/TreeTable/TreeTable';
 
 // Sort alphabetically to find stuff easily
 const Components = {
-  ArrowButton,
   Banner,
   Button,
   Checkbox,
@@ -57,6 +55,7 @@ const Components = {
   RadioGroup,
   ShareDialog,
   SingleSelect,
+  Stepper,
   Table,
   TabView,
   TextArea,
@@ -66,7 +65,6 @@ const Components = {
 };
 
 // Sort alphabetically to find stuff easily
-export { ArrowButton };
 export { Banner };
 export { Button };
 export { Checkbox };
@@ -82,6 +80,7 @@ export { Popover };
 export { RadioGroup };
 export { ShareDialog };
 export { SingleSelect };
+export { Stepper };
 export { Table };
 export { TabView };
 export { TextArea };

@@ -2,22 +2,21 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import './arrowbutton.css';
+import './stepper.css';
 
 /**
- * Buttons are used primarily on action items and to communicate what action the user can take.
- * They are placed throughout the UI and can be found in places like forms, modals, dialogues etc.
- * Do not use Buttons as navigational elements.
- * Instead, use Links because it takes the user to a new page and is not associated with an action.
+ * Steppers are used for previous/next navigation.
+ *
+ * Steppers are often used in the detail view of a data table entry (modal view) to navigate through the table entries without leaving the modal view.
  */
-const ArrowButton = props => {
+const Stepper = props => {
   const capitalisedDirection = props.direction.charAt(0).toUpperCase() + props.direction.slice(1);
   const iconName = `pyreneIcon-chevron${capitalisedDirection}`;
   return (
     <button
       className={'unSelectable'}
       styleName={
-        classNames('arrowButton',
+        classNames('stepper',
           {disabled: props.disabled},
           {[`type-${props.type}`]: true})}
       onClick={props.onClick}
@@ -28,16 +27,16 @@ const ArrowButton = props => {
   );
 };
 
-ArrowButton.displayName = 'Arrow Button';
+Stepper.displayName = 'Stepper';
 
-ArrowButton.defaultProps = {
+Stepper.defaultProps = {
   direction: 'right',
   type: 'bordered',
   disabled: false,
   onClick: () => null,
 };
 
-ArrowButton.propTypes = {
+Stepper.propTypes = {
   /**
    * Sets the direction of the arrow.
    */
@@ -56,4 +55,4 @@ ArrowButton.propTypes = {
   type: PropTypes.oneOf(['bordered', 'minimal']),
 };
 
-export default ArrowButton;
+export default Stepper;

@@ -20,7 +20,9 @@ import TableUtils from './TableUtils';
 const CheckboxTable = checkboxHOC(ReactTable);
 
 /**
- * All mighty table
+ * Tables are used to display tabular data. Tables come with pagination and sorting functionality and also allows the user to toggle columns.
+ *
+ * Tables support multi sorting for columns.
  */
 export default class Table extends React.Component {
 

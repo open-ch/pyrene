@@ -4,13 +4,18 @@ import classNames from 'classnames';
 import './textField.css';
 
 /**
- * Textfields are used primarily on ....
+ * A text field allows the user to enter and edit text or numeric values in one line.
+ * Use text fields in forms to allow enter, select, and search for text.
+ * Text fields are typically found within a form but can also be part of a modal, dialog, search etc.
+ *
+ * Don’t use the text field to enter dates and times.
+ * In this case, use the date picker, date range selection, or date/time picker. For entering long texts use the textarea component.
  */
-const TextField = (props) => (
+const TextField = props => (
   <div styleName={classNames('textFieldContainer', { disabled: props.disabled }, { invalid: props.invalid && !props.disabled })} style={{ width: (props.width >= 0) ? `${props.width}px` : '100%' }}>
     {props.title && <div styleName={classNames('textFieldTitle', { required: props.required && !props.disabled })}>{props.title}</div>}
     <div styleName={'textFieldIconLayoutContainer'}>
-      {/*{ hasIcon: props.icon }*/}
+      {/* { hasIcon: props.icon } */}
       <input
         styleName={classNames('textField', { filled: props.value })}
         type="text"
@@ -21,7 +26,7 @@ const TextField = (props) => (
         onBlur={props.onBlur}
         onFocus={props.onFocus}
       />
-      {/* Future use of an api with predefined icons - <span className={`pyreneIcon-${props.icon}`} styleName={'textFieldIcon'} />*/}
+      {/* Future use of an api with predefined icons - <span className={`pyreneIcon-${props.icon}`} styleName={'textFieldIcon'} /> */}
     </div>
 
     {props.invalid && props.invalidLabel && !props.disabled ?

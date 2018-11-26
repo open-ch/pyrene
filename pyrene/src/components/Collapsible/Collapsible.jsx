@@ -5,7 +5,9 @@ import classNames from 'classnames';
 import './collapsible.css';
 
 /**
- * Click on me to reveal my secrets...
+ * Collapsibles allow the user to reveal content that is not displayed.
+ *
+ * Collapsibles are used when space is limited and the content to be displayed is secondary.
  */
 export default class Collapsible extends React.Component {
 
@@ -16,6 +18,13 @@ export default class Collapsible extends React.Component {
     };
   }
 
+  componentDidMount() {
+    if (this.contentRef) {
+      this.setState(() => ({
+        contentHeight: this.contentRef.clientHeight,
+      }));
+    }
+  }
 
   toggleCollapse = (event) => {
     event.persist();
@@ -26,33 +35,26 @@ export default class Collapsible extends React.Component {
     );
   };
 
-  componentDidMount() {
-    if (this.contentRef) {
-      this.setState(() => ({
-        contentHeight: this.contentRef.clientHeight
-      }));
-    }
-  }
-
   render() {
     return (
-      <div styleName={classNames('collapsibleBox', {expanded: this.state.expanded})}>
-        <div styleName={classNames('buttonAlignmentBox', {[`align-${this.props.align}`]: true})}>
+      <div styleName={classNames('collapsibleBox', { expanded: this.state.expanded })}>
+        <div styleName={classNames('buttonAlignmentBox', { [`align-${this.props.align}`]: true })}>
           <div styleName={'collapsibleButton'} className={'unSelectable'} onClick={this.toggleCollapse} role="button" aria-label="Show or hide content">
-            <div styleName={"centeringBox"}>
+            <div styleName={'centeringBox'}>
               {this.state.expanded && this.props.labelExpanded ? this.props.labelExpanded : this.props.labelCollapsed}
-              <span className={'pyreneIcon-collapsDown'} styleName={'collapsArrow'}/>
+              <span className={'pyreneIcon-collapsDown'} styleName={'collapsArrow'} />
             </div>
           </div>
         </div>
-        <div styleName={"collapsibleBody"} style={{height: (this.state.expanded && this.state.contentHeight) ? this.state.contentHeight : null}}>
-          <div ref={(contentRef) => {this.contentRef = contentRef;}} style={{paddingTop: 16}}>
+        <div styleName={'collapsibleBody'} style={{ height: (this.state.expanded && this.state.contentHeight) ? this.state.contentHeight : null }}>
+          <div ref={(contentRef) => { this.contentRef = contentRef; }} style={{ paddingTop: 16 }}>
             {this.props.renderCallback()}
           </div>
         </div>
       </div>
     );
   }
+
 }
 
 Collapsible.displayName = 'Collapsible';

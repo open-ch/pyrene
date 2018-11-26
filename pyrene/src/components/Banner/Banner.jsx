@@ -6,7 +6,11 @@ import Loader from '../Loader/Loader';
 import './banner.css';
 
 /**
- * Use a Banner whenever you want the user to click it away.
+ * Banners are used to give feedback to the user about an action or state.
+ *
+ * We distinguish between standard, inline and overlay Banners.
+ *
+ * Banners have an icon, a title and an optional description.
  */
 const Banner = props => (
   <div

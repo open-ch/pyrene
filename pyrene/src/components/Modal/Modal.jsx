@@ -5,11 +5,14 @@ import './modal.css';
 import ButtonBar from '../ButtonBar/ButtonBar';
 import Button from '../Button/Button';
 import Loader from '../Loader/Loader';
-import ArrowButton from '../ArrowButton/ArrowButton';
+import Stepper from '../Stepper/Stepper';
 
 
 /**
- * I modal for calvin klein.
+ * The modal view is used when full attention on an action or a process is required. The modal has an invasive experience and no other interactions on the main page can be accessed while active.
+ *
+ * Good examples are, for instance, wizards (step by step processes), creation of a new object or when a destructive action is performed, such as the editing or deletion of an object.
+ * A modal is triggered by a action and may contain one ore more buttons or links. A modal is centered in the viewport and can be closed by a button or a close icon.
  */
 export default class Modal extends React.Component {
 
@@ -30,10 +33,10 @@ export default class Modal extends React.Component {
   };
 
   renderNavigationArrows = () => (
-    <div styleName={'arrowButtonContainer'}>
-      <ArrowButton direction={'down'} onClick={this.props.onNextArrowClick} disabled={!this.props.canNext} />
-      <div style={{width: 16}} />
-      <ArrowButton direction={'up'} onClick={this.props.onPreviousArrowClick} disabled={!this.props.canPrevious} />
+    <div styleName={'stepperContainer'}>
+      <Stepper direction={'down'} onClick={this.props.onNextArrowClick} disabled={!this.props.canNext} />
+      <div style={{ width: 16 }} />
+      <Stepper direction={'up'} onClick={this.props.onPreviousArrowClick} disabled={!this.props.canPrevious} />
     </div>
   );
 
@@ -43,7 +46,7 @@ export default class Modal extends React.Component {
         {this.props.title}
         <div styleName={'topRightSection'}>
           {this.props.displayNavigationArrows && this.renderNavigationArrows()}
-          <div styleName={'closeButton'} className={'pyreneIcon-delete'} onClick={this.props.onClose}/>
+          <div styleName={'closeButton'} className={'pyreneIcon-delete'} onClick={this.props.onClose} />
         </div>
       </div>
       <div styleName={'contentContainer'}>
@@ -60,16 +63,14 @@ export default class Modal extends React.Component {
     </div>
   );
 
-  createButtonArray = (buttonInfo) => {
-    return buttonInfo.map(buttonProps => (
-      <Button
-        icon={buttonProps.icon}
-        type={buttonProps.type}
-        label={buttonProps.label}
-        disabled={buttonProps.disabled}
-        onClick={buttonProps.action}
-      />));
-  };
+  createButtonArray = buttonInfo => buttonInfo.map(buttonProps => (
+    <Button
+      icon={buttonProps.icon}
+      type={buttonProps.type}
+      label={buttonProps.label}
+      disabled={buttonProps.disabled}
+      onClick={buttonProps.action}
+    />));
 
   render() {
     return (
@@ -88,7 +89,8 @@ export default class Modal extends React.Component {
       </Fragment>
     );
   }
-};
+
+}
 
 Modal.displayName = 'Modal';
 
