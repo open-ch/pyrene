@@ -5,7 +5,9 @@ import classNames from 'classnames';
 import './checkbox.css';
 
 /**
- * Checkboxes are used primarily on ....
+ * Checkboxes allow the user to select one or more items from a set.
+ *
+ * Checkboxes can also be used to turn an option on or off.
  */
 const Checkbox = (props) => {
   const rand = Math.floor(Math.random() * 1e10);

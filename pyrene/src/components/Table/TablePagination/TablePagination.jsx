@@ -1,5 +1,5 @@
 import React from 'react';
-import ArrowButton from '../../ArrowButton/ArrowButton';
+import Stepper from '../../Stepper/Stepper';
 import TableSelect from './TableSelect/TableSelect';
 
 import './tablePagination.css';
@@ -29,11 +29,11 @@ const TablePagination = props => {
       <div styleName={'separator'} />
 
       <div styleName={'pageNavigation'}>
-        <ArrowButton direction={'left'} disabled={!props.canPrevious} onClick={() => props.onPageChange(props.page - 1)} type={'minimal'} />
+        <Stepper direction={'left'} disabled={!props.canPrevious} onClick={() => props.onPageChange(props.page - 1)} type={'minimal'} />
         <div styleName={'spacer small'}/>
         <div styleName={'pageTracker'}>{props.page + 1} of {props.pages}</div>
         <div styleName={'spacer small'}/>
-        <ArrowButton direction={'right'} disabled={!props.canNext} onClick={() => props.onPageChange(props.page + 1)} type={'minimal'} />
+        <Stepper direction={'right'} disabled={!props.canNext} onClick={() => props.onPageChange(props.page + 1)} type={'minimal'} />
       </div>
     </div>
   );

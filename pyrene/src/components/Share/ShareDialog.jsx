@@ -7,7 +7,9 @@ import ButtonBar from '../ButtonBar/ButtonBar';
 import './shareDialog.css';
 
 /**
- * Share dialogs are used primarily on ....
+ * The share dialog is used to share a web page with other users.
+ *
+ * The Share dialog contains a link that the user can copy.
  */
 export default class ShareDialog extends React.Component {
 
@@ -90,15 +92,15 @@ ShareDialog.propTypes = {
    */
   align: PropTypes.oneOf(['start', 'center', 'end']),
   /**
-   * Sets the position of the popover relative to the share button.
+   * Disables any interaction with the share popover.
    */
-  position: PropTypes.oneOf(['top', 'right', 'bottom', 'left']),
+  disabled: PropTypes.bool,
   /**
    * Sets the link to be shared via the popover.
    */
   link: PropTypes.string.isRequired,
   /**
-   * Disables any interaction with the share popover.
+   * Sets the position of the popover relative to the share button.
    */
-  disabled: PropTypes.bool,
+  position: PropTypes.oneOf(['top', 'right', 'bottom', 'left']),
 };

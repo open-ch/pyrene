@@ -1,19 +1,19 @@
 import React from 'react';
 
-import ArrowButton from './ArrowButton';
+import Stepper from './Stepper';
 
 const props = {
   direction: 'up'
 };
 
-describe('<ArrowButton />', () => {
+describe('<Stepper />', () => {
   it('renders without crashing', () => {
-    shallow(<ArrowButton {...props} />);
+    shallow(<Stepper {...props} />);
   });
 
   it('is clickable', () => {
     const onClick = jest.fn();
-    const rendered = shallow(<ArrowButton {...props} onClick={onClick} />);
+    const rendered = shallow(<Stepper {...props} onClick={onClick} />);
     rendered.find('button').simulate('click');
 
     expect(onClick).toHaveBeenCalledTimes(1);
@@ -21,7 +21,7 @@ describe('<ArrowButton />', () => {
 
   it('is not clickable if disabled', () => {
     const onClick = jest.fn();
-    const rendered = mount(<ArrowButton {...props} onClick={onClick} disabled={true} />);
+    const rendered = mount(<Stepper {...props} onClick={onClick} disabled={true} />);
     rendered.find('button').simulate('click');
 
     expect(onClick).not.toHaveBeenCalled();

@@ -25,7 +25,7 @@ const componentsNormal = {LoadingIndicator};
 const componentsOptionsInDropdown = {Menu: MultiSelectMenuWithOptions, MultiValue, LoadingIndicator};
 
 /**
- * Selection elements are used primarily on ....
+ * Multi-Selects are used when the user has to make a choice from a list. It allows the user to select multiple items from a dropdown list.
  */
 const MultiSelect = props => (
   <div styleName={classNames('selectContainer', { disabled: props.disabled })}>
