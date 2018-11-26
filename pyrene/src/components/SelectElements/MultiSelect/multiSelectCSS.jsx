@@ -88,7 +88,7 @@ const multiSelectStyle = props => ({
       display: 'none',
     },
     ':after': {
-      fontFamily: 'IconFont !important',
+      fontFamily: 'PyreneIconFont !important',
       fontSize: 18,
       color: colorConstants.neutral300,
       speak: 'none',
@@ -114,7 +114,7 @@ const multiSelectStyle = props => ({
       display: 'none',
     },
     ':after': {
-      fontFamily: 'IconFont !important',
+      fontFamily: 'PyreneIconFont !important',
       fontSize: 18,
       color: colorConstants.neutral300,
       speak: 'none',
@@ -196,7 +196,7 @@ const multiSelectStyle = props => ({
       display: 'none',
     },
     ':after': {
-      fontFamily: 'IconFont !important',
+      fontFamily: 'PyreneIconFont !important',
       fontSize: 14,
       color: colorConstants.neutral300,
       speak: 'none',

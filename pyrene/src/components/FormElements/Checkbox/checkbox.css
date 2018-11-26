@@ -16,8 +16,6 @@
   height: 16px;
   vertical-align: text-top;
   margin-right: 6px;
-
-  background-image: url('./checkbox-blank.svg');
 }
 
 .checkboxLabel {
@@ -31,36 +29,11 @@
   display: flex;
   align-items: center;
 
-  &:hover .checkboxIcon {
-    background-image: url('./checkbox-hover.svg');
-  }
-
-  &.checked {
-    & .checkboxIcon {
-      background-image: url('./checkbox-selected.svg');
-    }
-    &:hover .checkboxIcon {
-      background-image: url('./checkbox-selected-hover.svg');
-    }
-    &.disabled .checkboxIcon {
-      opacity: 0.5;
-    }
-  }
-
   &.disabled {
     opacity: 0.5;
     pointer-events: none;
     &.checked {
       opacity: 1;
-    }
-  }
-
-  &.invalid {
-    & .checkboxIcon {
-      background-image: url('./checkbox-invalid.svg');
-    }
-    &:hover .checkboxIcon {
-      background-image: url('./checkbox-invalid-hover.svg');
     }
   }
 

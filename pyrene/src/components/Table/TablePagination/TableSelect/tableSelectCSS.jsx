@@ -75,7 +75,7 @@ const selectStyle = {
       display: 'none',
     },
     ':after': {
-      fontFamily: 'IconFont !important',
+      fontFamily: 'PyreneIconFont !important',
       fontSize: 18,
       color: colorConstants.neutral300,
       speak: 'none',
@@ -101,7 +101,7 @@ const selectStyle = {
       display: 'none',
     },
     ':after': {
-      fontFamily: 'IconFont !important',
+      fontFamily: 'PyreneIconFont !important',
       fontSize: 18,
       color: colorConstants.neutral300,
       speak: 'none',
