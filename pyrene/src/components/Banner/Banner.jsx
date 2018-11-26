@@ -36,6 +36,7 @@ Banner.defaultProps = {
   clearable: true,
   onClear: () => null,
   description: '',
+  styling: 'standard'
 };
 
 Banner.propTypes = {
@@ -58,7 +59,7 @@ Banner.propTypes = {
   /**
    * Sets the overall style according to the banner usage.
    */
-  styling: PropTypes.oneOf(['standard', 'inline', 'overlay']).isRequired,
+  styling: PropTypes.oneOf(['standard', 'inline', 'overlay']),
   /**
    * Sets the overall style according to the banner type.
    */
