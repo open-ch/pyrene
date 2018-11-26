@@ -12,7 +12,7 @@ const LoadingIndicator = () => {
 };
 
 /**
- * Selection elements are used primarily on ....
+ * Selects are used when the user has to make a selection from a list that is too large to show.
  */
 const SingleSelect = props => (
   <div styleName={classNames('selectContainer', { disabled: props.disabled })}>

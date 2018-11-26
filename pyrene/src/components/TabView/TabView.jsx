@@ -5,7 +5,9 @@ import classNames from 'classnames';
 import './tabView.css';
 
 /**
- * Feed me data and i shall give you tabs
+ * Tabs are used to display multiple contents in a single container.
+ *
+ * Tabs are useful for displaying different contexts without having to navigate to other pages.
  */
 export default class TabView extends React.Component {
 
@@ -35,7 +37,7 @@ export default class TabView extends React.Component {
     } else {
       this.setState(() => ({
         moreTabLabel: 'More',
-      }))
+      }));
     }
   }
 
@@ -63,50 +65,48 @@ export default class TabView extends React.Component {
         <span className={'pyreneIcon-collapsDown'} styleName={'moreArrow'} />
       </div>
       {moreTabs.map((tab, index) =>
-        <div
-          styleName={classNames('option', {disabled: tab.disabled})} key={tab.name} onClick={(event) => !tab.disabled && this._tabChanged(tab.name, index + visibleTabs.length, event)}
+        (<div
+          styleName={classNames('option', { disabled: tab.disabled })} key={tab.name} onClick={event => !tab.disabled && this._tabChanged(tab.name, index + visibleTabs.length, event)}
           role="option"
         >
           <span styleName={'optionLabel'}>{tab.name}</span>
-        </div>
+        </div>)
       )}
     </div>
   );
 
-  computeTabs = () => {
-    return this.props.directAccessTabs && this.props.tabs.length > this.props.directAccessTabs
-      ? [
-        this.props.tabs.slice(0, this.props.directAccessTabs),
-        this.props.tabs.slice(this.props.directAccessTabs),
-      ]
-      : [
-        this.props.tabs,
-        null,
-      ];
-  };
+  computeTabs = () => (this.props.directAccessTabs && this.props.tabs.length > this.props.directAccessTabs
+    ? [
+      this.props.tabs.slice(0, this.props.directAccessTabs),
+      this.props.tabs.slice(this.props.directAccessTabs),
+    ]
+    : [
+      this.props.tabs,
+      null,
+    ]);
 
   render() {
     const [visibleTabs, moreTabs] = this.computeTabs();
 
     return (
-      <div styleName={classNames('tabView', {disabled: this.props.disabled})}>
+      <div styleName={classNames('tabView', { disabled: this.props.disabled })}>
         <div styleName={'tabBar'} role="tablist">
           {
             visibleTabs.map((tab, index) => (
-                <div
-                  styleName={classNames(
-                      'tab',
-                      { selected: index === this.state.selectedTabIndex },
-                      { disabled: tab.disabled })
-                  }
-                  className={'unSelectable'}
-                  style={{maxWidth: this.props.maxTabWidth}}
-                  onClick={(event) => !tab.disabled && this._tabChanged(tab.name, index, event)}
-                  key={tab.name}
-                  role="tab"
-                >
-                  {tab.name}
-                </div>
+              <div
+                styleName={classNames(
+                  'tab',
+                  { selected: index === this.state.selectedTabIndex },
+                  { disabled: tab.disabled })
+                }
+                className={'unSelectable'}
+                style={{ maxWidth: this.props.maxTabWidth }}
+                onClick={event => !tab.disabled && this._tabChanged(tab.name, index, event)}
+                key={tab.name}
+                role="tab"
+              >
+                {tab.name}
+              </div>
             ))
           }
           {moreTabs && moreTabs.length > 0 &&
@@ -114,13 +114,14 @@ export default class TabView extends React.Component {
             styleName={
               classNames(
                 'moreTab',
-                {displayMenu: this.state.displayMoreMenu},
-                {selected: this.state.selectedTabIndex >= visibleTabs.length},
-                {hidden: !moreTabs.some((element) => (typeof element.disabled === 'undefined' || element.disabled === false))}
+                { displayMenu: this.state.displayMoreMenu },
+                { selected: this.state.selectedTabIndex >= visibleTabs.length },
+                { hidden: !moreTabs.some(element => (typeof element.disabled === 'undefined' || element.disabled === false)) }
               )}
             className={'unSelectable'}
-            style={{maxWidth: this.props.maxTabWidth}}
-            onClick={this.toggleMoreMenu}>
+            style={{ maxWidth: this.props.maxTabWidth }}
+            onClick={this.toggleMoreMenu}
+          >
             <div styleName={'titleBox'}>
               <span styleName={'title'}> {this.state.moreTabLabel} </span>
               <span className={'pyreneIcon-collapsDown'} styleName={'moreArrow'} />
@@ -137,6 +138,7 @@ export default class TabView extends React.Component {
       </div>
     );
   }
+
 }
 
 

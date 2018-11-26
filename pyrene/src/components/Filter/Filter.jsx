@@ -18,21 +18,20 @@ const initDataType = (type) => {
   }
 };
 
-const initFilterState = (filters) => {
-  return filters.reduce((accumulator, currentValue) => {
-    return {...accumulator, [currentValue.filterKey]: initDataType(currentValue.type)};
-  }, {});
-};
+const initFilterState = filters => filters.reduce((accumulator, currentValue) => ({ ...accumulator, [currentValue.filterKey]: initDataType(currentValue.type) }), {});
 
 /**
- * We all look at things through the filter of our own experiences.
+ * The filter is there to display large amounts of data in manageable portions.
+ *
+ * The filter is mostly used in data tables.
  */
 export default class Filter extends React.Component {
+
   state = {
     displayFilterPopover: false,
     defaultValues: initFilterState(this.props.filters),
     filterValues: initFilterState(this.props.filters),
-    unAppliedValues: initFilterState(this.props.filters)
+    unAppliedValues: initFilterState(this.props.filters),
   };
 
   toggleFilterPopover = () => {
@@ -43,7 +42,7 @@ export default class Filter extends React.Component {
   };
 
   getValueFromInput = (target) => {
-    switch(target.type) {
+    switch (target.type) {
       case 'checkbox':
         return target.checked;
       case 'singleSelect':
@@ -59,20 +58,20 @@ export default class Filter extends React.Component {
   filterDidChange = (event) => {
     const target = event.target;
     this.setState((prevState, props) => ({
-      unAppliedValues: {...prevState.unAppliedValues, [target.name]: this.getValueFromInput(target)},
+      unAppliedValues: { ...prevState.unAppliedValues, [target.name]: this.getValueFromInput(target) },
     }));
   };
 
   clearFilter = () => {
     this.setState((prevState, props) => ({
       unAppliedValues: initFilterState(this.props.filters),
-    }))
+    }));
   };
 
   applyFilter = () => {
     this.setState((prevState, props) => ({
       filterValues: prevState.unAppliedValues,
-      displayFilterPopover: false
+      displayFilterPopover: false,
     }),
     () => this.props.onFilterSubmit(this.state.filterValues));
   };
@@ -105,6 +104,7 @@ export default class Filter extends React.Component {
       </div>
     );
   }
+
 }
 
 

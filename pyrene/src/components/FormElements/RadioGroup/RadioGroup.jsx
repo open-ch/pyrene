@@ -4,7 +4,10 @@ import classNames from 'classnames';
 import './radioSelection.css';
 
 /**
- * Radio groups are used primarily on ....
+ * Radio buttons allow the user to select an option from a set.
+ * Use radio buttons if the user wants to see all available options.
+ *
+ * If the available options can be collapsed, you should use a drop-down menu because it takes up less space.
  */
 const RadioGroup = (props) => {
   const rand = Math.floor(Math.random() * 1e10);

@@ -5,7 +5,7 @@ import './textArea.css';
 
 
 /**
- * Textareas are used primarily on ....
+ * Textareas allow the user to enter several lines of text.
  */
 const TextArea = (props) => {
 

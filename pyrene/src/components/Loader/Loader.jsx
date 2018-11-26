@@ -5,7 +5,9 @@ import classNames from 'classnames';
 import './loader.css';
 
 /**
- * You spin my head right round..
+ * Loaders display an unspecified wait time.
+ *
+ * The Loader is not a progress indicator and should not be used if the load time is to be displayed.
  */
 const Loader = (props) => (
   <div styleName={classNames('canvas', { [`size-${props.size}`]: true })}>
