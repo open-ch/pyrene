@@ -33,3 +33,7 @@
   width: 16px;
   height: 16px;
 }
+
+.inlineSVGFlex {
+  display: flex;
+}
