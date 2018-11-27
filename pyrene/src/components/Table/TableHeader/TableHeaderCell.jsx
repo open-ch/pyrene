@@ -13,11 +13,11 @@ const stringContains = (haystack, needle) => haystack.indexOf(needle) !== -1;
 
 const getIconComponent = (className) => {
   if (stringContains(className, 'asc')) {
-    return <SVG svg={AscSort} />;
+    return <SVG styleName={'inlineSVGFlex'} svg={AscSort} />;
   } else if (stringContains(className, 'desc')) {
-    return <SVG svg={DescSort} />;
+    return <SVG styleName={'inlineSVGFlex'} svg={DescSort} />;
   }
-  return <SVG svg={DefaultSort} />;
+  return <SVG styleName={'inlineSVGFlex'} svg={DefaultSort} />;
 };
 
 const TableHeaderCell = props => {
