@@ -58,7 +58,7 @@ export default class TreeTable extends React.Component {
     // Element is already expanded
     if (clickedIndex > -1) {
       // See if any of its children is expanded as well & collapse them
-      expandedRowsCopy = expandedRowsCopy.filter(item => !item.startsWith(expandedRowsCopy[clickedIndex] + '.') || item ===  expandedRowsCopy[clickedIndex]);
+      expandedRowsCopy = expandedRowsCopy.filter(item => !item.startsWith(expandedRowsCopy[clickedIndex]));
     } else {
       expandedRowsCopy.push(clickedRowIndex);
     }
