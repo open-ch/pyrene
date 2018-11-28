@@ -193,9 +193,9 @@ export default class Table extends React.Component {
     NoDataComponent: props => null,
     minRows: 1,
 
-    TheadComponent: props => <TableHeader multiSelect={this.props.multiSelect} {...props} />,
+    TheadComponent: props => <TableHeader {...props} multiSelect={this.props.multiSelect} />,
     ThComponent: props => <TableHeaderCell {...props} />,
-    TdComponent: props => <TableCell {...props} />,
+    TdComponent: props => <TableCell {...props} multiSelect={this.props.multiSelect} />,
     PaginationComponent: props => <TablePagination {...props} />,
     TfootComponent: props => <TablePagination {...props} />,
     resizable: false,
