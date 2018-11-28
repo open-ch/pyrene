@@ -49,8 +49,8 @@ export default class Modal extends React.Component {
           <div styleName={'closeButton'} className={'pyreneIcon-delete'} onClick={this.props.onClose} />
         </div>
       </div>
-      <div styleName={'contentContainer'}>
-        <div styleName={'content'}>
+      <div styleName={classNames('contentContainer', { contentScrolling: this.props.contentScrolling })}>
+        <div styleName={classNames('content', { contentPadding: this.props.contentPadding }, { contentScrolling: this.props.contentScrolling })}>
           {this.props.renderCallback()}
         </div>
       </div>
@@ -78,12 +78,16 @@ export default class Modal extends React.Component {
         <div styleName="modalOverlay">
           <div styleName={classNames('modalContainer', this.props.size)} role="dialog">
             {this.props.loading ? this.renderLoader() : this.renderContent()}
-            <div styleName="buttonBarContainer">
-              <ButtonBar
-                rightButtonSectionElements={this.createButtonArray(this.props.rightButtonBarElements)}
-                leftButtonSectionElements={this.createButtonArray(this.props.leftButtonBarElements)}
-              />
-            </div>
+            {this.props.Footer() ?
+              this.props.Footer()
+              :
+              <div styleName="buttonBarContainer">
+                <ButtonBar
+                  rightButtonSectionElements={this.createButtonArray(this.props.rightButtonBarElements)}
+                  leftButtonSectionElements={this.createButtonArray(this.props.leftButtonBarElements)}
+                />
+              </div>
+            }
           </div>
         </div>
       </Fragment>
@@ -104,6 +108,11 @@ Modal.defaultProps = {
   onClose: () => null,
   canNext: false,
   canPrevious: false,
+
+  contentPadding: true,
+  contentScrolling: true,
+
+  Footer: () => null,
 };
 
 Modal.propTypes = {
@@ -116,11 +125,24 @@ Modal.propTypes = {
    */
   canPrevious: PropTypes.bool,
   /**
+   * Whether the content is padded with the standard padding.
+   */
+  contentPadding: PropTypes.bool,
+  /**
+   * Whether the content is scrollable.
+   */
+  contentScrolling: PropTypes.bool,
+  /**
    * Whether to display the navigationArrows in the upper right corner.
    */
   displayNavigationArrows: PropTypes.bool,
   /**
+   * Custom Component renderer. Replaces the button bar at the bottom.
+   */
+  Footer: PropTypes.func,
+  /**
    * Sets the buttons that are displayed on the bottom left of the modal.
+   * Type: [{ icon: string, type: string (required), label: string (required), action: func (required)}]
    */
   leftButtonBarElements: PropTypes.arrayOf(PropTypes.shape({
     icon: PropTypes.string,
