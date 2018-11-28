@@ -79,7 +79,6 @@
   box-sizing: border-box;
 
   &.contentScrolling {
-    padding: 1px 0;
     border-top: solid 1px var(--neutral-050);
     border-bottom: solid 1px var(--neutral-050);
   }
@@ -94,8 +93,8 @@
 
   &.contentScrolling {
     overflow: auto;
-    min-height: 70px;
-    max-height: 510px;
+    min-height: 72px;
+    max-height: 512px;
   }
 
   &::-webkit-scrollbar-button{
