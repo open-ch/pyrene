@@ -15,7 +15,7 @@ export default class TreeTableRow extends React.Component {
 
   manageRowExpansion = () => {
     const { treeIndex, expandedRows } = this.props;
-    return expandedRows.some(rowIndex => rowIndex.startsWith(treeIndex) && rowIndex.includes(treeIndex));
+    return expandedRows.some(rowIndex => rowIndex === treeIndex || rowIndex.startsWith(`${treeIndex}.`));
   };
 
   render() {
