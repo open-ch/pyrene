@@ -495,7 +495,7 @@ const tableData = [
 
 const tableColumns = [{
   id: 'name',
-  headerRenderCallback: 'Name',
+  headerName: 'Name',
   accessor: 'name', // String-based value accessors!
   sortMethod: (a, b, desc) => { // Custom sorting by last letter of name, must use the native javascript Array.sort
     var lastA = a.charAt(a.length - 1);
@@ -510,7 +510,7 @@ const tableColumns = [{
   }
 }, {
   id: 'age',
-  headerRenderCallback: 'Age',
+  headerName: 'Age',
   accessor: 'age',
   resizable: false,
   cellRenderCallback: row => ( // Custom Cell rendering
@@ -538,12 +538,12 @@ const tableColumns = [{
   )
 }, {
   id: 'friendName', // Required because our accessor is not a string
-  headerRenderCallback: 'Friend Name',
+  headerName: 'Friend Name',
   accessor: d => d.friend.name, // Custom value accessors!
   initiallyHidden: true,
 }, {
   id: 'friendAge',
-  headerRenderCallback: 'Friend Age',
+  headerName: 'Friend Age',
   accessor: 'friend.age',
 }];
 
@@ -659,7 +659,7 @@ const treeTableData = [
 const treeTableColumns = [
   {
     id: 'name',
-    headerRenderCallback: '',
+    headerName: 'Name',
     headerStyle: {justifyContent: 'flexEnd'},
     cellStyle: {},
     accessor: 'name',
@@ -668,14 +668,13 @@ const treeTableColumns = [
   },
   {
     id: 'height',
-    headerRenderCallback: '',
+    headerName: 'Height',
     accessor: 'height',
-    initiallyHidden: true,
     width: 100,
   },
   {
     id: 'width',
-    headerRenderCallback: '',
+    headerName: 'Width',
     accessor: 'width',
     cellRenderCallback: data => ( // Custom Cell rendering
       <div
@@ -700,7 +699,7 @@ const treeTableColumns = [
         />
       </div>
     ),
-    initiallyHidden: false,
+    initiallyHidden: true,
   },
 ];
 
