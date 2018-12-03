@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 
 import './treeTable.css';
@@ -8,6 +9,10 @@ import TreeTableActionBar from './TreeTableActionBar/TreeTableActionBar';
 import TreeTableRow from './TreeTableRow/TreeTableRow';
 import PROPCONSTANTS from './TreeTablePropTypes';
 import uniqid from 'uniqid';
+import Filter from '../Filter/Filter';
+import TreeTableUtils from './TreeTableUtils';
+import TableUtils from '../Table/TableUtils';
+import Loader from '../Loader/Loader';
 
 
 /**
@@ -20,18 +25,10 @@ import uniqid from 'uniqid';
  */
 export default class TreeTable extends React.Component {
 
-  expandAllParentSectionsFor = (rowIndex) => {
-    let i;
-    const parentIndices = [];
-    for (i = rowIndex.split('.').length; i > 1; i -= 1) {
-      parentIndices.push(rowIndex.split('.').slice(-i).join('.'));
-    }
-    return parentIndices;
-  };
-
   state = {
-    expandedRows: this.props.defaultExpandedSection ? this.expandAllParentSectionsFor(this.props.defaultExpandedSection) : [],
+    expandedRows: this.props.defaultExpandedSection ? TreeTableUtils.expandAllParentSectionsFor(this.props.defaultExpandedSection) : [],
     displayExpandAllAction: true,
+    columns: TreeTableUtils.prepareColumnToggle(this.props.columns),
   };
 
   toggleAllRowsExpansion = () => {
@@ -78,7 +75,7 @@ export default class TreeTable extends React.Component {
         parent={rowData.hasOwnProperty('children') ? rowData.children.length > 0 : false}
         treeIndex={newTreeIndex}
         columns={columns}
-        key={rowKey ? rowKey : uniqid()}
+        key={rowKey || uniqid()}
         expandedRows={expandedRows}
         generateRowsFromData={this.generateRowsFromData}
         onExpandClick={this.handleOnExpandClick}
@@ -100,16 +97,68 @@ export default class TreeTable extends React.Component {
     return result;
   };
 
+  isColumnHidden = hidden => typeof hidden === 'undefined' || hidden !== true;
+
+  toggleColumnDisplay = (columnId, hiddenValue) => {
+    const updatedColumns = this.state.columns.map((col, index) => {
+      if (col.id === columnId) {
+        return ({ ...col, hidden: hiddenValue });
+      }
+      return col;
+    });
+
+    this.setState((prevState, props) => ({
+      columns: updatedColumns,
+    }));
+  };
+
+  restoreColumnDefaults = () => {
+    this.setState((prevState, props) => ({
+      columns: TreeTableUtils.prepareColumnToggle(this.props.columns),
+    }));
+  };
+
+  renderLoader = () => (
+    <div styleName={'loader'}>
+      <Loader size={'large'} />
+    </div>
+  );
+
+
   render() {
+    const listItems = this.state.columns.slice(1).map(col => ({ id: col.id, label: col.headerName, value: this.isColumnHidden(col.hidden) }));
+    const onItemClick = (item, value) => this.toggleColumnDisplay(item, value);
+    const onRestoreDefault = () => this.restoreColumnDefaults();
+    const toggleColumns = this.props.toggleColumns;
+
+    const columnToggleProps = { listItems: listItems, onItemClick: onItemClick, onRestoreDefault: onRestoreDefault, toggleColumns: toggleColumns };
+
     return (
       <div styleName={'treeTableContainer'}>
         {this.props.title && <div styleName={'treeTableTitle'}>
           {this.props.title}
         </div>}
-        <TreeTableActionBar toggleAll={this.toggleAllRowsExpansion} displayExpandAllAction={this.state.displayExpandAllAction} />
-        <TreeTableHeader columns={this.props.columns} />
-        <div styleName={'treeTableData'}>
-          {this.generateRowsFromData(this.props.data, this.props.columns, '0', this.state.expandedRows)}
+
+        {this.props.loading && this.renderLoader()}
+
+        <div styleName={classNames('loadingContainer', { loading: this.props.loading })}>
+          {this.props.filters.length > 0 &&
+            <div styleName={'filterContainer'}>
+              <Filter
+                filters={this.props.filters}
+                onFilterSubmit={this.props.onFilterChange}
+              />
+            </div>
+          }
+          <TreeTableActionBar
+            toggleAll={this.toggleAllRowsExpansion}
+            displayExpandAllAction={this.state.displayExpandAllAction}
+            columnToggleProps={columnToggleProps}
+          />
+          <TreeTableHeader columns={this.state.columns} />
+          <div styleName={'treeTableData'}>
+            {this.generateRowsFromData(this.props.data, this.state.columns, '0', this.state.expandedRows)}
+          </div>
         </div>
       </div>
     );
@@ -122,25 +171,48 @@ TreeTable.displayName = 'TreeTable';
 TreeTable.defaultProps = {
   data: [],
   columns: [],
+  filters: [],
   title: '',
   defaultExpandedSection: '',
+  loading: false,
+  toggleColumns: true,
   onRowDoubleClick: () => null,
+  onFilterChange: () => null,
   setUniqueRowKey: () => null,
 };
 
 TreeTable.propTypes = {
   /**
    * Sets the Table columns.
+   * Type: [{ id: string (required), headerName: string (required), accessor: string (required), headerStyle: object, cellStyle: object, initiallyHidden: bool, width: number }]
    */
   columns: PROPCONSTANTS.COLUMNS,
   /**
-   * Sets the Table data displayed in the rows.
+   * Sets the Table data displayed in the rows. Type: JSON
    */
   data: PROPCONSTANTS.DATA,
   /**
    * Sets a section to expand when the component is mounted.
    */
   defaultExpandedSection: PropTypes.string,
+  /**
+   * Sets the available filters.
+   * Type: [{ label: string (required), type: oneOf('singleSelect', 'multiSelect', 'text') (required), key: string (required), options: array }]
+   */
+  filters: PropTypes.arrayOf(PropTypes.shape({
+    label: PropTypes.string.isRequired,
+    type: PropTypes.oneOf(['singleSelect', 'multiSelect', 'text']).isRequired,
+    filterKey: PropTypes.string.isRequired,
+    options: PropTypes.array,
+  })),
+  /**
+   * Disables the component and displays a loader inside of it.
+   */
+  loading: PropTypes.bool,
+  /**
+   * Called when the filter changes.
+   */
+  onFilterChange: PropTypes.func,
   /**
    * Called when the user double clicks on a row.
    */
@@ -153,4 +225,8 @@ TreeTable.propTypes = {
    * Sets the title.
    */
   title: PropTypes.string,
+  /**
+   * Whether the columns (hide/show) popover is available to the user.
+   */
+  toggleColumns: PropTypes.bool,
 };

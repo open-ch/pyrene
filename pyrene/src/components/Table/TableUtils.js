@@ -6,7 +6,7 @@ export default class TableUtils {
       cellRenderCallback: {
         rtPropName: 'Cell',
       },
-      headerRenderCallback: {
+      headerName: {
         rtPropName: 'Header',
       },
       accessor: {
