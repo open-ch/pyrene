@@ -8,12 +8,12 @@ const TreeTableHeader = props => (
   <div styleName={'treeTableHeader'}>
 
     {props.columns.map((column) => {
-
       // Do not display hidden columns
       if (column.hidden) {
         return null;
       }
-      const header = column.header ? column.header : column.accessor;
+
+      const header = column.headerName ? column.headerName : column.accessor;
 
       const colWidth = (typeof column.width !== 'undefined' || column.width !== 0) ? column.width : null;
 

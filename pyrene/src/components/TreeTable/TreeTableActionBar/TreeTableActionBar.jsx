@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import './treeTableActionBar.css';
 import ButtonBar from '../../ButtonBar/ButtonBar';
 import Button from '../../Button/Button';
+import CheckboxPopover from '../../CheckboxPopover/CheckboxPopover';
 
 const TreeTableActionBar = props => (
   <div styleName={'treeTableActionBar'}>
@@ -18,17 +19,28 @@ const TreeTableActionBar = props => (
       ]}
       noPadding
     />
+    {props.columnToggleProps.toggleColumns && <CheckboxPopover
+      buttonLabel={'Columns'}
+      listItems={props.columnToggleProps.listItems}
+      onItemClick={props.columnToggleProps.onItemClick}
+      onRestoreDefault={props.columnToggleProps.onRestoreDefault}
+    />}
   </div>
 );
-
 
 TreeTableActionBar.displayName = 'TreeTableActionBar';
 
 TreeTableActionBar.defaultProps = {};
 
 TreeTableActionBar.propTypes = {
-  toggleAll: PropTypes.func.isRequired,
+  columnToggleProps: PropTypes.shape({
+    listItems: PropTypes.array,
+    onItemClick: PropTypes.func,
+    onRestoreDefault: PropTypes.func,
+    toggleColumns: PropTypes.bool,
+  }).isRequired,
   displayExpandAllAction: PropTypes.bool.isRequired,
+  toggleAll: PropTypes.func.isRequired,
 };
 
 export default TreeTableActionBar;

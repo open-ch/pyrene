@@ -16,8 +16,8 @@ const TreeTableCell = props => (
 
     {/* Use renderCallback if there is one defined for this column */}
 
-    {props.columnProps.renderCallback ?
-      props.columnProps.renderCallback(props.cellData)
+    {props.columnProps.cellRenderCallback ?
+      props.columnProps.cellRenderCallback(props.cellData)
       :
       <div styleName={'cellDataContainer'}>
         {props.cellData}
