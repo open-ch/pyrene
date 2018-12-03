@@ -13,7 +13,13 @@ const TreeTableHeader = props => (
       if (column.hidden) {
         return null;
       }
-      const header = column.header ? column.header : column.accessor;
+
+      let header = '';
+      if (typeof column.headerRenderCallback === 'string') {
+        header = column.headerRenderCallback ? column.headerRenderCallback : column.accessor;
+      } else {
+        header = column.headerRenderCallback() ? column.headerRenderCallback() : column.accessor;
+      }
 
       const colWidth = (typeof column.width !== 'undefined' || column.width !== 0) ? column.width : null;
 

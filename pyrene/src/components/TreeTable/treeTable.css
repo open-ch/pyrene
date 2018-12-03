@@ -20,3 +20,7 @@
   color: var(--neutral-500);
   padding-bottom: 24px;
 }
+
+.filterContainer {
+  padding-bottom: 24px;
+}

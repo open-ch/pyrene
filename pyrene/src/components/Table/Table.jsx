@@ -368,5 +368,5 @@ Table.propTypes = {
   /**
    * Whether the columns (hide/show) popover is available to the user.
    */
-  toggleColumns: PropTypes.bool
+  toggleColumns: PropTypes.bool,
 };
