@@ -38,6 +38,6 @@
 
   &.required:after {
     content: '*';
-    color: var(--red-500);
+    color: var(--danger-fg);
   }
 }

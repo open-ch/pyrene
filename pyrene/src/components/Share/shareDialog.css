@@ -20,7 +20,7 @@
     width: 100%;
 
     border-radius: 2px;
-    border: solid 1px var(--neutral-100);
+    border: solid 1px var(--inactive-fg);
 
     letter-spacing: normal;
     font-family: inherit;
@@ -30,7 +30,7 @@
     font-weight: normal;
     line-height: 1.71;
     text-align: left;
-    color: var(--neutral-500);
+    color: var(--text);
   }
 }
 
@@ -38,7 +38,7 @@
   font-size: 18px;
   font-weight: 600;
   line-height: 1.78;
-  color: var(--neutral-500);
+  color: var(--text);
 }
 
 .titleBar {
@@ -59,6 +59,6 @@
   color: var(--neutral-300);
 
   &:hover {
-    color: var(--neutral-500);
+    color: var(--text);
   }
 }

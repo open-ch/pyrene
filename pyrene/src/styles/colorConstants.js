@@ -1,10 +1,10 @@
 /* handy dandy regex when adding a lot of new icons:
    CMD + R -> activate Regex checkbox
-   Search field: (--)(.*)(-)(\d{3}:\s)(.{7})(;)
+   Search field: ((.*(-(\d{3}:\s(.{7}(;
    Replace field: $2$4'$5',
 */
 
-const colorConstants = {
+const colorPalette = {
   /* NEUTRAL */
   neutral500: '#1d273b',
   neutral400: '#454d61',
@@ -99,5 +99,49 @@ const colorConstants = {
   teal050: '#daf9f4',
 };
 
+const functionalColors = {
+  /* DEFAULT */
+  backgroundLight: colorPalette.neutral000,
+  backgroundTint: colorPalette.neutral020,
+  border: colorPalette.neutral050,
+  text: colorPalette.neutral500,
+  icon: colorPalette.neutral300,
+  iconLight: colorPalette.neutral100,
+  primary: colorPalette.blue500,
+  primaryDark: colorPalette.blue600,
+  secondary: colorPalette.neutral030,
+  secondaryDark: colorPalette.neutral050,
+
+  /* STATUS */
+  okFg: colorPalette.green500,
+  okDark: colorPalette.green700,
+  okLight: colorPalette.green100,
+  okLighter: colorPalette.green050,
+
+  dangerFg: colorPalette.red500,
+  dangerDark: colorPalette.red600,
+  dangerLight: colorPalette.red100,
+  dangerLighter: colorPalette.red050,
+
+  warningFg: colorPalette.orange500,
+  warningDark: colorPalette.orange700,
+  warningLight: colorPalette.orange100,
+  warningLighter: colorPalette.orange050,
+
+  outageFg: colorPalette.neutral500,
+  outageLight: colorPalette.neutral100,
+
+  inactiveFg: colorPalette.neutral100,
+  inactiveLight: colorPalette.neutral050,
+
+  informationFg: colorPalette.blue500,
+  informationLight: colorPalette.blue050,
+
+  /* ADMIN */
+  adminFg: colorPalette.red500,
+  adminBg: colorPalette.red050,
+};
+
+const colorConstants = {...colorPalette, ...functionalColors};
 
 export default colorConstants;

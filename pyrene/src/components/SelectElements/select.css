@@ -36,7 +36,7 @@
 
   &.required:after {
     content: '*';
-    color: var(--red-500);
+    color: var(--danger-fg);
   }
 }
 
@@ -47,7 +47,7 @@
   height: 16px;
   font-weight: 600;
   text-align: left;
-  color: var(--neutral-100);
+  color: var(--inactive-fg);
 }
 
 .invalidLabel {
@@ -57,7 +57,7 @@
   height: 16px;
   font-weight: 600;
   text-align: left;
-  color: var(--red-500);
+  color: var(--danger-fg);
 }
 
 .errorIcon {

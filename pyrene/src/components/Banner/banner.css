@@ -13,7 +13,7 @@
   font-stretch: normal;
 
   border-radius: 2px;
-  background-color: var(--neutral-000);
+  background-color: var(--background-light);
 
   &.style-standard, &.style-overlay {
     padding: 15px 16px 14px 16px;
@@ -32,57 +32,57 @@
 
   &.type-info {
     &.style-standard {
-      box-shadow: 0 0 1px 0 rgba(0, 21, 44, 0.3), inset 3px 0 0 0 var(--blue-500);
+      box-shadow: 0 0 1px 0 rgba(0, 21, 44, 0.3), inset 3px 0 0 0 var(--information-fg);
     }
     &.style-inline {}
     &.style-overlay {
-      box-shadow: 0 4px 8px -2px rgba(0, 21, 44, 0.2), 0 0 1px 0 rgba(0, 21, 44, 0.3), inset 3px 0 0 0 var(--blue-500);
+      box-shadow: 0 4px 8px -2px rgba(0, 21, 44, 0.2), 0 0 1px 0 rgba(0, 21, 44, 0.3), inset 3px 0 0 0 var(--information-fg);
     }
 
     & .bannerIcon {
-      color: var(--blue-500);
+      color: var(--information-fg);
     }
   }
 
   &.type-success {
     &.style-standard {
-      box-shadow: 0 0 1px 0 rgba(0, 21, 44, 0.3), inset 3px 0 0 0 var(--green-500);
+      box-shadow: 0 0 1px 0 rgba(0, 21, 44, 0.3), inset 3px 0 0 0 var(--ok-fg);
     }
     &.style-inline {}
     &.style-overlay {
-      box-shadow: 0 4px 8px -2px rgba(0, 21, 44, 0.2), 0 0 1px 0 rgba(0, 21, 44, 0.3), inset 3px 0 0 0 var(--green-500);
+      box-shadow: 0 4px 8px -2px rgba(0, 21, 44, 0.2), 0 0 1px 0 rgba(0, 21, 44, 0.3), inset 3px 0 0 0 var(--ok-fg);
     }
 
     & .bannerIcon {
-      color: var(--green-500);
+      color: var(--ok-fg);
     }
   }
 
   &.type-error {
     &.style-standard {
-      box-shadow: 0 0 1px 0 rgba(0, 21, 44, 0.3), inset 3px 0 0 0 var(--red-500);
+      box-shadow: 0 0 1px 0 rgba(0, 21, 44, 0.3), inset 3px 0 0 0 var(--danger-fg);
     }
     &.style-inline {}
     &.style-overlay {
-      box-shadow: 0 4px 8px -2px rgba(0, 21, 44, 0.2), 0 0 1px 0 rgba(0, 21, 44, 0.3), inset 3px 0 0 0 var(--red-500);
+      box-shadow: 0 4px 8px -2px rgba(0, 21, 44, 0.2), 0 0 1px 0 rgba(0, 21, 44, 0.3), inset 3px 0 0 0 var(--danger-fg);
     }
 
     & .bannerIcon {
-      color: var(--red-500);
+      color: var(--danger-fg);
     }
   }
 
   &.type-warning {
     &.style-standard {
-      box-shadow: 0 0 1px 0 rgba(0, 21, 44, 0.3), inset 3px 0 0 0 var(--orange-500);
+      box-shadow: 0 0 1px 0 rgba(0, 21, 44, 0.3), inset 3px 0 0 0 var(--warning-fg);
     }
     &.style-inline {}
     &.style-overlay {
-      box-shadow: 0 4px 8px -2px rgba(0, 21, 44, 0.2), 0 0 1px 0 rgba(0, 21, 44, 0.3), inset 3px 0 0 0 var(--orange-500);
+      box-shadow: 0 4px 8px -2px rgba(0, 21, 44, 0.2), 0 0 1px 0 rgba(0, 21, 44, 0.3), inset 3px 0 0 0 var(--warning-fg);
     }
 
     & .bannerIcon {
-      color: var(--orange-500);
+      color: var(--warning-fg);
     }
   }
 
@@ -141,6 +141,6 @@
   cursor: pointer;
   color: var(--neutral-300);
   &:hover {
-    background-color: var(--neutral-030);
+    background-color: var(--secondary);
   }
 }
