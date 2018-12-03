@@ -3,6 +3,10 @@
 
 .tableCell {
   composes: commonFontSettings from '../../../styles/common.css';
+
+  &:first-child .tableData.multiSelect {
+    overflow: visible;
+  }
 }
 
 .tableData {
