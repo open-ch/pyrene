@@ -3,6 +3,24 @@
 .treeTableContainer {
   composes: commonFontSettings from '../../styles/common.css';
   width: 100%;
+
+
+  & .loading {
+    opacity: .5;
+    pointer-events: none;
+  }
+}
+
+.loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  z-index: 2;
+}
+
+.loadingContainer {
+
 }
 
 .treeTableData {

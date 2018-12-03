@@ -1,4 +1,5 @@
 export default class TreeTableUtils {
+
   static expandAllParentSectionsFor = (rowIndex) => {
     let i;
     const parentIndices = [];
@@ -7,4 +8,14 @@ export default class TreeTableUtils {
     }
     return parentIndices;
   };
+
+  static prepareColumnToggle = columns => columns.map((col, index) => {
+    if (index === 0) {
+      return { ...col };
+    }
+    return (
+      { ...col, hidden: col.initiallyHidden }
+    );
+  });
+
 }

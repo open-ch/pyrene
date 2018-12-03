@@ -33,7 +33,12 @@ TreeTableActionBar.displayName = 'TreeTableActionBar';
 TreeTableActionBar.defaultProps = {};
 
 TreeTableActionBar.propTypes = {
-  columnToggleProps: PropTypes.shape.isRequired,
+  columnToggleProps: PropTypes.shape({
+    listItems: PropTypes.array,
+    onItemClick: PropTypes.func,
+    onRestoreDefault: PropTypes.func,
+    toggleColumns: PropTypes.bool,
+  }).isRequired,
   displayExpandAllAction: PropTypes.bool.isRequired,
   toggleAll: PropTypes.func.isRequired,
 };

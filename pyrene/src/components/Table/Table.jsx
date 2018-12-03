@@ -223,8 +223,8 @@ export default class Table extends React.Component {
         </div>}
         {this.props.loading && this.renderLoader()}
 
-        <div styleName={'filterBar'}>
-          <div styleName={classNames('filterContainer', { loading: this.props.loading })}>
+        <div styleName={classNames('filterBar', { loading: this.props.loading })}>
+          <div styleName={'filterContainer'}>
             {this.props.filters.length > 0 &&
               <Filter
                 filters={this.props.filters}
@@ -312,11 +312,12 @@ Table.propTypes = {
     active: PropTypes.oneOf(['single', 'multi', 'always']).isRequired,
   })),
   /**
-   * Sets the Table columns. For a detailed prop description check the react-table docs.
+   * Sets the Table columns.
+   * Type: [{ id: string (required), headerName: string (required), accessor: string (required), headerStyle: object, cellStyle: object, initiallyHidden: bool, width: number }]
    */
   columns: PropTypes.array.isRequired,
   /**
-   * Sets the Table data displayed in the rows. For a detailed prop description check the react-table docs.
+   * Sets the Table data displayed in the rows. Type: JSON
    */
   data: PropTypes.array.isRequired,
   /**
