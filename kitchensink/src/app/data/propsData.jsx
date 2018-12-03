@@ -578,12 +578,57 @@ const treeTableData = [
     ],
   },
   {
-    'name': '[1](2) Height: 30px.',
-    'height': 30,
+    'name': 'Some Name 1',
+    'height': 25,
+    'children': [
+      {
+        'name': '[2](1)',
+        'children': [
+          {
+            'name': '[3](1)',
+          },
+          {
+            'name': '[3](2)',
+          },
+          {
+            'name': '[3](3)',
+          }
+        ],
+      },
+      {
+        'name': '[2](2) Height: 40px.',
+        'height': 40,
+      }
+    ],
   },
   {
-    'name': '[1](3) Height: 30px.',
-    'height': 30,
+    'name': 'Some Name 1',
+    'height': 25,
+    'width': 10,
+    'children': [
+      {
+        'name': '[2](1)',
+        'height': 'write stuff',
+        'width': 50,
+        'children': [
+          {
+            'name': '[3](1)',
+            'height': 'everywhere 😱',
+            'width': 75,
+          },
+          {
+            'name': '[3](2)',
+          },
+          {
+            'name': '[3](3)',
+          }
+        ],
+      },
+      {
+        'name': '[2](2) Height: 40px.',
+        'height': 40,
+      }
+    ],
   },
   {
     'name': 'Some Name 1',
@@ -609,35 +654,30 @@ const treeTableData = [
       }
     ],
   },
-  {
-    'name': '[1](2) Height: 30px.',
-    'height': 30,
-  },
-  {
-    'name': '[1](3) Height: 30px.',
-    'height': 30,
-  },
 ];
 
 const treeTableColumns = [
   {
-    header: '',
+    id: 'name',
+    headerRenderCallback: '',
     headerStyle: {justifyContent: 'flexEnd'},
     cellStyle: {},
     accessor: 'name',
-    hidden: false,
+    initiallyHidden: false,
     width: 300,
   },
   {
-    header: '',
+    id: 'height',
+    headerRenderCallback: '',
     accessor: 'height',
-    hidden: false,
+    initiallyHidden: true,
     width: 100,
   },
   {
-    header: '',
+    id: 'width',
+    headerRenderCallback: '',
     accessor: 'width',
-    renderCallback: data => ( // Custom Cell rendering
+    cellRenderCallback: data => ( // Custom Cell rendering
       <div
         style={{
           width: "100%",
@@ -660,7 +700,7 @@ const treeTableColumns = [
         />
       </div>
     ),
-    hidden: false,
+    initiallyHidden: false,
   },
 ];
 
@@ -688,7 +728,6 @@ const startProps = {
     defaultExpanded: true,
     renderCallback: () => <ContentFiller width={800} height={300} />,
     adminAction: {
-      icon: 'info',
       label: 'admin',
       action: adminAction,
     },
@@ -726,8 +765,8 @@ const startProps = {
     children: <ContentFiller height={100} width={200} />
   },
   'radiogroup': {
-    options: [{label: 'Beer', value: 'beer'}, {label:'Coffee', value: 'coffee'}, {label:'Coffeebeer', value: 'coffeebeer'}],
-    selectedOption: 'option 1',
+    options: [{label: 'Beer 🍺', value: 'beer'}, {label:'Coffee ☕️', value: 'coffee'}, {label:'Coffeebeer 🍹😎', value: 'coffeebeer'}],
+    value: 'coffeebeer',
   },
   'select': {
     title: 'Single-Select',
@@ -746,6 +785,7 @@ const startProps = {
     spacing: 48,
   },
   'table': {
+    toggleColumns: true,
     resizable: true,
     pivotBy: ["age"],
     title: 'Table',
@@ -793,6 +833,7 @@ const startProps = {
     data: treeTableData,
     title: 'Tree Table',
     onRowDoubleClick: data => console.log(data),
+    filters: [{label: 'first column', type: 'singleSelect', filterKey: 'testKey', options: testOptions}, {label: 'second column', type: 'multiSelect', filterKey: 'testKey2', options: testOptions}]
  },
 };
 
