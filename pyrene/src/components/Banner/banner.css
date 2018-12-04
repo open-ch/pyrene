@@ -15,6 +15,8 @@
   border-radius: 2px;
   background-color: var(--neutral-000);
 
+  border: 1px solid var(--neutral-030);
+
   &.style-standard, &.style-overlay {
     padding: 15px 16px 14px 16px;
     min-height: 48px;
@@ -32,11 +34,14 @@
 
   &.type-info {
     &.style-standard {
-      box-shadow: 0 0 1px 0 rgba(0, 21, 44, 0.3), inset 3px 0 0 0 var(--blue-500);
+      box-shadow: inset 3px 0 0 0 var(--blue-500);
     }
-    &.style-inline {}
+    &.style-inline {
+      border: none;
+      align-items: center;
+    }
     &.style-overlay {
-      box-shadow: 0 4px 8px -2px rgba(0, 21, 44, 0.2), 0 0 1px 0 rgba(0, 21, 44, 0.3), inset 3px 0 0 0 var(--blue-500);
+      box-shadow: 0 4px 8px -2px rgba(0, 21, 44, 0.2), inset 3px 0 0 0 var(--blue-500);
     }
 
     & .bannerIcon {
@@ -46,11 +51,14 @@
 
   &.type-success {
     &.style-standard {
-      box-shadow: 0 0 1px 0 rgba(0, 21, 44, 0.3), inset 3px 0 0 0 var(--green-500);
+      box-shadow: inset 3px 0 0 0 var(--green-500);
     }
-    &.style-inline {}
+    &.style-inline {
+      border: none;
+      align-items: center;
+    }
     &.style-overlay {
-      box-shadow: 0 4px 8px -2px rgba(0, 21, 44, 0.2), 0 0 1px 0 rgba(0, 21, 44, 0.3), inset 3px 0 0 0 var(--green-500);
+      box-shadow: 0 4px 8px -2px rgba(0, 21, 44, 0.2), inset 3px 0 0 0 var(--green-500);
     }
 
     & .bannerIcon {
@@ -60,11 +68,14 @@
 
   &.type-error {
     &.style-standard {
-      box-shadow: 0 0 1px 0 rgba(0, 21, 44, 0.3), inset 3px 0 0 0 var(--red-500);
+      box-shadow: inset 3px 0 0 0 var(--red-500);
     }
-    &.style-inline {}
+    &.style-inline {
+      border: none;
+      align-items: center;
+    }
     &.style-overlay {
-      box-shadow: 0 4px 8px -2px rgba(0, 21, 44, 0.2), 0 0 1px 0 rgba(0, 21, 44, 0.3), inset 3px 0 0 0 var(--red-500);
+      box-shadow: 0 4px 8px -2px rgba(0, 21, 44, 0.2), inset 3px 0 0 0 var(--red-500);
     }
 
     & .bannerIcon {
@@ -74,11 +85,14 @@
 
   &.type-warning {
     &.style-standard {
-      box-shadow: 0 0 1px 0 rgba(0, 21, 44, 0.3), inset 3px 0 0 0 var(--orange-500);
+      box-shadow: inset 3px 0 0 0 var(--orange-500);
     }
-    &.style-inline {}
+    &.style-inline {
+      border: none;
+      align-items: center;
+    }
     &.style-overlay {
-      box-shadow: 0 4px 8px -2px rgba(0, 21, 44, 0.2), 0 0 1px 0 rgba(0, 21, 44, 0.3), inset 3px 0 0 0 var(--orange-500);
+      box-shadow: 0 4px 8px -2px rgba(0, 21, 44, 0.2), inset 3px 0 0 0 var(--orange-500);
     }
 
     & .bannerIcon {
