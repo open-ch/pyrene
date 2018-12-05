@@ -25,7 +25,7 @@ const Banner = props => (
         {props.styling !== 'inline' && <div styleName={'description'}>{props.description}</div>}
       </div>
     </div>
-    {props.styling === 'overlay' && <span className={'pyreneIcon-delete'} styleName={'clearIcon'} onClick={props.onClear} role="button" aria-label="Clear Banner"/>}
+    {props.styling === 'overlay' && props.clearable && <span className={'pyreneIcon-delete'} styleName={'clearIcon'} onClick={props.onClear} role="button" aria-label="Clear Banner"/>}
   </div>
 );
 
