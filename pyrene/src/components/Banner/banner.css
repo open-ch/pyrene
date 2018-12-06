@@ -6,12 +6,10 @@
   width: 100%;
   display: flex;
   justify-content: space-between;
-
   font-size: 14px;
   font-weight: 500;
   font-style: normal;
   font-stretch: normal;
-
   border-radius: 2px;
   background-color: var(--neutral-000);
 
@@ -20,6 +18,7 @@
   &.style-standard, &.style-overlay {
     padding: 15px 16px 14px 16px;
     min-height: 48px;
+
     & .message {
       font-weight: 600;
     }
@@ -27,6 +26,7 @@
 
   &.style-inline {
     height: 32px;
+
     & .message {
       font-weight: 500;
     }
@@ -40,6 +40,7 @@
       border: none;
       align-items: center;
     }
+
     &.style-overlay {
       box-shadow: 0 4px 8px -2px rgba(0, 21, 44, 0.2), inset 3px 0 0 0 var(--blue-500);
     }
@@ -57,6 +58,7 @@
       border: none;
       align-items: center;
     }
+
     &.style-overlay {
       box-shadow: 0 4px 8px -2px rgba(0, 21, 44, 0.2), inset 3px 0 0 0 var(--green-500);
     }
@@ -74,6 +76,7 @@
       border: none;
       align-items: center;
     }
+
     &.style-overlay {
       box-shadow: 0 4px 8px -2px rgba(0, 21, 44, 0.2), inset 3px 0 0 0 var(--red-500);
     }
@@ -91,18 +94,13 @@
       border: none;
       align-items: center;
     }
+
     &.style-overlay {
       box-shadow: 0 4px 8px -2px rgba(0, 21, 44, 0.2), inset 3px 0 0 0 var(--orange-500);
     }
 
     & .bannerIcon {
       color: var(--orange-500);
-    }
-  }
-
-  &.clearable {
-    & .clearIcon {
-      display: block;
     }
   }
 }
@@ -123,9 +121,7 @@
   flex-shrink: 0;
 }
 
-.textBox {
-
-}
+.textBox {}
 
 .message {
   font-size: 14px;
@@ -146,14 +142,13 @@
   color: var(--neutral-400);
 }
 
-
 .clearIcon {
-  display: none;
   height: 18px;
   width: 18px;
   font-size: 18px;
   cursor: pointer;
   color: var(--neutral-300);
+
   &:hover {
     background-color: var(--neutral-030);
   }
