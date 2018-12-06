@@ -14,7 +14,7 @@ import './banner.css';
  */
 const Banner = props => (
   <div
-    styleName={className('banner', { [`type-${props.type}`]: true }, { [`style-${props.styling}`]: true }, { clearable: props.clearable })}
+    styleName={className('banner', { [`type-${props.type}`]: true }, { [`style-${props.styling}`]: true })}
     role="banner"
   >
     <div styleName={'iconMessageContainer'}>
@@ -25,7 +25,7 @@ const Banner = props => (
         {props.styling !== 'inline' && <div styleName={'description'}>{props.description}</div>}
       </div>
     </div>
-    {props.styling === 'overlay' && <span className={'pyreneIcon-delete'} styleName={'clearIcon'} onClick={props.onClear} role="button" aria-label="Clear Banner"/>}
+    {props.styling === 'overlay' && props.clearable && <span className={'pyreneIcon-delete'} styleName={'clearIcon'} onClick={props.onClear} role="button" aria-label="Clear Banner"/>}
   </div>
 );
 
@@ -41,7 +41,7 @@ Banner.defaultProps = {
 
 Banner.propTypes = {
   /**
-   * Whether the user can clear the banner. Error and loading banners can not be cleared.
+   * Whether the user can clear the banner. Only overlay banners can be cleared.
    */
   clearable: PropTypes.bool,
   /**
