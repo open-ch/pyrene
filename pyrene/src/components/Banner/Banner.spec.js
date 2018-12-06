@@ -15,30 +15,33 @@ describe('<Banner />', () => {
     const rendered = shallow(<Banner {...props} />);
   });
 
-  it('is clearable except if it is of type error', () => {
+  it('overlay is clearable', () => {
     const onClick = jest.fn();
-    const rendered = shallow(<Banner {...props} onClear={onClick} />);
-    rendered.find('.clearIcon').simulate('click');
+    const rendered = shallow(<Banner {...props} clearable styling={'overlay'} onClear={onClick} />);
+    expect(rendered.find('.clearIcon')).toHaveLength(1);
 
+    rendered.find('.clearIcon').simulate('click');
     expect(onClick).toHaveBeenCalledTimes(1);
   });
 
-  it('has a clearIcon', () => {
-    let rendered = shallow(<Banner {...props} type={'info'} />);
+  it('overlay has a clearIcon', () => {
+    let rendered = shallow(<Banner {...props} clearable styling={'overlay'} type={'info'} />);
     expect(rendered.find('.clearIcon')).toHaveLength(1);
 
-    rendered = shallow(<Banner {...props} type={'success'}  />);
+    rendered = shallow(<Banner {...props} clearable styling={'overlay'} type={'success'}  />);
     expect(rendered.find('.clearIcon')).toHaveLength(1);
 
-    rendered = shallow(<Banner {...props} type={'warning'} />);
+    rendered = shallow(<Banner {...props} clearable styling={'overlay'} type={'warning'} />);
     expect(rendered.find('.clearIcon')).toHaveLength(1);
   });
 
-  it('has no clearIcon when the type is error or loading', () => {
-    let rendered = shallow(<Banner {...props} type={'error'} />);
+  it('has no clearIcon if not clearable', () => {
+    let rendered = shallow(<Banner {...props} clearable={false} styling={'overlay'} />);
     expect(rendered.find('.clearIcon')).toHaveLength(0);
+  });
 
-    rendered = shallow(<Banner {...props} type={'loading'} />);
+  it('has no clearIcon if not overlay', () => {
+    let rendered = shallow(<Banner {...props} styling={'standard'} />);
     expect(rendered.find('.clearIcon')).toHaveLength(0);
   });
 
