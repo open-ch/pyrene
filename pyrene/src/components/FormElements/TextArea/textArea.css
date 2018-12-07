@@ -41,7 +41,7 @@
     float: right;
     font-size: 12px;
     font-weight: 600;
-    color: var(--inactive-fg);
+    color: var(--neutral-100);
   }
 
   &:after {
@@ -60,7 +60,7 @@
   vertical-align: bottom; /* Weird textArea bug: need to add this to prevent 4px bottom margin */
 
   border-radius: 2px;
-  border: solid 1px var(--inactive-fg);
+  border: solid 1px var(--neutral-100);
   background-color: var(--background-tint);
   outline: none;
 
@@ -109,7 +109,7 @@
   line-height: 16px;
   font-weight: 600;
   text-align: left;
-  color: var(--inactive-fg);
+  color: var(--neutral-100);
 }
 
 .invalidLabel {

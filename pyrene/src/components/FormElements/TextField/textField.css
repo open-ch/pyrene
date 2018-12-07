@@ -40,7 +40,7 @@
   width: 100%;
 
   border-radius: 2px;
-  border: solid 1px var(--inactive-fg);
+  border: solid 1px var(--neutral-100);
   background-color: var(--background-tint);
   outline: none;
 
@@ -87,7 +87,7 @@
   height: 16px;
   font-weight: 600;
   text-align: left;
-  color: var(--inactive-fg);
+  color: var(--neutral-100);
 }
 
 .invalidLabel {

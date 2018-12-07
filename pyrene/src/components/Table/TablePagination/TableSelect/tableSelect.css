@@ -47,7 +47,7 @@
   height: 16px;
   font-weight: 600;
   text-align: left;
-  color: var(--inactive-fg);
+  color: var(--neutral-100);
 }
 
 .invalidLabel {

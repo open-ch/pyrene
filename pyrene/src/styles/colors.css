@@ -122,12 +122,6 @@
   --warning-light: var(--orange-100);
   --warning-lighter: var(--orange-050);
 
-  --outage-fg: var(--neutral-500);
-  --outage-light: var(--neutral-100);
-
-  --inactive-fg: var(--neutral-100);
-  --inactive-light: var(--neutral-050);
-
   --information-fg: var(--blue-500);
   --information-light: var(--blue-050);
 
