@@ -14,13 +14,13 @@
   font-size: 12px;
   font-weight: bold;
   letter-spacing: 1px;
-  color: var(--neutral-500);
+  color: var(--text);
   text-transform: uppercase;
 }
 
 .listHeader {
   box-sizing: border-box;
-  border-bottom: solid 1px var(--neutral-050);
+  border-bottom: solid 1px var(--border);
   display: flex;
   justify-content: center;
   padding-bottom: 4px;

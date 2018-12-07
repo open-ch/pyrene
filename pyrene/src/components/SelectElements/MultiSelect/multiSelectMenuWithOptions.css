@@ -26,12 +26,12 @@
   display: flex;
   align-items: center;
 
-  background-color: var(--neutral-030);
+  background-color: var(--secondary);
   border-radius: 2px;
   min-width: 0;
 
   &.invalid {
-    background-color: var(--red-100);
+    background-color: var(--danger-light);
   }
 }
 
@@ -43,7 +43,7 @@
   font-stretch: normal;
   line-height: normal;
   letter-spacing: normal;
-  color: var(--neutral-500);
+  color: var(--text);
   cursor: default;
 
   white-space: nowrap;
@@ -65,6 +65,6 @@
   color: var(--neutral-300);
 
   &:hover {
-    color: var(--red-500);
+    color: var(--danger-fg);
   }
 }
