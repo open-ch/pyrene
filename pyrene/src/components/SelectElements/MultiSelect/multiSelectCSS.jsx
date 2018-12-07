@@ -33,7 +33,7 @@ const multiSelectStyle = props => ({
     alignItems: props.rows <= 0 ? 'center' : 'flex-start',
     overflow: 'hidden',
 
-    backgroundColor: (state.isFocused || state.hasValue) ? colorConstants.neutral000 : colorConstants.neutral020,
+    backgroundColor: (state.isFocused || state.hasValue) ? colorConstants.backgroundLight : colorConstants.backgroundTint,
     border: state.selectProps.isInvalid && !state.isDisabled ? `solid 1px ${colorConstants.red500}` : state.isFocused ? `solid 1px ${colorConstants.blue500}` : `solid 1px ${colorConstants.neutral100}`,
     borderRadius: 2,
     cursor: 'pointer',
@@ -161,7 +161,7 @@ const multiSelectStyle = props => ({
     ':hover': {
       backgroundColor: colorConstants.neutral030,
     },
-    backgroundColor: (isSelected || isFocused) ? colorConstants.neutral030 : colorConstants.neutral000,
+    backgroundColor: (isSelected || isFocused) ? colorConstants.neutral030 : colorConstants.backgroundLight,
     height: 32,
     color: colorConstants.neutral400,
     cursor: 'pointer',

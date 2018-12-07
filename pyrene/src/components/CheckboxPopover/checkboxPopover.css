@@ -16,11 +16,11 @@
 
   &:hover {
     cursor: pointer;
-    background-color: var(--neutral-030);
+    background-color: var(--secondary);
   }
 
   &.popoverOpen {
-    background-color: var(--neutral-030);
+    background-color: var(--secondary);
   }
 }
 
@@ -28,7 +28,7 @@
   font-size: 13px;
   font-weight: 500;
   line-height: 1.23;
-  color: var(--neutral-500);
+  color: var(--text);
   padding: 0 8px;
 }
 

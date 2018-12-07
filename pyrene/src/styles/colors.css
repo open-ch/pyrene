@@ -1,4 +1,5 @@
 :root {
+  /* COLOR PALETTE */
   /* NEUTRAL */
   --neutral-500: #1d273b;
   --neutral-400: #454d61;
@@ -91,4 +92,40 @@
   --teal-200: #90eedf;
   --teal-100: #b6f4ea;
   --teal-050: #daf9f4;
+
+  /* FUNCTIONAL COLORS */
+  /* DEFAULT */
+  --background-light: var(--neutral-000);
+  --background-tint: var(--neutral-020);
+  --border: var(--neutral-050);
+  --text: var(--neutral-500);
+  --icon: var(--neutral-300);
+  --icon-light: var(--neutral-100);
+  --primary: var(--blue-500);
+  --primary-dark: var(--blue-600);
+  --secondary: var(--neutral-030);
+  --secondary-dark: var(--neutral-050);
+
+  /* STATUS */
+  --ok-fg: var(--green-500);
+  --ok-dark: var(--green-700);
+  --ok-light: var(--green-100);
+  --ok-lighter: var(--green-050);
+
+  --danger-fg: var(--red-500);
+  --danger-dark: var(--red-600);
+  --danger-light: var(--red-100);
+  --danger-lighter: var(--red-050);
+
+  --warning-fg: var(--orange-500);
+  --warning-dark: var(--orange-700);
+  --warning-light: var(--orange-100);
+  --warning-lighter: var(--orange-050);
+
+  --information-fg: var(--blue-500);
+  --information-light: var(--blue-050);
+
+  /* ADMIN */
+  --admin-fg: var(--red-500);
+  --admin-bg: var(--red-050);
 }

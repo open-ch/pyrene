@@ -6,7 +6,7 @@
   cursor: pointer;
   display: flex;
   align-items: center;
-  color: var(--blue-500);
+  color: var(--primary);
 
   &:focus {
     outline: 0;
@@ -15,7 +15,7 @@
   &:hover {
     & .label {
       text-decoration: underline;
-      text-underline: var(--blue-500);
+      text-underline: var(--primary);
     }
   }
 

@@ -13,7 +13,7 @@
 .tabBar {
   display: flex;
   justify-content: flex-start;
-  box-shadow: inset 0 -1px 0 0 var(--neutral-050);
+  box-shadow: inset 0 -1px 0 0 var(--border);
 
   & .tab {
     box-sizing: border-box;
@@ -41,7 +41,7 @@
     }
 
     &.selected {
-      color: var(--neutral-500);
+      color: var(--text);
       box-shadow: inset 0 -3px var(--neutral-500);
     }
 
@@ -68,7 +68,7 @@
     position: relative;
 
     &.displayMenu, &.selected {
-      color: var(--neutral-500);
+      color: var(--text);
     }
 
     &:hover {
@@ -126,7 +126,7 @@
       right: -8px;
       width: 200px;
       box-sizing: border-box;
-      background-color: var(--neutral-000);
+      background-color: var(--background-light);
       border-radius: 2px;
       padding-bottom: 4px;
       box-shadow:
@@ -170,7 +170,7 @@
           cursor: default;
 
           &:hover {
-            background-color: var(--neutral-000);
+            background-color: var(--background-light);
           }
         }
 
@@ -181,7 +181,7 @@
         }
 
         &:hover {
-          background-color: var(--neutral-030);
+          background-color: var(--secondary);
         }
       }
     }

@@ -10,7 +10,7 @@
 
   &.invalid {
     & .textField {
-      border-color: var(--red-500);
+      border-color: var(--danger-fg);
     }
   }
 }
@@ -24,7 +24,7 @@
 
   &.required:after {
     content: '*';
-    color: var(--red-500);
+    color: var(--danger-fg);
   }
 }
 
@@ -41,12 +41,12 @@
 
   border-radius: 2px;
   border: solid 1px var(--neutral-100);
-  background-color: var(--neutral-020);
+  background-color: var(--background-tint);
   outline: none;
 
   &:hover, &:focus {
-    border-color: var(--blue-500);
-    background-color: var(--neutral-000);
+    border-color: var(--primary);
+    background-color: var(--background-light);
   }
 
   &[type=text] {
@@ -55,7 +55,7 @@
     font-family: AvenirNext, Helvetica, sans-serif;
     font-size: 14px;
     text-align: left;
-    color: var(--neutral-500);
+    color: var(--text);
   }
 
   &.hasIcon[type=text] {
@@ -63,7 +63,7 @@
   }
 
   &.filled {
-    background-color: var(--neutral-000);
+    background-color: var(--background-light);
   }
 
   &::placeholder {
@@ -97,7 +97,7 @@
   height: 16px;
   font-weight: 600;
   text-align: left;
-  color: var(--red-500);
+  color: var(--danger-fg);
 }
 
 .errorIcon {
