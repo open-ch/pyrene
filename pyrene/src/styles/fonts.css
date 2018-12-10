@@ -58,6 +58,9 @@
    Replace field: :global($1pyreneIcon$3)
 */
 
+:global(.pyreneIcon-home:before) {
+  content: "\69";
+}
 :global(.pyreneIcon-trash:before) {
   content: "\68";
 }
