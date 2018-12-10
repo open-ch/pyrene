@@ -226,6 +226,7 @@ const icons = [
   { name: 'info', tags: ['information', 'banner', 'solid'] },
   { name: 'error', tags: ['wrong', 'banner', 'invalid', 'problem', 'solid'] },
   { name: 'success', tags: ['correct', 'match', 'true', 'done', 'ok', 'solid'] },
+  { name: 'home', tags: ['house'] },
 ];
 
 const svgs = [
