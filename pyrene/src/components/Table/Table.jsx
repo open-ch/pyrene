@@ -290,6 +290,7 @@ Table.displayName = 'Table';
 Table.defaultProps = {
   actions: [],
   title: '',
+  defaultSorted: [],
   defaultPageSize: 10,
   loading: false,
   multiSort: true,
@@ -320,6 +321,14 @@ Table.propTypes = {
    * Sets the Table data displayed in the rows. Type: JSON
    */
   data: PropTypes.array.isRequired,
+  /**
+   * Sets the default sorting columns and order when the component is first mounted.
+   * Type: [{ id: string (required), desc: bool }]
+   */
+  defaultSorted: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    desc: PropTypes.bool,
+  })),
   /**
    * Sets the page size when the component is first mounted.
    */
