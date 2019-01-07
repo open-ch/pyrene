@@ -209,6 +209,7 @@ export default class Table extends React.Component {
 
     const commonVariableProps = {
       columns: this.state.columns,
+      defaultSorted: this.props.defaultSorted,
       defaultPageSize: this.props.defaultPageSize,
       data: this.props.data,
       pageSizeOptions: this.props.pageSizeOptions,
