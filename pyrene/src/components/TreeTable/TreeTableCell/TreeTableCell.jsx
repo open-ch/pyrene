@@ -17,10 +17,10 @@ const TreeTableCell = props => (
     {/* Use renderCallback if there is one defined for this column */}
 
     {props.columnProps.renderCallback ?
-      props.columnProps.renderCallback(props.cellData)
+      props.columnProps.renderCallback({ value: props.value, original: props.original })
       :
       <div styleName={'cellDataContainer'}>
-        {props.cellData}
+        {props.value}
       </div>
     }
   </div>
@@ -30,7 +30,7 @@ const TreeTableCell = props => (
 TreeTableCell.displayName = 'TreeTableCell';
 
 TreeTableCell.defaultProps = {
-  cellData: '',
+  value: '',
   columnProps: {},
   parent: false,
   sectionOpen: false,
@@ -39,7 +39,7 @@ TreeTableCell.defaultProps = {
 };
 
 TreeTableCell.propTypes = {
-  cellData: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   columnProps: PROPCONSTANTS.COLUMN,
   firstColumn: PropTypes.bool,
   onExpandClick: PropTypes.func.isRequired,
