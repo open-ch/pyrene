@@ -46,8 +46,11 @@ export default class Table extends React.Component {
           ...selection.slice(keyIndex + 1),
         ];
       } else {
-        // it does not exist so add it
-        selection.push(key);
+        const enabled = this.props.multiSelectCheckedCallback(row);
+        if (enabled) {
+          // it does not exist so add it
+          selection.push(key);
+        }
       }
     } else {
       selection = [key];
@@ -60,11 +63,14 @@ export default class Table extends React.Component {
     }));
   };
 
-  singleRowSelection = (key) => {
-    this.setState((prevState, props) => ({
-      selection: [key],
-      selectAll: false,
-    }));
+  singleRowSelection = (key, row) => {
+    const enabled = this.props.multiSelectCheckedCallback(row);
+    if (enabled) {
+      this.setState((prevState, props) => ({
+        selection: [key],
+        selectAll: false,
+      }));
+    }
   };
 
   toggleAll = () => {
@@ -84,7 +90,10 @@ export default class Table extends React.Component {
 
       // we just push all the IDs onto the selection array
       currentRecords.forEach((item) => {
-        selection.push(item._original[this.props.keyField]);
+        const enabled = this.props.multiSelectCheckedCallback(item._original);
+        if (enabled) {
+          selection.push(item._original[this.props.keyField]);
+        }
       });
     }
 
@@ -162,7 +171,7 @@ export default class Table extends React.Component {
     getTdProps: (state, rowInfo, column) => ({
       onClick: (e, handleOriginal) => {
         if (column.id !== '_selector' && (typeof rowInfo !== 'undefined')) {
-          this.singleRowSelection(rowInfo.original[this.props.keyField]);
+          this.singleRowSelection(rowInfo.original[this.props.keyField], rowInfo.original);
         }
         // IMPORTANT! React-Table uses onClick internally to trigger
         // events like expanding SubComponents and pivots.
@@ -264,12 +273,20 @@ export default class Table extends React.Component {
               toggleAll={this.toggleAll}
               keyField={this.props.keyField}
               SelectAllInputComponent={props => <Checkbox value={props.checked} onChange={props.onClick} />}
-              SelectInputComponent={props => (<Checkbox value={props.checked} onChange={(e) => {
-                const { shiftKey } = e;
-                e.stopPropagation();
-                props.onClick(props.id, shiftKey, props.row);
-              }}
-              />)}
+              SelectInputComponent={props => {
+                const enabled = this.props.multiSelectCheckedCallback(props.row);
+                return (
+                  <Checkbox
+                    disabled={!enabled}
+                    value={enabled && props.checked}
+                    onChange={(e) => {
+                      const { shiftKey } = e;
+                      e.stopPropagation();
+                      props.onClick(props.id, shiftKey, props.row);
+                    }}
+                  />
+                );
+            }}
             />
             :
             <ReactTable
@@ -296,6 +313,7 @@ Table.defaultProps = {
   loading: false,
   multiSort: true,
   multiSelect: false,
+  multiSelectCheckedCallback: () => true,
   toggleColumns: false,
   pageSizeOptions: [10, 20, 50, 100, 250],
   filters: [],
@@ -356,6 +374,11 @@ Table.propTypes = {
    * Changes the overall appearance of the table to become multi-selectable (checkbox table). Requires keyField prop.
    */
   multiSelect: PropTypes.bool,
+  /**
+   * Allow disabling a checkbox via the return value
+   * @returns {boolean} - enabled = true, disabled = false
+   */
+  multiSelectCheckedCallback: PropTypes.func,
   /**
    * Whether multiSorting via shift click is possible.
    */
