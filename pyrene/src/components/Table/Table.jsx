@@ -374,7 +374,7 @@ Table.propTypes = {
    */
   multiSelect: PropTypes.bool,
   /**
-   * Allow disabling a checkbox via the return value
+   * Allow toggling wether a row (and checkbox for a checkboxtable) is selectable
    * @returns {boolean} - enabled = true, disabled = false
    */
   rowSelectableCallback: PropTypes.func,
