@@ -56,7 +56,8 @@ export default class TreeTableRow extends React.Component {
                 firstColumn={firstColumn}
                 parent={this.props.parent}
                 sectionOpen={displaySection}
-                cellData={this.props.data[column.accessor]}
+                value={this.props.data[column.accessor]}
+                original={this.props.data}
                 onExpandClick={this.props.onExpandClick}
                 treeIndex={this.props.treeIndex}
               />
