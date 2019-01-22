@@ -35,36 +35,41 @@ export default class Table extends React.Component {
   toggleSelection = (key, shift, row) => {
     // start off with the existing state
     let selection = [...this.state.selection];
+    const enabled = this.props.rowSelectableCallback(row);
 
-    if (this.props.multiSelect) {
-      const keyIndex = selection.indexOf(key);
-      // check to see if the key exists
-      if (keyIndex >= 0) {
-        // it does exist so we will remove it using destructing
-        selection = [
-          ...selection.slice(0, keyIndex),
-          ...selection.slice(keyIndex + 1),
-        ];
+    if (enabled) {
+      if (this.props.multiSelect) {
+        const keyIndex = selection.indexOf(key);
+        // check to see if the key exists
+        if (keyIndex >= 0) {
+          selection = selection.filter(selectedKey => selectedKey !== key);
+        } else {
+          // it does not exist so add it
+          selection.push(key);
+        }
       } else {
-        // it does not exist so add it
-        selection.push(key);
+        selection = [key];
       }
-    } else {
-      selection = [key];
     }
 
     // if the current selection array has the same length as the pageSize then all the visible elements have to be selected
+    const isWholePageSelected = selection.length === this.checkboxTable.getWrappedInstance().getResolvedState().pageSize;
+    const areAllOptionsSelected = selection.length === this.props.data.length;
+
     this.setState((prevState, props) => ({
       selection: selection,
-      selectAll: selection.length === this.checkboxTable.getWrappedInstance().getResolvedState().pageSize,
+      selectAll: isWholePageSelected || areAllOptionsSelected,
     }));
   };
 
-  singleRowSelection = (key) => {
-    this.setState((prevState, props) => ({
-      selection: [key],
-      selectAll: false,
-    }));
+  singleRowSelection = (key, row) => {
+    const enabled = this.props.rowSelectableCallback(row);
+    if (enabled) {
+      this.setState((prevState, props) => ({
+        selection: [key],
+        selectAll: false,
+      }));
+    }
   };
 
   toggleAll = () => {
@@ -84,7 +89,10 @@ export default class Table extends React.Component {
 
       // we just push all the IDs onto the selection array
       currentRecords.forEach((item) => {
-        selection.push(item._original[this.props.keyField]);
+        const enabled = this.props.rowSelectableCallback(item._original);
+        if (enabled) {
+          selection.push(item._original[this.props.keyField]);
+        }
       });
     }
 
@@ -162,7 +170,7 @@ export default class Table extends React.Component {
     getTdProps: (state, rowInfo, column) => ({
       onClick: (e, handleOriginal) => {
         if (column.id !== '_selector' && (typeof rowInfo !== 'undefined')) {
-          this.singleRowSelection(rowInfo.original[this.props.keyField]);
+          this.singleRowSelection(rowInfo.original[this.props.keyField], rowInfo.original);
         }
         // IMPORTANT! React-Table uses onClick internally to trigger
         // events like expanding SubComponents and pivots.
@@ -264,12 +272,20 @@ export default class Table extends React.Component {
               toggleAll={this.toggleAll}
               keyField={this.props.keyField}
               SelectAllInputComponent={props => <Checkbox value={props.checked} onChange={props.onClick} />}
-              SelectInputComponent={props => (<Checkbox value={props.checked} onChange={(e) => {
-                const { shiftKey } = e;
-                e.stopPropagation();
-                props.onClick(props.id, shiftKey, props.row);
-              }}
-              />)}
+              SelectInputComponent={props => {
+                const enabled = this.props.rowSelectableCallback(props.row);
+                return (
+                  <Checkbox
+                    disabled={!enabled}
+                    value={props.checked}
+                    onChange={(e) => {
+                      const { shiftKey } = e;
+                      e.stopPropagation();
+                      props.onClick(props.id, shiftKey, props.row);
+                    }}
+                  />
+                );
+            }}
             />
             :
             <ReactTable
@@ -296,6 +312,7 @@ Table.defaultProps = {
   loading: false,
   multiSort: true,
   multiSelect: false,
+  rowSelectableCallback: () => true,
   toggleColumns: false,
   pageSizeOptions: [10, 20, 50, 100, 250],
   filters: [],
@@ -356,6 +373,11 @@ Table.propTypes = {
    * Changes the overall appearance of the table to become multi-selectable (checkbox table). Requires keyField prop.
    */
   multiSelect: PropTypes.bool,
+  /**
+   * Allow toggling wether a row (and checkbox for a checkboxtable) is selectable
+   * @returns {boolean} - enabled = true, disabled = false
+   */
+  rowSelectableCallback: PropTypes.func,
   /**
    * Whether multiSorting via shift click is possible.
    */
