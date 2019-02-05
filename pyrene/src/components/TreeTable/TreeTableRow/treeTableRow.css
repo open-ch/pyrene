@@ -13,8 +13,8 @@
   box-sizing: border-box;
   min-height: 32px;
   display: flex;
-  align-items: center;
   border-bottom: solid 1px var(--border);
+  align-items: flex-start;
 }
 
 .childrenRowsContainer {
