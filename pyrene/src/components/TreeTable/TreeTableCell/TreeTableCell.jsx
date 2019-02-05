@@ -9,9 +9,9 @@ const TreeTableCell = props => (
   <div style={props.style} styleName={'treeTableCell'}>
 
     {props.firstColumn && (props.parent ?
-      <div styleName={classNames('pivotIcon', { sectionOpen: props.sectionOpen })} className={'pyreneIcon-chevronDown'} onClick={e => props.onExpandClick(e, props.treeIndex, props.parent)} />
+      <div key={'icon'} styleName={classNames('pivotIcon', { sectionOpen: props.sectionOpen })} className={'pyreneIcon-chevronDown'} onClick={e => props.onExpandClick(e, props.treeIndex, props.parent)} />
       :
-      <div styleName={'iconSpaceholder'} />
+      <div key={'iconSh'} styleName={'iconSpaceholder'} />
     )}
 
     {/* Use renderCallback if there is one defined for this column */}
@@ -19,7 +19,7 @@ const TreeTableCell = props => (
     {props.columnProps.renderCallback ?
       props.columnProps.renderCallback({ value: props.value, original: props.original })
       :
-      <div styleName={'cellDataContainer'}>
+      <div key={'data'} styleName={'cellDataContainer'}>
         {props.value}
       </div>
     }
