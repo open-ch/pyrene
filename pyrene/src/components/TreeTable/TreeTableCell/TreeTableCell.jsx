@@ -5,26 +5,31 @@ import PROPCONSTANTS from '../TreeTablePropTypes';
 
 import './treeTableCell.css';
 
-const TreeTableCell = props => (
-  <div style={props.style} styleName={'treeTableCell'}>
+export default class TreeTableCell extends React.PureComponent {
 
-    {props.firstColumn && (props.parent ?
-      <div key={'icon'} styleName={classNames('pivotIcon', { sectionOpen: props.sectionOpen })} className={'pyreneIcon-chevronDown'} onClick={e => props.onExpandClick(e, props.treeIndex, props.parent)} />
-      :
-      <div key={'iconSh'} styleName={'iconSpaceholder'} />
-    )}
+  render() {
+    return (
+      <div style={this.props.style} styleName={'treeTableCell'}>
 
-    {/* Use renderCallback if there is one defined for this column */}
+        {this.props.firstColumn && (this.props.parent ?
+            <div styleName={classNames('pivotIcon', {sectionOpen: this.props.sectionOpen})} className={'pyreneIcon-chevronDown'} onClick={e => this.props.onExpandClick(e, this.props.treeIndex, this.props.parent)}/>
+            :
+            <div styleName={'iconSpaceholder'}/>
+        )}
 
-    {props.columnProps.renderCallback ?
-      props.columnProps.renderCallback({ value: props.value, original: props.original })
-      :
-      <div key={'data'} styleName={'cellDataContainer'}>
-        {props.value}
+        {/* Use renderCallback if there is one defined for this column */}
+
+        {this.props.columnProps.renderCallback ?
+          this.props.columnProps.renderCallback(this.props.value, this.props.original)
+          :
+          <div styleName={'cellDataContainer'}>
+            {this.props.value}
+          </div>
+        }
       </div>
-    }
-  </div>
-);
+    );
+  }
+}
 
 
 TreeTableCell.displayName = 'TreeTableCell';
@@ -48,5 +53,3 @@ TreeTableCell.propTypes = {
   style: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
   treeIndex: PropTypes.string.isRequired,
 };
-
-export default TreeTableCell;

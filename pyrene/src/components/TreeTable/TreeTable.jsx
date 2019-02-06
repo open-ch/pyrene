@@ -69,6 +69,7 @@ export default class TreeTable extends React.Component {
   generateRowsFromData = (data, columns, treeIndex, expandedRows) => data.map((rowData, index) => {
     const newTreeIndex = `${treeIndex}.${index}`;
     const rowKey = this.props.setUniqueRowKey(rowData, newTreeIndex);
+    const expandedRowsIndices = expandedRows ? expandedRows : this.state.expandedRows;
     return (
       <TreeTableRow
         data={rowData}
@@ -76,7 +77,7 @@ export default class TreeTable extends React.Component {
         treeIndex={newTreeIndex}
         columns={columns}
         key={rowKey || uniqid()}
-        expandedRows={expandedRows}
+        isExpanded={expandedRowsIndices.some(rowIndex => rowIndex === newTreeIndex || rowIndex.startsWith(`${newTreeIndex}.`))}
         generateRowsFromData={this.generateRowsFromData}
         onExpandClick={this.handleOnExpandClick}
         onRowDoubleClick={this.props.onRowDoubleClick}
