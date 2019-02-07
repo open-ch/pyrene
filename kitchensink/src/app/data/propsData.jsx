@@ -1,6 +1,8 @@
 /* eslint-disable */
 import React from 'react';
 
+import { Button } from 'pyrene';
+
 const ContentFiller = (props) => (
   <div className={'unSelectable'} style={{ width: props.width,
     height: props.height,
@@ -819,6 +821,10 @@ const startProps = {
     placeholder: 'Placeholder Text',
     helperLabel: 'Helper text for instructions',
     width: 500,
+  },
+  'timerangeselector': {
+    onRangeChange: console.log,
+    renderRightSection: () => <Button label={'Admin'} type={'admin'} onClick={adminAction} />,
   },
   'tooltip': {
     label: 'Tooltip Label',
