@@ -13,14 +13,14 @@ const IntroductionPage = () => (
       <div styleName="description">
         <p>
           Open Systems is growing. As the business evolves, maintaining a coherent and captivating user experience for our interfaces is challenging.
-          To keep our user interfaces coherent, we have created <strong>Kitchensink</strong> as a live inventory for our UI components and the underlying design principles and foundations.
+          To keep our user interfaces coherent, we have created <strong>pyrene</strong> a collection of components and the underlying design principles and foundations.
         </p>
         <p>
-          It’s a place for people familiar with the Mission Control design system and for anyone wishing to learn more about our work.
+          It’s a place for people familiar with our design system and for anyone wishing to learn more about our work.
           It provides our engineers a collection of reusable components to build user interfaces.
         </p>
         <p>
-        The <strong>Kitchensink</strong> is a living place that will be updated as we continue to develop and explore the specifics of our user-facing products.
+          This is a living place that will be updated as we continue to develop and explore the specifics of our user-facing products.
         </p>
       </div>
     </div>

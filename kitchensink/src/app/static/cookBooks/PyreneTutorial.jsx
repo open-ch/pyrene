@@ -93,7 +93,7 @@ const PyreneTutorial = () => (
       <div className="topicContent">
         <Paragraph title={'General'}>
           <DescriptionBox>
-            <p>Pyrene is the new React based component library to be used in future portal projects related to MC. In order to keep the library consistent there are few concepts that have to be respected when creating a new component.</p>
+            <p>Pyrene is the new React based component library to be used in future portal projects. In order to keep the library consistent there are few concepts that have to be respected when creating a new component.</p>
           </DescriptionBox>
         </Paragraph>
         <Paragraph title={'Components'}>
