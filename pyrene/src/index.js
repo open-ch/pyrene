@@ -37,6 +37,8 @@ import { default as TextField } from './components/FormElements/TextField/TextFi
 import { default as Tooltip } from './components/Tooltip/Tooltip';
 import { default as TreeTable } from './components/TreeTable/TreeTable';
 
+import { default as TimeRangeSelector } from './components/TimeRangeSelector/TimeRangeSelector';
+
 
 // Sort alphabetically to find stuff easily
 const Components = {
@@ -60,6 +62,7 @@ const Components = {
   TabView,
   TextArea,
   TextField,
+  TimeRangeSelector,
   Tooltip,
   TreeTable
 };
@@ -85,6 +88,7 @@ export { Table };
 export { TabView };
 export { TextArea };
 export { TextField };
+export { TimeRangeSelector };
 export { Tooltip };
 export { TreeTable };
 
