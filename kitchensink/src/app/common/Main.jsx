@@ -33,7 +33,7 @@ export default class Main extends React.Component {
           <Logo pyreneVersion={packageJson.dependencies.pyrene} />
           <SearchBar value={searchBarValue} />
           <SideBarMenu />
-          <div styleName={'copyRight'}>&copy; Open Systems 2018</div>
+          <div styleName={'copyRight'}>&copy; Open Systems 2019</div>
         </div>
         <div styleName={'pageContainer'}>
           <Switch>
