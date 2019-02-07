@@ -13,7 +13,7 @@ const IntroductionPage = () => (
       <div styleName="description">
         <p>
           Open Systems is growing. As the business evolves, maintaining a coherent and captivating user experience for our interfaces is challenging.
-          To keep our user interfaces coherent, we have created <strong>pyrene</strong> a collection of components and the underlying design principles and foundations.
+          To keep our user interfaces coherent, we have created <strong>pyrene</strong>, a collection of components and the underlying design principles and foundations.
         </p>
         <p>
           It’s a place for people familiar with our design system and for anyone wishing to learn more about our work.
