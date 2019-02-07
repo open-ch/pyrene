@@ -19,10 +19,11 @@
     "build": "NODE_ENV=production webpack && webpack",
     "prewatch": "yarn install",
     "watch": "webpack -w",
+    "pretest": "yarn install",
     "test": "jest",
     "testWatch": "jest --watch",
     "test:bamboo": "NODE_ENV=test JEST_FILE=test.json && jest --config=./jest.bamboo.config.js",
-    "prerelease": "yarn build",
+    "prerelease": "yarn test && yarn build",
     "release": "release-it",
     "prew": "yarn install",
     "w": "webpack -w"
