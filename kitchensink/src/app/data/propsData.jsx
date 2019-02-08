@@ -705,6 +705,12 @@ const treeTableColumns = [
   },
 ];
 
+
+/**
+ * The default/start props can be defined as either a prop object or a function which returns a prop object.
+ * In the case of the function method, an object is provided as the first param with the shape of ({ state: Object, setState: Function }).
+ * The setState method can be used to manipulate the component state object provided as the other parameter.
+ */
 const startProps = {
   'arrowbutton': {},
   'banner': {
@@ -822,10 +828,11 @@ const startProps = {
     helperLabel: 'Helper text for instructions',
     width: 500,
   },
-  'timerangeselector': {
-    onRangeChange: console.log,
+  'timerangeselector': ({ state, setState}) => ({
+    onChange: value => setState({ value }),
+    value: state.value,
     renderRightSection: () => <Button label={'Admin'} type={'admin'} onClick={adminAction} />,
-  },
+  }),
   'tooltip': {
     label: 'Tooltip Label',
     preferredPosition: ['top', 'bottom'],

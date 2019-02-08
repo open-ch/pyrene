@@ -11,7 +11,6 @@ import specialComponentHandlingData from '../data/specialComponentHandlingData';
 
 import ParentButton from './PageElements/ParentButton/ParentButton';
 
-
 export default class ComponentEditor extends React.Component {
 
   handleComponentInteraction = (event) => {
@@ -22,9 +21,8 @@ export default class ComponentEditor extends React.Component {
   };
 
   state = {
-    component: this.props.component,
-    componentProps: {...this.props.component.defaultProps, ...this.props.startProps, onChange: this.handleComponentInteraction },
-
+    componentState: {},
+    componentProps: {...this.props.component.defaultProps },
     pinned: false, //console change this back to true
     darkMode: false,
   };
@@ -80,12 +78,32 @@ export default class ComponentEditor extends React.Component {
     });
   };
 
+  setComponentState = (newState) => {
+    this.setState((prevState) => ({
+      ...prevState,
+      componentState: {
+        ...prevState.componentState,
+        ...newState,
+      },
+    }));
+  };
+
+  getComponentState = () => {
+    const { startProps } = this.props;
+    const { componentState } = this.state;
+    if (typeof startProps === "function") {
+      return startProps({ state: componentState, setState: this.setComponentState });
+    }
+    return startProps;
+  };
+
   getComponentName = (component) => {
     return component.displayName.toLowerCase().replace(/\s/g, '');
   };
 
   render() {
-    const displayedComponent = <this.props.component {...this.state.componentProps} />;
+    const componentProps = {...this.state.componentProps, ...this.getComponentState()};
+    const displayedComponent = <this.props.component {...componentProps} />;
     return (
       <div className={'componentPlayground'}>
         {examplesData[this.getComponentName(this.props.component)] &&
