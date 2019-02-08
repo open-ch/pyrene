@@ -49,20 +49,20 @@ export default class TimeRangeSelector extends React.Component {
       ...getCurrentDate(),
       day: undefined,
     },
-    onRangeChange: () => {},
+    onChange: () => {},
     renderRightSection: () => {},
   };
 
   _onNavigate = (value, direction) => {
-    const { onRangeChange } = this.props;
+    const { onChange } = this.props;
     const newDate = handleDateChange(value, direction);
-    onRangeChange(newDate);
+    onChange(newDate);
   };
 
   _onSelect = (timeRange) => {
-    const { onRangeChange, value } = this.props;
+    const { onChange, value } = this.props;
     const newDate = handleTypeChange(value, timeRange);
-    onRangeChange(newDate);
+    onChange(newDate);
   };
 
   render() {
@@ -113,7 +113,7 @@ TimeRangeSelector.displayName = 'TimeRangeSelector';
 TimeRangeSelector.propTypes = {
   isLoading: PropTypes.bool,
   lowerBound: TimeRangeSelectionPropTypes.YEAR_MONTH_DAY,
-  onRangeChange: PropTypes.func,
+  onChange: PropTypes.func,
   renderRightSection: PropTypes.func,
   timeRanges: TimeRangeSelectionPropTypes.TIMERANGE_OPTIONS,
   upperBound: TimeRangeSelectionPropTypes.YEAR_MONTH_DAY,
