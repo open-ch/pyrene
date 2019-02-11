@@ -1,6 +1,6 @@
 export default class TreeTableUtils {
 
-  static expandAllParentSectionsFor = (rowIndex) => {
+  static getParentsByTreeIndex = (rowIndex) => {
     let i;
     const parentIndices = [];
     for (i = rowIndex.split('.').length; i > 1; i -= 1) {

@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import uniqid from 'uniqid';
 
 import './treeTableRow.css';
 import TreeTableCell from '../TreeTableCell/TreeTableCell';
@@ -11,18 +10,20 @@ export default class TreeTableRow extends React.PureComponent {
 
   state = {
     isExpanded: false,
-  }
+    isExpandedAll: false,
+  };
 
-  static getDerivedStateFromProps(props, state) {
-    if (props.isExpanded !== state.isExpanded) {
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.isExpanded != prevState.isExpandedAll) {
       return {
-        isExpanded: props.isExpanded,
-      };
+        isExpanded: nextProps.isExpanded,
+        isExpandedAll: nextProps.isExpanded,
+      }
     }
+    return null;
   }
 
-  toggleRowExpansion = (event, clickedRowIndex, isParent) => {
-    this.props.onExpandClick(event, clickedRowIndex, isParent);
+  toggleRowExpansion = () => {
     this.setState((prevState) => ({
       isExpanded: !prevState.isExpanded
     }))
@@ -103,7 +104,6 @@ TreeTableRow.propTypes = {
   generateRowsFromData: PropTypes.func.isRequired,
 
   onRowDoubleClick: PropTypes.func.isRequired,
-  onExpandClick: PropTypes.func.isRequired,
 
   parent: PropTypes.bool,
   treeIndex: PropTypes.string.isRequired,

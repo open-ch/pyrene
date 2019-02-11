@@ -11,7 +11,6 @@ import PROPCONSTANTS from './TreeTablePropTypes';
 import uniqid from 'uniqid';
 import Filter from '../Filter/Filter';
 import TreeTableUtils from './TreeTableUtils';
-import TableUtils from '../Table/TableUtils';
 import Loader from '../Loader/Loader';
 
 
@@ -26,50 +25,20 @@ import Loader from '../Loader/Loader';
 export default class TreeTable extends React.Component {
 
   state = {
-    expandedRows: this.props.defaultExpandedSection ? TreeTableUtils.expandAllParentSectionsFor(this.props.defaultExpandedSection) : [],
-    displayExpandAllAction: true,
+    expandedAll: false,
+    expanded: this.props.defaultExpandedSection ? TreeTableUtils.getParentsByTreeIndex(this.props.defaultExpandedSection) : [],
     columns: TreeTableUtils.prepareColumnToggle(this.props.columns),
   };
 
   toggleAllRowsExpansion = () => {
-    let tree = [];
-
-    if (this.state.displayExpandAllAction) {
-      tree = this.generateTreeStructureFromData(this.props.data, '0');
-    }
-
     this.setState((prevState, props) => ({
-      expandedRows: tree,
-      displayExpandAllAction: !prevState.displayExpandAllAction,
+      expandedAll: !prevState.expandedAll,
     }));
   };
 
-  handleOnExpandClick = (event, clickedRowIndex, isParent) => {
-    const clickedIndex = this.state.expandedRows.indexOf(clickedRowIndex);
-    let expandedRowsCopy = [...this.state.expandedRows];
-
-    if (!isParent) {
-      return null;
-    }
-
-    // Element is already expanded
-    if (clickedIndex > -1) {
-      // See if any of its children is expanded as well & collapse them
-      expandedRowsCopy = expandedRowsCopy.filter(item => !item.startsWith(expandedRowsCopy[clickedIndex]));
-    } else {
-      expandedRowsCopy.push(clickedRowIndex);
-    }
-
-    this.setState((prevState, props) => ({
-      expandedRows: expandedRowsCopy,
-    }));
-
-  };
-
-  generateRowsFromData = (data, columns, treeIndex, expandedRows) => data.map((rowData, index) => {
+  generateRowsFromData = (data, columns, treeIndex) => data.map((rowData, index) => {
     const newTreeIndex = `${treeIndex}.${index}`;
     const rowKey = this.props.setUniqueRowKey(rowData, newTreeIndex);
-    const expandedRowsIndices = expandedRows ? expandedRows : this.state.expandedRows;
     return (
       <TreeTableRow
         data={rowData}
@@ -77,25 +46,14 @@ export default class TreeTable extends React.Component {
         treeIndex={newTreeIndex}
         columns={columns}
         key={rowKey || uniqid()}
-        isExpanded={expandedRowsIndices.some(rowIndex => rowIndex === newTreeIndex || rowIndex.startsWith(`${newTreeIndex}.`))}
+        isExpanded={this.isExpanded(newTreeIndex) || this.state.expandedAll}
         generateRowsFromData={this.generateRowsFromData}
-        onExpandClick={this.handleOnExpandClick}
         onRowDoubleClick={this.props.onRowDoubleClick}
       />);
   });
 
-  generateTreeStructureFromData = (data, treeIndex) => {
-    const result = [];
-    data.forEach((item, i) => {
-      if (item.hasOwnProperty('children')) {
-        if (item.children.length > 0) {
-          result.push(`${treeIndex}.${i}`);
-          const children = this.generateTreeStructureFromData(item.children, `${treeIndex}.${i}`);
-          result.push(...children);
-        }
-      }
-    });
-    return result;
+  isExpanded = (treeIndex) => {
+    return this.state.expanded.some(rowIndex => rowIndex === treeIndex || rowIndex.startsWith(`${treeIndex}.`));
   };
 
   isColumnHidden = hidden => typeof hidden === 'undefined' || hidden !== true;
@@ -153,12 +111,12 @@ export default class TreeTable extends React.Component {
           }
           <TreeTableActionBar
             toggleAll={this.toggleAllRowsExpansion}
-            displayExpandAllAction={this.state.displayExpandAllAction}
+            expandedAll={this.state.expandedAll}
             columnToggleProps={columnToggleProps}
           />
           <TreeTableHeader columns={this.state.columns} />
           <div styleName={'treeTableData'}>
-            {this.generateRowsFromData(this.props.data, this.state.columns, '0', this.state.expandedRows)}
+            {this.generateRowsFromData(this.props.data, this.state.columns, '0')}
           </div>
         </div>
       </div>
