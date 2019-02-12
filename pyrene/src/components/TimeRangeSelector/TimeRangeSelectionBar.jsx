@@ -3,7 +3,11 @@ import PropTypes from 'prop-types';
 
 import Stepper from '../Stepper/Stepper';
 import TimeRangeSelectionPropTypes from './TimeRangeSelectorPropTypes';
-import { DateHelper } from './TimeRangeSelectorUtils';
+import {
+  DateHelper,
+  canNavigateBackward,
+  canNavigateForward,
+} from './TimeRangeSelectorUtils';
 
 import './timeRangeSelector.css';
 
@@ -12,13 +16,16 @@ const TimeRangeSelectionBar = (props) => {
     onChange,
     disabled,
     value,
+    upperBound,
+    lowerBound,
+    timeRange,
   } = props;
   return (
     <Fragment>
       <Stepper
         direction="left"
         onClick={() => onChange(value, -1)}
-        disabled={disabled}
+        disabled={disabled || !canNavigateBackward(value, lowerBound, timeRange)}
       />
       <span styleName="timeRangeSelector--timerange-text">
         {DateHelper.formatTimeRangeText(value)}
@@ -26,7 +33,7 @@ const TimeRangeSelectionBar = (props) => {
       <Stepper
         direction="right"
         onClick={() => onChange(value, 1)}
-        disabled={disabled}
+        disabled={disabled || !canNavigateForward(value, upperBound, timeRange)}
       />
     </Fragment>
   );
@@ -36,7 +43,7 @@ TimeRangeSelectionBar.propTypes = {
   disabled: PropTypes.bool.isRequired,
   lowerBound: TimeRangeSelectionPropTypes.YEAR_MONTH_DAY.isRequired,
   onChange: PropTypes.func.isRequired,
-  timerange: TimeRangeSelectionPropTypes.TIMERANGE_OPTION.isRequired,
+  timeRange: TimeRangeSelectionPropTypes.TIMERANGE_OPTION.isRequired,
   upperBound: TimeRangeSelectionPropTypes.YEAR_MONTH_DAY.isRequired,
   value: TimeRangeSelectionPropTypes.YEAR_MONTH_DAY.isRequired,
 };
