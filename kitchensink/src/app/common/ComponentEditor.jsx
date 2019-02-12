@@ -136,7 +136,7 @@ ComponentEditor.displayName = 'ComponentEditor';
 
 ComponentEditor.propTypes = {
   component: PropTypes.func.isRequired,
-  startProps: PropTypes.objectOf(PropTypes.any).isRequired,
+  startProps: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
 };
 
 ComponentEditor.defaultProps = {};

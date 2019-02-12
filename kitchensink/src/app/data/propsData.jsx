@@ -722,9 +722,11 @@ const startProps = {
   'button': {
     label: 'Click Me',
   },
-  'checkbox': {
+  'checkbox': ({ state, setState}) => ({
     label: 'Click Me',
-  },
+    value: state.value,
+    onChange: value => setState({ value: value.target.value }),
+  }),
   'collapsible': {
     defaultExpanded: true,
     renderCallback: () => <ContentFiller width={500} height={300} />,
@@ -759,28 +761,33 @@ const startProps = {
     rightButtonBarElements: [{type: 'secondary', label: 'Cancel', action: () => null}, {type: 'primary', label: 'Apply', action: () => null}],
     onClose: () => console.log('onClose Pressed'),
   },
-  'multi-select': {
+  'multi-select': ({ state, setState}) => ({
     title: 'Multi-Select',
     placeholder: 'Choose your favorite ice cream',
     helperLabel: 'Ice cream is delicious',
     defaultValues: [],
     options: testOptions,
-  },
+    onChange: value => setState({ value: value.target.value }),
+    value: state.value,
+  }),
   'popover': {
     displayPopover: true,
     renderPopoverContent: () => <div style={{boxSizing: 'borderBox', padding: 24}}><ContentFiller height={200} width={400} /></div>,
     children: <ContentFiller height={100} width={200} />
   },
-  'radiogroup': {
+  'radiogroup': ({ state, setState}) => ({
     options: [{label: 'Beer 🍺', value: 'beer'}, {label:'Coffee ☕️', value: 'coffee'}, {label:'Coffeebeer 🍹😎', value: 'coffeebeer'}],
-    value: 'coffeebeer',
-  },
-  'select': {
+    onChange: value => setState({ value: value.target.value }),
+    value: state.value,
+  }),
+  'select': ({ state, setState}) => ({
     title: 'Single-Select',
     placeholder: 'Choose your favorite ice cream',
     helperLabel: 'Ice cream is delicious',
     options: testOptions,
-  },
+    value: state.value,
+    onChange: value => setState({ value: value.target.value }),
+  }),
   'sharedialog': {
     position: 'top',
     align: 'start',
@@ -814,20 +821,24 @@ const startProps = {
       { name: 'Tab 5', renderCallback: () => <ContentFiller height={200} width={848} label={'tab 5'} />, disabled: true },
     ],
   },
-  'textarea': {
+  'textarea': ({ state, setState}) => ({
     title: 'Label',
     placeholder: 'Placeholder Text',
     helperLabel: 'Helper text for instructions',
     width: 500,
     rows: 3,
     maxLength: 50,
-  },
-  'textfield': {
+    value: state.value,
+    onChange: value => setState({ value: value.target.value }),
+  }),
+  'textfield': ({ state, setState}) => ({
     title: 'Field Label',
     placeholder: 'Placeholder Text',
     helperLabel: 'Helper text for instructions',
     width: 500,
-  },
+    value: state.value,
+    onChange: value => setState({ value: value.target.value }),
+  }),
   'timerangeselector': ({ state, setState}) => ({
     onChange: value => setState({ value }),
     value: state.value,
