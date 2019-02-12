@@ -8,25 +8,27 @@ import PROPCONSTANTS from '../TreeTablePropTypes';
 
 export default class TreeTableRow extends React.PureComponent {
 
-  state = {
-    isExpanded: false,
-    isExpandedAll: false,
-  };
-
-  static getDerivedStateFromProps(nextProps, prevState) {
-    if (nextProps.isExpanded != prevState.isExpandedAll) {
-      return {
-        isExpanded: nextProps.isExpanded,
-        isExpandedAll: nextProps.isExpanded,
-      }
-    }
-    return null;
+  constructor(props) {
+    super(props);
+    this.state = {
+      isExpanded: false,
+    };
   }
 
+  setExpansion = (isExpanded) => {
+    if (this.props.parent) {
+      this.setState(() => ({
+        isExpanded: isExpanded,
+      }));
+    }
+  };
+
   toggleRowExpansion = () => {
-    this.setState((prevState) => ({
-      isExpanded: !prevState.isExpanded
-    }))
+    if (this.props.parent) {
+      this.setState((prevState) => ({
+        isExpanded: !prevState.isExpanded
+      }));
+    }
   };
 
   render() {
@@ -92,7 +94,6 @@ TreeTableRow.displayName = 'TreeTableRow';
 TreeTableRow.defaultProps = {
   columns: [],
   data: [],
-  isExpanded: false,
   parent: false,
   displayAllChildren: false,
 };
@@ -100,7 +101,6 @@ TreeTableRow.defaultProps = {
 TreeTableRow.propTypes = {
   columns: PROPCONSTANTS.COLUMNS,
   data: PROPCONSTANTS.DATAOBJECT,
-  isExpanded: PropTypes.bool,
   generateRowsFromData: PropTypes.func.isRequired,
 
   onRowDoubleClick: PropTypes.func.isRequired,

@@ -24,16 +24,26 @@ import Loader from '../Loader/Loader';
  */
 export default class TreeTable extends React.Component {
 
-  state = {
-    expandedAll: false,
-    expanded: this.props.defaultExpandedSection ? TreeTableUtils.getParentsByTreeIndex(this.props.defaultExpandedSection) : [],
-    columns: TreeTableUtils.prepareColumnToggle(this.props.columns),
+  constructor(props) {
+    super(props);
+    this.rowRefs = [];
+    this.state = {
+      expandedAll: false,
+      columns: TreeTableUtils.prepareColumnToggle(this.props.columns),
+    };
+  }
+
+  toggleAllRowsExpansion = async () => {
+    await this.rowRefs.forEach(row => row.setExpansion(!this.state.expandedAll));
+    this.setState((prevState) => {
+      return {
+        expandedAll: !prevState.expandedAll,
+      };
+    });
   };
 
-  toggleAllRowsExpansion = () => {
-    this.setState((prevState, props) => ({
-      expandedAll: !prevState.expandedAll,
-    }));
+  addRowRef = (row) => {
+    this.rowRefs.push(row);
   };
 
   generateRowsFromData = (data, columns, treeIndex) => data.map((rowData, index) => {
@@ -41,20 +51,16 @@ export default class TreeTable extends React.Component {
     const rowKey = this.props.setUniqueRowKey(rowData, newTreeIndex);
     return (
       <TreeTableRow
+        ref={this.addRowRef}
         data={rowData}
         parent={rowData.hasOwnProperty('children') ? rowData.children.length > 0 : false}
         treeIndex={newTreeIndex}
         columns={columns}
         key={rowKey || uniqid()}
-        isExpanded={this.isExpanded(newTreeIndex) || this.state.expandedAll}
         generateRowsFromData={this.generateRowsFromData}
         onRowDoubleClick={this.props.onRowDoubleClick}
       />);
   });
-
-  isExpanded = (treeIndex) => {
-    return this.state.expanded.some(rowIndex => rowIndex === treeIndex || rowIndex.startsWith(`${treeIndex}.`));
-  };
 
   isColumnHidden = hidden => typeof hidden === 'undefined' || hidden !== true;
 
@@ -132,7 +138,6 @@ TreeTable.defaultProps = {
   columns: [],
   filters: [],
   title: '',
-  defaultExpandedSection: '',
   loading: false,
   toggleColumns: true,
   onRowDoubleClick: () => null,
@@ -150,10 +155,6 @@ TreeTable.propTypes = {
    * Sets the Table data displayed in the rows. Type: JSON
    */
   data: PROPCONSTANTS.DATA,
-  /**
-   * Sets a section to expand when the component is mounted.
-   */
-  defaultExpandedSection: PropTypes.string,
   /**
    * Sets the available filters.
    * Type: [{ label: string (required), type: oneOf('singleSelect', 'multiSelect', 'text') (required), key: string (required), options: array }]
