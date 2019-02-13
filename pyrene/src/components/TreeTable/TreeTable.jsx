@@ -28,16 +28,16 @@ export default class TreeTable extends React.Component {
     super(props);
     this.rowRefs = [];
     this.state = {
-      expandedAll: false,
+      displayExpandAll: false,
       columns: TreeTableUtils.prepareColumnToggle(this.props.columns),
     };
   }
 
-  toggleAllRowsExpansion = async () => {
-    await this.rowRefs.forEach(row => row.setExpansion(!this.state.expandedAll));
+  toggleAllRowsExpansion = () => {
+    this.rowRefs.forEach(row => row.setExpansion(!this.state.displayExpandAll));
     this.setState((prevState) => {
       return {
-        expandedAll: !prevState.expandedAll,
+        displayExpandAll: !prevState.displayExpandAll,
       };
     });
   };
@@ -117,7 +117,7 @@ export default class TreeTable extends React.Component {
           }
           <TreeTableActionBar
             toggleAll={this.toggleAllRowsExpansion}
-            expandedAll={this.state.expandedAll}
+            displayExpandAll={this.state.displayExpandAll}
             columnToggleProps={columnToggleProps}
           />
           <TreeTableHeader columns={this.state.columns} />

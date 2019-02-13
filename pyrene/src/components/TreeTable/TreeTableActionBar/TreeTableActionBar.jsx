@@ -11,8 +11,8 @@ const TreeTableActionBar = props => (
     <ButtonBar
       leftButtonSectionElements={[
         <Button
-          label={props.expandedAll ? 'Collapse All' : 'Expand All'}
-          icon={props.expandedAll ? 'chevronUp' : 'chevronDown'}
+          label={props.displayExpandAll ? 'Collapse All' : 'Expand All'}
+          icon={props.displayExpandAll ? 'chevronUp' : 'chevronDown'}
           type={'action'}
           onClick={props.toggleAll}
         />,
@@ -39,7 +39,7 @@ TreeTableActionBar.propTypes = {
     onRestoreDefault: PropTypes.func,
     toggleColumns: PropTypes.bool,
   }).isRequired,
-  expandedAll: PropTypes.bool.isRequired,
+  displayExpandAll: PropTypes.bool.isRequired,
   toggleAll: PropTypes.func.isRequired,
 };
 
