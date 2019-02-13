@@ -5,6 +5,8 @@ import SingleSelect from '../SelectElements/SingleSelect/SingleSelect';
 
 import TimeRangeSelectionPropTypes from './TimeRangeSelectorPropTypes';
 
+const capitalizeFirstLetter = string => string && string[0].toUpperCase() + string.slice(1);
+
 const TimeRangeSelectionDropdown = (props) => {
   const {
     disabled,
@@ -12,7 +14,7 @@ const TimeRangeSelectionDropdown = (props) => {
     timeRange,
     onSelect,
   } = props;
-  const options = timeRanges.map(range => ({ value: range, label: range.toUpperCase() }));
+  const options = timeRanges.map(range => ({ value: range, label: capitalizeFirstLetter(range) }));
   return (
     <SingleSelect
       options={options}
