@@ -707,9 +707,11 @@ const treeTableColumns = [
 
 
 /**
- * The default/start props can be defined as either a prop object or a function which returns a prop object.
+ * The default/start props can be defined as an object.
+ * If dynamic state handling is required, a single prop can be defined as a function.
  * In the case of the function method, an object is provided as the first param with the shape of ({ state: Object, setState: Function }).
  * The setState method can be used to manipulate the component state object provided as the other parameter.
+ * TLDR: Works just like React state handling.
  */
 const startProps = {
   'arrowbutton': {},
