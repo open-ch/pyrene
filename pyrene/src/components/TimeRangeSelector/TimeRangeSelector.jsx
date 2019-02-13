@@ -78,9 +78,9 @@ export default class TimeRangeSelector extends React.Component {
     const type = getDateType(value);
 
     return (
-      <div>
-        <div styleName="timeRangeSelector">
-          <div styleName="timeRangeSelector--left">
+      <div styleName="timeRangeSelector">
+        <div styleName="timeRangeSelector--left">
+          <div styleName="timeRangeSelector__dropdown">
             <TimeRangeSelectionDropdown
               timeRanges={timeRanges}
               timeRange={type}
@@ -88,19 +88,19 @@ export default class TimeRangeSelector extends React.Component {
               disabled={isLoading}
             />
           </div>
-          <div styleName="timeRangeSelector--center">
-            <TimeRangeSelectionBar
-              value={value}
-              timeRange={type}
-              lowerBound={lowerBound}
-              upperBound={upperBound}
-              onChange={this._onNavigate}
-              disabled={isLoading}
-            />
-          </div>
-          <div styleName="timeRangeSelector--right">
-            {renderRightSection()}
-          </div>
+        </div>
+        <div styleName="timeRangeSelector--center">
+          <TimeRangeSelectionBar
+            value={value}
+            timeRange={type}
+            lowerBound={lowerBound}
+            upperBound={upperBound}
+            onChange={this._onNavigate}
+            disabled={isLoading}
+          />
+        </div>
+        <div styleName="timeRangeSelector--right">
+          {renderRightSection()}
         </div>
       </div>
     );

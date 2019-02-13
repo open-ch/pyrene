@@ -27,6 +27,10 @@
   justify-content: flex-start;
 }
 
+.timeRangeSelector__dropdown {
+  width: 91px;
+}
+
 .timeRangeSelector--right {
   justify-content: flex-end;
 }
