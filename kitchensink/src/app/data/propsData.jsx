@@ -722,20 +722,20 @@ const startProps = {
   'button': {
     label: 'Click Me',
   },
-  'checkbox': ({ state, setState}) => ({
+  'checkbox': {
     label: 'Click Me',
-    value: state.value,
-    onChange: value => setState({ value: value.target.value }),
-  }),
+    value: ({ state }) => state.value,
+    onChange: ({ setState }) => value => setState({ value: value.target.checked }),
+  },
   'collapsible': {
     defaultExpanded: true,
-    renderCallback: () => <ContentFiller width={500} height={300} />,
+    renderCallback: () => () => <ContentFiller width={500} height={300} />,
   },
   'container': {
     title: 'Show More',
     collapsible: true,
     defaultExpanded: true,
-    renderCallback: () => <ContentFiller width={800} height={300} />,
+    renderCallback: () => () => <ContentFiller width={800} height={300} />,
     adminAction: {
       label: 'admin',
       action: adminAction,
@@ -752,42 +752,42 @@ const startProps = {
     size: 'large',
   },
   'modal': {
-    renderCallback: () => <ContentFiller width={'100%'} height={600} />,
+    renderCallback: () => () => <ContentFiller width={'100%'} height={600} />,
     canNext: true,
     canPrevious: true,
     displayNavigationArrows: true,
     size: 'small',
     title: 'Modal',
     rightButtonBarElements: [{type: 'secondary', label: 'Cancel', action: () => null}, {type: 'primary', label: 'Apply', action: () => null}],
-    onClose: () => console.log('onClose Pressed'),
+    onClose: () => () => console.log('onClose Pressed'),
   },
-  'multi-select': ({ state, setState}) => ({
+  'multi-select': {
     title: 'Multi-Select',
     placeholder: 'Choose your favorite ice cream',
     helperLabel: 'Ice cream is delicious',
     defaultValues: [],
     options: testOptions,
-    onChange: value => setState({ value: value.target.value }),
-    value: state.value,
-  }),
+    onChange: ({ setState }) => value => setState({ value: value.target.value }),
+    value: ({ state }) => state.value,
+  },
   'popover': {
     displayPopover: true,
-    renderPopoverContent: () => <div style={{boxSizing: 'borderBox', padding: 24}}><ContentFiller height={200} width={400} /></div>,
+    renderPopoverContent: () => () => <div style={{boxSizing: 'borderBox', padding: 24}}><ContentFiller height={200} width={400} /></div>,
     children: <ContentFiller height={100} width={200} />
   },
-  'radiogroup': ({ state, setState}) => ({
+  'radiogroup': {
     options: [{label: 'Beer 🍺', value: 'beer'}, {label:'Coffee ☕️', value: 'coffee'}, {label:'Coffeebeer 🍹😎', value: 'coffeebeer'}],
-    onChange: value => setState({ value: value.target.value }),
-    value: state.value,
-  }),
-  'select': ({ state, setState}) => ({
+    onChange: ({ setState }) => value => setState({ value: value.target.value }),
+    value: ({ state }) => state.value,
+  },
+  'select': {
     title: 'Single-Select',
     placeholder: 'Choose your favorite ice cream',
     helperLabel: 'Ice cream is delicious',
     options: testOptions,
-    value: state.value,
-    onChange: value => setState({ value: value.target.value }),
-  }),
+    onChange: ({ setState }) => value => setState({ value: value.target.value }),
+    value: ({ state }) => state.value,
+  },
   'sharedialog': {
     position: 'top',
     align: 'start',
@@ -806,7 +806,7 @@ const startProps = {
     keyField: 'name',
     data: tableData,
     columns: tableColumns,
-    onRowDoubleClick: (rowInfo) => console.log(rowInfo),
+    onRowDoubleClick: () => (rowInfo) => console.log(rowInfo),
     actions: [{icon: 'search', label: 'Single', callback: () => console.log('single'), active: 'single'}, {icon: 'delete', label: 'Multi', callback: () => console.log('multi'), active: 'multi'}, {icon: 'info', label: 'Always', callback: () => console.log('always'), active: 'always'}],
     filters: [{label: 'first column', type: 'singleSelect', filterKey: 'testKey', options: testOptions}, {label: 'second column', type: 'multiSelect', filterKey: 'testKey2', options: testOptions}]
   },
@@ -821,29 +821,29 @@ const startProps = {
       { name: 'Tab 5', renderCallback: () => <ContentFiller height={200} width={848} label={'tab 5'} />, disabled: true },
     ],
   },
-  'textarea': ({ state, setState}) => ({
+  'textarea': {
     title: 'Label',
     placeholder: 'Placeholder Text',
     helperLabel: 'Helper text for instructions',
     width: 500,
     rows: 3,
     maxLength: 50,
-    value: state.value,
-    onChange: value => setState({ value: value.target.value }),
-  }),
-  'textfield': ({ state, setState}) => ({
+    value: ({ state }) => state.value,
+    onChange: ({ setState }) => value => setState({ value: value.target.value }),
+  },
+  'textfield': {
     title: 'Field Label',
     placeholder: 'Placeholder Text',
     helperLabel: 'Helper text for instructions',
     width: 500,
-    value: state.value,
-    onChange: value => setState({ value: value.target.value }),
-  }),
-  'timerangeselector': ({ state, setState}) => ({
-    onChange: value => setState({ value }),
-    value: state.value,
-    renderRightSection: () => <Button label={'Admin'} type={'admin'} onClick={adminAction} />,
-  }),
+    value: ({ state }) => state.value,
+    onChange: ({ setState }) => value => setState({ value: value.target.value }),
+  },
+  'timerangeselector': {
+    onChange: ({ setState }) => value => setState({ value }),
+    value: ({ state }) => state.value,
+    renderRightSection: () => () => <Button label={'Admin'} type={'admin'} onClick={adminAction} />,
+  },
   'tooltip': {
     label: 'Tooltip Label',
     preferredPosition: ['top', 'bottom'],
@@ -855,7 +855,7 @@ const startProps = {
     columns: treeTableColumns,
     data: treeTableData,
     title: 'Tree Table',
-    onRowDoubleClick: data => console.log(data),
+    onRowDoubleClick: () => data => console.log(data),
     filters: [{label: 'first column', type: 'singleSelect', filterKey: 'testKey', options: testOptions}, {label: 'second column', type: 'multiSelect', filterKey: 'testKey2', options: testOptions}]
  },
 };

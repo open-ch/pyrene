@@ -21,8 +21,7 @@ export default class ComponentEditor extends React.Component {
   };
 
   state = {
-    componentState: {},
-    componentProps: {...this.props.component.defaultProps },
+    componentProps: { ...this.props.component.defaultProps, ...this.props.startProps },
     pinned: false, //console change this back to true
     darkMode: false,
   };
@@ -70,31 +69,43 @@ export default class ComponentEditor extends React.Component {
     }));
   };
 
-  initField = (fieldName) => {
+  initField = mergedState => (fieldName) => {
     return ({
       name: fieldName,
-      value: this.state.componentProps[fieldName],
+      value: mergedState[fieldName],
       onChange: this.handleEditorChange,
+      disabled: this.isStartPropFunction(fieldName),
     });
   };
 
   setComponentState = (newState) => {
     this.setState((prevState) => ({
       ...prevState,
-      componentState: {
-        ...prevState.componentState,
+      componentProps: {
+        ...prevState.componentProps,
         ...newState,
       },
     }));
   };
 
+  isStartPropFunction = (key) => {
+    const { startProps } = this.props;
+    return startProps.hasOwnProperty(key) && typeof startProps[key] === "function";
+  };
+
   getComponentState = () => {
     const { startProps } = this.props;
-    const { componentState } = this.state;
-    if (typeof startProps === "function") {
-      return startProps({ state: componentState, setState: this.setComponentState });
+    const { componentProps } = this.state;
+    const componentState = { ...componentProps };
+    for (const key in startProps) {
+      if (startProps.hasOwnProperty(key)) {
+        const startProp = startProps[key];
+        if (typeof startProp === "function") {
+          componentState[key] = startProp({ state: componentProps, setState: this.setComponentState });
+        }
+      }
     }
-    return startProps;
+    return componentState;
   };
 
   getComponentName = (component) => {
@@ -102,27 +113,31 @@ export default class ComponentEditor extends React.Component {
   };
 
   render() {
-    const componentProps = {...this.state.componentProps, ...this.getComponentState()};
-    const displayedComponent = <this.props.component {...componentProps} />;
+    const { component: Component, startProps } = this.props;
+    const { pinned, darkMode } = this.state;
+    const mergedComponentProps = this.getComponentState();
+    const displayedComponent = <Component {...mergedComponentProps} />;
+    const componentName = this.getComponentName(Component);
+
     return (
       <div className={'componentPlayground'}>
-        {examplesData[this.getComponentName(this.props.component)] &&
+        {examplesData[componentName] &&
         <Paragraph title={'Examples'}>
-          <ExampleBox component={this.props.component} onExampleClick={this.handleExampleClick}/>
+          <ExampleBox component={Component} onExampleClick={this.handleExampleClick}/>
         </Paragraph>
         }
         <Paragraph title={'Props'}>
-          <div styleName={classNames('displayContainer', { pinned: this.state.pinned }, { darkMode: this.state.darkMode })}>
-            <div styleName={classNames('pin', { pinned: this.state.pinned })} onClick={() => this.handlePinClick()} />
-            <div styleName={classNames('sun', { darkMode: this.state.darkMode })} onClick={() =>this.handleSunClick()} />
+          <div styleName={classNames('displayContainer', { pinned }, { darkMode })}>
+            <div styleName={classNames('pin', { pinned })} onClick={() => this.handlePinClick()} />
+            <div styleName={classNames('sun', { darkMode })} onClick={() => this.handleSunClick()} />
             <div styleName={'componentDisplay'}>
-              {specialComponentHandlingData[this.getComponentName(this.props.component)] && specialComponentHandlingData[this.getComponentName(this.props.component)].needsTrigger ? <ParentButton component={displayedComponent} /> : displayedComponent}
+              {specialComponentHandlingData[componentName] && specialComponentHandlingData[componentName].needsTrigger ? <ParentButton component={displayedComponent} /> : displayedComponent}
             </div>
             <CodeBlock component={displayedComponent} displayComponentPinned={this.state.pinned} />
           </div>
           <DynamicPropTable
-            propDocumentation={this.props.component.__docgenInfo.props}
-            initField={this.initField}
+            propDocumentation={Component.__docgenInfo.props}
+            initField={this.initField(mergedComponentProps)}
           />
         </Paragraph>
       </div>
@@ -136,7 +151,7 @@ ComponentEditor.displayName = 'ComponentEditor';
 
 ComponentEditor.propTypes = {
   component: PropTypes.func.isRequired,
-  startProps: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
+  startProps: PropTypes.object,
 };
 
 ComponentEditor.defaultProps = {};
