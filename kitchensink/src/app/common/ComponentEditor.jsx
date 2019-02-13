@@ -11,30 +11,48 @@ import specialComponentHandlingData from '../data/specialComponentHandlingData';
 
 import ParentButton from './PageElements/ParentButton/ParentButton';
 
+const isObjectPropertyFunction = (object, key) => {
+  return object.hasOwnProperty(key) && typeof object[key] === "function";
+};
+
+/**
+ * We need to remove the dynamic props from the initial state so that they can be correctly registered later
+ * @param {*} startProps
+ */
+const removeFunctionsFromStartProps = (startProps) => {
+  const cleanStartProps = {};
+  for (const key in startProps) {
+    if (!isObjectPropertyFunction(startProps, key)) {
+      cleanStartProps[key] = startProps[key];
+    }
+  }
+  return cleanStartProps;
+};
+
 export default class ComponentEditor extends React.Component {
 
   handleComponentInteraction = (event) => {
     const newValue = this.getValueFromInput(event.target);
-    this.setState((prevState, props) => ({
+    this.setState((prevState) => ({
       componentProps: { ...prevState.componentProps, value: newValue },
     }));
   };
 
   state = {
-    componentProps: { ...this.props.component.defaultProps, ...this.props.startProps },
+    componentProps: { ...this.props.component.defaultProps, ...removeFunctionsFromStartProps(this.props.startProps) },
     pinned: false, //console change this back to true
     darkMode: false,
   };
 
 
   handlePinClick = () => {
-    this.setState((prevState, props) => ({
+    this.setState((prevState) => ({
       pinned: !prevState.pinned,
     }));
   };
 
   handleSunClick = () => {
-    this.setState((prevState, props) => ({
+    this.setState((prevState) => ({
       darkMode: !prevState.darkMode,
     }));
   };
@@ -64,7 +82,7 @@ export default class ComponentEditor extends React.Component {
     const newValue = this.getValueFromInput(event.target);
     const changedProp = { [inputName]: newValue };
 
-    this.setState((prevState, props) => ({
+    this.setState((prevState) => ({
       componentProps: { ...prevState.componentProps, ...changedProp },
     }));
   };
@@ -74,7 +92,7 @@ export default class ComponentEditor extends React.Component {
       name: fieldName,
       value: mergedState[fieldName],
       onChange: this.handleEditorChange,
-      disabled: this.isStartPropFunction(fieldName),
+      disabled: isObjectPropertyFunction(this.props.startProps, fieldName),
     });
   };
 
@@ -86,11 +104,6 @@ export default class ComponentEditor extends React.Component {
         ...newState,
       },
     }));
-  };
-
-  isStartPropFunction = (key) => {
-    const { startProps } = this.props;
-    return startProps.hasOwnProperty(key) && typeof startProps[key] === "function";
   };
 
   getComponentState = () => {
@@ -113,7 +126,7 @@ export default class ComponentEditor extends React.Component {
   };
 
   render() {
-    const { component: Component, startProps } = this.props;
+    const { component: Component } = this.props;
     const { pinned, darkMode } = this.state;
     const mergedComponentProps = this.getComponentState();
     const displayedComponent = <Component {...mergedComponentProps} />;
