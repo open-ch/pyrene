@@ -12,7 +12,7 @@ const TimeRangeSelectionDropdown = (props) => {
     timeRange,
     onSelect,
   } = props;
-  const options = timeRanges.map(range => ({ value: range, label: range }));
+  const options = timeRanges.map(range => ({ value: range, label: range.toUpperCase() }));
   return (
     <SingleSelect
       options={options}
