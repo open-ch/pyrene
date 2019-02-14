@@ -128,7 +128,4 @@
   /* ADMIN */
   --admin-fg: var(--red-500);
   --admin-bg: var(--red-050);
-
-  /* TEXT */
-  --main-text: #00152c;
 }
