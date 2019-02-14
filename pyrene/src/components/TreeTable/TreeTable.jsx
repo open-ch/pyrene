@@ -46,15 +46,14 @@ export default class TreeTable extends React.Component {
     this.rowRefs.push(row);
   };
 
-  generateRowsFromData = (data, columns, treeIndex, addRowRef) => data.map((rowData, index) => {
-    const newTreeIndex = `${treeIndex}.${index}`;
-    const rowKey = this.props.setUniqueRowKey(rowData, newTreeIndex);
+  generateRowsFromData = (data, columns, level, addRowRef) => data.map((rowData) => {
+    const rowKey = this.props.setUniqueRowKey(rowData);
     return (
       <TreeTableRow
         ref={addRowRef}
         data={rowData}
         parent={rowData.hasOwnProperty('children') ? rowData.children.length > 0 : false}
-        treeIndex={newTreeIndex}
+        level={level}
         columns={columns}
         key={rowKey || uniqid()}
         generateRowsFromData={this.generateRowsFromData}
@@ -122,7 +121,7 @@ export default class TreeTable extends React.Component {
           />
           <TreeTableHeader columns={this.state.columns} />
           <div styleName={'treeTableData'}>
-            {this.generateRowsFromData(this.props.data, this.state.columns, '0', this.addRowRef)}
+            {this.generateRowsFromData(this.props.data, this.state.columns, 0, this.addRowRef)}
           </div>
         </div>
       </div>
@@ -178,7 +177,7 @@ TreeTable.propTypes = {
    */
   onRowDoubleClick: PropTypes.func,
   /**
-   * Sets a function to get a unique key for each row. Params: (rowData, treeIndex)
+   * Sets a function to get a unique key for each row. Params: (rowData)
    */
   setUniqueRowKey: PropTypes.func,
   /**

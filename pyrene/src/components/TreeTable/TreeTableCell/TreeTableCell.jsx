@@ -51,5 +51,4 @@ TreeTableCell.propTypes = {
   parent: PropTypes.bool,
   sectionOpen: PropTypes.bool,
   style: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
-  treeIndex: PropTypes.string.isRequired,
 };

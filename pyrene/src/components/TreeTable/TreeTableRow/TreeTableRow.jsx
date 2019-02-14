@@ -60,7 +60,7 @@ export default class TreeTableRow extends React.PureComponent {
 
             let firstColumn = false;
             if (index === 0) {
-              styling.paddingLeft = ((this.props.treeIndex.split('.').length - 2) * 24) + 8;
+              styling.paddingLeft = (this.props.level * 24) + 8;
               firstColumn = true;
             }
 
@@ -75,7 +75,6 @@ export default class TreeTableRow extends React.PureComponent {
                 value={this.props.data[column.accessor]}
                 original={this.props.data}
                 onExpandClick={this.toggleRowExpansion}
-                treeIndex={this.props.treeIndex}
               />
             );
           })}
@@ -85,7 +84,7 @@ export default class TreeTableRow extends React.PureComponent {
         {/* Children rows are rendered here */}
 
         {this.props.parent && <div styleName={classNames('childrenRowsContainer', { display: this.state.isExpanded })}>
-          {this.props.generateRowsFromData(this.props.data.children, this.props.columns, this.props.treeIndex, this.addChildRowRef)}
+          {this.props.generateRowsFromData(this.props.data.children, this.props.columns, this.props.level + 1, this.addChildRowRef)}
         </div>}
       </div>
     );
@@ -110,6 +109,6 @@ TreeTableRow.propTypes = {
   onRowDoubleClick: PropTypes.func.isRequired,
 
   parent: PropTypes.bool,
-  treeIndex: PropTypes.string.isRequired,
+  level: PropTypes.number.isRequired,
 };
 
