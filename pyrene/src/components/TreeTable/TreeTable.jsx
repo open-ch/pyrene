@@ -34,7 +34,7 @@ export default class TreeTable extends React.Component {
   }
 
   toggleAllRowsExpansion = () => {
-    this.rowRefs.forEach(row => row.setExpansion(!this.state.displayExpandAll));
+    this.rowRefs.forEach(row => row.setAllRowsExpansion(!this.state.displayExpandAll));
     this.setState((prevState) => {
       return {
         displayExpandAll: !prevState.displayExpandAll,
@@ -46,12 +46,12 @@ export default class TreeTable extends React.Component {
     this.rowRefs.push(row);
   };
 
-  generateRowsFromData = (data, columns, treeIndex) => data.map((rowData, index) => {
+  generateRowsFromData = (data, columns, treeIndex, addRowRef) => data.map((rowData, index) => {
     const newTreeIndex = `${treeIndex}.${index}`;
     const rowKey = this.props.setUniqueRowKey(rowData, newTreeIndex);
     return (
       <TreeTableRow
-        ref={this.addRowRef}
+        ref={addRowRef}
         data={rowData}
         parent={rowData.hasOwnProperty('children') ? rowData.children.length > 0 : false}
         treeIndex={newTreeIndex}
@@ -122,7 +122,7 @@ export default class TreeTable extends React.Component {
           />
           <TreeTableHeader columns={this.state.columns} />
           <div styleName={'treeTableData'}>
-            {this.generateRowsFromData(this.props.data, this.state.columns, '0')}
+            {this.generateRowsFromData(this.props.data, this.state.columns, '0', this.addRowRef)}
           </div>
         </div>
       </div>

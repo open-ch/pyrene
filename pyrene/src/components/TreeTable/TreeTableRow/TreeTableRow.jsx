@@ -10,13 +10,19 @@ export default class TreeTableRow extends React.PureComponent {
 
   constructor(props) {
     super(props);
+    this.childRowRefs = [];
     this.state = {
       isExpanded: false,
     };
   }
 
-  setExpansion = (isExpanded) => {
+  addChildRowRef = (row) => {
+    this.childRowRefs.push(row);
+  };
+
+  setAllRowsExpansion = (isExpanded) => {
     if (this.props.parent) {
+      this.childRowRefs.forEach(row => row.setAllRowsExpansion(isExpanded));
       this.setState(() => ({
         isExpanded: isExpanded,
       }));
@@ -24,11 +30,9 @@ export default class TreeTableRow extends React.PureComponent {
   };
 
   toggleRowExpansion = () => {
-    if (this.props.parent) {
-      this.setState((prevState) => ({
-        isExpanded: !prevState.isExpanded
-      }));
-    }
+    this.setState((prevState) => ({
+      isExpanded: !prevState.isExpanded
+    }));
   };
 
   render() {
@@ -81,7 +85,7 @@ export default class TreeTableRow extends React.PureComponent {
         {/* Children rows are rendered here */}
 
         {this.props.parent && <div styleName={classNames('childrenRowsContainer', { display: this.state.isExpanded })}>
-          {this.props.generateRowsFromData(this.props.data.children, this.props.columns, this.props.treeIndex)}
+          {this.props.generateRowsFromData(this.props.data.children, this.props.columns, this.props.treeIndex, this.addChildRowRef)}
         </div>}
       </div>
     );
