@@ -4,10 +4,10 @@ import PropTypes from 'prop-types';
 import Stepper from '../Stepper/Stepper';
 import TimeRangeSelectionPropTypes from './TimeRangeSelectorPropTypes';
 import {
-  DateHelper,
   canNavigateBackward,
   canNavigateForward,
 } from './TimeRangeSelectorUtils';
+import DateHelper from './DateHelper';
 
 import './timeRangeSelector.css';
 
