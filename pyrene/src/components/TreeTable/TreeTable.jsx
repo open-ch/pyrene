@@ -11,7 +11,6 @@ import PROPCONSTANTS from './TreeTablePropTypes';
 import uniqid from 'uniqid';
 import Filter from '../Filter/Filter';
 import TreeTableUtils from './TreeTableUtils';
-import TableUtils from '../Table/TableUtils';
 import Loader from '../Loader/Loader';
 
 
@@ -25,77 +24,42 @@ import Loader from '../Loader/Loader';
  */
 export default class TreeTable extends React.Component {
 
-  state = {
-    expandedRows: this.props.defaultExpandedSection ? TreeTableUtils.expandAllParentSectionsFor(this.props.defaultExpandedSection) : [],
-    displayExpandAllAction: true,
-    columns: TreeTableUtils.prepareColumnToggle(this.props.columns),
-  };
+  constructor(props) {
+    super(props);
+    this.rowRefs = [];
+    this.state = {
+      displayExpandAll: false,
+      columns: TreeTableUtils.prepareColumnToggle(this.props.columns),
+    };
+  }
 
   toggleAllRowsExpansion = () => {
-    let tree = [];
-
-    if (this.state.displayExpandAllAction) {
-      tree = this.generateTreeStructureFromData(this.props.data, '0');
-    }
-
-    this.setState((prevState, props) => ({
-      expandedRows: tree,
-      displayExpandAllAction: !prevState.displayExpandAllAction,
-    }));
+    this.rowRefs.forEach(row => row.setAllRowsExpansion(!this.state.displayExpandAll));
+    this.setState((prevState) => {
+      return {
+        displayExpandAll: !prevState.displayExpandAll,
+      };
+    });
   };
 
-  handleOnExpandClick = (event, clickedRowIndex, isParent) => {
-    const clickedIndex = this.state.expandedRows.indexOf(clickedRowIndex);
-    let expandedRowsCopy = [...this.state.expandedRows];
-
-    if (!isParent) {
-      return null;
-    }
-
-    // Element is already expanded
-    if (clickedIndex > -1) {
-      // See if any of its children is expanded as well & collapse them
-      expandedRowsCopy = expandedRowsCopy.filter(item => !item.startsWith(expandedRowsCopy[clickedIndex]));
-    } else {
-      expandedRowsCopy.push(clickedRowIndex);
-    }
-
-    this.setState((prevState, props) => ({
-      expandedRows: expandedRowsCopy,
-    }));
-
+  addRowRef = (row) => {
+    this.rowRefs.push(row);
   };
 
-  generateRowsFromData = (data, columns, treeIndex, expandedRows) => data.map((rowData, index) => {
-    const newTreeIndex = `${treeIndex}.${index}`;
-    const rowKey = this.props.setUniqueRowKey(rowData, newTreeIndex);
+  generateRowsFromData = (data, columns, level, addRowRef) => data.map((rowData) => {
+    const rowKey = this.props.setUniqueRowKey(rowData);
     return (
       <TreeTableRow
+        ref={addRowRef}
         data={rowData}
         parent={rowData.hasOwnProperty('children') ? rowData.children.length > 0 : false}
-        treeIndex={newTreeIndex}
+        level={level}
         columns={columns}
         key={rowKey || uniqid()}
-        expandedRows={expandedRows}
         generateRowsFromData={this.generateRowsFromData}
-        onExpandClick={this.handleOnExpandClick}
         onRowDoubleClick={this.props.onRowDoubleClick}
       />);
   });
-
-  generateTreeStructureFromData = (data, treeIndex) => {
-    const result = [];
-    data.forEach((item, i) => {
-      if (item.hasOwnProperty('children')) {
-        if (item.children.length > 0) {
-          result.push(`${treeIndex}.${i}`);
-          const children = this.generateTreeStructureFromData(item.children, `${treeIndex}.${i}`);
-          result.push(...children);
-        }
-      }
-    });
-    return result;
-  };
 
   isColumnHidden = hidden => typeof hidden === 'undefined' || hidden !== true;
 
@@ -152,12 +116,12 @@ export default class TreeTable extends React.Component {
           }
           <TreeTableActionBar
             toggleAll={this.toggleAllRowsExpansion}
-            displayExpandAllAction={this.state.displayExpandAllAction}
+            displayExpandAll={this.state.displayExpandAll}
             columnToggleProps={columnToggleProps}
           />
           <TreeTableHeader columns={this.state.columns} />
           <div styleName={'treeTableData'}>
-            {this.generateRowsFromData(this.props.data, this.state.columns, '0', this.state.expandedRows)}
+            {this.generateRowsFromData(this.props.data, this.state.columns, 0, this.addRowRef)}
           </div>
         </div>
       </div>
@@ -173,7 +137,6 @@ TreeTable.defaultProps = {
   columns: [],
   filters: [],
   title: '',
-  defaultExpandedSection: '',
   loading: false,
   toggleColumns: true,
   onRowDoubleClick: () => null,
@@ -191,10 +154,6 @@ TreeTable.propTypes = {
    * Sets the Table data displayed in the rows. Type: JSON
    */
   data: PROPCONSTANTS.DATA,
-  /**
-   * Sets a section to expand when the component is mounted.
-   */
-  defaultExpandedSection: PropTypes.string,
   /**
    * Sets the available filters.
    * Type: [{ label: string (required), type: oneOf('singleSelect', 'multiSelect', 'text') (required), key: string (required), options: array }]
@@ -218,7 +177,7 @@ TreeTable.propTypes = {
    */
   onRowDoubleClick: PropTypes.func,
   /**
-   * Sets a function to get a unique key for each row. Params: (rowData, treeIndex)
+   * Sets a function to get a unique key for each row. Params: (rowData)
    */
   setUniqueRowKey: PropTypes.func,
   /**

@@ -42,14 +42,14 @@ export default class Modal extends React.Component {
 
   renderContent = () => (
     <Fragment>
-      <div key={'titleBar'} styleName={'titleBar'}>
+      <div styleName={'titleBar'}>
         {this.props.title}
         <div styleName={'topRightSection'}>
           {this.props.displayNavigationArrows && this.renderNavigationArrows()}
           <div styleName={'closeButton'} className={'pyreneIcon-delete'} onClick={this.props.onClose} />
         </div>
       </div>
-      <div key={'contentContainer'} styleName={classNames('contentContainer', { contentScrolling: this.props.contentScrolling })}>
+      <div styleName={classNames('contentContainer', { contentScrolling: this.props.contentScrolling })}>
         <div styleName={classNames('content', { contentPadding: this.props.contentPadding }, { contentScrolling: this.props.contentScrolling })}>
           {this.props.renderCallback()}
         </div>
