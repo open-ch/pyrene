@@ -11,13 +11,30 @@ import specialComponentHandlingData from '../data/specialComponentHandlingData';
 
 import ParentButton from './PageElements/ParentButton/ParentButton';
 
+/**
+ * Test whether the startProp matches any of following patters:
+ * stateProvider.state.value
+ * stateProvider.setState(value)
+ * @param {Function} startProp
+ * @returns {boolean}
+ */
+const isStatefulProperty = startProp => startProp.toString().match(/stateProvider\.(?:state|setState)/g);
+
 const isObjectPropertyFunction = (object, key) => {
-  return object.hasOwnProperty(key) && typeof object[key] === "function";
+  if (object && object.hasOwnProperty(key)) {
+    const startProp = object[key];
+    if (typeof startProp === "function") {
+      return isStatefulProperty(startProp);
+    }
+  }
+  return false;
 };
 
 /**
- * We need to remove the dynamic props from the initial state so that they can be correctly registered later
- * @param {*} startProps
+ * We need to remove the state-using function callback props from the initial state
+ * so that they can be correctly registered later and not mess up the trivial values
+ * @param {Object} startProps
+ * @returns {Object} cleanStartProps
  */
 const removeFunctionsFromStartProps = (startProps) => {
   const cleanStartProps = {};
@@ -111,11 +128,9 @@ export default class ComponentEditor extends React.Component {
     const { componentProps } = this.state;
     const componentState = { ...componentProps };
     for (const key in startProps) {
-      if (startProps.hasOwnProperty(key)) {
+      if (isObjectPropertyFunction(startProps, key)) {
         const startProp = startProps[key];
-        if (typeof startProp === "function") {
-          componentState[key] = startProp({ state: componentProps, setState: this.setComponentState });
-        }
+        componentState[key] = startProp({ state: componentProps, setState: this.setComponentState });
       }
     }
     return componentState;
