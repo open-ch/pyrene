@@ -35,7 +35,7 @@ export const getDateType = ({ month, day }) => {
  * @param {Object} value
  * @returns {dayjs} dayjs instance
  */
-const convertToDayJs = (value) => {
+const convertToInternalDayJs = (value) => {
   const newValue = { ...value };
   if (value.month !== undefined) {
     newValue.month = value.month - 1;
@@ -60,7 +60,7 @@ const convertToDayJs = (value) => {
  * @param {string} type
  * @returns {Object}
  */
-const convertToObject = (date, type) => ({
+const convertToExternalObject = (date, type) => ({
   year: date.year(),
   month: (type === DATE_TYPES.MONTH || type === DATE_TYPES.DAY) ? date.month() + 1 : undefined,
   day: type === DATE_TYPES.DAY ? date.date() : undefined,
@@ -73,8 +73,8 @@ const convertToObject = (date, type) => ({
  */
 export const handleDateChange = (value, change) => {
   const type = getDateType(value);
-  const date = convertToDayJs(value).add(change, type);
-  return convertToObject(date, type);
+  const date = convertToInternalDayJs(value).add(change, type);
+  return convertToExternalObject(date, type);
 };
 
 /**
@@ -107,12 +107,12 @@ export const handleTypeChange = ({ year, month, day }, newType) => {
  */
 export const getCurrentDate = () => {
   const date = dayjs();
-  return convertToObject(date, DATE_TYPES.DAY);
+  return convertToExternalObject(date, DATE_TYPES.DAY);
 };
 
 export const canNavigateForward = (value, upperBound, timeRange) => {
-  const upperBoundDate = convertToDayJs(upperBound);
-  const valueDate = convertToDayJs(value);
+  const upperBoundDate = convertToInternalDayJs(upperBound);
+  const valueDate = convertToInternalDayJs(value);
   switch (timeRange) {
     case DATE_TYPES.YEAR:
       return value.year < upperBound.year;
@@ -124,8 +124,8 @@ export const canNavigateForward = (value, upperBound, timeRange) => {
 };
 
 export const canNavigateBackward = (value, lowerBound, timeRange) => {
-  const lowerBoundDate = convertToDayJs(lowerBound);
-  const valueDate = convertToDayJs(value);
+  const lowerBoundDate = convertToInternalDayJs(lowerBound);
+  const valueDate = convertToInternalDayJs(value);
   switch (timeRange) {
     case DATE_TYPES.YEAR:
       return value.year > lowerBound.year;
