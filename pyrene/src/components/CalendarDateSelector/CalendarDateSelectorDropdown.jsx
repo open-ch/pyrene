@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import SingleSelect from '../SelectElements/SingleSelect/SingleSelect';
 
-import TimeRangeSelectionPropTypes from './TimeRangeSelectorPropTypes';
+import TimeRangeSelectionPropTypes from './CalendarDateSelectorPropTypes';
 
 const capitalizeFirstLetter = string => string && string[0].toUpperCase() + string.slice(1);
 

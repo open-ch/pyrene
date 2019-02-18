@@ -2,14 +2,14 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 import Stepper from '../Stepper/Stepper';
-import TimeRangeSelectionPropTypes from './TimeRangeSelectorPropTypes';
+import TimeRangeSelectionPropTypes from './CalendarDateSelectorPropTypes';
 import {
   canNavigateBackward,
   canNavigateForward,
-} from './TimeRangeSelectorUtils';
+} from './CalendarDateSelectorUtils';
 import DateHelper from './DateHelper';
 
-import './timeRangeSelector.css';
+import './calendarDateSelector.css';
 
 const TimeRangeSelectionBar = (props) => {
   const {

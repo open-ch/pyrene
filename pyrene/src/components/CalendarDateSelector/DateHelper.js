@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 
-import { DATE_TYPES, getDateType } from './TimeRangeSelectorUtils';
+import { DATE_TYPES, getDateType } from './CalendarDateSelectorUtils';
 
 export default class DateHelper {
 

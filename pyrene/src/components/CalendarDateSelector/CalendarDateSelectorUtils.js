@@ -10,6 +10,13 @@ export const DATE_TYPES = {
   YEAR,
 };
 
+/**
+ * Returns a string enum to indicate which type the object
+ * It does so by checking for existence of certain properties in the object
+ *
+ * @param {Object} param
+ * @returns {string}
+ */
 export const getDateType = ({ month, day }) => {
   if (!month && !day) {
     return DATE_TYPES.YEAR;
@@ -20,6 +27,14 @@ export const getDateType = ({ month, day }) => {
   return DATE_TYPES.DAY;
 };
 
+/**
+ * Converts our custom date object to a dayjs instance
+ * Because the momth of the internal object is 0-indexed and
+ * externally the dates are passed in as 1-indexed, we need to convert them
+ *
+ * @param {Object} value
+ * @returns {dayjs} dayjs instance
+ */
 const convertToDayJs = (value) => {
   const newValue = { ...value };
   if (value.month !== undefined) {
@@ -33,6 +48,18 @@ const convertToDayJs = (value) => {
   return dayjs().set('year', newValue.year).set('month', newValue.month).set('date', newValue.day);
 };
 
+/**
+ * Converts a dayjs instance to our custom date object format
+ * It is passed a date instance and the type of object which is expected to be returned
+ * 1. Year - { year }
+ * 2. Month - { year, month }
+ * 3. Day - { year, month, day }
+ * It also increases the month number by 1 so that it is 1-indexed
+ *
+ * @param {dayjs} date
+ * @param {string} type
+ * @returns {Object}
+ */
 const convertToObject = (date, type) => ({
   year: date.year(),
   month: (type === DATE_TYPES.MONTH || type === DATE_TYPES.DAY) ? date.month() + 1 : undefined,
@@ -49,6 +76,7 @@ export const handleDateChange = (value, change) => {
   const date = convertToDayJs(value).add(change, type);
   return convertToObject(date, type);
 };
+
 /**
  * Provides a new time range object based on the provided type
  * @param {*} value before change

@@ -37,13 +37,14 @@ import { default as TextField } from './components/FormElements/TextField/TextFi
 import { default as Tooltip } from './components/Tooltip/Tooltip';
 import { default as TreeTable } from './components/TreeTable/TreeTable';
 
-import { default as TimeRangeSelector } from './components/TimeRangeSelector/TimeRangeSelector';
+import { default as CalendarDateSelector } from './components/CalendarDateSelector/CalendarDateSelector';
 
 
 // Sort alphabetically to find stuff easily
 const Components = {
   Banner,
   Button,
+  CalendarDateSelector,
   Checkbox,
   Collapsible,
   Container,
@@ -62,14 +63,14 @@ const Components = {
   TabView,
   TextArea,
   TextField,
-  TimeRangeSelector,
   Tooltip,
-  TreeTable
+  TreeTable,
 };
 
 // Sort alphabetically to find stuff easily
 export { Banner };
 export { Button };
+export { CalendarDateSelector };
 export { Checkbox };
 export { Collapsible };
 export { Container };
@@ -88,7 +89,6 @@ export { Table };
 export { TabView };
 export { TextArea };
 export { TextField };
-export { TimeRangeSelector };
 export { Tooltip };
 export { TreeTable };
 

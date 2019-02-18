@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-import { DATE_TYPES } from './TimeRangeSelectorUtils';
+import { DATE_TYPES } from './CalendarDateSelectorUtils';
 
 export default {
   YEAR_MONTH_DAY: PropTypes.shape({

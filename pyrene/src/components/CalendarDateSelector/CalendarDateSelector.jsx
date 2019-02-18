@@ -1,31 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import TimeRangeSelectionBar from './TimeRangeSelectionBar';
-import TimeRangeSelectionDropdown from './TimeRangeSelectionDropdown';
-import TimeRangeSelectionPropTypes from './TimeRangeSelectorPropTypes';
+import CalendarDateSelectorBar from './CalendarDateSelectorBar';
+import CalendarDateSelectorDropdown from './CalendarDateSelectorDropdown';
+import CalendarDateSelectorPropTypes from './CalendarDateSelectorPropTypes';
 import {
   DATE_TYPES,
   getDateType,
   getCurrentDate,
   handleDateChange,
   handleTypeChange,
-} from './TimeRangeSelectorUtils';
+} from './CalendarDateSelectorUtils';
 
-import './timeRangeSelector.css';
+import './calendarDateSelector.css';
 
 /**
  * Component for selecting a timeRange and a range forwards and backwards.
  *
  * 'onChange({ year: number, month: number | undefined, day: number | undefined })' callback function can be registered via props, to handle range changes.
- * Timestamps are always in MC time (UTC+1 or UTC+2)
  *
  * Default time ranges are defined as follows:
- * 1 day
- * 1 month
- * 1 year
+ * 1. Year - { year }
+ * 2. Month - { year, month }
+ * 3. Day - { year, month, day }
  */
-export default class TimeRangeSelector extends React.Component {
+export default class CalendarDateSelector extends React.Component {
 
   static DEFAULT_TIME_RANGES = [
     DATE_TYPES.DAY,
@@ -41,9 +40,9 @@ export default class TimeRangeSelector extends React.Component {
 
   static defaultProps = {
     isLoading: false,
-    lowerBound: TimeRangeSelector.DEFAULT_LOWER_BOUND,
+    lowerBound: CalendarDateSelector.DEFAULT_LOWER_BOUND,
     upperBound: getCurrentDate(),
-    timeRanges: TimeRangeSelector.DEFAULT_TIME_RANGES,
+    timeRanges: CalendarDateSelector.DEFAULT_TIME_RANGES,
     // get current date, but set day as undefined
     value: {
       ...getCurrentDate(),
@@ -81,7 +80,7 @@ export default class TimeRangeSelector extends React.Component {
       <div styleName="timeRangeSelector">
         <div styleName="timeRangeSelector--left">
           <div styleName="timeRangeSelector__dropdown">
-            <TimeRangeSelectionDropdown
+            <CalendarDateSelectorDropdown
               timeRanges={timeRanges}
               timeRange={type}
               onSelect={this._onSelect}
@@ -90,7 +89,7 @@ export default class TimeRangeSelector extends React.Component {
           </div>
         </div>
         <div styleName="timeRangeSelector--center">
-          <TimeRangeSelectionBar
+          <CalendarDateSelectorBar
             value={value}
             timeRange={type}
             lowerBound={lowerBound}
@@ -108,14 +107,14 @@ export default class TimeRangeSelector extends React.Component {
 
 }
 
-TimeRangeSelector.displayName = 'TimeRangeSelector';
+CalendarDateSelector.displayName = 'CalendarDateSelector';
 
-TimeRangeSelector.propTypes = {
+CalendarDateSelector.propTypes = {
   isLoading: PropTypes.bool,
-  lowerBound: TimeRangeSelectionPropTypes.YEAR_MONTH_DAY,
+  lowerBound: CalendarDateSelectorPropTypes.YEAR_MONTH_DAY,
   onChange: PropTypes.func,
   renderRightSection: PropTypes.func,
-  timeRanges: TimeRangeSelectionPropTypes.TIMERANGE_OPTIONS,
-  upperBound: TimeRangeSelectionPropTypes.YEAR_MONTH_DAY,
-  value: TimeRangeSelectionPropTypes.YEAR_MONTH_DAY,
+  timeRanges: CalendarDateSelectorPropTypes.TIMERANGE_OPTIONS,
+  upperBound: CalendarDateSelectorPropTypes.YEAR_MONTH_DAY,
+  value: CalendarDateSelectorPropTypes.YEAR_MONTH_DAY,
 };
