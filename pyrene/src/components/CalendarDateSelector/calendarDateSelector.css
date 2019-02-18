@@ -3,10 +3,7 @@
 .timeRangeSelector {
   display: flex;
   justify-content: space-between;
-  padding: 16px 16px 16px 16px;
-  margin: -16px -16px 0 -16px;
   font-size: 14px;
-  border-bottom: 1px solid var(--neutral-030);
 }
 
 .timeRangeSelector--center {
