@@ -5,6 +5,7 @@ import Popover from './Popover';
 const props = {
   children: <div>Children</div>,
   renderPopoverContent: () => <div>Content</div>,
+  displayPopover: true,
 };
 
 describe('<Popover />', () => {
