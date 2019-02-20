@@ -1,25 +1,41 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import uniqid from 'uniqid';
 
 import './treeTableRow.css';
 import TreeTableCell from '../TreeTableCell/TreeTableCell';
 import PROPCONSTANTS from '../TreeTablePropTypes';
 
-export default class TreeTableRow extends React.Component {
+export default class TreeTableRow extends React.PureComponent {
 
-  state = {
-    displayChildren: false,
+  constructor(props) {
+    super(props);
+    this.childRowRefs = [];
+    this.state = {
+      isExpanded: false,
+    };
+  }
+
+  addChildRowRef = (row) => {
+    this.childRowRefs.push(row);
   };
 
-  manageRowExpansion = () => {
-    const { treeIndex, expandedRows } = this.props;
-    return expandedRows.some(rowIndex => rowIndex === treeIndex || rowIndex.startsWith(`${treeIndex}.`));
+  setAllRowsExpansion = (isExpanded) => {
+    if (this.props.parent) {
+      this.childRowRefs.forEach(row => row.setAllRowsExpansion(isExpanded));
+      this.setState(() => ({
+        isExpanded: isExpanded,
+      }));
+    }
+  };
+
+  toggleRowExpansion = () => {
+    this.setState((prevState) => ({
+      isExpanded: !prevState.isExpanded
+    }));
   };
 
   render() {
-    const displaySection = this.manageRowExpansion();
     return (
       <div styleName={classNames('treeTableRow', { parent: this.props.parent })}>
 
@@ -44,22 +60,21 @@ export default class TreeTableRow extends React.Component {
 
             let firstColumn = false;
             if (index === 0) {
-              styling.paddingLeft = ((this.props.treeIndex.split('.').length - 2) * 24) + 8;
+              styling.paddingLeft = (this.props.level * 24) + 8;
               firstColumn = true;
             }
 
             return (
               <TreeTableCell
                 style={{ ...styling, ...column.cellStyle }}
-                key={uniqid()}
+                key={column.header}
                 columnProps={column}
                 firstColumn={firstColumn}
                 parent={this.props.parent}
-                sectionOpen={displaySection}
+                sectionOpen={this.state.isExpanded}
                 value={this.props.data[column.accessor]}
                 original={this.props.data}
-                onExpandClick={this.props.onExpandClick}
-                treeIndex={this.props.treeIndex}
+                onExpandClick={this.toggleRowExpansion}
               />
             );
           })}
@@ -68,8 +83,8 @@ export default class TreeTableRow extends React.Component {
 
         {/* Children rows are rendered here */}
 
-        {this.props.parent && <div styleName={classNames('childrenRowsContainer', { display: displaySection })}>
-          {this.props.generateRowsFromData(this.props.data.children, this.props.columns, this.props.treeIndex, this.props.expandedRows)}
+        {this.props.parent && <div styleName={classNames('childrenRowsContainer', { display: this.state.isExpanded })}>
+          {this.props.generateRowsFromData(this.props.data.children, this.props.columns, this.props.level + 1, this.addChildRowRef)}
         </div>}
       </div>
     );
@@ -83,20 +98,17 @@ TreeTableRow.defaultProps = {
   columns: [],
   data: [],
   parent: false,
-  displayChildren: false,
   displayAllChildren: false,
 };
 
 TreeTableRow.propTypes = {
   columns: PROPCONSTANTS.COLUMNS,
   data: PROPCONSTANTS.DATAOBJECT,
-  expandedRows: PropTypes.arrayOf(PropTypes.string).isRequired,
   generateRowsFromData: PropTypes.func.isRequired,
 
   onRowDoubleClick: PropTypes.func.isRequired,
-  onExpandClick: PropTypes.func.isRequired,
 
   parent: PropTypes.bool,
-  treeIndex: PropTypes.string.isRequired,
+  level: PropTypes.number.isRequired,
 };
 
