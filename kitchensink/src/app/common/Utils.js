@@ -21,4 +21,39 @@ export default class Utils {
     return typeof component !== 'string' && !component.prototype.render;
   }
 
+  /**
+   * Test whether the startProp matches any of following patters:
+   * stateProvider.state.value
+   * stateProvider.setState(value)
+   * @param {Function} startProp
+   * @returns {boolean}
+   */
+  static isStatefulProperty = startProp => startProp.toString().match(/stateProvider\.(?:state|setState)/g);
+
+  static isObjectPropertyFunction(object, key) {
+    if (object && object.hasOwnProperty(key)) {
+      const startProp = object[key];
+      if (typeof startProp === "function") {
+        return Utils.isStatefulProperty(startProp);
+      }
+    }
+    return false;
+  };
+
+  /**
+   * We need to remove the state-using function callback props from the initial state
+   * so that they can be correctly registered later and not mess up the trivial values
+   * @param {Object} startProps
+   * @returns {Object} cleanStartProps
+   */
+  static removeStateProviderPropsFromStartProps(startProps) {
+    const cleanStartProps = {};
+    for (const key in startProps) {
+      if (!Utils.isObjectPropertyFunction(startProps, key)) {
+        cleanStartProps[key] = startProps[key];
+      }
+    }
+    return cleanStartProps;
+  };
+
 }

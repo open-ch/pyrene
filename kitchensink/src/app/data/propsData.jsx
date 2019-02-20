@@ -1,6 +1,8 @@
 /* eslint-disable */
 import React from 'react';
 
+import { Button } from 'pyrene';
+
 const ContentFiller = (props) => (
   <div className={'unSelectable'} style={{ width: props.width,
     height: props.height,
@@ -703,6 +705,16 @@ const treeTableColumns = [
   },
 ];
 
+
+/**
+ * The default/start props can be defined as an object.
+ * If dynamic state handling is required, a single prop can be defined as a function.
+ * In the case of the function method, an object is provided as the first param with the shape of ({ state: Object, setState: Function }).
+ * The setState method can be used to manipulate the component state object provided as the other parameter.
+ * TLDR: Works just like React state handling.
+ * 
+ * PLEASE NOTE: To use the state, the callback method must be provided with the variable name as `stateProvider` to have it registered correctly.
+ */
 const startProps = {
   'arrowbutton': {},
   'banner': {
@@ -716,6 +728,8 @@ const startProps = {
   },
   'checkbox': {
     label: 'Click Me',
+    value: stateProvider => stateProvider.state.value,
+    onChange: stateProvider => value => stateProvider.setState({ value: value.target.checked }),
   },
   'collapsible': {
     defaultExpanded: true,
@@ -757,6 +771,8 @@ const startProps = {
     helperLabel: 'Ice cream is delicious',
     defaultValues: [],
     options: testOptions,
+    onChange: stateProvider => value => stateProvider.setState({ value: value.target.value }),
+    value: stateProvider => stateProvider.state.value,
   },
   'popover': {
     displayPopover: true,
@@ -765,13 +781,16 @@ const startProps = {
   },
   'radiogroup': {
     options: [{label: 'Beer 🍺', value: 'beer'}, {label:'Coffee ☕️', value: 'coffee'}, {label:'Coffeebeer 🍹😎', value: 'coffeebeer'}],
-    value: 'coffeebeer',
+    onChange: stateProvider => value => stateProvider.setState({ value: value.target.value }),
+    value: stateProvider => stateProvider.state.value,
   },
   'select': {
     title: 'Single-Select',
     placeholder: 'Choose your favorite ice cream',
     helperLabel: 'Ice cream is delicious',
     options: testOptions,
+    onChange: stateProvider => value => stateProvider.setState({ value: value.target.value }),
+    value: stateProvider => stateProvider.state.value,
   },
   'sharedialog': {
     position: 'top',
@@ -791,7 +810,7 @@ const startProps = {
     keyField: 'name',
     data: tableData,
     columns: tableColumns,
-    onRowDoubleClick: (rowInfo) => console.log(rowInfo),
+    onRowDoubleClick: rowInfo => console.log(rowInfo),
     actions: [{icon: 'search', label: 'Single', callback: () => console.log('single'), active: 'single'}, {icon: 'delete', label: 'Multi', callback: () => console.log('multi'), active: 'multi'}, {icon: 'info', label: 'Always', callback: () => console.log('always'), active: 'always'}],
     filters: [{label: 'first column', type: 'singleSelect', filterKey: 'testKey', options: testOptions}, {label: 'second column', type: 'multiSelect', filterKey: 'testKey2', options: testOptions}]
   },
@@ -813,12 +832,21 @@ const startProps = {
     width: 500,
     rows: 3,
     maxLength: 50,
+    value: stateProvider => stateProvider.state.value,
+    onChange: stateProvider => value => stateProvider.setState({ value: value.target.value }),
   },
   'textfield': {
     title: 'Field Label',
     placeholder: 'Placeholder Text',
     helperLabel: 'Helper text for instructions',
     width: 500,
+    value: stateProvider => stateProvider.state.value,
+    onChange: stateProvider => value => stateProvider.setState({ value: value.target.value }),
+  },
+  'calendardateselector': {
+    onChange: stateProvider => value => stateProvider.setState({ value }),
+    value: stateProvider => stateProvider.state.value,
+    renderRightSection: () => <Button label={'Admin'} type={'admin'} onClick={adminAction} />,
   },
   'tooltip': {
     label: 'Tooltip Label',

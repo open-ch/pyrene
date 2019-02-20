@@ -8,36 +8,34 @@ import Paragraph from './PageElements/Paragraph/Paragraph';
 import ExampleBox from './PageElements/ExampleBox/ExampleBox';
 import examplesData from '../data/examplesData';
 import specialComponentHandlingData from '../data/specialComponentHandlingData';
+import Utils from './Utils';
 
 import ParentButton from './PageElements/ParentButton/ParentButton';
-
 
 export default class ComponentEditor extends React.Component {
 
   handleComponentInteraction = (event) => {
     const newValue = this.getValueFromInput(event.target);
-    this.setState((prevState, props) => ({
+    this.setState((prevState) => ({
       componentProps: { ...prevState.componentProps, value: newValue },
     }));
   };
 
   state = {
-    component: this.props.component,
-    componentProps: {...this.props.component.defaultProps, ...this.props.startProps, onChange: this.handleComponentInteraction },
-
+    componentProps: { ...this.props.component.defaultProps, ...Utils.removeStateProviderPropsFromStartProps(this.props.startProps) },
     pinned: false, //console change this back to true
     darkMode: false,
   };
 
 
   handlePinClick = () => {
-    this.setState((prevState, props) => ({
+    this.setState((prevState) => ({
       pinned: !prevState.pinned,
     }));
   };
 
   handleSunClick = () => {
-    this.setState((prevState, props) => ({
+    this.setState((prevState) => ({
       darkMode: !prevState.darkMode,
     }));
   };
@@ -67,17 +65,41 @@ export default class ComponentEditor extends React.Component {
     const newValue = this.getValueFromInput(event.target);
     const changedProp = { [inputName]: newValue };
 
-    this.setState((prevState, props) => ({
+    this.setState((prevState) => ({
       componentProps: { ...prevState.componentProps, ...changedProp },
     }));
   };
 
-  initField = (fieldName) => {
+  initField = mergedState => (fieldName) => {
     return ({
       name: fieldName,
-      value: this.state.componentProps[fieldName],
+      value: mergedState[fieldName],
       onChange: this.handleEditorChange,
+      disabled: Utils.isObjectPropertyFunction(this.props.startProps, fieldName),
     });
+  };
+
+  setComponentState = (newState) => {
+    this.setState((prevState) => ({
+      ...prevState,
+      componentProps: {
+        ...prevState.componentProps,
+        ...newState,
+      },
+    }));
+  };
+
+  getComponentState = () => {
+    const { startProps } = this.props;
+    const { componentProps } = this.state;
+    const componentState = { ...componentProps };
+    for (const key in startProps) {
+      if (Utils.isObjectPropertyFunction(startProps, key)) {
+        const startProp = startProps[key];
+        componentState[key] = startProp({ state: componentProps, setState: this.setComponentState });
+      }
+    }
+    return componentState;
   };
 
   getComponentName = (component) => {
@@ -85,26 +107,31 @@ export default class ComponentEditor extends React.Component {
   };
 
   render() {
-    const displayedComponent = <this.props.component {...this.state.componentProps} />;
+    const { component: Component } = this.props;
+    const { pinned, darkMode } = this.state;
+    const mergedComponentProps = this.getComponentState();
+    const displayedComponent = <Component {...mergedComponentProps} />;
+    const componentName = this.getComponentName(Component);
+
     return (
       <div className={'componentPlayground'}>
-        {examplesData[this.getComponentName(this.props.component)] &&
+        {examplesData[componentName] &&
         <Paragraph title={'Examples'}>
-          <ExampleBox component={this.props.component} onExampleClick={this.handleExampleClick}/>
+          <ExampleBox component={Component} onExampleClick={this.handleExampleClick}/>
         </Paragraph>
         }
         <Paragraph title={'Props'}>
-          <div styleName={classNames('displayContainer', { pinned: this.state.pinned }, { darkMode: this.state.darkMode })}>
-            <div styleName={classNames('pin', { pinned: this.state.pinned })} onClick={() => this.handlePinClick()} />
-            <div styleName={classNames('sun', { darkMode: this.state.darkMode })} onClick={() =>this.handleSunClick()} />
+          <div styleName={classNames('displayContainer', { pinned }, { darkMode })}>
+            <div styleName={classNames('pin', { pinned })} onClick={() => this.handlePinClick()} />
+            <div styleName={classNames('sun', { darkMode })} onClick={() => this.handleSunClick()} />
             <div styleName={'componentDisplay'}>
-              {specialComponentHandlingData[this.getComponentName(this.props.component)] && specialComponentHandlingData[this.getComponentName(this.props.component)].needsTrigger ? <ParentButton component={displayedComponent} /> : displayedComponent}
+              {specialComponentHandlingData[componentName] && specialComponentHandlingData[componentName].needsTrigger ? <ParentButton component={displayedComponent} /> : displayedComponent}
             </div>
             <CodeBlock component={displayedComponent} displayComponentPinned={this.state.pinned} />
           </div>
           <DynamicPropTable
-            propDocumentation={this.props.component.__docgenInfo.props}
-            initField={this.initField}
+            propDocumentation={Component.__docgenInfo.props}
+            initField={this.initField(mergedComponentProps)}
           />
         </Paragraph>
       </div>
@@ -118,7 +145,7 @@ ComponentEditor.displayName = 'ComponentEditor';
 
 ComponentEditor.propTypes = {
   component: PropTypes.func.isRequired,
-  startProps: PropTypes.objectOf(PropTypes.any).isRequired,
+  startProps: PropTypes.object,
 };
 
 ComponentEditor.defaultProps = {};
