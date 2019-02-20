@@ -1,0 +1,42 @@
+@import "../../styles/colors.css";
+
+.timeRangeSelector {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+}
+
+.timeRangeSelector--center {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 358px;
+}
+
+.timeRangeSelector--left,
+.timeRangeSelector--right {
+  display: flex;
+  align-items: center;
+  width: 250px;
+}
+
+.timeRangeSelector--left {
+  justify-content: flex-start;
+}
+
+.timeRangeSelector__dropdown {
+  width: 91px;
+}
+
+.timeRangeSelector--right {
+  justify-content: flex-end;
+}
+
+.timeRangeSelector--timerange-text {
+  height: 16px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-align: center;
+  color: var(--text);
+}
