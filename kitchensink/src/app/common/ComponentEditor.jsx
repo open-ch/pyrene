@@ -8,43 +8,9 @@ import Paragraph from './PageElements/Paragraph/Paragraph';
 import ExampleBox from './PageElements/ExampleBox/ExampleBox';
 import examplesData from '../data/examplesData';
 import specialComponentHandlingData from '../data/specialComponentHandlingData';
+import Utils from './Utils';
 
 import ParentButton from './PageElements/ParentButton/ParentButton';
-
-/**
- * Test whether the startProp matches any of following patters:
- * stateProvider.state.value
- * stateProvider.setState(value)
- * @param {Function} startProp
- * @returns {boolean}
- */
-const isStatefulProperty = startProp => startProp.toString().match(/stateProvider\.(?:state|setState)/g);
-
-const isObjectPropertyFunction = (object, key) => {
-  if (object && object.hasOwnProperty(key)) {
-    const startProp = object[key];
-    if (typeof startProp === "function") {
-      return isStatefulProperty(startProp);
-    }
-  }
-  return false;
-};
-
-/**
- * We need to remove the state-using function callback props from the initial state
- * so that they can be correctly registered later and not mess up the trivial values
- * @param {Object} startProps
- * @returns {Object} cleanStartProps
- */
-const removeFunctionsFromStartProps = (startProps) => {
-  const cleanStartProps = {};
-  for (const key in startProps) {
-    if (!isObjectPropertyFunction(startProps, key)) {
-      cleanStartProps[key] = startProps[key];
-    }
-  }
-  return cleanStartProps;
-};
 
 export default class ComponentEditor extends React.Component {
 
@@ -56,7 +22,7 @@ export default class ComponentEditor extends React.Component {
   };
 
   state = {
-    componentProps: { ...this.props.component.defaultProps, ...removeFunctionsFromStartProps(this.props.startProps) },
+    componentProps: { ...this.props.component.defaultProps, ...Utils.removeStateProviderPropsFromStartProps(this.props.startProps) },
     pinned: false, //console change this back to true
     darkMode: false,
   };
@@ -109,7 +75,7 @@ export default class ComponentEditor extends React.Component {
       name: fieldName,
       value: mergedState[fieldName],
       onChange: this.handleEditorChange,
-      disabled: isObjectPropertyFunction(this.props.startProps, fieldName),
+      disabled: Utils.isObjectPropertyFunction(this.props.startProps, fieldName),
     });
   };
 
@@ -128,7 +94,7 @@ export default class ComponentEditor extends React.Component {
     const { componentProps } = this.state;
     const componentState = { ...componentProps };
     for (const key in startProps) {
-      if (isObjectPropertyFunction(startProps, key)) {
+      if (Utils.isObjectPropertyFunction(startProps, key)) {
         const startProp = startProps[key];
         componentState[key] = startProp({ state: componentProps, setState: this.setComponentState });
       }
