@@ -52,16 +52,27 @@ export default class CalendarDateSelector extends React.Component {
     renderRightSection: () => {},
   };
 
+  /**
+   * Return whether the month or year changed
+   * @param newDate
+   * @return {boolean} if month or year changed
+   * @private
+   */
+  _didMonthOrYearChange = (newDate) => {
+    const { value } = this.props;
+    return value.month !== newDate.month || value.year !== newDate.year;
+  };
+
   _onNavigate = (value, direction) => {
     const { onChange } = this.props;
     const newDate = handleDateChange(value, direction);
-    onChange(newDate);
+    onChange(newDate, this._didMonthOrYearChange(newDate));
   };
 
   _onSelect = (timeRange) => {
     const { onChange, value } = this.props;
     const newDate = handleTypeChange(value, timeRange);
-    onChange(newDate);
+    onChange(newDate, this._didMonthOrYearChange(newDate));
   };
 
   render() {
