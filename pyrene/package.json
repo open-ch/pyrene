@@ -69,7 +69,7 @@
     "regenerator-runtime": "^0.13.1",
     "release-it": "^10.0.7",
     "style-loader": "^0.23.1",
-    "uglifyjs-webpack-plugin": "^2.1.1",
+    "terser-webpack-plugin": "^1.2.2",
     "url-loader": "^1.0.1",
     "webpack": "^4.1.1",
     "webpack-cli": "^3.2.3"

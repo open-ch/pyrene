@@ -2,7 +2,7 @@ import path from 'path';
 import CleanWebpackPlugin from 'clean-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin';
-import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
+import TerserPlugin from 'terser-webpack-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 
 const production = process.env.NODE_ENV === 'production';
@@ -47,7 +47,7 @@ const config = {
       },
       {
         test: /\.svg$/,
-        loader: 'raw-loader'
+        loader: 'raw-loader',
       },
       {
         test: /\.woff$/,
@@ -62,11 +62,11 @@ const config = {
     new OptimizeCSSAssetsPlugin({}),
     new CopyWebpackPlugin([
       { from: 'src/styles/colors.css', to: OUTPUT_PATH, flatten: true },
-    ])
+    ]),
   ],
   optimization: {
     minimizer: [
-      new UglifyJsPlugin({
+      new TerserPlugin({
         cache: true,
         parallel: true,
         sourceMap: !production,
