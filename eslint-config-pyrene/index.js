@@ -9,7 +9,8 @@ module.exports = {
   },
 
   "globals": {
-    "shallow": "true"
+    "shallow": "true",
+    "mount": "true",
   },
 
   "parserOptions": {
