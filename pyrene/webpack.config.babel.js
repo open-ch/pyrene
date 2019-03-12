@@ -19,6 +19,18 @@ const config = {
     rules: [
       {
         test: /\.jsx?$/,
+        include: production ? /\/components\/.*/ : /^$/,
+        enforce: 'pre',
+        use: {
+          loader: 'webpack-strip-block',
+          options: {
+            start: 'kitchensink-examples:start',
+            end: 'kitchensink-examples:end',
+          },
+        },
+      },
+      {
+        test: /\.jsx?$/,
         include: path.resolve(__dirname, 'src'),
         use: {
           loader: 'babel-loader',

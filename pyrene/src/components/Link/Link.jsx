@@ -58,4 +58,23 @@ Link.propTypes = {
   type: PropTypes.oneOf(['standalone', 'inline']),
 };
 
+/* kitchensink-examples:start */
+
+Link.exampleProps = {
+  label: 'Click Me',
+  path: '#',
+};
+
+Link.examples = [
+  {
+    props: { label: 'standalone', path: '#' },
+    description: '',
+  }, {
+    props: { type: 'inline', label: 'inline link', path: '#' },
+    description: '',
+  },
+];
+
+/* kitchensink-examples:end */
+
 export default Link;

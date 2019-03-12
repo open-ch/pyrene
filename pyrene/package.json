@@ -72,7 +72,8 @@
     "terser-webpack-plugin": "^1.2.2",
     "url-loader": "^1.0.1",
     "webpack": "^4.1.1",
-    "webpack-cli": "^3.2.3"
+    "webpack-cli": "^3.2.3",
+    "webpack-strip-block": "^0.2.0"
   },
   "dependencies": {
     "classnames": "^2.2.5",
