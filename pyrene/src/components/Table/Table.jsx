@@ -32,127 +32,6 @@ export default class Table extends React.Component {
     columns: TableUtils.mapColumnProps(this.props.columns),
   };
 
-  toggleSelection = (key, shift, row) => {
-    // start off with the existing state
-    let selection = [...this.state.selection];
-    const enabled = this.props.rowSelectableCallback(row);
-
-    if (enabled) {
-      if (this.props.multiSelect) {
-        const keyIndex = selection.indexOf(key);
-        // check to see if the key exists
-        if (keyIndex >= 0) {
-          selection = selection.filter(selectedKey => selectedKey !== key);
-        } else {
-          // it does not exist so add it
-          selection.push(key);
-        }
-      } else {
-        selection = [key];
-      }
-    }
-
-    // if the current selection array has the same length as the pageSize then all the visible elements have to be selected
-    const isWholePageSelected = selection.length === this.checkboxTable.getWrappedInstance().getResolvedState().pageSize;
-    const areAllOptionsSelected = selection.length === this.props.data.length;
-
-    this.setState((prevState, props) => ({
-      selection: selection,
-      selectAll: isWholePageSelected || areAllOptionsSelected,
-    }));
-  };
-
-  singleRowSelection = (key, row) => {
-    const enabled = this.props.rowSelectableCallback(row);
-    if (enabled) {
-      this.setState((prevState, props) => ({
-        selection: [key],
-        selectAll: false,
-      }));
-    }
-  };
-
-  toggleAll = () => {
-    // Only selects what is visible to the user (page size matters)
-    const selectAll = !this.state.selectAll;
-    const selection = [];
-
-    if (selectAll) {
-      // we need to get at the internals of ReactTable
-      const resolvedState = this.checkboxTable.getWrappedInstance().getResolvedState();
-      // the 'sortedData' property contains the currently accessible records based on the filter and sort
-
-      const currentPageSize = resolvedState.pageSize;
-      const currentPage = resolvedState.page;
-
-      const currentRecords = resolvedState.sortedData.slice(currentPage * currentPageSize, currentPage * currentPageSize + currentPageSize);
-
-      // we just push all the IDs onto the selection array
-      currentRecords.forEach((item) => {
-        const enabled = this.props.rowSelectableCallback(item._original);
-        if (enabled) {
-          selection.push(item._original[this.props.keyField]);
-        }
-      });
-    }
-
-    this.setState((prevState, props) => ({
-      selection: selection,
-      selectAll: selectAll,
-    }));
-  };
-
-
-  isSelected = key => this.state.selection.includes(key);
-
-  resetSelection = () => {
-    this.setState((prevState, props) => ({
-      selection: [],
-      selectAll: false,
-    }));
-  };
-
-  handleActionAvailability = (actionType) => {
-    // enable actions based on selection length and actionType
-    if (actionType === 'always') {
-      return true;
-    } else if (this.state.selection.length === 1 && actionType === 'single') {
-      return true;
-    } else if (this.state.selection.length >= 1 && actionType === 'multi') {
-      return true;
-    }
-    return false;
-    
-  };
-
-  isColumnDisplayed = show => typeof show === 'undefined' || show === true;
-
-  toggleColumnDisplay = (columnId, showValue) => {
-    const updatedColumns = this.state.columns.map((col) => {
-      if (col.id === columnId) {
-        return { ...col, show: !showValue };
-      }
-      return col;
-    });
-
-    this.setState((prevState, props) => ({
-      columns: updatedColumns,
-    }));
-  };
-
-  restoreColumnDefaults = () => {
-    this.setState((prevState, props) => ({
-      columns: TableUtils.mapColumnProps(this.props.columns),
-    }));
-  };
-
-  renderLoader = () => (
-    <div styleName={'loader'}>
-      <Loader size={'large'} />
-    </div>
-  );
-
-
   commonStaticProps = {
     getTrProps: (state, rowInfo) => {
       // no row selected yet
@@ -197,8 +76,8 @@ export default class Table extends React.Component {
     },
 
     // Empty Table handling
-    PadRowComponent: props => null,
-    NoDataComponent: props => null,
+    PadRowComponent: props => null, // eslint-disable-line no-unused-vars
+    NoDataComponent: props => null, // eslint-disable-line no-unused-vars
     minRows: 1,
 
     TheadComponent: props => <TableHeader {...props} multiSelect={this.props.multiSelect} />,
@@ -213,6 +92,126 @@ export default class Table extends React.Component {
     showPageSizeOptions: true,
   };
 
+  toggleColumnDisplay = (columnId, showValue) => {
+    const updatedColumns = this.state.columns.map((col) => {
+      if (col.id === columnId) {
+        return { ...col, show: !showValue };
+      }
+      return col;
+    });
+
+    this.setState(() => ({
+      columns: updatedColumns,
+    }));
+  };
+
+  isColumnDisplayed = show => typeof show === 'undefined' || show === true;
+
+  toggleAll = () => {
+    // Only selects what is visible to the user (page size matters)
+    const selectAll = !this.state.selectAll;
+    const selection = [];
+
+    if (selectAll) {
+      // we need to get at the internals of ReactTable
+      const resolvedState = this.checkboxTable.getWrappedInstance().getResolvedState();
+      // the 'sortedData' property contains the currently accessible records based on the filter and sort
+
+      const currentPageSize = resolvedState.pageSize;
+      const currentPage = resolvedState.page;
+
+      const currentRecords = resolvedState.sortedData.slice(currentPage * currentPageSize, currentPage * currentPageSize + currentPageSize);
+
+      // we just push all the IDs onto the selection array
+      currentRecords.forEach((item) => {
+        const enabled = this.props.rowSelectableCallback(item._original); // eslint-disable-line no-underscore-dangle
+        if (enabled) {
+          selection.push(item._original[this.props.keyField]); // eslint-disable-line no-underscore-dangle
+        }
+      });
+    }
+
+    this.setState(() => ({
+      selection: selection,
+      selectAll: selectAll,
+    }));
+  };
+
+
+  isSelected = key => this.state.selection.includes(key);
+
+  resetSelection = () => {
+    this.setState(() => ({
+      selection: [],
+      selectAll: false,
+    }));
+  };
+
+  handleActionAvailability = (actionType) => {
+    // enable actions based on selection length and actionType
+    if (actionType === 'always') {
+      return true;
+    } if (this.state.selection.length === 1 && actionType === 'single') {
+      return true;
+    } if (this.state.selection.length >= 1 && actionType === 'multi') {
+      return true;
+    }
+    return false;
+
+  };
+
+  singleRowSelection = (key, row) => {
+    const enabled = this.props.rowSelectableCallback(row);
+    if (enabled) {
+      this.setState(() => ({
+        selection: [key],
+        selectAll: false,
+      }));
+    }
+  };
+
+  toggleSelection = (key, shift, row) => {
+    // start off with the existing state
+    let selection = [...this.state.selection];
+    const enabled = this.props.rowSelectableCallback(row);
+
+    if (enabled) {
+      if (this.props.multiSelect) {
+        const keyIndex = selection.indexOf(key);
+        // check to see if the key exists
+        if (keyIndex >= 0) {
+          selection = selection.filter(selectedKey => selectedKey !== key);
+        } else {
+          // it does not exist so add it
+          selection.push(key);
+        }
+      } else {
+        selection = [key];
+      }
+    }
+
+    // if the current selection array has the same length as the pageSize then all the visible elements have to be selected
+    const isWholePageSelected = selection.length === this.checkboxTable.getWrappedInstance().getResolvedState().pageSize;
+    const areAllOptionsSelected = selection.length === this.props.data.length;
+
+    this.setState(() => ({
+      selection: selection,
+      selectAll: isWholePageSelected || areAllOptionsSelected,
+    }));
+  };
+
+  restoreColumnDefaults = () => {
+    this.setState(() => ({
+      columns: TableUtils.mapColumnProps(this.props.columns),
+    }));
+  };
+
+  renderLoader = () => (
+    <div styleName="loader">
+      <Loader size="large" />
+    </div>
+  );
+
   render() {
 
     const commonVariableProps = {
@@ -226,72 +225,83 @@ export default class Table extends React.Component {
     };
 
     return (
-      <div styleName={'tableContainer'}>
-        {this.props.title && <div styleName={'titleBar'}>
-          {this.props.title}
-        </div>}
+      <div styleName="tableContainer">
+        {this.props.title && (
+          <div styleName="titleBar">
+            {this.props.title}
+          </div>
+        )}
         {this.props.loading && this.renderLoader()}
 
         <div styleName={classNames('filterBar', { loading: this.props.loading })}>
-          <div styleName={'filterContainer'}>
-            {this.props.filters.length > 0 &&
-              <Filter
-                filters={this.props.filters}
-                onFilterSubmit={this.props.onFilterChange}
-              />
+          <div styleName="filterContainer">
+            {this.props.filters.length > 0
+              && (
+                <Filter
+                  filters={this.props.filters}
+                  onFilterSubmit={this.props.onFilterChange}
+                />
+              )
             }
           </div>
-          {this.props.toggleColumns && <CheckboxPopover
-            buttonLabel={'Columns'}
-            listItems={this.state.columns.map(col => ({ id: col.id, label: col.Header, value: this.isColumnDisplayed(col.show) }))}
-            onItemClick={(item, value) => this.toggleColumnDisplay(item, value)}
-            onRestoreDefault={() => this.restoreColumnDefaults()}
-          />}
+          {this.props.toggleColumns && (
+            <CheckboxPopover
+              buttonLabel="Columns"
+              listItems={this.state.columns.map(col => ({ id: col.id, label: col.Header, value: this.isColumnDisplayed(col.show) }))}
+              onItemClick={(item, value) => this.toggleColumnDisplay(item, value)}
+              onRestoreDefault={() => this.restoreColumnDefaults()}
+            />
+          )}
         </div>
 
         <div styleName={classNames('tableAndActions', { loading: this.props.loading })}>
 
-          {this.props.actions.length > 0 && <div styleName={'toolbar'}>
-            {this.props.actions.map((action, index) => (
-              <React.Fragment key={action.label}>
-                <Button label={action.label} icon={action.icon ? action.icon : undefined} onClick={() => action.callback(this.state.selection)} type={'action'} disabled={!this.handleActionAvailability(action.active)} />
-                {index + 1 < this.props.actions.length && <div styleName={'spacer'} />}
-              </React.Fragment>
-            ))}
-          </div>}
+          {this.props.actions.length > 0 && (
+            <div styleName="toolbar">
+              {this.props.actions.map((action, index) => (
+                <React.Fragment key={action.label}>
+                  <Button label={action.label} icon={action.icon ? action.icon : undefined} onClick={() => action.callback(this.state.selection)} type="action" disabled={!this.handleActionAvailability(action.active)} />
+                  {index + 1 < this.props.actions.length && <div styleName="spacer" />}
+                </React.Fragment>
+              ))}
+            </div>
+          )}
 
-          {this.props.multiSelect ?
-            <CheckboxTable
-              {...this.commonStaticProps}
-              {...commonVariableProps}
-              ref={r => (this.checkboxTable = r)}
-              selectType={'checkbox'}
-              selectAll={this.state.selectAll}
-              isSelected={this.isSelected}
-              toggleSelection={this.toggleSelection}
-              toggleAll={this.toggleAll}
-              keyField={this.props.keyField}
-              SelectAllInputComponent={props => <Checkbox value={props.checked} onChange={props.onClick} />}
-              SelectInputComponent={props => {
-                const enabled = this.props.rowSelectableCallback(props.row);
-                return (
-                  <Checkbox
-                    disabled={!enabled}
-                    value={props.checked}
-                    onChange={(e) => {
-                      const { shiftKey } = e;
-                      e.stopPropagation();
-                      props.onClick(props.id, shiftKey, props.row);
-                    }}
-                  />
-                );
-            }}
-            />
-            :
-            <ReactTable
-              {...this.commonStaticProps}
-              {...commonVariableProps}
-            />
+          {this.props.multiSelect
+            ? (
+              <CheckboxTable
+                {...this.commonStaticProps}
+                {...commonVariableProps}
+                ref={r => (this.checkboxTable = r)}
+                selectType="checkbox"
+                selectAll={this.state.selectAll}
+                isSelected={this.isSelected}
+                toggleSelection={this.toggleSelection}
+                toggleAll={this.toggleAll}
+                keyField={this.props.keyField}
+                SelectAllInputComponent={props => <Checkbox value={props.checked} onChange={props.onClick} />}
+                SelectInputComponent={(props) => {
+                  const enabled = this.props.rowSelectableCallback(props.row);
+                  return (
+                    <Checkbox
+                      disabled={!enabled}
+                      value={props.checked}
+                      onChange={(e) => {
+                        const { shiftKey } = e;
+                        e.stopPropagation();
+                        props.onClick(props.id, shiftKey, props.row);
+                      }}
+                    />
+                  );
+                }}
+              />
+            )
+            : (
+              <ReactTable
+                {...this.commonStaticProps}
+                {...commonVariableProps}
+              />
+            )
           }
 
         </div>
@@ -325,41 +335,41 @@ Table.propTypes = {
    * Sets the table actions. Type: [{ icon: string, label: string (required), callback: func (required), active: oneOf('single', 'multi', 'always') (required) }]
    */
   actions: PropTypes.arrayOf(PropTypes.shape({
+    active: PropTypes.oneOf(['single', 'multi', 'always']).isRequired,
+    callback: PropTypes.func.isRequired,
     icon: PropTypes.string,
     label: PropTypes.string.isRequired,
-    callback: PropTypes.func.isRequired,
-    active: PropTypes.oneOf(['single', 'multi', 'always']).isRequired,
   })),
   /**
    * Sets the Table columns.
    * Type: [{ id: string (required), headerName: string (required), accessor: string (required), headerStyle: object, cellStyle: object, initiallyHidden: bool, width: number }]
    */
-  columns: PropTypes.array.isRequired,
+  columns: PropTypes.array.isRequired, // eslint-disable-line react/forbid-prop-types
   /**
    * Sets the Table data displayed in the rows. Type: JSON
    */
-  data: PropTypes.array.isRequired,
+  data: PropTypes.array.isRequired, // eslint-disable-line react/forbid-prop-types
   /**
    * Sets the default sorting columns and order when the component is first mounted.
    * Type: [{ id: string (required), desc: bool }]
    */
-  defaultSorted: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    desc: PropTypes.bool,
-  })),
+  defaultPageSize: PropTypes.number,
   /**
    * Sets the page size when the component is first mounted.
    */
-  defaultPageSize: PropTypes.number,
+  defaultSorted: PropTypes.arrayOf(PropTypes.shape({
+    desc: PropTypes.bool,
+    id: PropTypes.string.isRequired,
+  })),
   /**
    * Sets the available filters.
    * Type: [{ label: string (required), type: oneOf('singleSelect', 'multiSelect', 'text') (required), key: string (required), options: array }]
    */
   filters: PropTypes.arrayOf(PropTypes.shape({
-    label: PropTypes.string.isRequired,
-    type: PropTypes.oneOf(['singleSelect', 'multiSelect', 'text']).isRequired,
     filterKey: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired,
     options: PropTypes.array,
+    type: PropTypes.oneOf(['singleSelect', 'multiSelect', 'text']).isRequired,
   })),
   /**
    * Sets the data key for each row. Should be unique. Is used for selections.
@@ -377,23 +387,23 @@ Table.propTypes = {
    * Allow toggling wether a row (and checkbox for a checkboxtable) is selectable
    * @returns {boolean} - enabled = true, disabled = false
    */
-  rowSelectableCallback: PropTypes.func,
+  multiSort: PropTypes.bool,
   /**
    * Whether multiSorting via shift click is possible.
    */
-  multiSort: PropTypes.bool,
+  onFilterChange: PropTypes.func,
   /**
    * Called when the filter changes.
    */
-  onFilterChange: PropTypes.func,
+  onRowDoubleClick: PropTypes.func,
   /**
    * Called when the user double clicks on a row.
    */
-  onRowDoubleClick: PropTypes.func,
+  pageSizeOptions: PropTypes.arrayOf(PropTypes.number),
   /**
    * Sets the page sizes that the user can choose from.
    */
-  pageSizeOptions: PropTypes.arrayOf(PropTypes.number),
+  rowSelectableCallback: PropTypes.func,
   /**
    * Sets the title.
    */

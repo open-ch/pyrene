@@ -2,6 +2,7 @@
 
 .collapsibleBox {
   composes: commonFontSettings from '../../styles/common.css';
+
   & .collapsibleBody {
     height: 0;
     overflow: hidden;
@@ -12,6 +13,7 @@
     & .collapsibleBody {
       height: auto;
     }
+
     & .collapsArrow {
       transform: rotate(180deg) translateY(-1px);
     }
@@ -28,6 +30,7 @@
     color: var(--primary);
 
     cursor: pointer;
+
     &:hover {
       background-color: var(--secondary);
     }
@@ -58,9 +61,11 @@
   &.align-start {
     justify-content: flex-start;
   }
+
   &.align-center {
     justify-content: center;
   }
+
   &.align-end {
     justify-content: flex-end;
   }

@@ -4,7 +4,7 @@
   border-radius: 50%;
   border: solid transparent;
   box-sizing: border-box;
-  animation: spin 1.2s cubic-bezier( .6, .14, .33, .9) infinite;
+  animation: spin 1.2s cubic-bezier(.6, .14, .33, .9) infinite;
 
   &.type-dark {
     border-top-color: var(--neutral-400);
@@ -40,8 +40,13 @@
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .canvas {

@@ -3,7 +3,7 @@ import React from 'react';
 import RadioGroup from './RadioGroup';
 
 const props = {
-  options: [{label: 'one', value: 'one'}, {label: 'two', value: 'two'}],
+  options: [{ label: 'one', value: 'one' }, { label: 'two', value: 'two' }],
 };
 
 describe('<RadioGroup />', () => {

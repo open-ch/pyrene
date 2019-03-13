@@ -1,5 +1,4 @@
 import React from 'react';
-import classNames from 'classnames';
 import PropTypes from 'prop-types';
 
 import './filter.css';
@@ -29,13 +28,13 @@ export default class Filter extends React.Component {
 
   state = {
     displayFilterPopover: false,
-    defaultValues: initFilterState(this.props.filters),
+    defaultValues: initFilterState(this.props.filters), // eslint-disable-line react/no-unused-state
     filterValues: initFilterState(this.props.filters),
     unAppliedValues: initFilterState(this.props.filters),
   };
 
   toggleFilterPopover = () => {
-    this.setState((prevState, props) => ({
+    this.setState(prevState => ({
       unAppliedValues: prevState.filterValues,
       displayFilterPopover: !prevState.displayFilterPopover,
     }));
@@ -57,19 +56,19 @@ export default class Filter extends React.Component {
 
   filterDidChange = (event) => {
     const target = event.target;
-    this.setState((prevState, props) => ({
+    this.setState(prevState => ({
       unAppliedValues: { ...prevState.unAppliedValues, [target.name]: this.getValueFromInput(target) },
     }));
   };
 
   clearFilter = () => {
-    this.setState((prevState, props) => ({
+    this.setState(() => ({
       unAppliedValues: initFilterState(this.props.filters),
     }));
   };
 
   applyFilter = () => {
-    this.setState((prevState, props) => ({
+    this.setState(prevState => ({
       filterValues: prevState.unAppliedValues,
       displayFilterPopover: false,
     }),
@@ -78,7 +77,7 @@ export default class Filter extends React.Component {
 
   render() {
     return (
-      <div styleName={'filter'}>
+      <div styleName="filter">
         {/* No Searchbar for now
         <div styleName={'filterSearchBar'}>
           <input
@@ -92,7 +91,7 @@ export default class Filter extends React.Component {
         </div>
         <div styleName="spacer" /> */}
         <FilterPopoverButton
-          label={'Filter'}
+          label="Filter"
           displayPopover={this.state.displayFilterPopover}
           onClick={this.toggleFilterPopover}
           filters={this.props.filters}
@@ -120,11 +119,11 @@ Filter.propTypes = {
    * Type: [{ label: string (required), type: oneOf('singleSelect', 'multiSelect', 'text') (required), key: string (required), options: array, defaultValue: string | arrayOf string (multiSelects) }]
    */
   filters: PropTypes.arrayOf(PropTypes.shape({
-    label: PropTypes.string.isRequired,
-    type: PropTypes.oneOf(['singleSelect', 'multiSelect', 'text']).isRequired,
-    filterKey: PropTypes.string.isRequired,
-    options: PropTypes.array,
     defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
+    filterKey: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired,
+    options: PropTypes.array,
+    type: PropTypes.oneOf(['singleSelect', 'multiSelect', 'text']).isRequired,
   })).isRequired,
   /**
    * Called when the user clicks on the apply button. Contains all the filter information as its argument.

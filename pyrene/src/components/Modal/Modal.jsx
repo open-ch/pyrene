@@ -33,20 +33,20 @@ export default class Modal extends React.Component {
   };
 
   renderNavigationArrows = () => (
-    <div styleName={'stepperContainer'}>
-      <Stepper direction={'down'} onClick={this.props.onNextArrowClick} disabled={!this.props.canNext} />
+    <div styleName="stepperContainer">
+      <Stepper direction="down" onClick={this.props.onNextArrowClick} disabled={!this.props.canNext} />
       <div style={{ width: 16 }} />
-      <Stepper direction={'up'} onClick={this.props.onPreviousArrowClick} disabled={!this.props.canPrevious} />
+      <Stepper direction="up" onClick={this.props.onPreviousArrowClick} disabled={!this.props.canPrevious} />
     </div>
   );
 
   renderContent = () => (
     <Fragment>
-      <div styleName={'titleBar'}>
+      <div styleName="titleBar">
         {this.props.title}
-        <div styleName={'topRightSection'}>
+        <div styleName="topRightSection">
           {this.props.displayNavigationArrows && this.renderNavigationArrows()}
-          <div styleName={'closeButton'} className={'pyreneIcon-delete'} onClick={this.props.onClose} />
+          <div styleName="closeButton" className="pyreneIcon-delete" onClick={this.props.onClose} />
         </div>
       </div>
       <div styleName={classNames('contentContainer', { contentScrolling: this.props.contentScrolling })}>
@@ -58,8 +58,8 @@ export default class Modal extends React.Component {
   );
 
   renderLoader = () => (
-    <div styleName={'loaderContainer'}>
-      <Loader size={'large'} />
+    <div styleName="loaderContainer">
+      <Loader size="large" />
     </div>
   );
 
@@ -70,7 +70,8 @@ export default class Modal extends React.Component {
       label={buttonProps.label}
       disabled={buttonProps.disabled}
       onClick={buttonProps.action}
-    />));
+    />
+  ));
 
   render() {
     return (
@@ -78,15 +79,16 @@ export default class Modal extends React.Component {
         <div styleName="modalOverlay">
           <div styleName={classNames('modalContainer', this.props.size)} role="dialog">
             {this.props.loading ? this.renderLoader() : this.renderContent()}
-            {this.props.Footer() ?
-              this.props.Footer()
-              :
-              <div styleName="buttonBarContainer">
-                <ButtonBar
-                  rightButtonSectionElements={this.createButtonArray(this.props.rightButtonBarElements)}
-                  leftButtonSectionElements={this.createButtonArray(this.props.leftButtonBarElements)}
-                />
-              </div>
+            {this.props.Footer()
+              ? this.props.Footer()
+              : (
+                <div styleName="buttonBarContainer">
+                  <ButtonBar
+                    rightButtonSectionElements={this.createButtonArray(this.props.rightButtonBarElements)}
+                    leftButtonSectionElements={this.createButtonArray(this.props.leftButtonBarElements)}
+                  />
+                </div>
+              )
             }
           </div>
         </div>
@@ -145,11 +147,11 @@ Modal.propTypes = {
    * Type: [{ icon: string, type: string (required), label: string (required), action: func (required)}]
    */
   leftButtonBarElements: PropTypes.arrayOf(PropTypes.shape({
-    icon: PropTypes.string,
-    type: PropTypes.string.isRequired,
-    label: PropTypes.string.isRequired,
     action: PropTypes.func.isRequired,
     disabled: PropTypes.bool,
+    icon: PropTypes.string,
+    label: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
   })),
   /**
    * Disables the component and displays a loader inside of it.
@@ -176,11 +178,11 @@ Modal.propTypes = {
    * Type: [{ icon: string, type: string (required), label: string (required), action: func (required)}]
    */
   rightButtonBarElements: PropTypes.arrayOf(PropTypes.shape({
-    icon: PropTypes.string,
-    type: PropTypes.string.isRequired,
-    label: PropTypes.string.isRequired,
     action: PropTypes.func.isRequired,
     disabled: PropTypes.bool,
+    icon: PropTypes.string,
+    label: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
   })),
   /**
    * Sets the size.

@@ -18,14 +18,11 @@
     padding-right: 8px;
   }
 
-  &.-hidden {
-  }
+  &.-hidden {}
 
-  &.rt-header-pivot {
-  }
-  &.-cursor-pointer {
+  &.rt-header-pivot {}
 
-  }
+  &.-cursor-pointer {}
 }
 
 .sortIcon {

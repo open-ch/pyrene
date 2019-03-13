@@ -36,6 +36,7 @@
     &.style-standard {
       box-shadow: inset 3px 0 0 0 var(--information-fg);
     }
+
     &.style-inline {
       border: none;
       align-items: center;
@@ -54,6 +55,7 @@
     &.style-standard {
       box-shadow: inset 3px 0 0 0 var(--ok-fg);
     }
+
     &.style-inline {
       border: none;
       align-items: center;
@@ -72,6 +74,7 @@
     &.style-standard {
       box-shadow: inset 3px 0 0 0 var(--danger-fg);
     }
+
     &.style-inline {
       border: none;
       align-items: center;
@@ -90,6 +93,7 @@
     &.style-standard {
       box-shadow: inset 3px 0 0 0 var(--warning-fg);
     }
+
     &.style-inline {
       border: none;
       align-items: center;

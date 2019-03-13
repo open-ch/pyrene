@@ -13,30 +13,32 @@ const stringContains = (haystack, needle) => haystack.indexOf(needle) !== -1;
 
 const getIconComponent = (className) => {
   if (stringContains(className, 'asc')) {
-    return <SVG styleName={'inlineSVGFlex'} svg={AscSort} />;
-  } else if (stringContains(className, 'desc')) {
-    return <SVG styleName={'inlineSVGFlex'} svg={DescSort} />;
+    return <SVG styleName="inlineSVGFlex" svg={AscSort} />;
+  } if (stringContains(className, 'desc')) {
+    return <SVG styleName="inlineSVGFlex" svg={DescSort} />;
   }
-  return <SVG styleName={'inlineSVGFlex'} svg={DefaultSort} />;
+  return <SVG styleName="inlineSVGFlex" svg={DefaultSort} />;
 };
 
-const TableHeaderCell = props => {
-  return (
-    <div styleName={'tableHeaderCell'} className={classNames(props.className, 'unSelectable')} style={props.style} onClick={(event) => props.toggleSort(event)}>
-      {props.children}
-      {props.className && getIconComponent(props.className)}
-    </div>
-  );
-};
+const TableHeaderCell = props => (
+  <div styleName="tableHeaderCell" className={classNames(props.className, 'unSelectable')} style={props.style} onClick={event => props.toggleSort(event)}>
+    {props.children}
+    {props.className && getIconComponent(props.className)}
+  </div>
+);
 
 TableHeaderCell.displayName = 'TableHeaderCell';
 
-TableHeaderCell.defaultProps = {};
+TableHeaderCell.defaultProps = {
+  className: null,
+  style: null,
+};
 
 TableHeaderCell.propTypes = {
-  style: PropTypes.object,
-  toggleSort: PropTypes.func,
+  children: PropTypes.node.isRequired,
   className: PropTypes.string,
+  style: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  toggleSort: PropTypes.func.isRequired,
 };
 
 export default TableHeaderCell;

@@ -8,32 +8,33 @@ import CheckboxList from './CheckboxList';
 
 
 export default class CheckboxPopover extends React.Component {
+
   state = {
     displayPopover: false,
   };
 
   togglePopover = () => {
-    this.setState((prevState, props) => ({
+    this.setState(prevState => ({
       displayPopover: !prevState.displayPopover,
     }));
   };
 
   render() {
     return (
-      <div styleName={'checkboxPopover'}>
+      <div styleName="checkboxPopover">
         <Popover
           preferredPosition={['bottom']}
-          align={'end'}
+          align="end"
           displayPopover={this.state.displayPopover}
           distanceToTarget={8}
-          onClickOutside={() => this.setState({displayPopover: false})}
+          onClickOutside={() => this.setState({ displayPopover: false })}
           renderPopoverContent={() => <CheckboxList listItems={this.props.listItems} onItemClick={this.props.onItemClick} onRestoreDefault={this.props.onRestoreDefault} />}
         >
           <div styleName={classNames('popoverTriggerButton', { popoverOpen: this.state.displayPopover })} onClick={this.togglePopover}>
-            <div styleName={'buttonLabel'} className={'unSelectable'}>
+            <div styleName="buttonLabel" className="unSelectable">
               {this.props.buttonLabel}
             </div>
-            <div styleName={'arrowIcon'} className={'pyreneIcon-collapsDown'} />
+            <div styleName="arrowIcon" className="pyreneIcon-collapsDown" />
           </div>
         </Popover>
       </div>

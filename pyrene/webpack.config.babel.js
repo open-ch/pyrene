@@ -82,10 +82,10 @@ const config = {
 };
 
 if (production) {
-  console.warn('webpack is running in production mode\n');
+  console.warn('webpack is running in production mode\n'); // eslint-disable-line no-console
   config.plugins.unshift(new CleanWebpackPlugin(['dist']));
 } else {
-  console.warn('webpack is running in development mode\n');
+  console.warn('webpack is running in development mode\n'); // eslint-disable-line no-console
 }
 
 export default config;

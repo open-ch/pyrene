@@ -19,12 +19,13 @@ const TextArea = (props) => {
         'textAreaContainer',
         { disabled: props.disabled },
         { invalid: props.invalid && !props.disabled },
-        { full: characterLimitReached && !props.disabled && props.maxLength > 0 })
+        { full: characterLimitReached && !props.disabled && props.maxLength > 0 }
+      )
       }
     >
-      <div styleName={'textAreaTitleBar'}>
+      <div styleName="textAreaTitleBar">
         {props.title && <span styleName={classNames('textAreaTitle', { required: props.required && !props.disabled })}>{props.title}</span>}
-        {props.maxLength > 0 && <span styleName={'characterCounter'}>{characterCount}</span>}
+        {props.maxLength > 0 && <span styleName="characterCounter">{characterCount}</span>}
       </div>
       <textarea
         styleName={classNames('textArea', { resizeable: props.resizeable }, { filled: props.value })}
@@ -32,24 +33,29 @@ const TextArea = (props) => {
         placeholder={props.placeholder}
         rows={props.rows}
         value={props.value}
-        wrap={'hard'}
+        wrap="hard"
         onBlur={props.onBlur}
         onChange={props.onChange}
         onFocus={props.onFocus}
       />
 
-      {(props.invalid && props.invalidLabel && !props.disabled) ?
-        <div styleName={'invalidLabel'}>
-          <span className={'pyreneIcon-errorOutline'} styleName={'errorIcon'} />
-          {props.invalidLabel}
-        </div>
-        :
-        <React.Fragment>
-          {props.helperLabel &&
-          <div styleName={'textAreaHelper'}>
-            {props.helperLabel}
-          </div>}
-        </React.Fragment>
+      {(props.invalid && props.invalidLabel && !props.disabled)
+        ? (
+          <div styleName="invalidLabel">
+            <span className="pyreneIcon-errorOutline" styleName="errorIcon" />
+            {props.invalidLabel}
+          </div>
+        )
+        : (
+          <React.Fragment>
+            {props.helperLabel
+          && (
+            <div styleName="textAreaHelper">
+              {props.helperLabel}
+            </div>
+          )}
+          </React.Fragment>
+        )
       }
     </div>
   );

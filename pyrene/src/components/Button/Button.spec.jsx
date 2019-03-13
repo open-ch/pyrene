@@ -5,12 +5,12 @@ import Button from './Button.jsx';
 describe('<Button />', () => {
 
   it('renders without crashing', () => {
-    shallow(<Button />);
+    shallow(<Button label="" />);
   });
 
   it('is clickable', () => {
     const onClick = jest.fn();
-    const rendered = shallow(<Button onClick={onClick} />);
+    const rendered = shallow(<Button onClick={onClick} label="" />);
     rendered.find('button').simulate('click');
 
     expect(onClick).toHaveBeenCalledTimes(1);
@@ -18,7 +18,7 @@ describe('<Button />', () => {
 
   it('is not clickable if disabled', () => {
     const onClick = jest.fn();
-    const rendered = mount(<Button onClick={onClick} disabled={true} />);
+    const rendered = mount(<Button onClick={onClick} label="" disabled />);
     rendered.find('button').simulate('click');
 
     expect(onClick).not.toHaveBeenCalled();
@@ -30,7 +30,7 @@ describe('<Button />', () => {
   });
 
   it('renders the html for icons', () => {
-    const rendered = shallow(<Button icon={'someIcon'}/>);
+    const rendered = shallow(<Button icon="someIcon" label="" />);
     expect(rendered.find('.pyreneIcon-someIcon')).toHaveLength(1);
   });
 });

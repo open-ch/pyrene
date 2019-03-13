@@ -9,7 +9,7 @@ import './loader.css';
  *
  * The Loader is not a progress indicator and should not be used if the load time is to be displayed.
  */
-const Loader = (props) => (
+const Loader = props => (
   <div styleName={classNames('canvas', { [`size-${props.size}`]: true })}>
     <div styleName={classNames('pyreneLoader', { [`type-${props.type}`]: true }, { [`size-${props.size}`]: true })} />
   </div>

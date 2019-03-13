@@ -2,18 +2,18 @@ import PropTypes from 'prop-types';
 
 const TreeTablePropTypes = {
   COLUMNS: PropTypes.arrayOf(PropTypes.shape({
+    accessor: PropTypes.string.isRequired,
+    cellStyle: PropTypes.object,
     headerName: PropTypes.string,
     headerStyle: PropTypes.object,
-    cellStyle: PropTypes.object,
-    accessor: PropTypes.string.isRequired,
     initiallyHidden: PropTypes.bool,
     width: PropTypes.number,
   })).isRequired,
   COLUMN: PropTypes.shape({
+    accessor: PropTypes.string.isRequired,
+    cellStyle: PropTypes.object,
     headerName: PropTypes.string,
     headerStyle: PropTypes.object,
-    cellStyle: PropTypes.object,
-    accessor: PropTypes.string.isRequired,
     initiallyHidden: PropTypes.bool,
     width: PropTypes.number,
   }).isRequired,

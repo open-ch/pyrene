@@ -5,25 +5,25 @@ import './radioSelection.css';
 
 import SVG from 'react-svg-inline';
 
-import normal from './radio-blank.svg';
-import normalHover from './radio-hover.svg';
-import selected from './radio-selected.svg';
-import selectedHover from './radio-selected-hover.svg';
-import invalid from './radio-invalid.svg';
-import invalidHover from './radio-invalid-hover.svg';
+import iconNormal from './radio-blank.svg';
+import iconNormalHover from './radio-hover.svg';
+import iconSelected from './radio-selected.svg';
+import iconSelectedHover from './radio-selected-hover.svg';
+import iconInvalid from './radio-invalid.svg';
+import iconInvalidHover from './radio-invalid-hover.svg';
 
 const iconMap = {
   normal: {
-    default: normal,
-    hover: normalHover,
+    default: iconNormal,
+    hover: iconNormalHover,
   },
   checked: {
-    default: selected,
-    hover: selectedHover,
+    default: iconSelected,
+    hover: iconSelectedHover,
   },
   invalid: {
-    default: invalid,
-    hover: invalidHover,
+    default: iconInvalid,
+    hover: iconInvalidHover,
   },
 };
 
@@ -46,12 +46,13 @@ const getRadioIcon = (options, hovered) => {
  * If the available options can be collapsed, you should use a drop-down menu because it takes up less space.
  */
 class RadioGroup extends Component {
+
   state = {
     hovered: {},
   };
 
   onMouseEnter = (key) => {
-    this.setState((prevState) => ({
+    this.setState(prevState => ({
       hovered: {
         ...prevState.hovered,
         [key]: true,
@@ -60,7 +61,7 @@ class RadioGroup extends Component {
   };
 
   onMouseLeave = (key) => {
-    this.setState((prevState) => ({
+    this.setState(prevState => ({
       hovered: {
         ...prevState.hovered,
         [key]: undefined,
@@ -68,62 +69,61 @@ class RadioGroup extends Component {
     }));
   };
 
-  render () {
-    const { props } = this;
+  render() {
     const rand = Math.floor(Math.random() * 1e10);
-    const lastElementIndex = props.options.length - 1;
+    const lastElementIndex = this.props.options.length - 1;
 
     return (
       <div
-        styleName={classNames('radioSelectionContainer', { [`alignment-${props.alignment}`]: true }, { invalid: props.invalid && !props.selectedOption })}
-        tabIndex={0}
-        onBlur={props.onBlur}
-        id={props.name}
+        styleName={classNames('radioSelectionContainer', { [`alignment-${this.props.alignment}`]: true }, { invalid: this.props.invalid })}
+        onBlur={this.props.onBlur}
+        id={this.props.name}
       >
-        {props.options.map((option, index) => {
+        {this.props.options.map((option, index) => {
           const key = `radio_${option.label}_${option.value}`;
           const htmlId = `${key}_${rand}`;
           return (
             <React.Fragment key={key}>
               <div
-                className={'radioContainer'}
+                className="radioContainer"
                 onMouseEnter={() => this.onMouseEnter(key)}
                 onMouseLeave={() => this.onMouseLeave(key)}
               >
                 <input
-                  styleName={'radioInput'}
-                  checked={props.value === option.value}
+                  styleName="radioInput"
+                  checked={this.props.value === option.value}
                   id={htmlId}
-                  onChange={props.onChange}
+                  onChange={this.props.onChange}
                   type="radio"
                   value={option.value}
-                  name={props.name}
+                  name={this.props.name}
                 />
 
                 <label
                   htmlFor={htmlId}
                   styleName={
                     classNames('radioLabel',
-                      { disabled: props.disabled })}
+                      { disabled: this.props.disabled })}
                 >
-                  <span styleName={'radioIcon'}>
+                  <span styleName="radioIcon">
                     {getRadioIcon({
-                        checked: props.value === option.value,
-                        disabled: props.disabled,
-                        invalid: props.invalid && !props.selectedOption,
-                      }, this.state.hovered[key])}
+                      checked: this.props.value === option.value,
+                      disabled: this.props.disabled,
+                      invalid: this.props.invalid,
+                    }, this.state.hovered[key])}
                   </span>
                   {option.label}
                 </label>
               </div>
-              {index !== lastElementIndex && <div styleName={classNames({ [`spacer-${props.alignment}`]: true })} />}
+              {index !== lastElementIndex && <div styleName={classNames({ [`spacer-${this.props.alignment}`]: true })} />}
             </React.Fragment>
           );
         })}
       </div>
-    )
+    );
+  }
+
 }
-};
 
 RadioGroup.displayName = 'Radio Group';
 
@@ -167,8 +167,8 @@ RadioGroup.propTypes = {
    * Set the values that the user can choose from.
    */
   options: PropTypes.arrayOf(PropTypes.shape({
-    value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
     label: PropTypes.string.isRequired,
+    value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
   })),
   /**
    * Sets the selected choice of the user.

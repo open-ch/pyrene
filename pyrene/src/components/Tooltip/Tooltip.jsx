@@ -8,6 +8,7 @@ import './tooltip.css';
  * A Tooltip is a small piece of contextual information about an element on the screen, which is displayed when a user hovers or focuses on the element it is describing.
  */
 export default class Tooltip extends React.Component {
+
   state = {
     isPopoverOpen: false,
   };
@@ -19,12 +20,14 @@ export default class Tooltip extends React.Component {
         position={this.props.preferredPosition}
         align={this.props.align}
         padding={this.props.distanceToTarget}
-        content={({ position, nudgedLeft, nudgedTop, targetRect, popoverRect }) => (
-          <div styleName={'tooltip'} style={{ width: this.props.width ? this.props.width : null }}>
+        content={({
+          position, nudgedLeft, nudgedTop, targetRect, popoverRect, // eslint-disable-line no-unused-vars
+        }) => (
+          <div styleName="tooltip" style={{ width: this.props.width ? this.props.width : null }}>
             {this.props.label}
           </div>
         )}
-        containerStyle={{zIndex: 9999}}
+        containerStyle={{ zIndex: 9999 }}
         disableReposition={!this.props.autoReposition}
       >
         <div
@@ -36,6 +39,7 @@ export default class Tooltip extends React.Component {
       </Popover>
     );
   }
+
 }
 
 Tooltip.displayName = 'Tooltip';
@@ -64,17 +68,17 @@ Tooltip.propTypes = {
   /**
    * Sets the label displayed inside of the tooltip.
    */
-  label: PropTypes.string.isRequired,
+  distanceToTarget: PropTypes.number,
   /**
    * Sets the preferred position array ordered by priority for auto repositioning.
    */
-  preferredPosition: PropTypes.arrayOf(PropTypes.oneOf(['top', 'right', 'bottom', 'left'])),
+  label: PropTypes.string.isRequired,
   /**
    * Sets the Tooltip width. Only to be used to enforce line breaks.
    */
-  width: PropTypes.number,
+  preferredPosition: PropTypes.arrayOf(PropTypes.oneOf(['top', 'right', 'bottom', 'left'])),
   /**
    * Sets the distance of the tooltip to its target.
    */
-  distanceToTarget: PropTypes.number,
+  width: PropTypes.number,
 };

@@ -1,11 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import PROPCONSTANTS from '../TreeTablePropTypes';
 
 import './treeTableHeader.css';
 
 const TreeTableHeader = props => (
-  <div styleName={'treeTableHeader'}>
+  <div styleName="treeTableHeader">
 
     {props.columns.map((column) => {
       // Do not display hidden columns
@@ -22,7 +21,7 @@ const TreeTableHeader = props => (
         flex: colWidth ? `${colWidth} 0 auto` : null,
       };
       return (
-        <div style={{...styling, ...column.headerStyle}} styleName={'treeTableHeaderCell'} key={header}>
+        <div style={{ ...styling, ...column.headerStyle }} styleName="treeTableHeaderCell" key={header}>
           {header}
         </div>
       );

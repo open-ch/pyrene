@@ -26,7 +26,7 @@ export default class TableUtils {
       },
       initiallyHidden: {
         rtPropName: 'show',
-        transformValue: value => typeof value !== 'undefined' ? !value : undefined,
+        transformValue: value => (typeof value !== 'undefined' ? !value : undefined),
       },
       width: {
         rtPropName: 'width',
@@ -39,18 +39,16 @@ export default class TableUtils {
       },
     };
 
-    return allColumnProps.map(columnProps => {
-      const remappedColumn = {};
-      Object.keys(columnProps).map(key => {
-        if (typeof propMap[key] !== 'undefined') {
-          if (propMap[key].hasOwnProperty('transformValue')) {
-            remappedColumn[propMap[key].rtPropName] = propMap[key].transformValue(columnProps[key]);
-          } else {
-            remappedColumn[propMap[key].rtPropName] = columnProps[key];
-          }
+    return allColumnProps.map(columnProps => Object.keys(columnProps).reduce((remappedColumns, key) => {
+      if (typeof propMap[key] !== 'undefined') {
+        if (propMap[key].hasOwnProperty('transformValue')) { // eslint-disable-line no-prototype-builtins
+          remappedColumns[propMap[key].rtPropName] = propMap[key].transformValue(columnProps[key]); // eslint-disable-line no-param-reassign
+        } else {
+          remappedColumns[propMap[key].rtPropName] = columnProps[key]; // eslint-disable-line no-param-reassign
         }
-      });
-      return remappedColumn;
-    });
+      }
+      return remappedColumns;
+    }, {}));
   };
+
 }

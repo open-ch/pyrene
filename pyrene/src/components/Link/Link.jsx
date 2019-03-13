@@ -22,8 +22,8 @@ const Link = props => (
       props.onClick(event);
     }) : undefined}
   >
-    <span styleName={'label'}>{props.label}</span>
-    {props.type === 'standalone' && <span styleName={'icon'} className={'pyreneIcon-chevronRight'} />}
+    <span styleName="label">{props.label}</span>
+    {props.type === 'standalone' && <span styleName="icon" className="pyreneIcon-chevronRight" />}
   </a>
 );
 
