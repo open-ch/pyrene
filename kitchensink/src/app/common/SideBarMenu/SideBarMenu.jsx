@@ -1,5 +1,6 @@
 import React from 'react';
 import Components from 'pyrene/dist/pyrene.dev';
+import Showcase from 'pyrene/dist/pyrene.showcase';
 import SideBarMenuSection from './SideBarMenuSection';
 import specialComponentHandlingData from '../../data/specialComponentHandlingData';
 
@@ -19,11 +20,9 @@ const SideBarMenu = props => (
         title="Components"
         sectionElements={
           Object.values(Components)
-            .filter(component => (specialComponentHandlingData[component.displayName.toLowerCase().replace(/\s/g, '')] ? !specialComponentHandlingData[component.displayName.toLowerCase().replace(/\s/g, '')].noComponentPage : true))
-            .map((component) => {
-              const lowercaseComponentName = component.displayName.replace(/\s/g, '').toLowerCase();
-              return ({ name: component.displayName, linkToPath: `/${lowercaseComponentName}` });
-            }).sort((a, b) => ((a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0)))}
+            .filter(component => Showcase[component.name])
+            .map(component => ({ name: component.displayName, linkToPath: `/${component.name}` }))
+            .sort((a, b) => ((a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0)))}
       />
       <SideBarMenuSection
         title="Cookbooks"

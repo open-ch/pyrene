@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Components from 'pyrene/dist/pyrene.dev';
+import Showcase from 'pyrene/dist/pyrene.showcase';
 import packageJson from '../../../package.json';
 import Logo from './Logo';
 import SideBarMenu from './SideBarMenu/SideBarMenu';
@@ -17,7 +18,7 @@ import FormUsage from '../static/cookBooks/FormUsage';
 import specialComponentHandlingData from '../data/specialComponentHandlingData';
 import PyreneTutorial from '../static/cookBooks/PyreneTutorial';
 
-export default class Main extends React.Component {
+export default class Main extends React.PureComponent {
 
   render() {
 
@@ -44,27 +45,22 @@ export default class Main extends React.Component {
             <Route path="/form" component={FormUsage} />
             <Route path="/pyrene" component={PyreneTutorial} />
 
-            {Object.values(Components).map((component) => {
-              const lowercaseComponentName = component.displayName.replace(/\s/g, '').toLowerCase();
-              if (specialComponentHandlingData[lowercaseComponentName] && specialComponentHandlingData[lowercaseComponentName].noComponentPage) {
-                return null;
-              }
-              return (
+            {Object.values(Components)
+              .filter(component => Showcase[component.name])
+              .map(component => (
                 <Route
-                  key={lowercaseComponentName}
-                  path={`/${lowercaseComponentName}`}
+                  key={component.name}
+                  path={`/${component.name}`}
                   render={routeProps => (
                     <ComponentPage
                       {...routeProps}
                       component={component}
-                      description={component.__docgenInfo.description}
-                      name={component.displayName}
-                      lowercaseName={lowercaseComponentName}
+                      showcase={Showcase[component.name]}
                     />
                   )}
                 />
-              );
-            })}
+              ))}
+
             <Route path="/search/:searchInput" component={ResultsPage} />
             <Route component={NotFoundPage} />
           </Switch>

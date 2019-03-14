@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import './exampleBox.css';
 import Example from './Example';
-import examplesData from '../../../data/examplesData';
 
 
 export default class ExampleBox extends React.Component {
@@ -39,13 +38,13 @@ export default class ExampleBox extends React.Component {
     return (
       <div styleName="exampleBox">
         <div styleName="exampleDisplay">
-          {examplesData[this.getComponentName(this.props.component)].examples.map((exampleProps, index) => (
-            <React.Fragment key={hash(exampleProps)}>
+          {this.props.examples.map(example => (
+            <React.Fragment key={hash(example.props)}>
 
               <Example
                 component={this.props.component}
-                exampleProps={exampleProps}
-                description={examplesData[this.getComponentName(this.props.component)].exampleDescriptions && examplesData[this.getComponentName(this.props.component)].exampleDescriptions[index]}
+                exampleProps={example.props}
+                description={example.description}
                 onMouseOver={this.handleExampleHover}
                 onMouseLeave={this.handleExampleHover}
                 onExampleClick={this.props.onExampleClick}
