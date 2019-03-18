@@ -7,12 +7,12 @@ const props = {
   tabs: [
     {
       name: 'Tab 1',
-      renderCallback: () => <div>Tab1Content</div>, // eslint-disable-line react/display-name, react/no-multi-comp
-      isabled: false,
+      renderCallback: () => <div>Tab1Content</div>, // eslint-disable-line react/display-name
+      disabled: false,
     },
     {
       name: 'Tab 2',
-      renderCallback: () => <div>Tab2Content</div>, // eslint-disable-line react/display-name, react/no-multi-comp
+      renderCallback: () => <div>Tab2Content</div>, // eslint-disable-line react/display-name
       disabled: true,
     },
   ],
