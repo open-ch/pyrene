@@ -30,6 +30,9 @@ module.exports = {
   },
 
   "rules": {
+    // Do not force destructuring.
+    "react/destructuring-assignment": 0,
+    "prefer-destructuring": 0,
     // require trailing commas for multiline (arrays, objects, imports, exports & functions), disallowed for same line
     "comma-dangle": [2, "always-multiline"],
     // require function expressions to have a name
@@ -65,7 +68,7 @@ module.exports = {
     // Prevent usage of dangerous JSX properties
     "react/no-danger": 2,
     // Prevent multiple component definition per file
-    "react/no-multi-comp": [2, { "ignoreStateless": false }],
+    "react/no-multi-comp": [2, { "ignoreStateless": true }],
     // Allow props on the same line
     "react/jsx-first-prop-new-line": 0,
     "react/jsx-max-props-per-line": 0,
@@ -76,7 +79,12 @@ module.exports = {
     // do not allow deprecated lifecycle methods according to the react version provided above
     "react/no-deprecated": 2,
     // We only have a11ly as it's a required dependency
+    "jsx-a11y/click-events-have-key-events": 0,
+    "jsx-a11y/interactive-supports-focus": 0,
+    "jsx-a11y/label-has-for": 0,
+    "jsx-a11y/mouse-events-have-key-events": 0,
     "jsx-a11y/no-static-element-interactions": 0,
+    "jsx-a11y/role-has-required-aria-props": 0,
     // Our imports work differently in MC
     "import/no-extraneous-dependencies": 0,
     "import/no-unresolved": 0,
