@@ -5,8 +5,16 @@ import TabView from './TabView';
 const props = {
   initialTabName: 'Tab 2',
   tabs: [
-    { name: 'Tab 1', renderCallback: () => <div>Tab1Content</div>, disabled: false },
-    { name: 'Tab 2', renderCallback: () => <div>Tab2Content</div>, disabled: true }
+    {
+      name: 'Tab 1',
+      renderCallback: () => <div>Tab1Content</div>, // eslint-disable-line react/display-name
+      disabled: false,
+    },
+    {
+      name: 'Tab 2',
+      renderCallback: () => <div>Tab2Content</div>, // eslint-disable-line react/display-name
+      disabled: true,
+    },
   ],
 };
 
@@ -30,7 +38,7 @@ describe('<TabView />', () => {
   });
 
   it('has tabs that are not clickable if disabled', () => {
-    const rendered = mount(<TabView {...props} initialTabName={'Tab 1'}/>);
+    const rendered = mount(<TabView {...props} initialTabName="Tab 1" />);
     expect(rendered.contains('Tab1Content')).toBe(true);
     rendered.find('.tab').last().simulate('click');
     expect(rendered.contains('Tab1Content')).toBe(true);

@@ -21,25 +21,15 @@ export default class TabView extends React.Component {
     };
   }
 
-  _tabChanged(tabName, index, event) {
-    event.stopPropagation();
-    if (!this.props.disabled) {
-      this.setState((prevState, props) => ({
-        selectedTabIndex: index,
-        displayMoreMenu: false,
-      }),
-      () => this.props.tabChanged(tabName, index));
-    }
-    if (this.props.directAccessTabs && index >= this.props.directAccessTabs) {
-      this.setState(() => ({
-        moreTabLabel: tabName,
-      }));
-    } else {
-      this.setState(() => ({
-        moreTabLabel: 'More',
-      }));
-    }
-  }
+  computeTabs = () => (this.props.directAccessTabs && this.props.tabs.length > this.props.directAccessTabs
+    ? [
+      this.props.tabs.slice(0, this.props.directAccessTabs),
+      this.props.tabs.slice(this.props.directAccessTabs),
+    ]
+    : [
+      this.props.tabs,
+      null,
+    ]);
 
   handleClickOutside = (event) => {
     if (this.menuRef && !this.menuRef.contains(event.target) && this.state.displayMoreMenu) {
@@ -58,48 +48,65 @@ export default class TabView extends React.Component {
     }
   };
 
+  _tabChanged(tabName, index, event) {
+    event.stopPropagation();
+    if (!this.props.disabled) {
+      this.setState(() => ({
+        selectedTabIndex: index,
+        displayMoreMenu: false,
+      }),
+      () => this.props.tabChanged(tabName, index));
+    }
+    if (this.props.directAccessTabs && index >= this.props.directAccessTabs) {
+      this.setState(() => ({
+        moreTabLabel: tabName,
+      }));
+    } else {
+      this.setState(() => ({
+        moreTabLabel: 'More',
+      }));
+    }
+  }
+
   renderMoreMenu = (moreTabs, visibleTabs) => (
-    <div styleName={'moreMenu'} ref={(menu) => { this.menuRef = menu; }} role="listbox">
-      <div styleName={'titleBox'}>
-        <span styleName={'title'}> {this.state.moreTabLabel} </span>
-        <span className={'pyreneIcon-collapsDown'} styleName={'moreArrow'} />
+    <div styleName="moreMenu" ref={(menu) => { this.menuRef = menu; }} role="listbox">
+      <div styleName="titleBox">
+        <span styleName="title">
+          {' '}
+          {this.state.moreTabLabel}
+          {' '}
+        </span>
+        <span className="pyreneIcon-collapsDown" styleName="moreArrow" />
       </div>
-      {moreTabs.map((tab, index) =>
-        (<div
-          styleName={classNames('option', { disabled: tab.disabled })} key={tab.name} onClick={event => !tab.disabled && this._tabChanged(tab.name, index + visibleTabs.length, event)}
+      {moreTabs.map((tab, index) => (
+        <div
+          styleName={classNames('option', { disabled: tab.disabled })}
+          onClick={event => !tab.disabled && this._tabChanged(tab.name, index + visibleTabs.length, event)}
+          key={tab.name}
           role="option"
         >
-          <span styleName={'optionLabel'}>{tab.name}</span>
-        </div>)
-      )}
+          <span styleName="optionLabel">{tab.name}</span>
+        </div>
+      ))}
     </div>
   );
-
-  computeTabs = () => (this.props.directAccessTabs && this.props.tabs.length > this.props.directAccessTabs
-    ? [
-      this.props.tabs.slice(0, this.props.directAccessTabs),
-      this.props.tabs.slice(this.props.directAccessTabs),
-    ]
-    : [
-      this.props.tabs,
-      null,
-    ]);
 
   render() {
     const [visibleTabs, moreTabs] = this.computeTabs();
 
     return (
       <div styleName={classNames('tabView', { disabled: this.props.disabled })}>
-        <div styleName={'tabBar'} role="tablist">
+        <div styleName="tabBar" role="tablist">
           {
             visibleTabs.map((tab, index) => (
               <div
                 styleName={classNames(
                   'tab',
                   { selected: index === this.state.selectedTabIndex },
-                  { disabled: tab.disabled })
+                  { disabled: tab.disabled }
+                )
                 }
-                className={'unSelectable'}
+                className="unSelectable"
                 style={{ maxWidth: this.props.maxTabWidth }}
                 onClick={event => !tab.disabled && this._tabChanged(tab.name, index, event)}
                 key={tab.name}
@@ -109,25 +116,31 @@ export default class TabView extends React.Component {
               </div>
             ))
           }
-          {moreTabs && moreTabs.length > 0 &&
-          <div
-            styleName={
-              classNames(
-                'moreTab',
-                { displayMenu: this.state.displayMoreMenu },
-                { selected: this.state.selectedTabIndex >= visibleTabs.length },
-                { hidden: !moreTabs.some(element => (typeof element.disabled === 'undefined' || element.disabled === false)) }
-              )}
-            className={'unSelectable'}
-            style={{ maxWidth: this.props.maxTabWidth }}
-            onClick={this.toggleMoreMenu}
-          >
-            <div styleName={'titleBox'}>
-              <span styleName={'title'}> {this.state.moreTabLabel} </span>
-              <span className={'pyreneIcon-collapsDown'} styleName={'moreArrow'} />
+          {moreTabs && moreTabs.length > 0
+          && (
+            <div
+              styleName={
+                classNames(
+                  'moreTab',
+                  { displayMenu: this.state.displayMoreMenu },
+                  { selected: this.state.selectedTabIndex >= visibleTabs.length },
+                  { hidden: !moreTabs.some(element => (typeof element.disabled === 'undefined' || element.disabled === false)) }
+                )}
+              className="unSelectable"
+              style={{ maxWidth: this.props.maxTabWidth }}
+              onClick={this.toggleMoreMenu}
+            >
+              <div styleName="titleBox">
+                <span styleName="title">
+                  {' '}
+                  {this.state.moreTabLabel}
+                  {' '}
+                </span>
+                <span className="pyreneIcon-collapsDown" styleName="moreArrow" />
+              </div>
+              {this.renderMoreMenu(moreTabs, visibleTabs)}
             </div>
-            {this.renderMoreMenu(moreTabs, visibleTabs)}
-          </div>
+          )
           }
         </div>
 
@@ -176,8 +189,8 @@ TabView.propTypes = {
    * Data input array for the tabs. Type: [{ name: string (required), renderCallback: func (required), disabled: bool }]
    */
   tabs: PropTypes.arrayOf(PropTypes.shape({
+    disabled: PropTypes.bool,
     name: PropTypes.string.isRequired,
     renderCallback: PropTypes.func.isRequired,
-    disabled: PropTypes.bool,
   })).isRequired,
 };

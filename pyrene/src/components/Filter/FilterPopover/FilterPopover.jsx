@@ -8,34 +8,31 @@ import FilterOption from '../FilterOption/FilterOption';
 import Collapsible from '../../Collapsible/Collapsible';
 
 const FilterPopover = props => (
-  <div styleName={'filterPopover'}>
-    <div styleName={'title'}>Select Filter</div>
-    <div styleName={'filterOptions'}>
-      {props.filters.length <= 6 ?
-        props.filters.map(filter =>
-          <FilterOption {...filter} handleFilterChange={props.handleFilterChange} filterValues={props.filterValues} key={filter.filterKey} />
+  <div styleName="filterPopover">
+    <div styleName="title">Select Filter</div>
+    <div styleName="filterOptions">
+      {props.filters.length <= 6
+        ? props.filters.map(filter => <FilterOption {...filter} handleFilterChange={props.handleFilterChange} filterValues={props.filterValues} key={filter.filterKey} />)
+        : (
+          <React.Fragment>
+            {props.filters.slice(0, 6).map(filter => <FilterOption {...filter} handleFilterChange={props.handleFilterChange} filterValues={props.filterValues} key={filter.filterKey} />)}
+            <Collapsible
+              align="end"
+              labelCollapsed="More Filter Options"
+              labelExpanded="Less Filter Options"
+              renderCallback={() => props.filters.slice(6).map(filter => (
+                <FilterOption {...filter} handleFilterChange={props.handleFilterChange} filterValues={props.filterValues} key={filter.filterKey} />
+              ))}
+            />
+          </React.Fragment>
         )
-        :
-        <React.Fragment>
-          {props.filters.slice(0, 6).map(filter =>
-            <FilterOption {...filter} handleFilterChange={props.handleFilterChange} filterValues={props.filterValues} key={filter.filterKey} />
-          )}
-          <Collapsible
-            align={'end'}
-            labelCollapsed={'More Filter Options'}
-            labelExpanded={'Less Filter Options'}
-            renderCallback={() => props.filters.slice(6).map(filter => (
-              <FilterOption {...filter} handleFilterChange={props.handleFilterChange} filterValues={props.filterValues} key={filter.filterKey} />
-            ))}
-          />
-        </React.Fragment>
       }
     </div>
     <ButtonBar
       rightButtonSectionElements={[
-        <Button label={'Clear'} type={'ghost'} onClick={props.onFilterClear} />,
-        <Button label={'Cancel'} type={'secondary'} onClick={props.onClose} />,
-        <Button label={'Apply'} type={'primary'} onClick={props.onFilterApply} />,
+        <Button label="Clear" type="ghost" onClick={props.onFilterClear} />,
+        <Button label="Cancel" type="secondary" onClick={props.onClose} />,
+        <Button label="Apply" type="primary" onClick={props.onFilterApply} />,
       ]}
     />
   </div>
@@ -48,11 +45,11 @@ FilterPopover.defaultProps = {};
 
 FilterPopover.propTypes = {
   filters: PropTypes.arrayOf(PropTypes.shape({
-    label: PropTypes.string,
-    type: PropTypes.string,
-    filterKey: PropTypes.string,
-    options: PropTypes.array,
     defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
+    filterKey: PropTypes.string,
+    label: PropTypes.string,
+    options: PropTypes.array,
+    type: PropTypes.string,
   })).isRequired,
   filterValues: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.array, PropTypes.string])).isRequired,
   handleFilterChange: PropTypes.func.isRequired,

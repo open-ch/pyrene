@@ -30,8 +30,8 @@ export default class TreeTableRow extends React.PureComponent {
   };
 
   toggleRowExpansion = () => {
-    this.setState((prevState) => ({
-      isExpanded: !prevState.isExpanded
+    this.setState(prevState => ({
+      isExpanded: !prevState.isExpanded,
     }));
   };
 
@@ -41,8 +41,8 @@ export default class TreeTableRow extends React.PureComponent {
 
         {/* Row Elements are rendered here */}
         <div
-          styleName={'rowElementsContainer'}
-          onDoubleClick={e => this.props.onRowDoubleClick(this.props.data)}
+          styleName="rowElementsContainer"
+          onDoubleClick={() => this.props.onRowDoubleClick(this.props.data)}
         >
 
           {this.props.columns.map((column, index) => {
@@ -73,7 +73,7 @@ export default class TreeTableRow extends React.PureComponent {
                 parent={this.props.parent}
                 sectionOpen={this.state.isExpanded}
                 value={this.props.data[column.accessor]}
-                original={this.props.data}
+                rowData={this.props.data}
                 onExpandClick={this.toggleRowExpansion}
               />
             );
@@ -83,9 +83,11 @@ export default class TreeTableRow extends React.PureComponent {
 
         {/* Children rows are rendered here */}
 
-        {this.props.parent && <div styleName={classNames('childrenRowsContainer', { display: this.state.isExpanded })}>
-          {this.props.generateRowsFromData(this.props.data.children, this.props.columns, this.props.level + 1, this.addChildRowRef)}
-        </div>}
+        {this.props.parent && (
+          <div styleName={classNames('childrenRowsContainer', { display: this.state.isExpanded })}>
+            {this.props.generateRowsFromData(this.props.data.children, this.props.columns, this.props.level + 1, this.addChildRowRef)}
+          </div>
+        )}
       </div>
     );
   }
@@ -96,9 +98,8 @@ TreeTableRow.displayName = 'TreeTableRow';
 
 TreeTableRow.defaultProps = {
   columns: [],
-  data: [],
+  data: {},
   parent: false,
-  displayAllChildren: false,
 };
 
 TreeTableRow.propTypes = {
@@ -106,9 +107,8 @@ TreeTableRow.propTypes = {
   data: PROPCONSTANTS.DATAOBJECT,
   generateRowsFromData: PropTypes.func.isRequired,
 
-  onRowDoubleClick: PropTypes.func.isRequired,
-
-  parent: PropTypes.bool,
   level: PropTypes.number.isRequired,
-};
 
+  onRowDoubleClick: PropTypes.func.isRequired,
+  parent: PropTypes.bool,
+};

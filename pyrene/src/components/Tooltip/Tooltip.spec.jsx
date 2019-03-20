@@ -4,7 +4,7 @@ import Tooltip from './Tooltip';
 
 const props = {
   label: 'TooltipLabel',
-  children: <div>Test</div>
+  children: <div>Test</div>,
 };
 
 describe('<Tooltip />', () => {

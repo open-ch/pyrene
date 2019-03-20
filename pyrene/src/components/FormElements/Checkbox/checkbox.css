@@ -31,6 +31,7 @@
   &.disabled {
     opacity: 0.5;
     pointer-events: none;
+
     &.checked {
       opacity: 1;
     }

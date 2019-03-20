@@ -3,7 +3,7 @@ import React from 'react';
 import Stepper from './Stepper';
 
 const props = {
-  direction: 'up'
+  direction: 'up',
 };
 
 describe('<Stepper />', () => {
@@ -21,7 +21,7 @@ describe('<Stepper />', () => {
 
   it('is not clickable if disabled', () => {
     const onClick = jest.fn();
-    const rendered = mount(<Stepper {...props} onClick={onClick} disabled={true} />);
+    const rendered = mount(<Stepper {...props} onClick={onClick} disabled />);
     rendered.find('button').simulate('click');
 
     expect(onClick).not.toHaveBeenCalled();

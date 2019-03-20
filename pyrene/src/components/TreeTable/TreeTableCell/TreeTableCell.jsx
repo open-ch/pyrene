@@ -9,26 +9,27 @@ export default class TreeTableCell extends React.PureComponent {
 
   render() {
     return (
-      <div style={this.props.style} styleName={'treeTableCell'}>
+      <div style={this.props.style} styleName="treeTableCell">
 
-        {this.props.firstColumn && (this.props.parent ?
-            <div styleName={classNames('pivotIcon', {sectionOpen: this.props.sectionOpen})} className={'pyreneIcon-chevronDown'} onClick={this.props.onExpandClick}/>
-            :
-            <div styleName={'iconSpaceholder'}/>
+        {this.props.firstColumn && (this.props.parent
+          ? <div styleName={classNames('pivotIcon', { sectionOpen: this.props.sectionOpen })} className="pyreneIcon-chevronDown" onClick={this.props.onExpandClick} />
+          : <div styleName="iconSpaceholder" />
         )}
 
         {/* Use renderCallback if there is one defined for this column */}
 
-        {this.props.columnProps.renderCallback ?
-          this.props.columnProps.renderCallback(this.props.value, this.props.original)
-          :
-          <div styleName={'cellDataContainer'}>
-            {this.props.value}
-          </div>
+        {this.props.columnProps.renderCallback
+          ? this.props.columnProps.renderCallback(this.props.value, this.props.rowData)
+          : (
+            <div styleName="cellDataContainer">
+              {this.props.value}
+            </div>
+          )
         }
       </div>
     );
   }
+
 }
 
 
@@ -44,11 +45,12 @@ TreeTableCell.defaultProps = {
 };
 
 TreeTableCell.propTypes = {
-  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   columnProps: PROPCONSTANTS.COLUMN,
   firstColumn: PropTypes.bool,
   onExpandClick: PropTypes.func.isRequired,
   parent: PropTypes.bool,
+  rowData: PROPCONSTANTS.DATAOBJECT.isRequired,
   sectionOpen: PropTypes.bool,
   style: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };

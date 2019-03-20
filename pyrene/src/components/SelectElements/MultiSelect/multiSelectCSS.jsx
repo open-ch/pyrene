@@ -176,7 +176,7 @@ const multiSelectStyle = props => ({
     backgroundColor: data.invalid ? colorConstants.red100 : colorConstants.neutral030,
   }),
 
-  multiValueLabel: (base, { data }) => ({
+  multiValueLabel: (base, { data }) => ({ // eslint-disable-line no-unused-vars
     ...base,
     boxSizing: 'border-box',
     paddingLeft: 8,
@@ -218,7 +218,7 @@ const multiSelectStyle = props => ({
     },
   }),
 
-  noOptionsMessage: (base, state) => ({
+  noOptionsMessage: (base, state) => ({ // eslint-disable-line no-unused-vars
     ...base,
     fontStyle: 'italic',
     color: colorConstants.neutral200,

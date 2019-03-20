@@ -18,17 +18,6 @@ export default class Container extends React.Component {
     };
   }
 
-  toggleCollapse = (event) => {
-    event.persist();
-    if (this.props.collapsible) {
-      this.setState((prevState, props) => ({
-        expanded: !prevState.expanded,
-      }),
-      () => this.props.onChange(event)
-      );
-    }
-  };
-
   componentDidMount() {
     if (this.contentRef) {
       this.setState(() => ({
@@ -37,17 +26,30 @@ export default class Container extends React.Component {
     }
   }
 
+  toggleCollapse = (event) => {
+    event.persist();
+    if (this.props.collapsible) {
+      this.setState(prevState => ({
+        expanded: !prevState.expanded,
+      }),
+      () => this.props.onChange(event));
+    }
+  };
+
   render() {
     return (
       <div styleName={classNames('container', { expanded: this.state.expanded || !this.props.collapsible })}>
         <div styleName={classNames('header', { collapsible: this.props.collapsible })} onClick={this.toggleCollapse} role="button" aria-label="Show or hide container">
-          <span styleName={'title'} className={'unSelectable'}> {this.props.title}</span>
-          <div styleName={'adminAndArrowContainer'}>
-            {this.props.adminAction && <Button type={'admin'} label={this.props.adminAction.label} icon={this.props.adminAction.icon} onClick={(event) => { this.props.adminAction.action(event); event.stopPropagation(); }} />}
-            {this.props.collapsible && <span className={'pyreneIcon-collapsDown'} styleName={'collapsArrow'} />}
+          <span styleName="title" className="unSelectable">
+            {' '}
+            {this.props.title}
+          </span>
+          <div styleName="adminAndArrowContainer">
+            {this.props.adminAction && <Button type="admin" label={this.props.adminAction.label} icon={this.props.adminAction.icon} onClick={(event) => { this.props.adminAction.action(event); event.stopPropagation(); }} />}
+            {this.props.collapsible && <span className="pyreneIcon-collapsDown" styleName="collapsArrow" />}
           </div>
         </div>
-        <div styleName={'contentContainer'} style={{ height: (this.state.expanded || !this.props.collapsible) && this.state.contentHeight ? this.state.contentHeight : null }}>
+        <div styleName="contentContainer" style={{ height: (this.state.expanded || !this.props.collapsible) && this.state.contentHeight ? this.state.contentHeight : null }}>
           <div style={{ padding: 24 }} ref={(contentRef) => { this.contentRef = contentRef; }}>
             {this.props.renderCallback()}
           </div>
@@ -73,9 +75,9 @@ Container.propTypes = {
    * Creates an admin type button in the header. Type: { icon: string, label: string (required), action: func (required) }
    */
   adminAction: PropTypes.shape({
+    action: PropTypes.func.isRequired,
     icon: PropTypes.string,
     label: PropTypes.string.isRequired,
-    action: PropTypes.func.isRequired,
   }),
   /**
    * Whether the container is collapsible when the user clicks on the header.

@@ -1,5 +1,5 @@
 @import '../../../styles/colors.css';
-    
+
 .treeTableHeader {
   composes: commonFontSettings from '../../../styles/common.css';
   box-sizing: border-box;
@@ -27,6 +27,7 @@
   &:first-child {
     padding-left: 32px;
   }
+
   &:last-child {
     padding-right: 8px;
   }

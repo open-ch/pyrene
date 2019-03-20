@@ -5,30 +5,30 @@ import SVG from 'react-svg-inline';
 
 import './checkbox.css';
 
-import normal from './checkbox-blank.svg';
-import normalHover from './checkbox-hover.svg';
-import selected from './checkbox-selected.svg';
-import selectedHover from './checkbox-selected-hover.svg';
-import invalid from './checkbox-invalid.svg';
-import invalidHover from './checkbox-invalid-hover.svg';
+import iconNormal from './checkbox-blank.svg';
+import iconNormalHover from './checkbox-hover.svg';
+import iconSelected from './checkbox-selected.svg';
+import iconSelectedHover from './checkbox-selected-hover.svg';
+import iconInvalid from './checkbox-invalid.svg';
+import iconInvalidHover from './checkbox-invalid-hover.svg';
 
 const iconMap = {
   normal: {
-    default: normal,
-    hover: normalHover,
+    default: iconNormal,
+    hover: iconNormalHover,
   },
   checked: {
-    default: selected,
-    hover: selectedHover,
+    default: iconSelected,
+    hover: iconSelectedHover,
   },
   invalid: {
-    default: invalid,
-    hover: invalidHover,
+    default: iconInvalid,
+    hover: iconInvalidHover,
   },
 };
 
 const getCheckboxIcon = (options, hovered) => {
-  const { checked, invalid, disabled } = options;
+  const { checked, disabled, invalid } = options;
   const iconKey = !disabled && hovered ? 'hover' : 'default';
   let icon = iconMap.normal[iconKey];
   if (invalid) {
@@ -45,6 +45,7 @@ const getCheckboxIcon = (options, hovered) => {
  * Checkboxes can also be used to turn an option on or off.
  */
 class Checkbox extends Component {
+
   state = {
     hovered: false,
   };
@@ -58,49 +59,48 @@ class Checkbox extends Component {
   };
 
   render() {
-    const { props } = this;
     const options = {
-      checked: props.value,
-      invalid: props.invalid && !props.value,
-      disabled: props.disabled,
+      checked: this.props.value,
+      invalid: this.props.invalid && !this.props.value,
+      disabled: this.props.disabled,
     };
     const rand = Math.floor(Math.random() * 1e10);
     return (
       <div
-        styleName={'checkboxContainer'}
-        id={props.name}
-        onBlur={props.onBlur}
-        tabIndex={0}
+        styleName="checkboxContainer"
+        id={this.props.name}
+        onBlur={this.props.onBlur}
         onMouseEnter={this.onMouseEnter}
         onMouseLeave={this.onMouseLeave}
       >
         <input
-          id={`checkbox_${props.label}_${rand}`}
-          styleName={'checkbox'}
-          type={'checkbox'}
-          checked={props.value}
-          onChange={!props.disabled ? props.onChange : undefined}
-          onClick={(e) => e.stopPropagation()}
-          name={props.name}
+          id={`checkbox_${this.props.label}_${rand}`}
+          styleName="checkbox"
+          type="checkbox"
+          checked={this.props.value}
+          onChange={!this.props.disabled ? this.props.onChange : () => {}}
+          onClick={e => e.stopPropagation()}
+          name={this.props.name}
         />
 
         <label
-          className={'unSelectable'}
+          className="unSelectable"
           styleName={
-            classNames('checkboxLabel', { disabled: props.disabled, required: props.required })}
-          htmlFor={`checkbox_${props.label}_${rand}`}
+            classNames('checkboxLabel', { disabled: this.props.disabled, required: this.props.required })}
+          htmlFor={`checkbox_${this.props.label}_${rand}`}
           role="checkbox"
-          aria-checked={props.checked}
+          aria-checked={this.props.value}
         >
-          <span styleName={'checkboxIcon'}>
+          <span styleName="checkboxIcon">
             {getCheckboxIcon(options, this.state.hovered)}
           </span>
-          {props.label}
+          {this.props.label}
         </label>
       </div>
-    )
+    );
+  }
+
 }
-};
 
 Checkbox.displayName = 'Checkbox';
 

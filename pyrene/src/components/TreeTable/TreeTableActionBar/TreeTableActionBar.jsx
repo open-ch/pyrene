@@ -7,24 +7,26 @@ import Button from '../../Button/Button';
 import CheckboxPopover from '../../CheckboxPopover/CheckboxPopover';
 
 const TreeTableActionBar = props => (
-  <div styleName={'treeTableActionBar'}>
+  <div styleName="treeTableActionBar">
     <ButtonBar
       leftButtonSectionElements={[
         <Button
           label={props.displayExpandAll ? 'Collapse All' : 'Expand All'}
           icon={props.displayExpandAll ? 'chevronUp' : 'chevronDown'}
-          type={'action'}
+          type="action"
           onClick={props.toggleAll}
         />,
       ]}
       noPadding
     />
-    {props.columnToggleProps.toggleColumns && <CheckboxPopover
-      buttonLabel={'Columns'}
-      listItems={props.columnToggleProps.listItems}
-      onItemClick={props.columnToggleProps.onItemClick}
-      onRestoreDefault={props.columnToggleProps.onRestoreDefault}
-    />}
+    {props.columnToggleProps.toggleColumns && (
+      <CheckboxPopover
+        buttonLabel="Columns"
+        listItems={props.columnToggleProps.listItems}
+        onItemClick={props.columnToggleProps.onItemClick}
+        onRestoreDefault={props.columnToggleProps.onRestoreDefault}
+      />
+    )}
   </div>
 );
 

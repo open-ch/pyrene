@@ -142,6 +142,6 @@ const functionalColors = {
   adminBg: colorPalette.red050,
 };
 
-const colorConstants = {...colorPalette, ...functionalColors};
+const colorConstants = { ...colorPalette, ...functionalColors };
 
 export default colorConstants;

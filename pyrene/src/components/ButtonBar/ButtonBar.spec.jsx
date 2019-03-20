@@ -4,8 +4,8 @@ import ButtonBar from './ButtonBar';
 import Button from '../Button/Button';
 
 const props = {
-  rightButtonSectionElements: [<Button label={'Button1'} />],
-  leftButtonSectionElements: [<Button label={'Button2'} />],
+  rightButtonSectionElements: [<Button label="Button1" />],
+  leftButtonSectionElements: [<Button label="Button2" />],
 };
 
 describe('<ButtonBar />', () => {

@@ -17,15 +17,15 @@ const Banner = props => (
     styleName={className('banner', { [`type-${props.type}`]: true }, { [`style-${props.styling}`]: true })}
     role="banner"
   >
-    <div styleName={'iconMessageContainer'}>
-      <span styleName={'bannerIcon'}>{props.type === 'loading' ? <Loader size={'small'} /> : <span className={`pyreneIcon-${props.type}`} />}</span>
-      <div styleName={'spacer'} />
-      <div styleName={'textBox'}>
-        <div styleName={'message'}>{props.label}</div>
-        {props.styling !== 'inline' && <div styleName={'description'}>{props.description}</div>}
+    <div styleName="iconMessageContainer">
+      <span styleName="bannerIcon">{props.type === 'loading' ? <Loader size="small" /> : <span className={`pyreneIcon-${props.type}`} />}</span>
+      <div styleName="spacer" />
+      <div styleName="textBox">
+        <div styleName="message">{props.label}</div>
+        {props.styling !== 'inline' && <div styleName="description">{props.description}</div>}
       </div>
     </div>
-    {props.styling === 'overlay' && props.clearable && <span className={'pyreneIcon-delete'} styleName={'clearIcon'} onClick={props.onClear} role="button" aria-label="Clear Banner"/>}
+    {props.styling === 'overlay' && props.clearable && <span className="pyreneIcon-delete" styleName="clearIcon" onClick={props.onClear} role="button" aria-label="Clear Banner" />}
   </div>
 );
 
@@ -36,7 +36,7 @@ Banner.defaultProps = {
   clearable: true,
   onClear: () => null,
   description: '',
-  styling: 'standard'
+  styling: 'standard',
 };
 
 Banner.propTypes = {

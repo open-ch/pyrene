@@ -24,7 +24,7 @@ module.exports = {
   // collectCoverageFrom: null,
 
   // The directory where Jest should output its coverage files
-  coverageDirectory: "coverage",
+  coverageDirectory: 'coverage',
 
   // An array of regexp pattern strings used to skip coverage collection
   // coveragePathIgnorePatterns: [
@@ -62,7 +62,7 @@ module.exports = {
   // An array of directory names to be searched recursively up from the requiring module's location
   // This is needed so that only the root node_modules is used, not the closest one
   moduleDirectories: [
-    "<rootDir>/node_modules"
+    '<rootDir>/node_modules',
   ],
 
   // An array of file extensions your modules use
@@ -75,8 +75,8 @@ module.exports = {
 
   // A map from regular expressions to module names that allow to stub out resources with a single module
   moduleNameMapper: {
-      "\\.css$": "identity-obj-proxy",
-      "\\.svg": "<rootDir>/mock-static-file.js"
+    '\\.css$': 'identity-obj-proxy',
+    '\\.svg': '<rootDir>/mock-static-file.js',
   },
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
@@ -121,7 +121,7 @@ module.exports = {
   // runner: "jest-runner",
 
   // The paths to modules that run some code to configure or set up the testing environment before each test
-  setupFiles: ["<rootDir>/test-setup.js"],
+  setupFiles: ['<rootDir>/test-setup.js'],
 
   // The path to a module that runs some code to configure or set up the testing framework before each test
   // setupTestFrameworkScriptFile: null,
@@ -130,7 +130,7 @@ module.exports = {
   // snapshotSerializers: [],
 
   // The test environment that will be used for testing
-  testEnvironment: "node",
+  testEnvironment: 'node',
 
   // Options that will be passed to the testEnvironment
   // testEnvironmentOptions: {},
@@ -166,8 +166,8 @@ module.exports = {
 
   // A map from regular expressions to paths to transformers
   transform: {
-    "^.+\\.js$": "babel-jest",
-    "^.+\\.jsx?$": "babel-jest"
+    '^.+\\.js$': 'babel-jest',
+    '^.+\\.jsx?$': 'babel-jest',
   },
 
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation

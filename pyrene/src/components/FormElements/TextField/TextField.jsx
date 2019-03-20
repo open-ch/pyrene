@@ -14,7 +14,7 @@ import './textField.css';
 const TextField = props => (
   <div styleName={classNames('textFieldContainer', { disabled: props.disabled }, { invalid: props.invalid && !props.disabled })} style={{ width: (props.width >= 0) ? `${props.width}px` : '100%' }}>
     {props.title && <div styleName={classNames('textFieldTitle', { required: props.required && !props.disabled })}>{props.title}</div>}
-    <div styleName={'textFieldIconLayoutContainer'}>
+    <div styleName="textFieldIconLayoutContainer">
       {/* { hasIcon: props.icon } */}
       <input
         styleName={classNames('textField', { filled: props.value })}
@@ -29,18 +29,23 @@ const TextField = props => (
       {/* Future use of an api with predefined icons - <span className={`pyreneIcon-${props.icon}`} styleName={'textFieldIcon'} /> */}
     </div>
 
-    {props.invalid && props.invalidLabel && !props.disabled ?
-      <div styleName={'invalidLabel'}>
-        <span className={'pyreneIcon-errorOutline'} styleName={'errorIcon'} />
-        {props.invalidLabel}
-      </div>
-      :
-      <React.Fragment>
-        {props.helperLabel &&
-        <div styleName={'textFieldHelper'}>
-          {props.helperLabel}
-        </div>}
-      </React.Fragment>
+    {props.invalid && props.invalidLabel && !props.disabled
+      ? (
+        <div styleName="invalidLabel">
+          <span className="pyreneIcon-errorOutline" styleName="errorIcon" />
+          {props.invalidLabel}
+        </div>
+      )
+      : (
+        <React.Fragment>
+          {props.helperLabel
+        && (
+          <div styleName="textFieldHelper">
+            {props.helperLabel}
+          </div>
+        )}
+        </React.Fragment>
+      )
     }
   </div>
 );
