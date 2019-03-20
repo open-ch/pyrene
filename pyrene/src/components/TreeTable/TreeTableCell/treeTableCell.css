@@ -1,5 +1,5 @@
 @import '../../../styles/colors.css';
-    
+
 .treeTableCell {
   composes: commonFontSettings from '../../../styles/common.css';
   box-sizing: border-box;
@@ -21,6 +21,7 @@
   flex: 100 0 auto;
 
   padding-right: 16px;
+
   &:last-child {
     padding-right: 8px;
   }
@@ -38,6 +39,7 @@
   font-size: 16px;
 
   margin-right: 8px;
+
   &.sectionOpen {
     transform: rotate(-180deg);
   }

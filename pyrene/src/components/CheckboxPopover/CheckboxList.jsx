@@ -6,19 +6,17 @@ import Checkbox from '../FormElements/Checkbox/Checkbox';
 import Button from '../Button/Button';
 
 const CheckboxList = props => (
-  <div styleName={'checkboxList'}>
-    <div styleName={'listHeader'}>
-      <Button label={'Restore default'} type={'action'} onClick={() => props.onRestoreDefault()} />
+  <div styleName="checkboxList">
+    <div styleName="listHeader">
+      <Button label="Restore default" type="action" onClick={() => props.onRestoreDefault()} />
     </div>
-    <div styleName={'list'}>
+    <div styleName="list">
       {props.listItems
-        .map((item) => {
-          return (
-            <div styleName={'listItem'} key={item.id}>
-              <Checkbox label={item.label} value={item.value} onChange={()=> props.onItemClick(item.id, item.value)} />
-            </div>
-          );
-        })
+        .map(item => (
+          <div styleName="listItem" key={item.id}>
+            <Checkbox label={item.label} value={item.value} onChange={() => props.onItemClick(item.id, item.value)} />
+          </div>
+        ))
       }
     </div>
   </div>

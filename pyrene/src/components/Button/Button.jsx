@@ -16,22 +16,22 @@ import Loader from '../Loader/Loader';
 const Button = props => (
   <div styleName="buttonContainer">
     <button
-      className={'unSelectable'}
+      type="submit"
+      className="unSelectable"
       styleName={
         classNames('button',
           { [`type-${props.type}`]: true },
           { disabled: props.disabled },
-          { loading: props.loading})}
+          { loading: props.loading })}
       onClick={props.onClick}
       disabled={props.disabled}
     >
-      {props.icon && <span styleName={'icon'} className={`pyreneIcon-${props.icon}`} />}
-      <span styleName={'label'}>{props.label}</span>
+      {props.icon && <span styleName="icon" className={`pyreneIcon-${props.icon}`} />}
+      <span styleName="label">{props.label}</span>
     </button>
-    {props.loading && ((props.type === 'primary' || props.type === 'danger') ?
-      <span styleName={'loader'}><Loader size={'small'} type={'light'} /></span>
-      :
-      <span styleName={'loader'}><Loader size={'small'} type={'dark'} /></span>)
+    {props.loading && ((props.type === 'primary' || props.type === 'danger')
+      ? <span styleName="loader"><Loader size="small" type="light" /></span>
+      : <span styleName="loader"><Loader size="small" type="dark" /></span>)
     }
   </div>
 );
@@ -40,7 +40,6 @@ Button.displayName = 'Button';
 
 Button.defaultProps = {
   icon: '',
-  label: '',
   type: 'primary',
   loading: false,
   disabled: false,

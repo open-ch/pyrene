@@ -1,7 +1,6 @@
 import React from 'react';
 
 
-
 import Banner from './Banner.jsx';
 
 const props = {
@@ -12,12 +11,12 @@ const props = {
 describe('<Banner />', () => {
 
   it('renders without crashing', () => {
-    const rendered = shallow(<Banner {...props} />);
+    shallow(<Banner {...props} />);
   });
 
   it('overlay is clearable', () => {
     const onClick = jest.fn();
-    const rendered = shallow(<Banner {...props} clearable styling={'overlay'} onClear={onClick} />);
+    const rendered = shallow(<Banner {...props} styling="overlay" onClear={onClick} clearable />);
     expect(rendered.find('.clearIcon')).toHaveLength(1);
 
     rendered.find('.clearIcon').simulate('click');
@@ -25,23 +24,23 @@ describe('<Banner />', () => {
   });
 
   it('overlay has a clearIcon', () => {
-    let rendered = shallow(<Banner {...props} clearable styling={'overlay'} type={'info'} />);
+    let rendered = shallow(<Banner {...props} styling="overlay" type="info" clearable />);
     expect(rendered.find('.clearIcon')).toHaveLength(1);
 
-    rendered = shallow(<Banner {...props} clearable styling={'overlay'} type={'success'}  />);
+    rendered = shallow(<Banner {...props} styling="overlay" type="success" clearable />);
     expect(rendered.find('.clearIcon')).toHaveLength(1);
 
-    rendered = shallow(<Banner {...props} clearable styling={'overlay'} type={'warning'} />);
+    rendered = shallow(<Banner {...props} styling="overlay" type="warning" clearable />);
     expect(rendered.find('.clearIcon')).toHaveLength(1);
   });
 
   it('has no clearIcon if not clearable', () => {
-    let rendered = shallow(<Banner {...props} clearable={false} styling={'overlay'} />);
+    const rendered = shallow(<Banner {...props} clearable={false} styling="overlay" />);
     expect(rendered.find('.clearIcon')).toHaveLength(0);
   });
 
   it('has no clearIcon if not overlay', () => {
-    let rendered = shallow(<Banner {...props} styling={'standard'} />);
+    const rendered = shallow(<Banner {...props} styling="standard" />);
     expect(rendered.find('.clearIcon')).toHaveLength(0);
   });
 

@@ -9,7 +9,7 @@ import './tableSelect.css';
 const TableSelect = props => (
   <div styleName={classNames('selectContainer', { disabled: props.disabled })}>
     <Select
-      className={'singleSelect'}
+      className="singleSelect"
       styles={SelectStyle}
       placeholder={props.placeholder}
       options={props.options}
@@ -48,9 +48,9 @@ TableSelect.propTypes = {
   onBlur: PropTypes.func,
   onChange: PropTypes.func,
   options: PropTypes.arrayOf(PropTypes.shape({
-    value: PropTypes.string,
-    label: PropTypes.string,
     invalid: PropTypes.bool,
+    label: PropTypes.string,
+    value: PropTypes.string,
   })),
   placeholder: PropTypes.string,
   value: PropTypes.string,

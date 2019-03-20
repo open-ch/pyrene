@@ -19,13 +19,9 @@
   z-index: 2;
 }
 
-.loadingContainer {
+.loadingContainer {}
 
-}
-
-.treeTableData {
-
-}
+.treeTableData {}
 
 .treeTableTitle {
   box-sizing: border-box;

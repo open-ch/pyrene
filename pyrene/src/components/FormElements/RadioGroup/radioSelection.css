@@ -43,11 +43,12 @@
     &.disabled .radioIcon {
       opacity: 0.5;
     }
-  } 
+  }
 
   &.disabled {
     opacity: 0.5;
     pointer-events: none;
+
     &.checked {
       opacity: 1;
     }
@@ -61,4 +62,3 @@
 .spacer-vertical {
   height: 8px;
 }
-

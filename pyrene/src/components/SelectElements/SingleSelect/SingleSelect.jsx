@@ -7,9 +7,7 @@ import SelectStyle from './singleSelectCSS';
 import '../select.css';
 import Loader from '../../Loader/Loader';
 
-const LoadingIndicator = () => {
-  return <Loader />;
-};
+const LoadingIndicator = () => <Loader />;
 
 /**
  * Selects are used when the user has to make a selection from a list that is too large to show.
@@ -18,75 +16,83 @@ const SingleSelect = props => (
   <div styleName={classNames('selectContainer', { disabled: props.disabled })}>
     {props.title && <div styleName={classNames('selectTitle', { required: props.required && !props.disabled })}>{props.title}</div>}
 
-    {props.creatable ?
-      <CreatableSelect
-        className={'singleSelect'}
-        styles={SelectStyle}
-        components={{ LoadingIndicator }}
-        placeholder={props.placeholder}
-        options={props.options}
-        value={props.value ? props.options.filter(o => o.value === props.value).pop() : undefined}
-        defaultValue={props.options.filter(o => o.value === props.defaultValue).pop()}
-        isClearable={props.clearable}
-        isDisabled={props.disabled}
-        isInvalid={props.invalid}
-        isLoading={props.loading}
-        onChange={option => props.onChange({ target: { name: props.name, value: option, type: 'singleSelect' } })}
-        onBlur={props.onBlur}
-        name={props.name}
-        id={props.name}
-        inputId={props.name}
+    {props.creatable
+      ? (
+        <CreatableSelect
+          className="singleSelect"
+          styles={SelectStyle}
+          components={{ LoadingIndicator }}
+          placeholder={props.placeholder}
+          options={props.options}
+          value={props.value ? props.options.filter(o => o.value === props.value).pop() : undefined}
+          defaultValue={props.options.filter(o => o.value === props.defaultValue).pop()}
+          isClearable={props.clearable}
+          isDisabled={props.disabled}
+          isInvalid={props.invalid}
+          isLoading={props.loading}
+          onChange={option => props.onChange({ target: { name: props.name, value: option, type: 'singleSelect' } })}
+          onBlur={props.onBlur}
+          name={props.name}
+          id={props.name}
+          inputId={props.name}
 
-        maxMenuHeight={264}
-        noOptionsMessage={() => 'no matches found'}
-        formatCreateLabel={inputValue => `Create new tag "${inputValue}"`}
+          maxMenuHeight={264}
+          noOptionsMessage={() => 'no matches found'}
+          formatCreateLabel={inputValue => `Create new tag "${inputValue}"`}
 
-        isSearchable
-        blurInputOnSelect
-        escapeClearsValue
-        captureMenuScroll
-      />
-      :
-      <Select
-        className={'singleSelect'}
-        styles={SelectStyle}
-        components={{ LoadingIndicator }}
-        placeholder={props.placeholder}
-        options={props.options}
-        value={props.value ? props.options.filter(o => o.value === props.value).pop() : undefined}
-        defaultValue={props.options.filter(o => o.value === props.defaultValue).pop()}
-        isClearable={props.clearable}
-        isSearchable={props.searchable}
-        isDisabled={props.disabled}
-        isInvalid={props.invalid}
-        isLoading={props.loading}
-        onChange={option => props.onChange({ target: { name: props.name, value: option, type: 'singleSelect' } })}
-        onBlur={props.onBlur}
-        name={props.name}
-        id={props.name}
-        inputId={props.name}
+          isSearchable
+          blurInputOnSelect
+          escapeClearsValue
+          captureMenuScroll
+        />
+      )
+      : (
+        <Select
+          className="singleSelect"
+          styles={SelectStyle}
+          components={{ LoadingIndicator }}
+          placeholder={props.placeholder}
+          options={props.options}
+          value={props.value ? props.options.filter(o => o.value === props.value).pop() : undefined}
+          defaultValue={props.options.filter(o => o.value === props.defaultValue).pop()}
+          isClearable={props.clearable}
+          isSearchable={props.searchable}
+          isDisabled={props.disabled}
+          isInvalid={props.invalid}
+          isLoading={props.loading}
+          onChange={option => props.onChange({ target: { name: props.name, value: option, type: 'singleSelect' } })}
+          onBlur={props.onBlur}
+          name={props.name}
+          id={props.name}
+          inputId={props.name}
 
-        maxMenuHeight={264}
-        noOptionsMessage={() => 'no matches found'}
+          maxMenuHeight={264}
+          noOptionsMessage={() => 'no matches found'}
 
-        blurInputOnSelect
-        escapeClearsValue
-        captureMenuScroll
-      />
+          blurInputOnSelect
+          escapeClearsValue
+          captureMenuScroll
+        />
+      )
     }
 
-    {props.invalid && props.invalidLabel && !props.disabled ?
-      <div styleName={'invalidLabel'}>
-        <span className={'pyreneIcon-errorOutline'} styleName={'errorIcon'} />
-        {props.invalidLabel}
-      </div>
-      :
-      <React.Fragment>
-        {props.helperLabel &&
-        <div styleName={'selectHelper'}>
-          {props.helperLabel}
-        </div>}
-      </React.Fragment>
+    {props.invalid && props.invalidLabel && !props.disabled
+      ? (
+        <div styleName="invalidLabel">
+          <span className="pyreneIcon-errorOutline" styleName="errorIcon" />
+          {props.invalidLabel}
+        </div>
+      )
+      : (
+        <React.Fragment>
+          {props.helperLabel
+        && (
+          <div styleName="selectHelper">
+            {props.helperLabel}
+          </div>
+        )}
+        </React.Fragment>
+      )
     }
 
   </div>
@@ -163,9 +169,9 @@ SingleSelect.propTypes = {
    * Data input array. Type: [{ value: string (required), label: string (required), invalid: bool }]
    */
   options: PropTypes.arrayOf(PropTypes.shape({
-    value: PropTypes.string.isRequired,
-    label: PropTypes.string.isRequired,
     invalid: PropTypes.bool,
+    label: PropTypes.string.isRequired,
+    value: PropTypes.string.isRequired,
   })),
   /**
    * Sets the placeholder label.

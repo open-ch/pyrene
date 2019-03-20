@@ -5,7 +5,7 @@ import Modal from './Modal';
 const props = {
   title: 'titleLabel',
   size: 'large',
-  renderCallback: () => <div>Content</div>,
+  renderCallback: () => <div>Content</div>, // eslint-disable-line react/display-name
 };
 
 describe('<Modal />', () => {

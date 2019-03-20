@@ -6,12 +6,13 @@ import PropTypes from 'prop-types';
  * You can call me Form. Form Form.
  */
 class Form extends React.Component {
-  getTouchedState = initialValues => {
+
+  getTouchedState = (initialValues) => { // eslint-disable-line react/sort-comp
     const touchedState = Object.keys(initialValues).reduce((allValues, value) => {
-      allValues[value] = false;
+      allValues[value] = false; // eslint-disable-line no-param-reassign
       return allValues;
     }, {});
-    return {...touchedState};
+    return { ...touchedState };
   };
 
   state = {
@@ -22,9 +23,8 @@ class Form extends React.Component {
 
   validateYupSchema = (values) => {
     try {
-      this.props.validationSchema.validateSync(values, {abortEarly: false});
-    }
-    catch (err) {
+      this.props.validationSchema.validateSync(values, { abortEarly: false });
+    } catch (err) {
       return this.regroupErrors(err);
     }
     // No errors return empty error
@@ -32,15 +32,13 @@ class Form extends React.Component {
   };
 
   validate = (values) => {
-    if (typeof this.props.validationSchema !== 'undefined') {
+    if (this.props.validationSchema) {
       return this.validateYupSchema(values);
     }
     return {};
   };
 
-  anyError = errors => {
-    return Object.keys(errors).some(x => errors[x]);
-  };
+  anyError = errors => Object.keys(errors).some(x => errors[x]);
 
   canBeSubmitted() {
     const errors = this.validate(this.state.values);
@@ -58,19 +56,17 @@ class Form extends React.Component {
     // the path for multiselect options points out the exact object inside the multiselect like 'multiselect[x]'
     // to group all of these errors together under multiselect the .split("[") function is used
     // for other elements like a checkbox that do not have "[" in their name, the name remains unchanged
-    const groupedErrors = errors.inner.map(validationError => ({[validationError.path.split("[")[0]]: validationError.errors})).reduce((acc, obj) => {
+    const groupedErrors = errors.inner.map(validationError => ({ [validationError.path.split('[')[0]]: validationError.errors })).reduce((acc, obj) => {
       Object.keys(obj).forEach((k) => {
         acc[k] = (acc[k] || []).concat(obj[k]);
       });
       return acc;
     }, {});
 
-    let flatGroupedErrors = {};
-    for (const key in groupedErrors) {
-      if (groupedErrors.hasOwnProperty(key)) {
-        flatGroupedErrors[key] = [...new Set(groupedErrors[key])].join(' ');
-      }
-    }
+    const flatGroupedErrors = Object.keys(groupedErrors).reduce((flatErrors, key) => {
+      flatErrors[key] = groupedErrors[key].join(' '); // eslint-disable-line no-param-reassign
+      return flatErrors;
+    }, {});
 
     return flatGroupedErrors;
   };
@@ -81,7 +77,7 @@ class Form extends React.Component {
 
     if (!this.canBeSubmitted()) {
       // better solution than alert needed..
-      alert('Submit not possible, check validation!');
+      alert('Submit not possible, check validation!'); // eslint-disable-line no-alert
     } else {
 
       this.setState(() => ({
@@ -90,20 +86,20 @@ class Form extends React.Component {
 
       // Should use promise for onSubmit
       this.props.onSubmit(this.state.values)
-        .then(() => this.setState({isSubmitting: false}))
+        .then(() => this.setState({ isSubmitting: false }));
     }
   };
 
   handleBlur = (event) => {
     const inputName = event.target.name ? event.target.name : event.target.id;
-    this.setState((prevState, props) => ({
-      touched: {...prevState.touched, [inputName]: true}
+    this.setState(prevState => ({
+      touched: { ...prevState.touched, [inputName]: true },
     }));
   };
 
   setFieldValue = (fieldName, value) => {
-    this.setState((prevState, props) => ({
-      values: {...prevState.values, [fieldName]: value},
+    this.setState(prevState => ({
+      values: { ...prevState.values, [fieldName]: value },
     }));
   };
 
@@ -111,23 +107,22 @@ class Form extends React.Component {
     const inputName = event.target.name;
     const newValue = this.getValueFromInput(event.target);
 
-    if (typeof this.props.onChange !== 'undefined') {
-      this.setState((prevState, props) => ({
-          values: {...prevState.values, [inputName]: newValue}
-        }),
-        () => this.props.onChange(this.state.values, this.setFieldValue)
-      );
+    if (typeof this.props.onChange === 'function') {
+      this.setState(prevState => ({
+        values: { ...prevState.values, [inputName]: newValue },
+      }),
+      () => this.props.onChange(this.state.values, this.setFieldValue));
     } else {
-      this.setState((prevState, props) => ({
-        values: {...prevState.values, [inputName]: newValue}
+      this.setState(prevState => ({
+        values: { ...prevState.values, [inputName]: newValue },
       }));
     }
   };
 
   validateMultiSelectOption = (multiSelectName, selectedOption) => {
-    if ((typeof this.props.validationSchema !== 'undefined') && (typeof this.props.validationSchema.fields[multiSelectName] !== 'undefined')) {
+    if (this.props.validationSchema && (typeof this.props.validationSchema.fields[multiSelectName] !== 'undefined')) {
       try {
-        this.props.validationSchema.fields[multiSelectName].validateSync([selectedOption], {abortEarly: false});
+        this.props.validationSchema.fields[multiSelectName].validateSync([selectedOption], { abortEarly: false });
       } catch (e) {
         // Error thrown for this selectedOption -> invalid: true
         return true;
@@ -138,7 +133,7 @@ class Form extends React.Component {
   };
 
   getValueFromInput = (target) => {
-    switch(target.type) {
+    switch (target.type) {
       case 'checkbox':
         return target.checked;
       case 'singleSelect':
@@ -146,12 +141,13 @@ class Form extends React.Component {
           return null;
         }
         return target.value.value;
-      case 'multiSelect':
+      case 'multiSelect': {
         const selectedOptions = target.value;
         const multiSelectName = target.name;
         return selectedOptions.map(selectedOption => (
-          {value: selectedOption.value, label: selectedOption.label, invalid: this.validateMultiSelectOption(multiSelectName, selectedOption)}
+          { value: selectedOption.value, label: selectedOption.label, invalid: this.validateMultiSelectOption(multiSelectName, selectedOption) }
         ));
+      }
       default:
         return target.value;
     }
@@ -159,7 +155,7 @@ class Form extends React.Component {
 
   initField = (fieldName, error) => {
     // Standard boilerplate
-    let fieldProps = {
+    const fieldProps = {
       name: fieldName,
       value: this.state.values[fieldName],
       invalid: this.shouldMarkError(fieldName, error),
@@ -177,9 +173,9 @@ class Form extends React.Component {
   };
 
   render() {
-    const errors = {...this.validate(this.state.values)};
+    const errors = { ...this.validate(this.state.values) };
     const submitDisabled = this.anyError(errors);
-    const initField = (name) => this.initField(name, errors[name]);
+    const initField = name => this.initField(name, errors[name]);
     return (
       <form onSubmit={this.handleSubmit}>
         {this.props.render({
@@ -188,12 +184,29 @@ class Form extends React.Component {
           touched: this.state.touched,
           isSubmitting: this.state.isSubmitting,
           submitDisabled: submitDisabled,
-          initField: initField })}
+          initField: initField,
+        })}
       </form>
     );
   }
+
 }
 
 Form.displayName = 'Form';
+
+Form.defaultProps = {
+  onChange: null,
+  onSubmit: () => {},
+  validationSchema: null,
+  initialValues: {},
+};
+
+Form.propTypes = {
+  initialValues: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  onChange: PropTypes.func,
+  onSubmit: PropTypes.func,
+  render: PropTypes.func.isRequired,
+  validationSchema: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+};
 
 export default Form;

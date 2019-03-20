@@ -15,7 +15,6 @@ export default class ShareDialog extends React.Component {
 
   state = {
     displayShareDialog: false,
-    dialogPosition: {},
   };
 
   componentDidUpdate() {
@@ -30,8 +29,8 @@ export default class ShareDialog extends React.Component {
     this._focusAndSelectInput();
   };
 
-  _displayShareDialogClicked = (event) => {
-    this.setState((prevState, props) => ({
+  _displayShareDialogClicked = () => {
+    this.setState(prevState => ({
       displayShareDialog: !prevState.displayShareDialog,
     }));
   };
@@ -52,25 +51,25 @@ export default class ShareDialog extends React.Component {
           padding={16}
           onClickOutside={() => this.setState({ displayShareDialog: false })}
           renderPopoverContent={() => (
-            <div className={'unSelectable'} styleName={'shareDialog'} role="dialog">
-              <div styleName={'titleBar'}>
-                <div styleName={'title'}>
+            <div className="unSelectable" styleName="shareDialog" role="dialog">
+              <div styleName="titleBar">
+                <div styleName="title">
                   Share this link
                 </div>
-                <div styleName={'closeButton'} className={'pyreneIcon-delete'} onClick={this._displayShareDialogClicked}/>
+                <div styleName="closeButton" className="pyreneIcon-delete" onClick={this._displayShareDialogClicked} />
               </div>
-              <div styleName={'content'}>
-                <input styleName={'urlField'} type={'text'} value={this.props.link} ref={(input) => { this.textInput = input; }} readOnly />
+              <div styleName="content">
+                <input styleName="urlField" type="text" value={this.props.link} ref={(input) => { this.textInput = input; }} readOnly />
               </div>
               <ButtonBar
                 rightButtonSectionElements={[
-                  <Button type={'ghost'} label={'Copy link'} onClick={this._copyLinkToClipboard} />,
+                  <Button type="ghost" label="Copy link" onClick={this._copyLinkToClipboard} />,
                 ]}
               />
             </div>
           )}
         >
-          <Button label={'Share'} type={'action'} icon={'share'} onClick={this._displayShareDialogClicked} disabled={this.props.disabled} />
+          <Button label="Share" type="action" icon="share" onClick={this._displayShareDialogClicked} disabled={this.props.disabled} />
         </Popover>
       </div>
     );

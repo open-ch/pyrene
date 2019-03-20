@@ -3,7 +3,7 @@ import Link from './Link';
 
 const props = {
   path: 'somePath',
-  label: 'someLabel'
+  label: 'someLabel',
 };
 
 describe('<Link />', () => {

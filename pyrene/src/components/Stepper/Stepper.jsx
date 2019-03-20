@@ -9,20 +9,21 @@ import './stepper.css';
  *
  * Steppers are often used in the detail view of a data table entry (modal view) to navigate through the table entries without leaving the modal view.
  */
-const Stepper = props => {
+const Stepper = (props) => {
   const capitalisedDirection = props.direction.charAt(0).toUpperCase() + props.direction.slice(1);
   const iconName = `pyreneIcon-chevron${capitalisedDirection}`;
   return (
     <button
-      className={'unSelectable'}
+      type="button"
+      className="unSelectable"
       styleName={
         classNames('stepper',
-          {disabled: props.disabled},
-          {[`type-${props.type}`]: true})}
+          { disabled: props.disabled },
+          { [`type-${props.type}`]: true })}
       onClick={props.onClick}
       disabled={props.disabled}
     >
-      <span className={iconName} styleName={'icon'} />
+      <span className={iconName} styleName="icon" />
     </button>
   );
 };

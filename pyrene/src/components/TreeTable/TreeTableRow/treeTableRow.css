@@ -4,6 +4,7 @@
   composes: commonFontSettings from '../../../styles/common.css';
 
   cursor: default;
+
   &.parent {
     cursor: pointer;
   }
@@ -28,4 +29,3 @@
     display: block;
   }
 }
-

@@ -1,7 +1,6 @@
 @import '../../styles/colors.css';
 
-.shareDialogContainer {
-}
+.shareDialogContainer {}
 
 .shareDialog {
   composes: commonFontSettings from '../../styles/common.css';

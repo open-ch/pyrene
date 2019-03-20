@@ -11,7 +11,9 @@ const Popover = props => (
     position={props.preferredPosition}
     align={props.align}
     padding={props.distanceToTarget}
-    content={({ position, nudgedLeft, nudgedTop, targetRect, popoverRect }) => (
+    content={({
+      position, nudgedLeft, nudgedTop, targetRect, popoverRect,
+    }) => (
       props.renderPopoverContent(position, nudgedLeft, nudgedTop, targetRect, popoverRect)
     )}
     containerStyle={{
@@ -38,7 +40,6 @@ Popover.defaultProps = {
   displayPopover: false,
   distanceToTarget: 8,
   preferredPosition: ['top', 'bottom'],
-  renderPopoverContent: () => null,
   onClickOutside: () => null,
 };
 

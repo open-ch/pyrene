@@ -40,6 +40,7 @@
   &.small {
     width: 8px;
   }
+
   &.medium {
     width: 24px;
   }
@@ -52,6 +53,4 @@
   margin: 0 16px;
 }
 
-.resultsCounter {
-
-}
+.resultsCounter {}
