@@ -6,6 +6,7 @@ import './searchResult.css';
 import SearchUtils from '../SearchUtils';
 
 export default class SearchResult extends React.Component {
+
   state = {
     redirect: false,
     redirectPath: '',
@@ -14,7 +15,7 @@ export default class SearchResult extends React.Component {
   handleClick = () => {
     if (this.props.title) {
       this.setState(() => ({
-        redirectPath: SearchUtils.normalise(this.props.title.replace(/\s/g,'')),
+        redirectPath: SearchUtils.normalise(this.props.title.replace(/\s/g, '')),
         redirect: true,
       }));
     }
@@ -22,17 +23,20 @@ export default class SearchResult extends React.Component {
 
   render() {
     return (
-      <div styleName={'searchResult'} onClick={this.handleClick}>
-        {this.props.title && <div styleName={'title'}>
-          {this.props.title}
-        </div>
+      <div styleName="searchResult" onClick={this.handleClick}>
+        {this.props.title && (
+          <div styleName="title">
+            {this.props.title}
+          </div>
+        )
         }
-        <div styleName={'description'} dangerouslySetInnerHTML={{__html: this.props.description.replace(RegExp(this.props.searchInput, 'gi'), s => `<span class="highlighted">${s}</span>`)}}/>
+        <div styleName="description" dangerouslySetInnerHTML={{ __html: this.props.description.replace(RegExp(this.props.searchInput, 'gi'), s => `<span class="highlighted">${s}</span>`) }} />
 
         {this.state.redirect && <Redirect to={`/${this.state.redirectPath}`} push />}
       </div>
     );
   }
+
 }
 
 SearchResult.displayName = 'SearchResult';
@@ -48,4 +52,3 @@ SearchResult.defaultProps = {
   description: '',
   searchInput: '',
 };
-

@@ -12,10 +12,12 @@ const ResourcesPage = () => (
       <div styleName="description">
         <p>
           These downloadable zip files contain Adobe Photoshop, Adobe Illustrator and Sketchapp color swatches.
-        </p><br />
+        </p>
+        <br />
         <p>
           Included in the zip file is a Read-Me document with instructions on how to install the .sketchpalette in Sketch.
-        </p><br />
+        </p>
+        <br />
         <p>
           For more information about brand colors see Colors in Foundations.
         </p>
@@ -23,12 +25,12 @@ const ResourcesPage = () => (
     </div>
 
     <div className="topicContent">
-      <Paragraph title={'Adobe Photoshop and Illustrator'}>
-        <DownloadButton path={downloadResourcePath} name={'Download Arrow.svg'} />
+      <Paragraph title="Adobe Photoshop and Illustrator">
+        <DownloadButton path={downloadResourcePath} name="Download Arrow.svg" />
       </Paragraph>
 
-      <Paragraph title={'Sketch App'}>
-        <DownloadButton path={downloadResourcePath} name={'Download Arrow.svg'} />
+      <Paragraph title="Sketch App">
+        <DownloadButton path={downloadResourcePath} name="Download Arrow.svg" />
       </Paragraph>
     </div>
   </div>

@@ -27,8 +27,10 @@ export default class ParentButton extends React.Component {
 
   render() {
     return (
-      <div styleName={'parentButton'} className={'unSelectable'} onClick={this.handleClick}>
-        Trigger {this.props.component.type.displayName}
+      <div styleName="parentButton" className="unSelectable" onClick={this.handleClick}>
+        Trigger
+        {' '}
+        {this.props.component.type.displayName}
         {this.state.displayComponent && this.props.component}
       </div>
     );

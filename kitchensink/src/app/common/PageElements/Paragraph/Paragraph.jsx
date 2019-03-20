@@ -6,7 +6,7 @@ import './paragraph.css';
 
 const Paragraph = props => (
   <div styleName={classNames('paragraph')}>
-    {props.title && <div styleName={'title'}>{props.title}</div>}
+    {props.title && <div styleName="title">{props.title}</div>}
     <div>
       {props.children}
     </div>

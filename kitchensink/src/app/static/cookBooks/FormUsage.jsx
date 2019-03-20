@@ -1,7 +1,9 @@
 import React from 'react';
 import * as yup from 'yup';
 import '../../../css/componentPage.css';
-import { Form, Checkbox, Button, TextField, TextArea, RadioGroup, SingleSelect, MultiSelect, Link } from 'pyrene/dist/pyrene.dev';
+import {
+  Form, Checkbox, Button, TextField, TextArea, RadioGroup, SingleSelect, MultiSelect, Link,
+} from 'pyrene/dist/pyrene.dev';
 import { testOptionsWithoutInvalid } from '../../data/propsData';
 import CodeBox from '../../common/PageElements/HowToElements/CodeBox/CodeBox';
 import Paragraph from '../../common/PageElements/Paragraph/Paragraph';
@@ -11,12 +13,12 @@ import DisplayBox from '../../common/PageElements/HowToElements/DisplayBox/Displ
 
 function delay(values, ms) {
   console.log('Submitting', values);
-  let ctr,
-    rej,
-    p = new Promise(((resolve, reject) => {
-      ctr = setTimeout(resolve, ms);
-      rej = reject;
-    }));
+  let ctr;
+  let rej;
+  const p = new Promise(((resolve, reject) => {
+    ctr = setTimeout(resolve, ms);
+    rej = reject;
+  }));
   p.cancel = function () { clearTimeout(ctr); rej(Error('Cancelled')); };
   return p;
 }
@@ -32,29 +34,31 @@ const errorStyle = {
 
 const SmallForm = (
   <Form
-    render={({initField, values, errors, touched, isSubmitting, submitDisabled}) => (
+    render={({
+      initField, values, errors, touched, isSubmitting, submitDisabled,
+    }) => (
       <React.Fragment>
         <TextField
           width={300}
-          title={'Email'}
-          placeholder={'Email'}
+          title="Email"
+          placeholder="Email"
           {...initField('email')}
         />
         <TextField
           width={300}
-          title={'Password in plain text 👀'}
-          placeholder={'Password'}
+          title="Password in plain text 👀"
+          placeholder="Password"
           disabled={values.checkBox}
           {...initField('password')}
         />
         <Checkbox
-          label={'Lock password input'}
+          label="Lock password input"
           {...initField('checkBox')}
         />
 
         <Button
-          label={'Submit'}
-          type={'danger'}
+          label="Submit"
+          type="danger"
           disabled={submitDisabled}
           loading={isSubmitting}
         />
@@ -206,20 +210,22 @@ const ErrorDisplay = `<Form
 
 const BigForm = (
   <Form
-    render={({initField, values, errors, touched, isSubmitting, submitDisabled}) => (
+    render={({
+      initField, values, errors, touched, isSubmitting, submitDisabled,
+    }) => (
       <React.Fragment>
-        <TextField width={300} title={'Email'} placeholder={'Email'} disabled={values.checkBox1} required {...initField('email')} />
+        <TextField width={300} title="Email" placeholder="Email" disabled={values.checkBox1} required {...initField('email')} />
         <div style={{ height: 24 }} />
-        <TextField width={300} title={'Password in plain text 👀'} placeholder={'Password'} required {...initField('password')} />
+        <TextField width={300} title="Password in plain text 👀" placeholder="Password" required {...initField('password')} />
         <div style={{ height: 24 }} />
 
         <div style={{ width: 300 }}>
           <RadioGroup
-            alignment={'horizontal'}
+            alignment="horizontal"
             options={[
-              {label: 'Beer', value: 'beer'},
-              {label:'Coffee', value: 'coffee'},
-              {label:'Coffeebeer', value: 'coffeebeer'}
+              { label: 'Beer', value: 'beer' },
+              { label: 'Coffee', value: 'coffee' },
+              { label: 'Coffeebeer', value: 'coffeebeer' },
             ]}
             {...initField('radioGroup')}
           />
@@ -228,9 +234,9 @@ const BigForm = (
 
         <div style={{ height: 24 }} />
         <div style={{ width: 300 }}>
-          <SingleSelect title={'Select favorite icecream'} options={testOptionsWithoutInvalid} required clearable {...initField('iceSelect')} />
+          <SingleSelect title="Select favorite icecream" options={testOptionsWithoutInvalid} required clearable {...initField('iceSelect')} />
           <div style={{ height: 24 }} />
-          <MultiSelect title={'Select icecream.. again'} options={testOptionsWithoutInvalid} required creatable clearable keepMenuOnSelect {...initField('iceMultiselect')} />
+          <MultiSelect title="Select icecream.. again" options={testOptionsWithoutInvalid} required creatable clearable keepMenuOnSelect {...initField('iceMultiselect')} />
         </div>
 
         <div style={{ height: 24 }} />
@@ -238,14 +244,14 @@ const BigForm = (
           width: 300,
         }}
         >
-          <Checkbox label={'I accept the terms of conditioners.'} required {...initField('terms')} />
-          <Checkbox label={'Hit me with them juicy spam mails.'} {...initField('spam')} />
+          <Checkbox label="I accept the terms of conditioners." required {...initField('terms')} />
+          <Checkbox label="Hit me with them juicy spam mails." {...initField('spam')} />
         </div>
         {errors.terms && touched.terms && <div style={errorStyle}>{errors.terms}</div>}
         {errors.spam && <div style={errorStyle}>{errors.spam}</div>}
 
         <div style={{ height: 24 }} />
-        <Button label={'Submit'} type={'danger'} disabled={submitDisabled} loading={isSubmitting} />
+        <Button label="Submit" type="danger" disabled={submitDisabled} loading={isSubmitting} />
       </React.Fragment>
     )}
 
@@ -265,7 +271,8 @@ const BigForm = (
         setFieldValue('radioGroup', 'coffeebeer');
       }
     }}
-  />);
+  />
+);
 
 const BigFormCode = `<Form
   render={({initField, values, errors, touched, isSubmitting, submitDisabled}) => (
@@ -352,17 +359,28 @@ const FormUsage = () => (
     <div className="header">
       <div styleName="title">Form</div>
       <div styleName="description">
-        <p>Forms need a central place to keep the state of all the components in order to allow the implementation of important features like dynamic input disabling and to guarantee a <strong>single source of truth</strong>.</p>
-        <p>As it needs to manage a lot of different input components and types, the Form component has a very custom implementation. With this component using the <strong>render props pattern</strong> we try to standardise the general behaviour and logic behind the React way of doing forms with the intent to reduce boilerplate code.</p>
+        <p>
+Forms need a central place to keep the state of all the components in order to allow the implementation of important features like dynamic input disabling and to guarantee a
+          <strong>single source of truth</strong>
+.
+        </p>
+        <p>
+As it needs to manage a lot of different input components and types, the Form component has a very custom implementation. With this component using the
+          <strong>render props pattern</strong>
+          {' '}
+we try to standardise the general behaviour and logic behind the React way of doing forms with the intent to reduce boilerplate code.
+        </p>
       </div>
       <div className="topicContent">
-        <Paragraph title={'Getting started'}>
+        <Paragraph title="Getting started">
           <DescriptionBox>
             <p>
             Start by using the Form component and fill its render prop with all the form elements that you need.
             Register each element with the initField function and add a button for submission at the end of the form.
             </p>
-            <strong>Note:</strong> The initField function needs to be called with the spread operator and as the *LAST* prop of the element.
+            <strong>Note:</strong>
+            {' '}
+The initField function needs to be called with the spread operator and as the *LAST* prop of the element.
           </DescriptionBox>
           <CodeBox>
             {SmallFormCode}
@@ -375,10 +393,16 @@ const FormUsage = () => (
           </DisplayBox>
         </Paragraph>
 
-        <Paragraph title={'Forms with validation'}>
+        <Paragraph title="Forms with validation">
           <DescriptionBox>
-            For validation we use <Link type={'inline'} label={'Yup'} path={'https://github.com/jquense/yup'} />.
-            Simply create your validation schema like below and pass it to the wrapped form via the validationScheme property. For further information go to the <Link type={'inline'} label={'Yup github page'} path={'https://github.com/jquense/yup'} />. Remember that the keys used in the schema need to equal the names given to the fields with the initField method.
+            For validation we use
+            {' '}
+            <Link type="inline" label="Yup" path="https://github.com/jquense/yup" />
+.
+            Simply create your validation schema like below and pass it to the wrapped form via the validationScheme property. For further information go to the
+            {' '}
+            <Link type="inline" label="Yup github page" path="https://github.com/jquense/yup" />
+. Remember that the keys used in the schema need to equal the names given to the fields with the initField method.
           </DescriptionBox>
           <CodeBox>
             {Yupscheme}
@@ -390,7 +414,7 @@ const FormUsage = () => (
             {ErrorDisplay}
           </CodeBox>
         </Paragraph>
-        <Paragraph title={'Detailed Example'}>
+        <Paragraph title="Detailed Example">
           <DescriptionBox>
             Using the yup validation from above:
           </DescriptionBox>

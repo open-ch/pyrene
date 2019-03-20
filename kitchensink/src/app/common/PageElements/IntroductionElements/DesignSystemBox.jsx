@@ -8,7 +8,10 @@ const DesignSystemBox = props => (
   <div styleName="introDesignSystemBox">
     <div styleName="numberIconTitleContainer">
       <div styleName="number">{props.number}</div>
-      <div styleName="iconTitle"><span styleName={classNames('icon', { [`${props.icon}`]: true })} /><span>{props.title}</span></div>
+      <div styleName="iconTitle">
+        <span styleName={classNames('icon', { [`${props.icon}`]: true })} />
+        <span>{props.title}</span>
+      </div>
     </div>
     <div styleName="description">
       {props.description}

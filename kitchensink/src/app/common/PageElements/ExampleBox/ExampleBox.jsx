@@ -32,15 +32,13 @@ export default class ExampleBox extends React.Component {
     }
   }
 
-  getComponentName = (component) => {
-    return component.displayName.toLowerCase().replace(/\s/g, '');
-  };
+  getComponentName = component => component.displayName.toLowerCase().replace(/\s/g, '');
 
 
   render() {
     return (
-      <div styleName={'exampleBox'}>
-        <div styleName={'exampleDisplay'}>
+      <div styleName="exampleBox">
+        <div styleName="exampleDisplay">
           {examplesData[this.getComponentName(this.props.component)].examples.map((exampleProps, index) => (
             <React.Fragment key={hash(exampleProps)}>
 
@@ -55,8 +53,8 @@ export default class ExampleBox extends React.Component {
             </React.Fragment>
           ))}
         </div>
-        <div className={'unSelectable'} styleName={classNames('exampleDescriptionBox', {placeholder: this.state.displayedDescription === this.descriptionPlaceholder})}>
-          <div styleName={'exampleDescription'}>
+        <div className="unSelectable" styleName={classNames('exampleDescriptionBox', { placeholder: this.state.displayedDescription === this.descriptionPlaceholder })}>
+          <div styleName="exampleDescription">
             <div>{this.state.displayedDescription}</div>
           </div>
         </div>

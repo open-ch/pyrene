@@ -19,7 +19,7 @@ export default class Example extends React.Component {
         onMouseOver={() => this.handleMouseOver(this.props.description)}
         onMouseLeave={() => this.handleMouseOver()}
       >
-        <div styleName={'componentOverlay'}>
+        <div styleName="componentOverlay">
           <this.props.component {...this.props.exampleProps} />
         </div>
       </div>
@@ -33,8 +33,8 @@ Example.displayName = 'Example';
 Example.defaultProps = {};
 
 Example.propTypes = {
-  description: PropTypes.string,
   component: PropTypes.func.isRequired,
+  description: PropTypes.string,
   exampleProps: PropTypes.shape().isRequired,
   onExampleClick: PropTypes.func.isRequired,
   onMouseOver: PropTypes.func.isRequired,

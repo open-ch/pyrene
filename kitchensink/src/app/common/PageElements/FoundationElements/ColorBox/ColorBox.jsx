@@ -5,17 +5,20 @@ import classNames from 'classnames';
 import './colorBox.css';
 
 const ColorBox = props => (
-  <div styleName={'colorBoxContainer'}>
-    {props.title && <div styleName={'title'}>{props.title}</div>}
+  <div styleName="colorBoxContainer">
+    {props.title && <div styleName="title">{props.title}</div>}
     <div
-      styleName={classNames('colorBox', { [`stack-${props.stackPosition}`]: props.stackPosition }, {[`size-${props.size}`]: true }, {darkFont: props.darkFont}, {bordered: props.bordered})}
-      style={{backgroundColor: `var(--${props.variableName})`}}
+      styleName={classNames('colorBox', { [`stack-${props.stackPosition}`]: props.stackPosition }, { [`size-${props.size}`]: true }, { darkFont: props.darkFont }, { bordered: props.bordered })}
+      style={{ backgroundColor: `var(--${props.variableName})` }}
     >
-      {props.colorName && <div styleName={'colorName'}>{props.colorName}</div>}
-      <div styleName={'variableName'}> {props.variableName}</div>
-      <div styleName={'hexValue'}>{props.hexValue}</div>
+      {props.colorName && <div styleName="colorName">{props.colorName}</div>}
+      <div styleName="variableName">
+        {' '}
+        {props.variableName}
+      </div>
+      <div styleName="hexValue">{props.hexValue}</div>
     </div>
-    {props.infoLabel && <div styleName={'infoLabel'}>{props.infoLabel}</div>}
+    {props.infoLabel && <div styleName="infoLabel">{props.infoLabel}</div>}
   </div>
 );
 

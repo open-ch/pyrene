@@ -28,21 +28,21 @@ export default class Main extends React.Component {
     }
 
     return (
-      <div styleName={'mainContainer'}>
-        <div styleName={'leftContainer'}>
+      <div styleName="mainContainer">
+        <div styleName="leftContainer">
           <Logo pyreneVersion={packageJson.dependencies.pyrene} />
           <SearchBar value={searchBarValue} />
           <SideBarMenu />
-          <div styleName={'copyRight'}>&copy; Open Systems 2019</div>
+          <div styleName="copyRight">&copy; Open Systems 2019</div>
         </div>
-        <div styleName={'pageContainer'}>
+        <div styleName="pageContainer">
           <Switch>
-            <Route path={'/'} component={IntroductionPage} exact />
-            <Route path={'/colors'} component={ColorsPage} />
-            <Route path={'/icons'} component={IconsPage} />
-            <Route path={'/resources'} component={ResourcesPage} />
-            <Route path={'/form'} component={FormUsage} />
-            <Route path={'/pyrene'} component={PyreneTutorial} />
+            <Route path="/" component={IntroductionPage} exact />
+            <Route path="/colors" component={ColorsPage} />
+            <Route path="/icons" component={IconsPage} />
+            <Route path="/resources" component={ResourcesPage} />
+            <Route path="/form" component={FormUsage} />
+            <Route path="/pyrene" component={PyreneTutorial} />
 
             {Object.values(Components).map((component) => {
               const lowercaseComponentName = component.displayName.replace(/\s/g, '').toLowerCase();
@@ -60,11 +60,12 @@ export default class Main extends React.Component {
                       description={component.__docgenInfo.description}
                       name={component.displayName}
                       lowercaseName={lowercaseComponentName}
-                    />)}
+                    />
+                  )}
                 />
               );
             })}
-            <Route path={'/search/:searchInput'} component={ResultsPage} />
+            <Route path="/search/:searchInput" component={ResultsPage} />
             <Route component={NotFoundPage} />
           </Switch>
         </div>

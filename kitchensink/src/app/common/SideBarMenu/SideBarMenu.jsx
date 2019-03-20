@@ -6,9 +6,9 @@ import specialComponentHandlingData from '../../data/specialComponentHandlingDat
 import './sideBarMenu.css';
 
 const SideBarMenu = props => (
-  <div styleName={'sideBar_menu_container'}>
+  <div styleName="sideBar_menu_container">
     <div styleName="main">
-      <SideBarMenuSection title="Introduction" sectionElements={[]} linkToPath={'/'} />
+      <SideBarMenuSection title="Introduction" sectionElements={[]} linkToPath="/" />
       <SideBarMenuSection
         title="Foundations"
         sectionElements={[
@@ -19,7 +19,7 @@ const SideBarMenu = props => (
         title="Components"
         sectionElements={
           Object.values(Components)
-            .filter(component => specialComponentHandlingData[component.displayName.toLowerCase().replace(/\s/g, '')] ? !specialComponentHandlingData[component.displayName.toLowerCase().replace(/\s/g, '')].noComponentPage : true)
+            .filter(component => (specialComponentHandlingData[component.displayName.toLowerCase().replace(/\s/g, '')] ? !specialComponentHandlingData[component.displayName.toLowerCase().replace(/\s/g, '')].noComponentPage : true))
             .map((component) => {
               const lowercaseComponentName = component.displayName.replace(/\s/g, '').toLowerCase();
               return ({ name: component.displayName, linkToPath: `/${lowercaseComponentName}` });

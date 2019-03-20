@@ -5,11 +5,11 @@ import classNames from 'classnames';
 import './principle.css';
 
 const Principle = props => (
-  <div styleName={'principleContainer'}>
-    <div styleName={classNames('icon', {[`${props.icon}`]: true})} />
-    <div styleName={'textArea'}>
-      <span styleName={'title'}>{props.title}</span>
-      <span styleName={'description'}>{props.description}</span>
+  <div styleName="principleContainer">
+    <div styleName={classNames('icon', { [`${props.icon}`]: true })} />
+    <div styleName="textArea">
+      <span styleName="title">{props.title}</span>
+      <span styleName="description">{props.description}</span>
     </div>
   </div>
 );

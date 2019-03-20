@@ -25,18 +25,18 @@ const Counter = (props) => {
       newValue = 0;
     }
 
-    props.onChange({target: {name: props.name, value: adjustBounds(newValue), type: 'counter'}});
+    props.onChange({ target: { name: props.name, value: adjustBounds(newValue), type: 'counter' } });
   };
 
   const changeCounterBy = (value) => {
-    props.onChange({target: {name: props.name, value: adjustBounds(props.value + value), type: 'counter'}});
+    props.onChange({ target: { name: props.name, value: adjustBounds(props.value + value), type: 'counter' } });
   };
   
   return (
-    <div styleName={'counter'}>
-      <div className={'unSelectable'} styleName={'modifier'} onClick={() => changeCounterBy(-1)}>-</div>
-      <input styleName={'valueDisplay'} type={'text'} onChange={handleInputChange} value={props.value} autoComplete="nope" />
-      <div className={'unSelectable'} styleName={'modifier'} onClick={() => changeCounterBy(1)}>+</div>
+    <div styleName="counter">
+      <div className="unSelectable" styleName="modifier" onClick={() => changeCounterBy(-1)}>-</div>
+      <input styleName="valueDisplay" type="text" onChange={handleInputChange} value={props.value} autoComplete="nope" />
+      <div className="unSelectable" styleName="modifier" onClick={() => changeCounterBy(1)}>+</div>
     </div>
   );
 

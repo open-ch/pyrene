@@ -1,12 +1,13 @@
 /* eslint-disable react/no-did-update-set-state,react/sort-comp */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Redirect, withRouter} from 'react-router-dom';
+import { Redirect, withRouter } from 'react-router-dom';
 import classNames from 'classnames';
 import './searchBar.css';
 
 
 class SearchBar extends React.Component {
+
   state = {
     focused: false,
     shouldRedirectToResultsPage: false,
@@ -120,18 +121,18 @@ class SearchBar extends React.Component {
 
   render() {
     return (
-      <div styleName={classNames('searchBarContainer', {focused: this.state.focused})}>
-        <span className={'pyreneIcon-search'} styleName={'searchIcon'} />
+      <div styleName={classNames('searchBarContainer', { focused: this.state.focused })}>
+        <span className="pyreneIcon-search" styleName="searchIcon" />
         <input
-          styleName={'searchInput'}
-          type={'text'}
-          placeholder={'Type to search'}
+          styleName="searchInput"
+          type="text"
+          placeholder="Type to search"
           onFocus={this.handleFocus}
           onBlur={this.handleBlur}
           onChange={this.handleChange}
           value={this.state.searchInput}
         />
-        {(this.props.value || this.state.searchInput) && <span className={'pyreneIcon-delete'} styleName={'clearIcon'} onClick={this.handleClear} />}
+        {(this.props.value || this.state.searchInput) && <span className="pyreneIcon-delete" styleName="clearIcon" onClick={this.handleClear} />}
 
         {this.handleSearchResultsDisplay()}
       </div>

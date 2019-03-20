@@ -1,5 +1,5 @@
 import React from 'react';
-import {withRouter} from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import '../../css/componentPage.css';
 
@@ -9,7 +9,8 @@ const NotFoundPage = props => (
       <div className="header">
         <div styleName="title">404: Page not found</div>
         <div styleName="description">
-          <p>Please review the link you just tried to access: </p><br />
+          <p>Please review the link you just tried to access: </p>
+          <br />
           <strong>{props.location.pathname}</strong>
         </div>
       </div>

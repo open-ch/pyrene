@@ -30,13 +30,13 @@ export default class ResultsPage extends React.Component {
       <div styleName="header">
         <div styleName="title">{`${this.state.matches.length} result${this.state.matches.length > 1 ? 's' : ''} matching \u00AB${this.props.match.params.searchInput}\u00BB`}</div>
       </div>
-      <div styleName={'topicContent'}>
+      <div styleName="topicContent">
         <Paragraph>
-          {this.state.matches.map(result => {
+          {this.state.matches.map((result) => {
             const componentDisplayName = Object.keys(result)[0];
             const componentDescription = Object.values(result)[0];
             return (
-              <SearchResult title={componentDisplayName} description={componentDescription} key={componentDisplayName} searchInput={this.state.searchInput}/>
+              <SearchResult title={componentDisplayName} description={componentDescription} key={componentDisplayName} searchInput={this.state.searchInput} />
             );
           })}
         </Paragraph>
@@ -49,11 +49,11 @@ export default class ResultsPage extends React.Component {
       <div styleName="header">
         <div styleName="title">{`No matches for \u00AB${this.props.match.params.searchInput}\u00BB`}</div>
       </div>
-      <div styleName={'topicContent'}>
+      <div styleName="topicContent">
         <Paragraph>
           We searched far and wide and couldn’t find any content matching your search. Please give it another try.
         </Paragraph>
-        <img src={GalaxyImage} style={{ marginTop: 130 }} alt={'Placeholder where are you?'} />
+        <img src={GalaxyImage} style={{ marginTop: 130 }} alt="Placeholder where are you?" />
       </div>
     </React.Fragment>
   );
@@ -75,4 +75,3 @@ ResultsPage.propTypes = {
 
 ResultsPage.defaultProps = {
 };
-

@@ -4,9 +4,9 @@ import '../../css/logo.css';
 import { Link } from 'react-router-dom';
 
 const Logo = props => (
-  <Link to={'/'}>
-    <div styleName={'pyreneLogo'}>
-      <div styleName={'versionNr'}>{props.pyreneVersion.replace(/\^/, '')}</div>
+  <Link to="/">
+    <div styleName="pyreneLogo">
+      <div styleName="versionNr">{props.pyreneVersion.replace(/\^/, '')}</div>
     </div>
   </Link>
 );

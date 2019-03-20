@@ -12,24 +12,25 @@ const ComponentPage = (props) => {
   const componentName = component.type.name;
   const HowTo = HowToUse[componentName] ? HowToUse[componentName] : null;
 
-  return (<div styleName="page">
-    <div styleName="header">
-      <div styleName="title">{props.name}</div>
-      <div styleName="description">
-        <Markdown>{props.description}</Markdown>
+  return (
+    <div styleName="page">
+      <div styleName="header">
+        <div styleName="title">{props.name}</div>
+        <div styleName="description">
+          <Markdown>{props.description}</Markdown>
+        </div>
       </div>
+
+      <div styleName="topicContent">
+        <ComponentEditor
+          component={props.component}
+          startProps={StartProps[props.lowercaseName]}
+        />
+      </div>
+
+
+      { HowTo ? <HowTo /> : null }
     </div>
-
-    <div styleName="topicContent">
-      <ComponentEditor
-        component={props.component}
-        startProps={StartProps[props.lowercaseName]}
-      />
-    </div>
-
-
-    { HowTo ? <HowTo /> : null }
-  </div>
   );
 };
 

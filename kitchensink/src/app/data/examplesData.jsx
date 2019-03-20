@@ -30,13 +30,15 @@ const examplesData = {
 
   radiogroup: {
     examples: [
-      { alignment: 'vertical',
+      {
+        alignment: 'vertical',
         options: [
           { label: 'Coffee', value: 'coffee' },
           { label: 'Whisky', value: 'whisky' },
           { label: 'Irish Coffee', value: 'irishcoffee' }],
       },
-      { alignment: 'horizontal',
+      {
+        alignment: 'horizontal',
         options: [
           { label: 'Coffee', value: 'coffee' },
           { label: 'Whisky', value: 'whisky' },

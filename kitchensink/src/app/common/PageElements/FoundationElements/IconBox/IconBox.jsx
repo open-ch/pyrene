@@ -34,21 +34,19 @@ export default class IconBox extends React.Component {
           displayCopyNotification: false,
         }))
       ), displayTime);
-    }
-    );
+    });
   };
 
   render() {
     return (
       <div styleName={classNames('iconBox', { disabled: this.props.disabled })} onClick={() => this.handleIconClick(this.props.name, this.props.downloadable)}>
 
-        {this.props.name && !this.props.downloadable ?
-          <span styleName={'icon'} className={`pyreneIcon-${this.props.name}`} />
-          :
-          <span styleName={'svg'} style={{ backgroundImage: `url("${this.props.path}")` }} />
+        {this.props.name && !this.props.downloadable
+          ? <span styleName="icon" className={`pyreneIcon-${this.props.name}`} />
+          : <span styleName="svg" style={{ backgroundImage: `url("${this.props.path}")` }} />
         }
 
-        <span styleName={'iconBoxTooltip'}>{this.props.name}</span>
+        <span styleName="iconBoxTooltip">{this.props.name}</span>
         <span styleName={classNames('copyNotification', { display: this.state.displayCopyNotification })}>Copied</span>
       </div>
     );
@@ -72,4 +70,3 @@ IconBox.defaultProps = {
   disabled: false,
   downloadable: false,
 };
-

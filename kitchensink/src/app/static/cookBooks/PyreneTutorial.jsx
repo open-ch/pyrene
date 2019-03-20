@@ -91,12 +91,12 @@ const PyreneTutorial = () => (
         <p>[pahy-reen] noun. A polycyclic, atomic component library, consisting of endless fused brainpower, found in coffee tea and believed to be the secret ingredient in the new stack.</p>
       </div>
       <div className="topicContent">
-        <Paragraph title={'General'}>
+        <Paragraph title="General">
           <DescriptionBox>
             <p>Pyrene is the new React based component library to be used in future portal projects. In order to keep the library consistent there are few concepts that have to be respected when creating a new component.</p>
           </DescriptionBox>
         </Paragraph>
-        <Paragraph title={'Components'}>
+        <Paragraph title="Components">
           <DescriptionBox>
               When creating a new component try to see if it will need to store information in its state. If it does not need any state, keep it as a functional component. Further sort all props alphabetically in its propTypes declaration and add comments like shown to automatically create the docs in Kitchensink (the displayName is the title of the generated page).
           </DescriptionBox>
@@ -104,11 +104,20 @@ const PyreneTutorial = () => (
             {ComponentType}
           </CodeBox>
           <DescriptionBox>
-            Whenever creating a new component, try to avoid lifecycle methods at all cost. <strong>Stick to controlled components as much as possible, if you need lifecycle methods you are probably doing something wrong. </strong>
-            <p>More on this topic <Link label={'here'} type={'inline'} path={'https://reactjs.org/blog/2018/06/07/you-probably-dont-need-derived-state.html'} /> and <Link label={'here'} type={'inline'} path={'https://goshakkk.name/controlled-vs-uncontrolled-inputs-react'} />.</p>
+            Whenever creating a new component, try to avoid lifecycle methods at all cost.
+            {' '}
+            <strong>Stick to controlled components as much as possible, if you need lifecycle methods you are probably doing something wrong. </strong>
+            <p>
+More on this topic
+              <Link label="here" type="inline" path="https://reactjs.org/blog/2018/06/07/you-probably-dont-need-derived-state.html" />
+              {' '}
+and
+              <Link label="here" type="inline" path="https://goshakkk.name/controlled-vs-uncontrolled-inputs-react" />
+.
+            </p>
           </DescriptionBox>
         </Paragraph>
-        <Paragraph title={'Styling'}>
+        <Paragraph title="Styling">
           <DescriptionBox>
             <p>
               To style your component use the styleName tag. If you want to apply reusable styles from the common css file like 'unSelectable' use the classNames tag. Note that for each styleName a corresponding reference in the css has to exist (crashes otherwise). In the css file you do not need to worry about reusing css names from other components as we use css modules.
@@ -120,7 +129,14 @@ const PyreneTutorial = () => (
               Use the color variables declared in colors.css whenever possible. Do not forget to include the file at the top of each new css file that you create.
             </p>
             <p>
-              Do <strong>not</strong> give your components any <strong>margin or styles that influence its surroundings</strong>. The component styling should only affect the component itself, and live in every neighborhood peacefully without the need to push around its siblings.
+              Do
+              {' '}
+              <strong>not</strong>
+              {' '}
+give your components any
+              {' '}
+              <strong>margin or styles that influence its surroundings</strong>
+. The component styling should only affect the component itself, and live in every neighborhood peacefully without the need to push around its siblings.
             </p>
             <p>
               You are encouraged to nest css if it makes sense. Ask yourself before deciding: Will I hate myself in 3 weeks having to read this again?

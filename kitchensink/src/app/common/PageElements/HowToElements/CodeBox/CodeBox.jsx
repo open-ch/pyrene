@@ -4,15 +4,15 @@ import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
 import jsx from 'react-syntax-highlighter/dist/languages/prism/jsx';
 import osagCodeColorScheme from '../../../../../css/osagCodeColorScheme';
 
-SyntaxHighlighter.registerLanguage('jsx', jsx);
-
 import './codeBox.css';
 
-//useInlineStyles={false}
+SyntaxHighlighter.registerLanguage('jsx', jsx);
+
+// useInlineStyles={false}
 
 const CodeBox = props => (
-  <div styleName={'codeBox'}>
-    <SyntaxHighlighter style={osagCodeColorScheme} language={'jsx'} customStyle={{ borderRadius: 4 }}>
+  <div styleName="codeBox">
+    <SyntaxHighlighter style={osagCodeColorScheme} language="jsx" customStyle={{ borderRadius: 4 }}>
       {props.children}
     </SyntaxHighlighter>
   </div>

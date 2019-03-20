@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import './displayBox.css';
 
 const DisplayBox = props => (
-  <div styleName={'displayBox'}>
-    <div styleName={'positioningBox'} style={{width: props.width}}>
+  <div styleName="displayBox">
+    <div styleName="positioningBox" style={{ width: props.width }}>
       {props.children}
     </div>
   </div>

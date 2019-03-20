@@ -50,22 +50,20 @@ export default class CodeBlock extends React.Component {
           displayCopyNotification: false,
         }))
       ), displayTimeMS);
-    }
-    );
+    });
   };
 
   copyCodeToClipBoard(code) {
     this.displayCopyNotifier(500);
     Utils.copyStringToClipboard(code);
-  };
+  }
 
 
   handleExpand() {
     this.setState((prevState, props) => ({
       expanded: !prevState.expanded,
     }),
-    () => this.handleCodeBlockStyle()
-    );
+    () => this.handleCodeBlockStyle());
   }
 
   generateCodeForComponent(component, entireCodeWanted) {
@@ -111,15 +109,15 @@ export default class CodeBlock extends React.Component {
     const entireCode = this.generateCodeForComponent(this.props.component, true);
     return (
       <div styleName={classNames('codeContainer', { pinned: this.state.pinned })}>
-        <SyntaxHighlighter style={osagCodeColorScheme} language={'jsx'} customStyle={this.handleCodeBlockStyle()}>
+        <SyntaxHighlighter style={osagCodeColorScheme} language="jsx" customStyle={this.handleCodeBlockStyle()}>
           {displayedCode}
         </SyntaxHighlighter>
 
-        <div className={'unSelectable'} styleName={'copyToCBButton'} onClick={() => this.copyCodeToClipBoard(entireCode)} />
+        <div className="unSelectable" styleName="copyToCBButton" onClick={() => this.copyCodeToClipBoard(entireCode)} />
         <div styleName={classNames('copyNotification', { display: this.state.displayCopyNotification })}>
-          <div styleName={'label'}>Copied to Clipboard</div>
+          <div styleName="label">Copied to Clipboard</div>
         </div>
-        <div className={'unSelectable'} styleName={'expandButton'} onClick={() => this.handleExpand()} />
+        <div className="unSelectable" styleName="expandButton" onClick={() => this.handleExpand()} />
       </div>
     );
   }

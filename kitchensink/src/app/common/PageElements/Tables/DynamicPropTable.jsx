@@ -1,7 +1,9 @@
 import React from 'react';
-import { TextField, SingleSelect, MultiSelect, Checkbox } from 'pyrene/dist/pyrene.dev';
-import Table from './Table';
+import {
+  TextField, SingleSelect, MultiSelect, Checkbox,
+} from 'pyrene/dist/pyrene.dev';
 import PropTypes from 'prop-types';
+import Table from './Table';
 import IconSelect from '../IconSelect/IconSelect';
 
 import './dynamicPropTable.css';
@@ -15,13 +17,14 @@ export default class DynamicPropTable extends React.Component {
       case 'string':
         return (
           <React.Fragment key={propName}>
-            {propName === 'icon' ?
-              <IconSelect {...this.props.initField(propName)} />
-              :
-              <TextField
-                placeholder={'Change me'}
-                {...this.props.initField(propName)}
-              />
+            {propName === 'icon'
+              ? <IconSelect {...this.props.initField(propName)} />
+              : (
+                <TextField
+                  placeholder="Change me"
+                  {...this.props.initField(propName)}
+                />
+              )
             }
           </React.Fragment>
         );
@@ -57,7 +60,7 @@ export default class DynamicPropTable extends React.Component {
 
   render() {
     return (
-      <div styleName={'propTableEditor'}>
+      <div styleName="propTableEditor">
         <Table
           cellWidthArray={['212px', '106px', '106px', '212px', '']}
           headerElementArray={['property', 'type', 'required', 'default value', 'playground']}
@@ -80,6 +83,7 @@ DynamicPropTable.defaultProps = {
 };
 
 DynamicPropTable.propTypes = {
+  initField: PropTypes.func.isRequired,
   propDocumentation: PropTypes.objectOf(PropTypes.shape({
     propName: PropTypes.objectOf(PropTypes.shape({
       defaultValue: PropTypes.string,
@@ -91,5 +95,4 @@ DynamicPropTable.propTypes = {
     })),
   })).isRequired,
   propValues: PropTypes.object,
-  initField: PropTypes.func.isRequired,
 };

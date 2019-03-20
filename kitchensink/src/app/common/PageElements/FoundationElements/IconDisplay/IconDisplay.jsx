@@ -42,16 +42,16 @@ export default class IconDisplay extends React.Component {
 
   render() {
     return (
-      <div styleName={'iconDisplay'}>
-        <div styleName={'iconPlacementContainer'}>
+      <div styleName="iconDisplay">
+        <div styleName="iconPlacementContainer">
           <input
             styleName={classNames('iconSearchBar', { filled: this.state.filterElements[0] !== '' && this.state.filterElements.length > 0 })}
-            type={'text'}
-            placeholder={'Search for icons'}
+            type="text"
+            placeholder="Search for icons"
             onChange={event => this.updateSearch(event.target.value)}
             onFocus={event => event.target.select()}
           />
-          <span className={'pyreneIcon-search'} styleName={'searchIcon'} />
+          <span className="pyreneIcon-search" styleName="searchIcon" />
         </div>
         <div className="iconGrid">
           {this.displaySearchResults()}
@@ -74,4 +74,3 @@ IconDisplay.propTypes = {
 IconDisplay.defaultProps = {
 
 };
-
