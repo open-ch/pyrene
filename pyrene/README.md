@@ -6,6 +6,10 @@ link this package locally
 ```bash
 yarn && yarn link
 ```
+then to build project run
+```bash
+yarn build
+```
 
 unlink when necessary
 ```bash
