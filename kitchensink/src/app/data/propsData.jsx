@@ -2,6 +2,8 @@
 import React from 'react';
 
 import { Button } from 'pyrene';
+import GalaxyImage from '../../images/galaxy.svg';
+import PyreneImage from '../../images/pyrene.svg';
 
 const ContentFiller = (props) => (
   <div className={'unSelectable'} style={{ width: props.width,
@@ -94,7 +96,7 @@ const adminAction = (event) => alert('Admin action triggered.');
 
 const tableData = [
   {
-    "name": "Meredith Carney",
+    "name": "SuperLongKey SuperLongKey SuperLongKey SuperLongKey SuperLongKey SuperLongKey SuperLongKey SuperLongKey SuperLongKey SuperLongKey SuperLongKey SuperLongKey SuperLongKey SuperLongKey ",
     "age": 23,
     "friend": {
       "name": "Perry Robinson",
@@ -747,6 +749,15 @@ const startProps = {
   },
   'filter': {
     filters: [{label: 'first', type: 'singleSelect', filterKey: 'testKey', options: testOptionsWithoutInvalid, defaultValue: 'vanilla'}, {label: 'second', type: 'multiSelect', filterKey: 'testKey2', options: testOptionsWithoutInvalid, defaultValue: ['vanilla', 'chocolate']}, {label: 'third', type: 'text', filterKey: 'testKey3', options: null, defaultValue: 'defaultFill'}, {label: 'fourth', type: 'text', filterKey: 'testKey4', options: null}, {label: 'fifth', type: 'text', filterKey: 'testKey5', options: null}, {label: 'sixth', type: 'text', filterKey: 'testKey6', options: null}, {label: 'seventh', type: 'text', filterKey: 'testKey7', options: null}, {label: 'eighth', type: 'text', filterKey: 'testKey8', options: null}, {label: 'ninth', type: 'text', filterKey: 'testKey9', options: null}, {label: 'tenth', type: 'text', filterKey: 'testKey10', options: null}, {label: 'eleventh', type: 'text', filterKey: 'testKey11', options: null}, {label: 'twelfth', type: 'text', filterKey: 'testKey12', options: null}]
+  },
+  'keyvaluetable': {
+    header: 'Asdf',
+    rows: [
+      {key: 'Key', value: 'value'},
+      {key: 'Beer 🍺', value: 'beer'},
+      {key: 'SuperLongKey SuperLongKey SuperLongKey SuperLongKey SuperLongKey SuperLongKey SuperLongKey SuperLongKey SuperLongKey SuperLongKey SuperLongKey SuperLongKey SuperLongKey SuperLongKey ', value: 'Dec'},
+      {key: 'Image as value', value: <img src={PyreneImage} alt="Pyrene icon" />}
+      ],
   },
   'link': {
     label: 'Click Me',
