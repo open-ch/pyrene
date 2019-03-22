@@ -12,6 +12,11 @@ then link it in the kitchen sink
 yarn link pyrene
 ```
 
+and then run from kitchen folder
+```bash
+yarn watch
+```
+
 if you don't want to use your local copy or pyrene any longer, unlink it and do a fresh package install
 ```bash
 yarn unlink pyrene
