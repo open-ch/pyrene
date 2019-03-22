@@ -19,18 +19,6 @@ const config = {
     rules: [
       {
         test: /\.jsx?$/,
-        include: production ? /\/components\/.*/ : /^$/,
-        enforce: 'pre',
-        use: {
-          loader: 'webpack-strip-block',
-          options: {
-            start: 'kitchensink-examples:start',
-            end: 'kitchensink-examples:end',
-          },
-        },
-      },
-      {
-        test: /\.jsx?$/,
         include: path.resolve(__dirname, 'src'),
         use: {
           loader: 'babel-loader',
@@ -87,7 +75,7 @@ const config = {
   },
   output: {
     path: OUTPUT_PATH,
-    filename: production ? 'pyrene.js' : 'pyrene.dev.js',
+    filename: production ? 'pyrene.js' : 'pyrene.[name].js',
     library: 'pyrene',
     libraryTarget: 'umd',
   },
@@ -98,6 +86,11 @@ if (production) {
   config.plugins.unshift(new CleanWebpackPlugin(['dist']));
 } else {
   console.warn('webpack is running in development mode\n'); // eslint-disable-line no-console
+
+  config.entry = {
+    dev: './src/index.js',
+    showcase: './src/showcase/index.js',
+  };
 }
 
 export default config;
