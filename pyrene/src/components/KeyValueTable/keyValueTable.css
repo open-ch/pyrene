@@ -1,0 +1,46 @@
+@import '../../styles/colors.css';
+
+.keyValueTable {
+  composes: commonFontSettings from '../../styles/common.css';
+  color: #1d273b;
+  position: relative;
+  display: inline-block;
+  border-radius: 2px;
+  text-align: left;
+  table-layout: fixed;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.5;
+  text-transform: capitalize;
+}
+
+.keyValueRow {
+  padding: 8px 16px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+  background-color: #ffffff;
+  word-wrap: break-word;
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  font-size: 13px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+}
+
+.keyValueCellKey {
+  width: 128px;
+}
+
+.keyValueCellData {
+  width: 256px;
+}
+
+.keyValueTableHeader {
+  text-align: left;
+}
+
+.keyValueRow:nth-child(even){background-color: #fafbfc}
