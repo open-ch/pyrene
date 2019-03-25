@@ -1,7 +1,7 @@
 /* eslint-disable */
 import React from 'react';
 
-import { Button } from 'pyrene';
+import { Button } from 'pyrene/dist/pyrene.dev';
 
 const ContentFiller = (props) => (
   <div className={'unSelectable'} style={{ width: props.width,

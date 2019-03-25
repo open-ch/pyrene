@@ -12,6 +12,7 @@
     "prebuild": "yarn install",
     "build": "webpack",
     "prestart": "yarn install",
+    "prewatch": "yarn install",
     "watch": "webpack-dev-server",
     "release": "release-it"
   },
