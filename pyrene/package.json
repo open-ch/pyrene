@@ -24,9 +24,7 @@
     "testWatch": "jest --watch",
     "test:bamboo": "NODE_ENV=test JEST_FILE=test.json && jest --config=./jest.bamboo.config.js",
     "prerelease": "yarn test && yarn build",
-    "release": "release-it",
-    "prew": "yarn install",
-    "w": "webpack -w"
+    "release": "release-it"
   },
   "devDependencies": {
     "@babel/core": "^7.2.2",

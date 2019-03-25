@@ -1,18 +1,24 @@
 # pyrene
 Open Systems Component Library
 
-## development
-link this package locally
-```bash
-yarn && yarn link
-```
+## Development
 
-unlink when necessary
-```bash
-yarn unlink
-```
+For development on pyrene, we recommend to use it together with [Kitchen Sink](/browse), follow the steps there.
 
-## release
+## Release
+
+### Feature Releases
+
+For new features and breaking changes, always use a major version bump (for the time being we use minor versions `1.x`).
+
+Always do feature releases from `develop`.
+
+### Bugfix Versions
+
+For bugfixes use bugfix versions, for a bugfix of `1.2.3`, use `1.2.4`.
+
+We do bugfix releases from `release/` branches.
+
 ```bash
-yarn release -n
+yarn release
 ```
