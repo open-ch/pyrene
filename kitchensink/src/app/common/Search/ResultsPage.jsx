@@ -71,6 +71,11 @@ export default class ResultsPage extends React.Component {
 ResultsPage.displayName = 'ResultsPage';
 
 ResultsPage.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      searchInput: PropTypes.string.isRequired,
+    }).isRequired,
+  }).isRequired,
 };
 
 ResultsPage.defaultProps = {

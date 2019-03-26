@@ -2,11 +2,10 @@ import React from 'react';
 import Components from 'pyrene/dist/pyrene.dev';
 import Showcase from 'pyrene/dist/pyrene.showcase';
 import SideBarMenuSection from './SideBarMenuSection';
-import specialComponentHandlingData from '../../data/specialComponentHandlingData';
 
 import './sideBarMenu.css';
 
-const SideBarMenu = props => (
+const SideBarMenu = () => (
   <div styleName="sideBar_menu_container">
     <div styleName="main">
       <SideBarMenuSection title="Introduction" sectionElements={[]} linkToPath="/" />
@@ -22,7 +21,7 @@ const SideBarMenu = props => (
           Object.values(Components)
             .filter(component => Showcase[component.name])
             .map(component => ({ name: component.displayName, linkToPath: `/${component.name}` }))
-            .sort((a, b) => ((a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0)))}
+            .sort((a, b) => a.name.localeCompare(b.name))}
       />
       <SideBarMenuSection
         title="Cookbooks"
@@ -31,10 +30,6 @@ const SideBarMenu = props => (
           { name: 'Pyrene', linkToPath: '/pyrene' },
         ]}
       />
-      {/* Site not ready yet as it has no relevant content
-         <SideBarMenuSection title="Resources" sectionElements={[]} linkToPath={'/resources'} />
-      */}
-
     </div>
   </div>
 );

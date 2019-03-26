@@ -1,8 +1,6 @@
 @import '../../../../../css/colors.css';
 
-.iconDisplay {
-
-}
+.iconDisplay {}
 
 .iconSearchBar {
   box-sizing: border-box;
@@ -51,4 +49,3 @@
   left: 8px;
   top: 8px;
 }
-

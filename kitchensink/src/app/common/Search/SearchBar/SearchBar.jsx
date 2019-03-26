@@ -36,7 +36,7 @@ class SearchBar extends React.Component {
   }
 
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
+  componentDidUpdate(prevProps, prevState) {
     // If there is an input and it is different from the one before,
     // set redirect flag which triggers a redirect via the handleSearchResultsDisplay function
     if (this.state.searchInput !== prevState.searchInput && this.state.searchInput.length >= this.MINIMUM_NUMBER_OF_CHARACTERS_IN_SEARCH) {
@@ -144,11 +144,13 @@ class SearchBar extends React.Component {
 SearchBar.displayName = 'SearchBar';
 
 SearchBar.defaultProps = {
-  isDisplayingSearchResults: false,
   value: '',
 };
 
 SearchBar.propTypes = {
+  location: PropTypes.shape({
+    pathname: PropTypes.string.isRequired,
+  }).isRequired,
   value: PropTypes.string,
 };
 

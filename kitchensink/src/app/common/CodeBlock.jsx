@@ -21,6 +21,19 @@ export default class CodeBlock extends React.Component {
     };
   }
 
+  displayCopyNotifier = (displayTimeMS) => {
+    this.setState(() => ({
+      displayCopyNotification: true,
+    }),
+    () => {
+      setTimeout(() => (
+        this.setState(() => ({
+          displayCopyNotification: false,
+        }))
+      ), displayTimeMS);
+    });
+  };
+
   handleCodeBlockStyle() {
     const syntaxHighlighterStyle = {
       margin: 0,
@@ -40,18 +53,6 @@ export default class CodeBlock extends React.Component {
     return syntaxHighlighterStyle;
   }
 
-  displayCopyNotifier = (displayTimeMS) => {
-    this.setState(() => ({
-      displayCopyNotification: true,
-    }),
-    () => {
-      setTimeout(() => (
-        this.setState(() => ({
-          displayCopyNotification: false,
-        }))
-      ), displayTimeMS);
-    });
-  };
 
   copyCodeToClipBoard(code) {
     this.displayCopyNotifier(500);
@@ -60,7 +61,7 @@ export default class CodeBlock extends React.Component {
 
 
   handleExpand() {
-    this.setState((prevState, props) => ({
+    this.setState(prevState => ({
       expanded: !prevState.expanded,
     }),
     () => this.handleCodeBlockStyle());
@@ -77,7 +78,7 @@ export default class CodeBlock extends React.Component {
 
     propList += `<${component.type.name}\n`;
     Object.entries(component.props).sort().forEach(([key, value]) => {
-      if (value && component.type.__docgenInfo.props && Object.keys(component.type.__docgenInfo.props).indexOf(key) > -1) {
+      if (value && component.type.__docgenInfo.props && Object.keys(component.type.__docgenInfo.props).indexOf(key) > -1) { // eslint-disable-line no-underscore-dangle
         // Add Code Line, for booleans only display key
         if (typeof value === 'boolean') {
           propList += `\t${key}\n`;
@@ -86,7 +87,7 @@ export default class CodeBlock extends React.Component {
         } else if (key === 'children') {
           hasChildren = true;
         } else {
-          const jsonReplacer = (key, val) => {
+          const jsonReplacer = (jsonKey, val) => {
             if (typeof val === 'function') {
               return '() => null';
             }

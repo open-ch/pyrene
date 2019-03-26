@@ -30,10 +30,20 @@ const ComponentPage = (props) => {
 
 ComponentPage.displayName = 'ComponentPage';
 
-ComponentPage.propTypes = {
-  component: PropTypes.func.isRequired,
+
+ComponentPage.defaultProps = {
+  showcase: null,
 };
 
-ComponentPage.defaultProps = {};
+ComponentPage.propTypes = {
+  component: PropTypes.func.isRequired,
+  showcase: PropTypes.shape({
+    examples: PropTypes.arrayOf(
+      PropTypes.shape()
+    ),
+    props: PropTypes.shape(),
+  }),
+};
+
 
 export default ComponentPage;

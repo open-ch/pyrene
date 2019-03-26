@@ -135,6 +135,13 @@ ComponentEditor.displayName = 'ComponentEditor';
 
 ComponentEditor.propTypes = {
   component: PropTypes.func.isRequired,
+  showcase: PropTypes.shape({
+    examples: PropTypes.arrayOf(
+      PropTypes.shape()
+    ),
+    props: PropTypes.shape(),
+  }).isRequired,
 };
 
-ComponentEditor.defaultProps = {};
+ComponentEditor.defaultProps = {
+};

@@ -1,5 +1,4 @@
 import React from 'react';
-import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import Utils from '../../Utils';
 
@@ -24,7 +23,7 @@ export default class Example extends React.Component {
   render() {
     return (
       <div
-        styleName={classNames('example', { hoveredLast: this.props.hoveredLast })}
+        styleName="example"
         onClick={() => this.props.onExampleClick(this.props.exampleProps)}
         onMouseOver={() => this.handleMouseOver(this.props.description)}
         onMouseLeave={() => this.handleMouseOver()}
@@ -40,7 +39,9 @@ export default class Example extends React.Component {
 
 Example.displayName = 'Example';
 
-Example.defaultProps = {};
+Example.defaultProps = {
+  description: '',
+};
 
 Example.propTypes = {
   component: PropTypes.func.isRequired,

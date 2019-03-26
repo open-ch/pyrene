@@ -23,6 +23,8 @@ CodeBox.displayName = 'CodeBox';
 
 CodeBox.defaultProps = {};
 
-CodeBox.propTypes = {};
+CodeBox.propTypes = {
+  children: PropTypes.node.isRequired,
+};
 
 export default CodeBox;
