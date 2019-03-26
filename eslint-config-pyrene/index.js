@@ -85,6 +85,7 @@ module.exports = {
     "jsx-a11y/mouse-events-have-key-events": 0,
     "jsx-a11y/no-static-element-interactions": 0,
     "jsx-a11y/role-has-required-aria-props": 0,
+    "jsx-a11y/anchor-is-valid": 0,
     // Our imports work differently in MC
     "import/no-extraneous-dependencies": 0,
     "import/no-unresolved": 0,
