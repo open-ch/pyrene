@@ -1,7 +1,7 @@
 /* eslint-disable */
 import React from 'react';
 
-import { Button } from 'pyrene';
+import { Button } from 'pyrene/dist/pyrene.dev';
 import PyreneImage from '../../images/pyrene.svg';
 
 const ContentFiller = (props) => (
