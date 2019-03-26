@@ -14,7 +14,9 @@
     "prestart": "yarn install",
     "prewatch": "yarn install",
     "watch": "webpack-dev-server",
-    "release": "release-it"
+    "release": "release-it",
+    "prelint": "yarn install",
+    "lint": "eslint src/"
   },
   "devDependencies": {
     "@babel/core": "^7.2.2",
