@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './keyValueTable.css';
-import KeyValueRow from './KeyValueRow';
 
 const KeyValueTable = props => (
   <table styleName="keyValueTable">
@@ -10,7 +9,14 @@ const KeyValueTable = props => (
     </thead>
     <tbody>
       { props.rows.length > 0 && props.rows.map(row => (
-        <KeyValueRow key={row.key+row.value} left={row.key} right={row.value} />
+        <tr styleName="keyValueRow">
+          <td styleName="keyValueCellKey">
+            {row.key}
+          </td>
+          <td styleName="keyValueCellValue">
+            {row.value}
+          </td>
+        </tr>
       ))}
     </tbody>
   </table>
@@ -20,8 +26,8 @@ const KeyValueTable = props => (
 KeyValueTable.displayName = 'KeyValueTable';
 
 KeyValueTable.defaultProps = {
-  header: 'Alcin header',
-  rows: [{ key: 'asdf', value: 'qwer' }],
+  header: 'KeyValue table',
+  rows: [{ key: 'key', value: 'value' }],
 };
 
 KeyValueTable.propTypes = {

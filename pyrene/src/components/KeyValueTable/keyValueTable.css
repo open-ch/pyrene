@@ -32,11 +32,12 @@
 }
 
 .keyValueCellKey {
-  width: 128px;
+  width: 256px;
+  font-weight: bold;
 }
 
-.keyValueCellData {
-  width: 256px;
+.keyValueCellValue {
+  width: 512px;
 }
 
 .keyValueTableHeader {
