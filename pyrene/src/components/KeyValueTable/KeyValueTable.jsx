@@ -15,7 +15,7 @@ export default class KeyValueTable extends React.Component {
             {title}
           </div>
         )}
-        <table>
+        <table styleName="keyValueBody">
           <tbody>
             {rows.length > 0 && rows.map(row => (
               <tr styleName="keyValueRow"

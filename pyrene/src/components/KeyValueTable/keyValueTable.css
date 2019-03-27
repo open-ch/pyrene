@@ -1,14 +1,16 @@
 @import '../../styles/colors.css';
 
 .keyValueTable {
-  composes: commonFontSettings from '../../styles/common.css';
   color: #1d273b;
   position: relative;
   display: inline-block;
-  border-radius: 2px;
   text-align: left;
   table-layout: fixed;
   vertical-align: text-top;
+}
+
+.keyValueBody {
+  border-collapse: collapse;
 }
 
 .keyValueRow {
@@ -49,7 +51,7 @@
 }
 
 .keyValueTableTitle {
-  margin-bottom: 24px;
+  margin-bottom: 16px;
   font-size: 16px;
   font-weight: 600;
   line-height: 1.5;
