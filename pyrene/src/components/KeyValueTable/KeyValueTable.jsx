@@ -2,40 +2,53 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './keyValueTable.css';
 
-const KeyValueTable = props => (
-  <table styleName="keyValueTable">
-    <thead styleName="keyValueTableHeader">
-      <tr><th colSpan="2">{props.header}</th></tr>
-    </thead>
-    <tbody>
-      { props.rows.length > 0 && props.rows.map(row => (
-        <tr styleName="keyValueRow">
-          <td styleName="keyValueCellKey">
-            {row.key}
-          </td>
-          <td styleName="keyValueCellValue">
-            {row.value}
-          </td>
-        </tr>
-      ))}
-    </tbody>
-  </table>
-);
 
+export default class KeyValueTable extends React.Component {
+
+  render() {
+    const { title, rows } = this.props;
+
+    return (
+      <div styleName="keyValueTable">
+        {title && (
+          <div styleName="keyValueTableTitle">
+            {title}
+          </div>
+        )}
+        <table>
+          <tbody>
+            {rows.length > 0 && rows.map(row => (
+              <tr styleName="keyValueRow"
+                key={row.key}
+              >
+                <td styleName="keyValueCellKey">
+                  {row.key}
+                </td>
+                <td styleName="keyValueCellValue">
+                  {row.value}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    );
+
+  }
+
+}
 
 KeyValueTable.displayName = 'KeyValueTable';
 
 KeyValueTable.defaultProps = {
-  header: 'KeyValue table',
+  title: '',
   rows: [{ key: 'key', value: 'value' }],
 };
 
 KeyValueTable.propTypes = {
-  header: PropTypes.string,
   rows: PropTypes.arrayOf(PropTypes.shape({
     key: PropTypes.string,
     value: PropTypes.node,
   })),
+  title: PropTypes.string,
 };
-
-export default KeyValueTable;

@@ -8,40 +8,51 @@
   border-radius: 2px;
   text-align: left;
   table-layout: fixed;
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 1.5;
-  text-transform: capitalize;
+  vertical-align: text-top;
 }
 
 .keyValueRow {
-  padding: 8px 16px;
   text-align: left;
   border-bottom: 1px solid var(--border);
   background-color: #ffffff;
-  word-wrap: break-word;
-  position: relative;
   display: flex;
-  align-items: stretch;
+  line-height: 18px;
+  padding-top: 7px;
+  padding-bottom: 6px; /* +1px border*/
+  font-family: AvenirNext;
   font-size: 13px;
   font-weight: normal;
   font-style: normal;
   font-stretch: normal;
-  line-height: normal;
   letter-spacing: normal;
+}
+
+.keyValueRow:first-child {
+  border-top: 1px solid var(--border);
+  padding-top: 6px; /* +1px border*/
 }
 
 .keyValueCellKey {
   width: 256px;
-  font-weight: bold;
+  font-weight: 600; /* demibold */
+  padding-left: 8px;
+  padding-right: 16px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .keyValueCellValue {
   width: 512px;
+  word-wrap: break-word;
+  right: 8px;
 }
 
-.keyValueTableHeader {
-  text-align: left;
+.keyValueTableTitle {
+  margin-bottom: 24px;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--text);
+  text-transform: capitalize;
 }
-
-.keyValueRow:nth-child(even){background-color: #fafbfc}
