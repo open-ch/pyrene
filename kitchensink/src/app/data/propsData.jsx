@@ -95,7 +95,7 @@ const adminAction = (event) => alert('Admin action triggered.');
 
 const tableData = [
   {
-    "name": "SuperLongKey SuperLongKey SuperLongKey SuperLongKey SuperLongKey SuperLongKey SuperLongKey SuperLongKey SuperLongKey SuperLongKey SuperLongKey SuperLongKey SuperLongKey SuperLongKey ",
+    "name": "Meredith Carney",
     "age": 23,
     "friend": {
       "name": "Perry Robinson",
@@ -750,12 +750,11 @@ const startProps = {
     filters: [{label: 'first', type: 'singleSelect', filterKey: 'testKey', options: testOptionsWithoutInvalid, defaultValue: 'vanilla'}, {label: 'second', type: 'multiSelect', filterKey: 'testKey2', options: testOptionsWithoutInvalid, defaultValue: ['vanilla', 'chocolate']}, {label: 'third', type: 'text', filterKey: 'testKey3', options: null, defaultValue: 'defaultFill'}, {label: 'fourth', type: 'text', filterKey: 'testKey4', options: null}, {label: 'fifth', type: 'text', filterKey: 'testKey5', options: null}, {label: 'sixth', type: 'text', filterKey: 'testKey6', options: null}, {label: 'seventh', type: 'text', filterKey: 'testKey7', options: null}, {label: 'eighth', type: 'text', filterKey: 'testKey8', options: null}, {label: 'ninth', type: 'text', filterKey: 'testKey9', options: null}, {label: 'tenth', type: 'text', filterKey: 'testKey10', options: null}, {label: 'eleventh', type: 'text', filterKey: 'testKey11', options: null}, {label: 'twelfth', type: 'text', filterKey: 'testKey12', options: null}]
   },
   'keyvaluetable': {
-    header: 'KeyValue table',
+    title: 'KeyValue table',
     rows: [
       {key: 'Key', value: 'value'},
-      {key: 'Beer 🍺', value: 'beer'},
-      {key: 'SuperLongKey SuperLongKey SuperLongKey SuperLongKey SuperLongKey SuperLongKey SuperLongKey SuperLongKey SuperLongKey SuperLongKey SuperLongKey SuperLongKey SuperLongKey SuperLongKey ',
-        value: 'SuperLongValue SuperLongValue SuperLongValue SuperLongValue SuperLongValue SuperLongValue SuperLongValue SuperLongValue SuperLongValue SuperLongValue SuperLongValue SuperLongValue'},
+      {key: 'Super Long Key Super Long Key Super Long Key Super Long Key Super Long Key Super Long Key SuperLongKey SuperLongKey SuperLongKey SuperLongKey SuperLongKey SuperLongKey SuperLongKey SuperLongKey ',
+        value: 'Super Long Value Super Long Value Super Long Value Super Long Value Super Long Value SuperLongValue SuperLongValue SuperLongValue SuperLongValue SuperLongValue SuperLongValue SuperLongValue'},
       {key: 'Image as value', value: <img src={PyreneImage} alt="Pyrene icon" />}
       ],
   },
