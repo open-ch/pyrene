@@ -4,7 +4,6 @@
   color: #1d273b;
   position: relative;
   display: inline-block;
-  text-align: left;
   table-layout: fixed;
   vertical-align: text-top;
 }
@@ -14,19 +13,13 @@
 }
 
 .keyValueRow {
-  text-align: left;
   border-bottom: 1px solid var(--border);
   background-color: #ffffff;
   display: flex;
   line-height: 18px;
   padding-top: 7px;
   padding-bottom: 6px; /* +1px border*/
-  font-family: AvenirNext;
   font-size: 13px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  letter-spacing: normal;
 }
 
 .keyValueRow:first-child {
