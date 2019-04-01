@@ -87,7 +87,7 @@ export default class CodeBlock extends React.Component {
         } else if (key === 'children') {
           hasChildren = true;
         } else {
-          const jsonReplacer = (jsonKey, val) => {
+          const jsonReplacer = (_, val) => {
             if (typeof val === 'function') {
               return '() => null';
             }
