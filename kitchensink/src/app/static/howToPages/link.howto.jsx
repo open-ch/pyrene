@@ -1,13 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Link, Container } from 'pyrene/dist/pyrene.dev';
 import Paragraph from '../../common/PageElements/Paragraph/Paragraph';
 import DisplayBox from '../../common/PageElements/HowToElements/DisplayBox/DisplayBox';
 import DescriptionBox from '../../common/PageElements/DescriptionBox/DescriptionBox';
-import { ContentFiller } from '../../data/propsData';
 
 
-const LinkHTU = props => (
+const LinkHTU = () => (
   <React.Fragment>
     <Paragraph title="Standalone Link">
       <DescriptionBox>
@@ -53,11 +51,9 @@ const LinkHTU = props => (
           height: 192, width: 286, backgroundColor: 'white', borderRadius: 4, boxShadow: '0 0 1px 0 rgba(0, 21, 44, 0.3)', boxSizing: 'border-box', padding: 24, fontSize: 14, flexShrink: 0, lineHeight: 1.71,
         }}
         >
-          Kogi Cosby sweater ethical squid irony disrupt, organic tote bag gluten-free
-          {' '}
+          {' Kogi Cosby sweater ethical squid irony disrupt, organic tote bag gluten-free'}
           <Link type="inline" path="#" label="XOXO" />
-          {' '}
-wolf typewriter mixtape small batch. DIY pickled four loko McSweeney's, Odd Future dreamcatcher plaid PBR&B single.
+          {' wolf typewriter mixtape small batch. DIY pickled four loko McSweeney\'s, Odd Future dreamcatcher plaid PBR&B single.'}
         </div>
       </DisplayBox>
     </Paragraph>

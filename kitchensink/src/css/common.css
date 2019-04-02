@@ -111,7 +111,8 @@ body {
 
 :global(.iconGrid) {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr; /* repeat(12, 1fr) not well enough supported yet.. */
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  /* repeat(12, 1fr) not well enough supported yet.. */
   grid-gap: 16px;
 }
 

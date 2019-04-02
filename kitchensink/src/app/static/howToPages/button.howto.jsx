@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Button, Container } from 'pyrene/dist/pyrene.dev';
 import Paragraph from '../../common/PageElements/Paragraph/Paragraph';
 import DisplayBox from '../../common/PageElements/HowToElements/DisplayBox/DisplayBox';
@@ -7,7 +6,7 @@ import DescriptionBox from '../../common/PageElements/DescriptionBox/Description
 import { ContentFiller } from '../../data/propsData';
 
 
-const ButtonHTU = props => (
+const ButtonHTU = () => (
   <React.Fragment>
     <Paragraph title="Icon Usage">
       <DescriptionBox>
@@ -29,7 +28,7 @@ const ButtonHTU = props => (
       <DisplayBox width={286}>
         <Container
           title="network interfaces"
-          adminAction={{ label: 'Admin', action: () => (console.log('wowowow')) }}
+          adminAction={{ label: 'Admin', action: () => {} }}
           renderCallback={() => (
             <ContentFiller
               height={250}

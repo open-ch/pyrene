@@ -18,15 +18,14 @@ export default class SideBarMenuSection extends React.Component {
   }
 
   componentDidMount() {
-    // Open menu on page reload to display active section
-    for (const ref in this.refs) {
-      if (this.refs[ref].parentElement.className === 'activeSideBar') {
-        this.setState({
-          open: true,
-          sectionContentWrapperHeight: this.props.sectionElements.length * 48 + 32,
-        });
-      }
+    const refs = this.refs; // eslint-disable-line react/no-string-refs
+    if (Object.keys(refs).find(k => refs[k].parentElement.className === 'activeSideBar')) {
+      this.setState({
+        open: true,
+        sectionContentWrapperHeight: this.props.sectionElements.length * 48 + 32,
+      });
     }
+
   }
 
   handleClick() {
@@ -51,7 +50,7 @@ export default class SideBarMenuSection extends React.Component {
     return (
       <div styleName={classNames('section', { open: this.state.open })}>
         {this.props.sectionElements.length > 0 && <div styleName="indicator" />}
-        <NavLink exact to={`${this.props.linkToPath}`} activeClassName="activeSideBar">
+        <NavLink to={`${this.props.linkToPath}`} activeClassName="activeSideBar" exact>
           <div className="unSelectable" styleName="sectionHead" onClick={() => this.handleClick()}>{this.props.title}</div>
         </NavLink>
 

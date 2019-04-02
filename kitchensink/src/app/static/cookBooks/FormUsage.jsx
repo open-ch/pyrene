@@ -2,7 +2,7 @@ import React from 'react';
 import * as yup from 'yup';
 import '../../../css/componentPage.css';
 import {
-  Form, Checkbox, Button, TextField, TextArea, RadioGroup, SingleSelect, MultiSelect, Link,
+  Form, Checkbox, Button, TextField, RadioGroup, SingleSelect, MultiSelect, Link,
 } from 'pyrene/dist/pyrene.dev';
 import { testOptionsWithoutInvalid } from '../../data/propsData';
 import CodeBox from '../../common/PageElements/HowToElements/CodeBox/CodeBox';
@@ -12,7 +12,6 @@ import DisplayBox from '../../common/PageElements/HowToElements/DisplayBox/Displ
 
 
 function delay(values, ms) {
-  console.log('Submitting', values);
   let ctr;
   let rej;
   const p = new Promise(((resolve, reject) => {
@@ -35,7 +34,7 @@ const errorStyle = {
 const SmallForm = (
   <Form
     render={({
-      initField, values, errors, touched, isSubmitting, submitDisabled,
+      initField, values, errors, touched, isSubmitting, submitDisabled, // eslint-disable-line no-unused-vars
     }) => (
       <React.Fragment>
         <TextField
@@ -82,7 +81,7 @@ const SmallFormCode = `<Form
   // touched: object, true for each element that the user interacted with
   // isSubmitting: bool, true between submission and completion of onSubmit
   // submitDisabled: bool, true when any validation errors exist
-  
+
   render={({initField, values, errors, touched, isSubmitting, submitDisabled}) => (
     <React.Fragment>
       <TextField
@@ -113,14 +112,14 @@ const SmallFormCode = `<Form
       />
     </React.Fragment>
   )}
-   
+
   // Needed for every registered form field
   initialValues={{
     email: 'blabl@abla.com',
     password: '',
     checkBox: false,
   }}
-  
+
   onSubmit={values => delay(values, 2000)}
 />`;
 
@@ -195,13 +194,13 @@ const validationSchema = yup.object({
     }),
 });
 
-const ErrorDisplay = `<Form 
+const ErrorDisplay = `<Form
   render={(...) => (
     <Checkbox
       label={'Lock password input'}
       {...initField('checkBox')}
     />
-    
+
     // Display errors for the checkbox
     {errors.checkBox && touched.checkBox && <div>{errors.checkBox}</div>}
   )}
@@ -281,17 +280,17 @@ const BigFormCode = `<Form
         title={'Email'}
         placeholder={'Email'}
         disabled={props.values.checkBox1}
-        required // Note that the required prop only applies some styling 
+        required // Note that the required prop only applies some styling
         {...props.initField('email')}
       />
-     
-      <TextField 
+
+      <TextField
         title={'Password in plain text 👀'}
         placeholder={'Password'}
         required
         {...props.initField('password')}
       />
-    
+
       <RadioGroup
         alignment={'horizontal'}
         options={[
@@ -302,7 +301,7 @@ const BigFormCode = `<Form
         {...props.initField('radioGroup')}
       />
       {props.errors.radioGroup && props.touched.radioGroup && <div>{props.errors.radioGroup}</div>}
-      
+
       <SingleSelect
         title={'Select favorite icecream'}
         options={iceOptions}
@@ -310,7 +309,7 @@ const BigFormCode = `<Form
         required
         {...props.initField('iceSelect')}
       />
-       
+
       <MultiSelect
         title={'Select icecream.. again'}
         options={iceOptions}
@@ -320,12 +319,12 @@ const BigFormCode = `<Form
         keepMenuOnSelect
         {...props.initField('iceMultiselect')}
       />
-      
+
       <Checkbox label={'I accept the terms of conditioners.'} required {...props.initField('terms')} />
       <Checkbox label={'Hit me with them juicy spam mails.'} {...props.initField('spam')} />
       {props.errors.terms && props.touched.terms && <div style={errorStyle}>{props.errors.terms}</div>}
       {props.errors.spam && <div style={errorStyle}>{props.errors.spam}</div>}
-      
+
       <Button
         label={'Submit'}
         type={'danger'}
@@ -334,7 +333,7 @@ const BigFormCode = `<Form
        />
     </React.Fragment>
   )}
-  
+
   validationSchema={validationSchema}
   initialValues={{
     email: 'blabl@abla.com',
@@ -386,7 +385,7 @@ The initField function needs to be called with the spread operator and as the *L
             {SmallFormCode}
           </CodeBox>
           <DescriptionBox>
-            Let's have a look at that beauty. ✨
+            {'Let\'s have a look at that beauty. ✨'}
           </DescriptionBox>
           <DisplayBox>
             {SmallForm}
@@ -395,14 +394,11 @@ The initField function needs to be called with the spread operator and as the *L
 
         <Paragraph title="Forms with validation">
           <DescriptionBox>
-            For validation we use
-            {' '}
+            {'For validation we use '}
             <Link type="inline" label="Yup" path="https://github.com/jquense/yup" />
-.
-            Simply create your validation schema like below and pass it to the wrapped form via the validationScheme property. For further information go to the
-            {' '}
+            {'. Simply create your validation schema like below and pass it to the wrapped form via the validationScheme property. For further information go to the'}
             <Link type="inline" label="Yup github page" path="https://github.com/jquense/yup" />
-. Remember that the keys used in the schema need to equal the names given to the fields with the initField method.
+            {'. Remember that the keys used in the schema need to equal the names given to the fields with the initField method.'}
           </DescriptionBox>
           <CodeBox>
             {Yupscheme}

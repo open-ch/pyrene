@@ -19,20 +19,19 @@ export default class ExampleBox extends React.Component {
     };
   }
 
+  getComponentName = component => component.displayName.toLowerCase().replace(/\s/g, '');
+
   handleExampleHover(description) {
     if (typeof description !== 'undefined') {
-      this.setState((prevState, props) => ({
+      this.setState(() => ({
         displayedDescription: description,
       }));
     } else {
-      this.setState((prevState, props) => ({
+      this.setState(() => ({
         displayedDescription: this.descriptionPlaceholder,
       }));
     }
   }
-
-  getComponentName = component => component.displayName.toLowerCase().replace(/\s/g, '');
-
 
   render() {
     return (
@@ -65,9 +64,17 @@ export default class ExampleBox extends React.Component {
 
 ExampleBox.displayName = 'ExampleBox';
 
-ExampleBox.defaultProps = {};
+ExampleBox.defaultProps = {
+  examples: [],
+};
 
 ExampleBox.propTypes = {
   component: PropTypes.func.isRequired,
+  examples: PropTypes.arrayOf(
+    PropTypes.shape({
+      description: PropTypes.string,
+      props: PropTypes.shape().isRequired,
+    }),
+  ),
   onExampleClick: PropTypes.func.isRequired,
 };

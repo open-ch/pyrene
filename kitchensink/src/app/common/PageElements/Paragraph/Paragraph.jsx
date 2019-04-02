@@ -17,6 +17,7 @@ const Paragraph = props => (
 Paragraph.displayName = 'Paragraph';
 
 Paragraph.propTypes = {
+  children: PropTypes.node.isRequired,
   title: PropTypes.string,
 };
 

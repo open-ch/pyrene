@@ -712,7 +712,7 @@ const treeTableColumns = [
  * In the case of the function method, an object is provided as the first param with the shape of ({ state: Object, setState: Function }).
  * The setState method can be used to manipulate the component state object provided as the other parameter.
  * TLDR: Works just like React state handling.
- * 
+ *
  * PLEASE NOTE: To use the state, the callback method must be provided with the variable name as `stateProvider` to have it registered correctly.
  */
 const startProps = {

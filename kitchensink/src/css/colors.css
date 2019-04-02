@@ -11,9 +11,12 @@
   --neutral-400: #334151;
   --neutral-500: #00152c;
 
-  --neutral-sideBar: #e5e7e9; /* used */
-  --font-black: var(--neutral-500); /* used */
-  --font-gray: var(--neutral-200); /* used */
+  --neutral-sideBar: #e5e7e9;
+  /* used */
+  --font-black: var(--neutral-500);
+  /* used */
+  --font-gray: var(--neutral-200);
+  /* used */
 
   /* BLUE */
   --blue-010: #f7fafe;

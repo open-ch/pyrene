@@ -19,6 +19,7 @@ DisplayBox.defaultProps = {
 };
 
 DisplayBox.propTypes = {
+  children: PropTypes.node.isRequired,
   width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 

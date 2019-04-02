@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  TextField, SingleSelect, MultiSelect, Checkbox,
+  TextField, SingleSelect, Checkbox,
 } from 'pyrene/dist/pyrene.dev';
 import PropTypes from 'prop-types';
 import Table from './Table';
@@ -30,10 +30,9 @@ export default class DynamicPropTable extends React.Component {
         );
 
       case 'enum':
-        const options = propProps.type.value.map(propChoice => ({ value: propChoice.value.replace(/'/g, ''), label: propChoice.value.replace(/'/g, '') }));
         return (
           <SingleSelect
-            options={options}
+            options={propProps.type.value.map(propChoice => ({ value: propChoice.value.replace(/'/g, ''), label: propChoice.value.replace(/'/g, '') }))}
             {...this.props.initField(propName)}
           />
         );
@@ -94,5 +93,4 @@ DynamicPropTable.propTypes = {
       }),
     })),
   })).isRequired,
-  propValues: PropTypes.object,
 };

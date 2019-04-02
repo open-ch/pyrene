@@ -12,8 +12,8 @@
 
   &.pinned {
     box-shadow:
-            0 4px 8px -2px rgba(0, 21, 44, 0.2),
-            0 0 1px 0 rgba(0, 21, 44, 0.3);
+      0 4px 8px -2px rgba(0, 21, 44, 0.2),
+      0 0 1px 0 rgba(0, 21, 44, 0.3);
   }
 }
 
@@ -71,8 +71,8 @@
   z-index: -1;
   opacity: 0;
   transition:
-          opacity .5s ease-in-out,
-          z-index .5s step-end;
+    opacity .5s ease-in-out,
+    z-index .5s step-end;
 
 
   &.display {
@@ -80,8 +80,8 @@
     opacity: 1;
 
     transition:
-            opacity .2s ease-in-out,
-            z-index .2s step-start;
+      opacity .2s ease-in-out,
+      z-index .2s step-start;
   }
 
   & .label {

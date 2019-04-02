@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Route, Switch } from 'react-router-dom';
 import Components from 'pyrene/dist/pyrene.dev';
 import Showcase from 'pyrene/dist/pyrene.showcase';
@@ -15,7 +16,6 @@ import SearchBar from './Search/SearchBar/SearchBar';
 import ResultsPage from './Search/ResultsPage';
 import NotFoundPage from '../static/NotFoundPage';
 import FormUsage from '../static/cookBooks/FormUsage';
-import specialComponentHandlingData from '../data/specialComponentHandlingData';
 import PyreneTutorial from '../static/cookBooks/PyreneTutorial';
 
 export default class Main extends React.PureComponent {
@@ -74,6 +74,9 @@ export default class Main extends React.PureComponent {
 Main.displayName = 'Main';
 
 Main.propTypes = {
+  location: PropTypes.shape({
+    pathname: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 Main.defaultProps = {

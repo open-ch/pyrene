@@ -5,9 +5,7 @@
   padding: 0 40px 0 40px;
 }
 
-.header {
-
-}
+.header {}
 
 .title {
   margin-left: 0;
@@ -31,9 +29,7 @@
   }
 }
 
-.topicContent {
-
-}
+.topicContent {}
 
 .displayContainer {
   background-color: var(--neutral-000);
@@ -108,14 +104,14 @@
     border-style: solid;
     border-width: 1px 4px 1px 1px;
     box-shadow:
-            -8px 0 0 -3px currentColor,
-            8px 0 0 -3px currentColor,
-            0 -8px 0 -3px currentColor,
-            0 8px 0 -3px currentColor,
-            -6px -6px 0 -3px currentColor,
-            -6px 6px 0 -3px currentColor,
-            6px -6px 0 -3px currentColor,
-            6px 6px 0 -3px currentColor;
+      -8px 0 0 -3px currentColor,
+      8px 0 0 -3px currentColor,
+      0 -8px 0 -3px currentColor,
+      0 8px 0 -3px currentColor,
+      -6px -6px 0 -3px currentColor,
+      -6px 6px 0 -3px currentColor,
+      6px -6px 0 -3px currentColor,
+      6px 6px 0 -3px currentColor;
     cursor: pointer;
 
     transition: all 0.4s ease-in-out;

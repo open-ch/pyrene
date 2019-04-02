@@ -7,7 +7,7 @@ import { icons } from '../../../data/foundationsData';
 import './select.css';
 
 const Option = (props) => {
-  const { getStyles, children, innerProps } = props;
+  const { getStyles, children, innerProps } = props; // eslint-disable-line react/prop-types
   return (
     <div {...innerProps} style={getStyles('option', props)}>
       <span className={`pyreneIcon-${children}`} style={{ verticalAlign: 'text-top', marginRight: 8, fontSize: 16 }} />
@@ -61,12 +61,19 @@ IconSelect.defaultProps = {
   helperLabel: '',
   value: null,
   title: '',
+  onBlur: () => null,
   onChange: () => null,
+  required: false,
+  disabled: false,
 };
 
 IconSelect.propTypes = {
+  disabled: PropTypes.bool,
   helperLabel: PropTypes.string,
+  name: PropTypes.string.isRequired,
+  onBlur: PropTypes.func,
   onChange: PropTypes.func,
+  required: PropTypes.bool,
   title: PropTypes.string,
   value: PropTypes.string,
 };
