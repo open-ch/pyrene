@@ -5,19 +5,5 @@
   },
   "parserOptions": {
     "sourceType": "module"
-  },
-    "globals": {
-    "shallow": "true",
-    "mount": "true",
-  },
-  "rules": {
-    "react/no-multi-comp": [2, { "ignoreStateless": true }],
-    "react/destructuring-assignment": "off",
-    "prefer-destructuring": "off",
-    "jsx-a11y/click-events-have-key-events": "off",
-    "jsx-a11y/mouse-events-have-key-events": "off",
-    "jsx-a11y/interactive-supports-focus": "off",
-    "jsx-a11y/label-has-for": "off",
-    "jsx-a11y/role-has-required-aria-props": "off"
   }
 }

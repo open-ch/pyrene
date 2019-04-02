@@ -34,11 +34,7 @@ const TablePagination = props => (
       <Stepper direction="left" disabled={!props.canPrevious} onClick={() => props.onPageChange(props.page - 1)} type="minimal" />
       <div styleName="spacer small" />
       <div styleName="pageTracker">
-        {props.page + 1}
-        {' '}
-of
-        {' '}
-        {props.pages}
+        {`${props.page + 1} of {props.pages}`}
       </div>
       <div styleName="spacer small" />
       <Stepper direction="right" disabled={!props.canNext} onClick={() => props.onPageChange(props.page + 1)} type="minimal" />
