@@ -5,10 +5,10 @@ import {
   Form, Checkbox, Button, TextField, RadioGroup, SingleSelect, MultiSelect, Link,
 } from 'pyrene/dist/pyrene.dev';
 import { testOptionsWithoutInvalid } from '../../data/propsData';
-import CodeBox from '../../common/PageElements/HowToElements/CodeBox/CodeBox';
+import CodeBox from '../../common/PageElements/HowTo/CodeBox/CodeBox';
 import Paragraph from '../../common/PageElements/Paragraph/Paragraph';
 import DescriptionBox from '../../common/PageElements/DescriptionBox/DescriptionBox';
-import DisplayBox from '../../common/PageElements/HowToElements/DisplayBox/DisplayBox';
+import DisplayBox from '../../common/PageElements/HowTo/DisplayBox/DisplayBox';
 
 
 function delay(values, ms) {

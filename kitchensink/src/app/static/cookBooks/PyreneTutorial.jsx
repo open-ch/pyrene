@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../../css/componentPage.css';
 import { Link } from 'pyrene/dist/pyrene.dev';
-import CodeBox from '../../common/PageElements/HowToElements/CodeBox/CodeBox';
+import CodeBox from '../../common/PageElements/HowTo/CodeBox/CodeBox';
 import Paragraph from '../../common/PageElements/Paragraph/Paragraph';
 import DescriptionBox from '../../common/PageElements/DescriptionBox/DescriptionBox';
 
