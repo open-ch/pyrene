@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import './filterOption.css';
 import SingleSelect from '../../SelectElements/SingleSelect/SingleSelect';
-import TextField from '../../FormElements/TextField/TextField';
+import TextField from '../../TextField/TextField';
 import MultiSelect from '../../SelectElements/MultiSelect/MultiSelect';
 
 export default class FilterOption extends React.Component {

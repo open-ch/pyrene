@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import './checkboxList.css';
-import Checkbox from '../FormElements/Checkbox/Checkbox';
+import Checkbox from '../Checkbox/Checkbox';
 import Button from '../Button/Button';
 
 const CheckboxList = props => (

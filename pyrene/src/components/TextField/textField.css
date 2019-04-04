@@ -1,7 +1,7 @@
-@import '../../../styles/colors.css';
+@import '../../styles/colors.css';
 
 .textFieldContainer {
-  composes: commonFontSettings from '../../../styles/common.css';
+  composes: commonFontSettings from '../../styles/common.css';
 
   &.disabled {
     opacity: .5;

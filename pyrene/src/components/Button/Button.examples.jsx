@@ -1,13 +1,13 @@
-const Button = {};
+const examples = {};
 
-Button.props = {
+examples.props = {
   label: stateProvider => (stateProvider.state.count ? `You clicked me ${stateProvider.state.count}` : 'Click me please'),
   type: 'secondary',
   icon: 'filter',
   onClick: stateProvider => () => stateProvider.setState(prevState => ({ count: prevState.count ? prevState.count + 1 : 1 })),
 };
 
-Button.examples = [{
+examples.examples = [{
   props: { label: 'primary' },
   description: 'For all principle actions on a page. Used to highlight the most important actions. Avoid overwhelming usage of primary buttons.',
 }, {
@@ -27,4 +27,4 @@ Button.examples = [{
   description: 'Used when an action is accessible for MC Engineers only.',
 }];
 
-export default Button;
+export default examples;

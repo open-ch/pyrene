@@ -89,7 +89,7 @@ if (production) {
 
   config.entry = {
     dev: './src/index.js',
-    showcase: './src/showcase/index.js',
+    examples: './src/examples/index.js',
   };
 }
 

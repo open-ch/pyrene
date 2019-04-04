@@ -1,5 +1,5 @@
 import React from 'react';
-import Placeholder from '../../showcase/Placeholder';
+import Placeholder from '../../examples/Placeholder';
 
 const TabView = {};
 

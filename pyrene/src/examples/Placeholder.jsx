@@ -15,6 +15,7 @@ const Placeholder = props => (
     fontWeight: 'bold',
     textTransform: 'uppercase',
     letterSpacing: 1,
+    width: props.width,
   }}
   >
     {props.label ? props.label : 'Content'}
@@ -23,10 +24,15 @@ const Placeholder = props => (
 
 Placeholder.propTypes = {
   label: PropTypes.string,
+  width: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string,
+  ]),
 };
 
 Placeholder.defaultProps = {
   label: 'Content',
+  width: '100%',
 };
 
 export default Placeholder;

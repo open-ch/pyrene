@@ -9,12 +9,12 @@ import './styles/fonts.css';
 import { default as Banner } from './components/Banner/Banner';
 import { default as Button } from './components/Button/Button';
 
-import { default as Checkbox } from './components/FormElements/Checkbox/Checkbox';
+import { default as Checkbox } from './components/Checkbox/Checkbox';
 import { default as Collapsible } from './components/Collapsible/Collapsible';
 import { default as Container } from './components/Container/Container';
 
 import { default as Filter } from './components/Filter/Filter';
-import { default as Form } from './components/FormElements/Form';
+import { default as Form } from './components/Form/Form';
 
 import { default as Link } from './components/Link/Link';
 import { default as Loader } from './components/Loader/Loader';
@@ -24,7 +24,7 @@ import { default as MultiSelect } from './components/SelectElements/MultiSelect/
 
 import { default as Popover } from './components/Popover/Popover';
 
-import { default as RadioGroup } from './components/FormElements/RadioGroup/RadioGroup';
+import { default as RadioGroup } from './components/RadioGroup/RadioGroup';
 
 import { default as ShareDialog } from './components/Share/ShareDialog';
 import { default as SingleSelect } from './components/SelectElements/SingleSelect/SingleSelect';
@@ -32,8 +32,8 @@ import { default as Stepper } from './components/Stepper/Stepper';
 
 import { default as Table } from './components/Table/Table';
 import { default as TabView } from './components/TabView/TabView';
-import { default as TextArea } from './components/FormElements/TextArea/TextArea';
-import { default as TextField } from './components/FormElements/TextField/TextField';
+import { default as TextArea } from './components/TextArea/TextArea';
+import { default as TextField } from './components/TextField/TextField';
 import { default as Tooltip } from './components/Tooltip/Tooltip';
 import { default as TreeTable } from './components/TreeTable/TreeTable';
 

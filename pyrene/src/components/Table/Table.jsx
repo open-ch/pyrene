@@ -12,7 +12,7 @@ import Filter from '../Filter/Filter';
 import TableHeaderCell from './TableHeader/TableHeaderCell';
 import TableHeader from './TableHeader/TableHeader';
 import colorConstants from '../../styles/colorConstants';
-import Checkbox from '../FormElements/Checkbox/Checkbox';
+import Checkbox from '../Checkbox/Checkbox';
 import TableCell from './TableCell/TableCell';
 import CheckboxPopover from '../CheckboxPopover/CheckboxPopover';
 import TableUtils from './TableUtils';
