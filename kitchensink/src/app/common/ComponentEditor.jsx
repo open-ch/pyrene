@@ -13,7 +13,7 @@ import ParentButton from './PageElements/ParentButton/ParentButton';
 export default class ComponentEditor extends React.Component {
 
   state = {
-    componentProps: { ...this.props.component.defaultProps, ...this.props.showcase.props },
+    componentProps: { ...this.props.component.defaultProps, ...this.props.examples.props },
     componentState: {},
     pinned: false,
     darkMode: false,
@@ -103,10 +103,10 @@ export default class ComponentEditor extends React.Component {
     const componentName = this.getComponentName(Component);
     return (
       <div className="componentPlayground">
-        {this.props.showcase.examples
+        {this.props.examples.examples
         && (
           <Paragraph title="Examples">
-            <ExampleBox component={Component} examples={this.props.showcase.examples} onExampleClick={this.handleExampleClick} />
+            <ExampleBox component={Component} examples={this.props.examples.examples} onExampleClick={this.handleExampleClick} />
           </Paragraph>
         )
         }
@@ -135,7 +135,7 @@ ComponentEditor.displayName = 'ComponentEditor';
 
 ComponentEditor.propTypes = {
   component: PropTypes.func.isRequired,
-  showcase: PropTypes.shape({
+  examples: PropTypes.shape({
     examples: PropTypes.arrayOf(
       PropTypes.shape()
     ),

@@ -16,7 +16,7 @@ const ComponentPage = props => (
     </div>
 
     <div styleName="topicContent">
-      <ComponentEditor component={props.component} showcase={props.showcase} />
+      <ComponentEditor component={props.component} examples={props.examples} />
     </div>
 
 
@@ -29,12 +29,12 @@ ComponentPage.displayName = 'ComponentPage';
 
 
 ComponentPage.defaultProps = {
-  showcase: null,
+  examples: null,
 };
 
 ComponentPage.propTypes = {
   component: PropTypes.func.isRequired,
-  showcase: PropTypes.shape({
+  examples: PropTypes.shape({
     examples: PropTypes.arrayOf(
       PropTypes.shape()
     ),

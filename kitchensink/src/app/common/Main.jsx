@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Route, Switch } from 'react-router-dom';
 import Components from 'pyrene/dist/pyrene.dev';
-import Showcase from 'pyrene/dist/pyrene.showcase';
+import examples from 'pyrene/dist/pyrene.examples';
 import packageJson from '../../../package.json';
 import Logo from './Logo';
 import SideBarMenu from './SideBarMenu/SideBarMenu';
@@ -46,7 +46,7 @@ export default class Main extends React.PureComponent {
             <Route path="/pyrene" component={PyreneTutorial} />
 
             {Object.values(Components)
-              .filter(component => Showcase[component.name])
+              .filter(component => examples[component.name])
               .map(component => (
                 <Route
                   key={component.name}
@@ -55,7 +55,7 @@ export default class Main extends React.PureComponent {
                     <ComponentPage
                       {...routeProps}
                       component={component}
-                      showcase={Showcase[component.name]}
+                      examples={examples[component.name]}
                     />
                   )}
                 />

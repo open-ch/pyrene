@@ -1,6 +1,6 @@
 import React from 'react';
 import Components from 'pyrene/dist/pyrene.dev';
-import Showcase from 'pyrene/dist/pyrene.showcase';
+import examples from 'pyrene/dist/pyrene.examples';
 import SideBarMenuSection from './SideBarMenuSection';
 
 import './sideBarMenu.css';
@@ -19,7 +19,7 @@ const SideBarMenu = () => (
         title="Components"
         sectionElements={
           Object.values(Components)
-            .filter(component => Showcase[component.name])
+            .filter(component => examples[component.name])
             .map(component => ({ name: component.displayName, linkToPath: `/${component.name}` }))
             .sort((a, b) => a.name.localeCompare(b.name))}
       />
