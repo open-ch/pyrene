@@ -281,7 +281,8 @@ export default class Table extends React.Component {
                     onChange={(e) => {
                       const { shiftKey } = e;
                       e.stopPropagation();
-                      props.onClick(props.id, shiftKey, props.row);
+                      const key = props.row[this.props.keyField];
+                      this.toggleSelection(key, shiftKey, props.row);
                     }}
                   />
                 );
