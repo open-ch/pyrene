@@ -56,6 +56,7 @@ export default class TreeTable extends React.Component {
         key={rowKey || uniqid()}
         generateRowsFromData={this.generateRowsFromData}
         onRowDoubleClick={this.props.onRowDoubleClick}
+        expandOnParentRowClick={this.props.expandOnParentRowClick}
       />
     );
   });
@@ -139,6 +140,7 @@ TreeTable.displayName = 'TreeTable';
 
 TreeTable.defaultProps = {
   data: [],
+  expandOnParentRowClick: false,
   columns: [],
   filters: [],
   title: '',
@@ -159,6 +161,10 @@ TreeTable.propTypes = {
    * Sets the Table data displayed in the rows. Type: JSON
    */
   data: PROPCONSTANTS.DATA,
+  /**
+   * Enables toggle row expansion on the full parent row, instead of the chevron only. Overrides onRowDoubleClick for parent rows.
+   */
+  expandOnParentRowClick: PropTypes.bool,
   /**
    * Sets the available filters.
    * Type: [{ label: string (required), type: oneOf('singleSelect', 'multiSelect', 'text') (required), key: string (required), options: array }]
