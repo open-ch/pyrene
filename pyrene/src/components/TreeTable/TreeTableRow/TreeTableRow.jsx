@@ -36,16 +36,16 @@ export default class TreeTableRow extends React.PureComponent {
   };
 
   render() {
-    const hasParentExpandAction = this.props.parent && this.props.expandOnParentRowClick;
+    const hasExpandAction = this.props.parent && this.props.expandOnParentRowClick;
     const hasDoubleClickAction = this.props.onRowDoubleClick.length > 0;
     return (
-      <div styleName={classNames('treeTableRow', { activeAction: hasParentExpandAction || hasDoubleClickAction })}>
+      <div styleName={classNames('treeTableRow', { activeAction: hasExpandAction || hasDoubleClickAction })}>
 
         {/* Row Elements are rendered here */}
         <div
           styleName="rowElementsContainer"
-          onClick={hasParentExpandAction ? this.toggleRowExpansion : () => null}
-          onDoubleClick={hasParentExpandAction ? () => null : () => this.props.onRowDoubleClick(this.props.data)}
+          onClick={hasExpandAction ? this.toggleRowExpansion : null}
+          onDoubleClick={hasExpandAction ? null : () => this.props.onRowDoubleClick(this.props.data)}
         >
 
           {this.props.columns.map((column, index) => {
@@ -77,7 +77,7 @@ export default class TreeTableRow extends React.PureComponent {
                 sectionOpen={this.state.isExpanded}
                 value={this.props.data[column.accessor]}
                 rowData={this.props.data}
-                onExpandClick={this.toggleRowExpansion}
+                onExpandClick={hasExpandAction ? () => null : this.toggleRowExpansion}
               />
             );
           })}
