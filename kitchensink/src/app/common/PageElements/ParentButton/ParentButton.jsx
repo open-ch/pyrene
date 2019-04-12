@@ -15,7 +15,7 @@ export default class ParentButton extends React.Component {
   }
 
   toggleComponent = () => {
-    this.setState((prevState, props) => ({
+    this.setState(prevState => ({
       displayComponent: !prevState.displayComponent,
     }));
   };

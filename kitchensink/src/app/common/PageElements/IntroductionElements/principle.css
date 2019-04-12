@@ -16,18 +16,23 @@
     &.accuracy {
       background: url('../../../../images/introduction/accuracy.svg') no-repeat center;
     }
+
     &.all {
       background: url('../../../../images/introduction/all.svg') no-repeat center;
     }
+
     &.clarity {
       background: url('../../../../images/introduction/clarity.svg') no-repeat center;
     }
+
     &.coherence {
       background: url('../../../../images/introduction/coherence.svg') no-repeat center;
     }
+
     &.efficiency {
       background: url('../../../../images/introduction/efficiency.svg') no-repeat center;
     }
+
     &.system {
       background: url('../../../../images/introduction/system.svg') no-repeat center;
     }
@@ -57,4 +62,3 @@
     }
   }
 }
-

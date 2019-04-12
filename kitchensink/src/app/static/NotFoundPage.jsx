@@ -21,7 +21,11 @@ const NotFoundPage = props => (
 
 NotFoundPage.displayName = 'NotFoundPage';
 
-NotFoundPage.propTypes = {};
+NotFoundPage.propTypes = {
+  location: PropTypes.shape({
+    pathname: PropTypes.string.isRequired,
+  }).isRequired,
+};
 
 NotFoundPage.defaultProps = {};
 

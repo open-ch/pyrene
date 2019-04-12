@@ -10,50 +10,28 @@ export default class Utils {
     try {
       return document.execCommand('copy'); // Security exception may be thrown by some browsers.
     } catch (ex) {
-      console.warn('Copy to clipboard failed.', ex);
+      console.warn('Copy to clipboard failed.', ex); // eslint-disable-line no-console
       return false;
     } finally {
       document.body.removeChild(textarea);
     }
   }
 
-  static isStateless(component) {
-    return typeof component !== 'string' && !component.prototype.render;
-  }
+  static isWiredProp = (props, key) => props && typeof props[key] === 'function'
+      && !!props[key].toString().match(/stateProvider\.(?:state|setState)/g);
 
-  /**
-   * Test whether the startProp matches any of following patters:
-   * stateProvider.state.value
-   * stateProvider.setState(value)
-   * @param {Function} startProp
-   * @returns {boolean}
-   */
-  static isStatefulProperty = startProp => startProp.toString().match(/stateProvider\.(?:state|setState)/g);
+  static getNormalProps = props => Object.keys(props)
+    .filter(key => !Utils.isWiredProp(props, key))
+    .reduce((cleanProps, key) => {
+      cleanProps[key] = props[key]; // eslint-disable-line no-param-reassign
+      return cleanProps;
+    }, {})
 
-  static isObjectPropertyFunction(object, key) {
-    if (object && object.hasOwnProperty(key)) {
-      const startProp = object[key];
-      if (typeof startProp === "function") {
-        return Utils.isStatefulProperty(startProp);
-      }
-    }
-    return false;
-  };
-
-  /**
-   * We need to remove the state-using function callback props from the initial state
-   * so that they can be correctly registered later and not mess up the trivial values
-   * @param {Object} startProps
-   * @returns {Object} cleanStartProps
-   */
-  static removeStateProviderPropsFromStartProps(startProps) {
-    const cleanStartProps = {};
-    for (const key in startProps) {
-      if (!Utils.isObjectPropertyFunction(startProps, key)) {
-        cleanStartProps[key] = startProps[key];
-      }
-    }
-    return cleanStartProps;
-  };
+  static getWiredProps = (props, propData) => Object.keys(props)
+    .filter(key => Utils.isWiredProp(props, key))
+    .reduce((connectedProps, key) => {
+      connectedProps[key] = props[key](propData); // eslint-disable-line no-param-reassign
+      return connectedProps;
+    }, {});
 
 }

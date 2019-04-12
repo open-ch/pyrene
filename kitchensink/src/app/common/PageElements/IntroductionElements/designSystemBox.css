@@ -38,12 +38,15 @@
       &.pages {
         background: url('../../../../images/introduction/pages.svg') no-repeat center;
       }
+
       &.templates {
         background: url('../../../../images/introduction/templates.svg') no-repeat center;
       }
+
       &.components {
         background: url('../../../../images/introduction/components.svg') no-repeat center;
       }
+
       &.foundations {
         background: url('../../../../images/introduction/foundations.svg') no-repeat center;
       }

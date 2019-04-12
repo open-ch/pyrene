@@ -19,8 +19,6 @@ export default class IconBox extends React.Component {
     if (!downloadable) {
       this.displayCopyNotifier(1000);
       Utils.copyStringToClipboard(name);
-    } else {
-      return console.log('start download');
     }
   };
 

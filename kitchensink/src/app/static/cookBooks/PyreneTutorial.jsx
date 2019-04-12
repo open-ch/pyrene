@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../../css/componentPage.css';
 import { Link } from 'pyrene/dist/pyrene.dev';
-import CodeBox from '../../common/PageElements/HowToElements/CodeBox/CodeBox';
+import CodeBox from '../../common/PageElements/HowTo/CodeBox/CodeBox';
 import Paragraph from '../../common/PageElements/Paragraph/Paragraph';
 import DescriptionBox from '../../common/PageElements/DescriptionBox/DescriptionBox';
 
@@ -120,7 +120,7 @@ and
         <Paragraph title="Styling">
           <DescriptionBox>
             <p>
-              To style your component use the styleName tag. If you want to apply reusable styles from the common css file like 'unSelectable' use the classNames tag. Note that for each styleName a corresponding reference in the css has to exist (crashes otherwise). In the css file you do not need to worry about reusing css names from other components as we use css modules.
+              {'To style your component use the styleName tag. If you want to apply reusable styles from the common css file like \'unSelectable\' use the classNames tag. Note that for each styleName a corresponding reference in the css has to exist (crashes otherwise). In the css file you do not need to worry about reusing css names from other components as we use css modules.'}
             </p>
             <p>
               Use only class selectors in the css for styling (ie: .classname). Do not use html element selectors like span, p, div, etc. as the css breaks if you later on decide to change an element in your component.

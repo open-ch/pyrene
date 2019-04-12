@@ -31,7 +31,7 @@ const Counter = (props) => {
   const changeCounterBy = (value) => {
     props.onChange({ target: { name: props.name, value: adjustBounds(props.value + value), type: 'counter' } });
   };
-  
+
   return (
     <div styleName="counter">
       <div className="unSelectable" styleName="modifier" onClick={() => changeCounterBy(-1)}>-</div>

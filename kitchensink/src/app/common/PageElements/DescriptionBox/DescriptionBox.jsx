@@ -13,6 +13,7 @@ const DescriptionBox = props => (
 DescriptionBox.displayName = 'DescriptionBox';
 
 DescriptionBox.propTypes = {
+  children: PropTypes.node.isRequired,
 };
 
 DescriptionBox.defaultProps = {
