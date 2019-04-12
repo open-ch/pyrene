@@ -1,0 +1,53 @@
+@import '../../styles/colors.css';
+
+.keyValueTable {
+  color: #1d273b;
+  position: relative;
+  display: inline-block;
+  table-layout: fixed;
+  vertical-align: text-top;
+}
+
+.keyValueBody {
+  border-collapse: collapse;
+}
+
+.keyValueRow {
+  border-bottom: 1px solid var(--border);
+  background-color: #ffffff;
+  display: flex;
+  line-height: 18px;
+  padding-top: 7px;
+  padding-bottom: 6px; /* +1px border*/
+  font-size: 13px;
+}
+
+.keyValueRow:first-child {
+  border-top: 1px solid var(--border);
+  padding-top: 6px; /* +1px border*/
+}
+
+.keyValueCellKey {
+  width: 256px;
+  font-weight: 600; /* demibold */
+  padding-left: 8px;
+  padding-right: 16px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.keyValueCellValue {
+  width: 512px;
+  word-wrap: break-word;
+  right: 8px;
+}
+
+.keyValueTableTitle {
+  margin-bottom: 16px;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--text);
+  text-transform: capitalize;
+}

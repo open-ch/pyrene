@@ -17,6 +17,8 @@ import { default as Container } from './components/Container/Container';
 import { default as Filter } from './components/Filter/Filter';
 import { default as Form } from './components/Form/Form';
 
+import { default as KeyValueTable } from './components/KeyValueTable/KeyValueTable';
+
 import { default as Link } from './components/Link/Link';
 import { default as Loader } from './components/Loader/Loader';
 
@@ -52,6 +54,7 @@ const Components = {
   Container,
   Filter,
   Form,
+  KeyValueTable,
   Link,
   Loader,
   Modal,
@@ -78,6 +81,7 @@ export { Collapsible };
 export { Container };
 export { Filter };
 export { Form };
+export { KeyValueTable };
 export { Link };
 export { Loader };
 export { Modal };
