@@ -1,7 +1,7 @@
-@import '../../../styles/colors.css';
+@import '../../styles/colors.css';
 
 .textAreaContainer {
-  composes: commonFontSettings from '../../../styles/common.css';
+  composes: commonFontSettings from '../../styles/common.css';
 
   min-width: 72px;
 

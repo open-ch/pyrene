@@ -118,7 +118,7 @@ export default class CalendarDateSelector extends React.Component {
 
 }
 
-CalendarDateSelector.displayName = 'CalendarDateSelector';
+CalendarDateSelector.displayName = 'Calendar Date Selector';
 
 CalendarDateSelector.propTypes = {
   isLoading: PropTypes.bool,

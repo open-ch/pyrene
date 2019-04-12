@@ -75,7 +75,7 @@ const config = {
   },
   output: {
     path: OUTPUT_PATH,
-    filename: production ? 'pyrene.js' : 'pyrene.dev.js',
+    filename: production ? 'pyrene.js' : 'pyrene.[name].js',
     library: 'pyrene',
     libraryTarget: 'umd',
   },
@@ -86,6 +86,11 @@ if (production) {
   config.plugins.unshift(new CleanWebpackPlugin(['dist']));
 } else {
   console.warn('webpack is running in development mode\n'); // eslint-disable-line no-console
+
+  config.entry = {
+    dev: './src/index.js',
+    examples: './src/examples/index.js',
+  };
 }
 
 export default config;

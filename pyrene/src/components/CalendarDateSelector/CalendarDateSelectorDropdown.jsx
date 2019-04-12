@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import SingleSelect from '../SelectElements/SingleSelect/SingleSelect';
+import SingleSelect from '../SingleSelect/SingleSelect';
 
 import TimeRangeSelectionPropTypes from './CalendarDateSelectorPropTypes';
 
