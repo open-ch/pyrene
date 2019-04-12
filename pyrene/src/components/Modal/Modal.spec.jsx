@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Modal from './Modal';
+import ButtonBar from '../ButtonBar/ButtonBar';
 
 const props = {
   title: 'titleLabel',
@@ -21,7 +22,6 @@ describe('<Modal />', () => {
 
     expect(rendered.find('.contentContainer')).toHaveLength(1);
     expect(rendered.contains(props.renderCallback())).toBe(true);
-
-    expect(rendered.find('Button Bar')).toHaveLength(1);
+    expect(rendered.find(ButtonBar)).toHaveLength(1);
   });
 });
