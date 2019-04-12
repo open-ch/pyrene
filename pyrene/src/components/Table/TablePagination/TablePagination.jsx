@@ -34,7 +34,7 @@ const TablePagination = props => (
       <Stepper direction="left" disabled={!props.canPrevious} onClick={() => props.onPageChange(props.page - 1)} type="minimal" />
       <div styleName="spacer small" />
       <div styleName="pageTracker">
-        {`${props.page + 1} of {props.pages}`}
+        {props.pages > 0 ? `${props.page + 1} of ${props.pages}` : '1 of 1'}
       </div>
       <div styleName="spacer small" />
       <Stepper direction="right" disabled={!props.canNext} onClick={() => props.onPageChange(props.page + 1)} type="minimal" />
