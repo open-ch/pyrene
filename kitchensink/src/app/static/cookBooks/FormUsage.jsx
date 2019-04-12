@@ -4,12 +4,44 @@ import '../../../css/componentPage.css';
 import {
   Form, Checkbox, Button, TextField, RadioGroup, SingleSelect, MultiSelect, Link,
 } from 'pyrene/dist/pyrene.dev';
-import { testOptionsWithoutInvalid } from '../../data/propsData';
 import CodeBox from '../../common/PageElements/HowTo/CodeBox/CodeBox';
 import Paragraph from '../../common/PageElements/Paragraph/Paragraph';
 import DescriptionBox from '../../common/PageElements/DescriptionBox/DescriptionBox';
 import DisplayBox from '../../common/PageElements/HowTo/DisplayBox/DisplayBox';
 
+const testOptionsWithoutInvalid = [
+  { value: 'chocolate', label: 'Chocolate' },
+  { value: 'strawberry', label: 'Strawberry' },
+  { value: 'vanilla', label: 'Vanilla' },
+  { value: 'bacon', label: 'Bacon' },
+  { value: 'cookiedough', label: 'Cookie Dough' },
+  { value: 'beer', label: 'Beer' },
+  { value: 'cottoncandy', label: 'Cotton Candy' },
+  { value: 'crab', label: 'Crab' },
+  { value: 'greentea', label: 'Green Tea' },
+  { value: 'mango', label: 'Mango' },
+  { value: 'tuttifrutti', label: 'Tutti Frutti' },
+  { value: 'grape', label: 'Grape' },
+  { value: 'coconutmilk', label: 'Coconut Milk' },
+  { value: 'dulce', label: 'Dulce de Leche' },
+  { value: 'caramel', label: 'Caramel' },
+  { value: 'banana', label: 'Banana' },
+  { value: 'garlic', label: 'Garlic' },
+  { value: 'twix', label: 'Twix' },
+  { value: 'mintchocolatechip', label: 'Mint Chocolate Chip' },
+  { value: 'spearmint', label: 'Spearmint' },
+  { value: 'oyster', label: 'Oyster' },
+  { value: 'pistachio', label: 'Pistachio' },
+  { value: 'rice', label: 'Rice' },
+  { value: 'chickenliver', label: 'Chicken Liver' },
+  { value: 'superman', label: 'Superman' },
+  { value: 'lucuma', label: 'Lucuma' },
+  { value: 'bluemoon', label: 'Blue Moon' },
+  { value: 'charcoal', label: 'Charcoal' },
+  { value: 'cheesecake', label: 'Cheesecake' },
+  { value: 'rumandraisin', label: 'Rum and Raisin' },
+  { value: 'moosetracks', label: 'Moose Tracks' },
+];
 
 function delay(values, ms) {
   let ctr;
