@@ -8,6 +8,7 @@ import './styles/fonts.css';
 // Sort alphabetically to find stuff easily
 import { default as Banner } from './components/Banner/Banner';
 import { default as Button } from './components/Button/Button';
+import { default as ButtonBar } from './components/ButtonBar/ButtonBar';
 
 import { default as Checkbox } from './components/Checkbox/Checkbox';
 import { default as Collapsible } from './components/Collapsible/Collapsible';
@@ -44,6 +45,7 @@ import { default as CalendarDateSelector } from './components/CalendarDateSelect
 const Components = {
   Banner,
   Button,
+  ButtonBar,
   CalendarDateSelector,
   Checkbox,
   Collapsible,

@@ -26,7 +26,7 @@ const ButtonBar = props => (
 );
 
 
-ButtonBar.displayName = 'ButtonBar';
+ButtonBar.displayName = 'Button Bar';
 
 ButtonBar.defaultProps = {
   leftButtonSectionElements: [],
