@@ -9,6 +9,7 @@ import { default as Checkbox } from '../components/Checkbox/Checkbox.examples';
 import { default as Collapsible } from '../components/Collapsible/Collapsible.examples';
 import { default as Container } from '../components/Container/Container.examples';
 import { default as Filter } from '../components/Filter/Filter.examples';
+import { default as KeyValueTable } from '../components/KeyValueTable/KeyValueTable.examples';
 import { default as Link } from '../components/Link/Link.examples';
 import { default as Loader } from '../components/Loader/Loader.examples';
 import { default as Modal } from '../components/Modal/Modal.examples';
@@ -34,6 +35,7 @@ const examples = {
   Collapsible,
   Container,
   Filter,
+  KeyValueTable,
   Link,
   Loader,
   Modal,
