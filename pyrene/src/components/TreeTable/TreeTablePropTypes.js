@@ -18,7 +18,7 @@ const TreeTablePropTypes = {
     width: PropTypes.number,
   }).isRequired,
   DATA: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array]))).isRequired,
-  DATAOBJECT: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array])).isRequired,
+  DATAOBJECT: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array])),
 };
 
 export default TreeTablePropTypes;

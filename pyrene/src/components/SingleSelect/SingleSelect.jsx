@@ -3,46 +3,34 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Select from 'react-select';
 import CreatableSelect from 'react-select/lib/Creatable';
-import '../select.css';
-import MultiSelectStyle from './multiSelectCSS';
-import Loader from '../../Loader/Loader';
-import MultiSelectMenuWithOptions from './MultiSelectMenuWithOptions';
-
+import SelectStyle from './singleSelectCSS';
+import './select.css';
+import Loader from '../Loader/Loader';
 
 const LoadingIndicator = () => <Loader />;
 
-const MultiValue = ({ data, getValue }) => ( // eslint-disable-line react/prop-types
-  <React.Fragment>
-    {data.label}
-    {data.value !== getValue()[getValue().length - 1].value ? ', ' : ' '}
-  </React.Fragment>
-);
-
-
-const componentsNormal = { LoadingIndicator };
-const componentsOptionsInDropdown = { Menu: MultiSelectMenuWithOptions, MultiValue, LoadingIndicator };
-
 /**
- * Multi-Selects are used when the user has to make a choice from a list. It allows the user to select multiple items from a dropdown list.
+ * Selects are used when the user has to make a selection from a list that is too large to show.
  */
-const MultiSelect = props => (
+const SingleSelect = props => (
   <div styleName={classNames('selectContainer', { disabled: props.disabled })}>
     {props.title && <div styleName={classNames('selectTitle', { required: props.required && !props.disabled })}>{props.title}</div>}
+
     {props.creatable
       ? (
         <CreatableSelect
-          className="multiSelect"
-          styles={MultiSelectStyle(props)}
-          components={props.selectedOptionsInDropdown ? componentsOptionsInDropdown : componentsNormal}
+          className="singleSelect"
+          styles={SelectStyle}
+          components={{ LoadingIndicator }}
           placeholder={props.placeholder}
           options={props.options}
-          value={props.value ? props.value : undefined}
-          defaultValue={props.options.filter(option => props.defaultValues.includes(option.value))}
+          value={props.value ? props.options.filter(o => o.value === props.value).pop() : undefined}
+          defaultValue={props.options.filter(o => o.value === props.defaultValue).pop()}
           isClearable={props.clearable}
           isDisabled={props.disabled}
           isInvalid={props.invalid}
           isLoading={props.loading}
-          onChange={option => props.onChange({ target: { name: props.name, value: option, type: 'multiSelect' } })}
+          onChange={option => props.onChange({ target: { name: props.name, value: option, type: 'singleSelect' } })}
           onBlur={props.onBlur}
           name={props.name}
           id={props.name}
@@ -52,27 +40,27 @@ const MultiSelect = props => (
           noOptionsMessage={() => 'no matches found'}
           formatCreateLabel={inputValue => `Create new tag "${inputValue}"`}
 
-          closeMenuOnSelect={!props.keepMenuOnSelect}
-          isMulti
           isSearchable
+          blurInputOnSelect
           escapeClearsValue
           captureMenuScroll
         />
       )
       : (
         <Select
-          className="multiSelect"
-          styles={MultiSelectStyle(props)}
-          components={props.selectedOptionsInDropdown ? componentsOptionsInDropdown : componentsNormal}
+          className="singleSelect"
+          styles={SelectStyle}
+          components={{ LoadingIndicator }}
           placeholder={props.placeholder}
           options={props.options}
-          value={props.value ? props.value : undefined}
-          defaultValue={props.options.filter(option => props.defaultValues.includes(option.value))}
+          value={props.value ? props.options.filter(o => o.value === props.value).pop() : undefined}
+          defaultValue={props.options.filter(o => o.value === props.defaultValue).pop()}
           isClearable={props.clearable}
+          isSearchable={props.searchable}
           isDisabled={props.disabled}
           isInvalid={props.invalid}
           isLoading={props.loading}
-          onChange={option => props.onChange({ target: { name: props.name, value: option, type: 'multiSelect' } })}
+          onChange={option => props.onChange({ target: { name: props.name, value: option, type: 'singleSelect' } })}
           onBlur={props.onBlur}
           name={props.name}
           id={props.name}
@@ -81,13 +69,9 @@ const MultiSelect = props => (
           maxMenuHeight={264}
           noOptionsMessage={() => 'no matches found'}
 
-          closeMenuOnSelect={!props.keepMenuOnSelect}
-
-          isMulti
-          isSearchable
+          blurInputOnSelect
           escapeClearsValue
           captureMenuScroll
-          backspaceRemovesValue
         />
       )
     }
@@ -114,31 +98,29 @@ const MultiSelect = props => (
   </div>
 );
 
-MultiSelect.displayName = 'Multi-Select';
+SingleSelect.displayName = 'Single Select';
 
-MultiSelect.defaultProps = {
-  placeholder: 'Multi-Select',
-  helperLabel: '',
-  invalidLabel: '',
-  title: '',
+SingleSelect.defaultProps = {
+  placeholder: 'Select',
   name: '',
-  defaultValues: [],
-  options: [],
-  rows: -1,
-  selectedOptionsInDropdown: false,
   creatable: false,
   disabled: false,
   invalid: false,
   loading: false,
   required: false,
+  searchable: false,
   clearable: false,
-  keepMenuOnSelect: false,
+  options: [],
+  defaultValue: null,
+  helperLabel: '',
+  invalidLabel: '',
+  title: '',
   value: null,
   onChange: () => null,
   onBlur: () => null,
 };
 
-MultiSelect.propTypes = {
+SingleSelect.propTypes = {
   /**
    * Whether the selection is clearable.
    */
@@ -148,12 +130,9 @@ MultiSelect.propTypes = {
    */
   creatable: PropTypes.bool,
   /**
-   * Sets a preselected options. Type: [ string | number ]
+   * Sets a preselected option.
    */
-  defaultValues: PropTypes.arrayOf(PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-  ])),
+  defaultValue: PropTypes.string,
   /**
    * Disables any interaction with the component.
    */
@@ -171,10 +150,6 @@ MultiSelect.propTypes = {
    */
   invalidLabel: PropTypes.string,
   /**
-   * Whether to keep the menu open on select.
-   */
-  keepMenuOnSelect: PropTypes.bool,
-  /**
    * Displays a loading indicator inside of the input.
    */
   loading: PropTypes.bool,
@@ -187,7 +162,7 @@ MultiSelect.propTypes = {
    */
   onBlur: PropTypes.func,
   /**
-   * Custom event handler, returns selected options from the options array.
+   * Event Handler. Param option: {value: , label:}
    */
   onChange: PropTypes.func,
   /**
@@ -195,8 +170,8 @@ MultiSelect.propTypes = {
    */
   options: PropTypes.arrayOf(PropTypes.shape({
     invalid: PropTypes.bool,
-    label: PropTypes.string,
-    value: PropTypes.string,
+    label: PropTypes.string.isRequired,
+    value: PropTypes.string.isRequired,
   })),
   /**
    * Sets the placeholder label.
@@ -207,13 +182,9 @@ MultiSelect.propTypes = {
    */
   required: PropTypes.bool,
   /**
-   * Sets a fixed height for the input field. Default behaviour is one row expanding up to 3, then starts scrolling.
+   * Whether the user is allowed to type to search elements. Ignored if creatable is set true.
    */
-  rows: PropTypes.number, // eslint-disable-line react/no-unused-prop-types
-  /**
-   * Displays the selected options in the dropdown and prevents the input from growing vertically.
-   */
-  selectedOptionsInDropdown: PropTypes.bool,
+  searchable: PropTypes.bool,
   /**
    * Sets the title above the input field.
    */
@@ -221,10 +192,7 @@ MultiSelect.propTypes = {
   /**
    * Sets the value of the input field. Same type as supplied options.
    */
-  value: PropTypes.arrayOf(PropTypes.shape({
-    label: PropTypes.string.isRequired,
-    value: PropTypes.any.isRequired,
-  })),
+  value: PropTypes.string,
 };
 
-export default MultiSelect;
+export default SingleSelect;

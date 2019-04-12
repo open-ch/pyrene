@@ -42,6 +42,7 @@ TreeTableCell.defaultProps = {
   sectionOpen: false,
   firstColumn: false,
   style: {},
+  rowData: {},
 };
 
 TreeTableCell.propTypes = {
@@ -49,7 +50,7 @@ TreeTableCell.propTypes = {
   firstColumn: PropTypes.bool,
   onExpandClick: PropTypes.func.isRequired,
   parent: PropTypes.bool,
-  rowData: PROPCONSTANTS.DATAOBJECT.isRequired,
+  rowData: PROPCONSTANTS.DATAOBJECT,
   sectionOpen: PropTypes.bool,
   style: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),

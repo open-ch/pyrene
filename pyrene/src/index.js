@@ -20,14 +20,14 @@ import { default as Link } from './components/Link/Link';
 import { default as Loader } from './components/Loader/Loader';
 
 import { default as Modal } from './components/Modal/Modal';
-import { default as MultiSelect } from './components/SelectElements/MultiSelect/MultiSelect';
+import { default as MultiSelect } from './components/MultiSelect/MultiSelect';
 
 import { default as Popover } from './components/Popover/Popover';
 
 import { default as RadioGroup } from './components/RadioGroup/RadioGroup';
 
-import { default as ShareDialog } from './components/Share/ShareDialog';
-import { default as SingleSelect } from './components/SelectElements/SingleSelect/SingleSelect';
+import { default as ShareDialog } from './components/ShareDialog/ShareDialog';
+import { default as SingleSelect } from './components/SingleSelect/SingleSelect';
 import { default as Stepper } from './components/Stepper/Stepper';
 
 import { default as Table } from './components/Table/Table';
