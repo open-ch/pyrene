@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import '../../../css/componentPage.css';
 import Components from 'pyrene/dist/pyrene.dev';
+import examples from 'pyrene/dist/pyrene.examples';
 import SearchUtils from './SearchUtils';
 import SearchResult from './SearchResult/SearchResult';
 import Paragraph from '../PageElements/Paragraph/Paragraph';
@@ -11,7 +12,7 @@ export default class ResultsPage extends React.Component {
 
   state = {
     searchInput: this.props.match.params.searchInput,
-    matches: SearchUtils.getMatches(this.props.match.params.searchInput, Components),
+    matches: [],
   };
 
   // On change of the searchInput restart the search
@@ -19,7 +20,7 @@ export default class ResultsPage extends React.Component {
     if (prevState.searchInput !== nextProps.match.params.searchInput) {
       return ({
         searchInput: nextProps.match.params.searchInput,
-        matches: SearchUtils.getMatches(nextProps.match.params.searchInput, Components),
+        matches: SearchUtils.getMatches(nextProps.match.params.searchInput, Object.values(Components).filter(component => examples[component.name])),
       });
     }
     return null;

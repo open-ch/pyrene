@@ -7,7 +7,6 @@ import Utils from './Utils';
 import DynamicPropTable from './PageElements/Tables/DynamicPropTable';
 import Paragraph from './PageElements/Paragraph/Paragraph';
 import ExampleBox from './PageElements/ExampleBox/ExampleBox';
-import specialComponentHandlingData from '../data/specialComponentHandlingData';
 import ParentButton from './PageElements/ParentButton/ParentButton';
 
 export default class ComponentEditor extends React.Component {
@@ -100,7 +99,7 @@ export default class ComponentEditor extends React.Component {
     const mergedComponentProps = this.getComponentProps();
     const initField = this.initField(mergedComponentProps);
     const displayedComponent = <Component {...mergedComponentProps} />;
-    const componentName = this.getComponentName(Component);
+
     return (
       <div className="componentPlayground">
         {this.props.examples.examples
@@ -115,7 +114,7 @@ export default class ComponentEditor extends React.Component {
             <div styleName={classNames('pin', { pinned })} onClick={() => this.handlePinClick()} />
             <div styleName={classNames('sun', { darkMode })} onClick={() => this.handleSunClick()} />
             <div styleName="componentDisplay">
-              {specialComponentHandlingData[componentName] && specialComponentHandlingData[componentName].needsTrigger ? <ParentButton component={displayedComponent} /> : displayedComponent}
+              {this.props.examples.trigger ? <ParentButton component={displayedComponent} /> : displayedComponent}
             </div>
             <CodeBlock component={displayedComponent} displayComponentPinned={this.state.pinned} />
           </div>
@@ -140,6 +139,7 @@ ComponentEditor.propTypes = {
       PropTypes.shape()
     ),
     props: PropTypes.shape(),
+    trigger: PropTypes.bool,
   }).isRequired,
 };
 
