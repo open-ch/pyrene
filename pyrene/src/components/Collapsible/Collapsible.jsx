@@ -76,19 +76,19 @@ Collapsible.propTypes = {
    */
   defaultExpanded: PropTypes.bool,
   /**
-   * Javascript event handler.
-   */
+  * Sets the label displayed to the user when the component is collapsed.
+  */
   labelCollapsed: PropTypes.string,
   /**
-   * Sets the content to be rendered inside the component.
+   * Sets the label displayed to the user when the component is expanded.
    */
   labelExpanded: PropTypes.string,
   /**
-   * Sets the label displayed to the user when the component is collapsed.
+   * Javascript event handler.
    */
   onChange: PropTypes.func,
   /**
-   * Sets the label displayed to the user when the component is expanded.
+   * Sets the content to be rendered inside the component.
    */
   renderCallback: PropTypes.func.isRequired,
 };
