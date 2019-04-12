@@ -350,12 +350,12 @@ Table.propTypes = {
    */
   data: PropTypes.array.isRequired, // eslint-disable-line react/forbid-prop-types
   /**
-   * Sets the default sorting columns and order when the component is first mounted.
-   * Type: [{ id: string (required), desc: bool }]
+   * Sets the page size when the component is first mounted.
    */
   defaultPageSize: PropTypes.number,
   /**
-   * Sets the page size when the component is first mounted.
+   * Sets the default sorting columns and order when the component is first mounted.
+   * Type: [{ id: string (required), desc: bool }]
    */
   defaultSorted: PropTypes.arrayOf(PropTypes.shape({
     desc: PropTypes.bool,
@@ -384,25 +384,25 @@ Table.propTypes = {
    */
   multiSelect: PropTypes.bool,
   /**
-   * Allow toggling wether a row (and checkbox for a checkboxtable) is selectable
-   * @returns {boolean} - enabled = true, disabled = false
-   */
+    * Whether multiSorting via shift click is possible.
+    */
   multiSort: PropTypes.bool,
-  /**
-   * Whether multiSorting via shift click is possible.
-   */
-  onFilterChange: PropTypes.func,
   /**
    * Called when the filter changes.
    */
+  onFilterChange: PropTypes.func,
+  /**
+    * Called when the user double clicks on a row.
+    */
   onRowDoubleClick: PropTypes.func,
   /**
-   * Called when the user double clicks on a row.
-   */
+    * Sets the page sizes that the user can choose from.
+    */
   pageSizeOptions: PropTypes.arrayOf(PropTypes.number),
   /**
-   * Sets the page sizes that the user can choose from.
-   */
+    * Allow toggling wether a row (and checkbox for a checkboxtable) is selectable
+    * @returns {boolean} - enabled = true, disabled = false
+    */
   rowSelectableCallback: PropTypes.func,
   /**
    * Sets the title.

@@ -56,10 +56,4 @@ Stepper.propTypes = {
   type: PropTypes.oneOf(['bordered', 'minimal']),
 };
 
-/* kitchensink-examples:start */
-
-Stepper.exampleProps = {};
-
-/* kitchensink-examples:end */
-
 export default Stepper;

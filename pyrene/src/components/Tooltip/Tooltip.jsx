@@ -66,19 +66,19 @@ Tooltip.propTypes = {
    */
   children: PropTypes.element.isRequired,
   /**
-   * Sets the label displayed inside of the tooltip.
+   * Sets the distance of the tooltip to its target.
    */
   distanceToTarget: PropTypes.number,
   /**
-   * Sets the preferred position array ordered by priority for auto repositioning.
+   * Sets the label displayed inside of the tooltip.
    */
   label: PropTypes.string.isRequired,
   /**
-   * Sets the Tooltip width. Only to be used to enforce line breaks.
-   */
+    * Sets the preferred position array ordered by priority for auto repositioning.
+    */
   preferredPosition: PropTypes.arrayOf(PropTypes.oneOf(['top', 'right', 'bottom', 'left'])),
   /**
-   * Sets the distance of the tooltip to its target.
-   */
+    * Sets the Tooltip width. Only to be used to enforce line breaks.
+    */
   width: PropTypes.number,
 };
