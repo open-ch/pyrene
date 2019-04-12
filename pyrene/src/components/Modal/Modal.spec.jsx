@@ -22,6 +22,6 @@ describe('<Modal />', () => {
     expect(rendered.find('.contentContainer')).toHaveLength(1);
     expect(rendered.contains(props.renderCallback())).toBe(true);
 
-    expect(rendered.find('ButtonBar')).toHaveLength(1);
+    expect(rendered.find('Button Bar')).toHaveLength(1);
   });
 });
