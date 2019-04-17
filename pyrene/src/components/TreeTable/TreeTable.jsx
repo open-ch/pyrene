@@ -146,7 +146,7 @@ TreeTable.defaultProps = {
   title: '',
   loading: false,
   toggleColumns: true,
-  onRowDoubleClick: () => null,
+  onRowDoubleClick: null,
   onFilterChange: () => null,
   setUniqueRowKey: () => null,
 };
