@@ -33,7 +33,7 @@ const Banner = props => (
 Banner.displayName = 'Banner';
 
 Banner.defaultProps = {
-  clearable: true,
+  clearable: false,
   onClear: () => null,
   description: '',
   styling: 'standard',
