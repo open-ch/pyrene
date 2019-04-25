@@ -5,7 +5,7 @@
 
   cursor: default;
 
-  &.parent {
+  &.activeAction {
     cursor: pointer;
   }
 }
