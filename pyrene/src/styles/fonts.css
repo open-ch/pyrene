@@ -34,7 +34,7 @@
   font-weight: normal;
   font-variant: normal;
 
-  src: url('../fonts/pyrene-iconfont-16.woff') format('woff');
+  src: url('../fonts/pyrene-iconfont-17.woff') format('woff');
 }
 
 [class^="pyreneIcon-"], [class*=" pyreneIcon-"] {
@@ -57,6 +57,34 @@
    Search field: (\.)(icon)(\-.*:before(?!\)))
    Replace field: :global($1pyreneIcon$3)
 */
+
+:global(.pyreneIcon-add:before) {
+  content: "\70";
+}
+
+:global(.pyreneIcon-addCircleOutline:before) {
+  content: "\6f";
+}
+
+:global(.pyreneIcon-addRound:before) {
+  content: "\6e";
+}
+
+:global(.pyreneIcon-eye:before) {
+  content: "\6d";
+}
+
+:global(.pyreneIcon-hot:before) {
+  content: "\6c";
+}
+
+:global(.pyreneIcon-question:before) {
+  content: "\6b";
+}
+
+:global(.pyreneIcon-data:before) {
+  content: "\6a";
+}
 
 :global(.pyreneIcon-home:before) {
   content: "\69";
