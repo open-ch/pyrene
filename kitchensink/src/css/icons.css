@@ -28,6 +28,34 @@
    Replace field: :global($1pyreneIcon$3)
 */
 
+:global(.pyreneIcon-add:before) {
+  content: "\70";
+}
+
+:global(.pyreneIcon-addCircleOutline:before) {
+  content: "\6f";
+}
+
+:global(.pyreneIcon-addRound:before) {
+  content: "\6e";
+}
+
+:global(.pyreneIcon-eye:before) {
+  content: "\6d";
+}
+
+:global(.pyreneIcon-hot:before) {
+  content: "\6c";
+}
+
+:global(.pyreneIcon-question:before) {
+  content: "\6b";
+}
+
+:global(.pyreneIcon-data:before) {
+  content: "\6a";
+}
+
 :global(.pyreneIcon-home:before) {
   content: "\69";
 }
