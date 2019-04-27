@@ -1,6 +1,6 @@
 {
   "name": "kitchensink",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "Pyrene Kitchensink",
   "main": "src/index.jsx",
   "repository": "https://github.com/open-ch/pyrene.git",
