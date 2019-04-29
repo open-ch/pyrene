@@ -1,4 +1,7 @@
 import dayjs from 'dayjs';
+import utcPlugin from 'dayjs/plugin/utc';
+
+dayjs.extend(utcPlugin);
 
 const DAY = 'day';
 const MONTH = 'month';
@@ -45,7 +48,7 @@ const convertToInternalDayJs = (value) => {
   if (value.day === undefined) {
     newValue.day = 1;
   }
-  return dayjs().set('year', newValue.year).set('month', newValue.month).set('date', newValue.day);
+  return dayjs().utc().set('year', newValue.year).set('month', newValue.month).set('date', newValue.day);
 };
 
 /**
@@ -106,7 +109,7 @@ export const handleTypeChange = ({ year, month, day }, newType) => {
  * Provides the current date object in the `value` prop format
  */
 export const getCurrentDate = () => {
-  const date = dayjs();
+  const date = dayjs().utc();
   return convertToExternalObject(date, DATE_TYPES.DAY);
 };
 
