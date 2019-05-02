@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -19,6 +19,8 @@ export default class RadioPopover extends React.Component {
     }));
   };
 
+  closePopover = () => this.setState({ displayPopover: false });
+
   render() {
     const {
       options,
@@ -32,42 +34,33 @@ export default class RadioPopover extends React.Component {
     const selectedValue = options.find(option => option.value === value);
 
     return (
-      <Fragment>
-        <div styleName="checkboxPopover">
-          <Popover
-            preferredPosition={['bottom']}
-            align="end"
-            // displayPopover={displayPopover}
-            distanceToTarget={8}
-            onClickOutside={() => this.setState({ displayPopover: false })}
-            renderPopoverContent={() => (
-              <OptionList
-                options={options}
-                onChange={onChange}
-                renderHelpSection={renderHelpSection}
-                selectedValue={selectedValue}
-              />
-            )}
-          >
-            <div styleName={classNames('popoverTriggerButton', { popoverOpen: this.state.displayPopover })} onClick={this.togglePopover}>
-              <div styleName="buttonLabel" className="unSelectable">
-                {renderLabel(selectedValue)}
-              </div>
-              <div styleName="arrowIcon" className="pyreneIcon-collapsDown" />
-            </div>
-          </Popover>
-        </div>
-        {displayPopover && (
-          <div styleName="fakePopover">
+      <div styleName="radioPopover">
+        <Popover
+          preferredPosition={['bottom']}
+          align="end"
+          displayPopover={displayPopover}
+          distanceToTarget={8}
+          onClickOutside={this.closePopover}
+          renderPopoverContent={() => (
             <OptionList
               options={options}
-              onChange={onChange}
+              onChange={(newValue) => {
+                onChange(newValue);
+                this.closePopover();
+              }}
               renderHelpSection={renderHelpSection}
               selectedValue={selectedValue}
             />
+          )}
+        >
+          <div styleName={classNames('popoverTriggerButton', { popoverOpen: this.state.displayPopover })} onClick={this.togglePopover}>
+            <div styleName="buttonLabel" className="unSelectable">
+              {renderLabel(selectedValue)}
+            </div>
+            <div styleName="arrowIcon" className="pyreneIcon-collapsDown" />
           </div>
-        )}
-      </Fragment>
+        </Popover>
+      </div>
     );
   }
 
@@ -83,6 +76,9 @@ RadioPopover.defaultProps = {
 };
 
 RadioPopover.propTypes = {
+  /**
+   * Sets the selected choice of the user.
+   */
   onChange: PropTypes.func.isRequired,
   /**
    * Set the values that the user can choose from.
@@ -92,9 +88,15 @@ RadioPopover.propTypes = {
     value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
   })),
   /**
-   * Sets the selected choice of the user.
+   * Render callback for the help section above the options
    */
   renderHelpSection: PropTypes.func,
+  /**
+   * Render callback for the label for custom formatting
+   */
   renderLabel: PropTypes.func,
+  /**
+   * selected value - should match the `value` key in one of the `options`
+   */
   value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 };

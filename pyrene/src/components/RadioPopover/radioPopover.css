@@ -1,6 +1,6 @@
 @import '../../styles/colors.css';
 
-.checkboxPopover {
+.radioPopover {
   composes: commonFontSettings from '../../styles/common.css';
   display: inline-block;
 }
@@ -30,6 +30,7 @@
   line-height: 1.23;
   color: var(--text);
   padding: 0 8px;
+  white-space: nowrap;
 }
 
 .arrowIcon {
