@@ -1,0 +1,49 @@
+@import '../../styles/colors.css';
+
+.radioPopover {
+  composes: commonFontSettings from '../../styles/common.css';
+  display: inline-block;
+}
+
+
+.popoverTriggerButton {
+  box-sizing: border-box;
+  border-radius: 2px;
+  padding: 0 8px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+
+  &:hover {
+    cursor: pointer;
+    background-color: var(--secondary);
+  }
+
+  &.popoverOpen {
+    background-color: var(--secondary);
+  }
+}
+
+.buttonLabel {
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.23;
+  color: var(--text);
+  padding: 0 8px;
+  white-space: nowrap;
+}
+
+.arrowIcon {
+  padding: 0 !important;
+
+  height: 16px;
+  width: 16px;
+
+  font-size: 16px;
+  color: var(--neutral-300);
+}
+
+.fakePopover {
+  border-radius: 2px;
+  box-shadow: 0 4px 8px -2px rgba(0, 21, 44, 0.2), 0 0 1px 0 rgba(0, 21, 44, 0.3);
+}

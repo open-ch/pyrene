@@ -19,14 +19,17 @@ const TreeTableActionBar = props => (
       ]}
       noPadding
     />
-    {props.columnToggleProps.toggleColumns && (
-      <CheckboxPopover
-        buttonLabel="Columns"
-        listItems={props.columnToggleProps.listItems}
-        onItemClick={props.columnToggleProps.onItemClick}
-        onRestoreDefault={props.columnToggleProps.onRestoreDefault}
-      />
-    )}
+    <div styleName="treeTableRightSideContainer">
+      {props.renderRightItems && props.renderRightItems()}
+      {props.columnToggleProps.toggleColumns && (
+        <CheckboxPopover
+          buttonLabel="Columns"
+          listItems={props.columnToggleProps.listItems}
+          onItemClick={props.columnToggleProps.onItemClick}
+          onRestoreDefault={props.columnToggleProps.onRestoreDefault}
+        />
+      )}
+    </div>
   </div>
 );
 
@@ -42,6 +45,7 @@ TreeTableActionBar.propTypes = {
     toggleColumns: PropTypes.bool,
   }).isRequired,
   displayExpandAll: PropTypes.bool.isRequired,
+  renderRightItems: PropTypes.func.isRequired,
   toggleAll: PropTypes.func.isRequired,
 };
 

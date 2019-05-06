@@ -16,6 +16,7 @@ import { default as Modal } from '../components/Modal/Modal.examples';
 import { default as Popover } from '../components/Popover/Popover.examples';
 import { default as MultiSelect } from '../components/MultiSelect/MultiSelect.examples';
 import { default as RadioGroup } from '../components/RadioGroup/RadioGroup.examples';
+import { default as RadioPopover } from '../components/RadioPopover/RadioPopover.examples';
 import { default as ShareDialog } from '../components/ShareDialog/ShareDialog.examples';
 import { default as SingleSelect } from '../components/SingleSelect/SingleSelect.examples';
 import { default as Stepper } from '../components/Stepper/Stepper.examples';
@@ -41,6 +42,7 @@ const examples = {
   Modal,
   MultiSelect,
   Popover,
+  RadioPopover,
   RadioGroup,
   ShareDialog,
   SingleSelect,
