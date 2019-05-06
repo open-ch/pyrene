@@ -28,6 +28,7 @@ import { default as MultiSelect } from './components/MultiSelect/MultiSelect';
 import { default as Popover } from './components/Popover/Popover';
 
 import { default as RadioGroup } from './components/RadioGroup/RadioGroup';
+import { default as RadioPopover } from './components/RadioPopover/RadioPopover';
 
 import { default as ShareDialog } from './components/ShareDialog/ShareDialog';
 import { default as SingleSelect } from './components/SingleSelect/SingleSelect';
@@ -61,6 +62,7 @@ const Components = {
   MultiSelect,
   Popover,
   RadioGroup,
+  RadioPopover,
   ShareDialog,
   SingleSelect,
   Stepper,
@@ -88,6 +90,7 @@ export { Modal };
 export { MultiSelect };
 export { Popover };
 export { RadioGroup };
+export { RadioPopover };
 export { ShareDialog };
 export { SingleSelect };
 export { Stepper };

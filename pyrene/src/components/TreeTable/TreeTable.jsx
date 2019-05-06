@@ -124,6 +124,7 @@ export default class TreeTable extends React.Component {
             toggleAll={this.toggleAllRowsExpansion}
             displayExpandAll={this.state.displayExpandAll}
             columnToggleProps={columnToggleProps}
+            renderRightItems={this.props.renderActionBarRightItems}
           />
           <TreeTableHeader columns={this.state.columns} />
           <div styleName="treeTableData">
@@ -147,6 +148,7 @@ TreeTable.defaultProps = {
   loading: false,
   toggleColumns: true,
   onRowDoubleClick: null,
+  renderActionBarRightItems: null,
   onFilterChange: () => null,
   setUniqueRowKey: () => null,
 };
@@ -187,6 +189,10 @@ TreeTable.propTypes = {
    * Called when the user double clicks on a row.
    */
   onRowDoubleClick: PropTypes.func,
+  /**
+   * Render content on the right side of the action bar of the table
+   */
+  renderActionBarRightItems: PropTypes.func,
   /**
    * Sets a function to get a unique key for each row. Params: (rowData)
    */
