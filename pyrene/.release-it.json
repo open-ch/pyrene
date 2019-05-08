@@ -1,5 +1,8 @@
 {
   "github": {
     "release": false
+  },
+  "npm": {
+    "ping": false
   }
 }
