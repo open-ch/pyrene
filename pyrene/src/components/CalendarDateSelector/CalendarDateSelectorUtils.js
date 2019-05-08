@@ -48,7 +48,8 @@ const convertToInternalDayJs = (value) => {
   if (value.day === undefined) {
     newValue.day = 1;
   }
-  return dayjs().utc().set('year', newValue.year).set('month', newValue.month).set('date', newValue.day);
+  return dayjs().utc().set('year', newValue.year).set('month', newValue.month)
+    .set('date', newValue.day);
 };
 
 /**
