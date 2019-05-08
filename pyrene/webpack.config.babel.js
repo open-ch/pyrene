@@ -79,6 +79,7 @@ const config = {
     library: 'pyrene',
     libraryTarget: 'umd',
   },
+  externals: ['react', 'react-dom'],
 };
 
 if (production) {
