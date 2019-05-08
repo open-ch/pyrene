@@ -79,11 +79,12 @@ const config = {
     library: 'pyrene',
     libraryTarget: 'umd',
   },
+  externals: ['react', 'react-dom'],
 };
 
 if (production) {
   console.warn('webpack is running in production mode\n'); // eslint-disable-line no-console
-  config.plugins.unshift(new CleanWebpackPlugin(['dist']));
+  config.plugins.unshift(new CleanWebpackPlugin());
 } else {
   console.warn('webpack is running in development mode\n'); // eslint-disable-line no-console
 
