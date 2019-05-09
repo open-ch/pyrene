@@ -22,7 +22,7 @@
 
   &.type-standalone {
     height: 24px;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 600;
     line-height: 1.71;
     text-transform: capitalize;
@@ -33,7 +33,7 @@
       height: 14px;
       padding-left: 2px;
       font-weight: 400;
-      font-size: 16px;
+      font-size: 13px;
     }
 
     &.disabled {
