@@ -69,7 +69,7 @@
     "react": "~16.4.2",
     "react-dom": "~16.4.2",
     "regenerator-runtime": "^0.13.1",
-    "release-it": "https://github.com/mafopen/release-it.git",
+    "release-it": "^10.0.7",
     "style-loader": "^0.23.1",
     "terser-webpack-plugin": "^1.2.2",
     "url-loader": "^1.0.1",
