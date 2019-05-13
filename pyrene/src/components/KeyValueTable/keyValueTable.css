@@ -3,13 +3,14 @@
 .keyValueTable {
   color: #1d273b;
   position: relative;
-  display: inline-block;
   table-layout: fixed;
   vertical-align: text-top;
+  width: 100%;
 }
 
 .keyValueBody {
   border-collapse: collapse;
+  width: 100%;
 }
 
 .keyValueRow {
@@ -38,7 +39,7 @@
 }
 
 .keyValueCellValue {
-  width: 512px;
+  width: 100%;
   word-wrap: break-word;
   right: 8px;
 }

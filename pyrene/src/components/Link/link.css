@@ -7,6 +7,7 @@
   display: flex;
   align-items: center;
   color: var(--primary);
+  text-decoration: none;
 
   &:focus {
     outline: 0;
@@ -21,16 +22,15 @@
 
   &.type-standalone {
     height: 24px;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 600;
-    line-height: 1.71;
+    line-height: 18px;
     text-transform: capitalize;
     position: relative;
 
     & .icon {
       width: 16px;
-      height: 14px;
-      padding-left: 2px;
+      height: 16px;
       font-weight: 400;
       font-size: 16px;
     }
