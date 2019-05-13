@@ -6,7 +6,7 @@ import './tableCell.css';
 
 const TableCell = props => (
   <div styleName="tableCell" className="rt-td" role="gridcell" style={props.style} onClick={props.onClick}>
-    <div styleName={classNames('tableData', { multiSelect: props.multiSelect })}>{props.children}</div>
+    <div styleName={classNames('tableData', { multiSelect: props.multiSelect })} style={props.style}>{props.children}</div>
   </div>
 );
 
