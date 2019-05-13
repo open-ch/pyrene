@@ -1,6 +1,6 @@
 {
   "name": "pyrene",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "Open Systems Component Library",
   "main": "dist/pyrene.js",
   "style": "dist/pyrene.css",
