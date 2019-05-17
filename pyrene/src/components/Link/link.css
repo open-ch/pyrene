@@ -44,7 +44,6 @@
 
   &.type-inline {
     display: inline;
-    font-weight: 600;
 
     &.disabled {
       color: inherit;
