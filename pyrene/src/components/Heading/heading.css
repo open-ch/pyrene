@@ -1,0 +1,49 @@
+@import '../../styles/colors.css';
+
+
+.heading1 {
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.33;
+  margin-top: 12px;
+  margin-bottom: 24px;
+  color: var(--neutral-500);
+}
+
+.heading2 {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.6;
+  margin-top: 12px;
+  margin-bottom: 24px;
+  color: var(--neutral-500);
+}
+
+.heading3 {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.5;
+  margin-top: 12px;
+  margin-bottom: 24px;
+  color: var(--neutral-500);
+}
+
+.heading4 {
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.6;
+  margin-top: 12px;
+  margin-bottom: 24px;
+  color: var(--neutral-500);
+}
+
+.heading {
+
+  &:first-child {
+    margin-top: 0;
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
