@@ -37,6 +37,7 @@ import { default as RadioPopover } from './components/RadioPopover/RadioPopover'
 
 import { default as ShareDialog } from './components/ShareDialog/ShareDialog';
 import { default as SingleSelect } from './components/SingleSelect/SingleSelect';
+import { default as Spacer } from './components/Spacer/Spacer';
 import { default as Stepper } from './components/Stepper/Stepper';
 
 import { default as Table } from './components/Table/Table';
@@ -70,6 +71,7 @@ const Components = {
   RadioPopover,
   ShareDialog,
   SingleSelect,
+  Spacer,
   Stepper,
   Table,
   TabView,
@@ -102,6 +104,7 @@ export { RadioPopover };
 export { ShareDialog };
 export { SingleSelect };
 export { Stepper };
+export { Spacer };
 export { Table };
 export { TabView };
 export { TextArea };
