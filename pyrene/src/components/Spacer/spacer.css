@@ -1,0 +1,18 @@
+@import '../../styles/colors.css';
+
+
+.spacer-large {
+  margin-top: 48px;
+  margin-bottom: 48px;
+
+}
+
+.spacer-small {
+  margin-top: 16px;
+  margin-bottom: 16px;
+
+}
+
+.spacer {
+  height: 0px;
+}

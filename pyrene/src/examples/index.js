@@ -22,6 +22,7 @@ import { default as RadioGroup } from '../components/RadioGroup/RadioGroup.examp
 import { default as RadioPopover } from '../components/RadioPopover/RadioPopover.examples';
 import { default as ShareDialog } from '../components/ShareDialog/ShareDialog.examples';
 import { default as SingleSelect } from '../components/SingleSelect/SingleSelect.examples';
+import { default as Spacer } from '../components/Spacer/Spacer.examples';
 import { default as Stepper } from '../components/Stepper/Stepper.examples';
 import { default as Table } from '../components/Table/Table.examples';
 import { default as TabView } from '../components/TabView/TabView.examples';
@@ -52,6 +53,7 @@ const examples = {
   RadioGroup,
   ShareDialog,
   SingleSelect,
+  Spacer,
   Stepper,
   Table,
   TabView,
