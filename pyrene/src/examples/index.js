@@ -5,6 +5,7 @@
 import { default as Banner } from '../components/Banner/Banner.examples';
 import { default as Button } from '../components/Button/Button.examples';
 import { default as CalendarDateSelector } from '../components/CalendarDateSelector/CalendarDateSelector.examples';
+import { default as Card } from '../components/Card/Card.examples';
 import { default as Checkbox } from '../components/Checkbox/Checkbox.examples';
 import { default as Collapsible } from '../components/Collapsible/Collapsible.examples';
 import { default as Container } from '../components/Container/Container.examples';
@@ -32,6 +33,7 @@ const examples = {
   Banner,
   Button,
   CalendarDateSelector,
+  Card,
   Checkbox,
   Collapsible,
   Container,
