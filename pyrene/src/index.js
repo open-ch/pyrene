@@ -29,6 +29,7 @@ import { default as Loader } from './components/Loader/Loader';
 import { default as Modal } from './components/Modal/Modal';
 import { default as MultiSelect } from './components/MultiSelect/MultiSelect';
 
+import { default as Paragraph } from './components/Paragraph/Paragraph';
 import { default as Popover } from './components/Popover/Popover';
 
 import { default as RadioGroup } from './components/RadioGroup/RadioGroup';
@@ -64,6 +65,7 @@ const Components = {
   Modal,
   MultiSelect,
   Popover,
+  Paragraph,
   RadioGroup,
   RadioPopover,
   ShareDialog,
@@ -93,6 +95,7 @@ export { Link };
 export { Loader };
 export { Modal };
 export { MultiSelect };
+export { Paragraph };
 export { Popover };
 export { RadioGroup };
 export { RadioPopover };

@@ -15,6 +15,7 @@ import { default as KeyValueTable } from '../components/KeyValueTable/KeyValueTa
 import { default as Link } from '../components/Link/Link.examples';
 import { default as Loader } from '../components/Loader/Loader.examples';
 import { default as Modal } from '../components/Modal/Modal.examples';
+import { default as Paragraph } from '../components/Paragraph/Paragraph.examples';
 import { default as Popover } from '../components/Popover/Popover.examples';
 import { default as MultiSelect } from '../components/MultiSelect/MultiSelect.examples';
 import { default as RadioGroup } from '../components/RadioGroup/RadioGroup.examples';
@@ -45,6 +46,7 @@ const examples = {
   Loader,
   Modal,
   MultiSelect,
+  Paragraph,
   Popover,
   RadioPopover,
   RadioGroup,
