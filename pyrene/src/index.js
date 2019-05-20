@@ -10,6 +10,8 @@ import { default as Banner } from './components/Banner/Banner';
 import { default as Button } from './components/Button/Button';
 import { default as ButtonBar } from './components/ButtonBar/ButtonBar';
 
+import { default as CalendarDateSelector } from './components/CalendarDateSelector/CalendarDateSelector';
+import { default as Card } from './components/Card/Card';
 import { default as Checkbox } from './components/Checkbox/Checkbox';
 import { default as Collapsible } from './components/Collapsible/Collapsible';
 import { default as Container } from './components/Container/Container';
@@ -41,15 +43,13 @@ import { default as TextField } from './components/TextField/TextField';
 import { default as Tooltip } from './components/Tooltip/Tooltip';
 import { default as TreeTable } from './components/TreeTable/TreeTable';
 
-import { default as CalendarDateSelector } from './components/CalendarDateSelector/CalendarDateSelector';
-
-
 // Sort alphabetically to find stuff easily
 const Components = {
   Banner,
   Button,
   ButtonBar,
   CalendarDateSelector,
+  Card,
   Checkbox,
   Collapsible,
   Container,
@@ -78,6 +78,7 @@ const Components = {
 export { Banner };
 export { Button };
 export { CalendarDateSelector };
+export { Card };
 export { Checkbox };
 export { Collapsible };
 export { Container };
