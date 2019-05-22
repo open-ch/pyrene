@@ -500,7 +500,7 @@ const examples = {
     pivotBy: ['age'],
     title: 'Table',
     keyField: 'name',
-    data: tableData,
+    data: stateProvider => (stateProvider.state.tableData ? stateProvider.state.tableData : tableData),
     columns: tableColumns,
     onRowDoubleClick: rowInfo => console.log(rowInfo), // eslint-disable-line no-console
     actions: [{
@@ -511,10 +511,13 @@ const examples = {
       icon: 'info', label: 'Always', callback: () => console.log('always'), active: 'always', // eslint-disable-line no-console
     }],
     filters: [{
+      label: 'Free Text', type: 'text', filterKey: 'name',
+    }, {
       label: 'first column', type: 'singleSelect', filterKey: 'testKey', options: testOptions,
     }, {
       label: 'second column', type: 'multiSelect', filterKey: 'testKey2', options: testOptions,
     }],
+    onFilterChange: stateProvider => filters => stateProvider.setState(prevState => ({ tableData: tableData.filter(row => row.name.includes(filters.name)) })),
   },
 };
 
