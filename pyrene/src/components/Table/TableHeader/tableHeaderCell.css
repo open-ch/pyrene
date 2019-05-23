@@ -24,6 +24,14 @@
   &.-cursor-pointer {}
 }
 
+/* ensure that the inner div-> the heading text has correct wrapping */
+.tableHeaderCell div {
+  display: inline;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
 .sortIcon {
   display: block;
   width: 16px;
