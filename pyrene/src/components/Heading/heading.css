@@ -5,8 +5,9 @@
   font-size: 24px;
   font-weight: 600;
   line-height: 1.33;
-  margin-top: 12px;
-  margin-bottom: 24px;
+  letter-spacing: -0.2px;
+  margin-top: 24px;
+  margin-bottom: 32px;
   color: var(--neutral-500);
 }
 
@@ -14,7 +15,7 @@
   font-size: 20px;
   font-weight: 600;
   line-height: 1.6;
-  margin-top: 12px;
+  margin-top: 24px;
   margin-bottom: 24px;
   color: var(--neutral-500);
 }
@@ -23,17 +24,19 @@
   font-size: 16px;
   font-weight: 600;
   line-height: 1.5;
-  margin-top: 12px;
+  letter-spacing: -0.1px;
+  margin-top: 24px;
   margin-bottom: 24px;
   color: var(--neutral-500);
 }
 
 .heading4 {
-  font-size: 15px;
-  font-weight: 500;
+  font-size: 14px;
+  font-weight: 600;
   line-height: 1.6;
-  margin-top: 12px;
-  margin-bottom: 24px;
+  letter-spacing: -0.1px;
+  margin-top: 16px;
+  margin-bottom: 16px;
   color: var(--neutral-500);
 }
 
