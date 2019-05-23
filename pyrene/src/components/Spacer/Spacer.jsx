@@ -15,7 +15,7 @@ Spacer.defaultProps = {
 };
 
 Spacer.propTypes = {
-  size: PropTypes.oneOf(['small', 'large']),
+  size: PropTypes.oneOf(['xsmall', 'small', 'medium', 'large', 'xlarge', 'xxlarge', 'xxxlarge']),
 };
 
 export default Spacer;

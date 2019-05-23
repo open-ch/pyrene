@@ -2,8 +2,11 @@
 
 
 .paragraph {
-  margin-top: 8px;
-  margin-bottom: 8px;
+  font-size: 13px;
+  line-height: 1.38;
+
+  margin-top: 16px;
+  margin-bottom: 16px;
 
   &:first-child {
     margin-top: 0;
