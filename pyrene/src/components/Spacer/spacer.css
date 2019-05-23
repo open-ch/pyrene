@@ -1,16 +1,39 @@
 @import '../../styles/colors.css';
 
 
-.spacer-large {
-  margin-top: 48px;
-  margin-bottom: 48px;
-
+.spacer-xsmall {
+  margin-top: 8px;
+  margin-bottom: 8px;
 }
 
 .spacer-small {
   margin-top: 16px;
   margin-bottom: 16px;
+}
 
+.spacer-medium {
+  margin-top: 24px;
+  margin-bottom: 24px;
+}
+
+.spacer-large {
+  margin-top: 48px;
+  margin-bottom: 48px;
+}
+
+.spacer-xlarge {
+  margin-top: 64px;
+  margin-bottom: 64px;
+}
+
+.spacer-xxlarge {
+  margin-top: 80px;
+  margin-bottom: 80px;
+}
+
+.spacer-xxxlarge {
+  margin-top: 120px;
+  margin-bottom: 120px;
 }
 
 .spacer {
