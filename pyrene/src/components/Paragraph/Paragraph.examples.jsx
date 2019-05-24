@@ -1,16 +1,7 @@
-import React, { Fragment } from 'react';
-
-const examples = {};
-
-const getPara = () => (
-  <Fragment>
-    {'some text '}
-    <b>bold</b>
-  </Fragment>
-);
-
-examples.props = {
-  children: getPara(),
+const examples = {
+  props: {
+    children: 'Paragraph text',
+  },
 };
 
 export default examples;
