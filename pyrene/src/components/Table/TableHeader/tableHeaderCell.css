@@ -25,7 +25,7 @@
 }
 
 /* ensure that the inner div-> the heading text has correct wrapping */
-.tableHeaderCell div {
+.tableHeaderCell > div {
   display: inline;
   overflow: hidden;
   white-space: nowrap;

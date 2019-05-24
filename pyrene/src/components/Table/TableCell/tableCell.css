@@ -20,7 +20,7 @@
 }
 
 /* ensure that the inner div-> the cell context has correct wrapping */
-.tableData div {
+.tableData > div {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
