@@ -2,40 +2,40 @@
 
 
 .spacer-xsmall {
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+
+.spacer-small {
   margin-top: 8px;
   margin-bottom: 8px;
 }
 
-.spacer-small {
-  margin-top: 16px;
-  margin-bottom: 16px;
+.spacer-medium {
+  margin-top: 12px;
+  margin-bottom: 12px;
 }
 
-.spacer-medium {
+.spacer-large {
   margin-top: 24px;
   margin-bottom: 24px;
 }
 
-.spacer-large {
-  margin-top: 48px;
-  margin-bottom: 48px;
-}
-
 .spacer-xlarge {
-  margin-top: 64px;
-  margin-bottom: 64px;
+  margin-top: 32px;
+  margin-bottom: 32px;
 }
 
 .spacer-xxlarge {
-  margin-top: 80px;
-  margin-bottom: 80px;
+  margin-top: 40px;
+  margin-bottom: 40px;
 }
 
 .spacer-xxxlarge {
-  margin-top: 120px;
-  margin-bottom: 120px;
+  margin-top: 60px;
+  margin-bottom: 60px;
 }
 
 .spacer {
-  height: 0px;
+  height: 0.001px;
 }

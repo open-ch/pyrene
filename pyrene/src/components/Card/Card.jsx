@@ -4,6 +4,11 @@ import classNames from 'classnames';
 
 import './card.css';
 
+/**
+ * Cards are containers for content.
+ *
+ * They take the full width of the enclosing box and the height they need to fit the content.
+*/
 const Card = ({ header, footer, children }) => (
 
   <div styleName="container">
@@ -23,11 +28,20 @@ Card.defaultProps = {
 };
 
 Card.propTypes = {
+  /**
+ The content enclosed in the card.
+ */
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
   ]).isRequired,
+  /**
+  * An optional footer component.
+  */
   footer: PropTypes.node,
+  /**
+  * An optional header component, e.g., a time range selector.
+  */
   header: PropTypes.node,
 };
 

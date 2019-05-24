@@ -4,6 +4,9 @@ import classNames from 'classnames';
 
 import './spacer.css';
 
+/**
+* Spacers separate content.
+*/
 const Spacer = ({ size }) => (
   <div styleName={classNames(`spacer-${size}`, 'spacer')} />
 );
@@ -15,6 +18,9 @@ Spacer.defaultProps = {
 };
 
 Spacer.propTypes = {
+  /**
+   * Size/height of the spacer.
+    */
   size: PropTypes.oneOf(['xsmall', 'small', 'medium', 'large', 'xlarge', 'xxlarge', 'xxxlarge']),
 };
 
