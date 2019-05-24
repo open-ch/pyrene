@@ -1,15 +1,19 @@
 /* eslint-disable react/display-name */
 import React from 'react';
-import { Card, Spacer, Paragraph } from 'pyrene/dist/pyrene.dev';
+import {
+  Card, Spacer, Heading, Paragraph,
+} from 'pyrene/dist/pyrene.dev';
 
 const spacerHowTo = [{
-  title: 'Spacer',
-  description: 'Spacers separate content',
+  title: 'Margins',
+  description: 'Spacers separate content, but collapse with neigbouring margins.',
   component: () => (
     <Card>
-      <Paragraph>Text</Paragraph>
+      <Heading level={1}>Heading</Heading>
       <Spacer size="large" />
-      <Paragraph>Text</Paragraph>
+      <Paragraph>Large spacer above.</Paragraph>
+      <Spacer size="xxxlarge" />
+      <Paragraph>Extra, extra, extra large spacer above.</Paragraph>
     </Card>
   ),
 }];
