@@ -3,7 +3,6 @@
 .keyValueTable {
   color: #1d273b;
   position: relative;
-  table-layout: fixed;
   vertical-align: text-top;
   width: 100%;
 }
@@ -11,6 +10,7 @@
 .keyValueBody {
   border-collapse: collapse;
   width: 100%;
+  table-layout:fixed;
 }
 
 .keyValueRow {
@@ -30,12 +30,14 @@
 
 .keyValueCellKey {
   width: 256px;
+  min-width: 256px;
   font-weight: 600; /* demibold */
   padding-left: 8px;
   padding-right: 16px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  vertical-align: top;
 }
 
 .keyValueCellValue {

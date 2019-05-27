@@ -23,7 +23,7 @@ export default class Tooltip extends React.Component {
         content={({
           position, nudgedLeft, nudgedTop, targetRect, popoverRect, // eslint-disable-line no-unused-vars
         }) => (
-          <div styleName="tooltip" style={{ width: this.props.width ? this.props.width : null }}>
+          <div styleName="tooltip" style={{ maxWidth: this.props.maxWidth }}>
             {this.props.label}
           </div>
         )}
@@ -48,7 +48,7 @@ Tooltip.defaultProps = {
   preferredPosition: [],
   align: 'center',
   autoReposition: true,
-  width: 0,
+  maxWidth: 344,
   distanceToTarget: 8,
 };
 
@@ -74,11 +74,11 @@ Tooltip.propTypes = {
    */
   label: PropTypes.string.isRequired,
   /**
+   * Sets the Tooltip width. Only to be used to enforce line breaks.
+   */
+  maxWidth: PropTypes.number,
+  /**
     * Sets the preferred position array ordered by priority for auto repositioning.
     */
   preferredPosition: PropTypes.arrayOf(PropTypes.oneOf(['top', 'right', 'bottom', 'left'])),
-  /**
-    * Sets the Tooltip width. Only to be used to enforce line breaks.
-    */
-  width: PropTypes.number,
 };
