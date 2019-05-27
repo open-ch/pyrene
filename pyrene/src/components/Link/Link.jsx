@@ -20,7 +20,9 @@ const Link = props => (
     onClick={props.onClick ? ((event) => {
       event.preventDefault();
       props.onClick(event);
-    }) : undefined}
+    }) : (event) => {
+      event.stopPropagation();
+    }}
   >
     <span styleName="label">{props.label}</span>
     {props.type === 'standalone' && <span styleName="icon" className="pyreneIcon-chevronRight" />}

@@ -6,7 +6,6 @@
   display: flex;
   align-items: center;
   font-weight: 600;
-  height: 32px;
   line-height: 20px;
   padding-right: 16px;
 
@@ -23,6 +22,14 @@
   &.rt-header-pivot {}
 
   &.-cursor-pointer {}
+}
+
+/* ensure that the inner div-> the heading text has correct wrapping */
+.tableHeaderCell > div {
+  display: inline;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .sortIcon {
