@@ -32,6 +32,7 @@ const SingleSelect = props => (
           isLoading={props.loading}
           onChange={option => props.onChange({ target: { name: props.name, value: option, type: 'singleSelect' } })}
           onBlur={props.onBlur}
+          onFocus={props.onFocus}
           name={props.name}
           id={props.name}
           inputId={props.name}
@@ -62,6 +63,7 @@ const SingleSelect = props => (
           isLoading={props.loading}
           onChange={option => props.onChange({ target: { name: props.name, value: option, type: 'singleSelect' } })}
           onBlur={props.onBlur}
+          onFocus={props.onFocus}
           name={props.name}
           id={props.name}
           inputId={props.name}
@@ -118,6 +120,7 @@ SingleSelect.defaultProps = {
   value: null,
   onChange: () => null,
   onBlur: () => null,
+  onFocus: () => null,
 };
 
 SingleSelect.propTypes = {
@@ -165,6 +168,10 @@ SingleSelect.propTypes = {
    * Event Handler. Param option: {value: , label:}
    */
   onChange: PropTypes.func,
+  /**
+    * Focus event handler, use this to dynamically fetch options.
+    */
+  onFocus: PropTypes.func,
   /**
    * Data input array. Type: [{ value: string (required), label: string (required), invalid: bool }]
    */

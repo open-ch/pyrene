@@ -44,6 +44,7 @@ const MultiSelect = props => (
           isLoading={props.loading}
           onChange={option => props.onChange({ target: { name: props.name, value: option, type: 'multiSelect' } })}
           onBlur={props.onBlur}
+          onFocus={props.onFocus}
           name={props.name}
           id={props.name}
           inputId={props.name}
@@ -74,6 +75,7 @@ const MultiSelect = props => (
           isLoading={props.loading}
           onChange={option => props.onChange({ target: { name: props.name, value: option, type: 'multiSelect' } })}
           onBlur={props.onBlur}
+          onFocus={props.onFocus}
           name={props.name}
           id={props.name}
           inputId={props.name}
@@ -136,6 +138,7 @@ MultiSelect.defaultProps = {
   value: null,
   onChange: () => null,
   onBlur: () => null,
+  onFocus: () => null,
 };
 
 MultiSelect.propTypes = {
@@ -190,6 +193,10 @@ MultiSelect.propTypes = {
    * Custom event handler, returns selected options from the options array.
    */
   onChange: PropTypes.func,
+  /**
+   * Focus event handler, use this to dynamically fetch options.
+   */
+  onFocus: PropTypes.func,
   /**
    * Data input array. Type: [{ value: string (required), label: string (required), invalid: bool }]
    */
