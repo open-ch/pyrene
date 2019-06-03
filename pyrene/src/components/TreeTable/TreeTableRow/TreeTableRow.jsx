@@ -69,7 +69,7 @@ export default class TreeTableRow extends React.PureComponent {
             return (
               <TreeTableCell
                 style={{ ...styling, ...column.cellStyle }}
-                key={column.header}
+                key={column.accessor}
                 columnProps={column}
                 firstColumn={firstColumn}
                 parent={this.props.parent}
