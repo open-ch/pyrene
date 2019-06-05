@@ -4,20 +4,20 @@ import PropTypes from 'prop-types';
 import './filter.css';
 import FilterPopoverButton from './FilterPopOverButton/FilterPopoverButton';
 
-const initDataType = (type) => {
-  switch (type) {
+const initDataType = (currentValue) => {
+  switch (currentValue.type) {
     case 'singleSelect':
-      return '';
-    case 'text':
-      return '';
+      return currentValue.defaultValue ? currentValue.options.filter(o => o.value === currentValue.defaultValue).pop() : [];
     case 'multiSelect':
-      return [];
+      return currentValue.defaultValue ? currentValue.options.filter(option => currentValue.defaultValue.includes(option.value)) : [];
+    case 'text':
+      return currentValue.defaultValue ? currentValue.defaultValue : null;
     default:
       return null;
   }
 };
 
-const initFilterState = filters => filters.reduce((accumulator, currentValue) => ({ ...accumulator, [currentValue.filterKey]: initDataType(currentValue.type) }), {});
+const initFilterState = filters => filters.reduce((accumulator, currentValue) => ({ ...accumulator, [currentValue.filterKey]: initDataType(currentValue) }), {});
 
 /**
  * The filter is there to display large amounts of data in manageable portions.
@@ -28,22 +28,12 @@ export default class Filter extends React.Component {
 
   state = {
     displayFilterPopover: false,
-    defaultValues: initFilterState(this.props.filters), // eslint-disable-line react/no-unused-state
     filterValues: initFilterState(this.props.filters),
     unAppliedValues: initFilterState(this.props.filters),
   };
 
-  toggleFilterPopover = () => {
-    this.setState(prevState => ({
-      unAppliedValues: prevState.filterValues,
-      displayFilterPopover: !prevState.displayFilterPopover,
-    }));
-  };
-
   getValueFromInput = (target) => {
     switch (target.type) {
-      case 'checkbox':
-        return target.checked;
       case 'singleSelect':
         if (target.value === null) {
           return [];
@@ -52,6 +42,13 @@ export default class Filter extends React.Component {
       default:
         return target.value;
     }
+  };
+
+  toggleFilterPopover = () => {
+    this.setState(prevState => ({
+      unAppliedValues: prevState.filterValues,
+      displayFilterPopover: !prevState.displayFilterPopover,
+    }));
   };
 
   filterDidChange = (event) => {
@@ -78,18 +75,6 @@ export default class Filter extends React.Component {
   render() {
     return (
       <div styleName="filter">
-        {/* No Searchbar for now
-        <div styleName={'filterSearchBar'}>
-          <input
-            styleName={'filterSearchBarInput'}
-            type={'text'}
-            placeholder={'Search'}
-            onChange={() => null}
-            onFocus={() => null}
-          />
-          <span className={'pyreneIcon-search'} styleName={'searchIcon'} />
-        </div>
-        <div styleName="spacer" /> */}
         <FilterPopoverButton
           label="Filter"
           displayPopover={this.state.displayFilterPopover}
@@ -116,13 +101,18 @@ Filter.defaultProps = {
 Filter.propTypes = {
   /**
    * Sets the available filters.
-   * Type: [{ label: string (required), type: oneOf('singleSelect', 'multiSelect', 'text') (required), key: string (required), options: array, defaultValue: string | arrayOf string (multiSelects) }]
+   * Type: [{ label: string (required), type: oneOf('singleSelect', 'multiSelect', 'text') (required), key: string (required), options: array of values from which user can choose in single/multiselect, defaultValue: string | arrayOf string (multiSelects) }]
    */
   filters: PropTypes.arrayOf(PropTypes.shape({
     defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
     filterKey: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
-    options: PropTypes.array,
+    options: PropTypes.arrayOf(PropTypes.shape({
+      /** key for manipulation */
+      value: PropTypes.string.isRequired,
+      /** text displayed to the user in the filter dropdown */
+      label: PropTypes.string.isRequired,
+    })),
     type: PropTypes.oneOf(['singleSelect', 'multiSelect', 'text']).isRequired,
   })).isRequired,
   /**

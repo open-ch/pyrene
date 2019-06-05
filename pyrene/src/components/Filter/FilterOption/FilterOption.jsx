@@ -27,7 +27,7 @@ export default class FilterOption extends React.Component {
               name={this.props.filterKey}
               options={this.props.options}
               onChange={this.props.handleFilterChange}
-              value={this.props.filterValues[this.props.filterKey].length > 0 ? this.props.filterValues[this.props.filterKey] : null}
+              value={this.props.filterValues[this.props.filterKey].length > 0 ? this.props.filterValues[this.props.filterKey] : []}
               defaultValues={this.props.defaultValue}
               selectedOptionsInDropdown
               keepMenuOnSelect
@@ -74,7 +74,7 @@ FilterOption.defaultProps = {
 FilterOption.propTypes = {
   defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   filterKey: PropTypes.string.isRequired,
-  filterValues: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.array, PropTypes.string])).isRequired,
+  filterValues: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.array, PropTypes.string, PropTypes.object])).isRequired,
   handleFilterChange: PropTypes.func.isRequired,
   label: PropTypes.string.isRequired,
   options: PropTypes.array, // eslint-disable-line react/forbid-prop-types
