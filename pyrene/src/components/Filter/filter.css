@@ -1,10 +1,16 @@
 @import '../../styles/colors.css';
 
 
-.filter {
+.filter, .filterBoxes {
   composes: commonFontSettings from '../../styles/common.css';
   display: flex;
   justify-content: flex-start;
+  height: 100%;
+  width: 100%;
+}
+
+.filterBoxes {
+  flex-wrap: wrap;
 }
 
 

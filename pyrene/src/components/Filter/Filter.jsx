@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import './filter.css';
 import FilterPopoverButton from './FilterPopOverButton/FilterPopoverButton';
+import FilterTag from './FilterTag';
 
 const initDataType = (filter) => {
   switch (filter.type) {
@@ -75,6 +76,32 @@ export default class Filter extends React.Component {
     () => this.props.onFilterSubmit(this.state.filterValues));
   };
 
+  getSelectionButton(label, text) {
+    return (
+      <FilterTag filterLabel={label} filterText={text} onClose={(msg, a, b) => console.log(msg, a, b)} />
+    );
+  }
+
+  getSelectionButtons(filterValues) {
+    if (!filterValues[1]) { return null; }
+
+    if (typeof filterValues[1] === 'string') {
+      return this.getSelectionButton(this.getLabel(filterValues[0]), filterValues[1]);
+    } else if (Array.isArray(filterValues[1])) {
+      if (Object.values(filterValues[1]).length > 0) {
+        return Object.values(filterValues[1]).map(propFilterItem => this.getSelectionButton(this.getLabel(filterValues[0]), propFilterItem.value));
+      }
+    } else if (Object.values(filterValues[1]).length > 0) {
+      return this.getSelectionButton(this.getLabel(filterValues[0]), filterValues[1].value);
+    }
+
+    return null;
+  }
+
+  getLabel(filterKey) {
+    return this.props.filters.find(filter => filter.filterKey === filterKey).label.toUpperCase();
+  }
+
   render() {
     return (
       <div styleName="filter">
@@ -88,7 +115,16 @@ export default class Filter extends React.Component {
           onFilterClear={this.clearFilter}
           onFilterApply={this.applyFilter}
         />
+        <div styleName="filterBoxes">
+          {this.state.filterValues && Object.entries(this.state.filterValues).map(filterValue => (
+            <div key={filterValue}>
+              {this.getSelectionButtons(filterValue)}
+            </div>
+
+          ))}
+        </div>
       </div>
+
     );
   }
 
