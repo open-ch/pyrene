@@ -76,23 +76,58 @@ export default class Filter extends React.Component {
     () => this.props.onFilterSubmit(this.state.filterValues));
   };
 
-  getSelectionButton(label, text) {
+  getUpdatedUnAppliedValues(unAppliedValues, filterKey, filterValue) {
+    const type = this.props.filters.find(f => f.filterKey === filterKey).type;
+
+    switch (type) {
+      case 'text':
+        return null;
+      case 'singleSelect':
+        return [];
+      case 'multiSelect':
+        return unAppliedValues[filterKey].filter(option => option.value !== filterValue);
+      default:
+        console.error('Unsupported filter type, filter is returning the unfiltered data');
+    }
+    return null;
+  }
+
+  updateFilterAfterClosingTag(filterKey, filterValue) {
+
+    this.setState(prevState => ({
+      unAppliedValues: { ...prevState.unAppliedValues, [filterKey]: this.getUpdatedUnAppliedValues(prevState.unAppliedValues, filterKey, filterValue) },
+      displayFilterPopover: false,
+    }), () => this.applyFilter());
+
+  }
+
+  getSelectionButton(label, text, key) {
     return (
-      <FilterTag filterLabel={label} filterText={text} onClose={(msg, a, b) => console.log(msg, a, b)} />
+      <FilterTag key={key + text} filterLabel={label} filterText={text} filterKey={key} onClose={(filterKey, filterValue) => this.updateFilterAfterClosingTag(filterKey, filterValue)} />
     );
   }
 
-  getSelectionButtons(filterValues) {
-    if (!filterValues[1]) { return null; }
+  getSelectionButtons([key, value]) {
 
-    if (typeof filterValues[1] === 'string') {
-      return this.getSelectionButton(this.getLabel(filterValues[0]), filterValues[1]);
-    } else if (Array.isArray(filterValues[1])) {
-      if (Object.values(filterValues[1]).length > 0) {
-        return Object.values(filterValues[1]).map(propFilterItem => this.getSelectionButton(this.getLabel(filterValues[0]), propFilterItem.value));
-      }
-    } else if (Object.values(filterValues[1]).length > 0) {
-      return this.getSelectionButton(this.getLabel(filterValues[0]), filterValues[1].value);
+    if (!value || value.length === 0) { return null; }
+
+    const filter = this.props.filters.find(f => f.filterKey === key);
+    if (!filter) {
+      return null;
+    }
+
+    switch (filter.type) {
+      case 'text':
+        return this.getSelectionButton(this.getLabel(key), value, filter.filterKey);
+      case 'singleSelect':
+        return this.getSelectionButton(this.getLabel(key), value.value, filter.filterKey);
+      case 'multiSelect':
+        if (Object.values(value).length > 0) {
+          return Object.values(value).map(propFilterItem => <div key={propFilterItem.value}>{this.getSelectionButton(this.getLabel(key), propFilterItem.value, filter.filterKey)}</div>);
+        }
+        break;
+      default:
+        console.error('Unsupported filter type, filter is returning the unfiltered data');
     }
 
     return null;
@@ -117,10 +152,7 @@ export default class Filter extends React.Component {
         />
         <div styleName="filterBoxes">
           {this.state.filterValues && Object.entries(this.state.filterValues).map(filterValue => (
-            <div key={filterValue}>
-              {this.getSelectionButtons(filterValue)}
-            </div>
-
+            this.getSelectionButtons(filterValue)
           ))}
         </div>
       </div>

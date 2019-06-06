@@ -1,5 +1,5 @@
 .wrapper {
-  display: flex;
+  display: inline-flex;
   flex-direction: row;
   background-color: #f2f4f5;
   height: 20px;
