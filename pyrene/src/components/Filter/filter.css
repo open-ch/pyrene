@@ -11,12 +11,8 @@
 
 .filterBoxes {
   flex-wrap: wrap;
+  align-items: center;
 }
-
-.filterTag {
-  align-self: center;
-}
-
 
 .filterSearchBar {
   position: relative;

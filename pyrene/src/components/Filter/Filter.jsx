@@ -103,7 +103,7 @@ export default class Filter extends React.Component {
 
   getSelectionButton(label, text, key) {
     return (
-      <FilterTag styleName="filterTag" key={key + text} filterLabel={label} filterText={text} filterKey={key} onClose={(filterKey, filterValue) => this.updateFilterAfterClosingTag(filterKey, filterValue)} />
+      <FilterTag key={key + text} filterLabel={label} filterText={text} filterKey={key} onClose={(filterKey, filterValue) => this.updateFilterAfterClosingTag(filterKey, filterValue)} />
     );
   }
 
@@ -123,7 +123,7 @@ export default class Filter extends React.Component {
         return this.getSelectionButton(this.getLabel(key), value.value, filter.filterKey);
       case 'multiSelect':
         if (Object.values(value).length > 0) {
-          return Object.values(value).map(propFilterItem => <div styleName="filterTag" key={propFilterItem.value}>{this.getSelectionButton(this.getLabel(key), propFilterItem.value, filter.filterKey)}</div>);
+          return Object.values(value).map(propFilterItem => <div key={propFilterItem.value}>{this.getSelectionButton(this.getLabel(key), propFilterItem.value, filter.filterKey)}</div>);
         }
         break;
       default:
