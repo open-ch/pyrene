@@ -81,7 +81,7 @@ export default class Filter extends React.Component {
 
     switch (type) {
       case 'text':
-        return null;
+        return '';
       case 'singleSelect':
         return [];
       case 'multiSelect':
