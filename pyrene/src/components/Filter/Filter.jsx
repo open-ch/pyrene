@@ -4,10 +4,27 @@ import PropTypes from 'prop-types';
 import './filter.css';
 import FilterPopoverButton from './FilterPopOverButton/FilterPopoverButton';
 
+const getSingleSelectDefaultValue = (currentValue) => {
+  // f there is a default value for single select
+  if (currentValue.defaultValue) {
+    const filterOutput = currentValue.options.filter(o => o.value === currentValue.defaultValue);
+    // check if the value is in options
+    if (filterOutput.length > 0) {
+      // if yes, take the last option - same as for tableSelect... ;)
+      return filterOutput.pop();
+    }
+    // if there is not, return empty array (result of filter)
+    // do not pop() on empty array, result would be undefined
+    return filterOutput;
+  }
+  // if there is no default value, return empty array
+  return [];
+};
+
 const initDataType = (currentValue) => {
   switch (currentValue.type) {
     case 'singleSelect':
-      return currentValue.defaultValue ? currentValue.options.filter(o => o.value === currentValue.defaultValue).pop() : [];
+      return getSingleSelectDefaultValue(currentValue);
     case 'multiSelect':
       return currentValue.defaultValue ? currentValue.options.filter(option => currentValue.defaultValue.includes(option.value)) : [];
     case 'text':
