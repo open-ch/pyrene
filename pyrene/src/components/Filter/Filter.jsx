@@ -34,7 +34,21 @@ const initDataType = (currentValue) => {
   }
 };
 
+const clearDataType = (currentValue) => {
+  switch (currentValue.type) {
+    case 'singleSelect':
+      return [];
+    case 'multiSelect':
+      return [];
+    case 'text':
+      return '';
+    default:
+      return null;
+  }
+};
+
 const initFilterState = filters => filters.reduce((accumulator, currentValue) => ({ ...accumulator, [currentValue.filterKey]: initDataType(currentValue) }), {});
+const clearFilterState = filters => filters.reduce((accumulator, currentValue) => ({ ...accumulator, [currentValue.filterKey]: clearDataType(currentValue) }), {});
 
 /**
  * The filter is there to display large amounts of data in manageable portions.
@@ -48,6 +62,16 @@ export default class Filter extends React.Component {
     filterValues: initFilterState(this.props.filters),
     unAppliedValues: initFilterState(this.props.filters),
   };
+
+  componentDidMount() {
+    this.props.onFilterSubmit(this.state.filterValues);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.filters !== this.props.filters) {
+      this.props.onFilterSubmit(this.state.filterValues);
+    }
+  }
 
   getValueFromInput = (target) => {
     switch (target.type) {
@@ -77,7 +101,7 @@ export default class Filter extends React.Component {
 
   clearFilter = () => {
     this.setState(() => ({
-      unAppliedValues: initFilterState(this.props.filters),
+      unAppliedValues: clearFilterState(this.props.filters),
     }));
   };
 
