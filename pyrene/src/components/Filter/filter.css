@@ -13,6 +13,10 @@
   flex-wrap: wrap;
 }
 
+.filterTag {
+  align-self: center;
+}
+
 
 .filterSearchBar {
   position: relative;
