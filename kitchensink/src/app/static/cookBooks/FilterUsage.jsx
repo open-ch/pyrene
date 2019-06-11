@@ -90,24 +90,25 @@ class FilteredTable extends React.Component {
       type: 'multiSelect',
       label: 'City',
       accessor: 'city',
-      options: [{ value: 'Zurich', label: 'Zurich' }, { value: 'Brno', label: 'Brno' }, { value: 'Taumatawhakatangi­hangakoauauotamatea­turipukakapikimaunga­horonukupokaiwhen­uakitanatahu', label: 'Taumatawhakatangi­hangakoauauotamatea­turipukakapikimaunga­horonukupokaiwhen­uakitanatahu' }],
-      defaultValue: ['Zurich'],
+      options: [{ value: 'Zurich', label: 'Zurich' }, { value: 'Brno', label: 'Brno' }, { value: 'Taumatawhakaanhu', label: 'Taumatawhakaanhu' }],
     }, {
       type: 'singleSelect',
       label: 'Date',
       accessor: 'date',
-      options: [{ value: '-', label: 'Ongoing' }, { value: 'Date ;) ', label: 'Date ;) ' }],
-      defaultValue: 'nonexisting default value',
+      options: [{ value: '-', label: 'Ongoing' }, { value: '11.6.19', label: '11.6.19' }],
     }, {
       type: 'text',
-      label: 'Company - customFilter!',
-      accessor: 'ispName',
-      customFilter: (filteredInput, d) => d.ispName.includes(filteredInput),
+      label: 'Name',
+      accessor: 'name',
     }, {
       type: 'text',
-      label: 'Sourcing (Brno is closed)',
-      accessor: 'sourcing',
-      defaultValue: 'open',
+      label: 'Reverse',
+      accessor: 'name_reverse',
+      customFilter: (filteredInput, d) => d.name.split('').reverse().join('').includes(filteredInput),
+    }, {
+      type: 'text',
+      label: 'Secret',
+      accessor: 'hidden',
     }];
 
     state = {
