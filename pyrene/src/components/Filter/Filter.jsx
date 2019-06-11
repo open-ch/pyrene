@@ -130,3 +130,5 @@ Filter.propTypes = {
    */
   onFilterSubmit: PropTypes.func,
 };
+
+export { createSimpleFilter, createDataFilter } from './utils/createFilter';
