@@ -27,6 +27,7 @@ const SideBarMenu = () => (
         title="Cookbooks"
         sectionElements={[
           { name: 'Form', linkToPath: '/form' },
+          { name: 'Filter', linkToPath: '/filter' },
           { name: 'Pyrene', linkToPath: '/pyrene' },
         ]}
       />

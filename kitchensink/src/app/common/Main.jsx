@@ -16,6 +16,7 @@ import SearchBar from './Search/SearchBar/SearchBar';
 import ResultsPage from './Search/ResultsPage';
 import NotFoundPage from '../static/NotFoundPage';
 import FormUsage from '../static/cookBooks/FormUsage';
+import FilterUsage from '../static/cookBooks/FilterUsage';
 import PyreneTutorial from '../static/cookBooks/PyreneTutorial';
 
 export default class Main extends React.PureComponent {
@@ -43,6 +44,7 @@ export default class Main extends React.PureComponent {
             <Route path="/icons" component={IconsPage} />
             <Route path="/resources" component={ResourcesPage} />
             <Route path="/form" component={FormUsage} />
+            <Route path="/filter" component={FilterUsage} />
             <Route path="/pyrene" component={PyreneTutorial} />
 
             {Object.values(Components)
