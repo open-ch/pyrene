@@ -11,7 +11,7 @@ const FilterTag = props => (
     <div styleName="text">
       {props.filterText}
     </div>
-    <div onClick={() => props.onClose(props.filterKey, props.filterText)}>
+    <div onClick={() => props.onClose()}>
       <div styleName="clearIcon" className="pyreneIcon-delete" />
     </div>
   </div>
@@ -21,7 +21,6 @@ const FilterTag = props => (
 FilterTag.displayName = 'FilterTag';
 
 FilterTag.propTypes = {
-  filterKey: PropTypes.string.isRequired,
   filterLabel: PropTypes.string.isRequired,
   filterText: PropTypes.string.isRequired,
   onClose: PropTypes.func.isRequired,

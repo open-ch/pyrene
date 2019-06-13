@@ -18,7 +18,6 @@ const initDataType = (filter) => {
   }
 };
 
-
 const clearDataType = (filter) => {
   switch (filter.type) {
     case 'singleSelect':
@@ -76,65 +75,55 @@ export default class Filter extends React.Component {
     () => this.props.onFilterSubmit(this.state.filterValues));
   };
 
-  getUpdatedUnAppliedValues(unAppliedValues, filterKey, filterValue) {
-    const type = this.props.filters.find(f => f.filterKey === filterKey).type;
-
-    switch (type) {
-      case 'text':
-        return '';
-      case 'singleSelect':
-        return [];
-      case 'multiSelect':
-        return unAppliedValues[filterKey].filter(option => option.value !== filterValue);
-      default:
-        console.error('Unsupported filter type, filter is returning the unfiltered data');
-    }
-    return null;
-  }
-
-  updateFilterAfterClosingTag(filterKey, filterValue) {
+  updateFilterAfterClosingTag(filter) {
 
     this.setState(prevState => ({
-      unAppliedValues: { ...prevState.unAppliedValues, [filterKey]: this.getUpdatedUnAppliedValues(prevState.unAppliedValues, filterKey, filterValue) },
+      unAppliedValues: { ...prevState.unAppliedValues, [filter.filterKey]: clearDataType(filter) },
       displayFilterPopover: false,
     }), () => this.applyFilter());
 
   }
 
-  getSelectionButton(label, text, key) {
+  getFilterTag(label, text, filter) {
     return (
-      <FilterTag key={key + text} filterLabel={label} filterText={text} filterKey={key} onClose={(filterKey, filterValue) => this.updateFilterAfterClosingTag(filterKey, filterValue)} />
+      <FilterTag key={filter.key + text} filterLabel={label} filterText={text} onClose={() => this.updateFilterAfterClosingTag(filter)} />
     );
-  }
-
-  getSelectionButtons([key, value]) {
-
-    if (!value || value.length === 0) { return null; }
-
-    const filter = this.props.filters.find(f => f.filterKey === key);
-    if (!filter) {
-      return null;
-    }
-
-    switch (filter.type) {
-      case 'text':
-        return this.getSelectionButton(this.getLabel(key), value, filter.filterKey);
-      case 'singleSelect':
-        return this.getSelectionButton(this.getLabel(key), value.value, filter.filterKey);
-      case 'multiSelect':
-        if (Object.values(value).length > 0) {
-          return Object.values(value).map(propFilterItem => <div key={propFilterItem.value}>{this.getSelectionButton(this.getLabel(key), propFilterItem.value, filter.filterKey)}</div>);
-        }
-        break;
-      default:
-        console.error('Unsupported filter type, filter is returning the unfiltered data');
-    }
-
-    return null;
   }
 
   getLabel(filterKey) {
     return this.props.filters.find(filter => filter.filterKey === filterKey).label.toUpperCase();
+  }
+
+  getFilterTags() {
+    const { filterValues } = this.state;
+    if (filterValues) {
+      return Object.entries(filterValues).map(([key, value]) => {
+        const _this = this;
+        if (!value || value.length === 0) { return null; }
+
+        const filter = this.props.filters.find(f => f.filterKey === key);
+        if (!filter) {
+          return null;
+        }
+
+        switch (filter.type) {
+          case 'text':
+            return _this.getFilterTag(_this.getLabel(key), value, filter);
+          case 'singleSelect':
+            return _this.getFilterTag(_this.getLabel(key), value.value, filter);
+          case 'multiSelect':
+            if (Object.values(value).length > 0) {
+              return _this.getFilterTag(_this.getLabel(key), Object.values(value).map(option => option.label).join(', '), filter);
+            }
+            break;
+          default:
+            console.error('Unsupported filter type');
+        }
+
+        return null;
+      });
+    }
+    return null;
   }
 
   render() {
@@ -151,9 +140,7 @@ export default class Filter extends React.Component {
           onFilterApply={this.applyFilter}
         />
         <div styleName="filterTags">
-          {this.state.filterValues && Object.entries(this.state.filterValues).map(filterValue => (
-            this.getSelectionButtons(filterValue)
-          ))}
+          {this.getFilterTags()}
         </div>
       </div>
 
