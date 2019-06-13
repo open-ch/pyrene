@@ -24,13 +24,11 @@
 }
 
 .text {
-  height: 18px;
+  line-height: 18px;
   font-size: 13px;
   font-weight: normal;
   color: #00152c;
   padding-right: 8px;
-  align-items: center;
-  justify-content: center;
 }
 
 .clearIcon {
