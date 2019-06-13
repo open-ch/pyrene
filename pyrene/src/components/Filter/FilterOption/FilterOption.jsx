@@ -16,7 +16,7 @@ export default class FilterOption extends React.Component {
               name={this.props.filterKey}
               options={this.props.options}
               onChange={this.props.handleFilterChange}
-              value={this.props.filterValues[this.props.filterKey] ? this.props.filterValues[this.props.filterKey].value : this.props.defaultValue}
+              value={this.props.filterValues[this.props.filterKey] ? this.props.filterValues[this.props.filterKey].value : null}
               clearable
               searchable
             />
@@ -40,7 +40,7 @@ export default class FilterOption extends React.Component {
               name={this.props.filterKey}
               onChange={this.props.handleFilterChange}
               placeholder="Type"
-              value={this.props.filterValues[this.props.filterKey] !== null ? this.props.filterValues[this.props.filterKey] : this.props.defaultValue}
+              value={this.props.filterValues[this.props.filterKey] !== null ? this.props.filterValues[this.props.filterKey] : ''}
             />
           );
         default:
