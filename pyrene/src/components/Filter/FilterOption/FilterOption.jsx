@@ -13,6 +13,7 @@ export default class FilterOption extends React.Component {
         case 'singleSelect':
           return (
             <SingleSelect
+              placeholder=""
               name={this.props.filterKey}
               options={this.props.options}
               onChange={this.props.handleFilterChange}
@@ -24,6 +25,7 @@ export default class FilterOption extends React.Component {
         case 'multiSelect':
           return (
             <MultiSelect
+              placeholder=""
               name={this.props.filterKey}
               options={this.props.options}
               onChange={this.props.handleFilterChange}
@@ -39,7 +41,7 @@ export default class FilterOption extends React.Component {
             <TextField
               name={this.props.filterKey}
               onChange={this.props.handleFilterChange}
-              placeholder="Type"
+              placeholder=""
               value={this.props.filterValues[this.props.filterKey] !== null ? this.props.filterValues[this.props.filterKey] : ''}
             />
           );
