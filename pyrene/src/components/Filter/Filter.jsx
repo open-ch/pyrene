@@ -47,28 +47,6 @@ export default class Filter extends React.Component {
     unAppliedValues: initFilterState(this.props.filters),
   };
 
-  componentDidMount() {
-    this.props.onFilterSubmit(this.state.filterValues);
-  }
-
-  componentDidUpdate(prevProps) {
-    if (prevProps.filters !== this.props.filters) {
-      this.props.onFilterSubmit(this.state.filterValues);
-    }
-  }
-
-  getValueFromInput = (target) => {
-    switch (target.type) {
-      case 'singleSelect':
-        if (target.value === null) {
-          return undefined;
-        }
-        return target.value;
-      default:
-        return target.value;
-    }
-  };
-
   toggleFilterPopover = () => {
     this.setState(prevState => ({
       unAppliedValues: prevState.filterValues,
@@ -79,7 +57,7 @@ export default class Filter extends React.Component {
   filterDidChange = (event) => {
     const target = event.target;
     this.setState(prevState => ({
-      unAppliedValues: { ...prevState.unAppliedValues, [target.name]: this.getValueFromInput(target) },
+      unAppliedValues: { ...prevState.unAppliedValues, [target.name]: target.value },
     }));
   };
 
@@ -94,7 +72,7 @@ export default class Filter extends React.Component {
       filterValues: prevState.unAppliedValues,
       displayFilterPopover: false,
     }),
-    () => console.log(this.state.filterValues));
+    () => this.props.onFilterSubmit(this.state.filterValues));
   };
 
   render() {
