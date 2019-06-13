@@ -150,7 +150,7 @@ export default class Filter extends React.Component {
           onFilterClear={this.clearFilter}
           onFilterApply={this.applyFilter}
         />
-        <div styleName="filterBoxes">
+        <div styleName="filterTags">
           {this.state.filterValues && Object.entries(this.state.filterValues).map(filterValue => (
             this.getSelectionButtons(filterValue)
           ))}

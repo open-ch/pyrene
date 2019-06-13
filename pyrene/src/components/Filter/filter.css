@@ -1,7 +1,7 @@
 @import '../../styles/colors.css';
 
 
-.filter, .filterBoxes {
+.filter, .filterTags {
   composes: commonFontSettings from '../../styles/common.css';
   display: flex;
   justify-content: flex-start;
@@ -9,7 +9,7 @@
   width: 100%;
 }
 
-.filterBoxes {
+.filterTags {
   flex-wrap: wrap;
   align-items: center;
 }
