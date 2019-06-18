@@ -11,7 +11,7 @@
 
 .filterTags {
   flex-wrap: wrap;
-  align-items: center;
+  align-self: center;
 }
 
 .filterSearchBar {
