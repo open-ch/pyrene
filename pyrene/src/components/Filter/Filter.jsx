@@ -75,7 +75,7 @@ export default class Filter extends React.Component {
     () => this.props.onFilterSubmit(this.state.filterValues));
   };
 
-  updateFilterAfterClosingTag(filter) {
+  onFilterTagClose(filter) {
 
     this.setState(prevState => ({
       unAppliedValues: { ...prevState.unAppliedValues, [filter.filterKey]: clearDataType(filter) },
@@ -86,7 +86,7 @@ export default class Filter extends React.Component {
 
   getFilterTag(label, text, filter) {
     return (
-      <FilterTag key={filter.key + text} filterLabel={label} filterText={text} onClose={() => this.updateFilterAfterClosingTag(filter)} />
+      <FilterTag key={filter.key + text} filterLabel={label} filterText={text} onClose={() => this.onFilterTagClose(filter)} />
     );
   }
 
