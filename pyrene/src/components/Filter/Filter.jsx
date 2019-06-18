@@ -110,7 +110,7 @@ export default class Filter extends React.Component {
           case 'text':
             return _this.getFilterTag(_this.getLabel(key), value, filter);
           case 'singleSelect':
-            return _this.getFilterTag(_this.getLabel(key), value.value, filter);
+            return _this.getFilterTag(_this.getLabel(key), value.label, filter);
           case 'multiSelect':
             if (Object.values(value).length > 0) {
               return _this.getFilterTag(_this.getLabel(key), Object.values(value).map(option => option.label).join(', '), filter);
