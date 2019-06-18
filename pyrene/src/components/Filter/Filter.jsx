@@ -84,22 +84,11 @@ export default class Filter extends React.Component {
 
   }
 
-  getFilterTag(label, text, filter) {
-    return (
-      <FilterTag key={filter.key + text} filterLabel={label} filterText={text} onClose={() => this.onFilterTagClose(filter)} />
-    );
-  }
-
-  getLabel(filterKey) {
-    return this.props.filters.find(filter => filter.filterKey === filterKey).label.toUpperCase();
-  }
-
   getFilterTags() {
     const { filterValues } = this.state;
     if (filterValues) {
       return Object.entries(filterValues).map(([key, value]) => {
-        const _this = this;
-        if (!value || value.length === 0) { return null; }
+        if (value === undefined || value === null || value.length === 0) { return null; }
 
         const filter = this.props.filters.find(f => f.filterKey === key);
         if (!filter) {
@@ -108,15 +97,16 @@ export default class Filter extends React.Component {
 
         switch (filter.type) {
           case 'text':
-            return _this.getFilterTag(_this.getLabel(key), value, filter);
+            return <FilterTag key={filter.key + value} filterLabel={filter.label} filterText={value} onClose={() => this.onFilterTagClose(filter)} />;
           case 'singleSelect':
-            return _this.getFilterTag(_this.getLabel(key), value.label, filter);
+            return <FilterTag key={filter.key + value} filterLabel={filter.label} filterText={value.label} onClose={() => this.onFilterTagClose(filter)} />;
           case 'multiSelect':
             if (Object.values(value).length > 0) {
-              return _this.getFilterTag(_this.getLabel(key), Object.values(value).map(option => option.label).join(', '), filter);
+              return <FilterTag key={filter.key + value} filterLabel={filter.label} filterText={Object.values(value).map(option => option.label).join(', ')} onClose={() => this.onFilterTagClose(filter)} />;
             }
             break;
           default:
+            // eslint-disable-next-line no-console
             console.error('Unsupported filter type');
         }
 
