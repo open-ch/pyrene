@@ -4,20 +4,35 @@ import PropTypes from 'prop-types';
 import './filter.css';
 import FilterPopoverButton from './FilterPopOverButton/FilterPopoverButton';
 
-const initDataType = (type) => {
-  switch (type) {
+const initDataType = (filter) => {
+  switch (filter.type) {
     case 'singleSelect':
-      return '';
-    case 'text':
-      return '';
+      return filter.defaultValue ? filter.options.filter(o => o.value === filter.defaultValue).pop() : null;
     case 'multiSelect':
-      return [];
+      return filter.defaultValue ? filter.options.filter(option => filter.defaultValue.includes(option.value)) : [];
+    case 'text':
+      return filter.defaultValue ? filter.defaultValue : '';
     default:
       return null;
   }
 };
 
-const initFilterState = filters => filters.reduce((accumulator, currentValue) => ({ ...accumulator, [currentValue.filterKey]: initDataType(currentValue.type) }), {});
+
+const clearDataType = (filter) => {
+  switch (filter.type) {
+    case 'singleSelect':
+      return null;
+    case 'multiSelect':
+      return [];
+    case 'text':
+      return '';
+    default:
+      return null;
+  }
+};
+
+const initFilterState = filters => filters.reduce((accumulator, currentValue) => ({ ...accumulator, [currentValue.filterKey]: initDataType(currentValue) }), {});
+const clearFilterState = filters => filters.reduce((accumulator, currentValue) => ({ ...accumulator, [currentValue.filterKey]: clearDataType(currentValue) }), {});
 
 /**
  * The filter is there to display large amounts of data in manageable portions.
@@ -28,7 +43,6 @@ export default class Filter extends React.Component {
 
   state = {
     displayFilterPopover: false,
-    defaultValues: initFilterState(this.props.filters), // eslint-disable-line react/no-unused-state
     filterValues: initFilterState(this.props.filters),
     unAppliedValues: initFilterState(this.props.filters),
   };
@@ -40,30 +54,16 @@ export default class Filter extends React.Component {
     }));
   };
 
-  getValueFromInput = (target) => {
-    switch (target.type) {
-      case 'checkbox':
-        return target.checked;
-      case 'singleSelect':
-        if (target.value === null) {
-          return [];
-        }
-        return target.value;
-      default:
-        return target.value;
-    }
-  };
-
   filterDidChange = (event) => {
     const target = event.target;
     this.setState(prevState => ({
-      unAppliedValues: { ...prevState.unAppliedValues, [target.name]: this.getValueFromInput(target) },
+      unAppliedValues: { ...prevState.unAppliedValues, [target.name]: target.value },
     }));
   };
 
   clearFilter = () => {
     this.setState(() => ({
-      unAppliedValues: initFilterState(this.props.filters),
+      unAppliedValues: clearFilterState(this.props.filters),
     }));
   };
 
@@ -78,18 +78,6 @@ export default class Filter extends React.Component {
   render() {
     return (
       <div styleName="filter">
-        {/* No Searchbar for now
-        <div styleName={'filterSearchBar'}>
-          <input
-            styleName={'filterSearchBarInput'}
-            type={'text'}
-            placeholder={'Search'}
-            onChange={() => null}
-            onFocus={() => null}
-          />
-          <span className={'pyreneIcon-search'} styleName={'searchIcon'} />
-        </div>
-        <div styleName="spacer" /> */}
         <FilterPopoverButton
           label="Filter"
           displayPopover={this.state.displayFilterPopover}
@@ -116,13 +104,18 @@ Filter.defaultProps = {
 Filter.propTypes = {
   /**
    * Sets the available filters.
-   * Type: [{ label: string (required), type: oneOf('singleSelect', 'multiSelect', 'text') (required), key: string (required), options: array, defaultValue: string | arrayOf string (multiSelects) }]
+   * Type: [{ label: string (required), type: oneOf('singleSelect', 'multiSelect', 'text') (required), key: string (required), options: array of values from which user can choose in single/multiselect, defaultValue: string | arrayOf string (multiSelects) }]
    */
   filters: PropTypes.arrayOf(PropTypes.shape({
     defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
     filterKey: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
-    options: PropTypes.array,
+    options: PropTypes.arrayOf(PropTypes.shape({
+      /** key for manipulation */
+      value: PropTypes.string.isRequired,
+      /** text displayed to the user in the filter dropdown */
+      label: PropTypes.string.isRequired,
+    })),
     type: PropTypes.oneOf(['singleSelect', 'multiSelect', 'text']).isRequired,
   })).isRequired,
   /**
