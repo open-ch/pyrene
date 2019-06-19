@@ -55,7 +55,7 @@ const SingleSelect = props => (
           placeholder={props.placeholder}
           options={props.options}
           value={props.value ? props.options.filter(o => o.value === props.value).pop() : null}
-          defaultValue={props.options.filter(o => o.value === props.defaultValue).pop()} // pop() -> take only last found value
+          defaultValue={props.options.filter(o => o.value === props.defaultValue).pop()}
           isClearable={props.clearable}
           isSearchable={props.searchable}
           isDisabled={props.disabled}
