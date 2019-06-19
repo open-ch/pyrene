@@ -45,7 +45,6 @@ FilterPopover.defaultProps = {};
 
 FilterPopover.propTypes = {
   filters: PropTypes.arrayOf(PropTypes.shape({
-    defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
     filterKey: PropTypes.string,
     label: PropTypes.string,
     options: PropTypes.array,

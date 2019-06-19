@@ -30,7 +30,6 @@ export default class FilterOption extends React.Component {
               options={this.props.options}
               onChange={this.props.handleFilterChange}
               value={this.props.filterValues[this.props.filterKey].length > 0 ? this.props.filterValues[this.props.filterKey] : []}
-              defaultValues={this.props.defaultValue}
               selectedOptionsInDropdown
               keepMenuOnSelect
               clearable
@@ -70,11 +69,9 @@ FilterOption.displayName = 'FilterOption';
 
 FilterOption.defaultProps = {
   options: [],
-  defaultValue: undefined,
 };
 
 FilterOption.propTypes = {
-  defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   filterKey: PropTypes.string.isRequired,
   filterValues: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.array, PropTypes.string, PropTypes.object])).isRequired,
   handleFilterChange: PropTypes.func.isRequired,
