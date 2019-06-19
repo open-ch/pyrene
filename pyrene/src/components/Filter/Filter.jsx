@@ -101,8 +101,8 @@ export default class Filter extends React.Component {
           case 'singleSelect':
             return <FilterTag key={filter.filterKey} filterLabel={filter.label} filterText={value.label} onClose={() => this.onFilterTagClose(filter)} />;
           case 'multiSelect':
-            if (Object.values(value).length > 0) {
-              return <FilterTag key={filter.filterKey} filterLabel={filter.label} filterText={Object.values(value).map(option => option.label).join(', ')} onClose={() => this.onFilterTagClose(filter)} />;
+            if (value.length > 0) {
+              return <FilterTag key={filter.filterKey} filterLabel={filter.label} filterText={value.map(option => option.label).join(', ')} onClose={() => this.onFilterTagClose(filter)} />;
             }
             break;
           default:
