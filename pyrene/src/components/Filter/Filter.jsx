@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import './filter.css';
 import FilterPopoverButton from './FilterPopOverButton/FilterPopoverButton';
+import FilterTag from './FilterTag';
 
 const initDataType = (filter) => {
   switch (filter.type) {
@@ -16,7 +17,6 @@ const initDataType = (filter) => {
       return null;
   }
 };
-
 
 const clearDataType = (filter) => {
   switch (filter.type) {
@@ -75,6 +75,47 @@ export default class Filter extends React.Component {
     () => this.props.onFilterSubmit(this.state.filterValues));
   };
 
+  onFilterTagClose(filter) {
+
+    this.setState(prevState => ({
+      unAppliedValues: { ...prevState.unAppliedValues, [filter.filterKey]: clearDataType(filter) },
+      displayFilterPopover: false,
+    }), () => this.applyFilter());
+
+  }
+
+  getFilterTags() {
+    const { filterValues } = this.state;
+    if (filterValues) {
+      return Object.entries(filterValues).map(([key, value]) => {
+        if (value === undefined || value === null || value.length === 0) { return null; }
+
+        const filter = this.props.filters.find(f => f.filterKey === key);
+        if (!filter) {
+          return null;
+        }
+
+        switch (filter.type) {
+          case 'text':
+            return <FilterTag key={filter.filterKey} filterLabel={filter.label} filterText={value} onClose={() => this.onFilterTagClose(filter)} />;
+          case 'singleSelect':
+            return <FilterTag key={filter.filterKey} filterLabel={filter.label} filterText={value.label} onClose={() => this.onFilterTagClose(filter)} />;
+          case 'multiSelect':
+            if (value.length > 0) {
+              return <FilterTag key={filter.filterKey} filterLabel={filter.label} filterText={value.map(option => option.label).join(', ')} onClose={() => this.onFilterTagClose(filter)} />;
+            }
+            break;
+          default:
+            // eslint-disable-next-line no-console
+            console.error('Unsupported filter type');
+        }
+
+        return null;
+      });
+    }
+    return null;
+  }
+
   render() {
     return (
       <div styleName="filter">
@@ -88,7 +129,11 @@ export default class Filter extends React.Component {
           onFilterClear={this.clearFilter}
           onFilterApply={this.applyFilter}
         />
+        <div styleName="filterTags">
+          {this.getFilterTags()}
+        </div>
       </div>
+
     );
   }
 

@@ -1,12 +1,18 @@
 @import '../../styles/colors.css';
 
 
-.filter {
+.filter, .filterTags {
   composes: commonFontSettings from '../../styles/common.css';
   display: flex;
   justify-content: flex-start;
+  height: 100%;
+  width: 100%;
 }
 
+.filterTags {
+  flex-wrap: wrap;
+  align-self: center;
+}
 
 .filterSearchBar {
   position: relative;
