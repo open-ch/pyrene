@@ -24,7 +24,7 @@ const SingleSelect = props => (
           components={{ LoadingIndicator }}
           placeholder={props.placeholder}
           options={props.options}
-          value={props.value ? props.options.filter(o => o.value === props.value).pop() : undefined}
+          value={props.value ? props.options.filter(o => o.value === props.value).pop() : null}
           defaultValue={props.options.filter(o => o.value === props.defaultValue).pop()}
           isClearable={props.clearable}
           isDisabled={props.disabled}
@@ -54,7 +54,7 @@ const SingleSelect = props => (
           components={{ LoadingIndicator }}
           placeholder={props.placeholder}
           options={props.options}
-          value={props.value ? props.options.filter(o => o.value === props.value).pop() : undefined}
+          value={props.value ? props.options.filter(o => o.value === props.value).pop() : null}
           defaultValue={props.options.filter(o => o.value === props.defaultValue).pop()}
           isClearable={props.clearable}
           isSearchable={props.searchable}
@@ -103,7 +103,7 @@ const SingleSelect = props => (
 SingleSelect.displayName = 'Single Select';
 
 SingleSelect.defaultProps = {
-  placeholder: 'Select',
+  placeholder: '',
   name: '',
   creatable: false,
   disabled: false,
