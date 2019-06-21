@@ -18,7 +18,7 @@ const TimeRangeSelectionDropdown = (props) => {
   return (
     <SingleSelect
       options={options}
-      onChange={({ target }) => onSelect(target.value.value)}
+      onChange={value => onSelect(value.value)}
       disabled={disabled}
       value={timeRange}
     />

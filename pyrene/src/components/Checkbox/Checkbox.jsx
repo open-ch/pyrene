@@ -64,6 +64,7 @@ class Checkbox extends Component {
       invalid: this.props.invalid && !this.props.value,
       disabled: this.props.disabled,
     };
+
     const rand = Math.floor(Math.random() * 1e10);
     return (
       <div
@@ -78,7 +79,7 @@ class Checkbox extends Component {
           styleName="checkbox"
           type="checkbox"
           checked={this.props.value}
-          onChange={!this.props.disabled ? this.props.onChange : () => {}}
+          onChange={!this.props.disabled ? event => this.props.onChange(event.target.checked, event) : () => {}}
           onClick={e => e.stopPropagation()}
           name={this.props.name}
         />
