@@ -20,7 +20,7 @@ function getExamples() {
     .map(category => ({
       category: category,
       linkToPath: `/${components
-        .filter(component => component.category === category)[0].name}`,
+        .filter(component => component.category === category[0].name)}`,
       elements: components
         .filter(component => component.category === category)
         .map(component => ({ name: component.name, linkToPath: component.linkToPath })),

@@ -13,7 +13,10 @@ export default class SideBarMenuSection extends React.Component {
 
     this.state = {
       open: false,
+      // TODO momentan hard-coded
+      elementOpen: { Other: false, Simple: false },
       sectionContentWrapperHeight: 0,
+      sectionElementContentWrapperHeight: 0,
     };
   }
 
@@ -22,7 +25,7 @@ export default class SideBarMenuSection extends React.Component {
     if (Object.keys(refs).find(k => refs[k].parentElement.className === 'activeSideBar')) {
       this.setState({
         open: true,
-        sectionContentWrapperHeight: this.props.sectionElements.length * 48 + 32,
+        sectionContentWrapperHeight: this.calculateSectionContentWrapperHeight(),
       });
     }
 
@@ -35,15 +38,49 @@ export default class SideBarMenuSection extends React.Component {
         this.setState({
           open: false,
           sectionContentWrapperHeight: 0,
+          sectionElementContentWrapperHeight: 0,
         });
         // Open Section
       } else {
         this.setState({
           open: true,
-          sectionContentWrapperHeight: this.props.sectionElements.length * 48 + 32,
+          sectionContentWrapperHeight: this.calculateSectionContentWrapperHeight() + this.calculateSectionElementContentWrapperHeight(),
         });
       }
     }
+  }
+
+  handleElementClick(key) {
+    if (this.props.sectionElements.length > 0) {
+      // Close section
+      if (this.state.elementOpen[key]) {
+        this.setState((prevState) => {
+          const elementOpen = prevState.elementOpen;
+          elementOpen[key] = false;
+          let sectionElementContentWrapperHeight = prevState.sectionElementContentWrapperHeight;
+          sectionElementContentWrapperHeight = this.calculateSectionElementContentWrapperHeight();
+          return { elementOpen, sectionElementContentWrapperHeight };
+        });
+        // Open Section
+      } else {
+        this.setState((prevState) => {
+          const elementOpen = prevState.elementOpen;
+          elementOpen[key] = true;
+          let sectionElementContentWrapperHeight = prevState.sectionElementContentWrapperHeight;
+          sectionElementContentWrapperHeight = this.calculateSectionElementContentWrapperHeight();
+          return { elementOpen, sectionElementContentWrapperHeight };
+        });
+      }
+    }
+  }
+
+  calculateSectionContentWrapperHeight() {
+    return this.props.sectionElements.length * 48 + 32 + this.state.sectionElementContentWrapperHeight;
+  }
+
+  calculateSectionElementContentWrapperHeight() {
+    return this.props.sectionElements
+      .reduce((a, b) => (this.state.elementOpen[b.category] && b.elements ? a + b.elements.length * 42 : a + 0), 0);
   }
 
   render() {
@@ -54,22 +91,39 @@ export default class SideBarMenuSection extends React.Component {
           <div className="unSelectable" styleName="sectionHead" onClick={() => this.handleClick()}>{this.props.title}</div>
         </NavLink>
 
-        <div styleName="sectionContentWrapper" style={{ height: this.state.sectionContentWrapperHeight }}>
+        <div styleName="sectionContentWrapper" style={{ height: this.state.sectionContentWrapperHeight + this.state.sectionElementContentWrapperHeight }}>
           {this.props.sectionElements.map((element, index) => (
-            <NavLink to={element.linkToPath} activeClassName="activeSideBar" key={`${this.props.title}${element.category}`}>
-              <div
-                className="unSelectable"
-                styleName={classNames('sectionElement', { disabled: element.linkToPath === '#' })}
-                key={element.category}
-                ref={`ref${index}`}
-              >
-                {element.category}
-                {element.linkToPath === '#' && <span>Coming Soon</span>}
-              </div>
-            </NavLink>
+            [
+              <NavLink to={element.linkToPath} activeClassName="activeSideBar" key={`${this.props.title}${element.category}`}>
+                <div
+                  className="unSelectable"
+                  styleName={classNames('sectionElement', { disabled: element.linkToPath === '#' })}
+                  key={element.category}
+                  ref={`ref${index}`}
+                  onClick={() => this.handleElementClick(element.category)}
+                >
+                  {element.category}
+                  {element.linkToPath === '#' && <span>Coming Soon</span>}
+                </div>
+              </NavLink>,
+              (element.elements && element.elements.length > 0 && this.state.elementOpen[element.category])
+                && element.elements.map((subElement, subIndex) => (
+                  (
+                    <NavLink to={subElement.linkToPath} activeClassName="activeSideBar" key={`${this.props.title}${subElement.name}`}>
+                      <div
+                        className="unSelectable"
+                        styleName={classNames('sectionSubElement', { disabled: subElement.linkToPath === '#' })}
+                        key={subElement.name}
+                        ref={`ref${subIndex}`}
+                      >
+                        {subElement.name}
+                        {subElement.linkToPath === '#' && <span>Coming Soon</span>}
+                      </div>
+                    </NavLink>
+                  ))),
+            ]
           ))}
         </div>
-
       </div>
     );
   }
