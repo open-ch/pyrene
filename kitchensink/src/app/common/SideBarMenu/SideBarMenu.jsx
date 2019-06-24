@@ -5,6 +5,29 @@ import SideBarMenuSection from './SideBarMenuSection';
 
 import './sideBarMenu.css';
 
+function getExamples() {
+  const otherSectionName = 'Other';
+  const components = Object.values(Components)
+    .filter(component => examples[component.name])
+    .map(component => ({ category: component.category === undefined ? otherSectionName : component.category, name: component.displayName, linkToPath: `/${component.name}` }))
+    .sort((a, b) => a.name.localeCompare(b.name));
+  let categories = components
+    .map(component => component.category)
+    .filter((it, i, ar) => ar.indexOf(it) === i)
+    .sort((a, b) => a.localeCompare(b));
+  categories.push(categories.splice(categories.indexOf(otherSectionName), 1)[0]);
+  categories = categories
+    .map(category => ({
+      category: category,
+      linkToPath: `/${components
+        .filter(component => component.category === category)[0].name}`,
+      elements: components
+        .filter(component => component.category === category)
+        .map(component => ({ name: component.name, linkToPath: component.linkToPath })),
+    }));
+  return categories;
+}
+
 const SideBarMenu = () => (
   <div styleName="sideBar_menu_container">
     <div styleName="main">
@@ -12,22 +35,18 @@ const SideBarMenu = () => (
       <SideBarMenuSection
         title="Foundations"
         sectionElements={[
-          { name: 'Colors', linkToPath: '/colors' },
-          { name: 'Icons', linkToPath: '/icons' }]}
+          { category: 'Colors', linkToPath: '/colors' },
+          { category: 'Icons', linkToPath: '/icons' }]}
       />
       <SideBarMenuSection
         title="Components"
-        sectionElements={
-          Object.values(Components)
-            .filter(component => examples[component.name])
-            .map(component => ({ name: component.displayName, linkToPath: `/${component.name}` }))
-            .sort((a, b) => a.name.localeCompare(b.name))}
+        sectionElements={getExamples()}
       />
       <SideBarMenuSection
         title="Cookbooks"
         sectionElements={[
-          { name: 'Form', linkToPath: '/form' },
-          { name: 'Pyrene', linkToPath: '/pyrene' },
+          { category: 'Form', linkToPath: '/form' },
+          { category: 'Pyrene', linkToPath: '/pyrene' },
         ]}
       />
     </div>

@@ -56,14 +56,14 @@ export default class SideBarMenuSection extends React.Component {
 
         <div styleName="sectionContentWrapper" style={{ height: this.state.sectionContentWrapperHeight }}>
           {this.props.sectionElements.map((element, index) => (
-            <NavLink to={element.linkToPath} activeClassName="activeSideBar" key={`${this.props.title}${element.name}`}>
+            <NavLink to={element.linkToPath} activeClassName="activeSideBar" key={`${this.props.title}${element.category}`}>
               <div
                 className="unSelectable"
                 styleName={classNames('sectionElement', { disabled: element.linkToPath === '#' })}
-                key={element.name}
+                key={element.category}
                 ref={`ref${index}`}
               >
-                {element.name}
+                {element.category}
                 {element.linkToPath === '#' && <span>Coming Soon</span>}
               </div>
             </NavLink>
@@ -85,8 +85,12 @@ SideBarMenuSection.defaultProps = {
 SideBarMenuSection.propTypes = {
   linkToPath: PropTypes.string,
   sectionElements: PropTypes.arrayOf(PropTypes.shape({
+    category: PropTypes.string,
+    elements: PropTypes.arrayOf(PropTypes.shape({
+      linkToPath: PropTypes.string,
+      name: PropTypes.string,
+    })),
     linkToPath: PropTypes.string,
-    name: PropTypes.string,
   })).isRequired,
   title: PropTypes.string.isRequired,
 };
