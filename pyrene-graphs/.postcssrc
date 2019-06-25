@@ -1,0 +1,11 @@
+{
+  "warnings": true,
+  "plugins": {
+    "postcss-import": {},
+    "postcss-nesting": {},
+    "autoprefixer": {},
+    "postcss-custom-properties": {
+      "preserve": false
+    }
+  }
+}
