@@ -26,6 +26,7 @@ export default class SideBarMenuSection extends React.Component {
       this.setState({
         open: true,
         sectionContentWrapperHeight: this.calculateSectionContentWrapperHeight(),
+        sectionElementContentWrapperHeight: this.calculateSectionElementContentWrapperHeight(),
       });
     }
 
@@ -44,7 +45,8 @@ export default class SideBarMenuSection extends React.Component {
       } else {
         this.setState({
           open: true,
-          sectionContentWrapperHeight: this.calculateSectionContentWrapperHeight() + this.calculateSectionElementContentWrapperHeight(),
+          sectionContentWrapperHeight: this.calculateSectionContentWrapperHeight(),
+          sectionElementContentWrapperHeight: this.calculateSectionElementContentWrapperHeight(),
         });
       }
     }
@@ -57,8 +59,7 @@ export default class SideBarMenuSection extends React.Component {
         this.setState((prevState) => {
           const elementOpen = prevState.elementOpen;
           elementOpen[key] = false;
-          let sectionElementContentWrapperHeight = prevState.sectionElementContentWrapperHeight;
-          sectionElementContentWrapperHeight = this.calculateSectionElementContentWrapperHeight();
+          const sectionElementContentWrapperHeight = this.calculateSectionElementContentWrapperHeight();
           return { elementOpen, sectionElementContentWrapperHeight };
         });
         // Open Section
@@ -66,8 +67,7 @@ export default class SideBarMenuSection extends React.Component {
         this.setState((prevState) => {
           const elementOpen = prevState.elementOpen;
           elementOpen[key] = true;
-          let sectionElementContentWrapperHeight = prevState.sectionElementContentWrapperHeight;
-          sectionElementContentWrapperHeight = this.calculateSectionElementContentWrapperHeight();
+          const sectionElementContentWrapperHeight = this.calculateSectionElementContentWrapperHeight();
           return { elementOpen, sectionElementContentWrapperHeight };
         });
       }
