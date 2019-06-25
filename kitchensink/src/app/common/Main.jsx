@@ -2,7 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Route, Switch } from 'react-router-dom';
 import Components from 'pyrene/dist/pyrene.dev';
+import ChartComponents from 'pyrene-graphs/dist/pyrene-graphs.dev';
 import examples from 'pyrene/dist/pyrene.examples';
+import chartExamples from 'pyrene-graphs/dist/pyrene-graphs.examples';
 import packageJson from '../../../package.json';
 import Logo from './Logo';
 import SideBarMenu from './SideBarMenu/SideBarMenu';
@@ -28,6 +30,9 @@ export default class Main extends React.PureComponent {
       searchBarValue = this.props.location.pathname.split('search/')[1];
     }
 
+    const components = [...Object.values(Components), ...Object.values(ChartComponents)];
+    const exampleComponents = { ...examples, ...chartExamples };
+
     return (
       <div styleName="mainContainer">
         <div styleName="leftContainer">
@@ -45,8 +50,8 @@ export default class Main extends React.PureComponent {
             <Route path="/form" component={FormUsage} />
             <Route path="/pyrene" component={PyreneTutorial} />
 
-            {Object.values(Components)
-              .filter(component => examples[component.name])
+            {components
+              .filter(component => exampleComponents[component.name])
               .map(component => (
                 <Route
                   key={component.name}
@@ -55,7 +60,7 @@ export default class Main extends React.PureComponent {
                     <ComponentPage
                       {...routeProps}
                       component={component}
-                      examples={examples[component.name]}
+                      examples={exampleComponents[component.name]}
                     />
                   )}
                 />

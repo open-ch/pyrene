@@ -1,14 +1,18 @@
 import React from 'react';
 import Components from 'pyrene/dist/pyrene.dev';
 import examples from 'pyrene/dist/pyrene.examples';
+import ChartComponents from 'pyrene-graphs/dist/pyrene-graphs.dev';
+import chartExamples from 'pyrene-graphs/dist/pyrene-graphs.examples';
 import SideBarMenuSection from './SideBarMenuSection';
 
 import './sideBarMenu.css';
 
 function getExamples() {
   const otherSectionName = 'Other';
-  const components = Object.values(Components)
-    .filter(component => examples[component.name])
+  let components = [...Object.values(Components), ...Object.values(ChartComponents)];
+  const exampleComponents = { ...examples, ...chartExamples };
+  components = components
+    .filter(component => exampleComponents[component.name])
     .map(component => ({ category: component.category === undefined ? otherSectionName : component.category, name: component.displayName, linkToPath: `/${component.name}` }))
     .sort((a, b) => a.name.localeCompare(b.name));
   let categories = components
