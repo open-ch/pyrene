@@ -13,8 +13,7 @@ export default class SideBarMenuSection extends React.Component {
 
     this.state = {
       open: false,
-      // TODO momentan hard-coded
-      elementOpen: { Other: false, Simple: false },
+      elementOpen: {},
       sectionContentWrapperHeight: 0,
       sectionElementContentWrapperHeight: 0,
     };
