@@ -19,7 +19,7 @@ const FilterPopover = props => (
             <Collapsible
               align="end"
               labelCollapsed="More Filter Options"
-              labelExpanded="Less Filter Options"
+              labelExpanded="Fewer Filter Options"
               renderCallback={() => props.filters.slice(6).map(filter => (
                 <FilterOption {...filter} handleFilterChange={props.handleFilterChange} filterValues={props.filterValues} key={filter.filterKey} />
               ))}
