@@ -52,8 +52,12 @@ const getCombinedFilterFunc = (filterDefinitions, filterValues) => data => filte
   .reduce((acc, f) => acc && getSingleFilterFunc(f, filterValues[f.accessor])(data), true);
 
 const filter = (filterDefinitions, filterValues, data) => {
-  const combinedFilter = getCombinedFilterFunc(filterDefinitions, filterValues);
-  return data.filter(d => combinedFilter(d));
+  if (filterValues) {
+    const combinedFilter = getCombinedFilterFunc(filterDefinitions, filterValues);
+    return data.filter(d => combinedFilter(d));
+  }
+  return data;
+
 };
 
 const getOptionsFromData = (optionsAccessors, data) => {
