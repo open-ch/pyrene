@@ -1,0 +1,53 @@
+.wrapper {
+  display: inline-flex;
+  flex-direction: row;
+  background-color: #f2f4f5;
+  height: 20px;
+  border-radius: 2px;
+  font-family: AvenirNext;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  margin-top: 4px;
+  margin-bottom: 4px;
+  margin-left: 8px;
+  text-overflow: ellipsis;
+  max-width: 336px;
+}
+
+.label {
+  font-size: 10px;
+  font-weight: 600;
+  color: #808892;
+  padding-right: 8px;
+  padding-left: 8px;
+  align-self: center;
+  text-transform: uppercase;
+}
+
+.text {
+  line-height: 18px;
+  font-size: 13px;
+  font-weight: normal;
+  color: #00152c;
+  padding-right: 8px;
+  align-self: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.clearIcon {
+  font-size: 13px;
+  color: var(--neutral-300);
+  padding: 4px;
+  display: flex;
+  align-self: center;
+  justify-content: center;
+}
+
+.clearIcon:hover {
+  color: var(--danger-fg);
+  cursor: pointer;
+}

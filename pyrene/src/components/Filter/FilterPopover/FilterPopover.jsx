@@ -19,7 +19,7 @@ const FilterPopover = props => (
             <Collapsible
               align="end"
               labelCollapsed="More Filter Options"
-              labelExpanded="Less Filter Options"
+              labelExpanded="Fewer Filter Options"
               renderCallback={() => props.filters.slice(6).map(filter => (
                 <FilterOption {...filter} handleFilterChange={props.handleFilterChange} filterValues={props.filterValues} key={filter.filterKey} />
               ))}
@@ -45,13 +45,12 @@ FilterPopover.defaultProps = {};
 
 FilterPopover.propTypes = {
   filters: PropTypes.arrayOf(PropTypes.shape({
-    defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
     filterKey: PropTypes.string,
     label: PropTypes.string,
     options: PropTypes.array,
     type: PropTypes.string,
   })).isRequired,
-  filterValues: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.array, PropTypes.string])).isRequired,
+  filterValues: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.array, PropTypes.string, PropTypes.object])).isRequired,
   handleFilterChange: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,
   onFilterApply: PropTypes.func.isRequired,

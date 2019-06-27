@@ -1,12 +1,37 @@
 @import '../../styles/colors.css';
 
 
-.filter {
+.filter, .filterTags {
   composes: commonFontSettings from '../../styles/common.css';
   display: flex;
   justify-content: flex-start;
+  height: 100%;
+  width: 100%;
 }
 
+.filterTags {
+  flex-wrap: wrap;
+  align-self: center;
+}
+
+.clearAllTag {
+  border-radius: 2px;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  margin-top: 4px;
+  margin-bottom: 4px;
+  margin-left: 16px;
+  text-overflow: ellipsis;
+  font-size: 13px;
+  align-self: center;
+}
+
+.clearAllTag:hover {
+  color: var(--danger-fg);
+  cursor: pointer;
+}
 
 .filterSearchBar {
   position: relative;

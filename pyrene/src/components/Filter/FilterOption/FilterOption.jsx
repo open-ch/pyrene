@@ -16,7 +16,7 @@ export default class FilterOption extends React.Component {
               name={this.props.filterKey}
               options={this.props.options}
               onChange={this.props.handleFilterChange}
-              value={this.props.filterValues[this.props.filterKey] ? this.props.filterValues[this.props.filterKey].value : this.props.defaultValue}
+              value={this.props.filterValues[this.props.filterKey] ? this.props.filterValues[this.props.filterKey].value : null}
               clearable
               searchable
             />
@@ -27,8 +27,7 @@ export default class FilterOption extends React.Component {
               name={this.props.filterKey}
               options={this.props.options}
               onChange={this.props.handleFilterChange}
-              value={this.props.filterValues[this.props.filterKey].length > 0 ? this.props.filterValues[this.props.filterKey] : null}
-              defaultValues={this.props.defaultValue}
+              value={this.props.filterValues[this.props.filterKey].length > 0 ? this.props.filterValues[this.props.filterKey] : []}
               selectedOptionsInDropdown
               keepMenuOnSelect
               clearable
@@ -39,8 +38,7 @@ export default class FilterOption extends React.Component {
             <TextField
               name={this.props.filterKey}
               onChange={this.props.handleFilterChange}
-              placeholder="Type"
-              value={this.props.filterValues[this.props.filterKey] ? this.props.filterValues[this.props.filterKey] : this.props.defaultValue}
+              value={this.props.filterValues[this.props.filterKey] !== null ? this.props.filterValues[this.props.filterKey] : ''}
             />
           );
         default:
@@ -68,13 +66,11 @@ FilterOption.displayName = 'FilterOption';
 
 FilterOption.defaultProps = {
   options: [],
-  defaultValue: undefined,
 };
 
 FilterOption.propTypes = {
-  defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   filterKey: PropTypes.string.isRequired,
-  filterValues: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.array, PropTypes.string])).isRequired,
+  filterValues: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.array, PropTypes.string, PropTypes.object])).isRequired,
   handleFilterChange: PropTypes.func.isRequired,
   label: PropTypes.string.isRequired,
   options: PropTypes.array, // eslint-disable-line react/forbid-prop-types
