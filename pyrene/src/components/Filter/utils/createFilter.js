@@ -5,7 +5,7 @@ const isNullFilter = (type, value) => {
     case 'text':
       return value === null || value === '';
     case 'singleSelect':
-      return typeof value === 'undefined' || typeof value.value === 'undefined';
+      return !value;
     case 'multiSelect':
       return typeof value === 'undefined' || value.length === 0;
     default:
@@ -32,7 +32,7 @@ const getSingleFilterFunc = (filterDefinition, filterValue) => (data) => {
         ? filterDefinition.customFilter
         : getEqualFunc(filterDefinition.accessor);
 
-      return filterFunc(filterValue.value, data);
+      return filterFunc(filterValue, data);
     }
     case 'multiSelect': {
       const filterFunc = filterDefinition.customFilter
