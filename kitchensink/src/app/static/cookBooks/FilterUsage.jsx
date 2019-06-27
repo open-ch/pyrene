@@ -1,13 +1,15 @@
 import React from 'react';
 import '../../../css/componentPage.css';
 import {
-  Table, createSimpleFilter,
+  Table, createSimpleFilter, createDataFilter,
 } from 'pyrene/dist/pyrene.dev';
 
 import CodeBox from '../../common/PageElements/HowTo/CodeBox/CodeBox';
 import Paragraph from '../../common/PageElements/Paragraph/Paragraph';
 import DescriptionBox from '../../common/PageElements/DescriptionBox/DescriptionBox';
 import DisplayBox from '../../common/PageElements/HowTo/DisplayBox/DisplayBox';
+
+/* eslint-disable react/no-multi-comp */
 
 const data = [
   {
@@ -36,7 +38,7 @@ const columns = [
 ];
 
 
-class FilteredTable extends React.Component {
+class SimpleFilteredTable extends React.Component {
 
      filters = [{
        type: 'multiSelect',
@@ -80,6 +82,40 @@ class FilteredTable extends React.Component {
         />
       );
     }
+
+}
+
+
+class DataFilteredTable extends React.Component {
+
+     filters = [{
+       type: 'multiSelect',
+       label: 'City',
+       accessor: 'city',
+       optionsAccessors: { value: d => d.city, label: d => d.city.toUpperCase() },
+     }, {
+       type: 'text',
+       label: 'Name',
+       accessor: 'name',
+     }];
+
+     state = {
+       filterValues: {},
+     };
+
+     render() {
+       const { filteredData, filterProps } = createDataFilter(this.filters, data);
+
+       return (
+         <Table
+           columns={columns}
+           data={filteredData(this.state.filterValues)}
+           keyField="id"
+           filters={filterProps}
+           onFilterChange={filterValues => this.setState({ filterValues })}
+         />
+       );
+     }
 
 }
 
@@ -132,6 +168,40 @@ class FilteredTable extends React.Component {
 }
 `;
 
+const DataFilterCode = `class DataFilteredTable extends React.Component {
+
+     filters = [{
+       type: 'multiSelect',
+       label: 'City',
+       accessor: 'city',
+       optionsAccessors: { value: d => d.city, label: d => d.city.toUpperCase() },
+     }, {
+       type: 'text',
+       label: 'Name',
+       accessor: 'name',
+     }];
+
+     state = {
+       filterValues: {},
+     };
+
+     render() {
+       const { filteredData, filterProps } = createDataFilter(this.filters, data);
+
+       return (
+         <Table
+           columns={columns}
+           data={filteredData(this.state.filterValues)}
+           keyField="id"
+           filters={filterProps}
+           onFilterChange={filterValues => this.setState({ filterValues })}
+         />
+       );
+     }
+
+}
+`;
+
 
 const FilterUsage = () => (
   <div styleName="page">
@@ -139,14 +209,14 @@ const FilterUsage = () => (
       <div styleName="title">Filter</div>
       <div styleName="description">
         <p>
-In order to display filtered data, a filter needs to be connected, with e.g., a Table.
+In order to display filtered data, a filter needs to be connected, with e.g., a Table, there are multiple ways to achieve that, depending on your use case.
         </p>
       </div>
       <div className="topicContent">
-        <Paragraph title="Getting started">
+        <Paragraph title="Simple Filter">
           <DescriptionBox>
             <p>
-            Start by starting
+            Based on filter definitions, the filter input fields and a filter function is provided:
             </p>
           </DescriptionBox>
           <CodeBox>
@@ -156,7 +226,23 @@ In order to display filtered data, a filter needs to be connected, with e.g., a 
             Here we go, try it out!
           </DescriptionBox>
           <DisplayBox>
-            <FilteredTable />
+            <SimpleFilteredTable />
+          </DisplayBox>
+        </Paragraph>
+        <Paragraph title="Data Filter">
+          <DescriptionBox>
+            <p>
+            Based on filter definitions and data, filter options and matching data is returned:
+            </p>
+          </DescriptionBox>
+          <CodeBox>
+            {DataFilterCode}
+          </CodeBox>
+          <DescriptionBox>
+            Here we go, try it out!
+          </DescriptionBox>
+          <DisplayBox>
+            <DataFilteredTable />
           </DisplayBox>
         </Paragraph>
       </div>
