@@ -126,7 +126,7 @@ export default class Filter extends React.Component {
       if (tags.some(el => el !== null)) {
         return (
           <div styleName="filterTags">
-            <div>{tags}</div>
+            <div styleName="filterTagsValues">{tags}</div>
             <div styleName="clearAllTag" onClick={() => this.onClearAll()}>Clear All</div>
           </div>
         );
