@@ -84,10 +84,20 @@ export default class Filter extends React.Component {
 
   }
 
+  onClearAll = () => {
+    this.setState( () => ({
+      unAppliedValues: clearFilterState(this.props.filters),
+      displayFilterPopover: false,
+    }), () => this.applyFilter());
+  };
+
+
   getFilterTags() {
     const { filterValues } = this.state;
+
     if (filterValues) {
-      return Object.entries(filterValues).map(([key, value]) => {
+
+      const tags = Object.entries(filterValues).map(([key, value]) => {
         if (value === undefined || value === null || value.length === 0) { return null; }
 
         const filter = this.props.filters.find(f => f.filterKey === key);
@@ -112,6 +122,16 @@ export default class Filter extends React.Component {
 
         return null;
       });
+
+      if (tags.some(el => el !== null)) {
+        return (
+          <div styleName="filterTags">
+            <div>{tags}</div>
+            <div styleName="clearAllTag" onClick={() => this.onClearAll()}>Clear All</div>
+          </div>
+        );
+
+      }
     }
     return null;
   }
