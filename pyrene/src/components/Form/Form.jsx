@@ -103,9 +103,9 @@ class Form extends React.Component {
     }));
   };
 
-  handleInputChange = (value, key, event) => {
+  handleInputChange = (value, key, type) => {
 
-    const newValue = this.getValueFromInput(value, key, event.type);
+    const newValue = this.getValueFromInput(value, key, type);
 
     if (typeof this.props.onChange === 'function') {
       this.setState(prevState => ({
