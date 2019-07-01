@@ -3,7 +3,6 @@ import CleanWebpackPlugin from 'clean-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin';
 import TerserPlugin from 'terser-webpack-plugin';
-import CopyWebpackPlugin from 'copy-webpack-plugin';
 
 const production = process.env.NODE_ENV === 'production';
 
@@ -60,9 +59,6 @@ const config = {
       filename: 'pyrene-graphs.css',
     }),
     new OptimizeCSSAssetsPlugin({}),
-    new CopyWebpackPlugin([
-      { from: 'src/styles/colors.css', to: OUTPUT_PATH, flatten: true },
-    ]),
   ],
   optimization: {
     minimizer: [
