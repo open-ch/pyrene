@@ -75,7 +75,7 @@ const config = {
       template: 'src/index.html',
     }),
     new MiniCssExtractPlugin({
-      filename: 'kitchensink.css',
+      filename: 'tuktwo.css',
     }),
     new OptimizeCSSAssetsPlugin({}),
   ],
