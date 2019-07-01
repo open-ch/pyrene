@@ -13,7 +13,7 @@ function getExamples() {
   const exampleComponents = { ...examples, ...chartExamples };
   components = components
     .filter(component => exampleComponents[component.name])
-    .map(component => ({ category: component.category === undefined ? otherSectionName : component.category, name: component.displayName, linkToPath: `/${component.name}` }))
+    .map(component => ({ category: exampleComponents[component.name].category === undefined ? otherSectionName : exampleComponents[component.name].category, name: component.displayName, linkToPath: `/${component.name}` }))
     .sort((a, b) => a.name.localeCompare(b.name));
   let categories = components
     .map(component => component.category)
