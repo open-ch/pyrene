@@ -38,7 +38,7 @@ const config = {
             loader: 'css-loader',
             options: {
               modules: true,
-              localIdentName: 'pyrene-[name]__[local]--[hash:base64:10]',
+              localIdentName: 'pyrene-graphs-[name]__[local]--[hash:base64:10]',
               sourceMap: !production,
             },
           },
@@ -57,7 +57,7 @@ const config = {
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: 'pyrene.css',
+      filename: 'pyrene-graphs.css',
     }),
     new OptimizeCSSAssetsPlugin({}),
     new CopyWebpackPlugin([
