@@ -286,7 +286,7 @@ export default class Table extends React.Component {
                     <Checkbox
                       disabled={!enabled}
                       value={props.checked}
-                      onChange={({ event }) => {
+                      onChange={(value, event) => {
                         const { shiftKey } = event;
                         event.stopPropagation();
                         const key = props.row[this.props.keyField];

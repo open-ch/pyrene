@@ -64,7 +64,6 @@ class Checkbox extends Component {
       invalid: this.props.invalid && !this.props.value,
       disabled: this.props.disabled,
     };
-
     const rand = Math.floor(Math.random() * 1e10);
     return (
       <div
