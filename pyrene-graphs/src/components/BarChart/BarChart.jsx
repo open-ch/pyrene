@@ -41,8 +41,6 @@ export default class BarChart extends React.Component {
 
 BarChart.displayName = 'Bar Chart';
 
-BarChart.category = 'Chart';
-
 BarChart.propTypes = {
   /**
    * Sets the content to be rendered inside the component.
