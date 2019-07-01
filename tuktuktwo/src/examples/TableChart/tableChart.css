@@ -1,0 +1,56 @@
+@import 'pyrene/dist/colors';
+
+.tableChart {
+  color: #1d273b;
+  position: relative;
+  vertical-align: text-top;
+  width: 100%;
+}
+
+.tableBody {
+  border-collapse: collapse;
+  /* width: 100%; */
+  table-layout:fixed;
+}
+
+.tableRow {
+  border-bottom: 1px solid var(--border);
+  background-color: #ffffff;
+  display: flex;
+  line-height: 18px;
+  padding-top: 7px;
+  padding-bottom: 6px; /* +1px border*/
+  font-size: 13px;
+}
+
+.tableRow:first-child {
+  border-top: 1px solid var(--border);
+  padding-top: 6px; /* +1px border*/
+}
+
+.tableCellKey {
+  width: 256px;
+  /* min-width: 256px; */
+  font-weight: 600; /* demibold */
+  padding-left: 8px;
+  padding-right: 16px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: top;
+}
+
+.tableCellValue {
+  width: 100%;
+  word-wrap: break-word;
+  right: 8px;
+}
+
+.tableTitle {
+  margin-bottom: 16px;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--text);
+  text-transform: capitalize;
+}
