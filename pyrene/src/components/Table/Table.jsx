@@ -170,7 +170,7 @@ export default class Table extends React.Component {
     }
   };
 
-  toggleSelection = (key, shift, row) => {
+  toggleSelection = (key, row) => {
     // start off with the existing state
     let selection = [...this.state.selection];
     const enabled = this.props.rowSelectableCallback(row);
@@ -286,11 +286,9 @@ export default class Table extends React.Component {
                     <Checkbox
                       disabled={!enabled}
                       value={props.checked}
-                      onChange={(value, event) => {
-                        const { shiftKey } = event;
-                        event.stopPropagation();
+                      onChange={() => {
                         const key = props.row[this.props.keyField];
-                        this.toggleSelection(key, shiftKey, props.row);
+                        this.toggleSelection(key, props.row);
                       }}
                     />
                   );
