@@ -15,10 +15,10 @@ describe('<Checkbox />', () => {
     const onChange = jest.fn();
     const rendered = shallow(<Checkbox {...props} onChange={onChange} />);
 
-    rendered.find('input[type="checkbox"]').simulate('change');
+    rendered.find('input[type="checkbox"]').simulate('change', { target: { checked: true } });
     expect(onChange).toHaveBeenCalledTimes(1);
 
-    rendered.find('input[type="checkbox"]').simulate('change');
+    rendered.find('input[type="checkbox"]').simulate('change', { target: { checked: false } });
     expect(onChange).toHaveBeenCalledTimes(2);
   });
 
