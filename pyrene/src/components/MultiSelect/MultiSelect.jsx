@@ -43,7 +43,7 @@ const MultiSelect = props => (
           isInvalid={props.invalid}
           isLoading={props.loading}
           // wrapping type and key into target so it better reflects the api that input event has (there is also event.target.name)
-          onChange={option => props.onChange(option, { target: { type: 'multiSelect', name: props.name } })}
+          onChange={option => props.onChange(option, { target: { type: 'multiSelect', name: props.name, value: option } })}
           onBlur={props.onBlur}
           onFocus={props.onFocus}
           name={props.name}
@@ -74,7 +74,7 @@ const MultiSelect = props => (
           isDisabled={props.disabled}
           isInvalid={props.invalid}
           isLoading={props.loading}
-          onChange={option => props.onChange(option, { target: { type: 'multiSelect', name: props.name } })}
+          onChange={option => props.onChange(option, { target: { type: 'multiSelect', name: props.name, value: option } })}
           onBlur={props.onBlur}
           onFocus={props.onFocus}
           name={props.name}

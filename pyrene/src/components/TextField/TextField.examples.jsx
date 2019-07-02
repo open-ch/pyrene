@@ -5,7 +5,7 @@ const examples = {
     helperLabel: 'Helper text for instructions',
     width: 500,
     value: stateProvider => stateProvider.state.value,
-    onChange: stateProvider => ({ value }) => stateProvider.setState({ value }),
+    onChange: stateProvider => value => stateProvider.setState({ value }),
   },
 };
 
