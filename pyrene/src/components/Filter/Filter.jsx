@@ -47,6 +47,7 @@ export default class Filter extends React.Component {
     unAppliedValues: initFilterState(this.props.filters),
   };
 
+  // eslint-disable-next-line react/sort-comp
   toggleFilterPopover = () => {
     this.setState(prevState => ({
       unAppliedValues: prevState.filterValues,
@@ -54,10 +55,9 @@ export default class Filter extends React.Component {
     }));
   };
 
-  filterDidChange = (event) => {
-    const target = event.target;
+  filterDidChange = (value, key) => {
     this.setState(prevState => ({
-      unAppliedValues: { ...prevState.unAppliedValues, [target.name]: target.value },
+      unAppliedValues: { ...prevState.unAppliedValues, [key]: value },
     }));
   };
 
@@ -126,7 +126,7 @@ export default class Filter extends React.Component {
       if (tags.some(el => el !== null)) {
         return (
           <div styleName="filterTags">
-            <div>{tags}</div>
+            <div styleName="filterTagsValues">{tags}</div>
             <div styleName="clearAllTag" onClick={() => this.onClearAll()}>Clear All</div>
           </div>
         );

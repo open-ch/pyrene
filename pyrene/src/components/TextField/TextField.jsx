@@ -22,7 +22,7 @@ const TextField = props => (
         name={props.name}
         placeholder={props.placeholder}
         value={props.value}
-        onChange={props.onChange}
+        onChange={event => props.onChange(event.target.value, event)}
         onBlur={props.onBlur}
         onFocus={props.onFocus}
       />

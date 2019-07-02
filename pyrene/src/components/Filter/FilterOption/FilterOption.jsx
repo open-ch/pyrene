@@ -15,7 +15,7 @@ export default class FilterOption extends React.Component {
             <SingleSelect
               name={this.props.filterKey}
               options={this.props.options}
-              onChange={this.props.handleFilterChange}
+              onChange={value => this.props.handleFilterChange(value, this.props.filterKey)}
               value={this.props.filterValues[this.props.filterKey] ? this.props.filterValues[this.props.filterKey].value : null}
               clearable
               searchable
@@ -26,7 +26,7 @@ export default class FilterOption extends React.Component {
             <MultiSelect
               name={this.props.filterKey}
               options={this.props.options}
-              onChange={this.props.handleFilterChange}
+              onChange={value => this.props.handleFilterChange(value, this.props.filterKey)}
               value={this.props.filterValues[this.props.filterKey].length > 0 ? this.props.filterValues[this.props.filterKey] : []}
               selectedOptionsInDropdown
               keepMenuOnSelect
@@ -37,7 +37,7 @@ export default class FilterOption extends React.Component {
           return (
             <TextField
               name={this.props.filterKey}
-              onChange={this.props.handleFilterChange}
+              onChange={value => this.props.handleFilterChange(value, this.props.filterKey)}
               value={this.props.filterValues[this.props.filterKey] !== null ? this.props.filterValues[this.props.filterKey] : ''}
             />
           );
