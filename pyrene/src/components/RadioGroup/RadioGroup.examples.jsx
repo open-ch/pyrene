@@ -2,7 +2,7 @@ const RadioGroup = {};
 
 RadioGroup.props = {
   options: [{ label: 'Beer 🍺', value: 'beer' }, { label: 'Coffee ☕️', value: 'coffee' }, { label: 'Coffeebeer 🍹😎', value: 'coffeebeer' }],
-  onChange: stateProvider => event => stateProvider.setState({ value: event.target.value }),
+  onChange: stateProvider => value => stateProvider.setState({ value }),
   value: stateProvider => stateProvider.state.value,
 };
 
@@ -14,7 +14,7 @@ RadioGroup.examples = [
         { label: 'Coffee', value: 'coffee' },
         { label: 'Whisky', value: 'whisky' },
         { label: 'Irish Coffee', value: 'irishcoffee' }],
-      onChange: stateProvider => value => stateProvider.setState({ value: value.target.value }),
+      onChange: stateProvider => value => stateProvider.setState({ value }),
       value: stateProvider => stateProvider.state.value,
     },
     description: '',
@@ -25,7 +25,7 @@ RadioGroup.examples = [
         { label: 'Coffee', value: 'coffee' },
         { label: 'Whisky', value: 'whisky' },
         { label: 'Irish Coffee', value: 'irishcoffee' }],
-      onChange: stateProvider => value => stateProvider.setState({ value: value.target.value }),
+      onChange: stateProvider => value => stateProvider.setState({ value }),
       value: stateProvider => stateProvider.state.value,
     },
     description: '',
