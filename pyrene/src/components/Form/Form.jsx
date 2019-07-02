@@ -103,18 +103,18 @@ class Form extends React.Component {
     }));
   };
 
-  handleInputChange = (event) => {
-    const inputName = event.target.name;
-    const newValue = this.getValueFromInput(event.target);
+  handleInputChange = (value, key, type) => {
+
+    const newValue = this.getValueFromInput(value, key, type);
 
     if (typeof this.props.onChange === 'function') {
       this.setState(prevState => ({
-        values: { ...prevState.values, [inputName]: newValue },
+        values: { ...prevState.values, [key]: newValue },
       }),
       () => this.props.onChange(this.state.values, this.setFieldValue));
     } else {
       this.setState(prevState => ({
-        values: { ...prevState.values, [inputName]: newValue },
+        values: { ...prevState.values, [key]: newValue },
       }));
     }
   };
@@ -132,24 +132,20 @@ class Form extends React.Component {
     return false;
   };
 
-  getValueFromInput = (target) => {
-    switch (target.type) {
-      case 'checkbox':
-        return target.checked;
+  getValueFromInput = (value, key, type) => {
+    switch (type) {
       case 'singleSelect':
-        if (target.value == null) {
-          return null;
-        }
-        return target.value.value;
+        // we dont need the whole option object {value: xxx, label: yyy}, we need just the value from it
+        return value ? value.value : null;
       case 'multiSelect': {
-        const selectedOptions = target.value;
-        const multiSelectName = target.name;
+        const selectedOptions = value;
+        const multiSelectName = key;
         return selectedOptions.map(selectedOption => (
           { value: selectedOption.value, label: selectedOption.label, invalid: this.validateMultiSelectOption(multiSelectName, selectedOption) }
         ));
       }
       default:
-        return target.value;
+        return value;
     }
   };
 
@@ -160,7 +156,7 @@ class Form extends React.Component {
       value: this.state.values[fieldName],
       invalid: this.shouldMarkError(fieldName, error),
       invalidLabel: error,
-      onChange: this.handleInputChange,
+      onChange: (value, event) => this.handleInputChange(value, fieldName, event.target.type),
       onBlur: this.handleBlur,
     };
 

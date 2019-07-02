@@ -93,7 +93,7 @@ class RadioGroup extends Component {
                   styleName="radioInput"
                   checked={this.props.value === option.value}
                   id={htmlId}
-                  onChange={this.props.onChange}
+                  onChange={event => this.props.onChange(event.target.value, event)}
                   type="radio"
                   value={option.value}
                   name={this.props.name}
