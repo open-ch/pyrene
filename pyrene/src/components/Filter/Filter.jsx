@@ -85,7 +85,7 @@ export default class Filter extends React.Component {
   }
 
   onClearAll = () => {
-    this.setState( () => ({
+    this.setState(() => ({
       unAppliedValues: clearFilterState(this.props.filters),
       displayFilterPopover: false,
     }), () => this.applyFilter());
@@ -176,10 +176,10 @@ Filter.propTypes = {
     filterKey: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
     options: PropTypes.arrayOf(PropTypes.shape({
-      /** key for manipulation */
-      value: PropTypes.string.isRequired,
       /** text displayed to the user in the filter dropdown */
       label: PropTypes.string.isRequired,
+      /** key for manipulation */
+      value: PropTypes.string.isRequired,
     })),
     type: PropTypes.oneOf(['singleSelect', 'multiSelect', 'text']).isRequired,
   })).isRequired,
