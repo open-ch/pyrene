@@ -36,24 +36,13 @@ export default class ComponentEditor extends React.Component {
     });
   };
 
-  getValueFromInput = (target) => {
-    switch (target.type) {
-      case 'checkbox':
-        return target.checked;
-      case 'singleSelect':
-        if (target.value == null) {
-          return null;
-        }
-        return target.value.label;
-      default:
-        return target.value;
+  handleEditorChange = (value, type, key) => {
+    let newValue = value;
+    if (type === 'singleSelect') {
+      newValue = value ? value.label : null;
     }
-  };
 
-  handleEditorChange = (event) => {
-    const inputName = event.target.name;
-    const newValue = this.getValueFromInput(event.target);
-    const changedProp = { [inputName]: newValue };
+    const changedProp = { [key]: newValue };
 
     this.setState(prevState => ({
       componentProps: { ...prevState.componentProps, ...changedProp },
@@ -63,7 +52,7 @@ export default class ComponentEditor extends React.Component {
   initField = mergedState => fieldName => ({
     name: fieldName,
     value: mergedState[fieldName],
-    onChange: this.handleEditorChange,
+    onChange: (value, event) => this.handleEditorChange(value, event.target.type, fieldName),
     disabled: Utils.isWiredProp(this.state.componentProps, fieldName),
   });
 
