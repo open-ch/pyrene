@@ -1,15 +1,12 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import BarChart from './examples/barChart';
-import AreaClosedCustom from './examples/AreaClosed';
-import TableChart from './examples/TableChart/TableChart';
+import BarTable from './examples/BarTable/BarTable';
+import examples from './examples/BarTable/BarTable.examples';
 
 ReactDOM.render(
   <div>
-    {/* <BarChart />
-    <AreaClosedCustom fillColor="red" /> */}
-    <TableChart />
+    {BarTable(examples.props)}
   </div>,
   document.getElementById('root')
 );

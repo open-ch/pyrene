@@ -28,22 +28,15 @@
   padding-top: 6px; /* +1px border*/
 }
 
-.tableCellKey {
-  width: 256px;
-  /* min-width: 256px; */
+.tableCell {
+  width: 100%;
   font-weight: 600; /* demibold */
-  padding-left: 8px;
+  padding-left: 16px;
   padding-right: 16px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   vertical-align: top;
-}
-
-.tableCellValue {
-  width: 100%;
-  word-wrap: break-word;
-  right: 8px;
 }
 
 .tableTitle {
