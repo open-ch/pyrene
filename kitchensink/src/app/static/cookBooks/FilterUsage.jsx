@@ -44,25 +44,29 @@ class SimpleFilteredTable extends React.Component {
        type: 'multiSelect',
        label: 'City',
        accessor: 'city',
+       id: 'city',
        options: [{ value: 'Zurich', label: 'Zurich' }, { value: 'Brno', label: 'Brno' }, { value: 'Taumatawhakaanhu', label: 'Taumatawhakaanhu' }],
      }, {
        type: 'singleSelect',
        label: 'Date',
        accessor: 'date',
+       id: 'date',
        options: [{ value: '-', label: 'Ongoing' }, { value: '11.6.19', label: '11.6.19' }],
      }, {
        type: 'text',
        label: 'Name',
        accessor: 'name',
+       id: 'name',
      }, {
        type: 'text',
        label: 'Reverse',
-       accessor: 'name_reverse',
+       id: 'name_reverse',
        customFilter: (filteredInput, d) => d.name.split('').reverse().join('').includes(filteredInput),
      }, {
        type: 'text',
        label: 'Secret',
        accessor: 'hidden',
+       id: 'hidden',
      }];
 
     state = {
@@ -89,14 +93,16 @@ class SimpleFilteredTable extends React.Component {
 class DataFilteredTable extends React.Component {
 
      filters = [{
-       type: 'multiSelect',
+       type: 'singleSelect',
        label: 'City',
        accessor: 'city',
+       id: 'city',
        optionsAccessors: { value: d => d.city, label: d => d.city.toUpperCase() },
      }, {
        type: 'text',
        label: 'Name',
        accessor: 'name',
+       id: 'name',
      }];
 
      state = {
@@ -104,12 +110,12 @@ class DataFilteredTable extends React.Component {
      };
 
      render() {
-       const { filteredData, filterProps } = createDataFilter(this.filters, data);
+       const { dataFilterFunc, filterProps } = createDataFilter(this.filters, data);
 
        return (
          <Table
            columns={columns}
-           data={filteredData(this.state.filterValues)}
+           data={dataFilterFunc(this.state.filterValues)}
            keyField="id"
            filters={filterProps}
            onFilterChange={filterValues => this.setState({ filterValues })}
@@ -120,44 +126,48 @@ class DataFilteredTable extends React.Component {
 }
 
 const SimpleFilterCode = `
-class FilteredTable extends React.Component {
+class SimpleFilteredTable extends React.Component {
 
-    filters = [{
-      type: 'multiSelect',
-      label: 'City',
-      accessor: 'city',
-      options: [{ value: 'Zurich', label: 'Zurich' }, { value: 'Brno', label: 'Brno' }, { value: 'Taumatawhakaanhu', label: 'Taumatawhakaanhu' }],
-    }, {
-      type: 'singleSelect',
-      label: 'Date',
-      accessor: 'date',
-      options: [{ value: '-', label: 'Ongoing' }, { value: '11.6.19', label: '11.6.19' }],
-    }, {
-      type: 'text',
-      label: 'Name',
-      accessor: 'name',
-    }, {
-      type: 'text',
-      label: 'Reverse',
-      accessor: 'name_reverse',
-      customFilter: (filteredInput, d) => d.name.split('').reverse().join('').includes(filteredInput),
-    }, {
-      type: 'text',
-      label: 'Secret',
-      accessor: 'hidden',
-    }];
+     filters = [{
+       type: 'multiSelect',
+       label: 'City',
+       accessor: 'city',
+       id: 'city',
+       options: [{ value: 'Zurich', label: 'Zurich' }, { value: 'Brno', label: 'Brno' }, { value: 'Taumatawhakaanhu', label: 'Taumatawhakaanhu' }],
+     }, {
+       type: 'singleSelect',
+       label: 'Date',
+       accessor: 'date',
+       id: 'date',
+       options: [{ value: '-', label: 'Ongoing' }, { value: '11.6.19', label: '11.6.19' }],
+     }, {
+       type: 'text',
+       label: 'Name',
+       accessor: 'name',
+       id: 'name',
+     }, {
+       type: 'text',
+       label: 'Reverse',
+       id: 'name_reverse',
+       customFilter: (filteredInput, d) => d.name.split('').reverse().join('').includes(filteredInput),
+     }, {
+       type: 'text',
+       label: 'Secret',
+       accessor: 'hidden',
+       id: 'hidden',
+     }];
 
     state = {
       filterValues: {},
     };
 
     render() {
-      const { filterFunc, filterProps } = createSimpleFilter(filters);
+      const { filterFunc, filterProps } = createSimpleFilter(this.filters);
 
       return (
         <Table
-          columns={this.props.columns}
-          data={filterFunc(this.state.filterValues, this.props.data)}
+          columns={columns}
+          data={filterFunc(this.state.filterValues, data)}
           keyField="id"
           filters={filterProps}
           onFilterChange={filterValues => this.setState({ filterValues })}
@@ -165,20 +175,21 @@ class FilteredTable extends React.Component {
       );
     }
 
-}
-`;
+}`;
 
 const DataFilterCode = `class DataFilteredTable extends React.Component {
 
      filters = [{
-       type: 'multiSelect',
+       type: 'singleSelect',
        label: 'City',
        accessor: 'city',
+       id: 'city',
        optionsAccessors: { value: d => d.city, label: d => d.city.toUpperCase() },
      }, {
        type: 'text',
        label: 'Name',
        accessor: 'name',
+       id: 'name',
      }];
 
      state = {
@@ -186,12 +197,12 @@ const DataFilterCode = `class DataFilteredTable extends React.Component {
      };
 
      render() {
-       const { filteredData, filterProps } = createDataFilter(this.filters, data);
+       const { dataFilterFunc, filterProps } = createDataFilter(this.filters, data);
 
        return (
          <Table
            columns={columns}
-           data={filteredData(this.state.filterValues)}
+           data={dataFilterFunc(this.state.filterValues)}
            keyField="id"
            filters={filterProps}
            onFilterChange={filterValues => this.setState({ filterValues })}
@@ -199,8 +210,7 @@ const DataFilterCode = `class DataFilteredTable extends React.Component {
        );
      }
 
-}
-`;
+}`;
 
 
 const FilterUsage = () => (
