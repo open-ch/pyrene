@@ -1,16 +1,16 @@
 @import '../../styles/colors.css';
 
-.pyreneLoader {
+.standaloneLoader {
   border-radius: 50%;
   border: solid transparent;
   box-sizing: border-box;
   animation: spin 1.2s cubic-bezier(.6, .14, .33, .9) infinite;
 
-  &.type-dark {
+  &.styling-dark {
     border-top-color: var(--neutral-400);
   }
 
-  &.type-light {
+  &.styling-light {
     border-top-color: var(--neutral-000);
   }
 
@@ -72,5 +72,49 @@
   &.size-xlarge {
     width: 64px;
     height: 64px;
+  }
+}
+
+.inlineLoader {
+  display: inline-block;
+  position: relative;
+  margin-left: 6px;
+  margin-right: 6px;
+  margin-bottom: 8px; /* visible dots (4px height) are one line below the actual dot */
+  vertical-align: middle;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  animation: pulse 0.9s ease alternate infinite;
+  animation-delay: 0.36s;
+}
+
+.inlineLoader::before, .inlineLoader::after  {
+  display: inline;
+  content: '';
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  animation: pulse 0.9s ease alternate infinite;
+}
+
+.inlineLoader::before {
+  left: -6px;
+  animation-delay: 0.18s;
+}
+
+.inlineLoader::after {
+  right: -6px;
+  animation-delay: 0.54s;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 4px 0 -4px var(--neutral-050);
+  }
+
+  100% {
+    box-shadow: 0 4px 0 var(--neutral-050);
   }
 }
