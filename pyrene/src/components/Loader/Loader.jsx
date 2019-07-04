@@ -10,15 +10,27 @@ import './loader.css';
  * The Loader is not a progress indicator and should not be used if the load time is to be displayed.
  */
 const Loader = props => (
-  <div styleName={classNames('canvas', { [`size-${props.size}`]: true })}>
-    <div styleName={classNames('pyreneLoader', { [`type-${props.type}`]: true }, { [`size-${props.size}`]: true })} />
-  </div>
+  <React.Fragment>
+    { props.type === 'standalone'
+    && (
+      <div styleName={classNames('canvas', { [`size-${props.size}`]: true })}>
+        <div styleName={classNames('standaloneLoader', { [`styling-${props.styling}`]: true }, { [`size-${props.size}`]: true })} />
+      </div>
+    )
+    }
+    { props.type === 'inline'
+      && (
+        <span styleName={classNames('inlineLoader')} />
+      )
+    }
+  </React.Fragment>
 );
 
 Loader.displayName = 'Loader';
 
 Loader.defaultProps = {
-  type: 'dark',
+  type: 'standalone',
+  styling: 'dark',
   size: 'medium',
 };
 
@@ -28,9 +40,13 @@ Loader.propTypes = {
    */
   size: PropTypes.oneOf(['small', 'medium', 'large', 'xlarge']),
   /**
-   * Sets the overall style.
+   * Sets the standalone color
    */
-  type: PropTypes.oneOf(['dark', 'light']),
+  styling: PropTypes.oneOf(['dark', 'light']),
+  /**
+   * Sets the type
+   */
+  type: PropTypes.oneOf(['standalone', 'inline']),
 };
 
 export default Loader;
