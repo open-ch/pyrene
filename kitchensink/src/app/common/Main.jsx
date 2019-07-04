@@ -43,9 +43,9 @@ export default class Main extends React.PureComponent {
             <Route path="/colors" component={ColorsPage} />
             <Route path="/icons" component={IconsPage} />
             <Route path="/resources" component={ResourcesPage} />
-            <Route path="/form" component={FormUsage} />
-            <Route path="/filter" component={FilterUsage} />
-            <Route path="/pyrene" component={PyreneTutorial} />
+            <Route path="/cookbook/form" component={FormUsage} />
+            <Route path="/cookbook/filter" component={FilterUsage} />
+            <Route path="/cookbook/pyrene" component={PyreneTutorial} />
 
             {Object.values(Components)
               .filter(component => examples[component.name])
