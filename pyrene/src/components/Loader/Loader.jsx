@@ -14,7 +14,7 @@ const Loader = props => (
     { props.type === 'standalone'
     && (
       <div styleName={classNames('canvas', { [`size-${props.size}`]: true })}>
-        <div styleName={classNames('standaloneLoader', { [`styling-${props.type}`]: true }, { [`size-${props.size}`]: true })} />
+        <div styleName={classNames('standaloneLoader', { [`styling-${props.styling}`]: true }, { [`size-${props.size}`]: true })} />
       </div>
     )
     }
