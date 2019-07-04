@@ -177,7 +177,7 @@ Filter.propTypes = {
    * Type: [{ label: string (required), type: oneOf('singleSelect', 'multiSelect', 'text') (required), key: string (required), options: array of values from which user can choose in single/multiselect, defaultValue: string | arrayOf string (multiSelects) }]
    */
   filters: PropTypes.arrayOf(PropTypes.shape({
-    defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
+    defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.array, PropTypes.object]),
     filterKey: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
     options: PropTypes.arrayOf(PropTypes.shape({
