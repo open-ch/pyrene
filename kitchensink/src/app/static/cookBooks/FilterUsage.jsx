@@ -45,28 +45,28 @@ class SimpleFilteredTable extends React.Component {
        label: 'City',
        accessor: 'city',
        id: 'city',
-       options: [{ value: 'Zurich', label: 'Zurich' }, { value: 'Brno', label: 'Brno' }, { value: 'Taumatawhakaanhu', label: 'Taumatawhakaanhu' }],
-     }, {
-       type: 'singleSelect',
-       label: 'Date',
-       accessor: 'date',
-       id: 'date',
-       options: [{ value: '-', label: 'Ongoing' }, { value: '11.6.19', label: '11.6.19' }],
+       defaultValue: [
+         { value: 'Zurich', label: 'Zurich' },
+         { value: 'Brno', label: 'Brno' },
+       ],
+       options: [
+         { value: 'Zurich', label: 'Zurich' },
+         { value: 'Brno', label: 'Brno' },
+         { value: 'Taumatawhakaanhu', label: 'Taumatawhakaanhu' },
+         { value: 'New York', label: 'New York' },
+       ],
      }, {
        type: 'text',
        label: 'Name',
        accessor: 'name',
        id: 'name',
+       defaultValue: 'Name',
      }, {
        type: 'text',
-       label: 'Reverse',
+       label: 'Name Reverse',
        id: 'name_reverse',
        customFilter: (filteredInput, d) => d.name.split('').reverse().join('').includes(filteredInput),
-     }, {
-       type: 'text',
-       label: 'Secret',
-       accessor: 'hidden',
-       id: 'hidden',
+       defaultValue: 'det',
      }];
 
     state = {
@@ -97,7 +97,8 @@ class DataFilteredTable extends React.Component {
        label: 'City',
        accessor: 'city',
        id: 'city',
-       optionsAccessors: { value: d => d.city, label: d => d.city.toUpperCase() },
+       optionsAccessors: { value: d => d.city, label: d => `City: ${d.city}` },
+       defaultValue: { value: 'Zurich', label: 'Zurich' },
      }, {
        type: 'text',
        label: 'Name',
@@ -128,34 +129,34 @@ class DataFilteredTable extends React.Component {
 const SimpleFilterCode = `
 class SimpleFilteredTable extends React.Component {
 
-     filters = [{
-       type: 'multiSelect',
-       label: 'City',
-       accessor: 'city',
-       id: 'city',
-       options: [{ value: 'Zurich', label: 'Zurich' }, { value: 'Brno', label: 'Brno' }, { value: 'Taumatawhakaanhu', label: 'Taumatawhakaanhu' }],
-     }, {
-       type: 'singleSelect',
-       label: 'Date',
-       accessor: 'date',
-       id: 'date',
-       options: [{ value: '-', label: 'Ongoing' }, { value: '11.6.19', label: '11.6.19' }],
-     }, {
-       type: 'text',
-       label: 'Name',
-       accessor: 'name',
-       id: 'name',
-     }, {
-       type: 'text',
-       label: 'Reverse',
-       id: 'name_reverse',
-       customFilter: (filteredInput, d) => d.name.split('').reverse().join('').includes(filteredInput),
-     }, {
-       type: 'text',
-       label: 'Secret',
-       accessor: 'hidden',
-       id: 'hidden',
-     }];
+    filters = [{
+      type: 'multiSelect',
+      label: 'City',
+      accessor: 'city',
+      id: 'city',
+      defaultValue: [
+        { value: 'Zurich', label: 'Zurich' },
+        { value: 'Brno', label: 'Brno' },
+      ],
+      options: [
+        { value: 'Zurich', label: 'Zurich' },
+        { value: 'Brno', label: 'Brno' },
+        { value: 'Taumatawhakaanhu', label: 'Taumatawhakaanhu' },
+        { value: 'New York', label: 'New York' },
+      ],
+    }, {
+      type: 'text',
+      label: 'Name',
+      accessor: 'name',
+      id: 'name',
+      defaultValue: 'Name',
+    }, {
+      type: 'text',
+      label: 'Name Reverse',
+      id: 'name_reverse',
+      customFilter: (filteredInput, d) => d.name.split('').reverse().join('').includes(filteredInput),
+      defaultValue: 'det',
+    }];
 
     state = {
       filterValues: {},
@@ -179,18 +180,20 @@ class SimpleFilteredTable extends React.Component {
 
 const DataFilterCode = `class DataFilteredTable extends React.Component {
 
-     filters = [{
-       type: 'singleSelect',
-       label: 'City',
-       accessor: 'city',
-       id: 'city',
-       optionsAccessors: { value: d => d.city, label: d => d.city.toUpperCase() },
-     }, {
-       type: 'text',
-       label: 'Name',
-       accessor: 'name',
-       id: 'name',
-     }];
+    filters = [{
+      type: 'singleSelect',
+      label: 'City',
+      accessor: 'city',
+      id: 'city',
+      optionsAccessors: { value: d => d.city, label: d => \`City: \${d.city}\` },
+      defaultValue: { value: 'Zurich', label: 'Zurich' },
+    }, {
+      type: 'text',
+      label: 'Name',
+      accessor: 'name',
+      id: 'name',
+    }];
+
 
      state = {
        filterValues: {},
@@ -219,38 +222,40 @@ const FilterUsage = () => (
       <div styleName="title">Filter</div>
       <div styleName="description">
         <p>
-In order to display filtered data, a filter needs to be connected, with e.g., a Table, there are multiple ways to achieve that, depending on your use case.
+In order to display filtered data, a filter needs to be connected, with e.g., a Table. There are multiple ways to achieve that, depending on your use case.
         </p>
       </div>
       <div className="topicContent">
         <Paragraph title="Simple Filter">
           <DescriptionBox>
             <p>
-            Based on filter definitions, the filter input fields and a filter function is provided:
+            Based on filter definitions, the filter input fields and a filter function is provided, your component only needs to store the filterValues and execute filterFunc once data or filters are changed.
             </p>
           </DescriptionBox>
           <CodeBox>
             {SimpleFilterCode}
           </CodeBox>
-          <DescriptionBox>
-            Here we go, try it out!
-          </DescriptionBox>
           <DisplayBox>
             <SimpleFilteredTable />
           </DisplayBox>
+          <DescriptionBox>
+            <p>
+              Note that you can also filter on data that is not displayed in the table as the filtering and table column definitions are kept separate.
+            </p>
+          </DescriptionBox>
         </Paragraph>
         <Paragraph title="Data Filter">
           <DescriptionBox>
             <p>
-            Based on filter definitions and data, filter options and matching data is returned:
+             If you want to automatically fill in possible options based on the available data, use createDataFilter. It will only provide options that are available in the data.
+            </p>
+            <p>
+             Since we are already passing the data to createDataFilter, the actual dataFilterFunc does not need to receive it again.
             </p>
           </DescriptionBox>
           <CodeBox>
             {DataFilterCode}
           </CodeBox>
-          <DescriptionBox>
-            Here we go, try it out!
-          </DescriptionBox>
           <DisplayBox>
             <DataFilteredTable />
           </DisplayBox>
