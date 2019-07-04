@@ -30,8 +30,8 @@ const Button = props => (
       <span styleName="label">{props.label}</span>
     </button>
     {props.loading && ((props.type === 'primary' || props.type === 'danger')
-      ? <span styleName="loader"><Loader size="small" type="light" /></span>
-      : <span styleName="loader"><Loader size="small" type="dark" /></span>)
+      ? <span styleName="loader"><Loader size="small" styling="light" /></span>
+      : <span styleName="loader"><Loader size="small" styling="dark" /></span>)
     }
   </div>
 );

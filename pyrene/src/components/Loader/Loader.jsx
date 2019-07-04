@@ -11,14 +11,18 @@ import './loader.css';
  */
 const Loader = props => (
   <React.Fragment>
-    { props.styling === 'standard' &&
-    <div styleName={classNames('canvas', { [`size-${props.size}`]: true })}>
-      <div styleName={classNames('pyreneLoader', { [`type-${props.type}`]: true }, { [`size-${props.size}`]: true })} />
-    </div>
-    } { props.styling === 'inline' &&
-      <div styleName={classNames('canvasInline')}>
-        <div styleName={classNames('pyreneInlineLoader')} />
+    { props.type === 'standalone'
+    && (
+      <div styleName={classNames('canvas', { [`size-${props.size}`]: true })}>
+        <div styleName={classNames('standaloneLoader', { [`styling-${props.type}`]: true }, { [`size-${props.size}`]: true })} />
       </div>
+    )
+    }
+    {' '}
+    { props.type === 'inline'
+      && (
+        <span styleName={classNames('inlineLoader')} />
+      )
     }
   </React.Fragment>
 );
@@ -26,9 +30,9 @@ const Loader = props => (
 Loader.displayName = 'Loader';
 
 Loader.defaultProps = {
-  type: 'dark',
+  type: 'standalone',
+  styling: 'dark',
   size: 'medium',
-  styling: 'standard',
 };
 
 Loader.propTypes = {
@@ -37,13 +41,14 @@ Loader.propTypes = {
    */
   size: PropTypes.oneOf(['small', 'medium', 'large', 'xlarge']),
   /**
-   * Sets the overall style according to the loader usage.
+   * Sets the standalone color
    */
-  styling: PropTypes.oneOf(['standard', 'inline']),
+  // eslint-disable-next-line react/no-unused-prop-types
+  styling: PropTypes.oneOf(['dark', 'light']),
   /**
-   * Sets the overall style.
+   * Sets the type (and based on type its color)
    */
-  type: PropTypes.oneOf(['dark', 'light']),
+  type: PropTypes.oneOf(['standalone', 'inline']),
 };
 
 export default Loader;
