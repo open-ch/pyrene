@@ -52,6 +52,7 @@ export const getSingleFilterFunc = (filterDefinition, filterValue) => (datum) =>
         ? filterDefinition.customFilter
         : getEqualFunc(filterDefinition.accessor);
 
+      // Merges filterFunc by filter with or (starting with false), does at least one match?
       return filterValue.reduce((acc, currValue) => acc || filterFunc(currValue.value, datum), false);
     }
     default:
@@ -65,6 +66,7 @@ export const getSingleFilterFunc = (filterDefinition, filterValue) => (datum) =>
 export const getCombinedFilterFunc = (filterDefinitions, filterValues) => datum => filterDefinitions
   .filter(f => typeof filterValues[f.id] !== 'undefined')
   .filter(f => !isNullFilter(f.type, filterValues[f.id]))
+  // Merges singleFilterFunc by filter with and (starting with true), do all match?
   .reduce((acc, f) => acc && getSingleFilterFunc(f, filterValues[f.id])(datum), true);
 
 export const filter = (filterDefinitions, filterValues, data) => {
