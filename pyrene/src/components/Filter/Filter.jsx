@@ -7,10 +7,11 @@ import FilterTag from './FilterTag';
 
 const initDataType = (filter) => {
   switch (filter.type) {
-    case 'singleSelect':
-      return filter.defaultValue ? filter.options.filter(o => o.value === filter.defaultValue).pop() : null;
+    case 'singleSelect': {
+      return filter.defaultValue ? filter.options.filter(option => option.value === filter.defaultValue.value).pop() : null;
+    }
     case 'multiSelect':
-      return filter.defaultValue ? filter.options.filter(option => filter.defaultValue.includes(option.value)) : [];
+      return filter.defaultValue ? filter.options.filter(option => filter.defaultValue.some(defaultOption => defaultOption.value === option.value)) : [];
     case 'text':
       return filter.defaultValue ? filter.defaultValue : '';
     default:
@@ -46,6 +47,10 @@ export default class Filter extends React.Component {
     filterValues: initFilterState(this.props.filters),
     unAppliedValues: initFilterState(this.props.filters),
   };
+
+  componentDidMount() {
+    this.props.onFilterSubmit(this.state.filterValues);
+  }
 
   // eslint-disable-next-line react/sort-comp
   toggleFilterPopover = () => {
@@ -85,7 +90,7 @@ export default class Filter extends React.Component {
   }
 
   onClearAll = () => {
-    this.setState( () => ({
+    this.setState(() => ({
       unAppliedValues: clearFilterState(this.props.filters),
       displayFilterPopover: false,
     }), () => this.applyFilter());
@@ -172,14 +177,14 @@ Filter.propTypes = {
    * Type: [{ label: string (required), type: oneOf('singleSelect', 'multiSelect', 'text') (required), key: string (required), options: array of values from which user can choose in single/multiselect, defaultValue: string | arrayOf string (multiSelects) }]
    */
   filters: PropTypes.arrayOf(PropTypes.shape({
-    defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
+    defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.array, PropTypes.object]),
     filterKey: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
     options: PropTypes.arrayOf(PropTypes.shape({
-      /** key for manipulation */
-      value: PropTypes.string.isRequired,
       /** text displayed to the user in the filter dropdown */
       label: PropTypes.string.isRequired,
+      /** key for manipulation */
+      value: PropTypes.string.isRequired,
     })),
     type: PropTypes.oneOf(['singleSelect', 'multiSelect', 'text']).isRequired,
   })).isRequired,
@@ -188,3 +193,5 @@ Filter.propTypes = {
    */
   onFilterSubmit: PropTypes.func,
 };
+
+export { createSimpleFilter, createDataFilter } from './utils/createFilter';
