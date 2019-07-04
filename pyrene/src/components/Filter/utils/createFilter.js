@@ -63,11 +63,17 @@ export const getSingleFilterFunc = (filterDefinition, filterValue) => (datum) =>
 /*
  * Merges all filter functions (per filter definition) into a combined function.
  */
-export const getCombinedFilterFunc = (filterDefinitions, filterValues) => datum => filterDefinitions
-  .filter(f => typeof filterValues[f.id] !== 'undefined')
-  .filter(f => !isNullFilter(f.type, filterValues[f.id]))
+export const getCombinedFilterFunc = (filterDefinitions, filterValues) => (datum) => {
+
+  const filtersWithValues = filterDefinitions
+    .filter(f => typeof filterValues[f.id] !== 'undefined')
+    .filter(f => !isNullFilter(f.type, filterValues[f.id]));
+
   // Merges singleFilterFunc by filter with and (starting with true), do all match?
-  .reduce((acc, f) => acc && getSingleFilterFunc(f, filterValues[f.id])(datum), true);
+  const mergedFilter = filtersWithValues.reduce((acc, f) => acc && getSingleFilterFunc(f, filterValues[f.id])(datum), true);
+
+  return mergedFilter;
+};
 
 export const filter = (filterDefinitions, filterValues, data) => {
   if (filterValues) {
