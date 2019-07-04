@@ -18,7 +18,6 @@ const Loader = props => (
       </div>
     )
     }
-    {' '}
     { props.type === 'inline'
       && (
         <span styleName={classNames('inlineLoader')} />
@@ -43,10 +42,9 @@ Loader.propTypes = {
   /**
    * Sets the standalone color
    */
-  // eslint-disable-next-line react/no-unused-prop-types
   styling: PropTypes.oneOf(['dark', 'light']),
   /**
-   * Sets the type (and based on type its color)
+   * Sets the type
    */
   type: PropTypes.oneOf(['standalone', 'inline']),
 };
