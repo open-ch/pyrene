@@ -48,6 +48,10 @@ export default class Filter extends React.Component {
     unAppliedValues: initFilterState(this.props.filters),
   };
 
+  componentDidMount() {
+    this.props.onFilterSubmit(this.state.filterValues);
+  }
+
   // eslint-disable-next-line react/sort-comp
   toggleFilterPopover = () => {
     this.setState(prevState => ({
