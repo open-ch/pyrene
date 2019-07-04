@@ -112,4 +112,6 @@ export { TextField };
 export { Tooltip };
 export { TreeTable };
 
+export { createSimpleFilter, createDataFilter } from './components/Filter/Filter';
+
 export default Components;
