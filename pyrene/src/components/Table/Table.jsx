@@ -81,7 +81,7 @@ export default class Table extends React.Component {
     minRows: 1,
 
     TheadComponent: props => <TableHeader {...props} multiSelect={this.props.multiSelect} />,
-    ThComponent: props => <TableHeaderCell {...props} />,
+    ThComponent: props => <TableHeaderCell {...props} multiSelect={this.props.multiSelect} />,
     TdComponent: props => <TableCell {...props} multiSelect={this.props.multiSelect} />,
     PaginationComponent: props => <TablePagination {...props} />,
     TfootComponent: props => <TablePagination {...props} />,
@@ -369,10 +369,10 @@ Table.propTypes = {
     filterKey: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
     options: PropTypes.arrayOf(PropTypes.shape({
-      /** key for manipulation */
-      value: PropTypes.string.isRequired,
       /** text displayed to the user in the filter dropdown */
       label: PropTypes.string.isRequired,
+      /** key for manipulation */
+      value: PropTypes.string.isRequired,
     })),
     type: PropTypes.oneOf(['singleSelect', 'multiSelect', 'text']).isRequired,
   })),

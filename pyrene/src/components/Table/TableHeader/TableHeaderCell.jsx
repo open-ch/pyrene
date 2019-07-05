@@ -21,7 +21,12 @@ const getIconComponent = (className) => {
 };
 
 const TableHeaderCell = props => (
-  <div styleName="tableHeaderCell" className={classNames(props.className, 'unSelectable')} style={props.style} onClick={event => props.toggleSort(event)}>
+  <div
+    onClick={event => props.toggleSort(event)}
+    styleName={classNames({ multiSelect: props.multiSelect, tableHeaderCell: true })}
+    className={classNames(props.className, 'unSelectable')}
+    style={props.style}
+  >
     {props.children}
     {props.className && getIconComponent(props.className)}
   </div>
@@ -32,11 +37,13 @@ TableHeaderCell.displayName = 'TableHeaderCell';
 TableHeaderCell.defaultProps = {
   className: null,
   style: null,
+  multiSelect: false,
 };
 
 TableHeaderCell.propTypes = {
   children: PropTypes.node.isRequired,
   className: PropTypes.string,
+  multiSelect: PropTypes.bool,
   style: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   toggleSort: PropTypes.func.isRequired,
 };
