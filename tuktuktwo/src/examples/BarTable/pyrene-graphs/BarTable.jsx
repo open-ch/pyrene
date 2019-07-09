@@ -4,34 +4,28 @@ import SimpleTable from '../pyrene/SimpleTable';
 import Bar from '../tuktwo/Bar';
 import getBy from '../pyrene/TableUtils';
 
-export default class BarTable extends React.Component {
-
-  render() {
-    const graphColumn = this.props.columns.filter(column => column.graph)[0];
-    const simpleTableProps = {
-      columns: this.props.columns,
-      data: this.props.data,
-      title: this.props.title,
-    };
-    if (graphColumn) {
-      const cellRenderCallback = (row) => {
-        const barProps = {
-          barHeight: this.props.barHeight,
-          color: this.props.colorScheme.primary,
-          maxBarWidth: this.props.maxBarWidth,
-          maxValue: Math.max(...this.props.data.map(dataRow => (typeof graphColumn.accessor === 'string' ? getBy(dataRow, graphColumn.accessor) : graphColumn.accessor(dataRow)))),
-          value: row.value,
-        };
-        return Bar(barProps);
-      };
-      const columnsNew = this.props.columns;
-      this.props.columns.map(column => (column.graph ? (columnsNew.filter(columnNew => columnNew.id === column.id)[0].cellRenderCallback = cellRenderCallback) : column).graph);
-      simpleTableProps.columns = columnsNew;
-    }
-    return SimpleTable(simpleTableProps);
+const BarTable = (props) => {
+  const graphColumn = props.columns.filter(column => column.graph)[0];
+  const columnsNew = props.columns;
+  if (graphColumn) {
+    const cellRenderCallback = row => (
+      <Bar
+        barHeight={props.barHeight}
+        color={props.colorScheme.primary}
+        maxValue={Math.max(...props.data.map(dataRow => (typeof graphColumn.accessor === 'string' ? getBy(dataRow, graphColumn.accessor) : graphColumn.accessor(dataRow))))}
+        value={row.value}
+      />
+    );
+    props.columns.map(column => (column.graph ? (columnsNew.filter(columnNew => columnNew.id === column.id)[0].cellRenderCallback = cellRenderCallback) : column).graph);
   }
-
-}
+  return (
+    <SimpleTable
+      columns={columnsNew}
+      data={props.data}
+      title={props.title}
+    />
+  );
+};
 
 BarTable.displayName = 'Bar Table';
 
@@ -41,18 +35,18 @@ BarTable.defaultProps = {
     primary: 'blue',
     secondary: 'lightblue',
   },
-  maxBarWidth: 250,
-  barHeight: 10,
+  barHeight: 18,
 };
 
 BarTable.propTypes = {
-  barHeight: PropTypes.number,
-  colorScheme: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  barHeight: PropTypes.number, // eslint-disable-line
+  colorScheme: PropTypes.object, // eslint-disable-line
   columns: PropTypes.array.isRequired, // eslint-disable-line react/forbid-prop-types
   /**
    * Sets the Table data displayed in the rows. Type: JSON
    */
   data: PropTypes.array.isRequired, // eslint-disable-line react/forbid-prop-types
-  maxBarWidth: PropTypes.number,
   title: PropTypes.string,
 };
+
+export default BarTable;
