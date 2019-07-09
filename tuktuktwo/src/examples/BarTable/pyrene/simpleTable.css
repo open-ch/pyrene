@@ -1,15 +1,6 @@
-@import 'pyrene/dist/colors';
-
-.tableChart {
-  color: #1d273b;
-  position: relative;
-  vertical-align: text-top;
-  width: 100%;
-}
-
 .tableBody {
   border-collapse: collapse;
-  /* width: 100%; */
+  width: 100%;
   table-layout:fixed;
 }
 
