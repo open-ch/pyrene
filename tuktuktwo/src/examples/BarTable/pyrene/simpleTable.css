@@ -29,12 +29,3 @@
   text-overflow: ellipsis;
   vertical-align: top;
 }
-
-.tableTitle {
-  margin-bottom: 16px;
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 1.5;
-  color: var(--text);
-  text-transform: capitalize;
-}

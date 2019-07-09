@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import SimpleTable from '../pyrene/SimpleTable';
 import Bar from '../tuktwo/Bar';
+import Title from '../tuktwo/Title/Title';
 import getBy from '../pyrene/TableUtils';
 
 const BarTable = (props) => {
@@ -19,11 +20,16 @@ const BarTable = (props) => {
     props.columns.map(column => (column.graph ? (columnsNew.filter(columnNew => columnNew.id === column.id)[0].cellRenderCallback = cellRenderCallback) : column).graph);
   }
   return (
-    <SimpleTable
-      columns={columnsNew}
-      data={props.data}
-      title={props.title}
-    />
+    <div>
+      <Title
+        title={props.title}
+        subtitle={props.subtitle}
+      />
+      <SimpleTable
+        columns={columnsNew}
+        data={props.data}
+      />
+    </div>
   );
 };
 
@@ -31,6 +37,7 @@ BarTable.displayName = 'Bar Table';
 
 BarTable.defaultProps = {
   title: '',
+  subtitle: '',
   colorScheme: {
     primary: 'blue',
     secondary: 'lightblue',
@@ -46,6 +53,7 @@ BarTable.propTypes = {
    * Sets the Table data displayed in the rows. Type: JSON
    */
   data: PropTypes.array.isRequired, // eslint-disable-line react/forbid-prop-types
+  subtitle: PropTypes.string,
   title: PropTypes.string,
 };
 

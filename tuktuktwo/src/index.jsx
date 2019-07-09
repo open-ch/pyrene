@@ -11,6 +11,7 @@ ReactDOM.render(
       columns={BarTableExample.props.columns}
       data={BarTableExample.props.data}
       title={BarTableExample.props.title}
+      subtitle={BarTableExample.props.subtitle}
       colorScheme={BarTableExample.props.colorScheme}
     />
   </div>,

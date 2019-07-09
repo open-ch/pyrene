@@ -423,7 +423,8 @@ const tableColumns = [{
 const examples = {
   props: {
     barHeight: 18,
-    title: 'Bar Table',
+    title: 'Title',
+    subtitle: 'Subtitle',
     data: tableData,
     columns: tableColumns,
     colorScheme: {

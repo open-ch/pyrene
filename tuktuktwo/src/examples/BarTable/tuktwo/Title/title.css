@@ -1,0 +1,17 @@
+.title {
+  margin-bottom: 16px;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--text);
+  text-transform: capitalize;
+}
+
+.subtitle {
+  margin-bottom: 14px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.2;
+  color: grey;
+  text-transform: capitalize;
+}
