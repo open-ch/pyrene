@@ -14,6 +14,14 @@ ReactDOM.render(
       subtitle={BarTableExample.props.subtitle}
       colorScheme={BarTableExample.props.colorScheme}
     />
+    <BarTable
+      columns={BarTableExample.props.columns}
+      data={BarTableExample.props.data}
+      title={BarTableExample.props.title}
+      subtitle={BarTableExample.props.subtitle}
+      colorScheme={BarTableExample.props.colorScheme}
+      relative
+    />
   </div>,
   document.getElementById('root')
 );
