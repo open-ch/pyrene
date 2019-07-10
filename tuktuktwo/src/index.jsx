@@ -2,26 +2,22 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { default as BarTableExample } from './examples/pyrene-graphs/BarTable/BarTable.examples';
+import { default as barTableExamples } from './examples/pyrene-graphs/BarTable/BarTable.examples';
 import { default as BarTable } from './examples/pyrene-graphs/BarTable/BarTable';
 
 ReactDOM.render(
   <div>
-    <BarTable
-      columns={BarTableExample.props.columns}
-      data={BarTableExample.props.data}
-      title="Bar Table"
-      subtitle={BarTableExample.props.subtitle}
-      colorScheme={BarTableExample.props.colorScheme}
-    />
-    <BarTable
-      columns={BarTableExample.props.columns}
-      data={BarTableExample.props.data}
-      title="Relative Bar Table"
-      subtitle={BarTableExample.props.subtitle}
-      colorScheme={BarTableExample.props.colorScheme}
-      relative
-    />
+    {barTableExamples.map(example => (
+      <BarTable
+        columns={example.props.columns}
+        data={example.props.data}
+        title={example.props.title}
+        subtitle={example.props.subtitle}
+        colorScheme={example.props.colorScheme}
+        legend={example.props.legend}
+        relative={example.props.relative}
+      />
+    ))}
   </div>,
   document.getElementById('root')
 );

@@ -44,18 +44,50 @@ const tableColumns = [{
   graph: true,
 }];
 
-const examples = {
+const examplesBar = {
   props: {
     barHeight: 18,
-    title: 'Title',
-    subtitle: 'Subtitle',
+    title: 'Bar Table',
+    subtitle: 'A simple table with one column as a bar chart',
+    data: tableData,
+    columns: tableColumns,
+    colorScheme: {
+      primary: 'blue',
+    },
+    legend: [{
+      label: 'Age',
+      colorKey: 'primary',
+    },
+    ],
+  },
+};
+
+const examplesRelativeBar = {
+  props: {
+    barHeight: 18,
+    title: 'Relative Bar Table',
+    subtitle: 'A simple table with one column as a relative bar chart',
     data: tableData,
     columns: tableColumns,
     colorScheme: {
       primary: 'blue',
       secondary: 'lightblue',
     },
+    legend: [{
+      label: 'Age',
+      colorKey: 'primary',
+    }, {
+      label: 'Delta Age',
+      colorKey: 'secondary',
+    },
+    ],
+    relative: true,
   },
 };
+
+const examples = [
+  examplesBar,
+  examplesRelativeBar,
+];
 
 export default examples;
