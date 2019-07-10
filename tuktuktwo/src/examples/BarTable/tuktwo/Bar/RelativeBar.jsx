@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { BarStackHorizontal } from '@vx/shape';
 import { ParentSize } from '@vx/responsive';
-import { scaleLinear, scaleOrdinal } from '@vx/scale';
+import { scaleBand, scaleLinear, scaleOrdinal } from '@vx/scale';
 
 const RelativeBar = props => (
   <ParentSize>
@@ -17,13 +17,11 @@ const RelativeBar = props => (
         y: 0,
       },
       ];
-      const y = d => d.y;
       const xScale = scaleLinear({
         domain: [0, props.maxValue],
         rangeRound: [0, parent.width],
       });
-      const yScale = scaleLinear({
-        domain: data.map(y),
+      const yScale = scaleBand({
       });
       const color = scaleOrdinal({
         domain: keys,
@@ -32,7 +30,7 @@ const RelativeBar = props => (
       return (
         <svg width={parent.width} height={props.barHeight}>
           <BarStackHorizontal
-            y={d => d.y}
+            y={d => d}
             height={props.barHeight}
             data={data}
             keys={keys}
@@ -46,7 +44,7 @@ const RelativeBar = props => (
   </ParentSize>
 );
 
-RelativeBar.displayName = 'Bar Stack';
+RelativeBar.displayName = 'Relative Bar';
 
 RelativeBar.defaultProps = {
   barHeight: 10,
@@ -58,10 +56,7 @@ RelativeBar.defaultProps = {
 
 RelativeBar.propTypes = {
   barHeight: PropTypes.number,
-  colorScheme: PropTypes.shape(
-    PropTypes.string,
-    PropTypes.string,
-  ),
+  colorScheme: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   maxValue: PropTypes.number.isRequired,
   value: PropTypes.number.isRequired,
 };
