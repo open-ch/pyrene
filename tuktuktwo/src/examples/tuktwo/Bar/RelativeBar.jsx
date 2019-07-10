@@ -1,64 +1,84 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { BarStackHorizontal } from '@vx/shape';
+import classNames from 'classnames';
+import { BarStackHorizontal, BarStack } from '@vx/shape';
 import { ParentSize } from '@vx/responsive';
 import { scaleBand, scaleLinear, scaleOrdinal } from '@vx/scale';
+import './bar.css';
 
 const RelativeBar = props => (
-  <ParentSize
-    debounceTime={0}
-  >
-    {(parent) => {
-      const keys = [
-        'value',
-        'rest',
-      ];
-      const data = [{
-        value: props.value,
-        rest: props.maxValue - props.value,
-        y: 0,
-      },
-      ];
-      const xScale = scaleLinear({
-        domain: [0, props.maxValue],
-        rangeRound: [0, parent.width],
-      });
-      const yScale = scaleBand({
-      });
-      const color = scaleOrdinal({
-        domain: keys,
-        range: [props.colorScheme.primary, props.colorScheme.secondary],
-      });
-      return (
-        <svg width={parent.width} height={props.barHeight}>
-          <BarStackHorizontal
-            y={d => d}
-            height={props.barHeight}
-            data={data}
-            keys={keys}
-            xScale={xScale}
-            yScale={yScale}
-            color={color}
-          />
-        </svg>
-      );
-    }}
-  </ParentSize>
+  <div styleName={classNames({ verticalBar: props.direction === 'vertical' })}>
+    <ParentSize
+      debounceTime={0}
+    >
+      {(parent) => {
+        const keys = [
+          'value',
+          'rest',
+        ];
+        const data = [{
+          value: props.value,
+          rest: props.maxValue - props.value,
+          y: 0,
+        },
+        ];
+        const color = scaleOrdinal({
+          domain: keys,
+          range: [props.colorScheme.primary, props.colorScheme.secondary],
+        });
+        const valueScale = scaleLinear({
+          domain: props.direction === 'horizontal' ? [0, props.maxValue] : [props.maxValue, 0],
+          rangeRound: [0, props.direction === 'horizontal' ? parent.width : parent.height],
+        });
+        const weightScale = scaleBand({
+        });
+        return (
+          props.direction === 'horizontal' ? (
+            <svg width={parent.width} height={props.barWeight}>
+              <BarStackHorizontal
+                y={d => d}
+                height={props.barWeight}
+                data={data}
+                keys={keys}
+                xScale={valueScale}
+                yScale={weightScale}
+                color={color}
+              />
+            </svg>
+          ) : (
+            <svg width={props.barWeight} height={parent.height}>
+              <BarStack
+                x={d => d}
+                width={props.barWeight}
+                data={data}
+                keys={keys}
+                xScale={weightScale}
+                yScale={valueScale}
+                color={color}
+              />
+            </svg>
+          )
+        );
+      }}
+    </ParentSize>
+  </div>
 );
 
 RelativeBar.displayName = 'Relative Bar';
 
 RelativeBar.defaultProps = {
-  barHeight: 10,
+  barWeight: 18,
   colorScheme: {
     primary: 'blue',
     secondary: 'lightblue',
   },
+  direction: 'horizontal',
 };
 
 RelativeBar.propTypes = {
-  barHeight: PropTypes.number,
+  barWeight: PropTypes.number,
   colorScheme: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  direction: PropTypes.string,
   maxValue: PropTypes.number.isRequired,
   value: PropTypes.number.isRequired,
 };

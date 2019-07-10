@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import Bar from '../../tuktwo/Bar/Bar';
 import RelativeBar from '../../tuktwo/Bar/RelativeBar';
 import Title from '../Title/Title';
 import getBy from '../../pyrene/SimpleTable/TableUtils';
+import './barChart.css';
 
 const BarChart = (props) => {
   const graphKey = props.keys.filter(key => key.graph)[0];
@@ -16,27 +18,30 @@ const BarChart = (props) => {
         legend={props.legend}
         colorScheme={props.colorScheme}
       />
-      {props.data.map((d) => {
-        const value = typeof graphKey.accessor === 'string' ? getBy(d, graphKey.accessor) : graphKey.accessor(d);
-        return (
-          props.relative ? (
-            <RelativeBar
-              barHeight={props.barHeight}
-              colorScheme={props.colorScheme}
-              maxValue={maxValue}
-              value={value}
-            />
-          ) : (
-            <Bar
-              barHeight={props.barHeight}
-              color={props.colorScheme.primary}
-              maxValue={maxValue}
-              value={value}
-            />
-          )
-        );
-      })}
-
+      <div styleName={classNames({ verticalContainer: props.direction === 'vertical' })}>
+        {props.data.map((d) => {
+          const value = typeof graphKey.accessor === 'string' ? getBy(d, graphKey.accessor) : graphKey.accessor(d);
+          return (
+            props.relative ? (
+              <RelativeBar
+                barWeight={props.barWeight}
+                colorScheme={props.colorScheme}
+                maxValue={maxValue}
+                value={value}
+                direction={props.direction}
+              />
+            ) : (
+              <Bar
+                barWeight={props.barWeight}
+                color={props.colorScheme.primary}
+                maxValue={maxValue}
+                value={value}
+                direction={props.direction}
+              />
+            )
+          );
+        })}
+      </div>
     </div>
   );
 };
@@ -50,18 +55,20 @@ BarChart.defaultProps = {
     primary: 'blue',
     secondary: 'lightblue',
   },
-  barHeight: 18,
+  barWeight: 18,
   relative: false,
   legend: [],
+  direction: 'horizontal',
 };
 
 BarChart.propTypes = {
-  barHeight: PropTypes.number, // eslint-disable-line
+  barWeight: PropTypes.number, // eslint-disable-line
   colorScheme: PropTypes.object, // eslint-disable-line
   data: PropTypes.array.isRequired, // eslint-disable-line react/forbid-prop-types
   /**
    * Sets the Table data displayed in the rows. Type: JSON
    */
+  direction: PropTypes.string,
   keys: PropTypes.array.isRequired, // eslint-disable-line react/forbid-prop-types
   legend: PropTypes.array, // eslint-disable-line react/forbid-prop-types
   relative: PropTypes.bool,// eslint-disable-line

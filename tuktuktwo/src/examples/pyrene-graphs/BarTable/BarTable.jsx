@@ -13,14 +13,14 @@ const BarTable = (props) => {
     const maxValue = Math.max(...props.data.map(dataRow => (typeof graphColumn.accessor === 'string' ? getBy(dataRow, graphColumn.accessor) : graphColumn.accessor(dataRow))));
     const cellRenderCallback = row => (props.relative ? (
       <RelativeBar
-        barHeight={props.barHeight}
+        barWeight={props.barWeight}
         colorScheme={props.colorScheme}
         maxValue={maxValue}
         value={row.value}
       />
     ) : (
       <Bar
-        barHeight={props.barHeight}
+        barWeight={props.barWeight}
         color={props.colorScheme.primary}
         maxValue={maxValue}
         value={row.value}
@@ -53,13 +53,13 @@ BarTable.defaultProps = {
     primary: 'blue',
     secondary: 'lightblue',
   },
-  barHeight: 18,
+  barWeight: 18,
   relative: false,
   legend: [],
 };
 
 BarTable.propTypes = {
-  barHeight: PropTypes.number, // eslint-disable-line
+  barWeight: PropTypes.number, // eslint-disable-line
   colorScheme: PropTypes.object, // eslint-disable-line
   columns: PropTypes.array.isRequired, // eslint-disable-line react/forbid-prop-types
   /**

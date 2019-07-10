@@ -31,6 +31,7 @@ ReactDOM.render(
         colorScheme={example.props.colorScheme}
         legend={example.props.legend}
         relative={example.props.relative}
+        direction={example.props.direction}
       />
     ))}
   </div>,

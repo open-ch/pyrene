@@ -46,7 +46,7 @@ const tableColumns = [{
 
 const examplesBar = {
   props: {
-    barHeight: 18,
+    barWeight: 18,
     title: 'Bar Table',
     subtitle: 'A simple table with one column as a bar chart',
     data: tableData,
@@ -64,7 +64,7 @@ const examplesBar = {
 
 const examplesRelativeBar = {
   props: {
-    barHeight: 18,
+    barWeight: 18,
     title: 'Relative Bar Table',
     subtitle: 'A simple table with one column as a relative bar chart',
     data: tableData,
