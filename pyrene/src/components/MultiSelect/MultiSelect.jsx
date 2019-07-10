@@ -37,7 +37,7 @@ const MultiSelect = props => (
           placeholder={props.placeholder}
           options={props.options}
           value={props.value}
-          defaultValue={props.defaultValues}
+          defaultValue={props.defaultValue}
           isClearable={props.clearable}
           isDisabled={props.disabled}
           isInvalid={props.invalid}
@@ -69,7 +69,7 @@ const MultiSelect = props => (
           placeholder={props.placeholder}
           options={props.options}
           value={props.value}
-          defaultValue={props.defaultValues}
+          defaultValue={props.defaultValue}
           isClearable={props.clearable}
           isDisabled={props.disabled}
           isInvalid={props.invalid}
@@ -125,7 +125,7 @@ MultiSelect.defaultProps = {
   invalidLabel: '',
   title: '',
   name: '',
-  defaultValues: [],
+  defaultValue: [],
   options: [],
   rows: -1,
   selectedOptionsInDropdown: false,
@@ -154,7 +154,7 @@ MultiSelect.propTypes = {
   /**
    * Sets a preselected options. Type: [ string | number ]
    */
-  defaultValues: PropTypes.arrayOf(PropTypes.oneOfType([
+  defaultValue: PropTypes.arrayOf(PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
   ])),
