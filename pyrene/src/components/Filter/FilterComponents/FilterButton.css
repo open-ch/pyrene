@@ -1,0 +1,51 @@
+@import '../../../styles/colors.css';
+
+
+.filterButton {
+  composes: commonFontSettings from '../../../styles/common.css';
+  box-sizing: border-box;
+  padding: 0 8px;
+  border: solid 1px var(--border);
+  border-radius: 2px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+
+&.noBorder {
+   border: none;
+ }
+
+&:hover {
+   cursor: pointer;
+   background-color: var(--secondary);
+ }
+
+&.popoverOpen {
+   background-color: var(--secondary);
+ }
+}
+
+.buttonLabel {
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.23;
+  color: var(--text);
+  padding: 0 8px;
+}
+
+.arrowIcon {
+  padding: 0 !important;
+
+  height: 16px;
+  width: 16px;
+
+  font-size: 16px;
+  color: var(--neutral-300);
+}
+
+.disabledFilter {
+  opacity: .5;
+  cursor: default;
+  pointer-events: none;
+  /* deactivate hover */
+}
