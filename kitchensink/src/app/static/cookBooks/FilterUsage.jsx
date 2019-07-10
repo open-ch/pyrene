@@ -27,6 +27,12 @@ const data = [
   {
     name: 'Da Name', date: '-', city: 'Taumatawhakaanhu', country: 'NZ', hidden: 'Open',
   },
+  {
+    name: 'Another', date: '-', city: 'Empty City', country: '', hidden: 'Open',
+  },
+  {
+    name: 'Last', date: '-', city: 'Null City', country: null, hidden: 'Open',
+  },
 ];
 
 
@@ -99,6 +105,12 @@ class DataFilteredTable extends React.Component {
        id: 'city',
        optionsAccessors: { value: d => d.city, label: d => `City: ${d.city}` },
        defaultValue: { value: 'Zurich', label: 'Zurich' },
+     }, {
+       type: 'singleSelect',
+       label: 'Country',
+       accessor: 'country',
+       id: 'country',
+       options: [{ value: '', label: '-empty-' }, { value: 'CH', label: 'CH' }],
      }, {
        type: 'text',
        label: 'Name',
@@ -180,20 +192,25 @@ class SimpleFilteredTable extends React.Component {
 
 const DataFilterCode = `class DataFilteredTable extends React.Component {
 
-    filters = [{
-      type: 'singleSelect',
-      label: 'City',
-      accessor: 'city',
-      id: 'city',
-      optionsAccessors: { value: d => d.city, label: d => \`City: \${d.city}\` },
-      defaultValue: { value: 'Zurich', label: 'Zurich' },
-    }, {
-      type: 'text',
-      label: 'Name',
-      accessor: 'name',
-      id: 'name',
-    }];
-
+     filters = [{
+       type: 'singleSelect',
+       label: 'City',
+       accessor: 'city',
+       id: 'city',
+       optionsAccessors: { value: d => d.city, label: d => \`City:\${d.city}\` },
+       defaultValue: { value: 'Zurich', label: 'Zurich' },
+     }, {
+       type: 'singleSelect',
+       label: 'Country',
+       accessor: 'country',
+       id: 'country',
+       options: [{ value: '', label: '-empty-' }, { value: 'CH', label: 'CH' }],
+     }, {
+       type: 'text',
+       label: 'Name',
+       accessor: 'name',
+       id: 'name',
+     }];
 
      state = {
        filterValues: {},
