@@ -4,7 +4,9 @@ import { Bar as VxBar } from '@vx/shape';
 import { ParentSize } from '@vx/responsive';
 
 const Bar = props => (
-  <ParentSize>
+  <ParentSize
+    debounceTime={0}
+  >
     {(parent) => {
       const scaleFactor = parent.width / props.maxValue;
       return (

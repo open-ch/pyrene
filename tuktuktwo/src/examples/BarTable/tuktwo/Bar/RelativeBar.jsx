@@ -5,7 +5,9 @@ import { ParentSize } from '@vx/responsive';
 import { scaleBand, scaleLinear, scaleOrdinal } from '@vx/scale';
 
 const RelativeBar = props => (
-  <ParentSize>
+  <ParentSize
+    debounceTime={0}
+  >
     {(parent) => {
       const keys = [
         'value',
