@@ -3,10 +3,14 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { Bar as VxBar } from '@vx/shape';
 import { ParentSize } from '@vx/responsive';
-import './bar.css';
+import '../utils.css';
 
 const Bar = props => (
-  <div styleName={classNames({ verticalBar: props.direction === 'vertical' })}>
+  <div styleName={classNames({
+    verticalBar: props.direction === 'vertical',
+    parentDiv: props.direction === 'vertical',
+  })}
+  >
     <ParentSize
       debounceTime={0}
     >

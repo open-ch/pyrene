@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import Bar from '../../tuktwo/Bar/Bar';
 import RelativeBar from '../../tuktwo/Bar/RelativeBar';
 import Title from '../Title/Title';
+import Axis from '../../tuktwo/Axis/Axis';
 import getBy from '../../pyrene/SimpleTable/TableUtils';
 import './barChart.css';
 
@@ -42,6 +43,7 @@ const BarChart = (props) => {
           );
         })}
       </div>
+      {props.direction === 'vertical' && <Axis />}
     </div>
   );
 };

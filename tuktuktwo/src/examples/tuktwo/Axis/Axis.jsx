@@ -1,41 +1,39 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Bar as VxBar } from '@vx/shape';
 import { ParentSize } from '@vx/responsive';
+import { scaleBand, scaleLinear, scaleOrdinal } from '@vx/scale';
+import { AxisLeft, AxisRight, AxisBottom } from '@vx/axis';
+import '../utils.css';
 
-const Bar = props => (
-  <ParentSize
-    debounceTime={0}
-  >
-    {(parent) => {
-      const scaleFactor = parent.width / props.maxValue;
-      return (
-        <svg width={parent.width} height={props.barHeight}>
-          <VxBar
-            x="0"
-            y="0"
-            height={props.barHeight}
-            width={props.value * scaleFactor}
-            fill={props.color}
+const Axis = props => (
+  <div styleName="parentDiv">
+    <ParentSize>
+      {parent => (
+        <svg width={parent.width} height={parent.height}>
+          <AxisBottom
+            top={0}
+            left={4}
+            label={props.label}
+            scale={scaleLinear({
+              range: [0, 18],
+            })}
+            tickValues={[...Array(61).keys()]}
+            tickLabelProps={(tickValue, index) => ({ fontSize: 10, writingMode: 'tb' })}
           />
         </svg>
-      );
-    }}
-  </ParentSize>
+      )}
+    </ParentSize>
+  </div>
 );
 
-Bar.displayName = 'Bar';
+Axis.displayName = 'Axis';
 
-Bar.defaultProps = {
-  barHeight: 10,
-  color: 'black',
+Axis.defaultProps = {
+  label: '',
 };
 
-Bar.propTypes = {
-  barHeight: PropTypes.number,
-  color: PropTypes.string,
-  maxValue: PropTypes.number.isRequired,
-  value: PropTypes.number.isRequired,
+Axis.propTypes = {
+  label: PropTypes.string,
 };
 
-export default Bar;
+export default Axis;

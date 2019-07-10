@@ -4,10 +4,14 @@ import classNames from 'classnames';
 import { BarStackHorizontal, BarStack } from '@vx/shape';
 import { ParentSize } from '@vx/responsive';
 import { scaleBand, scaleLinear, scaleOrdinal } from '@vx/scale';
-import './bar.css';
+import '../utils.css';
 
 const RelativeBar = props => (
-  <div styleName={classNames({ verticalBar: props.direction === 'vertical' })}>
+  <div styleName={classNames({
+    verticalBar: props.direction === 'vertical',
+    parentDiv: props.direction === 'vertical',
+  })}
+  >
     <ParentSize
       debounceTime={0}
     >
