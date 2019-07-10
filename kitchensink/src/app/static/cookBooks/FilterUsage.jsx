@@ -60,6 +60,7 @@ class SimpleFilteredTable extends React.Component {
          { value: 'Brno', label: 'Brno' },
          { value: 'Taumatawhakaanhu', label: 'Taumatawhakaanhu' },
          { value: 'New York', label: 'New York' },
+         { value: '', label: '-empty-' }, { value: 'CH', label: 'CH' },
        ],
      }, {
        type: 'text',
@@ -110,7 +111,7 @@ class DataFilteredTable extends React.Component {
        label: 'Country',
        accessor: 'country',
        id: 'country',
-       options: [{ value: '', label: '-empty-' }, { value: 'CH', label: 'CH' }],
+       optionsAccessors: { value: d => d.country, label: d => (d.country ? d.country : 'n/a') },
      }, {
        type: 'text',
        label: 'Name',
@@ -155,6 +156,7 @@ class SimpleFilteredTable extends React.Component {
         { value: 'Brno', label: 'Brno' },
         { value: 'Taumatawhakaanhu', label: 'Taumatawhakaanhu' },
         { value: 'New York', label: 'New York' },
+        { value: '', label: '-empty-' }, { value: 'CH', label: 'CH' },
       ],
     }, {
       type: 'text',
@@ -204,7 +206,7 @@ const DataFilterCode = `class DataFilteredTable extends React.Component {
        label: 'Country',
        accessor: 'country',
        id: 'country',
-       options: [{ value: '', label: '-empty-' }, { value: 'CH', label: 'CH' }],
+       optionsAccessors: { value: d => d.country, label: d => (d.country ? d.country : 'n/a') },
      }, {
        type: 'text',
        label: 'Name',
