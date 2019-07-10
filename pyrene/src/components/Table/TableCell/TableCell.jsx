@@ -6,9 +6,8 @@ import './tableCell.css';
 
 const TableCell = props => {
 
-  const childStyle = {...props.style};
-  delete childStyle.width;
-
+  const { width, ...childStyle } = props.style;
+  
   return (
     <div styleName="tableCell" className="rt-td" role="gridcell" style={props.style} onClick={props.onClick}>
       <div styleName={classNames('tableData', { multiSelect: props.multiSelect })} style={childStyle}>{props.children}</div>
