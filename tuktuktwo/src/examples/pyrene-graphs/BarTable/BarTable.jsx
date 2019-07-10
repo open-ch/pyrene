@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import SimpleTable from '../../pyrene/SimpleTable/SimpleTable';
 import Bar from '../../tuktwo/Bar/Bar';
 import RelativeBar from '../../tuktwo/Bar/RelativeBar';
-import Title from '../../tuktwo/Title/Title';
+import Title from '../Title/Title';
 import getBy from '../../pyrene/SimpleTable/TableUtils';
 
 const BarTable = (props) => {

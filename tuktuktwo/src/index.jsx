@@ -9,6 +9,7 @@ ReactDOM.render(
   <div>
     {barTableExamples.map(example => (
       <BarTable
+        key={example.props.title}
         columns={example.props.columns}
         data={example.props.data}
         title={example.props.title}
