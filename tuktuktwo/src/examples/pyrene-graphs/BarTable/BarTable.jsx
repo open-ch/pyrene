@@ -33,6 +33,8 @@ const BarTable = (props) => {
       <Title
         title={props.title}
         subtitle={props.subtitle}
+        legend={props.legend}
+        colorScheme={props.colorScheme}
       />
       <SimpleTable
         columns={columnsNew}
@@ -53,6 +55,7 @@ BarTable.defaultProps = {
   },
   barHeight: 18,
   relative: false,
+  legend: [],
 };
 
 BarTable.propTypes = {
@@ -63,7 +66,8 @@ BarTable.propTypes = {
    * Sets the Table data displayed in the rows. Type: JSON
    */
   data: PropTypes.array.isRequired, // eslint-disable-line react/forbid-prop-types
-  relative: PropTypes.bool, // eslint-disable-line
+  legend: PropTypes.array, // eslint-disable-line react/forbid-prop-types
+  relative: PropTypes.bool,// eslint-disable-line
   subtitle: PropTypes.string,
   title: PropTypes.string,
 };
