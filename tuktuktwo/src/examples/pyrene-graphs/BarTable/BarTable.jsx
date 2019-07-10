@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import SimpleTable from '../pyrene/SimpleTable';
-import Bar from '../tuktwo/Bar/Bar';
-import RelativeBar from '../tuktwo/Bar/RelativeBar';
-import Title from '../tuktwo/Title/Title';
-import getBy from '../pyrene/TableUtils';
+import SimpleTable from '../../pyrene/SimpleTable/SimpleTable';
+import Bar from '../../tuktwo/Bar/Bar';
+import RelativeBar from '../../tuktwo/Bar/RelativeBar';
+import Title from '../../tuktwo/Title/Title';
+import getBy from '../../pyrene/SimpleTable/TableUtils';
 
 const BarTable = (props) => {
   const graphColumn = props.columns.filter(column => column.graph)[0];
