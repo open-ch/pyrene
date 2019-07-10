@@ -6,7 +6,7 @@ import './tableCell.css';
 
 const TableCell = props => {
 
-  const { ...childStyle} = props.style;
+  const { width, ...childStyle } = props.style;
   
   return (
     <div styleName="tableCell" className="rt-td" role="gridcell" style={props.style} onClick={props.onClick}>
