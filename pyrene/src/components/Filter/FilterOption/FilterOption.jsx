@@ -16,7 +16,7 @@ export default class FilterOption extends React.Component {
               name={this.props.filterKey}
               options={this.props.options}
               onChange={value => this.props.handleFilterChange(value, this.props.filterKey)}
-              value={this.props.filterValues[this.props.filterKey] ? this.props.filterValues[this.props.filterKey].value : null}
+              value={this.props.filterValues[this.props.filterKey] ? this.props.filterValues[this.props.filterKey] : null}
               clearable
               searchable
             />
