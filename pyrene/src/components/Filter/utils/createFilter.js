@@ -19,7 +19,7 @@ export const isNullFilter = (type, value) => {
 /*
  * Returns a function that filters datum.accessor for substrings (case-insensitive).
  */
-export const getSubstringFunc = accessor => (value, datum) => typeof datum[accessor] !== 'undefined' && datum[accessor].toLowerCase().includes(value.toLowerCase());
+export const getSubstringFunc = accessor => (value, datum) => typeof datum[accessor] !== 'undefined' && datum[accessor] !== null && datum[accessor].toString().toLowerCase().includes(value.toString().toLowerCase());
 
 /*
  * Returns a function that filters datum.accessor for equal.
