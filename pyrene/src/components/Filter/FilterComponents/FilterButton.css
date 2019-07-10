@@ -43,7 +43,7 @@
   color: var(--neutral-300);
 }
 
-.disabledFilter {
+.disabled {
   opacity: .5;
   cursor: default;
   pointer-events: none;

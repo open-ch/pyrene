@@ -1,14 +1,33 @@
 import React from 'react';
-import './filterButton.css';
 import classNames from 'classnames';
+import PropTypes from 'prop-types';
+import './filterButton.css';
 
-const FilterButton = () => (
-  <div styleName={classNames('filterButton', 'disabledFilter', 'noBorder')} >
+const FilterButton = props => (
+  <div styleName={classNames('filterButton', { noBorder: props.noBorder }, { popoverOpen: props.displayPopover }, { disabled: props.disabled })} onClick={props.onClick}>
     <div styleName="buttonLabel">
-      {'Filter'}
+      {props.label}
     </div>
     <div styleName="arrowIcon" className="pyreneIcon-collapsDown" />
   </div>
 );
+
+
+FilterButton.displayName = 'FilterButton';
+
+FilterButton.defaultProps = {
+  disabled: false,
+  displayPopover: false,
+  noBorder: false,
+  onClick: () => null,
+};
+
+FilterButton.propTypes = {
+  disabled: PropTypes.bool,
+  displayPopover: PropTypes.bool,
+  label: PropTypes.string.isRequired,
+  noBorder: PropTypes.bool,
+  onClick: PropTypes.func,
+};
 
 export default FilterButton;

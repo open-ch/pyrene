@@ -1,9 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import FilterEnabled from './FilterComponents/FilterEnabled';
-import FilterDisabled from './FilterComponents/FilterDisabled';
+import FilterBar from './FilterComponents/FilterBar';
+import FilterButton from './FilterComponents/FilterButton';
+import './Filter.css';
 
-export default class Filter extends React.Component {
+export default class Filter extends React.PureComponent {
+
+  render() {
+    const { filterDisabled, filters, onFilterSubmit } = this.props;
+
+    if (filterDisabled) {
+      return (
+        <div styleName="filterButtonWrapper">
+          <FilterButton label="Filter" disabled />
+        </div>
+      );
+    }
+
+    if (filters && filters.length > 0 && filterDisabled === false) {
+      return <FilterBar filters={filters} onFilterSubmit={onFilterSubmit} />;
+    }
+
+    return (null);
+  }
 
 }
 
@@ -11,6 +30,8 @@ Filter.displayName = 'Filter';
 
 Filter.defaultProps = {
   onFilterSubmit: () => null,
+  filterDisabled: false,
+  filters: undefined,
 };
 
 Filter.propTypes = {
