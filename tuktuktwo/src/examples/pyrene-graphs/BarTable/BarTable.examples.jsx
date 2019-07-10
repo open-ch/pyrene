@@ -33,6 +33,7 @@ const tableColumns = [{
   id: 'age',
   headerName: 'Age',
   accessor: 'age',
+  graph: true,
 }, {
   id: 'friendName',
   headerName: 'Friend Name',
@@ -41,7 +42,6 @@ const tableColumns = [{
   id: 'friendAge',
   headerName: 'Friend Age',
   accessor: 'friend.age',
-  graph: true,
 }];
 
 const examplesBar = {
