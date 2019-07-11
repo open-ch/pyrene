@@ -4,14 +4,14 @@
   composes: commonFontSettings from '../../styles/common.css';
 
   & .collapsibleBody {
-    height: 0;
+    display: none;
     overflow: hidden;
     transition: height 0.4s ease-in-out;
   }
 
   &.expanded {
     & .collapsibleBody {
-      height: auto;
+      display: block;
     }
 
     & .collapsArrow {
