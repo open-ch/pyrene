@@ -111,7 +111,7 @@ class DataFilteredTable extends React.Component {
        label: 'Country',
        accessor: 'country',
        id: 'country',
-       optionsAccessors: { value: d => d.country, label: d => (d.country ? d.country : 'n/a') },
+       optionsAccessors: { value: d => d.country, label: d => (d.country === null ? 'null' : d.country === '' ? 'empty' : d.country) }, // eslint-disable-line no-nested-ternary
      }, {
        type: 'text',
        label: 'Name',
