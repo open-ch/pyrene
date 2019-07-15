@@ -7,9 +7,9 @@ import './Filter.css';
 export default class Filter extends React.PureComponent {
 
   render() {
-    const { filterDisabled, filters, onFilterSubmit } = this.props;
+    const { disabled, filters, onFilterSubmit } = this.props;
 
-    if (filterDisabled) {
+    if (disabled) {
       return (
         <div styleName="filterButtonWrapper">
           <FilterButton label="Filter" disabled />
@@ -17,7 +17,7 @@ export default class Filter extends React.PureComponent {
       );
     }
 
-    if (filters && filters.length > 0 && filterDisabled === false) {
+    if (filters && filters.length > 0 && disabled === false) {
       return <FilterBar filters={filters} onFilterSubmit={onFilterSubmit} />;
     }
 
@@ -30,7 +30,7 @@ Filter.displayName = 'Filter';
 
 Filter.defaultProps = {
   onFilterSubmit: () => null,
-  filterDisabled: false,
+  disabled: false,
   filters: undefined,
 };
 
@@ -38,7 +38,7 @@ Filter.propTypes = {
   /**
    * True if filter should be displayed but in disabled state (filters might be still undefined)
    * */
-  filterDisabled: PropTypes.bool,
+  disabled: PropTypes.bool,
   /**
    * Sets the available filters.
    * Type: [{ label: string (required), type: oneOf('singleSelect', 'multiSelect', 'text') (required), key: string (required), options: array of values from which user can choose in single/multiselect, defaultValue: string | arrayOf string (multiSelects) }]

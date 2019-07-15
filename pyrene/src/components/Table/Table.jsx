@@ -240,7 +240,7 @@ export default class Table extends React.Component {
                 <Filter
                   filters={this.props.filters}
                   onFilterSubmit={this.props.onFilterChange}
-                  filterDisabled={this.props.filterDisabled}
+                  disabled={this.props.filterDisabled}
                 />
               )
             }
