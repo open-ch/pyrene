@@ -34,6 +34,8 @@ const MultiSelect = props => (
           className="multiSelect"
           styles={MultiSelectStyle(props)}
           components={props.selectedOptionsInDropdown ? componentsOptionsInDropdown : componentsNormal}
+          // Sets the internal value to "" in case of null or undefined
+          getOptionValue={option => ((option.value !== null && typeof option.value !== 'undefined') ? option.value : '')}
           placeholder={props.placeholder}
           options={props.options}
           value={props.value}
@@ -66,6 +68,8 @@ const MultiSelect = props => (
           className="multiSelect"
           styles={MultiSelectStyle(props)}
           components={props.selectedOptionsInDropdown ? componentsOptionsInDropdown : componentsNormal}
+          // Sets the internal value to "" in case of null or undefined
+          getOptionValue={option => ((option.value !== null && typeof option.value !== 'undefined') ? option.value : '')}
           placeholder={props.placeholder}
           options={props.options}
           value={props.value}

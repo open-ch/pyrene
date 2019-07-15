@@ -27,11 +27,6 @@ export const getSubstringFunc = accessor => (value, datum) => typeof datum[acces
 export const getEqualFunc = accessor => (value, datum) => typeof datum[accessor] !== 'undefined' && datum[accessor] === value;
 
 /*
- * Returns a function that filters datum.accessor for equal, or that value und datum.accessor are both falsy.
- */
-export const getEqualOrFalsyFunc = accessor => (value, datum) => datum[accessor] === value || (!datum[accessor] && !value);
-
-/*
  * Uses filter value and filter definition to create a filter based on accessor or customFilter.
  */
 export const getSingleFilterFunc = (filterDefinition, filterValue) => (datum) => {
@@ -48,14 +43,14 @@ export const getSingleFilterFunc = (filterDefinition, filterValue) => (datum) =>
 
       const filterFunc = filterDefinition.customFilter
         ? filterDefinition.customFilter
-        : getEqualOrFalsyFunc(filterDefinition.accessor);
+        : getEqualFunc(filterDefinition.accessor);
 
       return filterFunc(filterValue.value, datum);
     }
     case 'multiSelect': {
       const filterFunc = filterDefinition.customFilter
         ? filterDefinition.customFilter
-        : getEqualOrFalsyFunc(filterDefinition.accessor);
+        : getEqualFunc(filterDefinition.accessor);
 
       // Merges filterFunc by filter with or (starting with false), does at least one match?
       return filterValue.reduce((acc, currValue) => acc || filterFunc(currValue.value, datum), false);

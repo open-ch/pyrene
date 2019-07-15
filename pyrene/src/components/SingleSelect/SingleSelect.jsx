@@ -22,6 +22,8 @@ const SingleSelect = props => (
           className="singleSelect"
           styles={SelectStyle}
           components={{ LoadingIndicator }}
+          // Sets the internal value to "" in case of null or undefined
+          getOptionValue={option => ((option.value !== null && typeof option.value !== 'undefined') ? option.value : '')}
           placeholder={props.placeholder}
           options={props.options}
           value={props.value}
@@ -53,6 +55,8 @@ const SingleSelect = props => (
           className="singleSelect"
           styles={SelectStyle}
           components={{ LoadingIndicator }}
+          // Sets the internal value to "" in case of null or undefined
+          getOptionValue={option => ((option.value !== null && typeof option.value !== 'undefined') ? option.value : '')}
           placeholder={props.placeholder}
           options={props.options}
           value={props.value}
