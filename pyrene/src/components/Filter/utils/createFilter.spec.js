@@ -66,21 +66,6 @@ describe('getEqualFunc', () => {
   });
 });
 
-describe('getEqualOrFalsyFunc', () => {
-  it('null = emtpy', () => {
-    expect(createFilter.getEqualOrFalsyFunc('testAccessor')(null, { testAccessor: '' })).toBe(true);
-  });
-
-  it('undef = empty', () => {
-    expect(createFilter.getEqualOrFalsyFunc('testAccessor')(undefined, { testAccessor: '' })).toBe(true);
-  });
-
-  it('undef = null', () => {
-    expect(createFilter.getEqualOrFalsyFunc('testAccessor')(undefined, { testAccessor: null })).toBe(true);
-  });
-
-});
-
 describe('getSingleFilterFunc', () => {
 
   it('returns true on text', () => {
@@ -267,7 +252,7 @@ describe('getOptionsFromData', () => {
       name: 'name2',
     }];
 
-    const options = [{ value: 'id1', label: 'name2' }];
+    const options = [{ value: 'id1', label: 'name1' }];
 
     expect(createFilter.getOptionsFromData(optionsAccessors, data)).toMatchObject(options);
   });
