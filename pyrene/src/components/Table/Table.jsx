@@ -235,11 +235,12 @@ export default class Table extends React.Component {
 
         <div styleName={classNames('filterBar', { loading: this.props.loading })}>
           <div styleName="filterContainer">
-            {this.props.filters.length > 0
+            {(this.props.filters.length > 0 || this.props.filterDisabled)
               && (
                 <Filter
                   filters={this.props.filters}
                   onFilterSubmit={this.props.onFilterChange}
+                  disabled={this.props.filterDisabled}
                 />
               )
             }
@@ -324,6 +325,7 @@ Table.defaultProps = {
   rowSelectableCallback: () => true,
   toggleColumns: false,
   pageSizeOptions: [10, 20, 50, 100, 250],
+  filterDisabled: false,
   filters: [],
   onRowDoubleClick: () => null,
   onFilterChange: () => null,
@@ -360,6 +362,10 @@ Table.propTypes = {
     desc: PropTypes.bool,
     id: PropTypes.string.isRequired,
   })),
+  /**
+   * True if filter should be displayed but in disabled state (filters might be still undefined)
+   * */
+  filterDisabled: PropTypes.bool,
   /**
    * Sets the available filters.
    * Type: [{ label: string (required) label of the filter input displayed to the user, type: oneOf('singleSelect', 'multiSelect', 'text') (required),

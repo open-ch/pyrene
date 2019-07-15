@@ -11,18 +11,18 @@
   display: flex;
   align-items: center;
 
-  &.noBorder {
-    border: none;
-  }
+&.noBorder {
+   border: none;
+ }
 
-  &:hover {
-    cursor: pointer;
-    background-color: var(--secondary);
-  }
+&:hover {
+   cursor: pointer;
+   background-color: var(--secondary);
+ }
 
-  &.popoverOpen {
-    background-color: var(--secondary);
-  }
+&.popoverOpen {
+   background-color: var(--secondary);
+ }
 }
 
 .buttonLabel {
@@ -41,4 +41,11 @@
 
   font-size: 16px;
   color: var(--neutral-300);
+}
+
+.disabled {
+  opacity: .5;
+  cursor: default;
+  pointer-events: none;
+  /* deactivate hover */
 }
