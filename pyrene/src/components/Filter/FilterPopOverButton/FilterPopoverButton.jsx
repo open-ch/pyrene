@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import Popover from '../../Popover/Popover';
 
-import './filterPopoverButton.css';
 import FilterPopover from '../FilterPopover/FilterPopover';
+import FilterButton from '../FilterComponents/FilterButton';
 
 const FilterPopoverButton = props => (
   <Popover
@@ -23,12 +22,7 @@ const FilterPopoverButton = props => (
       />
     )}
   >
-    <div styleName={classNames('filterButton', { noBorder: props.noBorder }, { popoverOpen: props.displayPopover })} onClick={props.onClick}>
-      <div styleName="buttonLabel">
-        {props.label}
-      </div>
-      <div styleName="arrowIcon" className="pyreneIcon-collapsDown" />
-    </div>
+    <FilterButton disabled={false} displayPopover={props.displayPopover} label={props.label} noBorder={props.noBorder} onClick={props.onClick} />
   </Popover>
 );
 
