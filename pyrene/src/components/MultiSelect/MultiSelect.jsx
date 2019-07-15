@@ -22,6 +22,9 @@ const MultiValue = ({ data, getValue }) => ( // eslint-disable-line react/prop-t
 const componentsNormal = { LoadingIndicator };
 const componentsOptionsInDropdown = { Menu: MultiSelectMenuWithOptions, MultiValue, LoadingIndicator };
 
+// Finds the union of value and options, based on options[].value and values[].value being equal.
+export const valueFromOptions = (options, values) => options.filter(o => values.findIndex(v => o.value === v.value) > -1);
+
 /**
  * Multi-Selects are used when the user has to make a choice from a list. It allows the user to select multiple items from a dropdown list.
  */
@@ -38,8 +41,8 @@ const MultiSelect = props => (
           getOptionValue={option => ((option.value !== null && typeof option.value !== 'undefined') ? option.value : '')}
           placeholder={props.placeholder}
           options={props.options}
-          value={props.value ? props.options.find(o => o.value === props.value.value) : null}
-          defaultValue={props.defaultValue ? props.options.find(o => o.value === props.defaultValue.value) : null}
+          value={props.value ? valueFromOptions(props.options, props.value) : null}
+          defaultValue={props.value ? valueFromOptions(props.options, props.defaultValue) : null}
           isClearable={props.clearable}
           isDisabled={props.disabled}
           isInvalid={props.invalid}
@@ -72,8 +75,8 @@ const MultiSelect = props => (
           getOptionValue={option => ((option.value !== null && typeof option.value !== 'undefined') ? option.value : '')}
           placeholder={props.placeholder}
           options={props.options}
-          value={props.value ? props.options.find(o => o.value === props.value.value) : null}
-          defaultValue={props.defaultValue ? props.options.find(o => o.value === props.defaultValue.value) : null}
+          value={props.value ? valueFromOptions(props.options, props.value) : null}
+          defaultValue={props.value ? valueFromOptions(props.options, props.defaultValue) : null}
           isClearable={props.clearable}
           isDisabled={props.disabled}
           isInvalid={props.invalid}
@@ -158,10 +161,10 @@ MultiSelect.propTypes = {
   /**
    * Sets a preselected options. Type: [ string | number ]
    */
-  defaultValue: PropTypes.shape({
+  defaultValue: PropTypes.arrayOf(PropTypes.shape({
     label: PropTypes.string.isRequired,
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool]),
-  }),
+  })),
   /**
    * Disables any interaction with the component.
    */
