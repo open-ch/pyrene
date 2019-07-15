@@ -33,6 +33,9 @@ const data = [
   {
     name: 'Last', date: '-', city: 'Null City', country: null, hidden: 'Open',
   },
+  {
+    name: 'Really Last', date: '-', city: 'False City', country: false, hidden: 'Open',
+  },
 ];
 
 
@@ -111,7 +114,7 @@ class DataFilteredTable extends React.Component {
        label: 'Country',
        accessor: 'country',
        id: 'country',
-       optionsAccessors: { value: d => d.country, label: d => (d.country === null ? 'null' : d.country === '' ? 'empty' : d.country) }, // eslint-disable-line no-nested-ternary
+       optionsAccessors: { value: d => d.country, label: d => (d.country === null ? 'null' : d.country === '' ? 'empty' : d.country === false ? 'false' : d.country) }, // eslint-disable-line no-nested-ternary
      }, {
        type: 'text',
        label: 'Name',
