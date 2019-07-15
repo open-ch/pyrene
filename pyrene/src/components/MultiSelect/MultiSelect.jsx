@@ -154,10 +154,10 @@ MultiSelect.propTypes = {
   /**
    * Sets a preselected options. Type: [ string | number ]
    */
-  defaultValue: PropTypes.arrayOf(PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-  ])),
+  defaultValue: PropTypes.shape({
+    label: PropTypes.string.isRequired,
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool]),
+  }),
   /**
    * Disables any interaction with the component.
    */
@@ -204,7 +204,7 @@ MultiSelect.propTypes = {
   options: PropTypes.arrayOf(PropTypes.shape({
     invalid: PropTypes.bool,
     label: PropTypes.string,
-    value: PropTypes.string,
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool]),
   })),
   /**
    * Sets the placeholder label.
@@ -231,7 +231,7 @@ MultiSelect.propTypes = {
    */
   value: PropTypes.arrayOf(PropTypes.shape({
     label: PropTypes.string.isRequired,
-    value: PropTypes.any.isRequired,
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool]),
   })),
 };
 
