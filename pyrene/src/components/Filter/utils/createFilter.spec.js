@@ -229,11 +229,17 @@ describe('getOptionsFromData', () => {
       id: 'id1',
       name: 'name1',
     }, {
-      id: 'id2',
-      name: 'name2',
+      id: 42,
+      name: '42',
+    }, {
+      id: null,
+      name: 'null',
+    }, {
+      id: true,
+      name: 'true',
     }];
 
-    const options = [{ value: 'id1', label: 'name1' }, { value: 'id2', label: 'name2' }];
+    const options = [{ value: 'id1', label: 'name1' }, { value: 42, label: '42' }, { value: null, label: 'null' }, { value: true, label: 'true' }];
 
     expect(createFilter.getOptionsFromData(optionsAccessors, data)).toMatchObject(options);
   });
@@ -252,7 +258,7 @@ describe('getOptionsFromData', () => {
       name: 'name2',
     }];
 
-    const options = [{ value: 'id1', label: 'name2' }];
+    const options = [{ value: 'id1', label: 'name1' }];
 
     expect(createFilter.getOptionsFromData(optionsAccessors, data)).toMatchObject(options);
   });

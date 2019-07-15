@@ -56,7 +56,7 @@ class Form extends React.Component {
     // the path for multiselect options points out the exact object inside the multiselect like 'multiselect[x]'
     // to group all of these errors together under multiselect the .split("[") function is used
     // for other elements like a checkbox that do not have "[" in their name, the name remains unchanged
-    const groupedErrors = errors.inner.map(validationError => ({ [validationError.path.split('[')[0]]: validationError.errors })).reduce((acc, obj) => {
+    const groupedErrors = errors.inner.map(validationError => ({ [validationError.path.split(/\[|\./)[0]]: validationError.errors })).reduce((acc, obj) => {
       Object.keys(obj).forEach((k) => {
         acc[k] = (acc[k] || []).concat(obj[k]);
       });
@@ -134,9 +134,6 @@ class Form extends React.Component {
 
   getValueFromInput = (value, key, type) => {
     switch (type) {
-      case 'singleSelect':
-        // we dont need the whole option object {value: xxx, label: yyy}, we need just the value from it
-        return value ? value.value : null;
       case 'multiSelect': {
         const selectedOptions = value;
         const multiSelectName = key;

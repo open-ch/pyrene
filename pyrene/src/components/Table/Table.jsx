@@ -378,7 +378,7 @@ Table.propTypes = {
       /** text displayed to the user in the filter dropdown */
       label: PropTypes.string.isRequired,
       /** key for manipulation */
-      value: PropTypes.string.isRequired,
+      value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool]),
     })),
     type: PropTypes.oneOf(['singleSelect', 'multiSelect', 'text']).isRequired,
   })),

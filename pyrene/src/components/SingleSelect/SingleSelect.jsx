@@ -22,10 +22,12 @@ const SingleSelect = props => (
           className="singleSelect"
           styles={SelectStyle}
           components={{ LoadingIndicator }}
+          // Sets the internal value to "" in case of null or undefined
+          getOptionValue={option => ((option.value !== null && typeof option.value !== 'undefined') ? option.value : '')}
           placeholder={props.placeholder}
           options={props.options}
-          value={props.value ? props.options.filter(o => o.value === props.value).pop() : null}
-          defaultValue={props.options.filter(o => o.value === props.defaultValue).pop()}
+          value={props.value ? props.options.find(o => o.value === props.value.value) : null}
+          defaultValue={props.defaultValue ? props.options.find(o => o.value === props.defaultValue.value) : null}
           isClearable={props.clearable}
           isDisabled={props.disabled}
           isInvalid={props.invalid}
@@ -53,10 +55,12 @@ const SingleSelect = props => (
           className="singleSelect"
           styles={SelectStyle}
           components={{ LoadingIndicator }}
+          // Sets the internal value to "" in case of null or undefined
+          getOptionValue={option => ((option.value !== null && typeof option.value !== 'undefined') ? option.value : '')}
           placeholder={props.placeholder}
           options={props.options}
-          value={props.value ? props.options.filter(o => o.value === props.value).pop() : null}
-          defaultValue={props.options.filter(o => o.value === props.defaultValue).pop()}
+          value={props.value ? props.options.find(o => o.value === props.value.value) : null}
+          defaultValue={props.defaultValue ? props.options.find(o => o.value === props.defaultValue.value) : null}
           isClearable={props.clearable}
           isSearchable={props.searchable}
           isDisabled={props.disabled}
@@ -136,7 +140,10 @@ SingleSelect.propTypes = {
   /**
    * Sets a preselected option.
    */
-  defaultValue: PropTypes.string,
+  defaultValue: PropTypes.shape({
+    label: PropTypes.string.isRequired,
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool]),
+  }),
   /**
    * Disables any interaction with the component.
    */
@@ -179,7 +186,7 @@ SingleSelect.propTypes = {
   options: PropTypes.arrayOf(PropTypes.shape({
     invalid: PropTypes.bool,
     label: PropTypes.string.isRequired,
-    value: PropTypes.string.isRequired,
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool]),
   })),
   /**
    * Sets the placeholder label.
@@ -200,7 +207,10 @@ SingleSelect.propTypes = {
   /**
    * Sets the value of the input field. Same type as supplied options.
    */
-  value: PropTypes.string,
+  value: PropTypes.shape({
+    label: PropTypes.string.isRequired,
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool]),
+  }),
 };
 
 export default SingleSelect;

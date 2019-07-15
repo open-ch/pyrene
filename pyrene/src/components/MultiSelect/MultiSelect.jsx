@@ -34,10 +34,12 @@ const MultiSelect = props => (
           className="multiSelect"
           styles={MultiSelectStyle(props)}
           components={props.selectedOptionsInDropdown ? componentsOptionsInDropdown : componentsNormal}
+          // Sets the internal value to "" in case of null or undefined
+          getOptionValue={option => ((option.value !== null && typeof option.value !== 'undefined') ? option.value : '')}
           placeholder={props.placeholder}
           options={props.options}
-          value={props.value ? props.value : undefined}
-          defaultValue={props.options.filter(option => props.defaultValues.includes(option.value))}
+          value={props.value ? props.options.find(o => o.value === props.value.value) : null}
+          defaultValue={props.defaultValue ? props.options.find(o => o.value === props.defaultValue.value) : null}
           isClearable={props.clearable}
           isDisabled={props.disabled}
           isInvalid={props.invalid}
@@ -66,10 +68,12 @@ const MultiSelect = props => (
           className="multiSelect"
           styles={MultiSelectStyle(props)}
           components={props.selectedOptionsInDropdown ? componentsOptionsInDropdown : componentsNormal}
+          // Sets the internal value to "" in case of null or undefined
+          getOptionValue={option => ((option.value !== null && typeof option.value !== 'undefined') ? option.value : '')}
           placeholder={props.placeholder}
           options={props.options}
-          value={props.value ? props.value : undefined}
-          defaultValue={props.options.filter(option => props.defaultValues.includes(option.value))}
+          value={props.value ? props.options.find(o => o.value === props.value.value) : null}
+          defaultValue={props.defaultValue ? props.options.find(o => o.value === props.defaultValue.value) : null}
           isClearable={props.clearable}
           isDisabled={props.disabled}
           isInvalid={props.invalid}
@@ -125,7 +129,7 @@ MultiSelect.defaultProps = {
   invalidLabel: '',
   title: '',
   name: '',
-  defaultValues: [],
+  defaultValue: [],
   options: [],
   rows: -1,
   selectedOptionsInDropdown: false,
@@ -154,10 +158,10 @@ MultiSelect.propTypes = {
   /**
    * Sets a preselected options. Type: [ string | number ]
    */
-  defaultValues: PropTypes.arrayOf(PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-  ])),
+  defaultValue: PropTypes.shape({
+    label: PropTypes.string.isRequired,
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool]),
+  }),
   /**
    * Disables any interaction with the component.
    */
@@ -204,7 +208,7 @@ MultiSelect.propTypes = {
   options: PropTypes.arrayOf(PropTypes.shape({
     invalid: PropTypes.bool,
     label: PropTypes.string,
-    value: PropTypes.string,
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool]),
   })),
   /**
    * Sets the placeholder label.
@@ -231,7 +235,7 @@ MultiSelect.propTypes = {
    */
   value: PropTypes.arrayOf(PropTypes.shape({
     label: PropTypes.string.isRequired,
-    value: PropTypes.any.isRequired,
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool]),
   })),
 };
 
