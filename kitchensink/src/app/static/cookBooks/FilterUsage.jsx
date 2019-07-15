@@ -27,6 +27,12 @@ const data = [
   {
     name: 'Da Name', date: '-', city: 'Taumatawhakaanhu', country: 'NZ', hidden: 'Open',
   },
+  {
+    name: 'Another', date: '-', city: 'Empty City', country: '', hidden: 'Open',
+  },
+  {
+    name: 'Last', date: '-', city: 'Null City', country: null, hidden: 'Open',
+  },
 ];
 
 
@@ -54,6 +60,7 @@ class SimpleFilteredTable extends React.Component {
          { value: 'Brno', label: 'Brno' },
          { value: 'Taumatawhakaanhu', label: 'Taumatawhakaanhu' },
          { value: 'New York', label: 'New York' },
+         { value: '', label: '-empty-' }, { value: 'CH', label: 'CH' },
        ],
      }, {
        type: 'text',
@@ -100,6 +107,12 @@ class DataFilteredTable extends React.Component {
        optionsAccessors: { value: d => d.city, label: d => `City: ${d.city}` },
        defaultValue: { value: 'Zurich', label: 'Zurich' },
      }, {
+       type: 'singleSelect',
+       label: 'Country',
+       accessor: 'country',
+       id: 'country',
+       optionsAccessors: { value: d => d.country, label: d => (d.country === null ? 'null' : d.country === '' ? 'empty' : d.country) }, // eslint-disable-line no-nested-ternary
+     }, {
        type: 'text',
        label: 'Name',
        accessor: 'name',
@@ -143,6 +156,7 @@ class SimpleFilteredTable extends React.Component {
         { value: 'Brno', label: 'Brno' },
         { value: 'Taumatawhakaanhu', label: 'Taumatawhakaanhu' },
         { value: 'New York', label: 'New York' },
+        { value: '', label: '-empty-' }, { value: 'CH', label: 'CH' },
       ],
     }, {
       type: 'text',
@@ -180,20 +194,25 @@ class SimpleFilteredTable extends React.Component {
 
 const DataFilterCode = `class DataFilteredTable extends React.Component {
 
-    filters = [{
-      type: 'singleSelect',
-      label: 'City',
-      accessor: 'city',
-      id: 'city',
-      optionsAccessors: { value: d => d.city, label: d => \`City: \${d.city}\` },
-      defaultValue: { value: 'Zurich', label: 'Zurich' },
-    }, {
-      type: 'text',
-      label: 'Name',
-      accessor: 'name',
-      id: 'name',
-    }];
-
+     filters = [{
+       type: 'singleSelect',
+       label: 'City',
+       accessor: 'city',
+       id: 'city',
+       optionsAccessors: { value: d => d.city, label: d => \`City:\${d.city}\` },
+       defaultValue: { value: 'Zurich', label: 'Zurich' },
+     }, {
+       type: 'singleSelect',
+       label: 'Country',
+       accessor: 'country',
+       id: 'country',
+       optionsAccessors: { value: d => d.country, label: d => (d.country ? d.country : 'n/a') },
+     }, {
+       type: 'text',
+       label: 'Name',
+       accessor: 'name',
+       id: 'name',
+     }];
 
      state = {
        filterValues: {},
