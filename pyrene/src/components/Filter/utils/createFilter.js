@@ -19,7 +19,7 @@ export const isNullFilter = (type, value) => {
 /*
  * Returns a function that filters datum.accessor for substrings (case-insensitive).
  */
-export const getSubstringFunc = accessor => (value, datum) => typeof datum[accessor] !== 'undefined' && datum[accessor].toLowerCase().includes(value.toLowerCase());
+export const getSubstringFunc = accessor => (value, datum) => typeof datum[accessor] !== 'undefined' && datum[accessor] !== null && datum[accessor].toString().toLowerCase().includes(value.toString().toLowerCase());
 
 /*
  * Returns a function that filters datum.accessor for equal.
@@ -88,16 +88,18 @@ export const filter = (filterDefinitions, filterValues, data) => {
  * Goes through the data and gets the (unique) available options.
  */
 export const getOptionsFromData = (optionsAccessors, data) => {
-  // Find the unique value: labelin the data.
-  const uniqueValueLabels = data.reduce((unique, datum) => {
+  // Find all {value: label:} in the data.
+  const valueLabels = data.map((datum) => {
     const value = optionsAccessors.value(datum);
     const label = optionsAccessors.label(datum);
-    return { ...unique, [value]: label };
-  }, {});
 
-  // Change value1: {label1, value2: label2} to [{value: value1, label: label1}, {value: value2: label: label2}]
-  return Object.entries(uniqueValueLabels).reduce((arr, [value, label]) => arr.concat({ value, label }), []);
+    return { value, label };
+  });
+
+  const uniqueValueLabels = valueLabels.filter((elem, pos, arr) => arr.findIndex(e => e.value === elem.value) === pos);
+  return uniqueValueLabels;
 };
+
 
 /*
  * Derives filter options from definition (they're very similar).

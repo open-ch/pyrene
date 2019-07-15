@@ -14,12 +14,13 @@ const TableCell = props => (
 TableCell.displayName = 'TableCell';
 
 TableCell.defaultProps = {
+  children: null,
   style: null,
   multiSelect: false,
 };
 
 TableCell.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
   multiSelect: PropTypes.bool,
   onClick: PropTypes.func.isRequired,
   style: PropTypes.object, // eslint-disable-line react/forbid-prop-types
