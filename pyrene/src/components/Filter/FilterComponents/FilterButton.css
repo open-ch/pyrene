@@ -10,6 +10,7 @@
   height: 32px;
   display: flex;
   align-items: center;
+  min-width: 80px;
 
 &.noBorder {
    border: none;
