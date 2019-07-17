@@ -261,7 +261,7 @@ export default class Table extends React.Component {
             <div styleName="toolbar">
               {this.props.actions.map((action, index) => (
                 <React.Fragment key={action.label}>
-                  <Button label={action.label} icon={action.icon ? action.icon : undefined} onClick={() => action.callback(this.state.selection)} type="action" disabled={!this.handleActionAvailability(action.active)} />
+                  <Button label={action.label} icon={action.icon ? action.icon : undefined} onClick={() => action.callback(this.state.selection)} type="action" disabled={!this.handleActionAvailability(action.active)} loading={action.loading ? action.loading : false} />
                   {index + 1 < this.props.actions.length && <div styleName="spacer" />}
                 </React.Fragment>
               ))}
@@ -340,6 +340,7 @@ Table.propTypes = {
     callback: PropTypes.func.isRequired,
     icon: PropTypes.string,
     label: PropTypes.string.isRequired,
+    loading: PropTypes.bool,
   })),
   /**
    * Sets the Table columns.
