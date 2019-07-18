@@ -62,9 +62,9 @@
     "markdown-to-jsx": "^6.6.7",
     "optimize-css-assets-webpack-plugin": "^5.0.0",
     "prop-types": "^15.6.1",
-    "pyrene": "1.7.4",
-    "react": "16.4.2",
-    "react-dom": "16.4.2",
+    "pyrene": "1.7.5",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
     "react-select": "^2.0.0",
     "yup": "^0.26.0"
   }
