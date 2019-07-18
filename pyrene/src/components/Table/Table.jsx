@@ -258,15 +258,16 @@ export default class Table extends React.Component {
                   this.toggleSelection(key, props.row);
                 }}
               />
-              );
+            );
           }}
-        />)
+        />
+      )
       : (
         <ReactTable
           {...this.commonStaticProps}
           {...commonVariableProps}
         />
-        );
+      );
   };
 
   render() {
