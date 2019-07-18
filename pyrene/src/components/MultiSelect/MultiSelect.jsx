@@ -41,8 +41,8 @@ const MultiSelect = props => (
           getOptionValue={option => ((option.value !== null && typeof option.value !== 'undefined') ? option.value : '')}
           placeholder={props.placeholder}
           options={props.options}
-          value={props.value ? valueFromOptions(props.options, props.value) : null}
-          defaultValue={props.value ? valueFromOptions(props.options, props.defaultValue) : null}
+          value={props.value ? props.value : null}
+          defaultValue={props.value ? props.defaultValue : null}
           isClearable={props.clearable}
           isDisabled={props.disabled}
           isInvalid={props.invalid}
@@ -75,8 +75,8 @@ const MultiSelect = props => (
           getOptionValue={option => ((option.value !== null && typeof option.value !== 'undefined') ? option.value : '')}
           placeholder={props.placeholder}
           options={props.options}
-          value={props.value ? valueFromOptions(props.options, props.value) : null}
-          defaultValue={props.value ? valueFromOptions(props.options, props.defaultValue) : null}
+          value={props.value ? props.value : null}
+          defaultValue={props.value ? props.defaultValue : null}
           isClearable={props.clearable}
           isDisabled={props.disabled}
           isInvalid={props.invalid}
