@@ -1,5 +1,4 @@
 import path from 'path';
-import CleanWebpackPlugin from 'clean-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin';
 import TerserPlugin from 'terser-webpack-plugin';
@@ -11,12 +10,6 @@ const OUTPUT_PATH = path.resolve(__dirname, 'dist');
 
 const config = {
   mode: production ? 'production' : 'development',
-  entry: {
-    main: './src/index.js',
-    min: './src/index.js',
-    dev: './src/index.js',
-    examples: './src/examples/index.js',
-  },
   resolve: {
     mainFiles: ['index'],
     extensions: ['.js', '.jsx'],
@@ -91,9 +84,21 @@ const config = {
 
 if (production) {
   console.warn('webpack is running in production mode\n'); // eslint-disable-line no-console
-  config.plugins.unshift(new CleanWebpackPlugin());
+  // config.plugins.unshift(new CleanWebpackPlugin());
+
+  config.entry = {
+    main: './src/index.js',
+    min: './src/index.js',
+  };
 } else {
   console.warn('webpack is running in development mode\n'); // eslint-disable-line no-console
+
+  config.entry = {
+    main: './src/index.js',
+    min: './src/index.js',
+    dev: './src/index.js',
+    examples: './src/examples/index.js',
+  };
 }
 
 export default config;
