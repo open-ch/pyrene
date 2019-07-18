@@ -11,6 +11,12 @@ const OUTPUT_PATH = path.resolve(__dirname, 'dist');
 
 const config = {
   mode: production ? 'production' : 'development',
+  entry: {
+    main: './src/index.js',
+    min: './src/index.js',
+    dev: './src/index.js',
+    examples: './src/examples/index.js',
+  },
   resolve: {
     mainFiles: ['index'],
     extensions: ['.js', '.jsx'],
@@ -67,6 +73,7 @@ const config = {
   optimization: {
     minimizer: [
       new TerserPlugin({
+        include: 'pyrene.min.js',
         cache: true,
         parallel: true,
         sourceMap: !production,
@@ -75,7 +82,7 @@ const config = {
   },
   output: {
     path: OUTPUT_PATH,
-    filename: production ? 'pyrene.js' : 'pyrene.[name].js',
+    filename: chunkData => (chunkData.chunk.name === 'main' ? 'pyrene.js' : 'pyrene.[name].js'),
     library: 'pyrene',
     libraryTarget: 'umd',
   },
@@ -87,11 +94,6 @@ if (production) {
   config.plugins.unshift(new CleanWebpackPlugin());
 } else {
   console.warn('webpack is running in development mode\n'); // eslint-disable-line no-console
-
-  config.entry = {
-    dev: './src/index.js',
-    examples: './src/examples/index.js',
-  };
 }
 
 export default config;

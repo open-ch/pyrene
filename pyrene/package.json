@@ -16,7 +16,7 @@
   "scripts": {
     "clean": "rm -rf dist node_modules",
     "prebuild": "yarn install",
-    "build": "NODE_ENV=production webpack && webpack",
+    "build": "NODE_ENV=production webpack",
     "prewatch": "yarn install",
     "watch": "webpack -w",
     "pretest": "yarn install",
@@ -80,7 +80,7 @@
     "classnames": "^2.2.5",
     "dayjs": "^1.8.13",
     "prop-types": "^15.6.1",
-    "react-select": "^2.0.0",
+    "react-select": "^3.0.4",
     "react-svg-inline": "^2.1.1",
     "react-table": "^6.8.6",
     "react-tiny-popover": "^3.4.2",
