@@ -16,7 +16,7 @@
   "scripts": {
     "clean": "rm -rf dist node_modules",
     "prebuild": "yarn install",
-    "build": "NODE_ENV=production webpack && webpack",
+    "build": "NODE_ENV=production webpack",
     "prewatch": "yarn install",
     "watch": "webpack -w",
     "pretest": "yarn install",
