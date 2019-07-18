@@ -318,7 +318,7 @@ Table.defaultProps = {
   actions: [],
   title: '',
   defaultSorted: [],
-  defaultPageSize: 10,
+  defaultPageSize: 20,
   loading: false,
   multiSort: true,
   multiSelect: false,
