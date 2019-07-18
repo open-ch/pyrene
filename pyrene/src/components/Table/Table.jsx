@@ -16,8 +16,23 @@ import Checkbox from '../Checkbox/Checkbox';
 import TableCell from './TableCell/TableCell';
 import CheckboxPopover from '../CheckboxPopover/CheckboxPopover';
 import TableUtils from './TableUtils';
+import Banner from '../Banner/Banner';
 
 const CheckboxTable = checkboxHOC(ReactTable);
+
+const NoDataComponent = ({ error }) => (
+  <div className="rt-tbody-noData">
+    {error.length
+      ? <Banner label={error} type="error" styling="inline" />
+      : 'No data found.'
+    }
+  </div>
+);
+
+
+NoDataComponent.propTypes = {
+  error: PropTypes.string.isRequired,
+};
 
 /**
  * Tables are used to display tabular data. Tables come with pagination and sorting functionality and also allows the user to toggle columns.
@@ -75,9 +90,6 @@ export default class Table extends React.Component {
       this.resetSelection();
     },
 
-    // Empty Table handling
-    PadRowComponent: props => null, // eslint-disable-line no-unused-vars
-    NoDataComponent: props => null, // eslint-disable-line no-unused-vars
     minRows: 1,
 
     TheadComponent: props => <TableHeader {...props} multiSelect={this.props.multiSelect} />,
@@ -86,7 +98,6 @@ export default class Table extends React.Component {
     PaginationComponent: props => <TablePagination {...props} />,
     TfootComponent: props => <TablePagination {...props} />,
     resizable: false,
-    showPaginationBottom: true,
     showPagination: true,
     showPaginationTop: true,
     showPageSizeOptions: true,
@@ -212,6 +223,52 @@ export default class Table extends React.Component {
     </div>
   );
 
+  renderTable = (commonVariableProps) => {
+    // Empty Table handling
+    if (!this.props.data.length) {
+      return (
+        <ReactTable
+          {...this.commonStaticProps}
+          {...commonVariableProps}
+          TbodyComponent={() => <NoDataComponent error={commonVariableProps.error} />}
+        />
+      );
+    }
+    return this.props.multiSelect
+      ? (
+        <CheckboxTable
+          {...this.commonStaticProps}
+          {...commonVariableProps}
+          ref={r => (this.checkboxTable = r)}
+          selectType="checkbox"
+          selectAll={this.state.selectAll}
+          isSelected={this.isSelected}
+          toggleSelection={this.toggleSelection}
+          toggleAll={this.toggleAll}
+          keyField={this.props.keyField}
+          SelectAllInputComponent={props => <Checkbox value={props.checked} onChange={props.onClick} />}
+          SelectInputComponent={(props) => {
+            const enabled = this.props.rowSelectableCallback(props.row);
+            return (
+              <Checkbox
+                disabled={!enabled}
+                value={props.checked}
+                onChange={() => {
+                  const key = props.row[this.props.keyField];
+                  this.toggleSelection(key, props.row);
+                }}
+              />
+              );
+          }}
+        />)
+      : (
+        <ReactTable
+          {...this.commonStaticProps}
+          {...commonVariableProps}
+        />
+        );
+  };
+
   render() {
 
     const commonVariableProps = {
@@ -220,6 +277,8 @@ export default class Table extends React.Component {
       defaultPageSize: this.props.defaultPageSize,
       data: this.props.data,
       pageSizeOptions: this.props.pageSizeOptions,
+      error: this.props.error,
+      showPaginationBottom: !!(this.props.data && this.props.data.length),
 
       multiSort: this.props.multiSort,
     };
@@ -267,43 +326,7 @@ export default class Table extends React.Component {
               ))}
             </div>
           )}
-
-          {this.props.multiSelect
-            ? (
-              <CheckboxTable
-                {...this.commonStaticProps}
-                {...commonVariableProps}
-                ref={r => (this.checkboxTable = r)}
-                selectType="checkbox"
-                selectAll={this.state.selectAll}
-                isSelected={this.isSelected}
-                toggleSelection={this.toggleSelection}
-                toggleAll={this.toggleAll}
-                keyField={this.props.keyField}
-                SelectAllInputComponent={props => <Checkbox value={props.checked} onChange={props.onClick} />}
-                SelectInputComponent={(props) => {
-                  const enabled = this.props.rowSelectableCallback(props.row);
-                  return (
-                    <Checkbox
-                      disabled={!enabled}
-                      value={props.checked}
-                      onChange={() => {
-                        const key = props.row[this.props.keyField];
-                        this.toggleSelection(key, props.row);
-                      }}
-                    />
-                  );
-                }}
-              />
-            )
-            : (
-              <ReactTable
-                {...this.commonStaticProps}
-                {...commonVariableProps}
-              />
-            )
-          }
-
+          {this.renderTable(commonVariableProps)}
         </div>
       </div>
     );
@@ -329,6 +352,7 @@ Table.defaultProps = {
   filters: [],
   onRowDoubleClick: () => null,
   onFilterChange: () => null,
+  error: '',
 };
 
 Table.propTypes = {
@@ -362,6 +386,10 @@ Table.propTypes = {
     desc: PropTypes.bool,
     id: PropTypes.string.isRequired,
   })),
+  /**
+   * Sets the error message to be displayed
+   */
+  error: PropTypes.string,
   /**
    * True if filter should be displayed but in disabled state (filters might be still undefined)
    * */
