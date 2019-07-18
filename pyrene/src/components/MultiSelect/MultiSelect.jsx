@@ -40,7 +40,7 @@ const MultiSelect = props => (
           // Sets the internal value to "" in case of null or undefined
           getOptionValue={option => ((option.value !== null && typeof option.value !== 'undefined') ? option.value : '')}
           placeholder={props.placeholder}
-          options={props.options}
+          options={props.options.sort((a, b) => a.label.localeCompare(b.label))}
           value={props.value}
           defaultValue={props.defaultValue}
           isClearable={props.clearable}
@@ -74,7 +74,7 @@ const MultiSelect = props => (
           // Sets the internal value to "" in case of null or undefined
           getOptionValue={option => ((option.value !== null && typeof option.value !== 'undefined') ? option.value : '')}
           placeholder={props.placeholder}
-          options={props.options}
+          options={props.options.sort((a, b) => a.label.localeCompare(b.label))}
           value={props.value}
           defaultValue={props.defaultValue}
           isClearable={props.clearable}
