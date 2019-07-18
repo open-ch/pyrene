@@ -144,7 +144,7 @@ export default class TabView extends React.Component {
           }
         </div>
 
-        <div className="tabContent" role="tabpanel">
+        <div styleName="tabContent" role="tabpanel">
           {this.props.tabs[this.state.selectedTabIndex].renderCallback()}
         </div>
 
