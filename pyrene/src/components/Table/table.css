@@ -12,11 +12,7 @@
 }
 
 .loader {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, 50%);
-  z-index: 2;
+  padding: 39px 0 39px 8px;
 }
 
 .tableAndActions {
@@ -56,6 +52,23 @@
 .spacer {
   width: 16px;
 }
+
+.tableNoData {
+  padding: 39px 0 39px 8px;
+  font-family: AvenirNext;
+  font-size: 13px;
+  font-weight: normal;
+  font-style: italic;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: var(--neutral-500);
+}
+
+.banner {
+  padding: 39px 0 39px 8px;
+}
+
 
 /*
    Search field: \..*(?=\{)
@@ -470,20 +483,4 @@
 
 :global(.ReactTable .-cursor-pointer) {
   cursor: pointer;
-}
-
-:global(.ReactTable .rt-tbody-noData) {
-  padding: 39px 0 39px 8px;
-  font-family: AvenirNext;
-  font-size: 13px;
-  font-weight: normal;
-  font-style: italic;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  color: var(--neutral-500);
-}
-
-.banner {
-  padding: 39px 0 39px 8px;
 }

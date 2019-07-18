@@ -21,19 +21,29 @@ import Banner from '../Banner/Banner';
 const CheckboxTable = checkboxHOC(ReactTable);
 
 const NoDataComponent = ({ error, emptyMessage }) => (
-  <div className="rt-tbody-noData">
-    {error.length
-      ? <Banner label={error} type="error" styling="inline" />
-      : emptyMessage
+  <div styleName="tableNoData">
+    {
+      error
+        ? <Banner label={error} type="error" styling="inline" />
+        : emptyMessage
     }
   </div>
 );
 
+NoDataComponent.defaultProps = {
+  error: null,
+};
 
 NoDataComponent.propTypes = {
   emptyMessage: PropTypes.string.isRequired,
-  error: PropTypes.string.isRequired,
+  error: PropTypes.string,
 };
+
+const LoaderComponent = () => (
+  <div styleName="loader">
+    <Loader size="large" type="inline" />
+  </div>
+);
 
 /**
  * Tables are used to display tabular data. Tables come with pagination and sorting functionality and also allows the user to toggle columns.
@@ -90,6 +100,11 @@ export default class Table extends React.Component {
     onFilteredChange: () => {
       this.resetSelection();
     },
+
+    // Removes React Table 'No rows found'
+    NoDataComponent: props => null, // eslint-disable-line no-unused-vars
+    // Removes React Table 'Loading...'
+    LoadingComponent: props => null, // eslint-disable-line no-unused-vars
 
     minRows: 1,
 
@@ -218,15 +233,18 @@ export default class Table extends React.Component {
     }));
   };
 
-  renderLoader = () => (
-    <div styleName="loader">
-      <Loader size="large" />
-    </div>
-  );
-
   renderTable = (commonVariableProps) => {
+    if (this.props.loading) {
+      return (
+        <ReactTable
+          {...this.commonStaticProps}
+          {...commonVariableProps}
+          TbodyComponent={LoaderComponent}
+        />
+      );
+    }
     // Empty Table handling
-    if (!this.props.data.length) {
+    if (!commonVariableProps.data.length || commonVariableProps.error) {
       return (
         <ReactTable
           {...this.commonStaticProps}
@@ -283,9 +301,9 @@ export default class Table extends React.Component {
       defaultSorted: this.props.defaultSorted,
       defaultPageSize: this.props.defaultPageSize,
       data: this.props.data,
-      pageSizeOptions: this.props.pageSizeOptions,
-      error: this.props.error,
       emptyMessage: this.props.emptyMessage,
+      error: this.props.error,
+      pageSizeOptions: this.props.pageSizeOptions,
       showPaginationBottom: !!(this.props.data && this.props.data.length),
 
       multiSort: this.props.multiSort,
@@ -298,7 +316,6 @@ export default class Table extends React.Component {
             {this.props.title}
           </div>
         )}
-        {this.props.loading && this.renderLoader()}
 
         <div styleName={classNames('filterBar', { loading: this.props.loading })}>
           <div styleName="filterContainer">
@@ -322,7 +339,7 @@ export default class Table extends React.Component {
           )}
         </div>
 
-        <div styleName={classNames('tableAndActions', { loading: this.props.loading })}>
+        <div styleName={classNames('tableAndActions')}>
 
           {this.props.actions.length > 0 && (
             <div styleName="toolbar">
@@ -360,8 +377,8 @@ Table.defaultProps = {
   filters: [],
   onRowDoubleClick: () => null,
   onFilterChange: () => null,
-  error: '',
   emptyMessage: 'No data found.',
+  error: null,
 };
 
 Table.propTypes = {
