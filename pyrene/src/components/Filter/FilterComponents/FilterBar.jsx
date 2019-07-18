@@ -8,10 +8,10 @@ import FilterTag from './FilterTag';
 const initDataType = (filter) => {
   switch (filter.type) {
     case 'singleSelect': {
-      return filter.defaultValue ? filter.options.filter(option => option.value === filter.defaultValue.value).pop() : null;
+      return filter.defaultValue ? filter.defaultValue : null;
     }
     case 'multiSelect':
-      return filter.defaultValue ? filter.options.filter(option => filter.defaultValue.some(defaultOption => defaultOption.value === option.value)) : [];
+      return filter.defaultValue ? filter.defaultValue : [];
     case 'text':
       return filter.defaultValue ? filter.defaultValue : '';
     default:
