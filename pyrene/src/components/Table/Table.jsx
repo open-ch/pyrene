@@ -20,17 +20,18 @@ import Banner from '../Banner/Banner';
 
 const CheckboxTable = checkboxHOC(ReactTable);
 
-const NoDataComponent = ({ error }) => (
+const NoDataComponent = ({ error, emptyMessage }) => (
   <div className="rt-tbody-noData">
     {error.length
       ? <Banner label={error} type="error" styling="inline" />
-      : 'No data found.'
+      : emptyMessage
     }
   </div>
 );
 
 
 NoDataComponent.propTypes = {
+  emptyMessage: PropTypes.string.isRequired,
   error: PropTypes.string.isRequired,
 };
 
@@ -230,7 +231,12 @@ export default class Table extends React.Component {
         <ReactTable
           {...this.commonStaticProps}
           {...commonVariableProps}
-          TbodyComponent={() => <NoDataComponent error={commonVariableProps.error} />}
+          TbodyComponent={() => (
+            <NoDataComponent
+              error={commonVariableProps.error}
+              emptyMessage={commonVariableProps.emptyMessage}
+            />
+          )}
         />
       );
     }
@@ -279,6 +285,7 @@ export default class Table extends React.Component {
       data: this.props.data,
       pageSizeOptions: this.props.pageSizeOptions,
       error: this.props.error,
+      emptyMessage: this.props.emptyMessage,
       showPaginationBottom: !!(this.props.data && this.props.data.length),
 
       multiSort: this.props.multiSort,
@@ -354,6 +361,7 @@ Table.defaultProps = {
   onRowDoubleClick: () => null,
   onFilterChange: () => null,
   error: '',
+  emptyMessage: 'No data found.',
 };
 
 Table.propTypes = {
@@ -387,6 +395,10 @@ Table.propTypes = {
     desc: PropTypes.bool,
     id: PropTypes.string.isRequired,
   })),
+  /**
+   * Sets the empty message to be displayed when no data is found
+   */
+  emptyMessage: PropTypes.string,
   /**
    * Sets the error message to be displayed
    */
