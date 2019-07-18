@@ -26,8 +26,8 @@ const SingleSelect = props => (
           getOptionValue={option => ((option.value !== null && typeof option.value !== 'undefined') ? option.value : '')}
           placeholder={props.placeholder}
           options={props.options}
-          value={props.value ? props.value : null}
-          defaultValue={props.defaultValue ? props.defaultValue : null}
+          value={props.value}
+          defaultValue={props.defaultValue}
           isClearable={props.clearable}
           isDisabled={props.disabled}
           isInvalid={props.invalid}
@@ -59,8 +59,8 @@ const SingleSelect = props => (
           getOptionValue={option => ((option.value !== null && typeof option.value !== 'undefined') ? option.value : '')}
           placeholder={props.placeholder}
           options={props.options}
-          value={props.value ? props.value : null}
-          defaultValue={props.defaultValue ? props.defaultValue : null}
+          value={props.value}
+          defaultValue={props.defaultValue}
           isClearable={props.clearable}
           isSearchable={props.searchable}
           isDisabled={props.disabled}
