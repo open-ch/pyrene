@@ -43,6 +43,13 @@
   min-height: 160px;
 }
 
+.error {
+  min-height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .loadingOverlay {
   position: absolute;
   top: 0;
