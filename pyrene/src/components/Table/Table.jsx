@@ -326,7 +326,7 @@ export default class Table extends React.Component {
                 <Filter
                   filters={this.props.filters}
                   onFilterSubmit={this.props.onFilterChange}
-                  disabled={this.props.error ? true : this.props.loading}
+                  disabled={this.props.error ? true : this.props.filterDisabled}
                 />
               )
             }
