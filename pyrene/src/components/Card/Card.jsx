@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -17,21 +17,16 @@ const Card = ({
 
   <div styleName="container">
     {header && <div styleName="header">{header}</div>}
-    <div styleName={classNames('content', {
-      'content--noHeader': !header, 'content--noFooter': !footer, 'content--loading': loading,
-    })}
-    >
+    <div styleName={classNames('content', { 'content--noHeader': !header, 'content--noFooter': !footer })}>
+      {/* eslint-disable-next-line no-nested-ternary */}
       { error ? <div styleName="error"><Banner type="error" styling="standard" label={error} /></div>
-        : (
-          <Fragment>
-            {children}
-            {loading && (
-              <div styleName="loadingOverlay">
-                <Loader size="large" />
-              </div>
-            )}
-          </Fragment>
-        )}
+        : loading ? (
+          <div styleName="loader">
+            <div styleName="loadingOverlay">
+              <Loader size="large" />
+            </div>
+          </div>
+        ) : children}
     </div>
     {footer && <div styleName="footer">{footer}</div>}
   </div>
