@@ -171,9 +171,11 @@ export default class Table extends React.Component {
     // enable actions based on selection length and actionType
     if (actionType === 'always') {
       return true;
-    } if (this.state.selection.length === 1 && actionType === 'single') {
+    }
+    if (this.state.selection.length === 1 && actionType === 'single') {
       return true;
-    } if (this.state.selection.length >= 1 && actionType === 'multi') {
+    }
+    if (this.state.selection.length >= 1 && actionType === 'multi') {
       return true;
     }
     return false;
@@ -237,16 +239,6 @@ export default class Table extends React.Component {
 
       multiSort: this.props.multiSort,
     };
-    // Inject LoaderComponent while loading to table body
-    if (this.props.loading) {
-      return (
-        <ReactTable
-          {...this.commonStaticProps}
-          {...commonVariableProps}
-          TbodyComponent={LoaderComponent}
-        />
-      );
-    }
     // Inject ErrorComponent when an error prop is present to table body
     if (this.props.error) {
       return (
@@ -258,6 +250,16 @@ export default class Table extends React.Component {
               error={this.props.error}
             />
           )}
+        />
+      );
+    }
+    // Inject LoaderComponent while loading to table body
+    if (this.props.loading) {
+      return (
+        <ReactTable
+          {...this.commonStaticProps}
+          {...commonVariableProps}
+          TbodyComponent={LoaderComponent}
         />
       );
     }
