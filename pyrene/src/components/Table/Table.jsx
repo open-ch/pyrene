@@ -20,12 +20,12 @@ import Banner from '../Banner/Banner';
 
 const CheckboxTable = checkboxHOC(ReactTable);
 
-const NoDataComponent = ({ error, emptyMessage }) => (
+const NoDataComponent = ({ error }) => (
   <div styleName="tableNoData">
     {
       error
         ? <Banner label={error} type="error" styling="inline" />
-        : emptyMessage
+        : 'No data found.'
     }
   </div>
 );
@@ -35,7 +35,6 @@ NoDataComponent.defaultProps = {
 };
 
 NoDataComponent.propTypes = {
-  emptyMessage: PropTypes.string.isRequired,
   error: PropTypes.string,
 };
 
@@ -244,15 +243,14 @@ export default class Table extends React.Component {
       );
     }
     // Empty Table handling
-    if (!commonVariableProps.data.length || commonVariableProps.error) {
+    if (!commonVariableProps.data.length || this.props.error) {
       return (
         <ReactTable
           {...this.commonStaticProps}
           {...commonVariableProps}
           TbodyComponent={() => (
             <NoDataComponent
-              error={commonVariableProps.error}
-              emptyMessage={commonVariableProps.emptyMessage}
+              error={this.props.error}
             />
           )}
         />
@@ -301,10 +299,8 @@ export default class Table extends React.Component {
       defaultSorted: this.props.defaultSorted,
       defaultPageSize: this.props.defaultPageSize,
       data: this.props.data,
-      emptyMessage: this.props.emptyMessage,
-      error: this.props.error,
       pageSizeOptions: this.props.pageSizeOptions,
-      showPaginationBottom: !!(this.props.data && this.props.data.length),
+      showPaginationBottom: !!(this.props.data && this.props.data.length && !this.props.error),
 
       multiSort: this.props.multiSort,
     };
@@ -324,7 +320,7 @@ export default class Table extends React.Component {
                 <Filter
                   filters={this.props.filters}
                   onFilterSubmit={this.props.onFilterChange}
-                  disabled={this.props.filterDisabled}
+                  disabled={this.props.error ? true : this.props.loading}
                 />
               )
             }
@@ -377,7 +373,6 @@ Table.defaultProps = {
   filters: [],
   onRowDoubleClick: () => null,
   onFilterChange: () => null,
-  emptyMessage: 'No data found.',
   error: null,
 };
 
@@ -412,10 +407,6 @@ Table.propTypes = {
     desc: PropTypes.bool,
     id: PropTypes.string.isRequired,
   })),
-  /**
-   * Sets the empty message to be displayed when no data is found
-   */
-  emptyMessage: PropTypes.string,
   /**
    * Sets the error message to be displayed
    */
