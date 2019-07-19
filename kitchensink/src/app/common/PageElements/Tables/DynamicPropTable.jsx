@@ -29,14 +29,18 @@ export default class DynamicPropTable extends React.Component {
           </React.Fragment>
         );
 
-      case 'enum':
+      case 'enum': {
+        const fieldProps = this.props.initField(propName);
+        // This is necessary because we wrote our orwn initField function in ComponentEditor which does not handle
+        // value: {value: label:} properly.
+        const processedFieldProps = { ...fieldProps, value: { value: fieldProps.value, label: fieldProps.value }, onChange: (v, e) => { fieldProps.onChange(v.value, e); } };
         return (
           <SingleSelect
             options={propProps.type.value.map(propChoice => ({ value: propChoice.value.replace(/'/g, ''), label: propChoice.value.replace(/'/g, '') }))}
-            {...this.props.initField(propName)}
+            {...processedFieldProps}
           />
         );
-
+      }
       case 'bool':
         return (
           <Checkbox

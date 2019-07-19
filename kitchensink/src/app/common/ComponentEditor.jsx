@@ -37,12 +37,7 @@ export default class ComponentEditor extends React.Component {
   };
 
   handleEditorChange = (value, type, key) => {
-    let newValue = value;
-    if (type === 'singleSelect') {
-      newValue = value ? value.label : null;
-    }
-
-    const changedProp = { [key]: newValue };
+    const changedProp = { [key]: value };
 
     this.setState(prevState => ({
       componentProps: { ...prevState.componentProps, ...changedProp },
