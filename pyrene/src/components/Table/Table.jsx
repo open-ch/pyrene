@@ -232,7 +232,18 @@ export default class Table extends React.Component {
     }));
   };
 
-  renderTable = (commonVariableProps) => {
+  renderTable = () => {
+    const commonVariableProps = {
+      columns: this.state.columns,
+      defaultSorted: this.props.defaultSorted,
+      defaultPageSize: this.props.defaultPageSize,
+      data: this.props.data,
+      pageSizeOptions: this.props.pageSizeOptions,
+      showPaginationBottom: !!(this.props.data && this.props.data.length && !this.props.error && !this.props.loading),
+
+      multiSort: this.props.multiSort,
+    };
+
     if (this.props.loading) {
       return (
         <ReactTable
@@ -294,17 +305,6 @@ export default class Table extends React.Component {
 
   render() {
 
-    const commonVariableProps = {
-      columns: this.state.columns,
-      defaultSorted: this.props.defaultSorted,
-      defaultPageSize: this.props.defaultPageSize,
-      data: this.props.data,
-      pageSizeOptions: this.props.pageSizeOptions,
-      showPaginationBottom: !!(this.props.data && this.props.data.length && !this.props.error),
-
-      multiSort: this.props.multiSort,
-    };
-
     return (
       <div styleName="tableContainer">
         {this.props.title && (
@@ -347,7 +347,7 @@ export default class Table extends React.Component {
               ))}
             </div>
           )}
-          {this.renderTable(commonVariableProps)}
+          {this.renderTable()}
         </div>
       </div>
     );
