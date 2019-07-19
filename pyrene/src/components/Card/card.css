@@ -43,11 +43,12 @@
   min-height: 160px;
 }
 
-.error {
+.error, .loader {
   min-height: 160px;
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
 }
 
 .loadingOverlay {
