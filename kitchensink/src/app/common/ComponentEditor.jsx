@@ -36,13 +36,8 @@ export default class ComponentEditor extends React.Component {
     });
   };
 
-  handleEditorChange = (value, type, key) => {
-    let newValue = value;
-    if (type === 'singleSelect') {
-      newValue = value ? value.label : null;
-    }
-
-    const changedProp = { [key]: newValue };
+  handleEditorChange = (value, key) => {
+    const changedProp = { [key]: value };
 
     this.setState(prevState => ({
       componentProps: { ...prevState.componentProps, ...changedProp },
@@ -52,7 +47,7 @@ export default class ComponentEditor extends React.Component {
   initField = mergedState => fieldName => ({
     name: fieldName,
     value: mergedState[fieldName],
-    onChange: (value, event) => this.handleEditorChange(value, event.target.type, fieldName),
+    onChange: value => this.handleEditorChange(value, fieldName),
     disabled: Utils.isWiredProp(this.state.componentProps, fieldName),
   });
 
