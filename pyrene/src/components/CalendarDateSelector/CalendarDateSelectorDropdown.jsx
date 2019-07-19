@@ -20,7 +20,7 @@ const TimeRangeSelectionDropdown = (props) => {
       options={options}
       onChange={value => onSelect(value.value)}
       disabled={disabled}
-      value={timeRange}
+      value={{ value: timeRange, label: capitalizeFirstLetter(timeRange) }}
     />
   );
 };
