@@ -20,21 +20,13 @@ import Banner from '../Banner/Banner';
 
 const CheckboxTable = checkboxHOC(ReactTable);
 
-const NoDataComponent = ({ error }) => (
-  <div styleName="tableNoData">
-    {
-      error
-        ? <Banner label={error} type="error" styling="inline" />
-        : 'No data found.'
-    }
-  </div>
-);
+const ErrorComponent = ({ error }) => (<div styleName="customTableBody"><Banner label={error} type="error" styling="inline" /></div>);
 
-NoDataComponent.defaultProps = {
+ErrorComponent.defaultProps = {
   error: null,
 };
 
-NoDataComponent.propTypes = {
+ErrorComponent.propTypes = {
   error: PropTypes.string,
 };
 
@@ -43,6 +35,8 @@ const LoaderComponent = () => (
     <Loader size="large" type="inline" />
   </div>
 );
+
+const NoDataComponent = () => (<div styleName="customTableBody">No data found.</div>);
 
 /**
  * Tables are used to display tabular data. Tables come with pagination and sorting functionality and also allows the user to toggle columns.
@@ -243,7 +237,7 @@ export default class Table extends React.Component {
 
       multiSort: this.props.multiSort,
     };
-
+    // Inject LoaderComponent while loading to table body
     if (this.props.loading) {
       return (
         <ReactTable
@@ -253,17 +247,27 @@ export default class Table extends React.Component {
         />
       );
     }
-    // Empty Table handling
-    if (!commonVariableProps.data.length || this.props.error) {
+    // Inject ErrorComponent when an error prop is present to table body
+    if (this.props.error) {
       return (
         <ReactTable
           {...this.commonStaticProps}
           {...commonVariableProps}
           TbodyComponent={() => (
-            <NoDataComponent
+            <ErrorComponent
               error={this.props.error}
             />
           )}
+        />
+      );
+    }
+    // Inject NoDataComponent when there is no data present to table body
+    if (!commonVariableProps.data.length) {
+      return (
+        <ReactTable
+          {...this.commonStaticProps}
+          {...commonVariableProps}
+          TbodyComponent={NoDataComponent}
         />
       );
     }
