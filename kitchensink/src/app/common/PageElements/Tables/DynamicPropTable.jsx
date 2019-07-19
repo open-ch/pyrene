@@ -30,10 +30,9 @@ export default class DynamicPropTable extends React.Component {
         );
 
       case 'enum': {
+        // Special handling for SingleSelect/enum props: single select doesn't just take the prop value, it needs value={value: label:}
         const fieldProps = this.props.initField(propName);
-        // This is necessary because we wrote our orwn initField function in ComponentEditor which does not handle
-        // value: {value: label:} properly.
-        const processedFieldProps = { ...fieldProps, value: { value: fieldProps.value, label: fieldProps.value }, onChange: (v, e) => { fieldProps.onChange(v.value, e); } };
+        const processedFieldProps = { ...fieldProps, value: { value: fieldProps.value, label: fieldProps.value }, onChange: (v) => { fieldProps.onChange(v.value); } };
         return (
           <SingleSelect
             options={propProps.type.value.map(propChoice => ({ value: propChoice.value.replace(/'/g, ''), label: propChoice.value.replace(/'/g, '') }))}

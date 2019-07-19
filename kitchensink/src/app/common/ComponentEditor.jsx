@@ -36,7 +36,7 @@ export default class ComponentEditor extends React.Component {
     });
   };
 
-  handleEditorChange = (value, type, key) => {
+  handleEditorChange = (value, key) => {
     const changedProp = { [key]: value };
 
     this.setState(prevState => ({
@@ -47,7 +47,7 @@ export default class ComponentEditor extends React.Component {
   initField = mergedState => fieldName => ({
     name: fieldName,
     value: mergedState[fieldName],
-    onChange: (value, event) => this.handleEditorChange(value, event.target.type, fieldName),
+    onChange: value => this.handleEditorChange(value, fieldName),
     disabled: Utils.isWiredProp(this.state.componentProps, fieldName),
   });
 
