@@ -22,6 +22,7 @@ const TablePagination = props => (
           options={props.pageSizeOptions.map(e => ({ label: `${e}`, value: `${e}` }))}
           onChange={e => props.onPageSizeChange(parseInt(e.value, 10))}
           value={`${props.pageSize}`}
+          disabled={!(props.data && props.data.length)}
         />
       </div>
       <div styleName="spacer small" />
