@@ -6,11 +6,25 @@ import './tablePagination.css';
 
 /* eslint-disable react/prop-types */
 /* props are controlled by the parent component of react-table */
+const renderResultCounter = (data, loading) => {
+  if (loading) {
+    return (
+      <div styleName="resultsCounter">
+        Loading
+      </div>
+    );
+  }
+  return (
+    <div styleName="resultsCounter">
+      {`${data.length === 0 ? 'No' : data.length} result${data.length === 1 ? '' : 's'} found`}
+    </div>
+  );
+};
 
 const TablePagination = props => (
   <div styleName="tablePagination">
     <div styleName="resultsCounter">
-      {`${props.data.length === 0 ? 'No' : props.data.length} result${props.data.length === 1 ? '' : 's'} found`}
+      {renderResultCounter(props.data, props.loading)}
     </div>
 
     <div styleName="separator" />

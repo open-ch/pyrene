@@ -104,7 +104,7 @@ export default class Table extends React.Component {
     TheadComponent: props => <TableHeader {...props} multiSelect={this.props.multiSelect} />,
     ThComponent: props => <TableHeaderCell {...props} multiSelect={this.props.multiSelect} />,
     TdComponent: props => <TableCell {...props} multiSelect={this.props.multiSelect} />,
-    PaginationComponent: props => <TablePagination {...props} />,
+    PaginationComponent: props => <TablePagination {...props} loading={this.props.loading} error={this.props.error} />,
     TfootComponent: props => <TablePagination {...props} />,
     resizable: false,
     showPagination: true,
@@ -168,7 +168,11 @@ export default class Table extends React.Component {
   };
 
   handleActionAvailability = (actionType) => {
-    // enable actions based on selection length and actionType
+    if (this.props.error) {
+      return false;
+    }
+
+    // enable actions based on selection length and actionTypex
     if (actionType === 'always') {
       return true;
     }
@@ -337,6 +341,7 @@ export default class Table extends React.Component {
               listItems={this.state.columns.map(col => ({ id: col.id, label: col.Header, value: this.isColumnDisplayed(col.show) }))}
               onItemClick={(item, value) => this.toggleColumnDisplay(item, value)}
               onRestoreDefault={() => this.restoreColumnDefaults()}
+              disabled={!!this.props.error}
             />
           )}
         </div>
