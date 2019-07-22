@@ -167,11 +167,12 @@ const Yupscheme = `const validationSchema = yup.object({
   radioGroup: yup.string()
     .required('Need to choose one option.'),
 
-  // select needs nullable to cover case where user only touches the empty select
-  iceSelect: yup.string()
-    .required('You need to choose an icecream!')
-    .test('isVanilla', 'Only vanilla is the real deal..', value => value === 'vanilla')
-    .nullable(),
+    // select needs nullable to cover case where user only touches the empty select
+    iceSelect: yup.object().shape({
+      value: yup.string().test('isVanilla', 'Only vanilla is the real deal..', value => value === 'vanilla'),
+    })
+      .required('You need to choose an icecream!')
+      .nullable(),
 
   // Validation structure for multiselects
   iceMultiselect: yup.array().of(yup.object().shape({
@@ -204,9 +205,10 @@ const validationSchema = yup.object({
     .required('Need to choose one option.'),
 
   // select needs nullable to cover case where user only touches the empty select
-  iceSelect: yup.string()
+  iceSelect: yup.object().shape({
+    value: yup.string().test('isVanilla', 'Only vanilla is the real deal..', value => value === 'vanilla'),
+  })
     .required('You need to choose an icecream!')
-    .test('isVanilla', 'Only vanilla is the real deal..', value => value === 'vanilla')
     .nullable(),
 
   // Validation structure for multiselects
