@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ParentSize } from '@vx/responsive';
-import { scaleBand, scaleLinear, scaleOrdinal } from '@vx/scale';
-import { AxisLeft, AxisRight, AxisBottom } from '@vx/axis';
+import { scaleLinear } from '@vx/scale';
+import { AxisBottom } from '@vx/axis';
+import Responsive from '../Misc/Responsive';
 import '../utils.css';
 
 const Axis = props => (
   <div styleName="parentDiv">
-    <ParentSize>
+    <Responsive>
       {parent => (
         <svg width={parent.width} height={parent.height}>
           <AxisBottom
@@ -22,7 +22,7 @@ const Axis = props => (
           />
         </svg>
       )}
-    </ParentSize>
+    </Responsive>
   </div>
 );
 

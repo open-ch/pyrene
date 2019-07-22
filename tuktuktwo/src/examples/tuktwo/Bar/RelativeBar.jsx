@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { BarStackHorizontal, BarStack } from '@vx/shape';
-import { ParentSize } from '@vx/responsive';
 import { scaleBand, scaleLinear, scaleOrdinal } from '@vx/scale';
+import Responsive from '../Misc/Responsive';
 import '../utils.css';
 
 const RelativeBar = props => (
@@ -12,9 +12,7 @@ const RelativeBar = props => (
     parentDiv: props.direction === 'vertical',
   })}
   >
-    <ParentSize
-      debounceTime={0}
-    >
+    <Responsive>
       {(parent) => {
         const keys = [
           'value',
@@ -64,7 +62,7 @@ const RelativeBar = props => (
           )
         );
       }}
-    </ParentSize>
+    </Responsive>
   </div>
 );
 

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { Bar as VxBar } from '@vx/shape';
-import { ParentSize } from '@vx/responsive';
+import Responsive from '../Misc/Responsive';
 import '../utils.css';
 
 const Bar = props => (
@@ -11,9 +11,7 @@ const Bar = props => (
     parentDiv: props.direction === 'vertical',
   })}
   >
-    <ParentSize
-      debounceTime={0}
-    >
+    <Responsive>
       {parent => (
         props.direction === 'horizontal' ? (
           <svg width={parent.width} height={props.barWeight}>
@@ -37,7 +35,7 @@ const Bar = props => (
           </svg>
         )
       )}
-    </ParentSize>
+    </Responsive>
   </div>
 );
 
