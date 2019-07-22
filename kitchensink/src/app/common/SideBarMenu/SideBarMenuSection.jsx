@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { NavLink } from 'react-router-dom';
@@ -82,6 +82,27 @@ export default class SideBarMenuSection extends React.Component {
       .reduce((a, b) => (this.state.elementOpen[b.name] && b.elements ? a + b.elements.length * 42 : a + 0), 0);
   }
 
+  createNavLink(element, index, isSubElement) {
+    return (
+      <NavLink to={element.linkToPath} activeClassName="activeSideBar" key={`${this.props.title}${element.name}`}>
+        <div
+          className="unSelectable"
+          styleName={classNames(
+            { sectionElement: !isSubElement },
+            { sectionSubElement: isSubElement },
+            { disabled: element.linkToPath === '#' && !element.elements },
+          )}
+          key={element.name}
+          ref={`ref${index}`}
+          onClick={() => this.handleElementClick(element.name)}
+        >
+          {element.name}
+          {element.linkToPath === '#' && !element.elements && <span>Coming Soon</span>}
+        </div>
+      </NavLink>
+    );
+  }
+
   render() {
     return (
       <div styleName={classNames('section', { open: this.state.open })}>
@@ -92,35 +113,11 @@ export default class SideBarMenuSection extends React.Component {
 
         <div styleName="sectionContentWrapper" style={{ height: this.state.sectionContentWrapperHeight + this.state.sectionElementContentWrapperHeight }}>
           {this.props.sectionElements.map((element, index) => (
-            [
-              <NavLink to={element.linkToPath} activeClassName="activeSideBar" key={`${this.props.title}${element.name}`}>
-                <div
-                  className="unSelectable"
-                  styleName={classNames('sectionElement', { disabled: element.linkToPath === '#' && !element.elements })}
-                  key={element.name}
-                  ref={`ref${index}`}
-                  onClick={() => this.handleElementClick(element.name)}
-                >
-                  {element.name}
-                  {element.linkToPath === '#' && !element.elements && <span>Coming Soon</span>}
-                </div>
-              </NavLink>,
-              (element.elements && element.elements.length > 0 && this.state.elementOpen[element.name])
-                && element.elements.map((subElement, subIndex) => (
-                  (
-                    <NavLink to={subElement.linkToPath} activeClassName="activeSideBar" key={`${this.props.title}${subElement.name}`}>
-                      <div
-                        className="unSelectable"
-                        styleName={classNames('sectionSubElement', { disabled: subElement.linkToPath === '#' })}
-                        key={subElement.name}
-                        ref={`ref${subIndex}`}
-                      >
-                        {subElement.name}
-                        {subElement.linkToPath === '#' && <span>Coming Soon</span>}
-                      </div>
-                    </NavLink>
-                  ))),
-            ]
+            <Fragment>
+              {this.createNavLink(element, index, false)}
+              {element.elements && element.elements.length > 0 && this.state.elementOpen[element.name]
+                && element.elements.map((subElement, subIndex) => this.createNavLink(subElement, subIndex, true))}
+            </Fragment>
           ))}
         </div>
       </div>
