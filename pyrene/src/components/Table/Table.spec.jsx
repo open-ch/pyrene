@@ -25,7 +25,6 @@ describe('<Table />', () => {
   });
 
   it('should inject a custom div into React Table when there is no data', () => {
-    console.log(props);
     const noDataProps = { ...props };
     noDataProps.data = [];
 
