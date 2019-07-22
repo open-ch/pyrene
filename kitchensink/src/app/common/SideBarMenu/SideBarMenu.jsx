@@ -11,12 +11,12 @@ function getExamples() {
     .filter(component => examples[component.name])
     .map(component => ({ category: examples[component.name].category === undefined ? otherSectionName : examples[component.name].category, name: component.displayName, linkToPath: `/${component.name}` }))
     .sort((a, b) => a.name.localeCompare(b.name));
-  let categories = components
+  const uniqueCategories = components
     .map(component => component.category)
     .filter((it, i, ar) => ar.indexOf(it) === i)
     .sort((a, b) => a.localeCompare(b));
-  categories.push(categories.splice(categories.indexOf(otherSectionName), 1)[0]);
-  categories = categories
+  uniqueCategories.push(uniqueCategories.splice(uniqueCategories.indexOf(otherSectionName), 1)[0]);
+  const categorySections = uniqueCategories
     .map(category => ({
       category: category,
       linkToPath: '#',
@@ -24,7 +24,7 @@ function getExamples() {
         .filter(component => component.category === category)
         .map(component => ({ name: component.name, linkToPath: component.linkToPath })),
     }));
-  return categories;
+  return categorySections;
 }
 
 const SideBarMenu = () => (
