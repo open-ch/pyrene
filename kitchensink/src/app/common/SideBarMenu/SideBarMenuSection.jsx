@@ -79,7 +79,7 @@ export default class SideBarMenuSection extends React.Component {
 
   calculateSectionElementContentWrapperHeight() {
     return this.props.sectionElements
-      .reduce((a, b) => (this.state.elementOpen[b.category] && b.elements ? a + b.elements.length * 42 : a + 0), 0);
+      .reduce((a, b) => (this.state.elementOpen[b.name] && b.elements ? a + b.elements.length * 42 : a + 0), 0);
   }
 
   render() {
@@ -93,19 +93,19 @@ export default class SideBarMenuSection extends React.Component {
         <div styleName="sectionContentWrapper" style={{ height: this.state.sectionContentWrapperHeight + this.state.sectionElementContentWrapperHeight }}>
           {this.props.sectionElements.map((element, index) => (
             [
-              <NavLink to={element.linkToPath} activeClassName="activeSideBar" key={`${this.props.title}${element.category}`}>
+              <NavLink to={element.linkToPath} activeClassName="activeSideBar" key={`${this.props.title}${element.name}`}>
                 <div
                   className="unSelectable"
                   styleName={classNames('sectionElement', { disabled: element.linkToPath === '#' && !element.elements })}
-                  key={element.category}
+                  key={element.name}
                   ref={`ref${index}`}
-                  onClick={() => this.handleElementClick(element.category)}
+                  onClick={() => this.handleElementClick(element.name)}
                 >
-                  {element.category}
+                  {element.name}
                   {element.linkToPath === '#' && !element.elements && <span>Coming Soon</span>}
                 </div>
               </NavLink>,
-              (element.elements && element.elements.length > 0 && this.state.elementOpen[element.category])
+              (element.elements && element.elements.length > 0 && this.state.elementOpen[element.name])
                 && element.elements.map((subElement, subIndex) => (
                   (
                     <NavLink to={subElement.linkToPath} activeClassName="activeSideBar" key={`${this.props.title}${subElement.name}`}>
@@ -138,12 +138,12 @@ SideBarMenuSection.defaultProps = {
 SideBarMenuSection.propTypes = {
   linkToPath: PropTypes.string,
   sectionElements: PropTypes.arrayOf(PropTypes.shape({
-    category: PropTypes.string,
     elements: PropTypes.arrayOf(PropTypes.shape({
       linkToPath: PropTypes.string,
       name: PropTypes.string,
     })),
     linkToPath: PropTypes.string,
+    name: PropTypes.string,
   })).isRequired,
   title: PropTypes.string.isRequired,
 };

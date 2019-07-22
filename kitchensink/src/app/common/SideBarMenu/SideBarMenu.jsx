@@ -18,7 +18,7 @@ function getExamples() {
   uniqueCategories.push(uniqueCategories.splice(uniqueCategories.indexOf(otherSectionName), 1)[0]);
   const categorySections = uniqueCategories
     .map(category => ({
-      category: category,
+      name: category,
       linkToPath: '#',
       elements: components
         .filter(component => component.category === category)
@@ -34,8 +34,8 @@ const SideBarMenu = () => (
       <SideBarMenuSection
         title="Foundations"
         sectionElements={[
-          { category: 'Colors', linkToPath: '/colors' },
-          { category: 'Icons', linkToPath: '/icons' }]}
+          { name: 'Colors', linkToPath: '/colors' },
+          { name: 'Icons', linkToPath: '/icons' }]}
       />
       <SideBarMenuSection
         title="Components"
@@ -44,9 +44,9 @@ const SideBarMenu = () => (
       <SideBarMenuSection
         title="Cookbooks"
         sectionElements={[
-          { category: 'Form', linkToPath: '/cookbook/form' },
-          { category: 'Filter', linkToPath: '/cookbook/filter' },
-          { category: 'Pyrene', linkToPath: '/cookbook/pyrene' },
+          { name: 'Form', linkToPath: '/cookbook/form' },
+          { name: 'Filter', linkToPath: '/cookbook/filter' },
+          { name: 'Pyrene', linkToPath: '/cookbook/pyrene' },
         ]}
       />
     </div>
