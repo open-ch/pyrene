@@ -101,7 +101,7 @@ export default class Table extends React.Component {
 
     minRows: 1,
 
-    TheadComponent: props => <TableHeader {...props} multiSelect={this.props.multiSelect} />,
+    TheadComponent: props => <TableHeader {...props} multiSelect={this.props.multiSelect} disabled={!!this.props.error} />,
     ThComponent: props => <TableHeaderCell {...props} multiSelect={this.props.multiSelect} />,
     TdComponent: props => <TableCell {...props} multiSelect={this.props.multiSelect} />,
     PaginationComponent: props => <TablePagination {...props} loading={this.props.loading} error={this.props.error} />,
