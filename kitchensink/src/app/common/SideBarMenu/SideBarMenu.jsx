@@ -9,27 +9,25 @@ import './sideBarMenu.css';
 
 function getExamples() {
   const otherSectionName = 'Other';
-  let components = [...Object.values(Components), ...Object.values(ChartComponents)];
   const exampleComponents = { ...examples, ...chartExamples };
-  components = components
+  const components = [...Object.values(Components), ...Object.values(ChartComponents)]
     .filter(component => exampleComponents[component.name])
     .map(component => ({ category: exampleComponents[component.name].category === undefined ? otherSectionName : exampleComponents[component.name].category, name: component.displayName, linkToPath: `/${component.name}` }))
     .sort((a, b) => a.name.localeCompare(b.name));
-  let categories = components
+  const uniqueCategories = components
     .map(component => component.category)
     .filter((it, i, ar) => ar.indexOf(it) === i)
     .sort((a, b) => a.localeCompare(b));
-  categories.push(categories.splice(categories.indexOf(otherSectionName), 1)[0]);
-  categories = categories
+  uniqueCategories.push(uniqueCategories.splice(uniqueCategories.indexOf(otherSectionName), 1)[0]);
+  const categorySections = uniqueCategories
     .map(category => ({
-      category: category,
-      linkToPath: `/${components
-        .filter(component => component.category === category[0].name)}`,
+      name: category,
+      linkToPath: '#',
       elements: components
         .filter(component => component.category === category)
         .map(component => ({ name: component.name, linkToPath: component.linkToPath })),
     }));
-  return categories;
+  return categorySections;
 }
 
 const SideBarMenu = () => (
@@ -39,8 +37,8 @@ const SideBarMenu = () => (
       <SideBarMenuSection
         title="Foundations"
         sectionElements={[
-          { category: 'Colors', linkToPath: '/colors' },
-          { category: 'Icons', linkToPath: '/icons' }]}
+          { name: 'Colors', linkToPath: '/colors' },
+          { name: 'Icons', linkToPath: '/icons' }]}
       />
       <SideBarMenuSection
         title="Components"
