@@ -41,3 +41,10 @@
   font-size: 16px;
   color: var(--neutral-300);
 }
+
+.disabled {
+  opacity: .5;
+  cursor: default;
+  pointer-events: none;
+  /* deactivate hover */
+}

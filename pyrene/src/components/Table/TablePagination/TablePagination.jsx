@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import Stepper from '../../Stepper/Stepper';
 import TableSelect from './TableSelect/TableSelect';
 
@@ -22,7 +23,8 @@ const TablePagination = props => (
           options={props.pageSizeOptions.map(e => ({ label: `${e}`, value: `${e}` }))}
           onChange={e => props.onPageSizeChange(parseInt(e.value, 10))}
           value={`${props.pageSize}`}
-          disabled={!(props.data && props.data.length)}
+          // Use two exclamation marks to convert a value to boolean - !!props.error = true if string has a value, false if empty
+          disabled={(!(props.data && props.data.length) || !!props.error)}
         />
       </div>
       <div styleName="spacer small" />
@@ -32,13 +34,13 @@ const TablePagination = props => (
     <div styleName="separator" />
 
     <div styleName="pageNavigation">
-      <Stepper direction="left" disabled={!props.canPrevious} onClick={() => props.onPageChange(props.page - 1)} type="minimal" />
+      <Stepper direction="left" disabled={!props.canPrevious || !!props.error} onClick={() => props.onPageChange(props.page - 1)} type="minimal" />
       <div styleName="spacer small" />
-      <div styleName="pageTracker">
-        {props.pages > 0 ? `${props.page + 1} of ${props.pages}` : '1 of 1'}
+      <div styleName={classNames('pageTracker', { disabled: !!props.error })}>
+        {props.pages > 0 && !props.error ? `${props.page + 1} of ${props.pages}` : '1 of 1'}
       </div>
       <div styleName="spacer small" />
-      <Stepper direction="right" disabled={!props.canNext} onClick={() => props.onPageChange(props.page + 1)} type="minimal" />
+      <Stepper direction="right" disabled={!props.canNext || !!props.error} onClick={() => props.onPageChange(props.page + 1)} type="minimal" />
     </div>
   </div>
 );
