@@ -54,3 +54,7 @@
 }
 
 .resultsCounter {}
+
+.disabled {
+  color: var(--neutral-200);
+}

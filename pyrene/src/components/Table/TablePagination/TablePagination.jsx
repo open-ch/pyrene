@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import Stepper from '../../Stepper/Stepper';
 import TableSelect from './TableSelect/TableSelect';
 
@@ -6,25 +7,11 @@ import './tablePagination.css';
 
 /* eslint-disable react/prop-types */
 /* props are controlled by the parent component of react-table */
-const renderResultCounter = (data, loading) => {
-  if (loading) {
-    return (
-      <div styleName="resultsCounter">
-        Loading
-      </div>
-    );
-  }
-  return (
-    <div styleName="resultsCounter">
-      {`${data.length === 0 ? 'No' : data.length} result${data.length === 1 ? '' : 's'} found`}
-    </div>
-  );
-};
 
 const TablePagination = props => (
   <div styleName="tablePagination">
     <div styleName="resultsCounter">
-      {renderResultCounter(props.data, props.loading)}
+      {`${props.data.length === 0 ? 'No' : props.data.length} result${props.data.length === 1 ? '' : 's'} found`}
     </div>
 
     <div styleName="separator" />
@@ -36,6 +23,7 @@ const TablePagination = props => (
           options={props.pageSizeOptions.map(e => ({ label: `${e}`, value: `${e}` }))}
           onChange={e => props.onPageSizeChange(parseInt(e.value, 10))}
           value={`${props.pageSize}`}
+          // Use two exclamation marks to convert a value to boolean - !!props.error = true if string has a value, false if empty
           disabled={(!(props.data && props.data.length) || !!props.error)}
         />
       </div>
@@ -48,7 +36,7 @@ const TablePagination = props => (
     <div styleName="pageNavigation">
       <Stepper direction="left" disabled={!props.canPrevious || !!props.error} onClick={() => props.onPageChange(props.page - 1)} type="minimal" />
       <div styleName="spacer small" />
-      <div styleName="pageTracker">
+      <div styleName={classNames('pageTracker', { disabled: !!props.error })}>
         {props.pages > 0 && !props.error ? `${props.page + 1} of ${props.pages}` : '1 of 1'}
       </div>
       <div styleName="spacer small" />

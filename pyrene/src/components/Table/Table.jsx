@@ -101,6 +101,7 @@ export default class Table extends React.Component {
 
     minRows: 1,
 
+    // Use two exclamation marks to convert a value to boolean - disabled={!!this.props.error} = true if string has a value, false if empty
     TheadComponent: props => <TableHeader {...props} multiSelect={this.props.multiSelect} disabled={!!this.props.error} />,
     ThComponent: props => <TableHeaderCell {...props} multiSelect={this.props.multiSelect} />,
     TdComponent: props => <TableCell {...props} multiSelect={this.props.multiSelect} />,
