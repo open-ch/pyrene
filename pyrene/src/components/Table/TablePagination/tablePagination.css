@@ -25,6 +25,10 @@
 .pageTracker {
   color: var(--text);
   white-space: nowrap;
+
+  &.disabled {
+     color: var(--neutral-200);
+   }
 }
 
 .pageSizeSelectOptions {
