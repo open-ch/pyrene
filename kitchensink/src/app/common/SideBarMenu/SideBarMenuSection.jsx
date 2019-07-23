@@ -13,7 +13,9 @@ export default class SideBarMenuSection extends React.Component {
 
     this.state = {
       open: false,
-      elementOpen: {},
+      elementOpen: this.props.sectionElements.map(element => (
+        { [element.name]: false }
+      )),
       sectionContentWrapperHeight: 0,
       sectionElementContentWrapperHeight: 0,
     };
@@ -22,11 +24,13 @@ export default class SideBarMenuSection extends React.Component {
   componentDidMount() {
     const refs = this.refs; // eslint-disable-line react/no-string-refs
     if (Object.keys(refs).find(k => refs[k].parentElement.className === 'activeSideBar')) {
-      this.setState({
-        open: true,
-        sectionContentWrapperHeight: this.calculateSectionContentWrapperHeight(),
-        sectionElementContentWrapperHeight: this.calculateSectionElementContentWrapperHeight(),
-      });
+      this.setState(prevState => (
+        {
+          open: true,
+          sectionContentWrapperHeight: this.calculateSectionContentWrapperHeight(),
+          sectionElementContentWrapperHeight: this.calculateSectionElementContentWrapperHeight(prevState.elementOpen),
+        }
+      ));
     }
 
   }
@@ -42,34 +46,30 @@ export default class SideBarMenuSection extends React.Component {
         });
         // Open Section
       } else {
-        this.setState({
-          open: true,
-          sectionContentWrapperHeight: this.calculateSectionContentWrapperHeight(),
-          sectionElementContentWrapperHeight: this.calculateSectionElementContentWrapperHeight(),
-        });
+        this.setState(prevState => (
+          {
+            open: true,
+            sectionContentWrapperHeight: this.calculateSectionContentWrapperHeight(),
+            sectionElementContentWrapperHeight: this.calculateSectionElementContentWrapperHeight(prevState.elementOpen),
+          }
+        ));
       }
     }
   }
 
   handleElementClick(key) {
     if (this.props.sectionElements.length > 0) {
-      // Close section
-      if (this.state.elementOpen[key]) {
-        this.setState((prevState) => {
-          const elementOpen = prevState.elementOpen;
-          elementOpen[key] = false;
-          const sectionElementContentWrapperHeight = this.calculateSectionElementContentWrapperHeight();
-          return { elementOpen, sectionElementContentWrapperHeight };
-        });
-        // Open Section
-      } else {
-        this.setState((prevState) => {
-          const elementOpen = prevState.elementOpen;
-          elementOpen[key] = true;
-          const sectionElementContentWrapperHeight = this.calculateSectionElementContentWrapperHeight();
-          return { elementOpen, sectionElementContentWrapperHeight };
-        });
-      }
+      // Toggle section
+      this.setState((prevState) => {
+        const elementOpen = {
+          ...prevState.elementOpen,
+          [key]: !prevState.elementOpen[key],
+        };
+        return {
+          elementOpen: elementOpen,
+          sectionElementContentWrapperHeight: this.calculateSectionElementContentWrapperHeight(elementOpen),
+        };
+      });
     }
   }
 
@@ -77,9 +77,9 @@ export default class SideBarMenuSection extends React.Component {
     return this.props.sectionElements.length * 48 + 32 + this.state.sectionElementContentWrapperHeight;
   }
 
-  calculateSectionElementContentWrapperHeight() {
+  calculateSectionElementContentWrapperHeight(elementOpen) {
     return this.props.sectionElements
-      .reduce((a, b) => (this.state.elementOpen[b.name] && b.elements ? a + b.elements.length * 42 : a + 0), 0);
+      .reduce((a, b) => (elementOpen[b.name] && b.elements ? a + b.elements.length * 42 : a + 0), 0);
   }
 
   createNavLink(element, index, isSubElement) {
