@@ -1,15 +1,19 @@
 .title {
-  font-size: 15px;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--text);
 }
 
 .container {
   display: flex;
   justify-content: space-between;
+  padding-bottom: 6px; /* +1px border*/
 }
 
 .subtitle {
   font-size: 14px;
-  color: grey;
+  color: var(--neutral-300);
 }
 
 .legend {
