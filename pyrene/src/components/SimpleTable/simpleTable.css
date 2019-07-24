@@ -31,4 +31,5 @@
 
 .tableCell {
   flex: 1;
+  padding-right: 16px;
 }
