@@ -1,0 +1,38 @@
+.title {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--text);
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 6px; /* +1px border*/
+}
+
+.subtitle {
+  font-size: 14px;
+  color: var(--neutral-300);
+}
+
+.legend {
+  display: flex;
+  justify-content: space-between;
+  margin-right: 16px;
+}
+
+.legendItem {
+  font-size: 13px;
+  margin-left: 16px;
+  display: flex;
+  align-items: center;
+}
+
+.circle {
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  margin-right: 8px;
+  background-color: blue;
+}

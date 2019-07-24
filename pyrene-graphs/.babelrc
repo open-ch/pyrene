@@ -14,7 +14,7 @@
     "development": {
       "plugins": [
         ["react-css-modules", {
-          "generateScopedName": "pyrene-[name]__[local]--[hash:base64:10]"
+          "generateScopedName": "pyrene-graphs-[name]__[local]--[hash:base64:10]"
         }],
         "react-docgen",
       ]
@@ -22,7 +22,7 @@
     "production": {
       "plugins": [
         ["react-css-modules", {
-          "generateScopedName": "pyrene-[name]__[local]--[hash:base64:10]"
+          "generateScopedName": "pyrene-graphs-[name]__[local]--[hash:base64:10]"
         }],
       ]
     }
