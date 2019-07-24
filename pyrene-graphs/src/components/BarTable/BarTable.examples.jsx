@@ -44,7 +44,15 @@ const tableColumns = [{
   accessor: d => d.friend.age,
 }];
 
-const examples = {
+const examples = {};
+
+examples.props = {
+  barWeight: 6,
+  data: tableData,
+  columns: tableColumns,
+};
+
+examples.examples = [{
   props: {
     data: tableData,
     columns: tableColumns,
@@ -60,55 +68,28 @@ const examples = {
     },
     ],
   },
-};
+  description: 'A simple table with one column as a bar chart',
+}, {
+  props: {
+    data: tableData,
+    columns: tableColumns,
+    title: 'Relative Bar Table',
+    subtitle: 'A simple table with one column as a relative bar chart',
+    colorScheme: {
+      primary: 'var(--blue-700)',
+      secondary: 'var(--blue-050)',
+    },
+    legend: [{
+      label: 'Age',
+      colorKey: 'primary',
+    }, {
+      label: 'Delta Age',
+      colorKey: 'secondary',
+    },
+    ],
+    relative: true,
+  },
+  description: 'A simple table with one column as a relative bar chart',
+}];
 
 export default examples;
-
-// const examples = {};
-//
-// examples.props = {
-//   barWeight: 18,
-//   data: tableData,
-//   columns: tableColumns,
-// };
-//
-// examples.examples = [{
-//   props: {
-//     data: tableData,
-//     columns: tableColumns,
-//     title: 'Bar Table',
-//     subtitle: 'A simple table with one column as a bar chart',
-//     colorScheme: {
-//       primary: 'blue',
-//     },
-//     legend: [{
-//       label: 'Age',
-//       colorKey: 'primary',
-//     },
-//     ],
-//   },
-//   description: 'A simple table with one column as a bar chart',
-// }, {
-//   props: {
-//     data: tableData,
-//     columns: tableColumns,
-//     title: 'Relative Bar Table',
-//     subtitle: 'A simple table with one column as a relative bar chart',
-//     colorScheme: {
-//       primary: 'blue',
-//       secondary: 'lightblue',
-//     },
-//     legend: [{
-//       label: 'Age',
-//       colorKey: 'primary',
-//     }, {
-//       label: 'Delta Age',
-//       colorKey: 'secondary',
-//     },
-//     ],
-//     relative: true,
-//   },
-//   description: 'A simple table with one column as a relative bar chart',
-// }];
-//
-// export default examples;
