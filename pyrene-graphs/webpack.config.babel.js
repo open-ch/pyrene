@@ -63,6 +63,7 @@ const config = {
   optimization: {
     minimizer: [
       new TerserPlugin({
+        include: 'pyrene-graphs.min.js',
         cache: true,
         parallel: true,
         sourceMap: !production,
@@ -71,7 +72,7 @@ const config = {
   },
   output: {
     path: OUTPUT_PATH,
-    filename: production ? 'pyrene-graphs.js' : 'pyrene-graphs.[name].js',
+    filename: chunkData => (chunkData.chunk.name === 'main' ? 'pyrene-graphs.js' : 'pyrene-graphs.[name].js'),
     library: 'pyrene-graphs',
     libraryTarget: 'umd',
   },
@@ -85,6 +86,8 @@ if (production) {
   console.warn('webpack is running in development mode\n'); // eslint-disable-line no-console
 
   config.entry = {
+    main: './src/index.js',
+    min: './src/index.js',
     dev: './src/index.js',
     examples: './src/examples/index.js',
   };
