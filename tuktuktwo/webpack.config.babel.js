@@ -1,15 +1,10 @@
-/* eslint-disable no-console */
-import webpack from 'webpack'; // eslint-disable-line no-unused-vars
 import path from 'path';
-
-import CleanWebpackPlugin from 'clean-webpack-plugin';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin';
 
-const OUTPUT_PATH = path.resolve(__dirname, 'dist');
-
 const production = process.env.NODE_ENV === 'production';
+
+const OUTPUT_PATH = path.resolve(__dirname, 'dist');
 
 const config = {
   mode: production ? 'production' : 'development',
@@ -27,7 +22,7 @@ const config = {
         use: {
           loader: 'babel-loader',
           query: {
-            cacheDirectory: true,
+            cacheDirectory: false,
           },
         },
       },
@@ -40,7 +35,6 @@ const config = {
             loader: 'css-loader',
             options: {
               modules: true,
-              importLoaders: 1,
               localIdentName: 'tuktwo-[name]__[local]--[hash:base64:10]',
               sourceMap: !production,
             },
@@ -48,19 +42,9 @@ const config = {
           'postcss-loader',
         ],
       },
-      {
-        test: /(node_modules|pyrene\/dist).*\.css$/,
-        use: ['style-loader', 'css-loader'],
-      },
     ],
   },
   plugins: [
-    new CleanWebpackPlugin(['dist']),
-    new HtmlWebpackPlugin({
-      // favicon: 'src/images/favicon.ico',
-      filename: 'index.html',
-      template: 'src/index.html',
-    }),
     new MiniCssExtractPlugin({
       filename: 'tuktwo.css',
     }),
@@ -72,15 +56,14 @@ const config = {
     library: 'tuktwo',
     libraryTarget: 'umd',
   },
+  externals: ['react', 'react-dom'],
 };
 
 if (production) {
   console.warn('webpack is running in production mode\n');
 } else {
   console.warn('webpack is running in development mode\n');
-  config.devServer = {
-    historyApiFallback: true,
-  };
+  
   config.entry = {
     main: './src/index.js',
     min: './src/index.js',
