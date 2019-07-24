@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { Bar as VxBar } from '@vx/shape';
 import Responsive from '../Misc/Responsive';
-import '../utils.css';
+import './bar.css';
 
 const Bar = props => (
   <div styleName={classNames({

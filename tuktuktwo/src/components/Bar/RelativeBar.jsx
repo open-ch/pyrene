@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { BarStackHorizontal, BarStack } from '@vx/shape';
 import { scaleBand, scaleLinear, scaleOrdinal } from '@vx/scale';
 import Responsive from '../Misc/Responsive';
-import '../utils.css';
+import './bar.css';
 
 const RelativeBar = props => (
   <div styleName={classNames({
