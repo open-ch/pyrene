@@ -1,19 +1,23 @@
-# Kitchen Sink
+# Kitchensink
 
 Design principles and demo project for [pyrene](../pyrene).
 
 ## Development
 
-In order to ease development of pyrene, we recommend to use the kitchen sink together with your local version of pyrene.
+In order to ease development of pyrene, we recommend to use the kitchensink together with your local version of pyrene.
 
-Make pyrene available (from `pyrene` folder):
+Make pyrene available and keep watching it (in your pyrene folder):
 ```bash
+yarn install
 yarn link
+yarn watch
 ```
 
-Link it in the kitchen sink:
+Link it in kitchensink and fire up the development server (in your kitchensink folder):
 ```bash
+yarn install
 yarn link pyrene
+yarn watch
 ```
 
 If you don't want to use your local copy of pyrene any longer, unlink it and do a fresh package install:
