@@ -41,7 +41,7 @@ const tableColumns = [{
 }, {
   id: 'friendAge',
   headerName: 'Friend Age',
-  accessor: 'friend.age',
+  accessor: d => d.friend.age,
 }];
 
 const examples = {

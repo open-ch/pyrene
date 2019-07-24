@@ -3,14 +3,13 @@ import PropTypes from 'prop-types';
 import { SimpleTable } from 'pyrene/dist/pyrene.dev';
 import { Bar, RelativeBar } from 'tuktwo/dist/tuktwo.dev';
 import Title from '../Title/Title';
-import getBy from '../../../../pyrene/src/components/SimpleTable/TableUtils';
 import './barTable.css';
 
 const BarTable = (props) => {
   const graphColumn = props.columns.filter(column => column.graph)[0];
   const columnsNew = props.columns;
   if (graphColumn) {
-    const maxValue = Math.max(...props.data.map(dataRow => (typeof graphColumn.accessor === 'string' ? getBy(dataRow, graphColumn.accessor) : graphColumn.accessor(dataRow))));
+    const maxValue = Math.max(...props.data.map(dataRow => (typeof graphColumn.accessor === 'string' ? dataRow[graphColumn.accessor] : graphColumn.accessor(dataRow))));
     const cellRenderCallback = row => (props.relative ? (
       <RelativeBar
         barWeight={props.barWeight}
