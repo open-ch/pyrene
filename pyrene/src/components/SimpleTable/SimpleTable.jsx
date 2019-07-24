@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './simpleTable.css';
-import getBy from './TableUtils';
 
 /**
  * Simple Tables are used to display tabular data without the overhead of pagination, sorting and filtering.
@@ -26,7 +25,7 @@ const SimpleTable = props => (
         >
           {props.columns.length > 0 && props.columns.map((column) => {
             const valueRow = row;
-            valueRow.value = typeof column.accessor === 'string' ? getBy(row, column.accessor) : column.accessor(row);
+            valueRow.value = typeof column.accessor === 'string' ? row[column.accessor] : column.accessor(row);
             return (
               <td
                 styleName="tableCell"
