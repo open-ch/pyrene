@@ -7,16 +7,15 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin';
 
+const OUTPUT_PATH = path.resolve(__dirname, 'dist');
 
 const production = process.env.NODE_ENV === 'production';
 
 const config = {
   mode: production ? 'production' : 'development',
   resolve: {
+    mainFiles: ['index'],
     extensions: ['.js', '.jsx'],
-  },
-  output: {
-    publicPath: '/',
   },
   module: {
     rules: [
@@ -34,7 +33,7 @@ const config = {
       },
       {
         test: /\.css$/,
-        exclude: /node_modules|pyrene\/dist/,
+        exclude: /node_modules/,
         use: [
           MiniCssExtractPlugin.loader,
           {
@@ -42,7 +41,7 @@ const config = {
             options: {
               modules: true,
               importLoaders: 1,
-              localIdentName: '[name]__[local]--[hash:base64:10]',
+              localIdentName: 'tuktwo-[name]__[local]--[hash:base64:10]',
               sourceMap: !production,
             },
           },
@@ -50,20 +49,8 @@ const config = {
         ],
       },
       {
-        test: /\.svg$/,
-        loader: 'url-loader',
-      },
-      {
         test: /(node_modules|pyrene\/dist).*\.css$/,
         use: ['style-loader', 'css-loader'],
-      },
-      {
-        test: /\.png$/,
-        loader: 'url-loader',
-      },
-      {
-        test: /\.woff$/,
-        loader: 'url-loader',
       },
     ],
   },
@@ -79,6 +66,12 @@ const config = {
     }),
     new OptimizeCSSAssetsPlugin({}),
   ],
+  output: {
+    path: OUTPUT_PATH,
+    filename: chunkData => (chunkData.chunk.name === 'main' ? 'tuktwo.js' : 'tuktwo.[name].js'),
+    library: 'tuktwo',
+    libraryTarget: 'umd',
+  },
 };
 
 if (production) {
@@ -87,6 +80,11 @@ if (production) {
   console.warn('webpack is running in development mode\n');
   config.devServer = {
     historyApiFallback: true,
+  };
+  config.entry = {
+    main: './src/index.js',
+    min: './src/index.js',
+    dev: './src/index.js',
   };
 }
 
