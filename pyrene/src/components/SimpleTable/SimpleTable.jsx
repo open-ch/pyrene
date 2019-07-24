@@ -6,9 +6,9 @@ import './simpleTable.css';
  * Simple Tables are used to display tabular data without the overhead of pagination, sorting and filtering.
  */
 const SimpleTable = props => (
-  <table styleName="tableBody">
-    <tbody>
-      <tr styleName="tableHeader">
+  <table styleName="table">
+    <thead>
+      <tr styleName="tableHeaderRow">
         {props.columns.length > 0 && props.columns.map(column => (
           <th
             styleName="tableHeaderCell"
@@ -18,6 +18,8 @@ const SimpleTable = props => (
           </th>
         ))}
       </tr>
+    </thead>
+    <tbody>
       {props.data.length > 0 && props.data.map(row => (
         <tr
           styleName="tableRow"

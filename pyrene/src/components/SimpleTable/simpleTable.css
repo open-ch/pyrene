@@ -1,11 +1,11 @@
-.tableBody {
+.table {
   composes: commonFontSettings from '../../styles/common.css';
   width: 100%;
   overflow: auto;
   font-size: 13px;
 }
 
-.tableHeader {
+.tableHeaderRow {
   border-top: 1px solid var(--border);
   padding-top: 6px;
   padding-bottom: 6px; /* +1px border*/
