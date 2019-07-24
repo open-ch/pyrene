@@ -2,14 +2,14 @@
 /* eslint-disable import/no-named-default */
 
 // Sort alphabetically to find stuff easily
-import { default as BarChart } from './components/BarChart/BarChart';
+import { default as BarTable } from './components/BarTable/BarTable';
 
 // Sort alphabetically to find stuff easily
 const Components = {
-  BarChart,
+  BarTable,
 };
 
 // Sort alphabetically to find stuff easily
-export { BarChart };
+export { BarTable };
 
 export default Components;
