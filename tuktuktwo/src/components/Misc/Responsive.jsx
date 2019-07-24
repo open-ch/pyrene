@@ -1,11 +1,7 @@
 import React from 'react';
 import { ParentSize } from '@vx/responsive';
 
-const Responsive = (props) => {
-  const newProps = Object.assign({}, props);
-  newProps.debounceTime = 10;
-  return <ParentSize {...newProps} />;
-};
+const Responsive = props => (<ParentSize {...props} debounceTime={10} />);
 
 Responsive.displayName = 'Responsive';
 
