@@ -51,7 +51,8 @@ const examples = {
     title: 'Bar Table',
     subtitle: 'A simple table with one column as a bar chart',
     colorScheme: {
-      primary: 'blue',
+      primary: 'var(--blue-700)',
+      secondary: 'var(--blue-050)',
     },
     legend: [{
       label: 'Age',

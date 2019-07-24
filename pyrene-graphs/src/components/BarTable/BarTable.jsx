@@ -51,10 +51,10 @@ BarTable.defaultProps = {
   title: '',
   subtitle: '',
   colorScheme: {
-    primary: 'blue',
-    secondary: 'lightblue',
+    primary: 'var(--blue-700)',
+    secondary: 'var(--blue-050)',
   },
-  barWeight: 18,
+  barWeight: 6,
   relative: false,
   legend: [],
 };
