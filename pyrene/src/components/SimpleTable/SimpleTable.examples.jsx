@@ -53,11 +53,14 @@ const tableColumns = [{
   id: 'friendName',
   headerName: 'Friend Name',
   accessor: d => d.friend.name,
-}, {
+},
+{
   id: 'friendAge',
   headerName: 'Friend Age',
   accessor: d => d.friend.age,
-}];
+  cellRenderCallback: d => `Friend's age is ${d.value}`,
+},
+];
 
 const examples = {
   props: {
