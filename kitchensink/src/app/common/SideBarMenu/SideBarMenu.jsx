@@ -9,7 +9,7 @@ function getExamples() {
   const otherSectionName = 'Other';
   const components = Object.values(Components)
     .filter(component => examples[component.name])
-    .map(component => ({ category: examples[component.name].category === undefined ? otherSectionName : examples[component.name].category, name: component.displayName, linkToPath: `/${component.name}` }))
+    .map(component => ({ category: component.category === undefined ? otherSectionName : component.category, name: component.displayName, linkToPath: `/${component.name}` }))
     .sort((a, b) => a.name.localeCompare(b.name));
   const uniqueCategories = components
     .map(component => component.category)
