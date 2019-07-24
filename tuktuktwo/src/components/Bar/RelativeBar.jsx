@@ -69,10 +69,10 @@ const RelativeBar = props => (
 RelativeBar.displayName = 'Relative Bar';
 
 RelativeBar.defaultProps = {
-  barWeight: 18,
+  barWeight: 6,
   colorScheme: {
-    primary: 'blue',
-    secondary: 'lightblue',
+    primary: 'var(--blue-700)',
+    secondary: 'var(--blue-050)',
   },
   direction: 'horizontal',
 };

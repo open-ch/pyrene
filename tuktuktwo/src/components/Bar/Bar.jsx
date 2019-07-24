@@ -42,8 +42,8 @@ const Bar = props => (
 Bar.displayName = 'Bar';
 
 Bar.defaultProps = {
-  barWeight: 18,
-  color: 'black',
+  barWeight: 6,
+  color: 'var(--blue-700)',
   direction: 'horizontal',
 };
 
