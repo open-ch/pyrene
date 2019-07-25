@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { SimpleTable } from 'pyrene/dist/pyrene.dev';
-import { Bar, RelativeBar } from 'tuktwo/dist/tuktwo.dev';
+import { Bar, RelativeBar } from 'tuktuktwo/dist/tuktuktwo.dev';
 import Title from '../Title/Title';
 import './barTable.css';
 
