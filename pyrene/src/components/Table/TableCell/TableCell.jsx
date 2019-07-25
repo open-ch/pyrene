@@ -4,17 +4,11 @@ import classNames from 'classnames';
 
 import './tableCell.css';
 
-const TableCell = props => {
-
-  const { width, ...childStyle } = props.style;
-  
-  return (
-    <div styleName="tableCell" className="rt-td" role="gridcell" style={props.style} onClick={props.onClick}>
-      <div styleName={classNames('tableData', { multiSelect: props.multiSelect })} style={childStyle}>{props.children}</div>
-    </div>
-  );
-};
-
+const TableCell = props => (
+  <div styleName="tableCell" className="rt-td" role="gridcell" style={props.style} onClick={props.onClick}>
+    <div styleName={classNames('tableData', { multiSelect: props.multiSelect })}>{props.children}</div>
+  </div>
+);
 
 
 TableCell.displayName = 'TableCell';
