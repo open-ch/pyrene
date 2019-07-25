@@ -1,0 +1,35 @@
+.table {
+  composes: commonFontSettings from '../../styles/common.css';
+  width: 100%;
+  overflow: auto;
+  font-size: 13px;
+}
+
+.tableHeaderRow {
+  border-top: 1px solid var(--border);
+  padding-top: 6px;
+  padding-bottom: 6px; /* +1px border*/
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  flex: 1 1 auto;
+}
+
+.tableHeaderCell {
+  font-weight: 600;
+  flex: 1;
+  display: inline-flex;
+}
+
+.tableRow {
+  background-color: #ffffff;
+  padding-top: 7px;
+  padding-bottom: 6px; /* +1px border*/
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  flex: 1 1 auto;
+}
+
+.tableCell {
+  flex: 1;
+  padding-right: 16px;
+}
