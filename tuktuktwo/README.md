@@ -1,3 +1,2 @@
 # tuktwo
-Kinda like  v2.
-
+The foundations for [pyrene-graphs](../pyrene-graphs).
