@@ -1,0 +1,18 @@
+{
+    "presets": [
+      ["@babel/preset-env", {
+        "targets": {
+          "browsers": [ ">0.1%", "ie 11", "not op_mini all"]
+        }
+      }],
+      "@babel/preset-react"
+    ],
+    "plugins": [
+      ["react-css-modules", {
+        "generateScopedName": "tuktwo-[name]__[local]--[hash:base64:10]"
+      }],
+      "@babel/plugin-transform-object-assign",
+      "@babel/plugin-proposal-object-rest-spread",
+      "@babel/plugin-proposal-class-properties"
+    ]
+}

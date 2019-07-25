@@ -1,0 +1,9 @@
+.parentDiv {
+  height: 100px;
+}
+
+.verticalBar {
+  width: 18px;
+  margin-left: 4px;
+  min-width: 0;
+}
