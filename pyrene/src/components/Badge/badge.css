@@ -1,0 +1,55 @@
+@import '../../styles/colors.css';
+
+.badge {
+  composes: commonFontSettings from '../../styles/common.css';
+  box-sizing: border-box;
+  height: 18px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  font-weight: 500;
+  font-style: normal;
+  font-stretch: normal;
+  border-radius: 2px;
+  padding-left: 6px;
+  padding-right: 6px;
+
+&.type-neutral {
+   background-color: var(--neutral-050);
+   color: var(--neutral-400);
+ }
+
+&.type-info {
+   background-color: var(--information-light);
+   color: var(--blue-600);
+ }
+
+&.type-success {
+   background-color: var(--ok-light);
+   color: var(--green-700);
+ }
+
+&.type-danger {
+   background-color: var(--danger-lighter);
+   color: var(--red-600);
+ }
+
+&.type-warning {
+   background-color: var(--warning-light);
+   color: var(--orange-700);
+ }
+}
+
+.textBox {
+  display: flex;
+  align-items: center;
+}
+
+.message {
+  font-size: 11px;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.36;
+  letter-spacing: normal;
+  font-weight: bold;
+}
