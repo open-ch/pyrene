@@ -2,11 +2,11 @@
 /* eslint-disable import/no-named-default */
 
 // Sort alphabetically to find stuff easily
-import { default as BarTable } from '../components/BarTable/BarTable.examples';
+import { default as BarChartTable } from '../components/BarChartTable/BarChartTable.examples';
 
 // Sort alphabetically to find stuff easily
 const examples = {
-  BarTable,
+  BarChartTable,
 };
 
 export default examples;
