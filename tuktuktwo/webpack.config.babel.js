@@ -35,7 +35,7 @@ const config = {
             loader: 'css-loader',
             options: {
               modules: true,
-              localIdentName: 'tuktwo-[name]__[local]--[hash:base64:10]',
+              localIdentName: 'tuktuktwo-[name]__[local]--[hash:base64:10]',
               sourceMap: !production,
             },
           },
@@ -46,14 +46,14 @@ const config = {
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: 'tuktwo.css',
+      filename: 'tuktuktwo.css',
     }),
     new OptimizeCSSAssetsPlugin({}),
   ],
   output: {
     path: OUTPUT_PATH,
-    filename: chunkData => (chunkData.chunk.name === 'main' ? 'tuktwo.js' : 'tuktwo.[name].js'),
-    library: 'tuktwo',
+    filename: chunkData => (chunkData.chunk.name === 'main' ? 'tuktuktwo.js' : 'tuktuktwo.[name].js'),
+    library: 'tuktuktwo',
     libraryTarget: 'umd',
   },
   externals: ['react', 'react-dom'],
@@ -63,7 +63,7 @@ if (production) {
   console.warn('webpack is running in production mode\n');
 } else {
   console.warn('webpack is running in development mode\n');
-  
+
   config.entry = {
     main: './src/index.js',
     min: './src/index.js',
