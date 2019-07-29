@@ -2,6 +2,9 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import './title.css';
 
+/**
+ * Titles are used to display titles, subtitles and legends along with chart components.
+ */
 const Title = props => (
   <Fragment>
     <div styleName="title">
@@ -42,9 +45,27 @@ Title.defaultProps = {
 };
 
 Title.propTypes = {
-  colorScheme: PropTypes.object, // eslint-disable-line react/forbid-prop-types
-  legend: PropTypes.array, // eslint-disable-line react/forbid-prop-types
+  /**
+   * Sets the colors of the bar chart. Type: { primary: string (required), secondary: string }
+   */
+  colorScheme: PropTypes.shape({
+    primary: PropTypes.string.isRequired,
+    secondary: PropTypes.string,
+  }),
+  /**
+   * Sets the legend. Type: [{ colorKey: string (required), secondary: string }]
+   */
+  legend: PropTypes.arrayOf(PropTypes.shape({
+    colorKey: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired,
+  })),
+  /**
+   * Sets the subtitle.
+   */
   subtitle: PropTypes.string,
+  /**
+   * Sets the title.
+   */
   title: PropTypes.string.isRequired,
 };
 
