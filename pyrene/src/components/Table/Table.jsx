@@ -337,9 +337,10 @@ export default class Table extends React.Component {
             }
           </div>
           {this.props.toggleColumns && (
+
             <CheckboxPopover
               buttonLabel="Columns"
-              listItems={this.state.columns.map(col => ({ id: col.id, label: col.Header, value: this.isColumnDisplayed(col.show) }))}
+              listItems={this.state.columns.filter(col => col.Header).map(col => ({ id: col.id, label: col.Header, value: this.isColumnDisplayed(col.show) }))}
               onItemClick={(item, value) => this.toggleColumnDisplay(item, value)}
               onRestoreDefault={() => this.restoreColumnDefaults()}
               disabled={!!this.props.error}
@@ -403,7 +404,15 @@ Table.propTypes = {
    * Sets the Table columns.
    * Type: [{ id: string (required), headerName: string (required), accessor: string (required), headerStyle: object, cellStyle: object, initiallyHidden: bool, width: number }]
    */
-  columns: PropTypes.array.isRequired, // eslint-disable-line react/forbid-prop-types
+  columns: PropTypes.arrayOf(PropTypes.shape({
+    accessor: PropTypes.string.isRequired,
+    cellStyle: PropTypes.object,
+    headerName: PropTypes.string.isRequired,
+    headerStyle: PropTypes.object,
+    id: PropTypes.string.isRequired,
+    initiallyHidden: PropTypes.bool,
+    width: PropTypes.number,
+  })).isRequired,
   /**
    * Sets the Table data displayed in the rows. Type: JSON
    */
