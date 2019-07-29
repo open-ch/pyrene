@@ -1,8 +1,8 @@
 {
-  "name": "tuktwo",
+  "name": "tuktuktwo",
   "version": "1.0.0",
   "description": "Open Systems Graphs Library",
-  "main": "dist/tuktwo.js",
+  "main": "dist/tuktuktwo.js",
   "repository": "https://github.com/open-ch/pyrene.git",
   "author": "pyrene@open-systems.com",
   "license": "UNLICENSED",
@@ -36,7 +36,6 @@
     "@babel/register": "^7.0.0",
     "autoprefixer": "^9.4.7",
     "babel-eslint": "^10.0.1",
-    "babel-jest": "^24.8.0",
     "babel-loader": "^8.0.5",
     "babel-plugin-react-css-modules": "^5.0.0",
     "css-loader": "^2.1.0",
