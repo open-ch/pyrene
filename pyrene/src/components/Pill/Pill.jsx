@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import className from 'classnames';
 
+import IconButton from '../IconButton/IconButton';
+
 import './pill.css';
 
 /**
@@ -12,7 +14,13 @@ import './pill.css';
  */
 const Pill = props => (
   <div>
-    {props.icon && <div styleName="icon" className={`pyreneIcon-${props.icon}`} />}
+    {(props.onClick && props.icon)
+      && <div styleName={className('icon', { [`type-${props.iconType}`]: true })}><IconButton icon={props.icon} onClick={props.onClick} /></div>}
+    {(!props.onClick && props.icon) && (
+      <div styleName={className('icon', { [`type-${props.iconType}`]: true })}>
+        <span className={`pyreneIcon-${props.icon}`} />
+      </div>
+    )}
     {props.value <= props.maxValue
       ? <div styleName={className('pill', { [`type-${props.type}`]: true })}>{props.value}</div>
       : <div styleName={className('pill', { [`type-${props.type}`]: true })}>{props.maxValue + '+'}</div>
@@ -24,6 +32,8 @@ Pill.displayName = 'Pill';
 
 Pill.defaultProps = {
   icon: '',
+  iconType: 'neutral',
+  onClick: undefined,
 };
 
 Pill.propTypes = {
@@ -32,9 +42,17 @@ Pill.propTypes = {
    */
   icon: PropTypes.string,
   /**
+   * Sets the color of the icon.
+   */
+  iconType: PropTypes.oneOf(['neutral', 'neutral-light', 'info', 'warning', 'danger', 'success']),
+  /**
    * Sets the maximum displayable value.
    */
   maxValue: PropTypes.number.isRequired,
+  /**
+   * Sets the maximum displayable value.
+   */
+  onClick: PropTypes.func,
   /**
    * Sets the overall style according to the pill type.
    */

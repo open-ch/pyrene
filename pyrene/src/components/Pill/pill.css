@@ -14,7 +14,7 @@
   &.type-neutral {
      background-color: var(--neutral-050);
      color: var(--neutral-400);
-   }
+  }
 
   &.type-info {
      background-color: var(--information-light);
@@ -42,4 +42,32 @@
   position: absolute;
   z-index: 1;
   transform: translate(-12px, 6px);
+
+  &.type-neutral-light {
+    color: var(--neutral-050);
+  }
+
+  &.type-neutral {
+    color: var(--neutral-500);
+  }
+
+  &.type-info {
+    color: var(--blue-600);
+  }
+
+  &.type-success {
+    color: var(--green-700);
+  }
+
+  &.type-danger {
+    color: var(--red-600);
+  }
+
+  &.type-warning {
+    color: var(--orange-700);
+  }
+
+  & a {
+    color: inherit !important;
+  }
 }

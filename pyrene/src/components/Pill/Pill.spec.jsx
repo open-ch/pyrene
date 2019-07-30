@@ -20,7 +20,7 @@ describe('<Pill />', () => {
   });
 
   it('does not render the icon', () => {
-    props.icon = '';
+    props.icon = undefined;
     const rendered = shallow(<Pill {...props} />);
     expect(rendered.find('.pyreneIcon-' + props.icon)).toHaveLength(0);
   });
