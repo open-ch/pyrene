@@ -3,8 +3,9 @@ import React from 'react';
 import Pill from './Pill';
 
 const props = {
-  max: 99,
-  number: 188,
+  icon: 'data',
+  maxValue: 99,
+  value: 188,
   type: 'info',
 };
 

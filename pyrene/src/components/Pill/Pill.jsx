@@ -12,28 +12,37 @@ import './pill.css';
  */
 const Pill = props => (
   <div>
-    {props.number <= props.max
-      ? <div styleName={className('pill', { [`type-${props.type}`]: true })}>{props.number}</div>
-      : <div styleName={className('pill', { [`type-${props.type}`]: true })}>{props.max + '+'}</div>
+    {props.icon && <div styleName="icon" className={`pyreneIcon-${props.icon}`} />}
+    {props.value <= props.maxValue
+      ? <div styleName={className('pill', { [`type-${props.type}`]: true })}>{props.value}</div>
+      : <div styleName={className('pill', { [`type-${props.type}`]: true })}>{props.maxValue + '+'}</div>
     }
   </div>
 );
 
 Pill.displayName = 'Pill';
 
+Pill.defaultProps = {
+  icon: '',
+};
+
 Pill.propTypes = {
+  /**
+   * Set the icon underneath the pill.
+   */
+  icon: PropTypes.string,
   /**
    * Sets the maximum displayable number.
    */
-  max: PropTypes.number.isRequired,
-  /**
-   * Sets the number displayed to the user.
-   */
-  number: PropTypes.number.isRequired,
+  maxValue: PropTypes.number.isRequired,
   /**
    * Sets the overall style according to the pill type.
    */
   type: PropTypes.oneOf(['neutral', 'info', 'warning', 'danger', 'success']).isRequired,
+  /**
+   * Sets the number displayed to the user.
+   */
+  value: PropTypes.number.isRequired,
 };
 
 export default Pill;
