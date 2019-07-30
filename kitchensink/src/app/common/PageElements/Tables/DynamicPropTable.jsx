@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactTable from 'react-table';
 import {
   TextField, SingleSelect, Checkbox,
 } from 'pyrene/dist/pyrene.dev';
@@ -11,6 +12,82 @@ import Counter from '../Counter/Counter';
 
 
 export default class DynamicPropTable extends React.Component {
+
+  constructor(props) {
+    super();
+    let data;
+    let columns;
+    Object.entries(props.propDocumentation).forEach(([propName, propProps]) => { // eslint-disable-line no-unused-vars
+      if (propName === 'data') data = props.initField(propName).value;
+      else if (propName === 'columns') {
+        if (props.initField(propName).value.isArray) columns = props.initField(propName).value.map(d => ({ ...d, Cell: this.renderEditable }));
+        else {
+          columns = Object.values(props.initField(propName).value).map(d => ({
+            accessor: d.accessor,
+            Cell: this.renderEditable,
+            Header: d.title,
+            id: d.accessor,
+          }));
+        }
+      }
+    });
+    this.state = {
+      data: data,
+      columns: columns,
+    };
+    this.renderEditable = this.renderEditable.bind(this);
+  }
+
+  handleInputChange = (cellInfo, event) => {
+    let value = event.target.value;
+
+    this.setState((prevState) => {
+      const data = prevState.data;
+      const type = typeof cellInfo.column.accessor(data[cellInfo.index]);
+      if (type === 'number') {
+        value = parseFloat(value);
+      }
+
+      const accessorString = cellInfo.column.accessor.toString();
+      if (accessorString.includes('accessorString') && !accessorString.includes('.')) data[cellInfo.index][cellInfo.column.id] = value;
+      else {
+        const filtered = accessorString.match('(?<=return )(.*?)(?=\\;)')[0];
+        const keyPath = accessorString.includes('accessorString') ? cellInfo.column.id : filtered.substring(filtered.indexOf('.') + 1);
+        const obj = data[cellInfo.index];
+        this.setNested(keyPath, value, obj);
+        data[cellInfo.index] = obj;
+      }
+      this.props.initField('data').onChange(data, 'data');
+      return { data };
+    });
+  };
+
+  renderEditable = (cellInfo) => {
+    const cellValue = cellInfo.column.accessor(this.state.data[cellInfo.index]);
+
+    return (
+      <input
+        placeholder="type here"
+        name="input"
+        type="text"
+        onChange={this.handleInputChange.bind(null, cellInfo)}
+        value={cellValue}
+      />
+    );
+  }
+
+  setNested = (path, value, obj) => {
+    let schema = obj;
+    const pList = path.split('.');
+    const len = pList.length;
+    for (let i = 0; i < len - 1; i += 1) {
+      const elem = pList[i];
+      if (!schema[elem]) schema[elem] = {};
+      schema = schema[elem];
+    }
+
+    schema[pList[len - 1]] = value;
+  }
 
   renderModifierFor(propName, propProps) {
     switch (propProps.type.name) {
@@ -54,6 +131,19 @@ export default class DynamicPropTable extends React.Component {
             {...this.props.initField(propName)}
           />
         );
+
+      case 'array':
+        if (propName === 'data') {
+          return (
+            <ReactTable
+              data={this.state.data}
+              columns={this.state.columns}
+              defaultPageSize={this.state.data.length < 5 ? this.state.data.length : 5}
+            />
+          );
+        }
+        return <React.Fragment key={propName}>-</React.Fragment>;
+
 
       default:
         return <React.Fragment key={propName}>-</React.Fragment>;
