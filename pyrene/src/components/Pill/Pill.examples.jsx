@@ -10,11 +10,12 @@ examples.props = {
 examples.examples = [
   {
     props: {
-      icon: 'errorOutline',
+      icon: 'hot',
       maxValue: 99,
       value: 66,
       type: 'danger',
     },
+    description: '66 isolated hosts',
   },
   {
     props: {
@@ -23,6 +24,7 @@ examples.examples = [
       value: 66,
       type: 'success',
     },
+    description: '66 warnings',
   },
   {
     props: {
@@ -31,6 +33,7 @@ examples.examples = [
       value: 6,
       type: 'neutral',
     },
+    description: '6 trashed pieces',
   },
   {
     props: {
@@ -39,14 +42,16 @@ examples.examples = [
       value: 188,
       type: 'warning',
     },
+    description: 'More than 99 questions',
   },
   {
     props: {
       icon: 'share',
       maxValue: 99,
-      value: 66,
+      value: 188,
       type: 'info',
     },
+    description: 'Mor than 99 shares',
   },
 ];
 

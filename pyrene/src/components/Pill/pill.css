@@ -39,8 +39,8 @@
 
 .icon {
   font-size: 24px;
-  position: relative;
-  right: 12px;
-  top: 31px;
+  position: absolute;
   z-index: 1;
+  -webkit-transform: translate(-12px, 6px);
+  transform: translate(-12px, 6px);
 }
