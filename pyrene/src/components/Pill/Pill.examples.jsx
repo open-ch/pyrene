@@ -28,21 +28,17 @@ examples.examples = [
   },
   {
     props: {
-      icon: 'trash',
       maxValue: 100,
       value: 6,
       type: 'neutral',
     },
-    description: '6 trashed pieces',
   },
   {
     props: {
-      icon: 'question',
       maxValue: 99,
       value: 188,
       type: 'warning',
     },
-    description: 'More than 99 questions',
   },
   {
     props: {
@@ -51,7 +47,7 @@ examples.examples = [
       value: 188,
       type: 'info',
     },
-    description: 'Mor than 99 shares',
+    description: 'More than 99 shares',
   },
 ];
 

@@ -32,7 +32,7 @@ Pill.propTypes = {
    */
   icon: PropTypes.string,
   /**
-   * Sets the maximum displayable number.
+   * Sets the maximum displayable value.
    */
   maxValue: PropTypes.number.isRequired,
   /**
@@ -40,7 +40,7 @@ Pill.propTypes = {
    */
   type: PropTypes.oneOf(['neutral', 'info', 'warning', 'danger', 'success']).isRequired,
   /**
-   * Sets the number displayed to the user.
+   * Sets the value displayed to the user.
    */
   value: PropTypes.number.isRequired,
 };
