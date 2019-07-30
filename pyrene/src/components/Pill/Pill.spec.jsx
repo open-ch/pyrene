@@ -19,19 +19,19 @@ describe('<Pill />', () => {
     expect(rendered.find('.pyreneIcon-' + props.icon)).toHaveLength(1);
   });
 
-  it('does not render icon', () => {
+  it('does not render the icon', () => {
     props.icon = '';
     const rendered = shallow(<Pill {...props} />);
     expect(rendered.find('.pyreneIcon-' + props.icon)).toHaveLength(0);
   });
 
-  it('rendered number does not exceed maximum value', () => {
+  it('rendered value does not exceed maximum value', () => {
     const rendered = shallow(<Pill {...props} />);
     expect(rendered.contains(props.maxValue + '+')).toBe(true);
     expect(rendered.contains(props.value)).toBe(false);
   });
 
-  it('rendered number as defined in value when not exceeing maxValue', () => {
+  it('rendered value is props.value when not exceeding maximum value', () => {
     props.maxValue = 200;
     const rendered = shallow(<Pill {...props} />);
     expect(rendered.contains(props.maxValue + '+')).toBe(false);
