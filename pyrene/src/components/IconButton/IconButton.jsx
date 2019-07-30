@@ -8,7 +8,7 @@ import './iconbutton.css';
  * A Icon that acts like a Button
  */
 const IconButton = props => (
-  <a styleName={classNames('iconbutton', { disabled: props.disabled })}
+  <a styleName={classNames('iconbutton', { disabled: props.disabled }, { [`type-${props.type}`]: true })}
     href={props.path}
     onClick={props.onClick ? ((event) => {
       event.preventDefault();
@@ -27,6 +27,7 @@ IconButton.defaultProps = {
   disabled: false,
   onClick: undefined,
   path: '#',
+  type: 'neutral',
 };
 
 IconButton.propTypes = {
@@ -46,6 +47,10 @@ IconButton.propTypes = {
    * Sets the path the user is redirected to.
    */
   path: PropTypes.string.isRequired,
+  /**
+   * Sets the overall style
+   */
+  type: PropTypes.oneOf(['neutral', 'info', 'warning', 'danger', 'success']),
 };
 
 export default IconButton;
