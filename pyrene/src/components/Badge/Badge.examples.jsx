@@ -41,6 +41,7 @@ examples.examples = [
       type: 'danger',
       onClick: () => { alert('Dangerous!'); },
     },
-  },]
+  },
+];
 
 export default examples;

@@ -40,7 +40,7 @@ Badge.propTypes = {
   /**
    * Sets the overall style according to the badge type.
    */
-  type: PropTypes.oneOf(['neutral', 'info', 'warning', 'danger', 'success' ]).isRequired,
+  type: PropTypes.oneOf(['neutral', 'info', 'warning', 'danger', 'success']).isRequired,
 };
 
 export default Badge;
