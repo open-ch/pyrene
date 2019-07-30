@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import './iconbutton.css';
 
 /**
- * A Icon that acts like a Button
+ * An Icon that acts like a Button
  */
 const IconButton = props => (
   <a styleName={classNames('iconbutton', { disabled: props.disabled }, { [`type-${props.type}`]: true })}
@@ -46,7 +46,7 @@ IconButton.propTypes = {
   /**
    * Sets the path the user is redirected to.
    */
-  path: PropTypes.string.isRequired,
+  path: PropTypes.string,
   /**
    * Sets the overall style
    */
