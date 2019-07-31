@@ -19,6 +19,8 @@ import { default as Container } from './components/Container/Container';
 import { default as Filter } from './components/Filter/Filter';
 import { default as Form } from './components/Form/Form';
 
+import { default as IconButton } from './components/IconButton/IconButton';
+
 import { default as Heading } from './components/Heading/Heading';
 
 import { default as KeyValueTable } from './components/KeyValueTable/KeyValueTable';
@@ -60,6 +62,7 @@ const Components = {
   Container,
   Filter,
   Form,
+  IconButton,
   Heading,
   KeyValueTable,
   Link,
@@ -93,6 +96,7 @@ export { Collapsible };
 export { Container };
 export { Filter };
 export { Form };
+export { IconButton };
 export { Heading };
 export { KeyValueTable };
 export { Link };
