@@ -21,4 +21,11 @@ describe('<IconButton />', () => {
     const rendered = shallow(<IconButton {...props} />);
     expect(rendered.find('a').props().href).toMatch(props.path);
   });
+
+  it('forwards clicks to the click handler if not path is set', () => {
+    const mockCallBack = jest.fn();
+    const rendered = shallow(<IconButton onClick={mockCallBack} {...props} />);
+    rendered.find('a').simulate('click', { preventDefault() {} });
+    expect(mockCallBack.mock.calls.length).toEqual(1);
+  });
 });
