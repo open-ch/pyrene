@@ -10,20 +10,22 @@ examples.props = {
 examples.examples = [
   {
     props: {
-      label: 'A neutral label happy to be left-aligned',
-      maxWidth: 120,
-      textOverflow: 'ellipsis',
+      label: 'Long Neutral Label',
+      maxWidth: 80,
       type: 'neutral',
       onClick: () => { alert('Neutral!'); },
     },
+    description: 'Long Neutral Label',
   },
   {
     props: {
-      label: 'Info',
-      maxWidth: 100,
+      label: 'Clipped Information',
+      maxWidth: 80,
+      styling: 'clip',
       type: 'info',
       onClick: () => { alert('We want information!'); },
     },
+    description: 'Clipped Info',
   },
   {
     props: {
@@ -43,13 +45,13 @@ examples.examples = [
   },
   {
     props: {
-      label: 'A Very Important Security Alert',
+      label: 'Very Important Security Alert',
       maxWidth: 100,
-      textAlign: 'center',
-      textOverflow: '',
+      styling: 'fulltext',
       type: 'danger',
       onClick: () => { alert('Dangerous!'); },
     },
+    description: 'Very Important Security Alert',
   },
 ];
 

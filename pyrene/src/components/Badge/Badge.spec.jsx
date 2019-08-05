@@ -4,7 +4,7 @@ import Badge from './Badge';
 
 const props = {
   label: 'Security Alert',
-  maxWidth: 100,
+  maxWidth: 80,
   type: 'danger',
 };
 
@@ -53,19 +53,17 @@ describe('<Badge />', () => {
     expect(className).toContain('type-neutral');
   });
 
-  it ('renders label with clipping', () => {
-    props.label = 'A very long security alert';
+  it ('renders label with ellipsis', () => {
+    props.label = 'Very Long Security Alert';
     const rendered = shallow(<Badge {...props} />);
-    expect(rendered.find('.textBoxOverflow')).toHaveLength(1);
-    expect(rendered.find('.message').get(0).props.style).toHaveProperty('textOverflow', 'ellipsis');
+    expect(rendered.find('.labelContainer').get(0).props.className).toContain('style-ellipsis');
+    expect(rendered.find('.label').get(0).props.className).toContain('style-ellipsis');
   });
 
-  it ('renders right-aligned label without clipping', () => {
-    props.textAlign = 'right';
-    props.textOverflow = '';
-    const rendered = shallow(<Badge {...props} />);
-    expect(rendered.find('.textBoxOverflow')).toHaveLength(0);
-    expect(rendered.find('.message').get(0).props.style).toHaveProperty('textAlign', 'right');
+  it ('renders label without clipping', () => {
+    const rendered = shallow(<Badge {...props} styling="fulltext" />);
+    expect(rendered.find('.labelContainer').get(0).props.className).toContain('style-fulltext');
+    expect(rendered.find('.label').get(0).props.className).toContain('style-fulltext');
   });
 
   it('reacts to clicking', () => {

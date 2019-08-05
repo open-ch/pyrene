@@ -39,16 +39,34 @@
   }
 }
 
-.textBoxOverflow {
-  overflow: hidden;
-  white-space: nowrap;
+.labelContainer {
+  &.style-ellipsis, &.style-clip {
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  &.style-fulltext {
+    overflow: visible;
+    white-space: pre-wrap;
+  }
 }
 
-.message {
+.label {
   font-size: 11px;
-  font-style: normal;
-  font-stretch: normal;
   line-height: 1.36;
-  letter-spacing: normal;
   font-weight: bold;
+  text-align: center;
+
+  &.style-ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &.style-cut {
+    text-overflow: clip;
+  }
+
+  &.style-fulltext {
+    text-overflow: '';
+  }
 }

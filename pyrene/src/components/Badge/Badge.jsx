@@ -12,17 +12,12 @@ import './badge.css';
 const Badge = props => (
   <div
     styleName={className('badge', { [`type-${props.type}`]: true })}
+    style={{ maxWidth: props.maxWidth }}
     onClick={props.onClick}
     role="badge"
-    style={{ maxWidth: props.maxWidth }}
   >
-    <div styleName={(props.textOverflow) ? 'textBoxOverflow' : ''}>
-      <div styleName="message" style={{
-        overflow: props.textOverflow ? 'hidden' : 'visible',
-        textOverflow: props.textOverflow,
-        textAlign: props.textAlign,
-      }}
-      >
+    <div styleName={className('labelContainer', { [`style-${props.styling}`]: true })}>
+      <div styleName={className('label', { [`style-${props.styling}`]: true })}>
         {props.label}
       </div>
     </div>
@@ -34,8 +29,7 @@ Badge.displayName = 'Badge';
 
 Badge.defaultProps = {
   onClick: () => null,
-  textOverflow: 'ellipsis',
-  textAlign: 'center',
+  styling: 'ellipsis',
 };
 
 Badge.propTypes = {
@@ -52,14 +46,9 @@ Badge.propTypes = {
    */
   onClick: PropTypes.func,
   /**
-   * Sets the text alignment of the label in the badge.
+   * Sets the text overflow style according to the badge usage.
    */
-  textAlign: PropTypes.oneOf(['center', 'left', 'right', 'justify']),
-  /**
-   * Sets the max width of the badge.
-   */
-  textOverflow: PropTypes.string,
-
+  styling: PropTypes.oneOf(['ellipsis', 'fulltext', 'clip']),
   /**
    * Sets the overall style according to the badge type.
    */
