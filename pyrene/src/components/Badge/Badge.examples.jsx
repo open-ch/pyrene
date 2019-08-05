@@ -2,6 +2,7 @@ const examples = {};
 
 examples.props = {
   label: 'Security Alert',
+  maxWidth: 160,
   type: 'danger',
   onClick: () => { alert('Dangerous!'); },
 };
@@ -9,7 +10,9 @@ examples.props = {
 examples.examples = [
   {
     props: {
-      label: 'Neutral',
+      label: 'A neutral label happy to be left-aligned',
+      maxWidth: 120,
+      textOverflow: 'ellipsis',
       type: 'neutral',
       onClick: () => { alert('Neutral!'); },
     },
@@ -17,6 +20,7 @@ examples.examples = [
   {
     props: {
       label: 'Info',
+      maxWidth: 100,
       type: 'info',
       onClick: () => { alert('We want information!'); },
     },
@@ -24,6 +28,7 @@ examples.examples = [
   {
     props: {
       label: 'Success',
+      maxWidth: 100,
       type: 'success',
       onClick: () => { alert('This is a success!'); },
     },
@@ -31,13 +36,16 @@ examples.examples = [
   {
     props: {
       label: 'Warning',
+      maxWidth: 100,
       type: 'warning',
       onClick: () => { alert('Warning!'); },
     },
   },
   {
     props: {
-      label: 'Security Alert',
+      label: 'A Very Important Security Alert',
+      maxWidth: 100,
+      textAlign: 'center',
       type: 'danger',
       onClick: () => { alert('Dangerous!'); },
     },
