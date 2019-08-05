@@ -32,6 +32,7 @@ import { default as Modal } from './components/Modal/Modal';
 import { default as MultiSelect } from './components/MultiSelect/MultiSelect';
 
 import { default as Paragraph } from './components/Paragraph/Paragraph';
+import { default as Pill } from './components/Pill/Pill';
 import { default as Popover } from './components/Popover/Popover';
 
 import { default as RadioGroup } from './components/RadioGroup/RadioGroup';
@@ -69,8 +70,9 @@ const Components = {
   Loader,
   Modal,
   MultiSelect,
-  Popover,
   Paragraph,
+  Pill,
+  Popover,
   RadioGroup,
   RadioPopover,
   ShareDialog,
@@ -104,6 +106,7 @@ export { Loader };
 export { Modal };
 export { MultiSelect };
 export { Paragraph };
+export { Pill };
 export { Popover };
 export { RadioGroup };
 export { RadioPopover };
