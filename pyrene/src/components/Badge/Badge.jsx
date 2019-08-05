@@ -34,8 +34,8 @@ Badge.displayName = 'Badge';
 
 Badge.defaultProps = {
   onClick: () => null,
-  textOverflow: '',
-  textAlign: 'left',
+  textOverflow: 'ellipsis',
+  textAlign: 'center',
 };
 
 Badge.propTypes = {

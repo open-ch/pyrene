@@ -10,31 +10,7 @@ const props = {
 
 describe('<Badge />', () => {
   it('renders without crashing', () => {
-    const rendered = shallow(<Badge {...props} />);
-    expect(rendered.contains('Security Alert')).toBe(true);
-  });
-
-  it ('renders label with clipping', () => {
-    props.label = 'A very long security alert';
-    props.textOverflow = 'hidden';
-    const rendered = shallow(<Badge {...props} />);
-    expect(rendered.find('.textBoxOverflow')).toHaveLength(1);
-  });
-
-  it ('renders right-aligned label without clipping', () => {
-    props.label = 'A very long security alert';
-    props.textAlign = 'right';
-    const rendered = shallow(<Badge {...props} />);
-    expect(rendered.find('.textBoxOverflow')).toHaveLength(0);
-    expect(rendered.find('.message').get(0).props.style).toHaveProperty('textAlign', 'right');
-  });
-
-  it('renders a neutral badge', () => {
-    const rendered = shallow(<Badge type="neutral" label="Neutral" />);
-    const text = rendered.text();
-    const className = rendered.prop('className');
-    expect(text).toBe('Neutral');
-    expect(className).toContain('type-neutral');
+    shallow(<Badge {...props} />);
   });
 
   it('renders a danger badge', () => {
@@ -46,15 +22,15 @@ describe('<Badge />', () => {
   });
 
   it('renders a info badge', () => {
-    const rendered = shallow(<Badge type="info" label="Info" />);
-    const text = rendered.text(); // warning  success
+    const rendered = shallow(<Badge type="info" label="Info" maxWidth={100} />);
+    const text = rendered.text();
     const className = rendered.prop('className');
     expect(text).toBe('Info');
     expect(className).toContain('type-info');
   });
 
   it('renders a warning badge', () => {
-    const rendered = shallow(<Badge type="warning" label="Warning" />);
+    const rendered = shallow(<Badge type="warning" label="Warning" maxWidth={100} />);
     const text = rendered.text();
     const className = rendered.prop('className');
     expect(text).toBe('Warning');
@@ -62,11 +38,34 @@ describe('<Badge />', () => {
   });
 
   it('renders a success badge', () => {
-    const rendered = shallow(<Badge type="success" label="Success" />);
+    const rendered = shallow(<Badge type="success" label="Success" maxWidth={100} />);
     const text = rendered.text();
     const className = rendered.prop('className');
     expect(text).toBe('Success');
     expect(className).toContain('type-success');
+  });
+
+  it('renders a neutral badge', () => {
+    const rendered = shallow(<Badge type="neutral" label="Neutral" maxWidth={100} />);
+    const text = rendered.text();
+    const className = rendered.prop('className');
+    expect(text).toBe('Neutral');
+    expect(className).toContain('type-neutral');
+  });
+
+  it ('renders label with clipping', () => {
+    props.label = 'A very long security alert';
+    const rendered = shallow(<Badge {...props} />);
+    expect(rendered.find('.textBoxOverflow')).toHaveLength(1);
+    expect(rendered.find('.message').get(0).props.style).toHaveProperty('textOverflow', 'ellipsis');
+  });
+
+  it ('renders right-aligned label without clipping', () => {
+    props.textAlign = 'right';
+    props.textOverflow = '';
+    const rendered = shallow(<Badge {...props} />);
+    expect(rendered.find('.textBoxOverflow')).toHaveLength(0);
+    expect(rendered.find('.message').get(0).props.style).toHaveProperty('textAlign', 'right');
   });
 
   it('reacts to clicking', () => {

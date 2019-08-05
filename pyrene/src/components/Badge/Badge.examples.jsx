@@ -46,6 +46,7 @@ examples.examples = [
       label: 'A Very Important Security Alert',
       maxWidth: 100,
       textAlign: 'center',
+      textOverflow: '',
       type: 'danger',
       onClick: () => { alert('Dangerous!'); },
     },
