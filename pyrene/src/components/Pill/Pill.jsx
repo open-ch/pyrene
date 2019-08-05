@@ -9,7 +9,7 @@ import './pill.css';
 /**
  * Pills are used to provide number or count information about a specific component.
  *
- * Pills have a numeric number and a type. Both properties are mandatory. Pills are not clickable.
+ * Pills have a numeric number and a type. Both properties are mandatory. Pills can also wrap an icon. Pills are not clickable.
  *
  */
 const Pill = props => (
@@ -33,6 +33,7 @@ Pill.displayName = 'Pill';
 Pill.defaultProps = {
   icon: '',
   iconType: 'neutral',
+  maxValue: 99,
   onClick: undefined,
 };
 
@@ -48,7 +49,7 @@ Pill.propTypes = {
   /**
    * Sets the maximum displayable value.
    */
-  maxValue: PropTypes.number.isRequired,
+  maxValue: PropTypes.number,
   /**
    * Sets the maximum displayable value.
    */
