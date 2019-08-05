@@ -4,7 +4,6 @@ import Pill from './Pill';
 
 const props = {
   icon: 'data',
-  maxValue: 99,
   value: 188,
   type: 'info',
 };
@@ -25,9 +24,9 @@ describe('<Pill />', () => {
     expect(rendered.find('.pyreneIcon-' + props.icon)).toHaveLength(0);
   });
 
-  it('rendered value does not exceed maximum value', () => {
+  it('does not render a value that exceeds maximum value', () => {
     const rendered = shallow(<Pill {...props} />);
-    expect(rendered.contains(props.maxValue + '+')).toBe(true);
+    expect(rendered.contains('99+')).toBe(true);
     expect(rendered.contains(props.value)).toBe(false);
   });
 
