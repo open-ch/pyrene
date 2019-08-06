@@ -1,0 +1,8 @@
+.container {
+  width: 100%;
+}
+
+.verticalContainer {
+  display: flex;
+  justify-content: center;
+}
