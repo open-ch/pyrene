@@ -7,9 +7,11 @@ import './simpleTable.css';
  */
 const SimpleTable = props => (
   <table styleName="table">
+    {props.columns.length > 0 && props.columns.some(column => typeof column.headerName !== 'undefined' && column.headerName !== '')
+  && (
     <thead>
       <tr styleName="tableHeaderRow">
-        {props.columns.length > 0 && props.columns.map(column => (
+        {props.columns.map(column => (
           <th
             styleName="tableHeaderCell"
             key={column.id}
@@ -19,6 +21,7 @@ const SimpleTable = props => (
         ))}
       </tr>
     </thead>
+  )}
     <tbody>
       {props.data.length > 0 && props.data.map(row => (
         <tr
