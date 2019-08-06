@@ -15,7 +15,7 @@ import './pill.css';
 const Pill = props => (
   <div>
     {(props.onClick && props.icon)
-      && <div styleName={className('icon', { [`type-${props.iconType}`]: true })}><IconButton icon={props.icon} onClick={props.onClick} /></div>}
+      && <div styleName={className('icon')}><IconButton icon={props.icon} type={props.iconType} onClick={props.onClick} /></div>}
     {(!props.onClick && props.icon) && (
       <div styleName={className('icon', { [`type-${props.iconType}`]: true })}>
         <span className={`pyreneIcon-${props.icon}`} />
@@ -44,7 +44,7 @@ Pill.propTypes = {
   /**
    * Sets the color of the icon.
    */
-  iconType: PropTypes.oneOf(['neutral', 'neutral-light', 'info', 'warning', 'danger', 'success']),
+  iconType: PropTypes.oneOf(['neutral', 'info', 'warning', 'danger', 'success']),
   /**
    * Sets the maximum displayable value.
    */

@@ -23,20 +23,13 @@ examples.examples = [
   {
     props: {
       icon: 'eye',
-      iconType: 'neutral-light',
+      iconType: 'neutral',
       maxValue: 99,
       value: 66,
       type: 'success',
       onClick: () => alert('Found 66 investigations.'),
     },
     description: '66 investigations. Clickable.',
-  },
-  {
-    props: {
-      maxValue: 100,
-      value: 6,
-      type: 'neutral',
-    },
   },
   {
     props: {
