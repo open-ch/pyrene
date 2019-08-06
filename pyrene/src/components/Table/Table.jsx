@@ -105,12 +105,16 @@ export default class Table extends React.Component {
     TheadComponent: props => <TableHeader {...props} multiSelect={this.props.multiSelect} disabled={!!this.props.error} />,
     ThComponent: props => <TableHeaderCell {...props} multiSelect={this.props.multiSelect} />,
     TdComponent: props => <TableCell {...props} multiSelect={this.props.multiSelect} />,
-    PaginationComponent: props => <TablePagination {...props} loading={this.props.loading} error={this.props.error} />,
+    PaginationComponent: props => <TablePagination {...props} loading={this.props.loading} error={this.props.error} numberOfResults={this.props.numberOfResults} />,
     TfootComponent: props => <TablePagination {...props} />,
     resizable: false,
     showPagination: true,
     showPaginationTop: true,
     showPageSizeOptions: true,
+
+    // Server-side props
+    manual: this.props.manualPagination,
+    onFetchData: this.props.onFetchData,
   };
 
   toggleColumnDisplay = (columnId, showValue) => {
@@ -377,13 +381,17 @@ Table.defaultProps = {
   defaultSorted: [],
   defaultPageSize: 20,
   loading: false,
+  manualPagination: false,
   multiSort: true,
   multiSelect: false,
+  numberOfResults: null,
   rowSelectableCallback: () => true,
   toggleColumns: false,
+  pages: undefined,
   pageSizeOptions: [10, 20, 50, 100, 250],
   filterDisabled: false,
   filters: [],
+  onFetchData: () => null,
   onRowDoubleClick: () => null,
   onFilterChange: () => null,
   error: null,
@@ -462,6 +470,10 @@ Table.propTypes = {
    */
   loading: PropTypes.bool,
   /**
+   * Set to true to be able to handle sorting and pagination server-side (use only with server-side data fetching & pagination).
+   */
+  manualPagination: PropTypes.bool,
+  /**
    * Changes the overall appearance of the table to become multi-selectable (checkbox table). Requires keyField prop.
    */
   multiSelect: PropTypes.bool,
@@ -470,6 +482,14 @@ Table.propTypes = {
     */
   multiSort: PropTypes.bool,
   /**
+   * Amount of results to be displayed in Table Header (use only with server-side data fetching & pagination).
+   */
+  numberOfResults: PropTypes.number,
+  /**
+   * Called initially when the table loads & any time sorting, pagination or filterting is changed in the table (use only with server-side data fetching & pagination).
+   */
+  onFetchData: PropTypes.func,
+  /**
    * Called when the filter changes.
    */
   onFilterChange: PropTypes.func,
@@ -477,6 +497,10 @@ Table.propTypes = {
     * Called when the user double clicks on a row.
     */
   onRowDoubleClick: PropTypes.func,
+  /**
+   * Amount of pages to be shown in React Table (use only with server-side data fetching & pagination).
+   */
+  pages: PropTypes.number,
   /**
     * Sets the page sizes that the user can choose from.
     */
