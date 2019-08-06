@@ -16,7 +16,7 @@ const RelativeBar = (props) => {
   ];
   const color = scaleOrdinal({
     domain: keys,
-    range: [props.colorScheme.primary, props.colorScheme.secondary],
+    range: props.colorScheme,
   });
   const valueScale = scaleLinear({
     domain: props.direction === 'horizontal' ? [0, props.maxValue] : [props.maxValue, 0],
@@ -57,17 +57,17 @@ RelativeBar.displayName = 'Relative Bar';
 
 RelativeBar.defaultProps = {
   barWeight: 6,
-  colorScheme: {
-    primary: 'var(--blue-700)',
-    secondary: 'var(--blue-050)',
-  },
+  colorScheme: [
+    'var(--blue-700)',
+    'var(--blue-050)',
+  ],
   direction: 'horizontal',
   parentLength: 150,
 };
 
 RelativeBar.propTypes = {
   barWeight: PropTypes.number,
-  colorScheme: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  colorScheme: PropTypes.arrayOf(PropTypes.string),
   direction: PropTypes.string,
   maxValue: PropTypes.number.isRequired,
   parentLength: PropTypes.number,
