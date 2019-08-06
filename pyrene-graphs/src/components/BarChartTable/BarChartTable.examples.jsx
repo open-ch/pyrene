@@ -55,19 +55,6 @@ examples.examples = [{
     data: tableData,
     columns: tableColumns,
     title: 'Top Applications by Volume',
-    subtitle: 'A simple table with one column as a bar chart',
-    legend: [{
-      label: 'Volume',
-      colorKey: 'primary',
-    },
-    ],
-  },
-  description: 'A simple table with one column as a bar chart',
-}, {
-  props: {
-    data: tableData,
-    columns: tableColumns,
-    title: 'Top Applications by Volume Relative',
     subtitle: 'A simple table with one column as a relative bar chart',
     legend: [{
       label: 'Volume',
@@ -77,7 +64,6 @@ examples.examples = [{
       colorKey: 'secondary',
     },
     ],
-    relative: true,
   },
   description: 'A simple table with one column as a relative bar chart',
 }];

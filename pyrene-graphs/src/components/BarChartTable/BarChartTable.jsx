@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { SimpleTable } from 'pyrene/dist/pyrene.dev';
-import { Bar, RelativeBar } from 'tuktuktwo/dist/tuktuktwo.dev';
+import { RelativeBar } from 'tuktuktwo/dist/tuktuktwo.dev';
 import Title from '../Title/Title';
 import './barChartTable.css';
 
-function getId(title, relative) {
-  return title.trim().toLowerCase() + (relative ? '_relative' : '');
+function getId(title) {
+  return title.trim().toLowerCase();
 }
 
 function getValueWithAccessor(row, accessor) {
@@ -20,7 +20,7 @@ function getValueWithAccessor(row, accessor) {
 const BarChartTable = (props) => {
   const maxValue = Math.max(...props.data.map(dataRow => getValueWithAccessor(dataRow, props.columns.primaryValue.accessor)));
   const barWeight = 6;
-  const barChart = row => (props.relative ? (
+  const barChart = row => (
     <RelativeBar
       barWeight={barWeight}
       colorScheme={props.colorScheme}
@@ -28,34 +28,26 @@ const BarChartTable = (props) => {
       value={row.value}
       parentLength={150}
     />
-  ) : (
-    <Bar
-      barWeight={barWeight}
-      color={props.colorScheme.primary}
-      maxValue={maxValue}
-      value={row.value}
-      parentLength={150}
-    />
-  ));
+  );
   const columnsTable = [
     {
-      id: getId(props.columns.label.title, props.relative),
+      id: getId(props.columns.label.title),
       headerName: props.columns.label.title,
       accessor: props.columns.label.accessor,
     },
     {
-      id: getId(`${props.columns.primaryValue.title}_bar`, props.relative),
+      id: getId(`${props.columns.primaryValue.title}_bar`),
       headerName: props.columns.primaryValue.title,
       accessor: props.columns.primaryValue.accessor,
       cellRenderCallback: barChart,
     },
     {
-      id: getId(props.columns.primaryValue.title, props.relative),
+      id: getId(props.columns.primaryValue.title),
       accessor: props.columns.primaryValue.accessor,
       cellRenderCallback: props.columns.primaryValue.formatter ? row => props.columns.primaryValue.formatter(row.value) : null,
     },
     {
-      id: getId(props.columns.secondaryValue.title, props.relative),
+      id: getId(props.columns.secondaryValue.title),
       headerName: props.columns.secondaryValue.title,
       accessor: props.columns.secondaryValue.accessor,
       cellRenderCallback: props.columns.secondaryValue.formatter ? row => props.columns.secondaryValue.formatter(row.value) : null,
@@ -88,7 +80,6 @@ BarChartTable.defaultProps = {
     primary: 'var(--blue-700)',
     secondary: 'var(--blue-050)',
   },
-  relative: false,
   legend: [],
 };
 
@@ -140,7 +131,6 @@ BarChartTable.propTypes = {
     colorKey: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
   })),
-  relative: PropTypes.bool,// eslint-disable-line
   /**
    * Sets the subtitle.
    */
