@@ -6,6 +6,7 @@ import './styles/colors.css';
 import './styles/fonts.css';
 
 // Sort alphabetically to find stuff easily
+import { default as Badge } from './components/Badge/Badge';
 import { default as Banner } from './components/Banner/Banner';
 import { default as Button } from './components/Button/Button';
 import { default as ButtonBar } from './components/ButtonBar/ButtonBar';
@@ -53,6 +54,7 @@ import { default as TreeTable } from './components/TreeTable/TreeTable';
 
 // Sort alphabetically to find stuff easily
 const Components = {
+  Badge,
   Banner,
   Button,
   ButtonBar,
@@ -89,6 +91,7 @@ const Components = {
 };
 
 // Sort alphabetically to find stuff easily
+export { Badge };
 export { Banner };
 export { Button };
 export { CalendarDateSelector };

@@ -2,6 +2,7 @@
 /* eslint-disable import/no-named-default */
 
 // Sort alphabetically to find stuff easily
+import { default as Badge } from '../components/Badge/Badge.examples';
 import { default as Banner } from '../components/Banner/Banner.examples';
 import { default as Button } from '../components/Button/Button.examples';
 import { default as CalendarDateSelector } from '../components/CalendarDateSelector/CalendarDateSelector.examples';
@@ -36,6 +37,7 @@ import { default as TreeTable } from '../components/TreeTable/TreeTable.examples
 
 // Sort alphabetically to find stuff easily
 const examples = {
+  Badge,
   Banner,
   Button,
   CalendarDateSelector,

@@ -5,7 +5,7 @@ import Table from './Table';
 const props = {
   keyField: 'name',
   data: [{ name: 'Meredith Carney', age: 23 }, { name: 'Savage Weeks', age: 21 }],
-  columns: [{ id: 'name', headerName: 'Name' }, { id: 'age', headerName: 'Age' }],
+  columns: [{ id: 'name', accessor: 'name', headerName: 'Name' }, { id: 'age', accessor: 'age', headerName: 'Age' }],
 };
 
 describe('<Table />', () => {
