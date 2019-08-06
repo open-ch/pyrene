@@ -12,6 +12,7 @@ function getValueWithAccessor(row, accessor) {
 const BarChart = (props) => {
   const maxValue = Math.max(...props.data.map(dataRow => getValueWithAccessor(dataRow, props.columns.value.accessor)));
   const barWeight = 6;
+  const parentLength = 150;
   const barChart = (row, accessor) => (props.relative ? (
     <RelativeBar
       barWeight={barWeight}
@@ -19,6 +20,7 @@ const BarChart = (props) => {
       maxValue={maxValue}
       value={getValueWithAccessor(row, accessor)}
       direction={props.direction}
+      parentLength={parentLength}
     />
   ) : (
     <Bar
@@ -27,6 +29,7 @@ const BarChart = (props) => {
       maxValue={maxValue}
       value={getValueWithAccessor(row, accessor)}
       direction={props.direction}
+      parentLength={parentLength}
     />
   ));
   return (
@@ -39,7 +42,9 @@ const BarChart = (props) => {
       />
       <div styleName={classNames({ verticalContainer: props.direction === 'vertical' })}>
         {props.data.map(row => (
-          barChart(row, props.columns.value.accessor)
+          <div>
+            {barChart(row, props.columns.value.accessor)}
+          </div>
         ))}
       </div>
     </div>
