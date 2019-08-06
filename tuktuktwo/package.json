@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Open Systems Graphs Library",
   "main": "dist/tuktuktwo.js",
+  "style": "dist/tuktuktwo.css",
   "repository": "https://github.com/open-ch/pyrene.git",
   "author": "pyrene@open-systems.com",
   "license": "UNLICENSED",
