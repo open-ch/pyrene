@@ -43,10 +43,6 @@
   z-index: 1;
   transform: translate(-12px, 6px);
 
-  &.type-neutral-light {
-    color: var(--neutral-050);
-  }
-
   &.type-neutral {
     color: var(--neutral-500);
   }
@@ -65,9 +61,5 @@
 
   &.type-warning {
     color: var(--orange-700);
-  }
-
-  & a {
-    color: inherit !important;
   }
 }
