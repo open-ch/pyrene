@@ -26,6 +26,7 @@ const BarChartTable = (props) => {
       colorScheme={props.colorScheme}
       maxValue={maxValue}
       value={row.value}
+      parentLength={150}
     />
   ) : (
     <Bar
@@ -33,6 +34,7 @@ const BarChartTable = (props) => {
       color={props.colorScheme.primary}
       maxValue={maxValue}
       value={row.value}
+      parentLength={150}
     />
   ));
   const columnsTable = [
