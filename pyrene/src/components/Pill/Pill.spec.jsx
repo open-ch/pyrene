@@ -3,7 +3,6 @@ import React from 'react';
 import Pill from './Pill';
 
 const props = {
-  maxValue: 99,
   value: 188,
   type: 'info',
 };
@@ -26,7 +25,7 @@ describe('<Pill />', () => {
 
   it('rendered value does not exceed maximum value', () => {
     const rendered = shallow(<Pill {...props} />);
-    expect(rendered.contains(props.maxValue + '+')).toBe(true);
+    expect(rendered.contains('99+')).toBe(true);
     expect(rendered.contains(props.value)).toBe(false);
   });
 

@@ -3,7 +3,6 @@ const examples = {};
 examples.props = {
   icon: 'data',
   iconType: 'neutral',
-  maxValue: 99,
   value: 188,
   type: 'info',
   onClick: () => alert('Max value ' + examples.props.value + ' exceeded!'),
@@ -14,7 +13,6 @@ examples.examples = [
     props: {
       icon: 'hot',
       iconType: 'danger',
-      maxValue: 99,
       value: 66,
       type: 'danger',
     },
@@ -24,7 +22,6 @@ examples.examples = [
     props: {
       icon: 'eye',
       iconType: 'neutral',
-      maxValue: 99,
       value: 66,
       type: 'success',
       onClick: () => alert('Found 66 investigations.'),
@@ -33,8 +30,8 @@ examples.examples = [
   },
   {
     props: {
-      maxValue: 99,
       value: 188,
+      maxValue: 200,
       type: 'warning',
     },
   },
@@ -42,8 +39,8 @@ examples.examples = [
     props: {
       icon: 'share',
       iconType: 'info',
-      maxValue: 99,
       value: 188,
+      maxValue: 200,
       type: 'info',
     },
     description: 'More than 99 shares. Not clickable.',
@@ -52,10 +49,9 @@ examples.examples = [
     props: {
       icon: 'data',
       iconType: 'neutral',
-      maxValue: 99,
       value: 188,
       type: 'info',
-      onClick: () => alert('Max value ' + examples.props.value + ' exceeded!'),
+      onClick: () => alert('Max value 99 exceeded!'),
     },
     description: 'More than 99 data items. Clickable.',
   },
