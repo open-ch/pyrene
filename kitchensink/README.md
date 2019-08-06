@@ -26,6 +26,10 @@ yarn unlink pyrene
 yarn install
 ```
 
+## Update Pyrene
+
+- `yarn upgrade pyrene@1.8.1`
+
 ## Release
 
 - Push `master` branch
