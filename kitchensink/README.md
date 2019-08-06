@@ -27,6 +27,7 @@ yarn install
 ```
 
 ## Release
-```bash
-yarn release -n
-```
+
+- Push `master` branch
+- Wait for bamboo to build it
+- Deploy on bamboo
