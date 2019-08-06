@@ -4,6 +4,7 @@ import { SimpleTable } from 'pyrene/dist/pyrene.dev';
 import { Bar, BulletBar } from 'tuktuktwo/dist/tuktuktwo.dev';
 import Title from '../Title/Title';
 import './comparisonChartTable.css';
+import colorSchemes from '../../styles/colorSchemes';
 
 function getId(title, bullet) {
   return title.trim().toLowerCase() + (bullet ? '_bullet' : '');
@@ -94,10 +95,7 @@ ComparisonChartTable.category = 'Chart';
 ComparisonChartTable.defaultProps = {
   title: '',
   subtitle: '',
-  colorScheme: [
-    'var(--blue-700)',
-    'var(--blue-050)',
-  ],
+  colorScheme: colorSchemes.blue,
   bullet: false,
 };
 

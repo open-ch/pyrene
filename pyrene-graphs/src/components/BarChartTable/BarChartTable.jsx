@@ -4,6 +4,7 @@ import { SimpleTable } from 'pyrene/dist/pyrene.dev';
 import { RelativeBar } from 'tuktuktwo/dist/tuktuktwo.dev';
 import Title from '../Title/Title';
 import './barChartTable.css';
+import colorSchemes from '../../styles/colorSchemes';
 
 function getId(title) {
   return title.trim().toLowerCase();
@@ -76,10 +77,7 @@ BarChartTable.category = 'Chart';
 BarChartTable.defaultProps = {
   title: '',
   subtitle: '',
-  colorScheme: [
-    'var(--blue-700)',
-    'var(--blue-050)',
-  ],
+  colorScheme: colorSchemes.blue,
 };
 
 BarChartTable.propTypes = {
