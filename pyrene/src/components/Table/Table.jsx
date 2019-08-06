@@ -114,8 +114,9 @@ export default class Table extends React.Component {
 
     // Server-side props
     manual: this.props.manualPagination,
-    onFetchData: this.props.onFetchData,
     pages: this.props.pages || undefined,
+    onFetchData: rts => this.props.onFetchData({ page: rts.page, pageSize: rts.pageSize }),
+
   };
 
   toggleColumnDisplay = (columnId, showValue) => {
