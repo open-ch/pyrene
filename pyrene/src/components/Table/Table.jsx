@@ -115,6 +115,7 @@ export default class Table extends React.Component {
     // Server-side props
     manual: this.props.manualPagination,
     onFetchData: this.props.onFetchData,
+    pages: this.props.pages || undefined,
   };
 
   toggleColumnDisplay = (columnId, showValue) => {
@@ -384,10 +385,10 @@ Table.defaultProps = {
   manualPagination: false,
   multiSort: true,
   multiSelect: false,
-  numberOfResults: null,
+  numberOfResults: 0,
   rowSelectableCallback: () => true,
   toggleColumns: false,
-  pages: undefined,
+  pages: 0,
   pageSizeOptions: [10, 20, 50, 100, 250],
   filterDisabled: false,
   filters: [],
