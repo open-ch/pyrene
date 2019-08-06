@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { SimpleTable } from 'pyrene/dist/pyrene.dev';
-import { Bar, RelativeBar } from 'tuktuktwo/dist/tuktuktwo.dev';
+import { Bar, BulletBar } from 'tuktuktwo/dist/tuktuktwo.dev';
 import Title from '../Title/Title';
 import './comparisonChartTable.css';
 
@@ -20,11 +20,12 @@ const ComparisonChartTable = (props) => {
   const barWeight = 6;
   const colorScheme = { primary: props.colorScheme.current, secondary: props.colorScheme.previous };
   const cellRenderCallBack = row => (props.bullet ? (
-    <RelativeBar
+    <BulletBar
       barWeight={barWeight}
       colorScheme={colorScheme}
-      maxValue={getValueWithAccessor(row, props.columns.previousValue.accessor)}
-      value={getValueWithAccessor(row, props.columns.currentValue.accessor)}
+      maxValue={maxValue}
+      primaryValue={getValueWithAccessor(row, props.columns.currentValue.accessor)}
+      secondaryValue={getValueWithAccessor(row, props.columns.previousValue.accessor)}
     />
   ) : (
     <div>
