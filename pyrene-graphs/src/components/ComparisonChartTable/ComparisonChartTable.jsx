@@ -18,30 +18,32 @@ const ComparisonChartTable = (props) => {
   const maxValuePrevious = Math.max(...props.data.map(dataRow => getValueWithAccessor(dataRow, props.columns.previousValue.accessor)));
   const maxValue = Math.max(maxValueCurrent, maxValuePrevious);
   const barWeight = 6;
-  const colorScheme = { primary: props.colorScheme.current, secondary: props.colorScheme.previous };
   const cellRenderCallBack = row => (props.bullet ? (
     <BulletBar
       barWeight={barWeight}
-      colorScheme={colorScheme}
+      colorScheme={props.colorScheme}
       maxValue={maxValue}
       primaryValue={getValueWithAccessor(row, props.columns.currentValue.accessor)}
       secondaryValue={getValueWithAccessor(row, props.columns.previousValue.accessor)}
+      parentLength={150}
     />
   ) : (
     <div>
       <Bar
         key={getId(`${props.columns.currentValue.title}_bar_current`, props.bullet)}
         barWeight={barWeight}
-        color={props.colorScheme.current}
+        color={props.colorScheme[0]}
         maxValue={maxValue}
         value={getValueWithAccessor(row, props.columns.currentValue.accessor)}
+        parentLength={150}
       />
       <Bar
         key={getId(`${props.columns.previousValue.title}_bar_previous`, props.bullet)}
         barWeight={barWeight}
-        color={props.colorScheme.previous}
+        color={props.colorScheme[1]}
         maxValue={maxValue}
         value={getValueWithAccessor(row, props.columns.previousValue.accessor)}
+        parentLength={150}
       />
     </div>
   ));
@@ -74,11 +76,8 @@ const ComparisonChartTable = (props) => {
       <Title
         title={props.title}
         subtitle={props.subtitle}
-        legend={[
-          { label: props.legend.currentLabel, colorKey: 'primary' },
-          { label: props.legend.previousLabel, colorKey: 'secondary' },
-        ]}
-        colorScheme={colorScheme}
+        legend={[props.columns.currentValue.title, props.columns.previousValue.title]}
+        colorScheme={props.colorScheme}
       />
       <SimpleTable
         columns={columnsTable}
@@ -95,19 +94,15 @@ ComparisonChartTable.category = 'Chart';
 ComparisonChartTable.defaultProps = {
   title: '',
   subtitle: '',
-  colorScheme: {
-    current: 'var(--blue-700)',
-    previous: 'var(--blue-050)',
-  },
+  colorScheme: [
+    'var(--blue-700)',
+    'var(--blue-050)',
+  ],
   bullet: false,
-  legend: [],
 };
 
 ComparisonChartTable.propTypes = {
-  colorScheme: PropTypes.shape({
-    current: PropTypes.string.isRequired,
-    previous: PropTypes.string,
-  }),
+  colorScheme: PropTypes.arrayOf(PropTypes.string),
   columns: PropTypes.shape({
     currentValue: PropTypes.shape({
       accessor: PropTypes.oneOfType([
@@ -133,11 +128,7 @@ ComparisonChartTable.propTypes = {
       title: PropTypes.string.isRequired,
     }),
   }).isRequired,
-  data: PropTypes.array.isRequired, // eslint-disable-line react/forbid-prop-types
-  legend: PropTypes.arrayOf(PropTypes.shape({
-    colorKey: PropTypes.string.isRequired,
-    label: PropTypes.string.isRequired,
-  })),
+  data: PropTypes.arrayOf(PropTypes.object).isRequired,
   bullet: PropTypes.bool,// eslint-disable-line
   subtitle: PropTypes.string,
   title: PropTypes.string,

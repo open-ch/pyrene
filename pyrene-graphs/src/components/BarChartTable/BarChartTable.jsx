@@ -58,7 +58,7 @@ const BarChartTable = (props) => {
       <Title
         title={props.title}
         subtitle={props.subtitle}
-        legend={props.legend}
+        legend={[props.columns.primaryValue.title, props.columns.secondaryValue.title]}
         colorScheme={props.colorScheme}
       />
       <SimpleTable
@@ -76,21 +76,17 @@ BarChartTable.category = 'Chart';
 BarChartTable.defaultProps = {
   title: '',
   subtitle: '',
-  colorScheme: {
-    primary: 'var(--blue-700)',
-    secondary: 'var(--blue-050)',
-  },
-  legend: [],
+  colorScheme: [
+    'var(--blue-700)',
+    'var(--blue-050)',
+  ],
 };
 
 BarChartTable.propTypes = {
   /**
-   * Sets the colors of the bar chart. Type: { primary: string (required), secondary: string }
+   * Sets the colors of the bar chart. Type: [ string ]
    */
-  colorScheme: PropTypes.shape({
-    primary: PropTypes.string.isRequired,
-    secondary: PropTypes.string,
-  }),
+  colorScheme: PropTypes.arrayOf(PropTypes.string),
   /**
    * Sets the Table columns.
    * Type: { label: { accessor: string or func (required), title: string (required) }, primaryValue: { accessor: string or func (required), formatter: func, title: string (required) }, secondaryValue: { accessor: string or func (required), formatter: func, title: string (required) }}
@@ -121,16 +117,9 @@ BarChartTable.propTypes = {
     }),
   }).isRequired,
   /**
-   * Sets the Table data displayed in the rows. It gets sorted automatically by primaryValue. Type: JSON
+   * Sets the Table data displayed in the rows. It gets sorted automatically by primaryValue. Type: [ JSON ]
    */
-  data: PropTypes.array.isRequired, // eslint-disable-line react/forbid-prop-types
-  /**
-   * Sets the legend. Type: [{ colorKey: string (required), secondary: string }]
-   */
-  legend: PropTypes.arrayOf(PropTypes.shape({
-    colorKey: PropTypes.string.isRequired,
-    label: PropTypes.string.isRequired,
-  })),
+  data: PropTypes.arrayOf(PropTypes.object).isRequired,
   /**
    * Sets the subtitle.
    */

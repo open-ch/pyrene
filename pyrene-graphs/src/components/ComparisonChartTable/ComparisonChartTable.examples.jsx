@@ -33,12 +33,12 @@ const tableColumns = {
   },
   currentValue: {
     accessor: d => d.volumeCurrent,
-    title: '',
+    title: 'Current period',
     formatter: d => `${d} GB`,
   },
   previousValue: {
     accessor: d => d.volumePrevious,
-    title: '',
+    title: 'Previous period',
     formatter: d => `${d} GB`,
   },
 };
@@ -56,10 +56,6 @@ examples.examples = [{
     columns: tableColumns,
     title: 'Volume Comparison by Application',
     subtitle: 'A simple table with one column as a comparison bar chart',
-    legend: {
-      currentLabel: 'Current period',
-      previousLabel: 'Previous period',
-    },
   },
   description: 'A simple table with one column as a comparison bar chart',
 }, {

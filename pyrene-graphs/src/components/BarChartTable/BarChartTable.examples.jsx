@@ -56,14 +56,6 @@ examples.examples = [{
     columns: tableColumns,
     title: 'Top Applications by Volume',
     subtitle: 'A simple table with one column as a relative bar chart',
-    legend: [{
-      label: 'Volume',
-      colorKey: 'primary',
-    }, {
-      label: 'Delta',
-      colorKey: 'secondary',
-    },
-    ],
   },
   description: 'A simple table with one column as a relative bar chart',
 }];
