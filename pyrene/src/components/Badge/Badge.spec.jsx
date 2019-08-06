@@ -53,19 +53,6 @@ describe('<Badge />', () => {
     expect(className).toContain('type-neutral');
   });
 
-  it ('renders label with ellipsis', () => {
-    props.label = 'Very Long Security Alert';
-    const rendered = shallow(<Badge {...props} />);
-    expect(rendered.find('.labelContainer').get(0).props.className).toContain('style-ellipsis');
-    expect(rendered.find('.label').get(0).props.className).toContain('style-ellipsis');
-  });
-
-  it ('renders label without clipping', () => {
-    const rendered = shallow(<Badge {...props} styling="fulltext" />);
-    expect(rendered.find('.labelContainer').get(0).props.className).toContain('style-fulltext');
-    expect(rendered.find('.label').get(0).props.className).toContain('style-fulltext');
-  });
-
   it('reacts to clicking', () => {
     const onClick = jest.fn();
     const rendered = shallow(<Badge {...props} onClick={onClick} />);

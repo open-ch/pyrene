@@ -16,10 +16,8 @@ const Badge = props => (
     onClick={props.onClick}
     role="badge"
   >
-    <div styleName={className('labelContainer', { [`style-${props.styling}`]: true })}>
-      <div styleName={className('label', { [`style-${props.styling}`]: true })}>
-        {props.label}
-      </div>
+    <div styleName={className('label')}>
+      {props.label}
     </div>
   </div>
 );
@@ -29,7 +27,6 @@ Badge.displayName = 'Badge';
 
 Badge.defaultProps = {
   onClick: () => null,
-  styling: 'ellipsis',
 };
 
 Badge.propTypes = {
@@ -45,10 +42,6 @@ Badge.propTypes = {
    * Called when the user click on the badge.
    */
   onClick: PropTypes.func,
-  /**
-   * Sets the text overflow style according to the badge usage.
-   */
-  styling: PropTypes.oneOf(['ellipsis', 'fulltext', 'clip']),
   /**
    * Sets the overall style according to the badge type.
    */

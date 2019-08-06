@@ -2,7 +2,7 @@ const examples = {};
 
 examples.props = {
   label: 'Security Alert',
-  maxWidth: 160,
+  maxWidth: 120,
   type: 'danger',
   onClick: () => { alert('Dangerous!'); },
 };
@@ -10,22 +10,20 @@ examples.props = {
 examples.examples = [
   {
     props: {
-      label: 'Long Neutral Label',
-      maxWidth: 80,
+      label: 'Release Notes',
+      maxWidth: 100,
       type: 'neutral',
-      onClick: () => { alert('Neutral!'); },
     },
-    description: 'Long Neutral Label',
+    description: 'Unclickable badge.',
   },
   {
     props: {
-      label: 'Clipped Information',
+      label: 'More Information',
       maxWidth: 80,
-      styling: 'clip',
       type: 'info',
       onClick: () => { alert('We want information!'); },
     },
-    description: 'Clipped Info',
+    description: 'Clickable badge alerting information.',
   },
   {
     props: {
@@ -34,24 +32,24 @@ examples.examples = [
       type: 'success',
       onClick: () => { alert('This is a success!'); },
     },
+    description: 'Clickable badge alerting success.',
   },
   {
     props: {
       label: 'Warning',
       maxWidth: 100,
       type: 'warning',
-      onClick: () => { alert('Warning!'); },
     },
+    description: 'Unclickable badge.',
   },
   {
     props: {
-      label: 'Very Important Security Alert',
+      label: 'Danger',
       maxWidth: 100,
-      styling: 'fulltext',
       type: 'danger',
       onClick: () => { alert('Dangerous!'); },
     },
-    description: 'Very Important Security Alert',
+    description: 'Clickable badge alerting danger.',
   },
 ];
 

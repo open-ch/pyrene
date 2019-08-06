@@ -3,15 +3,13 @@
 .badge {
   composes: commonFontSettings from '../../styles/common.css';
   box-sizing: border-box;
-  min-height: 18px;
+  height: 18px;
   display: flex;
-  justify-content: space-between;
-  font-size: 14px;
-  font-weight: 500;
-  font-style: normal;
-  font-stretch: normal;
+  align-items: center;
   border-radius: 2px;
-  padding: 2px 6px 2px 6px;
+  padding: 2px 6px 3px 6px;
+  overflow: hidden;
+  white-space: nowrap;
 
   &.type-neutral {
     background-color: var(--neutral-050);
@@ -39,34 +37,11 @@
   }
 }
 
-.labelContainer {
-  &.style-ellipsis, &.style-clip {
-    overflow: hidden;
-    white-space: nowrap;
-  }
-
-  &.style-fulltext {
-    overflow: visible;
-    white-space: pre-wrap;
-  }
-}
-
 .label {
   font-size: 11px;
-  line-height: 1.36;
-  font-weight: bold;
+  font-weight: 600;
+  letter-spacing: 0.3px;
   text-align: center;
-
-  &.style-ellipsis {
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  &.style-cut {
-    text-overflow: clip;
-  }
-
-  &.style-fulltext {
-    text-overflow: '';
-  }
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
