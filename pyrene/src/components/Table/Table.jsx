@@ -114,7 +114,7 @@ export default class Table extends React.Component {
 
     // Server-side props
     manual: this.props.manualPagination,
-    pages: this.props.pages || undefined,
+    pages: this.props.manualPagination ? this.props.pages : undefined,
     onFetchData: rts => this.props.onFetchData({ page: rts.page, pageSize: rts.pageSize }),
 
   };
@@ -389,7 +389,6 @@ Table.defaultProps = {
   numberOfResults: 0,
   rowSelectableCallback: () => true,
   toggleColumns: false,
-  pages: 0,
   pageSizeOptions: [10, 20, 50, 100, 250],
   filterDisabled: false,
   filters: [],
@@ -502,7 +501,7 @@ Table.propTypes = {
   /**
    * Amount of pages to be shown in React Table (use only with server-side data fetching & pagination).
    */
-  pages: PropTypes.number,
+  pages: PropTypes.number, // eslint-disable-line
   /**
     * Sets the page sizes that the user can choose from.
     */
