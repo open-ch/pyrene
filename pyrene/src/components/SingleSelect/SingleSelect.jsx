@@ -142,7 +142,7 @@ SingleSelect.propTypes = {
    */
   defaultValue: PropTypes.shape({
     label: PropTypes.string.isRequired,
-    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool]),
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool, PropTypes.object]),
   }),
   /**
    * Disables any interaction with the component.
@@ -186,7 +186,7 @@ SingleSelect.propTypes = {
   options: PropTypes.arrayOf(PropTypes.shape({
     invalid: PropTypes.bool,
     label: PropTypes.string.isRequired,
-    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool]),
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool, PropTypes.object]),
   })),
   /**
    * Sets the placeholder label.
@@ -209,7 +209,7 @@ SingleSelect.propTypes = {
    */
   value: PropTypes.shape({
     label: PropTypes.string.isRequired,
-    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool]),
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool, PropTypes.object]),
   }),
 };
 
