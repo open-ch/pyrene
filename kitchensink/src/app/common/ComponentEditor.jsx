@@ -83,7 +83,6 @@ export default class ComponentEditor extends React.Component {
     const mergedComponentProps = this.getComponentProps();
     const initField = this.initField(mergedComponentProps);
     const displayedComponent = <Component {...mergedComponentProps} />;
-
     return (
       <div className="componentPlayground">
         {this.props.examples.examples
@@ -105,6 +104,7 @@ export default class ComponentEditor extends React.Component {
           <DynamicPropTable
             propDocumentation={Component.__docgenInfo.props} // eslint-disable-line no-underscore-dangle
             initField={initField}
+            componentCategory={this.props.component.category}
           />
         </Paragraph>
       </div>
