@@ -145,7 +145,7 @@ export default class FilterBar extends React.Component {
 }
 
 
-FilterBar.displayName = 'Filter Enabled';
+FilterBar.displayName = 'FilterBar';
 
 FilterBar.defaultProps = {
   onFilterSubmit: () => null,
