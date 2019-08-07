@@ -125,6 +125,15 @@ examples.examples = [{
     type: 'bullet',
   },
   description: 'A simple table with one column as a bullet bar chart',
+}, {
+  props: {
+    data: tableDataComparison,
+    columns: tableColumnsComparison,
+    title: 'Top Applications by Volume',
+    subtitle: 'A simple table with one column as a butterfly bar chart',
+    type: 'butterfly',
+  },
+  description: 'A simple table with one column as a butterfly bar chart',
 }];
 
 export default examples;
