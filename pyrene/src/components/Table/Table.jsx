@@ -402,14 +402,14 @@ Table.propTypes = {
   })),
   /**
    * Sets the Table columns.
-   * Type: [{ id: string, headerName: string (required), accessor: string, headerStyle: object, cellStyle: object, initiallyHidden: bool, width: number }]
+   * Type: [{ id: any, headerName: string (required), accessor: any, headerStyle: object, cellStyle: object, initiallyHidden: bool, width: number }]
    */
   columns: PropTypes.arrayOf(PropTypes.shape({
-    accessor: PropTypes.string,
+    accessor: PropTypes.any,
     cellStyle: PropTypes.object,
     headerName: PropTypes.string.isRequired,
     headerStyle: PropTypes.object,
-    id: PropTypes.string,
+    id: PropTypes.any,
     initiallyHidden: PropTypes.bool,
     width: PropTypes.number,
   })).isRequired,
