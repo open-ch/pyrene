@@ -5,13 +5,23 @@ import TableSelect from './TableSelect/TableSelect';
 
 import './tablePagination.css';
 
+const showAmountOfResults = (data, numberOfResults) => {
+  let resultAmount = 0;
+  if (numberOfResults) {
+    resultAmount = numberOfResults;
+  } else {
+    resultAmount = data.length;
+  }
+  return `${resultAmount === 0 ? 'No' : resultAmount} result${resultAmount === 1 ? '' : 's'} found`;
+};
+
 /* eslint-disable react/prop-types */
 /* props are controlled by the parent component of react-table */
 
 const TablePagination = props => (
   <div styleName="tablePagination">
     <div styleName="resultsCounter">
-      {`${props.data.length === 0 ? 'No' : props.data.length} result${props.data.length === 1 ? '' : 's'} found`}
+      {showAmountOfResults(props.data, props.numberOfResults)}
     </div>
 
     <div styleName="separator" />
