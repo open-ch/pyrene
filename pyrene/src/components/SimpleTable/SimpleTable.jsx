@@ -51,13 +51,21 @@ SimpleTable.displayName = 'Simple Table';
 SimpleTable.propTypes = {
   /**
    * Sets the Table columns.
-   * Type: [{ id: string (required), headerName: string (required), accessor: string (required), headerStyle: object, cellStyle: object, initiallyHidden: bool, width: number }]
+   * Type: [{ accessor: ( string | func ) (required), cellRenderCallback: func, headerName: string (required), id: string (required)]
    */
-  columns: PropTypes.array.isRequired, // eslint-disable-line react/forbid-prop-types
+  columns: PropTypes.arrayOf(PropTypes.shape({
+    accessor: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.func,
+    ]),
+    cellRenderCallback: PropTypes.func,
+    headerName: PropTypes.string,
+    id: PropTypes.string,
+  })).isRequired,
   /**
-   * Sets the Table data displayed in the rows. Type: JSON
+   * Sets the Table data displayed in the rows. Type: [ JSON ]
    */
-  data: PropTypes.array.isRequired, // eslint-disable-line react/forbid-prop-types
+  data: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default SimpleTable;
