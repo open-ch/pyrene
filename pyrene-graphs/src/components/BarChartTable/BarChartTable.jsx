@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { SimpleTable } from 'pyrene/dist/pyrene';
-import { RelativeBar } from 'tuktuktwo/dist/tuktuktwo';
+import { Bar, BulletBar, RelativeBar } from 'tuktuktwo/dist/tuktuktwo';
 import Title from '../Title/Title';
 import './barChartTable.css';
 import colorSchemes from '../../styles/colorSchemes';
@@ -19,17 +19,59 @@ function getValueWithAccessor(row, accessor) {
  * The primaryValue is automatically being sorted in descending order and then displayed as a bar chart.
  */
 const BarChartTable = (props) => {
-  const maxValue = Math.max(...props.data.map(dataRow => getValueWithAccessor(dataRow, props.columns.primaryValue.accessor)));
+  const maxValuePrimary = Math.max(...props.data.map(dataRow => getValueWithAccessor(dataRow, props.columns.primaryValue.accessor)));
+  const maxValueSecondary = Math.max(...props.data.map(dataRow => getValueWithAccessor(dataRow, props.columns.secondaryValue.accessor)));
+  const maxValue = Math.max(maxValuePrimary, maxValueSecondary);
   const barWeight = 6;
-  const barChart = row => (
-    <RelativeBar
-      barWeight={barWeight}
-      colorScheme={props.colorScheme}
-      maxValue={maxValue}
-      value={row.value}
-      parentLength={150}
-    />
-  );
+  const barChart = (row) => {
+    const defaultBar = (
+      <RelativeBar
+        barWeight={barWeight}
+        colorScheme={props.colorScheme}
+        maxValue={maxValuePrimary}
+        value={row.value}
+        parentLength={150}
+      />
+    );
+    switch (props.type) {
+      case 'bar':
+        return defaultBar;
+      case 'comparison':
+        return (
+          <div>
+            <Bar
+              key={getId(`${props.columns.primaryValue.title}_bar_current`)}
+              barWeight={barWeight}
+              color={props.colorScheme[0]}
+              maxValue={maxValue}
+              value={getValueWithAccessor(row, props.columns.primaryValue.accessor)}
+              parentLength={150}
+            />
+            <Bar
+              key={getId(`${props.columns.secondaryValue.title}_bar_previous`)}
+              barWeight={barWeight}
+              color={props.colorScheme[1]}
+              maxValue={maxValue}
+              value={getValueWithAccessor(row, props.columns.secondaryValue.accessor)}
+              parentLength={150}
+            />
+          </div>
+        );
+      case 'bullet':
+        return (
+          <BulletBar
+            barWeight={barWeight}
+            colorScheme={props.colorScheme}
+            maxValue={maxValue}
+            primaryValue={getValueWithAccessor(row, props.columns.primaryValue.accessor)}
+            secondaryValue={getValueWithAccessor(row, props.columns.secondaryValue.accessor)}
+            parentLength={150}
+          />
+        );
+      default:
+        return defaultBar;
+    }
+  };
   const columnsTable = [
     {
       id: getId(props.columns.label.title),
@@ -78,6 +120,7 @@ BarChartTable.defaultProps = {
   title: '',
   subtitle: '',
   colorScheme: colorSchemes.blue,
+  type: 'bar',
 };
 
 BarChartTable.propTypes = {
@@ -126,6 +169,10 @@ BarChartTable.propTypes = {
    * Sets the title.
    */
   title: PropTypes.string,
+  /**
+   * Sets the overall style according to the bar chart type.
+   */
+  type: PropTypes.oneOf(['bar', 'comparison', 'bullet']),
 };
 
 export default BarChartTable;
