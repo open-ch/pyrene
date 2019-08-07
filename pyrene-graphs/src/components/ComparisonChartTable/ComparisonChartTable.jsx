@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { SimpleTable } from 'pyrene/dist/pyrene.dev';
-import { Bar, BulletBar } from 'tuktuktwo/dist/tuktuktwo.dev';
+import { SimpleTable } from 'pyrene/dist/pyrene';
+import { Bar, BulletBar } from 'tuktuktwo/dist/tuktuktwo';
 import Title from '../Title/Title';
 import './comparisonChartTable.css';
 import colorSchemes from '../../styles/colorSchemes';
