@@ -18,10 +18,10 @@ export default class Filter extends React.PureComponent {
     }
 
     if (filters && filters.length > 0 && disabled === false) {
-      return <FilterBar filters={filters} onFilterSubmit={onFilterSubmit} />;
+      return <FilterBar filters={filters} onFilterSubmit={onFilterSubmit} filterValues={this.props.filterValues} />;
     }
 
-    return (null);
+    return null;
   }
 
 }
@@ -32,6 +32,7 @@ Filter.defaultProps = {
   onFilterSubmit: () => null,
   disabled: false,
   filters: undefined,
+  filterValues: null,
 };
 
 Filter.propTypes = {
@@ -54,6 +55,10 @@ Filter.propTypes = {
       value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool]),
     })),
     type: PropTypes.oneOf(['singleSelect', 'multiSelect', 'text']).isRequired,
+  })),
+  filterValues: PropTypes.arrayOf(PropTypes.shape({
+    filterKey: PropTypes.string.isRequired,
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.array, PropTypes.object]).isRequired,
   })),
   /**
    * Called when the user clicks on the apply button. Contains all the filter information as its argument.

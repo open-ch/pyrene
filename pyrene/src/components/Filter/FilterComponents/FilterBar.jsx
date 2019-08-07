@@ -5,100 +5,80 @@ import './FilterBar.css';
 import FilterPopoverButton from '../FilterPopOverButton/FilterPopoverButton';
 import FilterTag from './FilterTag';
 
-const initDataType = (filter) => {
-  switch (filter.type) {
-    case 'singleSelect': {
-      return filter.defaultValue ? filter.defaultValue : null;
-    }
-    case 'multiSelect':
-      return filter.defaultValue ? filter.defaultValue : [];
-    case 'text':
-      return filter.defaultValue ? filter.defaultValue : '';
-    default:
-      return null;
-  }
-};
-
-const clearDataType = (filter) => {
-  switch (filter.type) {
-    case 'singleSelect':
-      return null;
-    case 'multiSelect':
-      return [];
-    case 'text':
-      return '';
-    default:
-      return null;
-  }
-};
-
-const initFilterState = filters => filters.reduce((accumulator, currentValue) => ({ ...accumulator, [currentValue.filterKey]: initDataType(currentValue) }), {});
-const clearFilterState = filters => filters.reduce((accumulator, currentValue) => ({ ...accumulator, [currentValue.filterKey]: clearDataType(currentValue) }), {});
-
 /**
  * The filter is there to display large amounts of data in manageable portions.
  *
  * The filter is mostly used in data tables.
  */
+
 export default class FilterBar extends React.Component {
 
   state = {
     displayFilterPopover: false,
-    filterValues: initFilterState(this.props.filters),
-    unAppliedValues: initFilterState(this.props.filters),
+    unAppliedValues: null,
   };
-
-  componentDidMount() {
-    this.props.onFilterSubmit(this.state.filterValues);
-  }
 
   // eslint-disable-next-line react/sort-comp
   toggleFilterPopover = () => {
     this.setState(prevState => ({
-      unAppliedValues: { ...prevState.filterValues },
       displayFilterPopover: !prevState.displayFilterPopover,
     }));
   };
 
   filterDidChange = (value, key) => {
-    this.setState(prevState => ({
-      unAppliedValues: { ...prevState.unAppliedValues, [key]: value },
-    }));
+    if (!value) {
+      // if the input is empty (no value) then delete the whole filter entry from filters Object
+      let changedValues = { ...this.state.unAppliedValues };
+      delete changedValues[key];
+      // If there is no filter left, set unAppliedValues to default null state instead of empty Object
+      if (Object.entries(changedValues).length === 0) { changedValues = null; }
+      this.setState(() => ({
+        unAppliedValues: changedValues,
+      }));
+    } else {
+      this.setState(prevState => ({
+        unAppliedValues: { ...prevState.unAppliedValues, [key]: value },
+      }));
+    }
   };
 
+  // Clear button in popover dropdown clears the users input
   clearFilter = () => {
     this.setState(() => ({
-      unAppliedValues: clearFilterState(this.props.filters),
+      unAppliedValues: null,
     }));
   };
 
   applyFilter = () => {
-    this.setState(prevState => ({
-      filterValues: prevState.unAppliedValues,
+    this.setState(() => ({
       displayFilterPopover: false,
     }),
-    () => this.props.onFilterSubmit(this.state.filterValues));
+    () => this.props.onFilterSubmit(this.state.unAppliedValues));
   };
 
+  // onFilterTagClose removes only one tag - only one filter entry from filters Object should be removed, other filters have to stay
   onFilterTagClose(filter) {
-
-    this.setState(prevState => ({
-      unAppliedValues: { ...prevState.unAppliedValues, [filter.filterKey]: clearDataType(filter) },
+    let changedValues = { ...this.props.filterValues };
+    delete changedValues[filter.filterKey];
+    if (Object.entries(changedValues).length === 0) { changedValues = null; }
+    this.setState(() => ({
+      unAppliedValues: changedValues,
       displayFilterPopover: false,
     }), () => this.applyFilter());
 
   }
 
+  // clearAll button next to tags resets the filter to default state
   onClearAll = () => {
     this.setState(() => ({
-      unAppliedValues: clearFilterState(this.props.filters),
+      unAppliedValues: null,
       displayFilterPopover: false,
     }), () => this.applyFilter());
   };
 
 
   getFilterTags() {
-    const { filterValues } = this.state;
+    const { filterValues } = this.props;
 
     if (filterValues) {
 
@@ -177,7 +157,6 @@ FilterBar.propTypes = {
    * Type: [{ label: string (required), type: oneOf('singleSelect', 'multiSelect', 'text') (required), key: string (required), options: array of values from which user can choose in single/multiselect, defaultValue: string | arrayOf string (multiSelects) }]
    */
   filters: PropTypes.arrayOf(PropTypes.shape({
-    defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.array, PropTypes.object]),
     filterKey: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
     options: PropTypes.arrayOf(PropTypes.shape({
@@ -187,6 +166,15 @@ FilterBar.propTypes = {
       value: PropTypes.any.isRequired,
     })),
     type: PropTypes.oneOf(['singleSelect', 'multiSelect', 'text']).isRequired,
+  })).isRequired,
+  /**
+   * Passing the filter values from outside
+   * @filterKey: same as filterKey in filters prop, it should be same as the `id` in filterDefinition
+   * @value: the users input; for single & multiSelect value contains of both value and label! In case of multiSelect, value can consist of multiple objects {value: , label: } in an array
+   * */
+  filterValues: PropTypes.arrayOf(PropTypes.shape({
+    filterKey: PropTypes.string.isRequired,
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.array, PropTypes.object]).isRequired,
   })).isRequired,
   /**
    * Called when the user clicks on the apply button. Contains all the filter information as its argument.
