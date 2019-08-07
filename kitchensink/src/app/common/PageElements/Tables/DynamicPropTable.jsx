@@ -132,7 +132,7 @@ export default class DynamicPropTable extends React.Component {
           />
         );
 
-      case 'array':
+      case 'arrayOf':
         if (propName === 'data') {
           return (
             <ReactTable
