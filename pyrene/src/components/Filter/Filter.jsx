@@ -62,7 +62,7 @@ Filter.propTypes = {
    * */
   filterValues: PropTypes.arrayOf(PropTypes.shape({
     filterKey: PropTypes.string.isRequired,
-    value: PropTypes.oneOfType([PropTypes.string, PropTypes.array, PropTypes.object]).isRequired,
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.array, PropTypes.object]),
   })),
   /**
    * Called when the user clicks on the apply button. Contains all the filter information as its argument.

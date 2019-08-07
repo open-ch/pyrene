@@ -59,6 +59,8 @@ const examples = {
     }, {
       label: 'twelfth', type: 'text', filterKey: 'testKey12', options: null,
     }],
+    filterValues: stateProvider => (stateProvider.state.filterValues ? stateProvider.state.filterValues : null),
+    onFilterSubmit: stateProvider => filterValues => stateProvider.setState({ filterValues }),
   },
 };
 

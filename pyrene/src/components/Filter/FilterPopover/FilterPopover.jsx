@@ -41,7 +41,9 @@ const FilterPopover = props => (
 
 FilterPopover.displayName = 'FilterPopover';
 
-FilterPopover.defaultProps = {};
+FilterPopover.defaultProps = {
+  filterValues: null,
+};
 
 FilterPopover.propTypes = {
   filters: PropTypes.arrayOf(PropTypes.shape({
@@ -50,7 +52,7 @@ FilterPopover.propTypes = {
     options: PropTypes.array,
     type: PropTypes.string,
   })).isRequired,
-  filterValues: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.array, PropTypes.string, PropTypes.object])).isRequired,
+  filterValues: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.array, PropTypes.string, PropTypes.object])),
   handleFilterChange: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,
   onFilterApply: PropTypes.func.isRequired,

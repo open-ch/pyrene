@@ -149,6 +149,7 @@ FilterBar.displayName = 'FilterBar';
 
 FilterBar.defaultProps = {
   onFilterSubmit: () => null,
+  filterValues: null,
 };
 
 FilterBar.propTypes = {
@@ -175,7 +176,7 @@ FilterBar.propTypes = {
   filterValues: PropTypes.arrayOf(PropTypes.shape({
     filterKey: PropTypes.string.isRequired,
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.array, PropTypes.object]).isRequired,
-  })).isRequired,
+  })),
   /**
    * Called when the user clicks on the apply button. Contains all the filter information as its argument.
    */
