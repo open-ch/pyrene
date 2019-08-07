@@ -154,7 +154,7 @@ FilterBar.defaultProps = {
 FilterBar.propTypes = {
   /**
    * Sets the available filters.
-   * Type: [{ label: string (required), type: oneOf('singleSelect', 'multiSelect', 'text') (required), key: string (required), options: array of values from which user can choose in single/multiselect, defaultValue: string | arrayOf string (multiSelects) }]
+   * Type: [{ label: string (required), type: oneOf('singleSelect', 'multiSelect', 'text') (required), key: string (required), options: array of values from which user can choose in single/multiSelect}]
    */
   filters: PropTypes.arrayOf(PropTypes.shape({
     filterKey: PropTypes.string.isRequired,

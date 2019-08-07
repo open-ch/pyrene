@@ -35,11 +35,11 @@ const testOptions = [
 const examples = {
   props: {
     filters: [{
-      label: 'first', type: 'singleSelect', filterKey: 'testKey', options: testOptions, defaultValue: [{ value: 'vanilla', label: 'Vanilla' }],
+      label: 'first', type: 'singleSelect', filterKey: 'testKey', options: testOptions,
     }, {
-      label: 'second', type: 'multiSelect', filterKey: 'testKey2', options: testOptions, defaultValue: [{ value: 'vanilla', label: 'Vanilla' }, { value: 'chocolate', label: 'Chocolate' }],
+      label: 'second', type: 'multiSelect', filterKey: 'testKey2', options: testOptions,
     }, {
-      label: 'third', type: 'text', filterKey: 'testKey3', options: null, defaultValue: 'defaultFill',
+      label: 'third', type: 'text', filterKey: 'testKey3', options: null,
     }, {
       label: 'fourth', type: 'text', filterKey: 'testKey4', options: null,
     }, {

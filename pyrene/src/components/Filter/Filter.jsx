@@ -42,10 +42,9 @@ Filter.propTypes = {
   disabled: PropTypes.bool,
   /**
    * Sets the available filters.
-   * Type: [{ label: string (required), type: oneOf('singleSelect', 'multiSelect', 'text') (required), key: string (required), options: array of values from which user can choose in single/multiselect, defaultValue: string | arrayOf string (multiSelects) }]
+   * Type: [{ label: string (required), type: oneOf('singleSelect', 'multiSelect', 'text') (required), key: string (required), options: array of values from which user can choose in single/multiSelect }]
    */
   filters: PropTypes.arrayOf(PropTypes.shape({
-    defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.array, PropTypes.object]),
     filterKey: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
     options: PropTypes.arrayOf(PropTypes.shape({
@@ -56,6 +55,11 @@ Filter.propTypes = {
     })),
     type: PropTypes.oneOf(['singleSelect', 'multiSelect', 'text']).isRequired,
   })),
+  /**
+   * Passing the filter values from outside
+   * @filterKey: same as filterKey in filters prop, it should be same as the `id` in filterDefinition
+   * @value: the users input; for single & multiSelect value contains of both value and label! In case of multiSelect, value can consist of multiple objects {value: , label: } in an array
+   * */
   filterValues: PropTypes.arrayOf(PropTypes.shape({
     filterKey: PropTypes.string.isRequired,
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.array, PropTypes.object]).isRequired,
