@@ -4,7 +4,7 @@ import { Bar as VxBar } from '@vx/shape';
 
 const Bar = props => (
   props.direction === 'horizontal' ? (
-    <svg width={props.parentLength} height={props.barWeight}>
+    <svg width={props.parentLength} height={props.barWeight} transform={props.mirrored ? 'rotate(180 0 0)' : undefined}>
       <VxBar
         x="0"
         y="0"
@@ -14,7 +14,7 @@ const Bar = props => (
       />
     </svg>
   ) : (
-    <svg width={props.barWeight} height={props.parentLength}>
+    <svg width={props.barWeight} height={props.parentLength} transform={props.mirrored ? 'rotate(180 0 0)' : undefined}>
       <VxBar
         x="0"
         y={(props.maxValue - props.value) * (props.parentLength / props.maxValue)}
@@ -33,6 +33,7 @@ Bar.defaultProps = {
   color: 'var(--blue-700)',
   direction: 'horizontal',
   parentLength: 150,
+  mirrored: false,
 };
 
 Bar.propTypes = {
@@ -40,6 +41,7 @@ Bar.propTypes = {
   color: PropTypes.string,
   direction: PropTypes.string,
   maxValue: PropTypes.number.isRequired,
+  mirrored: PropTypes.bool,
   parentLength: PropTypes.number,
   value: PropTypes.number.isRequired,
 };

@@ -5,7 +5,7 @@ import { Bar } from '@vx/shape';
 const BulletBar = props => (
   props.direction === 'horizontal' ? (
     <div>
-      <svg width={props.parentLength} height={props.barWeight * props.secondaryBarWeightScale}>
+      <svg width={props.parentLength} height={props.barWeight * props.secondaryBarWeightScale} transform={props.mirrored ? 'rotate(180 0 0)' : undefined}>
         <Bar
           x="0"
           y="0"
@@ -24,7 +24,7 @@ const BulletBar = props => (
     </div>
   ) : (
     <div>
-      <svg width={props.barWeight} height={props.parentLength}>
+      <svg width={props.barWeight} height={props.parentLength} transform={props.mirrored ? 'rotate(180 0 0)' : undefined}>
         <Bar
           x="0"
           y={(props.maxValue - props.secondaryValue) * (props.parentLength / props.maxValue)}
@@ -55,6 +55,7 @@ BulletBar.defaultProps = {
   ],
   direction: 'horizontal',
   parentLength: 150,
+  mirrored: false,
 };
 
 BulletBar.propTypes = {
@@ -62,6 +63,7 @@ BulletBar.propTypes = {
   colorScheme: PropTypes.arrayOf(PropTypes.string),
   direction: PropTypes.string,
   maxValue: PropTypes.number.isRequired,
+  mirrored: PropTypes.bool,
   parentLength: PropTypes.number,
   primaryValue: PropTypes.number.isRequired,
   secondaryBarWeightScale: PropTypes.number,

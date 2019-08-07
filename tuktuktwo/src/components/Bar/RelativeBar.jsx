@@ -26,7 +26,7 @@ const RelativeBar = (props) => {
   });
   return (
     props.direction === 'horizontal' ? (
-      <svg width={props.parentLength} height={props.barWeight}>
+      <svg width={props.parentLength} height={props.barWeight} transform={props.mirrored ? 'rotate(180 0 0)' : undefined}>
         <BarStackHorizontal
           y={d => d}
           height={props.barWeight}
@@ -38,7 +38,7 @@ const RelativeBar = (props) => {
         />
       </svg>
     ) : (
-      <svg width={props.barWeight} height={props.parentLength}>
+      <svg width={props.barWeight} height={props.parentLength} transform={props.mirrored ? 'rotate(180 0 0)' : undefined}>
         <BarStack
           x={d => d}
           width={props.barWeight}
@@ -63,6 +63,7 @@ RelativeBar.defaultProps = {
   ],
   direction: 'horizontal',
   parentLength: 150,
+  mirrored: false,
 };
 
 RelativeBar.propTypes = {
@@ -70,6 +71,7 @@ RelativeBar.propTypes = {
   colorScheme: PropTypes.arrayOf(PropTypes.string),
   direction: PropTypes.string,
   maxValue: PropTypes.number.isRequired,
+  mirrored: PropTypes.bool,
   parentLength: PropTypes.number,
   value: PropTypes.number.isRequired,
 };
