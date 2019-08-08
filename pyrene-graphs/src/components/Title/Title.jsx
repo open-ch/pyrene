@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import './title.css';
 import colorSchemes from '../../styles/colorSchemes';
@@ -7,11 +7,11 @@ import colorSchemes from '../../styles/colorSchemes';
  * Titles are used to display titles, subtitles and legends along with chart components.
  */
 const Title = props => (
-  <Fragment>
+  <div styleName="container">
     <div styleName="title">
       {props.title}
     </div>
-    <div styleName="container">
+    <div styleName="subContainer">
       {props.subtitle && (
         <div styleName="subtitle">
           {props.subtitle}
@@ -34,7 +34,7 @@ const Title = props => (
         </div>
       )}
     </div>
-  </Fragment>
+  </div>
 );
 
 Title.displayName = 'Title';
@@ -42,7 +42,7 @@ Title.displayName = 'Title';
 Title.defaultProps = {
   subtitle: '',
   legend: [],
-  colorScheme: colorSchemes.blue,
+  colorScheme: colorSchemes.general,
 };
 
 Title.propTypes = {

@@ -23,13 +23,17 @@ const BarChartTable = (props) => {
   const maxValueSecondary = Math.max(...props.data.map(dataRow => getValueWithAccessor(dataRow, props.columns.secondaryValue.accessor)));
   const maxValue = Math.max(maxValuePrimary, maxValueSecondary);
   const barWeight = 6;
+  const barWeightSecondaryBullet = 16;
+  const barWeightSecondaryComparison = 4;
+  const parentLength = 150;
+  const parentLengthButterfly = 118;
   const defaultBarChart = row => (
     <RelativeBar
       barWeight={barWeight}
       colorScheme={props.colorScheme}
       maxValue={maxValuePrimary}
       value={row.value}
-      parentLength={150}
+      parentLength={parentLength}
     />
   );
   let barChart;
@@ -41,22 +45,22 @@ const BarChartTable = (props) => {
       break;
     case 'comparison':
       barChart = row => ( // eslint-disable-line react/display-name
-        <div>
+        <div styleName="comparisonContainer">
           <Bar
             key={getId(`${props.columns.primaryValue.title}_bar_current`)}
             barWeight={barWeight}
             color={props.colorScheme[0]}
             maxValue={maxValue}
             value={getValueWithAccessor(row, props.columns.primaryValue.accessor)}
-            parentLength={150}
+            parentLength={parentLength}
           />
           <Bar
             key={getId(`${props.columns.secondaryValue.title}_bar_previous`)}
-            barWeight={barWeight}
+            barWeight={barWeightSecondaryComparison}
             color={props.colorScheme[1]}
             maxValue={maxValue}
             value={getValueWithAccessor(row, props.columns.secondaryValue.accessor)}
-            parentLength={150}
+            parentLength={parentLength}
           />
         </div>
       );
@@ -65,11 +69,12 @@ const BarChartTable = (props) => {
       barChart = row => ( // eslint-disable-line react/display-name
         <BulletBar
           barWeight={barWeight}
+          barWeightSecondary={barWeightSecondaryBullet}
           colorScheme={props.colorScheme}
           maxValue={maxValue}
           primaryValue={getValueWithAccessor(row, props.columns.primaryValue.accessor)}
           secondaryValue={getValueWithAccessor(row, props.columns.secondaryValue.accessor)}
-          parentLength={150}
+          parentLength={parentLength}
         />
       );
       break;
@@ -117,37 +122,34 @@ const BarChartTable = (props) => {
       cellRenderCallback: props.columns.primaryValue.formatter ? row => props.columns.primaryValue.formatter(row.value) : null,
     },
     {
+      id: getId(props.columns.secondaryValue.title),
+      headerName: props.columns.secondaryValue.title,
+      accessor: props.columns.secondaryValue.accessor,
+      cellRenderCallback: props.columns.secondaryValue.formatter ? row => props.columns.secondaryValue.formatter(row.value) : null,
+    },
+    {
       id: getId(`${props.columns.primaryValue.title}_bar_left`),
       accessor: props.columns.primaryValue.accessor,
       cellRenderCallback: row => ( // eslint-disable-line react/display-name
-        <RelativeBar
-          barWeight={barWeight}
-          colorScheme={props.colorScheme}
-          maxValue={maxValue}
-          value={row.value}
-          parentLength={150}
-          mirrored
-        />
+        <div styleName="butterflyContainer">
+          <RelativeBar
+            barWeight={barWeight}
+            colorScheme={props.colorScheme}
+            maxValue={maxValue}
+            value={row.value}
+            parentLength={parentLengthButterfly}
+            mirrored
+          />
+          <div styleName="verticalLine" />
+          <RelativeBar
+            barWeight={barWeight}
+            colorScheme={props.colorScheme}
+            maxValue={maxValue}
+            value={row.value}
+            parentLength={parentLengthButterfly}
+          />
+        </div>
       ),
-    },
-    {
-      id: getId(`${props.columns.secondaryValue.title}_bar_right`),
-      headerName: props.columns.secondaryValue.title,
-      accessor: props.columns.secondaryValue.accessor,
-      cellRenderCallback: row => ( // eslint-disable-line react/display-name
-        <RelativeBar
-          barWeight={barWeight}
-          colorScheme={props.colorScheme}
-          maxValue={maxValue}
-          value={row.value}
-          parentLength={150}
-        />
-      ),
-    },
-    {
-      id: getId(props.columns.secondaryValue.title),
-      accessor: props.columns.secondaryValue.accessor,
-      cellRenderCallback: props.columns.secondaryValue.formatter ? row => props.columns.secondaryValue.formatter(row.value) : null,
     },
   ];
   return (
@@ -173,7 +175,7 @@ BarChartTable.category = 'Chart';
 BarChartTable.defaultProps = {
   title: '',
   subtitle: '',
-  colorScheme: colorSchemes.blue,
+  colorScheme: colorSchemes.general,
   type: 'bar',
 };
 

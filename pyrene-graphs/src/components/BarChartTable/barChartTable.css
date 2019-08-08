@@ -1,3 +1,29 @@
 .container {
   width: 100%;
 }
+
+.comparisonContainer svg {
+  display: block;
+}
+
+.comparisonContainer svg:first-child {
+  margin-bottom: 6px;
+}
+
+.butterflyContainer {
+  display: flex;
+  align-items: center;
+}
+
+.butterflyContainer svg:first-child {
+  margin-right: 12px;
+}
+
+.butterflyContainer svg:last-child {
+  margin-left: 12px;
+}
+
+.verticalLine {
+  border-left: 1px solid var(--border);
+  height: 16px;
+}

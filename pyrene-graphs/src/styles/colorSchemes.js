@@ -1,10 +1,10 @@
-const blue = [
-  'var(--blue-700)',
-  'var(--blue-050)',
+const general = [
+  '#0458a2',
+  '#dae6f1',
 ];
 
 const colorSchemes = {
-  blue,
+  general,
 };
 
 export default colorSchemes;
