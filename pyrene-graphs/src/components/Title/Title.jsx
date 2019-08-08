@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import './title.css';
+import colorSchemes from '../../styles/colorSchemes';
 
 /**
  * Titles are used to display titles, subtitles and legends along with chart components.
@@ -18,16 +19,16 @@ const Title = props => (
       )}
       {props.legend && props.legend.length > 0 && (
         <div styleName="legend">
-          {props.legend.map(item => (
+          {props.legend.map((item, idx) => (
             <div
-              key={item.label}
+              key={item}
               styleName="legendItem"
             >
               <span
                 styleName="circle"
-                style={{ backgroundColor: props.colorScheme[item.colorKey] }}
+                style={{ backgroundColor: props.colorScheme[idx] }}
               />
-              {item.label}
+              {item}
             </div>
           ))}
         </div>
@@ -41,24 +42,18 @@ Title.displayName = 'Title';
 Title.defaultProps = {
   subtitle: '',
   legend: [],
-  colorScheme: [],
+  colorScheme: colorSchemes.blue,
 };
 
 Title.propTypes = {
   /**
-   * Sets the colors of the bar chart. Type: { primary: string (required), secondary: string }
+   * Sets the colors of the bar chart. Type: [ string ]
    */
-  colorScheme: PropTypes.shape({
-    primary: PropTypes.string.isRequired,
-    secondary: PropTypes.string,
-  }),
+  colorScheme: PropTypes.arrayOf(PropTypes.string),
   /**
-   * Sets the legend. Type: [{ colorKey: string (required), secondary: string }]
+   * Sets the legend. Type: [ string ]
    */
-  legend: PropTypes.arrayOf(PropTypes.shape({
-    colorKey: PropTypes.string.isRequired,
-    label: PropTypes.string.isRequired,
-  })),
+  legend: PropTypes.arrayOf(PropTypes.string),
   /**
    * Sets the subtitle.
    */

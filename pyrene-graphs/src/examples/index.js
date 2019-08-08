@@ -4,13 +4,23 @@
 // Sort alphabetically to find stuff easily
 import { default as BarChart } from '../components/BarChart/BarChart.examples';
 import { default as BarChartTable } from '../components/BarChartTable/BarChartTable.examples';
-import { default as ComparisonChartTable } from '../components/ComparisonChartTable/ComparisonChartTable.examples';
+
+import {
+  tableData,
+  tableColumns,
+  tableDataComparison,
+  tableColumnsComparison,
+} from './tableData';
 
 // Sort alphabetically to find stuff easily
 const examples = {
   BarChart,
   BarChartTable,
-  ComparisonChartTable,
 };
 
 export default examples;
+
+export const exampleData = {
+  tableData: { data: tableData, columns: tableColumns },
+  tableDataComparison: { data: tableDataComparison, columns: tableColumnsComparison },
+};
