@@ -3,13 +3,13 @@
   width: 100%;
   overflow: auto;
   font-size: 13px;
+  margin-top: 20px;
+  color: var(--neutral-500);
 }
 
 .tableHeaderRow {
-  border-top: 1px solid var(--border);
-  padding-top: 6px;
-  padding-bottom: 6px; /* +1px border*/
   border-bottom: 1px solid var(--border);
+  padding-bottom: 6px; /* +1px border*/
   display: flex;
   flex: 1 1 auto;
 }
@@ -31,5 +31,5 @@
 
 .tableCell {
   flex: 1;
-  padding-right: 16px;
+  margin-right: 16px;
 }
