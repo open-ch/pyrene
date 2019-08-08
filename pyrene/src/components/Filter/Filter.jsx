@@ -60,7 +60,7 @@ Filter.propTypes = {
    * @filterKey: same as filterKey in filters prop, it should be same as the `id` in filterDefinition
    * @value: the users input; for single & multiSelect value contains of both value and label! In case of multiSelect, value can consist of multiple objects {value: , label: } in an array
    * */
-  filterValues: PropTypes.arrayOf(PropTypes.shape({
+  filterValues: PropTypes.shape(PropTypes.shape({
     filterKey: PropTypes.string.isRequired,
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.array, PropTypes.object]),
   })),

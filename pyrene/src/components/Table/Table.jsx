@@ -458,7 +458,7 @@ Table.propTypes = {
   /**
    * values to be filtered & displayed in filter dropdown
    * */
-  filterValues: PropTypes.arrayOf(PropTypes.shape({
+  filterValues: PropTypes.shape(PropTypes.shape({
     filterKey: PropTypes.string.isRequired,
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.array, PropTypes.object]).isRequired,
   })),

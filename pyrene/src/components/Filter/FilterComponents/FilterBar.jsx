@@ -9,6 +9,23 @@ import FilterTag from './FilterTag';
  * The filter is there to display large amounts of data in manageable portions.
  *
  * The filter is mostly used in data tables.
+ *
+ * Structure:
+ * Filter: wrapper for disabled and enabled filter
+ *  |- FilterButton: only disabled filter button, placeholder
+ *  |- FilterBar: enabled button together with tags incl clearAll button (if some results are filtered)
+ *              : excepts filterValues from MC component, filterValues are either null or an object where each object property is a filtered filterKey (if filterKey is not used then the whole prop is null)
+ *              : example: filterValues = null if nothing filtered (clear filter), filterValues = {city: 'Brno', country: {value: 'CZ', label: 'CZ'}} if all possible inputs are filtered, filterValues = {city: 'Brno'} if country is not filtered
+ *    |- FilterTag: if input is filtered, tag (grey box) is displayed
+ *    |- FilterPopoverButton: wrapper for opening/closing the Filter dropdown
+ *      |- FilterPopover: the Filter dropdown
+ *        |- FilterOptions: inputs, based on type (text/singleSelect/multiSelect) correct components (TextField, SingleSelect, MultiSelect) are rendered
+ *                        : magic with converting values from/to null :)
+ *                          : if filterValues are null or the filterKey doesnt exist in the filterValues object, FilterOption passes to components correct empty type (for TextField '', for MultiSelect [])
+ *                          : via filterOptions values from inputs are passed via onChange function up, handling of empty values is done here (if TextField is '' onChange returns null, if MultiSelect is [] onChange returns null instead as well)
+ *          |- TextField: type of Filter input, expects string
+ *          |- SingleSelect: type of Filter input, expects {value:, label: }
+ *          |- MultiSelect: type of Filter input, expects [{value:, label: }, {valueX:, labelX: }...]
  */
 
 export default class FilterBar extends React.Component {
@@ -26,8 +43,8 @@ export default class FilterBar extends React.Component {
   };
 
   filterDidChange = (value, key) => {
-    if (!value) {
-      // if the input is empty (no value) then delete the whole filter entry from filters Object
+    if (value !== null) {
+      // All types (text & singleSelect & multiSelect) returns null value if empty thanks to condition in onChange in FilterOption
       let changedValues = { ...this.state.unAppliedValues };
       delete changedValues[key];
       // If there is no filter left, set unAppliedValues to default null state instead of empty Object
@@ -173,7 +190,7 @@ FilterBar.propTypes = {
    * @filterKey: same as filterKey in filters prop, it should be same as the `id` in filterDefinition
    * @value: the users input; for single & multiSelect value contains of both value and label! In case of multiSelect, value can consist of multiple objects {value: , label: } in an array
    * */
-  filterValues: PropTypes.arrayOf(PropTypes.shape({
+  filterValues: PropTypes.shape(PropTypes.shape({
     filterKey: PropTypes.string.isRequired,
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.array, PropTypes.object]).isRequired,
   })),
