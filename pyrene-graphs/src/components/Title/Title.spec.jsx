@@ -6,19 +6,8 @@ import Title from './Title.jsx';
 const props = {
   title: 'Title',
   subtitle: 'Subtitle',
-  colorScheme: {
-    primary: 'red',
-    secondary: 'blue',
-  },
-  legend: [
-    {
-      colorKey: 'primary',
-      label: 'Primary Label',
-    }, {
-      colorKey: 'secondary',
-      label: 'Secondary Label',
-    },
-  ],
+  colorScheme: ['red', 'blue'],
+  legend: ['Primary Label', 'Secondary Label'],
 };
 
 describe('<Title />', () => {
