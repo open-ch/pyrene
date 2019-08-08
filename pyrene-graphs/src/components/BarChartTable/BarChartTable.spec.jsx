@@ -122,8 +122,4 @@ describe('<BarChartTable />', () => {
   it('renders comparison without crashing', () => {
     shallow(<BarChartTable {...propsComparison} type="comparison" />);
   });
-
-  it('renders bullet without crashing', () => {
-    shallow(<BarChartTable {...propsComparison} type="bullet" />);
-  });
 });
