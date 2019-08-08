@@ -3,19 +3,16 @@
 
 // Sort alphabetically to find stuff easily
 import { default as Bar } from './components/Bar/Bar';
-import { default as BulletBar } from './components/Bar/BulletBar';
 import { default as RelativeBar } from './components/Bar/RelativeBar';
 
 // Sort alphabetically to find stuff easily
 const Components = {
   Bar,
-  BulletBar,
   RelativeBar,
 };
 
 // Sort alphabetically to find stuff easily
 export { Bar };
-export { BulletBar };
 export { RelativeBar };
 
 export default Components;
