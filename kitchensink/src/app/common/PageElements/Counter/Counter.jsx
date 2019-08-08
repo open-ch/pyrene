@@ -25,11 +25,11 @@ const Counter = (props) => {
       newValue = 0;
     }
 
-    props.onChange({ target: { name: props.name, value: adjustBounds(newValue), type: 'counter' } });
+    props.onChange(adjustBounds(newValue), { target: { name: props.name, value: adjustBounds(newValue), type: 'counter' } });
   };
 
   const changeCounterBy = (value) => {
-    props.onChange({ target: { name: props.name, value: adjustBounds(props.value + value), type: 'counter' } });
+    props.onChange(adjustBounds(props.value + value), { target: { name: props.name, value: adjustBounds(props.value + value), type: 'counter' } });
   };
 
   return (
