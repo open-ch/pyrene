@@ -56,20 +56,13 @@
     "postcss-nesting": "^7.0.0",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
-    "style-loader": "^0.23.1",
     "webpack": "^4.6.0",
     "webpack-cli": "^3.1.2"
   },
   "dependencies": {
-    "@vx/axis": "^0.0.189",
-    "@vx/gradient": "^0.0.189",
-    "@vx/grid": "^0.0.189",
-    "@vx/group": "^0.0.189",
-    "@vx/mock-data": "^0.0.189",
     "@vx/responsive": "^0.0.189",
     "@vx/scale": "^0.0.189",
     "@vx/shape": "^0.0.189",
-    "d3-array": "^2.2.0",
     "optimize-css-assets-webpack-plugin": "^5.0.0",
     "prop-types": "^15.6.1"
   },
