@@ -51,11 +51,6 @@ examples.examples = [{
     columns: columns,
     title: 'Top Applications by Volume',
     subtitle: 'A horizontal bar chart',
-    legend: [{
-      label: 'Volume',
-      colorKey: 'primary',
-    },
-    ],
   },
   description: 'A horizontal bar chart',
 }, {
@@ -64,11 +59,6 @@ examples.examples = [{
     columns: columns,
     title: 'Top Applications by Volume Relative',
     subtitle: 'A horizontal relative bar chart',
-    legend: [{
-      label: 'Volume',
-      colorKey: 'primary',
-    },
-    ],
     relative: true,
   },
   description: 'A horizontal relative bar chart',
@@ -78,11 +68,6 @@ examples.examples = [{
     columns: columns,
     title: 'Top Applications by Volume',
     subtitle: 'A vertical bar chart',
-    legend: [{
-      label: 'Volume',
-      colorKey: 'primary',
-    },
-    ],
     direction: 'vertical',
   },
   description: 'A vertical bar chart',
@@ -92,11 +77,6 @@ examples.examples = [{
     columns: columns,
     title: 'Top Applications by Volume Relative',
     subtitle: 'A vertical relative bar chart',
-    legend: [{
-      label: 'Volume',
-      colorKey: 'primary',
-    },
-    ],
     relative: true,
     direction: 'vertical',
   },

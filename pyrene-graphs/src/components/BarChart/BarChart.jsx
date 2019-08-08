@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import { Bar, RelativeBar } from 'tuktuktwo/dist/tuktuktwo.dev';
 import Title from '../Title/Title';
 import './barChart.css';
+import colorSchemes from '../../styles/colorSchemes';
 
 function getValueWithAccessor(row, accessor) {
   return (typeof accessor === 'string' ? row[accessor] : accessor(row));
@@ -37,7 +38,7 @@ const BarChart = (props) => {
       <Title
         title={props.title}
         subtitle={props.subtitle}
-        legend={props.legend}
+        legend={[props.columns.value.title]}
         colorScheme={props.colorScheme}
       />
       <div styleName={classNames({ verticalContainer: props.direction === 'vertical' })}>
@@ -58,20 +59,13 @@ BarChart.category = 'Chart';
 BarChart.defaultProps = {
   title: '',
   subtitle: '',
-  colorScheme: {
-    primary: 'var(--blue-700)',
-    secondary: 'var(--blue-050)',
-  },
+  colorScheme: colorSchemes.blue,
   relative: false,
-  legend: [],
   direction: 'horizontal',
 };
 
 BarChart.propTypes = {
-  colorScheme: PropTypes.shape({
-    primary: PropTypes.string.isRequired,
-    secondary: PropTypes.string,
-  }),
+  colorScheme: PropTypes.arrayOf(PropTypes.string),
   columns: PropTypes.shape({
     label: PropTypes.shape({
       accessor: PropTypes.oneOfType([
@@ -89,12 +83,8 @@ BarChart.propTypes = {
       title: PropTypes.string.isRequired,
     }),
   }).isRequired,
-  data: PropTypes.array.isRequired, // eslint-disable-line react/forbid-prop-types
+  data: PropTypes.arrayOf(PropTypes.object).isRequired,
   direction: PropTypes.string,
-  legend: PropTypes.arrayOf(PropTypes.shape({
-    colorKey: PropTypes.string.isRequired,
-    label: PropTypes.string.isRequired,
-  })),
   relative: PropTypes.bool, // eslint-disable-line
   subtitle: PropTypes.string,
   title: PropTypes.string,
