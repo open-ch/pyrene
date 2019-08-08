@@ -30,7 +30,6 @@ Bar.displayName = 'Bar';
 
 Bar.defaultProps = {
   barWeight: 6,
-  color: 'var(--blue-700)',
   direction: 'horizontal',
   parentLength: 150,
   mirrored: false,
@@ -38,7 +37,7 @@ Bar.defaultProps = {
 
 Bar.propTypes = {
   barWeight: PropTypes.number,
-  color: PropTypes.string,
+  color: PropTypes.string.isRequired,
   direction: PropTypes.string,
   maxValue: PropTypes.number.isRequired,
   mirrored: PropTypes.bool,

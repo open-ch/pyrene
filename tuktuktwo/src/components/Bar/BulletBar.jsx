@@ -5,17 +5,17 @@ import { Bar } from '@vx/shape';
 const BulletBar = props => (
   props.direction === 'horizontal' ? (
     <div>
-      <svg width={props.parentLength} height={props.barWeight * props.secondaryBarWeightScale} transform={props.mirrored ? 'rotate(180 0 0)' : undefined}>
+      <svg width={props.parentLength} height={props.barWeightSecondary} transform={props.mirrored ? 'rotate(180 0 0)' : undefined}>
         <Bar
           x="0"
           y="0"
-          height={props.barWeight * props.secondaryBarWeightScale}
+          height={props.barWeightSecondary}
           width={props.secondaryValue * (props.parentLength / props.maxValue)}
           fill={props.colorScheme[1]}
         />
         <Bar
           x="0"
-          y={(props.barWeight * props.secondaryBarWeightScale) / 4}
+          y={props.barWeightSecondary / 2 - props.barWeight / 2}
           height={props.barWeight}
           width={props.primaryValue * (props.parentLength / props.maxValue)}
           fill={props.colorScheme[0]}
@@ -29,11 +29,11 @@ const BulletBar = props => (
           x="0"
           y={(props.maxValue - props.secondaryValue) * (props.parentLength / props.maxValue)}
           height={props.secondaryValue * (props.parentLength / props.maxValue)}
-          width={props.barWeight * props.secondaryBarWeightScale}
+          width={props.barWeightSecondary}
           fill={props.colorScheme[1]}
         />
         <Bar
-          x={(props.barWeight * props.secondaryBarWeightScale) / 4}
+          x={props.barWeightSecondary / 2 - props.barWeight / 2}
           y={(props.maxValue - props.primaryValue) * (props.parentLength / props.maxValue)}
           height={props.primaryValue * (props.parentLength / props.maxValue)}
           width={props.barWeight}
@@ -48,11 +48,7 @@ BulletBar.displayName = 'Bullet Bar';
 
 BulletBar.defaultProps = {
   barWeight: 6,
-  secondaryBarWeightScale: 2.5,
-  colorScheme: [
-    'var(--blue-700)',
-    'var(--blue-050)',
-  ],
+  barWeightSecondary: 16,
   direction: 'horizontal',
   parentLength: 150,
   mirrored: false,
@@ -60,13 +56,13 @@ BulletBar.defaultProps = {
 
 BulletBar.propTypes = {
   barWeight: PropTypes.number,
-  colorScheme: PropTypes.arrayOf(PropTypes.string),
+  barWeightSecondary: PropTypes.number,
+  colorScheme: PropTypes.arrayOf(PropTypes.string).isRequired,
   direction: PropTypes.string,
   maxValue: PropTypes.number.isRequired,
   mirrored: PropTypes.bool,
   parentLength: PropTypes.number,
   primaryValue: PropTypes.number.isRequired,
-  secondaryBarWeightScale: PropTypes.number,
   secondaryValue: PropTypes.number.isRequired,
 };
 

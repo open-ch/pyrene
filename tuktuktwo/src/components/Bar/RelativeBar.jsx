@@ -57,10 +57,6 @@ RelativeBar.displayName = 'Relative Bar';
 
 RelativeBar.defaultProps = {
   barWeight: 6,
-  colorScheme: [
-    'var(--blue-700)',
-    'var(--blue-050)',
-  ],
   direction: 'horizontal',
   parentLength: 150,
   mirrored: false,
@@ -68,7 +64,7 @@ RelativeBar.defaultProps = {
 
 RelativeBar.propTypes = {
   barWeight: PropTypes.number,
-  colorScheme: PropTypes.arrayOf(PropTypes.string),
+  colorScheme: PropTypes.arrayOf(PropTypes.string).isRequired,
   direction: PropTypes.string,
   maxValue: PropTypes.number.isRequired,
   mirrored: PropTypes.bool,
