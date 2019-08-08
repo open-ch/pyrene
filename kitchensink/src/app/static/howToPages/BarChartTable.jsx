@@ -8,10 +8,10 @@ const barChartTableHowTo = [{
   description: 'A simple table with one column as a butterfly chart',
   component: () => (
     <BarChartTable
-      data={exampleData.tableDataComparison.data}
-      columns={exampleData.tableDataComparison.columns}
-      title="Top Applications by Volume"
-      subtitle="Additional Information"
+      data={exampleData.tableDataUpDown.data}
+      columns={exampleData.tableDataUpDown.columns}
+      title="ISP Lines"
+      subtitle=""
       type="butterfly"
     />
   ),
@@ -25,18 +25,6 @@ const barChartTableHowTo = [{
       title="Top Applications by Volume"
       subtitle="Additional Information"
       type="comparison"
-    />
-  ),
-}, {
-  title: 'Bullet Chart',
-  description: 'A simple table with one column as a bullet chart',
-  component: () => (
-    <BarChartTable
-      data={exampleData.tableDataComparison.data}
-      columns={exampleData.tableDataComparison.columns}
-      title="Top Applications by Volume"
-      subtitle="Additional Information"
-      type="bullet"
     />
   ),
 }];
