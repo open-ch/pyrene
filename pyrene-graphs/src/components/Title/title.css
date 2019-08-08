@@ -7,7 +7,6 @@
 
 .container {
   display: flex;
-  justify-content: space-between;
   padding-bottom: 6px; /* +1px border*/
 }
 
@@ -18,20 +17,20 @@
 
 .legend {
   display: flex;
-  justify-content: space-between;
-  margin-right: 16px;
+  margin-right: 24px;
+  margin-left: auto
 }
 
 .legendItem {
   font-size: 13px;
-  margin-left: 16px;
+  margin-left: 24px;
   display: flex;
   align-items: center;
 }
 
 .circle {
-  height: 12px;
-  width: 12px;
+  height: 8px;
+  width: 8px;
   border-radius: 50%;
   margin-right: 8px;
   background-color: blue;
