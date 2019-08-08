@@ -116,10 +116,15 @@ a {
   margin-top: 14px;
 }
 
+.sectionSubElementContainer {
+  display: flex;
+  align-items: center;
+}
+
 .sectionSubElement {
-  font-size: 12px;
-  font-weight: 400;
-  padding-left: 56px;
+  font-size: 14px;
+  font-weight: 600;
+  margin-left: 24px;
   line-height: 42px;
   cursor: pointer;
 }
@@ -142,4 +147,10 @@ a {
   padding: 4px 7px;
   border-radius: 1px;
   margin-left: 36px;
+}
+
+.verticalLine {
+  border-left: 2px solid var(--border);
+  height: 42px;
+  margin-left: 22px;
 }

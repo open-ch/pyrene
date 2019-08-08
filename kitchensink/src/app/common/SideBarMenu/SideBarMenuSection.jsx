@@ -83,7 +83,7 @@ export default class SideBarMenuSection extends React.Component {
   }
 
   createNavLink(element, index, isSubElement) {
-    return (
+    const navLink = (
       <NavLink to={element.linkToPath} activeClassName="activeSideBar" key={`${this.props.title}${element.name}`}>
         <div
           className="unSelectable"
@@ -100,6 +100,14 @@ export default class SideBarMenuSection extends React.Component {
           {element.linkToPath === '#' && !element.elements && <span>Coming Soon</span>}
         </div>
       </NavLink>
+    );
+    return (
+      isSubElement ? (
+        <div styleName="sectionSubElementContainer">
+          <div styleName="verticalLine" />
+          {navLink}
+        </div>
+      ) : navLink
     );
   }
 
