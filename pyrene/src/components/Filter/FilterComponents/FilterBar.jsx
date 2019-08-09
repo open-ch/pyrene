@@ -32,7 +32,7 @@ export default class FilterBar extends React.Component {
 
   state = {
     displayFilterPopover: false,
-    unAppliedValues: null,
+    unAppliedValues: this.props.filterValues,
   };
 
   // eslint-disable-next-line react/sort-comp
