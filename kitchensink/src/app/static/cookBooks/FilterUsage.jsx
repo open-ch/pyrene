@@ -54,10 +54,6 @@ class SimpleFilteredTable extends React.Component {
        label: 'City',
        accessor: 'city',
        id: 'city',
-       defaultValue: [
-         { value: 'Zurich', label: 'Zurich' },
-         { value: 'Brno', label: 'Brno' },
-       ],
        options: [
          { value: 'Zurich', label: 'Zurich' },
          { value: 'Brno', label: 'Brno' },
@@ -70,13 +66,11 @@ class SimpleFilteredTable extends React.Component {
        label: 'Name',
        accessor: 'name',
        id: 'name',
-       defaultValue: 'Name',
      }, {
        type: 'text',
        label: 'Name Reverse',
        id: 'name_reverse',
        customFilter: (filteredInput, d) => d.name.split('').reverse().join('').includes(filteredInput),
-       defaultValue: 'det',
      }];
 
     state = {
@@ -108,7 +102,6 @@ class DataFilteredTable extends React.Component {
        accessor: 'city',
        id: 'city',
        optionsAccessors: { value: d => d.city, label: d => `City: ${d.city}` },
-       defaultValue: { value: 'Zurich', label: 'Zurich' },
      }, {
        type: 'singleSelect',
        label: 'Country',
@@ -150,10 +143,6 @@ class SimpleFilteredTable extends React.Component {
       label: 'City',
       accessor: 'city',
       id: 'city',
-      defaultValue: [
-        { value: 'Zurich', label: 'Zurich' },
-        { value: 'Brno', label: 'Brno' },
-      ],
       options: [
         { value: 'Zurich', label: 'Zurich' },
         { value: 'Brno', label: 'Brno' },
@@ -166,13 +155,11 @@ class SimpleFilteredTable extends React.Component {
       label: 'Name',
       accessor: 'name',
       id: 'name',
-      defaultValue: 'Name',
     }, {
       type: 'text',
       label: 'Name Reverse',
       id: 'name_reverse',
       customFilter: (filteredInput, d) => d.name.split('').reverse().join('').includes(filteredInput),
-      defaultValue: 'det',
     }];
 
     state = {
@@ -203,7 +190,6 @@ const DataFilterCode = `class DataFilteredTable extends React.Component {
        accessor: 'city',
        id: 'city',
        optionsAccessors: { value: d => d.city, label: d => \`City:\${d.city}\` },
-       defaultValue: { value: 'Zurich', label: 'Zurich' },
      }, {
        type: 'singleSelect',
        label: 'Country',
