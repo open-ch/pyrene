@@ -429,7 +429,7 @@ const tableColumns = [{
     <div
       style={{
         width: '100%',
-        height: '100%',
+        height: '31px', // 32px is the height including border :)
         backgroundColor: 'var(--neutral-020)',
       }}
     >
