@@ -43,7 +43,7 @@ export default class FilterBar extends React.Component {
   };
 
   filterDidChange = (value, key) => {
-    if (value !== null) {
+    if (value === null) {
       // All types (text & singleSelect & multiSelect) returns null value if empty thanks to condition in onChange in FilterOption
       let changedValues = { ...this.state.unAppliedValues };
       delete changedValues[key];
@@ -190,10 +190,10 @@ FilterBar.propTypes = {
    * @filterKey: same as filterKey in filters prop, it should be same as the `id` in filterDefinition
    * @value: the users input; for single & multiSelect value contains of both value and label! In case of multiSelect, value can consist of multiple objects {value: , label: } in an array
    * */
-  filterValues: PropTypes.shape(PropTypes.shape({
+  filterValues: PropTypes.shape({
     filterKey: PropTypes.string.isRequired,
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.array, PropTypes.object]).isRequired,
-  })),
+  }),
   /**
    * Called when the user clicks on the apply button. Contains all the filter information as its argument.
    */
