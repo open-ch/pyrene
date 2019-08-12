@@ -14,9 +14,12 @@ const SimpleTable = props => (
         {props.columns.map(column => (
           <th
             styleName="tableHeaderCell"
+            style={{ maxWidth: column.width && column.width }}
             key={column.id}
           >
-            {column.headerName}
+            <div styleName="tableCellContent" style={{ textAlign: column.align }}>
+              {column.headerName}
+            </div>
           </th>
         ))}
       </tr>
@@ -34,9 +37,12 @@ const SimpleTable = props => (
             return (
               <td
                 styleName="tableCell"
+                style={{ maxWidth: column.width && column.width }}
                 key={column.id.concat(Object.values(valueRow))}
               >
-                {column.cellRenderCallback ? column.cellRenderCallback(valueRow) : valueRow.value}
+                <div styleName="tableCellContent" style={{ textAlign: column.align }}>
+                  {column.cellRenderCallback ? column.cellRenderCallback(valueRow) : valueRow.value}
+                </div>
               </td>
             );
           })}
@@ -51,16 +57,18 @@ SimpleTable.displayName = 'Simple Table';
 SimpleTable.propTypes = {
   /**
    * Sets the Table columns.
-   * Type: [{ accessor: ( string | func ) (required), cellRenderCallback: func, headerName: string (required), id: string (required)]
+   * Type: [{ accessor: ( string | func ) (required), align: , cellRenderCallback: func, headerName: string (required), id: string (required), width: number ]
    */
   columns: PropTypes.arrayOf(PropTypes.shape({
     accessor: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.func,
     ]),
+    align: PropTypes.string,
     cellRenderCallback: PropTypes.func,
     headerName: PropTypes.string,
     id: PropTypes.string,
+    width: PropTypes.string,
   })).isRequired,
   /**
    * Sets the Table data displayed in the rows. Type: [ JSON ]
