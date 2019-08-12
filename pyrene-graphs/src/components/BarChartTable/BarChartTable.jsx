@@ -16,7 +16,7 @@ function getValueWithAccessor(row, accessor) {
 
 function getProcessedColumnsAndLegend(props) {
   const maxValuePrimary = Math.max(...props.data.map(dataRow => getValueWithAccessor(dataRow, props.columns.primaryValue.accessor)));
-  const maxValueSecondary = Math.max(...props.data.map(dataRow => getValueWithAccessor(dataRow, props.columns.secondaryValue.accessor)));
+  const maxValueSecondary = props.columns.secondaryValue ? Math.max(...props.data.map(dataRow => getValueWithAccessor(dataRow, props.columns.secondaryValue.accessor))) : maxValuePrimary;
   const maxValue = Math.max(maxValuePrimary, maxValueSecondary);
   const barWeight = 6;
   const barWeightSecondaryComparison = 4;
@@ -32,7 +32,8 @@ function getProcessedColumnsAndLegend(props) {
     />
   );
   let barChart;
-  let legend = [props.columns.primaryValue.title, props.columns.secondaryValue.title];
+  let legend = [props.columns.primaryValue.title];
+  if (props.columns.secondaryValue) legend.push(props.columns.secondaryValue.title);
   switch (props.type) {
     case 'bar':
       barChart = defaultBarChart;
@@ -82,18 +83,18 @@ function getProcessedColumnsAndLegend(props) {
     accessor: props.columns.primaryValue.accessor,
     cellRenderCallback: barChart,
   };
-  const columnSecondaryValue = {
+  const columnSecondaryValue = props.columns.secondaryValue ? {
     id: getId(props.columns.secondaryValue.title),
     accessor: props.columns.secondaryValue.accessor,
     cellRenderCallback: props.columns.secondaryValue.formatter ? row => props.columns.secondaryValue.formatter(row.value) : null,
-  };
+  } : {};
   let columns;
   const columnsTable = [
     columnLabel,
     { ...columnPrimaryBarChart, headerName: props.columns.primaryValue.title },
     columnPrimaryValue,
-    { ...columnSecondaryValue, headerName: props.columns.secondaryValue.title },
   ];
+  if (props.columns.secondaryValue) columnsTable.push({ ...columnSecondaryValue, headerName: props.columns.secondaryValue.title });
   switch (props.type) {
     case 'bar':
       columns = columnsTable;
@@ -206,7 +207,7 @@ BarChartTable.propTypes = {
       ]).isRequired,
       formatter: PropTypes.func,
       title: PropTypes.string.isRequired,
-    }),
+    }).isRequired,
     secondaryValue: PropTypes.shape({
       accessor: PropTypes.oneOfType([
         PropTypes.string,
