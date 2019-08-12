@@ -87,6 +87,7 @@ function getProcessedColumnsAndLegend(props) {
     id: getId(props.columns.secondaryValue.title),
     accessor: props.columns.secondaryValue.accessor,
     cellRenderCallback: props.columns.secondaryValue.formatter ? row => props.columns.secondaryValue.formatter(row.value) : null,
+    headerName: props.columns.secondaryValue.title,
   } : {};
   let columns;
   const columnsTable = [
@@ -94,7 +95,7 @@ function getProcessedColumnsAndLegend(props) {
     { ...columnPrimaryBarChart, headerName: props.columns.primaryValue.title },
     columnPrimaryValue,
   ];
-  if (props.columns.secondaryValue) columnsTable.push({ ...columnSecondaryValue, headerName: props.columns.secondaryValue.title });
+  if (props.columns.secondaryValue) columnsTable.push(columnSecondaryValue);
   switch (props.type) {
     case 'bar':
       columns = columnsTable;
