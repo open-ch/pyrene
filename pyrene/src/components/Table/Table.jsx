@@ -394,7 +394,6 @@ Table.defaultProps = {
   filterDisabled: false,
   filters: [],
   onFetchData: () => null,
-  filterValues: null,
   onRowDoubleClick: () => null,
   onFilterChange: () => null,
   error: null,
@@ -466,11 +465,12 @@ Table.propTypes = {
   })),
   /**
    * values to be filtered & displayed in filter dropdown
+   * use {} for passing empty filterValues
    * */
   filterValues: PropTypes.shape({
     filterKey: PropTypes.string.isRequired,
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.array, PropTypes.object]).isRequired,
-  }),
+  }).isRequired,
   /**
    * Sets the data key for each row. Should be unique. Is used for selections.
    */

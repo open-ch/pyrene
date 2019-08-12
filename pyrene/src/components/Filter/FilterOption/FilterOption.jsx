@@ -29,9 +29,9 @@ export default class FilterOption extends React.Component {
             <MultiSelect
               name={this.props.filterKey}
               options={this.props.options}
-              // if is multiSelect empty = empty array, return null to filter instead []
+              // If multiSelect is empty (empty array) return null to filter instead of []
               onChange={value => this.props.handleFilterChange(value.length === 0 ? null : value, this.props.filterKey)}
-              // this.props.filterValues and this.props.filterValues[this.props.filterKey] cannot be null. Otherwise array.length should be always > 0
+              // Pass empty array instead of null to multiSelect component if filterValues are null
               value={isValue ? this.props.filterValues[this.props.filterKey] : []}
               selectedOptionsInDropdown
               keepMenuOnSelect
@@ -42,9 +42,9 @@ export default class FilterOption extends React.Component {
           return (
             <TextField
               name={this.props.filterKey}
-              // if input is empty, return null instead of '' into the filter
+              // If textField is empty (empty string) return null instead of ''
               onChange={value => this.props.handleFilterChange(value === '' ? null : value, this.props.filterKey)}
-              // if value is null, pass empty string - default value for input field
+              // Pass empty string instead of null to textField component if filterValues are null
               value={isValue ? this.props.filterValues[this.props.filterKey] : ''}
             />
           );
