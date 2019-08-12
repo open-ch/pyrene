@@ -393,6 +393,7 @@ Table.defaultProps = {
   pageSizeOptions: [10, 20, 50, 100, 250],
   filterDisabled: false,
   filters: [],
+  filterValues: {},
   onFetchData: () => null,
   onRowDoubleClick: () => null,
   onFilterChange: () => null,
@@ -468,9 +469,9 @@ Table.propTypes = {
    * use {} for passing empty filterValues
    * */
   filterValues: PropTypes.shape({
-    filterKey: PropTypes.string.isRequired,
-    value: PropTypes.oneOfType([PropTypes.string, PropTypes.array, PropTypes.object]).isRequired,
-  }).isRequired,
+    filterKey: PropTypes.string,
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.array, PropTypes.object]),
+  }),
   /**
    * Sets the data key for each row. Should be unique. Is used for selections.
    */
