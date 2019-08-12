@@ -1,7 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 export const tableData = [
   {
-    application: 'INFLUXdev',
+    application: 'INFLUX',
     volume: 91.3,
     shareOfTotal: 12.76,
   },

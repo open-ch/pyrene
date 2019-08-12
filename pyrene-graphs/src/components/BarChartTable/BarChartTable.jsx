@@ -20,15 +20,12 @@ function getProcessedColumnsAndLegend(props) {
   const maxValue = Math.max(maxValuePrimary, maxValueSecondary);
   const barWeight = 6;
   const barWeightSecondaryComparison = 4;
-  const parentLength = 150;
-  const parentLengthButterfly = 118;
   const defaultBarChart = row => (
     <RelativeBar
       barWeight={barWeight}
       colorScheme={props.colorScheme}
       maxValue={maxValuePrimary}
       value={row.value}
-      parentLength={parentLength}
     />
   );
   let barChart;
@@ -48,7 +45,6 @@ function getProcessedColumnsAndLegend(props) {
             color={props.colorScheme[0]}
             maxValue={maxValue}
             value={getValueWithAccessor(row, props.columns.primaryValue.accessor)}
-            parentLength={parentLength}
           />
           <Bar
             key={getId(`${props.columns.secondaryValue.title}_bar_previous`)}
@@ -56,7 +52,6 @@ function getProcessedColumnsAndLegend(props) {
             color={props.colorScheme[1]}
             maxValue={maxValue}
             value={getValueWithAccessor(row, props.columns.secondaryValue.accessor)}
-            parentLength={parentLength}
           />
         </div>
       );
@@ -72,11 +67,14 @@ function getProcessedColumnsAndLegend(props) {
     id: getId(props.columns.label.title),
     headerName: props.columns.label.title,
     accessor: props.columns.label.accessor,
+    align: 'left',
   };
   const columnPrimaryValue = {
     id: getId(props.columns.primaryValue.title),
     accessor: props.columns.primaryValue.accessor,
     cellRenderCallback: props.columns.primaryValue.formatter ? row => props.columns.primaryValue.formatter(row.value) : null,
+    align: 'right',
+    width: '90px',
   };
   const columnPrimaryBarChart = {
     id: getId(`${props.columns.primaryValue.title}_bar`),
@@ -88,6 +86,8 @@ function getProcessedColumnsAndLegend(props) {
     accessor: props.columns.secondaryValue.accessor,
     cellRenderCallback: props.columns.secondaryValue.formatter ? row => props.columns.secondaryValue.formatter(row.value) : null,
     headerName: props.columns.secondaryValue.title,
+    align: 'right',
+    width: '90px',
   } : {};
   let columns;
   const columnsTable = [
@@ -121,26 +121,27 @@ function getProcessedColumnsAndLegend(props) {
               <RelativeBar
                 barWeight={barWeight}
                 colorScheme={props.colorScheme}
-                maxValue={maxValue}
-                value={row.value}
-                parentLength={parentLengthButterfly}
+                maxValue={maxValuePrimary}
+                value={getValueWithAccessor(row, props.columns.primaryValue.accessor)}
                 mirrored
               />
               <div styleName="verticalLine" />
               <RelativeBar
                 barWeight={barWeight}
                 colorScheme={props.colorScheme}
-                maxValue={maxValue}
-                value={row.value}
-                parentLength={parentLengthButterfly}
+                maxValue={maxValueSecondary}
+                value={getValueWithAccessor(row, props.columns.secondaryValue.accessor)}
               />
             </div>
           ),
+          align: 'center',
         },
         {
           id: getId(props.columns.secondaryValue.title),
           accessor: props.columns.secondaryValue.accessor,
           cellRenderCallback: props.columns.secondaryValue.formatter ? row => props.columns.secondaryValue.formatter(row.value) : null,
+          align: 'right',
+          width: '90px',
         },
       ];
       break;

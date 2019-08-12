@@ -13,17 +13,12 @@
 .butterflyContainer {
   display: flex;
   align-items: center;
-}
-
-.butterflyContainer svg:first-child {
-  margin-right: 12px;
-}
-
-.butterflyContainer svg:last-child {
-  margin-left: 12px;
+  justify-content: center;
 }
 
 .verticalLine {
   border-left: 1px solid var(--border);
   height: 16px;
+  margin-left: 12px;
+  margin-right: 12px;
 }
