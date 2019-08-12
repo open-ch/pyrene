@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { BarStackHorizontal, BarStack } from '@vx/shape';
 import { scaleBand, scaleLinear, scaleOrdinal } from '@vx/scale';
+import Responsive from '../Misc/Responsive';
 
 const RelativeBar = (props) => {
   const keys = [
@@ -18,38 +19,42 @@ const RelativeBar = (props) => {
     domain: keys,
     range: props.colorScheme,
   });
-  const valueScale = scaleLinear({
-    domain: props.direction === 'horizontal' ? [0, props.maxValue] : [props.maxValue, 0],
-    rangeRound: [0, props.parentLength],
-  });
   const weightScale = scaleBand({
   });
   return (
-    props.direction === 'horizontal' ? (
-      <svg width={props.parentLength} height={props.barWeight} transform={props.mirrored ? 'rotate(180 0 0)' : undefined}>
-        <BarStackHorizontal
-          y={d => d}
-          height={props.barWeight}
-          data={data}
-          keys={keys}
-          xScale={valueScale}
-          yScale={weightScale}
-          color={color}
-        />
-      </svg>
-    ) : (
-      <svg width={props.barWeight} height={props.parentLength} transform={props.mirrored ? 'rotate(180 0 0)' : undefined}>
-        <BarStack
-          x={d => d}
-          width={props.barWeight}
-          data={data}
-          keys={keys}
-          xScale={weightScale}
-          yScale={valueScale}
-          color={color}
-        />
-      </svg>
-    )
+    <Responsive>
+      {(parent) => {
+        const valueScale = scaleLinear({
+          domain: props.direction === 'horizontal' ? [0, props.maxValue] : [props.maxValue, 0],
+          rangeRound: [0, props.direction === 'horizontal' ? parent.width : parent.height],
+        });
+        return props.direction === 'horizontal' ? (
+          <svg width={parent.width} height={props.barWeight} transform={props.mirrored ? 'rotate(180 0 0)' : undefined}>
+            <BarStackHorizontal
+              y={d => d}
+              height={props.barWeight}
+              data={data}
+              keys={keys}
+              xScale={valueScale}
+              yScale={weightScale}
+              color={color}
+            />
+          </svg>
+        ) : (
+          <svg width={props.barWeight} height={parent.height} transform={props.mirrored ? 'rotate(180 0 0)' : undefined}>
+            <BarStack
+              x={d => d}
+              width={props.barWeight}
+              data={data}
+              keys={keys}
+              xScale={weightScale}
+              yScale={valueScale}
+              color={color}
+            />
+          </svg>
+        );
+      }}
+    </Responsive>
   );
 };
 
@@ -58,7 +63,6 @@ RelativeBar.displayName = 'Relative Bar';
 RelativeBar.defaultProps = {
   barWeight: 6,
   direction: 'horizontal',
-  parentLength: 150,
   mirrored: false,
 };
 
@@ -68,7 +72,6 @@ RelativeBar.propTypes = {
   direction: PropTypes.string,
   maxValue: PropTypes.number.isRequired,
   mirrored: PropTypes.bool,
-  parentLength: PropTypes.number,
   value: PropTypes.number.isRequired,
 };
 
