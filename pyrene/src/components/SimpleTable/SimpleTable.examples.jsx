@@ -66,7 +66,7 @@ const examples = {
   props: {
     columns: tableColumns,
     data: tableData,
-    onRowDoubleClick: row => alert(row[tableColumns[0].accessor]),
+    onRowDoubleClick: row => alert(row.value),
   },
 };
 

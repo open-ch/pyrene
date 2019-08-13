@@ -35,6 +35,7 @@
 
 .tableRow:hover {
   background-color: var(--secondary);
+  cursor: pointer;
 }
 
 .selectedRow {
