@@ -9,8 +9,8 @@ examples.props = {
   data: tableData,
   columns: tableColumns,
   type: 'bar',
-  title: 'Top Applications by Volume',
-  subtitle: 'A simple table with one column as a relative bar chart',
+  header: 'Top Applications by Volume',
+  description: 'Optional description and explanation on how to read the chart',
 };
 
 examples.category = 'Chart';

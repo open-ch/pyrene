@@ -1,25 +1,25 @@
 import React from 'react';
 
-import Title from './Title.jsx';
+import Header from './Header.jsx';
 
 
 const props = {
-  title: 'Title',
-  subtitle: 'Subtitle',
+  header: 'Header',
+  description: 'Description',
   colorScheme: ['red', 'blue'],
   legend: ['Primary Label', 'Secondary Label'],
 };
 
-describe('<Title />', () => {
+describe('<Header />', () => {
   it('renders without crashing', () => {
-    shallow(<Title {...props} />);
+    shallow(<Header {...props} />);
   });
 
   it('renders its content', () => {
-    const rendered = mount(<Title {...props} />);
+    const rendered = mount(<Header {...props} />);
 
-    expect(rendered.contains('Title')).toBe(true);
-    expect(rendered.contains('Subtitle')).toBe(true);
+    expect(rendered.contains('Header')).toBe(true);
+    expect(rendered.contains('Description')).toBe(true);
 
     // legend
     const legendItems = rendered.find({ className: 'legend' }).find({ className: 'legendItem' });

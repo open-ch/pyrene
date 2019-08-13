@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { SimpleTable } from 'pyrene';
 import { Bar, RelativeBar } from 'tuktuktwo';
-import Title from '../Title/Title';
+import Header from '../Header/Header';
 import './barChartTable.css';
 import colorSchemes from '../../styles/colorSchemes';
 
@@ -65,7 +65,6 @@ function getProcessedColumnsAndLegend(props) {
   }
   const columnLabel = {
     id: getId(props.columns.label.title),
-    headerName: props.columns.label.title,
     accessor: props.columns.label.accessor,
     align: 'left',
   };
@@ -158,11 +157,12 @@ function getProcessedColumnsAndLegend(props) {
  */
 const BarChartTable = (props) => {
   const columnsAndLegend = getProcessedColumnsAndLegend(props);
+  const description = props.type === 'bar' ? '' : props.description;
   return (
     <div styleName="container">
-      <Title
-        title={props.title}
-        subtitle={props.subtitle}
+      <Header
+        header={props.header}
+        description={description}
         legend={columnsAndLegend.legend}
         colorScheme={props.colorScheme}
       />
@@ -177,9 +177,8 @@ const BarChartTable = (props) => {
 BarChartTable.displayName = 'Bar Chart Table';
 
 BarChartTable.defaultProps = {
-  title: '',
-  subtitle: '',
   colorScheme: colorSchemes.general,
+  description: '',
   type: 'bar',
 };
 
@@ -222,13 +221,13 @@ BarChartTable.propTypes = {
    */
   data: PropTypes.arrayOf(PropTypes.object).isRequired,
   /**
-   * Sets the subtitle.
+   * Sets the description.
    */
-  subtitle: PropTypes.string,
+  description: PropTypes.string,
   /**
-   * Sets the title.
+   * Sets the header.
    */
-  title: PropTypes.string,
+  header: PropTypes.string.isRequired,
   /**
    * Sets the overall style according to the bar chart type.
    */
