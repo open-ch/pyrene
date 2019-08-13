@@ -54,10 +54,6 @@ class SimpleFilteredTable extends React.Component {
        label: 'City',
        accessor: 'city',
        id: 'city',
-       defaultValue: [
-         { value: 'Zurich', label: 'Zurich' },
-         { value: 'Brno', label: 'Brno' },
-       ],
        options: [
          { value: 'Zurich', label: 'Zurich' },
          { value: 'Brno', label: 'Brno' },
@@ -70,13 +66,11 @@ class SimpleFilteredTable extends React.Component {
        label: 'Name',
        accessor: 'name',
        id: 'name',
-       defaultValue: 'Name',
      }, {
        type: 'text',
        label: 'Name Reverse',
        id: 'name_reverse',
        customFilter: (filteredInput, d) => d.name.split('').reverse().join('').includes(filteredInput),
-       defaultValue: 'det',
      }];
 
     state = {
@@ -93,6 +87,7 @@ class SimpleFilteredTable extends React.Component {
           keyField="id"
           filters={filterProps}
           onFilterChange={filterValues => this.setState({ filterValues })}
+          filterValues={this.state.filterValues}
         />
       );
     }
@@ -108,7 +103,6 @@ class DataFilteredTable extends React.Component {
        accessor: 'city',
        id: 'city',
        optionsAccessors: { value: d => d.city, label: d => `City: ${d.city}` },
-       defaultValue: { value: 'Zurich', label: 'Zurich' },
      }, {
        type: 'singleSelect',
        label: 'Country',
@@ -136,6 +130,7 @@ class DataFilteredTable extends React.Component {
            keyField="id"
            filters={filterProps}
            onFilterChange={filterValues => this.setState({ filterValues })}
+           filterValues={this.state.filterValues}
          />
        );
      }
@@ -150,10 +145,6 @@ class SimpleFilteredTable extends React.Component {
       label: 'City',
       accessor: 'city',
       id: 'city',
-      defaultValue: [
-        { value: 'Zurich', label: 'Zurich' },
-        { value: 'Brno', label: 'Brno' },
-      ],
       options: [
         { value: 'Zurich', label: 'Zurich' },
         { value: 'Brno', label: 'Brno' },
@@ -166,13 +157,11 @@ class SimpleFilteredTable extends React.Component {
       label: 'Name',
       accessor: 'name',
       id: 'name',
-      defaultValue: 'Name',
     }, {
       type: 'text',
       label: 'Name Reverse',
       id: 'name_reverse',
       customFilter: (filteredInput, d) => d.name.split('').reverse().join('').includes(filteredInput),
-      defaultValue: 'det',
     }];
 
     state = {
@@ -203,13 +192,12 @@ const DataFilterCode = `class DataFilteredTable extends React.Component {
        accessor: 'city',
        id: 'city',
        optionsAccessors: { value: d => d.city, label: d => \`City:\${d.city}\` },
-       defaultValue: { value: 'Zurich', label: 'Zurich' },
      }, {
        type: 'singleSelect',
        label: 'Country',
        accessor: 'country',
        id: 'country',
-       optionsAccessors: { value: d => d.country, label: d => (d.country ? d.country : 'n/a') },
+       optionsAccessors: { value: d => d.country, label: d => (d.country === null ? 'null' : d.country === '' ? 'empty' : d.country === false ? 'false' : d.country) },
      }, {
        type: 'text',
        label: 'Name',
@@ -231,6 +219,7 @@ const DataFilterCode = `class DataFilteredTable extends React.Component {
            keyField="id"
            filters={filterProps}
            onFilterChange={filterValues => this.setState({ filterValues })}
+           filterValues={this.state.filterValues}
          />
        );
      }
@@ -251,7 +240,9 @@ In order to display filtered data, a filter needs to be connected, with e.g., a 
         <Paragraph title="Simple Filter">
           <DescriptionBox>
             <p>
-            Based on filter definitions, the filter input fields and a filter function is provided, your component only needs to store the filterValues and execute filterFunc once data or filters are changed.
+            Based on filter definitions, the filter input fields and a filter function is provided as well as filterValues.
+              Your component needs to init the filterValues to '{}', pass them to filter, change them based on onFilterChange.
+              Pass data to table via executing filterFunc once data or filterValues are changed
             </p>
           </DescriptionBox>
           <CodeBox>
@@ -270,6 +261,7 @@ In order to display filtered data, a filter needs to be connected, with e.g., a 
           <DescriptionBox>
             <p>
              If you want to automatically fill in possible options based on the available data, use createDataFilter. It will only provide options that are available in the data.
+              For this 'optionsAccessors' has to be specified.
             </p>
             <p>
              Since we are already passing the data to createDataFilter, the actual dataFilterFunc does not need to receive it again.
