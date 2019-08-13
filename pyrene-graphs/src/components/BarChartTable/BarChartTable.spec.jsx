@@ -32,8 +32,7 @@ const props = {
       formatter: d => `${d} %`,
     },
   },
-  title: 'Title',
-  subtitle: 'Subtitle',
+  header: 'Header',
 };
 
 const propsComparison = {
@@ -65,8 +64,8 @@ const propsComparison = {
       formatter: d => `${d} GB`,
     },
   },
-  title: 'Title',
-  subtitle: 'Subtitle',
+  header: 'Header',
+  description: 'Description',
 };
 
 describe('<BarChartTable />', () => {
@@ -76,11 +75,12 @@ describe('<BarChartTable />', () => {
 
   it('renders its content', () => {
     const rendered = mount(<BarChartTable {...props} />);
-    // Title
-    expect(rendered.contains('Title')).toBe(true);
-    expect(rendered.contains('Subtitle')).toBe(true);
+    // Header
+    expect(rendered.contains('Header')).toBe(true);
+    expect(rendered.contains('Description')).toBe(false);
+    // Table
     // header
-    const expectedHeader = ['Application', 'Volume', '', 'Share of Total'];
+    const expectedHeader = ['', 'Volume', '', 'Share of Total'];
     rendered.find('thead').find('th').forEach((th, idx) => {
       expect(th.text()).toBe(expectedHeader[idx]);
     });
@@ -100,11 +100,12 @@ describe('<BarChartTable />', () => {
 
   it('renders butterfly content', () => {
     const rendered = mount(<BarChartTable {...propsComparison} type="butterfly" />);
-    // Title
-    expect(rendered.contains('Title')).toBe(true);
-    expect(rendered.contains('Subtitle')).toBe(true);
+    // Header
+    expect(rendered.contains('Header')).toBe(true);
+    expect(rendered.contains('Description')).toBe(true);
+    // Table
     // header
-    const expectedHeader = ['Application', 'Current period', '', 'Previous period', ''];
+    const expectedHeader = ['', '', 'Current periodPrevious period', '', ''];
     rendered.find('thead').find('th').forEach((th, idx) => {
       expect(th.text()).toBe(expectedHeader[idx]);
     });
@@ -114,8 +115,8 @@ describe('<BarChartTable />', () => {
       expect(cells.at(0).text()).toBe(propsComparison.data[rowIndex].application);
       expect(cells.at(1).text()).toBe(propsComparison.columns.primaryValue.formatter(propsComparison.data[rowIndex].volumeCurrent));
       expect(cells.at(2).find('rect').at(0).prop('className')).toBe('vx-bar');
-      expect(cells.at(3).find('rect').at(0).prop('className')).toBe('vx-bar');
-      expect(cells.at(4).text()).toBe(propsComparison.columns.secondaryValue.formatter(propsComparison.data[rowIndex].volumePrevious));
+      expect(cells.at(2).find('rect').at(1).prop('className')).toBe('vx-bar');
+      expect(cells.at(3).text()).toBe(propsComparison.columns.secondaryValue.formatter(propsComparison.data[rowIndex].volumePrevious));
     });
   });
 
