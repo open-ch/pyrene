@@ -2,6 +2,11 @@
   width: 100%;
 }
 
+.chartContainer {
+  height: 344px;
+  margin-top: 24px;
+}
+
 .verticalContainer {
   display: flex;
   justify-content: space-between;

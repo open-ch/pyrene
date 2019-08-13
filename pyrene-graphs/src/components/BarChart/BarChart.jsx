@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { Bar, RelativeBar } from 'tuktuktwo/dist/tuktuktwo.dev';
-import Title from '../Title/Title';
+import Header from '../Header/Header';
 import './barChart.css';
 import colorSchemes from '../../styles/colorSchemes';
 
@@ -14,10 +14,11 @@ const BarChart = (props) => {
   const maxValue = Math.max(...props.data.map(dataRow => getValueWithAccessor(dataRow, props.columns.value.accessor)));
   const barWeight = 6;
   const parentLength = 150;
+  const colorSchemeRelative = [props.colorScheme[0], props.colorScheme.slice(-1)[0]];
   const barChart = (row, accessor) => (props.relative ? (
     <RelativeBar
       barWeight={barWeight}
-      colorScheme={props.colorScheme}
+      colorScheme={colorSchemeRelative}
       maxValue={maxValue}
       value={getValueWithAccessor(row, accessor)}
       direction={props.direction}
@@ -26,7 +27,7 @@ const BarChart = (props) => {
   ) : (
     <Bar
       barWeight={barWeight}
-      color={props.colorScheme.primary}
+      color={props.colorScheme[0]}
       maxValue={maxValue}
       value={getValueWithAccessor(row, accessor)}
       direction={props.direction}
@@ -35,13 +36,13 @@ const BarChart = (props) => {
   ));
   return (
     <div styleName="container">
-      <Title
-        title={props.title}
-        subtitle={props.subtitle}
+      <Header
+        header={props.header}
+        description={props.description}
         legend={[props.columns.value.title]}
-        colorScheme={props.colorScheme}
+        colorScheme={colorSchemeRelative}
       />
-      <div styleName={classNames({ verticalContainer: props.direction === 'vertical' })}>
+      <div styleName={classNames('chartContainer', { verticalContainer: props.direction === 'vertical' })}>
         {props.data.map(row => (
           <div>
             {barChart(row, props.columns.value.accessor)}
@@ -54,12 +55,10 @@ const BarChart = (props) => {
 
 BarChart.displayName = 'Bar Chart';
 
-BarChart.category = 'Chart';
-
 BarChart.defaultProps = {
-  title: '',
-  subtitle: '',
-  colorScheme: colorSchemes.blue,
+  header: '',
+  description: '',
+  colorScheme: colorSchemes.sequential,
   relative: false,
   direction: 'horizontal',
 };
@@ -84,10 +83,10 @@ BarChart.propTypes = {
     }),
   }).isRequired,
   data: PropTypes.arrayOf(PropTypes.object).isRequired,
-  direction: PropTypes.string,
+  description: PropTypes.string,
+  direction: PropTypes.oneOf(['horizontal', 'vertical']),
+  header: PropTypes.string,
   relative: PropTypes.bool, // eslint-disable-line
-  subtitle: PropTypes.string,
-  title: PropTypes.string,
 };
 
 export default BarChart;

@@ -84,4 +84,6 @@ examples.examples = [{
 },
 ];
 
+examples.category = 'Chart';
+
 export default examples;
