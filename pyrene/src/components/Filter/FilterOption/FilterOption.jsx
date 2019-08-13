@@ -9,6 +9,9 @@ import MultiSelect from '../../MultiSelect/MultiSelect';
 export default class FilterOption extends React.Component {
 
     getFilterInterface = () => {
+
+      const isValue = !!this.props.filterValues && !!this.props.filterValues[this.props.filterKey];
+
       switch (this.props.type) {
         case 'singleSelect':
           return (
@@ -16,7 +19,7 @@ export default class FilterOption extends React.Component {
               name={this.props.filterKey}
               options={this.props.options}
               onChange={value => this.props.handleFilterChange(value, this.props.filterKey)}
-              value={this.props.filterValues[this.props.filterKey] ? this.props.filterValues[this.props.filterKey] : null}
+              value={isValue ? this.props.filterValues[this.props.filterKey] : null}
               clearable
               searchable
             />
@@ -26,8 +29,10 @@ export default class FilterOption extends React.Component {
             <MultiSelect
               name={this.props.filterKey}
               options={this.props.options}
-              onChange={value => this.props.handleFilterChange(value, this.props.filterKey)}
-              value={this.props.filterValues[this.props.filterKey].length > 0 ? this.props.filterValues[this.props.filterKey] : []}
+              // If multiSelect is empty (empty array) return null to filter instead of []
+              onChange={value => this.props.handleFilterChange(value.length === 0 ? null : value, this.props.filterKey)}
+              // Pass empty array instead of null to multiSelect component if filterValues are null
+              value={isValue ? this.props.filterValues[this.props.filterKey] : []}
               selectedOptionsInDropdown
               keepMenuOnSelect
               clearable
@@ -37,14 +42,16 @@ export default class FilterOption extends React.Component {
           return (
             <TextField
               name={this.props.filterKey}
-              onChange={value => this.props.handleFilterChange(value, this.props.filterKey)}
-              value={this.props.filterValues[this.props.filterKey] !== null ? this.props.filterValues[this.props.filterKey] : ''}
+              // If textField is empty (empty string) return null instead of ''
+              onChange={value => this.props.handleFilterChange(value === '' ? null : value, this.props.filterKey)}
+              // Pass empty string instead of null to textField component if filterValues are null
+              value={isValue ? this.props.filterValues[this.props.filterKey] : ''}
             />
           );
         default:
           return null;
       }
-    }
+    };
 
     render() {
       return (
@@ -66,11 +73,12 @@ FilterOption.displayName = 'FilterOption';
 
 FilterOption.defaultProps = {
   options: [],
+  filterValues: null,
 };
 
 FilterOption.propTypes = {
   filterKey: PropTypes.string.isRequired,
-  filterValues: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.array, PropTypes.string, PropTypes.object])).isRequired,
+  filterValues: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.array, PropTypes.string, PropTypes.object])),
   handleFilterChange: PropTypes.func.isRequired,
   label: PropTypes.string.isRequired,
   options: PropTypes.array, // eslint-disable-line react/forbid-prop-types

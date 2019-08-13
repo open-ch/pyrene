@@ -271,7 +271,6 @@ describe('getFilterProps', () => {
       label: 'testLabel',
       type: 'testType',
       options: [{ value: 'testValue1', label: 'testLabel1' }],
-      defaultValue: 'testDefaultValue',
     }];
 
     const filterProps = [{
@@ -279,7 +278,6 @@ describe('getFilterProps', () => {
       label: 'testLabel',
       type: 'testType',
       options: [{ value: 'testValue1', label: 'testLabel1' }],
-      defaultValue: 'testDefaultValue',
     }];
 
     expect(createFilter.getFilterProps(filterDefinitions)).toMatchObject(filterProps);
@@ -294,7 +292,6 @@ describe('getFilterProps', () => {
         value: d => d.id,
         label: d => d.name,
       },
-      defaultValue: 'testDefaultValue',
     }];
 
     const data = [{
@@ -310,7 +307,6 @@ describe('getFilterProps', () => {
       label: 'testLabel',
       type: 'testType',
       options: [{ value: 'id1', label: 'name1' }, { value: 'id2', label: 'name2' }],
-      defaultValue: 'testDefaultValue',
     }];
 
     expect(createFilter.getFilterProps(filterDefinitions, data)).toMatchObject(filterProps);

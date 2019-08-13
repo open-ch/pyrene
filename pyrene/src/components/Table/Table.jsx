@@ -338,6 +338,7 @@ export default class Table extends React.Component {
                   filters={this.props.filters}
                   onFilterSubmit={this.props.onFilterChange}
                   disabled={this.props.error ? true : this.props.filterDisabled}
+                  filterValues={this.props.filterValues}
                 />
               )
             }
@@ -392,6 +393,7 @@ Table.defaultProps = {
   pageSizeOptions: [10, 20, 50, 100, 250],
   filterDisabled: false,
   filters: [],
+  filterValues: {},
   onFetchData: () => null,
   onRowDoubleClick: () => null,
   onFilterChange: () => null,
@@ -462,6 +464,14 @@ Table.propTypes = {
     })),
     type: PropTypes.oneOf(['singleSelect', 'multiSelect', 'text']).isRequired,
   })),
+  /**
+   * values to be filtered & displayed in filter dropdown
+   * use {} for passing empty filterValues
+   * */
+  filterValues: PropTypes.shape({
+    filterKey: PropTypes.string,
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.array, PropTypes.object]),
+  }),
   /**
    * Sets the data key for each row. Should be unique. Is used for selections.
    */
