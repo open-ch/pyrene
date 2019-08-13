@@ -13,4 +13,6 @@ examples.props = {
   subtitle: 'A simple table with one column as a relative bar chart',
 };
 
+examples.category = 'Chart';
+
 export default examples;

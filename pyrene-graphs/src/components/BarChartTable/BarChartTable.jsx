@@ -176,8 +176,6 @@ const BarChartTable = (props) => {
 
 BarChartTable.displayName = 'Bar Chart Table';
 
-BarChartTable.category = 'Chart';
-
 BarChartTable.defaultProps = {
   title: '',
   subtitle: '',
