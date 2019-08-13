@@ -4,6 +4,10 @@ import { BarStackHorizontal, BarStack } from '@vx/shape';
 import { scaleBand, scaleLinear, scaleOrdinal } from '@vx/scale';
 import Responsive from '../Misc/Responsive';
 
+/**
+ * Relative Bars are used to display a numerical value.
+ * It has an underlying secondary bar, which extends to the full length.
+ */
 const RelativeBar = (props) => {
   const keys = [
     'value',
@@ -67,11 +71,29 @@ RelativeBar.defaultProps = {
 };
 
 RelativeBar.propTypes = {
+  /**
+   * Sets the bar weight (height if horizontal | width if vertical).
+   */
   barWeight: PropTypes.number,
+  /**
+   * Sets the colors of the bars. Type: [ string ]
+   */
   colorScheme: PropTypes.arrayOf(PropTypes.string).isRequired,
-  direction: PropTypes.string,
+  /**
+   * Sets the direction of the bars.
+   */
+  direction: PropTypes.oneOf(['horizontal', 'vertical']),
+  /**
+   * Sets the maxValue, which is used to calculate the length of the bars.
+   */
   maxValue: PropTypes.number.isRequired,
+  /**
+   * If set, the bars are being mirrored horizontally.
+   */
   mirrored: PropTypes.bool,
+  /**
+   * Sets the value, which is used to calculate the length of the bars.
+   */
   value: PropTypes.number.isRequired,
 };
 
