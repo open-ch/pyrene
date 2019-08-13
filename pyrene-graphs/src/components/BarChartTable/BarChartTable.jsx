@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { SimpleTable } from 'pyrene';
-import { Bar, BulletBar, RelativeBar } from 'tuktuktwo';
-import Title from '../Title/Title';
+import { Bar, RelativeBar } from 'tuktuktwo';
+import Header from '../Header/Header';
 import './barChartTable.css';
 import colorSchemes from '../../styles/colorSchemes';
 
@@ -14,63 +14,47 @@ function getValueWithAccessor(row, accessor) {
   return (typeof accessor === 'string' ? row[accessor] : accessor(row));
 }
 
-/**
- * Bar Chart Tables are used to display tabular data without the overhead of pagination, sorting and filtering.
- * The primaryValue is automatically being sorted in descending order and then displayed as a bar chart.
- */
-const BarChartTable = (props) => {
+function getProcessedColumnsAndLegend(props) {
   const maxValuePrimary = Math.max(...props.data.map(dataRow => getValueWithAccessor(dataRow, props.columns.primaryValue.accessor)));
-  const maxValueSecondary = Math.max(...props.data.map(dataRow => getValueWithAccessor(dataRow, props.columns.secondaryValue.accessor)));
+  const maxValueSecondary = props.columns.secondaryValue ? Math.max(...props.data.map(dataRow => getValueWithAccessor(dataRow, props.columns.secondaryValue.accessor))) : maxValuePrimary;
   const maxValue = Math.max(maxValuePrimary, maxValueSecondary);
   const barWeight = 6;
+  const barWeightSecondaryComparison = 4;
+  const colorSchemeRelative = [props.colorScheme[0], props.colorScheme.slice(-1)[0]];
   const defaultBarChart = row => (
     <RelativeBar
       barWeight={barWeight}
-      colorScheme={props.colorScheme}
+      colorScheme={colorSchemeRelative}
       maxValue={maxValuePrimary}
       value={row.value}
-      parentLength={150}
     />
   );
   let barChart;
-  let legend = [props.columns.primaryValue.title, props.columns.secondaryValue.title];
+  let legend = [props.columns.primaryValue.title];
+  if (props.columns.secondaryValue) legend.push(props.columns.secondaryValue.title);
   switch (props.type) {
     case 'bar':
       barChart = defaultBarChart;
-      legend = [props.columns.primaryValue.title];
+      legend = [];
       break;
     case 'comparison':
       barChart = row => ( // eslint-disable-line react/display-name
-        <div>
+        <div styleName="comparisonContainer">
           <Bar
             key={getId(`${props.columns.primaryValue.title}_bar_current`)}
             barWeight={barWeight}
             color={props.colorScheme[0]}
             maxValue={maxValue}
             value={getValueWithAccessor(row, props.columns.primaryValue.accessor)}
-            parentLength={150}
           />
           <Bar
             key={getId(`${props.columns.secondaryValue.title}_bar_previous`)}
-            barWeight={barWeight}
+            barWeight={barWeightSecondaryComparison}
             color={props.colorScheme[1]}
             maxValue={maxValue}
             value={getValueWithAccessor(row, props.columns.secondaryValue.accessor)}
-            parentLength={150}
           />
         </div>
-      );
-      break;
-    case 'bullet':
-      barChart = row => ( // eslint-disable-line react/display-name
-        <BulletBar
-          barWeight={barWeight}
-          colorScheme={props.colorScheme}
-          maxValue={maxValue}
-          primaryValue={getValueWithAccessor(row, props.columns.primaryValue.accessor)}
-          secondaryValue={getValueWithAccessor(row, props.columns.secondaryValue.accessor)}
-          parentLength={150}
-        />
       );
       break;
     case 'butterfly':
@@ -80,86 +64,111 @@ const BarChartTable = (props) => {
       barChart = defaultBarChart;
       break;
   }
+  const columnLabel = {
+    id: getId(props.columns.label.title),
+    accessor: props.columns.label.accessor,
+    align: 'left',
+  };
+  const columnPrimaryValue = {
+    id: getId(props.columns.primaryValue.title),
+    accessor: props.columns.primaryValue.accessor,
+    cellRenderCallback: props.columns.primaryValue.formatter ? row => props.columns.primaryValue.formatter(row.value) : null,
+    align: 'right',
+    width: '90px',
+  };
+  const columnPrimaryBarChart = {
+    id: getId(`${props.columns.primaryValue.title}_bar`),
+    accessor: props.columns.primaryValue.accessor,
+    cellRenderCallback: barChart,
+  };
+  const columnSecondaryValue = props.columns.secondaryValue ? {
+    id: getId(props.columns.secondaryValue.title),
+    accessor: props.columns.secondaryValue.accessor,
+    cellRenderCallback: props.columns.secondaryValue.formatter ? row => props.columns.secondaryValue.formatter(row.value) : null,
+    headerName: props.columns.secondaryValue.title,
+    align: 'right',
+    width: '90px',
+  } : {};
+  let columns;
   const columnsTable = [
-    {
-      id: getId(props.columns.label.title),
-      headerName: props.columns.label.title,
-      accessor: props.columns.label.accessor,
-    },
-    {
-      id: getId(`${props.columns.primaryValue.title}_bar`),
-      headerName: props.columns.primaryValue.title,
-      accessor: props.columns.primaryValue.accessor,
-      cellRenderCallback: barChart,
-    },
-    {
-      id: getId(props.columns.primaryValue.title),
-      accessor: props.columns.primaryValue.accessor,
-      cellRenderCallback: props.columns.primaryValue.formatter ? row => props.columns.primaryValue.formatter(row.value) : null,
-    },
-    {
-      id: getId(props.columns.secondaryValue.title),
-      headerName: props.columns.secondaryValue.title,
-      accessor: props.columns.secondaryValue.accessor,
-      cellRenderCallback: props.columns.secondaryValue.formatter ? row => props.columns.secondaryValue.formatter(row.value) : null,
-    },
+    columnLabel,
+    { ...columnPrimaryBarChart, headerName: props.columns.primaryValue.title },
+    columnPrimaryValue,
   ];
-  const columnsTableButterfly = [
-    {
-      id: getId(props.columns.label.title),
-      headerName: props.columns.label.title,
-      accessor: props.columns.label.accessor,
-    },
-    {
-      id: getId(props.columns.primaryValue.title),
-      headerName: props.columns.primaryValue.title,
-      accessor: props.columns.primaryValue.accessor,
-      cellRenderCallback: props.columns.primaryValue.formatter ? row => props.columns.primaryValue.formatter(row.value) : null,
-    },
-    {
-      id: getId(`${props.columns.primaryValue.title}_bar_left`),
-      accessor: props.columns.primaryValue.accessor,
-      cellRenderCallback: row => ( // eslint-disable-line react/display-name
-        <RelativeBar
-          barWeight={barWeight}
-          colorScheme={props.colorScheme}
-          maxValue={maxValue}
-          value={row.value}
-          parentLength={150}
-          mirrored
-        />
-      ),
-    },
-    {
-      id: getId(`${props.columns.secondaryValue.title}_bar_right`),
-      headerName: props.columns.secondaryValue.title,
-      accessor: props.columns.secondaryValue.accessor,
-      cellRenderCallback: row => ( // eslint-disable-line react/display-name
-        <RelativeBar
-          barWeight={barWeight}
-          colorScheme={props.colorScheme}
-          maxValue={maxValue}
-          value={row.value}
-          parentLength={150}
-        />
-      ),
-    },
-    {
-      id: getId(props.columns.secondaryValue.title),
-      accessor: props.columns.secondaryValue.accessor,
-      cellRenderCallback: props.columns.secondaryValue.formatter ? row => props.columns.secondaryValue.formatter(row.value) : null,
-    },
-  ];
+  if (props.columns.secondaryValue) columnsTable.push(columnSecondaryValue);
+  switch (props.type) {
+    case 'bar':
+      columns = columnsTable;
+      break;
+    case 'comparison':
+      columns = [
+        columnLabel,
+        { ...columnPrimaryValue, headerName: props.columns.primaryValue.title },
+        columnPrimaryBarChart,
+        columnSecondaryValue,
+      ];
+      break;
+    case 'butterfly':
+      columns = [
+        columnLabel,
+        columnPrimaryValue,
+        {
+          id: getId(`${props.columns.primaryValue.title}_bar_left`),
+          headerName: props.columns.primaryValue.title + props.columns.secondaryValue.title,
+          accessor: props.columns.primaryValue.accessor,
+          cellRenderCallback: row => ( // eslint-disable-line react/display-name
+            <div styleName="butterflyContainer">
+              <RelativeBar
+                barWeight={barWeight}
+                colorScheme={colorSchemeRelative}
+                maxValue={maxValuePrimary}
+                value={getValueWithAccessor(row, props.columns.primaryValue.accessor)}
+                mirrored
+              />
+              <div styleName="verticalLine" />
+              <RelativeBar
+                barWeight={barWeight}
+                colorScheme={colorSchemeRelative}
+                maxValue={maxValueSecondary}
+                value={getValueWithAccessor(row, props.columns.secondaryValue.accessor)}
+              />
+            </div>
+          ),
+          align: 'center',
+        },
+        {
+          id: getId(props.columns.secondaryValue.title),
+          accessor: props.columns.secondaryValue.accessor,
+          cellRenderCallback: props.columns.secondaryValue.formatter ? row => props.columns.secondaryValue.formatter(row.value) : null,
+          align: 'right',
+          width: '90px',
+        },
+      ];
+      break;
+    default:
+      columns = columnsTable;
+      break;
+  }
+  return { columns: columns, legend: legend };
+}
+
+/**
+ * Bar Chart Tables are used to display tabular data without the overhead of pagination, sorting and filtering.
+ * The primaryValue is automatically being sorted in descending order and then displayed as a bar chart.
+ */
+const BarChartTable = (props) => {
+  const columnsAndLegend = getProcessedColumnsAndLegend(props);
+  const description = props.type === 'bar' ? '' : props.description;
   return (
     <div styleName="container">
-      <Title
-        title={props.title}
-        subtitle={props.subtitle}
-        legend={legend}
+      <Header
+        header={props.header}
+        description={description}
+        legend={columnsAndLegend.legend}
         colorScheme={props.colorScheme}
       />
       <SimpleTable
-        columns={props.type === 'butterfly' ? columnsTableButterfly : columnsTable}
+        columns={columnsAndLegend.columns}
         data={props.data.sort((a, b) => (getValueWithAccessor(b, props.columns.primaryValue.accessor) - getValueWithAccessor(a, props.columns.primaryValue.accessor)))}
       />
     </div>
@@ -168,12 +177,9 @@ const BarChartTable = (props) => {
 
 BarChartTable.displayName = 'Bar Chart Table';
 
-BarChartTable.category = 'Chart';
-
 BarChartTable.defaultProps = {
-  title: '',
-  subtitle: '',
-  colorScheme: colorSchemes.blue,
+  colorScheme: colorSchemes.sequential,
+  description: '',
   type: 'bar',
 };
 
@@ -201,7 +207,7 @@ BarChartTable.propTypes = {
       ]).isRequired,
       formatter: PropTypes.func,
       title: PropTypes.string.isRequired,
-    }),
+    }).isRequired,
     secondaryValue: PropTypes.shape({
       accessor: PropTypes.oneOfType([
         PropTypes.string,
@@ -216,17 +222,17 @@ BarChartTable.propTypes = {
    */
   data: PropTypes.arrayOf(PropTypes.object).isRequired,
   /**
-   * Sets the subtitle.
+   * Sets the description.
    */
-  subtitle: PropTypes.string,
+  description: PropTypes.string,
   /**
-   * Sets the title.
+   * Sets the header.
    */
-  title: PropTypes.string,
+  header: PropTypes.string.isRequired,
   /**
    * Sets the overall style according to the bar chart type.
    */
-  type: PropTypes.oneOf(['bar', 'comparison', 'bullet', 'butterfly']),
+  type: PropTypes.oneOf(['bar', 'comparison', 'butterfly']),
 };
 
 export default BarChartTable;

@@ -63,14 +63,13 @@
     "postcss-loader": "^3.0.0",
     "postcss-nesting": "^7.0.0",
     "pyrene": "1.7.9",
-    "react": "~16.4.2",
-    "react-dom": "~16.4.2",
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0",
     "terser-webpack-plugin": "^1.2.2",
     "webpack": "^4.1.1",
     "webpack-cli": "^3.2.3"
   },
   "dependencies": {
-    "classnames": "^2.2.5",
     "prop-types": "^15.6.1"
   },
   "peerDependencies": {

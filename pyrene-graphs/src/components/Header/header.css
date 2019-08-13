@@ -1,0 +1,59 @@
+.container {
+  min-height: 32px;
+  max-height: 48px;
+}
+
+.header {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.14;
+  letter-spacing: -0.05px;
+  color: var(--font-black);
+  height: 16px;
+}
+
+.subContainer {
+  margin-top: 7px;
+  display: flex;
+  padding-bottom: 6px; /* +1px border*/
+  border-bottom: 1px solid var(--border);
+  height: 18px;
+}
+
+.description {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--font-gray);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.legend {
+  display: flex;
+  margin-right: 8px;
+  margin-left: auto;
+}
+
+.legendItem {
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.38;
+  color: var(--neutral-300);
+  margin-left: 16px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.circle {
+  height: 8px;
+  width: 8px;
+  min-width: 8px;
+  min-height: 8px;
+  border-radius: 5px;
+  margin-right: 8px;
+  background-color: blue;
+}

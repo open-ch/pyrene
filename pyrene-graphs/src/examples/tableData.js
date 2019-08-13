@@ -88,3 +88,48 @@ export const tableColumnsComparison = {
     formatter: d => `${d} GB`,
   },
 };
+
+export const tableDataUpDown = [
+  {
+    location: 'Altdorf',
+    up: 100.0,
+    down: 100.0,
+  },
+  {
+    location: 'Zürich',
+    up: 14.0,
+    down: 52.9,
+  },
+  {
+    location: 'Lit',
+    up: 100,
+    down: 49.7,
+  },
+  {
+    location: 'Chorugh',
+    up: 100,
+    down: 18.9,
+  },
+  {
+    location: 'Los Angeles',
+    up: 100,
+    down: 10.5,
+  },
+];
+
+export const tableColumnsUpDown = {
+  label: {
+    accessor: d => d.location,
+    title: 'Location',
+  },
+  primaryValue: {
+    accessor: d => d.up,
+    title: 'Volume Up',
+    formatter: d => `${d} %`,
+  },
+  secondaryValue: {
+    accessor: d => d.down,
+    title: '/Down',
+    formatter: d => `${d} %`,
+  },
+};
