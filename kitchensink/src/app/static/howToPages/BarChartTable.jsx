@@ -10,8 +10,8 @@ const barChartTableHowTo = [{
     <BarChartTable
       data={exampleData.tableDataUpDown.data}
       columns={exampleData.tableDataUpDown.columns}
-      title="ISP Lines"
-      subtitle=""
+      header="ISP Lines"
+      description="Optional description and explanation on how to read the chart"
       type="butterfly"
     />
   ),
@@ -22,8 +22,8 @@ const barChartTableHowTo = [{
     <BarChartTable
       data={exampleData.tableDataComparison.data}
       columns={exampleData.tableDataComparison.columns}
-      title="Top Applications by Volume"
-      subtitle="Additional Information"
+      header="Top Applications by Volume"
+      description="Optional description and explanation on how to read the chart"
       type="comparison"
     />
   ),

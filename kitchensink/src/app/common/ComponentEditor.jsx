@@ -104,7 +104,7 @@ export default class ComponentEditor extends React.Component {
           <DynamicPropTable
             propDocumentation={Component.__docgenInfo.props} // eslint-disable-line no-underscore-dangle
             initField={initField}
-            componentCategory={this.props.component.category}
+            componentCategory={this.props.examples.category}
           />
         </Paragraph>
       </div>
@@ -119,6 +119,7 @@ ComponentEditor.displayName = 'ComponentEditor';
 ComponentEditor.propTypes = {
   component: PropTypes.func.isRequired,
   examples: PropTypes.shape({
+    category: PropTypes.string,
     examples: PropTypes.arrayOf(
       PropTypes.shape()
     ),
