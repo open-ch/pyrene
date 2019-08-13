@@ -67,6 +67,14 @@ function getProcessedColumnsAndLegend(props) {
   const columnLabel = {
     id: getId(props.columns.label.title),
     accessor: props.columns.label.accessor,
+    cellRenderCallback: props.columns.label.linkAccessor ? row => (
+      <a
+        styleName="labelLink"
+        href={getValueWithAccessor(row, props.columns.label.linkAccessor)}
+      >
+        {row.value}
+      </a>
+    ) : row => row.value,
     align: 'left',
   };
   const columnPrimaryValue = {
@@ -170,6 +178,7 @@ const BarChartTable = (props) => {
       <SimpleTable
         columns={columnsAndLegend.columns}
         data={props.data.sort((a, b) => (getValueWithAccessor(b, props.columns.primaryValue.accessor) - getValueWithAccessor(a, props.columns.primaryValue.accessor)))}
+        onRowDoubleClick={props.onRowDoubleClick}
       />
     </div>
   );
@@ -180,6 +189,7 @@ BarChartTable.displayName = 'Bar Chart Table';
 BarChartTable.defaultProps = {
   colorScheme: colorSchemes.sequential,
   description: '',
+  onRowDoubleClick: () => {},
   type: 'bar',
 };
 
@@ -190,7 +200,7 @@ BarChartTable.propTypes = {
   colorScheme: PropTypes.arrayOf(PropTypes.string),
   /**
    * Sets the Table columns.
-   * Type: { label: { accessor: string or func (required), title: string (required) }, primaryValue: { accessor: string or func (required), formatter: func, title: string (required) }, secondaryValue: { accessor: string or func (required), formatter: func, title: string (required) }}
+   * Type: { label: { accessor: string or func (required), linkAccessor: string or func, title: string (required) }, primaryValue: { accessor: string or func (required), formatter: func, title: string (required) }, secondaryValue: { accessor: string or func (required), formatter: func, title: string (required) }}
    */
   columns: PropTypes.shape({
     label: PropTypes.shape({
@@ -198,6 +208,10 @@ BarChartTable.propTypes = {
         PropTypes.string,
         PropTypes.func,
       ]).isRequired,
+      linkAccessor: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.func,
+      ]),
       title: PropTypes.string.isRequired,
     }),
     primaryValue: PropTypes.shape({
@@ -229,6 +243,10 @@ BarChartTable.propTypes = {
    * Sets the header.
    */
   header: PropTypes.string.isRequired,
+  /**
+   * Called when the user double clicks on a row.
+   */
+  onRowDoubleClick: PropTypes.func,
   /**
    * Sets the overall style according to the bar chart type.
    */
