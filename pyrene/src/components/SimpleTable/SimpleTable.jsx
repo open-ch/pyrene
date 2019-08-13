@@ -30,6 +30,7 @@ const SimpleTable = props => (
         <tr
           styleName="tableRow"
           key={Object.values(row)}
+          onDoubleClick={() => props.onRowDoubleClick(row)}
         >
           {props.columns.length > 0 && props.columns.map((column) => {
             const valueRow = row;
@@ -54,6 +55,10 @@ const SimpleTable = props => (
 
 SimpleTable.displayName = 'Simple Table';
 
+SimpleTable.defaultProps = {
+  onRowDoubleClick: () => {},
+};
+
 SimpleTable.propTypes = {
   /**
    * Sets the Table columns.
@@ -74,6 +79,10 @@ SimpleTable.propTypes = {
    * Sets the Table data displayed in the rows. Type: [ JSON ]
    */
   data: PropTypes.arrayOf(PropTypes.object).isRequired,
+  /**
+   * Called when the user double clicks on a row.
+   */
+  onRowDoubleClick: PropTypes.func,
 };
 
 export default SimpleTable;
