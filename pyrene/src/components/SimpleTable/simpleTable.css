@@ -2,15 +2,15 @@
   composes: commonFontSettings from '../../styles/common.css';
   width: 100%;
   font-size: 13px;
-  margin-top: 20px;
   color: var(--neutral-500);
 }
 
 .tableHeaderRow {
+  height: 31px;
   border-bottom: 1px solid var(--border);
-  padding-bottom: 6px; /* +1px border*/
   display: flex;
   flex: 1;
+  align-items: center;
 }
 
 .tableHeaderCell {
@@ -25,11 +25,11 @@
 }
 
 .tableRow {
-  padding-top: 7px;
-  padding-bottom: 6px; /* +1px border*/
+  height: 31px;
   border-bottom: 1px solid var(--border);
   display: flex;
   flex: 1;
+  align-items: center;
 }
 
 .tableCell {
@@ -43,6 +43,7 @@
 }
 
 .tableCellContent {
+  height: 18px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
