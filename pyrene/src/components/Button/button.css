@@ -99,8 +99,8 @@
   }
 
   &.type-action {
-    padding-left: 8px;
-    padding-right: 8px;
+    height: 32px;
+    padding: 0 8px;
     background-color: var(--background-light);
     color: var(--primary);
 
@@ -109,7 +109,9 @@
     }
 
     & .label {
-      height: 16px;
+      padding-top: 8px;
+      padding-bottom: 6px;
+      line-height: 18px;
     }
   }
 
@@ -131,10 +133,15 @@
     &:hover {
       background-color: var(--admin-bg);
     }
+
+    & .label {
+        padding-top: 3px;
+        padding-bottom: 3px;
+      }
   }
 
   &.type-action .label, &.type-admin .label {
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 600;
     letter-spacing: normal;
     text-transform: capitalize;

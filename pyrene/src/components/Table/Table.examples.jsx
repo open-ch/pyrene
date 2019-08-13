@@ -429,7 +429,7 @@ const tableColumns = [{
     <div
       style={{
         width: '100%',
-        height: '100%',
+        height: '31px', // 32px is the height including border :)
         backgroundColor: 'var(--neutral-020)',
       }}
     >
@@ -517,7 +517,8 @@ const examples = {
     }, {
       label: 'second column', type: 'multiSelect', filterKey: 'testKey2', options: testOptions,
     }],
-    onFilterChange: stateProvider => filters => stateProvider.setState(prevState => ({ tableData: tableData.filter(row => row.name.includes(filters.name)) })),
+    onFilterChange: stateProvider => filters => stateProvider.setState(prevState => ({ tableData: filters && Object.keys(filters).length > 0 ? tableData.filter(row => row.name.includes(filters.name)) : tableData, filterValues: filters })),
+    filterValues: stateProvider => (stateProvider.state.filterValues ? stateProvider.state.filterValues : {}),
   },
 };
 
