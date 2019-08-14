@@ -22,7 +22,7 @@
   }
 
   &.type-success {
-    background-color: var(--ok-light);
+    background-color: var(--ok-lighter);
     color: var(--green-700);
   }
 
