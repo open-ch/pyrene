@@ -9,7 +9,7 @@ import './textArea.css';
  */
 const TextArea = (props) => {
 
-  const characterCount = props.maxLength - props.value.length;
+  const characterCount = props.maxLength - (props.value !== null ? props.value.length : 0);
   const characterLimitReached = characterCount < 0;
 
   return (
@@ -35,7 +35,7 @@ const TextArea = (props) => {
         value={props.value}
         wrap="hard"
         onBlur={props.onBlur}
-        onChange={props.onChange}
+        onChange={event => props.onChange(event.target.value, event)}
         onFocus={props.onFocus}
       />
 
