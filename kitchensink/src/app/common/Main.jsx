@@ -62,6 +62,7 @@ export default class Main extends React.PureComponent {
                     <ComponentPage
                       {...routeProps}
                       component={component}
+                      componentOrigin={component.name in examples ? 'pyrene' : 'pyrene-graphs'}
                       examples={exampleComponents[component.name]}
                     />
                   )}

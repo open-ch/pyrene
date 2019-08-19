@@ -68,7 +68,7 @@ export default class CodeBlock extends React.Component {
   }
 
   generateCodeForComponent(component, entireCodeWanted) {
-    let propList = `import { ${component.type.name} } from 'pyrene';\n`;
+    let propList = `import { ${component.type.name} } from '${this.props.componentOrigin}';\n`;
     // Stop right here if the box is collapsed
     if (!entireCodeWanted) {
       return propList;
@@ -127,8 +127,11 @@ export default class CodeBlock extends React.Component {
 
 CodeBlock.displayName = 'CodeBlock';
 
-CodeBlock.defaultProps = {};
+CodeBlock.defaultProps = {
+  componentOrigin: 'pyrene',
+};
 
 CodeBlock.propTypes = {
   component: PropTypes.element.isRequired,
+  componentOrigin: PropTypes.string,
 };

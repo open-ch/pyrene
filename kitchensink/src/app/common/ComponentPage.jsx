@@ -16,7 +16,7 @@ const ComponentPage = props => (
     </div>
 
     <div styleName="topicContent">
-      <ComponentEditor component={props.component} examples={props.examples} />
+      <ComponentEditor component={props.component} componentOrigin={props.componentOrigin} examples={props.examples} />
     </div>
 
 
@@ -29,11 +29,13 @@ ComponentPage.displayName = 'ComponentPage';
 
 
 ComponentPage.defaultProps = {
+  componentOrigin: 'pyrene',
   examples: null,
 };
 
 ComponentPage.propTypes = {
   component: PropTypes.func.isRequired,
+  componentOrigin: PropTypes.string,
   examples: PropTypes.shape({
     examples: PropTypes.arrayOf(
       PropTypes.shape()

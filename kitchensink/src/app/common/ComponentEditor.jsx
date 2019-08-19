@@ -99,7 +99,12 @@ export default class ComponentEditor extends React.Component {
             <div styleName="componentDisplay">
               {this.props.examples.trigger ? <ParentButton component={displayedComponent} /> : displayedComponent}
             </div>
-            <CodeBlock component={displayedComponent} displayComponentPinned={this.state.pinned} />
+            <CodeBlock
+              component={displayedComponent}
+              componentOrigin={this.props.componentOrigin}
+              displayComponentPinned={this.state.pinned}
+
+            />
           </div>
           <DynamicPropTable
             propDocumentation={Component.__docgenInfo.props} // eslint-disable-line no-underscore-dangle
@@ -116,8 +121,13 @@ export default class ComponentEditor extends React.Component {
 
 ComponentEditor.displayName = 'ComponentEditor';
 
+ComponentEditor.defaultProps = {
+  componentOrigin: 'pyrene',
+};
+
 ComponentEditor.propTypes = {
   component: PropTypes.func.isRequired,
+  componentOrigin: PropTypes.string,
   examples: PropTypes.shape({
     category: PropTypes.string,
     examples: PropTypes.arrayOf(
