@@ -111,11 +111,12 @@ export default class Table extends React.Component {
     showPagination: true,
     showPaginationTop: true,
     showPageSizeOptions: true,
+    sortable: !this.props.disableSorting,
 
     // Server-side props
     manual: this.props.manualPagination,
     pages: this.props.manualPagination ? this.props.pages : undefined,
-    onFetchData: rts => this.props.onFetchData({ page: rts.page, pageSize: rts.pageSize }),
+    onFetchData: rts => this.props.onFetchData({ page: rts.page, pageSize: rts.pageSize, sorting: rts.sorted }),
 
   };
 
@@ -383,6 +384,7 @@ Table.defaultProps = {
   title: '',
   defaultSorted: [],
   defaultPageSize: 20,
+  disableSorting: false,
   loading: false,
   manualPagination: false,
   multiSort: true,
@@ -440,6 +442,10 @@ Table.propTypes = {
     desc: PropTypes.bool,
     id: PropTypes.string.isRequired,
   })),
+  /**
+   * Disable sorting in the table.
+   */
+  disableSorting: PropTypes.bool,
   /**
    * Sets the error message to be displayed
    */
