@@ -1,3 +1,6 @@
+:global(.pyreneIcon-location:before){
+  content: "\73";
+}
 :global(.pyreneIcon-refresh:before){
   content: "\72";
 }
