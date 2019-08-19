@@ -1,7 +1,7 @@
 @import './colors.css';
 
 .page {
-  width: 930px;
+  max-width: 930px;
   padding: 0 40px 0 40px;
 }
 
