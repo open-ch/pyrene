@@ -22,4 +22,6 @@ RadioGroup.props = {
   ),
 };
 
+RadioGroup.category = 'Form';
+
 export default RadioGroup;

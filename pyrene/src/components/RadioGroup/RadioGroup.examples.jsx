@@ -32,4 +32,6 @@ RadioGroup.examples = [
   },
 ];
 
+RadioGroup.category = 'Form';
+
 export default RadioGroup;

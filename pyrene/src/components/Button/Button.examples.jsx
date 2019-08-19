@@ -27,4 +27,6 @@ examples.examples = [{
   description: 'Used when an action is accessible for MC Engineers only.',
 }];
 
+examples.category = 'Interaction';
+
 export default examples;

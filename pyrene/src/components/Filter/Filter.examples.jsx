@@ -64,4 +64,6 @@ const examples = {
   },
 };
 
+examples.category = 'Data';
+
 export default examples;

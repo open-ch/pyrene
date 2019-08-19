@@ -9,4 +9,6 @@ const examples = {
   },
 };
 
+examples.category = 'Layout';
+
 export default examples;

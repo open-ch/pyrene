@@ -15,4 +15,6 @@ Link.examples = [
   },
 ];
 
+Link.category = 'Interaction';
+
 export default Link;
