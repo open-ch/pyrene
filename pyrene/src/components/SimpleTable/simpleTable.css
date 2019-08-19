@@ -4,6 +4,7 @@
   font-size: 13px;
   color: var(--neutral-500);
   border-spacing: 0;
+  table-layout: fixed;
 }
 
 .tableHeaderRow {
