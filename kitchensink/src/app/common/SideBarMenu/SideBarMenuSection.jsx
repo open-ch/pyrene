@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { NavLink } from 'react-router-dom';
@@ -121,11 +121,11 @@ export default class SideBarMenuSection extends React.Component {
 
         <div styleName="sectionContentWrapper" style={{ height: this.state.sectionContentWrapperHeight + this.state.sectionElementContentWrapperHeight }}>
           {this.props.sectionElements.map((element, index) => (
-            <Fragment>
+            <div>
               {this.createNavLink(element, index, false)}
               {element.elements && element.elements.length > 0 && this.state.elementOpen[element.name]
                 && element.elements.map((subElement, subIndex) => this.createNavLink(subElement, subIndex, true))}
-            </Fragment>
+            </div>
           ))}
         </div>
       </div>
