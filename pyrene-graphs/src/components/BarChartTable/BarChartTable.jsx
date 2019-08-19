@@ -14,17 +14,16 @@ function getValueWithAccessor(row, accessor) {
   return (typeof accessor === 'string' ? row[accessor] : accessor(row));
 }
 
-function getProcessedColumnsAndLegend(props) {
+function getProcessedColumnsAndLegend(props, colorScheme) {
   const maxValuePrimary = Math.max(...props.data.map(dataRow => getValueWithAccessor(dataRow, props.columns.primaryValue.accessor)));
   const maxValueSecondary = props.columns.secondaryValue ? Math.max(...props.data.map(dataRow => getValueWithAccessor(dataRow, props.columns.secondaryValue.accessor))) : maxValuePrimary;
   const maxValue = Math.max(maxValuePrimary, maxValueSecondary);
   const barWeight = 6;
   const barWeightSecondaryComparison = 4;
-  const colorSchemeRelative = [props.colorScheme[0], props.colorScheme.slice(-1)[0]];
   const defaultBarChart = row => (
     <RelativeBar
       barWeight={barWeight}
-      colorScheme={colorSchemeRelative}
+      colorScheme={colorScheme}
       maxValue={maxValuePrimary}
       value={row.value}
     />
@@ -43,14 +42,14 @@ function getProcessedColumnsAndLegend(props) {
           <Bar
             key={getId(`${props.columns.primaryValue.title}_bar_current`)}
             barWeight={barWeight}
-            color={props.colorScheme[0]}
+            color={colorScheme[0]}
             maxValue={maxValue}
             value={getValueWithAccessor(row, props.columns.primaryValue.accessor)}
           />
           <Bar
             key={getId(`${props.columns.secondaryValue.title}_bar_previous`)}
             barWeight={barWeightSecondaryComparison}
-            color={props.colorScheme[1]}
+            color={colorScheme[1]}
             maxValue={maxValue}
             value={getValueWithAccessor(row, props.columns.secondaryValue.accessor)}
           />
@@ -128,7 +127,7 @@ function getProcessedColumnsAndLegend(props) {
             <div styleName="butterflyContainer">
               <RelativeBar
                 barWeight={barWeight}
-                colorScheme={colorSchemeRelative}
+                colorScheme={colorScheme}
                 maxValue={maxValuePrimary}
                 value={getValueWithAccessor(row, props.columns.primaryValue.accessor)}
                 mirrored
@@ -136,7 +135,7 @@ function getProcessedColumnsAndLegend(props) {
               <div styleName="verticalLine" />
               <RelativeBar
                 barWeight={barWeight}
-                colorScheme={colorSchemeRelative}
+                colorScheme={colorScheme}
                 maxValue={maxValueSecondary}
                 value={getValueWithAccessor(row, props.columns.secondaryValue.accessor)}
               />
@@ -165,7 +164,9 @@ function getProcessedColumnsAndLegend(props) {
  * The primaryValue is automatically being sorted in descending order and then displayed as a bar chart.
  */
 const BarChartTable = (props) => {
-  const columnsAndLegend = getProcessedColumnsAndLegend(props);
+  let colorScheme = props.colorScheme;
+  if (!(colorScheme.length > 0)) colorScheme = (props.type === 'comparison' ? colorSchemes.currentPrevious : colorSchemes.valueGround);
+  const columnsAndLegend = getProcessedColumnsAndLegend(props, colorScheme);
   const description = props.type === 'bar' ? '' : props.description;
   return (
     <div styleName="container">
@@ -173,7 +174,7 @@ const BarChartTable = (props) => {
         header={props.header}
         description={description}
         legend={columnsAndLegend.legend}
-        colorScheme={props.colorScheme}
+        colorScheme={colorScheme}
       />
       <SimpleTable
         columns={columnsAndLegend.columns}
@@ -187,7 +188,7 @@ const BarChartTable = (props) => {
 BarChartTable.displayName = 'Bar Chart Table';
 
 BarChartTable.defaultProps = {
-  colorScheme: colorSchemes.sequential,
+  colorScheme: [],
   description: '',
   onRowDoubleClick: () => {},
   type: 'bar',
