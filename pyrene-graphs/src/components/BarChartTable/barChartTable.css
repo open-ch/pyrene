@@ -1,0 +1,32 @@
+.container {
+  width: 100%;
+}
+
+.labelLink:hover {
+  text-decoration: underline;
+}
+
+.comparisonContainer svg {
+  display: block;
+}
+
+.comparisonContainer svg:first-child {
+  margin-bottom: 6px;
+}
+
+.butterflyContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.butterflyBar {
+  width: calc((100% - 25px) / 2);
+}
+
+.verticalLine {
+  border-left: 1px solid var(--border);
+  height: 16px;
+  margin-left: 12px;
+  margin-right: 12px;
+}
