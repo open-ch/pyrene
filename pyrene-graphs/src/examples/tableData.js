@@ -15,13 +15,13 @@ export const tableData = [
   {
     application: 'ORACLEdev',
     link: '#',
-    volume: 89,
+    volume: 89.0,
     shareOfTotal: 12.44,
   },
   {
     application: 'OSAG Proxy',
     link: '#',
-    volume: 57,
+    volume: 57.0,
     shareOfTotal: 7.96,
   },
   {
@@ -41,12 +41,12 @@ export const tableColumns = {
   primaryValue: {
     accessor: d => d.volume,
     title: 'Volume',
-    formatter: d => `${d} GB`,
+    formatter: d => `${d.toFixed(1)} GB`,
   },
   secondaryValue: {
     accessor: d => d.shareOfTotal,
     title: 'Share of Total',
-    formatter: d => `${d} %`,
+    formatter: d => `${d.toFixed(2)} %`,
   },
 };
 
@@ -66,13 +66,13 @@ export const tableDataComparison = [
   {
     application: 'ORACLEdev',
     link: '#',
-    volumeCurrent: 89,
+    volumeCurrent: 89.0,
     volumePrevious: 79.9,
   },
   {
     application: 'OSAG Proxy',
     link: '#',
-    volumeCurrent: 57,
+    volumeCurrent: 57.0,
     volumePrevious: 53.1,
   },
   {
@@ -91,13 +91,13 @@ export const tableColumnsComparison = {
   },
   primaryValue: {
     accessor: d => d.volumeCurrent,
-    title: 'Current period',
-    formatter: d => `${d} GB`,
+    title: 'Current',
+    formatter: d => `${d.toFixed(1)} GB`,
   },
   secondaryValue: {
     accessor: d => d.volumePrevious,
-    title: 'Previous period',
-    formatter: d => `${d} GB`,
+    title: 'Previous',
+    formatter: d => `${d.toFixed(1)} GB`,
   },
 };
 
@@ -117,19 +117,19 @@ export const tableDataUpDown = [
   {
     location: 'Lit',
     link: '#',
-    up: 100,
+    up: 100.0,
     down: 49.7,
   },
   {
     location: 'Chorugh',
     link: '#',
-    up: 100,
+    up: 100.0,
     down: 18.9,
   },
   {
     location: 'Los Angeles',
     link: '#',
-    up: 100,
+    up: 100.0,
     down: 10.5,
   },
 ];
@@ -143,11 +143,11 @@ export const tableColumnsUpDown = {
   primaryValue: {
     accessor: d => d.up,
     title: 'Volume Up',
-    formatter: d => `${d} %`,
+    formatter: d => `${d.toFixed(1)} %`,
   },
   secondaryValue: {
     accessor: d => d.down,
     title: '/Down',
-    formatter: d => `${d} %`,
+    formatter: d => `${d.toFixed(1)} %`,
   },
 };
