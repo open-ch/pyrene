@@ -1,4 +1,4 @@
-// VERSION: 17
+// VERSION: 20
 const icons = [
   { name: 'share', tags: ['social'] },
   { name: 'filter', tags: ['lines'] },
@@ -24,6 +24,8 @@ const icons = [
   { name: 'hot', tags: ['hot', 'flame', 'fire', 'heat', 'burn', 'heat', 'warm'] },
   { name: 'question', tags: ['question', 'help', 'about', 'ask', 'faq', 'alert'] },
   { name: 'data', tags: ['data', 'report', 'statistics', 'graph', 'chart', 'analytics'] },
-  { name: 'refresh', tags: ['data', 'report', 'statistics', 'graph', 'chart', 'analytics'] },
+  { name: 'notification', tags: ['notification', 'bell', 'alert', 'support', 'sound', 'buzz', 'christmas','ringing', 'wake'] },
+  { name: 'refresh', tags: ['refresh', 'repeat', 'infinity', 'infinite', 'loop', 'load', 'loading','update', 'replay', 'progress'] },
+  { name: 'location', tags: ['location', 'pin', 'position', 'gps', 'map', 'place', 'marker'] },
 ];
 export default icons;
