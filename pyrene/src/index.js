@@ -94,6 +94,7 @@ const Components = {
 export { Badge };
 export { Banner };
 export { Button };
+export { ButtonBar };
 export { CalendarDateSelector };
 export { Card };
 export { Checkbox };

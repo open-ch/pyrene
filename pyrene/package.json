@@ -1,6 +1,6 @@
 {
   "name": "pyrene",
-  "version": "1.8.4",
+  "version": "1.8.6",
   "description": "Open Systems Component Library",
   "main": "dist/pyrene.js",
   "style": "dist/pyrene.css",
@@ -26,7 +26,8 @@
     "prerelease": "yarn test && yarn build",
     "release": "release-it",
     "prelint": "yarn install",
-    "lint": "eslint src/"
+    "lint": "eslint src/",
+    "updateIconfont": "bash -c 'cat $0 | fgrep -A3 .icon- | sed -E '\"'\"' s/\\.icon-(.*):before /:global(.pyreneIcon-\\1:before)/ '\"'\"' >  src/styles/iconfont.css; cp $1 src/fonts/pyrene-iconfont.woff;'"
   },
   "devDependencies": {
     "@babel/core": "^7.2.2",
