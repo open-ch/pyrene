@@ -81,7 +81,7 @@ function getProcessedColumnsAndLegend(props, colorScheme) {
     accessor: props.columns.primaryValue.accessor,
     cellRenderCallback: props.columns.primaryValue.formatter ? row => props.columns.primaryValue.formatter(row.value) : null,
     align: 'right',
-    width: '90px',
+    maxWidth: '90px',
   };
   const columnPrimaryBarChart = {
     id: getId(`${props.columns.primaryValue.title}_bar`),
@@ -94,7 +94,7 @@ function getProcessedColumnsAndLegend(props, colorScheme) {
     cellRenderCallback: props.columns.secondaryValue.formatter ? row => props.columns.secondaryValue.formatter(row.value) : null,
     headerName: props.columns.secondaryValue.title,
     align: 'right',
-    width: '90px',
+    maxWidth: '90px',
   } : {};
   let columns;
   const columnsTable = [
@@ -152,7 +152,7 @@ function getProcessedColumnsAndLegend(props, colorScheme) {
           accessor: props.columns.secondaryValue.accessor,
           cellRenderCallback: props.columns.secondaryValue.formatter ? row => props.columns.secondaryValue.formatter(row.value) : null,
           align: 'right',
-          width: '90px',
+          maxWidth: '90px',
         },
       ];
       break;
