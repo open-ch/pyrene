@@ -49,6 +49,8 @@ const tableColumns = [{
   id: 'age',
   headerName: 'Age',
   accessor: 'age',
+  align: 'right',
+  maxWidth: '26px',
 }, {
   id: 'friendName',
   headerName: 'Friend Name',
