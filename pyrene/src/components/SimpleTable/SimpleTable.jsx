@@ -14,7 +14,7 @@ const SimpleTable = props => (
         {props.columns.map(column => (
           <th
             styleName="tableHeaderCell"
-            style={{ maxWidth: column.width && column.width }}
+            style={{ maxWidth: column.maxWidth && column.maxWidth }}
             key={column.id}
           >
             <div styleName="tableCellContent" style={{ textAlign: column.align }}>
@@ -38,7 +38,7 @@ const SimpleTable = props => (
             return (
               <td
                 styleName="tableCell"
-                style={{ maxWidth: column.width && column.width }}
+                style={{ maxWidth: column.maxWidth && column.maxWidth }}
                 key={column.id.concat(Object.values(valueRow))}
               >
                 <div styleName="tableCellContent" style={{ textAlign: column.align }}>
@@ -73,7 +73,7 @@ SimpleTable.propTypes = {
     cellRenderCallback: PropTypes.func,
     headerName: PropTypes.string,
     id: PropTypes.string,
-    width: PropTypes.string,
+    maxWidth: PropTypes.string,
   })).isRequired,
   /**
    * Sets the Table data displayed in the rows. Type: [ JSON ]
