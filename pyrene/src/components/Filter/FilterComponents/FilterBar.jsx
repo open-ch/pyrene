@@ -37,6 +37,9 @@ export default class FilterBar extends React.Component {
 
   // eslint-disable-next-line react/sort-comp
   toggleFilterPopover = () => {
+    if (!this.state.displayFilterPopover) {
+      this.setState({ unAppliedValues: this.props.filterValues });
+    }
     this.setState(prevState => ({
       displayFilterPopover: !prevState.displayFilterPopover,
     }));
