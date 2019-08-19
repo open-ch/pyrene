@@ -56,7 +56,7 @@
 }
 
 .propModifierCell {
-  /* max-height: 32px; */
+  max-height: 32px;
   padding-top: 16px;
   line-height: initial;
 }
