@@ -30,6 +30,66 @@ export const tableData = [
     volume: 72.3,
     shareOfTotal: 10.11,
   },
+  {
+    application: 'INFLUXdev',
+    link: '#',
+    volume: 91.3,
+    shareOfTotal: 12.76,
+  },
+  {
+    application: 'MSS KAFKA (DEV)',
+    link: '#',
+    volume: 89.7,
+    shareOfTotal: 12.55,
+  },
+  {
+    application: 'ORACLEdev',
+    link: '#',
+    volume: 89,
+    shareOfTotal: 12.44,
+  },
+  {
+    application: 'OSAG Proxy',
+    link: '#',
+    volume: 57,
+    shareOfTotal: 7.96,
+  },
+  {
+    application: 'SSH',
+    link: '#',
+    volume: 72.3,
+    shareOfTotal: 10.11,
+  },
+  {
+    application: 'INFLUXdev',
+    link: '#',
+    volume: 91.3,
+    shareOfTotal: 12.76,
+  },
+  {
+    application: 'MSS KAFKA (DEV)',
+    link: '#',
+    volume: 89.7,
+    shareOfTotal: 12.55,
+  },
+  {
+    application: 'ORACLEdev',
+    link: '#',
+    volume: 89,
+    shareOfTotal: 12.44,
+  },
+  {
+    application: 'OSAG Proxy',
+    link: '#',
+    volume: 57,
+    shareOfTotal: 7.96,
+  },
+  {
+    application: 'SSH',
+    link: '#',
+    volume: 72.3,
+    shareOfTotal: 10.11,
+  },
 ];
 
 export const tableColumns = {

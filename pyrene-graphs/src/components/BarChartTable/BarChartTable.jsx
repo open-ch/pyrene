@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { SimpleTable } from 'pyrene';
+import { Link, Modal, SimpleTable } from 'pyrene';
 import { Bar, RelativeBar } from 'tuktuktwo';
 import Header from '../Header/Header';
 import './barChartTable.css';
@@ -167,27 +167,59 @@ function getProcessedColumnsAndLegend(props, colorScheme) {
  * Bar Chart Tables are used to display tabular data without the overhead of pagination, sorting and filtering.
  * The primaryValue is automatically being sorted in descending order and then displayed as a bar chart.
  */
-const BarChartTable = (props) => {
-  let colorScheme = props.colorScheme;
-  if (!(colorScheme.length > 0)) colorScheme = (props.type === 'comparison' ? colorSchemes.currentPrevious : colorSchemes.valueGround);
-  const columnsAndLegend = getProcessedColumnsAndLegend(props, colorScheme);
-  const description = props.type === 'bar' ? '' : props.description;
-  return (
-    <div styleName="container">
-      <Header
-        header={props.header}
-        description={description}
-        legend={columnsAndLegend.legend}
-        colorScheme={colorScheme}
-      />
-      <SimpleTable
-        columns={columnsAndLegend.columns}
-        data={props.data.sort((a, b) => (getValueWithAccessor(b, props.columns.primaryValue.accessor) - getValueWithAccessor(a, props.columns.primaryValue.accessor)))}
-        onRowDoubleClick={props.onRowDoubleClick}
-      />
-    </div>
-  );
-};
+export default class BarChartTable extends React.Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      showModal: false,
+    };
+  }
+
+   toggleModal = () => {
+     this.setState(prevState => ({
+       showModal: !prevState.showModal,
+     }));
+   };
+
+   render() {
+     let colorScheme = this.props.colorScheme;
+     if (!(colorScheme.length > 0)) colorScheme = (this.props.type === 'comparison' ? colorSchemes.currentPrevious : colorSchemes.valueGround);
+     const columnsAndLegend = getProcessedColumnsAndLegend(this.props, colorScheme);
+     const description = this.props.type === 'bar' ? '' : this.props.description;
+     return (
+       <div styleName="container">
+         <Header
+           header={this.props.header}
+           description={description}
+           legend={columnsAndLegend.legend}
+           colorScheme={colorScheme}
+         />
+         <SimpleTable
+           columns={columnsAndLegend.columns}
+           data={this.props.data.sort((a, b) => (getValueWithAccessor(b, this.props.columns.primaryValue.accessor) - getValueWithAccessor(a, this.props.columns.primaryValue.accessor))).slice(0, 10)}
+           onRowDoubleClick={this.props.onRowDoubleClick}
+         />
+         {(this.props.data.length > 10) && (
+           <div styleName="showMoreLink">
+             <Link
+               label={`Show more ${this.props.header}`}
+               onClick={() => this.toggleModal()}
+             />
+           </div>
+         )}
+         {this.state.showModal && (
+           <Modal
+             title="bla"
+             renderCallback={() => <div>bla</div>}
+           />
+         )}
+       </div>
+     );
+   }
+
+}
 
 BarChartTable.displayName = 'Bar Chart Table';
 
@@ -257,5 +289,3 @@ BarChartTable.propTypes = {
    */
   type: PropTypes.oneOf(['bar', 'comparison', 'butterfly']),
 };
-
-export default BarChartTable;
