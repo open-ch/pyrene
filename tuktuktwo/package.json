@@ -14,7 +14,7 @@
   ],
   "scripts": {
     "clean": "rm -rf dist node_modules",
-    "prebuild": "yarn clean && yarn install",
+    "prebuild": "yarn install",
     "build": "webpack && NODE_ENV=production webpack",
     "prewatch": "yarn install",
     "watch": "webpack -w",
@@ -58,6 +58,7 @@
     "postcss-nesting": "^7.0.0",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
+    "release-it": "^12.3.5",
     "webpack": "^4.6.0",
     "webpack-cli": "^3.1.2"
   },
