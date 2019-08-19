@@ -5,7 +5,7 @@ examples.props = {
   iconType: 'neutral',
   value: 188,
   type: 'info',
-  onClick: () => alert('Max value ' + examples.props.value + ' exceeded!'),
+  onClick: () => alert(`Max value ${examples.props.value} exceeded!`), // eslint-disable-line no-alert
 };
 
 examples.examples = [
@@ -24,7 +24,7 @@ examples.examples = [
       iconType: 'neutral',
       value: 66,
       type: 'success',
-      onClick: () => alert('Found 66 investigations.'),
+      onClick: () => alert('Found 66 investigations.'), // eslint-disable-line no-alert
     },
     description: '66 investigations. Clickable.',
   },
@@ -51,7 +51,7 @@ examples.examples = [
       iconType: 'neutral',
       value: 188,
       type: 'info',
-      onClick: () => alert('Max value 99 exceeded!'),
+      onClick: () => alert('Max value 99 exceeded!'), // eslint-disable-line no-alert
     },
     description: 'More than 99 data items. Clickable.',
   },

@@ -517,7 +517,7 @@ const examples = {
     }, {
       label: 'second column', type: 'multiSelect', filterKey: 'testKey2', options: testOptions,
     }],
-    onFilterChange: stateProvider => filters => stateProvider.setState(prevState => ({ tableData: filters && Object.keys(filters).length > 0 ? tableData.filter(row => row.name.includes(filters.name)) : tableData, filterValues: filters })),
+    onFilterChange: stateProvider => filters => stateProvider.setState(() => ({ tableData: filters && Object.keys(filters).length > 0 ? tableData.filter(row => row.name.includes(filters.name)) : tableData, filterValues: filters })),
     filterValues: stateProvider => (stateProvider.state.filterValues ? stateProvider.state.filterValues : {}),
   },
 };
