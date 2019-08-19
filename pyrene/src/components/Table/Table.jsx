@@ -114,8 +114,8 @@ export default class Table extends React.Component {
     sortable: !this.props.disableSorting,
 
     // Server-side props
-    manual: this.props.manualPagination,
-    pages: this.props.manualPagination ? this.props.pages : undefined,
+    manual: this.props.manual,
+    pages: this.props.manual ? this.props.pages : undefined,
     onFetchData: rts => this.props.onFetchData({ page: rts.page, pageSize: rts.pageSize, sorting: rts.sorted }),
 
   };
@@ -386,7 +386,7 @@ Table.defaultProps = {
   defaultPageSize: 20,
   disableSorting: false,
   loading: false,
-  manualPagination: false,
+  manual: false,
   multiSort: true,
   multiSelect: false,
   numberOfResults: 0,
@@ -489,7 +489,7 @@ Table.propTypes = {
   /**
    * Set to true to be able to handle sorting and pagination server-side (use only with server-side data fetching & pagination).
    */
-  manualPagination: PropTypes.bool,
+  manual: PropTypes.bool,
   /**
    * Changes the overall appearance of the table to become multi-selectable (checkbox table). Requires keyField prop.
    */
