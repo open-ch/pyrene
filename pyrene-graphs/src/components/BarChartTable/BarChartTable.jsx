@@ -125,20 +125,24 @@ function getProcessedColumnsAndLegend(props, colorScheme) {
           accessor: props.columns.primaryValue.accessor,
           cellRenderCallback: row => ( // eslint-disable-line react/display-name
             <div styleName="butterflyContainer">
-              <RelativeBar
-                barWeight={barWeight}
-                colorScheme={colorScheme}
-                maxValue={maxValuePrimary}
-                value={getValueWithAccessor(row, props.columns.primaryValue.accessor)} // eslint-disable-line
-                mirrored
-              />
+              <div styleName="butterflyBar">
+                <RelativeBar
+                  barWeight={barWeight}
+                  colorScheme={colorScheme}
+                  maxValue={maxValuePrimary}
+                  value={getValueWithAccessor(row, props.columns.primaryValue.accessor)} // eslint-disable-line
+                  mirrored
+                />
+              </div>
               <div styleName="verticalLine" />
-              <RelativeBar
-                barWeight={barWeight}
-                colorScheme={colorScheme}
-                maxValue={maxValueSecondary}
-                value={getValueWithAccessor(row, props.columns.secondaryValue.accessor)} // eslint-disable-line
-              />
+              <div styleName="butterflyBar">
+                <RelativeBar
+                  barWeight={barWeight}
+                  colorScheme={colorScheme}
+                  maxValue={maxValueSecondary}
+                  value={getValueWithAccessor(row, props.columns.secondaryValue.accessor)} // eslint-disable-line
+                />
+              </div>
             </div>
           ),
           align: 'center',

@@ -20,6 +20,10 @@
   justify-content: center;
 }
 
+.butterflyBar {
+  width: calc((100% - 25px) / 2);
+}
+
 .verticalLine {
   border-left: 1px solid var(--border);
   height: 16px;
