@@ -40,18 +40,18 @@ function getProcessedColumnsAndLegend(props, colorScheme) {
       barChart = row => ( // eslint-disable-line react/display-name
         <div styleName="comparisonContainer">
           <Bar
-            key={getId(`${props.columns.primaryValue.title}_bar_current`)}
+            key={getId(`${props.columns.primaryValue.title}_bar_current`)} // eslint-disable-line
             barWeight={barWeight}
             color={colorScheme[0]}
             maxValue={maxValue}
-            value={getValueWithAccessor(row, props.columns.primaryValue.accessor)}
+            value={getValueWithAccessor(row, props.columns.primaryValue.accessor)} // eslint-disable-line
           />
           <Bar
-            key={getId(`${props.columns.secondaryValue.title}_bar_previous`)}
+            key={getId(`${props.columns.secondaryValue.title}_bar_previous`)} // eslint-disable-line
             barWeight={barWeightSecondaryComparison}
             color={colorScheme[1]}
             maxValue={maxValue}
-            value={getValueWithAccessor(row, props.columns.secondaryValue.accessor)}
+            value={getValueWithAccessor(row, props.columns.secondaryValue.accessor)} // eslint-disable-line
           />
         </div>
       );
@@ -66,10 +66,10 @@ function getProcessedColumnsAndLegend(props, colorScheme) {
   const columnLabel = {
     id: getId(props.columns.label.title),
     accessor: props.columns.label.accessor,
-    cellRenderCallback: props.columns.label.linkAccessor ? row => (
+    cellRenderCallback: props.columns.label.linkAccessor ? row => ( // eslint-disable-line react/display-name
       <a
         styleName="labelLink"
-        href={getValueWithAccessor(row, props.columns.label.linkAccessor)}
+        href={getValueWithAccessor(row, props.columns.label.linkAccessor)} // eslint-disable-line
       >
         {row.value}
       </a>
@@ -129,7 +129,7 @@ function getProcessedColumnsAndLegend(props, colorScheme) {
                 barWeight={barWeight}
                 colorScheme={colorScheme}
                 maxValue={maxValuePrimary}
-                value={getValueWithAccessor(row, props.columns.primaryValue.accessor)}
+                value={getValueWithAccessor(row, props.columns.primaryValue.accessor)} // eslint-disable-line
                 mirrored
               />
               <div styleName="verticalLine" />
@@ -137,7 +137,7 @@ function getProcessedColumnsAndLegend(props, colorScheme) {
                 barWeight={barWeight}
                 colorScheme={colorScheme}
                 maxValue={maxValueSecondary}
-                value={getValueWithAccessor(row, props.columns.secondaryValue.accessor)}
+                value={getValueWithAccessor(row, props.columns.secondaryValue.accessor)} // eslint-disable-line
               />
             </div>
           ),
