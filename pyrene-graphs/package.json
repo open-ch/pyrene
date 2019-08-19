@@ -70,7 +70,8 @@
     "webpack-cli": "^3.2.3"
   },
   "dependencies": {
-    "prop-types": "^15.6.1"
+    "prop-types": "^15.6.1",
+    "tuktuktwo": "^0.0.1"
   },
   "peerDependencies": {
     "pyrene": "1.7.9",
