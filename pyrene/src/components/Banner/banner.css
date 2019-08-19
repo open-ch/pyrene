@@ -15,6 +15,10 @@
 
   border: 1px solid var(--neutral-030);
 
+  &.style-overlay {
+    margin-bottom: 8px;
+  }
+
   &.style-standard, &.style-overlay {
     padding: 15px 16px 14px 16px;
     min-height: 48px;
@@ -131,7 +135,7 @@
   font-size: 14px;
   font-style: normal;
   font-stretch: normal;
-  line-height: 1.36;
+  line-height: 19px;
   letter-spacing: normal;
   color: var(--neutral-400);
 }
@@ -141,17 +145,17 @@
   font-weight: 500;
   font-style: normal;
   font-stretch: normal;
-  line-height: 1.36;
+  line-height: 19px;
   letter-spacing: normal;
   color: var(--neutral-400);
 }
 
 .clearIcon {
-  height: 18px;
-  width: 18px;
-  font-size: 18px;
+  height: 16px;
+  width: 16px;
   cursor: pointer;
   color: var(--neutral-300);
+  margin-left: 24px;
 
   &:hover {
     background-color: var(--secondary);

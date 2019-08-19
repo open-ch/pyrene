@@ -25,7 +25,7 @@ const Banner = props => (
         {props.styling !== 'inline' && <div styleName="description">{props.description}</div>}
       </div>
     </div>
-    {props.styling === 'overlay' && props.clearable && <span className="pyreneIcon-delete" styleName="clearIcon" onClick={props.onClear} role="button" aria-label="Clear Banner" />}
+    {props.styling === 'overlay' && <span className="pyreneIcon-delete" styleName="clearIcon" onClick={props.onClear} role="button" aria-label="Clear Banner" />}
   </div>
 );
 
@@ -33,17 +33,12 @@ const Banner = props => (
 Banner.displayName = 'Banner';
 
 Banner.defaultProps = {
-  clearable: false,
   onClear: () => null,
   description: '',
   styling: 'standard',
 };
 
 Banner.propTypes = {
-  /**
-   * Whether the user can clear the banner. Only overlay banners can be cleared.
-   */
-  clearable: PropTypes.bool,
   /**
    * Sets an additional description, displayed underneath the label. Not displayed for inline banners.
    */
