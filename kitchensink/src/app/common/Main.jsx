@@ -57,7 +57,7 @@ export default class Main extends React.PureComponent {
               .map(component => (
                 <Route
                   key={component.name}
-                  path={`/${component.name}`}
+                  path={`/${exampleComponents[component.name].category === undefined ? 'Other' : exampleComponents[component.name].category}/${component.name}`}
                   render={routeProps => (
                     <ComponentPage
                       {...routeProps}

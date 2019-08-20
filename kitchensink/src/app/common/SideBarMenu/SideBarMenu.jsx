@@ -12,7 +12,7 @@ function getExamples() {
   const exampleComponents = { ...examples, ...chartExamples };
   const components = [...Object.values(Components), ...Object.values(ChartComponents)]
     .filter(component => exampleComponents[component.name])
-    .map(component => ({ category: exampleComponents[component.name].category === undefined ? otherSectionName : exampleComponents[component.name].category, name: component.displayName, linkToPath: `/${component.name}` }))
+    .map(component => ({ category: exampleComponents[component.name].category === undefined ? otherSectionName : exampleComponents[component.name].category, name: component.displayName, linkToPath: `/${exampleComponents[component.name].category === undefined ? otherSectionName : exampleComponents[component.name].category}/${component.name}` }))
     .sort((a, b) => a.name.localeCompare(b.name));
   const uniqueCategories = components
     .map(component => component.category)
@@ -22,7 +22,7 @@ function getExamples() {
   const categorySections = uniqueCategories
     .map(category => ({
       name: category,
-      linkToPath: '#',
+      linkToPath: `/${category}`,
       elements: components
         .filter(component => component.category === category)
         .map(component => ({ name: component.name, linkToPath: component.linkToPath })),

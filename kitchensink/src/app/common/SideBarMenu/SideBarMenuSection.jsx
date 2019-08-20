@@ -5,6 +5,7 @@ import { NavLink } from 'react-router-dom';
 
 import './sideBarMenu.css';
 
+const matchLink = pathname => (isMatch, location) => isMatch || location.pathname.startsWith(pathname);
 
 export default class SideBarMenuSection extends React.Component {
 
@@ -23,14 +24,21 @@ export default class SideBarMenuSection extends React.Component {
 
   componentDidMount() {
     const refs = this.refs; // eslint-disable-line react/no-string-refs
-    if (Object.keys(refs).find(k => refs[k].parentElement.className === 'activeSideBar')) {
-      this.setState(prevState => (
-        {
+    const keys = Object.keys(refs).filter(k => refs[k].parentElement.className === 'activeSideBar');
+    if (keys.length > 0) {
+      const key = Object.values(refs[keys[0]])[0].key;
+      this.setState((prevState) => {
+        const elementOpen = {
+          ...prevState.elementOpen,
+          [key]: !prevState.elementOpen[key],
+        };
+        return {
           open: true,
+          elementOpen: elementOpen,
           sectionContentWrapperHeight: this.calculateSectionContentWrapperHeight(),
-          sectionElementContentWrapperHeight: this.calculateSectionElementContentWrapperHeight(prevState.elementOpen),
-        }
-      ));
+          sectionElementContentWrapperHeight: this.calculateSectionElementContentWrapperHeight(elementOpen),
+        };
+      });
     }
 
   }
@@ -84,7 +92,7 @@ export default class SideBarMenuSection extends React.Component {
 
   createNavLink(element, index, isSubElement) {
     const navLink = (
-      <NavLink to={element.linkToPath} activeClassName="activeSideBar" key={`${this.props.title}${element.name}`}>
+      <NavLink to={isSubElement ? element.linkToPath : '#'} activeClassName="activeSideBar" key={`${this.props.title}${element.name}`} isActive={matchLink(element.linkToPath)}>
         <div
           className="unSelectable"
           styleName={classNames(
