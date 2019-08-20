@@ -90,9 +90,9 @@ export default class SideBarMenuSection extends React.Component {
       .reduce((a, b) => (elementOpen[b.name] && b.elements ? a + b.elements.length * 42 : a + 0), 0);
   }
 
-  createNavLink(element, index, isSubElement) {
+  createNavLink(element, index, isSubElement, hasSubElements) {
     const navLink = (
-      <NavLink to={isSubElement ? element.linkToPath : '#'} activeClassName="activeSideBar" key={`${this.props.title}${element.name}`} isActive={matchLink(element.linkToPath)}>
+      <NavLink to={hasSubElements ? '#' : element.linkToPath} activeClassName="activeSideBar" key={`${this.props.title}${element.name}`} isActive={matchLink(element.linkToPath)}>
         <div
           className="unSelectable"
           styleName={classNames(
@@ -130,9 +130,9 @@ export default class SideBarMenuSection extends React.Component {
         <div styleName="sectionContentWrapper" style={{ height: this.state.sectionContentWrapperHeight + this.state.sectionElementContentWrapperHeight }}>
           {this.props.sectionElements.map((element, index) => (
             <div key={`${this.props.title}${element.name}`}>
-              {this.createNavLink(element, index, false)}
+              {this.createNavLink(element, index, false, element.elements && element.elements.length > 0)}
               {element.elements && element.elements.length > 0 && this.state.elementOpen[element.name]
-                && element.elements.map((subElement, subIndex) => this.createNavLink(subElement, subIndex, true))}
+                && element.elements.map((subElement, subIndex) => this.createNavLink(subElement, subIndex, true, false))}
             </div>
           ))}
         </div>
