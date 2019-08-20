@@ -2,11 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import '../../../css/componentPage.css';
 import Components from 'pyrene/dist/pyrene.dev';
+import ChartComponents from 'pyrene-graphs/dist/pyrene-graphs.dev';
 import examples from 'pyrene/dist/pyrene.examples';
+import chartExamples from 'pyrene-graphs/dist/pyrene-graphs.examples';
 import SearchUtils from './SearchUtils';
 import SearchResult from './SearchResult/SearchResult';
 import Paragraph from '../PageElements/Paragraph/Paragraph';
 import GalaxyImage from '../../../images/galaxy.svg';
+
+const exampleComponents = { ...examples, ...chartExamples };
+const components = [...Object.values(Components), ...Object.values(ChartComponents)];
 
 export default class ResultsPage extends React.Component {
 
@@ -20,7 +25,7 @@ export default class ResultsPage extends React.Component {
     if (prevState.searchInput !== nextProps.match.params.searchInput) {
       return ({
         searchInput: nextProps.match.params.searchInput,
-        matches: SearchUtils.getMatches(nextProps.match.params.searchInput, Object.values(Components).filter(component => examples[component.name])),
+        matches: SearchUtils.getMatches(nextProps.match.params.searchInput, components.filter(component => exampleComponents[component.name])),
       });
     }
     return null;
@@ -36,8 +41,9 @@ export default class ResultsPage extends React.Component {
           {this.state.matches.map((result) => {
             const componentDisplayName = Object.keys(result)[0];
             const componentDescription = Object.values(result)[0];
+            const component = exampleComponents[SearchUtils.normaliseLink(componentDisplayName)];
             return (
-              <SearchResult title={componentDisplayName} description={componentDescription} key={componentDisplayName} searchInput={this.state.searchInput} />
+              <SearchResult category={component && component.category} title={componentDisplayName} description={componentDescription} key={componentDisplayName} searchInput={this.state.searchInput} />
             );
           })}
         </Paragraph>
