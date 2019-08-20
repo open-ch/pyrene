@@ -15,7 +15,7 @@ export default class SearchResult extends React.Component {
   handleClick = () => {
     if (this.props.title) {
       this.setState(() => ({
-        redirectPath: SearchUtils.normalise(this.props.title.replace(/\s/g, '')),
+        redirectPath: `${SearchUtils.normaliseLink(this.props.category)}/${SearchUtils.normaliseLink(this.props.title)}`,
         redirect: true,
       }));
     }
@@ -44,12 +44,14 @@ export default class SearchResult extends React.Component {
 SearchResult.displayName = 'SearchResult';
 
 SearchResult.propTypes = {
+  category: PropTypes.string,
   description: PropTypes.string,
   searchInput: PropTypes.string,
   title: PropTypes.string,
 };
 
 SearchResult.defaultProps = {
+  category: '',
   title: '',
   description: '',
   searchInput: '',

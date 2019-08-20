@@ -5,6 +5,10 @@ export default class SearchUtils {
     return string.toLowerCase().trim();
   }
 
+  static normaliseLink(string) {
+    return string.replace(/\s/g, '');
+  }
+
   // Gets the relevant matches from a searched string
   static getMatches(searchInput, components) {
     const normalisedSearchInput = this.normalise(searchInput);
