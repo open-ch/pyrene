@@ -83,7 +83,6 @@ export default class ComponentEditor extends React.Component {
     const mergedComponentProps = this.getComponentProps();
     const initField = this.initField(mergedComponentProps);
     const displayedComponent = <Component {...mergedComponentProps} />;
-
     return (
       <div className="componentPlayground">
         {this.props.examples.examples
@@ -100,11 +99,17 @@ export default class ComponentEditor extends React.Component {
             <div styleName="componentDisplay">
               {this.props.examples.trigger ? <ParentButton component={displayedComponent} /> : displayedComponent}
             </div>
-            <CodeBlock component={displayedComponent} displayComponentPinned={this.state.pinned} />
+            <CodeBlock
+              component={displayedComponent}
+              componentOrigin={this.props.componentOrigin}
+              displayComponentPinned={this.state.pinned}
+
+            />
           </div>
           <DynamicPropTable
             propDocumentation={Component.__docgenInfo.props} // eslint-disable-line no-underscore-dangle
             initField={initField}
+            componentCategory={this.props.examples.category}
           />
         </Paragraph>
       </div>
@@ -116,9 +121,15 @@ export default class ComponentEditor extends React.Component {
 
 ComponentEditor.displayName = 'ComponentEditor';
 
+ComponentEditor.defaultProps = {
+  componentOrigin: 'pyrene',
+};
+
 ComponentEditor.propTypes = {
   component: PropTypes.func.isRequired,
+  componentOrigin: PropTypes.string,
   examples: PropTypes.shape({
+    category: PropTypes.string,
     examples: PropTypes.arrayOf(
       PropTypes.shape()
     ),

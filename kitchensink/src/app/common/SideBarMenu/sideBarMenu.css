@@ -78,7 +78,7 @@ a {
   transition: height .2s ease-out;
 }
 
-.sectionContentWrapper a:first-child .sectionElement {
+.sectionContentWrapper div:first-child a .sectionElement {
   margin-top: 16px;
 }
 
@@ -108,4 +108,47 @@ a {
   padding: 5px 8px;
   border-radius: 2px;
   margin-left: 32px;
+}
+
+.sectionContentWrapper a:first-child .sectionSubElement {
+  margin-top: 14px;
+}
+
+.sectionSubElementContainer {
+  display: flex;
+  align-items: center;
+}
+
+.sectionSubElement {
+  font-size: 14px;
+  font-weight: 600;
+  margin-left: 24px;
+  line-height: 42px;
+  cursor: pointer;
+}
+
+.sectionHead:hover, .sectionSubElement:hover {
+  color: var(--blue-600);
+}
+
+.sectionSubElement.disabled {
+  color: var(--neutral-200);
+  cursor: default;
+}
+
+.sectionSubElement.disabled span {
+  font-size: 8px;
+  letter-spacing: 1px;
+  color: #e64595;
+  text-transform: uppercase;
+  background-color: #fadfed;
+  padding: 4px 7px;
+  border-radius: 1px;
+  margin-left: 36px;
+}
+
+.verticalLine {
+  border-left: 2px solid var(--border);
+  height: 42px;
+  margin-left: 22px;
 }

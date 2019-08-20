@@ -2,6 +2,7 @@ import React from 'react';
 import {
   TextField, SingleSelect, Checkbox,
 } from 'pyrene/dist/pyrene.dev';
+import { exampleData } from 'pyrene-graphs/dist/pyrene-graphs.examples';
 import PropTypes from 'prop-types';
 import Table from './Table';
 import IconSelect from '../IconSelect/IconSelect';
@@ -13,6 +14,7 @@ import Counter from '../Counter/Counter';
 export default class DynamicPropTable extends React.Component {
 
   renderModifierFor(propName, propProps) {
+
     switch (propProps.type.name) {
       case 'string':
         return (
@@ -55,6 +57,20 @@ export default class DynamicPropTable extends React.Component {
           />
         );
 
+      case 'arrayOf':
+        if (this.props.componentCategory === 'Chart' && propName === 'data' && 'columns' in this.props.propDocumentation) {
+          const fieldPropsData = this.props.initField(propName);
+          const fieldPropsColumns = this.props.initField('columns');
+          const processedFieldProps = { ...fieldPropsData, value: { value: Object.values(exampleData)[0], label: Object.keys(exampleData)[0] }, onChange: (v) => { fieldPropsData.onChange(v.value.data); fieldPropsColumns.onChange(v.value.columns); } };
+          return (
+            <SingleSelect
+              options={Object.entries(exampleData).map(([key, value]) => ({ value: value, label: key }))}
+              {...processedFieldProps}
+            />
+          );
+        }
+        return <React.Fragment key={propName}>-</React.Fragment>;
+
       default:
         return <React.Fragment key={propName}>-</React.Fragment>;
     }
@@ -82,9 +98,11 @@ export default class DynamicPropTable extends React.Component {
 DynamicPropTable.displayName = 'DynamicPropTable';
 
 DynamicPropTable.defaultProps = {
+  componentCategory: '',
 };
 
 DynamicPropTable.propTypes = {
+  componentCategory: PropTypes.string,
   initField: PropTypes.func.isRequired,
   propDocumentation: PropTypes.objectOf(PropTypes.shape({
     propName: PropTypes.objectOf(PropTypes.shape({
