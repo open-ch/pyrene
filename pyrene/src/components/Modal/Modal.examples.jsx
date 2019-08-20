@@ -15,4 +15,6 @@ const examples = {
   trigger: true,
 };
 
+examples.category = 'Layout';
+
 export default examples;

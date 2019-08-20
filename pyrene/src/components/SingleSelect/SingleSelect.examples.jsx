@@ -43,4 +43,6 @@ const examples = {
   },
 };
 
+examples.category = 'Form';
+
 export default examples;

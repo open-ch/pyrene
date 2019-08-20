@@ -6,4 +6,6 @@ const examples = {
   },
 };
 
+examples.category = 'Other';
+
 export default examples;

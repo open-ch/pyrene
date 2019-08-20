@@ -23,7 +23,7 @@ const Pill = props => (
     )}
     {props.value <= props.maxValue
       ? <div styleName={className('pill', { [`type-${props.type}`]: true })}>{props.value}</div>
-      : <div styleName={className('pill', { [`type-${props.type}`]: true })}>{props.maxValue + '+'}</div>
+      : <div styleName={className('pill', { [`type-${props.type}`]: true })}>{`${props.maxValue}+`}</div>
     }
   </div>
 );
