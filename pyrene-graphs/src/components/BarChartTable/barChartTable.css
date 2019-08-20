@@ -33,4 +33,8 @@
 
 .showMoreLink {
   margin-top: 8px;
+  height: 18px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--blue-500);
 }

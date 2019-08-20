@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link, Modal, SimpleTable } from 'pyrene';
+import { Modal, SimpleTable } from 'pyrene';
 import { Bar, RelativeBar } from 'tuktuktwo';
 import Header from '../Header/Header';
 import './barChartTable.css';
@@ -14,7 +14,7 @@ function getValueWithAccessor(row, accessor) {
   return (typeof accessor === 'string' ? row[accessor] : accessor(row));
 }
 
-function getProcessedColumnsAndLegend(props, colorScheme) {
+function getProcessedColumnsAndLegend(props, colorScheme, withoutBars) {
   const maxValuePrimary = Math.max(...props.data.map(dataRow => getValueWithAccessor(dataRow, props.columns.primaryValue.accessor)));
   const maxValueSecondary = props.columns.secondaryValue ? Math.max(...props.data.map(dataRow => getValueWithAccessor(dataRow, props.columns.secondaryValue.accessor))) : maxValuePrimary;
   const maxValue = Math.max(maxValuePrimary, maxValueSecondary);
@@ -80,6 +80,7 @@ function getProcessedColumnsAndLegend(props, colorScheme) {
     id: getId(props.columns.primaryValue.title),
     accessor: props.columns.primaryValue.accessor,
     cellRenderCallback: props.columns.primaryValue.formatter ? row => props.columns.primaryValue.formatter(row.value) : null,
+    headerName: withoutBars ? props.columns.primaryValue.title : '',
     align: 'right',
     maxWidth: '90px',
   };
@@ -99,7 +100,7 @@ function getProcessedColumnsAndLegend(props, colorScheme) {
   let columns;
   const columnsTable = [
     columnLabel,
-    { ...columnPrimaryBarChart, headerName: props.columns.primaryValue.title },
+    ...(withoutBars ? [] : [{ ...columnPrimaryBarChart, headerName: props.columns.primaryValue.title }]),
     columnPrimaryValue,
   ];
   if (props.columns.secondaryValue) columnsTable.push(columnSecondaryValue);
@@ -111,7 +112,7 @@ function getProcessedColumnsAndLegend(props, colorScheme) {
       columns = [
         columnLabel,
         { ...columnPrimaryValue, headerName: props.columns.primaryValue.title },
-        columnPrimaryBarChart,
+        ...(withoutBars ? [] : [columnPrimaryBarChart]),
         columnSecondaryValue,
       ];
       break;
@@ -119,7 +120,7 @@ function getProcessedColumnsAndLegend(props, colorScheme) {
       columns = [
         columnLabel,
         columnPrimaryValue,
-        {
+        ...(withoutBars ? [] : [{
           id: getId(`${props.columns.primaryValue.title}_bar_left`),
           headerName: props.columns.primaryValue.title + props.columns.secondaryValue.title,
           accessor: props.columns.primaryValue.accessor,
@@ -146,11 +147,12 @@ function getProcessedColumnsAndLegend(props, colorScheme) {
             </div>
           ),
           align: 'center',
-        },
+        }]),
         {
           id: getId(props.columns.secondaryValue.title),
           accessor: props.columns.secondaryValue.accessor,
           cellRenderCallback: props.columns.secondaryValue.formatter ? row => props.columns.secondaryValue.formatter(row.value) : null,
+          headerName: withoutBars ? props.columns.secondaryValue.title : '',
           align: 'right',
           maxWidth: '90px',
         },
@@ -188,6 +190,8 @@ export default class BarChartTable extends React.Component {
      if (!(colorScheme.length > 0)) colorScheme = (this.props.type === 'comparison' ? colorSchemes.currentPrevious : colorSchemes.valueGround);
      const columnsAndLegend = getProcessedColumnsAndLegend(this.props, colorScheme);
      const description = this.props.type === 'bar' ? '' : this.props.description;
+     const sortedData = this.props.data.sort((a, b) => (getValueWithAccessor(b, this.props.columns.primaryValue.accessor) - getValueWithAccessor(a, this.props.columns.primaryValue.accessor)));
+     const maxData = 10;
      return (
        <div styleName="container">
          <Header
@@ -198,23 +202,26 @@ export default class BarChartTable extends React.Component {
          />
          <SimpleTable
            columns={columnsAndLegend.columns}
-           data={this.props.data.sort((a, b) => (getValueWithAccessor(b, this.props.columns.primaryValue.accessor) - getValueWithAccessor(a, this.props.columns.primaryValue.accessor))).slice(0, 10)}
+           data={sortedData.slice(0, maxData)}
            onRowDoubleClick={this.props.onRowDoubleClick}
          />
-         {(this.props.data.length > 10) && (
-           <div styleName="showMoreLink">
-             <Link
-               label={`Show more ${this.props.header}`}
-               onClick={() => this.toggleModal()}
-             />
+         {(this.props.data.length > maxData) && (
+           <div styleName="showMoreLink" onClick={this.toggleModal}>
+             {`Show more ${this.props.header}`}
+             {this.state.showModal && (
+               <Modal
+                 title={this.props.header}
+                 renderCallback={() => (
+                   <SimpleTable
+                     columns={getProcessedColumnsAndLegend(this.props, colorScheme, true).columns}
+                     data={sortedData}
+                   />
+                 )}
+               />
+             )}
            </div>
          )}
-         {this.state.showModal && (
-           <Modal
-             title="bla"
-             renderCallback={() => <div>bla</div>}
-           />
-         )}
+
        </div>
      );
    }
