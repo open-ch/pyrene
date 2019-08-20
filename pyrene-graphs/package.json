@@ -75,7 +75,7 @@
     "tuktuktwo": "^0.0.1"
   },
   "peerDependencies": {
-    "pyrene": "1.7.9",
+    "pyrene": ">=1.7.9 <2.0.0",
     "react": ">=16.4.2 <16.9.0",
     "react-dom": ">=16.4.2 <16.9.0"
   }
