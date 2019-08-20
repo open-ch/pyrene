@@ -25,7 +25,7 @@ export default class ResultsPage extends React.Component {
     if (prevState.searchInput !== nextProps.match.params.searchInput) {
       return ({
         searchInput: nextProps.match.params.searchInput,
-        matches: SearchUtils.getMatches(nextProps.match.params.searchInput, Object.values(components).filter(component => exampleComponents[component.name])),
+        matches: SearchUtils.getMatches(nextProps.match.params.searchInput, components.filter(component => exampleComponents[component.name])),
       });
     }
     return null;
