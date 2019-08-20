@@ -49,6 +49,8 @@ const tableColumns = [{
   id: 'age',
   headerName: 'Age',
   accessor: 'age',
+  align: 'right',
+  maxWidth: '26px',
 }, {
   id: 'friendName',
   headerName: 'Friend Name',
@@ -66,6 +68,7 @@ const examples = {
   props: {
     columns: tableColumns,
     data: tableData,
+    onRowDoubleClick: row => alert(row.value),
   },
 };
 
