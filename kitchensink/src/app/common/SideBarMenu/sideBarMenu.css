@@ -78,7 +78,7 @@ a {
   transition: height .2s ease-out;
 }
 
-.sectionContentWrapper a:first-child .sectionElement {
+.sectionContentWrapper div:first-child a .sectionElement {
   margin-top: 16px;
 }
 
