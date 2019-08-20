@@ -16,5 +16,6 @@ TabView.props = {
   ],
 };
 
+TabView.category = 'Layout';
 
 export default TabView;

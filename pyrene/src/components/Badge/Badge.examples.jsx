@@ -4,7 +4,7 @@ examples.props = {
   label: 'Security Alert',
   maxWidth: 120,
   type: 'danger',
-  onClick: () => { alert('Dangerous!'); },
+  onClick: () => { alert('Dangerous!'); }, // eslint-disable-line no-alert
 };
 
 examples.examples = [
@@ -21,7 +21,7 @@ examples.examples = [
       label: 'More Information',
       maxWidth: 80,
       type: 'info',
-      onClick: () => { alert('We want information!'); },
+      onClick: () => { alert('We want information!'); }, // eslint-disable-line no-alert
     },
     description: 'Clickable badge alerting information.',
   },
@@ -30,7 +30,7 @@ examples.examples = [
       label: 'Success',
       maxWidth: 100,
       type: 'success',
-      onClick: () => { alert('This is a success!'); },
+      onClick: () => { alert('This is a success!'); }, // eslint-disable-line no-alert
     },
     description: 'Clickable badge alerting success.',
   },
@@ -47,10 +47,12 @@ examples.examples = [
       label: 'Danger',
       maxWidth: 100,
       type: 'danger',
-      onClick: () => { alert('Dangerous!'); },
+      onClick: () => { alert('Dangerous!'); }, // eslint-disable-line no-alert
     },
     description: 'Clickable badge alerting danger.',
   },
 ];
+
+examples.category = 'Other';
 
 export default examples;

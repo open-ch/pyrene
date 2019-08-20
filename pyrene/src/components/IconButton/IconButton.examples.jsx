@@ -15,4 +15,6 @@ IconButton.examples = [
   },
 ];
 
+IconButton.category = 'Interaction';
+
 export default IconButton;

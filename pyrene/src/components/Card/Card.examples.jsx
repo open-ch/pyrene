@@ -7,4 +7,6 @@ examples.props = {
   children: <div>Card content</div>,
 };
 
+examples.category = 'Layout';
+
 export default examples;
