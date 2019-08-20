@@ -111,7 +111,7 @@ export default class SideBarMenuSection extends React.Component {
     );
     return (
       isSubElement ? (
-        <div styleName="sectionSubElementContainer">
+        <div styleName="sectionSubElementContainer" key={`${this.props.title}${element.name}`}>
           <div styleName="verticalLine" />
           {navLink}
         </div>
@@ -129,7 +129,7 @@ export default class SideBarMenuSection extends React.Component {
 
         <div styleName="sectionContentWrapper" style={{ height: this.state.sectionContentWrapperHeight + this.state.sectionElementContentWrapperHeight }}>
           {this.props.sectionElements.map((element, index) => (
-            <div>
+            <div key={`${this.props.title}${element.name}`}>
               {this.createNavLink(element, index, false)}
               {element.elements && element.elements.length > 0 && this.state.elementOpen[element.name]
                 && element.elements.map((subElement, subIndex) => this.createNavLink(subElement, subIndex, true))}
