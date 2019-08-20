@@ -16,7 +16,7 @@ describe('<Banner />', () => {
 
   it('overlay is clearable', () => {
     const onClick = jest.fn();
-    const rendered = shallow(<Banner {...props} styling="overlay" onClear={onClick} clearable />);
+    const rendered = shallow(<Banner {...props} styling="overlay" onClear={onClick} />);
     expect(rendered.find('.clearIcon')).toHaveLength(1);
 
     rendered.find('.clearIcon').simulate('click');
@@ -24,19 +24,14 @@ describe('<Banner />', () => {
   });
 
   it('overlay has a clearIcon', () => {
-    let rendered = shallow(<Banner {...props} styling="overlay" type="info" clearable />);
+    let rendered = shallow(<Banner {...props} styling="overlay" type="info" />);
     expect(rendered.find('.clearIcon')).toHaveLength(1);
 
-    rendered = shallow(<Banner {...props} styling="overlay" type="success" clearable />);
+    rendered = shallow(<Banner {...props} styling="overlay" type="success" />);
     expect(rendered.find('.clearIcon')).toHaveLength(1);
 
-    rendered = shallow(<Banner {...props} styling="overlay" type="warning" clearable />);
+    rendered = shallow(<Banner {...props} styling="overlay" type="warning" />);
     expect(rendered.find('.clearIcon')).toHaveLength(1);
-  });
-
-  it('has no clearIcon if not clearable', () => {
-    const rendered = shallow(<Banner {...props} clearable={false} styling="overlay" />);
-    expect(rendered.find('.clearIcon')).toHaveLength(0);
   });
 
   it('has no clearIcon if not overlay', () => {
