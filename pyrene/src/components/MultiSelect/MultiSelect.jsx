@@ -234,7 +234,7 @@ MultiSelect.propTypes = {
    */
   selectedOptionsInDropdown: PropTypes.bool,
   /**
-   * Sets the title above the input field.
+   * Whether the options are automatically sorted by the label or not.
    */
   sorted: PropTypes.bool,
   /**
