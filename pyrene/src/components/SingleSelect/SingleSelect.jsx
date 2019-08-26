@@ -12,98 +12,101 @@ const LoadingIndicator = () => <Loader />;
 /**
  * Selects are used when the user has to make a selection from a list that is too large to show.
  */
-const SingleSelect = props => (
-  <div styleName={classNames('selectContainer', { disabled: props.disabled })}>
-    {props.title && <div styleName={classNames('selectTitle', { required: props.required && !props.disabled })}>{props.title}</div>}
+const SingleSelect = (props) => {
+  const options = props.sorted ? props.options.sort((a, b) => a.label.localeCompare(b.label)) : props.options;
+  return (
+    <div styleName={classNames('selectContainer', { disabled: props.disabled })}>
+      {props.title && <div styleName={classNames('selectTitle', { required: props.required && !props.disabled })}>{props.title}</div>}
 
-    {props.creatable
-      ? (
-        <CreatableSelect
-          className="singleSelect"
-          styles={SelectStyle}
-          components={{ LoadingIndicator }}
-          // Sets the internal value to "" in case of null or undefined
-          getOptionValue={option => ((option.value !== null && typeof option.value !== 'undefined') ? option.value : '')}
-          placeholder={props.placeholder}
-          options={props.options.sort((a, b) => a.label.localeCompare(b.label))}
-          value={props.value}
-          defaultValue={props.defaultValue}
-          isClearable={props.clearable}
-          isDisabled={props.disabled}
-          isInvalid={props.invalid}
-          isLoading={props.loading}
-          // wrapping type and key into target so it better reflects the api that input event has (there is also event.target.name)
-          onChange={option => props.onChange(option, { target: { type: 'singleSelect', name: props.name, value: option } })}
-          onBlur={props.onBlur}
-          onFocus={props.onFocus}
-          name={props.name}
-          id={props.name}
-          inputId={props.name}
+      {props.creatable
+        ? (
+          <CreatableSelect
+            className="singleSelect"
+            styles={SelectStyle}
+            components={{ LoadingIndicator }}
+            // Sets the internal value to "" in case of null or undefined
+            getOptionValue={option => ((option.value !== null && typeof option.value !== 'undefined') ? option.value : '')}
+            placeholder={props.placeholder}
+            options={options}
+            value={props.value}
+            defaultValue={props.defaultValue}
+            isClearable={props.clearable}
+            isDisabled={props.disabled}
+            isInvalid={props.invalid}
+            isLoading={props.loading}
+            // wrapping type and key into target so it better reflects the api that input event has (there is also event.target.name)
+            onChange={option => props.onChange(option, { target: { type: 'singleSelect', name: props.name, value: option } })}
+            onBlur={props.onBlur}
+            onFocus={props.onFocus}
+            name={props.name}
+            id={props.name}
+            inputId={props.name}
 
-          maxMenuHeight={264}
-          noOptionsMessage={() => 'no matches found'}
-          formatCreateLabel={inputValue => `Create new tag "${inputValue}"`}
+            maxMenuHeight={264}
+            noOptionsMessage={() => 'no matches found'}
+            formatCreateLabel={inputValue => `Create new tag "${inputValue}"`}
 
-          isSearchable
-          blurInputOnSelect
-          escapeClearsValue
-          captureMenuScroll
-        />
-      )
-      : (
-        <Select
-          className="singleSelect"
-          styles={SelectStyle}
-          components={{ LoadingIndicator }}
-          // Sets the internal value to "" in case of null or undefined
-          getOptionValue={option => ((option.value !== null && typeof option.value !== 'undefined') ? option.value : '')}
-          placeholder={props.placeholder}
-          options={props.options.sort((a, b) => a.label.localeCompare(b.label))}
-          value={props.value}
-          defaultValue={props.defaultValue}
-          isClearable={props.clearable}
-          isSearchable={props.searchable}
-          isDisabled={props.disabled}
-          isInvalid={props.invalid}
-          isLoading={props.loading}
-          onChange={option => props.onChange(option, { target: { type: 'singleSelect', name: props.name, value: option } })}
-          onBlur={props.onBlur}
-          onFocus={props.onFocus}
-          name={props.name}
-          id={props.name}
-          inputId={props.name}
+            isSearchable
+            blurInputOnSelect
+            escapeClearsValue
+            captureMenuScroll
+          />
+        )
+        : (
+          <Select
+            className="singleSelect"
+            styles={SelectStyle}
+            components={{ LoadingIndicator }}
+            // Sets the internal value to "" in case of null or undefined
+            getOptionValue={option => ((option.value !== null && typeof option.value !== 'undefined') ? option.value : '')}
+            placeholder={props.placeholder}
+            options={options}
+            value={props.value}
+            defaultValue={props.defaultValue}
+            isClearable={props.clearable}
+            isSearchable={props.searchable}
+            isDisabled={props.disabled}
+            isInvalid={props.invalid}
+            isLoading={props.loading}
+            onChange={option => props.onChange(option, { target: { type: 'singleSelect', name: props.name, value: option } })}
+            onBlur={props.onBlur}
+            onFocus={props.onFocus}
+            name={props.name}
+            id={props.name}
+            inputId={props.name}
 
-          maxMenuHeight={264}
-          noOptionsMessage={() => 'no matches found'}
+            maxMenuHeight={264}
+            noOptionsMessage={() => 'no matches found'}
 
-          blurInputOnSelect
-          escapeClearsValue
-          captureMenuScroll
-        />
-      )
-    }
+            blurInputOnSelect
+            escapeClearsValue
+            captureMenuScroll
+          />
+        )
+      }
 
-    {props.invalid && props.invalidLabel && !props.disabled
-      ? (
-        <div styleName="invalidLabel">
-          <span className="pyreneIcon-errorOutline" styleName="errorIcon" />
-          {props.invalidLabel}
-        </div>
-      )
-      : (
-        <React.Fragment>
-          {props.helperLabel
-        && (
-          <div styleName="selectHelper">
-            {props.helperLabel}
+      {props.invalid && props.invalidLabel && !props.disabled
+        ? (
+          <div styleName="invalidLabel">
+            <span className="pyreneIcon-errorOutline" styleName="errorIcon" />
+            {props.invalidLabel}
           </div>
-        )}
-        </React.Fragment>
-      )
-    }
+        )
+        : (
+          <React.Fragment>
+            {props.helperLabel
+          && (
+            <div styleName="selectHelper">
+              {props.helperLabel}
+            </div>
+          )}
+          </React.Fragment>
+        )
+      }
 
-  </div>
-);
+    </div>
+  );
+};
 
 SingleSelect.displayName = 'Single Select';
 
@@ -116,6 +119,7 @@ SingleSelect.defaultProps = {
   loading: false,
   required: false,
   searchable: false,
+  sorted: true,
   clearable: false,
   options: [],
   defaultValue: null,
@@ -200,6 +204,10 @@ SingleSelect.propTypes = {
    * Whether the user is allowed to type to search elements. Ignored if creatable is set true.
    */
   searchable: PropTypes.bool,
+  /**
+   * Whether the options are automatically sorted by the label or not.
+   */
+  sorted: PropTypes.bool,
   /**
    * Sets the title above the input field.
    */
