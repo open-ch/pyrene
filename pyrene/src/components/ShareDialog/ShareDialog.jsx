@@ -61,7 +61,7 @@ export default class ShareDialog extends React.Component {
                 <div styleName="closeButton" className="pyreneIcon-delete" onClick={this._displayShareDialogClicked} />
               </div>
               <div styleName="content">
-                <input autoFocus styleName="urlField" type="text" value={this.props.link} ref={this.textInput} readOnly />
+                <input styleName="urlField" type="text" value={this.props.link} ref={this.textInput} readOnly />
               </div>
               <ButtonBar
                 rightButtonSectionElements={[
