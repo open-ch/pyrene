@@ -158,6 +158,11 @@ const selectStyle = {
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
   }),
+
+  singleValue: base => ({
+    ...base,
+    lineHeight: '1.1',
+  }),
 };
 
 export default selectStyle;
