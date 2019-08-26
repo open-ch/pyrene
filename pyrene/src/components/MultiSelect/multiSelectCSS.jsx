@@ -23,6 +23,11 @@ const multiSelectStyle = props => ({
     display: 'none',
   }),
 
+  indicatorsContainer: base => ({
+    ...base,
+    alignItems: 'start',
+  }),
+
   control: (base, state) => ({
     boxSizing: 'border-box',
     display: 'flex',
@@ -75,6 +80,7 @@ const multiSelectStyle = props => ({
       overflow: state.hasValue ? 'auto' : 'hidden',
       padding: '2px 6px',
       maxHeight: props.rows <= 0 ? 79 : (props.rows * 25) + 4,
+      alignItems: 'start',
     };
   },
 
