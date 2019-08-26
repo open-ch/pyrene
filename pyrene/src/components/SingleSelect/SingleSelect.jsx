@@ -119,7 +119,7 @@ SingleSelect.defaultProps = {
   loading: false,
   required: false,
   searchable: false,
-  sorted: false,
+  sorted: true,
   clearable: false,
   options: [],
   defaultValue: null,

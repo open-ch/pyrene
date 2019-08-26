@@ -28,101 +28,104 @@ export const valueFromOptions = (options, values) => options.filter(o => values.
 /**
  * Multi-Selects are used when the user has to make a choice from a list. It allows the user to select multiple items from a dropdown list.
  */
-const MultiSelect = props => (
-  <div styleName={classNames('selectContainer', { disabled: props.disabled })}>
-    {props.title && <div styleName={classNames('selectTitle', { required: props.required && !props.disabled })}>{props.title}</div>}
-    {props.creatable
-      ? (
-        <CreatableSelect
-          className="multiSelect"
-          styles={MultiSelectStyle(props)}
-          components={props.selectedOptionsInDropdown ? componentsOptionsInDropdown : componentsNormal}
-          // Sets the internal value to "" in case of null or undefined
-          getOptionValue={option => ((option.value !== null && typeof option.value !== 'undefined') ? option.value : '')}
-          placeholder={props.placeholder}
-          options={props.options.sort((a, b) => a.label.localeCompare(b.label))}
-          value={props.value}
-          defaultValue={props.defaultValue}
-          isClearable={props.clearable}
-          isDisabled={props.disabled}
-          isInvalid={props.invalid}
-          isLoading={props.loading}
-          // wrapping type and key into target so it better reflects the api that input event has (there is also event.target.name)
-          onChange={option => props.onChange(option, { target: { type: 'multiSelect', name: props.name, value: option } })}
-          onBlur={props.onBlur}
-          onFocus={props.onFocus}
-          name={props.name}
-          id={props.name}
-          inputId={props.name}
+const MultiSelect = (props) => {
+  const options = props.sorted ? props.options.sort((a, b) => a.label.localeCompare(b.label)) : props.options;
+  return (
+    <div styleName={classNames('selectContainer', { disabled: props.disabled })}>
+      {props.title && <div styleName={classNames('selectTitle', { required: props.required && !props.disabled })}>{props.title}</div>}
+      {props.creatable
+        ? (
+          <CreatableSelect
+            className="multiSelect"
+            styles={MultiSelectStyle(props)}
+            components={props.selectedOptionsInDropdown ? componentsOptionsInDropdown : componentsNormal}
+            // Sets the internal value to "" in case of null or undefined
+            getOptionValue={option => ((option.value !== null && typeof option.value !== 'undefined') ? option.value : '')}
+            placeholder={props.placeholder}
+            options={options}
+            value={props.value}
+            defaultValue={props.defaultValue}
+            isClearable={props.clearable}
+            isDisabled={props.disabled}
+            isInvalid={props.invalid}
+            isLoading={props.loading}
+            // wrapping type and key into target so it better reflects the api that input event has (there is also event.target.name)
+            onChange={option => props.onChange(option, { target: { type: 'multiSelect', name: props.name, value: option } })}
+            onBlur={props.onBlur}
+            onFocus={props.onFocus}
+            name={props.name}
+            id={props.name}
+            inputId={props.name}
 
-          maxMenuHeight={264}
-          noOptionsMessage={() => 'no matches found'}
-          formatCreateLabel={inputValue => `Create new tag "${inputValue}"`}
+            maxMenuHeight={264}
+            noOptionsMessage={() => 'no matches found'}
+            formatCreateLabel={inputValue => `Create new tag "${inputValue}"`}
 
-          closeMenuOnSelect={!props.keepMenuOnSelect}
-          isMulti
-          isSearchable
-          escapeClearsValue
-          captureMenuScroll
-        />
-      )
-      : (
-        <Select
-          className="multiSelect"
-          styles={MultiSelectStyle(props)}
-          components={props.selectedOptionsInDropdown ? componentsOptionsInDropdown : componentsNormal}
-          // Sets the internal value to "" in case of null or undefined
-          getOptionValue={option => ((option.value !== null && typeof option.value !== 'undefined') ? option.value : '')}
-          placeholder={props.placeholder}
-          options={props.options.sort((a, b) => a.label.localeCompare(b.label))}
-          value={props.value}
-          defaultValue={props.defaultValue}
-          isClearable={props.clearable}
-          isDisabled={props.disabled}
-          isInvalid={props.invalid}
-          isLoading={props.loading}
-          onChange={option => props.onChange(option, { target: { type: 'multiSelect', name: props.name, value: option } })}
-          onBlur={props.onBlur}
-          onFocus={props.onFocus}
-          name={props.name}
-          id={props.name}
-          inputId={props.name}
+            closeMenuOnSelect={!props.keepMenuOnSelect}
+            isMulti
+            isSearchable
+            escapeClearsValue
+            captureMenuScroll
+          />
+        )
+        : (
+          <Select
+            className="multiSelect"
+            styles={MultiSelectStyle(props)}
+            components={props.selectedOptionsInDropdown ? componentsOptionsInDropdown : componentsNormal}
+            // Sets the internal value to "" in case of null or undefined
+            getOptionValue={option => ((option.value !== null && typeof option.value !== 'undefined') ? option.value : '')}
+            placeholder={props.placeholder}
+            options={options}
+            value={props.value}
+            defaultValue={props.defaultValue}
+            isClearable={props.clearable}
+            isDisabled={props.disabled}
+            isInvalid={props.invalid}
+            isLoading={props.loading}
+            onChange={option => props.onChange(option, { target: { type: 'multiSelect', name: props.name, value: option } })}
+            onBlur={props.onBlur}
+            onFocus={props.onFocus}
+            name={props.name}
+            id={props.name}
+            inputId={props.name}
 
-          maxMenuHeight={264}
-          noOptionsMessage={() => 'no matches found'}
+            maxMenuHeight={264}
+            noOptionsMessage={() => 'no matches found'}
 
-          closeMenuOnSelect={!props.keepMenuOnSelect}
+            closeMenuOnSelect={!props.keepMenuOnSelect}
 
-          isMulti
-          isSearchable
-          escapeClearsValue
-          captureMenuScroll
-          backspaceRemovesValue
-        />
-      )
-    }
+            isMulti
+            isSearchable
+            escapeClearsValue
+            captureMenuScroll
+            backspaceRemovesValue
+          />
+        )
+      }
 
-    {props.invalid && props.invalidLabel && !props.disabled
-      ? (
-        <div styleName="invalidLabel">
-          <span className="pyreneIcon-errorOutline" styleName="errorIcon" />
-          {props.invalidLabel}
-        </div>
-      )
-      : (
-        <React.Fragment>
-          {props.helperLabel
+      {props.invalid && props.invalidLabel && !props.disabled
+        ? (
+          <div styleName="invalidLabel">
+            <span className="pyreneIcon-errorOutline" styleName="errorIcon" />
+            {props.invalidLabel}
+          </div>
+        )
+        : (
+          <React.Fragment>
+            {props.helperLabel
         && (
           <div styleName="selectHelper">
             {props.helperLabel}
           </div>
         )}
-        </React.Fragment>
-      )
-    }
+          </React.Fragment>
+        )
+      }
 
-  </div>
-);
+    </div>
+  );
+};
 
 MultiSelect.displayName = 'Multi Select';
 
@@ -143,6 +146,7 @@ MultiSelect.defaultProps = {
   required: false,
   clearable: false,
   keepMenuOnSelect: false,
+  sorted: true,
   value: null,
   onChange: () => null,
   onBlur: () => null,
@@ -229,6 +233,10 @@ MultiSelect.propTypes = {
    * Displays the selected options in the dropdown and prevents the input from growing vertically.
    */
   selectedOptionsInDropdown: PropTypes.bool,
+  /**
+   * Sets the title above the input field.
+   */
+  sorted: PropTypes.bool,
   /**
    * Sets the title above the input field.
    */
