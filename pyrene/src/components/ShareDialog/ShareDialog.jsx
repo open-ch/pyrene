@@ -17,6 +17,8 @@ export default class ShareDialog extends React.Component {
     displayShareDialog: false,
   };
 
+  textInput = React.createRef();
+
   componentDidUpdate() {
     if (this.state.displayShareDialog) {
       this._focusAndSelectInput();
@@ -36,8 +38,8 @@ export default class ShareDialog extends React.Component {
   };
 
   _focusAndSelectInput = () => {
-    this.textInput.focus();
-    this.textInput.select();
+    this.textInput.current.focus();
+    this.textInput.current.select();
   };
 
 
@@ -59,7 +61,7 @@ export default class ShareDialog extends React.Component {
                 <div styleName="closeButton" className="pyreneIcon-delete" onClick={this._displayShareDialogClicked} />
               </div>
               <div styleName="content">
-                <input styleName="urlField" type="text" value={this.props.link} ref={(input) => { this.textInput = input; }} readOnly />
+                <input autoFocus styleName="urlField" type="text" value={this.props.link} ref={this.textInput} readOnly />
               </div>
               <ButtonBar
                 rightButtonSectionElements={[
