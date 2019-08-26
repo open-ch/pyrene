@@ -42,7 +42,7 @@ Banner.propTypes = {
   /**
    * Sets an additional description, displayed underneath the label. Not displayed for inline banners.
    */
-  description: PropTypes.oneOfType(PropTypes.string, PropTypes.node),
+  description: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   /**
    * Sets the label displayed to the user.
    */
