@@ -115,7 +115,6 @@ export default class Table extends React.Component {
 
     // Server-side props
     manual: this.props.manual,
-    pages: this.props.manual ? this.props.pages : undefined,
     onFetchData: rts => this.props.onFetchData({ page: rts.page, pageSize: rts.pageSize, sorting: rts.sorted }),
 
   };
@@ -247,6 +246,7 @@ export default class Table extends React.Component {
       defaultPageSize: this.props.defaultPageSize,
       data: this.props.data,
       pageSizeOptions: this.props.pageSizeOptions,
+      pages: this.props.manual ? this.props.pages : undefined,
       showPaginationBottom: !!(this.props.data && this.props.data.length && !this.props.error && !this.props.loading),
 
       multiSort: this.props.multiSort,
