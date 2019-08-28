@@ -28,6 +28,9 @@
 :global(.pyreneIcon-data:before){
   content: "\6a";
 }
+:global(.pyreneIcon-pin:before){
+  content: "\74";
+}
 :global(.pyreneIcon-home:before){
   content: "\69";
 }
@@ -85,3 +88,4 @@
 :global(.pyreneIcon-share:before){
   content: "\30";
 }
+
