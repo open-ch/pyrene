@@ -75,7 +75,7 @@ class RadioGroup extends Component {
 
     return (
       <div
-        styleName={classNames('radioSelectionContainer', { [`alignment-${this.props.alignment}`]: true }, { invalid: this.props.invalid })}
+        styleName={classNames('radioSelectionContainer', { [`alignment-${this.props.alignment}`]: true })}
         onBlur={this.props.onBlur}
         id={this.props.name}
       >
