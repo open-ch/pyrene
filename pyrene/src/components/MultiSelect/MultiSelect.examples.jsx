@@ -41,6 +41,7 @@ const examples = {
     options: testOptions,
     onChange: stateProvider => value => stateProvider.setState({ value }),
     value: stateProvider => stateProvider.state.value,
+    rows: 3,
   },
 };
 

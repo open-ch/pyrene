@@ -25,7 +25,7 @@ const multiSelectStyle = props => ({
 
   indicatorsContainer: base => ({
     ...base,
-    alignItems: 'start',
+    alignItems: props.rows <= 1 ? 'center' : 'flex-start',
   }),
 
   control: (base, state) => ({
@@ -35,7 +35,7 @@ const multiSelectStyle = props => ({
     justifyContent: 'space-between',
     outline: '0 !important',
     position: 'relative',
-    alignItems: props.rows <= 0 ? 'center' : 'flex-start',
+    alignItems: props.rows <= 0 ? 'center' : 'start',
     overflow: 'hidden',
 
     backgroundColor: (state.isFocused || state.hasValue) ? colorConstants.backgroundLight : colorConstants.backgroundTint,
@@ -87,6 +87,7 @@ const multiSelectStyle = props => ({
   placeholder: base => ({
     ...base,
     color: colorConstants.neutral200,
+    height: props.rows <= 1 ? 'auto' : '100%',
   }),
 
   clearIndicator: () => ({
