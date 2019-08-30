@@ -26,6 +26,7 @@ const multiSelectStyle = props => ({
   indicatorsContainer: base => ({
     ...base,
     alignItems: props.rows <= 1 ? 'center' : 'flex-start',
+    paddingTop: props.rows <= 1 ? 'auto' : '6px'
   }),
 
   control: (base, state) => ({
@@ -88,6 +89,7 @@ const multiSelectStyle = props => ({
     ...base,
     color: colorConstants.neutral200,
     height: props.rows <= 1 ? 'auto' : '100%',
+    paddingTop: props.rows <= 1 ? 'auto' : '8px'
   }),
 
   clearIndicator: () => ({
