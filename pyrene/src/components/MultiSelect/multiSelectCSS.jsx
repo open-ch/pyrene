@@ -36,7 +36,7 @@ const multiSelectStyle = props => ({
     justifyContent: 'space-between',
     outline: '0 !important',
     position: 'relative',
-    alignItems: props.rows <= 0 ? 'center' : 'start',
+    alignItems: props.rows <= 0 ? 'center' : 'flex-start',
     overflow: 'hidden',
 
     backgroundColor: (state.isFocused || state.hasValue) ? colorConstants.backgroundLight : colorConstants.backgroundTint,
