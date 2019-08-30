@@ -246,6 +246,7 @@ export default class Table extends React.Component {
       defaultPageSize: this.props.defaultPageSize,
       data: this.props.data,
       pageSizeOptions: this.props.pageSizeOptions,
+      page: this.props.manual && this.props.currentPage >= 0 ? this.props.currentPage : undefined,
       pages: this.props.manual ? this.props.pages : undefined,
       showPaginationBottom: !!(this.props.data && this.props.data.length && !this.props.error && !this.props.loading),
 
@@ -426,6 +427,10 @@ Table.propTypes = {
     initiallyHidden: PropTypes.bool,
     width: PropTypes.number,
   })).isRequired,
+  /**
+   * Page to display by the Table (use only with server-side data fetching & pagination).
+   */
+  currentPage: PropTypes.number, // eslint-disable-line
   /**
    * Sets the Table data displayed in the rows. Type: JSON
    */
