@@ -30,7 +30,7 @@ export default class FilterOption extends React.Component {
               name={this.props.filterKey}
               options={this.props.options}
               // If multiSelect is empty (empty array) return null to filter instead of []
-              onChange={value => this.props.handleFilterChange(value.length === 0 ? null : value, this.props.filterKey)}
+              onChange={value => this.props.handleFilterChange(value && value.length === 0 ? null : value, this.props.filterKey)}
               // Pass empty array instead of null to multiSelect component if filterValues are null
               value={isValue ? this.props.filterValues[this.props.filterKey] : []}
               selectedOptionsInDropdown
