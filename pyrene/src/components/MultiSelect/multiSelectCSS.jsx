@@ -25,8 +25,8 @@ const multiSelectStyle = props => ({
 
   indicatorsContainer: base => ({
     ...base,
-    alignItems: props.rows <= 1 ? 'center' : 'flex-start',
-    paddingTop: props.rows <= 1 ? 'auto' : '6px'
+    alignItems: 'flex-start',
+    paddingTop: '6px'
   }),
 
   control: (base, state) => ({
@@ -81,15 +81,16 @@ const multiSelectStyle = props => ({
       overflow: state.hasValue ? 'auto' : 'hidden',
       padding: '2px 6px',
       maxHeight: props.rows <= 0 ? 79 : (props.rows * 25) + 4,
-      alignItems: 'start',
+      alignItems: 'flex-start',
+      alignContent: 'flex-start',
     };
   },
 
   placeholder: base => ({
     ...base,
     color: colorConstants.neutral200,
-    height: props.rows <= 1 ? 'auto' : '100%',
-    paddingTop: props.rows <= 1 ? 'auto' : '8px'
+    height: '100%',
+    paddingTop: '7px'
   }),
 
   clearIndicator: () => ({
