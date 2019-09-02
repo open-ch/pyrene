@@ -419,7 +419,7 @@ const extendedColors = [
 ];
 
 const svgs = [
-  { name: 'checkbox-blank', tags: [], path: '/src/app/data/svgs/checkbox-blank.svg' },
+  { name: 'checkbox-blank', tags: [], path: './svgs/checkbox-blank.svg' },
 ];
 
 export {
