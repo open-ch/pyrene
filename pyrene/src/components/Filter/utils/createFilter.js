@@ -27,12 +27,9 @@ export const getSubstringFunc = accessor => (value, datum) => typeof datum[acces
  */
 export const getEqualFunc = accessor => (value, datum) => {
 
-  let prop = datum[accessor];
-  if (typeof accessor === 'function') {
-    prop = accessor(datum);
-  }
+  const datumProp = typeof accessor === 'function' ? accessor(datum) : datum[accessor];
 
-  switch (prop) {
+  switch (datumProp) {
     case undefined:
       // if the datum is not defined, I dont care about the value, just return false
       return false;
@@ -43,7 +40,7 @@ export const getEqualFunc = accessor => (value, datum) => {
     default:
       // 0 === '0', 'true' === true etc. Reason for this is that url can handle only
       // strings and not other types and we want to pass filter values via url...
-      return prop.toString() === value.toString();
+      return datumProp.toString() === value.toString();
   }
 };
 
