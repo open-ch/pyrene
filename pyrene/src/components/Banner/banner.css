@@ -14,6 +14,7 @@
   background-color: var(--background-light);
 
   border: 1px solid var(--neutral-030);
+  border-left: 0px;
 
   &.style-overlay {
     margin-bottom: 8px;
