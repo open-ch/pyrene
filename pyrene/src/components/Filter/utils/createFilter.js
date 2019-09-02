@@ -22,9 +22,27 @@ export const isNullFilter = (type, value) => {
 export const getSubstringFunc = accessor => (value, datum) => typeof datum[accessor] !== 'undefined' && datum[accessor] !== null && datum[accessor].toString().toLowerCase().includes(value.toString().toLowerCase());
 
 /*
- * Returns a function that filters datum.accessor for equal.
+ * Returns a function that filters datum.accessor.toString() for equal.
+ * Value - from ui, keeps changing; datum - probably from backend, static, given in advance :)
  */
-export const getEqualFunc = accessor => (value, datum) => typeof datum[accessor] !== 'undefined' && datum[accessor] === value;
+export const getEqualFunc = accessor => (value, datum) => {
+
+  const datumProp = typeof accessor === 'function' ? accessor(datum) : datum[accessor];
+
+  switch (datumProp) {
+    case undefined:
+      // if the datum is not defined, I dont care about the value, just return false
+      return false;
+    case null:
+    case 'null':
+      // null equals 'null' no matter if comparing strings or primitive data types
+      return !!'null';
+    default:
+      // 0 === '0', 'true' === true etc. Reason for this is that url can handle only
+      // strings and not other types and we want to pass filter values via url...
+      return datumProp.toString() === value.toString();
+  }
+};
 
 /*
  * Uses filter value and filter definition to create a filter based on accessor or customFilter.
