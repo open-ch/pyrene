@@ -61,8 +61,8 @@ describe('getEqualFunc', () => {
     expect(createFilter.getEqualFunc('testAccessor')(1, { testAccessor: 1 })).toBe(true);
   });
 
-  it('returns false on not strictly equal', () => {
-    expect(createFilter.getEqualFunc('testAccessor')(1, { testAccessor: '1' })).toBe(false);
+  it('returns true on toString() equal', () => {
+    expect(createFilter.getEqualFunc('testAccessor')(1, { testAccessor: '1' })).toBe(true);
   });
 });
 
@@ -74,6 +74,14 @@ describe('getSingleFilterFunc', () => {
       accessor: 'test',
     };
     expect(createFilter.getSingleFilterFunc(filterDefinition, 'filterValue')({ test: 'filterValue' })).toBe(true);
+  });
+
+  it('returns true on accessor as a function', () => {
+    const filterDefinition = {
+      type: 'singleSelect',
+      accessor: d => d.test.id,
+    };
+    expect(createFilter.getSingleFilterFunc(filterDefinition, { value: 'filterValue' })({ test: { id: 'filterValue' } })).toBe(true);
   });
 
   it('for text calls customFilter', () => {
