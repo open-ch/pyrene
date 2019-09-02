@@ -36,8 +36,12 @@ export const getEqualFunc = accessor => (value, datum) => {
     case null:
     case 'null':
       // null equals 'null' no matter if comparing strings or primitive data types
-      return !!'null';
+      return (value === null || value === 'null');
     default:
+      if (value === null || value === undefined || value === 'null') {
+        return false;
+      }
+
       // 0 === '0', 'true' === true etc. Reason for this is that url can handle only
       // strings and not other types and we want to pass filter values via url...
       return datumProp.toString() === value.toString();
