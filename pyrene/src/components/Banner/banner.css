@@ -13,9 +13,8 @@
   border-radius: 2px;
   background-color: var(--background-light);
 
-  border: 1px solid var(--neutral-030);
-  border-left: 0px;
-
+  border-radius: 2px;
+  
   &.style-overlay {
     margin-bottom: 8px;
   }
@@ -39,7 +38,7 @@
 
   &.type-info {
     &.style-standard {
-      box-shadow: inset 3px 0 0 0 var(--information-fg);
+      box-shadow: 0 0 2px 0 var(--neutral-030), inset 3px 0 0 0 var(--blue-500);
     }
 
     &.style-inline {
@@ -58,7 +57,7 @@
 
   &.type-success {
     &.style-standard {
-      box-shadow: inset 3px 0 0 0 var(--ok-fg);
+       box-shadow: 0 0 1px 0 var(--neutral-030), inset 3px 0 0 0 var(--ok-fg);
     }
 
     &.style-inline {
@@ -77,7 +76,7 @@
 
   &.type-error {
     &.style-standard {
-      box-shadow: inset 3px 0 0 0 var(--danger-fg);
+      box-shadow: 0 0 1px 0 var(--neutral-030), inset 4px 0 0 0 var(--danger-fg);
     }
 
     &.style-inline {
@@ -96,7 +95,7 @@
 
   &.type-warning {
     &.style-standard {
-      box-shadow: inset 3px 0 0 0 var(--warning-fg);
+      box-shadow: 0 0 1px 0 var(--neutral-030), inset 4px 0 0 0 var(--warning-fg);
     }
 
     &.style-inline {
