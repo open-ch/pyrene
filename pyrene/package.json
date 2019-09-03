@@ -66,8 +66,8 @@
     "postcss-loader": "^3.0.0",
     "postcss-nesting": "^7.0.0",
     "raw-loader": "^2.0.0",
-    "react": "^16.8.0",
-    "react-dom": "^16.8.0",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
     "regenerator-runtime": "^0.13.1",
     "release-it": "^12.2.0",
     "style-loader": "^0.23.1",
@@ -87,7 +87,7 @@
     "uniqid": "^5.0.3"
   },
   "peerDependencies": {
-    "react": ">=16.4.2 <16.9.0",
-    "react-dom": ">=16.4.2 <16.9.0"
+    "react": ">=16.4.2 <16.10.0",
+    "react-dom": ">=16.4.2 <16.10.0"
   }
 }
