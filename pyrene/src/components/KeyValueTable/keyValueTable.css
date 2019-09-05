@@ -31,6 +31,7 @@
 .keyValueCellKey {
   width: 256px;
   min-width: 256px;
+  max-width: 256px; /* IE needs it to correctly overflow */
   font-weight: 600; /* demibold */
   padding-left: 8px;
   padding-right: 16px;
