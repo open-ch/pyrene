@@ -1,5 +1,6 @@
+@import '../../styles/colors.css';
+
 .table {
-  composes: commonFontSettings from '../../styles/common.css';
   width: 100%;
   font-size: 13px;
   color: var(--neutral-500);
@@ -9,11 +10,12 @@
 }
 
 .tableHeaderRow {
-  height: 32px;
-  box-shadow: inset 0 -1px 0 0 var(--border);
+  height: 31px;
+  border-bottom: 1px solid var(--border);
   display: flex;
   flex: 1;
   align-items: center;
+  line-height: 20px;
 }
 
 .tableHeaderCell {
@@ -28,11 +30,14 @@
 }
 
 .tableRow {
-  height: 32px;
-  box-shadow: inset 0 -1px 0 0 var(--border);
+  border-bottom: 1px solid var(--border);
   display: flex;
   flex: 1;
   align-items: center;
+  line-height: 18px;
+  padding-top: 7px;
+  padding-bottom: 6px; /* +1px border*/
+  font-size: 13px;
 }
 
 .tableRow:hover {
