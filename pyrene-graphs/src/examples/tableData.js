@@ -2,26 +2,31 @@
 export const tableData = [
   {
     application: 'INFLUXdev',
+    link: '#',
     volume: 91.3,
     shareOfTotal: 12.76,
   },
   {
     application: 'MSS KAFKA (DEV)',
+    link: '#',
     volume: 89.7,
     shareOfTotal: 12.55,
   },
   {
     application: 'ORACLEdev',
-    volume: 89,
+    link: '#',
+    volume: 89.0,
     shareOfTotal: 12.44,
   },
   {
     application: 'OSAG Proxy',
-    volume: 57,
+    link: '#',
+    volume: 57.0,
     shareOfTotal: 7.96,
   },
   {
     application: 'SSH',
+    link: '#',
     volume: 72.3,
     shareOfTotal: 10.11,
   },
@@ -30,43 +35,49 @@ export const tableData = [
 export const tableColumns = {
   label: {
     accessor: d => d.application,
+    linkAccessor: d => d.link,
     title: 'Application',
   },
   primaryValue: {
     accessor: d => d.volume,
     title: 'Volume',
-    formatter: d => `${d} GB`,
+    formatter: d => `${d.toFixed(1)} GB`,
   },
   secondaryValue: {
     accessor: d => d.shareOfTotal,
     title: 'Share of Total',
-    formatter: d => `${d} %`,
+    formatter: d => `${d.toFixed(2)} %`,
   },
 };
 
 export const tableDataComparison = [
   {
     application: 'INFLUXdev',
+    link: '#',
     volumeCurrent: 91.3,
     volumePrevious: 103.8,
   },
   {
     application: 'MSS KAFKA (DEV)',
+    link: '#',
     volumeCurrent: 89.7,
     volumePrevious: 88.8,
   },
   {
     application: 'ORACLEdev',
-    volumeCurrent: 89,
+    link: '#',
+    volumeCurrent: 89.0,
     volumePrevious: 79.9,
   },
   {
     application: 'OSAG Proxy',
-    volumeCurrent: 57,
+    link: '#',
+    volumeCurrent: 57.0,
     volumePrevious: 53.1,
   },
   {
     application: 'SSH',
+    link: '#',
     volumeCurrent: 72.3,
     volumePrevious: 63.9,
   },
@@ -75,44 +86,50 @@ export const tableDataComparison = [
 export const tableColumnsComparison = {
   label: {
     accessor: d => d.application,
+    linkAccessor: d => d.link,
     title: 'Application',
   },
   primaryValue: {
     accessor: d => d.volumeCurrent,
-    title: 'Current period',
-    formatter: d => `${d} GB`,
+    title: 'Current',
+    formatter: d => `${d.toFixed(1)} GB`,
   },
   secondaryValue: {
     accessor: d => d.volumePrevious,
-    title: 'Previous period',
-    formatter: d => `${d} GB`,
+    title: 'Previous',
+    formatter: d => `${d.toFixed(1)} GB`,
   },
 };
 
 export const tableDataUpDown = [
   {
     location: 'Altdorf',
+    link: '#',
     up: 100.0,
     down: 100.0,
   },
   {
     location: 'Zürich',
+    link: '#',
     up: 14.0,
     down: 52.9,
   },
   {
     location: 'Lit',
-    up: 100,
+    link: '#',
+    up: 100.0,
     down: 49.7,
   },
   {
     location: 'Chorugh',
-    up: 100,
+    link: '#',
+    up: 100.0,
     down: 18.9,
   },
   {
     location: 'Los Angeles',
-    up: 100,
+    link: '#',
+    up: 100.0,
     down: 10.5,
   },
 ];
@@ -120,16 +137,17 @@ export const tableDataUpDown = [
 export const tableColumnsUpDown = {
   label: {
     accessor: d => d.location,
+    linkAccessor: d => d.link,
     title: 'Location',
   },
   primaryValue: {
     accessor: d => d.up,
     title: 'Volume Up',
-    formatter: d => `${d} %`,
+    formatter: d => `${d.toFixed(1)} %`,
   },
   secondaryValue: {
     accessor: d => d.down,
     title: '/Down',
-    formatter: d => `${d} %`,
+    formatter: d => `${d.toFixed(1)} %`,
   },
 };

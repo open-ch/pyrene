@@ -57,12 +57,12 @@ Header.propTypes = {
     */
   description: PropTypes.string,
   /**
-   * Sets the legend. Type: [ string ]
+   * Sets the header.
    */
   header: PropTypes.string.isRequired,
   /**
-   * Sets the header.
-   */
+    * Sets the legend. Type: [ string ]
+    */
   legend: PropTypes.arrayOf(PropTypes.string),
 };
 

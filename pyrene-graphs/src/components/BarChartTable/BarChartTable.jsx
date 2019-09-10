@@ -14,17 +14,16 @@ function getValueWithAccessor(row, accessor) {
   return (typeof accessor === 'string' ? row[accessor] : accessor(row));
 }
 
-function getProcessedColumnsAndLegend(props) {
+function getProcessedColumnsAndLegend(props, colorScheme) {
   const maxValuePrimary = Math.max(...props.data.map(dataRow => getValueWithAccessor(dataRow, props.columns.primaryValue.accessor)));
   const maxValueSecondary = props.columns.secondaryValue ? Math.max(...props.data.map(dataRow => getValueWithAccessor(dataRow, props.columns.secondaryValue.accessor))) : maxValuePrimary;
   const maxValue = Math.max(maxValuePrimary, maxValueSecondary);
   const barWeight = 6;
   const barWeightSecondaryComparison = 4;
-  const colorSchemeRelative = [props.colorScheme[0], props.colorScheme.slice(-1)[0]];
   const defaultBarChart = row => (
     <RelativeBar
       barWeight={barWeight}
-      colorScheme={colorSchemeRelative}
+      colorScheme={colorScheme}
       maxValue={maxValuePrimary}
       value={row.value}
     />
@@ -41,18 +40,18 @@ function getProcessedColumnsAndLegend(props) {
       barChart = row => ( // eslint-disable-line react/display-name
         <div styleName="comparisonContainer">
           <Bar
-            key={getId(`${props.columns.primaryValue.title}_bar_current`)}
+            key={getId(`${props.columns.primaryValue.title}_bar_current`)} // eslint-disable-line
             barWeight={barWeight}
-            color={props.colorScheme[0]}
+            color={colorScheme[0]}
             maxValue={maxValue}
-            value={getValueWithAccessor(row, props.columns.primaryValue.accessor)}
+            value={getValueWithAccessor(row, props.columns.primaryValue.accessor)} // eslint-disable-line
           />
           <Bar
-            key={getId(`${props.columns.secondaryValue.title}_bar_previous`)}
+            key={getId(`${props.columns.secondaryValue.title}_bar_previous`)} // eslint-disable-line
             barWeight={barWeightSecondaryComparison}
-            color={props.colorScheme[1]}
+            color={colorScheme[1]}
             maxValue={maxValue}
-            value={getValueWithAccessor(row, props.columns.secondaryValue.accessor)}
+            value={getValueWithAccessor(row, props.columns.secondaryValue.accessor)} // eslint-disable-line
           />
         </div>
       );
@@ -67,6 +66,14 @@ function getProcessedColumnsAndLegend(props) {
   const columnLabel = {
     id: getId(props.columns.label.title),
     accessor: props.columns.label.accessor,
+    cellRenderCallback: props.columns.label.linkAccessor ? row => ( // eslint-disable-line react/display-name
+      <a
+        styleName="labelLink"
+        href={getValueWithAccessor(row, props.columns.label.linkAccessor)} // eslint-disable-line
+      >
+        {row.value}
+      </a>
+    ) : row => row.value,
     align: 'left',
   };
   const columnPrimaryValue = {
@@ -74,7 +81,7 @@ function getProcessedColumnsAndLegend(props) {
     accessor: props.columns.primaryValue.accessor,
     cellRenderCallback: props.columns.primaryValue.formatter ? row => props.columns.primaryValue.formatter(row.value) : null,
     align: 'right',
-    width: '90px',
+    maxWidth: '90px',
   };
   const columnPrimaryBarChart = {
     id: getId(`${props.columns.primaryValue.title}_bar`),
@@ -87,7 +94,7 @@ function getProcessedColumnsAndLegend(props) {
     cellRenderCallback: props.columns.secondaryValue.formatter ? row => props.columns.secondaryValue.formatter(row.value) : null,
     headerName: props.columns.secondaryValue.title,
     align: 'right',
-    width: '90px',
+    maxWidth: '90px',
   } : {};
   let columns;
   const columnsTable = [
@@ -118,20 +125,24 @@ function getProcessedColumnsAndLegend(props) {
           accessor: props.columns.primaryValue.accessor,
           cellRenderCallback: row => ( // eslint-disable-line react/display-name
             <div styleName="butterflyContainer">
-              <RelativeBar
-                barWeight={barWeight}
-                colorScheme={colorSchemeRelative}
-                maxValue={maxValuePrimary}
-                value={getValueWithAccessor(row, props.columns.primaryValue.accessor)}
-                mirrored
-              />
+              <div styleName="butterflyBar">
+                <RelativeBar
+                  barWeight={barWeight}
+                  colorScheme={colorScheme}
+                  maxValue={maxValuePrimary}
+                  value={getValueWithAccessor(row, props.columns.primaryValue.accessor)} // eslint-disable-line
+                  mirrored
+                />
+              </div>
               <div styleName="verticalLine" />
-              <RelativeBar
-                barWeight={barWeight}
-                colorScheme={colorSchemeRelative}
-                maxValue={maxValueSecondary}
-                value={getValueWithAccessor(row, props.columns.secondaryValue.accessor)}
-              />
+              <div styleName="butterflyBar">
+                <RelativeBar
+                  barWeight={barWeight}
+                  colorScheme={colorScheme}
+                  maxValue={maxValueSecondary}
+                  value={getValueWithAccessor(row, props.columns.secondaryValue.accessor)} // eslint-disable-line
+                />
+              </div>
             </div>
           ),
           align: 'center',
@@ -141,7 +152,7 @@ function getProcessedColumnsAndLegend(props) {
           accessor: props.columns.secondaryValue.accessor,
           cellRenderCallback: props.columns.secondaryValue.formatter ? row => props.columns.secondaryValue.formatter(row.value) : null,
           align: 'right',
-          width: '90px',
+          maxWidth: '90px',
         },
       ];
       break;
@@ -157,7 +168,9 @@ function getProcessedColumnsAndLegend(props) {
  * The primaryValue is automatically being sorted in descending order and then displayed as a bar chart.
  */
 const BarChartTable = (props) => {
-  const columnsAndLegend = getProcessedColumnsAndLegend(props);
+  let colorScheme = props.colorScheme;
+  if (!(colorScheme.length > 0)) colorScheme = (props.type === 'comparison' ? colorSchemes.currentPrevious : colorSchemes.valueGround);
+  const columnsAndLegend = getProcessedColumnsAndLegend(props, colorScheme);
   const description = props.type === 'bar' ? '' : props.description;
   return (
     <div styleName="container">
@@ -165,11 +178,12 @@ const BarChartTable = (props) => {
         header={props.header}
         description={description}
         legend={columnsAndLegend.legend}
-        colorScheme={props.colorScheme}
+        colorScheme={colorScheme}
       />
       <SimpleTable
         columns={columnsAndLegend.columns}
         data={props.data.sort((a, b) => (getValueWithAccessor(b, props.columns.primaryValue.accessor) - getValueWithAccessor(a, props.columns.primaryValue.accessor)))}
+        onRowDoubleClick={props.onRowDoubleClick}
       />
     </div>
   );
@@ -178,8 +192,9 @@ const BarChartTable = (props) => {
 BarChartTable.displayName = 'Bar Chart Table';
 
 BarChartTable.defaultProps = {
-  colorScheme: colorSchemes.sequential,
+  colorScheme: [],
   description: '',
+  onRowDoubleClick: () => {},
   type: 'bar',
 };
 
@@ -190,7 +205,7 @@ BarChartTable.propTypes = {
   colorScheme: PropTypes.arrayOf(PropTypes.string),
   /**
    * Sets the Table columns.
-   * Type: { label: { accessor: string or func (required), title: string (required) }, primaryValue: { accessor: string or func (required), formatter: func, title: string (required) }, secondaryValue: { accessor: string or func (required), formatter: func, title: string (required) }}
+   * Type: { label: { accessor: string or func (required), linkAccessor: string or func, title: string (required) }, primaryValue: { accessor: string or func (required), formatter: func, title: string (required) }, secondaryValue: { accessor: string or func (required), formatter: func, title: string (required) }}
    */
   columns: PropTypes.shape({
     label: PropTypes.shape({
@@ -198,6 +213,10 @@ BarChartTable.propTypes = {
         PropTypes.string,
         PropTypes.func,
       ]).isRequired,
+      linkAccessor: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.func,
+      ]),
       title: PropTypes.string.isRequired,
     }),
     primaryValue: PropTypes.shape({
@@ -229,6 +248,10 @@ BarChartTable.propTypes = {
    * Sets the header.
    */
   header: PropTypes.string.isRequired,
+  /**
+   * Called when the user double clicks on a row.
+   */
+  onRowDoubleClick: PropTypes.func,
   /**
    * Sets the overall style according to the bar chart type.
    */

@@ -2,6 +2,10 @@
   width: 100%;
 }
 
+.labelLink:hover {
+  text-decoration: underline;
+}
+
 .comparisonContainer svg {
   display: block;
 }
@@ -14,6 +18,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.butterflyBar {
+  width: calc((100% - 25px) / 2);
 }
 
 .verticalLine {
