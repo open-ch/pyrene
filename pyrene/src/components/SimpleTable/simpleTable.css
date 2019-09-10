@@ -7,20 +7,29 @@
   border-spacing: 0;
   table-layout: fixed;
   font-weight: normal;
+  display: block;
+}
+
+.tableHeader {
+  display: block;
 }
 
 .tableHeaderRow {
   height: 31px;
   border-bottom: 1px solid var(--border);
   display: flex;
-  flex: 1;
-  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-content: center;
+  align-items: stretch;
   line-height: 20px;
 }
 
 .tableHeaderCell {
   font-weight: 600;
-  flex: 1;
+  display: block;
+  flex: 1 0 0%;
   min-width: 0;
   margin-right: 16px;
 }
@@ -29,11 +38,18 @@
   margin-right: 0px;
 }
 
+.tableBody {
+  display: block;
+}
+
 .tableRow {
   border-bottom: 1px solid var(--border);
   display: flex;
-  flex: 1;
-  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-content: center;
+  align-items: stretch;
   line-height: 18px;
   padding-top: 7px;
   padding-bottom: 6px; /* +1px border*/
@@ -50,7 +66,8 @@
 }
 
 .tableCell {
-  flex: 1;
+  display: block;
+  flex: 1 0 0%;
   min-width: 0;
   margin-right: 16px;
 }
