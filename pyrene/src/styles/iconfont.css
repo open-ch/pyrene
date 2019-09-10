@@ -1,3 +1,15 @@
+:global(.pyreneIcon-circle:before){
+  content: "\77";
+}
+:global(.pyreneIcon-skip:before){
+  content: "\76";
+}
+:global(.pyreneIcon-play:before){
+  content: "\75";
+}
+:global(.pyreneIcon-pin:before){
+  content: "\74";
+}
 :global(.pyreneIcon-location:before){
   content: "\73";
 }
@@ -27,9 +39,6 @@
 }
 :global(.pyreneIcon-data:before){
   content: "\6a";
-}
-:global(.pyreneIcon-pin:before){
-  content: "\74";
 }
 :global(.pyreneIcon-home:before){
   content: "\69";
@@ -88,4 +97,3 @@
 :global(.pyreneIcon-share:before){
   content: "\30";
 }
-
