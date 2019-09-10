@@ -12,10 +12,6 @@
 
 .tableHeader {
   display: block;
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  background: white;
 }
 
 .tableHeaderRow {
@@ -38,12 +34,8 @@
   margin-right: 16px;
 }
 
-.tableHeaderCell:first-child {
-  margin-left: 8px;
-}
-
 .tableHeaderCell:last-child {
-  margin-right: 8px;
+  margin-right: 0px;
 }
 
 .tableBody {
@@ -80,12 +72,8 @@
   margin-right: 16px;
 }
 
-.tableCell:first-child {
-  margin-left: 8px;
-}
-
 .tableCell:last-child {
-  margin-right: 8px;
+  margin-right: 0px;
 }
 
 .tableCellContent {
