@@ -1,3 +1,4 @@
+
 .container {
   width: 100%;
 }
@@ -37,4 +38,37 @@
   font-size: 13px;
   font-weight: 600;
   color: var(--blue-500);
+}
+
+.popOver {
+  padding: 24px 0 0 24px;
+  width: 448px;
+  height: 592px;
+  border-radius: 2px;
+  box-shadow: 5px 15px 30px 0 rgba(0, 21, 44, 0.2), 0 4px 8px -2px rgba(0, 21, 44, 0.2), 0 0 1px 0 rgba(0, 21, 44, 0.15);
+  overflow-y: hidden;
+}
+
+.popOverTable {
+  height: 536px;
+  padding-right: 24px;
+  overflow-y: auto;
+
+  &::-webkit-scrollbar-button {
+    display: none;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 1px;
+    width: 4px;
+    background-color: var(--neutral-500);
+  }
+
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: var(--neutral-050);
+  }
 }

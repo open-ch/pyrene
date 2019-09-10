@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Modal, SimpleTable } from 'pyrene';
+import { Popover, SimpleTable } from 'pyrene';
 import { Bar, RelativeBar } from 'tuktuktwo';
 import Header from '../Header/Header';
 import './barChartTable.css';
@@ -175,13 +175,13 @@ export default class BarChartTable extends React.Component {
     super(props);
 
     this.state = {
-      showModal: false,
+      showPopover: false,
     };
   }
 
-   toggleModal = () => {
+   togglePopover = () => {
      this.setState(prevState => ({
-       showModal: !prevState.showModal,
+       showPopover: !prevState.showPopover,
      }));
    };
 
@@ -206,17 +206,32 @@ export default class BarChartTable extends React.Component {
            onRowDoubleClick={this.props.onRowDoubleClick}
          />
          {(this.props.data.length > maxData) && (
-           <div styleName="showMoreLink" onClick={this.toggleModal}>
+           <div styleName="showMoreLink" onClick={this.togglePopover}>
              {`Show more ${this.props.header}`}
-             {this.state.showModal && (
-               <Modal
-                 title={this.props.header}
-                 renderCallback={() => (
-                   <SimpleTable
-                     columns={getProcessedColumnsAndLegend(this.props, colorScheme, true).columns}
-                     data={sortedData}
-                   />
+             {this.state.showPopover && (
+               <Popover
+                 align="end"
+                 children={<a/>}
+                 preferredPosition={['right']}
+                 renderPopoverContent={() => (
+                   <div styleName="popOver">
+                     <Header
+                       header={this.props.header}
+                       description={description}
+                       legend={columnsAndLegend.legend}
+                       colorScheme={colorScheme}
+                     />
+                     <div styleName="popOverTable">
+                       <SimpleTable
+                         columns={getProcessedColumnsAndLegend(this.props, colorScheme, true).columns}
+                         data={sortedData}
+                         onRowDoubleClick={this.props.onRowDoubleClick}
+                       />
+                     </div>
+                   </div>
                  )}
+                 displayPopover={this.state.showPopover}
+                 onClickOutside={this.togglePopover}
                />
              )}
            </div>
