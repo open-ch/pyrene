@@ -217,12 +217,9 @@ export default class BarChartTable extends React.Component {
                  distanceToTarget={description !== '' ? 32 - 148 : 48 - 148} // to center the popover vertically, 592px / 4 = 148px + Header of either 32px or 48px, depending if description is empty or not
                  renderPopoverContent={() => (
                    <div styleName="popOver">
-                     <Header
-                       header={this.props.header}
-                       description={description}
-                       legend={columnsAndLegend.legend}
-                       colorScheme={colorScheme}
-                     />
+                     <div styleName="popOverHeader">
+                       {this.props.header}
+                     </div>
                      <div styleName="popOverTable">
                        <SimpleTable
                          columns={getProcessedColumnsAndLegend(this.props, colorScheme, true).columns}

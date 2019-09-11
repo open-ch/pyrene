@@ -59,6 +59,15 @@
   overflow-y: hidden;
 }
 
+.popOverHeader {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.14;
+  letter-spacing: -0.05px;
+  color: var(--neutral-500);
+  height: 32px;
+}
+
 .popOverTable thead {
   padding-right: 24px;
 }
