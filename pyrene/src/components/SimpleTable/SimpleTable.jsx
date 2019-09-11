@@ -9,7 +9,7 @@ const SimpleTable = props => (
   <table styleName="table">
     {props.columns.length > 0 && props.columns.some(column => typeof column.headerName !== 'undefined' && column.headerName !== '')
   && (
-    <thead>
+    <thead styleName="tableHeader">
       <tr styleName="tableHeaderRow">
         {props.columns.map(column => (
           <th
@@ -25,7 +25,7 @@ const SimpleTable = props => (
       </tr>
     </thead>
   )}
-    <tbody>
+    <tbody styleName="tableBody">
       {props.data.length > 0 && props.data.map(row => (
         <tr
           styleName="tableRow"
