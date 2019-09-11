@@ -199,7 +199,7 @@ export default class BarChartTable extends React.Component {
            legend={columnsAndLegend.legend}
            colorScheme={colorScheme}
          />
-         <div style={{ height: `${(this.props.maxRows + 1) * 32}px` }}>
+         <div style={{ height: `${((this.props.maxRows < 10 ? this.props.maxRows : 10) + 1) * 32}px` }}>
            <SimpleTable
              columns={columnsAndLegend.columns}
              data={sortedData.slice(0, this.props.maxRows)}
