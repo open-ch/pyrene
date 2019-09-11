@@ -212,9 +212,9 @@ export default class BarChartTable extends React.Component {
              {`Show more ${this.props.header}`}
              {this.state.showPopover && (
                <Popover
-                 align="end"
-                 children={<a/>}
-                 preferredPosition={['right']}
+                 align="center"
+                 children={<div styleName="popOverPlaceholder"></div>} // eslint-disable-line
+                 distanceToTarget={description !== '' ? 32 - 148 : 48 - 148} // to center the popover vertically, 592px / 4 = 148px + Header of either 32px or 48px, depending if description is empty or not
                  renderPopoverContent={() => (
                    <div styleName="popOver">
                      <Header
@@ -234,6 +234,7 @@ export default class BarChartTable extends React.Component {
                  )}
                  displayPopover={this.state.showPopover}
                  onClickOutside={this.togglePopover}
+                 autoReposition
                />
              )}
            </div>

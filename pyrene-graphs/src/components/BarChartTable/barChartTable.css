@@ -44,6 +44,11 @@
   color: var(--blue-500);
 }
 
+.popOverPlaceholder {
+  height: 100%;
+  width: 100%;
+}
+
 .popOver {
   padding: 24px 0 0 24px;
   width: 448px;
