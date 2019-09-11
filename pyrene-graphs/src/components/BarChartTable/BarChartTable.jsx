@@ -209,7 +209,7 @@ export default class BarChartTable extends React.Component {
          </div>
          {(this.props.data.length > maxData) && (
            <div styleName="showMoreLink" onClick={this.togglePopover}>
-             {`Show more ${this.props.header}`}
+             {'Show more'}
              {this.state.showPopover && (
                <Popover
                  align="center"
