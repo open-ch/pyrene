@@ -187,7 +187,7 @@ export default class BarChartTable extends React.Component {
 
    render() {
      let colorScheme = this.props.colorScheme;
-     if (!(colorScheme.length > 0)) colorScheme = (this.props.type === 'comparison' ? colorSchemes.currentPrevious : colorSchemes.valueGround);
+     if (!(colorScheme.length > 0)) colorScheme = (this.props.type === 'comparison' ? colorSchemes.comparison : colorSchemes.valueGround);
      const columnsAndLegend = getProcessedColumnsAndLegend(this.props, colorScheme);
      const description = this.props.type === 'bar' ? '' : this.props.description;
      const sortedData = this.props.data.sort((a, b) => (getValueWithAccessor(b, this.props.columns.primaryValue.accessor) - getValueWithAccessor(a, this.props.columns.primaryValue.accessor)));

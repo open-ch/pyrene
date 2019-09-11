@@ -37,7 +37,7 @@ const sequential = [
   chart1Swatch05,
 ];
 
-const currentPrevious = [
+const comparison = [
   chart1,
   chart1Swatch40,
 ];
@@ -50,7 +50,7 @@ const valueGround = [
 const colorSchemes = {
   categorical,
   sequential,
-  currentPrevious,
+  comparison,
   valueGround,
 };
 
