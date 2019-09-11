@@ -200,11 +200,13 @@ export default class BarChartTable extends React.Component {
            legend={columnsAndLegend.legend}
            colorScheme={colorScheme}
          />
-         <SimpleTable
-           columns={columnsAndLegend.columns}
-           data={sortedData.slice(0, maxData)}
-           onRowDoubleClick={this.props.onRowDoubleClick}
-         />
+         <div styleName="table">
+           <SimpleTable
+             columns={columnsAndLegend.columns}
+             data={sortedData.slice(0, maxData)}
+             onRowDoubleClick={this.props.onRowDoubleClick}
+           />
+         </div>
          {(this.props.data.length > maxData) && (
            <div styleName="showMoreLink" onClick={this.togglePopover}>
              {`Show more ${this.props.header}`}

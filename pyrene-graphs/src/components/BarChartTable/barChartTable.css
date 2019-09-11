@@ -32,6 +32,10 @@
   margin-right: 12px;
 }
 
+.table {
+  height: 352px; /* 10 rows * 32px + 1 header row * 32px */
+}
+
 .showMoreLink {
   margin-top: 8px;
   height: 18px;
