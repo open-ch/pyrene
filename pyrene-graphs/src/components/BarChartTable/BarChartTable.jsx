@@ -191,7 +191,6 @@ export default class BarChartTable extends React.Component {
      const columnsAndLegend = getProcessedColumnsAndLegend(this.props, colorScheme);
      const description = this.props.type === 'bar' ? '' : this.props.description;
      const sortedData = this.props.data.sort((a, b) => (getValueWithAccessor(b, this.props.columns.primaryValue.accessor) - getValueWithAccessor(a, this.props.columns.primaryValue.accessor)));
-     const maxData = 10;
      return (
        <div styleName="container">
          <Header
@@ -200,14 +199,14 @@ export default class BarChartTable extends React.Component {
            legend={columnsAndLegend.legend}
            colorScheme={colorScheme}
          />
-         <div styleName="table">
+         <div style={{ height: `${(this.props.maxRows + 1) * 32}px` }}>
            <SimpleTable
              columns={columnsAndLegend.columns}
-             data={sortedData.slice(0, maxData)}
+             data={sortedData.slice(0, this.props.maxRows)}
              onRowDoubleClick={this.props.onRowDoubleClick}
            />
          </div>
-         {(this.props.data.length > maxData) && (
+         {(this.props.data.length > 10) && (this.props.maxRows >= 10) && (
            <div styleName="showMoreLink" onClick={this.togglePopover}>
              {'Show more'}
              {this.state.showPopover && (
@@ -247,6 +246,7 @@ BarChartTable.displayName = 'Bar Chart Table';
 BarChartTable.defaultProps = {
   colorScheme: [],
   description: '',
+  maxRows: 10,
   onRowDoubleClick: () => {},
   type: 'bar',
 };
@@ -301,6 +301,10 @@ BarChartTable.propTypes = {
    * Sets the header.
    */
   header: PropTypes.string.isRequired,
+  /**
+  * Sets the maximum number of table rows.
+  */
+  maxRows: PropTypes.number,
   /**
    * Called when the user double clicks on a row.
    */
