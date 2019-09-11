@@ -78,6 +78,7 @@
 }
 
 .tableCell {
+  padding: 0;
   display: block;
   flex: 1 0 0%;
   min-width: 0;
