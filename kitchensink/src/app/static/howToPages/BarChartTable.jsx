@@ -4,6 +4,18 @@ import { BarChartTable } from 'pyrene-graphs/dist/pyrene-graphs.dev';
 import { exampleData } from 'pyrene-graphs/dist/pyrene-graphs.examples';
 
 const barChartTableHowTo = [{
+  title: 'Bar Chart',
+  description: 'A simple table with one column as a bar chart',
+  component: () => (
+    <BarChartTable
+      data={exampleData.tableData.data}
+      columns={exampleData.tableData.columns}
+      header="Application"
+      onRowDoubleClick={row => alert(row.value)}
+      type="bar"
+    />
+  ),
+}, {
   title: 'Butterfly Chart',
   description: 'A simple table with one column as a butterfly chart',
   component: () => (
