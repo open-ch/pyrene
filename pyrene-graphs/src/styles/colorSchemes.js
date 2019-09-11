@@ -44,7 +44,7 @@ const comparison = [
 
 const valueGround = [
   chart1,
-  chart1Swatch05,
+  chart1Swatch10,
 ];
 
 const colorSchemes = {
