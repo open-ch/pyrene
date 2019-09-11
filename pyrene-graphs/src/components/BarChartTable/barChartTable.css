@@ -42,6 +42,7 @@
   font-size: 13px;
   font-weight: 600;
   color: var(--blue-500);
+  cursor: pointer;
 }
 
 .popOverPlaceholder {
@@ -58,9 +59,14 @@
   overflow-y: hidden;
 }
 
-.popOverTable {
-  height: 536px;
+.popOverTable thead {
   padding-right: 24px;
+}
+
+.popOverTable tbody {
+  height: 512px;
+  padding-right: 19px;
+  margin-right: 1px;
   overflow-y: auto;
 
   &::-webkit-scrollbar-button {
