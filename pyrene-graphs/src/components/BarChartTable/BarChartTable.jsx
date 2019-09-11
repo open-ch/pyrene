@@ -231,7 +231,6 @@ export default class BarChartTable extends React.Component {
                  )}
                  displayPopover={this.state.showPopover}
                  onClickOutside={this.togglePopover}
-                 autoReposition
                />
              )}
            </div>
