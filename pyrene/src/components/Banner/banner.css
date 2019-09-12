@@ -14,7 +14,7 @@
   background-color: var(--background-light);
 
   border-radius: 2px;
-  
+
   &.style-overlay {
     margin-bottom: 8px;
   }
@@ -115,6 +115,7 @@
 
 .iconMessageContainer {
   display: flex;
+  width: 100%;
 }
 
 .bannerIcon {
@@ -128,7 +129,9 @@
   flex-shrink: 0;
 }
 
-.textBox {}
+.textBox {
+  width: 100%;
+}
 
 .message {
   font-size: 14px;
