@@ -23,7 +23,7 @@
 .description {
   font-size: 13px;
   font-weight: 500;
-  color: var(--font-gray);
+  color: #979ca8;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
