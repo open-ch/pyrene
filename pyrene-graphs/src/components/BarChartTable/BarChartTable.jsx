@@ -217,7 +217,7 @@ export default class BarChartTable extends React.Component {
                  renderPopoverContent={() => (
                    <div styleName="popOver">
                      <div styleName="popOverHeader">
-                       {this.props.header}
+                       {`${this.props.header} (${sortedData.length})`}
                      </div>
                      <div styleName="popOverTable">
                        <SimpleTable
