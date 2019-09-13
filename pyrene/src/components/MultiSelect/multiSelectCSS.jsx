@@ -168,10 +168,7 @@ const multiSelectStyle = props => ({
     ':active': {
       backgroundColor: colorConstants.neutral030,
     },
-    ':hover': {
-      backgroundColor: colorConstants.neutral030,
-    },
-    backgroundColor: (isSelected || isFocused) ? colorConstants.neutral030 : colorConstants.backgroundLight,
+    backgroundColor: isSelected ? colorConstants.neutral030 : isFocused ? colorConstants.backgroundTint : colorConstants.neutral000,
     height: 32,
     color: colorConstants.neutral400,
     cursor: 'pointer',
