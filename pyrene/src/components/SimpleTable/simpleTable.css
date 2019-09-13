@@ -46,10 +46,6 @@
   display: block;
 }
 
-.tableBody {
-  display: block;
-}
-
 .tableRow {
   border-bottom: 1px solid var(--border);
   display: flex;
