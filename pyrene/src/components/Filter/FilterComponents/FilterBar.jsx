@@ -184,6 +184,7 @@ FilterBar.propTypes = {
       /** key for manipulation */
       value: PropTypes.any.isRequired,
     })),
+    sorted: PropTypes.bool,
     type: PropTypes.oneOf(['singleSelect', 'multiSelect', 'text']).isRequired,
   })).isRequired,
   /**
