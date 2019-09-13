@@ -191,6 +191,7 @@ export default class BarChartTable extends React.Component {
      const columnsAndLegend = getProcessedColumnsAndLegend(this.props, colorScheme);
      const description = this.props.type === 'bar' ? '' : this.props.description;
      const sortedData = this.props.data.sort((a, b) => (getValueWithAccessor(b, this.props.columns.primaryValue.accessor) - getValueWithAccessor(a, this.props.columns.primaryValue.accessor)));
+     const maxRows = this.props.maxRows < 0 ? this.props.data.length : this.props.maxRows;
      return (
        <div styleName="container">
          <Header
@@ -199,14 +200,14 @@ export default class BarChartTable extends React.Component {
            legend={columnsAndLegend.legend}
            colorScheme={colorScheme}
          />
-         <div style={{ height: `${(this.props.maxRows + 1) * 32}px` }}>
+         <div style={{ height: `${(maxRows + 1) * 32}px` }}>
            <SimpleTable
              columns={columnsAndLegend.columns}
-             data={sortedData.slice(0, this.props.maxRows)}
+             data={sortedData.slice(0, maxRows)}
              onRowDoubleClick={this.props.onRowDoubleClick}
            />
          </div>
-         {(this.props.data.length > this.props.maxRows) && (
+         {(this.props.data.length > maxRows) && (
            <div styleName="showMoreLink" onClick={this.togglePopover}>
              {'Show more'}
              {this.state.showPopover && (
@@ -215,7 +216,7 @@ export default class BarChartTable extends React.Component {
                  children={<div styleName="popOverPlaceholder"></div>} // eslint-disable-line
                  distanceToTarget={-(3 * 32) - 1.5} // to center the popover vertically, so that 3 rows of the popover table are under and 2 rows over the bar chart table, - 1.5 to align borders
                  renderPopoverContent={() => (
-                   <div styleName="popOver" style={{ height: `${(this.props.maxRows + 5) * 32 + 32 + 32}px` }}>
+                   <div styleName="popOver" style={{ height: `${(maxRows + 5) * 32 + 32 + 32}px` }}>
                      {/* popover height: (maxRows + 5 more rows) * 32px + 32px table header + 32px popover header */}
                      <div styleName="popOverHeader">
                        {`${this.props.header} (${sortedData.length})`}
