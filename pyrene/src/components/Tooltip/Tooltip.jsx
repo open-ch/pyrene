@@ -27,7 +27,11 @@ export default class Tooltip extends React.Component {
             {this.props.label}
           </div>
         )}
-        containerStyle={{ zIndex: 9999 }}
+        containerStyle={{
+          borderRadius: '2px',
+          boxShadow: '0 4px 8px -2px rgba(0, 21, 44, 0.2), 0 0 1px 0 rgba(0, 21, 44, 0.3)',
+          zIndex: 9999,
+        }}
         disableReposition={!this.props.autoReposition}
       >
         <div
