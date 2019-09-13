@@ -21,12 +21,14 @@ function getProcessedColumnsAndLegend(props, colorScheme, withoutBars) {
   const barWeight = 6;
   const barWeightSecondaryComparison = 4;
   const defaultBarChart = row => (
-    <RelativeBar
-      barWeight={barWeight}
-      colorScheme={colorScheme}
-      maxValue={maxValuePrimary}
-      value={row.value}
-    />
+    <div styleName="barContainer">
+      <RelativeBar
+        barWeight={barWeight}
+        colorScheme={colorScheme}
+        maxValue={maxValuePrimary}
+        value={row.value}
+      />
+    </div>
   );
   let barChart;
   let legend = [props.columns.primaryValue.title];
@@ -57,6 +59,7 @@ function getProcessedColumnsAndLegend(props, colorScheme, withoutBars) {
       );
       break;
     case 'butterfly':
+      barChart = defaultBarChart;
       legend = [];
       break;
     default:
@@ -125,7 +128,7 @@ function getProcessedColumnsAndLegend(props, colorScheme, withoutBars) {
           headerName: props.columns.primaryValue.title,
           accessor: props.columns.primaryValue.accessor,
           cellRenderCallback: row => ( // eslint-disable-line react/display-name
-            <div styleName="butterflyBar">
+            <div styleName="barContainer">
               <RelativeBar
                 barWeight={barWeight}
                 colorScheme={colorScheme}
@@ -150,16 +153,7 @@ function getProcessedColumnsAndLegend(props, colorScheme, withoutBars) {
           id: getId(`${props.columns.secondaryValue.title}_bar_right`),
           headerName: props.columns.secondaryValue.title,
           accessor: props.columns.secondaryValue.accessor,
-          cellRenderCallback: row => ( // eslint-disable-line react/display-name
-            <div styleName="butterflyBar">
-              <RelativeBar
-                barWeight={barWeight}
-                colorScheme={colorScheme}
-                maxValue={maxValuePrimary}
-                value={row.value} // eslint-disable-line
-              />
-            </div>
-          ),
+          cellRenderCallback: barChart,
           align: 'left',
         }]),
         {

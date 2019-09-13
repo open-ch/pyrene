@@ -15,7 +15,7 @@
   padding-bottom: 6px;
 }
 
-.butterflyBar {
+.barContainer {
   line-height: 15px; /* Center the butterfly bar vertically: 32px row height / 2 - 1 border weight */
 }
 
