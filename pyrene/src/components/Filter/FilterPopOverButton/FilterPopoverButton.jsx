@@ -38,6 +38,7 @@ FilterPopoverButton.defaultProps = {
 FilterPopoverButton.propTypes = {
   displayPopover: PropTypes.bool,
   filters: PropTypes.arrayOf(PropTypes.shape({
+    disableSorting: PropTypes.bool,
     filterKey: PropTypes.string,
     label: PropTypes.string,
     options: PropTypes.array,

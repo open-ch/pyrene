@@ -47,6 +47,7 @@ FilterPopover.defaultProps = {
 
 FilterPopover.propTypes = {
   filters: PropTypes.arrayOf(PropTypes.shape({
+    disableSorting: PropTypes.bool,
     filterKey: PropTypes.string,
     label: PropTypes.string,
     options: PropTypes.array,
