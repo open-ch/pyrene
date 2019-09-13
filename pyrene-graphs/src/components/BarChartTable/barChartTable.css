@@ -15,21 +15,13 @@
   padding-bottom: 6px;
 }
 
-.butterflyContainer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .butterflyBar {
-  width: calc((100% - 25px) / 2);
+  line-height: 15px; /* Center the butterfly bar vertically: 32px row height / 2 - 1 border weight */
 }
 
 .verticalLine {
   border-left: 1px solid var(--border);
   height: 16px;
-  margin-left: 12px;
-  margin-right: 12px;
 }
 
 .showMoreLink {

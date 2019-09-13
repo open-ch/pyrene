@@ -122,31 +122,45 @@ function getProcessedColumnsAndLegend(props, colorScheme, withoutBars) {
         columnPrimaryValue,
         ...(withoutBars ? [] : [{
           id: getId(`${props.columns.primaryValue.title}_bar_left`),
-          headerName: props.columns.primaryValue.title + props.columns.secondaryValue.title,
+          headerName: props.columns.primaryValue.title,
           accessor: props.columns.primaryValue.accessor,
           cellRenderCallback: row => ( // eslint-disable-line react/display-name
-            <div styleName="butterflyContainer">
-              <div styleName="butterflyBar">
-                <RelativeBar
-                  barWeight={barWeight}
-                  colorScheme={colorScheme}
-                  maxValue={maxValuePrimary}
-                  value={getValueWithAccessor(row, props.columns.primaryValue.accessor)} // eslint-disable-line
-                  mirrored
-                />
-              </div>
-              <div styleName="verticalLine" />
-              <div styleName="butterflyBar">
-                <RelativeBar
-                  barWeight={barWeight}
-                  colorScheme={colorScheme}
-                  maxValue={maxValueSecondary}
-                  value={getValueWithAccessor(row, props.columns.secondaryValue.accessor)} // eslint-disable-line
-                />
-              </div>
+            <div styleName="butterflyBar">
+              <RelativeBar
+                barWeight={barWeight}
+                colorScheme={colorScheme}
+                maxValue={maxValuePrimary}
+                value={row.value} // eslint-disable-line
+                mirrored
+              />
             </div>
           ),
+          align: 'right',
+        }]),
+        ...(withoutBars ? [] : [{
+          id: getId(`${props.columns.primaryValue.title}_vertical_line`),
+          accessor: props.columns.primaryValue.accessor,
+          cellRenderCallback: () => ( // eslint-disable-line react/display-name
+            <div styleName="verticalLine" />
+          ),
           align: 'center',
+          maxWidth: '1px',
+        }]),
+        ...(withoutBars ? [] : [{
+          id: getId(`${props.columns.secondaryValue.title}_bar_right`),
+          headerName: props.columns.secondaryValue.title,
+          accessor: props.columns.secondaryValue.accessor,
+          cellRenderCallback: row => ( // eslint-disable-line react/display-name
+            <div styleName="butterflyBar">
+              <RelativeBar
+                barWeight={barWeight}
+                colorScheme={colorScheme}
+                maxValue={maxValuePrimary}
+                value={row.value} // eslint-disable-line
+              />
+            </div>
+          ),
+          align: 'left',
         }]),
         {
           id: getId(props.columns.secondaryValue.title),
