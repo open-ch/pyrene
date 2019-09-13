@@ -339,7 +339,7 @@
 }
 
 :global(.ReactTable .rt-tbody .rt-tr:not(.-padRow):hover) {
-  background-color: var(--secondary);
+  background-color: var(--background-tint);
 }
 
 :global(.ReactTable .-pagination) {
