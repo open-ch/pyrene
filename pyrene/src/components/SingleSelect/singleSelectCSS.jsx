@@ -147,10 +147,7 @@ const selectStyle = {
     ':active': {
       backgroundColor: colorConstants.neutral030,
     },
-    ':hover': {
-      backgroundColor: colorConstants.neutral030,
-    },
-    backgroundColor: (isSelected || isFocused) ? colorConstants.neutral030 : colorConstants.neutral000,
+    backgroundColor: isSelected ? colorConstants.neutral030 : isFocused ? colorConstants.backgroundTint : colorConstants.neutral000,
     height: 30,
     color: colorConstants.neutral400,
     cursor: 'pointer',
