@@ -85,7 +85,7 @@ function getProcessedColumnsAndLegend(props, colorScheme, withoutBars) {
     cellRenderCallback: props.columns.primaryValue.formatter ? row => props.columns.primaryValue.formatter(row.value) : null,
     headerName: withoutBars ? props.columns.primaryValue.title : '',
     align: 'right',
-    maxWidth: '90px',
+    maxWidth: props.columns.primaryValue.maxWidth,
   };
   const columnPrimaryBarChart = {
     id: getId(`${props.columns.primaryValue.title}_bar`),
@@ -98,7 +98,7 @@ function getProcessedColumnsAndLegend(props, colorScheme, withoutBars) {
     cellRenderCallback: props.columns.secondaryValue.formatter ? row => props.columns.secondaryValue.formatter(row.value) : null,
     headerName: props.columns.secondaryValue.title,
     align: 'right',
-    maxWidth: '90px',
+    maxWidth: props.columns.secondaryValue.maxWidth,
   } : {};
   let columns;
   const columnsTable = [
@@ -162,7 +162,7 @@ function getProcessedColumnsAndLegend(props, colorScheme, withoutBars) {
           cellRenderCallback: props.columns.secondaryValue.formatter ? row => props.columns.secondaryValue.formatter(row.value) : null,
           headerName: withoutBars ? props.columns.secondaryValue.title : '',
           align: 'right',
-          maxWidth: '90px',
+          maxWidth: props.columns.secondaryValue.maxWidth,
         },
       ];
       break;
@@ -268,7 +268,7 @@ BarChartTable.propTypes = {
   colorScheme: PropTypes.arrayOf(PropTypes.string),
   /**
    * Sets the Table columns.
-   * Type: { label: { accessor: string or func (required), linkAccessor: string or func, title: string (required) }, primaryValue: { accessor: string or func (required), formatter: func, title: string (required) }, secondaryValue: { accessor: string or func (required), formatter: func, title: string (required) }}
+   * Type: { label: { accessor: string or func (required), linkAccessor: string or func, title: string (required) }, primaryValue: { accessor: string or func (required), formatter: func, maxWidth: number, title: string (required) }, secondaryValue: { accessor: string or func (required), formatter: func, maxWidth: number, title: string (required) }}
    */
   columns: PropTypes.shape({
     label: PropTypes.shape({
@@ -288,6 +288,7 @@ BarChartTable.propTypes = {
         PropTypes.func,
       ]).isRequired,
       formatter: PropTypes.func,
+      maxWidth: PropTypes.number,
       title: PropTypes.string.isRequired,
     }).isRequired,
     secondaryValue: PropTypes.shape({
@@ -296,6 +297,7 @@ BarChartTable.propTypes = {
         PropTypes.func,
       ]).isRequired,
       formatter: PropTypes.func,
+      maxWidth: PropTypes.number,
       title: PropTypes.string.isRequired,
     }),
   }).isRequired,
