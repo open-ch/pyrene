@@ -45,7 +45,6 @@ Filter.propTypes = {
    */
   filters: PropTypes.arrayOf(PropTypes.shape({
     /** Enable this if you don't want Pyrene to sort your filter options */
-    disableSorting: PropTypes.bool,
     filterKey: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
     options: PropTypes.arrayOf(PropTypes.shape({
@@ -54,6 +53,7 @@ Filter.propTypes = {
       /** key for manipulation */
       value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool]),
     })),
+    sorted: PropTypes.bool,
     type: PropTypes.oneOf(['singleSelect', 'multiSelect', 'text']).isRequired,
   })),
   /**
