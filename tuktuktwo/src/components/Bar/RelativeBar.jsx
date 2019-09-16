@@ -12,15 +12,15 @@ const RelativeBar = props => (
       props.direction === 'horizontal' ? (
         <svg width={parent.width} height={props.barWeight} transform={props.mirrored ? 'rotate(180 0 0)' : undefined}>
           <g>
-            <path d={`M0,0H${parent.width - props.cornerRadius}a${props.cornerRadius},${props.cornerRadius} 0 0 1 ${props.cornerRadius},${props.cornerRadius}v${props.barWeight - (2 * props.cornerRadius)}a${props.cornerRadius},${props.cornerRadius} 0 0 1 -${props.cornerRadius},${props.cornerRadius}H${props.value * (parent.width / props.maxValue)}z`} fill={props.colorScheme[1]} />
-            <path d={`M0,0h${props.value * (parent.width / props.maxValue) - props.cornerRadius}a${props.cornerRadius},${props.cornerRadius} 0 0 1 ${props.cornerRadius},${props.cornerRadius}v${props.barWeight - (2 * props.cornerRadius)}a${props.cornerRadius},${props.cornerRadius} 0 0 1 -${props.cornerRadius},${props.cornerRadius}h${props.cornerRadius - (props.value * (parent.width / props.maxValue))}z`} fill={props.colorScheme[0]} />
+            <path d={`M0,0H${parent.width - props.cornerRadius}a${props.cornerRadius},${props.cornerRadius} 0 0 1 ${props.cornerRadius},${props.cornerRadius}v${props.barWeight - (2 * props.cornerRadius)}a${props.cornerRadius},${props.cornerRadius} 0 0 1 -${props.cornerRadius},${props.cornerRadius}H${props.value * (parent.width / props.maxValue)}z`} fill={props.colors[1]} />
+            <path d={`M0,0h${props.value * (parent.width / props.maxValue) - props.cornerRadius}a${props.cornerRadius},${props.cornerRadius} 0 0 1 ${props.cornerRadius},${props.cornerRadius}v${props.barWeight - (2 * props.cornerRadius)}a${props.cornerRadius},${props.cornerRadius} 0 0 1 -${props.cornerRadius},${props.cornerRadius}h${props.cornerRadius - (props.value * (parent.width / props.maxValue))}z`} fill={props.colors[0]} />
           </g>
         </svg>
       ) : (
         <svg width={props.barWeight} height={parent.height} transform={props.mirrored ? 'rotate(180 0 0)' : undefined}>
           <g>
-            <path d={`M0,${parent.height}V${props.cornerRadius}a${props.cornerRadius},${props.cornerRadius} 0 0 1 ${props.cornerRadius},-${props.cornerRadius}h${props.barWeight - (2 * props.cornerRadius)}a${props.cornerRadius},${props.cornerRadius} 0 0 1 ${props.cornerRadius},${props.cornerRadius}V${parent.height}z`} fill={props.colorScheme[1]} />
-            <path d={`M0,${parent.height}v${-(props.value * (parent.height / props.maxValue) - props.cornerRadius)}a${props.cornerRadius},${props.cornerRadius} 0 0 1 ${props.cornerRadius},-${props.cornerRadius}h${props.barWeight - (2 * props.cornerRadius)}a${props.cornerRadius},${props.cornerRadius} 0 0 1 ${props.cornerRadius},${props.cornerRadius}V${parent.height}z`} fill={props.colorScheme[0]} />
+            <path d={`M0,${parent.height}V${props.cornerRadius}a${props.cornerRadius},${props.cornerRadius} 0 0 1 ${props.cornerRadius},-${props.cornerRadius}h${props.barWeight - (2 * props.cornerRadius)}a${props.cornerRadius},${props.cornerRadius} 0 0 1 ${props.cornerRadius},${props.cornerRadius}V${parent.height}z`} fill={props.colors[1]} />
+            <path d={`M0,${parent.height}v${-(props.value * (parent.height / props.maxValue) - props.cornerRadius)}a${props.cornerRadius},${props.cornerRadius} 0 0 1 ${props.cornerRadius},-${props.cornerRadius}h${props.barWeight - (2 * props.cornerRadius)}a${props.cornerRadius},${props.cornerRadius} 0 0 1 ${props.cornerRadius},${props.cornerRadius}V${parent.height}z`} fill={props.colors[0]} />
           </g>
         </svg>
       )
@@ -45,7 +45,7 @@ RelativeBar.propTypes = {
   /**
    * Sets the colors of the bars. Type: [ string ]
    */
-  colorScheme: PropTypes.arrayOf(PropTypes.string).isRequired,
+  colors: PropTypes.arrayOf(PropTypes.string).isRequired,
   /**
    * Sets the corner radius.
    */
