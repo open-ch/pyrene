@@ -33,6 +33,7 @@ const props = {
     },
   },
   header: 'Header',
+  maxRows: 1,
 };
 
 const propsComparison = {
@@ -122,5 +123,21 @@ describe('<BarChartTable />', () => {
 
   it('renders comparison without crashing', () => {
     shallow(<BarChartTable {...propsComparison} type="comparison" />);
+  });
+
+  // Show more Popover
+
+  it('renders Show more link', () => {
+
+    const rendered = mount(<BarChartTable {...props} />);
+    expect(rendered.contains('Show more')).toBe(true);
+  });
+
+  it('reacts to clicking', () => {
+    const rendered = mount(<BarChartTable {...props} />);
+    const showMoreLink = rendered.children().at(0).children().at(2);
+    showMoreLink.props().onClick = jest.fn();
+    showMoreLink.props().onClick();
+    expect(showMoreLink.props().onClick).toHaveBeenCalled();
   });
 });
