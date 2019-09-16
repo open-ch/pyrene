@@ -14,19 +14,21 @@ function getValueWithAccessor(row, accessor) {
   return (typeof accessor === 'string' ? row[accessor] : accessor(row));
 }
 
-function getProcessedColumnsAndLegend(props, colorScheme, withoutBars) {
+function getProcessedColumnsAndLegend(props, colors, withoutBars) {
   const maxValuePrimary = Math.max(...props.data.map(dataRow => getValueWithAccessor(dataRow, props.columns.primaryValue.accessor)));
   const maxValueSecondary = props.columns.secondaryValue ? Math.max(...props.data.map(dataRow => getValueWithAccessor(dataRow, props.columns.secondaryValue.accessor))) : maxValuePrimary;
   const maxValue = Math.max(maxValuePrimary, maxValueSecondary);
   const barWeight = 6;
   const barWeightSecondaryComparison = 4;
   const defaultBarChart = row => (
-    <RelativeBar
-      barWeight={barWeight}
-      colorScheme={colorScheme}
-      maxValue={maxValuePrimary}
-      value={row.value}
-    />
+    <div styleName="barContainer">
+      <RelativeBar
+        barWeight={barWeight}
+        colors={colors}
+        maxValue={maxValuePrimary}
+        value={row.value}
+      />
+    </div>
   );
   let barChart;
   let legend = [props.columns.primaryValue.title];
@@ -42,14 +44,14 @@ function getProcessedColumnsAndLegend(props, colorScheme, withoutBars) {
           <Bar
             key={getId(`${props.columns.primaryValue.title}_bar_current`)} // eslint-disable-line
             barWeight={barWeight}
-            color={colorScheme[0]}
+            color={colors[0]}
             maxValue={maxValue}
             value={getValueWithAccessor(row, props.columns.primaryValue.accessor)} // eslint-disable-line
           />
           <Bar
             key={getId(`${props.columns.secondaryValue.title}_bar_previous`)} // eslint-disable-line
             barWeight={barWeightSecondaryComparison}
-            color={colorScheme[1]}
+            color={colors[1]}
             maxValue={maxValue}
             value={getValueWithAccessor(row, props.columns.secondaryValue.accessor)} // eslint-disable-line
           />
@@ -57,6 +59,7 @@ function getProcessedColumnsAndLegend(props, colorScheme, withoutBars) {
       );
       break;
     case 'butterfly':
+      barChart = defaultBarChart;
       legend = [];
       break;
     default:
@@ -82,7 +85,7 @@ function getProcessedColumnsAndLegend(props, colorScheme, withoutBars) {
     cellRenderCallback: props.columns.primaryValue.formatter ? row => props.columns.primaryValue.formatter(row.value) : null,
     headerName: withoutBars ? props.columns.primaryValue.title : '',
     align: 'right',
-    maxWidth: '90px',
+    maxWidth: props.columns.primaryValue.maxWidth,
   };
   const columnPrimaryBarChart = {
     id: getId(`${props.columns.primaryValue.title}_bar`),
@@ -95,7 +98,7 @@ function getProcessedColumnsAndLegend(props, colorScheme, withoutBars) {
     cellRenderCallback: props.columns.secondaryValue.formatter ? row => props.columns.secondaryValue.formatter(row.value) : null,
     headerName: props.columns.secondaryValue.title,
     align: 'right',
-    maxWidth: '90px',
+    maxWidth: props.columns.secondaryValue.maxWidth,
   } : {};
   let columns;
   const columnsTable = [
@@ -122,31 +125,36 @@ function getProcessedColumnsAndLegend(props, colorScheme, withoutBars) {
         columnPrimaryValue,
         ...(withoutBars ? [] : [{
           id: getId(`${props.columns.primaryValue.title}_bar_left`),
-          headerName: props.columns.primaryValue.title + props.columns.secondaryValue.title,
+          headerName: props.columns.primaryValue.title,
           accessor: props.columns.primaryValue.accessor,
           cellRenderCallback: row => ( // eslint-disable-line react/display-name
-            <div styleName="butterflyContainer">
-              <div styleName="butterflyBar">
-                <RelativeBar
-                  barWeight={barWeight}
-                  colorScheme={colorScheme}
-                  maxValue={maxValuePrimary}
-                  value={getValueWithAccessor(row, props.columns.primaryValue.accessor)} // eslint-disable-line
-                  mirrored
-                />
-              </div>
-              <div styleName="verticalLine" />
-              <div styleName="butterflyBar">
-                <RelativeBar
-                  barWeight={barWeight}
-                  colorScheme={colorScheme}
-                  maxValue={maxValueSecondary}
-                  value={getValueWithAccessor(row, props.columns.secondaryValue.accessor)} // eslint-disable-line
-                />
-              </div>
+            <div styleName="barContainer">
+              <RelativeBar
+                barWeight={barWeight}
+                colors={colors}
+                maxValue={maxValuePrimary}
+                value={row.value} // eslint-disable-line
+                mirrored
+              />
             </div>
           ),
+          align: 'right',
+        }]),
+        ...(withoutBars ? [] : [{
+          id: getId(`${props.columns.primaryValue.title}_vertical_line`),
+          accessor: props.columns.primaryValue.accessor,
+          cellRenderCallback: () => ( // eslint-disable-line react/display-name
+            <div styleName="verticalLine" />
+          ),
           align: 'center',
+          maxWidth: '1px',
+        }]),
+        ...(withoutBars ? [] : [{
+          id: getId(`${props.columns.secondaryValue.title}_bar_right`),
+          headerName: props.columns.secondaryValue.title,
+          accessor: props.columns.secondaryValue.accessor,
+          cellRenderCallback: barChart,
+          align: 'left',
         }]),
         {
           id: getId(props.columns.secondaryValue.title),
@@ -154,7 +162,7 @@ function getProcessedColumnsAndLegend(props, colorScheme, withoutBars) {
           cellRenderCallback: props.columns.secondaryValue.formatter ? row => props.columns.secondaryValue.formatter(row.value) : null,
           headerName: withoutBars ? props.columns.secondaryValue.title : '',
           align: 'right',
-          maxWidth: '90px',
+          maxWidth: props.columns.secondaryValue.maxWidth,
         },
       ];
       break;
@@ -186,42 +194,48 @@ export default class BarChartTable extends React.Component {
    };
 
    render() {
-     let colorScheme = this.props.colorScheme;
-     if (!(colorScheme.length > 0)) colorScheme = (this.props.type === 'comparison' ? colorSchemes.comparison : colorSchemes.valueGround);
-     const columnsAndLegend = getProcessedColumnsAndLegend(this.props, colorScheme);
+     const colors = (this.props.type === 'comparison' ? this.props.colorScheme.comparison : this.props.colorScheme.valueGround);
+     const columnsAndLegend = getProcessedColumnsAndLegend(this.props, colors);
      const description = this.props.type === 'bar' ? '' : this.props.description;
-     const sortedData = this.props.data.sort((a, b) => (getValueWithAccessor(b, this.props.columns.primaryValue.accessor) - getValueWithAccessor(a, this.props.columns.primaryValue.accessor)));
+     const sortedData = this.props.data.sort((a, b) => (getValueWithAccessor(b, this.props.columns.primaryValue.accessor) - getValueWithAccessor(a, this.props.columns.primaryValue.accessor) || (getValueWithAccessor(b, this.props.columns.secondaryValue.accessor) - getValueWithAccessor(a, this.props.columns.secondaryValue.accessor))));
+     const maxRows = this.props.maxRows < 0 ? this.props.data.length : this.props.maxRows;
      return (
        <div styleName="container">
          <Header
            header={this.props.header}
            description={description}
            legend={columnsAndLegend.legend}
-           colorScheme={colorScheme}
+           colors={colors}
          />
-         <div style={{ height: `${((this.props.maxRows < 10 ? this.props.maxRows : 10) + 1) * 32}px` }}>
+         <div style={{ height: `${(maxRows + 1) * 32}px` }}>
            <SimpleTable
              columns={columnsAndLegend.columns}
-             data={sortedData.slice(0, this.props.maxRows)}
+             data={sortedData.slice(0, maxRows)}
              onRowDoubleClick={this.props.onRowDoubleClick}
            />
          </div>
-         {(this.props.data.length > 10) && (this.props.maxRows >= 10) && (
+         {(this.props.data.length > maxRows) && (
            <div styleName="showMoreLink" onClick={this.togglePopover}>
              {'Show more'}
              {this.state.showPopover && (
                <Popover
                  align="center"
                  children={<div styleName="popOverPlaceholder"></div>} // eslint-disable-line
-                 distanceToTarget={description !== '' ? 32 - 148 : 48 - 148} // to center the popover vertically, 592px / 4 = 148px + Header of either 32px or 48px, depending if description is empty or not
+                 distanceToTarget={-(3 * 32) - 1.5} // to center the popover vertically, so that 3 rows of the popover table are under and 2 rows over the bar chart table, - 1.5 to align borders
                  renderPopoverContent={() => (
-                   <div styleName="popOver">
+                   <div styleName="popOver" style={{ height: `${(maxRows + 5) * 32 + 32 + 32}px` }}>
+                     {/* popover height: (maxRows + 5 more rows) * 32px + 32px table header + 32px popover header */}
                      <div styleName="popOverHeader">
-                       {this.props.header}
+                       <div styleName="header">
+                         {this.props.header}
+                       </div>
+                       <div styleName="numberOfRows">
+                         {`(${sortedData.length})`}
+                       </div>
                      </div>
-                     <div styleName="popOverTable">
+                     <div styleName="popOverTable" style={{ height: `${(sortedData.length + 1) * 32}px` }}>
                        <SimpleTable
-                         columns={getProcessedColumnsAndLegend(this.props, colorScheme, true).columns}
+                         columns={getProcessedColumnsAndLegend(this.props, colors, true).columns}
                          data={sortedData}
                          onRowDoubleClick={this.props.onRowDoubleClick}
                        />
@@ -244,7 +258,7 @@ export default class BarChartTable extends React.Component {
 BarChartTable.displayName = 'Bar Chart Table';
 
 BarChartTable.defaultProps = {
-  colorScheme: [],
+  colorScheme: colorSchemes.colorSchemeDefault,
   description: '',
   maxRows: 10,
   onRowDoubleClick: () => {},
@@ -253,12 +267,15 @@ BarChartTable.defaultProps = {
 
 BarChartTable.propTypes = {
   /**
-   * Sets the colors of the bar chart. Type: [ string ]
+   * Sets the colors of the bar chart. Type: { comparison: [ string ] (required), valueGround: [ string ] (required) }
    */
-  colorScheme: PropTypes.arrayOf(PropTypes.string),
+  colorScheme: PropTypes.shape({
+    comparison: PropTypes.arrayOf(PropTypes.string).isRequired,
+    valueGround: PropTypes.arrayOf(PropTypes.string).isRequired,
+  }),
   /**
    * Sets the Table columns.
-   * Type: { label: { accessor: string or func (required), linkAccessor: string or func, title: string (required) }, primaryValue: { accessor: string or func (required), formatter: func, title: string (required) }, secondaryValue: { accessor: string or func (required), formatter: func, title: string (required) }}
+   * Type: { label: { accessor: string or func (required), linkAccessor: string or func, title: string (required) }, primaryValue: { accessor: string or func (required), formatter: func, maxWidth: number, title: string (required) }, secondaryValue: { accessor: string or func (required), formatter: func, maxWidth: number, title: string (required) }}
    */
   columns: PropTypes.shape({
     label: PropTypes.shape({
@@ -278,6 +295,7 @@ BarChartTable.propTypes = {
         PropTypes.func,
       ]).isRequired,
       formatter: PropTypes.func,
+      maxWidth: PropTypes.number,
       title: PropTypes.string.isRequired,
     }).isRequired,
     secondaryValue: PropTypes.shape({
@@ -286,6 +304,7 @@ BarChartTable.propTypes = {
         PropTypes.func,
       ]).isRequired,
       formatter: PropTypes.func,
+      maxWidth: PropTypes.number,
       title: PropTypes.string.isRequired,
     }),
   }).isRequired,

@@ -1,3 +1,4 @@
+@import 'pyrene/dist/colors.css';
 
 .container {
   width: 100%;
@@ -12,24 +13,16 @@
 }
 
 .comparisonContainer svg:first-child {
-  margin-bottom: 6px;
+  padding-bottom: 6px;
 }
 
-.butterflyContainer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.butterflyBar {
-  width: calc((100% - 25px) / 2);
+.barContainer {
+  line-height: 15px; /* Center the butterfly bar vertically: 32px row height / 2 - 1 border weight */
 }
 
 .verticalLine {
   border-left: 1px solid var(--border);
   height: 16px;
-  margin-left: 12px;
-  margin-right: 12px;
 }
 
 .showMoreLink {
@@ -37,7 +30,7 @@
   height: 18px;
   font-size: 13px;
   font-weight: 600;
-  color: var(--blue-500);
+  color: var(--primary);
   cursor: pointer;
 }
 
@@ -47,48 +40,38 @@
 }
 
 .popOver {
-  padding: 24px 0 0 24px;
-  width: 448px;
-  height: 592px;
+  padding: 24px;
+  width: 400px;
   border-radius: 2px;
   box-shadow: 5px 15px 30px 0 rgba(0, 21, 44, 0.2), 0 4px 8px -2px rgba(0, 21, 44, 0.2), 0 0 1px 0 rgba(0, 21, 44, 0.15);
   overflow-y: hidden;
 }
 
 .popOverHeader {
+  display: flex;
+  flex-direction: row;
   font-size: 14px;
   font-weight: 600;
   line-height: 1.14;
   letter-spacing: -0.05px;
-  color: var(--neutral-500);
   height: 32px;
 }
 
-.popOverTable thead {
-  padding-right: 24px;
+.popOverHeader .header {
+  color: var(--text);
+}
+
+.popOverHeader .numberOfRows {
+  margin-left: 0.4em;
+  color: var(--neutral-200);
 }
 
 .popOverTable tbody {
-  height: 512px;
-  padding-right: 19px;
-  margin-right: 1px;
+  position: absolute;
+  bottom: 24px;
+  top: 88px; /* 24px padding + 32px Popover header + 32px table header */
+  left: 24px;
+  right: 0px; /* padding is applied seperately because of the scrollbar */
+  padding-right: 10px;
   overflow-y: auto;
-
-  &::-webkit-scrollbar-button {
-    display: none;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    border-radius: 1px;
-    width: 4px;
-    background-color: var(--neutral-500);
-  }
-
-  &::-webkit-scrollbar {
-    width: 4px;
-  }
-
-  &::-webkit-scrollbar-track {
-    background-color: var(--neutral-050);
-  }
 }
