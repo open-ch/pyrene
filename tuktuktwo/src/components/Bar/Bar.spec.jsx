@@ -23,10 +23,10 @@ describe('<Bar />', () => {
 
   it('renders its content', () => {
     const rendered = mount(<Bar {...props} />);
-    const bar = rendered.find('rect').at(0);
-    expect(bar.prop('className')).toBe('vx-bar');
+    const svg = rendered.find('svg').at(0);
+    const bar = rendered.find('path').at(0);
     // height for horizontal bar should be equal to barWeight
-    expect(bar.prop('height')).toBe(10);
+    expect(svg.prop('height')).toBe(10);
     expect(bar.prop('fill')).toBe('blue');
   });
 
@@ -36,16 +36,13 @@ describe('<Bar />', () => {
 
   it('renders RelativeBar content', () => {
     const rendered = mount(<RelativeBar {...propsRelative} />);
-    const bar = rendered.find('rect').at(0);
-    expect(bar.prop('className')).toBe('vx-bar');
+    const svg = rendered.find('svg').at(0);
+    const bar = rendered.find('path').at(0);
     // height for horizontal bar should be equal to barWeight
-    expect(bar.prop('height')).toBe(10);
-    expect(bar.prop('fill')).toBe('blue');
+    expect(svg.prop('height')).toBe(10);
+    expect(bar.prop('fill')).toBe('red');
 
-    const barRelative = rendered.find('rect').at(1);
-    expect(barRelative.prop('className')).toBe('vx-bar');
-    // height for horizontal bar should be equal to barWeight
-    expect(barRelative.prop('height')).toBe(10);
-    expect(barRelative.prop('fill')).toBe('red');
+    const barRelative = rendered.find('path').at(1);
+    expect(barRelative.prop('fill')).toBe('blue');
   });
 });
