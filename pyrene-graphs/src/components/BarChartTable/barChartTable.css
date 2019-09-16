@@ -1,3 +1,4 @@
+@import 'pyrene/dist/colors.css';
 
 .container {
   width: 100%;
@@ -29,7 +30,7 @@
   height: 18px;
   font-size: 13px;
   font-weight: 600;
-  color: #0055ff;
+  color: var(--primary);
   cursor: pointer;
 }
 
@@ -51,7 +52,7 @@
   font-weight: 600;
   line-height: 1.14;
   letter-spacing: -0.05px;
-  color: var(--neutral-500);
+  color: var(--text);
   height: 32px;
 }
 
