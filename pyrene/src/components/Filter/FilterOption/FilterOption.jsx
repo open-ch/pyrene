@@ -20,6 +20,7 @@ export default class FilterOption extends React.Component {
               options={this.props.options}
               onChange={value => this.props.handleFilterChange(value, this.props.filterKey)}
               value={isValue ? this.props.filterValues[this.props.filterKey] : null}
+              sorted={this.props.sorted}
               clearable
               searchable
             />
@@ -33,6 +34,7 @@ export default class FilterOption extends React.Component {
               onChange={value => this.props.handleFilterChange(value && value.length === 0 ? null : value, this.props.filterKey)}
               // Pass empty array instead of null to multiSelect component if filterValues are null
               value={isValue ? this.props.filterValues[this.props.filterKey] : []}
+              sorted={this.props.sorted}
               selectedOptionsInDropdown
               keepMenuOnSelect
               clearable
@@ -74,6 +76,7 @@ FilterOption.displayName = 'FilterOption';
 FilterOption.defaultProps = {
   options: [],
   filterValues: null,
+  sorted: true,
 };
 
 FilterOption.propTypes = {
@@ -82,5 +85,6 @@ FilterOption.propTypes = {
   handleFilterChange: PropTypes.func.isRequired,
   label: PropTypes.string.isRequired,
   options: PropTypes.array, // eslint-disable-line react/forbid-prop-types
+  sorted: PropTypes.bool,
   type: PropTypes.string.isRequired,
 };

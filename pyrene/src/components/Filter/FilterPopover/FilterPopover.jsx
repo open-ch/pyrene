@@ -50,6 +50,7 @@ FilterPopover.propTypes = {
     filterKey: PropTypes.string,
     label: PropTypes.string,
     options: PropTypes.array,
+    sorted: PropTypes.bool,
     type: PropTypes.string,
   })).isRequired,
   filterValues: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.array, PropTypes.string, PropTypes.object])),
