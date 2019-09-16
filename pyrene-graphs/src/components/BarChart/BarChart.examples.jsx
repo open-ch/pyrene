@@ -1,30 +1,6 @@
-const data = [
-  {
-    application: 'INFLUXdev',
-    volume: 91.3,
-    shareOfTotal: 12.76,
-  },
-  {
-    application: 'MSS KAFKA (DEV)',
-    volume: 89.7,
-    shareOfTotal: 12.55,
-  },
-  {
-    application: 'ORACLEdev',
-    volume: 89,
-    shareOfTotal: 12.44,
-  },
-  {
-    application: 'OSAG Proxy',
-    volume: 57,
-    shareOfTotal: 7.96,
-  },
-  {
-    application: 'SSH',
-    volume: 72.3,
-    shareOfTotal: 10.11,
-  },
-];
+import {
+  tableData,
+} from '../../examples/tableData';
 
 const columns = {
   label: {
@@ -41,46 +17,27 @@ const columns = {
 const examples = {};
 
 examples.props = {
-  data: data,
+  data: tableData,
   columns: columns,
 };
 
 examples.examples = [{
   props: {
-    data: data,
+    data: tableData,
     columns: columns,
-    title: 'Top Applications by Volume',
-    subtitle: 'A horizontal bar chart',
+    header: 'Top Applications by Volume',
+    description: 'A horizontal bar chart',
   },
   description: 'A horizontal bar chart',
 }, {
   props: {
-    data: data,
+    data: tableData,
     columns: columns,
-    title: 'Top Applications by Volume Relative',
-    subtitle: 'A horizontal relative bar chart',
-    relative: true,
-  },
-  description: 'A horizontal relative bar chart',
-}, {
-  props: {
-    data: data,
-    columns: columns,
-    title: 'Top Applications by Volume',
-    subtitle: 'A vertical bar chart',
+    header: 'Top Applications by Volume',
+    description: 'A vertical bar chart',
     direction: 'vertical',
   },
   description: 'A vertical bar chart',
-}, {
-  props: {
-    data: data,
-    columns: columns,
-    title: 'Top Applications by Volume Relative',
-    subtitle: 'A vertical relative bar chart',
-    relative: true,
-    direction: 'vertical',
-  },
-  description: 'A vertical relative bar chart',
 },
 ];
 
