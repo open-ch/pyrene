@@ -48,12 +48,22 @@
 }
 
 .popOverHeader {
+  display: flex;
+  flex-direction: row;
   font-size: 14px;
   font-weight: 600;
   line-height: 1.14;
   letter-spacing: -0.05px;
-  color: var(--text);
   height: 32px;
+}
+
+.popOverHeader .header {
+  color: var(--text);
+}
+
+.popOverHeader .numberOfRows {
+  margin-left: 0.4em;
+  color: var(--neutral-200);
 }
 
 .popOverTable tbody {
