@@ -51,7 +51,7 @@ SearchResult.propTypes = {
 };
 
 SearchResult.defaultProps = {
-  category: '',
+  category: 'Other',
   title: '',
   description: '',
   searchInput: '',
