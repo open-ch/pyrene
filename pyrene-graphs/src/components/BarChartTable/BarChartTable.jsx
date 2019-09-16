@@ -14,7 +14,7 @@ function getValueWithAccessor(row, accessor) {
   return (typeof accessor === 'string' ? row[accessor] : accessor(row));
 }
 
-function getProcessedColumnsAndLegend(props, colorScheme, withoutBars) {
+function getProcessedColumnsAndLegend(props, colors, withoutBars) {
   const maxValuePrimary = Math.max(...props.data.map(dataRow => getValueWithAccessor(dataRow, props.columns.primaryValue.accessor)));
   const maxValueSecondary = props.columns.secondaryValue ? Math.max(...props.data.map(dataRow => getValueWithAccessor(dataRow, props.columns.secondaryValue.accessor))) : maxValuePrimary;
   const maxValue = Math.max(maxValuePrimary, maxValueSecondary);
@@ -24,7 +24,7 @@ function getProcessedColumnsAndLegend(props, colorScheme, withoutBars) {
     <div styleName="barContainer">
       <RelativeBar
         barWeight={barWeight}
-        colorScheme={colorScheme}
+        colors={colors}
         maxValue={maxValuePrimary}
         value={row.value}
       />
@@ -44,14 +44,14 @@ function getProcessedColumnsAndLegend(props, colorScheme, withoutBars) {
           <Bar
             key={getId(`${props.columns.primaryValue.title}_bar_current`)} // eslint-disable-line
             barWeight={barWeight}
-            color={colorScheme[0]}
+            color={colors[0]}
             maxValue={maxValue}
             value={getValueWithAccessor(row, props.columns.primaryValue.accessor)} // eslint-disable-line
           />
           <Bar
             key={getId(`${props.columns.secondaryValue.title}_bar_previous`)} // eslint-disable-line
             barWeight={barWeightSecondaryComparison}
-            color={colorScheme[1]}
+            color={colors[1]}
             maxValue={maxValue}
             value={getValueWithAccessor(row, props.columns.secondaryValue.accessor)} // eslint-disable-line
           />
@@ -131,7 +131,7 @@ function getProcessedColumnsAndLegend(props, colorScheme, withoutBars) {
             <div styleName="barContainer">
               <RelativeBar
                 barWeight={barWeight}
-                colorScheme={colorScheme}
+                colors={colors}
                 maxValue={maxValuePrimary}
                 value={row.value} // eslint-disable-line
                 mirrored
@@ -194,9 +194,8 @@ export default class BarChartTable extends React.Component {
    };
 
    render() {
-     let colorScheme = this.props.colorScheme;
-     if (!(colorScheme.length > 0)) colorScheme = (this.props.type === 'comparison' ? colorSchemes.comparison : colorSchemes.valueGround);
-     const columnsAndLegend = getProcessedColumnsAndLegend(this.props, colorScheme);
+     const colors = (this.props.type === 'comparison' ? this.props.colorScheme.comparison : this.props.colorScheme.valueGround);
+     const columnsAndLegend = getProcessedColumnsAndLegend(this.props, colors);
      const description = this.props.type === 'bar' ? '' : this.props.description;
      const sortedData = this.props.data.sort((a, b) => (getValueWithAccessor(b, this.props.columns.primaryValue.accessor) - getValueWithAccessor(a, this.props.columns.primaryValue.accessor) || (getValueWithAccessor(b, this.props.columns.secondaryValue.accessor) - getValueWithAccessor(a, this.props.columns.secondaryValue.accessor))));
      const maxRows = this.props.maxRows < 0 ? this.props.data.length : this.props.maxRows;
@@ -206,7 +205,7 @@ export default class BarChartTable extends React.Component {
            header={this.props.header}
            description={description}
            legend={columnsAndLegend.legend}
-           colorScheme={colorScheme}
+           colors={colors}
          />
          <div style={{ height: `${(maxRows + 1) * 32}px` }}>
            <SimpleTable
@@ -236,7 +235,7 @@ export default class BarChartTable extends React.Component {
                      </div>
                      <div styleName="popOverTable" style={{ height: `${(sortedData.length + 1) * 32}px` }}>
                        <SimpleTable
-                         columns={getProcessedColumnsAndLegend(this.props, colorScheme, true).columns}
+                         columns={getProcessedColumnsAndLegend(this.props, colors, true).columns}
                          data={sortedData}
                          onRowDoubleClick={this.props.onRowDoubleClick}
                        />
@@ -259,7 +258,7 @@ export default class BarChartTable extends React.Component {
 BarChartTable.displayName = 'Bar Chart Table';
 
 BarChartTable.defaultProps = {
-  colorScheme: [],
+  colorScheme: colorSchemes.colorSchemeDefault,
   description: '',
   maxRows: 10,
   onRowDoubleClick: () => {},
@@ -268,9 +267,12 @@ BarChartTable.defaultProps = {
 
 BarChartTable.propTypes = {
   /**
-   * Sets the colors of the bar chart. Type: [ string ]
+   * Sets the colors of the bar chart. Type: { comparison: [ string ] (required), valueGround: [ string ] (required) }
    */
-  colorScheme: PropTypes.arrayOf(PropTypes.string),
+  colorScheme: PropTypes.shape({
+    comparison: PropTypes.arrayOf(PropTypes.string).isRequired,
+    valueGround: PropTypes.arrayOf(PropTypes.string).isRequired,
+  }),
   /**
    * Sets the Table columns.
    * Type: { label: { accessor: string or func (required), linkAccessor: string or func, title: string (required) }, primaryValue: { accessor: string or func (required), formatter: func, maxWidth: number, title: string (required) }, secondaryValue: { accessor: string or func (required), formatter: func, maxWidth: number, title: string (required) }}

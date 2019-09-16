@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './header.css';
-import colorSchemes from '../../styles/colorSchemes';
 
 /**
  * Headers are used to display a header, description and legends along with chart components.
@@ -27,7 +26,7 @@ const Header = props => (
               >
                 <span
                   styleName="circle"
-                  style={{ backgroundColor: props.colorScheme[idx] }}
+                  style={{ backgroundColor: props.colors[idx] }}
                 />
                 {item}
               </div>
@@ -44,14 +43,14 @@ Header.displayName = 'Header';
 Header.defaultProps = {
   description: '',
   legend: [],
-  colorScheme: colorSchemes.general,
+  colors: [],
 };
 
 Header.propTypes = {
   /**
    * Sets the colors of the bar chart. Type: [ string ]
    */
-  colorScheme: PropTypes.arrayOf(PropTypes.string),
+  colors: PropTypes.arrayOf(PropTypes.string),
   /**
     * Sets the description.
     */
