@@ -21,7 +21,7 @@ const RelativeBar = (props) => {
   ];
   const color = scaleOrdinal({
     domain: keys,
-    range: props.colorScheme,
+    range: props.colors,
   });
   const weightScale = scaleBand({
   });
@@ -78,7 +78,7 @@ RelativeBar.propTypes = {
   /**
    * Sets the colors of the bars. Type: [ string ]
    */
-  colorScheme: PropTypes.arrayOf(PropTypes.string).isRequired,
+  colors: PropTypes.arrayOf(PropTypes.string).isRequired,
   /**
    * Sets the direction of the bars.
    */
