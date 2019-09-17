@@ -17,29 +17,11 @@ const columns = {
 const examples = {};
 
 examples.props = {
-  data: tableData,
+  data: tableData.slice(0, 7),
   columns: columns,
-};
-
-examples.examples = [{
-  props: {
-    data: tableData,
-    columns: columns,
-    header: 'Top Applications by Volume',
-    description: 'A horizontal bar chart',
-  },
+  header: 'Top Applications by Volume',
   description: 'A horizontal bar chart',
-}, {
-  props: {
-    data: tableData,
-    columns: columns,
-    header: 'Top Applications by Volume',
-    description: 'A vertical bar chart',
-    direction: 'vertical',
-  },
-  description: 'A vertical bar chart',
-},
-];
+};
 
 examples.category = 'Chart';
 
