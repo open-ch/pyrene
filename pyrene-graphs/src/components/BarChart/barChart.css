@@ -2,12 +2,37 @@
   width: 100%;
 }
 
-.chartContainer {
-  height: 344px;
+.columnContainer {
   margin-top: 24px;
+  height: 368px;
+  display: flex;
+  flex-direction: row;
 }
 
-.verticalContainer {
+.rowContainer {
+  width: calc(100% - 36px);
+  /* flex-direction: column; */
+  display: block;
+}
+
+.axisLeft {
+  width: 36px;
+}
+
+.axisBottom {
+  height: 24px;
+}
+
+.barsContainer {
   display: flex;
   justify-content: space-between;
+  height: calc(100% - 24px);
+}
+
+.barContainer {
+  flex: 1;
+}
+
+.horizontalContainer {
+  flex-direction: column;
 }
