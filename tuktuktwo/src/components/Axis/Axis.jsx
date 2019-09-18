@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { AxisLeft, AxisBottom } from '@vx/axis';
+import { format } from 'd3-format';
 import Responsive from '../Misc/Responsive';
 import Utils from '../../Utils';
 
@@ -23,24 +24,26 @@ const Axis = props => (
               strokeWidth={0.5}
               tickStroke={color}
               numTicks={props.labels.length === 0 ? 3 : props.labels.length}
-              hideZero
               hideAxisLine={props.labels.length > 0}
+              tickFormat={props.labels.length === 0 ? format('d') : null}
               hideTicks
+              hideZero
             />
           ) : (
             <AxisBottom
               scale={scale}
               top={parent.height - 24}
               tickLabelProps={(tickValue, index) => ({
-                textAnchor: 'middle', fontSize: 10, fill: color,
+                textAnchor: props.labels.length === 0 ? 'start' : 'middle', fontSize: 10, fill: color,
               })}
               stroke={color}
               strokeWidth={0.5}
               tickStroke={color}
-              numTicks={props.labels.length === 0 ? 6 : props.labels.length}
-              hideZero
+              numTicks={props.labels.length === 0 ? 5 : props.labels.length}
               hideAxisLine={props.labels.length > 0}
+              tickFormat={props.labels.length === 0 ? format('d') : null}
               hideTicks
+              hideZero
             />
           )}
         </svg>
