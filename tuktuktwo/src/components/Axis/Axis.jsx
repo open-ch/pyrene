@@ -9,28 +9,38 @@ const Axis = props => (
     {(parent) => {
       const maxDim = props.position === 'left' ? parent.height : parent.width;
       const scale = props.labels.length > 0 ? scaleBand({
-        rangeRound: [0, (maxDim / props.labels.length) * (props.labels.length + 1)],
+        rangeRound: [0, maxDim],
         domain: props.labels,
       }) : scaleLinear({
         range: props.position === 'left' ? [maxDim, 0] : [0, maxDim],
         domain: [0, props.maxValue],
       });
+      const color = '#979ca8';
       return (
         <svg width={parent.width} height={parent.height}>
           {props.position === 'left' ? (
             <AxisLeft
               scale={scale}
-              left={36}
+              left={props.labels.length === 0 ? 36 : 102}
               hideZero={props.labels.length === 0}
+              tickLabelProps={(tickValue, index) => ({
+                textAnchor: 'start', fontSize: 10, fill: color, dx: props.labels.length > 0 ? '-94px' : '-28px',
+              })}
+              stroke={color}
+              tickStroke={color}
+              numTicks={props.labels.length === 0 ? 3 : props.labels.length}
               hideTicks
             />
           ) : (
             <AxisBottom
               scale={scale}
               top={parent.height - 24}
-              // tickLabelProps={(tickValue, index) => ({
-              //   textAnchor: 'end', fontSize: 10, fill: 'black', dx: '-0.25em',
-              // })}
+              tickLabelProps={(tickValue, index) => ({
+                textAnchor: 'middle', fontSize: 10, fill: color,
+              })}
+              stroke={color}
+              tickStroke={color}
+              numTicks={props.labels.length === 0 ? 5 : props.labels.length}
               hideZero={props.labels.length === 0}
             />
           )}
