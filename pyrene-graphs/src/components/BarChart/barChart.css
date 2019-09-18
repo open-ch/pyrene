@@ -13,6 +13,7 @@
   flex: 1;
   flex-direction: column;
   width: 0;
+  min-width: 0;
 }
 
 .axisLeftWide {
