@@ -17,31 +17,31 @@
 
 .axisLeftWide {
   width: 102px;
-  height: 345px;
+  height: 343px;
 }
 
 .axisLeftNarrow {
+  position: relative;
   width: 36px;
-  height: 345px;
+  height: 343px;
 }
 
 .axisBottom {
-  height: 24px;
+  position: relative;
+  height: 25px;
+  top: -343px;
+}
+
+.grid {
+  position: relative;
+  height: 344px;
+  top: -342px;
 }
 
 .barsContainer {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   height: calc(100% - 24px);
-}
-
-.barContainer {
-  flex: 1;
-}
-
-.barContainer div {
-  display: block;
-  margin: auto;
 }
 
 .horizontalContainer {

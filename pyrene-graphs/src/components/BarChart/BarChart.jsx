@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { Axis, Bar } from 'tuktuktwo/dist/tuktuktwo';
+import { Axis, Bar, Grid } from 'tuktuktwo/dist/tuktuktwo';
 import Header from '../Header/Header';
 import './barChart.css';
 import colorSchemes from '../../styles/colorSchemes';
@@ -41,10 +41,17 @@ const BarChart = (props) => {
         <div styleName="rowContainer">
           <div styleName={classNames('barsContainer', { horizontalContainer: props.direction === 'horizontal' })}>
             {props.data.map(row => (
-              <div styleName="barContainer">
+              <div>
                 {barChart(row, props.columns.value.accessor)}
               </div>
             ))}
+          </div>
+          <div styleName="grid">
+            <Grid
+              labels={labels}
+              maxValue={maxValue}
+              direction={props.direction}
+            />
           </div>
           <div styleName="axisBottom">
             <Axis
