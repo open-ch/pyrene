@@ -31,7 +31,7 @@ const BarChart = (props) => {
         colorScheme={props.colorScheme}
       />
       <div styleName="columnContainer">
-        <div styleName="axisLeft">
+        <div styleName={props.direction === 'horizontal' ? 'axisLeftWide' : 'axisLeftNarrow'}>
           <Axis
             labels={props.direction === 'horizontal' ? labels : []}
             maxValue={props.direction === 'vertical' && maxValue}

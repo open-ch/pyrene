@@ -10,13 +10,19 @@
 }
 
 .rowContainer {
-  width: calc(100% - 36px);
-  /* flex-direction: column; */
+  flex: 1;
+  flex-direction: column;
   display: block;
 }
 
-.axisLeft {
+.axisLeftWide {
+  width: 102px;
+  height: 345px;
+}
+
+.axisLeftNarrow {
   width: 36px;
+  height: 345px;
 }
 
 .axisBottom {
@@ -31,6 +37,11 @@
 
 .barContainer {
   flex: 1;
+}
+
+.barContainer div {
+  display: block;
+  margin: auto;
 }
 
 .horizontalContainer {
