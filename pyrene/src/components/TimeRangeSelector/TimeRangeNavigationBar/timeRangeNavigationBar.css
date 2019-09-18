@@ -1,0 +1,33 @@
+.timeRangeNavigationBar {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  height: 32px;
+}
+
+.timeRange {
+  composes: commonFontSettings from '../../../styles/common.css';
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 600;
+  border-top: solid 1px #e1e3e8;
+  border-bottom: solid 1px #e1e3e8;
+  padding-left: 8px;
+  padding-right: 8px;
+
+  &.disabled {
+     opacity: .5;
+     cursor: default;
+     pointer-events: none;
+     /* deactivate hover */
+   }
+}
+
+.calendarIcon {
+  display: flex;
+  align-items: center;
+  border-top: 1px solid #e1e3e8;
+  border-bottom: 1px solid #e1e3e8;
+  padding-left: 8px;
+}

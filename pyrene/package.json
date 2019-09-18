@@ -79,6 +79,8 @@
   "dependencies": {
     "classnames": "^2.2.5",
     "dayjs": "^1.8.13",
+    "moment": "^2.24.0",
+    "moment-timezone": "^0.5.26",
     "prop-types": "^15.6.1",
     "react-select": "^3.0.4",
     "react-svg-inline": "^2.1.1",
