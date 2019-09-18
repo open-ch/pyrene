@@ -12,6 +12,7 @@
 .rowContainer {
   flex: 1;
   flex-direction: column;
+  width: 0;
 }
 
 .axisLeftWide {
