@@ -34,14 +34,16 @@ const BarChart = (props) => {
         <div styleName={props.direction === 'horizontal' ? 'axisLeftWide' : 'axisLeftNarrow'}>
           <Axis
             labels={props.direction === 'horizontal' ? labels : []}
-            maxValue={props.direction === 'vertical' && maxValue}
+            maxValue={props.direction === 'vertical' ? maxValue : null}
             position="left"
           />
         </div>
         <div styleName="rowContainer">
           <div styleName={classNames('barsContainer', { horizontalContainer: props.direction === 'horizontal' })}>
             {props.data.map(row => (
-              <div>
+              <div
+                key={`bar_${getValueWithAccessor(row, props.columns.label.accessor)}`}
+              >
                 {barChart(row, props.columns.value.accessor)}
               </div>
             ))}
@@ -56,7 +58,7 @@ const BarChart = (props) => {
           <div styleName="axisBottom">
             <Axis
               labels={props.direction === 'vertical' ? labels : []}
-              maxValue={props.direction === 'horizontal' && maxValue}
+              maxValue={props.direction === 'horizontal' ? maxValue : null}
               position="bottom"
             />
           </div>
