@@ -64,6 +64,7 @@
   },
   "dependencies": {
     "@vx/axis": "^0.0.191",
+    "@vx/grid": "^0.0.190",
     "@vx/responsive": "^0.0.189",
     "@vx/scale": "^0.0.190",
     "optimize-css-assets-webpack-plugin": "^5.0.0",

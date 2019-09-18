@@ -1,20 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { AxisLeft, AxisBottom } from '@vx/axis';
-import { scaleBand, scaleLinear } from '@vx/scale';
 import Responsive from '../Misc/Responsive';
+import Utils from '../../Utils';
 
 const Axis = props => (
   <Responsive>
     {(parent) => {
-      const maxDim = props.position === 'left' ? parent.height : parent.width;
-      const scale = props.labels.length > 0 ? scaleBand({
-        rangeRound: [0, maxDim],
-        domain: props.labels,
-      }) : scaleLinear({
-        range: props.position === 'left' ? [maxDim, 0] : [0, maxDim],
-        domain: [0, props.maxValue],
-      });
+      const parentSize = props.position === 'left' ? parent.height : parent.width;
+      const scale = props.labels.length > 0 ? Utils.scaleLabels(parentSize, props.labels) : Utils.scaleLinear(parentSize, props.maxValue, props.position === 'left' ? 'vertical' : 'horizontal');
       const color = '#979ca8';
       return (
         <svg width={parent.width} height={parent.height}>
@@ -22,13 +16,15 @@ const Axis = props => (
             <AxisLeft
               scale={scale}
               left={props.labels.length === 0 ? 36 : 102}
-              hideZero={props.labels.length === 0}
               tickLabelProps={(tickValue, index) => ({
                 textAnchor: 'start', fontSize: 10, fill: color, dx: props.labels.length > 0 ? '-94px' : '-28px',
               })}
               stroke={color}
+              strokeWidth={0.5}
               tickStroke={color}
               numTicks={props.labels.length === 0 ? 3 : props.labels.length}
+              hideZero
+              hideAxisLine={props.labels.length > 0}
               hideTicks
             />
           ) : (
@@ -39,9 +35,12 @@ const Axis = props => (
                 textAnchor: 'middle', fontSize: 10, fill: color,
               })}
               stroke={color}
+              strokeWidth={0.5}
               tickStroke={color}
-              numTicks={props.labels.length === 0 ? 5 : props.labels.length}
-              hideZero={props.labels.length === 0}
+              numTicks={props.labels.length === 0 ? 6 : props.labels.length}
+              hideZero
+              hideAxisLine={props.labels.length > 0}
+              hideTicks
             />
           )}
         </svg>
