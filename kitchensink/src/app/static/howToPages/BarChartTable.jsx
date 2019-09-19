@@ -29,6 +29,18 @@ const barChartTableHowTo = [{
       type="comparison"
     />
   ),
+}, {
+  title: 'Bar Chart with secondary label',
+  description: 'A simple bar chart with a secondary Label',
+  component: () => (
+    <BarChartTable
+      data={exampleData.tableDataSecLabel.data}
+      columns={exampleData.tableDataSecLabel.columns}
+      header="Locations with LQI"
+      description="Optional description and explanation on how to read the chart"
+      type="bar"
+    />
+  ),
 }];
 
 export default barChartTableHowTo;
