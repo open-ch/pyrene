@@ -17,6 +17,7 @@ export default class TimeRangeSelector extends React.Component {
       from: props.initialFrom,
       to: props.initialTo,
       durationInMs: props.initialTo - props.initialFrom,
+      currentTimeRangeType: '',
     };
   }
 
@@ -29,6 +30,7 @@ export default class TimeRangeSelector extends React.Component {
         from: nowUpperBound - selectedPresetTimeRange.durationInMs,
         to: nowUpperBound,
         durationInMs: selectedPresetTimeRange.durationInMs, // We need to store it, otherwise if we reach the lower/upper bound we will start to use less milliseconds with the steppers
+        currentTimeRangeType: selectedPresetTimeRange.id,
       }
     );
     this.props.onChange(selectedPresetTimeRange.from, selectedPresetTimeRange.to);
@@ -67,7 +69,7 @@ export default class TimeRangeSelector extends React.Component {
     return (
       <div styleName="timeRangeSelector">
         <div styleName="timeRangeSelector--left">
-          <PresetTimeRanges {...this.props} onClick={element => this.onPresetTimeRangeSelected(element)} />
+          <PresetTimeRanges {...this.props} onClick={element => this.onPresetTimeRangeSelected(element)} currentTimeRangeType={this.state.currentTimeRangeType} />
         </div>
         <div styleName="timeRangeSelector--center">
           <TimeRangeNavigationBar

@@ -1,9 +1,9 @@
 .presetTimeRange {
   composes: commonFontSettings from '../../../styles/common.css';
   border: none;
-  border-right: solid 1px #b2b8bf;
-  border-top: solid 1px #b2b8bf;
-  border-bottom: solid 1px #b2b8bf;
+  border-right: solid 1px #e1e3e8;
+  border-top: solid 1px #e1e3e8;
+  border-bottom: solid 1px #e1e3e8;
   height: 30px;
   padding-left: 16px;
   padding-right: 16px;
@@ -15,19 +15,31 @@
   background-color: var(--background-light);
 
   &.first {
-     border-left: solid 1px #b2b8bf;
+     border-left: solid 1px #e1e3e8;
   }
 
-  &:hover {
+  &.first:hover {
      border-left: solid 1px #b2b8bf;
      border-color: var(--primary);
-     background-color: var(--background-tint);
+     background-color: #f0f2f5;
+  }
+
+  &.successive {}
+
+  &.active {
+     background-color: #f0f2f5;
   }
 
   &.disabled {
-    opacity: .5;
-    cursor: default;
-    pointer-events: none;
-    /* deactivate hover */
+     opacity: .5;
+     cursor: default;
+     pointer-events: none;
   }
+
+  &.successive:hover {
+     border-left: solid 1px #b2b8bf;
+     border-color: var(--primary);
+     background-color: #f0f2f5;
+     margin-left: -1px;
+   }
 }

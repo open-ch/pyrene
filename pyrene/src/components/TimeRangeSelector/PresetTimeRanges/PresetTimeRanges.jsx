@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import './presetTimeRanges.css';
@@ -17,7 +18,9 @@ PresetTimeRanges._createPresets = props => props.presetTimeRanges.map((preset, i
     styleName={
       classNames('presetTimeRange',
         { disabled: props.disabled },
-        { first: index === 0 })
+        { active: props.currentTimeRangeType === preset.id },
+        { first: index === 0 },
+        { successive: index !== 0 })
     }
     onClick={props.onClick}
     disabled={props.disabled}
