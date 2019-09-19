@@ -79,6 +79,17 @@ function getProcessedColumnsAndLegend(props, colors, withoutBars) {
     ) : row => row.value,
     align: 'left',
   };
+
+  const hasColumnSecondaryLabel = props.columns.secondaryLabel;
+  const columnSecondaryLabel = !hasColumnSecondaryLabel ? {} :
+    {
+      id: getId(props.columns.secondaryLabel.title),
+      accessor: props.columns.secondaryLabel.accessor,
+      headerName: props.columns.secondaryLabel.title,
+      cellRenderCallback: row => row.value,
+      align: 'right',
+  };
+
   const columnPrimaryValue = {
     id: getId(props.columns.primaryValue.title),
     accessor: props.columns.primaryValue.accessor,
@@ -103,7 +114,8 @@ function getProcessedColumnsAndLegend(props, colors, withoutBars) {
   let columns;
   const columnsTable = [
     columnLabel,
-    ...(withoutBars ? [] : [{ ...columnPrimaryBarChart, headerName: props.columns.primaryValue.title }]),
+    ...(hasColumnSecondaryLabel ? [columnSecondaryLabel] : []),
+    ...(withoutBars ? [] : [columnPrimaryBarChart]),
     columnPrimaryValue,
   ];
   if (props.columns.secondaryValue) columnsTable.push(columnSecondaryValue);
@@ -114,6 +126,7 @@ function getProcessedColumnsAndLegend(props, colors, withoutBars) {
     case 'comparison':
       columns = [
         columnLabel,
+        ...(hasColumnSecondaryLabel ? [columnSecondaryLabel] : []),
         { ...columnPrimaryValue, headerName: props.columns.primaryValue.title },
         ...(withoutBars ? [] : [columnPrimaryBarChart]),
         columnSecondaryValue,
@@ -122,6 +135,7 @@ function getProcessedColumnsAndLegend(props, colors, withoutBars) {
     case 'butterfly':
       columns = [
         columnLabel,
+        ...(hasColumnSecondaryLabel ? [columnSecondaryLabel] : []),
         columnPrimaryValue,
         ...(withoutBars ? [] : [{
           id: getId(`${props.columns.primaryValue.title}_bar_left`),
@@ -275,7 +289,10 @@ BarChartTable.propTypes = {
   }),
   /**
    * Sets the Table columns.
-   * Type: { label: { accessor: string or func (required), linkAccessor: string or func, title: string (required) }, primaryValue: { accessor: string or func (required), formatter: func, maxWidth: number, title: string (required) }, secondaryValue: { accessor: string or func (required), formatter: func, maxWidth: number, title: string (required) }}
+   * Type: { label: { accessor: string or func (required), linkAccessor: string or func, title: string (required) },
+   *         secondaryLabel: { accessor: string or func (required), title: string (required) },
+   *         primaryValue (required): { accessor: string or func (required), formatter: func, maxWidth: number, title: string (required) },
+   *         secondaryValue: { accessor: string or func (required), formatter: func, maxWidth: number, title: string (required) }}
    */
   columns: PropTypes.shape({
     label: PropTypes.shape({
@@ -287,6 +304,13 @@ BarChartTable.propTypes = {
         PropTypes.string,
         PropTypes.func,
       ]),
+      title: PropTypes.string.isRequired,
+    }),
+    secondaryLabel: PropTypes.shape({
+      accessor: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.func,
+      ]).isRequired,
       title: PropTypes.string.isRequired,
     }),
     primaryValue: PropTypes.shape({
