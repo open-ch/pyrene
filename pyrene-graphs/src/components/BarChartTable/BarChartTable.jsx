@@ -67,7 +67,7 @@ function getProcessedColumnsAndLegend(props, colors, withoutBars) {
       break;
   }
   const columnLabel = {
-    id: getId(props.columns.label.title),
+    id: getId(props.header),
     accessor: props.columns.label.accessor,
     cellRenderCallback: props.columns.label.linkAccessor ? row => ( // eslint-disable-line react/display-name
       <a
@@ -275,7 +275,7 @@ BarChartTable.propTypes = {
   }),
   /**
    * Sets the Table columns.
-   * Type: { label: { accessor: string or func (required), linkAccessor: string or func, title: string (required) }, primaryValue: { accessor: string or func (required), formatter: func, maxWidth: number, title: string (required) }, secondaryValue: { accessor: string or func (required), formatter: func, maxWidth: number, title: string (required) }}
+   * Type: { label: { accessor: string or func (required), linkAccessor: string or func, title: string (required) }, primaryValue: { accessor: string or func (required), formatter: func, maxWidth: number }, secondaryValue: { accessor: string or func (required), formatter: func, maxWidth: number, title: string (required) }}
    */
   columns: PropTypes.shape({
     label: PropTypes.shape({
@@ -287,7 +287,6 @@ BarChartTable.propTypes = {
         PropTypes.string,
         PropTypes.func,
       ]),
-      title: PropTypes.string.isRequired,
     }),
     primaryValue: PropTypes.shape({
       accessor: PropTypes.oneOfType([
