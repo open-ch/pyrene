@@ -101,15 +101,15 @@ function getProcessedColumnsAndLegend(props, colors, withoutBars) {
     maxWidth: props.columns.secondaryValue.maxWidth,
   } : {};
   let columns;
-  const columnsTable = [
+  const columnsDefault = [
     columnLabel,
     ...(withoutBars ? [] : [{ ...columnPrimaryBarChart, headerName: props.columns.primaryValue.title }]),
     columnPrimaryValue,
+    ...(props.columns.secondaryValue ? [columnSecondaryValue] : []),
   ];
-  if (props.columns.secondaryValue) columnsTable.push(columnSecondaryValue);
   switch (props.type) {
     case 'bar':
-      columns = columnsTable;
+      columns = columnsDefault;
       break;
     case 'comparison':
       columns = [
@@ -167,7 +167,7 @@ function getProcessedColumnsAndLegend(props, colors, withoutBars) {
       ];
       break;
     default:
-      columns = columnsTable;
+      columns = columnsDefault;
       break;
   }
   return { columns: columns, legend: legend };
