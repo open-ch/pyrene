@@ -67,7 +67,7 @@ function getProcessedColumnsAndLegend(props, colors, withoutBars) {
       break;
   }
   const columnLabel = {
-    id: getId(props.columns.label.title),
+    id: getId(props.header),
     accessor: props.columns.label.accessor,
     cellRenderCallback: props.columns.label.linkAccessor ? row => ( // eslint-disable-line react/display-name
       <a
@@ -101,15 +101,15 @@ function getProcessedColumnsAndLegend(props, colors, withoutBars) {
     maxWidth: props.columns.secondaryValue.maxWidth,
   } : {};
   let columns;
-  const columnsTable = [
+  const columnsDefault = [
     columnLabel,
     ...(withoutBars ? [] : [{ ...columnPrimaryBarChart, headerName: props.columns.primaryValue.title }]),
     columnPrimaryValue,
+    ...(props.columns.secondaryValue ? [columnSecondaryValue] : []),
   ];
-  if (props.columns.secondaryValue) columnsTable.push(columnSecondaryValue);
   switch (props.type) {
     case 'bar':
-      columns = columnsTable;
+      columns = columnsDefault;
       break;
     case 'comparison':
       columns = [
@@ -167,7 +167,7 @@ function getProcessedColumnsAndLegend(props, colors, withoutBars) {
       ];
       break;
     default:
-      columns = columnsTable;
+      columns = columnsDefault;
       break;
   }
   return { columns: columns, legend: legend };
@@ -275,7 +275,7 @@ BarChartTable.propTypes = {
   }),
   /**
    * Sets the Table columns.
-   * Type: { label: { accessor: string or func (required), linkAccessor: string or func, title: string (required) }, primaryValue: { accessor: string or func (required), formatter: func, maxWidth: number, title: string (required) }, secondaryValue: { accessor: string or func (required), formatter: func, maxWidth: number, title: string (required) }}
+   * Type: { label: { accessor: string or func (required), linkAccessor: string or func, title: string (required) }, primaryValue: { accessor: string or func (required), formatter: func, maxWidth: string }, secondaryValue: { accessor: string or func (required), formatter: func, maxWidth: string, title: string (required) }}
    */
   columns: PropTypes.shape({
     label: PropTypes.shape({
@@ -287,7 +287,6 @@ BarChartTable.propTypes = {
         PropTypes.string,
         PropTypes.func,
       ]),
-      title: PropTypes.string.isRequired,
     }),
     primaryValue: PropTypes.shape({
       accessor: PropTypes.oneOfType([
@@ -295,7 +294,7 @@ BarChartTable.propTypes = {
         PropTypes.func,
       ]).isRequired,
       formatter: PropTypes.func,
-      maxWidth: PropTypes.number,
+      maxWidth: PropTypes.string,
       title: PropTypes.string.isRequired,
     }).isRequired,
     secondaryValue: PropTypes.shape({
@@ -304,7 +303,7 @@ BarChartTable.propTypes = {
         PropTypes.func,
       ]).isRequired,
       formatter: PropTypes.func,
-      maxWidth: PropTypes.number,
+      maxWidth: PropTypes.string,
       title: PropTypes.string.isRequired,
     }),
   }).isRequired,
