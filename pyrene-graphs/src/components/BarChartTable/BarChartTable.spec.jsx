@@ -2,6 +2,17 @@ import React from 'react';
 
 import BarChartTable from './BarChartTable.jsx';
 
+const columns = {
+  label: {
+    accessor: d => d.application,
+    title: 'Application',
+  },
+  primaryValue: {
+    accessor: d => d.volume,
+    title: 'Volume',
+    formatter: d => `${d} GB`,
+  },
+};
 
 const props = {
   data: [
@@ -17,15 +28,7 @@ const props = {
     },
   ],
   columns: {
-    label: {
-      accessor: d => d.application,
-      title: 'Application',
-    },
-    primaryValue: {
-      accessor: d => d.volume,
-      title: 'Volume',
-      formatter: d => `${d} GB`,
-    },
+    ...columns,
     secondaryValue: {
       accessor: d => d.shareOfTotal,
       title: 'Share of Total',
@@ -34,6 +37,11 @@ const props = {
   },
   header: 'Header',
   maxRows: 1,
+};
+
+const propsOnlyPrimaryValue = {
+  ...props,
+  columns: columns,
 };
 
 const propsComparison = {
@@ -96,6 +104,35 @@ describe('<BarChartTable />', () => {
         .find('path').length === 2).toBe(true);
       expect(cells.at(2).text()).toBe(props.columns.primaryValue.formatter(props.data[rowIndex].volume));
       expect(cells.at(3).text()).toBe(props.columns.secondaryValue.formatter(props.data[rowIndex].shareOfTotal));
+    });
+  });
+
+  it('renders without secondaryValue without crashing', () => {
+    shallow(<BarChartTable {...propsOnlyPrimaryValue} />);
+  });
+
+  it('renders its content without secondaryValue', () => {
+    const rendered = mount(<BarChartTable {...propsOnlyPrimaryValue} />);
+    // Header
+    expect(rendered.contains('Header')).toBe(true);
+    expect(rendered.contains('Description')).toBe(false);
+    // Table
+    // header
+    const expectedHeader = ['', 'Volume', '', 'Share of Total'];
+    rendered.find('thead').find('th').forEach((th, idx) => {
+      expect(th.text()).toBe(expectedHeader[idx]);
+    });
+    // rows
+    rendered.find('tbody').find('tr').forEach((tr, rowIndex) => {
+      const cells = tr.find('td');
+      expect(cells.at(0).text()).toBe(props.data[rowIndex].application);
+      expect(cells.at(1).find('div').at(0).find('svg')
+        .at(0)
+        .find('g')
+        .at(0)
+        .find('path').length === 2).toBe(true);
+      expect(cells.at(2).text()).toBe(props.columns.primaryValue.formatter(props.data[rowIndex].volume));
+      expect(cells).toHaveLength(3);
     });
   });
 
