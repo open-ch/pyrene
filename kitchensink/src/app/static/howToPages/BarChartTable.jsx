@@ -5,7 +5,7 @@ import { exampleData } from 'pyrene-graphs/dist/pyrene-graphs.examples';
 
 const barChartTableHowTo = [{
   title: 'Bar Chart',
-  description: 'A simple table with one column as a bar chart',
+  description: 'A simple table with one label and two values. The primary value is additionally rendered as bar chart.',
   component: () => (
     <BarChartTable
       data={exampleData.tableData.data}
@@ -16,8 +16,23 @@ const barChartTableHowTo = [{
     />
   ),
 }, {
+  title: 'Bar Chart',
+  description: 'A simple table with one label and one value, which is additionally rendered as bar chart.',
+  component: () => (
+    <BarChartTable
+      data={exampleData.tableData.data}
+      columns={{
+        label: exampleData.tableData.columns.label,
+        primaryValue: exampleData.tableData.columns.primaryValue,
+      }}
+      header="Application"
+      onRowDoubleClick={row => alert(row.value)}
+      type="bar"
+    />
+  ),
+}, {
   title: 'Butterfly Chart',
-  description: 'A simple table with one column as a butterfly chart',
+  description: 'A simple table with one label and two values. The primary value is additionally rendered as butterfly chart.',
   component: () => (
     <BarChartTable
       data={exampleData.tableDataUpDown.data}
@@ -30,7 +45,7 @@ const barChartTableHowTo = [{
   ),
 }, {
   title: 'Comparison Bar Chart',
-  description: 'A simple table with one column as a comparison bar chart',
+  description: 'A simple table with one label and two values, which are additionally rendered as comparison chart.',
   component: () => (
     <BarChartTable
       data={exampleData.tableDataComparison.data}
