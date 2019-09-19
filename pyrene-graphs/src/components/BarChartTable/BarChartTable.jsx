@@ -275,7 +275,7 @@ BarChartTable.propTypes = {
   }),
   /**
    * Sets the Table columns.
-   * Type: { label: { accessor: string or func (required), linkAccessor: string or func, title: string (required) }, primaryValue: { accessor: string or func (required), formatter: func, maxWidth: number }, secondaryValue: { accessor: string or func (required), formatter: func, maxWidth: number, title: string (required) }}
+   * Type: { label: { accessor: string or func (required), linkAccessor: string or func, title: string (required) }, primaryValue: { accessor: string or func (required), formatter: func, maxWidth: string }, secondaryValue: { accessor: string or func (required), formatter: func, maxWidth: string, title: string (required) }}
    */
   columns: PropTypes.shape({
     label: PropTypes.shape({
@@ -294,7 +294,7 @@ BarChartTable.propTypes = {
         PropTypes.func,
       ]).isRequired,
       formatter: PropTypes.func,
-      maxWidth: PropTypes.number,
+      maxWidth: PropTypes.string,
       title: PropTypes.string.isRequired,
     }).isRequired,
     secondaryValue: PropTypes.shape({
@@ -303,7 +303,7 @@ BarChartTable.propTypes = {
         PropTypes.func,
       ]).isRequired,
       formatter: PropTypes.func,
-      maxWidth: PropTypes.number,
+      maxWidth: PropTypes.string,
       title: PropTypes.string.isRequired,
     }),
   }).isRequired,
