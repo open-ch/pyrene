@@ -6,23 +6,19 @@ import Header from '../Header/Header';
 import './barChart.css';
 import colorSchemes from '../../styles/colorSchemes';
 
-function getValueWithAccessor(row, accessor) {
-  return (typeof accessor === 'string' ? row[accessor] : accessor(row));
-}
-
 const BarChart = (props) => {
-  const maxValue = Math.max(...props.data.map(dataRow => getValueWithAccessor(dataRow, props.columns.value.accessor)));
+  const maxValue = Math.max(...props.data.map(row => Math.max(Object.values(row.values))));
   const barWeight = 10;
-  const barChart = (row, accessor) => (
+  const barChart = row => (
     <Bar
       barWeight={barWeight}
       color={props.colorScheme[0]}
       maxValue={maxValue}
-      value={getValueWithAccessor(row, accessor)}
+      value={row.values.volume}
       direction={props.direction}
     />
   );
-  const labels = props.data.map(row => getValueWithAccessor(row, props.columns.label.accessor));
+  const labels = props.data.map(row => row.label);
   return (
     <div styleName="container">
       <Header
@@ -42,9 +38,9 @@ const BarChart = (props) => {
           <div styleName={classNames('barsContainer', { horizontalContainer: props.direction === 'horizontal' })}>
             {props.data.map(row => (
               <div
-                key={`bar_${getValueWithAccessor(row, props.columns.label.accessor)}`}
+                key={`bar_${row.label}`}
               >
-                {barChart(row, props.columns.value.accessor)}
+                {barChart(row)}
               </div>
             ))}
           </div>
@@ -79,23 +75,6 @@ BarChart.defaultProps = {
 
 BarChart.propTypes = {
   colorScheme: PropTypes.arrayOf(PropTypes.string),
-  columns: PropTypes.shape({
-    label: PropTypes.shape({
-      accessor: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.func,
-      ]).isRequired,
-      title: PropTypes.string.isRequired,
-    }),
-    value: PropTypes.shape({
-      accessor: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.func,
-      ]).isRequired,
-      formatter: PropTypes.func,
-      title: PropTypes.string.isRequired,
-    }),
-  }).isRequired,
   data: PropTypes.arrayOf(PropTypes.object).isRequired,
   description: PropTypes.string,
   direction: PropTypes.oneOf(['horizontal', 'vertical']),
