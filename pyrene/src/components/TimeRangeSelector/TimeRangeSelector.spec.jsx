@@ -93,14 +93,14 @@ describe('<TimeRangeSelector />', () => {
     const fromMoment = moment(props.initialTo).tz(TIMEZONE).subtract(1, 'days');
     const toMoment = moment(props.initialTo).tz(TIMEZONE);
     const dateFormat = 'DD.MM.YYYY, HH:mm';
-    const presetTimeRangeOneDay = fromMoment.format(dateFormat) + ' - ' + toMoment.format(dateFormat);
-    const timeRangeTwoDaysBack = fromMoment.subtract(1, 'days').format(dateFormat) + ' - ' + toMoment.subtract(1, 'days').format(dateFormat);
+    const preset24Hours = fromMoment.format(dateFormat) + ' - ' + toMoment.format(dateFormat);
+    const timeRange48to24HoursBack = fromMoment.subtract(1, 'days').format(dateFormat) + ' - ' + toMoment.subtract(1, 'days').format(dateFormat);
 
     rendered.find('.presetTimeRange').first().simulate('click');
     rendered.find('TimeRangeNavigationBar').find('button').first().simulate('click');
     const calculatedValue = rendered.find('.timeRange').render()[0].children[0].data;
-    expect(presetTimeRangeOneDay !== calculatedValue).toBe(true);
-    expect(timeRangeTwoDaysBack === calculatedValue).toBe(true);
+    expect(preset24Hours !== calculatedValue).toBe(true);
+    expect(timeRange48to24HoursBack === calculatedValue).toBe(true);
   });
 
 });
