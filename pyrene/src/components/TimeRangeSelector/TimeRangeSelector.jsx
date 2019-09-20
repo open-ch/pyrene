@@ -9,6 +9,10 @@ import DefaultProps from './TimeRangeSelectorDefaultProps';
 
 import './timeRangeSelector.css';
 
+/**
+ * TimeRangeSelectors are used to limit the data to a certain timerange within a lower and upper limit. Comes with default time presets and allows users to define custom ones.
+ *
+ */
 export default class TimeRangeSelector extends React.Component {
 
   constructor(props) {
@@ -18,24 +22,33 @@ export default class TimeRangeSelector extends React.Component {
       to: props.initialTo,
       durationInMs: props.initialTo - props.initialFrom,
       currentTimeRangeType: '',
+      upperBound: this.props.upperBound === null ? moment().tz(this.props.timezone).seconds(0).valueOf() : this.props.upperBound, // In case of default value, the upper bound is NOW.
     };
   }
 
+  /**
+   * Updates the from/to limits, the upperbound and the stepper ranges based on the selected preset
+   * @param selectedElement the presetTimeRange element that has been selected
+   */
   onPresetTimeRangeSelected(selectedElement) {
     const selectedPresetTimeRange = this.props.presetTimeRanges.filter(preset => preset.id === selectedElement.currentTarget.id).shift();
-    // If the upperBound is the default value or below the defined upperBound, use now as an upperbound
-    const nowUpperBound = ((this.props.upperBound === 0) || (moment().tz(this.props.timezone).seconds(0).valueOf() <= this.props.upperBound)) ? moment().tz(this.props.timezone).seconds(0).valueOf() : this.props.upperBound;
-    this.setState(
-      {
+
+    this.setState((previousState) => {
+      const nowUpperBound = this._syncUpperBound(previousState.upperBound);
+      return {
         from: nowUpperBound - selectedPresetTimeRange.durationInMs,
         to: nowUpperBound,
         durationInMs: selectedPresetTimeRange.durationInMs, // We need to store it, otherwise if we reach the lower/upper bound we will start to use less milliseconds with the steppers
         currentTimeRangeType: selectedPresetTimeRange.id,
-      }
-    );
+        upperBound: nowUpperBound,
+      };
+    });
     this.props.onChange(selectedPresetTimeRange.from, selectedPresetTimeRange.to);
   }
 
+  /**
+   * Steps backwards in time based on the current configuration, updating the upperbound if necessary
+   */
   onNavigateBack() {
     this.setState((previousState) => {
       const durationInMs = previousState.durationInMs;
@@ -45,24 +58,39 @@ export default class TimeRangeSelector extends React.Component {
       return {
         from: newFrom,
         to: newTo,
+        upperBound: this._syncUpperBound(previousState.upperBound),
       };
     });
     this.props.onChange(this.state.from, this.state.to);
   }
 
+  /**
+   * Steps forward in time based on the current configuration, updating the upperbound if necessary
+   */
   onNavigateForward() {
     this.setState((previousState) => {
+      const nowUpperBound = this._syncUpperBound(previousState.upperBound);
       const durationInMs = previousState.durationInMs;
-      const realUpperBound = this.props.upperBound === 0 ? moment().tz(this.props.timezone).seconds(0).valueOf() : this.props.upperBound; // In case of default value, the upper bound is NOW.
-      const newTo = (previousState.to + durationInMs) > realUpperBound ? realUpperBound : previousState.to + durationInMs;
+      const newTo = (previousState.to + durationInMs) > nowUpperBound ? nowUpperBound : previousState.to + durationInMs;
       const newFrom = (previousState.from + durationInMs) - newTo < durationInMs ? newTo - durationInMs : previousState.from + durationInMs; // Keep the selected timespan duration if we reach a bound
 
       return {
         from: newFrom,
         to: newTo,
+        upperBound: nowUpperBound,
       };
     });
     this.props.onChange(this.state.from, this.state.to);
+  }
+
+  /**
+   * If the upperbound is set as default, then we need to update it to NOW based on the timezone.
+   * @param state
+   * @returns {number} updated upperbound in milliseconds
+   * @private
+   */
+  _syncUpperBound(currentUpperBound) {
+    return this.props.upperBound === null ? moment().tz(this.props.timezone).seconds(0).valueOf() : currentUpperBound; // 0 seconds to switch immediately after minute ticks
   }
 
   render() {
@@ -78,6 +106,7 @@ export default class TimeRangeSelector extends React.Component {
             from={this.state.from}
             onNavigateBack={() => this.onNavigateBack()}
             onNavigateForward={() => this.onNavigateForward()}
+            upperBound={this.state.upperBound}
           />
         </div>
         <div styleName="timeRangeSelector--right">
@@ -93,7 +122,7 @@ TimeRangeSelector.displayName = 'TimeRangeSelector';
 
 TimeRangeSelector.defaultProps = {
   disabled: false,
-  upperBound: 0,
+  upperBound: null,
   presetTimeRanges: DefaultProps.PRESET_TIME_RANGES,
   renderRightSection: () => {},
 };

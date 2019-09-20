@@ -17,7 +17,7 @@ const TimeRangeNavigationBar = props => (
       direction="left"
       disabled={
         props.disabled
-        || moment(props.from).tz(props.timezone).diff(moment(props.lowerBound).tz(props.timezone), 'minutes') <= 0
+        || moment(props.from).tz(props.timezone).diff(moment(props.lowerBound).tz(props.timezone), 'minutes') <= 0 // We should not check for milliseconds but minutes changes
       }
       onClick={props.onNavigateBack}
     />
@@ -27,8 +27,7 @@ const TimeRangeNavigationBar = props => (
       direction="right"
       disabled={
         props.disabled
-        || (props.upperBound !== 0 && props.to >= props.upperBound)
-        || (props.upperBound === 0 && moment(props.to).tz(props.timezone).diff(moment().tz(props.timezone), 'minutes').valueOf() >= 0) // We should not check for milliseconds for the upperbound
+        || moment(props.to).tz(props.timezone).diff(moment(props.upperBound).tz(props.timezone), 'minutes').valueOf() >= 0 // We should not check for milliseconds but minutes changes
       }
       onClick={props.onNavigateForward}
     />
@@ -47,6 +46,7 @@ TimeRangeNavigationBar.displayName = 'TimeRangeNavigationBar';
 
 TimeRangeNavigationBar.defaultProps = {
   disabled: false,
+  upperBound: null,
 };
 
 TimeRangeNavigationBar.propTypes = {
@@ -57,7 +57,7 @@ TimeRangeNavigationBar.propTypes = {
   onNavigateForward: PropTypes.func.isRequired,
   timezone: PropTypes.string.isRequired,
   to: PropTypes.number.isRequired,
-  upperBound: PropTypes.number.isRequired,
+  upperBound: PropTypes.number,
 };
 
 export default TimeRangeNavigationBar;
