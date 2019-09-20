@@ -60,7 +60,7 @@ describe('<TimeRangeSelector />', () => {
   it('has clickable presets that change the timerange', () => {
     const rendered = mount(<TimeRangeSelector {...props} />);
 
-    // We are simulating selecting 24h preset
+    // We are simulating selecting the 24h preset
     const fromMoment = moment(props.initialTo).tz(TIMEZONE).subtract(1, 'days');
     const toMoment = moment(props.initialTo).tz(TIMEZONE);
     const dateFormat = 'DD.MM.YYYY, HH:mm';
@@ -89,7 +89,7 @@ describe('<TimeRangeSelector />', () => {
   it('has steppers that are changing the timerange if not disabled', () => {
     const rendered = mount(<TimeRangeSelector {...props} />);
 
-    // We are simulating selecting 24h preset and going 1 day backwards
+    // We are simulating selecting the 24h preset and going 1 day backwards
     const fromMoment = moment(props.initialTo).tz(TIMEZONE).subtract(1, 'days');
     const toMoment = moment(props.initialTo).tz(TIMEZONE);
     const dateFormat = 'DD.MM.YYYY, HH:mm';
