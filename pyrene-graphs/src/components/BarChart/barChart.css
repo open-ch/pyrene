@@ -3,8 +3,8 @@
 }
 
 .columnContainer {
-  margin-top: 24px;
-  height: 368px;
+  margin-top: 16px;
+  height: 344px;
   display: flex;
   flex-direction: row;
 }
@@ -17,28 +17,28 @@
 }
 
 .axisLeftWide {
-  width: 98px;
-  height: 343px;
-  margin-right: 4px;
+  width: 102px;
+  height: 319px;
+  padding-right: 4px;
 }
 
 .axisLeftNarrow {
   position: relative;
-  width: 32px;
-  height: 343px;
-  margin-right: 4px;
+  width: 36px;
+  height: 319px;
+  padding-right: 4px;
 }
 
 .axisBottom {
   position: relative;
-  height: 25px;
-  top: -343px;
+  height: 24px;
+  top: -318px;
 }
 
 .grid {
   position: relative;
-  height: 344px;
-  top: -342px;
+  height: 320px;
+  top: -318px;
 }
 
 .barsContainer {
