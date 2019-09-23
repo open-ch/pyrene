@@ -29,7 +29,7 @@ const IconSelect = (props) => {
         placeholder="Change to add icon"
         value={props.value ? options.filter(o => o.value === props.value).pop() : null}
         options={options}
-        onChange={option => props.onChange({ target: { name: props.name, value: option, type: 'singleSelect' } })}
+        onChange={option => props.onChange(option.value, { target: { name: props.name, value: option.value, type: 'singleSelect' } })}
         onBlur={props.onBlur}
         name={props.name}
         id={props.name}
