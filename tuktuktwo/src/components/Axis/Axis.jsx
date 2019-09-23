@@ -34,7 +34,7 @@ const Axis = props => (
               scale={scale}
               top={parent.height - 24}
               tickLabelProps={(tickValue, index) => ({
-                textAnchor: props.labels.length === 0 ? 'start' : 'middle', fontSize: 10, fill: color,
+                textAnchor: 'middle', fontSize: 10, fill: color, dy: '-0.25em',
               })}
               stroke={color}
               strokeWidth={0.5}
