@@ -24,7 +24,8 @@ const BarChart = (props) => {
       <Header
         header={props.header}
         description={props.description}
-        colorScheme={props.colorScheme}
+        colors={props.colorScheme}
+        legend={['Volume']}
       />
       <div styleName="columnContainer">
         <div styleName={props.direction === 'horizontal' ? 'axisLeftWide' : 'axisLeftNarrow'}>
