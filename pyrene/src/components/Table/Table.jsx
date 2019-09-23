@@ -416,15 +416,24 @@ Table.propTypes = {
   })),
   /**
    * Sets the Table columns.
-   * Type: [{ id: any, headerName: string (required), accessor: any, headerStyle: object, cellStyle: object, initiallyHidden: bool, width: number }]
+   * Type: [{ accessor: any, cellRenderCallback: One of [React element, callback function to display the cell, string],
+   * cellStyle: object, headerName: string (required), headerStyle: object, id: any, initiallyHidden: bool,
+   * sortable: bool (!!!Overrides disableSorting!!!), sortFunction: function, width: number }]
    */
   columns: PropTypes.arrayOf(PropTypes.shape({
     accessor: PropTypes.any,
+    cellRenderCallback: PropTypes.oneOfType([
+      PropTypes.element,
+      PropTypes.func,
+      PropTypes.string,
+    ]),
     cellStyle: PropTypes.object,
     headerName: PropTypes.string.isRequired,
     headerStyle: PropTypes.object,
     id: PropTypes.any,
     initiallyHidden: PropTypes.bool,
+    sortable: PropTypes.bool,
+    sortFunction: PropTypes.func,
     width: PropTypes.number,
   })).isRequired,
   /**
