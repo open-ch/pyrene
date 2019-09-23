@@ -92,9 +92,7 @@ export const getCombinedFilterFunc = (filterDefinitions, filterValues) => (datum
     .filter(f => !isNullFilter(f.type, filterValues[f.id]));
 
   // Merges singleFilterFunc by filter with and (starting with true), do all match?
-  const mergedFilter = filtersWithValues.reduce((acc, f) => acc && getSingleFilterFunc(f, filterValues[f.id])(datum), true);
-
-  return mergedFilter;
+  return filtersWithValues.reduce((acc, f) => acc && getSingleFilterFunc(f, filterValues[f.id])(datum), true);
 };
 
 export const filter = (filterDefinitions, filterValues, data) => {
@@ -118,8 +116,7 @@ export const getOptionsFromData = (optionsAccessors, data) => {
     return { value, label };
   });
 
-  const uniqueValueLabels = valueLabels.filter((elem, pos, arr) => arr.findIndex(e => e.value === elem.value) === pos);
-  return uniqueValueLabels;
+  return valueLabels.filter((elem, pos, arr) => arr.findIndex(e => e.value === elem.value) === pos);
 };
 
 
@@ -130,7 +127,7 @@ export const getOptionsFromData = (optionsAccessors, data) => {
 export const getFilterProps = (filterDefinitions, data) => filterDefinitions
   .filter(f => f.type !== null)
   .map(f => ({
-    filterKey: f.id,
+    id: f.id,
     label: f.label,
     type: f.type,
     options: f.options ? f.options : (f.optionsAccessors && data) ? getOptionsFromData(f.optionsAccessors, data) : undefined, // eslint-disable-line no-nested-ternary
