@@ -462,10 +462,10 @@ Table.propTypes = {
   /**
    * Sets the available filters.
    * Type: [{ label: string (required) label of the filter input displayed to the user, type: oneOf('singleSelect', 'multiSelect', 'text') (required),
-   * filterKey: string (required) - key for the one filter input, options: array }]
+   * id: string (required) - key for the one filter input, options: array }]
    */
   filters: PropTypes.arrayOf(PropTypes.shape({
-    filterKey: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
     options: PropTypes.arrayOf(PropTypes.shape({
       /** text displayed to the user in the filter dropdown */
@@ -480,7 +480,7 @@ Table.propTypes = {
    * use {} for passing empty filterValues
    * */
   filterValues: PropTypes.shape({
-    filterKey: PropTypes.string,
+    id: PropTypes.string,
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.array, PropTypes.object]),
   }),
   /**
