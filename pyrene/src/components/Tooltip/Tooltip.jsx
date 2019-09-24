@@ -76,7 +76,7 @@ Tooltip.propTypes = {
   /**
    * Sets the label displayed inside of the tooltip.
    */
-  label: PropTypes.string.isRequired,
+  label: PropTypes.node.isRequired,
   /**
    * Sets the Tooltip width. Only to be used to enforce line breaks.
    */
