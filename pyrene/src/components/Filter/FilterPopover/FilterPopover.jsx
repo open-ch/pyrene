@@ -12,16 +12,16 @@ const FilterPopover = props => (
     <div styleName="title">Select Filter</div>
     <div styleName="filterOptions">
       {props.filters.length <= 6
-        ? props.filters.map(filter => <FilterOption {...filter} handleFilterChange={props.handleFilterChange} filterValues={props.filterValues} key={filter.filterKey} />)
+        ? props.filters.map(filter => <FilterOption {...filter} handleFilterChange={props.handleFilterChange} filterValues={props.filterValues} key={filter.id} />)
         : (
           <React.Fragment>
-            {props.filters.slice(0, 6).map(filter => <FilterOption {...filter} handleFilterChange={props.handleFilterChange} filterValues={props.filterValues} key={filter.filterKey} />)}
+            {props.filters.slice(0, 6).map(filter => <FilterOption {...filter} handleFilterChange={props.handleFilterChange} filterValues={props.filterValues} key={filter.id} />)}
             <Collapsible
               align="end"
               labelCollapsed="More Filter Options"
               labelExpanded="Fewer Filter Options"
               renderCallback={() => props.filters.slice(6).map(filter => (
-                <FilterOption {...filter} handleFilterChange={props.handleFilterChange} filterValues={props.filterValues} key={filter.filterKey} />
+                <FilterOption {...filter} handleFilterChange={props.handleFilterChange} filterValues={props.filterValues} key={filter.id} />
               ))}
             />
           </React.Fragment>
@@ -47,7 +47,7 @@ FilterPopover.defaultProps = {
 
 FilterPopover.propTypes = {
   filters: PropTypes.arrayOf(PropTypes.shape({
-    filterKey: PropTypes.string,
+    id: PropTypes.string,
     label: PropTypes.string,
     options: PropTypes.array,
     sorted: PropTypes.bool,

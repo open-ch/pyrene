@@ -21,9 +21,6 @@ export default class TableUtils {
       sortFunction: {
         rtPropName: 'sortMethod',
       },
-      resizable: {
-        rtPropName: 'resizable',
-      },
       initiallyHidden: {
         rtPropName: 'show',
         transformValue: value => (typeof value !== 'undefined' ? !value : undefined),
