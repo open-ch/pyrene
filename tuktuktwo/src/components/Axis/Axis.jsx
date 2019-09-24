@@ -39,7 +39,7 @@ const Axis = props => (
               stroke={color}
               strokeWidth={0.5}
               tickStroke={color}
-              numTicks={props.labels.length === 0 ? 5 : props.labels.length}
+              numTicks={props.labels.length === 0 ? 6 : props.labels.length}
               hideAxisLine={props.labels.length > 0}
               tickFormat={props.labels.length === 0 ? format('d') : null}
               hideTicks

@@ -11,16 +11,7 @@ const Grid = props => (
       const color = '#979ca8';
       return (
         <svg width={parent.width} height={parent.height}>
-          {props.direction === 'horizontal' ? (
-            <GridColumns
-              scale={Utils.scaleLinear(parentSize, props.maxValue, props.direction)}
-              stroke={color}
-              strokeWidth={0.5}
-              width={parent.width}
-              height={parent.height}
-              numTicks={6}
-            />
-          ) : (
+          {props.direction === 'vertical' ? (
             <GridRows
               scale={Utils.scaleLinear(parentSize, props.maxValue, props.direction)}
               stroke={color}
@@ -28,6 +19,15 @@ const Grid = props => (
               width={parent.width}
               height={parent.height}
               numTicks={3}
+            />
+          ) : (
+            <GridColumns
+              scale={Utils.scaleLinear(parentSize, props.maxValue, props.direction)}
+              stroke={color}
+              strokeWidth={0.5}
+              width={parent.width}
+              height={parent.height}
+              numTicks={6}
             />
           )}
         </svg>
