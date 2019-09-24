@@ -16,9 +16,9 @@ const Axis = props => (
           {props.position === 'left' ? (
             <AxisLeft
               scale={scale}
-              left={props.labels.length === 0 ? 36 : 102}
+              left={props.labels.length === 0 ? 32 : 98}
               tickLabelProps={(tickValue, index) => ({
-                textAnchor: 'start', fontSize: 10, fill: color, dx: props.labels.length > 0 ? '-94px' : '-28px', dy: '0.25em',
+                textAnchor: 'start', fontSize: 10, fill: color, dx: props.labels.length > 0 ? '-90px' : '-24px', dy: '0.25em',
               })}
               stroke={color}
               strokeWidth={0.5}
