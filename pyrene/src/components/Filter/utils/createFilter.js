@@ -116,6 +116,7 @@ export const getOptionsFromData = (optionsAccessors, data) => {
     return { value, label };
   });
 
+  // Filter out valueLabels to only contain unique values
   return valueLabels.filter((elem, pos, arr) => arr.findIndex(e => e.value === elem.value) === pos);
 };
 
