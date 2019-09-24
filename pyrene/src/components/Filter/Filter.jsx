@@ -45,7 +45,7 @@ Filter.propTypes = {
    */
   filters: PropTypes.arrayOf(PropTypes.shape({
     /** Enable this if you don't want Pyrene to sort your filter options */
-    filterKey: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
     options: PropTypes.arrayOf(PropTypes.shape({
       /** text displayed to the user in the filter dropdown */
@@ -58,12 +58,12 @@ Filter.propTypes = {
   })),
   /**
    * Passing the filter values from outside
-   * @filterKey: same as filterKey in filters prop, it should be same as the `id` in filterDefinition
+   * @id: same as id in filters prop, it should be same as the `id` in filterDefinition
    * @value: the users input; for single & multiSelect value contains of both value and label! In case of multiSelect, value can consist of multiple objects {value: , label: } in an array
    * use {} for passing empty filterValues
    * */
   filterValues: PropTypes.shape({
-    filterKey: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.array, PropTypes.object]),
   }).isRequired,
   /**
