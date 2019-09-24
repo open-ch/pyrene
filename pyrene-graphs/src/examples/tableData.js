@@ -108,7 +108,6 @@ export const tableColumns = {
   label: {
     accessor: d => d.application,
     linkAccessor: d => d.link,
-    title: 'Application',
   },
   primaryValue: {
     accessor: d => d.volume,
@@ -233,7 +232,6 @@ export const tableColumnsComparison = {
   label: {
     accessor: d => d.application,
     linkAccessor: d => d.link,
-    title: 'Application',
   },
   primaryValue: {
     accessor: d => d.volumeCurrent,
@@ -358,7 +356,6 @@ export const tableColumnsUpDown = {
   label: {
     accessor: d => d.location,
     linkAccessor: d => d.link,
-    title: 'Location',
   },
   primaryValue: {
     accessor: d => d.down,
