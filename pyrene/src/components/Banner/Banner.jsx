@@ -22,7 +22,7 @@ const Banner = props => (
       <div styleName="spacer" />
       <div styleName="textBox">
         <div styleName="message">{props.label}</div>
-        {props.styling !== 'inline' && <div styleName="description">{props.description}</div>}
+        {props.styling !== 'inline' && <div styleName="description">{props.children}</div>}
       </div>
     </div>
     {props.styling === 'overlay' && <span className="pyreneIcon-delete" styleName="clearIcon" onClick={props.onClear} role="button" aria-label="Clear Banner" />}
@@ -34,7 +34,7 @@ Banner.displayName = 'Banner';
 
 Banner.defaultProps = {
   onClear: () => null,
-  description: '',
+  children: '',
   styling: 'standard',
 };
 
@@ -42,7 +42,7 @@ Banner.propTypes = {
   /**
    * Sets an additional description, displayed underneath the label. Not displayed for inline banners.
    */
-  description: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
+  children: PropTypes.node,
   /**
    * Sets the label displayed to the user.
    */
