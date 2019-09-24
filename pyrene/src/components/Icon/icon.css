@@ -1,0 +1,21 @@
+@import '../../styles/colors.css';
+
+.icon {
+    font-size: 16px;
+}
+
+.green {
+  color: var(--green-500);
+}
+
+.red {
+  color: var(--red-500);
+}
+
+.blue {
+  color: var(--blue-500);
+}
+
+.neutral {
+  color: var(--neutral-100);
+}
