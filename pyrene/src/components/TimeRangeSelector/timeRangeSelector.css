@@ -6,6 +6,7 @@
   composes: commonFontSettings from '../../styles/common.css';
   font-size: 12px;
   font-weight: 600;
+  flex-wrap: wrap;
 }
 
 .timeRangeSelector--left {
@@ -14,7 +15,6 @@
 
 .timeRangeSelector--center {
   margin-right: auto;
-  position: absolute;
 }
 
 .timeRangeSelector--right {

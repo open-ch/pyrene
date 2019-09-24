@@ -16,6 +16,7 @@
 
   &.first {
      border-left: solid 1px #e1e3e8;
+     border-radius: 2px 0px 0px 2px;
   }
 
   &.first:hover {
@@ -23,8 +24,6 @@
      border-color: var(--primary);
      background-color: #f0f2f5;
   }
-
-  &.successive {}
 
   &.active {
      background-color: #f0f2f5;
@@ -42,4 +41,8 @@
      background-color: #f0f2f5;
      margin-left: -1px;
    }
+}
+
+.presetTimeRange:last-child {
+  border-radius: 0px 2px 2px 0px;
 }

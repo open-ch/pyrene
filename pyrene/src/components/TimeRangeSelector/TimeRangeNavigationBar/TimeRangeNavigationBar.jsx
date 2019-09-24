@@ -4,16 +4,14 @@ import classNames from 'classnames';
 import moment from 'moment';
 // eslint-disable-next-line no-unused-vars
 import momentTz from 'moment-timezone';
-import SVG from 'react-svg-inline';
-import Stepper from '../../Stepper/Stepper';
-import calendarIcon from './calendar.svg';
+import TRSStepper from './Components/TRSStepper';
 
 import './timeRangeNavigationBar.css';
 
 
 const TimeRangeNavigationBar = props => (
   <div styleName="timeRangeNavigationBar">
-    <Stepper
+    <TRSStepper
       direction="left"
       disabled={
         props.disabled
@@ -21,9 +19,12 @@ const TimeRangeNavigationBar = props => (
       }
       onClick={props.onNavigateBack}
     />
-    <SVG svg={calendarIcon} styleName="calendarIcon" fill="#6b7282" />
-    {TimeRangeNavigationBar.renderCurrentTimeRange(props)}
-    <Stepper
+    <div styleName="navigationContentOuter">
+      <div styleName="navigationContentInner">
+        {TimeRangeNavigationBar.renderCurrentTimeRange(props)}
+      </div>
+    </div>
+    <TRSStepper
       direction="right"
       disabled={
         props.disabled

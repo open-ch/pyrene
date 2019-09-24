@@ -24,10 +24,17 @@
    }
 }
 
-.calendarIcon {
+.navigationContentOuter {
   display: flex;
-  align-items: center;
-  border-top: 1px solid #e1e3e8;
-  border-bottom: 1px solid #e1e3e8;
-  padding-left: 8px;
+  height: 18px;
+  margin-top: 7px;
+  margin-bottom: 7px;
+  border-left: solid 1px #e1e3e8;
+  border-right: solid 1px #e1e3e8;
+}
+
+.navigationContentInner {
+  display: flex;
+  height: 32px;
+  margin: -7px -1px;
 }
