@@ -52,7 +52,7 @@ Filter.propTypes = {
       /** key for manipulation */
       value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool]),
     })),
-    /** Enable this if you don't want Pyrene to sort your filter options */
+    /** Disable this if you don't want Pyrene to sort your filter options (defaults to true) */
     sorted: PropTypes.bool,
     type: PropTypes.oneOf(['singleSelect', 'multiSelect', 'text']).isRequired,
   })),
