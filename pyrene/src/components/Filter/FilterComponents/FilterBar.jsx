@@ -14,14 +14,14 @@ import FilterTag from './FilterTag';
  * Filter: wrapper for disabled and enabled filter
  *  |- FilterButton: only disabled filter button, placeholder
  *  |- FilterBar: enabled button together with tags incl clearAll button (if some results are filtered)
- *              : excepts filterValues from MC component, filterValues are either null or an object where each object property is a filtered filterKey (if filterKey is not used then the whole prop is null)
+ *              : excepts filterValues from MC component, filterValues are either null or an object where each object property is a filtered id (if id is not used then the whole prop is null)
  *              : example: filterValues = null if nothing filtered (clear filter), filterValues = {city: 'Brno', country: {value: 'CZ', label: 'CZ'}} if all possible inputs are filtered, filterValues = {city: 'Brno'} if country is not filtered
  *    |- FilterTag: if input is filtered, tag (grey box) is displayed
  *    |- FilterPopoverButton: wrapper for opening/closing the Filter dropdown
  *      |- FilterPopover: the Filter dropdown
  *        |- FilterOptions: inputs, based on type (text/singleSelect/multiSelect) correct components (TextField, SingleSelect, MultiSelect) are rendered
  *                        : magic with converting values from/to null :)
- *                          : if filterValues are null or the filterKey doesnt exist in the filterValues object, FilterOption passes to components correct empty type (for TextField '', for MultiSelect [])
+ *                          : if filterValues are null or the id doesnt exist in the filterValues object, FilterOption passes to components correct empty type (for TextField '', for MultiSelect [])
  *                          : via filterOptions values from inputs are passed via onChange function up, handling of empty values is done here (if TextField is '' onChange returns null, if MultiSelect is [] onChange returns null instead as well)
  *          |- TextField: type of Filter input, expects string
  *          |- SingleSelect: type of Filter input, expects {value:, label: }
@@ -61,7 +61,7 @@ export default class FilterBar extends React.Component {
 
   applyFilter = () => {
 
-    // ignore all entries with null value - if input is empty, remove the whole entry (filterKey: value) from object that is passed to parent component
+    // ignore all entries with null value - if input is empty, remove the whole entry (id: value) from object that is passed to parent component
     const filtered = Object.entries(this.state.unAppliedValues)
       .filter(e => e[1] !== null)
       // eslint-disable-next-line no-return-assign,no-sequences
@@ -76,7 +76,7 @@ export default class FilterBar extends React.Component {
   // onFilterTagClose removes only one tag - only one filter entry from filters Object should be removed, other filters have to stay
   onFilterTagClose(filter) {
     const filtered = Object.entries(this.props.filterValues)
-      .filter(e => e[0] !== filter.filterKey)
+      .filter(e => e[0] !== filter.id)
       // eslint-disable-next-line no-return-assign,no-sequences
       .reduce((res, e) => (res[e[0]] = this.props.filterValues[e[0]], res), {});
     this.setState(() => ({
@@ -103,19 +103,19 @@ export default class FilterBar extends React.Component {
       const tags = Object.entries(filterValues).map(([key, value]) => {
         if (value === undefined || value === null || value.length === 0) { return null; }
 
-        const filter = this.props.filters.find(f => f.filterKey === key);
+        const filter = this.props.filters.find(f => f.id === key);
         if (!filter) {
           return null;
         }
 
         switch (filter.type) {
           case 'text':
-            return <FilterTag key={filter.filterKey} filterLabel={filter.label} filterText={value} onClose={() => this.onFilterTagClose(filter)} />;
+            return <FilterTag key={filter.id} filterLabel={filter.label} filterText={value} onClose={() => this.onFilterTagClose(filter)} />;
           case 'singleSelect':
-            return <FilterTag key={filter.filterKey} filterLabel={filter.label} filterText={value.label} onClose={() => this.onFilterTagClose(filter)} />;
+            return <FilterTag key={filter.id} filterLabel={filter.label} filterText={value.label} onClose={() => this.onFilterTagClose(filter)} />;
           case 'multiSelect':
             if (value.length > 0) {
-              return <FilterTag key={filter.filterKey} filterLabel={filter.label} filterText={value.map(option => option.label).join('; ')} onClose={() => this.onFilterTagClose(filter)} />;
+              return <FilterTag key={filter.id} filterLabel={filter.label} filterText={value.map(option => option.label).join('; ')} onClose={() => this.onFilterTagClose(filter)} />;
             }
             break;
           default:
@@ -176,7 +176,7 @@ FilterBar.propTypes = {
    * Type: [{ label: string (required), type: oneOf('singleSelect', 'multiSelect', 'text') (required), key: string (required), options: array of values from which user can choose in single/multiSelect}]
    */
   filters: PropTypes.arrayOf(PropTypes.shape({
-    filterKey: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
     options: PropTypes.arrayOf(PropTypes.shape({
       /** text displayed to the user in the filter dropdown */
@@ -189,12 +189,12 @@ FilterBar.propTypes = {
   })).isRequired,
   /**
    * Passing the filter values from outside
-   * @filterKey: same as filterKey in filters prop, it should be same as the `id` in filterDefinition
+   * @id: same as id in filters prop, it should be same as the `id` in filterDefinition
    * @value: the users input; for single & multiSelect value contains of both value and label! In case of multiSelect, value can consist of multiple objects {value: , label: } in an array
    * use {} for passing empty filterValues
    * */
   filterValues: PropTypes.shape({
-    filterKey: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.array, PropTypes.object]).isRequired,
   }).isRequired,
   /**
