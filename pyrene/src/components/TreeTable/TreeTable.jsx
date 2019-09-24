@@ -172,7 +172,7 @@ TreeTable.propTypes = {
    * Type: [{ label: string (required), type: oneOf('singleSelect', 'multiSelect', 'text') (required), key: string (required), options: array }]
    */
   filters: PropTypes.arrayOf(PropTypes.shape({
-    filterKey: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
     options: PropTypes.array,
     type: PropTypes.oneOf(['singleSelect', 'multiSelect', 'text']).isRequired,
