@@ -1,23 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { Axis, Bar, Grid } from 'tuktuktwo/dist/tuktuktwo';
+import {
+  Axis, Bar, Grid, Responsive,
+} from 'tuktuktwo/dist/tuktuktwo';
 import Header from '../Header/Header';
 import './barChart.css';
 import colorSchemes from '../../styles/colorSchemes';
 
 const BarChart = (props) => {
-  const maxValue = Math.max(...props.data.map(row => Math.max(Object.values(row.values))));
   const barWeight = 10;
-  const barChart = row => (
-    <Bar
-      barWeight={barWeight}
-      color={props.colorScheme[0]}
-      maxValue={maxValue}
-      value={row.values.volume}
-      direction={props.direction}
-    />
-  );
   const labels = props.data.map(row => row.label);
   return (
     <div styleName="container">
@@ -27,39 +19,55 @@ const BarChart = (props) => {
         colors={props.colorScheme}
         legend={['Volume']}
       />
-      <div styleName="columnContainer">
-        <div styleName={props.direction === 'horizontal' ? 'axisLeftWide' : 'axisLeftNarrow'}>
-          <Axis
-            labels={props.direction === 'horizontal' ? labels : []}
-            maxValue={props.direction === 'vertical' ? maxValue : null}
-            position="left"
-          />
-        </div>
-        <div styleName="rowContainer">
-          <div styleName={classNames('barsContainer', { horizontalContainer: props.direction === 'horizontal' })}>
-            {props.data.map(row => (
-              <div
-                key={`bar_${row.label}`}
-              >
-                {barChart(row)}
+      <div styleName="responsiveContainer">
+        <Responsive>
+          {(parent) => {
+            let maxValue = Math.max(...props.data.map(row => Math.max(Object.values(row.values))));
+            maxValue = props.direction === 'horizontal' ? maxValue / (parent.width - 102 - 16) * (parent.width - 102) : maxValue / (parent.height - 24 - 16) * (parent.height - 24);
+            return (
+              <div styleName="columnContainer">
+                <div styleName={classNames('axisLeft', { axisLeftWide: props.direction === 'horizontal', axisLeftNarrow: props.direction === 'vertical' })}>
+                  <Axis
+                    labels={props.direction === 'horizontal' ? labels : []}
+                    maxValue={props.direction === 'vertical' ? maxValue : null}
+                    position="left"
+                  />
+                </div>
+                <div styleName="rowContainer">
+                  <div styleName="grid">
+                    <Grid
+                      labels={labels}
+                      maxValue={maxValue}
+                      direction={props.direction}
+                    />
+                  </div>
+                  <div styleName={classNames('barsContainer', { horizontalContainer: props.direction === 'horizontal' })}>
+                    {props.data.map(row => (
+                      <div
+                        key={`bar_${row.label}`}
+                      >
+                        <Bar
+                          barWeight={barWeight}
+                          color={props.colorScheme[0]}
+                          maxValue={maxValue}
+                          value={row.values.volume}
+                          direction={props.direction}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                  <div styleName="axisBottom">
+                    <Axis
+                      labels={props.direction === 'vertical' ? labels : []}
+                      maxValue={props.direction === 'horizontal' ? maxValue : null}
+                      position="bottom"
+                    />
+                  </div>
+                </div>
               </div>
-            ))}
-          </div>
-          <div styleName="grid">
-            <Grid
-              labels={labels}
-              maxValue={maxValue}
-              direction={props.direction}
-            />
-          </div>
-          <div styleName="axisBottom">
-            <Axis
-              labels={props.direction === 'vertical' ? labels : []}
-              maxValue={props.direction === 'horizontal' ? maxValue : null}
-              position="bottom"
-            />
-          </div>
-        </div>
+            );
+          }}
+        </Responsive>
       </div>
     </div>
   );

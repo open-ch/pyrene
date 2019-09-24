@@ -2,9 +2,13 @@
   width: 100%;
 }
 
-.columnContainer {
+.responsiveContainer {
   margin-top: 16px;
   height: 344px;
+}
+
+.columnContainer {
+  height: 100%;
   display: flex;
   flex-direction: row;
 }
@@ -16,32 +20,32 @@
   min-width: 0;
 }
 
-.axisLeftWide {
-  width: 102px;
-  height: 319px;
+.axisLeft {
+  height: 320px;
   padding-right: 4px;
 }
 
+.axisLeftWide {
+  width: 98px;
+}
+
 .axisLeftNarrow {
-  position: relative;
   width: 36px;
-  height: 319px;
-  padding-right: 4px;
 }
 
 .axisBottom {
   position: relative;
   height: 24px;
-  top: -318px;
+  top: -320px;
 }
 
 .grid {
-  position: relative;
   height: 320px;
-  top: -318px;
 }
 
 .barsContainer {
+  position: relative;
+  top: -320px;
   display: flex;
   justify-content: space-around;
   height: calc(100% - 24px);
