@@ -1,15 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import './icon.css';
 import colorConstants from '../../styles/colorConstants';
+import styles from './icon.css';
+
 
 /**
  * IconFont Wrapper. Pass Icon name and color.
  */
 const Icon = props => (
   <span
-    className={`pyreneIcon-${props.icon} icon`}
+    className={`pyreneIcon-${props.icon} ${styles.icon}`}
     style={{ color: (props.color in colorConstants) ? colorConstants[props.color] : props.color }}
   />
 );
