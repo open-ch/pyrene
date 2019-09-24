@@ -11,6 +11,7 @@ import { default as Checkbox } from '../components/Checkbox/Checkbox.examples';
 import { default as Collapsible } from '../components/Collapsible/Collapsible.examples';
 import { default as Container } from '../components/Container/Container.examples';
 import { default as Filter } from '../components/Filter/Filter.examples';
+import { default as Icon } from '../components/Icon/Icon.examples';
 import { default as IconButton } from '../components/IconButton/IconButton.examples';
 import { default as Heading } from '../components/Heading/Heading.examples';
 import { default as KeyValueTable } from '../components/KeyValueTable/KeyValueTable.examples';
@@ -47,6 +48,7 @@ const examples = {
   Container,
   Filter,
   Heading,
+  Icon,
   IconButton,
   KeyValueTable,
   Link,
