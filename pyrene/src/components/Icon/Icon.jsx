@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
 import './icon.css';
 import colorConstants from '../../styles/colorConstants';
