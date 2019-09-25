@@ -135,7 +135,7 @@ describe('<BarChartTable />', () => {
 
   it('reacts to clicking', () => {
     const rendered = mount(<BarChartTable {...props} />);
-    const showMoreLink = rendered.children().at(0).children().at(2);
+    const showMoreLink = rendered.find('.showMoreLink');
     showMoreLink.props().onClick = jest.fn();
     showMoreLink.props().onClick();
     expect(showMoreLink.props().onClick).toHaveBeenCalled();
