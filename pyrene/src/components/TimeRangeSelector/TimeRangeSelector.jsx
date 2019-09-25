@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import moment from 'moment-timezone';
 import PresetTimeRanges from './PresetTimeRanges/PresetTimeRanges';
 import TimeRangeNavigationBar from './TimeRangeNavigationBar/TimeRangeNavigationBar';
-import DefaultProps from './TimeRangeSelectorDefaultProps';
+import { PRESET_TIME_RANGES } from './TimeRangeSelectorHelper';
 
 import './timeRangeSelector.css';
 
@@ -28,89 +28,75 @@ export default class TimeRangeSelector extends React.Component {
       currentTimeRangeType: initialTimeRangeType,
       upperBound: realUpperBound, // In case of default value, the upper bound is NOW.
     };
+
+    this._onPresetTimeRangeSelected = this._onPresetTimeRangeSelected.bind(this);
+    this._onNavigate = this._onNavigate.bind(this);
   }
 
   /**
-   * Updates the from/to limits, the upperbound and the stepper ranges based on the selected preset
-   * @param selectedElement the presetTimeRange element that has been selected
-   */
-  onPresetTimeRangeSelected(selectedElement) {
-    const selectedPresetTimeRange = this.props.presetTimeRanges.filter(preset => preset.id === selectedElement.currentTarget.id).shift();
-
-    this.setState((previousState) => {
-      const nowUpperBound = this._syncUpperBound(previousState.upperBound);
-      return {
-        from: nowUpperBound - selectedPresetTimeRange.durationInMs,
-        to: nowUpperBound,
-        durationInMs: selectedPresetTimeRange.durationInMs, // We need to store it, otherwise if we reach the lower/upper bound we will start to use less milliseconds with the steppers
-        currentTimeRangeType: selectedPresetTimeRange.id,
-        upperBound: nowUpperBound,
-      };
-    });
-    this.props.onChange(selectedPresetTimeRange.from, selectedPresetTimeRange.to);
-  }
-
-  /**
-   * Steps backwards in time based on the current configuration, updating the upperbound if necessary
-   */
-  onNavigateBack() {
-    this.setState((previousState) => {
-      const durationInMs = previousState.durationInMs;
-      const newFrom = (previousState.from - durationInMs) < this.props.lowerBound ? this.props.lowerBound : previousState.from - durationInMs;
-      const newTo = (previousState.to - durationInMs) - newFrom < durationInMs ? newFrom + durationInMs : previousState.to - durationInMs; // Keep the selected timespan duration if we reach a bound
-
-      return {
-        from: newFrom,
-        to: newTo,
-        upperBound: this._syncUpperBound(previousState.upperBound),
-      };
-    });
-    this.props.onChange(this.state.from, this.state.to);
-  }
-
-  /**
-   * Steps forward in time based on the current configuration, updating the upperbound if necessary
-   */
-  onNavigateForward() {
-    this.setState((previousState) => {
-      const nowUpperBound = this._syncUpperBound(previousState.upperBound);
-      const durationInMs = previousState.durationInMs;
-      const newTo = (previousState.to + durationInMs) > nowUpperBound ? nowUpperBound : previousState.to + durationInMs;
-      const newFrom = (previousState.from + durationInMs) - newTo < durationInMs ? newTo - durationInMs : previousState.from + durationInMs; // Keep the selected timespan duration if we reach a bound
-
-      return {
-        from: newFrom,
-        to: newTo,
-        upperBound: nowUpperBound,
-      };
-    });
-    this.props.onChange(this.state.from, this.state.to);
-  }
-
-  /**
-   * If the upperbound is set as default, then we need to update it to NOW based on the timezone.
-   * @param state
-   * @returns {number} updated upperbound in milliseconds
+   * Updates the from/to limits, the upperbound and the stepper ranges when a preset is selected
+   * @param newFrom                 the new from value in epoch milliseconds
+   * @param newTo                   the new to value in epoch milliseconds
+   * @param newUpperBound           the new value of the upperbound synced accordingly
+   * @param durationInMs            the duration of the timerange based on the selected preset
+   * @param currentTimeRangeType    the type of the timerange that was selected
    * @private
    */
-  _syncUpperBound(currentUpperBound) {
-    return this.props.upperBound === null ? moment().tz(this.props.timezone).seconds(0).valueOf() : currentUpperBound; // 0 seconds to switch immediately after minute ticks
+  _onPresetTimeRangeSelected(newFrom, newTo, newUpperBound, durationInMs, currentTimeRangeType) {
+    this.setState({
+      from: newFrom,
+      to: newTo,
+      durationInMs: durationInMs, // We need to store it, otherwise if we reach the lower/upper bound we will start to use less milliseconds with the steppers
+      currentTimeRangeType: currentTimeRangeType,
+      upperBound: newUpperBound,
+    },
+    () => {
+      this.props.onChange(newFrom, newTo);
+    });
+  }
+
+  /**
+   * Changes the state of the timerange selector based on the interactions with the navigation bar
+   * @param newFrom       the new from value in epoch milliseconds
+   * @param newTo         the new to value in epoch milliseconds
+   * @param newUpperBound the new value of the upperbound synced accordingly
+   * @private
+   */
+  _onNavigate(newFrom, newTo, newUpperBound) {
+    this.setState({
+      from: newFrom,
+      to: newTo,
+      upperBound: newUpperBound,
+    }, () => {
+      this.props.onChange(this.state.from, this.state.to);
+    });
   }
 
   render() {
     return (
       <div styleName="timeRangeSelector">
         <div styleName="timeRangeSelector--left">
-          <PresetTimeRanges {...this.props} onClick={element => this.onPresetTimeRangeSelected(element)} currentTimeRangeType={this.state.currentTimeRangeType} />
+          <PresetTimeRanges
+            disabled={this.props.disabled}
+            onInteract={this._onPresetTimeRangeSelected}
+            currentTimeRangeType={this.state.currentTimeRangeType}
+            presetTimeRanges={this.props.presetTimeRanges}
+            defaultUpperBound={this.props.upperBound}
+            upperBound={this.state.upperBound}
+            timezone={this.props.timezone}
+          />
         </div>
         <div styleName="timeRangeSelector--center">
           <TimeRangeNavigationBar
-            {...this.props}
+            disabled={this.props.disabled}
+            durationInMs={this.state.durationInMs}
             to={this.state.to}
             from={this.state.from}
-            onNavigateBack={() => this.onNavigateBack()}
-            onNavigateForward={() => this.onNavigateForward()}
+            lowerBound={this.props.lowerBound}
+            onNavigate={this._onNavigate}
+            defaultUpperBound={this.props.upperBound}
             upperBound={this.state.upperBound}
+            timezone={this.props.timezone}
           />
         </div>
         <div styleName="timeRangeSelector--right">
@@ -127,7 +113,7 @@ TimeRangeSelector.displayName = 'TimeRangeSelector';
 TimeRangeSelector.defaultProps = {
   disabled: false,
   upperBound: null,
-  presetTimeRanges: DefaultProps.PRESET_TIME_RANGES,
+  presetTimeRanges: PRESET_TIME_RANGES,
   renderRightSection: () => {},
 };
 
