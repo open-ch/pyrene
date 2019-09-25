@@ -33,7 +33,7 @@ const props = {
     },
   },
   header: 'Header',
-  maxRows: 1,
+  maxDisplayedRows: 1,
 };
 
 const propsComparison = {

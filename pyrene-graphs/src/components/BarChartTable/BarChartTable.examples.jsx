@@ -14,7 +14,7 @@ examples.props = {
   description: 'Optional description and explanation on how to read the chart',
   onRowDoubleClick: row => alert(row.value),
   colorScheme: colorSchemes.valueGround,
-  maxRows: 10,
+  maxDisplayedRows: 10,
 };
 
 examples.category = 'Chart';
