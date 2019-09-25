@@ -80,7 +80,7 @@ function getProcessedColumnsAndLegend(props, colors, withoutBars) {
     align: 'left',
   };
 
-  const hasColumnSecondaryLabel = props.columns.secondaryLabel;
+  const hasColumnSecondaryLabel = !!props.columns.secondaryLabel;
   const columnSecondaryLabel = !hasColumnSecondaryLabel ? {} :
     {
       id: getId(props.columns.secondaryLabel.title),
@@ -115,7 +115,7 @@ function getProcessedColumnsAndLegend(props, colors, withoutBars) {
   const columnsDefault = [
     columnLabel,
     ...(hasColumnSecondaryLabel ? [columnSecondaryLabel] : []),
-    ...(withoutBars ? [] : [columnPrimaryBarChart]),
+    ...(withoutBars ? [] : [{ ...columnPrimaryBarChart, headerName: props.columns.primaryValue.title }]),
     columnPrimaryValue,
     ...(props.columns.secondaryValue ? [columnSecondaryValue] : []),
   ];
