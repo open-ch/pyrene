@@ -63,8 +63,7 @@ function getProcessedColumnsAndLegend(props, colors, withoutBars) {
       legend = [];
       break;
     default:
-      barChart = defaultBarChart;
-      break;
+      throw 'Unknown type';
   }
   const columnLabel = {
     id: getId(props.header),
@@ -112,16 +111,15 @@ function getProcessedColumnsAndLegend(props, colors, withoutBars) {
     maxWidth: props.columns.secondaryValue.maxWidth,
   } : {};
   let columns;
-  const columnsDefault = [
-    columnLabel,
-    ...(hasColumnSecondaryLabel ? [columnSecondaryLabel] : []),
-    ...(withoutBars ? [] : [{ ...columnPrimaryBarChart, headerName: props.columns.primaryValue.title }]),
-    columnPrimaryValue,
-    ...(props.columns.secondaryValue ? [columnSecondaryValue] : []),
-  ];
   switch (props.type) {
     case 'bar':
-      columns = columnsDefault;
+      columns = [
+        columnLabel,
+        ...(hasColumnSecondaryLabel ? [columnSecondaryLabel] : []),
+        ...(withoutBars ? [] : [{ ...columnPrimaryBarChart, headerName: props.columns.primaryValue.title }]),
+        columnPrimaryValue,
+        ...(props.columns.secondaryValue ? [columnSecondaryValue] : []),
+      ];
       break;
     case 'comparison':
       columns = [
@@ -181,8 +179,7 @@ function getProcessedColumnsAndLegend(props, colors, withoutBars) {
       ];
       break;
     default:
-      columns = columnsDefault;
-      break;
+      throw 'Unknown type';
   }
   return { columns: columns, legend: legend };
 }
