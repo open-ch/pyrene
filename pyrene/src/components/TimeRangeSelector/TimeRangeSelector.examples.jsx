@@ -36,7 +36,7 @@ const examples = {
   props: {
     timezone: TIMEZONE,
     lowerBound: moment().tz(TIMEZONE).subtract(1, 'years').valueOf(),
-    initialFrom: moment().tz(TIMEZONE).subtract(20, 'days').valueOf(),
+    initialFrom: moment().tz(TIMEZONE).subtract(40, 'days').valueOf(),
     initialTo: moment().tz(TIMEZONE).subtract(10, 'days').valueOf(),
     onChange: () => {},
     renderRightSection: renderRightSection,

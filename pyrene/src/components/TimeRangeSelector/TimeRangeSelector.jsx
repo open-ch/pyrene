@@ -17,12 +17,17 @@ export default class TimeRangeSelector extends React.Component {
 
   constructor(props) {
     super(props);
-    const realUpperBound = this.props.upperBound === null ? moment().tz(this.props.timezone).seconds(0).valueOf() : this.props.upperBound;
+
+    const realUpperBound = props.upperBound === null ? moment().tz(props.timezone).seconds(0).valueOf() : props.upperBound;
+    const durationInMs = props.initialTo - props.initialFrom;
+    let initialTimeRangeType = props.presetTimeRanges.find(preset => preset.durationInMs === durationInMs); // Try to find if the timerange matches an initial preset
+    initialTimeRangeType = initialTimeRangeType ? initialTimeRangeType.id : ''; // If we found a match, then let's use the id of the preset, otherwise no default preset has to be selected
+
     this.state = {
       from: props.initialFrom >= this.props.lowerBound ? props.initialFrom : this.props.lowerBound,
       to: props.initialTo <= realUpperBound ? props.initialTo : realUpperBound,
-      durationInMs: props.initialTo - props.initialFrom,
-      currentTimeRangeType: '',
+      durationInMs: durationInMs,
+      currentTimeRangeType: initialTimeRangeType,
       upperBound: realUpperBound, // In case of default value, the upper bound is NOW.
     };
   }
