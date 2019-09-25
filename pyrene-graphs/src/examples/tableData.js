@@ -413,9 +413,4 @@ export const tableColumnsSecLabel = {
       title: 'Volume Up',
       formatter: d => `${d.toFixed(1)} %`,
     },
-    secondaryValue: {
-      accessor: d => d.up,
-        title: '',
-        formatter: d => ``,
-    },
 };
