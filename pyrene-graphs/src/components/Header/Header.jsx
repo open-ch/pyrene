@@ -48,7 +48,7 @@ Header.defaultProps = {
 
 Header.propTypes = {
   /**
-   * Sets the colors of the bar chart. Type: [ string ]
+   * Sets the colors of the legend. Type: [ string ]
    */
   colors: PropTypes.arrayOf(PropTypes.string),
   /**
