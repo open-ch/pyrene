@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
-// eslint-disable-next-line no-unused-vars
-import momentTz from 'moment-timezone';
+import moment from 'moment-timezone';
 import PresetTimeRanges from './PresetTimeRanges/PresetTimeRanges';
 import TimeRangeNavigationBar from './TimeRangeNavigationBar/TimeRangeNavigationBar';
 import DefaultProps from './TimeRangeSelectorDefaultProps';
@@ -134,11 +132,35 @@ TimeRangeSelector.defaultProps = {
 };
 
 TimeRangeSelector.propTypes = {
+  /**
+   * Whether or not the component is disabled
+   * Type: boolean
+   */
   disabled: PropTypes.bool,
+  /**
+   * The initial value to start the range from in epoch milliseconds
+   * Type: number (required)
+   */
   initialFrom: PropTypes.number.isRequired,
+  /**
+   * The initial value to end the range to in epoch milliseconds
+   * Type: number (required)
+   */
   initialTo: PropTypes.number.isRequired,
+  /**
+   * The oldest queryable starting time point, in epoch milliseconds
+   * Type: number (required)
+   */
   lowerBound: PropTypes.number.isRequired,
+  /**
+   * Callback function passed by parent page (usually a GET request to fetch new data)
+   * Type: function(from: number, to: number) (required)
+   */
   onChange: PropTypes.func.isRequired,
+  /**
+   * The preset time ranges to display as preset buttons
+   * Type: [{ id: string (required) the id of the preset, label: string (required) label of the preset button displayed to the user, durationInMs: number (required) the duration of the timerange in epoch ms }]
+   */
   presetTimeRanges: PropTypes.arrayOf(
     PropTypes.shape({
       durationInMs: PropTypes.number.isRequired,
@@ -146,7 +168,19 @@ TimeRangeSelector.propTypes = {
       label: PropTypes.string.isRequired,
     }),
   ),
+  /**
+   * Function called if there is some element to be rendered on the rightmost side
+   * Type: function
+   */
   renderRightSection: PropTypes.func,
+  /**
+   * The timezone that the range selector should use to display the time
+   * Type: string (required)
+   */
   timezone: PropTypes.string.isRequired,
+  /**
+   * The latest queryable ending time point, in epoch milliseconds
+   * Type: number defaults to null if not provided and in such case will update itself to 'now' as time passes
+   */
   upperBound: PropTypes.number,
 };

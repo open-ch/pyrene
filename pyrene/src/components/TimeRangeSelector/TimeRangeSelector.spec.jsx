@@ -1,8 +1,6 @@
 import React from 'react';
 
-import moment from 'moment';
-// eslint-disable-next-line no-unused-vars
-import momentTz from 'moment-timezone';
+import moment from 'moment-timezone';
 // eslint-disable-next-line no-unused-vars
 import classNames from 'classnames';
 

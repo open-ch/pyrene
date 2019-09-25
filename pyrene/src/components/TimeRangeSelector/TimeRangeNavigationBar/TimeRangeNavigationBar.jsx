@@ -1,9 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import moment from 'moment';
-// eslint-disable-next-line no-unused-vars
-import momentTz from 'moment-timezone';
+import moment from 'moment-timezone';
 import TRSStepper from './Components/TRSStepper';
 
 import './timeRangeNavigationBar.css';
