@@ -179,9 +179,13 @@ function getProcessedColumnsAndLegend(props, colors, withoutBars) {
  */
 export default class BarChartTable extends React.Component {
 
-   state = {
-     showPopover: false,
-   };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      showPopover: false,
+    };
+  }
 
    togglePopover = () => {
      this.setState(prevState => ({
