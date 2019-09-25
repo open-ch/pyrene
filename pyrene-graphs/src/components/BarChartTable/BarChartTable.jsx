@@ -191,7 +191,7 @@ export default class BarChartTable extends React.Component {
      const columnsAndLegend = getProcessedColumnsAndLegend(this.props, colorScheme);
      const description = this.props.type === 'bar' ? '' : this.props.description;
      const sortedData = this.props.data.sort((a, b) => (getValueWithAccessor(b, this.props.columns.primaryValue.accessor) - getValueWithAccessor(a, this.props.columns.primaryValue.accessor)));
-     const maxDisplayedRows = this.props.maxDisplayedRows < 0 ? this.props.data.length : this.props.maxDisplayedRows;
+     const displayedRows = this.props.displayedRows < 0 ? this.props.data.length : this.props.displayedRows;
      return (
        <div styleName="container">
          <Header
@@ -200,14 +200,14 @@ export default class BarChartTable extends React.Component {
            legend={columnsAndLegend.legend}
            colorScheme={colorScheme}
          />
-         <div style={{ height: `${(maxDisplayedRows + 1) * 32}px` }}>
+         <div style={{ height: `${(displayedRows + 1) * 32}px` }}>
            <SimpleTable
              columns={columnsAndLegend.columns}
-             data={sortedData.slice(0, maxDisplayedRows)}
+             data={sortedData.slice(0, displayedRows)}
              onRowDoubleClick={this.props.onRowDoubleClick}
            />
          </div>
-         {(this.props.data.length > maxDisplayedRows) && (
+         {(this.props.data.length > displayedRows) && (
            <div styleName="showMoreLink" onClick={this.togglePopover}>
              {'Show more'}
              {this.state.showPopover && (
@@ -216,8 +216,8 @@ export default class BarChartTable extends React.Component {
                  children={<div styleName="popOverPlaceholder"></div>} // eslint-disable-line
                  distanceToTarget={-(3 * 32) - 1.5} // to center the popover vertically, so that 3 rows of the popover table are under and 2 rows over the bar chart table, - 1.5 to align borders
                  renderPopoverContent={() => (
-                   <div styleName="popOver" style={{ height: `${(maxDisplayedRows + 5) * 32 + 32 + 32}px` }}>
-                     {/* popover height: (maxDisplayedRows + 5 more rows) * 32px + 32px table header + 32px popover header */}
+                   <div styleName="popOver" style={{ height: `${(displayedRows + 5) * 32 + 32 + 32}px` }}>
+                     {/* popover height: (displayedRows + 5 more rows) * 32px + 32px table header + 32px popover header */}
                      <div styleName="popOverHeader">
                        {`${this.props.header} (${sortedData.length})`}
                      </div>
@@ -248,7 +248,7 @@ BarChartTable.displayName = 'Bar Chart Table';
 BarChartTable.defaultProps = {
   colorScheme: [],
   description: '',
-  maxDisplayedRows: 10,
+  displayedRows: 10,
   onRowDoubleClick: () => {},
   type: 'bar',
 };
@@ -300,13 +300,13 @@ BarChartTable.propTypes = {
    */
   description: PropTypes.string,
   /**
+  * Sets the number of displayed rows.
+  */
+  displayedRows: PropTypes.number,
+  /**
    * Sets the header.
    */
   header: PropTypes.string.isRequired,
-  /**
-  * Sets the maximum number of displayed table rows.
-  */
-  maxDisplayedRows: PropTypes.number,
   /**
    * Called when the user double clicks on a row.
    */
