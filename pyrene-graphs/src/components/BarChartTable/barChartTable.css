@@ -8,11 +8,11 @@
   text-decoration: underline;
 }
 
-.comparisonContainer svg {
+.comparisonContainer * {
   display: block;
 }
 
-.comparisonContainer svg:first-child {
+.comparisonContainer > *:first-child {
   padding-bottom: 6px;
 }
 
