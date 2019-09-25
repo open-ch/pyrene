@@ -30,14 +30,14 @@ function renderRightSection() {
   );
 }
 
-const TIMEZONE = 'America/Los_Angeles';
+const TIMEZONE = 'Europe/Zurich';
 
 const examples = {
   props: {
     timezone: TIMEZONE,
     lowerBound: moment().tz(TIMEZONE).subtract(1, 'years').valueOf(),
-    initialFrom: moment().tz(TIMEZONE).subtract(1, 'years').valueOf(),
-    initialTo: moment().tz(TIMEZONE).valueOf(),
+    initialFrom: moment().tz(TIMEZONE).subtract(20, 'days').valueOf(),
+    initialTo: moment().tz(TIMEZONE).subtract(10, 'days').valueOf(),
     onChange: () => {},
     renderRightSection: renderRightSection,
   },

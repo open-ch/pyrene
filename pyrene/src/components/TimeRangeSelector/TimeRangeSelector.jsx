@@ -17,12 +17,13 @@ export default class TimeRangeSelector extends React.Component {
 
   constructor(props) {
     super(props);
+    const realUpperBound = this.props.upperBound === null ? moment().tz(this.props.timezone).seconds(0).valueOf() : this.props.upperBound;
     this.state = {
-      from: props.initialFrom,
-      to: props.initialTo,
+      from: props.initialFrom >= this.props.lowerBound ? props.initialFrom : this.props.lowerBound,
+      to: props.initialTo <= realUpperBound ? props.initialTo : realUpperBound,
       durationInMs: props.initialTo - props.initialFrom,
       currentTimeRangeType: '',
-      upperBound: this.props.upperBound === null ? moment().tz(this.props.timezone).seconds(0).valueOf() : this.props.upperBound, // In case of default value, the upper bound is NOW.
+      upperBound: realUpperBound, // In case of default value, the upper bound is NOW.
     };
   }
 
@@ -133,7 +134,13 @@ TimeRangeSelector.propTypes = {
   initialTo: PropTypes.number.isRequired,
   lowerBound: PropTypes.number.isRequired,
   onChange: PropTypes.func.isRequired,
-  presetTimeRanges: PropTypes.arrayOf(PropTypes.object),
+  presetTimeRanges: PropTypes.arrayOf(
+    PropTypes.shape({
+      durationInMs: PropTypes.number.isRequired,
+      id: PropTypes.string.isRequired,
+      label: PropTypes.string.isRequired,
+    }),
+  ),
   renderRightSection: PropTypes.func,
   timezone: PropTypes.string.isRequired,
   upperBound: PropTypes.number,
