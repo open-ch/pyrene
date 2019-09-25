@@ -36,7 +36,7 @@ const props = {
     },
   },
   header: 'Header',
-  maxDisplayedRows: 1,
+  displayedRows: 1,
 };
 
 const propsOnlyPrimaryValue = {
