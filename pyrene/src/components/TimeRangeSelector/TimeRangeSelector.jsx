@@ -8,8 +8,13 @@ import { PRESET_TIME_RANGES } from './TimeRangeSelectorHelper';
 import './timeRangeSelector.css';
 
 /**
- * TimeRangeSelectors are used to limit the data to a certain timerange within a lower and upper limit. Comes with default time presets and allows users to define custom ones.
+ * TimeRangeSelectors are used to provide a certain timerange within a lower and upper limit and change it via timesteps.
  *
+ * Default time ranges are defined as follows:
+ * 24 hours
+ * 7 days
+ * 30 days
+ * 365 days
  */
 export default class TimeRangeSelector extends React.Component {
 
@@ -17,13 +22,33 @@ export default class TimeRangeSelector extends React.Component {
     super(props);
 
     const realUpperBound = props.upperBound === null ? moment().tz(props.timezone).seconds(0).valueOf() : props.upperBound;
-    const durationInMs = props.initialTo - props.initialFrom;
-    let initialTimeRangeType = props.presetTimeRanges.find(preset => preset.durationInMs === durationInMs); // Try to find if the timerange matches an initial preset
-    initialTimeRangeType = initialTimeRangeType ? initialTimeRangeType.id : ''; // If we found a match, then let's use the id of the preset, otherwise no default preset has to be selected
+    let candidateInitialTimeRange = props.initialTimeRange;
+
+    // If nothing has been provided for a range, then select the first preset; the real upperbound will be used as initialTo
+    if (!props.initialFrom && !props.initialTo && !props.initialTimeRange) {
+      candidateInitialTimeRange = props.presetTimeRanges[0].id;
+    }
+
+    const initialTimeRange = props.presetTimeRanges.find(preset => preset.id === candidateInitialTimeRange); // Try to find if the timerange matches an initial preset
+    const initialTimeRangeType = initialTimeRange ? initialTimeRange.id : null; // If we found a match, then let's use the id of the preset, otherwise no default preset has to be selected
+
+    let from;
+    let durationInMs;
+    const to = (props.initialTo !== null && props.initialTo <= realUpperBound) ? props.initialTo : realUpperBound;
+
+    // we can either have 'initialTo' and 'initialFrom', or 'initialTo' and a 'initialTimeRange'
+    // here we calculate the missing values from what we have
+    if (initialTimeRangeType) {
+      durationInMs = initialTimeRange.durationInMs;
+      from = to - initialTimeRange.durationInMs;
+    } else {
+      from = props.initialFrom >= this.props.lowerBound ? props.initialFrom : this.props.lowerBound;
+      durationInMs = to - from;
+    }
 
     this.state = {
-      from: props.initialFrom >= this.props.lowerBound ? props.initialFrom : this.props.lowerBound,
-      to: props.initialTo <= realUpperBound ? props.initialTo : realUpperBound,
+      from: from,
+      to: to,
       durationInMs: durationInMs,
       currentTimeRangeType: initialTimeRangeType,
       upperBound: realUpperBound, // In case of default value, the upper bound is NOW.
@@ -34,7 +59,7 @@ export default class TimeRangeSelector extends React.Component {
   }
 
   /**
-   * Updates the from/to limits, the upperbound and the stepper ranges when a preset is selected
+   * Updates the from/to limits, the upperbound and the current preset settings when a preset is selected
    * @param newFrom                 the new from value in epoch milliseconds
    * @param newTo                   the new to value in epoch milliseconds
    * @param newUpperBound           the new value of the upperbound synced accordingly
@@ -112,6 +137,9 @@ TimeRangeSelector.displayName = 'TimeRangeSelector';
 
 TimeRangeSelector.defaultProps = {
   disabled: false,
+  initialFrom: null,
+  initialTo: Date.now(),
+  initialTimeRange: null,
   upperBound: null,
   presetTimeRanges: PRESET_TIME_RANGES,
   renderRightSection: () => {},
@@ -127,12 +155,17 @@ TimeRangeSelector.propTypes = {
    * The initial value to start the range from in epoch milliseconds
    * Type: number (required)
    */
-  initialFrom: PropTypes.number.isRequired,
+  initialFrom: PropTypes.number,
+  /**
+   * The id of time range. Uses the first time range preset if initialFrom/initialTo/initialTimeRange are all null
+   * Type: string (required)
+   */
+  initialTimeRange: PropTypes.string,
   /**
    * The initial value to end the range to in epoch milliseconds
    * Type: number (required)
    */
-  initialTo: PropTypes.number.isRequired,
+  initialTo: PropTypes.number,
   /**
    * The oldest queryable starting time point, in epoch milliseconds
    * Type: number (required)

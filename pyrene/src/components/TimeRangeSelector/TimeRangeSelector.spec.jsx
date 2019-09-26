@@ -5,6 +5,7 @@ import moment from 'moment-timezone';
 import classNames from 'classnames';
 
 import TimeRangeSelector from './TimeRangeSelector';
+import { PRESET_TIME_RANGES } from './TimeRangeSelectorHelper';
 
 const fontStyle = {
   fontSize: '16px',
@@ -51,7 +52,7 @@ describe('<TimeRangeSelector />', () => {
     const rendered = shallow(<TimeRangeSelector {...props} />);
     expect(rendered.find('TimeRangeNavigationBar')).toHaveLength(1);
     expect(rendered.find('PresetTimeRanges')).toHaveLength(1);
-    expect(rendered.find('PresetTimeRanges').render()[0].children.length === 4); // 4 default presets
+    expect(rendered.find('PresetTimeRanges').render()[0].children).toHaveLength(4); // 4 default presets
     expect(rendered.find('.pyreneIcon-data')).toHaveLength(1); // The icon in the right element is rendered too
   });
 
@@ -87,6 +88,19 @@ describe('<TimeRangeSelector />', () => {
     const initialTimeString = moment(props.initialFrom).tz(TIMEZONE).format(dateFormat) + ' - ' + moment(props.initialTo).tz(TIMEZONE).format(dateFormat);
 
     expect(rendered.find('PresetTimeRanges')).toHaveLength(1);
+    const calculatedValue = rendered.find('.timeRange').render()[0].children[0].data;
+    expect(initialTimeString === calculatedValue).toBe(true);
+  });
+
+  it('if no timerange or initial preset is defined, pick the first default preset and put the to value to now', () => {
+    const rendered = mount(<TimeRangeSelector {...props} initialFrom={null} initialTo={null} initialTimeRange={null} />);
+    const toMoment = moment().tz(TIMEZONE);
+    const fromMoment = moment().tz(TIMEZONE).subtract(PRESET_TIME_RANGES[0].durationInMs, 'milliseconds');
+
+    // We are simulating selecting the 24h preset
+    const dateFormat = 'DD.MM.YYYY, HH:mm';
+    const initialTimeString = fromMoment.format(dateFormat) + ' - ' + toMoment.format(dateFormat);
+
     const calculatedValue = rendered.find('.timeRange').render()[0].children[0].data;
     expect(initialTimeString === calculatedValue).toBe(true);
   });
