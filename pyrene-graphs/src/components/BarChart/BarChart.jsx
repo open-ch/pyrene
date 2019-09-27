@@ -78,7 +78,7 @@ BarChart.displayName = 'Bar Chart';
 BarChart.defaultProps = {
   header: '',
   description: '',
-  colorScheme: colorSchemes.colorSchemeDefault.sequential,
+  colorScheme: colorSchemes.colorSchemeDefault.categorical,
   direction: 'horizontal',
 };
 
