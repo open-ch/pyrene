@@ -1,4 +1,4 @@
-import { applications, nsmSensors } from '../../examples/barData';
+import { applications } from '../../examples/barData';
 
 const examples = {};
 
