@@ -370,3 +370,47 @@ export const tableColumnsUpDown = {
     maxWidth: '90px',
   },
 };
+
+export const tableDataSecLabel = [
+  {
+    location: 'Altdorf',
+    LQI: 24,
+    up: 100.0,
+  },
+  {
+    location: 'Zürich',
+    LQI: 44,
+    up: 14.0,
+  },
+  {
+    location: 'Lit',
+    LQI: 76,
+    up: 100.0,
+  },
+  {
+    location: 'Chorugh',
+    LQI: 120,
+    up: 100.0,
+  },
+  {
+    location: 'Los Angeles',
+    LQI: 0.7,
+    up: 100.0,
+  },
+];
+
+export const tableColumnsSecLabel = {
+    label: {
+      accessor: d => d.location,
+      title: 'Location'
+    },
+    secondaryLabel: {
+      accessor: d => d.LQI,
+      title: 'LQI'
+    },
+    primaryValue: {
+      accessor: d => d.up,
+      title: 'Volume Up',
+      formatter: d => `${d.toFixed(1)} %`,
+    },
+};

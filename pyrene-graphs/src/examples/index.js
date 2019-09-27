@@ -12,6 +12,8 @@ import {
   tableColumnsComparison,
   tableDataUpDown,
   tableColumnsUpDown,
+  tableDataSecLabel,
+  tableColumnsSecLabel,
 } from './tableData';
 
 // Sort alphabetically to find stuff easily
@@ -26,4 +28,5 @@ export const exampleData = {
   tableData: { data: tableData, columns: tableColumns },
   tableDataComparison: { data: tableDataComparison, columns: tableColumnsComparison },
   tableDataUpDown: { data: tableDataUpDown, columns: tableColumnsUpDown },
+  tableDataSecLabel: { data: tableDataSecLabel, columns: tableColumnsSecLabel },
 };
