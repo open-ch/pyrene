@@ -48,6 +48,7 @@ PresetTimeRanges._createPresets = props => props.presetTimeRanges.map((preset, i
  */
 PresetTimeRanges._onPresetTimeRangeSelected = (presetId, presetTimeRanges, upperBound, timezone, callback) => {
   const selectedPresetTimeRange = presetTimeRanges.filter(preset => preset.id === presetId).shift();
+  // from TimeRangeSelector: _onPresetTimeRangeSelected(newFrom, newTo, newUpperBound, durationInMs, currentTimeRangeType)
   callback(
     upperBound - selectedPresetTimeRange.durationInMs,
     upperBound,
