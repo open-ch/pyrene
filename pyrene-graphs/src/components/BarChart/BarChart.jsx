@@ -17,12 +17,12 @@ const BarChart = (props) => {
         header={props.header}
         description={props.description}
         colors={props.colorScheme}
-        legend={['Volume']}
+        legend={props.legend}
       />
       <div styleName="responsiveContainer">
         <Responsive>
           {(parent) => {
-            let maxValue = Math.max(...props.data.map(row => Math.max(Object.values(row.values))));
+            let maxValue = Math.max(...props.data.map(row => Math.max(row.values)));
             maxValue = props.direction === 'horizontal' ? maxValue / (parent.width - 102 - 16) * (parent.width - 102) : maxValue / (parent.height - 24 - 16) * (parent.height - 24);
             return (
               <div styleName="columnContainer">
@@ -50,7 +50,7 @@ const BarChart = (props) => {
                           barWeight={barWeight}
                           color={props.colorScheme[0]}
                           maxValue={maxValue}
-                          value={row.values.volume}
+                          value={row.values[0]}
                           direction={props.direction}
                         />
                       </div>
@@ -84,10 +84,14 @@ BarChart.defaultProps = {
 
 BarChart.propTypes = {
   colorScheme: PropTypes.arrayOf(PropTypes.string),
-  data: PropTypes.arrayOf(PropTypes.object).isRequired,
+  data: PropTypes.arrayOf(PropTypes.shape({
+    label: PropTypes.string.isRequired,
+    values: PropTypes.arrayOf(PropTypes.number).isRequired,
+  })).isRequired,
   description: PropTypes.string,
   direction: PropTypes.oneOf(['horizontal', 'vertical']),
   header: PropTypes.string,
+  legend: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default BarChart;
