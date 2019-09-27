@@ -39,29 +39,33 @@ function getProcessedColumnsAndLegend(props, colors, withoutBars) {
       legend = [];
       break;
     case 'comparison':
-      barChart = row => ( // eslint-disable-line react/display-name
-        <div styleName="comparisonContainer">
-          <Bar
-            key={getId(`${props.columns.primaryValue.title}_bar_current`)} // eslint-disable-line
-            barWeight={barWeight}
-            color={colors[0]}
-            maxValue={maxValue}
-            value={getValueWithAccessor(row, props.columns.primaryValue.accessor)} // eslint-disable-line
-          />
-          <Bar
-            key={getId(`${props.columns.secondaryValue.title}_bar_previous`)} // eslint-disable-line
-            barWeight={barWeightSecondaryComparison}
-            color={colors[1]}
-            maxValue={maxValue}
-            value={getValueWithAccessor(row, props.columns.secondaryValue.accessor)} // eslint-disable-line
-          />
-        </div>
-      );
-      break;
+      if (props.columns.secondaryValue) {
+        barChart = row => ( // eslint-disable-line react/display-name
+          <div styleName="comparisonContainer">
+            <Bar
+              key={getId(`${props.columns.primaryValue.title}_bar_current`)} // eslint-disable-line
+              barWeight={barWeight}
+              color={colors[0]}
+              maxValue={maxValue}
+              value={getValueWithAccessor(row, props.columns.primaryValue.accessor)} // eslint-disable-line
+            />
+            <Bar
+              key={getId(`${props.columns.secondaryValue.title}_bar_previous`)} // eslint-disable-line
+              barWeight={barWeightSecondaryComparison}
+              color={colors[1]}
+              maxValue={maxValue}
+              value={getValueWithAccessor(row, props.columns.secondaryValue.accessor)} // eslint-disable-line
+            />
+          </div>
+        );
+        break;
+      } else throw Error('Missing secondary value');
     case 'butterfly':
-      barChart = defaultBarChart;
-      legend = [];
-      break;
+      if (props.columns.secondaryValue) {
+        barChart = defaultBarChart;
+        legend = [];
+        break;
+      } else throw Error('Missing secondary value');
     default:
       barChart = defaultBarChart;
       break;
