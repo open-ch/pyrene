@@ -23,11 +23,5 @@ const PRESET_TIME_RANGES = [
     durationInMs: moment().diff(moment().subtract(1, 'years')),
   },
 ];
-/**
-   * If the upperbound is set as default, then we need to update it to NOW based on the timezone.
-   * @param state
-   * @returns {number} updated upperbound in milliseconds
-   */
-function syncUpperBound(defaultUpperBound, currentUpperBound, timezone) { return defaultUpperBound === null ? moment().tz(timezone).seconds(0).valueOf() : currentUpperBound; } // 0 seconds to switch immediately after minute ticks
 
-export { PRESET_TIME_RANGES, syncUpperBound };
+export default PRESET_TIME_RANGES;

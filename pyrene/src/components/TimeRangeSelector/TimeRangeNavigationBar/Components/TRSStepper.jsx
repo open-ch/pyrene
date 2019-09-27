@@ -32,7 +32,6 @@ TRSStepper.displayName = 'TRSStepper';
 TRSStepper.defaultProps = {
   direction: 'right',
   disabled: false,
-  onClick: () => null,
 };
 
 TRSStepper.propTypes = {
@@ -47,7 +46,7 @@ TRSStepper.propTypes = {
   /**
    * Javascript event handler.
    */
-  onClick: PropTypes.func,
+  onClick: PropTypes.func.isRequired,
 };
 
 export default TRSStepper;

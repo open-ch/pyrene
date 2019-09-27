@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment-timezone';
 import PresetTimeRanges from './PresetTimeRanges/PresetTimeRanges';
 import TimeRangeNavigationBar from './TimeRangeNavigationBar/TimeRangeNavigationBar';
-import { PRESET_TIME_RANGES } from './TimeRangeSelectorHelper';
+import PRESET_TIME_RANGES from './TimeRangeSelectorDefaultProps';
 
 import './timeRangeSelector.css';
 
@@ -16,42 +16,18 @@ import './timeRangeSelector.css';
  * 30 days
  * 365 days
  */
-export default class TimeRangeSelector extends React.Component {
+export default class TimeRangeSelector extends Component {
 
   constructor(props) {
     super(props);
 
-    const realUpperBound = props.upperBound === null ? moment().tz(props.timezone).seconds(0).valueOf() : props.upperBound;
-    let candidateInitialTimeRange = props.initialTimeRange;
-
-    // If nothing has been provided for a range, then select the first preset; the real upperbound will be used as initialTo
-    if (!props.initialFrom && !props.initialTo && !props.initialTimeRange) {
-      candidateInitialTimeRange = props.presetTimeRanges[0].id;
-    }
-
-    const initialTimeRange = props.presetTimeRanges.find(preset => preset.id === candidateInitialTimeRange); // Try to find if the timerange matches an initial preset
-    const initialTimeRangeType = initialTimeRange ? initialTimeRange.id : null; // If we found a match, then let's use the id of the preset, otherwise no default preset has to be selected
-
-    let from;
-    let durationInMs;
-    const to = (props.initialTo !== null && props.initialTo <= realUpperBound) ? props.initialTo : realUpperBound;
-
-    // we can either have 'initialTo' and 'initialFrom', or 'initialTo' and a 'initialTimeRange'
-    // here we calculate the missing values from what we have
-    if (initialTimeRangeType) {
-      durationInMs = initialTimeRange.durationInMs;
-      from = to - initialTimeRange.durationInMs;
-    } else {
-      from = props.initialFrom >= this.props.lowerBound ? props.initialFrom : this.props.lowerBound;
-      durationInMs = to - from;
-    }
+    const durationInMs = props.to - props.from;
+    let initialTimeRangeType = props.presetTimeRanges.find(preset => preset.durationInMs === durationInMs); // Try to find if the timerange matches an initial preset
+    initialTimeRangeType = initialTimeRangeType ? initialTimeRangeType.id : ''; // If we found a match, then let's use the id of the preset, otherwise no default preset has to be selected
 
     this.state = {
-      from: from,
-      to: to,
       durationInMs: durationInMs,
       currentTimeRangeType: initialTimeRangeType,
-      upperBound: realUpperBound, // In case of default value, the upper bound is NOW.
     };
 
     this._onPresetTimeRangeSelected = this._onPresetTimeRangeSelected.bind(this);
@@ -69,11 +45,8 @@ export default class TimeRangeSelector extends React.Component {
    */
   _onPresetTimeRangeSelected(newFrom, newTo, newUpperBound, durationInMs, currentTimeRangeType) {
     this.setState({
-      from: newFrom,
-      to: newTo,
       durationInMs: durationInMs, // We need to store it, otherwise if we reach the lower/upper bound we will start to use less milliseconds with the steppers
       currentTimeRangeType: currentTimeRangeType,
-      upperBound: newUpperBound,
     },
     () => {
       this.props.onChange(newFrom, newTo);
@@ -84,17 +57,10 @@ export default class TimeRangeSelector extends React.Component {
    * Changes the state of the timerange selector based on the interactions with the navigation bar
    * @param newFrom       the new from value in epoch milliseconds
    * @param newTo         the new to value in epoch milliseconds
-   * @param newUpperBound the new value of the upperbound synced accordingly
    * @private
    */
-  _onNavigate(newFrom, newTo, newUpperBound) {
-    this.setState({
-      from: newFrom,
-      to: newTo,
-      upperBound: newUpperBound,
-    }, () => {
-      this.props.onChange(this.state.from, this.state.to);
-    });
+  _onNavigate(newFrom, newTo) {
+    return this.props.onChange(newFrom, newTo);
   }
 
   render() {
@@ -106,8 +72,7 @@ export default class TimeRangeSelector extends React.Component {
             onInteract={this._onPresetTimeRangeSelected}
             currentTimeRangeType={this.state.currentTimeRangeType}
             presetTimeRanges={this.props.presetTimeRanges}
-            defaultUpperBound={this.props.upperBound}
-            upperBound={this.state.upperBound}
+            upperBound={this.props.upperBound}
             timezone={this.props.timezone}
           />
         </div>
@@ -115,12 +80,11 @@ export default class TimeRangeSelector extends React.Component {
           <TimeRangeNavigationBar
             disabled={this.props.disabled}
             durationInMs={this.state.durationInMs}
-            to={this.state.to}
-            from={this.state.from}
+            to={this.props.to}
+            from={this.props.from}
             lowerBound={this.props.lowerBound}
             onNavigate={this._onNavigate}
-            defaultUpperBound={this.props.upperBound}
-            upperBound={this.state.upperBound}
+            upperBound={this.props.upperBound}
             timezone={this.props.timezone}
           />
         </div>
@@ -137,10 +101,6 @@ TimeRangeSelector.displayName = 'TimeRangeSelector';
 
 TimeRangeSelector.defaultProps = {
   disabled: false,
-  initialFrom: null,
-  initialTo: Date.now(),
-  initialTimeRange: null,
-  upperBound: null,
   presetTimeRanges: PRESET_TIME_RANGES,
   renderRightSection: () => {},
 };
@@ -152,33 +112,23 @@ TimeRangeSelector.propTypes = {
    */
   disabled: PropTypes.bool,
   /**
-   * The initial value to start the range from in epoch milliseconds
+   * The start value of the range in epoch milliseconds
    * Type: number (required)
    */
-  initialFrom: PropTypes.number,
+  from: PropTypes.number.isRequired,
   /**
-   * The id of time range. Uses the first time range preset if initialFrom/initialTo/initialTimeRange are all null
-   * Type: string (required)
-   */
-  initialTimeRange: PropTypes.string,
-  /**
-   * The initial value to end the range to in epoch milliseconds
-   * Type: number (required)
-   */
-  initialTo: PropTypes.number,
-  /**
-   * The oldest queryable starting time point, in epoch milliseconds
+   * The end value of the range to in epoch milliseconds
    * Type: number (required)
    */
   lowerBound: PropTypes.number.isRequired,
   /**
-   * Callback function passed by parent page (usually a GET request to fetch new data)
-   * Type: function(from: number, to: number) (required)
+   * The oldest queryable starting time point, in epoch milliseconds
+   * Type: number (required)
    */
   onChange: PropTypes.func.isRequired,
   /**
-   * The preset time ranges to display as preset buttons
-   * Type: [{ id: string (required) the id of the preset, label: string (required) label of the preset button displayed to the user, durationInMs: number (required) the duration of the timerange in epoch ms }]
+   * Callback function passed by parent page (usually a GET request to fetch new data)
+   * Type: function(from: number, to: number) (required)
    */
   presetTimeRanges: PropTypes.arrayOf(
     PropTypes.shape({
@@ -188,18 +138,23 @@ TimeRangeSelector.propTypes = {
     }),
   ),
   /**
+   * The preset time ranges to display as preset buttons
+   * Type: [{ id: string (required) the id of the preset, label: string (required) label of the preset button displayed to the user, durationInMs: number (required) the duration of the timerange in epoch ms }]
+   */
+  renderRightSection: PropTypes.func,
+  /**
    * Function called if there is some element to be rendered on the rightmost side
    * Type: function
    */
-  renderRightSection: PropTypes.func,
+  timezone: PropTypes.string.isRequired,
   /**
    * The timezone that the range selector should use to display the time
    * Type: string (required)
    */
-  timezone: PropTypes.string.isRequired,
+  to: PropTypes.number.isRequired,
   /**
    * The latest queryable ending time point, in epoch milliseconds
-   * Type: number defaults to null if not provided and in such case will update itself to 'now' as time passes
+   * Type: number
    */
-  upperBound: PropTypes.number,
+  upperBound: PropTypes.number.isRequired,
 };

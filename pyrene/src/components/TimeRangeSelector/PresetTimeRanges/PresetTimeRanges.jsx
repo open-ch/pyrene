@@ -1,6 +1,5 @@
 import React from 'react';
 import classNames from 'classnames';
-import { syncUpperBound } from '../TimeRangeSelectorHelper';
 
 import './presetTimeRanges.css';
 
@@ -26,7 +25,6 @@ PresetTimeRanges._createPresets = props => props.presetTimeRanges.map((preset, i
       PresetTimeRanges._onPresetTimeRangeSelected(
         clickedElement.currentTarget.id,
         props.presetTimeRanges,
-        props.initialUpperBound,
         props.upperBound,
         props.timezone,
         props.onInteract
@@ -44,18 +42,16 @@ PresetTimeRanges._createPresets = props => props.presetTimeRanges.map((preset, i
  * Updates the from/to limits, the upperbound and the stepper ranges based on the selected preset
  * @param presetId the id of the presetTimeRange element that has been selected
  * @param presetTimeRanges the preset defined by the time range selector
- * @param defaultUpperBound the initialUpperBound, to check if we have to synchronize it with now
  * @param upperBound the current upperBound
  * @param timezone the timezone that we are currently using
  * @param callback the callback to update the parent component
  */
-PresetTimeRanges._onPresetTimeRangeSelected = (presetId, presetTimeRanges, defaultUpperBound, upperBound, timezone, callback) => {
+PresetTimeRanges._onPresetTimeRangeSelected = (presetId, presetTimeRanges, upperBound, timezone, callback) => {
   const selectedPresetTimeRange = presetTimeRanges.filter(preset => preset.id === presetId).shift();
-  const nowUpperBound = syncUpperBound(defaultUpperBound, upperBound, timezone);
   callback(
-    nowUpperBound - selectedPresetTimeRange.durationInMs,
-    nowUpperBound,
-    nowUpperBound,
+    upperBound - selectedPresetTimeRange.durationInMs,
+    upperBound,
+    upperBound,
     selectedPresetTimeRange.durationInMs,
     selectedPresetTimeRange.id,
   );
