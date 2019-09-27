@@ -414,7 +414,8 @@ const tableColumns = [{
     const lastB = b.charAt(b.length - 1);
     if (lastA > lastB) {
       return 1;
-    } if (lastA < lastB) {
+    }
+    if (lastA < lastB) {
       return -1;
     }
     return 0;
@@ -511,11 +512,11 @@ const examples = {
       icon: 'info', label: 'Always', callback: () => console.log('always'), active: 'always', // eslint-disable-line no-console
     }],
     filters: [{
-      label: 'Free Text', type: 'text', filterKey: 'name',
+      label: 'Free Text', type: 'text', id: 'name',
     }, {
-      label: 'first column', type: 'singleSelect', filterKey: 'testKey', options: testOptions,
+      label: 'first column', type: 'singleSelect', id: 'testKey', options: testOptions,
     }, {
-      label: 'second column', type: 'multiSelect', filterKey: 'testKey2', options: testOptions,
+      label: 'second column', type: 'multiSelect', id: 'testKey2', options: testOptions,
     }],
     onFilterChange: stateProvider => filters => stateProvider.setState(() => ({ tableData: filters && Object.keys(filters).length > 0 ? tableData.filter(row => row.name.includes(filters.name)) : tableData, filterValues: filters })),
     filterValues: stateProvider => (stateProvider.state.filterValues ? stateProvider.state.filterValues : {}),

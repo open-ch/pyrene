@@ -282,7 +282,7 @@ describe('getFilterProps', () => {
     }];
 
     const filterProps = [{
-      filterKey: 'testId',
+      id: 'testId',
       label: 'testLabel',
       type: 'testType',
       options: [{ value: 'testValue1', label: 'testLabel1' }],
@@ -311,7 +311,7 @@ describe('getFilterProps', () => {
     }];
 
     const filterProps = [{
-      filterKey: 'testId',
+      id: 'testId',
       label: 'testLabel',
       type: 'testType',
       options: [{ value: 'id1', label: 'name1' }, { value: 'id2', label: 'name2' }],

@@ -200,9 +200,9 @@ const examples = {
     title: 'Tree Table',
     onRowDoubleClick: data => console.log(data), // eslint-disable-line no-console
     filters: [{
-      label: 'first column', type: 'singleSelect', filterKey: 'testKey', options: testOptions,
+      label: 'first column', type: 'singleSelect', id: 'testKey', options: testOptions,
     }, {
-      label: 'second column', type: 'multiSelect', filterKey: 'testKey2', options: testOptions,
+      label: 'second column', type: 'multiSelect', id: 'testKey2', options: testOptions,
     }],
   },
 };

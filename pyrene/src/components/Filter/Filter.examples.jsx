@@ -35,29 +35,29 @@ const testOptions = [
 const examples = {
   props: {
     filters: [{
-      label: 'first', type: 'singleSelect', filterKey: 'testKey', options: testOptions,
+      label: 'first', type: 'singleSelect', id: 'testKey', options: testOptions,
     }, {
-      label: 'second', type: 'multiSelect', filterKey: 'testKey2', options: testOptions,
+      label: 'second', type: 'multiSelect', id: 'testKey2', options: testOptions,
     }, {
-      label: 'third', type: 'text', filterKey: 'testKey3', options: null,
+      label: 'third', type: 'text', id: 'testKey3', options: null,
     }, {
-      label: 'fourth', type: 'text', filterKey: 'testKey4', options: null,
+      label: 'fourth', type: 'text', id: 'testKey4', options: null,
     }, {
-      label: 'fifth', type: 'text', filterKey: 'testKey5', options: null,
+      label: 'fifth', type: 'text', id: 'testKey5', options: null,
     }, {
-      label: 'sixth', type: 'text', filterKey: 'testKey6', options: null,
+      label: 'sixth', type: 'text', id: 'testKey6', options: null,
     }, {
-      label: 'seventh', type: 'text', filterKey: 'testKey7', options: null,
+      label: 'seventh', type: 'text', id: 'testKey7', options: null,
     }, {
-      label: 'eighth', type: 'text', filterKey: 'testKey8', options: null,
+      label: 'eighth', type: 'text', id: 'testKey8', options: null,
     }, {
-      label: 'ninth', type: 'text', filterKey: 'testKey9', options: null,
+      label: 'ninth', type: 'text', id: 'testKey9', options: null,
     }, {
-      label: 'tenth', type: 'text', filterKey: 'testKey10', options: null,
+      label: 'tenth', type: 'text', id: 'testKey10', options: null,
     }, {
-      label: 'eleventh', type: 'text', filterKey: 'testKey11', options: null,
+      label: 'eleventh', type: 'text', id: 'testKey11', options: null,
     }, {
-      label: 'twelfth', type: 'text', filterKey: 'testKey12', options: null,
+      label: 'twelfth', type: 'text', id: 'testKey12', options: null,
     }],
     filterValues: stateProvider => (stateProvider.state.filterValues ? stateProvider.state.filterValues : null),
     onFilterSubmit: stateProvider => filterValues => stateProvider.setState({ filterValues }),

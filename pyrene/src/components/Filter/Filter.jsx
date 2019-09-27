@@ -44,8 +44,7 @@ Filter.propTypes = {
    * Type: [{ label: string (required), type: oneOf('singleSelect', 'multiSelect', 'text') (required), key: string (required), options: array of values from which user can choose in single/multiSelect }]
    */
   filters: PropTypes.arrayOf(PropTypes.shape({
-    /** Enable this if you don't want Pyrene to sort your filter options */
-    filterKey: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
     options: PropTypes.arrayOf(PropTypes.shape({
       /** text displayed to the user in the filter dropdown */
@@ -53,17 +52,18 @@ Filter.propTypes = {
       /** key for manipulation */
       value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool]),
     })),
+    /** Disable this if you don't want Pyrene to sort your filter options (defaults to true) */
     sorted: PropTypes.bool,
     type: PropTypes.oneOf(['singleSelect', 'multiSelect', 'text']).isRequired,
   })),
   /**
    * Passing the filter values from outside
-   * @filterKey: same as filterKey in filters prop, it should be same as the `id` in filterDefinition
+   * @id: same as id in filters prop, it should be same as the `id` in filterDefinition
    * @value: the users input; for single & multiSelect value contains of both value and label! In case of multiSelect, value can consist of multiple objects {value: , label: } in an array
    * use {} for passing empty filterValues
    * */
   filterValues: PropTypes.shape({
-    filterKey: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.array, PropTypes.object]),
   }).isRequired,
   /**
