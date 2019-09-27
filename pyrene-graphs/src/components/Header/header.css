@@ -1,3 +1,5 @@
+@import 'pyrene/dist/colors.css';
+
 .container {
   min-height: 32px;
   max-height: 48px;
@@ -8,7 +10,7 @@
   font-weight: 600;
   line-height: 1.14;
   letter-spacing: -0.05px;
-  color: var(--font-black);
+  color: var(--text);
   height: 16px;
 }
 
@@ -23,7 +25,7 @@
 .description {
   font-size: 13px;
   font-weight: 500;
-  color: var(--font-gray);
+  color: var(--neutral-200);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

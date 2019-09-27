@@ -1,3 +1,5 @@
+@import 'pyrene/dist/colors.css';
+
 .container {
   width: 100%;
 }
@@ -6,27 +8,70 @@
   text-decoration: underline;
 }
 
-.comparisonContainer svg {
+.comparisonContainer * {
   display: block;
 }
 
-.comparisonContainer svg:first-child {
-  margin-bottom: 6px;
+.comparisonContainer > *:first-child {
+  padding-bottom: 6px;
 }
 
-.butterflyContainer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.butterflyBar {
-  width: calc((100% - 25px) / 2);
+.barContainer {
+  line-height: 15px; /* Center the butterfly bar vertically: 32px row height / 2 - 1 border weight */
 }
 
 .verticalLine {
   border-left: 1px solid var(--border);
   height: 16px;
-  margin-left: 12px;
-  margin-right: 12px;
+}
+
+.showMoreLink {
+  margin-top: 8px;
+  height: 18px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--primary);
+  cursor: pointer;
+}
+
+.popOverPlaceholder {
+  height: 100%;
+  width: 100%;
+}
+
+.popOver {
+  padding: 24px;
+  width: 400px;
+  border-radius: 2px;
+  box-shadow: 5px 15px 30px 0 rgba(0, 21, 44, 0.2), 0 4px 8px -2px rgba(0, 21, 44, 0.2), 0 0 1px 0 rgba(0, 21, 44, 0.15);
+  overflow-y: hidden;
+}
+
+.popOverHeader {
+  display: flex;
+  flex-direction: row;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.14;
+  letter-spacing: -0.05px;
+  height: 32px;
+}
+
+.popOverHeader .header {
+  color: var(--text);
+}
+
+.popOverHeader .numberOfRows {
+  margin-left: 0.4em;
+  color: var(--neutral-200);
+}
+
+.popOverTable tbody {
+  position: absolute;
+  bottom: 24px;
+  top: 88px; /* 24px padding + 32px Popover header + 32px table header */
+  left: 24px;
+  right: 0px; /* padding is applied seperately because of the scrollbar */
+  padding-right: 10px;
+  overflow-y: auto;
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { SimpleTable } from 'pyrene';
+import { Popover, SimpleTable } from 'pyrene';
 import { Bar, RelativeBar } from 'tuktuktwo';
 import Header from '../Header/Header';
 import './barChartTable.css';
@@ -14,19 +14,21 @@ function getValueWithAccessor(row, accessor) {
   return (typeof accessor === 'string' ? row[accessor] : accessor(row));
 }
 
-function getProcessedColumnsAndLegend(props, colorScheme) {
+function getProcessedColumnsAndLegend(props, colors, withoutBars) {
   const maxValuePrimary = Math.max(...props.data.map(dataRow => getValueWithAccessor(dataRow, props.columns.primaryValue.accessor)));
   const maxValueSecondary = props.columns.secondaryValue ? Math.max(...props.data.map(dataRow => getValueWithAccessor(dataRow, props.columns.secondaryValue.accessor))) : maxValuePrimary;
   const maxValue = Math.max(maxValuePrimary, maxValueSecondary);
   const barWeight = 6;
   const barWeightSecondaryComparison = 4;
   const defaultBarChart = row => (
-    <RelativeBar
-      barWeight={barWeight}
-      colorScheme={colorScheme}
-      maxValue={maxValuePrimary}
-      value={row.value}
-    />
+    <div styleName="barContainer">
+      <RelativeBar
+        barWeight={barWeight}
+        colors={colors}
+        maxValue={maxValuePrimary}
+        value={row.value}
+      />
+    </div>
   );
   let barChart;
   let legend = [props.columns.primaryValue.title];
@@ -37,34 +39,39 @@ function getProcessedColumnsAndLegend(props, colorScheme) {
       legend = [];
       break;
     case 'comparison':
-      barChart = row => ( // eslint-disable-line react/display-name
-        <div styleName="comparisonContainer">
-          <Bar
-            key={getId(`${props.columns.primaryValue.title}_bar_current`)} // eslint-disable-line
-            barWeight={barWeight}
-            color={colorScheme[0]}
-            maxValue={maxValue}
-            value={getValueWithAccessor(row, props.columns.primaryValue.accessor)} // eslint-disable-line
-          />
-          <Bar
-            key={getId(`${props.columns.secondaryValue.title}_bar_previous`)} // eslint-disable-line
-            barWeight={barWeightSecondaryComparison}
-            color={colorScheme[1]}
-            maxValue={maxValue}
-            value={getValueWithAccessor(row, props.columns.secondaryValue.accessor)} // eslint-disable-line
-          />
-        </div>
-      );
-      break;
+      if (props.columns.secondaryValue) {
+        barChart = row => ( // eslint-disable-line react/display-name
+          <div styleName="comparisonContainer">
+            <Bar
+              key={getId(`${props.columns.primaryValue.title}_bar_current`)} // eslint-disable-line
+              barWeight={barWeight}
+              color={colors[0]}
+              maxValue={maxValue}
+              value={getValueWithAccessor(row, props.columns.primaryValue.accessor)} // eslint-disable-line
+            />
+            <Bar
+              key={getId(`${props.columns.secondaryValue.title}_bar_previous`)} // eslint-disable-line
+              barWeight={barWeightSecondaryComparison}
+              color={colors[1]}
+              maxValue={maxValue}
+              value={getValueWithAccessor(row, props.columns.secondaryValue.accessor)} // eslint-disable-line
+            />
+          </div>
+        );
+        break;
+      } else throw Error('Missing secondary value');
     case 'butterfly':
-      legend = [];
-      break;
+      if (props.columns.secondaryValue) {
+        barChart = defaultBarChart;
+        legend = [];
+        break;
+      } else throw Error('Missing secondary value');
     default:
       barChart = defaultBarChart;
       break;
   }
   const columnLabel = {
-    id: getId(props.columns.label.title),
+    id: getId(props.header),
     accessor: props.columns.label.accessor,
     cellRenderCallback: props.columns.label.linkAccessor ? row => ( // eslint-disable-line react/display-name
       <a
@@ -80,8 +87,9 @@ function getProcessedColumnsAndLegend(props, colorScheme) {
     id: getId(props.columns.primaryValue.title),
     accessor: props.columns.primaryValue.accessor,
     cellRenderCallback: props.columns.primaryValue.formatter ? row => props.columns.primaryValue.formatter(row.value) : null,
+    headerName: withoutBars ? props.columns.primaryValue.title : '',
     align: 'right',
-    maxWidth: '90px',
+    maxWidth: props.columns.primaryValue.maxWidth,
   };
   const columnPrimaryBarChart = {
     id: getId(`${props.columns.primaryValue.title}_bar`),
@@ -94,24 +102,24 @@ function getProcessedColumnsAndLegend(props, colorScheme) {
     cellRenderCallback: props.columns.secondaryValue.formatter ? row => props.columns.secondaryValue.formatter(row.value) : null,
     headerName: props.columns.secondaryValue.title,
     align: 'right',
-    maxWidth: '90px',
+    maxWidth: props.columns.secondaryValue.maxWidth,
   } : {};
   let columns;
-  const columnsTable = [
+  const columnsDefault = [
     columnLabel,
-    { ...columnPrimaryBarChart, headerName: props.columns.primaryValue.title },
+    ...(withoutBars ? [] : [{ ...columnPrimaryBarChart, headerName: props.columns.primaryValue.title }]),
     columnPrimaryValue,
+    ...(props.columns.secondaryValue ? [columnSecondaryValue] : []),
   ];
-  if (props.columns.secondaryValue) columnsTable.push(columnSecondaryValue);
   switch (props.type) {
     case 'bar':
-      columns = columnsTable;
+      columns = columnsDefault;
       break;
     case 'comparison':
       columns = [
         columnLabel,
         { ...columnPrimaryValue, headerName: props.columns.primaryValue.title },
-        columnPrimaryBarChart,
+        ...(withoutBars ? [] : [columnPrimaryBarChart]),
         columnSecondaryValue,
       ];
       break;
@@ -119,45 +127,51 @@ function getProcessedColumnsAndLegend(props, colorScheme) {
       columns = [
         columnLabel,
         columnPrimaryValue,
-        {
+        ...(withoutBars ? [] : [{
           id: getId(`${props.columns.primaryValue.title}_bar_left`),
-          headerName: props.columns.primaryValue.title + props.columns.secondaryValue.title,
+          headerName: props.columns.primaryValue.title,
           accessor: props.columns.primaryValue.accessor,
           cellRenderCallback: row => ( // eslint-disable-line react/display-name
-            <div styleName="butterflyContainer">
-              <div styleName="butterflyBar">
-                <RelativeBar
-                  barWeight={barWeight}
-                  colorScheme={colorScheme}
-                  maxValue={maxValuePrimary}
-                  value={getValueWithAccessor(row, props.columns.primaryValue.accessor)} // eslint-disable-line
-                  mirrored
-                />
-              </div>
-              <div styleName="verticalLine" />
-              <div styleName="butterflyBar">
-                <RelativeBar
-                  barWeight={barWeight}
-                  colorScheme={colorScheme}
-                  maxValue={maxValueSecondary}
-                  value={getValueWithAccessor(row, props.columns.secondaryValue.accessor)} // eslint-disable-line
-                />
-              </div>
+            <div styleName="barContainer">
+              <RelativeBar
+                barWeight={barWeight}
+                colors={colors}
+                maxValue={maxValuePrimary}
+                value={row.value} // eslint-disable-line
+                mirrored
+              />
             </div>
           ),
+          align: 'right',
+        }]),
+        ...(withoutBars ? [] : [{
+          id: getId(`${props.columns.primaryValue.title}_vertical_line`),
+          accessor: props.columns.primaryValue.accessor,
+          cellRenderCallback: () => ( // eslint-disable-line react/display-name
+            <div styleName="verticalLine" />
+          ),
           align: 'center',
-        },
+          maxWidth: '1px',
+        }]),
+        ...(withoutBars ? [] : [{
+          id: getId(`${props.columns.secondaryValue.title}_bar_right`),
+          headerName: props.columns.secondaryValue.title,
+          accessor: props.columns.secondaryValue.accessor,
+          cellRenderCallback: barChart,
+          align: 'left',
+        }]),
         {
           id: getId(props.columns.secondaryValue.title),
           accessor: props.columns.secondaryValue.accessor,
           cellRenderCallback: props.columns.secondaryValue.formatter ? row => props.columns.secondaryValue.formatter(row.value) : null,
+          headerName: withoutBars ? props.columns.secondaryValue.title : '',
           align: 'right',
-          maxWidth: '90px',
+          maxWidth: props.columns.secondaryValue.maxWidth,
         },
       ];
       break;
     default:
-      columns = columnsTable;
+      columns = columnsDefault;
       break;
   }
   return { columns: columns, legend: legend };
@@ -167,45 +181,108 @@ function getProcessedColumnsAndLegend(props, colorScheme) {
  * Bar Chart Tables are used to display tabular data without the overhead of pagination, sorting and filtering.
  * The primaryValue is automatically being sorted in descending order and then displayed as a bar chart.
  */
-const BarChartTable = (props) => {
-  let colorScheme = props.colorScheme;
-  if (!(colorScheme.length > 0)) colorScheme = (props.type === 'comparison' ? colorSchemes.currentPrevious : colorSchemes.valueGround);
-  const columnsAndLegend = getProcessedColumnsAndLegend(props, colorScheme);
-  const description = props.type === 'bar' ? '' : props.description;
-  return (
-    <div styleName="container">
-      <Header
-        header={props.header}
-        description={description}
-        legend={columnsAndLegend.legend}
-        colorScheme={colorScheme}
-      />
-      <SimpleTable
-        columns={columnsAndLegend.columns}
-        data={props.data.sort((a, b) => (getValueWithAccessor(b, props.columns.primaryValue.accessor) - getValueWithAccessor(a, props.columns.primaryValue.accessor)))}
-        onRowDoubleClick={props.onRowDoubleClick}
-      />
-    </div>
-  );
-};
+export default class BarChartTable extends React.Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      showPopover: false,
+    };
+  }
+
+   togglePopover = () => {
+     this.setState(prevState => ({
+       showPopover: !prevState.showPopover,
+     }));
+   };
+
+   render() {
+     const colors = (this.props.type === 'comparison' ? this.props.colorScheme.comparison : this.props.colorScheme.valueGround);
+     const columnsAndLegend = getProcessedColumnsAndLegend(this.props, colors);
+     const description = this.props.type === 'bar' ? '' : this.props.description;
+     const sortedData = this.props.data.sort((a, b) => {
+       const sortPrimaryValue = getValueWithAccessor(b, this.props.columns.primaryValue.accessor) - getValueWithAccessor(a, this.props.columns.primaryValue.accessor);
+       return this.props.columns.secondaryValue ? sortPrimaryValue || (getValueWithAccessor(b, this.props.columns.secondaryValue.accessor) - getValueWithAccessor(a, this.props.columns.secondaryValue.accessor)) : sortPrimaryValue;
+     });
+     const displayedRows = this.props.displayedRows < 0 ? this.props.data.length : this.props.displayedRows;
+     return (
+       <div styleName="container">
+         <Header
+           header={this.props.header}
+           description={description}
+           legend={columnsAndLegend.legend}
+           colors={colors}
+         />
+         <div style={{ height: `${(displayedRows + 1) * 32}px` }}>
+           <SimpleTable
+             columns={columnsAndLegend.columns}
+             data={sortedData.slice(0, displayedRows)}
+             onRowDoubleClick={this.props.onRowDoubleClick}
+           />
+         </div>
+         {(this.props.data.length > displayedRows) && (
+           <div styleName="showMoreLink" onClick={this.togglePopover}>
+             {'Show more'}
+             {this.state.showPopover && (
+               <Popover
+                 align="center"
+                 children={<div styleName="popOverPlaceholder"></div>} // eslint-disable-line
+                 distanceToTarget={-(3 * 32) - 1.5} // to center the popover vertically, so that 3 rows of the popover table are under and 2 rows over the bar chart table, - 1.5 to align borders
+                 renderPopoverContent={() => (
+                   <div styleName="popOver" style={{ height: `${(displayedRows + 5) * 32 + 32 + 32}px` }}>
+                     {/* popover height: (displayedRows + 5 more rows) * 32px + 32px table header + 32px popover header */}
+                     <div styleName="popOverHeader">
+                       <div styleName="header">
+                         {this.props.header}
+                       </div>
+                       <div styleName="numberOfRows">
+                         {`(${sortedData.length})`}
+                       </div>
+                     </div>
+                     <div styleName="popOverTable" style={{ height: `${(sortedData.length + 1) * 32}px` }}>
+                       <SimpleTable
+                         columns={getProcessedColumnsAndLegend(this.props, colors, true).columns}
+                         data={sortedData}
+                         onRowDoubleClick={this.props.onRowDoubleClick}
+                       />
+                     </div>
+                   </div>
+                 )}
+                 displayPopover={this.state.showPopover}
+                 onClickOutside={this.togglePopover}
+               />
+             )}
+           </div>
+         )}
+
+       </div>
+     );
+   }
+
+}
 
 BarChartTable.displayName = 'Bar Chart Table';
 
 BarChartTable.defaultProps = {
-  colorScheme: [],
+  colorScheme: colorSchemes.colorSchemeDefault,
   description: '',
+  displayedRows: 10,
   onRowDoubleClick: () => {},
   type: 'bar',
 };
 
 BarChartTable.propTypes = {
   /**
-   * Sets the colors of the bar chart. Type: [ string ]
+   * Sets the colors of the bar chart. Type: { comparison: [ string ] (required), valueGround: [ string ] (required) }
    */
-  colorScheme: PropTypes.arrayOf(PropTypes.string),
+  colorScheme: PropTypes.shape({
+    comparison: PropTypes.arrayOf(PropTypes.string).isRequired,
+    valueGround: PropTypes.arrayOf(PropTypes.string).isRequired,
+  }),
   /**
    * Sets the Table columns.
-   * Type: { label: { accessor: string or func (required), linkAccessor: string or func, title: string (required) }, primaryValue: { accessor: string or func (required), formatter: func, title: string (required) }, secondaryValue: { accessor: string or func (required), formatter: func, title: string (required) }}
+   * Type: { label: { accessor: string or func (required), linkAccessor: string or func, title: string (required) }, primaryValue: { accessor: string or func (required), formatter: func, maxWidth: string }, secondaryValue: { accessor: string or func (required), formatter: func, maxWidth: string, title: string (required) }}
    */
   columns: PropTypes.shape({
     label: PropTypes.shape({
@@ -217,7 +294,6 @@ BarChartTable.propTypes = {
         PropTypes.string,
         PropTypes.func,
       ]),
-      title: PropTypes.string.isRequired,
     }),
     primaryValue: PropTypes.shape({
       accessor: PropTypes.oneOfType([
@@ -225,6 +301,7 @@ BarChartTable.propTypes = {
         PropTypes.func,
       ]).isRequired,
       formatter: PropTypes.func,
+      maxWidth: PropTypes.string,
       title: PropTypes.string.isRequired,
     }).isRequired,
     secondaryValue: PropTypes.shape({
@@ -233,6 +310,7 @@ BarChartTable.propTypes = {
         PropTypes.func,
       ]).isRequired,
       formatter: PropTypes.func,
+      maxWidth: PropTypes.string,
       title: PropTypes.string.isRequired,
     }),
   }).isRequired,
@@ -244,6 +322,10 @@ BarChartTable.propTypes = {
    * Sets the description.
    */
   description: PropTypes.string,
+  /**
+  * Sets the number of displayed rows.
+  */
+  displayedRows: PropTypes.number,
   /**
    * Sets the header.
    */
@@ -257,5 +339,3 @@ BarChartTable.propTypes = {
    */
   type: PropTypes.oneOf(['bar', 'comparison', 'butterfly']),
 };
-
-export default BarChartTable;

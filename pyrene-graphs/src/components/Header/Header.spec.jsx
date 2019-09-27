@@ -6,7 +6,7 @@ import Header from './Header.jsx';
 const props = {
   header: 'Header',
   description: 'Description',
-  colorScheme: ['red', 'blue'],
+  colors: ['red', 'blue'],
   legend: ['Primary Label', 'Secondary Label'],
 };
 
