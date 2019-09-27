@@ -13,7 +13,7 @@ const props = {
 
 const propsRelative = {
   ...props,
-  colorScheme: ['blue', 'red'],
+  colors: ['blue', 'red'],
 };
 
 describe('<Bar />', () => {
