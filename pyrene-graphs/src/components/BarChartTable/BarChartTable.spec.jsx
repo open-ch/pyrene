@@ -136,8 +136,9 @@ describe('<BarChartTable />', () => {
   it('reacts to clicking', () => {
     const rendered = mount(<BarChartTable {...props} />);
     const showMoreLink = rendered.find('.showMoreLink');
-    showMoreLink.props().onClick = jest.fn();
+    expect(showMoreLink.find('.popOverPlaceholder')).toHaveLength(0);
     showMoreLink.props().onClick();
-    expect(showMoreLink.props().onClick).toHaveBeenCalled();
+    rendered.update();
+    expect(rendered.find('.showMoreLink').find('.popOverPlaceholder')).toHaveLength(1);
   });
 });
