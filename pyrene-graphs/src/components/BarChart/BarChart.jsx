@@ -22,7 +22,7 @@ const BarChart = (props) => {
       <div styleName="responsiveContainer">
         <Responsive>
           {(parent) => {
-            let maxValue = Math.max(...props.data.map(row => Math.max(row.values)));
+            let maxValue = Math.max(...props.data.map(row => Math.max(...row.values)));
             maxValue = props.direction === 'horizontal' ? maxValue / (parent.width - 102 - 16) * (parent.width - 102) : maxValue / (parent.height - 24 - 16) * (parent.height - 24);
             return (
               <div styleName="columnContainer">
