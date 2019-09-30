@@ -1,6 +1,4 @@
-import dayjs from 'dayjs';
-
-import { DATE_TYPES, getDateType } from './CalendarDateSelectorUtils';
+import { DATE_TYPES, convertToInternalMomentJs } from './CalendarDateSelectorUtils';
 
 export default class DateHelper {
 
@@ -8,8 +6,9 @@ export default class DateHelper {
 
   static MONTH_NAME_WITH_YEAR = 'MMMM YYYY';
 
-  static formatTimeRangeText(value) {
-    const type = getDateType(value);
+  static YEAR = 'YYYY';
+
+  static formatTimeRangeText(value, type) {
     switch (type) {
       case DATE_TYPES.YEAR:
         return this.formatYear(value);
@@ -20,18 +19,16 @@ export default class DateHelper {
     }
   }
 
-  static formatYear({ year }) {
-    return year;
+  static formatYear(value) {
+    return convertToInternalMomentJs(value).format(this.YEAR);
   }
 
-  static formatMonth({ year, month }) {
-    const date = dayjs(new Date(year, month - 1, 1));
-    return date.format(this.MONTH_NAME_WITH_YEAR);
+  static formatMonth(value) {
+    return convertToInternalMomentJs(value).format(this.MONTH_NAME_WITH_YEAR);
   }
 
-  static formatFullDate({ year, month, day }) {
-    const date = dayjs(new Date(year, month - 1, day));
-    return date.format(this.FULL_DATE);
+  static formatFullDate(value) {
+    return convertToInternalMomentJs(value).format(this.FULL_DATE);
   }
 
 }

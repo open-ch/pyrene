@@ -6,10 +6,8 @@ import CalendarDateSelectorDropdown from './CalendarDateSelectorDropdown';
 import CalendarDateSelectorPropTypes from './CalendarDateSelectorPropTypes';
 import {
   DATE_TYPES,
-  getDateType,
   getCurrentDate,
   handleDateChange,
-  handleTypeChange,
 } from './CalendarDateSelectorUtils';
 
 import './calendarDateSelector.css';
@@ -43,36 +41,31 @@ export default class CalendarDateSelector extends React.Component {
     lowerBound: CalendarDateSelector.DEFAULT_LOWER_BOUND,
     upperBound: getCurrentDate(),
     timeRanges: CalendarDateSelector.DEFAULT_TIME_RANGES,
+    initialTimeRange: undefined,
     // get current date, but set day as undefined
     value: {
       ...getCurrentDate(),
-      day: undefined,
     },
     onChange: () => {},
     renderRightSection: () => {},
   };
 
-  /**
-   * Return whether the month or year changed
-   * @param newDate
-   * @return {boolean} if month or year changed
-   * @private
-   */
-  _didMonthOrYearChange = (newDate) => {
-    const { value } = this.props;
-    return value.month !== newDate.month || value.year !== newDate.year;
-  };
+  constructor(props) {
+    super(props);
+    const defaultTimeRange = props.timeRanges === CalendarDateSelector.DEFAULT_TIME_RANGES ? 1 : 0;
+    this.state = {
+      type: props.initialTimeRange ? props.initialTimeRange : props.timeRanges[defaultTimeRange],
+    };
+  }
 
   _onNavigate = (value, direction) => {
     const { onChange } = this.props;
-    const newDate = handleDateChange(value, direction);
-    onChange(newDate, this._didMonthOrYearChange(newDate));
+    const newDate = handleDateChange(value, direction, this.state.type);
+    onChange(newDate);
   };
 
   _onSelect = (timeRange) => {
-    const { onChange, value } = this.props;
-    const newDate = handleTypeChange(value, timeRange);
-    onChange(newDate, this._didMonthOrYearChange(newDate));
+    this.setState({ type: timeRange });
   };
 
   render() {
@@ -85,7 +78,7 @@ export default class CalendarDateSelector extends React.Component {
       renderRightSection,
     } = this.props;
 
-    const type = getDateType(value);
+    const type = this.state.type;
 
     return (
       <div styleName="timeRangeSelector">
@@ -121,6 +114,7 @@ export default class CalendarDateSelector extends React.Component {
 CalendarDateSelector.displayName = 'Calendar Date Selector';
 
 CalendarDateSelector.propTypes = {
+  initialTimeRange: PropTypes.string,
   isLoading: PropTypes.bool,
   lowerBound: CalendarDateSelectorPropTypes.YEAR_MONTH_DAY,
   onChange: PropTypes.func,

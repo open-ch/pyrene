@@ -28,7 +28,7 @@ const TimeRangeSelectionBar = (props) => {
         disabled={disabled || !canNavigateBackward(value, lowerBound, timeRange)}
       />
       <span styleName="timeRangeSelector--timerange-text">
-        {DateHelper.formatTimeRangeText(value)}
+        {DateHelper.formatTimeRangeText(value, timeRange)}
       </span>
       <Stepper
         direction="right"
