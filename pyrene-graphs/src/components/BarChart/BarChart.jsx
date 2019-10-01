@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { Loader } from 'pyrene';
 import {
   Bar, BarStack, CategoricalAxis, Grid, NumericalAxis, Responsive,
 } from 'tuktuktwo/dist/tuktuktwo';
+import GraphOverlay from '../GraphOverlay/GraphOverlay';
 import Header from '../Header/Header';
 import './barChart.css';
 import colorSchemes from '../../styles/colorSchemes';
@@ -48,7 +50,11 @@ const BarChart = (props) => {
                     />
                   </div>
                   <div styleName={classNames('barsContainer', { horizontalContainer: props.direction === 'horizontal' })}>
-                    {props.legend.length > 1 ? (
+                    {props.loading ? ( // eslint-disable-line
+                      <GraphOverlay
+                        children={(<Loader size="xlarge" />)} // eslint-disable-line
+                      />
+                    ) : props.legend.length > 1 ? (
                       <BarStack
                         barWeight={barWeight}
                         colors={props.colorScheme.categorical}
@@ -70,8 +76,7 @@ const BarChart = (props) => {
                             direction={props.direction}
                           />
                         </div>
-                      ))
-                    }
+                      ))}
                   </div>
                   {props.direction === 'horizontal' ? (
                     <NumericalAxis
