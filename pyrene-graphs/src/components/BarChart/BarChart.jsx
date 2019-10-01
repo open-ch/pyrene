@@ -26,19 +26,17 @@ const BarChart = (props) => {
             maxValue = props.direction === 'horizontal' ? maxValue / (parent.width - 102 - 16) * (parent.width - 102) : maxValue / (parent.height - 24 - 16) * (parent.height - 24);
             return (
               <div styleName="columnContainer">
-                <div styleName={classNames('axisLeft', { axisLeftWide: props.direction === 'horizontal', axisLeftNarrow: props.direction === 'vertical' })}>
-                  {props.direction === 'horizontal' ? (
-                    <CategoricalAxis
-                      labels={labels}
-                      position="left"
-                    />
-                  ) : (
-                    <NumericalAxis
-                      maxValue={maxValue}
-                      position="left"
-                    />
-                  )}
-                </div>
+                {props.direction === 'horizontal' ? (
+                  <CategoricalAxis
+                    labels={labels}
+                    position="left"
+                  />
+                ) : (
+                  <NumericalAxis
+                    maxValue={maxValue}
+                    position="left"
+                  />
+                )}
                 <div styleName="rowContainer">
                   <div styleName="grid">
                     <Grid
@@ -73,19 +71,17 @@ const BarChart = (props) => {
                       ))
                     }
                   </div>
-                  <div styleName="axisBottom">
-                    {props.direction === 'horizontal' ? (
-                      <NumericalAxis
-                        maxValue={maxValue}
-                        position="bottom"
-                      />
-                    ) : (
-                      <CategoricalAxis
-                        labels={labels}
-                        position="bottom"
-                      />
-                    )}
-                  </div>
+                  {props.direction === 'horizontal' ? (
+                    <NumericalAxis
+                      maxValue={maxValue}
+                      position="bottom"
+                    />
+                  ) : (
+                    <CategoricalAxis
+                      labels={labels}
+                      position="bottom"
+                    />
+                  )}
                 </div>
               </div>
             );

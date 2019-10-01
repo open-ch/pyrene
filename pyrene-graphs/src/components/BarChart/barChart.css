@@ -20,25 +20,6 @@
   min-width: 0;
 }
 
-.axisLeft {
-  height: 320px;
-  padding-right: 4px;
-}
-
-.axisLeftWide {
-  width: 98px;
-}
-
-.axisLeftNarrow {
-  width: 36px;
-}
-
-.axisBottom {
-  position: relative;
-  height: 24px;
-  top: -320px;
-}
-
 .grid {
   height: 320px;
 }
