@@ -419,6 +419,7 @@ Table.propTypes = {
    * Type: [{ accessor: any, cellRenderCallback: One of [React element, callback function to display the cell, string],
    * cellStyle: object, headerName: string (required), headerStyle: object, id: any, initiallyHidden: bool,
    * sortable: bool (!!!Overrides disableSorting!!!), sortFunction: function, width: number }]
+   * headerTooltip: if defined Pyrene tooltip displayed when hovering over header name
    */
   columns: PropTypes.arrayOf(PropTypes.shape({
     accessor: PropTypes.any,
@@ -430,6 +431,7 @@ Table.propTypes = {
     cellStyle: PropTypes.object,
     headerName: PropTypes.string.isRequired,
     headerStyle: PropTypes.object,
+    headerTooltip: PropTypes.node,
     id: PropTypes.any,
     initiallyHidden: PropTypes.bool,
     sortable: PropTypes.bool,
