@@ -29,10 +29,12 @@ const BarChart = (props) => {
                 {props.direction === 'horizontal' ? (
                   <CategoricalAxis
                     labels={labels}
+                    loading={props.loading}
                     position="left"
                   />
                 ) : (
                   <NumericalAxis
+                    loading={props.loading}
                     maxValue={maxValue}
                     position="left"
                   />
@@ -73,12 +75,14 @@ const BarChart = (props) => {
                   </div>
                   {props.direction === 'horizontal' ? (
                     <NumericalAxis
+                      loading={props.loading}
                       maxValue={maxValue}
                       position="bottom"
                     />
                   ) : (
                     <CategoricalAxis
                       labels={labels}
+                      loading={props.loading}
                       position="bottom"
                     />
                   )}
@@ -99,6 +103,7 @@ BarChart.defaultProps = {
   description: '',
   colorScheme: colorSchemes.colorSchemeDefault,
   direction: 'horizontal',
+  loading: false,
 };
 
 BarChart.propTypes = {
@@ -116,6 +121,7 @@ BarChart.propTypes = {
   direction: PropTypes.oneOf(['horizontal', 'vertical']),
   header: PropTypes.string,
   legend: PropTypes.arrayOf(PropTypes.string).isRequired,
+  loading: PropTypes.bool,
 };
 
 export default BarChart;
