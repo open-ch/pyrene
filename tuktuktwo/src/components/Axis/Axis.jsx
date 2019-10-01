@@ -9,7 +9,7 @@ const Axis = props => (
   <Responsive>
     {(parent) => {
       const parentSize = props.position === 'left' ? parent.height : parent.width;
-      const scale = props.labels.length > 0 ? Utils.scaleLabels(parentSize, props.labels) : Utils.scaleLinear(parentSize, props.maxValue, props.position === 'left' ? 'vertical' : 'horizontal');
+      const scale = props.labels.length > 0 ? Utils.scaleCategorical(parentSize, props.labels) : Utils.scaleLinear(parentSize, props.maxValue, props.position === 'left' ? 'vertical' : 'horizontal');
       const color = '#979ca8';
       return (
         <svg width={parent.width} height={parent.height}>
