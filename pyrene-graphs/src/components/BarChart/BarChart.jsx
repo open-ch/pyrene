@@ -48,7 +48,7 @@ const BarChart = (props) => {
                         colors={props.colorScheme.categorical}
                         maxValue={maxValue}
                         keys={props.legend}
-                        data={props.data}
+                        values={props.data}
                         direction={props.direction}
                       />
                     )
