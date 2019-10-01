@@ -4,16 +4,16 @@ import { AxisLeft, AxisBottom } from '@vx/axis';
 import Responsive from '../Misc/Responsive';
 import Utils from '../../Utils';
 
-function getScale(props, parentSize) {
-  if (props.scale !== undefined) return props.scale;
-  return props.labels.length > 0 ? Utils.scaleCategorical(parentSize, props.labels) : Utils.scaleLinear(parentSize, props.maxValue, props.position === 'left' ? 'vertical' : 'horizontal');
+function getScale(parentSize, labels, maxValue, position, scale) {
+  if (scale !== undefined) return scale;
+  return labels.length > 0 ? Utils.scaleCategorical(parentSize, labels) : Utils.scaleLinear(parentSize, maxValue, position === 'left' ? 'vertical' : 'horizontal');
 }
 
 const Axis = props => (
   <Responsive>
     {(parent) => {
       const parentSize = props.position === 'left' ? parent.height : parent.width;
-      const scale = getScale(props, parentSize);
+      const scale = getScale(parentSize, props.labels, props.maxValue, props.position, props.scale);
       const color = '#979ca8';
       return (
         <svg width={parent.width} height={parent.height}>
@@ -21,7 +21,7 @@ const Axis = props => (
             <AxisLeft
               scale={scale}
               left={props.labels.length === 0 ? 32 : 98}
-              tickLabelProps={(tickValue, index) => ({
+              tickLabelProps={() => ({
                 textAnchor: 'start', fontSize: 10, fill: color, dx: props.labels.length > 0 ? '-90px' : '-24px', dy: '0.25em',
               })}
               stroke={color}
@@ -38,7 +38,7 @@ const Axis = props => (
             <AxisBottom
               scale={scale}
               top={parent.height - 24}
-              tickLabelProps={(tickValue, index) => ({
+              tickLabelProps={() => ({
                 textAnchor: 'middle', fontSize: 10, fill: color, dy: '-0.25em',
               })}
               stroke={color}
