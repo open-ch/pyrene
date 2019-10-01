@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import {
-  Axis, Bar, Grid, Responsive,
+  Axis, Bar, BarStack, Grid, Responsive,
 } from 'tuktuktwo/dist/tuktuktwo';
 import Header from '../Header/Header';
 import './barChart.css';
@@ -16,7 +16,7 @@ const BarChart = (props) => {
       <Header
         header={props.header}
         description={props.description}
-        colors={props.colorScheme}
+        colors={props.colorScheme.categorical}
         legend={props.legend}
       />
       <div styleName="responsiveContainer">
@@ -42,26 +42,37 @@ const BarChart = (props) => {
                     />
                   </div>
                   <div styleName={classNames('barsContainer', { horizontalContainer: props.direction === 'horizontal' })}>
-                    {props.data.map(row => (
-                      <div
-                        key={`bar_${row.label}`}
-                      >
-                        <Bar
-                          barWeight={barWeight}
-                          color={props.colorScheme[0]}
-                          maxValue={maxValue}
-                          value={row.values[0]}
-                          direction={props.direction}
-                        />
-                      </div>
-                    ))}
-                  </div>
-                  <div styleName="axisBottom">
-                    <Axis
-                      labels={props.direction === 'vertical' ? labels : []}
-                      maxValue={props.direction === 'horizontal' ? maxValue : null}
-                      position="bottom"
-                    />
+                    {props.legend.length > 1 ? (
+                      <BarStack
+                        barWeight={barWeight}
+                        colors={props.colorScheme.categorical}
+                        maxValue={maxValue}
+                        keys={props.legend}
+                        data={props.data}
+                        direction={props.direction}
+                      />
+                    )
+                      : props.data.map(row => (
+                        <div
+                          key={`bar_${row.label}`}
+                        >
+                          <Bar
+                            barWeight={barWeight}
+                            color={props.colorScheme.categorical[0]}
+                            maxValue={maxValue}
+                            value={row.values[0]}
+                            direction={props.direction}
+                          />
+                        </div>
+                      ))
+                    }
+                    <div styleName="axisBottom">
+                      <Axis
+                        labels={props.direction === 'vertical' ? labels : []}
+                        maxValue={props.direction === 'horizontal' ? maxValue : null}
+                        position="bottom"
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -78,12 +89,17 @@ BarChart.displayName = 'Bar Chart';
 BarChart.defaultProps = {
   header: '',
   description: '',
-  colorScheme: colorSchemes.colorSchemeDefault.categorical,
+  colorScheme: colorSchemes.colorSchemeDefault,
   direction: 'horizontal',
 };
 
 BarChart.propTypes = {
-  colorScheme: PropTypes.arrayOf(PropTypes.string),
+  /**
+   * Sets the colors of the bar chart. Type: { categorical: [ string ] (required) }
+   */
+  colorScheme: PropTypes.shape({
+    categorical: PropTypes.arrayOf(PropTypes.string).isRequired,
+  }),
   data: PropTypes.arrayOf(PropTypes.shape({
     label: PropTypes.string.isRequired,
     values: PropTypes.arrayOf(PropTypes.number).isRequired,
