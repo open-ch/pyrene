@@ -1,15 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { AxisLeft, AxisBottom } from '@vx/axis';
-import { format } from 'd3-format';
 import Responsive from '../Misc/Responsive';
 import Utils from '../../Utils';
+
+function getScale(props, parentSize) {
+  if (props.scale !== undefined) return props.scale;
+  return props.labels.length > 0 ? Utils.scaleCategorical(parentSize, props.labels) : Utils.scaleLinear(parentSize, props.maxValue, props.position === 'left' ? 'vertical' : 'horizontal');
+}
 
 const Axis = props => (
   <Responsive>
     {(parent) => {
       const parentSize = props.position === 'left' ? parent.height : parent.width;
-      const scale = props.labels.length > 0 ? Utils.scaleCategorical(parentSize, props.labels) : Utils.scaleLinear(parentSize, props.maxValue, props.position === 'left' ? 'vertical' : 'horizontal');
+      const scale = getScale(props, parentSize);
       const color = '#979ca8';
       return (
         <svg width={parent.width} height={parent.height}>
@@ -25,7 +29,8 @@ const Axis = props => (
               tickStroke={color}
               numTicks={props.labels.length === 0 ? 3 : props.labels.length}
               hideAxisLine={props.labels.length > 0}
-              tickFormat={props.labels.length === 0 ? format('d') : null}
+              tickFormat={props.tickFormat}
+              tickValues={props.tickValues}
               hideTicks
               hideZero
             />
@@ -41,7 +46,8 @@ const Axis = props => (
               tickStroke={color}
               numTicks={props.labels.length === 0 ? 6 : props.labels.length}
               hideAxisLine={props.labels.length > 0}
-              tickFormat={props.labels.length === 0 ? format('d') : null}
+              tickFormat={props.tickFormat}
+              tickValues={props.tickValues}
               hideTicks
               hideZero
             />
@@ -58,12 +64,18 @@ Axis.displayName = 'Axis';
 Axis.defaultProps = {
   labels: [],
   maxValue: 0,
+  scale: undefined,
+  tickFormat: d => d,
+  tickValues: undefined,
 };
 
 Axis.propTypes = {
   labels: PropTypes.arrayOf(PropTypes.string),
   maxValue: PropTypes.number,
   position: PropTypes.oneOf(['left', 'bottom']).isRequired,
+  scale: PropTypes.func,
+  tickFormat: PropTypes.func,
+  tickValues: PropTypes.arrayOf(PropTypes.oneOf(['string', 'number'])),
 };
 
 export default Axis;
