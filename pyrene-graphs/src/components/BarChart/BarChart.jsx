@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import {
-  Axis, Bar, BarStack, Grid, Responsive,
+  Bar, BarStack, CategoricalAxis, Grid, NumericalAxis, Responsive,
 } from 'tuktuktwo/dist/tuktuktwo';
 import Header from '../Header/Header';
 import './barChart.css';
@@ -27,11 +27,17 @@ const BarChart = (props) => {
             return (
               <div styleName="columnContainer">
                 <div styleName={classNames('axisLeft', { axisLeftWide: props.direction === 'horizontal', axisLeftNarrow: props.direction === 'vertical' })}>
-                  <Axis
-                    labels={props.direction === 'horizontal' ? labels : []}
-                    maxValue={props.direction === 'vertical' ? maxValue : null}
-                    position="left"
-                  />
+                  {props.direction === 'horizontal' ? (
+                    <CategoricalAxis
+                      labels={labels}
+                      position="left"
+                    />
+                  ) : (
+                    <NumericalAxis
+                      maxValue={maxValue}
+                      position="left"
+                    />
+                  )}
                 </div>
                 <div styleName="rowContainer">
                   <div styleName="grid">
@@ -66,13 +72,19 @@ const BarChart = (props) => {
                         </div>
                       ))
                     }
-                    <div styleName="axisBottom">
-                      <Axis
-                        labels={props.direction === 'vertical' ? labels : []}
-                        maxValue={props.direction === 'horizontal' ? maxValue : null}
+                  </div>
+                  <div styleName="axisBottom">
+                    {props.direction === 'horizontal' ? (
+                      <NumericalAxis
+                        maxValue={maxValue}
                         position="bottom"
                       />
-                    </div>
+                    ) : (
+                      <CategoricalAxis
+                        labels={labels}
+                        position="bottom"
+                      />
+                    )}
                   </div>
                 </div>
               </div>
