@@ -4,6 +4,7 @@
 // Sort alphabetically to find stuff easily
 import { default as Axis } from './components/Axis/Axis';
 import { default as Bar } from './components/Bar/Bar';
+import { default as BarStack } from './components/Bar/BarStack';
 import { default as Grid } from './components/Grid/Grid';
 import { default as RelativeBar } from './components/Bar/RelativeBar';
 import { default as Responsive } from './components/Misc/Responsive';
@@ -12,6 +13,7 @@ import { default as Responsive } from './components/Misc/Responsive';
 const Components = {
   Axis,
   Bar,
+  BarStack,
   Grid,
   RelativeBar,
   Responsive,
@@ -20,6 +22,7 @@ const Components = {
 // Sort alphabetically to find stuff easily
 export { Axis };
 export { Bar };
+export { BarStack };
 export { Grid };
 export { RelativeBar };
 export { Responsive };
