@@ -1,12 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import Axis from './Axis';
+import './axis.css';
 
 const CategoricalAxis = props => (
-  <Axis
-    labels={props.labels}
-    position={props.position}
-  />
+  <div styleName={classNames({ axisLeft: props.position === 'left', axisLeftWide: props.position === 'left', axisBottom: props.position === 'bottom' })}>
+    <Axis
+      labels={props.labels}
+      position={props.position}
+    />
+  </div>
 );
 
 CategoricalAxis.displayName = 'Categorical Axis';
