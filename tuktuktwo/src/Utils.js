@@ -16,4 +16,6 @@ export default class Utils {
     });
   }
 
+  static randomString = length => (Math.random().toString(36).substring(2, length + 2));
+
 }

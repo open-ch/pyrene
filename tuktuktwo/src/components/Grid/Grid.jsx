@@ -10,23 +10,22 @@ const Grid = props => (
     <Responsive>
       {(parent) => {
         const parentSize = props.direction === 'horizontal' ? parent.width : parent.height;
-        const color = '#979ca8';
+        const color = '#e1e3e8';
         return (
-          <svg width={parent.width} height={parent.height}>
+          <svg width={parent.width} height={parent.height} shapeRendering="crispEdges">
             {props.direction === 'vertical' ? (
               <GridRows
                 scale={Utils.scaleLinear(parentSize, props.maxValue, props.direction)}
                 stroke={color}
-                strokeWidth={0.5}
                 width={parent.width}
                 height={parent.height}
                 numTicks={3}
               />
             ) : (
               <GridColumns
+                left={1}
                 scale={Utils.scaleLinear(parentSize, props.maxValue, props.direction)}
                 stroke={color}
-                strokeWidth={0.5}
                 width={parent.width}
                 height={parent.height}
                 numTicks={6}

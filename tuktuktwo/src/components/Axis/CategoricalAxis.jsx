@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import { AxisLeft, AxisBottom } from '@vx/axis';
 import Responsive from '../Misc/Responsive';
 import Utils from '../../Utils';
+import AxisUtils from './AxisUtils';
 import './axis.css';
 
 const getScale = (parentSize, labels) => (
@@ -16,36 +17,37 @@ const CategoricalAxis = props => (
       {(parent) => {
         const parentSize = props.position === 'left' ? parent.height : parent.width;
         const scale = getScale(parentSize, props.labels);
-        // const color = '#979ca8';
-        const color = 'red';
-        return (
-          <svg width={parent.width} height={parent.height}>
-            {props.position === 'left' ? (
-              <AxisLeft
-                scale={scale}
-                left={98}
-                tickLabelProps={() => ({
-                  textAnchor: 'start', fontSize: 10, fill: color, dx: '-90px', dy: '0.25em',
-                })}
-                stroke={color}
-                strokeWidth={2}
-                tickStroke={color}
-                numTicks={props.labels.length}
-                hideAxisLine={props.hideAxisLine}
-                tickFormat={props.tickFormat}
-                tickValues={props.loading ? [] : props.tickValues}
-                hideTicks
-                hideZero
-              />
-            ) : (
+        const stroke = '#e1e3e8';
+        const tickStroke = '#979ca8';
+        return props.position === 'left' ? (
+          <svg width={parent.width} height={parent.height} shapeRendering="crispEdges">
+            <AxisLeft
+              scale={scale}
+              tickLength={0}
+              tickLabelProps={() => ({
+                fontSize: 10, fill: tickStroke, fontFamily: 'AvenirNext', textAnchor: 'start',
+              })}
+              tickComponent={tickProps => AxisUtils.getClippedTickComponent(tickProps, 102)}
+              stroke={stroke}
+              tickStroke={tickStroke}
+              numTicks={props.labels.length}
+              hideAxisLine={props.hideAxisLine}
+              tickFormat={props.tickFormat}
+              tickValues={props.loading ? [] : props.tickValues}
+              hideTicks
+              hideZero
+            />
+          </svg>
+        )
+          : (
+            <svg width={parent.width} height={parent.height} shapeRendering="crispEdges">
               <AxisBottom
                 scale={scale}
                 tickLabelProps={() => ({
-                  textAnchor: 'middle', fontSize: 10, fill: color, dy: '-0.25em',
+                  textAnchor: 'middle', fontSize: 10, fontFamily: 'AvenirNext', fill: tickStroke, dy: '-0.25em',
                 })}
-                stroke={color}
-                strokeWidth={2}
-                tickStroke={color}
+                stroke={stroke}
+                tickStroke={tickStroke}
                 numTicks={props.labels.length}
                 hideAxisLine={props.hideAxisLine}
                 tickFormat={props.tickFormat}
@@ -53,11 +55,9 @@ const CategoricalAxis = props => (
                 hideTicks
                 hideZero
               />
-            )}
-          </svg>
-        );
+            </svg>
+          );
       }}
-
     </Responsive>
   </div>
 );

@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import { AxisLeft, AxisBottom } from '@vx/axis';
 import Responsive from '../Misc/Responsive';
 import Utils from '../../Utils';
+import AxisUtils from './AxisUtils';
 import './axis.css';
 
 const getScale = (parentSize, maxValue, position, scale) => (
@@ -16,20 +17,20 @@ const NumericalAxis = props => (
       {(parent) => {
         const parentSize = props.position === 'left' ? parent.height : parent.width;
         const scale = getScale(parentSize, props.maxValue, props.position, props.scale);
-        // const color = '#979ca8';
-        const color = 'red';
+        const stroke = '#e1e3e8';
+        const tickStroke = '#979ca8';
         return (
-          <svg width={parent.width} height={parent.height}>
+          <svg width={parent.width} height={parent.height} shapeRendering="crispEdges">
             {props.position === 'left' ? (
               <AxisLeft
                 scale={scale}
-                left={34}
+                tickLength={0}
                 tickLabelProps={() => ({
-                  textAnchor: 'start', fontSize: 10, fill: color, dx: '-26px', dy: '0.25em',
+                  fontSize: 10, fill: tickStroke, fontFamily: 'AvenirNext', textAnchor: 'start',
                 })}
-                stroke={color}
-                strokeWidth={2}
-                tickStroke={color}
+                tickComponent={tickProps => AxisUtils.getClippedTickComponent(tickProps, 36)}
+                stroke={stroke}
+                tickStroke={tickStroke}
                 numTicks={3}
                 hideAxisLine={props.hideAxisLine}
                 tickFormat={props.tickFormat}
@@ -39,13 +40,13 @@ const NumericalAxis = props => (
               />
             ) : (
               <AxisBottom
+                top={1}
                 scale={scale}
                 tickLabelProps={() => ({
-                  textAnchor: 'middle', fontSize: 10, fill: color, dy: '-0.25em',
+                  textAnchor: 'middle', fontSize: 10, fontFamily: 'AvenirNext', fill: tickStroke, dy: '-0.25em',
                 })}
-                stroke={color}
-                strokeWidth={2}
-                tickStroke={color}
+                stroke={stroke}
+                tickStroke={tickStroke}
                 numTicks={6}
                 hideAxisLine={props.hideAxisLine}
                 tickFormat={props.tickFormat}
