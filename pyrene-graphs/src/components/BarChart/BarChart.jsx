@@ -30,6 +30,7 @@ const BarChart = (props) => {
               <div styleName="columnContainer">
                 {props.direction === 'horizontal' ? (
                   <CategoricalAxis
+                    hideAxisLine={!props.loading}
                     labels={labels}
                     loading={props.loading}
                     position="left"
@@ -42,55 +43,60 @@ const BarChart = (props) => {
                   />
                 )}
                 <div styleName="rowContainer">
-                  <div styleName="grid">
+                  {!props.loading && (
                     <Grid
                       labels={labels}
                       maxValue={maxValue}
                       direction={props.direction}
                     />
-                  </div>
-                  <div styleName={classNames('barsContainer', { horizontalContainer: props.direction === 'horizontal' })}>
-                    {props.loading ? ( // eslint-disable-line
-                      <GraphOverlay
-                        children={(<Loader size="xlarge" />)} // eslint-disable-line
-                      />
-                    ) : props.legend.length > 1 ? (
-                      <BarStack
-                        barWeight={barWeight}
-                        colors={props.colorScheme.categorical}
-                        maxValue={maxValue}
-                        keys={props.legend}
-                        values={props.data}
-                        direction={props.direction}
-                      />
-                    )
-                      : props.data.map(row => (
-                        <div
-                          key={`bar_${row.label}`}
-                        >
-                          <Bar
-                            barWeight={barWeight}
-                            color={props.colorScheme.categorical[0]}
-                            maxValue={maxValue}
-                            value={row.values[0]}
-                            direction={props.direction}
-                          />
-                        </div>
-                      ))}
-                  </div>
-                  {props.direction === 'horizontal' ? (
-                    <NumericalAxis
-                      loading={props.loading}
-                      maxValue={maxValue}
-                      position="bottom"
+                  )}
+                  {props.loading ? ( // eslint-disable-line
+                    <GraphOverlay
+                      children={(<Loader size="xlarge" />)} // eslint-disable-line
                     />
                   ) : (
-                    <CategoricalAxis
-                      labels={labels}
-                      loading={props.loading}
-                      position="bottom"
-                    />
+                    <div styleName={classNames('barsContainer', { horizontalContainer: props.direction === 'horizontal' })}>
+                      {props.legend.length > 1 ? (
+                        <BarStack
+                          barWeight={barWeight}
+                          colors={props.colorScheme.categorical}
+                          maxValue={maxValue}
+                          keys={props.legend}
+                          values={props.data}
+                          direction={props.direction}
+                        />
+                      )
+                        : props.data.map(row => (
+                          <div
+                            key={`bar_${row.label}`}
+                          >
+                            <Bar
+                              barWeight={barWeight}
+                              color={props.colorScheme.categorical[0]}
+                              maxValue={maxValue}
+                              value={row.values[0]}
+                              direction={props.direction}
+                            />
+                          </div>
+                        ))}
+                    </div>
                   )}
+                  <div styleName="axisBottom">
+                    {props.direction === 'horizontal' ? (
+                      <NumericalAxis
+                        loading={props.loading}
+                        maxValue={maxValue}
+                        position="bottom"
+                      />
+                    ) : (
+                      <CategoricalAxis
+                        hideAxisLine={!props.loading}
+                        labels={labels}
+                        loading={props.loading}
+                        position="bottom"
+                      />
+                    )}
+                  </div>
                 </div>
               </div>
             );
