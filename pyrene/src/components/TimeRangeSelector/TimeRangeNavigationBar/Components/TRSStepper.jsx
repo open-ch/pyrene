@@ -30,7 +30,7 @@ const TRSStepper = (props) => {
 TRSStepper.displayName = 'TRSStepper';
 
 TRSStepper.defaultProps = {
-  direction: 'right',
+  direction: 'left',
   disabled: false,
 };
 

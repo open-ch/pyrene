@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import PropTypes from 'prop-types';
 
 import './presetTimeRanges.css';
 
@@ -64,6 +65,21 @@ PresetTimeRanges.defaultProps = {
   disabled: false,
   currentTimeRangeType: null,
   initialUpperBound: null,
+};
+
+PresetTimeRanges.propTypes = {
+  disabled: PropTypes.bool,
+  onInteract: PropTypes.func.isRequired,
+  currentTimeRangeType: PropTypes.string,
+  presetTimeRanges: PropTypes.arrayOf(
+    PropTypes.shape({
+      durationInMs: PropTypes.number.isRequired,
+      id: PropTypes.string.isRequired,
+      label: PropTypes.string.isRequired,
+    }),
+  ),
+  upperBound: PropTypes.number.isRequired,
+  timezone: PropTypes.string.isRequired,
 };
 
 export default PresetTimeRanges;

@@ -13,14 +13,14 @@ import './timeRangeSelector.css';
  * 24 hours
  * 7 days
  * 30 days
- * 365 days
+ * 1 year
  */
 export default class TimeRangeSelector extends Component {
 
   constructor(props) {
     super(props);
 
-    const durationInMs = props.to - props.from;
+    const durationInMs = (props.to - props.from) - ((props.to - props.from) % 10); // calculate the duration of the timerange minus rounding errors
     let initialTimeRangeType = props.presetTimeRanges.find(preset => preset.durationInMs === durationInMs); // Try to find if the timerange matches an initial preset
     initialTimeRangeType = initialTimeRangeType ? initialTimeRangeType.id : ''; // If we found a match, then let's use the id of the preset, otherwise no default preset has to be selected
 
