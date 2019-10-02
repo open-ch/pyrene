@@ -17,7 +17,7 @@ import './calendarDateSelector.css';
  *
  * 'onChange({ year: number, month: number | undefined, day: number | undefined })' callback function can be registered via props, to handle range changes.
  *
- * Default time ranges are defined as follows:
+ * Time ranges are defined as follows:
  * 1. Year - { year }
  * 2. Month - { year, month }
  * 3. Day - { year, month, day }
@@ -36,12 +36,12 @@ export default class CalendarDateSelector extends React.Component {
     day: 1,
   };
 
+  static TIMERANGES = CalendarDateSelector.DEFAULT_TIME_RANGES;
+
   static defaultProps = {
     isLoading: false,
     lowerBound: CalendarDateSelector.DEFAULT_LOWER_BOUND,
     upperBound: getCurrentDate(),
-    timeRanges: CalendarDateSelector.DEFAULT_TIME_RANGES,
-    initialTimeRange: undefined,
     // get current date, but set day as undefined
     value: {
       ...getCurrentDate(),
@@ -52,9 +52,8 @@ export default class CalendarDateSelector extends React.Component {
 
   constructor(props) {
     super(props);
-    const defaultTimeRange = props.timeRanges === CalendarDateSelector.DEFAULT_TIME_RANGES ? 1 : 0;
     this.state = {
-      type: props.initialTimeRange ? props.initialTimeRange : props.timeRanges[defaultTimeRange],
+      type: CalendarDateSelector.TIMERANGES[1],
     };
   }
 
@@ -71,7 +70,6 @@ export default class CalendarDateSelector extends React.Component {
   render() {
     const {
       isLoading,
-      timeRanges,
       lowerBound,
       upperBound,
       value,
@@ -85,7 +83,7 @@ export default class CalendarDateSelector extends React.Component {
         <div styleName="timeRangeSelector--left">
           <div styleName="timeRangeSelector__dropdown">
             <CalendarDateSelectorDropdown
-              timeRanges={timeRanges}
+              timeRanges={CalendarDateSelector.TIMERANGES}
               timeRange={type}
               onSelect={this._onSelect}
               disabled={isLoading}
@@ -114,12 +112,10 @@ export default class CalendarDateSelector extends React.Component {
 CalendarDateSelector.displayName = 'Calendar Date Selector';
 
 CalendarDateSelector.propTypes = {
-  initialTimeRange: PropTypes.string,
   isLoading: PropTypes.bool,
   lowerBound: CalendarDateSelectorPropTypes.YEAR_MONTH_DAY,
   onChange: PropTypes.func,
   renderRightSection: PropTypes.func,
-  timeRanges: CalendarDateSelectorPropTypes.TIMERANGE_OPTIONS,
   upperBound: CalendarDateSelectorPropTypes.YEAR_MONTH_DAY,
   value: CalendarDateSelectorPropTypes.YEAR_MONTH_DAY,
 };
