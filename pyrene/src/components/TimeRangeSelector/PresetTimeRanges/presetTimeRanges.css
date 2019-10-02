@@ -1,0 +1,48 @@
+.presetTimeRange {
+  composes: commonFontSettings from '../../../styles/common.css';
+  border: none;
+  border-right: solid 1px #e1e3e8;
+  border-top: solid 1px #e1e3e8;
+  border-bottom: solid 1px #e1e3e8;
+  height: 30px;
+  padding-left: 16px;
+  padding-right: 16px;
+  outline: none;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+
+  background-color: var(--background-light);
+
+  &.first {
+     border-left: solid 1px #e1e3e8;
+     border-radius: 2px 0px 0px 2px;
+  }
+
+  &.first:hover {
+     border-left: solid 1px #b2b8bf;
+     border-color: var(--primary);
+     background-color: #f0f2f5;
+  }
+
+  &.active {
+     background-color: #f0f2f5;
+  }
+
+  &.disabled {
+     opacity: .5;
+     cursor: default;
+     pointer-events: none;
+  }
+
+  &.successive:hover {
+     border-left: solid 1px #b2b8bf;
+     border-color: var(--primary);
+     background-color: #f0f2f5;
+     margin-left: -1px;
+   }
+}
+
+.presetTimeRange:last-child {
+  border-radius: 0px 2px 2px 0px;
+}

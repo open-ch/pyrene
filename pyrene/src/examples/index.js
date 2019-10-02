@@ -33,6 +33,7 @@ import { default as Table } from '../components/Table/Table.examples';
 import { default as TabView } from '../components/TabView/TabView.examples';
 import { default as TextArea } from '../components/TextArea/TextArea.examples';
 import { default as TextField } from '../components/TextField/TextField.examples';
+import { default as TimeRangeSelector } from '../components/TimeRangeSelector/TimeRangeSelector.examples';
 import { default as Tooltip } from '../components/Tooltip/Tooltip.examples';
 import { default as TreeTable } from '../components/TreeTable/TreeTable.examples';
 
@@ -69,6 +70,7 @@ const examples = {
   TabView,
   TextArea,
   TextField,
+  TimeRangeSelector,
   Tooltip,
   TreeTable,
 };
