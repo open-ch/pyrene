@@ -1,0 +1,22 @@
+.timeRangeSelector {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  composes: commonFontSettings from '../../styles/common.css';
+  font-size: 12px;
+  font-weight: 600;
+  flex-wrap: wrap;
+}
+
+.timeRangeSelector--left {
+  margin-right: auto;
+}
+
+.timeRangeSelector--center {
+  margin-right: auto;
+}
+
+.timeRangeSelector--right {
+  margin-left: auto;
+}
