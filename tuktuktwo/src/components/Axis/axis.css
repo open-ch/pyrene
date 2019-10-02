@@ -1,18 +1,15 @@
 .axisLeft {
   height: 320px;
-  padding-right: 2px;
 }
 
 .axisLeftWide {
-  width: 98px;
+  width: 100px;
 }
 
 .axisLeftNarrow {
-  width: 36px;
+  width: 34px;
 }
 
 .axisBottom {
-  position: relative;
   height: 24px;
-  top: -320px;
 }
