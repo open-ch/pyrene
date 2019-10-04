@@ -240,8 +240,6 @@ export default class Table extends React.Component {
   }));
 
   createVisibleColumnsObject(columns) {
-    console.log('columns: ', columns);
-
     return columns.reduce((obj, item) => ({
       ...obj,
       [item.id]: !item.initiallyHidden,
