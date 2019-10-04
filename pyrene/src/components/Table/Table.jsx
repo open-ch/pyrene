@@ -238,11 +238,10 @@ export default class Table extends React.Component {
     }));
   };
 
-  createTableColumnsObject = () => TableUtils
-    .mapColumnProps(this.props.columns)
-    .map(
-      col => ({ ...col, show: this.state.columnsVisibility[col.id] })
-    );
+  createTableColumnsObject = () => TableUtils.mapColumnProps(this.props.columns).map(col => ({
+    ...col,
+    show: this.state.columnsVisibility[col.id],
+  }));
 
   createVisibleColumnsObject(columns) {
     return columns.reduce((obj, item) => ({
