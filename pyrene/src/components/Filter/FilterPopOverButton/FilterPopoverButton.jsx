@@ -32,7 +32,6 @@ FilterPopoverButton.defaultProps = {
   noBorder: false,
   displayPopover: false,
   onClick: () => null,
-  filterValues: null,
 };
 
 FilterPopoverButton.propTypes = {
@@ -44,7 +43,7 @@ FilterPopoverButton.propTypes = {
     sorted: PropTypes.bool,
     type: PropTypes.string,
   })).isRequired,
-  filterValues: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  filterValues: PropTypes.shape().isRequired,
   handleFilterChange: PropTypes.func.isRequired,
   label: PropTypes.string.isRequired,
   noBorder: PropTypes.bool,

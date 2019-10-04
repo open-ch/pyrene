@@ -12,16 +12,32 @@ const FilterPopover = props => (
     <div styleName="title">Select Filter</div>
     <div styleName="filterOptions">
       {props.filters.length <= 6
-        ? props.filters.map(filter => <FilterOption {...filter} handleFilterChange={props.handleFilterChange} filterValues={props.filterValues} key={filter.id} />)
+        ? props.filters.map(filter => (
+          <FilterOption {...filter}
+            value={props.filterValues ? props.filterValues[filter.id] : null}
+            handleFilterChange={props.handleFilterChange}
+            key={filter.id}
+          />
+        ))
         : (
           <React.Fragment>
-            {props.filters.slice(0, 6).map(filter => <FilterOption {...filter} handleFilterChange={props.handleFilterChange} filterValues={props.filterValues} key={filter.id} />)}
+            {props.filters.slice(0, 6).map(filter => (
+              <FilterOption {...filter}
+                value={props.filterValues ? props.filterValues[filter.id] : null}
+                handleFilterChange={props.handleFilterChange}
+                key={filter.id}
+              />
+            ))}
             <Collapsible
               align="end"
               labelCollapsed="More Filter Options"
               labelExpanded="Fewer Filter Options"
               renderCallback={() => props.filters.slice(6).map(filter => (
-                <FilterOption {...filter} handleFilterChange={props.handleFilterChange} filterValues={props.filterValues} key={filter.id} />
+                <FilterOption {...filter}
+                  value={props.filterValues ? props.filterValues[filter.id] : null}
+                  handleFilterChange={props.handleFilterChange}
+                  key={filter.id}
+                />
               ))}
             />
           </React.Fragment>
@@ -42,7 +58,6 @@ const FilterPopover = props => (
 FilterPopover.displayName = 'FilterPopover';
 
 FilterPopover.defaultProps = {
-  filterValues: null,
 };
 
 FilterPopover.propTypes = {
@@ -53,7 +68,7 @@ FilterPopover.propTypes = {
     sorted: PropTypes.bool,
     type: PropTypes.string,
   })).isRequired,
-  filterValues: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.array, PropTypes.string, PropTypes.object])),
+  filterValues: PropTypes.shape().isRequired,
   handleFilterChange: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,
   onFilterApply: PropTypes.func.isRequired,
