@@ -10,7 +10,7 @@ export default class FilterOption extends React.Component {
 
     getFilterInterface = () => {
 
-      const isValue = !!this.props.filterValues && !!this.props.filterValues[this.props.id];
+      const isValue = !!this.props.value;
 
       switch (this.props.type) {
         case 'singleSelect':
@@ -19,7 +19,7 @@ export default class FilterOption extends React.Component {
               name={this.props.id}
               options={this.props.options}
               onChange={value => this.props.handleFilterChange(value, this.props.id)}
-              value={isValue ? this.props.filterValues[this.props.id] : null}
+              value={isValue ? this.props.value : null}
               sorted={this.props.sorted}
               clearable
               searchable
@@ -33,7 +33,7 @@ export default class FilterOption extends React.Component {
               // If multiSelect is empty (empty array) return null to filter instead of []
               onChange={value => this.props.handleFilterChange(value && value.length === 0 ? null : value, this.props.id)}
               // Pass empty array instead of null to multiSelect component if filterValues are null
-              value={isValue ? this.props.filterValues[this.props.id] : []}
+              value={isValue ? this.props.value : []}
               sorted={this.props.sorted}
               selectedOptionsInDropdown
               keepMenuOnSelect
@@ -47,7 +47,7 @@ export default class FilterOption extends React.Component {
               // If textField is empty (empty string) return null instead of ''
               onChange={value => this.props.handleFilterChange(value === '' ? null : value, this.props.id)}
               // Pass empty string instead of null to textField component if filterValues are null
-              value={isValue ? this.props.filterValues[this.props.id] : ''}
+              value={isValue ? this.props.value : ''}
             />
           );
         default:
@@ -75,16 +75,16 @@ FilterOption.displayName = 'FilterOption';
 
 FilterOption.defaultProps = {
   options: [],
-  filterValues: null,
+  value: null,
   sorted: true,
 };
 
 FilterOption.propTypes = {
-  filterValues: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.array, PropTypes.string, PropTypes.object])),
   handleFilterChange: PropTypes.func.isRequired,
   id: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   options: PropTypes.array, // eslint-disable-line react/forbid-prop-types
   sorted: PropTypes.bool,
   type: PropTypes.string.isRequired,
+  value: PropTypes.oneOfType([PropTypes.array, PropTypes.string, PropTypes.object]),
 };

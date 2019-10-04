@@ -32,7 +32,6 @@ Filter.defaultProps = {
   onFilterSubmit: () => null,
   disabled: false,
   filters: undefined,
-  filterValues: {},
 };
 
 Filter.propTypes = {
@@ -58,12 +57,12 @@ Filter.propTypes = {
     type: PropTypes.oneOf(['singleSelect', 'multiSelect', 'text']).isRequired,
   })),
   /**
-   * Passing the filter values from outside
-   * @key: same as id in filters prop, it should be same as the `id` in filterDefinition
-   * @value: the users input; for single & multiSelect value contains of both value and label! In case of multiSelect, value can consist of multiple objects {value: , label: } in an array
+   * Filter values object, with:
+   * keys: same as the `id` in filterDefinition
+   * values: the users input; for single & multiSelect value contains of both value and label! In case of multiSelect, value can consist of multiple objects {value: , label: } in an array
    * use {} for passing empty filterValues
    * */
-  filterValues: PropTypes.shape(),
+  filterValues: PropTypes.shape().isRequired,
   /**
    * Called when the user clicks on the apply button. Contains all the filter information as its argument.
    */

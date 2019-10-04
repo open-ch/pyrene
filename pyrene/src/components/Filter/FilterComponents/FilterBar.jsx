@@ -182,21 +182,15 @@ FilterBar.propTypes = {
       /** text displayed to the user in the filter dropdown */
       label: PropTypes.string.isRequired,
       /** key for manipulation */
-      value: PropTypes.any.isRequired,
+      value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool]),
     })),
     sorted: PropTypes.bool,
     type: PropTypes.oneOf(['singleSelect', 'multiSelect', 'text']).isRequired,
   })).isRequired,
   /**
-   * Passing the filter values from outside
-   * @id: same as id in filters prop, it should be same as the `id` in filterDefinition
-   * @value: the users input; for single & multiSelect value contains of both value and label! In case of multiSelect, value can consist of multiple objects {value: , label: } in an array
-   * use {} for passing empty filterValues
+   * Filter values object.
    * */
-  filterValues: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    value: PropTypes.oneOfType([PropTypes.string, PropTypes.array, PropTypes.object]).isRequired,
-  }).isRequired,
+  filterValues: PropTypes.shape().isRequired,
   /**
    * Called when the user clicks on the apply button. Contains all the filter information as its argument.
    */
