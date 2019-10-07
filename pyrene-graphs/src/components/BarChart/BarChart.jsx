@@ -31,21 +31,20 @@ const BarChart = (props) => {
                 {props.direction === 'horizontal' ? (
                   <CategoricalAxis
                     hideAxisLine={!props.loading}
-                    labels={labels}
-                    loading={props.loading}
-                    position="left"
+                    tickLabels={labels}
+                    orientation="left"
+                    showTickLabels={!props.loading}
                   />
                 ) : (
                   <NumericalAxis
-                    loading={props.loading}
                     maxValue={maxValue}
-                    position="left"
+                    orientation="left"
+                    showTickLabels={!props.loading}
                   />
                 )}
                 <div styleName="rowContainer">
                   {!props.loading && (
                     <Grid
-                      labels={labels}
                       maxValue={maxValue}
                       direction={props.direction}
                     />
@@ -84,16 +83,16 @@ const BarChart = (props) => {
                   <div styleName="axisBottom">
                     {props.direction === 'horizontal' ? (
                       <NumericalAxis
-                        loading={props.loading}
                         maxValue={maxValue}
-                        position="bottom"
+                        orientation="bottom"
+                        showTickLabels={!props.loading}
                       />
                     ) : (
                       <CategoricalAxis
                         hideAxisLine={!props.loading}
-                        labels={labels}
-                        loading={props.loading}
-                        position="bottom"
+                        tickLabels={labels}
+                        orientation="bottom"
+                        showTickLabels={!props.loading}
                       />
                     )}
                   </div>
