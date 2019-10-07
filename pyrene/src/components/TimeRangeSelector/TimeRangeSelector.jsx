@@ -116,18 +116,18 @@ TimeRangeSelector.propTypes = {
    */
   from: PropTypes.number.isRequired,
   /**
-   * The end value of the range to in epoch milliseconds
+   * The oldest queryable starting time point, in epoch milliseconds
    * Type: number (required)
    */
   lowerBound: PropTypes.number.isRequired,
   /**
-   * The oldest queryable starting time point, in epoch milliseconds
-   * Type: number (required)
+   * Callback function passed by parent page (usually a GET request to fetch new data)
+   * Type: function(from: number, to: number) (required)
    */
   onChange: PropTypes.func.isRequired,
   /**
-   * Callback function passed by parent page (usually a GET request to fetch new data)
-   * Type: function(from: number, to: number) (required)
+   * The preset time ranges to display as preset buttons
+   * Type: [{ id: string (required) the id of the preset, label: string (required) label of the preset button displayed to the user, durationInMs: number (required) the duration of the timerange in epoch ms }]
    */
   presetTimeRanges: PropTypes.arrayOf(
     PropTypes.shape({
@@ -137,18 +137,18 @@ TimeRangeSelector.propTypes = {
     }),
   ),
   /**
-   * The preset time ranges to display as preset buttons
-   * Type: [{ id: string (required) the id of the preset, label: string (required) label of the preset button displayed to the user, durationInMs: number (required) the duration of the timerange in epoch ms }]
-   */
-  renderRightSection: PropTypes.func,
-  /**
    * Function called if there is some element to be rendered on the rightmost side
    * Type: function
    */
-  timezone: PropTypes.string.isRequired,
+  renderRightSection: PropTypes.func,
   /**
    * The timezone that the range selector should use to display the time
    * Type: string (required)
+   */
+  timezone: PropTypes.string.isRequired,
+  /**
+   * The end value of the range to in epoch milliseconds
+   * Type: number (required)
    */
   to: PropTypes.number.isRequired,
   /**
