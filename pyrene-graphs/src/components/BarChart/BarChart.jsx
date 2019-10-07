@@ -49,10 +49,10 @@ const BarChart = (props) => {
                       direction={props.direction}
                     />
                   )}
-                  {props.loading ? ( // eslint-disable-line
-                    <GraphOverlay
-                      children={(<Loader size="xlarge" />)} // eslint-disable-line
-                    />
+                  {props.loading ? (
+                    <GraphOverlay>
+                      <Loader type="inline" />
+                    </GraphOverlay>
                   ) : (
                     <div styleName={classNames('barsContainer', { horizontalContainer: props.direction === 'horizontal' })}>
                       {props.legend.length > 1 ? (
