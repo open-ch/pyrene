@@ -31,7 +31,7 @@ const NumericalAxis = props => (
                 tickComponent={tickProps => AxisUtils.getPaddedTickComponent(tickProps, 36)}
                 stroke={stroke}
                 tickStroke={tickStroke}
-                numTicks={3}
+                numTicks={5}
                 hideAxisLine={props.hideAxisLine}
                 tickFormat={props.tickFormat}
                 tickValues={props.showTickLabels ? props.tickValues : []}
@@ -47,7 +47,7 @@ const NumericalAxis = props => (
                 })}
                 stroke={stroke}
                 tickStroke={tickStroke}
-                numTicks={6}
+                numTicks={7}
                 hideAxisLine={props.hideAxisLine}
                 tickFormat={props.tickFormat}
                 tickValues={props.showTickLabels ? props.tickValues : []}

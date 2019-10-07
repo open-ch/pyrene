@@ -19,7 +19,7 @@ const Grid = props => (
                 stroke={color}
                 width={parent.width}
                 height={parent.height}
-                numTicks={3}
+                numTicks={5}
               />
             ) : (
               <GridColumns
@@ -28,7 +28,7 @@ const Grid = props => (
                 stroke={color}
                 width={parent.width}
                 height={parent.height}
-                numTicks={6}
+                numTicks={7}
               />
             )}
           </svg>
