@@ -12,16 +12,16 @@ const getScale = (parentSize, maxValue, position, scale) => (
 );
 
 const NumericalAxis = props => (
-  <div styleName={classNames({ axisLeft: props.position === 'left', axisLeftNarrow: props.position === 'left', axisBottom: props.position === 'bottom' })}>
+  <div styleName={classNames({ axisLeft: props.orientation === 'left', axisLeftNarrow: props.orientation === 'left', axisBottom: props.orientation === 'bottom' })}>
     <Responsive>
       {(parent) => {
-        const parentSize = props.position === 'left' ? parent.height : parent.width;
-        const scale = getScale(parentSize, props.maxValue, props.position, props.scale);
+        const parentSize = props.orientation === 'left' ? parent.height : parent.width;
+        const scale = getScale(parentSize, props.maxValue, props.orientation, props.scale);
         const stroke = '#e1e3e8';
         const tickStroke = '#979ca8';
         return (
           <svg width={parent.width} height={parent.height} shapeRendering="crispEdges">
-            {props.position === 'left' ? (
+            {props.orientation === 'left' ? (
               <AxisLeft
                 scale={scale}
                 tickLength={0}
@@ -34,7 +34,7 @@ const NumericalAxis = props => (
                 numTicks={3}
                 hideAxisLine={props.hideAxisLine}
                 tickFormat={props.tickFormat}
-                tickValues={props.loading ? [] : props.tickValues}
+                tickValues={props.showTickLabels ? props.tickValues : []}
                 hideTicks
                 hideZero
               />
@@ -50,7 +50,7 @@ const NumericalAxis = props => (
                 numTicks={6}
                 hideAxisLine={props.hideAxisLine}
                 tickFormat={props.tickFormat}
-                tickValues={props.loading ? [] : props.tickValues}
+                tickValues={props.showTickLabels ? props.tickValues : []}
                 hideTicks
                 hideZero
               />
@@ -67,18 +67,18 @@ NumericalAxis.displayName = 'Numerical Axis';
 
 NumericalAxis.defaultProps = {
   hideAxisLine: false,
-  loading: false,
   scale: undefined,
+  showTickLabels: true,
   tickFormat: d => d,
   tickValues: undefined,
 };
 
 NumericalAxis.propTypes = {
   hideAxisLine: PropTypes.bool,
-  loading: PropTypes.bool,
   maxValue: PropTypes.number.isRequired,
-  position: PropTypes.oneOf(['left', 'bottom']).isRequired,
+  orientation: PropTypes.oneOf(['left', 'bottom']).isRequired,
   scale: PropTypes.func,
+  showTickLabels: PropTypes.bool,
   tickFormat: PropTypes.func,
   tickValues: PropTypes.arrayOf(PropTypes.oneOf(['string', 'number'])),
 };

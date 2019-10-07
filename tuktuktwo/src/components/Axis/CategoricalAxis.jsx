@@ -12,14 +12,14 @@ const getScale = (parentSize, labels) => (
 );
 
 const CategoricalAxis = props => (
-  <div styleName={classNames({ axisLeft: props.position === 'left', axisLeftWide: props.position === 'left', axisBottom: props.position === 'bottom' })}>
+  <div styleName={classNames({ axisLeft: props.orientation === 'left', axisLeftWide: props.orientation === 'left', axisBottom: props.orientation === 'bottom' })}>
     <Responsive>
       {(parent) => {
-        const parentSize = props.position === 'left' ? parent.height : parent.width;
-        const scale = getScale(parentSize, props.labels);
+        const parentSize = props.orientation === 'left' ? parent.height : parent.width;
+        const scale = getScale(parentSize, props.tickLabels);
         const stroke = '#e1e3e8';
         const tickStroke = '#979ca8';
-        return props.position === 'left' ? (
+        return props.orientation === 'left' ? (
           <svg width={parent.width} height={parent.height} shapeRendering="crispEdges">
             <AxisLeft
               scale={scale}
@@ -30,10 +30,10 @@ const CategoricalAxis = props => (
               tickComponent={tickProps => AxisUtils.getPaddedTickComponent(tickProps, 102)}
               stroke={stroke}
               tickStroke={tickStroke}
-              numTicks={props.labels.length}
+              numTicks={props.tickLabels.length}
               hideAxisLine={props.hideAxisLine}
               tickFormat={props.tickFormat}
-              tickValues={props.loading ? [] : props.tickValues}
+              tickValues={props.showTickLabels ? props.tickValues : []}
               hideTicks
               hideZero
             />
@@ -48,10 +48,10 @@ const CategoricalAxis = props => (
                 })}
                 stroke={stroke}
                 tickStroke={tickStroke}
-                numTicks={props.labels.length}
+                numTicks={props.tickLabels.length}
                 hideAxisLine={props.hideAxisLine}
                 tickFormat={props.tickFormat}
-                tickValues={props.loading ? [] : props.tickValues}
+                tickValues={props.showTickLabels ? props.tickValues : []}
                 hideTicks
                 hideZero
               />
@@ -66,17 +66,17 @@ CategoricalAxis.displayName = 'Categorical Axis';
 
 CategoricalAxis.defaultProps = {
   hideAxisLine: false,
+  showTickLabels: true,
   tickFormat: d => d,
-  loading: false,
   tickValues: undefined,
 };
 
 CategoricalAxis.propTypes = {
   hideAxisLine: PropTypes.bool,
-  labels: PropTypes.arrayOf(PropTypes.string).isRequired,
-  loading: PropTypes.bool,
-  position: PropTypes.oneOf(['left', 'bottom']).isRequired,
+  orientation: PropTypes.oneOf(['left', 'bottom']).isRequired,
+  showTickLabels: PropTypes.bool,
   tickFormat: PropTypes.func,
+  tickLabels: PropTypes.arrayOf(PropTypes.string).isRequired,
   tickValues: PropTypes.arrayOf(PropTypes.oneOf(['string', 'number'])),
 };
 
