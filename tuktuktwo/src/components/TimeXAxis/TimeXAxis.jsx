@@ -1,20 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import { AxisBottom } from '@vx/axis';
 import { GridColumns } from '@vx/grid';
 import { scaleTime } from '@vx/scale';
-import moment from 'moment';
 import Responsive from '../Misc/Responsive';
-import { getTickValues } from './TimeUtil';
-
-import './timeXAxis.css';
+import { getTickValues, timeFormat } from './TimeUtil';
 
 const MARGIN_TOP = 16;
 const MARGIN_BOTTOM = 24;
 const MARGIN_LEFT = 36;
 const STROKE_COLOR = '#e0e2e5';
 const LABEL_COLOR = '#979ca8';
+
+const _formatTime = (timestamp, props) => (props.showLabel ? timeFormat(timestamp, props.to - props.from, props.timezone) : '');
 
 const TimeXAxis = props => (
   <Responsive>
@@ -41,7 +39,7 @@ const TimeXAxis = props => (
             tickLabelProps={() => ({
               textAnchor: 'middle', fontSize: 10, fontFamily: 'AvenirNext', fill: LABEL_COLOR,
             })}
-            tickFormat={ d => props.showLabel ? moment(d).format('M.D') : '' }
+            tickFormat={tickValue => _formatTime(tickValue, props)}
             hideTicks
             hideZero
           />
@@ -52,7 +50,7 @@ const TimeXAxis = props => (
               width={xMax}
               height={gridYMax}
               scale={xScale}
-              tickValues={getTickValues(props.from, props.to)}
+              tickValues={getTickValues(props.from, props.to, props.timezone)}
               stroke={STROKE_COLOR}
             />
           )}
