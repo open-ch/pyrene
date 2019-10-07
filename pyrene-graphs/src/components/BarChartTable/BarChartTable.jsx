@@ -67,7 +67,7 @@ function getProcessedColumnsAndLegend(props, colors, withoutBars) {
         break;
       } else throw Error('Missing secondary value');
     default:
-      throw 'Unknown type';
+      throw Error('Unknown type');
   }
   const columnLabel = {
     id: getId(props.header),
@@ -84,14 +84,14 @@ function getProcessedColumnsAndLegend(props, colors, withoutBars) {
   };
 
   const hasColumnSecondaryLabel = !!props.columns.secondaryLabel;
-  const columnSecondaryLabel = !hasColumnSecondaryLabel ? {} :
-    {
+  const columnSecondaryLabel = !hasColumnSecondaryLabel ? {}
+    : {
       id: getId(props.columns.secondaryLabel.title),
       accessor: props.columns.secondaryLabel.accessor,
       headerName: props.columns.secondaryLabel.title,
       cellRenderCallback: row => row.value,
       align: 'right',
-  };
+    };
 
   const columnPrimaryValue = {
     id: getId(props.columns.primaryValue.title),
@@ -183,7 +183,7 @@ function getProcessedColumnsAndLegend(props, colors, withoutBars) {
       ];
       break;
     default:
-      throw 'Unknown type';
+      throw Error('Unknown type');
   }
   return { columns: columns, legend: legend };
 }
@@ -301,13 +301,6 @@ BarChartTable.propTypes = {
         PropTypes.func,
       ]),
     }),
-    secondaryLabel: PropTypes.shape({
-      accessor: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.func,
-      ]).isRequired,
-      title: PropTypes.string.isRequired,
-    }),
     primaryValue: PropTypes.shape({
       accessor: PropTypes.oneOfType([
         PropTypes.string,
@@ -317,6 +310,13 @@ BarChartTable.propTypes = {
       maxWidth: PropTypes.string,
       title: PropTypes.string.isRequired,
     }).isRequired,
+    secondaryLabel: PropTypes.shape({
+      accessor: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.func,
+      ]).isRequired,
+      title: PropTypes.string.isRequired,
+    }),
     secondaryValue: PropTypes.shape({
       accessor: PropTypes.oneOfType([
         PropTypes.string,
