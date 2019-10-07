@@ -3,7 +3,7 @@ import Utils from '../../Utils';
 
 export default class AxisUtils {
 
-  static getClippedTickComponent = (tickProps, axisWidth) => {
+  static getPaddedTickComponent = (tickProps, axisWidth) => {
     const pathId = `textPath_${Utils.randomString(8)}`;
     return (
       <g>

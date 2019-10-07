@@ -28,7 +28,7 @@ const NumericalAxis = props => (
                 tickLabelProps={() => ({
                   fontSize: 10, fill: tickStroke, fontFamily: 'AvenirNext', textAnchor: 'start',
                 })}
-                tickComponent={tickProps => AxisUtils.getClippedTickComponent(tickProps, 36)}
+                tickComponent={tickProps => AxisUtils.getPaddedTickComponent(tickProps, 36)}
                 stroke={stroke}
                 tickStroke={tickStroke}
                 numTicks={3}

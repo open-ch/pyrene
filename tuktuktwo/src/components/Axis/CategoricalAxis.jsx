@@ -27,7 +27,7 @@ const CategoricalAxis = props => (
               tickLabelProps={() => ({
                 fontSize: 10, fill: tickStroke, fontFamily: 'AvenirNext', textAnchor: 'start',
               })}
-              tickComponent={tickProps => AxisUtils.getClippedTickComponent(tickProps, 102)}
+              tickComponent={tickProps => AxisUtils.getPaddedTickComponent(tickProps, 102)}
               stroke={stroke}
               tickStroke={tickStroke}
               numTicks={props.labels.length}
