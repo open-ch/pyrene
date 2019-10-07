@@ -280,11 +280,11 @@ BarChartTable.defaultProps = {
 
 BarChartTable.propTypes = {
   /**
-   * Sets the colors of the bar chart. Type: { comparison: [ string ] (required), valueGround: [ string ] (required) }
+   * Sets the colors of the bar chart. Type: { comparison: [ string ], valueGround: [ string ] }
    */
   colorScheme: PropTypes.shape({
-    comparison: PropTypes.arrayOf(PropTypes.string).isRequired,
-    valueGround: PropTypes.arrayOf(PropTypes.string).isRequired,
+    comparison: PropTypes.arrayOf(PropTypes.string),
+    valueGround: PropTypes.arrayOf(PropTypes.string),
   }),
   /**
    * Sets the Table columns.
