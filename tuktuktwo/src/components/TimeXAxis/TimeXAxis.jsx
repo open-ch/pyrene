@@ -34,7 +34,7 @@ const TimeXAxis = props => (
             top={xAxisTop}
             left={left}
             scale={xScale}
-            tickValues={getTickValues(props.from, props.to)}
+            tickValues={getTickValues(props.from, props.to, props.timezone)}
             stroke={STROKE_COLOR}
             tickLabelProps={() => ({
               textAnchor: 'middle', fontSize: 10, fontFamily: 'AvenirNext', fill: LABEL_COLOR,
