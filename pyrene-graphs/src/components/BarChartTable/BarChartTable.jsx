@@ -18,12 +18,12 @@ function getProcessedColumnsAndLegend(props, colors, withoutBars) {
   const maxValuePrimary = Math.max(...props.data.map(dataRow => getValueWithAccessor(dataRow, props.columns.primaryValue.accessor)));
   const maxValueSecondary = props.columns.secondaryValue ? Math.max(...props.data.map(dataRow => getValueWithAccessor(dataRow, props.columns.secondaryValue.accessor))) : maxValuePrimary;
   const maxValue = Math.max(maxValuePrimary, maxValueSecondary);
-  const barWeight = 6;
-  const barWeightSecondaryComparison = 4;
+  const barWeightPrimary = 6;
+  const barWeightSecondary = 4;
   const defaultBarChart = row => (
     <div styleName="barContainer">
       <RelativeBar
-        barWeight={barWeight}
+        barWeight={barWeightPrimary}
         colors={colors}
         maxValue={maxValuePrimary}
         value={row.value}
@@ -44,14 +44,14 @@ function getProcessedColumnsAndLegend(props, colors, withoutBars) {
           <div styleName="comparisonContainer">
             <Bar
               key={getId(`${props.columns.primaryValue.title}_bar_current`)} // eslint-disable-line
-              barWeight={barWeight}
+              barWeight={barWeightPrimary}
               color={colors[0]}
               maxValue={maxValue}
               value={getValueWithAccessor(row, props.columns.primaryValue.accessor)} // eslint-disable-line
             />
             <Bar
               key={getId(`${props.columns.secondaryValue.title}_bar_previous`)} // eslint-disable-line
-              barWeight={barWeightSecondaryComparison}
+              barWeight={barWeightSecondary}
               color={colors[1]}
               maxValue={maxValue}
               value={getValueWithAccessor(row, props.columns.secondaryValue.accessor)} // eslint-disable-line
@@ -146,7 +146,7 @@ function getProcessedColumnsAndLegend(props, colors, withoutBars) {
           cellRenderCallback: row => ( // eslint-disable-line react/display-name
             <div styleName="barContainer">
               <RelativeBar
-                barWeight={barWeight}
+                barWeight={barWeightPrimary}
                 colors={colors}
                 maxValue={maxValuePrimary}
                 value={row.value} // eslint-disable-line
