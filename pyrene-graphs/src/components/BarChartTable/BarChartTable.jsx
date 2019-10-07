@@ -234,7 +234,7 @@ export default class BarChartTable extends React.Component {
          </div>
          {(this.props.data.length > displayedRows) && (
            <div styleName="showMoreLink" onClick={this.togglePopover}>
-             {'Show more'}
+             {`Show all (${sortedData.length})`}
              {this.state.showPopover && (
                <Popover
                  align="center"
@@ -244,12 +244,7 @@ export default class BarChartTable extends React.Component {
                    <div styleName="popOver" style={{ height: `${(displayedRows + 5) * 32 + 32 + 32}px` }}>
                      {/* popover height: (displayedRows + 5 more rows) * 32px + 32px table header + 32px popover header */}
                      <div styleName="popOverHeader">
-                       <div styleName="header">
-                         {this.props.header}
-                       </div>
-                       <div styleName="numberOfRows">
-                         {`(${sortedData.length})`}
-                       </div>
+                       {this.props.header}
                      </div>
                      <div styleName="popOverTable" style={{ height: `${(sortedData.length + 1) * 32}px` }}>
                        <SimpleTable

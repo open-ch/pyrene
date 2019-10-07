@@ -55,15 +55,7 @@
   line-height: 1.14;
   letter-spacing: -0.05px;
   height: 32px;
-}
-
-.popOverHeader .header {
   color: var(--text);
-}
-
-.popOverHeader .numberOfRows {
-  margin-left: 0.4em;
-  color: var(--neutral-200);
 }
 
 .popOverTable tbody {
