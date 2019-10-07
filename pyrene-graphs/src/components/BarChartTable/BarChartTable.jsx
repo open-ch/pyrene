@@ -246,7 +246,7 @@ export default class BarChartTable extends React.Component {
                      <div styleName="popOverHeader">
                        {this.props.header}
                      </div>
-                     <div styleName="popOverTable" style={{ height: `${(sortedData.length + 1) * 32}px` }}>
+                     <div styleName="popOverTable" style={{ height: `${(displayedRows + 5) * 32 + 32}px` }}>
                        <SimpleTable
                          columns={getProcessedColumnsAndLegend(this.props, colors, true).columns}
                          data={sortedData}
