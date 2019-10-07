@@ -48,9 +48,7 @@ export default class Table extends React.Component {
   state = {
     selection: [],
     selectAll: false,
-    columnsVisibility: this.createVisibleColumnsObject(
-      this.props.columns
-    ),
+    columnsVisibility: {},
   };
 
   commonStaticProps = {
@@ -232,15 +230,13 @@ export default class Table extends React.Component {
 
   restoreColumnDefaults = () => {
     this.setState(() => ({
-      columnsVisibility: this.createVisibleColumnsObject(
-        this.props.columns
-      ),
+      columnsVisibility: {},
     }));
   };
 
   createTableColumnsObject = () => TableUtils.mapColumnProps(this.props.columns).map(col => ({
     ...col,
-    show: this.state.columnsVisibility[col.id],
+    ...(typeof this.state.columnsVisibility[col.id] !== 'undefined') ? { show: this.state.columnsVisibility[col.id] } : {},
   }));
 
   createVisibleColumnsObject(columns) {
@@ -360,7 +356,7 @@ export default class Table extends React.Component {
 
             <CheckboxPopover
               buttonLabel="Columns"
-              listItems={this.props.columns.map(col => ({ id: col.id, label: col.headerName, value: this.state.columnsVisibility[col.id] }))}
+              listItems={this.props.columns.map(col => ({ id: col.id, label: col.headerName, value: (typeof this.state.columnsVisibility[col.id] !== 'undefined') ? this.state.columnsVisibility[col.id] : !col.initiallyHidden }))}
               onItemClick={(item, value) => this.toggleColumnDisplay(item, value)}
               onRestoreDefault={() => this.restoreColumnDefaults()}
               disabled={!!this.props.error}
