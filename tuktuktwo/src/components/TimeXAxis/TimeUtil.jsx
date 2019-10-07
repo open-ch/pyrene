@@ -93,6 +93,13 @@ const TIME_RANGE_THRESHOLDS = [
     format: _formatHour,
   },
   {
+    id: '2d',
+    unit: 'day',
+    durationInMs: moment.duration({ days: 2 }).valueOf(),
+    interval: moment.duration({ hours: 8 }),
+    format: _formatHour,
+  },
+  {
     id: '1w',
     unit: 'isoweek',
     durationInMs: moment.duration({ weeks: 1 }).valueOf(),
@@ -191,8 +198,17 @@ export const getTickValues = (from, to, timezone) => {
 export const timeFormat = (timestamp, from, to, timezone) => {
   const durationInMs = to - from;
   const timeRangeThreshold = TIME_RANGE_THRESHOLDS.find(threshold => durationInMs <= threshold.durationInMs);
-  if (timeRangeThreshold.id === '1m' || timeRangeThreshold.id === '3m') {
-    return timeRangeThreshold.format(timestamp, timezone, _getTickValues(from, to, timezone, timeRangeThreshold.interval, timeRangeThreshold.unit));
+  switch (timeRangeThreshold.id) {
+    case '0.5h':
+    case '1h':
+    case '6h':
+    case '12h':
+    case '1d':
+    case '2d':
+    case '1m':
+    case '3m':
+      return timeRangeThreshold.format(timestamp, timezone, _getTickValues(from, to, timezone, timeRangeThreshold.interval, timeRangeThreshold.unit));
+    default:
+      return timeRangeThreshold.format(timestamp, timezone);
   }
-  return timeRangeThreshold.format(timestamp, timezone);
 };
