@@ -13,7 +13,7 @@ const barChartTableHowTo = [{
         label: exampleData.tableData.columns.label,
         primaryValue: exampleData.tableData.columns.primaryValue,
       }}
-      header="Application"
+      header="Applications"
       onRowDoubleClick={row => alert(row.value)}
       type="bar"
     />
@@ -25,7 +25,7 @@ const barChartTableHowTo = [{
     <BarChartTable
       data={exampleData.tableData.data}
       columns={exampleData.tableData.columns}
-      header="Application"
+      header="Applications"
       onRowDoubleClick={row => alert(row.value)}
       type="bar"
     />
