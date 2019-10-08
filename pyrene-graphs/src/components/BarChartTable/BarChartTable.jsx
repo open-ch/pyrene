@@ -6,13 +6,9 @@ import Header from '../Header/Header';
 import './barChartTable.css';
 import colorSchemes from '../../styles/colorSchemes';
 
-function getId(title) {
-  return title.trim().toLowerCase();
-}
+const getId = title => (title.trim().toLowerCase());
 
-function getValueWithAccessor(row, accessor) {
-  return (typeof accessor === 'string' ? row[accessor] : accessor(row));
-}
+const getValueWithAccessor = (row, accessor) => (typeof accessor === 'string' ? row[accessor] : accessor(row));
 
 function getProcessedColumnsAndLegend(props, colors, withoutBars) {
   const maxValuePrimary = Math.max(...props.data.map(dataRow => getValueWithAccessor(dataRow, props.columns.primaryValue.accessor)));
