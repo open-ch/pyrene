@@ -4,7 +4,7 @@ import { AxisBottom } from '@vx/axis';
 import { GridColumns } from '@vx/grid';
 import { scaleTime } from '@vx/scale';
 import Responsive from '../Misc/Responsive';
-import { getTickValues, timeFormat } from './TimeUtil';
+import { getTickValues, timeFormat } from './TimeXUtil';
 import './timeXAxis.css';
 
 const MARGIN_TOP = 16;
@@ -13,7 +13,7 @@ const MARGIN_LEFT = 36;
 const STROKE_COLOR = '#e0e2e5';
 const LABEL_COLOR = '#979ca8';
 
-const _formatTime = (timestamp, props) => (props.showLabel ? timeFormat(timestamp, props.from, props.to, props.timezone) : '');
+const _formatTime = (timestamp, props) => (props.showTickLabels ? timeFormat(timestamp, props.from, props.to, props.timezone) : '');
 
 /**
  * TimeXAxis is the x axis for Time Series graphs.
@@ -38,16 +38,16 @@ const TimeXAxis = props => (
             top={xAxisTop}
             left={left}
             scale={xScale}
-            tickValues={getTickValues(props.from, props.to, props.timezone)}
+            tickValues={props.showTickLabels ? getTickValues(props.from, props.to, props.timezone) : []}
             stroke={STROKE_COLOR}
             tickLabelProps={() => ({
-              textAnchor: 'middle', fontSize: 10, fontWeight: 500, fontFamily: 'AvenirNext', fill: LABEL_COLOR,
+              textAnchor: 'middle', fontSize: 10, fontWeight: 500, fontFamily: 'AvenirNext', fill: LABEL_COLOR, dy: '-0.25em',
             })}
             tickFormat={tickValue => _formatTime(tickValue, props)}
             hideTicks
             hideZero
           />
-          {props.showGrid && (
+          {props.showGrid && props.showTickLabels && (
             <GridColumns
               top={MARGIN_TOP}
               left={left}
@@ -86,7 +86,7 @@ TimeXAxis.propTypes = {
    * If set, the tick labels are visible.
    * Type: boolean (required)
    */
-  showLabel: PropTypes.bool.isRequired,
+  showTickLabels: PropTypes.bool.isRequired,
   /**
    * The timezone the current user is in.
    * Type: string (required)

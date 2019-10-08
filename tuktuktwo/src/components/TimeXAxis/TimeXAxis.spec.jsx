@@ -1,13 +1,13 @@
 import React from 'react';
 
 import TimeXAxis from './TimeXAxis';
-import { getTickValues } from './TimeUtil';
+import { getTickValues } from './TimeXUtil';
 
 const props = {
   from: 1569944216000,
   to: 1572303296000,
   timezone: 'Europe/Zurich',
-  showLabel: true,
+  showTickLabels: true,
   showGrid: true,
 };
 
