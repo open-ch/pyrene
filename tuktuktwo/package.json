@@ -63,9 +63,12 @@
     "webpack-cli": "^3.1.2"
   },
   "dependencies": {
+    "@vx/event": "^0.0.189",
+    "@vx/mock-data": "^0.0.189",
     "@vx/responsive": "^0.0.189",
     "@vx/scale": "^0.0.189",
     "@vx/shape": "^0.0.189",
+    "@vx/tooltip": "^0.0.189",
     "optimize-css-assets-webpack-plugin": "^5.0.0",
     "prop-types": "^15.6.1"
   },
