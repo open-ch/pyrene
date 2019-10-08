@@ -73,7 +73,7 @@ const TIME_RANGE_THRESHOLDS = [
   },
   {
     id: '6h',
-    unit: 'day',
+    unit: 'hour',
     durationInMs: moment.duration({ hours: 6 }).valueOf(),
     interval: moment.duration({ hours: 1 }),
     format: _formatHour,
@@ -129,7 +129,7 @@ const TIME_RANGE_THRESHOLDS = [
   },
   {
     id: '1y',
-    unit: 'month',
+    unit: 'year',
     durationInMs: moment.duration({ years: 1 }).valueOf(),
     interval: moment.duration({ months: 2 }),
     format: _formatMonth,
