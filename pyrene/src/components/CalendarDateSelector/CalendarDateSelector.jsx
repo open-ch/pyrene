@@ -17,7 +17,7 @@ import './calendarDateSelector.css';
  *
  * 'onChange({ year: number, month: number | undefined, day: number | undefined })' callback function can be registered via props, to handle range changes.
  *
- * Time ranges are defined as follows:
+ * Time units are defined as follows:
  * 1. Year - { year }
  * 2. Month - { year, month }
  * 3. Day - { year, month, day }
@@ -36,12 +36,11 @@ export default class CalendarDateSelector extends React.Component {
     day: 1,
   };
 
-  static TIME_UNITS = CalendarDateSelector.DEFAULT_TIME_UNITS;
-
   static defaultProps = {
     isLoading: false,
     lowerBound: CalendarDateSelector.DEFAULT_LOWER_BOUND,
     upperBound: getCurrentDate(),
+    timeUnits: CalendarDateSelector.DEFAULT_TIME_UNITS,
     // get current date, but set day as undefined
     value: {
       ...getCurrentDate(),
@@ -52,8 +51,9 @@ export default class CalendarDateSelector extends React.Component {
 
   constructor(props) {
     super(props);
+    const defaultTimeRange = props.timeUnits === CalendarDateSelector.DEFAULT_TIME_UNITS ? 1 : 0;
     this.state = {
-      type: CalendarDateSelector.TIME_UNITS[1],
+      type: props.timeUnits[defaultTimeRange],
     };
   }
 
@@ -70,6 +70,7 @@ export default class CalendarDateSelector extends React.Component {
   render() {
     const {
       isLoading,
+      timeUnits,
       lowerBound,
       upperBound,
       value,
@@ -83,7 +84,7 @@ export default class CalendarDateSelector extends React.Component {
         <div styleName="timeUnitSelector--left">
           <div styleName="timeUnitSelector__dropdown">
             <CalendarDateSelectorDropdown
-              timeUnits={CalendarDateSelector.TIME_UNITS}
+              timeUnits={timeUnits}
               timeUnit={type}
               onSelect={this._onSelect}
               disabled={isLoading}
@@ -116,6 +117,7 @@ CalendarDateSelector.propTypes = {
   lowerBound: CalendarDateSelectorPropTypes.YEAR_MONTH_DAY,
   onChange: PropTypes.func,
   renderRightSection: PropTypes.func,
+  timeUnits: CalendarDateSelectorPropTypes.TIMEUNIT_OPTIONS,
   upperBound: CalendarDateSelectorPropTypes.YEAR_MONTH_DAY,
   value: CalendarDateSelectorPropTypes.YEAR_MONTH_DAY,
 };
