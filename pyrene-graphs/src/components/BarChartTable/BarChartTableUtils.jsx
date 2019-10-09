@@ -7,15 +7,16 @@ const getId = d => d.trim().toLowerCase();
 export const getValueWithAccessor = (row, accessor) => (typeof accessor === 'string' ? row[accessor] : accessor(row));
 
 const getColumn = ({
-  id, accessor, accessorSecondary, headerName, formatter, align, maxWidth, linkAccessor, cellType, colors, maxValue, labelAccessor,
+  id, accessor, accessorSecondary, headerName, formatter = d => d, align, maxWidth, linkAccessor, cellType, colors, maxValue, labelAccessor,
 }) => {
-  const valueFormatter = formatter || (d => d);
   const barWeightPrimary = 6;
   const barWeightSecondary = 4;
   return {
     id: getId(id),
     accessor: accessor,
     headerName: headerName,
+    align: align,
+    maxWidth: maxWidth,
     cellRenderCallback: {
       link: linkAccessor ? row => ( // eslint-disable-line react/display-name
         <a
@@ -24,7 +25,7 @@ const getColumn = ({
         >
           {row.value}
         </a>
-      ) : row => valueFormatter(row.value),
+      ) : row => formatter(row.value),
       relativeBar: row => ( // eslint-disable-line react/display-name
         <div styleName="barContainer">
           <RelativeBar
@@ -67,10 +68,8 @@ const getColumn = ({
           />
         </div>
       ),
-      default: row => valueFormatter(row.value),
+      default: row => formatter(row.value),
     }[cellType || 'default'],
-    align: align,
-    maxWidth: maxWidth,
   };
 };
 
@@ -123,7 +122,6 @@ export const getProcessedColumnsAndLegend = ({ props, colors, withoutBars }) => 
             maxWidth: props.columns.secondaryValue.maxWidth,
           })] : []),
         ],
-        legend: [],
       };
     case 'comparison':
       if (props.columns.secondaryValue) {
@@ -135,8 +133,6 @@ export const getProcessedColumnsAndLegend = ({ props, colors, withoutBars }) => 
               linkAccessor: props.columns.label.linkAccessor,
               align: 'left',
               cellType: 'link',
-              colors: colors,
-              maxValue: maxValue,
             }),
             ...(hasColumnSecondaryLabel ? [getColumn({
               id: props.columns.secondaryLabel.title,
@@ -170,7 +166,7 @@ export const getProcessedColumnsAndLegend = ({ props, colors, withoutBars }) => 
               maxWidth: props.columns.secondaryValue.maxWidth,
             }),
           ],
-          legend: [props.columns.primaryValue.title, props.columns.secondaryValue ? props.columns.secondaryValue.title : null],
+          legend: [props.columns.primaryValue.title, props.columns.secondaryValue.title],
         };
       } throw Error('Missing secondary value');
     case 'butterfly':
@@ -183,7 +179,6 @@ export const getProcessedColumnsAndLegend = ({ props, colors, withoutBars }) => 
               linkAccessor: props.columns.label.linkAccessor,
               align: 'left',
               cellType: 'link',
-              maxValue: maxValue,
             }),
             ...(hasColumnSecondaryLabel ? [getColumn({
               id: props.columns.secondaryLabel.title,
@@ -233,7 +228,6 @@ export const getProcessedColumnsAndLegend = ({ props, colors, withoutBars }) => 
               maxWidth: props.columns.secondaryValue.maxWidth,
             }),
           ],
-          legend: [],
         };
       } throw Error('Missing secondary value');
     default:

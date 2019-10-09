@@ -40,7 +40,7 @@ export default class BarChartTable extends React.Component {
          <Header
            header={this.props.header}
            description={description}
-           legend={columnsAndLegend.legend}
+           legend={'legend' in columnsAndLegend ? columnsAndLegend.legend : []}
            colors={colors}
          />
          <div style={{ height: `${(displayedRows + 1) * 32}px` }}>
