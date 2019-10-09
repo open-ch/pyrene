@@ -28,7 +28,7 @@ export default class BarChartTable extends React.Component {
 
    render() {
      const colors = (this.props.type === 'comparison' ? this.props.colorScheme.comparison : this.props.colorScheme.valueGround);
-     const columnsAndLegend = getProcessedColumnsAndLegend(this.props, colors);
+     const columnsAndLegend = getProcessedColumnsAndLegend({ props: this.props, colors: colors });
      const description = this.props.type === 'bar' ? '' : this.props.description;
      const sortedData = this.props.data.sort((a, b) => {
        const sortPrimaryValue = getValueWithAccessor(b, this.props.columns.primaryValue.accessor) - getValueWithAccessor(a, this.props.columns.primaryValue.accessor);
@@ -66,7 +66,7 @@ export default class BarChartTable extends React.Component {
                      </div>
                      <div styleName="popOverTable" style={{ height: `${(displayedRows + 5) * 32 + 32}px` }}>
                        <SimpleTable
-                         columns={getProcessedColumnsAndLegend(this.props, colors, true).columns}
+                         columns={getProcessedColumnsAndLegend({ props: this.props, colors: colors, withoutBars: true }).columns}
                          data={sortedData}
                          onRowDoubleClick={this.props.onRowDoubleClick}
                        />
