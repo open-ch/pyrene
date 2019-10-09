@@ -13,7 +13,7 @@ import {
 import './calendarDateSelector.css';
 
 /**
- * Component for selecting a timeRange and a range forwards and backwards.
+ * Component for selecting a timeUnit and a range forwards and backwards.
  *
  * 'onChange({ year: number, month: number | undefined, day: number | undefined })' callback function can be registered via props, to handle range changes.
  *
@@ -24,7 +24,7 @@ import './calendarDateSelector.css';
  */
 export default class CalendarDateSelector extends React.Component {
 
-  static DEFAULT_TIME_RANGES = [
+  static DEFAULT_TIME_UNITS = [
     DATE_TYPES.DAY,
     DATE_TYPES.MONTH,
     DATE_TYPES.YEAR,
@@ -36,7 +36,7 @@ export default class CalendarDateSelector extends React.Component {
     day: 1,
   };
 
-  static TIMERANGES = CalendarDateSelector.DEFAULT_TIME_RANGES;
+  static TIME_UNITS = CalendarDateSelector.DEFAULT_TIME_UNITS;
 
   static defaultProps = {
     isLoading: false,
@@ -53,7 +53,7 @@ export default class CalendarDateSelector extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      type: CalendarDateSelector.TIMERANGES[1],
+      type: CalendarDateSelector.TIME_UNITS[1],
     };
   }
 
@@ -63,8 +63,8 @@ export default class CalendarDateSelector extends React.Component {
     onChange(newDate);
   };
 
-  _onSelect = (timeRange) => {
-    this.setState({ type: timeRange });
+  _onSelect = (timeUnit) => {
+    this.setState({ type: timeUnit });
   };
 
   render() {
@@ -79,28 +79,28 @@ export default class CalendarDateSelector extends React.Component {
     const type = this.state.type;
 
     return (
-      <div styleName="timeRangeSelector">
-        <div styleName="timeRangeSelector--left">
-          <div styleName="timeRangeSelector__dropdown">
+      <div styleName="timeUnitSelector">
+        <div styleName="timeUnitSelector--left">
+          <div styleName="timeUnitSelector__dropdown">
             <CalendarDateSelectorDropdown
-              timeRanges={CalendarDateSelector.TIMERANGES}
-              timeRange={type}
+              timeUnits={CalendarDateSelector.TIME_UNITS}
+              timeUnit={type}
               onSelect={this._onSelect}
               disabled={isLoading}
             />
           </div>
         </div>
-        <div styleName="timeRangeSelector--center">
+        <div styleName="timeUnitSelector--center">
           <CalendarDateSelectorBar
             value={value}
-            timeRange={type}
+            timeUnit={type}
             lowerBound={lowerBound}
             upperBound={upperBound}
             onChange={this._onNavigate}
             disabled={isLoading}
           />
         </div>
-        <div styleName="timeRangeSelector--right">
+        <div styleName="timeUnitSelector--right">
           {renderRightSection()}
         </div>
       </div>

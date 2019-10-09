@@ -7,34 +7,34 @@ import TimeRangeSelectionPropTypes from './CalendarDateSelectorPropTypes';
 
 const capitalizeFirstLetter = string => string && string[0].toUpperCase() + string.slice(1);
 
-const TimeRangeSelectionDropdown = (props) => {
+const TimeUnitSelectionDropdown = (props) => {
   const {
     disabled,
-    timeRanges,
-    timeRange,
+    timeUnits,
+    timeUnit,
     onSelect,
   } = props;
-  const options = timeRanges.map(range => ({ value: range, label: capitalizeFirstLetter(range) }));
+  const options = timeUnits.map(range => ({ value: range, label: capitalizeFirstLetter(range) }));
   return (
     <SingleSelect
       options={options}
       onChange={value => onSelect(value.value)}
       disabled={disabled}
-      value={{ value: timeRange, label: capitalizeFirstLetter(timeRange) }}
+      value={{ value: timeUnit, label: capitalizeFirstLetter(timeUnit) }}
     />
   );
 };
 
-TimeRangeSelectionDropdown.defaultProps = {
+TimeUnitSelectionDropdown.defaultProps = {
   disabled: false,
   onSelect: () => {},
-  timeRange: undefined,
+  timeUnit: undefined,
 };
 
-TimeRangeSelectionDropdown.propTypes = {
+TimeUnitSelectionDropdown.propTypes = {
   disabled: PropTypes.bool,
   onSelect: PropTypes.func,
-  timeRange: TimeRangeSelectionPropTypes.TIMERANGE_OPTION,
-  timeRanges: TimeRangeSelectionPropTypes.TIMERANGE_OPTIONS.isRequired,
+  timeUnit: TimeRangeSelectionPropTypes.TIMEUNIT_OPTION,
+  timeUnits: TimeRangeSelectionPropTypes.TIMEUNIT_OPTIONS.isRequired,
 };
-export default TimeRangeSelectionDropdown;
+export default TimeUnitSelectionDropdown;

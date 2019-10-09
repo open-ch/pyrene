@@ -8,6 +8,6 @@ export default {
     month: PropTypes.number,
     year: PropTypes.number,
   }),
-  TIMERANGE_OPTIONS: PropTypes.arrayOf(PropTypes.string),
-  TIMERANGE_OPTION: PropTypes.oneOf([DATE_TYPES.DAY, DATE_TYPES.MONTH, DATE_TYPES.YEAR]),
+  TIMEUNIT_OPTIONS: PropTypes.arrayOf(PropTypes.string),
+  TIMEUNIT_OPTION: PropTypes.oneOf([DATE_TYPES.DAY, DATE_TYPES.MONTH, DATE_TYPES.YEAR]),
 };
