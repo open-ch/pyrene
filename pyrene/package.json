@@ -86,6 +86,7 @@
     "react-svg-inline": "^2.1.1",
     "react-table": "^6.8.6",
     "react-tiny-popover": "^3.4.2",
+    "react-window": "^1.8.5",
     "uniqid": "^5.0.3"
   },
   "peerDependencies": {

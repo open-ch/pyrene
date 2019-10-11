@@ -10,6 +10,10 @@
   border-bottom: solid 1px var(--border);
 }
 
+.scrollbarPadding {
+  padding-right: 16px;
+}
+
 .treeTableHeaderCell {
   box-sizing: border-box;
   text-transform: capitalize;

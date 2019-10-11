@@ -1,4 +1,7 @@
 import React from 'react';
+import uuid from 'uuid/v4';
+
+import treeTableData from './data.json';
 
 /* eslint-disable react/display-name, no-nested-ternary */
 
@@ -36,114 +39,138 @@ const testOptions = [
   { value: 'moosetracks', label: 'Moose Tracks', invalid: false },
 ];
 
-const treeTableData = [
-  {
-    name: 'Some Name 1',
-    height: 25,
-    width: 10,
-    children: [
-      {
-        name: '[2](1)',
-        height: 'write stuff',
-        width: 50,
-        children: [
-          {
-            name: '[3](1)',
-            height: 'everywhere 😱',
-            width: 75,
-          },
-          {
-            name: '[3](2)',
-          },
-          {
-            name: '[3](3)',
-          },
-        ],
-      },
-      {
-        name: '[2](2) Height: 40px.',
-        height: 40,
-      },
-    ],
-  },
-  {
-    name: 'Some Name 1',
-    height: 25,
-    children: [
-      {
-        name: '[2](1)',
-        children: [
-          {
-            name: '[3](1)',
-          },
-          {
-            name: '[3](2)',
-          },
-          {
-            name: '[3](3)',
-          },
-        ],
-      },
-      {
-        name: '[2](2) Height: 40px.',
-        height: 40,
-      },
-    ],
-  },
-  {
-    name: 'Some Name 1',
-    height: 25,
-    width: 10,
-    children: [
-      {
-        name: '[2](1)',
-        height: 'write stuff',
-        width: 50,
-        children: [
-          {
-            name: '[3](1)',
-            height: 'everywhere 😱',
-            width: 75,
-          },
-          {
-            name: '[3](2)',
-          },
-          {
-            name: '[3](3)',
-          },
-        ],
-      },
-      {
-        name: '[2](2) Height: 40px.',
-        height: 40,
-      },
-    ],
-  },
-  {
-    name: 'Some Name 1',
-    height: 25,
-    children: [
-      {
-        name: '[2](1)',
-        children: [
-          {
-            name: '[3](1)',
-          },
-          {
-            name: '[3](2)',
-          },
-          {
-            name: '[3](3)',
-          },
-        ],
-      },
-      {
-        name: '[2](2) Height: 40px.',
-        height: 40,
-      },
-    ],
-  },
-];
+// const treeTableData = [
+//   {
+//     id: uuid(),
+//     name: 'Some Name 1',
+//     height: 25,
+//     width: 10,
+//     children: [
+//       {
+//         id: uuid(),
+//         name: '[2](1)',
+//         height: 'write stuff',
+//         width: 50,
+//         children: [
+//           {
+//             id: uuid(),
+//             name: '[3](1)',
+//             height: 'everywhere 😱',
+//             width: 75,
+//           },
+//           {
+//             id: uuid(),
+//             name: '[3](2)',
+//           },
+//           {
+//             id: uuid(),
+//             name: '[3](3)',
+//           },
+//         ],
+//       },
+//       {
+//         id: uuid(),
+//         name: '[2](2) Height: 40px.',
+//         height: 40,
+//       },
+//     ],
+//   },
+//   {
+//     id: uuid(),
+//     name: 'Some Name 1',
+//     height: 25,
+//     children: [
+//       {
+//         id: uuid(),
+//         name: '[2](1)',
+//         children: [
+//           {
+//             id: uuid(),
+//             name: '[3](1)',
+//           },
+//           {
+//             id: uuid(),
+//             name: '[3](2)',
+//           },
+//           {
+//             id: uuid(),
+//             name: '[3](3)',
+//           },
+//         ],
+//       },
+//       {
+//         id: uuid(),
+//         name: '[2](2) Height: 40px.',
+//         height: 40,
+//       },
+//     ],
+//   },
+//   {
+//     id: uuid(),
+//     name: 'Some Name 1',
+//     height: 25,
+//     width: 10,
+//     children: [
+//       {
+//         id: uuid(),
+//         name: '[2](1)',
+//         height: 'write stuff',
+//         width: 50,
+//         children: [
+//           {
+//             id: uuid(),
+//             name: '[3](1)',
+//             height: 'everywhere 😱',
+//             width: 75,
+//           },
+//           {
+//             id: uuid(),
+//             name: '[3](2)',
+//           },
+//           {
+//             id: uuid(),
+//             name: '[3](3)',
+//           },
+//         ],
+//       },
+//       {
+//         id: uuid(),
+//         name: '[2](2) Height: 40px.',
+//         height: 40,
+//       },
+//     ],
+//   },
+//   {
+//     id: uuid(),
+//     name: 'Some Name 1',
+//     height: 25,
+//     children: [
+//       {
+//         id: uuid(),
+//         name: '[2](1)',
+//         children: [
+//           {
+//             id: uuid(),
+//             name: '[3](1)',
+//           },
+//           {
+//             id: uuid(),
+//             name: '[3](2)',
+//           },
+//           {
+//             id: uuid(),
+//             name: '[3](3)',
+//           },
+//         ],
+//       },
+//       {
+//         id: uuid(),
+//         name: '[2](2) Height: 40px.',
+//         height: 40,
+//       },
+//     ],
+//   },
+// ];
 
 const treeTableColumns = [
   {
@@ -154,6 +181,15 @@ const treeTableColumns = [
     accessor: 'name',
     initiallyHidden: false,
     width: 300,
+  },
+  {
+    id: 'id',
+    headerName: 'ID',
+    headerStyle: { justifyContent: 'flexEnd' },
+    cellStyle: {},
+    accessor: '_rowId',
+    initiallyHidden: false,
+    width: 100,
   },
   {
     id: 'height',
@@ -204,6 +240,7 @@ const examples = {
     }, {
       label: 'second column', type: 'multiSelect', id: 'testKey2', options: testOptions,
     }],
+    setUniqueRowKey: row => row.id,
   },
 };
 
