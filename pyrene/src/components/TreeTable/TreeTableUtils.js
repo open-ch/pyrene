@@ -48,6 +48,19 @@ export default class TreeTableUtils {
     return children;
   }
 
+  static handleAllRowExpansion(rows, tableState, getRowKey) {
+    // console.log(rows, tableState, getRowKey);
+    let newTableState = tableState;
+    // do the single row and then do all the children right after that
+    rows.forEach((row) => {
+      if (row.children) {
+        newTableState = TreeTableUtils.handleRowExpandChange(row, newTableState, getRowKey);
+        newTableState = TreeTableUtils.handleAllRowExpansion(row.children, newTableState, getRowKey);
+      }
+    });
+    return newTableState;
+  }
+
   static handleRowExpandChange(row, tableState, getRowKey) {
     const {
       expanded,

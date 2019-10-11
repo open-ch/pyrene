@@ -35,7 +35,7 @@ class TreeTable extends React.Component {
   componentDidUpdate(prevProps) {
     if (this.props.data !== prevProps.data) {
       // eslint-disable-next-line react/no-did-update-set-state
-      this.setState({ rows: TreeTableUtils.initialiseRootData(this.props.data) });
+      this.setState({ rows: TreeTableUtils.initialiseRootData(this.props.data, this.props.setUniqueRowKey) });
     }
   }
   
@@ -50,6 +50,23 @@ class TreeTable extends React.Component {
     if (innerList) {
       this.setState({ innerHeight: innerList.clientHeight });
     }
+  }
+
+  toggleAllRowsExpansion = () => {
+    const { displayExpandAll } = this.state;
+    this.setState((prevState) => {
+      if (displayExpandAll) {
+        return {
+          rows: TreeTableUtils.initialiseRootData(this.props.data, this.props.setUniqueRowKey),
+          expanded: {},
+          displayExpandAll: !displayExpandAll,
+        };
+      }
+      return {
+        ...TreeTableUtils.handleAllRowExpansion(prevState.rows, { ...prevState, expanded: {} }, this.props.setUniqueRowKey),
+        displayExpandAll: !displayExpandAll,
+      };
+    });
   }
   
   render() {
@@ -71,10 +88,6 @@ class TreeTable extends React.Component {
 
     const restoreColumnDefaults = () => {
       this.setState({ columns: TreeTableUtils.prepareColumnToggle(props.columns) });
-    };
-
-    const toggleAllRowsExpansion = () => {
-
     };
 
     const renderLoader = () => (
@@ -99,7 +112,7 @@ class TreeTable extends React.Component {
   
       return (
         <TreeTableActionBar
-          toggleAll={toggleAllRowsExpansion}
+          toggleAll={this.toggleAllRowsExpansion}
           displayExpandAll={displayExpandAll}
           columnToggleProps={columnToggleProps}
           renderRightItems={props.renderActionBarRightItems}
