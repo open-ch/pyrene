@@ -1,9 +1,7 @@
 import uniqid from 'uniqid';
 
 export default class TreeTableUtils {
-
-  static EMPTY_SET = new Set();
-
+  
   static prepareColumnToggle = columns => columns.map((col, index) => {
     if (index === 0) {
       return { ...col };
