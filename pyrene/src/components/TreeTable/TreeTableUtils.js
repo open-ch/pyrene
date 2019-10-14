@@ -1,7 +1,7 @@
 import uniqid from 'uniqid';
 
 export default class TreeTableUtils {
-  
+
   static prepareColumnToggle = columns => columns.map((col, index) => {
     if (index === 0) {
       return { ...col };
@@ -65,14 +65,15 @@ export default class TreeTableUtils {
     let newRows = [...rows];
     const { _rowId: rowKey } = row;
     const isExpanded = expanded[rowKey];
-    expanded[rowKey] = !isExpanded;
     const subRows = row.children;
     const index = rows.indexOf(row);
     if (!isExpanded) {
+      expanded[rowKey] = true;
       // eslint-disable-next-line no-underscore-dangle
       TreeTableUtils.updateSubRowDetails(row, row._treeDepth, getRowKey);
       newRows.splice(index + 1, 0, ...subRows);
     } else {
+      delete expanded[rowKey];
       // eslint-disable-next-line no-underscore-dangle
       const rowChildren = TreeTableUtils._getRowChildren(row);
       newRows = rows.filter(oldRow => !rowChildren.includes(oldRow));
