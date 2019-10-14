@@ -33,10 +33,16 @@ class TreeTable extends React.Component {
     tableKey: Date.now(),
   };
   
-  componentDidUpdate(prevProps) {
+  listRef = null;
+
+  componentDidUpdate(prevProps, prevState) {
     if (this.props.data !== prevProps.data) {
       // eslint-disable-next-line react/no-did-update-set-state
       this.setState({ rows: TreeTableUtils.initialiseRootData(this.props.data, this.props.setUniqueRowKey) });
+    }
+
+    if (this.state.rows !== prevState.rows) {
+      this.recalculateListLength();
     }
   }
   
@@ -48,7 +54,14 @@ class TreeTable extends React.Component {
 
   onListRef = (innerRef) => {
     if (innerRef) {
-      this.setState({ innerHeight: innerRef.clientHeight });
+      this.listRef = innerRef;
+      this.recalculateListLength();
+    }
+  }
+
+  recalculateListLength = () => {
+    if (this.listRef) {
+      this.setState({ innerHeight: this.listRef.clientHeight });
     }
   }
 
@@ -129,6 +142,9 @@ class TreeTable extends React.Component {
       );
     };
 
+    /**
+     * forwardRef is needed for the DynamicHeightList to get the height of each item
+     */
     const renderRow = React.forwardRef((rowProps, ref) => {
       const { index, style } = rowProps;
       const rowData = rows[index];
@@ -154,6 +170,7 @@ class TreeTable extends React.Component {
       );
     });
     
+    const isScrollbarVisible = () => innerHeight > outerHeight;
 
     return (
       <div styleName="treeTableContainer">
@@ -175,11 +192,11 @@ class TreeTable extends React.Component {
             </div>
           )}
           {getActionBar()}
-          <TreeTableHeader columns={columns} scrollbarPadding={innerHeight > outerHeight} />
+          <TreeTableHeader columns={columns} scrollbarPadding={isScrollbarVisible()} />
           <div styleName="treeTableData" ref={this.onDataRef}>
             <List
               key={tableKey}
-              height={300}
+              height={props.height}
               itemCount={rows.length}
               width="100%"
               innerRef={this.onListRef}
@@ -202,6 +219,7 @@ TreeTable.defaultProps = {
   columns: [],
   filters: [],
   title: '',
+  height: 300,
   loading: false,
   toggleColumns: true,
   onRowDoubleClick: null,
@@ -234,6 +252,10 @@ TreeTable.propTypes = {
     options: PropTypes.array,
     type: PropTypes.oneOf(['singleSelect', 'multiSelect', 'text']).isRequired,
   })),
+  /**
+   * Sets the height for the table. As the table is rendered using react-window some number must be provided.
+   */
+  height: PropTypes.number,
   /**
    * Disables the component and displays a loader inside of it.
    */
