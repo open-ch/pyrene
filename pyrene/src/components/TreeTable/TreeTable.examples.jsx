@@ -1,9 +1,8 @@
+/* eslint-disable react/display-name, no-nested-ternary */
 import React from 'react';
-import uuid from 'uuid/v4';
 
 import treeTableData from './data.json';
 
-/* eslint-disable react/display-name, no-nested-ternary */
 
 const testOptions = [
   { value: 'chocolate', label: 'Chocolate', invalid: false },
@@ -39,139 +38,6 @@ const testOptions = [
   { value: 'moosetracks', label: 'Moose Tracks', invalid: false },
 ];
 
-// const treeTableData = [
-//   {
-//     id: uuid(),
-//     name: 'Some Name 1',
-//     height: 25,
-//     width: 10,
-//     children: [
-//       {
-//         id: uuid(),
-//         name: '[2](1)',
-//         height: 'write stuff',
-//         width: 50,
-//         children: [
-//           {
-//             id: uuid(),
-//             name: '[3](1)',
-//             height: 'everywhere 😱',
-//             width: 75,
-//           },
-//           {
-//             id: uuid(),
-//             name: '[3](2)',
-//           },
-//           {
-//             id: uuid(),
-//             name: '[3](3)',
-//           },
-//         ],
-//       },
-//       {
-//         id: uuid(),
-//         name: '[2](2) Height: 40px.',
-//         height: 40,
-//       },
-//     ],
-//   },
-//   {
-//     id: uuid(),
-//     name: 'Some Name 1',
-//     height: 25,
-//     children: [
-//       {
-//         id: uuid(),
-//         name: '[2](1)',
-//         children: [
-//           {
-//             id: uuid(),
-//             name: '[3](1)',
-//           },
-//           {
-//             id: uuid(),
-//             name: '[3](2)',
-//           },
-//           {
-//             id: uuid(),
-//             name: '[3](3)',
-//           },
-//         ],
-//       },
-//       {
-//         id: uuid(),
-//         name: '[2](2) Height: 40px.',
-//         height: 40,
-//       },
-//     ],
-//   },
-//   {
-//     id: uuid(),
-//     name: 'Some Name 1',
-//     height: 25,
-//     width: 10,
-//     children: [
-//       {
-//         id: uuid(),
-//         name: '[2](1)',
-//         height: 'write stuff',
-//         width: 50,
-//         children: [
-//           {
-//             id: uuid(),
-//             name: '[3](1)',
-//             height: 'everywhere 😱',
-//             width: 75,
-//           },
-//           {
-//             id: uuid(),
-//             name: '[3](2)',
-//           },
-//           {
-//             id: uuid(),
-//             name: '[3](3)',
-//           },
-//         ],
-//       },
-//       {
-//         id: uuid(),
-//         name: '[2](2) Height: 40px.',
-//         height: 40,
-//       },
-//     ],
-//   },
-//   {
-//     id: uuid(),
-//     name: 'Some Name 1',
-//     height: 25,
-//     children: [
-//       {
-//         id: uuid(),
-//         name: '[2](1)',
-//         children: [
-//           {
-//             id: uuid(),
-//             name: '[3](1)',
-//           },
-//           {
-//             id: uuid(),
-//             name: '[3](2)',
-//           },
-//           {
-//             id: uuid(),
-//             name: '[3](3)',
-//           },
-//         ],
-//       },
-//       {
-//         id: uuid(),
-//         name: '[2](2) Height: 40px.',
-//         height: 40,
-//       },
-//     ],
-//   },
-// ];
-
 const treeTableColumns = [
   {
     id: 'name',
@@ -193,7 +59,7 @@ const treeTableColumns = [
   },
   {
     id: 'height',
-    headerName: 'Height',
+    headerName: 'Height (multi row data)',
     accessor: 'height',
     renderCallback: data => (
       <div>

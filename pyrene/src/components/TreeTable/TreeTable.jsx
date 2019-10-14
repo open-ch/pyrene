@@ -46,7 +46,7 @@ class TreeTable extends React.Component {
     }
   }
   
-  onDataRef = (ref) => {
+  onContainerRef = (ref) => {
     if (ref) {
       this.setState({ outerHeight: ref.clientHeight });
     }
@@ -193,7 +193,7 @@ class TreeTable extends React.Component {
           )}
           {getActionBar()}
           <TreeTableHeader columns={columns} scrollbarPadding={isScrollbarVisible()} />
-          <div styleName="treeTableData" ref={this.onDataRef}>
+          <div styleName="treeTableData" ref={this.onContainerRef}>
             <List
               key={tableKey}
               height={props.height}
