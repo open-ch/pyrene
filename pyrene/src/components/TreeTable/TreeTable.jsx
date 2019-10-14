@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { VariableSizeList as List } from 'react-window';
+import { DynamicSizeList as List } from 'react-window';
 
 import './treeTable.css';
 import TreeTableHeader from './TreeTableHeader/TreeTableHeader';
@@ -30,8 +30,9 @@ class TreeTable extends React.Component {
     rows: TreeTableUtils.initialiseRootData(this.props.data, this.props.setUniqueRowKey),
     innerHeight: 0,
     outerHeight: 0,
+    tableKey: Date.now(),
   };
-
+  
   componentDidUpdate(prevProps) {
     if (this.props.data !== prevProps.data) {
       // eslint-disable-next-line react/no-did-update-set-state
@@ -45,10 +46,9 @@ class TreeTable extends React.Component {
     }
   }
 
-  onListRef = (ref) => {
-    const innerList = ref && ref.children[0];
-    if (innerList) {
-      this.setState({ innerHeight: innerList.clientHeight });
+  onListRef = (innerRef) => {
+    if (innerRef) {
+      this.setState({ innerHeight: innerRef.clientHeight });
     }
   }
 
@@ -60,6 +60,7 @@ class TreeTable extends React.Component {
           rows: TreeTableUtils.initialiseRootData(this.props.data, this.props.setUniqueRowKey),
           expanded: {},
           displayExpandAll: !displayExpandAll,
+          tableKey: Date.now(), // as all rows are closed, we need to recalculate the height for the whole view - a key is the easiest way
         };
       }
       return {
@@ -68,10 +69,18 @@ class TreeTable extends React.Component {
       };
     });
   }
-  
+
   render() {
     const { props } = this;
-    const { expanded, displayExpandAll, columns, rows, innerHeight, outerHeight } = this.state;
+    const {
+      expanded,
+      displayExpandAll,
+      columns,
+      rows,
+      innerHeight,
+      outerHeight,
+      tableKey,
+    } = this.state;
 
     const isColumnHidden = hidden => typeof hidden === 'undefined' || hidden !== true;
 
@@ -120,28 +129,31 @@ class TreeTable extends React.Component {
       );
     };
 
-    const renderRow = (rowProps) => {
+    const renderRow = React.forwardRef((rowProps, ref) => {
       const { index, style } = rowProps;
       const rowData = rows[index];
       const { _rowId: rowKey } = rowData;
 
       return (
-        <TreeTableRow
-          style={style}
-          index={index}
-          data={rowData}
-          parent={rowData.hasOwnProperty('children') ? rowData.children.length > 0 : false} // eslint-disable-line no-prototype-builtins
-          // eslint-disable-next-line no-underscore-dangle
-          level={rowData._treeDepth}
-          isExpanded={expanded[rowKey]}
-          columns={columns}
-          key={rowKey}
-          onRowDoubleClick={props.onRowDoubleClick}
-          expandOnParentRowClick={props.expandOnParentRowClick}
-          onExpand={onExpandRow}
-        />
+        <div style={style} ref={ref}>
+          <TreeTableRow
+            style={style}
+            index={index}
+            data={rowData}
+            parent={rowData.hasOwnProperty('children') ? rowData.children.length > 0 : false} // eslint-disable-line no-prototype-builtins
+            // eslint-disable-next-line no-underscore-dangle
+            level={rowData._treeDepth}
+            isExpanded={expanded[rowKey]}
+            columns={columns}
+            key={rowKey}
+            onRowDoubleClick={props.onRowDoubleClick}
+            expandOnParentRowClick={props.expandOnParentRowClick}
+            onExpand={onExpandRow}
+          />
+        </div>
       );
-    };
+    });
+    
 
     return (
       <div styleName="treeTableContainer">
@@ -166,11 +178,11 @@ class TreeTable extends React.Component {
           <TreeTableHeader columns={columns} scrollbarPadding={innerHeight > outerHeight} />
           <div styleName="treeTableData" ref={this.onDataRef}>
             <List
+              key={tableKey}
               height={300}
               itemCount={rows.length}
-              itemSize={() => 32}
               width="100%"
-              outerRef={this.onListRef}
+              innerRef={this.onListRef}
             >
               {renderRow}
             </List>

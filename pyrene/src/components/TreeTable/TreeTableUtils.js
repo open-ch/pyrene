@@ -19,8 +19,6 @@ export default class TreeTableUtils {
       // eslint-disable-next-line
       if (!sr._treeDepth) {
         // eslint-disable-next-line
-        sr._parent = row;
-        // eslint-disable-next-line
         sr._treeDepth = treeDepth + 1;
         // eslint-disable-next-line
         sr._rowId = getRowKey(sr) || uniqid();

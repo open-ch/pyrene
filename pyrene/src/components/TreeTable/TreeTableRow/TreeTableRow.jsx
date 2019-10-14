@@ -16,16 +16,16 @@ export default class TreeTableRow extends React.PureComponent {
   render() {
     const hasExpandAction = this.props.parent && this.props.expandOnParentRowClick;
     return (
-      <div styleName={classNames('treeTableRow', { activeAction: hasExpandAction || this.props.onRowDoubleClick !== null })}>
+      <div
+        styleName={classNames('treeTableRow', { activeAction: hasExpandAction || this.props.onRowDoubleClick !== null })}
+      >
 
         {/* Row Elements are rendered here */}
         <div
-          style={this.props.style}
           styleName="rowElementsContainer"
           onClick={hasExpandAction ? this.toggleRowExpansion : null}
           onDoubleClick={hasExpandAction ? null : () => this.props.onRowDoubleClick(this.props.data)}
         >
-
           {this.props.columns.map((column, index) => {
 
             // Do not display column if it is hidden
@@ -75,7 +75,6 @@ TreeTableRow.defaultProps = {
   onExpand: null,
   onRowDoubleClick: null,
   parent: false,
-  style: {},
 };
 
 TreeTableRow.propTypes = {
@@ -88,10 +87,8 @@ TreeTableRow.propTypes = {
   isExpanded: PropTypes.bool.isRequired,
 
   level: PropTypes.number.isRequired,
-
+  
   onExpand: PropTypes.func,
   onRowDoubleClick: PropTypes.func,
   parent: PropTypes.bool,
-  // eslint-disable-next-line react/forbid-prop-types
-  style: PropTypes.object,
 };

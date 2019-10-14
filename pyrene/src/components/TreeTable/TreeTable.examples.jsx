@@ -195,35 +195,25 @@ const treeTableColumns = [
     id: 'height',
     headerName: 'Height',
     accessor: 'height',
+    renderCallback: data => (
+      <div>
+        <div>
+          {data}
+        </div>
+        <div>
+          {data}
+        </div>
+        <div>
+          {data}
+        </div>
+      </div>
+    ),
     width: 100,
   },
   {
     id: 'width',
     headerName: 'Width',
     accessor: 'width',
-    cellRenderCallback: data => ( // Custom Cell rendering
-      <div
-        style={{
-          width: '100%',
-          height: '100%',
-          backgroundColor: 'var(--neutral-020)',
-        }}
-      >
-        <div
-          style={{
-            width: typeof data === 'undefined' ? 0 : `${data}%`,
-            height: '100%',
-            backgroundColor:
-              data > 66
-                ? 'var(--acqua-300)'
-                : data > 33
-                  ? 'var(--teal-300)'
-                  : 'var(--red-200)',
-            transition: 'all .2s ease-out',
-          }}
-        />
-      </div>
-    ),
     initiallyHidden: true,
   },
 ];
