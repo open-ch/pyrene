@@ -15,7 +15,7 @@
   letter-spacing: normal;
   color: var(--text);
 
-  height: 31px;
+  min-height: 31px;
 
   width: 100px;
   flex: 100 0 auto;
