@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { Loader } from 'pyrene';
 import {
   Bar, BarStack, CategoricalAxis, Grid, NumericalAxis, Responsive,
-} from 'tuktuktwo/dist/tuktuktwo';
+} from 'tuktuktwo';
 import GraphOverlay from '../GraphOverlay/GraphOverlay';
 import Header from '../Header/Header';
 import './barChart.css';
