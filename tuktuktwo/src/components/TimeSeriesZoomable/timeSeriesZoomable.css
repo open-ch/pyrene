@@ -1,0 +1,39 @@
+.zoomControls {
+  position: absolute;
+  right: 0;
+  top: 16px;
+  width: 64px;
+  height: 32px;
+  border-radius: 2px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px -2px rgba(0, 21, 44, 0.2), 0 0 1px 0 rgba(0, 21, 44, 0.3);
+  cursor: initial;
+  display: flex;
+}
+
+.zoomBtn {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+}
+
+.zoomBtn:hover {
+  background-color: #f0f2f5;
+}
+
+.leftIconContainer {
+  width: 32px;
+  height: 16px;
+  border-right: 1px solid #e5e7e9;
+}
+
+.rightIconContainer {
+  width: 32px;
+  height: 16px;
+}
+
+.zoomIcon {
+  width: 16px;
+  height: 16px;
+}
