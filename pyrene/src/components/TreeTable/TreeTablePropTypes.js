@@ -17,7 +17,7 @@ const TreeTablePropTypes = {
     initiallyHidden: PropTypes.bool,
     width: PropTypes.number,
   }).isRequired,
-  DATA: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array]))).isRequired,
+  DATA: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array, PropTypes.bool]))).isRequired,
   DATAOBJECT: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array])),
 };
 

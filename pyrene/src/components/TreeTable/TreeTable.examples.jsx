@@ -1,6 +1,8 @@
+/* eslint-disable react/display-name, no-nested-ternary */
 import React from 'react';
 
-/* eslint-disable react/display-name, no-nested-ternary */
+import treeTableData from './data.json';
+
 
 const testOptions = [
   { value: 'chocolate', label: 'Chocolate', invalid: false },
@@ -36,115 +38,6 @@ const testOptions = [
   { value: 'moosetracks', label: 'Moose Tracks', invalid: false },
 ];
 
-const treeTableData = [
-  {
-    name: 'Some Name 1',
-    height: 25,
-    width: 10,
-    children: [
-      {
-        name: '[2](1)',
-        height: 'write stuff',
-        width: 50,
-        children: [
-          {
-            name: '[3](1)',
-            height: 'everywhere 😱',
-            width: 75,
-          },
-          {
-            name: '[3](2)',
-          },
-          {
-            name: '[3](3)',
-          },
-        ],
-      },
-      {
-        name: '[2](2) Height: 40px.',
-        height: 40,
-      },
-    ],
-  },
-  {
-    name: 'Some Name 1',
-    height: 25,
-    children: [
-      {
-        name: '[2](1)',
-        children: [
-          {
-            name: '[3](1)',
-          },
-          {
-            name: '[3](2)',
-          },
-          {
-            name: '[3](3)',
-          },
-        ],
-      },
-      {
-        name: '[2](2) Height: 40px.',
-        height: 40,
-      },
-    ],
-  },
-  {
-    name: 'Some Name 1',
-    height: 25,
-    width: 10,
-    children: [
-      {
-        name: '[2](1)',
-        height: 'write stuff',
-        width: 50,
-        children: [
-          {
-            name: '[3](1)',
-            height: 'everywhere 😱',
-            width: 75,
-          },
-          {
-            name: '[3](2)',
-          },
-          {
-            name: '[3](3)',
-          },
-        ],
-      },
-      {
-        name: '[2](2) Height: 40px.',
-        height: 40,
-      },
-    ],
-  },
-  {
-    name: 'Some Name 1',
-    height: 25,
-    children: [
-      {
-        name: '[2](1)',
-        children: [
-          {
-            name: '[3](1)',
-          },
-          {
-            name: '[3](2)',
-          },
-          {
-            name: '[3](3)',
-          },
-        ],
-      },
-      {
-        name: '[2](2) Height: 40px.',
-        height: 40,
-      },
-    ],
-  },
-];
-
 const treeTableColumns = [
   {
     id: 'name',
@@ -156,38 +49,37 @@ const treeTableColumns = [
     width: 300,
   },
   {
+    id: 'id',
+    headerName: 'ID',
+    headerStyle: { justifyContent: 'flexEnd' },
+    cellStyle: {},
+    accessor: '_rowId',
+    initiallyHidden: false,
+    width: 100,
+  },
+  {
     id: 'height',
-    headerName: 'Height',
+    headerName: 'Height (multi row data)',
     accessor: 'height',
+    renderCallback: data => (
+      <div>
+        <div>
+          {data}
+        </div>
+        <div>
+          {data}
+        </div>
+        <div>
+          {data}
+        </div>
+      </div>
+    ),
     width: 100,
   },
   {
     id: 'width',
     headerName: 'Width',
     accessor: 'width',
-    cellRenderCallback: data => ( // Custom Cell rendering
-      <div
-        style={{
-          width: '100%',
-          height: '100%',
-          backgroundColor: 'var(--neutral-020)',
-        }}
-      >
-        <div
-          style={{
-            width: typeof data === 'undefined' ? 0 : `${data}%`,
-            height: '100%',
-            backgroundColor:
-              data > 66
-                ? 'var(--acqua-300)'
-                : data > 33
-                  ? 'var(--teal-300)'
-                  : 'var(--red-200)',
-            transition: 'all .2s ease-out',
-          }}
-        />
-      </div>
-    ),
     initiallyHidden: true,
   },
 ];
@@ -204,6 +96,7 @@ const examples = {
     }, {
       label: 'second column', type: 'multiSelect', id: 'testKey2', options: testOptions,
     }],
+    setUniqueRowKey: row => row.id,
   },
 };
 

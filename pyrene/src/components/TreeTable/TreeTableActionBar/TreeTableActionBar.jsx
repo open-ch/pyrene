@@ -35,7 +35,9 @@ const TreeTableActionBar = props => (
 
 TreeTableActionBar.displayName = 'TreeTableActionBar';
 
-TreeTableActionBar.defaultProps = {};
+TreeTableActionBar.defaultProps = {
+  renderRightItems: null,
+};
 
 TreeTableActionBar.propTypes = {
   columnToggleProps: PropTypes.shape({
@@ -45,7 +47,7 @@ TreeTableActionBar.propTypes = {
     toggleColumns: PropTypes.bool,
   }).isRequired,
   displayExpandAll: PropTypes.bool.isRequired,
-  renderRightItems: PropTypes.func.isRequired,
+  renderRightItems: PropTypes.func,
   toggleAll: PropTypes.func.isRequired,
 };
 
