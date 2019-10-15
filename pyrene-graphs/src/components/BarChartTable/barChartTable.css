@@ -55,10 +55,10 @@
   color: var(--text);
 }
 
-.popOverTable tbody {
+.popOverTable {
   position: absolute;
   bottom: 24px;
-  top: 88px; /* 24px padding + 32px Popover header + 32px table header */
+  top: 56px; /* 24px padding + 32px Popover header */
   left: 24px;
   right: 0px; /* padding is applied seperately because of the scrollbar */
   padding-right: 10px;
