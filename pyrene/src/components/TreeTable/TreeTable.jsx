@@ -20,6 +20,8 @@ import Loader from '../Loader/Loader';
  * Trees are used to display and work with large amounts of hierarchical data.
  * They have a high data density and therefore convey an immediate feeling of complexity.
  * Ideally, you should only show trees with a lot of hierarchical data as a last resort.
+ *
+ * For simple tables with few data, avoid the virtualized and height props. For tables with thousands of items, those two options are worth looking into.
  */
 class TreeTable extends React.Component {
 
@@ -41,7 +43,7 @@ class TreeTable extends React.Component {
       this.setState({ rows: TreeTableUtils.initialiseRootData(this.props.data, this.props.setUniqueRowKey) });
     }
 
-    if (this.state.rows !== prevState.rows) {
+    if (this.props.virtualized && this.state.rows !== prevState.rows) {
       this.recalculateListLength();
     }
   }
@@ -142,16 +144,13 @@ class TreeTable extends React.Component {
       );
     };
 
-    /**
-     * forwardRef is needed for the DynamicHeightList to get the height of each item
-     */
-    const renderRow = React.forwardRef((rowProps, ref) => {
+    const renderRow = (rowProps, ref) => {
       const { index, style } = rowProps;
       const rowData = rows[index];
       const { _rowId: rowKey } = rowData;
-
+      
       return (
-        <div style={style} ref={ref}>
+        <div style={style} ref={ref} key={rowKey}>
           <TreeTableRow
             style={style}
             index={index}
@@ -159,7 +158,7 @@ class TreeTable extends React.Component {
             parent={rowData.hasOwnProperty('children') ? rowData.children.length > 0 : false} // eslint-disable-line no-prototype-builtins
             // eslint-disable-next-line no-underscore-dangle
             level={rowData._treeDepth}
-            isExpanded={expanded[rowKey]}
+            isExpanded={expanded[rowKey] || false}
             columns={columns}
             key={rowKey}
             onRowDoubleClick={props.onRowDoubleClick}
@@ -168,9 +167,13 @@ class TreeTable extends React.Component {
           />
         </div>
       );
-    });
+    };
+    /**
+     * forwardRef is needed for the DynamicHeightList to get the height of each item
+     */
+    const renderRowWithRef = React.forwardRef(renderRow);
     
-    const isScrollbarVisible = () => innerHeight > outerHeight;
+    const isScrollbarVisible = () => props.virtualized && innerHeight > outerHeight;
 
     return (
       <div styleName="treeTableContainer">
@@ -194,15 +197,17 @@ class TreeTable extends React.Component {
           {getActionBar()}
           <TreeTableHeader columns={columns} scrollbarPadding={isScrollbarVisible()} />
           <div styleName="treeTableData" ref={this.onContainerRef}>
-            <List
-              key={tableKey}
-              height={props.height}
-              itemCount={rows.length}
-              width="100%"
-              innerRef={this.onListRef}
-            >
-              {renderRow}
-            </List>
+            {props.virtualized ? (
+              <List
+                key={tableKey}
+                height={props.height}
+                itemCount={rows.length}
+                width="100%"
+                innerRef={this.onListRef}
+              >
+                {renderRowWithRef}
+              </List>
+            ) : rows.map((_, index) => renderRow({ index }))}
           </div>
         </div>
       </div>
@@ -224,6 +229,7 @@ TreeTable.defaultProps = {
   toggleColumns: true,
   onRowDoubleClick: null,
   renderActionBarRightItems: null,
+  virtualized: false,
   onFilterChange: () => null,
   setUniqueRowKey: () => null,
 };
@@ -253,7 +259,7 @@ TreeTable.propTypes = {
     type: PropTypes.oneOf(['singleSelect', 'multiSelect', 'text']).isRequired,
   })),
   /**
-   * Sets the height for the table. As the table is rendered using react-window some number must be provided.
+   * Sets the height for the table. This is only needed when the virtualized prop is true.
    */
   height: PropTypes.number,
   /**
@@ -284,6 +290,10 @@ TreeTable.propTypes = {
    * Whether the columns (hide/show) popover is available to the user.
    */
   toggleColumns: PropTypes.bool,
+  /**
+   * Whether the table should be virtualized (only visible rows rendered - faster) or all rows always rendered. The height props must also be provided if virtualized is true.
+   */
+  virtualized: PropTypes.bool,
 };
 
 export default TreeTable;

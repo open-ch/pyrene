@@ -22,9 +22,7 @@ describe('TreeTable', () => {
     {
       key: 'lala',
     },
-    {
-      keyMissing: true,
-    },
+    {},
   ];
 
   const getRowKey = row => row.key;
@@ -46,9 +44,12 @@ describe('TreeTable', () => {
     setUniqueRowKey: getRowKey,
   };
 
-
-  it('renders without crashing', () => {
+  it('renders without crashing - normal', () => {
     shallow(<TreeTable {...props} />);
+  });
+
+  it('renders without crashing - virtualized', () => {
+    shallow(<TreeTable {...props} height={300} virtualized />);
   });
   
 });
