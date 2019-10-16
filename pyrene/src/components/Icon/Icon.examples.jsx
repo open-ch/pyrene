@@ -9,6 +9,7 @@ Icon.examples = [
     props: {
       color: 'dangerFg',
       icon: 'warning',
+      type: 'standalone',
     },
     description: 'Constants from colorConstants.js.',
   },
