@@ -18,7 +18,7 @@
   align-items: center;
 }
 
-.zoomBtn:hover {
+.activeBtn:hover {
   background-color: #f0f2f5;
 }
 
@@ -36,4 +36,20 @@
 .zoomIcon {
   width: 16px;
   height: 16px;
+}
+
+.dragArea:hover {
+  cursor: col-resize;
+}
+
+.tooltipText {
+  width: 237px;
+  height: 18px;
+  font-family: AvenirNext;
+  font-weight: 600;
+  font-size: 13px;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
 }

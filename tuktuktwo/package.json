@@ -64,12 +64,13 @@
     "webpack-cli": "^3.1.2"
   },
   "dependencies": {
+    "moment-timezone": "^0.5.26",
     "optimize-css-assets-webpack-plugin": "^5.0.0",
     "prop-types": "^15.6.1",
+    "@vx/drag": "^0.0.192",
     "@vx/responsive": "^0.0.189",
     "@vx/scale": "^0.0.189",
-    "@vx/shape": "^0.0.189",
-    "@vx/drag": "^0.0.192"
+    "@vx/shape": "^0.0.189"
   },
   "peerDependencies": {
     "pyrene": ">=1.7.9 <2.0.0",
