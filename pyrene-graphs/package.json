@@ -1,6 +1,6 @@
 {
   "name": "pyrene-graphs",
-  "version": "0.0.6",
+  "version": "0.0.8",
   "description": "Open Systems Graphs Component Library",
   "main": "dist/pyrene-graphs.js",
   "style": "dist/pyrene-graphs.css",
@@ -62,7 +62,7 @@
     "postcss-import": "^12.0.1",
     "postcss-loader": "^3.0.0",
     "postcss-nesting": "^7.0.0",
-    "pyrene": "1.8.8",
+    "pyrene": "1.11.0",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "release-it": "^12.3.5",
@@ -73,10 +73,10 @@
   "dependencies": {
     "prop-types": "^15.6.1",
     "style-loader": "^1.0.0",
-    "tuktuktwo": "0.0.2"
+    "tuktuktwo": "0.0.3"
   },
   "peerDependencies": {
-    "pyrene": ">=1.10.3 <2.0.0",
+    "pyrene": ">=1.11.0 <2.0.0",
     "react": ">=16.4.2 <16.10.0",
     "react-dom": ">=16.4.2 <16.10.0"
   }
