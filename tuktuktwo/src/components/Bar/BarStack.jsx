@@ -22,25 +22,18 @@ const BarStack = (props) => {
     padding: 0.2,
   });
   return (
-    <Responsive>
-      {parent => (
-        props.direction === 'horizontal' ? (
-          <svg width={parent.width} height={props.barWeight}>
-            <BarStackHorizontal
-              color={color}
-              data={props.values}
-              keys={[0, 1, 2]}
-              y={y}
-              xScale={xScale}
-              yScale={yScale}
-            />
-          </svg>
-        ) : (
-          <svg width={props.barWeight} height={parent.height}>
-            <div>dummy</div>
-          </svg>
-        ))}
-    </Responsive>
+    props.direction === 'horizontal' ? (
+      <BarStackHorizontal
+        color={color}
+        data={props.values}
+        keys={[0, 1, 2]}
+        y={y}
+        xScale={xScale}
+        yScale={yScale}
+      />
+    ) : (
+      <text>dummy</text>
+    )
   );
 };
 
@@ -69,9 +62,9 @@ BarStack.propTypes = {
    */
   maxValue: PropTypes.number.isRequired,
   /**
-   * Sets the values, which are used to calculate the bar lengths. Type: [ string ]
+   * Sets the values, which are used to calculate the bar lengths. Type: [ number ]
    */
-  values: PropTypes.arrayOf(PropTypes.string).isRequired,
+  values: PropTypes.arrayOf(PropTypes.number).isRequired,
 };
 
 export default BarStack;
