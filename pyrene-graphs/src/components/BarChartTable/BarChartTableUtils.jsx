@@ -28,14 +28,14 @@ const getColumn = ({
         </a>
       ) : row => formatter(row.value),
       relativeBar: row => ( // eslint-disable-line react/display-name
-        <Responsive>
+        <Responsive styleName="responsiveContainer">
           {parent => (
             <svg width={parent.width} height={barWeightPrimary}>
               <RelativeBar
                 barWeight={barWeightPrimary}
                 colors={colors}
                 maxValue={maxValue}
-                value={row.value}
+                value={getValueWithAccessor(row, accessor)}
                 parentSize={parent}
               />
             </svg>
@@ -43,14 +43,14 @@ const getColumn = ({
         </Responsive>
       ),
       relativeBarMirrored: row => ( // eslint-disable-line react/display-name
-        <Responsive>
+        <Responsive styleName="responsiveContainer">
           {parent => (
             <svg width={parent.width} height={barWeightPrimary}>
               <RelativeBar
                 barWeight={barWeightPrimary}
                 colors={colors}
                 maxValue={maxValue}
-                value={row.value}
+                value={getValueWithAccessor(row, accessor)}
                 parentSize={parent}
                 mirrored
               />
@@ -62,7 +62,7 @@ const getColumn = ({
         <div styleName="verticalLine" />
       ),
       comparisonBars: row => ( // eslint-disable-line react/display-name
-        <Responsive>
+        <Responsive styleName="responsiveContainer">
           {parent => (
             <svg width={parent.width} height={barWeightPrimary + comparisonMargin + barWeightSecondary}>
               <Bar
