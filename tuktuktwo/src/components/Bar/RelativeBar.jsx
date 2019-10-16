@@ -28,7 +28,6 @@ const RelativeBar = (props) => {
     domain: props.direction === 'horizontal' ? [0, props.maxValue] : [props.maxValue, 0],
     rangeRound: [0, props.direction === 'horizontal' ? props.parentSize.width : props.parentSize.height],
   });
-  console.log(`value: ${props.value} maxValue: ${props.maxValue} parentSize: ${props.parentSize}`);
   return (
     props.direction === 'horizontal' ? (
       <BarStackHorizontal
