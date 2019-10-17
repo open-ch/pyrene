@@ -7,8 +7,6 @@ import Utils from '../../Utils';
 import AxisUtils from './AxisUtils';
 
 const NumericalAxis = (props) => {
-  const stroke = '#e1e3e8';
-  const tickStroke = '#979ca8';
   const scale = props.scale ? props.scale : Utils.scaleLinear(props.orientation === 'left' ? Utils.chartHeight : props.parentSize.width - AxisUtils.axisLeftCategorical, props.maxValue, props.orientation === 'left' ? 'vertical' : 'horizontal');
   return (
     props.orientation === 'left' ? (
@@ -18,10 +16,10 @@ const NumericalAxis = (props) => {
           scale={scale}
           tickLength={0}
           tickLabelProps={() => ({
-            fontSize: 10, fill: tickStroke, fontFamily: 'AvenirNext', textAnchor: 'start', dy: '0.25em', dx: -AxisUtils.axisLeftNumerical,
+            fontSize: 10, fill: AxisUtils.tickStroke, fontFamily: 'AvenirNext', textAnchor: 'start', dy: '0.25em', dx: -AxisUtils.axisLeftNumerical,
           })}
-          stroke={stroke}
-          tickStroke={tickStroke}
+          stroke={AxisUtils.stroke}
+          tickStroke={AxisUtils.tickStroke}
           numTicks={5}
           tickFormat={props.tickFormat}
           tickValues={props.showTickLabels ? undefined : []}
@@ -32,7 +30,7 @@ const NumericalAxis = (props) => {
           <GridRows
             left={AxisUtils.axisLeftNumerical}
             scale={scale}
-            stroke={stroke}
+            stroke={AxisUtils.stroke}
             width={props.parentSize.width - AxisUtils.axisLeftNumerical}
             height={Utils.chartHeight}
             numTicks={5}
@@ -47,10 +45,10 @@ const NumericalAxis = (props) => {
           top={Utils.chartHeight}
           scale={scale}
           tickLabelProps={() => ({
-            textAnchor: 'middle', fontSize: 10, fontFamily: 'AvenirNext', fill: tickStroke, dy: '-0.25em',
+            textAnchor: 'middle', fontSize: 10, fontFamily: 'AvenirNext', fill: AxisUtils.tickStroke, dy: '-0.25em',
           })}
-          stroke={stroke}
-          tickStroke={tickStroke}
+          stroke={AxisUtils.stroke}
+          tickStroke={AxisUtils.tickStroke}
           numTicks={7}
           tickFormat={props.tickFormat}
           tickValues={props.showTickLabels ? undefined : []}
@@ -60,7 +58,7 @@ const NumericalAxis = (props) => {
         {props.showGrid && (
           <GridColumns
             scale={scale}
-            stroke={stroke}
+            stroke={AxisUtils.stroke}
             width={props.parentSize.width - AxisUtils.axisLeftCategorical}
             height={Utils.chartHeight}
             numTicks={7}
