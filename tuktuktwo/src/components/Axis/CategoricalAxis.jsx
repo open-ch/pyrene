@@ -22,7 +22,7 @@ const CategoricalAxis = (props) => {
       stroke={stroke}
       tickStroke={tickStroke}
       tickFormat={props.tickFormat}
-      tickValues={props.showTickLabels ? props.tickValues : []}
+      tickValues={props.showTickLabels ? undefined : []}
       hideTicks
     />
   ) : (
@@ -36,7 +36,7 @@ const CategoricalAxis = (props) => {
       stroke={stroke}
       tickStroke={tickStroke}
       tickFormat={props.tickFormat}
-      tickValues={props.showTickLabels ? props.tickValues : []}
+      tickValues={props.showTickLabels ? undefined : []}
       hideTicks
     />
   );
@@ -47,7 +47,6 @@ CategoricalAxis.displayName = 'Categorical Axis';
 CategoricalAxis.defaultProps = {
   showTickLabels: true,
   tickFormat: d => d,
-  tickValues: undefined,
 };
 
 CategoricalAxis.propTypes = {
@@ -62,7 +61,6 @@ CategoricalAxis.propTypes = {
   showTickLabels: PropTypes.bool,
   tickFormat: PropTypes.func,
   tickLabels: PropTypes.arrayOf(PropTypes.string).isRequired,
-  tickValues: PropTypes.arrayOf(PropTypes.oneOf(['string', 'number'])),
 };
 
 export default CategoricalAxis;

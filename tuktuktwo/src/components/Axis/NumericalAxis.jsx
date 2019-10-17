@@ -27,7 +27,7 @@ const NumericalAxis = (props) => {
           tickStroke={tickStroke}
           numTicks={5}
           tickFormat={props.tickFormat}
-          tickValues={props.showTickLabels ? props.tickValues : []}
+          tickValues={props.showTickLabels ? undefined : []}
           hideTicks
           hideZero
         />
@@ -54,7 +54,7 @@ const NumericalAxis = (props) => {
           tickStroke={tickStroke}
           numTicks={7}
           tickFormat={props.tickFormat}
-          tickValues={props.showTickLabels ? props.tickValues : []}
+          tickValues={props.showTickLabels ? undefined : []}
           hideTicks
           hideZero
         />
@@ -76,7 +76,6 @@ NumericalAxis.defaultProps = {
   showGrid: true,
   showTickLabels: true,
   tickFormat: d => d,
-  tickValues: undefined,
 };
 
 NumericalAxis.propTypes = {
@@ -93,7 +92,6 @@ NumericalAxis.propTypes = {
   showGrid: PropTypes.bool,
   showTickLabels: PropTypes.bool,
   tickFormat: PropTypes.func,
-  tickValues: PropTypes.arrayOf(PropTypes.oneOf(['string', 'number'])),
 };
 
 export default NumericalAxis;
