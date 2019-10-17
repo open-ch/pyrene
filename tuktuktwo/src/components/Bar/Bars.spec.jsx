@@ -31,7 +31,7 @@ describe('<Bars />', () => {
     const bars = rendered.find('.vx-bar');
     bars.forEach((bar, index) => {
       expect(bar.prop('height')).toBe(barWeight);
-      expect(bar.prop('width')).toBe((values[index] / maxValue) * (parentSize.width - 16));
+      expect(bar.prop('width')).toBeCloseTo((values[index] / maxValue) * (parentSize.width - 16));
       expect(bar.prop('fill')).toBe('blue');
     });
   });
