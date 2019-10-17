@@ -1,14 +1,14 @@
-.graphContainer {
+.chartContainer {
   width: 100%;
 }
 
-.graph {
+.chart {
   margin-top: 16px;
   height: 344px;
   width: 100%;
 }
 
-.graphOverlay {
+.chartOverlay {
   position: absolute;
   height: 344px;
   width: 100%;

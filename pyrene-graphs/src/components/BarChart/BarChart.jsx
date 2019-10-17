@@ -4,8 +4,8 @@ import { Loader } from 'pyrene';
 import {
   Bars, CategoricalAxis, NumericalAxis, Responsive,
 } from 'tuktuktwo';
-import GraphContainer from '../GraphContainer/GraphContainer';
-import GraphOverlay from '../GraphOverlay/GraphOverlay';
+import ChartContainer from '../ChartContainer/ChartContainer';
+import ChartOverlay from '../ChartOverlay/ChartOverlay';
 import Header from '../Header/Header';
 import './barChart.css';
 import colorSchemes from '../../styles/colorSchemes';
@@ -25,7 +25,7 @@ const BarChart = (props) => {
       legend={props.legend}
     />
   );
-  const graph = (
+  const chart = (
     <Responsive>
       {parent => (
         <svg width="100%" height={parent.height} shapeRendering="crispEdges">
@@ -78,16 +78,16 @@ const BarChart = (props) => {
       )}
     </Responsive>
   );
-  const graphOverlay = (
-    <GraphOverlay>
+  const chartOverlay = (
+    <ChartOverlay>
       <Loader type="inline" />
-    </GraphOverlay>
+    </ChartOverlay>
   );
   return (
-    <GraphContainer
+    <ChartContainer
       header={header}
-      graph={graph}
-      graphOverlay={props.loading && graphOverlay}
+      chart={chart}
+      chartOverlay={props.loading && chartOverlay}
     />
   );
 };
