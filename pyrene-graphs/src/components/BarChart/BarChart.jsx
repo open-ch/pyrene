@@ -10,6 +10,9 @@ import Header from '../Header/Header';
 import './barChart.css';
 import colorSchemes from '../../styles/colorSchemes';
 
+/**
+ * Bar Charts are used to display numerical values.
+ */
 const BarChart = (props) => {
   const barWeight = 10;
   const labels = props.data.map(row => row.label);
@@ -106,14 +109,32 @@ BarChart.propTypes = {
   colorScheme: PropTypes.shape({
     categorical: PropTypes.arrayOf(PropTypes.string).isRequired,
   }),
+  /**
+   * Sets the chart data. Type: [ { label: string (required), values: [number] (required) } ]
+   */
   data: PropTypes.arrayOf(PropTypes.shape({
     label: PropTypes.string.isRequired,
     values: PropTypes.arrayOf(PropTypes.number).isRequired,
   })).isRequired,
+  /**
+   * Sets the description.
+   */
   description: PropTypes.string,
+  /**
+   * Sets the bar direction.
+   */
   direction: PropTypes.oneOf(['horizontal', 'vertical']),
+  /**
+   * Sets the header.
+   */
   header: PropTypes.string,
+  /**
+    * Sets the legend. Type: [ string ]
+    */
   legend: PropTypes.arrayOf(PropTypes.string).isRequired,
+  /**
+    * If set, a loader is shown instead of axis tick labels, grid and bars.
+    */
   loading: PropTypes.bool,
 };
 
