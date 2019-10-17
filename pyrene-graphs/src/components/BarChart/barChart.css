@@ -6,38 +6,3 @@
   margin-top: 16px;
   height: 344px;
 }
-
-.columnContainer {
-  height: 100%;
-  display: flex;
-  flex-direction: row;
-}
-
-.rowContainer {
-  flex: 1;
-  flex-direction: column;
-  width: 0;
-  min-width: 0;
-  position: relative;
-}
-
-.barsContainer {
-  position: absolute;
-  top: 0;
-  left: 0;
-  display: flex;
-  justify-content: space-around;
-  height: 320px;
-  width: 100%;
-}
-
-.axisBottom {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-}
-
-.horizontalContainer {
-  flex-direction: column;
-}

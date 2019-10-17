@@ -4,5 +4,12 @@
 
 .graph {
   margin-top: 16px;
-  height: 360px;
+  height: 344px;
+  width: 100%;
+}
+
+.graphOverlay {
+  position: absolute;
+  height: 344px;
+  width: 100%;
 }

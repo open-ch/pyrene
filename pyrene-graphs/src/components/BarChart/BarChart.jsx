@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import { Loader } from 'pyrene';
 import {
-  Bar, BarStack, CategoricalAxis, Grid, NumericalAxis, Responsive,
+  Bars, CategoricalAxis, NumericalAxis, Responsive,
 } from 'tuktuktwo';
+import GraphContainer from '../GraphContainer/GraphContainer';
 import GraphOverlay from '../GraphOverlay/GraphOverlay';
 import Header from '../Header/Header';
 import './barChart.css';
@@ -13,96 +13,79 @@ import colorSchemes from '../../styles/colorSchemes';
 const BarChart = (props) => {
   const barWeight = 10;
   const labels = props.data.map(row => row.label);
+  const maxValue = Math.max(...props.data.map(row => Math.max(...row.values)));
+  const header = (
+    <Header
+      header={props.header}
+      description={props.description}
+      colors={props.colorScheme.categorical}
+      legend={props.legend}
+    />
+  );
+  const graph = (
+    <Responsive>
+      {parent => (
+        <svg width="100%" height={parent.height} shapeRendering="crispEdges">
+          {props.direction === 'horizontal' ? (
+            <CategoricalAxis
+              tickLabels={labels}
+              orientation="left"
+              showTickLabels={!props.loading}
+              parentSize={parent}
+            />
+          ) : (
+            <NumericalAxis
+              maxValue={maxValue}
+              orientation="left"
+              showGrid={!props.loading}
+              showTickLabels={!props.loading}
+              parentSize={parent}
+            />
+          )}
+          {props.direction === 'horizontal' ? (
+            <NumericalAxis
+              maxValue={maxValue}
+              orientation="bottom"
+              showGrid={!props.loading}
+              showTickLabels={!props.loading}
+              parentSize={parent}
+            />
+          ) : (
+            <CategoricalAxis
+              tickLabels={labels}
+              orientation="bottom"
+              showTickLabels={!props.loading}
+              parentSize={parent}
+            />
+          )}
+          {!props.loading && (props.legend.length > 1 ? (
+            undefined
+          ) : (
+            <Bars
+              barWeight={barWeight}
+              color={props.colorScheme.categorical[0]}
+              left={props.direction === 'horizontal' ? 102 : 36}
+              maxValue={maxValue}
+              values={props.data.map(row => row.values[0])}
+              direction={props.direction}
+              parentSize={parent}
+            />
+          ))}
+        </svg>
+      )}
+    </Responsive>
+  );
+  const graphOverlay = (
+    <GraphOverlay>
+      <Loader type="inline" />
+    </GraphOverlay>
+  );
   return (
-    <div styleName="container">
-      <Header
-        header={props.header}
-        description={props.description}
-        colors={props.colorScheme.categorical}
-        legend={props.legend}
-      />
-      <div styleName="responsiveContainer">
-        <Responsive>
-          {(parent) => {
-            let maxValue = Math.max(...props.data.map(row => Math.max(...row.values)));
-            maxValue = props.direction === 'horizontal' ? maxValue / (parent.width - 102 - 16) * (parent.width - 102) : maxValue / (parent.height - 24 - 16) * (parent.height - 24);
-            return (
-              <div styleName="columnContainer">
-                {props.direction === 'horizontal' ? (
-                  <CategoricalAxis
-                    hideAxisLine={!props.loading}
-                    tickLabels={labels}
-                    orientation="left"
-                    showTickLabels={!props.loading}
-                  />
-                ) : (
-                  <NumericalAxis
-                    maxValue={maxValue}
-                    orientation="left"
-                    showTickLabels={!props.loading}
-                  />
-                )}
-                <div styleName="rowContainer">
-                  {!props.loading && (
-                    <Grid
-                      maxValue={maxValue}
-                      direction={props.direction}
-                    />
-                  )}
-                  {props.loading ? (
-                    <GraphOverlay>
-                      <Loader type="inline" />
-                    </GraphOverlay>
-                  ) : (
-                    <div styleName={classNames('barsContainer', { horizontalContainer: props.direction === 'horizontal' })}>
-                      {props.legend.length > 1 ? (
-                        <BarStack
-                          barWeight={barWeight}
-                          colors={props.colorScheme.categorical}
-                          maxValue={maxValue}
-                          keys={props.legend}
-                          values={props.data}
-                          direction={props.direction}
-                        />
-                      )
-                        : props.data.map(row => (
-                          <div
-                            key={`bar_${row.label}`}
-                          >
-                            <Bar
-                              barWeight={barWeight}
-                              color={props.colorScheme.categorical[0]}
-                              maxValue={maxValue}
-                              value={row.values[0]}
-                              direction={props.direction}
-                            />
-                          </div>
-                        ))}
-                    </div>
-                  )}
-                  <div styleName="axisBottom">
-                    {props.direction === 'horizontal' ? (
-                      <NumericalAxis
-                        maxValue={maxValue}
-                        orientation="bottom"
-                        showTickLabels={!props.loading}
-                      />
-                    ) : (
-                      <CategoricalAxis
-                        hideAxisLine={!props.loading}
-                        tickLabels={labels}
-                        orientation="bottom"
-                        showTickLabels={!props.loading}
-                      />
-                    )}
-                  </div>
-                </div>
-              </div>
-            );
-          }}
-        </Responsive>
-      </div>
-    </div>
+    <GraphContainer
+      header={header}
+      graph={graph}
+      graphOverlay={props.loading && graphOverlay}
+    />
   );
 };
 
