@@ -50,16 +50,28 @@ CategoricalAxis.defaultProps = {
 };
 
 CategoricalAxis.propTypes = {
+  /**
+   * Sets the orientation of the axis.
+   */
   orientation: PropTypes.oneOf(['left', 'bottom']).isRequired,
   /**
-   * Sets the parentSize, which is used to calculate the bar length.
+   * Sets the parentSize, which is used to calculate the bar length. Type: { height: number, width: number }
    */
   parentSize: PropTypes.shape({
     height: PropTypes.number,
     width: PropTypes.number,
   }).isRequired,
+  /**
+   * If set, the tick labels get rendered.
+   */
   showTickLabels: PropTypes.bool,
+  /**
+   * Set function to format the tick labels.
+   */
   tickFormat: PropTypes.func,
+  /**
+   * Set the categorical tick labels. Type: [ string ]
+   */
   tickLabels: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 

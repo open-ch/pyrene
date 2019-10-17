@@ -1,24 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { AxisLeft, AxisBottom } from '@vx/axis';
+import { GridColumns, GridRows } from '@vx/grid';
 import { Group } from '@vx/group';
-import Grid from '../Grid/Grid';
 import Utils from '../../Utils';
 import AxisUtils from './AxisUtils';
-
-const getScale = (parentSize, maxValue, position, scale) => (
-  scale !== undefined ? scale : Utils.scaleLinear(parentSize, maxValue, position === 'left' ? 'vertical' : 'horizontal')
-);
 
 const NumericalAxis = (props) => {
   const stroke = '#e1e3e8';
   const tickStroke = '#979ca8';
+  const scale = props.scale ? props.scale : Utils.scaleLinear(props.orientation === 'left' ? Utils.chartHeight : props.parentSize.width - AxisUtils.axisLeftCategorical, props.maxValue, props.orientation === 'left' ? 'vertical' : 'horizontal');
   return (
     props.orientation === 'left' ? (
       <Group>
         <AxisLeft
           left={AxisUtils.axisLeftNumerical}
-          scale={getScale(Utils.chartHeight, props.maxValue, props.orientation, props.scale)}
+          scale={scale}
           tickLength={0}
           tickLabelProps={() => ({
             fontSize: 10, fill: tickStroke, fontFamily: 'AvenirNext', textAnchor: 'start', dy: '0.25em', dx: -AxisUtils.axisLeftNumerical,
@@ -32,11 +29,13 @@ const NumericalAxis = (props) => {
           hideZero
         />
         {props.showGrid && (
-          <Grid
+          <GridRows
             left={AxisUtils.axisLeftNumerical}
-            direction="vertical"
-            maxValue={props.maxValue}
-            parentSize={{ width: props.parentSize.width - AxisUtils.axisLeftNumerical, height: Utils.chartHeight }}
+            scale={scale}
+            stroke={stroke}
+            width={props.parentSize.width - AxisUtils.axisLeftNumerical}
+            height={Utils.chartHeight}
+            numTicks={5}
           />
         )}
       </Group>
@@ -46,7 +45,7 @@ const NumericalAxis = (props) => {
       >
         <AxisBottom
           top={Utils.chartHeight}
-          scale={getScale(props.parentSize.width - AxisUtils.axisLeftCategorical, props.maxValue, props.orientation, props.scale)}
+          scale={scale}
           tickLabelProps={() => ({
             textAnchor: 'middle', fontSize: 10, fontFamily: 'AvenirNext', fill: tickStroke, dy: '-0.25em',
           })}
@@ -59,10 +58,12 @@ const NumericalAxis = (props) => {
           hideZero
         />
         {props.showGrid && (
-          <Grid
-            direction="horizontal"
-            maxValue={props.maxValue}
-            parentSize={{ width: props.parentSize.width - AxisUtils.axisLeftCategorical, height: Utils.chartHeight }}
+          <GridColumns
+            scale={scale}
+            stroke={stroke}
+            width={props.parentSize.width - AxisUtils.axisLeftCategorical}
+            height={Utils.chartHeight}
+            numTicks={7}
           />
         )}
       </Group>
@@ -79,7 +80,13 @@ NumericalAxis.defaultProps = {
 };
 
 NumericalAxis.propTypes = {
+  /**
+   * Sets the maxValue, which is used to scale the axis.
+   */
   maxValue: PropTypes.number.isRequired,
+  /**
+   * Sets the orientation of the axis.
+   */
   orientation: PropTypes.oneOf(['left', 'bottom']).isRequired,
   /**
    * Sets the parentSize, which is used to calculate the bar length.
@@ -88,9 +95,21 @@ NumericalAxis.propTypes = {
     height: PropTypes.number,
     width: PropTypes.number,
   }).isRequired,
+  /**
+   * Override the default linear scale function.
+   */
   scale: PropTypes.func,
+  /**
+   * If set, the grid gets rendered.
+   */
   showGrid: PropTypes.bool,
+  /**
+   * If set, the tick labels get rendered.
+   */
   showTickLabels: PropTypes.bool,
+  /**
+   * Set function to format the tick labels.
+   */
   tickFormat: PropTypes.func,
 };
 

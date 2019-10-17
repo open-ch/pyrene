@@ -54,6 +54,9 @@ Bars.propTypes = {
    * Sets the bar direction.
    */
   direction: PropTypes.oneOf(['horizontal', 'vertical']),
+  /**
+   * Sets left, which is used to position the bars container/group horizontally.
+   */
   left: PropTypes.number,
   /**
    * Sets the maxValue, which is used to calculate the bar length.
