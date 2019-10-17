@@ -1,6 +1,5 @@
 /* eslint-disable import/prefer-default-export */
 /* eslint-disable import/no-named-default */
-import 'tuktuktwo/dist/tuktuktwo.css';
 
 // Sort alphabetically to find stuff easily
 import { default as BarChart } from './components/BarChart/BarChart';
