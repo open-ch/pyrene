@@ -1,5 +1,5 @@
 import React from 'react';
-import { Bar, RelativeBar } from 'tuktuktwo';
+import { Bar, RelativeBar, Responsive } from 'tuktuktwo';
 import './barChartTable.css';
 
 const getId = d => d.trim().toLowerCase();
@@ -11,6 +11,7 @@ const getColumn = ({
 }) => {
   const barWeightPrimary = 6;
   const barWeightSecondary = 4;
+  const comparisonMargin = 6;
   return {
     id: getId(id),
     accessor: accessor,
@@ -27,46 +28,63 @@ const getColumn = ({
         </a>
       ) : row => formatter(row.value),
       relativeBar: row => ( // eslint-disable-line react/display-name
-        <div styleName="barContainer">
-          <RelativeBar
-            barWeight={barWeightPrimary}
-            colors={colors}
-            maxValue={maxValue}
-            value={row.value}
-          />
-        </div>
+        <Responsive styleName="responsiveContainer">
+          {parent => (
+            <svg width={parent.width} height={barWeightPrimary}>
+              <RelativeBar
+                barWeight={barWeightPrimary}
+                colors={colors}
+                maxValue={maxValue}
+                value={getValueWithAccessor(row, accessor)}
+                parentSize={parent}
+              />
+            </svg>
+          )}
+        </Responsive>
       ),
       relativeBarMirrored: row => ( // eslint-disable-line react/display-name
-        <div styleName="barContainer">
-          <RelativeBar
-            barWeight={barWeightPrimary}
-            colors={colors}
-            maxValue={maxValue}
-            value={row.value}
-            mirrored
-          />
-        </div>
+        <Responsive styleName="responsiveContainer">
+          {parent => (
+            <svg width={parent.width} height={barWeightPrimary}>
+              <RelativeBar
+                barWeight={barWeightPrimary}
+                colors={colors}
+                maxValue={maxValue}
+                value={getValueWithAccessor(row, accessor)}
+                parentSize={parent}
+                mirrored
+              />
+            </svg>
+          )}
+        </Responsive>
       ),
       verticalLine: () => ( // eslint-disable-line react/display-name
         <div styleName="verticalLine" />
       ),
       comparisonBars: row => ( // eslint-disable-line react/display-name
-        <div styleName="comparisonContainer">
-          <Bar
-            key={`${getId(getValueWithAccessor(row, labelAccessor))}_bar_current`} // eslint-disable-line
-            barWeight={barWeightPrimary}
-            color={colors[0]}
-            maxValue={maxValue}
-            value={getValueWithAccessor(row, accessor)} // eslint-disable-line
-          />
-          <Bar
-            key={`${getId(getValueWithAccessor(row, labelAccessor))}_bar_previous`} // eslint-disable-line
-            barWeight={barWeightSecondary}
-            color={colors[1]}
-            maxValue={maxValue}
-            value={getValueWithAccessor(row, accessorSecondary)} // eslint-disable-line
-          />
-        </div>
+        <Responsive styleName="responsiveContainer">
+          {parent => (
+            <svg width={parent.width} height={barWeightPrimary + comparisonMargin + barWeightSecondary}>
+              <Bar
+                key={`${getId(getValueWithAccessor(row, labelAccessor))}_bar_current`} // eslint-disable-line
+                barWeight={barWeightPrimary}
+                color={colors[0]}
+                maxValue={maxValue}
+                value={getValueWithAccessor(row, accessor)} // eslint-disable-line
+                parentSize={parent}
+              />
+              <Bar
+                key={`${getId(getValueWithAccessor(row, labelAccessor))}_bar_previous`} // eslint-disable-line
+                barWeight={barWeightSecondary}
+                color={colors[1]}
+                maxValue={maxValue}
+                value={getValueWithAccessor(row, accessorSecondary)} // eslint-disable-line
+                parentSize={parent}
+                top={barWeightPrimary + comparisonMargin}
+              />
+            </svg>
+          )}
+        </Responsive>
       ),
       default: row => formatter(row.value),
     }[cellType || 'default'],
