@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { AxisLeft, AxisBottom } from '@vx/axis';
 import Utils from '../../Utils';
 import AxisUtils from './AxisUtils';
-import './axis.css';
 
 const getScale = (parentSize, labels) => (
   Utils.scaleCategorical(parentSize, labels)
@@ -14,51 +13,44 @@ const CategoricalAxis = (props) => {
   const tickStroke = '#979ca8';
   return props.orientation === 'left' ? (
     <AxisLeft
-      scale={getScale(props.parentSize.height, props.tickLabels)}
+      left={AxisUtils.axisLeftCategorical}
+      scale={getScale(Utils.chartHeight, props.tickLabels)}
       tickLength={0}
       tickLabelProps={() => ({
-        fontSize: 10, fill: tickStroke, fontFamily: 'AvenirNext', textAnchor: 'start',
+        fontSize: 10, fill: tickStroke, fontFamily: 'AvenirNext', textAnchor: 'start', dy: '0.25em', dx: -AxisUtils.axisLeftCategorical,
       })}
-      tickComponent={tickProps => AxisUtils.getPaddedTickComponent(tickProps, 102)}
       stroke={stroke}
       tickStroke={tickStroke}
-      numTicks={props.tickLabels.length}
-      hideAxisLine={props.hideAxisLine}
       tickFormat={props.tickFormat}
       tickValues={props.showTickLabels ? props.tickValues : []}
       hideTicks
-      hideZero
     />
-  )
-    : (
-      <AxisBottom
-        scale={getScale(props.parentSize.width, props.tickLabels)}
-        tickLabelProps={() => ({
-          textAnchor: 'middle', fontSize: 10, fontFamily: 'AvenirNext', fill: tickStroke, dy: '-0.25em',
-        })}
-        stroke={stroke}
-        tickStroke={tickStroke}
-        numTicks={props.tickLabels.length}
-        hideAxisLine={props.hideAxisLine}
-        tickFormat={props.tickFormat}
-        tickValues={props.showTickLabels ? props.tickValues : []}
-        hideTicks
-        hideZero
-      />
-    );
+  ) : (
+    <AxisBottom
+      top={Utils.chartHeight}
+      left={AxisUtils.axisLeftNumerical}
+      scale={getScale(props.parentSize.width - AxisUtils.axisLeftNumerical, props.tickLabels)}
+      tickLabelProps={() => ({
+        textAnchor: 'middle', fontSize: 10, fontFamily: 'AvenirNext', fill: tickStroke, dy: '-0.25em',
+      })}
+      stroke={stroke}
+      tickStroke={tickStroke}
+      tickFormat={props.tickFormat}
+      tickValues={props.showTickLabels ? props.tickValues : []}
+      hideTicks
+    />
+  );
 };
 
 CategoricalAxis.displayName = 'Categorical Axis';
 
 CategoricalAxis.defaultProps = {
-  hideAxisLine: false,
   showTickLabels: true,
   tickFormat: d => d,
   tickValues: undefined,
 };
 
 CategoricalAxis.propTypes = {
-  hideAxisLine: PropTypes.bool,
   orientation: PropTypes.oneOf(['left', 'bottom']).isRequired,
   /**
    * Sets the parentSize, which is used to calculate the bar length.

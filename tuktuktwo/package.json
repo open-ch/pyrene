@@ -65,6 +65,7 @@
   "dependencies": {
     "@vx/axis": "^0.0.191",
     "@vx/grid": "^0.0.190",
+    "@vx/group": "^0.0.192",
     "@vx/responsive": "^0.0.189",
     "@vx/scale": "^0.0.190",
     "@vx/shape": "^0.0.192",

@@ -3,6 +3,10 @@ import Utils from '../../Utils';
 
 export default class AxisUtils {
 
+  static axisLeftCategorical = 102;
+
+  static axisLeftNumerical = 36;
+
   static getPaddedTickComponent = (tickProps, axisWidth) => {
     const pathId = `textPath_${Utils.randomString(8)}`;
     return (

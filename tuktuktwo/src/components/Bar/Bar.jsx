@@ -8,18 +8,18 @@ import { Bar as VxBar } from '@vx/shape';
 const Bar = props => (
   props.direction === 'horizontal' ? (
     <VxBar
-      x="0"
-      y={props.top}
+      x={props.x}
+      y={props.y}
       height={props.barWeight}
-      width={props.value * (props.parentSize.width / props.maxValue)}
+      width={props.parentSize.width > 0 ? props.value * (props.parentSize.width / props.maxValue) : 0}
       fill={props.color}
       transform={props.mirrored ? `rotate(180 ${props.parentSize.width / 2} ${props.barWeight / 2})` : undefined}
     />
   ) : (
     <VxBar
-      x="0"
-      y={props.top + (props.maxValue - props.value) * (props.parentSize.height / props.maxValue)}
-      height={props.value * (props.parentSize.height / props.maxValue)}
+      x={props.x}
+      y={props.y + (props.maxValue - props.value) * (props.parentSize.height / props.maxValue)}
+      height={props.parentSize.height > 0 ? props.value * (props.parentSize.height / props.maxValue) : 0}
       width={props.barWeight}
       fill={props.color}
       transform={props.mirrored ? `rotate(180 ${props.barWeight / 2} ${props.parentSize.height / 2})` : undefined}
@@ -33,7 +33,8 @@ Bar.defaultProps = {
   barWeight: 6,
   direction: 'horizontal',
   mirrored: false,
-  top: 0,
+  x: 0,
+  y: 0,
 };
 
 Bar.propTypes = {
@@ -65,13 +66,17 @@ Bar.propTypes = {
     width: PropTypes.number,
   }).isRequired,
   /**
-   * Sets top, which is used to position the bar vertically.
-   */
-  top: PropTypes.number,
-  /**
    * Sets the value, which is used to calculate the bar length.
    */
   value: PropTypes.number.isRequired,
+  /**
+   * Sets x, which is used to position the bar horizontally.
+   */
+  x: PropTypes.number,
+  /**
+   * Sets y, which is used to position the bar vertically.
+   */
+  y: PropTypes.number,
 };
 
 export default Bar;
