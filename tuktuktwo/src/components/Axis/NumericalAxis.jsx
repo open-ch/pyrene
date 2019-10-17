@@ -6,6 +6,9 @@ import { Group } from '@vx/group';
 import Utils from '../../Utils';
 import AxisUtils from './AxisUtils';
 
+/**
+ * NumericalAxis is used to display a numerical left or bottom axis with a grid.
+ */
 const NumericalAxis = (props) => {
   const scale = props.scale ? props.scale : Utils.scaleLinear(props.orientation === 'left' ? Utils.chartHeight : props.parentSize.width - AxisUtils.axisLeftCategorical, props.maxValue, props.orientation === 'left' ? 'vertical' : 'horizontal');
   return (

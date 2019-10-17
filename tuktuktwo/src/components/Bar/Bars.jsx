@@ -4,6 +4,9 @@ import { Group } from '@vx/group';
 import Bar from './Bar';
 import Utils from '../../Utils';
 
+/**
+ * Bars is used to display multiple bars.
+ */
 const Bars = (props) => {
   const margin = 16;
   const width = props.parentSize.width - props.left;
