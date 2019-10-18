@@ -1,26 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {appleStock} from '@vx/mock-data';
-import {scaleLinear} from '@vx/scale';
-import {withTooltip} from '@vx/tooltip';
-import {AreaClosed} from '@vx/shape';
-import {Group} from '@vx/group';
-import {localPoint} from '@vx/event';
-import {extent, max} from 'd3-array';
-import { bisector } from 'd3-array';
-import TimeSeriesTooltip from '../Misc/TimeSeriesTooltip'
+import { appleStock } from '@vx/mock-data';
+import { scaleLinear } from '@vx/scale';
+import { withTooltip } from '@vx/tooltip';
+import { AreaClosed } from '@vx/shape';
+import { Group } from '@vx/group';
+import { localPoint } from '@vx/event';
+import { extent, max, bisector } from 'd3-array';
+import TimeSeriesTooltip from '../Misc/TimeSeriesTooltip';
 
 /**
  * Temporary code to display time series features in kitchensink, _must_ be removed removed over time
  */
 class TTTestGraph extends React.Component {
 
-  constructor(props) {
-    super(props);
-  }
-
   onMouseMove = (event, xScale) => {
-    const {x, y} = localPoint(event.target.ownerSVGElement, event);
+    const { x, y } = localPoint(event.target.ownerSVGElement, event);
     const x0 = xScale.invert(x);
     const index = bisector(d => d[0]).left(this.props.data, x0, 1);
     this.props.showTooltip({
@@ -39,7 +34,7 @@ class TTTestGraph extends React.Component {
       return `${da(t[0])} ${ti(t[0])} - ${ti(t[1])}`;
     }
 
-    if(Number.isInteger(t)) {
+    if (Number.isInteger(t)) {
       return `${da(t)} ${ti(t)}`;
     }
 
@@ -59,18 +54,18 @@ class TTTestGraph extends React.Component {
       tooltipLeft,
       tooltipTop,
       tooltipOpen,
-      hideTooltip
+      hideTooltip,
     } = this.props;
 
     const xMax = this.props.width - margin.left - margin.right;
     const yMax = this.props.height - margin.top - margin.bottom;
 
-    const xStock = d =>d[0];
+    const xStock = d => d[0];
     const yStock = d => d[1];
 
     const xScale = scaleLinear({
       range: [0, xMax],
-      domain: extent(this.props.data, xStock)
+      domain: extent(this.props.data, xStock),
     });
 
     const yScale = scaleLinear({
@@ -81,14 +76,14 @@ class TTTestGraph extends React.Component {
     return (
       <div>
         <svg width={this.props.width} height={this.props.height}>
-          <Group top={margin.top} left={margin.left} onMouseMove={(e) => this.onMouseMove(e, xScale)} onMouseOut={hideTooltip}>
+          <Group top={margin.top} left={margin.left} onMouseMove={e => this.onMouseMove(e, xScale)} onMouseOut={hideTooltip}>
             <AreaClosed
               data={this.props.data}
               x={d => xScale(xStock(d))}
               y={d => yScale(yStock(d))}
               yScale={yScale}
               strokeWidth={1}
-              fill={'var(--neutral-200)'}
+              fill="var(--neutral-200)"
             />
           </Group>
         </svg>
@@ -99,15 +94,15 @@ class TTTestGraph extends React.Component {
               left={tooltipLeft}
               time={[tooltipData[0], tooltipData[0]]}
               data={tooltipData[1]}
-              dataLabel={'AAPL Stock Price Closing'}
-              dataColor={'var(--neutral-200)'}
+              dataLabel="AAPL Stock Price Closing"
+              dataColor="var(--neutral-200)"
               children={this.props.tooltipChildren}
               timeFormat={this.sampleTimeFormat}
             />
           )
         }
       </div>
-    )
+    );
   }
 
 }
@@ -121,10 +116,10 @@ TTTestGraph.defaultProps = {
 };
 
 TTTestGraph.propTypes = {
-  width: PropTypes.number,
-  height: PropTypes.number,
   data: PropTypes.array,
-  tooltipChildren: PropTypes.func.isRequired
+  height: PropTypes.number,
+  tooltipChildren: PropTypes.func.isRequired,
+  width: PropTypes.number,
 };
 
 export default withTooltip(TTTestGraph);
