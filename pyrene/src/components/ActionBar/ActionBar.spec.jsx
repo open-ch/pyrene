@@ -29,14 +29,15 @@ describe('<ActionBar />', () => {
     const rendered = mount(<ActionBar {...props} />);
     expect(rendered.find('.pyreneIcon-chevronLeft')).toHaveLength(1);
     expect(rendered.find('.pyreneIcon-chevronRight')).toHaveLength(1);
-    expect(rendered.find('.shadow')).toHaveLength(1);
+    expect(rendered.find('.box-shadow')).toHaveLength(1);
   });
 
   it('renders no box', () => {
     props.styling = 'none';
     const rendered = mount(<ActionBar {...props} />);
-    expect(rendered.find('.shadow')).toHaveLength(0);
-    expect(rendered.find('.box')).toHaveLength(0);
+    expect(rendered.find('.box-shadow')).toHaveLength(0);
+    expect(rendered.find('.box-box')).toHaveLength(0);
+    expect(rendered.find('.box-none')).toHaveLength(1);
   });
 
   it('can be interacted with correctly', () => {
