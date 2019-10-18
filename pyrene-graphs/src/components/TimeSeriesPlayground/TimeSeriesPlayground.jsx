@@ -16,13 +16,13 @@ export default class TimeSeriesPlayground extends React.Component {
     /*
       This needs to be ported into the actual graph in pyrene-graphs
      */
-    const tooltip = prps => (
+    const tooltip = props => (
       <div className={styles.tooltip}>
-        <div className={styles.title}>{prps.timeFormat(prps.time)}</div>
-        <div className={styles.dataLine}>
-          <div>{TimeSeriesTooltip.seriesIndicatorCircle(prps.dataColor)}</div>
-          <div className={styles.dataLabel}>{prps.dataLabel}</div>
-          <div className={styles.data}>{prps.data}</div>
+        <div className={styles.timeTitle}>{prps.timeFormat(props.time)}</div>
+        <div className={styles.dataRow}>
+          <div>{TimeSeriesTooltip.seriesIndicatorCircle(props.dataColor)}</div>
+          <div className={styles.dataLabel}>{props.dataLabel}</div>
+          <div className={styles.data}>{props.data}</div>
         </div>
       </div>
     );

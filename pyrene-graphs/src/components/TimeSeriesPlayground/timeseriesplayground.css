@@ -10,12 +10,12 @@
   font-size: 13px;
 }
 
-.title {
+.timeTitle {
   font-weight: 500;
   padding-bottom: 8px;
 }
 
-.dataLine {
+.dataRow {
   display: flex;
 }
 
