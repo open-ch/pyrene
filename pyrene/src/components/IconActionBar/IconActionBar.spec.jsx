@@ -41,9 +41,15 @@ describe('<IconActionBar />', () => {
 
   it('can be interacted with correctly', () => {
     const mockCallBack = jest.fn();
-    props.icons[0].onClick = mockCallBack;
-    const rendered = shallow(<IconActionBar {...props} />);
-    rendered.find('.iconBox').at(0).simulate('click', { preventDefault() {} });
+    const props1 = {
+      icons: [{
+        icon: 'chevronLeft',
+        active: true,
+        onClick: mockCallBack,
+      }],
+    };
+    const rendered = shallow(<IconActionBar {...props1} />);
+    rendered.find('.iconBox').simulate('click', { preventDefault() {} });
     expect(mockCallBack).toHaveBeenCalledTimes(1);
   });
 });
