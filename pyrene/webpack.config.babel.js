@@ -10,6 +10,7 @@ const OUTPUT_PATH = path.resolve(__dirname, 'dist');
 
 const config = {
   mode: production ? 'production' : 'development',
+  devtool: production ? 'none' : 'source-map',
   resolve: {
     mainFiles: ['index'],
     extensions: ['.js', '.jsx'],

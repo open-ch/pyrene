@@ -1,6 +1,6 @@
 {
   "name": "pyrene",
-  "version": "1.10.2",
+  "version": "1.11.0",
   "description": "Open Systems Component Library",
   "main": "dist/pyrene.js",
   "style": "dist/pyrene.css",
@@ -85,6 +85,8 @@
     "react-svg-inline": "^2.1.1",
     "react-table": "^6.8.6",
     "react-tiny-popover": "^3.4.2",
+    "react-window": "next",
+    "resize-observer-polyfill": "^1.5.1",
     "uniqid": "^5.0.3"
   },
   "peerDependencies": {

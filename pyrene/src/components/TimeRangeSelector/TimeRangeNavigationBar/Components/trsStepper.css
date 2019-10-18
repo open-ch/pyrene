@@ -1,0 +1,48 @@
+@import '../../../../styles/colors.css';
+
+.stepper {
+  composes: commonFontSettings from '../../../../styles/common.css';
+  box-sizing: border-box;
+
+  border: none;
+  outline: none;
+  cursor: pointer;
+
+  background-color: var(--background-light);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 0 !important;
+
+  height: 32px;
+  width: 32px;
+
+  border-bottom: solid 1px #e1e3e8;
+  border-top:    solid 1px #e1e3e8;
+
+  font-size: 18px;
+  font-weight: 600;
+
+  & .icon {
+    display: block;
+    width: 18px;
+    height: 18px;
+    margin-left: 1px;
+  }
+
+  &.disabled {
+    pointer-events: none;
+  }
+}
+
+.left {
+  border-left:   solid 1px #e1e3e8;
+  border-radius: 2px 0px 0px 2px;
+}
+
+.right {
+  border-right:   solid 1px #e1e3e8;
+  border-radius: 0px 2px 2px 0px;
+}

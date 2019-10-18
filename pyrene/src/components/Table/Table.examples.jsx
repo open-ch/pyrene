@@ -457,6 +457,7 @@ const tableColumns = [{
 }, {
   id: 'friendAge',
   headerName: 'Friend Age',
+  headerTooltip: 'Pyrene tooltip to this nice header name',
   accessor: 'friend.age',
 }];
 

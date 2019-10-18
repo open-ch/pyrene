@@ -48,7 +48,7 @@ export default class Table extends React.Component {
   state = {
     selection: [],
     selectAll: false,
-    columns: TableUtils.mapColumnProps(this.props.columns),
+    columnsVisibility: {},
   };
 
   commonStaticProps = {
@@ -120,19 +120,14 @@ export default class Table extends React.Component {
   };
 
   toggleColumnDisplay = (columnId, showValue) => {
-    const updatedColumns = this.state.columns.map((col) => {
-      if (col.id === columnId) {
-        return { ...col, show: !showValue };
-      }
-      return col;
-    });
 
-    this.setState(() => ({
-      columns: updatedColumns,
+    this.setState(prevState => ({
+      columnsVisibility: {
+        ...prevState.columnsVisibility,
+        [columnId]: !showValue,
+      },
     }));
   };
-
-  isColumnDisplayed = show => typeof show === 'undefined' || show === true;
 
   toggleAll = () => {
     // Only selects what is visible to the user (page size matters)
@@ -235,13 +230,25 @@ export default class Table extends React.Component {
 
   restoreColumnDefaults = () => {
     this.setState(() => ({
-      columns: TableUtils.mapColumnProps(this.props.columns),
+      columnsVisibility: {},
     }));
   };
 
+  createTableColumnsObject = () => TableUtils.mapColumnProps(this.props.columns).map(col => ({
+    ...col,
+    ...(typeof this.state.columnsVisibility[col.id] !== 'undefined') ? { show: this.state.columnsVisibility[col.id] } : {},
+  }));
+
+  createVisibleColumnsObject(columns) {
+    return columns.reduce((obj, item) => ({
+      ...obj,
+      [item.id]: !item.initiallyHidden,
+    }), {});
+  }
+
   renderTable = () => {
     const commonVariableProps = {
-      columns: this.state.columns,
+      columns: this.createTableColumnsObject(),
       defaultSorted: this.props.defaultSorted,
       defaultPageSize: this.props.defaultPageSize,
       data: this.props.data,
@@ -349,7 +356,7 @@ export default class Table extends React.Component {
 
             <CheckboxPopover
               buttonLabel="Columns"
-              listItems={this.state.columns.filter(col => col.Header).map(col => ({ id: col.id, label: col.Header, value: this.isColumnDisplayed(col.show) }))}
+              listItems={this.props.columns.map(col => ({ id: col.id, label: col.headerName, value: (typeof this.state.columnsVisibility[col.id] !== 'undefined') ? this.state.columnsVisibility[col.id] : !col.initiallyHidden }))}
               onItemClick={(item, value) => this.toggleColumnDisplay(item, value)}
               onRestoreDefault={() => this.restoreColumnDefaults()}
               disabled={!!this.props.error}
@@ -419,6 +426,7 @@ Table.propTypes = {
    * Type: [{ accessor: any, cellRenderCallback: One of [React element, callback function to display the cell, string],
    * cellStyle: object, headerName: string (required), headerStyle: object, id: any, initiallyHidden: bool,
    * sortable: bool (!!!Overrides disableSorting!!!), sortFunction: function, width: number }]
+   * headerTooltip: if defined Pyrene tooltip displayed when hovering over header name
    */
   columns: PropTypes.arrayOf(PropTypes.shape({
     accessor: PropTypes.any,
@@ -430,6 +438,7 @@ Table.propTypes = {
     cellStyle: PropTypes.object,
     headerName: PropTypes.string.isRequired,
     headerStyle: PropTypes.object,
+    headerTooltip: PropTypes.node,
     id: PropTypes.any,
     initiallyHidden: PropTypes.bool,
     sortable: PropTypes.bool,

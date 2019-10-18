@@ -1,12 +1,15 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import classnames from 'classnames';
+
 import PROPCONSTANTS from '../TreeTablePropTypes';
 
 import './treeTableHeader.css';
 
-const TreeTableHeader = props => (
-  <div styleName="treeTableHeader">
+const TreeTableHeader = ({ columns, scrollbarPadding }) => (
+  <div styleName={classnames('treeTableHeader', { scrollbarPadding })}>
 
-    {props.columns.map((column) => {
+    {columns.map((column) => {
       // Do not display hidden columns
       if (column.hidden) {
         return null;
@@ -39,6 +42,7 @@ TreeTableHeader.defaultProps = {
 
 TreeTableHeader.propTypes = {
   columns: PROPCONSTANTS.COLUMNS,
+  scrollbarPadding: PropTypes.bool.isRequired,
 };
 
 export default TreeTableHeader;
