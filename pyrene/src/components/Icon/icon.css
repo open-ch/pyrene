@@ -1,14 +1,12 @@
-@import '../../styles/colors.css';
-
 .icon {
-    font-size: 16px;
+  font-size: 16px;
 }
 
 .type-standalone {
-    width: 16px;
-    height: 16px;
+  width: 16px;
+  height: 16px;
 }
 
 .type-inline {
-    display: inline;
+  display: inline;
 }

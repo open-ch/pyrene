@@ -1,3 +1,5 @@
+import iconExampleSelected from '../Checkbox/checkbox-selected.svg';
+
 const Icon = {};
 
 Icon.props = {
@@ -5,6 +7,12 @@ Icon.props = {
 };
 
 Icon.examples = [
+  {
+    props: {
+      icon: 'home',
+    },
+    description: 'Icon with default color and default type  ',
+  },
   {
     props: {
       color: 'dangerFg',
@@ -33,6 +41,13 @@ Icon.examples = [
       icon: 'pin',
     },
     description: 'rgba',
+  },
+  {
+    props: {
+      icon: iconExampleSelected,
+      iconType: 'svg',
+    },
+    description: 'Example "Selected" icon in SVG format',
   },
 ];
 

@@ -1,0 +1,55 @@
+@import '../../styles/colors.css';
+
+.container {
+  height: 32px;
+  cursor: initial;
+  display: flex;
+}
+
+.shadowBox {
+  background-color: var(--neutral-000);
+  border-radius: 2px;
+  box-shadow: 0 4px 8px -2px rgba(0, 21, 44, 0.2), 0 0 1px 0 rgba(0, 21, 44, 0.3);
+}
+
+.borderBox {
+  box-sizing: border-box;
+  background-color: var(--neutral-000);
+  border-radius: 2px;
+  border: 1px solid var(--neutral-050);
+}
+
+.iconBox {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+}
+
+.iconSpan {
+  width: 32px;
+  height: 16px;
+  display: flex;
+  justify-content: center;
+}
+
+.icon {
+  width: 16px;
+  height: 16px;
+}
+
+.borderRight {
+  border-right: 1px solid var(--neutral-050);
+}
+
+.btnOnHover:hover {
+  background-color: var(--neutral-030);
+}
+
+.iconOnHover:hover {
+  cursor: pointer;
+}
+
+.semiOpaque {
+  opacity: 0.5;
+}

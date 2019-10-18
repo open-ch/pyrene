@@ -23,6 +23,7 @@ import { default as Filter } from './components/Filter/Filter';
 import { default as Form } from './components/Form/Form';
 
 import { default as Icon } from './components/Icon/Icon';
+import { default as IconActionBar } from './components/IconActionBar/IconActionBar';
 import { default as IconButton } from './components/IconButton/IconButton';
 
 import { default as Heading } from './components/Heading/Heading';
@@ -70,6 +71,7 @@ const Components = {
   Filter,
   Form,
   Icon,
+  IconActionBar,
   IconButton,
   Heading,
   KeyValueTable,
@@ -109,6 +111,7 @@ export { Container };
 export { Filter };
 export { Form };
 export { Icon };
+export { IconActionBar };
 export { IconButton };
 export { Heading };
 export { KeyValueTable };
