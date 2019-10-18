@@ -41,7 +41,7 @@ export default class CalendarDateSelector extends React.Component {
     lowerBound: CalendarDateSelector.DEFAULT_LOWER_BOUND,
     upperBound: getCurrentDate(),
     timeUnits: CalendarDateSelector.DEFAULT_TIME_UNITS,
-    // get current date, but set day as undefined
+    timeUnit: 'month',
     value: {
       ...getCurrentDate(),
     },
@@ -49,35 +49,27 @@ export default class CalendarDateSelector extends React.Component {
     renderRightSection: () => {},
   };
 
-  constructor(props) {
-    super(props);
-    const defaultTimeRange = props.timeUnits === CalendarDateSelector.DEFAULT_TIME_UNITS ? 1 : 0;
-    this.state = {
-      type: props.timeUnits[defaultTimeRange],
-    };
-  }
-
   _onNavigate = (value, direction) => {
-    const { onChange } = this.props;
-    const newDate = handleDateChange(value, direction, this.state.type);
-    onChange(newDate);
+    const { onChange, timeUnit } = this.props;
+    const newDate = handleDateChange(value, direction, timeUnit);
+    onChange(newDate, timeUnit);
   };
 
-  _onSelect = (timeUnit) => {
-    this.setState({ type: timeUnit });
+  _onSelect = (timeRange) => {
+    const { onChange, value } = this.props;
+    onChange(value, timeRange);
   };
 
   render() {
     const {
       isLoading,
       timeUnits,
+      timeUnit,
       lowerBound,
       upperBound,
       value,
       renderRightSection,
     } = this.props;
-
-    const type = this.state.type;
 
     return (
       <div styleName="timeUnitSelector">
@@ -85,7 +77,7 @@ export default class CalendarDateSelector extends React.Component {
           <div styleName="timeUnitSelector__dropdown">
             <CalendarDateSelectorDropdown
               timeUnits={timeUnits}
-              timeUnit={type}
+              timeUnit={timeUnit}
               onSelect={this._onSelect}
               disabled={isLoading}
             />
@@ -94,7 +86,7 @@ export default class CalendarDateSelector extends React.Component {
         <div styleName="timeUnitSelector--center">
           <CalendarDateSelectorBar
             value={value}
-            timeUnit={type}
+            timeUnit={timeUnit}
             lowerBound={lowerBound}
             upperBound={upperBound}
             onChange={this._onNavigate}
@@ -117,6 +109,7 @@ CalendarDateSelector.propTypes = {
   lowerBound: CalendarDateSelectorPropTypes.YEAR_MONTH_DAY,
   onChange: PropTypes.func,
   renderRightSection: PropTypes.func,
+  timeUnit: CalendarDateSelectorPropTypes.TIMEUNIT_OPTION,
   timeUnits: CalendarDateSelectorPropTypes.TIMEUNIT_OPTIONS,
   upperBound: CalendarDateSelectorPropTypes.YEAR_MONTH_DAY,
   value: CalendarDateSelectorPropTypes.YEAR_MONTH_DAY,

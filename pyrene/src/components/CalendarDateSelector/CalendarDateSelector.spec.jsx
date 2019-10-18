@@ -5,11 +5,15 @@ import DateHelper from './DateHelper';
 // eslint-disable-next-line no-unused-vars
 
 import CalendarDateSelector from './CalendarDateSelector';
+import { getCurrentDate } from './CalendarDateSelectorUtils';
 
 let rendered;
 
 const props = {
-  onChange: (value) => { rendered.setProps({ value: value }); },
+  onChange: (value, timeUnit) => { rendered.setProps({ value: value, timeUnit: timeUnit }); },
+  value: {
+    ...getCurrentDate(),
+  },
 };
 
 describe('<CalendarDateSelector />', () => {
