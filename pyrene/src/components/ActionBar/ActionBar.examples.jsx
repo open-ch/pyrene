@@ -1,9 +1,7 @@
-import iconExampleSelected from '../Checkbox/checkbox-selected.svg';
+const ActionBar = {};
 
-const IconActionBar = {};
-
-IconActionBar.props = {
-  icons: [
+ActionBar.props = {
+  actions: [
     {
       icon: 'chevronLeft',
       active: true,
@@ -19,10 +17,10 @@ IconActionBar.props = {
   ],
 };
 
-IconActionBar.examples = [
+ActionBar.examples = [
   {
     props: {
-      icons: [
+      actions: [
         {
           icon: 'chevronLeft',
           active: true,
@@ -37,12 +35,12 @@ IconActionBar.examples = [
         },
       ],
     },
-    description: 'Icon action bar with left and right navigation.',
+    description: 'Action bar with left and right navigation.',
   },
   {
     props: {
-      boxStyle: 'box',
-      icons: [
+      styling: 'box',
+      actions: [
         {
           icon: 'pin',
           active: true,
@@ -60,11 +58,11 @@ IconActionBar.examples = [
         },
       ],
     },
-    description: 'Icon action bar with pin, share and trash functionalities. Trash is disabled.',
+    description: 'Action bar with pin, share and trash functionalities with trash being disabled.',
   },
   {
     props: {
-      icons: [
+      actions: [
         {
           icon: 'add',
           active: true,
@@ -80,12 +78,12 @@ IconActionBar.examples = [
         },
       ],
     },
-    description: 'Icon action bar with add, delete and search functionalities.',
+    description: 'Action bar with add, delete and search functionalities.',
   },
   {
     props: {
-      boxStyle: 'none',
-      icons: [
+      styling: 'none',
+      actions: [
         {
           icon: 'question',
           active: true,
@@ -94,29 +92,29 @@ IconActionBar.examples = [
         },
       ],
     },
-    description: 'Scenario where clicking the question icon opens some help text.',
+    description: 'Clicking the question icon opens help text.',
   },
   {
     props: {
-      boxStyle: 'box',
-      icons: [
+      styling: 'box',
+      actions: [
         {
           icon: 'refresh',
           active: true,
           onClick: () => alert('Refreshed!'),
         },
         {
-          icon: iconExampleSelected,
+          icon: 'http://s.cdpn.io/3/kiwi.svg',
           iconType: 'svg',
           active: true,
-          onClick: () => alert('Checked!'),
+          onClick: () => alert('This is an SVG icon!'),
         },
       ],
     },
-    description: 'Example with one SVG icon and one icon-font icon.',
+    description: 'Action bar with one SVG icon and one icon-font icon.',
   },
 ];
 
-IconActionBar.category = 'Interaction';
+ActionBar.category = 'Interaction';
 
-export default IconActionBar;
+export default ActionBar;

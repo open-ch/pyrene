@@ -1,10 +1,10 @@
 import React from 'react';
 
-import IconActionBar from './IconActionBar';
+import ActionBar from './ActionBar';
 
 const props = {
-  boxStyle: 'shadow',
-  icons: [
+  styling: 'shadow',
+  actions: [
     {
       icon: 'chevronLeft',
       color: 'neutral300',
@@ -20,35 +20,35 @@ const props = {
   ],
 };
 
-describe('<IconActionBar />', () => {
+describe('<ActionBar />', () => {
   it('renders without crashing', () => {
-    shallow(<IconActionBar {...props} />);
+    shallow(<ActionBar {...props} />);
   });
 
   it('renders its content', () => {
-    const rendered = mount(<IconActionBar {...props} />);
+    const rendered = mount(<ActionBar {...props} />);
     expect(rendered.find('.pyreneIcon-chevronLeft')).toHaveLength(1);
     expect(rendered.find('.pyreneIcon-chevronRight')).toHaveLength(1);
-    expect(rendered.find('.shadowBox')).toHaveLength(1);
+    expect(rendered.find('.shadow')).toHaveLength(1);
   });
 
   it('renders no box', () => {
-    props.boxStyle = 'none';
-    const rendered = mount(<IconActionBar {...props} />);
-    expect(rendered.find('.shadowBox')).toHaveLength(0);
-    expect(rendered.find('.borderBox')).toHaveLength(0);
+    props.styling = 'none';
+    const rendered = mount(<ActionBar {...props} />);
+    expect(rendered.find('.shadow')).toHaveLength(0);
+    expect(rendered.find('.box')).toHaveLength(0);
   });
 
   it('can be interacted with correctly', () => {
     const mockCallBack = jest.fn();
     const props1 = {
-      icons: [{
+      actions: [{
         icon: 'chevronLeft',
         active: true,
         onClick: mockCallBack,
       }],
     };
-    const rendered = shallow(<IconActionBar {...props1} />);
+    const rendered = shallow(<ActionBar {...props1} />);
     rendered.find('.iconBox').simulate('click', { preventDefault() {} });
     expect(mockCallBack).toHaveBeenCalledTimes(1);
   });

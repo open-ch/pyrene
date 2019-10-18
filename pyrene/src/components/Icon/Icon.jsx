@@ -1,24 +1,34 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import SVG from 'react-svg-inline';
+import classNames from 'classnames';
 import colorConstants from '../../styles/colorConstants';
 import './icon.css';
 
 /**
- * IconFont or SVG icon Wrapper. Pass Icon color and icon name or node.
+ * IconFont or SVG icon Wrapper. When using icon font, pass Icon color and icon name; when using SVG, pass in file name of the SVG.
  */
-const Icon = props => (
-  <div styleName={`type-${props.type}`}>
-    {props.iconType === 'font' && <div styleName="icon" className={`pyreneIcon-${props.icon}`} style={{ color: (props.color in colorConstants) ? colorConstants[props.color] : props.color }} />}
-    {props.iconType === 'svg' && <SVG svg={props.icon} />}
-  </div>
-);
+const Icon = (props) => {
+  const isSvg = props.icon.includes('/');
+  if (isSvg) {
+    return (
+      <div styleName={classNames('icon', `type-${props.type}`)}>
+        <img styleName="svgIcon" src={props.icon} alt="icon" />
+      </div>
+    );
+  }
+  return (
+    <div
+      styleName={classNames('icon', `type-${props.type}`)}
+      className={`pyreneIcon-${props.icon}`}
+      style={{ color: (props.color in colorConstants) ? colorConstants[props.color] : props.color }}
+    />
+  );
+};
 
 Icon.displayName = 'Icon';
 
 Icon.defaultProps = {
   color: 'neutral300',
-  iconType: 'font',
   type: 'inline',
 };
 
@@ -28,13 +38,9 @@ Icon.propTypes = {
    */
   color: PropTypes.string,
   /**
-   * Sets the icon font or svg.
+   * Sets the name of the icon or the file name of the svg icon.
    */
   icon: PropTypes.string.isRequired,
-  /**
-   * Sets the type of the icon, i.e. whether it is an icon font or an svg element.
-   */
-  iconType: PropTypes.oneOf(['font', 'svg']),
   /**
    * Sets the overall style.
    */

@@ -23,7 +23,7 @@ import { default as Filter } from './components/Filter/Filter';
 import { default as Form } from './components/Form/Form';
 
 import { default as Icon } from './components/Icon/Icon';
-import { default as IconActionBar } from './components/IconActionBar/IconActionBar';
+import { default as ActionBar } from './components/ActionBar/ActionBar';
 import { default as IconButton } from './components/IconButton/IconButton';
 
 import { default as Heading } from './components/Heading/Heading';
@@ -59,6 +59,7 @@ import { default as TreeTable } from './components/TreeTable/TreeTable';
 
 // Sort alphabetically to find stuff easily
 const Components = {
+  ActionBar,
   Badge,
   Banner,
   Button,
@@ -71,7 +72,6 @@ const Components = {
   Filter,
   Form,
   Icon,
-  IconActionBar,
   IconButton,
   Heading,
   KeyValueTable,
@@ -99,6 +99,7 @@ const Components = {
 };
 
 // Sort alphabetically to find stuff easily
+export { ActionBar };
 export { Badge };
 export { Banner };
 export { Button };
@@ -111,7 +112,6 @@ export { Container };
 export { Filter };
 export { Form };
 export { Icon };
-export { IconActionBar };
 export { IconButton };
 export { Heading };
 export { KeyValueTable };

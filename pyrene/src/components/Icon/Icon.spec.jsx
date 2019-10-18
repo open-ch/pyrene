@@ -1,6 +1,5 @@
 import React from 'react';
 import Icon from './Icon.jsx';
-import iconExampleSelected from '../Checkbox/checkbox-selected.svg';
 
 const props = {
   icon: 'home',
@@ -19,8 +18,8 @@ describe('<Icon />', () => {
   });
 
   it('renders svg icon', () => {
-    const svgIcon = iconExampleSelected;
-    const rendered = mount(<Icon icon={svgIcon} iconType="svg" />);
-    expect(rendered.find('.SVGInline')).toHaveLength(1);
+    const svgIcon = './mysvgicons/icon.svg';
+    const rendered = mount(<Icon icon={svgIcon} />);
+    expect(rendered.find('img').prop('src')).toBe('./mysvgicons/icon.svg');
   });
 });

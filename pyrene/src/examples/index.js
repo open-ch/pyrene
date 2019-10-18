@@ -12,7 +12,7 @@ import { default as Collapsible } from '../components/Collapsible/Collapsible.ex
 import { default as Container } from '../components/Container/Container.examples';
 import { default as Filter } from '../components/Filter/Filter.examples';
 import { default as Icon } from '../components/Icon/Icon.examples';
-import { default as IconActionBar } from '../components/IconActionBar/IconActionBar.examples';
+import { default as ActionBar } from '../components/ActionBar/ActionBar.examples';
 import { default as IconButton } from '../components/IconButton/IconButton.examples';
 import { default as Heading } from '../components/Heading/Heading.examples';
 import { default as KeyValueTable } from '../components/KeyValueTable/KeyValueTable.examples';
@@ -40,6 +40,7 @@ import { default as TreeTable } from '../components/TreeTable/TreeTable.examples
 
 // Sort alphabetically to find stuff easily
 const examples = {
+  ActionBar,
   Badge,
   Banner,
   Button,
@@ -51,7 +52,6 @@ const examples = {
   Filter,
   Heading,
   Icon,
-  IconActionBar,
   IconButton,
   KeyValueTable,
   Link,

@@ -1,5 +1,3 @@
-import iconExampleSelected from '../Checkbox/checkbox-selected.svg';
-
 const Icon = {};
 
 Icon.props = {
@@ -44,10 +42,10 @@ Icon.examples = [
   },
   {
     props: {
-      icon: iconExampleSelected,
+      icon: 'http://s.cdpn.io/3/kiwi.svg',
       iconType: 'svg',
     },
-    description: 'Example "Selected" icon in SVG format',
+    description: 'An SVG icon',
   },
 ];
 
