@@ -44,6 +44,6 @@ describe('<IconActionBar />', () => {
     props.icons[0].onClick = mockCallBack;
     const rendered = shallow(<IconActionBar {...props} />);
     rendered.find('.iconBox').at(0).simulate('click', { preventDefault() {} });
-    expect(mockCallBack.mock.calls.length).toEqual(1);
+    expect(mockCallBack).toHaveBeenCalledTimes(1);
   });
 });
