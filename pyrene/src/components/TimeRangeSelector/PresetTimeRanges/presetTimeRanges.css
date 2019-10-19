@@ -4,14 +4,15 @@
   border-right: solid 1px #e1e3e8;
   border-top: solid 1px #e1e3e8;
   border-bottom: solid 1px #e1e3e8;
-  height: 30px;
+  height: 32px;
   padding-left: 16px;
   padding-right: 16px;
   outline: none;
   cursor: pointer;
   font-size: 12px;
   font-weight: 600;
-
+  color: #1d273b;
+  line-height:1.5;
   background-color: var(--background-light);
 
   &.first {
@@ -20,9 +21,8 @@
   }
 
   &.first:hover {
-     border-left: solid 1px #b2b8bf;
-     border-color: var(--primary);
      background-color: #f0f2f5;
+     cursor: default;
   }
 
   &.active {
@@ -36,11 +36,9 @@
   }
 
   &.successive:hover {
-     border-left: solid 1px #b2b8bf;
-     border-color: var(--primary);
      background-color: #f0f2f5;
-     margin-left: -1px;
-   }
+     cursor: default;
+  }
 }
 
 .presetTimeRange:last-child {

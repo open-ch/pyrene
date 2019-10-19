@@ -25,7 +25,10 @@
   font-size: 18px;
   font-weight: 600;
 
-  & .icon {
+  color: #1d273b;
+  line-height:1.5;
+
+  &.icon {
     display: block;
     width: 18px;
     height: 18px;
@@ -40,9 +43,19 @@
 .left {
   border-left:   solid 1px #e1e3e8;
   border-radius: 2px 0px 0px 2px;
+
+  &:hover {
+   background-color: #f0f2f5;
+   cursor: default;
+  }
 }
 
 .right {
   border-right:   solid 1px #e1e3e8;
   border-radius: 0px 2px 2px 0px;
+
+  &:hover {
+   background-color: #f0f2f5;
+   cursor: default;
+  }
 }
