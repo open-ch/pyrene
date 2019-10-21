@@ -11,7 +11,6 @@ const TimeSeriesTooltip = props => (
     key={Math.random()}
     top={props.top}
     left={props.left}
-    className={props.className}
     // Clear out the stuff vx sets, allowing us to style the children passed in
     style={{ padding: 0, borderRadius: 2 }}
   >
