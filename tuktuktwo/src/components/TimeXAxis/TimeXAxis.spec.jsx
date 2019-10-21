@@ -4,10 +4,14 @@ import TimeXAxis from './TimeXAxis';
 import { getTickValues } from './TimeXUtil';
 
 const props = {
+  width: 1308,
+  height: 360,
   from: 1569944216000,
   to: 1572303296000,
   timezone: 'Europe/Zurich',
   showTickLabels: true,
+  strokeColor: '#e0e2e5',
+  tickLabelColors: ['#979ca8', '#6b7282'],
 };
 
 const testTimeRanges = [
@@ -110,15 +114,18 @@ describe('<TimeXAxis />', () => {
   });
 
   it('displays the content', () => {
-    const rendered = mount(<TimeXAxis {...props} />);
-    expect(rendered.find('.vx-axis-bottom').children().find('.vx-axis-tick').length).toBeGreaterThan(0);
-    expect(rendered.find('.vx-columns').children().find('.vx-line').length).toBeGreaterThan(0);
+    const rendered = shallow(<TimeXAxis {...props} />);
+    const renderedAxis = rendered.find('g').children().at(0);
+    expect(renderedAxis.props().tickValues.length).toBeGreaterThan(0);
+    expect(typeof renderedAxis.props().tickComponent).toBe('function');
+    expect(typeof renderedAxis.props().tickFormat).toBe('function');
+    expect(typeof renderedAxis.props().tickLabelProps).toBe('function');
   });
 
   it('does not render grid', () => {
-    const rendered = mount(<TimeXAxis showGrid={false} {...props} />);
-    expect(rendered.find('.vx-axis-bottom').children().find('.vx-axis-tick').length).toBeGreaterThan(0);
-    expect(rendered.find('.vx-columns').children().find('.vx-line')).toHaveLength(0);
+    const rendered = shallow(<TimeXAxis showGrid={false} {...props} />);
+    const renderedGrid = rendered.find('g').children().at(1);
+    expect(renderedGrid).toHaveLength(0);
   });
 });
 

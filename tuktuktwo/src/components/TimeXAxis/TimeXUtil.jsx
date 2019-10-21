@@ -6,25 +6,44 @@ import moment from 'moment-timezone';
  * @param {number}timestamp - The timestamp value
  * @param {string}timezone - The current timezone
  * @param {number[]}tickValues - The tick values along the x axis
- * @returns {string}
+ * @returns {object}
  * @private
  */
 const _formatHour = (timestamp, timezone, tickValues) => {
+  const tick = {};
   const i = tickValues.findIndex(value => value === timestamp);
   if (i > 0 && moment.tz(timestamp, timezone).day() !== moment.tz(tickValues[i - 1], timezone).day()) {
-    return `${moment.tz(timestamp, timezone).format('ddd').toUpperCase()} ${moment.tz(timestamp, timezone).format('HH:mm')}`;
+    tick.value = `${moment.tz(timestamp, timezone).format('ddd').toUpperCase()}`;
+    tick.isTransition = true;
+  } else {
+    tick.value = `${moment.tz(timestamp, timezone).format('HH:mm')}`;
   }
-  return `${moment.tz(timestamp, timezone).format('HH:mm')}`;
+  return tick;
 };
 
 /**
  * Time formatting function that formats timestamp to ddd format (e.g. MON TUE).
  * @param {number}timestamp - The timestamp value
  * @param {string}timezone - The current timezone
- * @returns {string}
+ * @param {number[]}tickValues - The tick values along the x axis
+ * @returns {object}
  * @private
  */
-const _formatDayOfWeek = (timestamp, timezone) => `${moment.tz(timestamp, timezone).format('ddd').toUpperCase()}`;
+const _formatDayOfWeek = (timestamp, timezone, tickValues) => {
+  const tick = {};
+  const i = tickValues.findIndex(value => value === timestamp);
+  if (i > 0 && moment.tz(timestamp, timezone).year() !== moment.tz(tickValues[i - 1], timezone).year()) {
+    tick.value = `${moment.tz(timestamp, timezone).format('YYYY').toUpperCase()}`;
+    tick.isTransition = true;
+  } else if (i > 0 && moment.tz(timestamp, timezone).month() !== moment.tz(tickValues[i - 1], timezone).month()) {
+    tick.value = `${moment.tz(timestamp, timezone).format('MMM').toUpperCase()}`;
+    tick.isTransition = true;
+  } else {
+    tick.value = `${moment.tz(timestamp, timezone).format('ddd').toUpperCase()}`;
+  }
+
+  return tick;
+};
 
 /**
  * Time formatting function that formats timestamp to DD.MM.YYYY format (e.g. 04.08.2019).
@@ -32,25 +51,39 @@ const _formatDayOfWeek = (timestamp, timezone) => `${moment.tz(timestamp, timezo
  * @param {number}timestamp - The timestamp value
  * @param {string}timezone - The current timezone
  * @param {number[]}tickValues - The tick values along the x axis
- * @returns {string}
+ * @returns {object}
  * @private
  */
 const _formatDate = (timestamp, timezone, tickValues) => {
+  const tick = {};
   const i = tickValues.findIndex(value => value === timestamp);
   if (i > 0 && (moment.tz(timestamp, timezone).month() !== moment.tz(tickValues[i - 1], timezone).month())) {
-    return `${moment.tz(timestamp, timezone).format('MMM').toUpperCase()} ${moment.tz(timestamp, timezone).format('YYYY')}`;
+    tick.value = `${moment.tz(timestamp, timezone).format('MMM').toUpperCase()}`;
+    tick.isTransition = true;
+  } else {
+    tick.value = `${moment.tz(timestamp, timezone).format('DD.MM.YYYY')}`;
   }
-  return `${moment.tz(timestamp, timezone).format('DD.MM.YYYY')}`;
+  return tick;
 };
 
 /**
  * Time formatting function that formats timestamp to MM.YYYY format (i.e. 09 2019).
  * @param {number}timestamp - The timestamp value
  * @param {string}timezone - The current timezone
- * @returns {string}
+ * @returns {object}
  * @private
  */
-const _formatMonth = (timestamp, timezone) => `${moment.tz(timestamp, timezone).format('MM.YYYY')}`;
+const _formatMonth = (timestamp, timezone, tickValues) => {
+  const tick = {};
+  const i = tickValues.findIndex(value => value === timestamp);
+  if (i > 0 && (moment.tz(timestamp, timezone).year() !== moment.tz(tickValues[i - 1], timezone).year())) {
+    tick.value = `${moment.tz(timestamp, timezone).format('YYYY')}`;
+    tick.isTransition = true;
+  } else {
+    tick.value = `${moment.tz(timestamp, timezone).format('MMM').toUpperCase()}`;
+  }
+  return tick;
+};
 
 /**
  * Preset definitions for time range thresholds depending on which the tick number and formatting varies.
@@ -62,6 +95,7 @@ const TIME_RANGE_THRESHOLDS = [
     unit: 'hour',
     durationInMs: moment.duration({ minutes: 30 }).valueOf(),
     interval: moment.duration({ minutes: 10 }),
+    minMarginRight: 14,
     format: _formatHour,
   },
   {
@@ -69,6 +103,7 @@ const TIME_RANGE_THRESHOLDS = [
     unit: 'hour',
     durationInMs: moment.duration({ hours: 1 }).valueOf(),
     interval: moment.duration({ minutes: 20 }),
+    minMarginRight: 14,
     format: _formatHour,
   },
   {
@@ -76,6 +111,7 @@ const TIME_RANGE_THRESHOLDS = [
     unit: 'hour',
     durationInMs: moment.duration({ hours: 6 }).valueOf(),
     interval: moment.duration({ hours: 1 }),
+    minMarginRight: 14,
     format: _formatHour,
   },
   {
@@ -83,6 +119,7 @@ const TIME_RANGE_THRESHOLDS = [
     unit: 'day',
     durationInMs: moment.duration({ hours: 12 }).valueOf(),
     interval: moment.duration({ hours: 2 }),
+    minMarginRight: 14,
     format: _formatHour,
   },
   {
@@ -90,6 +127,7 @@ const TIME_RANGE_THRESHOLDS = [
     unit: 'day',
     durationInMs: moment.duration({ days: 1 }).valueOf(),
     interval: moment.duration({ hours: 4 }),
+    minMarginRight: 14,
     format: _formatHour,
   },
   {
@@ -97,6 +135,7 @@ const TIME_RANGE_THRESHOLDS = [
     unit: 'day',
     durationInMs: moment.duration({ days: 2 }).valueOf(),
     interval: moment.duration({ hours: 8 }),
+    minMarginRight: 14,
     format: _formatHour,
   },
   {
@@ -104,6 +143,7 @@ const TIME_RANGE_THRESHOLDS = [
     unit: 'isoweek',
     durationInMs: moment.duration({ weeks: 1 }).valueOf(),
     interval: moment.duration({ days: 1 }),
+    minMarginRight: 14,
     format: _formatDayOfWeek,
   },
   {
@@ -111,6 +151,7 @@ const TIME_RANGE_THRESHOLDS = [
     unit: 'isoweek',
     durationInMs: moment.duration({ months: 1 }).valueOf(),
     interval: moment.duration({ weeks: 1 }),
+    minMarginRight: 28,
     format: _formatDate,
   },
   {
@@ -118,6 +159,7 @@ const TIME_RANGE_THRESHOLDS = [
     unit: 'isoweek',
     durationInMs: moment.duration({ months: 3 }).valueOf(),
     interval: moment.duration({ weeks: 2 }),
+    minMarginRight: 28,
     format: _formatDate,
   },
   {
@@ -125,6 +167,7 @@ const TIME_RANGE_THRESHOLDS = [
     unit: 'month',
     durationInMs: moment.duration({ months: 6 }).valueOf(),
     interval: moment.duration({ months: 1 }),
+    minMarginRight: 14,
     format: _formatMonth,
   },
   {
@@ -132,6 +175,7 @@ const TIME_RANGE_THRESHOLDS = [
     unit: 'year',
     durationInMs: moment.duration({ years: 1 }).valueOf(),
     interval: moment.duration({ months: 2 }),
+    minMarginRight: 14,
     format: _formatMonth,
   },
   {
@@ -139,6 +183,7 @@ const TIME_RANGE_THRESHOLDS = [
     unit: 'year',
     durationInMs: moment.duration({ years: 2 }).valueOf(),
     interval: moment.duration({ months: 4 }),
+    minMarginRight: 14,
     format: _formatMonth,
   },
   {
@@ -146,6 +191,7 @@ const TIME_RANGE_THRESHOLDS = [
     unit: 'year',
     durationInMs: moment.duration({ years: 10 }).valueOf(),
     interval: moment.duration({ months: 6 }),
+    minMarginRight: 14,
     format: _formatMonth,
   },
 ];
@@ -179,12 +225,21 @@ const _getTickValues = (from, to, timezone, interval, unit) => {
  * @param {number}from - The starting time point in epoch milliseconds
  * @param {number}to - The ending time point in epoch milliseconds
  * @param {string}timezone - The current timezone
+ * @param {function}xScale - The scale function for the x-axis
  * @returns {number[]}
  */
-export const getTickValues = (from, to, timezone) => {
+export const getTickValues = (from, to, timezone, xScale) => {
+  let tickValues = [];
   const durationInMs = to - from;
   const timeRangeThreshold = TIME_RANGE_THRESHOLDS.find(threshold => durationInMs <= threshold.durationInMs);
-  return _getTickValues(from, to, timezone, timeRangeThreshold.interval, timeRangeThreshold.unit);
+  tickValues = _getTickValues(from, to, timezone, timeRangeThreshold.interval, timeRangeThreshold.unit);
+
+  // Check if last tick is going to exceed border
+  const lastTickMarginRight = xScale(to) - xScale(tickValues[tickValues.length - 1]);
+  if (lastTickMarginRight < timeRangeThreshold.minMarginRight) {
+    return tickValues.slice(0, tickValues.length - 1);
+  }
+  return tickValues;
 };
 
 /**
@@ -198,17 +253,5 @@ export const getTickValues = (from, to, timezone) => {
 export const timeFormat = (timestamp, from, to, timezone) => {
   const durationInMs = to - from;
   const timeRangeThreshold = TIME_RANGE_THRESHOLDS.find(threshold => durationInMs <= threshold.durationInMs);
-  switch (timeRangeThreshold.id) {
-    case '0.5h':
-    case '1h':
-    case '6h':
-    case '12h':
-    case '1d':
-    case '2d':
-    case '1m':
-    case '3m':
-      return timeRangeThreshold.format(timestamp, timezone, _getTickValues(from, to, timezone, timeRangeThreshold.interval, timeRangeThreshold.unit));
-    default:
-      return timeRangeThreshold.format(timestamp, timezone);
-  }
+  return timeRangeThreshold.format(timestamp, timezone, _getTickValues(from, to, timezone, timeRangeThreshold.interval, timeRangeThreshold.unit));
 };
