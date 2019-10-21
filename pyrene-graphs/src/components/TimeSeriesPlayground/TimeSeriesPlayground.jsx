@@ -1,5 +1,5 @@
 import React from 'react';
-import { TTTestGraph, TimeSeriesTooltip } from 'tuktuktwo';
+import { TTTestGraph, TimeSeriesTooltipLegendItem } from 'tuktuktwo';
 import styles from './timeseriesplayground.css';
 
 /**
@@ -18,12 +18,10 @@ export default class TimeSeriesPlayground extends React.Component {
      */
     const tooltip = props => (
       <div className={styles.tooltip}>
-        <div className={styles.timeTitle}>{prps.timeFormat(props.time)}</div>
-        <div className={styles.dataRow}>
-          <div>{TimeSeriesTooltip.seriesIndicatorCircle(props.dataColor)}</div>
-          <div className={styles.dataLabel}>{props.dataLabel}</div>
-          <div className={styles.data}>{props.data}</div>
-        </div>
+        <div className={styles.timeTitle}>{props.timeFormat(props.time)}</div>
+        <TimeSeriesTooltipLegendItem className={styles.dataRow} color={props.dataColor}
+          dataLabel={props.dataLabel} dataLabelClassName={styles.dataLabel}
+          dataValue={props.data} dataValueClassName={styles.data}/>
       </div>
     );
 
