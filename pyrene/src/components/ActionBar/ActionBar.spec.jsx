@@ -37,7 +37,6 @@ describe('<ActionBar />', () => {
     const rendered = mount(<ActionBar {...props} />);
     expect(rendered.find('.box-shadow')).toHaveLength(0);
     expect(rendered.find('.box-box')).toHaveLength(0);
-    expect(rendered.find('.box-none')).toHaveLength(1);
   });
 
   it('can be interacted with correctly', () => {
