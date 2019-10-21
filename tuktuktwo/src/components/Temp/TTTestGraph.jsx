@@ -73,6 +73,16 @@ class TTTestGraph extends React.Component {
       domain: [0, max(this.props.data, yStock)],
     });
 
+    const tooltipProps = (!tooltipOpen) ? {} : {
+      top: tooltipTop,
+      left: tooltipLeft,
+      time: [tooltipData[0], tooltipData[0]],
+      data: tooltipData[1],
+      dataLabel: 'AAPL Stock Price Closing',
+      dataColor: 'var(--neutral-200)',
+      timeFormat: this.sampleTimeFormat,
+    };
+
     return (
       <div>
         <svg width={this.props.width} height={this.props.height}>
@@ -89,16 +99,9 @@ class TTTestGraph extends React.Component {
         </svg>
         {
           tooltipOpen && (
-            <TimeSeriesTooltip
-              top={tooltipTop}
-              left={tooltipLeft}
-              time={[tooltipData[0], tooltipData[0]]}
-              data={tooltipData[1]}
-              dataLabel="AAPL Stock Price Closing"
-              dataColor="var(--neutral-200)"
-              children={this.props.tooltipChildren}
-              timeFormat={this.sampleTimeFormat}
-            />
+            <TimeSeriesTooltip {...tooltipProps}>
+              {this.props.tooltipChildren(tooltipProps)}
+            </TimeSeriesTooltip>
           )
         }
       </div>

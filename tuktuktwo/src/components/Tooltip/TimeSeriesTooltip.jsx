@@ -15,7 +15,7 @@ const TimeSeriesTooltip = props => (
     // Clear out the stuff vx sets, allowing us to style the children passed in
     style={{ padding: 0, borderRadius: 2 }}
   >
-    {props.children(props)}
+    {props.children}
   </TooltipWithBounds>
 );
 
@@ -25,39 +25,14 @@ TimeSeriesTooltip.defaultProps = {};
 
 TimeSeriesTooltip.propTypes = {
   /**
-   * The tooltip children to render, all props will be passed to the function
+   * The children to render
    */
-  children: PropTypes.func.isRequired,
-
-  /**
-   * Data value at time
-   */
-  data: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-
-  /**
-   * Data label
-   */
-  dataLabel: PropTypes.string.isRequired,
-
-  /**
-   * Data color
-   */
-  dataColor: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
 
   /**
    * Sets the left offset, controlled by VX
    */
   left: PropTypes.number.isRequired,
-
-  /**
-   * The time of the event or the time range as array
-   */
-  time: PropTypes.oneOfType([PropTypes.number, PropTypes.array]).isRequired,
-
-  /**
-   * The time formatting function
-   */
-  timeFormat: PropTypes.func.isRequired,
 
   /**
    * Sets the top offset, controlled by VX
