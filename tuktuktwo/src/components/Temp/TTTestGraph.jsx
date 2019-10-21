@@ -16,7 +16,7 @@ class TTTestGraph extends React.Component {
 
   onMouseMove = (event, xScale) => {
     const { x, y } = localPoint(event.target.ownerSVGElement, event);
-    const x0 = xScale.invert(x);
+    const x0 = xScale.invert(x - TTTestGraph.margins.left);
     const index = bisector(d => d[0]).left(this.props.data, x0, 1);
     this.props.showTooltip({
       tooltipLeft: x,
@@ -42,13 +42,6 @@ class TTTestGraph extends React.Component {
   };
 
   render() {
-    const margin = {
-      top: 60,
-      bottom: 60,
-      left: 80,
-      right: 80,
-    };
-
     const {
       tooltipData,
       tooltipLeft,
@@ -57,8 +50,8 @@ class TTTestGraph extends React.Component {
       hideTooltip,
     } = this.props;
 
-    const xMax = this.props.width - margin.left - margin.right;
-    const yMax = this.props.height - margin.top - margin.bottom;
+    const xMax = this.props.width - TTTestGraph.margins.left - TTTestGraph.margins.right;
+    const yMax = this.props.height - TTTestGraph.margins.top - TTTestGraph.margins.bottom;
 
     const xStock = d => d[0];
     const yStock = d => d[1];
@@ -86,7 +79,7 @@ class TTTestGraph extends React.Component {
     return (
       <div>
         <svg width={this.props.width} height={this.props.height}>
-          <Group top={margin.top} left={margin.left} onMouseMove={e => this.onMouseMove(e, xScale)} onMouseOut={hideTooltip}>
+          <Group top={TTTestGraph.margins.top} left={TTTestGraph.margins.left} onMouseMove={e => this.onMouseMove(e, xScale)} onMouseOut={hideTooltip}>
             <AreaClosed
               data={this.props.data}
               x={d => xScale(xStock(d))}
@@ -111,6 +104,13 @@ class TTTestGraph extends React.Component {
 }
 
 TTTestGraph.displayName = 'TTTestGraph';
+
+TTTestGraph.margins = {
+  top: 60,
+  bottom: 60,
+  left: 80,
+  right: 80,
+};
 
 TTTestGraph.defaultProps = {
   width: 750,
