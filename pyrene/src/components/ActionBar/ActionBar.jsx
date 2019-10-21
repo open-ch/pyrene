@@ -11,7 +11,7 @@ import './actionBar.css';
  */
 const ActionBar = (props) => {
   return (
-    <div styleName={classNames('container', `box-${props.styling}`)}>
+    <div styleName={classNames('container', props.styling === 'none' ? '' : `box-${props.styling}`)}>
       {props.actions.map((action, index) => {
         return (
           <div key={action.icon} styleName="borderContainer">
