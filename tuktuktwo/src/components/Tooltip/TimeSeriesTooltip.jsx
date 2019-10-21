@@ -19,10 +19,6 @@ const TimeSeriesTooltip = props => (
   </TooltipWithBounds>
 );
 
-TimeSeriesTooltip.seriesIndicatorCircle = dataColor => (
-  <svg height="16" width="16"><circle cx="8" cy="9" r="4" stroke="white" strokeWidth="1" fill={dataColor} /></svg>
-);
-
 TimeSeriesTooltip.displayName = 'TimeSeriesTooltip';
 
 TimeSeriesTooltip.defaultProps = {};
@@ -56,12 +52,11 @@ TimeSeriesTooltip.propTypes = {
   /**
    * The time of the event or the time range as array
    */
-
   time: PropTypes.oneOfType([PropTypes.number, PropTypes.array]).isRequired,
+
   /**
    * The time formatting function
    */
-
   timeFormat: PropTypes.func.isRequired,
 
   /**

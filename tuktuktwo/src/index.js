@@ -5,6 +5,7 @@
 import { default as Bar } from './components/Bar/Bar';
 import { default as RelativeBar } from './components/Bar/RelativeBar';
 import { default as TimeSeriesTooltip } from './components/Tooltip/TimeSeriesTooltip';
+import { default as TimeSeriesTooltipLegendItem } from './components/Tooltip/TimeSeriesTooltipLegendItem';
 import { default as TTTestGraph } from './components/Temp/TTTestGraph';
 
 // Sort alphabetically to find stuff easily
@@ -12,6 +13,7 @@ const Components = {
   Bar,
   RelativeBar,
   TimeSeriesTooltip,
+  TimeSeriesTooltipLegendItem,
   TTTestGraph,
 };
 
@@ -19,6 +21,7 @@ const Components = {
 export { Bar };
 export { RelativeBar };
 export { TimeSeriesTooltip };
+export { TimeSeriesTooltipLegendItem };
 export { TTTestGraph };
 
 export default Components;

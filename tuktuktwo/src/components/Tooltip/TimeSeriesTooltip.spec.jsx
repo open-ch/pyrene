@@ -10,7 +10,7 @@ const props = {
   data: 436,
   dataLabel: 'amount of testing monkeys',
   dataColor: 'monkey-brown',
-  children: () => (<span className='test-123'/>),
+  children: () => (<span className="test-123" />),
 };
 
 describe('<TimeSeriesTooltip />', () => {
