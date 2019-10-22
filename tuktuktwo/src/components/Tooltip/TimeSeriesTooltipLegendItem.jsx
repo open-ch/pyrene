@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 /**
- * Tooltip for time series
+ * Tooltip item for time series tooltips
  */
 const TimeSeriesTooltipLegendItem = props => (
   <div className={props.className}>
