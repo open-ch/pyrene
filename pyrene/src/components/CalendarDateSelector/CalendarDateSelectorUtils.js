@@ -49,6 +49,9 @@ export const handleDateChange = (value, change, timerange) => {
   if (timerange === MONTH || timerange === YEAR) {
     conversionDate.day = 1;
   }
+  if (timerange === YEAR) {
+    conversionDate.month = 1;
+  }
   conversionDate = convertToInternalMomentJs(conversionDate).add(change, timerange + 's');
   return convertToExternalObject(conversionDate);
 };

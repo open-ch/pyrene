@@ -27,37 +27,9 @@ describe('<CalendarDateSelector />', () => {
     expect(rendered.find('TimeUnitSelectionDropdown')).toHaveLength(1);
   });
 
-  it('has steppers that are changing the timerange', () => {
+  it('renders the date with the specified formats based on the timeUnitSelector chosen', () => {
     rendered = mount(<CalendarDateSelector {...props} />);
 
-    // We are simulating selecting the 24h preset
-    const currentDate = convertToInternalMomentJs(props.value);
-    const timeStringBeforeClick = currentDate.format(DateHelper.MONTH_NAME_WITH_YEAR);
-    let timeStringAfterClick = currentDate.add(-1, 'month').format(DateHelper.MONTH_NAME_WITH_YEAR);
-
-    expect(rendered.find('.timeUnitSelector--timerange-text')).toHaveLength(1);
-
-    let calculatedValue = rendered.find('.timeUnitSelector--timerange-text').render()[0].children[0].data;
-    expect(timeStringBeforeClick).toBe(calculatedValue);
-
-    rendered.find('TimeUnitSelectionBar').find('button').first().simulate('click');
-    calculatedValue = rendered.find('.timeUnitSelector--timerange-text').render()[0].children[0].data;
-    expect(timeStringBeforeClick).not.toBe(calculatedValue);
-    expect(timeStringAfterClick).toBe(calculatedValue);
-
-    timeStringAfterClick = currentDate.add(+1, 'month').format(DateHelper.MONTH_NAME_WITH_YEAR);
-
-    rendered.find('TimeUnitSelectionBar').find('button').last().simulate('click');
-    calculatedValue = rendered.find('.timeUnitSelector--timerange-text').render()[0].children[0].data;
-
-    expect(timeStringBeforeClick).toBe(calculatedValue);
-    expect(timeStringAfterClick).toBe(calculatedValue);
-  });
-
-  it('has a dropdown that changes the timerange and keeps the full date status if months or year have not been changed', () => {
-    rendered = mount(<CalendarDateSelector {...props} />);
-
-    // We are simulating selecting the 24h preset
     const currentDate = convertToInternalMomentJs(props.value);
     const timeStringBeforeClick = currentDate.format(DateHelper.MONTH_NAME_WITH_YEAR);
     let timeStringAfterClick = currentDate.format(DateHelper.FULL_DATE);
@@ -67,10 +39,12 @@ describe('<CalendarDateSelector />', () => {
     let calculatedValue = rendered.find('.timeUnitSelector--timerange-text').render()[0].children[0].data;
     expect(timeStringBeforeClick).toBe(calculatedValue);
 
+    // We are simulating selecting the 24h preset
     rendered.find('Select').props().onChange({ value: 'day' });
     calculatedValue = rendered.find('.timeUnitSelector--timerange-text').render()[0].children[0].data;
     expect(timeStringAfterClick).toBe(calculatedValue);
 
+    // We are simulating selecting the year preset
     timeStringAfterClick = currentDate.format(DateHelper.YEAR);
     rendered.find('Select').props().onChange({ value: 'year' });
     calculatedValue = rendered.find('.timeUnitSelector--timerange-text').render()[0].children[0].data;
@@ -80,21 +54,37 @@ describe('<CalendarDateSelector />', () => {
   it('has a dropdown that changes the timerange and sets the day to 1 if months or year have been changed', () => {
     rendered = mount(<CalendarDateSelector {...props} />);
 
-    // We are simulating selecting the 24h preset
-    const currentDate = convertToInternalMomentJs(props.value);
-    const timeStringBeforeClick = currentDate.format(DateHelper.MONTH_NAME_WITH_YEAR);
-    const timeStringAfterClick = currentDate.add(-1, 'month').date(1).format(DateHelper.FULL_DATE);
+    // We are simulating selecting the month preset
+    const dateBeforeClick = props.value;
+    const dateAfterClick = { day: 1, month: dateBeforeClick.month - 1, year: dateBeforeClick.year };
 
-    expect(rendered.find('.timeUnitSelector--timerange-text')).toHaveLength(1);
-
-    let calculatedValue = rendered.find('.timeUnitSelector--timerange-text').render()[0].children[0].data;
-    expect(timeStringBeforeClick).toBe(calculatedValue);
+    let calculatedValue = rendered.props().value;
+    expect(dateBeforeClick).toBe(calculatedValue);
 
     rendered.find('TimeUnitSelectionBar').find('button').first().simulate('click');
     rendered.find('Select').props().onChange({ value: 'day' });
-    calculatedValue = rendered.find('.timeUnitSelector--timerange-text').render()[0].children[0].data;
-    expect(timeStringBeforeClick).not.toBe(calculatedValue);
-    expect(timeStringAfterClick).toBe(calculatedValue);
+    calculatedValue = rendered.props().value;
+    expect(dateBeforeClick).not.toStrictEqual(calculatedValue);
+    expect(dateAfterClick).toStrictEqual(calculatedValue);
+  });
+
+  it('has a dropdown that changes the timerange and sets the day and month to 1 if the year has been changed', () => {
+    rendered = mount(<CalendarDateSelector {...props} />);
+
+    // We are simulating changing a year
+    rendered.find('Select').props().onChange({ value: 'year' });
+
+    const dateBeforeClick = props.value;
+    const dateAfterClick = { day: 1, month: 1, year: dateBeforeClick.year - 1 };
+
+    let calculatedValue = rendered.props().value;
+    expect(dateBeforeClick).toBe(calculatedValue);
+
+    rendered.find('TimeUnitSelectionBar').find('button').first().simulate('click');
+    rendered.find('Select').props().onChange({ value: 'day' });
+    calculatedValue = rendered.props().value;
+    expect(dateBeforeClick).not.toStrictEqual(calculatedValue);
+    expect(dateAfterClick).toStrictEqual(calculatedValue);
   });
 
 });
