@@ -4,7 +4,6 @@ import moment from 'moment-timezone';
 import { Drag } from '@vx/drag';
 import { scaleTime } from '@vx/scale';
 import TimeZoomUtil from './TimeZoomUtil';
-import './timeSeriesZoomable.css';
 
 const MARGIN_TOP = 16;
 const MARGIN_LEFT = 36;
@@ -146,7 +145,18 @@ const _getTooltipData = (x, dx, timezone) => {
  * TimeSeriesZoomable provides the functionality of dragging over an area on a pyrene graph to zoom in the selected time range.
  */
 const TimeSeriesZoomable = (props) => {
-  const cursorStyle = (TimeZoomUtil.minZoomRangeReached(props.from, props.to, props.minZoomRange) ? '' : 'dragArea');
+  const cursorChange = !TimeZoomUtil.minZoomRangeReached(props.from, props.to, props.minZoomRange);
+
+  const tooltipStyle = {
+    width: 237,
+    height: 18,
+    fontWeight: 600,
+    fontSize: 13,
+    WebkitUserSelect: 'none',
+    MozUserSelect: 'none',
+    MsUserSelect: 'none',
+    userSelect: 'none',
+  };
 
   xScale = scaleTime({
     range: [props.from, props.to],
@@ -154,7 +164,7 @@ const TimeSeriesZoomable = (props) => {
   });
 
   return (
-    <g styleName={cursorStyle}>
+    <g style={cursorChange ? { cursor: 'col-resize' } : {}}>
       <Drag
         width={props.width}
         height={props.height}
@@ -209,7 +219,7 @@ const TimeSeriesZoomable = (props) => {
                         x={_getTooltipTextX(x, dx, props.width)}
                         y={_getTooltipTextY(y, dy, props.height + MARGIN_TOP)}
                         fill={TOOLTIP_COLOR}
-                        styleName="tooltipText"
+                        style={{ ...tooltipStyle }}
                       >
                         {_getTooltipData(x, dx, props.timezone)}
                       </text>
