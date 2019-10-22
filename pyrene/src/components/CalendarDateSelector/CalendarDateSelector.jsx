@@ -15,12 +15,10 @@ import './calendarDateSelector.css';
 /**
  * Component for selecting a timeUnit and a range forwards and backwards.
  *
- * 'onChange({ year: number, month: number | undefined, day: number | undefined })' callback function can be registered via props, to handle range changes.
+ * 'onChange({ year: number, month: number | undefined, day: number | undefined }, timeUnit)' callback function can be registered via props, to handle range changes.
  *
  * Time units are defined as follows:
- * 1. Year - { year }
- * 2. Month - { year, month }
- * 3. Day - { year, month, day }
+ * year, month, day
  */
 export default class CalendarDateSelector extends React.Component {
 
