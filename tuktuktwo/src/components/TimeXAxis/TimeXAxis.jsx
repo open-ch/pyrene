@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { AxisBottom } from '@vx/axis';
 import { GridColumns } from '@vx/grid';
+import { Group } from '@vx/group';
 import { scaleTime } from '@vx/scale';
 import { getTickValues, timeFormat } from './TimeXUtil';
 
-const MARGIN_TOP = 16;
 const MARGIN_BOTTOM = 24;
 const MARGIN_LEFT = 36;
 
@@ -16,9 +16,8 @@ const _formatTime = (timestamp, props) => (props.showTickLabels ? timeFormat(tim
  */
 const TimeXAxis = (props) => {
   const xAxisTop = props.height - MARGIN_BOTTOM;
-  const left = MARGIN_LEFT;
-  const xMax = props.width - left;
-  const yMax = props.height - MARGIN_TOP - MARGIN_BOTTOM;
+  const xMax = props.width - MARGIN_LEFT;
+  const yMax = props.height - MARGIN_BOTTOM;
 
   const xScale = scaleTime({
     range: [0, xMax],
@@ -26,10 +25,10 @@ const TimeXAxis = (props) => {
   });
 
   return (
-    <g>
+    <Group top={0} left={MARGIN_LEFT}>
       <AxisBottom
         top={xAxisTop}
-        left={left}
+        left={0}
         scale={xScale}
         tickValues={(props.showTickLabels && xScale) ? getTickValues(props.from, props.to, props.timezone, xScale) : []}
         stroke={props.strokeColor}
@@ -46,8 +45,8 @@ const TimeXAxis = (props) => {
       />
       {props.showGrid && props.showTickLabels && (
         <GridColumns
-          top={MARGIN_TOP}
-          left={left}
+          top={0}
+          left={0}
           width={xMax}
           height={yMax}
           scale={xScale}
@@ -55,7 +54,7 @@ const TimeXAxis = (props) => {
           stroke={props.strokeColor}
         />
       )}
-    </g>
+    </Group>
   );
 };
 
