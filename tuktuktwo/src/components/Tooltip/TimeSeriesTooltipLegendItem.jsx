@@ -14,8 +14,6 @@ const TimeSeriesTooltipLegendItem = props => (
 
 TimeSeriesTooltipLegendItem.displayName = 'TimeSeriesTooltipLegendItem';
 
-TimeSeriesTooltipLegendItem.defaultProps = {};
-
 TimeSeriesTooltipLegendItem.propTypes = {
   /**
    * The row's styling class name

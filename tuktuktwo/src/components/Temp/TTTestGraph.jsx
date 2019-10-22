@@ -7,7 +7,7 @@ import { AreaClosed } from '@vx/shape';
 import { Group } from '@vx/group';
 import { localPoint } from '@vx/event';
 import { extent, max, bisector } from 'd3-array';
-import TimeSeriesTooltip from '../Tooltip/TimeSeriesTooltip';
+import TimeSeriesTooltipWrapper from '../Tooltip/TimeSeriesTooltipWrapper';
 
 /**
  * Temporary code to display time series features in kitchensink, _must_ be removed removed over time
@@ -92,9 +92,9 @@ class TTTestGraph extends React.Component {
         </svg>
         {
           tooltipOpen && (
-            <TimeSeriesTooltip {...tooltipProps}>
+            <TimeSeriesTooltipWrapper {...tooltipProps}>
               {this.props.tooltipChildren(tooltipProps)}
-            </TimeSeriesTooltip>
+            </TimeSeriesTooltipWrapper>
           )
         }
       </div>
