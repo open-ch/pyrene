@@ -1,3 +1,5 @@
+@import '../../styles/colors.css';
+
 .timeRangeSelector {
   display: flex;
   align-items: center;
@@ -7,7 +9,7 @@
   font-size: 12px;
   font-weight: 600;
   flex-wrap: wrap;
-  color: #1d273b;
+  color: --neutral-500;
   line-height:1.5;
 }
 

@@ -6,7 +6,7 @@
 
   border: none;
   outline: none;
-  cursor: pointer;
+  cursor: default;
 
   background-color: var(--background-light);
 
@@ -19,14 +19,14 @@
   height: 32px;
   width: 32px;
 
-  border-bottom: solid 1px #e1e3e8;
-  border-top:    solid 1px #e1e3e8;
+  border-bottom: solid 1px var(--neutral-050);
+  border-top:    solid 1px var(--neutral-050);
 
   font-size: 18px;
   font-weight: 600;
 
-  color: #1d273b;
-  line-height:1.5;
+  color: var(--neutral-500);
+  line-height: 1.5;
 
   &.icon {
     display: block;
@@ -37,25 +37,24 @@
 
   &.disabled {
     pointer-events: none;
+    opacity: .5;
   }
 }
 
 .left {
-  border-left:   solid 1px #e1e3e8;
+  border-left:   solid 1px var(--neutral-050);
   border-radius: 2px 0px 0px 2px;
 
   &:hover {
-   background-color: #f0f2f5;
-   cursor: default;
+   background-color: var(--neutral-030);
   }
 }
 
 .right {
-  border-right:   solid 1px #e1e3e8;
+  border-right:   solid 1px var(--neutral-050);
   border-radius: 0px 2px 2px 0px;
 
   &:hover {
-   background-color: #f0f2f5;
-   cursor: default;
+   background-color: var(--neutral-030);
   }
 }

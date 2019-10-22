@@ -96,7 +96,7 @@ export default class TimeRangeSelector extends Component {
 
 }
 
-TimeRangeSelector.displayName = 'TimeRangeSelector';
+TimeRangeSelector.displayName = 'Time Range Selector';
 
 TimeRangeSelector.defaultProps = {
   disabled: false,

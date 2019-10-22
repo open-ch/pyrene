@@ -1,3 +1,5 @@
+@import '../../../styles/colors.css';
+
 .presetTimeRange {
   composes: commonFontSettings from '../../../styles/common.css';
   border: none;
@@ -8,10 +10,10 @@
   padding-left: 16px;
   padding-right: 16px;
   outline: none;
-  cursor: pointer;
+  cursor: default;
   font-size: 12px;
   font-weight: 600;
-  color: #1d273b;
+  color: var(--neutral-500);
   line-height:1.5;
   background-color: var(--background-light);
 
@@ -21,23 +23,20 @@
   }
 
   &.first:hover {
-     background-color: #f0f2f5;
-     cursor: default;
+     background-color: var(--neutral-030);
   }
 
   &.active {
-     background-color: #f0f2f5;
+     background-color: var(--neutral-030);
   }
 
   &.disabled {
      opacity: .5;
-     cursor: default;
      pointer-events: none;
   }
 
   &.successive:hover {
-     background-color: #f0f2f5;
-     cursor: default;
+     background-color: var(--neutral-030);
   }
 }
 
