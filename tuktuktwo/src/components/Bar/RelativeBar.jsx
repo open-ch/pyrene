@@ -33,7 +33,7 @@ const RelativeBar = (props) => {
           rangeRound: [0, props.direction === 'horizontal' ? parent.width : parent.height],
         });
         return props.direction === 'horizontal' ? (
-          <svg width={parent.width} height={props.barWeight} transform={props.mirrored ? 'rotate(180 0 0)' : undefined}>
+          <svg width={parent.width} height={props.barWeight}>
             <BarStackHorizontal
               y={d => d}
               height={props.barWeight}
@@ -42,10 +42,11 @@ const RelativeBar = (props) => {
               xScale={valueScale}
               yScale={weightScale}
               color={color}
+              transform={props.mirrored ? `rotate(180 ${parent.width / 2} ${props.barWeight / 2})` : undefined}
             />
           </svg>
         ) : (
-          <svg width={props.barWeight} height={parent.height} transform={props.mirrored ? 'rotate(180 0 0)' : undefined}>
+          <svg width={props.barWeight} height={parent.height}>
             <BarStack
               x={d => d}
               width={props.barWeight}
@@ -54,6 +55,7 @@ const RelativeBar = (props) => {
               xScale={weightScale}
               yScale={valueScale}
               color={color}
+              transform={props.mirrored ? `rotate(180 ${props.barWeight / 2} ${parent.height / 2})` : undefined}
             />
           </svg>
         );

@@ -1,6 +1,6 @@
 {
   "name": "tuktuktwo",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Open Systems Graphs Library",
   "main": "dist/tuktuktwo.js",
   "repository": "https://github.com/open-ch/pyrene.git",
@@ -64,10 +64,13 @@
     "webpack-cli": "^3.1.2"
   },
   "dependencies": {
+    "moment": "^2.24.0",
     "moment-timezone": "^0.5.26",
     "optimize-css-assets-webpack-plugin": "^5.0.0",
     "prop-types": "^15.6.1",
+    "@vx/axis": "^0.0.191",
     "@vx/drag": "^0.0.192",
+    "@vx/grid": "^0.0.190",
     "@vx/responsive": "^0.0.189",
     "@vx/scale": "^0.0.189",
     "@vx/shape": "^0.0.189"
