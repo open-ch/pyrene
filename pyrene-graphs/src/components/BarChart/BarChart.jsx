@@ -7,7 +7,6 @@ import {
 import ChartContainer from '../ChartContainer/ChartContainer';
 import ChartOverlay from '../ChartOverlay/ChartOverlay';
 import Header from '../Header/Header';
-import './barChart.css';
 import colorSchemes from '../../styles/colorSchemes';
 
 /**
