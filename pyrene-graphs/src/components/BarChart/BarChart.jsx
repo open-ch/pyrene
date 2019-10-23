@@ -43,6 +43,7 @@ const BarChart = (props) => {
               showGrid={!props.loading}
               showTickLabels={!props.loading}
               parentSize={parent}
+              tickFormat={props.tickFormatNumerical}
             />
           )}
           {props.direction === 'horizontal' ? (
@@ -52,6 +53,7 @@ const BarChart = (props) => {
               showGrid={!props.loading}
               showTickLabels={!props.loading}
               parentSize={parent}
+              tickFormat={props.tickFormatNumerical}
             />
           ) : (
             <CategoricalAxis
@@ -100,6 +102,7 @@ BarChart.defaultProps = {
   colorScheme: colorSchemes.colorSchemeDefault,
   direction: 'vertical',
   loading: false,
+  tickFormatNumerical: d => d,
 };
 
 BarChart.propTypes = {
@@ -136,6 +139,10 @@ BarChart.propTypes = {
     * If set, a loader is shown instead of axis tick labels, grid and bars.
     */
   loading: PropTypes.bool,
+  /**
+   * Set function to format the tick labels of the NumericalAxis.
+   */
+  tickFormatNumerical: PropTypes.func,
 };
 
 export default BarChart;
