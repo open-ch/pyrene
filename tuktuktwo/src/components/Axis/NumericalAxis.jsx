@@ -3,21 +3,22 @@ import PropTypes from 'prop-types';
 import { AxisLeft, AxisBottom } from '@vx/axis';
 import { GridColumns, GridRows } from '@vx/grid';
 import { Group } from '@vx/group';
-import Utils from '../../Utils';
 import AxisUtils from './AxisUtils';
+import ScaleUtils from '../../common/ScaleUtils';
+import chartConstants from '../../common/chartConstants';
 
-const getScale = (parentSize, scale, orientation, maxValue) => {
+const getScale = (width, scale, orientation, maxValue) => {
   if (scale) return scale;
-  const size = orientation === 'left' ? Utils.chartHeight : parentSize.width - AxisUtils.axisLeftCategorical;
   const direction = orientation === 'left' ? 'vertical' : 'horizontal';
-  return Utils.scaleLinear(size, maxValue, direction);
+  const size = orientation === 'left' ? chartConstants.height : width - AxisUtils.axisLeftCategorical;
+  return ScaleUtils.scaleLinear(size, maxValue, direction);
 };
 
 /**
  * NumericalAxis is used to display a numerical left or bottom axis with a grid.
  */
 const NumericalAxis = (props) => {
-  const scale = getScale(props.parentSize, props.scale, props.orientation, props.maxValue);
+  const scale = getScale(props.width, props.scale, props.orientation, props.maxValue);
   return (
     props.orientation === 'left' ? (
       <Group>
@@ -41,8 +42,8 @@ const NumericalAxis = (props) => {
             left={AxisUtils.axisLeftNumerical}
             scale={scale}
             stroke={props.strokeColor}
-            width={props.parentSize.width - AxisUtils.axisLeftNumerical}
-            height={Utils.chartHeight}
+            width={props.width - AxisUtils.axisLeftNumerical}
+            height={chartConstants.height}
             numTicks={5}
           />
         )}
@@ -52,7 +53,7 @@ const NumericalAxis = (props) => {
         left={AxisUtils.axisLeftCategorical}
       >
         <AxisBottom
-          top={Utils.chartHeight}
+          top={chartConstants.height}
           scale={scale}
           tickLabelProps={() => ({
             textAnchor: 'middle', fontSize: 10, fontFamily: 'AvenirNext', fill: props.tickLabelColor, dy: '-0.25em',
@@ -69,8 +70,8 @@ const NumericalAxis = (props) => {
           <GridColumns
             scale={scale}
             stroke={props.strokeColor}
-            width={props.parentSize.width - AxisUtils.axisLeftCategorical}
-            height={Utils.chartHeight}
+            width={props.width - AxisUtils.axisLeftCategorical}
+            height={chartConstants.height}
             numTicks={7}
           />
         )}
@@ -97,13 +98,6 @@ NumericalAxis.propTypes = {
    */
   orientation: PropTypes.oneOf(['left', 'bottom']).isRequired,
   /**
-   * Sets the parentSize, which is used to calculate the bar length.
-   */
-  parentSize: PropTypes.shape({
-    height: PropTypes.number,
-    width: PropTypes.number,
-  }).isRequired,
-  /**
    * Override the default linear scale function.
    */
   scale: PropTypes.func,
@@ -129,6 +123,11 @@ NumericalAxis.propTypes = {
    * Type: string (required)
    */
   tickLabelColor: PropTypes.string.isRequired,
+  /**
+   * Sets the width of the graph canvas.
+   * Type: number (required)
+   */
+  width: PropTypes.number.isRequired,
 };
 
 export default NumericalAxis;

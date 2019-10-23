@@ -2,8 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Group } from '@vx/group';
 import Bar from './Bar';
-import Utils from '../../Utils';
 import AxisUtils from '../Axis/AxisUtils';
+import ScaleUtils from '../../common/ScaleUtils';
+import chartConstants from '../../common/chartConstants';
 
 /**
  * Bars is used to display multiple bars.
@@ -12,7 +13,7 @@ const Bars = (props) => {
   const margin = 16;
   const left = props.direction === 'horizontal' ? AxisUtils.axisLeftCategorical : AxisUtils.axisLeftNumerical;
   const width = props.width - left;
-  const scale = Utils.scaleCategorical(props.direction === 'horizontal' ? Utils.chartHeight : width, props.values);
+  const scale = ScaleUtils.scaleCategorical(props.direction === 'horizontal' ? chartConstants.height : width, props.values);
   return (
     <Group
       left={left}
@@ -28,7 +29,7 @@ const Bars = (props) => {
             direction={props.direction}
             maxValue={props.maxValue}
             value={d}
-            size={props.direction === 'horizontal' ? width - margin : Utils.chartHeight - margin}
+            size={props.direction === 'horizontal' ? width - margin : chartConstants.height - margin}
             x={props.direction === 'horizontal' ? 0 : scale(d) + delta}
             y={props.direction === 'horizontal' ? scale(d) + delta : 0}
           />

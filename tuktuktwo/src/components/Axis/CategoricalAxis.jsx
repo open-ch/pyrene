@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { AxisLeft, AxisBottom } from '@vx/axis';
-import Utils from '../../Utils';
 import AxisUtils from './AxisUtils';
+import ScaleUtils from '../../common/ScaleUtils';
+import chartConstants from '../../common/chartConstants';
 
-const getScale = (parentSize, labels) => (
-  Utils.scaleCategorical(parentSize, labels)
+const getScale = (size, labels) => (
+  ScaleUtils.scaleCategorical(size, labels)
 );
 
 /**
@@ -15,7 +16,7 @@ const CategoricalAxis = props => (
   props.orientation === 'left' ? (
     <AxisLeft
       left={AxisUtils.axisLeftCategorical}
-      scale={getScale(Utils.chartHeight, props.tickLabels)}
+      scale={getScale(chartConstants.height, props.tickLabels)}
       tickLength={0}
       tickLabelProps={() => ({
         fontSize: 10, fill: props.tickLabelColor, fontFamily: 'AvenirNext', textAnchor: 'start', dy: '0.25em', dx: -AxisUtils.axisLeftCategorical,
@@ -28,9 +29,9 @@ const CategoricalAxis = props => (
     />
   ) : (
     <AxisBottom
-      top={Utils.chartHeight}
+      top={chartConstants.height}
       left={AxisUtils.axisLeftNumerical}
-      scale={getScale(props.parentSize.width - AxisUtils.axisLeftNumerical, props.tickLabels)}
+      scale={getScale(props.width - AxisUtils.axisLeftNumerical, props.tickLabels)}
       tickLabelProps={() => ({
         textAnchor: 'middle', fontSize: 10, fontFamily: 'AvenirNext', fill: props.tickLabelColor, dy: '-0.25em',
       })}
@@ -56,13 +57,6 @@ CategoricalAxis.propTypes = {
    */
   orientation: PropTypes.oneOf(['left', 'bottom']).isRequired,
   /**
-   * Sets the parentSize, which is used to calculate the bar length. Type: { height: number, width: number }
-   */
-  parentSize: PropTypes.shape({
-    height: PropTypes.number,
-    width: PropTypes.number,
-  }).isRequired,
-  /**
    * If set, the tick labels get rendered.
    */
   showTickLabels: PropTypes.bool,
@@ -84,6 +78,11 @@ CategoricalAxis.propTypes = {
    * Set the categorical tick labels. Type: [ string ]
    */
   tickLabels: PropTypes.arrayOf(PropTypes.string).isRequired,
+  /**
+   * Sets the width of the graph canvas.
+   * Type: number (required)
+   */
+  width: PropTypes.number.isRequired,
 };
 
 export default CategoricalAxis;

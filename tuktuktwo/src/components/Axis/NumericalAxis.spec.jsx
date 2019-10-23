@@ -1,6 +1,6 @@
 import React from 'react';
 import NumericalAxis from './NumericalAxis';
-import Utils from '../../Utils';
+import ScaleUtils from '../../common/ScaleUtils';
 
 const parentSize = { width: 50, height: 40 };
 
@@ -10,6 +10,7 @@ const props = {
   maxValue: 100,
   strokeColor: 'red',
   tickLabelColor: 'blue',
+  width: parentSize.width,
 };
 
 const svgWrapper = axis => (
@@ -70,7 +71,7 @@ describe('<NumericalAxis />', () => {
   });
 
   it('sets custom scale', () => {
-    const rendered = mount(svgWrapper(<NumericalAxis {...props} scale={Utils.scaleCategorical(parentSize.width, ['Dropbox', 'Youtube'])} />));
+    const rendered = mount(svgWrapper(<NumericalAxis {...props} scale={ScaleUtils.scaleCategorical(parentSize.width, ['Dropbox', 'Youtube'])} />));
     const axis = rendered.find('.vx-axis').at(0);
     expect(axis.findWhere(n => n.text() === '20').exists()).toBe(false);
     expect(axis.findWhere(n => n.text() === 'Dropbox').exists()).toBe(true);

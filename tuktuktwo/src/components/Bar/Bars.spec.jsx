@@ -1,7 +1,7 @@
 import React from 'react';
 import Bars from './Bars';
-import Utils from '../../Utils';
 import AxisUtils from '../Axis/AxisUtils';
+import chartConstants from '../../common/chartConstants';
 
 const parentSize = { width: 500, height: 404 };
 const values = [12, 37];
@@ -31,7 +31,7 @@ describe('<Bars />', () => {
     const rendered = mount(svgWrapper(<Bars {...props} direction="vertical" />));
     const bars = rendered.find('.vx-bar');
     bars.forEach((bar, index) => {
-      expect(bar.prop('height')).toBeCloseTo((values[index] / maxValue) * (Utils.chartHeight - 16));
+      expect(bar.prop('height')).toBeCloseTo((values[index] / maxValue) * (chartConstants.height - 16));
       expect(bar.prop('width')).toBe(barWeight);
       expect(bar.prop('fill')).toBe('blue');
     });
