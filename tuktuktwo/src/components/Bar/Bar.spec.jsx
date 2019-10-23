@@ -10,7 +10,7 @@ const props = {
   color: 'blue',
   maxValue: 100,
   value: 53,
-  parentSize: parentSize,
+  size: parentSize.width,
 };
 
 const propsRelative = {

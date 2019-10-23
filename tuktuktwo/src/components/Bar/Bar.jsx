@@ -11,18 +11,18 @@ const Bar = props => (
       x={props.x}
       y={props.y}
       height={props.barWeight}
-      width={props.parentSize.width > 0 ? props.value * (props.parentSize.width / props.maxValue) : 0}
+      width={props.size > 0 ? props.value * (props.size / props.maxValue) : 0}
       fill={props.color}
-      transform={props.mirrored ? `rotate(180 ${props.parentSize.width / 2} ${props.barWeight / 2})` : undefined}
+      transform={props.mirrored ? `rotate(180 ${props.size / 2} ${props.barWeight / 2})` : undefined}
     />
   ) : (
     <VxBar
       x={props.x}
-      y={props.y + (props.maxValue - props.value) * (props.parentSize.height / props.maxValue)}
-      height={props.parentSize.height > 0 ? props.value * (props.parentSize.height / props.maxValue) : 0}
+      y={props.y + (props.maxValue - props.value) * (props.size / props.maxValue)}
+      height={props.size > 0 ? props.value * (props.size / props.maxValue) : 0}
       width={props.barWeight}
       fill={props.color}
-      transform={props.mirrored ? `rotate(180 ${props.barWeight / 2} ${props.parentSize.height / 2})` : undefined}
+      transform={props.mirrored ? `rotate(180 ${props.barWeight / 2} ${props.size / 2})` : undefined}
     />
   )
 );
@@ -59,12 +59,9 @@ Bar.propTypes = {
    */
   mirrored: PropTypes.bool,
   /**
-   * Sets the parentSize, which is used to calculate the bar length.
+   * Sets the size, which is used to calculate the bar length.
    */
-  parentSize: PropTypes.shape({
-    height: PropTypes.number,
-    width: PropTypes.number,
-  }).isRequired,
+  size: PropTypes.number.isRequired,
   /**
    * Sets the value, which is used to calculate the bar length.
    */

@@ -26,7 +26,7 @@ const RelativeBar = (props) => {
   });
   const valueScale = scaleLinear({
     domain: props.direction === 'horizontal' ? [0, props.maxValue] : [props.maxValue, 0],
-    rangeRound: [0, props.direction === 'horizontal' ? props.parentSize.width : props.parentSize.height],
+    rangeRound: [0, props.size],
   });
   return (
     props.direction === 'horizontal' ? (
@@ -38,7 +38,7 @@ const RelativeBar = (props) => {
         xScale={valueScale}
         yScale={weightScale}
         color={color}
-        transform={props.mirrored ? `rotate(180 ${props.parentSize.width / 2} ${props.barWeight / 2})` : undefined}
+        transform={props.mirrored ? `rotate(180 ${props.size / 2} ${props.barWeight / 2})` : undefined}
       />
     ) : (
       <BarStack
@@ -49,7 +49,7 @@ const RelativeBar = (props) => {
         xScale={weightScale}
         yScale={valueScale}
         color={color}
-        transform={props.mirrored ? `rotate(180 ${props.barWeight / 2} ${props.parentSize.height / 2})` : undefined}
+        transform={props.mirrored ? `rotate(180 ${props.barWeight / 2} ${props.size / 2})` : undefined}
       />
     ));
 };
@@ -84,12 +84,9 @@ RelativeBar.propTypes = {
    */
   mirrored: PropTypes.bool,
   /**
-   * Sets the parentSize, which is used to calculate the bar length.
+   * Sets the size, which is used to calculate the bar length.
    */
-  parentSize: PropTypes.shape({
-    height: PropTypes.number,
-    width: PropTypes.number,
-  }).isRequired,
+  size: PropTypes.number.isRequired,
   /**
    * Sets the value, which is used to calculate the length of the bars.
    */
