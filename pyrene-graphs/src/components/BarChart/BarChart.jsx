@@ -98,7 +98,7 @@ BarChart.defaultProps = {
   header: '',
   description: '',
   colorScheme: colorSchemes.colorSchemeDefault,
-  direction: 'horizontal',
+  direction: 'vertical',
   loading: false,
 };
 
