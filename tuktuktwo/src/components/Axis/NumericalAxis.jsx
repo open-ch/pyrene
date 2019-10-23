@@ -6,11 +6,18 @@ import { Group } from '@vx/group';
 import Utils from '../../Utils';
 import AxisUtils from './AxisUtils';
 
+const getScale = (parentSize, scale, orientation, maxValue) => {
+  if (scale) return scale;
+  const size = orientation === 'left' ? Utils.chartHeight : parentSize.width - AxisUtils.axisLeftCategorical;
+  const direction = orientation === 'left' ? 'vertical' : 'horizontal';
+  return Utils.scaleLinear(size, maxValue, direction);
+};
+
 /**
  * NumericalAxis is used to display a numerical left or bottom axis with a grid.
  */
 const NumericalAxis = (props) => {
-  const scale = props.scale ? props.scale : Utils.scaleLinear(props.orientation === 'left' ? Utils.chartHeight : props.parentSize.width - AxisUtils.axisLeftCategorical, props.maxValue, props.orientation === 'left' ? 'vertical' : 'horizontal');
+  const scale = getScale(props.parentSize, props.scale, props.orientation, props.maxValue);
   return (
     props.orientation === 'left' ? (
       <Group>
