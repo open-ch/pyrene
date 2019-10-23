@@ -29,7 +29,7 @@ const BarChart = (props) => {
     <Responsive>
       {(parent) => {
         const sharedAxisProps = {
-          parentSize: parent,
+          width: parent.width,
           showTickLabels: !props.loading,
           strokeColor: colorConstants.strokeColor,
           tickLabelColor: colorConstants.tickLabelColor,
