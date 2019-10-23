@@ -69,7 +69,6 @@ const BarChart = (props) => {
             <Bars
               barWeight={barWeight}
               color={props.colorScheme.categorical[0]}
-              left={props.direction === 'horizontal' ? 102 : 36}
               maxValue={maxValue}
               values={props.data.map(row => row.values[0])}
               direction={props.direction}
