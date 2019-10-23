@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import PresetTimeRanges from './PresetTimeRanges/PresetTimeRanges';
 import TimeRangeNavigationBar from './TimeRangeNavigationBar/TimeRangeNavigationBar';
 import PRESET_TIME_RANGES from './TimeRangeSelectorDefaultProps';
@@ -64,7 +65,7 @@ export default class TimeRangeSelector extends Component {
 
   render() {
     return (
-      <div styleName="timeRangeSelector">
+      <div styleName={classNames('timeRangeSelector', { disabled: this.props.disabled })}>
         <div styleName="timeRangeSelector--left">
           <PresetTimeRanges
             disabled={this.props.disabled}

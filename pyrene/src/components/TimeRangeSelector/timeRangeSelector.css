@@ -9,8 +9,13 @@
   font-size: 12px;
   font-weight: 600;
   flex-wrap: wrap;
-  color: --neutral-500;
+  color: var(--neutral-500);
   line-height:1.5;
+
+  &.disabled {
+     pointer-events: none;
+     opacity: .5;
+  }
 }
 
 .timeRangeSelector--left {
