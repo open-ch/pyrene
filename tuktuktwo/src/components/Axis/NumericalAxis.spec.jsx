@@ -8,6 +8,8 @@ const props = {
   orientation: 'left',
   parentSize: parentSize,
   maxValue: 100,
+  strokeColor: 'red',
+  tickLabelColor: 'blue',
 };
 
 const svgWrapper = axis => (
@@ -32,6 +34,9 @@ describe('<NumericalAxis />', () => {
     expect(axis.findWhere(n => n.text() === '80').exists()).toBe(true);
     expect(axis.findWhere(n => n.text() === '100').exists()).toBe(true);
     expect(axis.findWhere(n => n.text() === '120').exists()).toBe(false);
+    expect(axis.find('.vx-axis-line').at(0).prop('stroke')).toEqual('red');
+    expect(rendered.find('.vx-line').at(0).prop('stroke')).toEqual('red');
+    expect(axis.find('.vx-axis-tick').at(0).find('text').prop('fill')).toEqual('blue');
   });
 
   it('renders left axis', () => {

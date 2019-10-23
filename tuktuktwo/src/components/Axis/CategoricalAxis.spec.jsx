@@ -7,6 +7,8 @@ const props = {
   orientation: 'left',
   parentSize: parentSize,
   tickLabels: ['Dropbox', 'Youtube'],
+  strokeColor: 'red',
+  tickLabelColor: 'blue',
 };
 
 const svgWrapper = axis => (
@@ -27,6 +29,8 @@ describe('<CategoricalAxis />', () => {
     expect(axis.findWhere(n => n.text() === 'Dropbox').exists()).toBe(true);
     expect(axis.findWhere(n => n.text() === 'Youtube').exists()).toBe(true);
     expect(axis.findWhere(n => n.text() === 'Google').exists()).toBe(false);
+    expect(axis.find('.vx-axis-line').at(0).prop('stroke')).toEqual('red');
+    expect(axis.find('.vx-axis-tick').at(0).find('text').prop('fill')).toEqual('blue');
   });
 
   it('renders left axis', () => {
