@@ -6,13 +6,13 @@ const props = {
   styling: 'shadow',
   actions: [
     {
-      icon: 'chevronLeft',
+      iconName: 'chevronLeft',
       color: 'neutral300',
       active: true,
       onClick: () => {},
     },
     {
-      icon: 'chevronRight',
+      iconName: 'chevronRight',
       color: 'neutral300',
       active: false,
       onClick: () => {},
@@ -43,7 +43,7 @@ describe('<ActionBar />', () => {
     const mockCallBack = jest.fn();
     const props1 = {
       actions: [{
-        icon: 'chevronLeft',
+        iconName: 'chevronLeft',
         active: true,
         onClick: mockCallBack,
       }],

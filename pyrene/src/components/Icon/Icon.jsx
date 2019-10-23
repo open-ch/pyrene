@@ -7,29 +7,27 @@ import './icon.css';
 /**
  * IconFont or SVG icon Wrapper. When using icon font, pass Icon color and icon name; when using SVG, pass in file name of the SVG.
  */
-const Icon = (props) => {
-  const isSvg = props.icon.includes('/');
-  if (isSvg) {
-    return (
-      <div styleName={classNames('icon', `type-${props.type}`)}>
-        <img styleName="svgIcon" src={props.icon} alt="icon" />
-      </div>
-    );
-  }
-  return (
+const Icon = props => (
+  props.svg.length > 0 ? (
+    <div styleName={classNames('icon', `type-${props.type}`)}>
+      <img styleName="svgIcon" src={props.svg} alt="icon" />
+    </div>
+  ) : (
     <div
       styleName={classNames('icon', `type-${props.type}`)}
-      className={`pyreneIcon-${props.icon}`}
+      className={`pyreneIcon-${props.name}`}
       style={{ color: (props.color in colorConstants) ? colorConstants[props.color] : props.color }}
     />
-  );
-};
+  )
+);
 
 Icon.displayName = 'Icon';
 
 Icon.defaultProps = {
   color: 'neutral300',
   type: 'inline',
+  name: '',
+  svg: '',
 };
 
 Icon.propTypes = {
@@ -38,9 +36,13 @@ Icon.propTypes = {
    */
   color: PropTypes.string,
   /**
-   * Sets the name of the icon or the file name of the svg icon.
+   * Sets the name of the icon font.
    */
-  icon: PropTypes.string.isRequired,
+  name: PropTypes.string,
+  /**
+   * Sets the URL of the svg file.
+   */
+  svg: PropTypes.string,
   /**
    * Sets the overall style.
    */

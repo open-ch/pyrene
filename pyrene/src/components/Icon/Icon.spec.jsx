@@ -2,7 +2,7 @@ import React from 'react';
 import Icon from './Icon.jsx';
 
 const props = {
-  icon: 'home',
+  name: 'home',
   color: 'rgba(229, 0, 255, 0.96)',
 };
 
@@ -19,7 +19,7 @@ describe('<Icon />', () => {
 
   it('renders svg icon', () => {
     const svgIcon = './mysvgicons/icon.svg';
-    const rendered = mount(<Icon icon={svgIcon} />);
+    const rendered = mount(<Icon svg={svgIcon} />);
     expect(rendered.find('img').prop('src')).toBe('./mysvgicons/icon.svg');
   });
 });

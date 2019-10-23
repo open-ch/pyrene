@@ -3,13 +3,13 @@ const ActionBar = {};
 ActionBar.props = {
   actions: [
     {
-      icon: 'chevronLeft',
+      iconName: 'chevronLeft',
       active: true,
       color: 'neutral300',
       onClick: () => alert('To the left!'),
     },
     {
-      icon: 'chevronRight',
+      iconName: 'chevronRight',
       active: true,
       color: 'neutral300',
       onClick: () => alert('To the right!'),
@@ -22,13 +22,13 @@ ActionBar.examples = [
     props: {
       actions: [
         {
-          icon: 'chevronLeft',
+          iconName: 'chevronLeft',
           active: true,
           color: 'neutral300',
           onClick: () => alert('To the left!'),
         },
         {
-          icon: 'chevronRight',
+          iconName: 'chevronRight',
           active: true,
           color: 'neutral300',
           onClick: () => alert('To the right!'),
@@ -42,17 +42,17 @@ ActionBar.examples = [
       styling: 'box',
       actions: [
         {
-          icon: 'pin',
+          iconName: 'pin',
           active: true,
           color: 'red500',
           onClick: () => alert('Pinned!'),
         }, {
-          icon: 'share',
+          iconName: 'share',
           active: true,
           color: 'green500',
           onClick: () => alert('Shared!'),
         }, {
-          icon: 'trash',
+          iconName: 'trash',
           active: false,
           onClick: () => {},
         },
@@ -64,15 +64,15 @@ ActionBar.examples = [
     props: {
       actions: [
         {
-          icon: 'add',
+          iconName: 'add',
           active: true,
           onClick: () => alert('Added!'),
         }, {
-          icon: 'delete',
+          iconName: 'delete',
           active: false,
           onClick: () => alert('Deleted!'),
         }, {
-          icon: 'search',
+          iconName: 'search',
           active: true,
           onClick: () => alert('Searched!'),
         },
@@ -85,7 +85,7 @@ ActionBar.examples = [
       styling: 'none',
       actions: [
         {
-          icon: 'question',
+          iconName: 'question',
           active: true,
           color: 'blue500',
           onClick: () => alert('You will find help text here!'),
@@ -99,13 +99,12 @@ ActionBar.examples = [
       styling: 'box',
       actions: [
         {
-          icon: 'refresh',
+          iconName: 'refresh',
           active: true,
           onClick: () => alert('Refreshed!'),
         },
         {
-          icon: 'http://s.cdpn.io/3/kiwi.svg',
-          iconType: 'svg',
+          svg: 'http://s.cdpn.io/3/kiwi.svg',
           active: true,
           onClick: () => alert('This is an SVG icon!'),
         },
