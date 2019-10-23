@@ -11,7 +11,7 @@ import AxisUtils from '../Axis/AxisUtils';
 const Bars = (props) => {
   const margin = 16;
   const left = props.direction === 'horizontal' ? AxisUtils.axisLeftCategorical : AxisUtils.axisLeftNumerical;
-  const width = props.parentSize.width - left;
+  const width = props.width - left;
   const scale = Utils.scaleCategorical(props.direction === 'horizontal' ? Utils.chartHeight : width, props.values);
   return (
     <Group
@@ -28,7 +28,7 @@ const Bars = (props) => {
             direction={props.direction}
             maxValue={props.maxValue}
             value={d}
-            parentSize={{ width: width - margin, height: Utils.chartHeight - margin }}
+            size={props.direction === 'horizontal' ? width - margin : Utils.chartHeight - margin}
             x={props.direction === 'horizontal' ? 0 : scale(d) + delta}
             y={props.direction === 'horizontal' ? scale(d) + delta : 0}
           />
@@ -63,16 +63,13 @@ Bars.propTypes = {
    */
   maxValue: PropTypes.number.isRequired,
   /**
-   * Sets the parentSize, which is used to calculate the bar length.
-   */
-  parentSize: PropTypes.shape({
-    height: PropTypes.number,
-    width: PropTypes.number,
-  }).isRequired,
-  /**
    * Sets the values, which are used to calculate the bar lengths. Type: [ number ]
    */
   values: PropTypes.arrayOf(PropTypes.number).isRequired,
+  /**
+   * Sets the graph width, which is used to calculate the bar length and scaling.
+   */
+  width: PropTypes.number.isRequired,
 };
 
 export default Bars;
