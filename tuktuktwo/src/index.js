@@ -8,6 +8,7 @@ import { default as CategoricalAxis } from './components/Axis/CategoricalAxis';
 import { default as NumericalAxis } from './components/Axis/NumericalAxis';
 import { default as RelativeBar } from './components/Bar/RelativeBar';
 import { default as Responsive } from './components/Misc/Responsive';
+import { default as TimeXAxis } from './components/TimeXAxis/TimeXAxis';
 
 // Sort alphabetically to find stuff easily
 const Components = {
@@ -16,6 +17,7 @@ const Components = {
   CategoricalAxis,
   NumericalAxis,
   RelativeBar,
+  TimeXAxis,
   Responsive,
 };
 
@@ -26,5 +28,6 @@ export { CategoricalAxis };
 export { NumericalAxis };
 export { RelativeBar };
 export { Responsive };
+export { TimeXAxis };
 
 export default Components;
