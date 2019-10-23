@@ -13,7 +13,7 @@ const props = {
   color: 'blue',
   maxValue: maxValue,
   values: values,
-  parentSize: parentSize,
+  width: parentSize.width,
 };
 
 const svgWrapper = bars => (
