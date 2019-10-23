@@ -37,8 +37,9 @@ const config = {
           {
             loader: 'css-loader',
             options: {
-              modules: true,
-              localIdentName: 'pyrene-[name]__[local]--[hash:base64:10]',
+              modules: {
+                localIdentName: 'pyrene-[name]__[local]--[hash:base64:10]',
+              },
               sourceMap: !production,
             },
           },
