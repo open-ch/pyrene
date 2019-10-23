@@ -7,6 +7,7 @@ import {
 import ChartContainer from '../ChartContainer/ChartContainer';
 import ChartOverlay from '../ChartOverlay/ChartOverlay';
 import Header from '../Header/Header';
+import colorConstants from '../../styles/colorConstants';
 import colorSchemes from '../../styles/colorSchemes';
 
 /**
@@ -26,56 +27,60 @@ const BarChart = (props) => {
   );
   const chart = (
     <Responsive>
-      {parent => (
-        <svg width="100%" height={parent.height} shapeRendering="crispEdges">
-          {props.direction === 'horizontal' ? (
-            <CategoricalAxis
-              tickLabels={labels}
-              orientation="left"
-              showTickLabels={!props.loading}
-              parentSize={parent}
-            />
-          ) : (
-            <NumericalAxis
-              maxValue={maxValue}
-              orientation="left"
-              showGrid={!props.loading}
-              showTickLabels={!props.loading}
-              parentSize={parent}
-              tickFormat={props.tickFormatNumerical}
-            />
-          )}
-          {props.direction === 'horizontal' ? (
-            <NumericalAxis
-              maxValue={maxValue}
-              orientation="bottom"
-              showGrid={!props.loading}
-              showTickLabels={!props.loading}
-              parentSize={parent}
-              tickFormat={props.tickFormatNumerical}
-            />
-          ) : (
-            <CategoricalAxis
-              tickLabels={labels}
-              orientation="bottom"
-              showTickLabels={!props.loading}
-              parentSize={parent}
-            />
-          )}
-          {!props.loading && (props.legend.length > 1 ? (
-            undefined
-          ) : (
-            <Bars
-              barWeight={barWeight}
-              color={props.colorScheme.categorical[0]}
-              maxValue={maxValue}
-              values={props.data.map(row => row.values[0])}
-              direction={props.direction}
-              parentSize={parent}
-            />
-          ))}
-        </svg>
-      )}
+      {(parent) => {
+        const sharedAxisProps = {
+          parentSize: parent,
+          showTickLabels: !props.loading,
+          strokeColor: colorConstants.strokeColor,
+          tickLabelColor: colorConstants.tickLabelColor,
+        };
+        return (
+          <svg width="100%" height={parent.height} shapeRendering="crispEdges">
+            {props.direction === 'horizontal' ? (
+              <CategoricalAxis
+                {...sharedAxisProps}
+                tickLabels={labels}
+                orientation="left"
+              />
+            ) : (
+              <NumericalAxis
+                {...sharedAxisProps}
+                maxValue={maxValue}
+                orientation="left"
+                showGrid={!props.loading}
+                tickFormat={props.tickFormatNumerical}
+              />
+            )}
+            {props.direction === 'horizontal' ? (
+              <NumericalAxis
+                {...sharedAxisProps}
+                maxValue={maxValue}
+                orientation="bottom"
+                showGrid={!props.loading}
+                tickFormat={props.tickFormatNumerical}
+              />
+            ) : (
+              <CategoricalAxis
+                {...sharedAxisProps}
+                tickLabels={labels}
+                orientation="bottom"
+              />
+            )}
+            {!props.loading && (props.legend.length > 1 ? (
+              undefined
+            ) : (
+              <Bars
+                barWeight={barWeight}
+                color={props.colorScheme.categorical[0]}
+                maxValue={maxValue}
+                values={props.data.map(row => row.values[0])}
+                direction={props.direction}
+                parentSize={parent}
+              />
+            ))}
+          </svg>
+        );
+      }}
     </Responsive>
   );
   const chartOverlay = (
