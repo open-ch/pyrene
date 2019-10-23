@@ -29,7 +29,7 @@ describe('<BarChart />', () => {
     expect(rendered.contains('Description')).toBe(true);
     expect(rendered.contains('Volume')).toBe(true);
 
-    // Categorical left axis
+    // Numerical left axis
     const leftAxis = rendered.find('.vx-axis-left');
     expect(leftAxis.findWhere(n => n.text() === '0').exists()).toBe(false);
     expect(leftAxis.findWhere(n => n.text() === '200').exists()).toBe(true);
@@ -39,7 +39,7 @@ describe('<BarChart />', () => {
     expect(leftAxis.findWhere(n => n.text() === '1000').exists()).toBe(true);
     expect(leftAxis.findWhere(n => n.text() === '1200').exists()).toBe(false);
 
-    // Numerical bottom axis
+    // Categorical bottom axis
     const bottomAxis = rendered.find('.vx-axis-bottom');
     expect(bottomAxis.findWhere(n => n.text() === 'Dropbox').exists()).toBe(true);
     expect(bottomAxis.findWhere(n => n.text() === 'Youtube').exists()).toBe(true);
@@ -111,6 +111,27 @@ describe('<BarChart />', () => {
 
     // Loader
     expect(rendered.find(Loader).exists()).toBe(true);
+  });
+
+  it('renders tick labels using tickFormatNumerical', () => {
+    const rendered = mount(
+      <BarChart
+        {...props}
+        direction="vertical"
+        tickFormatNumerical={d => (parseFloat(d) >= 100000 ? `${parseFloat(d) / 1000}k` : d)} data={props.data.map(d => ({
+          label: d.label,
+          values: d.values.map(e => e * 100),
+        }))}
+      />
+    );
+
+    // Numerical left axis
+    const leftAxis = rendered.find('.vx-axis-left');
+    expect(leftAxis.findWhere(n => n.text() === '20000').exists()).toBe(true);
+    expect(leftAxis.findWhere(n => n.text() === '40000').exists()).toBe(true);
+    expect(leftAxis.findWhere(n => n.text() === '60000').exists()).toBe(true);
+    expect(leftAxis.findWhere(n => n.text() === '80000').exists()).toBe(true);
+    expect(leftAxis.findWhere(n => n.text() === '100k').exists()).toBe(true);
   });
 
 });
