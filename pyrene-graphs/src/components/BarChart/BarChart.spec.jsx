@@ -21,38 +21,6 @@ describe('<BarChart />', () => {
     shallow(<BarChart {...props} />);
   });
 
-  it('renders its content horizontally', () => {
-    const rendered = mount(<BarChart {...props} />);
-
-    // Header
-    expect(rendered.contains('Title')).toBe(true);
-    expect(rendered.contains('Description')).toBe(true);
-    expect(rendered.contains('Volume')).toBe(true);
-
-    // Categorical left axis
-    const leftAxis = rendered.find('.vx-axis-left');
-    expect(leftAxis.findWhere(n => n.text() === 'Dropbox').exists()).toBe(true);
-    expect(leftAxis.findWhere(n => n.text() === 'Youtube').exists()).toBe(true);
-    expect(leftAxis.findWhere(n => n.text() === 'Google').exists()).toBe(false);
-
-    // Numerical bottom axis
-    const bottomAxis = rendered.find('.vx-axis-bottom');
-    expect(bottomAxis.findWhere(n => n.text() === '0').exists()).toBe(false);
-    expect(bottomAxis.findWhere(n => n.text() === '200').exists()).toBe(true);
-    expect(bottomAxis.findWhere(n => n.text() === '400').exists()).toBe(true);
-    expect(bottomAxis.findWhere(n => n.text() === '600').exists()).toBe(true);
-    expect(bottomAxis.findWhere(n => n.text() === '800').exists()).toBe(true);
-    expect(bottomAxis.findWhere(n => n.text() === '1000').exists()).toBe(true);
-    expect(bottomAxis.findWhere(n => n.text() === '1200').exists()).toBe(false);
-
-    // Grid
-    expect(rendered.find('.vx-columns').exists()).toBe(true);
-    expect(rendered.find('.vx-rows').exists()).toBe(false);
-
-    // Bars
-    expect(rendered.find('.vx-bar')).toHaveLength(2);
-  });
-
   it('renders its content vertically', () => {
     const rendered = mount(<BarChart {...props} direction="vertical" />);
 
@@ -80,6 +48,38 @@ describe('<BarChart />', () => {
     // Grid
     expect(rendered.find('.vx-rows').exists()).toBe(true);
     expect(rendered.find('.vx-columns').exists()).toBe(false);
+
+    // Bars
+    expect(rendered.find('.vx-bar')).toHaveLength(2);
+  });
+
+  it('renders its content horizontally', () => {
+    const rendered = mount(<BarChart {...props} direction="horizontal" />);
+
+    // Header
+    expect(rendered.contains('Title')).toBe(true);
+    expect(rendered.contains('Description')).toBe(true);
+    expect(rendered.contains('Volume')).toBe(true);
+
+    // Categorical left axis
+    const leftAxis = rendered.find('.vx-axis-left');
+    expect(leftAxis.findWhere(n => n.text() === 'Dropbox').exists()).toBe(true);
+    expect(leftAxis.findWhere(n => n.text() === 'Youtube').exists()).toBe(true);
+    expect(leftAxis.findWhere(n => n.text() === 'Google').exists()).toBe(false);
+
+    // Numerical bottom axis
+    const bottomAxis = rendered.find('.vx-axis-bottom');
+    expect(bottomAxis.findWhere(n => n.text() === '0').exists()).toBe(false);
+    expect(bottomAxis.findWhere(n => n.text() === '200').exists()).toBe(true);
+    expect(bottomAxis.findWhere(n => n.text() === '400').exists()).toBe(true);
+    expect(bottomAxis.findWhere(n => n.text() === '600').exists()).toBe(true);
+    expect(bottomAxis.findWhere(n => n.text() === '800').exists()).toBe(true);
+    expect(bottomAxis.findWhere(n => n.text() === '1000').exists()).toBe(true);
+    expect(bottomAxis.findWhere(n => n.text() === '1200').exists()).toBe(false);
+
+    // Grid
+    expect(rendered.find('.vx-columns').exists()).toBe(true);
+    expect(rendered.find('.vx-rows').exists()).toBe(false);
 
     // Bars
     expect(rendered.find('.vx-bar')).toHaveLength(2);
