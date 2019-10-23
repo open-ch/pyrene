@@ -400,17 +400,17 @@ export const tableDataSecLabel = [
 ];
 
 export const tableColumnsSecLabel = {
-    label: {
-      accessor: d => d.location,
-      title: 'Location'
-    },
-    secondaryLabel: {
-      accessor: d => d.LQI,
-      title: 'LQI'
-    },
-    primaryValue: {
-      accessor: d => d.up,
-      title: 'Volume Up',
-      formatter: d => `${d.toFixed(1)} %`,
-    },
+  label: {
+    accessor: d => d.location,
+    title: 'Location',
+  },
+  secondaryLabel: {
+    accessor: d => d.LQI,
+    title: 'LQI',
+  },
+  primaryValue: {
+    accessor: d => d.up,
+    title: 'Volume Up',
+    formatter: d => `${d.toFixed(1)} %`,
+  },
 };
