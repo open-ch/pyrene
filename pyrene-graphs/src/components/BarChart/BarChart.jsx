@@ -75,7 +75,7 @@ const BarChart = (props) => {
                 maxValue={maxValue}
                 values={props.data.map(row => row.values[0])}
                 direction={props.direction}
-                parentSize={parent}
+                width={parent.width}
               />
             ))}
           </svg>
