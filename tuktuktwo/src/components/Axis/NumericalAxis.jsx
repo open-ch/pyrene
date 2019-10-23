@@ -19,10 +19,10 @@ const NumericalAxis = (props) => {
           scale={scale}
           tickLength={0}
           tickLabelProps={() => ({
-            fontSize: 10, fill: AxisUtils.tickStroke, fontFamily: 'AvenirNext', textAnchor: 'start', dy: '0.25em', dx: -AxisUtils.axisLeftNumerical,
+            fontSize: 10, fill: props.tickLabelColor, fontFamily: 'AvenirNext', textAnchor: 'start', dy: '0.25em', dx: -AxisUtils.axisLeftNumerical,
           })}
-          stroke={AxisUtils.stroke}
-          tickStroke={AxisUtils.tickStroke}
+          stroke={props.strokeColor}
+          tickStroke={props.tickLabelColor}
           numTicks={5}
           tickFormat={props.tickFormat}
           tickValues={props.showTickLabels ? undefined : []}
@@ -33,7 +33,7 @@ const NumericalAxis = (props) => {
           <GridRows
             left={AxisUtils.axisLeftNumerical}
             scale={scale}
-            stroke={AxisUtils.stroke}
+            stroke={props.strokeColor}
             width={props.parentSize.width - AxisUtils.axisLeftNumerical}
             height={Utils.chartHeight}
             numTicks={5}
@@ -48,10 +48,10 @@ const NumericalAxis = (props) => {
           top={Utils.chartHeight}
           scale={scale}
           tickLabelProps={() => ({
-            textAnchor: 'middle', fontSize: 10, fontFamily: 'AvenirNext', fill: AxisUtils.tickStroke, dy: '-0.25em',
+            textAnchor: 'middle', fontSize: 10, fontFamily: 'AvenirNext', fill: props.tickLabelColor, dy: '-0.25em',
           })}
-          stroke={AxisUtils.stroke}
-          tickStroke={AxisUtils.tickStroke}
+          stroke={props.strokeColor}
+          tickStroke={props.tickLabelColor}
           numTicks={7}
           tickFormat={props.tickFormat}
           tickValues={props.showTickLabels ? undefined : []}
@@ -61,7 +61,7 @@ const NumericalAxis = (props) => {
         {props.showGrid && (
           <GridColumns
             scale={scale}
-            stroke={AxisUtils.stroke}
+            stroke={props.strokeColor}
             width={props.parentSize.width - AxisUtils.axisLeftCategorical}
             height={Utils.chartHeight}
             numTicks={7}
@@ -109,9 +109,19 @@ NumericalAxis.propTypes = {
    */
   showTickLabels: PropTypes.bool,
   /**
+   * Sets the color of the axis and the grid lines.
+   * Type: string (required)
+   */
+  strokeColor: PropTypes.string.isRequired,
+  /**
    * Set function to format the tick labels.
    */
   tickFormat: PropTypes.func,
+  /**
+   * Sets the color of the tick labels.
+   * Type: string (required)
+   */
+  tickLabelColor: PropTypes.string.isRequired,
 };
 
 export default NumericalAxis;
