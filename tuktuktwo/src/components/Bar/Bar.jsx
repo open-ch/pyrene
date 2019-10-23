@@ -11,18 +11,18 @@ const Bar = props => (
       x="0"
       y={props.top}
       height={props.barWeight}
-      width={props.value * (props.parentSize.width / props.maxValue)}
+      width={props.value * (props.size / props.maxValue)}
       fill={props.color}
-      transform={props.mirrored ? `rotate(180 ${props.parentSize.width / 2} ${props.barWeight / 2})` : undefined}
+      transform={props.mirrored ? `rotate(180 ${props.size / 2} ${props.barWeight / 2})` : undefined}
     />
   ) : (
     <VxBar
       x="0"
-      y={props.top + (props.maxValue - props.value) * (props.parentSize.height / props.maxValue)}
-      height={props.value * (props.parentSize.height / props.maxValue)}
+      y={props.top + (props.maxValue - props.value) * (props.size / props.maxValue)}
+      height={props.value * (props.size / props.maxValue)}
       width={props.barWeight}
       fill={props.color}
-      transform={props.mirrored ? `rotate(180 ${props.barWeight / 2} ${props.parentSize.height / 2})` : undefined}
+      transform={props.mirrored ? `rotate(180 ${props.barWeight / 2} ${props.size / 2})` : undefined}
     />
   )
 );
@@ -58,12 +58,9 @@ Bar.propTypes = {
    */
   mirrored: PropTypes.bool,
   /**
-   * Sets the parentSize, which is used to calculate the bar length.
+   * Sets the size, which is used to calculate the bar length.
    */
-  parentSize: PropTypes.shape({
-    height: PropTypes.number,
-    width: PropTypes.number,
-  }).isRequired,
+  size: PropTypes.number.isRequired,
   /**
    * Sets top, which is used to position the bar vertically.
    */
