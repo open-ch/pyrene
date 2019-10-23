@@ -5,11 +5,13 @@
 import { default as Bar } from './components/Bar/Bar';
 import { default as RelativeBar } from './components/Bar/RelativeBar';
 import { default as Responsive } from './components/Misc/Responsive';
+import { default as TimeXAxis } from './components/TimeXAxis/TimeXAxis';
 
 // Sort alphabetically to find stuff easily
 const Components = {
   Bar,
   RelativeBar,
+  TimeXAxis,
   Responsive,
 };
 
@@ -17,5 +19,6 @@ const Components = {
 export { Bar };
 export { RelativeBar };
 export { Responsive };
+export { TimeXAxis };
 
 export default Components;
