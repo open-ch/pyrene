@@ -42,17 +42,18 @@ const convertToExternalObject = date => ({
  * Handles the date change and returns a incremented/decreased value
  * @param {*} value to be changed
  * @param {*} change change direction +1/-1
+ * @param timeUnit which timeUnit we are currently changing: YEAR, MONTH or DAY
  */
-export const handleDateChange = (value, change, timerange) => {
+export const handleDateChange = (value, change, timeUnit) => {
   let conversionDate = value;
   // If we are changing Month or Year, set the date to the first of the month.
-  if (timerange === MONTH || timerange === YEAR) {
+  if (timeUnit === MONTH || timeUnit === YEAR) {
     conversionDate.day = 1;
   }
-  if (timerange === YEAR) {
+  if (timeUnit === YEAR) {
     conversionDate.month = 1;
   }
-  conversionDate = convertToInternalMomentJs(conversionDate).add(change, timerange + 's');
+  conversionDate = convertToInternalMomentJs(conversionDate).add(change, timeUnit + 's');
   return convertToExternalObject(conversionDate);
 };
 

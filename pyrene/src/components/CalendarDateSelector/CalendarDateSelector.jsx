@@ -53,9 +53,9 @@ export default class CalendarDateSelector extends React.Component {
     onChange(newDate, timeUnit);
   };
 
-  _onSelect = (timeRange) => {
+  _onSelect = (timeUnit) => {
     const { onChange, value } = this.props;
-    onChange(value, timeRange);
+    onChange(value, timeUnit);
   };
 
   render() {

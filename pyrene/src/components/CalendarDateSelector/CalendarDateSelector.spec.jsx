@@ -62,9 +62,13 @@ describe('<CalendarDateSelector />', () => {
     expect(dateBeforeClick).toBe(calculatedValue);
 
     rendered.find('TimeUnitSelectionBar').find('button').first().simulate('click');
-    rendered.find('Select').props().onChange({ value: 'day' });
     calculatedValue = rendered.props().value;
     expect(dateBeforeClick).not.toStrictEqual(calculatedValue);
+    expect(dateAfterClick).toStrictEqual(calculatedValue);
+
+    rendered.find('TimeUnitSelectionBar').find('button').last().simulate('click');
+    dateAfterClick.month += 1;
+    calculatedValue = rendered.props().value;
     expect(dateAfterClick).toStrictEqual(calculatedValue);
   });
 
