@@ -9,7 +9,7 @@ const getScale = (parentSize, labels) => (
 );
 
 /**
- * CategoricalAxis is used to display a categorical left or bottom axis with a grid.
+ * CategoricalAxis is used to display a categorical left or bottom axis.
  */
 const CategoricalAxis = props => (
   props.orientation === 'left' ? (
