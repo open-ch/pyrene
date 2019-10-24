@@ -5,6 +5,7 @@ import ScaleUtils from '../../common/ScaleUtils';
 const parentSize = { width: 50, height: 40 };
 
 const props = {
+  height: parentSize.height,
   orientation: 'left',
   parentSize: parentSize,
   maxValue: 100,

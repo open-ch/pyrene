@@ -31,7 +31,7 @@ describe('<Bars />', () => {
     const rendered = mount(svgWrapper(<Bars {...props} direction="vertical" />));
     const bars = rendered.find('.vx-bar');
     bars.forEach((bar, index) => {
-      expect(bar.prop('height')).toBeCloseTo((values[index] / maxValue) * (props.height - chartConstants.marginBottom - chartConstants.margin));
+      expect(bar.prop('height')).toBeCloseTo((values[index] / maxValue) * (props.height - chartConstants.marginBottom - chartConstants.marginMaxValueToBorder));
       expect(bar.prop('width')).toBe(barWeight);
       expect(bar.prop('fill')).toBe('blue');
     });
@@ -42,7 +42,7 @@ describe('<Bars />', () => {
     const bars = rendered.find('.vx-bar');
     bars.forEach((bar, index) => {
       expect(bar.prop('height')).toBe(barWeight);
-      expect(bar.prop('width')).toBeCloseTo((values[index] / maxValue) * (parentSize.width - chartConstants.marginLeftCategorical - 16));
+      expect(bar.prop('width')).toBeCloseTo((values[index] / maxValue) * (parentSize.width - chartConstants.marginLeftCategorical - chartConstants.marginMaxValueToBorder));
       expect(bar.prop('fill')).toBe('blue');
     });
   });
