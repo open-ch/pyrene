@@ -2,7 +2,7 @@ import React from 'react';
 import Tooltip from './Tooltip';
 
 const props = {
-  data: '12345',
+  dataValue: 12345,
   dataColor: 'red',
   dataLabel: 'test',
 
