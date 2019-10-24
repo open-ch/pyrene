@@ -70,9 +70,9 @@ class TTTestGraph extends React.Component {
       top: tooltipTop,
       left: tooltipLeft,
       time: [tooltipData[0], tooltipData[0]],
-      data: tooltipData[1],
-      dataLabel: 'AAPL Stock Price Closing',
       dataColor: 'var(--neutral-200)',
+      dataLabel: 'AAPL Stock Price Closing',
+      dataValue: tooltipData[1],
       timeFormat: this.sampleTimeFormat,
     };
 
