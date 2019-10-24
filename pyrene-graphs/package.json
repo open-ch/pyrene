@@ -1,6 +1,6 @@
 {
   "name": "pyrene-graphs",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Open Systems Graphs Component Library",
   "main": "dist/pyrene-graphs.js",
   "style": "dist/pyrene-graphs.css",
@@ -72,8 +72,7 @@
   },
   "dependencies": {
     "prop-types": "^15.6.1",
-    "style-loader": "^1.0.0",
-    "tuktuktwo": "0.0.3"
+    "tuktuktwo": "^0.0.4"
   },
   "peerDependencies": {
     "pyrene": ">=1.11.0 <2.0.0",
