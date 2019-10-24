@@ -23,7 +23,7 @@ Tooltip.propTypes = {
   dataLabel: PropTypes.string.isRequired,
   dataValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
 
-  time: PropTypes.number.isRequired,
+  time: PropTypes.oneOfType([PropTypes.number], PropTypes.arrayOf(PropTypes.number)).isRequired,
   timeFormat: PropTypes.func.isRequired,
 };
 

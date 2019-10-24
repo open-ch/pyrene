@@ -3,7 +3,7 @@
 
 // Sort alphabetically to find stuff easily
 import { default as BarChartTable } from '../components/BarChartTable/BarChartTable.examples';
-import { default as TimeSeriesPlayground } from '../components/TimeSeriesPlayground/TimeSeriesPlayground.examples';
+import { default as TimeSeriesPlaygroundWithTooltip } from '../components/TimeSeriesPlayground/TimeSeriesPlaygroundWithTooltip.examples';
 
 import {
   tableData,
@@ -19,7 +19,7 @@ import {
 // Sort alphabetically to find stuff easily
 const examples = {
   BarChartTable,
-  TimeSeriesPlayground,
+  TimeSeriesPlaygroundWithTooltip,
 };
 
 export default examples;

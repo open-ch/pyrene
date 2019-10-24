@@ -72,7 +72,13 @@
   },
   "dependencies": {
     "prop-types": "^15.6.1",
-    "tuktuktwo": "0.0.2"
+    "tuktuktwo": "0.0.2",
+
+    "@vx/event": "^0.0.189",
+    "@vx/group": "^0.0.189",
+    "@vx/mock-data": "^0.0.189",
+    "@vx/scale": "^0.0.189",
+    "@vx/shape": "^0.0.189"
   },
   "peerDependencies": {
     "pyrene": ">=1.10.3 <2.0.0",
