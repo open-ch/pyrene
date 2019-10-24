@@ -1,3 +1,9 @@
+:global(.pyreneIcon-zoomOut:before){
+  content: "\79";
+}
+:global(.pyreneIcon-zoomIn:before){
+  content: "\78";
+}
 :global(.pyreneIcon-circle:before){
   content: "\77";
 }
