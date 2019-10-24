@@ -229,10 +229,9 @@ const _getTickValues = (from, to, timezone, interval, unit) => {
  * @returns {number[]}
  */
 export const getTickValues = (from, to, timezone, xScale) => {
-  let tickValues = [];
   const durationInMs = to - from;
   const timeRangeThreshold = TIME_RANGE_THRESHOLDS.find(threshold => durationInMs <= threshold.durationInMs);
-  tickValues = _getTickValues(from, to, timezone, timeRangeThreshold.interval, timeRangeThreshold.unit);
+  const tickValues = _getTickValues(from, to, timezone, timeRangeThreshold.interval, timeRangeThreshold.unit);
 
   // Check if last tick is going to exceed border
   const lastTickMarginRight = xScale(to) - xScale(tickValues[tickValues.length - 1]);
