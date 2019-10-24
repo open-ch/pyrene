@@ -28,6 +28,8 @@ const icons = [
   { name: 'refresh', tags: ['refresh', 'repeat', 'infinity', 'infinite', 'loop', 'load', 'loading','update', 'replay', 'progress'] },
   { name: 'location', tags: ['location', 'pin', 'position', 'gps', 'map', 'place', 'marker'] },
   { name: 'pin', tags: ['pin', 'pinning'] },
+  { name: 'zoomIn', tags: ['zoomIn', 'zoomIn'] },
+  { name: 'zoomOut', tags: ['zoomOut', 'zoomOut'] },
 
 ];
 export default icons;
