@@ -6,7 +6,7 @@ import { AreaClosed } from '@vx/shape';
 import { Group } from '@vx/group';
 import { localPoint } from '@vx/event';
 import { extent, max, bisector } from 'd3-array';
-import { TooltipWrapper, withTooltip } from 'tuktuktwo';
+import { withTooltip } from 'tuktuktwo';
 import Tooltip from '../TimeSeries/Tooltip';
 
 /**
@@ -82,12 +82,11 @@ class TimeSeriesPlayground extends React.Component {
         </svg>
         {
           tooltipOpen && (
-            <TooltipWrapper left={tooltipLeft} top={tooltipTop}>
-              <Tooltip
-                dataColor="var(--neutral-200)" dataLabel="AAPL Stock Price Closing" dataValue={tooltipData[1]}
-                timeFormat={this.sampleTimeFormat} time={[tooltipData[0], tooltipData[0]]}
-              />
-            </TooltipWrapper>
+            <Tooltip
+              dataColor="var(--neutral-200)" dataLabel="AAPL Stock Price Closing" dataValue={tooltipData[1]}
+              timeFormat={this.sampleTimeFormat} time={[tooltipData[0], tooltipData[0]]}
+              tooltipLeft={tooltipLeft} tooltipTop={tooltipTop}
+            />
           )
         }
       </div>
