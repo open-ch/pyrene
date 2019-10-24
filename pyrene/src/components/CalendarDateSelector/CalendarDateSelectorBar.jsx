@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 import Stepper from '../Stepper/Stepper';
-import TimeRangeSelectionPropTypes from './CalendarDateSelectorPropTypes';
+import TimeUnitSelectionPropTypes from './CalendarDateSelectorPropTypes';
 import {
   canNavigateBackward,
   canNavigateForward,
@@ -11,41 +11,41 @@ import DateHelper from './DateHelper';
 
 import './calendarDateSelector.css';
 
-const TimeRangeSelectionBar = (props) => {
+const TimeUnitSelectionBar = (props) => {
   const {
     onChange,
     disabled,
     value,
     upperBound,
     lowerBound,
-    timeRange,
+    timeUnit,
   } = props;
   return (
     <Fragment>
       <Stepper
         direction="left"
         onClick={() => onChange(value, -1)}
-        disabled={disabled || !canNavigateBackward(value, lowerBound, timeRange)}
+        disabled={disabled || !canNavigateBackward(value, lowerBound, timeUnit)}
       />
-      <span styleName="timeRangeSelector--timerange-text">
-        {DateHelper.formatTimeRangeText(value)}
+      <span styleName="timeUnitSelector--timerange-text">
+        {DateHelper.formatTimeRangeText(value, timeUnit)}
       </span>
       <Stepper
         direction="right"
         onClick={() => onChange(value, 1)}
-        disabled={disabled || !canNavigateForward(value, upperBound, timeRange)}
+        disabled={disabled || !canNavigateForward(value, upperBound, timeUnit)}
       />
     </Fragment>
   );
 };
 
-TimeRangeSelectionBar.propTypes = {
+TimeUnitSelectionBar.propTypes = {
   disabled: PropTypes.bool.isRequired,
-  lowerBound: TimeRangeSelectionPropTypes.YEAR_MONTH_DAY.isRequired,
+  lowerBound: TimeUnitSelectionPropTypes.YEAR_MONTH_DAY.isRequired,
   onChange: PropTypes.func.isRequired,
-  timeRange: TimeRangeSelectionPropTypes.TIMERANGE_OPTION.isRequired,
-  upperBound: TimeRangeSelectionPropTypes.YEAR_MONTH_DAY.isRequired,
-  value: TimeRangeSelectionPropTypes.YEAR_MONTH_DAY.isRequired,
+  timeUnit: TimeUnitSelectionPropTypes.TIMEUNIT_OPTION.isRequired,
+  upperBound: TimeUnitSelectionPropTypes.YEAR_MONTH_DAY.isRequired,
+  value: TimeUnitSelectionPropTypes.YEAR_MONTH_DAY.isRequired,
 };
 
-export default TimeRangeSelectionBar;
+export default TimeUnitSelectionBar;
