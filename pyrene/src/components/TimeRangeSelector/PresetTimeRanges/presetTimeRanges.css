@@ -1,17 +1,20 @@
+@import '../../../styles/colors.css';
+
 .presetTimeRange {
   composes: commonFontSettings from '../../../styles/common.css';
   border: none;
   border-right: solid 1px #e1e3e8;
   border-top: solid 1px #e1e3e8;
   border-bottom: solid 1px #e1e3e8;
-  height: 30px;
+  height: 32px;
   padding-left: 16px;
   padding-right: 16px;
   outline: none;
-  cursor: pointer;
+  cursor: default;
   font-size: 12px;
   font-weight: 600;
-
+  color: var(--neutral-500);
+  line-height:1.5;
   background-color: var(--background-light);
 
   &.first {
@@ -20,27 +23,21 @@
   }
 
   &.first:hover {
-     border-left: solid 1px #b2b8bf;
-     border-color: var(--primary);
-     background-color: #f0f2f5;
+     background-color: var(--neutral-030);
   }
 
   &.active {
-     background-color: #f0f2f5;
+     background-color: var(--neutral-030);
   }
 
   &.disabled {
      opacity: .5;
-     cursor: default;
      pointer-events: none;
   }
 
   &.successive:hover {
-     border-left: solid 1px #b2b8bf;
-     border-color: var(--primary);
-     background-color: #f0f2f5;
-     margin-left: -1px;
-   }
+     background-color: var(--neutral-030);
+  }
 }
 
 .presetTimeRange:last-child {
