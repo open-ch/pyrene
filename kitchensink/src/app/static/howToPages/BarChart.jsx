@@ -12,7 +12,7 @@ const barChartHowTo = [{
         label: d.label,
         values: d.values.map(e => e * 100),
       }))}
-      header="Applications"
+      title="Applications"
       description="Optional description and explanation on how to read the chart"
       legend={['Volume']}
       direction="vertical"
@@ -25,7 +25,7 @@ const barChartHowTo = [{
   component: () => (
     <BarChart
       data={exampleData.applications}
-      header="Applications"
+      title="Applications"
       description="Optional description and explanation on how to read the chart"
       legend={['Volume']}
       direction="horizontal"
@@ -37,7 +37,7 @@ const barChartHowTo = [{
   component: () => (
     <BarChart
       data={exampleData.nsmSensors}
-      header="Network Security Monitoring"
+      title="Network Security Monitoring"
       description="Optional description and explanation on how to read the chart"
       legend={['high', 'moderate', 'low']}
       direction="vertical"
@@ -49,7 +49,7 @@ const barChartHowTo = [{
   component: () => (
     <BarChart
       data={exampleData.nsmSensors}
-      header="Network Security Monitoring"
+      title="Network Security Monitoring"
       description="Optional description and explanation on how to read the chart"
       legend={['high', 'moderate', 'low']}
       direction="horizontal"
