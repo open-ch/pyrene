@@ -13,7 +13,7 @@ const barChartTableHowTo = [{
         label: exampleData.tableData.columns.label,
         primaryValue: exampleData.tableData.columns.primaryValue,
       }}
-      header="Applications"
+      title="Applications"
       onRowDoubleClick={row => alert(row.value)}
       type="bar"
     />
@@ -25,7 +25,7 @@ const barChartTableHowTo = [{
     <BarChartTable
       data={exampleData.tableData.data}
       columns={exampleData.tableData.columns}
-      header="Applications"
+      title="Applications"
       onRowDoubleClick={row => alert(row.value)}
       type="bar"
     />
@@ -37,7 +37,7 @@ const barChartTableHowTo = [{
     <BarChartTable
       data={exampleData.tableDataUpDown.data}
       columns={exampleData.tableDataUpDown.columns}
-      header="ISP Lines"
+      title="ISP Lines"
       description="Optional description and explanation on how to read the chart"
       onRowDoubleClick={row => alert(row.value)}
       type="butterfly"
@@ -50,7 +50,7 @@ const barChartTableHowTo = [{
     <BarChartTable
       data={exampleData.tableDataComparison.data}
       columns={exampleData.tableDataComparison.columns}
-      header="Top Applications by Volume"
+      title="Top Applications by Volume"
       description="Optional description and explanation on how to read the chart"
       onRowDoubleClick={row => alert(row.value)}
       type="comparison"
@@ -63,7 +63,7 @@ const barChartTableHowTo = [{
     <BarChartTable
       data={exampleData.tableDataSecLabel.data}
       columns={exampleData.tableDataSecLabel.columns}
-      header="Locations with LQI"
+      title="Locations with LQI"
       description="Optional description and explanation on how to read the chart"
       type="bar"
     />
