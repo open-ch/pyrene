@@ -5,7 +5,7 @@ import { TooltipWithBounds } from '@vx/tooltip';
 /**
  * Tooltip for time series
  */
-const TimeSeriesTooltipWrapper = ({ top, left, children }) => (
+const TooltipWrapper = ({ top, left, children }) => (
   <TooltipWithBounds
     // set this to random so it correctly updates with parent bounds
     key={Math.random()}
@@ -20,11 +20,11 @@ const TimeSeriesTooltipWrapper = ({ top, left, children }) => (
   </TooltipWithBounds>
 );
 
-TimeSeriesTooltipWrapper.displayName = 'TimeSeriesTooltipWrapper';
+TooltipWrapper.displayName = 'TooltipWrapper';
 
-TimeSeriesTooltipWrapper.defaultProps = {};
+TooltipWrapper.defaultProps = {};
 
-TimeSeriesTooltipWrapper.propTypes = {
+TooltipWrapper.propTypes = {
   /**
    * The children to render
    */
@@ -41,4 +41,4 @@ TimeSeriesTooltipWrapper.propTypes = {
   top: PropTypes.number.isRequired,
 };
 
-export default TimeSeriesTooltipWrapper;
+export default TooltipWrapper;

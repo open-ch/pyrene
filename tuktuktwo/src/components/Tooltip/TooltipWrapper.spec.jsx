@@ -1,6 +1,6 @@
 import React from 'react';
 
-import TimeSeriesTooltipWrapper from './TimeSeriesTooltipWrapper';
+import TooltipWrapper from './TooltipWrapper';
 
 const props = {
   left: 3,
@@ -13,15 +13,15 @@ const props = {
   children: (<span className="test-123" />),
 };
 
-describe('<TimeSeriesTooltipWrapper />', () => {
+describe('<TooltipWrapper />', () => {
   it('renders without crashing', () => {
     shallow(
-      <TimeSeriesTooltipWrapper {...props} />
+      <TooltipWrapper {...props} />
     );
   });
 
   it('renders its children', () => {
-    const rendered = shallow(<TimeSeriesTooltipWrapper {...props} />);
+    const rendered = shallow(<TooltipWrapper {...props} />);
     const child = rendered.find('span').at(0);
     expect(child.prop('className')).toBe('test-123');
   });

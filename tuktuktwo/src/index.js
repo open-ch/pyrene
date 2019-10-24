@@ -4,21 +4,20 @@
 // Sort alphabetically to find stuff easily
 import { default as Bar } from './components/Bar/Bar';
 import { default as RelativeBar } from './components/Bar/RelativeBar';
-import { default as TimeSeriesTooltipWrapper } from './components/Tooltip/TimeSeriesTooltipWrapper';
-import { default as TTTestGraph } from './components/Temp/TTTestGraph';
+import { default as TooltipWrapper } from './components/Tooltip/TooltipWrapper';
+
 
 // Sort alphabetically to find stuff easily
 const Components = {
   Bar,
   RelativeBar,
-  TimeSeriesTooltipWrapper,
-  TTTestGraph,
+  TooltipWrapper,
 };
 
 // Sort alphabetically to find stuff easily
 export { Bar };
 export { RelativeBar };
-export { TimeSeriesTooltipWrapper };
-export { TTTestGraph };
+export { TooltipWrapper };
+export { withTooltip } from '@vx/tooltip';
 
 export default Components;
