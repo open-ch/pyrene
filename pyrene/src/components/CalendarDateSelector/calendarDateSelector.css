@@ -1,38 +1,38 @@
 @import "../../styles/colors.css";
 
-.timeRangeSelector {
+.timeUnitSelector {
   display: flex;
   justify-content: space-between;
   font-size: 14px;
 }
 
-.timeRangeSelector--center {
+.timeUnitSelector--center {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 358px;
 }
 
-.timeRangeSelector--left,
-.timeRangeSelector--right {
+.timeUnitSelector--left,
+.timeUnitSelector--right {
   display: flex;
   align-items: center;
   width: 250px;
 }
 
-.timeRangeSelector--left {
+.timeUnitSelector--left {
   justify-content: flex-start;
 }
 
-.timeRangeSelector__dropdown {
+.timeUnitSelector__dropdown {
   width: 91px;
 }
 
-.timeRangeSelector--right {
+.timeUnitSelector--right {
   justify-content: flex-end;
 }
 
-.timeRangeSelector--timerange-text {
+.timeUnitSelector--timerange-text {
   height: 16px;
   font-size: 12px;
   font-weight: 600;
