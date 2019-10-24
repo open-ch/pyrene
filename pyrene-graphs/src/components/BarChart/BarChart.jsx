@@ -29,6 +29,7 @@ const BarChart = (props) => {
     <Responsive>
       {(parent) => {
         const sharedAxisProps = {
+          height: parent.height,
           width: parent.width,
           showTickLabels: !props.loading,
           strokeColor: colorConstants.strokeColor,
@@ -72,6 +73,7 @@ const BarChart = (props) => {
               <Bars
                 barWeight={barWeight}
                 color={props.colorScheme.categorical[0]}
+                height={parent.height}
                 maxValue={maxValue}
                 values={props.data.map(row => row.values[0])}
                 direction={props.direction}
