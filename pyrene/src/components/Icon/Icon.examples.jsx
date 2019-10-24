@@ -7,8 +7,14 @@ Icon.props = {
 Icon.examples = [
   {
     props: {
+      icon: 'home',
+    },
+    description: 'Icon with default color and default type  ',
+  },
+  {
+    props: {
       color: 'dangerFg',
-      icon: 'warning',
+      name: 'warning',
       type: 'standalone',
     },
     description: 'Constants from colorConstants.js.',
@@ -16,23 +22,29 @@ Icon.examples = [
   {
     props: {
       color: 'var(--green-500)',
-      icon: 'circle',
+      name: 'circle',
     },
     description: 'CSS vars.',
   },
   {
     props: {
       color: '#0049db',
-      icon: 'share',
+      name: 'share',
     },
     description: 'HEX',
   },
   {
     props: {
       color: 'rgba(229, 0, 255, 0.96)',
-      icon: 'pin',
+      name: 'pin',
     },
     description: 'rgba',
+  },
+  {
+    props: {
+      svg: 'http://s.cdpn.io/3/kiwi.svg',
+    },
+    description: 'An SVG icon',
   },
 ];
 

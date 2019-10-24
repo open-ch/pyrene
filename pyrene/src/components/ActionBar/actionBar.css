@@ -1,0 +1,52 @@
+@import '../../styles/colors.css';
+
+.container {
+  height: 32px;
+  cursor: initial;
+  display: flex;
+}
+
+.box-shadow {
+  background-color: var(--neutral-000);
+  border-radius: 2px;
+  box-shadow: 0 4px 8px -2px rgba(0, 21, 44, 0.2), 0 0 1px 0 rgba(0, 21, 44, 0.3);
+}
+
+.box-box {
+  box-sizing: border-box;
+  background-color: var(--neutral-000);
+  border-radius: 2px;
+  border: 1px solid var(--neutral-050);
+}
+
+.borderContainer {
+  display: flex;
+}
+
+.iconBox {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.iconBox:hover {
+  background-color: var(--neutral-030);
+}
+
+.border {
+  width: 1px;
+  height: 16px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  background-color: var(--neutral-050);
+}
+
+.disabled {
+  opacity: 0.5;
+}
+
+.disabled:hover {
+  background-color: initial;
+}
