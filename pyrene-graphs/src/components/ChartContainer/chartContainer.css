@@ -1,0 +1,15 @@
+.chartContainer {
+  width: 100%;
+}
+
+.chart {
+  margin-top: 16px;
+  height: 344px;
+  width: 100%;
+}
+
+.chartOverlay {
+  position: absolute;
+  height: 344px;
+  width: 100%;
+}

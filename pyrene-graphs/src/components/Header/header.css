@@ -5,7 +5,7 @@
   max-height: 48px;
 }
 
-.header {
+.title {
   font-size: 14px;
   font-weight: 600;
   line-height: 1.14;
@@ -37,17 +37,25 @@
   margin-left: auto;
 }
 
+.legendLeft {
+  margin-left: 0;
+}
+
 .legendItem {
   font-size: 13px;
   font-weight: 500;
   line-height: 1.38;
   color: #505d6f;
-  margin-left: 16px;
   display: flex;
+  margin-left: 16px;
   align-items: center;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.legendLeft .legendItem:first-child {
+  margin-left: 0;
 }
 
 .circle {

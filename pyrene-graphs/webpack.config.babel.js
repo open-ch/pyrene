@@ -45,6 +45,10 @@ const config = {
         ],
       },
       {
+        test: /(node_modules).*\.css$/,
+        use: ['style-loader', 'css-loader'],
+      },
+      {
         test: /\.svg$/,
         loader: 'raw-loader',
       },

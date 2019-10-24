@@ -80,7 +80,7 @@ const getColumn = ({
                 maxValue={maxValue}
                 value={getValueWithAccessor(row, accessorSecondary)} // eslint-disable-line
                 size={parent.width}
-                top={barWeightPrimary + comparisonMargin}
+                y={barWeightPrimary + comparisonMargin}
               />
             </svg>
           )}
@@ -103,7 +103,7 @@ export const getProcessedColumnsAndLegend = ({ props, colors, withoutBars }) => 
       return {
         columns: [
           getColumn({
-            id: props.header,
+            id: props.title,
             accessor: props.columns.label.accessor,
             linkAccessor: props.columns.label.linkAccessor,
             align: 'left',
@@ -146,7 +146,7 @@ export const getProcessedColumnsAndLegend = ({ props, colors, withoutBars }) => 
         return {
           columns: [
             getColumn({
-              id: props.header,
+              id: props.title,
               accessor: props.columns.label.accessor,
               linkAccessor: props.columns.label.linkAccessor,
               align: 'left',
@@ -192,7 +192,7 @@ export const getProcessedColumnsAndLegend = ({ props, colors, withoutBars }) => 
         return {
           columns: [
             getColumn({
-              id: props.header,
+              id: props.title,
               accessor: props.columns.label.accessor,
               linkAccessor: props.columns.label.linkAccessor,
               align: 'left',

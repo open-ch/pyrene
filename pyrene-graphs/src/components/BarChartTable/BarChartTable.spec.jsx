@@ -35,7 +35,7 @@ const props = {
       formatter: d => `${d} %`,
     },
   },
-  header: 'Header',
+  title: 'Title',
   displayedRows: 1,
 };
 
@@ -73,7 +73,7 @@ const propsComparison = {
       formatter: d => `${d} GB`,
     },
   },
-  header: 'Header',
+  title: 'Title',
   description: 'Description',
 };
 
@@ -85,7 +85,7 @@ describe('<BarChartTable />', () => {
   it('renders its content', () => {
     const rendered = mount(<BarChartTable {...props} />);
     // Header
-    expect(rendered.contains('Header')).toBe(true);
+    expect(rendered.contains('Title')).toBe(true);
     expect(rendered.contains('Description')).toBe(false);
     // Table
     // header
@@ -110,7 +110,7 @@ describe('<BarChartTable />', () => {
   it('renders its content without secondaryValue', () => {
     const rendered = mount(<BarChartTable {...propsOnlyPrimaryValue} />);
     // Header
-    expect(rendered.contains('Header')).toBe(true);
+    expect(rendered.contains('Title')).toBe(true);
     expect(rendered.contains('Description')).toBe(false);
     // Table
     // header
@@ -135,7 +135,7 @@ describe('<BarChartTable />', () => {
   it('renders butterfly content', () => {
     const rendered = mount(<BarChartTable {...propsComparison} type="butterfly" />);
     // Header
-    expect(rendered.contains('Header')).toBe(true);
+    expect(rendered.contains('Title')).toBe(true);
     expect(rendered.contains('Description')).toBe(true);
     // Table
     // header
