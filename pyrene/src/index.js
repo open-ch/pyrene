@@ -139,4 +139,6 @@ export { TreeTable };
 
 export { createSimpleFilter, createDataFilter } from './components/Filter/Filter';
 
+export { default as colorConstants } from './styles/colorConstants';
+
 export default Components;
