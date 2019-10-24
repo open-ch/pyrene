@@ -4,12 +4,12 @@ import PropTypes from 'prop-types';
 import './header.css';
 
 /**
- * Headers are used to display a header, description and legends along with chart components.
+ * Headers are used to display a title, description and legends along with chart components.
  */
 const Header = props => (
   <div styleName="container">
-    <div styleName="header">
-      {props.header}
+    <div styleName="title">
+      {props.title}
     </div>
     {(props.description || (props.legend && props.legend.length > 0)) && (
       <div styleName="subContainer">
@@ -57,9 +57,9 @@ Header.propTypes = {
     */
   description: PropTypes.string,
   /**
-   * Sets the header.
+   * Sets the title.
    */
-  header: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
   /**
     * Sets the legend. Type: [ string ]
     */

@@ -19,7 +19,7 @@ const BarChart = (props) => {
   const maxValue = Math.max(...props.data.map(row => Math.max(...row.values)));
   const header = (
     <Header
-      header={props.header}
+      title={props.title}
       description={props.description}
       colors={props.colorScheme.categorical}
       legend={props.legend}
@@ -100,7 +100,6 @@ const BarChart = (props) => {
 BarChart.displayName = 'Bar Chart';
 
 BarChart.defaultProps = {
-  header: '',
   description: '',
   colorScheme: colorSchemes.colorSchemeDefault,
   direction: 'vertical',
@@ -131,10 +130,6 @@ BarChart.propTypes = {
    */
   direction: PropTypes.oneOf(['horizontal', 'vertical']),
   /**
-   * Sets the header.
-   */
-  header: PropTypes.string,
-  /**
     * Sets the legend. Type: [ string ]
     */
   legend: PropTypes.arrayOf(PropTypes.string).isRequired,
@@ -146,6 +141,10 @@ BarChart.propTypes = {
    * Set function to format the tick labels of the NumericalAxis.
    */
   tickFormatNumerical: PropTypes.func,
+  /**
+   * Sets the title.
+   */
+  title: PropTypes.string.isRequired,
 };
 
 export default BarChart;

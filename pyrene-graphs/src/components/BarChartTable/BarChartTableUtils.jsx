@@ -103,7 +103,7 @@ export const getProcessedColumnsAndLegend = ({ props, colors, withoutBars }) => 
       return {
         columns: [
           getColumn({
-            id: props.header,
+            id: props.title,
             accessor: props.columns.label.accessor,
             linkAccessor: props.columns.label.linkAccessor,
             align: 'left',
@@ -146,7 +146,7 @@ export const getProcessedColumnsAndLegend = ({ props, colors, withoutBars }) => 
         return {
           columns: [
             getColumn({
-              id: props.header,
+              id: props.title,
               accessor: props.columns.label.accessor,
               linkAccessor: props.columns.label.linkAccessor,
               align: 'left',
@@ -192,7 +192,7 @@ export const getProcessedColumnsAndLegend = ({ props, colors, withoutBars }) => 
         return {
           columns: [
             getColumn({
-              id: props.header,
+              id: props.title,
               accessor: props.columns.label.accessor,
               linkAccessor: props.columns.label.linkAccessor,
               align: 'left',

@@ -10,7 +10,7 @@ examples.props = {
   data: tableData,
   columns: tableColumns,
   type: 'bar',
-  header: 'Applications',
+  title: 'Applications',
   description: 'Optional description and explanation on how to read the chart',
   onRowDoubleClick: row => alert(row.value),
   colorScheme: colorSchemes.colorSchemeDefault,

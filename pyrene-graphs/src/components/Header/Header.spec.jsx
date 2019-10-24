@@ -4,7 +4,7 @@ import Header from './Header.jsx';
 
 
 const props = {
-  header: 'Header',
+  title: 'Title',
   description: 'Description',
   colors: ['red', 'blue'],
   legend: ['Primary Label', 'Secondary Label'],
@@ -18,7 +18,7 @@ describe('<Header />', () => {
   it('renders its content', () => {
     const rendered = mount(<Header {...props} />);
 
-    expect(rendered.contains('Header')).toBe(true);
+    expect(rendered.contains('Title')).toBe(true);
     expect(rendered.contains('Description')).toBe(true);
 
     // legend
