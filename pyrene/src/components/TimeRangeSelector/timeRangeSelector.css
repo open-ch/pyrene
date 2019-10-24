@@ -1,3 +1,5 @@
+@import '../../styles/colors.css';
+
 .timeRangeSelector {
   display: flex;
   align-items: center;
@@ -7,6 +9,13 @@
   font-size: 12px;
   font-weight: 600;
   flex-wrap: wrap;
+  color: var(--neutral-500);
+  line-height:1.5;
+
+  &.disabled {
+     pointer-events: none;
+     opacity: .5;
+  }
 }
 
 .timeRangeSelector--left {

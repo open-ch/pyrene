@@ -64,22 +64,21 @@ PresetTimeRanges.displayName = 'PresetTimeRanges';
 PresetTimeRanges.defaultProps = {
   disabled: false,
   currentTimeRangeType: null,
-  initialUpperBound: null,
 };
 
 PresetTimeRanges.propTypes = {
+  currentTimeRangeType: PropTypes.string,
   disabled: PropTypes.bool,
   onInteract: PropTypes.func.isRequired,
-  currentTimeRangeType: PropTypes.string,
   presetTimeRanges: PropTypes.arrayOf(
     PropTypes.shape({
       durationInMs: PropTypes.number.isRequired,
       id: PropTypes.string.isRequired,
       label: PropTypes.string.isRequired,
     }),
-  ),
-  upperBound: PropTypes.number.isRequired,
+  ).isRequired,
   timezone: PropTypes.string.isRequired,
+  upperBound: PropTypes.number.isRequired,
 };
 
 export default PresetTimeRanges;
