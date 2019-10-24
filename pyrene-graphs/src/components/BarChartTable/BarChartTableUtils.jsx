@@ -80,7 +80,7 @@ const getColumn = ({
                 maxValue={maxValue}
                 value={getValueWithAccessor(row, accessorSecondary)} // eslint-disable-line
                 size={parent.width}
-                top={barWeightPrimary + comparisonMargin}
+                y={barWeightPrimary + comparisonMargin}
               />
             </svg>
           )}
