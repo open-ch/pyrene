@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { AxisLeft, AxisBottom } from '@vx/axis';
-import AxisUtils from './AxisUtils';
 import ScaleUtils from '../../common/ScaleUtils';
 import chartConstants from '../../common/chartConstants';
 
@@ -12,37 +11,40 @@ const getScale = (size, labels) => (
 /**
  * CategoricalAxis is used to display a categorical left or bottom axis.
  */
-const CategoricalAxis = props => (
-  props.orientation === 'left' ? (
-    <AxisLeft
-      left={AxisUtils.axisLeftCategorical}
-      scale={getScale(chartConstants.height, props.tickLabels)}
-      tickLength={0}
-      tickLabelProps={() => ({
-        fontSize: 10, fill: props.tickLabelColor, fontFamily: 'AvenirNext', textAnchor: 'start', dy: '0.25em', dx: -AxisUtils.axisLeftCategorical,
-      })}
-      stroke={props.strokeColor}
-      tickStroke={props.tickLabelColor}
-      tickFormat={props.tickFormat}
-      tickValues={props.showTickLabels ? undefined : []}
-      hideTicks
-    />
-  ) : (
-    <AxisBottom
-      top={chartConstants.height}
-      left={AxisUtils.axisLeftNumerical}
-      scale={getScale(props.width - AxisUtils.axisLeftNumerical, props.tickLabels)}
-      tickLabelProps={() => ({
-        textAnchor: 'middle', fontSize: 10, fontFamily: 'AvenirNext', fill: props.tickLabelColor, dy: '-0.25em',
-      })}
-      stroke={props.strokeColor}
-      tickStroke={props.tickLabelColor}
-      tickFormat={props.tickFormat}
-      tickValues={props.showTickLabels ? undefined : []}
-      hideTicks
-    />
-  )
-);
+const CategoricalAxis = (props) => {
+  const chartHeight = props.height - chartConstants.marginBottom;
+  return (
+    props.orientation === 'left' ? (
+      <AxisLeft
+        left={chartConstants.marginLeftCategorical}
+        scale={getScale(chartHeight, props.tickLabels)}
+        tickLength={0}
+        tickLabelProps={() => ({
+          fontSize: 10, fill: props.tickLabelColor, fontFamily: 'AvenirNext', textAnchor: 'start', dy: '0.25em', dx: -chartConstants.marginLeftCategorical,
+        })}
+        stroke={props.strokeColor}
+        tickStroke={props.tickLabelColor}
+        tickFormat={props.tickFormat}
+        tickValues={props.showTickLabels ? undefined : []}
+        hideTicks
+      />
+    ) : (
+      <AxisBottom
+        top={chartHeight}
+        left={chartConstants.marginLeftNumerical}
+        scale={getScale(props.width - chartConstants.marginLeftNumerical, props.tickLabels)}
+        tickLabelProps={() => ({
+          textAnchor: 'middle', fontSize: 10, fontFamily: 'AvenirNext', fill: props.tickLabelColor, dy: '-0.25em',
+        })}
+        stroke={props.strokeColor}
+        tickStroke={props.tickLabelColor}
+        tickFormat={props.tickFormat}
+        tickValues={props.showTickLabels ? undefined : []}
+        hideTicks
+      />
+    )
+  );
+};
 
 CategoricalAxis.displayName = 'Categorical Axis';
 
@@ -52,6 +54,11 @@ CategoricalAxis.defaultProps = {
 };
 
 CategoricalAxis.propTypes = {
+  /**
+   * Sets the height of the graph canvas.
+   * Type: number (required)
+   */
+  height: PropTypes.number.isRequired,
   /**
    * Sets the orientation of the axis.
    */

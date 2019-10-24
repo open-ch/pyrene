@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Group } from '@vx/group';
 import Bar from './Bar';
-import AxisUtils from '../Axis/AxisUtils';
 import ScaleUtils from '../../common/ScaleUtils';
 import chartConstants from '../../common/chartConstants';
 
@@ -10,14 +9,14 @@ import chartConstants from '../../common/chartConstants';
  * Bars is used to display multiple bars.
  */
 const Bars = (props) => {
-  const margin = 16;
-  const left = props.direction === 'horizontal' ? AxisUtils.axisLeftCategorical : AxisUtils.axisLeftNumerical;
+  const left = props.direction === 'horizontal' ? chartConstants.marginLeftCategorical : chartConstants.marginLeftNumerical;
+  const chartHeight = props.height - chartConstants.marginBottom;
   const width = props.width - left;
-  const scale = ScaleUtils.scaleCategorical(props.direction === 'horizontal' ? chartConstants.height : width, props.values);
+  const scale = ScaleUtils.scaleCategorical(props.direction === 'horizontal' ? chartHeight : width, props.values);
   return (
     <Group
       left={left}
-      top={props.direction === 'horizontal' ? 0 : margin}
+      top={props.direction === 'horizontal' ? 0 : chartConstants.marginMaxValueToBorder}
     >
       {props.values.map((d, i) => {
         const delta = (scale.range().slice(-1)[0] / props.values.length / 2) - (props.barWeight / 2);
@@ -29,7 +28,7 @@ const Bars = (props) => {
             direction={props.direction}
             maxValue={props.maxValue}
             value={d}
-            size={props.direction === 'horizontal' ? width - margin : chartConstants.height - margin}
+            size={props.direction === 'horizontal' ? width - chartConstants.marginMaxValueToBorder : chartHeight - chartConstants.marginMaxValueToBorder}
             x={props.direction === 'horizontal' ? 0 : scale(d) + delta}
             y={props.direction === 'horizontal' ? scale(d) + delta : 0}
           />
@@ -59,6 +58,11 @@ Bars.propTypes = {
    * Sets the bar direction.
    */
   direction: PropTypes.oneOf(['horizontal', 'vertical']),
+  /**
+   * Sets the height of the graph canvas.
+   * Type: number (required)
+   */
+  height: PropTypes.number.isRequired,
   /**
    * Sets the maxValue, which is used to calculate the bar length.
    */

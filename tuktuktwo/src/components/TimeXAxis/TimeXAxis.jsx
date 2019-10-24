@@ -5,9 +5,7 @@ import { GridColumns } from '@vx/grid';
 import { Group } from '@vx/group';
 import { scaleTime } from '@vx/scale';
 import { getTickValues, timeFormat } from './TimeXUtil';
-
-const MARGIN_BOTTOM = 24;
-const MARGIN_LEFT = 36;
+import chartConstants from '../../common/chartConstants';
 
 const _formatTime = (timestamp, props) => (props.showTickLabels ? timeFormat(timestamp, props.from, props.to, props.timezone) : '');
 
@@ -15,9 +13,9 @@ const _formatTime = (timestamp, props) => (props.showTickLabels ? timeFormat(tim
  * TimeXAxis is the x axis for Time Series graphs.
  */
 const TimeXAxis = (props) => {
-  const xAxisTop = props.height - MARGIN_BOTTOM;
-  const xMax = props.width - MARGIN_LEFT;
-  const yMax = props.height - MARGIN_BOTTOM;
+  const xAxisTop = props.height - chartConstants.marginBottom;
+  const xMax = props.width - chartConstants.marginLeftNumerical;
+  const yMax = props.height - chartConstants.marginBottom;
 
   const xScale = scaleTime({
     range: [0, xMax],
@@ -25,7 +23,7 @@ const TimeXAxis = (props) => {
   });
 
   return (
-    <Group top={0} left={MARGIN_LEFT}>
+    <Group top={0} left={chartConstants.marginLeftNumerical}>
       <AxisBottom
         top={xAxisTop}
         left={0}
