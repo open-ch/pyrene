@@ -7,8 +7,8 @@ import styles from './tooltip.css';
 /**
  * Timeseries Tooltip
  */
-const Tooltip = ({ dataValue, dataColor, dataLabel, time, timeFormat, tooltipLeft, tooltipTop }) => (
-  <TooltipWrapper left={tooltipLeft} top={tooltipTop}>
+const Tooltip = ({ dataValue, dataColor, dataLabel, time, timeFormat, left, top }) => (
+  <TooltipWrapper left={left} top={top}>
     <div className={styles.tooltip}>
       <div className={styles.timeTitle}>{timeFormat(time)}</div>
       <TooltipLegendItem dataColor={dataColor} dataLabel={dataLabel} dataValue={dataValue} />
@@ -22,22 +22,40 @@ Tooltip.defaultProps = {
 };
 
 Tooltip.propTypes = {
+  /**
+   * The color of the data series
+   */
   dataColor: PropTypes.string.isRequired,
+
+  /**
+   * The label of the data series
+   */
   dataLabel: PropTypes.string.isRequired,
+
+  /**
+   * The actual value of the data series
+   */
   dataValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
 
+  /**
+   * The time of the data series. Either a point or a range
+   */
   time: PropTypes.oneOfType([PropTypes.number], PropTypes.arrayOf(PropTypes.number)).isRequired,
+
+  /**
+   * The function that shall be used for time formatting. Must support all formats of the time property
+   */
   timeFormat: PropTypes.func.isRequired,
 
   /**
    * Sets the left absolute position, controlled by VX
    */
-  tooltipLeft: PropTypes.number.isRequired,
+  left: PropTypes.number.isRequired,
 
   /**
    * Sets the top absolute position, controlled by VX
    */
-  tooltipTop: PropTypes.number.isRequired,
+  top: PropTypes.number.isRequired,
 };
 
 export default Tooltip;

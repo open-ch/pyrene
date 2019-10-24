@@ -85,7 +85,7 @@ class TimeSeriesPlayground extends React.Component {
             <Tooltip
               dataColor="var(--neutral-200)" dataLabel="AAPL Stock Price Closing" dataValue={tooltipData[1]}
               timeFormat={this.sampleTimeFormat} time={[tooltipData[0], tooltipData[0]]}
-              tooltipLeft={tooltipLeft} tooltipTop={tooltipTop}
+              left={tooltipLeft} top={tooltipTop}
             />
           )
         }
