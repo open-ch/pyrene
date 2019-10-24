@@ -34,8 +34,9 @@ const config = {
           {
             loader: 'css-loader',
             options: {
-              modules: true,
-              localIdentName: 'tuktuktwo-[name]__[local]--[hash:base64:10]',
+              modules: {
+                localIdentName: 'tuktuktwo-[name]__[local]--[hash:base64:10]',
+              },
               sourceMap: !production,
             },
           },

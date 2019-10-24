@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import moment from 'moment-timezone';
 import { Drag } from '@vx/drag';
 import { scaleTime } from '@vx/scale';
-import TimeZoomUtil from './TimeZoomUtil';
 
 const MARGIN_TOP = 16;
 const MARGIN_LEFT = 36;
@@ -17,24 +16,54 @@ const MOUSE_TOOLTIP_OFFSET_Y = 17;
 const MOUSE_TOOLTIP_TEXT_OFFSET_X = 28;
 const MOUSE_TOOLTIP_TEXT_OFFSET_Y = 22;
 
-const TOOLTIP_BG_COLOR = '#454d61';
-const TOOLTIP_COLOR = '#ffffff';
-
 let dragStartX = 0;
 let dragEndX = 0;
 let xScale = null;
 
+export const minZoomRangeReached = (from, to, minZoomRange) => to - from === minZoomRange;
+
+export const getBoundedZoomInRange = (from, to, minZoomRange, lowerBound, upperBound) => {
+  const boundedTimeRange = {
+    from: from,
+    to: to,
+  };
+
+  // Make sure the zoomed in time range does not exceed minimum allowed zoom range
+  if (to - from < minZoomRange) {
+    const zoomOverflow = minZoomRange - (to - from);
+    const fromShift = Math.round(zoomOverflow / 2);
+    const toShift = zoomOverflow - fromShift;
+    // Extend from and to in a boundary-aware way
+    if (from - fromShift < lowerBound) {
+      boundedTimeRange.from = lowerBound;
+      const boundedFromShift = from - lowerBound;
+      boundedTimeRange.to = to + (zoomOverflow - boundedFromShift);
+    } else if (to + toShift > upperBound) {
+      boundedTimeRange.to = upperBound;
+      const boundedToShift = upperBound - to;
+      boundedTimeRange.from = from - (zoomOverflow - boundedToShift);
+    } else {
+      boundedTimeRange.from = from - fromShift;
+      boundedTimeRange.to = to + (zoomOverflow - fromShift);
+    }
+  }
+
+  return boundedTimeRange;
+};
+
 /**
  * Callback function when releasing cursor after dragging over an area.
  * @param {number}minZoomRange - The minimum supported zoom range in epoch milliseconds
+ * @param {number}lowerBound - The lower bound of the time range in epoch milliseconds
+ * @param {number}upperBound - The upper bound of the time range in epoch milliseconds
  * @param {function}onZoom - The callback function
  * @private
  */
-const _onDragEnd = (minZoomRange, onZoom) => {
+const _onDragEnd = (minZoomRange, lowerBound, upperBound, onZoom) => {
   // Convert drag area to timestamp
   const newFrom = Math.ceil(Math.min(xScale(dragStartX), xScale(dragEndX)));
   const newTo = Math.floor(Math.max(xScale(dragStartX), xScale(dragEndX)));
-  const boundedTimeRange = TimeZoomUtil.getBoundedZoomInRange(newFrom, newTo, minZoomRange);
+  const boundedTimeRange = getBoundedZoomInRange(newFrom, newTo, minZoomRange, lowerBound, upperBound);
 
   // Execute callback
   onZoom(boundedTimeRange.from, boundedTimeRange.to);
@@ -145,7 +174,7 @@ const _getTooltipData = (x, dx, timezone) => {
  * TimeSeriesZoomable provides the functionality of dragging over an area on a pyrene graph to zoom in the selected time range.
  */
 const TimeSeriesZoomable = (props) => {
-  const cursorChange = !TimeZoomUtil.minZoomRangeReached(props.from, props.to, props.minZoomRange);
+  const cursorChange = !minZoomRangeReached(props.from, props.to, props.minZoomRange);
 
   const tooltipStyle = {
     width: 237,
@@ -174,7 +203,7 @@ const TimeSeriesZoomable = (props) => {
         onDragMove={() => {}}
         onDragEnd={({ x, y, dx, dy }) => {
           dragEndX = x + dx;
-          _onDragEnd(props.minZoomRange, props.onZoom);
+          _onDragEnd(props.minZoomRange, props.lowerBound, props.upperBound, props.onZoom);
         }}
         resetOnStart
       >
@@ -209,7 +238,7 @@ const TimeSeriesZoomable = (props) => {
                       <rect
                         x={_getTooltipX(x, dx, props.width)}
                         y={_getTooltipY(y, dy, props.height + MARGIN_TOP)}
-                        fill={TOOLTIP_BG_COLOR}
+                        fill={props.tooltipColor.bg}
                         width={TOOLTIP_WIDTH}
                         height={TOOLTIP_HEIGHT}
                         rx={2}
@@ -218,7 +247,7 @@ const TimeSeriesZoomable = (props) => {
                       <text
                         x={_getTooltipTextX(x, dx, props.width)}
                         y={_getTooltipTextY(y, dy, props.height + MARGIN_TOP)}
-                        fill={TOOLTIP_COLOR}
+                        fill={props.tooltipColor.text}
                         style={{ ...tooltipStyle }}
                       >
                         {_getTooltipData(x, dx, props.timezone)}
@@ -234,12 +263,12 @@ const TimeSeriesZoomable = (props) => {
                 fill="transparent"
                 width={props.width > 0 ? props.width : 0}
                 height={props.height > 0 ? props.height : 0}
-                onMouseDown={TimeZoomUtil.minZoomRangeReached(props.from, props.to, props.minZoomRange) ? () => {} : dragStart}
-                onMouseUp={TimeZoomUtil.minZoomRangeReached(props.from, props.to, props.minZoomRange) ? () => {} : dragEnd}
-                onMouseMove={TimeZoomUtil.minZoomRangeReached(props.from, props.to, props.minZoomRange) ? () => {} : dragMove}
-                onTouchStart={TimeZoomUtil.minZoomRangeReached(props.from, props.to, props.minZoomRange) ? () => {} : dragStart}
-                onTouchEnd={TimeZoomUtil.minZoomRangeReached(props.from, props.to, props.minZoomRange) ? () => {} : dragEnd}
-                onTouchMove={TimeZoomUtil.minZoomRangeReached(props.from, props.to, props.minZoomRange) ? () => {} : dragMove}
+                onMouseDown={minZoomRangeReached(props.from, props.to, props.minZoomRange) ? () => {} : dragStart}
+                onMouseUp={minZoomRangeReached(props.from, props.to, props.minZoomRange) ? () => {} : dragEnd}
+                onMouseMove={minZoomRangeReached(props.from, props.to, props.minZoomRange) ? () => {} : dragMove}
+                onTouchStart={minZoomRangeReached(props.from, props.to, props.minZoomRange) ? () => {} : dragStart}
+                onTouchEnd={minZoomRangeReached(props.from, props.to, props.minZoomRange) ? () => {} : dragEnd}
+                onTouchMove={minZoomRangeReached(props.from, props.to, props.minZoomRange) ? () => {} : dragMove}
               />
             </g>
           );
@@ -253,29 +282,17 @@ TimeSeriesZoomable.displayName = 'TimeSeriesZoomable';
 
 TimeSeriesZoomable.propTypes = {
   /**
-   * Sets the width of the zoomable canvas.
+   * Sets the starting time point in epoch milliseconds.
    */
-  width: PropTypes.number.isRequired,
+  from: PropTypes.number.isRequired,
   /**
    * Sets the height of the zoomable canvas.
    */
   height: PropTypes.number.isRequired,
   /**
-   * Sets the starting time point in epoch milliseconds.
-   */
-  from: PropTypes.number.isRequired,
-  /**
-   * Sets the ending time point in epoch milliseconds.
-   */
-  to: PropTypes.number.isRequired,
-  /**
    * Sets the lower bound of the starting time point in epoch milliseconds.
    */
   lowerBound: PropTypes.number.isRequired,
-  /**
-   * Sets the upper bound of the ending time point in epoch milliseconds.
-   */
-  upperBound: PropTypes.number.isRequired,
   /**
    * Sets the minimum supported zoom range in epoch milliseconds.
    */
@@ -285,9 +302,28 @@ TimeSeriesZoomable.propTypes = {
    */
   onZoom: PropTypes.func.isRequired,
   /**
+   * Sets the ending time point in epoch milliseconds.
+   */
+  to: PropTypes.number.isRequired,
+  /**
+   * Sets the background color and text color of the tooltip for zoom range.
+   */
+  tooltipColor: PropTypes.shape({
+    bg: PropTypes.string,
+    text: PropTypes.string,
+  }).isRequired,
+  /**
    * Sets the time zone.
    */
   timezone: PropTypes.string.isRequired,
+  /**
+   * Sets the upper bound of the ending time point in epoch milliseconds.
+   */
+  upperBound: PropTypes.number.isRequired,
+  /**
+   * Sets the width of the zoomable canvas.
+   */
+  width: PropTypes.number.isRequired,
 };
 
 export default TimeSeriesZoomable;

@@ -1,8 +1,6 @@
 import React from 'react';
 import moment from 'moment-timezone';
-
-import TimeSeriesZoomable from './TimeSeriesZoomable';
-import TimeZoomUtil from './TimeZoomUtil';
+import TimeSeriesZoomable, { minZoomRangeReached, getBoundedZoomInRange } from './TimeSeriesZoomable';
 
 const zoomableProps = {
   width: 1308,
@@ -33,38 +31,28 @@ describe('<TimeSeriesZoomable />', () => {
 
 describe('TimeZoomUtil', () => {
   it('correctly checks whether min zoom range has been reaches', () => {
-    const result1 = TimeZoomUtil.minZoomRangeReached(zoomableProps.from, zoomableProps.to, zoomableProps.minZoomRange);
+    const result1 = minZoomRangeReached(zoomableProps.from, zoomableProps.to, zoomableProps.minZoomRange);
 
     const zoomedInFrom = 1571660972000;  // 21/10/2019 14:29:32
     const zoomedInTo = 1571662772000;  // 21/10/2019 14:59:32
-    const result2 = TimeZoomUtil.minZoomRangeReached(zoomedInFrom, zoomedInTo, zoomableProps.minZoomRange);
+    const result2 = minZoomRangeReached(zoomedInFrom, zoomedInTo, zoomableProps.minZoomRange);
 
     expect(result1).toBe(false);
     expect(result2).toBe(true);
-  });
-
-  it('correctly checks whether max zoom range has been reached', () => {
-    const result1 = TimeZoomUtil.maxZoomRangeReached(zoomableProps.from, zoomableProps.to, zoomableProps.lowerBound, zoomableProps.upperBound);
-    const result2 = TimeZoomUtil.maxZoomRangeReached(zoomableProps.lowerBound, zoomableProps.to, zoomableProps.lowerBound, zoomableProps.upperBound);
-    const result3 = TimeZoomUtil.maxZoomRangeReached(zoomableProps.from, zoomableProps.upperBound, zoomableProps.lowerBound, zoomableProps.upperBound);
-
-    expect(result1).toBe(false);
-    expect(result2).toBe(true);
-    expect(result3).toBe(true);
   });
 
   it('bounds in zoom-in range', () => {
     const zoomedInFrom1 = 1571653772000;  // 21/10/2019 12:29:32
     const zoomedInTo1 = zoomedInFrom1 + moment.duration({ minutes: 10 }).valueOf();
-    const result1 = TimeZoomUtil.getBoundedZoomInRange(zoomedInFrom1, zoomedInTo1, zoomableProps.minZoomRange, zoomableProps.lowerBound, zoomableProps.upperBound);
+    const result1 = getBoundedZoomInRange(zoomedInFrom1, zoomedInTo1, zoomableProps.minZoomRange, zoomableProps.lowerBound, zoomableProps.upperBound);
 
     const zoomedInFrom2 = zoomableProps.lowerBound + moment.duration({ minutes: 5 }).valueOf();
     const zoomedInTo2 = zoomedInFrom2 + moment.duration({ minutes: 10 }).valueOf();
-    const result2 = TimeZoomUtil.getBoundedZoomInRange(zoomedInFrom2, zoomedInTo2, zoomableProps.minZoomRange, zoomableProps.lowerBound, zoomableProps.upperBound);
+    const result2 = getBoundedZoomInRange(zoomedInFrom2, zoomedInTo2, zoomableProps.minZoomRange, zoomableProps.lowerBound, zoomableProps.upperBound);
 
     const zoomedInTo3 = zoomableProps.upperBound - moment.duration({ minutes: 5 }).valueOf();
     const zoomedInFrom3 = zoomedInTo3 - moment.duration({ minutes: 10 }).valueOf();
-    const result3 = TimeZoomUtil.getBoundedZoomInRange(zoomedInFrom3, zoomedInTo3, zoomableProps.minZoomRange, zoomableProps.lowerBound, zoomableProps.upperBound);
+    const result3 = getBoundedZoomInRange(zoomedInFrom3, zoomedInTo3, zoomableProps.minZoomRange, zoomableProps.lowerBound, zoomableProps.upperBound);
 
     expect(result1.from).toBe(zoomedInFrom1 - moment.duration({ minutes: 10 }).valueOf());
     expect(result1.to).toBe(zoomedInTo1 + moment.duration({ minutes: 10 }).valueOf());
@@ -72,27 +60,5 @@ describe('TimeZoomUtil', () => {
     expect(result2.to).toBe(zoomedInTo2 + moment.duration({ minutes: 15 }).valueOf());
     expect(result3.from).toBe(zoomedInFrom3 - moment.duration({ minutes: 15 }).valueOf())
     expect(result3.to).toBe(zoomableProps.upperBound);
-  });
-
-  it('zooms in / out by the correct step ratio', () => {
-    let from = zoomableProps.from;
-    let to = zoomableProps.to;
-
-    const callback = (newFrom, newTo) => {
-      from = newFrom;
-      to = newTo;
-    };
-
-    TimeZoomUtil.zoomInByStep(from, to, zoomableProps.minZoomRange, zoomableProps.lowerBound, zoomableProps.upperBound, callback);
-    expect(from).toBe(1571722622000);
-    expect(to).toBe(1572178922000);
-
-    TimeZoomUtil.zoomOutByStep(from, to, zoomableProps.lowerBound, zoomableProps.upperBound, callback);
-    expect(from).toBe(zoomableProps.from);
-    expect(to).toBe(zoomableProps.to);
-
-    TimeZoomUtil.zoomOutByStep(from, to, zoomableProps.lowerBound, zoomableProps.upperBound, callback);
-    expect(from).toBe(1571545172000);
-    expect(to).toBe(1572356372000);
   });
 });

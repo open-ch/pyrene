@@ -5,9 +5,8 @@
 import { default as Bar } from './components/Bar/Bar';
 import { default as RelativeBar } from './components/Bar/RelativeBar';
 import { default as Responsive } from './components/Misc/Responsive';
-import { default as TimeSeriesZoomable } from './components/TimeSeriesZoomable/TimeSeriesZoomable';
+import { default as TimeSeriesZoomable, minZoomRangeReached, getBoundedZoomInRange } from './components/TimeSeriesZoomable/TimeSeriesZoomable';
 import { default as TimeXAxis } from './components/TimeXAxis/TimeXAxis';
-import { default as TimeZoomUtil } from './components/TimeSeriesZoomable/TimeZoomUtil';
 
 // Sort alphabetically to find stuff easily
 const Components = {
@@ -22,8 +21,7 @@ const Components = {
 export { Bar };
 export { RelativeBar };
 export { Responsive };
-export { TimeSeriesZoomable };
-export { TimeZoomUtil };
+export { TimeSeriesZoomable, minZoomRangeReached, getBoundedZoomInRange };
 export { TimeXAxis };
 
 export default Components;
