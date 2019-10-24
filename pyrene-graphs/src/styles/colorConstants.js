@@ -1,4 +1,4 @@
-import colorConstantsPyrene from 'pyrene/src/styles/colorConstants';
+import { colorConstants as colorConstantsPyrene } from 'pyrene';
 
 const functionalColors = {
   /* DEFAULT */
