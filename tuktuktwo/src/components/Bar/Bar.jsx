@@ -1,38 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Bar as VxBar } from '@vx/shape';
-import Responsive from '../Misc/Responsive';
 
 /**
  * Bars are used to display a numerical value.
  */
 const Bar = props => (
-  <Responsive>
-    {parent => (
-      props.direction === 'horizontal' ? (
-        <svg width={parent.width} height={props.barWeight}>
-          <VxBar
-            x="0"
-            y="0"
-            height={props.barWeight}
-            width={props.value * (parent.width / props.maxValue)}
-            fill={props.color}
-            transform={props.mirrored ? `rotate(180 ${parent.width / 2} ${props.barWeight / 2})` : undefined}
-          />
-        </svg>
-      ) : (
-        <svg width={props.barWeight} height={parent.height}>
-          <VxBar
-            x="0"
-            y={(props.maxValue - props.value) * (parent.height / props.maxValue)}
-            height={props.value * (parent.height / props.maxValue)}
-            width={props.barWeight}
-            fill={props.color}
-            transform={props.mirrored ? `rotate(180 ${props.barWeight / 2} ${parent.height / 2})` : undefined}
-          />
-        </svg>
-      ))}
-  </Responsive>
+  props.direction === 'horizontal' ? (
+    <VxBar
+      x="0"
+      y={props.top}
+      height={props.barWeight}
+      width={props.value * (props.size / props.maxValue)}
+      fill={props.color}
+      transform={props.mirrored ? `rotate(180 ${props.size / 2} ${props.barWeight / 2})` : undefined}
+    />
+  ) : (
+    <VxBar
+      x="0"
+      y={props.top + (props.maxValue - props.value) * (props.size / props.maxValue)}
+      height={props.value * (props.size / props.maxValue)}
+      width={props.barWeight}
+      fill={props.color}
+      transform={props.mirrored ? `rotate(180 ${props.barWeight / 2} ${props.size / 2})` : undefined}
+    />
+  )
 );
 
 Bar.displayName = 'Bar';
@@ -41,6 +33,7 @@ Bar.defaultProps = {
   barWeight: 6,
   direction: 'horizontal',
   mirrored: false,
+  top: 0,
 };
 
 Bar.propTypes = {
@@ -64,6 +57,14 @@ Bar.propTypes = {
    * If set, the bar is being mirrored horizontally.
    */
   mirrored: PropTypes.bool,
+  /**
+   * Sets the size, which is used to calculate the bar length.
+   */
+  size: PropTypes.number.isRequired,
+  /**
+   * Sets top, which is used to position the bar vertically.
+   */
+  top: PropTypes.number,
   /**
    * Sets the value, which is used to calculate the bar length.
    */
