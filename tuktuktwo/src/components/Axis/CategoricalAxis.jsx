@@ -13,11 +13,12 @@ const getScale = (size, labels) => (
  */
 const CategoricalAxis = (props) => {
   const chartHeight = props.height - chartConstants.marginBottom;
+  const labels = props.showTickLabels ? props.tickLabels : [];
   return (
     props.orientation === 'left' ? (
       <AxisLeft
         left={chartConstants.marginLeftCategorical}
-        scale={getScale(chartHeight, props.tickLabels)}
+        scale={getScale(chartHeight, labels)}
         tickLength={0}
         tickLabelProps={() => ({
           fontSize: 10, fill: props.tickLabelColor, fontFamily: 'AvenirNext', textAnchor: 'start', dy: '0.25em', dx: -chartConstants.marginLeftCategorical,
@@ -25,21 +26,19 @@ const CategoricalAxis = (props) => {
         stroke={props.strokeColor}
         tickStroke={props.tickLabelColor}
         tickFormat={props.tickFormat}
-        tickValues={props.showTickLabels ? undefined : []}
         hideTicks
       />
     ) : (
       <AxisBottom
         top={chartHeight}
         left={chartConstants.marginLeftNumerical}
-        scale={getScale(props.width - chartConstants.marginLeftNumerical, props.tickLabels)}
+        scale={getScale(props.width - chartConstants.marginLeftNumerical, labels)}
         tickLabelProps={() => ({
           textAnchor: 'middle', fontSize: 10, fontFamily: 'AvenirNext', fill: props.tickLabelColor, dy: '-0.25em',
         })}
         stroke={props.strokeColor}
         tickStroke={props.tickLabelColor}
         tickFormat={props.tickFormat}
-        tickValues={props.showTickLabels ? undefined : []}
         hideTicks
       />
     )

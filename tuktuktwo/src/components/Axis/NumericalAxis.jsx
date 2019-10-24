@@ -31,9 +31,8 @@ const NumericalAxis = (props) => {
           })}
           stroke={props.strokeColor}
           tickStroke={props.tickLabelColor}
-          numTicks={5}
+          numTicks={props.showTickLabels ? 5 : 0}
           tickFormat={props.tickFormat}
-          tickValues={props.showTickLabels ? undefined : []}
           hideTicks
           hideZero
         />
@@ -60,9 +59,8 @@ const NumericalAxis = (props) => {
           })}
           stroke={props.strokeColor}
           tickStroke={props.tickLabelColor}
-          numTicks={7}
+          numTicks={props.showTickLabels ? 7 : 0}
           tickFormat={props.tickFormat}
-          tickValues={props.showTickLabels ? undefined : []}
           hideTicks
           hideZero
         />
