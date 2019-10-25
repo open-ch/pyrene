@@ -14,6 +14,7 @@ const props = {
   value: {
     ...getCurrentDate(),
   },
+  timeUnit: 'month',
 };
 
 describe('<CalendarDateSelector />', () => {

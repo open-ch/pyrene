@@ -39,7 +39,6 @@ export default class CalendarDateSelector extends React.Component {
     lowerBound: CalendarDateSelector.DEFAULT_LOWER_BOUND,
     upperBound: getCurrentDate(),
     timeUnits: CalendarDateSelector.DEFAULT_TIME_UNITS,
-    timeUnit: 'month',
     value: {
       ...getCurrentDate(),
     },
@@ -107,7 +106,7 @@ CalendarDateSelector.propTypes = {
   lowerBound: CalendarDateSelectorPropTypes.YEAR_MONTH_DAY,
   onChange: PropTypes.func,
   renderRightSection: PropTypes.func,
-  timeUnit: CalendarDateSelectorPropTypes.TIMEUNIT_OPTION,
+  timeUnit: CalendarDateSelectorPropTypes.TIMEUNIT_OPTION.isRequired,
   timeUnits: CalendarDateSelectorPropTypes.TIMEUNIT_OPTIONS,
   upperBound: CalendarDateSelectorPropTypes.YEAR_MONTH_DAY,
   value: CalendarDateSelectorPropTypes.YEAR_MONTH_DAY,
