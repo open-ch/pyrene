@@ -102,6 +102,13 @@ module.exports = {
     "jest/valid-expect": "error"
   },
 
+  "overrides": [{
+    "files": ["*.spec.jsx"],
+    "rules": {
+      "react/jsx-props-no-spreading": "off"
+    }
+  }],
+
   "plugins": [
     "jest"
   ]
