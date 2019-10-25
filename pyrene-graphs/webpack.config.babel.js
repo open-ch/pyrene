@@ -29,7 +29,7 @@ const config = {
       {
         test: /\.css$/,
         exclude: [
-          /node_modules|tuktuktwo\/dist/,
+          /node_modules/,
         ],
         use: [
           MiniCssExtractPlugin.loader,
@@ -45,7 +45,7 @@ const config = {
         ],
       },
       {
-        test: /(node_modules|tuktuktwo\/dist).*\.css$/,
+        test: /(node_modules).*\.css$/,
         use: ['style-loader', 'css-loader'],
       },
       {

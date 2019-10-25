@@ -4,8 +4,8 @@ const examples = {};
 
 examples.props = {
   data: applications,
-  header: 'Top Applications by Volume',
-  description: 'A horizontal bar chart',
+  title: 'Top Applications by Volume',
+  description: 'A vertical bar chart',
   legend: ['Volume'],
 };
 
