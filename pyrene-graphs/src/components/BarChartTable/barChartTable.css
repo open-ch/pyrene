@@ -4,20 +4,14 @@
   width: 100%;
 }
 
+.responsiveContainer {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+
 .labelLink:hover {
   text-decoration: underline;
-}
-
-.comparisonContainer * {
-  display: block;
-}
-
-.comparisonContainer > *:first-child {
-  padding-bottom: 6px;
-}
-
-.barContainer {
-  line-height: 15px; /* Center the butterfly bar vertically: 32px row height / 2 - 1 border weight */
 }
 
 .verticalLine {

@@ -35,7 +35,7 @@ const props = {
       formatter: d => `${d} %`,
     },
   },
-  header: 'Header',
+  title: 'Title',
   displayedRows: 1,
 };
 
@@ -73,7 +73,7 @@ const propsComparison = {
       formatter: d => `${d} GB`,
     },
   },
-  header: 'Header',
+  title: 'Title',
   description: 'Description',
 };
 
@@ -85,7 +85,7 @@ describe('<BarChartTable />', () => {
   it('renders its content', () => {
     const rendered = mount(<BarChartTable {...props} />);
     // Header
-    expect(rendered.contains('Header')).toBe(true);
+    expect(rendered.contains('Title')).toBe(true);
     expect(rendered.contains('Description')).toBe(false);
     // Table
     // header
@@ -97,7 +97,7 @@ describe('<BarChartTable />', () => {
     rendered.find('tbody').find('tr').forEach((tr, rowIndex) => {
       const cells = tr.find('td');
       expect(cells.at(0).text()).toBe(props.data[rowIndex].application);
-      expect(cells.at(1).find('.barContainer').exists()).toBe(true);
+      expect(cells.at(1).find('.responsiveContainer').exists()).toBe(true);
       expect(cells.at(2).text()).toBe(props.columns.primaryValue.formatter(props.data[rowIndex].volume));
       expect(cells.at(3).text()).toBe(props.columns.secondaryValue.formatter(props.data[rowIndex].shareOfTotal));
     });
@@ -110,7 +110,7 @@ describe('<BarChartTable />', () => {
   it('renders its content without secondaryValue', () => {
     const rendered = mount(<BarChartTable {...propsOnlyPrimaryValue} />);
     // Header
-    expect(rendered.contains('Header')).toBe(true);
+    expect(rendered.contains('Title')).toBe(true);
     expect(rendered.contains('Description')).toBe(false);
     // Table
     // header
@@ -122,7 +122,7 @@ describe('<BarChartTable />', () => {
     rendered.find('tbody').find('tr').forEach((tr, rowIndex) => {
       const cells = tr.find('td');
       expect(cells.at(0).text()).toBe(props.data[rowIndex].application);
-      expect(cells.at(1).find('.barContainer').exists()).toBe(true);
+      expect(cells.at(1).find('.responsiveContainer').exists()).toBe(true);
       expect(cells.at(2).text()).toBe(props.columns.primaryValue.formatter(props.data[rowIndex].volume));
       expect(cells).toHaveLength(3);
     });
@@ -135,7 +135,7 @@ describe('<BarChartTable />', () => {
   it('renders butterfly content', () => {
     const rendered = mount(<BarChartTable {...propsComparison} type="butterfly" />);
     // Header
-    expect(rendered.contains('Header')).toBe(true);
+    expect(rendered.contains('Title')).toBe(true);
     expect(rendered.contains('Description')).toBe(true);
     // Table
     // header
@@ -148,9 +148,9 @@ describe('<BarChartTable />', () => {
       const cells = tr.find('td');
       expect(cells.at(0).text()).toBe(propsComparison.data[rowIndex].application);
       expect(cells.at(1).text()).toBe(propsComparison.columns.primaryValue.formatter(propsComparison.data[rowIndex].volumeCurrent));
-      expect(cells.at(2).find('.barContainer').exists()).toBe(true);
+      expect(cells.at(2).find('.responsiveContainer').exists()).toBe(true);
       expect(cells.at(3).find('.verticalLine').exists()).toBe(true);
-      expect(cells.at(4).find('.barContainer').exists()).toBe(true);
+      expect(cells.at(4).find('.responsiveContainer').exists()).toBe(true);
       expect(cells.at(5).text()).toBe(propsComparison.columns.secondaryValue.formatter(propsComparison.data[rowIndex].volumePrevious));
     });
   });
