@@ -6,8 +6,11 @@ const props = {
   dataColor: 'red',
   dataLabel: 'test',
 
-  time: 92845926,
-  timeFormat: d => d,
+  left: 55,
+  top: 42,
+
+  time: 9284655926,
+  timeFormat: (d) => d,
 };
 
 describe('<Tooltip />', () => {
