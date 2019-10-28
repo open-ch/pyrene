@@ -80,7 +80,7 @@
     "@vx/scale": "^0.0.192",
     "@vx/shape": "^0.0.192",
 
-    "tuktuktwo": "^0.0.5"
+    "tuktuktwo": "^0.0.6"
   },
   "peerDependencies": {
     "pyrene": ">=1.11.0 <2.0.0",
