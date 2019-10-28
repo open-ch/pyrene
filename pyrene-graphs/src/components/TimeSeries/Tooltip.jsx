@@ -38,6 +38,11 @@ Tooltip.propTypes = {
   dataValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
 
   /**
+   * Sets the left absolute position, controlled by VX
+   */
+  left: PropTypes.number.isRequired,
+
+  /**
    * The time of the data series. Either a point or a range
    */
   time: PropTypes.oneOfType([PropTypes.number], PropTypes.arrayOf(PropTypes.number)).isRequired,
@@ -46,11 +51,6 @@ Tooltip.propTypes = {
    * The function that shall be used for time formatting. Must support all formats of the time property
    */
   timeFormat: PropTypes.func.isRequired,
-
-  /**
-   * Sets the left absolute position, controlled by VX
-   */
-  left: PropTypes.number.isRequired,
 
   /**
    * Sets the top absolute position, controlled by VX
