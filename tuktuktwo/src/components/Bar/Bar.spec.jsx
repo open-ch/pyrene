@@ -3,12 +3,14 @@ import React from 'react';
 import Bar from './Bar';
 import RelativeBar from './RelativeBar';
 
+const parentSize = { width: 50, height: 40 };
 
 const props = {
   barWeight: 10,
   color: 'blue',
   maxValue: 100,
   value: 53,
+  size: parentSize.width,
 };
 
 const propsRelative = {
@@ -16,13 +18,19 @@ const propsRelative = {
   colors: ['blue', 'red'],
 };
 
+const svgWrapper = bar => (
+  <svg width={parentSize.width} height={parentSize.height}>
+    {bar}
+  </svg>
+);
+
 describe('<Bar />', () => {
   it('renders without crashing', () => {
-    shallow(<Bar {...props} />);
+    shallow(svgWrapper(<Bar {...props} />));
   });
 
   it('renders its content', () => {
-    const rendered = mount(<Bar {...props} />);
+    const rendered = mount(svgWrapper(<Bar {...props} />));
     const bar = rendered.find('rect').at(0);
     expect(bar.prop('className')).toBe('vx-bar');
     // height for horizontal bar should be equal to barWeight
@@ -31,11 +39,11 @@ describe('<Bar />', () => {
   });
 
   it('renders RelativeBar without crashing', () => {
-    shallow(<RelativeBar {...propsRelative} />);
+    shallow(svgWrapper(<RelativeBar {...propsRelative} />));
   });
 
   it('renders RelativeBar content', () => {
-    const rendered = mount(<RelativeBar {...propsRelative} />);
+    const rendered = mount(svgWrapper(<RelativeBar {...propsRelative} />));
     const bar = rendered.find('rect').at(0);
     expect(bar.prop('className')).toBe('vx-bar');
     // height for horizontal bar should be equal to barWeight
