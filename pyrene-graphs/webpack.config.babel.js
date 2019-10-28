@@ -1,5 +1,5 @@
 import path from 'path';
-import CleanWebpackPlugin from 'clean-webpack-plugin';
+import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin';
 import TerserPlugin from 'terser-webpack-plugin';
@@ -36,13 +36,18 @@ const config = {
           {
             loader: 'css-loader',
             options: {
-              modules: true,
-              localIdentName: 'pyrene-graphs-[name]__[local]--[hash:base64:10]',
+              modules: {
+                localIdentName: 'pyrene-graphs-[name]__[local]--[hash:base64:10]',
+              },
               sourceMap: !production,
             },
           },
           'postcss-loader',
         ],
+      },
+      {
+        test: /(node_modules).*\.css$/,
+        use: ['style-loader', 'css-loader'],
       },
       {
         test: /\.svg$/,
