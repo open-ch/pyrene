@@ -17,8 +17,24 @@ let dragStartX = 0;
 let dragEndX = 0;
 let xScale = null;
 
+/**
+ * Checks whether the minimum supported zoom range has been reached.
+ * @param {number}from - The starting point of the time range in epoch milliseconds
+ * @param {number}to - The ending point of the time range in epoch milliseconds
+ * @param {number}minZoomRange - The minimum supported zoom range in epoch milliseconds
+ * @returns {boolean}
+ */
 export const minZoomRangeReached = (from, to, minZoomRange) => to - from === minZoomRange;
 
+/**
+ * Gets the new, bounded time range after a zoom-in action.
+ * @param {number}from - The starting point of the time range in epoch milliseconds
+ * @param {number}to - The ending point of the time range in epoch milliseconds
+ * @param {number}minZoomRange - The minimum supported zoom range in epoch milliseconds
+ * @param {number}lowerbound - The oldest queryable starting time point in epoch milliseconds
+ * @param {number}upperbound - The latest quaryable ending time point in epoch milliseconds
+ * @returns {{from: {number}, to: {number}}}
+ */
 export const getBoundedZoomInRange = (from, to, minZoomRange, lowerBound, upperBound) => {
   const boundedTimeRange = {
     from: from,
@@ -51,8 +67,8 @@ export const getBoundedZoomInRange = (from, to, minZoomRange, lowerBound, upperB
 /**
  * Callback function when releasing cursor after dragging over an area.
  * @param {number}minZoomRange - The minimum supported zoom range in epoch milliseconds
- * @param {number}lowerBound - The lower bound of the time range in epoch milliseconds
- * @param {number}upperBound - The upper bound of the time range in epoch milliseconds
+ * @param {number}lowerbound - The oldest queryable starting time point in epoch milliseconds
+ * @param {number}upperbound - The latest quaryable ending time point in epoch milliseconds
  * @param {function}onZoom - The callback function
  * @private
  */
