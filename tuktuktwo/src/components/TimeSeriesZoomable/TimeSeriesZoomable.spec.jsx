@@ -1,17 +1,23 @@
 import React from 'react';
-import moment from 'moment-timezone';
+import moment from 'moment';
 import TimeSeriesZoomable, { minZoomRangeReached, getBoundedZoomInRange } from './TimeSeriesZoomable';
+import chartConstants from '../../common/chartConstants';
 
 const zoomableProps = {
   width: 1308,
-  height: 320,
-  from: 1571646572000,  // 21/10/2019 10:29:32
-  to: 1572254972000,  // 28/10/2019 10:29:32
-  lowerBound: 1555835372000,  // 04/21/2019 10:29:32
-  upperBound: 1587457772000,  // 04/21/2020 10:29:32
+  height: 344,
+  from: moment('2019-10-21 10:29').valueOf(),
+  to: moment('2019-10-28 10:29').valueOf(),
+  lowerBound: moment('2019-04-21 10:29').valueOf(),
+  upperBound: moment('2020-04-21 10:29').valueOf(),
   minZoomRange: moment.duration({ minutes: 30 }).valueOf(),
   onZoom: () => {},
-  timezone: 'Asia/Shanghai',
+  tooltipFormat: (d) => d,
+  color: {
+    background: '#ff0000',
+    foreground: '#00ff00',
+    text: '#0000ff',
+  },
 };
 
 describe('<TimeSeriesZoomable />', () => {
@@ -21,20 +27,20 @@ describe('<TimeSeriesZoomable />', () => {
 
   it('renders its content', () => {
     const rendered = shallow(<TimeSeriesZoomable {...zoomableProps} />);
-    expect(rendered.find('g').at(0).children().prop('width')).toBe(1308);
-    expect(rendered.find('g').at(0).children().prop('height')).toBe(320);
+    expect(rendered.find('g').at(0).children().prop('width')).toBe(zoomableProps.width - chartConstants.marginLeftNumerical);
+    expect(rendered.find('g').at(0).children().prop('height')).toBe(zoomableProps.height - chartConstants.marginBottom);
     expect(rendered.find('g').at(0).children().prop('onDragStart')).toHaveLength(1);
     expect(rendered.find('g').at(0).children().prop('onDragEnd')).toHaveLength(1);
     expect(rendered.find('g').at(0).children().prop('resetOnStart')).toBe(true);
   });
 });
 
-describe('TimeZoomUtil', () => {
+describe('ZoomRange', () => {
   it('correctly checks whether min zoom range has been reaches', () => {
     const result1 = minZoomRangeReached(zoomableProps.from, zoomableProps.to, zoomableProps.minZoomRange);
 
-    const zoomedInFrom = 1571660972000;  // 21/10/2019 14:29:32
-    const zoomedInTo = 1571662772000;  // 21/10/2019 14:59:32
+    const zoomedInFrom = moment('2019-10-21 14:29').valueOf();
+    const zoomedInTo = moment('2019-10-21 14:59').valueOf();
     const result2 = minZoomRangeReached(zoomedInFrom, zoomedInTo, zoomableProps.minZoomRange);
 
     expect(result1).toBe(false);
@@ -42,7 +48,7 @@ describe('TimeZoomUtil', () => {
   });
 
   it('bounds in zoom-in range', () => {
-    const zoomedInFrom1 = 1571653772000;  // 21/10/2019 12:29:32
+    const zoomedInFrom1 = moment('2019-10-21 12:29').valueOf();
     const zoomedInTo1 = zoomedInFrom1 + moment.duration({ minutes: 10 }).valueOf();
     const result1 = getBoundedZoomInRange(zoomedInFrom1, zoomedInTo1, zoomableProps.minZoomRange, zoomableProps.lowerBound, zoomableProps.upperBound);
 

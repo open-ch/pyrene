@@ -1,11 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment-timezone';
 import { Drag } from '@vx/drag';
 import { scaleTime } from '@vx/scale';
-
-const MARGIN_TOP = 16;
-const MARGIN_LEFT = 36;
+import chartConstants from '../../common/chartConstants';
 
 const TOOLTIP_WIDTH = 267;
 const TOOLTIP_HEIGHT = 34;
@@ -78,7 +75,7 @@ const _onDragEnd = (minZoomRange, lowerBound, upperBound, onZoom) => {
  * @private
  */
 const _getZoomRectWidth = (x, dx, maxWidthLeft) => {
-  return ((x + dx < MARGIN_LEFT) && Math.abs(dx) > maxWidthLeft) ? maxWidthLeft : Math.abs(dx);
+  return ((x + dx < chartConstants.marginLeftNumerical) && Math.abs(dx) > maxWidthLeft) ? maxWidthLeft : Math.abs(dx);
 };
 
 /**
@@ -93,7 +90,7 @@ const _getZoomRectX = (x, dx) => {
     return x;
   }
   // When drag direction is leftward
-  return (x + dx) < MARGIN_LEFT ? MARGIN_LEFT : (x + dx);
+  return (x + dx) < chartConstants.marginLeftNumerical ? chartConstants.marginLeftNumerical : (x + dx);
 };
 
 /**
@@ -157,24 +154,26 @@ const _getTooltipTextY = (y, dy, maxHeight) => {
 };
 
 /**
- * Returns the timezone-aware tooltip data in the correct format.
+ * Returns the tooltip data in the correct format.
  * @param {number}x - The initial x-coordinate of the cursor
  * @param {number}dx - The difference between the current and initial x-coordinate of the cursor
- * @param {string}timezone - The current timezone
+ * @param {function}tooltipFormat - The formatting function
  * @returns {string}
  * @private
  */
-const _getTooltipData = (x, dx, timezone) => {
+const _getTooltipData = (x, dx, tooltipFormat) => {
   const from = Math.ceil(xScale(Math.min(x, x + dx)));
   const to = Math.floor(xScale(Math.max(x, x + dx)));
-  return `${moment.tz(from, timezone).format('DD.MM.YYYY, HH:mm')} - ${moment.tz(to, timezone).format('DD.MM.YYYY, HH:mm')}`;
+  return tooltipFormat(from, to);
 };
 
 /**
  * TimeSeriesZoomable provides the functionality of dragging over an area on a pyrene graph to zoom in the selected time range.
  */
 const TimeSeriesZoomable = (props) => {
-  const cursorChange = !minZoomRangeReached(props.from, props.to, props.minZoomRange);
+  const zoomAreaWidth = props.width - chartConstants.marginLeftNumerical;
+  const zoomAreaHeight = props.height - chartConstants.marginBottom;
+  const canZoom = !minZoomRangeReached(props.from, props.to, props.minZoomRange);
 
   const tooltipStyle = {
     width: 237,
@@ -189,14 +188,14 @@ const TimeSeriesZoomable = (props) => {
 
   xScale = scaleTime({
     range: [props.from, props.to],
-    domain: [MARGIN_LEFT, props.width + MARGIN_LEFT],
+    domain: [chartConstants.marginLeftNumerical, props.width],
   });
 
   return (
-    <g style={cursorChange ? { cursor: 'col-resize' } : {}}>
+    <g style={canZoom ? { cursor: 'col-resize' } : {}}>
       <Drag
-        width={props.width}
-        height={props.height}
+        width={zoomAreaWidth}
+        height={zoomAreaHeight}
         onDragStart={({ x, y }) => {
           dragStartX = x;
         }}
@@ -217,58 +216,57 @@ const TimeSeriesZoomable = (props) => {
           dragEnd,
           dragMove,
         }) => {
-          const maxWidthLeft = x - MARGIN_LEFT;
+          const maxWidthLeft = x - chartConstants.marginLeftNumerical;
           return (
             <g>
               {/* Draw rectangle */}
               {isDragging && (
                 <g>
                   <rect
-                    fill="#1d273b"
+                    fill={props.color.background}
                     opacity={0.25}
                     width={_getZoomRectWidth(x, dx, maxWidthLeft)}
-                    height={props.height}
+                    height={zoomAreaHeight}
                     x={_getZoomRectX(x, dx)}
-                    y={MARGIN_TOP}
+                    y={0}
                     style={{ pointerEvents: 'none' }}
                   />
                   {/* Display the tooltip */}
-                  <svg shapeRendering="geometricPrecision">
-                    <g>
-                      <rect
-                        x={_getTooltipX(x, dx, props.width)}
-                        y={_getTooltipY(y, dy, props.height + MARGIN_TOP)}
-                        fill={props.tooltipColor.bg}
-                        width={TOOLTIP_WIDTH}
-                        height={TOOLTIP_HEIGHT}
-                        rx={2}
-                        ry={2}
-                      />
-                      <text
-                        x={_getTooltipTextX(x, dx, props.width)}
-                        y={_getTooltipTextY(y, dy, props.height + MARGIN_TOP)}
-                        fill={props.tooltipColor.text}
-                        style={{ ...tooltipStyle }}
-                      >
-                        {_getTooltipData(x, dx, props.timezone)}
-                      </text>
-                    </g>
-                  </svg>
+                  <g>
+                    <rect
+                      shapeRendering="geometricPrecision"
+                      x={_getTooltipX(x, dx, zoomAreaWidth)}
+                      y={_getTooltipY(y, dy, zoomAreaHeight)}
+                      fill={props.color.foreground}
+                      width={TOOLTIP_WIDTH}
+                      height={TOOLTIP_HEIGHT}
+                      rx={2}
+                      ry={2}
+                    />
+                    <text
+                      x={_getTooltipTextX(x, dx, zoomAreaWidth)}
+                      y={_getTooltipTextY(y, dy, zoomAreaHeight)}
+                      fill={props.color.text}
+                      style={{ ...tooltipStyle }}
+                    >
+                      {_getTooltipData(x, dx, props.tooltipFormat)}
+                    </text>
+                  </g>
                 </g>
               )}
               {/* Define the drawing area for zoom */}
               <rect
-                y={MARGIN_TOP}
-                x={MARGIN_LEFT}
+                y={0}
+                x={chartConstants.marginLeftNumerical}
                 fill="transparent"
-                width={props.width > 0 ? props.width : 0}
-                height={props.height > 0 ? props.height : 0}
-                onMouseDown={minZoomRangeReached(props.from, props.to, props.minZoomRange) ? () => {} : dragStart}
-                onMouseUp={minZoomRangeReached(props.from, props.to, props.minZoomRange) ? () => {} : dragEnd}
-                onMouseMove={minZoomRangeReached(props.from, props.to, props.minZoomRange) ? () => {} : dragMove}
-                onTouchStart={minZoomRangeReached(props.from, props.to, props.minZoomRange) ? () => {} : dragStart}
-                onTouchEnd={minZoomRangeReached(props.from, props.to, props.minZoomRange) ? () => {} : dragEnd}
-                onTouchMove={minZoomRangeReached(props.from, props.to, props.minZoomRange) ? () => {} : dragMove}
+                width={zoomAreaWidth > 0 ? zoomAreaWidth : 0}
+                height={zoomAreaHeight > 0 ? zoomAreaHeight : 0}
+                onMouseDown={canZoom ? dragStart : () => {}}
+                onMouseUp={canZoom ? dragEnd : () => {}}
+                onMouseMove={canZoom ? dragMove : () => {}}
+                onTouchStart={canZoom ? dragStart : () => {}}
+                onTouchEnd={canZoom ? dragEnd : () => {}}
+                onTouchMove={canZoom ? dragMove : () => {}}
               />
             </g>
           );
@@ -281,6 +279,14 @@ const TimeSeriesZoomable = (props) => {
 TimeSeriesZoomable.displayName = 'TimeSeriesZoomable';
 
 TimeSeriesZoomable.propTypes = {
+  /**
+   * Sets the background color and text color of the zoom rectangle and tooltip.
+   */
+  color: PropTypes.shape({
+    background: PropTypes.string,
+    foreground: PropTypes.string,
+    text: PropTypes.string,
+  }).isRequired,
   /**
    * Sets the starting time point in epoch milliseconds.
    */
@@ -306,16 +312,9 @@ TimeSeriesZoomable.propTypes = {
    */
   to: PropTypes.number.isRequired,
   /**
-   * Sets the background color and text color of the tooltip for zoom range.
+   * Sets the formatting function for the time range displayed in zoom tootlip.
    */
-  tooltipColor: PropTypes.shape({
-    bg: PropTypes.string,
-    text: PropTypes.string,
-  }).isRequired,
-  /**
-   * Sets the time zone.
-   */
-  timezone: PropTypes.string.isRequired,
+  tooltipFormat: PropTypes.func.isRequired,
   /**
    * Sets the upper bound of the ending time point in epoch milliseconds.
    */
