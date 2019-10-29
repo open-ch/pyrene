@@ -32,14 +32,16 @@ export default class ShareDialog extends React.Component {
   };
 
   _displayShareDialogClicked = () => {
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       displayShareDialog: !prevState.displayShareDialog,
     }));
   };
 
   _focusAndSelectInput = () => {
-    this.textInput.current.focus();
-    this.textInput.current.select();
+    if (this.textInput.current) {
+      this.textInput.current.focus();
+      this.textInput.current.select();
+    }
   };
 
 
