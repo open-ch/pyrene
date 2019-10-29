@@ -13,7 +13,6 @@ const formatTime = (timestamp, props) => (props.showTickLabels ? timeFormat(time
  * TimeXAxis is the x axis for Time Series graphs.
  */
 const TimeXAxis = (props) => {
-  const xAxisTop = props.height - chartConstants.marginBottom;
   const xMax = props.width - chartConstants.marginLeftNumerical;
   const yMax = props.height - chartConstants.marginBottom;
 
@@ -25,7 +24,7 @@ const TimeXAxis = (props) => {
   return (
     <Group top={0} left={chartConstants.marginLeftNumerical}>
       <AxisBottom
-        top={xAxisTop}
+        top={yMax}
         left={0}
         scale={xScale}
         tickValues={(props.showTickLabels && xScale) ? getTickValues(props.from, props.to, props.timezone, xScale) : []}
