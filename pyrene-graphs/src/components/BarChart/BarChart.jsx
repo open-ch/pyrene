@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Loader } from 'pyrene';
 import {
-  Bars, CategoricalAxis, NumericalAxis, Responsive,
+  Bars, BarStack, CategoricalAxis, NumericalAxis, Responsive,
 } from 'tuktuktwo';
 import ChartContainer from '../ChartContainer/ChartContainer';
 import ChartOverlay from '../ChartOverlay/ChartOverlay';
@@ -84,7 +84,15 @@ const BarChart = (props) => {
               />
             )}
             {!props.loading && (props.legend.length > 1 ? (
-              undefined
+              <BarStack
+                barWeight={barWeight}
+                colors={props.colorScheme.categorical}
+                height={parent.height}
+                keys={props.legend}
+                data={props.data}
+                direction={props.direction}
+                width={parent.width}
+              />
             ) : (
               <Bars
                 barWeight={barWeight}
