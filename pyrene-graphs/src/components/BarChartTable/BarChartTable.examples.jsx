@@ -12,7 +12,7 @@ examples.props = {
   type: 'bar',
   title: 'Applications',
   description: 'Optional description and explanation on how to read the chart',
-  onRowDoubleClick: row => alert(row.value),
+  onRowDoubleClick: (row) => alert(row.value), // eslint-disable-line no-alert
   colorScheme: colorSchemes.colorSchemeDefault,
   displayedRows: 10,
 };

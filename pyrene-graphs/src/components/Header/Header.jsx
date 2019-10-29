@@ -6,7 +6,7 @@ import './header.css';
 /**
  * Headers are used to display a title, description and legends along with chart components.
  */
-const Header = props => (
+const Header = (props) => (
   <div styleName="container">
     <div styleName="title">
       {props.title}

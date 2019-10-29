@@ -5,7 +5,7 @@ import './chartOverlay.css';
 /**
  * Chart overlays are used to display loaders, warnings, errors, etc.
  */
-const ChartOverlay = props => (
+const ChartOverlay = (props) => (
   <div styleName="container">
     {props.children}
   </div>

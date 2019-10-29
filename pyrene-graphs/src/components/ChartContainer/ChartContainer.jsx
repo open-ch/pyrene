@@ -6,7 +6,7 @@ import './chartContainer.css';
  * Chart containers are used to standardize chart layouts.
  * They take care of the correct positioning of headers, charts and chart overlays.
  */
-const ChartContainer = props => (
+const ChartContainer = (props) => (
   <div styleName="chartContainer">
     {props.header}
     {props.chartOverlay && (

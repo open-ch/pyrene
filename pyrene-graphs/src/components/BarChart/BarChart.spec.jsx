@@ -31,19 +31,19 @@ describe('<BarChart />', () => {
 
     // Numerical left axis
     const leftAxis = rendered.find('.vx-axis-left');
-    expect(leftAxis.findWhere(n => n.text() === '0').exists()).toBe(false);
-    expect(leftAxis.findWhere(n => n.text() === '200').exists()).toBe(true);
-    expect(leftAxis.findWhere(n => n.text() === '400').exists()).toBe(true);
-    expect(leftAxis.findWhere(n => n.text() === '600').exists()).toBe(true);
-    expect(leftAxis.findWhere(n => n.text() === '800').exists()).toBe(true);
-    expect(leftAxis.findWhere(n => n.text() === '1000').exists()).toBe(true);
-    expect(leftAxis.findWhere(n => n.text() === '1200').exists()).toBe(false);
+    expect(leftAxis.findWhere((n) => n.text() === '0').exists()).toBe(false);
+    expect(leftAxis.findWhere((n) => n.text() === '200').exists()).toBe(true);
+    expect(leftAxis.findWhere((n) => n.text() === '400').exists()).toBe(true);
+    expect(leftAxis.findWhere((n) => n.text() === '600').exists()).toBe(true);
+    expect(leftAxis.findWhere((n) => n.text() === '800').exists()).toBe(true);
+    expect(leftAxis.findWhere((n) => n.text() === '1000').exists()).toBe(true);
+    expect(leftAxis.findWhere((n) => n.text() === '1200').exists()).toBe(false);
 
     // Categorical bottom axis
     const bottomAxis = rendered.find('.vx-axis-bottom');
-    expect(bottomAxis.findWhere(n => n.text() === 'Dropbox').exists()).toBe(true);
-    expect(bottomAxis.findWhere(n => n.text() === 'Youtube').exists()).toBe(true);
-    expect(bottomAxis.findWhere(n => n.text() === 'Google').exists()).toBe(false);
+    expect(bottomAxis.findWhere((n) => n.text() === 'Dropbox').exists()).toBe(true);
+    expect(bottomAxis.findWhere((n) => n.text() === 'Youtube').exists()).toBe(true);
+    expect(bottomAxis.findWhere((n) => n.text() === 'Google').exists()).toBe(false);
 
     // Grid
     expect(rendered.find('.vx-rows').exists()).toBe(true);
@@ -63,19 +63,19 @@ describe('<BarChart />', () => {
 
     // Categorical left axis
     const leftAxis = rendered.find('.vx-axis-left');
-    expect(leftAxis.findWhere(n => n.text() === 'Dropbox').exists()).toBe(true);
-    expect(leftAxis.findWhere(n => n.text() === 'Youtube').exists()).toBe(true);
-    expect(leftAxis.findWhere(n => n.text() === 'Google').exists()).toBe(false);
+    expect(leftAxis.findWhere((n) => n.text() === 'Dropbox').exists()).toBe(true);
+    expect(leftAxis.findWhere((n) => n.text() === 'Youtube').exists()).toBe(true);
+    expect(leftAxis.findWhere((n) => n.text() === 'Google').exists()).toBe(false);
 
     // Numerical bottom axis
     const bottomAxis = rendered.find('.vx-axis-bottom');
-    expect(bottomAxis.findWhere(n => n.text() === '0').exists()).toBe(false);
-    expect(bottomAxis.findWhere(n => n.text() === '200').exists()).toBe(true);
-    expect(bottomAxis.findWhere(n => n.text() === '400').exists()).toBe(true);
-    expect(bottomAxis.findWhere(n => n.text() === '600').exists()).toBe(true);
-    expect(bottomAxis.findWhere(n => n.text() === '800').exists()).toBe(true);
-    expect(bottomAxis.findWhere(n => n.text() === '1000').exists()).toBe(true);
-    expect(bottomAxis.findWhere(n => n.text() === '1200').exists()).toBe(false);
+    expect(bottomAxis.findWhere((n) => n.text() === '0').exists()).toBe(false);
+    expect(bottomAxis.findWhere((n) => n.text() === '200').exists()).toBe(true);
+    expect(bottomAxis.findWhere((n) => n.text() === '400').exists()).toBe(true);
+    expect(bottomAxis.findWhere((n) => n.text() === '600').exists()).toBe(true);
+    expect(bottomAxis.findWhere((n) => n.text() === '800').exists()).toBe(true);
+    expect(bottomAxis.findWhere((n) => n.text() === '1000').exists()).toBe(true);
+    expect(bottomAxis.findWhere((n) => n.text() === '1200').exists()).toBe(false);
 
     // Grid
     expect(rendered.find('.vx-columns').exists()).toBe(true);
@@ -95,12 +95,12 @@ describe('<BarChart />', () => {
 
     // Categorical left axis
     const leftAxis = rendered.find('.vx-axis-left');
-    expect(leftAxis.findWhere(n => n.text() === 'Dropbox').exists()).toBe(false);
+    expect(leftAxis.findWhere((n) => n.text() === 'Dropbox').exists()).toBe(false);
     expect(leftAxis.find('.vx-axis-line').exists()).toBe(true);
 
     // Numerical bottom axis
     const bottomAxis = rendered.find('.vx-axis-bottom');
-    expect(bottomAxis.findWhere(n => n.text() === '200').exists()).toBe(false);
+    expect(bottomAxis.findWhere((n) => n.text() === '200').exists()).toBe(false);
     expect(bottomAxis.find('.vx-axis-line').exists()).toBe(true);
 
     // Grid
@@ -118,20 +118,20 @@ describe('<BarChart />', () => {
       <BarChart
         {...props}
         direction="vertical"
-        tickFormatNumerical={d => (parseFloat(d) >= 100000 ? `${parseFloat(d) / 1000}k` : d)} data={props.data.map(d => ({
+        tickFormatNumerical={(d) => (parseFloat(d) >= 100000 ? `${parseFloat(d) / 1000}k` : d)} data={props.data.map((d) => ({
           label: d.label,
-          values: d.values.map(e => e * 100),
+          values: d.values.map((e) => e * 100),
         }))}
       />
     );
 
     // Numerical left axis
     const leftAxis = rendered.find('.vx-axis-left');
-    expect(leftAxis.findWhere(n => n.text() === '20000').exists()).toBe(true);
-    expect(leftAxis.findWhere(n => n.text() === '40000').exists()).toBe(true);
-    expect(leftAxis.findWhere(n => n.text() === '60000').exists()).toBe(true);
-    expect(leftAxis.findWhere(n => n.text() === '80000').exists()).toBe(true);
-    expect(leftAxis.findWhere(n => n.text() === '100k').exists()).toBe(true);
+    expect(leftAxis.findWhere((n) => n.text() === '20000').exists()).toBe(true);
+    expect(leftAxis.findWhere((n) => n.text() === '40000').exists()).toBe(true);
+    expect(leftAxis.findWhere((n) => n.text() === '60000').exists()).toBe(true);
+    expect(leftAxis.findWhere((n) => n.text() === '80000').exists()).toBe(true);
+    expect(leftAxis.findWhere((n) => n.text() === '100k').exists()).toBe(true);
   });
 
 });

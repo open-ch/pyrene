@@ -5,6 +5,7 @@
 import { default as BarChart } from '../components/BarChart/BarChart.examples';
 import { default as BarChartTable } from '../components/BarChartTable/BarChartTable.examples';
 import { default as TimeSeriesBucketGraph } from '../components/TimeSeriesBucketGraph/TimeSeriesBucketGraph.examples';
+import { default as TimeSeriesPlaygroundWithTooltip } from '../components/TimeSeriesPlayground/TimeSeriesPlaygroundWithTooltip.examples';
 
 import {
   tableData, tableColumns,
@@ -25,6 +26,7 @@ const examples = {
   BarChart,
   BarChartTable,
   TimeSeriesBucketGraph,
+  TimeSeriesPlaygroundWithTooltip,
 };
 
 export default examples;

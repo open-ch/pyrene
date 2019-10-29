@@ -1,5 +1,5 @@
 import path from 'path';
-import CleanWebpackPlugin from 'clean-webpack-plugin';
+import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin';
 import TerserPlugin from 'terser-webpack-plugin';
@@ -36,8 +36,9 @@ const config = {
           {
             loader: 'css-loader',
             options: {
-              modules: true,
-              localIdentName: 'pyrene-graphs-[name]__[local]--[hash:base64:10]',
+              modules: {
+                localIdentName: 'pyrene-graphs-[name]__[local]--[hash:base64:10]',
+              },
               sourceMap: !production,
             },
           },
@@ -76,7 +77,7 @@ const config = {
   },
   output: {
     path: OUTPUT_PATH,
-    filename: chunkData => (chunkData.chunk.name === 'main' ? 'pyrene-graphs.js' : 'pyrene-graphs.[name].js'),
+    filename: (chunkData) => (chunkData.chunk.name === 'main' ? 'pyrene-graphs.js' : 'pyrene-graphs.[name].js'),
     library: 'pyrene-graphs',
     libraryTarget: 'umd',
   },

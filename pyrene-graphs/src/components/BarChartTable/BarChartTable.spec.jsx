@@ -4,13 +4,13 @@ import BarChartTable from './BarChartTable.jsx';
 
 const columns = {
   label: {
-    accessor: d => d.application,
+    accessor: (d) => d.application,
     title: 'Application',
   },
   primaryValue: {
-    accessor: d => d.volume,
+    accessor: (d) => d.volume,
     title: 'Volume',
-    formatter: d => `${d} GB`,
+    formatter: (d) => `${d} GB`,
   },
 };
 
@@ -30,9 +30,9 @@ const props = {
   columns: {
     ...columns,
     secondaryValue: {
-      accessor: d => d.shareOfTotal,
+      accessor: (d) => d.shareOfTotal,
       title: 'Share of Total',
-      formatter: d => `${d} %`,
+      formatter: (d) => `${d} %`,
     },
   },
   title: 'Title',
@@ -59,18 +59,18 @@ const propsComparison = {
   ],
   columns: {
     label: {
-      accessor: d => d.application,
+      accessor: (d) => d.application,
       title: 'Application',
     },
     primaryValue: {
-      accessor: d => d.volumeCurrent,
+      accessor: (d) => d.volumeCurrent,
       title: 'Current period',
-      formatter: d => `${d} GB`,
+      formatter: (d) => `${d} GB`,
     },
     secondaryValue: {
-      accessor: d => d.volumePrevious,
+      accessor: (d) => d.volumePrevious,
       title: 'Previous period',
-      formatter: d => `${d} GB`,
+      formatter: (d) => `${d} GB`,
     },
   },
   title: 'Title',
