@@ -10,6 +10,7 @@ import { default as RelativeBar } from './components/Bar/RelativeBar';
 import { default as Responsive } from './components/Misc/Responsive';
 import { default as TimeSeriesZoomable, minZoomRangeReached, getBoundedZoomInRange } from './components/TimeSeriesZoomable/TimeSeriesZoomable';
 import { default as TimeXAxis } from './components/TimeXAxis/TimeXAxis';
+import { default as TooltipWrapper } from './components/Tooltip/TooltipWrapper';
 
 // Sort alphabetically to find stuff easily
 const Components = {
@@ -21,6 +22,7 @@ const Components = {
   Responsive,
   TimeSeriesZoomable,
   TimeXAxis,
+  TooltipWrapper,
 };
 
 // Sort alphabetically to find stuff easily
@@ -32,5 +34,7 @@ export { RelativeBar };
 export { Responsive };
 export { TimeSeriesZoomable, minZoomRangeReached, getBoundedZoomInRange };
 export { TimeXAxis };
+export { TooltipWrapper };
+export { withTooltip } from '@vx/tooltip';
 
 export default Components;
