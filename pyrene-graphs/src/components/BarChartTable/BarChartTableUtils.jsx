@@ -36,7 +36,7 @@ const getColumn = ({
                 colors={colors}
                 maxValue={maxValue}
                 value={getValueWithAccessor(row, accessor)}
-                parentSize={parent}
+                size={parent.width}
               />
             </svg>
           )}
@@ -51,7 +51,7 @@ const getColumn = ({
                 colors={colors}
                 maxValue={maxValue}
                 value={getValueWithAccessor(row, accessor)}
-                parentSize={parent}
+                size={parent.width}
                 mirrored
               />
             </svg>
@@ -71,7 +71,7 @@ const getColumn = ({
                 color={colors[0]}
                 maxValue={maxValue}
                 value={getValueWithAccessor(row, accessor)} // eslint-disable-line
-                parentSize={parent}
+                size={parent.width}
               />
               <Bar
                 key={`${getId(getValueWithAccessor(row, labelAccessor))}_bar_previous`} // eslint-disable-line
@@ -79,8 +79,8 @@ const getColumn = ({
                 color={colors[1]}
                 maxValue={maxValue}
                 value={getValueWithAccessor(row, accessorSecondary)} // eslint-disable-line
-                parentSize={parent}
-                top={barWeightPrimary + comparisonMargin}
+                size={parent.width}
+                y={barWeightPrimary + comparisonMargin}
               />
             </svg>
           )}
@@ -103,7 +103,7 @@ export const getProcessedColumnsAndLegend = ({ props, colors, withoutBars }) => 
       return {
         columns: [
           getColumn({
-            id: props.header,
+            id: props.title,
             accessor: props.columns.label.accessor,
             linkAccessor: props.columns.label.linkAccessor,
             align: 'left',
@@ -146,7 +146,7 @@ export const getProcessedColumnsAndLegend = ({ props, colors, withoutBars }) => 
         return {
           columns: [
             getColumn({
-              id: props.header,
+              id: props.title,
               accessor: props.columns.label.accessor,
               linkAccessor: props.columns.label.linkAccessor,
               align: 'left',
@@ -192,7 +192,7 @@ export const getProcessedColumnsAndLegend = ({ props, colors, withoutBars }) => 
         return {
           columns: [
             getColumn({
-              id: props.header,
+              id: props.title,
               accessor: props.columns.label.accessor,
               linkAccessor: props.columns.label.linkAccessor,
               align: 'left',

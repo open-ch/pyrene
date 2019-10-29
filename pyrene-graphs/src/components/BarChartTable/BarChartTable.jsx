@@ -38,7 +38,7 @@ export default class BarChartTable extends React.Component {
      return (
        <div styleName="container">
          <Header
-           header={this.props.header}
+           title={this.props.title}
            description={description}
            legend={'legend' in columnsAndLegend ? columnsAndLegend.legend : []}
            colors={colors}
@@ -62,7 +62,7 @@ export default class BarChartTable extends React.Component {
                    <div styleName="popOverContainer" style={{ height: `${(displayedRows + 5) * 32 + 32 + 32}px` }}>
                      {/* popover height: (displayedRows + 5 more rows) * 32px + 32px table header + 32px popover header */}
                      <div styleName="popOverHeader">
-                       {this.props.header}
+                       {this.props.title}
                      </div>
                      <div styleName="popOverTable" style={{ height: `${(displayedRows + 5) * 32 + 32}px` }}>
                        <SimpleTable
@@ -158,13 +158,13 @@ BarChartTable.propTypes = {
   */
   displayedRows: PropTypes.number,
   /**
-   * Sets the header.
-   */
-  header: PropTypes.string.isRequired,
-  /**
    * Called when the user double clicks on a row.
    */
   onRowDoubleClick: PropTypes.func,
+  /**
+   * Sets the title.
+   */
+  title: PropTypes.string.isRequired,
   /**
    * Sets the overall style according to the bar chart type.
    */

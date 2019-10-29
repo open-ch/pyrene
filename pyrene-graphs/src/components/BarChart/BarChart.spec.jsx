@@ -11,7 +11,7 @@ const props = {
     label: 'Youtube',
     values: [849.9],
   }],
-  header: 'Title',
+  title: 'Title',
   description: 'Description',
   legend: ['Volume'],
 };
