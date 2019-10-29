@@ -16,7 +16,7 @@ const props = {
   width: parentSize.width,
 };
 
-const svgWrapper = bars => (
+const svgWrapper = (bars) => (
   <svg width={parentSize.width} height={parentSize.height}>
     {bars}
   </svg>

@@ -28,7 +28,7 @@ const config = {
   },
   output: {
     path: OUTPUT_PATH,
-    filename: chunkData => (chunkData.chunk.name === 'main' ? 'tuktuktwo.js' : 'tuktuktwo.[name].js'),
+    filename: (chunkData) => (chunkData.chunk.name === 'main' ? 'tuktuktwo.js' : 'tuktuktwo.[name].js'),
     library: 'tuktuktwo',
     libraryTarget: 'umd',
   },

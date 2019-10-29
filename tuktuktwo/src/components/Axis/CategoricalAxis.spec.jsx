@@ -13,7 +13,7 @@ const props = {
   width: parentSize.width,
 };
 
-const svgWrapper = axis => (
+const svgWrapper = (axis) => (
   <svg width={parentSize.width} height={parentSize.height}>
     {axis}
   </svg>
@@ -28,9 +28,9 @@ describe('<CategoricalAxis />', () => {
     const rendered = mount(svgWrapper(<CategoricalAxis {...props} />));
     const axis = rendered.find('.vx-axis').at(0);
     expect(axis.prop('className')).toContain('vx-axis-left');
-    expect(axis.findWhere(n => n.text() === 'Dropbox').exists()).toBe(true);
-    expect(axis.findWhere(n => n.text() === 'Youtube').exists()).toBe(true);
-    expect(axis.findWhere(n => n.text() === 'Google').exists()).toBe(false);
+    expect(axis.findWhere((n) => n.text() === 'Dropbox').exists()).toBe(true);
+    expect(axis.findWhere((n) => n.text() === 'Youtube').exists()).toBe(true);
+    expect(axis.findWhere((n) => n.text() === 'Google').exists()).toBe(false);
     expect(axis.find('.vx-axis-line').at(0).prop('stroke')).toEqual('red');
     expect(axis.find('.vx-axis-tick').at(0).find('text').prop('fill')).toEqual('blue');
   });
@@ -52,7 +52,7 @@ describe('<CategoricalAxis />', () => {
   });
 
   it('renders custom tick label format', () => {
-    const rendered = mount(svgWrapper(<CategoricalAxis {...props} tickFormat={d => `${d} custom format`} />));
+    const rendered = mount(svgWrapper(<CategoricalAxis {...props} tickFormat={(d) => `${d} custom format`} />));
     const axis = rendered.find('.vx-axis').at(0);
     expect(axis.find('.vx-axis-tick').at(0).text()).toEqual('Dropbox custom format');
   });

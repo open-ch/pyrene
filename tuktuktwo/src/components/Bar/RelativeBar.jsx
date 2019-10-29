@@ -31,7 +31,7 @@ const RelativeBar = (props) => {
   return (
     props.direction === 'horizontal' ? (
       <BarStackHorizontal
-        y={d => d}
+        y={(d) => d}
         height={props.barWeight}
         data={data}
         keys={keys}
@@ -42,7 +42,7 @@ const RelativeBar = (props) => {
       />
     ) : (
       <BarStack
-        x={d => d}
+        x={(d) => d}
         width={props.barWeight}
         data={data}
         keys={keys}
