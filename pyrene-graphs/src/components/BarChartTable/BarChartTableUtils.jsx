@@ -2,12 +2,12 @@ import React from 'react';
 import { Bar, RelativeBar, Responsive } from 'tuktuktwo';
 import './barChartTable.css';
 
-const getId = d => d.trim().toLowerCase();
+const getId = (d) => d.trim().toLowerCase();
 
 export const getValueWithAccessor = (row, accessor) => (typeof accessor === 'string' ? row[accessor] : accessor(row));
 
 const getColumn = ({
-  id, accessor, accessorSecondary, headerName, formatter = d => d, align, maxWidth, linkAccessor, cellType, colors, maxValue, labelAccessor,
+  id, accessor, accessorSecondary, headerName, formatter = (d) => d, align, maxWidth, linkAccessor, cellType, colors, maxValue, labelAccessor,
 }) => {
   const barWeightPrimary = 6;
   const barWeightSecondary = 4;
@@ -19,17 +19,17 @@ const getColumn = ({
     align: align,
     maxWidth: maxWidth,
     cellRenderCallback: {
-      link: linkAccessor ? row => ( // eslint-disable-line react/display-name
+      link: linkAccessor ? (row) => ( // eslint-disable-line react/display-name
         <a
           styleName="labelLink"
           href={getValueWithAccessor(row, linkAccessor)}
         >
           {row.value}
         </a>
-      ) : row => formatter(row.value),
-      relativeBar: row => ( // eslint-disable-line react/display-name
+      ) : (row) => formatter(row.value),
+      relativeBar: (row) => ( // eslint-disable-line react/display-name
         <Responsive styleName="responsiveContainer">
-          {parent => (
+          {(parent) => (
             <svg width={parent.width} height={barWeightPrimary}>
               <RelativeBar
                 barWeight={barWeightPrimary}
@@ -42,9 +42,9 @@ const getColumn = ({
           )}
         </Responsive>
       ),
-      relativeBarMirrored: row => ( // eslint-disable-line react/display-name
+      relativeBarMirrored: (row) => ( // eslint-disable-line react/display-name
         <Responsive styleName="responsiveContainer">
-          {parent => (
+          {(parent) => (
             <svg width={parent.width} height={barWeightPrimary}>
               <RelativeBar
                 barWeight={barWeightPrimary}
@@ -61,9 +61,9 @@ const getColumn = ({
       verticalLine: () => ( // eslint-disable-line react/display-name
         <div styleName="verticalLine" />
       ),
-      comparisonBars: row => ( // eslint-disable-line react/display-name
+      comparisonBars: (row) => ( // eslint-disable-line react/display-name
         <Responsive styleName="responsiveContainer">
-          {parent => (
+          {(parent) => (
             <svg width={parent.width} height={barWeightPrimary + comparisonMargin + barWeightSecondary}>
               <Bar
                 key={`${getId(getValueWithAccessor(row, labelAccessor))}_bar_current`} // eslint-disable-line
@@ -86,15 +86,15 @@ const getColumn = ({
           )}
         </Responsive>
       ),
-      default: row => formatter(row.value),
+      default: (row) => formatter(row.value),
     }[cellType || 'default'],
   };
 };
 
 
 export const getProcessedColumnsAndLegend = ({ props, colors, withoutBars }) => {
-  const maxValuePrimary = Math.max(...props.data.map(dataRow => getValueWithAccessor(dataRow, props.columns.primaryValue.accessor)));
-  const maxValueSecondary = props.columns.secondaryValue ? Math.max(...props.data.map(dataRow => getValueWithAccessor(dataRow, props.columns.secondaryValue.accessor))) : maxValuePrimary;
+  const maxValuePrimary = Math.max(...props.data.map((dataRow) => getValueWithAccessor(dataRow, props.columns.primaryValue.accessor)));
+  const maxValueSecondary = props.columns.secondaryValue ? Math.max(...props.data.map((dataRow) => getValueWithAccessor(dataRow, props.columns.secondaryValue.accessor))) : maxValuePrimary;
   const maxValue = Math.max(maxValuePrimary, maxValueSecondary);
   const hasColumnSecondaryLabel = !!props.columns.secondaryLabel;
 

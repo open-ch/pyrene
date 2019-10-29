@@ -15,8 +15,8 @@ import colorSchemes from '../../styles/colorSchemes';
  */
 const BarChart = (props) => {
   const barWeight = 10;
-  const labels = props.data.map(row => row.label);
-  const maxValue = Math.max(...props.data.map(row => Math.max(...row.values)));
+  const labels = props.data.map((row) => row.label);
+  const maxValue = Math.max(...props.data.map((row) => Math.max(...row.values)));
   const header = (
     <Header
       title={props.title}
@@ -39,13 +39,21 @@ const BarChart = (props) => {
           <svg width="100%" height={parent.height} shapeRendering="crispEdges">
             {props.direction === 'horizontal' ? (
               <CategoricalAxis
-                {...sharedAxisProps}
+                height={sharedAxisProps.height}
+                width={sharedAxisProps.width}
+                showTickLabels={sharedAxisProps.showTickLabels}
+                strokeColor={sharedAxisProps.strokeColor}
+                tickLabelColor={sharedAxisProps.tickLabelColor}
                 tickLabels={labels}
                 orientation="left"
               />
             ) : (
               <NumericalAxis
-                {...sharedAxisProps}
+                height={sharedAxisProps.height}
+                width={sharedAxisProps.width}
+                showTickLabels={sharedAxisProps.showTickLabels}
+                strokeColor={sharedAxisProps.strokeColor}
+                tickLabelColor={sharedAxisProps.tickLabelColor}
                 maxValue={maxValue}
                 orientation="left"
                 showGrid={!props.loading}
@@ -54,7 +62,11 @@ const BarChart = (props) => {
             )}
             {props.direction === 'horizontal' ? (
               <NumericalAxis
-                {...sharedAxisProps}
+                height={sharedAxisProps.height}
+                width={sharedAxisProps.width}
+                showTickLabels={sharedAxisProps.showTickLabels}
+                strokeColor={sharedAxisProps.strokeColor}
+                tickLabelColor={sharedAxisProps.tickLabelColor}
                 maxValue={maxValue}
                 orientation="bottom"
                 showGrid={!props.loading}
@@ -62,7 +74,11 @@ const BarChart = (props) => {
               />
             ) : (
               <CategoricalAxis
-                {...sharedAxisProps}
+                height={sharedAxisProps.height}
+                width={sharedAxisProps.width}
+                showTickLabels={sharedAxisProps.showTickLabels}
+                strokeColor={sharedAxisProps.strokeColor}
+                tickLabelColor={sharedAxisProps.tickLabelColor}
                 tickLabels={labels}
                 orientation="bottom"
               />
@@ -75,7 +91,7 @@ const BarChart = (props) => {
                 color={props.colorScheme.categorical[0]}
                 height={parent.height}
                 maxValue={maxValue}
-                values={props.data.map(row => row.values[0])}
+                values={props.data.map((row) => row.values[0])}
                 direction={props.direction}
                 width={parent.width}
               />
@@ -106,7 +122,7 @@ BarChart.defaultProps = {
   colorScheme: colorSchemes.colorSchemeDefault,
   direction: 'vertical',
   loading: false,
-  tickFormatNumerical: d => d,
+  tickFormatNumerical: (d) => d,
 };
 
 BarChart.propTypes = {

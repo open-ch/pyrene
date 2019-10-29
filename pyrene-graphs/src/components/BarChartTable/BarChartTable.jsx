@@ -21,7 +21,7 @@ export default class BarChartTable extends React.Component {
   }
 
    togglePopover = () => {
-     this.setState(prevState => ({
+     this.setState((prevState) => ({
        showPopover: !prevState.showPopover,
      }));
    };
