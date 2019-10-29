@@ -6,7 +6,7 @@ describe('<Responsive />', () => {
   it('renders without crashing', () => {
     shallow(
       <Responsive>
-        {parent => (
+        {(parent) => (
           <div>
             {parent}
           </div>

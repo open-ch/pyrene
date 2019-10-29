@@ -14,7 +14,7 @@ const props = {
   width: parentSize.width,
 };
 
-const svgWrapper = axis => (
+const svgWrapper = (axis) => (
   <svg width={parentSize.width} height={parentSize.height}>
     {axis}
   </svg>
@@ -29,13 +29,13 @@ describe('<NumericalAxis />', () => {
     const rendered = mount(svgWrapper(<NumericalAxis {...props} />));
     const axis = rendered.find('.vx-axis').at(0);
     expect(axis.prop('className')).toContain('vx-axis-left');
-    expect(axis.findWhere(n => n.text() === '0').exists()).toBe(false);
-    expect(axis.findWhere(n => n.text() === '20').exists()).toBe(true);
-    expect(axis.findWhere(n => n.text() === '40').exists()).toBe(true);
-    expect(axis.findWhere(n => n.text() === '60').exists()).toBe(true);
-    expect(axis.findWhere(n => n.text() === '80').exists()).toBe(true);
-    expect(axis.findWhere(n => n.text() === '100').exists()).toBe(true);
-    expect(axis.findWhere(n => n.text() === '120').exists()).toBe(false);
+    expect(axis.findWhere((n) => n.text() === '0').exists()).toBe(false);
+    expect(axis.findWhere((n) => n.text() === '20').exists()).toBe(true);
+    expect(axis.findWhere((n) => n.text() === '40').exists()).toBe(true);
+    expect(axis.findWhere((n) => n.text() === '60').exists()).toBe(true);
+    expect(axis.findWhere((n) => n.text() === '80').exists()).toBe(true);
+    expect(axis.findWhere((n) => n.text() === '100').exists()).toBe(true);
+    expect(axis.findWhere((n) => n.text() === '120').exists()).toBe(false);
     expect(axis.find('.vx-axis-line').at(0).prop('stroke')).toEqual('red');
     expect(rendered.find('.vx-line').at(0).prop('stroke')).toEqual('red');
     expect(axis.find('.vx-axis-tick').at(0).find('text').prop('fill')).toEqual('blue');
@@ -60,7 +60,7 @@ describe('<NumericalAxis />', () => {
   });
 
   it('renders custom tick label format', () => {
-    const rendered = mount(svgWrapper(<NumericalAxis {...props} tickFormat={d => `${d} custom format`} />));
+    const rendered = mount(svgWrapper(<NumericalAxis {...props} tickFormat={(d) => `${d} custom format`} />));
     const axis = rendered.find('.vx-axis').at(0);
     expect(axis.find('.vx-axis-tick').at(0).text()).toEqual('20 custom format');
   });
@@ -74,10 +74,10 @@ describe('<NumericalAxis />', () => {
   it('sets custom scale', () => {
     const rendered = mount(svgWrapper(<NumericalAxis {...props} scale={ScaleUtils.scaleCategorical(parentSize.width, ['Dropbox', 'Youtube'])} />));
     const axis = rendered.find('.vx-axis').at(0);
-    expect(axis.findWhere(n => n.text() === '20').exists()).toBe(false);
-    expect(axis.findWhere(n => n.text() === 'Dropbox').exists()).toBe(true);
-    expect(axis.findWhere(n => n.text() === 'Youtube').exists()).toBe(true);
-    expect(axis.findWhere(n => n.text() === 'Google').exists()).toBe(false);
+    expect(axis.findWhere((n) => n.text() === '20').exists()).toBe(false);
+    expect(axis.findWhere((n) => n.text() === 'Dropbox').exists()).toBe(true);
+    expect(axis.findWhere((n) => n.text() === 'Youtube').exists()).toBe(true);
+    expect(axis.findWhere((n) => n.text() === 'Google').exists()).toBe(false);
   });
 
 });

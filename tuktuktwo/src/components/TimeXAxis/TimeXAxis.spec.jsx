@@ -24,7 +24,7 @@ const testTimeRanges = [
     expectedValues: [
       moment.tz('2019-10-01 23:50', 'Asia/Shanghai').valueOf(),
       moment.tz('2019-10-02 00:00', 'Asia/Shanghai').valueOf(),
-      moment.tz('2019-10-02 00:10', 'Asia/Shanghai').valueOf()
+      moment.tz('2019-10-02 00:10', 'Asia/Shanghai').valueOf(),
     ],
     minMarginRight: 100,
   },
@@ -193,7 +193,7 @@ const testTimeRanges = [
   },
 ];
 
-const svgWrapper = bar => (
+const svgWrapper = (bar) => (
   <svg width="1334" height="320">
     {bar}
   </svg>

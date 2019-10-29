@@ -7,7 +7,7 @@ import { scaleTime } from '@vx/scale';
 import { getTickValues, timeFormat } from './TimeXUtil';
 import chartConstants from '../../common/chartConstants';
 
-const _formatTime = (timestamp, props) => (props.showTickLabels ? timeFormat(timestamp, props.from, props.to, props.timezone) : '');
+const formatTime = (timestamp, props) => (props.showTickLabels ? timeFormat(timestamp, props.from, props.to, props.timezone) : '');
 
 /**
  * TimeXAxis is the x axis for Time Series graphs.
@@ -33,11 +33,16 @@ const TimeXAxis = (props) => {
         tickLabelProps={() => ({
           textAnchor: 'middle', fontSize: 10, fontWeight: 500, fontFamily: 'AvenirNext', fill: props.tickLabelColors[0], dy: '-0.25em',
         })}
-        tickFormat={tickValue => _formatTime(tickValue, props)}
-        tickComponent={({ formattedValue, ...tickProps }) => {
-          const transitionStyle = formattedValue.isTransition ? { fontWeight: 600, fill: props.tickLabelColors[1] } : {};
-          return <text {...tickProps} {...transitionStyle}>{formattedValue.value}</text>;
-        }}
+        tickFormat={(tickValue) => formatTime(tickValue, props)}
+        tickComponent={({ formattedValue, ...tickProps }) => (
+          <text
+            {...tickProps} // eslint-disable-line react/jsx-props-no-spreading
+            fill={formattedValue.isTransition ? props.tickLabelColors[1] : props.tickLabelColors[0]}
+            fontWeight={formattedValue.isTransition ? 600 : 500}
+          >
+            {formattedValue.value}
+          </text>
+        )}
         hideTicks
         hideZero
       />
@@ -64,40 +69,15 @@ TimeXAxis.defaultProps = {
 
 TimeXAxis.propTypes = {
   /**
-   * Sets the color of the axis and the grid lines.
-   * Type: string (required)
-   */
-  strokeColor: PropTypes.string.isRequired,
-  /**
-   * Sets the color of the both normal tick label and transition tick label.
-   * Type: string (required)
-   */
-  tickLabelColors: PropTypes.arrayOf(PropTypes.string).isRequired,
-  /**
-   * Sets the width of the graph canvas.
-   * Type: number (required)
-   */
-  width: PropTypes.number.isRequired,
-  /**
-   * Sets the height of the graph canvas.
-   * Type: number (required)
-   */
-  height: PropTypes.number.isRequired,
-  /**
    * The starting time point in epoch milliseconds.
    * Type: number (required)
    */
   from: PropTypes.number.isRequired,
   /**
-   * The ending time point in epoch milliseconds.
+   * Sets the height of the graph canvas.
    * Type: number (required)
    */
-  to: PropTypes.number.isRequired,
-  /**
-   * The timezone the current user is in.
-   * Type: string (required)
-   */
-  timezone: PropTypes.string.isRequired,
+  height: PropTypes.number.isRequired,
   /**
    * If set, the grid lines are visible.
    * Type: boolean
@@ -108,6 +88,31 @@ TimeXAxis.propTypes = {
    * Type: boolean (required)
    */
   showTickLabels: PropTypes.bool.isRequired,
+  /**
+   * Sets the color of the axis and the grid lines.
+   * Type: string (required)
+   */
+  strokeColor: PropTypes.string.isRequired,
+  /**
+   * Sets the color of the both normal tick label and transition tick label.
+   * Type: string (required)
+   */
+  tickLabelColors: PropTypes.arrayOf(PropTypes.string).isRequired,
+  /**
+   * The timezone the current user is in.
+   * Type: string (required)
+   */
+  timezone: PropTypes.string.isRequired,
+  /**
+   * The ending time point in epoch milliseconds.
+   * Type: number (required)
+   */
+  to: PropTypes.number.isRequired,
+  /**
+   * Sets the width of the graph canvas.
+   * Type: number (required)
+   */
+  width: PropTypes.number.isRequired,
 };
 
 export default TimeXAxis;

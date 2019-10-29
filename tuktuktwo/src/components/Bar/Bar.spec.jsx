@@ -18,7 +18,7 @@ const propsRelative = {
   colors: ['blue', 'red'],
 };
 
-const svgWrapper = bar => (
+const svgWrapper = (bar) => (
   <svg width={parentSize.width} height={parentSize.height}>
     {bar}
   </svg>

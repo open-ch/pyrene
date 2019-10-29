@@ -5,7 +5,7 @@ import { Bar as VxBar } from '@vx/shape';
 /**
  * Bars are used to display a numerical value.
  */
-const Bar = props => (
+const Bar = (props) => (
   props.direction === 'horizontal' ? (
     <VxBar
       x={props.x}

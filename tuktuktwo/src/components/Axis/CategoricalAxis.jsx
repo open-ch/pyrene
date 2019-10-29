@@ -49,7 +49,7 @@ CategoricalAxis.displayName = 'Categorical Axis';
 
 CategoricalAxis.defaultProps = {
   showTickLabels: true,
-  tickFormat: d => d,
+  tickFormat: (d) => d,
 };
 
 CategoricalAxis.propTypes = {

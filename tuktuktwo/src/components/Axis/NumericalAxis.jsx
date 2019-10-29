@@ -83,7 +83,7 @@ NumericalAxis.defaultProps = {
   scale: undefined,
   showGrid: true,
   showTickLabels: true,
-  tickFormat: d => d,
+  tickFormat: (d) => d,
 };
 
 NumericalAxis.propTypes = {
