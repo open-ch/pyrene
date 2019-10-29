@@ -6,7 +6,7 @@ const props = {
   left: 3,
   top: 2,
   time: 4052305,
-  timeFormat: x => x,
+  timeFormat: (x) => x,
   data: 436,
   dataLabel: 'amount of testing monkeys',
   dataColor: 'monkey-brown',

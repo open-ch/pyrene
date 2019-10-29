@@ -11,7 +11,7 @@ import moment from 'moment-timezone';
  */
 const _formatHour = (timestamp, timezone, tickValues) => {
   const tick = {};
-  const i = tickValues.findIndex(value => value === timestamp);
+  const i = tickValues.findIndex((value) => value === timestamp);
   if (i > 0 && moment.tz(timestamp, timezone).day() !== moment.tz(tickValues[i - 1], timezone).day()) {
     tick.value = `${moment.tz(timestamp, timezone).format('ddd').toUpperCase()}`;
     tick.isTransition = true;
@@ -31,7 +31,7 @@ const _formatHour = (timestamp, timezone, tickValues) => {
  */
 const _formatDayOfWeek = (timestamp, timezone, tickValues) => {
   const tick = {};
-  const i = tickValues.findIndex(value => value === timestamp);
+  const i = tickValues.findIndex((value) => value === timestamp);
   if (i > 0 && moment.tz(timestamp, timezone).year() !== moment.tz(tickValues[i - 1], timezone).year()) {
     tick.value = `${moment.tz(timestamp, timezone).format('YYYY').toUpperCase()}`;
     tick.isTransition = true;
@@ -56,7 +56,7 @@ const _formatDayOfWeek = (timestamp, timezone, tickValues) => {
  */
 const _formatDate = (timestamp, timezone, tickValues) => {
   const tick = {};
-  const i = tickValues.findIndex(value => value === timestamp);
+  const i = tickValues.findIndex((value) => value === timestamp);
   if (i > 0 && (moment.tz(timestamp, timezone).month() !== moment.tz(tickValues[i - 1], timezone).month())) {
     tick.value = `${moment.tz(timestamp, timezone).format('MMM').toUpperCase()}`;
     tick.isTransition = true;
@@ -75,7 +75,7 @@ const _formatDate = (timestamp, timezone, tickValues) => {
  */
 const _formatMonth = (timestamp, timezone, tickValues) => {
   const tick = {};
-  const i = tickValues.findIndex(value => value === timestamp);
+  const i = tickValues.findIndex((value) => value === timestamp);
   if (i > 0 && (moment.tz(timestamp, timezone).year() !== moment.tz(tickValues[i - 1], timezone).year())) {
     tick.value = `${moment.tz(timestamp, timezone).format('YYYY')}`;
     tick.isTransition = true;
@@ -217,7 +217,7 @@ const _getTickValues = (from, to, timezone, interval, unit) => {
     currentMoment = currentMoment.add(interval);
   }
 
-  return values.filter(value => value > from && value < to);
+  return values.filter((value) => value > from && value < to);
 };
 
 /**
@@ -230,7 +230,7 @@ const _getTickValues = (from, to, timezone, interval, unit) => {
  */
 export const getTickValues = (from, to, timezone, xScale) => {
   const durationInMs = to - from;
-  const timeRangeThreshold = TIME_RANGE_THRESHOLDS.find(threshold => durationInMs <= threshold.durationInMs);
+  const timeRangeThreshold = TIME_RANGE_THRESHOLDS.find((threshold) => durationInMs <= threshold.durationInMs);
   const tickValues = _getTickValues(from, to, timezone, timeRangeThreshold.interval, timeRangeThreshold.unit);
 
   // Check if last tick is going to exceed border
@@ -251,6 +251,6 @@ export const getTickValues = (from, to, timezone, xScale) => {
  */
 export const timeFormat = (timestamp, from, to, timezone) => {
   const durationInMs = to - from;
-  const timeRangeThreshold = TIME_RANGE_THRESHOLDS.find(threshold => durationInMs <= threshold.durationInMs);
+  const timeRangeThreshold = TIME_RANGE_THRESHOLDS.find((threshold) => durationInMs <= threshold.durationInMs);
   return timeRangeThreshold.format(timestamp, timezone, _getTickValues(from, to, timezone, timeRangeThreshold.interval, timeRangeThreshold.unit));
 };
