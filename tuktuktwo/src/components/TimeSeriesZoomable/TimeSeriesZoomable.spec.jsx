@@ -13,11 +13,7 @@ const zoomableProps = {
   minZoomRange: moment.duration({ minutes: 30 }).valueOf(),
   onZoom: () => {},
   tooltipFormat: (d) => d,
-  color: {
-    background: '#ff0000',
-    foreground: '#00ff00',
-    text: '#0000ff',
-  },
+  color: '#ff0000',
 };
 
 describe('<TimeSeriesZoomable />', () => {
