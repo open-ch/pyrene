@@ -4,6 +4,7 @@
 // Sort alphabetically to find stuff easily
 import { default as Bar } from './components/Bar/Bar';
 import { default as Bars } from './components/Bar/Bars';
+import { default as BarStack } from './components/Bar/BarStack';
 import { default as CategoricalAxis } from './components/Axis/CategoricalAxis';
 import { default as NumericalAxis } from './components/Axis/NumericalAxis';
 import { default as RelativeBar } from './components/Bar/RelativeBar';
@@ -15,6 +16,7 @@ import { default as TooltipWrapper } from './components/Tooltip/TooltipWrapper';
 const Components = {
   Bar,
   Bars,
+  BarStack,
   CategoricalAxis,
   NumericalAxis,
   RelativeBar,
@@ -26,6 +28,7 @@ const Components = {
 // Sort alphabetically to find stuff easily
 export { Bar };
 export { Bars };
+export { BarStack };
 export { CategoricalAxis };
 export { NumericalAxis };
 export { RelativeBar };
