@@ -2,9 +2,11 @@ import React from 'react';
 import Tooltip from './Tooltip';
 
 const props = {
-  dataValue: 12345,
-  dataColor: 'red',
-  dataLabel: 'test',
+  dataSeries: [{
+    dataValue: 12345,
+    dataColor: 'red',
+    dataLabel: 'test',
+  }],
 
   left: 55,
   top: 42,

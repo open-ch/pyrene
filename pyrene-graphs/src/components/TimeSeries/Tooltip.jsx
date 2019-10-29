@@ -7,11 +7,13 @@ import styles from './tooltip.css';
 /**
  * Timeseries Tooltip
  */
-const Tooltip = ({ dataValue, dataColor, dataLabel, time, timeFormat, left, top }) => (
+const Tooltip = ({ dataSeries, time, timeFormat, left, top }) => (
   <TooltipWrapper left={left} top={top}>
     <div className={styles.tooltip}>
       <div className={styles.timeTitle}>{timeFormat(time)}</div>
-      <TooltipLegendItem dataColor={dataColor} dataLabel={dataLabel} dataValue={dataValue} />
+      {
+        dataSeries.map((e) => <TooltipLegendItem key={e.dataLabel} dataColor={e.dataColor} dataLabel={e.dataLabel} dataValue={e.dataValue} />)
+      }
     </div>
   </TooltipWrapper>
 );
@@ -19,23 +21,28 @@ const Tooltip = ({ dataValue, dataColor, dataLabel, time, timeFormat, left, top 
 Tooltip.displayName = 'Tooltip';
 
 Tooltip.defaultProps = {
+  dataSeries: [],
 };
 
 Tooltip.propTypes = {
-  /**
-   * The color of the data series
-   */
-  dataColor: PropTypes.string.isRequired,
 
-  /**
-   * The label of the data series
-   */
-  dataLabel: PropTypes.string.isRequired,
+  dataSeries: PropTypes.arrayOf(PropTypes.shape({
+    /**
+     * The color of the data series
+     */
+    dataColor: PropTypes.string.isRequired,
 
-  /**
-   * The actual value of the data series
-   */
-  dataValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    /**
+     * The label of the data series
+     */
+    dataLabel: PropTypes.string.isRequired,
+
+    /**
+     * The actual value of the data series
+     */
+    dataValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  })),
+
 
   /**
    * Sets the left absolute position, controlled by VX
