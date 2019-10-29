@@ -106,19 +106,19 @@ export const tableData = [
 
 export const tableColumns = {
   label: {
-    accessor: d => d.application,
-    linkAccessor: d => d.link,
+    accessor: (d) => d.application,
+    linkAccessor: (d) => d.link,
   },
   primaryValue: {
-    accessor: d => d.volume,
+    accessor: (d) => d.volume,
     title: 'Volume',
-    formatter: d => `${d.toFixed(1)} GB`,
+    formatter: (d) => `${d.toFixed(1)} GB`,
     maxWidth: '90px',
   },
   secondaryValue: {
-    accessor: d => d.shareOfTotal,
+    accessor: (d) => d.shareOfTotal,
     title: 'Share of Total',
-    formatter: d => `${d.toFixed(2)} %`,
+    formatter: (d) => `${d.toFixed(2)} %`,
     maxWidth: '90px',
   },
 };
@@ -230,19 +230,19 @@ export const tableDataComparison = [
 
 export const tableColumnsComparison = {
   label: {
-    accessor: d => d.application,
-    linkAccessor: d => d.link,
+    accessor: (d) => d.application,
+    linkAccessor: (d) => d.link,
   },
   primaryValue: {
-    accessor: d => d.volumeCurrent,
+    accessor: (d) => d.volumeCurrent,
     title: 'Current',
-    formatter: d => `${d.toFixed(1)} GB`,
+    formatter: (d) => `${d.toFixed(1)} GB`,
     maxWidth: '90px',
   },
   secondaryValue: {
-    accessor: d => d.volumePrevious,
+    accessor: (d) => d.volumePrevious,
     title: 'Previous',
-    formatter: d => `${d.toFixed(1)} GB`,
+    formatter: (d) => `${d.toFixed(1)} GB`,
     maxWidth: '90px',
   },
 };
@@ -354,19 +354,19 @@ export const tableDataUpDown = [
 
 export const tableColumnsUpDown = {
   label: {
-    accessor: d => d.location,
-    linkAccessor: d => d.link,
+    accessor: (d) => d.location,
+    linkAccessor: (d) => d.link,
   },
   primaryValue: {
-    accessor: d => d.down,
+    accessor: (d) => d.down,
     title: 'Volume Down',
-    formatter: d => `${d.toFixed(1)} %`,
+    formatter: (d) => `${d.toFixed(1)} %`,
     maxWidth: '90px',
   },
   secondaryValue: {
-    accessor: d => d.up,
+    accessor: (d) => d.up,
     title: 'Volume Up',
-    formatter: d => `${d.toFixed(1)} %`,
+    formatter: (d) => `${d.toFixed(1)} %`,
     maxWidth: '90px',
   },
 };
@@ -400,17 +400,17 @@ export const tableDataSecLabel = [
 ];
 
 export const tableColumnsSecLabel = {
-    label: {
-      accessor: d => d.location,
-      title: 'Location'
-    },
-    secondaryLabel: {
-      accessor: d => d.LQI,
-      title: 'LQI'
-    },
-    primaryValue: {
-      accessor: d => d.up,
-      title: 'Volume Up',
-      formatter: d => `${d.toFixed(1)} %`,
-    },
+  label: {
+    accessor: (d) => d.location,
+    title: 'Location',
+  },
+  secondaryLabel: {
+    accessor: (d) => d.LQI,
+    title: 'LQI',
+  },
+  primaryValue: {
+    accessor: (d) => d.up,
+    title: 'Volume Up',
+    formatter: (d) => `${d.toFixed(1)} %`,
+  },
 };
