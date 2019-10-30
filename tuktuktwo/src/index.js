@@ -32,6 +32,11 @@ export { RelativeBar };
 export { Responsive };
 export { TimeXAxis };
 export { TooltipWrapper };
+export { Group } from '@vx/group';
 export { withTooltip } from '@vx/tooltip';
+export { localPoint } from '@vx/event';
+
+export { default as chartConstants } from './common/chartConstants';
+export { default as scaleUtils } from './common/ScaleUtils';
 
 export default Components;

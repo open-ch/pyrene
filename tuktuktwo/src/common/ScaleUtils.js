@@ -16,4 +16,10 @@ export default class ScaleUtils {
     });
   }
 
+  static scaleCustomLinear(minDomain, maxDomain, minRange, maxRange, direction) {
+    return scaleLinear({
+      range: direction === 'horizontal' ? [minRange, maxRange] : [maxRange, minRange],
+      domain: [minDomain, maxDomain],
+    });
+  }
 }
