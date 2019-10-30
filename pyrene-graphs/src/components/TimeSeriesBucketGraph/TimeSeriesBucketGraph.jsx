@@ -1,33 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Loader } from 'pyrene';
-import {
-  Bar, NumericalAxis, Responsive, TimeXAxis,
-} from 'tuktuktwo';
-import colorConstants from 'pyrene/src/styles/colorConstants';
 import ChartContainer from '../ChartContainer/ChartContainer';
 import ChartOverlay from '../ChartOverlay/ChartOverlay';
 import Header from '../Header/Header';
-import './timeSeriesBucketGraph.css';
+import TimeSeriesBucketChart from './TimeSeriesBucketChart';
+import Formats from '../../common/Formats';
 import colorSchemes from '../../styles/colorSchemes';
-
-
-const MARGIN_LEFT = 36;
-const MARGIN_BOTTOM = 24;
-const MARGIN_TOP = 16;
-const BAR_SPACING = 3;
+import './timeSeriesBucketGraph.css';
 
 /**
- * A bucket graph for time-based data series.
+ * A bucket graph for time-data series.
  */
 const TimeSeriesBucketGraph = (props) => {
-  const maxValue = Math.max(...props.dataSeries.map(data => data[1]));
-
   // Render the header
+  const maxValue = Math.max(...props.dataSeries.data.map((data) => data[1]));
+  const descriptionWithUnit = `${props.description} in ${Formats.getSIPrefixAndScale(maxValue).prefix}${props.yUnit}`;
   const header = (
     <Header
-      header={props.title}
-      description={props.description}
+      title={props.title}
+      description={descriptionWithUnit}
     />
   );
 
@@ -40,55 +32,19 @@ const TimeSeriesBucketGraph = (props) => {
     </ChartOverlay>
   );
 
-  // Render the bar chart
+  // Render the bucket chart
   const bucketChart = (
-    <Responsive>
-      {(parent) => {
-        const numBars = props.dataSeries.length;
-        const barWeight = parent.width > 0 ? ((parent.width - MARGIN_LEFT) / numBars - BAR_SPACING) : 0;
-
-        return (
-          <svg width="100%" height={parent.height} shapeRendering="crispEdges">
-            <TimeXAxis
-              from={props.from}
-              to={props.to}
-              width={parent.width}
-              height={parent.height}
-              showTickLabels={!props.loading}
-              timezone={props.timezone}
-              strokeColor={colorConstants.neutral050}
-              tickLabelColors={[colorConstants.neutral200, colorConstants.neutral300]}
-            />
-            <NumericalAxis
-              maxValue={maxValue}
-              orientation="left"
-              parentSize={parent}
-              showGrid={false}
-              showTickLabels={!props.loading}
-              strokeColor={colorConstants.neutral050}
-              tickLabelColor={colorConstants.neutral200}
-              tickFormat={props.dataFormat}
-            />
-            {!props.loading && props.dataSeries.length > 0 && (
-              <g>
-                {props.dataSeries.map((data, index) => (
-                  <Bar key={Math.random()}
-                    barWeight={barWeight}
-                    color={props.colorScheme.categorical[0]}
-                    direction="vertical"
-                    value={data[1]}
-                    maxValue={maxValue}
-                    size={parent.height > 0 ? (parent.height - MARGIN_BOTTOM - MARGIN_TOP) : 0}
-                    x={MARGIN_LEFT + index * (barWeight + BAR_SPACING)}
-                    y={MARGIN_TOP}
-                  />
-                ))}
-              </g>
-            )}
-          </svg>
-        );
-      }}
-    </Responsive>
+    <TimeSeriesBucketChart
+      colorScheme={props.colorScheme}
+      dataFormat={props.dataFormat}
+      dataSeries={props.dataSeries}
+      from={props.from}
+      to={props.to}
+      loading={props.loading}
+      onZoom={props.onZoom}
+      timezone={props.timezone}
+      timeFormat={props.timeFormat}
+    />
   );
 
   // Render the component
@@ -96,7 +52,7 @@ const TimeSeriesBucketGraph = (props) => {
   return (
     <ChartContainer
       header={header}
-      chart={bucketChart}
+      chart={!showOverlay && bucketChart}
       chartOverlay={showOverlay && chartOverlay}
     />
   );
@@ -106,12 +62,15 @@ TimeSeriesBucketGraph.displayName = 'TimeSeriesBucketGraph';
 
 TimeSeriesBucketGraph.defaultProps = {
   colorScheme: colorSchemes.colorSchemeDefault,
-  dataFormat: d => d,
+  dataSeries: PropTypes.shape({
+    data: [],
+    label: '',
+  }),
   description: '',
   errorMessage: '',
   errorMessageNoData: '',
   loading: false,
-  onZoom: () => {},
+  onZoom: undefined,
   title: '',
 };
 
@@ -119,14 +78,24 @@ TimeSeriesBucketGraph.propTypes = {
   colorScheme: PropTypes.shape({
     categorical: PropTypes.arrayOf(PropTypes.string).isRequired,
   }),
-  dataFormat: PropTypes.func,
-  dataSeries: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
+  dataFormat: PropTypes.shape({
+    tooltip: PropTypes.func,
+    yAxis: PropTypes.func,
+  }).isRequired,
+  dataSeries: PropTypes.shape({
+    data: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
+    label: PropTypes.string.isRequired,
+  }),
   description: PropTypes.string,
   errorMessage: PropTypes.string,
   errorMessageNoData: PropTypes.string,
   from: PropTypes.number.isRequired,
   loading: PropTypes.bool,
   onZoom: PropTypes.func,
+  timeFormat: PropTypes.shape({
+    tooltip: PropTypes.func.isRequired,
+    zoomTooltip: PropTypes.func,
+  }).isRequired,
   timezone: PropTypes.string.isRequired,
   title: PropTypes.string,
   to: PropTypes.number.isRequired,
