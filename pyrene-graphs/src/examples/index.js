@@ -14,7 +14,7 @@ import {
 
 import {
   applications,
-  nsmSensors,
+  stacked,
 } from './barData';
 
 // Sort alphabetically to find stuff easily
@@ -27,7 +27,7 @@ export default examples;
 
 export const exampleData = {
   applications,
-  nsmSensors,
+  stacked,
   tableData: { data: tableData, columns: tableColumns },
   tableDataComparison: { data: tableDataComparison, columns: tableColumnsComparison },
   tableDataUpDown: { data: tableDataUpDown, columns: tableColumnsUpDown },

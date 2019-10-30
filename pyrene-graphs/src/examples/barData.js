@@ -30,12 +30,27 @@ export const applications = [
   },
 ];
 
-export const nsmSensors = [
+export const stacked = [
   {
-    label: 'amande',
-    values: [7, 7, 29],
+    label: '2012',
+    values: [89, 71, 85, 151, 212],
   }, {
-    label: 'tau',
-    values: [2, 0, 0],
+    label: '2013',
+    values: [99, 73, 86, 170, 217],
+  }, {
+    label: '2014',
+    values: [90, 71, 80, 165, 200],
+  }, {
+    label: '2015',
+    values: [45, 53, 199, 124, 110],
+  }, {
+    label: '2016',
+    values: [63, 78, 212, 111, 110],
+  }, {
+    label: '2017',
+    values: [43, 44, 244, 109, 99],
+  }, {
+    label: '2018',
+    values: [66, 69, 270, 115, 108],
   },
 ];
