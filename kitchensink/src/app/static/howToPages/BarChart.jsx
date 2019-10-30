@@ -3,6 +3,8 @@ import React from 'react';
 import { BarChart } from 'pyrene-graphs/dist/pyrene-graphs.dev';
 import { exampleData } from 'pyrene-graphs/dist/pyrene-graphs.examples';
 
+const legendStacked = ['Incident', 'Emergency', 'Maintenance', 'Change', 'Installation'];
+
 const barChartHowTo = [{
   title: 'Vertical Bar Chart',
   description: 'Vertical Bar Chart with one value and formatted tick labels',
@@ -36,10 +38,10 @@ const barChartHowTo = [{
   description: 'Vertical Bar Chart with multiple values',
   component: () => (
     <BarChart
-      data={exampleData.nsmSensors}
-      title="Network Security Monitoring"
+      data={exampleData.stacked}
+      title="Vertical Stacked Bar Chart"
       description="Optional description and explanation on how to read the chart"
-      legend={['high', 'moderate', 'low']}
+      legend={legendStacked}
       direction="vertical"
     />
   ),
@@ -48,10 +50,10 @@ const barChartHowTo = [{
   description: 'Horizontal Bar Chart with multiple values',
   component: () => (
     <BarChart
-      data={exampleData.nsmSensors}
-      title="Network Security Monitoring"
+      data={exampleData.stacked}
+      title="Horizontal Stacked Bar Chart"
       description="Optional description and explanation on how to read the chart"
-      legend={['high', 'moderate', 'low']}
+      legend={legendStacked}
       direction="horizontal"
     />
   ),
