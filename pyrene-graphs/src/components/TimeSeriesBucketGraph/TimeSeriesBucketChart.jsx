@@ -14,7 +14,6 @@ import {
 } from 'tuktuktwo';
 import Tooltip from '../TimeSeries/Tooltip';
 import colorSchemes from '../../styles/colorSchemes';
-import './timeSeriesBucketGraph.css';
 
 /**
  * The pure SVG chart part of the time series bucket graph.

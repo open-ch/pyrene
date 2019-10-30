@@ -7,7 +7,6 @@ import Header from '../Header/Header';
 import TimeSeriesBucketChart from './TimeSeriesBucketChart';
 import Formats from '../../common/Formats';
 import colorSchemes from '../../styles/colorSchemes';
-import './timeSeriesBucketGraph.css';
 
 /**
  * A bucket graph for time-data series.
