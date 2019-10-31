@@ -37,8 +37,8 @@ const getBars = (barStacks, direction, barWeight) => (
  */
 const BarStack = (props) => {
   const left = props.direction === 'horizontal' ? chartConstants.marginLeftCategorical : chartConstants.marginLeftNumerical;
-  const height = props.height - chartConstants.marginBottom;
-  const width = props.width - left;
+  const height = Math.max(0, props.height - chartConstants.marginBottom);
+  const width = Math.max(0, props.width - left);
   const labels = props.data.map((d) => (d.label));
   const categoricalProp = (d) => d.label;
   const data = props.data.map((dataElement) => ({ ...props.keys.reduce((obj, key, index) => ({ ...obj, [key]: dataElement.values[index] }), {}), label: dataElement.label }));
@@ -58,7 +58,7 @@ const BarStack = (props) => {
           keys={props.keys}
           data={data}
           y={categoricalProp}
-          xScale={ScaleUtils.scaleLinear(width - chartConstants.marginMaxValueToBorder, props.maxCumulatedValue, props.direction)}
+          xScale={ScaleUtils.scaleLinear(Math.max(0, width - chartConstants.marginMaxValueToBorder), props.maxCumulatedValue, props.direction)}
           yScale={scaleCategorical}
           color={color}
         >
@@ -79,7 +79,7 @@ const BarStack = (props) => {
         data={data}
         x={categoricalProp}
         xScale={scaleCategorical}
-        yScale={ScaleUtils.scaleLinear(height - chartConstants.marginMaxValueToBorder, props.maxCumulatedValue, props.direction)}
+        yScale={ScaleUtils.scaleLinear(Math.max(0, height - chartConstants.marginMaxValueToBorder), props.maxCumulatedValue, props.direction)}
         color={color}
       >
         {(barStacks) => getBars(barStacks, props.direction, props.barWeight)}
