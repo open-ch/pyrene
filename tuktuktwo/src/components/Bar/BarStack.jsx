@@ -1,16 +1,43 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { BarStack as VxBarStack, BarStackHorizontal } from '@vx/shape';
+import { Bar, BarStack as VxBarStack, BarStackHorizontal } from '@vx/shape';
+import { Group } from '@vx/group';
 import { scaleOrdinal } from '@vx/scale';
 import ScaleUtils from '../../common/ScaleUtils';
 import chartConstants from '../../common/chartConstants';
 
+const getBars = (barStacks, direction, barWeight) => (
+  barStacks.map((barStack) => (
+    barStack.bars.map((bar) => (
+      direction === 'horizontal' ? (
+        <Bar
+          key={`bar-stack-${barStack.index}-${bar.index}`}
+          x={bar.x}
+          y={bar.y}
+          height={barWeight}
+          width={bar.width}
+          fill={bar.color}
+        />
+      ) : (
+        <Bar
+          key={`bar-stack-${barStack.index}-${bar.index}`}
+          x={bar.x}
+          y={bar.y}
+          height={bar.height}
+          width={barWeight}
+          fill={bar.color}
+        />
+      )
+    ))
+  ))
+);
+
 /**
- * BarStack is used to display multiple stacked bars.
+ * BarStack is used to display stacked bars.
  */
 const BarStack = (props) => {
   const left = props.direction === 'horizontal' ? chartConstants.marginLeftCategorical : chartConstants.marginLeftNumerical;
-  const chartHeight = props.height - chartConstants.marginBottom;
+  const height = props.height - chartConstants.marginBottom;
   const width = props.width - left;
   const labels = props.data.map((d) => (d.label));
   const categoricalProp = (d) => d.label;
@@ -19,68 +46,45 @@ const BarStack = (props) => {
     domain: props.keys,
     range: props.colors,
   });
-  const xScale = ScaleUtils.scaleCategorical(width, labels);
-  const yScale = ScaleUtils.scaleCategorical(chartHeight, labels);
-  return (
-    props.direction === 'horizontal' ? (
-      <BarStackHorizontal
+  if (props.direction === 'horizontal') {
+    const scaleCategorical = ScaleUtils.scaleCategorical(height, labels);
+    return (
+      <Group
+        top={(scaleCategorical.range().slice(-1)[0] / labels.length / 2) - (props.barWeight / 2)}
         left={left}
-        top={0}
-        keys={props.keys}
-        data={data}
-        y={categoricalProp}
-        xScale={ScaleUtils.scaleLinear(width - chartConstants.marginMaxValueToBorder, 43, props.direction)}
-        yScale={yScale}
-        color={color}
       >
-        {(barStacks) => (
-          barStacks.map((barStack) => (
-            barStack.bars.map((bar) => {
-              const yDelta = props.direction === 'horizontal' ? (yScale.range().slice(-1)[0] / barStack.bars.length / 2) - (props.barWeight / 2) : chartConstants.marginMaxValueToBorder;
-              return (
-                <rect
-                  key={`bar-stack-${barStack.index}-${bar.index}`}
-                  x={bar.x + left}
-                  y={bar.y + yDelta}
-                  height={props.direction === 'horizontal' ? props.barWeight : bar.height}
-                  width={props.direction === 'horizontal' ? bar.width : props.barWeight}
-                  fill={bar.color}
-                />
-              );
-            })
-          ))
-        )}
-      </BarStackHorizontal>
-    ) : (
+        <BarStackHorizontal
+
+          keys={props.keys}
+          data={data}
+          y={categoricalProp}
+          xScale={ScaleUtils.scaleLinear(width - chartConstants.marginMaxValueToBorder, props.maxCumulatedValue, props.direction)}
+          yScale={scaleCategorical}
+          color={color}
+        >
+          {(barStacks) => getBars(barStacks, props.direction, props.barWeight)}
+        </BarStackHorizontal>
+      </Group>
+
+    );
+  }
+  const scaleCategorical = ScaleUtils.scaleCategorical(width, labels);
+  return (
+    <Group
+      left={left + (scaleCategorical.range().slice(-1)[0] / labels.length / 2) - (props.barWeight / 2)}
+      top={chartConstants.marginMaxValueToBorder}
+    >
       <VxBarStack
-        left={left}
-        top={chartConstants.marginMaxValueToBorder}
         keys={props.keys}
         data={data}
         x={categoricalProp}
-        xScale={xScale}
-        yScale={ScaleUtils.scaleLinear(chartHeight - chartConstants.marginMaxValueToBorder, 43, props.direction)}
+        xScale={scaleCategorical}
+        yScale={ScaleUtils.scaleLinear(height - chartConstants.marginMaxValueToBorder, props.maxCumulatedValue, props.direction)}
         color={color}
       >
-        {(barStacks) => (
-          barStacks.map((barStack) => (
-            barStack.bars.map((bar) => {
-              const xDelta = (xScale.range().slice(-1)[0] / barStack.bars.length / 2) - (props.barWeight / 2);
-              return (
-                <rect
-                  key={`bar-stack-${barStack.index}-${bar.index}`}
-                  x={bar.x + left + xDelta}
-                  y={bar.y + chartConstants.marginMaxValueToBorder}
-                  height={props.direction === 'horizontal' ? props.barWeight : bar.height}
-                  width={props.direction === 'horizontal' ? bar.width : props.barWeight}
-                  fill={bar.color}
-                />
-              );
-            })
-          ))
-        )}
+        {(barStacks) => getBars(barStacks, props.direction, props.barWeight)}
       </VxBarStack>
-    )
+    </Group>
   );
 };
 
@@ -120,6 +124,10 @@ BarStack.propTypes = {
     * Sets the keys. Type: [ string ]
     */
   keys: PropTypes.arrayOf(PropTypes.string).isRequired,
+  /**
+   * Sets the maxCumulatedValue, which is used to calculate the bar lengths.
+   */
+  maxCumulatedValue: PropTypes.number.isRequired,
   /**
    * Sets the graph width, which is used to calculate the bar length and scaling.
    */
