@@ -31,7 +31,7 @@ Bar.displayName = 'Bar';
 
 Bar.defaultProps = {
   barWeight: 6,
-  direction: 'horizontal',
+  direction: 'vertical',
   mirrored: false,
   x: 0,
   y: 0,
