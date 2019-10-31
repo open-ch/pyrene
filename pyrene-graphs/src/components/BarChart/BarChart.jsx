@@ -16,7 +16,7 @@ import colorSchemes from '../../styles/colorSchemes';
 const BarChart = (props) => {
   const barWeight = 10;
   const labels = props.data.map((row) => row.label);
-  const maxValue = Math.max(...props.data.map((row) => Math.max(...row.values)));
+  const maxValue = Math.max(...props.data.map((d) => d.values.reduce((a, b) => a + b, 0)));
   const header = (
     <Header
       title={props.title}
@@ -89,6 +89,7 @@ const BarChart = (props) => {
                 colors={props.colorScheme.categorical}
                 height={parent.height}
                 keys={props.legend}
+                maxCumulatedValue={maxValue}
                 data={props.data}
                 direction={props.direction}
                 width={parent.width}
