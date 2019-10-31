@@ -12,6 +12,9 @@
   letter-spacing: -0.05px;
   color: var(--text);
   height: 16px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .subContainer {
