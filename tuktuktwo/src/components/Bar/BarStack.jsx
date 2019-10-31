@@ -54,7 +54,6 @@ const BarStack = (props) => {
         left={left}
       >
         <BarStackHorizontal
-
           keys={props.keys}
           data={data}
           y={categoricalProp}
