@@ -30,7 +30,7 @@ export default class TreeTableRow extends React.PureComponent {
 
         {/* Row Elements are rendered here */}
         <div
-          styleName="rowElementsContainer"
+          styleName={classNames('rowElementsContainer', { openRootParent: this.props.level === 0 && this.props.isExpanded })}
           onClick={hasExpandAction ? this.toggleRowExpansion : null}
           onDoubleClick={hasExpandAction ? null : () => this.props.onRowDoubleClick(this.props.data)}
         >
