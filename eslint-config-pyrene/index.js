@@ -16,16 +16,18 @@ module.exports = {
   "parserOptions": {
     "ecmaFeatures": {
       // Disallow for-of loops for IE11
-      "forOf": false
+      "forOf": false,
+      "jsx": true
     }
   },
 
+  // the default "esprima" parser cannot parse shorthand react fragments <>
   "parser": "babel-eslint",
 
   "settings": {
     "react": {
       "pragma": "React",
-      "version": "16.4"
+      "version": "detect"
     }
   },
 
@@ -110,7 +112,9 @@ module.exports = {
   }],
 
   "plugins": [
-    "jest"
+    "jest",
+    "react",
+    "react-hooks"
   ]
 
 };
