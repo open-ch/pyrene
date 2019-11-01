@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { DynamicSizeList as List } from 'react-window';
+import { VariableSizeList as List } from 'react-window';
 
 import './treeTable.css';
 import TreeTableHeader from './TreeTableHeader/TreeTableHeader';
@@ -24,18 +24,25 @@ import Loader from '../Loader/Loader';
  * For simple tables with few data, avoid the virtualized and height props. For tables with thousands of items, those two options are worth looking into.
  */
 class TreeTable extends React.Component {
-
-  state = {
-    displayExpandAll: false,
-    columns: TreeTableUtils.prepareColumnToggle(this.props.columns),
-    expanded: {},
-    rows: TreeTableUtils.initialiseRootData(this.props.data, this.props.setUniqueRowKey),
-    innerHeight: 0,
-    outerHeight: 0,
-    tableKey: Date.now(),
-  };
   
+  rowHeightMap = {};
+
+  innerRef = null;
+
   listRef = null;
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      displayExpandAll: false,
+      columns: TreeTableUtils.prepareColumnToggle(props.columns),
+      expanded: {},
+      rows: TreeTableUtils.initialiseRootData(props.data, props.setUniqueRowKey),
+      innerHeight: 0,
+      outerHeight: 0,
+      tableKey: Date.now(),
+    };
+  }
 
   componentDidUpdate(prevProps, prevState) {
     if (this.props.data !== prevProps.data) {
@@ -48,22 +55,36 @@ class TreeTable extends React.Component {
     }
   }
   
+  updateRowHeight = (index, newHeight) => {
+    const oldHeight = this.rowHeightMap[index];
+    if (this.listRef && oldHeight !== newHeight) {
+      this.rowHeightMap[index] = newHeight;
+      this.listRef.resetAfterIndex(index);
+    }
+  };
+
+  onListRef = (ref) => {
+    if (ref) {
+      this.listRef = ref;
+    }
+  };
+
   onContainerRef = (ref) => {
     if (ref) {
       this.setState({ outerHeight: ref.clientHeight });
     }
   }
 
-  onListRef = (innerRef) => {
+  onInnerRef = (innerRef) => {
     if (innerRef) {
-      this.listRef = innerRef;
+      this.innerRef = innerRef;
       this.recalculateListLength();
     }
   }
 
   recalculateListLength = () => {
-    if (this.listRef) {
-      this.setState({ innerHeight: this.listRef.clientHeight });
+    if (this.innerRef) {
+      this.setState({ innerHeight: this.innerRef.clientHeight });
     }
   }
 
@@ -97,7 +118,7 @@ class TreeTable extends React.Component {
       tableKey,
     } = this.state;
 
-    const isColumnHidden = hidden => typeof hidden === 'undefined' || hidden !== true;
+    const isColumnHidden = (hidden) => typeof hidden === 'undefined' || hidden !== true;
 
     const toggleColumnDisplay = (columnId, hiddenValue) => {
       const updatedColumns = columns.map((col) => {
@@ -121,11 +142,11 @@ class TreeTable extends React.Component {
     );
 
     const onExpandRow = ({ row }) => {
-      this.setState(prevState => TreeTableUtils.handleRowExpandChange(row, prevState, props.setUniqueRowKey));
+      this.setState((prevState) => TreeTableUtils.handleRowExpandChange(row, prevState, props.setUniqueRowKey));
     };
     
     const getActionBar = () => {
-      const listItems = columns.slice(1).map(col => ({ id: col.id, label: col.headerName, value: isColumnHidden(col.hidden) }));
+      const listItems = columns.slice(1).map((col) => ({ id: col.id, label: col.headerName, value: isColumnHidden(col.hidden) }));
       const onItemClick = toggleColumnDisplay;
       const onRestoreDefault = restoreColumnDefaults;
       const toggleColumns = props.toggleColumns;
@@ -144,13 +165,21 @@ class TreeTable extends React.Component {
       );
     };
 
-    const renderRow = (rowProps, ref) => {
+    const rowHeightCallback = (index) => this.rowHeightMap[index] || 32;
+
+    const rowKeyCallback = (index) => {
+      const rowData = rows[index];
+      // eslint-disable-next-line no-underscore-dangle
+      return rowData._rowId;
+    };
+
+    const renderRow = (rowProps) => {
       const { index, style } = rowProps;
       const rowData = rows[index];
       const { _rowId: rowKey } = rowData;
       
       return (
-        <div style={style} ref={ref} key={rowKey}>
+        <div style={style} key={rowKey}>
           <TreeTableRow
             style={style}
             index={index}
@@ -164,14 +193,11 @@ class TreeTable extends React.Component {
             onRowDoubleClick={props.onRowDoubleClick}
             expandOnParentRowClick={props.expandOnParentRowClick}
             onExpand={onExpandRow}
+            updateRowHeight={this.updateRowHeight}
           />
         </div>
       );
     };
-    /**
-     * forwardRef is needed for the DynamicHeightList to get the height of each item
-     */
-    const renderRowWithRef = React.forwardRef(renderRow);
     
     const isScrollbarVisible = () => props.virtualized && innerHeight > outerHeight;
 
@@ -203,9 +229,12 @@ class TreeTable extends React.Component {
                 height={props.height}
                 itemCount={rows.length}
                 width="100%"
-                innerRef={this.onListRef}
+                innerRef={this.onInnerRef}
+                itemSize={rowHeightCallback}
+                itemKey={rowKeyCallback}
+                ref={this.onListRef}
               >
-                {renderRowWithRef}
+                {renderRow}
               </List>
             ) : rows.map((_, index) => renderRow({ index }))}
           </div>
@@ -224,12 +253,12 @@ TreeTable.defaultProps = {
   columns: [],
   filters: [],
   title: '',
-  height: 300,
+  height: 600,
   loading: false,
   toggleColumns: true,
   onRowDoubleClick: null,
   renderActionBarRightItems: null,
-  virtualized: false,
+  virtualized: true,
   onFilterChange: () => null,
   setUniqueRowKey: () => null,
 };
@@ -291,7 +320,7 @@ TreeTable.propTypes = {
    */
   toggleColumns: PropTypes.bool,
   /**
-   * Whether the table should be virtualized (only visible rows rendered - faster) or all rows always rendered. The height props must also be provided if virtualized is true.
+   * Whether the table should be virtualized (only visible rows rendered - faster) or all rows always rendered. The height prop must also be provided if virtualized is true.
    */
   virtualized: PropTypes.bool,
 };
