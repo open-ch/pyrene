@@ -1,6 +1,6 @@
 {
   "name": "pyrene-graphs",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "Open Systems Graphs Component Library",
   "main": "dist/pyrene-graphs.js",
   "style": "dist/pyrene-graphs.css",
@@ -73,13 +73,11 @@
   },
   "dependencies": {
     "prop-types": "^15.6.1",
-
     "@vx/event": "^0.0.192",
     "@vx/group": "^0.0.192",
     "@vx/mock-data": "^0.0.192",
     "@vx/scale": "^0.0.192",
     "@vx/shape": "^0.0.192",
-
     "tuktuktwo": "^0.0.6"
   },
   "peerDependencies": {
