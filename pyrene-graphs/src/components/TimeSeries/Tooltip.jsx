@@ -14,7 +14,7 @@ const Tooltip = ({
     <div className={styles.tooltip}>
       <div className={styles.timeTitle}>{timeFormat(time)}</div>
       {
-        dataSeries.length > 0 && dataSeries.map((e) => <TooltipLegendItem key={e.dataLabel} dataColor={e.dataColor} dataLabel={e.dataLabel} dataValue={e.dataValue} />)
+        dataSeries.map((e) => <TooltipLegendItem key={e.dataLabel} dataColor={e.dataColor} dataLabel={e.dataLabel} dataValue={e.dataValue} />)
       }
     </div>
   </TooltipWrapper>

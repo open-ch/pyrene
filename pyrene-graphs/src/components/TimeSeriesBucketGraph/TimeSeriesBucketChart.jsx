@@ -4,7 +4,6 @@ import { colorConstants } from 'pyrene';
 import {
   Bar,
   chartConstants,
-  Group,
   localPoint,
   NumericalAxis,
   Responsive,
@@ -16,79 +15,112 @@ import Tooltip from '../TimeSeries/Tooltip';
 import colorSchemes from '../../styles/colorSchemes';
 
 /**
+ * Get tooltip position and data when mouse is moving over the graph.
+ * @param {object}event - The mouseMove event
+ * @param {array}data - The data series with timestamp and value
+ * @param {function}xScale - The scale function that linearly maps x-coordinate to timestamp in epoch milliseconds
+ * @param {number}timeFrame - The size of the time frame in epoch milliseconds
+ * @param {function}showTooltip - The function that passes tooltip position and data to the tooltip component
+ */
+const onMouseMove = (event, data, xScale, timeFrame, showTooltip) => {
+  const { x, y } = localPoint(event.target.ownerSVGElement, event);
+  const currentTimestamp = xScale(x);
+  const foundIndex = data.findIndex((d) => d[0] > currentTimestamp) - 1;
+  const index = foundIndex >= 0 ? foundIndex : data.length - 1;
+  showTooltip({
+    tooltipLeft: x,
+    tooltipTop: y,
+    tooltipData: [[data[index][0], data[index][0] + timeFrame], data[index][1]],
+  });
+};
+
+/**
  * The pure SVG chart part of the time series bucket graph.
  */
 const TimeSeriesBucketChart = (props) => {
   const {
-    hideTooltip, // eslint-disable-line react/prop-types
-    showTooltip, // eslint-disable-line react/prop-types
-    tooltipData, // eslint-disable-line react/prop-types
-    tooltipLeft, // eslint-disable-line react/prop-types
-    tooltipOpen, // eslint-disable-line react/prop-types
-    tooltipTop, // eslint-disable-line react/prop-types
+    hideTooltip,
+    showTooltip,
+    tooltipData,
+    tooltipLeft,
+    tooltipOpen,
+    tooltipTop,
   } = props;
+
+  const dataAvailable = props.dataSeries && props.dataSeries.data && props.dataSeries.data.length > 1;
+
+  if (!dataAvailable) {
+    return (
+      <Responsive>
+        {(parent) => (
+          <svg width="100%" height={parent.height} shapeRendering="crispEdges">
+            <TimeXAxis
+              from={props.from}
+              to={props.to}
+              width={parent.width}
+              height={parent.height}
+              strokeColor={colorConstants.neutral050}
+              tickLabelColors={[colorConstants.neutral200, colorConstants.neutral300]}
+              timezone={props.timezone}
+              showTickLabels={false}
+            />
+            <NumericalAxis
+              maxValue={0}
+              orientation="left"
+              width={parent.width}
+              height={parent.height}
+              tickFormat={props.dataFormat.yAxis}
+              strokeColor={colorConstants.neutral050}
+              tickLabelColor={colorConstants.neutral200}
+              showTickLabels={false}
+              showGrid={false}
+            />
+          </svg>
+        )}
+      </Responsive>
+    );
+  }
 
   return (
     <Responsive>
       {(parent) => {
-        // Get the max value from the data series
-        const maxValue = Math.max(...props.dataSeries.data.map((data) => data[1]));
-
-        // Get time frame
-        const timeFrame = props.dataSeries.data[1][0] - props.dataSeries.data[0][0];
-
-        // Get number of bars, maximum bar height and bar weight
-        const numBars = props.dataSeries.data.length;
-        const maxBarSize = Math.max(0, parent.height - chartConstants.marginBottom - chartConstants.marginMaxValueToBorder);
-        const barWeight = parent.width > 0 ? ((parent.width - chartConstants.marginLeftNumerical) / numBars - chartConstants.defaultBarSpacing) : 0;
-
-        // Get the scale function
+        // Get scale function, time frame, number of bars, max data value, maximum bar height and bar weight
         const xScale = scaleUtils.scaleCustomLinear(chartConstants.marginLeftNumerical, parent.width, props.from, props.to, 'horizontal');
-
-        const onMouseMove = (event) => {
-          const ownerSvg = event.target.getBoundingClientRect().width === parent.width ? event.target : event.target.ownerSVGElement;
-          const { x, y } = localPoint(ownerSvg, event);
-          if (x < chartConstants.marginLeftNumerical || y > parent.height - chartConstants.marginBottom) {
-            hideTooltip();
-            return;
-          }
-          const currentTimestamp = xScale(x);
-          const foundIndex = props.dataSeries.data.findIndex((d) => d[0] > currentTimestamp) - 1;
-          const index = foundIndex >= 0 ? foundIndex : props.dataSeries.data.length - 1;
-          showTooltip({
-            tooltipLeft: x,
-            tooltipTop: y,
-            tooltipData: [[props.dataSeries.data[index][0], props.dataSeries.data[index][0] + timeFrame], props.dataSeries.data[index][1]],
-          });
-        };
+        const timeFrame = props.dataSeries.data[1][0] - props.dataSeries.data[0][0];
+        const numBars = props.dataSeries.data.length;
+        const maxValue = Math.max(...props.dataSeries.data.map((data) => data[1]));
+        const maxBarSize = Math.max(0, parent.height - chartConstants.marginBottom - chartConstants.marginMaxValueToBorder);
+        const barWeight = parent.width > 0 ? ((parent.width - chartConstants.marginLeftNumerical) / numBars - chartConstants.barSpacing) : 0;
 
         return (
           <>
-            <svg width="100%" height={parent.height} shapeRendering="crispEdges" onMouseMove={onMouseMove} onMouseOut={hideTooltip}>
-              <Group>
-                <TimeXAxis
-                  from={props.from}
-                  to={props.to}
-                  width={parent.width}
-                  height={parent.height}
-                  strokeColor={colorConstants.neutral050}
-                  tickLabelColors={[colorConstants.neutral200, colorConstants.neutral300]}
-                  showTickLabels={!props.loading}
-                  timezone={props.timezone}
-                />
-                <NumericalAxis
-                  maxValue={maxValue}
-                  orientation="left"
-                  width={parent.width}
-                  height={parent.height}
-                  tickFormat={props.dataFormat.yAxis}
-                  strokeColor={colorConstants.neutral050}
-                  tickLabelColor={colorConstants.neutral200}
-                  showTickLabels={!props.loading}
-                  showGrid={false}
-                />
+            <svg width="100%" height={parent.height} shapeRendering="crispEdges" >
+              <TimeXAxis
+                from={props.from}
+                to={props.to}
+                width={parent.width}
+                height={parent.height}
+                strokeColor={colorConstants.neutral050}
+                tickLabelColors={[colorConstants.neutral200, colorConstants.neutral300]}
+                showTickLabels={!props.loading}
+                timezone={props.timezone}
+              />
+              <NumericalAxis
+                maxValue={maxValue}
+                orientation="left"
+                width={parent.width}
+                height={parent.height}
+                tickFormat={props.dataFormat.yAxis}
+                strokeColor={colorConstants.neutral050}
+                tickLabelColor={colorConstants.neutral200}
+                showTickLabels={!props.loading}
+                showGrid={false}
+              />
+              <g onMouseMove={(e) => onMouseMove(e, props.dataSeries.data, xScale, timeFrame, showTooltip)}
+                onMouseOut={hideTooltip}
+              >
                 {!props.loading && props.dataSeries.data.length > 0 && (
-                  <Group left={chartConstants.marginLeftNumerical}>
+                  <g transform={`translate(${chartConstants.marginLeftNumerical}, 0)`} >
                     {props.dataSeries.data.map((data, index) => (
                       <Bar key={Math.random()}
                         barWeight={barWeight}
@@ -97,13 +129,13 @@ const TimeSeriesBucketChart = (props) => {
                         value={data[1]}
                         maxValue={maxValue}
                         size={maxBarSize}
-                        x={index * (barWeight + chartConstants.defaultBarSpacing)}
+                        x={index * (barWeight + chartConstants.barSpacing)}
                         y={chartConstants.marginMaxValueToBorder}
                       />
                     ))}
-                  </Group>
+                  </g>
                 )}
-              </Group>
+              </g>
             </svg>
             {
               tooltipOpen && (
@@ -121,7 +153,7 @@ const TimeSeriesBucketChart = (props) => {
   );
 };
 
-TimeSeriesBucketChart.displayName = 'TimeSeriesBucketChart';
+TimeSeriesBucketChart.displayName = 'Time Series Bucket Chart';
 
 TimeSeriesBucketChart.defaultProps = {
   colorScheme: colorSchemes.colorSchemeDefault,
@@ -130,30 +162,99 @@ TimeSeriesBucketChart.defaultProps = {
     label: '',
   },
   loading: false,
+  lowerBound: 0,
+  minZoomRange: 0,
   onZoom: undefined,
+  tooltipData: [[0, 0], 0],
+  tooltipLeft: 0,
+  tooltipTop: 0,
+  upperBound: 0,
 };
 
 TimeSeriesBucketChart.propTypes = {
+  /**
+   * Sets the color scheme of the bars.
+   */
   colorScheme: PropTypes.shape({
     categorical: PropTypes.arrayOf(PropTypes.string).isRequired,
   }),
+  /**
+   * Sets the data formatting functions for the graph, consisting of format function for the y-axis and that for the tooltip.
+   */
   dataFormat: PropTypes.shape({
     tooltip: PropTypes.func,
     yAxis: PropTypes.func,
   }).isRequired,
+  /**
+   * Sets the data series. A data series consists of a label and an array of data. Each data item contains a timestamp and a value.
+   */
   dataSeries: PropTypes.shape({
     data: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
     label: PropTypes.string.isRequired,
   }),
+  /**
+   * Sets the starting time point of the time range in epoch milliseconds.
+   */
   from: PropTypes.number.isRequired,
+  /**
+   * The function to hide tooltip provided by the withTooltip enhancer.
+   */
+  hideTooltip: PropTypes.func.isRequired,
+  /**
+   * Sets the loading state of the graph.
+   */
   loading: PropTypes.bool,
+  /**
+   * Sets the lower bound of the zoom component - provided that this graph is a zoomable one, i.e. no more zoom-out is possible when lower bound is reached.
+   */
+  lowerBound: PropTypes.number,
+  /**
+   * Sets the minimum allowed zoom range - provided that this graph is a zoomable one, i.e. no more zoom-in is possible when minZoomRange is already reached.
+   */
+  minZoomRange: PropTypes.number,
+  /**
+   * Sets the callback function when a zoom action finishes.
+   */
   onZoom: PropTypes.func,
+  /**
+   * The function to render the proper tooltip provided by the withTooltip enhancer.
+   */
+  showTooltip: PropTypes.func.isRequired,
+  /**
+   * Sets the time formatting functions, including the formatting function for ordinary tooltip and that for the zoom tooltip.
+   */
   timeFormat: PropTypes.shape({
     tooltip: PropTypes.func.isRequired,
     zoomTooltip: PropTypes.func,
   }).isRequired,
+  /**
+   * Sets the timezone for the x-axis.
+   */
   timezone: PropTypes.string.isRequired,
+  /**
+   * Sets the ending point of the time range in epoch milliseconds.
+   */
   to: PropTypes.number.isRequired,
+  /**
+   * The tooltip data prop provided by the withTooltip enhancer.
+   */
+  tooltipData: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.number), PropTypes.number]).isRequired),
+  /**
+   * The tooltip x-position prop provided by the withTooltip enhancer.
+   */
+  tooltipLeft: PropTypes.number,
+  /**
+   * The prop provided by the withTooltip enhancer to decide whether to show the tooltip or not.
+   */
+  tooltipOpen: PropTypes.bool.isRequired,
+  /**
+   * The tooltip y-position prop provided by the withTooltip enhancer.
+   */
+  tooltipTop: PropTypes.number,
+  /**
+   * Sets the upper bound for the zoom component - provided that the graph is a zoomable one, i.e. no zoom-out action is allowed when upper bound is reached.
+   */
+  upperBound: PropTypes.number,
 };
 
 export default withTooltip(TimeSeriesBucketChart);
