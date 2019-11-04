@@ -173,8 +173,7 @@ class TreeTable extends React.Component {
       return rowData._rowId;
     };
 
-    const renderRow = (rowProps) => {
-      const { index, style } = rowProps;
+    const renderRow = ({ index, style }) => {
       const rowData = rows[index];
       const { _rowId: rowKey } = rowData;
       
@@ -184,7 +183,7 @@ class TreeTable extends React.Component {
             style={style}
             index={index}
             data={rowData}
-            parent={rowData.hasOwnProperty('children') ? rowData.children.length > 0 : false} // eslint-disable-line no-prototype-builtins
+            parent={rowData.children ? rowData.children.length > 0 : false}
             // eslint-disable-next-line no-underscore-dangle
             level={rowData._treeDepth}
             isExpanded={expanded[rowKey] || false}
@@ -193,7 +192,7 @@ class TreeTable extends React.Component {
             onRowDoubleClick={props.onRowDoubleClick}
             expandOnParentRowClick={props.expandOnParentRowClick}
             onExpand={onExpandRow}
-            updateRowHeight={this.updateRowHeight}
+            updateRowHeight={props.virtualized ? this.updateRowHeight : undefined}
           />
         </div>
       );
@@ -233,6 +232,7 @@ class TreeTable extends React.Component {
                 itemSize={rowHeightCallback}
                 itemKey={rowKeyCallback}
                 ref={this.onListRef}
+                overscanCount={10}
               >
                 {renderRow}
               </List>

@@ -10,7 +10,7 @@ export default class TreeTableRow extends React.PureComponent {
 
   updateRowHeight = (ref) => {
     const { updateRowHeight, index } = this.props;
-    if (ref) {
+    if (ref && updateRowHeight) {
       updateRowHeight(index, ref.clientHeight);
     }
   }
@@ -25,7 +25,7 @@ export default class TreeTableRow extends React.PureComponent {
     return (
       <div
         styleName={classNames('treeTableRow', { activeAction: hasExpandAction || this.props.onRowDoubleClick !== null })}
-        ref={this.updateRowHeight}
+        ref={this.props.updateRowHeight ? this.updateRowHeight : undefined}
       >
 
         {/* Row Elements are rendered here */}
@@ -83,7 +83,7 @@ TreeTableRow.defaultProps = {
   onExpand: null,
   onRowDoubleClick: null,
   parent: false,
-  updateRowHeight: () => {},
+  updateRowHeight: undefined,
 };
 
 TreeTableRow.propTypes = {
