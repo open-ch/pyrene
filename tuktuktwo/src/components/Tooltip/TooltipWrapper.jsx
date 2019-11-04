@@ -12,7 +12,7 @@ const TooltipWrapper = ({ top, left, children }) => (
     top={top + 5}
     left={left}
     offsetLeft={15}
-    offsetRight={15}
+    offsetTop={15}
     // Clear out the stuff vx sets, allowing us to style the children passed in
     style={{ padding: 0, borderRadius: 2 }}
   >
