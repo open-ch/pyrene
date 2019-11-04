@@ -21,8 +21,7 @@ module.exports = {
     }
   },
 
-  // the default "esprima" parser cannot parse shorthand react fragments <>
-  "parser": "babel-eslint",
+  "parser": "espree",
 
   "settings": {
     "react": {
