@@ -1,8 +1,6 @@
 /* eslint-disable import/prefer-default-export */
 /* eslint-disable import/no-named-default */
 
-import 'resize-observer-polyfill/dist/ResizeObserver.global';
-
 import './styles/common.css';
 import './styles/colors.css';
 import './styles/fonts.css';
