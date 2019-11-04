@@ -17,7 +17,7 @@ const TimeSeriesBucketGraph = (props) => {
 
   // Render the header
   let formattedDescription = props.description;
-  if (dataAvailable) {
+  if (!props.loading && dataAvailable) {
     const maxValue = Math.max(...props.dataSeries.data.map((data) => data[1]));
     const maxValueWithUnit = format('~s')(maxValue);
     formattedDescription = `${props.description} in ${maxValue >= 1000 ? maxValueWithUnit[maxValueWithUnit.length - 1] : ''}${props.yUnit}`;

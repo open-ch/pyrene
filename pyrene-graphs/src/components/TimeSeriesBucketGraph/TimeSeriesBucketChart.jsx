@@ -116,7 +116,7 @@ const TimeSeriesBucketChart = (props) => {
                 showTickLabels={!props.loading}
                 showGrid={false}
               />
-              <g onMouseMove={(e) => onMouseMove(e, props.dataSeries.data, xScale, timeFrame, showTooltip)}
+              <g className="hoverArea" onMouseMove={(e) => onMouseMove(e, props.dataSeries.data, xScale, timeFrame, showTooltip)}
                 onMouseOut={hideTooltip}
               >
                 {!props.loading && props.dataSeries.data.length > 0 && (
