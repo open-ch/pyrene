@@ -32,7 +32,6 @@ export { RelativeBar };
 export { Responsive };
 export { TimeXAxis };
 export { TooltipWrapper };
-export { Group } from '@vx/group';
 export { withTooltip } from '@vx/tooltip';
 export { localPoint } from '@vx/event';
 
