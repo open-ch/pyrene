@@ -49,37 +49,15 @@ const treeTableColumns = [
     width: 300,
   },
   {
-    id: 'id',
-    headerName: 'ID',
-    headerStyle: { justifyContent: 'flexEnd' },
-    cellStyle: {},
-    accessor: '_rowId',
-    initiallyHidden: false,
-    width: 100,
-  },
-  {
-    id: 'height',
-    headerName: 'Height (multi row data)',
-    accessor: 'height',
-    renderCallback: data => (
-      <div>
-        <div>
-          {data}
-        </div>
-        <div>
-          {data}
-        </div>
-        <div>
-          {data}
-        </div>
-      </div>
-    ),
-    width: 100,
-  },
-  {
     id: 'width',
     headerName: 'Width',
     accessor: 'width',
+  },
+  {
+    id: 'height',
+    headerName: 'Height',
+    accessor: 'height',
+    width: 100,
     initiallyHidden: true,
   },
 ];

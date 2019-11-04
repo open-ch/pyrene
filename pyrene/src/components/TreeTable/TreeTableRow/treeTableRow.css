@@ -16,6 +16,14 @@
   display: flex;
   border-bottom: solid 1px var(--border);
   align-items: flex-start;
+
+  &:hover {
+    background-color: var(--background-tint);
+  }
+
+  &.openRootParent {
+    background-color: var(--secondary);
+  }
 }
 
 .childrenRowsContainer {

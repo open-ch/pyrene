@@ -8,6 +8,13 @@ import PROPCONSTANTS from '../TreeTablePropTypes';
 
 export default class TreeTableRow extends React.PureComponent {
 
+  updateRowHeight = (ref) => {
+    const { updateRowHeight, index } = this.props;
+    if (ref && updateRowHeight) {
+      updateRowHeight(index, ref.clientHeight);
+    }
+  }
+
   toggleRowExpansion = () => {
     const { data: row, index } = this.props;
     this.props.onExpand({ row, index });
@@ -18,11 +25,12 @@ export default class TreeTableRow extends React.PureComponent {
     return (
       <div
         styleName={classNames('treeTableRow', { activeAction: hasExpandAction || this.props.onRowDoubleClick !== null })}
+        ref={this.props.updateRowHeight ? this.updateRowHeight : undefined}
       >
 
         {/* Row Elements are rendered here */}
         <div
-          styleName="rowElementsContainer"
+          styleName={classNames('rowElementsContainer', { openRootParent: this.props.level === 0 && this.props.isExpanded })}
           onClick={hasExpandAction ? this.toggleRowExpansion : null}
           onDoubleClick={hasExpandAction ? null : () => this.props.onRowDoubleClick(this.props.data)}
         >
@@ -75,20 +83,18 @@ TreeTableRow.defaultProps = {
   onExpand: null,
   onRowDoubleClick: null,
   parent: false,
+  updateRowHeight: undefined,
 };
 
 TreeTableRow.propTypes = {
   columns: PROPCONSTANTS.COLUMNS,
   data: PROPCONSTANTS.DATAOBJECT,
   expandOnParentRowClick: PropTypes.bool.isRequired,
-
   index: PropTypes.number.isRequired,
-
   isExpanded: PropTypes.bool.isRequired,
-
   level: PropTypes.number.isRequired,
-  
   onExpand: PropTypes.func,
   onRowDoubleClick: PropTypes.func,
   parent: PropTypes.bool,
+  updateRowHeight: PropTypes.func,
 };
