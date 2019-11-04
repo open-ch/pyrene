@@ -4,7 +4,7 @@ module.exports = {
 
   "env": {
     "browser": "true",
-    "es6": "true",
+    "es2017": "true",
     "jest": "true"
   },
 
@@ -13,15 +13,13 @@ module.exports = {
     "mount": "true",
   },
 
+  "parser": "babel-eslint",
+
   "parserOptions": {
     "ecmaFeatures": {
-      // Disallow for-of loops for IE11
-      "forOf": false,
       "jsx": true
     }
   },
-
-  "parser": "espree",
 
   "settings": {
     "react": {
