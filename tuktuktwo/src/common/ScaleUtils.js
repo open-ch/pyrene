@@ -10,10 +10,15 @@ export default class ScaleUtils {
   }
 
   static scaleLinear(size, maxValue, direction) {
-    return scaleLinear({
-      range: direction === 'horizontal' ? [0, size] : [size, 0],
-      domain: [0, maxValue],
-    });
+    return this.scaleCustomLinear(
+      0, maxValue, 0, size, direction
+    );
   }
 
+  static scaleCustomLinear(minDomain, maxDomain, minRange, maxRange, direction) {
+    return scaleLinear({
+      range: direction === 'horizontal' ? [minRange, maxRange] : [maxRange, minRange],
+      domain: [minDomain, maxDomain],
+    });
+  }
 }
