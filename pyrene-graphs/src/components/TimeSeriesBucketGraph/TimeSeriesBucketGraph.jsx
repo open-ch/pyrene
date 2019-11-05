@@ -16,16 +16,10 @@ const TimeSeriesBucketGraph = (props) => {
   const dataAvailable = props.dataSeries && props.dataSeries.data && props.dataSeries.data.length > 1;
 
   // Render the header
-  let formattedDescription = props.description;
-  if (!props.loading && dataAvailable) {
-    const maxValue = Math.max(...props.dataSeries.data.map((data) => data[1]));
-    const maxValueWithUnit = format('~s')(maxValue);
-    formattedDescription = `${props.description} in ${maxValue >= 1000 ? maxValueWithUnit[maxValueWithUnit.length - 1] : ''}${props.yUnit}`;
-  }
   const header = (
     <Header
       title={props.title}
-      description={formattedDescription}
+      description={props.description}
     />
   );
 
@@ -61,7 +55,7 @@ const TimeSeriesBucketGraph = (props) => {
   return (
     <ChartContainer
       header={header}
-      chart={!showOverlay && bucketChart}
+      chart={bucketChart}
       chartOverlay={showOverlay && chartOverlay}
     />
   );
@@ -142,7 +136,8 @@ TimeSeriesBucketGraph.propTypes = {
     zoomTooltip: PropTypes.func,
   }).isRequired,
   /**
-   * Sets the timezone for the x-axis.
+   * Sets the timezone for the x-axis alone.
+   * The timezone for tooltip comes from the render function provided by parent page.
    */
   timezone: PropTypes.string.isRequired,
   /**

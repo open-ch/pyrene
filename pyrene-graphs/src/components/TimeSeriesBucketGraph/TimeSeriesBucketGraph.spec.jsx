@@ -80,7 +80,7 @@ describe('<TimeSeriesBucketGraph />', () => {
 
     // Header
     expect(rendered.contains(props.title)).toBe(true);
-    expect(rendered.contains(props.description + ' in kB')).toBe(true);
+    expect(rendered.contains(props.description)).toBe(true);
 
     // Numerical Y-Axis
     const yAxis = rendered.find('.vx-axis-left');
@@ -110,6 +110,8 @@ describe('<TimeSeriesBucketGraph />', () => {
     expect(rendered.contains(props1.title)).toBe(true);
     expect(rendered.contains(props1.description)).toBe(true);
     expect(rendered.find('.vx-bar')).toHaveLength(0);
+    expect(rendered.find('.vx-axis-line').length).toBeGreaterThan(0);
+    expect(rendered.find('.vx-axis-tick').length).toBe(0);
     expect(rendered.find(Loader).exists()).toBe(true);
   });
 
@@ -119,6 +121,8 @@ describe('<TimeSeriesBucketGraph />', () => {
     expect(rendered.contains(props2.title)).toBe(true);
     expect(rendered.contains(props2.description)).toBe(true);
     expect(rendered.find('.vx-bar')).toHaveLength(0);
+    expect(rendered.find('.vx-axis-line').length).toBeGreaterThan(0);
+    expect(rendered.find('.vx-axis-tick').length).toBe(0);
     expect(rendered.find(Banner).exists()).toBe(true);
   });
 });

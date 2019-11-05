@@ -19,14 +19,14 @@ import colorSchemes from '../../styles/colorSchemes';
  * @param {object}event - The mouseMove event
  * @param {array}data - The data series with timestamp and value
  * @param {function}xScale - The scale function that linearly maps x-coordinate to timestamp in epoch milliseconds
- * @param {number}timeFrame - The size of the time frame in epoch milliseconds
  * @param {function}showTooltip - The function that passes tooltip position and data to the tooltip component
  */
-const onMouseMove = (event, data, xScale, timeFrame, showTooltip) => {
+const onMouseMove = (event, data, xScale, showTooltip) => {
   const { x, y } = localPoint(event.target.ownerSVGElement, event);
   const currentTimestamp = xScale(x);
   const foundIndex = data.findIndex((d) => d[0] > currentTimestamp) - 1;
   const index = foundIndex >= 0 ? foundIndex : data.length - 1;
+  const timeFrame = index === data.length - 1 ? (data[index][0] - data[index - 1][0]) : (data[index + 1][0] - data[index][0]);
   showTooltip({
     tooltipLeft: x,
     tooltipTop: y,
@@ -86,7 +86,6 @@ const TimeSeriesBucketChart = (props) => {
       {(parent) => {
         // Get scale function, time frame, number of bars, max data value, maximum bar height and bar weight
         const xScale = scaleUtils.scaleCustomLinear(chartConstants.marginLeftNumerical, parent.width, props.from, props.to, 'horizontal');
-        const timeFrame = props.dataSeries.data[1][0] - props.dataSeries.data[0][0];
         const numBars = props.dataSeries.data.length;
         const maxValue = Math.max(...props.dataSeries.data.map((data) => data[1]));
         const maxBarSize = Math.max(0, parent.height - chartConstants.marginBottom - chartConstants.marginMaxValueToBorder);
@@ -94,7 +93,7 @@ const TimeSeriesBucketChart = (props) => {
 
         return (
           <>
-            <svg width="100%" height={parent.height} shapeRendering="crispEdges" >
+            <svg width="100%" height={parent.height} shapeRendering="crispEdges">
               <TimeXAxis
                 from={props.from}
                 to={props.to}
@@ -116,11 +115,11 @@ const TimeSeriesBucketChart = (props) => {
                 showTickLabels={!props.loading}
                 showGrid={false}
               />
-              <g className="hoverArea" onMouseMove={(e) => onMouseMove(e, props.dataSeries.data, xScale, timeFrame, showTooltip)}
+              <g className="hoverArea" onMouseMove={(e) => onMouseMove(e, props.dataSeries.data, xScale, showTooltip)}
                 onMouseOut={hideTooltip}
               >
                 {!props.loading && props.dataSeries.data.length > 0 && (
-                  <g transform={`translate(${chartConstants.marginLeftNumerical}, 0)`} >
+                  <g transform={`translate(${chartConstants.marginLeftNumerical}, 0)`}>
                     {props.dataSeries.data.map((data, index) => (
                       <Bar key={Math.random()}
                         barWeight={barWeight}
