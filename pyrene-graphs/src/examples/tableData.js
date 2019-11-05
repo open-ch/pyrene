@@ -113,13 +113,11 @@ export const tableColumns = {
     accessor: (d) => d.volume,
     title: 'Volume',
     formatter: (d) => `${d.toFixed(1)} GB`,
-    maxWidth: '90px',
   },
   secondaryValue: {
     accessor: (d) => d.shareOfTotal,
     title: 'Share of Total',
     formatter: (d) => `${d.toFixed(2)} %`,
-    maxWidth: '90px',
   },
 };
 
@@ -237,13 +235,11 @@ export const tableColumnsComparison = {
     accessor: (d) => d.volumeCurrent,
     title: 'Current',
     formatter: (d) => `${d.toFixed(1)} GB`,
-    maxWidth: '90px',
   },
   secondaryValue: {
     accessor: (d) => d.volumePrevious,
     title: 'Previous',
     formatter: (d) => `${d.toFixed(1)} GB`,
-    maxWidth: '90px',
   },
 };
 
@@ -361,13 +357,11 @@ export const tableColumnsUpDown = {
     accessor: (d) => d.down,
     title: 'Volume Down',
     formatter: (d) => `${d.toFixed(1)} %`,
-    maxWidth: '90px',
   },
   secondaryValue: {
     accessor: (d) => d.up,
     title: 'Volume Up',
     formatter: (d) => `${d.toFixed(1)} %`,
-    maxWidth: '90px',
   },
 };
 
