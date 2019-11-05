@@ -60,6 +60,8 @@ module.exports = {
     "react/jsx-boolean-value": [2, "never"],
     // Enforce or disallow spaces inside of curly braces in JSX attributes
     "react/jsx-curly-spacing": [2, "never"],
+    // Do not remove curly braces from children.
+    "react/jsx-curly-brace-presence": [2, { props: "never", children: "ignore" }],
     // Prevent duplicate props in JSX
     "react/jsx-no-duplicate-props": 2,
     // Prevent React to be incorrectly marked as unused - covered by no-unused-vars
