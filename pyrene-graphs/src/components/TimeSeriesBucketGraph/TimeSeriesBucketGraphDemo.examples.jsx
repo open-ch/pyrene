@@ -3,7 +3,7 @@ import { downloadedVolumes } from '../../examples/timeSeriesData';
 
 const examples = {};
 
-const timezone = 'Europe/Zurich';
+const timezone = 'Asia/Shanghai';
 
 examples.props = {
   dataSeries: downloadedVolumes,

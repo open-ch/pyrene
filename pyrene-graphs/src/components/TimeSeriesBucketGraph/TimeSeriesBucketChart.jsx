@@ -141,7 +141,7 @@ const TimeSeriesBucketChart = (props) => {
               tooltipOpen && (
                 <Tooltip
                   dataSeries={[{ dataColor: props.colorScheme.categorical[0], dataLabel: props.dataSeries.label, dataValue: props.dataFormat.tooltip(tooltipData[1]) }]}
-                  timeFormat={props.timeFormat ? props.timeFormat : Formats.tooltipTimeFormat} time={tooltipData[0]}
+                  timeFormat={props.timeFormat ? props.timeFormat : (time) => Formats.tooltipTimeFormat(time, props.timezone)} time={tooltipData[0]}
                   left={tooltipLeft} top={tooltipTop}
                 />
               )

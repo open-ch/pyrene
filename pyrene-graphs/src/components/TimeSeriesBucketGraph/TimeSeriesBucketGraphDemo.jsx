@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment-timezone';
 import { format } from 'd3-format';
 import TimeSeriesBucketGraph from './TimeSeriesBucketGraph';
 import colorSchemes from '../../styles/colorSchemes';
@@ -9,6 +8,8 @@ import colorSchemes from '../../styles/colorSchemes';
  * A Demo graph for TimeSeriesBucketGraph. Only for demon use in kitchensink.
  */
 class TimeSeriesBucketGraphDemo extends React.Component {
+
+  static yUnit = 'B';
 
   render() {
     const {
@@ -21,7 +22,6 @@ class TimeSeriesBucketGraphDemo extends React.Component {
       timezone,
       title,
       initialTo,
-      yUnit,
       zoom,
     } = this.props;
 
@@ -29,9 +29,9 @@ class TimeSeriesBucketGraphDemo extends React.Component {
       tooltip: (num) => {
         const formattedNum = `${format('~s')(num)}`;
         if (num > 0.001 && num < 1000) {
-          return `${parseFloat(formattedNum).toFixed(2)} ${yUnit}`;
+          return `${parseFloat(formattedNum).toFixed(2)} ${TimeSeriesBucketGraphDemo.yUnit}`;
         }
-        return `${parseFloat(formattedNum.substring(0, formattedNum.length - 2)).toFixed(2)} ${formattedNum.substring(formattedNum.length - 1, formattedNum.length)}${yUnit}`;
+        return `${parseFloat(formattedNum.substring(0, formattedNum.length - 2)).toFixed(2)} ${formattedNum.substring(formattedNum.length - 1, formattedNum.length)}${TimeSeriesBucketGraphDemo.yUnit}`;
       },
       yAxis: (num) => parseFloat(Math.round(num * 100) / 100).toFixed(0),
     };
@@ -48,7 +48,6 @@ class TimeSeriesBucketGraphDemo extends React.Component {
         timezone={timezone}
         title={title}
         to={initialTo}
-        yUnit={yUnit}
         zoom={zoom}
       />
     );
@@ -114,10 +113,6 @@ TimeSeriesBucketGraphDemo.propTypes = {
    * Sets the title of the graph.
    */
   title: PropTypes.string,
-  /**
-   * Sets the unit for the data.
-   */
-  yUnit: PropTypes.string.isRequired,
   /**
    * If set, this graph supports zoom.
    */
