@@ -15,7 +15,7 @@
     "prewatch": "yarn install",
     "watch": "webpack-dev-server",
     "prelint": "yarn install",
-    "lint": "eslint src/",
+    "lint": "eslint --ext .js,.jsx src/",
     "updateIconfont": "bash -c 'cp $0 src/app/data/icons.js;'"
   },
   "devDependencies": {
