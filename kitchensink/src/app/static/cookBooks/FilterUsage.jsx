@@ -86,7 +86,7 @@ class SimpleFilteredTable extends React.Component {
           data={filterFunc(this.state.filterValues, data)}
           keyField="id"
           filters={filterProps}
-          onFilterChange={filterValues => this.setState({ filterValues })}
+          onFilterChange={(filterValues) => this.setState({ filterValues })}
           filterValues={this.state.filterValues}
         />
       );
@@ -102,13 +102,13 @@ class DataFilteredTable extends React.Component {
        label: 'City',
        accessor: 'city',
        id: 'city',
-       optionsAccessors: { value: d => d.city, label: d => `City: ${d.city}` },
+       optionsAccessors: { value: (d) => d.city, label: (d) => `City: ${d.city}` },
      }, {
        type: 'singleSelect',
        label: 'Country',
        accessor: 'country',
        id: 'country',
-       optionsAccessors: { value: d => d.country, label: d => (d.country === null ? 'null' : d.country === '' ? 'empty' : d.country === false ? 'false' : d.country) }, // eslint-disable-line no-nested-ternary
+       optionsAccessors: { value: (d) => d.country, label: (d) => (d.country === null ? 'null' : d.country === '' ? 'empty' : d.country === false ? 'false' : d.country) }, // eslint-disable-line no-nested-ternary
      }, {
        type: 'text',
        label: 'Name',
@@ -129,7 +129,7 @@ class DataFilteredTable extends React.Component {
            data={dataFilterFunc(this.state.filterValues)}
            keyField="id"
            filters={filterProps}
-           onFilterChange={filterValues => this.setState({ filterValues })}
+           onFilterChange={(filterValues) => this.setState({ filterValues })}
            filterValues={this.state.filterValues}
          />
        );
@@ -241,7 +241,9 @@ In order to display filtered data, a filter needs to be connected, with e.g., a 
           <DescriptionBox>
             <p>
             Based on filter definitions, the filter input fields and a filter function is provided as well as filterValues.
-              Your component needs to init the filterValues to '{}', pass them to filter, change them based on onFilterChange.
+              Your component needs to init the filterValues to '
+              {}
+', pass them to filter, change them based on onFilterChange.
               Pass data to table via executing filterFunc once data or filterValues are changed
             </p>
           </DescriptionBox>

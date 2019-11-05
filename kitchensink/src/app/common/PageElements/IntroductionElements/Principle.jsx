@@ -4,7 +4,7 @@ import classNames from 'classnames';
 
 import './principle.css';
 
-const Principle = props => (
+const Principle = (props) => (
   <div styleName="principleContainer">
     <div styleName={classNames('icon', { [`${props.icon}`]: true })} />
     <div styleName="textArea">

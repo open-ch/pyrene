@@ -53,12 +53,12 @@ export default class Main extends React.PureComponent {
             <Route path="/cookbook/pyrene" component={PyreneTutorial} />
 
             {components
-              .filter(component => exampleComponents[component.name])
-              .map(component => (
+              .filter((component) => exampleComponents[component.name])
+              .map((component) => (
                 <Route
                   key={component.name}
                   path={`/${exampleComponents[component.name].category === undefined ? 'Other' : exampleComponents[component.name].category}/${component.name}`}
-                  render={routeProps => (
+                  render={(routeProps) => (
                     <ComponentPage
                       {...routeProps}
                       component={component}

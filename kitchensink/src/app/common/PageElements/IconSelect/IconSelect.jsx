@@ -18,7 +18,7 @@ const Option = (props) => {
 };
 
 const IconSelect = (props) => {
-  const options = icons.map(icon => ({ value: icon.name, label: icon.name }));
+  const options = icons.map((icon) => ({ value: icon.name, label: icon.name }));
   return (
     <div styleName={classNames('selectContainer')}>
       {props.title && <div styleName={classNames('selectTitle', { required: props.required && !props.disabled })}>{props.title}</div>}
@@ -27,9 +27,9 @@ const IconSelect = (props) => {
         className="singleSelect"
         styles={SelectStyle}
         placeholder="Change to add icon"
-        value={props.value ? options.filter(o => o.value === props.value).pop() : null}
+        value={props.value ? options.filter((o) => o.value === props.value).pop() : null}
         options={options}
-        onChange={option => props.onChange(option.value, { target: { name: props.name, value: option.value, type: 'singleSelect' } })}
+        onChange={(option) => props.onChange(option.value, { target: { name: props.name, value: option.value, type: 'singleSelect' } })}
         onBlur={props.onBlur}
         name={props.name}
         id={props.name}

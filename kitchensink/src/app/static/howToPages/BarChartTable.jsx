@@ -14,7 +14,7 @@ const barChartTableHowTo = [{
         primaryValue: exampleData.tableData.columns.primaryValue,
       }}
       title="Applications"
-      onRowDoubleClick={row => alert(row.value)}
+      onRowDoubleClick={(row) => alert(row.value)}
       type="bar"
     />
   ),
@@ -26,7 +26,7 @@ const barChartTableHowTo = [{
       data={exampleData.tableData.data}
       columns={exampleData.tableData.columns}
       title="Applications"
-      onRowDoubleClick={row => alert(row.value)}
+      onRowDoubleClick={(row) => alert(row.value)}
       type="bar"
     />
   ),
@@ -39,7 +39,7 @@ const barChartTableHowTo = [{
       columns={exampleData.tableDataUpDown.columns}
       title="ISP Lines"
       description="Optional description and explanation on how to read the chart"
-      onRowDoubleClick={row => alert(row.value)}
+      onRowDoubleClick={(row) => alert(row.value)}
       type="butterfly"
     />
   ),
@@ -52,7 +52,7 @@ const barChartTableHowTo = [{
       columns={exampleData.tableDataComparison.columns}
       title="Top Applications by Volume"
       description="Optional description and explanation on how to read the chart"
-      onRowDoubleClick={row => alert(row.value)}
+      onRowDoubleClick={(row) => alert(row.value)}
       type="comparison"
     />
   ),

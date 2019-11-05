@@ -25,14 +25,14 @@ export default class ResultsPage extends React.Component {
     if (prevState.searchInput !== nextProps.match.params.searchInput) {
       return ({
         searchInput: nextProps.match.params.searchInput,
-        matches: SearchUtils.getMatches(nextProps.match.params.searchInput, components.filter(component => exampleComponents[component.name])),
+        matches: SearchUtils.getMatches(nextProps.match.params.searchInput, components.filter((component) => exampleComponents[component.name])),
       });
     }
     return null;
   }
 
   renderSearchResults = () => (
-    <React.Fragment>
+    <>
       <div styleName="header">
         <div styleName="title">{`${this.state.matches.length} result${this.state.matches.length > 1 ? 's' : ''} matching \u00AB${this.props.match.params.searchInput}\u00BB`}</div>
       </div>
@@ -48,11 +48,11 @@ export default class ResultsPage extends React.Component {
           })}
         </Paragraph>
       </div>
-    </React.Fragment>
+    </>
   );
 
   renderNoResultsPage = () => (
-    <React.Fragment>
+    <>
       <div styleName="header">
         <div styleName="title">{`No matches for \u00AB${this.props.match.params.searchInput}\u00BB`}</div>
       </div>
@@ -62,7 +62,7 @@ export default class ResultsPage extends React.Component {
         </Paragraph>
         <img src={GalaxyImage} style={{ marginTop: 130 }} alt="Placeholder where are you?" />
       </div>
-    </React.Fragment>
+    </>
   );
 
   render() {

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import './descriptionBox.css';
 
-const DescriptionBox = props => (
+const DescriptionBox = (props) => (
   <div styleName="descriptionBox">
     {props.children}
   </div>

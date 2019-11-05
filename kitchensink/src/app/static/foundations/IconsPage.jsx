@@ -33,7 +33,7 @@ const IconsPage = () => (
         </DescriptionBox>
 
         <div className="iconGrid">
-          {svgs.map(svg => <IconBox name={svg.name} key={svg.name} path={svg.path} downloadable />)}
+          {svgs.map((svg) => <IconBox name={svg.name} key={svg.name} path={svg.path} downloadable />)}
         </div>
       </Paragraph>
 

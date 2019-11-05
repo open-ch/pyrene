@@ -27,7 +27,7 @@ const linkHowTo = [
     title: 'Paragraph Link',
     description: 'Sometimes we need to refer to a different page or information within a paragraph, table or other context. Examples include links to tickets, docs pages, phone numbers, email addresses etc.',
     component: () => (
-      <Fragment>
+      <>
         <div style={{
           height: 192, width: 286, backgroundColor: 'white', borderRadius: 4, boxShadow: '0 0 1px 0 rgba(0, 21, 44, 0.3)', boxSizing: 'border-box', padding: 24, fontSize: 14, flexShrink: 0, lineHeight: 1.71,
         }}
@@ -50,7 +50,7 @@ const linkHowTo = [
           <Link type="inline" path="#" label="XOXO" />
           {' wolf typewriter mixtape small batch. DIY pickled four loko McSweeney\'s, Odd Future dreamcatcher plaid PBR&B single.'}
         </div>
-      </Fragment>
+      </>
     ),
   },
 ];
