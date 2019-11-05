@@ -10,6 +10,7 @@ import DescriptionBox from '../../common/PageElements/DescriptionBox/Description
 import DisplayBox from '../../common/PageElements/HowTo/DisplayBox/DisplayBox';
 
 /* eslint-disable react/no-multi-comp */
+/* eslint max-classes-per-file: ["error", 2] */
 
 const data = [
   {
@@ -73,24 +74,28 @@ class SimpleFilteredTable extends React.Component {
        customFilter: (filteredInput, d) => d.name.split('').reverse().join('').includes(filteredInput),
      }];
 
-    state = {
-      filterValues: {},
-    };
+     constructor(props) {
+       super(props);
 
-    render() {
-      const { filterFunc, filterProps } = createSimpleFilter(this.filters);
+       this.state = {
+         filterValues: {},
+       };
+     }
 
-      return (
-        <Table
-          columns={columns}
-          data={filterFunc(this.state.filterValues, data)}
-          keyField="id"
-          filters={filterProps}
-          onFilterChange={(filterValues) => this.setState({ filterValues })}
-          filterValues={this.state.filterValues}
-        />
-      );
-    }
+     render() {
+       const { filterFunc, filterProps } = createSimpleFilter(this.filters);
+
+       return (
+         <Table
+           columns={columns}
+           data={filterFunc(this.state.filterValues, data)}
+           keyField="id"
+           filters={filterProps}
+           onFilterChange={(filterValues) => this.setState({ filterValues })}
+           filterValues={this.state.filterValues}
+         />
+       );
+     }
 
 }
 
@@ -116,9 +121,14 @@ class DataFilteredTable extends React.Component {
        id: 'name',
      }];
 
-     state = {
-       filterValues: {},
-     };
+     constructor(props) {
+       super(props);
+
+       this.state = {
+         filterValues: {},
+       };
+     }
+
 
      render() {
        const { dataFilterFunc, filterProps } = createDataFilter(this.filters, data);
@@ -240,10 +250,9 @@ In order to display filtered data, a filter needs to be connected, with e.g., a 
         <Paragraph title="Simple Filter">
           <DescriptionBox>
             <p>
-            Based on filter definitions, the filter input fields and a filter function is provided as well as filterValues.
-              Your component needs to init the filterValues to '
-              {}
-', pass them to filter, change them based on onFilterChange.
+              Based on filter definitions, the filter input fields and a filter function is provided as well as filterValues.
+              Your component needs to init the filterValues to
+              , pass them to filter, change them based on onFilterChange.
               Pass data to table via executing filterFunc once data or filterValues are changed
             </p>
           </DescriptionBox>
@@ -263,7 +272,7 @@ In order to display filtered data, a filter needs to be connected, with e.g., a 
           <DescriptionBox>
             <p>
              If you want to automatically fill in possible options based on the available data, use createDataFilter. It will only provide options that are available in the data.
-              For this 'optionsAccessors' has to be specified.
+              For this optionsAccessors has to be specified.
             </p>
             <p>
              Since we are already passing the data to createDataFilter, the actual dataFilterFunc does not need to receive it again.

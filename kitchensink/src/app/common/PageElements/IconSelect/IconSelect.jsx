@@ -9,6 +9,7 @@ import './select.css';
 const Option = (props) => {
   const { getStyles, children, innerProps } = props; // eslint-disable-line react/prop-types
   return (
+  /* eslint-disable-next-line react/jsx-props-no-spreading */
     <div {...innerProps} style={getStyles('option', props)}>
       <span className={`pyreneIcon-${children}`} style={{ verticalAlign: 'text-top', marginRight: 8, fontSize: 16 }} />
       {' '}

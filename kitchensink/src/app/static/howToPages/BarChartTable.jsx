@@ -3,6 +3,8 @@ import React from 'react';
 import { BarChartTable } from 'pyrene-graphs/dist/pyrene-graphs.dev';
 import { exampleData } from 'pyrene-graphs/dist/pyrene-graphs.examples';
 
+/* eslint-disable no-alert */
+
 const barChartTableHowTo = [{
   title: 'Bar Chart',
   description: 'A simple table with one label and one value, which is additionally rendered as bar chart.',

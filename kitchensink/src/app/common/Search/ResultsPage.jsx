@@ -15,10 +15,14 @@ const components = [...Object.values(Components), ...Object.values(ChartComponen
 
 export default class ResultsPage extends React.Component {
 
-  state = {
-    searchInput: this.props.match.params.searchInput,
-    matches: [],
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      searchInput: props.match.params.searchInput,
+      matches: [],
+    };
+  }
 
   // On change of the searchInput restart the search
   static getDerivedStateFromProps(nextProps, prevState) {

@@ -11,12 +11,16 @@ import ParentButton from './PageElements/ParentButton/ParentButton';
 
 export default class ComponentEditor extends React.Component {
 
-  state = {
-    componentProps: { ...this.props.component.defaultProps, ...this.props.examples.props },
-    componentState: {},
-    pinned: false,
-    darkMode: false,
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      componentProps: { ...props.component.defaultProps, ...props.examples.props },
+      componentState: {},
+      pinned: false,
+      darkMode: false,
+    };
+  }
 
   handlePinClick = () => {
     this.setState((prevState) => ({
@@ -82,6 +86,8 @@ export default class ComponentEditor extends React.Component {
     const { pinned, darkMode } = this.state;
     const mergedComponentProps = this.getComponentProps();
     const initField = this.initField(mergedComponentProps);
+
+    /* eslint-disable-next-line react/jsx-props-no-spreading */
     const displayedComponent = <Component {...mergedComponentProps} />;
     return (
       <div className="componentPlayground">

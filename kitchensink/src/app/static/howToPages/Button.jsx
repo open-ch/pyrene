@@ -1,5 +1,5 @@
 /* eslint-disable react/display-name */
-import React, { Fragment } from 'react';
+import React from 'react';
 import { Button, Container } from 'pyrene/dist/pyrene.dev';
 
 const buttonHowTo = [{

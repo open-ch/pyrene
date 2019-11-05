@@ -60,7 +60,7 @@ export default class Main extends React.PureComponent {
                   path={`/${exampleComponents[component.name].category === undefined ? 'Other' : exampleComponents[component.name].category}/${component.name}`}
                   render={(routeProps) => (
                     <ComponentPage
-                      {...routeProps}
+                      {...routeProps} /* eslint-disable-line react/jsx-props-no-spreading */
                       component={component}
                       componentOrigin={component.name in examples ? 'pyrene' : 'pyrene-graphs'}
                       examples={exampleComponents[component.name]}

@@ -10,6 +10,7 @@ import IconSelect from '../IconSelect/IconSelect';
 import './dynamicPropTable.css';
 import Counter from '../Counter/Counter';
 
+/* eslint-disable react/jsx-props-no-spreading */
 
 export default class DynamicPropTable extends React.Component {
 

@@ -7,10 +7,14 @@ import SearchUtils from '../SearchUtils';
 
 export default class SearchResult extends React.Component {
 
-  state = {
-    redirect: false,
-    redirectPath: '',
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      redirect: false,
+      redirectPath: '',
+    };
+  }
 
   handleClick = () => {
     if (this.props.title) {
