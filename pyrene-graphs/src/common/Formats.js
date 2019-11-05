@@ -13,6 +13,8 @@ const Formats = {
     }
     return `${moment.tz(time[0], timezone).format('DD.MM.YYYY, HH:mm')} - ${moment.tz(time[1], timezone).format('HH:mm')}`;
   },
+
+  zoomTooltipTimeFormat: (start, end, timezone) => `${moment.tz(start, timezone).format('DD.MM.YYYY, HH:mm')} - ${moment.tz(end, timezone).format('DD.MM.YYYY, HH:mm')}`,
 };
 
 export default Formats;

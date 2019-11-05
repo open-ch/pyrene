@@ -4,31 +4,31 @@ import TimeZoomControls from './TimeZoomControls';
 
 const props = {
   from: moment('2019-10-01 10:34').valueOf(),
-  lowerbound: moment('2018-10-01 10:34').valueOf(),
+  lowerBound: moment('2018-10-01 10:34').valueOf(),
   minZoomRange: moment.duration({ minutes: 30 }).valueOf(),
   onZoom: () => {},
   to: moment('2019-10-07 10:34').valueOf(),
-  upperbound: moment('2020-10-01 10:34').valueOf(),
+  upperBound: moment('2020-10-01 10:34').valueOf(),
 };
 
-// When 'to' hits upperbound
+// When 'to' hits upperBound
 const props1 = {
   from: moment('2018-10-01 10:34').valueOf(),
-  lowerbound: moment('2018-10-01 10:34').valueOf(),
+  lowerBound: moment('2018-10-01 10:34').valueOf(),
   minZoomRange: moment.duration({ minutes: 30 }).valueOf(),
   onZoom: () => {},
   to: moment('2019-10-07 10:34').valueOf(),
-  upperbound: moment('2020-10-01 10:34').valueOf(),
+  upperBound: moment('2020-10-01 10:34').valueOf(),
 };
 
-// When 'from' hits lowerbound
+// When 'from' hits lowerBound
 const props2 = {
   from: moment('2018-10-01 10:34').valueOf(),
-  lowerbound: moment('2018-10-01 10:34').valueOf(),
+  lowerBound: moment('2018-10-01 10:34').valueOf(),
   minZoomRange: moment.duration({ minutes: 30 }).valueOf(),
   onZoom: () => {},
   to: moment('2020-10-01 10:34').valueOf(),
-  upperbound: moment('2020-10-01 10:34').valueOf(),
+  upperBound: moment('2020-10-01 10:34').valueOf(),
 };
 
 describe('<TimeZoomControls />', () => {

@@ -12,11 +12,14 @@
 
 .timeTitle {
   font-weight: 600;
-  padding-bottom: 8px;
 }
 
 .dataRow {
   display: flex;
+}
+
+.dataRow:first-child {
+  padding-top: 8px;
 }
 
 .dataLabel {

@@ -23,10 +23,16 @@ examples.props = {
   dataSeries: downloadedVolumes,
   description: 'Downloaded volume',
   error: 'There was an error while loading data.',
-  from: moment.tz('2019-10-01 00:00', timezone).valueOf(),
-  to: moment.tz('2019-10-03 12:00', timezone).valueOf(),
+  from: (stateProvider) => (stateProvider.state.from ? stateProvider.state.from : moment.tz('2019-10-01 00:00', timezone).valueOf()),
+  to: (stateProvider) => (stateProvider.state.to ? stateProvider.state.to : moment.tz('2019-10-03 12:00', timezone).valueOf()),
   title: 'Volume',
   timezone: timezone,
+  zoom: {
+    lowerBound: moment.tz('2018-10-01 00:00', timezone).valueOf(),
+    minZoomRange: moment.duration({ minutes: 30 }).valueOf(),
+    onZoom: (stateProvider) => (from, to) => stateProvider.setState({ from, to }),
+    upperBound: moment.tz('2020-10-01 00:00', timezone).valueOf(),
+  },
 };
 
 examples.category = 'Chart';

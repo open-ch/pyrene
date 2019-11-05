@@ -8,12 +8,17 @@ import {
   NumericalAxis,
   Responsive,
   scaleUtils,
+  TimeSeriesZoomable,
   TimeXAxis,
   withTooltip,
 } from 'tuktuktwo';
+import TimeZoomControls from '../TimeZoomControls/TimeZoomControls';
 import Tooltip from '../TimeSeries/Tooltip';
 import Formats from '../../common/Formats';
 import colorSchemes from '../../styles/colorSchemes';
+import './timeSeriesBucketGraph.css';
+
+let zoomStartX = null;
 
 /**
  * Get tooltip position and data when mouse is moving over the graph.
@@ -24,8 +29,19 @@ import colorSchemes from '../../styles/colorSchemes';
  */
 const onMouseMove = (event, data, xScale, showTooltip) => {
   const { x, y } = localPoint(event.target.ownerSVGElement, event);
-  const currentTimestamp = xScale(x);
-  const foundIndex = data.findIndex((d) => d[0] > currentTimestamp) - 1;
+  const currentTS = xScale(x);
+
+  if (zoomStartX) {
+    const startTS = xScale(zoomStartX);
+    showTooltip({
+      tooltipLeft: x,
+      tooltipTop: y - chartConstants.tooltipOffset - chartConstants.zoomTooltipHeight / 2 - 4,
+      tooltipData: [startTS, currentTS],
+    });
+    return;
+  }
+
+  const foundIndex = data.findIndex((d) => d[0] > currentTS) - 1;
   const index = foundIndex >= 0 ? foundIndex : data.length - 1;
   const timeFrame = index === data.length - 1 ? (data[index][0] - data[index - 1][0]) : (data[index + 1][0] - data[index][0]);
   showTooltip({
@@ -33,6 +49,16 @@ const onMouseMove = (event, data, xScale, showTooltip) => {
     tooltipTop: y,
     tooltipData: [[data[index][0], data[index][0] + timeFrame], data[index][1]],
   });
+};
+
+const onMouseDown = (event) => {
+  const { x } = localPoint(event.target.ownerSVGElement, event);
+  zoomStartX = x;
+};
+
+const onMouseUp = (hideTooltip) => {
+  zoomStartX = null;
+  hideTooltip();
 };
 
 /**
@@ -83,73 +109,114 @@ const TimeSeriesBucketChart = (props) => {
   }
 
   return (
-    <Responsive>
-      {(parent) => {
-        // Get scale function, time frame, number of bars, max data value, maximum bar height and bar weight
-        const xScale = scaleUtils.scaleCustomLinear(chartConstants.marginLeftNumerical, parent.width, props.from, props.to, 'horizontal');
-        const numBars = props.dataSeries.data.length;
-        const maxValue = Math.max(...props.dataSeries.data.map((data) => data[1]));
-        const maxBarSize = Math.max(0, parent.height - chartConstants.marginBottom - chartConstants.marginMaxValueToBorder);
-        const barWeight = parent.width > 0 ? ((parent.width - chartConstants.marginLeftNumerical) / numBars - chartConstants.barSpacing) : 0;
+    <div styleName="graphContainer">
+      {props.zoom && (
+        <div styleName="actionBarContainer">
+          <TimeZoomControls
+            from={props.from}
+            to={props.to}
+            lowerBound={props.zoom.lowerBound}
+            upperBound={props.zoom.upperBound}
+            minZoomRange={props.zoom.minZoomRange}
+            onZoom={props.zoom.onZoom}
+          />
+        </div>
+      )}
+      <Responsive>
+        {(parent) => {
+          // Get scale function, time frame, number of bars, max data value, maximum bar height and bar weight
+          const xScale = scaleUtils.scaleCustomLinear(chartConstants.marginLeftNumerical, parent.width, props.from, props.to, 'horizontal');
+          const numBars = props.dataSeries.data.length;
+          const maxValue = Math.max(...props.dataSeries.data.map((data) => data[1]));
+          const maxBarSize = Math.max(0, parent.height - chartConstants.marginBottom - chartConstants.marginMaxValueToBorder);
+          const barWeight = parent.width > 0 ? ((parent.width - chartConstants.marginLeftNumerical) / numBars - chartConstants.barSpacing) : 0;
 
-        return (
-          <>
-            <svg width="100%" height={parent.height} shapeRendering="crispEdges">
-              <TimeXAxis
-                from={props.from}
-                to={props.to}
-                width={parent.width}
-                height={parent.height}
-                strokeColor={colorConstants.neutral050}
-                tickLabelColors={[colorConstants.neutral200, colorConstants.neutral300]}
-                showTickLabels={!props.loading}
-                timezone={props.timezone}
-              />
-              <NumericalAxis
-                maxValue={maxValue}
-                orientation="left"
-                width={parent.width}
-                height={parent.height}
-                tickFormat={props.dataFormat.yAxis}
-                strokeColor={colorConstants.neutral050}
-                tickLabelColor={colorConstants.neutral200}
-                showTickLabels={!props.loading}
-                showGrid={false}
-              />
-              <g className="hoverArea" onMouseMove={(e) => onMouseMove(e, props.dataSeries.data, xScale, showTooltip)}
-                onMouseOut={hideTooltip}
-              >
-                {!props.loading && props.dataSeries.data.length > 0 && (
-                  <g transform={`translate(${chartConstants.marginLeftNumerical}, 0)`}>
-                    {props.dataSeries.data.map((data, index) => (
-                      <Bar key={Math.random()}
-                        barWeight={barWeight}
-                        color={props.colorScheme.categorical[0]}
-                        direction="vertical"
-                        value={data[1]}
-                        maxValue={maxValue}
-                        size={maxBarSize}
-                        x={index * (barWeight + chartConstants.barSpacing)}
-                        y={chartConstants.marginMaxValueToBorder}
-                      />
-                    ))}
-                  </g>
-                )}
-              </g>
-            </svg>
-            {
-              tooltipOpen && (
-                <Tooltip
-                  dataSeries={[{ dataColor: props.colorScheme.categorical[0], dataLabel: props.dataSeries.label, dataValue: props.dataFormat.tooltip(tooltipData[1]) }]}
-                  timeFormat={props.timeFormat ? props.timeFormat : (time) => Formats.tooltipTimeFormat(time, props.timezone)} time={tooltipData[0]}
-                  left={tooltipLeft} top={tooltipTop}
+          // Get time formatting function for tooltip
+          let timeFormat;
+          if (zoomStartX) {
+            timeFormat = (time) => Formats.zoomTooltipTimeFormat(time[0], time[1], props.timezone);
+          } else {
+            timeFormat = props.timeFormat ? props.timeFormat : (time) => Formats.tooltipTimeFormat(time, props.timezone);
+          }
+
+          return (
+            <>
+              <svg width="100%" height={parent.height} shapeRendering="crispEdges">
+                <TimeXAxis
+                  from={props.from}
+                  to={props.to}
+                  width={parent.width}
+                  height={parent.height}
+                  strokeColor={colorConstants.neutral050}
+                  tickLabelColors={[colorConstants.neutral200, colorConstants.neutral300]}
+                  showTickLabels={!props.loading}
+                  timezone={props.timezone}
                 />
-              )
-            }
-          </>
-        );
-      }}
-    </Responsive>
+                <NumericalAxis
+                  maxValue={maxValue}
+                  orientation="left"
+                  width={parent.width}
+                  height={parent.height}
+                  tickFormat={props.dataFormat.yAxis}
+                  strokeColor={colorConstants.neutral050}
+                  tickLabelColor={colorConstants.neutral200}
+                  showTickLabels={!props.loading}
+                  showGrid={false}
+                />
+                <g
+                  className="hoverArea"
+                  onMouseMove={(e) => onMouseMove(e, props.dataSeries.data, xScale, showTooltip)}
+                  onMouseOut={hideTooltip}
+                  onMouseDown={props.zoom ? (e) => onMouseDown(e) : () => {}}
+                  onMouseUp={() => onMouseUp(hideTooltip)}
+                  onTouchStart={(e) => onMouseDown(e)}
+                  onTouchEnd={() => onMouseUp(hideTooltip)}
+                  onTouchMove={(e) => onMouseMove(e, props.dataSeries.data, xScale, showTooltip)}
+                >
+                  {!props.loading && props.dataSeries.data.length > 0 && (
+                    <g transform={`translate(${chartConstants.marginLeftNumerical}, 0)`}>
+                      {props.dataSeries.data.map((data, index) => (
+                        <Bar key={Math.random()}
+                          barWeight={barWeight}
+                          color={props.colorScheme.categorical[0]}
+                          direction="vertical"
+                          value={data[1]}
+                          maxValue={maxValue}
+                          size={maxBarSize}
+                          x={index * (barWeight + chartConstants.barSpacing)}
+                          y={chartConstants.marginMaxValueToBorder}
+                        />
+                      ))}
+                    </g>
+                  )}
+                  <TimeSeriesZoomable
+                    from={props.from}
+                    to={props.to}
+                    lowerBound={props.zoom ? props.zoom.lowerBound : 0}
+                    upperBound={props.zoom ? props.zoom.upperBound : 0}
+                    minZoomRange={props.zoom ? props.zoom.minZoomRange : 0}
+                    onZoom={props.zoom ? props.zoom.onZoom : () => {}}
+                    width={parent.width}
+                    height={parent.height}
+                    color={colorConstants.neutral500}
+                    disabled={!props.zoom}
+                  />
+                </g>
+              </svg>
+              {
+                tooltipOpen && (
+                  <Tooltip
+                    dataSeries={zoomStartX ? [] : [{ dataColor: props.colorScheme.categorical[0], dataLabel: props.dataSeries.label, dataValue: props.dataFormat.tooltip(tooltipData[1]) }]}
+                    timeFormat={timeFormat} time={zoomStartX ? tooltipData : tooltipData[0]}
+                    left={tooltipLeft} top={tooltipTop}
+                  />
+                )
+              }
+            </>
+          );
+        }}
+      </Responsive>
+    </div>
   );
 };
 
@@ -250,10 +317,6 @@ TimeSeriesBucketChart.propTypes = {
      * Sets the callback function when a zoom action finishes. No onZoom function means this graph does not support zoom.
      */
     onZoom: PropTypes.func.isRequired,
-    /**
-     * Sets the time formatting function for the zoom range.
-     */
-    timeFormat: PropTypes.func,
     /**
      * Sets the upper bound for the zoom component - provided that the graph is a zoomable one, i.e. no zoom-out action is allowed when upper bound is reached.
      */
