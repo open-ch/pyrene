@@ -15,14 +15,12 @@ class Form extends React.Component {
     return { ...touchedState };
   };
 
-  constructor() {
-    super();
-    this.state = {
-      values: this.props.initialValues,
-      touched: this.getTouchedState(this.props.initialValues),
-      isSubmitting: false,
-    };
-  }
+  // eslint-disable-next-line react/state-in-constructor
+  state = {
+    values: this.props.initialValues,
+    touched: this.getTouchedState(this.props.initialValues),
+    isSubmitting: false,
+  };
 
   validateYupSchema = (values) => {
     try {

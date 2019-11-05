@@ -9,8 +9,8 @@ import CheckboxList from './CheckboxList';
 
 export default class CheckboxPopover extends React.Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       displayPopover: false,
     };

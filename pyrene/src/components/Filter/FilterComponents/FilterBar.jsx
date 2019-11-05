@@ -30,11 +30,11 @@ import FilterTag from './FilterTag';
 
 export default class FilterBar extends React.Component {
 
-  constructor() {
+  constructor(props) {
     super();
     this.state = {
       displayFilterPopover: false,
-      unAppliedValues: this.props.filterValues,
+      unAppliedValues: props.filterValues,
     };
   }
 

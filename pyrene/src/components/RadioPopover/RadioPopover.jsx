@@ -9,8 +9,8 @@ import OptionList from './OptionList';
 
 export default class RadioPopover extends React.Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       displayPopover: false,
     };

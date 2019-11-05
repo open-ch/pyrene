@@ -15,8 +15,8 @@ export default class ShareDialog extends React.Component {
 
   textInput = React.createRef();
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       displayShareDialog: false,
     };

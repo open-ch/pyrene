@@ -9,8 +9,8 @@ import './tooltip.css';
  */
 export default class Tooltip extends React.Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       isPopoverOpen: false,
     };

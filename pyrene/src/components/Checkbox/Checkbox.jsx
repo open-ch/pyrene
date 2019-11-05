@@ -46,8 +46,8 @@ const getCheckboxIcon = (options, hovered) => {
  */
 class Checkbox extends Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       hovered: false,
     };
