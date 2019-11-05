@@ -112,6 +112,7 @@ export const getProcessedColumnsAndLegend = ({ props, colors, withoutBars }) => 
       // responsive width = 100% - value columns on the right - all margins = label and bar columns
       // marginLeft {LABEL1 + MARGIN + LABEL2} margin BAR margin value1 margin value2 marginRight
       const responsiveWidth = `calc((100% - ${marginLeftRight} - ${margin} - ${margin} - ${valueColumnWidth} - ${margin} - ${valueColumnWidth} - ${marginLeftRight}) / 2)`;
+      const secondaryLabelWidth = hasColumnSecondaryLabel ? `calc(${valueColumnWidth} + ${margin})` : '0px';
       return {
         columns: [
           getColumn({
@@ -120,7 +121,7 @@ export const getProcessedColumnsAndLegend = ({ props, colors, withoutBars }) => 
             linkAccessor: props.columns.label.linkAccessor,
             align: 'left',
             cellType: 'link',
-            maxWidth: `calc(${responsiveWidth} - ${hasColumnSecondaryLabel ? valueColumnWidth : 0} - ${hasColumnSecondaryLabel ? margin : 0})`,
+            maxWidth: `calc(${responsiveWidth} - ${secondaryLabelWidth})`,
           }),
           ...(hasColumnSecondaryLabel ? [getColumn({
             id: props.columns.secondaryLabel.title,
@@ -234,7 +235,7 @@ export const getProcessedColumnsAndLegend = ({ props, colors, withoutBars }) => 
               cellType: 'relativeBarMirrored',
               colors: colors,
               maxValue: maxValue,
-              maxWidth: `calc(${responsiveWidth} - (${margin} - ${verticalLineWidth}) / 2)`,
+              maxWidth: `calc(${responsiveWidth} - (${margin} + ${verticalLineWidth}) / 2)`,
             })]),
             ...(withoutBars ? [] : [getColumn({
               id: `${props.columns.primaryValue.title}_vertical_line`,
@@ -251,7 +252,7 @@ export const getProcessedColumnsAndLegend = ({ props, colors, withoutBars }) => 
               colors: colors,
               maxValue: maxValue,
               cellType: 'relativeBar',
-              maxWidth: `calc(${responsiveWidth} - (${margin} - ${verticalLineWidth}) / 2)`,
+              maxWidth: `calc(${responsiveWidth} - (${margin} + ${verticalLineWidth}) / 2)`,
             })]),
             getColumn({
               id: props.columns.secondaryValue.title,
