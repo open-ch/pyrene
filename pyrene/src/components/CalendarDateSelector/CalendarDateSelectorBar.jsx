@@ -21,7 +21,7 @@ const TimeUnitSelectionBar = (props) => {
     timeUnit,
   } = props;
   return (
-    <Fragment>
+    <>
       <Stepper
         direction="left"
         onClick={() => onChange(value, -1)}
@@ -35,7 +35,7 @@ const TimeUnitSelectionBar = (props) => {
         onClick={() => onChange(value, 1)}
         disabled={disabled || !canNavigateForward(value, upperBound, timeUnit)}
       />
-    </Fragment>
+    </>
   );
 };
 

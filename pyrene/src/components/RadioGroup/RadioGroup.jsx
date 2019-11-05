@@ -52,7 +52,7 @@ class RadioGroup extends Component {
   };
 
   onMouseEnter = (key) => {
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       hovered: {
         ...prevState.hovered,
         [key]: true,
@@ -61,7 +61,7 @@ class RadioGroup extends Component {
   };
 
   onMouseLeave = (key) => {
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       hovered: {
         ...prevState.hovered,
         [key]: undefined,
@@ -93,7 +93,7 @@ class RadioGroup extends Component {
                   styleName="radioInput"
                   checked={this.props.value === option.value}
                   id={htmlId}
-                  onChange={event => this.props.onChange(event.target.value, event)}
+                  onChange={(event) => this.props.onChange(event.target.value, event)}
                   type="radio"
                   value={option.value}
                   name={this.props.name}
@@ -103,7 +103,8 @@ class RadioGroup extends Component {
                   htmlFor={htmlId}
                   styleName={
                     classNames('radioLabel',
-                      { disabled: this.props.disabled })}
+                      { disabled: this.props.disabled })
+                  }
                 >
                   <span styleName="radioIcon">
                     {getRadioIcon({

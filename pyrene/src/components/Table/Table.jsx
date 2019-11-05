@@ -95,18 +95,18 @@ export default class Table extends React.Component {
     },
 
     // Removes React Table 'No rows found'
-    NoDataComponent: props => null, // eslint-disable-line no-unused-vars
+    NoDataComponent: (props) => null, // eslint-disable-line no-unused-vars
     // Removes React Table 'Loading...'
-    LoadingComponent: props => null, // eslint-disable-line no-unused-vars
+    LoadingComponent: (props) => null, // eslint-disable-line no-unused-vars
 
     minRows: 1,
 
     // Use two exclamation marks to convert a value to boolean - disabled={!!this.props.error} = true if string has a value, false if empty
-    TheadComponent: props => <TableHeader {...props} multiSelect={this.props.multiSelect} disabled={!!this.props.error} />,
-    ThComponent: props => <TableHeaderCell {...props} multiSelect={this.props.multiSelect} />,
-    TdComponent: props => <TableCell {...props} multiSelect={this.props.multiSelect} />,
-    PaginationComponent: props => <TablePagination {...props} loading={this.props.loading} error={this.props.error} numberOfResults={this.props.numberOfResults} />,
-    TfootComponent: props => <TablePagination {...props} />,
+    TheadComponent: (props) => <TableHeader {...props} multiSelect={this.props.multiSelect} disabled={!!this.props.error} />,
+    ThComponent: (props) => <TableHeaderCell {...props} multiSelect={this.props.multiSelect} />,
+    TdComponent: (props) => <TableCell {...props} multiSelect={this.props.multiSelect} />,
+    PaginationComponent: (props) => <TablePagination {...props} loading={this.props.loading} error={this.props.error} numberOfResults={this.props.numberOfResults} />,
+    TfootComponent: (props) => <TablePagination {...props} />,
     resizable: false,
     showPagination: true,
     showPaginationTop: true,
@@ -115,13 +115,13 @@ export default class Table extends React.Component {
 
     // Server-side props
     manual: this.props.manual,
-    onFetchData: rts => this.props.onFetchData({ page: rts.page, pageSize: rts.pageSize, sorting: rts.sorted }),
+    onFetchData: (rts) => this.props.onFetchData({ page: rts.page, pageSize: rts.pageSize, sorting: rts.sorted }),
 
   };
 
   toggleColumnDisplay = (columnId, showValue) => {
 
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       columnsVisibility: {
         ...prevState.columnsVisibility,
         [columnId]: !showValue,
@@ -160,7 +160,7 @@ export default class Table extends React.Component {
   };
 
 
-  isSelected = key => this.state.selection.includes(key);
+  isSelected = (key) => this.state.selection.includes(key);
 
   resetSelection = () => {
     this.setState(() => ({
@@ -208,7 +208,7 @@ export default class Table extends React.Component {
         const keyIndex = selection.indexOf(key);
         // check to see if the key exists
         if (keyIndex >= 0) {
-          selection = selection.filter(selectedKey => selectedKey !== key);
+          selection = selection.filter((selectedKey) => selectedKey !== key);
         } else {
           // it does not exist so add it
           selection.push(key);
@@ -234,7 +234,7 @@ export default class Table extends React.Component {
     }));
   };
 
-  createTableColumnsObject = () => TableUtils.mapColumnProps(this.props.columns).map(col => ({
+  createTableColumnsObject = () => TableUtils.mapColumnProps(this.props.columns).map((col) => ({
     ...col,
     ...(typeof this.state.columnsVisibility[col.id] !== 'undefined') ? { show: this.state.columnsVisibility[col.id] } : {},
   }));
@@ -298,14 +298,14 @@ export default class Table extends React.Component {
         <CheckboxTable
           {...this.commonStaticProps}
           {...commonVariableProps}
-          ref={r => (this.checkboxTable = r)}
+          ref={(r) => (this.checkboxTable = r)}
           selectType="checkbox"
           selectAll={this.state.selectAll}
           isSelected={this.isSelected}
           toggleSelection={this.toggleSelection}
           toggleAll={this.toggleAll}
           keyField={this.props.keyField}
-          SelectAllInputComponent={props => <Checkbox value={props.checked} onChange={props.onClick} />}
+          SelectAllInputComponent={(props) => <Checkbox value={props.checked} onChange={props.onClick} />}
           SelectInputComponent={(props) => {
             const enabled = this.props.rowSelectableCallback(props.row);
             return (
@@ -349,14 +349,13 @@ export default class Table extends React.Component {
                   disabled={this.props.error ? true : this.props.filterDisabled}
                   filterValues={this.props.filterValues}
                 />
-              )
-            }
+              )}
           </div>
           {this.props.toggleColumns && (
 
             <CheckboxPopover
               buttonLabel="Columns"
-              listItems={this.props.columns.map(col => ({ id: col.id, label: col.headerName, value: (typeof this.state.columnsVisibility[col.id] !== 'undefined') ? this.state.columnsVisibility[col.id] : !col.initiallyHidden }))}
+              listItems={this.props.columns.map((col) => ({ id: col.id, label: col.headerName, value: (typeof this.state.columnsVisibility[col.id] !== 'undefined') ? this.state.columnsVisibility[col.id] : !col.initiallyHidden }))}
               onItemClick={(item, value) => this.toggleColumnDisplay(item, value)}
               onRestoreDefault={() => this.restoreColumnDefaults()}
               disabled={!!this.props.error}

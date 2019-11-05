@@ -18,7 +18,7 @@ const showAmountOfResults = (data, numberOfResults) => {
 /* eslint-disable react/prop-types */
 /* props are controlled by the parent component of react-table */
 
-const TablePagination = props => (
+const TablePagination = (props) => (
   <div styleName="tablePagination">
     <div styleName="resultsCounter">
       {showAmountOfResults(props.data, props.numberOfResults)}
@@ -30,8 +30,8 @@ const TablePagination = props => (
       <div styleName="pageSizeSelect">
         <TableSelect
           placeholder={`${props.pageSize}`}
-          options={props.pageSizeOptions.map(e => ({ label: `${e}`, value: `${e}` }))}
-          onChange={e => props.onPageSizeChange(parseInt(e.value, 10))}
+          options={props.pageSizeOptions.map((e) => ({ label: `${e}`, value: `${e}` }))}
+          onChange={(e) => props.onPageSizeChange(parseInt(e.value, 10))}
           value={`${props.pageSize}`}
           // Use two exclamation marks to convert a value to boolean - !!props.error = true if string has a value, false if empty
           disabled={(!(props.data && props.data.length) || !!props.error)}

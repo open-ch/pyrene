@@ -41,7 +41,7 @@ export default class Modal extends React.Component {
   );
 
   renderContent = () => (
-    <Fragment>
+    <>
       <div styleName="titleBar">
         {this.props.title}
         <div styleName="topRightSection">
@@ -54,7 +54,7 @@ export default class Modal extends React.Component {
           {this.props.renderCallback()}
         </div>
       </div>
-    </Fragment>
+    </>
   );
 
   renderLoader = () => (
@@ -63,7 +63,7 @@ export default class Modal extends React.Component {
     </div>
   );
 
-  createButtonArray = buttonInfo => buttonInfo.map(buttonProps => (
+  createButtonArray = (buttonInfo) => buttonInfo.map((buttonProps) => (
     <Button
       icon={buttonProps.icon}
       type={buttonProps.type}
@@ -75,7 +75,7 @@ export default class Modal extends React.Component {
 
   render() {
     return (
-      <Fragment>
+      <>
         <div styleName="modalOverlay">
           <div styleName={classNames('modalContainer', this.props.size)} role="dialog">
             {this.props.loading ? this.renderLoader() : this.renderContent()}
@@ -92,7 +92,7 @@ export default class Modal extends React.Component {
             }
           </div>
         </div>
-      </Fragment>
+      </>
     );
   }
 

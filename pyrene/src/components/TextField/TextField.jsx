@@ -11,7 +11,7 @@ import './textField.css';
  * Don’t use the text field to enter dates and times.
  * In this case, use the date picker, date range selection, or date/time picker. For entering long texts use the textarea component.
  */
-const TextField = props => (
+const TextField = (props) => (
   <div styleName={classNames('textFieldContainer', { disabled: props.disabled }, { invalid: props.invalid && !props.disabled })} style={{ width: (props.width >= 0) ? `${props.width}px` : '100%' }}>
     {props.title && <div styleName={classNames('textFieldTitle', { required: props.required && !props.disabled })}>{props.title}</div>}
     <div styleName="textFieldIconLayoutContainer">
@@ -22,7 +22,7 @@ const TextField = props => (
         name={props.name}
         placeholder={props.placeholder}
         value={props.value}
-        onChange={event => props.onChange(event.target.value, event)}
+        onChange={(event) => props.onChange(event.target.value, event)}
         onBlur={props.onBlur}
         onFocus={props.onFocus}
       />
@@ -37,16 +37,15 @@ const TextField = props => (
         </div>
       )
       : (
-        <React.Fragment>
+        <>
           {props.helperLabel
         && (
           <div styleName="textFieldHelper">
             {props.helperLabel}
           </div>
         )}
-        </React.Fragment>
-      )
-    }
+        </>
+      )}
   </div>
 );
 

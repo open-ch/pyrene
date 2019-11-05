@@ -5,7 +5,7 @@ import Popover from '../../Popover/Popover';
 import FilterPopover from '../FilterPopover/FilterPopover';
 import FilterButton from '../FilterComponents/FilterButton';
 
-const FilterPopoverButton = props => (
+const FilterPopoverButton = (props) => (
   <Popover
     align="start"
     distanceToTarget={8}

@@ -18,7 +18,8 @@ const TRSStepper = (props) => {
         classNames('stepper',
           { disabled: props.disabled },
           { right: props.direction === 'right' },
-          { left: props.direction === 'left' })}
+          { left: props.direction === 'left' })
+      }
       onClick={props.onClick}
       disabled={props.disabled}
     >

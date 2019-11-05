@@ -14,7 +14,7 @@ export default class RadioPopover extends React.Component {
   };
 
   togglePopover = () => {
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       displayPopover: !prevState.displayPopover,
     }));
   };
@@ -31,7 +31,7 @@ export default class RadioPopover extends React.Component {
     } = this.props;
     const { displayPopover } = this.state;
 
-    const selectedValue = options.find(option => option.value === value);
+    const selectedValue = options.find((option) => option.value === value);
 
     return (
       <div styleName="radioPopover">
@@ -71,7 +71,7 @@ RadioPopover.displayName = 'Radio Popover';
 RadioPopover.defaultProps = {
   options: [],
   renderHelpSection: null,
-  renderLabel: value => value && value.label,
+  renderLabel: (value) => value && value.label,
   value: null,
 };
 

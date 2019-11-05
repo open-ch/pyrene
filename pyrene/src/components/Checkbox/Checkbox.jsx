@@ -78,15 +78,16 @@ class Checkbox extends Component {
           styleName="checkbox"
           type="checkbox"
           checked={this.props.value}
-          onChange={!this.props.disabled ? event => this.props.onChange(event.target.checked, event) : () => {}}
-          onClick={e => e.stopPropagation()}
+          onChange={!this.props.disabled ? (event) => this.props.onChange(event.target.checked, event) : () => {}}
+          onClick={(e) => e.stopPropagation()}
           name={this.props.name}
         />
 
         <label
           className="unSelectable"
           styleName={
-            classNames('checkboxLabel', { disabled: this.props.disabled, required: this.props.required })}
+            classNames('checkboxLabel', { disabled: this.props.disabled, required: this.props.required })
+          }
           htmlFor={`checkbox_${this.props.label}_${rand}`}
           role="checkbox"
           aria-checked={this.props.value}

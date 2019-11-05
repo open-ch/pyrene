@@ -14,7 +14,7 @@ export default class CheckboxPopover extends React.Component {
   };
 
   togglePopover = () => {
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       displayPopover: !prevState.displayPopover,
     }));
   };

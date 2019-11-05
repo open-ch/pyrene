@@ -5,7 +5,7 @@ import SingleSelect from '../SingleSelect/SingleSelect';
 
 import TimeRangeSelectionPropTypes from './CalendarDateSelectorPropTypes';
 
-const capitalizeFirstLetter = string => string && string[0].toUpperCase() + string.slice(1);
+const capitalizeFirstLetter = (string) => string && string[0].toUpperCase() + string.slice(1);
 
 const TimeUnitSelectionDropdown = (props) => {
   const {
@@ -14,11 +14,11 @@ const TimeUnitSelectionDropdown = (props) => {
     timeUnit,
     onSelect,
   } = props;
-  const options = timeUnits.map(range => ({ value: range, label: capitalizeFirstLetter(range) }));
+  const options = timeUnits.map((range) => ({ value: range, label: capitalizeFirstLetter(range) }));
   return (
     <SingleSelect
       options={options}
-      onChange={value => onSelect(value.value)}
+      onChange={(value) => onSelect(value.value)}
       disabled={disabled}
       value={{ value: timeUnit, label: capitalizeFirstLetter(timeUnit) }}
     />

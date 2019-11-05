@@ -6,7 +6,7 @@ import TRSStepper from './Components/TRSStepper';
 
 import './timeRangeNavigationBar.css';
 
-const TimeRangeNavigationBar = props => (
+const TimeRangeNavigationBar = (props) => (
   <div styleName="timeRangeNavigationBar">
     <TRSStepper
       direction="left"

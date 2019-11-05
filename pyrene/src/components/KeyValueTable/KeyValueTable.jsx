@@ -11,7 +11,7 @@ const KeyValueTable = ({ title, rows }) => (
     )}
     <table styleName="keyValueBody">
       <tbody>
-        {rows.length > 0 && rows.map(row => (
+        {rows.length > 0 && rows.map((row) => (
           <tr styleName="keyValueRow"
             key={row.key}
           >

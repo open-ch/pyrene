@@ -28,7 +28,7 @@ export default class TableUtils {
       },
       initiallyHidden: {
         rtPropName: 'show',
-        transformValue: value => (typeof value !== 'undefined' ? !value : undefined),
+        transformValue: (value) => (typeof value !== 'undefined' ? !value : undefined),
       },
       width: {
         rtPropName: 'width',
@@ -41,7 +41,7 @@ export default class TableUtils {
       },
     };
 
-    return allColumnProps.map(columnProps => Object.keys(columnProps).reduce((remappedColumns, key) => {
+    return allColumnProps.map((columnProps) => Object.keys(columnProps).reduce((remappedColumns, key) => {
       if (typeof propMap[key] !== 'undefined') {
         if (propMap[key].hasOwnProperty('transformValue')) { // eslint-disable-line no-prototype-builtins
           remappedColumns[propMap[key].rtPropName] = propMap[key].transformValue(columnProps[key], columnProps); // eslint-disable-line no-param-reassign

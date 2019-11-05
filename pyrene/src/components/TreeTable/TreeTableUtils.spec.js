@@ -25,7 +25,7 @@ describe('TreeTableUtils', () => {
     },
   ];
 
-  const getRowKey = row => row.key;
+  const getRowKey = (row) => row.key;
 
   describe('initialiseRootData', () => {
 

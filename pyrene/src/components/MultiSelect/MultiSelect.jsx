@@ -12,10 +12,10 @@ import MultiSelectMenuWithOptions from './MultiSelectMenuWithOptions';
 const LoadingIndicator = () => <Loader />;
 
 const MultiValue = ({ data, getValue }) => ( // eslint-disable-line react/prop-types
-  <React.Fragment>
+  <>
     {data.label}
     {data.value !== getValue()[getValue().length - 1].value ? ', ' : ' '}
-  </React.Fragment>
+  </>
 );
 
 
@@ -23,7 +23,7 @@ const componentsNormal = { LoadingIndicator };
 const componentsOptionsInDropdown = { Menu: MultiSelectMenuWithOptions, MultiValue, LoadingIndicator };
 
 // Finds the union of value and options, based on options[].value and values[].value being equal.
-export const valueFromOptions = (options, values) => options.filter(o => values.findIndex(v => o.value === v.value) > -1);
+export const valueFromOptions = (options, values) => options.filter((o) => values.findIndex((v) => o.value === v.value) > -1);
 
 /**
  * Multi-Selects are used when the user has to make a choice from a list. It allows the user to select multiple items from a dropdown list.
@@ -40,7 +40,7 @@ const MultiSelect = (props) => {
             styles={MultiSelectStyle(props)}
             components={props.selectedOptionsInDropdown ? componentsOptionsInDropdown : componentsNormal}
             // Sets the internal value to "" in case of null or undefined
-            getOptionValue={option => ((option.value !== null && typeof option.value !== 'undefined') ? option.value : '')}
+            getOptionValue={(option) => ((option.value !== null && typeof option.value !== 'undefined') ? option.value : '')}
             placeholder={props.placeholder}
             options={options}
             value={props.value}
@@ -50,7 +50,7 @@ const MultiSelect = (props) => {
             isInvalid={props.invalid}
             isLoading={props.loading}
             // wrapping type and key into target so it better reflects the api that input event has (there is also event.target.name)
-            onChange={option => props.onChange(option, { target: { type: 'multiSelect', name: props.name, value: option } })}
+            onChange={(option) => props.onChange(option, { target: { type: 'multiSelect', name: props.name, value: option } })}
             onBlur={props.onBlur}
             onFocus={props.onFocus}
             name={props.name}
@@ -59,7 +59,7 @@ const MultiSelect = (props) => {
 
             maxMenuHeight={264}
             noOptionsMessage={() => 'no matches found'}
-            formatCreateLabel={inputValue => `Create new tag "${inputValue}"`}
+            formatCreateLabel={(inputValue) => `Create new tag "${inputValue}"`}
 
             closeMenuOnSelect={!props.keepMenuOnSelect}
             isMulti
@@ -74,7 +74,7 @@ const MultiSelect = (props) => {
             styles={MultiSelectStyle(props)}
             components={props.selectedOptionsInDropdown ? componentsOptionsInDropdown : componentsNormal}
             // Sets the internal value to "" in case of null or undefined
-            getOptionValue={option => ((option.value !== null && typeof option.value !== 'undefined') ? option.value : '')}
+            getOptionValue={(option) => ((option.value !== null && typeof option.value !== 'undefined') ? option.value : '')}
             placeholder={props.placeholder}
             options={options}
             value={props.value}
@@ -83,7 +83,7 @@ const MultiSelect = (props) => {
             isDisabled={props.disabled}
             isInvalid={props.invalid}
             isLoading={props.loading}
-            onChange={option => props.onChange(option, { target: { type: 'multiSelect', name: props.name, value: option } })}
+            onChange={(option) => props.onChange(option, { target: { type: 'multiSelect', name: props.name, value: option } })}
             onBlur={props.onBlur}
             onFocus={props.onFocus}
             name={props.name}
@@ -101,8 +101,7 @@ const MultiSelect = (props) => {
             captureMenuScroll
             backspaceRemovesValue
           />
-        )
-      }
+        )}
 
       {props.invalid && props.invalidLabel && !props.disabled
         ? (
@@ -112,16 +111,15 @@ const MultiSelect = (props) => {
           </div>
         )
         : (
-          <React.Fragment>
+          <>
             {props.helperLabel
         && (
           <div styleName="selectHelper">
             {props.helperLabel}
           </div>
         )}
-          </React.Fragment>
-        )
-      }
+          </>
+        )}
 
     </div>
   );

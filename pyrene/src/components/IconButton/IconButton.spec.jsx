@@ -14,7 +14,7 @@ describe('<IconButton />', () => {
 
   it('renders icon', () => {
     const rendered = shallow(<IconButton {...props} />);
-    expect(rendered.find('span').props().className).toBe('pyreneIcon-' + props.icon);
+    expect(rendered.find('span').props().className).toBe(`pyreneIcon-${props.icon}`);
   });
 
   it('has path corresponding to prop', () => {
@@ -26,6 +26,6 @@ describe('<IconButton />', () => {
     const mockCallBack = jest.fn();
     const rendered = shallow(<IconButton onClick={mockCallBack} {...props} />);
     rendered.find('a').simulate('click', { preventDefault() {} });
-    expect(mockCallBack.mock.calls.length).toEqual(1);
+    expect(mockCallBack.mock.calls).toHaveLength(1);
   });
 });

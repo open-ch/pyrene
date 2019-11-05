@@ -34,10 +34,10 @@ const examples = {
   props: {
     timezone: TIMEZONE,
     lowerBound: moment().tz(TIMEZONE).subtract(1, 'years').valueOf(),
-    from: stateProvider => (stateProvider.state.from === undefined ? moment().tz(TIMEZONE).subtract(40, 'days').valueOf() : stateProvider.state.from),
-    to: stateProvider => (stateProvider.state.from === undefined ? moment().tz(TIMEZONE).subtract(10, 'days').valueOf() : stateProvider.state.to),
+    from: (stateProvider) => (stateProvider.state.from === undefined ? moment().tz(TIMEZONE).subtract(40, 'days').valueOf() : stateProvider.state.from),
+    to: (stateProvider) => (stateProvider.state.from === undefined ? moment().tz(TIMEZONE).subtract(10, 'days').valueOf() : stateProvider.state.to),
     upperBound: moment().tz(TIMEZONE).valueOf(),
-    onChange: stateProvider => (from, to) => stateProvider.setState({ from, to }),
+    onChange: (stateProvider) => (from, to) => stateProvider.setState({ from, to }),
     renderRightSection: renderRightSection,
   },
 };
