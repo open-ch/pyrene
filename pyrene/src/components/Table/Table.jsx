@@ -47,6 +47,13 @@ const NoDataComponent = () => (<div styleName="customTableBody">No data found.</
  */
 export default class Table extends React.Component {
 
+  // eslint-disable-next-line react/state-in-constructor
+  state = {
+    selection: [],
+    selectAll: false,
+    columnsVisibility: {},
+  };
+
   commonStaticProps = {
     getTrProps: (state, rowInfo) => {
       // no row selected yet
@@ -114,15 +121,6 @@ export default class Table extends React.Component {
     onFetchData: (rts) => this.props.onFetchData({ page: rts.page, pageSize: rts.pageSize, sorting: rts.sorted }),
 
   };
-
-  constructor() {
-    super();
-    this.state = {
-      selection: [],
-      selectAll: false,
-      columnsVisibility: {},
-    };
-  }
 
   toggleColumnDisplay = (columnId, showValue) => {
 
