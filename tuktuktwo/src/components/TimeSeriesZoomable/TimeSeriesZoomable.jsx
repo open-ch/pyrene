@@ -136,7 +136,7 @@ const TimeSeriesZoomable = (props) => {
           return (
             <Group>
               {/* Draw rectangle */}
-              {isDragging && (
+              {isDragging && !props.disabled && (
                 <rect
                   fill={props.color}
                   opacity={0.25}
@@ -171,11 +171,19 @@ const TimeSeriesZoomable = (props) => {
 
 TimeSeriesZoomable.displayName = 'TimeSeriesZoomable';
 
+TimeSeriesZoomable.defaultProps = {
+  disabled: false,
+}
+
 TimeSeriesZoomable.propTypes = {
   /**
    * Sets the color of the zoom rectangle.
    */
   color: PropTypes.string.isRequired,
+  /**
+   * Sets the color of the zoom rectangle.
+   */
+  disabled: PropTypes.bool,
   /**
    * Sets the starting time point in epoch milliseconds.
    */
