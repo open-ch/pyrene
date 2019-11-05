@@ -40,7 +40,7 @@ KeyValueTable.defaultProps = {
 
 KeyValueTable.propTypes = {
   /**
-    * Rows definition: { key: 'key', value: 'value' }
+    * Rows definition: { key: 'key', value: 'value', rowStyle: {} }, where rowStyle is an object with css properties applied to the whole row
     */
   rows: PropTypes.arrayOf(PropTypes.shape({
     key: PropTypes.string,
