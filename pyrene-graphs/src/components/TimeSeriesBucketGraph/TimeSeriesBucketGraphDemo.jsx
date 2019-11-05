@@ -1,68 +1,64 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Banner, Loader } from 'pyrene';
-import ChartContainer from '../ChartContainer/ChartContainer';
-import ChartOverlay from '../ChartOverlay/ChartOverlay';
-import Header from '../Header/Header';
-import TimeSeriesBucketChart from './TimeSeriesBucketChart';
+import moment from 'moment-timezone';
+import { format } from 'd3-format';
+import TimeSeriesBucketGraph from './TimeSeriesBucketGraph';
 import colorSchemes from '../../styles/colorSchemes';
-import './timeSeriesBucketGraph.css';
 
 /**
- * A bucket graph for time-data series.
+ * A Demo graph for TimeSeriesBucketGraph. Only for demon use in kitchensink.
  */
-const TimeSeriesBucketGraph = (props) => {
-  const dataAvailable = props.dataSeries && props.dataSeries.data && props.dataSeries.data.length > 1;
+class TimeSeriesBucketGraphDemo extends React.Component {
 
-  // Render the header
-  const header = (
-    <Header
-      title={props.title}
-      description={props.description}
-    />
-  );
+  render() {
+    const {
+      colorScheme,
+      dataSeries,
+      description,
+      error,
+      initialFrom,
+      loading,
+      timezone,
+      title,
+      initialTo,
+      yUnit,
+      zoom,
+    } = this.props;
 
-  // Render the overlay
-  const chartOverlay = (
-    <ChartOverlay>
-      {props.loading && <Loader type="inline" />}
-      {!props.loading && !dataAvailable && (
-        <div styleName="errorBanner">
-          <Banner styling="inline" type="error" label={props.error} />
-        </div>
-      )}
-    </ChartOverlay>
-  );
+    const dataFormat = {
+      tooltip: (num) => {
+        const formattedNum = `${format('~s')(num)}`;
+        if (num > 0.001 && num < 1000) {
+          return `${parseFloat(formattedNum).toFixed(2)} ${yUnit}`;
+        }
+        return `${parseFloat(formattedNum.substring(0, formattedNum.length - 2)).toFixed(2)} ${formattedNum.substring(formattedNum.length - 1, formattedNum.length)}${yUnit}`;
+      },
+      yAxis: (num) => parseFloat(Math.round(num * 100) / 100).toFixed(0),
+    };
 
-  // Render the bucket chart
-  const bucketChart = (
-    <TimeSeriesBucketChart
-      colorScheme={props.colorScheme}
-      dataFormat={props.dataFormat}
-      dataSeries={props.dataSeries}
-      from={props.from}
-      to={props.to}
-      loading={props.loading}
-      timezone={props.timezone}
-      timeFormat={props.timeFormat}
-      zoom={props.zoom}
-    />
-  );
+    return (
+      <TimeSeriesBucketGraph
+        colorScheme={colorScheme}
+        dataFormat={dataFormat}
+        dataSeries={dataSeries}
+        description={description}
+        error={error}
+        from={initialFrom}
+        loading={loading}
+        timezone={timezone}
+        title={title}
+        to={initialTo}
+        yUnit={yUnit}
+        zoom={zoom}
+      />
+    );
 
-  // Render the component
-  const showOverlay = props.loading || !dataAvailable;
-  return (
-    <ChartContainer
-      header={header}
-      chart={bucketChart}
-      chartOverlay={showOverlay && chartOverlay}
-    />
-  );
-};
+  }
+}
 
-TimeSeriesBucketGraph.displayName = 'Time Series Bucket Graph';
+TimeSeriesBucketGraphDemo.displayName = 'Time Series Bucket Graph Demo';
 
-TimeSeriesBucketGraph.defaultProps = {
+TimeSeriesBucketGraphDemo.defaultProps = {
   colorScheme: colorSchemes.colorSchemeDefault,
   dataSeries: PropTypes.shape({
     data: [],
@@ -71,25 +67,17 @@ TimeSeriesBucketGraph.defaultProps = {
   description: '',
   error: 'No data available',
   loading: false,
-  timeFormat: undefined,
   title: '',
   zoom: undefined,
 };
 
-TimeSeriesBucketGraph.propTypes = {
+TimeSeriesBucketGraphDemo.propTypes = {
   /**
    * Sets the color scheme of the bars.
    */
   colorScheme: PropTypes.shape({
     categorical: PropTypes.arrayOf(PropTypes.string).isRequired,
   }),
-  /**
-   * Sets the data formatting functions for the graph, consisting of format function for the y-axis and that for the tooltip.
-   */
-  dataFormat: PropTypes.shape({
-    tooltip: PropTypes.func,
-    yAxis: PropTypes.func,
-  }).isRequired,
   /**
    * Sets the data series. A data series consists of a label and an array of data. Each data item contains a timestamp and a value.
    */
@@ -108,15 +96,15 @@ TimeSeriesBucketGraph.propTypes = {
   /**
    * Sets the starting time point of the time range in epoch milliseconds.
    */
-  from: PropTypes.number.isRequired,
+  initialFrom: PropTypes.number.isRequired,
+  /**
+   * Sets the ending point of the time range in epoch milliseconds.
+   */
+  initialTo: PropTypes.number.isRequired,
   /**
    * Sets the loading state of the graph.
    */
   loading: PropTypes.bool,
-  /**
-   * Sets the time formatting function for the tooltip.
-   */
-  timeFormat: PropTypes.func,
   /**
    * Sets the timezone for the x-axis alone.
    * The timezone for tooltip comes from the render function provided by parent page.
@@ -127,9 +115,9 @@ TimeSeriesBucketGraph.propTypes = {
    */
   title: PropTypes.string,
   /**
-   * Sets the ending point of the time range in epoch milliseconds.
+   * Sets the unit for the data.
    */
-  to: PropTypes.number.isRequired,
+  yUnit: PropTypes.string.isRequired,
   /**
    * If set, this graph supports zoom.
    */
@@ -157,4 +145,4 @@ TimeSeriesBucketGraph.propTypes = {
   }),
 };
 
-export default TimeSeriesBucketGraph;
+export default TimeSeriesBucketGraphDemo;

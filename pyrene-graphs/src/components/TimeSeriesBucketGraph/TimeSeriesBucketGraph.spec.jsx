@@ -13,18 +13,11 @@ const props = {
   dataSeries: downloadedVolumes,
   description: 'Downloaded volume',
   from: moment('2019-10-01 00:00').valueOf(),
-  lowerBound: moment('2018-10-01 00:00').valueOf(),
-  minZoomRange: moment.duration({ minutes: 30 }).valueOf(),
-  onZoom: () => {},
   title: 'Volume',
   timezone: 'Europe/Zurich',
   to: moment('2019-10-03 12:00').valueOf(),
-  upperBound: moment('2020-10-01 00:00').valueOf(),
   yUnit: 'B',
-  timeFormat: {
-    tooltip: (d) => d,
-    zoomTooltip: (d) => d,
-  },
+  timeFormat: (d) => d,
 };
 
 const props1 = {
@@ -36,15 +29,11 @@ const props1 = {
   description: 'Downloaded volume',
   from: moment('2019-10-01 00:00').valueOf(),
   loading: true,
-  onZoom: () => {},
   timezone: 'Europe/Zurich',
   title: 'Volume',
   to: moment('2019-10-03 12:00').valueOf(),
   yUnit: 'B',
-  timeFormat: {
-    tooltip: (d) => d,
-    zoomTooltip: (d) => d,
-  },
+  timeFormat: (d) => d,
 };
 
 const props2 = {
@@ -57,15 +46,11 @@ const props2 = {
   error: 'No data is found',
   from: moment('2019-10-01 00:00').valueOf(),
   loading: false,
-  onZoom: () => {},
   timezone: 'Europe/Zurich',
   title: 'Volume',
   to: moment('2019-10-03 12:00').valueOf(),
   yUnit: 'B',
-  timeFormat: {
-    tooltip: (d) => d,
-    zoomTooltip: (d) => d,
-  },
+  timeFormat: (d) => d,
 };
 
 // dataSeries: { label: 'Volume', data: [] },

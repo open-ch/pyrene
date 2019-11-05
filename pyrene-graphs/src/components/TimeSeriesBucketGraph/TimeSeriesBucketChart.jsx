@@ -12,6 +12,7 @@ import {
   withTooltip,
 } from 'tuktuktwo';
 import Tooltip from '../TimeSeries/Tooltip';
+import Formats from '../../common/Formats';
 import colorSchemes from '../../styles/colorSchemes';
 
 /**
@@ -140,7 +141,7 @@ const TimeSeriesBucketChart = (props) => {
               tooltipOpen && (
                 <Tooltip
                   dataSeries={[{ dataColor: props.colorScheme.categorical[0], dataLabel: props.dataSeries.label, dataValue: props.dataFormat.tooltip(tooltipData[1]) }]}
-                  timeFormat={props.timeFormat.tooltip} time={tooltipData[0]}
+                  timeFormat={props.timeFormat ? props.timeFormat : Formats.tooltipTimeFormat} time={tooltipData[0]}
                   left={tooltipLeft} top={tooltipTop}
                 />
               )
@@ -161,13 +162,11 @@ TimeSeriesBucketChart.defaultProps = {
     label: '',
   },
   loading: false,
-  lowerBound: 0,
-  minZoomRange: 0,
-  onZoom: undefined,
+  timeFormat: undefined,
   tooltipData: [[0, 0], 0],
   tooltipLeft: 0,
   tooltipTop: 0,
-  upperBound: 0,
+  zoom: undefined,
 };
 
 TimeSeriesBucketChart.propTypes = {
@@ -204,28 +203,13 @@ TimeSeriesBucketChart.propTypes = {
    */
   loading: PropTypes.bool,
   /**
-   * Sets the lower bound of the zoom component - provided that this graph is a zoomable one, i.e. no more zoom-out is possible when lower bound is reached.
-   */
-  lowerBound: PropTypes.number,
-  /**
-   * Sets the minimum allowed zoom range - provided that this graph is a zoomable one, i.e. no more zoom-in is possible when minZoomRange is already reached.
-   */
-  minZoomRange: PropTypes.number,
-  /**
-   * Sets the callback function when a zoom action finishes.
-   */
-  onZoom: PropTypes.func,
-  /**
    * The function to render the proper tooltip provided by the withTooltip enhancer.
    */
   showTooltip: PropTypes.func.isRequired,
   /**
-   * Sets the time formatting functions, including the formatting function for ordinary tooltip and that for the zoom tooltip.
+   * Sets the time formatting for the tooltip.
    */
-  timeFormat: PropTypes.shape({
-    tooltip: PropTypes.func.isRequired,
-    zoomTooltip: PropTypes.func,
-  }).isRequired,
+  timeFormat: PropTypes.func,
   /**
    * Sets the timezone for the x-axis.
    */
@@ -251,9 +235,30 @@ TimeSeriesBucketChart.propTypes = {
    */
   tooltipTop: PropTypes.number,
   /**
-   * Sets the upper bound for the zoom component - provided that the graph is a zoomable one, i.e. no zoom-out action is allowed when upper bound is reached.
+   * If set, this graph supports zoom.
    */
-  upperBound: PropTypes.number,
+  zoom: PropTypes.shape({
+    /**
+     * Sets the lower bound of the zoom component - provided that this graph is a zoomable one, i.e. no more zoom-out is possible when lower bound is reached.
+     */
+    lowerBound: PropTypes.number.isRequired,
+    /**
+     * Sets the minimum allowed zoom range - provided that this graph is a zoomable one, i.e. no more zoom-in is possible when minZoomRange is already reached.
+     */
+    minZoomRange: PropTypes.number.isRequired,
+    /**
+     * Sets the callback function when a zoom action finishes. No onZoom function means this graph does not support zoom.
+     */
+    onZoom: PropTypes.func.isRequired,
+    /**
+     * Sets the time formatting function for the zoom range.
+     */
+    timeFormat: PropTypes.func,
+    /**
+     * Sets the upper bound for the zoom component - provided that the graph is a zoomable one, i.e. no zoom-out action is allowed when upper bound is reached.
+     */
+    upperBound: PropTypes.number.isRequired,
+  }),
 };
 
 export default withTooltip(TimeSeriesBucketChart);
