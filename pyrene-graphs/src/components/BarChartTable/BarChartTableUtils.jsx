@@ -37,6 +37,7 @@ const getColumn = ({
                 maxValue={maxValue}
                 value={getValueWithAccessor(row, accessor)}
                 size={parent.width}
+                direction="horizontal"
               />
             </svg>
           )}
@@ -52,6 +53,7 @@ const getColumn = ({
                 maxValue={maxValue}
                 value={getValueWithAccessor(row, accessor)}
                 size={parent.width}
+                direction="horizontal"
                 mirrored
               />
             </svg>
@@ -72,6 +74,7 @@ const getColumn = ({
                 maxValue={maxValue}
                 value={getValueWithAccessor(row, accessor)} // eslint-disable-line
                 size={parent.width}
+                direction="horizontal"
               />
               <Bar
                 key={`${getId(getValueWithAccessor(row, labelAccessor))}_bar_previous`} // eslint-disable-line
@@ -80,6 +83,7 @@ const getColumn = ({
                 maxValue={maxValue}
                 value={getValueWithAccessor(row, accessorSecondary)} // eslint-disable-line
                 size={parent.width}
+                direction="horizontal"
                 y={barWeightPrimary + comparisonMargin}
               />
             </svg>
