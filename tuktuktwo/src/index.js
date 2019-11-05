@@ -5,6 +5,7 @@
 import { default as Bar } from './components/Bar/Bar';
 import { default as Bars } from './components/Bar/Bars';
 import { default as CategoricalAxis } from './components/Axis/CategoricalAxis';
+import { default as Line } from './components/Line/Line';
 import { default as NumericalAxis } from './components/Axis/NumericalAxis';
 import { default as RelativeBar } from './components/Bar/RelativeBar';
 import { default as Responsive } from './components/Misc/Responsive';
@@ -16,6 +17,7 @@ const Components = {
   Bar,
   Bars,
   CategoricalAxis,
+  Line,
   NumericalAxis,
   RelativeBar,
   TimeXAxis,
@@ -27,6 +29,7 @@ const Components = {
 export { Bar };
 export { Bars };
 export { CategoricalAxis };
+export { Line };
 export { NumericalAxis };
 export { RelativeBar };
 export { Responsive };
