@@ -49,6 +49,7 @@ export default class Table extends React.Component {
     selection: [],
     selectAll: false,
     columnsVisibility: {},
+    pageSize: this.props.defaultPageSize,
   };
 
   commonStaticProps = {
@@ -84,7 +85,8 @@ export default class Table extends React.Component {
     onPageChange: () => {
       this.resetSelection();
     },
-    onPageSizeChange: () => {
+    onPageSizeChange: (size) => {
+      this.setState({ pageSize: size });
       this.resetSelection();
     },
     onSortedChange: () => {
@@ -115,7 +117,9 @@ export default class Table extends React.Component {
 
     // Server-side props
     manual: this.props.manual,
-    onFetchData: rts => this.props.onFetchData({ page: rts.page, pageSize: rts.pageSize, sorting: rts.sorted }),
+    onFetchData: (rts) => ((this.state.pageSize !== rts.pageSize) ? this.props.onFetchData({
+      page: 0, pageCount: 0, pageSize: rts.pageSize, sorting: rts.sorted,
+    }) : this.props.onFetchData({ page: rts.page, pageSize: rts.pageSize, sorting: rts.sorted })),
 
   };
 
