@@ -4,7 +4,7 @@
 // Sort alphabetically to find stuff easily
 import { default as BarChart } from '../components/BarChart/BarChart.examples';
 import { default as BarChartTable } from '../components/BarChartTable/BarChartTable.examples';
-import { default as TimeSeriesBucketGraphDemo } from '../components/TimeSeriesBucketGraph/TimeSeriesBucketGraphDemo.examples';
+import { default as TimeSeriesBucketGraph } from '../components/TimeSeriesBucketGraph/TimeSeriesBucketGraph.examples';
 
 import {
   tableData, tableColumns,
@@ -24,7 +24,7 @@ import { downloadedVolumes } from './timeSeriesData';
 const examples = {
   BarChart,
   BarChartTable,
-  TimeSeriesBucketGraphDemo,
+  TimeSeriesBucketGraph,
 };
 
 export default examples;
