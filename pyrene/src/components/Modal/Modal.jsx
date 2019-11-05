@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import './modal.css';
@@ -88,8 +88,7 @@ export default class Modal extends React.Component {
                     leftButtonSectionElements={this.createButtonArray(this.props.leftButtonBarElements)}
                   />
                 </div>
-              )
-            }
+              )}
           </div>
         </div>
       </>

@@ -9,9 +9,12 @@ import OptionList from './OptionList';
 
 export default class RadioPopover extends React.Component {
 
-  state = {
-    displayPopover: false,
-  };
+  constructor() {
+    super();
+    this.state = {
+      displayPopover: false,
+    };
+  }
 
   togglePopover = () => {
     this.setState((prevState) => ({

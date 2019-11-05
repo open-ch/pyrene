@@ -7,6 +7,8 @@ import Button from '../../Button/Button';
 import FilterOption from '../FilterOption/FilterOption';
 import Collapsible from '../../Collapsible/Collapsible';
 
+/* eslint-disable react/jsx-props-no-spreading */
+
 const FilterPopover = (props) => (
   <div styleName="filterPopover">
     <div styleName="title">Select Filter</div>
@@ -21,7 +23,7 @@ const FilterPopover = (props) => (
         ))
         : (
           <>
-            {props.filters.slice(0, 6).map(filter => (
+            {props.filters.slice(0, 6).map((filter) => (
               <FilterOption {...filter}
                 value={props.filterValues ? props.filterValues[filter.id] : null}
                 handleFilterChange={props.handleFilterChange}
@@ -32,7 +34,7 @@ const FilterPopover = (props) => (
               align="end"
               labelCollapsed="More Filter Options"
               labelExpanded="Fewer Filter Options"
-              renderCallback={() => props.filters.slice(6).map(filter => (
+              renderCallback={() => props.filters.slice(6).map((filter) => (
                 <FilterOption {...filter}
                   value={props.filterValues ? props.filterValues[filter.id] : null}
                   handleFilterChange={props.handleFilterChange}

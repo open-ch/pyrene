@@ -12,6 +12,7 @@ export default class TableUtils {
       },
       headerName: {
         rtPropName: 'Header',
+        // eslint-disable-next-line react/display-name
         transformValue: (value, columnProps) => (columnProps.headerTooltip ? (<Tooltip label={columnProps.headerTooltip}><div className={styles.headerNameContainer}>{columnProps.headerName}</div></Tooltip>) : value),
       },
       accessor: {

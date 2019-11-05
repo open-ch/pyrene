@@ -1,8 +1,4 @@
-/* eslint-disable react/display-name, no-nested-ternary */
-import React from 'react';
-
 import treeTableData from './data.json';
-
 
 const testOptions = [
   { value: 'chocolate', label: 'Chocolate', invalid: false },

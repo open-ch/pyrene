@@ -13,11 +13,14 @@ import './shareDialog.css';
  */
 export default class ShareDialog extends React.Component {
 
-  state = {
-    displayShareDialog: false,
-  };
-
   textInput = React.createRef();
+
+  constructor() {
+    super();
+    this.state = {
+      displayShareDialog: false,
+    };
+  }
 
   componentDidUpdate() {
     if (this.state.displayShareDialog) {

@@ -51,5 +51,5 @@ describe('TreeTable', () => {
   it('renders without crashing - virtualized', () => {
     shallow(<TreeTable {...props} height={300} virtualized />);
   });
-  
+
 });

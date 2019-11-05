@@ -18,6 +18,8 @@ import CheckboxPopover from '../CheckboxPopover/CheckboxPopover';
 import TableUtils from './TableUtils';
 import Banner from '../Banner/Banner';
 
+/* eslint-disable react/jsx-props-no-spreading */
+
 const CheckboxTable = checkboxHOC(ReactTable);
 
 const ErrorComponent = ({ error }) => (<div styleName="customTableBody"><Banner label={error} type="error" styling="inline" /></div>);
@@ -44,12 +46,6 @@ const NoDataComponent = () => (<div styleName="customTableBody">No data found.</
  * Tables support multi sorting for columns.
  */
 export default class Table extends React.Component {
-
-  state = {
-    selection: [],
-    selectAll: false,
-    columnsVisibility: {},
-  };
 
   commonStaticProps = {
     getTrProps: (state, rowInfo) => {
@@ -118,6 +114,15 @@ export default class Table extends React.Component {
     onFetchData: (rts) => this.props.onFetchData({ page: rts.page, pageSize: rts.pageSize, sorting: rts.sorted }),
 
   };
+
+  constructor() {
+    super();
+    this.state = {
+      selection: [],
+      selectAll: false,
+      columnsVisibility: {},
+    };
+  }
 
   toggleColumnDisplay = (columnId, showValue) => {
 

@@ -77,7 +77,7 @@ const config = {
   },
   output: {
     path: OUTPUT_PATH,
-    filename: chunkData => (chunkData.chunk.name === 'main' ? 'pyrene.js' : 'pyrene.[name].js'),
+    filename: (chunkData) => (chunkData.chunk.name === 'main' ? 'pyrene.js' : 'pyrene.[name].js'),
     library: 'pyrene',
     libraryTarget: 'umd',
   },

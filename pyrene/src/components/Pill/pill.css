@@ -12,28 +12,28 @@
   z-index: 2;
 
   &.type-neutral {
-     background-color: var(--neutral-050);
-     color: var(--neutral-400);
+    background-color: var(--neutral-050);
+    color: var(--neutral-400);
   }
 
   &.type-info {
-     background-color: var(--information-light);
-     color: var(--blue-600);
+    background-color: var(--information-light);
+    color: var(--blue-600);
   }
 
   &.type-success {
-     background-color: var(--ok-light);
-     color: var(--green-700);
+    background-color: var(--ok-light);
+    color: var(--green-700);
   }
 
   &.type-danger {
-     background-color: var(--danger-lighter);
-     color: var(--red-600);
+    background-color: var(--danger-lighter);
+    color: var(--red-600);
   }
 
   &.type-warning {
-     background-color: var(--warning-light);
-     color: var(--orange-700);
+    background-color: var(--warning-light);
+    color: var(--orange-700);
   }
 }
 

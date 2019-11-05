@@ -14,7 +14,6 @@ const Badge = (props) => (
     styleName={className('badge', { [`type-${props.type}`]: true })}
     style={{ maxWidth: props.maxWidth }}
     onClick={props.onClick}
-    role="badge"
   >
     <div styleName={className('label')}>
       {props.label}

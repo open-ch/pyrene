@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 
 import './presetTimeRanges.css';
 
+/* eslint-disable no-underscore-dangle, react/no-unused-prop-types */
+
 const PresetTimeRanges = (props) => (
   <div>
     {PresetTimeRanges._createPresets(props)}

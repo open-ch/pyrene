@@ -1,5 +1,6 @@
 import TreeTableUtils from './TreeTableUtils';
 
+/* eslint-disable no-underscore-dangle */
 
 describe('TreeTableUtils', () => {
 

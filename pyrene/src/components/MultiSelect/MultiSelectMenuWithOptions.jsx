@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { components } from 'react-select';
 import './multiSelectMenuWithOptions.css';
 
-/* eslint-disable react/prop-types */
+/* eslint-disable react/prop-types, react/jsx-props-no-spreading */
 /* props are controlled by the parent component of react-select */
 
 const MultiSelectMenuWithOptions = (props) => (

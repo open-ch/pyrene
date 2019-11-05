@@ -42,6 +42,7 @@ const TimeRangeNavigationBar = (props) => (
   </div>
 );
 
+/* eslint-disable-next-line react/display-name */
 TimeRangeNavigationBar.renderCurrentTimeRange = (currProps) => {
   const fromMoment = moment(currProps.from).tz(currProps.timezone);
   const toMoment = moment(currProps.to).tz(currProps.timezone);

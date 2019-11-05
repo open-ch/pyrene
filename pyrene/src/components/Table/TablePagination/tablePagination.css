@@ -27,8 +27,8 @@
   white-space: nowrap;
 
   &.disabled {
-     color: var(--neutral-200);
-   }
+    color: var(--neutral-200);
+  }
 }
 
 .pageSizeSelectOptions {

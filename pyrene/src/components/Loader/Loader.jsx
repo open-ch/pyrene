@@ -16,13 +16,11 @@ const Loader = (props) => (
       <div styleName={classNames('canvas', { [`size-${props.size}`]: true })}>
         <div styleName={classNames('standaloneLoader', { [`styling-${props.styling}`]: true }, { [`size-${props.size}`]: true })} />
       </div>
-    )
-    }
+    )}
     { props.type === 'inline'
       && (
         <span styleName={classNames('inlineLoader')} />
-      )
-    }
+      )}
   </>
 );
 

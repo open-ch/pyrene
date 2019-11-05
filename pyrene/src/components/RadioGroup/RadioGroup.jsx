@@ -47,9 +47,12 @@ const getRadioIcon = (options, hovered) => {
  */
 class RadioGroup extends Component {
 
-  state = {
-    hovered: {},
-  };
+  constructor() {
+    super();
+    this.state = {
+      hovered: {},
+    };
+  }
 
   onMouseEnter = (key) => {
     this.setState((prevState) => ({

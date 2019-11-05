@@ -30,10 +30,13 @@ import FilterTag from './FilterTag';
 
 export default class FilterBar extends React.Component {
 
-  state = {
-    displayFilterPopover: false,
-    unAppliedValues: this.props.filterValues,
-  };
+  constructor() {
+    super();
+    this.state = {
+      displayFilterPopover: false,
+      unAppliedValues: this.props.filterValues,
+    };
+  }
 
   // eslint-disable-next-line react/sort-comp
   toggleFilterPopover = () => {

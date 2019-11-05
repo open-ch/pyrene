@@ -11,10 +11,10 @@ import MultiSelectMenuWithOptions from './MultiSelectMenuWithOptions';
 
 const LoadingIndicator = () => <Loader />;
 
-const MultiValue = ({ data, getValue }) => ( // eslint-disable-line react/prop-types
+const MultiValue = ({ data: { value, label }, getValue }) => ( // eslint-disable-line react/prop-types
   <>
-    {data.label}
-    {data.value !== getValue()[getValue().length - 1].value ? ', ' : ' '}
+    {label}
+    {value !== getValue()[getValue().length - 1].value ? ', ' : ' '}
   </>
 );
 
