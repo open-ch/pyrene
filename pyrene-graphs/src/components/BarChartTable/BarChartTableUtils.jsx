@@ -102,15 +102,16 @@ export const getProcessedColumnsAndLegend = ({ props, colors, withoutBars }) => 
   const maxValue = Math.max(maxValuePrimary, maxValueSecondary);
   const hasColumnSecondaryLabel = !!props.columns.secondaryLabel;
   const hasColumnSecondaryValue = !!props.columns.secondaryValue;
-  const valueColumnWidth = 90;
-  const margin = 16;
-  const marginLeftRight = 8;
+  const valueColumnWidth = '90px';
+  const margin = '16px';
+  const marginLeftRight = '8px';
+  const valueColumnWidthDouble = `calc(${valueColumnWidth} + ${margin} + ${valueColumnWidth})`;
 
   switch (props.type) {
     case 'bar':
       // responsive width = 100% - value columns on the right - all margins = label and bar columns
-      // marginLeft LABELS margin BAR margin VALUE1 margin VALUE2 marginRight
-      const responsiveWidth = marginLeftRight + margin + margin + valueColumnWidth + margin + valueColumnWidth + marginLeftRight;
+      // marginLeft {LABEL1 + MARGIN + LABEL2} margin BAR margin value1 margin value2 marginRight
+      const responsiveWidth = `calc((100% - ${marginLeftRight} - ${margin} - ${margin} - ${valueColumnWidth} - ${margin} - ${valueColumnWidth} - ${marginLeftRight}) / 2)`;
       return {
         columns: [
           getColumn({
@@ -119,14 +120,14 @@ export const getProcessedColumnsAndLegend = ({ props, colors, withoutBars }) => 
             linkAccessor: props.columns.label.linkAccessor,
             align: 'left',
             cellType: 'link',
-            maxWidth: `calc(((100% - ${responsiveWidth}px) / 2) - ${hasColumnSecondaryLabel ? valueColumnWidth + margin : 0}px)`,
+            maxWidth: `calc(${responsiveWidth} - ${hasColumnSecondaryLabel ? valueColumnWidth : 0} - ${hasColumnSecondaryLabel ? margin : 0})`,
           }),
           ...(hasColumnSecondaryLabel ? [getColumn({
             id: props.columns.secondaryLabel.title,
             accessor: props.columns.secondaryLabel.accessor,
             headerName: props.columns.secondaryLabel.title,
             align: 'right',
-            maxWidth: `${valueColumnWidth}px`,
+            maxWidth: valueColumnWidth,
           })] : []),
           ...(withoutBars ? [] : [getColumn({
             id: `${props.columns.primaryValue.title}_bar`,
@@ -135,7 +136,7 @@ export const getProcessedColumnsAndLegend = ({ props, colors, withoutBars }) => 
             cellType: 'relativeBar',
             colors: colors,
             maxValue: maxValue,
-            maxWidth: `calc((100% - ${responsiveWidth}px) / 2)`,
+            maxWidth: responsiveWidth,
           })]),
           getColumn({
             id: props.columns.primaryValue.title,
@@ -143,7 +144,7 @@ export const getProcessedColumnsAndLegend = ({ props, colors, withoutBars }) => 
             formatter: props.columns.primaryValue.formatter,
             headerName: withoutBars ? props.columns.primaryValue.title : '',
             align: 'right',
-            maxWidth: props.columns.secondaryValue ? `${valueColumnWidth}px` : `${(valueColumnWidth * 2) + margin}px`,
+            maxWidth: props.columns.secondaryValue ? valueColumnWidth : valueColumnWidthDouble,
           }),
           ...(hasColumnSecondaryValue ? [getColumn({
             id: props.columns.secondaryValue.title,
@@ -151,12 +152,16 @@ export const getProcessedColumnsAndLegend = ({ props, colors, withoutBars }) => 
             formatter: props.columns.secondaryValue.formatter,
             headerName: props.columns.secondaryValue.title,
             align: 'right',
-            maxWidth: `${valueColumnWidth}px`,
+            maxWidth: valueColumnWidth,
           })] : []),
         ],
       };
     case 'comparison':
       if (props.columns.secondaryValue) {
+        // responsive width = (100% - value column on the right - all margins) / 2 = label and bar column width
+        // marginLeft {LABEL + MARGIN + VALUE1} margin BAR margin value2 marginRight
+        // value2 is twice as big to align with bar charts
+        const responsiveWidth = `calc((100% - ${marginLeftRight} - ${margin} - ${margin} - ${valueColumnWidthDouble} - ${marginLeftRight}) / 2)`;
         return {
           columns: [
             getColumn({
@@ -165,20 +170,15 @@ export const getProcessedColumnsAndLegend = ({ props, colors, withoutBars }) => 
               linkAccessor: props.columns.label.linkAccessor,
               align: 'left',
               cellType: 'link',
+              maxWidth: `calc(${responsiveWidth} - ${valueColumnWidth} - ${margin})`,
             }),
-            ...(hasColumnSecondaryLabel ? [getColumn({
-              id: props.columns.secondaryLabel.title,
-              accessor: props.columns.secondaryLabel.accessor,
-              headerName: props.columns.secondaryLabel.title,
-              align: 'right',
-            })] : []),
             getColumn({
               id: props.columns.primaryValue.title,
               accessor: props.columns.primaryValue.accessor,
               formatter: props.columns.primaryValue.formatter,
               headerName: props.columns.primaryValue.title,
               align: 'right',
-              maxWidth: props.columns.primaryValue.maxWidth,
+              maxWidth: valueColumnWidth,
             }),
             ...(withoutBars ? [] : [getColumn({
               id: `${props.columns.primaryValue.title}_bar`,
@@ -188,6 +188,7 @@ export const getProcessedColumnsAndLegend = ({ props, colors, withoutBars }) => 
               colors: colors,
               maxValue: maxValue,
               labelAccessor: props.columns.label.accessor,
+              maxWidth: responsiveWidth,
             })]),
             getColumn({
               id: props.columns.secondaryValue.title,
@@ -195,7 +196,7 @@ export const getProcessedColumnsAndLegend = ({ props, colors, withoutBars }) => 
               formatter: props.columns.secondaryValue.formatter,
               headerName: props.columns.secondaryValue.title,
               align: 'right',
-              maxWidth: props.columns.secondaryValue.maxWidth,
+              maxWidth: valueColumnWidthDouble,
             }),
           ],
           legend: [props.columns.primaryValue.title, props.columns.secondaryValue.title],
@@ -203,6 +204,10 @@ export const getProcessedColumnsAndLegend = ({ props, colors, withoutBars }) => 
       } throw Error('Missing secondary value');
     case 'butterfly':
       if (props.columns.secondaryValue) {
+        const verticalLineWidth = '1px';
+        // responsive width = (100% - value columns - all margins) / 3 = label and bars column width
+        // marginLeft LABEL margin value1 margin BAR1 margin VERTICAL_LINE margin BAR2 margin value2 marginRight
+        const responsiveWidth = `calc((100% - ${marginLeftRight} - ${margin} - ${valueColumnWidth} - ${margin} - ${margin} - ${verticalLineWidth} - ${margin} - ${margin} - ${valueColumnWidth} - ${marginLeftRight}) / 3)`;
         return {
           columns: [
             getColumn({
@@ -211,20 +216,15 @@ export const getProcessedColumnsAndLegend = ({ props, colors, withoutBars }) => 
               linkAccessor: props.columns.label.linkAccessor,
               align: 'left',
               cellType: 'link',
+              maxWidth: responsiveWidth,
             }),
-            ...(hasColumnSecondaryLabel ? [getColumn({
-              id: props.columns.secondaryLabel.title,
-              accessor: props.columns.secondaryLabel.accessor,
-              headerName: props.columns.secondaryLabel.title,
-              align: 'right',
-            })] : []),
             getColumn({
               id: props.columns.primaryValue.title,
               accessor: props.columns.primaryValue.accessor,
               formatter: props.columns.primaryValue.formatter,
               headerName: withoutBars ? props.columns.primaryValue.title : '',
               align: 'right',
-              maxWidth: props.columns.primaryValue.maxWidth,
+              maxWidth: valueColumnWidth,
             }),
             ...(withoutBars ? [] : [getColumn({
               id: `${props.columns.primaryValue.title}_bar_left`,
@@ -234,13 +234,14 @@ export const getProcessedColumnsAndLegend = ({ props, colors, withoutBars }) => 
               cellType: 'relativeBarMirrored',
               colors: colors,
               maxValue: maxValue,
+              maxWidth: `calc(${responsiveWidth} - (${margin} - ${verticalLineWidth}) / 2)`,
             })]),
             ...(withoutBars ? [] : [getColumn({
               id: `${props.columns.primaryValue.title}_vertical_line`,
               accessor: props.columns.primaryValue.accessor,
               align: 'center',
-              maxWidth: '1px',
               cellType: 'verticalLine',
+              maxWidth: verticalLineWidth,
             })]),
             ...(withoutBars ? [] : [getColumn({
               id: `${props.columns.secondaryValue.title}_bar_right`,
@@ -250,6 +251,7 @@ export const getProcessedColumnsAndLegend = ({ props, colors, withoutBars }) => 
               colors: colors,
               maxValue: maxValue,
               cellType: 'relativeBar',
+              maxWidth: `calc(${responsiveWidth} - (${margin} - ${verticalLineWidth}) / 2)`,
             })]),
             getColumn({
               id: props.columns.secondaryValue.title,
@@ -257,7 +259,7 @@ export const getProcessedColumnsAndLegend = ({ props, colors, withoutBars }) => 
               formatter: props.columns.secondaryValue.formatter,
               headerName: withoutBars ? props.columns.secondaryValue.title : '',
               align: 'right',
-              maxWidth: props.columns.secondaryValue.maxWidth,
+              maxWidth: valueColumnWidth,
             }),
           ],
         };
