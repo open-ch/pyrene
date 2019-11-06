@@ -110,7 +110,7 @@ const TimeSeriesZoomable = (props) => {
   });
 
   return (
-    <g style={canZoom ? { cursor: 'col-resize' } : {}}>
+    <g style={!props.disabled && canZoom ? { cursor: 'col-resize' } : {}}>
       <Drag
         width={zoomAreaWidth}
         height={zoomAreaHeight}
