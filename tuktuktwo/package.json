@@ -63,10 +63,10 @@
     "@vx/event": "^0.0.192",
     "@vx/grid": "^0.0.192",
     "@vx/group": "^0.0.192",
-    "@vx/responsive": "0.0.192",
-    "@vx/scale": "0.0.192",
-    "@vx/shape": "0.0.192",
-    "@vx/tooltip": "0.0.192",
+    "@vx/responsive": "^0.0.192",
+    "@vx/scale": "^0.0.192",
+    "@vx/shape": "^0.0.192",
+    "@vx/tooltip": "^0.0.192",
     "prop-types": "^15.6.1"
   },
   "peerDependencies": {
