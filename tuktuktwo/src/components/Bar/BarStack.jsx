@@ -128,7 +128,8 @@ BarStack.propTypes = {
    */
   maxCumulatedValue: PropTypes.number.isRequired,
   /**
-   * Sets the graph width, which is used to calculate the bar length and scaling.
+   * Sets the width of the graph canvas.
+   * Type: number (required)
    */
   width: PropTypes.number.isRequired,
 };
