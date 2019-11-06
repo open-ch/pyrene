@@ -45,7 +45,6 @@ Tooltip.propTypes = {
     dataValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   })),
 
-
   /**
    * Sets the left absolute position, controlled by VX
    */
