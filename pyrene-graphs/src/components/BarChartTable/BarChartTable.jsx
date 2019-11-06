@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Popover, SimpleTable } from 'pyrene';
+import { Responsive } from 'tuktuktwo';
 import Header from '../Header/Header';
-import { getValueWithAccessor, getProcessedColumnsAndLegend } from './BarChartTableUtils';
+import { getValueWithAccessor, getColumns, getLegend } from './BarChartTableUtils';
 import './barChartTable.css';
 import colorSchemes from '../../styles/colorSchemes';
 
@@ -28,7 +29,6 @@ export default class BarChartTable extends React.Component {
 
    render() {
      const colors = (this.props.type === 'comparison' ? this.props.colorScheme.comparison : this.props.colorScheme.valueGround);
-     const columnsAndLegend = getProcessedColumnsAndLegend({ props: this.props, colors: colors });
      const description = this.props.type === 'bar' ? '' : this.props.description;
      const sortedData = this.props.data.sort((a, b) => {
        const sortPrimaryValue = getValueWithAccessor(b, this.props.columns.primaryValue.accessor) - getValueWithAccessor(a, this.props.columns.primaryValue.accessor);
@@ -40,15 +40,19 @@ export default class BarChartTable extends React.Component {
          <Header
            title={this.props.title}
            description={description}
-           legend={'legend' in columnsAndLegend ? columnsAndLegend.legend : []}
+           legend={getLegend(this.props.type, this.props.columns)}
            colors={colors}
          />
          <div style={{ height: `${(displayedRows + 1) * 32}px` }}>
-           <SimpleTable
-             columns={columnsAndLegend.columns}
-             data={sortedData.slice(0, displayedRows)}
-             onRowDoubleClick={this.props.onRowDoubleClick}
-           />
+           <Responsive>
+             {(parent) => (
+               <SimpleTable
+                 columns={getColumns({ props: this.props, colors: colors, width: parent.width })}
+                 data={sortedData.slice(0, displayedRows)}
+                 onRowDoubleClick={this.props.onRowDoubleClick}
+               />
+             )}
+           </Responsive>
          </div>
          {(this.props.data.length > displayedRows) && (
            <div styleName="showMoreLink" onClick={this.togglePopover}>
@@ -66,7 +70,7 @@ export default class BarChartTable extends React.Component {
                      </div>
                      <div styleName="popOverTable" style={{ height: `${(displayedRows + 5) * 32 + 32}px` }}>
                        <SimpleTable
-                         columns={getProcessedColumnsAndLegend({ props: this.props, colors: colors, withoutBars: true }).columns}
+                         columns={getColumns({ props: this.props, colors: colors })}
                          data={sortedData}
                          onRowDoubleClick={this.props.onRowDoubleClick}
                        />
