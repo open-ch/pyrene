@@ -4,8 +4,6 @@ import { chartConstants } from 'tuktuktwo';
 
 /**
  * ChartArea represents the area of graph excluding the axes.
- *
- * The purpose of ChartArea is to make sure mouse event listeners attached to the outermost <g> element operate on the entire area of the chart.
  */
 const ChartArea = (props) => (
   <rect
