@@ -207,8 +207,11 @@ export const getProcessedColumnsAndLegend = ({ props, colors, withoutBars }) => 
       if (props.columns.secondaryValue) {
         const verticalLineWidth = '1px';
         // responsive width = (100% - value columns - all margins) / 3 = label and bars column width
-        // marginLeft LABEL margin value1 margin BAR1 margin VERTICAL_LINE margin BAR2 margin value2 marginRight
-        const responsiveWidth = `calc((100% - ${marginLeftRight} - ${margin} - ${valueColumnWidth} - ${margin} - ${margin} - ${verticalLineWidth} - ${margin} - ${margin} - ${valueColumnWidth} - ${marginLeftRight}) / 3)`;
+        // marginLeft {LABEL + MARGIN + VALUE1} margin BAR margin value2 marginRight
+        // value2 is twice as big to align with bar charts
+        const responsiveWidthLabel = `calc(((100% - ${marginLeftRight} - ${margin} - ${margin} - ${valueColumnWidthDouble} - ${marginLeftRight}) / 2) - ${margin} - ${valueColumnWidth})`;
+        // marginLeft responsiveWidthLabel margin BAR1 margin verticalLine margin BAR2 margin value2 marginRight
+        const responsiveWidthBar = `calc((100% - ${marginLeftRight} - ${responsiveWidthLabel} - ${margin} - ${margin} - ${verticalLineWidth} - ${margin} - ${margin} - ${valueColumnWidthDouble} - ${marginLeftRight}) / 2)`;
         return {
           columns: [
             getColumn({
@@ -217,7 +220,7 @@ export const getProcessedColumnsAndLegend = ({ props, colors, withoutBars }) => 
               linkAccessor: props.columns.label.linkAccessor,
               align: 'left',
               cellType: 'link',
-              maxWidth: responsiveWidth,
+              maxWidth: responsiveWidthLabel,
             }),
             getColumn({
               id: props.columns.primaryValue.title,
@@ -235,7 +238,7 @@ export const getProcessedColumnsAndLegend = ({ props, colors, withoutBars }) => 
               cellType: 'relativeBarMirrored',
               colors: colors,
               maxValue: maxValue,
-              maxWidth: `calc(${responsiveWidth} - (${margin} + ${verticalLineWidth}) / 2)`,
+              maxWidth: responsiveWidthBar,
             })]),
             ...(withoutBars ? [] : [getColumn({
               id: `${props.columns.primaryValue.title}_vertical_line`,
@@ -252,7 +255,7 @@ export const getProcessedColumnsAndLegend = ({ props, colors, withoutBars }) => 
               colors: colors,
               maxValue: maxValue,
               cellType: 'relativeBar',
-              maxWidth: `calc(${responsiveWidth} - (${margin} + ${verticalLineWidth}) / 2)`,
+              maxWidth: responsiveWidthBar,
             })]),
             getColumn({
               id: props.columns.secondaryValue.title,
