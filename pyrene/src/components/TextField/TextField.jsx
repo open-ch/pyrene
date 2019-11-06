@@ -25,7 +25,7 @@ const TextField = (props) => (
         onChange={(event) => props.onChange(event.target.value, event)}
         onBlur={props.onBlur}
         onFocus={props.onFocus}
-        autoFocus={props.autoFocus}
+        autoFocus={props.autoFocus} // eslint-disable-line jsx-a11y/no-autofocus
       />
       {/* Future use of an api with predefined icons - <span className={`pyreneIcon-${props.icon}`} styleName={'textFieldIcon'} /> */}
     </div>
