@@ -20,14 +20,12 @@
   line-height: 18px;
   padding-top: 7px;
   padding-bottom: 6px;
-  /* +1px border*/
   font-size: 13px;
 }
 
 .keyValueRow:first-child {
   border-top: 1px solid var(--border);
   padding-top: 6px;
-  /* +1px border*/
 }
 
 .keyValueCellKey {
