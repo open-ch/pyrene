@@ -44,7 +44,7 @@ describe('<TimeZoomControls />', () => {
     expect(rendered.at(0).prop('actions')[1].iconName).toBe('zoomOut');
   });
 
-  it('checks max zoom range correctly', () => {
+  it('checks zoom upper bounds correctly', () => {
     const rendered1 = shallow(<TimeZoomControls {...props1} />);
     const rendered2 = shallow(<TimeZoomControls {...props2} />);
     expect(rendered1.at(0).prop('actions')[1].active).toBe(false);
