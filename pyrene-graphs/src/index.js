@@ -4,18 +4,18 @@
 // Sort alphabetically to find stuff easily
 import { default as BarChart } from './components/BarChart/BarChart';
 import { default as BarChartTable } from './components/BarChartTable/BarChartTable';
-import { default as TimeSeriesPlaygroundWithTooltip } from './components/TimeSeriesPlayground/TimeSeriesPlaygroundWithTooltip';
+import { default as TimeSeriesBucketGraph } from './components/TimeSeriesBucketGraph/TimeSeriesBucketGraph';
 
 // Sort alphabetically to find stuff easily
 const Components = {
   BarChart,
   BarChartTable,
-  TimeSeriesPlaygroundWithTooltip,
+  TimeSeriesBucketGraph,
 };
 
 // Sort alphabetically to find stuff easily
 export { BarChart };
 export { BarChartTable };
-export { TimeSeriesPlaygroundWithTooltip }
+export { TimeSeriesBucketGraph };
 
 export default Components;

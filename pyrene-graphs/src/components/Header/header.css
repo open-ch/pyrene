@@ -12,17 +12,24 @@
   letter-spacing: -0.05px;
   color: var(--text);
   height: 16px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .subContainer {
   margin-top: 7px;
   display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
   padding-bottom: 7px;
   box-shadow: inset 0 -1px 0 0 var(--border);
   height: 18px;
 }
 
 .description {
+  flex: 1 0 0%;
+  min-width: 0;
   font-size: 13px;
   font-weight: 500;
   color: var(--neutral-200);
