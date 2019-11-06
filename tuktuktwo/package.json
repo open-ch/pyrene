@@ -14,7 +14,7 @@
   ],
   "scripts": {
     "clean": "rm -rf dist node_modules",
-    "prebuild": "yarn install",
+    "prebuild": "yarn clean && yarn install",
     "build": "webpack && NODE_ENV=production webpack",
     "prewatch": "yarn install",
     "watch": "webpack -w",
@@ -22,7 +22,7 @@
     "test": "jest",
     "testWatch": "jest --watch",
     "test:bamboo": "NODE_ENV=test JEST_FILE=test.json && jest --config=./jest.bamboo.config.js",
-    "prerelease": "yarn test && yarn build",
+    "prerelease": "yarn build && yarn test",
     "release": "release-it",
     "prelint": "yarn install",
     "lint": "eslint --ext .js,.jsx src/"
