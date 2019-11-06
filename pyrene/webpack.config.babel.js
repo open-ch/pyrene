@@ -86,8 +86,6 @@ const config = {
 
 if (production) {
   console.warn('webpack is running in production mode\n'); // eslint-disable-line no-console
-  // config.plugins.unshift(new CleanWebpackPlugin());
-
   config.entry = {
     main: './src/index.js',
     min: './src/index.js',
