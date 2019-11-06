@@ -89,6 +89,30 @@ describe('<TimeSeriesBucketGraph />', () => {
     expect(rendered.find('.vx-tooltip-portal')).toHaveLength(0);
   });
 
+  it('zooms correctly', () => {
+    const onZoom = jest.fn();
+    const zoom = {
+      lowerBound: moment.tz('2018-10-01 00:00', 'Europe/Zurich').valueOf(),
+      minZoomRange: moment.duration({ minutes: 30 }).valueOf(),
+      onZoom: onZoom,
+      upperBound: moment.tz('2020-10-01 00:00', 'Europe/Zurich').valueOf(),
+    };
+
+    // Zoom buttons
+    const rendered = mount(<TimeSeriesBucketGraph {...props} zoom={zoom} />);
+    const zoomInBtn = rendered.find('.pyreneIcon-zoomIn');
+    const zoomOutBtn = rendered.find('.pyreneIcon-zoomOut');
+    zoomInBtn.simulate('click');
+    zoomOutBtn.simulate('click');
+    expect(onZoom).toHaveBeenCalledTimes(2);
+
+    // Zoomable component
+    const dragArea = rendered.find('.dragArea');
+    expect(dragArea).toHaveLength(1);
+    dragArea.simulate('mousemove').simulate('mouseup');
+    expect(onZoom).toHaveBeenCalledTimes(3);
+  });
+
   it('renders loading state correctly', () => {
     const rendered = mount(<TimeSeriesBucketGraph {...props1} />);
 

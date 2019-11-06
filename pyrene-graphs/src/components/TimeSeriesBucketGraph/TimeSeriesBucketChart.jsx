@@ -31,6 +31,7 @@ const onMouseMove = (event, data, xScale, showTooltip) => {
   const { x, y } = localPoint(event.target.ownerSVGElement, event);
   const currentTS = xScale(x);
 
+  // Show zoom tooltip
   if (zoomStartX) {
     const startTS = xScale(zoomStartX);
     showTooltip({
@@ -41,6 +42,7 @@ const onMouseMove = (event, data, xScale, showTooltip) => {
     return;
   }
 
+  // Show normal tooltip
   const foundIndex = data.findIndex((d) => d[0] > currentTS) - 1;
   const index = foundIndex >= 0 ? foundIndex : data.length - 1;
   const timeFrame = index === data.length - 1 ? (data[index][0] - data[index - 1][0]) : (data[index + 1][0] - data[index][0]);
@@ -168,9 +170,9 @@ const TimeSeriesBucketChart = (props) => {
                   onMouseMove={(e) => onMouseMove(e, props.dataSeries.data, xScale, showTooltip)}
                   onMouseOut={hideTooltip}
                   onMouseDown={props.zoom ? (e) => onMouseDown(e) : () => {}}
-                  onMouseUp={() => onMouseUp(hideTooltip)}
-                  onTouchStart={(e) => onMouseDown(e)}
-                  onTouchEnd={() => onMouseUp(hideTooltip)}
+                  onMouseUp={props.zoom ? () => onMouseUp(hideTooltip) : () => {}}
+                  onTouchStart={props.zoom ? (e) => onMouseDown(e) : () => {}}
+                  onTouchEnd={props.zoom ? () => onMouseUp(hideTooltip) : () => {}}
                   onTouchMove={(e) => onMouseMove(e, props.dataSeries.data, xScale, showTooltip)}
                 >
                   {!props.loading && props.dataSeries.data.length > 0 && (
