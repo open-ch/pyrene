@@ -12,7 +12,7 @@
 import colorConstants from '../../styles/colorConstants';
 
 const selectStyle = {
-  container: base => ({
+  container: (base) => ({
     ...base,
     fontFamily: 'AvenirNext, Helvetica, sans-serif !important',
     fontSize: 13,
@@ -58,7 +58,7 @@ const selectStyle = {
     },
   }),
 
-  valueContainer: base => ({
+  valueContainer: (base) => ({
     ...base,
     height: 32,
     '& :last-child': {
@@ -66,7 +66,7 @@ const selectStyle = {
     },
   }),
 
-  placeholder: base => ({
+  placeholder: (base) => ({
     ...base,
     color: colorConstants.neutral200,
   }),
@@ -122,7 +122,7 @@ const selectStyle = {
     },
   }),
 
-  input: base => ({
+  input: (base) => ({
     ...base,
     '[type="text"]': {
       fontFamily: 'AvenirNext, Helvetica, sans-serif !important',
@@ -134,7 +134,7 @@ const selectStyle = {
     },
   }),
 
-  menu: base => ({
+  menu: (base) => ({
     ...base,
     boxShadow: '0 4px 8px -2px rgba(0, 21, 44, 0.2), 0 0 1px 0 rgba(0, 21, 44, 0.3)',
     borderRadius: 2,

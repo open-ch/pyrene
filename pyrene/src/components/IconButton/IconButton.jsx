@@ -7,7 +7,7 @@ import './iconbutton.css';
 /**
  * An Icon that acts like a Button
  */
-const IconButton = props => (
+const IconButton = (props) => (
   <a styleName={classNames('iconbutton', { disabled: props.disabled }, { [`type-${props.type}`]: true })}
     href={props.path}
     onClick={props.onClick ? ((event) => {

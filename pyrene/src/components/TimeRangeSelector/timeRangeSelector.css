@@ -10,11 +10,11 @@
   font-weight: 600;
   flex-wrap: wrap;
   color: var(--neutral-500);
-  line-height:1.5;
+  line-height: 1.5;
 
   &.disabled {
-     pointer-events: none;
-     opacity: .5;
+    pointer-events: none;
+    opacity: .5;
   }
 }
 

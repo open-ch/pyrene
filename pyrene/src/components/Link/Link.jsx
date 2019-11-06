@@ -13,7 +13,7 @@ import './link.css';
  * A new page should open in the current window unless information may be lost,
  * e.g. when someone is filling out a form or the destination is an external site such as a docs page.
  */
-const Link = props => (
+const Link = (props) => (
   <a
     styleName={classNames('link', { [`type-${props.type}`]: true }, { disabled: props.disabled })}
     href={props.path}

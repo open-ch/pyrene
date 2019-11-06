@@ -39,8 +39,8 @@ const examples = {
     helperLabel: 'Ice cream is delicious',
     defaultValues: [],
     options: testOptions,
-    onChange: stateProvider => value => stateProvider.setState({ value }),
-    value: stateProvider => stateProvider.state.value,
+    onChange: (stateProvider) => (value) => stateProvider.setState({ value }),
+    value: (stateProvider) => stateProvider.state.value,
   },
 };
 

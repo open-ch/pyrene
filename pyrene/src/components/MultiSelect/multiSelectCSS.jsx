@@ -10,8 +10,8 @@
 
 import colorConstants from '../../styles/colorConstants';
 
-const multiSelectStyle = props => ({
-  container: base => ({
+const multiSelectStyle = (props) => ({
+  container: (base) => ({
     ...base,
     fontFamily: 'AvenirNext, Helvetica, sans-serif !important',
     fontSize: 13,
@@ -23,10 +23,10 @@ const multiSelectStyle = props => ({
     display: 'none',
   }),
 
-  indicatorsContainer: base => ({
+  indicatorsContainer: (base) => ({
     ...base,
     alignItems: 'flex-start',
-    paddingTop: '6px'
+    paddingTop: '6px',
   }),
 
   control: (base, state) => ({
@@ -86,11 +86,11 @@ const multiSelectStyle = props => ({
     };
   },
 
-  placeholder: base => ({
+  placeholder: (base) => ({
     ...base,
     color: colorConstants.neutral200,
     height: '100%',
-    paddingTop: '7px'
+    paddingTop: '7px',
   }),
 
   clearIndicator: () => ({
@@ -144,7 +144,7 @@ const multiSelectStyle = props => ({
     },
   }),
 
-  input: base => ({
+  input: (base) => ({
     ...base,
     '[type="text"]': {
       fontFamily: 'AvenirNext, Helvetica, sans-serif !important',
@@ -156,7 +156,7 @@ const multiSelectStyle = props => ({
     },
   }),
 
-  menu: base => ({
+  menu: (base) => ({
     ...base,
     boxShadow: '0 4px 8px -2px rgba(0, 21, 44, 0.2), 0 0 1px 0 rgba(0, 21, 44, 0.3)',
     borderRadius: 2,

@@ -19,9 +19,8 @@ const TextArea = (props) => {
         'textAreaContainer',
         { disabled: props.disabled },
         { invalid: props.invalid && !props.disabled },
-        { full: characterLimitReached && !props.disabled && props.maxLength > 0 }
-      )
-      }
+        { full: characterLimitReached && !props.disabled && props.maxLength > 0 },
+      )}
     >
       <div styleName="textAreaTitleBar">
         {props.title && <span styleName={classNames('textAreaTitle', { required: props.required && !props.disabled })}>{props.title}</span>}
@@ -35,7 +34,7 @@ const TextArea = (props) => {
         value={props.value}
         wrap="hard"
         onBlur={props.onBlur}
-        onChange={event => props.onChange(event.target.value, event)}
+        onChange={(event) => props.onChange(event.target.value, event)}
         onFocus={props.onFocus}
       />
 
@@ -47,16 +46,15 @@ const TextArea = (props) => {
           </div>
         )
         : (
-          <React.Fragment>
+          <>
             {props.helperLabel
           && (
             <div styleName="textAreaHelper">
               {props.helperLabel}
             </div>
           )}
-          </React.Fragment>
-        )
-      }
+          </>
+        )}
     </div>
   );
 };

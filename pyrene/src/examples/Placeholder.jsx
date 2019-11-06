@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Placeholder = props => (
+const Placeholder = (props) => (
   <div className="unSelectable" style={{
     height: 200,
     backgroundColor: 'var(--neutral-020)',

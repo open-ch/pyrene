@@ -5,9 +5,9 @@ const RadioGroup = {};
 
 RadioGroup.props = {
   options: [{ label: 'Beer 🍺', value: 'beer' }, { label: 'Coffee ☕️', value: 'coffee' }, { label: 'Coffeebeer 🍹😎', value: 'coffeebeer' }],
-  onChange: stateProvider => value => stateProvider.setState({ value: value.value }),
-  value: stateProvider => stateProvider.state.value || 'beer',
-  renderLabel: value => (
+  onChange: (stateProvider) => (value) => stateProvider.setState({ value: value.value }),
+  value: (stateProvider) => stateProvider.state.value || 'beer',
+  renderLabel: (value) => (
     <span>
       <strong>
         Chosen:

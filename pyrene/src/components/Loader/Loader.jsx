@@ -9,21 +9,19 @@ import './loader.css';
  *
  * The Loader is not a progress indicator and should not be used if the load time is to be displayed.
  */
-const Loader = props => (
-  <React.Fragment>
+const Loader = (props) => (
+  <>
     { props.type === 'standalone'
     && (
       <div styleName={classNames('canvas', { [`size-${props.size}`]: true })}>
         <div styleName={classNames('standaloneLoader', { [`styling-${props.styling}`]: true }, { [`size-${props.size}`]: true })} />
       </div>
-    )
-    }
+    )}
     { props.type === 'inline'
       && (
         <span styleName={classNames('inlineLoader')} />
-      )
-    }
-  </React.Fragment>
+      )}
+  </>
 );
 
 Loader.displayName = 'Loader';

@@ -19,7 +19,8 @@ const Stepper = (props) => {
       styleName={
         classNames('stepper',
           { disabled: props.disabled },
-          { [`type-${props.type}`]: true })}
+          { [`type-${props.type}`]: true })
+      }
       onClick={props.onClick}
       disabled={props.disabled}
     >

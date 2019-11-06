@@ -19,13 +19,13 @@ export const isNullFilter = (type, value) => {
 /*
  * Returns a function that filters datum.accessor for substrings (case-insensitive).
  */
-export const getSubstringFunc = accessor => (value, datum) => typeof datum[accessor] !== 'undefined' && datum[accessor] !== null && datum[accessor].toString().toLowerCase().includes(value.toString().toLowerCase());
+export const getSubstringFunc = (accessor) => (value, datum) => typeof datum[accessor] !== 'undefined' && datum[accessor] !== null && datum[accessor].toString().toLowerCase().includes(value.toString().toLowerCase());
 
 /*
  * Returns a function that filters datum.accessor.toString() for equal.
  * Value - from ui, keeps changing; datum - probably from backend, static, given in advance :)
  */
-export const getEqualFunc = accessor => (value, datum) => {
+export const getEqualFunc = (accessor) => (value, datum) => {
 
   const datumProp = typeof accessor === 'function' ? accessor(datum) : datum[accessor];
 
@@ -88,8 +88,8 @@ export const getSingleFilterFunc = (filterDefinition, filterValue) => (datum) =>
 export const getCombinedFilterFunc = (filterDefinitions, filterValues) => (datum) => {
 
   const filtersWithValues = filterDefinitions
-    .filter(f => typeof filterValues[f.id] !== 'undefined')
-    .filter(f => !isNullFilter(f.type, filterValues[f.id]));
+    .filter((f) => typeof filterValues[f.id] !== 'undefined')
+    .filter((f) => !isNullFilter(f.type, filterValues[f.id]));
 
   // Merges singleFilterFunc by filter with and (starting with true), do all match?
   return filtersWithValues.reduce((acc, f) => acc && getSingleFilterFunc(f, filterValues[f.id])(datum), true);
@@ -98,7 +98,7 @@ export const getCombinedFilterFunc = (filterDefinitions, filterValues) => (datum
 export const filter = (filterDefinitions, filterValues, data) => {
   if (filterValues) {
     const combinedFilter = getCombinedFilterFunc(filterDefinitions, filterValues);
-    return data.filter(datum => combinedFilter(datum));
+    return data.filter((datum) => combinedFilter(datum));
   }
   return data;
 
@@ -117,7 +117,7 @@ export const getOptionsFromData = (optionsAccessors, data) => {
   });
 
   // Filter out valueLabels to only contain unique values
-  return valueLabels.filter((elem, pos, arr) => arr.findIndex(e => e.value === elem.value) === pos);
+  return valueLabels.filter((elem, pos, arr) => arr.findIndex((e) => e.value === elem.value) === pos);
 };
 
 
@@ -126,8 +126,8 @@ export const getOptionsFromData = (optionsAccessors, data) => {
  * Optionally uses data to derive the options.
  */
 export const getFilterProps = (filterDefinitions, data) => filterDefinitions
-  .filter(f => f.type !== null)
-  .map(f => ({
+  .filter((f) => f.type !== null)
+  .map((f) => ({
     id: f.id,
     label: f.label,
     type: f.type,
@@ -139,7 +139,7 @@ export const getFilterProps = (filterDefinitions, data) => filterDefinitions
  * Creates a filter without data, returns filterProps and a function:
  * filterFunc(filterValues, data)
  */
-export const createSimpleFilter = filterDefinitions => ({
+export const createSimpleFilter = (filterDefinitions) => ({
   filterProps: getFilterProps(filterDefinitions),
   filterFunc: (filterValues, data) => filter(filterDefinitions, filterValues, data),
 });
@@ -150,5 +150,5 @@ export const createSimpleFilter = filterDefinitions => ({
  */
 export const createDataFilter = (filterDefinitions, data) => ({
   filterProps: getFilterProps(filterDefinitions, data),
-  dataFilterFunc: filterValues => filter(filterDefinitions, filterValues, data),
+  dataFilterFunc: (filterValues) => filter(filterDefinitions, filterValues, data),
 });

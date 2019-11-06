@@ -1,6 +1,5 @@
 import React from 'react';
 
-import moment from 'moment-timezone';
 import DateHelper from './DateHelper';
 // eslint-disable-next-line no-unused-vars
 

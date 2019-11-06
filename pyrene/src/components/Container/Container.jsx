@@ -29,7 +29,7 @@ export default class Container extends React.Component {
   toggleCollapse = (event) => {
     event.persist();
     if (this.props.collapsible) {
-      this.setState(prevState => ({
+      this.setState((prevState) => ({
         expanded: !prevState.expanded,
       }),
       () => this.props.onChange(event));

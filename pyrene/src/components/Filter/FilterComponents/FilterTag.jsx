@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import './FilterTag.css';
 
-const FilterTag = props => (
+const FilterTag = (props) => (
   <div styleName="wrapper">
     <div styleName="label">
       {props.filterLabel}

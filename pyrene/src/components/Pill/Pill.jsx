@@ -12,7 +12,7 @@ import './pill.css';
  * Pills have a numeric number and a type. Both properties are mandatory. Pills can also wrap an icon. Pills are not clickable.
  *
  */
-const Pill = props => (
+const Pill = (props) => (
   <div>
     {(props.onClick && props.icon)
       && <div styleName={className('icon')}><IconButton icon={props.icon} type={props.iconType} onClick={props.onClick} /></div>}
@@ -23,8 +23,7 @@ const Pill = props => (
     )}
     {props.value <= props.maxValue
       ? <div styleName={className('pill', { [`type-${props.type}`]: true })}>{props.value}</div>
-      : <div styleName={className('pill', { [`type-${props.type}`]: true })}>{`${props.maxValue}+`}</div>
-    }
+      : <div styleName={className('pill', { [`type-${props.type}`]: true })}>{`${props.maxValue}+`}</div>}
   </div>
 );
 

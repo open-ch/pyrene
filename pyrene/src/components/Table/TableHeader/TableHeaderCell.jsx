@@ -20,9 +20,9 @@ const getIconComponent = (className) => {
   return <SVG styleName="inlineSVGFlex" svg={DefaultSort} />;
 };
 
-const TableHeaderCell = props => (
+const TableHeaderCell = (props) => (
   <div
-    onClick={event => props.toggleSort(event)}
+    onClick={(event) => props.toggleSort(event)}
     styleName={classNames({ multiSelect: props.multiSelect, tableHeaderCell: true })}
     className={classNames(props.className, 'unSelectable')}
     style={props.style}

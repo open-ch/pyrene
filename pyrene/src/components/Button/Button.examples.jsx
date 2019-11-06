@@ -1,10 +1,10 @@
 const examples = {};
 
 examples.props = {
-  label: stateProvider => (stateProvider.state.count ? `You clicked me ${stateProvider.state.count}` : 'Click me please'),
+  label: (stateProvider) => (stateProvider.state.count ? `You clicked me ${stateProvider.state.count}` : 'Click me please'),
   type: 'secondary',
   icon: 'filter',
-  onClick: stateProvider => () => stateProvider.setState(prevState => ({ count: prevState.count ? prevState.count + 1 : 1 })),
+  onClick: (stateProvider) => () => stateProvider.setState((prevState) => ({ count: prevState.count ? prevState.count + 1 : 1 })),
 };
 
 examples.examples = [{

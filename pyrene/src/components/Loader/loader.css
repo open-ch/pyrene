@@ -80,7 +80,8 @@
   position: relative;
   margin-left: 6px;
   margin-right: 6px;
-  margin-bottom: 8px; /* visible dots (4px height) are one line below the actual dot */
+  margin-bottom: 8px;
+  /* visible dots (4px height) are one line below the actual dot */
   vertical-align: middle;
   width: 4px;
   height: 4px;
@@ -89,7 +90,7 @@
   animation-delay: 0.36s;
 }
 
-.inlineLoader::before, .inlineLoader::after  {
+.inlineLoader::before, .inlineLoader::after {
   display: inline;
   content: '';
   position: absolute;

@@ -5,13 +5,13 @@ import './simpleTable.css';
 /**
  * Simple Tables are used to display tabular data without the overhead of pagination, sorting and filtering.
  */
-const SimpleTable = props => (
+const SimpleTable = (props) => (
   <table styleName="table">
-    {props.columns.length > 0 && props.columns.some(column => typeof column.headerName !== 'undefined' && column.headerName !== '')
+    {props.columns.length > 0 && props.columns.some((column) => typeof column.headerName !== 'undefined' && column.headerName !== '')
   && (
     <thead styleName="tableHeader">
       <tr styleName="tableHeaderRow">
-        {props.columns.map(column => (
+        {props.columns.map((column) => (
           <th
             styleName="tableHeaderCell"
             style={{ maxWidth: column.maxWidth && column.maxWidth }}
@@ -26,7 +26,7 @@ const SimpleTable = props => (
     </thead>
   )}
     <tbody styleName="tableBody">
-      {props.data.length > 0 && props.data.map(row => (
+      {props.data.length > 0 && props.data.map((row) => (
         <tr
           styleName="tableRow"
           key={Object.values(row)}

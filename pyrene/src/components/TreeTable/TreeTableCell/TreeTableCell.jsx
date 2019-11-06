@@ -24,8 +24,7 @@ export default class TreeTableCell extends React.PureComponent {
             <div styleName="cellDataContainer">
               {this.props.value}
             </div>
-          )
-        }
+          )}
       </div>
     );
   }
