@@ -122,7 +122,7 @@ describe('<BarChart />', () => {
           label: d.label,
           values: d.values.map((e) => e * 100),
         }))}
-      />
+      />,
     );
 
     // Numerical left axis

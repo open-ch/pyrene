@@ -96,7 +96,7 @@ describe('<TimeSeriesBucketGraph />', () => {
     expect(rendered.contains(props1.description)).toBe(true);
     expect(rendered.find('.vx-bar')).toHaveLength(0);
     expect(rendered.find('.vx-axis-line').length).toBeGreaterThan(0);
-    expect(rendered.find('.vx-axis-tick').length).toBe(0);
+    expect(rendered.find('.vx-axis-tick')).toHaveLength(0);
     expect(rendered.find(Loader).exists()).toBe(true);
   });
 
@@ -107,7 +107,7 @@ describe('<TimeSeriesBucketGraph />', () => {
     expect(rendered.contains(props2.description)).toBe(true);
     expect(rendered.find('.vx-bar')).toHaveLength(0);
     expect(rendered.find('.vx-axis-line').length).toBeGreaterThan(0);
-    expect(rendered.find('.vx-axis-tick').length).toBe(0);
+    expect(rendered.find('.vx-axis-tick')).toHaveLength(0);
     expect(rendered.find(Banner).exists()).toBe(true);
   });
 });
