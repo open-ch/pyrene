@@ -38,8 +38,8 @@ const examples = {
     placeholder: 'Choose your favorite ice cream',
     helperLabel: 'Ice cream is delicious',
     options: testOptions,
-    onChange: stateProvider => value => stateProvider.setState({ value }),
-    value: stateProvider => stateProvider.state.value,
+    onChange: (stateProvider) => (value) => stateProvider.setState({ value }),
+    value: (stateProvider) => stateProvider.state.value,
   },
 };
 

@@ -17,11 +17,11 @@
   padding-right: 8px;
 
   &.disabled {
-     opacity: .5;
-     cursor: default;
-     pointer-events: none;
-     /* deactivate hover */
-   }
+    opacity: .5;
+    cursor: default;
+    pointer-events: none;
+    /* deactivate hover */
+  }
 }
 
 .navigationContentOuter {

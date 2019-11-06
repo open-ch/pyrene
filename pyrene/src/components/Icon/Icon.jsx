@@ -7,7 +7,7 @@ import './icon.css';
 /**
  * IconFont or SVG icon Wrapper. When using icon font, pass Icon color and icon name; when using SVG, pass in file name of the SVG.
  */
-const Icon = props => (
+const Icon = (props) => (
   props.svg.length > 0 ? (
     <div styleName={classNames('icon', `type-${props.type}`)}>
       <img styleName="svgIcon" src={props.svg} alt="icon" />

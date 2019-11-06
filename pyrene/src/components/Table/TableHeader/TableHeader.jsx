@@ -4,7 +4,7 @@ import classNames from 'classnames';
 
 import './tableHeader.css';
 
-const TableHeader = props => (
+const TableHeader = (props) => (
   <div styleName={classNames('tableHeader', { disabled: props.disabled })}>
     {props.children}
   </div>

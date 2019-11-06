@@ -6,15 +6,15 @@ import SelectStyle from './tableSelectCSS';
 import './tableSelect.css';
 
 
-const TableSelect = props => (
+const TableSelect = (props) => (
   <div styleName={classNames('selectContainer', { disabled: props.disabled })}>
     <Select
       className="singleSelect"
       styles={SelectStyle}
       placeholder={props.placeholder}
       options={props.options}
-      value={props.value ? props.options.filter(o => o.value === props.value).pop() : null}
-      defaultValue={props.options.filter(o => o.value === props.defaultValue).pop()}
+      value={props.value ? props.options.filter((o) => o.value === props.value).pop() : null}
+      defaultValue={props.options.filter((o) => o.value === props.defaultValue).pop()}
       isDisabled={props.disabled}
       onChange={props.onChange}
       onBlur={props.onBlur}

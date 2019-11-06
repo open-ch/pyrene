@@ -4,7 +4,7 @@ import classNames from 'classnames';
 
 import './optionList.css';
 
-const OptionList = props => (
+const OptionList = (props) => (
   <div styleName="checkboxList">
     {props.renderHelpSection && (
       <div styleName="listHeader">
@@ -25,8 +25,7 @@ const OptionList = props => (
               <span styleName="listLabel">{item.label}</span>
             </div>
           );
-        })
-      }
+        })}
     </div>
   </div>
 );

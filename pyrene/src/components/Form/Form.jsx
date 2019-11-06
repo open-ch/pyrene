@@ -15,6 +15,7 @@ class Form extends React.Component {
     return { ...touchedState };
   };
 
+  // eslint-disable-next-line react/state-in-constructor
   state = {
     values: this.props.initialValues,
     touched: this.getTouchedState(this.props.initialValues),
@@ -38,7 +39,7 @@ class Form extends React.Component {
     return {};
   };
 
-  anyError = errors => Object.keys(errors).some(x => errors[x]);
+  anyError = (errors) => Object.keys(errors).some((x) => errors[x]);
 
   canBeSubmitted() {
     const errors = this.validate(this.state.values);
@@ -56,7 +57,7 @@ class Form extends React.Component {
     // the path for multiselect options points out the exact object inside the multiselect like 'multiselect[x]'
     // to group all of these errors together under multiselect the .split("[") function is used
     // for other elements like a checkbox that do not have "[" in their name, the name remains unchanged
-    const groupedErrors = errors.inner.map(validationError => ({ [validationError.path.split(/\[|\./)[0]]: validationError.errors })).reduce((acc, obj) => {
+    const groupedErrors = errors.inner.map((validationError) => ({ [validationError.path.split(/\[|\./)[0]]: validationError.errors })).reduce((acc, obj) => {
       Object.keys(obj).forEach((k) => {
         acc[k] = (acc[k] || []).concat(obj[k]);
       });
@@ -92,13 +93,13 @@ class Form extends React.Component {
 
   handleBlur = (event) => {
     const inputName = event.target.name ? event.target.name : event.target.id;
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       touched: { ...prevState.touched, [inputName]: true },
     }));
   };
 
   setFieldValue = (fieldName, value) => {
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       values: { ...prevState.values, [fieldName]: value },
     }));
   };
@@ -108,12 +109,12 @@ class Form extends React.Component {
     const newValue = this.getValueFromInput(value, key, type);
 
     if (typeof this.props.onChange === 'function') {
-      this.setState(prevState => ({
+      this.setState((prevState) => ({
         values: { ...prevState.values, [key]: newValue },
       }),
       () => this.props.onChange(this.state.values, this.setFieldValue));
     } else {
-      this.setState(prevState => ({
+      this.setState((prevState) => ({
         values: { ...prevState.values, [key]: newValue },
       }));
     }
@@ -137,7 +138,7 @@ class Form extends React.Component {
       case 'multiSelect': {
         const selectedOptions = value;
         const multiSelectName = key;
-        return selectedOptions.map(selectedOption => (
+        return selectedOptions.map((selectedOption) => (
           { value: selectedOption.value, label: selectedOption.label, invalid: this.validateMultiSelectOption(multiSelectName, selectedOption) }
         ));
       }
@@ -168,7 +169,7 @@ class Form extends React.Component {
   render() {
     const errors = { ...this.validate(this.state.values) };
     const submitDisabled = this.anyError(errors);
-    const initField = name => this.initField(name, errors[name]);
+    const initField = (name) => this.initField(name, errors[name]);
     return (
       <form onSubmit={this.handleSubmit}>
         {this.props.render({

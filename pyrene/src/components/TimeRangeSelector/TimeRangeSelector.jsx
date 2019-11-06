@@ -22,7 +22,7 @@ export default class TimeRangeSelector extends Component {
     super(props);
 
     const durationInMs = (props.to - props.from) - ((props.to - props.from) % 10); // calculate the duration of the timerange minus rounding errors
-    let initialTimeRangeType = props.presetTimeRanges.find(preset => preset.durationInMs === durationInMs); // Try to find if the timerange matches an initial preset
+    let initialTimeRangeType = props.presetTimeRanges.find((preset) => preset.durationInMs === durationInMs); // Try to find if the timerange matches an initial preset
     initialTimeRangeType = initialTimeRangeType ? initialTimeRangeType.id : ''; // If we found a match, then let's use the id of the preset, otherwise no default preset has to be selected
 
     this.state = {

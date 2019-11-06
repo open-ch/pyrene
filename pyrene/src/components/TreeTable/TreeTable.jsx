@@ -24,7 +24,7 @@ import Loader from '../Loader/Loader';
  * For simple tables with few data, avoid the virtualized and height props. For tables with thousands of items, those two options are worth looking into.
  */
 class TreeTable extends React.Component {
-  
+
   rowHeightMap = {};
 
   innerRef = null;
@@ -54,7 +54,7 @@ class TreeTable extends React.Component {
       this.recalculateListLength();
     }
   }
-  
+
   updateRowHeight = (index, newHeight) => {
     const oldHeight = this.rowHeightMap[index];
     if (this.listRef && oldHeight !== newHeight) {
@@ -144,17 +144,17 @@ class TreeTable extends React.Component {
     const onExpandRow = ({ row }) => {
       this.setState((prevState) => TreeTableUtils.handleRowExpandChange(row, prevState, props.setUniqueRowKey));
     };
-    
+
     const getActionBar = () => {
       const listItems = columns.slice(1).map((col) => ({ id: col.id, label: col.headerName, value: isColumnHidden(col.hidden) }));
       const onItemClick = toggleColumnDisplay;
       const onRestoreDefault = restoreColumnDefaults;
       const toggleColumns = props.toggleColumns;
-  
+
       const columnToggleProps = {
         listItems: listItems, onItemClick: onItemClick, onRestoreDefault: onRestoreDefault, toggleColumns: toggleColumns,
       };
-  
+
       return (
         <TreeTableActionBar
           toggleAll={this.toggleAllRowsExpansion}
@@ -176,7 +176,7 @@ class TreeTable extends React.Component {
     const renderRow = ({ index, style }) => {
       const rowData = rows[index];
       const { _rowId: rowKey } = rowData;
-      
+
       return (
         <div style={style} key={rowKey}>
           <TreeTableRow
@@ -197,7 +197,7 @@ class TreeTable extends React.Component {
         </div>
       );
     };
-    
+
     const isScrollbarVisible = () => props.virtualized && innerHeight > outerHeight;
 
     return (
@@ -242,7 +242,7 @@ class TreeTable extends React.Component {
       </div>
     );
   }
-  
+
 }
 
 TreeTable.displayName = 'TreeTable';

@@ -25,7 +25,7 @@ describe('TreeTable', () => {
     {},
   ];
 
-  const getRowKey = row => row.key;
+  const getRowKey = (row) => row.key;
 
   const props = {
     defaultExpandedSection: '0.0.0',
@@ -40,7 +40,7 @@ describe('TreeTable', () => {
     }],
     data,
     title: 'Tree Table',
-    onRowDoubleClick: d => console.log(d), // eslint-disable-line no-console
+    onRowDoubleClick: (d) => console.log(d), // eslint-disable-line no-console
     setUniqueRowKey: getRowKey,
   };
 
@@ -51,5 +51,5 @@ describe('TreeTable', () => {
   it('renders without crashing - virtualized', () => {
     shallow(<TreeTable {...props} height={300} virtualized />);
   });
-  
+
 });

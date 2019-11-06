@@ -9,12 +9,15 @@ import CheckboxList from './CheckboxList';
 
 export default class CheckboxPopover extends React.Component {
 
-  state = {
-    displayPopover: false,
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      displayPopover: false,
+    };
+  }
 
   togglePopover = () => {
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       displayPopover: !prevState.displayPopover,
     }));
   };

@@ -1,5 +1,6 @@
 import TreeTableUtils from './TreeTableUtils';
 
+/* eslint-disable no-underscore-dangle */
 
 describe('TreeTableUtils', () => {
 
@@ -25,7 +26,7 @@ describe('TreeTableUtils', () => {
     },
   ];
 
-  const getRowKey = row => row.key;
+  const getRowKey = (row) => row.key;
 
   describe('initialiseRootData', () => {
 

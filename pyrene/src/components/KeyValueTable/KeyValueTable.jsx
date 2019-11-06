@@ -11,8 +11,10 @@ const KeyValueTable = ({ title, rows }) => (
     )}
     <table styleName="keyValueBody">
       <tbody>
-        {rows.length > 0 && rows.map(row => (
-          <tr styleName="keyValueRow"
+        {rows.length > 0 && rows.map((row) => (
+          <tr
+            styleName="keyValueRow"
+            style={row.rowStyle}
             key={row.key}
           >
             <td styleName="keyValueCellKey">
@@ -38,10 +40,11 @@ KeyValueTable.defaultProps = {
 
 KeyValueTable.propTypes = {
   /**
-    * Rows definition: { key: 'key', value: 'value' }
+    * Rows definition: { key: 'key', value: 'value', rowStyle: {} }, where rowStyle is an object with css properties applied to the whole row
     */
   rows: PropTypes.arrayOf(PropTypes.shape({
     key: PropTypes.string,
+    rowStyle: PropTypes.shape({}),
     value: PropTypes.node,
   })),
   /**

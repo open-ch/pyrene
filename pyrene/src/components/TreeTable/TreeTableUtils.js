@@ -2,7 +2,7 @@ import uniqid from 'uniqid';
 
 export default class TreeTableUtils {
 
-  static prepareColumnToggle = columns => columns.map((col, index) => {
+  static prepareColumnToggle = (columns) => columns.map((col, index) => {
     if (index === 0) {
       return { ...col };
     }
@@ -40,7 +40,7 @@ export default class TreeTableUtils {
     }
     const children = [...row.children];
     // eslint-disable-next-line no-underscore-dangle
-    row.children.forEach(child => children.push(...TreeTableUtils._getRowChildren(child)));
+    row.children.forEach((child) => children.push(...TreeTableUtils._getRowChildren(child)));
     return children;
   }
 
@@ -76,9 +76,9 @@ export default class TreeTableUtils {
       delete expanded[rowKey];
       // eslint-disable-next-line no-underscore-dangle
       const rowChildren = TreeTableUtils._getRowChildren(row);
-      newRows = rows.filter(oldRow => !rowChildren.includes(oldRow));
+      newRows = rows.filter((oldRow) => !rowChildren.includes(oldRow));
       // eslint-disable-next-line no-underscore-dangle
-      rowChildren.forEach(child => delete expanded[child._rowId]);
+      rowChildren.forEach((child) => delete expanded[child._rowId]);
     }
 
     return {

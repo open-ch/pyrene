@@ -12,18 +12,18 @@
   align-items: center;
   min-width: 80px;
 
-&.noBorder {
-   border: none;
- }
+  &.noBorder {
+    border: none;
+  }
 
-&:hover {
-   cursor: pointer;
-   background-color: var(--secondary);
- }
+  &:hover {
+    cursor: pointer;
+    background-color: var(--secondary);
+  }
 
-&.popoverOpen {
-   background-color: var(--secondary);
- }
+  &.popoverOpen {
+    background-color: var(--secondary);
+  }
 }
 
 .buttonLabel {

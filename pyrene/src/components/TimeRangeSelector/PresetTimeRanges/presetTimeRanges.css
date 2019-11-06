@@ -14,31 +14,31 @@
   font-size: 12px;
   font-weight: 600;
   color: var(--neutral-500);
-  line-height:1.5;
+  line-height: 1.5;
   margin-left: 0px;
   margin-right: 0px;
   background-color: var(--background-light);
 
   &.first {
-     border-left: solid 1px #e1e3e8;
-     border-radius: 2px 0px 0px 2px;
+    border-left: solid 1px #e1e3e8;
+    border-radius: 2px 0px 0px 2px;
   }
 
   &.first:hover {
-     background-color: var(--neutral-030);
+    background-color: var(--neutral-030);
   }
 
   &.active {
-     background-color: var(--neutral-030);
+    background-color: var(--neutral-030);
   }
 
   &.disabled {
-     opacity: .5;
-     pointer-events: none;
+    opacity: .5;
+    pointer-events: none;
   }
 
   &.successive:hover {
-     background-color: var(--neutral-030);
+    background-color: var(--neutral-030);
   }
 }
 

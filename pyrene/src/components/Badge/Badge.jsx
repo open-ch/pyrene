@@ -9,12 +9,11 @@ import './badge.css';
  *
  * Badges have a label and a mandatory type; they can be made clickable.
  */
-const Badge = props => (
+const Badge = (props) => (
   <div
     styleName={className('badge', { [`type-${props.type}`]: true })}
     style={{ maxWidth: props.maxWidth }}
     onClick={props.onClick}
-    role="badge"
   >
     <div styleName={className('label')}>
       {props.label}

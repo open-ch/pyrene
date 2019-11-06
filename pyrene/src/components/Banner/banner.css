@@ -57,7 +57,7 @@
 
   &.type-success {
     &.style-standard {
-       box-shadow: 0 0 1px 0 var(--neutral-030), inset 3px 0 0 0 var(--ok-fg);
+      box-shadow: 0 0 1px 0 var(--neutral-030), inset 3px 0 0 0 var(--ok-fg);
     }
 
     &.style-inline {

@@ -15,7 +15,7 @@ export default class TabView extends React.Component {
     super(props);
 
     this.state = {
-      selectedTabIndex: props.tabs.map(t => t.name).indexOf(props.initialTabName),
+      selectedTabIndex: props.tabs.map((t) => t.name).indexOf(props.initialTabName),
       displayMoreMenu: false,
       moreTabLabel: 'More',
     };
@@ -81,7 +81,7 @@ export default class TabView extends React.Component {
       {moreTabs.map((tab, index) => (
         <div
           styleName={classNames('option', { disabled: tab.disabled })}
-          onClick={event => !tab.disabled && this._tabChanged(tab.name, index + visibleTabs.length, event)}
+          onClick={(event) => !tab.disabled && this._tabChanged(tab.name, index + visibleTabs.length, event)}
           key={tab.name}
           role="option"
         >
@@ -103,12 +103,11 @@ export default class TabView extends React.Component {
                 styleName={classNames(
                   'tab',
                   { selected: index === this.state.selectedTabIndex },
-                  { disabled: tab.disabled }
-                )
-                }
+                  { disabled: tab.disabled },
+                )}
                 className="unSelectable"
                 style={{ maxWidth: this.props.maxTabWidth }}
-                onClick={event => !tab.disabled && this._tabChanged(tab.name, index, event)}
+                onClick={(event) => !tab.disabled && this._tabChanged(tab.name, index, event)}
                 key={tab.name}
                 role="tab"
               >
@@ -124,8 +123,9 @@ export default class TabView extends React.Component {
                   'moreTab',
                   { displayMenu: this.state.displayMoreMenu },
                   { selected: this.state.selectedTabIndex >= visibleTabs.length },
-                  { hidden: !moreTabs.some(element => (typeof element.disabled === 'undefined' || element.disabled === false)) }
-                )}
+                  { hidden: !moreTabs.some((element) => (typeof element.disabled === 'undefined' || element.disabled === false)) },
+                )
+              }
               className="unSelectable"
               style={{ maxWidth: this.props.maxTabWidth }}
               onClick={this.toggleMoreMenu}
@@ -140,8 +140,7 @@ export default class TabView extends React.Component {
               </div>
               {this.renderMoreMenu(moreTabs, visibleTabs)}
             </div>
-          )
-          }
+          )}
         </div>
 
         <div styleName="tabContent" role="tabpanel">

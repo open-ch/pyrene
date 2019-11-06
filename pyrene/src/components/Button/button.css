@@ -135,9 +135,9 @@
     }
 
     & .label {
-        padding-top: 3px;
-        padding-bottom: 3px;
-      }
+      padding-top: 3px;
+      padding-bottom: 3px;
+    }
   }
 
   &.type-action .label, &.type-admin .label {

@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import './filterButton.css';
 
-const FilterButton = props => (
+const FilterButton = (props) => (
   <div styleName={classNames('filterButton', { noBorder: props.noBorder }, { popoverOpen: props.displayPopover }, { disabled: props.disabled })} onClick={props.onClick}>
     <div styleName="buttonLabel">
       {props.label}

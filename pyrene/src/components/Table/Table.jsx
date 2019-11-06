@@ -18,6 +18,8 @@ import CheckboxPopover from '../CheckboxPopover/CheckboxPopover';
 import TableUtils from './TableUtils';
 import Banner from '../Banner/Banner';
 
+/* eslint-disable react/jsx-props-no-spreading */
+
 const CheckboxTable = checkboxHOC(ReactTable);
 
 const ErrorComponent = ({ error }) => (<div styleName="customTableBody"><Banner label={error} type="error" styling="inline" /></div>);
@@ -45,6 +47,7 @@ const NoDataComponent = () => (<div styleName="customTableBody">No data found.</
  */
 export default class Table extends React.Component {
 
+  // eslint-disable-next-line react/state-in-constructor
   state = {
     selection: [],
     selectAll: false,

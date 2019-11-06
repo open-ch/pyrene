@@ -22,30 +22,6 @@ import './calendarDateSelector.css';
  */
 export default class CalendarDateSelector extends React.Component {
 
-  static DEFAULT_TIME_UNITS = [
-    DATE_TYPES.DAY,
-    DATE_TYPES.MONTH,
-    DATE_TYPES.YEAR,
-  ];
-
-  static DEFAULT_LOWER_BOUND = {
-    year: 2015,
-    month: 1,
-    day: 1,
-  };
-
-  static defaultProps = {
-    isLoading: false,
-    lowerBound: CalendarDateSelector.DEFAULT_LOWER_BOUND,
-    upperBound: getCurrentDate(),
-    timeUnits: CalendarDateSelector.DEFAULT_TIME_UNITS,
-    value: {
-      ...getCurrentDate(),
-    },
-    onChange: () => {},
-    renderRightSection: () => {},
-  };
-
   _onNavigate = (value, direction) => {
     const { onChange, timeUnit } = this.props;
     const newDate = handleDateChange(value, direction, timeUnit);
@@ -56,6 +32,18 @@ export default class CalendarDateSelector extends React.Component {
     const { onChange, value } = this.props;
     onChange(value, timeUnit);
   };
+
+  static DEFAULT_LOWER_BOUND = {
+    year: 2015,
+    month: 1,
+    day: 1,
+  };
+
+  static DEFAULT_TIME_UNITS = [
+    DATE_TYPES.DAY,
+    DATE_TYPES.MONTH,
+    DATE_TYPES.YEAR,
+  ];
 
   render() {
     const {
@@ -110,4 +98,16 @@ CalendarDateSelector.propTypes = {
   timeUnits: CalendarDateSelectorPropTypes.TIMEUNIT_OPTIONS,
   upperBound: CalendarDateSelectorPropTypes.YEAR_MONTH_DAY,
   value: CalendarDateSelectorPropTypes.YEAR_MONTH_DAY,
+};
+
+CalendarDateSelector.defaultProps = {
+  isLoading: false,
+  lowerBound: CalendarDateSelector.DEFAULT_LOWER_BOUND,
+  upperBound: getCurrentDate(),
+  timeUnits: CalendarDateSelector.DEFAULT_TIME_UNITS,
+  value: {
+    ...getCurrentDate(),
+  },
+  onChange: () => {},
+  renderRightSection: () => {},
 };

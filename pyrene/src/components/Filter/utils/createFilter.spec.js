@@ -79,7 +79,7 @@ describe('getSingleFilterFunc', () => {
   it('returns true on accessor as a function', () => {
     const filterDefinition = {
       type: 'singleSelect',
-      accessor: d => d.test.id,
+      accessor: (d) => d.test.id,
     };
     expect(createFilter.getSingleFilterFunc(filterDefinition, { value: 'filterValue' })({ test: { id: 'filterValue' } })).toBe(true);
   });
@@ -229,8 +229,8 @@ describe('getCombinedFilterFunc calls', () => {
 describe('getOptionsFromData', () => {
   it('gets options', () => {
     const optionsAccessors = {
-      value: d => d.id,
-      label: d => d.name,
+      value: (d) => d.id,
+      label: (d) => d.name,
     };
 
     const data = [{
@@ -254,8 +254,8 @@ describe('getOptionsFromData', () => {
 
   it('gets unique options', () => {
     const optionsAccessors = {
-      value: d => d.id,
-      label: d => d.name,
+      value: (d) => d.id,
+      label: (d) => d.name,
     };
 
     const data = [{
@@ -297,8 +297,8 @@ describe('getFilterProps', () => {
       label: 'testLabel',
       type: 'testType',
       optionsAccessors: {
-        value: d => d.id,
-        label: d => d.name,
+        value: (d) => d.id,
+        label: (d) => d.name,
       },
     }];
 
