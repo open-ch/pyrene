@@ -120,10 +120,17 @@ export default class Table extends React.Component {
 
     // Server-side props
     manual: this.props.manual,
+
     onFetchData: (rts) => ((this.state.pageSize !== rts.pageSize) ? this.props.onFetchData({
       page: 0, pageCount: 0, pageSize: rts.pageSize, sorting: rts.sorted,
-    }) : this.props.onFetchData({ page: rts.page, pageSize: rts.pageSize, sorting: rts.sorted })),
+    }) : this.props.onFetchData({
+      page: rts.page, pageSize: rts.pageSize, sorting: rts.sorted,
+    })),
 
+  };
+
+  onManualFilterChange = (values) => {
+    this.props.onFetchData({ page: 0, pageCount: 0, filters: values });
   };
 
   toggleColumnDisplay = (columnId, showValue) => {
@@ -352,7 +359,7 @@ export default class Table extends React.Component {
               && (
                 <Filter
                   filters={this.props.filters}
-                  onFilterSubmit={this.props.onFilterChange}
+                  onFilterSubmit={this.props.manual ? (values) => this.onManualFilterChange(values) : this.props.onFilterChange}
                   disabled={this.props.error ? true : this.props.filterDisabled}
                   filterValues={this.props.filterValues}
                 />
