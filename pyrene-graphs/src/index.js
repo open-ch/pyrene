@@ -16,6 +16,6 @@ const Components = {
 // Sort alphabetically to find stuff easily
 export { BarChart };
 export { BarChartTable };
-export { TimeSeriesPlaygroundWithTooltip }
+export { TimeSeriesPlaygroundWithTooltip };
 
 export default Components;
