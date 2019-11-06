@@ -7,7 +7,9 @@ import styles from './tooltip.css';
 /**
  * Timeseries Tooltip
  */
-const Tooltip = ({ dataSeries, time, timeFormat, left, top }) => (
+const Tooltip = ({
+  dataSeries, time, timeFormat, left, top,
+}) => (
   <TooltipWrapper left={left} top={top}>
     <div className={styles.tooltip}>
       <div className={styles.timeTitle}>{timeFormat(time)}</div>
@@ -43,7 +45,6 @@ Tooltip.propTypes = {
     dataValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   })),
 
-
   /**
    * Sets the left absolute position, controlled by VX
    */
@@ -52,7 +53,7 @@ Tooltip.propTypes = {
   /**
    * The time of the data series. Either a point or a range
    */
-  time: PropTypes.oneOfType([PropTypes.number], PropTypes.arrayOf(PropTypes.number)).isRequired,
+  time: PropTypes.oneOfType([PropTypes.number, PropTypes.arrayOf(PropTypes.number)]).isRequired,
 
   /**
    * The function that shall be used for time formatting. Must support all formats of the time property
