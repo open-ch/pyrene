@@ -149,6 +149,7 @@ const TimeSeriesZoomable = (props) => {
               )}
               {/* Define the drawing area for zoom */}
               <rect
+                className="dragArea"
                 y={0}
                 x={chartConstants.marginLeftNumerical}
                 fill="transparent"

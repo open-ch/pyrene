@@ -33,8 +33,8 @@ describe('<Bar />', () => {
     const rendered = mount(svgWrapper(<Bar {...props} />));
     const bar = rendered.find('rect').at(0);
     expect(bar.prop('className')).toBe('vx-bar');
-    // height for horizontal bar should be equal to barWeight
-    expect(bar.prop('height')).toBe(10);
+    // width for vertical bar should be equal to barWeight
+    expect(bar.prop('width')).toBe(10);
     expect(bar.prop('fill')).toBe('blue');
   });
 
@@ -46,14 +46,14 @@ describe('<Bar />', () => {
     const rendered = mount(svgWrapper(<RelativeBar {...propsRelative} />));
     const bar = rendered.find('rect').at(0);
     expect(bar.prop('className')).toBe('vx-bar');
-    // height for horizontal bar should be equal to barWeight
-    expect(bar.prop('height')).toBe(10);
+    // width for vertical bar should be equal to barWeight
+    expect(bar.prop('width')).toBe(10);
     expect(bar.prop('fill')).toBe('blue');
 
     const barRelative = rendered.find('rect').at(1);
     expect(barRelative.prop('className')).toBe('vx-bar');
-    // height for horizontal bar should be equal to barWeight
-    expect(barRelative.prop('height')).toBe(10);
+    // width for vertical bar should be equal to barWeight
+    expect(barRelative.prop('width')).toBe(10);
     expect(barRelative.prop('fill')).toBe('red');
   });
 });

@@ -21,4 +21,5 @@ export default class ScaleUtils {
       domain: [minDomain, maxDomain],
     });
   }
+
 }
