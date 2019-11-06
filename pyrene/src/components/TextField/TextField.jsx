@@ -25,6 +25,7 @@ const TextField = props => (
         onChange={event => props.onChange(event.target.value, event)}
         onBlur={props.onBlur}
         onFocus={props.onFocus}
+        autoFocus={props.autoFocus}
       />
       {/* Future use of an api with predefined icons - <span className={`pyreneIcon-${props.icon}`} styleName={'textFieldIcon'} /> */}
     </div>
@@ -39,11 +40,11 @@ const TextField = props => (
       : (
         <React.Fragment>
           {props.helperLabel
-        && (
-          <div styleName="textFieldHelper">
-            {props.helperLabel}
-          </div>
-        )}
+            && (
+              <div styleName="textFieldHelper">
+                {props.helperLabel}
+              </div>
+            )}
         </React.Fragment>
       )
     }
@@ -66,9 +67,14 @@ TextField.defaultProps = {
   onBlur: () => null,
   onChange: () => null,
   onFocus: () => null,
+  autoFocus: false,
 };
 
 TextField.propTypes = {
+  /**
+    * Focus an element when it mounts.
+    */
+  autoFocus: PropTypes.bool,
   /**
    * Disables any interaction with the component.
    */
