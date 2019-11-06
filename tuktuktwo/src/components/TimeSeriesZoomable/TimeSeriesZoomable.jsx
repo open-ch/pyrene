@@ -110,7 +110,7 @@ const TimeSeriesZoomable = (props) => {
   });
 
   return (
-    <g style={!props.disabled && canZoom ? { cursor: 'col-resize' } : {}}>
+    <g style={canZoom ? { cursor: 'col-resize' } : {}}>
       <Drag
         width={zoomAreaWidth}
         height={zoomAreaHeight}
@@ -136,7 +136,7 @@ const TimeSeriesZoomable = (props) => {
           return (
             <Group>
               {/* Draw rectangle */}
-              {isDragging && !props.disabled && (
+              {isDragging && (
                 <rect
                   fill={props.color}
                   opacity={0.25}
@@ -172,19 +172,11 @@ const TimeSeriesZoomable = (props) => {
 
 TimeSeriesZoomable.displayName = 'TimeSeriesZoomable';
 
-TimeSeriesZoomable.defaultProps = {
-  disabled: false,
-}
-
 TimeSeriesZoomable.propTypes = {
   /**
    * Sets the color of the zoom rectangle.
    */
   color: PropTypes.string.isRequired,
-  /**
-   * Sets whether the zoomable is disabled.
-   */
-  disabled: PropTypes.bool,
   /**
    * Sets the starting time point in epoch milliseconds.
    */
