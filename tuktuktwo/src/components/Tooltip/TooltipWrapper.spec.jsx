@@ -16,7 +16,7 @@ const props = {
 describe('<TooltipWrapper />', () => {
   it('renders without crashing', () => {
     shallow(
-      <TooltipWrapper {...props} />
+      <TooltipWrapper {...props} />,
     );
   });
 

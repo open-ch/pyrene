@@ -10,7 +10,7 @@ const getScale = (height, width, scale, orientation, maxValue) => {
   if (scale) return scale;
   const direction = orientation === 'left' ? 'vertical' : 'horizontal';
   const size = orientation === 'left' ? height : width - chartConstants.marginLeftCategorical;
-  return ScaleUtils.scaleLinear(size, maxValue, direction);
+  return ScaleUtils.scaleLinear(size - chartConstants.marginMaxValueToBorder, maxValue, direction);
 };
 
 /**
@@ -21,7 +21,9 @@ const NumericalAxis = (props) => {
   const scale = getScale(chartHeight, props.width, props.scale, props.orientation, props.maxValue);
   return (
     props.orientation === 'left' ? (
-      <Group>
+      <Group
+        top={chartConstants.marginMaxValueToBorder}
+      >
         <AxisLeft
           left={chartConstants.marginLeftNumerical}
           scale={scale}

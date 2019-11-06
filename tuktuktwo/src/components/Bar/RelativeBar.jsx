@@ -58,7 +58,7 @@ RelativeBar.displayName = 'Relative Bar';
 
 RelativeBar.defaultProps = {
   barWeight: 6,
-  direction: 'horizontal',
+  direction: 'vertical',
   mirrored: false,
 };
 
