@@ -11,21 +11,25 @@ import ParentButton from './PageElements/ParentButton/ParentButton';
 
 export default class ComponentEditor extends React.Component {
 
-  state = {
-    componentProps: { ...this.props.component.defaultProps, ...this.props.examples.props },
-    componentState: {},
-    pinned: false,
-    darkMode: false,
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      componentProps: { ...props.component.defaultProps, ...props.examples.props },
+      componentState: {},
+      pinned: false,
+      darkMode: false,
+    };
+  }
 
   handlePinClick = () => {
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       pinned: !prevState.pinned,
     }));
   };
 
   handleSunClick = () => {
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       darkMode: !prevState.darkMode,
     }));
   };
@@ -39,15 +43,15 @@ export default class ComponentEditor extends React.Component {
   handleEditorChange = (value, key) => {
     const changedProp = { [key]: value };
 
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       componentProps: { ...prevState.componentProps, ...changedProp },
     }));
   };
 
-  initField = mergedState => fieldName => ({
+  initField = (mergedState) => (fieldName) => ({
     name: fieldName,
     value: mergedState[fieldName],
-    onChange: value => this.handleEditorChange(value, fieldName),
+    onChange: (value) => this.handleEditorChange(value, fieldName),
     disabled: Utils.isWiredProp(this.state.componentProps, fieldName),
   });
 
@@ -75,13 +79,15 @@ export default class ComponentEditor extends React.Component {
     return mergedProps;
   };
 
-  getComponentName = component => component.displayName.toLowerCase().replace(/\s/g, '');
+  getComponentName = (component) => component.displayName.toLowerCase().replace(/\s/g, '');
 
   render() {
     const { component: Component } = this.props;
     const { pinned, darkMode } = this.state;
     const mergedComponentProps = this.getComponentProps();
     const initField = this.initField(mergedComponentProps);
+
+    /* eslint-disable-next-line react/jsx-props-no-spreading */
     const displayedComponent = <Component {...mergedComponentProps} />;
     return (
       <div className="componentPlayground">
@@ -90,8 +96,7 @@ export default class ComponentEditor extends React.Component {
           <Paragraph title="Examples">
             <ExampleBox component={Component} examples={this.props.examples.examples} onExampleClick={this.handleExampleClick} />
           </Paragraph>
-        )
-        }
+        )}
         <Paragraph title="Props">
           <div styleName={classNames('displayContainer', { pinned }, { darkMode })}>
             <div styleName={classNames('pin', { pinned })} onClick={() => this.handlePinClick()} />
@@ -131,7 +136,7 @@ ComponentEditor.propTypes = {
   examples: PropTypes.shape({
     category: PropTypes.string,
     examples: PropTypes.arrayOf(
-      PropTypes.shape()
+      PropTypes.shape(),
     ),
     props: PropTypes.shape(),
     trigger: PropTypes.bool,

@@ -4,9 +4,9 @@ import Paragraph from '../Paragraph/Paragraph';
 import DisplayBox from './DisplayBox/DisplayBox';
 import DescriptionBox from '../DescriptionBox/DescriptionBox';
 
-const HowTo = props => (
+const HowTo = (props) => (
   <div>
-    { props.howto.map(h => (
+    { props.howto.map((h) => (
       <Paragraph title={h.title} key={h.title}>
         <DescriptionBox>{h.description}</DescriptionBox>
         <DisplayBox><h.component /></DisplayBox>
@@ -26,7 +26,7 @@ HowTo.propTypes = {
       component: PropTypes.func.isRequired,
       description: PropTypes.string.isRequired,
       title: PropTypes.node.isRequired,
-    })
+    }),
   ).isRequired,
 };
 

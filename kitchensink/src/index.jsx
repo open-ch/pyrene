@@ -14,5 +14,5 @@ const App = () => (
 
 ReactDOM.render(
   <App />,
-  document.getElementById('appRoot')
+  document.getElementById('appRoot'),
 );

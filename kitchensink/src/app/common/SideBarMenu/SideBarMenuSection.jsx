@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 
 import './sideBarMenu.css';
 
-const matchLink = pathname => (isMatch, location) => isMatch || location.pathname.startsWith(pathname);
+const matchLink = (pathname) => (isMatch, location) => isMatch || location.pathname.startsWith(pathname);
 
 export default class SideBarMenuSection extends React.Component {
 
@@ -14,7 +14,7 @@ export default class SideBarMenuSection extends React.Component {
 
     this.state = {
       open: false,
-      elementOpen: this.props.sectionElements.map(element => (
+      elementOpen: this.props.sectionElements.map((element) => (
         { [element.name]: false }
       )),
       sectionContentWrapperHeight: 0,
@@ -24,7 +24,7 @@ export default class SideBarMenuSection extends React.Component {
 
   componentDidMount() {
     const refs = this.refs; // eslint-disable-line react/no-string-refs
-    const keys = Object.keys(refs).filter(k => refs[k].parentElement.className === 'activeSideBar');
+    const keys = Object.keys(refs).filter((k) => refs[k].parentElement.className === 'activeSideBar');
     if (keys.length > 0) {
       const key = Object.values(refs[keys[0]])[0].key;
       this.setState((prevState) => {
@@ -54,7 +54,7 @@ export default class SideBarMenuSection extends React.Component {
         });
         // Open Section
       } else {
-        this.setState(prevState => (
+        this.setState((prevState) => (
           {
             open: true,
             sectionContentWrapperHeight: this.calculateSectionContentWrapperHeight(),

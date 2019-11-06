@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import '../../css/componentPage.css';
 
-const NotFoundPage = props => (
+const NotFoundPage = (props) => (
   <div styleName="page">
     <div styleName="page">
       <div className="header">

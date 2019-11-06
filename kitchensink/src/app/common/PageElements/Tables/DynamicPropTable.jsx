@@ -10,6 +10,7 @@ import IconSelect from '../IconSelect/IconSelect';
 import './dynamicPropTable.css';
 import Counter from '../Counter/Counter';
 
+/* eslint-disable react/jsx-props-no-spreading */
 
 export default class DynamicPropTable extends React.Component {
 
@@ -26,8 +27,7 @@ export default class DynamicPropTable extends React.Component {
                   placeholder="Change me"
                   {...this.props.initField(propName)}
                 />
-              )
-            }
+              )}
           </React.Fragment>
         );
 
@@ -37,7 +37,7 @@ export default class DynamicPropTable extends React.Component {
         const processedFieldProps = { ...fieldProps, value: { value: fieldProps.value, label: fieldProps.value }, onChange: (v) => { fieldProps.onChange(v.value); } };
         return (
           <SingleSelect
-            options={propProps.type.value.map(propChoice => ({ value: propChoice.value.replace(/'/g, ''), label: propChoice.value.replace(/'/g, '') }))}
+            options={propProps.type.value.map((propChoice) => ({ value: propChoice.value.replace(/'/g, ''), label: propChoice.value.replace(/'/g, '') }))}
             {...processedFieldProps}
           />
         );

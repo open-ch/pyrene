@@ -8,17 +8,21 @@ import './searchBar.css';
 
 class SearchBar extends React.Component {
 
-  state = {
-    focused: false,
-    shouldRedirectToResultsPage: false,
-    shouldRedirectToPageBeforeSearch: false,
-    lastPathBeforeSearch: '',
+  constructor(props) {
+    super(props);
 
-    searchInput: this.props.value,
-    lastProps: {
-      searchInput: this.props.value,
-    },
-  };
+    this.state = {
+      focused: false,
+      shouldRedirectToResultsPage: false,
+      shouldRedirectToPageBeforeSearch: false,
+      lastPathBeforeSearch: '',
+
+      searchInput: props.value,
+      lastProps: {
+        searchInput: props.value,
+      },
+    };
+  }
 
   MINIMUM_NUMBER_OF_CHARACTERS_IN_SEARCH = 2;
 

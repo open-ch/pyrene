@@ -4,7 +4,7 @@ import classNames from 'classnames';
 
 import './paragraph.css';
 
-const Paragraph = props => (
+const Paragraph = (props) => (
   <div styleName={classNames('paragraph')}>
     {props.title && <div styleName="title">{props.title}</div>}
     <div>

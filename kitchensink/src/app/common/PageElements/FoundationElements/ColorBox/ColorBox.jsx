@@ -4,7 +4,7 @@ import classNames from 'classnames';
 
 import './colorBox.css';
 
-const ColorBox = props => (
+const ColorBox = (props) => (
   <div styleName="colorBoxContainer">
     {props.title && <div styleName="title">{props.title}</div>}
     <div

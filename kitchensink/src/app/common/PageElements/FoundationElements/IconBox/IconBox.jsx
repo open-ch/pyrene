@@ -41,8 +41,7 @@ export default class IconBox extends React.Component {
 
         {this.props.name && !this.props.downloadable
           ? <span styleName="icon" className={`pyreneIcon-${this.props.name}`} />
-          : <span styleName="svg" style={{ backgroundImage: `url("${this.props.path}")` }} />
-        }
+          : <span styleName="svg" style={{ backgroundImage: `url("${this.props.path}")` }} />}
 
         <span styleName="iconBoxTooltip">{this.props.name}</span>
         <span styleName={classNames('copyNotification', { display: this.state.displayCopyNotification })}>Copied</span>
