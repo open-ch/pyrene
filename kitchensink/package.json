@@ -60,6 +60,8 @@
     "babel-polyfill": "^6.26.0",
     "classnames": "^2.2.5",
     "markdown-to-jsx": "^6.6.7",
+    "moment": "^2.24.0",
+    "moment-timezone": "^0.5.26",
     "optimize-css-assets-webpack-plugin": "^5.0.0",
     "prop-types": "^15.6.1",
     "pyrene": "~1.11.3",
