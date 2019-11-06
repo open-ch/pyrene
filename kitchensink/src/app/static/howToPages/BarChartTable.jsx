@@ -3,6 +3,8 @@ import React from 'react';
 import { BarChartTable } from 'pyrene-graphs/dist/pyrene-graphs.dev';
 import { exampleData } from 'pyrene-graphs/dist/pyrene-graphs.examples';
 
+/* eslint-disable no-alert */
+
 const barChartTableHowTo = [{
   title: 'Bar Chart',
   description: 'A simple table with one label and one value, which is additionally rendered as bar chart.',
@@ -14,7 +16,7 @@ const barChartTableHowTo = [{
         primaryValue: exampleData.tableData.columns.primaryValue,
       }}
       title="Applications"
-      onRowDoubleClick={row => alert(row.value)}
+      onRowDoubleClick={(row) => alert(row.value)}
       type="bar"
     />
   ),
@@ -26,7 +28,7 @@ const barChartTableHowTo = [{
       data={exampleData.tableData.data}
       columns={exampleData.tableData.columns}
       title="Applications"
-      onRowDoubleClick={row => alert(row.value)}
+      onRowDoubleClick={(row) => alert(row.value)}
       type="bar"
     />
   ),
@@ -39,7 +41,7 @@ const barChartTableHowTo = [{
       columns={exampleData.tableDataUpDown.columns}
       title="ISP Lines"
       description="Optional description and explanation on how to read the chart"
-      onRowDoubleClick={row => alert(row.value)}
+      onRowDoubleClick={(row) => alert(row.value)}
       type="butterfly"
     />
   ),
@@ -52,7 +54,7 @@ const barChartTableHowTo = [{
       columns={exampleData.tableDataComparison.columns}
       title="Top Applications by Volume"
       description="Optional description and explanation on how to read the chart"
-      onRowDoubleClick={row => alert(row.value)}
+      onRowDoubleClick={(row) => alert(row.value)}
       type="comparison"
     />
   ),

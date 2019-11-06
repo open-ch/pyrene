@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import '../../css/logo.css';
 import { Link } from 'react-router-dom';
 
-const Logo = props => (
+const Logo = (props) => (
   <Link to="/">
     <div styleName="pyreneLogo">
       <div styleName="versionNr">{props.pyreneVersion.replace(/\^/, '')}</div>

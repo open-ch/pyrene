@@ -6,7 +6,7 @@ import '../../css/componentPage.css';
 import HowTo from './PageElements/HowTo';
 import howToPages from '../static/howToPages';
 
-const ComponentPage = props => (
+const ComponentPage = (props) => (
   <div styleName="page">
     <div styleName="header">
       <div styleName="title">{props.component.displayName || props.component.name}</div>
@@ -38,10 +38,10 @@ ComponentPage.propTypes = {
   componentOrigin: PropTypes.string,
   examples: PropTypes.shape({
     examples: PropTypes.arrayOf(
-      PropTypes.shape()
+      PropTypes.shape(),
     ),
     howto: PropTypes.arrayOf(
-      PropTypes.shape()
+      PropTypes.shape(),
     ),
     props: PropTypes.shape(),
   }),

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import './displayBox.css';
 
-const DisplayBox = props => (
+const DisplayBox = (props) => (
   <div styleName="displayBox">
     <div styleName="positioningBox" style={{ width: props.width }}>
       {props.children}

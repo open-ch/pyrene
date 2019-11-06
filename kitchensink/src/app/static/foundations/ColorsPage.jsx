@@ -7,7 +7,7 @@ import {
   primaryColors, neutralColors, interactionColors, extendedColors,
 } from '../../data/foundationsData';
 
-const createStackedColors = (data, colorBoxSize) => data.map(element => (
+const createStackedColors = (data, colorBoxSize) => data.map((element) => (
   <div key={`${element.colors[0].hex}`}>
     {element.colors.map((color, index) => {
       const title = index === 0 ? element.title : '';

@@ -2,7 +2,7 @@
 import webpack from 'webpack'; // eslint-disable-line no-unused-vars
 import path from 'path';
 
-import CleanWebpackPlugin from 'clean-webpack-plugin';
+import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin';
@@ -40,9 +40,9 @@ const config = {
           {
             loader: 'css-loader',
             options: {
-              modules: true,
-              importLoaders: 1,
-              localIdentName: '[name]__[local]--[hash:base64:10]',
+              modules: {
+                localIdentName: '[name]__[local]--[hash:base64:10]',
+              },
               sourceMap: !production,
             },
           },
@@ -68,7 +68,7 @@ const config = {
     ],
   },
   plugins: [
-    new CleanWebpackPlugin(['dist']),
+    new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       favicon: 'src/images/favicon.ico',
       filename: 'index.html',

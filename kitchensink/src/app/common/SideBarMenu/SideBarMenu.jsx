@@ -11,21 +11,21 @@ function getExamples() {
   const otherSectionName = 'Other';
   const exampleComponents = { ...examples, ...chartExamples };
   const components = [...Object.values(Components), ...Object.values(ChartComponents)]
-    .filter(component => exampleComponents[component.name])
-    .map(component => ({ category: exampleComponents[component.name].category === undefined ? otherSectionName : exampleComponents[component.name].category, name: component.displayName, linkToPath: `/${exampleComponents[component.name].category === undefined ? otherSectionName : exampleComponents[component.name].category}/${component.name}` }))
+    .filter((component) => exampleComponents[component.name])
+    .map((component) => ({ category: exampleComponents[component.name].category === undefined ? otherSectionName : exampleComponents[component.name].category, name: component.displayName, linkToPath: `/${exampleComponents[component.name].category === undefined ? otherSectionName : exampleComponents[component.name].category}/${component.name}` }))
     .sort((a, b) => a.name.localeCompare(b.name));
   const uniqueCategories = components
-    .map(component => component.category)
+    .map((component) => component.category)
     .filter((it, i, ar) => ar.indexOf(it) === i)
     .sort((a, b) => a.localeCompare(b));
   uniqueCategories.push(uniqueCategories.splice(uniqueCategories.indexOf(otherSectionName), 1)[0]);
   const categorySections = uniqueCategories
-    .map(category => ({
+    .map((category) => ({
       name: category,
       linkToPath: `/${category}`,
       elements: components
-        .filter(component => component.category === category)
-        .map(component => ({ name: component.name, linkToPath: component.linkToPath })),
+        .filter((component) => component.category === category)
+        .map((component) => ({ name: component.name, linkToPath: component.linkToPath })),
     }));
   return categorySections;
 }

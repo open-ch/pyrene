@@ -29,6 +29,7 @@ export default class Example extends React.Component {
         onMouseLeave={() => this.handleMouseOver()}
       >
         <div styleName="componentOverlay">
+          {/* eslint-disable-next-line react/jsx-props-no-spreading */}
           <this.props.component {...this.getComponentProps()} />
         </div>
       </div>

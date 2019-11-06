@@ -8,15 +8,15 @@ const barChartHowTo = [{
   description: 'Vertical Bar Chart with one value and formatted tick labels',
   component: () => (
     <BarChart
-      data={exampleData.applications.map(d => ({
+      data={exampleData.applications.map((d) => ({
         label: d.label,
-        values: d.values.map(e => e * 100),
+        values: d.values.map((e) => e * 100),
       }))}
       title="Applications"
       description="Optional description and explanation on how to read the chart"
       legend={['Volume']}
       direction="vertical"
-      tickFormatNumerical={d => (parseFloat(d) >= 100000 ? `${parseFloat(d) / 1000}k` : d)}
+      tickFormatNumerical={(d) => (parseFloat(d) >= 100000 ? `${parseFloat(d) / 1000}k` : d)}
     />
   ),
 }, {

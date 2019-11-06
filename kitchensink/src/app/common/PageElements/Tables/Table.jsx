@@ -30,14 +30,14 @@ export default class Table extends React.Component {
           </colgroup>
           <thead>
             <tr>
-              {this.props.headerElementArray.map(element => <th key={element}>{element}</th>)}
+              {this.props.headerElementArray.map((element) => <th key={element}>{element}</th>)}
             </tr>
           </thead>
           <tbody>
-            {this.props.rowArray.map(row => (
+            {this.props.rowArray.map((row) => (
               <React.Fragment key={row}>
                 <tr>
-                  {row.slice(0, 5).map(cell => this.renderCell(cell))}
+                  {row.slice(0, 5).map((cell) => this.renderCell(cell))}
                 </tr>
                 <tr styleName="descriptionRow">
                   <td colSpan={5}><div styleName="descriptionCell">{row[5]}</div></td>

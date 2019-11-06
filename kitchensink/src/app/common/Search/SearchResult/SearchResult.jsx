@@ -7,10 +7,14 @@ import SearchUtils from '../SearchUtils';
 
 export default class SearchResult extends React.Component {
 
-  state = {
-    redirect: false,
-    redirectPath: '',
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      redirect: false,
+      redirectPath: '',
+    };
+  }
 
   handleClick = () => {
     if (this.props.title) {
@@ -28,10 +32,9 @@ export default class SearchResult extends React.Component {
           <div styleName="title">
             {this.props.title}
           </div>
-        )
-        }
+        )}
         <div styleName="description"
-          dangerouslySetInnerHTML={{ __html: this.props.description.replace(RegExp(this.props.searchInput, 'gi'), s => `<span class="highlighted">${s}</span>`) }} // eslint-disable-line react/no-danger
+          dangerouslySetInnerHTML={{ __html: this.props.description.replace(RegExp(this.props.searchInput, 'gi'), (s) => `<span class="highlighted">${s}</span>`) }} // eslint-disable-line react/no-danger
         />
 
         {this.state.redirect && <Redirect to={`/${this.state.redirectPath}`} push />}

@@ -19,7 +19,7 @@ export default class ExampleBox extends React.Component {
     };
   }
 
-  getComponentName = component => component.displayName.toLowerCase().replace(/\s/g, '');
+  getComponentName = (component) => component.displayName.toLowerCase().replace(/\s/g, '');
 
   handleExampleHover(description) {
     if (typeof description !== 'undefined') {
@@ -37,7 +37,7 @@ export default class ExampleBox extends React.Component {
     return (
       <div styleName="exampleBox">
         <div styleName="exampleDisplay">
-          {this.props.examples.map(example => (
+          {this.props.examples.map((example) => (
             <React.Fragment key={hash(example.props)}>
 
               <Example

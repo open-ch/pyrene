@@ -9,6 +9,8 @@ import Paragraph from '../../common/PageElements/Paragraph/Paragraph';
 import DescriptionBox from '../../common/PageElements/DescriptionBox/DescriptionBox';
 import DisplayBox from '../../common/PageElements/HowTo/DisplayBox/DisplayBox';
 
+/* eslint-disable react/jsx-props-no-spreading */
+
 const testOptionsWithoutInvalid = [
   { value: 'chocolate', label: 'Chocolate' },
   { value: 'strawberry', label: 'Strawberry' },
@@ -68,7 +70,7 @@ const SmallForm = (
     render={({
       initField, values, errors, touched, isSubmitting, submitDisabled, // eslint-disable-line no-unused-vars
     }) => (
-      <React.Fragment>
+      <>
         <TextField
           width={300}
           title="Email"
@@ -93,7 +95,7 @@ const SmallForm = (
           disabled={submitDisabled}
           loading={isSubmitting}
         />
-      </React.Fragment>
+      </>
     )}
 
     initialValues={{
@@ -101,7 +103,7 @@ const SmallForm = (
       password: '',
       checkBox: false,
     }}
-    onSubmit={values => delay(values, 2000)}
+    onSubmit={(values) => delay(values, 2000)}
   />
 );
 
@@ -206,7 +208,7 @@ const validationSchema = yup.object({
 
   // select needs nullable to cover case where user only touches the empty select
   iceSelect: yup.object().shape({
-    value: yup.string().test('isVanilla', 'Only vanilla is the real deal..', value => value === 'vanilla'),
+    value: yup.string().test('isVanilla', 'Only vanilla is the real deal..', (value) => value === 'vanilla'),
   })
     .required('You need to choose an icecream!')
     .nullable(),
@@ -220,7 +222,7 @@ const validationSchema = yup.object({
   })),
 
   // conditional validation for spam checkbox depending on terms checkbox
-  terms: yup.boolean().test('acceptTerms', 'You need to accept the terms of conditioners for nicer hair!', value => value === true),
+  terms: yup.boolean().test('acceptTerms', 'You need to accept the terms of conditioners for nicer hair!', (value) => value === true),
   spam: yup.boolean()
     .when('terms', {
       is: true,
@@ -246,7 +248,7 @@ const BigForm = (
     render={({
       initField, values, errors, touched, isSubmitting, submitDisabled,
     }) => (
-      <React.Fragment>
+      <>
         <TextField width={300} title="Email" placeholder="Email" disabled={values.checkBox1} required {...initField('email')} />
         <div style={{ height: 24 }} />
         <TextField width={300} title="Password in plain text 👀" placeholder="Password" required {...initField('password')} />
@@ -285,7 +287,7 @@ const BigForm = (
 
         <div style={{ height: 24 }} />
         <Button label="Submit" type="danger" disabled={submitDisabled} loading={isSubmitting} />
-      </React.Fragment>
+      </>
     )}
 
     validationSchema={validationSchema}
@@ -298,7 +300,7 @@ const BigForm = (
       terms: false,
       spam: false,
     }}
-    onSubmit={values => delay(values, 2000)}
+    onSubmit={(values) => delay(values, 2000)}
     onChange={(values, setFieldValue) => {
       if (values.iceSelect === 'vanilla') {
         setFieldValue('radioGroup', 'coffeebeer');

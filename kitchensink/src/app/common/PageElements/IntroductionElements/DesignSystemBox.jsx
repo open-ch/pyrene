@@ -4,7 +4,7 @@ import classNames from 'classnames';
 
 import './designSystemBox.css';
 
-const DesignSystemBox = props => (
+const DesignSystemBox = (props) => (
   <div styleName="introDesignSystemBox">
     <div styleName="numberIconTitleContainer">
       <div styleName="number">{props.number}</div>

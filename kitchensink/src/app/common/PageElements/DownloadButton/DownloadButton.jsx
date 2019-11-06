@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import './downloadButton.css';
 
-const DownloadButton = props => (
+const DownloadButton = (props) => (
   <a href={props.path} download>
     <div styleName="downloadButton">
       <div styleName="iconContainer">

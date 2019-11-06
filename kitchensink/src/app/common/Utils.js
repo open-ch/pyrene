@@ -20,15 +20,15 @@ export default class Utils {
   static isWiredProp = (props, key) => props && typeof props[key] === 'function'
       && !!props[key].toString().match(/stateProvider\.(?:state|setState)/g);
 
-  static getNormalProps = props => Object.keys(props)
-    .filter(key => !Utils.isWiredProp(props, key))
+  static getNormalProps = (props) => Object.keys(props)
+    .filter((key) => !Utils.isWiredProp(props, key))
     .reduce((cleanProps, key) => {
       cleanProps[key] = props[key]; // eslint-disable-line no-param-reassign
       return cleanProps;
     }, {})
 
   static getWiredProps = (props, propData) => Object.keys(props)
-    .filter(key => Utils.isWiredProp(props, key))
+    .filter((key) => Utils.isWiredProp(props, key))
     .reduce((connectedProps, key) => {
       connectedProps[key] = props[key](propData); // eslint-disable-line no-param-reassign
       return connectedProps;

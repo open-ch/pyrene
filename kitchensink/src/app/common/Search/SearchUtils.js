@@ -16,7 +16,7 @@ export default class SearchUtils {
       const componentDescription = (typeof component.__docgenInfo === 'undefined') ? '' : component.__docgenInfo.description; // eslint-disable-line no-underscore-dangle
       return { [component.displayName]: componentDescription };
     })
-      .filter(component => (this.normalise(Object.keys(component)[0]).includes(normalisedSearchInput) || this.normalise(Object.values(component)[0]).includes(normalisedSearchInput))));
+      .filter((component) => (this.normalise(Object.keys(component)[0]).includes(normalisedSearchInput) || this.normalise(Object.values(component)[0]).includes(normalisedSearchInput))));
   }
 
 }
