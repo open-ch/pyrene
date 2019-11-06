@@ -12,7 +12,7 @@ import './banner.css';
  *
  * Banners have an icon, a title and an optional description.
  */
-const Banner = props => (
+const Banner = (props) => (
   <div
     styleName={className('banner', { [`type-${props.type}`]: true }, { [`style-${props.styling}`]: true })}
     role="banner"

@@ -28,7 +28,7 @@ export default class Collapsible extends React.Component {
 
   toggleCollapse = (event) => {
     event.persist();
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       expanded: !prevState.expanded,
     }),
     () => this.props.onChange(event));

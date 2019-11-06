@@ -4,11 +4,12 @@ import classNames from 'classnames';
 import './buttonBar.css';
 
 
-const ButtonBar = props => (
+const ButtonBar = (props) => (
   <div styleName={classNames('buttonBar', { noPadding: props.noPadding })}>
     <div styleName="leftButtonSection">
-      {props.leftButtonSectionElements.map(element => (
+      {props.leftButtonSectionElements.map((element) => (
         <React.Fragment key={`${element.type}${element.props.label}${element.props.type}`}>
+          {/* eslint-disable-next-line react/jsx-props-no-spreading */}
           <element.type {...element.props} />
           <div styleName="spacer" />
         </React.Fragment>
@@ -18,6 +19,7 @@ const ButtonBar = props => (
       {props.rightButtonSectionElements.map((element, index) => (
         <React.Fragment key={`${element.props.label}${element.props.type}${element.type}`}>
           {index !== 0 && <div styleName="spacer" />}
+          {/* eslint-disable-next-line react/jsx-props-no-spreading */}
           <element.type {...element.props} />
         </React.Fragment>
       ))}

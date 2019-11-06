@@ -426,7 +426,7 @@ const tableColumns = [{
   headerName: 'Age',
   accessor: 'age',
   resizable: false,
-  cellRenderCallback: row => (
+  cellRenderCallback: (row) => (
     <div
       style={{
         width: '100%',
@@ -452,7 +452,7 @@ const tableColumns = [{
 }, {
   id: 'friendName',
   headerName: 'Friend Name',
-  accessor: d => d.friend.name,
+  accessor: (d) => d.friend.name,
   initiallyHidden: true,
 }, {
   id: 'friendAge',
@@ -502,9 +502,9 @@ const examples = {
     pivotBy: ['age'],
     title: 'Table',
     keyField: 'name',
-    data: stateProvider => (stateProvider.state.tableData ? stateProvider.state.tableData : tableData),
+    data: (stateProvider) => (stateProvider.state.tableData ? stateProvider.state.tableData : tableData),
     columns: tableColumns,
-    onRowDoubleClick: rowInfo => console.log(rowInfo), // eslint-disable-line no-console
+    onRowDoubleClick: (rowInfo) => console.log(rowInfo), // eslint-disable-line no-console
     actions: [{
       icon: 'search', label: 'Single', callback: () => console.log('single'), active: 'single', // eslint-disable-line no-console
     }, {
@@ -519,8 +519,8 @@ const examples = {
     }, {
       label: 'second column', type: 'multiSelect', id: 'testKey2', options: testOptions,
     }],
-    onFilterChange: stateProvider => filters => stateProvider.setState(() => ({ tableData: filters && Object.keys(filters).length > 0 ? tableData.filter(row => row.name.includes(filters.name)) : tableData, filterValues: filters })),
-    filterValues: stateProvider => (stateProvider.state.filterValues ? stateProvider.state.filterValues : {}),
+    onFilterChange: (stateProvider) => (filters) => stateProvider.setState(() => ({ tableData: filters && Object.keys(filters).length > 0 ? tableData.filter((row) => row.name.includes(filters.name)) : tableData, filterValues: filters })),
+    filterValues: (stateProvider) => (stateProvider.state.filterValues ? stateProvider.state.filterValues : {}),
   },
 };
 

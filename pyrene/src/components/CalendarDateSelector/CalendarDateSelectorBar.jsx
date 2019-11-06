@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import Stepper from '../Stepper/Stepper';
@@ -21,7 +21,7 @@ const TimeUnitSelectionBar = (props) => {
     timeUnit,
   } = props;
   return (
-    <Fragment>
+    <>
       <Stepper
         direction="left"
         onClick={() => onChange(value, -1)}
@@ -35,7 +35,7 @@ const TimeUnitSelectionBar = (props) => {
         onClick={() => onChange(value, 1)}
         disabled={disabled || !canNavigateForward(value, upperBound, timeUnit)}
       />
-    </Fragment>
+    </>
   );
 };
 

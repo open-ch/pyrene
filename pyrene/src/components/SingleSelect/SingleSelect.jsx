@@ -25,7 +25,7 @@ const SingleSelect = (props) => {
             styles={SelectStyle}
             components={{ LoadingIndicator }}
             // Sets the internal value to "" in case of null or undefined
-            getOptionValue={option => ((option.value !== null && typeof option.value !== 'undefined') ? option.value : '')}
+            getOptionValue={(option) => ((option.value !== null && typeof option.value !== 'undefined') ? option.value : '')}
             placeholder={props.placeholder}
             options={options}
             value={props.value}
@@ -35,7 +35,7 @@ const SingleSelect = (props) => {
             isInvalid={props.invalid}
             isLoading={props.loading}
             // wrapping type and key into target so it better reflects the api that input event has (there is also event.target.name)
-            onChange={option => props.onChange(option, { target: { type: 'singleSelect', name: props.name, value: option } })}
+            onChange={(option) => props.onChange(option, { target: { type: 'singleSelect', name: props.name, value: option } })}
             onBlur={props.onBlur}
             onFocus={props.onFocus}
             name={props.name}
@@ -44,7 +44,7 @@ const SingleSelect = (props) => {
 
             maxMenuHeight={264}
             noOptionsMessage={() => 'no matches found'}
-            formatCreateLabel={inputValue => `Create new tag "${inputValue}"`}
+            formatCreateLabel={(inputValue) => `Create new tag "${inputValue}"`}
 
             isSearchable
             blurInputOnSelect
@@ -58,7 +58,7 @@ const SingleSelect = (props) => {
             styles={SelectStyle}
             components={{ LoadingIndicator }}
             // Sets the internal value to "" in case of null or undefined
-            getOptionValue={option => ((option.value !== null && typeof option.value !== 'undefined') ? option.value : '')}
+            getOptionValue={(option) => ((option.value !== null && typeof option.value !== 'undefined') ? option.value : '')}
             placeholder={props.placeholder}
             options={options}
             value={props.value}
@@ -68,7 +68,7 @@ const SingleSelect = (props) => {
             isDisabled={props.disabled}
             isInvalid={props.invalid}
             isLoading={props.loading}
-            onChange={option => props.onChange(option, { target: { type: 'singleSelect', name: props.name, value: option } })}
+            onChange={(option) => props.onChange(option, { target: { type: 'singleSelect', name: props.name, value: option } })}
             onBlur={props.onBlur}
             onFocus={props.onFocus}
             name={props.name}
@@ -82,8 +82,7 @@ const SingleSelect = (props) => {
             escapeClearsValue
             captureMenuScroll
           />
-        )
-      }
+        )}
 
       {props.invalid && props.invalidLabel && !props.disabled
         ? (
@@ -93,16 +92,15 @@ const SingleSelect = (props) => {
           </div>
         )
         : (
-          <React.Fragment>
+          <>
             {props.helperLabel
           && (
             <div styleName="selectHelper">
               {props.helperLabel}
             </div>
           )}
-          </React.Fragment>
-        )
-      }
+          </>
+        )}
 
     </div>
   );

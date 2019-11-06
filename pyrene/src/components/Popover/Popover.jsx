@@ -5,7 +5,7 @@ import TinyPopover from 'react-tiny-popover';
 /**
  * Pop pop pop.. Is that bubble wrap?
  */
-const Popover = props => (
+const Popover = (props) => (
   <TinyPopover
     isOpen={props.displayPopover}
     position={props.preferredPosition}

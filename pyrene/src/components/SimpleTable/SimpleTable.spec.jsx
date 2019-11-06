@@ -7,12 +7,12 @@ const props = {
   data: [{ name: 'Meredith Carney', age: 23 }, { name: 'Savage Weeks', age: 21 }],
   columns: [
     { id: 'name', headerName: 'Name', accessor: 'name' },
-    { id: 'age', headerName: 'Age', accessor: d => d.age },
+    { id: 'age', headerName: 'Age', accessor: (d) => d.age },
     {
       id: 'customAge',
       headerName: 'Custom Age',
-      accessor: d => d.age,
-      cellRenderCallback: d => `Custom age is ${d.value}`,
+      accessor: (d) => d.age,
+      cellRenderCallback: (d) => `Custom age is ${d.value}`,
     },
   ],
 };

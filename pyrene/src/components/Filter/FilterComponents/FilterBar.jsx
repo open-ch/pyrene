@@ -30,23 +30,26 @@ import FilterTag from './FilterTag';
 
 export default class FilterBar extends React.Component {
 
-  state = {
-    displayFilterPopover: false,
-    unAppliedValues: this.props.filterValues,
-  };
+  constructor(props) {
+    super();
+    this.state = {
+      displayFilterPopover: false,
+      unAppliedValues: props.filterValues,
+    };
+  }
 
   // eslint-disable-next-line react/sort-comp
   toggleFilterPopover = () => {
     if (!this.state.displayFilterPopover) {
       this.setState({ unAppliedValues: this.props.filterValues });
     }
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       displayFilterPopover: !prevState.displayFilterPopover,
     }));
   };
 
   filterDidChange = (value, key) => {
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       unAppliedValues: { ...prevState.unAppliedValues, [key]: value },
     }));
 
@@ -63,7 +66,7 @@ export default class FilterBar extends React.Component {
 
     // ignore all entries with null value - if input is empty, remove the whole entry (id: value) from object that is passed to parent component
     const filtered = Object.entries(this.state.unAppliedValues)
-      .filter(e => e[1] !== null)
+      .filter((e) => e[1] !== null)
       // eslint-disable-next-line no-return-assign,no-sequences
       .reduce((res, e) => (res[e[0]] = this.state.unAppliedValues[e[0]], res), {});
 
@@ -76,7 +79,7 @@ export default class FilterBar extends React.Component {
   // onFilterTagClose removes only one tag - only one filter entry from filters Object should be removed, other filters have to stay
   onFilterTagClose(filter) {
     const filtered = Object.entries(this.props.filterValues)
-      .filter(e => e[0] !== filter.id)
+      .filter((e) => e[0] !== filter.id)
       // eslint-disable-next-line no-return-assign,no-sequences
       .reduce((res, e) => (res[e[0]] = this.props.filterValues[e[0]], res), {});
     this.setState(() => ({
@@ -103,7 +106,7 @@ export default class FilterBar extends React.Component {
       const tags = Object.entries(filterValues).map(([key, value]) => {
         if (value === undefined || value === null || value.length === 0) { return null; }
 
-        const filter = this.props.filters.find(f => f.id === key);
+        const filter = this.props.filters.find((f) => f.id === key);
         if (!filter) {
           return null;
         }
@@ -115,7 +118,7 @@ export default class FilterBar extends React.Component {
             return <FilterTag key={filter.id} filterLabel={filter.label} filterText={value.label} onClose={() => this.onFilterTagClose(filter)} />;
           case 'multiSelect':
             if (value.length > 0) {
-              return <FilterTag key={filter.id} filterLabel={filter.label} filterText={value.map(option => option.label).join('; ')} onClose={() => this.onFilterTagClose(filter)} />;
+              return <FilterTag key={filter.id} filterLabel={filter.label} filterText={value.map((option) => option.label).join('; ')} onClose={() => this.onFilterTagClose(filter)} />;
             }
             break;
           default:
@@ -126,7 +129,7 @@ export default class FilterBar extends React.Component {
         return null;
       });
 
-      if (tags.some(el => el !== null)) {
+      if (tags.some((el) => el !== null)) {
         return (
           <div styleName="filterTags">
             <div styleName="filterTagsValues">{tags}</div>

@@ -10,7 +10,7 @@ import './actionBar.css';
  * Each action element in the action bar can be active or inactive; can have its own color and icon.
  * An icon can be either an icon font or an svg icon
  */
-const ActionBar = props => (
+const ActionBar = (props) => (
   <div styleName={classNames('container', props.styling === 'none' ? '' : `box-${props.styling}`)}>
     {props.actions.map((action, index) => {
       const isSvgIcon = action.svg && action.svg.length > 0;

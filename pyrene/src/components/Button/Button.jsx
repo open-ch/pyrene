@@ -13,7 +13,7 @@ import Loader from '../Loader/Loader';
  * Do not use Buttons as navigational elements.
  * Instead, use Links because it takes the user to a new page and is not associated with an action.
  */
-const Button = props => (
+const Button = (props) => (
   <div styleName="buttonContainer">
     <button
       type="submit"
@@ -22,7 +22,8 @@ const Button = props => (
         classNames('button',
           { [`type-${props.type}`]: true },
           { disabled: props.disabled },
-          { loading: props.loading })}
+          { loading: props.loading })
+      }
       onClick={props.onClick}
       disabled={props.disabled}
     >
@@ -31,8 +32,7 @@ const Button = props => (
     </button>
     {props.loading && ((props.type === 'primary' || props.type === 'danger')
       ? <span styleName="loader"><Loader size="small" styling="light" /></span>
-      : <span styleName="loader"><Loader size="small" styling="dark" /></span>)
-    }
+      : <span styleName="loader"><Loader size="small" styling="dark" /></span>)}
   </div>
 );
 

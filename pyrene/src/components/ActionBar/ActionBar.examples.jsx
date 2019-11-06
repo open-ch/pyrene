@@ -1,5 +1,5 @@
 const ActionBar = {};
-
+/* eslint-disable no-alert */
 ActionBar.props = {
   actions: [
     {

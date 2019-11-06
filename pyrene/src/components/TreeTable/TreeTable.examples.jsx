@@ -1,8 +1,4 @@
-/* eslint-disable react/display-name, no-nested-ternary */
-import React from 'react';
-
 import treeTableData from './data.json';
-
 
 const testOptions = [
   { value: 'chocolate', label: 'Chocolate', invalid: false },
@@ -68,13 +64,13 @@ const examples = {
     columns: treeTableColumns,
     data: treeTableData,
     title: 'Tree Table',
-    onRowDoubleClick: data => console.log(data), // eslint-disable-line no-console
+    onRowDoubleClick: (data) => console.log(data), // eslint-disable-line no-console
     filters: [{
       label: 'first column', type: 'singleSelect', id: 'testKey', options: testOptions,
     }, {
       label: 'second column', type: 'multiSelect', id: 'testKey2', options: testOptions,
     }],
-    setUniqueRowKey: row => row.id,
+    setUniqueRowKey: (row) => row.id,
   },
 };
 

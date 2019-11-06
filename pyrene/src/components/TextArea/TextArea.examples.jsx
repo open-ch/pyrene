@@ -6,8 +6,8 @@ const examples = {
     width: 500,
     rows: 3,
     maxLength: 50,
-    value: stateProvider => stateProvider.state.value,
-    onChange: stateProvider => value => stateProvider.setState({ value: value.target.value }),
+    value: (stateProvider) => stateProvider.state.value,
+    onChange: (stateProvider) => (value) => stateProvider.setState({ value: value.target.value }),
   },
 };
 

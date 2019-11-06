@@ -6,7 +6,7 @@ import ButtonBar from '../../ButtonBar/ButtonBar';
 import Button from '../../Button/Button';
 import CheckboxPopover from '../../CheckboxPopover/CheckboxPopover';
 
-const TreeTableActionBar = props => (
+const TreeTableActionBar = (props) => (
   <div styleName="treeTableActionBar">
     <ButtonBar
       leftButtonSectionElements={[

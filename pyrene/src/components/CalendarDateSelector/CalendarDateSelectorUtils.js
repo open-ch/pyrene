@@ -18,7 +18,7 @@ export const DATE_TYPES = {
  * @param {Object} value
  * @returns {moment} moment instance
  */
-export const convertToInternalMomentJs = value => moment().tz('UTC').set({ year: value.year, month: value.month - 1, date: value.day });
+export const convertToInternalMomentJs = (value) => moment().tz('UTC').set({ year: value.year, month: value.month - 1, date: value.day });
 
 /**
  * Converts a dayjs instance to our custom date object format
@@ -31,7 +31,7 @@ export const convertToInternalMomentJs = value => moment().tz('UTC').set({ year:
  * @param {dayjs} date
  * @returns {Object}
  */
-const convertToExternalObject = date => ({
+const convertToExternalObject = (date) => ({
   year: date.year(),
   month: date.month() + 1,
   day: date.date(),
@@ -53,7 +53,7 @@ export const handleDateChange = (value, change, timeUnit) => {
   if (timeUnit === YEAR) {
     conversionDate.month = 1;
   }
-  conversionDate = convertToInternalMomentJs(conversionDate).add(change, timeUnit + 's');
+  conversionDate = convertToInternalMomentJs(conversionDate).add(change, `${timeUnit}s`);
   return convertToExternalObject(conversionDate);
 };
 

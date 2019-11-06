@@ -4,13 +4,15 @@ import PropTypes from 'prop-types';
 
 import './presetTimeRanges.css';
 
-const PresetTimeRanges = props => (
+/* eslint-disable no-underscore-dangle, react/no-unused-prop-types */
+
+const PresetTimeRanges = (props) => (
   <div>
     {PresetTimeRanges._createPresets(props)}
   </div>
 );
 
-PresetTimeRanges._createPresets = props => props.presetTimeRanges.map((preset, index) => (
+PresetTimeRanges._createPresets = (props) => props.presetTimeRanges.map((preset, index) => (
   <button
     key={preset.id}
     id={preset.id}
@@ -28,7 +30,7 @@ PresetTimeRanges._createPresets = props => props.presetTimeRanges.map((preset, i
         props.presetTimeRanges,
         props.upperBound,
         props.timezone,
-        props.onInteract
+        props.onInteract,
       );
     }}
     disabled={props.disabled}
@@ -48,7 +50,7 @@ PresetTimeRanges._createPresets = props => props.presetTimeRanges.map((preset, i
  * @param callback the callback to update the parent component
  */
 PresetTimeRanges._onPresetTimeRangeSelected = (presetId, presetTimeRanges, upperBound, timezone, callback) => {
-  const selectedPresetTimeRange = presetTimeRanges.filter(preset => preset.id === presetId).shift();
+  const selectedPresetTimeRange = presetTimeRanges.filter((preset) => preset.id === presetId).shift();
   // from TimeRangeSelector: _onPresetTimeRangeSelected(newFrom, newTo, newUpperBound, durationInMs, currentTimeRangeType)
   callback(
     upperBound - selectedPresetTimeRange.durationInMs,

@@ -65,8 +65,8 @@ describe('<TimeRangeSelector />', () => {
     const fromMoment = moment(props.to).tz(TIMEZONE).subtract(1, 'days');
     const toMoment = moment(props.to).tz(TIMEZONE);
     const dateFormat = 'DD.MM.YYYY, HH:mm';
-    const timeStringBeforeClick = moment(props.from).tz(TIMEZONE).format(dateFormat) + ' - ' + moment(props.to).tz(TIMEZONE).format(dateFormat);
-    const timeStringAfterClick = fromMoment.format(dateFormat) + ' - ' + toMoment.format(dateFormat);
+    const timeStringBeforeClick = `${moment(props.from).tz(TIMEZONE).format(dateFormat)} - ${moment(props.to).tz(TIMEZONE).format(dateFormat)}`;
+    const timeStringAfterClick = `${fromMoment.format(dateFormat)} - ${toMoment.format(dateFormat)}`;
 
     expect(rendered.find('PresetTimeRanges')).toHaveLength(1);
     let calculatedValue = rendered.find('.timeRange').render()[0].children[0].data;
@@ -87,7 +87,7 @@ describe('<TimeRangeSelector />', () => {
 
     // We are simulating selecting the 24h preset
     const dateFormat = 'DD.MM.YYYY, HH:mm';
-    const initialTimeString = moment(props.from).tz(TIMEZONE).format(dateFormat) + ' - ' + moment(props.to).tz(TIMEZONE).format(dateFormat);
+    const initialTimeString = `${moment(props.from).tz(TIMEZONE).format(dateFormat)} - ${moment(props.to).tz(TIMEZONE).format(dateFormat)}`;
 
     expect(rendered.find('PresetTimeRanges')).toHaveLength(1);
     const calculatedValue = rendered.find('.timeRange').render()[0].children[0].data;
@@ -98,7 +98,7 @@ describe('<TimeRangeSelector />', () => {
     rendered = mount(<TimeRangeSelector {...props} />);
 
     const dateFormat = 'DD.MM.YYYY, HH:mm';
-    const timeStringBeforeClick = moment(props.from).tz(TIMEZONE).format(dateFormat) + ' - ' + moment(props.to).tz(TIMEZONE).format(dateFormat);
+    const timeStringBeforeClick = `${moment(props.from).tz(TIMEZONE).format(dateFormat)} - ${moment(props.to).tz(TIMEZONE).format(dateFormat)}`;
     rendered.find('TimeRangeNavigationBar').find('button').first().simulate('click');
     const calculatedValue = rendered.find('.timeRange').render()[0].children[0].data;
     expect(timeStringBeforeClick === calculatedValue).toBe(true);
