@@ -3,7 +3,7 @@ import moment from 'moment-timezone';
 const Formats = {
   /**
    * Default formatting function for tooltip time.
-   * @param {number}time - The timestamp in epoch milliseconds
+   * @param {[number]}time - The starting and ending timestamps in epoch milliseconds
    * @param {string}timezone - The timezone
    * @returns {string}
    */
@@ -14,6 +14,13 @@ const Formats = {
     return `${moment.tz(time[0], timezone).format('DD.MM.YYYY, HH:mm')} - ${moment.tz(time[1], timezone).format('HH:mm')}`;
   },
 
+  /**
+   * Time formatting function for zoom tooltip.
+   * @param {number}start - The starting timestamp in epoch milliseconds
+   * @param {number}end - The ending timestamp in epoch milliseconds
+   * @param {string}timezone - The timezone
+   * @returns {string}
+   */
   zoomTooltipTimeFormat: (start, end, timezone) => `${moment.tz(start, timezone).format('DD.MM.YYYY, HH:mm')} - ${moment.tz(end, timezone).format('DD.MM.YYYY, HH:mm')}`,
 };
 
