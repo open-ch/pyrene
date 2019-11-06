@@ -182,7 +182,7 @@ TimeSeriesZoomable.propTypes = {
    */
   color: PropTypes.string.isRequired,
   /**
-   * Sets the color of the zoom rectangle.
+   * Sets whether the zoomable is disabled.
    */
   disabled: PropTypes.bool,
   /**
