@@ -6,6 +6,7 @@ const OUTPUT_PATH = path.resolve(__dirname, 'dist');
 
 const config = {
   mode: production ? 'production' : 'development',
+  devtool: production ? 'none' : 'source-map',
   resolve: {
     mainFiles: ['index'],
     extensions: ['.js', '.jsx'],
@@ -36,9 +37,9 @@ const config = {
 };
 
 if (production) {
-  console.warn('webpack is running in production mode\n');
+  console.warn('webpack is running in production mode\n'); // eslint-disable-line no-console
 } else {
-  console.warn('webpack is running in development mode\n');
+  console.warn('webpack is running in development mode\n'); // eslint-disable-line no-console
 
   config.entry = {
     main: './src/index.js',
