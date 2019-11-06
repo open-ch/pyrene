@@ -53,7 +53,6 @@ export default class Table extends React.Component {
     selectAll: false,
     columnsVisibility: {},
     pageSize: this.props.defaultPageSize,
-    sorted: [],
   };
 
   commonStaticProps = {
@@ -93,8 +92,7 @@ export default class Table extends React.Component {
       this.setState({ pageSize: size });
       this.resetSelection();
     },
-    onSortedChange: (newSorted) => {
-      this.setState({ sorted: newSorted });
+    onSortedChange: () => {
       this.resetSelection();
     },
     onFilteredChange: () => {
@@ -132,7 +130,7 @@ export default class Table extends React.Component {
 
   onManualFilterChange = (values) => {
     this.props.onFetchData({
-      page: 0, pageCount: 0, filters: values, pageSize: this.state.pageSize, sorting: this.state.sorted,
+      page: 0, pageCount: 0, filters: values, pageSize: this.state.pageSize, sorting: this.props.defaultSorted,
     });
   };
 
