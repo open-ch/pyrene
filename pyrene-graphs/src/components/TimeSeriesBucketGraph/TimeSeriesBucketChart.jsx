@@ -12,6 +12,7 @@ import {
   TimeXAxis,
   withTooltip,
 } from 'tuktuktwo';
+import ChartArea from '../ChartArea/ChartArea';
 import TimeZoomControls from '../TimeZoomControls/TimeZoomControls';
 import Tooltip from '../TimeSeries/Tooltip';
 import Formats from '../../common/Formats';
@@ -191,18 +192,21 @@ const TimeSeriesBucketChart = (props) => {
                       ))}
                     </g>
                   )}
-                  <TimeSeriesZoomable
-                    from={props.from}
-                    to={props.to}
-                    lowerBound={props.zoom ? props.zoom.lowerBound : 0}
-                    upperBound={props.zoom ? props.zoom.upperBound : 0}
-                    minZoomRange={props.zoom ? props.zoom.minZoomRange : 0}
-                    onZoom={props.zoom ? props.zoom.onZoom : () => {}}
-                    width={parent.width}
-                    height={parent.height}
-                    color={colorConstants.neutral500}
-                    disabled={!props.zoom}
-                  />
+                  <ChartArea width={parent.width} height={parent.height} />
+                  {props.zoom
+                    && (
+                      <TimeSeriesZoomable
+                        from={props.from}
+                        to={props.to}
+                        lowerBound={props.zoom.lowerBound}
+                        upperBound={props.zoom.upperBound}
+                        minZoomRange={props.zoom.minZoomRange}
+                        onZoom={props.zoom.onZoom}
+                        width={parent.width}
+                        height={parent.height}
+                        color={colorConstants.neutral500}
+                      />
+                    )}
                 </g>
               </svg>
               {

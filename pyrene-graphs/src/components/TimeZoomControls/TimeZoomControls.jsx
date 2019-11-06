@@ -90,11 +90,29 @@ TimeZoomControls.defaultProps = {
 };
 
 TimeZoomControls.propTypes = {
+  /**
+   * Sets the starting time point of the time range in epoch milliseconds.
+   */
   from: PropTypes.number.isRequired,
+  /**
+   * Sets the lower bound of the zoom component - provided that this graph is a zoomable one, i.e. no more zoom-out is possible when lower bound is reached.
+   */
   lowerBound: PropTypes.number.isRequired,
+  /**
+   * Sets the minimum allowed zoom range - provided that this graph is a zoomable one, i.e. no more zoom-in is possible when minZoomRange is already reached.
+   */
   minZoomRange: PropTypes.number.isRequired,
+  /**
+   * Sets the callback function when a zoom action finishes. No onZoom function means this graph does not support zoom.
+   */
   onZoom: PropTypes.func,
+  /**
+   * Sets the ending point of the time range in epoch milliseconds.
+   */
   to: PropTypes.number.isRequired,
+  /**
+   * Sets the upper bound for the zoom component - provided that the graph is a zoomable one, i.e. no zoom-out action is allowed when upper bound is reached.
+   */
   upperBound: PropTypes.number.isRequired,
 };
 

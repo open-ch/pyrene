@@ -6,7 +6,7 @@ const props = {
   from: moment('2019-10-01 10:34').valueOf(),
   lowerBound: moment('2018-10-01 10:34').valueOf(),
   minZoomRange: moment.duration({ minutes: 30 }).valueOf(),
-  onZoom: () => {},
+  onZoom: jest.fn(),
   to: moment('2019-10-07 10:34').valueOf(),
   upperBound: moment('2020-10-01 10:34').valueOf(),
 };
@@ -42,6 +42,15 @@ describe('<TimeZoomControls />', () => {
     expect(rendered.at(0).props().actions).toHaveLength(2);
     expect(rendered.at(0).prop('actions')[0].iconName).toBe('zoomIn');
     expect(rendered.at(0).prop('actions')[1].iconName).toBe('zoomOut');
+  });
+
+  it('executes zoom callback', () => {
+    const rendered = mount(<TimeZoomControls {...props} />);
+    const zoomInBtn = rendered.find('.pyreneIcon-zoomIn');
+    const zoomOutBtn = rendered.find('.pyreneIcon-zoomOut');
+    zoomInBtn.simulate('click');
+    zoomOutBtn.simulate('click');
+    expect(props.onZoom).toHaveBeenCalledTimes(2);
   });
 
   it('checks zoom upper bounds correctly', () => {
