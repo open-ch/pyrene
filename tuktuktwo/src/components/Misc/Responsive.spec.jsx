@@ -11,7 +11,7 @@ describe('<Responsive />', () => {
             {parent}
           </div>
         )}
-      </Responsive>
+      </Responsive>,
     );
   });
 });

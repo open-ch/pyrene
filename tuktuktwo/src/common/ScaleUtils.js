@@ -11,7 +11,7 @@ export default class ScaleUtils {
 
   static scaleLinear(size, maxValue, direction) {
     return this.scaleCustomLinear(
-      0, maxValue, 0, size, direction
+      0, maxValue, 0, size, direction,
     );
   }
 

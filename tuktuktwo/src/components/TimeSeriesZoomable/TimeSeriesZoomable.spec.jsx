@@ -60,7 +60,7 @@ describe('ZoomRange', () => {
     expect(result1.to).toBe(zoomedInTo1 + moment.duration({ minutes: 10 }).valueOf());
     expect(result2.from).toBe(zoomableProps.lowerBound);
     expect(result2.to).toBe(zoomedInTo2 + moment.duration({ minutes: 15 }).valueOf());
-    expect(result3.from).toBe(zoomedInFrom3 - moment.duration({ minutes: 15 }).valueOf())
+    expect(result3.from).toBe(zoomedInFrom3 - moment.duration({ minutes: 15 }).valueOf());
     expect(result3.to).toBe(zoomableProps.upperBound);
   });
 });
