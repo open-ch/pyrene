@@ -1,5 +1,5 @@
 import React from 'react';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import { Banner, Loader } from 'pyrene';
 import TimeSeriesBucketGraph from './TimeSeriesBucketGraph';
 import timeSeriesData from '../../examples/timeSeriesData';
@@ -10,12 +10,12 @@ const props = {
     tooltip: (d) => d,
     yAxis: (d) => d,
   },
-  dataSeries: timeSeriesData.genDownloadedVolumes('Europe/Zurich'),
+  dataSeries: timeSeriesData.genDownloadedVolumes(moment.tz('2019-10-01 00:00', 'Europe/Zurich').valueOf(), moment.tz('2019-10-03 12:00', 'Europe/Zurich').valueOf(), 24),
   description: 'Downloaded volume',
-  from: moment('2019-10-01 00:00').valueOf(),
+  from: moment.tz('2019-10-01 00:00', 'Europe/Zurich').valueOf(),
   title: 'Volume',
   timezone: 'Europe/Zurich',
-  to: moment('2019-10-03 12:00').valueOf(),
+  to: moment.tz('2019-10-03 12:00', 'Europe/Zurich').valueOf(),
   timeFormat: (d) => d,
 };
 
@@ -26,11 +26,11 @@ const props1 = {
   },
   dataSeries: { label: 'Volume', data: [] },
   description: 'Downloaded volume',
-  from: moment('2019-10-01 00:00').valueOf(),
+  from: moment.tz('2019-10-01 00:00', 'Europe/Zurich').valueOf(),
   loading: true,
   timezone: 'Europe/Zurich',
   title: 'Volume',
-  to: moment('2019-10-03 12:00').valueOf(),
+  to: moment.tz('2019-10-03 12:00', 'Europe/Zurich').valueOf(),
   timeFormat: (d) => d,
 };
 
@@ -42,11 +42,11 @@ const props2 = {
   dataSeries: { label: 'Volume', data: [] },
   description: 'Downloaded volume',
   error: 'No data is found',
-  from: moment('2019-10-01 00:00').valueOf(),
+  from: moment.tz('2019-10-01 00:00', 'Europe/Zurich').valueOf(),
   loading: false,
   timezone: 'Europe/Zurich',
   title: 'Volume',
-  to: moment('2019-10-03 12:00').valueOf(),
+  to: moment.tz('2019-10-03 12:00', 'Europe/Zurich').valueOf(),
   timeFormat: (d) => d,
 };
 
