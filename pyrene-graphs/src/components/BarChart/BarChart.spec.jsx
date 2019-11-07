@@ -2,6 +2,17 @@ import React from 'react';
 import { Loader } from 'pyrene';
 import BarChart from './BarChart';
 
+const dataMultipleValues = [{
+  label: 'Dropbox',
+  values: [1147.4, 161.4],
+},
+{
+  label: 'Youtube',
+  values: [849.9, 224.4],
+}];
+
+const legendMultipleValues = ['Desktop', 'Mobile'];
+
 const props = {
   data: [{
     label: 'Dropbox',
@@ -122,7 +133,7 @@ describe('<BarChart />', () => {
           label: d.label,
           values: d.values.map((e) => e * 100),
         }))}
-      />
+      />,
     );
 
     // Numerical left axis
@@ -132,6 +143,40 @@ describe('<BarChart />', () => {
     expect(leftAxis.findWhere((n) => n.text() === '60000').exists()).toBe(true);
     expect(leftAxis.findWhere((n) => n.text() === '80000').exists()).toBe(true);
     expect(leftAxis.findWhere((n) => n.text() === '100k').exists()).toBe(true);
+  });
+
+  it('renders multiple values', () => {
+    const rendered = mount(<BarChart {...props} data={dataMultipleValues} legend={legendMultipleValues} />);
+
+    // Header
+    expect(rendered.contains('Title')).toBe(true);
+    expect(rendered.contains('Description')).toBe(true);
+    expect(rendered.contains(legendMultipleValues[0])).toBe(true);
+    expect(rendered.contains(legendMultipleValues[1])).toBe(true);
+
+    // Numerical left axis
+    const leftAxis = rendered.find('.vx-axis-left');
+    expect(leftAxis.findWhere((n) => n.text() === '0').exists()).toBe(false);
+    expect(leftAxis.findWhere((n) => n.text() === '200').exists()).toBe(true);
+    expect(leftAxis.findWhere((n) => n.text() === '400').exists()).toBe(true);
+    expect(leftAxis.findWhere((n) => n.text() === '600').exists()).toBe(true);
+    expect(leftAxis.findWhere((n) => n.text() === '800').exists()).toBe(true);
+    expect(leftAxis.findWhere((n) => n.text() === '1000').exists()).toBe(true);
+    expect(leftAxis.findWhere((n) => n.text() === '1200').exists()).toBe(true);
+    expect(leftAxis.findWhere((n) => n.text() === '1400').exists()).toBe(false);
+
+    // Categorical bottom axis
+    const bottomAxis = rendered.find('.vx-axis-bottom');
+    expect(bottomAxis.findWhere((n) => n.text() === 'Dropbox').exists()).toBe(true);
+    expect(bottomAxis.findWhere((n) => n.text() === 'Youtube').exists()).toBe(true);
+    expect(bottomAxis.findWhere((n) => n.text() === 'Google').exists()).toBe(false);
+
+    // Grid
+    expect(rendered.find('.vx-rows').exists()).toBe(true);
+    expect(rendered.find('.vx-columns').exists()).toBe(false);
+
+    // Bars
+    expect(rendered.find('.vx-bar')).toHaveLength(4);
   });
 
 });
