@@ -18,8 +18,6 @@ import {
   nsmSensors,
 } from './barData';
 
-import { downloadedVolumes } from './timeSeriesData';
-
 // Sort alphabetically to find stuff easily
 const examples = {
   BarChart,
@@ -31,7 +29,6 @@ export default examples;
 
 export const exampleData = {
   applications,
-  downloadedVolumes,
   nsmSensors,
   tableData: { data: tableData, columns: tableColumns },
   tableDataComparison: { data: tableDataComparison, columns: tableColumnsComparison },

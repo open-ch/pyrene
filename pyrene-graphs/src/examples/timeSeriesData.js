@@ -1,22 +1,20 @@
-import moment from 'moment-timezone';
-
 const timeSeriesData = {
 
   /**
    * Generate mock data for downloaded volumes for time series bucket graph.
-   * @param {string}timezone - The timezone
+   * @param {number}from - The starting time point of the time range in epoch milliseconds
+   * @param {number}to - The ending time point of the time range in epoch milliseconds
+   * @param {number}number - The number of data items required
    * @returns {{data: [], label: string}}
    */
-  genDownloadedVolumes: (timezone) => {
+  genDownloadedVolumes: (from, to, number) => {
     const dataSeries = {
       label: 'Volume',
       data: [],
     };
 
-    const timeFrame = moment.duration({ hours: 1 }).valueOf();
-    const from = moment('2019-10-01 00:00', timezone).valueOf();
-
-    for (let i = 0; i < 60; i += 1) {
+    const timeFrame = (to - from) / number;
+    for (let i = 0; i < number; i += 1) {
       dataSeries.data.push([from + i * timeFrame, Math.random() * 10000 + 1]);
     }
 
