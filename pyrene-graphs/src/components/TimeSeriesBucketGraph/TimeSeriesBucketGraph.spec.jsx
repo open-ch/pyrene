@@ -2,7 +2,7 @@ import React from 'react';
 import moment from 'moment';
 import { Banner, Loader } from 'pyrene';
 import TimeSeriesBucketGraph from './TimeSeriesBucketGraph';
-import { downloadedVolumes } from '../../examples/timeSeriesData';
+import timeSeriesData from '../../examples/timeSeriesData';
 import colorSchemes from '../../styles/colorSchemes';
 
 const props = {
@@ -10,7 +10,7 @@ const props = {
     tooltip: (d) => d,
     yAxis: (d) => d,
   },
-  dataSeries: downloadedVolumes,
+  dataSeries: timeSeriesData.genDownloadedVolumes('Europe/Zurich'),
   description: 'Downloaded volume',
   from: moment('2019-10-01 00:00').valueOf(),
   title: 'Volume',
@@ -73,7 +73,7 @@ describe('<TimeSeriesBucketGraph />', () => {
     expect(xAxis.children().find('.vx-axis-tick').length).toBeGreaterThan(0);
 
     // Bars
-    expect(rendered.find('.vx-bar')).toHaveLength(downloadedVolumes.data.length);
+    expect(rendered.find('.vx-bar')).toHaveLength(props.dataSeries.data.length);
     expect(rendered.find('.vx-bar').at(0).props().fill).toBe(colorSchemes.colorSchemeDefault.categorical[0]);
 
     // Tooltip
