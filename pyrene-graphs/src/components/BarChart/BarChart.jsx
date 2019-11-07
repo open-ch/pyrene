@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Loader } from 'pyrene';
 import {
-  Bars, CategoricalAxis, NumericalAxis, Responsive,
+  Bars, BarStack, CategoricalAxis, NumericalAxis, Responsive,
 } from 'tuktuktwo';
 import ChartContainer from '../ChartContainer/ChartContainer';
 import ChartOverlay from '../ChartOverlay/ChartOverlay';
@@ -16,7 +16,7 @@ import colorSchemes from '../../styles/colorSchemes';
 const BarChart = (props) => {
   const barWeight = 10;
   const labels = props.data.map((row) => row.label);
-  const maxValue = Math.max(...props.data.map((row) => Math.max(...row.values)));
+  const maxValue = Math.max(...props.data.map((d) => d.values.reduce((a, b) => a + b, 0)));
   const header = (
     <Header
       title={props.title}
@@ -84,7 +84,16 @@ const BarChart = (props) => {
               />
             )}
             {!props.loading && (props.legend.length > 1 ? (
-              undefined
+              <BarStack
+                barWeight={barWeight}
+                colors={props.colorScheme.categorical}
+                height={parent.height}
+                keys={props.legend}
+                maxCumulatedValue={maxValue}
+                data={props.data}
+                direction={props.direction}
+                width={parent.width}
+              />
             ) : (
               <Bars
                 barWeight={barWeight}

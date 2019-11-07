@@ -15,7 +15,7 @@ import {
 
 import {
   applications,
-  nsmSensors,
+  stacked,
 } from './barData';
 
 import { downloadedVolumes } from './timeSeriesData';
@@ -31,8 +31,8 @@ export default examples;
 
 export const exampleData = {
   applications,
+  stacked,
   downloadedVolumes,
-  nsmSensors,
   tableData: { data: tableData, columns: tableColumns },
   tableDataComparison: { data: tableDataComparison, columns: tableColumnsComparison },
   tableDataUpDown: { data: tableDataUpDown, columns: tableColumnsUpDown },
