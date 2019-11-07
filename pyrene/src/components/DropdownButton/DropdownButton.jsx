@@ -6,7 +6,8 @@ import Button from '../Button/Button';
 import './dropdownButton.css';
 
 /**
- * DropdownButtons
+ * Dropdown Buttons are used primarily to group actions of a common topic.
+ * They have the same appearance and behaviour as the regular Button.
  */
 const DropdownButton = (props) => {
 
@@ -14,13 +15,15 @@ const DropdownButton = (props) => {
     displayActions: false,
   });
 
-  const _getActionButtons = () => (
-    <div styleName={'actionContainer'}>
-      {props.actions.map((action) => (
+  const _getActionButtons = (actions, type) => (
+    <div styleName="actionContainer">
+      {actions.map((action) => (
         <Button
+          key={action.label}
           label={action.label}
+          icon={action.icon}
           onClick={action.onClick}
-          type={props.type}
+          type={type}
         />
       ))}
     </div>
@@ -30,10 +33,10 @@ const DropdownButton = (props) => {
     <Popover
       displayPopover={state.displayActions}
       onClickOutside={() => setState({ displayActions: false })}
-      renderPopoverContent={_getActionButtons}
+      renderPopoverContent={() => _getActionButtons(props.actions, props.type)}
       preferredPosition={['bottom']}
       distanceToTarget={4}
-      align={'end'}
+      align={props.align}
     >
       <Button
         label={props.primaryLabel}
@@ -47,24 +50,30 @@ const DropdownButton = (props) => {
   );
 };
 
-DropdownButton.displayName = 'Button';
+DropdownButton.displayName = 'Dropdown Button';
 
 DropdownButton.defaultProps = {
-  icon: '',
-  type: 'primary',
-  loading: false,
-  disabled: false,
   actions: [{ label: 'tbd', onClick: () => null }],
+  align: 'start',
+  disabled: false,
+  icon: '',
+  loading: false,
+  type: 'action',
 };
 
 DropdownButton.propTypes = {
   /**
-   * Array of action objects which consist of a Label and its associated Javascript event handler.
+   * Array of action objects holding a Label, Icon and its associated Javascript event handler.
    */
   actions: PropTypes.arrayOf(PropTypes.shape({
+    icon: PropTypes.string,
     label: PropTypes.string,
     onClick: PropTypes.func,
   })),
+  /**
+   * Sets the alignment of the dropdown relative to the button.
+   */
+  align: PropTypes.oneOf(['start', 'end']),
   /**
    * Disables any interaction with the component.
    */

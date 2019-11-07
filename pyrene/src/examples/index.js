@@ -10,6 +10,7 @@ import { default as Card } from '../components/Card/Card.examples';
 import { default as Checkbox } from '../components/Checkbox/Checkbox.examples';
 import { default as Collapsible } from '../components/Collapsible/Collapsible.examples';
 import { default as Container } from '../components/Container/Container.examples';
+import { default as DropdownButton } from '../components/DropdownButton/DropdownButton.examples';
 import { default as Filter } from '../components/Filter/Filter.examples';
 import { default as Icon } from '../components/Icon/Icon.examples';
 import { default as ActionBar } from '../components/ActionBar/ActionBar.examples';
@@ -49,6 +50,7 @@ const examples = {
   Checkbox,
   Collapsible,
   Container,
+  DropdownButton,
   Filter,
   Heading,
   Icon,
