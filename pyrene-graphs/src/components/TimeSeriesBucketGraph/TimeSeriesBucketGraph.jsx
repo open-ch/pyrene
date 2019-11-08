@@ -147,10 +147,6 @@ TimeSeriesBucketGraph.propTypes = {
      */
     onZoom: PropTypes.func.isRequired,
     /**
-     * Sets the time formatting function for the zoom range.
-     */
-    timeFormat: PropTypes.func,
-    /**
      * Sets the upper bound for the zoom component - provided that the graph is a zoomable one, i.e. no zoom-out action is allowed when upper bound is reached.
      */
     upperBound: PropTypes.number.isRequired,

@@ -1,8 +1,8 @@
 import React from 'react';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import { Banner, Loader } from 'pyrene';
 import TimeSeriesBucketGraph from './TimeSeriesBucketGraph';
-import { downloadedVolumes } from '../../examples/timeSeriesData';
+import timeSeriesData from '../../examples/timeSeriesData';
 import colorSchemes from '../../styles/colorSchemes';
 
 const props = {
@@ -10,13 +10,12 @@ const props = {
     tooltip: (d) => d,
     yAxis: (d) => d,
   },
-  dataSeries: downloadedVolumes,
+  dataSeries: timeSeriesData.genDownloadedVolumes(moment.tz('2019-10-01 00:00', 'Europe/Zurich').valueOf(), moment.tz('2019-10-03 12:00', 'Europe/Zurich').valueOf(), 24),
   description: 'Downloaded volume',
-  from: moment('2019-10-01 00:00').valueOf(),
+  from: moment.tz('2019-10-01 00:00', 'Europe/Zurich').valueOf(),
   title: 'Volume',
   timezone: 'Europe/Zurich',
-  to: moment('2019-10-03 12:00').valueOf(),
-  yUnit: 'B',
+  to: moment.tz('2019-10-03 12:00', 'Europe/Zurich').valueOf(),
   timeFormat: (d) => d,
 };
 
@@ -27,12 +26,11 @@ const props1 = {
   },
   dataSeries: { label: 'Volume', data: [] },
   description: 'Downloaded volume',
-  from: moment('2019-10-01 00:00').valueOf(),
+  from: moment.tz('2019-10-01 00:00', 'Europe/Zurich').valueOf(),
   loading: true,
   timezone: 'Europe/Zurich',
   title: 'Volume',
-  to: moment('2019-10-03 12:00').valueOf(),
-  yUnit: 'B',
+  to: moment.tz('2019-10-03 12:00', 'Europe/Zurich').valueOf(),
   timeFormat: (d) => d,
 };
 
@@ -44,16 +42,13 @@ const props2 = {
   dataSeries: { label: 'Volume', data: [] },
   description: 'Downloaded volume',
   error: 'No data is found',
-  from: moment('2019-10-01 00:00').valueOf(),
+  from: moment.tz('2019-10-01 00:00', 'Europe/Zurich').valueOf(),
   loading: false,
   timezone: 'Europe/Zurich',
   title: 'Volume',
-  to: moment('2019-10-03 12:00').valueOf(),
-  yUnit: 'B',
+  to: moment.tz('2019-10-03 12:00', 'Europe/Zurich').valueOf(),
   timeFormat: (d) => d,
 };
-
-// dataSeries: { label: 'Volume', data: [] },
 
 describe('<TimeSeriesBucketGraph />', () => {
   it('renders without crashing', () => {
@@ -78,7 +73,7 @@ describe('<TimeSeriesBucketGraph />', () => {
     expect(xAxis.children().find('.vx-axis-tick').length).toBeGreaterThan(0);
 
     // Bars
-    expect(rendered.find('.vx-bar')).toHaveLength(downloadedVolumes.data.length);
+    expect(rendered.find('.vx-bar')).toHaveLength(props.dataSeries.data.length);
     expect(rendered.find('.vx-bar').at(0).props().fill).toBe(colorSchemes.colorSchemeDefault.categorical[0]);
 
     // Tooltip
@@ -87,6 +82,29 @@ describe('<TimeSeriesBucketGraph />', () => {
     expect(rendered.find('.vx-tooltip-portal')).toHaveLength(1);
     hoverArea.simulate('mouseout');
     expect(rendered.find('.vx-tooltip-portal')).toHaveLength(0);
+  });
+
+  it('zooms correctly', () => {
+    const zoom = {
+      lowerBound: moment.tz('2018-10-01 00:00', 'Europe/Zurich').valueOf(),
+      minZoomRange: moment.duration({ minutes: 30 }).valueOf(),
+      onZoom: jest.fn(),
+      upperBound: moment.tz('2020-10-01 00:00', 'Europe/Zurich').valueOf(),
+    };
+
+    // Zoom buttons
+    const rendered = mount(<TimeSeriesBucketGraph {...props} zoom={zoom} />);
+    const zoomInBtn = rendered.find('.pyreneIcon-zoomIn');
+    const zoomOutBtn = rendered.find('.pyreneIcon-zoomOut');
+    zoomInBtn.simulate('click');
+    zoomOutBtn.simulate('click');
+    expect(zoom.onZoom).toHaveBeenCalledTimes(2);
+
+    // Zoomable component
+    const dragArea = rendered.find('.dragArea');
+    expect(dragArea).toHaveLength(1);
+    dragArea.simulate('mousemove').simulate('mouseup');
+    expect(zoom.onZoom).toHaveBeenCalledTimes(3);
   });
 
   it('renders loading state correctly', () => {

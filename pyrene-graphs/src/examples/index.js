@@ -18,8 +18,6 @@ import {
   stacked,
 } from './barData';
 
-import { downloadedVolumes } from './timeSeriesData';
-
 // Sort alphabetically to find stuff easily
 const examples = {
   BarChart,
@@ -32,7 +30,6 @@ export default examples;
 export const exampleData = {
   applications,
   stacked,
-  downloadedVolumes,
   tableData: { data: tableData, columns: tableColumns },
   tableDataComparison: { data: tableDataComparison, columns: tableColumnsComparison },
   tableDataUpDown: { data: tableDataUpDown, columns: tableColumnsUpDown },
