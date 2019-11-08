@@ -4,7 +4,7 @@ import DropdownButton from './DropdownButton';
 import Button from '../Button/Button';
 
 const props = {
-  primaryLabel: 'tbd',
+  label: 'tbd',
   actions: [{ label: 'sub', onClick: jest.fn() }],
 };
 

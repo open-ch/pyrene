@@ -15,31 +15,29 @@ const DropdownButton = (props) => {
     displayActions: false,
   });
 
-  const _getActionButtons = (actions, type) => (
-    <div styleName="actionContainer">
-      {actions.map((action) => (
-        <Button
-          key={action.label}
-          label={action.label}
-          icon={action.icon}
-          onClick={action.onClick}
-          type={type}
-        />
-      ))}
-    </div>
-  );
-
   return (
     <Popover
       displayPopover={state.displayActions}
       onClickOutside={() => setState({ displayActions: false })}
-      renderPopoverContent={() => _getActionButtons(props.actions, props.type)}
+      renderPopoverContent={() => (
+        <div className="actionContainer" styleName="actionContainer">
+          {props.actions.map((action) => (
+            <Button
+              key={action.label}
+              label={action.label}
+              icon={action.icon}
+              onClick={action.onClick}
+              type={props.type}
+            />
+          ))}
+        </div>
+      )}
       preferredPosition={['bottom']}
       distanceToTarget={4}
       align={props.align}
     >
       <Button
-        label={props.primaryLabel}
+        label={props.label}
         onClick={() => setState({ displayActions: !state.displayActions })}
         disabled={props.disabled}
         icon={props.icon}
@@ -85,11 +83,11 @@ DropdownButton.propTypes = {
   /**
    * Sets the label displayed to the user.
    */
-  loading: PropTypes.bool,
+  label: PropTypes.string.isRequired,
   /**
    * Disables the component and displays a loader inside of it.
    */
-  primaryLabel: PropTypes.string.isRequired,
+  loading: PropTypes.bool,
   /**
    * Sets the overall style.
    */
