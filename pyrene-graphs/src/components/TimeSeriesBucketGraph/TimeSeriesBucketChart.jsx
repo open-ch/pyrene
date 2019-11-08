@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { colorConstants } from 'pyrene';
 import {
   Bar,
   chartConstants,
@@ -17,6 +16,7 @@ import TimeZoomControls from '../TimeZoomControls/TimeZoomControls';
 import Tooltip from '../TimeSeries/Tooltip';
 import Formats from '../../common/Formats';
 import colorSchemes from '../../styles/colorSchemes';
+import colorConstants from '../../styles/colorConstants';
 import './timeSeriesBucketGraph.css';
 
 let zoomStartX = null;
@@ -89,8 +89,8 @@ const TimeSeriesBucketChart = (props) => {
               to={props.to}
               width={parent.width}
               height={parent.height}
-              strokeColor={colorConstants.neutral050}
-              tickLabelColors={[colorConstants.neutral200, colorConstants.neutral300]}
+              strokeColor={colorConstants.strokeColor}
+              tickLabelColors={[colorConstants.tickLabelColor, colorConstants.tickLabelColorDark]}
               timezone={props.timezone}
               showTickLabels={false}
             />
@@ -100,8 +100,8 @@ const TimeSeriesBucketChart = (props) => {
               width={parent.width}
               height={parent.height}
               tickFormat={props.dataFormat.yAxis}
-              strokeColor={colorConstants.neutral050}
-              tickLabelColor={colorConstants.neutral200}
+              strokeColor={colorConstants.strokeColor}
+              tickLabelColor={colorConstants.tickLabelColor}
               showTickLabels={false}
               showGrid={false}
             />
@@ -150,8 +150,8 @@ const TimeSeriesBucketChart = (props) => {
                   to={props.to}
                   width={parent.width}
                   height={parent.height}
-                  strokeColor={colorConstants.neutral050}
-                  tickLabelColors={[colorConstants.neutral200, colorConstants.neutral300]}
+                  strokeColor={colorConstants.strokeColor}
+                  tickLabelColors={[colorConstants.tickLabelColor, colorConstants.tickLabelColorDark]}
                   showTickLabels={!props.loading}
                   timezone={props.timezone}
                 />
@@ -161,8 +161,8 @@ const TimeSeriesBucketChart = (props) => {
                   width={parent.width}
                   height={parent.height}
                   tickFormat={props.dataFormat.yAxis}
-                  strokeColor={colorConstants.neutral050}
-                  tickLabelColor={colorConstants.neutral200}
+                  strokeColor={colorConstants.strokeColor}
+                  tickLabelColor={colorConstants.tickLabelColor}
                   showTickLabels={!props.loading}
                   showGrid={false}
                 />
@@ -205,7 +205,7 @@ const TimeSeriesBucketChart = (props) => {
                         onZoom={props.zoom.onZoom}
                         width={parent.width}
                         height={parent.height}
-                        color={colorConstants.neutral500}
+                        color={colorConstants.overlayColor}
                       />
                     )}
                 </g>
