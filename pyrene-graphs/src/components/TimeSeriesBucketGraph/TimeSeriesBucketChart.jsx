@@ -137,9 +137,9 @@ const TimeSeriesBucketChart = (props) => {
           // Get time formatting function for tooltip
           let timeFormat;
           if (zoomStartX) {
-            timeFormat = (time) => Formats.zoomTooltipTimeFormat(time[0], time[1], props.timezone);
+            timeFormat = (time) => Formats.explicitTimeRangeFormat(time[0], time[1], props.timezone);
           } else {
-            timeFormat = props.timeFormat ? props.timeFormat : (time) => Formats.tooltipTimeFormat(time, props.timezone);
+            timeFormat = props.timeFormat ? props.timeFormat : (time) => Formats.timeRangeFormat(time[0], time[1], props.timezone, false);
           }
 
           return (
