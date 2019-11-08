@@ -65,7 +65,7 @@ DropdownButton.propTypes = {
    */
   actions: PropTypes.arrayOf(PropTypes.shape({
     icon: PropTypes.string,
-    label: PropTypes.string,
+    label: PropTypes.string.isRequired,
     onClick: PropTypes.func,
   })),
   /**
