@@ -17,6 +17,8 @@ import { default as Checkbox } from './components/Checkbox/Checkbox';
 import { default as Collapsible } from './components/Collapsible/Collapsible';
 import { default as Container } from './components/Container/Container';
 
+import { default as DropdownButton } from './components/DropdownButton/DropdownButton';
+
 import { default as Filter } from './components/Filter/Filter';
 import { default as Form } from './components/Form/Form';
 
@@ -67,6 +69,7 @@ const Components = {
   Checkbox,
   Collapsible,
   Container,
+  DropdownButton,
   Filter,
   Form,
   Icon,
@@ -107,6 +110,7 @@ export { Card };
 export { Checkbox };
 export { Collapsible };
 export { Container };
+export { DropdownButton };
 export { Filter };
 export { Form };
 export { Icon };
