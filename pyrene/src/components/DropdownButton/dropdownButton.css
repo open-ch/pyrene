@@ -1,0 +1,7 @@
+.actionContainer > div {
+  display: block;
+}
+
+.actionContainer button {
+  width: 100%;
+}
