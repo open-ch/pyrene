@@ -141,7 +141,7 @@ export const getColumns = ({
           align: 'right',
           maxWidth: `${valueColumnWidth}px`,
         })] : []),
-        ...(!width ? [] : [getColumn({
+        ...(width == null ? [] : [getColumn({
           id: `${props.columns.primaryValue.title}_bar`,
           accessor: props.columns.primaryValue.accessor,
           headerName: props.columns.primaryValue.title,
@@ -154,7 +154,7 @@ export const getColumns = ({
           id: props.columns.primaryValue.title,
           accessor: props.columns.primaryValue.accessor,
           formatter: props.columns.primaryValue.formatter,
-          headerName: !width ? props.columns.primaryValue.title : '',
+          headerName: width == null ? props.columns.primaryValue.title : '',
           align: 'right',
           maxWidth: `${props.columns.secondaryValue ? valueColumnWidth : valueColumnWidthDouble}px`,
         }),
@@ -191,7 +191,7 @@ export const getColumns = ({
             align: 'right',
             maxWidth: `${valueColumnWidth}px`,
           }),
-          ...(!width ? [] : [getColumn({
+          ...(width == null ? [] : [getColumn({
             id: `${props.columns.primaryValue.title}_bar`,
             accessor: props.columns.primaryValue.accessor,
             accessorSecondary: props.columns.secondaryValue.accessor,
@@ -233,11 +233,11 @@ export const getColumns = ({
             id: props.columns.primaryValue.title,
             accessor: props.columns.primaryValue.accessor,
             formatter: props.columns.primaryValue.formatter,
-            headerName: !width ? props.columns.primaryValue.title : '',
+            headerName: width == null ? props.columns.primaryValue.title : '',
             align: 'right',
             maxWidth: `${valueColumnWidth}px`,
           }),
-          ...(!width ? [] : [getColumn({
+          ...(width == null ? [] : [getColumn({
             id: `${props.columns.primaryValue.title}_bar_left`,
             accessor: props.columns.primaryValue.accessor,
             headerName: props.columns.primaryValue.title,
@@ -247,14 +247,14 @@ export const getColumns = ({
             maxValue: maxValue,
             maxWidth: `${responsiveWidthBar}px`,
           })]),
-          ...(!width ? [] : [getColumn({
+          ...(width == null ? [] : [getColumn({
             id: `${props.columns.primaryValue.title}_vertical_line`,
             accessor: props.columns.primaryValue.accessor,
             align: 'center',
             cellType: 'verticalLine',
             maxWidth: `${verticalLineWidth}px`,
           })]),
-          ...(!width ? [] : [getColumn({
+          ...(width == null ? [] : [getColumn({
             id: `${props.columns.secondaryValue.title}_bar_right`,
             headerName: props.columns.secondaryValue.title,
             accessor: props.columns.secondaryValue.accessor,
@@ -268,7 +268,7 @@ export const getColumns = ({
             id: props.columns.secondaryValue.title,
             accessor: props.columns.secondaryValue.accessor,
             formatter: props.columns.secondaryValue.formatter,
-            headerName: !width ? props.columns.secondaryValue.title : '',
+            headerName: width == null ? props.columns.secondaryValue.title : '',
             align: 'right',
             maxWidth: `${valueColumnWidth}px`,
           }),
