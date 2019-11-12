@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Group } from '@vx/group';
+import { scaleBand } from '@vx/scale';
 import Bar from './Bar';
-import ScaleUtils from '../../common/ScaleUtils';
 import chartConstants from '../../common/chartConstants';
 
 /**
@@ -12,28 +12,34 @@ const Bars = (props) => {
   const left = props.direction === 'horizontal' ? chartConstants.marginLeftCategorical : chartConstants.marginLeftNumerical;
   const chartHeight = props.height - chartConstants.marginBottom;
   const width = props.width - left;
-  const scale = ScaleUtils.scaleOrdinal(props.direction === 'horizontal' ? chartHeight : width, props.values);
+  const size = props.direction === 'horizontal' ? chartHeight : width;
+  const barSpacing = props.categorical ? (size / props.values.length - props.barWeight) : chartConstants.barSpacing;
+  const paddingInner = barSpacing / (size / props.values.length);
+  const paddingOuter = props.categorical ? paddingInner / 2 : 0;
+  const scale = scaleBand({
+    range: [0, size],
+    domain: props.values,
+    paddingInner: paddingInner,
+    paddingOuter: paddingOuter,
+  });
   return (
     <Group
       left={left}
       top={props.direction === 'horizontal' ? 0 : chartConstants.marginMaxValueToBorder}
     >
-      {props.values.map((d, i) => {
-        const barOffset = props.categorical ? (scale.range().slice(-1)[0] / props.values.length / 2 - props.barWeight / 2) : 0;
-        return (
-          <Bar
-            key={`bar-${i}`} // eslint-disable-line
-            color={props.color}
-            barWeight={props.barWeight}
-            direction={props.direction}
-            maxValue={props.maxValue}
-            value={d}
-            size={props.direction === 'horizontal' ? width - chartConstants.marginMaxValueToBorder : chartHeight - chartConstants.marginMaxValueToBorder}
-            x={props.direction === 'horizontal' ? 0 : scale(d) + barOffset}
-            y={props.direction === 'horizontal' ? scale(d) + barOffset : 0}
-          />
-        );
-      })}
+      {props.values.map((d, i) => (
+        <Bar
+        key={`bar-${i}`} // eslint-disable-line
+          color={props.color}
+          barWeight={scale.bandwidth()}
+          direction={props.direction}
+          maxValue={props.maxValue}
+          value={d}
+          size={props.direction === 'horizontal' ? width - chartConstants.marginMaxValueToBorder : chartHeight - chartConstants.marginMaxValueToBorder}
+          x={props.direction === 'horizontal' ? 0 : scale(d)}
+          y={props.direction === 'horizontal' ? scale(d) : 0}
+        />
+      ))}
     </Group>
   );
 };

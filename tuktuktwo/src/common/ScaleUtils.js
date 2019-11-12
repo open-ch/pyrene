@@ -4,7 +4,7 @@ export default class ScaleUtils {
 
   static scaleOrdinal(size, labels) {
     return scaleBand({
-      rangeRound: [0, size],
+      range: [0, size],
       domain: labels,
     });
   }
