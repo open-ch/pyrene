@@ -19,7 +19,7 @@ const Bars = (props) => {
       top={props.direction === 'horizontal' ? 0 : chartConstants.marginMaxValueToBorder}
     >
       {props.values.map((d, i) => {
-        const delta = (scale.range().slice(-1)[0] / props.values.length / 2) - (props.barWeight / 2);
+        const barOffset = props.categorical ? (scale.range().slice(-1)[0] / props.values.length / 2 - props.barWeight / 2) : 0;
         return (
           <Bar
             key={`bar-${i}`} // eslint-disable-line
@@ -29,8 +29,8 @@ const Bars = (props) => {
             maxValue={props.maxValue}
             value={d}
             size={props.direction === 'horizontal' ? width - chartConstants.marginMaxValueToBorder : chartHeight - chartConstants.marginMaxValueToBorder}
-            x={props.direction === 'horizontal' ? 0 : scale(d) + delta}
-            y={props.direction === 'horizontal' ? scale(d) + delta : 0}
+            x={props.direction === 'horizontal' ? 0 : scale(d) + barOffset}
+            y={props.direction === 'horizontal' ? scale(d) + barOffset : 0}
           />
         );
       })}
@@ -42,6 +42,7 @@ Bars.displayName = 'Bars';
 
 Bars.defaultProps = {
   barWeight: 10,
+  categorical: false,
   direction: 'vertical',
 };
 
@@ -50,6 +51,10 @@ Bars.propTypes = {
    * Sets the bar weight (height if horizontal | width if vertical).
    */
   barWeight: PropTypes.number,
+  /**
+   * If set, the bars will have an offset to compensate the textAnchor='middle' property of the CategoricalAxis.
+   */
+  categorical: PropTypes.bool,
   /**
    * Sets the color of the bars.
    */
