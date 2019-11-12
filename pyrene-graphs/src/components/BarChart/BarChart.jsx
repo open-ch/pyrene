@@ -103,6 +103,7 @@ const BarChart = (props) => {
                 values={props.data.map((row) => row.values[0])}
                 direction={props.direction}
                 width={parent.width}
+                categorical
               />
             ))}
           </svg>

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Bar,
+  Bars,
   chartConstants,
   localPoint,
   NumericalAxis,
@@ -130,8 +130,8 @@ const TimeSeriesBucketChart = (props) => {
           // Get scale function, time frame, number of bars, max data value, maximum bar height and bar weight
           const xScale = scaleUtils.scaleCustomLinear(chartConstants.marginLeftNumerical, parent.width, props.from, props.to, 'horizontal');
           const numBars = props.dataSeries.data.length;
-          const maxValue = Math.max(...props.dataSeries.data.map((data) => data[1]));
-          const maxBarSize = Math.max(0, parent.height - chartConstants.marginBottom - chartConstants.marginMaxValueToBorder);
+          const values = props.dataSeries.data.map((data) => data[1]);
+          const maxValue = Math.max(...values);
           const barWeight = parent.width > 0 ? ((parent.width - chartConstants.marginLeftNumerical) / numBars - chartConstants.barSpacing) : 0;
 
           // Get time formatting function for tooltip
@@ -177,20 +177,15 @@ const TimeSeriesBucketChart = (props) => {
                   onTouchMove={(e) => onMouseMove(e, props.dataSeries.data, xScale, showTooltip)}
                 >
                   {!props.loading && props.dataSeries.data.length > 0 && (
-                    <g transform={`translate(${chartConstants.marginLeftNumerical}, 0)`}>
-                      {props.dataSeries.data.map((data, index) => (
-                        <Bar key={Math.random()}
-                          barWeight={barWeight}
-                          color={props.colorScheme.categorical[0]}
-                          direction="vertical"
-                          value={data[1]}
-                          maxValue={maxValue}
-                          size={maxBarSize}
-                          x={index * (barWeight + chartConstants.barSpacing)}
-                          y={chartConstants.marginMaxValueToBorder}
-                        />
-                      ))}
-                    </g>
+                    <Bars
+                      barWeight={barWeight}
+                      color={props.colorScheme.categorical[0]}
+                      direction="vertical"
+                      height={parent.height}
+                      maxValue={maxValue}
+                      values={values}
+                      width={parent.width}
+                    />
                   )}
                   {/* ChartArea makes sure the outer <g> element where all mouse event listeners are attached always covers the whole chart area so that there is no tooltip flickering issue */}
                   <ChartArea width={parent.width} height={parent.height} />
