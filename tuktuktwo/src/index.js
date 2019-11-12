@@ -4,11 +4,13 @@
 // Sort alphabetically to find stuff easily
 import { default as Bar } from './components/Bar/Bar';
 import { default as Bars } from './components/Bar/Bars';
+import { default as BarStack } from './components/Bar/BarStack';
 import { default as CategoricalAxis } from './components/Axis/CategoricalAxis';
 import { default as Line } from './components/Line/Line';
 import { default as NumericalAxis } from './components/Axis/NumericalAxis';
 import { default as RelativeBar } from './components/Bar/RelativeBar';
 import { default as Responsive } from './components/Misc/Responsive';
+import { default as TimeSeriesZoomable, minZoomRangeReached, getBoundedZoomInRange } from './components/TimeSeriesZoomable/TimeSeriesZoomable';
 import { default as TimeXAxis } from './components/TimeXAxis/TimeXAxis';
 import { default as TooltipWrapper } from './components/Tooltip/TooltipWrapper';
 
@@ -16,25 +18,33 @@ import { default as TooltipWrapper } from './components/Tooltip/TooltipWrapper';
 const Components = {
   Bar,
   Bars,
+  BarStack,
   CategoricalAxis,
   Line,
   NumericalAxis,
   RelativeBar,
-  TimeXAxis,
   Responsive,
+  TimeSeriesZoomable,
+  TimeXAxis,
   TooltipWrapper,
 };
 
 // Sort alphabetically to find stuff easily
 export { Bar };
 export { Bars };
+export { BarStack };
 export { CategoricalAxis };
 export { Line };
 export { NumericalAxis };
 export { RelativeBar };
 export { Responsive };
+export { TimeSeriesZoomable, minZoomRangeReached, getBoundedZoomInRange };
 export { TimeXAxis };
 export { TooltipWrapper };
 export { withTooltip } from '@vx/tooltip';
+export { localPoint } from '@vx/event';
+
+export { default as chartConstants } from './common/chartConstants';
+export { default as scaleUtils } from './common/ScaleUtils';
 
 export default Components;

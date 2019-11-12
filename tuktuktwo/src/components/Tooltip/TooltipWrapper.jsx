@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { TooltipWithBounds } from '@vx/tooltip';
+import chartConstants from '../../common/chartConstants';
 
 /**
  * Tooltip for time series
@@ -11,8 +12,8 @@ const TooltipWrapper = ({ top, left, children }) => (
     key={Math.random()}
     top={top + 5}
     left={left}
-    offsetLeft={15}
-    offsetRight={15}
+    offsetLeft={chartConstants.tooltipOffset}
+    offsetTop={chartConstants.tooltipOffset}
     // Clear out the stuff vx sets, allowing us to style the children passed in
     style={{ padding: 0, borderRadius: 2 }}
   >
