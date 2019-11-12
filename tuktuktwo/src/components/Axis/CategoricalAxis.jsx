@@ -5,7 +5,7 @@ import ScaleUtils from '../../common/ScaleUtils';
 import chartConstants from '../../common/chartConstants';
 
 const getScale = (size, labels) => (
-  ScaleUtils.scaleCategorical(size, labels)
+  ScaleUtils.scaleOrdinal(size, labels)
 );
 
 /**

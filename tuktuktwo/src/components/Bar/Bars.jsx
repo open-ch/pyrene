@@ -12,7 +12,7 @@ const Bars = (props) => {
   const left = props.direction === 'horizontal' ? chartConstants.marginLeftCategorical : chartConstants.marginLeftNumerical;
   const chartHeight = props.height - chartConstants.marginBottom;
   const width = props.width - left;
-  const scale = ScaleUtils.scaleCategorical(props.direction === 'horizontal' ? chartHeight : width, props.values);
+  const scale = ScaleUtils.scaleOrdinal(props.direction === 'horizontal' ? chartHeight : width, props.values);
   return (
     <Group
       left={left}

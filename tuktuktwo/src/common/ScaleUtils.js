@@ -2,7 +2,7 @@ import { scaleBand, scaleLinear } from '@vx/scale';
 
 export default class ScaleUtils {
 
-  static scaleCategorical(size, labels) {
+  static scaleOrdinal(size, labels) {
     return scaleBand({
       rangeRound: [0, size],
       domain: labels,

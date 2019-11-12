@@ -47,7 +47,7 @@ const BarStack = (props) => {
     range: props.colors,
   });
   if (props.direction === 'horizontal') {
-    const scaleCategorical = ScaleUtils.scaleCategorical(height, labels);
+    const scaleCategorical = ScaleUtils.scaleOrdinal(height, labels);
     return (
       <Group
         top={(scaleCategorical.range().slice(-1)[0] / labels.length / 2) - (props.barWeight / 2)}
@@ -67,7 +67,7 @@ const BarStack = (props) => {
 
     );
   }
-  const scaleCategorical = ScaleUtils.scaleCategorical(width, labels);
+  const scaleCategorical = ScaleUtils.scaleOrdinal(width, labels);
   return (
     <Group
       left={left + (scaleCategorical.range().slice(-1)[0] / labels.length / 2) - (props.barWeight / 2)}
