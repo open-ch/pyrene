@@ -95,7 +95,7 @@ const getColumn = ({
   };
 };
 
-export const getLegend = ({ type, columns }) => {
+export const getLegend = (type, columns) => {
   switch (type) {
     case 'comparison':
       return [columns.primaryValue.title, columns.secondaryValue.title];
