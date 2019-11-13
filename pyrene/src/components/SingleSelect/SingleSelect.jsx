@@ -94,11 +94,11 @@ const SingleSelect = (props) => {
         : (
           <>
             {props.helperLabel
-          && (
-            <div styleName="selectHelper">
-              {props.helperLabel}
-            </div>
-          )}
+              && (
+                <div styleName="selectHelper">
+                  {props.helperLabel}
+                </div>
+              )}
           </>
         )}
 
