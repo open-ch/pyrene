@@ -46,7 +46,7 @@ const onMouseMove = (event, data, xScale, showTooltip) => {
   // Show normal tooltip
   const foundIndex = data.findIndex((d) => d[0] > currentTS) - 1;
   const index = foundIndex >= 0 ? foundIndex : data.length - 1;
-  const timeFrame = (index === data.length - 1 ? xScale.range()[1] : data[index + 1][0]) - data[index][0];
+  const timeFrame = index === data.length - 1 ? (data[index][0] - data[index - 1][0]) : (data[index + 1][0] - data[index][0]);
   showTooltip({
     tooltipLeft: x,
     tooltipTop: y,
@@ -127,10 +127,12 @@ const TimeSeriesBucketChart = (props) => {
       )}
       <Responsive>
         {(parent) => {
-          // Get scale function, time frame, max data value, maximum bar height and bar weight
+          // Get scale function, time frame, number of bars, max data value, maximum bar height and bar weight
           const xScale = scaleUtils.scaleCustomLinear(chartConstants.marginLeftNumerical, parent.width, props.from, props.to, 'horizontal');
+          const numBars = props.dataSeries.data.length;
           const maxValue = Math.max(...props.dataSeries.data.map((data) => data[1]));
           const maxBarSize = Math.max(0, parent.height - chartConstants.marginBottom - chartConstants.marginMaxValueToBorder);
+          const barWeight = parent.width > 0 ? ((parent.width - chartConstants.marginLeftNumerical) / numBars - chartConstants.barSpacing) : 0;
 
           // Get time formatting function for tooltip
           let timeFormat;
@@ -174,27 +176,20 @@ const TimeSeriesBucketChart = (props) => {
                   onTouchEnd={props.zoom ? () => onMouseUp(hideTooltip) : () => {}}
                   onTouchMove={(e) => onMouseMove(e, props.dataSeries.data, xScale, showTooltip)}
                 >
-                  {!props.loading && props.dataSeries.data.length > 0 && parent.width && (
-                    <g>
-                      {props.dataSeries.data.map((data, index) => {
-                        const timeFrame = (index === props.dataSeries.data.length - 1 ? xScale.range()[1] : props.dataSeries.data[index + 1][0]) - data[0];
-                        let barWeight = 0;
-                        if (timeFrame > 0) {
-                          barWeight = xScale.invert(timeFrame + props.from) - chartConstants.marginLeftNumerical - (index === props.dataSeries.data.length -1 ? 0 : chartConstants.barSpacing);
-                        }
-                        return (
-                          <Bar key={Math.random()}
-                            barWeight={barWeight}
-                            color={props.colorScheme.categorical[0]}
-                            direction="vertical"
-                            value={data[1]}
-                            maxValue={maxValue}
-                            size={maxBarSize}
-                            x={xScale.invert(data[0]) + chartConstants.barSpacing / 2}
-                            y={chartConstants.marginMaxValueToBorder}
-                          />
-                        );
-                      })}
+                  {!props.loading && props.dataSeries.data.length > 0 && (
+                    <g transform={`translate(${chartConstants.marginLeftNumerical}, 0)`}>
+                      {props.dataSeries.data.map((data, index) => (
+                        <Bar key={Math.random()}
+                          barWeight={barWeight}
+                          color={props.colorScheme.categorical[0]}
+                          direction="vertical"
+                          value={data[1]}
+                          maxValue={maxValue}
+                          size={maxBarSize}
+                          x={index * (barWeight + chartConstants.barSpacing)}
+                          y={chartConstants.marginMaxValueToBorder}
+                        />
+                      ))}
                     </g>
                   )}
                   {/* ChartArea makes sure the outer <g> element where all mouse event listeners are attached always covers the whole chart area so that there is no tooltip flickering issue */}
