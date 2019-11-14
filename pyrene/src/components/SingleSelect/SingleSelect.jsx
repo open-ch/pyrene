@@ -41,6 +41,7 @@ const SingleSelect = (props) => {
             name={props.name}
             id={props.name}
             inputId={props.name}
+            autoFocus={props.autoFocus}
 
             maxMenuHeight={264}
             noOptionsMessage={() => 'no matches found'}
@@ -74,6 +75,7 @@ const SingleSelect = (props) => {
             name={props.name}
             id={props.name}
             inputId={props.name}
+            autoFocus={props.autoFocus}
 
             maxMenuHeight={264}
             noOptionsMessage={() => 'no matches found'}
@@ -94,11 +96,11 @@ const SingleSelect = (props) => {
         : (
           <>
             {props.helperLabel
-          && (
-            <div styleName="selectHelper">
-              {props.helperLabel}
-            </div>
-          )}
+              && (
+                <div styleName="selectHelper">
+                  {props.helperLabel}
+                </div>
+              )}
           </>
         )}
 
@@ -109,6 +111,7 @@ const SingleSelect = (props) => {
 SingleSelect.displayName = 'Single Select';
 
 SingleSelect.defaultProps = {
+  autoFocus: false,
   placeholder: '',
   name: '',
   creatable: false,
@@ -131,6 +134,10 @@ SingleSelect.defaultProps = {
 };
 
 SingleSelect.propTypes = {
+  /**
+  * Focus an element when it mounts.
+  */
+  autoFocus: PropTypes.bool,
   /**
    * Whether the selection is clearable.
    */
