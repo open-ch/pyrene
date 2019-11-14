@@ -55,7 +55,7 @@ const BarChartSVG = (props) => {
         const tooltipDataSeries = tooltipData.values.map((value, index) => ({
           dataColor: props.colorScheme.categorical[index],
           dataLabel: props.legend[index],
-          dataValue: value,
+          dataValue: props.formatter(value),
         }));
         const tooltipDataSeriesLabel = tooltipData.label;
         const sharedAxisProps = {
@@ -88,7 +88,7 @@ const BarChartSVG = (props) => {
                   maxValue={maxValue}
                   orientation="left"
                   showGrid={!props.loading}
-                  tickFormat={props.tickFormatNumerical}
+                  tickFormat={props.formatter}
                 />
               )}
               {props.direction === 'horizontal' ? (
@@ -101,7 +101,7 @@ const BarChartSVG = (props) => {
                   maxValue={maxValue}
                   orientation="bottom"
                   showGrid={!props.loading}
-                  tickFormat={props.tickFormatNumerical}
+                  tickFormat={props.formatter}
                 />
               ) : (
                 <CategoricalAxis
@@ -166,7 +166,7 @@ BarChartSVG.defaultProps = {
   colorScheme: colorSchemes.colorSchemeDefault,
   direction: 'vertical',
   loading: false,
-  tickFormatNumerical: (d) => d,
+  formatter: (d) => d,
   tooltipData: {
     label: '',
     values: [],
@@ -194,6 +194,10 @@ BarChartSVG.propTypes = {
    */
   direction: PropTypes.oneOf(['horizontal', 'vertical']),
   /**
+   * Set function to format the displayed values.
+   */
+  formatter: PropTypes.func,
+  /**
    * The function to hide tooltip provided by the withTooltip enhancer.
    */
   hideTooltip: PropTypes.func.isRequired,
@@ -209,10 +213,6 @@ BarChartSVG.propTypes = {
    * The function to render the proper tooltip provided by the withTooltip enhancer.
    */
   showTooltip: PropTypes.func.isRequired,
-  /**
-   * Set function to format the tick labels of the NumericalAxis.
-   */
-  tickFormatNumerical: PropTypes.func,
   /**
    * The tooltip data prop provided by the withTooltip enhancer.
    */

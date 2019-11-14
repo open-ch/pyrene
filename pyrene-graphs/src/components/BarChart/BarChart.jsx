@@ -26,7 +26,7 @@ const BarChart = (props) => {
       direction={props.direction}
       legend={props.legend}
       loading={props.loading}
-      tickFormatNumerical={props.tickFormatNumerical}
+      formatter={props.formatter}
     />
   );
   const chartOverlay = (
@@ -50,7 +50,7 @@ BarChart.defaultProps = {
   colorScheme: colorSchemes.colorSchemeDefault,
   direction: 'vertical',
   loading: false,
-  tickFormatNumerical: (d) => d,
+  formatter: (d) => d,
 };
 
 BarChart.propTypes = {
@@ -76,6 +76,10 @@ BarChart.propTypes = {
    */
   direction: PropTypes.oneOf(['horizontal', 'vertical']),
   /**
+   * Set function to format the displayed values.
+   */
+  formatter: PropTypes.func,
+  /**
     * Sets the legend. Type: [ string ]
     */
   legend: PropTypes.arrayOf(PropTypes.string).isRequired,
@@ -83,10 +87,6 @@ BarChart.propTypes = {
     * If set, a loader is shown instead of axis tick labels, grid and bars.
     */
   loading: PropTypes.bool,
-  /**
-   * Set function to format the tick labels of the NumericalAxis.
-   */
-  tickFormatNumerical: PropTypes.func,
   /**
    * Sets the title.
    */
