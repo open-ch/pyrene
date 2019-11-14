@@ -3,6 +3,7 @@ const marginMaxValueToBorder = 16;
 const chartConstants = {
   barSpacing: 3,
   lastGridTickValueMarginTop: marginMaxValueToBorder,
+  lastTickValueMarginTop: 6,
   lastTickValueMarginRight: marginMaxValueToBorder,
   marginBottom: 24,
   marginLeftCategorical: 102,

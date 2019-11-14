@@ -19,19 +19,20 @@ const NumericalAxis = (props) => {
   if (props.orientation === 'left') {
     const numTicks = 5;
     const scale = getScale(props.scale, chartHeight, 'vertical', props.maxValue);
+    const axisTickValues = !props.showGrid && scale(scale.ticks(numTicks).splice(-1, 1)) <= chartConstants.lastTickValueMarginTop ? scale.ticks(numTicks).slice(0, -1) : scale.ticks(numTicks);
     const gridTickValues = scale(scale.ticks(numTicks).splice(-1, 1)) <= chartConstants.lastGridTickValueMarginTop ? scale.ticks(numTicks).slice(0, -1) : scale.ticks(numTicks);
     return (
       <Group>
         <AxisLeft
           left={chartConstants.marginLeftNumerical}
           scale={scale}
+          tickValues={props.showTickLabels ? axisTickValues : []}
           tickLength={0}
           tickLabelProps={() => ({
-            fontSize: 10, fill: props.tickLabelColor, fontFamily: 'AvenirNext', textAnchor: 'start', dy: '1em', dx: -chartConstants.marginLeftNumerical,
+            fontSize: 10, fill: props.tickLabelColor, fontFamily: 'AvenirNext', textAnchor: 'start', dy: props.showGrid ? '1em' : '0.25em', dx: -chartConstants.marginLeftNumerical,
           })}
           stroke={props.strokeColor}
           tickStroke={props.tickLabelColor}
-          numTicks={props.showTickLabels ? numTicks : 0}
           tickFormat={props.tickFormat}
           hideTicks
           hideZero
