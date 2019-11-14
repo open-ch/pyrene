@@ -13,7 +13,7 @@ import {
 } from 'tuktuktwo';
 import ChartArea from '../ChartArea/ChartArea';
 import TimeZoomControls from '../TimeZoomControls/TimeZoomControls';
-import Tooltip from '../TimeSeries/Tooltip';
+import Tooltip from '../Tooltip/Tooltip';
 import Formats from '../../common/Formats';
 import colorSchemes from '../../styles/colorSchemes';
 import colorConstants from '../../styles/colorConstants';
