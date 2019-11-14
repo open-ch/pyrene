@@ -21,7 +21,7 @@ const CategoricalAxis = (props) => {
         scale={getScale(chartHeight, labels)}
         tickLength={0}
         tickLabelProps={() => ({
-          fontSize: 10, fill: props.tickLabelColor, fontFamily: 'AvenirNext', textAnchor: 'start', dy: '0.25em', dx: -chartConstants.marginLeftCategorical,
+          fontSize: 10, fill: props.tickLabelColor, fontFamily: 'AvenirNext', textAnchor: 'start', dy: '0.4em', dx: -chartConstants.marginLeftCategorical,
         })}
         stroke={props.strokeColor}
         tickStroke={props.tickLabelColor}
