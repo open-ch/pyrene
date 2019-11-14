@@ -2,12 +2,11 @@ import React from 'react';
 import NumericalAxis from './NumericalAxis';
 import ScaleUtils from '../../common/ScaleUtils';
 
-const parentSize = { width: 50, height: 40 };
+const parentSize = { width: 500, height: 400 };
 
 const props = {
   height: parentSize.height,
   orientation: 'left',
-  parentSize: parentSize,
   maxValue: 100,
   strokeColor: 'red',
   tickLabelColor: 'blue',
@@ -72,12 +71,15 @@ describe('<NumericalAxis />', () => {
   });
 
   it('sets custom scale', () => {
-    const rendered = mount(svgWrapper(<NumericalAxis {...props} scale={ScaleUtils.scaleCategorical(parentSize.width, ['Dropbox', 'Youtube'])} />));
+    const rendered = mount(svgWrapper(<NumericalAxis {...props} scale={ScaleUtils.scaleCustomLinear(-props.maxValue / 2, props.maxValue / 2, 0, parentSize.width, 'horizontal')} />));
     const axis = rendered.find('.vx-axis').at(0);
-    expect(axis.findWhere((n) => n.text() === '20').exists()).toBe(false);
-    expect(axis.findWhere((n) => n.text() === 'Dropbox').exists()).toBe(true);
-    expect(axis.findWhere((n) => n.text() === 'Youtube').exists()).toBe(true);
-    expect(axis.findWhere((n) => n.text() === 'Google').exists()).toBe(false);
+    expect(axis.findWhere((n) => n.text() === '-60').exists()).toBe(false);
+    expect(axis.findWhere((n) => n.text() === '-40').exists()).toBe(true);
+    expect(axis.findWhere((n) => n.text() === '-20').exists()).toBe(true);
+    expect(axis.findWhere((n) => n.text() === '0').exists()).toBe(false);
+    expect(axis.findWhere((n) => n.text() === '20').exists()).toBe(true);
+    expect(axis.findWhere((n) => n.text() === '40').exists()).toBe(true);
+    expect(axis.findWhere((n) => n.text() === '60').exists()).toBe(false);
   });
 
 });
