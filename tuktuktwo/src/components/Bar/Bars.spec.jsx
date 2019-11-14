@@ -27,21 +27,41 @@ describe('<Bars />', () => {
     shallow(svgWrapper(<Bars {...props} />));
   });
 
-  it('renders its content vertically', () => {
-    const rendered = mount(svgWrapper(<Bars {...props} direction="vertical" />));
+  it('renders its content vertically with fixed barWeight', () => {
+    const rendered = mount(svgWrapper(<Bars {...props} direction="vertical" categorical />));
     const bars = rendered.find('.vx-bar');
     bars.forEach((bar, index) => {
       expect(bar.prop('height')).toBeCloseTo((values[index] / maxValue) * (props.height - chartConstants.marginBottom - chartConstants.marginMaxValueToBorder));
-      expect(bar.prop('width')).toBe(barWeight);
+      expect(bar.prop('width')).toBeCloseTo(barWeight);
       expect(bar.prop('fill')).toBe('blue');
     });
   });
 
-  it('renders its content horizontally', () => {
+  it('renders its content horizontally with fixed barWeight', () => {
+    const rendered = mount(svgWrapper(<Bars {...props} direction="horizontal" categorical />));
+    const bars = rendered.find('.vx-bar');
+    bars.forEach((bar, index) => {
+      expect(bar.prop('height')).toBeCloseTo(barWeight);
+      expect(bar.prop('width')).toBeCloseTo((values[index] / maxValue) * (parentSize.width - chartConstants.marginLeftCategorical - chartConstants.marginMaxValueToBorder));
+      expect(bar.prop('fill')).toBe('blue');
+    });
+  });
+
+  it('renders its content vertically with dynamic barWeight', () => {
+    const rendered = mount(svgWrapper(<Bars {...props} direction="vertical" />));
+    const bars = rendered.find('.vx-bar');
+    bars.forEach((bar, index) => {
+      expect(bar.prop('height')).toBeCloseTo((values[index] / maxValue) * (props.height - chartConstants.marginBottom - chartConstants.marginMaxValueToBorder));
+      expect(bar.prop('width')).toBeCloseTo((parentSize.width - chartConstants.marginLeftNumerical - chartConstants.barSpacing * (values.length - 1)) / values.length, 1);
+      expect(bar.prop('fill')).toBe('blue');
+    });
+  });
+
+  it('renders its content horizontally with dynamic barWeight', () => {
     const rendered = mount(svgWrapper(<Bars {...props} direction="horizontal" />));
     const bars = rendered.find('.vx-bar');
     bars.forEach((bar, index) => {
-      expect(bar.prop('height')).toBe(barWeight);
+      expect(bar.prop('height')).toBeCloseTo((parentSize.height - chartConstants.marginBottom - chartConstants.barSpacing * (values.length - 1)) / values.length, 1);
       expect(bar.prop('width')).toBeCloseTo((values[index] / maxValue) * (parentSize.width - chartConstants.marginLeftCategorical - chartConstants.marginMaxValueToBorder));
       expect(bar.prop('fill')).toBe('blue');
     });
