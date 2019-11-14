@@ -171,6 +171,8 @@ BarChartSVG.defaultProps = {
     label: '',
     values: [],
   },
+  tooltipLeft: 0,
+  tooltipTop: 0,
 };
 
 BarChartSVG.propTypes = {
@@ -192,6 +194,10 @@ BarChartSVG.propTypes = {
    */
   direction: PropTypes.oneOf(['horizontal', 'vertical']),
   /**
+   * The function to hide tooltip provided by the withTooltip enhancer.
+   */
+  hideTooltip: PropTypes.func.isRequired,
+  /**
     * Sets the legend. Type: [ string ]
     */
   legend: PropTypes.arrayOf(PropTypes.string).isRequired,
@@ -199,6 +205,10 @@ BarChartSVG.propTypes = {
     * If set, a loader is shown instead of axis tick labels, grid and bars.
     */
   loading: PropTypes.bool,
+  /**
+   * The function to render the proper tooltip provided by the withTooltip enhancer.
+   */
+  showTooltip: PropTypes.func.isRequired,
   /**
    * Set function to format the tick labels of the NumericalAxis.
    */
@@ -210,6 +220,18 @@ BarChartSVG.propTypes = {
     label: PropTypes.string.isRequired,
     values: PropTypes.arrayOf(PropTypes.number).isRequired,
   }),
+  /**
+   * The tooltip x-position prop provided by the withTooltip enhancer.
+   */
+  tooltipLeft: PropTypes.number,
+  /**
+   * The prop provided by the withTooltip enhancer to decide whether to show the tooltip or not.
+   */
+  tooltipOpen: PropTypes.bool.isRequired,
+  /**
+   * The tooltip y-position prop provided by the withTooltip enhancer.
+   */
+  tooltipTop: PropTypes.number,
 };
 
 export default withTooltip(BarChartSVG);
