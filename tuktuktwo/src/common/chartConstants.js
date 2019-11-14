@@ -1,11 +1,16 @@
+const marginMaxValueToBorder = 16;
+
 const chartConstants = {
+  barSpacing: 3,
+  lastGridTickValueMarginTop: marginMaxValueToBorder,
+  lastTickValueMarginTop: 6,
+  lastTickValueMarginRight: marginMaxValueToBorder,
   marginBottom: 24,
   marginLeftCategorical: 102,
   marginLeftNumerical: 36,
-  marginMaxValueToBorder: 16,
-  barSpacing: 3,
-  zoomTooltipHeight: 34,
+  marginMaxValueToBorder: marginMaxValueToBorder,
   tooltipOffset: 15,
+  zoomTooltipHeight: 34,
 };
 
 export default chartConstants;

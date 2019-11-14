@@ -6,11 +6,9 @@ import { Group } from '@vx/group';
 import ScaleUtils from '../../common/ScaleUtils';
 import chartConstants from '../../common/chartConstants';
 
-const getScale = (height, width, scale, orientation, maxValue) => {
+const getScale = (scale, size, direction, maxValue) => {
   if (scale) return scale;
-  const direction = orientation === 'left' ? 'vertical' : 'horizontal';
-  const size = orientation === 'left' ? height : width - chartConstants.marginLeftCategorical;
-  return ScaleUtils.scaleLinear(size - chartConstants.marginMaxValueToBorder, maxValue, direction);
+  return ScaleUtils.scaleLinear(size, (maxValue / (size - chartConstants.marginMaxValueToBorder)) * size, direction);
 };
 
 /**
@@ -18,22 +16,23 @@ const getScale = (height, width, scale, orientation, maxValue) => {
  */
 const NumericalAxis = (props) => {
   const chartHeight = props.height - chartConstants.marginBottom;
-  const scale = getScale(chartHeight, props.width, props.scale, props.orientation, props.maxValue);
-  return (
-    props.orientation === 'left' ? (
-      <Group
-        top={chartConstants.marginMaxValueToBorder}
-      >
+  if (props.orientation === 'left') {
+    const numTicks = 5;
+    const scale = getScale(props.scale, chartHeight, 'vertical', props.maxValue);
+    const axisTickValues = !props.showGrid && scale(scale.ticks(numTicks).splice(-1, 1)) <= chartConstants.lastTickValueMarginTop ? scale.ticks(numTicks).slice(0, -1) : scale.ticks(numTicks);
+    const gridTickValues = scale(scale.ticks(numTicks).splice(-1, 1)) <= chartConstants.lastGridTickValueMarginTop ? scale.ticks(numTicks).slice(0, -1) : scale.ticks(numTicks);
+    return (
+      <Group>
         <AxisLeft
           left={chartConstants.marginLeftNumerical}
           scale={scale}
+          tickValues={props.showTickLabels ? axisTickValues : []}
           tickLength={0}
           tickLabelProps={() => ({
-            fontSize: 10, fill: props.tickLabelColor, fontFamily: 'AvenirNext', textAnchor: 'start', dy: '0.25em', dx: -chartConstants.marginLeftNumerical,
+            fontSize: 10, fill: props.tickLabelColor, fontFamily: 'AvenirNext', textAnchor: 'start', dy: props.showGrid ? '1em' : '0.25em', dx: -chartConstants.marginLeftNumerical,
           })}
           stroke={props.strokeColor}
           tickStroke={props.tickLabelColor}
-          numTicks={props.showTickLabels ? 5 : 0}
           tickFormat={props.tickFormat}
           hideTicks
           hideZero
@@ -45,38 +44,44 @@ const NumericalAxis = (props) => {
             stroke={props.strokeColor}
             width={props.width - chartConstants.marginLeftNumerical}
             height={chartHeight}
-            numTicks={5}
+            tickValues={gridTickValues}
           />
         )}
       </Group>
-    ) : (
-      <Group
-        left={chartConstants.marginLeftCategorical}
-      >
-        <AxisBottom
-          top={chartHeight}
+    );
+  }
+  const chartWidth = props.width - chartConstants.marginLeftCategorical;
+  const numTicks = 7;
+  const scale = getScale(props.scale, chartWidth, 'horizontal', props.maxValue);
+  const tickValues = scale(scale.ticks(numTicks).slice(-1)[0]) + chartConstants.lastTickValueMarginRight >= chartWidth ? scale.ticks(numTicks).slice(0, -1) : scale.ticks(numTicks);
+  return (
+    <Group
+      left={chartConstants.marginLeftCategorical}
+    >
+      <AxisBottom
+        top={chartHeight}
+        scale={scale}
+        tickValues={props.showTickLabels ? tickValues : []}
+        tickLabelProps={() => ({
+          textAnchor: 'middle', fontSize: 10, fontFamily: 'AvenirNext', fill: props.tickLabelColor, dy: '-0.25em',
+        })}
+        stroke={props.strokeColor}
+        tickStroke={props.tickLabelColor}
+        tickFormat={props.tickFormat}
+        hideTicks
+        hideZero
+      />
+      {props.showGrid && (
+        <GridColumns
           scale={scale}
-          tickLabelProps={() => ({
-            textAnchor: 'middle', fontSize: 10, fontFamily: 'AvenirNext', fill: props.tickLabelColor, dy: '-0.25em',
-          })}
           stroke={props.strokeColor}
-          tickStroke={props.tickLabelColor}
-          numTicks={props.showTickLabels ? 7 : 0}
-          tickFormat={props.tickFormat}
-          hideTicks
-          hideZero
+          width={chartWidth}
+          height={chartHeight}
+          tickValues={tickValues}
         />
-        {props.showGrid && (
-          <GridColumns
-            scale={scale}
-            stroke={props.strokeColor}
-            width={props.width - chartConstants.marginLeftCategorical}
-            height={chartHeight}
-            numTicks={7}
-          />
-        )}
-      </Group>
-    ));
+      )}
+    </Group>
+  );
 };
 
 NumericalAxis.displayName = 'Numerical Axis';
