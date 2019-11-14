@@ -13,7 +13,7 @@ import {
 } from 'tuktuktwo';
 import ChartArea from '../ChartArea/ChartArea';
 import TimeZoomControls from '../TimeZoomControls/TimeZoomControls';
-import Tooltip from '../Tooltip/Tooltip';
+import TooltipTimeSeries from '../Tooltip/TooltipTimeSeries';
 import Formats from '../../common/Formats';
 import colorSchemes from '../../styles/colorSchemes';
 import colorConstants from '../../styles/colorConstants';
@@ -207,7 +207,7 @@ const TimeSeriesBucketChart = (props) => {
               </svg>
               {
                 tooltipOpen && (
-                  <Tooltip
+                  <TooltipTimeSeries
                     dataSeries={zoomStartX ? [] : [{ dataColor: props.colorScheme.categorical[0], dataLabel: props.dataSeries.label, dataValue: props.dataFormat.tooltip(tooltipData[1]) }]}
                     timeFormat={timeFormat} time={zoomStartX ? tooltipData : tooltipData[0]}
                     left={tooltipLeft} top={tooltipTop}
