@@ -1,5 +1,5 @@
 import React from 'react';
-import Tooltip from './Tooltip';
+import TooltipTimeSeries from './TooltipTimeSeries';
 
 const props = {
   dataSeries: [{
@@ -11,11 +11,12 @@ const props = {
   left: 55,
   top: 42,
 
-  dataSeriesLabel: 'Test',
+  time: 9284655926,
+  timeFormat: (d) => d,
 };
 
-describe('<Tooltip />', () => {
+describe('<TooltipTimeSeries />', () => {
   it('renders without crashing', () => {
-    shallow(<Tooltip {...props} />);
+    shallow(<TooltipTimeSeries {...props} />);
   });
 });

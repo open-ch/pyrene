@@ -7,7 +7,7 @@ import styles from './tooltip.css';
 /**
  * Timeseries Tooltip
  */
-const Tooltip = ({
+const TooltipTimeSeries = ({
   dataSeries, time, timeFormat, left, top,
 }) => (
   <TooltipWrapper left={left} top={top}>
@@ -20,13 +20,13 @@ const Tooltip = ({
   </TooltipWrapper>
 );
 
-Tooltip.displayName = 'Tooltip';
+TooltipTimeSeries.displayName = 'Tooltip Time Series';
 
-Tooltip.defaultProps = {
+TooltipTimeSeries.defaultProps = {
   dataSeries: [],
 };
 
-Tooltip.propTypes = {
+TooltipTimeSeries.propTypes = {
 
   dataSeries: PropTypes.arrayOf(PropTypes.shape({
     /**
@@ -66,4 +66,4 @@ Tooltip.propTypes = {
   top: PropTypes.number.isRequired,
 };
 
-export default Tooltip;
+export default TooltipTimeSeries;

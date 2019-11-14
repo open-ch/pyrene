@@ -5,7 +5,7 @@ import TooltipLegendItem from './TooltipLegendItem';
 import styles from './tooltip.css';
 
 /**
- * Timeseries Tooltip
+ * Tooltip
  */
 const Tooltip = ({
   dataSeries, dataSeriesLabel, left, top,
