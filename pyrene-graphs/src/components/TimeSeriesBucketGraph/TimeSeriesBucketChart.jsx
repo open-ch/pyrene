@@ -65,6 +65,25 @@ const onMouseUp = (hideTooltip) => {
 };
 
 /**
+ * Check if the data item is within the time range specified by `from` and `to`
+ * @param {[number]}data - The data item in the format of [startTS, value]
+ * @param {number}data - Index of the data item
+ * @param {[[number, number]]}dataSeries - The data series
+ * @param {number}from - Starting time point of the time range in epoch milliseconds
+ * @param {number}to - Ending time point of the time range in epoch milliseconds
+ * @returns {boolean}
+ */
+const isDataInTimeRange = (data, index, dataSeries, from, to) => {
+  if (data[0] >= to) {
+    return false;
+  }
+  if (index !== dataSeries.length && dataSeries[index + 1] <= from) {
+    return false;
+  }
+  return true;
+};
+
+/**
  * The pure SVG chart part of the time series bucket graph.
  */
 const TimeSeriesBucketChart = (props) => {
@@ -130,15 +149,7 @@ const TimeSeriesBucketChart = (props) => {
           // Get scale function, max data value and max bar height
           const xScale = scaleUtils.scaleCustomLinear(chartConstants.marginLeftNumerical, parent.width, props.from, props.to, 'horizontal');
           // Filter out data outside `from` and `to` to get the max value
-          const dataInRange = props.dataSeries.data.filter((data, index) => {
-            if (data[0] >= props.to) {
-              return false;
-            }
-            if (index !== props.dataSeries.data.length && props.dataSeries.data[index + 1] <= props.from) {
-              return false;
-            }
-            return true;
-          });
+          const dataInRange = props.dataSeries.data.filter((data, index) => isDataInTimeRange(data, index, props.dataSeries.data, props.from, props.to));
           const maxValue = Math.max(...dataInRange.map((data) => data[1]));
           const maxBarSize = Math.max(0, parent.height - chartConstants.marginBottom - chartConstants.marginMaxValueToBorder);
 
@@ -187,11 +198,16 @@ const TimeSeriesBucketChart = (props) => {
                   {!props.loading && props.dataSeries.data.length > 0 && parent.width && (
                     <g>
                       {props.dataSeries.data.map((data, index) => {
+                        // Disregard data items that are not in the time range
+                        if (!isDataInTimeRange(data, index, props.dataSeries.data, props.from, props.to)) {
+                          return null;
+                        }
+                        // Calculate bar weight and barX
                         const timeFrame = (index === props.dataSeries.data.length - 1 ? (data[0] - props.dataSeries.data[index - 1][0]) : (props.dataSeries.data[index + 1][0]) - data[0]);
                         let barWeight = xScale.invert(timeFrame + props.from) - chartConstants.marginLeftNumerical - chartConstants.barSpacing;
                         let barX = xScale.invert(data[0]) + chartConstants.barSpacing / 2;
                         if (barX < chartConstants.marginLeftNumerical) {
-                          barWeight -= (chartConstants.marginLeftNumerical - barX);
+                          barWeight = Math.max(0, barWeight - (chartConstants.marginLeftNumerical - barX));
                           barX = chartConstants.marginLeftNumerical;
                         }
                         return (
