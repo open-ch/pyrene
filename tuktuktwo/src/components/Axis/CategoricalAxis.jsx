@@ -12,7 +12,7 @@ const getScale = (size, labels) => (
  * CategoricalAxis is used to display a categorical left or bottom axis.
  */
 const CategoricalAxis = (props) => {
-  const chartHeight = props.height - chartConstants.marginBottom;
+  const chartHeight = Math.max(0, props.height - chartConstants.marginBottom);
   const labels = props.showTickLabels ? props.tickLabels : [];
   return (
     props.orientation === 'left' ? (
