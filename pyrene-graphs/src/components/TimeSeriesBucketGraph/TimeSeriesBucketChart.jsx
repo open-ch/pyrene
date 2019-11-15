@@ -195,16 +195,19 @@ const TimeSeriesBucketChart = (props) => {
                   onTouchEnd={props.zoom ? () => onMouseUp(hideTooltip) : () => {}}
                   onTouchMove={(e) => onMouseMove(e, props.dataSeries.data, xScale, showTooltip)}
                 >
-                  {!props.loading && props.dataSeries.data.length > 0 && parent.width && (
+                  {!props.loading && dataInRange.length > 0 && parent.width && (
                     <g>
-                      {props.dataSeries.data.map((data, index) => {
-                        // Disregard data items that are not in the time range
-                        if (!isDataInTimeRange(data, index, props.dataSeries.data, props.from, props.to)) {
-                          return null;
+                      {dataInRange.map((data, index) => {
+                        // Calculate bar weight
+                        let barWeight = 0;
+                        if (index !== dataInRange.length - 1) {
+                          barWeight = xScale.invert(props.from + (dataInRange[index + 1][0] - data[0])) - chartConstants.marginLeftNumerical - chartConstants.barSpacing;
+                        } else {
+                          const origIndex = props.dataSeries.data.findIndex((d) => d[0] === data[0]);
+                          const isLastDatum = origIndex === props.dataSeries.data.length - 1;
+                          barWeight = xScale.invert(props.from + (isLastDatum ? (data[0] - dataInRange[index - 1][0]) : (props.dataSeries.data[origIndex + 1][0] - data[0]))) - chartConstants.marginLeftNumerical - chartConstants.barSpacing;
                         }
-                        // Calculate bar weight and barX
-                        const timeFrame = (index === props.dataSeries.data.length - 1 ? (data[0] - props.dataSeries.data[index - 1][0]) : (props.dataSeries.data[index + 1][0]) - data[0]);
-                        let barWeight = xScale.invert(timeFrame + props.from) - chartConstants.marginLeftNumerical - chartConstants.barSpacing;
+                        // Calculate barX
                         let barX = xScale.invert(data[0]) + chartConstants.barSpacing / 2;
                         if (barX < chartConstants.marginLeftNumerical) {
                           barWeight = Math.max(0, barWeight - (chartConstants.marginLeftNumerical - barX));
