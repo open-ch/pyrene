@@ -46,7 +46,10 @@ const onMouseMove = (event, data, xScale, showTooltip) => {
   // Show normal tooltip
   const foundIndex = data.findIndex((d) => d[0] > currentTS) - 1;
   const index = foundIndex >= 0 ? foundIndex : data.length - 1;
-  const timeFrame = (index === data.length - 1 ? xScale.range()[1] : data[index + 1][0]) - data[index][0];
+  let timeFrame = 0;
+  if (index !== data.length - 1) {
+    timeFrame = data[index + 1][0] - data[index][0];
+  }
   showTooltip({
     tooltipLeft: x,
     tooltipTop: y,
@@ -187,10 +190,12 @@ const TimeSeriesBucketChart = (props) => {
                   {!props.loading && props.dataSeries.data.length > 0 && parent.width && (
                     <g>
                       {props.dataSeries.data.map((data, index) => {
-                        const timeFrame = (index === props.dataSeries.data.length - 1 ? xScale.range()[1] : props.dataSeries.data[index + 1][0]) - data[0];
-                        let barWeight = 0;
-                        if (timeFrame > 0) {
-                          barWeight = xScale.invert(timeFrame + props.from) - chartConstants.marginLeftNumerical - (index === props.dataSeries.data.length - 1 ? 0 : chartConstants.barSpacing);
+                        const timeFrame = (index === props.dataSeries.data.length - 1 ? (data[0] - props.dataSeries.data[index - 1][0]) : (props.dataSeries.data[index + 1][0]) - data[0]);
+                        let barWeight = xScale.invert(timeFrame + props.from) - chartConstants.marginLeftNumerical - chartConstants.barSpacing;
+                        let barX = xScale.invert(data[0]) + chartConstants.barSpacing / 2;
+                        if (barX < chartConstants.marginLeftNumerical) {
+                          barWeight -= (chartConstants.marginLeftNumerical - barX);
+                          barX = chartConstants.marginLeftNumerical;
                         }
                         return (
                           <Bar key={Math.random()}
@@ -200,7 +205,7 @@ const TimeSeriesBucketChart = (props) => {
                             value={data[1]}
                             maxValue={maxValue}
                             size={maxBarSize}
-                            x={xScale.invert(data[0]) + chartConstants.barSpacing / 2}
+                            x={barX}
                             y={chartConstants.marginMaxValueToBorder}
                           />
                         );
