@@ -4,14 +4,14 @@ import { ActionBar } from 'pyrene';
 import { minZoomRangeReached, getBoundedZoomInRange } from 'tuktuktwo';
 
 /**
- * Checks whether lowerBound or upperBound has been reached, at which point no zoom-out action should be allowed.
+ * Checks whether both lowerBound and upperBound has been reached, at which point no zoom-out action should be allowed.
  * @param {number}from - The starting point of the time range in epoch milliseconds
  * @param {number}to - The ending point of the time range in epoch milliseconds
  * @param {number}lowerBound - The oldest queryable starting time point in epoch milliseconds
- * @param {number}upperBound - The latest quaryable ending time point in epoch milliseconds
+ * @param {number}upperBound - The latest queryable ending time point in epoch milliseconds
  * @returns {boolean}
  */
-const boundReached = (from, to, lowerBound, upperBound) => !(from > lowerBound && to < upperBound);
+const boundReached = (from, to, lowerBound, upperBound) => !(from > lowerBound || to < upperBound);
 
 /**
  * Executes callback with the new from and to after zooming in.
@@ -19,7 +19,7 @@ const boundReached = (from, to, lowerBound, upperBound) => !(from > lowerBound &
  * @param {number}to - The ending point of the time range in epoch milliseconds
  * @param {number}minZoomRange - The minimum supported zoom range in epoch milliseconds
  * @param {number}lowerBound - The oldest queryable starting time point in epoch milliseconds
- * @param {number}upperBound - The latest quaryable ending time point in epoch milliseconds
+ * @param {number}upperBound - The latest queryable ending time point in epoch milliseconds
  * @param onZoom - The callback function
  */
 const zoomIn = (from, to, minZoomRange, lowerBound, upperBound, onZoom) => {
@@ -37,16 +37,28 @@ const zoomIn = (from, to, minZoomRange, lowerBound, upperBound, onZoom) => {
  * @param {number}from - The starting point of the time range in epoch milliseconds
  * @param {number}to - The ending point of the time range in epoch milliseconds
  * @param {number}lowerBound - The oldest queryable starting time point in epoch milliseconds
- * @param {number}upperBound - The latest quaryable ending time point in epoch milliseconds
+ * @param {number}upperBound - The latest queryable ending time point in epoch milliseconds
  * @param onZoom - The callback function
  */
 const zoomOut = (from, to, lowerBound, upperBound, onZoom) => {
+  let newFrom;
+  let newTo;
   const timeRangeAfterZoom = (to - from) / 0.75;
   const timeShift = (timeRangeAfterZoom - (to - from)) / 2;
 
   // Make sure zoom does not exceed bounds
-  const newFrom = Math.max(lowerBound, Math.floor(from - timeShift));
-  const newTo = Math.min(upperBound, Math.ceil(to + timeShift));
+  if (from - timeShift < lowerBound) {
+    const lowerBoundOverflow = lowerBound - (from - timeShift);
+    newFrom = lowerBound;
+    newTo = Math.min(upperBound, Math.ceil(to + timeShift + lowerBoundOverflow));
+  } else if (to + timeShift > upperBound) {
+    newTo = upperBound;
+    const upperBoundOverflow = to + timeShift - upperBound;
+    newFrom = Math.max(lowerBound, Math.floor(from - timeShift - upperBoundOverflow));
+  } else {
+    newFrom = from - timeShift;
+    newTo = to + timeShift;
+  }
 
   onZoom(newFrom, newTo);
 };
