@@ -15,7 +15,7 @@ const getScale = (scale, size, direction, maxValue) => {
  * NumericalAxis is used to display a numerical left or bottom axis with a grid.
  */
 const NumericalAxis = (props) => {
-  const chartHeight = Math.max(0, props.height - chartConstants.marginBottom);
+  const chartHeight = props.height - chartConstants.marginBottom;
   if (props.orientation === 'left') {
     const numTicks = 5;
     const scale = getScale(props.scale, chartHeight, 'vertical', props.maxValue);
