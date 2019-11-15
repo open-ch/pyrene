@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Bars,
+  Bar,
   chartConstants,
   localPoint,
   NumericalAxis,
@@ -46,11 +46,11 @@ const onMouseMove = (event, data, xScale, showTooltip) => {
   // Show normal tooltip
   const foundIndex = data.findIndex((d) => d[0] > currentTS) - 1;
   const index = foundIndex >= 0 ? foundIndex : data.length - 1;
-  const timeFrame = index === data.length - 1 ? (data[index][0] - data[index - 1][0]) : (data[index + 1][0] - data[index][0]);
+  const endTS = (index !== data.length - 1) ? (data[index][0] + (data[index + 1][0] - data[index][0])) : null;
   showTooltip({
     tooltipLeft: x,
     tooltipTop: y,
-    tooltipData: [[data[index][0], data[index][0] + timeFrame], data[index][1]],
+    tooltipData: [[data[index][0], endTS], data[index][1]],
   });
 };
 
@@ -127,12 +127,20 @@ const TimeSeriesBucketChart = (props) => {
       )}
       <Responsive>
         {(parent) => {
-          // Get scale function, time frame, number of bars, max data value, maximum bar height and bar weight
+          // Get scale function, max data value and max bar height
           const xScale = scaleUtils.scaleCustomLinear(chartConstants.marginLeftNumerical, parent.width, props.from, props.to, 'horizontal');
-          const numBars = props.dataSeries.data.length;
-          const values = props.dataSeries.data.map((data) => data[1]);
-          const maxValue = Math.max(...values);
-          const barWeight = parent.width > 0 ? ((parent.width - chartConstants.marginLeftNumerical) / numBars - chartConstants.barSpacing) : 0;
+          // Filter out data outside `from` and `to` to get the max value
+          const dataInRange = props.dataSeries.data.filter((data, index) => {
+            if (data[0] >= props.to) {
+              return false;
+            }
+            if (index !== props.dataSeries.data.length && props.dataSeries.data[index + 1] <= props.from) {
+              return false;
+            }
+            return true;
+          });
+          const maxValue = Math.max(...dataInRange.map((data) => data[1]));
+          const maxBarSize = Math.max(0, parent.height - chartConstants.marginBottom - chartConstants.marginMaxValueToBorder);
 
           // Get time formatting function for tooltip
           let timeFormat;
@@ -176,16 +184,30 @@ const TimeSeriesBucketChart = (props) => {
                   onTouchEnd={props.zoom ? () => onMouseUp(hideTooltip) : () => {}}
                   onTouchMove={(e) => onMouseMove(e, props.dataSeries.data, xScale, showTooltip)}
                 >
-                  {!props.loading && props.dataSeries.data.length > 0 && (
-                    <Bars
-                      barWeight={barWeight}
-                      color={props.colorScheme.categorical[0]}
-                      direction="vertical"
-                      height={parent.height}
-                      maxValue={maxValue}
-                      values={values}
-                      width={parent.width}
-                    />
+                  {!props.loading && props.dataSeries.data.length > 0 && parent.width && (
+                    <g>
+                      {props.dataSeries.data.map((data, index) => {
+                        const timeFrame = (index === props.dataSeries.data.length - 1 ? (data[0] - props.dataSeries.data[index - 1][0]) : (props.dataSeries.data[index + 1][0]) - data[0]);
+                        let barWeight = xScale.invert(timeFrame + props.from) - chartConstants.marginLeftNumerical - chartConstants.barSpacing;
+                        let barX = xScale.invert(data[0]) + chartConstants.barSpacing / 2;
+                        if (barX < chartConstants.marginLeftNumerical) {
+                          barWeight -= (chartConstants.marginLeftNumerical - barX);
+                          barX = chartConstants.marginLeftNumerical;
+                        }
+                        return (
+                          <Bar key={Math.random()}
+                            barWeight={barWeight}
+                            color={props.colorScheme.categorical[0]}
+                            direction="vertical"
+                            value={data[1]}
+                            maxValue={maxValue}
+                            size={maxBarSize}
+                            x={barX}
+                            y={chartConstants.marginMaxValueToBorder}
+                          />
+                        );
+                      })}
+                    </g>
                   )}
                   {/* ChartArea makes sure the outer <g> element where all mouse event listeners are attached always covers the whole chart area so that there is no tooltip flickering issue */}
                   <ChartArea width={parent.width} height={parent.height} />
