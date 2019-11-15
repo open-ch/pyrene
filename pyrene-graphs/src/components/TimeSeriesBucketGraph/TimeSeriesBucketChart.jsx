@@ -77,7 +77,7 @@ const isDataInTimeRange = (data, index, dataSeries, from, to) => {
   if (data[0] >= to) {
     return false;
   }
-  if (index !== dataSeries.length && dataSeries[index + 1] <= from) {
+  if (index !== dataSeries.length - 1 && dataSeries[index + 1] <= from) {
     return false;
   }
   return true;
@@ -202,10 +202,16 @@ const TimeSeriesBucketChart = (props) => {
                         let barWeight = 0;
                         if (index !== dataInRange.length - 1) {
                           barWeight = xScale.invert(props.from + (dataInRange[index + 1][0] - data[0])) - chartConstants.marginLeftNumerical - chartConstants.barSpacing;
+                          if (barWeight < 0) {
+                            console.log('miao: ' + barWeight);
+                          }
                         } else {
                           const origIndex = props.dataSeries.data.findIndex((d) => d[0] === data[0]);
                           const isLastDatum = origIndex === props.dataSeries.data.length - 1;
                           barWeight = xScale.invert(props.from + (isLastDatum ? (data[0] - dataInRange[index - 1][0]) : (props.dataSeries.data[origIndex + 1][0] - data[0]))) - chartConstants.marginLeftNumerical - chartConstants.barSpacing;
+                          if (barWeight < 0) {
+                            console.log('wang: ' + barWeight);
+                          }
                         }
                         // Calculate barX
                         let barX = xScale.invert(data[0]) + chartConstants.barSpacing / 2;
