@@ -46,14 +46,11 @@ const onMouseMove = (event, data, xScale, showTooltip) => {
   // Show normal tooltip
   const foundIndex = data.findIndex((d) => d[0] > currentTS) - 1;
   const index = foundIndex >= 0 ? foundIndex : data.length - 1;
-  let timeFrame = 0;
-  if (index !== data.length - 1) {
-    timeFrame = data[index + 1][0] - data[index][0];
-  }
+  const endTS = (index !== data.length - 1) ? (data[index][0] + (data[index + 1][0] - data[index][0])) : null;
   showTooltip({
     tooltipLeft: x,
     tooltipTop: y,
-    tooltipData: [[data[index][0], data[index][0] + timeFrame], data[index][1]],
+    tooltipData: [[data[index][0], endTS], data[index][1]],
   });
 };
 

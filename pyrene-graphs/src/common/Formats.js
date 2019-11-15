@@ -12,7 +12,7 @@ const Formats = {
    * @returns {string}
    */
   timeRangeFormat: (startTS, endTS, timezone, explicit) => {
-    if (startTS === endTS) {
+    if (!endTS) {
       return `${moment.tz(startTS, timezone).format('DD.MM.YYYY, HH:mm')}`;
     }
     if (explicit || (moment.tz(startTS, timezone).day() !== moment.tz(endTS, timezone).day())) {
