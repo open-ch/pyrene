@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
+import moment from 'moment-timezone';
 
 import './presetTimeRanges.css';
 
@@ -28,6 +29,7 @@ PresetTimeRanges._createPresets = (props) => props.presetTimeRanges.map((preset,
       PresetTimeRanges._onPresetTimeRangeSelected(
         clickedElement.currentTarget.id,
         props.presetTimeRanges,
+        props.lowerBound,
         props.upperBound,
         props.timezone,
         props.onInteract,
@@ -45,15 +47,17 @@ PresetTimeRanges._createPresets = (props) => props.presetTimeRanges.map((preset,
  * Updates the from/to limits, the upperbound and the stepper ranges based on the selected preset
  * @param presetId the id of the presetTimeRange element that has been selected
  * @param presetTimeRanges the preset defined by the time range selector
+ * @param lowerBound the current lowerBound
  * @param upperBound the current upperBound
  * @param timezone the timezone that we are currently using
  * @param callback the callback to update the parent component
  */
-PresetTimeRanges._onPresetTimeRangeSelected = (presetId, presetTimeRanges, upperBound, timezone, callback) => {
+PresetTimeRanges._onPresetTimeRangeSelected = (presetId, presetTimeRanges, lowerBound, upperBound, timezone, callback) => {
   const selectedPresetTimeRange = presetTimeRanges.filter((preset) => preset.id === presetId).shift();
+  const newFrom = moment(upperBound).tz(timezone).subtract(selectedPresetTimeRange.durationInMs).valueOf();
   // from TimeRangeSelector: _onPresetTimeRangeSelected(newFrom, newTo, newUpperBound, durationInMs, currentTimeRangeType)
   callback(
-    upperBound - selectedPresetTimeRange.durationInMs,
+    newFrom >= lowerBound ? newFrom : lowerBound,
     upperBound,
     upperBound,
     selectedPresetTimeRange.durationInMs,
@@ -71,6 +75,7 @@ PresetTimeRanges.defaultProps = {
 PresetTimeRanges.propTypes = {
   currentTimeRangeType: PropTypes.string,
   disabled: PropTypes.bool,
+  lowerBound: PropTypes.number.isRequired,
   onInteract: PropTypes.func.isRequired,
   presetTimeRanges: PropTypes.arrayOf(
     PropTypes.shape({

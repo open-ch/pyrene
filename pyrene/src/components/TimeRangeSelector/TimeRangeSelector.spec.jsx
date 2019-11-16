@@ -104,33 +104,33 @@ describe('<TimeRangeSelector />', () => {
     expect(timeStringBeforeClick === calculatedValue).toBe(true);
   });
 
-  // Jira : MC-17563
-  // it('has steppers that are changing the timerange if not disabled and are not exceeding the boundaries', () => {
-  //   rendered = mount(<TimeRangeSelector {...props} />);
+  it('has steppers that are changing the timerange if not disabled and are not exceeding the boundaries', () => {
+    rendered = mount(<TimeRangeSelector {...props} />);
 
-  //   // Initial setup
-  //   const fromMoment = moment(props.to).tz(TIMEZONE).subtract(1, 'days');
-  //   const toMoment = moment(props.to).tz(TIMEZONE);
-  //   const dateFormat = 'DD.MM.YYYY, HH:mm';
-  //   const initialFromString = fromMoment.format(dateFormat);
+    // Initial setup
+    const fromMoment = moment(props.to).tz(TIMEZONE).subtract(1, 'days');
+    const toMoment = moment(props.to).tz(TIMEZONE);
+    const dateFormat = 'DD.MM.YYYY, HH:mm';
+    const initialFromString = fromMoment.format(dateFormat);
+    const upperBound = rendered.props().upperBound;
 
-  //   // We are simulating selecting the 24h preset and going 1 day backwards
-  //   const preset24Hours = fromMoment.format(dateFormat) + ' - ' + toMoment.format(dateFormat);
-  //   const timeRange48to24HoursBack = fromMoment.subtract(1, 'days').format(dateFormat) + ' - ' + toMoment.subtract(1, 'days').format(dateFormat);
+    // We are simulating selecting the 24h preset and going 1 day backwards
+    const preset24Hours = fromMoment.format(dateFormat) + ' - ' + toMoment.format(dateFormat);
+    const timeRange48to24HoursBack = fromMoment.subtract(1, 'days').format(dateFormat) + ' - ' + toMoment.subtract(1, 'days').format(dateFormat);
 
-  //   rendered.find('.presetTimeRange').first().simulate('click');
-  //   rendered.find('TimeRangeNavigationBar').find('button').first().simulate('click');
-  //   let calculatedValue = rendered.find('.timeRange').render()[0].children[0].data;
-  //   expect(preset24Hours !== calculatedValue).toBe(true);
-  //   expect(timeRange48to24HoursBack === calculatedValue).toBe(true);
+    rendered.find('.presetTimeRange').first().simulate('click');
+    rendered.find('TimeRangeNavigationBar').find('button').first().simulate('click');
+    let calculatedValue = rendered.find('.timeRange').render()[0].children[0].data;
+    expect(preset24Hours !== calculatedValue).toBe(true);
+    expect(timeRange48to24HoursBack === calculatedValue).toBe(true);
 
-  //   // Let's click forward two times, we should not exceed the upper bound
-  //   rendered.find('TimeRangeNavigationBar').find('button').last().simulate('click');
-  //   rendered.find('TimeRangeNavigationBar').find('button').last().simulate('click');
-  //   calculatedValue = rendered.find('.timeRange').render()[0].children[0].data;
-  //   expect(preset24Hours === calculatedValue).toBe(true);
-  //   const upperBoundReachedString = initialFromString + ' - ' + moment(rendered.state('upperBound')).tz(TIMEZONE).format(dateFormat);
-  //   expect(calculatedValue === upperBoundReachedString).toBe(true);
-  // });
+    // Let's click forward two times, we should not exceed the upper bound
+    rendered.find('TimeRangeNavigationBar').find('button').last().simulate('click');
+    rendered.find('TimeRangeNavigationBar').find('button').last().simulate('click');
+    calculatedValue = rendered.find('.timeRange').render()[0].children[0].data;
+    expect(preset24Hours === calculatedValue).toBe(true);
+    const upperBoundReachedString = initialFromString + ' - ' + moment(upperBound).tz(TIMEZONE).format(dateFormat);
+    expect(calculatedValue === upperBoundReachedString).toBe(true);
+  });
 
 });

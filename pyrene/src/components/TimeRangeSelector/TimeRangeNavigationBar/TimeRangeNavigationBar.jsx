@@ -16,8 +16,10 @@ const TimeRangeNavigationBar = (props) => (
       }
       onClick={() => {
         const durationInMs = props.durationInMs;
-        const newFrom = (props.from - durationInMs) < props.lowerBound ? props.lowerBound : props.from - durationInMs;
-        const newTo = (props.to - durationInMs) - newFrom < durationInMs ? newFrom + durationInMs : props.to - durationInMs; // Keep the selected timespan duration if we reach a bound
+        const fromDiff = moment(props.from).tz(props.timezone).subtract(durationInMs).valueOf();
+        const toDiff = moment(props.to).tz(props.timezone).subtract(durationInMs).valueOf();
+        const newFrom = fromDiff < props.lowerBound ? props.lowerBound : props.from - durationInMs;
+        const newTo = toDiff - newFrom < durationInMs ? moment(newFrom).tz(props.timezone).add(durationInMs) : toDiff; // Keep the selected timespan duration if we reach a bound
         props.onNavigate(newFrom, newTo);
       }}
     />
@@ -34,8 +36,10 @@ const TimeRangeNavigationBar = (props) => (
       }
       onClick={() => {
         const durationInMs = props.durationInMs;
-        const newTo = (props.to + durationInMs) > props.upperBound ? props.upperBound : props.to + durationInMs;
-        const newFrom = (props.from + durationInMs) - newTo < durationInMs ? newTo - durationInMs : props.from + durationInMs; // Keep the selected timespan duration if we reach a bound
+        const toDiff = moment(props.to).tz(props.timezone).add(durationInMs).valueOf();
+        const fromDiff = moment(props.from).tz(props.timezone).add(durationInMs).valueOf();
+        const newTo = toDiff > props.upperBound ? props.upperBound : toDiff;
+        const newFrom = moment(fromDiff).tz(props.timezone).subtract(newTo).valueOf() < durationInMs ? moment(newTo).tz(props.timezone).subtract(durationInMs).valueOf() : fromDiff; // Keep the selected timespan duration if we reach a bound
         props.onNavigate(newFrom, newTo);
       }}
     />
