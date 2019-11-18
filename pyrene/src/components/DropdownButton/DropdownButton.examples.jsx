@@ -1,6 +1,6 @@
 const examples = {
   props: {
-    primaryLabel: 'Actions',
+    label: 'Actions',
     icon: 'errorOutline',
     actions: [
       { label: 'action 1', onClick: () => {} },
