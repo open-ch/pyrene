@@ -44,9 +44,9 @@ const onMouseMove = (event, data, xScale, showTooltip) => {
   }
 
   // Show normal tooltip
-  const foundIndex = data.findIndex((d) => d[0] > currentTS) - 1;
+  const foundIndex = data.findIndex((d) => d[0] > currentTS) - 1; // find the first element whose timestamp is bigger than currentTS; the element before it is what is being hovered on
   const index = foundIndex >= 0 ? foundIndex : data.length - 1;
-  const endTS = (index !== data.length - 1) ? (data[index][0] + (data[index + 1][0] - data[index][0])) : null;
+  const endTS = (index !== data.length - 1) ? data[index + 1][0] : null; // endTS is the startTS of next bucket
   showTooltip({
     tooltipLeft: x,
     tooltipTop: y,
@@ -195,23 +195,17 @@ const TimeSeriesBucketChart = (props) => {
                   onTouchEnd={props.zoom ? () => onMouseUp(hideTooltip) : () => {}}
                   onTouchMove={(e) => onMouseMove(e, props.dataSeries.data, xScale, showTooltip)}
                 >
-                  {!props.loading && dataInRange.length > 0 && parent.width && (
+                  {!props.loading && dataInRange.length > 0 && (
                     <g>
                       {dataInRange.map((data, index) => {
                         // Calculate bar weight
                         let barWeight = 0;
                         if (index !== dataInRange.length - 1) {
-                          barWeight = xScale.invert(props.from + (dataInRange[index + 1][0] - data[0])) - chartConstants.marginLeftNumerical - chartConstants.barSpacing;
-                          if (barWeight < 0) {
-                            console.log('miao: ' + barWeight);
-                          }
+                          barWeight = Math.max(0, xScale.invert(props.from + (dataInRange[index + 1][0] - data[0])) - chartConstants.marginLeftNumerical - chartConstants.barSpacing);
                         } else {
                           const origIndex = props.dataSeries.data.findIndex((d) => d[0] === data[0]);
                           const isLastDatum = origIndex === props.dataSeries.data.length - 1;
-                          barWeight = xScale.invert(props.from + (isLastDatum ? (data[0] - dataInRange[index - 1][0]) : (props.dataSeries.data[origIndex + 1][0] - data[0]))) - chartConstants.marginLeftNumerical - chartConstants.barSpacing;
-                          if (barWeight < 0) {
-                            console.log('wang: ' + barWeight);
-                          }
+                          barWeight = Math.max(0, xScale.invert(props.from + (isLastDatum ? (data[0] - dataInRange[index - 1][0]) : (props.dataSeries.data[origIndex + 1][0] - data[0]))) - chartConstants.marginLeftNumerical - chartConstants.barSpacing);
                         }
                         // Calculate barX
                         let barX = xScale.invert(data[0]) + chartConstants.barSpacing / 2;
