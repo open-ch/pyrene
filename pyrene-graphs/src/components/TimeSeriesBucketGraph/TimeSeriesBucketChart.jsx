@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Bars,
+  Bar,
   chartConstants,
   localPoint,
   NumericalAxis,
@@ -46,11 +46,11 @@ const onMouseMove = (event, data, xScale, showTooltip) => {
   // Show normal tooltip
   const foundIndex = data.findIndex((d) => d[0] > currentTS) - 1;
   const index = foundIndex >= 0 ? foundIndex : data.length - 1;
-  const timeFrame = index === data.length - 1 ? (data[index][0] - data[index - 1][0]) : (data[index + 1][0] - data[index][0]);
+  const endTS = (index !== data.length - 1) ? (data[index][0] + (data[index + 1][0] - data[index][0])) : null;
   showTooltip({
     tooltipLeft: x,
     tooltipTop: y,
-    tooltipData: [[data[index][0], data[index][0] + timeFrame], data[index][1]],
+    tooltipData: [[data[index][0], endTS], data[index][1]],
   });
 };
 
@@ -62,6 +62,25 @@ const onMouseDown = (event) => {
 const onMouseUp = (hideTooltip) => {
   zoomStartX = null;
   hideTooltip();
+};
+
+/**
+ * Check if the data item is within the time range specified by `from` and `to`
+ * @param {[number]}data - The data item in the format of [startTS, value]
+ * @param {number}data - Index of the data item
+ * @param {[[number, number]]}dataSeries - The data series
+ * @param {number}from - Starting time point of the time range in epoch milliseconds
+ * @param {number}to - Ending time point of the time range in epoch milliseconds
+ * @returns {boolean}
+ */
+const isDataInTimeRange = (data, index, dataSeries, from, to) => {
+  if (data[0] >= to) {
+    return false;
+  }
+  if (index !== dataSeries.length - 1 && dataSeries[index + 1] <= from) {
+    return false;
+  }
+  return true;
 };
 
 /**
@@ -127,12 +146,12 @@ const TimeSeriesBucketChart = (props) => {
       )}
       <Responsive>
         {(parent) => {
-          // Get scale function, time frame, number of bars, max data value, maximum bar height and bar weight
+          // Get scale function, max data value and max bar height
           const xScale = scaleUtils.scaleCustomLinear(chartConstants.marginLeftNumerical, parent.width, props.from, props.to, 'horizontal');
-          const numBars = props.dataSeries.data.length;
-          const values = props.dataSeries.data.map((data) => data[1]);
-          const maxValue = Math.max(...values);
-          const barWeight = parent.width > 0 ? ((parent.width - chartConstants.marginLeftNumerical) / numBars - chartConstants.barSpacing) : 0;
+          // Filter out data outside `from` and `to` to get the max value
+          const dataInRange = props.dataSeries.data.filter((data, index) => isDataInTimeRange(data, index, props.dataSeries.data, props.from, props.to));
+          const maxValue = Math.max(...dataInRange.map((data) => data[1]));
+          const maxBarSize = Math.max(0, parent.height - chartConstants.marginBottom - chartConstants.marginMaxValueToBorder);
 
           // Get time formatting function for tooltip
           let timeFormat;
@@ -176,16 +195,44 @@ const TimeSeriesBucketChart = (props) => {
                   onTouchEnd={props.zoom ? () => onMouseUp(hideTooltip) : () => {}}
                   onTouchMove={(e) => onMouseMove(e, props.dataSeries.data, xScale, showTooltip)}
                 >
-                  {!props.loading && props.dataSeries.data.length > 0 && (
-                    <Bars
-                      barWeight={barWeight}
-                      color={props.colorScheme.categorical[0]}
-                      direction="vertical"
-                      height={parent.height}
-                      maxValue={maxValue}
-                      values={values}
-                      width={parent.width}
-                    />
+                  {!props.loading && dataInRange.length > 0 && parent.width && (
+                    <g>
+                      {dataInRange.map((data, index) => {
+                        // Calculate bar weight
+                        let barWeight = 0;
+                        if (index !== dataInRange.length - 1) {
+                          barWeight = xScale.invert(props.from + (dataInRange[index + 1][0] - data[0])) - chartConstants.marginLeftNumerical - chartConstants.barSpacing;
+                          if (barWeight < 0) {
+                            console.log('miao: ' + barWeight);
+                          }
+                        } else {
+                          const origIndex = props.dataSeries.data.findIndex((d) => d[0] === data[0]);
+                          const isLastDatum = origIndex === props.dataSeries.data.length - 1;
+                          barWeight = xScale.invert(props.from + (isLastDatum ? (data[0] - dataInRange[index - 1][0]) : (props.dataSeries.data[origIndex + 1][0] - data[0]))) - chartConstants.marginLeftNumerical - chartConstants.barSpacing;
+                          if (barWeight < 0) {
+                            console.log('wang: ' + barWeight);
+                          }
+                        }
+                        // Calculate barX
+                        let barX = xScale.invert(data[0]) + chartConstants.barSpacing / 2;
+                        if (barX < chartConstants.marginLeftNumerical) {
+                          barWeight = Math.max(0, barWeight - (chartConstants.marginLeftNumerical - barX));
+                          barX = chartConstants.marginLeftNumerical;
+                        }
+                        return (
+                          <Bar key={Math.random()}
+                            barWeight={barWeight}
+                            color={props.colorScheme.categorical[0]}
+                            direction="vertical"
+                            value={data[1]}
+                            maxValue={maxValue}
+                            size={maxBarSize}
+                            x={barX}
+                            y={chartConstants.marginMaxValueToBorder}
+                          />
+                        );
+                      })}
+                    </g>
                   )}
                   {/* ChartArea makes sure the outer <g> element where all mouse event listeners are attached always covers the whole chart area so that there is no tooltip flickering issue */}
                   <ChartArea width={parent.width} height={parent.height} />
