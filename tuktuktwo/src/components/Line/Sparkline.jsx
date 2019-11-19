@@ -1,10 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { LinePath } from '@vx/shape';
+import { scaleTime, scaleLinear } from '@vx/scale';
 
-const SparkLine = (props) => (
-  <LinePath />
-);
+const SparkLine = (props) => {
+  const data = [5, 8, 0];
+
+  const xScale = scaleTime({
+    range: [0, props.width],
+    domain: [1, 2, 3],
+  });
+  const yScale = scaleLinear({
+    range: [props.height, 0],
+    domain: [0, Math.max(...data)],
+  });
+
+  return (
+    <LinePath
+      data={data}
+      x={(d) => xScale(d)}
+      y={(d) => yScale(d)}
+      stroke="blue"
+    />
+  );
+};
 
 SparkLine.displayName = 'Sparkline';
 
