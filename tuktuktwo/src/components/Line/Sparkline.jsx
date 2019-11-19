@@ -4,55 +4,51 @@ import { LinePath } from '@vx/shape';
 import { scaleTime, scaleLinear } from '@vx/scale';
 
 const SparkLine = (props) => {
-  const data = [5, 8, 0];
+  const x = (d) => d[0];
+  const y = (d) => d[1];
 
   const xScale = scaleTime({
     range: [0, props.width],
-    domain: [1, 2, 3],
+    domain: [Math.min(...props.dataSeries.data.map(x)), Math.max(...props.dataSeries.data.map(x))],
   });
   const yScale = scaleLinear({
     range: [props.height, 0],
-    domain: [0, Math.max(...data)],
+    domain: [0, Math.max(...props.dataSeries.data.map(y))],
   });
 
   return (
     <LinePath
-      data={data}
-      x={(d) => xScale(d)}
-      y={(d) => yScale(d)}
-      stroke="blue"
+      data={props.dataSeries.data}
+      x={(d) => xScale(x(d))}
+      y={(d) => yScale(y(d))}
+      stroke={props.colors[0]}
     />
   );
 };
 
-SparkLine.displayName = 'Sparkline';
+SparkLine.displayName = 'Spark Line';
+
+SparkLine.defaultProps = {
+  dataSeries: PropTypes.shape({
+    data: [],
+    label: '',
+  }),
+};
 
 SparkLine.propTypes = {
+  colors: PropTypes.arrayOf(PropTypes.string).isRequired,
   /**
-   * The starting time point in epoch milliseconds.
-   * Type: number (required)
+   * Sets the data series. A data series consists of a label and an array of data. Each data item contains a timestamp and a value.
    */
-  from: PropTypes.number.isRequired,
+  dataSeries: PropTypes.shape({
+    data: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
+    label: PropTypes.string.isRequired,
+  }),
   /**
    * Sets the height of the graph canvas.
    * Type: number (required)
    */
   height: PropTypes.number.isRequired,
-  /**
-   * Sets the color of the axis and the grid lines.
-   * Type: string (required)
-   */
-  strokeColor: PropTypes.string.isRequired,
-  /**
-   * The timezone the current user is in.
-   * Type: string (required)
-   */
-  timezone: PropTypes.string.isRequired,
-  /**
-   * The ending time point in epoch milliseconds.
-   * Type: number (required)
-   */
-  to: PropTypes.number.isRequired,
   /**
    * Sets the width of the graph canvas.
    * Type: number (required)
