@@ -23,6 +23,8 @@ let zoomStartX = null;
 
 /**
  * Get tooltip position and data when mouse is moving over the graph.
+ *
+ *
  * @param {object}event - The mouseMove event
  * @param {array}data - The data series with timestamp and value
  * @param {function}xScale - The scale function that linearly maps x-coordinate to timestamp in epoch milliseconds
@@ -64,23 +66,49 @@ const onMouseUp = (hideTooltip) => {
   hideTooltip();
 };
 
-/**
- * Check if the data item is within the time range specified by `from` and `to`
- * @param {[number]}data - The data item in the format of [startTS, value]
- * @param {number}data - Index of the data item
- * @param {[[number, number]]}dataSeries - The data series
- * @param {number}from - Starting time point of the time range in epoch milliseconds
- * @param {number}to - Ending time point of the time range in epoch milliseconds
- * @returns {boolean}
- */
 const isDataInTimeRange = (data, index, dataSeries, from, to) => {
   if (data[0] >= to) {
     return false;
   }
-  if (index !== dataSeries.length - 1 && dataSeries[index + 1] <= from) {
+  if (index !== dataSeries.length - 1 && dataSeries[index + 1][0] <= from) {
     return false;
   }
   return true;
+};
+
+const getTimeFormat = (timezone, timeFormat) => {
+  if (zoomStartX) {
+    return (time) => Formats.explicitTimeRangeFormat(time[0], time[1], timezone);
+  }
+  return timeFormat || ((time) => Formats.timeRangeFormat(time[0], time[1], timezone, false));
+
+};
+
+const getBarConfig = (index, dataInRange, origDataSeries, from, xScale) => {
+  let barWeight;
+  let barX;
+
+  // If it is not the last bar, calculate the bar weight by applying the scale function on the current time frame defined by the time difference between current startTS and next startTS
+  if (index !== dataInRange.length - 1) {
+    barWeight = xScale.invert(from + (dataInRange[index + 1][0] - dataInRange[index][0])) - chartConstants.marginLeftNumerical - chartConstants.barSpacing;
+  // If it is the last bar, first check if it's also the last bar in the original data series; if yes, we do not know how big the time frame is and we assume it is the same as the second last one
+  } else {
+    const indexInOrigDataSeries = origDataSeries.findIndex((d) => d[0] === dataInRange[index][0]);
+    const isLast = indexInOrigDataSeries === origDataSeries.length - 1;
+    barWeight = xScale.invert(from + (isLast ? (dataInRange[index][0] - dataInRange[index - 1][0]) : (origDataSeries[indexInOrigDataSeries + 1][0] - dataInRange[index][0]))) - chartConstants.marginLeftNumerical - chartConstants.barSpacing;
+  }
+
+  // If x coordinate of left edge of bar is exceeding the axis, cut the excessive bar weight
+  barX = xScale.invert(dataInRange[index][0]) + chartConstants.barSpacing / 2;
+  if (barX < chartConstants.marginLeftNumerical) {
+    barWeight = Math.max(0, barWeight - (chartConstants.marginLeftNumerical - barX));
+    barX = chartConstants.marginLeftNumerical;
+  }
+
+  return {
+    weight: Math.max(0, barWeight),
+    x: Math.max(0, barX),
+  };
 };
 
 /**
@@ -146,20 +174,11 @@ const TimeSeriesBucketChart = (props) => {
       )}
       <Responsive>
         {(parent) => {
-          // Get scale function, max data value and max bar height
+          // Get scale function
           const xScale = scaleUtils.scaleCustomLinear(chartConstants.marginLeftNumerical, parent.width, props.from, props.to, 'horizontal');
-          // Filter out data outside `from` and `to` to get the max value
+          // Filter out data outside `from` and `to` and get the max value
           const dataInRange = props.dataSeries.data.filter((data, index) => isDataInTimeRange(data, index, props.dataSeries.data, props.from, props.to));
           const maxValue = Math.max(...dataInRange.map((data) => data[1]));
-          const maxBarSize = Math.max(0, parent.height - chartConstants.marginBottom - chartConstants.marginMaxValueToBorder);
-
-          // Get time formatting function for tooltip
-          let timeFormat;
-          if (zoomStartX) {
-            timeFormat = (time) => Formats.explicitTimeRangeFormat(time[0], time[1], props.timezone);
-          } else {
-            timeFormat = props.timeFormat ? props.timeFormat : (time) => Formats.timeRangeFormat(time[0], time[1], props.timezone, false);
-          }
 
           return (
             <>
@@ -198,30 +217,16 @@ const TimeSeriesBucketChart = (props) => {
                   {!props.loading && dataInRange.length > 0 && (
                     <g>
                       {dataInRange.map((data, index) => {
-                        // Calculate bar weight
-                        let barWeight = 0;
-                        if (index !== dataInRange.length - 1) {
-                          barWeight = Math.max(0, xScale.invert(props.from + (dataInRange[index + 1][0] - data[0])) - chartConstants.marginLeftNumerical - chartConstants.barSpacing);
-                        } else {
-                          const origIndex = props.dataSeries.data.findIndex((d) => d[0] === data[0]);
-                          const isLastDatum = origIndex === props.dataSeries.data.length - 1;
-                          barWeight = Math.max(0, xScale.invert(props.from + (isLastDatum ? (data[0] - dataInRange[index - 1][0]) : (props.dataSeries.data[origIndex + 1][0] - data[0]))) - chartConstants.marginLeftNumerical - chartConstants.barSpacing);
-                        }
-                        // Calculate barX
-                        let barX = xScale.invert(data[0]) + chartConstants.barSpacing / 2;
-                        if (barX < chartConstants.marginLeftNumerical) {
-                          barWeight = Math.max(0, barWeight - (chartConstants.marginLeftNumerical - barX));
-                          barX = chartConstants.marginLeftNumerical;
-                        }
+                        const barConfig = getBarConfig(index, dataInRange, props.dataSeries.data, props.from, xScale);
                         return (
                           <Bar key={Math.random()}
-                            barWeight={barWeight}
+                            barWeight={barConfig.weight}
                             color={props.colorScheme.categorical[0]}
                             direction="vertical"
                             value={data[1]}
                             maxValue={maxValue}
-                            size={maxBarSize}
-                            x={barX}
+                            size={Math.max(0, parent.height - chartConstants.marginBottom - chartConstants.marginMaxValueToBorder)}
+                            x={barConfig.x}
                             y={chartConstants.marginMaxValueToBorder}
                           />
                         );
@@ -250,7 +255,8 @@ const TimeSeriesBucketChart = (props) => {
                 tooltipOpen && (
                   <Tooltip
                     dataSeries={zoomStartX ? [] : [{ dataColor: props.colorScheme.categorical[0], dataLabel: props.dataSeries.label, dataValue: props.dataFormat.tooltip(tooltipData[1]) }]}
-                    timeFormat={timeFormat} time={zoomStartX ? tooltipData : tooltipData[0]}
+                    timeFormat={getTimeFormat(props.timezone, props.timeFormat)}
+                    time={zoomStartX ? tooltipData : tooltipData[0]}
                     left={tooltipLeft} top={tooltipTop}
                   />
                 )
