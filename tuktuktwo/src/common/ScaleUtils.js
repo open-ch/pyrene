@@ -2,10 +2,19 @@ import { scaleBand, scaleLinear } from '@vx/scale';
 
 export default class ScaleUtils {
 
-  static scaleOrdinal(size, labels) {
+  static scaleCustomBand(domainValues, minRange, maxRange, paddingInner, paddingOuter) {
     return scaleBand({
-      range: [0, size],
-      domain: labels,
+      range: [minRange, maxRange],
+      domain: domainValues,
+      paddingInner: paddingInner,
+      paddingOuter: paddingOuter,
+    });
+  }
+
+  static scaleCustomLinear(minDomain, maxDomain, minRange, maxRange, direction) {
+    return scaleLinear({
+      range: direction === 'horizontal' ? [minRange, maxRange] : [maxRange, minRange],
+      domain: [minDomain, maxDomain],
     });
   }
 
@@ -15,11 +24,8 @@ export default class ScaleUtils {
     );
   }
 
-  static scaleCustomLinear(minDomain, maxDomain, minRange, maxRange, direction) {
-    return scaleLinear({
-      range: direction === 'horizontal' ? [minRange, maxRange] : [maxRange, minRange],
-      domain: [minDomain, maxDomain],
-    });
+  static scaleOrdinal(size, labels) {
+    return this.scaleCustomBand(labels, 0, size, 0, 0);
   }
 
 }
