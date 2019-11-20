@@ -13,8 +13,8 @@ const formatTime = (timestamp, props) => (props.showTickLabels ? timeFormat(time
  * TimeXAxis is the x axis for Time Series graphs.
  */
 const TimeXAxis = (props) => {
-  const xMax = props.width - chartConstants.marginLeftNumerical;
-  const yMax = props.height - chartConstants.marginBottom;
+  const xMax = props.width - props.marginLeft;
+  const yMax = props.height - props.marginBottom;
 
   const xScale = scaleTime({
     range: [0, xMax],
@@ -22,7 +22,7 @@ const TimeXAxis = (props) => {
   });
 
   return (
-    <Group top={0} left={chartConstants.marginLeftNumerical}>
+    <Group top={0} left={props.marginLeft}>
       <AxisBottom
         top={yMax}
         left={0}
@@ -42,6 +42,10 @@ const TimeXAxis = (props) => {
             {formattedValue.value}
           </text>
         )}
+        label={props.label}
+        labelProps={{
+          textAnchor: 'middle', fontSize: 13, fontWeight: 500, fontFamily: 'AvenirNext', fill: props.tickLabelColors[0], dy: '-1.875em',
+        }}
         hideTicks
         hideZero
       />
@@ -63,6 +67,9 @@ const TimeXAxis = (props) => {
 TimeXAxis.displayName = 'TimeXAxis';
 
 TimeXAxis.defaultProps = {
+  label: '',
+  marginBottom: chartConstants.marginBottom,
+  marginLeft: chartConstants.marginLeftNumerical,
   showGrid: true,
 };
 
@@ -77,6 +84,18 @@ TimeXAxis.propTypes = {
    * Type: number (required)
    */
   height: PropTypes.number.isRequired,
+  /**
+   * Sets the axis label.
+   */
+  label: PropTypes.string,
+  /**
+   * Sets the margin on the bottom.
+   */
+  marginBottom: PropTypes.number,
+  /**
+   * Sets the margin on the left.
+   */
+  marginLeft: PropTypes.number,
   /**
    * If set, the grid lines are visible.
    * Type: boolean
