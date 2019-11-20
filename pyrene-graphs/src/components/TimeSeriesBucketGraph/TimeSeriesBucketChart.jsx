@@ -23,8 +23,6 @@ let zoomStartX = null;
 
 /**
  * Get tooltip position and data when mouse is moving over the graph.
- *
- *
  * @param {object}event - The mouseMove event
  * @param {array}data - The data series with timestamp and value
  * @param {function}xScale - The scale function that linearly maps x-coordinate to timestamp in epoch milliseconds
@@ -46,9 +44,11 @@ const onMouseMove = (event, data, xScale, showTooltip) => {
   }
 
   // Show normal tooltip
-  const foundIndex = data.findIndex((d) => d[0] > currentTS) - 1; // find the first element whose timestamp is bigger than currentTS; the element before it is what is being hovered on
+  // localPoint enables us to have the real-time x-coordinate of the mouse; by using the scale function on the x-coordinate we get a corresponding timestamp;
+  // then, we go through the data series to find the first element with a startTS that's bigger than that timestamp, the element before it is the one that is being hovered on
+  const foundIndex = data.findIndex((d) => d[0] > currentTS) - 1;
   const index = foundIndex >= 0 ? foundIndex : data.length - 1;
-  const endTS = (index !== data.length - 1) ? data[index + 1][0] : null; // endTS is the startTS of next bucket
+  const endTS = (index !== data.length - 1) ? data[index + 1][0] : null; // endTS is the startTS of next bucket; if the current element is the last in the data series, there is no endTS
   showTooltip({
     tooltipLeft: x,
     tooltipTop: y,

@@ -22,9 +22,9 @@ const Formats = {
       return `${moment.tz(startTS, timezone).format(TIME_FORMATS.DATETIME)}`;
     }
     if (explicit || (moment.tz(startTS, timezone).day() !== moment.tz(endTS, timezone).day())) {
-      return `${moment.tz(startTS, timezone).format(TIME_FORMATS.DATETIME)} - ${moment.tz(endTS, timezone).format(TIME_FORMATS.HOUR)}`;
+      return `${moment.tz(startTS, timezone).format(TIME_FORMATS.DATETIME)} - ${moment.tz(endTS, timezone).format(TIME_FORMATS.DATETIME)}`;
     }
-    return `${moment.tz(startTS, timezone).format(TIME_FORMATS.DATETIME)} - ${moment.tz(endTS, timezone).format('HH:mm')}`;
+    return `${moment.tz(startTS, timezone).format(TIME_FORMATS.DATETIME)} - ${moment.tz(endTS, timezone).format(TIME_FORMATS.HOUR)}`;
   },
 
   /**
