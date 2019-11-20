@@ -81,7 +81,6 @@ const getTimeFormat = (timezone, timeFormat) => {
     return (time) => Formats.explicitTimeRangeFormat(time[0], time[1], timezone);
   }
   return timeFormat || ((time) => Formats.timeRangeFormat(time[0], time[1], timezone, false));
-
 };
 
 const getBarConfig = (index, dataInRange, origDataSeries, from, xScale) => {
