@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Bars,
   BarStack,
   CategoricalAxis,
   NumericalAxis,
@@ -9,17 +8,11 @@ import {
   withTooltip,
   localPoint,
 } from 'tuktuktwo';
+import Bars from './Bars';
 import Tooltip from '../Tooltip/Tooltip';
 import colorConstants from '../../styles/colorConstants';
 import colorSchemes from '../../styles/colorSchemes';
 
-/**
- * Get tooltip position and data when mouse is moving over the graph.
- * @param {object}event - The mouseMove event
- * @param {array}data - The data series with timestamp and value
- * @param {function}xScale - The scale function that linearly maps x-coordinate to timestamp in epoch milliseconds
- * @param {function}showTooltip - The function that passes tooltip position and data to the tooltip component
- */
 const onMouseMove = (event, data, showTooltip, direction, parent, labels) => {
   const { x, y } = localPoint(event.target.ownerSVGElement, event);
   const bandwidth = direction === 'vertical' ? parent.width / labels.length : parent.height / labels.length;
