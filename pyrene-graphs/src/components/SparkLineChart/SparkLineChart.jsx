@@ -1,20 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Loader } from 'pyrene';
 import { SparkLine, TimeXAxis, Responsive } from 'tuktuktwo';
-import ChartContainer from '../ChartContainer/ChartContainer';
-import ChartOverlay from '../ChartOverlay/ChartOverlay';
 import colorConstants from '../../styles/colorConstants';
 import colorSchemes from '../../styles/colorSchemes';
+import './sparkLineChart.css';
 
 /**
  * Spark Line Charts are used to display data series.
  */
-const SparkLineChart = (props) => {
-  const chart = (
-    <Responsive>
-      {(parent) => {
-        return (
+const SparkLineChart = (props) => (
+  <div styleName="container">
+    <div styleName="chart">
+      <Responsive>
+        {(parent) => (
           <svg width="100%" height={parent.height} shapeRendering="crispEdges">
             <TimeXAxis
               from={props.dataSeries.data[0][0]}
@@ -30,32 +28,25 @@ const SparkLineChart = (props) => {
               <SparkLine
                 dataSeries={props.dataSeries}
                 height={parent.height}
-                colors={props.colorScheme.valueGround}
+                gradient={{
+                  fromOpacity: 0.58,
+                  toOpacity: 0.1,
+                  fromColor: props.colorScheme.gradient[0],
+                  toColor: props.colorScheme.gradient[1],
+                }}
                 width={parent.width}
               />
             )}
           </svg>
-        );
-      }}
-    </Responsive>
-  );
-  const chartOverlay = (
-    <ChartOverlay>
-      <Loader type="inline" />
-    </ChartOverlay>
-  );
-  return (
-    <ChartContainer
-      chart={chart}
-      chartOverlay={props.loading && chartOverlay}
-    />
-  );
-};
+        )}
+      </Responsive>
+    </div>
+  </div>
+);
 
 SparkLineChart.displayName = 'Spark Line Chart';
 
 SparkLineChart.defaultProps = {
-  description: '',
   colorScheme: colorSchemes.colorSchemeDefault,
   dataSeries: PropTypes.shape({
     data: [],
@@ -69,7 +60,7 @@ SparkLineChart.propTypes = {
    * Sets the colors of the bar chart. Type: { categorical: [ string ] (required) }
    */
   colorScheme: PropTypes.shape({
-    valueGround: PropTypes.arrayOf(PropTypes.string).isRequired,
+    gradient: PropTypes.arrayOf(PropTypes.string).isRequired,
   }),
   /**
    * Sets the data series. A data series consists of a label and an array of data. Each data item contains a timestamp and a value.
@@ -78,10 +69,6 @@ SparkLineChart.propTypes = {
     data: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
     label: PropTypes.string.isRequired,
   }),
-  /**
-   * Sets the description.
-   */
-  description: PropTypes.string,
   /**
     * If set, a loader is shown instead of axis tick labels, grid and bars.
     */

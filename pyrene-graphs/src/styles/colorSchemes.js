@@ -1,3 +1,5 @@
+import { colorConstants } from 'pyrene';
+
 /* Color Scheme Default */
 
 /* Chart / 1 */
@@ -29,6 +31,14 @@ const colorSchemeDefault = {
     chart4Default,
     chart5Default,
   ],
+  comparison: [
+    chart1Default,
+    chart1Swatch40Default,
+  ],
+  gradient: [
+    '#0458A2',
+    colorConstants.neutral000,
+  ],
   sequential: [
     chart1Default,
     chart1Swatch80Default,
@@ -37,10 +47,6 @@ const colorSchemeDefault = {
     chart1Swatch20Default,
     chart1Swatch10Default,
     chart1Swatch05Default,
-  ],
-  comparison: [
-    chart1Default,
-    chart1Swatch40Default,
   ],
   valueGround: [
     chart1Default,
