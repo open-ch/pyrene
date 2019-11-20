@@ -8,44 +8,50 @@ import './sparkLineChart.css';
 /**
  * Spark Line Charts are used to display data series.
  */
-const SparkLineChart = (props) => (
-  <div styleName="container">
-    <div styleName="total">
-      {props.dataFormat(props.dataSeries.data.map((d) => d[1]).reduce((a, b) => a + b))}
-    </div>
-    <div styleName="chart">
-      <Responsive>
-        {(parent) => (
-          <svg width="100%" height={parent.height} shapeRendering="crispEdges">
-            <TimeXAxis
-              from={props.dataSeries.data[0][0]}
-              to={props.dataSeries.data.slice(-1)[0].slice(-1)[0]}
-              width={parent.width}
-              height={parent.height}
-              strokeColor={colorConstants.strokeColor}
-              tickLabelColors={[colorConstants.tickLabelColor, colorConstants.tickLabelColorDark]}
-              timezone={props.timezone}
-              showTickLabels={false}
-            />
-            {!props.loading && (
-              <SparkLine
-                dataSeries={props.dataSeries}
-                height={26}
-                gradient={{
-                  fromOpacity: 0.58,
-                  toOpacity: 0.1,
-                  fromColor: props.colorScheme.gradient[0],
-                  toColor: props.colorScheme.gradient[1],
-                }}
+const SparkLineChart = (props) => {
+  const chartHeight = 26;
+  return (
+    <div styleName="container">
+      <div styleName="total">
+        {props.dataFormat(props.dataSeries.data.map((d) => d[1]).reduce((a, b) => a + b))}
+      </div>
+      <div styleName="chart">
+        <Responsive>
+          {(parent) => (
+            <svg width="100%" height={parent.height} shapeRendering="crispEdges">
+              <TimeXAxis
+                from={props.dataSeries.data[0][0]}
+                to={props.dataSeries.data.slice(-1)[0].slice(-1)[0]}
                 width={parent.width}
+                height={chartHeight}
+                strokeColor={colorConstants.strokeColor}
+                tickLabelColors={[colorConstants.tickLabelColor, colorConstants.tickLabelColorDark]}
+                timezone={props.timezone}
+                showTickLabels={false}
+                label={props.label}
+                marginBottom={0}
+                marginLeft={0}
               />
-            )}
-          </svg>
-        )}
-      </Responsive>
+              {!props.loading && (
+                <SparkLine
+                  dataSeries={props.dataSeries}
+                  height={chartHeight}
+                  gradient={{
+                    fromOpacity: 0.58,
+                    toOpacity: 0.1,
+                    fromColor: props.colorScheme.gradient[0],
+                    toColor: props.colorScheme.gradient[1],
+                  }}
+                  width={parent.width}
+                />
+              )}
+            </svg>
+          )}
+        </Responsive>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 SparkLineChart.displayName = 'Spark Line Chart';
 
@@ -55,6 +61,7 @@ SparkLineChart.defaultProps = {
     data: [],
     label: '',
   }),
+  label: '',
   loading: false,
 };
 
@@ -76,6 +83,10 @@ SparkLineChart.propTypes = {
     data: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
     label: PropTypes.string.isRequired,
   }),
+  /**
+   * Sets the axis label.
+   */
+  label: PropTypes.string,
   /**
     * If set, a loader is shown instead of axis tick labels, grid and bars.
     */

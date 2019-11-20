@@ -21,7 +21,7 @@ const dataFormat = (num) => {
 examples.props = {
   dataFormat: dataFormat,
   dataSeries: (stateProvider) => (stateProvider.state.dataSeries ? stateProvider.state.dataSeries : initialDataSeries),
-  description: 'Downloaded volume',
+  label: 'Downloaded Volume Last 7 Days',
   error: 'There was an error while loading data.',
   from: (stateProvider) => (stateProvider.state.from ? stateProvider.state.from : initialFrom),
   to: (stateProvider) => (stateProvider.state.to ? stateProvider.state.to : initialTo),
