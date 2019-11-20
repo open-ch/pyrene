@@ -10,6 +10,9 @@ import './sparkLineChart.css';
  */
 const SparkLineChart = (props) => (
   <div styleName="container">
+    <div styleName="total">
+      {props.dataFormat(props.dataSeries.data.map((d) => d[1]).reduce((a, b) => a + b))}
+    </div>
     <div styleName="chart">
       <Responsive>
         {(parent) => (
@@ -27,7 +30,7 @@ const SparkLineChart = (props) => (
             {!props.loading && (
               <SparkLine
                 dataSeries={props.dataSeries}
-                height={parent.height}
+                height={26}
                 gradient={{
                   fromOpacity: 0.58,
                   toOpacity: 0.1,
@@ -63,6 +66,10 @@ SparkLineChart.propTypes = {
     gradient: PropTypes.arrayOf(PropTypes.string).isRequired,
   }),
   /**
+   * Sets the data formatting functions for the graph, consisting of format function for the y-axis and that for the tooltip.
+   */
+  dataFormat: PropTypes.func.isRequired,
+  /**
    * Sets the data series. A data series consists of a label and an array of data. Each data item contains a timestamp and a value.
    */
   dataSeries: PropTypes.shape({
@@ -77,10 +84,6 @@ SparkLineChart.propTypes = {
    * Sets the timezone for the x-axis.
    */
   timezone: PropTypes.string.isRequired,
-  /**
-   * Sets the title.
-   */
-  title: PropTypes.string.isRequired,
 };
 
 export default SparkLineChart;
