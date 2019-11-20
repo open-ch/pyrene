@@ -13,7 +13,7 @@ const SparkLineChart = (props) => {
   return (
     <div styleName="container">
       <div styleName="total">
-        {props.dataFormat(props.dataSeries.data.map((d) => d[1]).reduce((a, b) => a + b))}
+        {!props.loading && props.dataFormat(props.dataSeries.data.map((d) => d[1]).reduce((a, b) => a + b))}
       </div>
       <div styleName="chart">
         <Responsive>
@@ -27,6 +27,7 @@ const SparkLineChart = (props) => {
                 strokeColor={colorConstants.strokeColor}
                 tickLabelColors={[colorConstants.tickLabelColor, colorConstants.tickLabelColorDark]}
                 timezone={props.timezone}
+                showLabel={!props.loading}
                 showTickLabels={false}
                 label={props.label}
                 marginBottom={0}
