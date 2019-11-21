@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Group } from '@vx/group';
-import { scaleBand } from '@vx/scale';
 import Bar from './Bar';
 import chartConstants from '../../common/chartConstants';
 
@@ -12,16 +11,6 @@ const Bars = (props) => {
   const left = props.direction === 'horizontal' ? chartConstants.marginLeftCategorical : chartConstants.marginLeftNumerical;
   const chartHeight = props.height - chartConstants.marginBottom;
   const width = props.width - left;
-  const size = props.direction === 'horizontal' ? chartHeight : width;
-  const barSpacing = props.categorical ? (size / props.values.length - props.barWeight) : chartConstants.barSpacing;
-  const paddingInner = barSpacing / (size / props.values.length);
-  const paddingOuter = props.categorical ? paddingInner / 2 : 0;
-  const scale = scaleBand({
-    range: [0, size],
-    domain: props.values,
-    paddingInner: paddingInner,
-    paddingOuter: paddingOuter,
-  });
   return (
     <Group
       left={left}
@@ -31,13 +20,13 @@ const Bars = (props) => {
         <Bar
         key={`bar-${i}`} // eslint-disable-line
           color={props.color}
-          barWeight={scale.bandwidth()}
+          barWeight={props.barWeight}
           direction={props.direction}
           maxValue={props.maxValue}
           value={d}
           size={props.direction === 'horizontal' ? width - chartConstants.marginMaxValueToBorder : chartHeight - chartConstants.marginMaxValueToBorder}
-          x={props.direction === 'horizontal' ? 0 : scale(d)}
-          y={props.direction === 'horizontal' ? scale(d) : 0}
+          x={props.direction === 'horizontal' ? 0 : props.labelScale(props.labels[i]) + props.labelOffset}
+          y={props.direction === 'horizontal' ? props.labelScale(props.labels[i]) + props.labelOffset : 0}
         />
       ))}
     </Group>
@@ -48,8 +37,8 @@ Bars.displayName = 'Bars';
 
 Bars.defaultProps = {
   barWeight: 10,
-  categorical: false,
   direction: 'vertical',
+  labelOffset: 0,
 };
 
 Bars.propTypes = {
@@ -57,10 +46,6 @@ Bars.propTypes = {
    * Sets the bar weight (height if horizontal | width if vertical).
    */
   barWeight: PropTypes.number,
-  /**
-   * If set, the bars will have an offset to compensate the textAnchor='middle' property of the CategoricalAxis.
-   */
-  categorical: PropTypes.bool,
   /**
    * Sets the color of the bars.
    */
@@ -74,6 +59,18 @@ Bars.propTypes = {
    * Type: number (required)
    */
   height: PropTypes.number.isRequired,
+  /**
+   * Sets the label offset to shift the bars on the label axis.
+   */
+  labelOffset: PropTypes.number,
+  /**
+   * Sets the labels to position the bars on the label axis.
+   */
+  labels: PropTypes.arrayOf(PropTypes.string).isRequired,
+  /**
+   * Sets the scale function to position the bars on the label axis.
+   */
+  labelScale: PropTypes.func.isRequired,
   /**
    * Sets the maxValue, which is used to calculate the bar length.
    */
