@@ -5,27 +5,28 @@ import { Bar as VxBar } from '@vx/shape';
 /**
  * Bars are used to display a numerical value.
  */
-const Bar = (props) => (
-  props.direction === 'horizontal' ? (
+const Bar = (props) => {
+  const size = Math.max(1, props.value * (props.size / props.maxValue));
+  return props.direction === 'horizontal' ? (
     <VxBar
       x={props.x}
       y={props.y}
       height={props.barWeight}
-      width={props.size > 0 ? props.value * (props.size / props.maxValue) : 0}
+      width={size}
       fill={props.color}
       transform={props.mirrored ? `rotate(180 ${props.size / 2} ${props.barWeight / 2})` : undefined}
     />
   ) : (
     <VxBar
       x={props.x}
-      y={props.y + (props.maxValue - props.value) * (props.size / props.maxValue)}
-      height={props.size > 0 ? props.value * (props.size / props.maxValue) : 0}
+      y={props.size - props.y - size}
+      height={size}
       width={props.barWeight}
       fill={props.color}
       transform={props.mirrored ? `rotate(180 ${props.barWeight / 2} ${props.size / 2})` : undefined}
     />
-  )
-);
+  );
+};
 
 Bar.displayName = 'Bar';
 
