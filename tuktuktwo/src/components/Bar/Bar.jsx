@@ -6,7 +6,8 @@ import { Bar as VxBar } from '@vx/shape';
  * Bars are used to display a numerical value.
  */
 const Bar = (props) => {
-  const size = Math.max(1, props.value * (props.size / props.maxValue));
+  const minBarLength = 1;
+  const size = Math.max(minBarLength, props.value * (props.size / props.maxValue));
   return props.direction === 'horizontal' ? (
     <VxBar
       x={props.x}
