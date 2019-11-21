@@ -4,31 +4,42 @@ import { Group } from '@vx/group';
 import Bar from './Bar';
 import chartConstants from '../../common/chartConstants';
 
+const getBarWeight = (labelPosition, barWeight, boundary) => {
+  const delta = labelPosition + barWeight - boundary;
+  if (delta > barWeight) return Math.max(0, barWeight);
+  if (delta < 0) return 0;
+  return delta;
+};
+
 /**
  * Bars is used to display multiple bars.
  */
 const Bars = (props) => {
-  const left = props.direction === 'horizontal' ? chartConstants.marginLeftCategorical : chartConstants.marginLeftNumerical;
   const chartHeight = props.height - chartConstants.marginBottom;
-  const width = props.width - left;
+  const chartWidth = props.width - props.left;
+  const top = props.direction === 'horizontal' ? 0 : chartConstants.marginMaxValueToBorder;
   return (
     <Group
-      left={left}
-      top={props.direction === 'horizontal' ? 0 : chartConstants.marginMaxValueToBorder}
+      left={props.direction === 'horizontal' ? props.left : 0}
+      top={top}
     >
-      {props.values.map((d, i) => (
-        <Bar
-        key={`bar-${i}`} // eslint-disable-line
-          color={props.color}
-          barWeight={props.barWeight}
-          direction={props.direction}
-          maxValue={props.maxValue}
-          value={d}
-          size={props.direction === 'horizontal' ? width - chartConstants.marginMaxValueToBorder : chartHeight - chartConstants.marginMaxValueToBorder}
-          x={props.direction === 'horizontal' ? 0 : props.labelScale(props.labels[i]) + props.labelOffset}
-          y={props.direction === 'horizontal' ? props.labelScale(props.labels[i]) + props.labelOffset : 0}
-        />
-      ))}
+      {props.values.map((d, i) => {
+        const barWeight = getBarWeight(props.labelScale(props.labels[i]) + props.labelOffset, props.barWeight, props.direction === 'horizontal' ? top : props.left);
+        const barWeightOffset = props.barWeight - barWeight;
+        return (
+          <Bar
+          key={`bar-${i}`} // eslint-disable-line
+            color={props.color}
+            barWeight={barWeight}
+            direction={props.direction}
+            maxValue={props.maxValue}
+            value={d}
+            size={props.direction === 'horizontal' ? chartWidth - chartConstants.marginMaxValueToBorder : chartHeight - chartConstants.marginMaxValueToBorder}
+            x={props.direction === 'horizontal' ? 0 : props.labelScale(props.labels[i]) + props.labelOffset + barWeightOffset}
+            y={props.direction === 'horizontal' ? props.labelScale(props.labels[i]) + props.labelOffset + barWeightOffset : 0}
+          />
+        );
+      })}
     </Group>
   );
 };
@@ -66,11 +77,15 @@ Bars.propTypes = {
   /**
    * Sets the labels to position the bars on the label axis.
    */
-  labels: PropTypes.arrayOf(PropTypes.string).isRequired,
+  labels: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])).isRequired,
   /**
    * Sets the scale function to position the bars on the label axis.
    */
   labelScale: PropTypes.func.isRequired,
+  /**
+   * Sets the horizontal offset.
+   */
+  left: PropTypes.number.isRequired,
   /**
    * Sets the maxValue, which is used to calculate the bar length.
    */

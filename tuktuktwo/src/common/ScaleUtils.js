@@ -2,9 +2,9 @@ import { scaleBand, scaleLinear } from '@vx/scale';
 
 export default class ScaleUtils {
 
-  static scaleOrdinal(size, labels) {
+  static scaleOrdinal(minRange, maxRange, labels) {
     return scaleBand({
-      range: [0, size],
+      range: [minRange, maxRange],
       domain: labels,
     });
   }

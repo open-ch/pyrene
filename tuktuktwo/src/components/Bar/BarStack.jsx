@@ -36,9 +36,8 @@ const getBars = (barStacks, direction, barWeight, labelOffset) => (
  * BarStack is used to display stacked bars.
  */
 const BarStack = (props) => {
-  const left = props.direction === 'horizontal' ? chartConstants.marginLeftCategorical : chartConstants.marginLeftNumerical;
   const height = Math.max(0, props.height - chartConstants.marginBottom);
-  const width = Math.max(0, props.width - left);
+  const width = Math.max(0, props.width - props.left);
   const categoricalProp = (d) => d.label;
   const data = props.data.map((dataElement) => ({ ...props.keys.reduce((obj, key, index) => ({ ...obj, [key]: dataElement.values[index] }), {}), label: dataElement.label }));
   const color = scaleOrdinal({
@@ -47,7 +46,7 @@ const BarStack = (props) => {
   });
   return props.direction === 'horizontal' ? (
     <Group
-      left={left}
+      left={props.left}
     >
       <BarStackHorizontal
         keys={props.keys}
@@ -62,7 +61,6 @@ const BarStack = (props) => {
     </Group>
   ) : (
     <Group
-      left={left}
       top={chartConstants.marginMaxValueToBorder}
     >
       <VxBarStack
@@ -100,7 +98,7 @@ BarStack.propTypes = {
    * Sets the bar stack data. Type: [ { label: string (required), values: [number] (required) } ]
    */
   data: PropTypes.arrayOf(PropTypes.shape({
-    label: PropTypes.string.isRequired,
+    label: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
     values: PropTypes.arrayOf(PropTypes.number).isRequired,
   })).isRequired,
   /**
@@ -124,6 +122,10 @@ BarStack.propTypes = {
    * Sets the scale function to position the bars on the label axis.
    */
   labelScale: PropTypes.func.isRequired,
+  /**
+   * Sets the horizontal offset.
+   */
+  left: PropTypes.number.isRequired,
   /**
    * Sets the maxCumulatedValue, which is used to calculate the bar lengths.
    */
