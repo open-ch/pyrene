@@ -16,10 +16,10 @@ import colorConstants from '../../styles/colorConstants';
 import colorSchemes from '../../styles/colorSchemes';
 
 const getLabelConfig = (direction, labels, parentSize, barWeight) => {
-  const size = direction === 'horizontal' ? parentSize.height - chartConstants.marginBottom : parentSize.width - chartConstants.marginLeftNumerical;
+  const scale = direction === 'horizontal' ? scaleUtils.scaleOrdinal(0, parentSize.height - chartConstants.marginBottom, labels) : scaleUtils.scaleOrdinal(chartConstants.marginLeftNumerical, parentSize.width, labels);
   return {
-    offset: size / labels.length / 2 - barWeight / 2,
-    scale: scaleUtils.scaleOrdinal(size, labels),
+    offset: (scale.range()[1] - scale.range()[0]) / labels.length / 2 - barWeight / 2,
+    scale: scale,
   };
 };
 
@@ -76,12 +76,14 @@ const BarChartSVG = (props) => {
           tickLabelColor: colorConstants.tickLabelColor,
         };
         const labelConfig = getLabelConfig(props.direction, labels, parent, barWeight);
+        const left = props.direction === 'horizontal' ? chartConstants.marginLeftCategorical : chartConstants.marginLeftNumerical;
         return (
           <>
             <svg width="100%" height={parent.height} shapeRendering="crispEdges">
               {props.direction === 'horizontal' ? (
                 <CategoricalAxis
                   height={sharedAxisProps.height}
+                  left={left}
                   width={sharedAxisProps.width}
                   showTickLabels={sharedAxisProps.showTickLabels}
                   strokeColor={sharedAxisProps.strokeColor}
@@ -92,6 +94,7 @@ const BarChartSVG = (props) => {
               ) : (
                 <NumericalAxis
                   height={sharedAxisProps.height}
+                  left={left}
                   width={sharedAxisProps.width}
                   showTickLabels={sharedAxisProps.showTickLabels}
                   strokeColor={sharedAxisProps.strokeColor}
@@ -105,6 +108,7 @@ const BarChartSVG = (props) => {
               {props.direction === 'horizontal' ? (
                 <NumericalAxis
                   height={sharedAxisProps.height}
+                  left={left}
                   width={sharedAxisProps.width}
                   showTickLabels={sharedAxisProps.showTickLabels}
                   strokeColor={sharedAxisProps.strokeColor}
@@ -117,6 +121,7 @@ const BarChartSVG = (props) => {
               ) : (
                 <CategoricalAxis
                   height={sharedAxisProps.height}
+                  left={left}
                   width={sharedAxisProps.width}
                   showTickLabels={sharedAxisProps.showTickLabels}
                   strokeColor={sharedAxisProps.strokeColor}
@@ -137,6 +142,7 @@ const BarChartSVG = (props) => {
                     height={parent.height}
                     labelOffset={labelConfig.offset}
                     labelScale={labelConfig.scale}
+                    left={left}
                     keys={props.legend}
                     maxCumulatedValue={maxValue}
                     data={props.data}
@@ -151,6 +157,7 @@ const BarChartSVG = (props) => {
                     labelOffset={labelConfig.offset}
                     labels={labels}
                     labelScale={labelConfig.scale}
+                    left={left}
                     maxValue={maxValue}
                     values={values}
                     direction={props.direction}

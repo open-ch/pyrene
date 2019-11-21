@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Bar,
+  Bars,
   chartConstants,
   localPoint,
   NumericalAxis,
@@ -83,33 +83,6 @@ const getTimeFormat = (timezone, timeFormat) => {
   return timeFormat || ((time) => Formats.timeRangeFormat(time[0], time[1], timezone, false));
 };
 
-const getBarConfig = (index, dataInRange, origDataSeries, from, xScale) => {
-  let barWeight;
-  let barX;
-
-  // If it is not the last bar, calculate the bar weight by applying the scale function on the current time frame defined by the time difference between current startTS and next startTS
-  if (index !== dataInRange.length - 1) {
-    barWeight = xScale.invert(from + (dataInRange[index + 1][0] - dataInRange[index][0])) - chartConstants.marginLeftNumerical - chartConstants.barSpacing;
-  // If it is the last bar, first check if it's also the last bar in the original data series; if yes, we do not know how big the time frame is and we assume it is the same as the second last one
-  } else {
-    const indexInOrigDataSeries = origDataSeries.findIndex((d) => d[0] === dataInRange[index][0]);
-    const isLast = indexInOrigDataSeries === origDataSeries.length - 1;
-    barWeight = xScale.invert(from + (isLast ? (dataInRange[index][0] - dataInRange[index - 1][0]) : (origDataSeries[indexInOrigDataSeries + 1][0] - dataInRange[index][0]))) - chartConstants.marginLeftNumerical - chartConstants.barSpacing;
-  }
-
-  // If x coordinate of left edge of bar is exceeding the axis, cut the excessive bar weight
-  barX = xScale.invert(dataInRange[index][0]) + chartConstants.barSpacing / 2;
-  if (barX < chartConstants.marginLeftNumerical) {
-    barWeight = Math.max(0, barWeight - (chartConstants.marginLeftNumerical - barX));
-    barX = chartConstants.marginLeftNumerical;
-  }
-
-  return {
-    weight: Math.max(0, barWeight),
-    x: Math.max(0, barX),
-  };
-};
-
 /**
  * The pure SVG chart part of the time series bucket graph.
  */
@@ -145,6 +118,7 @@ const TimeSeriesBucketChart = (props) => {
               orientation="left"
               width={parent.width}
               height={parent.height}
+              left={chartConstants.marginLeftNumerical}
               tickFormat={props.dataFormat.yAxis}
               strokeColor={colorConstants.strokeColor}
               tickLabelColor={colorConstants.tickLabelColor}
@@ -178,7 +152,7 @@ const TimeSeriesBucketChart = (props) => {
           // Filter out data outside `from` and `to` and get the max value
           const dataInRange = props.dataSeries.data.filter((data, index) => isDataInTimeRange(data, index, props.dataSeries.data, props.from, props.to));
           const maxValue = Math.max(...dataInRange.map((data) => data[1]));
-
+          const barWeight = xScale.invert(props.from + (dataInRange[1][0] - dataInRange[0][0])) - chartConstants.barSpacing - chartConstants.marginLeftNumerical;
           return (
             <>
               <svg width="100%" height={parent.height} shapeRendering="crispEdges">
@@ -197,6 +171,7 @@ const TimeSeriesBucketChart = (props) => {
                   orientation="left"
                   width={parent.width}
                   height={parent.height}
+                  left={chartConstants.marginLeftNumerical}
                   tickFormat={props.dataFormat.yAxis}
                   strokeColor={colorConstants.strokeColor}
                   tickLabelColor={colorConstants.tickLabelColor}
@@ -214,23 +189,18 @@ const TimeSeriesBucketChart = (props) => {
                   onTouchMove={(e) => onMouseMove(e, props.dataSeries.data, xScale, showTooltip)}
                 >
                   {!props.loading && dataInRange.length > 0 && (
-                    <g>
-                      {dataInRange.map((data, index) => {
-                        const barConfig = getBarConfig(index, dataInRange, props.dataSeries.data, props.from, xScale);
-                        return (
-                          <Bar key={Math.random()}
-                            barWeight={barConfig.weight}
-                            color={props.colorScheme.categorical[0]}
-                            direction="vertical"
-                            value={data[1]}
-                            maxValue={maxValue}
-                            size={Math.max(0, parent.height - chartConstants.marginBottom - chartConstants.marginMaxValueToBorder)}
-                            x={barConfig.x}
-                            y={chartConstants.marginMaxValueToBorder}
-                          />
-                        );
-                      })}
-                    </g>
+                    <Bars
+                      barWeight={barWeight}
+                      color={props.colorScheme.categorical[0]}
+                      direction="vertical"
+                      height={parent.height}
+                      labels={dataInRange.map((d) => d[0])}
+                      labelScale={xScale.invert}
+                      left={chartConstants.marginLeftNumerical}
+                      maxValue={maxValue}
+                      values={dataInRange.map((d) => d[1])}
+                      width={parent.width}
+                    />
                   )}
                   {/* ChartArea makes sure the outer <g> element where all mouse event listeners are attached always covers the whole chart area so that there is no tooltip flickering issue */}
                   <ChartArea width={parent.width} height={parent.height} />
