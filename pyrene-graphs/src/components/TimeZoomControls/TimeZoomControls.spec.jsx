@@ -11,7 +11,7 @@ const props = {
   upperBound: moment('2020-10-01 10:34').valueOf(),
 };
 
-// When 'to' hits upperBound
+// When only 'from' hits lower bound
 const props1 = {
   from: moment('2018-10-01 10:34').valueOf(),
   lowerBound: moment('2018-10-01 10:34').valueOf(),
@@ -21,8 +21,18 @@ const props1 = {
   upperBound: moment('2020-10-01 10:34').valueOf(),
 };
 
-// When 'from' hits lowerBound
+// When only 'to' hits upper bound
 const props2 = {
+  from: moment('2018-10-07 10:34').valueOf(),
+  lowerBound: moment('2018-10-01 10:34').valueOf(),
+  minZoomRange: moment.duration({ minutes: 30 }).valueOf(),
+  onZoom: () => {},
+  to: moment('2020-10-01 10:34').valueOf(),
+  upperBound: moment('2020-10-01 10:34').valueOf(),
+};
+
+// When both 'from' and 'to' hit bounds
+const props3 = {
   from: moment('2018-10-01 10:34').valueOf(),
   lowerBound: moment('2018-10-01 10:34').valueOf(),
   minZoomRange: moment.duration({ minutes: 30 }).valueOf(),
@@ -53,10 +63,12 @@ describe('<TimeZoomControls />', () => {
     expect(props.onZoom).toHaveBeenCalledTimes(2);
   });
 
-  it('checks zoom upper bounds correctly', () => {
+  it('checks zoom bounds correctly', () => {
     const rendered1 = shallow(<TimeZoomControls {...props1} />);
     const rendered2 = shallow(<TimeZoomControls {...props2} />);
-    expect(rendered1.at(0).prop('actions')[1].active).toBe(false);
-    expect(rendered2.at(0).prop('actions')[1].active).toBe(false);
+    const rendered3 = shallow(<TimeZoomControls {...props3} />);
+    expect(rendered1.at(0).prop('actions')[1].active).toBe(true);
+    expect(rendered2.at(0).prop('actions')[1].active).toBe(true);
+    expect(rendered3.at(0).prop('actions')[1].active).toBe(false);
   });
 });
