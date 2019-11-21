@@ -131,7 +131,7 @@ const TimeSeriesBucketChart = (props) => {
           // Get scale function, time frame, number of bars, max data value, maximum bar height and bar weight
           const xScale = scaleUtils.scaleCustomLinear(chartConstants.marginLeftNumerical, parent.width, props.from, props.to, 'horizontal');
           const numBars = props.dataSeries.data.length;
-          const maxValue = Math.max(...props.dataSeries.data.map((data) => data[dataIndex.value]));
+          const maxValue = Math.max(...props.dataSeries.data.map((data) => data[INDEX_VALUE]));
           const maxBarSize = Math.max(0, parent.height - chartConstants.marginBottom - chartConstants.marginMaxValueToBorder);
           const barWeight = parent.width > 0 ? ((parent.width - chartConstants.marginLeftNumerical) / numBars - chartConstants.barSpacing) : 0;
 
