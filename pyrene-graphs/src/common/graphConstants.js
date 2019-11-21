@@ -1,5 +1,3 @@
-// eslint-disable-next-line import/prefer-default-export
-export const dataIndex = {
-  startTS: 0,
-  value: 1,
-};
+export const INDEX_START_TS = 0;
+
+export const INDEX_VALUE = 1;

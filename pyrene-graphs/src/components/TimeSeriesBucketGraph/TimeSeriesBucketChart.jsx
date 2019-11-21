@@ -15,7 +15,7 @@ import ChartArea from '../ChartArea/ChartArea';
 import TimeZoomControls from '../TimeZoomControls/TimeZoomControls';
 import Tooltip from '../TimeSeries/Tooltip';
 import Formats from '../../common/Formats';
-import { dataIndex } from '../../common/graphConstants';
+import { INDEX_VALUE, INDEX_START_TS } from '../../common/graphConstants';
 import colorSchemes from '../../styles/colorSchemes';
 import colorConstants from '../../styles/colorConstants';
 import './timeSeriesBucketGraph.css';
@@ -45,13 +45,13 @@ const onMouseMove = (event, data, xScale, showTooltip) => {
   }
 
   // Show normal tooltip
-  const foundIndex = data.findIndex((d) => d[dataIndex.startTS] > currentTS) - 1;
+  const foundIndex = data.findIndex((d) => d[INDEX_START_TS] > currentTS) - 1;
   const index = foundIndex >= 0 ? foundIndex : data.length - 1;
-  const timeFrame = index === data.length - 1 ? (data[index][dataIndex.startTS] - data[index - 1][dataIndex.startTS]) : (data[index + 1][dataIndex.startTS] - data[index][dataIndex.startTS]);
+  const timeFrame = index === data.length - 1 ? (data[index][INDEX_START_TS] - data[index - 1][INDEX_START_TS]) : (data[index + 1][INDEX_START_TS] - data[index][INDEX_START_TS]);
   showTooltip({
     tooltipLeft: x,
     tooltipTop: y,
-    tooltipData: [[data[index][dataIndex.startTS], data[index][dataIndex.startTS] + timeFrame], data[index][dataIndex.value]],
+    tooltipData: [[data[index][INDEX_START_TS], data[index][INDEX_START_TS] + timeFrame], data[index][INDEX_VALUE]],
   });
 };
 

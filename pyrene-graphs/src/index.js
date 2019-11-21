@@ -18,6 +18,6 @@ export { BarChart };
 export { BarChartTable };
 export { TimeSeriesBucketGraph };
 
-export { dataIndex } from './common/graphConstants';
+export { INDEX_START_TS, INDEX_VALUE } from './common/graphConstants';
 
 export default Components;
