@@ -155,7 +155,6 @@ const BarChartSVG = (props) => {
                     values={values}
                     direction={props.direction}
                     width={parent.width}
-                    categorical
                   />
                 ))}
               </g>
