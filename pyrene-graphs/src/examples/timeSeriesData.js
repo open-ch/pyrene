@@ -15,7 +15,7 @@ const timeSeriesData = {
 
     const timeFrame = (to - from) / number;
     for (let i = 0; i < number; i += 1) {
-      dataSeries.data.push([from + i * timeFrame - 50000000, Math.random() * 10000 + 1]);
+      dataSeries.data.push([from + i * timeFrame, Math.random() * 10000 + 1]);
     }
 
     return dataSeries;
