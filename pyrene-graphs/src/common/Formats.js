@@ -2,7 +2,7 @@ import moment from 'moment-timezone';
 
 const TIME_FORMATS = {
   DATE: 'DD.MM.YYYY',
-  HOUR: 'HH:mm',
+  TIME: 'HH:mm',
   DATETIME: 'DD.MM.YYYY, HH:mm',
 };
 
@@ -24,7 +24,7 @@ const Formats = {
     if (explicit || (moment.tz(startTS, timezone).day() !== moment.tz(endTS, timezone).day())) {
       return `${moment.tz(startTS, timezone).format(TIME_FORMATS.DATETIME)} - ${moment.tz(endTS, timezone).format(TIME_FORMATS.DATETIME)}`;
     }
-    return `${moment.tz(startTS, timezone).format(TIME_FORMATS.DATETIME)} - ${moment.tz(endTS, timezone).format(TIME_FORMATS.HOUR)}`;
+    return `${moment.tz(startTS, timezone).format(TIME_FORMATS.DATETIME)} - ${moment.tz(endTS, timezone).format(TIME_FORMATS.TIME)}`;
   },
 
   /**
