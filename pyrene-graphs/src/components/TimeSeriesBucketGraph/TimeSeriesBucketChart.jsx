@@ -184,7 +184,7 @@ const TimeSeriesBucketChart = (props) => {
                           barWeight={barWeight}
                           color={props.colorScheme.categorical[0]}
                           direction="vertical"
-                          value={data[dataIndex.value]}
+                          value={data[INDEX_VALUE]}
                           maxValue={maxValue}
                           size={maxBarSize}
                           x={index * (barWeight + chartConstants.barSpacing)}
