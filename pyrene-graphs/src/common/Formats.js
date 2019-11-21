@@ -1,5 +1,11 @@
 import moment from 'moment-timezone';
 
+const TIME_FORMATS = {
+  DATE: 'DD.MM.YYYY',
+  TIME: 'HH:mm',
+  DATETIME: 'DD.MM.YYYY, HH:mm',
+};
+
 const Formats = {
   /**
    * Default formatting function for a time range.
@@ -12,10 +18,13 @@ const Formats = {
    * @returns {string}
    */
   timeRangeFormat: (startTS, endTS, timezone, explicit) => {
-    if (explicit || (moment.tz(startTS, timezone).day() !== moment.tz(endTS, timezone).day())) {
-      return `${moment.tz(startTS, timezone).format('DD.MM.YYYY, HH:mm')} - ${moment.tz(endTS, timezone).format('DD.MM.YYYY, HH:mm')}`;
+    if (!endTS) {
+      return `${moment.tz(startTS, timezone).format(TIME_FORMATS.DATETIME)}`;
     }
-    return `${moment.tz(startTS, timezone).format('DD.MM.YYYY, HH:mm')} - ${moment.tz(endTS, timezone).format('HH:mm')}`;
+    if (explicit || (moment.tz(startTS, timezone).day() !== moment.tz(endTS, timezone).day())) {
+      return `${moment.tz(startTS, timezone).format(TIME_FORMATS.DATETIME)} - ${moment.tz(endTS, timezone).format(TIME_FORMATS.DATETIME)}`;
+    }
+    return `${moment.tz(startTS, timezone).format(TIME_FORMATS.DATETIME)} - ${moment.tz(endTS, timezone).format(TIME_FORMATS.TIME)}`;
   },
 
   /**
