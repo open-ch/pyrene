@@ -99,7 +99,7 @@ describe('<TimeRangeSelector />', () => {
     const timeStringBeforeClick = `${moment(props.from).tz(TIMEZONE).format(dateFormat)} - ${moment(props.to).tz(TIMEZONE).format(dateFormat)}`;
     rendered.find('TimeRangeNavigationBar').find('button').last().simulate('click');
     const calculatedValue = rendered.find('.timeRange').render()[0].children[0].data;
-    expect(timeStringBeforeClick === calculatedValue).toBeTruthy();
+    expect(timeStringBeforeClick).toBe(calculatedValue);
   });
 
   it('has steppers that are changing the timerange if not disabled and are not exceeding the boundaries', () => {
@@ -119,15 +119,15 @@ describe('<TimeRangeSelector />', () => {
     rendered.find('TimeRangeNavigationBar').find('button').first().simulate('click');
     let calculatedValue = rendered.find('.timeRange').render()[0].children[0].data;
     expect(preset24Hours !== calculatedValue).toBeTruthy();
-    expect(timeRange48to24HoursBack === calculatedValue).toBeTruthy();
+    expect(timeRange48to24HoursBack).toBe(calculatedValue);
 
     // Let's click forward two times, we should not exceed the upper bound
     rendered.find('TimeRangeNavigationBar').find('button').last().simulate('click');
     rendered.find('TimeRangeNavigationBar').find('button').last().simulate('click');
     calculatedValue = rendered.find('.timeRange').render()[0].children[0].data;
-    expect(preset24Hours === calculatedValue).toBeTruthy();
+    expect(preset24Hours).toBe(calculatedValue);
     const upperBoundReachedString = initialFromString + ' - ' + moment(upperBound).tz(TIMEZONE).format(dateFormat);
-    expect(calculatedValue === upperBoundReachedString).toBeTruthy();
+    expect(calculatedValue).toBe(upperBoundReachedString);
   });
 
   it('has presets that are not exceeding the boundaries', () => {
@@ -139,7 +139,7 @@ describe('<TimeRangeSelector />', () => {
 
     rendered.find('.presetTimeRange').last().simulate('click'); // Switching to years, since the lowerbound is just 90 days should not go beyond that
     const calculatedValue = rendered.find('.timeRange').render()[0].children[0].data;
-    expect(expectedBounds === calculatedValue).toBeTruthy();
+    expect(expectedBounds).toBe(calculatedValue);
   });
 
 });

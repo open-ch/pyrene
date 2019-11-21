@@ -18,9 +18,9 @@ const TimeRangeNavigationBar = (props) => (
         const durationInMs = props.durationInMs;
         const fromDiff = moment(props.from).tz(props.timezone).subtract(durationInMs).valueOf();
         const toDiff = moment(props.to).tz(props.timezone).subtract(durationInMs).valueOf();
-        const newFrom = fromDiff < props.lowerBound ? props.lowerBound : props.from - durationInMs;
-        const newTo = toDiff - newFrom < durationInMs ? moment(newFrom).tz(props.timezone).add(durationInMs) : toDiff; // Keep the selected timespan duration if we reach a bound
-        props.onNavigate(newFrom, newTo);
+        const newFrom = Math.max(fromDiff, props.lowerBound);
+        const newTo = moment(toDiff).tz(props.timezone).subtract(newFrom).valueOf() < durationInMs ? moment(newFrom).tz(props.timezone).add(durationInMs).valueOf() : toDiff; // Keep the selected timespan duration if we reach a bound
+        props.onNavigate(newFrom, Math.min(newTo, props.upperBound));
       }}
     />
     <div styleName="navigationContentOuter">
@@ -38,9 +38,9 @@ const TimeRangeNavigationBar = (props) => (
         const durationInMs = props.durationInMs;
         const toDiff = moment(props.to).tz(props.timezone).add(durationInMs).valueOf();
         const fromDiff = moment(props.from).tz(props.timezone).add(durationInMs).valueOf();
-        const newTo = toDiff > props.upperBound ? props.upperBound : toDiff;
-        const newFrom = moment(fromDiff).tz(props.timezone).subtract(newTo).valueOf() < durationInMs ? moment(newTo).tz(props.timezone).subtract(durationInMs).valueOf() : fromDiff; // Keep the selected timespan duration if we reach a bound
-        props.onNavigate(newFrom, newTo);
+        const newTo = Math.min(toDiff, props.upperBound);
+        const newFrom = moment(newTo).tz(props.timezone).subtract(fromDiff).valueOf() < durationInMs ? moment(newTo).tz(props.timezone).subtract(durationInMs).valueOf() : fromDiff; // Keep the selected timespan duration if we reach a bound
+        props.onNavigate(Math.max(newFrom, props.lowerBound), newTo);
       }}
     />
   </div>

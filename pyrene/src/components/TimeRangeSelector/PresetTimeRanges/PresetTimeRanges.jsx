@@ -57,7 +57,7 @@ PresetTimeRanges._onPresetTimeRangeSelected = (presetId, presetTimeRanges, lower
   const newFrom = moment(upperBound).tz(timezone).subtract(selectedPresetTimeRange.durationInMs).valueOf();
   // from TimeRangeSelector: _onPresetTimeRangeSelected(newFrom, newTo, newUpperBound, durationInMs, currentTimeRangeType)
   callback(
-    newFrom >= lowerBound ? newFrom : lowerBound,
+    Math.max(newFrom, lowerBound),
     upperBound,
     upperBound,
     selectedPresetTimeRange.durationInMs,
