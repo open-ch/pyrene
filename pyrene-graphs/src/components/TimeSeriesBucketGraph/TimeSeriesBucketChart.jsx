@@ -15,6 +15,7 @@ import ChartArea from '../ChartArea/ChartArea';
 import TimeZoomControls from '../TimeZoomControls/TimeZoomControls';
 import Tooltip from '../Tooltip/Tooltip';
 import Formats from '../../common/Formats';
+import { INDEX_TS, INDEX_VALUE, INDEX_START_TS } from '../../common/graphConstants';
 import colorSchemes from '../../styles/colorSchemes';
 import colorConstants from '../../styles/colorConstants';
 import './timeSeriesBucketGraph.css';
@@ -46,13 +47,13 @@ const onMouseMove = (event, data, xScale, showTooltip) => {
   // Show normal tooltip
   // localPoint enables us to have the real-time x-coordinate of the mouse; by using the scale function on the x-coordinate we get a corresponding timestamp;
   // then, we go through the data series to find the first element with a startTS that's bigger than that timestamp, the element before it is the one that is being hovered on
-  const foundIndex = data.findIndex((d) => d[0] > currentTS) - 1;
+  const foundIndex = data.findIndex((d) => d[INDEX_START_TS] > currentTS) - 1;
   const index = foundIndex >= 0 ? foundIndex : data.length - 1;
-  const endTS = (index !== data.length - 1) ? data[index + 1][0] : null; // endTS is the startTS of next bucket; if the current element is the last in the data series, there is no endTS
+  const endTS = (index !== data.length - 1) ? data[index + 1][INDEX_START_TS] : null; // endTS is the startTS of next bucket; if the current element is the last in the data series, there is no endTS
   showTooltip({
     tooltipLeft: x,
     tooltipTop: y,
-    tooltipData: [[data[index][0], endTS], data[index][1]],
+    tooltipData: [[data[index][INDEX_START_TS], endTS], data[index][INDEX_VALUE]],
   });
 };
 
@@ -70,7 +71,7 @@ const isDataInTimeRange = (data, index, dataSeries, from, to) => {
   if (data[0] >= to) {
     return false;
   }
-  if (index !== dataSeries.length - 1 && dataSeries[index + 1][0] <= from) {
+  if (index !== dataSeries.length - 1 && dataSeries[index + 1][INDEX_TS] <= from) {
     return false;
   }
   return true;
@@ -151,8 +152,8 @@ const TimeSeriesBucketChart = (props) => {
           const xScale = scaleUtils.scaleCustomLinear(chartConstants.marginLeftNumerical, parent.width, props.from, props.to, 'horizontal');
           // Filter out data outside `from` and `to` and get the max value
           const dataInRange = props.dataSeries.data.filter((data, index) => isDataInTimeRange(data, index, props.dataSeries.data, props.from, props.to));
-          const maxValue = Math.max(...dataInRange.map((data) => data[1]));
-          const barWeight = xScale.invert(props.from + (dataInRange[1][0] - dataInRange[0][0])) - chartConstants.barSpacing - chartConstants.marginLeftNumerical;
+          const maxValue = Math.max(...dataInRange.map((data) => data[INDEX_VALUE]));
+          const barWeight = xScale.invert(props.from + (dataInRange[1][INDEX_TS] - dataInRange[INDEX_START_TS][INDEX_TS])) - chartConstants.barSpacing - chartConstants.marginLeftNumerical;
           return (
             <>
               <svg width="100%" height={parent.height} shapeRendering="crispEdges">
@@ -194,11 +195,11 @@ const TimeSeriesBucketChart = (props) => {
                       color={props.colorScheme.categorical[0]}
                       direction="vertical"
                       height={parent.height}
-                      labels={dataInRange.map((d) => d[0])}
+                      labels={dataInRange.map((d) => d[INDEX_TS])}
                       labelScale={xScale.invert}
                       left={chartConstants.marginLeftNumerical}
                       maxValue={maxValue}
-                      values={dataInRange.map((d) => d[1])}
+                      values={dataInRange.map((d) => d[INDEX_VALUE])}
                       width={parent.width}
                     />
                   )}
