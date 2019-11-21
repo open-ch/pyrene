@@ -15,6 +15,7 @@ import ChartArea from '../ChartArea/ChartArea';
 import TimeZoomControls from '../TimeZoomControls/TimeZoomControls';
 import Tooltip from '../TimeSeries/Tooltip';
 import Formats from '../../common/Formats';
+import { INDEX_VALUE, INDEX_START_TS } from '../../common/graphConstants';
 import colorSchemes from '../../styles/colorSchemes';
 import colorConstants from '../../styles/colorConstants';
 import './timeSeriesBucketGraph.css';
@@ -44,13 +45,13 @@ const onMouseMove = (event, data, xScale, showTooltip) => {
   }
 
   // Show normal tooltip
-  const foundIndex = data.findIndex((d) => d[0] > currentTS) - 1;
+  const foundIndex = data.findIndex((d) => d[INDEX_START_TS] > currentTS) - 1;
   const index = foundIndex >= 0 ? foundIndex : data.length - 1;
-  const timeFrame = index === data.length - 1 ? (data[index][0] - data[index - 1][0]) : (data[index + 1][0] - data[index][0]);
+  const timeFrame = index === data.length - 1 ? (data[index][INDEX_START_TS] - data[index - 1][INDEX_START_TS]) : (data[index + 1][INDEX_START_TS] - data[index][INDEX_START_TS]);
   showTooltip({
     tooltipLeft: x,
     tooltipTop: y,
-    tooltipData: [[data[index][0], data[index][0] + timeFrame], data[index][1]],
+    tooltipData: [[data[index][INDEX_START_TS], data[index][INDEX_START_TS] + timeFrame], data[index][INDEX_VALUE]],
   });
 };
 
@@ -130,7 +131,7 @@ const TimeSeriesBucketChart = (props) => {
           // Get scale function, time frame, number of bars, max data value, maximum bar height and bar weight
           const xScale = scaleUtils.scaleCustomLinear(chartConstants.marginLeftNumerical, parent.width, props.from, props.to, 'horizontal');
           const numBars = props.dataSeries.data.length;
-          const maxValue = Math.max(...props.dataSeries.data.map((data) => data[1]));
+          const maxValue = Math.max(...props.dataSeries.data.map((data) => data[INDEX_VALUE]));
           const maxBarSize = Math.max(0, parent.height - chartConstants.marginBottom - chartConstants.marginMaxValueToBorder);
           const barWeight = parent.width > 0 ? ((parent.width - chartConstants.marginLeftNumerical) / numBars - chartConstants.barSpacing) : 0;
 
@@ -183,7 +184,7 @@ const TimeSeriesBucketChart = (props) => {
                           barWeight={barWeight}
                           color={props.colorScheme.categorical[0]}
                           direction="vertical"
-                          value={data[1]}
+                          value={data[INDEX_VALUE]}
                           maxValue={maxValue}
                           size={maxBarSize}
                           x={index * (barWeight + chartConstants.barSpacing)}
