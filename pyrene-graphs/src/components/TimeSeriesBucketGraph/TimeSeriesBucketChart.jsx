@@ -49,7 +49,8 @@ const onMouseMove = (event, data, xScale, showTooltip) => {
   // then, we go through the data series to find the first element with a startTS that's bigger than that timestamp, the element before it is the one that is being hovered on
   const foundIndex = data.findIndex((d) => d[INDEX_START_TS] > currentTS) - 1;
   const index = foundIndex >= 0 ? foundIndex : data.length - 1;
-  const endTS = (index !== data.length - 1) ? data[index + 1][INDEX_START_TS] : null; // endTS is the startTS of next bucket; if the current element is the last in the data series, there is no endTS
+  // endTS is the startTS of next bucket; if the current element is the last in the data series, there is no endTS
+  const endTS = (index !== data.length - 1) ? data[index + 1][INDEX_START_TS] : null;
   showTooltip({
     tooltipLeft: x,
     tooltipTop: y,
@@ -84,22 +85,21 @@ const getTimeFormat = (timezone, timeFormat) => {
   return timeFormat || ((time) => Formats.timeRangeFormat(time[0], time[1], timezone, false));
 };
 
-const getBarConfig = (index, dataInRange, origDataSeries, from, xScale) => {
+const getBarConfig = (index, dataSeries, from, xScale) => {
   let barWeight;
   let barX;
 
-  // If it is not the last bar, calculate the bar weight by applying the scale function on the current time frame defined by the time difference between current startTS and next startTS
-  if (index !== dataInRange.length - 1) {
-    barWeight = xScale.invert(from + (dataInRange[index + 1][0] - dataInRange[index][0])) - chartConstants.marginLeftNumerical - chartConstants.barSpacing;
-  // If it is the last bar, first check if it's also the last bar in the original data series; if yes, we do not know how big the time frame is and we assume it is the same as the second last one
+  // If there is a single bucket, we do not know endTS, just use a default bar weight
+  if (dataSeries.length === 1) {
+    barWeight = 10;
   } else {
-    const indexInOrigDataSeries = origDataSeries.findIndex((d) => d[0] === dataInRange[index][0]);
-    const isLast = indexInOrigDataSeries === origDataSeries.length - 1;
-    barWeight = xScale.invert(from + (isLast ? (dataInRange[index][0] - dataInRange[index - 1][0]) : (origDataSeries[indexInOrigDataSeries + 1][0] - dataInRange[index][0]))) - chartConstants.marginLeftNumerical - chartConstants.barSpacing;
+    // Calculate the bar weight by applying the scale function on the current time frame defined by the time difference between current startTS and next startTS
+    const timeFrame = (index === dataSeries.length - 1) ? (dataSeries[index][INDEX_START_TS] - dataSeries[index - 1][INDEX_START_TS]) : (dataSeries[index + 1][INDEX_START_TS] - dataSeries[index][INDEX_START_TS]);
+    barWeight = xScale.invert(from + timeFrame) - chartConstants.marginLeftNumerical - chartConstants.barSpacing;
   }
 
   // If x coordinate of left edge of bar is exceeding the axis, cut the excessive bar weight
-  barX = xScale.invert(dataInRange[index][0]) + chartConstants.barSpacing / 2;
+  barX = xScale.invert(dataSeries[index][INDEX_START_TS]) + chartConstants.barSpacing / 2;
   if (barX < chartConstants.marginLeftNumerical) {
     barWeight = Math.max(0, barWeight - (chartConstants.marginLeftNumerical - barX));
     barX = chartConstants.marginLeftNumerical;
@@ -124,7 +124,7 @@ const TimeSeriesBucketChart = (props) => {
     tooltipTop,
   } = props;
 
-  const dataAvailable = props.dataSeries && props.dataSeries.data && props.dataSeries.data.length > 1;
+  const dataAvailable = props.dataSeries && props.dataSeries.data && props.dataSeries.data.length > 0;
 
   if (!dataAvailable) {
     return (
@@ -214,10 +214,10 @@ const TimeSeriesBucketChart = (props) => {
                   onTouchEnd={props.zoom ? () => onMouseUp(hideTooltip) : () => {}}
                   onTouchMove={(e) => onMouseMove(e, props.dataSeries.data, xScale, showTooltip)}
                 >
-                  {!props.loading && dataInRange.length > 0 && (
+                  {!props.loading && props.dataSeries.data.length > 0 && dataInRange.length > 0 && (
                     <g>
-                      {dataInRange.map((data, index) => {
-                        const barConfig = getBarConfig(index, dataInRange, props.dataSeries.data, props.from, xScale);
+                      {props.dataSeries.data.map((data, index) => {
+                        const barConfig = getBarConfig(index, props.dataSeries.data, props.from, xScale);
                         return (
                           <Bar key={Math.random()}
                             barWeight={barConfig.weight}
