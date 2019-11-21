@@ -6,12 +6,22 @@ import {
   CategoricalAxis,
   NumericalAxis,
   Responsive,
-  withTooltip,
+  chartConstants,
   localPoint,
+  scaleUtils,
+  withTooltip,
 } from 'tuktuktwo';
 import Tooltip from '../Tooltip/Tooltip';
 import colorConstants from '../../styles/colorConstants';
 import colorSchemes from '../../styles/colorSchemes';
+
+const getLabelConfig = (direction, labels, parentSize, barWeight) => {
+  const size = direction === 'horizontal' ? parentSize.height - chartConstants.marginBottom : parentSize.width - chartConstants.marginLeftNumerical;
+  return {
+    offset: size / labels.length / 2 - barWeight / 2,
+    scale: scaleUtils.scaleOrdinal(size, labels),
+  };
+};
 
 /**
  * Get tooltip position and data when mouse is moving over the graph.
@@ -20,10 +30,10 @@ import colorSchemes from '../../styles/colorSchemes';
  * @param {function}xScale - The scale function that linearly maps x-coordinate to timestamp in epoch milliseconds
  * @param {function}showTooltip - The function that passes tooltip position and data to the tooltip component
  */
-const onMouseMove = (event, data, showTooltip, direction, parent, labels) => {
+const onMouseMove = (event, data, showTooltip, direction, labelConfig) => {
   const { x, y } = localPoint(event.target.ownerSVGElement, event);
-  const bandwidth = direction === 'vertical' ? parent.width / labels.length : parent.height / labels.length;
-  const index = Math.floor(direction === 'vertical' ? x / bandwidth : y / bandwidth);
+  const bandwidth = labelConfig.scale.bandwidth();
+  const index = Math.floor(direction === 'vertical' ? (x - labelConfig.offset) / bandwidth : (y - labelConfig.offset) / bandwidth);
   
   showTooltip({
     tooltipLeft: x,
@@ -65,6 +75,7 @@ const BarChartSVG = (props) => {
           strokeColor: colorConstants.strokeColor,
           tickLabelColor: colorConstants.tickLabelColor,
         };
+        const labelConfig = getLabelConfig(props.direction, labels, parent, barWeight);
         return (
           <>
             <svg width="100%" height={parent.height} shapeRendering="crispEdges">
@@ -116,7 +127,7 @@ const BarChartSVG = (props) => {
               )}
               <g
                 className="hoverArea"
-                onMouseMove={(e) => onMouseMove(e, props.data, showTooltip, props.direction, parent, labels)}
+                onMouseMove={(e) => onMouseMove(e, props.data, showTooltip, props.direction, labelConfig)}
                 onMouseOut={hideTooltip}
               >
                 {!props.loading && (props.legend.length > 1 ? (
@@ -124,6 +135,8 @@ const BarChartSVG = (props) => {
                     barWeight={barWeight}
                     colors={props.colorScheme.categorical}
                     height={parent.height}
+                    labelOffset={labelConfig.offset}
+                    labelScale={labelConfig.scale}
                     keys={props.legend}
                     maxCumulatedValue={maxValue}
                     data={props.data}
@@ -135,6 +148,9 @@ const BarChartSVG = (props) => {
                     barWeight={barWeight}
                     color={props.colorScheme.categorical[0]}
                     height={parent.height}
+                    labelOffset={labelConfig.offset}
+                    labels={labels}
+                    labelScale={labelConfig.scale}
                     maxValue={maxValue}
                     values={values}
                     direction={props.direction}
