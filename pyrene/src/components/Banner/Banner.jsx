@@ -25,7 +25,7 @@ const Banner = (props) => (
         {props.styling !== 'inline' && <div styleName="description">{props.children}</div>}
       </div>
     </div>
-    {props.styling === 'overlay' && <span className="pyreneIcon-delete" styleName="clearIcon" onClick={props.onClear} role="button" aria-label="Clear Banner" />}
+    {props.styling === 'overlay' && props.onClear !== null && <span className="pyreneIcon-delete" styleName="clearIcon" onClick={props.onClear} role="button" aria-label="Clear Banner" />}
   </div>
 );
 
@@ -33,7 +33,7 @@ const Banner = (props) => (
 Banner.displayName = 'Banner';
 
 Banner.defaultProps = {
-  onClear: () => null,
+  onClear: null,
   children: '',
   styling: 'standard',
 };
