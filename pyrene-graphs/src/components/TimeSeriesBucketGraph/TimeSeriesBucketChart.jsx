@@ -89,12 +89,12 @@ const getBarConfig = (index, dataSeries, from, xScale) => {
   let barWeight;
   let barX;
 
-  // If there is a single bucket, we do not know endTS, just use a default bar weight
-  if (dataSeries.length === 1) {
+  // If there is a single bucket or the bucket is the last bucket, we do not know endTS, just use a default bar weight
+  if (dataSeries.length === 1 || index === dataSeries.length - 1) {
     barWeight = 10;
   } else {
     // Calculate the bar weight by applying the scale function on the current time frame defined by the time difference between current startTS and next startTS
-    const timeFrame = (index === dataSeries.length - 1) ? (dataSeries[index][INDEX_START_TS] - dataSeries[index - 1][INDEX_START_TS]) : (dataSeries[index + 1][INDEX_START_TS] - dataSeries[index][INDEX_START_TS]);
+    const timeFrame = dataSeries[index + 1][INDEX_START_TS] - dataSeries[index][INDEX_START_TS];
     barWeight = xScale.invert(from + timeFrame) - chartConstants.marginLeftNumerical - chartConstants.barSpacing;
   }
 
@@ -214,7 +214,7 @@ const TimeSeriesBucketChart = (props) => {
                   onTouchEnd={props.zoom ? () => onMouseUp(hideTooltip) : () => {}}
                   onTouchMove={(e) => onMouseMove(e, props.dataSeries.data, xScale, showTooltip)}
                 >
-                  {!props.loading && props.dataSeries.data.length > 0 && dataInRange.length > 0 && (
+                  {!props.loading && dataInRange.length > 0 && (
                     <g>
                       {props.dataSeries.data.map((data, index) => {
                         const barConfig = getBarConfig(index, props.dataSeries.data, props.from, xScale);
