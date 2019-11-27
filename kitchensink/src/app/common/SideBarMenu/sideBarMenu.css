@@ -56,9 +56,9 @@ a {
 
   white-space: nowrap;
   text-overflow: ellipsis;
-  text-transform: uppercase;
+  text-transform: capitalize;
   font-weight: 700;
-  font-size: 12px;
+  font-size: 16px;
   line-height: 72px;
 
   overflow: hidden;
