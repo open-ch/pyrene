@@ -23,7 +23,11 @@ const TRSStepper = (props) => {
       onClick={props.onClick}
       disabled={props.disabled}
     >
-      <span className={iconName} styleName="icon" />
+      <span className={iconName} styleName={
+        classNames('stepperIcon',
+          { disabledIcon: props.disabled })
+      }
+      />
     </button>
   );
 };
