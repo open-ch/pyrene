@@ -32,7 +32,7 @@ p {
 
 /* Fira Mono */
 @font-face {
-  font-family: FiraGo;
+  font-family: FiraMono;
   font-weight: 400;
   src: url('../fonts/FiraMono-Regular.woff2') format('woff2'), url('../fonts/FiraMono-Regular.woff') format('woff');
 }
