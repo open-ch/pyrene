@@ -26,6 +26,24 @@ const props = {
   labelOffset: labelScaleVertical.bandwidth() / 2,
 };
 
+const from = Math.min(...labels);
+const to = Math.max(...labels);
+const labelScaleLinearHorizontal = ScaleUtils.scaleCustomLinear(chartConstants.marginLeftNumerical, parentSize.width, from, to, 'horizontal');
+const labelsShifted = labels.map((d) => d - 1);
+
+const propsShiftedLabels = {
+  barWeight: labelScaleLinearHorizontal.invert(from + (labelsShifted[1] - labelsShifted[0])) - chartConstants.marginLeftNumerical,
+  color: 'blue',
+  height: parentSize.height,
+  maxValue: maxValue,
+  values: values,
+  width: parentSize.width,
+  labelScale: labelScaleLinearHorizontal.invert,
+  labels: labelsShifted,
+  direction: 'vertical',
+  left: chartConstants.marginLeftNumerical,
+};
+
 const svgWrapper = (bars) => (
   <svg width={parentSize.width} height={parentSize.height}>
     {bars}
@@ -63,14 +81,15 @@ describe('<Bars />', () => {
     });
   });
 
-  // it('does not render bar if label is outside of label axis', () => {
-  //   const rendered = mount(svgWrapper(<Bars {...props} labels={[-1, 1]} />));
-  //   const bars = rendered.find('.vx-bar');
-  //   bars.forEach((bar, index) => {
-  //     expect(bar.prop('height')).toBeCloseTo((values[index] / maxValue) * (props.height - chartConstants.marginBottom - chartConstants.marginMaxValueToBorder));
-  //     expect(bar.prop('width')).toBeCloseTo(barWeight);
-  //     expect(bar.prop('fill')).toBe('blue');
-  //   });
-  // });
+  it('does not render bar if label is outside of label axis', () => {
+    const rendered = mount(svgWrapper(<Bars {...propsShiftedLabels} />));
+    const bars = rendered.find('.vx-bar');
+    bars.forEach((bar, index) => {
+      if (labels.includes(labelsShifted[index])) expect(bar.prop('width')).toBe(propsShiftedLabels.barWeight);
+      else expect(bar.prop('width')).toBe(0);
+      expect(bar.prop('height')).toBeCloseTo((values[index] / maxValue) * (props.height - chartConstants.marginBottom - chartConstants.marginMaxValueToBorder));
+      expect(bar.prop('fill')).toBe('blue');
+    });
+  });
 
 });
