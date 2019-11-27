@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Popover, SimpleTable } from 'pyrene';
+import { Loader, Popover, SimpleTable } from 'pyrene';
 import { Responsive } from 'tuktuktwo';
+import ChartOverlay from '../ChartOverlay/ChartOverlay';
 import Header from '../Header/Header';
 import { getValueWithAccessor, getColumns, getLegend } from './BarChartTableUtils';
 import './barChartTable.css';
@@ -48,13 +49,23 @@ export default class BarChartTable extends React.Component {
              {(parent) => (
                <SimpleTable
                  columns={getColumns({ props: this.props, colors: colors, width: parent.width })}
-                 data={sortedData.slice(0, displayedRows)}
+                 data={this.props.loading ? [] : sortedData.slice(0, displayedRows)}
                  onRowDoubleClick={this.props.onRowDoubleClick}
                />
              )}
            </Responsive>
+           {this.props.loading && (
+             // height of table + showMoreLink marginTop + showMoreLink div
+             <div styleName="chartOverlay" style={{ height: `${displayedRows * 32 + 8 + 18}px`, top: `-${displayedRows * 32}px` }}>
+               <ChartOverlay>
+                 <Loader type="inline" />
+               </ChartOverlay>
+             </div>
+           )}
          </div>
-         {(this.props.data.length > displayedRows) && (
+         {(this.props.data.length > displayedRows) && this.props.loading ? (
+           <div styleName="showMoreLink" />
+         ) : (
            <div styleName="showMoreLink" onClick={this.togglePopover}>
              {`Show all (${sortedData.length})`}
              {this.state.showPopover && (
@@ -96,6 +107,7 @@ BarChartTable.defaultProps = {
   colorScheme: colorSchemes.colorSchemeDefault,
   description: '',
   displayedRows: 10,
+  loading: false,
   onRowDoubleClick: () => {},
   type: 'bar',
 };
@@ -159,6 +171,10 @@ BarChartTable.propTypes = {
   * Sets the number of displayed rows.
   */
   displayedRows: PropTypes.number,
+  /**
+  * If set, a loader is shown.
+  */
+  loading: PropTypes.bool,
   /**
    * Called when the user double clicks on a row.
    */

@@ -4,6 +4,11 @@
   width: 100%;
 }
 
+.chartOverlay {
+  position: relative;
+  width: 100%;
+}
+
 .responsiveContainer {
   display: flex;
   align-items: center;
