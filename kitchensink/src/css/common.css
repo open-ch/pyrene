@@ -42,7 +42,7 @@ body {
   padding: 0;
   background-color: var(--neutral-010);
   color: var(--font-black);
-  font-family: AvenirNext, Helvetica, sans-serif;
+  font-family: FiraGo, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
