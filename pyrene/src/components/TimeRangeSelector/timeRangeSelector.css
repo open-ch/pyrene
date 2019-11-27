@@ -3,7 +3,7 @@
 .timeRangeSelector {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   width: 100%;
   composes: commonFontSettings from '../../styles/common.css';
   font-size: 12px;
