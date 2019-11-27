@@ -5,7 +5,7 @@ exports.default = {
   'code[class*="language-"]': {
     color: 'var(--neutral-100)',
     background: 'none',
-    fontFamily: 'Roboto',
+    fontFamily: 'FiraMono',
     fontSize: '14px',
     textAlign: 'left',
     whiteSpace: 'pre',
@@ -24,7 +24,7 @@ exports.default = {
   'pre[class*="language-"]': {
     color: 'var(--neutral-100)',
     background: 'var(--neutral-400)',
-    fontFamily: 'Roboto',
+    fontFamily: 'FiraMono',
     fontSize: '14px',
     textAlign: 'left',
     whiteSpace: 'pre',
