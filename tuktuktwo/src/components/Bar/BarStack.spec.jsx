@@ -64,17 +64,4 @@ describe('<Bars />', () => {
     });
   });
 
-  // it('does not render bars if label is outside of label axis', () => {
-  //   const rendered = mount(svgWrapper(<BarStack
-  //     {...props}
-  //     data={data.map((d) => ({ label: d.label - 1, values: d.values }))}
-  //   />));
-  //   const bars = rendered.find('.vx-bar');
-  //   bars.forEach((bar, index) => {
-  //     expect(bar.prop('height')).toBeCloseTo((data[index % 2].values[Math.floor(index / colors.length)] / maxCumulatedValue) * (props.height - chartConstants.marginBottom - chartConstants.marginMaxValueToBorder));
-  //     expect(bar.prop('width')).toBe(barWeight);
-  //     expect(bar.prop('fill')).toBe(colors[Math.floor(index / colors.length)]);
-  //   });
-  // });
-
 });
