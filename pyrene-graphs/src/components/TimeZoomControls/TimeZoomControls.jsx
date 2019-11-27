@@ -73,6 +73,7 @@ const TimeZoomControls = ({
   from,
   to,
   minZoomRange,
+  loading,
   lowerBound,
   upperBound,
   onZoom,
@@ -80,12 +81,12 @@ const TimeZoomControls = ({
   const zoomActions = [
     {
       iconName: 'zoomIn',
-      active: !minZoomRangeReached(from, to, minZoomRange),
+      active: !minZoomRangeReached(from, to, minZoomRange) && !loading,
       onClick: () => zoomIn(from, to, minZoomRange, lowerBound, upperBound, onZoom),
     },
     {
       iconName: 'zoomOut',
-      active: !boundsReached(from, to, lowerBound, upperBound),
+      active: !boundsReached(from, to, lowerBound, upperBound) && !loading,
       onClick: () => zoomOut(from, to, lowerBound, upperBound, onZoom),
     },
   ];
@@ -98,6 +99,7 @@ const TimeZoomControls = ({
 TimeZoomControls.displayName = 'TimeZoomControls';
 
 TimeZoomControls.defaultProps = {
+  loading: false,
   onZoom: () => {},
 };
 
@@ -106,6 +108,10 @@ TimeZoomControls.propTypes = {
    * Sets the starting time point of the time range in epoch milliseconds.
    */
   from: PropTypes.number.isRequired,
+  /**
+   * Determines the active/inactive state of the zoom buttons.
+   */
+  loading: PropTypes.bool,
   /**
    * Sets the lower bound of the zoom component - provided that this graph is a zoomable one, i.e. no more zoom-out is possible when lower bound is reached.
    */

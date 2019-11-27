@@ -165,6 +165,7 @@ const TimeSeriesBucketChart = (props) => {
           <TimeZoomControls
             from={props.from}
             to={props.to}
+            loading={props.loading}
             lowerBound={props.zoom.lowerBound}
             upperBound={props.zoom.upperBound}
             minZoomRange={props.zoom.minZoomRange}
@@ -235,24 +236,23 @@ const TimeSeriesBucketChart = (props) => {
                   )}
                   {/* ChartArea makes sure the outer <g> element where all mouse event listeners are attached always covers the whole chart area so that there is no tooltip flickering issue */}
                   <ChartArea width={parent.width} height={parent.height} />
-                  {props.zoom
-                    && (
-                      <TimeSeriesZoomable
-                        from={props.from}
-                        to={props.to}
-                        lowerBound={props.zoom.lowerBound}
-                        upperBound={props.zoom.upperBound}
-                        minZoomRange={props.zoom.minZoomRange}
-                        onZoom={props.zoom.onZoom}
-                        width={parent.width}
-                        height={parent.height}
-                        color={colorConstants.overlayColor}
-                      />
-                    )}
+                  {props.zoom && !props.loading && (
+                    <TimeSeriesZoomable
+                      from={props.from}
+                      to={props.to}
+                      lowerBound={props.zoom.lowerBound}
+                      upperBound={props.zoom.upperBound}
+                      minZoomRange={props.zoom.minZoomRange}
+                      onZoom={props.zoom.onZoom}
+                      width={parent.width}
+                      height={parent.height}
+                      color={colorConstants.overlayColor}
+                    />
+                  )}
                 </g>
               </svg>
               {
-                tooltipOpen && (
+                tooltipOpen && !props.loading && (
                   <Tooltip
                     dataSeries={zoomStartX ? [] : [{ dataColor: props.colorScheme.categorical[0], dataLabel: props.dataSeries.label, dataValue: props.dataFormat.tooltip(tooltipData[1]) }]}
                     timeFormat={getTimeFormat(props.timezone, props.timeFormat)}
