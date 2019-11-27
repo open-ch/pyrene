@@ -126,38 +126,6 @@ const TimeSeriesBucketChart = (props) => {
 
   const dataAvailable = props.dataSeries && props.dataSeries.data && props.dataSeries.data.length > 1;
 
-  if (!dataAvailable) {
-    return (
-      <Responsive>
-        {(parent) => (
-          <svg width="100%" height={parent.height} shapeRendering="crispEdges">
-            <TimeXAxis
-              from={props.from}
-              to={props.to}
-              width={parent.width}
-              height={parent.height}
-              strokeColor={colorConstants.strokeColor}
-              tickLabelColors={[colorConstants.tickLabelColor, colorConstants.tickLabelColorDark]}
-              timezone={props.timezone}
-              showTickLabels={false}
-            />
-            <NumericalAxis
-              maxValue={0}
-              orientation="left"
-              width={parent.width}
-              height={parent.height}
-              tickFormat={props.dataFormat.yAxis}
-              strokeColor={colorConstants.strokeColor}
-              tickLabelColor={colorConstants.tickLabelColor}
-              showTickLabels={false}
-              showGrid={false}
-            />
-          </svg>
-        )}
-      </Responsive>
-    );
-  }
-
   return (
     <div styleName="graphContainer">
       {props.zoom && (
@@ -165,7 +133,7 @@ const TimeSeriesBucketChart = (props) => {
           <TimeZoomControls
             from={props.from}
             to={props.to}
-            loading={props.loading}
+            disabled={props.loading}
             lowerBound={props.zoom.lowerBound}
             upperBound={props.zoom.upperBound}
             minZoomRange={props.zoom.minZoomRange}
@@ -191,18 +159,18 @@ const TimeSeriesBucketChart = (props) => {
                   height={parent.height}
                   strokeColor={colorConstants.strokeColor}
                   tickLabelColors={[colorConstants.tickLabelColor, colorConstants.tickLabelColorDark]}
-                  showTickLabels={!props.loading}
+                  showTickLabels={!props.loading && dataAvailable}
                   timezone={props.timezone}
                 />
                 <NumericalAxis
-                  maxValue={maxValue}
+                  maxValue={dataAvailable ? maxValue : 0}
                   orientation="left"
                   width={parent.width}
                   height={parent.height}
                   tickFormat={props.dataFormat.yAxis}
                   strokeColor={colorConstants.strokeColor}
                   tickLabelColor={colorConstants.tickLabelColor}
-                  showTickLabels={!props.loading}
+                  showTickLabels={!props.loading && dataAvailable}
                   showGrid={false}
                 />
                 <g
