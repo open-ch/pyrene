@@ -6,10 +6,10 @@
   width: 100%;
   display: flex;
   justify-content: space-between;
-  font-size: 14px;
-  font-weight: 500;
+  font-size: 13px;
   font-style: normal;
   font-stretch: normal;
+  letter-spacing: normal;
   border-radius: 2px;
   background-color: var(--background-light);
   position: relative;
@@ -33,7 +33,7 @@
     height: 32px;
 
     & .message {
-      font-weight: 500;
+      line-height: 16px;
     }
   }
   &.style-standard::before,
@@ -168,21 +168,13 @@
 }
 
 .message {
-  font-size: 14px;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: 19px;
-  letter-spacing: normal;
+  line-height: 18px;
   color: var(--neutral-400);
 }
 
 .description {
-  font-size: 14px;
   font-weight: 500;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: 19px;
-  letter-spacing: normal;
+  line-height: 16px;
   color: var(--neutral-400);
 }
 
