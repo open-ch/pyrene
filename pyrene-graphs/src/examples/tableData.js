@@ -356,12 +356,12 @@ export const tableColumnsUpDown = {
   primaryValue: {
     accessor: (d) => d.down,
     title: 'Volume Down',
-    formatter: (d) => `${d.toFixed(1)} %`,
+    formatter: (d) => `${d.toFixed(1)} GB`,
   },
   secondaryValue: {
     accessor: (d) => d.up,
     title: 'Volume Up',
-    formatter: (d) => `${d.toFixed(1)} %`,
+    formatter: (d) => `${d.toFixed(1)} GB`,
   },
 };
 
