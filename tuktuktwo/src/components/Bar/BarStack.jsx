@@ -115,7 +115,7 @@ BarStack.propTypes = {
     */
   keys: PropTypes.arrayOf(PropTypes.string).isRequired,
   /**
-   * Sets the label offset to shift the bars on the label axis.
+   * Sets the label offset to shift the bars on the label axis within this component.
    */
   labelOffset: PropTypes.number,
   /**
@@ -123,7 +123,7 @@ BarStack.propTypes = {
    */
   labelScale: PropTypes.func.isRequired,
   /**
-   * Sets the horizontal offset.
+   * Sets the horizontal offset for this component.
    */
   left: PropTypes.number.isRequired,
   /**

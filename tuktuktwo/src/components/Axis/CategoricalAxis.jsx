@@ -54,7 +54,7 @@ CategoricalAxis.propTypes = {
    */
   height: PropTypes.number.isRequired,
   /**
-   * Sets the horizontal offset.
+   * Sets the horizontal offset for this component.
    */
   left: PropTypes.number.isRequired,
   /**
