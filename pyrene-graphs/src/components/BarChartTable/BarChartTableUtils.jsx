@@ -148,7 +148,7 @@ export const getColumns = ({
           cellType: 'relativeBar',
           colors: colors,
           maxValue: maxValue,
-          maxWidth: `${responsiveWidth}px`,
+          maxWidth: `${responsiveWidth + (hasColumnSecondaryValue ? 0 : valueColumnWidth + margin)}px`,
         })]),
         getColumn({
           id: props.columns.primaryValue.title,
@@ -156,7 +156,7 @@ export const getColumns = ({
           formatter: props.columns.primaryValue.formatter,
           headerName: (!width && width !== 0) ? props.columns.primaryValue.title : '',
           align: 'right',
-          maxWidth: `${props.columns.secondaryValue ? valueColumnWidth : valueColumnWidthDouble}px`,
+          maxWidth: `${valueColumnWidth}px`,
         }),
         ...(hasColumnSecondaryValue ? [getColumn({
           id: props.columns.secondaryValue.title,
