@@ -208,9 +208,9 @@ SingleSelect.propTypes = {
   /**
    * Data input array for dropdown with groups
    * eg:
-   * MCC (only option with heading
+   * MCC (only option without heading)
    * -----------
-   * Current crew (not selectable)
+   * Current crew (not selectable heading)
    * engineer 1 (selectable option)
    * engineer 2
    * -----------
