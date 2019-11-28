@@ -80,7 +80,7 @@ const BarStack = (props) => {
 BarStack.displayName = 'Bar Stack';
 
 BarStack.defaultProps = {
-  barWeight: 10,
+  barWeight: chartConstants.barWeight,
   direction: 'vertical',
   labelOffset: 0,
 };

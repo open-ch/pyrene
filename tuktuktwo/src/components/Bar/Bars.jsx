@@ -51,7 +51,7 @@ const Bars = (props) => {
 Bars.displayName = 'Bars';
 
 Bars.defaultProps = {
-  barWeight: 10,
+  barWeight: chartConstants.barWeight,
   direction: 'vertical',
   labelOffset: 0,
 };
