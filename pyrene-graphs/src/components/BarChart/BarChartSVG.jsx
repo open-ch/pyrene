@@ -150,7 +150,7 @@ const BarChartSVG = (props) => {
                   />
                 ) : (
                   <Bars
-                    barWeight={chartConstants.barWeight}
+                    barWeight={() => chartConstants.barWeight}
                     color={props.colorScheme.categorical[0]}
                     height={parent.height}
                     labelOffset={labelConfig.offset}
