@@ -116,8 +116,8 @@ export const tableColumns = {
   },
   secondaryValue: {
     accessor: (d) => d.shareOfTotal,
-    title: 'Share of Total',
-    formatter: (d) => `${d.toFixed(2)} %`,
+    title: 'Share',
+    formatter: (d) => `${d.toFixed(1)} %`,
   },
 };
 
