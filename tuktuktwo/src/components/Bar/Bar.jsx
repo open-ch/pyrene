@@ -7,21 +7,21 @@ import { Bar as VxBar } from '@vx/shape';
  */
 const Bar = (props) => {
   const minBarLength = 1;
-  const size = Math.max(minBarLength, props.value * (props.size / props.maxValue));
+  const barLength = Math.max(minBarLength, props.value * (props.size / props.maxValue));
   return props.direction === 'horizontal' ? (
     <VxBar
       x={props.x}
       y={props.y}
       height={props.barWeight}
-      width={size}
+      width={barLength}
       fill={props.color}
       transform={props.mirrored ? `rotate(180 ${props.size / 2} ${props.barWeight / 2})` : undefined}
     />
   ) : (
     <VxBar
       x={props.x}
-      y={props.size - props.y - size}
-      height={size}
+      y={props.size - props.y - barLength}
+      height={barLength}
       width={props.barWeight}
       fill={props.color}
       transform={props.mirrored ? `rotate(180 ${props.barWeight / 2} ${props.size / 2})` : undefined}
