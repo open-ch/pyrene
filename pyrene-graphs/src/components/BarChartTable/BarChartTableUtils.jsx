@@ -170,10 +170,9 @@ export const getColumns = ({
     }
     case 'comparison':
       if (props.columns.secondaryValue) {
-        // responsive width = (100% - value column on the right - all margins) / 2 = label and bar column width
-        // marginLeft {LABEL + MARGIN + VALUE1} margin BAR margin value2 marginRight
-        // value2 is twice as big to align with bar charts
-        const responsiveWidth = (width - marginLeftRight - margin - margin - valueColumnWidthDouble - marginLeftRight) / 2;
+        // responsive width = 100% - value columns on the right - all margins = label and bar columns
+        // marginLeft LABEL1 margin BAR margin value1 margin value2 marginRight
+        const responsiveWidth = (width - marginLeftRight - margin - margin - valueColumnWidth - margin - valueColumnWidth - marginLeftRight) / 2;
         return [
           getColumn({
             id: props.title,
@@ -181,15 +180,7 @@ export const getColumns = ({
             linkAccessor: props.columns.label.linkAccessor,
             align: 'left',
             cellType: 'link',
-            maxWidth: `${responsiveWidth - valueColumnWidth - margin}px`,
-          }),
-          getColumn({
-            id: props.columns.primaryValue.title,
-            accessor: props.columns.primaryValue.accessor,
-            formatter: props.columns.primaryValue.formatter,
-            headerName: props.columns.primaryValue.title,
-            align: 'right',
-            maxWidth: `${valueColumnWidth}px`,
+            maxWidth: `${responsiveWidth}px`,
           }),
           ...((!width && width !== 0) ? [] : [getColumn({
             id: `${props.columns.primaryValue.title}_bar`,
@@ -202,12 +193,20 @@ export const getColumns = ({
             maxWidth: `${responsiveWidth}px`,
           })]),
           getColumn({
+            id: props.columns.primaryValue.title,
+            accessor: props.columns.primaryValue.accessor,
+            formatter: props.columns.primaryValue.formatter,
+            headerName: props.columns.primaryValue.title,
+            align: 'right',
+            maxWidth: `${valueColumnWidth}px`,
+          }),
+          getColumn({
             id: props.columns.secondaryValue.title,
             accessor: props.columns.secondaryValue.accessor,
             formatter: props.columns.secondaryValue.formatter,
             headerName: props.columns.secondaryValue.title,
             align: 'right',
-            maxWidth: `${valueColumnWidthDouble}px`,
+            maxWidth: `${valueColumnWidth}px`,
           }),
         ];
       } throw Error('Missing secondary value');
