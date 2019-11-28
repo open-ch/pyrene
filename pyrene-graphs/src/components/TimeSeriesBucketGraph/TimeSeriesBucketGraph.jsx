@@ -12,7 +12,7 @@ import './timeSeriesBucketGraph.css';
  * A bucket graph for time-data series.
  */
 const TimeSeriesBucketGraph = (props) => {
-  const dataAvailable = props.dataSeries && props.dataSeries.data && props.dataSeries.data.length > 1;
+  const dataAvailable = props.dataSeries && props.dataSeries.data && props.dataSeries.data.length > 0;
 
   // Render the header
   const header = (
