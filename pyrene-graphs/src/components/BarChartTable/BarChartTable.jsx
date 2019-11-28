@@ -63,7 +63,7 @@ export default class BarChartTable extends React.Component {
              </div>
            )}
          </div>
-         {(this.props.data.length > displayedRows) && this.props.loading ? (
+         {(this.props.data.length > displayedRows) && (this.props.loading ? (
            <div styleName="showMoreLink" />
          ) : (
            <div styleName="showMoreLink" onClick={this.togglePopover}>
@@ -93,7 +93,7 @@ export default class BarChartTable extends React.Component {
                />
              )}
            </div>
-         )}
+         ))}
 
        </div>
      );
