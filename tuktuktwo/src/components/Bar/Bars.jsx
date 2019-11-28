@@ -4,6 +4,12 @@ import { Group } from '@vx/group';
 import Bar from './Bar';
 import chartConstants from '../../common/chartConstants';
 
+/**
+ * Calculates the barWeight dependent on the label position and axis boundary to handle edge cases, where the label/bar is partially/fully outside the visible area.
+ * @param {*} labelPosition
+ * @param {*} barWeight
+ * @param {*} boundary
+ */
 const getBarWeight = (labelPosition, barWeight, boundary) => {
   const delta = labelPosition + barWeight - boundary;
   return Math.max(0, delta > barWeight ? barWeight : delta);
