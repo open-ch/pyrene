@@ -100,39 +100,6 @@ const TimeSeriesBucketChart = (props) => {
 
   const dataAvailable = props.dataSeries && props.dataSeries.data && props.dataSeries.data.length > 0;
 
-  if (!dataAvailable) {
-    return (
-      <Responsive>
-        {(parent) => (
-          <svg width="100%" height={parent.height} shapeRendering="crispEdges">
-            <TimeXAxis
-              from={props.from}
-              to={props.to}
-              width={parent.width}
-              height={parent.height}
-              strokeColor={colorConstants.strokeColor}
-              tickLabelColors={[colorConstants.tickLabelColor, colorConstants.tickLabelColorDark]}
-              timezone={props.timezone}
-              showTickLabels={false}
-            />
-            <NumericalAxis
-              maxValue={0}
-              orientation="left"
-              width={parent.width}
-              height={parent.height}
-              left={chartConstants.marginLeftNumerical}
-              tickFormat={props.dataFormat.yAxis}
-              strokeColor={colorConstants.strokeColor}
-              tickLabelColor={colorConstants.tickLabelColor}
-              showTickLabels={false}
-              showGrid={false}
-            />
-          </svg>
-        )}
-      </Responsive>
-    );
-  }
-
   return (
     <div styleName="graphContainer">
       {props.zoom && (
