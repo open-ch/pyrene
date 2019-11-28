@@ -19,6 +19,20 @@ const props = {
   timeFormat: (d) => `${d}`,
 };
 
+const propsSingleBar = {
+  dataFormat: {
+    tooltip: (d) => d,
+    yAxis: (d) => d,
+  },
+  dataSeries: timeSeriesData.genDownloadedVolumes(moment.tz('2019-10-02 00:00', 'Europe/Zurich').valueOf(), moment.tz('2019-10-02 02:00', 'Europe/Zurich').valueOf(), 1),
+  description: 'Downloaded volume',
+  from: moment.tz('2019-10-01 00:00', 'Europe/Zurich').valueOf(),
+  title: 'Volume',
+  timezone: 'Europe/Zurich',
+  to: moment.tz('2019-10-03 12:00', 'Europe/Zurich').valueOf(),
+  timeFormat: (d) => d,
+};
+
 const props1 = {
   dataFormat: {
     tooltip: (d) => d,
@@ -57,6 +71,7 @@ describe('<TimeSeriesBucketGraph />', () => {
 
   it('renders its content correctly', () => {
     const rendered = mount(<TimeSeriesBucketGraph {...props} />);
+    const renderedSingleBar = mount(<TimeSeriesBucketGraph {...propsSingleBar} />);
 
     // Header
     expect(rendered.contains(props.title)).toBe(true);
@@ -74,6 +89,7 @@ describe('<TimeSeriesBucketGraph />', () => {
 
     // Bars
     expect(rendered.find('.vx-bar')).toHaveLength(props.dataSeries.data.length);
+    expect(renderedSingleBar.find('.vx-bar')).toHaveLength(propsSingleBar.dataSeries.data.length);
     expect(rendered.find('.vx-bar').at(0).props().fill).toBe(colorSchemes.colorSchemeDefault.categorical[0]);
 
     // Tooltip
