@@ -62,7 +62,7 @@ const config = {
         loader: 'url-loader',
       },
       {
-        test: /\.woff$/,
+        test: /\.(woff|woff2)$/,
         loader: 'url-loader',
       },
     ],

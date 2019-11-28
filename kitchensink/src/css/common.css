@@ -5,39 +5,36 @@ p {
 }
 
 /**** FONTS ****/
-/* AvenirNext-Regular */
+/* FiraGo */
 @font-face {
-  font-family: AvenirNext;
+  font-family: FiraGo;
   font-weight: 400;
-  src: url('../fonts/AvenirNextLTW01-Regular.woff') format('woff');
+  src: url('../fonts/FiraGo-Regular.woff2') format('woff2'), url('../fonts/FiraGo-Regular.woff') format('woff');
 }
 
-/* AvenirNext-Medium */
 @font-face {
-  font-family: AvenirNext;
+  font-family: FiraGo;
   font-weight: 500;
-  src: url('../fonts/AvenirNextLTW01-Medium.woff') format('woff');
+  src: url('../fonts/FiraGo-Medium.woff2') format('woff2'), url('../fonts/FiraGo-Medium.woff') format('woff');
 }
 
-/* AvenirNext-DemiBold */
 @font-face {
-  font-family: AvenirNext;
+  font-family: FiraGo;
   font-weight: 600;
-  src: url('../fonts/AvenirNextLTW01-Demi.woff') format("woff");
+  src: url('../fonts/FiraGO-SemiBold.woff2') format('woff2'), url('../fonts/FiraGO-SemiBold.woff') format('woff');
 }
 
-/*AvenirNext-Bold */
 @font-face {
-  font-family: AvenirNext;
+  font-family: FiraGo;
   font-weight: 700;
-  src: url('../fonts/AvenirNextLTW01-Bold.woff') format('woff');
+  src: url('../fonts/FiraGo-Bold.woff2') format('woff2'), url('../fonts/FiraGo-Bold.woff') format('woff');
 }
 
-/*Roboto */
+/* Fira Mono */
 @font-face {
-  font-family: Roboto;
+  font-family: FiraMono;
   font-weight: 400;
-  src: url('../fonts/roboto-mono-v5-latin-ext_latin-regular.woff') format('woff');
+  src: url('../fonts/FiraMono-Regular.woff2') format('woff2'), url('../fonts/FiraMono-Regular.woff') format('woff');
 }
 
 body {
@@ -45,7 +42,7 @@ body {
   padding: 0;
   background-color: var(--neutral-010);
   color: var(--font-black);
-  font-family: AvenirNext, Helvetica, sans-serif;
+  font-family: FiraGo, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
