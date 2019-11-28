@@ -99,19 +99,19 @@ const TimeZoomControls = ({
 TimeZoomControls.displayName = 'TimeZoomControls';
 
 TimeZoomControls.defaultProps = {
-  loading: false,
+  disabled: false,
   onZoom: () => {},
 };
 
 TimeZoomControls.propTypes = {
   /**
-   * Sets the starting time point of the time range in epoch milliseconds.
-   */
-  from: PropTypes.number.isRequired,
-  /**
    * Determines the active/inactive state of the zoom buttons.
    */
   disabled: PropTypes.bool,
+  /**
+   * Sets the starting time point of the time range in epoch milliseconds.
+   */
+  from: PropTypes.number.isRequired,
   /**
    * Sets the lower bound of the zoom component - provided that this graph is a zoomable one, i.e. no more zoom-out is possible when lower bound is reached.
    */
