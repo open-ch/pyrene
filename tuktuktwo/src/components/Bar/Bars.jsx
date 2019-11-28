@@ -6,9 +6,7 @@ import chartConstants from '../../common/chartConstants';
 
 const getBarWeight = (labelPosition, barWeight, boundary) => {
   const delta = labelPosition + barWeight - boundary;
-  if (delta > barWeight) return Math.max(0, barWeight);
-  if (delta < 0) return 0;
-  return delta;
+  return Math.max(0, delta > barWeight ? barWeight : delta);
 };
 
 /**
