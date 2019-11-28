@@ -126,38 +126,6 @@ const TimeSeriesBucketChart = (props) => {
 
   const dataAvailable = props.dataSeries && props.dataSeries.data && props.dataSeries.data.length > 0;
 
-  if (!dataAvailable) {
-    return (
-      <Responsive>
-        {(parent) => (
-          <svg width="100%" height={parent.height} shapeRendering="crispEdges">
-            <TimeXAxis
-              from={props.from}
-              to={props.to}
-              width={parent.width}
-              height={parent.height}
-              strokeColor={colorConstants.strokeColor}
-              tickLabelColors={[colorConstants.tickLabelColor, colorConstants.tickLabelColorDark]}
-              timezone={props.timezone}
-              showTickLabels={false}
-            />
-            <NumericalAxis
-              maxValue={0}
-              orientation="left"
-              width={parent.width}
-              height={parent.height}
-              tickFormat={props.dataFormat.yAxis}
-              strokeColor={colorConstants.strokeColor}
-              tickLabelColor={colorConstants.tickLabelColor}
-              showTickLabels={false}
-              showGrid={false}
-            />
-          </svg>
-        )}
-      </Responsive>
-    );
-  }
-
   return (
     <div styleName="graphContainer">
       {props.zoom && (
@@ -165,6 +133,7 @@ const TimeSeriesBucketChart = (props) => {
           <TimeZoomControls
             from={props.from}
             to={props.to}
+            disabled={props.loading}
             lowerBound={props.zoom.lowerBound}
             upperBound={props.zoom.upperBound}
             minZoomRange={props.zoom.minZoomRange}
@@ -190,18 +159,18 @@ const TimeSeriesBucketChart = (props) => {
                   height={parent.height}
                   strokeColor={colorConstants.strokeColor}
                   tickLabelColors={[colorConstants.tickLabelColor, colorConstants.tickLabelColorDark]}
-                  showTickLabels={!props.loading}
+                  showTickLabels={!props.loading && dataAvailable}
                   timezone={props.timezone}
                 />
                 <NumericalAxis
-                  maxValue={maxValue}
+                  maxValue={dataAvailable ? maxValue : 0}
                   orientation="left"
                   width={parent.width}
                   height={parent.height}
                   tickFormat={props.dataFormat.yAxis}
                   strokeColor={colorConstants.strokeColor}
                   tickLabelColor={colorConstants.tickLabelColor}
-                  showTickLabels={!props.loading}
+                  showTickLabels={!props.loading && dataAvailable}
                   showGrid={false}
                 />
                 <g
@@ -235,24 +204,23 @@ const TimeSeriesBucketChart = (props) => {
                   )}
                   {/* ChartArea makes sure the outer <g> element where all mouse event listeners are attached always covers the whole chart area so that there is no tooltip flickering issue */}
                   <ChartArea width={parent.width} height={parent.height} />
-                  {props.zoom
-                    && (
-                      <TimeSeriesZoomable
-                        from={props.from}
-                        to={props.to}
-                        lowerBound={props.zoom.lowerBound}
-                        upperBound={props.zoom.upperBound}
-                        minZoomRange={props.zoom.minZoomRange}
-                        onZoom={props.zoom.onZoom}
-                        width={parent.width}
-                        height={parent.height}
-                        color={colorConstants.overlayColor}
-                      />
-                    )}
+                  {props.zoom && !props.loading && (
+                    <TimeSeriesZoomable
+                      from={props.from}
+                      to={props.to}
+                      lowerBound={props.zoom.lowerBound}
+                      upperBound={props.zoom.upperBound}
+                      minZoomRange={props.zoom.minZoomRange}
+                      onZoom={props.zoom.onZoom}
+                      width={parent.width}
+                      height={parent.height}
+                      color={colorConstants.overlayColor}
+                    />
+                  )}
                 </g>
               </svg>
               {
-                tooltipOpen && (
+                tooltipOpen && !props.loading && (
                   <Tooltip
                     dataSeries={zoomStartX ? [] : [{ dataColor: props.colorScheme.categorical[0], dataLabel: props.dataSeries.label, dataValue: props.dataFormat.tooltip(tooltipData[1]) }]}
                     timeFormat={getTimeFormat(props.timezone, props.timeFormat)}

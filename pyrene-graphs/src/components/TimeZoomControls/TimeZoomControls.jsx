@@ -73,6 +73,7 @@ const TimeZoomControls = ({
   from,
   to,
   minZoomRange,
+  disabled,
   lowerBound,
   upperBound,
   onZoom,
@@ -80,12 +81,12 @@ const TimeZoomControls = ({
   const zoomActions = [
     {
       iconName: 'zoomIn',
-      active: !minZoomRangeReached(from, to, minZoomRange),
+      active: !minZoomRangeReached(from, to, minZoomRange) && !disabled,
       onClick: () => zoomIn(from, to, minZoomRange, lowerBound, upperBound, onZoom),
     },
     {
       iconName: 'zoomOut',
-      active: !boundsReached(from, to, lowerBound, upperBound),
+      active: !boundsReached(from, to, lowerBound, upperBound) && !disabled,
       onClick: () => zoomOut(from, to, lowerBound, upperBound, onZoom),
     },
   ];
@@ -98,10 +99,15 @@ const TimeZoomControls = ({
 TimeZoomControls.displayName = 'TimeZoomControls';
 
 TimeZoomControls.defaultProps = {
+  disabled: false,
   onZoom: () => {},
 };
 
 TimeZoomControls.propTypes = {
+  /**
+   * Determines the active/inactive state of the zoom buttons.
+   */
+  disabled: PropTypes.bool,
   /**
    * Sets the starting time point of the time range in epoch milliseconds.
    */
