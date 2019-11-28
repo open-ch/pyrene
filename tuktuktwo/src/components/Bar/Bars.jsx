@@ -5,12 +5,12 @@ import Bar from './Bar';
 import chartConstants from '../../common/chartConstants';
 
 /**
- * Calculates the barWeight dependent on the label position and axis boundary to handle edge cases, where the label/bar is partially/fully outside the visible area.
+ * Calculates the barWeight based on the label position and axis boundary to handle edge cases, where the label/bar is partially/fully outside the visible area.
  * @param {*} labelPosition
  * @param {*} barWeight
  * @param {*} boundary
  */
-const getBarWeight = (labelPosition, barWeight, boundary) => {
+const getBarWeightInBoundary = (labelPosition, barWeight, boundary) => {
   const delta = labelPosition + barWeight - boundary;
   return Math.max(0, delta > barWeight ? barWeight : delta);
 };
@@ -28,8 +28,8 @@ const Bars = (props) => {
       top={top}
     >
       {props.values.map((d, i) => {
-        const barWeight = getBarWeight(props.labelScale(props.labels[i]) + props.labelOffset, props.barWeight, props.direction === 'horizontal' ? top : props.left);
-        const barWeightOffset = props.barWeight - barWeight;
+        const barWeight = getBarWeightInBoundary(props.labelScale(props.labels[i]) + props.labelOffset, props.barWeight(i, props.labels), props.direction === 'horizontal' ? top : props.left);
+        const barWeightOffset = props.barWeight(i, props.labels) - barWeight;
         return (
           <Bar
           key={`bar-${i}`} // eslint-disable-line
@@ -51,16 +51,16 @@ const Bars = (props) => {
 Bars.displayName = 'Bars';
 
 Bars.defaultProps = {
-  barWeight: chartConstants.barWeight,
+  barWeight: () => chartConstants.barWeight,
   direction: 'vertical',
   labelOffset: 0,
 };
 
 Bars.propTypes = {
   /**
-   * Sets the bar weight (height if horizontal | width if vertical).
+   * Function to calculate the bar weight based on the labels: (barIndex, labels) => (barWeight).
    */
-  barWeight: PropTypes.number,
+  barWeight: PropTypes.func,
   /**
    * Sets the color of the bars.
    */
