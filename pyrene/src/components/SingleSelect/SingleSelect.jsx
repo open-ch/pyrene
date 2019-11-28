@@ -49,6 +49,7 @@ const SingleSelect = (props) => {
             id={props.name}
             inputId={props.name}
             autoFocus={props.autoFocus}
+            openMenuOnFocus={props.openMenuOnFocus}
 
             maxMenuHeight={264}
             noOptionsMessage={() => 'no matches found'}
@@ -83,6 +84,7 @@ const SingleSelect = (props) => {
             id={props.name}
             inputId={props.name}
             autoFocus={props.autoFocus}
+            openMenuOnFocus={props.openMenuOnFocus}
 
             maxMenuHeight={264}
             noOptionsMessage={() => 'no matches found'}
@@ -131,6 +133,7 @@ SingleSelect.defaultProps = {
   clearable: false,
   options: [],
   optionsWithGroup: [],
+  openMenuOnFocus: false,
   defaultValue: null,
   helperLabel: '',
   invalidLabel: '',
@@ -197,6 +200,11 @@ SingleSelect.propTypes = {
     * Focus event handler, use this to dynamically fetch options.
     */
   onFocus: PropTypes.func,
+  /**
+   * If true, menu opens on "on focus"
+   * false by default
+   * */
+  openMenuOnFocus: PropTypes.bool,
   /**
    * Data input array. Type: [{ value: string (required), label: string (required), invalid: bool }]
    */
