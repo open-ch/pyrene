@@ -58,7 +58,6 @@ const BarChartSVG = (props) => {
   return (
     <Responsive>
       {(parent) => {
-        const barWeight = 10;
         const labels = props.data.map((row) => row.label);
         const maxValue = Math.max(...props.data.map((d) => d.values.reduce((a, b) => a + b, 0)));
         const values = props.data.map((row) => row.values[0]);
@@ -75,7 +74,7 @@ const BarChartSVG = (props) => {
           strokeColor: colorConstants.strokeColor,
           tickLabelColor: colorConstants.tickLabelColor,
         };
-        const labelConfig = getLabelConfig(props.direction, labels, parent, barWeight);
+        const labelConfig = getLabelConfig(props.direction, labels, parent, chartConstants.barWeight);
         const left = props.direction === 'horizontal' ? chartConstants.marginLeftCategorical : chartConstants.marginLeftNumerical;
         return (
           <>
@@ -137,7 +136,7 @@ const BarChartSVG = (props) => {
               >
                 {!props.loading && (props.legend.length > 1 ? (
                   <BarStack
-                    barWeight={barWeight}
+                    barWeight={chartConstants.barWeight}
                     colors={props.colorScheme.categorical}
                     height={parent.height}
                     labelOffset={labelConfig.offset}
@@ -151,7 +150,7 @@ const BarChartSVG = (props) => {
                   />
                 ) : (
                   <Bars
-                    barWeight={barWeight}
+                    barWeight={chartConstants.barWeight}
                     color={props.colorScheme.categorical[0]}
                     height={parent.height}
                     labelOffset={labelConfig.offset}
