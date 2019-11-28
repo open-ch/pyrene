@@ -118,9 +118,11 @@ export const getColumns = ({
   const marginLeftRight = 8;
   const valueColumnWidthDefault = 64;
   const secondaryLabelColumnWidthDefault = 32;
+  const labelResponsiveWidthRatio = 0.6;
+  const barResponsiveWidthRatio = 1 - labelResponsiveWidthRatio;
 
   const primaryValueColumnWidth = props.columns.primaryValue.width ? props.columns.primaryValue.width : valueColumnWidthDefault;
-  const secondaryValueColumnWidth = hasColumnSecondaryValue && (props.columns.secondaryValue.width ? props.columns.secondaryValue.width : valueColumnWidthDefault);
+  const secondaryValueColumnWidth = valueColumnWidthDefault || (hasColumnSecondaryValue && (props.columns.secondaryValue.width ? props.columns.secondaryValue.width : valueColumnWidthDefault))
   const secondaryLabelColumnWidth = hasColumnSecondaryLabel && (props.columns.secondaryLabel.width ? props.columns.secondaryLabel.width : secondaryLabelColumnWidthDefault);
   const valueColumnWidthDouble = primaryValueColumnWidth + margin + secondaryValueColumnWidth;
 
@@ -128,7 +130,7 @@ export const getColumns = ({
     case 'bar': {
       // responsive width = 100% - value columns on the right - all margins = label and bar columns
       // marginLeft {LABEL1 + MARGIN + LABEL2} margin BAR margin value1 margin value2 marginRight
-      const responsiveWidth = (width - marginLeftRight - margin - margin - primaryValueColumnWidth - margin - secondaryValueColumnWidth - marginLeftRight) / 2;
+      const responsiveWidth = width - marginLeftRight - margin - margin - primaryValueColumnWidth - margin - secondaryValueColumnWidth - marginLeftRight;
       const secondaryLabelWidth = hasColumnSecondaryLabel ? secondaryLabelColumnWidth + margin : 0;
       return [
         getColumn({
@@ -137,7 +139,7 @@ export const getColumns = ({
           linkAccessor: props.columns.label.linkAccessor,
           align: 'left',
           cellType: 'link',
-          width: `${responsiveWidth - secondaryLabelWidth}px`,
+          width: `${responsiveWidth * labelResponsiveWidthRatio - secondaryLabelWidth}px`,
         }),
         ...(hasColumnSecondaryLabel ? [getColumn({
           id: props.columns.secondaryLabel.title,
@@ -153,7 +155,7 @@ export const getColumns = ({
           cellType: 'relativeBar',
           colors: colors,
           maxValue: maxValue,
-          width: `${responsiveWidth + (hasColumnSecondaryValue ? 0 : secondaryValueColumnWidth + margin)}px`,
+          width: `${responsiveWidth * barResponsiveWidthRatio + (hasColumnSecondaryValue ? 0 : secondaryValueColumnWidth + margin)}px`,
         })]),
         getColumn({
           id: props.columns.primaryValue.title,
@@ -177,7 +179,7 @@ export const getColumns = ({
       if (props.columns.secondaryValue) {
         // responsive width = 100% - value columns on the right - all margins = label and bar columns
         // marginLeft LABEL1 margin BAR margin value1 margin value2 marginRight
-        const responsiveWidth = (width - marginLeftRight - margin - margin - primaryValueColumnWidth - margin - secondaryValueColumnWidth - marginLeftRight) / 2;
+        const responsiveWidth = width - marginLeftRight - margin - margin - primaryValueColumnWidth - margin - secondaryValueColumnWidth - marginLeftRight;
         return [
           getColumn({
             id: props.title,
@@ -185,7 +187,7 @@ export const getColumns = ({
             linkAccessor: props.columns.label.linkAccessor,
             align: 'left',
             cellType: 'link',
-            width: `${responsiveWidth}px`,
+            width: `${responsiveWidth * labelResponsiveWidthRatio}px`,
           }),
           ...((!width && width !== 0) ? [] : [getColumn({
             id: `${props.columns.primaryValue.title}_bar`,
@@ -195,7 +197,7 @@ export const getColumns = ({
             colors: colors,
             maxValue: maxValue,
             labelAccessor: props.columns.label.accessor,
-            width: `${responsiveWidth}px`,
+            width: `${responsiveWidth * barResponsiveWidthRatio}px`,
           })]),
           getColumn({
             id: props.columns.primaryValue.title,
@@ -221,7 +223,7 @@ export const getColumns = ({
         // responsive width = (100% - value columns - all margins) / 3 = label and bars column width
         // marginLeft {LABEL + MARGIN + VALUE1} margin BAR margin value2 marginRight
         // value2 is twice as big to align with bar charts
-        const responsiveWidthLabel = ((width - marginLeftRight - margin - margin - valueColumnWidthDouble - marginLeftRight) / 2) - margin - primaryValueColumnWidth;
+        const responsiveWidthLabel = ((width - marginLeftRight - margin - margin - valueColumnWidthDouble - marginLeftRight) * labelResponsiveWidthRatio) - margin - primaryValueColumnWidth;
         // marginLeft responsiveWidthLabel margin BAR1 margin verticalLine margin BAR2 margin value2 marginRight
         const responsiveWidthBar = (width - marginLeftRight - responsiveWidthLabel - margin - margin - verticalLineWidth - margin - margin - valueColumnWidthDouble - marginLeftRight) / 2;
         return [
