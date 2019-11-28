@@ -9,13 +9,13 @@ p {
 @font-face {
   font-family: FiraGo;
   font-weight: 400;
-  src: url('../fonts/FiraGo-Regular.woff2') format('woff2'), url('../fonts/FiraGo-Regular.woff') format('woff');
+  src: url('../fonts/FiraGO-Regular.woff2') format('woff2'), url('../fonts/FiraGO-Regular.woff') format('woff');
 }
 
 @font-face {
   font-family: FiraGo;
   font-weight: 500;
-  src: url('../fonts/FiraGo-Medium.woff2') format('woff2'), url('../fonts/FiraGo-Medium.woff') format('woff');
+  src: url('../fonts/FiraGO-Medium.woff2') format('woff2'), url('../fonts/FiraGO-Medium.woff') format('woff');
 }
 
 @font-face {
@@ -27,7 +27,7 @@ p {
 @font-face {
   font-family: FiraGo;
   font-weight: 700;
-  src: url('../fonts/FiraGo-Bold.woff2') format('woff2'), url('../fonts/FiraGo-Bold.woff') format('woff');
+  src: url('../fonts/FiraGO-Bold.woff2') format('woff2'), url('../fonts/FiraGO-Bold.woff') format('woff');
 }
 
 /* Fira Mono */
