@@ -122,7 +122,7 @@ BarChartTable.propTypes = {
   }),
   /**
    * Sets the Table columns.
-   * Type: { label: { accessor: string or func (required), linkAccessor: string or func, title: string (required) }, primaryValue: { accessor: string or func (required), formatter: func }, secondaryValue: { accessor: string or func (required), formatter: func, title: string (required) }}
+   * Type: { label: { accessor: string or func (required), linkAccessor: string or func, title: string (required) }, primaryValue: { accessor: string or func (required), formatter: func, width: number }, secondaryLabel: { accessor: string or func (required), title: string (required), width: number }, secondaryValue: { accessor: string or func (required), formatter: func, title: string (required), width: number }}
    */
   columns: PropTypes.shape({
     label: PropTypes.shape({
@@ -142,6 +142,7 @@ BarChartTable.propTypes = {
       ]).isRequired,
       formatter: PropTypes.func,
       title: PropTypes.string.isRequired,
+      width: PropTypes.number,
     }).isRequired,
     secondaryLabel: PropTypes.shape({
       accessor: PropTypes.oneOfType([
@@ -149,6 +150,7 @@ BarChartTable.propTypes = {
         PropTypes.func,
       ]).isRequired,
       title: PropTypes.string.isRequired,
+      width: PropTypes.number,
     }),
     secondaryValue: PropTypes.shape({
       accessor: PropTypes.oneOfType([
@@ -157,6 +159,7 @@ BarChartTable.propTypes = {
       ]).isRequired,
       formatter: PropTypes.func,
       title: PropTypes.string.isRequired,
+      width: PropTypes.number,
     }),
   }).isRequired,
   /**
