@@ -19,7 +19,7 @@ const NumericalAxis = (props) => {
     const numTicks = 5;
     const size = props.height - chartConstants.marginBottom;
     const scale = getScale(props.scale, 0, size, 'vertical', (props.maxValue / (size - chartConstants.marginMaxValueToBorder)) * size);
-    const axisTickValues = !props.showGrid && scale(scale.ticks(numTicks).splice(-1, 1)) <= chartConstants.lastTickValueMarginTop ? scale.ticks(numTicks).slice(0, -1) : scale.ticks(numTicks);
+    const axisTickValues = scale(scale.ticks(numTicks).splice(-1, 1)) <= chartConstants.lastTickValueMarginTop ? scale.ticks(numTicks).slice(0, -1) : scale.ticks(numTicks);
     const gridTickValues = scale(scale.ticks(numTicks).splice(-1, 1)) <= chartConstants.lastGridTickValueMarginTop ? scale.ticks(numTicks).slice(0, -1) : scale.ticks(numTicks);
     return (
       <Group>
@@ -29,7 +29,7 @@ const NumericalAxis = (props) => {
           tickValues={props.showTickLabels ? axisTickValues : []}
           tickLength={0}
           tickLabelProps={() => ({
-            fontSize: 10, fill: props.tickLabelColor, fontFamily: 'AvenirNext', textAnchor: 'start', dy: props.showGrid ? '1em' : '0.25em', dx: -props.left,
+            fontSize: 10, fill: props.tickLabelColor, fontFamily: 'AvenirNext', textAnchor: 'start', dy: '0.325em', dx: -props.left,
           })}
           stroke={props.strokeColor}
           tickStroke={props.tickLabelColor}
