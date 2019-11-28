@@ -13,7 +13,14 @@ const LoadingIndicator = () => <Loader />;
  * Selects are used when the user has to make a selection from a list that is too large to show.
  */
 const SingleSelect = (props) => {
-  const options = props.sorted ? props.options.sort((a, b) => a.label.localeCompare(b.label)) : props.options;
+
+  let options;
+  if (props.options.length > 0) {
+    options = props.sorted ? props.options.sort((a, b) => a.label.localeCompare(b.label)) : props.options;
+  } else {
+    options = props.sorted ? props.optionsWithGroup.map((o) => (o.options ? { label: o.label, options: o.options.sort((a, b) => a.label.localeCompare(b.label)) } : o)) : props.optionsWithGroup;
+  }
+
   return (
     <div styleName={classNames('selectContainer', { disabled: props.disabled })}>
       {props.title && <div styleName={classNames('selectTitle', { required: props.required && !props.disabled })}>{props.title}</div>}
@@ -123,6 +130,7 @@ SingleSelect.defaultProps = {
   sorted: true,
   clearable: false,
   options: [],
+  optionsWithGroup: [],
   defaultValue: null,
   helperLabel: '',
   invalidLabel: '',
@@ -196,6 +204,27 @@ SingleSelect.propTypes = {
     invalid: PropTypes.bool,
     label: PropTypes.string.isRequired,
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool, PropTypes.object]),
+  })),
+  /**
+   * Data input array for dropdown with groups
+   * eg:
+   * MCC (only option with heading
+   * -----------
+   * Current crew (not selectable)
+   * engineer 1 (selectable option)
+   * engineer 2
+   * -----------
+   * All engineers
+   * engineer 3
+   * engineer 4
+   */
+  optionsWithGroup: PropTypes.arrayOf(PropTypes.shape({
+    invalid: PropTypes.bool,
+    label: PropTypes.string.isRequired,
+    options: PropTypes.arrayOf(PropTypes.shape({
+      label: PropTypes.string.isRequired,
+      value: PropTypes.arrayOf([PropTypes.string, PropTypes.number, PropTypes.bool, PropTypes.object]),
+    })),
   })),
   /**
    * Sets the placeholder label.

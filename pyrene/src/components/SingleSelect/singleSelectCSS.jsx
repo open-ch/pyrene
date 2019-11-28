@@ -14,10 +14,15 @@ import colorConstants from '../../styles/colorConstants';
 const selectStyle = {
   container: (base) => ({
     ...base,
-    fontFamily: 'AvenirNext, Helvetica, sans-serif !important',
-    fontSize: 13,
-    fontWeight: 500,
+    fontFamily: 'FiraGO !important',
+    fontSize: 12,
+    fontWeight: 'normal',
     width: '100%',
+    fontStretch: 'normal',
+    fontStyle: 'normal',
+    lineHeight: 1.33,
+    letterSpacing: 'normal',
+    color: colorConstants.neutral500,
   }),
 
   indicatorSeparator: () => ({
@@ -154,6 +159,18 @@ const selectStyle = {
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
+  }),
+
+  groupHeading: () => ({
+    fontFamily: 'FiraGO !important',
+    fontSize: 12,
+    fontWeight: 500,
+    fontStyle: 'normal',
+    lineHeight: 'normal',
+    letterSpacing: 'normal',
+    color: colorConstants.neutral500,
+    padding: '8px 12px',
+    borderBottom: '1px solid #e0e2e5',
   }),
 };
 
