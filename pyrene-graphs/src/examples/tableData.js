@@ -19,7 +19,7 @@ export const tableData = [
     shareOfTotal: 8.1,
   },
   {
-    application: 'Facebook',
+    application: 'Application with a really long and totally unrecognizable name whatsoever',
     link: '#',
     volume: 345.4,
     shareOfTotal: 5.0,
