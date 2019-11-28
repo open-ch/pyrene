@@ -6,51 +6,58 @@ import './simpleTable.css';
  * Simple Tables are used to display tabular data without the overhead of pagination, sorting and filtering.
  */
 const SimpleTable = (props) => (
-  <table styleName="table">
-    {props.columns.length > 0 && props.columns.some((column) => typeof column.headerName !== 'undefined' && column.headerName !== '')
-  && (
-    <thead styleName="tableHeader">
-      <tr styleName="tableHeaderRow">
-        {props.columns.map((column) => (
-          <th
-            styleName="tableHeaderCell"
-            style={{ maxWidth: column.maxWidth && column.maxWidth }}
-            key={column.id}
-          >
-            <div styleName="tableCellContent" style={{ textAlign: column.align }}>
-              {column.headerName}
-            </div>
-          </th>
-        ))}
-      </tr>
-    </thead>
-  )}
-    <tbody styleName="tableBody">
-      {props.data.length > 0 && props.data.map((row) => (
-        <tr
-          styleName="tableRow"
-          key={Object.values(row)}
-          onDoubleClick={() => props.onRowDoubleClick(row)}
-        >
-          {props.columns.length > 0 && props.columns.map((column) => {
-            const valueRow = row;
-            valueRow.value = typeof column.accessor === 'string' ? row[column.accessor] : column.accessor(row);
-            return (
-              <td
-                styleName="tableCell"
-                style={{ maxWidth: column.maxWidth && column.maxWidth }}
-                key={column.id.concat(Object.values(valueRow))}
-              >
-                <div styleName="tableCellContent" style={{ textAlign: column.align }}>
-                  {column.cellRenderCallback ? column.cellRenderCallback(valueRow) : valueRow.value}
-                </div>
-              </td>
-            );
-          })}
+  <div styleName="container">
+    <table styleName="table">
+      {props.columns.length > 0 && props.columns.some((column) => typeof column.headerName !== 'undefined' && column.headerName !== '')
+    && (
+      <thead styleName="tableHeader">
+        <tr styleName="tableHeaderRow">
+          {props.columns.map((column) => (
+            <th
+              styleName="tableHeaderCell"
+              style={{ maxWidth: column.maxWidth && column.maxWidth }}
+              key={column.id}
+            >
+              <div styleName="tableCellContent" style={{ textAlign: column.align }}>
+                {column.headerName}
+              </div>
+            </th>
+          ))}
         </tr>
-      ))}
-    </tbody>
-  </table>
+      </thead>
+    )}
+      <tbody styleName="tableBody">
+        {props.data && props.data.length > 0 && props.data.map((row) => (
+          <tr
+            styleName="tableRow"
+            key={Object.values(row)}
+            onDoubleClick={() => props.onRowDoubleClick(row)}
+          >
+            {props.columns.length > 0 && props.columns.map((column) => {
+              const valueRow = row;
+              valueRow.value = typeof column.accessor === 'string' ? row[column.accessor] : column.accessor(row);
+              return (
+                <td
+                  styleName="tableCell"
+                  style={{ maxWidth: column.maxWidth && column.maxWidth }}
+                  key={column.id.concat(Object.values(valueRow))}
+                >
+                  <div styleName="tableCellContent" style={{ textAlign: column.align }}>
+                    {column.cellRenderCallback ? column.cellRenderCallback(valueRow) : valueRow.value}
+                  </div>
+                </td>
+              );
+            })}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+    {(!props.data || !(props.data.length > 0)) && (
+      <div styleName="customTableBody">
+          No data found.
+      </div>
+    )}
+  </div>
 );
 
 SimpleTable.displayName = 'Simple Table';
