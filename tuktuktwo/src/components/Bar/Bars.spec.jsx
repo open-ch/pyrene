@@ -7,7 +7,7 @@ const parentSize = { width: 500, height: 404 };
 const labels = [1, 2];
 const values = [12, 37];
 const maxValue = 100;
-const barWeight = 5;
+const barWeight = () => 5;
 
 const labelScaleVertical = ScaleUtils.scaleOrdinal(0, parentSize.height - chartConstants.marginBottom, labels);
 const labelScaleHorizontal = ScaleUtils.scaleOrdinal(0, parentSize.width - chartConstants.marginLeftCategorical, labels);
@@ -32,7 +32,7 @@ const labelScaleLinearHorizontal = ScaleUtils.scaleCustomLinear(chartConstants.m
 const labelsShifted = labels.map((d) => d - 1);
 
 const propsShiftedLabels = {
-  barWeight: labelScaleLinearHorizontal.invert(from + (labelsShifted[1] - labelsShifted[0])) - chartConstants.marginLeftNumerical,
+  barWeight: () => labelScaleLinearHorizontal.invert(from + (labelsShifted[1] - labelsShifted[0])) - chartConstants.marginLeftNumerical,
   color: 'blue',
   height: parentSize.height,
   maxValue: maxValue,
@@ -60,7 +60,7 @@ describe('<Bars />', () => {
     const bars = rendered.find('.vx-bar');
     bars.forEach((bar, index) => {
       expect(bar.prop('height')).toBeCloseTo((values[index] / maxValue) * (props.height - chartConstants.marginBottom - chartConstants.marginMaxValueToBorder));
-      expect(bar.prop('width')).toBeCloseTo(barWeight);
+      expect(bar.prop('width')).toBeCloseTo(barWeight());
       expect(bar.prop('fill')).toBe('blue');
     });
   });
@@ -75,7 +75,7 @@ describe('<Bars />', () => {
     />));
     const bars = rendered.find('.vx-bar');
     bars.forEach((bar, index) => {
-      expect(bar.prop('height')).toBeCloseTo(barWeight);
+      expect(bar.prop('height')).toBeCloseTo(barWeight());
       expect(bar.prop('width')).toBeCloseTo((values[index] / maxValue) * (parentSize.width - chartConstants.marginLeftCategorical - chartConstants.marginMaxValueToBorder));
       expect(bar.prop('fill')).toBe('blue');
     });
@@ -85,7 +85,7 @@ describe('<Bars />', () => {
     const rendered = mount(svgWrapper(<Bars {...propsShiftedLabels} />));
     const bars = rendered.find('.vx-bar');
     bars.forEach((bar, index) => {
-      if (labels.includes(labelsShifted[index])) expect(bar.prop('width')).toBe(propsShiftedLabels.barWeight);
+      if (labels.includes(labelsShifted[index])) expect(bar.prop('width')).toBe(propsShiftedLabels.barWeight());
       else expect(bar.prop('width')).toBe(0);
       expect(bar.prop('height')).toBeCloseTo((values[index] / maxValue) * (props.height - chartConstants.marginBottom - chartConstants.marginMaxValueToBorder));
       expect(bar.prop('fill')).toBe('blue');
