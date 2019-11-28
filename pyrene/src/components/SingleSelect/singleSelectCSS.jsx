@@ -155,6 +155,11 @@ const selectStyle = {
     whiteSpace: 'nowrap',
   }),
 
+  group: () => ({
+    paddingTop: 0,
+    paddingBottom: 0,
+  }),
+
   groupHeading: () => ({
     fontFamily: 'FiraGO !important',
     fontWeight: 500,
