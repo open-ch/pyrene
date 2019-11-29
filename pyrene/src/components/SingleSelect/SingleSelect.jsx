@@ -13,7 +13,16 @@ const LoadingIndicator = () => <Loader />;
  * Selects are used when the user has to make a selection from a list that is too large to show.
  */
 const SingleSelect = (props) => {
-  const options = props.sorted ? props.options.sort((a, b) => a.label.localeCompare(b.label)) : props.options;
+
+  if (props.sorted) {
+    // sorting both
+    props.groupedOptions.forEach((o) => (o.options ? { label: o.label, options: o.options.sort((a, b) => a.label.localeCompare(b.label)) } : o));
+    props.options.sort((a, b) => a.label.localeCompare(b.label));
+  }
+
+  // grouped options have precedence above the options -> its not possible to pass both!
+  const options = props.groupedOptions.length > 0 ? props.groupedOptions : props.options;
+
   return (
     <div styleName={classNames('selectContainer', { disabled: props.disabled })}>
       {props.title && <div styleName={classNames('selectTitle', { required: props.required && !props.disabled })}>{props.title}</div>}
@@ -42,6 +51,7 @@ const SingleSelect = (props) => {
             id={props.name}
             inputId={props.name}
             autoFocus={props.autoFocus}
+            openMenuOnFocus={props.openMenuOnFocus}
 
             maxMenuHeight={264}
             noOptionsMessage={() => 'no matches found'}
@@ -76,6 +86,7 @@ const SingleSelect = (props) => {
             id={props.name}
             inputId={props.name}
             autoFocus={props.autoFocus}
+            openMenuOnFocus={props.openMenuOnFocus}
 
             maxMenuHeight={264}
             noOptionsMessage={() => 'no matches found'}
@@ -123,6 +134,8 @@ SingleSelect.defaultProps = {
   sorted: true,
   clearable: false,
   options: [],
+  groupedOptions: [],
+  openMenuOnFocus: false,
   defaultValue: null,
   helperLabel: '',
   invalidLabel: '',
@@ -158,6 +171,30 @@ SingleSelect.propTypes = {
    */
   disabled: PropTypes.bool,
   /**
+   * Data input array for dropdown with groups
+   * eg of dropdown:
+
+   * white // only option without group heading
+
+   * SAD COLORS (not selectable heading) -- example a)
+   * black (selectable option)
+   * blue
+
+   * HAPPY COLORS
+   * yellow
+   * light green
+   */
+  groupedOptions: PropTypes.arrayOf(PropTypes.shape({
+    label: PropTypes.string.isRequired,
+    // in case options belong to group (- Sad color is heading and black and blue is an option in the example above)
+    options: PropTypes.arrayOf(PropTypes.shape({
+      label: PropTypes.string.isRequired,
+      value: PropTypes.arrayOf([PropTypes.string, PropTypes.number, PropTypes.bool, PropTypes.object]),
+    })),
+    // in case there is no heading, only option (- white color in the example above)
+    value: PropTypes.arrayOf([PropTypes.string, PropTypes.number, PropTypes.bool, PropTypes.object]),
+  })),
+  /**
    * Sets a label below the input field to display additional information for the user.
    */
   helperLabel: PropTypes.string,
@@ -190,10 +227,14 @@ SingleSelect.propTypes = {
     */
   onFocus: PropTypes.func,
   /**
+   * If true, menu opens on "on focus"
+   * false by default
+   * */
+  openMenuOnFocus: PropTypes.bool,
+  /**
    * Data input array. Type: [{ value: string (required), label: string (required), invalid: bool }]
    */
   options: PropTypes.arrayOf(PropTypes.shape({
-    invalid: PropTypes.bool,
     label: PropTypes.string.isRequired,
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool, PropTypes.object]),
   })),

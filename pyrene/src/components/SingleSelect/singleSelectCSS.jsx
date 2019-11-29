@@ -14,10 +14,15 @@ import colorConstants from '../../styles/colorConstants';
 const selectStyle = {
   container: (base) => ({
     ...base,
-    fontFamily: 'AvenirNext, Helvetica, sans-serif !important',
-    fontSize: 13,
-    fontWeight: 500,
+    fontFamily: 'FiraGO !important',
+    fontSize: 12,
+    fontWeight: 'normal',
     width: '100%',
+    fontStretch: 'normal',
+    fontStyle: 'normal',
+    lineHeight: 1.33,
+    letterSpacing: 'normal',
+    color: colorConstants.neutral500,
   }),
 
   indicatorSeparator: () => ({
@@ -106,14 +111,8 @@ const selectStyle = {
       fontSize: 18,
       color: colorConstants.neutral300,
       speak: 'none',
-      fontStyle: 'normal',
-      fontWeight: 'normal',
-      fontVariant: 'normal',
       textTransform: 'none',
       lineHeight: 1,
-      WebkitFontSmoothing: 'antialiased',
-      MozOsxFontSmoothing: 'grayscale',
-
       transition: 'transform 0.3s ease-out',
       display: 'inline-block',
       verticalAlign: 'middle',
@@ -149,11 +148,24 @@ const selectStyle = {
     },
     backgroundColor: isSelected ? colorConstants.neutral030 : isFocused ? colorConstants.backgroundTint : colorConstants.neutral000,
     height: 30,
-    color: colorConstants.neutral400,
+    color: colorConstants.neutral500,
     cursor: 'pointer',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
+  }),
+
+  group: () => ({
+    paddingTop: 0,
+    paddingBottom: 0,
+  }),
+
+  groupHeading: () => ({
+    fontFamily: 'FiraGO !important',
+    fontWeight: 500,
+    color: colorConstants.neutral500,
+    padding: '8px 12px',
+    borderBottom: '1px solid #e0e2e5',
   }),
 };
 
