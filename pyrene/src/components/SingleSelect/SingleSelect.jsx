@@ -14,12 +14,14 @@ const LoadingIndicator = () => <Loader />;
  */
 const SingleSelect = (props) => {
 
-  let options;
-  if (props.options.length > 0) {
-    options = props.sorted ? props.options.sort((a, b) => a.label.localeCompare(b.label)) : props.options;
-  } else {
-    options = props.sorted ? props.optionsWithGroup.map((o) => (o.options ? { label: o.label, options: o.options.sort((a, b) => a.label.localeCompare(b.label)) } : o)) : props.optionsWithGroup;
+  if (props.sorted) {
+    // sorting both
+    props.groupedOptions.forEach((o) => (o.options ? { label: o.label, options: o.options.sort((a, b) => a.label.localeCompare(b.label)) } : o));
+    props.options.sort((a, b) => a.label.localeCompare(b.label));
   }
+
+  // grouped options have precedence above the options -> its not possible to pass both!
+  const options = props.groupedOptions.length > 0 ? props.groupedOptions : props.options;
 
   return (
     <div styleName={classNames('selectContainer', { disabled: props.disabled })}>
@@ -132,7 +134,7 @@ SingleSelect.defaultProps = {
   sorted: true,
   clearable: false,
   options: [],
-  optionsWithGroup: [],
+  groupedOptions: [],
   openMenuOnFocus: false,
   defaultValue: null,
   helperLabel: '',
@@ -168,6 +170,30 @@ SingleSelect.propTypes = {
    * Disables any interaction with the component.
    */
   disabled: PropTypes.bool,
+  /**
+   * Data input array for dropdown with groups
+   * eg of dropdown:
+
+   * white // only option without group heading
+
+   * SAD COLORS (not selectable heading) -- example a)
+   * black (selectable option)
+   * blue
+
+   * HAPPY COLORS
+   * yellow
+   * light green
+   */
+  groupedOptions: PropTypes.arrayOf(PropTypes.shape({
+    label: PropTypes.string.isRequired,
+    // in case options belong to group (- Sad color is heading and black and blue is an option in the example above)
+    options: PropTypes.arrayOf(PropTypes.shape({
+      label: PropTypes.string.isRequired,
+      value: PropTypes.arrayOf([PropTypes.string, PropTypes.number, PropTypes.bool, PropTypes.object]),
+    })),
+    // in case there is no heading, only option (- white color in the example above)
+    value: PropTypes.arrayOf([PropTypes.string, PropTypes.number, PropTypes.bool, PropTypes.object]),
+  })),
   /**
    * Sets a label below the input field to display additional information for the user.
    */
@@ -209,30 +235,8 @@ SingleSelect.propTypes = {
    * Data input array. Type: [{ value: string (required), label: string (required), invalid: bool }]
    */
   options: PropTypes.arrayOf(PropTypes.shape({
-    invalid: PropTypes.bool,
     label: PropTypes.string.isRequired,
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool, PropTypes.object]),
-  })),
-  /**
-   * Data input array for dropdown with groups
-   * eg:
-   * MCC (only option without heading)
-   * -----------
-   * Current crew (not selectable heading)
-   * engineer 1 (selectable option)
-   * engineer 2
-   * -----------
-   * All engineers
-   * engineer 3
-   * engineer 4
-   */
-  optionsWithGroup: PropTypes.arrayOf(PropTypes.shape({
-    invalid: PropTypes.bool,
-    label: PropTypes.string.isRequired,
-    options: PropTypes.arrayOf(PropTypes.shape({
-      label: PropTypes.string.isRequired,
-      value: PropTypes.arrayOf([PropTypes.string, PropTypes.number, PropTypes.bool, PropTypes.object]),
-    })),
   })),
   /**
    * Sets the placeholder label.
