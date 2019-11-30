@@ -69,6 +69,7 @@ export default class TimeRangeSelector extends Component {
         <div styleName="timeRangeSelector--left">
           <PresetTimeRanges
             disabled={this.props.disabled}
+            lowerBound={this.props.lowerBound}
             onInteract={this._onPresetTimeRangeSelected}
             currentTimeRangeType={this.state.currentTimeRangeType}
             presetTimeRanges={this.props.presetTimeRanges}
