@@ -12,6 +12,7 @@
   font-stretch: normal;
   border-radius: 2px;
   background-color: var(--background-light);
+  position: relative;
 
   border-radius: 2px;
 
@@ -35,10 +36,26 @@
       font-weight: 500;
     }
   }
+  &.style-standard::before,
+  &.style-overlay::before {
+     content: "";
+     width: 3px;
+     height: 100%;
+     position: absolute;
+     top: 0;
+     left: 0;
+     border-top-left-radius: 2px;
+     border-bottom-left-radius: 2px;
+   }
 
   &.type-info {
     &.style-standard {
-      box-shadow: 0 0 2px 0 var(--neutral-030), inset 3px 0 0 0 var(--information-fg);
+      box-shadow: 0 0 2px 0 rgba(0, 21, 44, 0.3);
+  }
+
+    &.style-standard::before,
+    &.style-overlay::before {
+     background-color: var(--information-fg);
     }
 
     &.style-inline {
@@ -47,7 +64,7 @@
     }
 
     &.style-overlay {
-      box-shadow: 0 4px 8px -2px rgba(0, 21, 44, 0.2), inset 3px 0 0 0 var(--information-fg);
+      box-shadow: 0 0 2px 0 rgba(0, 21, 44, 0.3), 0 4px 8px -2px rgba(0, 21, 44, 0.2);
     }
 
     & .bannerIcon {
@@ -57,8 +74,13 @@
 
   &.type-success {
     &.style-standard {
-      box-shadow: 0 0 1px 0 var(--neutral-030), inset 3px 0 0 0 var(--ok-fg);
+       box-shadow: 0 0 2px 0 rgba(0, 21, 44, 0.3);
     }
+
+    &.style-standard::before,
+    &.style-overlay::before{
+       background-color: var(--ok-fg);
+     }
 
     &.style-inline {
       border: none;
@@ -66,7 +88,7 @@
     }
 
     &.style-overlay {
-      box-shadow: 0 4px 8px -2px rgba(0, 21, 44, 0.2), inset 3px 0 0 0 var(--ok-fg);
+      box-shadow: 0 0 2px 0 rgba(0, 21, 44, 0.3), 0 4px 8px -2px rgba(0, 21, 44, 0.2);
     }
 
     & .bannerIcon {
@@ -76,7 +98,12 @@
 
   &.type-error {
     &.style-standard {
-      box-shadow: 0 0 1px 0 var(--neutral-030), inset 3px 0 0 0 var(--danger-fg);
+       box-shadow: 0 0 2px 0 rgba(0, 21, 44, 0.3);
+    }
+
+    &.style-standard::before,
+    &.style-overlay::before{
+       background-color: var(--danger-fg);
     }
 
     &.style-inline {
@@ -85,7 +112,7 @@
     }
 
     &.style-overlay {
-      box-shadow: 0 4px 8px -2px rgba(0, 21, 44, 0.2), inset 3px 0 0 0 var(--danger-fg);
+      box-shadow: 0 0 2px 0 rgba(0, 21, 44, 0.3), 0 4px 8px -2px rgba(0, 21, 44, 0.2);
     }
 
     & .bannerIcon {
@@ -95,8 +122,13 @@
 
   &.type-warning {
     &.style-standard {
-      box-shadow: 0 0 1px 0 var(--neutral-030), inset 3px 0 0 0 var(--warning-fg);
+       box-shadow: 0 0 2px 0 rgba(0, 21, 44, 0.3);
     }
+
+    &.style-standard::before,
+    &.style-overlay::before  {
+       background-color: var(--warning-fg);
+     }
 
     &.style-inline {
       border: none;
@@ -104,7 +136,7 @@
     }
 
     &.style-overlay {
-      box-shadow: 0 4px 8px -2px rgba(0, 21, 44, 0.2), inset 3px 0 0 0 var(--warning-fg);
+      box-shadow: 0 0 2px 0 rgba(0, 21, 44, 0.3), 0 4px 8px -2px rgba(0, 21, 44, 0.2);
     }
 
     & .bannerIcon {
@@ -121,7 +153,9 @@
 .bannerIcon {
   height: 16px;
   font-size: 16px;
-  display: inline-block;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .spacer {

@@ -23,15 +23,18 @@ describe('<Banner />', () => {
     expect(onClick).toHaveBeenCalledTimes(1);
   });
 
-  it('overlay has a clearIcon', () => {
-    let rendered = shallow(<Banner {...props} styling="overlay" type="info" />);
+  it('overlay has a clearIcon if set', () => {
+    const onClear = jest.fn();
+    let rendered = shallow(<Banner {...props} styling="overlay" type="info" onClear={onClear} />);
     expect(rendered.find('.clearIcon')).toHaveLength(1);
 
-    rendered = shallow(<Banner {...props} styling="overlay" type="success" />);
+    rendered = shallow(<Banner {...props} styling="overlay" type="success" onClear={onClear} />);
     expect(rendered.find('.clearIcon')).toHaveLength(1);
+  });
 
-    rendered = shallow(<Banner {...props} styling="overlay" type="warning" />);
-    expect(rendered.find('.clearIcon')).toHaveLength(1);
+  it('overlay has not a clearIcon if set', () => {
+    const rendered = shallow(<Banner {...props} styling="overlay" type="warning" />);
+    expect(rendered.find('.clearIcon')).toHaveLength(0);
   });
 
   it('has no clearIcon if not overlay', () => {
