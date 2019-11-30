@@ -42,19 +42,35 @@
 
   &:hover {
    background-color: var(--neutral-030);
+   cursor: pointer;
   }
 }
 
 .disabledIcon {
   opacity: 0.5;
+
+  &:hover {
+     background-color: unset;
+     cursor: unset;
+  }
 }
 
 .left {
   border-left: solid 1px var(--neutral-050);
   border-radius: 2px 0px 0px 2px;
+
+  &.disabled {
+     pointer-events: none;
+     opacity: 0.5;
+  }
 }
 
 .right {
   border-right: solid 1px var(--neutral-050);
   border-radius: 0px 2px 2px 0px;
+
+  &.disabled {
+     pointer-events: none;
+     opacity: 0.5;
+  }
 }

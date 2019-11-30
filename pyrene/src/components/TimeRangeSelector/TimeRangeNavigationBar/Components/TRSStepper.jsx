@@ -25,7 +25,7 @@ const TRSStepper = (props) => {
     >
       <span className={iconName} styleName={
         classNames('stepperIcon',
-          { disabledIcon: props.disabled })
+          { disabledIcon: props.inactive })
       }
       />
     </button>
@@ -37,6 +37,7 @@ TRSStepper.displayName = 'TRSStepper';
 TRSStepper.defaultProps = {
   direction: 'left',
   disabled: false,
+  inactive: false,
 };
 
 TRSStepper.propTypes = {
@@ -48,6 +49,10 @@ TRSStepper.propTypes = {
    * Disables any interaction with the component.
    */
   disabled: PropTypes.bool,
+  /**
+   * The component is inactive due to constraints.
+   */
+  inactive: PropTypes.bool,
   /**
    * Javascript event handler.
    */
