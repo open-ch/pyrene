@@ -16,7 +16,7 @@ const props = {
   title: 'Volume',
   timezone: 'Europe/Zurich',
   to: moment.tz('2019-10-03 12:00', 'Europe/Zurich').valueOf(),
-  timeFormat: (d) => d,
+  timeFormat: (d) => `${d}`,
 };
 
 const propsSingleBar = {
@@ -45,7 +45,7 @@ const props1 = {
   timezone: 'Europe/Zurich',
   title: 'Volume',
   to: moment.tz('2019-10-03 12:00', 'Europe/Zurich').valueOf(),
-  timeFormat: (d) => d,
+  timeFormat: (d) => `${d}`,
 };
 
 const props2 = {
@@ -61,7 +61,7 @@ const props2 = {
   timezone: 'Europe/Zurich',
   title: 'Volume',
   to: moment.tz('2019-10-03 12:00', 'Europe/Zurich').valueOf(),
-  timeFormat: (d) => d,
+  timeFormat: (d) => `${d}`,
 };
 
 describe('<TimeSeriesBucketGraph />', () => {

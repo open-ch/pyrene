@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Bar,
+  Bars,
   chartConstants,
   localPoint,
   NumericalAxis,
@@ -13,7 +13,7 @@ import {
 } from 'tuktuktwo';
 import ChartArea from '../ChartArea/ChartArea';
 import TimeZoomControls from '../TimeZoomControls/TimeZoomControls';
-import Tooltip from '../TimeSeries/Tooltip';
+import Tooltip from '../Tooltip/Tooltip';
 import Formats from '../../common/Formats';
 import { INDEX_VALUE, INDEX_START_TS } from '../../common/graphConstants';
 import colorSchemes from '../../styles/colorSchemes';
@@ -72,7 +72,7 @@ const isDataInTimeRange = (data, index, dataSeries, from, to) => {
   if (data[0] >= to) {
     return false;
   }
-  if (index !== dataSeries.length - 1 && dataSeries[index + 1][0] <= from) {
+  if (index !== dataSeries.length - 1 && dataSeries[index + 1][INDEX_START_TS] <= from) {
     return false;
   }
   return true;
@@ -83,32 +83,6 @@ const getTimeFormat = (timezone, timeFormat) => {
     return (time) => Formats.explicitTimeRangeFormat(time[0], time[1], timezone);
   }
   return timeFormat || ((time) => Formats.timeRangeFormat(time[0], time[1], timezone, false));
-};
-
-const getBarConfig = (index, dataSeries, from, xScale) => {
-  let barWeight;
-  let barX;
-
-  // If there is a single bucket or the bucket is the last bucket, we do not know endTS, just use a default bar weight
-  if (dataSeries.length === 1 || index === dataSeries.length - 1) {
-    barWeight = 10;
-  } else {
-    // Calculate the bar weight by applying the scale function on the current time frame defined by the time difference between current startTS and next startTS
-    const timeFrame = dataSeries[index + 1][INDEX_START_TS] - dataSeries[index][INDEX_START_TS];
-    barWeight = xScale.invert(from + timeFrame) - chartConstants.marginLeftNumerical - chartConstants.barSpacing;
-  }
-
-  // If x coordinate of left edge of bar is exceeding the axis, cut the excessive bar weight
-  barX = xScale.invert(dataSeries[index][INDEX_START_TS]) + chartConstants.barSpacing / 2;
-  if (barX < chartConstants.marginLeftNumerical) {
-    barWeight = Math.max(0, barWeight - (chartConstants.marginLeftNumerical - barX));
-    barX = chartConstants.marginLeftNumerical;
-  }
-
-  return {
-    weight: Math.max(0, barWeight),
-    x: Math.max(0, barX),
-  };
 };
 
 /**
@@ -148,7 +122,15 @@ const TimeSeriesBucketChart = (props) => {
           // Filter out data outside `from` and `to` and get the max value
           const dataInRange = props.dataSeries.data.filter((data, index) => isDataInTimeRange(data, index, props.dataSeries.data, props.from, props.to));
           const maxValue = Math.max(...dataInRange.map((data) => data[INDEX_VALUE]));
-
+          const barWeightFunction = (index, labels) => {
+            // If there is a single bucket or the bucket is the last bucket, we do not know endTS, just use a default bar weight
+            if (labels.length === 1 || index === labels.length - 1) {
+              return chartConstants.barWeight;
+            }
+            // Calculate the bar weight by applying the scale function on the current time frame defined by the time difference between current startTS and next startTS
+            const timeFrame = labels[index + 1] - labels[index];
+            return xScale.invert(props.from + timeFrame) - chartConstants.marginLeftNumerical - chartConstants.barSpacing;
+          };
           return (
             <>
               <svg width="100%" height={parent.height} shapeRendering="crispEdges">
@@ -167,6 +149,7 @@ const TimeSeriesBucketChart = (props) => {
                   orientation="left"
                   width={parent.width}
                   height={parent.height}
+                  left={chartConstants.marginLeftNumerical}
                   tickFormat={props.dataFormat.yAxis}
                   strokeColor={colorConstants.strokeColor}
                   tickLabelColor={colorConstants.tickLabelColor}
@@ -184,23 +167,18 @@ const TimeSeriesBucketChart = (props) => {
                   onTouchMove={(e) => onMouseMove(e, props.dataSeries.data, xScale, showTooltip)}
                 >
                   {!props.loading && dataInRange.length > 0 && (
-                    <g>
-                      {props.dataSeries.data.map((data, index) => {
-                        const barConfig = getBarConfig(index, props.dataSeries.data, props.from, xScale);
-                        return (
-                          <Bar key={Math.random()}
-                            barWeight={barConfig.weight}
-                            color={props.colorScheme.categorical[0]}
-                            direction="vertical"
-                            value={data[INDEX_VALUE]}
-                            maxValue={maxValue}
-                            size={Math.max(0, parent.height - chartConstants.marginBottom - chartConstants.marginMaxValueToBorder)}
-                            x={barConfig.x}
-                            y={chartConstants.marginMaxValueToBorder}
-                          />
-                        );
-                      })}
-                    </g>
+                    <Bars
+                      barWeight={barWeightFunction}
+                      color={props.colorScheme.categorical[0]}
+                      direction="vertical"
+                      height={parent.height}
+                      labels={dataInRange.map((d) => d[INDEX_START_TS])}
+                      labelScale={xScale.invert}
+                      left={chartConstants.marginLeftNumerical}
+                      maxValue={maxValue}
+                      values={dataInRange.map((d) => d[INDEX_VALUE])}
+                      width={parent.width}
+                    />
                   )}
                   {/* ChartArea makes sure the outer <g> element where all mouse event listeners are attached always covers the whole chart area so that there is no tooltip flickering issue */}
                   <ChartArea width={parent.width} height={parent.height} />
@@ -223,8 +201,7 @@ const TimeSeriesBucketChart = (props) => {
                 tooltipOpen && !props.loading && (
                   <Tooltip
                     dataSeries={zoomStartX ? [] : [{ dataColor: props.colorScheme.categorical[0], dataLabel: props.dataSeries.label, dataValue: props.dataFormat.tooltip(tooltipData[1]) }]}
-                    timeFormat={getTimeFormat(props.timezone, props.timeFormat)}
-                    time={zoomStartX ? tooltipData : tooltipData[0]}
+                    dataSeriesLabel={getTimeFormat(props.timezone, props.timeFormat)((zoomStartX ? tooltipData : tooltipData[0]))}
                     left={tooltipLeft} top={tooltipTop}
                   />
                 )
