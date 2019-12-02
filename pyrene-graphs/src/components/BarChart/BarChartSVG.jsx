@@ -30,10 +30,10 @@ const getLabelConfig = (direction, labels, parentSize, barWeight) => {
  * @param {function}xScale - The scale function that linearly maps x-coordinate to timestamp in epoch milliseconds
  * @param {function}showTooltip - The function that passes tooltip position and data to the tooltip component
  */
-const onMouseMove = (event, data, showTooltip, direction, labelConfig) => {
+const onMouseMove = (event, data, showTooltip, direction, labelConfig, left) => {
   const { x, y } = localPoint(event.target.ownerSVGElement, event);
   const bandwidth = labelConfig.scale.bandwidth();
-  const index = Math.floor(direction === 'vertical' ? (x - labelConfig.offset) / bandwidth : (y - labelConfig.offset) / bandwidth);
+  const index = Math.floor(direction === 'vertical' ? (x - labelConfig.offset - left + 1) / bandwidth : (y - labelConfig.offset + 1) / bandwidth);
   
   showTooltip({
     tooltipLeft: x,
@@ -131,7 +131,7 @@ const BarChartSVG = (props) => {
               )}
               <g
                 className="hoverArea"
-                onMouseMove={(e) => onMouseMove(e, props.data, showTooltip, props.direction, labelConfig)}
+                onMouseMove={(e) => onMouseMove(e, props.data, showTooltip, props.direction, labelConfig, left)}
                 onMouseOut={hideTooltip}
               >
                 {!props.loading && (props.legend.length > 1 ? (
