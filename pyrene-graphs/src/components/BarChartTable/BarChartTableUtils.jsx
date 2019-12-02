@@ -1,5 +1,5 @@
 import React from 'react';
-import { Bar, RelativeBar, Responsive } from 'tuktuktwo';
+import { Bar, RelativeBar } from 'tuktuktwo';
 import './barChartTable.css';
 
 const getId = (d) => d.trim().toLowerCase();
@@ -12,12 +12,15 @@ const getColumn = ({
   const barWeightPrimary = 6;
   const barWeightSecondary = 4;
   const comparisonMargin = 6;
+  const svgHeight = 18;
+  const yOffset = (svgHeight - barWeightPrimary) / 2;
+  const yOffsetComparison = (svgHeight - barWeightPrimary - barWeightSecondary - comparisonMargin) / 2;
   return {
     id: getId(id),
     accessor: accessor,
     headerName: headerName,
     align: align,
-    maxWidth: width,
+    maxWidth: `${width}px`,
     cellRenderCallback: {
       link: linkAccessor ? (row) => ( // eslint-disable-line react/display-name
         <a
@@ -28,67 +31,64 @@ const getColumn = ({
         </a>
       ) : (row) => formatter(row.value),
       relativeBar: (row) => ( // eslint-disable-line react/display-name
-        <Responsive styleName="responsiveContainer">
-          {(parent) => (
-            <svg width={parent.width} height={barWeightPrimary}>
-              <RelativeBar
-                barWeight={barWeightPrimary}
-                colors={colors}
-                maxValue={maxValue}
-                value={getValueWithAccessor(row, accessor)}
-                size={parent.width}
-                direction="horizontal"
-              />
-            </svg>
-          )}
-        </Responsive>
+        width > 0 && (
+          <svg width={width} height={svgHeight}>
+            <RelativeBar
+              barWeight={barWeightPrimary}
+              colors={colors}
+              maxValue={maxValue}
+              value={getValueWithAccessor(row, accessor)}
+              size={width}
+              direction="horizontal"
+              y={yOffset}
+            />
+          </svg>
+        )
       ),
       relativeBarMirrored: (row) => ( // eslint-disable-line react/display-name
-        <Responsive styleName="responsiveContainer">
-          {(parent) => (
-            <svg width={parent.width} height={barWeightPrimary}>
-              <RelativeBar
-                barWeight={barWeightPrimary}
-                colors={colors}
-                maxValue={maxValue}
-                value={getValueWithAccessor(row, accessor)}
-                size={parent.width}
-                direction="horizontal"
-                mirrored
-              />
-            </svg>
-          )}
-        </Responsive>
+        width > 0 && (
+          <svg width={width} height={svgHeight}>
+            <RelativeBar
+              barWeight={barWeightPrimary}
+              colors={colors}
+              maxValue={maxValue}
+              value={getValueWithAccessor(row, accessor)}
+              size={width}
+              direction="horizontal"
+              y={yOffset}
+              mirrored
+            />
+          </svg>
+        )
       ),
       verticalLine: () => ( // eslint-disable-line react/display-name
         <div styleName="verticalLine" />
       ),
       comparisonBars: (row) => ( // eslint-disable-line react/display-name
-        <Responsive styleName="responsiveContainer">
-          {(parent) => (
-            <svg width={parent.width} height={barWeightPrimary + comparisonMargin + barWeightSecondary}>
-              <Bar
-                key={`${getId(getValueWithAccessor(row, labelAccessor))}_bar_current`} // eslint-disable-line
-                barWeight={barWeightPrimary}
-                color={colors[0]}
-                maxValue={maxValue}
-                value={getValueWithAccessor(row, accessor)} // eslint-disable-line
-                size={parent.width}
-                direction="horizontal"
-              />
-              <Bar
-                key={`${getId(getValueWithAccessor(row, labelAccessor))}_bar_previous`} // eslint-disable-line
-                barWeight={barWeightSecondary}
-                color={colors[1]}
-                maxValue={maxValue}
-                value={getValueWithAccessor(row, accessorSecondary)} // eslint-disable-line
-                size={parent.width}
-                direction="horizontal"
-                y={barWeightPrimary + comparisonMargin}
-              />
-            </svg>
-          )}
-        </Responsive>
+        width > 0 && (
+          <svg width={width} height={svgHeight}>
+            <Bar
+              key={`${getId(getValueWithAccessor(row, labelAccessor))}_bar_current`} // eslint-disable-line
+              barWeight={barWeightPrimary}
+              color={colors[0]}
+              maxValue={maxValue}
+              value={getValueWithAccessor(row, accessor)} // eslint-disable-line
+              size={width}
+              direction="horizontal"
+              y={yOffsetComparison}
+            />
+            <Bar
+              key={`${getId(getValueWithAccessor(row, labelAccessor))}_bar_previous`} // eslint-disable-line
+              barWeight={barWeightSecondary}
+              color={colors[1]}
+              maxValue={maxValue}
+              value={getValueWithAccessor(row, accessorSecondary)} // eslint-disable-line
+              size={width}
+              direction="horizontal"
+              y={barWeightPrimary + comparisonMargin + yOffsetComparison}
+            />
+          </svg>
+        )
       ),
       default: (row) => formatter(row.value),
     }[cellType || 'default'],
@@ -139,14 +139,14 @@ export const getColumns = ({
           linkAccessor: props.columns.label.linkAccessor,
           align: 'left',
           cellType: 'link',
-          width: `${responsiveWidth * labelResponsiveWidthRatio - secondaryLabelWidth}px`,
+          width: responsiveWidth * labelResponsiveWidthRatio - secondaryLabelWidth,
         }),
         ...(hasColumnSecondaryLabel ? [getColumn({
           id: props.columns.secondaryLabel.title,
           accessor: props.columns.secondaryLabel.accessor,
           headerName: props.columns.secondaryLabel.title,
           align: 'right',
-          width: `${secondaryLabelColumnWidth}px`,
+          width: secondaryLabelColumnWidth,
         })] : []),
         ...((!width && width !== 0) ? [] : [getColumn({
           id: `${props.columns.primaryValue.title}_bar`,
@@ -155,7 +155,7 @@ export const getColumns = ({
           cellType: 'relativeBar',
           colors: colors,
           maxValue: maxValue,
-          width: `${responsiveWidth * barResponsiveWidthRatio + (hasColumnSecondaryValue ? 0 : secondaryValueColumnWidth + margin)}px`,
+          width: responsiveWidth * barResponsiveWidthRatio + (hasColumnSecondaryValue ? 0 : secondaryValueColumnWidth + margin),
         })]),
         getColumn({
           id: props.columns.primaryValue.title,
@@ -163,7 +163,7 @@ export const getColumns = ({
           formatter: props.columns.primaryValue.formatter,
           headerName: (!width && width !== 0) ? props.columns.primaryValue.title : '',
           align: 'right',
-          width: `${primaryValueColumnWidth}px`,
+          width: primaryValueColumnWidth,
         }),
         ...(hasColumnSecondaryValue ? [getColumn({
           id: props.columns.secondaryValue.title,
@@ -171,7 +171,7 @@ export const getColumns = ({
           formatter: props.columns.secondaryValue.formatter,
           headerName: props.columns.secondaryValue.title,
           align: 'right',
-          width: `${secondaryValueColumnWidth}px`,
+          width: secondaryValueColumnWidth,
         })] : []),
       ];
     }
@@ -187,7 +187,7 @@ export const getColumns = ({
             linkAccessor: props.columns.label.linkAccessor,
             align: 'left',
             cellType: 'link',
-            width: `${responsiveWidth * labelResponsiveWidthRatio}px`,
+            width: responsiveWidth * labelResponsiveWidthRatio,
           }),
           ...((!width && width !== 0) ? [] : [getColumn({
             id: `${props.columns.primaryValue.title}_bar`,
@@ -197,7 +197,7 @@ export const getColumns = ({
             colors: colors,
             maxValue: maxValue,
             labelAccessor: props.columns.label.accessor,
-            width: `${responsiveWidth * barResponsiveWidthRatio}px`,
+            width: responsiveWidth * barResponsiveWidthRatio,
           })]),
           getColumn({
             id: props.columns.primaryValue.title,
@@ -205,7 +205,7 @@ export const getColumns = ({
             formatter: props.columns.primaryValue.formatter,
             headerName: props.columns.primaryValue.title,
             align: 'right',
-            width: `${primaryValueColumnWidth}px`,
+            width: primaryValueColumnWidth,
           }),
           getColumn({
             id: props.columns.secondaryValue.title,
@@ -213,7 +213,7 @@ export const getColumns = ({
             formatter: props.columns.secondaryValue.formatter,
             headerName: props.columns.secondaryValue.title,
             align: 'right',
-            width: `${secondaryValueColumnWidth}px`,
+            width: secondaryValueColumnWidth,
           }),
         ];
       } throw Error('Missing secondary value');
@@ -233,7 +233,7 @@ export const getColumns = ({
             linkAccessor: props.columns.label.linkAccessor,
             align: 'left',
             cellType: 'link',
-            width: `${responsiveWidthLabel}px`,
+            width: responsiveWidthLabel,
           }),
           getColumn({
             id: props.columns.primaryValue.title,
@@ -241,7 +241,7 @@ export const getColumns = ({
             formatter: props.columns.primaryValue.formatter,
             headerName: (!width && width !== 0) ? props.columns.primaryValue.title : '',
             align: 'right',
-            width: `${primaryValueColumnWidth}px`,
+            width: primaryValueColumnWidth,
           }),
           ...((!width && width !== 0) ? [] : [getColumn({
             id: `${props.columns.primaryValue.title}_bar_left`,
@@ -251,14 +251,14 @@ export const getColumns = ({
             cellType: 'relativeBarMirrored',
             colors: colors,
             maxValue: maxValue,
-            width: `${responsiveWidthBar}px`,
+            width: responsiveWidthBar,
           })]),
           ...((!width && width !== 0) ? [] : [getColumn({
             id: `${props.columns.primaryValue.title}_vertical_line`,
             accessor: props.columns.primaryValue.accessor,
             align: 'center',
             cellType: 'verticalLine',
-            width: `${verticalLineWidth}px`,
+            width: verticalLineWidth,
           })]),
           ...((!width && width !== 0) ? [] : [getColumn({
             id: `${props.columns.secondaryValue.title}_bar_right`,
@@ -268,7 +268,7 @@ export const getColumns = ({
             colors: colors,
             maxValue: maxValue,
             cellType: 'relativeBar',
-            width: `${responsiveWidthBar}px`,
+            width: responsiveWidthBar,
           })]),
           getColumn({
             id: props.columns.secondaryValue.title,
@@ -276,7 +276,7 @@ export const getColumns = ({
             formatter: props.columns.secondaryValue.formatter,
             headerName: (!width && width !== 0) ? props.columns.secondaryValue.title : '',
             align: 'right',
-            width: `${secondaryValueColumnWidth}px`,
+            width: secondaryValueColumnWidth,
           }),
         ];
       } throw Error('Missing secondary value');
