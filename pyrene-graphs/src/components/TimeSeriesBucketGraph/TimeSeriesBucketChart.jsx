@@ -15,7 +15,7 @@ import ChartArea from '../ChartArea/ChartArea';
 import TimeZoomControls from '../TimeZoomControls/TimeZoomControls';
 import Tooltip from '../Tooltip/Tooltip';
 import Formats from '../../common/Formats';
-import { INDEX_TS, INDEX_VALUE, INDEX_START_TS } from '../../common/graphConstants';
+import { INDEX_VALUE, INDEX_START_TS } from '../../common/graphConstants';
 import colorSchemes from '../../styles/colorSchemes';
 import colorConstants from '../../styles/colorConstants';
 import './timeSeriesBucketGraph.css';
@@ -72,7 +72,7 @@ const isDataInTimeRange = (data, index, dataSeries, from, to) => {
   if (data[0] >= to) {
     return false;
   }
-  if (index !== dataSeries.length - 1 && dataSeries[index + 1][INDEX_TS] <= from) {
+  if (index !== dataSeries.length - 1 && dataSeries[index + 1][INDEX_START_TS] <= from) {
     return false;
   }
   return true;
@@ -172,7 +172,7 @@ const TimeSeriesBucketChart = (props) => {
                       color={props.colorScheme.categorical[0]}
                       direction="vertical"
                       height={parent.height}
-                      labels={dataInRange.map((d) => d[INDEX_TS])}
+                      labels={dataInRange.map((d) => d[INDEX_START_TS])}
                       labelScale={xScale.invert}
                       left={chartConstants.marginLeftNumerical}
                       maxValue={maxValue}
