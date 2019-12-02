@@ -2,20 +2,26 @@
 
 .container {
     width: 100%;
-    height: 96px;
+    height: 120px;
 }
 
 .total {
-    height: 32px;
+    height: 40px;
     font-size: 24px;
-    font-weight: 600;
-    line-height: 1.33;
-    letter-spacing: -0.2px;
+    font-weight: 500;
+    line-height: 1.67;
     color: var(--text);
-    text-align: center;
 }
 
 .chart {
-    margin-top: 15px;
-    height: 49px;
+    margin-top: 17px;
+    height: 87px;
+}
+
+.chartOverlay {
+    position: relative;
+    height: 62px;
+    width: 100%;
+    top: -87px;
+    left: 0px;
 }

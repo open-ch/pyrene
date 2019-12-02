@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Loader } from 'pyrene';
 import { SparkLine, TimeXAxis, Responsive } from 'tuktuktwo';
+import ChartOverlay from '../ChartOverlay/ChartOverlay';
 import colorConstants from '../../styles/colorConstants';
 import colorSchemes from '../../styles/colorSchemes';
 import './sparkLineChart.css';
@@ -9,47 +11,50 @@ import './sparkLineChart.css';
  * Spark Line Charts are used to display data series.
  */
 const SparkLineChart = (props) => {
-  const chartHeight = 26;
+  const areaHeight = 62;
   return (
     <div styleName="container">
       <div styleName="total">
-        {!props.loading && props.dataFormat(props.dataSeries.data.map((d) => d[1]).reduce((a, b) => a + b))}
+        {!props.loading && props.dataFormat(props.bigNumber)}
       </div>
       <div styleName="chart">
         <Responsive>
           {(parent) => (
             <svg width="100%" height={parent.height} shapeRendering="crispEdges">
+              {!props.loading && (
+                <SparkLine
+                  colors={props.colorScheme.valueGround}
+                  dataSeries={props.dataSeries}
+                  height={areaHeight}
+                  strokeWidth={2}
+                  width={parent.width}
+                />
+              )}
               <TimeXAxis
                 from={props.dataSeries.data[0][0]}
                 to={props.dataSeries.data.slice(-1)[0].slice(-1)[0]}
                 width={parent.width}
-                height={chartHeight}
+                height={areaHeight}
                 strokeColor={colorConstants.strokeColor}
                 tickLabelColors={[colorConstants.tickLabelColor, colorConstants.tickLabelColorDark]}
                 timezone={props.timezone}
                 showLabel={!props.loading}
                 showTickLabels={false}
-                label={props.label}
+                label={props.axisLabel}
                 marginBottom={0}
                 marginLeft={0}
               />
-              {!props.loading && (
-                <SparkLine
-                  dataSeries={props.dataSeries}
-                  height={chartHeight}
-                  gradient={{
-                    fromOpacity: 0.58,
-                    toOpacity: 0.1,
-                    fromColor: props.colorScheme.gradient[0],
-                    toColor: props.colorScheme.gradient[1],
-                  }}
-                  width={parent.width}
-                />
-              )}
             </svg>
           )}
         </Responsive>
       </div>
+      {props.loading && (
+        <div styleName="chartOverlay">
+          <ChartOverlay>
+            <Loader type="inline" />
+          </ChartOverlay>
+        </div>
+      )}
     </div>
   );
 };
@@ -62,16 +67,24 @@ SparkLineChart.defaultProps = {
     data: [],
     label: '',
   }),
-  label: '',
+  axisLabel: '',
   loading: false,
 };
 
 SparkLineChart.propTypes = {
   /**
+   * Sets the axis label.
+   */
+  axisLabel: PropTypes.string,
+  /**
+   * Sets the big number.
+   */
+  bigNumber: PropTypes.number.isRequired,
+  /**
    * Sets the colors of the bar chart. Type: { categorical: [ string ] (required) }
    */
   colorScheme: PropTypes.shape({
-    gradient: PropTypes.arrayOf(PropTypes.string).isRequired,
+    valueGround: PropTypes.arrayOf(PropTypes.string).isRequired,
   }),
   /**
    * Sets the data formatting functions for the graph, consisting of format function for the y-axis and that for the tooltip.
@@ -84,10 +97,6 @@ SparkLineChart.propTypes = {
     data: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
     label: PropTypes.string.isRequired,
   }),
-  /**
-   * Sets the axis label.
-   */
-  label: PropTypes.string,
   /**
     * If set, a loader is shown instead of axis tick labels, grid and bars.
     */

@@ -19,26 +19,11 @@ const dataFormat = (num) => {
 };
 
 examples.props = {
-  dataFormat: dataFormat,
-  dataSeries: (stateProvider) => (stateProvider.state.dataSeries ? stateProvider.state.dataSeries : initialDataSeries),
-  label: 'Downloaded Volume Last 7 Days',
-  error: 'There was an error while loading data.',
-  from: (stateProvider) => (stateProvider.state.from ? stateProvider.state.from : initialFrom),
-  to: (stateProvider) => (stateProvider.state.to ? stateProvider.state.to : initialTo),
-  title: 'Volume',
+  bigNumber: initialDataSeries.data.map((d) => d[1]).reduce((a, b) => a + b),
+  dataFormat: (d) => dataFormat(d * 100000000),
+  dataSeries: initialDataSeries,
+  axisLabel: 'DOWNLOADED VOLUME LAST 7 DAYS',
   timezone: timezone,
-  zoom: (stateProvider) => ({
-    lowerBound: moment.tz('2018-10-01 00:00', timezone).valueOf(),
-    minZoomRange: moment.duration({ minutes: 30 }).valueOf(),
-    onZoom: (from, to) => {
-      stateProvider.setState({ from, to });
-      const newDataSeries = timeSeriesData.genDownloadedVolumes(from, to, 42);
-      stateProvider.setState({
-        dataSeries: newDataSeries,
-      });
-    },
-    upperBound: moment.tz('2020-10-01 00:00', timezone).valueOf(),
-  }),
 };
 
 examples.category = 'Chart';
