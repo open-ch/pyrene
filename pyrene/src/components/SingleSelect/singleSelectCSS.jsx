@@ -40,31 +40,18 @@ const selectStyle = {
 
     minHeight: 32,
     height: 32,
-    backgroundColor:
-      state.isFocused || state.hasValue
-        ? colorConstants.neutral000
-        : colorConstants.neutral020,
-    border:
-      state.selectProps.isInvalid && !state.isDisabled
-        ? `solid 1px ${colorConstants.red500}`
-        : state.isFocused
-          ? `solid 1px ${colorConstants.blue500}`
-          : `solid 1px ${colorConstants.neutral100}`,
+    backgroundColor: (state.isFocused || state.hasValue) ? colorConstants.neutral000 : colorConstants.neutral020,
+    border: state.selectProps.isInvalid && !state.isDisabled ? `solid 1px ${colorConstants.red500}` : state.isFocused ? `solid 1px ${colorConstants.blue500}` : `solid 1px ${colorConstants.neutral100}`,
     borderRadius: 2,
     cursor: 'pointer',
 
     '& .singleSelect__dropdown-indicator:after': {
-      color: state.isFocused
-        ? colorConstants.blue500
-        : colorConstants.neutral300,
+      color: state.isFocused ? colorConstants.blue500 : colorConstants.neutral300,
       transform: state.isFocused ? 'rotate(180deg)' : 'rotate(0deg)',
     },
 
     '& .singleSelect__single-value': {
-      backgroundColor:
-        state.hasValue && state.isFocused
-          ? colorConstants.blue050
-          : 'transparent',
+      backgroundColor: state.hasValue && state.isFocused ? colorConstants.blue050 : 'transparent',
     },
 
     ':hover': {
@@ -105,9 +92,7 @@ const selectStyle = {
       lineHeight: 1,
       WebkitFontSmoothing: 'antialiased',
       MozOsxFontSmoothing: 'grayscale',
-
       paddingRight: 4,
-
       display: 'inline-block',
       verticalAlign: 'middle',
       content: '"7"',
@@ -150,8 +135,7 @@ const selectStyle = {
 
   menu: (base) => ({
     ...base,
-    boxShadow:
-      '0 4px 8px -2px rgba(0, 21, 44, 0.2), 0 0 1px 0 rgba(0, 21, 44, 0.3)',
+    boxShadow: '0 4px 8px -2px rgba(0, 21, 44, 0.2), 0 0 1px 0 rgba(0, 21, 44, 0.3)',
     borderRadius: 2,
     marginTop: 4,
     maxHeight: 308,
@@ -162,11 +146,7 @@ const selectStyle = {
     ':active': {
       backgroundColor: colorConstants.neutral030,
     },
-    backgroundColor: isSelected
-      ? colorConstants.neutral030
-      : isFocused
-        ? colorConstants.backgroundTint
-        : colorConstants.neutral000,
+    backgroundColor: isSelected ? colorConstants.neutral030 : isFocused ? colorConstants.backgroundTint : colorConstants.neutral000,
     height: 30,
     color: colorConstants.neutral500,
     cursor: 'pointer',
