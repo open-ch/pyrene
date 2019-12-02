@@ -1,13 +1,14 @@
 import React from 'react';
 import BarStack from './BarStack';
 import chartConstants from '../../common/chartConstants';
+import ScaleUtils from '../../common/ScaleUtils';
 
 const parentSize = { width: 500, height: 404 };
 const data = [{
-  label: '2012',
+  label: 2012,
   values: [12, 37],
 }, {
-  label: '2013',
+  label: 2013,
   values: [5, 41],
 }];
 const maxCumulatedValue = 49;
@@ -22,6 +23,9 @@ const props = {
   data: data,
   width: parentSize.width,
   keys: ['A', 'B'],
+  labelScale: ScaleUtils.scaleOrdinal(0, parentSize.height - chartConstants.marginBottom, data.map((d) => d.label)),
+  direction: 'vertical',
+  left: chartConstants.marginLeftNumerical,
 };
 
 const svgWrapper = (barStack) => (
@@ -36,7 +40,7 @@ describe('<Bars />', () => {
   });
 
   it('renders its content vertically', () => {
-    const rendered = mount(svgWrapper(<BarStack {...props} direction="vertical" />));
+    const rendered = mount(svgWrapper(<BarStack {...props} />));
     const bars = rendered.find('.vx-bar');
     bars.forEach((bar, index) => {
       expect(bar.prop('height')).toBeCloseTo((data[index % 2].values[Math.floor(index / colors.length)] / maxCumulatedValue) * (props.height - chartConstants.marginBottom - chartConstants.marginMaxValueToBorder));
@@ -46,7 +50,12 @@ describe('<Bars />', () => {
   });
 
   it('renders its content horizontally', () => {
-    const rendered = mount(svgWrapper(<BarStack {...props} direction="horizontal" />));
+    const rendered = mount(svgWrapper(<BarStack
+      {...props}
+      direction="horizontal"
+      labelScale={ScaleUtils.scaleOrdinal(0, parentSize.width - chartConstants.marginLeftNumerical, data.map((d) => d.label))}
+      left={chartConstants.marginLeftCategorical}
+    />));
     const bars = rendered.find('.vx-bar');
     bars.forEach((bar, index) => {
       expect(bar.prop('height')).toBe(barWeight);
