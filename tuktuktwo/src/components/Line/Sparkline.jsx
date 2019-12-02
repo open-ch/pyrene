@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { AreaClosed, LinePath } from '@vx/shape';
 import { scaleTime, scaleLinear } from '@vx/scale';
-import { LinearGradient } from '@vx/gradient';
 
 const SparkLine = (props) => {
   const x = (d) => d[0];
@@ -20,26 +19,20 @@ const SparkLine = (props) => {
   return (
     // shapeRendering="auto" to have nicer lines
     <svg shapeRendering="auto">
-      <LinearGradient
-        id="gradient"
-        fromOpacity={props.gradient.fromOpacity}
-        toOpacity={props.gradient.toOpacity}
-        from={props.gradient.fromColor}
-        to={props.gradient.toColor}
-      />
       <AreaClosed
         data={props.dataSeries.data}
         x={(d) => xScale(x(d))}
         y={(d) => yScale(y(d))}
         yScale={yScale}
         stroke="transparent"
-        fill="url(#gradient)"
+        fill={props.colors[1]}
       />
       <LinePath
         data={props.dataSeries.data}
         x={(d) => xScale(x(d))}
         y={(d) => yScale(y(d))}
-        stroke={props.gradient.fromColor}
+        stroke={props.colors[0]}
+        strokeWidth={props.strokeWidth}
       />
     </svg>
   );
@@ -52,9 +45,14 @@ SparkLine.defaultProps = {
     data: [],
     label: '',
   }),
+  strokeWidth: 1,
 };
 
 SparkLine.propTypes = {
+  /**
+   * Sets the color of line and area. Type: [ string ]
+   */
+  colors: PropTypes.arrayOf(PropTypes.string).isRequired,
   /**
    * Sets the data series. A data series consists of a label and an array of data. Each data item contains a timestamp and a value.
    */
@@ -62,17 +60,15 @@ SparkLine.propTypes = {
     data: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
     label: PropTypes.string.isRequired,
   }),
-  gradient: PropTypes.shape({
-    fromColor: PropTypes.string,
-    fromOpacity: PropTypes.number,
-    toColor: PropTypes.string,
-    toOpacity: PropTypes.number,
-  }).isRequired,
   /**
    * Sets the height of the graph canvas.
    * Type: number (required)
    */
   height: PropTypes.number.isRequired,
+  /**
+   * Sets the strokeWidth of the line.
+   */
+  strokeWidth: PropTypes.number,
   /**
    * Sets the width of the graph canvas.
    * Type: number (required)
