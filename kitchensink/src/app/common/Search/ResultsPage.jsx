@@ -11,7 +11,9 @@ import Paragraph from '../PageElements/Paragraph/Paragraph';
 import GalaxyImage from '../../../images/galaxy.svg';
 
 const exampleComponents = { ...examples, ...chartExamples };
+
 const components = [...Object.values(Components), ...Object.values(ChartComponents)];
+
 
 export default class ResultsPage extends React.Component {
 
@@ -20,7 +22,7 @@ export default class ResultsPage extends React.Component {
 
     this.state = {
       searchInput: props.match.params.searchInput,
-      matches: SearchUtils.getMatches(props.match.params.searchInput, components.filter(component => exampleComponents[component.name])),
+      matches: SearchUtils.getMatches(props.match.params.searchInput, components.filter((component) => exampleComponents[component.name])),
     };
   }
 
@@ -29,7 +31,7 @@ export default class ResultsPage extends React.Component {
     if (prevState.searchInput !== nextProps.match.params.searchInput) {
       return ({
         searchInput: nextProps.match.params.searchInput,
-        matches: SearchUtils.getMatches(nextProps.match.params.searchInput, components.filter(component => exampleComponents[component.name])),
+        matches: SearchUtils.getMatches(nextProps.match.params.searchInput, components.filter((component) => exampleComponents[component.name])),
       });
     }
     return null;
@@ -43,11 +45,16 @@ export default class ResultsPage extends React.Component {
       <div styleName="topicContent">
         <Paragraph>
           {this.state.matches.map((result) => {
-            const componentDisplayName = Object.keys(result)[0];
-            const componentDescription = Object.values(result)[0];
-            const component = exampleComponents[SearchUtils.normaliseLink(componentDisplayName)];
+            
+            const category = exampleComponents[result.name].category;
             return (
-              <SearchResult category={component && component.category} title={componentDisplayName} description={componentDescription} key={componentDisplayName} searchInput={this.state.searchInput} />
+              <SearchResult
+                category={category}
+                title={result.displayName}
+                description={result.description}
+                key={result.displayName}
+                searchInput={this.state.searchInput}
+              />
             );
           })}
         </Paragraph>
