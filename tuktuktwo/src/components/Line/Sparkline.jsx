@@ -9,18 +9,18 @@ const SparkLine = (props) => {
 
   const xScale = scaleTime({
     range: [0, props.width],
-    domain: [Math.min(...props.dataSeries.data.map(x)), Math.max(...props.dataSeries.data.map(x))],
+    domain: [Math.min(...props.dataSeries.map(x)), Math.max(...props.dataSeries.map(x))],
   });
   const yScale = scaleLinear({
     range: [props.height, 0],
-    domain: [0, Math.max(...props.dataSeries.data.map(y))],
+    domain: [0, Math.max(...props.dataSeries.map(y))],
   });
 
   return (
     // shapeRendering="auto" to have nicer lines
     <svg shapeRendering="auto">
       <AreaClosed
-        data={props.dataSeries.data}
+        data={props.dataSeries}
         x={(d) => xScale(x(d))}
         y={(d) => yScale(y(d))}
         yScale={yScale}
@@ -28,7 +28,7 @@ const SparkLine = (props) => {
         fill={props.colors[1]}
       />
       <LinePath
-        data={props.dataSeries.data}
+        data={props.dataSeries}
         x={(d) => xScale(x(d))}
         y={(d) => yScale(y(d))}
         stroke={props.colors[0]}
@@ -41,10 +41,6 @@ const SparkLine = (props) => {
 SparkLine.displayName = 'Spark Line';
 
 SparkLine.defaultProps = {
-  dataSeries: PropTypes.shape({
-    data: [],
-    label: '',
-  }),
   strokeWidth: 1,
 };
 
@@ -54,12 +50,9 @@ SparkLine.propTypes = {
    */
   colors: PropTypes.arrayOf(PropTypes.string).isRequired,
   /**
-   * Sets the data series. A data series consists of a label and an array of data. Each data item contains a timestamp and a value.
+   * Sets the data series as an array of data. Each data item contains a timestamp and a value.
    */
-  dataSeries: PropTypes.shape({
-    data: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
-    label: PropTypes.string.isRequired,
-  }),
+  dataSeries: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
   /**
    * Sets the height of the graph canvas.
    * Type: number (required)
