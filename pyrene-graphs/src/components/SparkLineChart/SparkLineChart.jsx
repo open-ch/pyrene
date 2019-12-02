@@ -31,8 +31,8 @@ const SparkLineChart = (props) => {
                 />
               )}
               <TimeXAxis
-                from={props.dataSeries.data[0][0]}
-                to={props.dataSeries.data.slice(-1)[0].slice(-1)[0]}
+                from={props.dataSeries[0][0]}
+                to={props.dataSeries.slice(-1)[0].slice(-1)[0]}
                 width={parent.width}
                 height={areaHeight}
                 strokeColor={colorConstants.strokeColor}
@@ -63,10 +63,6 @@ SparkLineChart.displayName = 'Spark Line Chart';
 
 SparkLineChart.defaultProps = {
   colorScheme: colorSchemes.colorSchemeDefault,
-  dataSeries: PropTypes.shape({
-    data: [],
-    label: '',
-  }),
   axisLabel: '',
   loading: false,
 };
@@ -91,12 +87,9 @@ SparkLineChart.propTypes = {
    */
   dataFormat: PropTypes.func.isRequired,
   /**
-   * Sets the data series. A data series consists of a label and an array of data. Each data item contains a timestamp and a value.
+   * Sets the data series as an array of data. Each data item contains a timestamp and a value.
    */
-  dataSeries: PropTypes.shape({
-    data: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
-    label: PropTypes.string.isRequired,
-  }),
+  dataSeries: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
   /**
     * If set, a loader is shown instead of axis tick labels, grid and bars.
     */
