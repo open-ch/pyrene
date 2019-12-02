@@ -11,9 +11,7 @@ import Paragraph from '../PageElements/Paragraph/Paragraph';
 import GalaxyImage from '../../../images/galaxy.svg';
 
 const exampleComponents = { ...examples, ...chartExamples };
-
 const components = [...Object.values(Components), ...Object.values(ChartComponents)];
-
 
 export default class ResultsPage extends React.Component {
 
