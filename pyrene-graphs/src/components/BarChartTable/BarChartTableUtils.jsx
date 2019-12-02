@@ -31,8 +31,8 @@ const getColumn = ({
         </a>
       ) : (row) => formatter(row.value),
       relativeBar: (row) => ( // eslint-disable-line react/display-name
-        width > 0 && (
-          <svg width={width} height={svgHeight}>
+        <svg width="100%" height={svgHeight}>
+          {width > 0 && (
             <RelativeBar
               barWeight={barWeightPrimary}
               colors={colors}
@@ -42,12 +42,12 @@ const getColumn = ({
               direction="horizontal"
               y={yOffset}
             />
-          </svg>
-        )
+          )}
+        </svg>
       ),
       relativeBarMirrored: (row) => ( // eslint-disable-line react/display-name
-        width > 0 && (
-          <svg width={width} height={svgHeight}>
+        <svg width="100%" height={svgHeight}>
+          {width > 0 && (
             <RelativeBar
               barWeight={barWeightPrimary}
               colors={colors}
@@ -58,37 +58,39 @@ const getColumn = ({
               y={yOffset}
               mirrored
             />
-          </svg>
-        )
+          )}
+        </svg>
       ),
       verticalLine: () => ( // eslint-disable-line react/display-name
         <div styleName="verticalLine" />
       ),
       comparisonBars: (row) => ( // eslint-disable-line react/display-name
-        width > 0 && (
-          <svg width={width} height={svgHeight}>
-            <Bar
-              key={`${getId(getValueWithAccessor(row, labelAccessor))}_bar_current`} // eslint-disable-line
-              barWeight={barWeightPrimary}
-              color={colors[0]}
-              maxValue={maxValue}
-              value={getValueWithAccessor(row, accessor)} // eslint-disable-line
-              size={width}
-              direction="horizontal"
-              y={yOffsetComparison}
-            />
-            <Bar
-              key={`${getId(getValueWithAccessor(row, labelAccessor))}_bar_previous`} // eslint-disable-line
-              barWeight={barWeightSecondary}
-              color={colors[1]}
-              maxValue={maxValue}
-              value={getValueWithAccessor(row, accessorSecondary)} // eslint-disable-line
-              size={width}
-              direction="horizontal"
-              y={barWeightPrimary + comparisonMargin + yOffsetComparison}
-            />
-          </svg>
-        )
+        <svg width="100%" height={svgHeight}>
+          {width > 0 && (
+            <g>
+              <Bar
+                key={`${getId(getValueWithAccessor(row, labelAccessor))}_bar_current`} // eslint-disable-line
+                barWeight={barWeightPrimary}
+                color={colors[0]}
+                maxValue={maxValue}
+                value={getValueWithAccessor(row, accessor)} // eslint-disable-line
+                size={width}
+                direction="horizontal"
+                y={yOffsetComparison}
+              />
+              <Bar
+                key={`${getId(getValueWithAccessor(row, labelAccessor))}_bar_previous`} // eslint-disable-line
+                barWeight={barWeightSecondary}
+                color={colors[1]}
+                maxValue={maxValue}
+                value={getValueWithAccessor(row, accessorSecondary)} // eslint-disable-line
+                size={width}
+                direction="horizontal"
+                y={barWeightPrimary + comparisonMargin + yOffsetComparison}
+              />
+            </g>
+          )}
+        </svg>
       ),
       default: (row) => formatter(row.value),
     }[cellType || 'default'],
