@@ -1,5 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
+
+import Loader from '../Loader/Loader';
 import './simpleTable.css';
 
 /**
@@ -27,7 +30,7 @@ const SimpleTable = (props) => (
       </thead>
     )}
       <tbody styleName="tableBody">
-        {props.data && props.data.length > 0 && props.data.map((row) => (
+        {!props.loading && props.data && props.data.length > 0 && props.data.map((row) => (
           <tr
             styleName="tableRow"
             key={Object.values(row)}
@@ -52,8 +55,13 @@ const SimpleTable = (props) => (
         ))}
       </tbody>
     </table>
-    {(!props.data || !(props.data.length > 0)) && (
-      <div styleName="customTableBody">
+    {props.loading && (
+      <div styleName={classNames({ loaderLeft: !props.centerCustomTableBody }, { customTableBodyCentered: props.centerCustomTableBody })}>
+        <Loader type="inline" />
+      </div>
+    )}
+    {!props.loading && (!props.data || !(props.data.length > 0)) && (
+      <div styleName={classNames('noData', { noDataLeft: !props.centerCustomTableBody }, { customTableBodyCentered: props.centerCustomTableBody })}>
           No data found.
       </div>
     )}
@@ -63,10 +71,16 @@ const SimpleTable = (props) => (
 SimpleTable.displayName = 'Simple Table';
 
 SimpleTable.defaultProps = {
+  centerCustomTableBody: false,
+  loading: false,
   onRowDoubleClick: () => {},
 };
 
 SimpleTable.propTypes = {
+  /**
+   * If set, the customTableBody (Loader / No data found) is centered vertically and horizontally.
+   */
+  centerCustomTableBody: PropTypes.bool,
   /**
    * Sets the Table columns.
    * Type: [{ accessor: ( string | func ) (required), align: , cellRenderCallback: func, headerName: string (required), id: string (required), width: number ]
@@ -86,6 +100,10 @@ SimpleTable.propTypes = {
    * Sets the Table data displayed in the rows. Type: [ JSON ]
    */
   data: PropTypes.arrayOf(PropTypes.object).isRequired,
+  /**
+   * Disables the component and displays a loader inside of it.
+   */
+  loading: PropTypes.bool,
   /**
    * Called when the user double clicks on a row.
    */
