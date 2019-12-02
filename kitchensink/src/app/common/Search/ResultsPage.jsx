@@ -43,7 +43,6 @@ export default class ResultsPage extends React.Component {
       <div styleName="topicContent">
         <Paragraph>
           {this.state.matches.map((result) => {
-            
             const category = exampleComponents[result.name].category;
             return (
               <SearchResult
