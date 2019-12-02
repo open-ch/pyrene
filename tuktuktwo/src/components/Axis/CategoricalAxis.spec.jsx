@@ -10,6 +10,7 @@ const props = {
   strokeColor: 'red',
   tickLabelColor: 'blue',
   width: parentSize.width,
+  left: 0,
 };
 
 const svgWrapper = (axis) => (

@@ -6,30 +6,30 @@ import { Group } from '@vx/group';
 import ScaleUtils from '../../common/ScaleUtils';
 import chartConstants from '../../common/chartConstants';
 
-const getScale = (scale, size, direction, maxValue) => {
+const getScale = (scale, minRange, maxRange, direction, maxValue) => {
   if (scale) return scale;
-  return ScaleUtils.scaleLinear(size, (maxValue / (size - chartConstants.marginMaxValueToBorder)) * size, direction);
+  return ScaleUtils.scaleCustomLinear(0, maxValue, minRange, maxRange, direction);
 };
 
 /**
  * NumericalAxis is used to display a numerical left or bottom axis with a grid.
  */
 const NumericalAxis = (props) => {
-  const chartHeight = props.height - chartConstants.marginBottom;
   if (props.orientation === 'left') {
     const numTicks = 5;
-    const scale = getScale(props.scale, chartHeight, 'vertical', props.maxValue);
-    const axisTickValues = !props.showGrid && scale(scale.ticks(numTicks).splice(-1, 1)) <= chartConstants.lastTickValueMarginTop ? scale.ticks(numTicks).slice(0, -1) : scale.ticks(numTicks);
+    const size = props.height - chartConstants.marginBottom;
+    const scale = getScale(props.scale, 0, size, 'vertical', (props.maxValue / (size - chartConstants.marginMaxValueToBorder)) * size);
+    const axisTickValues = scale(scale.ticks(numTicks).splice(-1, 1)) <= chartConstants.lastTickValueMarginTop ? scale.ticks(numTicks).slice(0, -1) : scale.ticks(numTicks);
     const gridTickValues = scale(scale.ticks(numTicks).splice(-1, 1)) <= chartConstants.lastGridTickValueMarginTop ? scale.ticks(numTicks).slice(0, -1) : scale.ticks(numTicks);
     return (
       <Group>
         <AxisLeft
-          left={chartConstants.marginLeftNumerical}
+          left={props.left}
           scale={scale}
           tickValues={props.showTickLabels ? axisTickValues : []}
           tickLength={0}
           tickLabelProps={() => ({
-            fontSize: 10, fill: props.tickLabelColor, fontFamily: 'AvenirNext', textAnchor: 'start', dy: props.showGrid ? '1em' : '0.25em', dx: -chartConstants.marginLeftNumerical,
+            fontSize: 10, fill: props.tickLabelColor, fontFamily: 'AvenirNext', textAnchor: 'start', dy: '0.325em', dx: -props.left,
           })}
           stroke={props.strokeColor}
           tickStroke={props.tickLabelColor}
@@ -39,27 +39,24 @@ const NumericalAxis = (props) => {
         />
         {props.showGrid && (
           <GridRows
-            left={chartConstants.marginLeftNumerical}
+            left={props.left}
             scale={scale}
             stroke={props.strokeColor}
-            width={props.width - chartConstants.marginLeftNumerical}
-            height={chartHeight}
+            width={props.width - props.left}
+            height={props.height}
             tickValues={gridTickValues}
           />
         )}
       </Group>
     );
   }
-  const chartWidth = props.width - chartConstants.marginLeftCategorical;
   const numTicks = 7;
-  const scale = getScale(props.scale, chartWidth, 'horizontal', props.maxValue);
-  const tickValues = scale(scale.ticks(numTicks).slice(-1)[0]) + chartConstants.lastTickValueMarginRight >= chartWidth ? scale.ticks(numTicks).slice(0, -1) : scale.ticks(numTicks);
+  const scale = getScale(props.scale, props.left, props.width, 'horizontal', props.maxValue);
+  const tickValues = scale(scale.ticks(numTicks).slice(-1)[0]) + chartConstants.lastTickValueMarginRight >= props.width ? scale.ticks(numTicks).slice(0, -1) : scale.ticks(numTicks);
   return (
-    <Group
-      left={chartConstants.marginLeftCategorical}
-    >
+    <Group>
       <AxisBottom
-        top={chartHeight}
+        top={props.height - chartConstants.marginBottom}
         scale={scale}
         tickValues={props.showTickLabels ? tickValues : []}
         tickLabelProps={() => ({
@@ -75,8 +72,8 @@ const NumericalAxis = (props) => {
         <GridColumns
           scale={scale}
           stroke={props.strokeColor}
-          width={chartWidth}
-          height={chartHeight}
+          width={props.width}
+          height={props.height - chartConstants.marginBottom}
           tickValues={tickValues}
         />
       )}
@@ -99,6 +96,10 @@ NumericalAxis.propTypes = {
    * Type: number (required)
    */
   height: PropTypes.number.isRequired,
+  /**
+   * Sets the horizontal offset for this component.
+   */
+  left: PropTypes.number.isRequired,
   /**
    * Sets the maxValue, which is used to scale the axis.
    */

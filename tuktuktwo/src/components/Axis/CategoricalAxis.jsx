@@ -4,10 +4,6 @@ import { AxisLeft, AxisBottom } from '@vx/axis';
 import ScaleUtils from '../../common/ScaleUtils';
 import chartConstants from '../../common/chartConstants';
 
-const getScale = (size, labels) => (
-  ScaleUtils.scaleCategorical(size, labels)
-);
-
 /**
  * CategoricalAxis is used to display a categorical left or bottom axis.
  */
@@ -17,11 +13,11 @@ const CategoricalAxis = (props) => {
   return (
     props.orientation === 'left' ? (
       <AxisLeft
-        left={chartConstants.marginLeftCategorical}
-        scale={getScale(chartHeight, labels)}
+        left={props.left}
+        scale={ScaleUtils.scaleOrdinal(0, props.height - chartConstants.marginBottom, labels)}
         tickLength={0}
         tickLabelProps={() => ({
-          fontSize: 10, fill: props.tickLabelColor, fontFamily: 'AvenirNext', textAnchor: 'start', dy: '0.25em', dx: -chartConstants.marginLeftCategorical,
+          fontSize: 10, fill: props.tickLabelColor, fontFamily: 'AvenirNext', textAnchor: 'start', dy: '0.325em', dx: -props.left,
         })}
         stroke={props.strokeColor}
         tickStroke={props.tickLabelColor}
@@ -31,8 +27,7 @@ const CategoricalAxis = (props) => {
     ) : (
       <AxisBottom
         top={chartHeight}
-        left={chartConstants.marginLeftNumerical}
-        scale={getScale(props.width - chartConstants.marginLeftNumerical, labels)}
+        scale={ScaleUtils.scaleOrdinal(props.left, props.width, labels)}
         tickLabelProps={() => ({
           textAnchor: 'middle', fontSize: 10, fontFamily: 'AvenirNext', fill: props.tickLabelColor, dy: '-0.25em',
         })}
@@ -58,6 +53,10 @@ CategoricalAxis.propTypes = {
    * Type: number (required)
    */
   height: PropTypes.number.isRequired,
+  /**
+   * Sets the horizontal offset for this component.
+   */
+  left: PropTypes.number.isRequired,
   /**
    * Sets the orientation of the axis.
    */
