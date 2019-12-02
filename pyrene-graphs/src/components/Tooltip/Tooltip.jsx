@@ -5,14 +5,14 @@ import TooltipLegendItem from './TooltipLegendItem';
 import styles from './tooltip.css';
 
 /**
- * Timeseries Tooltip
+ * Tooltip
  */
 const Tooltip = ({
-  dataSeries, time, timeFormat, left, top,
+  dataSeries, dataSeriesLabel, left, top,
 }) => (
   <TooltipWrapper left={left} top={top}>
     <div className={styles.tooltip}>
-      <div className={styles.timeTitle}>{timeFormat(time)}</div>
+      <div className={styles.dataSeriesLabel}>{dataSeriesLabel}</div>
       {
         dataSeries.map((e) => <TooltipLegendItem key={e.dataLabel} dataColor={e.dataColor} dataLabel={e.dataLabel} dataValue={e.dataValue} />)
       }
@@ -46,19 +46,14 @@ Tooltip.propTypes = {
   })),
 
   /**
+   * The label of the data series
+   */
+  dataSeriesLabel: PropTypes.string.isRequired,
+
+  /**
    * Sets the left absolute position, controlled by VX
    */
   left: PropTypes.number.isRequired,
-
-  /**
-   * The time of the data series. Either a point or a range
-   */
-  time: PropTypes.oneOfType([PropTypes.number, PropTypes.arrayOf(PropTypes.number)]).isRequired,
-
-  /**
-   * The function that shall be used for time formatting. Must support all formats of the time property
-   */
-  timeFormat: PropTypes.func.isRequired,
 
   /**
    * Sets the top absolute position, controlled by VX

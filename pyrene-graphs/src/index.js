@@ -21,4 +21,6 @@ export { BarChartTable };
 export { SparkLineChart };
 export { TimeSeriesBucketGraph };
 
+export { INDEX_START_TS, INDEX_VALUE } from './common/graphConstants';
+
 export default Components;

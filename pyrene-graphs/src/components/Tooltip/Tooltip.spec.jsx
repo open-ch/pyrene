@@ -11,8 +11,7 @@ const props = {
   left: 55,
   top: 42,
 
-  time: 9284655926,
-  timeFormat: (d) => d,
+  dataSeriesLabel: 'Test',
 };
 
 describe('<Tooltip />', () => {

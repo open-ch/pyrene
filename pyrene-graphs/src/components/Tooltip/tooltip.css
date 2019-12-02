@@ -10,7 +10,7 @@
   font-size: 13px;
 }
 
-.timeTitle {
+.dataSeriesLabel {
   font-weight: 600;
 }
 
@@ -28,4 +28,5 @@
 
 .data {
   padding-left: 24px;
+  margin-left: auto;
 }

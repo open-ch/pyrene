@@ -4,14 +4,14 @@ import { ActionBar } from 'pyrene';
 import { minZoomRangeReached, getBoundedZoomInRange } from 'tuktuktwo';
 
 /**
- * Checks whether lowerBound or upperBound has been reached, at which point no zoom-out action should be allowed.
+ * Checks whether both lowerBound and upperBound has been reached, at which point no zoom-out action should be allowed.
  * @param {number}from - The starting point of the time range in epoch milliseconds
  * @param {number}to - The ending point of the time range in epoch milliseconds
  * @param {number}lowerBound - The oldest queryable starting time point in epoch milliseconds
- * @param {number}upperBound - The latest quaryable ending time point in epoch milliseconds
+ * @param {number}upperBound - The latest queryable ending time point in epoch milliseconds
  * @returns {boolean}
  */
-const boundReached = (from, to, lowerBound, upperBound) => !(from > lowerBound && to < upperBound);
+const boundsReached = (from, to, lowerBound, upperBound) => from <= lowerBound && to >= upperBound;
 
 /**
  * Executes callback with the new from and to after zooming in.
@@ -19,7 +19,7 @@ const boundReached = (from, to, lowerBound, upperBound) => !(from > lowerBound &
  * @param {number}to - The ending point of the time range in epoch milliseconds
  * @param {number}minZoomRange - The minimum supported zoom range in epoch milliseconds
  * @param {number}lowerBound - The oldest queryable starting time point in epoch milliseconds
- * @param {number}upperBound - The latest quaryable ending time point in epoch milliseconds
+ * @param {number}upperBound - The latest queryable ending time point in epoch milliseconds
  * @param onZoom - The callback function
  */
 const zoomIn = (from, to, minZoomRange, lowerBound, upperBound, onZoom) => {
@@ -37,16 +37,28 @@ const zoomIn = (from, to, minZoomRange, lowerBound, upperBound, onZoom) => {
  * @param {number}from - The starting point of the time range in epoch milliseconds
  * @param {number}to - The ending point of the time range in epoch milliseconds
  * @param {number}lowerBound - The oldest queryable starting time point in epoch milliseconds
- * @param {number}upperBound - The latest quaryable ending time point in epoch milliseconds
+ * @param {number}upperBound - The latest queryable ending time point in epoch milliseconds
  * @param onZoom - The callback function
  */
 const zoomOut = (from, to, lowerBound, upperBound, onZoom) => {
   const timeRangeAfterZoom = (to - from) / 0.75;
   const timeShift = (timeRangeAfterZoom - (to - from)) / 2;
 
+  let newFrom = from - timeShift;
+  let newTo = to + timeShift;
+
   // Make sure zoom does not exceed bounds
-  const newFrom = Math.max(lowerBound, Math.floor(from - timeShift));
-  const newTo = Math.min(upperBound, Math.ceil(to + timeShift));
+  if (newFrom < lowerBound) {
+    const lowerBoundOverflow = lowerBound - (from - timeShift);
+    newFrom = lowerBound;
+    // If only less than 12.5% is zoomed out on the `from` side, try to compensate that on the `to` side
+    newTo = Math.min(upperBound, Math.ceil(newTo + lowerBoundOverflow));
+  } else if (newTo > upperBound) {
+    newTo = upperBound;
+    const upperBoundOverflow = to + timeShift - upperBound;
+    // If only less than 12.5% is zoomed out on the `to` side, try to compensate that on the `from` side
+    newFrom = Math.max(lowerBound, Math.floor(newFrom - upperBoundOverflow));
+  }
 
   onZoom(newFrom, newTo);
 };
@@ -61,6 +73,7 @@ const TimeZoomControls = ({
   from,
   to,
   minZoomRange,
+  disabled,
   lowerBound,
   upperBound,
   onZoom,
@@ -68,12 +81,12 @@ const TimeZoomControls = ({
   const zoomActions = [
     {
       iconName: 'zoomIn',
-      active: !minZoomRangeReached(from, to, minZoomRange),
+      active: !minZoomRangeReached(from, to, minZoomRange) && !disabled,
       onClick: () => zoomIn(from, to, minZoomRange, lowerBound, upperBound, onZoom),
     },
     {
       iconName: 'zoomOut',
-      active: !boundReached(from, to, lowerBound, upperBound),
+      active: !boundsReached(from, to, lowerBound, upperBound) && !disabled,
       onClick: () => zoomOut(from, to, lowerBound, upperBound, onZoom),
     },
   ];
@@ -86,10 +99,15 @@ const TimeZoomControls = ({
 TimeZoomControls.displayName = 'TimeZoomControls';
 
 TimeZoomControls.defaultProps = {
+  disabled: false,
   onZoom: () => {},
 };
 
 TimeZoomControls.propTypes = {
+  /**
+   * Determines the active/inactive state of the zoom buttons.
+   */
+  disabled: PropTypes.bool,
   /**
    * Sets the starting time point of the time range in epoch milliseconds.
    */
