@@ -115,16 +115,15 @@
 
 .invalidLabel {
   margin-top: 4px;
-  font-size: 12px;
-  height: 16px;
-  line-height: 16px;
-  font-weight: 600;
+  font-size: 11px;
+  line-height: 13px;
+  font-weight: 400;
   text-align: left;
   color: var(--danger-fg);
 }
 
 .errorIcon {
-  font-size: 14px;
+  font-size: 13px;
   margin-right: 4px;
   vertical-align: text-top;
 }
