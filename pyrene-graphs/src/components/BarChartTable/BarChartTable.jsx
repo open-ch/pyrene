@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Loader, Popover, SimpleTable } from 'pyrene';
+import { Popover, SimpleTable } from 'pyrene';
 import { Responsive } from 'tuktuktwo';
-import ChartOverlay from '../ChartOverlay/ChartOverlay';
 import Header from '../Header/Header';
 import { getValueWithAccessor, getColumns, getLegend } from './BarChartTableUtils';
 import './barChartTable.css';
@@ -51,17 +50,11 @@ export default class BarChartTable extends React.Component {
                  columns={getColumns({ props: this.props, colors: colors, width: parent.width })}
                  data={this.props.loading ? [] : sortedData.slice(0, displayedRows)}
                  onRowDoubleClick={this.props.onRowDoubleClick}
+                 loading={this.props.loading}
+                 centerCustomTableBody
                />
              )}
            </Responsive>
-           {this.props.loading && (
-             // height of table + showMoreLink marginTop + showMoreLink div
-             <div styleName="chartOverlay" style={{ height: `${displayedRows * 32 + 8 + 18}px`, top: `-${displayedRows * 32}px` }}>
-               <ChartOverlay>
-                 <Loader type="inline" />
-               </ChartOverlay>
-             </div>
-           )}
          </div>
          {(this.props.data.length > displayedRows) && (this.props.loading ? (
            <div styleName="showMoreLink" />
