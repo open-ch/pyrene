@@ -14,7 +14,7 @@ import colorConstants from '../../styles/colorConstants';
 const selectStyle = {
   container: (base) => ({
     ...base,
-    fontFamily: 'FiraGO !important',
+    fontFamily: 'FiraGO, Helvetica, sans-serif !important',
     fontSize: 12,
     fontWeight: 'normal',
     width: '100%',
@@ -40,18 +40,31 @@ const selectStyle = {
 
     minHeight: 32,
     height: 32,
-    backgroundColor: (state.isFocused || state.hasValue) ? colorConstants.neutral000 : colorConstants.neutral020,
-    border: state.selectProps.isInvalid && !state.isDisabled ? `solid 1px ${colorConstants.red500}` : state.isFocused ? `solid 1px ${colorConstants.blue500}` : `solid 1px ${colorConstants.neutral100}`,
+    backgroundColor:
+      state.isFocused || state.hasValue
+        ? colorConstants.neutral000
+        : colorConstants.neutral020,
+    border:
+      state.selectProps.isInvalid && !state.isDisabled
+        ? `solid 1px ${colorConstants.red500}`
+        : state.isFocused
+          ? `solid 1px ${colorConstants.blue500}`
+          : `solid 1px ${colorConstants.neutral100}`,
     borderRadius: 2,
     cursor: 'pointer',
 
     '& .singleSelect__dropdown-indicator:after': {
-      color: state.isFocused ? colorConstants.blue500 : colorConstants.neutral300,
+      color: state.isFocused
+        ? colorConstants.blue500
+        : colorConstants.neutral300,
       transform: state.isFocused ? 'rotate(180deg)' : 'rotate(0deg)',
     },
 
     '& .singleSelect__single-value': {
-      backgroundColor: state.hasValue && state.isFocused ? colorConstants.blue050 : 'transparent',
+      backgroundColor:
+        state.hasValue && state.isFocused
+          ? colorConstants.blue050
+          : 'transparent',
     },
 
     ':hover': {
@@ -82,7 +95,7 @@ const selectStyle = {
     },
     ':after': {
       fontFamily: 'PyreneIconFont !important',
-      fontSize: 18,
+      fontSize: 16,
       color: colorConstants.neutral300,
       speak: 'none',
       fontStyle: 'normal',
@@ -92,6 +105,8 @@ const selectStyle = {
       lineHeight: 1,
       WebkitFontSmoothing: 'antialiased',
       MozOsxFontSmoothing: 'grayscale',
+
+      paddingRight: 4,
 
       display: 'inline-block',
       verticalAlign: 'middle',
@@ -108,7 +123,7 @@ const selectStyle = {
     },
     ':after': {
       fontFamily: 'PyreneIconFont !important',
-      fontSize: 18,
+      fontSize: 16,
       color: colorConstants.neutral300,
       speak: 'none',
       textTransform: 'none',
@@ -124,9 +139,9 @@ const selectStyle = {
   input: (base) => ({
     ...base,
     '[type="text"]': {
-      fontFamily: 'AvenirNext, Helvetica, sans-serif !important',
-      fontSize: 13,
-      fontWeight: 500,
+      fontFamily: 'FiraGO, Helvetica, sans-serif !important',
+      fontSize: 12,
+      fontWeight: 'normal',
       color: colorConstants.neutral400,
       WebkitFontSmoothing: 'antialiased',
       MozOsxFontSmoothing: 'grayscale',
@@ -135,7 +150,8 @@ const selectStyle = {
 
   menu: (base) => ({
     ...base,
-    boxShadow: '0 4px 8px -2px rgba(0, 21, 44, 0.2), 0 0 1px 0 rgba(0, 21, 44, 0.3)',
+    boxShadow:
+      '0 4px 8px -2px rgba(0, 21, 44, 0.2), 0 0 1px 0 rgba(0, 21, 44, 0.3)',
     borderRadius: 2,
     marginTop: 4,
     maxHeight: 308,
@@ -146,7 +162,11 @@ const selectStyle = {
     ':active': {
       backgroundColor: colorConstants.neutral030,
     },
-    backgroundColor: isSelected ? colorConstants.neutral030 : isFocused ? colorConstants.backgroundTint : colorConstants.neutral000,
+    backgroundColor: isSelected
+      ? colorConstants.neutral030
+      : isFocused
+        ? colorConstants.backgroundTint
+        : colorConstants.neutral000,
     height: 30,
     color: colorConstants.neutral500,
     cursor: 'pointer',
@@ -161,7 +181,7 @@ const selectStyle = {
   }),
 
   groupHeading: () => ({
-    fontFamily: 'FiraGO !important',
+    fontFamily: 'FiraGO, Helvetica, sans-serif !important',
     fontWeight: 500,
     color: colorConstants.neutral500,
     padding: '8px 12px',
