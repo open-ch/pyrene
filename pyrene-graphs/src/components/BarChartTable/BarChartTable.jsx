@@ -43,7 +43,8 @@ export default class BarChartTable extends React.Component {
            legend={getLegend(this.props.type, this.props.columns)}
            colors={colors}
          />
-         <div style={{ height: `${(displayedRows + 1) * 32}px` }}>
+         {/* table height: displayedRows + 1 header row + conditional showMoreLink div */}
+         <div style={{ height: `${displayedRows * 32 + 32 + (this.props.data.length > displayedRows && this.props.loading ? 26 : 0)}px` }}>
            <Responsive>
              {(parent) => (
                <SimpleTable
@@ -56,9 +57,7 @@ export default class BarChartTable extends React.Component {
              )}
            </Responsive>
          </div>
-         {(this.props.data.length > displayedRows) && (this.props.loading ? (
-           <div styleName="showMoreLink" />
-         ) : (
+         {(this.props.data.length > displayedRows) && !this.props.loading && (
            <div styleName="showMoreLink" onClick={this.togglePopover}>
              {`Show all (${sortedData.length})`}
              {this.state.showPopover && (
@@ -86,7 +85,7 @@ export default class BarChartTable extends React.Component {
                />
              )}
            </div>
-         ))}
+         )}
 
        </div>
      );
