@@ -82,7 +82,7 @@ SparkLineChart.propTypes = {
     valueGround: PropTypes.arrayOf(PropTypes.string).isRequired,
   }),
   /**
-   * Sets the data formatting functions for the graph, consisting of format function for the y-axis and that for the tooltip.
+   * Sets the data formatting for the big number.
    */
   dataFormat: PropTypes.func.isRequired,
   /**
