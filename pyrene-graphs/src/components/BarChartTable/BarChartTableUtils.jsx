@@ -12,9 +12,9 @@ const getColumn = ({
   const barWeightPrimary = 6;
   const barWeightSecondary = 4;
   const comparisonMargin = 6;
-  const svgHeight = 18;
-  const yOffset = (svgHeight - barWeightPrimary) / 2;
-  const yOffsetComparison = (svgHeight - barWeightPrimary - barWeightSecondary - comparisonMargin) / 2;
+  const bottomBorder = 1;
+  const svgHeight = barWeightPrimary + bottomBorder;
+  const svgHeightComparison = barWeightPrimary + barWeightSecondary + comparisonMargin + bottomBorder;
   return {
     id: getId(id),
     accessor: accessor,
@@ -40,7 +40,6 @@ const getColumn = ({
               value={getValueWithAccessor(row, accessor)}
               size={width}
               direction="horizontal"
-              y={yOffset}
             />
           )}
         </svg>
@@ -55,7 +54,6 @@ const getColumn = ({
               value={getValueWithAccessor(row, accessor)}
               size={width}
               direction="horizontal"
-              y={yOffset}
               mirrored
             />
           )}
@@ -65,7 +63,7 @@ const getColumn = ({
         <div styleName="verticalLine" />
       ),
       comparisonBars: (row) => ( // eslint-disable-line react/display-name
-        <svg width="100%" height={svgHeight}>
+        <svg width="100%" height={svgHeightComparison}>
           {width > 0 && (
             <g>
               <Bar
@@ -76,7 +74,6 @@ const getColumn = ({
                 value={getValueWithAccessor(row, accessor)} // eslint-disable-line
                 size={width}
                 direction="horizontal"
-                y={yOffsetComparison}
               />
               <Bar
                 key={`${getId(getValueWithAccessor(row, labelAccessor))}_bar_previous`} // eslint-disable-line
@@ -86,7 +83,7 @@ const getColumn = ({
                 value={getValueWithAccessor(row, accessorSecondary)} // eslint-disable-line
                 size={width}
                 direction="horizontal"
-                y={barWeightPrimary + comparisonMargin + yOffsetComparison}
+                y={barWeightPrimary + comparisonMargin}
               />
             </g>
           )}
