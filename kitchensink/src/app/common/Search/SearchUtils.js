@@ -12,11 +12,13 @@ export default class SearchUtils {
   // Gets the relevant matches from a searched string
   static getMatches(searchInput, components) {
     const normalisedSearchInput = this.normalise(searchInput);
-    return (components.map((component) => {
-      const componentDescription = (typeof component.__docgenInfo === 'undefined') ? '' : component.__docgenInfo.description; // eslint-disable-line no-underscore-dangle
-      return { [component.displayName]: componentDescription };
-    })
-      .filter((component) => (this.normalise(Object.keys(component)[0]).includes(normalisedSearchInput) || this.normalise(Object.values(component)[0]).includes(normalisedSearchInput))));
+    return (components.map((component) => ({
+      name: component.name,
+      displayName: component.displayName ? component.displayName : component.name,
+      description: component.__docgenInfo ? component.__docgenInfo.description : '', // eslint-disable-line no-underscore-dangle
+    }))
+      .filter((component) => (this.normalise(component.displayName).includes(normalisedSearchInput) || this.normalise(component.description).includes(normalisedSearchInput))));
+      
   }
 
 }
