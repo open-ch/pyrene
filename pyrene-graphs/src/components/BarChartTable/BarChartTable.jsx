@@ -49,10 +49,9 @@ export default class BarChartTable extends React.Component {
              {(parent) => (
                <SimpleTable
                  columns={getColumns({ props: this.props, colors: colors, width: parent.width })}
-                 data={this.props.loading ? [] : sortedData.slice(0, displayedRows)}
+                 data={sortedData.slice(0, displayedRows)}
                  onRowDoubleClick={this.props.onRowDoubleClick}
                  loading={this.props.loading}
-                 centerCustomTableBody
                />
              )}
            </Responsive>
