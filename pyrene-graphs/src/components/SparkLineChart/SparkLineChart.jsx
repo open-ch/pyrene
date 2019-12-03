@@ -41,7 +41,7 @@ const SparkLineChart = (props) => {
                 showTickLabels={false}
                 label={props.axisLabel}
                 marginBottom={0}
-                marginLeft={0}
+                left={0}
               />
             </svg>
           )}
