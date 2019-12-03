@@ -42,7 +42,7 @@ const TimeXAxis = (props) => {
             {formattedValue.value}
           </text>
         )}
-        label={props.showLabel ? props.label : ''}
+        label={props.label}
         labelProps={{
           textAnchor: 'middle', fontSize: 11, fontWeight: 500, fontFamily: 'AvenirNext', fill: props.tickLabelColors[0], dy: '-1.675em', lineHeight: '1.45', letterSpacing: '0.6px',
         }}
@@ -71,7 +71,6 @@ TimeXAxis.defaultProps = {
   marginBottom: chartConstants.marginBottom,
   marginLeft: chartConstants.marginLeftNumerical,
   showGrid: true,
-  showLabel: true,
 };
 
 TimeXAxis.propTypes = {
@@ -102,11 +101,6 @@ TimeXAxis.propTypes = {
    * Type: boolean
    */
   showGrid: PropTypes.bool,
-  /**
-   * If set, the axis label is visible.
-   * Type: boolean (required)
-   */
-  showLabel: PropTypes.bool,
   /**
    * If set, the tick labels are visible.
    * Type: boolean (required)
