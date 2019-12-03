@@ -1,7 +1,11 @@
 @import '../../styles/colors.css';
 
-.table {
+.container {
   width: 100%;
+  height: 100%;
+}
+
+.table {
   font-size: 13px;
   color: var(--neutral-500);
   border-spacing: 0;
@@ -32,6 +36,7 @@
   flex: 1 0 0%;
   min-width: 0;
   margin-right: 16px;
+  padding: 0;
 }
 
 .tableHeaderCell:first-child {
@@ -92,4 +97,20 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   text-align: left;
+}
+
+.noData {
+  padding: 39px 0 0 8px;
+  font-family: AvenirNext;
+  font-size: 13px;
+  font-weight: normal;
+  font-style: italic;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: var(--neutral-500);
+}
+
+.loader {
+  padding: 35px 0 0 8px;
 }
