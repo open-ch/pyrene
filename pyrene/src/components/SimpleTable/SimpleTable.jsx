@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
 import Loader from '../Loader/Loader';
 import './simpleTable.css';
@@ -56,12 +55,12 @@ const SimpleTable = (props) => (
       </tbody>
     </table>
     {props.loading && (
-      <div styleName={classNames({ loaderLeft: !props.centerCustomTableBody }, { customTableBodyCentered: props.centerCustomTableBody })}>
+      <div styleName="loader">
         <Loader type="inline" />
       </div>
     )}
     {!props.loading && (!props.data || !(props.data.length > 0)) && (
-      <div styleName={classNames('noData', { noDataLeft: !props.centerCustomTableBody }, { customTableBodyCentered: props.centerCustomTableBody })}>
+      <div styleName="noData">
           No data found.
       </div>
     )}
@@ -71,16 +70,11 @@ const SimpleTable = (props) => (
 SimpleTable.displayName = 'Simple Table';
 
 SimpleTable.defaultProps = {
-  centerCustomTableBody: false,
   loading: false,
   onRowDoubleClick: () => {},
 };
 
 SimpleTable.propTypes = {
-  /**
-   * If set, the customTableBody (Loader / No data found) is centered vertically and horizontally.
-   */
-  centerCustomTableBody: PropTypes.bool,
   /**
    * Sets the Table columns.
    * Type: [{ accessor: ( string | func ) (required), align: , cellRenderCallback: func, headerName: string (required), id: string (required), width: number ]
