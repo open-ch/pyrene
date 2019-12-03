@@ -14,7 +14,7 @@ import colorConstants from '../../styles/colorConstants';
 const selectStyle = {
   container: (base) => ({
     ...base,
-    fontFamily: 'FiraGO !important',
+    fontFamily: 'FiraGO, Helvetica, sans-serif !important',
     fontSize: 12,
     fontWeight: 'normal',
     width: '100%',
@@ -82,7 +82,7 @@ const selectStyle = {
     },
     ':after': {
       fontFamily: 'PyreneIconFont !important',
-      fontSize: 18,
+      fontSize: 16,
       color: colorConstants.neutral300,
       speak: 'none',
       fontStyle: 'normal',
@@ -92,7 +92,7 @@ const selectStyle = {
       lineHeight: 1,
       WebkitFontSmoothing: 'antialiased',
       MozOsxFontSmoothing: 'grayscale',
-
+      paddingRight: 4,
       display: 'inline-block',
       verticalAlign: 'middle',
       content: '"7"',
@@ -108,7 +108,7 @@ const selectStyle = {
     },
     ':after': {
       fontFamily: 'PyreneIconFont !important',
-      fontSize: 18,
+      fontSize: 16,
       color: colorConstants.neutral300,
       speak: 'none',
       textTransform: 'none',
@@ -124,9 +124,9 @@ const selectStyle = {
   input: (base) => ({
     ...base,
     '[type="text"]': {
-      fontFamily: 'AvenirNext, Helvetica, sans-serif !important',
-      fontSize: 13,
-      fontWeight: 500,
+      fontFamily: 'FiraGO, Helvetica, sans-serif !important',
+      fontSize: 12,
+      fontWeight: 'normal',
       color: colorConstants.neutral400,
       WebkitFontSmoothing: 'antialiased',
       MozOsxFontSmoothing: 'grayscale',
@@ -161,7 +161,7 @@ const selectStyle = {
   }),
 
   groupHeading: () => ({
-    fontFamily: 'FiraGO !important',
+    fontFamily: 'FiraGO, Helvetica, sans-serif !important',
     fontWeight: 500,
     color: colorConstants.neutral500,
     padding: '8px 12px',

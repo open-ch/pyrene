@@ -7,7 +7,7 @@ const examples = {
     rows: 3,
     maxLength: 50,
     value: (stateProvider) => stateProvider.state.value,
-    onChange: (stateProvider) => (value) => stateProvider.setState({ value: value.target.value }),
+    onChange: (stateProvider) => (value) => stateProvider.setState({ value: value }),
   },
 };
 

@@ -24,12 +24,12 @@
 }
 
 .textAreaTitleBar {
-  font-weight: 600;
   margin-bottom: 3px;
 
   & .textAreaTitle {
     float: left;
-    font-size: 13px;
+    font-size: 11px;
+    font-weight: 500;
     color: var(--neutral-400);
 
     &.required:after {
@@ -40,8 +40,8 @@
 
   & .characterCounter {
     float: right;
-    font-size: 12px;
-    font-weight: 600;
+    font-size: 11px;
+    font-weight: 400;
     color: var(--neutral-100);
   }
 
@@ -66,10 +66,10 @@
   background-color: var(--background-tint);
   outline: none;
 
-  padding: 7px 8px 6px 8px;
+  padding: 8px;
 
-  font-family: AvenirNext, Helvetica, sans-serif;
-  font-size: 14px;
+  font-family: FiraGO, Helvetica, sans-serif;
+  font-size: 12px;
   text-align: left;
   color: var(--text);
 
@@ -89,7 +89,7 @@
   }
 
   &::placeholder {
-    font-size: 14px;
+    font-size: 12px;
     color: var(--neutral-200);
   }
 
@@ -106,26 +106,24 @@
 
 .textAreaHelper {
   margin-top: 4px;
-  font-size: 12px;
-  height: 16px;
-  line-height: 16px;
-  font-weight: 600;
+  font-size: 11px;
+  line-height: 13px;
+  font-weight: 400;
   text-align: left;
   color: var(--neutral-100);
 }
 
 .invalidLabel {
   margin-top: 4px;
-  font-size: 12px;
-  height: 16px;
-  line-height: 16px;
-  font-weight: 600;
+  font-size: 11px;
+  line-height: 13px;
+  font-weight: 400;
   text-align: left;
   color: var(--danger-fg);
 }
 
 .errorIcon {
-  font-size: 14px;
+  font-size: 13px;
   margin-right: 4px;
   vertical-align: text-top;
 }
