@@ -14,7 +14,7 @@ const SparkLineChart = (props) => {
   const areaHeight = 62;
   return (
     <div styleName="container">
-      <div styleName="total">
+      <div styleName="bigNumber">
         {!props.loading && props.dataFormat(props.bigNumber)}
       </div>
       <div styleName="chart">
@@ -38,7 +38,6 @@ const SparkLineChart = (props) => {
                 strokeColor={colorConstants.strokeColor}
                 tickLabelColors={[colorConstants.tickLabelColor, colorConstants.tickLabelColorDark]}
                 timezone={props.timezone}
-                showLabel={!props.loading}
                 showTickLabels={false}
                 label={props.axisLabel}
                 marginBottom={0}
