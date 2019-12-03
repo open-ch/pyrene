@@ -65,7 +65,7 @@ const barChartTableHowTo = [{
     <BarChartTable
       data={exampleData.tableDataSecLabel.data}
       columns={exampleData.tableDataSecLabel.columns}
-      title="Locations with LQI"
+      title="Applications"
       description="Optional description and explanation on how to read the chart"
       type="bar"
     />
