@@ -23,4 +23,12 @@ describe('<TextField />', () => {
 
     expect(onSubmit).toHaveBeenCalledWith('testValue');
   });
+
+  it('is calling onCancel on Escape', () => {
+    const onCancel = jest.fn();
+    const rendered = mount(<TextField onCancel={onCancel} />);
+    rendered.find('input[type="text"]').simulate('keyDown', { keyCode: 27 });
+
+    expect(onCancel).toHaveBeenCalledTimes(1);
+  });
 });
