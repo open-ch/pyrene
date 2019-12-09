@@ -6,35 +6,32 @@ import TRSStepper from './Components/TRSStepper';
 
 import './timeRangeNavigationBar.css';
 
-const TimeRangeNavigationBar = (props) => (
-  <div styleName="timeRangeNavigationBar">
-    <TRSStepper
-      direction="left"
-      disabled={
-        props.disabled
-      }
-      inactive={
-        moment(props.from).tz(props.timezone).diff(moment(props.lowerBound).tz(props.timezone), 'minutes') <= 0 // We should not check for milliseconds but minutes changes
-      }
-      onClick={props.onNavigateBack}
-    />
-    <div styleName="navigationContentOuter">
-      <div styleName="navigationContentInner">
-        {TimeRangeNavigationBar.renderCurrentTimeRange(props)}
+const TimeRangeNavigationBar = (props) => {
+  const backInactive = moment(props.from).tz(props.timezone).diff(moment(props.lowerBound).tz(props.timezone), 'minutes') <= 0; // We should not check for milliseconds but minutes changes
+  const forwardInactive = moment(props.to).tz(props.timezone).diff(moment(props.upperBound).tz(props.timezone), 'minutes').valueOf() >= 0; // We should not check for milliseconds but minutes changes
+
+  return (
+    <div styleName="timeRangeNavigationBar">
+      <TRSStepper
+        direction="left"
+        disabled={props.disabled}
+        inactive={backInactive}
+        onClick={(props.disabled || backInactive )? () => {} : props.onNavigateBack}
+      />
+      <div styleName="navigationContentOuter">
+        <div styleName="navigationContentInner">
+          {TimeRangeNavigationBar.renderCurrentTimeRange(props)}
+        </div>
       </div>
+      <TRSStepper
+        direction="right"
+        disabled={props.disabled}
+        inactive={forwardInactive}
+        onClick={(props.disabled || forwardInactive) ? () => {} : props.onNavigateForward}
+      />
     </div>
-    <TRSStepper
-      direction="right"
-      disabled={
-        props.disabled
-      }
-      inactive={
-        moment(props.to).tz(props.timezone).diff(moment(props.upperBound).tz(props.timezone), 'minutes').valueOf() >= 0 // We should not check for milliseconds but minutes changes
-      }
-      onClick={props.onNavigateForward}
-    />
-  </div>
-);
+  );
+};
 
 /* eslint-disable-next-line react/display-name */
 TimeRangeNavigationBar.renderCurrentTimeRange = (currProps) => {

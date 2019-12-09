@@ -142,7 +142,7 @@ describe('<TimeRangeSelector />', () => {
     expect(expectedBounds).toBe(calculatedValue);
   });
 
-  it('preset timerange loses highlight when from and to is updated externally', () => {
+  it('preset timerange button has no highlight when no preset time range is detected', () => {
     rendered = mount(<TimeRangeSelector {...props} />);
     expect(rendered.find('button.active').props().id).toBe('30d');
 

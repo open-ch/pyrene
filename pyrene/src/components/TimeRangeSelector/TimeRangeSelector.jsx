@@ -29,6 +29,7 @@ export default class TimeRangeSelector extends Component {
     };
 
     this._onPresetTimeRangeSelected = this._onPresetTimeRangeSelected.bind(this);
+    this._preserveDurationForNavigation = this._preserveDurationForNavigation.bind(this);
     this._onNavigateBack = this._onNavigateBack.bind(this);
     this._onNavigateForward = this._onNavigateForward.bind(this);
   }
@@ -67,11 +68,7 @@ export default class TimeRangeSelector extends Component {
    * @private
    */
   _onNavigateBack() {
-    // Check if it is currently having a preset time range; if yes, we should preserve the current durationInMs
-    const foundTimeRangeType = this.props.presetTimeRanges.find((preset) => preset.durationInMs === this.state.durationInMs);
-    if (foundTimeRangeType) {
-      this.setState({ preserveDuration: true });
-    }
+    this._preserveDurationForNavigation();
     const fromDiff = moment(this.props.from).tz(this.props.timezone).subtract(this.state.durationInMs).valueOf();
     const toDiff = moment(this.props.to).tz(this.props.timezone).subtract(this.state.durationInMs).valueOf();
     const newFrom = Math.max(fromDiff, this.props.lowerBound);
@@ -84,16 +81,23 @@ export default class TimeRangeSelector extends Component {
    * @private
    */
   _onNavigateForward() {
-    // Check if it is currently having a preset time range; if yes, we should preserve the current durationInMs
-    const foundTimeRangeType = this.props.presetTimeRanges.find((preset) => preset.durationInMs === this.state.durationInMs);
-    if (foundTimeRangeType) {
-      this.setState({ preserveDuration: true });
-    }
+    this._preserveDurationForNavigation();
     const toDiff = moment(this.props.to).tz(this.props.timezone).add(this.state.durationInMs).valueOf();
     const fromDiff = moment(this.props.from).tz(this.props.timezone).add(this.state.durationInMs).valueOf();
     const newTo = Math.min(toDiff, this.props.upperBound);
     const newFrom = moment(newTo).tz(this.props.timezone).subtract(fromDiff).valueOf() < this.state.durationInMs ? moment(newTo).tz(this.props.timezone).subtract(this.state.durationInMs).valueOf() : fromDiff; // Keep the selected timespan duration if we reach a bound
     return this.props.onChange(Math.max(newFrom, this.props.lowerBound), newTo);
+  }
+
+  /**
+   * Checks whether the component has a preset timerange selected when navigating; if yes, we should preserve the current durationInMs.
+   * @private
+   */
+  _preserveDurationForNavigation() {
+    const foundTimeRangeType = this.props.presetTimeRanges.find((preset) => preset.durationInMs === this.state.durationInMs);
+    if (foundTimeRangeType) {
+      this.setState({ preserveDuration: true });
+    }
   }
 
   render() {
