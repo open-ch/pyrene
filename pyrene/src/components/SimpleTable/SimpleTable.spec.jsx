@@ -1,7 +1,7 @@
 import React from 'react';
 
 import SimpleTable from './SimpleTable.jsx';
-
+import Loader from '../Loader/Loader';
 
 const props = {
   data: [{ name: 'Meredith Carney', age: 23 }, { name: 'Savage Weeks', age: 21 }],
@@ -39,5 +39,15 @@ describe('<SimpleTable />', () => {
     const rendered = shallow(<SimpleTable {...props} />);
     expect(rendered.contains('Custom age is 23')).toBe(true);
     expect(rendered.contains('Custom age is 21')).toBe(true);
+  });
+
+  it('should contain a loader while loading', () => {
+    const rendered = mount(<SimpleTable {...props} loading />);
+    expect(rendered.find(Loader)).toHaveLength(1);
+  });
+
+  it('should show "No data found" when there is no data', () => {
+    const rendered = mount(<SimpleTable {...{ ...props, data: [] }} />);
+    expect(rendered.contains('No data found.')).toBe(true);
   });
 });

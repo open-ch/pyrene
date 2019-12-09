@@ -23,6 +23,16 @@ const TextField = (props) => (
         placeholder={props.placeholder}
         value={props.value}
         onChange={(event) => props.onChange(event.target.value, event)}
+        onKeyDown={(event) => {
+          if (event.key === 'Enter' && props.onSubmit) {
+            props.onSubmit(props.value);
+            return;
+          }
+
+          if (event.keyCode === 27 && props.onCancel) {
+            props.onCancel();
+          }
+        }}
         onBlur={props.onBlur}
         onFocus={props.onFocus}
         autoFocus={props.autoFocus} // eslint-disable-line jsx-a11y/no-autofocus
@@ -64,8 +74,10 @@ TextField.defaultProps = {
   disabled: false,
   invalid: false,
   onBlur: () => null,
+  onCancel: null,
   onChange: () => null,
   onFocus: () => null,
+  onSubmit: null,
   autoFocus: false,
 };
 
@@ -99,13 +111,21 @@ TextField.propTypes = {
    */
   onBlur: PropTypes.func,
   /**
-   * Javascript event handler.
+   * Called when hitting Escape.
    */
+  onCancel: PropTypes.func,
+  /**
+    * Javascript event handler.
+    */
   onChange: PropTypes.func,
   /**
    * Javascript event handler.
    */
   onFocus: PropTypes.func,
+  /**
+   * Called when hitting enter
+   */
+  onSubmit: PropTypes.func,
   /**
    * Sets the placeholder label.
    */

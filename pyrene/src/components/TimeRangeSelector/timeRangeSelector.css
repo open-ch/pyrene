@@ -13,7 +13,6 @@
 
   &.disabled {
     pointer-events: none;
-    opacity: .5;
   }
 }
 
@@ -38,4 +37,9 @@
   flex: 1;
   justify-content: flex-end;
   align-items: center;
+
+  &.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
 }
