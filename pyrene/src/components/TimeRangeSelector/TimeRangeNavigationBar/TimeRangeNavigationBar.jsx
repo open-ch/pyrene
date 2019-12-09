@@ -12,7 +12,9 @@ const TimeRangeNavigationBar = (props) => (
       direction="left"
       disabled={
         props.disabled
-        || moment(props.from).tz(props.timezone).diff(moment(props.lowerBound).tz(props.timezone), 'minutes') <= 0 // We should not check for milliseconds but minutes changes
+      }
+      inactive={
+        moment(props.from).tz(props.timezone).diff(moment(props.lowerBound).tz(props.timezone), 'minutes') <= 0 // We should not check for milliseconds but minutes changes
       }
       onClick={props.onNavigateBack}
     />
@@ -25,7 +27,9 @@ const TimeRangeNavigationBar = (props) => (
       direction="right"
       disabled={
         props.disabled
-        || moment(props.to).tz(props.timezone).diff(moment(props.upperBound).tz(props.timezone), 'minutes').valueOf() >= 0 // We should not check for milliseconds but minutes changes
+      }
+      inactive={
+        moment(props.to).tz(props.timezone).diff(moment(props.upperBound).tz(props.timezone), 'minutes').valueOf() >= 0 // We should not check for milliseconds but minutes changes
       }
       onClick={props.onNavigateForward}
     />

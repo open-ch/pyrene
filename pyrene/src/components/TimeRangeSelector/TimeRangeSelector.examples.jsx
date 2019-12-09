@@ -17,6 +17,7 @@ const textStyle = {
 const wrapperStyle = {
   display: 'flex',
   justifyContent: 'center',
+  alignItems: 'center',
 };
 
 function renderRightSection() {
