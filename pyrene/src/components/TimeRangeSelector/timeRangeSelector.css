@@ -3,7 +3,6 @@
 .timeRangeSelector {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
   width: 100%;
   composes: commonFontSettings from '../../styles/common.css';
   font-size: 12px;
@@ -19,13 +18,24 @@
 }
 
 .timeRangeSelector--left {
-  margin-right: auto;
+  display: flex;
+  flex: 1;
+  justify-content: flex-start;
+  align-items: center;
+  min-width: 50px;
 }
 
 .timeRangeSelector--center {
-  margin-right: auto;
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  min-width: 334px;
 }
 
 .timeRangeSelector--right {
-  margin-left: auto;
+  display: flex;
+  flex: 1;
+  justify-content: flex-end;
+  align-items: center;
 }
