@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment-timezone';
 import classNames from 'classnames';
 import PresetTimeRanges from './PresetTimeRanges/PresetTimeRanges';
 import TimeRangeNavigationBar from './TimeRangeNavigationBar/TimeRangeNavigationBar';
 import PRESET_TIME_RANGES from './TimeRangeSelectorDefaultProps';
-
 import './timeRangeSelector.css';
 
 /**
@@ -22,16 +22,26 @@ export default class TimeRangeSelector extends Component {
     super(props);
 
     const durationInMs = (props.to - props.from) - ((props.to - props.from) % 10); // calculate the duration of the timerange minus rounding errors
-    let initialTimeRangeType = props.presetTimeRanges.find((preset) => preset.durationInMs === durationInMs); // Try to find if the timerange matches an initial preset
-    initialTimeRangeType = initialTimeRangeType ? initialTimeRangeType.id : ''; // If we found a match, then let's use the id of the preset, otherwise no default preset has to be selected
 
     this.state = {
       durationInMs: durationInMs,
-      currentTimeRangeType: initialTimeRangeType,
+      preserveDuration: false,
     };
 
     this._onPresetTimeRangeSelected = this._onPresetTimeRangeSelected.bind(this);
-    this._onNavigate = this._onNavigate.bind(this);
+    this._onNavigateBack = this._onNavigateBack.bind(this);
+    this._onNavigateForward = this._onNavigateForward.bind(this);
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    if (props.to - props.from !== state.durationInMs && !state.preserveDuration) {
+      const newDuration = (props.to - props.from) - ((props.to - props.from) % 10);
+      return { durationInMs: newDuration };
+    }
+    if (state.preserveDuration) {
+      return { preserveDuration: false };
+    }
+    return null;
   }
 
   /**
@@ -43,10 +53,9 @@ export default class TimeRangeSelector extends Component {
    * @param currentTimeRangeType    the type of the timerange that was selected
    * @private
    */
-  _onPresetTimeRangeSelected(newFrom, newTo, newUpperBound, durationInMs, currentTimeRangeType) {
+  _onPresetTimeRangeSelected(newFrom, newTo, newUpperBound, durationInMs) {
     this.setState({
       durationInMs: durationInMs, // We need to store it, otherwise if we reach the lower/upper bound we will start to use less milliseconds with the steppers
-      currentTimeRangeType: currentTimeRangeType,
     },
     () => {
       this.props.onChange(newFrom, newTo);
@@ -55,15 +64,42 @@ export default class TimeRangeSelector extends Component {
 
   /**
    * Changes the state of the timerange selector based on the interactions with the navigation bar
-   * @param newFrom       the new from value in epoch milliseconds
-   * @param newTo         the new to value in epoch milliseconds
    * @private
    */
-  _onNavigate(newFrom, newTo) {
-    return this.props.onChange(newFrom, newTo);
+  _onNavigateBack() {
+    // Check if it is currently having a preset time range; if yes, we should preserve the current durationInMs
+    const foundTimeRangeType = this.props.presetTimeRanges.find((preset) => preset.durationInMs === this.state.durationInMs);
+    if (foundTimeRangeType) {
+      this.setState({ preserveDuration: true });
+    }
+    const fromDiff = moment(this.props.from).tz(this.props.timezone).subtract(this.state.durationInMs).valueOf();
+    const toDiff = moment(this.props.to).tz(this.props.timezone).subtract(this.state.durationInMs).valueOf();
+    const newFrom = Math.max(fromDiff, this.props.lowerBound);
+    const newTo = moment(toDiff).tz(this.props.timezone).subtract(newFrom).valueOf() < this.state.durationInMs ? moment(newFrom).tz(this.props.timezone).add(this.state.durationInMs).valueOf() : toDiff;
+    return this.props.onChange(newFrom, Math.min(newTo, this.props.upperBound));
+  }
+
+  /**
+   * Changes the state of the timerange selector based on the interactions with the navigation bar
+   * @private
+   */
+  _onNavigateForward() {
+    // Check if it is currently having a preset time range; if yes, we should preserve the current durationInMs
+    const foundTimeRangeType = this.props.presetTimeRanges.find((preset) => preset.durationInMs === this.state.durationInMs);
+    if (foundTimeRangeType) {
+      this.setState({ preserveDuration: true });
+    }
+    const toDiff = moment(this.props.to).tz(this.props.timezone).add(this.state.durationInMs).valueOf();
+    const fromDiff = moment(this.props.from).tz(this.props.timezone).add(this.state.durationInMs).valueOf();
+    const newTo = Math.min(toDiff, this.props.upperBound);
+    const newFrom = moment(newTo).tz(this.props.timezone).subtract(fromDiff).valueOf() < this.state.durationInMs ? moment(newTo).tz(this.props.timezone).subtract(this.state.durationInMs).valueOf() : fromDiff; // Keep the selected timespan duration if we reach a bound
+    return this.props.onChange(Math.max(newFrom, this.props.lowerBound), newTo);
   }
 
   render() {
+    let currentTimeRangeType = this.props.presetTimeRanges.find((preset) => preset.durationInMs === this.state.durationInMs); // Try to find if the timerange matches an initial preset
+    currentTimeRangeType = currentTimeRangeType ? currentTimeRangeType.id : ''; // If we found a match, then let's use the id of the preset, otherwise no default preset has to be selected
+
     return (
       <div styleName={classNames('timeRangeSelector', { disabled: this.props.disabled })}>
         <div styleName="timeRangeSelector--left">
@@ -71,7 +107,7 @@ export default class TimeRangeSelector extends Component {
             disabled={this.props.disabled}
             lowerBound={this.props.lowerBound}
             onInteract={this._onPresetTimeRangeSelected}
-            currentTimeRangeType={this.state.currentTimeRangeType}
+            currentTimeRangeType={currentTimeRangeType}
             presetTimeRanges={this.props.presetTimeRanges}
             upperBound={this.props.upperBound}
             timezone={this.props.timezone}
@@ -80,11 +116,11 @@ export default class TimeRangeSelector extends Component {
         <div styleName="timeRangeSelector--center">
           <TimeRangeNavigationBar
             disabled={this.props.disabled}
-            durationInMs={this.state.durationInMs}
             to={this.props.to}
             from={this.props.from}
             lowerBound={this.props.lowerBound}
-            onNavigate={this._onNavigate}
+            onNavigateBack={this._onNavigateBack}
+            onNavigateForward={this._onNavigateForward}
             upperBound={this.props.upperBound}
             timezone={this.props.timezone}
           />
