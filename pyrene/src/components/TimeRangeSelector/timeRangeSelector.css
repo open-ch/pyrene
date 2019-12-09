@@ -14,7 +14,6 @@
 
   &.disabled {
     pointer-events: none;
-    opacity: .5;
   }
 }
 
@@ -28,4 +27,9 @@
 
 .timeRangeSelector--right {
   margin-left: auto;
+
+  &.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
 }

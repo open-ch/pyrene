@@ -89,7 +89,7 @@ export default class TimeRangeSelector extends Component {
             timezone={this.props.timezone}
           />
         </div>
-        <div styleName="timeRangeSelector--right">
+        <div styleName={classNames('timeRangeSelector--right', { disabled: this.props.disabled })}>
           {this.props.renderRightSection()}
         </div>
       </div>
