@@ -4,12 +4,6 @@
   width: 100%;
 }
 
-.responsiveContainer {
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-}
-
 .labelLink:hover {
   text-decoration: underline;
 }
