@@ -6,10 +6,11 @@ import timeSeriesData from '../../examples/timeSeriesData';
 import colorSchemes from '../../styles/colorSchemes';
 
 const timezone = 'Europe/Zurich';
+const dataFormat = (d) => `${d} testFormat`;
 
 const props = {
-  bigNumber: 10.52,
-  dataFormat: (d) => `${d} testFormat`,
+  keyFigure: dataFormat(10.52),
+  dataFormat: dataFormat,
   dataSeries: timeSeriesData.genDownloadedVolumes(moment.tz('2019-10-01 00:00', timezone).valueOf(), moment.tz('2019-10-03 12:00', timezone).valueOf(), 24).data,
   axisLabel: 'Axis Label Test',
   timezone: timezone,
@@ -23,8 +24,8 @@ describe('<SparkLineChart />', () => {
   it('renders its content correctly', () => {
     const rendered = mount(<SparkLineChart {...props} />);
 
-    // Big Number
-    expect(rendered.find('.bigNumber').text()).toBe('10.52 testFormat');
+    // Key Figure
+    expect(rendered.find('.keyFigure').text()).toBe('10.52 testFormat');
 
     // Time X-Axis
     const xAxis = rendered.find('.vx-axis-bottom');
@@ -45,7 +46,7 @@ describe('<SparkLineChart />', () => {
     const rendered = mount(<SparkLineChart {...props} loading />);
 
     // Header
-    expect(rendered.find('.bigNumber').text()).toBe('');
+    expect(rendered.find('.keyFigure')).toHaveLength(0);
 
     // Time X-Axis
     const xAxis = rendered.find('.vx-axis-bottom');
