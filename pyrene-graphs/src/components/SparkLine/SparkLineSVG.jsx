@@ -15,7 +15,7 @@ import colorSchemes from '../../styles/colorSchemes';
 const onMouseMove = (event, data, xScale, yScale, width, showTooltip) => {
   const { x, y } = localPoint(event.target.ownerSVGElement, event);
   const bandwidth = width / (data.length - 1);
-  const index = Math.floor(x / bandwidth);
+  const index = Math.round(x / bandwidth);
   const currentValue = data[index][INDEX_VALUE];
 
   showTooltip({
