@@ -11,20 +11,20 @@ import Tooltip from '../Tooltip/Tooltip';
 import { INDEX_VALUE, INDEX_START_TS } from '../../common/graphConstants';
 import colorSchemes from '../../styles/colorSchemes';
 
-const onMouseMove = (event, data, xScale, showTooltip) => {
+const onMouseMove = (event, data, xScale, yScale, width, showTooltip) => {
   const { x, y } = localPoint(event.target.ownerSVGElement, event);
-  const currentTS = xScale(x);
-  
-  // Show normal tooltip
-  // localPoint enables us to have the real-time x-coordinate of the mouse; by using the scale function on the x-coordinate we get a corresponding timestamp;
-  // then, we go through the data series to find the first element with a startTS that's bigger than that timestamp, the element before it is the one that is being hovered on
-  const foundIndex = data.findIndex((d) => d[INDEX_START_TS] > currentTS) - 1;
-  const index = foundIndex >= 0 ? foundIndex : data.length - 1;
+  const bandwidth = width / (data.length - 1);
+  const index = Math.floor(x / bandwidth);
+  const currentValue = data[index][INDEX_VALUE];
 
   showTooltip({
     tooltipLeft: x,
     tooltipTop: y,
-    tooltipData: [data[index][INDEX_VALUE]],
+    tooltipData: {
+      data: [currentValue],
+      tooltipLeftCircle: xScale.invert(data[index][INDEX_START_TS]),
+      tooltipTopCircle: yScale.invert(currentValue),
+    },
   });
 };
 
@@ -44,17 +44,19 @@ const SparkLineSVG = (props) => {
   return (
     <Responsive>
       {(parent) => {
-        const tooltipDataSeries = tooltipData.map((value) => ({
+        const tooltipDataSeries = tooltipData.data.map((value) => ({
           dataValue: props.dataFormat(value),
         }));
         const timeStamps = props.dataSeries.map((d) => d[INDEX_START_TS]);
+        const values = props.dataSeries.map((d) => d[INDEX_VALUE]);
         const xScale = scaleUtils.scaleCustomLinear(0, parent.width, Math.min(...timeStamps), Math.max(...timeStamps), 'horizontal');
+        const yScale = scaleUtils.scaleCustomLinear(0, parent.height, Math.min(...values), Math.max(...values), 'vertical');
         return (
           <>
             <svg width="100%" height={parent.height} shapeRendering="crispEdges">
               <g
                 className="hoverArea"
-                onMouseMove={(e) => onMouseMove(e, props.dataSeries, xScale, showTooltip)}
+                onMouseMove={(e) => onMouseMove(e, props.dataSeries, xScale, yScale, parent.width, showTooltip)}
                 onMouseOut={hideTooltip}
               >
                 <SparkLineTT2
@@ -64,6 +66,17 @@ const SparkLineSVG = (props) => {
                   strokeWidth={1}
                   width={parent.width}
                 />
+                {tooltipOpen && (
+                  <circle
+                    cx={tooltipData.tooltipLeftCircle}
+                    cy={tooltipData.tooltipTopCircle}
+                    r={3}
+                    fill="white"
+                    stroke="#044ba2"
+                    strokeWidth={2}
+                    style={{ pointerEvents: 'none' }}
+                  />
+                )}
               </g>
             </svg>
             {
@@ -86,7 +99,11 @@ SparkLineSVG.displayName = 'Spark Line';
 
 SparkLineSVG.defaultProps = {
   colorScheme: colorSchemes.colorSchemeDefault,
-  tooltipData: [],
+  tooltipData: {
+    data: [],
+    tooltipLeftCircle: 0,
+    tooltipTopCircle: 0,
+  },
   tooltipLeft: 0,
   tooltipTop: 0,
 };
@@ -117,7 +134,11 @@ SparkLineSVG.propTypes = {
   /**
    * The tooltip data prop provided by the withTooltip enhancer.
    */
-  tooltipData: PropTypes.arrayOf(PropTypes.number),
+  tooltipData: PropTypes.shape({
+    data: PropTypes.arrayOf(PropTypes.number),
+    tooltipLeftCircle: PropTypes.number,
+    tooltipTopCircle: PropTypes.number,
+  }),
   /**
    * The tooltip x-position prop provided by the withTooltip enhancer.
    */
