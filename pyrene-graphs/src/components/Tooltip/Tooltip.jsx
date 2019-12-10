@@ -8,9 +8,9 @@ import styles from './tooltip.css';
  * Tooltip
  */
 const Tooltip = ({
-  dataSeries, dataSeriesLabel, left, top,
+  dataSeries, dataSeriesLabel, left, top, overflow,
 }) => (
-  <TooltipWrapper left={left} top={top}>
+  <TooltipWrapper left={left} top={top} overflow={overflow}>
     <div className={styles.tooltip}>
       <div className={styles.dataSeriesLabel}>{dataSeriesLabel}</div>
       {
@@ -24,6 +24,8 @@ Tooltip.displayName = 'Tooltip';
 
 Tooltip.defaultProps = {
   dataSeries: [],
+  dataSeriesLabel: '',
+  overflow: false,
 };
 
 Tooltip.propTypes = {
@@ -32,12 +34,12 @@ Tooltip.propTypes = {
     /**
      * The color of the data series
      */
-    dataColor: PropTypes.string.isRequired,
+    dataColor: PropTypes.string,
 
     /**
      * The label of the data series
      */
-    dataLabel: PropTypes.string.isRequired,
+    dataLabel: PropTypes.string,
 
     /**
      * The actual value of the data series
@@ -48,12 +50,17 @@ Tooltip.propTypes = {
   /**
    * The label of the data series
    */
-  dataSeriesLabel: PropTypes.string.isRequired,
+  dataSeriesLabel: PropTypes.string,
 
   /**
    * Sets the left absolute position, controlled by VX
    */
   left: PropTypes.number.isRequired,
+
+  /**
+   * If set, allows the tooltip to overflow its parent's boundaries. Otherwise will flip left/right and bottom/up to stay in the boundaries.
+   */
+  overflow: PropTypes.bool,
 
   /**
    * Sets the top absolute position, controlled by VX
