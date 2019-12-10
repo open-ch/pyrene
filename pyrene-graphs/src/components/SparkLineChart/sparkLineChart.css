@@ -5,12 +5,15 @@
     height: 120px;
 }
 
-.bigNumber {
+.keyFigure {
     height: 40px;
     font-size: 24px;
     font-weight: 500;
     line-height: 1.67;
     color: var(--text);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .chart {

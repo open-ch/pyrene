@@ -43,18 +43,20 @@ export default class BarChartTable extends React.Component {
            legend={getLegend(this.props.type, this.props.columns)}
            colors={colors}
          />
-         <div style={{ height: `${(displayedRows + 1) * 32}px` }}>
+         {/* table height: displayedRows + 1 header row + conditional showMoreLink div */}
+         <div style={{ height: `${displayedRows * 32 + 32 + (this.props.data.length > displayedRows && this.props.loading ? 26 : 0)}px` }}>
            <Responsive>
              {(parent) => (
                <SimpleTable
                  columns={getColumns({ props: this.props, colors: colors, width: parent.width })}
                  data={sortedData.slice(0, displayedRows)}
                  onRowDoubleClick={this.props.onRowDoubleClick}
+                 loading={this.props.loading}
                />
              )}
            </Responsive>
          </div>
-         {(this.props.data.length > displayedRows) && (
+         {(this.props.data.length > displayedRows) && !this.props.loading && (
            <div styleName="showMoreLink" onClick={this.togglePopover}>
              {`Show all (${sortedData.length})`}
              {this.state.showPopover && (
@@ -96,6 +98,7 @@ BarChartTable.defaultProps = {
   colorScheme: colorSchemes.colorSchemeDefault,
   description: '',
   displayedRows: 10,
+  loading: false,
   onRowDoubleClick: () => {},
   type: 'bar',
 };
@@ -110,7 +113,7 @@ BarChartTable.propTypes = {
   }),
   /**
    * Sets the Table columns.
-   * Type: { label: { accessor: string or func (required), linkAccessor: string or func, title: string (required) }, primaryValue: { accessor: string or func (required), formatter: func }, secondaryValue: { accessor: string or func (required), formatter: func, title: string (required) }}
+   * Type: { label: { accessor: string or func (required), linkAccessor: string or func, title: string (required) }, primaryValue: { accessor: string or func (required), formatter: func, width: number }, secondaryLabel: { accessor: string or func (required), title: string (required), width: number }, secondaryValue: { accessor: string or func (required), formatter: func, title: string (required), width: number }}
    */
   columns: PropTypes.shape({
     label: PropTypes.shape({
@@ -130,6 +133,7 @@ BarChartTable.propTypes = {
       ]).isRequired,
       formatter: PropTypes.func,
       title: PropTypes.string.isRequired,
+      width: PropTypes.number,
     }).isRequired,
     secondaryLabel: PropTypes.shape({
       accessor: PropTypes.oneOfType([
@@ -137,6 +141,7 @@ BarChartTable.propTypes = {
         PropTypes.func,
       ]).isRequired,
       title: PropTypes.string.isRequired,
+      width: PropTypes.number,
     }),
     secondaryValue: PropTypes.shape({
       accessor: PropTypes.oneOfType([
@@ -145,6 +150,7 @@ BarChartTable.propTypes = {
       ]).isRequired,
       formatter: PropTypes.func,
       title: PropTypes.string.isRequired,
+      width: PropTypes.number,
     }),
   }).isRequired,
   /**
@@ -159,6 +165,10 @@ BarChartTable.propTypes = {
   * Sets the number of displayed rows.
   */
   displayedRows: PropTypes.number,
+  /**
+  * If set, a loader is shown.
+  */
+  loading: PropTypes.bool,
   /**
    * Called when the user double clicks on a row.
    */

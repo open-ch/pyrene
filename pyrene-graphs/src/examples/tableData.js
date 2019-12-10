@@ -19,7 +19,7 @@ export const tableData = [
     shareOfTotal: 8.1,
   },
   {
-    application: 'Facebook',
+    application: 'Application with a really long and totally unrecognizable name whatsoever',
     link: '#',
     volume: 345.4,
     shareOfTotal: 5.0,
@@ -116,8 +116,8 @@ export const tableColumns = {
   },
   secondaryValue: {
     accessor: (d) => d.shareOfTotal,
-    title: 'Share of Total',
-    formatter: (d) => `${d.toFixed(2)} %`,
+    title: 'Share',
+    formatter: (d) => `${d.toFixed(1)} %`,
   },
 };
 
@@ -356,55 +356,22 @@ export const tableColumnsUpDown = {
   primaryValue: {
     accessor: (d) => d.down,
     title: 'Volume Down',
-    formatter: (d) => `${d.toFixed(1)} %`,
+    formatter: (d) => `${d.toFixed(1)} GB`,
   },
   secondaryValue: {
     accessor: (d) => d.up,
     title: 'Volume Up',
-    formatter: (d) => `${d.toFixed(1)} %`,
+    formatter: (d) => `${d.toFixed(1)} GB`,
   },
 };
 
-export const tableDataSecLabel = [
-  {
-    location: 'Altdorf',
-    LQI: 24,
-    up: 100.0,
-  },
-  {
-    location: 'Zürich',
-    LQI: 44,
-    up: 14.0,
-  },
-  {
-    location: 'Lit',
-    LQI: 76,
-    up: 100.0,
-  },
-  {
-    location: 'Chorugh',
-    LQI: 120,
-    up: 100.0,
-  },
-  {
-    location: 'Los Angeles',
-    LQI: 0.7,
-    up: 100.0,
-  },
-];
+const CCI = [81, 64, 46, 78, 96, 11, 39, 42, 15, 8];
+export const tableDataSecLabel = CCI.map((d, i) => ({ CCI: d, ...tableData[i] }));
 
 export const tableColumnsSecLabel = {
-  label: {
-    accessor: (d) => d.location,
-    title: 'Location',
-  },
   secondaryLabel: {
-    accessor: (d) => d.LQI,
-    title: 'LQI',
+    accessor: (d) => d.CCI,
+    title: 'CCI',
   },
-  primaryValue: {
-    accessor: (d) => d.up,
-    title: 'Volume Up',
-    formatter: (d) => `${d.toFixed(1)} %`,
-  },
+  ...tableColumns,
 };

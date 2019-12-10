@@ -97,7 +97,7 @@ describe('<BarChartTable />', () => {
     rendered.find('tbody').find('tr').forEach((tr, rowIndex) => {
       const cells = tr.find('td');
       expect(cells.at(0).text()).toBe(props.data[rowIndex].application);
-      expect(cells.at(1).find('.responsiveContainer').exists()).toBe(true);
+      expect(cells.at(1).find('svg').exists()).toBe(true);
       expect(cells.at(2).text()).toBe(props.columns.primaryValue.formatter(props.data[rowIndex].volume));
       expect(cells.at(3).text()).toBe(props.columns.secondaryValue.formatter(props.data[rowIndex].shareOfTotal));
     });
@@ -122,7 +122,7 @@ describe('<BarChartTable />', () => {
     rendered.find('tbody').find('tr').forEach((tr, rowIndex) => {
       const cells = tr.find('td');
       expect(cells.at(0).text()).toBe(props.data[rowIndex].application);
-      expect(cells.at(1).find('.responsiveContainer').exists()).toBe(true);
+      expect(cells.at(1).find('svg').exists()).toBe(true);
       expect(cells.at(2).text()).toBe(props.columns.primaryValue.formatter(props.data[rowIndex].volume));
       expect(cells).toHaveLength(3);
     });
@@ -148,9 +148,9 @@ describe('<BarChartTable />', () => {
       const cells = tr.find('td');
       expect(cells.at(0).text()).toBe(propsComparison.data[rowIndex].application);
       expect(cells.at(1).text()).toBe(propsComparison.columns.primaryValue.formatter(propsComparison.data[rowIndex].volumeCurrent));
-      expect(cells.at(2).find('.responsiveContainer').exists()).toBe(true);
+      expect(cells.at(2).find('svg').exists()).toBe(true);
       expect(cells.at(3).find('.verticalLine').exists()).toBe(true);
-      expect(cells.at(4).find('.responsiveContainer').exists()).toBe(true);
+      expect(cells.at(4).find('svg').exists()).toBe(true);
       expect(cells.at(5).text()).toBe(propsComparison.columns.secondaryValue.formatter(propsComparison.data[rowIndex].volumePrevious));
     });
   });

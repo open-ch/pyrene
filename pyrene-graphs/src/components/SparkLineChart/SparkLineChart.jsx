@@ -14,9 +14,11 @@ const SparkLineChart = (props) => {
   const areaHeight = 62;
   return (
     <div styleName="container">
-      <div styleName="bigNumber">
-        {!props.loading && props.dataFormat(props.bigNumber)}
-      </div>
+      {!props.loading && (
+        <div styleName="keyFigure">
+          {props.keyFigure}
+        </div>
+      )}
       <div styleName="chart">
         <Responsive>
           {(parent) => (
@@ -61,8 +63,9 @@ const SparkLineChart = (props) => {
 SparkLineChart.displayName = 'Spark Line Chart';
 
 SparkLineChart.defaultProps = {
-  colorScheme: colorSchemes.colorSchemeDefault,
   axisLabel: '',
+  colorScheme: colorSchemes.colorSchemeDefault,
+  keyFigure: '',
   loading: false,
 };
 
@@ -72,23 +75,19 @@ SparkLineChart.propTypes = {
    */
   axisLabel: PropTypes.string,
   /**
-   * Sets the big number.
-   */
-  bigNumber: PropTypes.number.isRequired,
-  /**
    * Sets the colors of the bar chart. Type: { categorical: [ string ] (required) }
    */
   colorScheme: PropTypes.shape({
     valueGround: PropTypes.arrayOf(PropTypes.string).isRequired,
   }),
   /**
-   * Sets the data formatting for the big number.
-   */
-  dataFormat: PropTypes.func.isRequired,
-  /**
    * Sets the data series as an array of data. Each data item contains a timestamp and a value.
    */
   dataSeries: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
+  /**
+   * Sets the key figure.
+   */
+  keyFigure: PropTypes.string,
   /**
     * If set, a loader is shown instead of axis tick labels, grid and bars.
     */
