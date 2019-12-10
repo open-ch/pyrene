@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
+  Circle,
   Responsive,
   SparkLine as SparkLineTT2,
   localPoint,
@@ -67,14 +68,12 @@ const SparkLineSVG = (props) => {
                   width={parent.width}
                 />
                 {tooltipOpen && (
-                  <circle
-                    cx={tooltipData.tooltipLeftCircle}
-                    cy={tooltipData.tooltipTopCircle}
-                    r={3}
-                    fill="white"
-                    stroke="#044ba2"
-                    strokeWidth={2}
-                    style={{ pointerEvents: 'none' }}
+                  <Circle
+                    borderStrokeWidth={2}
+                    colors={{ border: props.colorScheme.valueGround[0], fill: 'white' }}
+                    radius={4}
+                    x={tooltipData.tooltipLeftCircle}
+                    y={tooltipData.tooltipTopCircle}
                   />
                 )}
               </g>
