@@ -4,17 +4,23 @@ import {
   Responsive,
   SparkLine as SparkLineTT2,
   localPoint,
+  scaleUtils,
   withTooltip,
 } from 'tuktuktwo';
 import Tooltip from '../Tooltip/Tooltip';
-import { INDEX_VALUE } from '../../common/graphConstants';
+import { INDEX_VALUE, INDEX_START_TS } from '../../common/graphConstants';
 import colorSchemes from '../../styles/colorSchemes';
 
-const onMouseMove = (event, data, showTooltip, width) => {
+const onMouseMove = (event, data, xScale, showTooltip) => {
   const { x, y } = localPoint(event.target.ownerSVGElement, event);
-  const bandwidth = width / data.length;
-  const index = Math.floor(x / bandwidth);
+  const currentTS = xScale(x);
   
+  // Show normal tooltip
+  // localPoint enables us to have the real-time x-coordinate of the mouse; by using the scale function on the x-coordinate we get a corresponding timestamp;
+  // then, we go through the data series to find the first element with a startTS that's bigger than that timestamp, the element before it is the one that is being hovered on
+  const foundIndex = data.findIndex((d) => d[INDEX_START_TS] > currentTS) - 1;
+  const index = foundIndex >= 0 ? foundIndex : data.length - 1;
+
   showTooltip({
     tooltipLeft: x,
     tooltipTop: y,
@@ -41,12 +47,14 @@ const SparkLineSVG = (props) => {
         const tooltipDataSeries = tooltipData.map((value) => ({
           dataValue: props.dataFormat(value),
         }));
+        const timeStamps = props.dataSeries.map((d) => d[INDEX_START_TS]);
+        const xScale = scaleUtils.scaleCustomLinear(0, parent.width, Math.min(...timeStamps), Math.max(...timeStamps), 'horizontal');
         return (
           <>
             <svg width="100%" height={parent.height} shapeRendering="crispEdges">
               <g
                 className="hoverArea"
-                onMouseMove={(e) => onMouseMove(e, props.dataSeries, showTooltip, parent.width)}
+                onMouseMove={(e) => onMouseMove(e, props.dataSeries, xScale, showTooltip)}
                 onMouseOut={hideTooltip}
               >
                 <SparkLineTT2
