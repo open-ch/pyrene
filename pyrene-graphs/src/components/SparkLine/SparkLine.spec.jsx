@@ -31,10 +31,10 @@ describe('<SparkLine />', () => {
     const hoverArea = rendered.find('.hoverArea');
     hoverArea.simulate('mousemove');
     expect(rendered.find('.vx-tooltip-portal')).toHaveLength(1);
-    expect(rendered.find('.vx-circle')).toHaveLength(1);
+    expect(rendered.find('.vx-circle').props().r).toBe(4);
     hoverArea.simulate('mouseout');
     expect(rendered.find('.vx-tooltip-portal')).toHaveLength(0);
-    expect(rendered.find('.vx-circle')).toHaveLength(0);
+    expect(rendered.find('.vx-circle').props().r).toBe(3);
     
   });
 

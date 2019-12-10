@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { interpolateNumber } from 'd3-interpolate';
 import {
   Circle,
   Responsive,
@@ -11,6 +12,13 @@ import {
 import Tooltip from '../Tooltip/Tooltip';
 import { INDEX_VALUE, INDEX_START_TS } from '../../common/graphConstants';
 import colorSchemes from '../../styles/colorSchemes';
+
+const getYCircleSmall = (values, yScale, width, x) => {
+  if (!width || values.length < 2) return 0;
+  const bandwidth = width / (values.length - 1);
+  const interpolateBetweenLastValues = interpolateNumber(values[values.length - 2], values[values.length - 1]);
+  return yScale.invert(interpolateBetweenLastValues((x / bandwidth) % 1));
+};
 
 const onMouseMove = (event, data, xScale, yScale, width, showTooltip) => {
   const { x, y } = localPoint(event.target.ownerSVGElement, event);
@@ -60,6 +68,9 @@ const SparkLineSVG = (props) => {
         const values = props.dataSeries.map((d) => d[INDEX_VALUE]);
         const xScale = scaleUtils.scaleCustomLinear(0, parent.width, Math.min(...timeStamps), Math.max(...timeStamps), 'horizontal');
         const yScale = scaleUtils.scaleCustomLinear(0, parent.height, Math.min(...values), Math.max(...values), 'vertical');
+        const radiusCircleSmall = 3;
+        const xCircleSmall = parent.width - radiusCircleSmall;
+        const yCircleSmall = getYCircleSmall(values, yScale, parent.width, xCircleSmall);
         return (
           <>
             <svg width="100%" height={parent.height} shapeRendering="crispEdges">
@@ -75,6 +86,15 @@ const SparkLineSVG = (props) => {
                   strokeWidth={1}
                   width={parent.width}
                 />
+                {!tooltipOpen && (
+                  <Circle
+                    borderStrokeWidth={1}
+                    colors={{ border: 'white', fill: props.colorScheme.valueGround[0] }}
+                    radius={radiusCircleSmall}
+                    x={xCircleSmall}
+                    y={yCircleSmall}
+                  />
+                )}
                 {tooltipOpen && (
                   <Circle
                     borderStrokeWidth={2}
