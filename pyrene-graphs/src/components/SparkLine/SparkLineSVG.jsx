@@ -16,9 +16,8 @@ const onMouseMove = (event, data, xScale, yScale, width, showTooltip) => {
   const { x, y } = localPoint(event.target.ownerSVGElement, event);
   const bandwidth = width / (data.length - 1);
   const index = Math.round(x / bandwidth);
-  const currentValue = data[index][INDEX_VALUE];
-
-  showTooltip({
+  const currentValue = index >= 0 && index < data.length && data[index][INDEX_VALUE];
+  const propsTooltip = currentValue ? {
     tooltipLeft: x,
     tooltipTop: y,
     tooltipData: {
@@ -26,7 +25,16 @@ const onMouseMove = (event, data, xScale, yScale, width, showTooltip) => {
       tooltipLeftCircle: xScale.invert(data[index][INDEX_START_TS]),
       tooltipTopCircle: yScale.invert(currentValue),
     },
-  });
+  } : {
+    tooltipLeft: 0,
+    tooltipTop: 0,
+    tooltipData: {
+      data: [],
+      tooltipLeftCircle: 0,
+      tooltipTopCircle: 0,
+    },
+  };
+  showTooltip(propsTooltip);
 };
 
 /**
