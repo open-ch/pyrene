@@ -31,3 +31,7 @@
   padding-left: 24px;
   margin-left: auto;
 }
+
+.dataOnly {
+  font-weight: 500;
+}

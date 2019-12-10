@@ -16,7 +16,7 @@ const TooltipLegendItem = ({ dataValue, dataColor, dataLabel }) => (
     {dataLabel && (
       <div className={styles.dataLabel}>{dataLabel}</div>
     )}
-    <div className={classNames({ [styles.data]: dataColor || dataLabel })}>{dataValue}</div>
+    <div className={classNames({ [styles.data]: dataColor || dataLabel, [styles.dataOnly]: !dataColor && !dataLabel })}>{dataValue}</div>
   </div>
 );
 
