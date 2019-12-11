@@ -5,12 +5,16 @@ import TimeSeriesBucketGraph from './TimeSeriesBucketGraph';
 import timeSeriesData from '../../examples/timeSeriesData';
 import colorSchemes from '../../styles/colorSchemes';
 
+const fulLBucketsSeries = timeSeriesData.genDownloadedVolumes(moment.tz('2019-10-01 00:00', 'Europe/Zurich').valueOf(), moment.tz('2019-10-03 12:00', 'Europe/Zurich').valueOf(), 24);
+const singleBucketSeries = timeSeriesData.genDownloadedVolumes(moment.tz('2019-10-02 00:00', 'Europe/Zurich').valueOf(), moment.tz('2019-10-02 02:00', 'Europe/Zurich').valueOf(), 1);
+const zeroBucketSeries = { label: 'Volume', data: [] };
+
 const props = {
   dataFormat: {
     tooltip: (d) => d,
     yAxis: (d) => d,
   },
-  dataSeries: timeSeriesData.genDownloadedVolumes(moment.tz('2019-10-01 00:00', 'Europe/Zurich').valueOf(), moment.tz('2019-10-03 12:00', 'Europe/Zurich').valueOf(), 24),
+  dataSeries: fulLBucketsSeries,
   description: 'Downloaded volume',
   from: moment.tz('2019-10-01 00:00', 'Europe/Zurich').valueOf(),
   title: 'Volume',
@@ -24,7 +28,7 @@ const propsSingleBar = {
     tooltip: (d) => d,
     yAxis: (d) => d,
   },
-  dataSeries: timeSeriesData.genDownloadedVolumes(moment.tz('2019-10-02 00:00', 'Europe/Zurich').valueOf(), moment.tz('2019-10-02 02:00', 'Europe/Zurich').valueOf(), 1),
+  dataSeries: singleBucketSeries,
   description: 'Downloaded volume',
   from: moment.tz('2019-10-01 00:00', 'Europe/Zurich').valueOf(),
   title: 'Volume',
@@ -38,7 +42,7 @@ const props1 = {
     tooltip: (d) => d,
     yAxis: (d) => d,
   },
-  dataSeries: { label: 'Volume', data: [] },
+  dataSeries: zeroBucketSeries,
   description: 'Downloaded volume',
   from: moment.tz('2019-10-01 00:00', 'Europe/Zurich').valueOf(),
   loading: true,
@@ -53,7 +57,7 @@ const props2 = {
     tooltip: (d) => d,
     yAxis: (d) => d,
   },
-  dataSeries: { label: 'Volume', data: [] },
+  dataSeries: zeroBucketSeries,
   description: 'Downloaded volume',
   error: 'No data is found',
   from: moment.tz('2019-10-01 00:00', 'Europe/Zurich').valueOf(),
@@ -97,6 +101,11 @@ describe('<TimeSeriesBucketGraph />', () => {
     hoverArea.simulate('mousemove');
     expect(rendered.find('.vx-tooltip-portal')).toHaveLength(1);
     hoverArea.simulate('mouseout');
+    expect(rendered.find('.vx-tooltip-portal')).toHaveLength(0);
+
+    // Tooltip does not show when cursor is out of first and last bucket range
+    rendered.setProps({ dataSeries: zeroBucketSeries });
+    hoverArea.simulate('mousemove');
     expect(rendered.find('.vx-tooltip-portal')).toHaveLength(0);
   });
 

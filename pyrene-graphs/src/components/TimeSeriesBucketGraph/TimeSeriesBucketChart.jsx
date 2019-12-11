@@ -29,7 +29,7 @@ let zoomStartX = null;
  * @param {function}xScale - The scale function that linearly maps x-coordinate to timestamp in epoch milliseconds
  * @param {function}showTooltip - The function that passes tooltip position and data to the tooltip component
  */
-const onMouseMove = (event, data, xScale, showTooltip) => {
+const onMouseMove = (event, data, xScale, showTooltip, hideTooltip) => {
   const { x, y } = localPoint(event.target.ownerSVGElement, event);
   const currentTS = xScale(x);
 
@@ -41,6 +41,19 @@ const onMouseMove = (event, data, xScale, showTooltip) => {
       tooltipTop: y - chartConstants.tooltipOffset - chartConstants.zoomTooltipHeight / 2 - 4,
       tooltipData: [startTS, currentTS],
     });
+    return;
+  }
+
+  // No tooltip when there's no bucket
+  if (data.length === 0) {
+    hideTooltip();
+    return;
+  }
+
+  // Hide tooltip if current cursor position is beyond the range of first and last bucket
+  const lastTS = data[data.length - 1][INDEX_START_TS] + (xScale(chartConstants.marginLeftNumerical + chartConstants.barWeight) - xScale.range()[0]); // lastTS should also cover the 10px last bucket
+  if (currentTS > lastTS || currentTS < data[0][INDEX_START_TS]) {
+    hideTooltip();
     return;
   }
 
@@ -158,13 +171,13 @@ const TimeSeriesBucketChart = (props) => {
                 />
                 <g
                   className="hoverArea"
-                  onMouseMove={(e) => onMouseMove(e, props.dataSeries.data, xScale, showTooltip)}
+                  onMouseMove={(e) => onMouseMove(e, props.dataSeries.data, xScale, showTooltip, hideTooltip)}
                   onMouseOut={hideTooltip}
                   onMouseDown={props.zoom ? (e) => onMouseDown(e) : () => {}}
                   onMouseUp={props.zoom ? () => onMouseUp(hideTooltip) : () => {}}
                   onTouchStart={props.zoom ? (e) => onMouseDown(e) : () => {}}
                   onTouchEnd={props.zoom ? () => onMouseUp(hideTooltip) : () => {}}
-                  onTouchMove={(e) => onMouseMove(e, props.dataSeries.data, xScale, showTooltip)}
+                  onTouchMove={(e) => onMouseMove(e, props.dataSeries.data, xScale, showTooltip, hideTooltip)}
                 >
                   {!props.loading && dataInRange.length > 0 && (
                     <Bars
