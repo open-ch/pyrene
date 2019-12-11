@@ -28,6 +28,7 @@ let zoomStartX = null;
  * @param {array}data - The data series with timestamp and value
  * @param {function}xScale - The scale function that linearly maps x-coordinate to timestamp in epoch milliseconds
  * @param {function}showTooltip - The function that passes tooltip position and data to the tooltip component
+ * @param {function}hideTooltip - The function that hides the tooltip
  */
 const onMouseMove = (event, data, xScale, showTooltip, hideTooltip) => {
   const { x, y } = localPoint(event.target.ownerSVGElement, event);
