@@ -63,12 +63,8 @@ export default class TimeRangeSelector extends Component {
     });
   }
 
-  /**
-   * Changes the state of the timerange selector based on the interactions with the navigation bar
-   * @private
-   */
   _onNavigateBack() {
-    this._preserveDurationForNavigation();
+    // Use moment instance to do time subtraction prevents DST problem
     const fromDiff = moment(this.props.from).tz(this.props.timezone).subtract(this.state.durationInMs).valueOf();
     const toDiff = moment(this.props.to).tz(this.props.timezone).subtract(this.state.durationInMs).valueOf();
     const newFrom = Math.max(fromDiff, this.props.lowerBound);
@@ -76,12 +72,8 @@ export default class TimeRangeSelector extends Component {
     return this.props.onChange(newFrom, Math.min(newTo, this.props.upperBound));
   }
 
-  /**
-   * Changes the state of the timerange selector based on the interactions with the navigation bar
-   * @private
-   */
   _onNavigateForward() {
-    this._preserveDurationForNavigation();
+    // Use moment instance to do time addition prevents DST problem
     const toDiff = moment(this.props.to).tz(this.props.timezone).add(this.state.durationInMs).valueOf();
     const fromDiff = moment(this.props.from).tz(this.props.timezone).add(this.state.durationInMs).valueOf();
     const newTo = Math.min(toDiff, this.props.upperBound);
@@ -93,10 +85,14 @@ export default class TimeRangeSelector extends Component {
    * Checks whether the component has a preset timerange selected when navigating; if yes, we should preserve the current durationInMs.
    * @private
    */
-  _preserveDurationForNavigation() {
+  _preserveDurationForNavigation(navigateCallback) {
     const foundTimeRangeType = this.props.presetTimeRanges.find((preset) => preset.durationInMs === this.state.durationInMs);
     if (foundTimeRangeType) {
-      this.setState({ preserveDuration: true });
+      this.setState({ preserveDuration: true }, () => {
+        navigateCallback();
+      });
+    } else {
+      navigateCallback();
     }
   }
 
@@ -123,8 +119,8 @@ export default class TimeRangeSelector extends Component {
             to={this.props.to}
             from={this.props.from}
             lowerBound={this.props.lowerBound}
-            onNavigateBack={this._onNavigateBack}
-            onNavigateForward={this._onNavigateForward}
+            onNavigateBack={() => this._preserveDurationForNavigation(this._onNavigateBack)}
+            onNavigateForward={() => this._preserveDurationForNavigation(this._onNavigateForward)}
             upperBound={this.props.upperBound}
             timezone={this.props.timezone}
           />
