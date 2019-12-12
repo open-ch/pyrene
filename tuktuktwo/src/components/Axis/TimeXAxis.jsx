@@ -14,7 +14,7 @@ const formatTime = (timestamp, props) => (props.showTickLabels ? timeFormat(time
  */
 const TimeXAxis = (props) => {
   const xMax = props.width - props.left;
-  const yMax = props.height - props.marginBottom;
+  const yMax = props.height - chartConstants.marginBottom;
 
   const xScale = scaleTime({
     range: [0, xMax],
@@ -42,10 +42,6 @@ const TimeXAxis = (props) => {
             {formattedValue.value}
           </text>
         )}
-        label={props.label}
-        labelProps={{
-          textAnchor: 'middle', fontSize: 11, fontWeight: 500, fontFamily: 'AvenirNext', fill: props.tickLabelColors[0], dy: '-1.675em', lineHeight: '1.45', letterSpacing: '0.6px',
-        }}
         hideTicks
         hideZero
       />
@@ -67,8 +63,6 @@ const TimeXAxis = (props) => {
 TimeXAxis.displayName = 'TimeXAxis';
 
 TimeXAxis.defaultProps = {
-  label: '',
-  marginBottom: chartConstants.marginBottom,
   left: chartConstants.marginLeftNumerical,
   showGrid: true,
 };
@@ -85,17 +79,9 @@ TimeXAxis.propTypes = {
    */
   height: PropTypes.number.isRequired,
   /**
-   * Sets the axis label.
-   */
-  label: PropTypes.string,
-  /**
    * Sets the horizontal offset for this component.
    */
   left: PropTypes.number,
-  /**
-   * Sets the margin on the bottom.
-   */
-  marginBottom: PropTypes.number,
   /**
    * If set, the grid lines are visible.
    * Type: boolean
