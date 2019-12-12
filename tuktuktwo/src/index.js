@@ -6,6 +6,7 @@ import { default as Bar } from './components/Bar/Bar';
 import { default as Bars } from './components/Bar/Bars';
 import { default as BarStack } from './components/Bar/BarStack';
 import { default as CategoricalAxis } from './components/Axis/CategoricalAxis';
+import { default as Circle } from './components/Circle/Circle';
 import { default as NumericalAxis } from './components/Axis/NumericalAxis';
 import { default as RelativeBar } from './components/Bar/RelativeBar';
 import { default as Responsive } from './components/Misc/Responsive';
@@ -20,6 +21,7 @@ const Components = {
   Bars,
   BarStack,
   CategoricalAxis,
+  Circle,
   NumericalAxis,
   RelativeBar,
   Responsive,
@@ -34,6 +36,7 @@ export { Bar };
 export { Bars };
 export { BarStack };
 export { CategoricalAxis };
+export { Circle };
 export { NumericalAxis };
 export { RelativeBar };
 export { Responsive };

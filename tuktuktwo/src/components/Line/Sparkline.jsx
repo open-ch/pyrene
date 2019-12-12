@@ -13,7 +13,7 @@ const SparkLine = (props) => {
   });
   const yScale = scaleLinear({
     range: [props.height, 0],
-    domain: [0, Math.max(...props.dataSeries.map(y))],
+    domain: [Math.min(...props.dataSeries.map(y)), Math.max(...props.dataSeries.map(y))],
   });
 
   return (
