@@ -25,6 +25,11 @@
     margin-top: 57px;
 }
 
+.sparkLine {
+    position: relative;
+    top: -87px;
+}
+
 .chartOverlay {
     position: relative;
     height: 62px;

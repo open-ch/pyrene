@@ -4,6 +4,7 @@
 // Sort alphabetically to find stuff easily
 import { default as BarChart } from './components/BarChart/BarChart';
 import { default as BarChartTable } from './components/BarChartTable/BarChartTable';
+import { default as SparkLine } from './components/SparkLine/SparkLine';
 import { default as SparkLineChart } from './components/SparkLineChart/SparkLineChart';
 import { default as TimeSeriesBucketGraph } from './components/TimeSeriesBucketGraph/TimeSeriesBucketGraph';
 
@@ -11,6 +12,7 @@ import { default as TimeSeriesBucketGraph } from './components/TimeSeriesBucketG
 const Components = {
   BarChart,
   BarChartTable,
+  SparkLine,
   SparkLineChart,
   TimeSeriesBucketGraph,
 };
@@ -18,6 +20,7 @@ const Components = {
 // Sort alphabetically to find stuff easily
 export { BarChart };
 export { BarChartTable };
+export { SparkLine };
 export { SparkLineChart };
 export { TimeSeriesBucketGraph };
 

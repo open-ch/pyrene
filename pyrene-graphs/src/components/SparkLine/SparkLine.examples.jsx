@@ -19,7 +19,7 @@ const dataFormat = (num) => {
 };
 
 examples.props = {
-  keyFigure: `${(dataSeries.map((d) => d[1]).reduce((a, b) => a + b) / 10000).toFixed(2)} TB`,
+  bigNumber: dataSeries.map((d) => d[1]).reduce((a, b) => a + b),
   dataFormat: (d) => dataFormat(d * 100000000),
   dataSeries: dataSeries,
   axisLabel: 'DOWNLOADED VOLUME LAST 7 DAYS',
