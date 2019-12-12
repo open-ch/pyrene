@@ -15,10 +15,10 @@ const getScale = (scale, minRange, maxRange, direction, maxValue) => {
  * NumericalAxis is used to display a numerical left or bottom axis with a grid.
  */
 const NumericalAxis = (props) => {
+  const yMax = props.height - (props.label !== '' ? 0 : chartConstants.marginBottom);
   if (props.orientation === 'left') {
     const numTicks = 5;
-    const size = props.height - chartConstants.marginBottom;
-    const scale = getScale(props.scale, 0, size, 'vertical', (props.maxValue / (size - chartConstants.marginMaxValueToBorder)) * size);
+    const scale = getScale(props.scale, 0, yMax, 'vertical', (props.maxValue / (yMax - chartConstants.marginMaxValueToBorder)) * yMax);
     const axisTickValues = scale(scale.ticks(numTicks).splice(-1, 1)) <= chartConstants.lastTickValueMarginTop ? scale.ticks(numTicks).slice(0, -1) : scale.ticks(numTicks);
     const gridTickValues = scale(scale.ticks(numTicks).splice(-1, 1)) <= chartConstants.lastGridTickValueMarginTop ? scale.ticks(numTicks).slice(0, -1) : scale.ticks(numTicks);
     return (
@@ -31,6 +31,10 @@ const NumericalAxis = (props) => {
           tickLabelProps={() => ({
             fontSize: 10, fill: props.tickLabelColor, fontFamily: 'AvenirNext', textAnchor: 'start', dy: '0.325em', dx: -props.left,
           })}
+          label={props.label}
+          labelProps={{
+            textAnchor: 'start', fontSize: 11, fontWeight: 500, fontFamily: 'AvenirNext', fill: props.tickLabelColor, dx: '2.25em', lineHeight: '1.45', letterSpacing: '0.6px',
+          }}
           stroke={props.strokeColor}
           tickStroke={props.tickLabelColor}
           tickFormat={props.tickFormat}
@@ -56,12 +60,16 @@ const NumericalAxis = (props) => {
   return (
     <Group>
       <AxisBottom
-        top={props.height - chartConstants.marginBottom}
+        top={yMax}
         scale={scale}
         tickValues={props.showTickLabels ? tickValues : []}
         tickLabelProps={() => ({
           textAnchor: 'middle', fontSize: 10, fontFamily: 'AvenirNext', fill: props.tickLabelColor, dy: '-0.25em',
         })}
+        label={props.label}
+        labelProps={{
+          textAnchor: 'middle', fontSize: 11, fontWeight: 500, fontFamily: 'AvenirNext', fill: props.tickLabelColor, dy: '-1.675em', lineHeight: '1.45', letterSpacing: '0.6px',
+        }}
         stroke={props.strokeColor}
         tickStroke={props.tickLabelColor}
         tickFormat={props.tickFormat}
@@ -73,7 +81,7 @@ const NumericalAxis = (props) => {
           scale={scale}
           stroke={props.strokeColor}
           width={props.width}
-          height={props.height - chartConstants.marginBottom}
+          height={yMax}
           tickValues={tickValues}
         />
       )}
@@ -84,6 +92,7 @@ const NumericalAxis = (props) => {
 NumericalAxis.displayName = 'Numerical Axis';
 
 NumericalAxis.defaultProps = {
+  label: '',
   scale: undefined,
   showGrid: true,
   showTickLabels: true,
@@ -96,6 +105,10 @@ NumericalAxis.propTypes = {
    * Type: number (required)
    */
   height: PropTypes.number.isRequired,
+  /**
+   * Sets the axis label.
+   */
+  label: PropTypes.string,
   /**
    * Sets the horizontal offset for this component.
    */
