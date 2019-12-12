@@ -21,20 +21,22 @@ describe('<SparkLine />', () => {
 
     // Line
     expect(rendered.find('.vx-linepath')).toHaveLength(1);
-    expect(rendered.find('.vx-linepath').at(0).props().stroke).toBe(colorSchemes.colorSchemeDefault.valueGround[0]);
+    expect(rendered.find('.vx-linepath').at(0).props().stroke).toBe(colorSchemes.colorSchemeDefault.valueGroundLight[0]);
 
     // Area
     expect(rendered.find('.vx-area-closed')).toHaveLength(1);
-    expect(rendered.find('.vx-area-closed').at(0).props().fill).toBe(colorSchemes.colorSchemeDefault.valueGround[1]);
+    expect(rendered.find('.vx-area-closed').at(0).props().fill).toBe(colorSchemes.colorSchemeDefault.valueGroundLight[1]);
 
     // Tooltip
     const hoverArea = rendered.find('.hoverArea');
     hoverArea.simulate('mousemove');
     expect(rendered.find('.vx-tooltip-portal')).toHaveLength(1);
-    expect(rendered.find('.vx-circle').props().r).toBe(4);
+    expect(rendered.find('.vx-circle').props().fill).toBe('white');
+    expect(rendered.find('.vx-circle').props().stroke).toBe(colorSchemes.colorSchemeDefault.valueGroundLight[0]);
     hoverArea.simulate('mouseout');
     expect(rendered.find('.vx-tooltip-portal')).toHaveLength(0);
-    expect(rendered.find('.vx-circle').props().r).toBe(3);
+    expect(rendered.find('.vx-circle').props().stroke).toBe('white');
+    expect(rendered.find('.vx-circle').props().fill).toBe(colorSchemes.colorSchemeDefault.valueGroundLight[0]);
     
   });
 
