@@ -8,6 +8,7 @@ import {
   Responsive,
   scaleUtils,
   TimeXAxis,
+  VerticalLine,
   withTooltip,
 } from 'tuktuktwo';
 import Tooltip from '../Tooltip/Tooltip';
@@ -119,6 +120,14 @@ const TimeSeriesLineChartSVG = (props) => {
                       strokeWidth={2}
                       width={parent.width}
                       alignScaleWithLeftAxis
+                    />
+                  )}
+                  {tooltipOpen && (
+                    <VerticalLine
+                      color={colorConstants.lineColor}
+                      height={parent.height}
+                      left={tooltipLeft}
+                      strokeWidth={1}
                     />
                   )}
                 </g>
