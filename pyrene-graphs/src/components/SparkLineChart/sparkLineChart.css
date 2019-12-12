@@ -21,6 +21,10 @@
     height: 87px;
 }
 
+.chartLoading {
+    margin-top: 57px;
+}
+
 .chartOverlay {
     position: relative;
     height: 62px;

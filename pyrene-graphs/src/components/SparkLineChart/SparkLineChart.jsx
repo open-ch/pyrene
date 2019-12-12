@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import { Loader } from 'pyrene';
-import { SparkLine, TimeXAxis, Responsive } from 'tuktuktwo';
+import { NumericalAxis, SparkLine, Responsive } from 'tuktuktwo';
 import ChartOverlay from '../ChartOverlay/ChartOverlay';
 import colorConstants from '../../styles/colorConstants';
 import colorSchemes from '../../styles/colorSchemes';
@@ -19,7 +20,7 @@ const SparkLineChart = (props) => {
           {props.keyFigure}
         </div>
       )}
-      <div styleName="chart">
+      <div styleName={classNames('chart', { chartLoading: props.loading })}>
         <Responsive>
           {(parent) => (
             <svg width="100%" height={parent.height} shapeRendering="crispEdges">
@@ -32,18 +33,17 @@ const SparkLineChart = (props) => {
                   width={parent.width}
                 />
               )}
-              <TimeXAxis
-                from={props.dataSeries[0][0]}
-                to={props.dataSeries.slice(-1)[0].slice(-1)[0]}
+              <NumericalAxis
                 width={parent.width}
                 height={areaHeight}
                 strokeColor={colorConstants.strokeColor}
-                tickLabelColors={[colorConstants.tickLabelColor, colorConstants.tickLabelColorDark]}
-                timezone={props.timezone}
+                tickLabelColor={colorConstants.tickLabelColor}
                 showTickLabels={false}
+                showGrid={false}
                 label={props.axisLabel}
-                marginBottom={0}
                 left={0}
+                maxValue={0}
+                orientation="bottom"
               />
             </svg>
           )}
@@ -92,10 +92,6 @@ SparkLineChart.propTypes = {
     * If set, a loader is shown instead of axis tick labels, grid and bars.
     */
   loading: PropTypes.bool,
-  /**
-   * Sets the timezone for the x-axis.
-   */
-  timezone: PropTypes.string.isRequired,
 };
 
 export default SparkLineChart;
