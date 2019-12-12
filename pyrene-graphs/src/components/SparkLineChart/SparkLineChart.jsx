@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import { Loader } from 'pyrene';
 import { NumericalAxis, SparkLine, Responsive } from 'tuktuktwo';
 import ChartOverlay from '../ChartOverlay/ChartOverlay';
@@ -19,7 +20,7 @@ const SparkLineChart = (props) => {
           {props.keyFigure}
         </div>
       )}
-      <div styleName="chart">
+      <div styleName={classNames('chart', { chartLoading: props.loading })}>
         <Responsive>
           {(parent) => (
             <svg width="100%" height={parent.height} shapeRendering="crispEdges">
