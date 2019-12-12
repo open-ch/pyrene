@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import { Popover, SimpleTable } from 'pyrene';
 import { Responsive } from 'tuktuktwo';
 import Header from '../Header/Header';
@@ -73,7 +72,7 @@ export default class BarChartTable extends React.Component {
                      <div styleName="popOverHeader">
                        {this.props.title}
                      </div>
-                     <div styleName={classNames('popOverTable', { popOverTableWithScrollbar: (displayedRows + popOverAdditionalRows) < sortedData.length })} style={{ height: `${(displayedRows + popOverAdditionalRows) * rowHeight + rowHeight}px` }}>
+                     <div styleName="popOverTable" style={{ height: `${(displayedRows + popOverAdditionalRows) * rowHeight + rowHeight}px` }}>
                        <SimpleTable
                          columns={getColumns({ props: this.props, colors: colors })}
                          data={sortedData}

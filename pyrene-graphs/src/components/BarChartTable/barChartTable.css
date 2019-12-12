@@ -28,11 +28,12 @@
 }
 
 .popOverContainer {
-  padding: 24px;
-  width: 400px;
+  width: 448px;
+  padding: 24px 0 24px 24px;
 }
 
 .popOverHeader {
+  padding-right: 24px;
   display: flex;
   flex-direction: row;
   font-size: 14px;
@@ -44,16 +45,6 @@
 }
 
 .popOverTable {
-  position: absolute;
-  bottom: 24px;
-  top: 56px; /* 24px padding + 32px Popover header */
-  left: 24px;
-  right: 24px;
-  overflow-y: hidden;
-}
-
-.popOverTableWithScrollbar {
-  right: 0px; /* padding is applied seperately because of the scrollbar */
-  padding-right: 10px;
+  padding-right: 24px;
   overflow-y: auto;
 }
