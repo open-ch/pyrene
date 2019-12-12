@@ -97,9 +97,9 @@ const SparkLineSVG = (props) => {
                 )}
                 {tooltipOpen && (
                   <Circle
-                    borderStrokeWidth={2}
+                    borderStrokeWidth={1.5}
                     colors={{ border: props.colorScheme.valueGround[0], fill: 'white' }}
-                    radius={4}
+                    radius={3}
                     x={tooltipData.tooltipLeftCircle}
                     y={tooltipData.tooltipTopCircle}
                   />
