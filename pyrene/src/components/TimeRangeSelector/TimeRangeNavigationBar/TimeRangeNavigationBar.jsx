@@ -6,49 +6,32 @@ import TRSStepper from './Components/TRSStepper';
 
 import './timeRangeNavigationBar.css';
 
-const TimeRangeNavigationBar = (props) => (
-  <div styleName="timeRangeNavigationBar">
-    <TRSStepper
-      direction="left"
-      disabled={
-        props.disabled
-      }
-      inactive={
-        moment(props.from).tz(props.timezone).diff(moment(props.lowerBound).tz(props.timezone), 'minutes') <= 0 // We should not check for milliseconds but minutes changes
-      }
-      onClick={() => {
-        const durationInMs = props.durationInMs;
-        const fromDiff = moment(props.from).tz(props.timezone).subtract(durationInMs).valueOf();
-        const toDiff = moment(props.to).tz(props.timezone).subtract(durationInMs).valueOf();
-        const newFrom = Math.max(fromDiff, props.lowerBound);
-        const newTo = moment(toDiff).tz(props.timezone).subtract(newFrom).valueOf() < durationInMs ? moment(newFrom).tz(props.timezone).add(durationInMs).valueOf() : toDiff; // Keep the selected timespan duration if we reach a bound
-        props.onNavigate(newFrom, Math.min(newTo, props.upperBound));
-      }}
-    />
-    <div styleName="navigationContentOuter">
-      <div styleName="navigationContentInner">
-        {TimeRangeNavigationBar.renderCurrentTimeRange(props)}
+const TimeRangeNavigationBar = (props) => {
+  const backInactive = moment(props.from).tz(props.timezone).diff(moment(props.lowerBound).tz(props.timezone), 'minutes') <= 0; // We should not check for milliseconds but minutes changes
+  const forwardInactive = moment(props.to).tz(props.timezone).diff(moment(props.upperBound).tz(props.timezone), 'minutes').valueOf() >= 0; // We should not check for milliseconds but minutes changes
+
+  return (
+    <div styleName="timeRangeNavigationBar">
+      <TRSStepper
+        direction="left"
+        disabled={props.disabled}
+        inactive={backInactive}
+        onClick={(props.disabled || backInactive )? () => {} : props.onNavigateBack}
+      />
+      <div styleName="navigationContentOuter">
+        <div styleName="navigationContentInner">
+          {TimeRangeNavigationBar.renderCurrentTimeRange(props)}
+        </div>
       </div>
+      <TRSStepper
+        direction="right"
+        disabled={props.disabled}
+        inactive={forwardInactive}
+        onClick={(props.disabled || forwardInactive) ? () => {} : props.onNavigateForward}
+      />
     </div>
-    <TRSStepper
-      direction="right"
-      disabled={
-        props.disabled
-      }
-      inactive={
-        moment(props.to).tz(props.timezone).diff(moment(props.upperBound).tz(props.timezone), 'minutes').valueOf() >= 0 // We should not check for milliseconds but minutes changes
-      }
-      onClick={() => {
-        const durationInMs = props.durationInMs;
-        const toDiff = moment(props.to).tz(props.timezone).add(durationInMs).valueOf();
-        const fromDiff = moment(props.from).tz(props.timezone).add(durationInMs).valueOf();
-        const newTo = Math.min(toDiff, props.upperBound);
-        const newFrom = moment(newTo).tz(props.timezone).subtract(fromDiff).valueOf() < durationInMs ? moment(newTo).tz(props.timezone).subtract(durationInMs).valueOf() : fromDiff; // Keep the selected timespan duration if we reach a bound
-        props.onNavigate(Math.max(newFrom, props.lowerBound), newTo);
-      }}
-    />
-  </div>
-);
+  );
+};
 
 /* eslint-disable-next-line react/display-name */
 TimeRangeNavigationBar.renderCurrentTimeRange = (currProps) => {
@@ -67,10 +50,10 @@ TimeRangeNavigationBar.defaultProps = {
 
 TimeRangeNavigationBar.propTypes = {
   disabled: PropTypes.bool,
-  durationInMs: PropTypes.number.isRequired,
   from: PropTypes.number.isRequired,
   lowerBound: PropTypes.number.isRequired,
-  onNavigate: PropTypes.func.isRequired,
+  onNavigateBack: PropTypes.func.isRequired,
+  onNavigateForward: PropTypes.func.isRequired,
   timezone: PropTypes.string.isRequired,
   to: PropTypes.number.isRequired,
   upperBound: PropTypes.number.isRequired,
