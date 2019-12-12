@@ -43,12 +43,18 @@
   color: var(--text);
 }
 
-.popOverTable {
-  position: absolute;
-  bottom: 24px;
-  top: 56px; /* 24px padding + 32px Popover header */
-  left: 24px;
-  right: 0px; /* padding is applied seperately because of the scrollbar */
-  padding-right: 10px;
+.popOverBody {
+  width: 424px;
   overflow-y: auto;
+}
+
+.tableContainer {
+  position: relative;
+  width: 400px;
+  left: 0;
+  overflow-y: auto;
+}
+
+.bannerContainer {
+  margin-top: 16px;
 }

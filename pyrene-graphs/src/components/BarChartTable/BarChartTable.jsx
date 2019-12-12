@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Popover, SimpleTable } from 'pyrene';
+import { Banner, Popover, SimpleTable } from 'pyrene';
 import { Responsive } from 'tuktuktwo';
 import Header from '../Header/Header';
 import { getValueWithAccessor, getColumns, getLegend } from './BarChartTableUtils';
@@ -58,7 +58,7 @@ export default class BarChartTable extends React.Component {
          </div>
          {(this.props.data.length > displayedRows) && !this.props.loading && (
            <div styleName="showMoreLink" onClick={this.togglePopover}>
-             {`Show all (${sortedData.length})`}
+             {`Show more (${sortedData.length})`}
              {this.state.showPopover && (
                <Popover
                  align="center"
@@ -70,12 +70,19 @@ export default class BarChartTable extends React.Component {
                      <div styleName="popOverHeader">
                        {this.props.title}
                      </div>
-                     <div styleName="popOverTable" style={{ height: `${(displayedRows + 5) * 32 + 32}px` }}>
-                       <SimpleTable
-                         columns={getColumns({ props: this.props, colors: colors })}
-                         data={sortedData}
-                         onRowDoubleClick={this.props.onRowDoubleClick}
-                       />
+                     <div styleName="popOverBody" style={{ height: `${(displayedRows + 5) * 32 + 32}px` }}>
+                       <div styleName="tableContainer">
+                         <SimpleTable
+                           columns={getColumns({ props: this.props, colors: colors })}
+                           data={sortedData}
+                           onRowDoubleClick={this.props.onRowDoubleClick}
+                         />
+                       </div>
+                       {this.props.popoverMessage && (
+                         <div styleName="bannerContainer">
+                           <Banner type={this.props.popoverMessage.type} label={this.props.popoverMessage.message} styling="inline" />
+                         </div>
+                       )}
                      </div>
                    </div>
                  )}
@@ -100,6 +107,7 @@ BarChartTable.defaultProps = {
   displayedRows: 10,
   loading: false,
   onRowDoubleClick: () => {},
+  popoverMessage: undefined,
   type: 'bar',
 };
 
@@ -173,6 +181,13 @@ BarChartTable.propTypes = {
    * Called when the user double clicks on a row.
    */
   onRowDoubleClick: PropTypes.func,
+  /**
+   * An additional message attached to the bottom of the popover.
+   */
+  popoverMessage: PropTypes.shape({
+    message: PropTypes.string,
+    type: PropTypes.string,
+  }),
   /**
    * Sets the title.
    */
