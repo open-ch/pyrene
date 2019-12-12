@@ -4,7 +4,7 @@ import { Circle } from '@vx/shape';
 
 const SparkLine = (props) => (
   // shapeRendering="auto" to have nicer lines
-  <svg shapeRendering="auto">
+  <svg shapeRendering="auto" overflow="visible">
     <Circle
       cx={props.x}
       cy={props.y}
