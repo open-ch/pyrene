@@ -13,7 +13,7 @@ const formatTime = (timestamp, props) => (props.showTickLabels ? timeFormat(time
  * TimeXAxis is the x axis for Time Series graphs.
  */
 const TimeXAxis = (props) => {
-  const xMax = props.width - props.left;
+  const xMax = props.width - chartConstants.marginLeftNumerical;
   const yMax = props.height - chartConstants.marginBottom;
 
   const xScale = scaleTime({
@@ -22,7 +22,7 @@ const TimeXAxis = (props) => {
   });
 
   return (
-    <Group top={0} left={props.left}>
+    <Group top={0} left={chartConstants.marginLeftNumerical}>
       <AxisBottom
         top={yMax}
         left={0}
@@ -63,7 +63,6 @@ const TimeXAxis = (props) => {
 TimeXAxis.displayName = 'TimeXAxis';
 
 TimeXAxis.defaultProps = {
-  left: chartConstants.marginLeftNumerical,
   showGrid: true,
 };
 
@@ -78,10 +77,6 @@ TimeXAxis.propTypes = {
    * Type: number (required)
    */
   height: PropTypes.number.isRequired,
-  /**
-   * Sets the horizontal offset for this component.
-   */
-  left: PropTypes.number,
   /**
    * If set, the grid lines are visible.
    * Type: boolean
