@@ -15,10 +15,10 @@ const getScale = (scale, minRange, maxRange, direction, maxValue) => {
  * NumericalAxis is used to display a numerical left or bottom axis with a grid.
  */
 const NumericalAxis = (props) => {
+  const yMax = props.height - (props.label !== '' ? 0 : chartConstants.marginBottom);
   if (props.orientation === 'left') {
     const numTicks = 5;
-    const size = props.height - props.marginBottom;
-    const scale = getScale(props.scale, 0, size, 'vertical', (props.maxValue / (size - chartConstants.marginMaxValueToBorder)) * size);
+    const scale = getScale(props.scale, 0, yMax, 'vertical', (props.maxValue / (yMax - chartConstants.marginMaxValueToBorder)) * yMax);
     const axisTickValues = scale(scale.ticks(numTicks).splice(-1, 1)) <= chartConstants.lastTickValueMarginTop ? scale.ticks(numTicks).slice(0, -1) : scale.ticks(numTicks);
     const gridTickValues = scale(scale.ticks(numTicks).splice(-1, 1)) <= chartConstants.lastGridTickValueMarginTop ? scale.ticks(numTicks).slice(0, -1) : scale.ticks(numTicks);
     return (
@@ -60,7 +60,7 @@ const NumericalAxis = (props) => {
   return (
     <Group>
       <AxisBottom
-        top={props.height - props.marginBottom}
+        top={yMax}
         scale={scale}
         tickValues={props.showTickLabels ? tickValues : []}
         tickLabelProps={() => ({
@@ -81,7 +81,7 @@ const NumericalAxis = (props) => {
           scale={scale}
           stroke={props.strokeColor}
           width={props.width}
-          height={props.height - props.marginBottom}
+          height={yMax}
           tickValues={tickValues}
         />
       )}
@@ -93,7 +93,6 @@ NumericalAxis.displayName = 'Numerical Axis';
 
 NumericalAxis.defaultProps = {
   label: '',
-  marginBottom: chartConstants.marginBottom,
   scale: undefined,
   showGrid: true,
   showTickLabels: true,
@@ -114,10 +113,6 @@ NumericalAxis.propTypes = {
    * Sets the horizontal offset for this component.
    */
   left: PropTypes.number.isRequired,
-  /**
-   * Sets the margin on the bottom.
-   */
-  marginBottom: PropTypes.number,
   /**
    * Sets the maxValue, which is used to scale the axis.
    */
