@@ -80,7 +80,7 @@ const SparkLineSVG = (props) => {
                 onMouseOut={hideTooltip}
               >
                 <SparkLineTT2
-                  colors={props.colorScheme.valueGround}
+                  colors={props.colorScheme.valueGroundLight}
                   dataSeries={props.dataSeries}
                   height={parent.height}
                   strokeWidth={1}
@@ -89,7 +89,7 @@ const SparkLineSVG = (props) => {
                 {!tooltipOpen && (
                   <Circle
                     borderStrokeWidth={1}
-                    colors={{ border: 'white', fill: props.colorScheme.valueGround[0] }}
+                    colors={{ border: 'white', fill: props.colorScheme.valueGroundLight[0] }}
                     radius={radiusCircleSmall}
                     x={xCircleSmall}
                     y={yCircleSmall}
@@ -98,7 +98,7 @@ const SparkLineSVG = (props) => {
                 {tooltipOpen && (
                   <Circle
                     borderStrokeWidth={1.5}
-                    colors={{ border: props.colorScheme.valueGround[0], fill: 'white' }}
+                    colors={{ border: props.colorScheme.valueGroundLight[0], fill: 'white' }}
                     radius={3}
                     x={tooltipData.tooltipLeftCircle}
                     y={tooltipData.tooltipTopCircle}
@@ -140,7 +140,7 @@ SparkLineSVG.propTypes = {
    * Sets the colors of the bar chart. Type: { categorical: [ string ] (required) }
    */
   colorScheme: PropTypes.shape({
-    valueGround: PropTypes.arrayOf(PropTypes.string).isRequired,
+    valueGroundLight: PropTypes.arrayOf(PropTypes.string).isRequired,
   }),
   /**
    * Sets the data formatting functions for the graph, consisting of format function for the y-axis and that for the tooltip.

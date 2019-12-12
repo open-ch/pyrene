@@ -30,7 +30,7 @@ SparkLine.propTypes = {
    * Sets the colors of the bar chart. Type: { categorical: [ string ] (required) }
    */
   colorScheme: PropTypes.shape({
-    valueGround: PropTypes.arrayOf(PropTypes.string).isRequired,
+    valueGroundLight: PropTypes.arrayOf(PropTypes.string).isRequired,
   }),
   /**
    * Sets the data formatting functions for the graph, consisting of format function for the y-axis and that for the tooltip.

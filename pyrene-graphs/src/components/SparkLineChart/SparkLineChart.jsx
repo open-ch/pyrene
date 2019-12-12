@@ -26,7 +26,7 @@ const SparkLineChart = (props) => {
             <svg width="100%" height={parent.height} shapeRendering="crispEdges">
               {!props.loading && (
                 <SparkLine
-                  colors={props.colorScheme.valueGround}
+                  colors={props.colorScheme.valueGroundLight}
                   dataSeries={props.dataSeries}
                   height={areaHeight}
                   strokeWidth={2}
@@ -78,7 +78,7 @@ SparkLineChart.propTypes = {
    * Sets the colors of the bar chart. Type: { categorical: [ string ] (required) }
    */
   colorScheme: PropTypes.shape({
-    valueGround: PropTypes.arrayOf(PropTypes.string).isRequired,
+    valueGroundLight: PropTypes.arrayOf(PropTypes.string).isRequired,
   }),
   /**
    * Sets the data series as an array of data. Each data item contains a timestamp and a value.

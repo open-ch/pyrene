@@ -46,6 +46,10 @@ const colorSchemeDefault = {
     chart1Default,
     chart1Swatch10Default,
   ],
+  valueGroundLight: [
+    chart1Default,
+    chart1Swatch05Default,
+  ],
 };
 
 const colorSchemes = {
