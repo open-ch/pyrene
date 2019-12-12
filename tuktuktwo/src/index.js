@@ -14,6 +14,7 @@ import { default as SparkLine } from './components/Line/SparkLine';
 import { default as TimeSeriesZoomable, minZoomRangeReached, getBoundedZoomInRange } from './components/TimeSeriesZoomable/TimeSeriesZoomable';
 import { default as TimeXAxis } from './components/Axis/TimeXAxis';
 import { default as TooltipWrapper } from './components/Tooltip/TooltipWrapper';
+import { default as VerticalLine } from './components/Line/VerticalLine';
 
 // Sort alphabetically to find stuff easily
 const Components = {
@@ -29,6 +30,7 @@ const Components = {
   TimeSeriesZoomable,
   TimeXAxis,
   TooltipWrapper,
+  VerticalLine,
 };
 
 // Sort alphabetically to find stuff easily
@@ -44,6 +46,7 @@ export { SparkLine };
 export { TimeSeriesZoomable, minZoomRangeReached, getBoundedZoomInRange };
 export { TimeXAxis };
 export { TooltipWrapper };
+export { VerticalLine };
 export { withTooltip } from '@vx/tooltip';
 export { localPoint } from '@vx/event';
 
