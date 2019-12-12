@@ -73,7 +73,7 @@ const SparkLineSVG = (props) => {
         const yCircleSmall = getYCircleSmall(values, yScale, parent.width, xCircleSmall);
         return (
           <>
-            <svg width="100%" height={parent.height} shapeRendering="crispEdges">
+            <svg width="100%" height={parent.height} shapeRendering="crispEdges" overflow="visible">
               <g
                 className="hoverArea"
                 onMouseMove={(e) => onMouseMove(e, props.dataSeries, xScale, yScale, parent.width, showTooltip)}
