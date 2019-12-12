@@ -17,23 +17,23 @@
 }
 
 .chart {
-    margin-top: 17px;
-    height: 87px;
+    margin-top: 18px;
+    height: 86px;
 }
 
 .chartLoading {
-    margin-top: 57px;
+    margin-top: 58px;
 }
 
 .sparkLine {
     position: relative;
-    top: -87px;
+    top: -91px;
 }
 
 .chartOverlay {
     position: relative;
     height: 62px;
     width: 100%;
-    top: -87px;
+    top: -86px;
     left: 0px;
 }
