@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Responsive } from 'tuktuktwo';
 import SparkLineSVG from './SparkLineSVG';
 import colorSchemes from '../../styles/colorSchemes';
 import './sparkLine.css';
@@ -10,11 +11,17 @@ import './sparkLine.css';
 const SparkLine = (props) => (
   <div styleName="container">
     <div styleName="chart">
-      <SparkLineSVG
-        colorScheme={props.colorScheme}
-        dataFormat={props.dataFormat}
-        dataSeries={props.dataSeries}
-      />
+      <Responsive>
+        {(parent) => (
+          <SparkLineSVG
+            colorScheme={props.colorScheme}
+            dataFormat={props.dataFormat}
+            dataSeries={props.dataSeries}
+            height={parent.height}
+            width={parent.width}
+          />
+        )}
+      </Responsive>
     </div>
   </div>
 );
@@ -33,7 +40,7 @@ SparkLine.propTypes = {
     valueGroundLight: PropTypes.arrayOf(PropTypes.string).isRequired,
   }),
   /**
-   * Sets the data formatting functions for the graph, consisting of format function for the y-axis and that for the tooltip.
+   * Sets the data formatting functions for the graph.
    */
   dataFormat: PropTypes.func.isRequired,
   /**
