@@ -116,7 +116,7 @@ const SparkLineSVG = (props) => {
   );
 };
 
-SparkLineSVG.displayName = 'Spark Line';
+SparkLineSVG.displayName = 'Spark Line SVG';
 
 SparkLineSVG.defaultProps = {
   colorScheme: colorSchemes.colorSchemeDefault,
