@@ -41,7 +41,6 @@ const SparkLineChart = (props) => {
                 showTickLabels={false}
                 showGrid={false}
                 label={props.axisLabel}
-                marginBottom={0}
                 left={0}
                 maxValue={0}
                 orientation="bottom"
