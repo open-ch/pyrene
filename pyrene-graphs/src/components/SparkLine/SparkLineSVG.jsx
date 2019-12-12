@@ -65,7 +65,7 @@ const SparkLineSVG = (props) => {
   const xScale = scaleUtils.scaleCustomLinear(0, props.width, Math.min(...timeStamps), Math.max(...timeStamps), 'horizontal');
   const yScale = scaleUtils.scaleCustomLinear(0, props.height, Math.min(...values), Math.max(...values), 'vertical');
   const radiusCircleSmall = 3;
-  const xCircleSmall = props.width - radiusCircleSmall;
+  const xCircleSmall = props.width * 0.999;
   const yCircleSmall = getYCircleSmall(values, yScale, props.width, xCircleSmall);
 
   return (
