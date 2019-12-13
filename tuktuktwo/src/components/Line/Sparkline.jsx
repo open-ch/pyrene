@@ -53,6 +53,8 @@ const SparkLine = (props) => {
 SparkLine.displayName = 'Spark Line';
 
 SparkLine.defaultProps = {
+  alignScaleWithLeftAxis: false,
+  left: 0,
   showArea: true,
   strokeWidth: 1,
 };
@@ -61,7 +63,7 @@ SparkLine.propTypes = {
   /**
    * If set, aligns scale with the NumericalAxis on the left. The maximum value will not reach the top, but canvas height - marginMaxValueToBorder.
    */
-  alignScaleWithLeftAxis: PropTypes.bool.isRequired,
+  alignScaleWithLeftAxis: PropTypes.bool,
   /**
    * Sets the color of line and area. Type: [ string ]
    */
@@ -78,7 +80,7 @@ SparkLine.propTypes = {
   /**
    * Sets the horizontal offset for this component.
    */
-  left: PropTypes.number.isRequired,
+  left: PropTypes.number,
   /**
    * If set, fills the area below the line with the secondary color.
    */
