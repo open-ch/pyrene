@@ -4,6 +4,8 @@
 // Sort alphabetically to find stuff easily
 import { default as BarChart } from '../components/BarChart/BarChart.examples';
 import { default as BarChartTable } from '../components/BarChartTable/BarChartTable.examples';
+import { default as SparkLine } from '../components/SparkLine/SparkLine.examples';
+import { default as SparkLineChart } from '../components/SparkLineChart/SparkLineChart.examples';
 import { default as TimeSeriesBucketGraph } from '../components/TimeSeriesBucketGraph/TimeSeriesBucketGraph.examples';
 
 import {
@@ -22,6 +24,8 @@ import {
 const examples = {
   BarChart,
   BarChartTable,
+  SparkLine,
+  SparkLineChart,
   TimeSeriesBucketGraph,
 };
 

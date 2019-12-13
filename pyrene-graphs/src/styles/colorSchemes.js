@@ -29,6 +29,10 @@ const colorSchemeDefault = {
     chart4Default,
     chart5Default,
   ],
+  comparison: [
+    chart1Default,
+    chart1Swatch40Default,
+  ],
   sequential: [
     chart1Default,
     chart1Swatch80Default,
@@ -38,13 +42,13 @@ const colorSchemeDefault = {
     chart1Swatch10Default,
     chart1Swatch05Default,
   ],
-  comparison: [
-    chart1Default,
-    chart1Swatch40Default,
-  ],
   valueGround: [
     chart1Default,
     chart1Swatch10Default,
+  ],
+  valueGroundLight: [
+    chart1Default,
+    chart1Swatch05Default,
   ],
 };
 

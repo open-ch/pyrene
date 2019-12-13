@@ -8,6 +8,7 @@
   padding: 8px;
   line-height: 18px;
   font-size: 13px;
+  white-space: nowrap;
 }
 
 .dataSeriesLabel {
@@ -29,4 +30,8 @@
 .data {
   padding-left: 24px;
   margin-left: auto;
+}
+
+.dataOnly {
+  font-weight: 500;
 }
