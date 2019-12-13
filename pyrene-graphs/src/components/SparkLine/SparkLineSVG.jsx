@@ -28,7 +28,7 @@ const onMouseMove = (event, data, xScale, yScale, width, showTooltip) => {
     tooltipLeft: x,
     tooltipTop: y,
     tooltipData: {
-      data: [currentValue],
+      data: currentValue,
       tooltipLeftCircle: xScale.invert(data[index][INDEX_START_TS]),
       tooltipTopCircle: yScale.invert(currentValue),
     },
@@ -36,7 +36,7 @@ const onMouseMove = (event, data, xScale, yScale, width, showTooltip) => {
     tooltipLeft: 0,
     tooltipTop: 0,
     tooltipData: {
-      data: [],
+      data: 0,
       tooltipLeftCircle: 0,
       tooltipTopCircle: 0,
     },
@@ -57,9 +57,7 @@ const SparkLineSVG = (props) => {
     tooltipTop,
   } = props;
 
-  const tooltipDataSeries = tooltipData.data.map((value) => ({
-    dataValue: props.dataFormat(value),
-  }));
+  const tooltipDataSeries = [{ dataValue: props.dataFormat(tooltipData.data) }];
   const timeStamps = props.dataSeries.map((d) => d[INDEX_START_TS]);
   const values = props.dataSeries.map((d) => d[INDEX_VALUE]);
   const xScale = scaleUtils.scaleCustomLinear(0, props.width, Math.min(...timeStamps), Math.max(...timeStamps), 'horizontal');
@@ -122,7 +120,7 @@ SparkLineSVG.defaultProps = {
   colorScheme: colorSchemes.colorSchemeDefault,
   strokeWidth: 1,
   tooltipData: {
-    data: [],
+    data: 0,
     tooltipLeftCircle: 0,
     tooltipTopCircle: 0,
   },
@@ -166,7 +164,7 @@ SparkLineSVG.propTypes = {
    * The tooltip data prop provided by the withTooltip enhancer.
    */
   tooltipData: PropTypes.shape({
-    data: PropTypes.arrayOf(PropTypes.number),
+    data: PropTypes.number,
     tooltipLeftCircle: PropTypes.number,
     tooltipTopCircle: PropTypes.number,
   }),
