@@ -16,7 +16,7 @@ const TimeRangeNavigationBar = (props) => {
         direction="left"
         disabled={props.disabled}
         inactive={backInactive}
-        onClick={(props.disabled || backInactive )? () => {} : props.onNavigateBack}
+        onClick={(props.disabled || backInactive) ? () => {} : props.onNavigateBack}
       />
       <div styleName="navigationContentOuter">
         <div styleName="navigationContentInner">
