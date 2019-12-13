@@ -30,7 +30,7 @@
   }
 
   &.style-inline {
-    height: 32px;
+    min-height: 32px;
 
     & .message {
       font-weight: 500;
