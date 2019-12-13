@@ -13,7 +13,7 @@ const SparkLine = (props) => {
       <Group
         top={props.top}
       >
-        {props.showArea && (
+        {Array.isArray(props.colors) && props.colors.length > 1 && (
           <AreaClosed
             data={props.dataSeries}
             x={(d) => props.xScale(x(d))}
@@ -27,7 +27,7 @@ const SparkLine = (props) => {
           data={props.dataSeries}
           x={(d) => props.xScale(x(d))}
           y={(d) => props.yScale(y(d))}
-          stroke={props.colors[0]}
+          stroke={Array.isArray(props.colors) ? props.colors[0] : props.colors}
           strokeWidth={props.strokeWidth}
         />
       </Group>
@@ -38,24 +38,19 @@ const SparkLine = (props) => {
 SparkLine.displayName = 'Spark Line';
 
 SparkLine.defaultProps = {
-  showArea: true,
   strokeWidth: 1,
   top: 0,
 };
 
 SparkLine.propTypes = {
   /**
-   * Sets the color of line and area. Type: [ string ]
+   * Sets the color of line (and area). Type: string | [ string ]
    */
-  colors: PropTypes.arrayOf(PropTypes.string).isRequired,
+  colors: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.string), PropTypes.string]).isRequired,
   /**
    * Sets the data series as an array of data. Each data item contains a timestamp and a value.
    */
   dataSeries: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
-  /**
-   * If set, fills the area below the line with the secondary color.
-   */
-  showArea: PropTypes.bool,
   /**
    * Sets the strokeWidth of the line.
    */
