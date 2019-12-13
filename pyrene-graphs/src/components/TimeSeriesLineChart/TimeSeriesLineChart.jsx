@@ -12,7 +12,7 @@ import './timeSeriesLineChart.css';
  * A line chart for time-data series.
  */
 const TimeSeriesLineChart = (props) => {
-  const dataAvailable = props.dataSeries && props.dataSeries.data && props.dataSeries.data.length > 0;
+  const dataAvailable = props.dataSeries && props.dataSeries[0].data && props.dataSeries[0].data.length > 0;
 
   // Render the header
   const header = (
@@ -63,10 +63,11 @@ TimeSeriesLineChart.displayName = 'Time Series Line Chart';
 
 TimeSeriesLineChart.defaultProps = {
   colorScheme: colorSchemes.colorSchemeDefault,
-  dataSeries: PropTypes.shape({
-    data: [],
-    label: '',
-  }),
+  dataFormat: {
+    tooltip: (d) => d,
+    yAxis: (d) => d,
+  },
+  dataSeries: [],
   description: '',
   error: 'No data available',
   loading: false,
@@ -79,7 +80,7 @@ TimeSeriesLineChart.propTypes = {
    * Sets the color scheme of the bars.
    */
   colorScheme: PropTypes.shape({
-    valueGroundLight: PropTypes.arrayOf(PropTypes.string).isRequired,
+    categorical: PropTypes.arrayOf(PropTypes.string).isRequired,
   }),
   /**
    * Sets the data formatting functions for the graph, consisting of format function for the y-axis and that for the tooltip.
@@ -87,14 +88,14 @@ TimeSeriesLineChart.propTypes = {
   dataFormat: PropTypes.shape({
     tooltip: PropTypes.func,
     yAxis: PropTypes.func,
-  }).isRequired,
+  }),
   /**
-   * Sets the data series. A data series consists of a label and an array of data. Each data item contains a timestamp and a value.
+   * Sets the data series. A data series consists of an array of objects, which consist of a label and an array of data. Each data item contains a timestamp and a value.
    */
-  dataSeries: PropTypes.shape({
+  dataSeries: PropTypes.arrayOf(PropTypes.shape({
     data: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
     label: PropTypes.string.isRequired,
-  }),
+  })),
   /**
    * Sets the description of the graph excluding the unit part.
    */
