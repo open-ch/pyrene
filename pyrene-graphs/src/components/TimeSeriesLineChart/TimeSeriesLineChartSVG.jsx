@@ -11,6 +11,7 @@ import {
   VerticalLine,
   withTooltip,
 } from 'tuktuktwo';
+import ChartArea from '../ChartArea/ChartArea';
 import Tooltip from '../Tooltip/Tooltip';
 import Formats from '../../common/Formats';
 import { INDEX_VALUE, INDEX_START_TS } from '../../common/graphConstants';
@@ -130,6 +131,8 @@ const TimeSeriesLineChartSVG = (props) => {
                       strokeWidth={1}
                     />
                   )}
+                  {/* ChartArea makes sure the outer <g> element where all mouse event listeners are attached always covers the whole chart area so that there is no tooltip flickering issue */}
+                  <ChartArea width={parent.width} height={parent.height} />
                 </g>
               </svg>
               {
