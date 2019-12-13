@@ -40,6 +40,7 @@ SparkLine.displayName = 'Spark Line';
 SparkLine.defaultProps = {
   showArea: true,
   strokeWidth: 1,
+  top: 0,
 };
 
 SparkLine.propTypes = {
@@ -62,7 +63,7 @@ SparkLine.propTypes = {
   /**
    * Sets the vertical offset for this component.
    */
-  top: PropTypes.number.isRequired,
+  top: PropTypes.number,
   /**
    * Sets the scale function for the x axis.
    */
