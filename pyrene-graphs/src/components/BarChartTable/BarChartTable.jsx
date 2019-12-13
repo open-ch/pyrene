@@ -81,7 +81,7 @@ export default class BarChartTable extends React.Component {
                          />
                        </div>
                        {this.props.popoverFooter && (
-                         <div styleName="tailContainer">
+                         <div styleName="footerContainer">
                            {this.props.popoverFooter}
                          </div>
                        )}
