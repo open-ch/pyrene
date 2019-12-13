@@ -112,8 +112,8 @@ describe('<TimeRangeSelector />', () => {
     const upperBound = rendered.props().upperBound;
 
     // We are simulating selecting the 24h preset and going 1 day backwards
-    const preset24Hours = fromMoment.format(dateFormat) + ' - ' + toMoment.format(dateFormat);
-    const timeRange48to24HoursBack = fromMoment.subtract(1, 'days').format(dateFormat) + ' - ' + toMoment.subtract(1, 'days').format(dateFormat);
+    const preset24Hours = `${fromMoment.format(dateFormat)} - ${toMoment.format(dateFormat)}`;
+    const timeRange48to24HoursBack = `${fromMoment.subtract(1, 'days').format(dateFormat)} - ${toMoment.subtract(1, 'days').format(dateFormat)}`;
 
     rendered.find('.presetTimeRange').first().simulate('click');
     rendered.find('TimeRangeNavigationBar').find('button').first().simulate('click');
@@ -126,7 +126,7 @@ describe('<TimeRangeSelector />', () => {
     rendered.find('TimeRangeNavigationBar').find('button').last().simulate('click');
     calculatedValue = rendered.find('.timeRange').render()[0].children[0].data;
     expect(preset24Hours).toBe(calculatedValue);
-    const upperBoundReachedString = initialFromString + ' - ' + moment(upperBound).tz(TIMEZONE).format(dateFormat);
+    const upperBoundReachedString = `${initialFromString} - ${moment(upperBound).tz(TIMEZONE).format(dateFormat)}`;
     expect(calculatedValue).toBe(upperBoundReachedString);
   });
 
@@ -135,7 +135,7 @@ describe('<TimeRangeSelector />', () => {
 
     const upperBound = rendered.props().upperBound;
     const lowerBound = rendered.props().lowerBound;
-    const expectedBounds = moment(lowerBound).tz(TIMEZONE).format(dateFormat) + ' - ' + moment(upperBound).tz(TIMEZONE).format(dateFormat);
+    const expectedBounds = `${moment(lowerBound).tz(TIMEZONE).format(dateFormat)} - ${moment(upperBound).tz(TIMEZONE).format(dateFormat)}`;
 
     rendered.find('.presetTimeRange').last().simulate('click'); // Switching to years, since the lowerbound is just 90 days should not go beyond that
     const calculatedValue = rendered.find('.timeRange').render()[0].children[0].data;
