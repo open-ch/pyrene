@@ -21,6 +21,28 @@ const timeSeriesData = {
     return dataSeries;
   },
 
+  genNSMThreatScores: (from, to, number) => {
+    const dataSeries = [{
+      label: 'low',
+      data: [],
+    }, {
+      label: 'moderate',
+      data: [],
+    }, {
+      label: 'high',
+      data: [],
+    }];
+
+    const timeFrame = (to - from) / number;
+    for (let i = 0; i <= number; i += 1) {
+      dataSeries[0].data.push([from + i * timeFrame, Math.round(Math.random() * 5 + 30)]);
+      dataSeries[1].data.push([from + i * timeFrame, Math.round(Math.random() * 5 + 10)]);
+      dataSeries[2].data.push([from + i * timeFrame, Math.round(Math.random() * 5)]);
+    }
+
+    return dataSeries;
+  },
+
 };
 
 export default timeSeriesData;
