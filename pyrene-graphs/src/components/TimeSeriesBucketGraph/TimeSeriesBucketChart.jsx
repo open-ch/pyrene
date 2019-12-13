@@ -137,9 +137,12 @@ const TimeSeriesBucketChart = (props) => {
           const dataInRange = props.dataSeries.data.filter((data, index) => isDataInTimeRange(data, index, props.dataSeries.data, props.from, props.to));
           const maxValue = Math.max(...dataInRange.map((data) => data[INDEX_VALUE]));
           const barWeightFunction = (index, labels) => {
-            // If there is a single bucket or the bucket is the last bucket, we do not know endTS, just use a default bar weight
-            if (labels.length === 1 || index === labels.length - 1) {
+            // If there is a single bucket, just use a default bar weight
+            if (labels.length === 1) {
               return chartConstants.barWeight;
+            // If it is the last bucket, we do not know its endTS, just use the bar weight of the second last bucket
+            } if (index === labels.length - 1) {
+              return barWeightFunction(index - 1, labels);
             }
             // Calculate the bar weight by applying the scale function on the current time frame defined by the time difference between current startTS and next startTS
             const timeFrame = labels[index + 1] - labels[index];

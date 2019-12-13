@@ -19,7 +19,7 @@ const Formats = {
    */
   timeRangeFormat: (startTS, endTS, timezone, explicit) => {
     if (!endTS) {
-      return `${moment.tz(startTS, timezone).format(TIME_FORMATS.DATETIME)}`;
+      return `${moment.tz(startTS, timezone).format(TIME_FORMATS.DATETIME)} - ...`;
     }
     if (explicit || (moment.tz(startTS, timezone).day() !== moment.tz(endTS, timezone).day())) {
       return `${moment.tz(startTS, timezone).format(TIME_FORMATS.DATETIME)} - ${moment.tz(endTS, timezone).format(TIME_FORMATS.DATETIME)}`;
