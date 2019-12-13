@@ -72,6 +72,7 @@ const zoomOut = (from, to, lowerBound, upperBound, onZoom) => {
 const TimeZoomControls = ({
   from,
   to,
+  hasData,
   minZoomRange,
   disabled,
   lowerBound,
@@ -81,7 +82,7 @@ const TimeZoomControls = ({
   const zoomActions = [
     {
       iconName: 'zoomIn',
-      active: !minZoomRangeReached(from, to, minZoomRange) && !disabled,
+      active: !minZoomRangeReached(from, to, minZoomRange) && !disabled && hasData,
       onClick: () => zoomIn(from, to, minZoomRange, lowerBound, upperBound, onZoom),
     },
     {
@@ -112,6 +113,10 @@ TimeZoomControls.propTypes = {
    * Sets the starting time point of the time range in epoch milliseconds.
    */
   from: PropTypes.number.isRequired,
+  /**
+   * Sets whether the current time range contains data. If not, no further zoom-in is allowed but zoom-out is still possible.
+   */
+  hasData: PropTypes.bool.isRequired,
   /**
    * Sets the lower bound of the zoom component - provided that this graph is a zoomable one, i.e. no more zoom-out is possible when lower bound is reached.
    */
