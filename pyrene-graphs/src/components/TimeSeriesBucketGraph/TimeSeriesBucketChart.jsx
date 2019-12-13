@@ -28,8 +28,9 @@ let zoomStartX = null;
  * @param {array}data - The data series with timestamp and value
  * @param {function}xScale - The scale function that linearly maps x-coordinate to timestamp in epoch milliseconds
  * @param {function}showTooltip - The function that passes tooltip position and data to the tooltip component
+ * @param {function}hideTooltip - The function that hides the tooltip
  */
-const onMouseMove = (event, data, xScale, showTooltip) => {
+const onMouseMove = (event, data, xScale, showTooltip, hideTooltip) => {
   const { x, y } = localPoint(event.target.ownerSVGElement, event);
   const currentTS = xScale(x);
 
@@ -41,6 +42,19 @@ const onMouseMove = (event, data, xScale, showTooltip) => {
       tooltipTop: y - chartConstants.tooltipOffset - chartConstants.zoomTooltipHeight / 2 - 4,
       tooltipData: [startTS, currentTS],
     });
+    return;
+  }
+
+  // No tooltip when there's no bucket
+  if (data.length === 0) {
+    hideTooltip();
+    return;
+  }
+
+  // Hide tooltip if current cursor position is beyond the range of first and last bucket
+  const lastTS = data[data.length - 1][INDEX_START_TS] + (xScale(chartConstants.marginLeftNumerical + chartConstants.barWeight) - xScale.range()[0]); // lastTS should also cover the 10px last bucket
+  if (currentTS > lastTS || currentTS < data[0][INDEX_START_TS]) {
+    hideTooltip();
     return;
   }
 
@@ -123,9 +137,12 @@ const TimeSeriesBucketChart = (props) => {
           const dataInRange = props.dataSeries.data.filter((data, index) => isDataInTimeRange(data, index, props.dataSeries.data, props.from, props.to));
           const maxValue = Math.max(...dataInRange.map((data) => data[INDEX_VALUE]));
           const barWeightFunction = (index, labels) => {
-            // If there is a single bucket or the bucket is the last bucket, we do not know endTS, just use a default bar weight
-            if (labels.length === 1 || index === labels.length - 1) {
+            // If there is a single bucket, just use a default bar weight
+            if (labels.length === 1) {
               return chartConstants.barWeight;
+            // If it is the last bucket, we do not know its endTS, just use the bar weight of the second last bucket
+            } if (index === labels.length - 1) {
+              return barWeightFunction(index - 1, labels);
             }
             // Calculate the bar weight by applying the scale function on the current time frame defined by the time difference between current startTS and next startTS
             const timeFrame = labels[index + 1] - labels[index];
@@ -158,13 +175,13 @@ const TimeSeriesBucketChart = (props) => {
                 />
                 <g
                   className="hoverArea"
-                  onMouseMove={(e) => onMouseMove(e, props.dataSeries.data, xScale, showTooltip)}
+                  onMouseMove={(e) => onMouseMove(e, props.dataSeries.data, xScale, showTooltip, hideTooltip)}
                   onMouseOut={hideTooltip}
                   onMouseDown={props.zoom ? (e) => onMouseDown(e) : () => {}}
                   onMouseUp={props.zoom ? () => onMouseUp(hideTooltip) : () => {}}
                   onTouchStart={props.zoom ? (e) => onMouseDown(e) : () => {}}
                   onTouchEnd={props.zoom ? () => onMouseUp(hideTooltip) : () => {}}
-                  onTouchMove={(e) => onMouseMove(e, props.dataSeries.data, xScale, showTooltip)}
+                  onTouchMove={(e) => onMouseMove(e, props.dataSeries.data, xScale, showTooltip, hideTooltip)}
                 >
                   {!props.loading && dataInRange.length > 0 && (
                     <Bars
