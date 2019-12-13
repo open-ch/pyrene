@@ -44,7 +44,19 @@
   color: var(--text);
 }
 
+.popOverBody {
+ overflow-y: auto;
+}
+
 .popOverTable {
   padding-right: 24px;
   overflow-y: auto;
+}
+
+.tableContainer {
+  width: 424px;
+}
+
+.footerContainer {
+  margin-top: 16px;
 }
