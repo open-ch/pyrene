@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
+  Circle,
   SparkLine,
   chartConstants,
   localPoint,
@@ -19,39 +20,31 @@ import colorSchemes from '../../styles/colorSchemes';
 import colorConstants from '../../styles/colorConstants';
 import './timeSeriesLineChart.css';
 
-/**
- * Get tooltip position and data when mouse is moving over the graph.
- * @param {object}event - The mouseMove event
- * @param {array}data - The data series with timestamp and value
- * @param {function}xScale - The scale function that linearly maps x-coordinate to timestamp in epoch milliseconds
- * @param {function}showTooltip - The function that passes tooltip position and data to the tooltip component
- */
-const onMouseMove = (event, data, xScale, showTooltip) => {
+const onMouseMove = (event, data, xScale, yScale, top, showTooltip) => {
   const { x, y } = localPoint(event.target.ownerSVGElement, event);
-  const currentTS = xScale(x);
-
-  // Show normal tooltip
-  // localPoint enables us to have the real-time x-coordinate of the mouse; by using the scale function on the x-coordinate we get a corresponding timestamp;
-  // then, we go through the data series to find the first element with a startTS that's bigger than that timestamp, the element before it is the one that is being hovered on
+  const currentTS = xScale.invert(x);
   const foundIndex = data.findIndex((d) => d[INDEX_START_TS] > currentTS) - 1;
   const index = foundIndex >= 0 ? foundIndex : data.length - 1;
-  // endTS is the startTS of next bucket; if the current element is the last in the data series, there is no endTS
-  const endTS = (index !== data.length - 1) ? data[index + 1][INDEX_START_TS] : null;
-  showTooltip({
+  const closerIndex = data[index][INDEX_START_TS] + ((data[index + 1][INDEX_START_TS] - data[index][INDEX_START_TS]) / 2) < currentTS ? index + 1 : index;
+  const currentValue = closerIndex >= 0 && closerIndex < data.length && data[closerIndex][INDEX_VALUE];
+  const propsTooltip = currentValue ? {
     tooltipLeft: x,
     tooltipTop: y,
-    tooltipData: [[data[index][INDEX_START_TS], endTS], data[index][INDEX_VALUE]],
-  });
-};
-
-const isDataInTimeRange = (data, index, dataSeries, from, to) => {
-  if (data[0] >= to) {
-    return false;
-  }
-  if (index !== dataSeries.length - 1 && dataSeries[index + 1][INDEX_START_TS] <= from) {
-    return false;
-  }
-  return true;
+    tooltipData: {
+      data: [data[closerIndex][INDEX_START_TS], currentValue],
+      tooltipLeftCircle: xScale(data[closerIndex][INDEX_START_TS]),
+      tooltipTopCircle: yScale(currentValue) + top,
+    },
+  } : {
+    tooltipLeft: 0,
+    tooltipTop: 0,
+    tooltipData: {
+      data: [0, 0],
+      tooltipLeftCircle: 0,
+      tooltipTopCircle: 0,
+    },
+  };
+  showTooltip(propsTooltip);
 };
 
 const getTimeFormat = (timezone, timeFormat) => (timeFormat || ((time) => Formats.timeRangeFormat(time[0], time[1], timezone, false)));
@@ -70,16 +63,23 @@ const TimeSeriesLineChartSVG = (props) => {
   } = props;
 
   const dataAvailable = props.dataSeries && props.dataSeries.data && props.dataSeries.data.length > 0;
-
+  const tooltipDataSeries = [{
+    dataColor: props.colorScheme.valueGroundLight[0],
+    dataLabel: props.dataSeries.label,
+    dataValue: props.dataFormat.tooltip(tooltipData.data[INDEX_VALUE]),
+  }];
+  // Filter out data outside `from` and `to` and get the max value
+  const dataInRange = props.dataSeries.data.filter((d) => d[INDEX_START_TS] >= props.from && d[INDEX_START_TS] <= props.to);
+  const maxValue = Math.max(...dataInRange.map((data) => data[INDEX_VALUE]));
+  const values = props.dataSeries.data.map((d) => d[INDEX_VALUE]);
+  
   return (
     <div styleName="graphContainer">
       <Responsive>
         {(parent) => {
           // Get scale function
-          const xScale = scaleUtils.scaleCustomLinear(chartConstants.marginLeftNumerical, parent.width, props.from, props.to, 'horizontal');
-          // Filter out data outside `from` and `to` and get the max value
-          const dataInRange = props.dataSeries.data.filter((data, index) => isDataInTimeRange(data, index, props.dataSeries.data, props.from, props.to));
-          const maxValue = Math.max(...dataInRange.map((data) => data[INDEX_VALUE]));
+          const xScale = scaleUtils.scaleCustomLinear(props.from, props.to, chartConstants.marginLeftNumerical, parent.width, 'horizontal');
+          const yScale = scaleUtils.scaleCustomLinear(0, Math.max(...values), 0, parent.height - chartConstants.marginBottom - chartConstants.marginMaxValueToBorder, 'vertical');
           return (
             <>
               <svg width="100%" height={parent.height} shapeRendering="crispEdges">
@@ -107,29 +107,37 @@ const TimeSeriesLineChartSVG = (props) => {
                 />
                 <g
                   className="hoverArea"
-                  onMouseMove={(e) => onMouseMove(e, props.dataSeries.data, xScale, showTooltip)}
+                  onMouseMove={(e) => onMouseMove(e, props.dataSeries.data, xScale, yScale, chartConstants.marginMaxValueToBorder, showTooltip)}
                   onMouseOut={hideTooltip}
-                  onTouchMove={(e) => onMouseMove(e, props.dataSeries.data, xScale, showTooltip)}
+                  onTouchMove={(e) => onMouseMove(e, props.dataSeries.data, xScale, yScale, chartConstants.marginMaxValueToBorder, showTooltip)}
                 >
                   {!props.loading && dataInRange.length > 0 && (
                     <SparkLine
                       colors={props.colorScheme.valueGroundLight}
-                      dataSeries={props.dataSeries.data}
-                      left={chartConstants.marginLeftNumerical}
-                      height={parent.height - chartConstants.marginBottom}
+                      dataSeries={dataInRange}
                       showArea={false}
                       strokeWidth={2}
-                      width={parent.width}
-                      alignScaleWithLeftAxis
+                      top={chartConstants.marginMaxValueToBorder}
+                      xScale={xScale}
+                      yScale={yScale}
                     />
                   )}
                   {tooltipOpen && (
-                    <VerticalLine
-                      color={colorConstants.lineColor}
-                      height={parent.height}
-                      left={tooltipLeft}
-                      strokeWidth={1}
-                    />
+                    <g>
+                      <VerticalLine
+                        color={colorConstants.lineColor}
+                        height={parent.height}
+                        left={tooltipData.tooltipLeftCircle}
+                        strokeWidth={1}
+                      />
+                      <Circle
+                        borderStrokeWidth={1.5}
+                        colors={{ border: props.colorScheme.valueGroundLight[0], fill: 'white' }}
+                        radius={3}
+                        x={tooltipData.tooltipLeftCircle}
+                        y={tooltipData.tooltipTopCircle}
+                      />
+                    </g>
                   )}
                   {/* ChartArea makes sure the outer <g> element where all mouse event listeners are attached always covers the whole chart area so that there is no tooltip flickering issue */}
                   <ChartArea width={parent.width} height={parent.height} />
@@ -138,8 +146,8 @@ const TimeSeriesLineChartSVG = (props) => {
               {
                 tooltipOpen && !props.loading && (
                   <Tooltip
-                    dataSeries={[{ dataColor: props.colorScheme.valueGroundLight[0], dataLabel: props.dataSeries.label, dataValue: props.dataFormat.tooltip(tooltipData[1]) }]}
-                    dataSeriesLabel={getTimeFormat(props.timezone, props.timeFormat)(tooltipData[0])}
+                    dataSeries={tooltipDataSeries}
+                    dataSeriesLabel={getTimeFormat(props.timezone, props.timeFormat)([tooltipData.data[INDEX_START_TS]])}
                     left={tooltipLeft} top={tooltipTop}
                   />
                 )
@@ -162,7 +170,11 @@ TimeSeriesLineChartSVG.defaultProps = {
   },
   loading: false,
   timeFormat: undefined,
-  tooltipData: [[0, 0], 0],
+  tooltipData: {
+    data: [0, 0],
+    tooltipLeftCircle: 0,
+    tooltipTopCircle: 0,
+  },
   tooltipLeft: 0,
   tooltipTop: 0,
 };
@@ -219,7 +231,14 @@ TimeSeriesLineChartSVG.propTypes = {
   /**
    * The tooltip data prop provided by the withTooltip enhancer.
    */
-  tooltipData: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.number), PropTypes.number]).isRequired),
+  /**
+   * The tooltip data prop provided by the withTooltip enhancer.
+   */
+  tooltipData: PropTypes.shape({
+    data: PropTypes.arrayOf(PropTypes.number),
+    tooltipLeftCircle: PropTypes.number,
+    tooltipTopCircle: PropTypes.number,
+  }),
   /**
    * The tooltip x-position prop provided by the withTooltip enhancer.
    */
