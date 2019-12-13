@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import styles from './tooltip.css';
 
 /**
@@ -7,22 +8,28 @@ import styles from './tooltip.css';
  */
 const TooltipLegendItem = ({ dataValue, dataColor, dataLabel }) => (
   <div className={styles.dataRow}>
-    <svg height="16" width="16">
-      <circle cx="8" cy="9" r="3.5" stroke="white" strokeWidth="1" fill={dataColor} />
-    </svg>
-    <div className={styles.dataLabel}>{dataLabel}</div>
-    <div className={styles.data}>{dataValue}</div>
+    {dataColor && (
+      <svg height="16" width="16">
+        <circle cx="8" cy="9" r="3.5" stroke="white" strokeWidth="1" fill={dataColor} />
+      </svg>
+    )}
+    {dataLabel && (
+      <div className={styles.dataLabel}>{dataLabel}</div>
+    )}
+    <div className={classNames({ [styles.data]: dataColor || dataLabel, [styles.dataOnly]: !dataColor && !dataLabel })}>{dataValue}</div>
   </div>
 );
 
 TooltipLegendItem.displayName = 'TooltipLegendItem';
 
 TooltipLegendItem.defaultProps = {
+  dataColor: '',
+  dataLabel: '',
 };
 
 TooltipLegendItem.propTypes = {
-  dataColor: PropTypes.string.isRequired,
-  dataLabel: PropTypes.string.isRequired,
+  dataColor: PropTypes.string,
+  dataLabel: PropTypes.string,
   dataValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
 };
 

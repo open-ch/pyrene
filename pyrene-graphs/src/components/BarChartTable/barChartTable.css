@@ -28,11 +28,12 @@
 }
 
 .popOverContainer {
-  padding: 24px;
-  width: 400px;
+  width: 448px;
+  padding: 24px 0 24px 24px;
 }
 
 .popOverHeader {
+  padding-right: 24px;
   display: flex;
   flex-direction: row;
   font-size: 14px;
@@ -44,17 +45,18 @@
 }
 
 .popOverBody {
-  width: 424px;
+ overflow-y: auto;
+}
+
+.popOverTable {
+  padding-right: 24px;
   overflow-y: auto;
 }
 
 .tableContainer {
-  position: relative;
-  width: 400px;
-  left: 0;
-  overflow-y: auto;
+  width: 424px;
 }
 
-.bannerContainer {
+.tailContainer {
   margin-top: 16px;
 }

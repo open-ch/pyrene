@@ -1,0 +1,39 @@
+@import 'pyrene/dist/colors.css';
+
+.container {
+    width: 100%;
+    height: 120px;
+}
+
+.keyFigure {
+    height: 40px;
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 1.67;
+    color: var(--text);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.chart {
+    margin-top: 18px;
+    height: 86px;
+}
+
+.noKeyFigure {
+    margin-top: 58px;
+}
+
+.sparkLine {
+    position: relative;
+    top: -91px;
+}
+
+.chartOverlay {
+    position: relative;
+    height: 62px;
+    width: 100%;
+    top: -86px;
+    left: 0px;
+}
