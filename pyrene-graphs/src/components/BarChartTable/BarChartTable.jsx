@@ -80,9 +80,9 @@ export default class BarChartTable extends React.Component {
                            onRowDoubleClick={this.props.onRowDoubleClick}
                          />
                        </div>
-                       {this.props.popoverTailComponent && (
+                       {this.props.popoverFooter && (
                          <div styleName="tailContainer">
-                           {this.props.popoverTailComponent}
+                           {this.props.popoverFooter}
                          </div>
                        )}
                      </div>
@@ -109,7 +109,7 @@ BarChartTable.defaultProps = {
   displayedRows: 10,
   loading: false,
   onRowDoubleClick: () => {},
-  popoverTailComponent: null,
+  popoverFooter: null,
   type: 'bar',
 };
 
@@ -186,7 +186,7 @@ BarChartTable.propTypes = {
   /**
    * An additional component attached to the bottom of the popover.
    */
-  popoverTailComponent: PropTypes.node,
+  popoverFooter: PropTypes.node,
   /**
    * Sets the title.
    */
