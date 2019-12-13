@@ -10,11 +10,11 @@ const initialDataSeries = timeSeriesData.genNSMThreatScores(initialFrom, initial
 
 examples.props = {
   dataSeries: (stateProvider) => (stateProvider.state.dataSeries ? stateProvider.state.dataSeries : initialDataSeries),
-  description: 'Downloaded volume',
+  description: 'THREAT SCORE',
   error: 'There was an error while loading data.',
   from: (stateProvider) => (stateProvider.state.from ? stateProvider.state.from : initialFrom),
   to: (stateProvider) => (stateProvider.state.to ? stateProvider.state.to : initialTo),
-  title: 'Volume',
+  title: 'Key Indicators Statistics',
   timezone: timezone,
 };
 
