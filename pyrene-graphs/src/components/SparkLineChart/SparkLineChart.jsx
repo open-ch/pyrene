@@ -16,12 +16,12 @@ const SparkLineChart = (props) => {
   const areaHeight = 62;
   return (
     <div styleName="container">
-      {!props.loading && (
+      {!props.loading && (props.keyFigure !== null) && (
         <div styleName="keyFigure">
           {props.keyFigure}
         </div>
       )}
-      <div styleName={classNames('chart', { chartLoading: props.loading })}>
+      <div styleName={classNames('chart', { noKeyFigure: props.loading || props.keyFigure === null })}>
         <Responsive>
           {(parent) => (
             <>
@@ -73,7 +73,7 @@ SparkLineChart.defaultProps = {
   axisLabel: '',
   colorScheme: colorSchemes.colorSchemeDefault,
   dataFormat: (d) => d,
-  keyFigure: '',
+  keyFigure: null,
   loading: false,
   useTooltip: false,
 };

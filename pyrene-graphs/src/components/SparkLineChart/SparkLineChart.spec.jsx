@@ -79,4 +79,12 @@ describe('<SparkLineChart />', () => {
     expect(rendered.find('.vx-circle').props().fill).toBe(colorSchemes.colorSchemeDefault.valueGroundLight[0]);
   });
 
+  it('does not render keyFigure', () => {
+    const rendered = mount(<SparkLineChart {...props} keyFigure={null} />);
+
+    // Header
+    expect(rendered.find('.keyFigure')).toHaveLength(0);
+
+  });
+
 });
