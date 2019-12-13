@@ -14,8 +14,6 @@ const TooltipWrapper = ({
 }) => (
   overflow ? (
     <Tooltip
-      // set this to random so it correctly updates with parent bounds
-      key={Math.random()}
       top={top + chartConstants.tooltipOffset + 5}
       left={left + chartConstants.tooltipOffset}
       // Clear out the stuff vx sets, allowing us to style the children passed in
