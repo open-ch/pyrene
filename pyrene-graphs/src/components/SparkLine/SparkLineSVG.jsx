@@ -16,7 +16,7 @@ const getYCircleSmall = (values, yScale, width, x) => {
   if (!width || values.length < 2) return 0;
   const bandwidth = width / (values.length - 1);
   const interpolateBetweenLastValues = interpolateNumber(values[values.length - 2], values[values.length - 1]);
-  return yScale.invert(interpolateBetweenLastValues((x / bandwidth) % 1));
+  return yScale(interpolateBetweenLastValues((x / bandwidth) % 1));
 };
 
 const onMouseMove = (event, data, xScale, yScale, width, showTooltip) => {
@@ -29,8 +29,8 @@ const onMouseMove = (event, data, xScale, yScale, width, showTooltip) => {
     tooltipTop: y,
     tooltipData: {
       data: currentValue,
-      tooltipLeftCircle: xScale.invert(data[index][INDEX_START_TS]),
-      tooltipTopCircle: yScale.invert(currentValue),
+      tooltipLeftCircle: xScale(data[index][INDEX_START_TS]),
+      tooltipTopCircle: yScale(currentValue),
     },
   } : {
     tooltipLeft: 0,
@@ -60,8 +60,8 @@ const SparkLineSVG = (props) => {
   const tooltipDataSeries = [{ dataValue: props.dataFormat(tooltipData.data) }];
   const timeStamps = props.dataSeries.map((d) => d[INDEX_START_TS]);
   const values = props.dataSeries.map((d) => d[INDEX_VALUE]);
-  const xScale = scaleUtils.scaleCustomLinear(0, props.width, Math.min(...timeStamps), Math.max(...timeStamps), 'horizontal');
-  const yScale = scaleUtils.scaleCustomLinear(0, props.height, Math.min(...values), Math.max(...values), 'vertical');
+  const xScale = scaleUtils.scaleCustomLinear(Math.min(...timeStamps), Math.max(...timeStamps), 0, props.width, 'horizontal');
+  const yScale = scaleUtils.scaleCustomLinear(Math.min(...values), Math.max(...values), 0, props.height, 'vertical');
   const radiusCircleSmall = 3;
   const xCircleSmall = props.width * 0.999;
   const yCircleSmall = getYCircleSmall(values, yScale, props.width, xCircleSmall);
@@ -77,9 +77,9 @@ const SparkLineSVG = (props) => {
           <SparkLineTT2
             colors={props.colorScheme.valueGroundLight}
             dataSeries={props.dataSeries}
-            height={props.height}
             strokeWidth={props.strokeWidth}
-            width={props.width}
+            xScale={xScale}
+            yScale={yScale}
           />
           {props.useTooltip && !tooltipOpen && (
             <Circle

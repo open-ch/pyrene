@@ -31,11 +31,11 @@ let zoomStartX = null;
  */
 const onMouseMove = (event, data, xScale, showTooltip) => {
   const { x, y } = localPoint(event.target.ownerSVGElement, event);
-  const currentTS = xScale(x);
+  const currentTS = xScale.invert(x);
 
   // Show zoom tooltip
   if (zoomStartX) {
-    const startTS = xScale(zoomStartX);
+    const startTS = xScale.invert(zoomStartX);
     showTooltip({
       tooltipLeft: x,
       tooltipTop: y - chartConstants.tooltipOffset - chartConstants.zoomTooltipHeight / 2 - 4,
@@ -118,7 +118,7 @@ const TimeSeriesBucketChart = (props) => {
       <Responsive>
         {(parent) => {
           // Get scale function
-          const xScale = scaleUtils.scaleCustomLinear(chartConstants.marginLeftNumerical, parent.width, props.from, props.to, 'horizontal');
+          const xScale = scaleUtils.scaleCustomLinear(props.from, props.to, chartConstants.marginLeftNumerical, parent.width, 'horizontal');
           // Filter out data outside `from` and `to` and get the max value
           const dataInRange = props.dataSeries.data.filter((data, index) => isDataInTimeRange(data, index, props.dataSeries.data, props.from, props.to));
           const maxValue = Math.max(...dataInRange.map((data) => data[INDEX_VALUE]));
@@ -129,7 +129,7 @@ const TimeSeriesBucketChart = (props) => {
             }
             // Calculate the bar weight by applying the scale function on the current time frame defined by the time difference between current startTS and next startTS
             const timeFrame = labels[index + 1] - labels[index];
-            return xScale.invert(props.from + timeFrame) - chartConstants.marginLeftNumerical - chartConstants.barSpacing;
+            return xScale(props.from + timeFrame) - chartConstants.marginLeftNumerical - chartConstants.barSpacing;
           };
           return (
             <>
@@ -173,7 +173,7 @@ const TimeSeriesBucketChart = (props) => {
                       direction="vertical"
                       height={parent.height}
                       labels={dataInRange.map((d) => d[INDEX_START_TS])}
-                      labelScale={xScale.invert}
+                      labelScale={xScale}
                       left={chartConstants.marginLeftNumerical}
                       maxValue={maxValue}
                       values={dataInRange.map((d) => d[INDEX_VALUE])}
