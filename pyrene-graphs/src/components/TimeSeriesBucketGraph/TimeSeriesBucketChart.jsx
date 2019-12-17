@@ -124,7 +124,7 @@ const TimeSeriesBucketChart = (props) => {
             from={props.from}
             to={props.to}
             disabled={props.loading}
-            hasData={dataInRange.length > 0}
+            zoomInDisabled={!dataInRange.length}
             lowerBound={props.zoom.lowerBound}
             upperBound={props.zoom.upperBound}
             minZoomRange={props.zoom.minZoomRange}
