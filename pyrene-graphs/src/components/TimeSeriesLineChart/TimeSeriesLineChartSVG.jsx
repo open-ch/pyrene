@@ -58,7 +58,7 @@ const TimeSeriesLineChartSVG = (props) => {
     tooltipTop,
   } = props;
 
-  const dataAvailable = props.dataSeries && props.dataSeries[0].data && props.dataSeries[0].data.length > 0;
+  const dataAvailable = !!(props.dataSeries && props.dataSeries[0] && props.dataSeries[0].data && props.dataSeries[0].data.length > 0);
   const tooltipDataSeries = tooltipData.map((d, i) => ({
     dataColor: props.colorScheme.categorical[i],
     dataLabel: d.label,

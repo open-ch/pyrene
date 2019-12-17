@@ -12,7 +12,7 @@ import './timeSeriesLineChart.css';
  * A line chart for time-data series.
  */
 const TimeSeriesLineChart = (props) => {
-  const dataAvailable = props.dataSeries && props.dataSeries[0].data && props.dataSeries[0].data.length > 0;
+  const dataAvailable = props.dataSeries && props.dataSeries[0] && props.dataSeries[0].data && props.dataSeries[0].data.length > 0;
 
   // Render the header
   const header = (
