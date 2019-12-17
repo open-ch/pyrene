@@ -24,7 +24,7 @@ const boundsReached = (from, to, lowerBound, upperBound) => from <= lowerBound &
  */
 const zoomIn = (from, to, minZoomRange, lowerBound, upperBound, onZoom) => {
   const zoomStep = (to - from) * 0.25;
-  const timeShift = Math.floor(zoomStep / 2);
+  const timeShift = zoomStep / 2;
 
   // Make sure zoom does not exceed bounds
   const boundedTimeRange = getBoundedZoomInRange(from + timeShift, to - timeShift, minZoomRange, lowerBound, upperBound);
@@ -52,15 +52,15 @@ const zoomOut = (from, to, lowerBound, upperBound, onZoom) => {
     const lowerBoundOverflow = lowerBound - (from - timeShift);
     newFrom = lowerBound;
     // If only less than 12.5% is zoomed out on the `from` side, try to compensate that on the `to` side
-    newTo = Math.min(upperBound, Math.ceil(newTo + lowerBoundOverflow));
+    newTo = Math.min(upperBound, newTo + lowerBoundOverflow);
   } else if (newTo > upperBound) {
     newTo = upperBound;
     const upperBoundOverflow = to + timeShift - upperBound;
     // If only less than 12.5% is zoomed out on the `to` side, try to compensate that on the `from` side
-    newFrom = Math.max(lowerBound, Math.floor(newFrom - upperBoundOverflow));
+    newFrom = Math.max(lowerBound, newFrom - upperBoundOverflow);
   }
 
-  onZoom(newFrom, newTo);
+  onZoom(Math.ceil(newFrom), Math.floor(newTo));
 };
 
 /**
