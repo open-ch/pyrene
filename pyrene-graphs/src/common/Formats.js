@@ -35,6 +35,16 @@ const Formats = {
    * @returns {string}
    */
   explicitTimeRangeFormat: (startTS, endTS, timezone) => Formats.timeRangeFormat(startTS, endTS, timezone, true),
+
+  /**
+   * Default formatting function for time.
+   * 'DD.MM.YYYY, HH:MM'
+   *
+   * @param {number}startTS - The starting timestamp in epoch milliseconds
+   * @param {string}timezone - The timezone
+   * @returns {string}
+   */
+  timeFormat: (startTS, timezone) => (moment.tz(startTS, timezone).format(TIME_FORMATS.DATETIME)),
 };
 
 export default Formats;

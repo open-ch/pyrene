@@ -43,7 +43,7 @@ const onMouseMove = (event, data, xScale, yScale, top, showTooltip) => {
   });
 };
 
-const getTimeFormat = (timezone, timeFormat) => (timeFormat || ((time) => Formats.timeRangeFormat(time[0], time[1], timezone, false)));
+const getTimeFormat = (timezone, timeFormat) => (timeFormat || ((time) => Formats.timeFormat(time[0], timezone)));
 
 /**
  * The pure SVG chart part of the time series line chart.
