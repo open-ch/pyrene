@@ -22,12 +22,12 @@ import './timeSeriesLineChart.css';
 
 /**
   *
-  * @param {*} event - The mouseMove event
-  * @param {*} data - The array of data series with timestamp and value
-  * @param {*} xScale - The scale function that linearly maps x-coordinate to timestamp in epoch milliseconds
-  * @param {*} yScale - The scale function that linearly maps y-coordinate to value
-  * @param {*} top - The vertical offset from the top
-  * @param {*} showTooltip - The function that passes tooltip position and data to the tooltip component
+  * @param {object} event - The mouseMove event
+  * @param {array} data - The array of data series with timestamp and value
+  * @param {function} xScale - The scale function that linearly maps x-coordinate to timestamp in epoch milliseconds
+  * @param {function} yScale - The scale function that linearly maps y-coordinate to value
+  * @param {number} top - The vertical offset from the top
+  * @param {boolean} showTooltip - The function that passes tooltip position and data to the tooltip component
   */
 const onMouseMove = (event, data, xScale, yScale, top, showTooltip) => {
   const { x, y } = localPoint(event.target.ownerSVGElement, event);
