@@ -20,6 +20,15 @@ import colorSchemes from '../../styles/colorSchemes';
 import colorConstants from '../../styles/colorConstants';
 import './timeSeriesLineChart.css';
 
+/**
+  *
+  * @param {*} event - The mouseMove event
+  * @param {*} data - The array of data series with timestamp and value
+  * @param {*} xScale - The scale function that linearly maps x-coordinate to timestamp in epoch milliseconds
+  * @param {*} yScale - The scale function that linearly maps y-coordinate to value
+  * @param {*} top - The vertical offset from the top
+  * @param {*} showTooltip - The function that passes tooltip position and data to the tooltip component
+  */
 const onMouseMove = (event, data, xScale, yScale, top, showTooltip) => {
   const { x, y } = localPoint(event.target.ownerSVGElement, event);
   const currentTS = xScale.invert(x);
@@ -164,10 +173,7 @@ TimeSeriesLineChartSVG.displayName = 'Time Series Line Chart SVG';
 
 TimeSeriesLineChartSVG.defaultProps = {
   colorScheme: colorSchemes.colorSchemeDefault,
-  dataSeries: {
-    data: [],
-    label: '',
-  },
+  dataSeries: [],
   loading: false,
   timeFormat: undefined,
   tooltipData: [],
