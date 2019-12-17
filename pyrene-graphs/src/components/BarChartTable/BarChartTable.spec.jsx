@@ -162,7 +162,6 @@ describe('<BarChartTable />', () => {
   // Show more Popover
 
   it('renders Show more link', () => {
-
     const rendered = mount(<BarChartTable {...props} />);
     expect(rendered.contains('Show more (2)')).toBe(true);
   });

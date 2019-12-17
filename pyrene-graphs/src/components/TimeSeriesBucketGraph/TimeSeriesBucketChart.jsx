@@ -112,7 +112,9 @@ const TimeSeriesBucketChart = (props) => {
     tooltipTop,
   } = props;
 
-  const dataAvailable = props.dataSeries && props.dataSeries.data && props.dataSeries.data.length > 0;
+  // Filter out data outside `from` and `to` and get the max value
+  const dataInRange = props.dataSeries.data.filter((data, index) => isDataInTimeRange(data, index, props.dataSeries.data, props.from, props.to));
+  const maxValue = Math.max(...dataInRange.map((data) => data[INDEX_VALUE]));
 
   return (
     <div styleName="graphContainer">
@@ -122,6 +124,7 @@ const TimeSeriesBucketChart = (props) => {
             from={props.from}
             to={props.to}
             disabled={props.loading}
+            zoomInDisabled={!dataInRange.length}
             lowerBound={props.zoom.lowerBound}
             upperBound={props.zoom.upperBound}
             minZoomRange={props.zoom.minZoomRange}
@@ -133,9 +136,7 @@ const TimeSeriesBucketChart = (props) => {
         {(parent) => {
           // Get scale function
           const xScale = scaleUtils.scaleCustomLinear(props.from, props.to, chartConstants.marginLeftNumerical, parent.width, 'horizontal');
-          // Filter out data outside `from` and `to` and get the max value
-          const dataInRange = props.dataSeries.data.filter((data, index) => isDataInTimeRange(data, index, props.dataSeries.data, props.from, props.to));
-          const maxValue = Math.max(...dataInRange.map((data) => data[INDEX_VALUE]));
+
           const barWeightFunction = (index, labels) => {
             // If there is a single bucket, just use a default bar weight
             if (labels.length === 1) {
@@ -148,6 +149,7 @@ const TimeSeriesBucketChart = (props) => {
             const timeFrame = labels[index + 1] - labels[index];
             return xScale(props.from + timeFrame) - chartConstants.marginLeftNumerical - chartConstants.barSpacing;
           };
+
           return (
             <>
               <svg width="100%" height={parent.height} shapeRendering="crispEdges">
@@ -158,11 +160,11 @@ const TimeSeriesBucketChart = (props) => {
                   height={parent.height}
                   strokeColor={colorConstants.strokeColor}
                   tickLabelColors={[colorConstants.tickLabelColor, colorConstants.tickLabelColorDark]}
-                  showTickLabels={!props.loading && dataAvailable}
+                  showTickLabels={!props.loading && dataInRange.length > 0}
                   timezone={props.timezone}
                 />
                 <NumericalAxis
-                  maxValue={dataAvailable ? maxValue : 0}
+                  maxValue={dataInRange.length > 0 ? maxValue : 0}
                   orientation="left"
                   width={parent.width}
                   height={parent.height}
@@ -170,49 +172,49 @@ const TimeSeriesBucketChart = (props) => {
                   tickFormat={props.dataFormat.yAxis}
                   strokeColor={colorConstants.strokeColor}
                   tickLabelColor={colorConstants.tickLabelColor}
-                  showTickLabels={!props.loading && dataAvailable}
+                  showTickLabels={!props.loading && dataInRange.length > 0}
                   showGrid={false}
                 />
-                <g
-                  className="hoverArea"
-                  onMouseMove={(e) => onMouseMove(e, props.dataSeries.data, xScale, showTooltip, hideTooltip)}
-                  onMouseOut={hideTooltip}
-                  onMouseDown={props.zoom ? (e) => onMouseDown(e) : () => {}}
-                  onMouseUp={props.zoom ? () => onMouseUp(hideTooltip) : () => {}}
-                  onTouchStart={props.zoom ? (e) => onMouseDown(e) : () => {}}
-                  onTouchEnd={props.zoom ? () => onMouseUp(hideTooltip) : () => {}}
-                  onTouchMove={(e) => onMouseMove(e, props.dataSeries.data, xScale, showTooltip, hideTooltip)}
-                >
-                  {!props.loading && dataInRange.length > 0 && (
+                {!props.loading && dataInRange.length > 0 && (
+                  <g
+                    className="hoverArea"
+                    onMouseMove={(e) => onMouseMove(e, props.dataSeries.data, xScale, showTooltip, hideTooltip)}
+                    onMouseOut={hideTooltip}
+                    onMouseDown={props.zoom ? (e) => onMouseDown(e) : () => {}}
+                    onMouseUp={props.zoom ? () => onMouseUp(hideTooltip) : () => {}}
+                    onTouchStart={props.zoom ? (e) => onMouseDown(e) : () => {}}
+                    onTouchEnd={props.zoom ? () => onMouseUp(hideTooltip) : () => {}}
+                    onTouchMove={(e) => onMouseMove(e, props.dataSeries.data, xScale, showTooltip, hideTooltip)}
+                  >
                     <Bars
                       barWeight={barWeightFunction}
                       color={props.colorScheme.categorical[0]}
                       direction="vertical"
                       height={parent.height}
-                      labels={dataInRange.map((d) => d[INDEX_START_TS])}
+                      labels={props.dataSeries.data.map((d) => d[INDEX_START_TS])}
                       labelScale={xScale}
                       left={chartConstants.marginLeftNumerical}
                       maxValue={maxValue}
-                      values={dataInRange.map((d) => d[INDEX_VALUE])}
+                      values={props.dataSeries.data.map((d) => d[INDEX_VALUE])}
                       width={parent.width}
                     />
-                  )}
-                  {/* ChartArea makes sure the outer <g> element where all mouse event listeners are attached always covers the whole chart area so that there is no tooltip flickering issue */}
-                  <ChartArea width={parent.width} height={parent.height} />
-                  {props.zoom && !props.loading && (
-                    <TimeSeriesZoomable
-                      from={props.from}
-                      to={props.to}
-                      lowerBound={props.zoom.lowerBound}
-                      upperBound={props.zoom.upperBound}
-                      minZoomRange={props.zoom.minZoomRange}
-                      onZoom={props.zoom.onZoom}
-                      width={parent.width}
-                      height={parent.height}
-                      color={colorConstants.overlayColor}
-                    />
-                  )}
-                </g>
+                    {/* ChartArea makes sure the outer <g> element where all mouse event listeners are attached always covers the whole chart area so that there is no tooltip flickering issue */}
+                    <ChartArea width={parent.width} height={parent.height} />
+                    {props.zoom && (
+                      <TimeSeriesZoomable
+                        from={props.from}
+                        to={props.to}
+                        lowerBound={props.zoom.lowerBound}
+                        upperBound={props.zoom.upperBound}
+                        minZoomRange={props.zoom.minZoomRange}
+                        onZoom={props.zoom.onZoom}
+                        width={parent.width}
+                        height={parent.height}
+                        color={colorConstants.overlayColor}
+                      />
+                    )}
+                  </g>
+                )}
               </svg>
               {
                 tooltipOpen && !props.loading && (

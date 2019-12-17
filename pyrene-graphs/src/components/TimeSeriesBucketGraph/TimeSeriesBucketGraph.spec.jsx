@@ -37,7 +37,22 @@ const propsSingleBar = {
   timeFormat: (d) => d,
 };
 
-const props1 = {
+const propsZeroBar = {
+  dataFormat: {
+    tooltip: (d) => d,
+    yAxis: (d) => d,
+  },
+  dataSeries: zeroBucketSeries,
+  description: 'Downloaded volume',
+  from: moment.tz('2019-10-01 00:00', 'Europe/Zurich').valueOf(),
+  loading: false,
+  timezone: 'Europe/Zurich',
+  title: 'Volume',
+  to: moment.tz('2019-10-03 12:00', 'Europe/Zurich').valueOf(),
+  timeFormat: (d) => `${d}`,
+};
+
+const propsZeroBarLoading = {
   dataFormat: {
     tooltip: (d) => d,
     yAxis: (d) => d,
@@ -52,7 +67,7 @@ const props1 = {
   timeFormat: (d) => `${d}`,
 };
 
-const props2 = {
+const propsZeroBarError = {
   dataFormat: {
     tooltip: (d) => d,
     yAxis: (d) => d,
@@ -102,11 +117,12 @@ describe('<TimeSeriesBucketGraph />', () => {
     expect(rendered.find('.vx-tooltip-portal')).toHaveLength(1);
     hoverArea.simulate('mouseout');
     expect(rendered.find('.vx-tooltip-portal')).toHaveLength(0);
+  });
 
-    // Tooltip does not show when cursor is out of first and last bucket range
-    rendered.setProps({ dataSeries: zeroBucketSeries });
-    hoverArea.simulate('mousemove');
-    expect(rendered.find('.vx-tooltip-portal')).toHaveLength(0);
+  it('has no hover area or tooltip when there is no bar', () => {
+    const rendered = mount(<TimeSeriesBucketGraph {...propsZeroBar} />);
+    const hoverArea = rendered.find('.hoverArea');
+    expect(hoverArea).toHaveLength(0);
   });
 
   it('zooms correctly', () => {
@@ -133,10 +149,10 @@ describe('<TimeSeriesBucketGraph />', () => {
   });
 
   it('renders loading state correctly', () => {
-    const rendered = mount(<TimeSeriesBucketGraph {...props1} />);
+    const rendered = mount(<TimeSeriesBucketGraph {...propsZeroBarLoading} />);
 
-    expect(rendered.contains(props1.title)).toBe(true);
-    expect(rendered.contains(props1.description)).toBe(true);
+    expect(rendered.contains(propsZeroBarLoading.title)).toBe(true);
+    expect(rendered.contains(propsZeroBarLoading.description)).toBe(true);
     expect(rendered.find('.vx-bar')).toHaveLength(0);
     expect(rendered.find('.vx-axis-line').length).toBeGreaterThan(0);
     expect(rendered.find('.vx-axis-tick')).toHaveLength(0);
@@ -144,10 +160,10 @@ describe('<TimeSeriesBucketGraph />', () => {
   });
 
   it('renders error message correctly', () => {
-    const rendered = mount(<TimeSeriesBucketGraph {...props2} />);
+    const rendered = mount(<TimeSeriesBucketGraph {...propsZeroBarError} />);
 
-    expect(rendered.contains(props2.title)).toBe(true);
-    expect(rendered.contains(props2.description)).toBe(true);
+    expect(rendered.contains(propsZeroBarError.title)).toBe(true);
+    expect(rendered.contains(propsZeroBarError.description)).toBe(true);
     expect(rendered.find('.vx-bar')).toHaveLength(0);
     expect(rendered.find('.vx-axis-line').length).toBeGreaterThan(0);
     expect(rendered.find('.vx-axis-tick')).toHaveLength(0);
