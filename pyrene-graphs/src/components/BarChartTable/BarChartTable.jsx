@@ -60,7 +60,7 @@ export default class BarChartTable extends React.Component {
          </div>
          {(this.props.data.length > displayedRows) && !this.props.loading && (
            <div styleName="showMoreLink" onClick={this.togglePopover}>
-             {`Show all (${sortedData.length})`}
+             {`Show more (${sortedData.length})`}
              {this.state.showPopover && (
                <Popover
                  align="center"
@@ -72,12 +72,19 @@ export default class BarChartTable extends React.Component {
                      <div styleName="popOverHeader">
                        {this.props.title}
                      </div>
-                     <div styleName="popOverTable" style={{ height: `${(displayedRows + popOverAdditionalRows) * rowHeight + rowHeight}px` }}>
-                       <SimpleTable
-                         columns={getColumns({ props: this.props, colors: colors })}
-                         data={sortedData}
-                         onRowDoubleClick={this.props.onRowDoubleClick}
-                       />
+                     <div styleName="popOverBody" style={{ height: `${(displayedRows + 5) * 32 + 32}px` }}>
+                       <div styleName="tableContainer">
+                         <SimpleTable
+                           columns={getColumns({ props: this.props, colors: colors })}
+                           data={sortedData}
+                           onRowDoubleClick={this.props.onRowDoubleClick}
+                         />
+                       </div>
+                       {this.props.popoverFooter && (
+                         <div styleName="footerContainer">
+                           {this.props.popoverFooter}
+                         </div>
+                       )}
                      </div>
                    </div>
                  )}
@@ -102,6 +109,7 @@ BarChartTable.defaultProps = {
   displayedRows: 10,
   loading: false,
   onRowDoubleClick: () => {},
+  popoverFooter: null,
   type: 'bar',
 };
 
@@ -175,6 +183,10 @@ BarChartTable.propTypes = {
    * Called when the user double clicks on a row.
    */
   onRowDoubleClick: PropTypes.func,
+  /**
+   * An additional component attached to the bottom of the popover.
+   */
+  popoverFooter: PropTypes.node,
   /**
    * Sets the title.
    */
