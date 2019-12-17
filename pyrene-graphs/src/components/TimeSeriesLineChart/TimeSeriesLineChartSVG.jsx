@@ -33,9 +33,9 @@ const onMouseMove = (event, data, xScale, yScale, top, showTooltip) => {
   const { x, y } = localPoint(event.target.ownerSVGElement, event);
   const currentTS = xScale.invert(x);
   const dataFirst = data[0].data;
-  const foundIndex = dataFirst.findIndex((d) => d[INDEX_START_TS] > currentTS) - 1;
-  const index = foundIndex >= 0 ? foundIndex : dataFirst.length - 1;
-  const closerIndex = index === dataFirst.length - 1 || dataFirst[index][INDEX_START_TS] + ((dataFirst[index + 1][INDEX_START_TS] - dataFirst[index][INDEX_START_TS]) / 2) > currentTS ? index : index + 1;
+  const foundIndex = dataFirst.findIndex((d) => d[INDEX_START_TS] >= currentTS) - 1;
+  const index = foundIndex >= 0 ? foundIndex : 0;
+  const closerIndex = index + 1 >= dataFirst.length || dataFirst[index][INDEX_START_TS] + ((dataFirst[index + 1][INDEX_START_TS] - dataFirst[index][INDEX_START_TS]) / 2) >= currentTS ? index : index + 1;
   const tooltipData = data.map((d) => {
     const currentValue = d.data[closerIndex][INDEX_VALUE];
     return {
