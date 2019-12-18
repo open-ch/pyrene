@@ -21,7 +21,7 @@ const timeSeriesData = {
     return dataSeries;
   },
 
-  genNSMThreatScores: (from, to, number) => {
+  genThreatScores: (from, to, number) => {
     const dataSeries = [{
       label: 'high',
       data: [],

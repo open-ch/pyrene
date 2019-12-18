@@ -6,7 +6,7 @@ const examples = {};
 const timezone = 'Asia/Shanghai';
 const initialFrom = moment.tz('2019-10-01 00:00', timezone).valueOf();
 const initialTo = moment.tz('2019-10-08 00:00', timezone).valueOf();
-const initialDataSeries = timeSeriesData.genNSMThreatScores(initialFrom, initialTo, 42);
+const initialDataSeries = timeSeriesData.genThreatScores(initialFrom, initialTo, 42);
 
 examples.props = {
   dataSeries: (stateProvider) => (stateProvider.state.dataSeries ? stateProvider.state.dataSeries : initialDataSeries),
