@@ -25,35 +25,36 @@ export const minZoomRangeReached = (from, to, minZoomRange) => to - from === min
  * @param {number}minZoomRange - The minimum supported zoom range in epoch milliseconds
  * @param {number}lowerBound - The oldest queryable starting time point in epoch milliseconds
  * @param {number}upperBound - The latest quaryable ending time point in epoch milliseconds
- * @returns {{from: {number}, to: {number}}}
+ * @returns {from: {number}, to: {number}}
  */
 export const getBoundedZoomInRange = (from, to, minZoomRange, lowerBound, upperBound) => {
-  const boundedTimeRange = {
-    from: from,
-    to: to,
-  };
+  let newFrom = from;
+  let newTo = to;
 
   // Make sure the zoomed in time range does not exceed minimum allowed zoom range
   if (to - from < minZoomRange) {
     const zoomOverflow = minZoomRange - (to - from);
-    const fromShift = Math.round(zoomOverflow / 2);
+    const fromShift = zoomOverflow / 2;
     const toShift = zoomOverflow - fromShift;
     // Extend from and to in a boundary-aware way
     if (from - fromShift < lowerBound) {
-      boundedTimeRange.from = lowerBound;
+      newFrom = lowerBound;
       const boundedFromShift = from - lowerBound;
-      boundedTimeRange.to = to + (zoomOverflow - boundedFromShift);
+      newTo = to + (zoomOverflow - boundedFromShift);
     } else if (to + toShift > upperBound) {
-      boundedTimeRange.to = upperBound;
+      newTo = upperBound;
       const boundedToShift = upperBound - to;
-      boundedTimeRange.from = from - (zoomOverflow - boundedToShift);
+      newFrom = from - (zoomOverflow - boundedToShift);
     } else {
-      boundedTimeRange.from = from - fromShift;
-      boundedTimeRange.to = to + (zoomOverflow - fromShift);
+      newFrom = from - fromShift;
+      newTo = to + (zoomOverflow - fromShift);
     }
   }
 
-  return boundedTimeRange;
+  return ({
+    from: Math.ceil(newFrom),
+    to: Math.floor(newTo),
+  });
 };
 
 /**
@@ -65,8 +66,8 @@ export const getBoundedZoomInRange = (from, to, minZoomRange, lowerBound, upperB
  */
 const onDragEnd = (minZoomRange, lowerBound, upperBound, onZoom) => {
   // Convert drag area to timestamp
-  const newFrom = Math.ceil(Math.min(xScale(dragStartX), xScale(dragEndX)));
-  const newTo = Math.floor(Math.max(xScale(dragStartX), xScale(dragEndX)));
+  const newFrom = Math.min(xScale(dragStartX), xScale(dragEndX));
+  const newTo = Math.max(xScale(dragStartX), xScale(dragEndX));
   const boundedTimeRange = getBoundedZoomInRange(newFrom, newTo, minZoomRange, lowerBound, upperBound);
 
   // Execute callback
