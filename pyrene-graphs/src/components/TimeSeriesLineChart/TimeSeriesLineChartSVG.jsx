@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
   Circle,
-  SparkLine,
+  SparkLine as SparkLineTT2,
   chartConstants,
   localPoint,
   NumericalAxis,
@@ -117,7 +117,7 @@ const TimeSeriesLineChartSVG = (props) => {
                 >
                   {!props.loading && dataInRange.length > 0 && (
                     dataInRange.map((d, i) => (
-                      <SparkLine
+                      <SparkLineTT2
                         key={`sparkline-${d.label}`}
                         colors={props.colorScheme.categorical[i]}
                         dataSeries={d.data}
