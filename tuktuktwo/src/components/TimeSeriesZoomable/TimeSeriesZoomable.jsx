@@ -16,7 +16,7 @@ let xScale = null;
  * @param {number}minZoomRange - The minimum supported zoom range in epoch milliseconds
  * @returns {boolean}
  */
-export const minZoomRangeReached = (from, to, minZoomRange) => to - from === minZoomRange;
+export const minZoomRangeReached = (from, to, minZoomRange) => to - from <= minZoomRange;
 
 /**
  * Gets the new, bounded time range after a zoom-in action.
