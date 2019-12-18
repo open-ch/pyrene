@@ -81,7 +81,7 @@ const SparkLineSVG = (props) => {
             xScale={xScale}
             yScale={yScale}
           />
-          {props.useTooltip && !tooltipOpen && (
+          {props.enableTooltip && !tooltipOpen && (
             <Circle
               borderStrokeWidth={1}
               colors={{ border: 'white', fill: props.colorScheme.valueGroundLight[0] }}
@@ -90,7 +90,7 @@ const SparkLineSVG = (props) => {
               y={yCircleSmall}
             />
           )}
-          {props.useTooltip && tooltipOpen && (
+          {props.enableTooltip && tooltipOpen && (
             <Circle
               borderStrokeWidth={1.5}
               colors={{ border: props.colorScheme.valueGroundLight[0], fill: 'white' }}
@@ -102,7 +102,7 @@ const SparkLineSVG = (props) => {
         </g>
       </svg>
       {
-        props.useTooltip && tooltipOpen && (
+        props.enableTooltip && tooltipOpen && (
           <Tooltip
             dataSeries={tooltipDataSeries}
             left={tooltipLeft} top={tooltipTop}
@@ -118,6 +118,7 @@ SparkLineSVG.displayName = 'Spark Line SVG';
 
 SparkLineSVG.defaultProps = {
   colorScheme: colorSchemes.colorSchemeDefault,
+  enableTooltip: true,
   strokeWidth: 1,
   tooltipData: {
     data: 0,
@@ -126,7 +127,6 @@ SparkLineSVG.defaultProps = {
   },
   tooltipLeft: 0,
   tooltipTop: 0,
-  useTooltip: true,
 };
 
 SparkLineSVG.propTypes = {
@@ -144,6 +144,10 @@ SparkLineSVG.propTypes = {
    * Sets the data series as an array of data. Each data item contains a timestamp and a value.
    */
   dataSeries: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
+  /**
+   * If set, a tooltip is shown, while hovering.
+   */
+  enableTooltip: PropTypes.bool,
   /**
    * Sets the height of the graph canvas.
    */
@@ -180,10 +184,6 @@ SparkLineSVG.propTypes = {
    * The tooltip y-position prop provided by the withTooltip enhancer.
    */
   tooltipTop: PropTypes.number,
-  /**
-   * If set, a tooltip is shown, while hovering.
-   */
-  useTooltip: PropTypes.bool,
   /**
    * Sets the width of the graph canvas.
    */

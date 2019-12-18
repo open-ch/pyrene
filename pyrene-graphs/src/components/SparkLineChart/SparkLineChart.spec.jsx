@@ -65,7 +65,7 @@ describe('<SparkLineChart />', () => {
   });
 
   it('renders tooltip', () => {
-    const rendered = mount(<SparkLineChart {...props} useTooltip />);
+    const rendered = mount(<SparkLineChart {...props} enableTooltip />);
 
     // Tooltip
     const hoverArea = rendered.find('.hoverArea');

@@ -47,7 +47,7 @@ const SparkLineChart = (props) => {
                     dataSeries={props.dataSeries}
                     height={areaHeight}
                     strokeWidth={2}
-                    useTooltip={props.useTooltip}
+                    enableTooltip={props.enableTooltip}
                     width={parent.width}
                   />
                 </div>
@@ -73,9 +73,9 @@ SparkLineChart.defaultProps = {
   axisLabel: '',
   colorScheme: colorSchemes.colorSchemeDefault,
   dataFormat: (d) => d,
+  enableTooltip: false,
   keyFigure: null,
   loading: false,
-  useTooltip: false,
 };
 
 SparkLineChart.propTypes = {
@@ -98,6 +98,10 @@ SparkLineChart.propTypes = {
    */
   dataSeries: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
   /**
+   * If set, a tooltip is shown, while hovering.
+   */
+  enableTooltip: PropTypes.bool,
+  /**
    * Sets the key figure.
    */
   keyFigure: PropTypes.string,
@@ -105,10 +109,6 @@ SparkLineChart.propTypes = {
     * If set, a loader is shown instead of axis tick labels, grid and bars.
     */
   loading: PropTypes.bool,
-  /**
-   * If set, a tooltip is shown, while hovering.
-   */
-  useTooltip: PropTypes.bool,
 };
 
 export default SparkLineChart;
