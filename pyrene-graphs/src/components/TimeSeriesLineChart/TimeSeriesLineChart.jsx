@@ -83,7 +83,7 @@ TimeSeriesLineChart.propTypes = {
     categorical: PropTypes.arrayOf(PropTypes.string).isRequired,
   }),
   /**
-   * Sets the data formatting functions for the graph, consisting of format function for the y-axis and that for the tooltip.
+   * Sets the data formatting functions for the chart, consisting of format function for the y-axis and that for the tooltip.
    */
   dataFormat: PropTypes.shape({
     tooltip: PropTypes.func,
@@ -97,7 +97,7 @@ TimeSeriesLineChart.propTypes = {
     label: PropTypes.string.isRequired,
   })),
   /**
-   * Sets the description of the graph excluding the unit part.
+   * Sets the description of the chart excluding the unit part.
    */
   description: PropTypes.string,
   /**
@@ -109,7 +109,7 @@ TimeSeriesLineChart.propTypes = {
    */
   from: PropTypes.number.isRequired,
   /**
-   * Sets the loading state of the graph.
+   * Sets the loading state of the chart.
    */
   loading: PropTypes.bool,
   /**
@@ -122,7 +122,7 @@ TimeSeriesLineChart.propTypes = {
    */
   timezone: PropTypes.string.isRequired,
   /**
-   * Sets the title of the graph.
+   * Sets the title of the chart.
    */
   title: PropTypes.string,
   /**

@@ -24,7 +24,7 @@ const getLabelConfig = (direction, labels, parentSize, barWeight) => {
 };
 
 /**
- * Get tooltip position and data when mouse is moving over the graph.
+ * Get tooltip position and data when mouse is moving over the chart.
  * @param {object}event - The mouseMove event
  * @param {array}data - The data series with timestamp and value
  * @param {function}xScale - The scale function that linearly maps x-coordinate to timestamp in epoch milliseconds

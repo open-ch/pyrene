@@ -114,15 +114,15 @@ TimeZoomControls.propTypes = {
    */
   from: PropTypes.number.isRequired,
   /**
-   * Sets the lower bound of the zoom component - provided that this graph is a zoomable one, i.e. no more zoom-out is possible when lower bound is reached.
+   * Sets the lower bound of the zoom component - provided that this chart is a zoomable one, i.e. no more zoom-out is possible when lower bound is reached.
    */
   lowerBound: PropTypes.number.isRequired,
   /**
-   * Sets the minimum allowed zoom range - provided that this graph is a zoomable one, i.e. no more zoom-in is possible when minZoomRange is already reached.
+   * Sets the minimum allowed zoom range - provided that this chart is a zoomable one, i.e. no more zoom-in is possible when minZoomRange is already reached.
    */
   minZoomRange: PropTypes.number.isRequired,
   /**
-   * Sets the callback function when a zoom action finishes. No onZoom function means this graph does not support zoom.
+   * Sets the callback function when a zoom action finishes. No onZoom function means this chart does not support zoom.
    */
   onZoom: PropTypes.func,
   /**
@@ -130,7 +130,7 @@ TimeZoomControls.propTypes = {
    */
   to: PropTypes.number.isRequired,
   /**
-   * Sets the upper bound for the zoom component - provided that the graph is a zoomable one, i.e. no zoom-out action is allowed when upper bound is reached.
+   * Sets the upper bound for the zoom component - provided that the chart is a zoomable one, i.e. no zoom-out action is allowed when upper bound is reached.
    */
   upperBound: PropTypes.number.isRequired,
   /**

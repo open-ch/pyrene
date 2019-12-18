@@ -1,7 +1,7 @@
 const timeSeriesData = {
 
   /**
-   * Generate mock data for downloaded volumes for time series bucket graph.
+   * Generate mock data for downloaded volumes for time series bucket chart.
    * @param {number}from - The starting time point of the time range in epoch milliseconds
    * @param {number}to - The ending time point of the time range in epoch milliseconds
    * @param {number}number - The number of data items required

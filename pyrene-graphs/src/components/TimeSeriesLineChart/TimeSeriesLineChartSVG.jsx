@@ -15,7 +15,7 @@ import {
 import ChartArea from '../ChartArea/ChartArea';
 import Tooltip from '../Tooltip/Tooltip';
 import Formats from '../../common/Formats';
-import { INDEX_VALUE, INDEX_START_TS } from '../../common/graphConstants';
+import { INDEX_VALUE, INDEX_START_TS } from '../../common/chartConstants';
 import colorSchemes from '../../styles/colorSchemes';
 import colorConstants from '../../styles/colorConstants';
 import './timeSeriesLineChart.css';
@@ -78,7 +78,7 @@ const TimeSeriesLineChartSVG = (props) => {
   const maxValue = Math.max(...dataInRange.map((d) => Math.max(...d.data.map((e) => e[INDEX_VALUE]))));
   
   return (
-    <div styleName="graphContainer">
+    <div styleName="chartContainer">
       <Responsive>
         {(parent) => {
           // Get scale function
@@ -189,7 +189,7 @@ TimeSeriesLineChartSVG.propTypes = {
     categorical: PropTypes.arrayOf(PropTypes.string).isRequired,
   }),
   /**
-   * Sets the data formatting functions for the graph, consisting of format function for the y-axis and that for the tooltip.
+   * Sets the data formatting functions for the chart, consisting of format function for the y-axis and that for the tooltip.
    */
   dataFormat: PropTypes.shape({
     tooltip: PropTypes.func,
@@ -211,7 +211,7 @@ TimeSeriesLineChartSVG.propTypes = {
    */
   hideTooltip: PropTypes.func.isRequired,
   /**
-   * Sets the loading state of the graph.
+   * Sets the loading state of the chart.
    */
   loading: PropTypes.bool,
   /**

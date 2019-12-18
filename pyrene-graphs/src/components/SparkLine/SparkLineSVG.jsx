@@ -9,7 +9,7 @@ import {
   withTooltip,
 } from 'tuktuktwo';
 import Tooltip from '../Tooltip/Tooltip';
-import { INDEX_VALUE, INDEX_START_TS } from '../../common/graphConstants';
+import { INDEX_VALUE, INDEX_START_TS } from '../../common/chartConstants';
 import colorSchemes from '../../styles/colorSchemes';
 
 const getYCircleSmall = (values, yScale, width, x) => {
@@ -137,7 +137,7 @@ SparkLineSVG.propTypes = {
     valueGroundLight: PropTypes.arrayOf(PropTypes.string).isRequired,
   }),
   /**
-   * Sets the data formatting functions for the graph, consisting of format function for the y-axis and that for the tooltip.
+   * Sets the data formatting functions for the chart, consisting of format function for the y-axis and that for the tooltip.
    */
   dataFormat: PropTypes.func.isRequired,
   /**
@@ -149,7 +149,7 @@ SparkLineSVG.propTypes = {
    */
   enableTooltip: PropTypes.bool,
   /**
-   * Sets the height of the graph canvas.
+   * Sets the height of the chart canvas.
    */
   height: PropTypes.number.isRequired,
   /**
@@ -185,7 +185,7 @@ SparkLineSVG.propTypes = {
    */
   tooltipTop: PropTypes.number,
   /**
-   * Sets the width of the graph canvas.
+   * Sets the width of the chart canvas.
    */
   width: PropTypes.number.isRequired,
 };

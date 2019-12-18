@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { chartConstants } from 'tuktuktwo';
 
 /**
- * ChartArea represents the area of graph excluding the axes.
+ * ChartArea represents the area of chart excluding the axes.
  */
 const ChartArea = (props) => (
   <rect
@@ -16,7 +16,7 @@ const ChartArea = (props) => (
   />
 );
 
-ChartArea.displayName = 'ChartArea';
+ChartArea.displayName = 'Chart Area';
 
 ChartArea.propTypes = {
   height: PropTypes.number.isRequired,

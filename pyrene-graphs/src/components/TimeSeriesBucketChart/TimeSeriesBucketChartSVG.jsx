@@ -15,15 +15,15 @@ import ChartArea from '../ChartArea/ChartArea';
 import TimeZoomControls from '../TimeZoomControls/TimeZoomControls';
 import Tooltip from '../Tooltip/Tooltip';
 import Formats from '../../common/Formats';
-import { INDEX_VALUE, INDEX_START_TS } from '../../common/graphConstants';
+import { INDEX_VALUE, INDEX_START_TS } from '../../common/chartConstants';
 import colorSchemes from '../../styles/colorSchemes';
 import colorConstants from '../../styles/colorConstants';
-import './timeSeriesBucketGraph.css';
+import './timeSeriesBucketChart.css';
 
 let zoomStartX = null;
 
 /**
- * Get tooltip position and data when mouse is moving over the graph.
+ * Get tooltip position and data when mouse is moving over the chart.
  * @param {object}event - The mouseMove event
  * @param {array}data - The data series with timestamp and value
  * @param {function}xScale - The scale function that linearly maps x-coordinate to timestamp in epoch milliseconds
@@ -100,9 +100,9 @@ const getTimeFormat = (timezone, timeFormat) => {
 };
 
 /**
- * The pure SVG chart part of the time series bucket graph.
+ * The pure SVG chart part of the time series bucket chart.
  */
-const TimeSeriesBucketChart = (props) => {
+const TimeSeriesBucketChartSVG = (props) => {
   const {
     hideTooltip,
     showTooltip,
@@ -117,7 +117,7 @@ const TimeSeriesBucketChart = (props) => {
   const maxValue = Math.max(...dataInRange.map((data) => data[INDEX_VALUE]));
 
   return (
-    <div styleName="graphContainer">
+    <div styleName="chartContainer">
       {props.zoom && (
         <div styleName="actionBarContainer">
           <TimeZoomControls
@@ -233,9 +233,9 @@ const TimeSeriesBucketChart = (props) => {
   );
 };
 
-TimeSeriesBucketChart.displayName = 'Time Series Bucket Chart';
+TimeSeriesBucketChartSVG.displayName = 'Time Series Bucket Chart SVG';
 
-TimeSeriesBucketChart.defaultProps = {
+TimeSeriesBucketChartSVG.defaultProps = {
   colorScheme: colorSchemes.colorSchemeDefault,
   dataSeries: {
     data: [],
@@ -249,7 +249,7 @@ TimeSeriesBucketChart.defaultProps = {
   zoom: undefined,
 };
 
-TimeSeriesBucketChart.propTypes = {
+TimeSeriesBucketChartSVG.propTypes = {
   /**
    * Sets the color scheme of the bars.
    */
@@ -257,7 +257,7 @@ TimeSeriesBucketChart.propTypes = {
     categorical: PropTypes.arrayOf(PropTypes.string).isRequired,
   }),
   /**
-   * Sets the data formatting functions for the graph, consisting of format function for the y-axis and that for the tooltip.
+   * Sets the data formatting functions for the chart, consisting of format function for the y-axis and that for the tooltip.
    */
   dataFormat: PropTypes.shape({
     tooltip: PropTypes.func,
@@ -279,7 +279,7 @@ TimeSeriesBucketChart.propTypes = {
    */
   hideTooltip: PropTypes.func.isRequired,
   /**
-   * Sets the loading state of the graph.
+   * Sets the loading state of the chart.
    */
   loading: PropTypes.bool,
   /**
@@ -315,26 +315,26 @@ TimeSeriesBucketChart.propTypes = {
    */
   tooltipTop: PropTypes.number,
   /**
-   * If set, this graph supports zoom.
+   * If set, this chart supports zoom.
    */
   zoom: PropTypes.shape({
     /**
-     * Sets the lower bound of the zoom component - provided that this graph is a zoomable one, i.e. no more zoom-out is possible when lower bound is reached.
+     * Sets the lower bound of the zoom component - provided that this chart is a zoomable one, i.e. no more zoom-out is possible when lower bound is reached.
      */
     lowerBound: PropTypes.number.isRequired,
     /**
-     * Sets the minimum allowed zoom range - provided that this graph is a zoomable one, i.e. no more zoom-in is possible when minZoomRange is already reached.
+     * Sets the minimum allowed zoom range - provided that this chart is a zoomable one, i.e. no more zoom-in is possible when minZoomRange is already reached.
      */
     minZoomRange: PropTypes.number.isRequired,
     /**
-     * Sets the callback function when a zoom action finishes. No onZoom function means this graph does not support zoom.
+     * Sets the callback function when a zoom action finishes. No onZoom function means this chart does not support zoom.
      */
     onZoom: PropTypes.func.isRequired,
     /**
-     * Sets the upper bound for the zoom component - provided that the graph is a zoomable one, i.e. no zoom-out action is allowed when upper bound is reached.
+     * Sets the upper bound for the zoom component - provided that the chart is a zoomable one, i.e. no zoom-out action is allowed when upper bound is reached.
      */
     upperBound: PropTypes.number.isRequired,
   }),
 };
 
-export default withTooltip(TimeSeriesBucketChart);
+export default withTooltip(TimeSeriesBucketChartSVG);

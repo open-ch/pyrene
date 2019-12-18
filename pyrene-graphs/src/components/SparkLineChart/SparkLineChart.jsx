@@ -90,7 +90,7 @@ SparkLineChart.propTypes = {
     valueGroundLight: PropTypes.arrayOf(PropTypes.string).isRequired,
   }),
   /**
-   * Sets the data formatting functions for the graph.
+   * Sets the data formatting functions for the chart.
    */
   dataFormat: PropTypes.func,
   /**
