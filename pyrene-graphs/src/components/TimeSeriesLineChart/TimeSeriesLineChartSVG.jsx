@@ -140,7 +140,7 @@ const TimeSeriesLineChartSVG = (props) => {
                         <Circle
                           key={`indicator-${d.label}`}
                           borderStrokeWidth={1.5}
-                          colors={{ border: 'white', fill: props.colorScheme.categorical[i] }}
+                          colors={{ border: props.colorScheme.categorical[i], fill: 'white' }}
                           radius={3}
                           x={d.tooltipLeftCircle}
                           y={d.tooltipTopCircle}

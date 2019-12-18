@@ -61,8 +61,8 @@ describe('<TimeSeriesLineChart />', () => {
     hoverArea.simulate('mousemove');
     expect(rendered.find('.vx-tooltip-portal')).toHaveLength(1);
     expect(rendered.find('.tooltip .data').at(0).text()).toContain(' tooltip');
-    expect(rendered.find('.vx-circle').at(0).props().stroke).toBe('white');
-    expect(rendered.find('.vx-circle').at(0).props().fill).toBe(colorSchemes.colorSchemeDefault.categorical[0]);
+    expect(rendered.find('.vx-circle').at(0).props().fill).toBe('white');
+    expect(rendered.find('.vx-circle').at(0).props().stroke).toBe(colorSchemes.colorSchemeDefault.categorical[0]);
     expect(rendered.find('.vx-line').exists()).toBe(true);
     hoverArea.simulate('mouseout');
     expect(rendered.find('.vx-tooltip-portal')).toHaveLength(0);
