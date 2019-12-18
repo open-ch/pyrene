@@ -13,10 +13,9 @@
 }
 
 .box-box {
-  box-sizing: border-box;
   background-color: var(--neutral-000);
   border-radius: 2px;
-  border: 1px solid var(--neutral-050);
+  box-shadow: inset 0px 0px 0px 1px var(--neutral-050);
 }
 
 .borderContainer {
@@ -24,8 +23,9 @@
 }
 
 .iconBox {
-  width: 32px;
-  height: 32px;
+  width: 24px;
+  height: 24px;
+  margin: 4px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -33,6 +33,7 @@
 
 .iconBox:hover {
   background-color: var(--neutral-030);
+  cursor: pointer;
 }
 
 .border {
