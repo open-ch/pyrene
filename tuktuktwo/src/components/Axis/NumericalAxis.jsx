@@ -4,6 +4,7 @@ import { AxisLeft, AxisBottom } from '@vx/axis';
 import { GridColumns, GridRows } from '@vx/grid';
 import { Group } from '@vx/group';
 import ScaleUtils from '../../common/ScaleUtils';
+import { getTickComponent, getTickLabelLeftProps, getTickLabelBottomProps } from './AxisUtil';
 import chartConstants from '../../common/chartConstants';
 
 const getScale = (scale, minRange, maxRange, direction, maxValue) => {
@@ -28,9 +29,8 @@ const NumericalAxis = (props) => {
           scale={scale}
           tickValues={props.showTickLabels ? axisTickValues : []}
           tickLength={0}
-          tickLabelProps={() => ({
-            fontSize: 10, fill: props.tickLabelColor, fontFamily: 'AvenirNext', textAnchor: 'start', dy: '0.325em', dx: -props.left,
-          })}
+          tickLabelProps={getTickLabelLeftProps(props.left, props.tickLabelColor)}
+          tickComponent={getTickComponent(props.left)}
           label={props.label}
           labelProps={{
             textAnchor: 'start', fontSize: 11, fontWeight: 500, fontFamily: 'AvenirNext', fill: props.tickLabelColor, dx: '2.25em', lineHeight: '1.45', letterSpacing: '0.6px',
@@ -63,9 +63,7 @@ const NumericalAxis = (props) => {
         top={yMax}
         scale={scale}
         tickValues={props.showTickLabels ? tickValues : []}
-        tickLabelProps={() => ({
-          textAnchor: 'middle', fontSize: 10, fontFamily: 'AvenirNext', fill: props.tickLabelColor, dy: '-0.25em',
-        })}
+        tickLabelProps={getTickLabelBottomProps(props.tickLabelColor)}
         label={props.label}
         labelProps={{
           textAnchor: 'middle', fontSize: 11, fontWeight: 500, fontFamily: 'AvenirNext', fill: props.tickLabelColor, dy: '-1.675em', lineHeight: '1.45', letterSpacing: '0.6px',

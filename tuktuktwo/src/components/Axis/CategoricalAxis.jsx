@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { AxisLeft, AxisBottom } from '@vx/axis';
 import ScaleUtils from '../../common/ScaleUtils';
+import { getTickComponent, getTickLabelLeftProps, getTickLabelBottomProps } from './AxisUtil';
 import chartConstants from '../../common/chartConstants';
 
 /**
@@ -16,9 +17,8 @@ const CategoricalAxis = (props) => {
         left={props.left}
         scale={ScaleUtils.scaleOrdinal(0, props.height - chartConstants.marginBottom, labels)}
         tickLength={0}
-        tickLabelProps={() => ({
-          fontSize: 10, fill: props.tickLabelColor, fontFamily: 'AvenirNext', textAnchor: 'start', dy: '0.325em', dx: -props.left,
-        })}
+        tickLabelProps={getTickLabelLeftProps(props.left, props.tickLabelColor)}
+        tickComponent={getTickComponent(props.left)}
         stroke={props.strokeColor}
         tickStroke={props.tickLabelColor}
         tickFormat={props.tickFormat}
@@ -28,9 +28,7 @@ const CategoricalAxis = (props) => {
       <AxisBottom
         top={chartHeight}
         scale={ScaleUtils.scaleOrdinal(props.left, props.width, labels)}
-        tickLabelProps={() => ({
-          textAnchor: 'middle', fontSize: 10, fontFamily: 'AvenirNext', fill: props.tickLabelColor, dy: '-0.25em',
-        })}
+        tickLabelProps={getTickLabelBottomProps(props.tickLabelColor)}
         stroke={props.strokeColor}
         tickStroke={props.tickLabelColor}
         tickFormat={props.tickFormat}
