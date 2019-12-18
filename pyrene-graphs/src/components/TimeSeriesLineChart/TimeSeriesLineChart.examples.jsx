@@ -10,7 +10,7 @@ const initialDataSeries = timeSeriesData.genThreatScores(initialFrom, initialTo,
 
 examples.props = {
   dataSeries: (stateProvider) => (stateProvider.state.dataSeries ? stateProvider.state.dataSeries : initialDataSeries),
-  description: 'THREAT SCORE',
+  description: 'Threat Score',
   error: 'There was an error while loading data.',
   from: (stateProvider) => (stateProvider.state.from ? stateProvider.state.from : initialFrom),
   to: (stateProvider) => (stateProvider.state.to ? stateProvider.state.to : initialTo),
