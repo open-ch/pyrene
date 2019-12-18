@@ -74,7 +74,7 @@ const TimeSeriesLineChartSVG = (props) => {
     dataValue: props.dataFormat.tooltip(d.data[INDEX_VALUE]),
   }));
   // Filter out data outside `from` and `to` and get the max value
-  const dataInRange = props.dataSeries.filter((d) => d.data.filter((e) => e[INDEX_START_TS] >= props.from && e[INDEX_START_TS] <= props.to));
+  const dataInRange = props.dataSeries.map((d) => ({ ...d, data: d.data.filter((e) => e[INDEX_START_TS] >= props.from && e[INDEX_START_TS] <= props.to) }));
   const maxValue = Math.max(...dataInRange.map((d) => Math.max(...d.data.map((e) => e[INDEX_VALUE]))));
   
   return (
