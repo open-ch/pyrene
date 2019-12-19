@@ -7,7 +7,7 @@ import '../SingleSelect/select.css';
 import MultiSelectStyle from './multiSelectCSS';
 import Loader from '../Loader/Loader';
 import MultiSelectMenuWithOptions from './MultiSelectMenuWithOptions';
-
+import CustomOption from '../SingleSelect/CustomOption';
 
 const LoadingIndicator = () => <Loader />;
 
@@ -18,9 +18,16 @@ const MultiValue = ({ data: { value, label }, getValue }) => ( // eslint-disable
   </>
 );
 
-
-const componentsNormal = { LoadingIndicator };
-const componentsOptionsInDropdown = { Menu: MultiSelectMenuWithOptions, MultiValue, LoadingIndicator };
+const componentsNormal = {
+  LoadingIndicator,
+  Option: CustomOption,
+};
+const componentsOptionsInDropdown = {
+  Menu: MultiSelectMenuWithOptions,
+  MultiValue,
+  LoadingIndicator,
+  Option: CustomOption,
+};
 
 // Finds the union of value and options, based on options[].value and values[].value being equal.
 export const valueFromOptions = (options, values) => options.filter((o) => values.findIndex((v) => o.value === v.value) > -1);

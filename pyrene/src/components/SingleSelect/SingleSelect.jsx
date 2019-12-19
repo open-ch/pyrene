@@ -6,6 +6,7 @@ import CreatableSelect from 'react-select/creatable';
 import SelectStyle from './singleSelectCSS';
 import './select.css';
 import Loader from '../Loader/Loader';
+import CustomOption from './CustomOption';
 
 const LoadingIndicator = () => <Loader />;
 
@@ -23,7 +24,10 @@ const SingleSelect = (props) => {
           <CreatableSelect
             className="singleSelect"
             styles={SelectStyle}
-            components={{ LoadingIndicator }}
+            components={{
+              LoadingIndicator,
+              Option: CustomOption,
+            }}
             // Sets the internal value to "" in case of null or undefined
             getOptionValue={(option) => ((option.value !== null && typeof option.value !== 'undefined') ? option.value : '')}
             placeholder={props.placeholder}
@@ -57,7 +61,10 @@ const SingleSelect = (props) => {
           <Select
             className="singleSelect"
             styles={SelectStyle}
-            components={{ LoadingIndicator }}
+            components={{
+              LoadingIndicator,
+              Option: CustomOption,
+            }}
             // Sets the internal value to "" in case of null or undefined
             getOptionValue={(option) => ((option.value !== null && typeof option.value !== 'undefined') ? option.value : '')}
             placeholder={props.placeholder}
