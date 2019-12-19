@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import './FilterTag.css';
 
 const FilterTag = (props) => (
-  <div styleName="wrapper">
+  <div styleName="wrapper" title={props.filterText}>
     <div styleName="label">
       {props.filterLabel}
     </div>
