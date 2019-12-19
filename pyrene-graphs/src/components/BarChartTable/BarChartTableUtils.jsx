@@ -122,7 +122,7 @@ export const getColumns = ({
   const barResponsiveWidthRatio = 1 - labelResponsiveWidthRatio;
 
   const primaryValueColumnWidth = props.columns.primaryValue.width ? props.columns.primaryValue.width : valueColumnWidthDefault;
-  const secondaryValueColumnWidth = valueColumnWidthDefault || (hasColumnSecondaryValue && (props.columns.secondaryValue.width ? props.columns.secondaryValue.width : valueColumnWidthDefault));
+  const secondaryValueColumnWidth = (hasColumnSecondaryValue && (props.columns.secondaryValue.width ? props.columns.secondaryValue.width : valueColumnWidthDefault)) || valueColumnWidthDefault;
   const secondaryLabelColumnWidth = hasColumnSecondaryLabel && (props.columns.secondaryLabel.width ? props.columns.secondaryLabel.width : secondaryLabelColumnWidthDefault);
   const valueColumnWidthDouble = primaryValueColumnWidth + margin + secondaryValueColumnWidth;
 
