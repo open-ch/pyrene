@@ -135,7 +135,7 @@ BarChartTable.propTypes = {
         PropTypes.string,
         PropTypes.func,
       ]),
-      linkOnClick: PropTypes.func,
+      onClick: PropTypes.func,
     }),
     primaryValue: PropTypes.shape({
       accessor: PropTypes.oneOfType([

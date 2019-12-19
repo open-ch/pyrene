@@ -7,7 +7,7 @@ const getId = (d) => d.trim().toLowerCase();
 export const getValueWithAccessor = (row, accessor) => (typeof accessor === 'string' ? row[accessor] : accessor(row));
 
 const getColumn = ({
-  id, accessor, accessorSecondary, headerName, formatter = (d) => d, align, width, linkAccessor, linkOnClick, cellType, colors, maxValue, labelAccessor,
+  id, accessor, accessorSecondary, headerName, formatter = (d) => d, align, width, linkAccessor, onClick, cellType, colors, maxValue, labelAccessor,
 }) => {
   const barWeightPrimary = 6;
   const barWeightSecondary = 4;
@@ -22,11 +22,11 @@ const getColumn = ({
     align: align,
     maxWidth: `${width}px`,
     cellRenderCallback: {
-      link: linkAccessor ? (row) => ( // eslint-disable-line react/display-name
+      link: (linkAccessor || onClick ? (row) => ( // eslint-disable-line react/display-name
         <a
           styleName="labelLink"
-          href={linkOnClick ? '#' : getValueWithAccessor(row, linkAccessor)}
-          onClick={linkOnClick ? () => { linkOnClick(row); return false; } : null}
+          href={onClick ? '#' : getValueWithAccessor(row, linkAccessor)}
+          onClick={onClick ? () => { onClick(row); return false; } : null}
         >
           {row.value}
         </a>
@@ -137,7 +137,7 @@ export const getColumns = ({
           id: props.title,
           accessor: props.columns.label.accessor,
           linkAccessor: props.columns.label.linkAccessor,
-          linkOnClick: props.columns.label.linkOnClick,
+          onClick: props.columns.label.onClick,
           align: 'left',
           cellType: 'link',
           width: responsiveWidth * labelResponsiveWidthRatio - secondaryLabelWidth,
@@ -186,7 +186,7 @@ export const getColumns = ({
             id: props.title,
             accessor: props.columns.label.accessor,
             linkAccessor: props.columns.label.linkAccessor,
-            linkOnClick: props.columns.label.linkOnClick,
+            onClick: props.columns.label.onClick,
             align: 'left',
             cellType: 'link',
             width: responsiveWidth * labelResponsiveWidthRatio,
@@ -233,7 +233,7 @@ export const getColumns = ({
             id: props.title,
             accessor: props.columns.label.accessor,
             linkAccessor: props.columns.label.linkAccessor,
-            linkOnClick: props.columns.label.linkOnClick,
+            onClick: props.columns.label.onClick,
             align: 'left',
             cellType: 'link',
             width: responsiveWidthLabel,
