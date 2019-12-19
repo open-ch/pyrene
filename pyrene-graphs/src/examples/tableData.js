@@ -108,7 +108,7 @@ export const tableColumns = {
   label: {
     accessor: (d) => d.application,
     linkAccessor: (d) => d.link,
-    linkOnClick: (d) => alert('Link click: ' + d.application),
+    onClick: (d) => alert('Link click: ' + d.application),
   },
   primaryValue: {
     accessor: (d) => d.volume,

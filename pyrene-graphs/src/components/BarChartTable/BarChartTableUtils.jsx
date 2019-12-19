@@ -22,7 +22,7 @@ const getColumn = ({
     align: align,
     maxWidth: `${width}px`,
     cellRenderCallback: {
-      link: (linkAccessor || onClick ? (row) => ( // eslint-disable-line react/display-name
+      link: (linkAccessor || onClick) ? (row) => ( // eslint-disable-line react/display-name
         <a
           styleName="labelLink"
           href={onClick ? '#' : getValueWithAccessor(row, linkAccessor)}
