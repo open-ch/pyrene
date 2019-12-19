@@ -26,7 +26,7 @@ const getColumn = ({
         <a
           styleName="labelLink"
           href={onClick ? '#' : getValueWithAccessor(row, linkAccessor)}
-          onClick={onClick ? () => { onClick(row); return false; } : null}
+          onClick={onClick ? () => { onClick(row); event.preventDefault(); } : null}
         >
           {row.value}
         </a>
