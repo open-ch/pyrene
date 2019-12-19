@@ -1,0 +1,14 @@
+.container {
+  height: 32px;
+  font-size: 13px;
+  color: var(--neutral-400);
+  padding: 0 16px 0 8px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-weight: normal;
+}
+
+.container:hover {
+  background-color: var(--neutral-030);
+}
