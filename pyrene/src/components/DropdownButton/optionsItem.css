@@ -1,14 +1,28 @@
 .container {
   height: 32px;
   font-size: 13px;
+  background-color: var(--neutral-000);
   color: var(--neutral-400);
   padding: 0 16px 0 8px;
   display: flex;
   align-items: center;
   cursor: pointer;
   font-weight: normal;
+  width: 100%;
+
+  box-sizing: border-box;
+  border: none;
+  display: flex;
+
+  cursor: pointer;
+
+  &:focus {
+    outline: 0;
+  }
 }
 
 .container:hover {
   background-color: var(--neutral-030);
 }
+
+

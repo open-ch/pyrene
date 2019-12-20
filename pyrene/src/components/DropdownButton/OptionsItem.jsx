@@ -4,14 +4,15 @@ import PropTypes from 'prop-types';
 import './optionsItem.css';
 
 const OptionsItem = (props) => (
-  <div
+  <button
     styleName="container"
     onClick={props.onClick}
+    type="button"
   >
     <span>
       {props.label}
     </span>
-  </div>
+  </button>
 );
 
 OptionsItem.propTypes = {
