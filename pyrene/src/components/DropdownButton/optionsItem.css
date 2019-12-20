@@ -16,6 +16,8 @@
 
   cursor: pointer;
 
+  font-family: AvenirNext;
+
   &:focus {
     outline: 0;
   }
