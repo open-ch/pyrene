@@ -112,12 +112,12 @@ export const tableColumns = {
   primaryValue: {
     accessor: (d) => d.volume,
     title: 'Volume',
-    formatter: (d) => `${d.toFixed(1)} GB`,
+    dataFormat: (d) => `${d.toFixed(1)} GB`,
   },
   secondaryValue: {
     accessor: (d) => d.shareOfTotal,
     title: 'Share of Total',
-    formatter: (d) => `${d.toFixed(1)} %`,
+    dataFormat: (d) => `${d.toFixed(1)} %`,
     width: 82,
   },
 };
@@ -235,12 +235,12 @@ export const tableColumnsComparison = {
   primaryValue: {
     accessor: (d) => d.volumeCurrent,
     title: 'Current',
-    formatter: (d) => `${d.toFixed(1)} GB`,
+    dataFormat: (d) => `${d.toFixed(1)} GB`,
   },
   secondaryValue: {
     accessor: (d) => d.volumePrevious,
     title: 'Previous',
-    formatter: (d) => `${d.toFixed(1)} GB`,
+    dataFormat: (d) => `${d.toFixed(1)} GB`,
   },
 };
 
@@ -357,12 +357,12 @@ export const tableColumnsUpDown = {
   primaryValue: {
     accessor: (d) => d.down,
     title: 'Volume Down',
-    formatter: (d) => `${d.toFixed(1)} GB`,
+    dataFormat: (d) => `${d.toFixed(1)} GB`,
   },
   secondaryValue: {
     accessor: (d) => d.up,
     title: 'Volume Up',
-    formatter: (d) => `${d.toFixed(1)} GB`,
+    dataFormat: (d) => `${d.toFixed(1)} GB`,
   },
 };
 

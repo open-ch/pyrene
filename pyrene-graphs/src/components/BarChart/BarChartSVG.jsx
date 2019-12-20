@@ -95,7 +95,7 @@ const BarChartSVG = (props) => {
                   maxValue={maxValue}
                   orientation="left"
                   showGrid={!props.loading}
-                  tickFormat={props.formatter}
+                  tickFormat={props.dataFormat}
                 />
               )}
               {props.direction === 'horizontal' ? (
@@ -109,7 +109,7 @@ const BarChartSVG = (props) => {
                   maxValue={maxValue}
                   orientation="bottom"
                   showGrid={!props.loading}
-                  tickFormat={props.formatter}
+                  tickFormat={props.dataFormat}
                 />
               ) : (
                 <CategoricalAxis
@@ -165,7 +165,7 @@ const BarChartSVG = (props) => {
                   data={tooltipData.values.map((value, index) => ({
                     dataColor: props.colorScheme.categorical[index],
                     dataLabel: props.legend[index],
-                    dataValue: props.formatter(value),
+                    dataValue: props.dataFormat(value),
                   }))}
                   label={tooltipData.label}
                   left={tooltipLeft} top={tooltipTop}
@@ -185,7 +185,7 @@ BarChartSVG.defaultProps = {
   colorScheme: colorSchemes.colorSchemeDefault,
   direction: 'vertical',
   loading: false,
-  formatter: (d) => d,
+  dataFormat: (d) => d,
   tooltipData: {
     label: '',
     values: [],
@@ -209,13 +209,13 @@ BarChartSVG.propTypes = {
     values: PropTypes.arrayOf(PropTypes.number).isRequired,
   })).isRequired,
   /**
+   * Set function to format the displayed values.
+   */
+  dataFormat: PropTypes.func,
+  /**
    * Sets the bar direction.
    */
   direction: PropTypes.oneOf(['horizontal', 'vertical']),
-  /**
-   * Set function to format the displayed values.
-   */
-  formatter: PropTypes.func,
   /**
    * The function to hide tooltip provided by the withTooltip enhancer.
    */

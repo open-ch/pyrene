@@ -10,7 +10,7 @@ const columns = {
   primaryValue: {
     accessor: (d) => d.volume,
     title: 'Volume',
-    formatter: (d) => `${d} GB`,
+    dataFormat: (d) => `${d} GB`,
   },
 };
 
@@ -32,7 +32,7 @@ const props = {
     secondaryValue: {
       accessor: (d) => d.shareOfTotal,
       title: 'Share of Total',
-      formatter: (d) => `${d} %`,
+      dataFormat: (d) => `${d} %`,
     },
   },
   title: 'Title',
@@ -65,12 +65,12 @@ const propsComparison = {
     primaryValue: {
       accessor: (d) => d.volumeCurrent,
       title: 'Current period',
-      formatter: (d) => `${d} GB`,
+      dataFormat: (d) => `${d} GB`,
     },
     secondaryValue: {
       accessor: (d) => d.volumePrevious,
       title: 'Previous period',
-      formatter: (d) => `${d} GB`,
+      dataFormat: (d) => `${d} GB`,
     },
   },
   title: 'Title',
@@ -98,8 +98,8 @@ describe('<BarChartTable />', () => {
       const cells = tr.find('td');
       expect(cells.at(0).text()).toBe(props.data[rowIndex].application);
       expect(cells.at(1).find('svg').exists()).toBe(true);
-      expect(cells.at(2).text()).toBe(props.columns.primaryValue.formatter(props.data[rowIndex].volume));
-      expect(cells.at(3).text()).toBe(props.columns.secondaryValue.formatter(props.data[rowIndex].shareOfTotal));
+      expect(cells.at(2).text()).toBe(props.columns.primaryValue.dataFormat(props.data[rowIndex].volume));
+      expect(cells.at(3).text()).toBe(props.columns.secondaryValue.dataFormat(props.data[rowIndex].shareOfTotal));
     });
   });
 
@@ -123,7 +123,7 @@ describe('<BarChartTable />', () => {
       const cells = tr.find('td');
       expect(cells.at(0).text()).toBe(props.data[rowIndex].application);
       expect(cells.at(1).find('svg').exists()).toBe(true);
-      expect(cells.at(2).text()).toBe(props.columns.primaryValue.formatter(props.data[rowIndex].volume));
+      expect(cells.at(2).text()).toBe(props.columns.primaryValue.dataFormat(props.data[rowIndex].volume));
       expect(cells).toHaveLength(3);
     });
   });
@@ -147,11 +147,11 @@ describe('<BarChartTable />', () => {
     rendered.find('tbody').find('tr').forEach((tr, rowIndex) => {
       const cells = tr.find('td');
       expect(cells.at(0).text()).toBe(propsComparison.data[rowIndex].application);
-      expect(cells.at(1).text()).toBe(propsComparison.columns.primaryValue.formatter(propsComparison.data[rowIndex].volumeCurrent));
+      expect(cells.at(1).text()).toBe(propsComparison.columns.primaryValue.dataFormat(propsComparison.data[rowIndex].volumeCurrent));
       expect(cells.at(2).find('svg').exists()).toBe(true);
       expect(cells.at(3).find('.verticalLine').exists()).toBe(true);
       expect(cells.at(4).find('svg').exists()).toBe(true);
-      expect(cells.at(5).text()).toBe(propsComparison.columns.secondaryValue.formatter(propsComparison.data[rowIndex].volumePrevious));
+      expect(cells.at(5).text()).toBe(propsComparison.columns.secondaryValue.dataFormat(propsComparison.data[rowIndex].volumePrevious));
     });
   });
 

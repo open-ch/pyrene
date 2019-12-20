@@ -7,7 +7,7 @@ const getId = (d) => d.trim().toLowerCase();
 export const getValueWithAccessor = (row, accessor) => (typeof accessor === 'string' ? row[accessor] : accessor(row));
 
 const getColumn = ({
-  id, accessor, accessorSecondary, headerName, formatter = (d) => d, align, width, linkAccessor, cellType, colors, maxValue, labelAccessor,
+  id, accessor, accessorSecondary, headerName, dataFormat = (d) => d, align, width, linkAccessor, cellType, colors, maxValue, labelAccessor,
 }) => {
   const barWeightPrimary = 6;
   const barWeightSecondary = 4;
@@ -29,7 +29,7 @@ const getColumn = ({
         >
           {row.value}
         </a>
-      ) : (row) => formatter(row.value),
+      ) : (row) => dataFormat(row.value),
       relativeBar: (row) => ( // eslint-disable-line react/display-name
         <svg width="100%" height={svgHeight}>
           {width > 0 && (
@@ -89,7 +89,7 @@ const getColumn = ({
           )}
         </svg>
       ),
-      default: (row) => formatter(row.value),
+      default: (row) => dataFormat(row.value),
     }[cellType || 'default'],
   };
 };
@@ -159,7 +159,7 @@ export const getColumns = ({
         getColumn({
           id: props.columns.primaryValue.title,
           accessor: props.columns.primaryValue.accessor,
-          formatter: props.columns.primaryValue.formatter,
+          dataFormat: props.columns.primaryValue.dataFormat,
           headerName: (!width && width !== 0) ? props.columns.primaryValue.title : '',
           align: 'right',
           width: primaryValueColumnWidth,
@@ -167,7 +167,7 @@ export const getColumns = ({
         ...(hasColumnSecondaryValue ? [getColumn({
           id: props.columns.secondaryValue.title,
           accessor: props.columns.secondaryValue.accessor,
-          formatter: props.columns.secondaryValue.formatter,
+          dataFormat: props.columns.secondaryValue.dataFormat,
           headerName: props.columns.secondaryValue.title,
           align: 'right',
           width: secondaryValueColumnWidth,
@@ -201,7 +201,7 @@ export const getColumns = ({
           getColumn({
             id: props.columns.primaryValue.title,
             accessor: props.columns.primaryValue.accessor,
-            formatter: props.columns.primaryValue.formatter,
+            dataFormat: props.columns.primaryValue.dataFormat,
             headerName: props.columns.primaryValue.title,
             align: 'right',
             width: primaryValueColumnWidth,
@@ -209,7 +209,7 @@ export const getColumns = ({
           getColumn({
             id: props.columns.secondaryValue.title,
             accessor: props.columns.secondaryValue.accessor,
-            formatter: props.columns.secondaryValue.formatter,
+            dataFormat: props.columns.secondaryValue.dataFormat,
             headerName: props.columns.secondaryValue.title,
             align: 'right',
             width: secondaryValueColumnWidth,
@@ -237,7 +237,7 @@ export const getColumns = ({
           getColumn({
             id: props.columns.primaryValue.title,
             accessor: props.columns.primaryValue.accessor,
-            formatter: props.columns.primaryValue.formatter,
+            dataFormat: props.columns.primaryValue.dataFormat,
             headerName: (!width && width !== 0) ? props.columns.primaryValue.title : '',
             align: 'right',
             width: primaryValueColumnWidth,
@@ -272,7 +272,7 @@ export const getColumns = ({
           getColumn({
             id: props.columns.secondaryValue.title,
             accessor: props.columns.secondaryValue.accessor,
-            formatter: props.columns.secondaryValue.formatter,
+            dataFormat: props.columns.secondaryValue.dataFormat,
             headerName: (!width && width !== 0) ? props.columns.secondaryValue.title : '',
             align: 'right',
             width: secondaryValueColumnWidth,
