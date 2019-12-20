@@ -1,18 +1,22 @@
 import React from 'react';
 import SparkLine from './SparkLine';
+import ScaleUtils from '../../common/ScaleUtils';
 
 const parentSize = { width: 50, height: 40 };
+const dataSeries = [
+  [1, 10],
+  [2, 20],
+  [3, 15],
+];
+const maxValue = 20;
+const maxTime = 3;
 
 const props = {
   colors: ['red', 'blue'],
-  dataSeries: [
-    [1, 10],
-    [2, 20],
-    [3, 15],
-  ],
-  height: parentSize.height,
-  width: parentSize.width,
+  dataSeries: dataSeries,
   strokeWidth: 4,
+  xScale: ScaleUtils.scaleCustomLinear(0, maxTime, 0, parentSize.width, 'horizontal'),
+  yScale: ScaleUtils.scaleCustomLinear(0, maxValue, 0, parentSize.height, 'vertical'),
 };
 
 const svgWrapper = (sparkLine) => (
