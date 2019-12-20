@@ -57,11 +57,11 @@ Link.propTypes = {
    */
   path: PropTypes.string.isRequired,
   /**
-   * Sets the overall style.
+   * Sets the target.
    */
   target: PropTypes.string,
   /**
-   * Sets the target.
+   * Sets the overall style.
    */
   type: PropTypes.oneOf(['standalone', 'inline']),
 };
