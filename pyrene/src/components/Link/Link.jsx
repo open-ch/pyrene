@@ -23,6 +23,7 @@ const Link = (props) => (
     }) : (event) => {
       event.stopPropagation();
     }}
+    target={props.target}
   >
     <span styleName="label">{props.label}</span>
     {props.type === 'standalone' && <span styleName="icon" className="pyreneIcon-chevronRight" />}
@@ -35,6 +36,7 @@ Link.defaultProps = {
   type: 'standalone',
   disabled: false,
   onClick: undefined,
+  target: undefined,
 };
 
 Link.propTypes = {
@@ -56,6 +58,10 @@ Link.propTypes = {
   path: PropTypes.string.isRequired,
   /**
    * Sets the overall style.
+   */
+  target: PropTypes.string,
+  /**
+   * Sets the target.
    */
   type: PropTypes.oneOf(['standalone', 'inline']),
 };
