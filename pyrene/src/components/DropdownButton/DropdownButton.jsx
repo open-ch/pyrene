@@ -16,11 +16,13 @@ const DropdownButton = (props) => {
     displayActions: false,
   });
 
+  const onClose = () => setState({ displayActions: false });
+
   return (
     <Popover
       displayPopover={state.displayActions}
-      onClickOutside={() => setState({ displayActions: false })}
-      renderPopoverContent={() => <OptionsList actions={props.actions} />}
+      onClickOutside={onClose}
+      renderPopoverContent={() => <OptionsList actions={props.actions} onClick={onClose} />}
       preferredPosition={['bottom']}
       distanceToTarget={4}
       align={props.align}

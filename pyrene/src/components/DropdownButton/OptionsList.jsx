@@ -11,7 +11,10 @@ const OptionsList = (props) => (
       <OptionsItem
         key={action.label}
         label={action.label}
-        onClick={action.onClick}
+        onClick={() => {
+          action.onClick();
+          props.onClick();
+        }}
       />
     ))}
   </div>
@@ -22,6 +25,7 @@ OptionsList.propTypes = {
     label: PropTypes.string.isRequired,
     onClick: PropTypes.func.isRequired,
   })).isRequired,
+  onClick: PropTypes.func.isRequired,
 };
 
 export default OptionsList;
