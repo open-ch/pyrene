@@ -172,7 +172,7 @@ describe('<BarChartTable />', () => {
   it('renders Clickable links on labels that execute a function', () => {
     const rendered = mount(<BarChartTable {...props} />);
     const labelLink = rendered.find('.labelLink');
-    labelLink.props().onClick();
+    labelLink.simulate('click');
     expect(window.alert).toHaveBeenCalledTimes(1);
     expect(labelLink.props().href).toBe('#');
   });

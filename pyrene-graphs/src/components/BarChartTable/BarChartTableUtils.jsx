@@ -22,15 +22,20 @@ const getColumn = ({
     align: align,
     maxWidth: `${width}px`,
     cellRenderCallback: {
-      link: (linkAccessor || onClick) ? (row) => ( // eslint-disable-line react/display-name
+      link: (row) => ((linkAccessor || onClick) ? ( // eslint-disable-line react/display-name
         <a
           styleName="labelLink"
           href={onClick ? '#' : getValueWithAccessor(row, linkAccessor)}
-          onClick={onClick ? () => { onClick(row); event.preventDefault(); } : null}
+          onClick={(e) => {
+            if (onClick) {
+              e.preventDefault();
+              onClick(row);
+            }
+          }}
         >
           {row.value}
         </a>
-      ) : (row) => formatter(row.value),
+      ) : formatter(row.value)),
       relativeBar: (row) => ( // eslint-disable-line react/display-name
         <svg width="100%" height={svgHeight}>
           {width > 0 && (
