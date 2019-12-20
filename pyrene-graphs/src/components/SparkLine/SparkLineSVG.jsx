@@ -57,9 +57,8 @@ const SparkLineSVG = (props) => {
     tooltipTop,
   } = props;
 
-  const tooltipDataSeries = [{ dataValue: props.dataFormat(tooltipData.data) }];
-  const timeStamps = props.dataSeries.map((d) => d[INDEX_START_TS]);
-  const values = props.dataSeries.map((d) => d[INDEX_VALUE]);
+  const timeStamps = props.data.map((d) => d[INDEX_START_TS]);
+  const values = props.data.map((d) => d[INDEX_VALUE]);
   const xScale = scaleUtils.scaleCustomLinear(Math.min(...timeStamps), Math.max(...timeStamps), 0, props.width, 'horizontal');
   const yScale = scaleUtils.scaleCustomLinear(Math.min(...values), Math.max(...values), 0, props.height, 'vertical');
   const radiusCircleSmall = 3;
@@ -71,12 +70,12 @@ const SparkLineSVG = (props) => {
       <svg width="100%" height={props.height} shapeRendering="crispEdges" overflow="visible">
         <g
           className="hoverArea"
-          onMouseMove={(e) => onMouseMove(e, props.dataSeries, xScale, yScale, props.width, showTooltip)}
+          onMouseMove={(e) => onMouseMove(e, props.data, xScale, yScale, props.width, showTooltip)}
           onMouseOut={hideTooltip}
         >
           <SparkLineTT2
             colors={props.colorScheme.valueGroundLight}
-            dataSeries={props.dataSeries}
+            data={props.data}
             strokeWidth={props.strokeWidth}
             xScale={xScale}
             yScale={yScale}
@@ -104,7 +103,7 @@ const SparkLineSVG = (props) => {
       {
         props.enableTooltip && tooltipOpen && (
           <Tooltip
-            dataSeries={tooltipDataSeries}
+            data={[{ dataValue: props.dataFormat(tooltipData.data) }]}
             left={tooltipLeft} top={tooltipTop}
             overflow
           />
@@ -137,13 +136,13 @@ SparkLineSVG.propTypes = {
     valueGroundLight: PropTypes.arrayOf(PropTypes.string).isRequired,
   }),
   /**
+   * Sets the data series as an array of data. Each data item contains a timestamp and a value.
+   */
+  data: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
+  /**
    * Sets the data formatting functions for the chart, consisting of format function for the y-axis and that for the tooltip.
    */
   dataFormat: PropTypes.func.isRequired,
-  /**
-   * Sets the data series as an array of data. Each data item contains a timestamp and a value.
-   */
-  dataSeries: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
   /**
    * If set, a tooltip is shown, while hovering.
    */

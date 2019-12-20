@@ -61,12 +61,6 @@ const BarChartSVG = (props) => {
         const labels = props.data.map((row) => row.label);
         const maxValue = Math.max(...props.data.map((d) => d.values.reduce((a, b) => a + b, 0)));
         const values = props.data.map((row) => row.values[0]);
-        const tooltipDataSeries = tooltipData.values.map((value, index) => ({
-          dataColor: props.colorScheme.categorical[index],
-          dataLabel: props.legend[index],
-          dataValue: props.formatter(value),
-        }));
-        const tooltipDataSeriesLabel = tooltipData.label;
         const sharedAxisProps = {
           height: parent.height,
           width: parent.width,
@@ -168,8 +162,12 @@ const BarChartSVG = (props) => {
             {
               tooltipOpen && (
                 <Tooltip
-                  dataSeries={tooltipDataSeries}
-                  dataSeriesLabel={tooltipDataSeriesLabel}
+                  data={tooltipData.values.map((value, index) => ({
+                    dataColor: props.colorScheme.categorical[index],
+                    dataLabel: props.legend[index],
+                    dataValue: props.formatter(value),
+                  }))}
+                  label={tooltipData.label}
                   left={tooltipLeft} top={tooltipTop}
                 />
               )

@@ -44,7 +44,7 @@ const SparkLineChart = (props) => {
                   <SparkLineSVG
                     colorScheme={props.colorScheme}
                     dataFormat={props.dataFormat}
-                    dataSeries={props.dataSeries}
+                    data={props.data}
                     height={areaHeight}
                     strokeWidth={2}
                     enableTooltip={props.enableTooltip}
@@ -90,13 +90,13 @@ SparkLineChart.propTypes = {
     valueGroundLight: PropTypes.arrayOf(PropTypes.string).isRequired,
   }),
   /**
+   * Sets the data series as an array of data. Each data item contains a timestamp and a value.
+   */
+  data: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
+  /**
    * Sets the data formatting functions for the chart.
    */
   dataFormat: PropTypes.func,
-  /**
-   * Sets the data series as an array of data. Each data item contains a timestamp and a value.
-   */
-  dataSeries: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
   /**
    * If set, a tooltip is shown, while hovering.
    */

@@ -14,7 +14,7 @@ const props = {
     tooltip: (d) => d,
     yAxis: (d) => d,
   },
-  dataSeries: fulLBucketsSeries,
+  data: fulLBucketsSeries,
   description: 'Downloaded volume',
   from: moment.tz('2019-10-01 00:00', 'Europe/Zurich').valueOf(),
   title: 'Volume',
@@ -28,7 +28,7 @@ const propsSingleBar = {
     tooltip: (d) => d,
     yAxis: (d) => d,
   },
-  dataSeries: singleBucketSeries,
+  data: singleBucketSeries,
   description: 'Downloaded volume',
   from: moment.tz('2019-10-01 00:00', 'Europe/Zurich').valueOf(),
   title: 'Volume',
@@ -42,7 +42,7 @@ const propsZeroBar = {
     tooltip: (d) => d,
     yAxis: (d) => d,
   },
-  dataSeries: zeroBucketSeries,
+  data: zeroBucketSeries,
   description: 'Downloaded volume',
   from: moment.tz('2019-10-01 00:00', 'Europe/Zurich').valueOf(),
   loading: false,
@@ -57,7 +57,7 @@ const propsZeroBarLoading = {
     tooltip: (d) => d,
     yAxis: (d) => d,
   },
-  dataSeries: zeroBucketSeries,
+  data: zeroBucketSeries,
   description: 'Downloaded volume',
   from: moment.tz('2019-10-01 00:00', 'Europe/Zurich').valueOf(),
   loading: true,
@@ -72,7 +72,7 @@ const propsZeroBarError = {
     tooltip: (d) => d,
     yAxis: (d) => d,
   },
-  dataSeries: zeroBucketSeries,
+  data: zeroBucketSeries,
   description: 'Downloaded volume',
   error: 'No data is found',
   from: moment.tz('2019-10-01 00:00', 'Europe/Zurich').valueOf(),
@@ -107,8 +107,8 @@ describe('<TimeSeriesBucketChart />', () => {
     expect(xAxis.children().find('.vx-axis-tick').length).toBeGreaterThan(0);
 
     // Bars
-    expect(rendered.find('.vx-bar')).toHaveLength(props.dataSeries.data.length);
-    expect(renderedSingleBar.find('.vx-bar')).toHaveLength(propsSingleBar.dataSeries.data.length);
+    expect(rendered.find('.vx-bar')).toHaveLength(props.data.data.length);
+    expect(renderedSingleBar.find('.vx-bar')).toHaveLength(propsSingleBar.data.data.length);
     expect(rendered.find('.vx-bar').at(0).props().fill).toBe(colorSchemes.colorSchemeDefault.categorical[0]);
 
     // Tooltip

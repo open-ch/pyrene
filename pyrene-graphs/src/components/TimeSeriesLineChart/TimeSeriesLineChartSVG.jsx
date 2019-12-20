@@ -67,14 +67,9 @@ const TimeSeriesLineChartSVG = (props) => {
     tooltipTop,
   } = props;
 
-  const dataAvailable = !!(props.dataSeries && props.dataSeries[0] && props.dataSeries[0].data && props.dataSeries[0].data.length > 0);
-  const tooltipDataSeries = tooltipData.map((d, i) => ({
-    dataColor: props.colorScheme.categorical[i],
-    dataLabel: d.label,
-    dataValue: props.dataFormat.tooltip(d.data[INDEX_VALUE]),
-  }));
+  const dataAvailable = !!(props.data && props.data[0] && props.data[0].data && props.data[0].data.length > 0);
   // Filter out data outside `from` and `to` and get the max value
-  const dataInRange = props.dataSeries.map((d) => ({ ...d, data: d.data.filter((e) => e[INDEX_START_TS] >= props.from && e[INDEX_START_TS] <= props.to) }));
+  const dataInRange = props.data.map((d) => ({ ...d, data: d.data.filter((e) => e[INDEX_START_TS] >= props.from && e[INDEX_START_TS] <= props.to) }));
   const maxValue = Math.max(...dataInRange.map((d) => Math.max(...d.data.map((e) => e[INDEX_VALUE]))));
   
   return (
@@ -111,16 +106,16 @@ const TimeSeriesLineChartSVG = (props) => {
                 />
                 <g
                   className="hoverArea"
-                  onMouseMove={(e) => onMouseMove(e, props.dataSeries, xScale, yScale, chartConstants.marginMaxValueToBorder, showTooltip)}
+                  onMouseMove={(e) => onMouseMove(e, props.data, xScale, yScale, chartConstants.marginMaxValueToBorder, showTooltip)}
                   onMouseOut={hideTooltip}
-                  onTouchMove={(e) => onMouseMove(e, props.dataSeries, xScale, yScale, chartConstants.marginMaxValueToBorder, showTooltip)}
+                  onTouchMove={(e) => onMouseMove(e, props.data, xScale, yScale, chartConstants.marginMaxValueToBorder, showTooltip)}
                 >
                   {!props.loading && dataInRange.length > 0 && (
                     dataInRange.map((d, i) => (
                       <SparkLineTT2
                         key={`sparkline-${d.label}`}
                         colors={props.colorScheme.categorical[i]}
-                        dataSeries={d.data}
+                        data={d.data}
                         strokeWidth={2}
                         top={chartConstants.marginMaxValueToBorder}
                         xScale={xScale}
@@ -155,8 +150,12 @@ const TimeSeriesLineChartSVG = (props) => {
               {
                 tooltipOpen && !props.loading && (
                   <Tooltip
-                    dataSeries={tooltipDataSeries}
-                    dataSeriesLabel={getTimeFormat(props.timezone, props.timeFormat)([tooltipData[0].data[INDEX_START_TS]])}
+                    data={tooltipData.map((d, i) => ({
+                      dataColor: props.colorScheme.categorical[i],
+                      dataLabel: d.label,
+                      dataValue: props.dataFormat.tooltip(d.data[INDEX_VALUE]),
+                    }))}
+                    label={getTimeFormat(props.timezone, props.timeFormat)([tooltipData[0].data[INDEX_START_TS]])}
                     left={tooltipLeft} top={tooltipTop}
                   />
                 )
@@ -173,7 +172,7 @@ TimeSeriesLineChartSVG.displayName = 'Time Series Line Chart SVG';
 
 TimeSeriesLineChartSVG.defaultProps = {
   colorScheme: colorSchemes.colorSchemeDefault,
-  dataSeries: [],
+  data: [],
   loading: false,
   timeFormat: undefined,
   tooltipData: [],
@@ -189,19 +188,19 @@ TimeSeriesLineChartSVG.propTypes = {
     categorical: PropTypes.arrayOf(PropTypes.string).isRequired,
   }),
   /**
+   * Sets the data series. A data series consists of an array of objects, which consist of a label and an array of data. Each data item contains a timestamp and a value.
+   */
+  data: PropTypes.arrayOf(PropTypes.shape({
+    data: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
+    label: PropTypes.string.isRequired,
+  })),
+  /**
    * Sets the data formatting functions for the chart, consisting of format function for the y-axis and that for the tooltip.
    */
   dataFormat: PropTypes.shape({
     tooltip: PropTypes.func,
     yAxis: PropTypes.func,
   }).isRequired,
-  /**
-   * Sets the data series. A data series consists of an array of objects, which consist of a label and an array of data. Each data item contains a timestamp and a value.
-   */
-  dataSeries: PropTypes.arrayOf(PropTypes.shape({
-    data: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
-    label: PropTypes.string.isRequired,
-  })),
   /**
    * Sets the starting time point of the time range in epoch milliseconds.
    */

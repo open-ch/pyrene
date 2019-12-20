@@ -12,7 +12,7 @@ import './timeSeriesBucketChart.css';
  * A bucket chart for time-data series.
  */
 const TimeSeriesBucketChart = (props) => {
-  const dataAvailable = props.dataSeries && props.dataSeries.data && props.dataSeries.data.length > 0;
+  const dataAvailable = props.data && props.data.data && props.data.data.length > 0;
 
   // Render the header
   const header = (
@@ -39,7 +39,7 @@ const TimeSeriesBucketChart = (props) => {
     <TimeSeriesBucketChartSVG
       colorScheme={props.colorScheme}
       dataFormat={props.dataFormat}
-      dataSeries={props.dataSeries}
+      data={props.data}
       from={props.from}
       to={props.to}
       loading={props.loading}
@@ -64,7 +64,7 @@ TimeSeriesBucketChart.displayName = 'Time Series Bucket Chart';
 
 TimeSeriesBucketChart.defaultProps = {
   colorScheme: colorSchemes.colorSchemeDefault,
-  dataSeries: PropTypes.shape({
+  data: PropTypes.shape({
     data: [],
     label: '',
   }),
@@ -84,19 +84,19 @@ TimeSeriesBucketChart.propTypes = {
     categorical: PropTypes.arrayOf(PropTypes.string).isRequired,
   }),
   /**
+   * Sets the data series. A data series consists of a label and an array of data. Each data item contains a timestamp and a value.
+   */
+  data: PropTypes.shape({
+    data: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
+    label: PropTypes.string.isRequired,
+  }),
+  /**
    * Sets the data formatting functions for the chart, consisting of format function for the y-axis and that for the tooltip.
    */
   dataFormat: PropTypes.shape({
     tooltip: PropTypes.func,
     yAxis: PropTypes.func,
   }).isRequired,
-  /**
-   * Sets the data series. A data series consists of a label and an array of data. Each data item contains a timestamp and a value.
-   */
-  dataSeries: PropTypes.shape({
-    data: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
-    label: PropTypes.string.isRequired,
-  }),
   /**
    * Sets the description of the chart excluding the unit part.
    */

@@ -6,10 +6,10 @@ const examples = {};
 const timezone = 'Asia/Shanghai';
 const initialFrom = moment.tz('2019-10-01 00:00', timezone).valueOf();
 const initialTo = moment.tz('2019-10-08 00:00', timezone).valueOf();
-const initialDataSeries = timeSeriesData.genThreatScores(initialFrom, initialTo, 42);
+const initialData = timeSeriesData.genThreatScores(initialFrom, initialTo, 42);
 
 examples.props = {
-  dataSeries: (stateProvider) => (stateProvider.state.dataSeries ? stateProvider.state.dataSeries : initialDataSeries),
+  data: (stateProvider) => (stateProvider.state.data ? stateProvider.state.data : initialData),
   description: 'Threat Score',
   error: 'There was an error while loading data.',
   from: (stateProvider) => (stateProvider.state.from ? stateProvider.state.from : initialFrom),

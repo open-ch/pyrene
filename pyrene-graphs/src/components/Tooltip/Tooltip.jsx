@@ -8,13 +8,13 @@ import styles from './tooltip.css';
  * Tooltip
  */
 const Tooltip = ({
-  dataSeries, dataSeriesLabel, left, top, overflow,
+  data, label, left, top, overflow,
 }) => (
   <TooltipWrapper left={left} top={top} overflow={overflow}>
     <div className={styles.tooltip}>
-      <div className={styles.dataSeriesLabel}>{dataSeriesLabel}</div>
+      <div className={styles.label}>{label}</div>
       {
-        dataSeries.map((e) => <TooltipLegendItem key={e.dataLabel ? e.dataLabel : e.dataValue} dataColor={e.dataColor} dataLabel={e.dataLabel} dataValue={e.dataValue} />)
+        data.map((e) => <TooltipLegendItem key={e.dataLabel ? e.dataLabel : e.dataValue} dataColor={e.dataColor} dataLabel={e.dataLabel} dataValue={e.dataValue} />)
       }
     </div>
   </TooltipWrapper>
@@ -23,14 +23,14 @@ const Tooltip = ({
 Tooltip.displayName = 'Tooltip';
 
 Tooltip.defaultProps = {
-  dataSeries: [],
-  dataSeriesLabel: '',
+  data: [],
+  label: '',
   overflow: false,
 };
 
 Tooltip.propTypes = {
 
-  dataSeries: PropTypes.arrayOf(PropTypes.shape({
+  data: PropTypes.arrayOf(PropTypes.shape({
     /**
      * The color of the data series
      */
@@ -50,7 +50,7 @@ Tooltip.propTypes = {
   /**
    * The label of the data series
    */
-  dataSeriesLabel: PropTypes.string,
+  label: PropTypes.string,
 
   /**
    * Sets the left absolute position, controlled by VX
