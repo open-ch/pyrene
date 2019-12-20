@@ -21,6 +21,28 @@ const timeSeriesData = {
     return dataSeries;
   },
 
+  genThreatScores: (from, to, number) => {
+    const dataSeries = [{
+      label: 'high',
+      data: [],
+    }, {
+      label: 'moderate',
+      data: [],
+    }, {
+      label: 'low',
+      data: [],
+    }];
+
+    const timeFrame = (to - from) / number;
+    for (let i = 0; i <= number; i += 1) {
+      dataSeries[0].data.push([from + i * timeFrame, Math.round(Math.random() * 5)]);
+      dataSeries[1].data.push([from + i * timeFrame, Math.round(Math.random() * 5 + 10)]);
+      dataSeries[2].data.push([from + i * timeFrame, Math.round(Math.random() * 5 + 30)]);
+    }
+
+    return dataSeries;
+  },
+
 };
 
 export default timeSeriesData;

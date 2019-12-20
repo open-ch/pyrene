@@ -32,11 +32,11 @@ let zoomStartX = null;
  */
 const onMouseMove = (event, data, xScale, showTooltip, hideTooltip) => {
   const { x, y } = localPoint(event.target.ownerSVGElement, event);
-  const currentTS = xScale(x);
+  const currentTS = xScale.invert(x);
 
   // Show zoom tooltip
   if (zoomStartX) {
-    const startTS = xScale(zoomStartX);
+    const startTS = xScale.invert(zoomStartX);
     showTooltip({
       tooltipLeft: x,
       tooltipTop: y - chartConstants.tooltipOffset - chartConstants.zoomTooltipHeight / 2 - 4,
@@ -135,7 +135,7 @@ const TimeSeriesBucketChart = (props) => {
       <Responsive>
         {(parent) => {
           // Get scale function
-          const xScale = scaleUtils.scaleCustomLinear(chartConstants.marginLeftNumerical, parent.width, props.from, props.to, 'horizontal');
+          const xScale = scaleUtils.scaleCustomLinear(props.from, props.to, chartConstants.marginLeftNumerical, parent.width, 'horizontal');
 
           const barWeightFunction = (index, labels) => {
             // If there is a single bucket, just use a default bar weight
@@ -147,7 +147,7 @@ const TimeSeriesBucketChart = (props) => {
             }
             // Calculate the bar weight by applying the scale function on the current time frame defined by the time difference between current startTS and next startTS
             const timeFrame = labels[index + 1] - labels[index];
-            return xScale.invert(props.from + timeFrame) - chartConstants.marginLeftNumerical - chartConstants.barSpacing;
+            return xScale(props.from + timeFrame) - chartConstants.marginLeftNumerical - chartConstants.barSpacing;
           };
 
           return (
@@ -192,7 +192,7 @@ const TimeSeriesBucketChart = (props) => {
                       direction="vertical"
                       height={parent.height}
                       labels={props.dataSeries.data.map((d) => d[INDEX_START_TS])}
-                      labelScale={xScale.invert}
+                      labelScale={xScale}
                       left={chartConstants.marginLeftNumerical}
                       maxValue={maxValue}
                       values={props.dataSeries.data.map((d) => d[INDEX_VALUE])}

@@ -7,6 +7,7 @@ import { default as BarChartTable } from '../components/BarChartTable/BarChartTa
 import { default as SparkLine } from '../components/SparkLine/SparkLine.examples';
 import { default as SparkLineChart } from '../components/SparkLineChart/SparkLineChart.examples';
 import { default as TimeSeriesBucketGraph } from '../components/TimeSeriesBucketGraph/TimeSeriesBucketGraph.examples';
+import { default as TimeSeriesLineChart } from '../components/TimeSeriesLineChart/TimeSeriesLineChart.examples';
 
 import {
   tableData, tableColumns,
@@ -27,6 +28,7 @@ const examples = {
   SparkLine,
   SparkLineChart,
   TimeSeriesBucketGraph,
+  TimeSeriesLineChart,
 };
 
 export default examples;
