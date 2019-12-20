@@ -36,7 +36,7 @@ const DropdownButton = (props) => {
         disabled={props.disabled}
         icon={props.icon}
         loading={props.loading}
-        type={props.type}
+        type="action"
       />
     </Popover>
   );
@@ -50,7 +50,6 @@ DropdownButton.defaultProps = {
   disabled: false,
   icon: '',
   loading: false,
-  type: 'action',
 };
 
 DropdownButton.propTypes = {
@@ -58,7 +57,6 @@ DropdownButton.propTypes = {
    * Array of action objects holding a Label, Icon and its associated Javascript event handler.
    */
   actions: PropTypes.arrayOf(PropTypes.shape({
-    icon: PropTypes.string,
     label: PropTypes.string.isRequired,
     onClick: PropTypes.func,
   })),
@@ -82,10 +80,6 @@ DropdownButton.propTypes = {
    * Disables the component and displays a loader inside of it.
    */
   loading: PropTypes.bool,
-  /**
-   * Sets the overall style.
-   */
-  type: PropTypes.oneOf(['primary', 'secondary', 'danger', 'ghost', 'action', 'admin']),
 };
 
 export default DropdownButton;
