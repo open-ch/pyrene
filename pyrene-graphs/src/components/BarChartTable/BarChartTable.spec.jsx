@@ -2,10 +2,13 @@ import React from 'react';
 
 import BarChartTable from './BarChartTable.jsx';
 
+window.alert = jest.fn();
+
 const columns = {
   label: {
     accessor: (d) => d.application,
     title: 'Application',
+    onClick: (d) => alert('Link click: ' + d.application),
   },
   primaryValue: {
     accessor: (d) => d.volume,
@@ -164,6 +167,14 @@ describe('<BarChartTable />', () => {
   it('renders Show more link', () => {
     const rendered = mount(<BarChartTable {...props} />);
     expect(rendered.contains('Show more (2)')).toBe(true);
+  });
+
+  it('renders Clickable links on labels that execute a function', () => {
+    const rendered = mount(<BarChartTable {...props} />);
+    const labelLink = rendered.find('.labelLink');
+    labelLink.simulate('click');
+    expect(window.alert).toHaveBeenCalledTimes(1);
+    expect(labelLink.props().href).toBe('#');
   });
 
   it('reacts to clicking', () => {
