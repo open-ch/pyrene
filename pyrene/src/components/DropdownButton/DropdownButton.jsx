@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Popover from '../Popover/Popover';
 import Button from '../Button/Button';
+import OptionsList from './OptionsList';
 
 import './dropdownButton.css';
 
@@ -15,34 +16,29 @@ const DropdownButton = (props) => {
     displayActions: false,
   });
 
+  const onClose = () => setState({ displayActions: false });
+
   return (
     <Popover
       displayPopover={state.displayActions}
-      onClickOutside={() => setState({ displayActions: false })}
-      renderPopoverContent={() => (
-        <div className="actionContainer" styleName="actionContainer">
-          {props.actions.map((action) => (
-            <Button
-              key={action.label}
-              label={action.label}
-              icon={action.icon}
-              onClick={action.onClick}
-              type={props.type}
-            />
-          ))}
-        </div>
-      )}
+      onClickOutside={onClose}
+      renderPopoverContent={() => <OptionsList actions={props.actions} onClick={onClose} />}
       preferredPosition={['bottom']}
       distanceToTarget={4}
       align={props.align}
     >
       <Button
-        label={props.label}
+        label={(
+          <div styleName="labelWrapper">
+            <span>{props.label}</span>
+            <span className="pyreneIcon-chevronDown" styleName="icon" />
+          </div>
+        )}
         onClick={() => setState({ displayActions: !state.displayActions })}
         disabled={props.disabled}
         icon={props.icon}
         loading={props.loading}
-        type={props.type}
+        type="action"
       />
     </Popover>
   );
@@ -56,7 +52,6 @@ DropdownButton.defaultProps = {
   disabled: false,
   icon: '',
   loading: false,
-  type: 'action',
 };
 
 DropdownButton.propTypes = {
@@ -64,7 +59,6 @@ DropdownButton.propTypes = {
    * Array of action objects holding a Label, Icon and its associated Javascript event handler.
    */
   actions: PropTypes.arrayOf(PropTypes.shape({
-    icon: PropTypes.string,
     label: PropTypes.string.isRequired,
     onClick: PropTypes.func,
   })),
@@ -88,10 +82,6 @@ DropdownButton.propTypes = {
    * Disables the component and displays a loader inside of it.
    */
   loading: PropTypes.bool,
-  /**
-   * Sets the overall style.
-   */
-  type: PropTypes.oneOf(['primary', 'secondary', 'danger', 'ghost', 'action', 'admin']),
 };
 
 export default DropdownButton;
