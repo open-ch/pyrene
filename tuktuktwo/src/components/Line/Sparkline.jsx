@@ -15,7 +15,7 @@ const SparkLine = (props) => {
       >
         {Array.isArray(props.colors) && props.colors.length > 1 && (
           <AreaClosed
-            data={props.dataSeries}
+            data={props.data}
             x={(d) => props.xScale(x(d))}
             y={(d) => props.yScale(y(d))}
             yScale={props.yScale}
@@ -24,7 +24,7 @@ const SparkLine = (props) => {
           />
         )}
         <LinePath
-          data={props.dataSeries}
+          data={props.data}
           x={(d) => props.xScale(x(d))}
           y={(d) => props.yScale(y(d))}
           stroke={Array.isArray(props.colors) ? props.colors[0] : props.colors}
@@ -50,7 +50,7 @@ SparkLine.propTypes = {
   /**
    * Sets the data series as an array of data. Each data item contains a timestamp and a value.
    */
-  dataSeries: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
+  data: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
   /**
    * Sets the strokeWidth of the line.
    */

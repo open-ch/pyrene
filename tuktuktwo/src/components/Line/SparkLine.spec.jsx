@@ -3,7 +3,7 @@ import SparkLine from './SparkLine';
 import ScaleUtils from '../../common/ScaleUtils';
 
 const parentSize = { width: 50, height: 40 };
-const dataSeries = [
+const data = [
   [1, 10],
   [2, 20],
   [3, 15],
@@ -13,7 +13,7 @@ const maxTime = 3;
 
 const props = {
   colors: ['red', 'blue'],
-  dataSeries: dataSeries,
+  data: data,
   strokeWidth: 4,
   xScale: ScaleUtils.scaleCustomLinear(0, maxTime, 0, parentSize.width, 'horizontal'),
   yScale: ScaleUtils.scaleCustomLinear(0, maxValue, 0, parentSize.height, 'vertical'),
