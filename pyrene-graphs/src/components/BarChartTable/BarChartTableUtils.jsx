@@ -20,7 +20,7 @@ const getColumn = ({
     accessor: accessor,
     headerName: headerName,
     align: align,
-    maxWidth: `${width}px`,
+    width: `${width}px`,
     cellRenderCallback: {
       link: linkAccessor ? (row) => ( // eslint-disable-line react/display-name
         <a
