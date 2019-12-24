@@ -53,7 +53,7 @@ const getColumn = ({
               colors={colors}
               direction={direction}
               maxValue={maxValue}
-              scaleValue={getValueScale(direction, width, maxValue)}
+              scale={getValueScale(direction, width, maxValue)}
               value={getValueWithAccessor(row, accessor)}
             />
           )}
@@ -67,7 +67,7 @@ const getColumn = ({
               colors={colors}
               direction={direction}
               maxValue={maxValue}
-              scaleValue={getValueScale(direction, width, maxValue)}
+              scale={getValueScale(direction, width, maxValue)}
               value={getValueWithAccessor(row, accessor)}
               mirrored
             />
@@ -78,7 +78,7 @@ const getColumn = ({
         <div styleName="verticalLine" />
       ),
       comparisonBars: (row) => { // eslint-disable-line react/display-name
-        const scaleValue = getValueScale(direction, width, maxValue);
+        const scale = getValueScale(direction, width, maxValue);
         return (
           <svg width="100%" height={svgHeightComparison}>
             {width > 0 && (
@@ -88,7 +88,7 @@ const getColumn = ({
                   barWeight={barWeightPrimary}
                   color={colors[0]}
                   direction={direction}
-                  scaleValue={scaleValue}
+                  scale={scale}
                   value={getValueWithAccessor(row, accessor)}
                 />
                 <Bar
@@ -96,7 +96,7 @@ const getColumn = ({
                   barWeight={barWeightSecondary}
                   color={colors[1]}
                   direction={direction}
-                  scaleValue={scaleValue}
+                  scale={scale}
                   top={barWeightPrimary + comparisonMargin}
                   value={getValueWithAccessor(row, accessorSecondary)}
                 />
