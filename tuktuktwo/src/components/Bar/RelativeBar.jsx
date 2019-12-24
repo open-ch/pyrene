@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { BarStackHorizontal, BarStack } from '@vx/shape';
-import { scaleBand, scaleLinear, scaleOrdinal } from '@vx/scale';
+import { scaleBand, scaleOrdinal } from '@vx/scale';
 
 /**
  * Relative Bars are used to display a numerical value.
@@ -24,10 +24,7 @@ const RelativeBar = (props) => {
   });
   const weightScale = scaleBand({
   });
-  const valueScale = scaleLinear({
-    domain: props.direction === 'horizontal' ? [0, props.maxValue] : [props.maxValue, 0],
-    rangeRound: [0, props.size],
-  });
+  const size = props.scaleValue.range().slice(-1)[0];
   return (
     props.direction === 'horizontal' ? (
       <BarStackHorizontal
@@ -35,10 +32,10 @@ const RelativeBar = (props) => {
         height={props.barWeight}
         data={data}
         keys={keys}
-        xScale={valueScale}
+        xScale={props.scaleValue}
         yScale={weightScale}
         color={color}
-        transform={props.mirrored ? `rotate(180 ${props.size / 2} ${props.barWeight / 2})` : undefined}
+        transform={props.mirrored ? `rotate(180 ${size / 2} ${props.barWeight / 2})` : undefined}
       />
     ) : (
       <BarStack
@@ -47,9 +44,9 @@ const RelativeBar = (props) => {
         data={data}
         keys={keys}
         xScale={weightScale}
-        yScale={valueScale}
+        yScale={props.scaleValue}
         color={color}
-        transform={props.mirrored ? `rotate(180 ${props.barWeight / 2} ${props.size / 2})` : undefined}
+        transform={props.mirrored ? `rotate(180 ${props.barWeight / 2} ${size / 2})` : undefined}
       />
     ));
 };
@@ -84,9 +81,9 @@ RelativeBar.propTypes = {
    */
   mirrored: PropTypes.bool,
   /**
-   * Sets the size, which is used to calculate the bar length.
+   * Sets the scale function for the value axis.
    */
-  size: PropTypes.number.isRequired,
+  scaleValue: PropTypes.func.isRequired,
   /**
    * Sets the value, which is used to calculate the length of the bars.
    */

@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { AxisBottom } from '@vx/axis';
 import { GridColumns } from '@vx/grid';
 import { Group } from '@vx/group';
-import { scaleTime } from '@vx/scale';
 import { getTickValues, timeFormat } from './TimeXUtil';
 import chartConstants from '../../common/chartConstants';
 
@@ -13,21 +12,14 @@ const formatTime = (timestamp, props) => (props.showTickLabels ? timeFormat(time
  * TimeXAxis is the x axis for Time Series graphs.
  */
 const TimeXAxis = (props) => {
-  const xMax = props.width - chartConstants.marginLeftNumerical;
   const yMax = props.height - chartConstants.marginBottom;
 
-  const xScale = scaleTime({
-    range: [0, xMax],
-    domain: [props.from, props.to],
-  });
-
   return (
-    <Group top={0} left={chartConstants.marginLeftNumerical}>
+    <Group>
       <AxisBottom
         top={yMax}
-        left={0}
-        scale={xScale}
-        tickValues={(props.showTickLabels && xScale) ? getTickValues(props.from, props.to, props.timezone, xScale) : []}
+        scale={props.scale}
+        tickValues={(props.showTickLabels && props.scale) ? getTickValues(props.from, props.to, props.timezone, props.scale) : []}
         stroke={props.strokeColor}
         tickLabelProps={() => ({
           textAnchor: 'middle', fontSize: 10, fontWeight: 500, fontFamily: 'AvenirNext', fill: props.tickLabelColors[0], dy: '-0.25em',
@@ -47,12 +39,9 @@ const TimeXAxis = (props) => {
       />
       {props.showGrid && props.showTickLabels && (
         <GridColumns
-          top={0}
-          left={0}
-          width={xMax}
           height={yMax}
-          scale={xScale}
-          tickValues={xScale ? getTickValues(props.from, props.to, props.timezone, xScale) : []}
+          scale={props.scale}
+          tickValues={props.scale ? getTickValues(props.from, props.to, props.timezone, props.scale) : []}
           stroke={props.strokeColor}
         />
       )}
@@ -77,6 +66,10 @@ TimeXAxis.propTypes = {
    * Type: number (required)
    */
   height: PropTypes.number.isRequired,
+  /**
+   * Sets the scale function for the label axis.
+   */
+  scale: PropTypes.func.isRequired,
   /**
    * If set, the grid lines are visible.
    * Type: boolean

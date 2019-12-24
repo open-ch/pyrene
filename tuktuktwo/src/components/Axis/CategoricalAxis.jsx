@@ -1,68 +1,58 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { AxisLeft, AxisBottom } from '@vx/axis';
-import ScaleUtils from '../../common/ScaleUtils';
 import { getTickComponent, getTickLabelLeftProps, getTickLabelBottomProps } from './AxisUtil';
-import chartConstants from '../../common/chartConstants';
 
 /**
  * CategoricalAxis is used to display a categorical left or bottom axis.
  */
-const CategoricalAxis = (props) => {
-  const chartHeight = props.height - chartConstants.marginBottom;
-  const labels = props.showTickLabels ? props.tickLabels : [];
-  return (
-    props.orientation === 'left' ? (
-      <AxisLeft
-        left={props.left}
-        scale={ScaleUtils.scaleOrdinal(0, props.height - chartConstants.marginBottom, labels)}
-        tickLength={0}
-        tickLabelProps={getTickLabelLeftProps(props.left, props.tickLabelColor)}
-        tickComponent={getTickComponent(props.left)}
-        stroke={props.strokeColor}
-        tickStroke={props.tickLabelColor}
-        tickFormat={props.tickFormat}
-        hideTicks
-      />
-    ) : (
-      <AxisBottom
-        top={chartHeight}
-        scale={ScaleUtils.scaleOrdinal(props.left, props.width, labels)}
-        tickLabelProps={getTickLabelBottomProps(props.tickLabelColor)}
-        stroke={props.strokeColor}
-        tickStroke={props.tickLabelColor}
-        tickFormat={props.tickFormat}
-        hideTicks
-      />
-    )
-  );
-};
+const CategoricalAxis = (props) => (
+  props.orientation === 'left' ? (
+    <AxisLeft
+      left={props.left}
+      scale={props.scale}
+      tickLength={0}
+      tickLabelProps={getTickLabelLeftProps(props.left, props.tickLabelColor)}
+      tickComponent={getTickComponent(props.left)}
+      stroke={props.strokeColor}
+      tickStroke={props.tickLabelColor}
+      tickFormat={props.tickFormat}
+      hideTicks
+    />
+  ) : (
+    <AxisBottom
+      top={props.top}
+      scale={props.scale}
+      tickLabelProps={getTickLabelBottomProps(props.tickLabelColor)}
+      stroke={props.strokeColor}
+      tickStroke={props.tickLabelColor}
+      tickFormat={props.tickFormat}
+      hideTicks
+    />
+  )
+);
 
 CategoricalAxis.displayName = 'Categorical Axis';
 
 CategoricalAxis.defaultProps = {
-  showTickLabels: true,
+  left: 0,
   tickFormat: (d) => d,
+  top: 0,
 };
 
 CategoricalAxis.propTypes = {
   /**
-   * Sets the height of the graph canvas.
-   * Type: number (required)
-   */
-  height: PropTypes.number.isRequired,
-  /**
    * Sets the horizontal offset for this component.
    */
-  left: PropTypes.number.isRequired,
+  left: PropTypes.number,
   /**
    * Sets the orientation of the axis.
    */
   orientation: PropTypes.oneOf(['left', 'bottom']).isRequired,
   /**
-   * If set, the tick labels get rendered.
+   * Sets the scale function for the label axis.
    */
-  showTickLabels: PropTypes.bool,
+  scale: PropTypes.func.isRequired,
   /**
    * Sets the color of the axis and the grid lines.
    * Type: string (required)
@@ -78,14 +68,9 @@ CategoricalAxis.propTypes = {
    */
   tickLabelColor: PropTypes.string.isRequired,
   /**
-   * Set the categorical tick labels. Type: [ string ]
+   * Sets the vertical offset for this component.
    */
-  tickLabels: PropTypes.arrayOf(PropTypes.string).isRequired,
-  /**
-   * Sets the width of the graph canvas.
-   * Type: number (required)
-   */
-  width: PropTypes.number.isRequired,
+  top: PropTypes.number,
 };
 
 export default CategoricalAxis;

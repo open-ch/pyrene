@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Drag } from '@vx/drag';
 import { Group } from '@vx/group';
-import { scaleTime } from '@vx/scale';
 import chartConstants from '../../common/chartConstants';
 
 let dragStartX = 0;
@@ -105,10 +104,7 @@ const TimeSeriesZoomable = (props) => {
   const zoomAreaHeight = props.height - chartConstants.marginBottom;
   const canZoom = !minZoomRangeReached(props.from, props.to, props.minZoomRange);
 
-  xScale = scaleTime({
-    range: [props.from, props.to],
-    domain: [chartConstants.marginLeftNumerical, props.width],
-  });
+  xScale = props.scale;
 
   return (
     <g style={canZoom ? { cursor: 'col-resize' } : {}}>
@@ -198,6 +194,10 @@ TimeSeriesZoomable.propTypes = {
    * Sets the callback function for drag to zoom.
    */
   onZoom: PropTypes.func.isRequired,
+  /**
+   * Sets the scale function for the label axis.
+   */
+  scale: PropTypes.func.isRequired,
   /**
    * Sets the ending time point in epoch milliseconds.
    */
