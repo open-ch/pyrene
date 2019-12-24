@@ -58,7 +58,7 @@ Button.propTypes = {
   /**
    * Sets the label displayed to the user.
    */
-  label: PropTypes.string.isRequired,
+  label: PropTypes.oneOfType([PropTypes.string, PropTypes.object]).isRequired,
   /**
    * Disables the component and displays a loader inside of it.
    */
