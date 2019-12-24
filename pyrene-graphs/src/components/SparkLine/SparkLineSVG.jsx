@@ -3,13 +3,16 @@ import PropTypes from 'prop-types';
 import { interpolateNumber } from 'd3-interpolate';
 import {
   Circle,
+  NumericalAxis,
+  Responsive,
   SparkLine as SparkLineTT2,
   localPoint,
-  scaleUtils,
+  scaleLinear,
   withTooltip,
 } from 'tuktuktwo';
 import Tooltip from '../Tooltip/Tooltip';
 import { INDEX_VALUE, INDEX_START_TS } from '../../common/chartConstants';
+import colorConstants from '../../styles/colorConstants';
 import colorSchemes from '../../styles/colorSchemes';
 
 const getYCircleSmall = (values, yScale, width, x) => {
@@ -19,7 +22,7 @@ const getYCircleSmall = (values, yScale, width, x) => {
   return yScale(interpolateBetweenLastValues((x / bandwidth) % 1));
 };
 
-const onMouseMove = (event, data, xScale, yScale, width, showTooltip) => {
+const onMouseMove = (event, data, scaleLabel, scaleValue, width, showTooltip) => {
   const { x, y } = localPoint(event.target.ownerSVGElement, event);
   const bandwidth = width / (data.length - 1);
   const index = Math.round(x / bandwidth);
@@ -29,8 +32,8 @@ const onMouseMove = (event, data, xScale, yScale, width, showTooltip) => {
     tooltipTop: y,
     tooltipData: {
       data: currentValue,
-      tooltipLeftCircle: xScale(data[index][INDEX_START_TS]),
-      tooltipTopCircle: yScale(currentValue),
+      tooltipLeftCircle: scaleLabel(data[index][INDEX_START_TS]),
+      tooltipTopCircle: scaleValue(currentValue),
     },
   } : {
     tooltipLeft: 0,
@@ -59,65 +62,89 @@ const SparkLineSVG = (props) => {
 
   const timeStamps = props.data.map((d) => d[INDEX_START_TS]);
   const values = props.data.map((d) => d[INDEX_VALUE]);
-  const xScale = scaleUtils.scaleCustomLinear(Math.min(...timeStamps), Math.max(...timeStamps), 0, props.width, 'horizontal');
-  const yScale = scaleUtils.scaleCustomLinear(Math.min(...values), Math.max(...values), 0, props.height, 'vertical');
   const radiusCircleSmall = 3;
-  const xCircleSmall = props.width * 0.999;
-  const yCircleSmall = getYCircleSmall(values, yScale, props.width, xCircleSmall);
-
+  
   return (
-    <>
-      <svg width="100%" height={props.height} shapeRendering="crispEdges" overflow="visible">
-        <g
-          className="hoverArea"
-          onMouseMove={(e) => onMouseMove(e, props.data, xScale, yScale, props.width, showTooltip)}
-          onMouseOut={hideTooltip}
-        >
-          <SparkLineTT2
-            colors={props.colorScheme.valueGroundLight}
-            data={props.data}
-            strokeWidth={props.strokeWidth}
-            xScale={xScale}
-            yScale={yScale}
-          />
-          {props.enableTooltip && !tooltipOpen && (
-            <Circle
-              borderStrokeWidth={1}
-              colors={{ border: 'white', fill: props.colorScheme.valueGroundLight[0] }}
-              radius={radiusCircleSmall}
-              x={xCircleSmall}
-              y={yCircleSmall}
-            />
-          )}
-          {props.enableTooltip && tooltipOpen && (
-            <Circle
-              borderStrokeWidth={1.5}
-              colors={{ border: props.colorScheme.valueGroundLight[0], fill: 'white' }}
-              radius={3}
-              x={tooltipData.tooltipLeftCircle}
-              y={tooltipData.tooltipTopCircle}
-            />
-          )}
-        </g>
-      </svg>
-      {
-        props.enableTooltip && tooltipOpen && (
-          <Tooltip
-            data={[{ dataValue: props.dataFormat(tooltipData.data) }]}
-            left={tooltipLeft} top={tooltipTop}
-            overflow
-          />
-        )
-      }
-    </>
+    <Responsive>
+      {(parent) => {
+        const sparkLineHeight = props.sparkLineHeight ? props.sparkLineHeight : parent.height;
+        const scaleLabel = scaleLinear(Math.min(...timeStamps), Math.max(...timeStamps), 0, parent.width, 'horizontal');
+        const scaleValue = scaleLinear(Math.min(...values), Math.max(...values), 0, sparkLineHeight, 'vertical');
+        const xCircleSmall = parent.width * 0.999;
+        const yCircleSmall = getYCircleSmall(values, scaleValue, parent.width, xCircleSmall);
+        return (
+          <>
+            <svg width="100%" height={parent.height} shapeRendering="crispEdges" overflow="visible">
+              <g
+                className="hoverArea"
+                onMouseMove={(e) => onMouseMove(e, props.data, scaleLabel, scaleValue, parent.width, showTooltip)}
+                onMouseOut={hideTooltip}
+              >
+                {!props.loading && (
+                  <SparkLineTT2
+                    colors={props.colorScheme.valueGroundLight}
+                    data={props.data}
+                    scaleLabel={scaleLabel}
+                    scaleValue={scaleValue}
+                    strokeWidth={props.strokeWidth}
+                  />
+                )}
+                {props.axisLabel && (
+                  <NumericalAxis
+                    strokeColor={colorConstants.strokeColor}
+                    tickLabelColor={colorConstants.tickLabelColor}
+                    scale={scaleLabel}
+                    showTickLabels={false}
+                    showGrid={false}
+                    label={props.axisLabel}
+                    orientation="bottom"
+                    top={sparkLineHeight}
+                  />
+                )}
+                {props.enableTooltip && !tooltipOpen && (
+                  <Circle
+                    borderStrokeWidth={1}
+                    colors={{ border: 'white', fill: props.colorScheme.valueGroundLight[0] }}
+                    radius={radiusCircleSmall}
+                    x={xCircleSmall}
+                    y={yCircleSmall}
+                  />
+                )}
+                {props.enableTooltip && tooltipOpen && (
+                  <Circle
+                    borderStrokeWidth={1.5}
+                    colors={{ border: props.colorScheme.valueGroundLight[0], fill: 'white' }}
+                    radius={3}
+                    x={tooltipData.tooltipLeftCircle}
+                    y={tooltipData.tooltipTopCircle}
+                  />
+                )}
+              </g>
+            </svg>
+            {
+              props.enableTooltip && tooltipOpen && (
+                <Tooltip
+                  data={[{ dataValue: props.dataFormat(tooltipData.data) }]}
+                  left={tooltipLeft} top={tooltipTop}
+                  overflow
+                />
+              )
+            }
+          </>
+        );
+      }}
+    </Responsive>
   );
 };
 
 SparkLineSVG.displayName = 'Spark Line SVG';
 
 SparkLineSVG.defaultProps = {
+  axisLabel: null,
   colorScheme: colorSchemes.colorSchemeDefault,
   enableTooltip: true,
+  loading: false,
+  sparkLineHeight: null,
   strokeWidth: 1,
   tooltipData: {
     data: 0,
@@ -129,6 +156,10 @@ SparkLineSVG.defaultProps = {
 };
 
 SparkLineSVG.propTypes = {
+  /**
+   * Sets the axis label.
+   */
+  axisLabel: PropTypes.string,
   /**
    * Sets the colors of the bar chart. Type: { categorical: [ string ] (required) }
    */
@@ -148,17 +179,21 @@ SparkLineSVG.propTypes = {
    */
   enableTooltip: PropTypes.bool,
   /**
-   * Sets the height of the chart canvas.
-   */
-  height: PropTypes.number.isRequired,
-  /**
    * The function to hide tooltip provided by the withTooltip enhancer.
    */
   hideTooltip: PropTypes.func.isRequired,
   /**
+    * If set, a loader is shown instead of axis tick labels, grid and bars.
+    */
+  loading: PropTypes.bool,
+  /**
    * The function to render the proper tooltip provided by the withTooltip enhancer.
    */
   showTooltip: PropTypes.func.isRequired,
+  /**
+   * If set, overwrites parent.height for the sparkline container.
+   */
+  sparkLineHeight: PropTypes.number,
   /**
    * Sets the strokeWidth of the line.
    */
@@ -183,10 +218,6 @@ SparkLineSVG.propTypes = {
    * The tooltip y-position prop provided by the withTooltip enhancer.
    */
   tooltipTop: PropTypes.number,
-  /**
-   * Sets the width of the chart canvas.
-   */
-  width: PropTypes.number.isRequired,
 };
 
 export default withTooltip(SparkLineSVG);

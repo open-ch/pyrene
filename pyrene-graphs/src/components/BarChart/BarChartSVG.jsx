@@ -8,7 +8,9 @@ import {
   Responsive,
   chartConstants,
   localPoint,
-  scaleUtils,
+  scaleLabels,
+  scaleValueAxis,
+  scaleValueInBounds,
   withTooltip,
 } from 'tuktuktwo';
 import Tooltip from '../Tooltip/Tooltip';
@@ -16,7 +18,7 @@ import colorConstants from '../../styles/colorConstants';
 import colorSchemes from '../../styles/colorSchemes';
 
 const getLabelConfig = (direction, labels, parentSize, barWeight) => {
-  const scale = direction === 'horizontal' ? scaleUtils.scaleOrdinal(0, parentSize.height - chartConstants.marginBottom, labels) : scaleUtils.scaleOrdinal(chartConstants.marginLeftNumerical, parentSize.width, labels);
+  const scale = direction === 'horizontal' ? scaleLabels(chartConstants.marginBottom, parentSize.height, labels, 'vertical') : scaleLabels(chartConstants.marginLeftNumerical, parentSize.width, labels, 'horizontal');
   return {
     offset: (scale.range()[1] - scale.range()[0]) / labels.length / 2 - barWeight / 2,
     scale: scale,
@@ -68,59 +70,53 @@ const BarChartSVG = (props) => {
           strokeColor: colorConstants.strokeColor,
           tickLabelColor: colorConstants.tickLabelColor,
         };
-        const labelConfig = getLabelConfig(props.direction, labels, parent, chartConstants.barWeight);
+        const labelConfig = getLabelConfig(props.direction, sharedAxisProps.showTickLabels ? labels : [], parent, chartConstants.barWeight);
+        const valueScale = scaleValueInBounds(parent, maxValue, props.direction);
+        const valueAxisScale = scaleValueAxis(parent, maxValue, props.direction);
         const left = props.direction === 'horizontal' ? chartConstants.marginLeftCategorical : chartConstants.marginLeftNumerical;
         return (
           <>
             <svg width="100%" height={parent.height} shapeRendering="crispEdges">
               {props.direction === 'horizontal' ? (
                 <CategoricalAxis
-                  height={sharedAxisProps.height}
                   left={left}
-                  width={sharedAxisProps.width}
-                  showTickLabels={sharedAxisProps.showTickLabels}
+                  orientation="left"
+                  scale={labelConfig.scale}
                   strokeColor={sharedAxisProps.strokeColor}
                   tickLabelColor={sharedAxisProps.tickLabelColor}
-                  tickLabels={labels}
-                  orientation="left"
                 />
               ) : (
                 <NumericalAxis
-                  height={sharedAxisProps.height}
                   left={left}
-                  width={sharedAxisProps.width}
+                  orientation="left"
+                  scale={valueAxisScale}
+                  showGrid={!props.loading}
                   showTickLabels={sharedAxisProps.showTickLabels}
                   strokeColor={sharedAxisProps.strokeColor}
-                  tickLabelColor={sharedAxisProps.tickLabelColor}
-                  maxValue={maxValue}
-                  orientation="left"
-                  showGrid={!props.loading}
                   tickFormat={props.dataFormat}
+                  tickLabelColor={sharedAxisProps.tickLabelColor}
+                  width={sharedAxisProps.width - left}
                 />
               )}
               {props.direction === 'horizontal' ? (
                 <NumericalAxis
-                  height={sharedAxisProps.height}
-                  left={left}
-                  width={sharedAxisProps.width}
+                  top={sharedAxisProps.height - chartConstants.marginBottom}
+                  height={sharedAxisProps.height - chartConstants.marginBottom}
+                  orientation="bottom"
+                  scale={valueAxisScale}
+                  showGrid={!props.loading}
                   showTickLabels={sharedAxisProps.showTickLabels}
                   strokeColor={sharedAxisProps.strokeColor}
-                  tickLabelColor={sharedAxisProps.tickLabelColor}
-                  maxValue={maxValue}
-                  orientation="bottom"
-                  showGrid={!props.loading}
                   tickFormat={props.dataFormat}
+                  tickLabelColor={sharedAxisProps.tickLabelColor}
                 />
               ) : (
                 <CategoricalAxis
-                  height={sharedAxisProps.height}
-                  left={left}
-                  width={sharedAxisProps.width}
-                  showTickLabels={sharedAxisProps.showTickLabels}
+                  orientation="bottom"
+                  scale={labelConfig.scale}
                   strokeColor={sharedAxisProps.strokeColor}
                   tickLabelColor={sharedAxisProps.tickLabelColor}
-                  tickLabels={labels}
-                  orientation="bottom"
+                  top={sharedAxisProps.height - chartConstants.marginBottom}
                 />
               )}
               <g
@@ -128,33 +124,30 @@ const BarChartSVG = (props) => {
                 onMouseMove={(e) => onMouseMove(e, props.data, showTooltip, props.direction, labelConfig, left)}
                 onMouseOut={hideTooltip}
               >
-                {!props.loading && (props.legend.length > 1 ? (
+                {!props.loading && parent.width > 0 && parent.height > 0 && (props.legend.length > 1 ? (
                   <BarStack
                     barWeight={chartConstants.barWeight}
                     colors={props.colorScheme.categorical}
-                    height={parent.height}
-                    labelOffset={labelConfig.offset}
-                    labelScale={labelConfig.scale}
-                    left={left}
-                    keys={props.legend}
-                    maxCumulatedValue={maxValue}
                     data={props.data}
                     direction={props.direction}
-                    width={parent.width}
+                    keys={props.legend}
+                    labelOffset={labelConfig.offset}
+                    scaleLabel={labelConfig.scale}
+                    scaleValue={valueScale}
+                    top={chartConstants.marginMaxValueToBorder}
                   />
                 ) : (
                   <Bars
                     barWeight={() => chartConstants.barWeight}
                     color={props.colorScheme.categorical[0]}
-                    height={parent.height}
+                    direction={props.direction}
                     labelOffset={labelConfig.offset}
                     labels={labels}
-                    labelScale={labelConfig.scale}
                     left={left}
-                    maxValue={maxValue}
+                    scaleLabel={labelConfig.scale}
+                    scaleValue={valueScale}
+                    top={chartConstants.marginMaxValueToBorder}
                     values={values}
-                    direction={props.direction}
-                    width={parent.width}
                   />
                 ))}
               </g>

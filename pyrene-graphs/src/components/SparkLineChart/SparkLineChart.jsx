@@ -2,70 +2,42 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { Loader } from 'pyrene';
-import { NumericalAxis, Responsive } from 'tuktuktwo';
 import SparkLineSVG from '../SparkLine/SparkLineSVG';
 import ChartOverlay from '../ChartOverlay/ChartOverlay';
-import colorConstants from '../../styles/colorConstants';
 import colorSchemes from '../../styles/colorSchemes';
 import './sparkLineChart.css';
 
 /**
  * Spark Line Charts are used to display data series.
  */
-const SparkLineChart = (props) => {
-  const areaHeight = 62;
-  return (
-    <div styleName="container">
-      {!props.loading && (props.keyFigure !== null) && (
-        <div styleName="keyFigure">
-          {props.keyFigure}
-        </div>
-      )}
-      <div styleName={classNames('chart', { noKeyFigure: props.loading || props.keyFigure === null })}>
-        <Responsive>
-          {(parent) => (
-            <>
-              <svg width="100%" height={parent.height} shapeRendering="crispEdges">
-                <NumericalAxis
-                  width={parent.width}
-                  height={areaHeight}
-                  strokeColor={colorConstants.strokeColor}
-                  tickLabelColor={colorConstants.tickLabelColor}
-                  showTickLabels={false}
-                  showGrid={false}
-                  label={props.axisLabel}
-                  left={0}
-                  maxValue={0}
-                  orientation="bottom"
-                />
-              </svg>
-              {!props.loading && (
-                <div styleName="sparkLine">
-                  <SparkLineSVG
-                    colorScheme={props.colorScheme}
-                    dataFormat={props.dataFormat}
-                    data={props.data}
-                    height={areaHeight}
-                    strokeWidth={2}
-                    enableTooltip={props.enableTooltip}
-                    width={parent.width}
-                  />
-                </div>
-              )}
-            </>
-          )}
-        </Responsive>
+const SparkLineChart = (props) => (
+  <div styleName="container">
+    {!props.loading && (props.keyFigure !== null) && (
+      <div styleName="keyFigure">
+        {props.keyFigure}
       </div>
-      {props.loading && (
-        <div styleName="chartOverlay">
-          <ChartOverlay>
-            <Loader type="inline" />
-          </ChartOverlay>
-        </div>
-      )}
+    )}
+    <div styleName={classNames('chart', { noKeyFigure: props.loading || props.keyFigure === null })}>
+      <SparkLineSVG
+        axisLabel={props.axisLabel}
+        colorScheme={props.colorScheme}
+        dataFormat={props.dataFormat}
+        data={props.data}
+        loading={props.loading}
+        sparkLineHeight={62}
+        strokeWidth={2}
+        enableTooltip={props.enableTooltip}
+      />
     </div>
-  );
-};
+    {props.loading && (
+      <div styleName="chartOverlay">
+        <ChartOverlay>
+          <Loader type="inline" />
+        </ChartOverlay>
+      </div>
+    )}
+  </div>
+);
 
 SparkLineChart.displayName = 'Spark Line Chart';
 

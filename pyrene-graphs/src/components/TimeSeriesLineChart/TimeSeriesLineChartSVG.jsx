@@ -7,7 +7,9 @@ import {
   localPoint,
   NumericalAxis,
   Responsive,
-  scaleUtils,
+  scaleTime,
+  scaleValueAxis,
+  scaleValueInBounds,
   TimeXAxis,
   VerticalLine,
   withTooltip,
@@ -77,8 +79,9 @@ const TimeSeriesLineChartSVG = (props) => {
       <Responsive>
         {(parent) => {
           // Get scale function
-          const xScale = scaleUtils.scaleCustomLinear(props.from, props.to, chartConstants.marginLeftNumerical, parent.width, 'horizontal');
-          const yScale = scaleUtils.scaleCustomLinear(0, maxValue, 0, parent.height - chartConstants.marginBottom - chartConstants.marginMaxValueToBorder, 'vertical');
+          const xScale = scaleTime(props.from, props.to, chartConstants.marginLeftNumerical, parent.width, 'horizontal');
+          const valueScale = scaleValueInBounds(parent, maxValue, 'vertical');
+          const valueAxisScale = scaleValueAxis(parent, maxValue, 'vertical');
           return (
             <>
               <svg width="100%" height={parent.height} shapeRendering="crispEdges" overflow="visible">
@@ -91,24 +94,24 @@ const TimeSeriesLineChartSVG = (props) => {
                   tickLabelColors={[colorConstants.tickLabelColor, colorConstants.tickLabelColorDark]}
                   showTickLabels={!props.loading && dataAvailable}
                   timezone={props.timezone}
+                  scale={xScale}
                 />
                 <NumericalAxis
-                  maxValue={dataAvailable ? maxValue : 0}
                   orientation="left"
-                  width={parent.width}
-                  height={parent.height}
+                  width={parent.width - chartConstants.marginLeftNumerical}
                   left={chartConstants.marginLeftNumerical}
                   tickFormat={props.dataFormat.yAxis}
                   strokeColor={colorConstants.strokeColor}
                   tickLabelColor={colorConstants.tickLabelColor}
                   showTickLabels={!props.loading && dataAvailable}
                   showGrid={false}
+                  scale={valueAxisScale}
                 />
                 <g
                   className="hoverArea"
-                  onMouseMove={(e) => onMouseMove(e, props.data, xScale, yScale, chartConstants.marginMaxValueToBorder, showTooltip)}
+                  onMouseMove={(e) => onMouseMove(e, props.data, xScale, valueScale, chartConstants.marginMaxValueToBorder, showTooltip)}
                   onMouseOut={hideTooltip}
-                  onTouchMove={(e) => onMouseMove(e, props.data, xScale, yScale, chartConstants.marginMaxValueToBorder, showTooltip)}
+                  onTouchMove={(e) => onMouseMove(e, props.data, xScale, valueScale, chartConstants.marginMaxValueToBorder, showTooltip)}
                 >
                   {!props.loading && dataInRange.length > 0 && (
                     dataInRange.map((d, i) => (
@@ -118,8 +121,8 @@ const TimeSeriesLineChartSVG = (props) => {
                         data={d.data}
                         strokeWidth={2}
                         top={chartConstants.marginMaxValueToBorder}
-                        xScale={xScale}
-                        yScale={yScale}
+                        scaleLabel={xScale}
+                        scaleValue={valueScale}
                       />
                     ))
                   )}

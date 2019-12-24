@@ -6,7 +6,9 @@ import {
   localPoint,
   NumericalAxis,
   Responsive,
-  scaleUtils,
+  scaleTime,
+  scaleValueAxis,
+  scaleValueInBounds,
   TimeSeriesZoomable,
   TimeXAxis,
   withTooltip,
@@ -135,7 +137,9 @@ const TimeSeriesBucketChartSVG = (props) => {
       <Responsive>
         {(parent) => {
           // Get scale function
-          const xScale = scaleUtils.scaleCustomLinear(props.from, props.to, chartConstants.marginLeftNumerical, parent.width, 'horizontal');
+          const xScale = scaleTime(props.from, props.to, chartConstants.marginLeftNumerical, parent.width, 'horizontal');
+          const valueScale = scaleValueInBounds(parent, maxValue, 'vertical');
+          const valueAxisScale = scaleValueAxis(parent, maxValue, 'vertical');
 
           const barWeightFunction = (index, labels) => {
             // If there is a single bucket, just use a default bar weight
@@ -162,20 +166,20 @@ const TimeSeriesBucketChartSVG = (props) => {
                   tickLabelColors={[colorConstants.tickLabelColor, colorConstants.tickLabelColorDark]}
                   showTickLabels={!props.loading && dataInRange.length > 0}
                   timezone={props.timezone}
+                  scale={xScale}
                 />
                 <NumericalAxis
-                  maxValue={dataInRange.length > 0 ? maxValue : 0}
                   orientation="left"
-                  width={parent.width}
-                  height={parent.height}
+                  width={parent.width - chartConstants.marginLeftNumerical}
                   left={chartConstants.marginLeftNumerical}
                   tickFormat={props.dataFormat.yAxis}
                   strokeColor={colorConstants.strokeColor}
                   tickLabelColor={colorConstants.tickLabelColor}
                   showTickLabels={!props.loading && dataInRange.length > 0}
                   showGrid={false}
+                  scale={valueAxisScale}
                 />
-                {!props.loading && dataInRange.length > 0 && (
+                {!props.loading && parent.width > 0 && parent.height > 0 && dataInRange.length > 0 && (
                   <g
                     className="hoverArea"
                     onMouseMove={(e) => onMouseMove(e, props.data.data, xScale, showTooltip, hideTooltip)}
@@ -190,13 +194,12 @@ const TimeSeriesBucketChartSVG = (props) => {
                       barWeight={barWeightFunction}
                       color={props.colorScheme.categorical[0]}
                       direction="vertical"
-                      height={parent.height}
                       labels={props.data.data.map((d) => d[INDEX_START_TS])}
-                      labelScale={xScale}
                       left={chartConstants.marginLeftNumerical}
-                      maxValue={maxValue}
                       values={props.data.data.map((d) => d[INDEX_VALUE])}
-                      width={parent.width}
+                      scaleLabel={xScale}
+                      scaleValue={valueScale}
+                      top={chartConstants.marginMaxValueToBorder}
                     />
                     {/* ChartArea makes sure the outer <g> element where all mouse event listeners are attached always covers the whole chart area so that there is no tooltip flickering issue */}
                     <ChartArea width={parent.width} height={parent.height} />
@@ -211,6 +214,7 @@ const TimeSeriesBucketChartSVG = (props) => {
                         width={parent.width}
                         height={parent.height}
                         color={colorConstants.overlayColor}
+                        scale={xScale.invert}
                       />
                     )}
                   </g>

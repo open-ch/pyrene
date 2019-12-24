@@ -1,10 +1,18 @@
 import React from 'react';
-import { Bar, RelativeBar } from 'tuktuktwo';
+import {
+  Bar,
+  RelativeBar,
+  scaleLinear,
+} from 'tuktuktwo';
 import './barChartTable.css';
 
 const getId = (d) => d.trim().toLowerCase();
 
 export const getValueWithAccessor = (row, accessor) => (typeof accessor === 'string' ? row[accessor] : accessor(row));
+
+const getValueScale = (direction, width, maxValue) => (
+  scaleLinear(0, maxValue, 0, Math.max(0, width), direction)
+);
 
 const getColumn = ({
   id, accessor, accessorSecondary, headerName, dataFormat = (d) => d, align, width, linkAccessor, cellType, colors, maxValue, labelAccessor,
@@ -15,6 +23,7 @@ const getColumn = ({
   const bottomBorder = 1;
   const svgHeight = barWeightPrimary + bottomBorder;
   const svgHeightComparison = barWeightPrimary + barWeightSecondary + comparisonMargin + bottomBorder;
+  const direction = 'horizontal';
   return {
     id: getId(id),
     accessor: accessor,
@@ -36,10 +45,10 @@ const getColumn = ({
             <RelativeBar
               barWeight={barWeightPrimary}
               colors={colors}
+              direction={direction}
               maxValue={maxValue}
+              scaleValue={getValueScale(direction, width, maxValue)}
               value={getValueWithAccessor(row, accessor)}
-              size={width}
-              direction="horizontal"
             />
           )}
         </svg>
@@ -50,10 +59,10 @@ const getColumn = ({
             <RelativeBar
               barWeight={barWeightPrimary}
               colors={colors}
+              direction={direction}
               maxValue={maxValue}
+              scaleValue={getValueScale(direction, width, maxValue)}
               value={getValueWithAccessor(row, accessor)}
-              size={width}
-              direction="horizontal"
               mirrored
             />
           )}
@@ -62,33 +71,34 @@ const getColumn = ({
       verticalLine: () => ( // eslint-disable-line react/display-name
         <div styleName="verticalLine" />
       ),
-      comparisonBars: (row) => ( // eslint-disable-line react/display-name
-        <svg width="100%" height={svgHeightComparison}>
-          {width > 0 && (
-            <g>
-              <Bar
-                key={`${getId(getValueWithAccessor(row, labelAccessor))}_bar_current`} // eslint-disable-line
-                barWeight={barWeightPrimary}
-                color={colors[0]}
-                maxValue={maxValue}
-                value={getValueWithAccessor(row, accessor)} // eslint-disable-line
-                size={width}
-                direction="horizontal"
-              />
-              <Bar
-                key={`${getId(getValueWithAccessor(row, labelAccessor))}_bar_previous`} // eslint-disable-line
-                barWeight={barWeightSecondary}
-                color={colors[1]}
-                maxValue={maxValue}
-                value={getValueWithAccessor(row, accessorSecondary)} // eslint-disable-line
-                size={width}
-                direction="horizontal"
-                y={barWeightPrimary + comparisonMargin}
-              />
-            </g>
-          )}
-        </svg>
-      ),
+      comparisonBars: (row) => { // eslint-disable-line react/display-name
+        const scaleValue = getValueScale(direction, width, maxValue);
+        return (
+          <svg width="100%" height={svgHeightComparison}>
+            {width > 0 && (
+              <g>
+                <Bar
+                  key={`${getId(getValueWithAccessor(row, labelAccessor))}_bar_current`}
+                  barWeight={barWeightPrimary}
+                  color={colors[0]}
+                  direction={direction}
+                  scaleValue={scaleValue}
+                  value={getValueWithAccessor(row, accessor)}
+                />
+                <Bar
+                  key={`${getId(getValueWithAccessor(row, labelAccessor))}_bar_previous`}
+                  barWeight={barWeightSecondary}
+                  color={colors[1]}
+                  direction={direction}
+                  scaleValue={scaleValue}
+                  top={barWeightPrimary + comparisonMargin}
+                  value={getValueWithAccessor(row, accessorSecondary)}
+                />
+              </g>
+            )}
+          </svg>
+        );
+      },
       default: (row) => dataFormat(row.value),
     }[cellType || 'default'],
   };
