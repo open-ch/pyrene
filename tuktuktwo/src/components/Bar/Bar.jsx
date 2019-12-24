@@ -7,8 +7,8 @@ import { Bar as VxBar } from '@vx/shape';
  */
 const Bar = (props) => {
   const minBarLength = 1;
-  const barLength = Math.max(minBarLength, props.scaleValue(props.value));
-  const size = props.direction === 'horizontal' ? props.scaleValue.range()[1] : props.scaleValue.range()[0];
+  const barLength = Math.max(minBarLength, props.scale(props.value));
+  const size = props.direction === 'horizontal' ? props.scale.range()[1] : props.scale.range()[0];
   return props.direction === 'horizontal' ? (
     <VxBar
       x={props.left}
@@ -64,7 +64,7 @@ Bar.propTypes = {
   /**
    * Sets the scale function for the value axis.
    */
-  scaleValue: PropTypes.func.isRequired,
+  scale: PropTypes.func.isRequired,
   /**
    * Sets the vertical offset for this component.
    */

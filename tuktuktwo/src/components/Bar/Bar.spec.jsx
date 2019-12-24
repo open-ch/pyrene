@@ -1,16 +1,18 @@
 import React from 'react';
-
 import Bar from './Bar';
 import RelativeBar from './RelativeBar';
+import { scaleLinear } from '../../common/ScaleUtils';
 
 const parentSize = { width: 50, height: 40 };
+const maxValue = 100;
 
 const props = {
   barWeight: 10,
   color: 'blue',
-  maxValue: 100,
+  maxValue: maxValue,
   value: 53,
   size: parentSize.width,
+  scale: scaleLinear(0, maxValue, 10, parentSize.height, 'vertical'),
 };
 
 const propsRelative = {

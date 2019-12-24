@@ -30,7 +30,7 @@ const Bars = (props) => (
           color={props.color}
           direction={props.direction}
           left={props.direction === 'horizontal' ? props.left : props.scaleLabel(props.labels[i]) + props.labelOffset + barWeightOffset}
-          scaleValue={props.scaleValue}
+          scale={props.scaleValue}
           top={props.direction === 'horizontal' ? props.scaleLabel(props.labels[i]) + props.labelOffset + barWeightOffset : props.top}
           value={d}
         />

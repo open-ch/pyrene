@@ -24,7 +24,7 @@ const RelativeBar = (props) => {
   });
   const weightScale = scaleBand({
   });
-  const size = props.scaleValue.range().slice(-1)[0];
+  const size = props.scale.range().slice(-1)[0];
   return (
     props.direction === 'horizontal' ? (
       <BarStackHorizontal
@@ -32,7 +32,7 @@ const RelativeBar = (props) => {
         height={props.barWeight}
         data={data}
         keys={keys}
-        xScale={props.scaleValue}
+        xScale={props.scale}
         yScale={weightScale}
         color={color}
         transform={props.mirrored ? `rotate(180 ${size / 2} ${props.barWeight / 2})` : undefined}
@@ -44,7 +44,7 @@ const RelativeBar = (props) => {
         data={data}
         keys={keys}
         xScale={weightScale}
-        yScale={props.scaleValue}
+        yScale={props.scale}
         color={color}
         transform={props.mirrored ? `rotate(180 ${props.barWeight / 2} ${size / 2})` : undefined}
       />
@@ -83,7 +83,7 @@ RelativeBar.propTypes = {
   /**
    * Sets the scale function for the value axis.
    */
-  scaleValue: PropTypes.func.isRequired,
+  scale: PropTypes.func.isRequired,
   /**
    * Sets the value, which is used to calculate the length of the bars.
    */

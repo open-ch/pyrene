@@ -1,7 +1,7 @@
 import React from 'react';
 import BarStack from './BarStack';
 import chartConstants from '../../common/chartConstants';
-import ScaleUtils from '../../common/ScaleUtils';
+import { scaleLabels, scaleValueInBounds } from '../../common/ScaleUtils';
 
 const parentSize = { width: 500, height: 404 };
 const data = [{
@@ -23,7 +23,8 @@ const props = {
   data: data,
   width: parentSize.width,
   keys: ['A', 'B'],
-  labelScale: ScaleUtils.scaleOrdinal(0, parentSize.height - chartConstants.marginBottom, data.map((d) => d.label)),
+  scaleLabel: scaleLabels(chartConstants.marginBottom, parentSize.height, data.map((d) => d.label)),
+  scaleValue: scaleValueInBounds(parentSize, maxCumulatedValue, 'vertical'),
   direction: 'vertical',
   left: chartConstants.marginLeftNumerical,
 };
@@ -53,7 +54,8 @@ describe('<Bars />', () => {
     const rendered = mount(svgWrapper(<BarStack
       {...props}
       direction="horizontal"
-      labelScale={ScaleUtils.scaleOrdinal(0, parentSize.width - chartConstants.marginLeftNumerical, data.map((d) => d.label))}
+      scaleLabel={scaleLabels(chartConstants.marginLeftNumerical, parentSize.width, data.map((d) => d.label))}
+      scaleValue={scaleValueInBounds(parentSize, maxCumulatedValue, 'horizontal')}
       left={chartConstants.marginLeftCategorical}
     />));
     const bars = rendered.find('.vx-bar');
