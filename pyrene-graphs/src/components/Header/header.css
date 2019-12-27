@@ -74,3 +74,17 @@
   margin-right: 8px;
   background-color: blue;
 }
+
+.checkbox {
+  appearance: none;
+  height: 12px;
+  width: 12px;
+}
+
+.checkboxCustom {
+  position: relative;
+  top: -2px;
+  left: -17px;
+  height: 12px;
+  width: 12px;
+}

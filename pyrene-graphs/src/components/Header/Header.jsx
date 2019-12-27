@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
+import { Icon } from 'pyrene';
 import './header.css';
 
 /**
@@ -20,16 +21,40 @@ const Header = (props) => (
         )}
         {props.legend && props.legend.length > 0 && (
           <div styleName={classNames('legend', { legendLeft: props.description === '' })}>
-            {props.legend.map((item, idx) => (
+            {props.legend.map((item, index) => (
               <div
-                key={item}
+                key={item.label}
                 styleName="legendItem"
               >
-                <span
-                  styleName="circle"
-                  style={{ backgroundColor: props.colors[idx] }}
-                />
-                {item}
+                {props.legendToggleCallback ? (
+                  <>
+                    <input
+                      type="checkbox"
+                      styleName="checkbox"
+                      style={{ backgroundColor: item.color }}
+                      onChange={() => props.legendToggleCallback(index)}
+                      checked={!item.deselected}
+                    />
+                    <span
+                      styleName="checkboxCustom"
+                      onClick={() => props.legendToggleCallback(index)}
+                    >
+                      {!item.deselected && (
+                        <Icon
+                          name="check"
+                          color="white"
+                          type="inline"
+                        />
+                      )}
+                    </span>
+                  </>
+                ) : (
+                  <span
+                    styleName="circle"
+                    style={{ backgroundColor: item.color }}
+                  />
+                )}
+                {item.label}
               </div>
             ))}
           </div>
@@ -43,23 +68,21 @@ Header.displayName = 'Header';
 
 Header.defaultProps = {
   description: '',
-  legend: [],
-  colors: [],
+  legend: {},
+  legendToggleCallback: null,
 };
 
 Header.propTypes = {
   /**
-   * Sets the colors of the legend. Type: [ string ]
-   */
-  colors: PropTypes.arrayOf(PropTypes.string),
-  /**
     * Sets the description.
     */
   description: PropTypes.string,
-  /**
-    * Sets the legend. Type: [ string ]
-    */
-  legend: PropTypes.arrayOf(PropTypes.string),
+  legend: PropTypes.arrayOf(PropTypes.shape({
+    color: PropTypes.string,
+    deselected: PropTypes.bool,
+    label: PropTypes.string,
+  })),
+  legendToggleCallback: PropTypes.func,
   /**
    * Sets the title.
    */
