@@ -105,7 +105,7 @@ export default class SideBarMenuSection extends React.Component {
           ref={`ref${index}`}
           onClick={() => this.handleElementClick(element.name)}
         >
-          {hasSubElements && element.name === 'Chart' ? `${element.name} (v${packageJson.dependencies['pyrene-graphs'].replace(/\^/, '')})` : element.name}
+          {hasSubElements && element.isChart ? `${element.name} (${packageJson.dependencies['pyrene-graphs'].replace(/\^/, '')})` : element.name}
           {element.linkToPath === '#' && !element.elements && <span>Coming Soon</span>}
         </div>
       </NavLink>
@@ -156,6 +156,7 @@ SideBarMenuSection.propTypes = {
       linkToPath: PropTypes.string,
       name: PropTypes.string,
     })),
+    isChart: PropTypes.bool,
     linkToPath: PropTypes.string,
     name: PropTypes.string,
   })).isRequired,
