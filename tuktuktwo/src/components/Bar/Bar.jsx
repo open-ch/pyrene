@@ -1,28 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Bar as VxBar } from '@vx/shape';
+import chartConstants from '../../common/chartConstants';
 
 /**
  * Bars are used to display a numerical value.
  */
 const Bar = (props) => {
-  const minBarLength = 1;
-  const barLength = Math.max(minBarLength, props.scale(props.value));
   const size = props.direction === 'horizontal' ? props.scale.range()[1] : props.scale.range()[0];
   return props.direction === 'horizontal' ? (
     <VxBar
       x={props.left}
       y={props.top}
       height={props.barWeight}
-      width={barLength - props.left}
+      width={Math.max(chartConstants.minShapeLength, props.scale(props.value) - props.left)}
       fill={props.color}
       transform={props.mirrored ? `rotate(180 ${size / 2} ${props.barWeight / 2})` : null}
     />
   ) : (
     <VxBar
       x={props.left}
-      y={props.top + barLength}
-      height={size - barLength}
+      y={props.top + Math.max(chartConstants.minShapeLength, props.scale(props.value))}
+      height={Math.max(chartConstants.minShapeLength, size - props.scale(props.value))}
       width={props.barWeight}
       fill={props.color}
       transform={props.mirrored ? `rotate(180 ${props.barWeight / 2} ${size / 2})` : null}

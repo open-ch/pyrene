@@ -10,6 +10,7 @@ const chartConstants = {
   marginLeftCategorical: 102,
   marginLeftNumerical: 36,
   marginMaxValueToBorder: marginMaxValueToBorder,
+  minShapeLength: 1,
   tickLabelBottomHeight: 24,
   tickLabelLeftHeight: 14,
   tickLabelPadding: 4,

@@ -28,11 +28,15 @@ export const scaleTime = (minDomain, maxDomain, minRange, maxRange, direction) =
   })
 );
 
-export const scaleValueInBounds = (parentSize, maxValue, direction) => (
-  direction === 'horizontal' ? scaleLinear(0, maxValue, chartConstants.marginLeftCategorical, Math.max(0, parentSize.width - chartConstants.marginMaxValueToBorder), direction) : scaleLinear(0, maxValue, chartConstants.marginBottom, Math.max(0, parentSize.height - chartConstants.marginMaxValueToBorder), direction)
-);
+export const scaleValueInBounds = (parentSize, maxValue, direction) => {
+  const minRange = direction === 'horizontal' ? chartConstants.marginLeftCategorical : chartConstants.marginBottom;
+  const maxRange = Math.max(chartConstants.minShapeLength, direction === 'horizontal' ? parentSize.width - chartConstants.marginMaxValueToBorder : parentSize.height - chartConstants.marginMaxValueToBorder);
+  return scaleLinear(0, maxValue, minRange <= maxRange ? minRange : 0, maxRange, direction);
+};
 
 export const scaleValueAxis = (parentSize, maxValue, direction) => {
-  const maxValueAdjusted = direction === 'horizontal' ? maxValue * (parentSize.width / (parentSize.width - chartConstants.marginMaxValueToBorder)) : maxValue * (parentSize.height / (parentSize.height - chartConstants.marginMaxValueToBorder));
-  return direction === 'horizontal' ? scaleLinear(0, maxValueAdjusted, chartConstants.marginLeftCategorical, Math.max(0, parentSize.width), direction) : scaleLinear(0, maxValueAdjusted, chartConstants.marginBottom, Math.max(0, parentSize.height), direction);
+  const minRange = direction === 'horizontal' ? chartConstants.marginLeftCategorical : chartConstants.marginBottom;
+  const maxRange = Math.max(chartConstants.minShapeLength, direction === 'horizontal' ? parentSize.width : parentSize.height);
+  const maxValueAdjusted = direction === 'horizontal' ? maxValue * Math.max(1, (parentSize.width / (parentSize.width - chartConstants.marginMaxValueToBorder))) : maxValue * Math.max(1, (parentSize.height / (parentSize.height - chartConstants.marginMaxValueToBorder)));
+  return scaleLinear(0, maxValueAdjusted, minRange <= maxRange ? minRange : 0, maxRange, direction);
 };
