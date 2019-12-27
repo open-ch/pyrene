@@ -179,7 +179,7 @@ const TimeSeriesBucketChartSVG = (props) => {
                   showGrid={false}
                   scale={valueAxisScale}
                 />
-                {!props.loading && parent.width > 0 && parent.height > 0 && dataInRange.length > 0 && (
+                {!props.loading && dataInRange.length > 0 && (
                   <g
                     className="hoverArea"
                     onMouseMove={(e) => onMouseMove(e, props.data.data, xScale, showTooltip, hideTooltip)}

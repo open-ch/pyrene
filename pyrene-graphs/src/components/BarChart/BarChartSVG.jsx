@@ -124,7 +124,7 @@ const BarChartSVG = (props) => {
                 onMouseMove={(e) => onMouseMove(e, props.data, showTooltip, props.direction, labelConfig, left)}
                 onMouseOut={hideTooltip}
               >
-                {!props.loading && parent.width > 0 && parent.height > 0 && (props.legend.length > 1 ? (
+                {!props.loading && (props.legend.length > 1 ? (
                   <BarStack
                     barWeight={chartConstants.barWeight}
                     colors={props.colorScheme.categorical}
