@@ -5,7 +5,7 @@ import { scaleLabels, scaleTime, scaleValueInBounds } from '../../common/ScaleUt
 
 const parentSize = { width: 500, height: 404 };
 const labels = [1, 2];
-const values = [12, 37];
+const data = [12, 37];
 const maxValue = 100;
 const barWeight = () => 5;
 
@@ -18,7 +18,7 @@ const props = {
   barWeight: barWeight,
   color: 'blue',
   height: parentSize.height,
-  values: values,
+  data: data,
   width: parentSize.width,
   scaleLabel: labelScaleVertical,
   scaleValue: valueScaleVertical,
@@ -38,7 +38,7 @@ const propsShiftedLabels = {
   color: 'blue',
   height: parentSize.height,
   maxValue: maxValue,
-  values: values,
+  data: data,
   width: parentSize.width,
   scaleLabel: labelScaleTimeHorizontal,
   scaleValue: valueScaleVertical,
@@ -62,7 +62,7 @@ describe('<Bars />', () => {
     const rendered = mount(svgWrapper(<Bars {...props} />));
     const bars = rendered.find('.vx-bar');
     bars.forEach((bar, index) => {
-      expect(bar.prop('height')).toBeCloseTo((values[index] / maxValue) * (props.height - chartConstants.marginBottom - chartConstants.marginMaxValueToBorder));
+      expect(bar.prop('height')).toBeCloseTo((data[index] / maxValue) * (props.height - chartConstants.marginBottom - chartConstants.marginMaxValueToBorder));
       expect(bar.prop('width')).toBeCloseTo(barWeight());
       expect(bar.prop('fill')).toBe('blue');
     });
@@ -80,7 +80,7 @@ describe('<Bars />', () => {
     const bars = rendered.find('.vx-bar');
     bars.forEach((bar, index) => {
       expect(bar.prop('height')).toBeCloseTo(barWeight());
-      expect(bar.prop('width')).toBeCloseTo((values[index] / maxValue) * (parentSize.width - chartConstants.marginLeftCategorical - chartConstants.marginMaxValueToBorder));
+      expect(bar.prop('width')).toBeCloseTo((data[index] / maxValue) * (parentSize.width - chartConstants.marginLeftCategorical - chartConstants.marginMaxValueToBorder));
       expect(bar.prop('fill')).toBe('blue');
     });
   });
@@ -91,7 +91,7 @@ describe('<Bars />', () => {
     bars.forEach((bar, index) => {
       if (labels.includes(labelsShifted[index])) expect(bar.prop('width')).toBe(propsShiftedLabels.barWeight());
       else expect(bar.prop('width')).toBe(0);
-      expect(bar.prop('height')).toBeCloseTo((values[index] / maxValue) * (props.height - chartConstants.marginBottom - chartConstants.marginMaxValueToBorder));
+      expect(bar.prop('height')).toBeCloseTo((data[index] / maxValue) * (props.height - chartConstants.marginBottom - chartConstants.marginMaxValueToBorder));
       expect(bar.prop('fill')).toBe('blue');
     });
   });

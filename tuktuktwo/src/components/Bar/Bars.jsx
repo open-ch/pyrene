@@ -20,7 +20,7 @@ const getBarWeightInBoundary = (labelPosition, barWeight, boundary) => {
  */
 const Bars = (props) => (
   <Group>
-    {props.values.map((d, i) => {
+    {props.data.map((d, i) => {
       const barWeight = getBarWeightInBoundary(props.scaleLabel(props.labels[i]) + props.labelOffset, props.barWeight(i, props.labels), props.direction === 'horizontal' ? props.top : props.left);
       const barWeightOffset = props.barWeight(i, props.labels) - barWeight;
       return (
@@ -58,6 +58,10 @@ Bars.propTypes = {
    */
   color: PropTypes.string.isRequired,
   /**
+   * Sets the data. Type: [ number ]
+   */
+  data: PropTypes.arrayOf(PropTypes.number).isRequired,
+  /**
    * Sets the bar direction.
    */
   direction: PropTypes.oneOf(['horizontal', 'vertical']),
@@ -85,10 +89,6 @@ Bars.propTypes = {
    * Sets the vertical offset for this component.
    */
   top: PropTypes.number,
-  /**
-   * Sets the values, which are used to calculate the bar lengths. Type: [ number ]
-   */
-  values: PropTypes.arrayOf(PropTypes.number).isRequired,
 };
 
 export default Bars;
