@@ -6,6 +6,7 @@ import {
   NumericalAxis,
   Responsive,
   SparkLine as SparkLineTT2,
+  chartConstants,
   localPoint,
   scaleLinear,
   withTooltip,
@@ -90,18 +91,6 @@ const SparkLineSVG = (props) => {
                     strokeWidth={props.strokeWidth}
                   />
                 )}
-                {props.axisLabel && (
-                  <NumericalAxis
-                    strokeColor={colorConstants.strokeColor}
-                    tickLabelColor={colorConstants.tickLabelColor}
-                    scale={scaleLabel}
-                    showTickLabels={false}
-                    showGrid={false}
-                    label={props.axisLabel}
-                    orientation="bottom"
-                    top={sparkLineHeight}
-                  />
-                )}
                 {!props.loading && props.enableTooltip && !tooltipOpen && (
                   <Circle
                     borderStrokeWidth={1}
@@ -121,11 +110,23 @@ const SparkLineSVG = (props) => {
                   />
                 )}
                 {/* ChartArea is used to show the tooltip once the cursor is in the chart area */}
-                <ChartArea width={parent.width} height={parent.height} />
+                <ChartArea width={parent.width} height={parent.height - (props.axisLabel ? chartConstants.marginBottom : 0)} />
               </g>
+              {props.axisLabel && (
+                <NumericalAxis
+                  strokeColor={colorConstants.strokeColor}
+                  tickLabelColor={colorConstants.tickLabelColor}
+                  scale={scaleLabel}
+                  showTickLabels={false}
+                  showGrid={false}
+                  label={props.axisLabel}
+                  orientation="bottom"
+                  top={sparkLineHeight}
+                />
+              )}
             </svg>
             {
-              props.enableTooltip && tooltipOpen && (
+              !props.loading && props.enableTooltip && tooltipOpen && (
                 <Tooltip
                   data={[{ dataValue: props.dataFormat(tooltipData.data) }]}
                   left={tooltipLeft} top={tooltipTop}
