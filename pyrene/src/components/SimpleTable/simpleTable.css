@@ -67,15 +67,11 @@
 }
 
 .tableRow:hover {
-  background-color: var(--secondary);
+  background-color: var(--background-tint);
 }
 
 .tableRowWithFunction:hover {
   cursor: pointer;
-}
-
-.selectedRow {
-  background-color: var(--secondary);
 }
 
 .tableCell {
