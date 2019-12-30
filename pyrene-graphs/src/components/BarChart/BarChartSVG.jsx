@@ -61,8 +61,8 @@ const BarChartSVG = (props) => {
     <Responsive>
       {(parent) => {
         const labels = props.data.map((row) => row.label);
-        const maxValue = Math.max(...props.data.map((d) => d.values.reduce((a, b) => a + b, 0)));
-        const values = props.data.map((row) => row.values[0]);
+        const maxValue = Math.max(...props.data.map((d) => d.data.reduce((a, b) => a + b, 0)));
+        const data = props.data.map((row) => row.data[0]);
         const sharedAxisProps = {
           height: parent.height,
           width: parent.width,
@@ -147,7 +147,7 @@ const BarChartSVG = (props) => {
                     scaleLabel={labelConfig.scale}
                     scaleValue={valueScale}
                     top={chartConstants.marginMaxValueToBorder}
-                    values={values}
+                    data={data}
                   />
                 ))}
               </g>
@@ -155,7 +155,7 @@ const BarChartSVG = (props) => {
             {
               tooltipOpen && (
                 <Tooltip
-                  data={tooltipData.values.map((value, index) => ({
+                  data={tooltipData.data.map((value, index) => ({
                     dataColor: props.colorScheme.categorical[index],
                     dataLabel: props.legend[index],
                     dataValue: props.dataFormat(value),
@@ -181,7 +181,7 @@ BarChartSVG.defaultProps = {
   dataFormat: (d) => d,
   tooltipData: {
     label: '',
-    values: [],
+    data: [],
   },
   tooltipLeft: 0,
   tooltipTop: 0,
@@ -195,11 +195,11 @@ BarChartSVG.propTypes = {
     categorical: PropTypes.arrayOf(PropTypes.string).isRequired,
   }),
   /**
-   * Sets the chart data. Type: [ { label: string (required), values: [number] (required) } ]
+   * Sets the chart data. Type: [ { label: string (required), data: [number] (required) } ]
    */
   data: PropTypes.arrayOf(PropTypes.shape({
+    data: PropTypes.arrayOf(PropTypes.number).isRequired,
     label: PropTypes.string.isRequired,
-    values: PropTypes.arrayOf(PropTypes.number).isRequired,
   })).isRequired,
   /**
    * Set function to format the displayed values.
@@ -229,8 +229,8 @@ BarChartSVG.propTypes = {
    * The tooltip data prop provided by the withTooltip enhancer.
    */
   tooltipData: PropTypes.shape({
+    data: PropTypes.arrayOf(PropTypes.number).isRequired,
     label: PropTypes.string.isRequired,
-    values: PropTypes.arrayOf(PropTypes.number).isRequired,
   }),
   /**
    * The tooltip x-position prop provided by the withTooltip enhancer.

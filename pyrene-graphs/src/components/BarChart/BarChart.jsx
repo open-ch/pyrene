@@ -61,11 +61,11 @@ BarChart.propTypes = {
     categorical: PropTypes.arrayOf(PropTypes.string).isRequired,
   }),
   /**
-   * Sets the chart data. Type: [ { label: string (required), values: [number] (required) } ]
+   * Sets the chart data. Type: [ { label: string (required), data: [number] (required) } ]
    */
   data: PropTypes.arrayOf(PropTypes.shape({
+    data: PropTypes.arrayOf(PropTypes.number).isRequired,
     label: PropTypes.string.isRequired,
-    values: PropTypes.arrayOf(PropTypes.number).isRequired,
   })).isRequired,
   /**
    * Set function to format the displayed values.

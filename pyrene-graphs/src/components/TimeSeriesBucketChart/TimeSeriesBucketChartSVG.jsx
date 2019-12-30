@@ -196,7 +196,7 @@ const TimeSeriesBucketChartSVG = (props) => {
                       direction="vertical"
                       labels={props.data.data.map((d) => d[INDEX_START_TS])}
                       left={chartConstants.marginLeftNumerical}
-                      values={props.data.data.map((d) => d[INDEX_VALUE])}
+                      data={props.data.data.map((d) => d[INDEX_VALUE])}
                       scaleLabel={xScale}
                       scaleValue={valueScale}
                       top={chartConstants.marginMaxValueToBorder}
