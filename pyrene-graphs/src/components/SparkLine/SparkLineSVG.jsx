@@ -74,6 +74,12 @@ const SparkLineSVG = (props) => {
           onMouseMove={(e) => onMouseMove(e, props.dataSeries, xScale, yScale, props.width, showTooltip)}
           onMouseOut={hideTooltip}
         >
+          {/* rect is used to show the tooltip once the cursor is in the chart area */}
+          <rect
+            width={props.width}
+            height={props.height}
+            fill="transparent"
+          />
           <SparkLineTT2
             colors={props.colorScheme.valueGroundLight}
             dataSeries={props.dataSeries}
