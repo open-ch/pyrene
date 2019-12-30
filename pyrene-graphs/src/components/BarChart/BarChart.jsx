@@ -16,7 +16,10 @@ const BarChart = (props) => {
       title={props.title}
       description={props.description}
       colors={props.colorScheme.categorical}
-      legend={props.legend}
+      legend={props.legend.map((d, i) => ({
+        color: props.colorScheme.categorical[i],
+        label: d,
+      }))}
     />
   );
   const chart = (

@@ -42,7 +42,7 @@ export default class BarChartTable extends React.Component {
          <Header
            title={this.props.title}
            description={description}
-           legend={getLegend(this.props.type, this.props.columns)}
+           legend={getLegend(this.props.type, this.props.columns, this.props.colorScheme)}
            colors={colors}
          />
          {/* table height: displayedRows + 1 header row + conditional showMoreLink div */}
