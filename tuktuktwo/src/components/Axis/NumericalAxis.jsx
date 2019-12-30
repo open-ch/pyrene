@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { AxisLeft, AxisBottom } from '@vx/axis';
 import { GridColumns, GridRows } from '@vx/grid';
 import { Group } from '@vx/group';
-import { getTickComponent, getTickLabelLeftProps, getTickLabelBottomProps } from './AxisUtil';
+import { getPaddedTickLabelLeft, getTickLabelLeftProps, getTickLabelBottomProps } from './AxisUtil';
 import chartConstants from '../../common/chartConstants';
 
 /**
@@ -23,7 +23,7 @@ const NumericalAxis = (props) => {
           tickValues={props.showTickLabels ? axisTickValues : []}
           tickLength={0}
           tickLabelProps={getTickLabelLeftProps(props.left, props.tickLabelColor)}
-          tickComponent={getTickComponent(props.left)}
+          tickComponent={getPaddedTickLabelLeft(props.left)}
           label={props.label}
           labelProps={{
             textAnchor: 'start', fontSize: 11, fontWeight: 500, fontFamily: 'AvenirNext', fill: props.tickLabelColor, dx: '2.25em', lineHeight: '1.45', letterSpacing: '0.6px',

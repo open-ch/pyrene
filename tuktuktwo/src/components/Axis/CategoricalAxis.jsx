@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { AxisLeft, AxisBottom } from '@vx/axis';
-import { getTickComponent, getTickLabelLeftProps, getTickLabelBottomProps } from './AxisUtil';
+import { getPaddedTickLabelLeft, getTickLabelLeftProps, getTickLabelBottomProps } from './AxisUtil';
 
 /**
  * CategoricalAxis is used to display a categorical left or bottom axis.
@@ -13,7 +13,7 @@ const CategoricalAxis = (props) => (
       scale={props.scale}
       tickLength={0}
       tickLabelProps={getTickLabelLeftProps(props.left, props.tickLabelColor)}
-      tickComponent={getTickComponent(props.left)}
+      tickComponent={getPaddedTickLabelLeft(props.left)}
       stroke={props.strokeColor}
       tickStroke={props.tickLabelColor}
       tickFormat={props.tickFormat}
