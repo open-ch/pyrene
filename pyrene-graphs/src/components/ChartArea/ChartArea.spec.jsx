@@ -4,7 +4,8 @@ import ChartArea from './ChartArea';
 
 const props = {
   width: 100,
-  height: 100,
+  height: 100 - chartConstants.marginBottom,
+  left: chartConstants.marginLeftNumerical,
 };
 
 describe('<ChartArea />', () => {
@@ -16,8 +17,9 @@ describe('<ChartArea />', () => {
     const rendered = shallow(<ChartArea {...props} />);
     const rect = rendered.find('.chartArea');
     expect(rect).toHaveLength(1);
-    expect(rect.prop('width')).toBe(props.width - chartConstants.marginLeftNumerical);
-    expect(rect.prop('height')).toBe(props.height - chartConstants.marginBottom);
+    expect(rect.prop('width')).toBe(100 - chartConstants.marginLeftNumerical);
+    expect(rect.prop('height')).toBe(100 - chartConstants.marginBottom);
+    expect(rect.prop('x')).toBe(chartConstants.marginLeftNumerical);
     expect(rect.prop('fill')).toBe('transparent');
   });
 });
