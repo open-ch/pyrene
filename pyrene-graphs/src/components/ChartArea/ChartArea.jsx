@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { chartConstants } from 'tuktuktwo';
 
 /**
- * ChartArea represents the area of chart excluding the axes.
+ * ChartArea represents the area of SVG part of the chart excluding the axes.
  */
 const ChartArea = (props) => (
   <rect
