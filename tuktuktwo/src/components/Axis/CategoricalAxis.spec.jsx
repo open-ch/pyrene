@@ -1,6 +1,6 @@
 import React from 'react';
+import { scaleBand } from '@vx/scale';
 import CategoricalAxis from './CategoricalAxis';
-import { scaleLabels } from '../../common/scaleUtils';
 
 const parentSize = { width: 50, height: 40 };
 
@@ -9,7 +9,10 @@ const props = {
   strokeColor: 'red',
   tickLabelColor: 'blue',
   left: 0,
-  scale: scaleLabels(10, parentSize.height, ['Dropbox', 'Youtube']),
+  scale: scaleBand({
+    range: [parentSize.height - 10, 0],
+    domain: ['Dropbox', 'Youtube'],
+  }),
 };
 
 const svgWrapper = (axis) => (
@@ -45,7 +48,13 @@ describe('<CategoricalAxis />', () => {
   });
 
   it('does not render tick labels', () => {
-    const rendered = mount(svgWrapper(<CategoricalAxis {...props} scale={scaleLabels(10, parentSize.height, [])} />));
+    const rendered = mount(svgWrapper(<CategoricalAxis
+      {...props}
+      scale={scaleBand({
+        range: [parentSize.height - 10, 0],
+        domain: [],
+      })}
+    />));
     const axis = rendered.find('.vx-axis').at(0);
     expect(axis.find('.vx-axis-tick').exists()).toBe(false);
   });

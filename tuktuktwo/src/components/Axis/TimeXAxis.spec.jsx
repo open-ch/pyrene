@@ -1,8 +1,8 @@
 import React from 'react';
 import moment from 'moment';
+import { scaleTime } from '@vx/scale';
 import TimeXAxis from './TimeXAxis';
 import { getTickValues } from './TimeXUtil';
-import { scaleTime } from '../../common/ScaleUtils';
 
 const testTimeRanges = [
   {
@@ -191,7 +191,10 @@ const props = {
   showTickLabels: true,
   strokeColor: '#e0e2e5',
   tickLabelColors: ['#979ca8', '#6b7282'],
-  scale: scaleTime(testTimeRanges[0].from, testTimeRanges[0].to, 10, 1334, 'horizontal'),
+  scale: scaleTime({
+    range: [10, 1334],
+    domain: [testTimeRanges[0].from, testTimeRanges[0].to],
+  }),
 };
 
 const svgWrapper = (bar) => (
@@ -221,7 +224,10 @@ describe('<TimeXAxis />', () => {
 describe('TickValues', () => {
   testTimeRanges.forEach((testTimeRange) => {
     it('calculates the correct tick values', () => {
-      const scale = scaleTime(testTimeRange.from, testTimeRange.to, 0, 1334, 'horizontal');
+      const scale = scaleTime({
+        range: [0, 1334],
+        domain: [testTimeRange.from, testTimeRange.to],
+      });
       const result = getTickValues(testTimeRange.from, testTimeRange.to, testTimeRange.timezone, scale);
       expect(result).toStrictEqual(testTimeRange.expectedValues);
     });

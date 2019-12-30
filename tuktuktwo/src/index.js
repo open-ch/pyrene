@@ -51,12 +51,5 @@ export { withTooltip } from '@vx/tooltip';
 export { localPoint } from '@vx/event';
 
 export { default as chartConstants } from './common/chartConstants';
-export {
-  scaleLabels,
-  scaleLinear,
-  scaleTime,
-  scaleValueAxis,
-  scaleValueInBounds,
-} from './common/scaleUtils';
 
 export default Components;

@@ -1,7 +1,7 @@
 import React from 'react';
+import { scaleLinear } from '@vx/scale';
 import Bar from './Bar';
 import RelativeBar from './RelativeBar';
-import { scaleLinear } from '../../common/ScaleUtils';
 
 const parentSize = { width: 50, height: 40 };
 const maxValue = 100;
@@ -12,7 +12,10 @@ const props = {
   maxValue: maxValue,
   value: 53,
   size: parentSize.width,
-  scale: scaleLinear(0, maxValue, 10, parentSize.height, 'vertical'),
+  scale: scaleLinear({
+    range: [parentSize.height, 0],
+    domain: [0, maxValue],
+  }),
 };
 
 const propsRelative = {

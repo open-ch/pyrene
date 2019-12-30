@@ -1,7 +1,7 @@
 import React from 'react';
 import moment from 'moment';
+import { scaleTime } from '@vx/scale';
 import TimeSeriesZoomable, { minZoomRangeReached, getBoundedZoomInRange } from './TimeSeriesZoomable';
-import { scaleTime } from '../../common/ScaleUtils';
 import chartConstants from '../../common/chartConstants';
 
 const from = moment('2019-10-21 10:29').valueOf();
@@ -23,7 +23,10 @@ const zoomableProps = {
   onZoom: () => {},
   tooltipFormat: (d) => d,
   color: '#ff0000',
-  scale: scaleTime(from, to, 10, parentSize.width, 'horizontal'),
+  scale: scaleTime({
+    range: [10, parentSize.width],
+    domain: [from, to],
+  }),
 };
 
 describe('<TimeSeriesZoomable />', () => {

@@ -1,7 +1,7 @@
 import React from 'react';
+import { scaleBand, scaleLinear, scaleTime } from '@vx/scale';
 import Bars from './Bars';
 import chartConstants from '../../common/chartConstants';
-import { scaleLabels, scaleTime, scaleValueInBounds } from '../../common/ScaleUtils';
 
 const parentSize = { width: 500, height: 404 };
 const labels = [1, 2];
@@ -9,10 +9,22 @@ const values = [12, 37];
 const maxValue = 100;
 const barWeight = () => 5;
 
-const labelScaleVertical = scaleLabels(0, parentSize.height - chartConstants.marginBottom, labels);
-const labelScaleHorizontal = scaleLabels(0, parentSize.width - chartConstants.marginLeftCategorical, labels);
-const valueScaleVertical = scaleValueInBounds(parentSize, maxValue, 'vertical');
-const valueScaleHorizontal = scaleValueInBounds(parentSize, maxValue, 'horizontal');
+const labelScaleVertical = scaleBand({
+  range: [0, parentSize.height - chartConstants.marginBottom],
+  domain: labels,
+});
+const labelScaleHorizontal = scaleBand({
+  range: [0, parentSize.width - chartConstants.marginLeftNumerical],
+  domain: labels,
+});
+const valueScaleVertical = scaleLinear({
+  range: [parentSize.height - chartConstants.marginBottom, 0],
+  domain: [0, maxValue],
+});
+const valueScaleHorizontal = scaleLinear({
+  range: [chartConstants.marginLeftCategorical, parentSize.width],
+  domain: [0, maxValue],
+});
 
 const props = {
   barWeight: barWeight,
@@ -30,7 +42,10 @@ const props = {
 
 const from = Math.min(...labels);
 const to = Math.max(...labels);
-const labelScaleTimeHorizontal = scaleTime(from, to, chartConstants.marginLeftNumerical, parentSize.width, 'horizontal');
+const labelScaleTimeHorizontal = scaleTime({
+  range: [chartConstants.marginLeftNumerical, parentSize.width],
+  domain: [from, to],
+});
 const labelsShifted = labels.map((d) => d - 1);
 
 const propsShiftedLabels = {
@@ -62,7 +77,7 @@ describe('<Bars />', () => {
     const rendered = mount(svgWrapper(<Bars {...props} />));
     const bars = rendered.find('.vx-bar');
     bars.forEach((bar, index) => {
-      expect(bar.prop('height')).toBeCloseTo((values[index] / maxValue) * (props.height - chartConstants.marginBottom - chartConstants.marginMaxValueToBorder));
+      expect(bar.prop('height')).toBeCloseTo((values[index] / maxValue) * (parentSize.height - chartConstants.marginBottom));
       expect(bar.prop('width')).toBeCloseTo(barWeight());
       expect(bar.prop('fill')).toBe('blue');
     });
@@ -80,7 +95,7 @@ describe('<Bars />', () => {
     const bars = rendered.find('.vx-bar');
     bars.forEach((bar, index) => {
       expect(bar.prop('height')).toBeCloseTo(barWeight());
-      expect(bar.prop('width')).toBeCloseTo((values[index] / maxValue) * (parentSize.width - chartConstants.marginLeftCategorical - chartConstants.marginMaxValueToBorder));
+      expect(bar.prop('width')).toBeCloseTo((values[index] / maxValue) * (parentSize.width - chartConstants.marginLeftCategorical));
       expect(bar.prop('fill')).toBe('blue');
     });
   });
@@ -91,7 +106,7 @@ describe('<Bars />', () => {
     bars.forEach((bar, index) => {
       if (labels.includes(labelsShifted[index])) expect(bar.prop('width')).toBe(propsShiftedLabels.barWeight());
       else expect(bar.prop('width')).toBe(0);
-      expect(bar.prop('height')).toBeCloseTo((values[index] / maxValue) * (props.height - chartConstants.marginBottom - chartConstants.marginMaxValueToBorder));
+      expect(bar.prop('height')).toBeCloseTo((values[index] / maxValue) * (props.height - chartConstants.marginBottom));
       expect(bar.prop('fill')).toBe('blue');
     });
   });
