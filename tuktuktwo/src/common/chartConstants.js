@@ -11,9 +11,6 @@ const chartConstants = {
   marginLeftNumerical: 36,
   marginMaxValueToBorder: marginMaxValueToBorder,
   minShapeLength: 1,
-  tickLabelBottomHeight: 24,
-  tickLabelLeftHeight: 14,
-  tickLabelPadding: 4,
   tooltipOffset: 15,
   zoomTooltipHeight: 34,
 };
