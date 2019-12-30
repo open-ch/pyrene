@@ -1,6 +1,6 @@
 {
   "name": "pyrene-graphs",
-  "version": "0.0.22",
+  "version": "0.0.23",
   "description": "Open Systems Graphs Component Library",
   "main": "dist/pyrene-graphs.js",
   "style": "dist/pyrene-graphs.css",
