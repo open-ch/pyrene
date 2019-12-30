@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { chartConstants } from 'tuktuktwo';
 
 /**
  * ChartArea represents the area of graph excluding the axes.
@@ -9,17 +8,22 @@ const ChartArea = (props) => (
   <rect
     className="chartArea"
     y={0}
-    x={chartConstants.marginLeftNumerical}
+    x={props.left}
     fill="transparent"
-    width={Math.max(0, props.width - chartConstants.marginLeftNumerical)}
-    height={Math.max(0, props.height - chartConstants.marginBottom)}
+    width={Math.max(0, props.width - props.left)}
+    height={Math.max(0, props.height)}
   />
 );
 
 ChartArea.displayName = 'ChartArea';
 
+ChartArea.defaultProps = {
+  left: 0,
+};
+
 ChartArea.propTypes = {
   height: PropTypes.number.isRequired,
+  left: PropTypes.number,
   width: PropTypes.number.isRequired,
 };
 
