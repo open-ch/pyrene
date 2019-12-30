@@ -68,6 +68,9 @@
 
 .tableRow:hover {
   background-color: var(--secondary);
+}
+
+.tableRowWithFunction:hover {
   cursor: pointer;
 }
 
