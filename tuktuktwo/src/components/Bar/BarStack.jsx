@@ -36,7 +36,7 @@ const getBars = (barStacks, direction, barWeight, labelOffset) => (
  */
 const BarStack = (props) => {
   const categoricalProp = (d) => d.label;
-  const data = props.data.map((dataElement) => ({ ...props.keys.reduce((obj, key, index) => ({ ...obj, [key]: dataElement.values[index] }), {}), label: dataElement.label }));
+  const data = props.data.map((dataElement) => ({ ...props.keys.reduce((obj, key, index) => ({ ...obj, [key]: dataElement.data[index] }), {}), label: dataElement.label }));
   const color = scaleOrdinal({
     domain: props.keys,
     range: props.colors,
@@ -94,11 +94,11 @@ BarStack.propTypes = {
    */
   colors: PropTypes.arrayOf(PropTypes.string).isRequired,
   /**
-   * Sets the bar stack data. Type: [ { label: string (required), values: [number] (required) } ]
+   * Sets the bar stack data. Type: [ { label: string (required), data: [number] (required) } ]
    */
   data: PropTypes.arrayOf(PropTypes.shape({
+    data: PropTypes.arrayOf(PropTypes.number).isRequired,
     label: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-    values: PropTypes.arrayOf(PropTypes.number).isRequired,
   })).isRequired,
   /**
    * Sets the bar direction.

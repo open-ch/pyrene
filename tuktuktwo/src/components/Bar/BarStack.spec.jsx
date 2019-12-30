@@ -5,11 +5,11 @@ import { scaleLabels, scaleValueInBounds } from '../../common/ScaleUtils';
 
 const parentSize = { width: 500, height: 404 };
 const data = [{
+  data: [12, 37],
   label: 2012,
-  values: [12, 37],
 }, {
+  data: [5, 41],
   label: 2013,
-  values: [5, 41],
 }];
 const maxCumulatedValue = 49;
 const barWeight = 5;
@@ -44,7 +44,7 @@ describe('<Bars />', () => {
     const rendered = mount(svgWrapper(<BarStack {...props} />));
     const bars = rendered.find('.vx-bar');
     bars.forEach((bar, index) => {
-      expect(bar.prop('height')).toBeCloseTo((data[index % 2].values[Math.floor(index / colors.length)] / maxCumulatedValue) * (props.height - chartConstants.marginBottom - chartConstants.marginMaxValueToBorder));
+      expect(bar.prop('height')).toBeCloseTo((data[index % 2].data[Math.floor(index / colors.length)] / maxCumulatedValue) * (props.height - chartConstants.marginBottom - chartConstants.marginMaxValueToBorder));
       expect(bar.prop('width')).toBe(barWeight);
       expect(bar.prop('fill')).toBe(colors[Math.floor(index / colors.length)]);
     });
@@ -61,7 +61,7 @@ describe('<Bars />', () => {
     const bars = rendered.find('.vx-bar');
     bars.forEach((bar, index) => {
       expect(bar.prop('height')).toBe(barWeight);
-      expect(bar.prop('width')).toBeCloseTo((data[index % 2].values[Math.floor(index / colors.length)] / maxCumulatedValue) * (parentSize.width - chartConstants.marginLeftCategorical - chartConstants.marginMaxValueToBorder));
+      expect(bar.prop('width')).toBeCloseTo((data[index % 2].data[Math.floor(index / colors.length)] / maxCumulatedValue) * (parentSize.width - chartConstants.marginLeftCategorical - chartConstants.marginMaxValueToBorder));
       expect(bar.prop('fill')).toBe(colors[Math.floor(index / colors.length)]);
     });
   });
