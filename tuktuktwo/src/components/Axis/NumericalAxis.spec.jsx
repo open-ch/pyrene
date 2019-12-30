@@ -1,6 +1,6 @@
 import React from 'react';
-import { scaleLinear } from '@vx/scale';
 import NumericalAxis from './NumericalAxis';
+import { scaleLinear } from '../../common/ScaleUtils';
 
 const parentSize = { width: 500, height: 400 };
 
@@ -11,10 +11,7 @@ const props = {
   tickLabelColor: 'blue',
   width: parentSize.width,
   left: 0,
-  scale: scaleLinear({
-    range: [parentSize.height - 10, 0],
-    domain: [0, 102],
-  }),
+  scale: scaleLinear(0, 102, 10, parentSize.height, 'vertical'),
 };
 
 const svgWrapper = (axis) => (
@@ -75,13 +72,7 @@ describe('<NumericalAxis />', () => {
   });
 
   it('does not render last tick', () => {
-    const rendered = mount(svgWrapper(<NumericalAxis
-      {...props}
-      scale={scaleLinear({
-        range: [parentSize.height - 10, 0],
-        domain: [0, 101],
-      })}
-    />));
+    const rendered = mount(svgWrapper(<NumericalAxis {...props} scale={scaleLinear(0, 101, 10, parentSize.height, 'vertical')} />));
     const axis = rendered.find('.vx-axis').at(0);
     expect(axis.prop('className')).toContain('vx-axis-left');
     expect(axis.findWhere((n) => n.text() === '80').exists()).toBe(true);
