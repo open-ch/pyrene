@@ -52,7 +52,7 @@ const onMouseMove = (event, data, xScale, showTooltip, hideTooltip) => {
   }
 
   // Hide tooltip if current cursor position is beyond the range of first and last bucket
-  const lastTS = data[data.length - 1][INDEX_START_TS] + (xScale(chartConstants.marginLeftNumerical + chartConstants.barWeight) - xScale.range()[0]); // lastTS should also cover the 10px last bucket
+  const lastTS = data[data.length - 1][INDEX_START_TS] + (xScale.invert(chartConstants.marginLeftNumerical + chartConstants.barWeight + chartConstants.barSpacing) - xScale.domain()[0]); // lastTS should also cover the 10px last bucket
   if (currentTS > lastTS || currentTS < data[0][INDEX_START_TS]) {
     hideTooltip();
     return;
@@ -199,7 +199,7 @@ const TimeSeriesBucketChart = (props) => {
                       width={parent.width}
                     />
                     {/* ChartArea makes sure the outer <g> element where all mouse event listeners are attached always covers the whole chart area so that there is no tooltip flickering issue */}
-                    <ChartArea width={parent.width} height={parent.height} />
+                    <ChartArea width={parent.width} height={parent.height - chartConstants.marginBottom} left={chartConstants.marginLeftNumerical} />
                     {props.zoom && (
                       <TimeSeriesZoomable
                         from={props.from}
