@@ -10,7 +10,7 @@ const barChartHowTo = [{
     <BarChart
       data={exampleData.applications.data.map((d) => ({
         label: d.label,
-        values: d.values.map((e) => e * 100),
+        data: d.data.map((e) => e * 100),
       }))}
       title="Applications"
       description="Optional description and explanation on how to read the chart"
