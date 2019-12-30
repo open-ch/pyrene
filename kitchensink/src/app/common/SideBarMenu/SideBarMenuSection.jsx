@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { NavLink } from 'react-router-dom';
+import packageJson from '../../../../package.json';
 
 import './sideBarMenu.css';
 
@@ -104,7 +105,7 @@ export default class SideBarMenuSection extends React.Component {
           ref={`ref${index}`}
           onClick={() => this.handleElementClick(element.name)}
         >
-          {element.name}
+          {hasSubElements && element.isChart ? `${element.name} (${packageJson.dependencies['pyrene-graphs'].replace(/\^/, '')})` : element.name}
           {element.linkToPath === '#' && !element.elements && <span>Coming Soon</span>}
         </div>
       </NavLink>
@@ -155,6 +156,7 @@ SideBarMenuSection.propTypes = {
       linkToPath: PropTypes.string,
       name: PropTypes.string,
     })),
+    isChart: PropTypes.bool,
     linkToPath: PropTypes.string,
     name: PropTypes.string,
   })).isRequired,
