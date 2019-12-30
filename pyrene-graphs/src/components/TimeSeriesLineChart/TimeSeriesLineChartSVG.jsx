@@ -126,7 +126,7 @@ const TimeSeriesLineChartSVG = (props) => {
                       />
                     ))
                   )}
-                  {tooltipOpen && (
+                  {!props.loading && tooltipOpen && (
                     <g>
                       <VerticalLine
                         color={colorConstants.lineColor}

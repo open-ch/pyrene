@@ -102,7 +102,7 @@ const SparkLineSVG = (props) => {
                     top={sparkLineHeight}
                   />
                 )}
-                {props.enableTooltip && !tooltipOpen && (
+                {!props.loading && props.enableTooltip && !tooltipOpen && (
                   <Circle
                     borderStrokeWidth={1}
                     colors={{ border: 'white', fill: props.colorScheme.valueGroundLight[0] }}
@@ -111,7 +111,7 @@ const SparkLineSVG = (props) => {
                     y={yCircleSmall}
                   />
                 )}
-                {props.enableTooltip && tooltipOpen && (
+                {!props.loading && props.enableTooltip && tooltipOpen && (
                   <Circle
                     borderStrokeWidth={1.5}
                     colors={{ border: props.colorScheme.valueGroundLight[0], fill: 'white' }}
