@@ -1,7 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import { Icon } from 'pyrene';
 import './header.css';
 
 /**
@@ -28,22 +27,15 @@ const Header = (props) => (
               >
                 {props.legendToggleCallback ? (
                   <>
-                    <input
-                      type="checkbox"
+                    <span
                       styleName="checkbox"
                       style={{ backgroundColor: item.color }}
-                      onChange={() => props.legendToggleCallback(index)}
-                      checked={!item.deselected}
-                    />
-                    <span
-                      styleName="checkboxCustom"
                       onClick={() => props.legendToggleCallback(index)}
                     >
                       {!item.deselected && (
-                        <Icon
-                          name="check"
-                          color="white"
-                          type="inline"
+                        <span
+                          styleName="checkboxIcon"
+                          className="pyreneIcon-check"
                         />
                       )}
                     </span>

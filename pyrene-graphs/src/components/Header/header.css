@@ -72,19 +72,19 @@
   min-height: 8px;
   border-radius: 5px;
   margin-right: 8px;
-  background-color: blue;
 }
 
 .checkbox {
-  appearance: none;
   height: 12px;
   width: 12px;
+  margin-right: 8px;
 }
 
-.checkboxCustom {
+.checkboxIcon {
   position: relative;
+  font-size: 12px;
+  font-weight: 600;
+  color: white;
   top: -2px;
-  left: -17px;
-  height: 12px;
-  width: 12px;
+  left: 0.5px;
 }
