@@ -147,7 +147,7 @@ const TimeSeriesLineChartSVG = (props) => {
                     </g>
                   )}
                   {/* ChartArea makes sure the outer <g> element where all mouse event listeners are attached always covers the whole chart area so that there is no tooltip flickering issue */}
-                  <ChartArea width={parent.width} height={parent.height} />
+                  <ChartArea width={parent.width} height={parent.height - chartConstants.marginBottom} left={chartConstants.marginLeftNumerical} />
                 </g>
               </svg>
               {

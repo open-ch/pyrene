@@ -10,6 +10,7 @@ import {
   scaleLinear,
   withTooltip,
 } from 'tuktuktwo';
+import ChartArea from '../ChartArea/ChartArea';
 import Tooltip from '../Tooltip/Tooltip';
 import { INDEX_VALUE, INDEX_START_TS } from '../../common/chartConstants';
 import colorConstants from '../../styles/colorConstants';
@@ -119,6 +120,8 @@ const SparkLineSVG = (props) => {
                     y={tooltipData.tooltipTopCircle}
                   />
                 )}
+                {/* ChartArea is used to show the tooltip once the cursor is in the chart area */}
+                <ChartArea width={parent.width} height={parent.height} />
               </g>
             </svg>
             {
