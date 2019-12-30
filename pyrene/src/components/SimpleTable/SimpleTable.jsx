@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import classNames from 'classnames';
 import Loader from '../Loader/Loader';
 import './simpleTable.css';
 
@@ -31,9 +32,9 @@ const SimpleTable = (props) => (
       <tbody styleName="tableBody">
         {!props.loading && props.data && props.data.length > 0 && props.data.map((row) => (
           <tr
-            styleName="tableRow"
+            styleName={classNames('tableRow', props.onRowDoubleClick ? 'tableRowWithFunction' : '')}
             key={Object.values(row)}
-            onDoubleClick={() => props.onRowDoubleClick(row)}
+            onDoubleClick={() => (props.onRowDoubleClick ? props.onRowDoubleClick(row) : null)}
           >
             {props.columns.length > 0 && props.columns.map((column) => {
               const valueRow = row;
@@ -71,7 +72,7 @@ SimpleTable.displayName = 'Simple Table';
 
 SimpleTable.defaultProps = {
   loading: false,
-  onRowDoubleClick: () => {},
+  onRowDoubleClick: null,
 };
 
 SimpleTable.propTypes = {
