@@ -6,7 +6,9 @@ import {
   localPoint,
   NumericalAxis,
   Responsive,
-  scaleUtils,
+  scaleTime,
+  scaleValueAxis,
+  scaleValueInBounds,
   TimeSeriesZoomable,
   TimeXAxis,
   withTooltip,
@@ -15,15 +17,15 @@ import ChartArea from '../ChartArea/ChartArea';
 import TimeZoomControls from '../TimeZoomControls/TimeZoomControls';
 import Tooltip from '../Tooltip/Tooltip';
 import Formats from '../../common/Formats';
-import { INDEX_VALUE, INDEX_START_TS } from '../../common/graphConstants';
+import { INDEX_VALUE, INDEX_START_TS } from '../../common/chartConstants';
 import colorSchemes from '../../styles/colorSchemes';
 import colorConstants from '../../styles/colorConstants';
-import './timeSeriesBucketGraph.css';
+import './timeSeriesBucketChart.css';
 
 let zoomStartX = null;
 
 /**
- * Get tooltip position and data when mouse is moving over the graph.
+ * Get tooltip position and data when mouse is moving over the chart.
  * @param {object}event - The mouseMove event
  * @param {array}data - The data series with timestamp and value
  * @param {function}xScale - The scale function that linearly maps x-coordinate to timestamp in epoch milliseconds
@@ -82,11 +84,11 @@ const onMouseUp = (hideTooltip) => {
   hideTooltip();
 };
 
-const isDataInTimeRange = (data, index, dataSeries, from, to) => {
-  if (data[0] >= to) {
+const isDataInTimeRange = (allData, index, data, from, to) => {
+  if (allData[0] >= to) {
     return false;
   }
-  if (index !== dataSeries.length - 1 && dataSeries[index + 1][INDEX_START_TS] <= from) {
+  if (index !== data.length - 1 && data[index + 1][INDEX_START_TS] <= from) {
     return false;
   }
   return true;
@@ -100,9 +102,9 @@ const getTimeFormat = (timezone, timeFormat) => {
 };
 
 /**
- * The pure SVG chart part of the time series bucket graph.
+ * The pure SVG chart part of the time series bucket chart.
  */
-const TimeSeriesBucketChart = (props) => {
+const TimeSeriesBucketChartSVG = (props) => {
   const {
     hideTooltip,
     showTooltip,
@@ -113,11 +115,11 @@ const TimeSeriesBucketChart = (props) => {
   } = props;
 
   // Filter out data outside `from` and `to` and get the max value
-  const dataInRange = props.dataSeries.data.filter((data, index) => isDataInTimeRange(data, index, props.dataSeries.data, props.from, props.to));
+  const dataInRange = props.data.data.filter((data, index) => isDataInTimeRange(data, index, props.data.data, props.from, props.to));
   const maxValue = Math.max(...dataInRange.map((data) => data[INDEX_VALUE]));
 
   return (
-    <div styleName="graphContainer">
+    <div styleName="chartContainer">
       {props.zoom && (
         <div styleName="actionBarContainer">
           <TimeZoomControls
@@ -135,7 +137,9 @@ const TimeSeriesBucketChart = (props) => {
       <Responsive>
         {(parent) => {
           // Get scale function
-          const xScale = scaleUtils.scaleCustomLinear(props.from, props.to, chartConstants.marginLeftNumerical, parent.width, 'horizontal');
+          const xScale = scaleTime(props.from, props.to, chartConstants.marginLeftNumerical, parent.width, 'horizontal');
+          const valueScale = scaleValueInBounds(parent, maxValue, 'vertical');
+          const valueAxisScale = scaleValueAxis(parent, maxValue, 'vertical');
 
           const barWeightFunction = (index, labels) => {
             // If there is a single bucket, just use a default bar weight
@@ -162,41 +166,40 @@ const TimeSeriesBucketChart = (props) => {
                   tickLabelColors={[colorConstants.tickLabelColor, colorConstants.tickLabelColorDark]}
                   showTickLabels={!props.loading && dataInRange.length > 0}
                   timezone={props.timezone}
+                  scale={xScale}
                 />
                 <NumericalAxis
-                  maxValue={dataInRange.length > 0 ? maxValue : 0}
                   orientation="left"
-                  width={parent.width}
-                  height={parent.height}
+                  width={parent.width - chartConstants.marginLeftNumerical}
                   left={chartConstants.marginLeftNumerical}
                   tickFormat={props.dataFormat.yAxis}
                   strokeColor={colorConstants.strokeColor}
                   tickLabelColor={colorConstants.tickLabelColor}
                   showTickLabels={!props.loading && dataInRange.length > 0}
                   showGrid={false}
+                  scale={valueAxisScale}
                 />
                 {!props.loading && dataInRange.length > 0 && (
                   <g
                     className="hoverArea"
-                    onMouseMove={(e) => onMouseMove(e, props.dataSeries.data, xScale, showTooltip, hideTooltip)}
+                    onMouseMove={(e) => onMouseMove(e, props.data.data, xScale, showTooltip, hideTooltip)}
                     onMouseOut={hideTooltip}
                     onMouseDown={props.zoom ? (e) => onMouseDown(e) : () => {}}
                     onMouseUp={props.zoom ? () => onMouseUp(hideTooltip) : () => {}}
                     onTouchStart={props.zoom ? (e) => onMouseDown(e) : () => {}}
                     onTouchEnd={props.zoom ? () => onMouseUp(hideTooltip) : () => {}}
-                    onTouchMove={(e) => onMouseMove(e, props.dataSeries.data, xScale, showTooltip, hideTooltip)}
+                    onTouchMove={(e) => onMouseMove(e, props.data.data, xScale, showTooltip, hideTooltip)}
                   >
                     <Bars
                       barWeight={barWeightFunction}
                       color={props.colorScheme.categorical[0]}
                       direction="vertical"
-                      height={parent.height}
-                      labels={props.dataSeries.data.map((d) => d[INDEX_START_TS])}
-                      labelScale={xScale}
+                      labels={props.data.data.map((d) => d[INDEX_START_TS])}
                       left={chartConstants.marginLeftNumerical}
-                      maxValue={maxValue}
-                      values={props.dataSeries.data.map((d) => d[INDEX_VALUE])}
-                      width={parent.width}
+                      data={props.data.data.map((d) => d[INDEX_VALUE])}
+                      scaleLabel={xScale}
+                      scaleValue={valueScale}
+                      top={chartConstants.marginMaxValueToBorder}
                     />
                     {/* ChartArea makes sure the outer <g> element where all mouse event listeners are attached always covers the whole chart area so that there is no tooltip flickering issue */}
                     <ChartArea width={parent.width} height={parent.height - chartConstants.marginBottom} left={chartConstants.marginLeftNumerical} />
@@ -211,6 +214,7 @@ const TimeSeriesBucketChart = (props) => {
                         width={parent.width}
                         height={parent.height}
                         color={colorConstants.overlayColor}
+                        scale={xScale.invert}
                       />
                     )}
                   </g>
@@ -219,8 +223,8 @@ const TimeSeriesBucketChart = (props) => {
               {
                 tooltipOpen && !props.loading && (
                   <Tooltip
-                    dataSeries={zoomStartX ? [] : [{ dataColor: props.colorScheme.categorical[0], dataLabel: props.dataSeries.label, dataValue: props.dataFormat.tooltip(tooltipData[1]) }]}
-                    dataSeriesLabel={getTimeFormat(props.timezone, props.timeFormat)((zoomStartX ? tooltipData : tooltipData[0]))}
+                    data={zoomStartX ? [] : [{ dataColor: props.colorScheme.categorical[0], dataLabel: props.data.label, dataValue: props.dataFormat.tooltip(tooltipData[1]) }]}
+                    label={getTimeFormat(props.timezone, props.timeFormat)((zoomStartX ? tooltipData : tooltipData[0]))}
                     left={tooltipLeft} top={tooltipTop}
                   />
                 )
@@ -233,11 +237,11 @@ const TimeSeriesBucketChart = (props) => {
   );
 };
 
-TimeSeriesBucketChart.displayName = 'Time Series Bucket Chart';
+TimeSeriesBucketChartSVG.displayName = 'Time Series Bucket Chart SVG';
 
-TimeSeriesBucketChart.defaultProps = {
+TimeSeriesBucketChartSVG.defaultProps = {
   colorScheme: colorSchemes.colorSchemeDefault,
-  dataSeries: {
+  data: {
     data: [],
     label: '',
   },
@@ -249,7 +253,7 @@ TimeSeriesBucketChart.defaultProps = {
   zoom: undefined,
 };
 
-TimeSeriesBucketChart.propTypes = {
+TimeSeriesBucketChartSVG.propTypes = {
   /**
    * Sets the color scheme of the bars.
    */
@@ -257,19 +261,19 @@ TimeSeriesBucketChart.propTypes = {
     categorical: PropTypes.arrayOf(PropTypes.string).isRequired,
   }),
   /**
-   * Sets the data formatting functions for the graph, consisting of format function for the y-axis and that for the tooltip.
+   * Sets the data series. A data series consists of a label and an array of data. Each data item contains a timestamp and a value.
+   */
+  data: PropTypes.shape({
+    data: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
+    label: PropTypes.string.isRequired,
+  }),
+  /**
+   * Sets the data formatting functions for the chart, consisting of format function for the y-axis and that for the tooltip.
    */
   dataFormat: PropTypes.shape({
     tooltip: PropTypes.func,
     yAxis: PropTypes.func,
   }).isRequired,
-  /**
-   * Sets the data series. A data series consists of a label and an array of data. Each data item contains a timestamp and a value.
-   */
-  dataSeries: PropTypes.shape({
-    data: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
-    label: PropTypes.string.isRequired,
-  }),
   /**
    * Sets the starting time point of the time range in epoch milliseconds.
    */
@@ -279,7 +283,7 @@ TimeSeriesBucketChart.propTypes = {
    */
   hideTooltip: PropTypes.func.isRequired,
   /**
-   * Sets the loading state of the graph.
+   * Sets the loading state of the chart.
    */
   loading: PropTypes.bool,
   /**
@@ -315,26 +319,26 @@ TimeSeriesBucketChart.propTypes = {
    */
   tooltipTop: PropTypes.number,
   /**
-   * If set, this graph supports zoom.
+   * If set, this chart supports zoom.
    */
   zoom: PropTypes.shape({
     /**
-     * Sets the lower bound of the zoom component - provided that this graph is a zoomable one, i.e. no more zoom-out is possible when lower bound is reached.
+     * Sets the lower bound of the zoom component - provided that this chart is a zoomable one, i.e. no more zoom-out is possible when lower bound is reached.
      */
     lowerBound: PropTypes.number.isRequired,
     /**
-     * Sets the minimum allowed zoom range - provided that this graph is a zoomable one, i.e. no more zoom-in is possible when minZoomRange is already reached.
+     * Sets the minimum allowed zoom range - provided that this chart is a zoomable one, i.e. no more zoom-in is possible when minZoomRange is already reached.
      */
     minZoomRange: PropTypes.number.isRequired,
     /**
-     * Sets the callback function when a zoom action finishes. No onZoom function means this graph does not support zoom.
+     * Sets the callback function when a zoom action finishes. No onZoom function means this chart does not support zoom.
      */
     onZoom: PropTypes.func.isRequired,
     /**
-     * Sets the upper bound for the zoom component - provided that the graph is a zoomable one, i.e. no zoom-out action is allowed when upper bound is reached.
+     * Sets the upper bound for the zoom component - provided that the chart is a zoomable one, i.e. no zoom-out action is allowed when upper bound is reached.
      */
     upperBound: PropTypes.number.isRequired,
   }),
 };
 
-export default withTooltip(TimeSeriesBucketChart);
+export default withTooltip(TimeSeriesBucketChartSVG);

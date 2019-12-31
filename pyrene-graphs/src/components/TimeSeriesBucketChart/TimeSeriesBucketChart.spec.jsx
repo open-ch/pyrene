@@ -1,7 +1,7 @@
 import React from 'react';
 import moment from 'moment-timezone';
 import { Banner, Loader } from 'pyrene';
-import TimeSeriesBucketGraph from './TimeSeriesBucketGraph';
+import TimeSeriesBucketChart from './TimeSeriesBucketChart';
 import timeSeriesData from '../../examples/timeSeriesData';
 import colorSchemes from '../../styles/colorSchemes';
 
@@ -14,7 +14,7 @@ const props = {
     tooltip: (d) => d,
     yAxis: (d) => d,
   },
-  dataSeries: fulLBucketsSeries,
+  data: fulLBucketsSeries,
   description: 'Downloaded volume',
   from: moment.tz('2019-10-01 00:00', 'Europe/Zurich').valueOf(),
   title: 'Volume',
@@ -28,7 +28,7 @@ const propsSingleBar = {
     tooltip: (d) => d,
     yAxis: (d) => d,
   },
-  dataSeries: singleBucketSeries,
+  data: singleBucketSeries,
   description: 'Downloaded volume',
   from: moment.tz('2019-10-01 00:00', 'Europe/Zurich').valueOf(),
   title: 'Volume',
@@ -42,7 +42,7 @@ const propsZeroBar = {
     tooltip: (d) => d,
     yAxis: (d) => d,
   },
-  dataSeries: zeroBucketSeries,
+  data: zeroBucketSeries,
   description: 'Downloaded volume',
   from: moment.tz('2019-10-01 00:00', 'Europe/Zurich').valueOf(),
   loading: false,
@@ -57,7 +57,7 @@ const propsZeroBarLoading = {
     tooltip: (d) => d,
     yAxis: (d) => d,
   },
-  dataSeries: zeroBucketSeries,
+  data: zeroBucketSeries,
   description: 'Downloaded volume',
   from: moment.tz('2019-10-01 00:00', 'Europe/Zurich').valueOf(),
   loading: true,
@@ -72,7 +72,7 @@ const propsZeroBarError = {
     tooltip: (d) => d,
     yAxis: (d) => d,
   },
-  dataSeries: zeroBucketSeries,
+  data: zeroBucketSeries,
   description: 'Downloaded volume',
   error: 'No data is found',
   from: moment.tz('2019-10-01 00:00', 'Europe/Zurich').valueOf(),
@@ -83,14 +83,14 @@ const propsZeroBarError = {
   timeFormat: (d) => `${d}`,
 };
 
-describe('<TimeSeriesBucketGraph />', () => {
+describe('<TimeSeriesBucketChart />', () => {
   it('renders without crashing', () => {
-    shallow(<TimeSeriesBucketGraph {...props} />);
+    shallow(<TimeSeriesBucketChart {...props} />);
   });
 
   it('renders its content correctly', () => {
-    const rendered = mount(<TimeSeriesBucketGraph {...props} />);
-    const renderedSingleBar = mount(<TimeSeriesBucketGraph {...propsSingleBar} />);
+    const rendered = mount(<TimeSeriesBucketChart {...props} />);
+    const renderedSingleBar = mount(<TimeSeriesBucketChart {...propsSingleBar} />);
 
     // Header
     expect(rendered.contains(props.title)).toBe(true);
@@ -107,8 +107,8 @@ describe('<TimeSeriesBucketGraph />', () => {
     expect(xAxis.children().find('.vx-axis-tick').length).toBeGreaterThan(0);
 
     // Bars
-    expect(rendered.find('.vx-bar')).toHaveLength(props.dataSeries.data.length);
-    expect(renderedSingleBar.find('.vx-bar')).toHaveLength(propsSingleBar.dataSeries.data.length);
+    expect(rendered.find('.vx-bar')).toHaveLength(props.data.data.length);
+    expect(renderedSingleBar.find('.vx-bar')).toHaveLength(propsSingleBar.data.data.length);
     expect(rendered.find('.vx-bar').at(0).props().fill).toBe(colorSchemes.colorSchemeDefault.categorical[0]);
 
     // Tooltip
@@ -120,7 +120,7 @@ describe('<TimeSeriesBucketGraph />', () => {
   });
 
   it('has no hover area or tooltip when there is no bar', () => {
-    const rendered = mount(<TimeSeriesBucketGraph {...propsZeroBar} />);
+    const rendered = mount(<TimeSeriesBucketChart {...propsZeroBar} />);
     const hoverArea = rendered.find('.hoverArea');
     expect(hoverArea).toHaveLength(0);
   });
@@ -134,7 +134,7 @@ describe('<TimeSeriesBucketGraph />', () => {
     };
 
     // Zoom buttons
-    const rendered = mount(<TimeSeriesBucketGraph {...props} zoom={zoom} />);
+    const rendered = mount(<TimeSeriesBucketChart {...props} zoom={zoom} />);
     const zoomInBtn = rendered.find('.pyreneIcon-zoomIn');
     const zoomOutBtn = rendered.find('.pyreneIcon-zoomOut');
     zoomInBtn.simulate('click');
@@ -149,7 +149,7 @@ describe('<TimeSeriesBucketGraph />', () => {
   });
 
   it('renders loading state correctly', () => {
-    const rendered = mount(<TimeSeriesBucketGraph {...propsZeroBarLoading} />);
+    const rendered = mount(<TimeSeriesBucketChart {...propsZeroBarLoading} />);
 
     expect(rendered.contains(propsZeroBarLoading.title)).toBe(true);
     expect(rendered.contains(propsZeroBarLoading.description)).toBe(true);
@@ -160,7 +160,7 @@ describe('<TimeSeriesBucketGraph />', () => {
   });
 
   it('renders error message correctly', () => {
-    const rendered = mount(<TimeSeriesBucketGraph {...propsZeroBarError} />);
+    const rendered = mount(<TimeSeriesBucketChart {...propsZeroBarError} />);
 
     expect(rendered.contains(propsZeroBarError.title)).toBe(true);
     expect(rendered.contains(propsZeroBarError.description)).toBe(true);

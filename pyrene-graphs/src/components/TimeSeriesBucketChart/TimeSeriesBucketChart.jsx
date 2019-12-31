@@ -4,15 +4,15 @@ import { Banner, Loader } from 'pyrene';
 import ChartContainer from '../ChartContainer/ChartContainer';
 import ChartOverlay from '../ChartOverlay/ChartOverlay';
 import Header from '../Header/Header';
-import TimeSeriesBucketChart from './TimeSeriesBucketChart';
+import TimeSeriesBucketChartSVG from './TimeSeriesBucketChartSVG';
 import colorSchemes from '../../styles/colorSchemes';
-import './timeSeriesBucketGraph.css';
+import './timeSeriesBucketChart.css';
 
 /**
- * A bucket graph for time-data series.
+ * A bucket chart for time-data series.
  */
-const TimeSeriesBucketGraph = (props) => {
-  const dataAvailable = props.dataSeries && props.dataSeries.data && props.dataSeries.data.length > 0;
+const TimeSeriesBucketChart = (props) => {
+  const dataAvailable = props.data && props.data.data && props.data.data.length > 0;
 
   // Render the header
   const header = (
@@ -36,10 +36,10 @@ const TimeSeriesBucketGraph = (props) => {
 
   // Render the bucket chart
   const bucketChart = (
-    <TimeSeriesBucketChart
+    <TimeSeriesBucketChartSVG
       colorScheme={props.colorScheme}
       dataFormat={props.dataFormat}
-      dataSeries={props.dataSeries}
+      data={props.data}
       from={props.from}
       to={props.to}
       loading={props.loading}
@@ -60,11 +60,11 @@ const TimeSeriesBucketGraph = (props) => {
   );
 };
 
-TimeSeriesBucketGraph.displayName = 'Time Series Bucket Graph';
+TimeSeriesBucketChart.displayName = 'Time Series Bucket Chart';
 
-TimeSeriesBucketGraph.defaultProps = {
+TimeSeriesBucketChart.defaultProps = {
   colorScheme: colorSchemes.colorSchemeDefault,
-  dataSeries: PropTypes.shape({
+  data: PropTypes.shape({
     data: [],
     label: '',
   }),
@@ -76,7 +76,7 @@ TimeSeriesBucketGraph.defaultProps = {
   zoom: undefined,
 };
 
-TimeSeriesBucketGraph.propTypes = {
+TimeSeriesBucketChart.propTypes = {
   /**
    * Sets the color scheme of the bars.
    */
@@ -84,21 +84,21 @@ TimeSeriesBucketGraph.propTypes = {
     categorical: PropTypes.arrayOf(PropTypes.string).isRequired,
   }),
   /**
-   * Sets the data formatting functions for the graph, consisting of format function for the y-axis and that for the tooltip.
+   * Sets the data series. A data series consists of a label and an array of data. Each data item contains a timestamp and a value.
+   */
+  data: PropTypes.shape({
+    data: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
+    label: PropTypes.string.isRequired,
+  }),
+  /**
+   * Sets the data formatting functions for the chart, consisting of format function for the y-axis and that for the tooltip.
    */
   dataFormat: PropTypes.shape({
     tooltip: PropTypes.func,
     yAxis: PropTypes.func,
   }).isRequired,
   /**
-   * Sets the data series. A data series consists of a label and an array of data. Each data item contains a timestamp and a value.
-   */
-  dataSeries: PropTypes.shape({
-    data: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
-    label: PropTypes.string.isRequired,
-  }),
-  /**
-   * Sets the description of the graph excluding the unit part.
+   * Sets the description of the chart excluding the unit part.
    */
   description: PropTypes.string,
   /**
@@ -110,7 +110,7 @@ TimeSeriesBucketGraph.propTypes = {
    */
   from: PropTypes.number.isRequired,
   /**
-   * Sets the loading state of the graph.
+   * Sets the loading state of the chart.
    */
   loading: PropTypes.bool,
   /**
@@ -123,7 +123,7 @@ TimeSeriesBucketGraph.propTypes = {
    */
   timezone: PropTypes.string.isRequired,
   /**
-   * Sets the title of the graph.
+   * Sets the title of the chart.
    */
   title: PropTypes.string,
   /**
@@ -131,26 +131,26 @@ TimeSeriesBucketGraph.propTypes = {
    */
   to: PropTypes.number.isRequired,
   /**
-   * If set, this graph supports zoom.
+   * If set, this chart supports zoom.
    */
   zoom: PropTypes.shape({
     /**
-     * Sets the lower bound of the zoom component - provided that this graph is a zoomable one, i.e. no more zoom-out is possible when lower bound is reached.
+     * Sets the lower bound of the zoom component - provided that this chart is a zoomable one, i.e. no more zoom-out is possible when lower bound is reached.
      */
     lowerBound: PropTypes.number.isRequired,
     /**
-     * Sets the minimum allowed zoom range - provided that this graph is a zoomable one, i.e. no more zoom-in is possible when minZoomRange is already reached.
+     * Sets the minimum allowed zoom range - provided that this chart is a zoomable one, i.e. no more zoom-in is possible when minZoomRange is already reached.
      */
     minZoomRange: PropTypes.number.isRequired,
     /**
-     * Sets the callback function when a zoom action finishes. No onZoom function means this graph does not support zoom.
+     * Sets the callback function when a zoom action finishes. No onZoom function means this chart does not support zoom.
      */
     onZoom: PropTypes.func.isRequired,
     /**
-     * Sets the upper bound for the zoom component - provided that the graph is a zoomable one, i.e. no zoom-out action is allowed when upper bound is reached.
+     * Sets the upper bound for the zoom component - provided that the chart is a zoomable one, i.e. no zoom-out action is allowed when upper bound is reached.
      */
     upperBound: PropTypes.number.isRequired,
   }),
 };
 
-export default TimeSeriesBucketGraph;
+export default TimeSeriesBucketChart;

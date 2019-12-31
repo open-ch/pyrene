@@ -29,7 +29,7 @@ const BarChart = (props) => {
       direction={props.direction}
       legend={props.legend}
       loading={props.loading}
-      formatter={props.formatter}
+      dataFormat={props.dataFormat}
     />
   );
   const chartOverlay = (
@@ -53,7 +53,7 @@ BarChart.defaultProps = {
   colorScheme: colorSchemes.colorSchemeDefault,
   direction: 'vertical',
   loading: false,
-  formatter: (d) => d,
+  dataFormat: (d) => d,
 };
 
 BarChart.propTypes = {
@@ -64,12 +64,16 @@ BarChart.propTypes = {
     categorical: PropTypes.arrayOf(PropTypes.string).isRequired,
   }),
   /**
-   * Sets the chart data. Type: [ { label: string (required), values: [number] (required) } ]
+   * Sets the chart data. Type: [ { label: string (required), data: [number] (required) } ]
    */
   data: PropTypes.arrayOf(PropTypes.shape({
+    data: PropTypes.arrayOf(PropTypes.number).isRequired,
     label: PropTypes.string.isRequired,
-    values: PropTypes.arrayOf(PropTypes.number).isRequired,
   })).isRequired,
+  /**
+   * Set function to format the displayed values.
+   */
+  dataFormat: PropTypes.func,
   /**
    * Sets the description.
    */
@@ -78,10 +82,6 @@ BarChart.propTypes = {
    * Sets the bar direction.
    */
   direction: PropTypes.oneOf(['horizontal', 'vertical']),
-  /**
-   * Set function to format the displayed values.
-   */
-  formatter: PropTypes.func,
   /**
     * Sets the legend. Type: [ string ]
     */

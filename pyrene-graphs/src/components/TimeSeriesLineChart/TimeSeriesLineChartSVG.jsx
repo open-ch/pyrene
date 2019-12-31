@@ -7,7 +7,9 @@ import {
   localPoint,
   NumericalAxis,
   Responsive,
-  scaleUtils,
+  scaleTime,
+  scaleValueAxis,
+  scaleValueInBounds,
   TimeXAxis,
   VerticalLine,
   withTooltip,
@@ -66,23 +68,19 @@ const TimeSeriesLineChartSVG = (props) => {
     tooltipTop,
   } = props;
 
-  const dataAvailable = !!(props.dataSeries && props.dataSeries[0] && props.dataSeries[0].data && props.dataSeries[0].data.length > 0);
-  const tooltipDataSeries = tooltipData.map((d) => ({
-    dataColor: d.color,
-    dataLabel: d.label,
-    dataValue: props.dataFormat.tooltip(d.data[INDEX_VALUE]),
-  }));
+  const dataAvailable = !!(props.data && props.data[0] && props.data[0].data && props.data[0].data.length > 0);
   // Filter out data outside `from` and `to` and get the max value
-  const dataInRange = props.dataSeries.map((d) => ({ ...d, data: d.data.filter((e) => e[INDEX_START_TS] >= props.from && e[INDEX_START_TS] <= props.to) }));
+  const dataInRange = props.data.map((d) => ({ ...d, data: d.data.filter((e) => e[INDEX_START_TS] >= props.from && e[INDEX_START_TS] <= props.to) }));
   const maxValue = Math.max(...dataInRange.map((d) => Math.max(...d.data.map((e) => e[INDEX_VALUE]))));
   
   return (
-    <div styleName="graphContainer">
+    <div styleName="chartContainer">
       <Responsive>
         {(parent) => {
           // Get scale function
-          const xScale = scaleUtils.scaleCustomLinear(props.from, props.to, chartConstants.marginLeftNumerical, parent.width, 'horizontal');
-          const yScale = scaleUtils.scaleCustomLinear(0, maxValue, 0, parent.height - chartConstants.marginBottom - chartConstants.marginMaxValueToBorder, 'vertical');
+          const xScale = scaleTime(props.from, props.to, chartConstants.marginLeftNumerical, parent.width, 'horizontal');
+          const valueScale = scaleValueInBounds(parent, maxValue, 'vertical');
+          const valueAxisScale = scaleValueAxis(parent, maxValue, 'vertical');
           return (
             <>
               <svg width="100%" height={parent.height} shapeRendering="crispEdges" overflow="visible">
@@ -95,24 +93,24 @@ const TimeSeriesLineChartSVG = (props) => {
                   tickLabelColors={[colorConstants.tickLabelColor, colorConstants.tickLabelColorDark]}
                   showTickLabels={!props.loading && dataAvailable}
                   timezone={props.timezone}
+                  scale={xScale}
                 />
                 <NumericalAxis
-                  maxValue={dataAvailable ? maxValue : 0}
                   orientation="left"
-                  width={parent.width}
-                  height={parent.height}
+                  width={parent.width - chartConstants.marginLeftNumerical}
                   left={chartConstants.marginLeftNumerical}
                   tickFormat={props.dataFormat.yAxis}
                   strokeColor={colorConstants.strokeColor}
                   tickLabelColor={colorConstants.tickLabelColor}
                   showTickLabels={!props.loading && dataAvailable}
                   showGrid={false}
+                  scale={valueAxisScale}
                 />
                 <g
                   className="hoverArea"
-                  onMouseMove={(e) => onMouseMove(e, props.dataSeries, xScale, yScale, chartConstants.marginMaxValueToBorder, showTooltip)}
+                  onMouseMove={(e) => onMouseMove(e, props.data, xScale, valueScale, chartConstants.marginMaxValueToBorder, showTooltip)}
                   onMouseOut={hideTooltip}
-                  onTouchMove={(e) => onMouseMove(e, props.dataSeries, xScale, yScale, chartConstants.marginMaxValueToBorder, showTooltip)}
+                  onTouchMove={(e) => onMouseMove(e, props.data, xScale, valueScale, chartConstants.marginMaxValueToBorder, showTooltip)}
                 >
                   {!props.loading && dataInRange.length > 0 && (
                     dataInRange.map((d) => (
@@ -122,12 +120,12 @@ const TimeSeriesLineChartSVG = (props) => {
                         dataSeries={d.data}
                         strokeWidth={2}
                         top={chartConstants.marginMaxValueToBorder}
-                        xScale={xScale}
-                        yScale={yScale}
+                        scaleLabel={xScale}
+                        scaleValue={valueScale}
                       />
                     ))
                   )}
-                  {tooltipOpen && (
+                  {!props.loading && tooltipOpen && (
                     <g>
                       <VerticalLine
                         color={colorConstants.lineColor}
@@ -154,8 +152,12 @@ const TimeSeriesLineChartSVG = (props) => {
               {
                 tooltipOpen && !props.loading && (
                   <Tooltip
-                    dataSeries={tooltipDataSeries}
-                    dataSeriesLabel={getTimeFormat(props.timezone, props.timeFormat)([tooltipData[0].data[INDEX_START_TS]])}
+                    data={tooltipData.map((d) => ({
+                      dataColor: d.color,
+                      dataLabel: d.label,
+                      dataValue: props.dataFormat.tooltip(d.data[INDEX_VALUE]),
+                    }))}
+                    label={getTimeFormat(props.timezone, props.timeFormat)([tooltipData[0].data[INDEX_START_TS]])}
                     left={tooltipLeft} top={tooltipTop}
                   />
                 )
@@ -171,7 +173,7 @@ const TimeSeriesLineChartSVG = (props) => {
 TimeSeriesLineChartSVG.displayName = 'Time Series Line Chart SVG';
 
 TimeSeriesLineChartSVG.defaultProps = {
-  dataSeries: [],
+  data: [],
   loading: false,
   timeFormat: undefined,
   tooltipData: [],
@@ -181,20 +183,20 @@ TimeSeriesLineChartSVG.defaultProps = {
 
 TimeSeriesLineChartSVG.propTypes = {
   /**
-   * Sets the data formatting functions for the graph, consisting of format function for the y-axis and that for the tooltip.
+   * Sets the data series. A data series consists of an array of objects, which consist of a label and an array of data. Each data item contains a timestamp and a value.
+   */
+  data: PropTypes.arrayOf(PropTypes.shape({
+    color: PropTypes.string.isRequired,
+    data: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
+    label: PropTypes.string.isRequired,
+  })),
+  /**
+   * Sets the data formatting functions for the chart, consisting of format function for the y-axis and that for the tooltip.
    */
   dataFormat: PropTypes.shape({
     tooltip: PropTypes.func,
     yAxis: PropTypes.func,
   }).isRequired,
-  /**
-   * Sets the data series. A data series consists of an array of objects, which consist of a label and an array of data. Each data item contains a timestamp and a value.
-   */
-  dataSeries: PropTypes.arrayOf(PropTypes.shape({
-    color: PropTypes.string.isRequired,
-    data: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
-    label: PropTypes.string.isRequired,
-  })),
   /**
    * Sets the starting time point of the time range in epoch milliseconds.
    */
@@ -204,7 +206,7 @@ TimeSeriesLineChartSVG.propTypes = {
    */
   hideTooltip: PropTypes.func.isRequired,
   /**
-   * Sets the loading state of the graph.
+   * Sets the loading state of the chart.
    */
   loading: PropTypes.bool,
   /**

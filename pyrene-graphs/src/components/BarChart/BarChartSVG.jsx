@@ -8,7 +8,9 @@ import {
   Responsive,
   chartConstants,
   localPoint,
-  scaleUtils,
+  scaleLabels,
+  scaleValueAxis,
+  scaleValueInBounds,
   withTooltip,
 } from 'tuktuktwo';
 import Tooltip from '../Tooltip/Tooltip';
@@ -16,7 +18,7 @@ import colorConstants from '../../styles/colorConstants';
 import colorSchemes from '../../styles/colorSchemes';
 
 const getLabelConfig = (direction, labels, parentSize, barWeight) => {
-  const scale = direction === 'horizontal' ? scaleUtils.scaleOrdinal(0, parentSize.height - chartConstants.marginBottom, labels) : scaleUtils.scaleOrdinal(chartConstants.marginLeftNumerical, parentSize.width, labels);
+  const scale = direction === 'horizontal' ? scaleLabels(chartConstants.marginBottom, parentSize.height, labels, 'vertical') : scaleLabels(chartConstants.marginLeftNumerical, parentSize.width, labels, 'horizontal');
   return {
     offset: (scale.range()[1] - scale.range()[0]) / labels.length / 2 - barWeight / 2,
     scale: scale,
@@ -24,7 +26,7 @@ const getLabelConfig = (direction, labels, parentSize, barWeight) => {
 };
 
 /**
- * Get tooltip position and data when mouse is moving over the graph.
+ * Get tooltip position and data when mouse is moving over the chart.
  * @param {object}event - The mouseMove event
  * @param {array}data - The data series with timestamp and value
  * @param {function}xScale - The scale function that linearly maps x-coordinate to timestamp in epoch milliseconds
@@ -59,14 +61,8 @@ const BarChartSVG = (props) => {
     <Responsive>
       {(parent) => {
         const labels = props.data.map((row) => row.label);
-        const maxValue = Math.max(...props.data.map((d) => d.values.reduce((a, b) => a + b, 0)));
-        const values = props.data.map((row) => row.values[0]);
-        const tooltipDataSeries = tooltipData.values.map((value, index) => ({
-          dataColor: props.colorScheme.categorical[index],
-          dataLabel: props.legend[index],
-          dataValue: props.formatter(value),
-        }));
-        const tooltipDataSeriesLabel = tooltipData.label;
+        const maxValue = Math.max(...props.data.map((d) => d.data.reduce((a, b) => a + b, 0)));
+        const data = props.data.map((row) => row.data[0]);
         const sharedAxisProps = {
           height: parent.height,
           width: parent.width,
@@ -74,59 +70,53 @@ const BarChartSVG = (props) => {
           strokeColor: colorConstants.strokeColor,
           tickLabelColor: colorConstants.tickLabelColor,
         };
-        const labelConfig = getLabelConfig(props.direction, labels, parent, chartConstants.barWeight);
+        const labelConfig = getLabelConfig(props.direction, sharedAxisProps.showTickLabels ? labels : [], parent, chartConstants.barWeight);
+        const valueScale = scaleValueInBounds(parent, maxValue, props.direction);
+        const valueAxisScale = scaleValueAxis(parent, maxValue, props.direction);
         const left = props.direction === 'horizontal' ? chartConstants.marginLeftCategorical : chartConstants.marginLeftNumerical;
         return (
           <>
             <svg width="100%" height={parent.height} shapeRendering="crispEdges">
               {props.direction === 'horizontal' ? (
                 <CategoricalAxis
-                  height={sharedAxisProps.height}
                   left={left}
-                  width={sharedAxisProps.width}
-                  showTickLabels={sharedAxisProps.showTickLabels}
+                  orientation="left"
+                  scale={labelConfig.scale}
                   strokeColor={sharedAxisProps.strokeColor}
                   tickLabelColor={sharedAxisProps.tickLabelColor}
-                  tickLabels={labels}
-                  orientation="left"
                 />
               ) : (
                 <NumericalAxis
-                  height={sharedAxisProps.height}
                   left={left}
-                  width={sharedAxisProps.width}
+                  orientation="left"
+                  scale={valueAxisScale}
+                  showGrid={!props.loading}
                   showTickLabels={sharedAxisProps.showTickLabels}
                   strokeColor={sharedAxisProps.strokeColor}
+                  tickFormat={props.dataFormat}
                   tickLabelColor={sharedAxisProps.tickLabelColor}
-                  maxValue={maxValue}
-                  orientation="left"
-                  showGrid={!props.loading}
-                  tickFormat={props.formatter}
+                  width={sharedAxisProps.width - left}
                 />
               )}
               {props.direction === 'horizontal' ? (
                 <NumericalAxis
-                  height={sharedAxisProps.height}
-                  left={left}
-                  width={sharedAxisProps.width}
+                  top={sharedAxisProps.height - chartConstants.marginBottom}
+                  height={sharedAxisProps.height - chartConstants.marginBottom}
+                  orientation="bottom"
+                  scale={valueAxisScale}
+                  showGrid={!props.loading}
                   showTickLabels={sharedAxisProps.showTickLabels}
                   strokeColor={sharedAxisProps.strokeColor}
+                  tickFormat={props.dataFormat}
                   tickLabelColor={sharedAxisProps.tickLabelColor}
-                  maxValue={maxValue}
-                  orientation="bottom"
-                  showGrid={!props.loading}
-                  tickFormat={props.formatter}
                 />
               ) : (
                 <CategoricalAxis
-                  height={sharedAxisProps.height}
-                  left={left}
-                  width={sharedAxisProps.width}
-                  showTickLabels={sharedAxisProps.showTickLabels}
+                  orientation="bottom"
+                  scale={labelConfig.scale}
                   strokeColor={sharedAxisProps.strokeColor}
                   tickLabelColor={sharedAxisProps.tickLabelColor}
-                  tickLabels={labels}
-                  orientation="bottom"
+                  top={sharedAxisProps.height - chartConstants.marginBottom}
                 />
               )}
               <g
@@ -138,29 +128,26 @@ const BarChartSVG = (props) => {
                   <BarStack
                     barWeight={chartConstants.barWeight}
                     colors={props.colorScheme.categorical}
-                    height={parent.height}
-                    labelOffset={labelConfig.offset}
-                    labelScale={labelConfig.scale}
-                    left={left}
-                    keys={props.legend}
-                    maxCumulatedValue={maxValue}
                     data={props.data}
                     direction={props.direction}
-                    width={parent.width}
+                    keys={props.legend}
+                    labelOffset={labelConfig.offset}
+                    scaleLabel={labelConfig.scale}
+                    scaleValue={valueScale}
+                    top={chartConstants.marginMaxValueToBorder}
                   />
                 ) : (
                   <Bars
                     barWeight={() => chartConstants.barWeight}
                     color={props.colorScheme.categorical[0]}
-                    height={parent.height}
+                    direction={props.direction}
                     labelOffset={labelConfig.offset}
                     labels={labels}
-                    labelScale={labelConfig.scale}
                     left={left}
-                    maxValue={maxValue}
-                    values={values}
-                    direction={props.direction}
-                    width={parent.width}
+                    scaleLabel={labelConfig.scale}
+                    scaleValue={valueScale}
+                    top={chartConstants.marginMaxValueToBorder}
+                    data={data}
                   />
                 ))}
               </g>
@@ -168,8 +155,12 @@ const BarChartSVG = (props) => {
             {
               tooltipOpen && (
                 <Tooltip
-                  dataSeries={tooltipDataSeries}
-                  dataSeriesLabel={tooltipDataSeriesLabel}
+                  data={tooltipData.data.map((value, index) => ({
+                    dataColor: props.colorScheme.categorical[index],
+                    dataLabel: props.legend[index],
+                    dataValue: props.dataFormat(value),
+                  }))}
+                  label={tooltipData.label}
                   left={tooltipLeft} top={tooltipTop}
                 />
               )
@@ -187,10 +178,10 @@ BarChartSVG.defaultProps = {
   colorScheme: colorSchemes.colorSchemeDefault,
   direction: 'vertical',
   loading: false,
-  formatter: (d) => d,
+  dataFormat: (d) => d,
   tooltipData: {
     label: '',
-    values: [],
+    data: [],
   },
   tooltipLeft: 0,
   tooltipTop: 0,
@@ -204,20 +195,20 @@ BarChartSVG.propTypes = {
     categorical: PropTypes.arrayOf(PropTypes.string).isRequired,
   }),
   /**
-   * Sets the chart data. Type: [ { label: string (required), values: [number] (required) } ]
+   * Sets the chart data. Type: [ { label: string (required), data: [number] (required) } ]
    */
   data: PropTypes.arrayOf(PropTypes.shape({
+    data: PropTypes.arrayOf(PropTypes.number).isRequired,
     label: PropTypes.string.isRequired,
-    values: PropTypes.arrayOf(PropTypes.number).isRequired,
   })).isRequired,
+  /**
+   * Set function to format the displayed values.
+   */
+  dataFormat: PropTypes.func,
   /**
    * Sets the bar direction.
    */
   direction: PropTypes.oneOf(['horizontal', 'vertical']),
-  /**
-   * Set function to format the displayed values.
-   */
-  formatter: PropTypes.func,
   /**
    * The function to hide tooltip provided by the withTooltip enhancer.
    */
@@ -238,8 +229,8 @@ BarChartSVG.propTypes = {
    * The tooltip data prop provided by the withTooltip enhancer.
    */
   tooltipData: PropTypes.shape({
+    data: PropTypes.arrayOf(PropTypes.number).isRequired,
     label: PropTypes.string.isRequired,
-    values: PropTypes.arrayOf(PropTypes.number).isRequired,
   }),
   /**
    * The tooltip x-position prop provided by the withTooltip enhancer.

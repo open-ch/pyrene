@@ -15,7 +15,7 @@ const dataFormat = {
 
 const props = {
   dataFormat: dataFormat,
-  dataSeries: timeSeriesData.genThreatScores(initialFrom, initialTo, 42),
+  data: timeSeriesData.genThreatScores(initialFrom, initialTo, 42),
   description: 'TEST DESCRIPTION',
   error: 'ERROR HANDLING',
   from: initialFrom,

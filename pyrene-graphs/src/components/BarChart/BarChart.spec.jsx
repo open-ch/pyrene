@@ -4,11 +4,11 @@ import BarChart from './BarChart';
 
 const dataMultipleValues = [{
   label: 'Dropbox',
-  values: [1147.4, 161.4],
+  data: [1147.4, 161.4],
 },
 {
   label: 'Youtube',
-  values: [849.9, 224.4],
+  data: [849.9, 224.4],
 }];
 
 const legendMultipleValues = ['Desktop', 'Mobile'];
@@ -16,11 +16,11 @@ const legendMultipleValues = ['Desktop', 'Mobile'];
 const props = {
   data: [{
     label: 'Dropbox',
-    values: [1147.4],
+    data: [1147.4],
   },
   {
     label: 'Youtube',
-    values: [849.9],
+    data: [849.9],
   }],
   title: 'Title',
   description: 'Description',
@@ -119,7 +119,7 @@ describe('<BarChart />', () => {
         direction="vertical"
         tickFormatNumerical={(d) => (parseFloat(d) >= 100000 ? `${parseFloat(d) / 1000}k` : d)} data={props.data.map((d) => ({
           label: d.label,
-          values: d.values.map((e) => e * 100),
+          data: d.data.map((e) => e * 100),
         }))}
       />,
     );

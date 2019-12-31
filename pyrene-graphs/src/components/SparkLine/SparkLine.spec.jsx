@@ -8,7 +8,7 @@ const timezone = 'Europe/Zurich';
 
 const props = {
   dataFormat: (d) => `${d} testFormat`,
-  dataSeries: timeSeriesData.genDownloadedVolumes(moment.tz('2019-10-01 00:00', timezone).valueOf(), moment.tz('2019-10-03 12:00', timezone).valueOf(), 24).data,
+  data: timeSeriesData.genDownloadedVolumes(moment.tz('2019-10-01 00:00', timezone).valueOf(), moment.tz('2019-10-03 12:00', timezone).valueOf(), 24).data,
 };
 
 describe('<SparkLine />', () => {

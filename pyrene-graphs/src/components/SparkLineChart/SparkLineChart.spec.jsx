@@ -11,7 +11,7 @@ const dataFormat = (d) => `${d} testFormat`;
 const props = {
   keyFigure: dataFormat(10.52),
   dataFormat: dataFormat,
-  dataSeries: timeSeriesData.genDownloadedVolumes(moment.tz('2019-10-01 00:00', timezone).valueOf(), moment.tz('2019-10-03 12:00', timezone).valueOf(), 24).data,
+  data: timeSeriesData.genDownloadedVolumes(moment.tz('2019-10-01 00:00', timezone).valueOf(), moment.tz('2019-10-03 12:00', timezone).valueOf(), 24).data,
   axisLabel: 'Axis Label Test',
   timezone: timezone,
 };
@@ -65,7 +65,7 @@ describe('<SparkLineChart />', () => {
   });
 
   it('renders tooltip', () => {
-    const rendered = mount(<SparkLineChart {...props} useTooltip />);
+    const rendered = mount(<SparkLineChart {...props} enableTooltip />);
 
     // Tooltip
     const hoverArea = rendered.find('.hoverArea');

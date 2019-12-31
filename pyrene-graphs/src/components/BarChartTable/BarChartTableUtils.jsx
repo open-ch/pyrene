@@ -1,13 +1,21 @@
 import React from 'react';
-import { Bar, RelativeBar } from 'tuktuktwo';
+import {
+  Bar,
+  RelativeBar,
+  scaleLinear,
+} from 'tuktuktwo';
 import './barChartTable.css';
 
 const getId = (d) => d.trim().toLowerCase();
 
 export const getValueWithAccessor = (row, accessor) => (typeof accessor === 'string' ? row[accessor] : accessor(row));
 
+const getValueScale = (direction, width, maxValue) => (
+  scaleLinear(0, maxValue, 0, Math.max(0, width), direction)
+);
+
 const getColumn = ({
-  id, accessor, accessorSecondary, headerName, formatter = (d) => d, align, width, linkAccessor, onClick, cellType, colors, maxValue, labelAccessor,
+  id, accessor, accessorSecondary, headerName, dataFormat = (d) => d, align, width, linkAccessor, onClick, cellType, colors, maxValue, labelAccessor,
 }) => {
   const barWeightPrimary = 6;
   const barWeightSecondary = 4;
@@ -15,6 +23,7 @@ const getColumn = ({
   const bottomBorder = 1;
   const svgHeight = barWeightPrimary + bottomBorder;
   const svgHeightComparison = barWeightPrimary + barWeightSecondary + comparisonMargin + bottomBorder;
+  const direction = 'horizontal';
   return {
     id: getId(id),
     accessor: accessor,
@@ -35,17 +44,17 @@ const getColumn = ({
         >
           {row.value}
         </a>
-      ) : formatter(row.value)),
+      ) : dataFormat(row.value)),
       relativeBar: (row) => ( // eslint-disable-line react/display-name
         <svg width="100%" height={svgHeight}>
           {width > 0 && (
             <RelativeBar
               barWeight={barWeightPrimary}
               colors={colors}
+              direction={direction}
               maxValue={maxValue}
+              scale={getValueScale(direction, width, maxValue)}
               value={getValueWithAccessor(row, accessor)}
-              size={width}
-              direction="horizontal"
             />
           )}
         </svg>
@@ -56,10 +65,10 @@ const getColumn = ({
             <RelativeBar
               barWeight={barWeightPrimary}
               colors={colors}
+              direction={direction}
               maxValue={maxValue}
+              scale={getValueScale(direction, width, maxValue)}
               value={getValueWithAccessor(row, accessor)}
-              size={width}
-              direction="horizontal"
               mirrored
             />
           )}
@@ -68,34 +77,35 @@ const getColumn = ({
       verticalLine: () => ( // eslint-disable-line react/display-name
         <div styleName="verticalLine" />
       ),
-      comparisonBars: (row) => ( // eslint-disable-line react/display-name
-        <svg width="100%" height={svgHeightComparison}>
-          {width > 0 && (
-            <g>
-              <Bar
-                key={`${getId(getValueWithAccessor(row, labelAccessor))}_bar_current`} // eslint-disable-line
-                barWeight={barWeightPrimary}
-                color={colors[0]}
-                maxValue={maxValue}
-                value={getValueWithAccessor(row, accessor)} // eslint-disable-line
-                size={width}
-                direction="horizontal"
-              />
-              <Bar
-                key={`${getId(getValueWithAccessor(row, labelAccessor))}_bar_previous`} // eslint-disable-line
-                barWeight={barWeightSecondary}
-                color={colors[1]}
-                maxValue={maxValue}
-                value={getValueWithAccessor(row, accessorSecondary)} // eslint-disable-line
-                size={width}
-                direction="horizontal"
-                y={barWeightPrimary + comparisonMargin}
-              />
-            </g>
-          )}
-        </svg>
-      ),
-      default: (row) => formatter(row.value),
+      comparisonBars: (row) => { // eslint-disable-line react/display-name
+        const scale = getValueScale(direction, width, maxValue);
+        return (
+          <svg width="100%" height={svgHeightComparison}>
+            {width > 0 && (
+              <g>
+                <Bar
+                  key={`${getId(getValueWithAccessor(row, labelAccessor))}_bar_current`}
+                  barWeight={barWeightPrimary}
+                  color={colors[0]}
+                  direction={direction}
+                  scale={scale}
+                  value={getValueWithAccessor(row, accessor)}
+                />
+                <Bar
+                  key={`${getId(getValueWithAccessor(row, labelAccessor))}_bar_previous`}
+                  barWeight={barWeightSecondary}
+                  color={colors[1]}
+                  direction={direction}
+                  scale={scale}
+                  top={barWeightPrimary + comparisonMargin}
+                  value={getValueWithAccessor(row, accessorSecondary)}
+                />
+              </g>
+            )}
+          </svg>
+        );
+      },
+      default: (row) => dataFormat(row.value),
     }[cellType || 'default'],
   };
 };
@@ -172,7 +182,7 @@ export const getColumns = ({
         getColumn({
           id: props.columns.primaryValue.title,
           accessor: props.columns.primaryValue.accessor,
-          formatter: props.columns.primaryValue.formatter,
+          dataFormat: props.columns.primaryValue.dataFormat,
           headerName: (!width && width !== 0) ? props.columns.primaryValue.title : '',
           align: 'right',
           width: primaryValueColumnWidth,
@@ -180,7 +190,7 @@ export const getColumns = ({
         ...(hasColumnSecondaryValue ? [getColumn({
           id: props.columns.secondaryValue.title,
           accessor: props.columns.secondaryValue.accessor,
-          formatter: props.columns.secondaryValue.formatter,
+          dataFormat: props.columns.secondaryValue.dataFormat,
           headerName: props.columns.secondaryValue.title,
           align: 'right',
           width: secondaryValueColumnWidth,
@@ -215,7 +225,7 @@ export const getColumns = ({
           getColumn({
             id: props.columns.primaryValue.title,
             accessor: props.columns.primaryValue.accessor,
-            formatter: props.columns.primaryValue.formatter,
+            dataFormat: props.columns.primaryValue.dataFormat,
             headerName: props.columns.primaryValue.title,
             align: 'right',
             width: primaryValueColumnWidth,
@@ -223,7 +233,7 @@ export const getColumns = ({
           getColumn({
             id: props.columns.secondaryValue.title,
             accessor: props.columns.secondaryValue.accessor,
-            formatter: props.columns.secondaryValue.formatter,
+            dataFormat: props.columns.secondaryValue.dataFormat,
             headerName: props.columns.secondaryValue.title,
             align: 'right',
             width: secondaryValueColumnWidth,
@@ -252,7 +262,7 @@ export const getColumns = ({
           getColumn({
             id: props.columns.primaryValue.title,
             accessor: props.columns.primaryValue.accessor,
-            formatter: props.columns.primaryValue.formatter,
+            dataFormat: props.columns.primaryValue.dataFormat,
             headerName: (!width && width !== 0) ? props.columns.primaryValue.title : '',
             align: 'right',
             width: primaryValueColumnWidth,
@@ -287,7 +297,7 @@ export const getColumns = ({
           getColumn({
             id: props.columns.secondaryValue.title,
             accessor: props.columns.secondaryValue.accessor,
-            formatter: props.columns.secondaryValue.formatter,
+            dataFormat: props.columns.secondaryValue.dataFormat,
             headerName: (!width && width !== 0) ? props.columns.secondaryValue.title : '',
             align: 'right',
             width: secondaryValueColumnWidth,
