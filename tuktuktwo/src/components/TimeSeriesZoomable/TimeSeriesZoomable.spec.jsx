@@ -1,19 +1,29 @@
 import React from 'react';
 import moment from 'moment';
 import TimeSeriesZoomable, { minZoomRangeReached, getBoundedZoomInRange } from './TimeSeriesZoomable';
+import { scaleTime } from '../../common/ScaleUtils';
 import chartConstants from '../../common/chartConstants';
 
-const zoomableProps = {
-  width: 1308,
+const from = moment('2019-10-21 10:29').valueOf();
+const to = moment('2019-10-28 10:29').valueOf();
+
+const parentSize = {
   height: 344,
-  from: moment('2019-10-21 10:29').valueOf(),
-  to: moment('2019-10-28 10:29').valueOf(),
+  width: 1308,
+};
+
+const zoomableProps = {
+  width: parentSize.width,
+  height: parentSize.height,
+  from: from,
+  to: to,
   lowerBound: moment('2019-04-21 10:29').valueOf(),
   upperBound: moment('2020-04-21 10:29').valueOf(),
   minZoomRange: moment.duration({ minutes: 30 }).valueOf(),
   onZoom: () => {},
   tooltipFormat: (d) => d,
   color: '#ff0000',
+  scale: scaleTime(from, to, 10, parentSize.width, 'horizontal'),
 };
 
 describe('<TimeSeriesZoomable />', () => {

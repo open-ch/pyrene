@@ -1,17 +1,17 @@
 import React from 'react';
 import NumericalAxis from './NumericalAxis';
-import ScaleUtils from '../../common/ScaleUtils';
+import { scaleLinear } from '../../common/ScaleUtils';
 
 const parentSize = { width: 500, height: 400 };
 
 const props = {
   height: parentSize.height,
   orientation: 'left',
-  maxValue: 100,
   strokeColor: 'red',
   tickLabelColor: 'blue',
   width: parentSize.width,
   left: 0,
+  scale: scaleLinear(0, 102, 10, parentSize.height, 'vertical'),
 };
 
 const svgWrapper = (axis) => (
@@ -71,16 +71,17 @@ describe('<NumericalAxis />', () => {
     expect(rendered.find('.vx-columns').exists()).toBe(false);
   });
 
-  it('sets custom scale', () => {
-    const rendered = mount(svgWrapper(<NumericalAxis {...props} scale={ScaleUtils.scaleCustomLinear(-props.maxValue / 2, props.maxValue / 2, 0, parentSize.width, 'horizontal')} />));
+  it('does not render last tick', () => {
+    const rendered = mount(svgWrapper(<NumericalAxis {...props} scale={scaleLinear(0, 101, 10, parentSize.height, 'vertical')} />));
     const axis = rendered.find('.vx-axis').at(0);
-    expect(axis.findWhere((n) => n.text() === '-60').exists()).toBe(false);
-    expect(axis.findWhere((n) => n.text() === '-40').exists()).toBe(true);
-    expect(axis.findWhere((n) => n.text() === '-20').exists()).toBe(true);
-    expect(axis.findWhere((n) => n.text() === '0').exists()).toBe(false);
-    expect(axis.findWhere((n) => n.text() === '20').exists()).toBe(true);
-    expect(axis.findWhere((n) => n.text() === '40').exists()).toBe(true);
-    expect(axis.findWhere((n) => n.text() === '60').exists()).toBe(false);
+    expect(axis.prop('className')).toContain('vx-axis-left');
+    expect(axis.findWhere((n) => n.text() === '80').exists()).toBe(true);
+    expect(axis.findWhere((n) => n.text() === '100').exists()).toBe(false);
+  });
+
+  it('renders axis label', () => {
+    const rendered = mount(svgWrapper(<NumericalAxis {...props} label="Axis Label" />));
+    expect(rendered.find('.vx-axis-label').at(0).text()).toBe('Axis Label');
   });
 
 });

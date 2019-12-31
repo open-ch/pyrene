@@ -1,30 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Bar as VxBar } from '@vx/shape';
+import chartConstants from '../../common/chartConstants';
 
 /**
  * Bars are used to display a numerical value.
  */
 const Bar = (props) => {
-  const minBarLength = 1;
-  const barLength = Math.max(minBarLength, props.value * (props.size / props.maxValue));
+  const size = props.direction === 'horizontal' ? props.scale.range()[1] : props.scale.range()[0];
   return props.direction === 'horizontal' ? (
     <VxBar
-      x={props.x}
-      y={props.y}
+      x={props.left}
+      y={props.top}
       height={props.barWeight}
-      width={barLength}
+      width={Math.max(chartConstants.minShapeLength, props.scale(props.value) - props.left)}
       fill={props.color}
-      transform={props.mirrored ? `rotate(180 ${props.size / 2} ${props.barWeight / 2})` : undefined}
+      transform={props.mirrored ? `rotate(180 ${size / 2} ${props.barWeight / 2})` : null}
     />
   ) : (
     <VxBar
-      x={props.x}
-      y={props.size - props.y - barLength}
-      height={barLength}
+      x={props.left}
+      y={props.top + Math.max(chartConstants.minShapeLength, props.scale(props.value))}
+      height={Math.max(chartConstants.minShapeLength, size - props.scale(props.value))}
       width={props.barWeight}
       fill={props.color}
-      transform={props.mirrored ? `rotate(180 ${props.barWeight / 2} ${props.size / 2})` : undefined}
+      transform={props.mirrored ? `rotate(180 ${props.barWeight / 2} ${size / 2})` : null}
     />
   );
 };
@@ -34,9 +34,9 @@ Bar.displayName = 'Bar';
 Bar.defaultProps = {
   barWeight: 6,
   direction: 'vertical',
+  left: 0,
   mirrored: false,
-  x: 0,
-  y: 0,
+  top: 0,
 };
 
 Bar.propTypes = {
@@ -53,29 +53,25 @@ Bar.propTypes = {
    */
   direction: PropTypes.oneOf(['horizontal', 'vertical']),
   /**
-   * Sets the maxValue, which is used to calculate the bar length.
+   * Sets the horizontal offset for this component.
    */
-  maxValue: PropTypes.number.isRequired,
+  left: PropTypes.number,
   /**
    * If set, the bar is being mirrored horizontally.
    */
   mirrored: PropTypes.bool,
   /**
-   * Sets the size, which is used to calculate the bar length.
+   * Sets the scale function for the value axis.
    */
-  size: PropTypes.number.isRequired,
+  scale: PropTypes.func.isRequired,
+  /**
+   * Sets the vertical offset for this component.
+   */
+  top: PropTypes.number,
   /**
    * Sets the value, which is used to calculate the bar length.
    */
   value: PropTypes.number.isRequired,
-  /**
-   * Sets x, which is used to position the bar horizontally.
-   */
-  x: PropTypes.number,
-  /**
-   * Sets y, which is used to position the bar vertically.
-   */
-  y: PropTypes.number,
 };
 
 export default Bar;

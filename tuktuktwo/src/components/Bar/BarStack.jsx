@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Bar, BarStack as VxBarStack, BarStackHorizontal } from '@vx/shape';
 import { Group } from '@vx/group';
 import { scaleOrdinal } from '@vx/scale';
-import ScaleUtils from '../../common/ScaleUtils';
 import chartConstants from '../../common/chartConstants';
 
 const getBars = (barStacks, direction, barWeight, labelOffset) => (
@@ -36,10 +35,8 @@ const getBars = (barStacks, direction, barWeight, labelOffset) => (
  * BarStack is used to display stacked bars.
  */
 const BarStack = (props) => {
-  const height = Math.max(0, props.height - chartConstants.marginBottom);
-  const width = Math.max(0, props.width - props.left);
   const categoricalProp = (d) => d.label;
-  const data = props.data.map((dataElement) => ({ ...props.keys.reduce((obj, key, index) => ({ ...obj, [key]: dataElement.values[index] }), {}), label: dataElement.label }));
+  const data = props.data.map((dataElement) => ({ ...props.keys.reduce((obj, key, index) => ({ ...obj, [key]: dataElement.data[index] }), {}), label: dataElement.label }));
   const color = scaleOrdinal({
     domain: props.keys,
     range: props.colors,
@@ -52,8 +49,8 @@ const BarStack = (props) => {
         keys={props.keys}
         data={data}
         y={categoricalProp}
-        xScale={ScaleUtils.scaleLinear(Math.max(0, width - chartConstants.marginMaxValueToBorder), props.maxCumulatedValue, props.direction)}
-        yScale={props.labelScale}
+        xScale={props.scaleValue}
+        yScale={props.scaleLabel}
         color={color}
       >
         {(barStacks) => getBars(barStacks, props.direction, props.barWeight, props.labelOffset)}
@@ -61,14 +58,14 @@ const BarStack = (props) => {
     </Group>
   ) : (
     <Group
-      top={chartConstants.marginMaxValueToBorder}
+      top={props.top}
     >
       <VxBarStack
         keys={props.keys}
         data={data}
         x={categoricalProp}
-        xScale={props.labelScale}
-        yScale={ScaleUtils.scaleLinear(Math.max(0, height - chartConstants.marginMaxValueToBorder), props.maxCumulatedValue, props.direction)}
+        xScale={props.scaleLabel}
+        yScale={props.scaleValue}
         color={color}
       >
         {(barStacks) => getBars(barStacks, props.direction, props.barWeight, props.labelOffset)}
@@ -83,6 +80,8 @@ BarStack.defaultProps = {
   barWeight: chartConstants.barWeight,
   direction: 'vertical',
   labelOffset: 0,
+  left: 0,
+  top: 0,
 };
 
 BarStack.propTypes = {
@@ -95,21 +94,16 @@ BarStack.propTypes = {
    */
   colors: PropTypes.arrayOf(PropTypes.string).isRequired,
   /**
-   * Sets the bar stack data. Type: [ { label: string (required), values: [number] (required) } ]
+   * Sets the bar stack data. Type: [ { label: string (required), data: [number] (required) } ]
    */
   data: PropTypes.arrayOf(PropTypes.shape({
+    data: PropTypes.arrayOf(PropTypes.number).isRequired,
     label: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-    values: PropTypes.arrayOf(PropTypes.number).isRequired,
   })).isRequired,
   /**
    * Sets the bar direction.
    */
   direction: PropTypes.oneOf(['horizontal', 'vertical']),
-  /**
-   * Sets the height of the graph canvas.
-   * Type: number (required)
-   */
-  height: PropTypes.number.isRequired,
   /**
     * Sets the keys. Type: [ string ]
     */
@@ -119,22 +113,21 @@ BarStack.propTypes = {
    */
   labelOffset: PropTypes.number,
   /**
-   * Sets the scale function to position the bars on the label axis.
-   */
-  labelScale: PropTypes.func.isRequired,
-  /**
    * Sets the horizontal offset for this component.
    */
-  left: PropTypes.number.isRequired,
+  left: PropTypes.number,
   /**
-   * Sets the maxCumulatedValue, which is used to calculate the bar lengths.
+   * Sets the scale function to position the bars on the label axis.
    */
-  maxCumulatedValue: PropTypes.number.isRequired,
+  scaleLabel: PropTypes.func.isRequired,
   /**
-   * Sets the width of the graph canvas.
-   * Type: number (required)
+   * Sets the scale function for the value axis.
    */
-  width: PropTypes.number.isRequired,
+  scaleValue: PropTypes.func.isRequired,
+  /**
+   * Sets the vertical offset for this component.
+   */
+  top: PropTypes.number,
 };
 
 export default BarStack;

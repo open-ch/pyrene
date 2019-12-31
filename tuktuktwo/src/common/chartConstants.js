@@ -10,6 +10,7 @@ const chartConstants = {
   marginLeftCategorical: 102,
   marginLeftNumerical: 36,
   marginMaxValueToBorder: marginMaxValueToBorder,
+  minShapeLength: 1,
   tooltipOffset: 15,
   zoomTooltipHeight: 34,
 };

@@ -15,18 +15,18 @@ const SparkLine = (props) => {
       >
         {Array.isArray(props.colors) && props.colors.length > 1 && (
           <AreaClosed
-            data={props.dataSeries}
-            x={(d) => props.xScale(x(d))}
-            y={(d) => props.yScale(y(d))}
-            yScale={props.yScale}
+            data={props.data}
+            x={(d) => props.scaleLabel(x(d))}
+            y={(d) => props.scaleValue(y(d))}
+            yScale={props.scaleValue}
             stroke="transparent"
             fill={props.colors[1]}
           />
         )}
         <LinePath
-          data={props.dataSeries}
-          x={(d) => props.xScale(x(d))}
-          y={(d) => props.yScale(y(d))}
+          data={props.data}
+          x={(d) => props.scaleLabel(x(d))}
+          y={(d) => props.scaleValue(y(d))}
           stroke={Array.isArray(props.colors) ? props.colors[0] : props.colors}
           strokeWidth={props.strokeWidth}
         />
@@ -50,7 +50,15 @@ SparkLine.propTypes = {
   /**
    * Sets the data series as an array of data. Each data item contains a timestamp and a value.
    */
-  dataSeries: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
+  data: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
+  /**
+   * Sets the scale function for the label axis.
+   */
+  scaleLabel: PropTypes.func.isRequired,
+  /**
+   * Sets the scale function for the value axis.
+   */
+  scaleValue: PropTypes.func.isRequired,
   /**
    * Sets the strokeWidth of the line.
    */
@@ -59,14 +67,6 @@ SparkLine.propTypes = {
    * Sets the vertical offset for this component.
    */
   top: PropTypes.number,
-  /**
-   * Sets the scale function for the x axis.
-   */
-  xScale: PropTypes.func.isRequired,
-  /**
-   * Sets the scale function for the y axis.
-   */
-  yScale: PropTypes.func.isRequired,
 };
 
 export default SparkLine;

@@ -18,35 +18,26 @@ const getBarWeightInBoundary = (labelPosition, barWeight, boundary) => {
 /**
  * Bars is used to display multiple bars.
  */
-const Bars = (props) => {
-  const chartHeight = props.height - chartConstants.marginBottom;
-  const chartWidth = props.width - props.left;
-  const top = props.direction === 'horizontal' ? 0 : chartConstants.marginMaxValueToBorder;
-  return (
-    <Group
-      left={props.direction === 'horizontal' ? props.left : 0}
-      top={top}
-    >
-      {props.values.map((d, i) => {
-        const barWeight = getBarWeightInBoundary(props.labelScale(props.labels[i]) + props.labelOffset, props.barWeight(i, props.labels), props.direction === 'horizontal' ? top : props.left);
-        const barWeightOffset = props.barWeight(i, props.labels) - barWeight;
-        return (
-          <Bar
+const Bars = (props) => (
+  <Group>
+    {props.data.map((d, i) => {
+      const barWeight = getBarWeightInBoundary(props.scaleLabel(props.labels[i]) + props.labelOffset, props.barWeight(i, props.labels), props.direction === 'horizontal' ? props.top : props.left);
+      const barWeightOffset = props.barWeight(i, props.labels) - barWeight;
+      return (
+        <Bar
           key={`bar-${i}`} // eslint-disable-line
-            color={props.color}
-            barWeight={barWeight}
-            direction={props.direction}
-            maxValue={props.maxValue}
-            value={d}
-            size={props.direction === 'horizontal' ? chartWidth - chartConstants.marginMaxValueToBorder : chartHeight - chartConstants.marginMaxValueToBorder}
-            x={props.direction === 'horizontal' ? 0 : props.labelScale(props.labels[i]) + props.labelOffset + barWeightOffset}
-            y={props.direction === 'horizontal' ? props.labelScale(props.labels[i]) + props.labelOffset + barWeightOffset : 0}
-          />
-        );
-      })}
-    </Group>
-  );
-};
+          barWeight={barWeight}
+          color={props.color}
+          direction={props.direction}
+          left={props.direction === 'horizontal' ? props.left : props.scaleLabel(props.labels[i]) + props.labelOffset + barWeightOffset}
+          scale={props.scaleValue}
+          top={props.direction === 'horizontal' ? props.scaleLabel(props.labels[i]) + props.labelOffset + barWeightOffset : props.top}
+          value={d}
+        />
+      );
+    })}
+  </Group>
+);
 
 Bars.displayName = 'Bars';
 
@@ -54,6 +45,7 @@ Bars.defaultProps = {
   barWeight: () => chartConstants.barWeight,
   direction: 'vertical',
   labelOffset: 0,
+  top: 0,
 };
 
 Bars.propTypes = {
@@ -66,14 +58,13 @@ Bars.propTypes = {
    */
   color: PropTypes.string.isRequired,
   /**
+   * Sets the data. Type: [ number ]
+   */
+  data: PropTypes.arrayOf(PropTypes.number).isRequired,
+  /**
    * Sets the bar direction.
    */
   direction: PropTypes.oneOf(['horizontal', 'vertical']),
-  /**
-   * Sets the height of the graph canvas.
-   * Type: number (required)
-   */
-  height: PropTypes.number.isRequired,
   /**
    * Sets the label offset to shift the bars on the label axis within this component.
    */
@@ -83,25 +74,21 @@ Bars.propTypes = {
    */
   labels: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])).isRequired,
   /**
-   * Sets the scale function to position the bars on the label axis.
-   */
-  labelScale: PropTypes.func.isRequired,
-  /**
    * Sets the horizontal offset for this component.
    */
   left: PropTypes.number.isRequired,
   /**
-   * Sets the maxValue, which is used to calculate the bar length.
+   * Sets the scale function to position the bars on the label axis.
    */
-  maxValue: PropTypes.number.isRequired,
+  scaleLabel: PropTypes.func.isRequired,
   /**
-   * Sets the values, which are used to calculate the bar lengths. Type: [ number ]
+   * Sets the scale function for the value axis.
    */
-  values: PropTypes.arrayOf(PropTypes.number).isRequired,
+  scaleValue: PropTypes.func.isRequired,
   /**
-   * Sets the graph width, which is used to calculate the bar length and scaling.
+   * Sets the vertical offset for this component.
    */
-  width: PropTypes.number.isRequired,
+  top: PropTypes.number,
 };
 
 export default Bars;

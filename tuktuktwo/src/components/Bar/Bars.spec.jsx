@@ -1,25 +1,27 @@
 import React from 'react';
 import Bars from './Bars';
 import chartConstants from '../../common/chartConstants';
-import ScaleUtils from '../../common/ScaleUtils';
+import { scaleLabels, scaleTime, scaleValueInBounds } from '../../common/ScaleUtils';
 
 const parentSize = { width: 500, height: 404 };
 const labels = [1, 2];
-const values = [12, 37];
+const data = [12, 37];
 const maxValue = 100;
 const barWeight = () => 5;
 
-const labelScaleVertical = ScaleUtils.scaleOrdinal(0, parentSize.height - chartConstants.marginBottom, labels);
-const labelScaleHorizontal = ScaleUtils.scaleOrdinal(0, parentSize.width - chartConstants.marginLeftCategorical, labels);
+const labelScaleVertical = scaleLabels(0, parentSize.height - chartConstants.marginBottom, labels);
+const labelScaleHorizontal = scaleLabels(0, parentSize.width - chartConstants.marginLeftCategorical, labels);
+const valueScaleVertical = scaleValueInBounds(parentSize, maxValue, 'vertical');
+const valueScaleHorizontal = scaleValueInBounds(parentSize, maxValue, 'horizontal');
 
 const props = {
   barWeight: barWeight,
   color: 'blue',
   height: parentSize.height,
-  maxValue: maxValue,
-  values: values,
+  data: data,
   width: parentSize.width,
-  labelScale: labelScaleVertical,
+  scaleLabel: labelScaleVertical,
+  scaleValue: valueScaleVertical,
   labels: labels,
   direction: 'vertical',
   left: chartConstants.marginLeftNumerical,
@@ -28,17 +30,18 @@ const props = {
 
 const from = Math.min(...labels);
 const to = Math.max(...labels);
-const labelScaleLinearHorizontal = ScaleUtils.scaleCustomLinear(chartConstants.marginLeftNumerical, parentSize.width, from, to, 'horizontal');
+const labelScaleTimeHorizontal = scaleTime(from, to, chartConstants.marginLeftNumerical, parentSize.width, 'horizontal');
 const labelsShifted = labels.map((d) => d - 1);
 
 const propsShiftedLabels = {
-  barWeight: () => labelScaleLinearHorizontal.invert(from + (labelsShifted[1] - labelsShifted[0])) - chartConstants.marginLeftNumerical,
+  barWeight: () => labelScaleTimeHorizontal(from + (labelsShifted[1] - labelsShifted[0])) - chartConstants.marginLeftNumerical,
   color: 'blue',
   height: parentSize.height,
   maxValue: maxValue,
-  values: values,
+  data: data,
   width: parentSize.width,
-  labelScale: labelScaleLinearHorizontal.invert,
+  scaleLabel: labelScaleTimeHorizontal,
+  scaleValue: valueScaleVertical,
   labels: labelsShifted,
   direction: 'vertical',
   left: chartConstants.marginLeftNumerical,
@@ -59,7 +62,7 @@ describe('<Bars />', () => {
     const rendered = mount(svgWrapper(<Bars {...props} />));
     const bars = rendered.find('.vx-bar');
     bars.forEach((bar, index) => {
-      expect(bar.prop('height')).toBeCloseTo((values[index] / maxValue) * (props.height - chartConstants.marginBottom - chartConstants.marginMaxValueToBorder));
+      expect(bar.prop('height')).toBeCloseTo((data[index] / maxValue) * (props.height - chartConstants.marginBottom - chartConstants.marginMaxValueToBorder));
       expect(bar.prop('width')).toBeCloseTo(barWeight());
       expect(bar.prop('fill')).toBe('blue');
     });
@@ -70,13 +73,14 @@ describe('<Bars />', () => {
       {...props}
       direction="horizontal"
       left={chartConstants.marginLeftCategorical}
-      labelScale={labelScaleHorizontal}
+      scaleLabel={labelScaleHorizontal}
+      scaleValue={valueScaleHorizontal}
       labelOffset={labelScaleHorizontal.bandwidth() / 2}
     />));
     const bars = rendered.find('.vx-bar');
     bars.forEach((bar, index) => {
       expect(bar.prop('height')).toBeCloseTo(barWeight());
-      expect(bar.prop('width')).toBeCloseTo((values[index] / maxValue) * (parentSize.width - chartConstants.marginLeftCategorical - chartConstants.marginMaxValueToBorder));
+      expect(bar.prop('width')).toBeCloseTo((data[index] / maxValue) * (parentSize.width - chartConstants.marginLeftCategorical - chartConstants.marginMaxValueToBorder));
       expect(bar.prop('fill')).toBe('blue');
     });
   });
@@ -87,7 +91,7 @@ describe('<Bars />', () => {
     bars.forEach((bar, index) => {
       if (labels.includes(labelsShifted[index])) expect(bar.prop('width')).toBe(propsShiftedLabels.barWeight());
       else expect(bar.prop('width')).toBe(0);
-      expect(bar.prop('height')).toBeCloseTo((values[index] / maxValue) * (props.height - chartConstants.marginBottom - chartConstants.marginMaxValueToBorder));
+      expect(bar.prop('height')).toBeCloseTo((data[index] / maxValue) * (props.height - chartConstants.marginBottom - chartConstants.marginMaxValueToBorder));
       expect(bar.prop('fill')).toBe('blue');
     });
   });
