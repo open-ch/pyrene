@@ -72,5 +72,20 @@
   min-height: 8px;
   border-radius: 5px;
   margin-right: 8px;
-  background-color: blue;
+}
+
+.checkbox {
+  height: 12px;
+  width: 12px;
+  margin-right: 6px;
+  cursor: pointer;
+}
+
+.checkboxIcon {
+  position: relative;
+  font-size: 12px;
+  font-weight: 600;
+  color: white;
+  top: -2px;
+  left: 0.5px;
 }
