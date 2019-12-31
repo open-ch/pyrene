@@ -78,6 +78,7 @@
   height: 12px;
   width: 12px;
   margin-right: 8px;
+  cursor: pointer;
 }
 
 .checkboxIcon {
