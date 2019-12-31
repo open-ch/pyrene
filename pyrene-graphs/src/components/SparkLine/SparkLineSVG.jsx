@@ -29,24 +29,16 @@ const onMouseMove = (event, data, scaleLabel, scaleValue, width, showTooltip) =>
   const bandwidth = width / (data.length - 1);
   const index = Math.round(x / bandwidth);
   const currentValue = index >= 0 && index < data.length && data[index][INDEX_VALUE];
-  const propsTooltip = currentValue ? {
+  const tooltipData = {
+    data: currentValue,
+    tooltipLeftCircle: scaleLabel(data[index][INDEX_START_TS]),
+    tooltipTopCircle: currentValue !== null ? scaleValue(currentValue) : null,
+  };
+  showTooltip({
     tooltipLeft: x,
     tooltipTop: y,
-    tooltipData: {
-      data: currentValue,
-      tooltipLeftCircle: scaleLabel(data[index][INDEX_START_TS]),
-      tooltipTopCircle: scaleValue(currentValue),
-    },
-  } : {
-    tooltipLeft: 0,
-    tooltipTop: 0,
-    tooltipData: {
-      data: 0,
-      tooltipLeftCircle: 0,
-      tooltipTopCircle: 0,
-    },
-  };
-  showTooltip(propsTooltip);
+    tooltipData: tooltipData,
+  });
 };
 
 /**
@@ -100,7 +92,7 @@ const SparkLineSVG = (props) => {
                     y={yCircleSmall}
                   />
                 )}
-                {!props.loading && props.enableTooltip && tooltipOpen && (
+                {!props.loading && props.enableTooltip && tooltipOpen && tooltipData.tooltipTopCircle !== null && (
                   <Circle
                     borderStrokeWidth={1.5}
                     colors={{ border: props.colorScheme.valueGroundLight[0], fill: 'white' }}
@@ -150,11 +142,7 @@ SparkLineSVG.defaultProps = {
   loading: false,
   sparkLineHeight: null,
   strokeWidth: 1,
-  tooltipData: {
-    data: 0,
-    tooltipLeftCircle: 0,
-    tooltipTopCircle: 0,
-  },
+  tooltipData: {},
   tooltipLeft: 0,
   tooltipTop: 0,
 };
