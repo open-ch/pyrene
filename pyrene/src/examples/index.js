@@ -8,6 +8,7 @@ import { default as Button } from '../components/Button/Button.examples';
 import { default as CalendarDateSelector } from '../components/CalendarDateSelector/CalendarDateSelector.examples';
 import { default as Card } from '../components/Card/Card.examples';
 import { default as Checkbox } from '../components/Checkbox/Checkbox.examples';
+import { default as CheckboxPopover } from '../components/CheckboxPopover/CheckboxPopover.examples';
 import { default as Collapsible } from '../components/Collapsible/Collapsible.examples';
 import { default as Container } from '../components/Container/Container.examples';
 import { default as DropdownButton } from '../components/DropdownButton/DropdownButton.examples';
@@ -39,6 +40,7 @@ import { default as TimeRangeSelector } from '../components/TimeRangeSelector/Ti
 import { default as Tooltip } from '../components/Tooltip/Tooltip.examples';
 import { default as TreeTable } from '../components/TreeTable/TreeTable.examples';
 
+
 // Sort alphabetically to find stuff easily
 const examples = {
   ActionBar,
@@ -48,6 +50,7 @@ const examples = {
   CalendarDateSelector,
   Card,
   Checkbox,
+  CheckboxPopover,
   Collapsible,
   Container,
   DropdownButton,
