@@ -60,7 +60,7 @@ Header.displayName = 'Header';
 
 Header.defaultProps = {
   description: '',
-  legend: {},
+  legend: [],
   legendToggleCallback: null,
 };
 
