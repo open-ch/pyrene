@@ -27,7 +27,8 @@ const getYCircleSmall = (values, yScale, width, x) => {
 const onMouseMove = (event, data, scaleLabel, scaleValue, width, showTooltip) => {
   const { x, y } = localPoint(event.target.ownerSVGElement, event);
   const bandwidth = width / (data.length - 1);
-  const index = Math.round(x / bandwidth);
+  // Handle cases where width is 0 or x is NaN
+  const index = bandwidth && x ? Math.round(x / bandwidth) : 0;
   const currentValue = index >= 0 && index < data.length && data[index][INDEX_VALUE];
   const tooltipData = {
     data: currentValue,
@@ -35,8 +36,8 @@ const onMouseMove = (event, data, scaleLabel, scaleValue, width, showTooltip) =>
     tooltipTopCircle: currentValue !== null ? scaleValue(currentValue) : null,
   };
   showTooltip({
-    tooltipLeft: x,
-    tooltipTop: y,
+    tooltipLeft: x || 0,
+    tooltipTop: y || 0,
     tooltipData: tooltipData,
   });
 };

@@ -17,6 +17,7 @@ const timeSeriesData = {
     for (let i = 0; i < number; i += 1) {
       data.data.push([from + i * timeFrame, Math.random() * 10000 + 1]);
     }
+    data.data[10][1] = null;
 
     return data;
   },
@@ -39,6 +40,7 @@ const timeSeriesData = {
       data[1].data.push([from + i * timeFrame, Math.round(Math.random() * 5 + 10)]);
       data[2].data.push([from + i * timeFrame, Math.round(Math.random() * 5 + 30)]);
     }
+    data[2].data[10][1] = null;
 
     return data;
   },
