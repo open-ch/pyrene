@@ -20,7 +20,7 @@ const Bar = (props) => {
   ) : (
     <VxBar
       x={props.left}
-      y={props.top + Math.max(chartConstants.minShapeLength, props.scale(props.value))}
+      y={props.top + Math.min(size - chartConstants.minShapeLength, props.scale(props.value))}
       height={Math.max(chartConstants.minShapeLength, size - props.scale(props.value))}
       width={props.barWeight}
       fill={props.color}
