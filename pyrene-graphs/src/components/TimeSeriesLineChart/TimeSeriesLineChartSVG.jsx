@@ -18,7 +18,6 @@ import ChartArea from '../ChartArea/ChartArea';
 import Tooltip from '../Tooltip/Tooltip';
 import Formats from '../../common/Formats';
 import { INDEX_VALUE, INDEX_START_TS } from '../../common/chartConstants';
-import colorSchemes from '../../styles/colorSchemes';
 import colorConstants from '../../styles/colorConstants';
 import './timeSeriesLineChart.css';
 
@@ -41,6 +40,7 @@ const onMouseMove = (event, data, xScale, yScale, top, showTooltip) => {
   const tooltipData = data.map((d) => {
     const currentValue = d.data[closerIndex][INDEX_VALUE];
     return {
+      color: d.color,
       data: [d.data[closerIndex][INDEX_START_TS], currentValue],
       label: d.label,
       tooltipLeftCircle: xScale(d.data[closerIndex][INDEX_START_TS]),
@@ -114,10 +114,10 @@ const TimeSeriesLineChartSVG = (props) => {
                   onTouchMove={(e) => onMouseMove(e, props.data, xScale, valueScale, chartConstants.marginMaxValueToBorder, showTooltip)}
                 >
                   {!props.loading && dataInRange.length > 0 && (
-                    dataInRange.map((d, i) => (
+                    dataInRange.map((d) => (
                       <SparkLineTT2
                         key={`sparkline-${d.label}`}
-                        colors={props.colorScheme.categorical[i]}
+                        colors={d.color}
                         data={d.data}
                         strokeWidth={2}
                         top={chartConstants.marginMaxValueToBorder}
@@ -134,11 +134,11 @@ const TimeSeriesLineChartSVG = (props) => {
                         left={tooltipData[0].tooltipLeftCircle}
                         strokeWidth={1}
                       />
-                      {tooltipData.map((d, i) => (
+                      {tooltipData.map((d) => (
                         <Circle
                           key={`indicator-${d.label}`}
                           borderStrokeWidth={1.5}
-                          colors={{ border: props.colorScheme.categorical[i], fill: 'white' }}
+                          colors={{ border: d.color, fill: 'white' }}
                           radius={3}
                           x={d.tooltipLeftCircle}
                           y={d.tooltipTopCircle}
@@ -153,8 +153,8 @@ const TimeSeriesLineChartSVG = (props) => {
               {
                 tooltipOpen && !props.loading && (
                   <Tooltip
-                    data={tooltipData.map((d, i) => ({
-                      dataColor: props.colorScheme.categorical[i],
+                    data={tooltipData.map((d) => ({
+                      dataColor: d.color,
                       dataLabel: d.label,
                       dataValue: props.dataFormat.tooltip(d.data[INDEX_VALUE]),
                     }))}
@@ -174,7 +174,6 @@ const TimeSeriesLineChartSVG = (props) => {
 TimeSeriesLineChartSVG.displayName = 'Time Series Line Chart SVG';
 
 TimeSeriesLineChartSVG.defaultProps = {
-  colorScheme: colorSchemes.colorSchemeDefault,
   data: [],
   loading: false,
   timeFormat: undefined,
@@ -185,15 +184,10 @@ TimeSeriesLineChartSVG.defaultProps = {
 
 TimeSeriesLineChartSVG.propTypes = {
   /**
-   * Sets the color scheme of the bars.
-   */
-  colorScheme: PropTypes.shape({
-    categorical: PropTypes.arrayOf(PropTypes.string).isRequired,
-  }),
-  /**
    * Sets the data series. A data series consists of an array of objects, which consist of a label and an array of data. Each data item contains a timestamp and a value.
    */
   data: PropTypes.arrayOf(PropTypes.shape({
+    color: PropTypes.string.isRequired,
     data: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
     label: PropTypes.string.isRequired,
   })),

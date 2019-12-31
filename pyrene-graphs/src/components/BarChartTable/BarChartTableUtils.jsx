@@ -110,10 +110,16 @@ const getColumn = ({
   };
 };
 
-export const getLegend = (type, columns) => {
+export const getLegend = (type, columns, colorScheme) => {
   switch (type) {
     case 'comparison':
-      return [columns.primaryValue.title, columns.secondaryValue.title];
+      return [{
+        color: colorScheme.comparison[0],
+        label: columns.primaryValue.title,
+      }, {
+        color: colorScheme.comparison[1],
+        label: columns.secondaryValue.title,
+      }];
     default:
       return [];
   }

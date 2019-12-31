@@ -11,53 +11,79 @@ import './timeSeriesLineChart.css';
 /**
  * A line chart for time-data series.
  */
-const TimeSeriesLineChart = (props) => {
-  const dataAvailable = props.data && props.data[0] && props.data[0].data && props.data[0].data.length > 0;
+export default class TimeSeriesLineChart extends React.Component {
 
-  // Render the header
-  const header = (
-    <Header
-      title={props.title}
-      description={props.description}
-    />
-  );
+  constructor(props) {
+    super(props);
 
-  // Render the overlay
-  const chartOverlay = (
-    <ChartOverlay>
-      {props.loading && <Loader type="inline" />}
-      {!props.loading && !dataAvailable && (
-        <div styleName="errorBanner">
-          <Banner styling="inline" type="error" label={props.error} />
-        </div>
-      )}
-    </ChartOverlay>
-  );
+    this.state = {
+      dataDeselected: this.props.data.map((d) => (d.deselected)),
+    };
+  }
 
-  // Render the line chart
-  const lineChart = (
-    <TimeSeriesLineChartSVG
-      colorScheme={props.colorScheme}
-      dataFormat={props.dataFormat}
-      data={props.data}
-      from={props.from}
-      to={props.to}
-      loading={props.loading}
-      timezone={props.timezone}
-      timeFormat={props.timeFormat}
-    />
-  );
+  toggleLegendItem = (index) => {
+    this.setState((prevState) => ({
+      dataDeselected: prevState.dataDeselected.map((d, i) => (i === index ? !d : d)),
+    }));
+  }
 
-  // Render the component
-  const showOverlay = props.loading || !dataAvailable;
-  return (
-    <ChartContainer
-      header={header}
-      chart={lineChart}
-      chartOverlay={showOverlay && chartOverlay}
-    />
-  );
-};
+  render() {
+    const dataAvailable = this.props.data && this.props.data[0] && this.props.data[0].data && this.props.data[0].data.length > 0;
+
+    // Render the header
+    const header = (
+      <Header
+        title={this.props.title}
+        description={this.props.description}
+        legend={!this.props.loading ? this.state.dataDeselected.map((d, i) => ({
+          color: this.props.colorScheme.categorical[i],
+          deselected: d,
+          label: this.props.data[i].label,
+        })) : []}
+        legendToggleCallback={(index) => this.toggleLegendItem(index)}
+      />
+    );
+
+    // Render the overlay
+    const chartOverlay = (
+      <ChartOverlay>
+        {this.props.loading && <Loader type="inline" />}
+        {!this.props.loading && !dataAvailable && (
+          <div styleName="errorBanner">
+            <Banner styling="inline" type="error" label={this.props.error} />
+          </div>
+        )}
+      </ChartOverlay>
+    );
+
+    // Render the line chart
+    const lineChart = (
+      <TimeSeriesLineChartSVG
+        data={this.props.data.map((d, i) => ({
+          color: this.props.colorScheme.categorical[i],
+          data: d.data,
+          label: d.label,
+        })).filter((_, i) => !this.state.dataDeselected[i])}
+        dataFormat={this.props.dataFormat}
+        from={this.props.from}
+        to={this.props.to}
+        loading={this.props.loading}
+        timezone={this.props.timezone}
+        timeFormat={this.props.timeFormat}
+      />
+    );
+
+    const showOverlay = this.props.loading || !dataAvailable;
+    return (
+      <ChartContainer
+        header={header}
+        chart={lineChart}
+        chartOverlay={showOverlay && chartOverlay}
+      />
+    );
+  }
+  
+}
 
 TimeSeriesLineChart.displayName = 'Time Series Line Chart';
 
@@ -87,6 +113,7 @@ TimeSeriesLineChart.propTypes = {
    */
   data: PropTypes.arrayOf(PropTypes.shape({
     data: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
+    deselected: PropTypes.bool,
     label: PropTypes.string.isRequired,
   })),
   /**
@@ -130,5 +157,3 @@ TimeSeriesLineChart.propTypes = {
    */
   to: PropTypes.number.isRequired,
 };
-
-export default TimeSeriesLineChart;

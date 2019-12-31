@@ -20,16 +20,33 @@ const Header = (props) => (
         )}
         {props.legend && props.legend.length > 0 && (
           <div styleName={classNames('legend', { legendLeft: props.description === '' })}>
-            {props.legend.map((item, idx) => (
+            {props.legend.map((item, index) => (
               <div
-                key={item}
+                key={item.label}
                 styleName="legendItem"
               >
-                <span
-                  styleName="circle"
-                  style={{ backgroundColor: props.colors[idx] }}
-                />
-                {item}
+                {props.legendToggleCallback ? (
+                  <>
+                    <span
+                      styleName="checkbox"
+                      style={{ backgroundColor: item.color }}
+                      onClick={() => props.legendToggleCallback(index)}
+                    >
+                      {!item.deselected && (
+                        <span
+                          styleName="checkboxIcon"
+                          className="pyreneIcon-check"
+                        />
+                      )}
+                    </span>
+                  </>
+                ) : (
+                  <span
+                    styleName="circle"
+                    style={{ backgroundColor: item.color }}
+                  />
+                )}
+                {item.label}
               </div>
             ))}
           </div>
@@ -43,23 +60,28 @@ Header.displayName = 'Header';
 
 Header.defaultProps = {
   description: '',
-  legend: [],
-  colors: [],
+  legend: {},
+  legendToggleCallback: null,
 };
 
 Header.propTypes = {
-  /**
-   * Sets the colors of the legend. Type: [ string ]
-   */
-  colors: PropTypes.arrayOf(PropTypes.string),
   /**
     * Sets the description.
     */
   description: PropTypes.string,
   /**
-    * Sets the legend. Type: [ string ]
-    */
-  legend: PropTypes.arrayOf(PropTypes.string),
+   * Sets the legend items.
+   * Type: [{ color: string, deselected: bool, label: string }]
+   */
+  legend: PropTypes.arrayOf(PropTypes.shape({
+    color: PropTypes.string,
+    deselected: PropTypes.bool,
+    label: PropTypes.string,
+  })),
+  /**
+   * If callback is provided, the legend circles change to checkboxes in order to toggle data.
+   */
+  legendToggleCallback: PropTypes.func,
   /**
    * Sets the title.
    */
