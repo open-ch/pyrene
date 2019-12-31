@@ -8,23 +8,29 @@ import './sparkLine.css';
 /**
  * Spark Lines are used to display data series and can be embedded in another context such as in tables.
  */
-const SparkLine = (props) => (
-  <div styleName="container">
-    <div styleName="chart">
-      <Responsive>
-        {(parent) => (
-          <SparkLineSVG
-            colorScheme={props.colorScheme}
-            dataFormat={props.dataFormat}
-            data={props.data}
-            height={parent.height}
-            width={parent.width}
-          />
+const SparkLine = (props) => {
+  const dataAvailable = props.data && props.data.length > 0 && props.data[0] && props.data[0].length > 0;
+
+  return (
+    <div styleName="container">
+      <div styleName="chart">
+        {dataAvailable && (
+          <Responsive>
+            {(parent) => (
+              <SparkLineSVG
+                colorScheme={props.colorScheme}
+                dataFormat={props.dataFormat}
+                data={props.data}
+                height={parent.height}
+                width={parent.width}
+              />
+            )}
+          </Responsive>
         )}
-      </Responsive>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 SparkLine.displayName = 'Spark Line';
 

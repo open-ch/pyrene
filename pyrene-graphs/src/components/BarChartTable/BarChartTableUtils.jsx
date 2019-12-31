@@ -31,20 +31,26 @@ const getColumn = ({
     align: align,
     width: `${width}px`,
     cellRenderCallback: {
-      link: (row) => ((linkAccessor || onClick) ? ( // eslint-disable-line react/display-name
-        <a
-          styleName="labelLink"
-          href={onClick ? '#' : getValueWithAccessor(row, linkAccessor)}
-          onClick={(e) => {
-            if (onClick) {
-              e.preventDefault();
-              onClick(row);
-            }
-          }}
-        >
-          {row.value}
-        </a>
-      ) : dataFormat(row.value)),
+      link: (row) => {
+        if (linkAccessor || onClick) {
+          return (
+            <a
+              styleName="labelLink"
+              href={onClick ? '#' : getValueWithAccessor(row, linkAccessor)}
+              onClick={(e) => {
+                if (onClick) {
+                  e.preventDefault();
+                  onClick(row);
+                }
+              }}
+            >
+              {row.value}
+            </a>
+          );
+        }
+        if (row.value !== null) return dataFormat(row.value);
+        return row.value;
+      },
       relativeBar: (row) => ( // eslint-disable-line react/display-name
         <svg width="100%" height={svgHeight}>
           {width > 0 && (
@@ -105,7 +111,7 @@ const getColumn = ({
           </svg>
         );
       },
-      default: (row) => dataFormat(row.value),
+      default: (row) => (row.value !== null ? dataFormat(row.value) : row.value),
     }[cellType || 'default'],
   };
 };
@@ -126,12 +132,13 @@ export const getLegend = (type, columns, colorScheme) => {
 };
 
 export const getColumns = ({
+  dataAvailable,
   props,
   colors,
   width,
 }) => {
-  const maxValuePrimary = Math.max(...props.data.map((dataRow) => getValueWithAccessor(dataRow, props.columns.primaryValue.accessor)));
-  const maxValueSecondary = props.columns.secondaryValue ? Math.max(...props.data.map((dataRow) => getValueWithAccessor(dataRow, props.columns.secondaryValue.accessor))) : maxValuePrimary;
+  const maxValuePrimary = dataAvailable && Math.max(...props.data.map((dataRow) => getValueWithAccessor(dataRow, props.columns.primaryValue.accessor)));
+  const maxValueSecondary = dataAvailable && props.columns.secondaryValue ? Math.max(...props.data.map((dataRow) => getValueWithAccessor(dataRow, props.columns.secondaryValue.accessor))) : maxValuePrimary;
   const maxValue = Math.max(maxValuePrimary, maxValueSecondary);
   const hasColumnSecondaryLabel = !!props.columns.secondaryLabel;
   const hasColumnSecondaryValue = !!props.columns.secondaryValue;

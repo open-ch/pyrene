@@ -28,13 +28,15 @@ export default class BarChartTable extends React.Component {
    };
 
    render() {
+     const dataAvailable = this.props.data && this.props.data.length > 0;
+
      const colors = (this.props.type === 'comparison' ? this.props.colorScheme.comparison : this.props.colorScheme.valueGround);
      const description = this.props.type === 'bar' ? '' : this.props.description;
-     const sortedData = this.props.data.sort((a, b) => {
+     const sortedData = dataAvailable && this.props.data.sort((a, b) => {
        const sortPrimaryValue = getValueWithAccessor(b, this.props.columns.primaryValue.accessor) - getValueWithAccessor(a, this.props.columns.primaryValue.accessor);
        return this.props.columns.secondaryValue ? sortPrimaryValue || (getValueWithAccessor(b, this.props.columns.secondaryValue.accessor) - getValueWithAccessor(a, this.props.columns.secondaryValue.accessor)) : sortPrimaryValue;
      });
-     const displayedRows = this.props.displayedRows < 0 ? this.props.data.length : this.props.displayedRows;
+     const displayedRows = dataAvailable && this.props.displayedRows < 0 ? this.props.data.length : this.props.displayedRows;
      const popOverAdditionalRows = 5;
      const rowHeight = 32;
      return (
@@ -46,19 +48,24 @@ export default class BarChartTable extends React.Component {
            colors={colors}
          />
          {/* table height: displayedRows + 1 header row + conditional showMoreLink div */}
-         <div style={{ height: `${displayedRows * rowHeight + rowHeight + (this.props.data.length > displayedRows && this.props.loading ? 26 : 0)}px` }}>
+         <div style={{ height: dataAvailable ? `${displayedRows * rowHeight + rowHeight + (this.props.data.length > displayedRows && this.props.loading ? 26 : 0)}px` : `${rowHeight}px` }}>
            <Responsive>
              {(parent) => (
                <SimpleTable
-                 columns={getColumns({ props: this.props, colors: colors, width: parent.width })}
-                 data={sortedData.slice(0, displayedRows)}
+                 columns={getColumns({
+                   dataAvailable: dataAvailable,
+                   props: this.props,
+                   colors: colors,
+                   width: parent.width,
+                 })}
+                 data={dataAvailable ? sortedData.slice(0, displayedRows) : []}
                  onRowDoubleClick={this.props.onRowDoubleClick}
                  loading={this.props.loading}
                />
              )}
            </Responsive>
          </div>
-         {(this.props.data.length > displayedRows) && !this.props.loading && (
+         {dataAvailable && (this.props.data.length > displayedRows) && !this.props.loading && (
            <div styleName="showMoreLink" onClick={this.togglePopover}>
              {`Show more (${sortedData.length})`}
              {this.state.showPopover && (

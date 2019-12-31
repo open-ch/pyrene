@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Loader } from 'pyrene';
+import { Banner, Loader } from 'pyrene';
 import BarChartSVG from './BarChartSVG';
 import ChartContainer from '../ChartContainer/ChartContainer';
 import ChartOverlay from '../ChartOverlay/ChartOverlay';
@@ -11,6 +11,8 @@ import colorSchemes from '../../styles/colorSchemes';
  * Bar Charts are used to display numerical values.
  */
 const BarChart = (props) => {
+  const dataAvailable = props.data && props.data.length > 0 && props.data[0].data && props.data[0].data.length > 0;
+
   const header = (
     <Header
       title={props.title}
@@ -22,7 +24,7 @@ const BarChart = (props) => {
       }))}
     />
   );
-  const chart = (
+  const chart = dataAvailable && (
     <BarChartSVG
       colorScheme={props.colorScheme}
       data={props.data}
@@ -34,14 +36,20 @@ const BarChart = (props) => {
   );
   const chartOverlay = (
     <ChartOverlay>
-      <Loader type="inline" />
+      {props.loading && <Loader type="inline" />}
+      {!props.loading && !dataAvailable && (
+        <div>
+          <Banner styling="inline" type="error" label={props.error} />
+        </div>
+      )}
     </ChartOverlay>
   );
+  const showOverlay = props.loading || !dataAvailable;
   return (
     <ChartContainer
       header={header}
       chart={chart}
-      chartOverlay={props.loading && chartOverlay}
+      chartOverlay={showOverlay && chartOverlay}
     />
   );
 };
@@ -52,6 +60,7 @@ BarChart.defaultProps = {
   description: '',
   colorScheme: colorSchemes.colorSchemeDefault,
   direction: 'vertical',
+  error: 'No data available',
   loading: false,
   dataFormat: (d) => d,
 };
@@ -82,6 +91,10 @@ BarChart.propTypes = {
    * Sets the bar direction.
    */
   direction: PropTypes.oneOf(['horizontal', 'vertical']),
+  /**
+   * Sets the error message.
+   */
+  error: PropTypes.string,
   /**
     * Sets the legend. Type: [ string ]
     */

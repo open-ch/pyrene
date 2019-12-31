@@ -44,7 +44,7 @@ const onMouseMove = (event, data, xScale, yScale, top, showTooltip) => {
       data: [d.data[closerIndex][INDEX_START_TS], currentValue],
       label: d.label,
       tooltipLeftCircle: xScale(d.data[closerIndex][INDEX_START_TS]),
-      tooltipTopCircle: yScale(currentValue) + top,
+      tooltipTopCircle: currentValue !== null ? yScale(currentValue) + top : null,
     };
   });
   showTooltip({
@@ -134,7 +134,7 @@ const TimeSeriesLineChartSVG = (props) => {
                         left={tooltipData[0].tooltipLeftCircle}
                         strokeWidth={1}
                       />
-                      {tooltipData.map((d) => (
+                      {tooltipData.map((d) => (d.tooltipTopCircle !== null && (
                         <Circle
                           key={`indicator-${d.label}`}
                           borderStrokeWidth={1.5}
@@ -143,7 +143,7 @@ const TimeSeriesLineChartSVG = (props) => {
                           x={d.tooltipLeftCircle}
                           y={d.tooltipTopCircle}
                         />
-                      ))}
+                      )))}
                     </g>
                   )}
                   {/* ChartArea makes sure the outer <g> element where all mouse event listeners are attached always covers the whole chart area so that there is no tooltip flickering issue */}
