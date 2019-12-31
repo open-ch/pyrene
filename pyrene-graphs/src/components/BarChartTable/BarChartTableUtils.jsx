@@ -31,20 +31,26 @@ const getColumn = ({
     align: align,
     width: `${width}px`,
     cellRenderCallback: {
-      link: (row) => ((linkAccessor || onClick) ? ( // eslint-disable-line react/display-name
-        <a
-          styleName="labelLink"
-          href={onClick ? '#' : getValueWithAccessor(row, linkAccessor)}
-          onClick={(e) => {
-            if (onClick) {
-              e.preventDefault();
-              onClick(row);
-            }
-          }}
-        >
-          {row.value}
-        </a>
-      ) : dataFormat(row.value)),
+      link: (row) => {
+        if (linkAccessor || onClick) {
+          return (
+            <a
+              styleName="labelLink"
+              href={onClick ? '#' : getValueWithAccessor(row, linkAccessor)}
+              onClick={(e) => {
+                if (onClick) {
+                  e.preventDefault();
+                  onClick(row);
+                }
+              }}
+            >
+              {row.value}
+            </a>
+          );
+        }
+        if (row.value !== null) return dataFormat(row.value);
+        return row.value;
+      },
       relativeBar: (row) => ( // eslint-disable-line react/display-name
         <svg width="100%" height={svgHeight}>
           {width > 0 && (
@@ -105,7 +111,7 @@ const getColumn = ({
           </svg>
         );
       },
-      default: (row) => dataFormat(row.value),
+      default: (row) => (row.value !== null ? dataFormat(row.value) : row.value),
     }[cellType || 'default'],
   };
 };
