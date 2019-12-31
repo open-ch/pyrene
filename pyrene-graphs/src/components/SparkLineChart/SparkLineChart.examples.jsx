@@ -8,7 +8,7 @@ const yUnit = 'B';
 const timezone = 'Asia/Shanghai';
 const initialFrom = moment.tz('2019-10-01 00:00', timezone).valueOf();
 const initialTo = moment.tz('2019-10-08 00:00', timezone).valueOf();
-const dataSeries = timeSeriesData.genDownloadedVolumes(initialFrom, initialTo, 42).data;
+const data = timeSeriesData.genDownloadedVolumes(initialFrom, initialTo, 42).data;
 
 const dataFormat = (num) => {
   const formattedNum = `${format('~s')(num)}`;
@@ -19,9 +19,9 @@ const dataFormat = (num) => {
 };
 
 examples.props = {
-  keyFigure: `${(dataSeries.map((d) => d[1]).reduce((a, b) => a + b) / 10000).toFixed(2)} TB`,
+  keyFigure: `${(data.map((d) => d[1]).reduce((a, b) => a + b) / 10000).toFixed(2)} TB`,
+  data: data,
   dataFormat: (d) => dataFormat(d * 100000000),
-  dataSeries: dataSeries,
   axisLabel: 'DOWNLOADED VOLUME LAST 7 DAYS',
   timezone: timezone,
 };

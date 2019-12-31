@@ -1,28 +1,28 @@
 const timeSeriesData = {
 
   /**
-   * Generate mock data for downloaded volumes for time series bucket graph.
+   * Generate mock data for downloaded volumes for time series bucket chart.
    * @param {number}from - The starting time point of the time range in epoch milliseconds
    * @param {number}to - The ending time point of the time range in epoch milliseconds
    * @param {number}number - The number of data items required
    * @returns {{data: [], label: string}}
    */
   genDownloadedVolumes: (from, to, number) => {
-    const dataSeries = {
+    const data = {
       label: 'Volume',
       data: [],
     };
 
     const timeFrame = (to - from) / number;
     for (let i = 0; i < number; i += 1) {
-      dataSeries.data.push([from + i * timeFrame, Math.random() * 10000 + 1]);
+      data.data.push([from + i * timeFrame, Math.random() * 10000 + 1]);
     }
 
-    return dataSeries;
+    return data;
   },
 
   genThreatScores: (from, to, number) => {
-    const dataSeries = [{
+    const data = [{
       label: 'high',
       data: [],
     }, {
@@ -35,12 +35,12 @@ const timeSeriesData = {
 
     const timeFrame = (to - from) / number;
     for (let i = 0; i <= number; i += 1) {
-      dataSeries[0].data.push([from + i * timeFrame, Math.round(Math.random() * 5)]);
-      dataSeries[1].data.push([from + i * timeFrame, Math.round(Math.random() * 5 + 10)]);
-      dataSeries[2].data.push([from + i * timeFrame, Math.round(Math.random() * 5 + 30)]);
+      data[0].data.push([from + i * timeFrame, Math.round(Math.random() * 5)]);
+      data[1].data.push([from + i * timeFrame, Math.round(Math.random() * 5 + 10)]);
+      data[2].data.push([from + i * timeFrame, Math.round(Math.random() * 5 + 30)]);
     }
 
-    return dataSeries;
+    return data;
   },
 
 };

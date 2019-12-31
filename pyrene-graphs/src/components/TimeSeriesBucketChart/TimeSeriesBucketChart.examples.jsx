@@ -8,7 +8,7 @@ const yUnit = 'B';
 const timezone = 'Asia/Shanghai';
 const initialFrom = moment.tz('2019-10-01 00:00', timezone).valueOf();
 const initialTo = moment.tz('2019-10-08 00:00', timezone).valueOf();
-const initialDataSeries = timeSeriesData.genDownloadedVolumes(initialFrom, initialTo, 42);
+const initialData = timeSeriesData.genDownloadedVolumes(initialFrom, initialTo, 42);
 
 const dataFormat = {
   tooltip: (num) => {
@@ -23,7 +23,7 @@ const dataFormat = {
 
 examples.props = {
   dataFormat: dataFormat,
-  dataSeries: (stateProvider) => (stateProvider.state.dataSeries ? stateProvider.state.dataSeries : initialDataSeries),
+  data: (stateProvider) => (stateProvider.state.data ? stateProvider.state.data : initialData),
   description: 'Downloaded volume',
   error: 'There was an error while loading data.',
   from: (stateProvider) => (stateProvider.state.from ? stateProvider.state.from : initialFrom),
@@ -35,9 +35,9 @@ examples.props = {
     minZoomRange: moment.duration({ minutes: 30 }).valueOf(),
     onZoom: (from, to) => {
       stateProvider.setState({ from, to });
-      const newDataSeries = timeSeriesData.genDownloadedVolumes(from, to, 42);
+      const newData = timeSeriesData.genDownloadedVolumes(from, to, 42);
       stateProvider.setState({
-        dataSeries: newDataSeries,
+        data: newData,
       });
     },
     upperBound: moment.tz('2020-10-01 00:00', timezone).valueOf(),

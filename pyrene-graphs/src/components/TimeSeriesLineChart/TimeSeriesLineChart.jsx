@@ -12,7 +12,7 @@ import './timeSeriesLineChart.css';
  * A line chart for time-data series.
  */
 const TimeSeriesLineChart = (props) => {
-  const dataAvailable = props.dataSeries && props.dataSeries[0] && props.dataSeries[0].data && props.dataSeries[0].data.length > 0;
+  const dataAvailable = props.data && props.data[0] && props.data[0].data && props.data[0].data.length > 0;
 
   // Render the header
   const header = (
@@ -39,7 +39,7 @@ const TimeSeriesLineChart = (props) => {
     <TimeSeriesLineChartSVG
       colorScheme={props.colorScheme}
       dataFormat={props.dataFormat}
-      dataSeries={props.dataSeries}
+      data={props.data}
       from={props.from}
       to={props.to}
       loading={props.loading}
@@ -63,11 +63,11 @@ TimeSeriesLineChart.displayName = 'Time Series Line Chart';
 
 TimeSeriesLineChart.defaultProps = {
   colorScheme: colorSchemes.colorSchemeDefault,
+  data: [],
   dataFormat: {
     tooltip: (d) => d,
     yAxis: (d) => d,
   },
-  dataSeries: [],
   description: '',
   error: 'No data available',
   loading: false,
@@ -83,21 +83,21 @@ TimeSeriesLineChart.propTypes = {
     categorical: PropTypes.arrayOf(PropTypes.string).isRequired,
   }),
   /**
-   * Sets the data formatting functions for the graph, consisting of format function for the y-axis and that for the tooltip.
+   * Sets the data series. A data series consists of an array of objects, which consist of a label and an array of data. Each data item contains a timestamp and a value.
+   */
+  data: PropTypes.arrayOf(PropTypes.shape({
+    data: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
+    label: PropTypes.string.isRequired,
+  })),
+  /**
+   * Sets the data formatting functions for the chart, consisting of format function for the y-axis and that for the tooltip.
    */
   dataFormat: PropTypes.shape({
     tooltip: PropTypes.func,
     yAxis: PropTypes.func,
   }),
   /**
-   * Sets the data series. A data series consists of an array of objects, which consist of a label and an array of data. Each data item contains a timestamp and a value.
-   */
-  dataSeries: PropTypes.arrayOf(PropTypes.shape({
-    data: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
-    label: PropTypes.string.isRequired,
-  })),
-  /**
-   * Sets the description of the graph excluding the unit part.
+   * Sets the description of the chart excluding the unit part.
    */
   description: PropTypes.string,
   /**
@@ -109,7 +109,7 @@ TimeSeriesLineChart.propTypes = {
    */
   from: PropTypes.number.isRequired,
   /**
-   * Sets the loading state of the graph.
+   * Sets the loading state of the chart.
    */
   loading: PropTypes.bool,
   /**
@@ -122,7 +122,7 @@ TimeSeriesLineChart.propTypes = {
    */
   timezone: PropTypes.string.isRequired,
   /**
-   * Sets the title of the graph.
+   * Sets the title of the chart.
    */
   title: PropTypes.string,
   /**
