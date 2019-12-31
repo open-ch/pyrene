@@ -8,47 +8,50 @@ import { scaleBand, scaleOrdinal } from '@vx/scale';
  * It has an underlying secondary bar, which extends to the full length.
  */
 const RelativeBar = (props) => {
-  const keys = [
-    'value',
-    'rest',
-  ];
-  const data = [{
-    value: props.value,
-    rest: props.maxValue - props.value,
-    y: 0,
-  },
-  ];
-  const color = scaleOrdinal({
-    domain: keys,
-    range: props.colors,
-  });
-  const weightScale = scaleBand({
-  });
-  const size = props.scale.range().slice(-1)[0];
-  return (
-    props.direction === 'horizontal' ? (
-      <BarStackHorizontal
-        y={(d) => d}
-        height={props.barWeight}
-        data={data}
-        keys={keys}
-        xScale={props.scale}
-        yScale={weightScale}
-        color={color}
-        transform={props.mirrored ? `rotate(180 ${size / 2} ${props.barWeight / 2})` : undefined}
-      />
-    ) : (
-      <BarStack
-        x={(d) => d}
-        width={props.barWeight}
-        data={data}
-        keys={keys}
-        xScale={weightScale}
-        yScale={props.scale}
-        color={color}
-        transform={props.mirrored ? `rotate(180 ${props.barWeight / 2} ${size / 2})` : undefined}
-      />
-    ));
+  if (props.value !== null) {
+    const keys = [
+      'value',
+      'rest',
+    ];
+    const data = [{
+      value: props.value,
+      rest: props.maxValue - props.value,
+      y: 0,
+    },
+    ];
+    const color = scaleOrdinal({
+      domain: keys,
+      range: props.colors,
+    });
+    const weightScale = scaleBand({
+    });
+    const size = props.scale.range().slice(-1)[0];
+    return (
+      props.direction === 'horizontal' ? (
+        <BarStackHorizontal
+          y={(d) => d}
+          height={props.barWeight}
+          data={data}
+          keys={keys}
+          xScale={props.scale}
+          yScale={weightScale}
+          color={color}
+          transform={props.mirrored ? `rotate(180 ${size / 2} ${props.barWeight / 2})` : undefined}
+        />
+      ) : (
+        <BarStack
+          x={(d) => d}
+          width={props.barWeight}
+          data={data}
+          keys={keys}
+          xScale={weightScale}
+          yScale={props.scale}
+          color={color}
+          transform={props.mirrored ? `rotate(180 ${props.barWeight / 2} ${size / 2})` : undefined}
+        />
+      ));
+  }
+  return null;
 };
 
 RelativeBar.displayName = 'Relative Bar';
