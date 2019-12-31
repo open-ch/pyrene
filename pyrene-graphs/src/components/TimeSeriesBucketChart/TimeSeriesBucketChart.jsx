@@ -35,7 +35,7 @@ const TimeSeriesBucketChart = (props) => {
   );
 
   // Render the bucket chart
-  const bucketChart = (
+  const bucketChart = dataAvailable && (
     <TimeSeriesBucketChartSVG
       colorScheme={props.colorScheme}
       dataFormat={props.dataFormat}

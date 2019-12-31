@@ -35,7 +35,7 @@ const TimeSeriesLineChart = (props) => {
   );
 
   // Render the line chart
-  const lineChart = (
+  const lineChart = dataAvailable && (
     <TimeSeriesLineChartSVG
       colorScheme={props.colorScheme}
       dataFormat={props.dataFormat}

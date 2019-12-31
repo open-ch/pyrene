@@ -22,6 +22,7 @@ examples.props = {
   keyFigure: `${(data.map((d) => d[1]).reduce((a, b) => a + b) / 10000).toFixed(2)} TB`,
   data: data,
   dataFormat: (d) => dataFormat(d * 100000000),
+  error: 'There was an error while loading data.',
   axisLabel: 'DOWNLOADED VOLUME LAST 7 DAYS',
   timezone: timezone,
 };

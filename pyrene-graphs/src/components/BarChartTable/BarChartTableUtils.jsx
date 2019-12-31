@@ -126,12 +126,13 @@ export const getLegend = (type, columns) => {
 };
 
 export const getColumns = ({
+  dataAvailable,
   props,
   colors,
   width,
 }) => {
-  const maxValuePrimary = Math.max(...props.data.map((dataRow) => getValueWithAccessor(dataRow, props.columns.primaryValue.accessor)));
-  const maxValueSecondary = props.columns.secondaryValue ? Math.max(...props.data.map((dataRow) => getValueWithAccessor(dataRow, props.columns.secondaryValue.accessor))) : maxValuePrimary;
+  const maxValuePrimary = dataAvailable && Math.max(...props.data.map((dataRow) => getValueWithAccessor(dataRow, props.columns.primaryValue.accessor)));
+  const maxValueSecondary = dataAvailable && props.columns.secondaryValue ? Math.max(...props.data.map((dataRow) => getValueWithAccessor(dataRow, props.columns.secondaryValue.accessor))) : maxValuePrimary;
   const maxValue = Math.max(maxValuePrimary, maxValueSecondary);
   const hasColumnSecondaryLabel = !!props.columns.secondaryLabel;
   const hasColumnSecondaryValue = !!props.columns.secondaryValue;
