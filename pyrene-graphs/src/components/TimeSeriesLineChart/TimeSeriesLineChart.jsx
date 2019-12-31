@@ -62,12 +62,11 @@ export default class TimeSeriesLineChart extends React.Component {
     // Render the line chart
     const lineChart = (
       <TimeSeriesLineChartSVG
-        colorScheme={this.props.colorScheme}
-        dataFormat={this.props.dataFormat}
-        dataSeries={this.state.data.map((d, i) => ({
+        data={this.state.data.map((d, i) => ({
           ...d,
           color: this.props.colorScheme.categorical[i],
         })).filter((d) => !d.deselected)}
+        dataFormat={this.props.dataFormat}
         from={this.props.from}
         to={this.props.to}
         loading={this.props.loading}

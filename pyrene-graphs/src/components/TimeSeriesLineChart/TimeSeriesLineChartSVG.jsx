@@ -17,7 +17,7 @@ import {
 import ChartArea from '../ChartArea/ChartArea';
 import Tooltip from '../Tooltip/Tooltip';
 import Formats from '../../common/Formats';
-import { INDEX_VALUE, INDEX_START_TS } from '../../common/graphConstants';
+import { INDEX_VALUE, INDEX_START_TS } from '../../common/chartConstants';
 import colorConstants from '../../styles/colorConstants';
 import './timeSeriesLineChart.css';
 
@@ -40,6 +40,7 @@ const onMouseMove = (event, data, xScale, yScale, top, showTooltip) => {
   const tooltipData = data.map((d) => {
     const currentValue = d.data[closerIndex][INDEX_VALUE];
     return {
+      color: d.color,
       data: [d.data[closerIndex][INDEX_START_TS], currentValue],
       label: d.label,
       tooltipLeftCircle: xScale(d.data[closerIndex][INDEX_START_TS]),
@@ -117,7 +118,7 @@ const TimeSeriesLineChartSVG = (props) => {
                       <SparkLineTT2
                         key={`sparkline-${d.label}`}
                         colors={d.color}
-                        dataSeries={d.data}
+                        data={d.data}
                         strokeWidth={2}
                         top={chartConstants.marginMaxValueToBorder}
                         scaleLabel={xScale}
