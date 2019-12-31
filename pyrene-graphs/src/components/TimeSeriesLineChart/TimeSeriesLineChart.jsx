@@ -17,16 +17,13 @@ export default class TimeSeriesLineChart extends React.Component {
     super(props);
 
     this.state = {
-      data: this.props.data,
+      dataDeselected: this.props.data.map((d) => (d.deselected)),
     };
   }
 
   toggleLegendItem = (index) => {
     this.setState((prevState) => ({
-      data: prevState.data.map((d, i) => (i === index ? {
-        ...d,
-        deselected: !d.deselected,
-      } : d)),
+      dataDeselected: prevState.dataDeselected.map((d, i) => (i === index ? !d : d)),
     }));
   }
 
@@ -38,10 +35,10 @@ export default class TimeSeriesLineChart extends React.Component {
       <Header
         title={this.props.title}
         description={this.props.description}
-        legend={!this.props.loading ? this.state.data.map((d, i) => ({
+        legend={!this.props.loading ? this.state.dataDeselected.map((d, i) => ({
           color: this.props.colorScheme.categorical[i],
-          deselected: d.deselected,
-          label: d.label,
+          deselected: d,
+          label: this.props.data[i].label,
         })) : []}
         legendToggleCallback={(index) => this.toggleLegendItem(index)}
       />
@@ -62,9 +59,10 @@ export default class TimeSeriesLineChart extends React.Component {
     // Render the line chart
     const lineChart = (
       <TimeSeriesLineChartSVG
-        data={this.state.data.map((d, i) => ({
-          ...d,
+        data={this.state.dataDeselected.map((d, i) => ({
+          ...this.props.data[i],
           color: this.props.colorScheme.categorical[i],
+          deselected: d,
         })).filter((d) => !d.deselected)}
         dataFormat={this.props.dataFormat}
         from={this.props.from}
