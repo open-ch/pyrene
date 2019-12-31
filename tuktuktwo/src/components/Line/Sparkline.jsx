@@ -6,6 +6,7 @@ import { Group } from '@vx/group';
 const SparkLine = (props) => {
   const x = (d) => d[0];
   const y = (d) => d[1];
+  const defined = (d) => d !== null && x(d) !== null && y(d) !== null;
 
   return (
     // shapeRendering="auto" to have nicer lines
@@ -16,6 +17,7 @@ const SparkLine = (props) => {
         {Array.isArray(props.colors) && props.colors.length > 1 && (
           <AreaClosed
             data={props.data}
+            defined={defined}
             x={(d) => props.scaleLabel(x(d))}
             y={(d) => props.scaleValue(y(d))}
             yScale={props.scaleValue}
@@ -25,6 +27,7 @@ const SparkLine = (props) => {
         )}
         <LinePath
           data={props.data}
+          defined={defined}
           x={(d) => props.scaleLabel(x(d))}
           y={(d) => props.scaleValue(y(d))}
           stroke={Array.isArray(props.colors) ? props.colors[0] : props.colors}
