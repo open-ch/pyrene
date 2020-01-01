@@ -27,4 +27,6 @@
   background-color: var(--neutral-030);
 }
 
-
+.optionLabel {
+  white-space: nowrap;
+}
