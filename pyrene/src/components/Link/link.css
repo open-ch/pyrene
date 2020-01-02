@@ -18,38 +18,39 @@
     }
   }
 
-  &.type-standalone {
-    composes: commonFontSettings from '../../styles/common.css';
+}
 
-    height: 24px;
-    font-size: 13px;
-    font-weight: 500;
-    line-height: 16px;
-    text-transform: capitalize;
-    position: relative;
+.type-standalone {
+  composes: commonFontSettings from '../../styles/common.css';
 
-    & .icon {
-      width: 16px;
-      height: 16px;
-      font-weight: 400;
-      font-size: 16px;
-    }
+  height: 24px;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 16px;
+  text-transform: capitalize;
+  position: relative;
 
-    &.disabled {
-      opacity: 0.5;
-      cursor: default;
-      pointer-events: none;
-    }
+  & .icon {
+    width: 16px;
+    height: 16px;
+    font-weight: 400;
+    font-size: 16px;
   }
 
-  &.type-inline {
-    display: inline;
+  &.disabled {
+    opacity: 0.5;
+    cursor: default;
+    pointer-events: none;
+  }
+}
 
-    &.disabled {
-      color: inherit;
-      cursor: default;
-      pointer-events: none;
-    }
+.type-inline {
+  display: inline;
+
+  &.disabled {
+    color: inherit;
+    cursor: default;
+    pointer-events: none;
   }
 }
 
