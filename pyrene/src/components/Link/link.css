@@ -1,8 +1,6 @@
 @import '../../styles/colors.css';
 
 .link {
-  composes: commonFontSettings from '../../styles/common.css';
-
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -21,6 +19,8 @@
   }
 
   &.type-standalone {
+    composes: commonFontSettings from '../../styles/common.css';
+
     height: 24px;
     font-size: 13px;
     font-weight: 500;
