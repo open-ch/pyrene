@@ -19,6 +19,9 @@ function getExamples() {
     .filter((it, i, ar) => ar.indexOf(it) === i)
     .sort((a, b) => a.localeCompare(b));
   uniqueCategories.push(uniqueCategories.splice(uniqueCategories.indexOf(otherSectionName), 1)[0]);
+  const uniqueChartCategories = [...Object.values(ChartComponents)]
+    .map((component) => chartExamples[component.name].category)
+    .filter((it, i, ar) => ar.indexOf(it) === i);
   const categorySections = uniqueCategories
     .map((category) => ({
       name: category,
@@ -26,6 +29,7 @@ function getExamples() {
       elements: components
         .filter((component) => component.category === category)
         .map((component) => ({ name: component.name, linkToPath: component.linkToPath })),
+      isChart: uniqueChartCategories.includes(category),
     }));
   return categorySections;
 }
