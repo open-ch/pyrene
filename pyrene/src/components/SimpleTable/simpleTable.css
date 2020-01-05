@@ -24,7 +24,6 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-between;
   align-content: center;
   align-items: stretch;
   line-height: 20px;
@@ -56,7 +55,6 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-between;
   align-content: center;
   align-items: stretch;
   line-height: 18px;
@@ -67,12 +65,11 @@
 }
 
 .tableRow:hover {
-  background-color: var(--secondary);
-  cursor: pointer;
+  background-color: var(--background-tint);
 }
 
-.selectedRow {
-  background-color: var(--secondary);
+.tableRowWithFunction:hover {
+  cursor: pointer;
 }
 
 .tableCell {

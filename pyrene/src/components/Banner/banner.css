@@ -31,7 +31,7 @@
   }
 
   &.style-inline {
-    height: 32px;
+    min-height: 32px;
 
     & .message {
       line-height: 16px;

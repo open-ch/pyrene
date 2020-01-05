@@ -14,6 +14,8 @@ import { default as ButtonBar } from './components/ButtonBar/ButtonBar';
 import { default as CalendarDateSelector } from './components/CalendarDateSelector/CalendarDateSelector';
 import { default as Card } from './components/Card/Card';
 import { default as Checkbox } from './components/Checkbox/Checkbox';
+import { default as CheckboxPopover } from './components/CheckboxPopover/CheckboxPopover';
+
 import { default as Collapsible } from './components/Collapsible/Collapsible';
 import { default as Container } from './components/Container/Container';
 
@@ -67,6 +69,7 @@ const Components = {
   CalendarDateSelector,
   Card,
   Checkbox,
+  CheckboxPopover,
   Collapsible,
   Container,
   DropdownButton,

@@ -24,16 +24,6 @@
   box-sizing: border-box;
   padding: 4px 0;
   max-height: 260px;
-
-  &::-webkit-scrollbar-thumb {
-    border-radius: 2px;
-    width: 3px;
-    background-color: var(--neutral-400);
-  }
-
-  &::-webkit-scrollbar {
-    width: 3px;
-  }
 }
 
 .listItem {

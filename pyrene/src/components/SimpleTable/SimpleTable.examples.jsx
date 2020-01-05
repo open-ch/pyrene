@@ -50,7 +50,7 @@ const tableColumns = [{
   headerName: 'Age',
   accessor: 'age',
   align: 'right',
-  maxWidth: '26px',
+  width: '26px',
 }, {
   id: 'friendName',
   headerName: 'Friend Name',

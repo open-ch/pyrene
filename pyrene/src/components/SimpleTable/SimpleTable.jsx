@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import classNames from 'classnames';
 import Loader from '../Loader/Loader';
 import './simpleTable.css';
 
@@ -17,7 +18,7 @@ const SimpleTable = (props) => (
           {props.columns.map((column) => (
             <th
               styleName="tableHeaderCell"
-              style={{ maxWidth: column.maxWidth && column.maxWidth }}
+              style={{ maxWidth: column.width && column.width }}
               key={column.id}
             >
               <div styleName="tableCellContent" style={{ textAlign: column.align }}>
@@ -31,9 +32,9 @@ const SimpleTable = (props) => (
       <tbody styleName="tableBody">
         {!props.loading && props.data && props.data.length > 0 && props.data.map((row) => (
           <tr
-            styleName="tableRow"
+            styleName={classNames('tableRow', props.onRowDoubleClick ? 'tableRowWithFunction' : '')}
             key={Object.values(row)}
-            onDoubleClick={() => props.onRowDoubleClick(row)}
+            onDoubleClick={() => (props.onRowDoubleClick ? props.onRowDoubleClick(row) : null)}
           >
             {props.columns.length > 0 && props.columns.map((column) => {
               const valueRow = row;
@@ -41,7 +42,7 @@ const SimpleTable = (props) => (
               return (
                 <td
                   styleName="tableCell"
-                  style={{ maxWidth: column.maxWidth && column.maxWidth }}
+                  style={{ maxWidth: column.width && column.width }}
                   key={column.id.concat(Object.values(valueRow))}
                 >
                   <div styleName="tableCellContent" style={{ textAlign: column.align }}>
@@ -71,7 +72,7 @@ SimpleTable.displayName = 'Simple Table';
 
 SimpleTable.defaultProps = {
   loading: false,
-  onRowDoubleClick: () => {},
+  onRowDoubleClick: null,
 };
 
 SimpleTable.propTypes = {
@@ -88,7 +89,7 @@ SimpleTable.propTypes = {
     cellRenderCallback: PropTypes.func,
     headerName: PropTypes.string,
     id: PropTypes.string,
-    maxWidth: PropTypes.string,
+    width: PropTypes.string,
   })).isRequired,
   /**
    * Sets the Table data displayed in the rows. Type: [ JSON ]

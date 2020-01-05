@@ -1,7 +1,9 @@
-.actionContainer > div {
-  display: block;
+.labelWrapper {
+  display: flex;
+  align-items: center;
 }
 
-.actionContainer button {
-  width: 100%;
+.icon {
+  font-size: 16px;
+  padding-left: 2px;
 }

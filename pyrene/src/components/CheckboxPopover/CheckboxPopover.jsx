@@ -46,7 +46,7 @@ export default class CheckboxPopover extends React.Component {
 
 }
 
-CheckboxPopover.displayName = 'CheckboxPopover';
+CheckboxPopover.displayName = 'Checkbox Popover';
 
 CheckboxPopover.defaultProps = {
   disabled: false,

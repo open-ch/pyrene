@@ -8,24 +8,6 @@
     opacity: .5;
     pointer-events: none;
   }
-
-  & ::-webkit-scrollbar-thumb {
-    border-right: solid 2px white;
-    border-top: solid 2px white;
-    border-bottom: solid 2px white;
-    background-color: var(--neutral-400);
-  }
-
-  & ::-webkit-scrollbar-track {
-    border-right: solid 2px white;
-    border-top: solid 2px white;
-    border-bottom: solid 2px white;
-  }
-
-  & ::-webkit-scrollbar {
-    width: 5px;
-    background-color: rgba(255, 255, 255, 0);
-  }
 }
 
 .selectTitle {
