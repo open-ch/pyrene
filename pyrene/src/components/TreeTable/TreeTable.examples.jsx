@@ -71,6 +71,7 @@ const examples = {
       label: 'second column', type: 'multiSelect', id: 'testKey2', options: testOptions,
     }],
     setUniqueRowKey: (row) => row.id,
+    filterValues: {},
   },
 };
 
