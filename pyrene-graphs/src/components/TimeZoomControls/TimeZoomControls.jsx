@@ -81,14 +81,14 @@ const TimeZoomControls = ({
 }) => {
   const zoomActions = [
     {
-      iconName: 'zoomIn',
-      active: !minZoomRangeReached(from, to, minZoomRange) && !disabled && !zoomInDisabled,
-      onClick: () => zoomIn(from, to, minZoomRange, lowerBound, upperBound, onZoom),
-    },
-    {
       iconName: 'zoomOut',
       active: !boundsReached(from, to, lowerBound, upperBound) && !disabled,
       onClick: () => zoomOut(from, to, lowerBound, upperBound, onZoom),
+    },
+    {
+      iconName: 'zoomIn',
+      active: !minZoomRangeReached(from, to, minZoomRange) && !disabled && !zoomInDisabled,
+      onClick: () => zoomIn(from, to, minZoomRange, lowerBound, upperBound, onZoom),
     },
   ];
 
