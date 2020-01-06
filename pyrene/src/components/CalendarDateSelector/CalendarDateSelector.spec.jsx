@@ -70,12 +70,12 @@ describe('<CalendarDateSelector />', () => {
 
     rendered.find('TimeUnitSelectionBar').find('button').last().simulate('click');
 
-    const dateAfterBackAndFort = dateAfterClick.month === 12
+    const dateAfterBackAndForth = dateAfterClick.month === 12
       ? { day: 1, month: 1, year: dateAfterClick.year + 1 }
       : { day: 1, month: dateAfterClick.month + 1, year: dateAfterClick.year };
 
     calculatedValue = rendered.props().value;
-    expect(dateAfterBackAndFort).toStrictEqual(calculatedValue);
+    expect(dateAfterBackAndForth).toStrictEqual(calculatedValue);
   });
 
   it('has a dropdown that changes the timerange and sets the day and month to 1 if the year has been changed', () => {
