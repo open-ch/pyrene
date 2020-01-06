@@ -9,7 +9,7 @@ const OptionsItem = (props) => (
     onClick={props.onClick}
     type="button"
   >
-    <span>
+    <span styleName="optionLabel">
       {props.label}
     </span>
   </button>
