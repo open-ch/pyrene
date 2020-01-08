@@ -31,3 +31,8 @@
     color: var(--orange-700);
   }
 }
+
+.iconbutton [class^="pyreneIcon-"], .iconbutton [class*=" pyreneIcon-"] {
+  cursor: pointer;
+}
+
