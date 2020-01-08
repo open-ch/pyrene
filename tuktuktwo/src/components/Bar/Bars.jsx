@@ -29,6 +29,7 @@ const Bars = (props) => (
           barWeight={barWeight}
           color={props.color}
           direction={props.direction}
+          highlight={props.highlightSection && (i >= props.highlightSection.startOffset && i <= props.highlightSection.endOffset)}
           left={props.direction === 'horizontal' ? props.left : props.scaleLabel(props.labels[i]) + props.labelOffset + barWeightOffset}
           scale={props.scaleValue}
           top={props.direction === 'horizontal' ? props.scaleLabel(props.labels[i]) + props.labelOffset + barWeightOffset : props.top}
@@ -44,6 +45,7 @@ Bars.displayName = 'Bars';
 Bars.defaultProps = {
   barWeight: () => chartConstants.barWeight,
   direction: 'vertical',
+  highlightSection: null,
   labelOffset: 0,
   top: 0,
 };
@@ -65,6 +67,14 @@ Bars.propTypes = {
    * Sets the bar direction.
    */
   direction: PropTypes.oneOf(['horizontal', 'vertical']),
+
+  /**
+   * Indicates a section (start/end offset) of bars that are highlighted
+   */
+  highlightSection: PropTypes.shape({
+    endOffset: PropTypes.number.isRequired,
+    startOffset: PropTypes.number.isRequired,
+  }),
   /**
    * Sets the label offset to shift the bars on the label axis within this component.
    */
