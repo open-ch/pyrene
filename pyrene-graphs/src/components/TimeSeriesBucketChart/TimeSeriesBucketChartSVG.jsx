@@ -146,13 +146,23 @@ const TimeSeriesBucketChartSVG = (props) => {
             if (labels.length === 1) {
               return chartConstants.barWeight;
             // If it is the last bucket, we do not know its endTS, just use the bar weight of the second last bucket
-            } if (index === labels.length - 1) {
+            }
+            if (index === labels.length - 1) {
               return barWeightFunction(index - 1, labels);
             }
             // Calculate the bar weight by applying the scale function on the current time frame defined by the time difference between current startTS and next startTS
             const timeFrame = labels[index + 1] - labels[index];
             return xScale(props.from + timeFrame) - chartConstants.marginLeftNumerical - chartConstants.barSpacing;
           };
+          let highlightSection;
+          if (tooltipOpen && !zoomStartX) {
+            // Calculate the bar that is highlighted in the graph
+            const currentHighlightOffset = dataInRange.length * ((tooltipLeft - chartConstants.marginLeftNumerical) / (xScale.range()[1] - xScale.range()[0]));
+            highlightSection = {
+              startOffset: currentHighlightOffset - 1,
+              endOffset: currentHighlightOffset,
+            };
+          }
 
           return (
             <>
@@ -194,6 +204,7 @@ const TimeSeriesBucketChartSVG = (props) => {
                       barWeight={barWeightFunction}
                       color={props.colorScheme.categorical[0]}
                       direction="vertical"
+                      highlightSection={highlightSection}
                       labels={props.data.data.map((d) => d[INDEX_START_TS])}
                       left={chartConstants.marginLeftNumerical}
                       data={props.data.data.map((d) => d[INDEX_VALUE])}
