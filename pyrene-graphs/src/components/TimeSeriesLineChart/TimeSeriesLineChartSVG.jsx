@@ -16,7 +16,7 @@ import {
 } from 'tuktuktwo';
 import ChartArea from '../ChartArea/ChartArea';
 import Tooltip from '../Tooltip/Tooltip';
-import Formats from '../../common/Formats';
+import { timeFormat } from '../../common/Formats';
 import { INDEX_VALUE, INDEX_START_TS } from '../../common/chartConstants';
 import colorConstants from '../../styles/colorConstants';
 import './timeSeriesLineChart.css';
@@ -54,7 +54,7 @@ const onMouseMove = (event, data, xScale, yScale, top, showTooltip) => {
   });
 };
 
-const getTimeFormat = (timezone, timeFormat) => (timeFormat || ((time) => Formats.timeFormat(time[0], timezone)));
+const getTimeFormat = (timezone, timeFormatter) => (timeFormatter || ((time) => timeFormat(time[0], timezone)));
 
 /**
  * The pure SVG chart part of the time series line chart.
@@ -73,7 +73,7 @@ const TimeSeriesLineChartSVG = (props) => {
   // Filter out data outside `from` and `to` and get the max value
   const dataInRange = props.data.map((d) => ({ ...d, data: d.data.filter((e) => e[INDEX_START_TS] >= props.from && e[INDEX_START_TS] <= props.to) }));
   const maxValue = Math.max(...dataInRange.map((d) => Math.max(...d.data.map((e) => e[INDEX_VALUE]))));
-  
+
   return (
     <div styleName="chartContainer">
       <Responsive>
