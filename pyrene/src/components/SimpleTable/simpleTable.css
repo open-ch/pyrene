@@ -89,7 +89,7 @@
 }
 
 .tableCellContent {
-  height: 18px;
+  min-height: 18px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
