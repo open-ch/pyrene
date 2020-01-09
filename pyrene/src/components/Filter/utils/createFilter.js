@@ -128,10 +128,10 @@ export const getOptionsFromData = (optionsAccessors, data) => {
 export const getFilterProps = (filterDefinitions, data) => filterDefinitions
   .filter((f) => f.type !== null)
   .map((f) => ({
-    ...f,
     id: f.id,
     label: f.label,
     type: f.type,
+    sorted: f.sorted,
     options: f.options ? f.options : (f.optionsAccessors && data) ? getOptionsFromData(f.optionsAccessors, data) : undefined, // eslint-disable-line no-nested-ternary
   }));
 
