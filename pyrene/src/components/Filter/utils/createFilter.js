@@ -128,6 +128,7 @@ export const getOptionsFromData = (optionsAccessors, data) => {
 export const getFilterProps = (filterDefinitions, data) => filterDefinitions
   .filter((f) => f.type !== null)
   .map((f) => ({
+    ...f,
     id: f.id,
     label: f.label,
     type: f.type,
