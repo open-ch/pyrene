@@ -9,7 +9,9 @@ import './chartContainer.css';
 const ChartContainer = (props) => (
   <div styleName="chartContainer">
     {props.header}
-    {props.chartUnit}
+    <div styleName="unitContainer">
+      {props.chartUnit}
+    </div>
     {props.chartOverlay && (
       <div styleName="chartOverlay">
         {props.chartOverlay}
@@ -25,7 +27,7 @@ ChartContainer.displayName = 'Chart Container';
 
 ChartContainer.defaultProps = {
   chartOverlay: null,
-  chartUnit: undefined,
+  chartUnit: '',
 };
 
 ChartContainer.propTypes = {
@@ -38,9 +40,9 @@ ChartContainer.propTypes = {
    */
   chartOverlay: PropTypes.node,
   /**
-   * Unit of the chart
+   * Sets the unit of the chart, if there is any
    */
-  chartUnit: PropTypes.node,
+  chartUnit: PropTypes.string,
   /**
    * Header component
    */

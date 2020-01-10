@@ -3,35 +3,18 @@ import PropTypes from 'prop-types';
 import { Banner, Loader } from 'pyrene';
 import ChartContainer from '../ChartContainer/ChartContainer';
 import ChartOverlay from '../ChartOverlay/ChartOverlay';
-import ChartUnit from '../ChartUnit/ChartUnit';
 import Header from '../Header/Header';
 import TimeSeriesBucketChartSVG from './TimeSeriesBucketChartSVG';
-import { getSIUnit, prefixSIScale } from '../../common/Formats';
+import { getMaxValue } from '../../common/dataUtils';
 import colorSchemes from '../../styles/colorSchemes';
-import { INDEX_START_TS, INDEX_VALUE } from '../../common/chartConstants';
 import './timeSeriesBucketChart.css';
-
-const isDataInTimeRange = (dataItem, index, data, from, to) => {
-  if (dataItem[INDEX_START_TS] >= to) {
-    return false;
-  }
-  if (index !== data.length - 1 && data[index + 1][INDEX_START_TS] <= from) {
-    return false;
-  }
-  return true;
-};
 
 /**
  * A bucket chart for time-data series.
  */
 const TimeSeriesBucketChart = (props) => {
-  let dataInRange;
-  let maxValue;
-  const dataAvailable = props.data && props.data.data && props.data.data.length > 0;
-  if (dataAvailable) {
-    dataInRange = props.data.data.filter((data, index) => isDataInTimeRange(data, index, props.data.data, props.from, props.to));
-    maxValue = Math.max(...dataInRange.map((data) => data[INDEX_VALUE]));
-  }
+  // Get max value of the data within time range
+  const maxValue = getMaxValue(props.data, props.from, props.to);
 
   // Render the header
   const header = (
@@ -41,16 +24,11 @@ const TimeSeriesBucketChart = (props) => {
     />
   );
 
-  // Render the chart unit
-  const chartUnit = (!props.yAxis.unit || props.yAxis.unit.length === 0 || !dataAvailable || dataInRange.length === 0)
-    ? null
-    : <ChartUnit unit={getSIUnit(maxValue, prefixSIScale(maxValue), props.yAxis.unit)} />;
-
   // Render the overlay
   const chartOverlay = (
     <ChartOverlay>
       {props.loading && <Loader type="inline" />}
-      {!props.loading && (!dataAvailable || dataInRange.length === 0) && (
+      {!props.loading && !maxValue && (
         <div styleName="errorBanner">
           <Banner styling="inline" type="error" label={props.error} />
         </div>
@@ -59,31 +37,30 @@ const TimeSeriesBucketChart = (props) => {
   );
 
   // Render the bucket chart
-  const bucketChart = dataAvailable && dataInRange.length > 0 && (
+  const bucketChart = (
     <TimeSeriesBucketChartSVG
       colorScheme={props.colorScheme}
       data={props.data}
-      dataInRange={dataInRange}
       from={props.from}
       to={props.to}
       loading={props.loading}
       maxValue={maxValue}
+      tickFormat={props.yAxis.format}
       timezone={props.timezone}
       timeFormat={props.timeFormat}
       tooltipFormat={props.tooltipFormat}
-      yAxis={props.yAxis}
       zoom={props.zoom}
     />
   );
 
   // Render the component
-  const showOverlay = props.loading || !dataAvailable || dataInRange.length === 0;
+  const showOverlay = props.loading || !maxValue;
   return (
     <ChartContainer
       header={header}
       chart={bucketChart}
       chartOverlay={showOverlay && chartOverlay}
-      chartUnit={chartUnit}
+      chartUnit={props.yAxis.unit}
     />
   );
 };
@@ -102,8 +79,8 @@ TimeSeriesBucketChart.defaultProps = {
   timeFormat: undefined,
   title: '',
   yAxis: {
-    format: undefined,
-    unit: undefined,
+    format: (d) => d,
+    unit: '',
   },
   zoom: undefined,
 };

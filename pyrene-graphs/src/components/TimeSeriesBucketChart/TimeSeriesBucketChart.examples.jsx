@@ -1,5 +1,6 @@
 import moment from 'moment-timezone';
 import { format } from 'd3-format';
+import { getSIUnit, getSITickValue } from '../../common/Formats';
 import timeSeriesData from '../../examples/timeSeriesData';
 
 const examples = {};
@@ -27,10 +28,16 @@ examples.props = {
   title: 'Volume',
   timezone: timezone,
   tooltipFormat: tooltipFormat,
-  yAxis: {
-    format: undefined,
-    unit: 'B',
-  },
+  yAxis: (stateProvider) => ({
+    format: (value) => getSITickValue(value,
+      stateProvider.state.data ? stateProvider.state.data : initialData,
+      stateProvider.state.from ? stateProvider.state.from : initialFrom,
+      stateProvider.state.to ? stateProvider.state.to : initialTo,),
+    unit: getSIUnit(stateProvider.state.data ? stateProvider.state.data : initialData,
+      stateProvider.state.from ? stateProvider.state.from : initialFrom,
+      stateProvider.state.to ? stateProvider.state.to : initialTo,
+      yUnit),
+  }),
   zoom: (stateProvider) => ({
     lowerBound: moment.tz('2018-10-01 00:00', timezone).valueOf(),
     minZoomRange: moment.duration({ minutes: 30 }).valueOf(),

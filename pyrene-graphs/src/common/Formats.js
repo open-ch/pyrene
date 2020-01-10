@@ -1,5 +1,6 @@
 import moment from 'moment-timezone';
 import { formatPrefix } from 'd3-format';
+import { getMaxValue } from './dataUtils';
 
 const TIME_FORMATS = {
   DATE: 'DD.MM.YYYY',
@@ -49,28 +50,42 @@ export const timeFormat = (startTS, timezone) => (moment.tz(startTS, timezone).f
 /**
  * Gets the SI prefix format function with one significant digit and no trailing zeros; e.g. prefixSIScale(1000)(123) is 0.1k; prefixSIScale(1000)(12300) is 12.3k.
  * @param {number}value - The value the scale factor is based on
+ * @returns {function}
  */
-export const prefixSIScale = (value) => formatPrefix('.1~s', value);
+const prefixSIScale = (value) => formatPrefix('.1~s', value);
 
 /**
  * Gets the SI scaled tick value.
  * @param {number}value - The raw value
- * @param {function}siPrefix - The SI prefix function
+ * @param {array}data - The original data series, some items of which might be outside the time range
+ * @param {number}from - The `from` of the time range
+ * @param {number}to - The `to` of the time range
  * @returns {string}
  */
-export const getSITickValue = (value, siPrefix) => {
+export const getSITickValue = (value, data, from, to) => {
+  const maxValue = getMaxValue(data, from, to);
+  if (!maxValue) {
+    return '';
+  }
+  const siPrefix = prefixSIScale(maxValue);
   const scaledValue = siPrefix(value);
   return scaledValue.replace(/[^0-9^\\.]/g, '');
 };
 
 /**
  * Gets the SI scaled unit.
- * @param {number}value - the raw value
- * @param {function}siPrefix - The SI prefix function
- * @param {string}umit - the unit
+ * @param {array}data - The original data series, some items of which might be outside the time range
+ * @param {number}from - The `from` of the time range
+ * @param {number}to - The `to` of the time range
+ * @param {string}unit - the unit
  * @returns {string}
  */
-export const getSIUnit = (value, siPrefix, unit) => {
-  const scaledValue = siPrefix(value);
+export const getSIUnit = (data, from, to, unit) => {
+  const maxValue = getMaxValue(data, from, to);
+  if (!maxValue) {
+    return '';
+  }
+  const siPrefix = prefixSIScale(maxValue);
+  const scaledValue = siPrefix(maxValue);
   return `${scaledValue.replace(/[0-9\\.]/g, '')}${unit}`;
 };

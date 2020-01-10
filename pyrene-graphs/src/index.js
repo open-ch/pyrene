@@ -28,5 +28,6 @@ export { TimeSeriesBucketChart };
 export { TimeSeriesLineChart };
 
 export { INDEX_START_TS, INDEX_VALUE } from './common/chartConstants';
+export { getSITickValue, getSIUnit } from './common/Formats';
 
 export default Components;
