@@ -16,6 +16,7 @@ const Bar = (props) => {
         height={props.barWeight}
         width={Math.max(chartConstants.minShapeLength, props.scale(props.value) - props.left)}
         fill={props.color}
+        fillOpacity={props.highlight ? 0.8 : 1}
         transform={props.mirrored ? `rotate(180 ${size / 2} ${props.barWeight / 2})` : null}
       />
     ) : (
@@ -25,6 +26,7 @@ const Bar = (props) => {
         height={Math.max(chartConstants.minShapeLength, size - props.scale(props.value))}
         width={props.barWeight}
         fill={props.color}
+        fillOpacity={props.highlight ? 0.8 : 1}
         transform={props.mirrored ? `rotate(180 ${props.barWeight / 2} ${size / 2})` : null}
       />
     );
@@ -37,6 +39,7 @@ Bar.displayName = 'Bar';
 Bar.defaultProps = {
   barWeight: 6,
   direction: 'vertical',
+  highlight: false,
   left: 0,
   mirrored: false,
   top: 0,
@@ -55,6 +58,10 @@ Bar.propTypes = {
    * Sets the bar direction.
    */
   direction: PropTypes.oneOf(['horizontal', 'vertical']),
+  /**
+   * Marks the bar as highlighted
+   */
+  highlight: PropTypes.bool,
   /**
    * Sets the horizontal offset for this component.
    */
