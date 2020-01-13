@@ -10,38 +10,36 @@ const singleBucketSeries = timeSeriesData.genDownloadedVolumes(moment.tz('2019-1
 const zeroBucketSeries = { label: 'Volume', data: [] };
 
 const props = {
-  dataFormat: {
-    tooltip: (d) => d,
-    yAxis: (d) => d,
-  },
   data: fulLBucketsSeries,
   description: 'Downloaded volume',
   from: moment.tz('2019-10-01 00:00', 'Europe/Zurich').valueOf(),
   title: 'Volume',
   timezone: 'Europe/Zurich',
   to: moment.tz('2019-10-03 12:00', 'Europe/Zurich').valueOf(),
+  tooltipFormat: (d) => d,
   timeFormat: (d) => `${d}`,
+  yAxis: {
+    format: (d) => d,
+    unit: 'B',
+  },
 };
 
 const propsSingleBar = {
-  dataFormat: {
-    tooltip: (d) => d,
-    yAxis: (d) => d,
-  },
   data: singleBucketSeries,
   description: 'Downloaded volume',
   from: moment.tz('2019-10-01 00:00', 'Europe/Zurich').valueOf(),
   title: 'Volume',
   timezone: 'Europe/Zurich',
   to: moment.tz('2019-10-03 12:00', 'Europe/Zurich').valueOf(),
-  timeFormat: (d) => d,
+  tooltipFormat: (d) => d,
+  timeFormat: (d) => `${d}`,
+  yAxis: {
+    format: (d) => d,
+    unit: 'B',
+  },
 };
 
 const propsZeroBar = {
-  dataFormat: {
-    tooltip: (d) => d,
-    yAxis: (d) => d,
-  },
   data: zeroBucketSeries,
   description: 'Downloaded volume',
   from: moment.tz('2019-10-01 00:00', 'Europe/Zurich').valueOf(),
@@ -49,14 +47,15 @@ const propsZeroBar = {
   timezone: 'Europe/Zurich',
   title: 'Volume',
   to: moment.tz('2019-10-03 12:00', 'Europe/Zurich').valueOf(),
+  tooltipFormat: (d) => d,
   timeFormat: (d) => `${d}`,
+  yAxis: {
+    format: (d) => d,
+    unit: 'B',
+  },
 };
 
 const propsZeroBarLoading = {
-  dataFormat: {
-    tooltip: (d) => d,
-    yAxis: (d) => d,
-  },
   data: zeroBucketSeries,
   description: 'Downloaded volume',
   from: moment.tz('2019-10-01 00:00', 'Europe/Zurich').valueOf(),
@@ -64,14 +63,15 @@ const propsZeroBarLoading = {
   timezone: 'Europe/Zurich',
   title: 'Volume',
   to: moment.tz('2019-10-03 12:00', 'Europe/Zurich').valueOf(),
+  tooltipFormat: (d) => d,
   timeFormat: (d) => `${d}`,
+  yAxis: {
+    format: (d) => d,
+    unit: 'B',
+  },
 };
 
 const propsZeroBarError = {
-  dataFormat: {
-    tooltip: (d) => d,
-    yAxis: (d) => d,
-  },
   data: zeroBucketSeries,
   description: 'Downloaded volume',
   error: 'No data is found',
@@ -80,7 +80,12 @@ const propsZeroBarError = {
   timezone: 'Europe/Zurich',
   title: 'Volume',
   to: moment.tz('2019-10-03 12:00', 'Europe/Zurich').valueOf(),
+  tooltipFormat: (d) => d,
   timeFormat: (d) => `${d}`,
+  yAxis: {
+    format: (d) => d,
+    unit: 'B',
+  },
 };
 
 describe('<TimeSeriesBucketChart />', () => {
