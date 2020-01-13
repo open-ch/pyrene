@@ -1,6 +1,6 @@
 import moment from 'moment-timezone';
 import { formatPrefix } from 'd3-format';
-import { getMaxValue } from './dataUtils';
+import { getMaxValue, getMaxValueForBucket } from './dataUtils';
 
 const TIME_FORMATS = {
   DATE: 'DD.MM.YYYY',
@@ -62,8 +62,8 @@ const prefixSIScale = (value) => formatPrefix('.1~s', value);
  * @param {number}to - The `to` of the time range
  * @returns {string}
  */
-export const getSITickValue = (value, data, from, to) => {
-  const maxValue = getMaxValue(data, from, to);
+export const getSITickValue = (value, data, from, to, isBucket) => {
+  const maxValue = isBucket ? getMaxValueForBucket(data, from, to) : getMaxValue(data, from, to);
   if (!maxValue) {
     return '';
   }
@@ -80,8 +80,8 @@ export const getSITickValue = (value, data, from, to) => {
  * @param {string}unit - the unit
  * @returns {string}
  */
-export const getSIUnit = (data, from, to, unit) => {
-  const maxValue = getMaxValue(data, from, to);
+export const getSIUnit = (data, from, to, unit, isBucket) => {
+  const maxValue = isBucket ? getMaxValueForBucket(data, from, to) : getMaxValue(data, from, to);
   if (!maxValue) {
     return '';
   }

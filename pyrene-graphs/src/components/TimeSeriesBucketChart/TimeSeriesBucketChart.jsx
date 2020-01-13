@@ -5,7 +5,7 @@ import ChartContainer from '../ChartContainer/ChartContainer';
 import ChartOverlay from '../ChartOverlay/ChartOverlay';
 import Header from '../Header/Header';
 import TimeSeriesBucketChartSVG from './TimeSeriesBucketChartSVG';
-import { getMaxValue } from '../../common/dataUtils';
+import { getMaxValueForBucket } from '../../common/dataUtils';
 import colorSchemes from '../../styles/colorSchemes';
 import './timeSeriesBucketChart.css';
 
@@ -14,7 +14,7 @@ import './timeSeriesBucketChart.css';
  */
 const TimeSeriesBucketChart = (props) => {
   // Get max value of the data within time range
-  const maxValue = getMaxValue(props.data, props.from, props.to);
+  const maxValue = getMaxValueForBucket(props.data, props.from, props.to);
 
   // Render the header
   const header = (
@@ -78,6 +78,7 @@ TimeSeriesBucketChart.defaultProps = {
   loading: false,
   timeFormat: undefined,
   title: '',
+  tooltipFormat: (d) => d,
   yAxis: {
     format: (d) => d,
     unit: '',
@@ -135,7 +136,7 @@ TimeSeriesBucketChart.propTypes = {
   /**
    * Sets the data formatting function for the tooltip.
    */
-  tooltipFormat: PropTypes.func.isRequired,
+  tooltipFormat: PropTypes.func,
   /**
    * Sets the data formatting function fo the ticks on y axis and the unit of the chart.
    */

@@ -7,6 +7,7 @@ import Header from '../Header/Header';
 import TimeSeriesLineChartSVG from './TimeSeriesLineChartSVG';
 import colorSchemes from '../../styles/colorSchemes';
 import './timeSeriesLineChart.css';
+import { getDataInRange } from '../../common/dataUtils';
 
 /**
  * A line chart for time-data series.
@@ -25,10 +26,11 @@ export default class TimeSeriesLineChart extends React.Component {
     this.setState((prevState) => ({
       dataDeselected: prevState.dataDeselected.map((d, i) => (i === index ? !d : d)),
     }));
-  }
+  };
 
   render() {
-    const dataAvailable = this.props.data && this.props.data[0] && this.props.data[0].data && this.props.data[0].data.length > 0;
+    const dataInRange = getDataInRange(this.props.data, this.props.from, this.props.to);
+    const hasDataInRange = dataInRange.find((ds) => ds.data.length > 0);
 
     // Render the header
     const header = (
@@ -48,7 +50,7 @@ export default class TimeSeriesLineChart extends React.Component {
     const chartOverlay = (
       <ChartOverlay>
         {this.props.loading && <Loader type="inline" />}
-        {!this.props.loading && !dataAvailable && (
+        {!this.props.loading && !hasDataInRange && (
           <div styleName="errorBanner">
             <Banner styling="inline" type="error" label={this.props.error} />
           </div>
@@ -57,32 +59,34 @@ export default class TimeSeriesLineChart extends React.Component {
     );
 
     // Render the line chart
-    const lineChart = dataAvailable && (
+    const lineChart = (
       <TimeSeriesLineChartSVG
-        data={this.props.data.map((d, i) => ({
+        data={dataInRange.map((d, i) => ({
           color: this.props.colorScheme.categorical[i],
           data: d.data,
           label: d.label,
         })).filter((_, i) => !this.state.dataDeselected[i])}
-        dataFormat={this.props.dataFormat}
         from={this.props.from}
         to={this.props.to}
         loading={this.props.loading}
+        tickFormat={this.props.yAxis.format}
         timezone={this.props.timezone}
         timeFormat={this.props.timeFormat}
+        tooltipFormat={this.props.tooltipFormat}
       />
     );
 
-    const showOverlay = this.props.loading || !dataAvailable;
+    const showOverlay = this.props.loading || !hasDataInRange;
     return (
       <ChartContainer
         header={header}
         chart={lineChart}
         chartOverlay={showOverlay && chartOverlay}
+        chartUnit={this.props.yAxis.unit}
       />
     );
   }
-  
+
 }
 
 TimeSeriesLineChart.displayName = 'Time Series Line Chart';
@@ -90,15 +94,16 @@ TimeSeriesLineChart.displayName = 'Time Series Line Chart';
 TimeSeriesLineChart.defaultProps = {
   colorScheme: colorSchemes.colorSchemeDefault,
   data: [],
-  dataFormat: {
-    tooltip: (d) => d,
-    yAxis: (d) => d,
-  },
   description: '',
   error: 'No data available',
   loading: false,
   timeFormat: undefined,
   title: '',
+  tooltipFormat: (d) => d,
+  yAxis: {
+    format: (d) => d,
+    unit: '',
+  },
 };
 
 TimeSeriesLineChart.propTypes = {
@@ -116,13 +121,6 @@ TimeSeriesLineChart.propTypes = {
     deselected: PropTypes.bool,
     label: PropTypes.string.isRequired,
   })),
-  /**
-   * Sets the data formatting functions for the chart, consisting of format function for the y-axis and that for the tooltip.
-   */
-  dataFormat: PropTypes.shape({
-    tooltip: PropTypes.func,
-    yAxis: PropTypes.func,
-  }),
   /**
    * Sets the description of the chart excluding the unit part.
    */
@@ -156,4 +154,15 @@ TimeSeriesLineChart.propTypes = {
    * Sets the ending point of the time range in epoch milliseconds.
    */
   to: PropTypes.number.isRequired,
+  /**
+   * Sets the data formatting function for the tooltip.
+   */
+  tooltipFormat: PropTypes.func,
+  /**
+   * Sets the data formatting function fo the ticks on y axis and the unit of the chart.
+   */
+  yAxis: PropTypes.shape({
+    format: PropTypes.func,
+    unit: PropTypes.string,
+  }),
 };

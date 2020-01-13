@@ -124,8 +124,8 @@ const TimeSeriesBucketChartSVG = (props) => {
         {(parent) => {
           // Get scale function
           const xScale = scaleTime(props.from, props.to, chartConstants.marginLeftNumerical, parent.width, 'horizontal');
-          const valueScale = scaleValueInBounds(parent, props.maxValue, 'vertical');
-          const valueAxisScale = scaleValueAxis(parent, props.maxValue, 'vertical');
+          const valueScale = scaleValueInBounds(parent, props.maxValue ? props.maxValue : 0, 'vertical');
+          const valueAxisScale = scaleValueAxis(parent, props.maxValue ? props.maxValue : 0, 'vertical');
 
           const barWeightFunction = (index, labels) => {
             // If there is a single bucket, just use a default bar weight

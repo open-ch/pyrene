@@ -8,20 +8,20 @@ import colorSchemes from '../../styles/colorSchemes';
 const timezone = 'Europe/Zurich';
 const initialFrom = moment.tz('2019-10-01 00:00', timezone).valueOf();
 const initialTo = moment.tz('2019-10-08 00:00', timezone).valueOf();
-const dataFormat = {
-  tooltip: (d) => `${d} tooltip`,
-  yAxis: (d) => `${d} axis`,
-};
 
 const props = {
-  dataFormat: dataFormat,
   data: timeSeriesData.genThreatScores(initialFrom, initialTo, 42),
   description: 'TEST DESCRIPTION',
   error: 'ERROR HANDLING',
   from: initialFrom,
   to: initialTo,
+  tooltipFormat: (d) => `${d} tooltip`,
   title: 'TITLE',
   timezone: timezone,
+  yAxis: {
+    format: (d) => `${d} axis`,
+    unit: '',
+  },
 };
 
 describe('<TimeSeriesLineChart />', () => {
