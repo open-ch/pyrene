@@ -71,7 +71,6 @@ const onMouseMove = (event, data, xScale, showTooltip, hideTooltip) => {
     tooltipLeft: x,
     tooltipTop: y,
     tooltipData: [[data[index][INDEX_START_TS], endTS], data[index][INDEX_VALUE], index],
-    tooltipDataIdx: index,
   });
 };
 
