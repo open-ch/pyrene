@@ -51,7 +51,7 @@ const props4 = {
   lowerBound: moment('2018-10-01 10:34').valueOf(),
   minZoomRange: moment.duration({ minutes: 30 }).valueOf(),
   onZoom: jest.fn(),
-  to: moment('2019-10-07 10:34').valueOf(),
+  to: moment('2019-10-01 10:54').valueOf(),
   upperBound: moment('2020-10-01 10:34').valueOf(),
   zoomInDisabled: true,
 };
@@ -65,8 +65,8 @@ describe('<TimeZoomControls />', () => {
     const rendered = shallow(<TimeZoomControls {...props} />);
     expect(rendered.at(0).props().styling).toBe('shadow');
     expect(rendered.at(0).props().actions).toHaveLength(2);
-    expect(rendered.at(0).prop('actions')[0].iconName).toBe('zoomIn');
-    expect(rendered.at(0).prop('actions')[1].iconName).toBe('zoomOut');
+    expect(rendered.at(0).prop('actions')[0].iconName).toBe('zoomOut');
+    expect(rendered.at(0).prop('actions')[1].iconName).toBe('zoomIn');
   });
 
   it('executes zoom callback', () => {
@@ -78,18 +78,18 @@ describe('<TimeZoomControls />', () => {
     expect(props.onZoom).toHaveBeenCalledTimes(2);
   });
 
-  it('checks zoom bounds correctly', () => {
+  it('checks zoom upper/lower bounds correctly', () => {
     const rendered1 = shallow(<TimeZoomControls {...props1} />);
     const rendered2 = shallow(<TimeZoomControls {...props2} />);
     const rendered3 = shallow(<TimeZoomControls {...props3} />);
-    expect(rendered1.at(0).prop('actions')[1].active).toBe(true);
-    expect(rendered2.at(0).prop('actions')[1].active).toBe(true);
-    expect(rendered3.at(0).prop('actions')[1].active).toBe(false);
+    expect(rendered1.at(0).prop('actions')[0].active).toBe(true);
+    expect(rendered2.at(0).prop('actions')[0].active).toBe(true);
+    expect(rendered3.at(0).prop('actions')[0].active).toBe(false);
   });
 
   it('has correct zoom-in status for zoom-in button', () => {
     const rendered = shallow(<TimeZoomControls {...props4} />);
-    expect(rendered.at(0).prop('actions')[0].active).toBe(false);
-    expect(rendered.at(0).prop('actions')[1].active).toBe(true);
+    expect(rendered.at(0).prop('actions')[0].active).toBe(true);
+    expect(rendered.at(0).prop('actions')[1].active).toBe(false);
   });
 });
