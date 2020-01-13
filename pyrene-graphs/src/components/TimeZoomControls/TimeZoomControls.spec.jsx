@@ -82,8 +82,8 @@ describe('<TimeZoomControls />', () => {
     const rendered1 = shallow(<TimeZoomControls {...props1} />);
     const rendered2 = shallow(<TimeZoomControls {...props2} />);
     const rendered3 = shallow(<TimeZoomControls {...props3} />);
-    expect(rendered1.at(0).prop('actions')[0].active).toBe(true);
-    expect(rendered2.at(0).prop('actions')[0].active).toBe(true);
+    expect(rendered1.at(0).prop('actions')[1].active).toBe(true);
+    expect(rendered2.at(0).prop('actions')[1].active).toBe(true);
     expect(rendered3.at(0).prop('actions')[0].active).toBe(false);
   });
 

@@ -70,7 +70,7 @@ const onMouseMove = (event, data, xScale, showTooltip, hideTooltip) => {
   showTooltip({
     tooltipLeft: x,
     tooltipTop: y,
-    tooltipData: [[data[index][INDEX_START_TS], endTS], data[index][INDEX_VALUE]],
+    tooltipData: [[data[index][INDEX_START_TS], endTS], data[index][INDEX_VALUE], index],
   });
 };
 
@@ -132,13 +132,21 @@ const TimeSeriesBucketChartSVG = (props) => {
             if (labels.length === 1) {
               return chartConstants.barWeight;
             // If it is the last bucket, we do not know its endTS, just use the bar weight of the second last bucket
-            } if (index === labels.length - 1) {
+            }
+            if (index === labels.length - 1) {
               return barWeightFunction(index - 1, labels);
             }
             // Calculate the bar weight by applying the scale function on the current time frame defined by the time difference between current startTS and next startTS
             const timeFrame = labels[index + 1] - labels[index];
             return xScale(props.from + timeFrame) - chartConstants.marginLeftNumerical - chartConstants.barSpacing;
           };
+          let highlightSection;
+          if (tooltipOpen && !zoomStartX) {
+            highlightSection = {
+              startOffset: tooltipData[2],
+              endOffset: tooltipData[2],
+            };
+          }
 
           return (
             <>
@@ -180,6 +188,7 @@ const TimeSeriesBucketChartSVG = (props) => {
                       barWeight={barWeightFunction}
                       color={props.colorScheme.categorical[0]}
                       direction="vertical"
+                      highlightSection={highlightSection}
                       labels={props.data.data.map((d) => d[INDEX_START_TS])}
                       left={chartConstants.marginLeftNumerical}
                       data={props.data.data.map((d) => d[INDEX_VALUE])}
@@ -234,7 +243,7 @@ TimeSeriesBucketChartSVG.defaultProps = {
   loading: false,
   maxValue: null,
   timeFormat: undefined,
-  tooltipData: [[0, 0], 0],
+  tooltipData: [[0, 0], 0, 0],
   tooltipLeft: 0,
   tooltipTop: 0,
   zoom: undefined,
@@ -291,7 +300,7 @@ TimeSeriesBucketChartSVG.propTypes = {
    */
   to: PropTypes.number.isRequired,
   /**
-   * The tooltip data prop provided by the withTooltip enhancer.
+   * The tooltip data prop provided by the withTooltip enhancer. Value time(range), value, dataIdx
    */
   tooltipData: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.number), PropTypes.number]).isRequired),
   /**
