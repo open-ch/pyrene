@@ -92,6 +92,7 @@ class TreeTable extends React.Component {
     const { displayExpandAll } = this.state;
     this.setState((prevState) => {
       if (displayExpandAll) {
+        this.rowHeightMap = {};
         return {
           rows: TreeTableUtils.initialiseRootData(this.props.data, this.props.setUniqueRowKey),
           expanded: {},
