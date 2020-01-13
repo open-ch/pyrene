@@ -65,8 +65,8 @@ describe('<TimeZoomControls />', () => {
     const rendered = shallow(<TimeZoomControls {...props} />);
     expect(rendered.at(0).props().styling).toBe('shadow');
     expect(rendered.at(0).props().actions).toHaveLength(2);
-    expect(rendered.at(0).prop('actions')[0].iconName).toBe('zoomIn');
-    expect(rendered.at(0).prop('actions')[1].iconName).toBe('zoomOut');
+    expect(rendered.at(0).prop('actions')[0].iconName).toBe('zoomOut');
+    expect(rendered.at(0).prop('actions')[1].iconName).toBe('zoomIn');
   });
 
   it('executes zoom callback', () => {
@@ -84,12 +84,12 @@ describe('<TimeZoomControls />', () => {
     const rendered3 = shallow(<TimeZoomControls {...props3} />);
     expect(rendered1.at(0).prop('actions')[1].active).toBe(true);
     expect(rendered2.at(0).prop('actions')[1].active).toBe(true);
-    expect(rendered3.at(0).prop('actions')[1].active).toBe(false);
+    expect(rendered3.at(0).prop('actions')[0].active).toBe(false);
   });
 
   it('has correct zoom-in status for zoom-in button', () => {
     const rendered = shallow(<TimeZoomControls {...props4} />);
-    expect(rendered.at(0).prop('actions')[0].active).toBe(false);
-    expect(rendered.at(0).prop('actions')[1].active).toBe(true);
+    expect(rendered.at(0).prop('actions')[0].active).toBe(true);
+    expect(rendered.at(0).prop('actions')[1].active).toBe(false);
   });
 });
