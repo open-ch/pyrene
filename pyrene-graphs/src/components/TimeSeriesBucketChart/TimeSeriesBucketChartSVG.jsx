@@ -70,7 +70,8 @@ const onMouseMove = (event, data, xScale, showTooltip, hideTooltip) => {
   showTooltip({
     tooltipLeft: x,
     tooltipTop: y,
-    tooltipData: [[data[index][INDEX_START_TS], endTS], data[index][INDEX_VALUE]],
+    tooltipData: [[data[index][INDEX_START_TS], endTS], data[index][INDEX_VALUE], index],
+    tooltipDataIdx: index,
   });
 };
 
@@ -156,11 +157,9 @@ const TimeSeriesBucketChartSVG = (props) => {
           };
           let highlightSection;
           if (tooltipOpen && !zoomStartX) {
-            // Calculate the bar that is highlighted in the graph
-            const currentHighlightOffset = dataInRange.length * ((tooltipLeft - chartConstants.marginLeftNumerical) / (xScale.range()[1] - xScale.range()[0]));
             highlightSection = {
-              startOffset: currentHighlightOffset - 1,
-              endOffset: currentHighlightOffset,
+              startOffset: tooltipData[2],
+              endOffset: tooltipData[2],
             };
           }
 
@@ -258,7 +257,7 @@ TimeSeriesBucketChartSVG.defaultProps = {
   },
   loading: false,
   timeFormat: undefined,
-  tooltipData: [[0, 0], 0],
+  tooltipData: [[0, 0], 0, 0],
   tooltipLeft: 0,
   tooltipTop: 0,
   zoom: undefined,
@@ -314,7 +313,7 @@ TimeSeriesBucketChartSVG.propTypes = {
    */
   to: PropTypes.number.isRequired,
   /**
-   * The tooltip data prop provided by the withTooltip enhancer.
+   * The tooltip data prop provided by the withTooltip enhancer. Value time(range), value, dataIdx
    */
   tooltipData: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.number), PropTypes.number]).isRequired),
   /**
