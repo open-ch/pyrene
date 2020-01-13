@@ -67,9 +67,8 @@ Bars.propTypes = {
    * Sets the bar direction.
    */
   direction: PropTypes.oneOf(['horizontal', 'vertical']),
-
   /**
-   * Indicates a section (start/end offset) of bars that are highlighted
+   * Indicates a section (start/end offset in the data array) of bars that are highlighted
    */
   highlightSection: PropTypes.shape({
     endOffset: PropTypes.number.isRequired,
