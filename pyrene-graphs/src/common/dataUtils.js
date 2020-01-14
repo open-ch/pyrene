@@ -25,6 +25,13 @@ export const getMaxValueForTimeRangeBucket = (data, from, to) => {
   return dataInRange.length > 0 ? Math.max(...dataInRange.map((d) => d[INDEX_VALUE])) : null;
 };
 
+/**
+ * Returns only the data that are within the given time range.
+ * @param {[{data?: Number[][], label?: String}]}data - The original data series
+ * @param {number}from - The `from` of the time range
+ * @param {number}to - The `to` of the time range
+ * @returns {*[{data?: Number[][], label?: String]|*}
+ */
 export const getDataInTimeRange = (data, from, to) => {
   const dataAvailable = !!(data && data[0] && data[0].data && data[0].data.length > 0);
   if (!dataAvailable) {
@@ -34,9 +41,21 @@ export const getDataInTimeRange = (data, from, to) => {
   return data.map((d) => ({ ...d, data: d.data.filter((e) => e[INDEX_START_TS] >= from && e[INDEX_START_TS] <= to) }));
 };
 
+/**
+ * Gets the max value of the data series within time range.
+ * @param {[{data?: Number[][], label?: String}]}data - The original data series
+ * @param {number}from - The `from` of the time range
+ * @param {number}to - The `to` of the time range
+ * @returns {number}
+ */
 export const getMaxValueForTimeRange = (data, from, to) => {
   const dataInRange = getDataInTimeRange(data, from, to);
   return Math.max(...dataInRange.map((d) => Math.max(...d.data.map((e) => e[INDEX_VALUE]))));
 };
 
+/**
+ * Gets the max value of a data series.
+ * @param {[{data?: Number[], label?: String}]}data - The data series
+ * @returns {number}
+ */
 export const getMaxValue = (data) => Math.max(...data.map((d) => Math.max(...d.data)));

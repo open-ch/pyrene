@@ -57,9 +57,10 @@ const prefixSIScale = (value) => formatPrefix('.1~s', value);
 /**
  * Gets the SI scaled tick value.
  * @param {number}value - The raw value
- * @param {array}data - The original data series, some items of which might be outside the time range
+ * @param {{data?: Number[][], label?: String}}data - The original data series, some items of which might be outside the time range
  * @param {number}from - The `from` of the time range
  * @param {number}to - The `to` of the time range
+ * @param {boolean}isBucket - Whether the data series is bucket graph, meaning which data value is an accumulated value from the current to the next timestamp
  * @returns {string}
  */
 export const getSITickValueForTimeRange = (value, data, from, to, isBucket) => {
@@ -74,10 +75,11 @@ export const getSITickValueForTimeRange = (value, data, from, to, isBucket) => {
 
 /**
  * Gets the SI scaled unit.
- * @param {array}data - The original data series, some items of which might be outside the time range
+ * @param {{data?: Number[][], label?: String}}data - The original data series, some items of which might be outside the time range
  * @param {number}from - The `from` of the time range
  * @param {number}to - The `to` of the time range
  * @param {string}unit - the unit
+ * @param {boolean}isBucket - Whether the data series is bucket graph, meaning which data value is an accumulated value from the current to the next timestamp
  * @returns {string}
  */
 export const getSIUnitForTimeRange = (data, from, to, unit, isBucket) => {
@@ -90,12 +92,24 @@ export const getSIUnitForTimeRange = (data, from, to, unit, isBucket) => {
   return `${scaledValue.replace(/[0-9\\.]/g, '')}${unit}`;
 };
 
+/**
+ * Gets the SI scaled tick value.
+ * @param {number}value - The raw value
+ * @param {[{data?: Number[], label?: String}]}data - The data series
+ * @returns {string}
+ */
 export const getSITickValue = (value, data) => {
   const siPrefix = prefixSIScale(getMaxValue(data));
   const scaledValue = siPrefix(value);
   return scaledValue.replace(/[^0-9^\\.]/g, '');
 };
 
+/**
+ * Gets the SI scaled unit.
+ * @param {[{data?: Number[], label?: String}]}data - The data series
+ * @param {string}unit - the unit
+ * @returns {string}
+ */
 export const getSIUnit = (data, unit) => {
   const maxValue = getMaxValue(data);
   const siPrefix = prefixSIScale(maxValue);
