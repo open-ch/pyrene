@@ -1,24 +1,31 @@
 /* eslint-disable react/display-name */
 import React from 'react';
 import { BarChart } from 'pyrene-graphs/dist/pyrene-graphs.dev';
+import { getSITickValue, getSIUnit } from 'pyrene-graphs/src/common/Formats';
 import { exampleData } from 'pyrene-graphs/dist/pyrene-graphs.examples';
 
 const barChartHowTo = [{
   title: 'Vertical Bar Chart',
   description: 'Vertical Bar Chart with one value and formatted tick labels',
-  component: () => (
-    <BarChart
-      data={exampleData.applications.data.map((d) => ({
-        label: d.label,
-        data: d.data.map((e) => e * 100),
-      }))}
-      title="Applications"
-      description="Optional description and explanation on how to read the chart"
-      legend={exampleData.applications.legend}
-      direction="vertical"
-      tickFormatNumerical={(d) => (parseFloat(d) >= 100000 ? `${parseFloat(d) / 1000}k` : d)}
-    />
-  ),
+  component: () => {
+    const data = exampleData.applications.data.map((d) => ({
+      label: d.label,
+      data: d.data.map((e) => e * 100),
+    }));
+    return (
+      <BarChart
+        axis={{
+          format: (value) => getSITickValue(value, data),
+          unit: getSIUnit(data, 'B'),
+        }}
+        data={data}
+        title="Applications"
+        description="Optional description and explanation on how to read the chart"
+        legend={exampleData.applications.legend}
+        direction="vertical"
+      />
+    );
+  },
 }, {
   title: 'Horizontal Bar Chart',
   description: 'Horizontal Bar Chart with one value',
@@ -36,6 +43,10 @@ const barChartHowTo = [{
   description: 'Vertical Bar Chart with multiple values',
   component: () => (
     <BarChart
+      axis={{
+        format: (value) => getSITickValue(value, exampleData.stacked.data),
+        unit: getSIUnit(exampleData.stacked.data, '#'),
+      }}
       data={exampleData.stacked.data}
       title="Vertical Stacked Bar Chart"
       description="Optional description and explanation on how to read the chart"
