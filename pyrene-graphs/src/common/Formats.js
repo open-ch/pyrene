@@ -1,6 +1,6 @@
 import moment from 'moment-timezone';
 import { formatPrefix } from 'd3-format';
-import { getMaxValue, getMaxValueForBucket } from './dataUtils';
+import { getMaxValue, getMaxValueForTimeRange, getMaxValueForTimeRangeBucket } from './dataUtils';
 
 const TIME_FORMATS = {
   DATE: 'DD.MM.YYYY',
@@ -62,8 +62,8 @@ const prefixSIScale = (value) => formatPrefix('.1~s', value);
  * @param {number}to - The `to` of the time range
  * @returns {string}
  */
-export const getSITickValue = (value, data, from, to, isBucket) => {
-  const maxValue = isBucket ? getMaxValueForBucket(data, from, to) : getMaxValue(data, from, to);
+export const getSITickValueForTimeRange = (value, data, from, to, isBucket) => {
+  const maxValue = isBucket ? getMaxValueForTimeRangeBucket(data, from, to) : getMaxValueForTimeRange(data, from, to);
   if (!maxValue) {
     return '';
   }
@@ -80,11 +80,24 @@ export const getSITickValue = (value, data, from, to, isBucket) => {
  * @param {string}unit - the unit
  * @returns {string}
  */
-export const getSIUnit = (data, from, to, unit, isBucket) => {
-  const maxValue = isBucket ? getMaxValueForBucket(data, from, to) : getMaxValue(data, from, to);
+export const getSIUnitForTimeRange = (data, from, to, unit, isBucket) => {
+  const maxValue = isBucket ? getMaxValueForTimeRangeBucket(data, from, to) : getMaxValueForTimeRange(data, from, to);
   if (!maxValue) {
     return '';
   }
+  const siPrefix = prefixSIScale(maxValue);
+  const scaledValue = siPrefix(maxValue);
+  return `${scaledValue.replace(/[0-9\\.]/g, '')}${unit}`;
+};
+
+export const getSITickValue = (value, data) => {
+  const siPrefix = prefixSIScale(getMaxValue(data));
+  const scaledValue = siPrefix(value);
+  return scaledValue.replace(/[^0-9^\\.]/g, '');
+};
+
+export const getSIUnit = (data, unit) => {
+  const maxValue = getMaxValue(data);
   const siPrefix = prefixSIScale(maxValue);
   const scaledValue = siPrefix(maxValue);
   return `${scaledValue.replace(/[0-9\\.]/g, '')}${unit}`;

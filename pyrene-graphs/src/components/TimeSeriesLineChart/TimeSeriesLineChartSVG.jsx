@@ -17,7 +17,7 @@ import {
 import ChartArea from '../ChartArea/ChartArea';
 import Tooltip from '../Tooltip/Tooltip';
 import { timeFormat } from '../../common/Formats';
-import { getMaxValue } from '../../common/dataUtils';
+import { getMaxValueForTimeRange } from '../../common/dataUtils';
 import { INDEX_VALUE, INDEX_START_TS } from '../../common/chartConstants';
 import colorConstants from '../../styles/colorConstants';
 import './timeSeriesLineChart.css';
@@ -82,7 +82,7 @@ const TimeSeriesLineChartSVG = (props) => {
     tooltipTop,
   } = props;
 
-  const maxValue = getMaxValue(props.data, props.from, props.to);
+  const maxValue = getMaxValueForTimeRange(props.data, props.from, props.to);
   const hasDataInRange = props.data.find((ds) => ds.data.length > 0);
 
   return (

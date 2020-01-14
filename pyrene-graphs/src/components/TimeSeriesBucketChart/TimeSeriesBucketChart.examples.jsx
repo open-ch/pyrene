@@ -1,6 +1,6 @@
 import moment from 'moment-timezone';
 import { format } from 'd3-format';
-import { getSIUnit, getSITickValue } from '../../common/Formats';
+import { getSITickValueForTimeRange, getSIUnitForTimeRange } from '../../common/Formats';
 import timeSeriesData from '../../examples/timeSeriesData';
 
 const examples = {};
@@ -29,12 +29,12 @@ examples.props = {
   timezone: timezone,
   tooltipFormat: tooltipFormat,
   yAxis: (stateProvider) => ({
-    format: (value) => getSITickValue(value,
+    format: (value) => getSITickValueForTimeRange(value,
       stateProvider.state.data ? stateProvider.state.data : initialData,
       stateProvider.state.from ? stateProvider.state.from : initialFrom,
       stateProvider.state.to ? stateProvider.state.to : initialTo,
       true),
-    unit: getSIUnit(stateProvider.state.data ? stateProvider.state.data : initialData,
+    unit: getSIUnitForTimeRange(stateProvider.state.data ? stateProvider.state.data : initialData,
       stateProvider.state.from ? stateProvider.state.from : initialFrom,
       stateProvider.state.to ? stateProvider.state.to : initialTo,
       yUnit,

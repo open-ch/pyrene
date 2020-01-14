@@ -7,7 +7,7 @@ import { INDEX_START_TS, INDEX_VALUE } from './chartConstants';
  * @param {number}to - The `to` of the time range
  * @returns {null|number}
  */
-export const getMaxValueForBucket = (data, from, to) => {
+export const getMaxValueForTimeRangeBucket = (data, from, to) => {
   const dataAvailable = data && data.data && data.data.length > 0;
   if (!dataAvailable) {
     return null;
@@ -25,7 +25,7 @@ export const getMaxValueForBucket = (data, from, to) => {
   return dataInRange.length > 0 ? Math.max(...dataInRange.map((d) => d[INDEX_VALUE])) : null;
 };
 
-export const getDataInRange = (data, from, to) => {
+export const getDataInTimeRange = (data, from, to) => {
   const dataAvailable = !!(data && data[0] && data[0].data && data[0].data.length > 0);
   if (!dataAvailable) {
     return [];
@@ -34,7 +34,9 @@ export const getDataInRange = (data, from, to) => {
   return data.map((d) => ({ ...d, data: d.data.filter((e) => e[INDEX_START_TS] >= from && e[INDEX_START_TS] <= to) }));
 };
 
-export const getMaxValue = (data, from, to) => {
-  const dataInRange = getDataInRange(data, from, to);
+export const getMaxValueForTimeRange = (data, from, to) => {
+  const dataInRange = getDataInTimeRange(data, from, to);
   return Math.max(...dataInRange.map((d) => Math.max(...d.data.map((e) => e[INDEX_VALUE]))));
 };
+
+export const getMaxValue = (data) => Math.max(...data.map((d) => Math.max(...d.data)));

@@ -5,7 +5,7 @@ import ChartContainer from '../ChartContainer/ChartContainer';
 import ChartOverlay from '../ChartOverlay/ChartOverlay';
 import Header from '../Header/Header';
 import TimeSeriesBucketChartSVG from './TimeSeriesBucketChartSVG';
-import { getMaxValueForBucket } from '../../common/dataUtils';
+import { getMaxValueForTimeRangeBucket } from '../../common/dataUtils';
 import colorSchemes from '../../styles/colorSchemes';
 import './timeSeriesBucketChart.css';
 
@@ -14,7 +14,7 @@ import './timeSeriesBucketChart.css';
  */
 const TimeSeriesBucketChart = (props) => {
   // Get max value of the data within time range
-  const maxValue = getMaxValueForBucket(props.data, props.from, props.to);
+  const maxValue = getMaxValueForTimeRangeBucket(props.data, props.from, props.to);
 
   // Render the header
   const header = (

@@ -112,21 +112,22 @@ describe('<BarChart />', () => {
     expect(rendered.find(Loader).exists()).toBe(true);
   });
 
-  it('renders tick labels using tickFormatNumerical', () => {
+  it('renders tick labels using axis tick format', () => {
     const rendered = mount(
       <BarChart
         {...props}
         direction="vertical"
-        tickFormatNumerical={(d) => (parseFloat(d) >= 100000 ? `${parseFloat(d) / 1000}k` : d)} data={props.data.map((d) => ({
-          label: d.label,
-          data: d.data.map((e) => e * 100),
-        }))}
+        axis={{
+          format: (d) => `${d}B`,
+          unit: 'B',
+        }}
       />,
     );
 
     // Numerical left axis
     const leftAxis = rendered.find('.vx-axis-left');
     expect(leftAxis.children().find('.vx-axis-tick').length).toBeGreaterThan(0);
+    expect(leftAxis.children().find('.vx-axis-tick').at(0).text()).toBe('200B');
   });
 
   it('renders multiple values', () => {

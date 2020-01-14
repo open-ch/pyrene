@@ -7,7 +7,7 @@ import Header from '../Header/Header';
 import TimeSeriesLineChartSVG from './TimeSeriesLineChartSVG';
 import colorSchemes from '../../styles/colorSchemes';
 import './timeSeriesLineChart.css';
-import { getDataInRange } from '../../common/dataUtils';
+import { getDataInTimeRange } from '../../common/dataUtils';
 
 /**
  * A line chart for time-data series.
@@ -29,7 +29,7 @@ export default class TimeSeriesLineChart extends React.Component {
   };
 
   render() {
-    const dataInRange = getDataInRange(this.props.data, this.props.from, this.props.to);
+    const dataInRange = getDataInTimeRange(this.props.data, this.props.from, this.props.to);
     const hasDataInRange = dataInRange.find((ds) => ds.data.length > 0);
 
     // Render the header
