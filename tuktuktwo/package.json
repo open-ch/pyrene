@@ -49,6 +49,7 @@
     "eslint-plugin-react": "^7.14.3",
     "eslint-plugin-react-hooks": "^1.7.0",
     "jest": "^24.1.0",
+    "jest-bamboo-formatter": "^1.0.1",
     "moment": "^2.24.0",
     "moment-timezone": "^0.5.26",
     "react": "^16.9.0",
