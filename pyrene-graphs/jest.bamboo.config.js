@@ -1,3 +1,5 @@
 const baseConf = require('./jest.config');
 
-module.exports = { ...baseConf, testResultsProcessor: 'jest-bamboo-formatter' };
+
+// eslint-disable-next-line prefer-object-spread
+module.exports = Object.assign({}, baseConf, { testResultsProcessor: 'jest-bamboo-formatter' });
