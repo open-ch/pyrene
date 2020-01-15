@@ -34,7 +34,7 @@ const SimpleTable = (props) => (
           <tr
             styleName={classNames('tableRow', props.onRowDoubleClick ? 'tableRowWithFunction' : '')}
             key={Object.values(row)}
-            onDoubleClick={() => (props.onRowDoubleClick ? props.onRowDoubleClick(row) : null)}
+            onDoubleClick={(event) => (props.onRowDoubleClick ? props.onRowDoubleClick(row, event) : null)}
           >
             {props.columns.length > 0 && props.columns.map((column, columnIndex) => {
               const valueRow = row;
