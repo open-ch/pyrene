@@ -2,6 +2,7 @@ import React from 'react';
 import moment from 'moment-timezone';
 import { Banner, Loader } from 'pyrene';
 import TimeSeriesBucketChart from './TimeSeriesBucketChart';
+import { getSITickValueForTimeRange, getSIUnitForTimeRange } from '../..';
 import timeSeriesData from '../../examples/timeSeriesData';
 import colorSchemes from '../../styles/colorSchemes';
 
@@ -13,15 +14,13 @@ const props = {
   data: fulLBucketsSeries,
   description: 'Downloaded volume',
   from: moment.tz('2019-10-01 00:00', 'Europe/Zurich').valueOf(),
+  tickFormat: (value) => getSITickValueForTimeRange(value, fulLBucketsSeries, moment.tz('2019-10-01 00:00', 'Europe/Zurich').valueOf(), moment.tz('2019-10-03 12:00', 'Europe/Zurich').valueOf(), true),
   title: 'Volume',
   timezone: 'Europe/Zurich',
   to: moment.tz('2019-10-03 12:00', 'Europe/Zurich').valueOf(),
   tooltipFormat: (d) => d,
   timeFormat: (d) => `${d}`,
-  yAxis: {
-    format: (d) => d,
-    unit: 'B',
-  },
+  unit: getSIUnitForTimeRange(fulLBucketsSeries, moment.tz('2019-10-01 00:00', 'Europe/Zurich').valueOf(), moment.tz('2019-10-03 12:00', 'Europe/Zurich').valueOf(), 'B', true),
 };
 
 const propsSingleBar = {
@@ -31,12 +30,7 @@ const propsSingleBar = {
   title: 'Volume',
   timezone: 'Europe/Zurich',
   to: moment.tz('2019-10-03 12:00', 'Europe/Zurich').valueOf(),
-  tooltipFormat: (d) => d,
   timeFormat: (d) => `${d}`,
-  yAxis: {
-    format: (d) => d,
-    unit: 'B',
-  },
 };
 
 const propsZeroBar = {
@@ -47,12 +41,7 @@ const propsZeroBar = {
   timezone: 'Europe/Zurich',
   title: 'Volume',
   to: moment.tz('2019-10-03 12:00', 'Europe/Zurich').valueOf(),
-  tooltipFormat: (d) => d,
   timeFormat: (d) => `${d}`,
-  yAxis: {
-    format: (d) => d,
-    unit: 'B',
-  },
 };
 
 const propsZeroBarLoading = {
@@ -63,12 +52,7 @@ const propsZeroBarLoading = {
   timezone: 'Europe/Zurich',
   title: 'Volume',
   to: moment.tz('2019-10-03 12:00', 'Europe/Zurich').valueOf(),
-  tooltipFormat: (d) => d,
   timeFormat: (d) => `${d}`,
-  yAxis: {
-    format: (d) => d,
-    unit: 'B',
-  },
 };
 
 const propsZeroBarError = {
@@ -80,12 +64,7 @@ const propsZeroBarError = {
   timezone: 'Europe/Zurich',
   title: 'Volume',
   to: moment.tz('2019-10-03 12:00', 'Europe/Zurich').valueOf(),
-  tooltipFormat: (d) => d,
   timeFormat: (d) => `${d}`,
-  yAxis: {
-    format: (d) => d,
-    unit: 'B',
-  },
 };
 
 describe('<TimeSeriesBucketChart />', () => {
@@ -105,6 +84,10 @@ describe('<TimeSeriesBucketChart />', () => {
     const yAxis = rendered.find('.vx-axis-left');
     expect(yAxis.children().find('.vx-axis-line').length).toBeGreaterThan(0);
     expect(yAxis.children().find('.vx-axis-tick').length).toBeGreaterThan(0);
+
+    // Unit
+    const unit = rendered.find('.unitContainer');
+    expect(unit.text()).toBe('kB');
 
     // Time X-Axis
     const xAxis = rendered.find('.vx-axis-bottom');

@@ -69,7 +69,7 @@ export default class TimeSeriesLineChart extends React.Component {
         from={this.props.from}
         to={this.props.to}
         loading={this.props.loading}
-        tickFormat={this.props.yAxis.format}
+        tickFormat={this.props.tickFormat}
         timezone={this.props.timezone}
         timeFormat={this.props.timeFormat}
         tooltipFormat={this.props.tooltipFormat}
@@ -82,7 +82,7 @@ export default class TimeSeriesLineChart extends React.Component {
         header={header}
         chart={lineChart}
         chartOverlay={showOverlay && chartOverlay}
-        chartUnit={this.props.yAxis.unit}
+        chartUnit={this.props.unit}
       />
     );
   }
@@ -97,13 +97,11 @@ TimeSeriesLineChart.defaultProps = {
   description: '',
   error: 'No data available',
   loading: false,
+  tickFormat: (d) => d,
   timeFormat: undefined,
   title: '',
   tooltipFormat: (d) => d,
-  yAxis: {
-    format: (d) => d,
-    unit: '',
-  },
+  unit: '',
 };
 
 TimeSeriesLineChart.propTypes = {
@@ -138,6 +136,10 @@ TimeSeriesLineChart.propTypes = {
    */
   loading: PropTypes.bool,
   /**
+   * Sets the formatting function for the ticks on the y axis.
+   */
+  tickFormat: PropTypes.func,
+  /**
    * Sets the time formatting function for the tooltip.
    */
   timeFormat: PropTypes.func,
@@ -159,10 +161,7 @@ TimeSeriesLineChart.propTypes = {
    */
   tooltipFormat: PropTypes.func,
   /**
-   * Sets the data formatting function fo the ticks on y axis and the unit of the chart.
+   * Sets the unit of the chart, if there is any.
    */
-  yAxis: PropTypes.shape({
-    format: PropTypes.func,
-    unit: PropTypes.string,
-  }),
+  unit: PropTypes.string,
 };

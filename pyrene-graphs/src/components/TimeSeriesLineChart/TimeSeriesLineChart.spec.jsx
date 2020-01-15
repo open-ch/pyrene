@@ -2,26 +2,38 @@ import React from 'react';
 import moment from 'moment-timezone';
 import { Loader } from 'pyrene';
 import TimeSeriesLineChart from './TimeSeriesLineChart';
+import { getSITickValueForTimeRange, getSIUnitForTimeRange } from '../..';
 import timeSeriesData from '../../examples/timeSeriesData';
 import colorSchemes from '../../styles/colorSchemes';
 
 const timezone = 'Europe/Zurich';
 const initialFrom = moment.tz('2019-10-01 00:00', timezone).valueOf();
 const initialTo = moment.tz('2019-10-08 00:00', timezone).valueOf();
+const dataWithUnit = [timeSeriesData.genDownloadedVolumes(initialFrom, initialTo, 42)];
 
 const props = {
   data: timeSeriesData.genThreatScores(initialFrom, initialTo, 42),
   description: 'TEST DESCRIPTION',
   error: 'ERROR HANDLING',
   from: initialFrom,
+  tickFormat: (d) => `${d} axis`,
   to: initialTo,
   tooltipFormat: (d) => `${d} tooltip`,
   title: 'TITLE',
   timezone: timezone,
-  yAxis: {
-    format: (d) => `${d} axis`,
-    unit: '',
-  },
+};
+
+const SIProps = {
+  data: dataWithUnit,
+  description: 'TEST DESCRIPTION',
+  error: 'ERROR HANDLING',
+  from: initialFrom,
+  tickFormat: (value) => getSITickValueForTimeRange(value, dataWithUnit, initialFrom, initialTo, false),
+  to: initialTo,
+  tooltipFormat: (d) => `${d} tooltip`,
+  title: 'TITLE',
+  timezone: timezone,
+  unit: getSIUnitForTimeRange(dataWithUnit, initialFrom, initialTo, 'B', false),
 };
 
 describe('<TimeSeriesLineChart />', () => {
@@ -66,6 +78,13 @@ describe('<TimeSeriesLineChart />', () => {
     expect(rendered.find('.vx-line').exists()).toBe(true);
     hoverArea.simulate('mouseout');
     expect(rendered.find('.vx-tooltip-portal')).toHaveLength(0);
+  });
+
+  it('renders SI tick and unit correctly', () => {
+    const rendered = mount(<TimeSeriesLineChart {...SIProps} />);
+
+    expect(rendered.find('.vx-axis-left').find('.vx-axis-tick').children().at(1).text()).toBe('2');
+    expect(rendered.find('.unitContainer').text()).toBe('kB');
   });
 
   it('renders header, axis lines and loader', () => {

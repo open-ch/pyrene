@@ -1,6 +1,7 @@
 import React from 'react';
 import { Loader } from 'pyrene';
 import BarChart from './BarChart';
+import { getSITickValue, getSIUnit } from '../..';
 
 const dataMultipleValues = [{
   label: 'Dropbox',
@@ -117,17 +118,16 @@ describe('<BarChart />', () => {
       <BarChart
         {...props}
         direction="vertical"
-        axis={{
-          format: (d) => `${d}B`,
-          unit: 'B',
-        }}
+        tickFormat={(value) => getSITickValue(value, props.data)}
+        unit={getSIUnit(props.data, 'B')}
       />,
     );
 
     // Numerical left axis
     const leftAxis = rendered.find('.vx-axis-left');
     expect(leftAxis.children().find('.vx-axis-tick').length).toBeGreaterThan(0);
-    expect(leftAxis.children().find('.vx-axis-tick').at(0).text()).toBe('200B');
+    expect(leftAxis.children().at(1).text()).toBe('0.2');
+    expect(rendered.find('.unitContainer').text()).toBe('kB');
   });
 
   it('renders multiple values', () => {

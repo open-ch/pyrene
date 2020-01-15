@@ -45,7 +45,7 @@ const TimeSeriesBucketChart = (props) => {
       to={props.to}
       loading={props.loading}
       maxValue={maxValue}
-      tickFormat={props.yAxis.format}
+      tickFormat={props.tickFormat}
       timezone={props.timezone}
       timeFormat={props.timeFormat}
       tooltipFormat={props.tooltipFormat}
@@ -60,7 +60,7 @@ const TimeSeriesBucketChart = (props) => {
       header={header}
       chart={bucketChart}
       chartOverlay={showOverlay && chartOverlay}
-      chartUnit={props.yAxis.unit}
+      chartUnit={props.unit}
     />
   );
 };
@@ -76,13 +76,11 @@ TimeSeriesBucketChart.defaultProps = {
   description: '',
   error: 'No data available',
   loading: false,
+  tickFormat: (d) => d,
   timeFormat: undefined,
   title: '',
   tooltipFormat: (d) => d,
-  yAxis: {
-    format: (d) => d,
-    unit: '',
-  },
+  unit: '',
   zoom: undefined,
 };
 
@@ -117,6 +115,10 @@ TimeSeriesBucketChart.propTypes = {
    */
   loading: PropTypes.bool,
   /**
+   * Sets the formatting function for the ticks on the y axis.
+   */
+  tickFormat: PropTypes.func,
+  /**
    * Sets the time formatting function for the tooltip.
    */
   timeFormat: PropTypes.func,
@@ -138,12 +140,9 @@ TimeSeriesBucketChart.propTypes = {
    */
   tooltipFormat: PropTypes.func,
   /**
-   * Sets the data formatting function fo the ticks on y axis and the unit of the chart.
+   * Sets the unit of the chart, if there is any.
    */
-  yAxis: PropTypes.shape({
-    format: PropTypes.func,
-    unit: PropTypes.string,
-  }),
+  unit: PropTypes.string,
   /**
    * If set, this chart supports zoom.
    */
