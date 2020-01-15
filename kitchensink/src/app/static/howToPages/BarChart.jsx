@@ -14,15 +14,13 @@ const barChartHowTo = [{
     }));
     return (
       <BarChart
-        axis={{
-          format: (value) => getSITickValue(value, data),
-          unit: getSIUnit(data, 'B'),
-        }}
         data={data}
+        tickFormat={(value) => getSITickValue(value, data)}
         title="Applications"
         description="Optional description and explanation on how to read the chart"
         legend={exampleData.applications.legend}
         direction="vertical"
+        unit={getSIUnit(data, 'B')}
       />
     );
   },
@@ -43,10 +41,6 @@ const barChartHowTo = [{
   description: 'Vertical Bar Chart with multiple values',
   component: () => (
     <BarChart
-      axis={{
-        format: (value) => getSITickValue(value, exampleData.stacked.data),
-        unit: getSIUnit(exampleData.stacked.data, '#'),
-      }}
       data={exampleData.stacked.data}
       title="Vertical Stacked Bar Chart"
       description="Optional description and explanation on how to read the chart"
