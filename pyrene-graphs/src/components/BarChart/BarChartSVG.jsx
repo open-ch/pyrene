@@ -36,7 +36,7 @@ const onMouseMove = (event, data, showTooltip, direction, labelConfig, left) => 
   const { x, y } = localPoint(event.target.ownerSVGElement, event);
   const bandwidth = labelConfig.scale.bandwidth();
   const index = Math.floor(direction === 'vertical' ? (x - labelConfig.offset - left + 1) / bandwidth : (y - labelConfig.offset + 1) / bandwidth);
-  
+
   showTooltip({
     tooltipLeft: x,
     tooltipTop: y,
@@ -93,7 +93,7 @@ const BarChartSVG = (props) => {
                   showGrid={!props.loading}
                   showTickLabels={sharedAxisProps.showTickLabels}
                   strokeColor={sharedAxisProps.strokeColor}
-                  tickFormat={props.dataFormat}
+                  tickFormat={props.tickFormat}
                   tickLabelColor={sharedAxisProps.tickLabelColor}
                   width={sharedAxisProps.width - left}
                 />
@@ -107,7 +107,7 @@ const BarChartSVG = (props) => {
                   showGrid={!props.loading}
                   showTickLabels={sharedAxisProps.showTickLabels}
                   strokeColor={sharedAxisProps.strokeColor}
-                  tickFormat={props.dataFormat}
+                  tickFormat={props.tickFormat}
                   tickLabelColor={sharedAxisProps.tickLabelColor}
                 />
               ) : (
@@ -158,7 +158,7 @@ const BarChartSVG = (props) => {
                   data={tooltipData.data.map((value, index) => ({
                     dataColor: props.colorScheme.categorical[index],
                     dataLabel: props.legend[index],
-                    dataValue: props.dataFormat(value),
+                    dataValue: props.tooltipFormat(value),
                   }))}
                   label={tooltipData.label}
                   left={tooltipLeft} top={tooltipTop}
@@ -178,7 +178,6 @@ BarChartSVG.defaultProps = {
   colorScheme: colorSchemes.colorSchemeDefault,
   direction: 'vertical',
   loading: false,
-  dataFormat: (d) => d,
   tooltipData: {
     label: '',
     data: [],
@@ -202,10 +201,6 @@ BarChartSVG.propTypes = {
     label: PropTypes.string.isRequired,
   })).isRequired,
   /**
-   * Set function to format the displayed values.
-   */
-  dataFormat: PropTypes.func,
-  /**
    * Sets the bar direction.
    */
   direction: PropTypes.oneOf(['horizontal', 'vertical']),
@@ -226,12 +221,20 @@ BarChartSVG.propTypes = {
    */
   showTooltip: PropTypes.func.isRequired,
   /**
+   * Sets the formatting function for the ticks along y axis.
+   */
+  tickFormat: PropTypes.func.isRequired,
+  /**
    * The tooltip data prop provided by the withTooltip enhancer.
    */
   tooltipData: PropTypes.shape({
     data: PropTypes.arrayOf(PropTypes.number).isRequired,
     label: PropTypes.string.isRequired,
   }),
+  /**
+   * Sets the data formatting function for the tooltip.
+   */
+  tooltipFormat: PropTypes.func.isRequired,
   /**
    * The tooltip x-position prop provided by the withTooltip enhancer.
    */

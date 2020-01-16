@@ -2,6 +2,7 @@ import React from 'react';
 import moment from 'moment-timezone';
 import { Banner, Loader } from 'pyrene';
 import TimeSeriesBucketChart from './TimeSeriesBucketChart';
+import { getSITickValueForTimeRange, getSIUnitForTimeRange } from '../..';
 import timeSeriesData from '../../examples/timeSeriesData';
 import colorSchemes from '../../styles/colorSchemes';
 
@@ -10,11 +11,20 @@ const singleBucketSeries = timeSeriesData.genDownloadedVolumes(moment.tz('2019-1
 const zeroBucketSeries = { label: 'Volume', data: [] };
 
 const props = {
-  dataFormat: {
-    tooltip: (d) => d,
-    yAxis: (d) => d,
-  },
   data: fulLBucketsSeries,
+  description: 'Downloaded volume',
+  from: moment.tz('2019-10-01 00:00', 'Europe/Zurich').valueOf(),
+  tickFormat: (value) => getSITickValueForTimeRange(value, fulLBucketsSeries, moment.tz('2019-10-01 00:00', 'Europe/Zurich').valueOf(), moment.tz('2019-10-03 12:00', 'Europe/Zurich').valueOf(), true),
+  title: 'Volume',
+  timezone: 'Europe/Zurich',
+  to: moment.tz('2019-10-03 12:00', 'Europe/Zurich').valueOf(),
+  tooltipFormat: (d) => d,
+  timeFormat: (d) => `${d}`,
+  unit: getSIUnitForTimeRange(fulLBucketsSeries, moment.tz('2019-10-01 00:00', 'Europe/Zurich').valueOf(), moment.tz('2019-10-03 12:00', 'Europe/Zurich').valueOf(), 'B', true),
+};
+
+const propsSingleBar = {
+  data: singleBucketSeries,
   description: 'Downloaded volume',
   from: moment.tz('2019-10-01 00:00', 'Europe/Zurich').valueOf(),
   title: 'Volume',
@@ -23,25 +33,7 @@ const props = {
   timeFormat: (d) => `${d}`,
 };
 
-const propsSingleBar = {
-  dataFormat: {
-    tooltip: (d) => d,
-    yAxis: (d) => d,
-  },
-  data: singleBucketSeries,
-  description: 'Downloaded volume',
-  from: moment.tz('2019-10-01 00:00', 'Europe/Zurich').valueOf(),
-  title: 'Volume',
-  timezone: 'Europe/Zurich',
-  to: moment.tz('2019-10-03 12:00', 'Europe/Zurich').valueOf(),
-  timeFormat: (d) => d,
-};
-
 const propsZeroBar = {
-  dataFormat: {
-    tooltip: (d) => d,
-    yAxis: (d) => d,
-  },
   data: zeroBucketSeries,
   description: 'Downloaded volume',
   from: moment.tz('2019-10-01 00:00', 'Europe/Zurich').valueOf(),
@@ -53,10 +45,6 @@ const propsZeroBar = {
 };
 
 const propsZeroBarLoading = {
-  dataFormat: {
-    tooltip: (d) => d,
-    yAxis: (d) => d,
-  },
   data: zeroBucketSeries,
   description: 'Downloaded volume',
   from: moment.tz('2019-10-01 00:00', 'Europe/Zurich').valueOf(),
@@ -68,10 +56,6 @@ const propsZeroBarLoading = {
 };
 
 const propsZeroBarError = {
-  dataFormat: {
-    tooltip: (d) => d,
-    yAxis: (d) => d,
-  },
   data: zeroBucketSeries,
   description: 'Downloaded volume',
   error: 'No data is found',
@@ -100,6 +84,10 @@ describe('<TimeSeriesBucketChart />', () => {
     const yAxis = rendered.find('.vx-axis-left');
     expect(yAxis.children().find('.vx-axis-line').length).toBeGreaterThan(0);
     expect(yAxis.children().find('.vx-axis-tick').length).toBeGreaterThan(0);
+
+    // Unit
+    const unit = rendered.find('.unitContainer');
+    expect(unit.text()).toBe('kB');
 
     // Time X-Axis
     const xAxis = rendered.find('.vx-axis-bottom');
