@@ -1,7 +1,7 @@
 /* eslint-disable react/display-name */
 import React from 'react';
-import { BarChart } from 'pyrene-graphs/dist/pyrene-graphs.dev';
-import { getSITickValue, getSIUnit } from 'pyrene-graphs/src/common/Formats';
+import { BarChart, getSITickValue, getSIUnit } from 'pyrene-graphs/dist/pyrene-graphs.dev';
+
 import { exampleData } from 'pyrene-graphs/dist/pyrene-graphs.examples';
 
 const barChartHowTo = [{
