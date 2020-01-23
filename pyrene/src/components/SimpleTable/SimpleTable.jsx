@@ -38,7 +38,7 @@ const SimpleTable = (props) => (
               const targetRow = event.currentTarget;
               // To get the column index, we need to retrieve the td element that is the target of the event. Since we could have clicked on any children of the td element, we
               // need to traverse back in the DOM until we find an element that is a direct children of the row. Keep in mind that with this approach we are not supporting nested tables
-              const targetCell = (function findTd(target) { return target.parentElement.nodeName === 'TR' ? target : findTd(target.parentElement); }(event.target.parentElement));
+              const targetCell = (function findTd(target) { return target.parentElement.nodeName === 'TR' ? target : target.parentElement.nodeName === 'TABLE' ? null : findTd(target.parentElement); }(event.target.parentElement));
               const columnIndex = Array.from(targetRow.childNodes).indexOf(targetCell);
               return (props.onRowDoubleClick ? props.onRowDoubleClick(row, columnIndex) : null);
             }}
