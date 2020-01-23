@@ -11,17 +11,28 @@
   bottom: 0;
   background-color: rgba(0, 21, 44, 0.6);
   z-index: 2;
-}
 
-.modalContainer {
-  box-sizing: border-box;
+  /*
+  We are using flex here (instead of transform) due to a bug with nested transforms in Firefox.
+  In the context of pyrene, the issue is visible when the pyrene-graphs tooltip is nested in the modal.
+  
+  Styles removed from .modalContainer
   position: absolute;
   top: 50%;
   left: 50%;
   font-size: 50px;
   transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
+  */
 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modalContainer {
+  box-sizing: border-box;
+  
   background-color: var(--background-light);
   border-radius: 4px;
   box-shadow:
