@@ -92,6 +92,7 @@ class TreeTable extends React.Component {
     const { displayExpandAll } = this.state;
     this.setState((prevState) => {
       if (displayExpandAll) {
+        this.rowHeightMap = {};
         return {
           rows: TreeTableUtils.initialiseRootData(this.props.data, this.props.setUniqueRowKey),
           expanded: {},
@@ -215,6 +216,7 @@ class TreeTable extends React.Component {
             <div styleName="filterContainer">
               <Filter
                 filters={props.filters}
+                filterValues={props.filterValues}
                 onFilterSubmit={props.onFilterChange}
               />
             </div>
@@ -252,6 +254,7 @@ TreeTable.defaultProps = {
   expandOnParentRowClick: false,
   columns: [],
   filters: [],
+  filterValues: {},
   title: '',
   height: 300,
   loading: false,
@@ -287,6 +290,14 @@ TreeTable.propTypes = {
     options: PropTypes.array,
     type: PropTypes.oneOf(['singleSelect', 'multiSelect', 'text']).isRequired,
   })),
+  /**
+   * values to be filtered & displayed in filter dropdown
+   * use {} for passing empty filterValues
+   * */
+  filterValues: PropTypes.shape({
+    id: PropTypes.string,
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.array, PropTypes.object]),
+  }),
   /**
    * Sets the height for the table. This is only needed when the virtualized prop is true.
    */

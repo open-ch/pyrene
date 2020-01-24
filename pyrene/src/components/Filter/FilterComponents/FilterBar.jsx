@@ -66,9 +66,8 @@ export default class FilterBar extends React.Component {
 
     // ignore all entries with null value - if input is empty, remove the whole entry (id: value) from object that is passed to parent component
     const filtered = Object.entries(this.state.unAppliedValues)
-      .filter((e) => e[1] !== null)
-      // eslint-disable-next-line no-return-assign,no-sequences
-      .reduce((res, e) => (res[e[0]] = this.state.unAppliedValues[e[0]], res), {});
+      .filter(([key, value]) => value !== null) // eslint-disable-line no-unused-vars
+      .reduce((merged, [key, value]) => ({ ...merged, [key]: value }), {});
 
     this.setState(() => ({
       displayFilterPopover: false,
@@ -79,9 +78,8 @@ export default class FilterBar extends React.Component {
   // onFilterTagClose removes only one tag - only one filter entry from filters Object should be removed, other filters have to stay
   onFilterTagClose(filter) {
     const filtered = Object.entries(this.props.filterValues)
-      .filter((e) => e[0] !== filter.id)
-      // eslint-disable-next-line no-return-assign,no-sequences
-      .reduce((res, e) => (res[e[0]] = this.props.filterValues[e[0]], res), {});
+      .filter(([key]) => key !== filter.id)
+      .reduce((merged, [key, value]) => ({ ...merged, [key]: value }), {});
     this.setState(() => ({
       unAppliedValues: filtered,
       displayFilterPopover: false,

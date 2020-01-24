@@ -45,7 +45,7 @@ export default class TreeTableUtils {
   }
 
   static handleAllRowExpansion(rows, tableState, getRowKey) {
-    // console.log(rows, tableState, getRowKey);
+
     let newTableState = tableState;
     // do the single row and then do all the children right after that
     rows.forEach((row) => {

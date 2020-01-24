@@ -6,6 +6,7 @@
 
   &:first-child .tableData.multiSelect {
     overflow: visible;
+    line-height: initial;
   }
 }
 

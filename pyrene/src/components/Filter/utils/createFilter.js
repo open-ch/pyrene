@@ -131,6 +131,7 @@ export const getFilterProps = (filterDefinitions, data) => filterDefinitions
     id: f.id,
     label: f.label,
     type: f.type,
+    sorted: f.sorted,
     options: f.options ? f.options : (f.optionsAccessors && data) ? getOptionsFromData(f.optionsAccessors, data) : undefined, // eslint-disable-line no-nested-ternary
   }));
 

@@ -52,3 +52,9 @@
 .disabled:hover {
   background-color: initial;
 }
+
+.loaderBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
