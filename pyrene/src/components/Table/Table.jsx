@@ -60,7 +60,7 @@ export default class Table extends React.Component {
       // no row selected yet
       const key = rowInfo && rowInfo.original[this.props.keyField];
       const selected = this.isSelected(key);
-      // const selectedIndex = this.state.selection == null ? null : this.state.selection.index;
+
       return {
         onDoubleClick: () => { this.props.onRowDoubleClick(rowInfo); },
         style: {
