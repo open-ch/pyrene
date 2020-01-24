@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Icon from '../Icon/Icon';
+import Loader from '../Loader/Loader';
 import './actionBar.css';
 
 /**
@@ -10,7 +11,11 @@ import './actionBar.css';
  * Each action element in the action bar can be active or inactive; can have its own color and icon.
  * An icon can be either an icon font or an svg icon
  */
-const ActionBar = (props) => (
+const ActionBar = (props) => (props.loading ? (
+  <div styleName="loaderBox" style={{ height: 34, width: props.actions.length * 32 + 2 }}>
+    <Loader type="inline" />
+  </div>
+) : (
   <div styleName={classNames('container', props.styling === 'none' ? '' : `box-${props.styling}`)}>
     {props.actions.map((action, index) => {
       const isSvgIcon = action.svg && action.svg.length > 0;
@@ -24,12 +29,13 @@ const ActionBar = (props) => (
       );
     })}
   </div>
-);
+));
 
 ActionBar.displayName = 'Action Bar';
 
 ActionBar.defaultProps = {
   styling: 'shadow',
+  loading: false,
 };
 
 ActionBar.propTypes = {
@@ -58,6 +64,10 @@ ActionBar.propTypes = {
      */
     svg: PropTypes.string,
   })).isRequired,
+  /**
+   * Loading state
+   */
+  loading: PropTypes.bool,
   /**
    * Sets the box style of the action bar.
    */
