@@ -14,7 +14,8 @@ const stringContains = (haystack, needle) => haystack.indexOf(needle) !== -1;
 const getIconComponent = (className) => {
   if (stringContains(className, 'asc')) {
     return <SVG styleName="inlineSVGFlex" svg={AscSort} />;
-  } if (stringContains(className, 'desc')) {
+  }
+  if (stringContains(className, 'desc')) {
     return <SVG styleName="inlineSVGFlex" svg={DescSort} />;
   }
   return <SVG styleName="inlineSVGFlex" svg={DefaultSort} />;
