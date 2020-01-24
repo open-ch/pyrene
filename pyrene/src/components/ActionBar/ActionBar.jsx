@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Icon from '../Icon/Icon';
 import Loader from '../Loader/Loader';
+import Tooltip from '../Tooltip/Tooltip';
 import './actionBar.css';
 
 /**
@@ -19,11 +20,15 @@ const ActionBar = (props) => (props.loading ? (
   <div styleName={classNames('container', props.styling === 'none' ? '' : `box-${props.styling}`)}>
     {props.actions.map((action, index) => {
       const isSvgIcon = action.svg && action.svg.length > 0;
+      const iconComponent = (
+        <div styleName={classNames('iconBox', { disabled: !action.active })} onClick={action.active ? action.onClick : () => {}}>
+          {isSvgIcon ? <Icon color={action.color} svg={action.svg} type="inline" /> : <Icon color={action.color} name={action.iconName} type="inline" />}
+        </div>
+      );
+
       return (
         <div key={isSvgIcon ? action.svg : action.iconName} styleName="borderContainer">
-          <div styleName={classNames('iconBox', { disabled: !action.active })} onClick={action.active ? action.onClick : () => {}}>
-            {isSvgIcon ? <Icon color={action.color} svg={action.svg} type="inline" /> : <Icon color={action.color} name={action.iconName} type="inline" />}
-          </div>
+          {action.tooltip ? <Tooltip preferredPosition={['top', 'bottom']} label={action.tooltip}>{iconComponent}</Tooltip> : iconComponent}
           {index < props.actions.length - 1 && <div styleName="border" />}
         </div>
       );
@@ -63,6 +68,10 @@ ActionBar.propTypes = {
      * The type of icon.
      */
     svg: PropTypes.string,
+    /**
+     * Optional tooltip
+     */
+    tooltip: PropTypes.string,
   })).isRequired,
   /**
    * Loading state

@@ -7,12 +7,14 @@ ActionBar.props = {
       active: true,
       color: 'neutral300',
       onClick: () => alert('To the left!'),
+      tooltip: 'go left',
     },
     {
       iconName: 'chevronRight',
       active: true,
       color: 'neutral300',
       onClick: () => alert('To the right!'),
+      tooltip: 'go right',
     },
   ],
 };
