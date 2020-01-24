@@ -15,7 +15,7 @@ const TextField = (props) => (
   <div styleName={classNames('textFieldContainer', { disabled: props.disabled }, { invalid: props.invalid && !props.disabled })} style={{ width: (props.width >= 0) ? `${props.width}px` : '100%' }}>
     {props.title && <div styleName={classNames('textFieldTitle', { required: props.required && !props.disabled })}>{props.title}</div>}
     <div styleName="textFieldIconLayoutContainer">
-      {/* { hasIcon: props.icon } */}
+
       <input
         styleName={classNames('textField', { filled: props.value })}
         type="text"
