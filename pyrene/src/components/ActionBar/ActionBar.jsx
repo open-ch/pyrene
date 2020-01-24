@@ -12,13 +12,13 @@ import './actionBar.css';
  * Each action element in the action bar can be active or inactive; can have its own color and icon.
  * An icon can be either an icon font or an svg icon
  */
-const ActionBar = (props) => (props.loading ? (
-  <div styleName="loaderBox" style={{ height: 34, width: props.actions.length * 32 + 2 }}>
-    <Loader type="inline" />
-  </div>
-) : (
+const ActionBar = (props) => (
   <div styleName={classNames('container', props.styling === 'none' ? '' : `box-${props.styling}`)}>
-    {props.actions.map((action, index) => {
+    { props.loading ? (
+      <div styleName="loaderBox" style={{ height: 32, width: props.actions.length * 33 - 1 }}>
+        <Loader type="inline" />
+      </div>
+    ) : props.actions.map((action, index) => {
       const isSvgIcon = action.svg && action.svg.length > 0;
       const iconComponent = (
         <div styleName={classNames('iconBox', { disabled: !action.active })} onClick={action.active ? action.onClick : () => {}}>
@@ -34,7 +34,7 @@ const ActionBar = (props) => (props.loading ? (
       );
     })}
   </div>
-));
+);
 
 ActionBar.displayName = 'Action Bar';
 
