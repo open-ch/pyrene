@@ -45,7 +45,17 @@ export default class Container extends React.Component {
             {this.props.title}
           </span>
           <div styleName="adminAndArrowContainer">
-            {this.props.adminAction && <Button type="admin" label={this.props.adminAction.label} icon={this.props.adminAction.icon} onClick={(event) => { this.props.adminAction.action(event); event.stopPropagation(); }} />}
+            {this.props.adminAction && (
+              <Button
+                type="admin"
+                label={this.props.adminAction.label}
+                icon={this.props.adminAction.icon}
+                onClick={(event) => {
+                  this.props.adminAction.action(event);
+                  event.stopPropagation();
+                }}
+              />
+            )}
             {this.props.collapsible && <span className="pyreneIcon-collapsDown" styleName="collapsArrow" />}
           </div>
         </div>
