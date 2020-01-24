@@ -32,6 +32,11 @@ describe('<ActionBar />', () => {
     expect(rendered.find('.box-shadow')).toHaveLength(1);
   });
 
+  it('renders loader when loading', () => {
+    const rendered = mount(<ActionBar {...props} loading />);
+    expect(rendered.find('Loader')).toHaveLength(1);
+  });
+
   it('renders no box', () => {
     props.styling = 'none';
     const rendered = mount(<ActionBar {...props} />);
