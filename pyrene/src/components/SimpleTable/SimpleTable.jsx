@@ -30,15 +30,23 @@ const SimpleTable = (props) => (
       </thead>
     )}
       <tbody styleName="tableBody">
-        {!props.loading && props.data && props.data.length > 0 && props.data.map((row) => (
+        {!props.loading && props.data && props.data.length > 0 && props.data.map((row, rowIndex) => (
           <tr
             styleName={classNames('tableRow', props.onRowDoubleClick ? 'tableRowWithFunction' : '')}
             key={Object.values(row)}
-            onDoubleClick={() => (props.onRowDoubleClick ? props.onRowDoubleClick(row) : null)}
+            onDoubleClick={(event) => {
+              const targetRow = event.currentTarget;
+              // To get the column index, we need to retrieve the td element that is the target of the event. Since we could have clicked on any children of the td element, we
+              // need to traverse back in the DOM until we find an element that is a direct children of the row. Keep in mind that with this approach we are not supporting nested tables
+              // eslint-disable-next-line no-nested-ternary
+              const targetCell = (function findTd(target) { return target.parentElement.nodeName === 'TR' ? target : target.parentElement.nodeName === 'TABLE' ? null : findTd(target.parentElement); }(event.target.parentElement));
+              const columnIndex = Array.prototype.slice.call(targetRow.childNodes).indexOf(targetCell);
+              return (props.onRowDoubleClick ? props.onRowDoubleClick(row, columnIndex) : null);
+            }}
           >
-            {props.columns.length > 0 && props.columns.map((column) => {
+            {props.columns.length > 0 && props.columns.map((column, columnIndex) => {
               const valueRow = row;
-              valueRow.value = typeof column.accessor === 'string' ? row[column.accessor] : column.accessor(row);
+              valueRow.value = typeof column.accessor === 'string' ? row[column.accessor] : column.accessor(row, rowIndex, columnIndex);
               return (
                 <td
                   styleName="tableCell"
@@ -46,7 +54,7 @@ const SimpleTable = (props) => (
                   key={column.id.concat(Object.values(valueRow))}
                 >
                   <div styleName="tableCellContent" style={{ textAlign: column.align }}>
-                    {column.cellRenderCallback ? column.cellRenderCallback(valueRow) : valueRow.value}
+                    {column.cellRenderCallback ? column.cellRenderCallback(valueRow, rowIndex, columnIndex) : valueRow.value}
                   </div>
                 </td>
               );
