@@ -22,6 +22,10 @@ examples.examples = [{
 }, {
   props: { label: 'Delete', type: 'action', icon: 'errorOutline' },
   description: 'Used for table actions. They are paired with icon and label.',
+},
+{
+  props: { label: 'Label', type: 'admin', icon: 'trash' },
+  description: 'admin ;)',
 }, {
   props: { label: 'admin', type: 'admin' },
   description: 'Used when an action is accessible for MC Engineers only.',
