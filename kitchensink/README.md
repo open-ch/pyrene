@@ -34,4 +34,3 @@ yarn install
 
 - Push `master` branch
 - Wait for bamboo to build it
-- Deploy on bamboo
