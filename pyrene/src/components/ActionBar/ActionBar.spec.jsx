@@ -25,6 +25,11 @@ describe('<ActionBar />', () => {
     shallow(<ActionBar {...props} />);
   });
 
+  it('renders nothing without actions', () => {
+    const rendered = shallow(<ActionBar actions={[]} />);
+    expect(rendered.type()).toEqual(null);
+  });
+
   it('renders its content', () => {
     const rendered = mount(<ActionBar {...props} />);
     expect(rendered.find('.pyreneIcon-chevronLeft')).toHaveLength(1);
