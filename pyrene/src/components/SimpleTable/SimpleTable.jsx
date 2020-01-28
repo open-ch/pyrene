@@ -30,15 +30,15 @@ const SimpleTable = (props) => (
       </thead>
     )}
       <tbody styleName="tableBody">
-        {!props.loading && props.data && props.data.length > 0 && props.data.map((row) => (
+        {!props.loading && props.data && props.data.length > 0 && props.data.map((row, rowIndex) => (
           <tr
             styleName={classNames('tableRow', props.onRowDoubleClick ? 'tableRowWithFunction' : '')}
             key={Object.values(row)}
             onDoubleClick={() => (props.onRowDoubleClick ? props.onRowDoubleClick(row) : null)}
           >
-            {props.columns.length > 0 && props.columns.map((column) => {
+            {props.columns.length > 0 && props.columns.map((column, columnIndex) => {
               const valueRow = row;
-              valueRow.value = typeof column.accessor === 'string' ? row[column.accessor] : column.accessor(row);
+              valueRow.value = typeof column.accessor === 'string' ? row[column.accessor] : column.accessor(row, rowIndex, columnIndex);
               return (
                 <td
                   styleName="tableCell"
@@ -46,7 +46,7 @@ const SimpleTable = (props) => (
                   key={column.id.concat(Object.values(valueRow))}
                 >
                   <div styleName="tableCellContent" style={{ textAlign: column.align }}>
-                    {column.cellRenderCallback ? column.cellRenderCallback(valueRow) : valueRow.value}
+                    {column.cellRenderCallback ? column.cellRenderCallback(valueRow, rowIndex, columnIndex) : valueRow.value}
                   </div>
                 </td>
               );
