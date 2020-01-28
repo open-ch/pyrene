@@ -98,7 +98,7 @@
 
   &.type-action {
     height: 32px;
-    padding: 0 4px 0 4px;
+    padding: 0 8px;
     background-color: var(--background-light);
     color: var(--primary);
 
@@ -109,7 +109,7 @@
 
   &.type-admin {
     height: 24px;
-    padding: 0 4px 0 4px;
+    padding: 0 8px;
 
     background-color: transparent;
     color: var(--admin-fg);
@@ -127,7 +127,8 @@
     }
 
     & .label {
-        padding: 4px 8px 3px;
+        padding-top: 4px;
+        padding-bottom: 3px;
       }
   }
 
