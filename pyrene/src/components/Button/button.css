@@ -88,7 +88,7 @@
   }
 
   &.type-ghost {
-    background-color: var(--background-light);
+    background-color: transparent;
     color: var(--primary);
 
     &:hover {
@@ -99,7 +99,7 @@
   &.type-action {
     height: 32px;
     padding: 0 8px;
-    background-color: var(--background-light);
+    background-color: transparent;
     color: var(--primary);
 
     &:hover {
@@ -182,7 +182,7 @@
   }
 
   &.type-ghost {
-    background-color: var(--background-light) !important;
+    background-color: transparent !important;
     color: var(--primary) !important;
 
     &:hover {
@@ -191,7 +191,7 @@
   }
 
   &.type-action {
-    background-color: var(--background-light) !important;
+    background-color: transparent !important;
     color: var(--primary) !important;
 
     &:hover {
