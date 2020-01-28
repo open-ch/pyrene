@@ -14,7 +14,6 @@
 
 .button {
   composes: commonFontSettings from '../../styles/common.css';
-
   box-sizing: border-box;
   height: 32px;
   padding: 8px 16px;
@@ -30,12 +29,11 @@
   }
 
   & .label {
-    font-size: 12px;
-    font-weight: bold;
-    line-height: normal;
-    letter-spacing: 1px;
-    text-transform: uppercase;
+    font-size: 13px;
+    line-height: 18px;
+    letter-spacing: 0.3px;
     display: inline-block;
+    font-weight: 600;
   }
 
   &.loading {
@@ -49,7 +47,7 @@
 
   & .icon {
     font-size: 16px;
-    margin-right: 8px;
+    margin-right: 4px;
     width: 16px;
     height: 16px;
     display: inline-block;
@@ -90,7 +88,7 @@
   }
 
   &.type-ghost {
-    background-color: var(--background-light);
+    background-color: transparent;
     color: var(--primary);
 
     &:hover {
@@ -101,23 +99,17 @@
   &.type-action {
     height: 32px;
     padding: 0 8px;
-    background-color: var(--background-light);
+    background-color: transparent;
     color: var(--primary);
 
     &:hover {
       background-color: var(--secondary);
     }
-
-    & .label {
-      padding-top: 8px;
-      padding-bottom: 6px;
-      line-height: 18px;
-    }
   }
 
   &.type-admin {
     height: 24px;
-    padding: 0 8px 0 8px;
+    padding: 0 8px;
 
     background-color: transparent;
     color: var(--admin-fg);
@@ -135,16 +127,16 @@
     }
 
     & .label {
-      padding-top: 3px;
-      padding-bottom: 3px;
-    }
+        padding-top: 4px;
+        padding-bottom: 3px;
+      }
   }
 
   &.type-action .label, &.type-admin .label {
-    font-size: 13px;
-    font-weight: 600;
-    letter-spacing: normal;
-    text-transform: capitalize;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.2px;
+    line-height: 17px;
   }
 }
 
@@ -190,7 +182,7 @@
   }
 
   &.type-ghost {
-    background-color: var(--background-light) !important;
+    background-color: transparent !important;
     color: var(--primary) !important;
 
     &:hover {
@@ -199,7 +191,7 @@
   }
 
   &.type-action {
-    background-color: var(--background-light) !important;
+    background-color: transparent !important;
     color: var(--primary) !important;
 
     &:hover {
