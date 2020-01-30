@@ -1,81 +1,118 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import classNames from 'classnames';
 import Loader from '../Loader/Loader';
+import SimpleTableActionList from './SimpleTableActionList';
 import './simpleTable.css';
 
 /**
  * Simple Tables are used to display tabular data without the overhead of pagination, sorting and filtering.
  */
-const SimpleTable = (props) => (
-  <div styleName="container">
-    <table styleName="table">
-      {props.columns.length > 0 && props.columns.some((column) => typeof column.headerName !== 'undefined' && column.headerName !== '')
-    && (
-      <thead styleName="tableHeader">
-        <tr styleName="tableHeaderRow">
-          {props.columns.map((column) => (
-            <th
-              styleName="tableHeaderCell"
-              style={{ maxWidth: column.width }}
-              key={column.id}
-            >
-              <div styleName="tableCellContent" style={{ textAlign: column.align }}>
-                {column.headerName}
-              </div>
-            </th>
-          ))}
-        </tr>
-      </thead>
-    )}
-      <tbody styleName="tableBody">
-        {!props.loading && props.data && props.data.length > 0 && props.data.map((row, rowIndex) => (
-          <tr
-            styleName={classNames('tableRow', props.onRowDoubleClick ? 'tableRowWithFunction' : '')}
-            key={Object.values(row)}
-            onDoubleClick={() => (props.onRowDoubleClick ? props.onRowDoubleClick(row) : null)}
-          >
-            {props.columns.length > 0 && props.columns.map((column, columnIndex) => {
-              const valueRow = row;
-              valueRow.value = typeof column.accessor === 'string' ? row[column.accessor] : column.accessor(row, rowIndex, columnIndex);
-              return (
-                <td
-                  styleName="tableCell"
+const SimpleTable = (props) => {
+  const [state, setState] = useState({
+    displayActions: false,
+  });
+
+  const onClose = () => setState({ displayActions: false });
+
+  return (
+    <div styleName="container">
+      <table styleName="table">
+        {props.columns.length > 0 && props.columns.some((column) => typeof column.headerName !== 'undefined' && column.headerName !== '')
+        && (
+          <thead styleName="tableHeader">
+            <tr styleName="tableHeaderRow">
+              {props.columns.map((column) => (
+                <th
+                  styleName="tableHeaderCell"
                   style={{ maxWidth: column.width }}
-                  key={column.id.concat(Object.values(valueRow))}
+                  key={column.id}
                 >
                   <div styleName="tableCellContent" style={{ textAlign: column.align }}>
-                    {column.cellRenderCallback ? column.cellRenderCallback(valueRow, rowIndex, columnIndex) : valueRow.value}
+                    {column.headerName}
                   </div>
-                </td>
-              );
-            })}
-          </tr>
-        ))}
-      </tbody>
-    </table>
-    {props.loading && (
-      <div styleName="loader">
-        <Loader type="inline" />
-      </div>
-    )}
-    {!props.loading && (!props.data || !(props.data.length > 0)) && (
-      <div styleName="noData">
+                </th>
+              ))}
+            </tr>
+          </thead>
+        )}
+        <tbody styleName="tableBody">
+          {!props.loading && props.data && props.data.length > 0 && props.data.map((row, rowIndex) => (
+            <tr
+              styleName={classNames('tableRow', props.onRowDoubleClick ? 'tableRowWithFunction' : '')}
+              key={Object.values(row)}
+              onDoubleClick={() => (props.onRowDoubleClick ? props.onRowDoubleClick(row) : null)}
+            >
+              {props.columns.length > 0 && props.columns.map((column, columnIndex) => {
+                const valueRow = row;
+                valueRow.value = typeof column.accessor === 'string' ? row[column.accessor] : column.accessor(row, rowIndex, columnIndex);
+                return (
+                  <td
+                    styleName="tableCell"
+                    style={{ maxWidth: column.width }}
+                    key={column.id.concat(Object.values(valueRow))}
+                  >
+                    <div styleName="tableCellContent" style={{ textAlign: column.align }}>
+                      {column.cellRenderCallback ? column.cellRenderCallback(valueRow, rowIndex, columnIndex) : valueRow.value}
+                    </div>
+                  </td>
+                );
+              })}
+              {!props.loading && props.data && props.data.length > 0 && !!props.actions.length > 0 && false
+              && (
+                <div>
+                  <div styleName="action" className="action" onClick={(e) => {
+                    e.preventDefault();
+                    setState({ displayActions: !state.displayActions });
+                  }} onDoubleClick={(e) => { e.stopPropagation(); }}
+                  >
+...
+                  </div>
+                  {<SimpleTableActionList
+                    props={props}
+                    row={row}
+                    isActive={state.displayActions}
+                    closeAction={onClose}
+                    actions={props.actions}
+                  />}
+                </div>
+              )}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      {props.loading && (
+        <div styleName="loader">
+          <Loader type="inline" />
+        </div>
+      )}
+      {!props.loading && (!props.data || !(props.data.length > 0)) && (
+        <div styleName="noData">
           No data found.
-      </div>
-    )}
-  </div>
-);
+        </div>
+      )}
+    </div>
+  );
+};
 
 SimpleTable.displayName = 'Simple Table';
 
 SimpleTable.defaultProps = {
+  actions: [],
   loading: false,
   onRowDoubleClick: null,
 };
 
 SimpleTable.propTypes = {
+  /**
+   * Allows the definition of row actions Type: [{ label: [ string ], onClick: [ function ] }, ...]
+   */
+  // eslint-disable-next-line react/no-unused-prop-types
+  actions: PropTypes.arrayOf(PropTypes.shape({
+    label: PropTypes.string.isRequired,
+    onClick: PropTypes.func.isRequired,
+  })),
   /**
    * Sets the Table columns.
    * Type: [{ accessor: ( string | func ) (required), align: , cellRenderCallback: func, headerName: string (required), id: string (required), width: number ]

@@ -111,3 +111,33 @@
 .loader {
   padding: 35px 0 0 8px;
 }
+
+.action {
+  width: 18px;
+  height: 18px;
+  color: var(--neutral-300);
+}
+
+.action:hover {
+  background-color: var(--neutral-030);
+  border-radius: 1px;
+}
+
+.actionLink {
+  font-size: 13px;
+  color: var(--neutral-500);
+  text-decoration: none;
+}
+
+.actionLink:hover {
+  text-decoration: underline;
+}
+
+.actionMenuContainer {
+  margin: 8px;
+}
+
+.popOverPlaceholder {
+  height: 100%;
+  width: 100%;
+}
