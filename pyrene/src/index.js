@@ -32,6 +32,8 @@ import { default as Heading } from './components/Heading/Heading';
 
 import { default as KeyValueTable } from './components/KeyValueTable/KeyValueTable';
 
+import { default as LabelAndValue } from './components/LabelAndValue/LabelAndValue';
+
 import { default as Link } from './components/Link/Link';
 import { default as Loader } from './components/Loader/Loader';
 
@@ -79,6 +81,7 @@ const Components = {
   IconButton,
   Heading,
   KeyValueTable,
+  LabelAndValue,
   Link,
   Loader,
   Modal,
@@ -120,6 +123,7 @@ export { Icon };
 export { IconButton };
 export { Heading };
 export { KeyValueTable };
+export { LabelAndValue };
 export { Link };
 export { Loader };
 export { Modal };
