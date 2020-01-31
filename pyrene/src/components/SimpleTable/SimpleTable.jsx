@@ -10,11 +10,12 @@ import './simpleTable.css';
  * Simple Tables are used to display tabular data without the overhead of pagination, sorting and filtering.
  */
 const SimpleTable = (props) => {
+
   const [state, setState] = useState({
-    displayActions: false,
+    activeAction: -1,
   });
 
-  const onClose = () => setState({ displayActions: false });
+  const onClose = () => setState({ activeAction: -1 });
 
   return (
     <div styleName="container">
@@ -59,24 +60,26 @@ const SimpleTable = (props) => {
                   </td>
                 );
               })}
-              {!props.loading && props.data && props.data.length > 0 && !!props.actions.length > 0 && false
-              && (
-                <div>
-                  <div styleName="action" className="action" onClick={(e) => {
-                    e.preventDefault();
-                    setState({ displayActions: !state.displayActions });
-                  }} onDoubleClick={(e) => { e.stopPropagation(); }}
-                  >
+              {!props.loading && props.data && props.data.length > 0 && !!props.actions.length > 0 && (
+                <td>
+                  <div>
+                    <div styleName="action" className="action" onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      setState({ activeAction: rowIndex });
+                    }} onDoubleClick={(e) => { e.stopPropagation(); }}
+                    >
 ...
+                    </div>
+                    {<SimpleTableActionList
+                      props={props}
+                      row={row}
+                      isActive={state.activeAction === rowIndex}
+                      closeAction={onClose}
+                      actions={props.actions}
+                    />}
                   </div>
-                  {<SimpleTableActionList
-                    props={props}
-                    row={row}
-                    isActive={state.displayActions}
-                    closeAction={onClose}
-                    actions={props.actions}
-                  />}
-                </div>
+                </td>
               )}
             </tr>
           ))}

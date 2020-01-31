@@ -67,7 +67,14 @@ const tableColumns = [{
 const examples = {
   props: {
     actions: [
-
+      {
+        label: 'Name',
+        onClick: (rowData) => alert(rowData.name),
+      },
+      {
+        label: 'Age',
+        onClick: (rowData) => alert(rowData.age),
+      },
     ],
     columns: tableColumns,
     data: tableData,

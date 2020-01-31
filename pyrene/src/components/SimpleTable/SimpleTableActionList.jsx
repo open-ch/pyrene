@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Popover from '../Popover/Popover';
 import './simpleTable.css';
 
-const SimpleTableActionList = (props, row, isActive, closeAction) => (
+const SimpleTableActionList = (props) => (
   <Popover
     align="end"
     distanceToTarget={14}
@@ -19,8 +19,8 @@ const SimpleTableActionList = (props, row, isActive, closeAction) => (
               onClick={(e) => {
                 if (element.onClick) {
                   e.preventDefault();
-                  element.onClick(row);
-                  closeAction();
+                  element.onClick(props.row);
+                  props.closeAction();
                 }
               }}
             >
@@ -31,8 +31,8 @@ const SimpleTableActionList = (props, row, isActive, closeAction) => (
       </div>
     )}
     preferredPosition={['bottom']}
-    displayPopover={isActive}
-    onClickOutside={() => closeAction()}
+    displayPopover={props.isActive}
+    onClickOutside={props.closeAction}
     autoReposition
   />
 );
@@ -42,6 +42,9 @@ SimpleTableActionList.propTypes = {
     label: PropTypes.string.isRequired,
     onClick: PropTypes.func.isRequired,
   })).isRequired,
+  closeAction: PropTypes.func.isRequired,
+  isActive: PropTypes.bool.isRequired,
+  row: PropTypes.object.isRequired,
 };
 
 export default SimpleTableActionList;
