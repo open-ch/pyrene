@@ -2,6 +2,7 @@
 
 .label-and-value {
   composes: commonFontSettings from '../../styles/common.css';
+  font-weight: 500;
   max-width: 100%;
 }
 
