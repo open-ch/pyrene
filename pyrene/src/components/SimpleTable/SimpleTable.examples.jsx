@@ -69,11 +69,11 @@ const examples = {
     actions: [
       {
         label: 'Name',
-        onClick: (rowData) => alert(rowData.name),
+        onClick: (rowData) => alert(rowData.name), // eslint-disable-line no-alert
       },
       {
         label: 'Age',
-        onClick: (rowData) => alert(rowData.age),
+        onClick: (rowData) => alert(rowData.age), // eslint-disable-line no-alert
       },
     ],
     columns: tableColumns,

@@ -79,7 +79,7 @@ describe('<SimpleTable />', () => {
     actionMenuContainerFound = rendered.find('.actionMenuContainer').length;
     expect(actionMenuContainerFound).toBe(1);
     // Action button has been clicked, we have a menu with 2 action links now
-    expect(rendered.find('.actionLink').length).toBe(2);
+    expect(rendered.find('.actionLink')).toHaveLength(2);
     rendered.find('.actionLink').last().simulate('click');
     expect(selectedActionClick).toHaveBeenCalledTimes(1);
   });

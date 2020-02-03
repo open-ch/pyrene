@@ -88,6 +88,10 @@
   margin-right: 8px;
 }
 
+.actionCell {
+  maxWidth: 20px;
+}
+
 .tableCellContent {
   min-height: 18px;
   overflow: hidden;

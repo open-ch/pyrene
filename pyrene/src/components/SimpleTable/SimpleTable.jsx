@@ -29,7 +29,8 @@ const SimpleTable = (props) => (
               ))}
               {!!props.actions.length > 0 && (
                 <th
-                  styleName="tableHeaderCell"
+                  aria-label="Action"
+                  styleName={classNames('tableHeaderCell', 'actionCell')}
                   style={{ maxWidth: '20px' }}
                   key="action"
                 />
@@ -59,14 +60,12 @@ const SimpleTable = (props) => (
                 </td>
               );
             })}
-            {!props.loading && props.data && props.data.length > 0 && !!props.actions.length > 0 && (
+            {!props.loading && props.data && props.data.length > 0 && props.actions && props.actions.length > 0 && (
               <td
-                styleName="tableCell"
-                style={{ maxWidth: '20px' }}
+                styleName={classNames('tableCell', 'actionCell')}
                 key={'action'.concat(Object.values(row))}
               >
                 {<SimpleTableActionList
-                  props={props}
                   row={row}
                   actions={props.actions}
                 />}
