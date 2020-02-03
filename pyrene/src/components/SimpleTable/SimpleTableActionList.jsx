@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Popover from '../Popover/Popover';
-import './simpleTable.css';
+import './simpleTableActionList.css';
 import Icon from '../Icon/Icon';
 
 const SimpleTableActionList = (props) => {
@@ -19,22 +19,20 @@ const SimpleTableActionList = (props) => {
       renderPopoverContent={() => (
         <div styleName="actionMenuContainer">
           {props.actions.map((element) => (
-            <div key={`${element.label}_action`}>
-              <a
-                styleName="actionLink"
-                key={`${element.label}_actionLink`}
-                href="#"
-                onClick={(e) => {
-                  if (element.onClick) {
-                    e.preventDefault();
-                    element.onClick(props.row);
-                    onClose();
-                  }
-                }}
-              >
-                {element.label}
-              </a>
-            </div>
+            <a
+              styleName="actionLink"
+              key={`${element.label}_actionLink`}
+              href="#"
+              onClick={(e) => {
+                if (element.onClick) {
+                  e.preventDefault();
+                  element.onClick(props.row);
+                  onClose();
+                }
+              }}
+            >
+              {element.label}
+            </a>
           ))}
         </div>
       )}

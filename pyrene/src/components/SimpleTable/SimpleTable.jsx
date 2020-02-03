@@ -27,6 +27,13 @@ const SimpleTable = (props) => (
                   </div>
                 </th>
               ))}
+              {!!props.actions.length > 0 && (
+                <th
+                  styleName="tableHeaderCell"
+                  style={{ maxWidth: '20px' }}
+                  key="action"
+                />
+              )}
             </tr>
           </thead>
         )}
@@ -53,7 +60,11 @@ const SimpleTable = (props) => (
               );
             })}
             {!props.loading && props.data && props.data.length > 0 && !!props.actions.length > 0 && (
-              <td>
+              <td
+                styleName="tableCell"
+                style={{ maxWidth: '20px' }}
+                key={'action'.concat(Object.values(row))}
+              >
                 {<SimpleTableActionList
                   props={props}
                   row={row}
