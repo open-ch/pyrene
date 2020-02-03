@@ -11,7 +11,7 @@ const SimpleTableActionList = (props) => {
   });
 
   const onClose = () => setActiveAction({ displayed: false });
-  
+
   return (
     <Popover
       align="end"
