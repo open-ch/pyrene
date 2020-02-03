@@ -66,6 +66,16 @@ const tableColumns = [{
 
 const examples = {
   props: {
+    actions: [
+      {
+        label: 'Name',
+        onClick: (rowData) => alert(rowData.name), // eslint-disable-line no-alert
+      },
+      {
+        label: 'Age',
+        onClick: (rowData) => alert(rowData.age), // eslint-disable-line no-alert
+      },
+    ],
     columns: tableColumns,
     data: tableData,
     onRowDoubleClick: (row) => alert(row.value), // eslint-disable-line no-alert

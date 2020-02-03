@@ -1,0 +1,44 @@
+.action {
+  width: 18px;
+  height: 18px;
+  color: var(--neutral-300);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.action:hover {
+  background-color: var(--neutral-030);
+  border-radius: 1px;
+}
+
+.actionLink {
+  font-size: 13px;
+  font-weight: 500;
+  padding-left: 8px;
+  color: var(--neutral-500);
+  text-decoration: none;
+  height: 24px;
+  width: 98px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.actionLink:hover {
+  text-decoration: none;
+  background-color: var(--neutral-030);
+}
+
+.actionMenuContainer {
+  margin-top: 4px;
+  margin-bottom: 4px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.popOverPlaceholder {
+  height: 100%;
+  width: 100%;
+}
