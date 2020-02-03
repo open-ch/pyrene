@@ -3,17 +3,17 @@ import React from 'react';
 import SimpleTable from './SimpleTable.jsx';
 import Loader from '../Loader/Loader';
 
-window.alert = jest.fn();
+const selectedActionClick = jest.fn();
 
 const props = {
   actions: [
     {
       label: 'Name',
-      onClick: (rowData) => alert(rowData.name),
+      onClick: (rowData) => selectedActionClick(rowData.name),
     },
     {
       label: 'Age',
-      onClick: (rowData) => alert(rowData.age),
+      onClick: (rowData) => selectedActionClick(rowData.age),
     },
   ],
   data: [{ name: 'Meredith Carney', age: 23 }, { name: 'Savage Weeks', age: 21 }],
@@ -81,6 +81,6 @@ describe('<SimpleTable />', () => {
     // Action button has been clicked, we have a menu with 2 action links now
     expect(rendered.find('.actionLink').length).toBe(2);
     rendered.find('.actionLink').last().simulate('click');
-    expect(window.alert).toHaveBeenCalledTimes(1);
+    expect(selectedActionClick).toHaveBeenCalledTimes(1);
   });
 });

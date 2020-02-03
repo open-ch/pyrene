@@ -12,11 +12,11 @@ import './simpleTable.css';
  */
 const SimpleTable = (props) => {
 
-  const [state, setState] = useState({
-    activeAction: -1,
+  const [activeAction, setActiveAction] = useState({
+    currentState: -1,
   });
 
-  const onClose = () => setState({ activeAction: -1 });
+  const onClose = () => setActiveAction({ currentState: -1 });
 
   return (
     <div styleName="container">
@@ -67,7 +67,7 @@ const SimpleTable = (props) => {
                     <div styleName="action" className="action" onClick={(e) => {
                       e.preventDefault();
                       e.stopPropagation();
-                      setState({ activeAction: rowIndex });
+                      setActiveAction({ currentState: rowIndex });
                     }} onDoubleClick={(e) => { e.stopPropagation(); }}
                     >
                       {<Icon
@@ -77,7 +77,7 @@ const SimpleTable = (props) => {
                     {<SimpleTableActionList
                       props={props}
                       row={row}
-                      isActive={state.activeAction === rowIndex}
+                      isActive={activeAction.currentState === rowIndex}
                       closeAction={onClose}
                       actions={props.actions}
                     />}
