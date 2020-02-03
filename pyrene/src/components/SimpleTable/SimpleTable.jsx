@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import classNames from 'classnames';
 import Loader from '../Loader/Loader';
+import SimpleTableActionList from './SimpleTableActionList';
 import './simpleTable.css';
 
 /**
@@ -12,23 +13,30 @@ const SimpleTable = (props) => (
   <div styleName="container">
     <table styleName="table">
       {props.columns.length > 0 && props.columns.some((column) => typeof column.headerName !== 'undefined' && column.headerName !== '')
-    && (
-      <thead styleName="tableHeader">
-        <tr styleName="tableHeaderRow">
-          {props.columns.map((column) => (
-            <th
-              styleName="tableHeaderCell"
-              style={{ maxWidth: column.width }}
-              key={column.id}
-            >
-              <div styleName="tableCellContent" style={{ textAlign: column.align }}>
-                {column.headerName}
-              </div>
-            </th>
-          ))}
-        </tr>
-      </thead>
-    )}
+        && (
+          <thead styleName="tableHeader">
+            <tr styleName="tableHeaderRow">
+              {props.columns.map((column) => (
+                <th
+                  styleName="tableHeaderCell"
+                  style={{ maxWidth: column.width }}
+                  key={column.id}
+                >
+                  <div styleName="tableCellContent" style={{ textAlign: column.align }}>
+                    {column.headerName}
+                  </div>
+                </th>
+              ))}
+              {!!props.actions.length > 0 && (
+                <th
+                  aria-label="Action"
+                  styleName={classNames('tableHeaderCell', 'actionCell')}
+                  key="action"
+                />
+              )}
+            </tr>
+          </thead>
+        )}
       <tbody styleName="tableBody">
         {!props.loading && props.data && props.data.length > 0 && props.data.map((row, rowIndex) => (
           <tr
@@ -51,6 +59,17 @@ const SimpleTable = (props) => (
                 </td>
               );
             })}
+            {!props.loading && props.data && props.data.length > 0 && props.actions && props.actions.length > 0 && (
+              <td
+                styleName={classNames('tableCell', 'actionCell')}
+                key={'action'.concat(Object.values(row))}
+              >
+                {<SimpleTableActionList
+                  row={row}
+                  actions={props.actions}
+                />}
+              </td>
+            )}
           </tr>
         ))}
       </tbody>
@@ -71,11 +90,19 @@ const SimpleTable = (props) => (
 SimpleTable.displayName = 'Simple Table';
 
 SimpleTable.defaultProps = {
+  actions: [],
   loading: false,
   onRowDoubleClick: null,
 };
 
 SimpleTable.propTypes = {
+  /**
+   * Allows the definition of row actions Type: [{ label: [ string ], onClick: [ function ] }, ...]
+   */
+  actions: PropTypes.arrayOf(PropTypes.shape({
+    label: PropTypes.string.isRequired,
+    onClick: PropTypes.func.isRequired,
+  })),
   /**
    * Sets the Table columns.
    * Type: [{ accessor: ( string | func ) (required), align: , cellRenderCallback: func, headerName: string (required), id: string (required), width: number ]
