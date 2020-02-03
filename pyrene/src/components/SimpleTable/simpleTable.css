@@ -116,6 +116,9 @@
   width: 18px;
   height: 18px;
   color: var(--neutral-300);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .action:hover {

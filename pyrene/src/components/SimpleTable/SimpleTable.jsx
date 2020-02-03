@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Loader from '../Loader/Loader';
 import SimpleTableActionList from './SimpleTableActionList';
+import Icon from '../Icon/Icon';
 import './simpleTable.css';
 
 /**
@@ -69,7 +70,9 @@ const SimpleTable = (props) => {
                       setState({ activeAction: rowIndex });
                     }} onDoubleClick={(e) => { e.stopPropagation(); }}
                     >
-...
+                      {<Icon
+                        name="moreHorizontal"
+                      />}
                     </div>
                     {<SimpleTableActionList
                       props={props}
