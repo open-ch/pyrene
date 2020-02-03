@@ -31,7 +31,6 @@ const SimpleTable = (props) => (
                 <th
                   aria-label="Action"
                   styleName={classNames('tableHeaderCell', 'actionCell')}
-                  style={{ maxWidth: '20px' }}
                   key="action"
                 />
               )}
