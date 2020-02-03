@@ -114,7 +114,6 @@ SimpleTable.propTypes = {
   /**
    * Allows the definition of row actions Type: [{ label: [ string ], onClick: [ function ] }, ...]
    */
-  // eslint-disable-next-line react/no-unused-prop-types
   actions: PropTypes.arrayOf(PropTypes.shape({
     label: PropTypes.string.isRequired,
     onClick: PropTypes.func.isRequired,

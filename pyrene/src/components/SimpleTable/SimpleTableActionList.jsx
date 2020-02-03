@@ -44,7 +44,11 @@ SimpleTableActionList.propTypes = {
   })).isRequired,
   closeAction: PropTypes.func.isRequired,
   isActive: PropTypes.bool.isRequired,
-  row: PropTypes.object.isRequired,
+  row: PropTypes.shape({
+    key: PropTypes.string,
+    rowStyle: PropTypes.shape({}),
+    value: PropTypes.node,
+  }).isRequired,
 };
 
 export default SimpleTableActionList;
