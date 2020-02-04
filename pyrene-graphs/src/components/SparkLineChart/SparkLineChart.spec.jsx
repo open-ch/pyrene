@@ -6,11 +6,11 @@ import timeSeriesData from '../../examples/timeSeriesData';
 import colorSchemes from '../../styles/colorSchemes';
 
 const timezone = 'Europe/Zurich';
-const dataFormat = (d) => `${d} testFormat`;
+const tooltipFormat = (d) => `${d} testFormat`;
 
 const props = {
-  keyFigure: dataFormat(10.52),
-  dataFormat: dataFormat,
+  keyFigure: tooltipFormat(10.52),
+  tooltipFormat: tooltipFormat,
   data: timeSeriesData.genDownloadedVolumes(moment.tz('2019-10-01 00:00', timezone).valueOf(), moment.tz('2019-10-03 12:00', timezone).valueOf(), 24).data,
   axisLabel: 'Axis Label Test',
   timezone: timezone,

@@ -26,7 +26,7 @@ const SparkLineChart = (props) => {
           <SparkLineSVG
             axisLabel={props.axisLabel}
             colorScheme={props.colorScheme}
-            dataFormat={props.dataFormat}
+            tooltipFormat={props.tooltipFormat}
             data={props.data}
             loading={props.loading}
             sparkLineHeight={62}
@@ -56,7 +56,7 @@ SparkLineChart.displayName = 'Spark Line Chart';
 SparkLineChart.defaultProps = {
   axisLabel: '',
   colorScheme: colorSchemes.colorSchemeDefault,
-  dataFormat: (d) => d,
+  tooltipFormat: (d) => d,
   enableTooltip: false,
   error: 'No data available',
   keyFigure: null,
@@ -79,10 +79,6 @@ SparkLineChart.propTypes = {
    */
   data: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
   /**
-   * Sets the data formatting functions for the chart.
-   */
-  dataFormat: PropTypes.func,
-  /**
    * If set, a tooltip is shown, while hovering.
    */
   enableTooltip: PropTypes.bool,
@@ -98,6 +94,10 @@ SparkLineChart.propTypes = {
     * If set, a loader is shown instead of axis tick labels, grid and bars.
     */
   loading: PropTypes.bool,
+  /**
+   * Sets the data formatting functions for the tooltip.
+   */
+  tooltipFormat: PropTypes.func,
 };
 
 export default SparkLineChart;
