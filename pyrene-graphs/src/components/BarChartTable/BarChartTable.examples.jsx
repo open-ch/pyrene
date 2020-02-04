@@ -10,11 +10,11 @@ examples.props = {
   actions: [
     {
       label: 'Application',
-      onClick: (rowData) => alert(rowData.application),
+      onClick: (rowData) => alert(rowData.application), // eslint-disable-line no-alert
     },
     {
       label: 'Volume',
-      onClick: (rowData) => alert(rowData.volume),
+      onClick: (rowData) => alert(rowData.volume), // eslint-disable-line no-alert
     },
   ],
   data: tableData,
