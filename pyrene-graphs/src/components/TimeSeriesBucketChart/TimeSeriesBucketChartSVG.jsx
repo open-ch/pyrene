@@ -54,24 +54,35 @@ const onMouseMove = (event, data, xScale, showTooltip, hideTooltip) => {
   }
 
   // Hide tooltip if current cursor position is beyond the range of first and last bucket
-  const lastTS = data[data.length - 1][INDEX_START_TS] + (xScale.invert(chartConstants.marginLeftNumerical + chartConstants.barWeight + chartConstants.barSpacing) - xScale.domain()[0]); // lastTS should also cover the 10px last bucket
+  const lastTS = data[data.length - 1][INDEX_START_TS] + (xScale.invert(chartConstants.marginLeftNumerical + chartConstants.barWeight + chartConstants.barSpacing) - xScale.domain()[0]); // lastTS should also cover the last bucket
   if (currentTS > lastTS || currentTS < data[0][INDEX_START_TS]) {
     hideTooltip();
     return;
   }
 
   // Show normal tooltip
-  // localPoint enables us to have the real-time x-coordinate of the mouse; by using the scale function on the x-coordinate we get a corresponding timestamp;
-  // then, we go through the data series to find the first element with a startTS that's bigger than that timestamp, the element before it is the one that is being hovered on
-  const foundIndex = data.findIndex((d) => d[INDEX_START_TS] > currentTS) - 1;
-  const index = foundIndex >= 0 ? foundIndex : data.length - 1;
-  // endTS is the startTS of next bucket; if the current element is the last in the data series, there is no endTS
-  const endTS = (index !== data.length - 1) ? data[index + 1][INDEX_START_TS] : null;
-  showTooltip({
-    tooltipLeft: x,
-    tooltipTop: y,
-    tooltipData: [[data[index][INDEX_START_TS], endTS], data[index][INDEX_VALUE], index],
-  });
+  // Deal with edge case when there's only single bar
+  if (data.length === 1) {
+    showTooltip({
+      tooltipLeft: x,
+      tooltipTop: y,
+      tooltipData: [[data[0][INDEX_START_TS], lastTS], data[0][INDEX_VALUE], 0],
+    });
+  } else {
+    // localPoint enables us to have the real-time x-coordinate of the mouse; by using the scale function on the x-coordinate we get a corresponding timestamp;
+    // then, we go through the data series to find the first element with a startTS that's bigger than that timestamp, the element before it is the one that is being hovered on
+    const foundIndex = data.findIndex((d) => d[INDEX_START_TS] > currentTS) - 1;
+    const index = foundIndex >= 0 ? foundIndex : data.length - 1;
+    // MC-18071: for the last bucket, we assume the time frame is the same as the previous bucket
+    const endTS = (index !== data.length - 1)
+      ? data[index + 1][INDEX_START_TS]
+      : (data[index][INDEX_START_TS] - data[index - 1][INDEX_START_TS] + data[index][INDEX_START_TS]);
+    showTooltip({
+      tooltipLeft: x,
+      tooltipTop: y,
+      tooltipData: [[data[index][INDEX_START_TS], endTS], data[index][INDEX_VALUE], index],
+    });
+  }
 };
 
 const onMouseDown = (event) => {
