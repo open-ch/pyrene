@@ -13,7 +13,7 @@ import colorConstants from '../../styles/colorConstants';
 const multiSelectStyle = (props) => ({
   container: (base) => ({
     ...base,
-    fontFamily: 'AvenirNext, Helvetica, sans-serif !important',
+    fontFamily: 'FiraGo, Helvetica, sans-serif !important',
     fontSize: 13,
     fontWeight: 500,
     width: '100%',
@@ -147,7 +147,7 @@ const multiSelectStyle = (props) => ({
   input: (base) => ({
     ...base,
     '[type="text"]': {
-      fontFamily: 'AvenirNext, Helvetica, sans-serif !important',
+      fontFamily: 'FiraGo, Helvetica, sans-serif !important',
       fontSize: 13,
       fontWeight: 500,
       color: colorConstants.neutral400,
