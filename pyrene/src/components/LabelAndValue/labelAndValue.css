@@ -1,0 +1,37 @@
+@import '../../styles/colors.css';
+
+.label-and-value {
+  composes: commonFontSettings from '../../styles/common.css';
+  font-weight: 500;
+  max-width: 100%;
+}
+
+.label-and-value .label,
+.label-and-value .value {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.label-and-value .label {
+  font-size: 11px;
+  line-height: 16px;
+  color: var(--neutral-200);
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+.label-and-value .value {
+  color: var(--text);
+}
+
+.label-and-value-small .value {
+  font-size: 14px;
+  line-height: 24px;
+}
+
+.label-and-value-large .value {
+  font-size: 24px;
+  line-height: 40px;
+}

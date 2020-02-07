@@ -18,6 +18,7 @@ import { default as ActionBar } from '../components/ActionBar/ActionBar.examples
 import { default as IconButton } from '../components/IconButton/IconButton.examples';
 import { default as Heading } from '../components/Heading/Heading.examples';
 import { default as KeyValueTable } from '../components/KeyValueTable/KeyValueTable.examples';
+import { default as LabelAndValue } from '../components/LabelAndValue/LabelAndValue.examples';
 import { default as Link } from '../components/Link/Link.examples';
 import { default as Loader } from '../components/Loader/Loader.examples';
 import { default as Modal } from '../components/Modal/Modal.examples';
@@ -59,6 +60,7 @@ const examples = {
   Icon,
   IconButton,
   KeyValueTable,
+  LabelAndValue,
   Link,
   Loader,
   Modal,

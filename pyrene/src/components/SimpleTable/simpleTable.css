@@ -88,6 +88,10 @@
   margin-right: 8px;
 }
 
+.actionCell {
+  max-width: 20px;
+}
+
 .tableCellContent {
   min-height: 18px;
   overflow: hidden;
@@ -111,3 +115,4 @@
 .loader {
   padding: 35px 0 0 8px;
 }
+

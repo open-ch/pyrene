@@ -1,3 +1,15 @@
+:global(.pyreneIcon-moreVertical:before){
+  content: "\43";
+}
+:global(.pyreneIcon-moreHorizontal:before){
+  content: "\42";
+}
+:global(.pyreneIcon-block:before){
+  content: "\41";
+}
+:global(.pyreneIcon-trusted:before){
+  content: "\7a";
+}
 :global(.pyreneIcon-zoomOut:before){
   content: "\79";
 }
