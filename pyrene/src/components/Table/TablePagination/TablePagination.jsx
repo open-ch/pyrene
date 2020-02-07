@@ -38,7 +38,7 @@ const TablePagination = (props) => (
         />
       </div>
       <div styleName="spacer small" />
-        per page
+      per page
     </div>
 
     <div styleName="separator" />
