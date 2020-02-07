@@ -81,7 +81,7 @@ const SimpleTable = (props) => (
     )}
     {!props.loading && (!props.data || !(props.data.length > 0)) && (
       <div styleName="noData">
-          No data found.
+        No data found.
       </div>
     )}
   </div>

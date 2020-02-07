@@ -92,6 +92,7 @@ class Checkbox extends Component {
             classNames('checkboxLabel', { disabled: this.props.disabled, required: this.props.required })
           }
           htmlFor={`checkbox_${this.props.label}_${rand}`}
+          // eslint-disable-next-line jsx-a11y/no-noninteractive-element-to-interactive-role
           role="checkbox"
           aria-checked={this.props.value}
         >
