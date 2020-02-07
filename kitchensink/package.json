@@ -9,12 +9,12 @@
   "private": true,
   "scripts": {
     "clean": "rm -rf dist node_modules",
-    "prebuild": "yarn install",
+    "prebuild": "npm install",
     "build": "webpack",
-    "prestart": "yarn install",
-    "prewatch": "yarn install",
+    "prestart": "npm install",
+    "prewatch": "npm install",
     "watch": "webpack-dev-server",
-    "prelint": "yarn install",
+    "prelint": "npm install",
     "lint": "eslint --ext .js,.jsx src/",
     "updateIconfont": "bash -c 'cp $0 src/app/data/icons.js;'"
   },
