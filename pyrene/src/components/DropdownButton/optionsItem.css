@@ -1,4 +1,6 @@
 .container {
+  composes: commonFontSettings from '../../styles/common.css';
+
   height: 32px;
   font-size: 13px;
   background-color: var(--neutral-000);
