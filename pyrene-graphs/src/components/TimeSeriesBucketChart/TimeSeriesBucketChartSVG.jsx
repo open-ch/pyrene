@@ -36,10 +36,8 @@ const getTimeFrameOfLastBucket = (data, xScale) => {
 
 const getCurrentBucketIndex = (currentTS, lastBucketEndTS, data) => {
   if (data.length === 1) {
-    return currentTS <= lastBucketEndTS;
+    return 0;
   }
-  // localPoint enables us to have the real-time x-coordinate of the mouse; by using the scale function on the x-coordinate we get a corresponding timestamp;
-  // then, we go through the data series to find the first element with a startTS that's bigger than that timestamp, the element before it is the one that is being hovered on
   const foundIndex = data.findIndex((d) => d[INDEX_START_TS] > currentTS) - 1;
   return foundIndex >= 0 ? foundIndex : data.length - 1;
 };
