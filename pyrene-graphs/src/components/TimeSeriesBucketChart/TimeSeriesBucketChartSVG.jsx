@@ -24,6 +24,36 @@ import './timeSeriesBucketChart.css';
 
 let zoomStartX = null;
 
+const getTimeFrameOfLastBucket = (data, xScale) => {
+  if (data.length === 0) {
+    return 0;
+  }
+  if (data.length === 1) {
+    return xScale.invert(chartConstants.marginLeftNumerical + chartConstants.barWeight + chartConstants.barSpacing) - xScale.domain()[0];
+  }
+  return data[data.length - 1][INDEX_START_TS] - data[data.length - 2][INDEX_START_TS];
+};
+
+const getCurrentBucketIndex = (currentTS, lastBucketEndTS, data) => {
+  if (data.length === 1) {
+    return currentTS <= lastBucketEndTS;
+  }
+  // localPoint enables us to have the real-time x-coordinate of the mouse; by using the scale function on the x-coordinate we get a corresponding timestamp;
+  // then, we go through the data series to find the first element with a startTS that's bigger than that timestamp, the element before it is the one that is being hovered on
+  const foundIndex = data.findIndex((d) => d[INDEX_START_TS] > currentTS) - 1;
+  return foundIndex >= 0 ? foundIndex : data.length - 1;
+};
+
+const getCurrentBucketEndTS = (index, lastBucketEndTS, data) => {
+  if (data.length === 1) {
+    return lastBucketEndTS;
+  }
+  // For the last bucket, we assume the time frame is the same as the previous bucket
+  return (index !== data.length - 1)
+    ? data[index + 1][INDEX_START_TS]
+    : (data[index][INDEX_START_TS] - data[index - 1][INDEX_START_TS] + data[index][INDEX_START_TS]);
+};
+
 /**
  * Get tooltip position and data when mouse is moving over the chart.
  * @param {object}event - The mouseMove event
@@ -33,6 +63,12 @@ let zoomStartX = null;
  * @param {function}hideTooltip - The function that hides the tooltip
  */
 const onMouseMove = (event, data, xScale, showTooltip, hideTooltip) => {
+  // Immediately hide tooltip and return when there's no data
+  if (!data || data.length === 0) {
+    hideTooltip();
+    return;
+  }
+
   const { x, y } = localPoint(event.target.ownerSVGElement, event);
   const currentTS = xScale.invert(x).valueOf();
 
@@ -47,42 +83,21 @@ const onMouseMove = (event, data, xScale, showTooltip, hideTooltip) => {
     return;
   }
 
-  // No tooltip when there's no bucket
-  if (data.length === 0) {
-    hideTooltip();
-    return;
-  }
-
-  // Hide tooltip if current cursor position is beyond the range of first and last bucket
-  const lastTS = data[data.length - 1][INDEX_START_TS] + (xScale.invert(chartConstants.marginLeftNumerical + chartConstants.barWeight + chartConstants.barSpacing) - xScale.domain()[0]); // lastTS should also cover the last bucket
-  if (currentTS > lastTS || currentTS < data[0][INDEX_START_TS]) {
+  // Hide tooltip when cursor is out of data range
+  const lastBucketEndTS = data[data.length - 1][INDEX_START_TS] + getTimeFrameOfLastBucket(data, xScale);
+  if (currentTS > lastBucketEndTS || currentTS < data[0][INDEX_START_TS]) {
     hideTooltip();
     return;
   }
 
   // Show normal tooltip
-  // Deal with edge case when there's only single bar
-  if (data.length === 1) {
-    showTooltip({
-      tooltipLeft: x,
-      tooltipTop: y,
-      tooltipData: [[data[0][INDEX_START_TS], lastTS], data[0][INDEX_VALUE], 0],
-    });
-  } else {
-    // localPoint enables us to have the real-time x-coordinate of the mouse; by using the scale function on the x-coordinate we get a corresponding timestamp;
-    // then, we go through the data series to find the first element with a startTS that's bigger than that timestamp, the element before it is the one that is being hovered on
-    const foundIndex = data.findIndex((d) => d[INDEX_START_TS] > currentTS) - 1;
-    const index = foundIndex >= 0 ? foundIndex : data.length - 1;
-    // MC-18071: for the last bucket, we assume the time frame is the same as the previous bucket
-    const endTS = (index !== data.length - 1)
-      ? data[index + 1][INDEX_START_TS]
-      : (data[index][INDEX_START_TS] - data[index - 1][INDEX_START_TS] + data[index][INDEX_START_TS]);
-    showTooltip({
-      tooltipLeft: x,
-      tooltipTop: y,
-      tooltipData: [[data[index][INDEX_START_TS], endTS], data[index][INDEX_VALUE], index],
-    });
-  }
+  const currentBucketIndex = getCurrentBucketIndex(currentTS, lastBucketEndTS, data);
+  const currentBucketEndTS = getCurrentBucketEndTS(currentBucketIndex, lastBucketEndTS, data);
+  showTooltip({
+    tooltipLeft: x,
+    tooltipTop: y,
+    tooltipData: [[data[currentBucketIndex][INDEX_START_TS], currentBucketEndTS], data[currentBucketIndex][INDEX_VALUE], currentBucketIndex],
+  });
 };
 
 const onMouseDown = (event) => {
