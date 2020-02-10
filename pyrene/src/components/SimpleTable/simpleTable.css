@@ -101,8 +101,9 @@
 }
 
 .noData {
+  composes: commonFontSettings from '../../styles/common.css';
+
   padding: 39px 0 0 8px;
-  font-family: AvenirNext;
   font-size: 13px;
   font-weight: normal;
   font-style: italic;
@@ -115,4 +116,3 @@
 .loader {
   padding: 35px 0 0 8px;
 }
-
