@@ -184,6 +184,7 @@
   cursor: pointer;
   color: var(--neutral-300);
   margin-left: 24px;
+  padding: 3px 0 0 3px;
 
   &:hover {
     background-color: var(--secondary);
