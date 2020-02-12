@@ -35,6 +35,7 @@
 .iconBox:hover {
   background-color: var(--neutral-030);
   cursor: pointer;
+  border-radius: 2px;
 }
 
 .border {
