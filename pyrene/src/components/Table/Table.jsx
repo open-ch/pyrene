@@ -370,7 +370,7 @@ export default class Table extends React.Component {
 
             <CheckboxPopover
               buttonLabel="Columns"
-              listItems={this.props.columns.map((col) => ({ id: col.id, label: col.headerName, value: (typeof this.state.columnsVisibility[col.id] !== 'undefined') ? this.state.columnsVisibility[col.id] : !col.initiallyHidden }))}
+              listItems={this.props.columns.map((col) => (col.headerName ? { id: col.id, label: col.headerName, value: (typeof this.state.columnsVisibility[col.id] !== 'undefined') ? this.state.columnsVisibility[col.id] : !col.initiallyHidden } : null)).filter((c) => c)}
               onItemClick={(item, value) => this.toggleColumnDisplay(item, value)}
               onRestoreDefault={() => this.restoreColumnDefaults()}
               disabled={!!this.props.error}
