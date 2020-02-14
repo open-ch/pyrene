@@ -90,18 +90,19 @@ class TreeTable extends React.Component {
 
   toggleAllRowsExpansion = () => {
     const { displayExpandAll } = this.state;
-    this.setState((prevState) => {
+    const { data } = this.props;
+    this.setState(() => {
       if (displayExpandAll) {
         this.rowHeightMap = {};
         return {
-          rows: TreeTableUtils.initialiseRootData(this.props.data, this.props.setUniqueRowKey),
+          rows: TreeTableUtils.initialiseRootData(data, this.props.setUniqueRowKey),
           expanded: {},
           displayExpandAll: !displayExpandAll,
           tableKey: Date.now(), // as all rows are closed, we need to recalculate the height for the whole view - a key is the easiest way
         };
       }
       return {
-        ...TreeTableUtils.handleAllRowExpansion(prevState.rows, { ...prevState, expanded: {} }, this.props.setUniqueRowKey),
+        ...TreeTableUtils.handleAllRowExpansion(data, { rows: data, expanded: {} }),
         displayExpandAll: !displayExpandAll,
       };
     });

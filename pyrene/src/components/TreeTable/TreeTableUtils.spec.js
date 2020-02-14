@@ -20,6 +20,16 @@ describe('TreeTableUtils', () => {
     },
     {
       key: 'lala',
+      children: [
+        {
+          key: 'lala1',
+          children: [
+            {
+              key: 'lala2',
+            },
+          ],
+        },
+      ],
     },
     {
       keyMissing: true,
@@ -56,7 +66,7 @@ describe('TreeTableUtils', () => {
     });
 
     it('should return empty array if no children', () => {
-      const children = TreeTableUtils._getRowChildren(data[1]);
+      const children = TreeTableUtils._getRowChildren(data[2]);
       expect(children).toHaveLength(0);
     });
 
@@ -75,14 +85,14 @@ describe('TreeTableUtils', () => {
       const firstGrandChild = firstRow.children[0].children[0];
 
       // open the parent row
-      tableState = TreeTableUtils.handleRowExpandChange(firstRow, tableState, getRowKey);
+      tableState = TreeTableUtils.handleRowExpandChange(firstRow, tableState);
       expect(tableState.expanded[firstRow._rowId]).toBe(true);
       expect(tableState.expanded[firstChild._rowId]).toBe(undefined);
       expect(tableState.expanded[firstGrandChild._rowId]).toBe(undefined);
       expect(tableState.rows.includes(firstChild)).toBe(true);
       expect(tableState.rows.includes(firstGrandChild)).toBe(false);
       // open the child row
-      tableState = TreeTableUtils.handleRowExpandChange(firstChild, tableState, getRowKey);
+      tableState = TreeTableUtils.handleRowExpandChange(firstChild, tableState);
       expect(tableState.expanded[firstRow._rowId]).toBe(true);
       expect(tableState.expanded[firstChild._rowId]).toBe(true);
       expect(tableState.expanded[firstGrandChild._rowId]).toBe(undefined);
@@ -90,7 +100,7 @@ describe('TreeTableUtils', () => {
       expect(tableState.rows.includes(firstGrandChild)).toBe(true);
 
       // close parent row, thus expect children to be removed as well
-      tableState = TreeTableUtils.handleRowExpandChange(firstRow, tableState, getRowKey);
+      tableState = TreeTableUtils.handleRowExpandChange(firstRow, tableState);
       expect(tableState.expanded[firstRow._rowId]).toBe(undefined);
       expect(tableState.expanded[firstChild._rowId]).toBe(undefined);
       expect(tableState.expanded[firstGrandChild._rowId]).toBe(undefined);
@@ -109,11 +119,58 @@ describe('TreeTableUtils', () => {
         expanded: {},
       };
       expect(tableState.rows).toHaveLength(3);
-      tableState = TreeTableUtils.handleAllRowExpansion(rows, tableState, getRowKey);
+      tableState = TreeTableUtils.handleAllRowExpansion(rows, tableState);
       // expect the two nested child rows to be shown
-      expect(tableState.rows).toHaveLength(5);
+      expect(tableState.rows).toHaveLength(7);
       // expect to not have the rows without children to be "expanded"
-      expect(Object.keys(tableState.expanded).sort()).toEqual([rows[0]._rowId, rows[0].children[0]._rowId].sort());
+      expect(Object.keys(tableState.expanded).sort()).toEqual([
+        rows[0]._rowId,
+        rows[0].children[0]._rowId,
+        rows[1]._rowId,
+        rows[1].children[0]._rowId,
+      ].sort());
+    });
+
+  });
+
+  describe('functional tests', () => {
+
+    it('should open one and then expand all correctly', () => {
+      const rows = TreeTableUtils.initialiseRootData(data, getRowKey);
+      let tableState = {
+        rows,
+        expanded: {},
+      };
+      expect(tableState.rows).toHaveLength(3);
+
+      // open one row
+      tableState = TreeTableUtils.handleRowExpandChange(rows[0], tableState);
+      expect(tableState.rows).toHaveLength(4);
+
+      // open another row
+      tableState = TreeTableUtils.handleRowExpandChange(rows[1], tableState);
+      expect(tableState.rows).toHaveLength(5);
+
+      // open all and expect the correct number of rows to be there
+      tableState = TreeTableUtils.handleAllRowExpansion(data, { expanded: {}, rows: data });
+      // expect the two nested child rows to be shown
+      expect(tableState.rows).toHaveLength(7);
+      // expect to not have the rows without children to be "expanded"
+      expect(Object.keys(tableState.expanded).sort()).toEqual([
+        rows[0]._rowId,
+        rows[0].children[0]._rowId,
+        rows[1]._rowId,
+        rows[1].children[0]._rowId,
+      ].sort());
+
+      // close one of the rows and expect the correct number of rows to be there
+      tableState = TreeTableUtils.handleRowExpandChange(rows[1], tableState);
+      expect(tableState.rows).toHaveLength(5);
+
+      expect(Object.keys(tableState.expanded).sort()).toEqual([
+        rows[0]._rowId,
+        rows[0].children[0]._rowId,
+      ].sort());
     });
 
   });
