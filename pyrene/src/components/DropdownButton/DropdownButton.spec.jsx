@@ -1,7 +1,6 @@
 import React from 'react';
 
 import DropdownButton from './DropdownButton';
-import Button from '../Button/Button';
 
 const props = {
   label: 'tbd',
@@ -15,7 +14,7 @@ describe('<DropdownButton />', () => {
 
   it('renders dropdown on click', () => {
     const rendered = mount(<DropdownButton {...props} />);
-    rendered.find(Button).simulate('click');
+    rendered.find('button').simulate('click');
   });
 
 });

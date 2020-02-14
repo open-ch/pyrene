@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import Popover from '../Popover/Popover';
-import Button from '../Button/Button';
 import OptionsList from './OptionsList';
-
 import './dropdownButton.css';
+import Loader from '../Loader/Loader';
 
 /**
  * Dropdown Buttons are used primarily to group actions of a common topic.
@@ -27,19 +27,28 @@ const DropdownButton = (props) => {
       distanceToTarget={4}
       align={props.align}
     >
-      <Button
-        label={(
-          <div styleName="labelWrapper">
+      <div className="buttonContainer">
+        <button
+          type="submit"
+          styleName={
+            classNames('button',
+              { disabled: props.disabled },
+              { loading: props.loading },
+              { openedDropdown: state.displayActions })
+          }
+          disabled={props.disabled}
+          onClick={() => setState({ displayActions: !state.displayActions })}
+        >
+          {props.icon && <span styleName="icon" className={`pyreneIcon-${props.icon}`} />}
+
+          <div styleName="label">
             <span>{props.label}</span>
-            <span className="pyreneIcon-chevronDown" styleName="icon" />
+            <span className="pyreneIcon-chevronDown" styleName="arrow" />
           </div>
-        )}
-        onClick={() => setState({ displayActions: !state.displayActions })}
-        disabled={props.disabled}
-        icon={props.icon}
-        loading={props.loading}
-        type="action"
-      />
+
+        </button>
+        {props.loading && <span styleName="loader"><Loader size="small" styling="dark" /></span>}
+      </div>
     </Popover>
   );
 };
