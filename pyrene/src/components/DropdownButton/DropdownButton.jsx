@@ -36,7 +36,7 @@ const DropdownButton = (props) => {
               { loading: props.loading },
               { openedDropdown: state.displayActions })
           }
-          disabled={props.disabled}
+          disabled={props.disabled || props.loading}
           onClick={() => setState({ displayActions: !state.displayActions })}
         >
           {props.icon && <span styleName="icon" className={`pyreneIcon-${props.icon}`} />}
