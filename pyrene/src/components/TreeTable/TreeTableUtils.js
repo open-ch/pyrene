@@ -19,6 +19,8 @@ export default class TreeTableUtils {
       sr._treeDepth = treeDepth + 1;
       // eslint-disable-next-line
       sr._rowId = getRowKey(sr) || uniqid();
+      // eslint-disable-next-line
+      sr._getParent = () => row;
 
       if (sr.children) {
         this.updateSubRowDetails(sr, getRowKey);
@@ -32,6 +34,8 @@ export default class TreeTableUtils {
       row._treeDepth = 0;
       // eslint-disable-next-line
       row._rowId = getRowKey(row) || uniqid();
+      // eslint-disable-next-line
+      row._getParent = () => null;
 
       if (row.children) {
         this.updateSubRowDetails(row, getRowKey);
@@ -90,6 +94,63 @@ export default class TreeTableUtils {
       expanded,
       rows: newRows,
     };
+  }
+
+  static _getRowParents(row) {
+    const bottomToTopParents = [];
+    let checkedRow = row;
+
+    // eslint-disable-next-line no-underscore-dangle
+    while (checkedRow._getParent()) {
+      // eslint-disable-next-line no-underscore-dangle
+      const parent = checkedRow._getParent();
+      bottomToTopParents.push(parent);
+      checkedRow = parent;
+    }
+
+    return [...bottomToTopParents].reverse();
+  }
+
+  static _handleExpandAllParentsOfRow(row, tableState) {
+    let newTableState = tableState;
+    const rowParents = this._getRowParents(row);
+    rowParents.forEach((parent) => {
+      // eslint-disable-next-line no-underscore-dangle
+      const isRowOpen = newTableState.expanded[parent._rowId];
+      if (!isRowOpen) {
+        newTableState = this.handleRowExpandChange(parent, newTableState);
+      }
+    });
+    return newTableState;
+  }
+
+  static _findRowFromTree(rowId, rows) {
+    // eslint-disable-next-line no-restricted-syntax
+    for (const row of rows) {
+      // eslint-disable-next-line no-underscore-dangle
+      if (row._rowId === rowId) {
+        return row;
+      }
+      if (row.children) {
+        const recursiveResult = this._findRowFromTree(rowId, row.children);
+        if (recursiveResult) {
+          return recursiveResult;
+        }
+      }
+    }
+    return null;
+  }
+
+  // TODO: RowID or callback to check if is row to be opened
+  static handleExpandAllParentsOfRowById(rowId, tableState) {
+    const {
+      rows,
+    } = tableState;
+    const rowToOpen = this._findRowFromTree(rowId, rows);
+    if (rowToOpen) {
+      return this._handleExpandAllParentsOfRow(rowToOpen, tableState);
+    }
+    return tableState;
   }
 
 }

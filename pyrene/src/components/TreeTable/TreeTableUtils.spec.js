@@ -53,6 +53,10 @@ describe('TreeTableUtils', () => {
       expect(initialised[0].children[0]._treeDepth).toEqual(1);
       expect(initialised[0].children[0].children[0]._rowId).toBe(data[0].children[0].children[0].key);
       expect(initialised[0].children[0].children[0]._treeDepth).toEqual(2);
+
+      expect(initialised[0]._getParent()).toBe(null);
+      expect(initialised[0].children[0]._getParent()).toBe(initialised[0]);
+      expect(initialised[0].children[0].children[0]._getParent()).toBe(initialised[0].children[0]);
     });
 
   });
@@ -131,6 +135,95 @@ describe('TreeTableUtils', () => {
       ].sort());
     });
 
+  });
+
+  describe('_getRowParents', () => {
+    const initialised = TreeTableUtils.initialiseRootData(data, getRowKey);
+    it('should return correct parents of row', () => {
+      const rootParents = TreeTableUtils._getRowParents(initialised[0]);
+      expect(rootParents).toHaveLength(0);
+      const level1Parents = TreeTableUtils._getRowParents(initialised[0].children[0]);
+      expect(level1Parents).toEqual([initialised[0]]);
+      const level2Parents = TreeTableUtils._getRowParents(initialised[0].children[0].children[0]);
+      expect(level2Parents).toEqual([initialised[0], initialised[0].children[0]]);
+    });
+  });
+
+  describe('_handleExpandAllParentsOfRow', () => {
+    const initialised = TreeTableUtils.initialiseRootData(data, getRowKey);
+    it('should open first level rows', () => {
+      let tableState = {
+        rows: initialised,
+        expanded: {},
+      };
+      const rowToOpen = initialised[0].children[0];
+      const level1Parents = TreeTableUtils._getRowParents(rowToOpen);
+      expect(tableState.rows).toHaveLength(3);
+      tableState = TreeTableUtils._handleExpandAllParentsOfRow(rowToOpen, tableState);
+      expect(tableState.rows).toHaveLength(4);
+      level1Parents.forEach((parent) => expect(tableState.expanded[parent._rowId]).toBe(true));
+    });
+    it('should open second level rows', () => {
+      let tableState = {
+        rows: initialised,
+        expanded: {},
+      };
+      const rowToOpen = initialised[0].children[0].children[0];
+      const level2Parents = TreeTableUtils._getRowParents(rowToOpen);
+      expect(tableState.rows).toHaveLength(3);
+      tableState = TreeTableUtils._handleExpandAllParentsOfRow(rowToOpen, tableState);
+      expect(tableState.rows).toHaveLength(5);
+      level2Parents.forEach((parent) => expect(tableState.expanded[parent._rowId]).toBe(true));
+    });
+  });
+
+  describe('_findRowFromTree', () => {
+    const rows = TreeTableUtils.initialiseRootData(data, getRowKey);
+    it('should return null if row doesnt exist', () => {
+      const row = TreeTableUtils._findRowFromTree('___fake___', rows);
+      expect(row).toBe(null);
+    });
+    it('should return root level row', () => {
+      const rowToFind = rows[0];
+      const row = TreeTableUtils._findRowFromTree(rowToFind._rowId, rows);
+      expect(row).toBe(rowToFind);
+    });
+    it('should return level 1 row', () => {
+      const rowToFind = rows[0].children[0];
+      const row = TreeTableUtils._findRowFromTree(rowToFind._rowId, rows);
+      expect(row).toBe(rowToFind);
+    });
+    it('should return level 2 row', () => {
+      const rowToFind = rows[0].children[0].children[0];
+      const row = TreeTableUtils._findRowFromTree(rowToFind._rowId, rows);
+      expect(row).toBe(rowToFind);
+    });
+  });
+
+  describe('handleExpandAllParentsOfRowById', () => {
+    const initialised = TreeTableUtils.initialiseRootData(data, getRowKey);
+    it('should not open anything since row does not exist', () => {
+      const tableState = {
+        rows: initialised,
+        expanded: {},
+      };
+      const newTableState = TreeTableUtils.handleExpandAllParentsOfRowById('__fake__', tableState);
+      expect(newTableState).toBe(tableState);
+      expect(newTableState.rows).toBe(tableState.rows);
+      expect(newTableState.expanded).toBe(tableState.expanded);
+    });
+    it('should not open all intermediate parents', () => {
+      const tableState = {
+        rows: initialised,
+        expanded: {},
+      };
+      expect(tableState.rows).toHaveLength(3);
+      const rowToOpen = initialised[0].children[0].children[0];
+      const newTableState = TreeTableUtils.handleExpandAllParentsOfRowById(rowToOpen._rowId, tableState);
+      const parents = TreeTableUtils._getRowParents(rowToOpen);
+      parents.forEach((parent) => expect(newTableState.expanded[parent._rowId]).toBe(true));
+      expect(newTableState.rows).toHaveLength(5);
+    });
   });
 
   describe('functional tests', () => {
