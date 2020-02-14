@@ -11,15 +11,17 @@ export default class TreeTableUtils {
     );
   });
 
-  static updateSubRowDetails(row, parentTreeDepth, getRowKey) {
-    const treeDepth = parentTreeDepth || 0;
+  static updateSubRowDetails(row, getRowKey) {
+    // eslint-disable-next-line no-underscore-dangle
+    const treeDepth = row._treeDepth || 0;
     row.children.forEach((sr) => {
       // eslint-disable-next-line
-      if (!sr._treeDepth) {
-        // eslint-disable-next-line
-        sr._treeDepth = treeDepth + 1;
-        // eslint-disable-next-line
-        sr._rowId = getRowKey(sr) || uniqid();
+      sr._treeDepth = treeDepth + 1;
+      // eslint-disable-next-line
+      sr._rowId = getRowKey(sr) || uniqid();
+
+      if (sr.children) {
+        this.updateSubRowDetails(sr, getRowKey);
       }
     });
   }
@@ -30,6 +32,11 @@ export default class TreeTableUtils {
       row._treeDepth = 0;
       // eslint-disable-next-line
       row._rowId = getRowKey(row) || uniqid();
+
+      if (row.children) {
+        this.updateSubRowDetails(row, getRowKey);
+      }
+
       return row;
     });
   }
@@ -57,7 +64,7 @@ export default class TreeTableUtils {
     return newTableState;
   }
 
-  static handleRowExpandChange(row, tableState, getRowKey) {
+  static handleRowExpandChange(row, tableState) {
     const {
       expanded,
       rows,
@@ -69,8 +76,6 @@ export default class TreeTableUtils {
     const index = rows.indexOf(row);
     if (!isExpanded) {
       expanded[rowKey] = true;
-      // eslint-disable-next-line no-underscore-dangle
-      TreeTableUtils.updateSubRowDetails(row, row._treeDepth, getRowKey);
       newRows.splice(index + 1, 0, ...subRows);
     } else {
       delete expanded[rowKey];

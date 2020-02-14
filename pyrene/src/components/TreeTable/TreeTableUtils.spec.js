@@ -33,11 +33,16 @@ describe('TreeTableUtils', () => {
     it('should initialise root data with keys', () => {
       const initialised = TreeTableUtils.initialiseRootData(data, getRowKey);
       expect(initialised[0]._rowId).toEqual(data[0].key);
+      expect(initialised[0]._treeDepth).toEqual(0);
       expect(initialised[1]._rowId).toEqual(data[1].key);
+      expect(initialised[1]._treeDepth).toEqual(0);
       expect(initialised[2]._rowId).toBeTruthy();
+      expect(initialised[2]._treeDepth).toEqual(0);
 
-      expect(initialised[0].children[0]._rowId).toBe(undefined);
-      expect(initialised[0].children[0].children[0]._rowId).toBe(undefined);
+      expect(initialised[0].children[0]._rowId).toBe(data[0].children[0].key);
+      expect(initialised[0].children[0]._treeDepth).toEqual(1);
+      expect(initialised[0].children[0].children[0]._rowId).toBe(data[0].children[0].children[0].key);
+      expect(initialised[0].children[0].children[0]._treeDepth).toEqual(2);
     });
 
   });
@@ -69,17 +74,10 @@ describe('TreeTableUtils', () => {
       const firstChild = firstRow.children[0];
       const firstGrandChild = firstRow.children[0].children[0];
       expect(firstRow._treeDepth).toBe(0);
-      expect(firstChild._rowId).toBe(undefined);
-      expect(firstChild._treeDepth).toBe(undefined);
 
       // open the parent row
       tableState = TreeTableUtils.handleRowExpandChange(firstRow, tableState, getRowKey);
-      expect(firstChild._rowId).toBeTruthy();
-      expect(tableState.expanded[firstRow._rowId]).toBe(true);
-      expect(tableState.expanded[firstChild._rowId]).toBe(undefined);
-      expect(firstChild._treeDepth).toBe(1);
       expect(tableState.expanded[firstGrandChild._rowId]).toBe(undefined);
-      expect(firstGrandChild._treeDepth).toBe(undefined);
       expect(tableState.rows.includes(firstChild)).toBe(true);
       expect(tableState.rows.includes(firstGrandChild)).toBe(false);
       // open the child row
@@ -87,7 +85,6 @@ describe('TreeTableUtils', () => {
       expect(tableState.expanded[firstRow._rowId]).toBe(true);
       expect(tableState.expanded[firstChild._rowId]).toBe(true);
       expect(tableState.expanded[firstGrandChild._rowId]).toBe(undefined);
-      expect(firstGrandChild._treeDepth).toBe(2);
       expect(tableState.rows.includes(firstChild)).toBe(true);
       expect(tableState.rows.includes(firstGrandChild)).toBe(true);
 
