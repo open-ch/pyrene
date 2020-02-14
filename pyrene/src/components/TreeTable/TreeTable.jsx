@@ -108,6 +108,14 @@ class TreeTable extends React.Component {
     });
   }
 
+  scrollToRow = (rowId) => {
+    const { rows, expanded } = TreeTableUtils.handleExpandAllParentsOfRowById(rowId, this.state);
+    this.setState({ rows, expanded }, () => {
+      const indexToScrollTo = rows.findIndex(({ _rowId }) => _rowId === rowId);
+      this.listRef.scrollToItem(indexToScrollTo);
+    });
+  };
+
   render() {
     const { props } = this;
     const {
