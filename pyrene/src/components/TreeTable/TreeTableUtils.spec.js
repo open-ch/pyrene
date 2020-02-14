@@ -73,10 +73,11 @@ describe('TreeTableUtils', () => {
       const firstRow = rows[0];
       const firstChild = firstRow.children[0];
       const firstGrandChild = firstRow.children[0].children[0];
-      expect(firstRow._treeDepth).toBe(0);
 
       // open the parent row
       tableState = TreeTableUtils.handleRowExpandChange(firstRow, tableState, getRowKey);
+      expect(tableState.expanded[firstRow._rowId]).toBe(true);
+      expect(tableState.expanded[firstChild._rowId]).toBe(undefined);
       expect(tableState.expanded[firstGrandChild._rowId]).toBe(undefined);
       expect(tableState.rows.includes(firstChild)).toBe(true);
       expect(tableState.rows.includes(firstGrandChild)).toBe(false);
