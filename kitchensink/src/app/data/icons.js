@@ -1,4 +1,4 @@
-// VERSION: 20
+// VERSION: 28
 const icons = [
   { name: 'share', tags: ['social'] },
   { name: 'filter', tags: ['lines'] },
@@ -27,9 +27,27 @@ const icons = [
   { name: 'notifications', tags: ['notifications', 'bell', 'alert', 'support', 'sound', 'buzz', 'christmas','ringing', 'wake'] },
   { name: 'refresh', tags: ['refresh', 'repeat', 'infinity', 'infinite', 'loop', 'load', 'loading','update', 'replay', 'progress'] },
   { name: 'location', tags: ['location', 'pin', 'position', 'gps', 'map', 'place', 'marker'] },
-  { name: 'pin', tags: ['pin', 'pinning'] },
-  { name: 'zoomIn', tags: ['zoomIn', 'zoomIn'] },
-  { name: 'zoomOut', tags: ['zoomOut', 'zoomOut'] },
-
+  { name: 'pin', tags: ['pin', 'pinboard', 'pushpin', 'marker', 'place', 'push pin', 'pin board', 'board'] },
+  { name: 'play', tags: ['play', 'video', 'multimedia', 'control', 'media', 'film', 'movie'] },
+  { name: 'skip', tags: ['skip', 'next', 'forward', 'onward', 'arrow', 'proceed', 'advance', 'position'] },
+  { name: 'circle', tags: ['circle', 'dot', 'point', 'spot', 'ring', 'circular', 'round'] },
+  { name: 'zoomIn', tags: ['zoom', 'in', 'magnifying', 'loupe', 'plus'] },
+  { name: 'zoomOut', tags: ['zoom', 'out', 'magnifying', 'loupe', 'minus'] },
+  { name: 'trusted', tags: ['trusted', 'approved', 'ok', 'accept', 'selected', 'approve', 'member'] },
+  { name: 'block', tags: ['block', 'blocked', 'private', 'not', 'prevent', 'forbidden', 'banned', 'stop'] },
+  { name: 'moreHorizontal', tags: ['more', 'options', 'circles', 'dots'] },
+  { name: 'moreVertical', tags: ['more', 'options', 'circles', 'dots'] },
+  { name: 'wrench', tags: ['wrench', 'tool', 'settings', 'edit', 'building', 'adjust', 'configure', 'configuration', 'tools', 'repair', 'control'] },
+  { name: 'comment', tags: ['comment', 'communication', 'communicate', 'chat', 'talk', 'speak', 'dialog', 'message', 'messages', 'bubble', 'bubbles'] },
+  { name: 'email', tags: ['email', 'communication', 'communicate', 'mail', 'send', 'envelope', 'letter', 'mailbox', 'news', 'newsletter'] },
+  { name: 'phone', tags: ['phone', 'communication', 'call', 'talk', 'telephone'] },
+  { name: 'document', tags: ['document', 'communication', 'summary', 'text', 'note', 'report', 'page', 'paper', 'letter', 'content', 'sheet'] },
+  { name: 'server', tags: ['server', 'machine', 'host', 'rack', 'ftp', 'hosting', 'gateway', 'kermit', 'snowwhite', 'shrek'] },
+  { name: 'protection', tags: ['protection', 'security', 'safety', 'privacy', 'secure', 'shield', 'protect', 'policy', 'firewall'] },
+  { name: 'mdr', tags: ['mdr', 'nsm', 'security', 'search', 'protect', 'shield', 'privacy', 'safety', 'detection', 'response', 'malware', 'activity'] },
+  { name: 'account', tags: ['account', 'user', 'person', 'people', 'avatar', 'contact', 'profile'] },
+  { name: 'exit', tags: ['exit', 'logout', 'close', 'log', 'outside', 'out'] },
+  { name: 'sync', tags: ['sync', 'repeat', 'load', 'process', 'refresh', 'loading', 'replay', 'update', 'progress'] },
+	
 ];
 export default icons;
