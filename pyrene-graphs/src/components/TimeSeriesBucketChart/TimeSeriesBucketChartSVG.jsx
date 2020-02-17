@@ -18,39 +18,12 @@ import TimeZoomControls from '../TimeZoomControls/TimeZoomControls';
 import Tooltip from '../Tooltip/Tooltip';
 import { explicitTimeRangeFormat, timeRangeFormat } from '../../common/Formats';
 import { INDEX_VALUE, INDEX_START_TS } from '../../common/chartConstants';
+import { getCurrentBucketEndTS, getCurrentBucketIndex, getTimeFrameOfLastBucket } from './bucketUtil';
 import colorSchemes from '../../styles/colorSchemes';
 import colorConstants from '../../styles/colorConstants';
 import './timeSeriesBucketChart.css';
 
 let zoomStartX = null;
-
-const getTimeFrameOfLastBucket = (data, xScale) => {
-  if (data.length === 0) {
-    return 0;
-  }
-  if (data.length === 1) {
-    return xScale.invert(chartConstants.marginLeftNumerical + chartConstants.barWeight + chartConstants.barSpacing) - xScale.domain()[0];
-  }
-  return data[data.length - 1][INDEX_START_TS] - data[data.length - 2][INDEX_START_TS];
-};
-
-const getCurrentBucketIndex = (currentTS, lastBucketEndTS, data) => {
-  if (data.length === 1) {
-    return 0;
-  }
-  const foundIndex = data.findIndex((d) => d[INDEX_START_TS] > currentTS) - 1;
-  return foundIndex >= 0 ? foundIndex : data.length - 1;
-};
-
-const getCurrentBucketEndTS = (index, lastBucketEndTS, data) => {
-  if (data.length === 1) {
-    return lastBucketEndTS;
-  }
-  // For the last bucket, we assume the time frame is the same as the previous bucket
-  return (index !== data.length - 1)
-    ? data[index + 1][INDEX_START_TS]
-    : (data[index][INDEX_START_TS] - data[index - 1][INDEX_START_TS] + data[index][INDEX_START_TS]);
-};
 
 /**
  * Get tooltip position and data when mouse is moving over the chart.
@@ -81,21 +54,19 @@ const onMouseMove = (event, data, xScale, showTooltip, hideTooltip) => {
     return;
   }
 
-  // Hide tooltip when cursor is out of data range
+  // Show normal tooltip when it is within time range
   const lastBucketEndTS = data[data.length - 1][INDEX_START_TS] + getTimeFrameOfLastBucket(data, xScale);
-  if (currentTS > lastBucketEndTS || currentTS < data[0][INDEX_START_TS]) {
-    hideTooltip();
-    return;
-  }
-
-  // Show normal tooltip
   const currentBucketIndex = getCurrentBucketIndex(currentTS, lastBucketEndTS, data);
-  const currentBucketEndTS = getCurrentBucketEndTS(currentBucketIndex, lastBucketEndTS, data);
-  showTooltip({
-    tooltipLeft: x,
-    tooltipTop: y,
-    tooltipData: [[data[currentBucketIndex][INDEX_START_TS], currentBucketEndTS], data[currentBucketIndex][INDEX_VALUE], currentBucketIndex],
-  });
+  if (currentBucketIndex < 0) {
+    hideTooltip();
+  } else {
+    const currentBucketEndTS = getCurrentBucketEndTS(currentBucketIndex, lastBucketEndTS, data);
+    showTooltip({
+      tooltipLeft: x,
+      tooltipTop: y,
+      tooltipData: [[data[currentBucketIndex][INDEX_START_TS], currentBucketEndTS], data[currentBucketIndex][INDEX_VALUE], currentBucketIndex],
+    });
+  }
 };
 
 const onMouseDown = (event) => {
