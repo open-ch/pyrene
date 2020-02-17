@@ -16,7 +16,12 @@
 
   border-radius: 2px;
 
+  &.style-standard {
+    border: solid 1px var(--border);
+  }
+
   &.style-overlay {
+    border: solid 1px var(--border);
     margin-bottom: 8px;
   }
 
@@ -49,10 +54,6 @@
    }
 
   &.type-info {
-    &.style-standard {
-      box-shadow: 0 0 2px 0 rgba(0, 21, 44, 0.3);
-  }
-
     &.style-standard::before,
     &.style-overlay::before {
      background-color: var(--information-fg);
@@ -64,7 +65,7 @@
     }
 
     &.style-overlay {
-      box-shadow: 0 0 2px 0 rgba(0, 21, 44, 0.3), 0 4px 8px -2px rgba(0, 21, 44, 0.2);
+      box-shadow: 0 0 0 0 rgba(0, 21, 44, 0.3), 0 2px 8px -2px rgba(0, 21, 44, 0.2);
     }
 
     & .bannerIcon {
@@ -73,10 +74,6 @@
   }
 
   &.type-success {
-    &.style-standard {
-       box-shadow: 0 0 2px 0 rgba(0, 21, 44, 0.3);
-    }
-
     &.style-standard::before,
     &.style-overlay::before{
        background-color: var(--ok-fg);
@@ -88,7 +85,7 @@
     }
 
     &.style-overlay {
-      box-shadow: 0 0 2px 0 rgba(0, 21, 44, 0.3), 0 4px 8px -2px rgba(0, 21, 44, 0.2);
+       box-shadow: 0 0 0 0 rgba(0, 21, 44, 0.3), 0 2px 8px -2px rgba(0, 21, 44, 0.2);
     }
 
     & .bannerIcon {
@@ -97,10 +94,6 @@
   }
 
   &.type-error {
-    &.style-standard {
-       box-shadow: 0 0 2px 0 rgba(0, 21, 44, 0.3);
-    }
-
     &.style-standard::before,
     &.style-overlay::before{
        background-color: var(--danger-fg);
@@ -112,7 +105,7 @@
     }
 
     &.style-overlay {
-      box-shadow: 0 0 2px 0 rgba(0, 21, 44, 0.3), 0 4px 8px -2px rgba(0, 21, 44, 0.2);
+       box-shadow: 0 0 0 0 rgba(0, 21, 44, 0.3), 0 2px 8px -2px rgba(0, 21, 44, 0.2);
     }
 
     & .bannerIcon {
@@ -121,10 +114,6 @@
   }
 
   &.type-warning {
-    &.style-standard {
-       box-shadow: 0 0 2px 0 rgba(0, 21, 44, 0.3);
-    }
-
     &.style-standard::before,
     &.style-overlay::before  {
        background-color: var(--warning-fg);
@@ -136,7 +125,7 @@
     }
 
     &.style-overlay {
-      box-shadow: 0 0 2px 0 rgba(0, 21, 44, 0.3), 0 4px 8px -2px rgba(0, 21, 44, 0.2);
+       box-shadow: 0 0 0 0 rgba(0, 21, 44, 0.3), 0 2px 8px -2px rgba(0, 21, 44, 0.2);
     }
 
     & .bannerIcon {
