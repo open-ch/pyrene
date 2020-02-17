@@ -121,7 +121,7 @@ describe('<TimeSeriesBucketChart />', () => {
     // Zoomable component
     const dragArea = rendered.find('.dragArea');
     expect(dragArea).toHaveLength(1);
-    dragArea.simulate('mouseenter').simulate('mouseup');
+    dragArea.simulate('mouseover').simulate('mouseup');
     expect(zoom.onZoom).toHaveBeenCalledTimes(3);
   });
 
