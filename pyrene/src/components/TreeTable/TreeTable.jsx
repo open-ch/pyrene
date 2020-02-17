@@ -191,14 +191,15 @@ class TreeTable extends React.Component {
         <div style={style} key={rowKey}>
           <TreeTableRow
             style={style}
+            key={rowKey}
             index={index}
             data={rowData}
             parent={rowData.children ? rowData.children.length > 0 : false}
+            highlighted={props.highlightedRowId === rowKey}
             // eslint-disable-next-line no-underscore-dangle
             level={rowData._treeDepth}
             isExpanded={expanded[rowKey] || false}
             columns={columns}
-            key={rowKey}
             onRowDoubleClick={props.onRowDoubleClick}
             expandOnParentRowClick={props.expandOnParentRowClick}
             onExpand={onExpandRow}
@@ -266,6 +267,7 @@ TreeTable.defaultProps = {
   filterValues: {},
   title: '',
   height: 300,
+  highlightedRowId: null,
   loading: false,
   toggleColumns: true,
   onRowDoubleClick: null,
@@ -311,6 +313,10 @@ TreeTable.propTypes = {
    * Sets the height for the table. This is only needed when the virtualized prop is true.
    */
   height: PropTypes.number,
+  /**
+   * Highlights a rule in the table. Should be the same value that is calculated by using the `setUniqueRowKey` method.
+   */
+  highlightedRowId: PropTypes.string,
   /**
    * Disables the component and displays a loader inside of it.
    */
