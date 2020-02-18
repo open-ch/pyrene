@@ -144,68 +144,66 @@
 .button {
   border: none !important;
 
-  &:hover {
-    & .label {
-      color: inherit !important;
-    }
-  }
-
-  & .label, & .icon {
+&:hover {
+& .label {
     color: inherit !important;
   }
+}
 
-  &.type-primary {
-    background-color: var(--primary) !important;
-    color: var(--neutral-000) !important;
+& .label, & .icon {
+              color: inherit !important;
+            }
 
-    &:hover {
-      background-color: var(--primary-dark) !important;
-    }
-  }
+&.type-primary {
+   background-color: var(--primary) !important;
+   color: var(--neutral-000) !important;
 
-  &.type-secondary {
-    background-color: var(--secondary) !important;
-    color: var(--neutral-300) !important;
+&:hover {
+   background-color: var(--primary-dark) !important;
+ }
+}
 
-    &:hover {
-      background-color: var(--secondary-dark) !important;
-    }
-  }
+&.type-secondary {
+   background-color: var(--secondary) !important;
+   color: var(--neutral-300) !important;
 
-  &.type-danger {
-    background-color: var(--danger-fg) !important;
-    color: var(--neutral-000) !important;
+&:hover {
+   background-color: var(--secondary-dark) !important;
+ }
+}
 
-    &:hover {
-      background-color: var(--danger-dark) !important;
-    }
-  }
+&.type-danger {
+   background-color: var(--danger-fg) !important;
+   color: var(--neutral-000) !important;
 
   &.type-ghost {
     background-color: transparent !important;
     color: var(--primary) !important;
 
-    &:hover {
-      background-color: var(--secondary) !important;
-    }
-  }
+&.type-ghost {
+   background-color: var(--background-light) !important;
+   color: var(--primary) !important;
 
   &.type-action {
     background-color: transparent !important;
     color: var(--primary) !important;
 
-    &:hover {
-      background-color: var(--secondary) !important;
-    }
-  }
+&.type-action {
+   background-color: var(--background-light) !important;
+   color: var(--primary) !important;
 
-  &.type-admin {
-    background-color: transparent !important;
-    color: var(--admin-fg) !important;
+&:hover {
+   background-color: var(--secondary) !important;
+ }
+}
 
-    &:hover {
-      background-color: var(--admin-bg) !important;
-    }
-  }
+&.type-admin {
+   background-color: transparent !important;
+   color: var(--admin-fg) !important;
+
+&:hover {
+   background-color: var(--admin-bg) !important;
+ }
+}
 
 }
