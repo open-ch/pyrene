@@ -1,6 +1,6 @@
 import React from 'react';
 import CategoricalAxis from './CategoricalAxis';
-import { scaleLabels } from '../../common/scaleUtils';
+import { scaleLabels } from '../../common/ScaleUtils';
 
 const parentSize = { width: 50, height: 40 };
 

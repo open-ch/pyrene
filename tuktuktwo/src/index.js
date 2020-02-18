@@ -57,6 +57,6 @@ export {
   scaleTime,
   scaleValueAxis,
   scaleValueInBounds,
-} from './common/scaleUtils';
+} from './common/ScaleUtils';
 
 export default Components;
