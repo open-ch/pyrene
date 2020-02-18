@@ -5,11 +5,11 @@
   display: inline-block;
 
   & .loader {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
 }
 
 .button {
@@ -25,185 +25,187 @@
   cursor: pointer;
 
   &:focus {
-    outline: 0;
-  }
+     outline: 0;
+   }
 
   & .label {
-    font-size: 13px;
-    line-height: 18px;
-    letter-spacing: 0.3px;
-    display: inline-block;
-    font-weight: 600;
-  }
+      font-size: 13px;
+      line-height: 18px;
+      letter-spacing: 0.3px;
+      display: inline-block;
+      font-weight: 600;
+    }
 
   &.loading {
     & .label, & .icon {
-      visibility: hidden;
-    }
+                visibility: hidden;
+              }
 
     opacity: 0.5;
     pointer-events: none;
   }
 
   & .icon {
-    font-size: 16px;
-    margin-right: 4px;
-    width: 16px;
-    height: 16px;
-    display: inline-block;
-  }
+      font-size: 16px;
+      margin-right: 4px;
+      width: 16px;
+      height: 16px;
+      display: inline-block;
+    }
 
   &.disabled {
-    opacity: .5;
-    cursor: default;
-    pointer-events: none;
-    /* deactivate hover */
-  }
+     opacity: .5;
+     cursor: default;
+     pointer-events: none;
+     /* deactivate hover */
+   }
 
   &.type-primary {
-    background-color: var(--primary);
-    color: var(--neutral-000);
+     background-color: var(--primary);
+     color: var(--neutral-000);
 
-    &:hover {
-      background-color: var(--primary-dark);
-    }
+  &:hover {
+     background-color: var(--primary-dark);
+   }
+}
+
+&.type-secondary {
+   background-color: var(--secondary);
+   color: var(--neutral-300);
+
+&:hover {
+   background-color: var(--secondary-dark);
+ }
+}
+
+&.type-danger {
+   background-color: var(--danger-fg);
+   color: var(--neutral-000);
+
+&:hover {
+   background-color: var(--danger-dark);
+ }
+}
+
+&.type-ghost {
+   background-color: transparent;
+   color: var(--primary);
+
+&:hover {
+   background-color: var(--secondary);
+ }
+}
+
+&.type-action {
+   height: 32px;
+   padding: 0 8px;
+   background-color: transparent;
+   color: var(--primary);
+
+&:hover {
+   background-color: var(--secondary);
+ }
+}
+
+&.type-admin {
+   height: 24px;
+   padding: 0 8px;
+
+   background-color: transparent;
+   color: var(--admin-fg);
+
+   /* Box-shadow used as border messes up the layout. ! 0px border needed so box-shadow gets displayed! */
+   border: solid 0;
+   box-shadow:
+       inset 1px 0 0 0,
+       inset -1px 0 0 0,
+       inset 0 1px 0 0,
+       inset 0 -1px 0 0;
+
+&:hover {
+   background-color: var(--admin-bg);
+ }
+
+& .label {
+    padding-top: 4px;
+    padding-bottom: 3px;
   }
+}
 
-  &.type-secondary {
-    background-color: var(--secondary);
-    color: var(--neutral-300);
-
-    &:hover {
-      background-color: var(--secondary-dark);
-    }
-  }
-
-  &.type-danger {
-    background-color: var(--danger-fg);
-    color: var(--neutral-000);
-
-    &:hover {
-      background-color: var(--danger-dark);
-    }
-  }
-
-  &.type-ghost {
-    background-color: transparent;
-    color: var(--primary);
-
-    &:hover {
-      background-color: var(--secondary);
-    }
-  }
-
-  &.type-action {
-    height: 32px;
-    padding: 0 8px;
-    background-color: transparent;
-    color: var(--primary);
-
-    &:hover {
-      background-color: var(--secondary);
-    }
-  }
-
-  &.type-admin {
-    height: 24px;
-    padding: 0 8px;
-
-    background-color: transparent;
-    color: var(--admin-fg);
-
-    /* Box-shadow used as border messes up the layout. ! 0px border needed so box-shadow gets displayed! */
-    border: solid 0;
-    box-shadow:
-      inset 1px 0 0 0,
-      inset -1px 0 0 0,
-      inset 0 1px 0 0,
-      inset 0 -1px 0 0;
-
-    &:hover {
-      background-color: var(--admin-bg);
-    }
-
-    & .label {
-        padding-top: 4px;
-        padding-bottom: 3px;
-      }
-  }
-
-  &.type-action .label, &.type-admin .label {
-    font-size: 12px;
-    font-weight: 500;
-    letter-spacing: 0.2px;
-    line-height: 17px;
-  }
+&.type-action .label, &.type-admin .label {
+                         font-size: 12px;
+                         font-weight: 500;
+                         letter-spacing: 0.2px;
+                         line-height: 17px;
+                       }
 }
 
 /* mc.css overrides */
 .button {
   border: none !important;
 
-&:hover {
-& .label {
-    color: inherit !important;
+  &:hover {
+  & .label {
+      color: inherit !important;
+    }
   }
-}
 
-& .label, & .icon {
-              color: inherit !important;
-            }
+  & .label, & .icon {
+                color: inherit !important;
+              }
 
-&.type-primary {
-   background-color: var(--primary) !important;
-   color: var(--neutral-000) !important;
+  &.type-primary {
+     background-color: var(--primary) !important;
+     color: var(--neutral-000) !important;
 
-&:hover {
-   background-color: var(--primary-dark) !important;
- }
-}
+  &:hover {
+     background-color: var(--primary-dark) !important;
+   }
+  }
 
-&.type-secondary {
-   background-color: var(--secondary) !important;
-   color: var(--neutral-300) !important;
+  &.type-secondary {
+     background-color: var(--secondary) !important;
+     color: var(--neutral-300) !important;
 
-&:hover {
-   background-color: var(--secondary-dark) !important;
- }
-}
+  &:hover {
+     background-color: var(--secondary-dark) !important;
+   }
+  }
 
-&.type-danger {
-   background-color: var(--danger-fg) !important;
-   color: var(--neutral-000) !important;
+  &.type-danger {
+     background-color: var(--danger-fg) !important;
+     color: var(--neutral-000) !important;
+
+  &:hover {
+     background-color: var(--danger-dark) !important;
+   }
+  }
 
   &.type-ghost {
-    background-color: transparent !important;
-    color: var(--primary) !important;
+     background-color: transparent !important;
+     color: var(--primary) !important;
 
-&.type-ghost {
-   background-color: var(--background-light) !important;
-   color: var(--primary) !important;
+  &:hover {
+     background-color: var(--secondary) !important;
+   }
+  }
 
   &.type-action {
-    background-color: transparent !important;
-    color: var(--primary) !important;
+     background-color: transparent !important;
+     color: var(--primary) !important;
 
-&.type-action {
-   background-color: var(--background-light) !important;
-   color: var(--primary) !important;
+  &:hover {
+     background-color: var(--secondary) !important;
+   }
+  }
 
-&:hover {
-   background-color: var(--secondary) !important;
- }
-}
+  &.type-admin {
+     background-color: transparent !important;
+     color: var(--admin-fg) !important;
 
-&.type-admin {
-   background-color: transparent !important;
-   color: var(--admin-fg) !important;
-
-&:hover {
-   background-color: var(--admin-bg) !important;
- }
-}
+  &:hover {
+     background-color: var(--admin-bg) !important;
+   }
+  }
 
 }
