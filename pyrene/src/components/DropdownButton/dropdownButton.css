@@ -1,9 +1,108 @@
-.labelWrapper {
+@import '../../styles/colors.css';
+
+.buttonContainer {
+  position: relative;
+  display: inline-block;
+}
+
+.buttonContainer.loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.button {
+  composes: commonFontSettings from '../../styles/common.css';
+
+  box-sizing: border-box;
+  border-radius: 2px;
+  border: none;
   display: flex;
   align-items: center;
+
+  cursor: pointer;
+
+  height: 32px;
+  padding: 0 8px;
+  background-color: var(--background-light);
+  color: var(--primary);
+}
+
+.button:focus {
+  outline: 0;
+}
+
+.button:hover,
+.openedDropdown {
+  background-color: var(--secondary);
+}
+
+
+.label {
+
+  display: flex;
+  align-items: center;
+  line-height: 18px;
+  padding-top: 8px;
+  padding-bottom: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: normal;
+  text-transform: capitalize;
+
+}
+
+.button.loading {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.loading.label,
+.loading.icon {
+  visibility: hidden;
+}
+
+.icon, .arrow {
+   font-size: 16px;
+   width: 16px;
+   height: 16px;
+   display: inline-block;
+}
+
+.arrow {
+  margin-left: 2px;
 }
 
 .icon {
-  font-size: 16px;
-  padding-left: 2px;
+  margin-right: 4px;
+}
+
+.button.disabled {
+  opacity: .5;
+  cursor: default;
+  pointer-events: none;
+  /* deactivate hover */
+}
+
+/* mc.css overrides */
+.button {
+  border: none !important;
+  background-color: var(--background-light) !important;
+  color: var(--primary) !important;
+
+}
+
+.button:hover,
+.openedDropdown {
+  background-color: var(--secondary) !important;
+}
+
+.button:hover.label {
+
+  color: inherit !important;
+}
+
+.button.label, .button.icon {
+  color: inherit !important;
 }
