@@ -84,3 +84,25 @@
   pointer-events: none;
   /* deactivate hover */
 }
+
+/* mc.css overrides */
+.button {
+  border: none !important;
+  background-color: var(--background-light) !important;
+  color: var(--primary) !important;
+
+}
+
+.button:hover,
+.openedDropdown {
+  background-color: var(--secondary) !important;
+}
+
+.button:hover.label {
+
+  color: inherit !important;
+}
+
+.button.label, .button.icon {
+  color: inherit !important;
+}

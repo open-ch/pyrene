@@ -58,3 +58,32 @@
     pointer-events: none;
   }
 }
+
+/* mc.css overrides */
+.stepper {
+
+&.type-bordered {
+
+& .icon {
+    color: var(--neutral-500) !important;
+  }
+
+&:hover, &:active {
+            border-color: var(--primary) !important;
+            background-color: var(--background-light) !important;
+          }
+
+}
+
+&.type-minimal {
+& .icon {
+    color: var(--neutral-500) !important;
+  }
+
+&:hover, &:active {
+            background-color: var(--secondary) !important;
+            border: none !important;
+          }
+}
+
+}
