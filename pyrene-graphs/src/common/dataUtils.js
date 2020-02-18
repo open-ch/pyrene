@@ -15,7 +15,7 @@ export const getMaxValueForTimeRangeBucket = (data, from, to) => {
   const startTSSeries = data.data.map((d) => d[INDEX_START_TS]);
   const firstIndexInTimeRange = startTSSeries.findIndex((t, i) => {
     if (i === startTSSeries.length - 1) {
-      return t <= from;
+      return t >= from;
     }
     return startTSSeries[i + 1] >= from && t <= to;
   });

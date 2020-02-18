@@ -18,6 +18,7 @@ import TimeZoomControls from '../TimeZoomControls/TimeZoomControls';
 import Tooltip from '../Tooltip/Tooltip';
 import { explicitTimeRangeFormat, timeRangeFormat } from '../../common/Formats';
 import { INDEX_VALUE, INDEX_START_TS } from '../../common/chartConstants';
+import { getCurrentBucketEndTS, getCurrentBucketIndex, getTimeFrameOfLastBucket } from './bucketUtil';
 import colorSchemes from '../../styles/colorSchemes';
 import colorConstants from '../../styles/colorConstants';
 import './timeSeriesBucketChart.css';
@@ -33,6 +34,12 @@ let zoomStartX = null;
  * @param {function}hideTooltip - The function that hides the tooltip
  */
 const onMouseMove = (event, data, xScale, showTooltip, hideTooltip) => {
+  // Immediately hide tooltip and return when there's no data
+  if (!data || data.length === 0) {
+    hideTooltip();
+    return;
+  }
+
   const { x, y } = localPoint(event.target.ownerSVGElement, event);
   const currentTS = xScale.invert(x).valueOf();
 
@@ -47,31 +54,19 @@ const onMouseMove = (event, data, xScale, showTooltip, hideTooltip) => {
     return;
   }
 
-  // No tooltip when there's no bucket
-  if (data.length === 0) {
+  // Show normal tooltip when it is within time range
+  const lastBucketEndTS = data[data.length - 1][INDEX_START_TS] + getTimeFrameOfLastBucket(data, xScale);
+  const currentBucketIndex = getCurrentBucketIndex(currentTS, lastBucketEndTS, data);
+  if (currentBucketIndex < 0) {
     hideTooltip();
-    return;
+  } else {
+    const currentBucketEndTS = getCurrentBucketEndTS(currentBucketIndex, lastBucketEndTS, data);
+    showTooltip({
+      tooltipLeft: x,
+      tooltipTop: y,
+      tooltipData: [[data[currentBucketIndex][INDEX_START_TS], currentBucketEndTS], data[currentBucketIndex][INDEX_VALUE], currentBucketIndex],
+    });
   }
-
-  // Hide tooltip if current cursor position is beyond the range of first and last bucket
-  const lastTS = data[data.length - 1][INDEX_START_TS] + (xScale.invert(chartConstants.marginLeftNumerical + chartConstants.barWeight + chartConstants.barSpacing) - xScale.domain()[0]); // lastTS should also cover the 10px last bucket
-  if (currentTS > lastTS || currentTS < data[0][INDEX_START_TS]) {
-    hideTooltip();
-    return;
-  }
-
-  // Show normal tooltip
-  // localPoint enables us to have the real-time x-coordinate of the mouse; by using the scale function on the x-coordinate we get a corresponding timestamp;
-  // then, we go through the data series to find the first element with a startTS that's bigger than that timestamp, the element before it is the one that is being hovered on
-  const foundIndex = data.findIndex((d) => d[INDEX_START_TS] > currentTS) - 1;
-  const index = foundIndex >= 0 ? foundIndex : data.length - 1;
-  // endTS is the startTS of next bucket; if the current element is the last in the data series, there is no endTS
-  const endTS = (index !== data.length - 1) ? data[index + 1][INDEX_START_TS] : null;
-  showTooltip({
-    tooltipLeft: x,
-    tooltipTop: y,
-    tooltipData: [[data[index][INDEX_START_TS], endTS], data[index][INDEX_VALUE], index],
-  });
 };
 
 const onMouseDown = (event) => {
