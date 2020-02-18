@@ -28,7 +28,7 @@ npm install
 
 ## Update Pyrene
 
-- `npm update pyrene@1.8.1`
+- `npm install -E pyrene@1.8.1`
 
 ## Release
 
