@@ -60,6 +60,7 @@ class Form extends React.Component {
     const groupedErrors = errors.inner.map((validationError) => ({ [validationError.path.split(/\[|\./)[0]]: validationError.errors })).reduce((acc, obj) => {
       Object.keys(obj).forEach((k) => {
         acc[k] = (acc[k] || []).concat(obj[k]);
+        acc[k] = acc[k].filter((d, i) => acc[k].indexOf(d) === i);
       });
       return acc;
     }, {});
@@ -71,7 +72,6 @@ class Form extends React.Component {
 
     return flatGroupedErrors;
   };
-
 
   handleSubmit = (event) => {
     event.preventDefault();
@@ -105,6 +105,11 @@ class Form extends React.Component {
   };
 
   handleInputChange = (value, key, type) => {
+    if (this.props.validateOnFirstTouch) {
+      this.setState((prevState) => ({
+        touched: { ...prevState.touched, [key]: true },
+      }));
+    }
 
     const newValue = this.getValueFromInput(value, key, type);
 
@@ -138,7 +143,7 @@ class Form extends React.Component {
       case 'multiSelect': {
         const selectedOptions = value;
         const multiSelectName = key;
-        return selectedOptions.map((selectedOption) => (
+        return (!selectedOptions || selectedOptions.length === 0) ? [] : selectedOptions.map((selectedOption) => (
           { value: selectedOption.value, label: selectedOption.label, invalid: this.validateMultiSelectOption(multiSelectName, selectedOption) }
         ));
       }
@@ -193,6 +198,7 @@ Form.defaultProps = {
   onSubmit: () => {},
   validationSchema: null,
   initialValues: {},
+  validateOnFirstTouch: false,
 };
 
 Form.propTypes = {
@@ -200,6 +206,7 @@ Form.propTypes = {
   onChange: PropTypes.func,
   onSubmit: PropTypes.func,
   render: PropTypes.func.isRequired,
+  validateOnFirstTouch: PropTypes.bool,
   validationSchema: PropTypes.object, // eslint-disable-line react/forbid-prop-types
 };
 
