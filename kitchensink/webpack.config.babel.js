@@ -14,6 +14,10 @@ const config = {
   mode: production ? 'production' : 'development',
   resolve: {
     extensions: ['.js', '.jsx'],
+    alias: {
+      react: require.resolve('react'),
+      'react-dom': require.resolve('react-dom'),
+    },
   },
   output: {
     publicPath: '/',
