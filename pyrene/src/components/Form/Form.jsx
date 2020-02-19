@@ -141,9 +141,9 @@ class Form extends React.Component {
   getValueFromInput = (value, key, type) => {
     switch (type) {
       case 'multiSelect': {
-        const selectedOptions = value;
+        const selectedOptions = value || [];
         const multiSelectName = key;
-        return (!selectedOptions || selectedOptions.length === 0) ? [] : selectedOptions.map((selectedOption) => (
+        return selectedOptions.map((selectedOption) => (
           { value: selectedOption.value, label: selectedOption.label, invalid: this.validateMultiSelectOption(multiSelectName, selectedOption) }
         ));
       }
