@@ -40,9 +40,10 @@ const SimpleTable = (props) => (
       <tbody styleName="tableBody">
         {!props.loading && props.data && props.data.length > 0 && props.data.map((row, rowIndex) => (
           <tr
-            styleName={classNames('tableRow', props.onRowDoubleClick ? 'tableRowWithFunction' : '')}
+            styleName={classNames('tableRow', (props.onRowClick || props.onRowDoubleClick) ? 'tableRowWithFunction' : '')}
             key={Object.values(row)}
             onDoubleClick={() => (props.onRowDoubleClick ? props.onRowDoubleClick(row) : null)}
+            onClick={() => (props.onRowClick ? props.onRowClick(row) : null)}
           >
             {props.columns.length > 0 && props.columns.map((column, columnIndex) => {
               const valueRow = row;
@@ -92,6 +93,7 @@ SimpleTable.displayName = 'Simple Table';
 SimpleTable.defaultProps = {
   actions: [],
   loading: false,
+  onRowClick: null,
   onRowDoubleClick: null,
 };
 
@@ -126,6 +128,12 @@ SimpleTable.propTypes = {
    * Disables the component and displays a loader inside of it.
    */
   loading: PropTypes.bool,
+
+  /**
+   * Called when the user clicks on a row.
+   */
+  onRowClick: PropTypes.func,
+
   /**
    * Called when the user double clicks on a row.
    */
