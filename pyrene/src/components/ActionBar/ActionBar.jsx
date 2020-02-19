@@ -21,14 +21,14 @@ const ActionBar = (props) => (props.actions.length ? (
     ) : props.actions.map((action, index) => {
       const isSvgIcon = action.svg && action.svg.length > 0;
       const iconComponent = (
-        <div styleName={classNames('iconBox', { disabled: !action.active })} onClick={action.active ? action.onClick : () => {}}>
+        <div styleName={classNames('iconBox', { disabled: !action.active || props.disabled })} onClick={action.active && !props.disabled ? action.onClick : () => {}}>
           {isSvgIcon ? <Icon color={action.color} svg={action.svg} type="inline" /> : <Icon color={action.color} name={action.iconName} type="inline" />}
         </div>
       );
 
       return (
         <div key={isSvgIcon ? action.svg : action.iconName} styleName="borderContainer">
-          {action.tooltip ? <Tooltip preferredPosition={['top', 'bottom']} label={action.tooltip}>{iconComponent}</Tooltip> : iconComponent}
+          { (action.tooltip && !props.disabled) ? <Tooltip preferredPosition={['top', 'bottom']} label={action.tooltip}>{iconComponent}</Tooltip> : iconComponent}
           {index < props.actions.length - 1 && <div styleName="border" />}
         </div>
       );
@@ -39,6 +39,7 @@ const ActionBar = (props) => (props.actions.length ? (
 ActionBar.displayName = 'Action Bar';
 
 ActionBar.defaultProps = {
+  disabled: false,
   styling: 'shadow',
   loading: false,
 };
@@ -73,6 +74,10 @@ ActionBar.propTypes = {
      */
     tooltip: PropTypes.string,
   })).isRequired,
+  /**
+   * Disabling all actions - no tooltip, no onClick and opacity 50%
+   * */
+  disabled: PropTypes.bool,
   /**
    * Loading state
    */
