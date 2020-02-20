@@ -141,7 +141,6 @@ export default class TreeTableUtils {
     return null;
   }
 
-  // TODO: RowID or callback to check if is row to be opened
   static handleExpandAllParentsOfRowById(rowId, tableState) {
     const {
       rows,
