@@ -13,7 +13,7 @@ import './actionBar.css';
  * An icon can be either an icon font or an svg icon
  */
 const ActionBar = (props) => (props.actions.length ? (
-  <div styleName={classNames('container', props.styling === 'none' ? '' : `box-${props.styling}`)}>
+  <div styleName={classNames('container', props.disabled && !props.loading ? 'disabled' : '', props.styling === 'none' ? '' : `box-${props.styling}`)}>
     { props.loading ? (
       <div styleName="loaderBox" style={{ height: 32, width: props.actions.length * 33 - 1 }}>
         <Loader type="inline" />
@@ -21,14 +21,14 @@ const ActionBar = (props) => (props.actions.length ? (
     ) : props.actions.map((action, index) => {
       const isSvgIcon = action.svg && action.svg.length > 0;
       const iconComponent = (
-        <div styleName={classNames('iconBox', { disabled: !action.active || props.disabled })} onClick={action.active && !props.disabled ? action.onClick : () => {}}>
+        <div styleName={classNames('iconBox', { disabled: !action.active })} onClick={action.active ? action.onClick : () => {}}>
           {isSvgIcon ? <Icon color={action.color} svg={action.svg} type="inline" /> : <Icon color={action.color} name={action.iconName} type="inline" />}
         </div>
       );
 
       return (
         <div key={isSvgIcon ? action.svg : action.iconName} styleName="borderContainer">
-          { (action.tooltip && !props.disabled) ? <Tooltip preferredPosition={['top', 'bottom']} label={action.tooltip}>{iconComponent}</Tooltip> : iconComponent}
+          {action.tooltip && action.active ? <Tooltip preferredPosition={['top', 'bottom']} label={action.tooltip}>{iconComponent}</Tooltip> : iconComponent}
           {index < props.actions.length - 1 && <div styleName="border" />}
         </div>
       );
