@@ -128,12 +128,10 @@ SimpleTable.propTypes = {
    * Disables the component and displays a loader inside of it.
    */
   loading: PropTypes.bool,
-
   /**
    * Called when the user clicks on a row.
    */
   onRowClick: PropTypes.func,
-
   /**
    * Called when the user double clicks on a row.
    */
