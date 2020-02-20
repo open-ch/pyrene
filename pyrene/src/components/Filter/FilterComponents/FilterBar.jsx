@@ -97,7 +97,7 @@ export default class FilterBar extends React.Component {
 
 
   getFilterTags() {
-    const { filterValues } = this.props;
+    const { filterValues, negatedFilters } = this.props;
 
     if (filterValues) {
 
@@ -109,14 +109,16 @@ export default class FilterBar extends React.Component {
           return null;
         }
 
+        const isFilterNegated = negatedFilters.contains(key);
+
         switch (filter.type) {
           case 'text':
-            return <FilterTag key={filter.id} filterLabel={filter.label} filterText={value} onClose={() => this.onFilterTagClose(filter)} />;
+            return <FilterTag key={filter.id} filterLabel={filter.label} filterText={value} negated={isFilterNegated} onClose={() => this.onFilterTagClose(filter)} />;
           case 'singleSelect':
-            return <FilterTag key={filter.id} filterLabel={filter.label} filterText={value.label} onClose={() => this.onFilterTagClose(filter)} />;
+            return <FilterTag key={filter.id} filterLabel={filter.label} filterText={value.label} negated={isFilterNegated} onClose={() => this.onFilterTagClose(filter)} />;
           case 'multiSelect':
             if (value.length > 0) {
-              return <FilterTag key={filter.id} filterLabel={filter.label} filterText={value.map((option) => option.label).join('; ')} onClose={() => this.onFilterTagClose(filter)} />;
+              return <FilterTag key={filter.id} filterLabel={filter.label} filterText={value.map((option) => option.label).join('; ')} negated={isFilterNegated} onClose={() => this.onFilterTagClose(filter)} />;
             }
             break;
           default:
@@ -169,6 +171,7 @@ FilterBar.displayName = 'FilterBar';
 
 FilterBar.defaultProps = {
   onFilterSubmit: () => null,
+  negatedFilters: [],
 };
 
 FilterBar.propTypes = {
@@ -192,6 +195,10 @@ FilterBar.propTypes = {
    * Filter values object.
    * */
   filterValues: PropTypes.shape().isRequired,
+  /**
+   * Keys of the negated filters
+   */
+  negatedFilters: PropTypes.arrayOf(PropTypes.string),
   /**
    * Called when the user clicks on the apply button. Contains all the filter information as its argument.
    */

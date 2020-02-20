@@ -32,6 +32,7 @@ Filter.defaultProps = {
   onFilterSubmit: () => null,
   disabled: false,
   filters: undefined,
+  negatedFilters: [],
 };
 
 Filter.propTypes = {
@@ -63,6 +64,10 @@ Filter.propTypes = {
    * use {} for passing empty filterValues
    * */
   filterValues: PropTypes.shape().isRequired,
+  /**
+   * Wheter the filter should be negated or not
+   */
+  negatedFilters: PropTypes.arrayOf(PropTypes.string),
   /**
    * Called when the user clicks on the apply button. Contains all the filter information as its argument.
    */
