@@ -56,7 +56,7 @@ export default class FilterBar extends React.Component {
         if (!negatedFilters.includes(key)) {
           negatedFilters.push(key);
         }
-      } else if (!negatedFilters.includes(key)) {
+      } else if (negatedFilters.includes(key)) {
         negatedFilters = negatedFilters.filter((current) => current !== key);
       }
       return {
