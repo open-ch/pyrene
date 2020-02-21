@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import Icon from '../Icon/Icon';
 import Loader from '../Loader/Loader';
 import Tooltip from '../Tooltip/Tooltip';
+import ArrowPopover from '../ArrowPopover/ArrowPopover';
 import './actionBar.css';
 
 /**
@@ -21,14 +22,20 @@ const ActionBar = (props) => (props.actions.length ? (
     ) : props.actions.map((action, index) => {
       const isSvgIcon = action.svg && action.svg.length > 0;
       const iconComponent = (
-        <div styleName={classNames('iconBox', { disabled: !action.active })} onClick={action.active ? action.onClick : () => {}}>
+        <div styleName={classNames('iconBox', { disabled: !action.active })} onClick={action.popover ? null : action.onClick}>
           {isSvgIcon ? <Icon color={action.color} svg={action.svg} type="inline" /> : <Icon color={action.color} name={action.iconName} type="inline" />}
         </div>
       );
 
+      const actionComponent = action.popover ? (
+        <ArrowPopover key={isSvgIcon ? action.svg : action.iconName} popoverContent={action.popover}>
+          {iconComponent}
+        </ArrowPopover>
+      ) : iconComponent;
+
       return (
         <div key={isSvgIcon ? action.svg : action.iconName} styleName="borderContainer">
-          {action.tooltip ? <Tooltip preferredPosition={['top', 'bottom']} label={action.tooltip}>{iconComponent}</Tooltip> : iconComponent}
+          {action.tooltip ? <Tooltip preferredPosition={['top', 'bottom']} label={action.tooltip}>{actionComponent}</Tooltip> : actionComponent}
           {index < props.actions.length - 1 && <div styleName="border" />}
         </div>
       );
@@ -64,6 +71,10 @@ ActionBar.propTypes = {
      * Function called when user clicks the icon.
      */
     onClick: PropTypes.func,
+    /**
+     * Popover content
+     */
+    popover: PropTypes.any,
     /**
      * The type of icon.
      */

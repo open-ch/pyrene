@@ -1,0 +1,21 @@
+@import '../../styles/colors.css';
+
+.arrowPopover {
+  composes: commonFontSettings from '../../styles/common.css';
+}
+
+.popover {
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+}
+
+.triangle {
+    background-color: white;
+    box-shadow: 5px 4px 8px -2px rgba(0, 21, 44, 0.2);
+    width: 20px;
+    height: 20px;
+
+    -webkit-transform: translateY(10px) rotate(45deg);
+}
