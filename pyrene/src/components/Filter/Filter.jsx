@@ -7,7 +7,7 @@ import './Filter.css';
 export default class Filter extends React.PureComponent {
 
   render() {
-    const { disabled, filters, onFilterSubmit } = this.props;
+    const { disabled, filters, onFilterSubmit, negatedFilters } = this.props;
 
     if (disabled) {
       return (
@@ -18,7 +18,7 @@ export default class Filter extends React.PureComponent {
     }
 
     if (filters && filters.length > 0 && disabled === false) {
-      return <FilterBar filters={filters} onFilterSubmit={onFilterSubmit} filterValues={this.props.filterValues} />;
+      return <FilterBar filters={filters} onFilterSubmit={onFilterSubmit} filterValues={this.props.filterValues} negatedFilters={negatedFilters.split(',')} />;
     }
 
     return null;
@@ -65,9 +65,9 @@ Filter.propTypes = {
    * */
   filterValues: PropTypes.shape().isRequired,
   /**
-   * Wheter the filter should be negated or not
+   * Comma separated value string of the filter keys that should be negated or not
    */
-  negatedFilters: PropTypes.arrayOf(PropTypes.string),
+  negatedFilters: PropTypes.string,
   /**
    * Called when the user clicks on the apply button. Contains all the filter information as its argument.
    */

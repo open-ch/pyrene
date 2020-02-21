@@ -35,23 +35,35 @@ export default class FilterBar extends React.Component {
     this.state = {
       displayFilterPopover: false,
       unAppliedValues: props.filterValues,
+      unAppliedNegatedFilters: props.negatedFilters,
     };
   }
 
   // eslint-disable-next-line react/sort-comp
   toggleFilterPopover = () => {
     if (!this.state.displayFilterPopover) {
-      this.setState({ unAppliedValues: this.props.filterValues });
+      this.setState({ unAppliedValues: this.props.filterValues, unAppliedNegatedFilters: this.props.negatedFilters });
     }
     this.setState((prevState) => ({
       displayFilterPopover: !prevState.displayFilterPopover,
     }));
   };
 
-  filterDidChange = (value, key) => {
-    this.setState((prevState) => ({
-      unAppliedValues: { ...prevState.unAppliedValues, [key]: value },
-    }));
+  filterDidChange = (value, negated, key) => {
+    this.setState((prevState) => {
+      let negatedFilters = prevState.unAppliedNegatedFilters;
+      if (negated) {
+        if (!negatedFilters.includes(key)) {
+          negatedFilters.push(key);
+        }
+      } else if (!negatedFilters.includes(key)) {
+        negatedFilters = negatedFilters.filter((current) => current !== key);
+      }
+      return {
+        unAppliedValues: { ...prevState.unAppliedValues, [key]: value },
+        unAppliedNegatedFilters: negatedFilters,
+      };
+    });
 
   };
 
@@ -59,6 +71,7 @@ export default class FilterBar extends React.Component {
   clearFilter = () => {
     this.setState(() => ({
       unAppliedValues: {},
+      unAppliedNegatedFilters: [],
     }));
   };
 
@@ -69,10 +82,12 @@ export default class FilterBar extends React.Component {
       .filter(([key, value]) => value !== null) // eslint-disable-line no-unused-vars
       .reduce((merged, [key, value]) => ({ ...merged, [key]: value }), {});
 
+    const negated = this.state.unAppliedNegatedFilters;
+
     this.setState(() => ({
       displayFilterPopover: false,
     }),
-    () => this.props.onFilterSubmit(filtered));
+    () => this.props.onFilterSubmit(filtered, negated));
   };
 
   // onFilterTagClose removes only one tag - only one filter entry from filters Object should be removed, other filters have to stay
@@ -80,8 +95,10 @@ export default class FilterBar extends React.Component {
     const filtered = Object.entries(this.props.filterValues)
       .filter(([key]) => key !== filter.id)
       .reduce((merged, [key, value]) => ({ ...merged, [key]: value }), {});
+    const negated = this.props.negatedFilters.filter((key) => key !== filter.id);
     this.setState(() => ({
       unAppliedValues: filtered,
+      unAppliedNegatedFilters: negated,
       displayFilterPopover: false,
     }), () => this.applyFilter());
 
@@ -91,6 +108,7 @@ export default class FilterBar extends React.Component {
   onClearAll = () => {
     this.setState(() => ({
       unAppliedValues: {},
+      unAppliedNegatedFilters: [],
       displayFilterPopover: false,
     }), () => this.applyFilter());
   };
@@ -109,7 +127,7 @@ export default class FilterBar extends React.Component {
           return null;
         }
 
-        const isFilterNegated = negatedFilters.contains(key);
+        const isFilterNegated = negatedFilters.includes(key);
 
         switch (filter.type) {
           case 'text':
