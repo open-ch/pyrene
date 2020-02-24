@@ -90,22 +90,31 @@ class TreeTable extends React.Component {
 
   toggleAllRowsExpansion = () => {
     const { displayExpandAll } = this.state;
-    this.setState((prevState) => {
+    const { data } = this.props;
+    this.setState(() => {
       if (displayExpandAll) {
         this.rowHeightMap = {};
         return {
-          rows: TreeTableUtils.initialiseRootData(this.props.data, this.props.setUniqueRowKey),
+          rows: TreeTableUtils.initialiseRootData(data, this.props.setUniqueRowKey),
           expanded: {},
           displayExpandAll: !displayExpandAll,
           tableKey: Date.now(), // as all rows are closed, we need to recalculate the height for the whole view - a key is the easiest way
         };
       }
       return {
-        ...TreeTableUtils.handleAllRowExpansion(prevState.rows, { ...prevState, expanded: {} }, this.props.setUniqueRowKey),
+        ...TreeTableUtils.handleAllRowExpansion(data, { rows: data, expanded: {} }),
         displayExpandAll: !displayExpandAll,
       };
     });
   }
+
+  scrollToRow = (rowId) => {
+    const { rows, expanded } = TreeTableUtils.handleExpandAllParentsOfRowById(rowId, this.state);
+    this.setState({ rows, expanded }, () => {
+      const indexToScrollTo = rows.findIndex(({ _rowId }) => _rowId === rowId);
+      this.listRef.scrollToItem(indexToScrollTo);
+    });
+  };
 
   render() {
     const { props } = this;
@@ -182,14 +191,15 @@ class TreeTable extends React.Component {
         <div style={style} key={rowKey}>
           <TreeTableRow
             style={style}
+            key={rowKey}
             index={index}
             data={rowData}
             parent={rowData.children ? rowData.children.length > 0 : false}
+            highlighted={props.highlightedRowId === rowKey}
             // eslint-disable-next-line no-underscore-dangle
             level={rowData._treeDepth}
             isExpanded={expanded[rowKey] || false}
             columns={columns}
-            key={rowKey}
             onRowDoubleClick={props.onRowDoubleClick}
             expandOnParentRowClick={props.expandOnParentRowClick}
             onExpand={onExpandRow}
@@ -257,6 +267,7 @@ TreeTable.defaultProps = {
   filterValues: {},
   title: '',
   height: 300,
+  highlightedRowId: null,
   loading: false,
   toggleColumns: true,
   onRowDoubleClick: null,
@@ -302,6 +313,10 @@ TreeTable.propTypes = {
    * Sets the height for the table. This is only needed when the virtualized prop is true.
    */
   height: PropTypes.number,
+  /**
+   * Highlights a rule in the table. Should be the same value that is calculated by using the `setUniqueRowKey` method.
+   */
+  highlightedRowId: PropTypes.string,
   /**
    * Disables the component and displays a loader inside of it.
    */
