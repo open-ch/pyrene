@@ -1,4 +1,4 @@
-// VERSION: 28
+// VERSION: 29
 const icons = [
   { name: 'share', tags: ['social'] },
   { name: 'filter', tags: ['lines'] },
@@ -48,6 +48,9 @@ const icons = [
   { name: 'account', tags: ['account', 'user', 'person', 'people', 'avatar', 'contact', 'profile'] },
   { name: 'exit', tags: ['exit', 'logout', 'close', 'log', 'outside', 'out'] },
   { name: 'sync', tags: ['sync', 'repeat', 'load', 'process', 'refresh', 'loading', 'replay', 'update', 'progress'] },
-	
+  { name: 'newWindow', tags: ['new window', 'window', 'new', 'open', 'tab', 'browser', 'application', 'export', 'app'] },
+  { name: 'fastForward', tags: ['fast-forward', 'fast forward', 'close', 'hide', 'collapse', 'direction', 'right', 'arrow', 'double arrow', 'forward,'] },
+  { name: 'rewind', tags: ['rewind', 'backward', 'arrow', 'back', 'left', 'backwards', 'prvious', 'double arrow', 'left', 'direction', 'hide', 'close', 'collapse', ] },
+
 ];
 export default icons;
