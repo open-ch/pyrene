@@ -24,6 +24,10 @@
   &.openRootParent {
     background-color: var(--secondary);
   }
+
+  &.highlighted {
+    background-color: rgba(240, 211, 24, 0.15);
+  }
 }
 
 .childrenRowsContainer {
