@@ -1,5 +1,7 @@
 import PropTypes from 'prop-types';
 
+const ALLOWED_VALUES = [PropTypes.string, PropTypes.number, PropTypes.array, PropTypes.bool, PropTypes.func, PropTypes.bool];
+
 const TreeTablePropTypes = {
   COLUMNS: PropTypes.arrayOf(PropTypes.shape({
     accessor: PropTypes.string.isRequired,
@@ -17,8 +19,9 @@ const TreeTablePropTypes = {
     initiallyHidden: PropTypes.bool,
     width: PropTypes.number,
   }).isRequired,
-  DATA: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array, PropTypes.bool]))).isRequired,
-  DATAOBJECT: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.array])),
+  DATA: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.oneOfType(ALLOWED_VALUES))).isRequired,
+  DATAOBJECT: PropTypes.objectOf(PropTypes.oneOfType(ALLOWED_VALUES)),
+  ALLOWED_VALUES,
 };
 
 export default TreeTablePropTypes;
