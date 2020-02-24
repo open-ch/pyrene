@@ -148,3 +148,12 @@
 :global(.pyreneIcon-wrench:before){
   content: "\44";
 }
+:global(.icon-rewind:before){
+  content: "\51";
+}
+:global(.icon-fastForward:before){
+  content: "\50";
+}
+:global(.icon-newWindow:before){
+  content: "\4f";
+}
