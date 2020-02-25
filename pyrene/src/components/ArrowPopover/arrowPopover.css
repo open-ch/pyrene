@@ -5,17 +5,17 @@
 }
 
 .popover {
-  display: flex;
-  flex-direction: column;
-
-  align-items: center;
+  position: relative;
 }
 
 .triangle {
-    background-color: white;
-    box-shadow: 5px 4px 8px -2px rgba(0, 21, 44, 0.2);
-    width: 20px;
-    height: 20px;
+  position: absolute;
 
-    -webkit-transform: translateY(10px) rotate(45deg);
+  z-index: -1;
+
+  bottom: 0;
+
+  background-color: white;
+
+  -webkit-transform: rotate(45deg);
 }
