@@ -72,7 +72,10 @@ export default class FilterBar extends React.Component {
 
     const negatedFiltersKeys = this.props.filters.filter((filter) => filter.negated && filteredKeys.includes(filter.id))
       .map((filter) => filter.id)
-      .reduce((negatedKeys, newKey) => { negatedKeys.push(newKey); return negatedKeys; }, []);
+      .reduce((negatedKeys, newKey) => {
+        negatedKeys.push(newKey);
+        return negatedKeys;
+      }, []);
 
     this.setState(() => ({
       displayFilterPopover: false,
