@@ -7,7 +7,7 @@ import './Filter.css';
 export default class Filter extends React.PureComponent {
 
   render() {
-    const { disabled, filters, onFilterSubmit, negatedFilters } = this.props;
+    const { disabled, filters, onFilterSubmit } = this.props;
 
     if (disabled) {
       return (
@@ -18,7 +18,7 @@ export default class Filter extends React.PureComponent {
     }
 
     if (filters && filters.length > 0 && disabled === false) {
-      return <FilterBar filters={filters} onFilterSubmit={onFilterSubmit} filterValues={this.props.filterValues} negatedFilters={negatedFilters} />;
+      return <FilterBar filters={filters} onFilterSubmit={onFilterSubmit} filterValues={this.props.filterValues} />;
     }
 
     return null;
@@ -32,7 +32,6 @@ Filter.defaultProps = {
   onFilterSubmit: () => null,
   disabled: false,
   filters: undefined,
-  negatedFilters: [],
 };
 
 Filter.propTypes = {
@@ -47,6 +46,7 @@ Filter.propTypes = {
   filters: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
+    negated: PropTypes.bool,
     options: PropTypes.arrayOf(PropTypes.shape({
       /** text displayed to the user in the filter dropdown */
       label: PropTypes.string.isRequired,
@@ -64,10 +64,6 @@ Filter.propTypes = {
    * use {} for passing empty filterValues
    * */
   filterValues: PropTypes.shape().isRequired,
-  /**
-   * Comma separated value string of the filter keys that should be negated or not
-   */
-  negatedFilters: PropTypes.arrayOf(PropTypes.string),
   /**
    * Called when the user clicks on the apply button. Contains all the filter information as its argument.
    */

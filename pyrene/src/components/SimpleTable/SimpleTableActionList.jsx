@@ -64,7 +64,7 @@ SimpleTableActionList.propTypes = {
     onClick: PropTypes.func.isRequired,
   })).isRequired,
   row: PropTypes.shape({
-    key: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    key: PropTypes.string,
     rowStyle: PropTypes.shape({}),
     value: PropTypes.node,
   }).isRequired,
