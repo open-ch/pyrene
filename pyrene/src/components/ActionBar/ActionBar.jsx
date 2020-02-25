@@ -22,12 +22,12 @@ const ActionBar = (props) => (props.actions.length ? (
     ) : props.actions.map((action, index) => {
       const isSvgIcon = action.svg && action.svg.length > 0;
       const iconComponent = (
-        <div styleName={classNames('iconBox', { disabled: !action.active })} onClick={action.popover ? null : action.onClick}>
+        <div styleName={classNames('iconBox', { disabled: !action.active })} onClick={action.active ? action.onClick : null}>
           {isSvgIcon ? <Icon color={action.color} svg={action.svg} type="inline" /> : <Icon color={action.color} name={action.iconName} type="inline" />}
         </div>
       );
 
-      const actionComponent = action.popover ? (
+      const actionComponent = action.popover && action.active ? (
         <ArrowPopover key={isSvgIcon ? action.svg : action.iconName} popoverContent={action.popover}>
           {iconComponent}
         </ArrowPopover>
