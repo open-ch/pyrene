@@ -14,6 +14,7 @@
   }
 
   &:hover {
+     text-decoration: underline;
     & .label {
       text-decoration: underline;
       text-underline: var(--primary);
@@ -51,15 +52,4 @@
       pointer-events: none;
     }
   }
-}
-
-/* mc.css overrides */
-.link {
-&:hover {
-   text-decoration: none !important;
-
-& .icon {
-    text-decoration: none !important;
-  }
-}
 }
