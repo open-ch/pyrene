@@ -52,7 +52,6 @@ export default class FilterBar extends React.Component {
     this.setState((prevState) => ({
       unAppliedValues: { ...prevState.unAppliedValues, [key]: value },
     }));
-
   };
 
   // Clear button in popover dropdown clears the users input
@@ -69,10 +68,19 @@ export default class FilterBar extends React.Component {
       .filter(([key, value]) => value !== null) // eslint-disable-line no-unused-vars
       .reduce((merged, [key, value]) => ({ ...merged, [key]: value }), {});
 
+    const filteredKeys = Object.keys(filtered);
+
+    const negatedFiltersKeys = this.props.filters.filter((filter) => filter.negated && filteredKeys.includes(filter.id))
+      .map((filter) => filter.id)
+      .reduce((negatedKeys, newKey) => {
+        negatedKeys.push(newKey);
+        return negatedKeys;
+      }, []);
+
     this.setState(() => ({
       displayFilterPopover: false,
     }),
-    () => this.props.onFilterSubmit(filtered));
+    () => this.props.onFilterSubmit(filtered, negatedFiltersKeys));
   };
 
   // onFilterTagClose removes only one tag - only one filter entry from filters Object should be removed, other filters have to stay
@@ -111,12 +119,12 @@ export default class FilterBar extends React.Component {
 
         switch (filter.type) {
           case 'text':
-            return <FilterTag key={filter.id} filterLabel={filter.label} filterText={value} onClose={() => this.onFilterTagClose(filter)} />;
+            return <FilterTag key={filter.id} filterLabel={filter.label} filterText={value} negated={filter.negated} onClose={() => this.onFilterTagClose(filter)} />;
           case 'singleSelect':
-            return <FilterTag key={filter.id} filterLabel={filter.label} filterText={value.label} onClose={() => this.onFilterTagClose(filter)} />;
+            return <FilterTag key={filter.id} filterLabel={filter.label} filterText={value.label} negated={filter.negated} onClose={() => this.onFilterTagClose(filter)} />;
           case 'multiSelect':
             if (value.length > 0) {
-              return <FilterTag key={filter.id} filterLabel={filter.label} filterText={value.map((option) => option.label).join('; ')} onClose={() => this.onFilterTagClose(filter)} />;
+              return <FilterTag key={filter.id} filterLabel={filter.label} filterText={value.map((option) => option.label).join('; ')} negated={filter.negated} onClose={() => this.onFilterTagClose(filter)} />;
             }
             break;
           default:
@@ -179,6 +187,7 @@ FilterBar.propTypes = {
   filters: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
+    negated: PropTypes.bool,
     options: PropTypes.arrayOf(PropTypes.shape({
       /** text displayed to the user in the filter dropdown */
       label: PropTypes.string.isRequired,
@@ -193,7 +202,7 @@ FilterBar.propTypes = {
    * */
   filterValues: PropTypes.shape().isRequired,
   /**
-   * Called when the user clicks on the apply button. Contains all the filter information as its argument.
+   * Called when the user clicks on the apply button. Exposes two parameters: filterValues and negatedFilterKeys (contains an array of the keys of the filters that are negated).
    */
   onFilterSubmit: PropTypes.func,
 };
