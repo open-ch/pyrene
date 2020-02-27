@@ -28,7 +28,10 @@ const ActionBar = (props) => (props.actions.length ? (
       );
 
       const actionComponent = action.popover && action.active ? (
-        <ArrowPopover key={isSvgIcon ? action.svg : action.iconName} popoverContent={action.popover}>
+        <ArrowPopover key={isSvgIcon ? action.svg : action.iconName}
+          popoverContent={action.popover}
+          displayPopover={!!action.isOpen}
+        >
           {iconComponent}
         </ArrowPopover>
       ) : iconComponent;
@@ -67,6 +70,10 @@ ActionBar.propTypes = {
      * The name of the icon font.
      */
     iconName: PropTypes.string,
+    /**
+     * Whether to the popover isOpen
+     */
+    isOpen: PropTypes.bool,
     /**
      * Function called when user clicks the icon.
      */
