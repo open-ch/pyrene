@@ -48,7 +48,7 @@ export default class FilterBar extends React.Component {
     }));
   };
 
-  filterDidChange = (value, key) => {
+  filterDidChange = (value, negated, key) => {
     this.setState((prevState) => ({
       unAppliedValues: { ...prevState.unAppliedValues, [key]: value },
     }));
