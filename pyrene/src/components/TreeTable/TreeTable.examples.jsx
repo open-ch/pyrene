@@ -47,12 +47,12 @@ const treeTableColumns = [
   {
     id: 'width',
     headerName: 'Width',
-    accessor: 'width',
+    accessor: 'phone',
   },
   {
     id: 'height',
     headerName: 'Height',
-    accessor: 'height',
+    accessor: 'phone',
     width: 100,
     initiallyHidden: true,
   },

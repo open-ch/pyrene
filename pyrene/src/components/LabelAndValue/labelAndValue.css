@@ -15,6 +15,7 @@
 
 .label-and-value .label {
   font-size: 11px;
+  height: 16px;
   line-height: 16px;
   color: var(--neutral-200);
   letter-spacing: 0.6px;
@@ -28,10 +29,12 @@
 
 .label-and-value-small .value {
   font-size: 14px;
+  height: 24px;
   line-height: 24px;
 }
 
 .label-and-value-large .value {
   font-size: 24px;
+  height: 40px;
   line-height: 40px;
 }

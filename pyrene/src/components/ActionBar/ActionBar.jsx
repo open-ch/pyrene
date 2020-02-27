@@ -14,7 +14,7 @@ import './actionBar.css';
  * An icon can be either an icon font or an svg icon
  */
 const ActionBar = (props) => (props.actions.length ? (
-  <div styleName={classNames('container', props.styling === 'none' ? '' : `box-${props.styling}`)}>
+  <div styleName={classNames('container', props.disabled && !props.loading ? 'disabled' : '', props.styling === 'none' ? '' : `box-${props.styling}`)}>
     { props.loading ? (
       <div styleName="loaderBox" style={{ height: 32, width: props.actions.length * 33 - 1 }}>
         <Loader type="inline" />
@@ -49,6 +49,7 @@ const ActionBar = (props) => (props.actions.length ? (
 ActionBar.displayName = 'Action Bar';
 
 ActionBar.defaultProps = {
+  disabled: false,
   styling: 'shadow',
   loading: false,
 };
@@ -91,6 +92,10 @@ ActionBar.propTypes = {
      */
     tooltip: PropTypes.string,
   })).isRequired,
+  /**
+   * Disabling all actions - no tooltip, no onClick and opacity 50%
+   * */
+  disabled: PropTypes.bool,
   /**
    * Loading state
    */

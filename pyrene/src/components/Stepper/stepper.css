@@ -62,28 +62,28 @@
 /* mc.css overrides */
 .stepper {
 
-  &.type-bordered {
+&.type-bordered {
 
-    & .icon {
-      color: var(--neutral-500) !important;
-    }
-
-    &:hover, &:active {
-      border-color: var(--primary) !important;
-      background-color: var(--background-light) !important;
-    }
-
+& .icon {
+    color: var(--neutral-500) !important;
   }
 
-  &.type-minimal {
-    & .icon {
-      color: var(--neutral-500) !important;
-    }
+&:hover, &:active {
+            border-color: var(--primary) !important;
+            background-color: var(--background-light) !important;
+          }
 
-    &:hover, &:active {
-      background-color: var(--secondary) !important;
-      border: none !important;
-    }
+}
+
+&.type-minimal {
+& .icon {
+    color: var(--neutral-500) !important;
   }
+
+&:hover, &:active {
+            background-color: var(--secondary) !important;
+            border: none !important;
+          }
+}
 
 }

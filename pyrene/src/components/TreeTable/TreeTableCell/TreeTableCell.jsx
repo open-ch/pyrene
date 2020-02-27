@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import PROPCONSTANTS from '../TreeTablePropTypes';
+import TreeTablePropTypes from '../TreeTablePropTypes';
 
 import './treeTableCell.css';
 
@@ -45,12 +45,12 @@ TreeTableCell.defaultProps = {
 };
 
 TreeTableCell.propTypes = {
-  columnProps: PROPCONSTANTS.COLUMN,
+  columnProps: TreeTablePropTypes.COLUMN,
   firstColumn: PropTypes.bool,
   onExpandClick: PropTypes.func.isRequired,
   parent: PropTypes.bool,
-  rowData: PROPCONSTANTS.DATAOBJECT,
+  rowData: TreeTablePropTypes.DATAOBJECT,
   sectionOpen: PropTypes.bool,
   style: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
-  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  value: PropTypes.oneOfType(TreeTablePropTypes.ALLOWED_VALUES),
 };

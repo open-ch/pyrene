@@ -115,3 +115,45 @@
 :global(.pyreneIcon-share:before){
   content: "\30";
 }
+:global(.pyreneIcon-sync:before){
+  content: "\4e";
+}
+:global(.pyreneIcon-exit:before){
+  content: "\4d";
+}
+:global(.pyreneIcon-account:before){
+  content: "\4c";
+}
+:global(.pyreneIcon-mdr:before){
+  content: "\4b";
+}
+:global(.pyreneIcon-protection:before){
+  content: "\4a";
+}
+:global(.pyreneIcon-server:before){
+  content: "\49";
+}
+:global(.pyreneIcon-document:before){
+  content: "\48";
+}
+:global(.pyreneIcon-phone:before){
+  content: "\47";
+}
+:global(.pyreneIcon-email:before){
+  content: "\46";
+}
+:global(.pyreneIcon-comment:before){
+  content: "\45";
+}
+:global(.pyreneIcon-wrench:before){
+  content: "\44";
+}
+:global(.icon-rewind:before){
+  content: "\51";
+}
+:global(.icon-fastForward:before){
+  content: "\50";
+}
+:global(.icon-newWindow:before){
+  content: "\4f";
+}

@@ -78,7 +78,8 @@ const examples = {
     ],
     columns: tableColumns,
     data: tableData,
-    onRowDoubleClick: (row) => alert(row.value), // eslint-disable-line no-alert
+    onRowClick: (row) => alert(`Single click: ${row.value}`), // eslint-disable-line no-alert
+    onRowDoubleClick: (row) => alert(`Double click: ${row.value}`), // eslint-disable-line no-alert
   },
 };
 
