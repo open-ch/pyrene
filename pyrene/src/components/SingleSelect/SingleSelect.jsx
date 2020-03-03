@@ -155,8 +155,8 @@ SingleSelect.defaultProps = {
 
 SingleSelect.propTypes = {
   /**
-  * Focus an element when it mounts.
-  */
+   * Focus an element when it mounts.
+   */
   autoFocus: PropTypes.bool,
   /**
    * Whether the selection is clearable.
@@ -196,10 +196,10 @@ SingleSelect.propTypes = {
     // in case options belong to group (- Sad color is heading and black and blue is an option in the example above)
     options: PropTypes.arrayOf(PropTypes.shape({
       label: PropTypes.string.isRequired,
-      value: PropTypes.arrayOf([PropTypes.string, PropTypes.number, PropTypes.bool, PropTypes.object]),
+      value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool, PropTypes.object]),
     })),
     // in case there is no heading, only option (- white color in the example above)
-    value: PropTypes.arrayOf([PropTypes.string, PropTypes.number, PropTypes.bool, PropTypes.object]),
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool, PropTypes.object]),
   })),
   /**
    * Sets a label below the input field to display additional information for the user.
@@ -230,8 +230,8 @@ SingleSelect.propTypes = {
    */
   onChange: PropTypes.func,
   /**
-    * Focus event handler, use this to dynamically fetch options.
-    */
+   * Focus event handler, use this to dynamically fetch options.
+   */
   onFocus: PropTypes.func,
   /**
    * If true, menu opens on "on focus"
