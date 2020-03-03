@@ -53,14 +53,3 @@
     pointer-events: none;
   }
 }
-
-/* mc.css overrides */
-.link {
-&:hover {
-   text-decoration: none !important;
-
-& .icon {
-    text-decoration: none !important;
-  }
-}
-}
