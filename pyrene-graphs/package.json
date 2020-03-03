@@ -17,7 +17,6 @@
     "clean": "rm -rf dist node_modules",
     "prebuild": "npm run clean && npm install",
     "build": "webpack && NODE_ENV=production webpack",
-    "prewatch": "npm install",
     "watch": "webpack -w",
     "pretest": "npm install",
     "test": "jest",
