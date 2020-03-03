@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Icon from '../Icon/Icon';
@@ -13,38 +13,57 @@ import './actionBar.css';
  * Each action element in the action bar can be active or inactive; can have its own color and icon.
  * An icon can be either an icon font or an svg icon
  */
-const ActionBar = (props) => (props.actions.length ? (
-  <div styleName={classNames('container', props.disabled && !props.loading ? 'disabled' : '', props.styling === 'none' ? '' : `box-${props.styling}`)}>
-    { props.loading ? (
-      <div styleName="loaderBox" style={{ height: 32, width: props.actions.length * 33 - 1 }}>
-        <Loader type="inline" />
-      </div>
-    ) : props.actions.map((action, index) => {
-      const isSvgIcon = action.svg && action.svg.length > 0;
-      const iconComponent = (
-        <div styleName={classNames('iconBox', { disabled: !action.active })} onClick={action.active ? action.onClick : null}>
-          {isSvgIcon ? <Icon color={action.color} svg={action.svg} type="inline" /> : <Icon color={action.color} name={action.iconName} type="inline" />}
-        </div>
-      );
+const ActionBar = (props) => {
 
-      const actionComponent = action.popover && action.active ? (
-        <ArrowPopover key={isSvgIcon ? action.svg : action.iconName}
-          popoverContent={action.popover}
-          displayPopover={!!action.isOpen}
-        >
-          {iconComponent}
-        </ArrowPopover>
-      ) : iconComponent;
+  const [openAction, setOpenAction] = useState(null);
 
-      return (
-        <div key={isSvgIcon ? action.svg : action.iconName} styleName="borderContainer">
-          {action.tooltip ? <Tooltip preferredPosition={['top', 'bottom']} label={action.tooltip}>{actionComponent}</Tooltip> : actionComponent}
-          {index < props.actions.length - 1 && <div styleName="border" />}
+  return (props.actions.length ? (
+    <div styleName={classNames('container', props.disabled && !props.loading ? 'disabled' : '', props.styling === 'none' ? '' : `box-${props.styling}`)}>
+      { props.loading ? (
+        <div styleName="loaderBox" style={{ height: 32, width: props.actions.length * 33 - 1 }}>
+          <Loader type="inline" />
         </div>
-      );
-    })}
-  </div>
-) : null);
+      ) : props.actions.map((action, index) => {
+
+        const onClick = () => {
+          if (action.popover && action.onClick) {
+            throw new Error('You can not have define popover and onClick');
+          }
+          if (!action.active) {
+            return null;
+          }
+          if (action.popover) {
+            return () => setOpenAction(index);
+          }
+          return action.onClick;
+        };
+
+        const isSvgIcon = action.svg && action.svg.length > 0;
+        const iconComponent = (
+          <div styleName={classNames('iconBox', { disabled: !action.active })} onClick={onClick()}>
+            {isSvgIcon ? <Icon color={action.color} svg={action.svg} type="inline" /> : <Icon color={action.color} name={action.iconName} type="inline" />}
+          </div>
+        );
+
+        const actionComponent = action.popover && action.active ? (
+          <ArrowPopover key={isSvgIcon ? action.svg : action.iconName}
+            popoverContent={action.popover(() => setOpenAction(null))}
+            displayPopover={openAction === index}
+          >
+            {iconComponent}
+          </ArrowPopover>
+        ) : iconComponent;
+
+        return (
+          <div key={isSvgIcon ? action.svg : action.iconName} styleName="borderContainer">
+            {action.tooltip ? <Tooltip preferredPosition={['top', 'bottom']} label={action.tooltip}>{actionComponent}</Tooltip> : actionComponent}
+            {index < props.actions.length - 1 && <div styleName="border" />}
+          </div>
+        );
+      })}
+    </div>
+  ) : null);
+};
 
 ActionBar.displayName = 'Action Bar';
 
@@ -71,10 +90,6 @@ ActionBar.propTypes = {
      * The name of the icon font.
      */
     iconName: PropTypes.string,
-    /**
-     * Whether to the popover isOpen
-     */
-    isOpen: PropTypes.bool,
     /**
      * Function called when user clicks the icon.
      */
