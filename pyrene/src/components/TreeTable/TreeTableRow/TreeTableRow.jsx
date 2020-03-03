@@ -32,7 +32,7 @@ export default class TreeTableRow extends React.PureComponent {
         <div
           styleName={classNames(
             'rowElementsContainer',
-            { openRootParent: this.props.level === 0 && this.props.isExpanded && this.props.data.children },
+            { openRootParent: this.props.level === 0 && this.props.isExpanded && this.props.parent },
             { highlighted: this.props.highlighted },
           )}
           onClick={hasExpandAction ? this.toggleRowExpansion : null}

@@ -18,7 +18,7 @@ export default class FilterOption extends React.Component {
             <SingleSelect
               name={this.props.id}
               options={this.props.options}
-              onChange={(value) => this.props.handleFilterChange(value, this.props.id)}
+              onChange={(value) => this.props.handleFilterChange(value, false, this.props.id)}
               value={isValue ? this.props.value : null}
               sorted={this.props.sorted}
               clearable
@@ -31,7 +31,7 @@ export default class FilterOption extends React.Component {
               name={this.props.id}
               options={this.props.options}
               // If multiSelect is empty (empty array) return null to filter instead of []
-              onChange={(value) => this.props.handleFilterChange(value && value.length === 0 ? null : value, this.props.id)}
+              onChange={(value) => this.props.handleFilterChange(value && value.length === 0 ? null : value, false, this.props.id)}
               // Pass empty array instead of null to multiSelect component if filterValues are null
               value={isValue ? this.props.value : []}
               sorted={this.props.sorted}
@@ -45,7 +45,7 @@ export default class FilterOption extends React.Component {
             <TextField
               name={this.props.id}
               // If textField is empty (empty string) return null instead of ''
-              onChange={(value) => this.props.handleFilterChange(value === '' ? null : value, this.props.id)}
+              onChange={(value) => this.props.handleFilterChange(value === '' ? null : value, false, this.props.id)}
               // Pass empty string instead of null to textField component if filterValues are null
               value={isValue ? this.props.value : ''}
             />
