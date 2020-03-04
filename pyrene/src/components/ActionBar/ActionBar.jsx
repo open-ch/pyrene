@@ -56,7 +56,7 @@ const ActionBar = (props) => {
 
         return (
           <div key={isSvgIcon ? action.svg : action.iconName} styleName="borderContainer">
-            {action.tooltip ? <Tooltip preferredPosition={['top', 'bottom']} label={action.tooltip}>{actionComponent}</Tooltip> : actionComponent}
+            {(action.tooltip && openAction !== index) ? <Tooltip preferredPosition={['top', 'bottom']} label={action.tooltip}>{actionComponent}</Tooltip> : actionComponent}
             {index < props.actions.length - 1 && <div styleName="border" />}
           </div>
         );
