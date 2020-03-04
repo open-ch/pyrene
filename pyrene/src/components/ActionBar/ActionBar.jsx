@@ -97,7 +97,7 @@ ActionBar.propTypes = {
     /**
      * Popover content
      */
-    popover: PropTypes.any,
+    popover: PropTypes.func,
     /**
      * The type of icon.
      */
