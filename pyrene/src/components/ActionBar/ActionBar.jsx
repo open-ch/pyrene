@@ -27,7 +27,7 @@ const ActionBar = (props) => {
 
         const onClick = () => {
           if (action.popover && action.onClick) {
-            throw new Error('You can not have define popover and onClick');
+            throw new Error('You can not define popover and onClick');
           }
           if (!action.active) {
             return null;
