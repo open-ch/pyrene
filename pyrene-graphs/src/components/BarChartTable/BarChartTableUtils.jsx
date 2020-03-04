@@ -29,7 +29,7 @@ const getColumn = ({
     accessor: accessor,
     headerName: headerName,
     align: align,
-    width: `${width}px`,
+    width: width,
     cellRenderCallback: {
       link: (row) => {
         if (linkAccessor || onClick) {
