@@ -5,6 +5,7 @@ import ChartContainer from '../ChartContainer/ChartContainer';
 import ChartOverlay from '../ChartOverlay/ChartOverlay';
 import Header from '../Header/Header';
 import TimeSeriesBucketChartSVG from './TimeSeriesBucketChartSVG';
+import { getMaxValueForTimeRangeBucket } from '../../common/dataUtils';
 import colorSchemes from '../../styles/colorSchemes';
 import './timeSeriesBucketChart.css';
 
@@ -12,7 +13,8 @@ import './timeSeriesBucketChart.css';
  * A bucket chart for time-data series.
  */
 const TimeSeriesBucketChart = (props) => {
-  const dataAvailable = props.data && props.data.data && props.data.data.length > 0;
+  // Get max value of the data within time range
+  const maxValue = getMaxValueForTimeRangeBucket(props.data, props.from, props.to);
 
   // Render the header
   const header = (
@@ -26,7 +28,7 @@ const TimeSeriesBucketChart = (props) => {
   const chartOverlay = (
     <ChartOverlay>
       {props.loading && <Loader type="inline" />}
-      {!props.loading && !dataAvailable && (
+      {!props.loading && !maxValue && (
         <div styleName="errorBanner">
           <Banner styling="inline" type="error" label={props.error} />
         </div>
@@ -38,24 +40,27 @@ const TimeSeriesBucketChart = (props) => {
   const bucketChart = (
     <TimeSeriesBucketChartSVG
       colorScheme={props.colorScheme}
-      dataFormat={props.dataFormat}
       data={props.data}
       from={props.from}
       to={props.to}
       loading={props.loading}
+      maxValue={maxValue}
+      tickFormat={props.tickFormat}
       timezone={props.timezone}
       timeFormat={props.timeFormat}
+      tooltipFormat={props.tooltipFormat}
       zoom={props.zoom}
     />
   );
 
   // Render the component
-  const showOverlay = props.loading || !dataAvailable;
+  const showOverlay = props.loading || !maxValue;
   return (
     <ChartContainer
       header={header}
       chart={bucketChart}
       chartOverlay={showOverlay && chartOverlay}
+      chartUnit={props.unit}
     />
   );
 };
@@ -71,8 +76,11 @@ TimeSeriesBucketChart.defaultProps = {
   description: '',
   error: 'No data available',
   loading: false,
+  tickFormat: (d) => d,
   timeFormat: undefined,
   title: '',
+  tooltipFormat: (d) => d,
+  unit: '',
   zoom: undefined,
 };
 
@@ -91,13 +99,6 @@ TimeSeriesBucketChart.propTypes = {
     label: PropTypes.string.isRequired,
   }),
   /**
-   * Sets the data formatting functions for the chart, consisting of format function for the y-axis and that for the tooltip.
-   */
-  dataFormat: PropTypes.shape({
-    tooltip: PropTypes.func,
-    yAxis: PropTypes.func,
-  }).isRequired,
-  /**
    * Sets the description of the chart excluding the unit part.
    */
   description: PropTypes.string,
@@ -113,6 +114,10 @@ TimeSeriesBucketChart.propTypes = {
    * Sets the loading state of the chart.
    */
   loading: PropTypes.bool,
+  /**
+   * Sets the formatting function for the ticks on the y axis.
+   */
+  tickFormat: PropTypes.func,
   /**
    * Sets the time formatting function for the tooltip.
    */
@@ -130,6 +135,14 @@ TimeSeriesBucketChart.propTypes = {
    * Sets the ending point of the time range in epoch milliseconds.
    */
   to: PropTypes.number.isRequired,
+  /**
+   * Sets the data formatting function for the tooltip.
+   */
+  tooltipFormat: PropTypes.func,
+  /**
+   * Sets the unit of the chart, if there is any.
+   */
+  unit: PropTypes.string,
   /**
    * If set, this chart supports zoom.
    */

@@ -48,10 +48,11 @@ export default class BarChartTable extends React.Component {
            colors={colors}
          />
          {/* table height: displayedRows + 1 header row + conditional showMoreLink div */}
-         <div style={{ height: dataAvailable ? `${displayedRows * rowHeight + rowHeight + (this.props.data.length > displayedRows && this.props.loading ? 26 : 0)}px` : `${rowHeight}px` }}>
+         <div style={{ height: dataAvailable ? `${displayedRows * rowHeight + rowHeight + (this.props.data.length > displayedRows && this.props.loading ? 26 : 0)}px` : '90px' }}>
            <Responsive>
              {(parent) => (
                <SimpleTable
+                 actions={this.props.actions}
                  columns={getColumns({
                    dataAvailable: dataAvailable,
                    props: this.props,
@@ -82,6 +83,7 @@ export default class BarChartTable extends React.Component {
                      <div styleName="popOverBody" style={{ height: `${(displayedRows + 5) * 32 + 32}px` }}>
                        <div styleName="tableContainer">
                          <SimpleTable
+                           actions={this.props.actions}
                            columns={getColumns({ props: this.props, colors: colors })}
                            data={sortedData}
                            onRowDoubleClick={this.props.onRowDoubleClick}
@@ -111,6 +113,7 @@ export default class BarChartTable extends React.Component {
 BarChartTable.displayName = 'Bar Chart Table';
 
 BarChartTable.defaultProps = {
+  actions: [],
   colorScheme: colorSchemes.colorSchemeDefault,
   description: '',
   displayedRows: 10,
@@ -121,6 +124,10 @@ BarChartTable.defaultProps = {
 };
 
 BarChartTable.propTypes = {
+  actions: PropTypes.arrayOf(PropTypes.shape({
+    label: PropTypes.string.isRequired,
+    onClick: PropTypes.func.isRequired,
+  })),
   /**
    * Sets the colors of the bar chart. Type: { comparison: [ string ], valueGround: [ string ] }
    */

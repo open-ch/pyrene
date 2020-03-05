@@ -31,7 +31,8 @@ const BarChart = (props) => {
       direction={props.direction}
       legend={props.legend}
       loading={props.loading}
-      dataFormat={props.dataFormat}
+      tickFormat={props.tickFormat}
+      tooltipFormat={props.tooltipFormat}
     />
   );
   const chartOverlay = (
@@ -50,6 +51,7 @@ const BarChart = (props) => {
       header={header}
       chart={chart}
       chartOverlay={showOverlay && chartOverlay}
+      chartUnit={props.unit}
     />
   );
 };
@@ -57,12 +59,14 @@ const BarChart = (props) => {
 BarChart.displayName = 'Bar Chart';
 
 BarChart.defaultProps = {
-  description: '',
   colorScheme: colorSchemes.colorSchemeDefault,
+  description: '',
   direction: 'vertical',
   error: 'No data available',
   loading: false,
-  dataFormat: (d) => d,
+  tickFormat: (d) => d,
+  tooltipFormat: (d) => d,
+  unit: '',
 };
 
 BarChart.propTypes = {
@@ -79,10 +83,6 @@ BarChart.propTypes = {
     data: PropTypes.arrayOf(PropTypes.number).isRequired,
     label: PropTypes.string.isRequired,
   })).isRequired,
-  /**
-   * Set function to format the displayed values.
-   */
-  dataFormat: PropTypes.func,
   /**
    * Sets the description.
    */
@@ -104,9 +104,21 @@ BarChart.propTypes = {
     */
   loading: PropTypes.bool,
   /**
+   * Sets the formatting function for the ticks on the numerical axis.
+   */
+  tickFormat: PropTypes.func,
+  /**
    * Sets the title.
    */
   title: PropTypes.string.isRequired,
+  /**
+   * Sets the data formatting function for the tooltip.
+   */
+  tooltipFormat: PropTypes.func,
+  /**
+   * Sets the unit of the chart, if there is any.
+   */
+  unit: PropTypes.string,
 };
 
 export default BarChart;

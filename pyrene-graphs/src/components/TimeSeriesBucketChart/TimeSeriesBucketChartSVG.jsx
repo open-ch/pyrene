@@ -16,8 +16,9 @@ import {
 import ChartArea from '../ChartArea/ChartArea';
 import TimeZoomControls from '../TimeZoomControls/TimeZoomControls';
 import Tooltip from '../Tooltip/Tooltip';
-import Formats from '../../common/Formats';
+import { explicitTimeRangeFormat, timeRangeFormat } from '../../common/Formats';
 import { INDEX_VALUE, INDEX_START_TS } from '../../common/chartConstants';
+import { getCurrentBucketEndTS, getCurrentBucketIndex, getTimeFrameOfLastBucket } from './bucketUtil';
 import colorSchemes from '../../styles/colorSchemes';
 import colorConstants from '../../styles/colorConstants';
 import './timeSeriesBucketChart.css';
@@ -33,12 +34,18 @@ let zoomStartX = null;
  * @param {function}hideTooltip - The function that hides the tooltip
  */
 const onMouseMove = (event, data, xScale, showTooltip, hideTooltip) => {
+  // Immediately hide tooltip and return when there's no data
+  if (!data || data.length === 0) {
+    hideTooltip();
+    return;
+  }
+
   const { x, y } = localPoint(event.target.ownerSVGElement, event);
-  const currentTS = xScale.invert(x);
+  const currentTS = xScale.invert(x).valueOf();
 
   // Show zoom tooltip
   if (zoomStartX) {
-    const startTS = xScale.invert(zoomStartX);
+    const startTS = xScale.invert(zoomStartX).valueOf();
     showTooltip({
       tooltipLeft: x,
       tooltipTop: y - chartConstants.tooltipOffset - chartConstants.zoomTooltipHeight / 2 - 4,
@@ -47,31 +54,19 @@ const onMouseMove = (event, data, xScale, showTooltip, hideTooltip) => {
     return;
   }
 
-  // No tooltip when there's no bucket
-  if (data.length === 0) {
+  // Show normal tooltip when it is within time range
+  const lastBucketEndTS = data[data.length - 1][INDEX_START_TS] + getTimeFrameOfLastBucket(data, xScale);
+  const currentBucketIndex = getCurrentBucketIndex(currentTS, lastBucketEndTS, data);
+  if (currentBucketIndex < 0) {
     hideTooltip();
-    return;
+  } else {
+    const currentBucketEndTS = getCurrentBucketEndTS(currentBucketIndex, lastBucketEndTS, data);
+    showTooltip({
+      tooltipLeft: x,
+      tooltipTop: y,
+      tooltipData: [[data[currentBucketIndex][INDEX_START_TS], currentBucketEndTS], data[currentBucketIndex][INDEX_VALUE], currentBucketIndex],
+    });
   }
-
-  // Hide tooltip if current cursor position is beyond the range of first and last bucket
-  const lastTS = data[data.length - 1][INDEX_START_TS] + (xScale.invert(chartConstants.marginLeftNumerical + chartConstants.barWeight + chartConstants.barSpacing) - xScale.domain()[0]); // lastTS should also cover the 10px last bucket
-  if (currentTS > lastTS || currentTS < data[0][INDEX_START_TS]) {
-    hideTooltip();
-    return;
-  }
-
-  // Show normal tooltip
-  // localPoint enables us to have the real-time x-coordinate of the mouse; by using the scale function on the x-coordinate we get a corresponding timestamp;
-  // then, we go through the data series to find the first element with a startTS that's bigger than that timestamp, the element before it is the one that is being hovered on
-  const foundIndex = data.findIndex((d) => d[INDEX_START_TS] > currentTS) - 1;
-  const index = foundIndex >= 0 ? foundIndex : data.length - 1;
-  // endTS is the startTS of next bucket; if the current element is the last in the data series, there is no endTS
-  const endTS = (index !== data.length - 1) ? data[index + 1][INDEX_START_TS] : null;
-  showTooltip({
-    tooltipLeft: x,
-    tooltipTop: y,
-    tooltipData: [[data[index][INDEX_START_TS], endTS], data[index][INDEX_VALUE], index],
-  });
 };
 
 const onMouseDown = (event) => {
@@ -84,21 +79,11 @@ const onMouseUp = (hideTooltip) => {
   hideTooltip();
 };
 
-const isDataInTimeRange = (allData, index, data, from, to) => {
-  if (allData[0] >= to) {
-    return false;
-  }
-  if (index !== data.length - 1 && data[index + 1][INDEX_START_TS] <= from) {
-    return false;
-  }
-  return true;
-};
-
 const getTimeFormat = (timezone, timeFormat) => {
   if (zoomStartX) {
-    return (time) => Formats.explicitTimeRangeFormat(time[0], time[1], timezone);
+    return (time) => explicitTimeRangeFormat(time[0], time[1], timezone);
   }
-  return timeFormat || ((time) => Formats.timeRangeFormat(time[0], time[1], timezone, false));
+  return timeFormat || ((time) => timeRangeFormat(time[0], time[1], timezone, false));
 };
 
 /**
@@ -114,10 +99,6 @@ const TimeSeriesBucketChartSVG = (props) => {
     tooltipTop,
   } = props;
 
-  // Filter out data outside `from` and `to` and get the max value
-  const dataInRange = props.data.data.filter((data, index) => isDataInTimeRange(data, index, props.data.data, props.from, props.to));
-  const maxValue = Math.max(...dataInRange.map((data) => data[INDEX_VALUE]));
-
   return (
     <div styleName="chartContainer">
       {props.zoom && (
@@ -126,7 +107,7 @@ const TimeSeriesBucketChartSVG = (props) => {
             from={props.from}
             to={props.to}
             disabled={props.loading}
-            zoomInDisabled={!dataInRange.length}
+            zoomInDisabled={!props.maxValue}
             lowerBound={props.zoom.lowerBound}
             upperBound={props.zoom.upperBound}
             minZoomRange={props.zoom.minZoomRange}
@@ -138,8 +119,8 @@ const TimeSeriesBucketChartSVG = (props) => {
         {(parent) => {
           // Get scale function
           const xScale = scaleTime(props.from, props.to, chartConstants.marginLeftNumerical, parent.width, 'horizontal');
-          const valueScale = scaleValueInBounds(parent, maxValue, 'vertical');
-          const valueAxisScale = scaleValueAxis(parent, maxValue, 'vertical');
+          const valueScale = scaleValueInBounds(parent, props.maxValue ? props.maxValue : 0, 'vertical');
+          const valueAxisScale = scaleValueAxis(parent, props.maxValue ? props.maxValue : 0, 'vertical');
 
           const barWeightFunction = (index, labels) => {
             // If there is a single bucket, just use a default bar weight
@@ -172,7 +153,7 @@ const TimeSeriesBucketChartSVG = (props) => {
                   height={parent.height}
                   strokeColor={colorConstants.strokeColor}
                   tickLabelColors={[colorConstants.tickLabelColor, colorConstants.tickLabelColorDark]}
-                  showTickLabels={!props.loading && dataInRange.length > 0}
+                  showTickLabels={!props.loading && !!props.maxValue}
                   timezone={props.timezone}
                   scale={xScale}
                 />
@@ -180,14 +161,14 @@ const TimeSeriesBucketChartSVG = (props) => {
                   orientation="left"
                   width={parent.width - chartConstants.marginLeftNumerical}
                   left={chartConstants.marginLeftNumerical}
-                  tickFormat={props.dataFormat.yAxis}
+                  tickFormat={props.tickFormat}
                   strokeColor={colorConstants.strokeColor}
                   tickLabelColor={colorConstants.tickLabelColor}
-                  showTickLabels={!props.loading && dataInRange.length > 0}
+                  showTickLabels={!props.loading && !!props.maxValue}
                   showGrid={false}
                   scale={valueAxisScale}
                 />
-                {!props.loading && dataInRange.length > 0 && (
+                {!props.loading && props.maxValue && (
                   <g
                     className="hoverArea"
                     onMouseMove={(e) => onMouseMove(e, props.data.data, xScale, showTooltip, hideTooltip)}
@@ -232,7 +213,7 @@ const TimeSeriesBucketChartSVG = (props) => {
               {
                 tooltipOpen && !props.loading && (
                   <Tooltip
-                    data={zoomStartX ? [] : [{ dataColor: props.colorScheme.categorical[0], dataLabel: props.data.label, dataValue: props.dataFormat.tooltip(tooltipData[1]) }]}
+                    data={zoomStartX ? [] : [{ dataColor: props.colorScheme.categorical[0], dataLabel: props.data.label, dataValue: props.tooltipFormat(tooltipData[1]) }]}
                     label={getTimeFormat(props.timezone, props.timeFormat)((zoomStartX ? tooltipData : tooltipData[0]))}
                     left={tooltipLeft} top={tooltipTop}
                   />
@@ -255,6 +236,7 @@ TimeSeriesBucketChartSVG.defaultProps = {
     label: '',
   },
   loading: false,
+  maxValue: null,
   timeFormat: undefined,
   tooltipData: [[0, 0], 0, 0],
   tooltipLeft: 0,
@@ -277,13 +259,6 @@ TimeSeriesBucketChartSVG.propTypes = {
     label: PropTypes.string.isRequired,
   }),
   /**
-   * Sets the data formatting functions for the chart, consisting of format function for the y-axis and that for the tooltip.
-   */
-  dataFormat: PropTypes.shape({
-    tooltip: PropTypes.func,
-    yAxis: PropTypes.func,
-  }).isRequired,
-  /**
    * Sets the starting time point of the time range in epoch milliseconds.
    */
   from: PropTypes.number.isRequired,
@@ -296,9 +271,17 @@ TimeSeriesBucketChartSVG.propTypes = {
    */
   loading: PropTypes.bool,
   /**
+   * Sets the maximum value among the data within the time range.
+   */
+  maxValue: PropTypes.number,
+  /**
    * The function to render the proper tooltip provided by the withTooltip enhancer.
    */
   showTooltip: PropTypes.func.isRequired,
+  /**
+   * Sets the formatting function for the ticks along y axis.
+   */
+  tickFormat: PropTypes.func.isRequired,
   /**
    * Sets the time formatting for the tooltip.
    */
@@ -315,6 +298,10 @@ TimeSeriesBucketChartSVG.propTypes = {
    * The tooltip data prop provided by the withTooltip enhancer. Value time(range), value, dataIdx
    */
   tooltipData: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.number), PropTypes.number]).isRequired),
+  /**
+   * Sets the data formatting function for the tooltip.
+   */
+  tooltipFormat: PropTypes.func.isRequired,
   /**
    * The tooltip x-position prop provided by the withTooltip enhancer.
    */

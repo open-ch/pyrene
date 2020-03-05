@@ -51,7 +51,7 @@ const props4 = {
   lowerBound: moment('2018-10-01 10:34').valueOf(),
   minZoomRange: moment.duration({ minutes: 30 }).valueOf(),
   onZoom: jest.fn(),
-  to: moment('2019-10-07 10:34').valueOf(),
+  to: moment('2019-10-01 10:54').valueOf(),
   upperBound: moment('2020-10-01 10:34').valueOf(),
   zoomInDisabled: true,
 };
@@ -78,7 +78,7 @@ describe('<TimeZoomControls />', () => {
     expect(props.onZoom).toHaveBeenCalledTimes(2);
   });
 
-  it('checks zoom bounds correctly', () => {
+  it('checks zoom upper/lower bounds correctly', () => {
     const rendered1 = shallow(<TimeZoomControls {...props1} />);
     const rendered2 = shallow(<TimeZoomControls {...props2} />);
     const rendered3 = shallow(<TimeZoomControls {...props3} />);

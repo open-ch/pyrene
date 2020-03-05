@@ -19,7 +19,7 @@ const SparkLine = (props) => {
             {(parent) => (
               <SparkLineSVG
                 colorScheme={props.colorScheme}
-                dataFormat={props.dataFormat}
+                tooltipFormat={props.tooltipFormat}
                 data={props.data}
                 height={parent.height}
                 width={parent.width}
@@ -50,9 +50,9 @@ SparkLine.propTypes = {
    */
   data: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
   /**
-   * Sets the data formatting functions for the chart.
+   * Sets the data formatting functions for the tooltip.
    */
-  dataFormat: PropTypes.func.isRequired,
+  tooltipFormat: PropTypes.func.isRequired,
 };
 
 export default SparkLine;

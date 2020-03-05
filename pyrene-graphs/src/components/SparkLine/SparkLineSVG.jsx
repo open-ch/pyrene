@@ -58,7 +58,7 @@ const SparkLineSVG = (props) => {
   const timeStamps = props.data.map((d) => d[INDEX_START_TS]);
   const values = props.data.map((d) => d[INDEX_VALUE]);
   const radiusCircleSmall = 3;
-  
+
   return (
     <Responsive>
       {(parent) => {
@@ -121,7 +121,7 @@ const SparkLineSVG = (props) => {
             {
               !props.loading && props.enableTooltip && tooltipOpen && (
                 <Tooltip
-                  data={[{ dataValue: props.dataFormat(tooltipData.data) }]}
+                  data={[{ dataValue: props.tooltipFormat(tooltipData.data) }]}
                   left={tooltipLeft} top={tooltipTop}
                   overflow
                 />
@@ -164,10 +164,6 @@ SparkLineSVG.propTypes = {
    */
   data: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
   /**
-   * Sets the data formatting functions for the chart, consisting of format function for the y-axis and that for the tooltip.
-   */
-  dataFormat: PropTypes.func.isRequired,
-  /**
    * If set, a tooltip is shown, while hovering.
    */
   enableTooltip: PropTypes.bool,
@@ -199,6 +195,10 @@ SparkLineSVG.propTypes = {
     tooltipLeftCircle: PropTypes.number,
     tooltipTopCircle: PropTypes.number,
   }),
+  /**
+   * Sets the data formatting functions for the tooltip.
+   */
+  tooltipFormat: PropTypes.func.isRequired,
   /**
    * The tooltip x-position prop provided by the withTooltip enhancer.
    */
