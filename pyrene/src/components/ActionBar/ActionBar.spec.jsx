@@ -134,6 +134,24 @@ describe('<ActionBar />', () => {
       <div />
     );
 
+
+    it('can not define popover and onClick', () => {
+
+      const actionsWithoutTooltips = [
+        {
+          iconName: 'chevronLeft',
+          color: 'neutral300',
+          active: true,
+          onClick: () => {},
+          popover: (closeFunc) => <FakePopover closePopover={closeFunc} />,
+        },
+      ];
+
+      expect(() => {
+        shallow(<ActionBar actions={actionsWithoutTooltips} />);
+      }).toThrow(new Error('You can not define popover and onClick'));
+    });
+
     it('renders no arrow popover if action doesn\'t contain one', () => {
 
       const actionWithoutPopover = [
