@@ -160,8 +160,7 @@ describe('<ActionBar />', () => {
           color: 'neutral300',
           active: false,
           svg: 'pathToSvg',
-          onClick: () => {},
-          popover: <FakePopover />,
+          popover: (closeFunc) => <FakePopover closePopover={closeFunc} />,
         },
       ];
 
@@ -179,16 +178,13 @@ describe('<ActionBar />', () => {
           color: 'neutral300',
           active: true,
           svg: 'pathToSvg',
-          onClick: () => {},
-          popover: <FakePopover />,
+          popover: (closeFunc) => <FakePopover closePopover={closeFunc} />,
         },
       ];
 
       const rendered = shallow(<ActionBar actions={actionWithPopover} />);
 
       expect(rendered.find(ArrowPopover)).toHaveLength(1);
-      expect(rendered.find(ArrowPopover).props().popoverContent).toEqual(<FakePopover />);
-
     });
 
   });
