@@ -19,7 +19,7 @@ const SimpleTable = (props) => (
               {props.columns.map((column) => (
                 <th
                   styleName="tableHeaderCell"
-                  style={{ maxWidth: column.width }}
+                  style={{ maxWidth: column.width > 0 ? `${column.width}px` : null }}
                   key={column.id}
                 >
                   <div styleName="tableCellContent" style={{ textAlign: column.align }}>
@@ -118,7 +118,7 @@ SimpleTable.propTypes = {
     cellRenderCallback: PropTypes.func,
     headerName: PropTypes.string,
     id: PropTypes.string,
-    width: PropTypes.string,
+    width: PropTypes.number,
   })).isRequired,
   /**
    * Sets the Table data displayed in the rows. Type: [ JSON ]
