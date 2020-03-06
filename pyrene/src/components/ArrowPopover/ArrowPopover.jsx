@@ -18,23 +18,35 @@ export const arrowPosition = (position, targetRect, popoverRect) => {
 
   let popoverRectHeight = popoverRect.height - arrowWidth;
   let popoverRectWidth = popoverRect.width - arrowWidth;
-
+  // Do not let arrow overflow
   switch (position) {
     case 'top':
       popoverRectWidth -= arrowWidth;
+      top = popoverRectHeight;
+      left = left + arrowWidth > popoverRectWidth ? popoverRectWidth : left;
+      left = left < 0 ? arrowWidth : left;
       break;
     case 'left':
       popoverRectHeight -= arrowWidth;
+      left = popoverRectWidth;
+      top = top + arrowWidth > popoverRectHeight ? popoverRectHeight : top;
+      top = top < 0 ? arrowWidth : top;
+      break;
+    case 'bottom':
+      popoverRectWidth -= arrowWidth;
+      top = -lengthSide / 2;
+      left = left + arrowWidth > popoverRectWidth ? popoverRectWidth : left;
+      left = left < 0 ? arrowWidth : left;
+      break;
+    case 'right':
+      popoverRectHeight -= arrowWidth;
+      left = -lengthSide / 2;
+      top = top + arrowWidth > popoverRectHeight ? popoverRectHeight : top;
+      top = top < 0 ? arrowWidth : top;
       break;
     default:
-      // right and bottom are not Supported for now
       throw new Error('Not a valid position:', position);
   }
-
-  // Do not let arrow overflow
-  left = left + arrowWidth > popoverRectWidth ? popoverRectWidth : left;
-  top = top + arrowWidth > popoverRectHeight ? popoverRectHeight : top;
-
   return { top, left, lengthSide };
 };
 
