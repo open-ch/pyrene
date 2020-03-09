@@ -6,6 +6,9 @@
 
 .popover {
   position: relative;
+  border-radius: 2px;
+  border: solid 1px #e1e3e8;
+  z-index: -2;
 }
 
 .triangle {
@@ -19,9 +22,10 @@
       x/y = sqrt(8) ~= 2.8
   */
   box-shadow: 2.8px 2.8px 8px -2px rgba(0,21,44,.2);
+  border: solid 1px #e1e3e8;
 
   z-index: -1;
   bottom: 0;
   background-color: white;
-  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
 }
