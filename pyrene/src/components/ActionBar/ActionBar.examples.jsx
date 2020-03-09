@@ -1,3 +1,6 @@
+import React from 'react';
+import Placeholder from '../../examples/Placeholder';
+
 const ActionBar = {};
 /* eslint-disable no-alert */
 ActionBar.props = {
@@ -113,6 +116,33 @@ ActionBar.examples = [
       ],
     },
     description: 'Action bar with one SVG icon and one icon-font icon.',
+  },
+  {
+    props: {
+      actions: (stateProvider) => [
+        {
+          iconName: 'protection',
+          active: typeof stateProvider.state.active === 'undefined' || stateProvider.state.active,
+          tooltip: 'Check Shield',
+          popover: () => <Placeholder />,
+        },
+        {
+          iconName: 'mdr',
+          active: typeof stateProvider.state.active === 'undefined' || stateProvider.state.active,
+          tooltip: 'Search Shield',
+          popover: () => <Placeholder />,
+        },
+        {
+          iconName: 'refresh',
+          active: true,
+          onClick: () => {
+            stateProvider.setState(() => ({ active: false }));
+            setTimeout(() => stateProvider.setState(() => ({ active: true })), 1200);
+          },
+        },
+      ],
+    },
+    description: 'Action bar with popover.',
   },
 ];
 
