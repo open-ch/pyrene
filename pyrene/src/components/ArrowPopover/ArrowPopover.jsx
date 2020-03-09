@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -53,44 +53,67 @@ export const arrowPosition = (position, targetRect, popoverRect) => {
 /**
  *  Popover with Arrow
  */
-const ArrowPopover = ({ children, popoverContent, displayPopover }) => (
-  <div styleName={classNames('arrowPopover')}>
-    <Popover
-      align="center"
-      distanceToTarget={20}
-      preferredPosition={['top', 'left']}
-      renderPopoverContent={(position, nudgedLeft, nudgedTop, targetRect, popoverRect) => {
+const ArrowPopover = ({
+  children, popoverContent, displayPopover, closePopover,
+}) => {
 
-        const { top, left, lengthSide } = arrowPosition(position, targetRect, popoverRect);
+  const node = useRef();
 
-        return (
-          <div styleName={classNames('popover')}>
-            <div>{popoverContent}</div>
-            <div
-              styleName={classNames('triangle')}
-              style={{
-                left,
-                top,
-                width: lengthSide,
-                height: lengthSide,
-              }}
-            />
-          </div>
-        );
-      }}
-      displayPopover={displayPopover}
-      autoReposition
-    >
-      <div>
-        {children}
-      </div>
-    </Popover>
-  </div>
-);
+  const handleClick = (e) => {
+    // click outside
+    if (!node.current.contains(e.target)) {
+      closePopover();
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClick);
+    return () => {
+      document.removeEventListener('mousedown', handleClick);
+    };
+  }, []);
+
+  return (
+    <div styleName={classNames('arrowPopover')}>
+      <Popover
+        align="center"
+        distanceToTarget={20}
+        preferredPosition={['top', 'left']}
+        renderPopoverContent={(position, nudgedLeft, nudgedTop, targetRect, popoverRect) => {
+
+          const { top, left, lengthSide } = arrowPosition(position, targetRect, popoverRect);
+
+          return (
+            <div styleName={classNames('popover')} ref={node}>
+              <div>{popoverContent}</div>
+              <div
+                styleName={classNames('triangle')}
+                style={{
+                  left,
+                  top,
+                  width: lengthSide,
+                  height: lengthSide,
+                }}
+              />
+            </div>
+          );
+        }}
+        displayPopover={displayPopover}
+        autoReposition
+      >
+        <div>
+          {children}
+        </div>
+      </Popover>
+    </div>
+  );
+};
 
 ArrowPopover.displayName = 'Arrow Popover';
 
-ArrowPopover.defaultProps = {};
+ArrowPopover.defaultProps = {
+  closePopover: null,
+};
 
 ArrowPopover.propTypes = {
   /**
@@ -100,6 +123,11 @@ ArrowPopover.propTypes = {
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
   ]).isRequired,
+
+  /**
+   * Function to close the popover.
+   */
+  closePopover: PropTypes.func,
   /**
    * Whether to display the popover.
    */

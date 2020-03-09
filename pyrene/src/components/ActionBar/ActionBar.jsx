@@ -49,6 +49,7 @@ const ActionBar = (props) => {
           <ArrowPopover key={isSvgIcon ? action.svg : action.iconName}
             popoverContent={action.popover(() => setOpenAction(null))}
             displayPopover={openAction === index}
+            closePopover={() => setOpenAction(null)}
           >
             {iconComponent}
           </ArrowPopover>
