@@ -33,9 +33,9 @@ const ActionBar = (props) => {
             return null;
           }
           if (action.popover) {
-            return () => setOpenAction(index);
+            return () => setOpenAction(openAction === index ? null : index);
           }
-          return action.onClick;
+          return () => { setOpenAction(null); action.onClick(); };
         };
 
         const isSvgIcon = action.svg && action.svg.length > 0;
