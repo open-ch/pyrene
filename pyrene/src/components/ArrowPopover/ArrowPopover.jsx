@@ -57,7 +57,7 @@ const ArrowPopover = ({
 
   const handleClick = (e) => {
     // click outside
-    if (!node.current.contains(e.target)) {
+    if (node && node.current && !node.current.contains(e.target)) {
       closePopover();
     }
   };
