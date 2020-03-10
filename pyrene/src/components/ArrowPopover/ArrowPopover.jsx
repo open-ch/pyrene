@@ -13,36 +13,32 @@ export const arrowPosition = (position, targetRect, popoverRect) => {
 
   // Bounding Rect
   // https://media.prod.mdn.mozit.cloud/attachments/2017/06/07/15087/8f54d3ea8e5ad0a1f12ddc185fb78052/rect.png
-  let top = (targetRect.top - popoverRect.top) + (targetRect.height / 2) - (arrowWidth / 2);
-  let left = (targetRect.left - popoverRect.left) + (targetRect.width / 2) - (arrowWidth / 2);
+  let top = targetRect.top - popoverRect.top + (targetRect.height / 2) - (lengthSide / 2);
+  let left = targetRect.left - popoverRect.left + (targetRect.width / 2) - (lengthSide / 2);
 
-  let popoverRectHeight = popoverRect.height - arrowWidth;
-  let popoverRectWidth = popoverRect.width - arrowWidth;
+  const heightOverflowPoint = popoverRect.height - arrowWidth;
+  const widthOverflowPoint = popoverRect.width - arrowWidth;
   // Do not let arrow overflow
   switch (position) {
     case 'top':
-      popoverRectWidth -= arrowWidth;
-      top = popoverRectHeight;
-      left = left + arrowWidth > popoverRectWidth ? popoverRectWidth : left;
-      left = left < 0 ? arrowWidth : left;
+      top = heightOverflowPoint;
+      left = left + arrowWidth > widthOverflowPoint ? widthOverflowPoint - arrowWidth : left;
+      left = left < arrowWidth ? arrowWidth : left;
       break;
     case 'left':
-      popoverRectHeight -= arrowWidth;
-      left = popoverRectWidth;
-      top = top + arrowWidth > popoverRectHeight ? popoverRectHeight : top;
-      top = top < 0 ? arrowWidth : top;
+      left = widthOverflowPoint;
+      top = top + arrowWidth > heightOverflowPoint ? heightOverflowPoint - arrowWidth : top;
+      top = top < arrowWidth ? arrowWidth : top;
       break;
     case 'bottom':
-      popoverRectWidth -= arrowWidth;
       top = -lengthSide / 2;
-      left = left + arrowWidth > popoverRectWidth ? popoverRectWidth : left;
-      left = left < 0 ? arrowWidth : left;
+      left = left + arrowWidth > widthOverflowPoint ? widthOverflowPoint - arrowWidth : left;
+      left = left < arrowWidth ? arrowWidth : left;
       break;
     case 'right':
-      popoverRectHeight -= arrowWidth;
       left = -lengthSide / 2;
-      top = top + arrowWidth > popoverRectHeight ? popoverRectHeight : top;
-      top = top < 0 ? arrowWidth : top;
+      top = top + arrowWidth > heightOverflowPoint ? heightOverflowPoint - arrowWidth : top;
+      top = top < arrowWidth ? arrowWidth : top;
       break;
     default:
       throw new Error('Not a valid position:', position);
