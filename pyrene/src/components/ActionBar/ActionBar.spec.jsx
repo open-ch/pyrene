@@ -143,13 +143,13 @@ describe('<ActionBar />', () => {
           color: 'neutral300',
           active: true,
           onClick: () => {},
-          popover: (closeFunc) => <FakePopover closePopover={closeFunc} />,
+          renderPopover: (closeFunc) => <FakePopover closePopover={closeFunc} />,
         },
       ];
 
       expect(() => {
         shallow(<ActionBar actions={actionsWithoutTooltips} />);
-      }).toThrow(new Error('You can not define popover and onClick'));
+      }).toThrow(new Error('You can not define both renderPopover and onClick'));
     });
 
     it('renders no arrow popover if action doesn\'t contain one', () => {
@@ -178,7 +178,7 @@ describe('<ActionBar />', () => {
           color: 'neutral300',
           active: false,
           svg: 'pathToSvg',
-          popover: (closeFunc) => <FakePopover closePopover={closeFunc} />,
+          renderPopover: (closeFunc) => <FakePopover closePopover={closeFunc} />,
         },
       ];
 
@@ -196,7 +196,7 @@ describe('<ActionBar />', () => {
           color: 'neutral300',
           active: true,
           svg: 'pathToSvg',
-          popover: (closeFunc) => <FakePopover closePopover={closeFunc} />,
+          renderPopover: (closeFunc) => <FakePopover closePopover={closeFunc} />,
         },
       ];
 
