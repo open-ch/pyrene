@@ -26,13 +26,13 @@ const ActionBar = (props) => {
       ) : props.actions.map((action, index) => {
 
         const onClick = () => {
-          if (action.popover && action.onClick) {
-            throw new Error('You can not define popover and onClick');
+          if (action.renderPopover && action.onClick) {
+            throw new Error('You can not define both renderPopover and onClick');
           }
           if (!action.active) {
             return null;
           }
-          if (action.popover) {
+          if (action.renderPopover) {
             return () => setOpenAction(openAction === index ? null : index);
           }
           return () => { setOpenAction(null); action.onClick(); };
@@ -45,9 +45,9 @@ const ActionBar = (props) => {
           </div>
         );
 
-        const actionComponent = action.popover && action.active ? (
+        const actionComponent = action.renderPopover && action.active ? (
           <ArrowPopover key={isSvgIcon ? action.svg : action.iconName}
-            popoverContent={action.popover(() => setOpenAction(null))}
+            popoverContent={action.renderPopover(() => setOpenAction(null))}
             displayPopover={openAction === index}
             closePopover={() => setOpenAction(null)}
           >
@@ -98,7 +98,7 @@ ActionBar.propTypes = {
     /**
      * Popover content
      */
-    popover: PropTypes.func,
+    renderPopover: PropTypes.func,
     /**
      * The type of icon.
      */
