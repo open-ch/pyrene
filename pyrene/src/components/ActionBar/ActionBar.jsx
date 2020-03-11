@@ -7,6 +7,26 @@ import Tooltip from '../Tooltip/Tooltip';
 import ArrowPopover from '../ArrowPopover/ArrowPopover';
 import './actionBar.css';
 
+
+export const handleOnClick = ({
+  renderPopover, onClick, active, index, openAction, setOpenAction,
+}) => {
+  if (renderPopover && onClick) {
+    throw new Error('You can not define both renderPopover and onClick');
+  }
+  if (!active) {
+    return null;
+  }
+  if (renderPopover) {
+    setOpenAction(openAction !== index ? index : null);
+  }
+  if (onClick) {
+    setOpenAction(null);
+    onClick();
+  }
+  return null;
+};
+
 /**
  * An action bar consists of a configurable number of action elements (e.g. icons) that user can interact with.
  *
@@ -24,26 +44,13 @@ const ActionBar = (props) => {
           <Loader type="inline" />
         </div>
       ) : props.actions.map((action, index) => {
-
-        const onClick = () => {
-          if (action.renderPopover && action.onClick) {
-            throw new Error('You can not define both renderPopover and onClick');
-          }
-          if (!action.active) {
-            return null;
-          }
-          if (action.renderPopover) {
-            setOpenAction(openAction !== index ? index : null);
-          }
-          if (action.onClick) {
-            setOpenAction(null);
-            action.onClick();
-          }
-        };
-
         const isSvgIcon = action.svg && action.svg.length > 0;
         const iconComponent = (
-          <div styleName={classNames('iconBox', { disabled: !action.active })} onClick={() => onClick()}>
+          <div styleName={classNames('iconBox', { disabled: !action.active })}
+            onClick={() => handleOnClick({
+              renderPopover: action.renderPopover, onClick: action.onClick, active: action.active, index, openAction, setOpenAction,
+            })}
+          >
             {isSvgIcon ? <Icon color={action.color} svg={action.svg} type="inline" /> : <Icon color={action.color} name={action.iconName} type="inline" />}
           </div>
         );

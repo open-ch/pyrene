@@ -1,29 +1,31 @@
 import React from 'react';
 
-import ActionBar from './ActionBar';
+import ActionBar, { handleOnClick } from './ActionBar';
 import Icon from '../Icon/Icon';
 import ArrowPopover from '../ArrowPopover/ArrowPopover';
 import Tooltip from '../Tooltip/Tooltip';
 
-const props = {
-  styling: 'shadow',
-  actions: [
-    {
-      iconName: 'chevronLeft',
-      color: 'neutral300',
-      active: true,
-      onClick: () => {},
-    },
-    {
-      iconName: 'chevronRight',
-      color: 'neutral300',
-      active: false,
-      onClick: () => {},
-    },
-  ],
-};
 
 describe('<ActionBar />', () => {
+
+  const props = {
+    styling: 'shadow',
+    actions: [
+      {
+        iconName: 'chevronLeft',
+        color: 'neutral300',
+        active: true,
+        onClick: () => {},
+      },
+      {
+        iconName: 'chevronRight',
+        color: 'neutral300',
+        active: false,
+        onClick: () => {},
+      },
+    ],
+  };
+
   it('renders without crashing', () => {
     shallow(<ActionBar {...props} />);
   });
@@ -133,24 +135,6 @@ describe('<ActionBar />', () => {
     const FakePopover = () => (
       <div />
     );
-
-
-    it('can not define popover and onClick', () => {
-
-      const actionsWithoutTooltips = [
-        {
-          iconName: 'chevronLeft',
-          color: 'neutral300',
-          active: true,
-          onClick: () => {},
-          renderPopover: (closeFunc) => <FakePopover closePopover={closeFunc} />,
-        },
-      ];
-
-      expect(() => {
-        shallow(<ActionBar actions={actionsWithoutTooltips} />);
-      }).toThrow(new Error('You can not define both renderPopover and onClick'));
-    });
 
     it('renders no arrow popover if action doesn\'t contain one', () => {
 
@@ -268,5 +252,62 @@ describe('<ActionBar />', () => {
     const rendered = shallow(<ActionBar {...props1} />);
     rendered.find('.iconBox').simulate('click', { preventDefault() {} });
     expect(mockCallBack).toHaveBeenCalledTimes(1);
+  });
+
+
+  describe('<handleOnClick />', () => {
+
+    const values = {
+      onClick: () => jest.fn(),
+      renderPopover: () => jest.fn(),
+      active: true,
+      index: 0,
+      openAction: null,
+      setOpenAction: () => jest.fn(),
+    };
+    it('can not define popover and onClick', () => {
+      expect(() => {
+        handleOnClick(values);
+      }).toThrow(new Error('You can not define both renderPopover and onClick'));
+    });
+    it('calls setOpenAction(null) and onClick() on onClick', () => {
+
+      const setOpenAction = jest.fn();
+      const onClick = jest.fn();
+      handleOnClick({
+        ...values, renderPopover: null, setOpenAction, onClick,
+      });
+
+      expect(setOpenAction).toHaveBeenCalled();
+      expect(onClick).toHaveBeenCalled();
+    });
+
+    it('do not call anything when not active', () => {
+
+      const setOpenAction = jest.fn();
+      const onClick = jest.fn();
+      handleOnClick({
+        ...values, active: false, renderPopover: null, setOpenAction, onClick,
+      });
+
+      expect(setOpenAction).not.toHaveBeenCalled();
+      expect(onClick).not.toHaveBeenCalled();
+    });
+
+    it('call setOpenAction when renderPopover is defined', () => {
+
+      const renderPopover = jest.fn();
+      const setOpenAction = jest.fn();
+      handleOnClick({
+        ...values, onClick: null, openAction: null, renderPopover, setOpenAction,
+      });
+
+      expect(setOpenAction).toHaveBeenCalledWith(values.index);
+
+      handleOnClick({
+        ...values, onClick: null, openAction: 0, renderPopover, setOpenAction,
+      });
+      expect(setOpenAction).toHaveBeenCalledWith(null);
+    });
   });
 });
