@@ -33,14 +33,17 @@ const ActionBar = (props) => {
             return null;
           }
           if (action.renderPopover) {
-            return () => setOpenAction(openAction === index ? null : index);
+            setOpenAction(openAction !== index ? index : null);
           }
-          return () => { setOpenAction(null); action.onClick(); };
+          if (action.onClick) {
+            setOpenAction(null);
+            action.onClick();
+          }
         };
 
         const isSvgIcon = action.svg && action.svg.length > 0;
         const iconComponent = (
-          <div styleName={classNames('iconBox', { disabled: !action.active })} onClick={onClick()}>
+          <div styleName={classNames('iconBox', { disabled: !action.active })} onClick={() => onClick()}>
             {isSvgIcon ? <Icon color={action.color} svg={action.svg} type="inline" /> : <Icon color={action.color} name={action.iconName} type="inline" />}
           </div>
         );
