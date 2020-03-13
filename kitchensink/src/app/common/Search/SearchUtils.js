@@ -18,7 +18,7 @@ export default class SearchUtils {
       description: component.__docgenInfo ? component.__docgenInfo.description : '', // eslint-disable-line no-underscore-dangle
     }))
       .filter((component) => (this.normalise(component.displayName).includes(normalisedSearchInput) || this.normalise(component.description).includes(normalisedSearchInput))));
-      
+
   }
 
 }

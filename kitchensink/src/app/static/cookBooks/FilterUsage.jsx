@@ -243,7 +243,7 @@ const FilterUsage = () => (
       <div styleName="title">Filter</div>
       <div styleName="description">
         <p>
-In order to display filtered data, a filter needs to be connected, with e.g., a Table. There are multiple ways to achieve that, depending on your use case.
+          In order to display filtered data, a filter needs to be connected, with e.g., a Table. There are multiple ways to achieve that, depending on your use case.
         </p>
       </div>
       <div className="topicContent">
@@ -271,11 +271,11 @@ In order to display filtered data, a filter needs to be connected, with e.g., a 
         <Paragraph title="Data Filter">
           <DescriptionBox>
             <p>
-             If you want to automatically fill in possible options based on the available data, use createDataFilter. It will only provide options that are available in the data.
+              If you want to automatically fill in possible options based on the available data, use createDataFilter. It will only provide options that are available in the data.
               For this optionsAccessors has to be specified.
             </p>
             <p>
-             Since we are already passing the data to createDataFilter, the actual dataFilterFunc does not need to receive it again.
+              Since we are already passing the data to createDataFilter, the actual dataFilterFunc does not need to receive it again.
             </p>
           </DescriptionBox>
           <CodeBox>
