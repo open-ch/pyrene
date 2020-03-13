@@ -395,27 +395,27 @@ const FormUsage = () => (
       <div styleName="title">Form</div>
       <div styleName="description">
         <p>
-Forms need a central place to keep the state of all the components in order to allow the implementation of important features like dynamic input disabling and to guarantee a
+          Forms need a central place to keep the state of all the components in order to allow the implementation of important features like dynamic input disabling and to guarantee a
           <strong>single source of truth</strong>
-.
+          .
         </p>
         <p>
-As it needs to manage a lot of different input components and types, the Form component has a very custom implementation. With this component using the
+          As it needs to manage a lot of different input components and types, the Form component has a very custom implementation. With this component using the
           <strong>render props pattern</strong>
           {' '}
-we try to standardise the general behaviour and logic behind the React way of doing forms with the intent to reduce boilerplate code.
+          we try to standardise the general behaviour and logic behind the React way of doing forms with the intent to reduce boilerplate code.
         </p>
       </div>
       <div className="topicContent">
         <Paragraph title="Getting started">
           <DescriptionBox>
             <p>
-            Start by using the Form component and fill its render prop with all the form elements that you need.
-            Register each element with the initField function and add a button for submission at the end of the form.
+              Start by using the Form component and fill its render prop with all the form elements that you need.
+              Register each element with the initField function and add a button for submission at the end of the form.
             </p>
             <strong>Note:</strong>
             {' '}
-The initField function needs to be called with the spread operator and as the *LAST* prop of the element.
+            The initField function needs to be called with the spread operator and as the *LAST* prop of the element.
           </DescriptionBox>
           <CodeBox>
             {SmallFormCode}

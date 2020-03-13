@@ -8,9 +8,9 @@ const paragraphHowTo = [{
   component: () => (
     <Card>
       <Paragraph>
-Paragraph text
+        Paragraph text
         <br />
-separated by a lind break.
+        separated by a lind break.
       </Paragraph>
       <Paragraph>
         {'Or text that is '}
