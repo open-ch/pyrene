@@ -5,13 +5,11 @@ import TableSelect from './TableSelect/TableSelect';
 
 import './tablePagination.css';
 
-const showAmountOfResults = (data, numberOfResults) => {
-  let resultAmount = 0;
-  if (numberOfResults) {
-    resultAmount = numberOfResults;
-  } else {
-    resultAmount = data.length;
+const showAmountOfResults = (data, numberOfResults, loading) => {
+  if (loading) {
+    return '';
   }
+  const resultAmount = numberOfResults || data.length;
   return `${resultAmount === 0 ? 'No' : resultAmount} result${resultAmount === 1 ? '' : 's'} found`;
 };
 
@@ -21,7 +19,7 @@ const showAmountOfResults = (data, numberOfResults) => {
 const TablePagination = (props) => (
   <div styleName="tablePagination">
     <div styleName="resultsCounter">
-      {showAmountOfResults(props.data, props.numberOfResults)}
+      {showAmountOfResults(props.data, props.numberOfResults, props.loading)}
     </div>
 
     <div styleName="separator" />
