@@ -124,13 +124,13 @@ ActionBar.examples = [
           iconName: 'protection',
           active: typeof stateProvider.state.active === 'undefined' || stateProvider.state.active,
           tooltip: 'Check Shield',
-          popover: () => <Placeholder />,
+          renderPopover: () => <Placeholder />,
         },
         {
           iconName: 'mdr',
           active: typeof stateProvider.state.active === 'undefined' || stateProvider.state.active,
           tooltip: 'Search Shield',
-          popover: () => <Placeholder />,
+          renderPopover: () => <Placeholder />,
         },
         {
           iconName: 'refresh',
