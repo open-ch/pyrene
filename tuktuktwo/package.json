@@ -17,6 +17,7 @@
     "prebuild": "npm run clean && npm install",
     "build": "webpack && NODE_ENV=production webpack",
     "watch": "webpack -w",
+    "expose": "npm install && npm link && npm run watch",
     "pretest": "npm install",
     "test": "jest",
     "testWatch": "jest --watch",
