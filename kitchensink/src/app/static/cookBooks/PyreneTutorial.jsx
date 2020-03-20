@@ -98,7 +98,7 @@ const PyreneTutorial = () => (
         </Paragraph>
         <Paragraph title="Components">
           <DescriptionBox>
-              When creating a new component try to see if it will need to store information in its state. If it does not need any state, keep it as a functional component. Further sort all props alphabetically in its propTypes declaration and add comments like shown to automatically create the docs in Kitchensink (the displayName is the title of the generated page).
+            When creating a new component try to see if it will need to store information in its state. If it does not need any state, keep it as a functional component. Further sort all props alphabetically in its propTypes declaration and add comments like shown to automatically create the docs in Kitchensink (the displayName is the title of the generated page).
           </DescriptionBox>
           <CodeBox>
             {ComponentType}
@@ -108,12 +108,12 @@ const PyreneTutorial = () => (
             {' '}
             <strong>Stick to controlled components as much as possible, if you need lifecycle methods you are probably doing something wrong. </strong>
             <p>
-More on this topic
+              More on this topic
               <Link label="here" type="inline" path="https://reactjs.org/blog/2018/06/07/you-probably-dont-need-derived-state.html" />
               {' '}
-and
+              and
               <Link label="here" type="inline" path="https://goshakkk.name/controlled-vs-uncontrolled-inputs-react" />
-.
+              .
             </p>
           </DescriptionBox>
         </Paragraph>
@@ -133,10 +133,10 @@ and
               {' '}
               <strong>not</strong>
               {' '}
-give your components any
+              give your components any
               {' '}
               <strong>margin or styles that influence its surroundings</strong>
-. The component styling should only affect the component itself, and live in every neighborhood peacefully without the need to push around its siblings.
+              . The component styling should only affect the component itself, and live in every neighborhood peacefully without the need to push around its siblings.
             </p>
             <p>
               You are encouraged to nest css if it makes sense. Ask yourself before deciding: Will I hate myself in 3 weeks having to read this again?
