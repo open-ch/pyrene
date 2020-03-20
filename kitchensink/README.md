@@ -20,9 +20,8 @@ npm link pyrene
 npm run watch
 ```
 
-If you don't want to use your local copy of pyrene any longer, unlink it and do a fresh package install:
+If you don't want to use your local copy of pyrene any longer, just do a fresh package install:
 ```bash
-npm unlink pyrene
 npm install
 ```
 

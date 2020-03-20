@@ -11,8 +11,6 @@
     "clean": "rm -rf dist node_modules",
     "prebuild": "npm install",
     "build": "webpack",
-    "prestart": "npm install",
-    "prewatch": "npm install",
     "watch": "webpack-dev-server",
     "prelint": "npm install",
     "lint": "eslint --ext .js,.jsx src/",
