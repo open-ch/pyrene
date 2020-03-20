@@ -1,5 +1,5 @@
 import React from 'react';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import TimeXAxis from './TimeXAxis';
 import { getTickValues } from './TimeXUtil';
 import { scaleTime } from '../../common/ScaleUtils';

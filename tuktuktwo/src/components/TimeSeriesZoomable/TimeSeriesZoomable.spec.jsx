@@ -1,5 +1,5 @@
 import React from 'react';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import TimeSeriesZoomable, { minZoomRangeReached, getBoundedZoomInRange } from './TimeSeriesZoomable';
 import { scaleTime } from '../../common/ScaleUtils';
 import chartConstants from '../../common/chartConstants';
