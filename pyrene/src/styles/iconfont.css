@@ -148,12 +148,24 @@
 :global(.pyreneIcon-wrench:before){
   content: "\44";
 }
-:global(.icon-rewind:before){
+:global(.pyreneIcon-rewind:before){
   content: "\51";
 }
-:global(.icon-fastForward:before){
+:global(.pyreneIcon-fastForward:before){
   content: "\50";
 }
-:global(.icon-newWindow:before){
+:global(.pyreneIcon-newWindow:before){
   content: "\4f";
+}
+:global(.pyreneIcon-globe:before){
+  content: "\55";
+}
+:global(.pyreneIcon-expand:before){
+  content: "\54";
+}
+:global(.pyreneIcon-collapse:before){
+  content: "\53";
+}
+:global(.pyreneIcon-clock:before){
+  content: "\52";
 }
