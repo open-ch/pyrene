@@ -73,6 +73,8 @@
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "prop-types": "^15.6.1",
+    "moment": "^2.24.0",
+    "moment-timezone": "^0.5.26",
     "regenerator-runtime": "^0.13.1",
     "release-it": "^12.2.0",
     "style-loader": "^1.0.0",
