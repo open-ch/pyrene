@@ -35,9 +35,7 @@ export default class IconDisplay extends React.Component {
   displaySearchResults = () => {
     const filteredData = this.props.data.filter((icon) => this.filterIcon(icon));
 
-    // Display a max of 60 icons at once
-    const slicedArray = filteredData.slice(0, 60);
-    return slicedArray.map((icon) => <IconBox name={icon.name} key={icon.name} disabled={icon.disabled} />);
+    return filteredData.map((icon) => <IconBox name={icon.name} key={icon.name} disabled={icon.disabled} />);
   };
 
   render() {
