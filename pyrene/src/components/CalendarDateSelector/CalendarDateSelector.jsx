@@ -22,17 +22,6 @@ import './calendarDateSelector.css';
  */
 export default class CalendarDateSelector extends React.Component {
 
-  _onNavigate = (value, direction) => {
-    const { onChange, timeUnit } = this.props;
-    const newDate = handleDateChange(value, direction, timeUnit);
-    onChange(newDate, timeUnit);
-  };
-
-  _onSelect = (timeUnit) => {
-    const { onChange, value } = this.props;
-    onChange(value, timeUnit);
-  };
-
   static DEFAULT_LOWER_BOUND = {
     year: 2015,
     month: 1,
@@ -44,6 +33,17 @@ export default class CalendarDateSelector extends React.Component {
     DATE_TYPES.MONTH,
     DATE_TYPES.YEAR,
   ];
+
+  _onNavigate = (value, direction) => {
+    const { onChange, timeUnit } = this.props;
+    const newDate = handleDateChange(value, direction, timeUnit);
+    onChange(newDate, timeUnit);
+  };
+
+  _onSelect = (timeUnit) => {
+    const { onChange, value } = this.props;
+    onChange(value, timeUnit);
+  };
 
   render() {
     const {
