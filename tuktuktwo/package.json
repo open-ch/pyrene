@@ -16,6 +16,7 @@
     "clean": "rm -rf dist node_modules",
     "prebuild": "npm run clean && npm install",
     "build": "webpack && NODE_ENV=production webpack",
+    "build-debug": "NODE_ENV=debug webpack",
     "watch": "webpack -w",
     "expose": "npm link && npm run watch",
     "pretest": "npm install",
@@ -50,12 +51,12 @@
     "eslint-plugin-react-hooks": "^1.7.0",
     "jest": "^24.1.0",
     "jest-bamboo-formatter": "^1.0.1",
-    "moment": "^2.24.0",
     "moment-timezone": "^0.5.26",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "release-it": "^12.3.5",
     "webpack": "^4.6.0",
+    "webpack-bundle-analyzer": "^3.6.1",
     "webpack-cli": "^3.1.2"
   },
   "dependencies": {
@@ -67,13 +68,12 @@
     "@vx/responsive": "^0.0.192",
     "@vx/scale": "^0.0.192",
     "@vx/shape": "^0.0.192",
-    "@vx/tooltip": "^0.0.192",
-    "prop-types": "^15.6.1"
+    "@vx/tooltip": "^0.0.192"
   },
   "peerDependencies": {
-    "moment": ">=2.20.0 <3.0.0",
     "moment-timezone": ">=0.5.0 < 1.0.0",
     "react": ">=16.9.0 <17.0.0",
-    "react-dom": ">=16.9.0 <17.0.0"
+    "react-dom": ">=16.9.0 <17.0.0",
+    "prop-types": "^15.6.1"
   }
 }
