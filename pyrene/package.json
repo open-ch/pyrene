@@ -17,6 +17,7 @@
     "clean": "rm -rf dist node_modules",
     "prebuild": "npm run clean && npm install",
     "build": "webpack && NODE_ENV=production webpack",
+    "build-debug": "NODE_ENV=debug webpack",
     "prewatch": "npm install",
     "watch": "webpack -w",
     "pretest": "npm install",
@@ -71,19 +72,18 @@
     "raw-loader": "^3.0.0",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
+    "prop-types": "^15.6.1",
     "regenerator-runtime": "^0.13.1",
     "release-it": "^12.2.0",
     "style-loader": "^1.0.0",
     "terser-webpack-plugin": "^2.0.0",
     "url-loader": "^2.1.0",
     "webpack": "^4.1.1",
+    "webpack-bundle-analyzer": "^3.6.1",
     "webpack-cli": "^3.2.3"
   },
   "dependencies": {
     "classnames": "^2.2.5",
-    "moment": "^2.24.0",
-    "moment-timezone": "^0.5.26",
-    "prop-types": "^15.6.1",
     "react-select": "^3.0.4",
     "react-svg-inline": "^2.1.1",
     "react-table": "^6.8.6",
@@ -93,6 +93,9 @@
   },
   "peerDependencies": {
     "react": ">=16.9.0 <17.0.0",
-    "react-dom": ">=16.9.0 <17.0.0"
+    "react-dom": ">=16.9.0 <17.0.0",
+    "prop-types": "^15.6.1",
+    "moment": "^2.24.0",
+    "moment-timezone": "^0.5.26"
   }
 }
