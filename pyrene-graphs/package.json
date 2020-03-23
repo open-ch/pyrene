@@ -17,6 +17,7 @@
     "clean": "rm -rf dist node_modules",
     "prebuild": "npm run clean && npm install",
     "build": "webpack && NODE_ENV=production webpack",
+    "build-debug": "NODE_ENV=debug webpack",
     "watch": "webpack -w",
     "expose": "npm link && npm run watch",
     "expose-tuktuktwo": "npm link && npm link tuktuktwo && npm run watch",
@@ -66,22 +67,24 @@
     "postcss-import": "^12.0.1",
     "postcss-loader": "^3.0.0",
     "postcss-nesting": "^7.0.0",
+    "prop-types": "^15.6.1",
     "pyrene": "~1.15.7",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "release-it": "^12.3.5",
     "terser-webpack-plugin": "^2.0.0",
     "webpack": "^4.1.1",
+    "webpack-bundle-analyzer": "^3.6.1",
     "webpack-cli": "^3.2.3"
   },
   "dependencies": {
-    "prop-types": "^15.6.1",
-    "tuktuktwo": "^1.0.1"
+    "tuktuktwo": "^1.1.0"
   },
   "peerDependencies": {
     "moment": ">=2.20.0 <3.0.0",
     "moment-timezone": ">=0.5.0 < 1.0.0",
     "pyrene": ">=1.13.3 <2.0.0",
+    "prop-types": "^15.6.1",
     "react": ">=16.9.0 <17.0.0",
     "react-dom": ">=16.9.0 <17.0.0"
   }
