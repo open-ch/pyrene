@@ -167,7 +167,7 @@ const TimeSeriesLineChartSVG = (props) => {
                     data={tooltipData.map((d) => ({
                       dataColor: d.color,
                       dataLabel: d.label,
-                      dataValue: props.tooltipFormat(d.data[INDEX_VALUE] ? d.data[INDEX_VALUE]: ''),
+                      dataValue: props.tooltipFormat(d.data[INDEX_VALUE] ? d.data[INDEX_VALUE] : ''),
                     }))}
                     label={getTimeFormat(props.timezone, props.timeFormat)([tooltipData[0].data[INDEX_START_TS]])}
                     left={tooltipLeft} top={tooltipTop}
