@@ -3,6 +3,7 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin';
 import TerserPlugin from 'terser-webpack-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const production = process.env.NODE_ENV === 'production';
 
@@ -57,6 +58,9 @@ const config = {
     ],
   },
   plugins: [
+    new BundleAnalyzerPlugin({
+      analyzerMode: process.env.NODE_ENV === 'debug' ? 'server' : 'disabled',
+    }),
     new MiniCssExtractPlugin({
       filename: 'pyrene.css',
     }),
@@ -81,7 +85,7 @@ const config = {
     library: 'pyrene',
     libraryTarget: 'umd',
   },
-  externals: ['react', 'react-dom'],
+  externals: ['react', 'react-dom', 'prop-types', 'moment', 'moment-timezone'],
 };
 
 if (production) {
