@@ -8,9 +8,7 @@ In order to ease development of pyrene, we recommend to use the kitchensink toge
 
 Make pyrene available and keep watching it (in your pyrene folder):
 ```bash
-npm install
-npm link
-npm run watch
+npm run expose
 ```
 
 Link it in kitchensink and fire up the development server (in your kitchensink folder):
@@ -20,9 +18,16 @@ npm link pyrene
 npm run watch
 ```
 
-If you don't want to use your local copy of pyrene any longer, unlink it and do a fresh package install:
+If you want to use pyrene-graphs instead you can also expose with tuktuktwo:
 ```bash
-npm unlink pyrene
+cd ~/git/tuktuktwo
+npm run expose
+cd ~/git/pyrene-graphs
+npm run expose-tuktuktwo
+```
+
+If you don't want to use your local copy of pyrene any longer, just do a fresh package install:
+```bash
 npm install
 ```
 
