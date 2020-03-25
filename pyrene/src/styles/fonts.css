@@ -26,6 +26,12 @@
  src: url('../fonts/FiraGO-Bold.woff2') format('woff2'), url('../fonts/FiraGO-Bold.woff') format('woff');
 }
 
+@font-face {
+  font-family: FiraSans;
+  font-stretch: condensed;
+  src: url('../fonts/FiraCondensed-Regular.woff2') format('woff2'), url('../fonts/FiraCondensed-Regular.woff') format('woff');
+}
+
 /* PyreneIconFont */
 @font-face {
   font-family: PyreneIconFont;
