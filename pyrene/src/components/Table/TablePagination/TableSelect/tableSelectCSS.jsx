@@ -15,7 +15,7 @@ const selectStyle = {
   container: (base) => ({
     ...base,
     fontFamily: 'FiraGo, Helvetica, sans-serif !important',
-    fontSize: 13,
+    fontSize: 12,
     fontWeight: 500,
     width: '100%',
   }),
@@ -57,7 +57,7 @@ const selectStyle = {
   valueContainer: (base) => ({
     ...base,
     display: 'flex',
-    padding: '0 8px 0 0',
+    padding: '0 4px 0 0',
     justifyContent: 'flex-end',
     height: 32,
     '& :last-child': {
@@ -125,9 +125,9 @@ const selectStyle = {
     ...base,
     '[type="text"]': {
       fontFamily: 'FiraGo, Helvetica, sans-serif !important',
-      fontSize: 13,
+      fontSize: 12,
       fontWeight: 500,
-      color: colorConstants.neutral400,
+      color: colorConstants.neutral500,
       WebkitFontSmoothing: 'antialiased',
       MozOsxFontSmoothing: 'grayscale',
     },
@@ -135,6 +135,7 @@ const selectStyle = {
 
   singleValue: (base) => ({
     ...base,
+    lineHeight: '18px',
     right: 4,
   }),
 
