@@ -19,8 +19,9 @@
   font-size: 11px;
   font-weight: 500;
   text-align: left;
-  color: var(--neutral-400);
-  margin-bottom: 3px;
+  color: var(--neutral-500);
+  height: 12px;
+  margin-bottom: 4px;
 
   &.required:after {
     content: '*';
@@ -48,11 +49,10 @@
     border-color: var(--primary);
     background-color: var(--background-light);
   }
-
+  
   &[type=text] {
-    padding: 7px 0 6px 8px;
+    padding: 8px 9px;
 
-    font-family: FiraGO, Helvetica, sans-serif;
     font-size: 12px;
     text-align: left;
     color: var(--text);
@@ -64,36 +64,38 @@
 
   &.filled {
     background-color: var(--background-light);
+    border-radius: 2px;
+    border: solid 1px var(--neutral-500);
   }
 
   &::placeholder {
     font-size: 12px;
-    color: var(--neutral-200);
+    color: var(--neutral-300);
   }
 }
 
 .textFieldIcon {
   font-size: 11px;
-  color: var(--neutral-200);
+  color: var(--neutral-300);
   position: absolute;
   right: 8px;
   top: 10px;
 }
 
 .textFieldHelper {
-  margin-top: 4px;
+  margin-top: 3px;
   font-size: 11px;
   line-height: 13px;
-  font-weight: 400;
+  letter-spacing: -0.3px;
   text-align: left;
-  color: var(--neutral-100);
+  color: var(--neutral-200);
 }
 
 .invalidLabel {
-  margin-top: 4px;
+  margin-top: 3px;
   font-size: 11px;
   line-height: 13px;
-  font-weight: 400;
+  letter-spacing: -0.3px;
   text-align: left;
   color: var(--danger-fg);
 }
