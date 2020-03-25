@@ -14,8 +14,7 @@ const multiSelectStyle = (props) => ({
   container: (base) => ({
     ...base,
     fontFamily: 'FiraGo, Helvetica, sans-serif !important',
-    fontSize: 13,
-    fontWeight: 500,
+    fontSize: 12,
     width: '100%',
   }),
 
@@ -40,7 +39,7 @@ const multiSelectStyle = (props) => ({
     overflow: 'hidden',
 
     backgroundColor: (state.isFocused || state.hasValue) ? colorConstants.backgroundLight : colorConstants.backgroundTint,
-    border: state.selectProps.isInvalid && !state.isDisabled ? `solid 1px ${colorConstants.red500}` : state.isFocused ? `solid 1px ${colorConstants.blue500}` : `solid 1px ${colorConstants.neutral100}`,
+    border: state.selectProps.isInvalid && !state.isDisabled ? `solid 1px ${colorConstants.red500}` : state.isFocused ? `solid 1px ${colorConstants.blue500}` : state.hasValue ? `solid 1px ${colorConstants.neutral500}` : `solid 1px ${colorConstants.neutral100}`,
     borderRadius: 2,
     cursor: 'pointer',
 
@@ -90,7 +89,7 @@ const multiSelectStyle = (props) => ({
     ...base,
     color: colorConstants.neutral200,
     height: '100%',
-    paddingTop: '7px',
+    paddingTop: '9px',
   }),
 
   clearIndicator: () => ({
@@ -146,11 +145,11 @@ const multiSelectStyle = (props) => ({
 
   input: (base) => ({
     ...base,
+    paddingTop: '5px',
     '[type="text"]': {
       fontFamily: 'FiraGo, Helvetica, sans-serif !important',
-      fontSize: 13,
-      fontWeight: 500,
-      color: colorConstants.neutral400,
+      fontSize: 12,
+      color: colorConstants.neutral500,
       WebkitFontSmoothing: 'antialiased',
       MozOsxFontSmoothing: 'grayscale',
     },

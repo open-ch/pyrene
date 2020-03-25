@@ -41,7 +41,7 @@ const selectStyle = {
     minHeight: 32,
     height: 32,
     backgroundColor: (state.isFocused || state.hasValue) ? colorConstants.neutral000 : colorConstants.neutral020,
-    border: state.selectProps.isInvalid && !state.isDisabled ? `solid 1px ${colorConstants.red500}` : state.isFocused ? `solid 1px ${colorConstants.blue500}` : `solid 1px ${colorConstants.neutral100}`,
+    border: state.selectProps.isInvalid && !state.isDisabled ? `solid 1px ${colorConstants.red500}` : state.isFocused ? `solid 1px ${colorConstants.blue500}` : state.hasValue ? `solid 1px ${colorConstants.neutral500}` : `solid 1px ${colorConstants.neutral100}`,
     borderRadius: 2,
     cursor: 'pointer',
 
@@ -127,7 +127,7 @@ const selectStyle = {
       fontFamily: 'FiraGO, Helvetica, sans-serif !important',
       fontSize: 12,
       fontWeight: 'normal',
-      color: colorConstants.neutral400,
+      color: colorConstants.neutral500,
       WebkitFontSmoothing: 'antialiased',
       MozOsxFontSmoothing: 'grayscale',
     },
