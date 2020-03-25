@@ -35,9 +35,9 @@
   align-items: center;
   font-size: 12px;
   font-weight: normal;
-  line-height: 1.71;
   text-transform: capitalize;
   cursor: pointer;
+  color: var(--text);
 
   &.checked {
     &.disabled .radioIcon {

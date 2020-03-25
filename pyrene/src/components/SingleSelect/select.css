@@ -12,11 +12,12 @@
 }
 
 .selectTitle {
-  font-size: 13px;
-  font-weight: 600;
+  font-size: 11px;
+  font-weight: 500;
   text-align: left;
-  color: var(--neutral-400);
-  margin-bottom: 3px;
+  color: var(--neutral-500);
+  height: 12px;
+  margin-bottom: 4px;
 
   &.required:after {
     content: '*';
@@ -25,21 +26,19 @@
 }
 
 .selectHelper {
-  margin-top: 4px;
-  font-size: 12px;
-  line-height: 16px;
-  height: 16px;
-  font-weight: 600;
+  margin-top: 3px;
+  font-size: 11px;
+  line-height: 13px;
+  letter-spacing: -0.3px;
   text-align: left;
-  color: var(--neutral-100);
+  color: var(--neutral-200);
 }
 
 .invalidLabel {
-  margin-top: 4px;
-  font-size: 12px;
-  line-height: 16px;
-  height: 16px;
-  font-weight: 600;
+  margin-top: 3px;
+  font-size: 11px;
+  line-height: 13px;
+  letter-spacing: -0.3px;
   text-align: left;
   color: var(--danger-fg);
 }
