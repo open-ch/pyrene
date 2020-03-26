@@ -1,3 +1,5 @@
+@import '../../styles/colors.css';
+
 .action {
   width: 18px;
   height: 18px;
@@ -7,7 +9,7 @@
   align-items: center;
 }
 
-.action:hover {
+.actionLink:hover {
   background-color: var(--neutral-030);
   border-radius: 1px;
 }
