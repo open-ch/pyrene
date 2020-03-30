@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import './parentButton.css';
+import { Button } from 'pyrene';
 
 
 export default class ParentButton extends React.Component {
@@ -27,10 +27,11 @@ export default class ParentButton extends React.Component {
 
   render() {
     return (
-      <div styleName="parentButton" className="unSelectable" onClick={this.handleClick}>
-        Trigger
-        {' '}
-        {this.props.component.type.displayName}
+      <div onClick={this.handleClick}>
+        <Button
+          label={`Trigger ${this.props.component.type.displayName}`}
+          type="primary"
+        />
         {this.state.displayComponent && this.props.component}
       </div>
     );
