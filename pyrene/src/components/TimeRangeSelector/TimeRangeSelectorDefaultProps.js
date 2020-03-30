@@ -1,26 +1,25 @@
 import moment from 'moment';
 
-
 const PRESET_TIME_RANGES = [
   {
     id: '24h',
     label: '24h',
-    durationInMs: moment().diff(moment().subtract(1, 'days')),
+    durationInMs: moment.duration(1, 'days').valueOf(),
   },
   {
     id: '7d',
     label: '7d',
-    durationInMs: moment().diff(moment().subtract(7, 'days')),
+    durationInMs: moment.duration(7, 'days').valueOf(),
   },
   {
     id: '30d',
     label: '30d',
-    durationInMs: moment().diff(moment().subtract(30, 'days')),
+    durationInMs: moment.duration(30, 'days').valueOf(),
   },
   {
     id: '1y',
     label: '1y',
-    durationInMs: moment().diff(moment().subtract(1, 'years')),
+    durationInMs: moment.duration(1, 'years').valueOf(),
   },
 ];
 
