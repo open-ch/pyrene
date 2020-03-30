@@ -22,7 +22,6 @@
   letter-spacing: -0.05px;
   margin-top: 24px;
   margin-bottom: 24px;
-
 }
 
 .heading4 {
@@ -30,12 +29,14 @@
   line-height: 16px;
   letter-spacing: -0.05px;
   margin-top: 16px;
+  margin-bottom: 16px;
 }
 
 .heading {
-  font-family: FiraGO;
-  color: #1d273b;
+  composes: commonFontSettings from '../../styles/common.css';
+
   font-weight: 500;
+  color: var(--neutral-500);
 
   &:first-child {
     margin-top: 0;
