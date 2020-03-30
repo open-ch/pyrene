@@ -16,7 +16,7 @@ const Heading = ({ children, level }) => (
 Heading.displayName = 'Heading';
 
 Heading.defaultProps = {
-  level: '1',
+  level: 1,
 };
 
 Heading.propTypes = {
@@ -27,7 +27,7 @@ Heading.propTypes = {
   /**
   * Size level, corresponds to h1 - h4.
   */
-  level: PropTypes.oneOf(['1', '2', '3', '4']),
+  level: PropTypes.oneOf([1, 2, 3, 4]),
 };
 
 export default Heading;

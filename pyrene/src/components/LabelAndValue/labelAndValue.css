@@ -23,8 +23,7 @@
   margin-bottom: 2px;
 }
 
-.label-and-value .value {grid-auto-rows: ;
-  font-family: FiraGO;
+.label-and-value .value {
   font-weight: 500;
 
   color: var(--neutral-500);
