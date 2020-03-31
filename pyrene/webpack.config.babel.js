@@ -85,7 +85,7 @@ const config = {
     library: 'pyrene',
     libraryTarget: 'umd',
   },
-  externals: ['react', 'react-dom', 'prop-types', 'moment', 'moment-timezone'],
+  externals: ['react', 'react-dom', 'moment', 'moment-timezone'],
 };
 
 if (production) {
