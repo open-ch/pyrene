@@ -71,7 +71,6 @@
     "postcss-import": "^12.0.1",
     "postcss-loader": "^3.0.0",
     "postcss-nesting": "^7.0.0",
-    "prop-types": "^15.6.1",
     "raw-loader": "^4.0.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
@@ -91,12 +90,12 @@
     "react-table": "^6.8.6",
     "react-tiny-popover": "^4.0.0",
     "react-window": "^1.8.5",
+    "prop-types": "^15.6.1",
     "uniqid": "^5.0.3"
   },
   "peerDependencies": {
     "react": ">=16.9.0 <17.0.0",
     "react-dom": ">=16.9.0 <17.0.0",
-    "prop-types": "^15.6.1",
     "moment": "^2.24.0",
     "moment-timezone": "^0.5.26"
   }
