@@ -1,4 +1,4 @@
-// VERSION: 30
+// VERSION: 31
 const icons = [
   { name: 'share', tags: ['social'] },
   { name: 'filter', tags: ['lines'] },
@@ -55,5 +55,7 @@ const icons = [
   { name: 'expand', tags: ['expand', 'open', 'enlarge', 'maximize', 'maximise', 'maxi', 'increase'] },
   { name: 'collapse', tags: ['collapse', 'close', 'minimize', 'minimise', 'mini', 'decrease', 'decrease'] },
   { name: 'globe', tags: ['globe', 'world', 'earth', 'network', 'system', 'timezone'] },
+  { name: 'star', tags: ['star', 'rating', 'achievement', 'favorite', 'important', 'winner', 'like', 'rate', 'winner', 'review', 'best'] },
+
 ];
 export default icons;
