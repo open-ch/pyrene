@@ -36,6 +36,7 @@ Link.defaultProps = {
   type: 'standalone',
   disabled: false,
   onClick: undefined,
+  path: undefined,
   target: undefined,
 };
 
@@ -55,7 +56,7 @@ Link.propTypes = {
   /**
    * Sets the path the user is redirected to.
    */
-  path: PropTypes.string.isRequired,
+  path: PropTypes.string,
   /**
    * Sets the target.
    */
