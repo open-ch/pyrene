@@ -1,3 +1,60 @@
+:global(.pyreneIcon-star:before){
+  content: "\56";
+}
+:global(.pyreneIcon-globe:before){
+  content: "\55";
+}
+:global(.pyreneIcon-expand:before){
+  content: "\54";
+}
+:global(.pyreneIcon-collapse:before){
+  content: "\53";
+}
+:global(.pyreneIcon-clock:before){
+  content: "\52";
+}
+:global(.pyreneIcon-rewind:before){
+  content: "\51";
+}
+:global(.pyreneIcon-fastForward:before){
+  content: "\50";
+}
+:global(.pyreneIcon-newWindow:before){
+  content: "\4f";
+}
+:global(.pyreneIcon-sync:before){
+  content: "\4e";
+}
+:global(.pyreneIcon-exit:before){
+  content: "\4d";
+}
+:global(.pyreneIcon-account:before){
+  content: "\4c";
+}
+:global(.pyreneIcon-mdr:before){
+  content: "\4b";
+}
+:global(.pyreneIcon-protection:before){
+  content: "\4a";
+}
+:global(.pyreneIcon-server:before){
+  content: "\49";
+}
+:global(.pyreneIcon-document:before){
+  content: "\48";
+}
+:global(.pyreneIcon-phone:before){
+  content: "\47";
+}
+:global(.pyreneIcon-email:before){
+  content: "\46";
+}
+:global(.pyreneIcon-comment:before){
+  content: "\45";
+}
+:global(.pyreneIcon-wrench:before){
+  content: "\44";
+}
 :global(.pyreneIcon-moreVertical:before){
   content: "\43";
 }
@@ -114,58 +171,4 @@
 }
 :global(.pyreneIcon-share:before){
   content: "\30";
-}
-:global(.pyreneIcon-sync:before){
-  content: "\4e";
-}
-:global(.pyreneIcon-exit:before){
-  content: "\4d";
-}
-:global(.pyreneIcon-account:before){
-  content: "\4c";
-}
-:global(.pyreneIcon-mdr:before){
-  content: "\4b";
-}
-:global(.pyreneIcon-protection:before){
-  content: "\4a";
-}
-:global(.pyreneIcon-server:before){
-  content: "\49";
-}
-:global(.pyreneIcon-document:before){
-  content: "\48";
-}
-:global(.pyreneIcon-phone:before){
-  content: "\47";
-}
-:global(.pyreneIcon-email:before){
-  content: "\46";
-}
-:global(.pyreneIcon-comment:before){
-  content: "\45";
-}
-:global(.pyreneIcon-wrench:before){
-  content: "\44";
-}
-:global(.pyreneIcon-rewind:before){
-  content: "\51";
-}
-:global(.pyreneIcon-fastForward:before){
-  content: "\50";
-}
-:global(.pyreneIcon-newWindow:before){
-  content: "\4f";
-}
-:global(.pyreneIcon-globe:before){
-  content: "\55";
-}
-:global(.pyreneIcon-expand:before){
-  content: "\54";
-}
-:global(.pyreneIcon-collapse:before){
-  content: "\53";
-}
-:global(.pyreneIcon-clock:before){
-  content: "\52";
 }
