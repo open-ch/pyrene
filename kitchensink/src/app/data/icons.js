@@ -24,8 +24,8 @@ const icons = [
   { name: 'hot', tags: ['hot', 'flame', 'fire', 'heat', 'burn', 'heat', 'warm'] },
   { name: 'question', tags: ['question', 'help', 'about', 'ask', 'faq', 'alert'] },
   { name: 'data', tags: ['data', 'report', 'statistics', 'graph', 'chart', 'analytics'] },
-  { name: 'notifications', tags: ['notifications', 'bell', 'alert', 'support', 'sound', 'buzz', 'christmas','ringing', 'wake'] },
-  { name: 'refresh', tags: ['refresh', 'repeat', 'infinity', 'infinite', 'loop', 'load', 'loading','update', 'replay', 'progress'] },
+  { name: 'notifications', tags: ['notifications', 'bell', 'alert', 'support', 'sound', 'buzz', 'christmas', 'ringing', 'wake'] },
+  { name: 'refresh', tags: ['refresh', 'repeat', 'infinity', 'infinite', 'loop', 'load', 'loading', 'update', 'replay', 'progress'] },
   { name: 'location', tags: ['location', 'pin', 'position', 'gps', 'map', 'place', 'marker'] },
   { name: 'pin', tags: ['pin', 'pinboard', 'pushpin', 'marker', 'place', 'push pin', 'pin board', 'board'] },
   { name: 'play', tags: ['play', 'video', 'multimedia', 'control', 'media', 'film', 'movie'] },
@@ -50,13 +50,12 @@ const icons = [
   { name: 'sync', tags: ['sync', 'repeat', 'load', 'process', 'refresh', 'loading', 'replay', 'update', 'progress'] },
   { name: 'newWindow', tags: ['new window', 'window', 'new', 'open', 'tab', 'browser', 'application', 'export', 'app'] },
   { name: 'fastForward', tags: ['fast-forward', 'fast forward', 'close', 'hide', 'collapse', 'direction', 'right', 'arrow', 'double arrow', 'forward'] },
-  { name: 'rewind', tags: ['rewind', 'backward', 'arrow', 'back', 'left', 'backwards', 'prvious', 'double arrow', 'left', 'direction', 'hide', 'close', 'collapse', ] },
-  { name: 'clock', tags: ['clock', 'time', 'schedule', 'tracking', 'hour', 'history', 'event', 'deadline', 'appointment', 'countdown', 'alarm', 'timer', 'alert', 'wait', 'progress' ] },
+  { name: 'rewind', tags: ['rewind', 'backward', 'arrow', 'back', 'left', 'backwards', 'prvious', 'double arrow', 'left', 'direction', 'hide', 'close', 'collapse'] },
+  { name: 'clock', tags: ['clock', 'time', 'schedule', 'tracking', 'hour', 'history', 'event', 'deadline', 'appointment', 'countdown', 'alarm', 'timer', 'alert', 'wait', 'progress'] },
   { name: 'expand', tags: ['expand', 'open', 'enlarge', 'maximize', 'maximise', 'maxi', 'increase'] },
   { name: 'collapse', tags: ['collapse', 'close', 'minimize', 'minimise', 'mini', 'decrease', 'decrease'] },
   { name: 'globe', tags: ['globe', 'world', 'earth', 'network', 'system', 'timezone'] },
   { name: 'star', tags: ['star', 'rating', 'achievement', 'favorite', 'important', 'winner', 'like', 'rate', 'winner', 'review', 'best'] },
-
 
 ];
 export default icons;
