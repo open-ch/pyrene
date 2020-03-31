@@ -34,7 +34,7 @@ const config = {
     library: 'tuktuktwo',
     libraryTarget: 'umd',
   },
-  externals: ['react', 'react-dom', 'prop-types', 'moment-timezone'],
+  externals: ['react', 'react-dom', 'moment-timezone'],
   plugins : [
     new BundleAnalyzerPlugin({
       analyzerMode: process.env.NODE_ENV === 'debug' ? 'server' : 'disabled',
