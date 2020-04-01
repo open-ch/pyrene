@@ -85,7 +85,7 @@ const config = {
     library: 'pyrene-graphs',
     libraryTarget: 'umd',
   },
-  externals: ['react', 'react-dom', 'prop-types', 'moment-timezone', 'pyrene'],
+  externals: ['react', 'react-dom', 'moment-timezone', 'pyrene'],
 };
 
 if (production) {
