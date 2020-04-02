@@ -3,140 +3,140 @@
 .buttonContainer {
   position: relative;
   display: inline-block;
-}
 
-.buttonContainer .loader {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  & .loader {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
 }
 
 .button {
   composes: commonFontSettings from '../../styles/common.css';
   box-sizing: border-box;
   height: 32px;
-  padding: 8px 16px 6px;
+  padding: 8px 16px;
   border-radius: 2px;
   border: none;
   display: flex;
   align-items: center;
 
   cursor: pointer;
+
+  &:focus {
+     outline: 0;
+   }
+
+  & .label {
+      font-size: 13px;
+      line-height: 18px;
+      letter-spacing: 0.3px;
+      display: inline-block;
+      font-weight: 600;
+    }
+
+  &.loading {
+    & .label, & .icon {
+                visibility: hidden;
+              }
+
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  & .icon {
+      font-size: 16px;
+      margin-right: 4px;
+      width: 16px;
+      height: 16px;
+      display: inline-block;
+    }
+
+  &.disabled {
+     opacity: .5;
+     cursor: default;
+     pointer-events: none;
+     /* deactivate hover */
+   }
+
+  &.type-primary {
+     background-color: var(--primary);
+     color: var(--neutral-000);
+
+  &:hover {
+     background-color: var(--primary-dark);
+   }
 }
 
-.button:focus {
-  outline: 0;
+&.type-secondary {
+   background-color: var(--secondary);
+   color: var(--neutral-300);
+
+&:hover {
+   background-color: var(--secondary-dark);
+ }
 }
 
-.label {
-  font-size: 12px;
-  line-height: 18px;
-  letter-spacing: 0.3px;
-  display: inline-block;
-  font-weight: 500;
+&.type-danger {
+   background-color: var(--danger-fg);
+   color: var(--neutral-000);
+
+&:hover {
+   background-color: var(--danger-dark);
+ }
 }
 
-.label .loading {
-  opacity: 0.5;
-  pointer-events: none;
+&.type-ghost {
+   background-color: transparent;
+   color: var(--primary);
+
+&:hover {
+   background-color: var(--secondary);
+ }
 }
 
-.label .loading .label,
-.label .loading .icon {
-  visibility: hidden;
+&.type-action {
+   height: 32px;
+   padding: 0 8px;
+   background-color: transparent;
+   color: var(--primary);
+
+&:hover {
+   background-color: var(--secondary);
+ }
 }
 
-.icon {
-  font-size: 16px;
-  margin-right: 4px;
-  width: 16px;
-  height: 16px;
-  display: inline-block;
+&.type-admin {
+   height: 24px;
+   padding: 0 8px;
+
+   background-color: transparent;
+   color: var(--admin-fg);
+
+   /* Box-shadow used as border messes up the layout. ! 0px border needed so box-shadow gets displayed! */
+   border: solid 0;
+   box-shadow:
+       inset 1px 0 0 0,
+       inset -1px 0 0 0,
+       inset 0 1px 0 0,
+       inset 0 -1px 0 0;
+
+&:hover {
+   background-color: var(--admin-bg);
+ }
+
+& .label {
+    padding-top: 4px;
+    padding-bottom: 3px;
+  }
 }
 
-.disabled {
-  opacity: .5;
-  cursor: default;
-  pointer-events: none;
-  /* deactivate hover */
-}
-
-.type-primary {
-  background-color: var(--primary);
-  color: var(--neutral-000);
-}
-
-.type-primary:hover {
-  background-color: var(--primary-dark);
-}
-
-.type-secondary {
-  border: solid 1px var(--neutral-050);
-  background-color: var(--neutral-000);
-  color: var(--neutral-500);
-}
-
-.type-secondary:hover {
-  background-color: var(--neutral-030);
-
-}
-
-.type-danger {
-  background-color: var(--danger-fg);
-  color: var(--neutral-000);
-}
-
-.type-danger:hover {
-  background-color: var(--danger-dark);
-
-}
-
-.type-ghost {
-  background-color: transparent;
-  color: var(--primary);
-}
-
-.type-ghost:hover {
-  background-color: var(--secondary);
-
-}
-
-.type-action {
-  height: 32px;
-  padding: 0 8px;
-  background-color: transparent;
-  color: var(--primary);
-}
-
-.type-action:hover {
-  background-color: var(--secondary);
-
-}
-
-.type-admin {
-  height: 24px;
-  padding: 0 8px;
-
-  background-color: transparent;
-  color: var(--admin-fg);
-
-  /* Box-shadow used as border messes up the layout. ! 0px border needed so box-shadow gets displayed! */
-  border: solid 0;
-  box-shadow: inset 1px 0 0 0,
-  inset -1px 0 0 0,
-  inset 0 1px 0 0,
-  inset 0 -1px 0 0;
-}
-
-.type-admin:hover {
-  background-color: var(--admin-bg);
-}
-
-.type-admin .label,
-.type-action .label {
-  padding-top: 4px;
-  padding-bottom: 3px;
-  letter-spacing: 0.2px;
+&.type-action .label, &.type-admin .label {
+                         font-size: 12px;
+                         font-weight: 500;
+                         letter-spacing: 0.2px;
+                         line-height: 17px;
+                       }
 }
 
