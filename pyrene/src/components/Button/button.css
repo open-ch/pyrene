@@ -73,7 +73,10 @@
 .type-secondary {
   background-color: transparent;
   color: var(--neutral-500);
-  border: solid 1px var(--neutral-050);
+
+  /* Box-shadow used as border messes up the layout */
+  border: solid 0;
+  box-shadow: inset 0 0 0 1px var(--neutral-050);
 }
 
 .type-secondary:hover {
