@@ -499,6 +499,7 @@ Table.propTypes = {
   filters: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
+    negated: PropTypes.bool,
     options: PropTypes.arrayOf(PropTypes.shape({
       /** text displayed to the user in the filter dropdown */
       label: PropTypes.string.isRequired,
