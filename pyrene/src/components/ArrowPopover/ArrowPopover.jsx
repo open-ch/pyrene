@@ -50,7 +50,7 @@ export const arrowPosition = (position, targetRect, popoverRect) => {
  *  Popover with Arrow
  */
 const ArrowPopover = ({
-  children, popoverContent, displayPopover, closePopover, preferredPosition, align,
+  children, popoverContent, displayPopover, closePopover, preferredPosition, align, distanceToTarget,
 }) => {
 
   const node = useRef();
@@ -72,7 +72,7 @@ const ArrowPopover = ({
   return (
     <Popover
       align={align}
-      distanceToTarget={20}
+      distanceToTarget={distanceToTarget}
       preferredPosition={preferredPosition}
       renderPopoverContent={(position, nudgedLeft, nudgedTop, targetRect, popoverRect) => {
 
@@ -106,6 +106,7 @@ ArrowPopover.displayName = 'Arrow Popover';
 ArrowPopover.defaultProps = {
   align: 'center',
   closePopover: null,
+  distanceToTarget: 20,
   preferredPosition: ['top', 'left'],
 };
 
@@ -126,6 +127,10 @@ ArrowPopover.propTypes = {
    * Function to close the popover.
    */
   closePopover: PropTypes.func,
+  /**
+   * Sets the distance of the popover to its target.
+   */
+  distanceToTarget: PropTypes.number,
   /**
    * Whether to display the popover.
    */
