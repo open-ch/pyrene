@@ -9,9 +9,14 @@
   align-items: center;
 }
 
-.actionLink:hover {
+.action:hover {
   background-color: var(--neutral-030);
   border-radius: 1px;
+}
+
+.actionLink:hover {
+  text-decoration: none;
+  background-color: var(--neutral-030);
 }
 
 .actionLink {
@@ -25,11 +30,6 @@
   cursor: pointer;
   display: flex;
   align-items: center;
-}
-
-.actionLink:hover {
-  text-decoration: none;
-  background-color: var(--neutral-030);
 }
 
 .actionMenuContainer {
