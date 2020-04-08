@@ -1,10 +1,8 @@
 @import '../../styles/colors.css';
 
-.arrowPopover {
-  composes: commonFontSettings from '../../styles/common.css';
-}
-
 .popover {
+  composes: commonFontSettings from '../../styles/common.css';
+
   position: relative;
   border-radius: 2px;
   border: solid 1px #e1e3e8;

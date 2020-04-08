@@ -50,7 +50,7 @@ export const arrowPosition = (position, targetRect, popoverRect) => {
  *  Popover with Arrow
  */
 const ArrowPopover = ({
-  children, popoverContent, displayPopover, closePopover,
+  children, popoverContent, displayPopover, closePopover, preferredPosition, align,
 }) => {
 
   const node = useRef();
@@ -70,48 +70,50 @@ const ArrowPopover = ({
   }, []);
 
   return (
-    <div styleName={classNames('arrowPopover')}>
-      <Popover
-        align="center"
-        distanceToTarget={20}
-        preferredPosition={['top', 'left']}
-        renderPopoverContent={(position, nudgedLeft, nudgedTop, targetRect, popoverRect) => {
+    <Popover
+      align={align}
+      distanceToTarget={20}
+      preferredPosition={preferredPosition}
+      renderPopoverContent={(position, nudgedLeft, nudgedTop, targetRect, popoverRect) => {
 
-          const { top, left, lengthSide } = arrowPosition(position, targetRect, popoverRect);
+        const { top, left, lengthSide } = arrowPosition(position, targetRect, popoverRect);
 
-          return (
-            <div styleName={classNames('popover')} ref={node}>
-              <div>{popoverContent}</div>
-              <div
-                styleName={classNames('triangle')}
-                style={{
-                  left,
-                  top,
-                  width: lengthSide,
-                  height: lengthSide,
-                }}
-              />
-            </div>
-          );
-        }}
-        displayPopover={displayPopover}
-        autoReposition
-      >
-        <div>
-          {children}
-        </div>
-      </Popover>
-    </div>
+        return (
+          <div styleName={classNames('popover')} ref={node}>
+            {popoverContent}
+            <div
+              styleName={classNames('triangle')}
+              style={{
+                left,
+                top,
+                width: lengthSide,
+                height: lengthSide,
+              }}
+            />
+          </div>
+        );
+      }}
+      displayPopover={displayPopover}
+      autoReposition
+    >
+      {children}
+    </Popover>
   );
 };
 
 ArrowPopover.displayName = 'Arrow Popover';
 
 ArrowPopover.defaultProps = {
+  align: 'center',
   closePopover: null,
+  preferredPosition: ['top', 'left'],
 };
 
 ArrowPopover.propTypes = {
+  /**
+   * Sets the alignment of the popover.
+   */
+  align: PropTypes.oneOf(['start', 'center', 'end']),
   /**
    * Action element
    */
@@ -132,6 +134,10 @@ ArrowPopover.propTypes = {
    * Content renderd in popover
    */
   popoverContent: PropTypes.node.isRequired,
+  /**
+   * Sets the preferred position array ordered by priority for auto repositioning.
+   */
+  preferredPosition: PropTypes.arrayOf(PropTypes.oneOf(['top', 'right', 'bottom', 'left'])),
 };
 
 export default ArrowPopover;
