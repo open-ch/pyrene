@@ -23,10 +23,14 @@ const FilterTag = (props) => {
 
 FilterTag.displayName = 'FilterTag';
 
+FilterTag.defaultProps = {
+  negated: false,
+}
+
 FilterTag.propTypes = {
   filterLabel: PropTypes.string.isRequired,
   filterText: PropTypes.string.isRequired,
-  negated: PropTypes.bool.isRequired,
+  negated: PropTypes.bool,
   onClose: PropTypes.func.isRequired,
 };
 
