@@ -86,29 +86,31 @@ const getColumn = ({
       comparisonBars: (row) => { // eslint-disable-line react/display-name
         const scale = getValueScale(direction, width, maxValue);
         return (
-          <svg width="100%" height={svgHeightComparison}>
-            {width > 0 && (
-              <g>
-                <Bar
-                  key={`${getId(getValueWithAccessor(row, labelAccessor))}_bar_current`}
-                  barWeight={barWeightPrimary}
-                  color={colors[0]}
-                  direction={direction}
-                  scale={scale}
-                  value={getValueWithAccessor(row, accessor)}
-                />
-                <Bar
-                  key={`${getId(getValueWithAccessor(row, labelAccessor))}_bar_previous`}
-                  barWeight={barWeightSecondary}
-                  color={colors[1]}
-                  direction={direction}
-                  scale={scale}
-                  top={barWeightPrimary + comparisonMargin}
-                  value={getValueWithAccessor(row, accessorSecondary)}
-                />
-              </g>
-            )}
-          </svg>
+          <div style={{ height: svgHeightComparison }}>
+            <svg width="100%" height={svgHeightComparison}>
+              {width > 0 && (
+                <g>
+                  <Bar
+                    key={`${getId(getValueWithAccessor(row, labelAccessor))}_bar_current`}
+                    barWeight={barWeightPrimary}
+                    color={colors[0]}
+                    direction={direction}
+                    scale={scale}
+                    value={getValueWithAccessor(row, accessor)}
+                  />
+                  <Bar
+                    key={`${getId(getValueWithAccessor(row, labelAccessor))}_bar_previous`}
+                    barWeight={barWeightSecondary}
+                    color={colors[1]}
+                    direction={direction}
+                    scale={scale}
+                    top={barWeightPrimary + comparisonMargin}
+                    value={getValueWithAccessor(row, accessorSecondary)}
+                  />
+                </g>
+              )}
+            </svg>
+          </div>
         );
       },
       default: (row) => (row.value !== null ? dataFormat(row.value) : row.value),

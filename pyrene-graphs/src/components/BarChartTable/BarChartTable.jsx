@@ -48,7 +48,7 @@ export default class BarChartTable extends React.Component {
     });
     const displayedRows = dataAvailable ? this.getDisplayRows(this.props.data.length) : 0;
     const popOverAdditionalRows = 5;
-    const rowHeight = 36;
+    const rowHeight = 32;
     return (
       <div styleName="container">
         <Header
