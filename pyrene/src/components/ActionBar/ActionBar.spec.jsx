@@ -162,7 +162,7 @@ describe('<ActionBar />', () => {
           color: 'neutral300',
           active: false,
           svg: 'pathToSvg',
-          renderPopover: (closeFunc) => <FakePopover closePopover={closeFunc} />,
+          renderPopover: (closeFunc) => <FakePopover closePopover={closeFunc} />, // eslint-disable-line react/display-name
         },
       ];
 
@@ -180,7 +180,7 @@ describe('<ActionBar />', () => {
           color: 'neutral300',
           active: true,
           svg: 'pathToSvg',
-          renderPopover: (closeFunc) => <FakePopover closePopover={closeFunc} />,
+          renderPopover: (closeFunc) => <FakePopover closePopover={closeFunc} />, // eslint-disable-line react/display-name
         },
       ];
 

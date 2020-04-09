@@ -124,13 +124,13 @@ ActionBar.examples = [
           iconName: 'protection',
           active: typeof stateProvider.state.active === 'undefined' || stateProvider.state.active,
           tooltip: 'Check Shield',
-          renderPopover: () => <Placeholder />,
+          renderPopover: () => <Placeholder />, // eslint-disable-line react/display-name
         },
         {
           iconName: 'mdr',
           active: typeof stateProvider.state.active === 'undefined' || stateProvider.state.active,
           tooltip: 'Search Shield',
-          renderPopover: () => <Placeholder />,
+          renderPopover: () => <Placeholder />, // eslint-disable-line react/display-name
         },
         {
           iconName: 'refresh',

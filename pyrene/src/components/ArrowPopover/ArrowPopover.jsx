@@ -128,13 +128,13 @@ ArrowPopover.propTypes = {
    */
   closePopover: PropTypes.func,
   /**
-   * Sets the distance of the popover to its target.
-   */
-  distanceToTarget: PropTypes.number,
-  /**
    * Whether to display the popover.
    */
   displayPopover: PropTypes.bool.isRequired,
+  /**
+   * Sets the distance of the popover to its target.
+   */
+  distanceToTarget: PropTypes.number,
   /**
    * Content renderd in popover
    */
