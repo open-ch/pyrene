@@ -136,6 +136,7 @@ export const getColumns = ({
   props,
   colors,
   width,
+  simpleMode = false,
 }) => {
   const maxValuePrimary = dataAvailable && Math.max(...props.data.map((dataRow) => getValueWithAccessor(dataRow, props.columns.primaryValue.accessor)));
   const maxValueSecondary = dataAvailable && props.columns.secondaryValue ? Math.max(...props.data.map((dataRow) => getValueWithAccessor(dataRow, props.columns.secondaryValue.accessor))) : maxValuePrimary;
@@ -177,7 +178,7 @@ export const getColumns = ({
           align: 'right',
           width: secondaryLabelColumnWidth,
         })] : []),
-        ...((!width && width !== 0) ? [] : [getColumn({
+        ...(simpleMode ? [] : [getColumn({
           id: `${props.columns.primaryValue.title}_bar`,
           accessor: props.columns.primaryValue.accessor,
           headerName: props.columns.primaryValue.title,
@@ -190,7 +191,7 @@ export const getColumns = ({
           id: props.columns.primaryValue.title,
           accessor: props.columns.primaryValue.accessor,
           dataFormat: props.columns.primaryValue.dataFormat,
-          headerName: (!width && width !== 0) ? props.columns.primaryValue.title : '',
+          headerName: simpleMode ? props.columns.primaryValue.title : '',
           align: 'right',
           width: primaryValueColumnWidth,
         }),
@@ -219,7 +220,7 @@ export const getColumns = ({
             cellType: 'link',
             width: responsiveWidth * labelResponsiveWidthRatio,
           }),
-          ...((!width && width !== 0) ? [] : [getColumn({
+          ...(simpleMode ? [] : [getColumn({
             id: `${props.columns.primaryValue.title}_bar`,
             accessor: props.columns.primaryValue.accessor,
             accessorSecondary: props.columns.secondaryValue.accessor,
@@ -270,11 +271,11 @@ export const getColumns = ({
             id: props.columns.primaryValue.title,
             accessor: props.columns.primaryValue.accessor,
             dataFormat: props.columns.primaryValue.dataFormat,
-            headerName: (!width && width !== 0) ? props.columns.primaryValue.title : '',
+            headerName: simpleMode ? props.columns.primaryValue.title : '',
             align: 'right',
             width: primaryValueColumnWidth,
           }),
-          ...((!width && width !== 0) ? [] : [getColumn({
+          ...(simpleMode ? [] : [getColumn({
             id: `${props.columns.primaryValue.title}_bar_left`,
             accessor: props.columns.primaryValue.accessor,
             headerName: props.columns.primaryValue.title,
@@ -284,14 +285,14 @@ export const getColumns = ({
             maxValue: maxValue,
             width: responsiveWidthBar,
           })]),
-          ...((!width && width !== 0) ? [] : [getColumn({
+          ...(simpleMode ? [] : [getColumn({
             id: `${props.columns.primaryValue.title}_vertical_line`,
             accessor: props.columns.primaryValue.accessor,
             align: 'center',
             cellType: 'verticalLine',
             width: verticalLineWidth,
           })]),
-          ...((!width && width !== 0) ? [] : [getColumn({
+          ...(simpleMode ? [] : [getColumn({
             id: `${props.columns.secondaryValue.title}_bar_right`,
             headerName: props.columns.secondaryValue.title,
             accessor: props.columns.secondaryValue.accessor,
@@ -305,7 +306,7 @@ export const getColumns = ({
             id: props.columns.secondaryValue.title,
             accessor: props.columns.secondaryValue.accessor,
             dataFormat: props.columns.secondaryValue.dataFormat,
-            headerName: (!width && width !== 0) ? props.columns.secondaryValue.title : '',
+            headerName: simpleMode ? props.columns.secondaryValue.title : '',
             align: 'right',
             width: secondaryValueColumnWidth,
           }),

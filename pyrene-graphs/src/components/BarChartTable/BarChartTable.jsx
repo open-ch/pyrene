@@ -48,7 +48,7 @@ export default class BarChartTable extends React.Component {
     });
     const displayedRows = dataAvailable ? this.getDisplayRows(this.props.data.length) : 0;
     const popOverAdditionalRows = 5;
-    const rowHeight = 32;
+    const rowHeight = 36;
     return (
       <div styleName="container">
         <Header
@@ -86,25 +86,36 @@ export default class BarChartTable extends React.Component {
                 distanceToTarget={-((popOverAdditionalRows - 2) * rowHeight) - 1.5} // to center the popover vertically, so that 3 rows of the popover table are under and 2 rows over the bar chart table, - 1.5 to align borders
                 renderPopoverContent={() => (
                   <div styleName="popOverContainer" style={{ height: `${(displayedRows + popOverAdditionalRows) * rowHeight + rowHeight + rowHeight}px` }}>
-                    {/* popover height: (displayedRows + 5 more rows) * 32px + 32px table header + 32px popover header */}
-                    <div styleName="popOverHeader">
-                      {this.props.title}
-                    </div>
-                    <div styleName="popOverBody" style={{ height: `${(displayedRows + 5) * 32 + 32}px` }}>
-                      <div styleName="tableContainer">
-                        <SimpleTable
-                          actions={this.props.actions}
-                          columns={getColumns({ props: this.props, colors: colors })}
-                          data={sortedData}
-                          onRowDoubleClick={this.props.onRowDoubleClick}
-                        />
-                      </div>
-                      {this.props.popoverFooter && (
-                        <div styleName="footerContainer">
-                          {this.props.popoverFooter}
-                        </div>
+                    <Responsive>
+                      {(parent) => (
+                        <>
+                          {/* popover height: (displayedRows + 5 more rows) * 32px + 32px table header + 32px popover header */}
+                          <div styleName="popOverHeader">
+                            {this.props.title}
+                          </div>
+                          <div styleName="popOverBody" style={{ height: `${(displayedRows + 5) * 32 + 32}px` }}>
+                            <div styleName="tableContainer">
+                              <SimpleTable
+                                actions={this.props.actions}
+                                columns={getColumns({
+                                  props: this.props,
+                                  colors: colors,
+                                  width: parent.ref && parent.width,
+                                  simpleMode: true,
+                                })}
+                                data={sortedData}
+                                onRowDoubleClick={this.props.onRowDoubleClick}
+                              />
+                            </div>
+                            {this.props.popoverFooter && (
+                              <div styleName="footerContainer">
+                                {this.props.popoverFooter}
+                              </div>
+                            )}
+                          </div>
+                        </>
                       )}
-                    </div>
+                    </Responsive>
                   </div>
                 )}
                 displayPopover={this.state.showPopover}
