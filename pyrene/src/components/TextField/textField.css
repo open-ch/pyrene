@@ -49,10 +49,11 @@
     border-color: var(--primary);
     background-color: var(--background-light);
   }
-  
+
   &[type=text] {
     padding: 8px 9px;
 
+    font-family: FiraGO, Helvetica, sans-serif;
     font-size: 12px;
     text-align: left;
     color: var(--text);
