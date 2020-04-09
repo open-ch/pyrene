@@ -100,7 +100,7 @@ export default class BarChartTable extends React.Component {
                                 columns={getColumns({
                                   props: this.props,
                                   colors: colors,
-                                  width: parent.ref && parent.width,
+                                  width: parent.width,
                                   simpleMode: true,
                                 })}
                                 data={sortedData}
