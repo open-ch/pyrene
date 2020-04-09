@@ -25,7 +25,7 @@ FilterTag.displayName = 'FilterTag';
 
 FilterTag.defaultProps = {
   negated: false,
-}
+};
 
 FilterTag.propTypes = {
   filterLabel: PropTypes.string.isRequired,
