@@ -60,7 +60,8 @@
   align-content: center;
   align-items: stretch;
   line-height: 16px;
-  padding: 8px 0;
+  padding-top: 8px;
+  padding-bottom: 7px;
   font-size: 12px;
 }
 
