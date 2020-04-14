@@ -6,12 +6,10 @@
 }
 
 .title {
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 1.14;
-  letter-spacing: -0.05px;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 18px;
   color: var(--text);
-  height: 16px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
