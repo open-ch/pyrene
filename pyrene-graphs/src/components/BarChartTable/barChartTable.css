@@ -14,14 +14,12 @@
 }
 
 .showMoreLink {
-  margin-top: 8px;
+  margin-top: 12px;
   line-height: 16px;
   font-size: 12px;
   font-weight: 500;
   color: var(--primary);
   cursor: pointer;
-
-  padding-top: 12px;
 }
 
 .popOverPlaceholder {
