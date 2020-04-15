@@ -52,33 +52,37 @@ const getColumn = ({
         return row.value;
       },
       relativeBar: (row) => ( // eslint-disable-line react/display-name
-        <svg width="100%" height={svgHeight}>
-          {width > 0 && (
-            <RelativeBar
-              barWeight={barWeightPrimary}
-              colors={colors}
-              direction={direction}
-              maxValue={maxValue}
-              scale={getValueScale(direction, width, maxValue)}
-              value={getValueWithAccessor(row, accessor)}
-            />
-          )}
-        </svg>
+        <div style={{ height: svgHeight }}>
+          <svg width="100%" height={svgHeight}>
+            {width > 0 && (
+              <RelativeBar
+                barWeight={barWeightPrimary}
+                colors={colors}
+                direction={direction}
+                maxValue={maxValue}
+                scale={getValueScale(direction, width, maxValue)}
+                value={getValueWithAccessor(row, accessor)}
+              />
+            )}
+          </svg>
+        </div>
       ),
       relativeBarMirrored: (row) => ( // eslint-disable-line react/display-name
-        <svg width="100%" height={svgHeight}>
-          {width > 0 && (
-            <RelativeBar
-              barWeight={barWeightPrimary}
-              colors={colors}
-              direction={direction}
-              maxValue={maxValue}
-              scale={getValueScale(direction, width, maxValue)}
-              value={getValueWithAccessor(row, accessor)}
-              mirrored
-            />
-          )}
-        </svg>
+        <div style={{ height: svgHeight }}>
+          <svg width="100%" height={svgHeight}>
+            {width > 0 && (
+              <RelativeBar
+                barWeight={barWeightPrimary}
+                colors={colors}
+                direction={direction}
+                maxValue={maxValue}
+                scale={getValueScale(direction, width, maxValue)}
+                value={getValueWithAccessor(row, accessor)}
+                mirrored
+              />
+            )}
+          </svg>
+        </div>
       ),
       verticalLine: () => ( // eslint-disable-line react/display-name
         <div styleName="verticalLine" />
