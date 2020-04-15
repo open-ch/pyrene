@@ -102,7 +102,7 @@ export default class BarChartTable extends React.Component {
                             props: this.props,
                             colors: colors,
                             width: popOverWidth,
-                            simpleMode: true,
+                            isPopOver: true,
                           })}
                           data={sortedData}
                           onRowDoubleClick={this.props.onRowDoubleClick}
