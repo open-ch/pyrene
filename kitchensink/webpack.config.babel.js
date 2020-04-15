@@ -12,6 +12,7 @@ const production = process.env.NODE_ENV === 'production';
 
 const config = {
   mode: production ? 'production' : 'development',
+  devtool: production ? 'none' : 'source-map',
   resolve: {
     extensions: ['.js', '.jsx'],
     alias: {
@@ -24,6 +25,15 @@ const config = {
   },
   module: {
     rules: [
+      {
+        test: /\.js$/,
+        use: ["source-map-loader"],
+        enforce: "pre",
+        include: [
+          path.resolve(__dirname, 'node_modules/pyrene/dist/pyrene.js'),
+          path.resolve(__dirname, 'node_modules/pyrene-graphs/dist/pyrene-graphs.js'),
+        ],
+      },
       {
         test: /\.jsx?$/,
         include: [

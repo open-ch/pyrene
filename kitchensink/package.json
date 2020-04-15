@@ -49,6 +49,7 @@
     "postcss-nesting": "^7.0.1",
     "react-router-dom": "^5.1.2",
     "react-syntax-highlighter": "^12.2.1",
+    "source-map-loader": "^0.2.4",
     "style-loader": "^1.0.0",
     "url-loader": "^4.0.0",
     "webpack": "^4.42.0",
