@@ -27,3 +27,7 @@
   background-color: white;
   transform: rotate(45deg);
 }
+
+.popoverContent {
+  background-color: white;
+}
