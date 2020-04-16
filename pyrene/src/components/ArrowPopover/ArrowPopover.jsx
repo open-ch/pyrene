@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
 import './arrowPopover.css';
 import Popover from '../Popover/Popover';
@@ -79,10 +78,10 @@ const ArrowPopover = ({
         const { top, left, lengthSide } = arrowPosition(position, targetRect, popoverRect);
 
         return (
-          <div styleName={classNames('popover')} ref={node}>
-            {popoverContent}
+          <div styleName="popover" ref={node}>
+            <div styleName="popoverContent">{popoverContent}</div>
             <div
-              styleName={classNames('triangle')}
+              styleName="triangle"
               style={{
                 left,
                 top,
