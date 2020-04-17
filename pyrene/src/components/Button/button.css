@@ -103,7 +103,7 @@
 
 .type-action {
   height: 32px;
-  padding: 0 8px 6px;
+  padding: 8px;
   background-color: transparent;
   color: var(--primary);
 }

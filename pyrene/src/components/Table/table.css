@@ -57,7 +57,7 @@
   composes: commonFontSettings from '../../styles/common.css';
 
   padding: 39px 0 0 8px;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: normal;
   font-style: italic;
   font-stretch: normal;
@@ -81,7 +81,7 @@
   display: flex;
   flex-direction: column;
 
-  font-size: 13px;
+  font-size: 12px;
   font-weight: normal;
   font-style: normal;
   font-stretch: normal;
