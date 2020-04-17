@@ -66,7 +66,7 @@ const SimpleTable = (props) => (
                 key={'action'.concat(Object.values(row))}
               >
                 {<SimpleTableActionList
-                  row={row}
+                  row={Object.assign(row, { key: row.key.toString() })}
                   actions={props.actions}
                 />}
               </td>
