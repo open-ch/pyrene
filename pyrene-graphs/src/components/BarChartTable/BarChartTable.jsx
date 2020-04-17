@@ -48,6 +48,7 @@ export default class BarChartTable extends React.Component {
     });
     const displayedRows = dataAvailable ? this.getDisplayRows(this.props.data.length) : 0;
     const popOverAdditionalRows = 5;
+    const popOverWidth = 448;
     const rowHeight = 32;
     return (
       <div styleName="container">
@@ -85,7 +86,10 @@ export default class BarChartTable extends React.Component {
                 children={<div styleName="popOverPlaceholder"></div>} // eslint-disable-line
                 distanceToTarget={-((popOverAdditionalRows - 2) * rowHeight) - 1.5} // to center the popover vertically, so that 3 rows of the popover table are under and 2 rows over the bar chart table, - 1.5 to align borders
                 renderPopoverContent={() => (
-                  <div styleName="popOverContainer" style={{ height: `${(displayedRows + popOverAdditionalRows) * rowHeight + rowHeight + rowHeight}px` }}>
+                  <div styleName="popOverContainer" style={{
+                    width: popOverWidth,
+                    height: `${(displayedRows + popOverAdditionalRows) * rowHeight + rowHeight + rowHeight}px`,
+                  }}>
                     {/* popover height: (displayedRows + 5 more rows) * 32px + 32px table header + 32px popover header */}
                     <div styleName="popOverHeader">
                       {this.props.title}
@@ -94,7 +98,12 @@ export default class BarChartTable extends React.Component {
                       <div styleName="tableContainer">
                         <SimpleTable
                           actions={this.props.actions}
-                          columns={getColumns({ props: this.props, colors: colors })}
+                          columns={getColumns({
+                            props: this.props,
+                            colors: colors,
+                            width: popOverWidth,
+                            isPopOver: true,
+                          })}
                           data={sortedData}
                           onRowDoubleClick={this.props.onRowDoubleClick}
                         />

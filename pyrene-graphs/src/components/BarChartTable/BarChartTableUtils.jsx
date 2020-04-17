@@ -52,33 +52,37 @@ const getColumn = ({
         return row.value;
       },
       relativeBar: (row) => ( // eslint-disable-line react/display-name
-        <svg width="100%" height={svgHeight}>
-          {width > 0 && (
-            <RelativeBar
-              barWeight={barWeightPrimary}
-              colors={colors}
-              direction={direction}
-              maxValue={maxValue}
-              scale={getValueScale(direction, width, maxValue)}
-              value={getValueWithAccessor(row, accessor)}
-            />
-          )}
-        </svg>
+        <div style={{ height: svgHeight }}>
+          <svg width="100%" height={svgHeight}>
+            {width > 0 && (
+              <RelativeBar
+                barWeight={barWeightPrimary}
+                colors={colors}
+                direction={direction}
+                maxValue={maxValue}
+                scale={getValueScale(direction, width, maxValue)}
+                value={getValueWithAccessor(row, accessor)}
+              />
+            )}
+          </svg>
+        </div>
       ),
       relativeBarMirrored: (row) => ( // eslint-disable-line react/display-name
-        <svg width="100%" height={svgHeight}>
-          {width > 0 && (
-            <RelativeBar
-              barWeight={barWeightPrimary}
-              colors={colors}
-              direction={direction}
-              maxValue={maxValue}
-              scale={getValueScale(direction, width, maxValue)}
-              value={getValueWithAccessor(row, accessor)}
-              mirrored
-            />
-          )}
-        </svg>
+        <div style={{ height: svgHeight }}>
+          <svg width="100%" height={svgHeight}>
+            {width > 0 && (
+              <RelativeBar
+                barWeight={barWeightPrimary}
+                colors={colors}
+                direction={direction}
+                maxValue={maxValue}
+                scale={getValueScale(direction, width, maxValue)}
+                value={getValueWithAccessor(row, accessor)}
+                mirrored
+              />
+            )}
+          </svg>
+        </div>
       ),
       verticalLine: () => ( // eslint-disable-line react/display-name
         <div styleName="verticalLine" />
@@ -86,29 +90,31 @@ const getColumn = ({
       comparisonBars: (row) => { // eslint-disable-line react/display-name
         const scale = getValueScale(direction, width, maxValue);
         return (
-          <svg width="100%" height={svgHeightComparison}>
-            {width > 0 && (
-              <g>
-                <Bar
-                  key={`${getId(getValueWithAccessor(row, labelAccessor))}_bar_current`}
-                  barWeight={barWeightPrimary}
-                  color={colors[0]}
-                  direction={direction}
-                  scale={scale}
-                  value={getValueWithAccessor(row, accessor)}
-                />
-                <Bar
-                  key={`${getId(getValueWithAccessor(row, labelAccessor))}_bar_previous`}
-                  barWeight={barWeightSecondary}
-                  color={colors[1]}
-                  direction={direction}
-                  scale={scale}
-                  top={barWeightPrimary + comparisonMargin}
-                  value={getValueWithAccessor(row, accessorSecondary)}
-                />
-              </g>
-            )}
-          </svg>
+          <div style={{ height: svgHeightComparison }}>
+            <svg width="100%" height={svgHeightComparison}>
+              {width > 0 && (
+                <g>
+                  <Bar
+                    key={`${getId(getValueWithAccessor(row, labelAccessor))}_bar_current`}
+                    barWeight={barWeightPrimary}
+                    color={colors[0]}
+                    direction={direction}
+                    scale={scale}
+                    value={getValueWithAccessor(row, accessor)}
+                  />
+                  <Bar
+                    key={`${getId(getValueWithAccessor(row, labelAccessor))}_bar_previous`}
+                    barWeight={barWeightSecondary}
+                    color={colors[1]}
+                    direction={direction}
+                    scale={scale}
+                    top={barWeightPrimary + comparisonMargin}
+                    value={getValueWithAccessor(row, accessorSecondary)}
+                  />
+                </g>
+              )}
+            </svg>
+          </div>
         );
       },
       default: (row) => (row.value !== null ? dataFormat(row.value) : row.value),
@@ -136,6 +142,7 @@ export const getColumns = ({
   props,
   colors,
   width,
+  isPopOver = false,
 }) => {
   const maxValuePrimary = dataAvailable && Math.max(...props.data.map((dataRow) => getValueWithAccessor(dataRow, props.columns.primaryValue.accessor)));
   const maxValueSecondary = dataAvailable && props.columns.secondaryValue ? Math.max(...props.data.map((dataRow) => getValueWithAccessor(dataRow, props.columns.secondaryValue.accessor))) : maxValuePrimary;
@@ -177,7 +184,7 @@ export const getColumns = ({
           align: 'right',
           width: secondaryLabelColumnWidth,
         })] : []),
-        ...((!width && width !== 0) ? [] : [getColumn({
+        ...(isPopOver ? [] : [getColumn({
           id: `${props.columns.primaryValue.title}_bar`,
           accessor: props.columns.primaryValue.accessor,
           headerName: props.columns.primaryValue.title,
@@ -190,7 +197,7 @@ export const getColumns = ({
           id: props.columns.primaryValue.title,
           accessor: props.columns.primaryValue.accessor,
           dataFormat: props.columns.primaryValue.dataFormat,
-          headerName: (!width && width !== 0) ? props.columns.primaryValue.title : '',
+          headerName: isPopOver ? props.columns.primaryValue.title : '',
           align: 'right',
           width: primaryValueColumnWidth,
         }),
@@ -219,7 +226,7 @@ export const getColumns = ({
             cellType: 'link',
             width: responsiveWidth * labelResponsiveWidthRatio,
           }),
-          ...((!width && width !== 0) ? [] : [getColumn({
+          ...(isPopOver ? [] : [getColumn({
             id: `${props.columns.primaryValue.title}_bar`,
             accessor: props.columns.primaryValue.accessor,
             accessorSecondary: props.columns.secondaryValue.accessor,
@@ -270,11 +277,11 @@ export const getColumns = ({
             id: props.columns.primaryValue.title,
             accessor: props.columns.primaryValue.accessor,
             dataFormat: props.columns.primaryValue.dataFormat,
-            headerName: (!width && width !== 0) ? props.columns.primaryValue.title : '',
+            headerName: isPopOver ? props.columns.primaryValue.title : '',
             align: 'right',
             width: primaryValueColumnWidth,
           }),
-          ...((!width && width !== 0) ? [] : [getColumn({
+          ...(isPopOver ? [] : [getColumn({
             id: `${props.columns.primaryValue.title}_bar_left`,
             accessor: props.columns.primaryValue.accessor,
             headerName: props.columns.primaryValue.title,
@@ -284,14 +291,14 @@ export const getColumns = ({
             maxValue: maxValue,
             width: responsiveWidthBar,
           })]),
-          ...((!width && width !== 0) ? [] : [getColumn({
+          ...(isPopOver ? [] : [getColumn({
             id: `${props.columns.primaryValue.title}_vertical_line`,
             accessor: props.columns.primaryValue.accessor,
             align: 'center',
             cellType: 'verticalLine',
             width: verticalLineWidth,
           })]),
-          ...((!width && width !== 0) ? [] : [getColumn({
+          ...(isPopOver ? [] : [getColumn({
             id: `${props.columns.secondaryValue.title}_bar_right`,
             headerName: props.columns.secondaryValue.title,
             accessor: props.columns.secondaryValue.accessor,
@@ -305,7 +312,7 @@ export const getColumns = ({
             id: props.columns.secondaryValue.title,
             accessor: props.columns.secondaryValue.accessor,
             dataFormat: props.columns.secondaryValue.dataFormat,
-            headerName: (!width && width !== 0) ? props.columns.secondaryValue.title : '',
+            headerName: isPopOver ? props.columns.secondaryValue.title : '',
             align: 'right',
             width: secondaryValueColumnWidth,
           }),
