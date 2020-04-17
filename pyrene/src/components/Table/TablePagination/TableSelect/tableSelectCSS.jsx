@@ -16,7 +16,7 @@ const selectStyle = {
     ...base,
     fontFamily: 'FiraGo, Helvetica, sans-serif !important',
     fontSize: 12,
-    fontWeight: 500,
+    fontWeight: 400,
     width: '100%',
   }),
 
@@ -70,52 +70,24 @@ const selectStyle = {
     color: colorConstants.neutral200,
   }),
 
-  clearIndicator: () => ({
-    '& svg': {
-      display: 'none',
-    },
-    ':after': {
-      fontFamily: 'PyreneIconFont !important',
-      fontSize: 18,
-      color: colorConstants.neutral300,
-      speak: 'none',
-      fontStyle: 'normal',
-      fontWeight: 'normal',
-      fontVariant: 'normal',
-      textTransform: 'none',
-      lineHeight: 1,
-      WebkitFontSmoothing: 'antialiased',
-      MozOsxFontSmoothing: 'grayscale',
-
-      display: 'inline-block',
-      verticalAlign: 'middle',
-      content: '"7"',
-    },
-    ':hover:after': {
-      color: colorConstants.red500,
-    },
-  }),
-
   dropdownIndicator: () => ({
     '& svg': {
       display: 'none',
     },
     ':after': {
       fontFamily: 'PyreneIconFont !important',
-      fontSize: 18,
-      color: colorConstants.neutral300,
+      fontSize: 16,
+      color: colorConstants.neutral500,
       speak: 'none',
       fontStyle: 'normal',
-      fontWeight: 'normal',
+      fontWeight: '400',
       fontVariant: 'normal',
       textTransform: 'none',
-      lineHeight: 1,
       WebkitFontSmoothing: 'antialiased',
       MozOsxFontSmoothing: 'grayscale',
+      display: 'flex',
 
       transition: 'transform 0.3s ease-out',
-      display: 'inline-block',
-      verticalAlign: 'middle',
       content: '"3"',
       marginRight: 8,
     },
