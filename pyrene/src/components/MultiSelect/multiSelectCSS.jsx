@@ -70,6 +70,7 @@ const multiSelectStyle = (props) => ({
         whiteSpace: 'nowrap',
         padding: '2px 7px',
         minHeight: '32px',
+        height: '32px',
       };
     }
 
@@ -80,7 +81,7 @@ const multiSelectStyle = (props) => ({
       overflow: state.hasValue ? 'auto' : 'hidden',
       padding: '2px 7px',
       maxHeight: props.rows <= 0 ? 79 : (props.rows * 25) + 6,
-      alignItems: 'center',
+      alignItems: 'flex-start',
       alignContent: 'flex-start',
     };
   },
@@ -196,7 +197,7 @@ const multiSelectStyle = (props) => ({
 
   multiValueRemove: (base, { data }) => ({
     display: 'block',
-    height: 12,
+    height: 13,
     paddingLeft: 4,
     paddingRight: 4,
     '& svg': {
