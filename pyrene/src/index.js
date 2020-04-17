@@ -6,6 +6,8 @@ import './styles/colors.css';
 import './styles/fonts.css';
 
 // Sort alphabetically to find stuff easily
+import { default as ArrowPopover } from './components/ArrowPopover/ArrowPopover';
+
 import { default as Badge } from './components/Badge/Badge';
 import { default as Banner } from './components/Banner/Banner';
 import { default as Button } from './components/Button/Button';
@@ -64,6 +66,7 @@ import { default as TreeTable } from './components/TreeTable/TreeTable';
 // Sort alphabetically to find stuff easily
 const Components = {
   ActionBar,
+  ArrowPopover,
   Badge,
   Banner,
   Button,
@@ -107,6 +110,7 @@ const Components = {
 
 // Sort alphabetically to find stuff easily
 export { ActionBar };
+export { ArrowPopover };
 export { Badge };
 export { Banner };
 export { Button };

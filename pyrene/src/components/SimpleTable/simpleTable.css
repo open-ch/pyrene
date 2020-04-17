@@ -1,12 +1,14 @@
 @import '../../styles/colors.css';
 
 .container {
+  composes: commonFontSettings from '../../styles/common.css';
+
   width: 100%;
   height: 100%;
 }
 
 .table {
-  font-size: 13px;
+  font-size: 12px;
   color: var(--neutral-500);
   border-spacing: 0;
   table-layout: fixed;
@@ -19,18 +21,18 @@
 }
 
 .tableHeaderRow {
-  height: 31px;
+  height: 32px;
   border-bottom: 1px solid var(--border);
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   align-content: center;
   align-items: stretch;
-  line-height: 20px;
+  line-height: 18px;
 }
 
 .tableHeaderCell {
-  font-weight: 600;
+  font-weight: 500;
   display: block;
   flex: 1 0 0%;
   min-width: 0;
@@ -57,11 +59,10 @@
   flex-wrap: wrap;
   align-content: center;
   align-items: stretch;
-  line-height: 18px;
-  padding-top: 7px;
-  padding-bottom: 6px;
-  /* +1px border*/
-  font-size: 13px;
+  line-height: 16px;
+  padding-top: 8px;
+  padding-bottom: 7px;
+  font-size: 12px;
 }
 
 .tableRow:hover {
@@ -73,6 +74,7 @@
 }
 
 .tableCell {
+  height: 16px;
   padding: 0;
   display: block;
   flex: 1 0 0%;
@@ -93,7 +95,7 @@
 }
 
 .tableCellContent {
-  min-height: 18px;
+  min-height: 16px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -101,9 +103,10 @@
 }
 
 .noData {
+  composes: commonFontSettings from '../../styles/common.css';
+
   padding: 39px 0 0 8px;
-  font-family: AvenirNext;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: normal;
   font-style: italic;
   font-stretch: normal;
@@ -115,4 +118,3 @@
 .loader {
   padding: 35px 0 0 8px;
 }
-

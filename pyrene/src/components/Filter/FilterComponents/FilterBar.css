@@ -48,6 +48,8 @@
   border-radius: 2px;
   border: solid 1px var(--border);
 
+  composes: commonFontSettings from '../../../styles/common.css';
+
   outline: none;
 
   &.filled {
@@ -59,7 +61,6 @@
   }
 
   &[type=text] {
-    font-family: AvenirNext;
     font-size: 13px;
     font-weight: 500;
     font-style: normal;

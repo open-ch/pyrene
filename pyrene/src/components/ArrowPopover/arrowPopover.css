@@ -1,0 +1,33 @@
+@import '../../styles/colors.css';
+
+.popover {
+  composes: commonFontSettings from '../../styles/common.css';
+
+  position: relative;
+  border-radius: 2px;
+  border: solid 1px #e1e3e8;
+  z-index: -2;
+}
+
+.triangle {
+  position: absolute;
+
+  /* 
+    Would be:
+      0 4px 8px -2px rgba(0, 21, 44, 0.2); 
+    But flipped 45deg so:
+      l^2 = x^2 +y^2
+      x/y = sqrt(8) ~= 2.8
+  */
+  box-shadow: 2.8px 2.8px 8px -2px rgba(0,21,44,.2);
+  border: solid 1px #e1e3e8;
+
+  z-index: -1;
+  bottom: 0;
+  background-color: white;
+  transform: rotate(45deg);
+}
+
+.popoverContent {
+  background-color: white;
+}

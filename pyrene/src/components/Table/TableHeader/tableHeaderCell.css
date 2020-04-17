@@ -5,8 +5,10 @@
   composes: commonFontSettings from '../../../styles/common.css';
   display: flex;
   align-items: center;
-  font-weight: 600;
-  line-height: 20px;
+
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 18px;
   padding-right: 16px;
 
   &:first-child {
