@@ -70,32 +70,6 @@ const selectStyle = {
     color: colorConstants.neutral200,
   }),
 
-  clearIndicator: () => ({
-    '& svg': {
-      display: 'none',
-    },
-    ':after': {
-      fontFamily: 'PyreneIconFont !important',
-      fontSize: 18,
-      color: colorConstants.neutral300,
-      speak: 'none',
-      fontStyle: 'normal',
-      fontWeight: 'normal',
-      fontVariant: 'normal',
-      textTransform: 'none',
-      lineHeight: 1,
-      WebkitFontSmoothing: 'antialiased',
-      MozOsxFontSmoothing: 'grayscale',
-
-      display: 'inline-block',
-      verticalAlign: 'middle',
-      content: '"7"',
-    },
-    ':hover:after': {
-      color: colorConstants.red500,
-    },
-  }),
-
   dropdownIndicator: () => ({
     '& svg': {
       display: 'none',
