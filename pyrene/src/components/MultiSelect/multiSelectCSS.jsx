@@ -25,7 +25,7 @@ const multiSelectStyle = (props) => ({
   indicatorsContainer: (base) => ({
     ...base,
     alignItems: 'flex-start',
-    paddingTop: '7px',
+    paddingTop: 8,
   }),
 
   control: (base, state) => ({
@@ -147,6 +147,7 @@ const multiSelectStyle = (props) => ({
   input: (base) => ({
     ...base,
     paddingTop: '5px',
+    height: '12px',
     '[type="text"]': {
       fontFamily: 'FiraGo, Helvetica, sans-serif !important',
       fontSize: 12,
@@ -181,14 +182,15 @@ const multiSelectStyle = (props) => ({
     ...base,
     alignItems: 'center',
     backgroundColor: data.invalid ? colorConstants.red100 : colorConstants.neutral030,
-    paddingLeft: '3px',
+    paddingLeft: 3,
+    marginTop: 4,
   }),
 
   multiValueLabel: (base, { data }) => ({ // eslint-disable-line no-unused-vars
     ...base,
     boxSizing: 'border-box',
     paddingLeft: 8,
-    fontSize: 13,
+    fontSize: 12,
     color: colorConstants.neutral400,
     overflow: 'hidden',
     whiteSpace: 'nowrap',
@@ -216,8 +218,6 @@ const multiSelectStyle = (props) => ({
       WebkitFontSmoothing: 'antialiased',
       MozOsxFontSmoothing: 'grayscale',
       content: '"7"',
-
-
       borderRadius: 2,
     },
     ':hover:after': {
