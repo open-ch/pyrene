@@ -27,8 +27,8 @@ const config = {
     rules: [
       {
         test: /\.js$/,
-        use: ["source-map-loader"],
-        enforce: "pre",
+        use: ['source-map-loader'],
+        enforce: 'pre',
         include: [
           path.resolve(__dirname, 'node_modules/pyrene/dist/pyrene.js'),
           path.resolve(__dirname, 'node_modules/pyrene-graphs/dist/pyrene-graphs.js'),
