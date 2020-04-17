@@ -25,11 +25,9 @@
 }
 
 .buttonLabel {
-  font-size: 13px;
-  font-weight: 500;
-  line-height: 1.23;
+  font-size: 12px;
   color: var(--text);
-  padding: 0 8px;
+  padding: 0 4px;
   white-space: nowrap;
 }
 

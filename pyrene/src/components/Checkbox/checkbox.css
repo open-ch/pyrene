@@ -15,18 +15,20 @@
   width: 16px;
   height: 16px;
   vertical-align: text-top;
-  margin-right: 6px;
+  margin-right: 4px;
 }
 
 .checkboxLabel {
   height: 24px;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: normal;
   text-transform: capitalize;
   cursor: pointer;
 
   display: flex;
   align-items: center;
+
+  color: var(--text);
 
   &.disabled {
     opacity: 0.5;

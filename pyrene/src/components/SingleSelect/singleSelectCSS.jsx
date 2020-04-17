@@ -14,10 +14,15 @@ import colorConstants from '../../styles/colorConstants';
 const selectStyle = {
   container: (base) => ({
     ...base,
-    fontFamily: 'AvenirNext, Helvetica, sans-serif !important',
-    fontSize: 13,
-    fontWeight: 500,
+    fontFamily: 'FiraGO, Helvetica, sans-serif !important',
+    fontSize: 12,
+    fontWeight: 'normal',
     width: '100%',
+    fontStretch: 'normal',
+    fontStyle: 'normal',
+    lineHeight: 1.33,
+    letterSpacing: 'normal',
+    color: colorConstants.neutral500,
   }),
 
   indicatorSeparator: () => ({
@@ -36,7 +41,7 @@ const selectStyle = {
     minHeight: 32,
     height: 32,
     backgroundColor: (state.isFocused || state.hasValue) ? colorConstants.neutral000 : colorConstants.neutral020,
-    border: state.selectProps.isInvalid && !state.isDisabled ? `solid 1px ${colorConstants.red500}` : state.isFocused ? `solid 1px ${colorConstants.blue500}` : `solid 1px ${colorConstants.neutral100}`,
+    border: state.selectProps.isInvalid && !state.isDisabled ? `solid 1px ${colorConstants.red500}` : state.isFocused ? `solid 1px ${colorConstants.blue500}` : state.hasValue ? `solid 1px ${colorConstants.neutral500}` : `solid 1px ${colorConstants.neutral100}`,
     borderRadius: 2,
     cursor: 'pointer',
 
@@ -77,7 +82,7 @@ const selectStyle = {
     },
     ':after': {
       fontFamily: 'PyreneIconFont !important',
-      fontSize: 18,
+      fontSize: 16,
       color: colorConstants.neutral300,
       speak: 'none',
       fontStyle: 'normal',
@@ -87,7 +92,7 @@ const selectStyle = {
       lineHeight: 1,
       WebkitFontSmoothing: 'antialiased',
       MozOsxFontSmoothing: 'grayscale',
-
+      paddingRight: 4,
       display: 'inline-block',
       verticalAlign: 'middle',
       content: '"7"',
@@ -103,17 +108,11 @@ const selectStyle = {
     },
     ':after': {
       fontFamily: 'PyreneIconFont !important',
-      fontSize: 18,
+      fontSize: 16,
       color: colorConstants.neutral300,
       speak: 'none',
-      fontStyle: 'normal',
-      fontWeight: 'normal',
-      fontVariant: 'normal',
       textTransform: 'none',
       lineHeight: 1,
-      WebkitFontSmoothing: 'antialiased',
-      MozOsxFontSmoothing: 'grayscale',
-
       transition: 'transform 0.3s ease-out',
       display: 'inline-block',
       verticalAlign: 'middle',
@@ -125,10 +124,10 @@ const selectStyle = {
   input: (base) => ({
     ...base,
     '[type="text"]': {
-      fontFamily: 'AvenirNext, Helvetica, sans-serif !important',
-      fontSize: 13,
-      fontWeight: 500,
-      color: colorConstants.neutral400,
+      fontFamily: 'FiraGO, Helvetica, sans-serif !important',
+      fontSize: 12,
+      fontWeight: 'normal',
+      color: colorConstants.neutral500,
       WebkitFontSmoothing: 'antialiased',
       MozOsxFontSmoothing: 'grayscale',
     },
@@ -149,11 +148,24 @@ const selectStyle = {
     },
     backgroundColor: isSelected ? colorConstants.neutral030 : isFocused ? colorConstants.backgroundTint : colorConstants.neutral000,
     height: 30,
-    color: colorConstants.neutral400,
+    color: colorConstants.neutral500,
     cursor: 'pointer',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
+  }),
+
+  group: () => ({
+    paddingTop: 0,
+    paddingBottom: 0,
+  }),
+
+  groupHeading: () => ({
+    fontFamily: 'FiraGO, Helvetica, sans-serif !important',
+    fontWeight: 500,
+    color: colorConstants.neutral500,
+    padding: '8px 12px',
+    borderBottom: '1px solid #e0e2e5',
   }),
 };
 

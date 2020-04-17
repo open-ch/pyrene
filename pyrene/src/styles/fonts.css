@@ -1,32 +1,35 @@
 @import './iconfont.css';
 
 /**** FONTS ****/
-/* AvenirNext-Regular */
+/* FiraGo */
 @font-face {
-  font-family: AvenirNext;
+  font-family: FiraGo;
   font-weight: 400;
-  src: url('../fonts/AvenirNextLTW01-Regular.woff') format('woff');
+  src: url('../fonts/FiraGO-Regular.woff2') format('woff2'), url('../fonts/FiraGO-Regular.woff') format('woff');
 }
 
-/* AvenirNext-Medium */
 @font-face {
-  font-family: AvenirNext;
+  font-family: FiraGo;
   font-weight: 500;
-  src: url('../fonts/AvenirNextLTW01-Medium.woff') format('woff');
+  src: url('../fonts/FiraGO-Medium.woff2') format('woff2'), url('../fonts/FiraGO-Medium.woff') format('woff');
 }
 
-/* AvenirNext-DemiBold */
 @font-face {
-  font-family: AvenirNext;
+  font-family: FiraGo;
   font-weight: 600;
-  src: url('../fonts/AvenirNextLTW01-Demi.woff') format("woff");
+  src: url('../fonts/FiraGO-SemiBold.woff2') format('woff2'), url('../fonts/FiraGO-SemiBold.woff') format('woff');
 }
 
-/* AvenirNext-Bold */
 @font-face {
-  font-family: AvenirNext;
+  font-family: FiraGo;
   font-weight: 700;
-  src: url('../fonts/AvenirNextLTW01-Bold.woff') format('woff');
+ src: url('../fonts/FiraGO-Bold.woff2') format('woff2'), url('../fonts/FiraGO-Bold.woff') format('woff');
+}
+
+@font-face {
+  font-family: FiraSans;
+  font-stretch: condensed;
+  src: url('../fonts/FiraCondensed-Regular.woff2') format('woff2'), url('../fonts/FiraCondensed-Regular.woff') format('woff');
 }
 
 /* PyreneIconFont */

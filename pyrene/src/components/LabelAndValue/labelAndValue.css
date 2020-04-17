@@ -2,7 +2,6 @@
 
 .label-and-value {
   composes: commonFontSettings from '../../styles/common.css';
-  font-weight: 500;
   max-width: 100%;
 }
 
@@ -14,27 +13,32 @@
 }
 
 .label-and-value .label {
-  font-size: 11px;
-  height: 16px;
-  line-height: 16px;
+  font-family: FiraSans;
+  font-size: 12px;
+  font-stretch: condensed;
+  height: 14px;
   color: var(--neutral-200);
-  letter-spacing: 0.6px;
-  text-transform: uppercase;
+  letter-spacing: 0.2px;
+  text-transform: capitalize;
   margin-bottom: 2px;
 }
 
 .label-and-value .value {
-  color: var(--text);
+  font-weight: 500;
+
+  color: var(--neutral-500);
 }
 
 .label-and-value-small .value {
   font-size: 14px;
   height: 24px;
-  line-height: 24px;
+
+  letter-spacing: -0.05px;
 }
 
 .label-and-value-large .value {
   font-size: 24px;
-  height: 40px;
-  line-height: 40px;
+  height: 32px;
+
+  letter-spacing: -0.2px;
 }

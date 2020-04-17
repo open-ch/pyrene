@@ -3,7 +3,9 @@
 
 .paragraph {
   font-size: 13px;
-  line-height: 18px;
+  line-height: 16px;
+
+  color: var(--neutral-500);
 
   margin-top: 16px;
   margin-bottom: 16px;

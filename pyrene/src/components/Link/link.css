@@ -1,8 +1,6 @@
 @import '../../styles/colors.css';
 
 .link {
-  composes: commonFontSettings from '../../styles/common.css';
-
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -20,35 +18,38 @@
     }
   }
 
-  &.type-standalone {
-    height: 24px;
-    font-size: 13px;
-    font-weight: 600;
-    line-height: 18px;
-    text-transform: capitalize;
-    position: relative;
+}
 
-    & .icon {
-      width: 16px;
-      height: 16px;
-      font-weight: 400;
-      font-size: 16px;
-    }
+.type-standalone {
+  composes: commonFontSettings from '../../styles/common.css';
 
-    &.disabled {
-      opacity: 0.5;
-      cursor: default;
-      pointer-events: none;
-    }
+  height: 24px;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 16px;
+  text-transform: capitalize;
+  position: relative;
+
+  & .icon {
+    width: 16px;
+    height: 16px;
+    font-weight: 400;
+    font-size: 16px;
   }
 
-  &.type-inline {
-    display: inline;
+  &.disabled {
+    opacity: 0.5;
+    cursor: default;
+    pointer-events: none;
+  }
+}
 
-    &.disabled {
-      color: inherit;
-      cursor: default;
-      pointer-events: none;
-    }
+.type-inline {
+  display: inline;
+
+  &.disabled {
+    color: inherit;
+    cursor: default;
+    pointer-events: none;
   }
 }

@@ -1,10 +1,11 @@
 .wrapper {
+  composes: commonFontSettings from '../../../styles/common.css';
+
   display: inline-flex;
   flex-direction: row;
   background-color: #f2f4f5;
   height: 20px;
   border-radius: 2px;
-  font-family: AvenirNext;
   font-style: normal;
   font-stretch: normal;
   line-height: normal;

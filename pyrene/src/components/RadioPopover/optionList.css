@@ -8,12 +8,13 @@
 }
 
 .listHeader {
+  composes: commonFontSettings from '../../styles/common.css';
+
   box-sizing: border-box;
   border-bottom: solid 1px var(--border);
   display: flex;
   justify-content: center;
   padding: 8px;
-  font-family: AvenirNext;
   font-size: 12px;
   font-style: italic;
   color: var(--neutral-400);
@@ -45,8 +46,9 @@
 }
 
 .listLabel {
+  composes: commonFontSettings from '../../styles/common.css';
+
   padding-left: 4px;
-  font-family: AvenirNext;
   font-size: 13px;
   color: #00152c;
 }
