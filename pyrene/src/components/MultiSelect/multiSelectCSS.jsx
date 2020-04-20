@@ -25,7 +25,7 @@ const multiSelectStyle = (props) => ({
   indicatorsContainer: (base) => ({
     ...base,
     alignItems: 'flex-start',
-    paddingTop: '6px',
+    paddingTop: 8,
   }),
 
   control: (base, state) => ({
@@ -68,17 +68,18 @@ const multiSelectStyle = (props) => ({
         overflow: 'hidden',
         flexWrap: 'nowrap',
         whiteSpace: 'nowrap',
-        padding: '2px 6px',
-        minHeight: '30px',
+        padding: '2px 7px',
+        minHeight: '32px',
+        height: '32px',
       };
     }
 
     return {
       ...base,
-      minHeight: 30,
+      minHeight: 32,
       height: props.rows <= 0 ? 'inherit' : (props.rows * 25) + 6,
       overflow: state.hasValue ? 'auto' : 'hidden',
-      padding: '2px 6px',
+      padding: '2px 7px',
       maxHeight: props.rows <= 0 ? 79 : (props.rows * 25) + 6,
       alignItems: 'flex-start',
       alignContent: 'flex-start',
@@ -98,7 +99,7 @@ const multiSelectStyle = (props) => ({
     },
     ':after': {
       fontFamily: 'PyreneIconFont !important',
-      fontSize: 18,
+      fontSize: 16,
       color: colorConstants.neutral300,
       speak: 'none',
       fontStyle: 'normal',
@@ -118,13 +119,13 @@ const multiSelectStyle = (props) => ({
     },
   }),
 
-  dropdownIndicator: () => ({
+  dropdownIndicator: (base, state) => ({
     '& svg': {
       display: 'none',
     },
     ':after': {
       fontFamily: 'PyreneIconFont !important',
-      fontSize: 18,
+      fontSize: 16,
       color: colorConstants.neutral300,
       speak: 'none',
       fontStyle: 'normal',
@@ -138,14 +139,15 @@ const multiSelectStyle = (props) => ({
       transition: 'transform 0.3s ease-out',
       display: 'inline-block',
       verticalAlign: 'middle',
-      content: '"3"',
-      marginRight: 8,
+      content: state.selectProps.menuIsOpen ? '"\x64"' : '"\x63"',
+      marginRight: 7,
     },
   }),
 
   input: (base) => ({
     ...base,
     paddingTop: '5px',
+    height: '12px',
     '[type="text"]': {
       fontFamily: 'FiraGo, Helvetica, sans-serif !important',
       fontSize: 12,
@@ -180,13 +182,15 @@ const multiSelectStyle = (props) => ({
     ...base,
     alignItems: 'center',
     backgroundColor: data.invalid ? colorConstants.red100 : colorConstants.neutral030,
+    paddingLeft: 3,
+    marginTop: 4,
   }),
 
   multiValueLabel: (base, { data }) => ({ // eslint-disable-line no-unused-vars
     ...base,
     boxSizing: 'border-box',
     paddingLeft: 8,
-    fontSize: 13,
+    fontSize: 12,
     color: colorConstants.neutral400,
     overflow: 'hidden',
     whiteSpace: 'nowrap',
@@ -195,7 +199,7 @@ const multiSelectStyle = (props) => ({
 
   multiValueRemove: (base, { data }) => ({
     display: 'block',
-    height: 14,
+    height: 13,
     paddingLeft: 4,
     paddingRight: 4,
     '& svg': {
@@ -214,8 +218,6 @@ const multiSelectStyle = (props) => ({
       WebkitFontSmoothing: 'antialiased',
       MozOsxFontSmoothing: 'grayscale',
       content: '"7"',
-
-
       borderRadius: 2,
     },
     ':hover:after': {
@@ -224,7 +226,7 @@ const multiSelectStyle = (props) => ({
     },
   }),
 
-  noOptionsMessage: (base, state) => ({ // eslint-disable-line no-unused-vars
+  noOptionsMessage: (base) => ({
     ...base,
     fontStyle: 'italic',
     color: colorConstants.neutral200,
