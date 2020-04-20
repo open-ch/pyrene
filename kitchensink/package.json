@@ -64,7 +64,7 @@
     "optimize-css-assets-webpack-plugin": "^5.0.3",
     "prop-types": "^15.7.2",
     "pyrene": "2.0.29",
-    "pyrene-graphs": "1.1.0",
+    "pyrene-graphs": "1.1.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-select": "^3.1.0",
