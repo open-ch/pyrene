@@ -119,7 +119,7 @@ const multiSelectStyle = (props) => ({
     },
   }),
 
-  dropdownIndicator: () => ({
+  dropdownIndicator: (base, state) => ({
     '& svg': {
       display: 'none',
     },
@@ -139,7 +139,7 @@ const multiSelectStyle = (props) => ({
       transition: 'transform 0.3s ease-out',
       display: 'inline-block',
       verticalAlign: 'middle',
-      content: '"\x63"',
+      content: state.selectProps.menuIsOpen ? '"\x64"' : '"\x63"',
       marginRight: 7,
     },
   }),
@@ -226,7 +226,7 @@ const multiSelectStyle = (props) => ({
     },
   }),
 
-  noOptionsMessage: (base, state) => ({ // eslint-disable-line no-unused-vars
+  noOptionsMessage: (base) => ({
     ...base,
     fontStyle: 'italic',
     color: colorConstants.neutral200,
