@@ -20,7 +20,7 @@
 .selectOption {
   box-sizing: border-box;
   height: 20px;
-  padding: 0 6px 0 8px;
+  padding: 0 8px 0 8px;
   margin: 2px;
 
   display: flex;
@@ -37,7 +37,7 @@
 
 
 .optionLabel {
-  font-size: 13px;
+  font-size: 12px;
   font-weight: normal;
   font-style: normal;
   font-stretch: normal;
