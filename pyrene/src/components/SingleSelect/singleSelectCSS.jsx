@@ -66,6 +66,7 @@ const selectStyle = {
   valueContainer: (base) => ({
     ...base,
     height: 32,
+    padding: '2px 4px 2px 7px',
     '& :last-child': {
       zIndex: 2,
     },
@@ -102,7 +103,7 @@ const selectStyle = {
     },
   }),
 
-  dropdownIndicator: () => ({
+  dropdownIndicator: (base, state) => ({
     '& svg': {
       display: 'none',
     },
@@ -116,8 +117,8 @@ const selectStyle = {
       transition: 'transform 0.3s ease-out',
       display: 'inline-block',
       verticalAlign: 'middle',
-      content: '"3"',
-      marginRight: 8,
+      content: state.selectProps.menuIsOpen ? '"\x64"' : '"\x63"',
+      marginRight: 7,
     },
   }),
 
