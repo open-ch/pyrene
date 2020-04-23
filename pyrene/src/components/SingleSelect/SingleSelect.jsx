@@ -57,7 +57,7 @@ const SingleSelect = (props) => {
             autoFocus={props.autoFocus}
             openMenuOnFocus={props.openMenuOnFocus}
 
-            maxMenuHeight={264}
+            maxMenuHeight={props.maxMenuHeight}
             noOptionsMessage={() => 'no matches found'}
             formatCreateLabel={(inputValue) => `Create new tag "${inputValue}"`}
 
@@ -95,7 +95,7 @@ const SingleSelect = (props) => {
             autoFocus={props.autoFocus}
             openMenuOnFocus={props.openMenuOnFocus}
 
-            maxMenuHeight={props.dropdownMaxHeight}
+            maxMenuHeight={props.maxMenuHeight}
             noOptionsMessage={() => 'no matches found'}
 
             blurInputOnSelect
@@ -134,7 +134,6 @@ SingleSelect.defaultProps = {
   name: '',
   creatable: false,
   disabled: false,
-  dropdownMaxHeight: 264,
   invalid: false,
   loading: false,
   required: false,
@@ -143,6 +142,7 @@ SingleSelect.defaultProps = {
   clearable: false,
   options: [],
   groupedOptions: [],
+  maxMenuHeight: 264,
   openMenuOnFocus: false,
   defaultValue: null,
   helperLabel: '',
@@ -178,10 +178,6 @@ SingleSelect.propTypes = {
    * Disables any interaction with the component.
    */
   disabled: PropTypes.bool,
-  /**
-   * Sets the maximum height of the dropdown menu.
-   */
-  dropdownMaxHeight: PropTypes.number,
   /**
    * Data input array for dropdown with groups
    * eg of dropdown:
@@ -222,6 +218,10 @@ SingleSelect.propTypes = {
    * Displays a loading indicator inside of the input.
    */
   loading: PropTypes.bool,
+  /**
+   * Sets the maximum height of the dropdown menu.
+   */
+  maxMenuHeight: PropTypes.number,
   /**
    * Sets the html name property of the form element.
    */
