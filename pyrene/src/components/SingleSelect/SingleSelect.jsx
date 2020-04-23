@@ -95,7 +95,7 @@ const SingleSelect = (props) => {
             autoFocus={props.autoFocus}
             openMenuOnFocus={props.openMenuOnFocus}
 
-            maxMenuHeight={264}
+            maxMenuHeight={props.dropdownMaxHeight}
             noOptionsMessage={() => 'no matches found'}
 
             blurInputOnSelect
@@ -134,6 +134,7 @@ SingleSelect.defaultProps = {
   name: '',
   creatable: false,
   disabled: false,
+  dropdownMaxHeight: 264,
   invalid: false,
   loading: false,
   required: false,
@@ -177,6 +178,10 @@ SingleSelect.propTypes = {
    * Disables any interaction with the component.
    */
   disabled: PropTypes.bool,
+  /**
+   * Sets the maximum height of the dropdown menu.
+   */
+  dropdownMaxHeight: PropTypes.number,
   /**
    * Data input array for dropdown with groups
    * eg of dropdown:
