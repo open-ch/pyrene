@@ -28,13 +28,8 @@ const config = {
       {
         test: /\.js$/,
         use: ['source-map-loader'],
+        include: /pyrene.+/,
         enforce: 'pre',
-        include: [
-          path.resolve(__dirname, 'node_modules/pyrene/dist/pyrene.dev.js'),
-          path.resolve(__dirname, 'node_modules/pyrene-graphs/dist/pyrene-graphs.dev.js'),
-          path.resolve(__dirname, 'node_modules/pyrene/dist/pyrene.examples.js'),
-          path.resolve(__dirname, 'node_modules/pyrene-graphs/dist/pyrene-graphs.examples.js'),
-        ],
       },
       {
         test: /\.jsx?$/,
