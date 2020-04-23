@@ -99,7 +99,9 @@ class Checkbox extends Component {
           <span styleName="checkboxIcon">
             {getCheckboxIcon(options, this.state.hovered)}
           </span>
-          {this.props.label}
+          <span styleName="checkboxLabelText">
+            {this.props.label}
+          </span>
         </label>
       </div>
     );
