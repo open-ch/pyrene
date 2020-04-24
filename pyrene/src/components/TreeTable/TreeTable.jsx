@@ -33,21 +33,27 @@ class TreeTable extends React.Component {
 
   constructor(props) {
     super(props);
+    const rows = TreeTableUtils.initialiseRootData(props.data, props.setUniqueRowKey);
     this.state = {
-      displayExpandAll: false,
+      tableFullyExpanded: false,
       columns: TreeTableUtils.prepareColumnToggle(props.columns),
       expanded: {},
-      rows: TreeTableUtils.initialiseRootData(props.data, props.setUniqueRowKey),
+      rows,
       innerHeight: 0,
       outerHeight: 0,
       tableKey: Date.now(),
+      disabledExpandButton: this.isFlatTree(rows),
     };
   }
 
   componentDidUpdate(prevProps, prevState) {
     if (this.props.data !== prevProps.data) {
       // eslint-disable-next-line react/no-did-update-set-state
-      this.setState({ rows: TreeTableUtils.initialiseRootData(this.props.data, this.props.setUniqueRowKey) });
+      const rows = TreeTableUtils.initialiseRootData(this.props.data, this.props.setUniqueRowKey);
+      this.setState({
+        rows,
+        disabledExpandButton: this.isFlatTree(rows),
+      });
     }
 
     if (this.props.virtualized && this.state.rows !== prevState.rows) {
@@ -89,21 +95,21 @@ class TreeTable extends React.Component {
   }
 
   toggleAllRowsExpansion = () => {
-    const { displayExpandAll } = this.state;
+    const { tableFullyExpanded } = this.state;
     const { data } = this.props;
     this.setState(() => {
-      if (displayExpandAll) {
+      if (tableFullyExpanded) {
         this.rowHeightMap = {};
         return {
           rows: TreeTableUtils.initialiseRootData(data, this.props.setUniqueRowKey),
           expanded: {},
-          displayExpandAll: !displayExpandAll,
+          tableFullyExpanded: !tableFullyExpanded,
           tableKey: Date.now(), // as all rows are closed, we need to recalculate the height for the whole view - a key is the easiest way
         };
       }
       return {
         ...TreeTableUtils.handleAllRowExpansion(data, { rows: data, expanded: {} }),
-        displayExpandAll: !displayExpandAll,
+        tableFullyExpanded: !tableFullyExpanded,
       };
     });
   }
@@ -116,16 +122,26 @@ class TreeTable extends React.Component {
     });
   };
 
+  isFullyExpanded(rows, expanded) {
+    return rows.filter(r => r.children && r.children.length)
+      .every(r => expanded[r._rowId]);
+  }
+
+  isFlatTree(rows) {
+    return rows.every(row => row._treeDepth === 0 && !(row.children && row.children.length));
+  }
+
   render() {
     const { props } = this;
     const {
       expanded,
-      displayExpandAll,
+      tableFullyExpanded,
       columns,
       rows,
       innerHeight,
       outerHeight,
       tableKey,
+      disabledExpandButton,
     } = this.state;
 
     const isColumnHidden = (hidden) => typeof hidden === 'undefined' || hidden !== true;
@@ -152,7 +168,11 @@ class TreeTable extends React.Component {
     );
 
     const onExpandRow = ({ row }) => {
-      this.setState((prevState) => TreeTableUtils.handleRowExpandChange(row, prevState, props.setUniqueRowKey));
+      this.setState((prevState) => {
+        const { rows, expanded } = TreeTableUtils.handleRowExpandChange(row, prevState);
+
+        return { rows, expanded, tableFullyExpanded: this.isFullyExpanded(rows, expanded) };
+      });
     };
 
     const getActionBar = () => {
@@ -168,9 +188,10 @@ class TreeTable extends React.Component {
       return (
         <TreeTableActionBar
           toggleAll={this.toggleAllRowsExpansion}
-          displayExpandAll={displayExpandAll}
+          displayExpandAll={!tableFullyExpanded}
           columnToggleProps={columnToggleProps}
           renderRightItems={props.renderActionBarRightItems}
+          disabledExpand={disabledExpandButton}
         />
       );
     };
