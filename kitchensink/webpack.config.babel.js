@@ -25,12 +25,12 @@ const config = {
   },
   module: {
     rules: [
-      {
+      ...(process.env.SOURCE_MAP ? [{
         test: /\.js$/,
         use: ['source-map-loader'],
         include: /pyrene.+/,
         enforce: 'pre',
-      },
+      }] : []),
       {
         test: /\.jsx?$/,
         include: [

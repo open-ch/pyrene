@@ -12,6 +12,7 @@
     "prebuild": "npm install",
     "build": "webpack",
     "watch": "webpack-dev-server",
+    "watchSourceMap": "SOURCE_MAP=true npm run watch",
     "prelint": "npm install",
     "lint": "eslint --ext .js,.jsx src/",
     "updateIconfont": "bash -c 'cp $0 src/app/data/icons.js;'"
