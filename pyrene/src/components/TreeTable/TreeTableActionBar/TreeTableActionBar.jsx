@@ -11,10 +11,11 @@ const TreeTableActionBar = (props) => (
     <ButtonBar
       leftButtonSectionElements={[
         <Button
-          label={props.displayExpandAll ? 'Collapse All' : 'Expand All'}
-          icon={props.displayExpandAll ? 'chevronUp' : 'chevronDown'}
+          label={props.displayExpandAll ? 'Expand All' : 'Collapse All'}
+          icon={props.displayExpandAll ? 'chevronDown' : 'chevronUp'}
           type="action"
           onClick={props.toggleAll}
+          disabled={props.disabledExpand}
         />,
       ]}
       noPadding
