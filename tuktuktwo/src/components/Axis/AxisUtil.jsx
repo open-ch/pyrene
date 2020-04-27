@@ -6,7 +6,7 @@ import React from 'react';
  * @param {string} tickLabelColor - tick label color
  */
 export const getTickLabelLeftProps = (marginLeft, tickLabelColor) => () => ({
-  fontSize: 10, fill: tickLabelColor, fontFamily: 'AvenirNext', textAnchor: 'start', dy: '0.325em', dx: -marginLeft,
+  fontSize: 11, fill: tickLabelColor, fontFamily: 'FiraGO', textAnchor: 'start', dy: '0.325em', dx: -marginLeft,
 });
 
 /**
@@ -14,7 +14,7 @@ export const getTickLabelLeftProps = (marginLeft, tickLabelColor) => () => ({
  * @param {string} tickLabelColor - tick label color
  */
 export const getTickLabelBottomProps = (tickLabelColor) => () => ({
-  textAnchor: 'middle', fontSize: 10, fontFamily: 'AvenirNext', fill: tickLabelColor, dy: '-0.25em',
+  textAnchor: 'middle', fontSize: 11, fontFamily: 'FiraGO', fill: tickLabelColor, dy: '-0.25em',
 });
 
 /**

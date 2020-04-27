@@ -35,7 +35,7 @@ const config = {
     libraryTarget: 'umd',
   },
   externals: ['react', 'react-dom', 'moment-timezone'],
-  plugins : [
+  plugins: [
     new BundleAnalyzerPlugin({
       analyzerMode: process.env.NODE_ENV === 'debug' ? 'server' : 'disabled',
     }),
