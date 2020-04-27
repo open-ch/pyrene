@@ -19,6 +19,12 @@ const config = {
   module: {
     rules: [
       {
+        test: /\.js$/,
+        include: /node_modules/,
+        loader: 'strip-sourcemap-loader',
+        enforce: 'pre',
+      },
+      {
         test: /\.jsx?$/,
         include: path.resolve(__dirname, 'src'),
         use: {
