@@ -4,8 +4,6 @@
   composes: commonFontSettings from '../../styles/common.css';
 
   min-width: 72px;
-  display: flex;
-  flex-direction: column;
 
   &.disabled {
     opacity: .5;
@@ -62,6 +60,8 @@
   box-sizing: border-box;
   width: 100%;
   min-height: 72px;
+  vertical-align: bottom;
+  /* Weird textArea bug: need to add this to prevent 4px bottom margin */
 
   margin: 0;
 
