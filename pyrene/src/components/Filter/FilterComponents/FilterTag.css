@@ -19,8 +19,9 @@
 
 .label {
   font-size: 10px;
-  font-weight: 600;
-  color: #808892;
+  line-height: 14px;
+  font-weight: 500;
+  color: var(--neutral-300);
   padding-right: 8px;
   padding-left: 8px;
   align-self: center;
@@ -28,15 +29,14 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  min-width: 50px;
+  letter-spacing: 0.5px;
 }
 
 .text {
-  line-height: 18px;
-  font-size: 13px;
+  font-size: 12px;
+  line-height: 14px;
   font-weight: normal;
-  color: #00152c;
-  padding-right: 8px;
+  color: var(--neutral-500);
   align-self: center;
   white-space: nowrap;
   overflow: hidden;
@@ -44,9 +44,10 @@
 }
 
 .clearIcon {
-  font-size: 13px;
+  font-size: 12px;
+  line-height: 14px;
   color: var(--neutral-300);
-  padding: 4px;
+  padding: 4px 8px 4px 4px;
   display: flex;
   align-self: center;
   justify-content: center;

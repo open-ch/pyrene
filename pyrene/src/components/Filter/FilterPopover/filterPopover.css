@@ -4,19 +4,26 @@
 .filterPopover {
   composes: commonFontSettings from '../../../styles/common.css';
   box-sizing: border-box;
-  padding: 24px 24px 0 24px;
+  padding: 16px 16px 0 16px;
+  min-width: 320px;
   max-width: 400px;
 }
 
 .title {
-  text-transform: uppercase;
-  font-size: 12px;
-  font-weight: bold;
-  letter-spacing: 1px;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 18px;
   color: var(--text);
 }
 
 .filterOptions {
   box-sizing: border-box;
   padding-top: 24px;
+}
+
+.buttonBarContainer {
+  box-shadow: inset 0 1px 0 0 var(--neutral-050);
+  margin-left: -16px;
+  margin-right: -16px;
+  padding-right: 16px;
 }
