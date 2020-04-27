@@ -58,7 +58,6 @@
   & .moreTab {
     color: var(--neutral-300);
     font-size: 12px;
-    font-weight: 500;
     letter-spacing: 0.4px;
     text-transform: capitalize;
 
@@ -104,6 +103,7 @@
     }
 
     & .titleBox .title {
+      font-weight: 500;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
@@ -158,8 +158,6 @@
 
         padding: 8px;
 
-        font-size: 12px;
-        font-weight: 400;
         font-style: normal;
         font-stretch: normal;
         line-height: 16px;
