@@ -32,7 +32,6 @@
   align-items: center;
   height: 32px;
   padding-left: 8px;
-  padding-right: 16px;
   flex: 1;
   cursor: pointer;
 
@@ -50,6 +49,6 @@
   composes: commonFontSettings from '../../styles/common.css';
 
   padding-left: 4px;
-  font-size: 12px;
-  color: var(--text);
+  font-size: 13px;
+  color: #00152c;
 }
