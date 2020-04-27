@@ -6,12 +6,11 @@
 }
 
 .title {
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 1.14;
-  letter-spacing: -0.05px;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.38;
   color: var(--text);
-  height: 16px;
+  height: 18px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -30,8 +29,9 @@
 .description {
   flex: 1 0 0%;
   min-width: 0;
-  font-size: 13px;
-  font-weight: 500;
+  font-size: 12px;
+  height: 16px;
+  line-height: 1.33;
   color: var(--neutral-200);
   overflow: hidden;
   text-overflow: ellipsis;
@@ -49,9 +49,7 @@
 }
 
 .legendItem {
-  font-size: 13px;
-  font-weight: 500;
-  line-height: 1.38;
+  font-size: 12px;
   color: #505d6f;
   display: flex;
   margin-left: 16px;
