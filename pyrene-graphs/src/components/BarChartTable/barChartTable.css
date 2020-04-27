@@ -14,10 +14,10 @@
 }
 
 .showMoreLink {
-  margin-top: 8px;
-  height: 18px;
-  font-size: 13px;
-  font-weight: 600;
+  margin-top: 12px;
+  line-height: 16px;
+  font-size: 12px;
+  font-weight: 500;
   color: var(--primary);
   cursor: pointer;
 }
@@ -35,10 +35,9 @@
   padding-right: 24px;
   display: flex;
   flex-direction: row;
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 1.14;
-  letter-spacing: -0.05px;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 18px;
   height: 32px;
   color: var(--text);
 }
