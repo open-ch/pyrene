@@ -26,7 +26,7 @@
     line-height: 16px;
     padding: 16px 0 8px 0;
 
-    color: var(--neutral-500);
+    color: var(--text);
     font-size: 12px;
     letter-spacing: 0.4px;
     text-transform: capitalize;
@@ -44,7 +44,6 @@
 
     &.selected {
       font-weight: 500;
-      color: var(--text);
       letter-spacing: 0.6px;
       box-shadow: inset 0 -2px 0 0 var(--neutral-400);
     }
