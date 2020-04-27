@@ -27,8 +27,12 @@
 .buttonLabel {
   font-size: 12px;
   color: var(--text);
-  padding: 0 4px;
+  padding-right: 4px;
   white-space: nowrap;
+}
+
+strong {
+  font-weight: 500;
 }
 
 .arrowIcon {
