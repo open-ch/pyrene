@@ -1,6 +1,6 @@
 {
   "name": "tuktuktwo",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Open Systems Graphs Library",
   "main": "dist/tuktuktwo.js",
   "repository": "https://github.com/open-ch/pyrene.git",
