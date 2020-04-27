@@ -16,7 +16,7 @@
   composes: commonFontSettings from '../../styles/common.css';
   box-sizing: border-box;
   height: 32px;
-  padding: 8px 16px 6px;
+  padding: 8px 8px 6px;
   border-radius: 2px;
   border: none;
   display: flex;
