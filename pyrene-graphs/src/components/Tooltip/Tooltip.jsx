@@ -12,7 +12,7 @@ const Tooltip = ({
 }) => (
   <TooltipWrapper left={left} top={top} overflow={overflow}>
     <div className={styles.tooltip}>
-      <div className={styles.label}>{label}</div>
+      <div className={(label && label.length > 0) ? styles.label : null}>{label}</div>
       {
         data.map((e) => <TooltipLegendItem key={e.dataLabel ? e.dataLabel : e.dataValue} dataColor={e.dataColor} dataLabel={e.dataLabel} dataValue={e.dataValue} />)
       }
