@@ -85,12 +85,13 @@
   },
   "dependencies": {
     "classnames": "^2.2.5",
+    "prop-types": "^15.6.1",
     "react-select": "^3.1.0",
     "react-svg-inline": "^2.1.1",
     "react-table": "^6.8.6",
     "react-tiny-popover": "^4.0.0",
     "react-window": "^1.8.5",
-    "prop-types": "^15.6.1",
+    "strip-sourcemap-loader": "0.0.1",
     "uniqid": "^5.0.3"
   },
   "peerDependencies": {
