@@ -4,14 +4,15 @@ import PropTypes from 'prop-types';
 import './FilterTag.css';
 
 const FilterTag = (props) => {
-  const displayText = props.negated ? `!${props.filterText}` : props.filterText;
+  const displayText = props.negated ? `Not ${props.filterText}` : props.filterText;
   return (
     <div styleName="wrapper" title={displayText}>
       <div styleName="label">
         {props.filterLabel}
       </div>
       <div styleName="text">
-        {displayText}
+        {props.negated && <div styleName="negated">Not</div>}
+        {props.filterText}
       </div>
       <div onClick={() => props.onClose()}>
         <div styleName="clearIcon" className="pyreneIcon-delete" />

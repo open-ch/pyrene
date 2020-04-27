@@ -5,8 +5,17 @@ import './filterOption.css';
 import SingleSelect from '../../SingleSelect/SingleSelect';
 import TextField from '../../TextField/TextField';
 import MultiSelect from '../../MultiSelect/MultiSelect';
+import Checkbox from '../../Checkbox/Checkbox';
 
 export default class FilterOption extends React.Component {
+
+    isInterfaceSupportsNegate = () => {
+      switch (this.props.type) {
+        case 'singleSelect':
+        case 'multiSelect': return true;
+        default: return false;
+      }
+    };
 
     getFilterInterface = () => {
 
@@ -58,11 +67,21 @@ export default class FilterOption extends React.Component {
     render() {
       return (
         <div styleName="filterOption">
-          <div styleName="label">
-            {this.props.label}
+          <div styleName="filterOptionWrapper">
+            <div styleName="label">
+              {this.props.label}
+            </div>
+            <div styleName="interface">
+              {this.getFilterInterface()}
+            </div>
           </div>
-          <div styleName="interface">
-            {this.getFilterInterface(this.props)}
+          <div styleName="negatedCheckbox">
+            {this.isInterfaceSupportsNegate()
+            && (
+              <Checkbox
+                value={this.props.negated}
+              />
+            )}
           </div>
         </div>
       );
@@ -74,6 +93,7 @@ export default class FilterOption extends React.Component {
 FilterOption.displayName = 'FilterOption';
 
 FilterOption.defaultProps = {
+  negated: false,
   options: [],
   value: null,
   sorted: true,
@@ -83,6 +103,7 @@ FilterOption.propTypes = {
   handleFilterChange: PropTypes.func.isRequired,
   id: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
+  negated: PropTypes.bool,
   options: PropTypes.array, // eslint-disable-line react/forbid-prop-types
   sorted: PropTypes.bool,
   type: PropTypes.string.isRequired,

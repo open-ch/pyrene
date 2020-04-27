@@ -25,4 +25,20 @@
 
 .interface {
   width: 200px;
+  margin-right: 16px;
+}
+
+.filterOptionWrapper {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.negatedCheckbox {
+  width: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 10px;
+  padding-bottom: 12px;
 }

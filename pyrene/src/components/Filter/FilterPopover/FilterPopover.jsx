@@ -12,6 +12,7 @@ import Collapsible from '../../Collapsible/Collapsible';
 const FilterPopover = (props) => (
   <div styleName="filterPopover">
     <div styleName="title">Select Filter</div>
+    <div styleName="negateTitle">Negate</div>
     <div styleName="filterOptions">
       {props.filters.length <= 6
         ? props.filters.map((filter) => (
@@ -67,6 +68,7 @@ FilterPopover.propTypes = {
   filters: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string,
     label: PropTypes.string,
+    negated: PropTypes.bool,
     options: PropTypes.array,
     sorted: PropTypes.bool,
     type: PropTypes.string,
