@@ -27,6 +27,8 @@
   padding: 0 4px 0 8px;
   background-color: var(--background-light);
   color: var(--primary);
+
+  margin: 0; /* chrome auto-adding margin fix */
 }
 
 .button:focus {

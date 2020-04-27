@@ -2,9 +2,10 @@
   composes: commonFontSettings from '../../styles/common.css';
 
   height: 32px;
-  font-size: 13px;
+  font-size: 12px;
+  line-height: 1.33;
   background-color: var(--neutral-000);
-  color: var(--neutral-400);
+  color: var(--neutral-500);
   padding: 0 16px 0 8px;
   display: flex;
   align-items: center;
@@ -24,7 +25,7 @@
 }
 
 .container:hover {
-  background-color: var(--neutral-030);
+  background-color: var(--neutral-020);
 }
 
 .optionLabel {
