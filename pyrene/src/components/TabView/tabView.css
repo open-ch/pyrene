@@ -28,7 +28,6 @@
 
     color: var(--neutral-500);
     font-size: 12px;
-    font-weight: 500;
     letter-spacing: 0.4px;
     text-transform: capitalize;
 
@@ -44,7 +43,9 @@
     }
 
     &.selected {
+      font-weight: 500;
       color: var(--text);
+      letter-spacing: 0.6px;
       box-shadow: inset 0 -2px 0 0 var(--neutral-400);
     }
 
@@ -62,7 +63,8 @@
     letter-spacing: 0.4px;
     text-transform: capitalize;
 
-    padding: 16px 0 8px 0;
+    margin-top: 16px;
+    padding-bottom: 8px;
 
     transition: box-shadow .1s ease-in;
     cursor: pointer;
@@ -124,13 +126,13 @@
       z-index: 1;
       opacity: 0;
       visibility: hidden;
-      top: 0;
-      right: -8px;
+      top: -4px;  /* for padding */
+      right: -8px; /* for margin-right */
       width: 200px;
       box-sizing: border-box;
       background-color: var(--background-light);
       border-radius: 2px;
-      padding-bottom: 4px;
+      padding: 4px 0;
       box-shadow:
         0 4px 8px -2px rgba(0, 21, 44, 0.2),
         0 0 1px 0 rgba(0, 21, 44, 0.3);
@@ -154,17 +156,16 @@
         box-sizing: border-box;
         display: flex;
         align-items: center;
-        height: 32px;
 
-        padding-left: 8px;
+        padding: 8px;
 
-        font-size: 13px;
-        font-weight: 500;
+        font-size: 12px;
+        font-weight: 400;
         font-style: normal;
         font-stretch: normal;
-        line-height: normal;
+        line-height: 16px;
         letter-spacing: normal;
-        color: var(--neutral-400);
+        color: var(--neutral-500);
         text-transform: capitalize;
 
         &.disabled {
@@ -172,7 +173,7 @@
           cursor: default;
 
           &:hover {
-            background-color: var(--background-light);
+            background-color: var(--neutral-020);
           }
         }
 
