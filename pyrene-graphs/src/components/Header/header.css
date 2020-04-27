@@ -29,8 +29,7 @@
   flex: 1 0 0%;
   min-width: 0;
   font-size: 12px;
-  height: 16px;
-  line-height: 1.33;
+  line-height: 16px;
   color: var(--neutral-200);
   overflow: hidden;
   text-overflow: ellipsis;
