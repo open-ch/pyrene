@@ -22,14 +22,14 @@ const TimeXAxis = (props) => {
         tickValues={(props.showTickLabels && props.scale) ? getTickValues(props.from, props.to, props.timezone, props.scale) : []}
         stroke={props.strokeColor}
         tickLabelProps={() => ({
-          textAnchor: 'middle', fontSize: 10, fontWeight: 500, fontFamily: 'AvenirNext', fill: props.tickLabelColors[0], dy: '-0.25em',
+          textAnchor: 'middle', fontSize: 11, fontWeight: 400, fontFamily: 'FiraGO', fill: props.tickLabelColors[0], dy: '-0.25em',
         })}
         tickFormat={(tickValue) => formatTime(tickValue, props)}
         tickComponent={({ formattedValue, ...tickProps }) => (
           <text
             {...tickProps} // eslint-disable-line react/jsx-props-no-spreading
             fill={formattedValue.isTransition ? props.tickLabelColors[1] : props.tickLabelColors[0]}
-            fontWeight={formattedValue.isTransition ? 600 : 500}
+            fontWeight={formattedValue.isTransition ? 500 : 400}
           >
             {formattedValue.value}
           </text>
