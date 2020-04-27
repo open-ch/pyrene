@@ -8,9 +8,8 @@
 .title {
   font-size: 13px;
   font-weight: 500;
-  line-height: 1.38;
+  line-height: 18px;
   color: var(--text);
-  height: 18px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
