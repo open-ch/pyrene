@@ -7,7 +7,7 @@
   display: flex;
   align-items: center;
   border-radius: 2px;
-  padding: 2px 6px 3px 6px;
+  padding: 2px 6px 2px 6px;
   overflow: hidden;
   white-space: nowrap;
 
@@ -39,8 +39,8 @@
 
 .label {
   font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.3px;
+  font-weight: 400;
+  letter-spacing: 0px;
   text-align: center;
   overflow: hidden;
   text-overflow: ellipsis;
