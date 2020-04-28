@@ -60,7 +60,10 @@ export default class RadioPopover extends React.Component {
             <div styleName="buttonLabel" className="unSelectable">
               {renderLabel(selectedValue)}
             </div>
-            <div styleName="arrowIcon" className="pyreneIcon-collapsDown" />
+            <div
+              styleName="arrowIcon"
+              className={this.state.displayPopover ? 'pyreneIcon-chevronUp' : 'pyreneIcon-chevronDown'}
+            />
           </div>
         </Popover>
       </div>
