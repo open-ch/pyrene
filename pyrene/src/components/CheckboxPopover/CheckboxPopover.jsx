@@ -24,7 +24,7 @@ export default class CheckboxPopover extends React.Component {
 
   render() {
     return (
-      <div className={classNames('checkboxPopover', { disabled: this.props.disabled })}>
+      <div styleName={classNames('checkboxPopover', { disabled: this.props.disabled })}>
         <Popover
           preferredPosition={['bottom']}
           align="end"
