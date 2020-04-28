@@ -8,7 +8,7 @@ const FilterButton = (props) => (
     <div styleName="buttonLabel">
       {props.label}
     </div>
-    <div styleName="arrowIcon" className="pyreneIcon-collapsDown" />
+    <div styleName="arrowIcon" className={classNames(props.displayPopover ? 'pyreneIcon-chevronUp' : 'pyreneIcon-chevronDown')} />
   </div>
 );
 

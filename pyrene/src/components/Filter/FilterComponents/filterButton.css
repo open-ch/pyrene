@@ -4,13 +4,14 @@
 .filterButton {
   composes: commonFontSettings from '../../../styles/common.css';
   box-sizing: border-box;
-  padding: 0 8px;
+  padding: 0 8px 0 16px;
   border: solid 1px var(--border);
   border-radius: 2px;
   height: 32px;
   display: flex;
   align-items: center;
-  min-width: 80px;
+  margin-right: 8px;
+  min-width: 73px;
 
   &.noBorder {
     border: none;
@@ -31,7 +32,7 @@
   font-weight: 500;
   line-height: 16px;
   color: var(--text);
-  padding: 0 8px;
+  padding: 0 4px 0 0;
 }
 
 .arrowIcon {
