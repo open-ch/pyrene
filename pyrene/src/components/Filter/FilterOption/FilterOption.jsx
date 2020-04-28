@@ -11,6 +11,7 @@ export default class FilterOption extends React.Component {
 
     isInterfaceSupportsNegate = () => {
       switch (this.props.type) {
+        case 'text':
         case 'singleSelect':
         case 'multiSelect': return true;
         default: return false;
@@ -27,7 +28,7 @@ export default class FilterOption extends React.Component {
             <SingleSelect
               name={this.props.id}
               options={this.props.options}
-              onChange={(value) => this.props.handleFilterChange(value, false, this.props.id)}
+              onChange={(value) => this.props.handleFilterChange(value, this.props.negated, this.props.id)}
               value={isValue ? this.props.value : null}
               sorted={this.props.sorted}
               clearable
@@ -40,7 +41,7 @@ export default class FilterOption extends React.Component {
               name={this.props.id}
               options={this.props.options}
               // If multiSelect is empty (empty array) return null to filter instead of []
-              onChange={(value) => this.props.handleFilterChange(value && value.length === 0 ? null : value, false, this.props.id)}
+              onChange={(value) => this.props.handleFilterChange(value && value.length === 0 ? null : value, this.props.negated, this.props.id)}
               // Pass empty array instead of null to multiSelect component if filterValues are null
               value={isValue ? this.props.value : []}
               sorted={this.props.sorted}
@@ -80,6 +81,8 @@ export default class FilterOption extends React.Component {
             && (
               <Checkbox
                 value={this.props.negated}
+                disabled={false}
+                onChange={(value) => this.props.handleFilterChange(this.props.value, value, this.props.id)}
               />
             )}
           </div>

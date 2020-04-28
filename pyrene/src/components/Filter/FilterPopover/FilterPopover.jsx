@@ -18,6 +18,7 @@ const FilterPopover = (props) => (
         ? props.filters.map((filter) => (
           <FilterOption {...filter}
             value={props.filterValues ? props.filterValues[filter.id] : null}
+            negated={props.filterNegatedKeys ? props.filterNegatedKeys.includes(filter.id) : false}
             handleFilterChange={props.handleFilterChange}
             key={filter.id}
           />
@@ -27,6 +28,7 @@ const FilterPopover = (props) => (
             {props.filters.slice(0, 6).map((filter) => (
               <FilterOption {...filter}
                 value={props.filterValues ? props.filterValues[filter.id] : null}
+                negated={props.filterNegatedKeys ? props.filterNegatedKeys.includes(filter.id) : false}
                 handleFilterChange={props.handleFilterChange}
                 key={filter.id}
               />
@@ -38,6 +40,7 @@ const FilterPopover = (props) => (
               renderCallback={() => props.filters.slice(6).map((filter) => (
                 <FilterOption {...filter}
                   value={props.filterValues ? props.filterValues[filter.id] : null}
+                  negated={props.filterNegatedKeys ? props.filterNegatedKeys.includes(filter.id) : false}
                   handleFilterChange={props.handleFilterChange}
                   key={filter.id}
                 />
@@ -65,6 +68,7 @@ FilterPopover.defaultProps = {
 };
 
 FilterPopover.propTypes = {
+  filterNegatedKeys: PropTypes.arrayOf(PropTypes.string).isRequired,
   filters: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string,
     label: PropTypes.string,

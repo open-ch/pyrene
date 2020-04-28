@@ -34,14 +34,14 @@ export default class FilterBar extends React.Component {
     super();
     this.state = {
       displayFilterPopover: false,
-      unAppliedValues: props.filterValues,
+      unAppliedFilters: this._createUnappliedFilters(props),
     };
   }
 
   // eslint-disable-next-line react/sort-comp
   toggleFilterPopover = () => {
     if (!this.state.displayFilterPopover) {
-      this.setState({ unAppliedValues: this.props.filterValues });
+      this.setState({ unAppliedFilters: this._createUnappliedFilters(this.props) });
     }
     this.setState((prevState) => ({
       displayFilterPopover: !prevState.displayFilterPopover,
@@ -50,32 +50,60 @@ export default class FilterBar extends React.Component {
 
   filterDidChange = (value, negated, key) => {
     this.setState((prevState) => ({
-      unAppliedValues: { ...prevState.unAppliedValues, [key]: value },
+      unAppliedFilters: {
+        values: { ...prevState.unAppliedFilters.values, [key]: value },
+        negatedKeys: this._getNegatedFilterKeysForChange(prevState, negated, key),
+      },
     }));
   };
 
   // Clear button in popover dropdown clears the users input
   clearFilter = () => {
     this.setState(() => ({
-      unAppliedValues: {},
+      unAppliedFilters: {
+        values: {},
+        negatedKeys: [],
+      },
     }));
   };
 
+  _createUnappliedFilters = (props) => {
+    const negatedFiltersKeys = this._getNegatedFilterKeys(props, Object.keys(this._getValidFilterEntries(props.filterValues)));
+    return {
+      values: props.filterValues, // Object with keys equal to the id of the filter and value the value of the filter
+      negatedKeys: negatedFiltersKeys, // Array of filtered keys to be negated
+    };
+  };
+
+  _getNegatedFilterKeys = (props, filteredKeys) => props.filters.filter((filter) => filter.negated && filteredKeys.includes(filter.id))
+    .map((filter) => filter.id)
+    .reduce((negatedKeys, newKey) => {
+      negatedKeys.push(newKey);
+      return negatedKeys;
+    }, []);
+
+  _getNegatedFilterKeysForChange = (prevState, negated, key) => {
+    let toReturn = prevState.unAppliedFilters.negatedKeys;
+    if (negated && !toReturn.includes(key)) {
+      toReturn.push(key);
+    } else if (!negated && toReturn.includes(key)) {
+      toReturn = toReturn.filter((currentKey) => currentKey !== key);
+    }
+    return toReturn;
+  }
+
+  // ignore all entries with null value - if input is empty, remove the whole entry (id: value) from object that is passed to parent component
+  _getValidFilterEntries = (filterValues) => Object.entries(filterValues)
+    .filter(([key, value]) => value !== null) // eslint-disable-line no-unused-vars
+    .reduce((merged, [key, value]) => ({ ...merged, [key]: value }), {});
+
   applyFilter = () => {
 
-    // ignore all entries with null value - if input is empty, remove the whole entry (id: value) from object that is passed to parent component
-    const filtered = Object.entries(this.state.unAppliedValues)
-      .filter(([key, value]) => value !== null) // eslint-disable-line no-unused-vars
-      .reduce((merged, [key, value]) => ({ ...merged, [key]: value }), {});
+    const filtered = this._getValidFilterEntries(this.state.unAppliedFilters.values);
 
     const filteredKeys = Object.keys(filtered);
 
-    const negatedFiltersKeys = this.props.filters.filter((filter) => filter.negated && filteredKeys.includes(filter.id))
-      .map((filter) => filter.id)
-      .reduce((negatedKeys, newKey) => {
-        negatedKeys.push(newKey);
-        return negatedKeys;
-      }, []);
+    const negatedFiltersKeys = this.state.unAppliedFilters.negatedKeys.filter((negatedKey) => filteredKeys.includes(negatedKey));
 
     this.setState(() => ({
       displayFilterPopover: false,
@@ -88,8 +116,12 @@ export default class FilterBar extends React.Component {
     const filtered = Object.entries(this.props.filterValues)
       .filter(([key]) => key !== filter.id)
       .reduce((merged, [key, value]) => ({ ...merged, [key]: value }), {});
+    const negatedFiltersKeys = this.state.unAppliedFilters.negatedKeys.filter((negatedKey) => negatedKey !== filter.id);
     this.setState(() => ({
-      unAppliedValues: filtered,
+      unAppliedFilters: {
+        values: filtered,
+        negatedKeys: negatedFiltersKeys,
+      },
       displayFilterPopover: false,
     }), () => this.applyFilter());
 
@@ -98,7 +130,10 @@ export default class FilterBar extends React.Component {
   // clearAll button next to tags resets the filter to default state
   onClearAll = () => {
     this.setState(() => ({
-      unAppliedValues: {},
+      unAppliedFilters: {
+        values: {},
+        negatedKeys: [],
+      },
       displayFilterPopover: false,
     }), () => this.applyFilter());
   };
@@ -158,7 +193,8 @@ export default class FilterBar extends React.Component {
           onClick={this.toggleFilterPopover}
           filters={this.props.filters}
           handleFilterChange={this.filterDidChange}
-          filterValues={this.state.unAppliedValues}
+          filterValues={this.state.unAppliedFilters.values}
+          filterNegatedKeys={this.state.unAppliedFilters.negatedKeys}
           onFilterClear={this.clearFilter}
           onFilterApply={this.applyFilter}
         />

@@ -33,6 +33,7 @@
 }
 
 .text {
+  display: flex;
   font-size: 12px;
   line-height: 14px;
   font-weight: normal;
