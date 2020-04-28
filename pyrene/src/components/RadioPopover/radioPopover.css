@@ -29,11 +29,12 @@
   color: var(--text);
   padding-right: 4px;
   white-space: nowrap;
+
+  & strong {
+    font-weight: 500;
+  }
 }
 
-strong {
-  font-weight: 500;
-}
 
 .arrowIcon {
   padding: 0 !important;
