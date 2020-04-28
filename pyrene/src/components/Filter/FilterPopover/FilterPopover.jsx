@@ -45,13 +45,15 @@ const FilterPopover = (props) => (
           </>
         )}
     </div>
-    <ButtonBar
-      rightButtonSectionElements={[
-        <Button label="Clear" type="ghost" onClick={props.onFilterClear} />,
-        <Button label="Cancel" type="secondary" onClick={props.onClose} />,
-        <Button label="Apply" type="primary" onClick={props.onFilterApply} />,
-      ]}
-    />
+    <div styleName="buttonBarContainer">
+      <ButtonBar
+        rightButtonSectionElements={[
+          <Button label="Clear" type="ghost" onClick={props.onFilterClear} />,
+          <Button label="Cancel" type="secondary" onClick={props.onClose} />,
+          <Button label="Apply" type="primary" onClick={props.onFilterApply} />,
+        ]}
+      />
+    </div>
   </div>
 );
 
