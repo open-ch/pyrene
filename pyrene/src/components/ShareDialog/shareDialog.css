@@ -37,15 +37,7 @@
   font-weight: 500;
   line-height: 18px;
   color: var(--text);
-}
-
-.titleBar {
-  box-sizing: border-box;
   padding-bottom: 16px;
-
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
 }
 
 .closeButton {
