@@ -48,8 +48,8 @@ class TreeTable extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (this.props.data !== prevProps.data) {
-      // eslint-disable-next-line react/no-did-update-set-state
       const rows = TreeTableUtils.initialiseRootData(this.props.data, this.props.setUniqueRowKey);
+      // eslint-disable-next-line react/no-did-update-set-state
       this.setState({
         rows,
         disabledExpandButton: this.isFlatTree(rows),
@@ -123,12 +123,12 @@ class TreeTable extends React.Component {
   };
 
   isFullyExpanded(rows, expanded) {
-    return rows.filter(r => r.children && r.children.length)
-      .every(r => expanded[r._rowId]);
+    return rows.filter((r) => r.children && r.children.length)
+      .every((r) => expanded[r._rowId]);
   }
 
   isFlatTree(rows) {
-    return rows.every(row => row._treeDepth === 0 && !(row.children && row.children.length));
+    return rows.every((row) => row._treeDepth === 0 && !(row.children && row.children.length));
   }
 
   render() {
@@ -168,11 +168,7 @@ class TreeTable extends React.Component {
     );
 
     const onExpandRow = ({ row }) => {
-      this.setState((prevState) => {
-        const { rows, expanded } = TreeTableUtils.handleRowExpandChange(row, prevState);
-
-        return { rows, expanded, tableFullyExpanded: this.isFullyExpanded(rows, expanded) };
-      });
+      this.setState((prevState) => ({ ...TreeTableUtils.handleRowExpandChange(row, prevState), tableFullyExpanded: this.isFullyExpanded(rows, expanded) }));
     };
 
     const getActionBar = () => {

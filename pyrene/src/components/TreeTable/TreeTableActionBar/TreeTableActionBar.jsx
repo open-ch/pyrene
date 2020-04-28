@@ -47,6 +47,7 @@ TreeTableActionBar.propTypes = {
     onRestoreDefault: PropTypes.func,
     toggleColumns: PropTypes.bool,
   }).isRequired,
+  disabledExpand: PropTypes.bool.isRequired,
   displayExpandAll: PropTypes.bool.isRequired,
   renderRightItems: PropTypes.func,
   toggleAll: PropTypes.func.isRequired,
