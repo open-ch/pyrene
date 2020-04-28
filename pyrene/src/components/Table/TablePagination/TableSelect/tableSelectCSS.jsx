@@ -14,7 +14,7 @@ import colorConstants from '../../../../styles/colorConstants';
 const selectStyle = {
   container: (base) => ({
     ...base,
-    fontFamily: 'FiraGo, Helvetica, sans-serif !important',
+    fontFamily: 'FiraGO, Helvetica, sans-serif !important',
     fontSize: 12,
     fontWeight: 400,
     width: '100%',
@@ -96,7 +96,7 @@ const selectStyle = {
   input: (base) => ({
     ...base,
     '[type="text"]': {
-      fontFamily: 'FiraGo, Helvetica, sans-serif !important',
+      fontFamily: 'FiraGO, Helvetica, sans-serif !important',
       fontSize: 12,
       fontWeight: 500,
       color: colorConstants.neutral500,
