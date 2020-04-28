@@ -84,15 +84,15 @@
     resize: vertical;
   }
 
-  &:hover, &:focus {
-    border-color: var(--primary);
-    background-color: var(--background-tint);
-  }
-
   &.filled {
     background-color: var(--background-light);
     border-radius: 2px;
     border: solid 1px var(--neutral-500);
+  }
+
+  &:hover, &:focus {
+    border-color: var(--primary);
+    background-color: var(--background-tint);
   }
 
   &::placeholder {
