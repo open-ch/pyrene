@@ -76,16 +76,17 @@ export default class FilterOption extends React.Component {
               {this.getFilterInterface()}
             </div>
           </div>
-          <div styleName="negatedCheckbox">
-            {this.isInterfaceSupportsNegate()
-            && (
-              <Checkbox
-                value={this.props.negated}
-                disabled={false}
-                onChange={(value) => this.props.handleFilterChange(this.props.value, value, this.props.id)}
-              />
-            )}
-          </div>
+          {this.props.isNegationEnabled && (
+            <div styleName="negatedCheckbox">
+              {this.isInterfaceSupportsNegate() && (
+                <Checkbox
+                  value={this.props.negated}
+                  disabled={false}
+                  onChange={(value) => this.props.handleFilterChange(this.props.value, value, this.props.id)}
+                />
+              )}
+            </div>
+          )}
         </div>
       );
     }
@@ -105,6 +106,7 @@ FilterOption.defaultProps = {
 FilterOption.propTypes = {
   handleFilterChange: PropTypes.func.isRequired,
   id: PropTypes.string.isRequired,
+  isNegationEnabled: PropTypes.bool.isRequired,
   label: PropTypes.string.isRequired,
   negated: PropTypes.bool,
   options: PropTypes.array, // eslint-disable-line react/forbid-prop-types

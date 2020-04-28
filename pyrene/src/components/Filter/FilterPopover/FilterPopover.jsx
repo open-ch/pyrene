@@ -12,14 +12,15 @@ import Collapsible from '../../Collapsible/Collapsible';
 const FilterPopover = (props) => (
   <div styleName="filterPopover">
     <div styleName="title">Select Filter</div>
-    <div styleName="negateTitle">Negate</div>
+    {props.isNegationEnabled && <div styleName="negateTitle">Negate</div>}
     <div styleName="filterOptions">
       {props.filters.length <= 6
         ? props.filters.map((filter) => (
           <FilterOption {...filter}
             value={props.filterValues ? props.filterValues[filter.id] : null}
-            negated={props.filterNegatedKeys ? props.filterNegatedKeys.includes(filter.id) : false}
+            negated={props.filterNegatedKeys && props.isNegationEnabled ? props.filterNegatedKeys.includes(filter.id) : false}
             handleFilterChange={props.handleFilterChange}
+            isNegationEnabled={props.isNegationEnabled}
             key={filter.id}
           />
         ))
@@ -28,8 +29,9 @@ const FilterPopover = (props) => (
             {props.filters.slice(0, 6).map((filter) => (
               <FilterOption {...filter}
                 value={props.filterValues ? props.filterValues[filter.id] : null}
-                negated={props.filterNegatedKeys ? props.filterNegatedKeys.includes(filter.id) : false}
+                negated={props.filterNegatedKeys && props.isNegationEnabled ? props.filterNegatedKeys.includes(filter.id) : false}
                 handleFilterChange={props.handleFilterChange}
+                isNegationEnabled={props.isNegationEnabled}
                 key={filter.id}
               />
             ))}
@@ -40,8 +42,9 @@ const FilterPopover = (props) => (
               renderCallback={() => props.filters.slice(6).map((filter) => (
                 <FilterOption {...filter}
                   value={props.filterValues ? props.filterValues[filter.id] : null}
-                  negated={props.filterNegatedKeys ? props.filterNegatedKeys.includes(filter.id) : false}
+                  negated={props.filterNegatedKeys && props.isNegationEnabled ? props.filterNegatedKeys.includes(filter.id) : false}
                   handleFilterChange={props.handleFilterChange}
+                  isNegationEnabled={props.isNegationEnabled}
                   key={filter.id}
                 />
               ))}
@@ -79,6 +82,7 @@ FilterPopover.propTypes = {
   })).isRequired,
   filterValues: PropTypes.shape().isRequired,
   handleFilterChange: PropTypes.func.isRequired,
+  isNegationEnabled: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   onFilterApply: PropTypes.func.isRequired,
   onFilterClear: PropTypes.func.isRequired,
