@@ -31,14 +31,14 @@
 
 .label-and-value-small .value {
   font-size: 14px;
-  height: 24px;
+  line-height: 24px;
 
   letter-spacing: -0.05px;
 }
 
 .label-and-value-large .value {
   font-size: 24px;
-  height: 32px;
+  line-height:  32px;
 
   letter-spacing: -0.2px;
 }
