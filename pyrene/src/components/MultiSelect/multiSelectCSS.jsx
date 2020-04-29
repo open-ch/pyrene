@@ -146,8 +146,8 @@ const multiSelectStyle = (props) => ({
 
   input: (base) => ({
     ...base,
-    paddingTop: '5px',
-    height: '12px',
+    paddingTop: props.selectedOptionsInDropdown ? '2px' : '5px',
+    lineHeight: '12px',
     '[type="text"]': {
       fontFamily: 'FiraGO, Helvetica, sans-serif !important',
       fontSize: 12,
