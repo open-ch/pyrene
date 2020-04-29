@@ -23,7 +23,7 @@ examples.props = {
   data: data,
   tooltipFormat: (d) => tooltipFormat(d * 100000000),
   error: 'There was an error while loading data.',
-  axisLabel: 'DOWNLOADED VOLUME LAST 7 DAYS',
+  axisLabel: 'Downloaded Volume last 7 Days',
   timezone: timezone,
 };
 

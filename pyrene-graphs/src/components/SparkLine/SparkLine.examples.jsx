@@ -22,7 +22,7 @@ examples.props = {
   bigNumber: data.map((d) => d[1]).reduce((a, b) => a + b),
   data: data,
   tooltipFormat: (d) => tooltipFormat(d * 100000000),
-  axisLabel: 'DOWNLOADED VOLUME LAST 7 DAYS',
+  axisLabel: 'Downloaded Volume last 7 Days',
   timezone: timezone,
 };
 
