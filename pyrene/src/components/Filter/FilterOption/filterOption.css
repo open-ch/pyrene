@@ -3,22 +3,24 @@
 .filterOption {
   composes: commonFontSettings from '../../../styles/common.css';
   display: flex;
-  align-items: center;
   justify-content: space-between;
   margin-bottom: 16px;
-  height: 32px;
+  height: 48px;
 }
 
 .label {
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--neutral-400);
+  font-size: 11px;
+  line-height: 12px;
+  font-weight: 500;
+  align-self: center;
+  color: var(--neutral-500);
   text-transform: capitalize;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   max-width: 128px;
   padding-right: 24px;
+  padding-bottom: 12px;
 }
 
 .interface {
