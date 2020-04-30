@@ -67,7 +67,7 @@ export default class ShareDialog extends React.Component {
               </div>
               <ButtonBar
                 rightButtonSectionElements={[
-                  <Button type="ghost" label="Cancel" onClick={this._displayShareDialogClicked} />,
+                  <Button type="secondary" label="Cancel" onClick={this._displayShareDialogClicked} />,
                   <Button type="primary" label="Copy link" onClick={this._copyLinkToClipboard} />,
                 ]}
               />
