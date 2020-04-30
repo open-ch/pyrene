@@ -21,12 +21,13 @@
 
   & .collapsibleButton {
 
-    padding: 0 8px;
+    padding: 0 4px 0 8px;
     border-radius: 2px;
     display: inline-block;
 
-    font-size: 14px;
-    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 0.3px;
+    font-weight: 500;
     color: var(--primary);
 
     cursor: pointer;
@@ -39,6 +40,10 @@
       height: 32px;
       display: flex;
       align-items: center;
+
+      & .label {
+        line-height: 18px;
+      }
 
       & .collapsArrow {
         width: 16px;
