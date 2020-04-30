@@ -6,10 +6,19 @@ import chartConstants from '../../common/chartConstants';
 
 const from = moment('2019-10-21 10:29').valueOf();
 const to = moment('2019-10-28 10:29').valueOf();
+const timeZone = 'Europe/Zurich';
 
 const parentSize = {
   height: 344,
   width: 1308,
+};
+
+const CH_DST_END = {
+  from: moment.tz('2020-10-25 02:59', timeZone).valueOf(),
+  to: moment.tz('2020-10-25 02:59', timeZone).add(24, 'hours').valueOf(),
+  lowerBound: moment.tz('2020-10-25 02:59', timeZone).subtract(1, 'year').valueOf(),
+  upperBound: moment.tz('2020-10-25 02:59', timeZone).add(1, 'year').valueOf(),
+  minZoomRange: moment.duration({ minutes: 30 }).valueOf(),
 };
 
 const zoomableProps = {
@@ -72,5 +81,14 @@ describe('ZoomRange', () => {
     expect(result2.to).toBe(zoomedInTo2 + moment.duration({ minutes: 15 }).valueOf());
     expect(result3.from).toBe(zoomedInFrom3 - moment.duration({ minutes: 15 }).valueOf());
     expect(result3.to).toBe(zoomableProps.upperBound);
+  });
+
+  it('bounds in zoom-in range with DST consistency', () => {
+    const zoomedInFrom1 = CH_DST_END.from;
+    const zoomedInTo1 = zoomedInFrom1 + moment.duration({ minutes: 10 }).valueOf();
+    const result1 = getBoundedZoomInRange(zoomedInFrom1, zoomedInTo1, CH_DST_END.minZoomRange, CH_DST_END.lowerBound, CH_DST_END.upperBound);
+
+    expect(result1.from).toBe(moment.tz(zoomedInFrom1, timeZone).subtract(moment.duration({ minutes: 10 }).valueOf()).valueOf());
+    expect(result1.to).toBe(moment.tz(zoomedInTo1, timeZone).add(moment.duration({ minutes: 10 }).valueOf()).valueOf());
   });
 });
