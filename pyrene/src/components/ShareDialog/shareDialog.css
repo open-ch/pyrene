@@ -5,6 +5,9 @@
 .shareDialog {
   composes: commonFontSettings from '../../styles/common.css';
   padding: 16px 16px 0 16px;
+
+  border-radius: 4px;
+  border: solid 1px #e1e3e8;
 }
 
 .content {
