@@ -33,8 +33,6 @@
   min-width: 256px;
   max-width: 256px;
   /* IE needs it to correctly overflow */
-  font-weight: 600;
-  /* demibold */
   padding-left: 8px;
   padding-right: 16px;
   white-space: nowrap;
@@ -42,6 +40,7 @@
   text-overflow: ellipsis;
   vertical-align: top;
   line-height: 18px;
+  font-weight: 500;
 }
 
 .keyValueCellValue {
@@ -51,6 +50,7 @@
   padding-top: 1px;
   padding-bottom: 1px;
   line-height: 16px;
+  font-weight: 400;
 }
 
 .keyValueTableTitle {
