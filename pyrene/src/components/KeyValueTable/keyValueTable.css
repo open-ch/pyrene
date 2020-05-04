@@ -17,10 +17,10 @@
   border-bottom: 1px solid var(--border);
   background-color: #ffffff;
   display: flex;
-  line-height: 18px;
   padding-top: 7px;
-  padding-bottom: 6px;
-  font-size: 13px;
+  padding-bottom: 7px;
+  font-size: 12px;
+  letter-spacing: 0;
 }
 
 .keyValueRow:first-child {
@@ -41,12 +41,16 @@
   overflow: hidden;
   text-overflow: ellipsis;
   vertical-align: top;
+  line-height: 18px;
 }
 
 .keyValueCellValue {
   width: 100%;
   word-wrap: break-word;
   right: 8px;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  line-height: 16px;
 }
 
 .keyValueTableTitle {
