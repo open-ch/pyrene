@@ -68,18 +68,18 @@ const multiSelectStyle = (props) => ({
         overflow: 'hidden',
         flexWrap: 'nowrap',
         whiteSpace: 'nowrap',
-        padding: '2px 7px',
-        minHeight: '32px',
-        height: '32px',
+        padding: '0px 4px 0px 7px',
+        minHeight: '30px',
+        height: '30px',
       };
     }
 
     return {
       ...base,
-      minHeight: 32,
+      minHeight: 30,
       height: props.rows <= 0 ? 'inherit' : (props.rows * 25) + 6,
       overflow: state.hasValue ? 'auto' : 'hidden',
-      padding: '2px 7px',
+      padding: '0px 4px 0px 7px',
       maxHeight: props.rows <= 0 ? 79 : (props.rows * 25) + 6,
       alignItems: 'flex-start',
       alignContent: 'flex-start',
@@ -91,6 +91,7 @@ const multiSelectStyle = (props) => ({
     color: colorConstants.neutral200,
     height: '100%',
     paddingTop: '9px',
+    margin: '0px',
   }),
 
   clearIndicator: () => ({
@@ -183,7 +184,8 @@ const multiSelectStyle = (props) => ({
     alignItems: 'center',
     backgroundColor: data.invalid ? colorConstants.red100 : colorConstants.neutral030,
     paddingLeft: 3,
-    marginTop: 4,
+    margin: '6px 4px 6px 0px',
+    height: '18px',
   }),
 
   multiValueLabel: (base, { data }) => ({ // eslint-disable-line no-unused-vars
@@ -195,11 +197,11 @@ const multiSelectStyle = (props) => ({
     overflow: 'hidden',
     whiteSpace: 'nowrap',
     textOverflow: 'ellipsis',
+    maxWidth: '123px',
   }),
 
   multiValueRemove: (base, { data }) => ({
-    display: 'block',
-    height: 13,
+    display: 'flex',
     paddingLeft: 4,
     paddingRight: 4,
     '& svg': {
