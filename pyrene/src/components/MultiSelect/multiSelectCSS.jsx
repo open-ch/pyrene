@@ -61,6 +61,7 @@ const multiSelectStyle = (props) => ({
     },
   }),
 
+  // whole "text area" input, without border (that's why 7 and not 8px...)
   valueContainer: (base, state) => {
     if (props.selectedOptionsInDropdown) {
       return {
@@ -147,7 +148,9 @@ const multiSelectStyle = (props) => ({
 
   input: (base) => ({
     ...base,
-    paddingTop: props.selectedOptionsInDropdown ? '2px' : '5px',
+    // same margin as for the grey box from top & bottom; if selectedOptionsInDropdown additional 2px padding needed between text and |
+    margin: props.selectedOptionsInDropdown ? '6px 0 6px 2px' : '6px 0 6px 0px',
+    padding: 0,
     lineHeight: '12px',
     '[type="text"]': {
       fontFamily: 'FiraGO, Helvetica, sans-serif !important',
@@ -179,6 +182,7 @@ const multiSelectStyle = (props) => ({
     whiteSpace: 'nowrap',
   }),
 
+  // the grey boxes
   multiValue: (base, { data }) => ({
     ...base,
     alignItems: 'center',
@@ -188,6 +192,7 @@ const multiSelectStyle = (props) => ({
     height: '18px',
   }),
 
+  // text in the grey boxes - options label
   multiValueLabel: (base, { data }) => ({ // eslint-disable-line no-unused-vars
     ...base,
     boxSizing: 'border-box',
@@ -200,6 +205,7 @@ const multiSelectStyle = (props) => ({
     maxWidth: '123px',
   }),
 
+  // "x" next to the label
   multiValueRemove: (base, { data }) => ({
     display: 'flex',
     paddingLeft: 4,
