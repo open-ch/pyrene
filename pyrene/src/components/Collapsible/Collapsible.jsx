@@ -40,7 +40,9 @@ export default class Collapsible extends React.Component {
         <div styleName={classNames('buttonAlignmentBox', { [`align-${this.props.align}`]: true })}>
           <div styleName="collapsibleButton" className="unSelectable" onClick={this.toggleCollapse} role="button" aria-label="Show or hide content">
             <div styleName="centeringBox">
-              {this.state.expanded && this.props.labelExpanded ? this.props.labelExpanded : this.props.labelCollapsed}
+              <span styleName="label">
+                {this.state.expanded && this.props.labelExpanded ? this.props.labelExpanded : this.props.labelCollapsed}
+              </span>
               <span className="pyreneIcon-collapsDown" styleName="collapsArrow" />
             </div>
           </div>

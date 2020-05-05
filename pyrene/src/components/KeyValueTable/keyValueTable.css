@@ -17,10 +17,10 @@
   border-bottom: 1px solid var(--border);
   background-color: #ffffff;
   display: flex;
-  line-height: 18px;
   padding-top: 7px;
-  padding-bottom: 6px;
-  font-size: 13px;
+  padding-bottom: 7px;
+  font-size: 12px;
+  letter-spacing: 0;
 }
 
 .keyValueRow:first-child {
@@ -33,20 +33,24 @@
   min-width: 256px;
   max-width: 256px;
   /* IE needs it to correctly overflow */
-  font-weight: 600;
-  /* demibold */
   padding-left: 8px;
   padding-right: 16px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   vertical-align: top;
+  line-height: 18px;
+  font-weight: 500;
 }
 
 .keyValueCellValue {
   width: 100%;
   word-wrap: break-word;
   right: 8px;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  line-height: 16px;
+  font-weight: 400;
 }
 
 .keyValueTableTitle {
