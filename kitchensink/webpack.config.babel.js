@@ -28,7 +28,11 @@ const config = {
       ...(process.env.SOURCE_MAP ? [{
         test: /\.js$/,
         use: ['source-map-loader'],
-        include: /pyrene.+/,
+        // exclude transient dependencies, especially pyrene which is considered a different module than pyrene.dev.js
+        include: [
+          /pyrene\/dist\/pyrene\.dev\.js$/,
+          /pyrene-graphs\/dist\/pyrene-graphs\.dev\.js$/,
+        ],
         enforce: 'pre',
       }] : []),
       {
