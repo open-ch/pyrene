@@ -9,7 +9,7 @@
 .popoverTriggerButton {
   box-sizing: border-box;
   border-radius: 2px;
-  padding: 0 8px;
+  padding: 0 4px 0 8px;
   height: 32px;
   display: flex;
   align-items: center;
