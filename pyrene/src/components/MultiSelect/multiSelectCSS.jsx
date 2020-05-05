@@ -149,7 +149,7 @@ const multiSelectStyle = (props) => ({
   input: (base) => ({
     ...base,
     // same margin as for the grey box from top & bottom; if selectedOptionsInDropdown additional 2px padding needed between text and |
-    margin: props.selectedOptionsInDropdown ? '6px 0 6px 2px' : '6px 0 6px 0px',
+    margin: props.selectedOptionsInDropdown && props.value?.length > 0 ? '6px 0 6px 2px' : '6px 0 6px 0px',
     padding: 0,
     lineHeight: '18px',
     '[type="text"]': {
