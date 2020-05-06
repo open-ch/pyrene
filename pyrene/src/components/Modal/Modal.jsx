@@ -5,7 +5,7 @@ import './modal.css';
 import ButtonBar from '../ButtonBar/ButtonBar';
 import Button from '../Button/Button';
 import Loader from '../Loader/Loader';
-import Stepper from '../Stepper/Stepper';
+import ActionBar from '../ActionBar/ActionBar';
 
 
 /**
@@ -33,20 +33,46 @@ export default class Modal extends React.Component {
   };
 
   renderNavigationArrows = () => (
-    <div styleName="stepperContainer">
-      <Stepper direction="down" onClick={this.props.onNextArrowClick} disabled={!this.props.canNext} />
-      <div style={{ width: 16 }} />
-      <Stepper direction="up" onClick={this.props.onPreviousArrowClick} disabled={!this.props.canPrevious} />
-    </div>
+    <ActionBar
+      styling="box"
+      actions={[
+        {
+          iconName: 'chevronDown',
+          color: 'neutral300',
+          active: this.props.canNext,
+          onClick: this.props.onNextArrowClick,
+        },
+        {
+          iconName: 'chevronUp',
+          color: 'neutral300',
+          active: this.props.canPrevious,
+          onClick: this.props.onPreviousArrowClick,
+        },
+      ]}
+    />
   );
 
   renderContent = () => (
     <>
       <div styleName="titleBar">
-        {this.props.title}
+        <span styleName="title">
+          {this.props.title}
+        </span>
         <div styleName="topRightSection">
           {this.props.displayNavigationArrows && this.renderNavigationArrows()}
-          <div styleName="closeButton" className="pyreneIcon-delete" onClick={this.props.onClose} />
+          <div styleName="closeButtonContainer">
+            <ActionBar
+              styling="none"
+              actions={[
+                {
+                  iconName: 'delete',
+                  color: 'neutral300',
+                  active: true,
+                  onClick: this.props.onClose,
+                },
+              ]}
+            />
+          </div>
         </div>
       </div>
       <div styleName={classNames('contentContainer', { contentScrolling: this.props.contentScrolling })}>

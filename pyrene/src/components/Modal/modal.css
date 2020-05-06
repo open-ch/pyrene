@@ -11,7 +11,7 @@
   bottom: 0;
   background-color: rgba(0, 21, 44, 0.6);
   z-index: 2;
-  
+
   display: flex;
   align-items: center;
   justify-content: center;
@@ -19,7 +19,7 @@
 
 .modalContainer {
   box-sizing: border-box;
-  
+
   background-color: var(--background-light);
   border-radius: 4px;
   box-shadow:
@@ -44,35 +44,26 @@
   box-sizing: border-box;
   display: flex;
   justify-content: space-between;
-  padding: 24px 24px 16px 24px;
-  height: 72px;
-
-  font-size: 18px;
-  font-weight: 600;
-  line-height: 1.78;
+  padding: 20px 16px 20px 24px;
+  height: 64px;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: -0.1px;
   color: var(--text);
+
+  & .title {
+    line-height: 24px;
+  }
 }
 
 .topRightSection {
   display: flex;
   align-items: center;
+  margin-left: 40px;
 }
 
-.closeButton {
-  cursor: pointer;
-  width: 24px;
-  height: 24px;
+.closeButtonContainer {
   margin-left: 16px;
-  font-size: 24px;
-  color: var(--neutral-300);
-
-  &:hover {
-    color: var(--text);
-  }
-}
-
-.stepperContainer {
-  display: flex;
 }
 
 .contentContainer {
