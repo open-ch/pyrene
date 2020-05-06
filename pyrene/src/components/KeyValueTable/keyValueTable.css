@@ -46,8 +46,7 @@
   width: 100%;
   word-wrap: break-word;
   right: 8px;
-  padding-top: 1px;
-  padding-bottom: 1px;
+  padding: 1px 8px 1px 0;
   line-height: 16px;
   font-weight: 400;
 }
