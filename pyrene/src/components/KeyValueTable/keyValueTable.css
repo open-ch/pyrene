@@ -18,7 +18,7 @@
   background-color: #ffffff;
   display: flex;
   padding-top: 7px;
-  padding-bottom: 7px;
+  padding-bottom: 6px;
   font-size: 12px;
   letter-spacing: 0;
 }
@@ -33,8 +33,7 @@
   min-width: 256px;
   max-width: 256px;
   /* IE needs it to correctly overflow */
-  padding-left: 8px;
-  padding-right: 16px;
+  padding: 0 16px 0 8px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
