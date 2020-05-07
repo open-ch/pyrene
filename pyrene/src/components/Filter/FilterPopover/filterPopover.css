@@ -20,6 +20,7 @@
 .negateTitle {
   height: 16px;
   font-size: 11px;
+  line-height: 12px;
   font-weight: 500;
   color: var(--neutral-500);
   display: flex;

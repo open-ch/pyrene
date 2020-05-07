@@ -18,7 +18,7 @@ const FilterPopover = (props) => (
         ? props.filters.map((filter) => (
           <FilterOption {...filter}
             value={props.filterValues ? props.filterValues[filter.id] : null}
-            negated={props.filterNegatedKeys && props.isNegationEnabled ? props.filterNegatedKeys.includes(filter.id) : false}
+            negated={props.isNegationEnabled ? props.filterNegatedKeys.includes(filter.id) : false}
             handleFilterChange={props.handleFilterChange}
             isNegationEnabled={props.isNegationEnabled}
             key={filter.id}
