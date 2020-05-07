@@ -1,4 +1,4 @@
-// VERSION: 31
+// VERSION: 32
 const icons = [
   { name: 'share', tags: ['social'] },
   { name: 'filter', tags: ['lines'] },
@@ -58,6 +58,13 @@ const icons = [
   { name: 'collapse', tags: ['collapse', 'close', 'minimize', 'minimise', 'mini', 'decrease', 'decrease'] },
   { name: 'globe', tags: ['globe', 'world', 'earth', 'network', 'system', 'timezone'] },
   { name: 'star', tags: ['star', 'rating', 'achievement', 'favorite', 'important', 'winner', 'like', 'rate', 'winner', 'review', 'best'] },
+  { name: 'visibility', tags: ['visibility', 'eye', 'watching', 'see', 'follow', 'solid', 'preview', 'vision', 'visible', 'overview', 'watch'] },
+  { name: 'visibilityOff', tags: ['visibility', 'eye', 'watching', 'see', 'unfollow', 'solid', 'preview', 'vision', 'invisible', 'overview', 'watch', 'blind', 'block', 'hidden'] },
+  { name: 'visibilityOutline', tags: ['visibility', 'eye', 'watching', 'see', 'follow', 'outline', 'preview', 'vision', 'visible', 'overview', 'watch'] },	
+  { name: 'visibilityOffOutline', tags: ['visibility', 'eye', 'watching', 'see', 'unfollow', 'outline', 'preview', 'vision', 'invisible', 'overview', 'watch', 'blind', 'block', 'hidden'] },
+  { name: 'chef', tags: ['chef', 'admin', 'cook', 'cooking', 'broil', 'solid', 'restaurant', 'kitchen', 'kitchensink', 'hat', 'food', 'cap', 'roast', 'fry', 'pan'] },
+  { name: 'settings', tags: ['settings', 'gear', 'cogwheel', 'wheel', 'manage', 'set', 'adjust', 'config', 'configure', 'edit', 'tools', 'options', 'control', 'preferences', 'parameter', 'setup', 'cog', 'tools'] },
+  { name: 'resolved', tags: ['resolved', 'check', 'ok', 'approved', 'confirmed', 'checkmark', 'done', 'finished', 'complete', 'accept', 'tools', 'success', 'selected', 'mark', 'tick', 'approve'] },
 
 ];
 export default icons;
