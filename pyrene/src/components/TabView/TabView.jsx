@@ -76,7 +76,7 @@ export default class TabView extends React.Component {
           {this.state.moreTabLabel}
           {' '}
         </span>
-        <span className="pyreneIcon-collapsDown" styleName="moreArrow" />
+        <span className="pyreneIcon-chevronDown" styleName="moreArrow" />
       </div>
       {moreTabs.map((tab, index) => (
         <div
@@ -136,7 +136,7 @@ export default class TabView extends React.Component {
                   {this.state.moreTabLabel}
                   {' '}
                 </span>
-                <span className="pyreneIcon-collapsDown" styleName="moreArrow" />
+                <span className="pyreneIcon-chevronDown" styleName="moreArrow" />
               </div>
               {this.renderMoreMenu(moreTabs, visibleTabs)}
             </div>
