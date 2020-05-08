@@ -81,7 +81,7 @@ const multiSelectStyle = (props) => ({
       height: props.rows <= 0 ? 'inherit' : (props.rows * 22) + 8,
       overflow: state.hasValue ? 'auto' : 'hidden',
       padding: '4px 4px 4px 7px',
-      maxHeight: props.rows <= 0 ? 79 : (props.rows * 22) + 8,
+      maxHeight: props.rows <= 0 ? 74 : (props.rows * 22) + 8,
       alignItems: 'flex-start',
       alignContent: 'flex-start',
     };
