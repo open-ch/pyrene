@@ -12,10 +12,11 @@
 
 .rowElementsContainer {
   box-sizing: border-box;
-  min-height: 32px;
   display: flex;
-  border-bottom: solid 1px var(--border);
   align-items: flex-start;
+  border-bottom: solid 1px var(--border);
+  padding-top: 8px;
+  padding-bottom: 7px;
 
   &:hover {
     background-color: var(--background-tint);
@@ -31,8 +32,6 @@
 }
 
 .childrenRowsContainer {
-  min-height: 32px;
-
   visibility: hidden;
   display: none;
 
