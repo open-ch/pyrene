@@ -19,10 +19,6 @@
   z-index: 2;
 }
 
-.loadingContainer {}
-
-.treeTableData {}
-
 .treeTableTitle {
   box-sizing: border-box;
   font-size: 16px;

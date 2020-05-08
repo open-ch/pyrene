@@ -226,6 +226,7 @@ class TreeTable extends React.Component {
       );
     };
 
+    // eslint-disable-next-line no-unused-vars
     const isScrollbarVisible = () => props.virtualized && innerHeight > outerHeight;
 
     return (
@@ -238,7 +239,7 @@ class TreeTable extends React.Component {
 
         {props.loading && renderLoader()}
 
-        <div styleName={classNames('loadingContainer', { loading: props.loading })}>
+        <div styleName={classNames({ loading: props.loading })}>
           {props.filters.length > 0 && (
             <div styleName="filterContainer">
               <Filter
@@ -249,8 +250,8 @@ class TreeTable extends React.Component {
             </div>
           )}
           {getActionBar()}
-          <TreeTableHeader columns={columns} scrollbarPadding={isScrollbarVisible()} />
-          <div styleName="treeTableData" ref={this.onContainerRef}>
+          <TreeTableHeader columns={columns} />
+          <div ref={this.onContainerRef}>
             {props.virtualized ? (
               <List
                 key={tableKey}

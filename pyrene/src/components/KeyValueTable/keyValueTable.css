@@ -46,6 +46,7 @@
   width: 100%;
   word-wrap: break-word;
   right: 8px;
+  /* 1px extra top/bottom for value cell only = 8px */
   padding: 1px 8px 1px 0;
   line-height: 16px;
   font-weight: 400;

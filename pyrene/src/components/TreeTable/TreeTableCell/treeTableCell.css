@@ -7,16 +7,11 @@
   display: flex;
   align-items: center;
 
-  font-size: 13px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: normal;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0;
+  font-weight: 400;
   color: var(--text);
-
-  min-height: 31px;
-
   width: 100px;
   flex: 100 0 auto;
 
@@ -37,7 +32,7 @@
   width: 16px;
   height: 16px;
   font-size: 16px;
-  margin-right: 8px;
+  margin-right: 4px;
   cursor: pointer;
 
   &.sectionOpen {
