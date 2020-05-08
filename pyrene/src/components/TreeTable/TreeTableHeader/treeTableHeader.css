@@ -8,28 +8,25 @@
   height: 32px;
   border-top: solid 1px var(--border);
   border-bottom: solid 1px var(--border);
-}
 
-.scrollbarPadding {
-  padding-right: 16px;
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 .treeTableHeaderCell {
   box-sizing: border-box;
   text-transform: capitalize;
-  font-size: 13px;
-  font-weight: 600;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: normal;
-
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 18px;
+  letter-spacing: 0;
+  color: var(--text);
   width: 100px;
   flex: 100 0 auto;
   padding-right: 16px;
 
   &:first-child {
-    padding-left: 32px;
+    padding-left: 28px;
   }
 
   &:last-child {
