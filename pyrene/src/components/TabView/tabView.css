@@ -29,7 +29,6 @@
     color: var(--text);
     font-size: 12px;
     letter-spacing: 0.4px;
-    text-transform: capitalize;
 
     overflow: hidden;
     text-overflow: ellipsis;
@@ -50,16 +49,16 @@
 
     &.disabled {
       pointer-events: none;
-      color: var(--neutral-100);
+      color: var(--neutral-200);
     }
 
   }
 
   & .moreTab {
-    color: var(--neutral-300);
+    color: var(--text);
     font-size: 12px;
+    line-height: 16px;
     letter-spacing: 0.4px;
-    text-transform: capitalize;
 
     margin-top: 16px;
     padding-bottom: 8px;
