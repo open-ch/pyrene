@@ -112,7 +112,7 @@ const multiSelectStyle = (props) => ({
       WebkitFontSmoothing: 'antialiased',
       MozOsxFontSmoothing: 'grayscale',
 
-      display: 'inline-block',
+      display: 'block',
       verticalAlign: 'middle',
       content: '"7"',
     },
@@ -139,7 +139,7 @@ const multiSelectStyle = (props) => ({
       MozOsxFontSmoothing: 'grayscale',
 
       transition: 'transform 0.3s ease-out',
-      display: 'inline-block',
+      display: 'block',
       verticalAlign: 'middle',
       content: state.selectProps.menuIsOpen ? '"\x64"' : '"\x63"',
       marginRight: 7,
