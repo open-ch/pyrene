@@ -25,7 +25,7 @@ const multiSelectStyle = (props) => ({
   indicatorsContainer: (base) => ({
     ...base,
     alignItems: 'flex-start',
-    paddingTop: 8,
+    paddingTop: 7,
   }),
 
   control: (base, state) => ({
@@ -69,7 +69,7 @@ const multiSelectStyle = (props) => ({
         overflow: 'hidden',
         flexWrap: 'nowrap',
         whiteSpace: 'nowrap',
-        padding: '0px 4px 0px 7px',
+        padding: '4px 4px 4px 7px',
         minHeight: '30px',
         height: '30px',
       };
@@ -78,10 +78,10 @@ const multiSelectStyle = (props) => ({
     return {
       ...base,
       minHeight: 30,
-      height: props.rows <= 0 ? 'inherit' : (props.rows * 25) + 6,
+      height: props.rows <= 0 ? 'inherit' : (props.rows * 22) + 8,
       overflow: state.hasValue ? 'auto' : 'hidden',
-      padding: '0px 4px 0px 7px',
-      maxHeight: props.rows <= 0 ? 79 : (props.rows * 25) + 6,
+      padding: '4px 4px 4px 7px',
+      maxHeight: props.rows <= 0 ? 74 : (props.rows * 22) + 8,
       alignItems: 'flex-start',
       alignContent: 'flex-start',
     };
@@ -91,7 +91,7 @@ const multiSelectStyle = (props) => ({
     ...base,
     color: colorConstants.neutral200,
     height: '100%',
-    paddingTop: '9px',
+    paddingTop: 8,
     margin: '0px',
   }),
 
@@ -112,7 +112,9 @@ const multiSelectStyle = (props) => ({
       WebkitFontSmoothing: 'antialiased',
       MozOsxFontSmoothing: 'grayscale',
 
-      display: 'inline-block',
+      paddingRight: 4,
+
+      display: 'block',
       verticalAlign: 'middle',
       content: '"7"',
     },
@@ -137,9 +139,8 @@ const multiSelectStyle = (props) => ({
       lineHeight: 1,
       WebkitFontSmoothing: 'antialiased',
       MozOsxFontSmoothing: 'grayscale',
-
       transition: 'transform 0.3s ease-out',
-      display: 'inline-block',
+      display: 'block',
       verticalAlign: 'middle',
       content: state.selectProps.menuIsOpen ? '"\x64"' : '"\x63"',
       marginRight: 7,
@@ -149,7 +150,7 @@ const multiSelectStyle = (props) => ({
   input: (base) => ({
     ...base,
     // same margin as for the grey box from top & bottom; if selectedOptionsInDropdown additional 2px padding needed between text and |
-    margin: props.selectedOptionsInDropdown && props.value?.length > 0 ? '6px 0 6px 2px' : '6px 0 6px 0px',
+    margin: props.selectedOptionsInDropdown && props.value?.length > 0 ? '2px 0 2px 2px' : '2px 0 2px 0px',
     padding: 0,
     lineHeight: '18px',
     '[type="text"]': {
@@ -188,7 +189,7 @@ const multiSelectStyle = (props) => ({
     alignItems: 'center',
     backgroundColor: data.invalid ? colorConstants.red100 : colorConstants.neutral030,
     paddingLeft: 3,
-    margin: '6px 4px 6px 0px',
+    margin: '2px 4px 2px 0px',
     height: '18px',
   }),
 
