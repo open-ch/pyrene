@@ -21,7 +21,7 @@
 }
 
 .tableHeaderRow {
-  height: 32px;
+  height: 31px; /* 1px for border */
   border-bottom: 1px solid var(--border);
   display: flex;
   flex-direction: row;
