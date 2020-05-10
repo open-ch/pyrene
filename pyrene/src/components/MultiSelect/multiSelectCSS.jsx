@@ -112,6 +112,8 @@ const multiSelectStyle = (props) => ({
       WebkitFontSmoothing: 'antialiased',
       MozOsxFontSmoothing: 'grayscale',
 
+      paddingRight: 4,
+
       display: 'block',
       verticalAlign: 'middle',
       content: '"7"',
@@ -137,7 +139,6 @@ const multiSelectStyle = (props) => ({
       lineHeight: 1,
       WebkitFontSmoothing: 'antialiased',
       MozOsxFontSmoothing: 'grayscale',
-
       transition: 'transform 0.3s ease-out',
       display: 'block',
       verticalAlign: 'middle',
