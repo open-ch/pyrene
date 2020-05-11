@@ -83,6 +83,7 @@ export default class FilterOption extends React.Component {
                   value={this.props.negated}
                   disabled={false}
                   onChange={(value) => this.props.handleFilterChange(this.props.value, value, this.props.id)}
+                  tooltip="To negate the filter, check the box."
                 />
               )}
             </div>

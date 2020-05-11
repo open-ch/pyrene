@@ -105,7 +105,7 @@ class Checkbox extends Component {
               <Tooltip
                 label={this.props.tooltip}
                 preferredPosition={['bottom', 'right']}
-                maxWidth={192}
+                maxWidth={176}
               >
                 {children}
               </Tooltip>
