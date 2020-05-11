@@ -226,9 +226,6 @@ class TreeTable extends React.Component {
       );
     };
 
-    // eslint-disable-next-line no-unused-vars
-    const isScrollbarVisible = () => props.virtualized && innerHeight > outerHeight;
-
     return (
       <div styleName="treeTableContainer">
         {props.title && (
