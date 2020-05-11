@@ -39,8 +39,6 @@ class TreeTable extends React.Component {
       columns: TreeTableUtils.prepareColumnToggle(props.columns),
       expanded: {},
       rows,
-      innerHeight: 0,
-      outerHeight: 0,
       tableKey: Date.now(),
       disabledExpandButton: this.isFlatTree(rows),
     };
@@ -78,19 +76,6 @@ class TreeTable extends React.Component {
   onContainerRef = (ref) => {
     if (ref) {
       this.setState({ outerHeight: ref.clientHeight });
-    }
-  }
-
-  onInnerRef = (innerRef) => {
-    if (innerRef) {
-      this.innerRef = innerRef;
-      this.recalculateListLength();
-    }
-  }
-
-  recalculateListLength = () => {
-    if (this.innerRef) {
-      this.setState({ innerHeight: this.innerRef.clientHeight });
     }
   }
 
@@ -138,8 +123,6 @@ class TreeTable extends React.Component {
       tableFullyExpanded,
       columns,
       rows,
-      innerHeight,
-      outerHeight,
       tableKey,
       disabledExpandButton,
     } = this.state;
@@ -255,7 +238,6 @@ class TreeTable extends React.Component {
                 height={props.height}
                 itemCount={rows.length}
                 width="100%"
-                innerRef={this.onInnerRef}
                 itemSize={rowHeightCallback}
                 itemKey={rowKeyCallback}
                 ref={this.onListRef}
