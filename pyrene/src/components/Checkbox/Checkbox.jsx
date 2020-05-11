@@ -11,6 +11,7 @@ import iconSelected from './checkbox-selected.svg';
 import iconSelectedHover from './checkbox-selected-hover.svg';
 import iconInvalid from './checkbox-invalid.svg';
 import iconInvalidHover from './checkbox-invalid-hover.svg';
+import Tooltip from '../Tooltip/Tooltip';
 
 const iconMap = {
   normal: {
@@ -38,6 +39,8 @@ const getCheckboxIcon = (options, hovered) => {
   }
   return <SVG svg={icon} />;
 };
+
+const TooltipWrapper = ({ condition, wrapper, children }) => (condition ? wrapper(children) : children);
 
 /**
  * Checkboxes allow the user to select one or more items from a set.
@@ -96,9 +99,22 @@ class Checkbox extends Component {
           role="checkbox"
           aria-checked={this.props.value}
         >
-          <span styleName="checkboxIcon">
-            {getCheckboxIcon(options, this.state.hovered)}
-          </span>
+          <TooltipWrapper
+            condition={this.props.tooltip}
+            wrapper={(children) => (
+              <Tooltip
+                label={this.props.tooltip}
+                preferredPosition={['bottom', 'right']}
+                maxWidth={192}
+              >
+                {children}
+              </Tooltip>
+            )}
+          >
+            <span styleName="checkboxIcon">
+              {getCheckboxIcon(options, this.state.hovered)}
+            </span>
+          </TooltipWrapper>
           {this.props.label
             && (
               <span styleName="checkboxLabelText">
@@ -121,6 +137,7 @@ Checkbox.defaultProps = {
   required: false,
   name: '',
   label: '',
+  tooltip: '',
   onChange: () => null,
   onBlur: () => null,
 };
@@ -154,6 +171,10 @@ Checkbox.propTypes = {
    * Adds a visual indication to display that the field is required.
    */
   required: PropTypes.bool,
+  /**
+   * Defines a text tooltip for the checkbox when hovered
+   */
+  tooltip: PropTypes.string,
   /**
    * Sets whether the checkbox is checked.
    */
