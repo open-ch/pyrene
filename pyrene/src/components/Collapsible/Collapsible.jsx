@@ -43,7 +43,7 @@ export default class Collapsible extends React.Component {
               <span styleName="label">
                 {this.state.expanded && this.props.labelExpanded ? this.props.labelExpanded : this.props.labelCollapsed}
               </span>
-              <span className="pyreneIcon-collapsDown" styleName="collapsArrow" />
+              <span className="pyreneIcon-chevronDown" styleName="collapsArrow" />
             </div>
           </div>
         </div>
