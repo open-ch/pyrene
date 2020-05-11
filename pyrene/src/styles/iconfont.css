@@ -1,3 +1,24 @@
+:global(.pyreneIcon-resolved:before){
+  content: "\25";
+}
+:global(.pyreneIcon-settings:before){
+  content: "\22";
+}
+:global(.pyreneIcon-chef:before){
+  content: "\2b";
+}
+:global(.pyreneIcon-visibilityOffOutline:before){
+  content: "\5a";
+}
+:global(.pyreneIcon-visibilityOutline:before){
+  content: "\59";
+}
+:global(.pyreneIcon-visibilityOff:before){
+  content: "\58";
+}
+:global(.pyreneIcon-visibility:before){
+  content: "\57";
+}
 :global(.pyreneIcon-star:before){
   content: "\56";
 }
