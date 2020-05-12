@@ -19,13 +19,19 @@ export const isNullFilter = (type, value) => {
 /*
  * Returns a function that filters datum.accessor for substrings (case-insensitive).
  */
-export const getSubstringFunc = (accessor) => (value, datum) => typeof datum[accessor] !== 'undefined' && datum[accessor] !== null && datum[accessor].toString().toLowerCase().includes(value.toString().toLowerCase());
+export const getSubstringFunc = (accessor, negated) => (value, datum) => {
+  if (typeof datum[accessor] !== 'undefined' && datum[accessor] !== null) {
+    return negated ? !datum[accessor].toString().toLowerCase().includes(value.toString().toLowerCase())
+      : datum[accessor].toString().toLowerCase().includes(value.toString().toLowerCase());
+  }
+  return false;
+};
 
 /*
  * Returns a function that filters datum.accessor.toString() for equal.
  * Value - from ui, keeps changing; datum - probably from backend, static, given in advance :)
  */
-export const getEqualFunc = (accessor) => (value, datum) => {
+export const getEqualFunc = (accessor, negated) => (value, datum) => {
 
   const datumProp = typeof accessor === 'function' ? accessor(datum) : datum[accessor];
 
@@ -44,7 +50,8 @@ export const getEqualFunc = (accessor) => (value, datum) => {
 
       // 0 === '0', 'true' === true etc. Reason for this is that url can handle only
       // strings and not other types and we want to pass filter values via url...
-      return datumProp.toString() === value.toString();
+      return negated ? datumProp.toString() !== value.toString()
+        : datumProp.toString() === value.toString();
   }
 };
 
@@ -57,7 +64,7 @@ export const getSingleFilterFunc = (filterDefinition, filterValue) => (datum) =>
 
       const filterFunc = filterDefinition.customFilter
         ? filterDefinition.customFilter
-        : getSubstringFunc(filterDefinition.accessor);
+        : getSubstringFunc(filterDefinition.accessor, filterDefinition.negated);
 
       return filterFunc(filterValue, datum);
     }
@@ -65,14 +72,14 @@ export const getSingleFilterFunc = (filterDefinition, filterValue) => (datum) =>
 
       const filterFunc = filterDefinition.customFilter
         ? filterDefinition.customFilter
-        : getEqualFunc(filterDefinition.accessor);
+        : getEqualFunc(filterDefinition.accessor, filterDefinition.negated);
 
       return filterFunc(filterValue.value, datum);
     }
     case 'multiSelect': {
       const filterFunc = filterDefinition.customFilter
         ? filterDefinition.customFilter
-        : getEqualFunc(filterDefinition.accessor);
+        : getEqualFunc(filterDefinition.accessor, filterDefinition.negated);
 
       // Merges filterFunc by filter with or (starting with false), does at least one match?
       return filterValue.reduce((acc, currValue) => acc || filterFunc(currValue.value, datum), false);
@@ -132,6 +139,7 @@ export const getFilterProps = (filterDefinitions, data) => filterDefinitions
     label: f.label,
     type: f.type,
     sorted: f.sorted,
+    negated: f.negated ? f.negated : undefined,
     options: f.options ? f.options : (f.optionsAccessors && data) ? getOptionsFromData(f.optionsAccessors, data) : undefined, // eslint-disable-line no-nested-ternary
   }));
 
