@@ -8,7 +8,7 @@ LabelAndValue.props = {
 
 LabelAndValue.examples = [
   {
-    props: { label: 'Punch card', value: '12/80', size: 'tiny' },
+    props: { label: 'Frequency', value: '42 Hz', size: 'tiny' },
     description: 'Tiny size',
   }, {
     props: { label: 'Bandwidth', value: '461.2 kb/s', size: 'small' },
