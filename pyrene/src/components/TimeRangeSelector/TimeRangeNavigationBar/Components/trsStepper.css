@@ -23,10 +23,10 @@
   border-top: solid 1px var(--neutral-050);
 
   font-size: 18px;
-  font-weight: 600;
+  font-weight: 500;
 
   color: var(--neutral-500);
-  line-height: 1.5;
+  line-height: 16px;
 
   &.disabled {
     pointer-events: none;
@@ -41,7 +41,7 @@
   align-items: center;
 
   &:hover {
-   background-color: var(--neutral-030);
+   background-color: var(--neutral-020);
    cursor: pointer;
   }
 }

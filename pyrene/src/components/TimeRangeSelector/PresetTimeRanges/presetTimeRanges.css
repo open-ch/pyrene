@@ -3,18 +3,15 @@
 .presetTimeRange {
   composes: commonFontSettings from '../../../styles/common.css';
   border: none;
-  border-right: solid 1px #e1e3e8;
-  border-top: solid 1px #e1e3e8;
-  border-bottom: solid 1px #e1e3e8;
+  border-right: solid 1px var(--neutral-050);
+  border-top: solid 1px var(--neutral-050);
+  border-bottom: solid 1px var(--neutral-050);
   height: 32px;
-  padding-left: 16px;
-  padding-right: 16px;
+  padding: 7px 15px;
   outline: none;
   cursor: default;
   font-size: 12px;
-  font-weight: 600;
-  color: var(--neutral-500);
-  line-height: 1.5;
+  line-height: 16px;
   margin-left: 0px;
   margin-right: 0px;
   background-color: var(--background-light);
@@ -25,12 +22,13 @@
   }
 
   &.first:hover {
-    background-color: var(--neutral-030);
+    background-color: var(--neutral-020);
     cursor: pointer;
   }
 
   &.active {
     background-color: var(--neutral-030);
+    font-weight: 500;
   }
 
   &.disabled {
@@ -39,7 +37,7 @@
   }
 
   &.successive:hover {
-    background-color: var(--neutral-030);
+    background-color: var(--neutral-020);
     cursor: pointer;
   }
 }
