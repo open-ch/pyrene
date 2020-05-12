@@ -368,7 +368,6 @@ export default class Table extends React.Component {
               )}
           </div>
           {this.props.toggleColumns && (
-
             <CheckboxPopover
               buttonLabel="Columns"
               listItems={this.props.columns.filter((col) => col.headerName).map((col) => ({ id: col.id, label: col.headerName, value: (typeof this.state.columnsVisibility[col.id] !== 'undefined') ? this.state.columnsVisibility[col.id] : !col.initiallyHidden }))}
@@ -494,6 +493,10 @@ Table.propTypes = {
    * */
   filterDisabled: PropTypes.bool,
   /**
+   * Enables negation support for filters. Defaults to false
+   */
+  filterNegationEnabled: PropTypes.bool,
+  /**
    * Sets the available filters.
    * Type: [{ label: string (required) label of the filter input displayed to the user, type: oneOf('singleSelect', 'multiSelect', 'text') (required),
    * id: string (required) - key for the one filter input, options: array }]
@@ -518,10 +521,6 @@ Table.propTypes = {
     id: PropTypes.string,
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.array, PropTypes.object]),
   }),
-  /**
-   * Enables negation support for filters. Defaults to false
-   */
-  filterNegationEnabled: PropTypes.bool,
   /**
    * Sets the data key for each row. Should be unique. Is used for selections.
    */
