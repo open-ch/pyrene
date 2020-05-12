@@ -74,7 +74,7 @@ const examples = {
         filters: filters,
       });
     },
-    isNegationEnabled: true,
+    negationEnabled: true,
   },
 };
 

@@ -154,12 +154,12 @@ export default class FilterBar extends React.Component {
 
         switch (filter.type) {
           case 'text':
-            return <FilterTag key={filter.id} filterLabel={filter.label} filterText={value} negated={this.props.isNegationEnabled && filter.negated} onClose={() => this.onFilterTagClose(filter)} />;
+            return <FilterTag key={filter.id} filterLabel={filter.label} filterText={value} negated={this.props.negationEnabled && filter.negated} onClose={() => this.onFilterTagClose(filter)} />;
           case 'singleSelect':
-            return <FilterTag key={filter.id} filterLabel={filter.label} filterText={value.label} negated={this.props.isNegationEnabled && filter.negated} onClose={() => this.onFilterTagClose(filter)} />;
+            return <FilterTag key={filter.id} filterLabel={filter.label} filterText={value.label} negated={this.props.negationEnabled && filter.negated} onClose={() => this.onFilterTagClose(filter)} />;
           case 'multiSelect':
             if (value.length > 0) {
-              return <FilterTag key={filter.id} filterLabel={filter.label} filterText={value.map((option) => option.label).join('; ')} negated={this.props.isNegationEnabled && filter.negated} onClose={() => this.onFilterTagClose(filter)} />;
+              return <FilterTag key={filter.id} filterLabel={filter.label} filterText={value.map((option) => option.label).join('; ')} negated={this.props.negationEnabled && filter.negated} onClose={() => this.onFilterTagClose(filter)} />;
             }
             break;
           default:
@@ -193,7 +193,7 @@ export default class FilterBar extends React.Component {
           onClick={this.toggleFilterPopover}
           filters={this.props.filters}
           handleFilterChange={this.filterDidChange}
-          isNegationEnabled={this.props.isNegationEnabled}
+          negationEnabled={this.props.negationEnabled}
           filterValues={this.state.unAppliedFilters.values}
           filterNegatedKeys={this.state.unAppliedFilters.negatedKeys}
           onFilterClear={this.clearFilter}
@@ -241,7 +241,7 @@ FilterBar.propTypes = {
   /**
    * True to enable the visual components to handle negated filters.
    */
-  isNegationEnabled: PropTypes.bool.isRequired,
+  negationEnabled: PropTypes.bool.isRequired,
   /**
    * Called when the user clicks on the apply button. Exposes two parameters: filterValues and negatedFilterKeys (contains an array of the keys of the filters that are negated).
    */
