@@ -30,7 +30,7 @@ LabelAndValue.propTypes = {
   /**
    * The font size of the value (small or large)
    */
-  size: PropTypes.oneOf(['small', 'large']),
+  size: PropTypes.oneOf(['tiny', 'small', 'large']),
   /**
    * The value.
    */

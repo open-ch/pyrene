@@ -8,10 +8,13 @@ LabelAndValue.props = {
 
 LabelAndValue.examples = [
   {
-    props: { label: 'bandwidth', value: '461.2 kb/s', size: 'small' },
+    props: { label: 'Frequency', value: '42 Hz', size: 'tiny' },
+    description: 'Tiny size',
+  }, {
+    props: { label: 'Bandwidth', value: '461.2 kb/s', size: 'small' },
     description: 'Small size',
   }, {
-    props: { label: 'volume', value: '89 GB', size: 'large' },
+    props: { label: 'Volume', value: '89 GB', size: 'large' },
     description: 'Large size',
   },
 ];

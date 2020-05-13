@@ -6,6 +6,11 @@ const props = {
   value: 'somePath',
 };
 
+const propsTiny = {
+  ...props,
+  size: 'tiny',
+};
+
 const propsLarge = {
   ...props,
   size: 'large',
@@ -24,6 +29,11 @@ describe('<LabelAndValue />', () => {
   it('renders the value', () => {
     const rendered = shallow(<LabelAndValue {...props} />);
     expect(rendered.contains(props.value)).toBe(true);
+  });
+
+  it('renders tiny size', () => {
+    const rendered = shallow(<LabelAndValue {...propsTiny} />);
+    expect(rendered.find('.label-and-value-tiny .value')).toHaveLength(1);
   });
 
   it('renders large size', () => {
