@@ -27,8 +27,6 @@ class TreeTable extends React.Component {
 
   rowHeightMap = {};
 
-  innerRef = null;
-
   listRef = null;
 
   constructor(props) {
@@ -44,7 +42,7 @@ class TreeTable extends React.Component {
     };
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps) {
     if (this.props.data !== prevProps.data) {
       const rows = TreeTableUtils.initialiseRootData(this.props.data, this.props.setUniqueRowKey);
       // eslint-disable-next-line react/no-did-update-set-state
@@ -52,10 +50,6 @@ class TreeTable extends React.Component {
         rows,
         disabledExpandButton: this.isFlatTree(rows),
       });
-    }
-
-    if (this.props.virtualized && this.state.rows !== prevState.rows) {
-      this.recalculateListLength();
     }
   }
 
@@ -72,12 +66,6 @@ class TreeTable extends React.Component {
       this.listRef = ref;
     }
   };
-
-  onContainerRef = (ref) => {
-    if (ref) {
-      this.setState({ outerHeight: ref.clientHeight });
-    }
-  }
 
   toggleAllRowsExpansion = () => {
     const { tableFullyExpanded } = this.state;
@@ -231,7 +219,7 @@ class TreeTable extends React.Component {
           )}
           {getActionBar()}
           <TreeTableHeader columns={columns} />
-          <div ref={this.onContainerRef}>
+          <div>
             {props.virtualized ? (
               <List
                 key={tableKey}
