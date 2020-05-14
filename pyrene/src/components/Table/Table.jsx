@@ -363,7 +363,7 @@ export default class Table extends React.Component {
                   onFilterSubmit={this.props.manual ? (values) => this.onManualFilterChange(values) : this.props.onFilterChange}
                   disabled={this.props.error ? true : this.props.filterDisabled}
                   filterValues={this.props.filterValues}
-                  negationEnabled={this.props.filterNegationEnabled}
+                  negatable={this.props.filterNegatable}
                 />
               )}
           </div>
@@ -418,7 +418,7 @@ Table.defaultProps = {
   filterDisabled: false,
   filters: [],
   filterValues: {},
-  filterNegationEnabled: false,
+  filterNegatable: false,
   onFetchData: () => null,
   onRowDoubleClick: () => null,
   onFilterChange: () => null,
@@ -495,7 +495,7 @@ Table.propTypes = {
   /**
    * Enables negation support for filters. Defaults to false
    */
-  filterNegationEnabled: PropTypes.bool,
+  filterNegatable: PropTypes.bool,
   /**
    * Sets the available filters.
    * Type: [{ label: string (required) label of the filter input displayed to the user, type: oneOf('singleSelect', 'multiSelect', 'text') (required),
