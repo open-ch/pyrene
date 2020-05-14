@@ -46,6 +46,14 @@ describe('getSubstringFunc', () => {
   it('returns false when looking for value in substring', () => {
     expect(createFilter.getSubstringFunc('testAccessor')('not-the-same-wrong-way', { testAccessor: 'same' })).toBe(false);
   });
+
+  it('returns false on present and equal if negation is enabled', () => {
+    expect(createFilter.getSubstringFunc('testAccessor', true)('same', { testAccessor: 'same' })).toBeFalsy();
+  });
+
+  it('returns true when looking for value in substring if negated enabled and search is wrong', () => {
+    expect(createFilter.getSubstringFunc('testAccessor', true)('not-the-same-wrong-way', { testAccessor: 'same' })).toBeTruthy();
+  });
 });
 
 describe('getEqualFunc', () => {
@@ -64,6 +72,10 @@ describe('getEqualFunc', () => {
   it('returns true on toString() equal', () => {
     expect(createFilter.getEqualFunc('testAccessor')(1, { testAccessor: '1' })).toBe(true);
   });
+
+  it('returns true on non-equal if negated', () => {
+    expect(createFilter.getEqualFunc('testAccessor', true)(1, { testAccessor: 2 })).toBeTruthy();
+  });
 });
 
 describe('getSingleFilterFunc', () => {
@@ -74,6 +86,15 @@ describe('getSingleFilterFunc', () => {
       accessor: 'test',
     };
     expect(createFilter.getSingleFilterFunc(filterDefinition, 'filterValue')({ test: 'filterValue' })).toBe(true);
+  });
+
+  it('returns false on negated text', () => {
+    const filterDefinition = {
+      type: 'text',
+      accessor: 'test',
+      negated: true,
+    };
+    expect(createFilter.getSingleFilterFunc(filterDefinition, 'filterValue')({ test: 'filterValue' })).toBeFalsy();
   });
 
   it('returns true on accessor as a function', () => {
@@ -148,6 +169,17 @@ describe('getCombinedFilterFunc', () => {
     id: 'test2',
   }];
 
+  const negatedFilterDefinitions = [{
+    type: 'text',
+    accessor: 'test1',
+    id: 'test1',
+  }, {
+    type: 'text',
+    accessor: 'test2',
+    id: 'test2',
+    negated: true,
+  }];
+
   const datum = {
     test1: 'test1value',
     test2: 'test2value',
@@ -177,6 +209,18 @@ describe('getCombinedFilterFunc', () => {
       test1: 'test1value',
       test2: 'test2value',
     })(datum)).toBe(true);
+  });
+
+  it('takes AND of filterValues if negated', () => {
+    expect(createFilter.getCombinedFilterFunc(negatedFilterDefinitions, {
+      test1: 'test1value',
+      test2: 'nottest-2-value',
+    })(datum)).toBeTruthy();
+
+    expect(createFilter.getCombinedFilterFunc(negatedFilterDefinitions, {
+      test1: 'test1value',
+      test2: 'test2value',
+    })(datum)).toBeFalsy();
   });
 });
 
@@ -278,6 +322,7 @@ describe('getFilterProps', () => {
       id: 'testId',
       label: 'testLabel',
       type: 'testType',
+      negated: true,
       options: [{ value: 'testValue1', label: 'testLabel1' }],
     }];
 
@@ -285,10 +330,30 @@ describe('getFilterProps', () => {
       id: 'testId',
       label: 'testLabel',
       type: 'testType',
+      negated: true,
       options: [{ value: 'testValue1', label: 'testLabel1' }],
     }];
 
     expect(createFilter.getFilterProps(filterDefinitions)).toMatchObject(filterProps);
+  });
+
+  it('does not add negated properties if not provided', () => {
+    const filterDefinitions = [{
+      id: 'testId',
+      label: 'testLabel',
+      type: 'testType',
+      options: [{ value: 'testValue1', label: 'testLabel1' }],
+    }];
+
+    const filterProps = [{
+      id: 'testId',
+      label: 'testLabel',
+      type: 'testType',
+      negated: false,
+      options: [{ value: 'testValue1', label: 'testLabel1' }],
+    }];
+
+    expect(createFilter.getFilterProps(filterDefinitions)).not.toMatchObject(filterProps);
   });
 
   it('accesses the data', () => {
