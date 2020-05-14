@@ -9,7 +9,7 @@ import Checkbox from '../../Checkbox/Checkbox';
 
 export default class FilterOption extends React.Component {
 
-    isInterfaceSupportsNegate = () => {
+    doesInterfaceSupportNegate = () => {
       switch (this.props.type) {
         case 'text':
         case 'singleSelect':
@@ -78,7 +78,7 @@ export default class FilterOption extends React.Component {
           </div>
           {this.props.negationEnabled && (
             <div styleName="negatedCheckbox">
-              {this.isInterfaceSupportsNegate() && (
+              {this.doesInterfaceSupportNegate() && (
                 <Checkbox
                   value={this.props.negated}
                   disabled={false}
