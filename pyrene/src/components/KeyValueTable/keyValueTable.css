@@ -1,6 +1,8 @@
 @import '../../styles/colors.css';
 
 .keyValueTable {
+  composes: commonFontSettings from '../../styles/common.css';
+
   color: #1d273b;
   position: relative;
   vertical-align: text-top;
