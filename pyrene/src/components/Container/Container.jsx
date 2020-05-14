@@ -56,11 +56,11 @@ export default class Container extends React.Component {
                 }}
               />
             )}
-            {this.props.collapsible && <span className="pyreneIcon-collapsDown" styleName="collapsArrow" />}
+            {this.props.collapsible && <span className="pyreneIcon-chevronDown" styleName="collapsArrow" />}
           </div>
         </div>
         <div styleName="contentContainer" style={{ height: (this.state.expanded || !this.props.collapsible) && this.state.contentHeight ? this.state.contentHeight : null }}>
-          <div style={{ padding: 24 }} ref={(contentRef) => { this.contentRef = contentRef; }}>
+          <div styleName="innerContentContainer" ref={(contentRef) => { this.contentRef = contentRef; }}>
             {this.props.renderCallback()}
           </div>
         </div>

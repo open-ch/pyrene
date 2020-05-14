@@ -2,10 +2,14 @@
 
 .container {
   composes: commonFontSettings from '../../styles/common.css';
-  border: 1px solid var(--neutral-030);
+  border: 1px solid var(--neutral-050);
   width: 100%;
   border-radius: 4px;
   overflow: hidden;
+
+  & .innerContentContainer {
+    padding: 16px 23px 23px 23px;
+  }
 
   &.expanded {
     & .collapsArrow {
@@ -17,25 +21,21 @@
     }
 
     & .header {
-      box-shadow: inset 0 -1px 0 0 var(--secondary);
-      transition: box-shadow 0s step-start;
+      height: 47px;
+      padding-bottom: 12px;
     }
   }
 
   & .header {
     box-sizing: border-box;
-    padding: 0 24px;
-    height: 40px;
-    background-color: var(--background-tint);
+    padding: 11px 23px;
+    height: 46px;
 
     display: flex;
     align-items: center;
     justify-content: space-between;
 
-    transition: box-shadow 0.4s step-end;
-
     &.collapsible:hover {
-      background-color: var(--secondary);
       cursor: pointer;
     }
 
@@ -44,10 +44,11 @@
     }
 
     & .title {
-      font-size: 12px;
-      font-weight: bold;
-      letter-spacing: 1px;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: -0.1px;
       color: var(--text);
+      line-height: 24px;
       text-transform: uppercase;
     }
   }
@@ -55,6 +56,7 @@
   & .adminAndArrowContainer {
     display: flex;
     align-items: center;
+    margin-left: 48px;
   }
 
   & .collapsArrow {
