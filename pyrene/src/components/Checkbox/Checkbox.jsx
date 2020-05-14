@@ -111,15 +111,17 @@ class Checkbox extends Component {
               </Tooltip>
             )}
           >
-            <span styleName="checkboxIcon">
-              {getCheckboxIcon(options, this.state.hovered)}
-            </span>
-            {this.props.label
-            && (
-              <span styleName="checkboxLabelText">
-                {this.props.label}
+            <div>
+              <span styleName="checkboxIcon">
+                {getCheckboxIcon(options, this.state.hovered)}
               </span>
-            )}
+              {this.props.label
+              && (
+                <span styleName="checkboxLabelText">
+                  {this.props.label}
+                </span>
+              )}
+            </div>
           </TooltipWrapper>
         </label>
       </div>
