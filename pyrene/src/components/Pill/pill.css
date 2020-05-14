@@ -1,6 +1,8 @@
 @import '../../styles/colors.css';
 
 .pill {
+  composes: commonFontSettings from '../../styles/common.css';
+
   position: relative;
   line-height: 16px;
   font-size: 11px;
