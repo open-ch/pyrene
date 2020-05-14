@@ -27,9 +27,11 @@ class TreeTable extends React.Component {
 
   rowHeightMap = {};
 
-  innerRef = null;
+  innerRef = React.createRef();
 
-  listRef = null;
+  containerRef = React.createRef();
+
+  listRef = React.createRef();
 
   constructor(props) {
     super(props);
@@ -41,10 +43,11 @@ class TreeTable extends React.Component {
       rows,
       tableKey: Date.now(),
       disabledExpandButton: this.isFlatTree(rows),
+      scrollBarWidth: this.calculateScrollBarWidth(),
     };
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps) {
     if (this.props.data !== prevProps.data) {
       const rows = TreeTableUtils.initialiseRootData(this.props.data, this.props.setUniqueRowKey);
       // eslint-disable-next-line react/no-did-update-set-state
@@ -54,30 +57,21 @@ class TreeTable extends React.Component {
       });
     }
 
-    if (this.props.virtualized && this.state.rows !== prevState.rows) {
-      this.recalculateListLength();
+    if (prevProps.virtualized !== this.props.virtualized) {
+      // eslint-disable-next-line react/no-did-update-set-state
+      this.setState({
+        scrollBarWidth: this.calculateScrollBarWidth(),
+      });
     }
   }
 
   updateRowHeight = (index, newHeight) => {
     const oldHeight = this.rowHeightMap[index];
-    if (this.listRef && oldHeight !== newHeight) {
+    if (this.listRef.current && oldHeight !== newHeight) {
       this.rowHeightMap[index] = newHeight;
-      this.listRef.resetAfterIndex(index);
+      this.listRef.current.resetAfterIndex(index);
     }
   };
-
-  onListRef = (ref) => {
-    if (ref) {
-      this.listRef = ref;
-    }
-  };
-
-  onContainerRef = (ref) => {
-    if (ref) {
-      this.setState({ outerHeight: ref.clientHeight });
-    }
-  }
 
   toggleAllRowsExpansion = () => {
     const { tableFullyExpanded } = this.state;
@@ -107,6 +101,14 @@ class TreeTable extends React.Component {
     });
   };
 
+  calculateScrollBarWidth() {
+    if (this.containerRef.current && this.innerRef.current) {
+      return this.containerRef.current.offsetWidth - this.innerRef.current.offsetWidth;
+    }
+    return 0;
+  }
+
+
   isFullyExpanded(rows, expanded) {
     return rows.filter((r) => r.children && r.children.length)
       .every((r) => expanded[r._rowId]);
@@ -125,6 +127,7 @@ class TreeTable extends React.Component {
       rows,
       tableKey,
       disabledExpandButton,
+      scrollBarWidth,
     } = this.state;
 
     const isColumnHidden = (hidden) => typeof hidden === 'undefined' || hidden !== true;
@@ -230,17 +233,18 @@ class TreeTable extends React.Component {
             </div>
           )}
           {getActionBar()}
-          <TreeTableHeader columns={columns} />
-          <div ref={this.onContainerRef}>
+          <TreeTableHeader columns={columns} scrollPadding={scrollBarWidth} />
+          <div ref={this.containerRef} className="scrollable">
             {props.virtualized ? (
               <List
                 key={tableKey}
                 height={props.height}
                 itemCount={rows.length}
                 width="100%"
+                innerRef={this.innerRef}
                 itemSize={rowHeightCallback}
                 itemKey={rowKeyCallback}
-                ref={this.onListRef}
+                ref={this.listRef}
                 overscanCount={10}
               >
                 {renderRow}
