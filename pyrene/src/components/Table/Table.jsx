@@ -363,7 +363,7 @@ export default class Table extends React.Component {
                   onFilterSubmit={this.props.manual ? (values) => this.onManualFilterChange(values) : this.props.onFilterChange}
                   disabled={this.props.error ? true : this.props.filterDisabled}
                   filterValues={this.props.filterValues}
-                  negatable={this.props.filterNegatable}
+                  negatable={this.props.negatable}
                 />
               )}
           </div>
@@ -418,7 +418,7 @@ Table.defaultProps = {
   filterDisabled: false,
   filters: [],
   filterValues: {},
-  filterNegatable: false,
+  negatable: false,
   onFetchData: () => null,
   onRowDoubleClick: () => null,
   onFilterChange: () => null,
@@ -493,10 +493,6 @@ Table.propTypes = {
    * */
   filterDisabled: PropTypes.bool,
   /**
-   * Enables negation support for filters. Defaults to false
-   */
-  filterNegatable: PropTypes.bool,
-  /**
    * Sets the available filters.
    * Type: [{ label: string (required) label of the filter input displayed to the user, type: oneOf('singleSelect', 'multiSelect', 'text') (required),
    * id: string (required) - key for the one filter input, options: array }]
@@ -541,6 +537,10 @@ Table.propTypes = {
     * Whether multiSorting via shift click is possible.
     */
   multiSort: PropTypes.bool,
+  /**
+   * Enables negation support for filters. Defaults to false
+   */
+  negatable: PropTypes.bool,
   /**
    * Amount of results to be displayed in Table Header (use only with server-side data fetching & pagination).
    */
