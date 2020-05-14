@@ -79,6 +79,8 @@ module.exports = {
     "react/jsx-sort-props": [2, {"shorthandLast": true, "noSortAlphabetically": true}],
     // do not allow deprecated lifecycle methods according to the react version provided above
     "react/no-deprecated": 2,
+    // checks for errors in hooks usage
+    "react-hooks/rules-of-hooks": "error",
     // We only have a11ly as it's a required dependency
     "jsx-a11y/click-events-have-key-events": 0,
     "jsx-a11y/interactive-supports-focus": 0,
