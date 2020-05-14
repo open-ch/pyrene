@@ -134,15 +134,19 @@ export const getOptionsFromData = (optionsAccessors, data) => {
  */
 export const getFilterProps = (filterDefinitions, data) => filterDefinitions
   .filter((f) => f.type !== null)
-  .map((f) => ({
-    id: f.id,
-    label: f.label,
-    type: f.type,
-    sorted: f.sorted,
-    negated: f.negated ? f.negated : undefined,
-    options: f.options ? f.options : (f.optionsAccessors && data) ? getOptionsFromData(f.optionsAccessors, data) : undefined, // eslint-disable-line no-nested-ternary
-  }));
-
+  .map((f) => {
+    const mapped = {
+      id: f.id,
+      label: f.label,
+      type: f.type,
+      sorted: f.sorted,
+      options: f.options ? f.options : (f.optionsAccessors && data) ? getOptionsFromData(f.optionsAccessors, data) : undefined, // eslint-disable-line no-nested-ternary
+    };
+    if (f.negated !== null && f.negated !== undefined) {
+      mapped.negated = f.negated;
+    }
+    return mapped;
+  });
 
 /*
  * Creates a filter without data, returns filterProps and a function:
