@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
-import Stepper from '../Stepper/Stepper';
 import TimeUnitSelectionPropTypes from './CalendarDateSelectorPropTypes';
 import {
   canNavigateBackward,
@@ -9,7 +9,8 @@ import {
 } from './CalendarDateSelectorUtils';
 import DateHelper from './DateHelper';
 
-import './calendarDateSelector.css';
+import styles from './calendarDateSelector.css';
+import Icon from '../Icon/Icon';
 
 const TimeUnitSelectionBar = (props) => {
   const {
@@ -20,23 +21,51 @@ const TimeUnitSelectionBar = (props) => {
     lowerBound,
     timeUnit,
   } = props;
+  const backwardsDisabled = disabled || !canNavigateBackward(value, lowerBound, timeUnit);
+  const forwardsDisabled = disabled || !canNavigateForward(value, upperBound, timeUnit);
+
+  const goForward = useCallback(() => {
+    onChange(value, 1);
+  }, [value]);
+  const goBackward = useCallback(() => {
+    onChange(value, -1);
+  }, [value]);
+
   return (
-    <>
-      <Stepper
-        direction="left"
-        onClick={() => onChange(value, -1)}
-        disabled={disabled || !canNavigateBackward(value, lowerBound, timeUnit)}
-      />
-      <span styleName="timeUnitSelector--timerange-text">
+    <div styleName="container">
+      <div
+        styleName="buttonContainer"
+        className={classNames({
+          [styles.disabled]: backwardsDisabled,
+        })}
+        onClick={goBackward}
+      >
+        <Icon
+          name="chevronLeft"
+          disabled={backwardsDisabled}
+          color="neutral500"
+        />
+      </div>
+      <div styleName="border" />
+      <div styleName="rangeText">
         {DateHelper.formatTimeRangeText(value, timeUnit)}
-      </span>
-      <Stepper
-        direction="right"
-        onClick={() => onChange(value, 1)}
-        disabled={disabled || !canNavigateForward(value, upperBound, timeUnit)}
-      />
-    </>
-  );
+      </div>
+      <div styleName="border" />
+      <div
+        styleName="buttonContainer"
+        className={classNames({
+          [styles.disabled]: forwardsDisabled,
+        })}
+        onClick={goForward}
+      >
+        <Icon
+          name="chevronRight"
+          disabled={forwardsDisabled}
+          color="neutral500"
+        />
+      </div>
+    </div>
+  )
 };
 
 TimeUnitSelectionBar.propTypes = {

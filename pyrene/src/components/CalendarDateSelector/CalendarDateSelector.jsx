@@ -2,15 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import CalendarDateSelectorBar from './CalendarDateSelectorBar';
-import CalendarDateSelectorDropdown from './CalendarDateSelectorDropdown';
 import CalendarDateSelectorPropTypes from './CalendarDateSelectorPropTypes';
 import {
   DATE_TYPES,
   getCurrentDate,
   handleDateChange,
 } from './CalendarDateSelectorUtils';
+import classNames from 'classnames';
 
-import './calendarDateSelector.css';
+import styles from './calendarDateSelector.css';
+import Button from '../Button/Button';
+import ActionBar from '../ActionBar/ActionBar';
 
 /**
  * Component for selecting a timeUnit and a range forwards and backwards.
@@ -59,13 +61,22 @@ export default class CalendarDateSelector extends React.Component {
     return (
       <div styleName="timeUnitSelector">
         <div styleName="timeUnitSelector--left">
-          <div styleName="timeUnitSelector__dropdown">
-            <CalendarDateSelectorDropdown
-              timeUnits={timeUnits}
-              timeUnit={timeUnit}
-              onSelect={this._onSelect}
-              disabled={isLoading}
-            />
+          <div styleName="buttonContainer" className={classNames({
+            [styles.disabled]: isLoading,
+          })}
+          >
+            {timeUnits.map((tu) => (
+              <button
+                className={classNames({
+                  [styles.selected]: tu === timeUnit,
+                })}
+                onClick={() => this._onSelect(tu)}
+                type="button"
+                disabled={isLoading}
+              >
+                {tu}
+              </button>
+            ))}
           </div>
         </div>
         <div styleName="timeUnitSelector--center">
