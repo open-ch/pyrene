@@ -147,6 +147,68 @@ class DataFilteredTable extends React.Component {
 
 }
 
+class NegatedFilters extends React.Component {
+
+  filters = [{
+    type: 'singleSelect',
+    label: 'City',
+    accessor: 'city',
+    id: 'city',
+    optionsAccessors: { value: (d) => d.city, label: (d) => `City: ${d.city}` },
+    negated: false
+  }, {
+    type: 'singleSelect',
+    label: 'Country',
+    accessor: 'country',
+    id: 'country',
+    optionsAccessors: { value: (d) => d.country, label: (d) => (d.country === null ? 'null' : d.country === '' ? 'empty' : d.country === false ? 'false' : d.country) },
+    negated: false
+  }, {
+    type: 'text',
+    label: 'Name',
+    accessor: 'name',
+    id: 'name',
+    negated: false
+  }];
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      filterValues: {},
+      filters: this.filters,
+    };
+  }
+
+  render() {
+    const { dataFilterFunc, filterProps } = createDataFilter(this.state.filters, data);
+
+    return (
+      <Table
+        columns={columns}
+        data={dataFilterFunc(this.state.filterValues)}
+        keyField="id"
+        filters={filterProps}
+        onFilterChange={(filterValues, negatedFilters) => {
+          this.setState((previousState) => {
+            const filters = previousState.filters.map((filter) => {
+              const toReturn = filter;
+              toReturn.negated = negatedFilters.includes(filter.id);
+              return toReturn;
+            });
+            return ({
+              filterValues: filterValues,
+              filters: filters,
+            });
+          });
+        }}
+        filterValues={this.state.filterValues}
+        filterNegationEnabled
+      />
+    );
+  }
+
+}
+
 const SimpleFilterCode = `
 class SimpleFilteredTable extends React.Component {
 
@@ -236,6 +298,69 @@ const DataFilterCode = `class DataFilteredTable extends React.Component {
 
 }`;
 
+const NegatedFiltersCode = `
+class NegatedFilters extends React.Component {
+
+  filters = [{
+    type: 'singleSelect',
+    label: 'City',
+    accessor: 'city',
+    id: 'city',
+    optionsAccessors: { value: d => d.city, label: d => \`City:\${d.city}\` },
+    negated: false
+  }, {
+    type: 'singleSelect',
+    label: 'Country',
+    accessor: 'country',
+    id: 'country',
+    optionsAccessors: { value: (d) => d.country, label: (d) => (d.country === null ? 'null' : d.country === '' ? 'empty' : d.country === false ? 'false' : d.country) },
+    negated: false
+  }, {
+    type: 'text',
+    label: 'Name',
+    accessor: 'name',
+    id: 'name',
+    negated: false
+  }];
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      filterValues: {},
+      filters: this.filters,
+    };
+  }
+
+  render() {
+    const { dataFilterFunc, filterProps } = createDataFilter(this.state.filters, data);
+
+    return (
+      <Table
+        columns={columns}
+        data={dataFilterFunc(this.state.filterValues)}
+        keyField="id"
+        filters={filterProps}
+        onFilterChange={(filterValues, negatedFilters) => {
+          this.setState((previousState) => {
+            const filters = previousState.filters.map((filter) => {
+              const toReturn = filter;
+              toReturn.negated = negatedFilters.includes(filter.id);
+              return toReturn;
+            });
+            return ({
+              filterValues: filterValues,
+              filters: filters,
+            });
+          });
+        }}
+        filterValues={this.state.filterValues}
+        filterNegationEnabled
+      />
+    );
+  }
+
+}`;
+
 
 const FilterUsage = () => (
   <div styleName="page">
@@ -283,6 +408,23 @@ const FilterUsage = () => (
           </CodeBox>
           <DisplayBox>
             <DataFilteredTable />
+          </DisplayBox>
+        </Paragraph>
+        <Paragraph title="Negated Filters">
+          <DescriptionBox>
+            <p>
+              If you want to exclude a specific value from the result set, you can enable the negation features of the filters, by setting the negation property in the configuration provided for the filters.
+            </p>
+            <p>
+              The status of the filters, if negated or not, is usually kept as a state of the parent component that should make use of the filters, in a similar way as the filterValues.
+              Everytime there is a filter change, it is necessary to check if the filter has been negated or not and if so, update the related filter configuration
+            </p>
+          </DescriptionBox>
+          <CodeBox>
+            {NegatedFiltersCode}
+          </CodeBox>
+          <DisplayBox>
+            <NegatedFilters />
           </DisplayBox>
         </Paragraph>
       </div>
