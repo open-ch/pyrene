@@ -202,7 +202,7 @@ class NegatedFilters extends React.Component {
           });
         }}
         filterValues={this.state.filterValues}
-        filterNegationEnabled
+        negatable
       />
     );
   }
@@ -354,7 +354,7 @@ class NegatedFilters extends React.Component {
           });
         }}
         filterValues={this.state.filterValues}
-        filterNegationEnabled
+        negatable
       />
     );
   }
