@@ -16,6 +16,8 @@ const FilterPopoverButton = (props) => (
         filters={props.filters}
         handleFilterChange={props.handleFilterChange}
         filterValues={props.filterValues}
+        filterNegatedKeys={props.filterNegatedKeys}
+        negatable={props.negatable}
         onFilterClear={props.onFilterClear}
         onClose={props.onClick}
         onFilterApply={props.onFilterApply}
@@ -36,9 +38,11 @@ FilterPopoverButton.defaultProps = {
 
 FilterPopoverButton.propTypes = {
   displayPopover: PropTypes.bool,
+  filterNegatedKeys: PropTypes.arrayOf(PropTypes.string).isRequired,
   filters: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string,
     label: PropTypes.string,
+    negated: PropTypes.bool,
     options: PropTypes.array,
     sorted: PropTypes.bool,
     type: PropTypes.string,
@@ -46,6 +50,7 @@ FilterPopoverButton.propTypes = {
   filterValues: PropTypes.shape().isRequired,
   handleFilterChange: PropTypes.func.isRequired,
   label: PropTypes.string.isRequired,
+  negatable: PropTypes.bool.isRequired,
   noBorder: PropTypes.bool,
   onClick: PropTypes.func,
   onFilterApply: PropTypes.func.isRequired,

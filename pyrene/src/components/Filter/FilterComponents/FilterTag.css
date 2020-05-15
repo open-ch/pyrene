@@ -33,6 +33,7 @@
 }
 
 .text {
+  display: flex;
   font-size: 12px;
   line-height: 14px;
   font-weight: normal;
@@ -56,4 +57,12 @@
 .clearIcon:hover {
   color: var(--danger-fg);
   cursor: pointer;
+}
+
+.negated {
+  font-size: 12px;
+  line-height: 14px;
+  font-weight: 500;
+  color: var(--neutral-500);
+  margin-right: 4px;
 }

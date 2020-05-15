@@ -12,12 +12,15 @@ import Collapsible from '../../Collapsible/Collapsible';
 const FilterPopover = (props) => (
   <div styleName="filterPopover">
     <div styleName="title">Select Filter</div>
+    {props.negatable && <div styleName="negateTitle">Negate</div>}
     <div styleName="filterOptions">
       {props.filters.length <= 6
         ? props.filters.map((filter) => (
           <FilterOption {...filter}
             value={props.filterValues ? props.filterValues[filter.id] : null}
+            negated={props.negatable ? props.filterNegatedKeys.includes(filter.id) : false}
             handleFilterChange={props.handleFilterChange}
+            negatable={props.negatable}
             key={filter.id}
           />
         ))
@@ -26,7 +29,9 @@ const FilterPopover = (props) => (
             {props.filters.slice(0, 6).map((filter) => (
               <FilterOption {...filter}
                 value={props.filterValues ? props.filterValues[filter.id] : null}
+                negated={props.filterNegatedKeys && props.negatable ? props.filterNegatedKeys.includes(filter.id) : false}
                 handleFilterChange={props.handleFilterChange}
+                negatable={props.negatable}
                 key={filter.id}
               />
             ))}
@@ -37,7 +42,9 @@ const FilterPopover = (props) => (
               renderCallback={() => props.filters.slice(6).map((filter) => (
                 <FilterOption {...filter}
                   value={props.filterValues ? props.filterValues[filter.id] : null}
+                  negated={props.filterNegatedKeys && props.negatable ? props.filterNegatedKeys.includes(filter.id) : false}
                   handleFilterChange={props.handleFilterChange}
+                  negatable={props.negatable}
                   key={filter.id}
                 />
               ))}
@@ -64,15 +71,18 @@ FilterPopover.defaultProps = {
 };
 
 FilterPopover.propTypes = {
+  filterNegatedKeys: PropTypes.arrayOf(PropTypes.string).isRequired,
   filters: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string,
     label: PropTypes.string,
+    negated: PropTypes.bool,
     options: PropTypes.array,
     sorted: PropTypes.bool,
     type: PropTypes.string,
   })).isRequired,
   filterValues: PropTypes.shape().isRequired,
   handleFilterChange: PropTypes.func.isRequired,
+  negatable: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   onFilterApply: PropTypes.func.isRequired,
   onFilterClear: PropTypes.func.isRequired,

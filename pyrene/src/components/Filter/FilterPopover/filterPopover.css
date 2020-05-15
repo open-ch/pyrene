@@ -14,11 +14,22 @@
   font-weight: 500;
   line-height: 18px;
   color: var(--text);
+  padding-bottom: 4px;
+}
+
+.negateTitle {
+  height: 16px;
+  font-size: 11px;
+  line-height: 12px;
+  font-weight: 500;
+  color: var(--neutral-500);
+  display: flex;
+  justify-content: flex-end;
 }
 
 .filterOptions {
   box-sizing: border-box;
-  padding-top: 24px;
+  padding-top: 4px;
 }
 
 .buttonBarContainer {
