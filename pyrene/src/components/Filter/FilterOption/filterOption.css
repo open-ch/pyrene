@@ -4,8 +4,8 @@
   composes: commonFontSettings from '../../../styles/common.css';
   display: flex;
   justify-content: space-between;
-  margin-bottom: 16px;
-  height: 48px;
+  align-items: center;
+  margin-bottom: 32px;
 }
 
 .label {
@@ -18,11 +18,25 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  max-width: 128px;
-  padding-right: 24px;
-  padding-bottom: 12px;
+  max-width: 100px;
+  padding-right: 16px;
 }
 
 .interface {
   width: 200px;
+  margin-right: 16px;
+}
+
+.filterOptionWrapper {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.negatedCheckbox {
+  width: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 10px;
 }

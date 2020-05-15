@@ -363,11 +363,11 @@ export default class Table extends React.Component {
                   onFilterSubmit={this.props.manual ? (values) => this.onManualFilterChange(values) : this.props.onFilterChange}
                   disabled={this.props.error ? true : this.props.filterDisabled}
                   filterValues={this.props.filterValues}
+                  negatable={this.props.negatable}
                 />
               )}
           </div>
           {this.props.toggleColumns && (
-
             <CheckboxPopover
               buttonLabel="Columns"
               listItems={this.props.columns.filter((col) => col.headerName).map((col) => ({ id: col.id, label: col.headerName, value: (typeof this.state.columnsVisibility[col.id] !== 'undefined') ? this.state.columnsVisibility[col.id] : !col.initiallyHidden }))}
@@ -418,6 +418,7 @@ Table.defaultProps = {
   filterDisabled: false,
   filters: [],
   filterValues: {},
+  negatable: false,
   onFetchData: () => null,
   onRowDoubleClick: () => null,
   onFilterChange: () => null,
@@ -536,6 +537,10 @@ Table.propTypes = {
     * Whether multiSorting via shift click is possible.
     */
   multiSort: PropTypes.bool,
+  /**
+   * Enables negation support for filters. Defaults to false
+   */
+  negatable: PropTypes.bool,
   /**
    * Amount of results to be displayed in Table Header (use only with server-side data fetching & pagination).
    */
