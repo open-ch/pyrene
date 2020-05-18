@@ -108,8 +108,8 @@ FilterOption.propTypes = {
   handleFilterChange: PropTypes.func.isRequired,
   id: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
-  negated: PropTypes.bool,
   negatable: PropTypes.bool.isRequired,
+  negated: PropTypes.bool,
   options: PropTypes.array, // eslint-disable-line react/forbid-prop-types
   sorted: PropTypes.bool,
   type: PropTypes.string.isRequired,
