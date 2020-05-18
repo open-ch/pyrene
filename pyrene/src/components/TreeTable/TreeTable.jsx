@@ -12,6 +12,8 @@ import Filter from '../Filter/Filter';
 import TreeTableUtils from './TreeTableUtils';
 import Loader from '../Loader/Loader';
 
+/* eslint-disable no-underscore-dangle */
+/* seems to be a design decision to use _ here */
 
 /**
  *  [🌳 • ┬─┬]
