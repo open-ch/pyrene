@@ -138,7 +138,7 @@ const selectStyle = {
     ...base,
     boxShadow: '0 4px 8px -2px rgba(0, 21, 44, 0.2)',
     borderRadius: 2,
-    border: 'solid 1px #e1e3e8',
+    border: `solid 1px ${colorConstants.border}`,
     marginTop: 4,
     maxHeight: 308,
   }),
