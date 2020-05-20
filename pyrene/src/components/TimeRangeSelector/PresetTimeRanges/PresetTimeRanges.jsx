@@ -1,47 +1,27 @@
 import React from 'react';
-import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import moment from 'moment-timezone';
-
-import './presetTimeRanges.css';
-
-/* eslint-disable no-underscore-dangle, react/no-unused-prop-types */
+import HorizontalSwitch from './HorizontalSwitch/HorizontalSwitch';
 
 const PresetTimeRanges = (props) => (
   <div>
-    {PresetTimeRanges._createPresets(props)}
+    <HorizontalSwitch
+      values={props.presetTimeRanges}
+      selected={props.currentTimeRangeType}
+      disabled={props.disabled}
+      onClick={({ id }) => {
+        PresetTimeRanges.onPresetTimeRangeSelected(
+          id,
+          props.presetTimeRanges,
+          props.lowerBound,
+          props.upperBound,
+          props.timezone,
+          props.onInteract,
+        );
+      }}
+    />
   </div>
 );
-
-PresetTimeRanges._createPresets = (props) => props.presetTimeRanges.map((preset, index) => (
-  <button
-    key={preset.id}
-    id={preset.id}
-    type="button"
-    styleName={
-      classNames('presetTimeRange',
-        { disabled: props.disabled },
-        { active: props.currentTimeRangeType === preset.id },
-        { first: index === 0 },
-        { successive: index !== 0 })
-    }
-    onClick={(clickedElement) => {
-      PresetTimeRanges._onPresetTimeRangeSelected(
-        clickedElement.currentTarget.id,
-        props.presetTimeRanges,
-        props.lowerBound,
-        props.upperBound,
-        props.timezone,
-        props.onInteract,
-      );
-    }}
-    disabled={props.disabled}
-  >
-    <span>
-      {preset.label}
-    </span>
-  </button>
-));
 
 /**
  * Updates the from/to limits, the upperbound and the stepper ranges based on the selected preset
@@ -52,10 +32,10 @@ PresetTimeRanges._createPresets = (props) => props.presetTimeRanges.map((preset,
  * @param timezone the timezone that we are currently using
  * @param callback the callback to update the parent component
  */
-PresetTimeRanges._onPresetTimeRangeSelected = (presetId, presetTimeRanges, lowerBound, upperBound, timezone, callback) => {
+PresetTimeRanges.onPresetTimeRangeSelected = (presetId, presetTimeRanges, lowerBound, upperBound, timezone, callback) => {
   const selectedPresetTimeRange = presetTimeRanges.filter((preset) => preset.id === presetId).shift();
   const newFrom = moment(upperBound).tz(timezone).subtract(selectedPresetTimeRange.durationInMs).valueOf();
-  // from TimeRangeSelector: _onPresetTimeRangeSelected(newFrom, newTo, newUpperBound, durationInMs, currentTimeRangeType)
+
   callback(
     Math.max(newFrom, lowerBound),
     upperBound,

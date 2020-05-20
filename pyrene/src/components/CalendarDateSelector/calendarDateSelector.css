@@ -1,52 +1,16 @@
 @import "../../styles/colors.css";
 
 .timeUnitSelector {
-  composes: commonFontSettings from '../../styles/common.css';
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  font-size: 12px;
-  letter-spacing: 0;
-  line-height: 16px;
-  color: var(--text);
-  width: 100%;
-  padding: 24px;
-  height: 80px;
+  font-size: 14px;
 }
 
 .timeUnitSelector--center {
   display: flex;
-
-  & .container {
-    display: flex;
-    width: 200px;
-    height: 30px;
-    border-radius: 2px;
-    border: solid 1px #e1e3e8;
-
-    & .buttonContainer {
-      width: 24px;
-      height: 24px;
-      margin: 3px 4px;
-      border-radius: 2px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 16px;
-
-      &:hover {
-        background-color: var(--neutral-030);
-      }
-    }
-
-    & .rangeText {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 134px;
-      padding: 7px 0;
-    }
-  }
+  justify-content: center;
+  align-items: center;
+  width: 358px;
 }
 
 .timeUnitSelector--left,
@@ -58,55 +22,6 @@
 
 .timeUnitSelector--left {
   justify-content: flex-start;
-
-  & .buttonContainer {
-    border-radius: 2px;
-    border: 1px solid var(--neutral-050);
-    display: flex;
-    height: 30px;
-
-    & button {
-      cursor: pointer;
-      outline: none;
-      font-family: inherit;
-      font-weight: 400;
-      border: none;
-      padding: 7px 16px;
-      box-shadow: inset -1px 0 0 0 var(--neutral-050);
-      line-height: 14px;
-      text-transform: capitalize;
-      height: 30px;
-
-      &:last-of-type {
-        box-shadow: none;
-      }
-      &.selected {
-        line-height: 16px;
-        font-weight: 500;
-        background-color: var(--neutral-030);
-      }
-      &:hover {
-        background-color: var(--neutral-020);
-      }
-
-    }
-  }
-}
-
-.border {
-  width: 1px;
-  height: 16px;
-  margin-top: 7px;
-  margin-bottom: 7px;
-  background-color: var(--neutral-050);
-}
-.disabled {
-  opacity: .5;
-  pointer-events: none;
-}
-
-.timeUnitSelector__dropdown {
-  width: 91px;
 }
 
 .timeUnitSelector--right {
@@ -114,10 +29,10 @@
 }
 
 .timeUnitSelector--timerange-text {
-  //height: 16px;
-  //font-size: 12px;
-  //font-weight: 600;
-  //letter-spacing: 1px;
-  //text-align: center;
-  //color: var(--text);
+  height: 16px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-align: center;
+  color: var(--text);
 }
