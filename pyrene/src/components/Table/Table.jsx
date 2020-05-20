@@ -274,6 +274,73 @@ export default class Table extends React.Component {
 
       multiSort: this.props.multiSort,
     };
+
+    const multiTableProps = {
+      ref: (r) => (this.checkboxTable = r),
+      selectType: 'checkbox',
+      selectAll: this.state.selectAll,
+      isSelected: this.isSelected,
+      toggleSelection: this.toggleSelection,
+      toggleAll: this.toggleAll,
+      keyField: this.props.keyField,
+      SelectAllInputComponent: (props) => <Checkbox value={props.checked} onChange={props.onClick} />,
+      SelectInputComponent: (props) => {
+        const enabled = this.props.rowSelectableCallback(props.row);
+        return (
+          <Checkbox
+            disabled={!enabled}
+            value={props.checked}
+            onChange={() => {
+              const key = props.row[this.props.keyField];
+              this.toggleSelection(key, props.row);
+            }}
+          />
+        );
+      },
+    };
+    if (this.props.multiSelect) {
+      if (this.props.error) {
+        return (
+          <CheckboxTable
+            {...this.commonStaticProps}
+            {...commonVariableProps}
+            {...multiTableProps}
+            TbodyComponent={() => (
+              <ErrorComponent
+                error={this.props.error}
+              />
+            )}
+          />
+        );
+      }
+      if (this.props.loading) {
+        return (
+          <CheckboxTable
+            {...this.commonStaticProps}
+            {...commonVariableProps}
+            {...multiTableProps}
+            TbodyComponent={LoaderComponent}
+          />
+        );
+      }
+      if (!commonVariableProps.data.length) {
+        return (
+          <CheckboxTable
+            {...this.commonStaticProps}
+            {...commonVariableProps}
+            {...multiTableProps}
+            TbodyComponent={NoDataComponent}
+          />
+        );
+      }
+      return (
+        <CheckboxTable
+          {...this.commonStaticProps}
+          {...commonVariableProps}
+          {...multiTableProps}
+        />
+      );
+    }
     // Inject ErrorComponent when an error prop is present to table body
     if (this.props.error) {
       return (
@@ -308,40 +375,13 @@ export default class Table extends React.Component {
         />
       );
     }
-    return this.props.multiSelect
-      ? (
-        <CheckboxTable
-          {...this.commonStaticProps}
-          {...commonVariableProps}
-          ref={(r) => (this.checkboxTable = r)}
-          selectType="checkbox"
-          selectAll={this.state.selectAll}
-          isSelected={this.isSelected}
-          toggleSelection={this.toggleSelection}
-          toggleAll={this.toggleAll}
-          keyField={this.props.keyField}
-          SelectAllInputComponent={(props) => <Checkbox value={props.checked} onChange={props.onClick} />}
-          SelectInputComponent={(props) => {
-            const enabled = this.props.rowSelectableCallback(props.row);
-            return (
-              <Checkbox
-                disabled={!enabled}
-                value={props.checked}
-                onChange={() => {
-                  const key = props.row[this.props.keyField];
-                  this.toggleSelection(key, props.row);
-                }}
-              />
-            );
-          }}
-        />
-      )
-      : (
-        <ReactTable
-          {...this.commonStaticProps}
-          {...commonVariableProps}
-        />
-      );
+    return (
+      <ReactTable
+        {...this.commonStaticProps}
+        {...commonVariableProps}
+      />
+    );
+
   };
 
   render() {
