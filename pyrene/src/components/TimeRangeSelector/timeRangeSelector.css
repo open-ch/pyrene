@@ -6,10 +6,9 @@
   width: 100%;
   composes: commonFontSettings from '../../styles/common.css';
   font-size: 12px;
-  font-weight: 600;
   flex-wrap: wrap;
   color: var(--neutral-500);
-  line-height: 1.5;
+  line-height: 16px;
 
   &.disabled {
     pointer-events: none;

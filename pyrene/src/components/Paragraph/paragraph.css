@@ -2,6 +2,8 @@
 
 
 .paragraph {
+  composes: commonFontSettings from '../../styles/common.css';
+
   font-size: 13px;
   line-height: 16px;
 

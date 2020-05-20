@@ -12,6 +12,8 @@ import Filter from '../Filter/Filter';
 import TreeTableUtils from './TreeTableUtils';
 import Loader from '../Loader/Loader';
 
+/* eslint-disable no-underscore-dangle */
+/* seems to be a design decision to use _ here */
 
 /**
  *  [🌳 • ┬─┬]
@@ -97,7 +99,9 @@ class TreeTable extends React.Component {
     const { rows, expanded } = TreeTableUtils.handleExpandAllParentsOfRowById(rowId, this.state);
     this.setState({ rows, expanded }, () => {
       const indexToScrollTo = rows.findIndex(({ _rowId }) => _rowId === rowId);
-      this.listRef.scrollToItem(indexToScrollTo);
+      if (this.listRef.current) {
+        this.listRef.current.scrollToItem(indexToScrollTo);
+      }
     });
   };
 

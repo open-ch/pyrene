@@ -7,14 +7,14 @@
 
 .timeRange {
   composes: commonFontSettings from '../../../styles/common.css';
+  width: 100%;
   display: flex;
   align-items: center;
+  justify-content: center;
   font-size: 12px;
-  font-weight: 600;
-  border-top: solid 1px #e1e3e8;
-  border-bottom: solid 1px #e1e3e8;
-  padding-left: 8px;
-  padding-right: 8px;
+  border-top: solid 1px var(--neutral-050);
+  border-bottom: solid 1px var(--neutral-050);
+  padding: 7px 0;
 
   &.disabled {
     opacity: .5;
@@ -34,7 +34,7 @@
 }
 
 .navigationContentInner {
-  display: flex;
+  width: 248px;
   height: 32px;
   margin: -7px -1px;
 }
