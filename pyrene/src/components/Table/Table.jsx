@@ -298,7 +298,10 @@ export default class Table extends React.Component {
         );
       },
     };
+
+    // MultiSelect Table Rendering
     if (this.props.multiSelect) {
+      // Inject ErrorComponent when an error prop is present to table body
       if (this.props.error) {
         return (
           <CheckboxTable
@@ -313,6 +316,7 @@ export default class Table extends React.Component {
           />
         );
       }
+      // Inject LoaderComponent while loading to table body
       if (this.props.loading) {
         return (
           <CheckboxTable
@@ -323,6 +327,7 @@ export default class Table extends React.Component {
           />
         );
       }
+      // Inject NoDataComponent when there is no data present to table body
       if (!commonVariableProps.data.length) {
         return (
           <CheckboxTable
@@ -341,6 +346,8 @@ export default class Table extends React.Component {
         />
       );
     }
+
+    // Normal React Table Rendering
     // Inject ErrorComponent when an error prop is present to table body
     if (this.props.error) {
       return (
