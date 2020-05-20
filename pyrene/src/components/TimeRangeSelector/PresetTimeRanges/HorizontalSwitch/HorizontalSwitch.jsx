@@ -7,6 +7,7 @@ const HorizontalSwitch = (props) => (
   <div styleName="horizontalSwitch">
     {props.values.map((value) => (
       <button
+        id={value.id}
         key={value.id}
         type="button"
         styleName={

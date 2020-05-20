@@ -4,23 +4,21 @@ import moment from 'moment-timezone';
 import HorizontalSwitch from './HorizontalSwitch/HorizontalSwitch';
 
 const PresetTimeRanges = (props) => (
-  <div>
-    <HorizontalSwitch
-      values={props.presetTimeRanges}
-      selected={props.currentTimeRangeType}
-      disabled={props.disabled}
-      onClick={({ id }) => {
-        PresetTimeRanges.onPresetTimeRangeSelected(
-          id,
-          props.presetTimeRanges,
-          props.lowerBound,
-          props.upperBound,
-          props.timezone,
-          props.onInteract,
-        );
-      }}
-    />
-  </div>
+  <HorizontalSwitch
+    values={props.presetTimeRanges}
+    selected={props.currentTimeRangeType}
+    disabled={props.disabled}
+    onClick={({ id }) => {
+      PresetTimeRanges.onPresetTimeRangeSelected(
+        id,
+        props.presetTimeRanges,
+        props.lowerBound,
+        props.upperBound,
+        props.timezone,
+        props.onInteract,
+      );
+    }}
+  />
 );
 
 /**
