@@ -299,94 +299,47 @@ export default class Table extends React.Component {
       },
     };
 
-    // MultiSelect Table Rendering
-    if (this.props.multiSelect) {
-      // Inject ErrorComponent when an error prop is present to table body
-      if (this.props.error) {
-        return (
-          <CheckboxTable
-            {...this.commonStaticProps}
-            {...commonVariableProps}
-            {...multiTableProps}
-            TbodyComponent={() => (
-              <ErrorComponent
-                error={this.props.error}
-              />
-            )}
-          />
-        );
-      }
-      // Inject LoaderComponent while loading to table body
-      if (this.props.loading) {
-        return (
-          <CheckboxTable
-            {...this.commonStaticProps}
-            {...commonVariableProps}
-            {...multiTableProps}
-            TbodyComponent={LoaderComponent}
-          />
-        );
-      }
-      // Inject NoDataComponent when there is no data present to table body
-      if (!commonVariableProps.data.length) {
-        return (
-          <CheckboxTable
-            {...this.commonStaticProps}
-            {...commonVariableProps}
-            {...multiTableProps}
-            TbodyComponent={NoDataComponent}
-          />
-        );
-      }
-      return (
+    const tableToRender = this.props.multiSelect
+      ? (
         <CheckboxTable
           {...this.commonStaticProps}
           {...commonVariableProps}
           {...multiTableProps}
         />
+      )
+      : (
+        <ReactTable
+          {...this.commonStaticProps}
+          {...commonVariableProps}
+        />
       );
-    }
 
     // Normal React Table Rendering
     // Inject ErrorComponent when an error prop is present to table body
     if (this.props.error) {
       return (
-        <ReactTable
-          {...this.commonStaticProps}
-          {...commonVariableProps}
-          TbodyComponent={() => (
+        React.cloneElement(tableToRender, {
+          TbodyComponent: () => (
             <ErrorComponent
               error={this.props.error}
             />
-          )}
-        />
-      );
+          ),
+        }));
     }
     // Inject LoaderComponent while loading to table body
     if (this.props.loading) {
       return (
-        <ReactTable
-          {...this.commonStaticProps}
-          {...commonVariableProps}
-          TbodyComponent={LoaderComponent}
-        />
+        React.cloneElement(tableToRender, { TbodyComponent: LoaderComponent })
       );
     }
     // Inject NoDataComponent when there is no data present to table body
     if (!commonVariableProps.data.length) {
       return (
-        <ReactTable
-          {...this.commonStaticProps}
-          {...commonVariableProps}
-          TbodyComponent={NoDataComponent}
-        />
+        React.cloneElement(tableToRender, { TbodyComponent: NoDataComponent })
       );
     }
     return (
-      <ReactTable
-        {...this.commonStaticProps}
-        {...commonVariableProps}
-      />
+      tableToRender
     );
 
   };
