@@ -274,66 +274,37 @@ export default class Table extends React.Component {
 
       multiSort: this.props.multiSort,
     };
-    // Inject ErrorComponent when an error prop is present to table body
-    if (this.props.error) {
-      return (
-        <ReactTable
-          {...this.commonStaticProps}
-          {...commonVariableProps}
-          TbodyComponent={() => (
-            <ErrorComponent
-              error={this.props.error}
-            />
-          )}
-        />
-      );
-    }
-    // Inject LoaderComponent while loading to table body
-    if (this.props.loading) {
-      return (
-        <ReactTable
-          {...this.commonStaticProps}
-          {...commonVariableProps}
-          TbodyComponent={LoaderComponent}
-        />
-      );
-    }
-    // Inject NoDataComponent when there is no data present to table body
-    if (!commonVariableProps.data.length) {
-      return (
-        <ReactTable
-          {...this.commonStaticProps}
-          {...commonVariableProps}
-          TbodyComponent={NoDataComponent}
-        />
-      );
-    }
-    return this.props.multiSelect
+
+    const multiTableProps = {
+      ref: (r) => (this.checkboxTable = r),
+      selectType: 'checkbox',
+      selectAll: this.state.selectAll,
+      isSelected: this.isSelected,
+      toggleSelection: this.toggleSelection,
+      toggleAll: this.toggleAll,
+      keyField: this.props.keyField,
+      SelectAllInputComponent: (props) => <Checkbox value={props.checked} onChange={props.onClick} />,
+      SelectInputComponent: (props) => {
+        const enabled = this.props.rowSelectableCallback(props.row);
+        return (
+          <Checkbox
+            disabled={!enabled}
+            value={props.checked}
+            onChange={() => {
+              const key = props.row[this.props.keyField];
+              this.toggleSelection(key, props.row);
+            }}
+          />
+        );
+      },
+    };
+
+    const tableToRender = this.props.multiSelect
       ? (
         <CheckboxTable
           {...this.commonStaticProps}
           {...commonVariableProps}
-          ref={(r) => (this.checkboxTable = r)}
-          selectType="checkbox"
-          selectAll={this.state.selectAll}
-          isSelected={this.isSelected}
-          toggleSelection={this.toggleSelection}
-          toggleAll={this.toggleAll}
-          keyField={this.props.keyField}
-          SelectAllInputComponent={(props) => <Checkbox value={props.checked} onChange={props.onClick} />}
-          SelectInputComponent={(props) => {
-            const enabled = this.props.rowSelectableCallback(props.row);
-            return (
-              <Checkbox
-                disabled={!enabled}
-                value={props.checked}
-                onChange={() => {
-                  const key = props.row[this.props.keyField];
-                  this.toggleSelection(key, props.row);
-                }}
-              />
-            );
-          }}
+          {...multiTableProps}
         />
       )
       : (
@@ -342,6 +313,34 @@ export default class Table extends React.Component {
           {...commonVariableProps}
         />
       );
+
+    // Inject ErrorComponent when an error prop is present to table body
+    if (this.props.error) {
+      return (
+        React.cloneElement(tableToRender, {
+          TbodyComponent: () => (
+            <ErrorComponent
+              error={this.props.error}
+            />
+          ),
+        }));
+    }
+    // Inject LoaderComponent while loading to table body
+    if (this.props.loading) {
+      return (
+        React.cloneElement(tableToRender, { TbodyComponent: LoaderComponent })
+      );
+    }
+    // Inject NoDataComponent when there is no data present to table body
+    if (!commonVariableProps.data.length) {
+      return (
+        React.cloneElement(tableToRender, { TbodyComponent: NoDataComponent })
+      );
+    }
+    return (
+      tableToRender
+    );
+
   };
 
   render() {
