@@ -314,7 +314,6 @@ export default class Table extends React.Component {
         />
       );
 
-    // Normal React Table Rendering
     // Inject ErrorComponent when an error prop is present to table body
     if (this.props.error) {
       return (
