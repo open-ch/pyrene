@@ -6,7 +6,8 @@
 
   &:first-child .tableData.multiSelect {
     overflow: visible;
-    line-height: initial;
+    padding-top: 3px;
+    padding-bottom: 4px;
   }
 }
 
@@ -15,7 +16,8 @@
   overflow: hidden;
   text-overflow: ellipsis;
   width: 100%;
-  vertical-align: middle;
-  /* 1px for the border */
-  line-height: 31px;
+  line-height: 16px;
+  height: 31px;
+  padding-top: 8px;
+  padding-bottom: 7px;
 }
