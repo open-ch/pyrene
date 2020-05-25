@@ -33,14 +33,13 @@ ArrowSelector.displayName = 'ArrowSelector';
 
 ArrowSelector.defaultProps = {
   disabled: false,
-  innerWidth: 248,
 };
 
 ArrowSelector.propTypes = {
   backInactive: PropTypes.bool.isRequired,
   disabled: PropTypes.bool,
   forwardInactive: PropTypes.bool.isRequired,
-  innerWidth: PropTypes.number,
+  innerWidth: PropTypes.number.isRequired,
   label: PropTypes.string.isRequired,
   onNavigateBack: PropTypes.func.isRequired,
   onNavigateForward: PropTypes.func.isRequired,
