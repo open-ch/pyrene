@@ -26,8 +26,7 @@ TimeRangeNavigationBar.renderCurrentTimeRange = (currProps) => {
   const fromMoment = moment(currProps.from).tz(currProps.timezone);
   const toMoment = moment(currProps.to).tz(currProps.timezone);
   const dateFormat = 'DD.MM.YYYY, HH:mm';
-  const timeString = `${fromMoment.format(dateFormat)} - ${toMoment.format(dateFormat)}`;
-  return timeString;
+  return `${fromMoment.format(dateFormat)} - ${toMoment.format(dateFormat)}`;
 };
 
 TimeRangeNavigationBar.displayName = 'TimeRangeNavigationBar';
