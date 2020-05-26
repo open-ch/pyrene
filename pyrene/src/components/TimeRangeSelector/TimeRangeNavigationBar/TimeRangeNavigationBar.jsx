@@ -1,35 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import moment from 'moment-timezone';
-import TRSStepper from './Components/TRSStepper';
 
-import './timeRangeNavigationBar.css';
+import ArrowSelector from './ArrowSelector/ArrowSelector';
 
 const TimeRangeNavigationBar = (props) => {
   const backInactive = moment(props.from).tz(props.timezone).diff(moment(props.lowerBound).tz(props.timezone), 'minutes') <= 0; // We should not check for milliseconds but minutes changes
   const forwardInactive = moment(props.to).tz(props.timezone).diff(moment(props.upperBound).tz(props.timezone), 'minutes').valueOf() >= 0; // We should not check for milliseconds but minutes changes
 
   return (
-    <div styleName="timeRangeNavigationBar">
-      <TRSStepper
-        direction="left"
-        disabled={props.disabled}
-        inactive={backInactive}
-        onClick={(props.disabled || backInactive) ? () => {} : props.onNavigateBack}
-      />
-      <div styleName="navigationContentOuter">
-        <div styleName="navigationContentInner">
-          {TimeRangeNavigationBar.renderCurrentTimeRange(props)}
-        </div>
-      </div>
-      <TRSStepper
-        direction="right"
-        disabled={props.disabled}
-        inactive={forwardInactive}
-        onClick={(props.disabled || forwardInactive) ? () => {} : props.onNavigateForward}
-      />
-    </div>
+    <ArrowSelector
+      label={TimeRangeNavigationBar.renderCurrentTimeRange(props)}
+      onNavigateForward={props.onNavigateForward}
+      backInactive={backInactive}
+      forwardInactive={forwardInactive}
+      onNavigateBack={props.onNavigateBack}
+      disabled={props.disabled}
+      innerWidth={248}
+    />
   );
 };
 
@@ -39,7 +27,7 @@ TimeRangeNavigationBar.renderCurrentTimeRange = (currProps) => {
   const toMoment = moment(currProps.to).tz(currProps.timezone);
   const dateFormat = 'DD.MM.YYYY, HH:mm';
   const timeString = `${fromMoment.format(dateFormat)} - ${toMoment.format(dateFormat)}`;
-  return (<div styleName={classNames('timeRange', { disabled: currProps.disabled })}>{timeString}</div>);
+  return timeString;
 };
 
 TimeRangeNavigationBar.displayName = 'TimeRangeNavigationBar';

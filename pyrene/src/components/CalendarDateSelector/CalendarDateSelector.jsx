@@ -1,16 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import CalendarDateSelectorBar from './CalendarDateSelectorBar';
 import CalendarDateSelectorDropdown from './CalendarDateSelectorDropdown';
 import CalendarDateSelectorPropTypes from './CalendarDateSelectorPropTypes';
 import {
+  canNavigateBackward, canNavigateForward,
   DATE_TYPES,
   getCurrentDate,
   handleDateChange,
 } from './CalendarDateSelectorUtils';
 
 import './calendarDateSelector.css';
+import ArrowSelector from '../TimeRangeSelector/TimeRangeNavigationBar/ArrowSelector/ArrowSelector';
+import DateHelper from './DateHelper';
 
 /**
  * Component for selecting a timeUnit and a range forwards and backwards.
@@ -59,23 +61,22 @@ export default class CalendarDateSelector extends React.Component {
     return (
       <div styleName="timeUnitSelector">
         <div styleName="timeUnitSelector--left">
-          <div styleName="timeUnitSelector__dropdown">
-            <CalendarDateSelectorDropdown
-              timeUnits={timeUnits}
-              timeUnit={timeUnit}
-              onSelect={this._onSelect}
-              disabled={isLoading}
-            />
-          </div>
+          <CalendarDateSelectorDropdown
+            timeUnits={timeUnits}
+            timeUnit={timeUnit}
+            onSelect={this._onSelect}
+            disabled={isLoading}
+          />
         </div>
         <div styleName="timeUnitSelector--center">
-          <CalendarDateSelectorBar
-            value={value}
-            timeUnit={timeUnit}
-            lowerBound={lowerBound}
-            upperBound={upperBound}
-            onChange={this._onNavigate}
+          <ArrowSelector
+            label={DateHelper.formatTimeRangeText(value, timeUnit)}
+            onNavigateForward={() => this._onNavigate(value, 1)}
+            backInactive={isLoading || !canNavigateBackward(value, lowerBound, timeUnit)}
+            forwardInactive={isLoading || !canNavigateForward(value, upperBound, timeUnit)}
+            onNavigateBack={() => this._onNavigate(value, -1)}
             disabled={isLoading}
+            innerWidth={136}
           />
         </div>
         <div styleName="timeUnitSelector--right">

@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import SingleSelect from '../SingleSelect/SingleSelect';
-
 import TimeRangeSelectionPropTypes from './CalendarDateSelectorPropTypes';
+import HorizontalSwitch from '../TimeRangeSelector/PresetTimeRanges/HorizontalSwitch/HorizontalSwitch';
 
 const capitalizeFirstLetter = (string) => string && string[0].toUpperCase() + string.slice(1);
 
@@ -14,13 +13,14 @@ const TimeUnitSelectionDropdown = (props) => {
     timeUnit,
     onSelect,
   } = props;
-  const options = timeUnits.map((range) => ({ value: range, label: capitalizeFirstLetter(range) }));
+  const values = timeUnits.map((range) => ({ id: range, label: capitalizeFirstLetter(range) }));
+
   return (
-    <SingleSelect
-      options={options}
-      onChange={(value) => onSelect(value.value)}
+    <HorizontalSwitch
+      values={values}
+      onClick={(value) => onSelect(value.id)}
       disabled={disabled}
-      value={{ value: timeUnit, label: capitalizeFirstLetter(timeUnit) }}
+      selected={timeUnit}
     />
   );
 };

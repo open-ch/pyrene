@@ -23,7 +23,7 @@ describe('<CalendarDateSelector />', () => {
 
   it('displays the content', () => {
     rendered = shallow(<CalendarDateSelector {...props} />);
-    expect(rendered.find('TimeUnitSelectionBar')).toHaveLength(1);
+    expect(rendered.find('ArrowSelector')).toHaveLength(1);
     expect(rendered.find('TimeUnitSelectionDropdown')).toHaveLength(1);
   });
 
@@ -34,20 +34,20 @@ describe('<CalendarDateSelector />', () => {
     const timeStringBeforeClick = currentDate.format(DateHelper.MONTH_NAME_WITH_YEAR);
     let timeStringAfterClick = currentDate.format(DateHelper.FULL_DATE);
 
-    expect(rendered.find('.timeUnitSelector--timerange-text')).toHaveLength(1);
+    expect(rendered.find('HorizontalSwitch')).toHaveLength(1);
 
-    let calculatedValue = rendered.find('.timeUnitSelector--timerange-text').render()[0].children[0].data;
+    let calculatedValue = rendered.find('ArrowSelector .value').render()[0].children[0].data;
     expect(timeStringBeforeClick).toBe(calculatedValue);
 
     // We are simulating selecting the 24h preset
-    rendered.find('Select').props().onChange({ value: 'day' });
-    calculatedValue = rendered.find('.timeUnitSelector--timerange-text').render()[0].children[0].data;
+    rendered.find('HorizontalSwitch').props().onClick({ value: 'day', label: 'day', id: 'day' });
+    calculatedValue = rendered.find('ArrowSelector .value').render()[0].children[0].data;
     expect(timeStringAfterClick).toBe(calculatedValue);
 
     // We are simulating selecting the year preset
     timeStringAfterClick = currentDate.format(DateHelper.YEAR);
-    rendered.find('Select').props().onChange({ value: 'year' });
-    calculatedValue = rendered.find('.timeUnitSelector--timerange-text').render()[0].children[0].data;
+    rendered.find('HorizontalSwitch').props().onClick({ value: 'year', label: 'year', id: 'year' });
+    calculatedValue = rendered.find('ArrowSelector .value').render()[0].children[0].data;
     expect(timeStringAfterClick).toBe(calculatedValue);
   });
 
@@ -63,12 +63,12 @@ describe('<CalendarDateSelector />', () => {
     let calculatedValue = rendered.props().value;
     expect(dateBeforeClick).toBe(calculatedValue);
 
-    rendered.find('TimeUnitSelectionBar').find('button').first().simulate('click');
+    rendered.find('ArrowSelector').find('button').first().simulate('click');
     calculatedValue = rendered.props().value;
     expect(dateBeforeClick).not.toStrictEqual(calculatedValue);
     expect(dateAfterClick).toStrictEqual(calculatedValue);
 
-    rendered.find('TimeUnitSelectionBar').find('button').last().simulate('click');
+    rendered.find('ArrowSelector').find('button').last().simulate('click');
 
     const dateAfterBackAndForth = dateAfterClick.month === 12
       ? { day: 1, month: 1, year: dateAfterClick.year + 1 }
@@ -82,7 +82,7 @@ describe('<CalendarDateSelector />', () => {
     rendered = mount(<CalendarDateSelector {...props} />);
 
     // We are simulating changing a year
-    rendered.find('Select').props().onChange({ value: 'year' });
+    rendered.find('HorizontalSwitch').props().onClick({ value: 'year', label: 'year', id: 'year' });
 
     const dateBeforeClick = props.value;
     const dateAfterClick = { day: 1, month: 1, year: dateBeforeClick.year - 1 };
@@ -90,8 +90,8 @@ describe('<CalendarDateSelector />', () => {
     let calculatedValue = rendered.props().value;
     expect(dateBeforeClick).toBe(calculatedValue);
 
-    rendered.find('TimeUnitSelectionBar').find('button').first().simulate('click');
-    rendered.find('Select').props().onChange({ value: 'day' });
+    rendered.find('ArrowSelector').find('button').first().simulate('click');
+    rendered.find('HorizontalSwitch').props().onClick({ value: 'day', label: 'day', id: 'day' });
     calculatedValue = rendered.props().value;
     expect(dateBeforeClick).not.toStrictEqual(calculatedValue);
     expect(dateAfterClick).toStrictEqual(calculatedValue);

@@ -101,16 +101,16 @@ describe('<TimeRangeSelector />', () => {
     const timeStringBeforeClick = `${moment(props.from).tz(RWC_TIMEZONE).format(dateFormat)} - ${moment(props.to).tz(RWC_TIMEZONE).format(dateFormat)}`;
 
     expect(rendered.find('PresetTimeRanges')).toHaveLength(1);
-    let calculatedValue = rendered.find('.timeRange').render()[0].children[0].data;
+    let calculatedValue = rendered.find('.value').render()[0].children[0].data;
     expect(timeStringBeforeClick === calculatedValue).toBeTruthy();
     // Assumes first clickable default preset is 24h
-    rendered.find('.presetTimeRange').first().simulate('click');
+    rendered.find('.horizontalSwitch button').first().simulate('click');
     // We are simulating selecting the 24h preset
     const fromMoment = moment(props.to).tz(RWC_TIMEZONE).subtract(rendered.state().durationInMs);
     const toMoment = moment(props.to).tz(RWC_TIMEZONE);
     const timeStringAfterClick = `${fromMoment.format(dateFormat)} - ${toMoment.format(dateFormat)}`;
 
-    calculatedValue = rendered.find('.timeRange').render()[0].children[0].data;
+    calculatedValue = rendered.find('.value').render()[0].children[0].data;
     expect(timeStringAfterClick === calculatedValue).toBeTruthy();
   });
 
@@ -126,7 +126,7 @@ describe('<TimeRangeSelector />', () => {
     const initialTimeString = `${moment(props.from).tz(RWC_TIMEZONE).format(dateFormat)} - ${moment(props.to).tz(RWC_TIMEZONE).format(dateFormat)}`;
 
     expect(rendered.find('PresetTimeRanges')).toHaveLength(1);
-    const calculatedValue = rendered.find('.timeRange').render()[0].children[0].data;
+    const calculatedValue = rendered.find('.value').render()[0].children[0].data;
     expect(initialTimeString === calculatedValue).toBeTruthy();
   });
 
@@ -135,13 +135,13 @@ describe('<TimeRangeSelector />', () => {
 
     const timeStringBeforeClick = `${moment(props.from).tz(RWC_TIMEZONE).format(dateFormat)} - ${moment(props.to).tz(RWC_TIMEZONE).format(dateFormat)}`;
     rendered.find('TimeRangeNavigationBar').find('button').last().simulate('click');
-    const calculatedValue = rendered.find('.timeRange').render()[0].children[0].data;
+    const calculatedValue = rendered.find('.value').render()[0].children[0].data;
     expect(timeStringBeforeClick).toBe(calculatedValue);
   });
 
   it('has steppers that are changing the timerange if not disabled and are not exceeding the boundaries', () => {
     rendered = mount(<TimeRangeSelector {...props} />);
-    rendered.find('.presetTimeRange').first().simulate('click');
+    rendered.find('.horizontalSwitch button').first().simulate('click');
 
     // Initial setup
     const fromMoment = moment(props.to).tz(RWC_TIMEZONE).subtract(rendered.state().durationInMs);
@@ -154,14 +154,14 @@ describe('<TimeRangeSelector />', () => {
     const timeRange48to24HoursBack = `${fromMoment.subtract(rendered.state().durationInMs).format(dateFormat)} - ${toMoment.subtract(rendered.state().durationInMs).format(dateFormat)}`;
 
     rendered.find('TimeRangeNavigationBar').find('button').first().simulate('click');
-    let calculatedValue = rendered.find('.timeRange').render()[0].children[0].data;
+    let calculatedValue = rendered.find('.value').render()[0].children[0].data;
     expect(preset24Hours !== calculatedValue).toBeTruthy();
     expect(timeRange48to24HoursBack).toBe(calculatedValue);
 
     // Let's click forward two times, we should not exceed the upper bound
     rendered.find('TimeRangeNavigationBar').find('button').last().simulate('click');
     rendered.find('TimeRangeNavigationBar').find('button').last().simulate('click');
-    calculatedValue = rendered.find('.timeRange').render()[0].children[0].data;
+    calculatedValue = rendered.find('.value').render()[0].children[0].data;
     expect(preset24Hours).toBe(calculatedValue);
     const upperBoundReachedString = `${initialFromString} - ${moment(upperBound).tz(RWC_TIMEZONE).format(dateFormat)}`;
     expect(calculatedValue).toBe(upperBoundReachedString);
@@ -174,8 +174,8 @@ describe('<TimeRangeSelector />', () => {
     const lowerBound = rendered.props().lowerBound;
     const expectedBounds = `${moment(lowerBound).tz(RWC_TIMEZONE).format(dateFormat)} - ${moment(upperBound).tz(RWC_TIMEZONE).format(dateFormat)}`;
 
-    rendered.find('.presetTimeRange').last().simulate('click'); // Switching to years, since the lowerbound is just 90 days should not go beyond that
-    const calculatedValue = rendered.find('.timeRange').render()[0].children[0].data;
+    rendered.find('.horizontalSwitch button').last().simulate('click'); // Switching to years, since the lowerbound is just 90 days should not go beyond that
+    const calculatedValue = rendered.find('.value').render()[0].children[0].data;
     expect(expectedBounds).toBe(calculatedValue);
   });
 
@@ -201,8 +201,8 @@ describe('<TimeRangeSelector />', () => {
   it('is consistent with DST start', () => {
     const usRendered = mount(<TimeRangeSelector {...props} timezone={RWC_TIMEZONE} from={US_DST_START.from} to={US_DST_START.to} lowerBound={US_DST_START.lowerBound} upperBound={US_DST_START.upperBound} />);
     const chRendered = mount(<TimeRangeSelector {...props} timezone={ZURICH_TIMEZONE} from={CH_DST_START.from} to={CH_DST_START.to} lowerBound={CH_DST_START.lowerBound} upperBound={CH_DST_START.upperBound} />);
-    const usCalculatedValue = usRendered.find('.timeRange').render()[0].children[0].data;
-    const chCalculatedValue = chRendered.find('.timeRange').render()[0].children[0].data;
+    const usCalculatedValue = usRendered.find('.value').render()[0].children[0].data;
+    const chCalculatedValue = chRendered.find('.value').render()[0].children[0].data;
     expect(usCalculatedValue).toBe('08.03.2020, 01:59 - 09.03.2020, 02:59');
     expect(chCalculatedValue).toBe('29.03.2020, 01:59 - 30.03.2020, 02:59');
   });
@@ -210,8 +210,8 @@ describe('<TimeRangeSelector />', () => {
   it('is consistent with DST end', () => {
     const usRendered = mount(<TimeRangeSelector {...props} timezone={RWC_TIMEZONE} from={US_DST_END.from} to={US_DST_END.to} lowerBound={US_DST_END.lowerBound} upperBound={US_DST_END.upperBound} />);
     const chRendered = mount(<TimeRangeSelector {...props} timezone={ZURICH_TIMEZONE} from={CH_DST_END.from} to={CH_DST_END.to} lowerBound={CH_DST_END.lowerBound} upperBound={CH_DST_END.upperBound} />);
-    const usCalculatedValue = usRendered.find('.timeRange').render()[0].children[0].data;
-    const chCalculatedValue = chRendered.find('.timeRange').render()[0].children[0].data;
+    const usCalculatedValue = usRendered.find('.value').render()[0].children[0].data;
+    const chCalculatedValue = chRendered.find('.value').render()[0].children[0].data;
     expect(usCalculatedValue).toBe('01.11.2020, 01:59 - 02.11.2020, 00:59');
     expect(chCalculatedValue).toBe('25.10.2020, 02:59 - 26.10.2020, 01:59');
   });

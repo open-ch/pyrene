@@ -1,17 +1,18 @@
-.timeRangeNavigationBar {
+.arrowSelector {
   display: flex;
   align-content: center;
   justify-content: center;
   height: 32px;
 }
 
-.timeRange {
-  composes: commonFontSettings from '../../../styles/common.css';
+.value {
+  composes: commonFontSettings from '../../../../../src/styles/common.css';
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 12px;
+  line-height: 16px;
   border-top: solid 1px var(--neutral-050);
   border-bottom: solid 1px var(--neutral-050);
   padding: 7px 0;
@@ -20,11 +21,10 @@
     opacity: .5;
     cursor: default;
     pointer-events: none;
-    /* deactivate hover */
   }
 }
 
-.navigationContentOuter {
+.contentOuter {
   display: flex;
   height: 18px;
   margin-top: 7px;
@@ -33,8 +33,7 @@
   border-right: solid 1px #e1e3e8;
 }
 
-.navigationContentInner {
-  width: 248px;
+.contentInner {
   height: 32px;
   margin: -7px -1px;
 }
