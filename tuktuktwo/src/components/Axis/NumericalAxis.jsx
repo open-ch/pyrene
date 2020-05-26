@@ -26,7 +26,7 @@ const NumericalAxis = (props) => {
           tickComponent={getPaddedTickLabelLeft(props.left)}
           label={props.label}
           labelProps={{
-            textAnchor: 'start', fontSize: 11, fontWeight: 400, fontFamily: 'FiraGO', fill: props.tickLabelColor, dx: '2.25em', lineHeight: '1.45', letterSpacing: '0.6px',
+            textAnchor: 'start', fontSize: 11, fontWeight: 400, fontFamily: 'FiraGO', fill: props.tickLabelColor, dx: '2.25em', lineHeight: '1.45',
           }}
           stroke={props.strokeColor}
           tickStroke={props.tickLabelColor}
@@ -56,7 +56,7 @@ const NumericalAxis = (props) => {
         tickLabelProps={getTickLabelBottomProps(props.tickLabelColor)}
         label={props.label}
         labelProps={{
-          textAnchor: 'middle', fontSize: 11, fontWeight: 400, fontFamily: 'FiraGO', fill: props.tickLabelColor, dy: '-1.675em', lineHeight: '1.45', letterSpacing: '0.6px',
+          textAnchor: 'middle', fontSize: 12, fontWeight: 400, fontFamily: 'FiraGO', fill: props.tickLabelColor, dy: '-1.8em', lineHeight: '1.3',
         }}
         stroke={props.strokeColor}
         tickStroke={props.tickLabelColor}
