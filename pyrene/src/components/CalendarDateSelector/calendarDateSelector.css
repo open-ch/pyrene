@@ -8,7 +8,7 @@
 
 .timeUnitSelector--center {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   width: 358px;
 }
@@ -22,10 +22,6 @@
 
 .timeUnitSelector--left {
   justify-content: flex-start;
-}
-
-.timeUnitSelector__dropdown {
-  width: 91px;
 }
 
 .timeUnitSelector--right {

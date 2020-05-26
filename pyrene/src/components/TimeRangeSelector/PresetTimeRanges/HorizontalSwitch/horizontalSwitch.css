@@ -1,0 +1,53 @@
+@import '../../../../../src/styles/colors.css';
+
+.horizontalSwitch {
+  composes: commonFontSettings from '../../../../../src/styles/common.css';
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  & button {
+    border: none;
+    border-right: solid 1px var(--neutral-050);
+    border-top: solid 1px var(--neutral-050);
+    border-bottom: solid 1px var(--neutral-050);
+    height: 32px;
+    padding: 7px 15px;
+    outline: none;
+    cursor: pointer;
+    font-size: 12px;
+    line-height: 16px;
+    margin-left: 0px;
+    margin-right: 0px;
+    background-color: var(--background-light);
+
+    &:first-of-type {
+      border-left: solid 1px #e1e3e8;
+      border-radius: 2px 0px 0px 2px;
+    }
+
+    &.active {
+      background-color: var(--neutral-030);
+      font-weight: 500;
+      cursor: default;
+
+      &:hover {
+        background-color: var(--neutral-030);
+      }
+    }
+
+    &.disabled {
+      opacity: .5;
+      pointer-events: none;
+    }
+
+    &:hover {
+      background-color: var(--neutral-020);
+    }
+
+    &:last-child {
+      border-radius: 0px 2px 2px 0px;
+    }
+  }
+
+}

@@ -1,7 +1,7 @@
-@import '../../../../styles/colors.css';
+@import '../../../../../../src/styles/colors.css';
 
 .stepper {
-  composes: commonFontSettings from '../../../../styles/common.css';
+  composes: commonFontSettings from '../../../../../../src/styles/common.css';
   box-sizing: border-box;
 
   border: none;
