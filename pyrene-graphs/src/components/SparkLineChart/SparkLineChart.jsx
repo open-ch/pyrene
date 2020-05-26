@@ -29,7 +29,7 @@ const SparkLineChart = (props) => {
             tooltipFormat={props.tooltipFormat}
             data={props.data}
             loading={props.loading}
-            sparkLineHeight={62}
+            sparkLineHeight={64}
             strokeWidth={2}
             enableTooltip={props.enableTooltip}
           />

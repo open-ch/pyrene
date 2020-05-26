@@ -6,7 +6,6 @@ import {
   NumericalAxis,
   Responsive,
   SparkLine as SparkLineTT2,
-  chartConstants,
   localPoint,
   scaleLinear,
   withTooltip,
@@ -103,7 +102,7 @@ const SparkLineSVG = (props) => {
                   />
                 )}
                 {/* ChartArea is used to show the tooltip once the cursor is in the chart area */}
-                <ChartArea width={parent.width} height={parent.height - (props.axisLabel ? chartConstants.marginBottom : 0)} />
+                <ChartArea width={parent.width} height={sparkLineHeight} />
               </g>
               {props.axisLabel && (
                 <NumericalAxis
