@@ -10,7 +10,7 @@ const TooltipLegendItem = ({ dataValue, dataColor, dataLabel }) => (
   <div className={styles.dataRow}>
     {dataColor && (
       <svg height="16" width="16">
-        <circle cx="8" cy="9" r="3.5" stroke="white" strokeWidth="1" fill={dataColor} />
+        <circle cx="8" cy="8" r="3.5" stroke="white" strokeWidth="1" fill={dataColor} />
       </svg>
     )}
     {dataLabel && (

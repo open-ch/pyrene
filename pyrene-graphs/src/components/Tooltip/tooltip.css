@@ -16,19 +16,23 @@
   line-height: 17px;
 }
 
-.dataRow {
-  display: flex;
+.labelPadding {
+  padding-bottom: 8px;
 }
 
-.dataRow:first-child {
-  padding-top: 8px;
+.dataRow {
+  display: flex;
+  height: 16px;
+  align-items: center;
 }
 
 .dataLabel {
   padding-left: 4px;
+  line-height: 14px;
 }
 
 .data {
+  line-height: 14px;
   padding-left: 24px;
   margin-left: auto;
 }
