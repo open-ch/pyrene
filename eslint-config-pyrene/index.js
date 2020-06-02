@@ -1,6 +1,6 @@
 module.exports = {
 
-  "extends": "eslint-config-airbnb",
+  "extends": ["eslint-config-airbnb", "airbnb/hooks"],
 
   "env": {
     "browser": "true",
