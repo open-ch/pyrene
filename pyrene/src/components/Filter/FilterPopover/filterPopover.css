@@ -4,6 +4,7 @@
 .filterPopover {
   composes: commonFontSettings from '../../../styles/common.css';
   box-sizing: border-box;
+  border: 1px solid var(--neutral-050);
   padding: 16px 16px 0 16px;
   min-width: 320px;
   max-width: 400px;
@@ -32,8 +33,11 @@
   padding-top: 4px;
 }
 
+.collapsibleContainer {
+  margin-bottom: 16px;
+}
+
 .buttonBarContainer {
-  box-shadow: inset 0 1px 0 0 var(--neutral-050);
   margin-left: -16px;
   margin-right: -16px;
   padding-right: 16px;

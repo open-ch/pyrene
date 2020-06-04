@@ -35,29 +35,31 @@ const FilterPopover = (props) => (
                 key={filter.id}
               />
             ))}
-            <Collapsible
-              align="end"
-              labelCollapsed="More Filter Options"
-              labelExpanded="Fewer Filter Options"
-              renderCallback={() => props.filters.slice(6).map((filter) => (
-                <FilterOption {...filter}
-                  value={props.filterValues ? props.filterValues[filter.id] : null}
-                  negated={props.filterNegatedKeys && props.negatable ? props.filterNegatedKeys.includes(filter.id) : false}
-                  handleFilterChange={props.handleFilterChange}
-                  negatable={props.negatable}
-                  key={filter.id}
-                />
-              ))}
-            />
+            <div styleName="collapsibleContainer">
+              <Collapsible
+                align="end"
+                labelCollapsed="More Filter Options"
+                labelExpanded="Fewer Filter Options"
+                renderCallback={() => props.filters.slice(6).map((filter) => (
+                  <FilterOption {...filter}
+                    value={props.filterValues ? props.filterValues[filter.id] : null}
+                    negated={props.filterNegatedKeys && props.negatable ? props.filterNegatedKeys.includes(filter.id) : false}
+                    handleFilterChange={props.handleFilterChange}
+                    negatable={props.negatable}
+                    key={filter.id}
+                  />
+                ))}
+              />
+            </div>
           </>
         )}
     </div>
     <div styleName="buttonBarContainer">
       <ButtonBar
         rightButtonSectionElements={[
-          <Button label="Clear" type="ghost" onClick={props.onFilterClear} />,
+          <Button disabled={Object.keys(props.filterValues).length === 0} label="Clear" type="ghost" onClick={props.onFilterClear} />,
           <Button label="Cancel" type="secondary" onClick={props.onClose} />,
-          <Button label="Apply" type="primary" onClick={props.onFilterApply} />,
+          <Button disabled={Object.keys(props.filterValues).length === 0} label="Apply" type="primary" onClick={props.onFilterApply} />,
         ]}
       />
     </div>
