@@ -35,24 +35,22 @@ const FilterPopover = (props) => (
                 key={filter.id}
               />
             ))}
-            {
-              <div styleName="collapsibleContainer">
-                <Collapsible
-                  align="end"
-                  labelCollapsed="More Filter Options"
-                  labelExpanded="Fewer Filter Options"
-                  renderCallback={() => props.filters.slice(6).map((filter) => (
-                    <FilterOption {...filter}
-                      value={props.filterValues ? props.filterValues[filter.id] : null}
-                      negated={props.filterNegatedKeys && props.negatable ? props.filterNegatedKeys.includes(filter.id) : false}
-                      handleFilterChange={props.handleFilterChange}
-                      negatable={props.negatable}
-                      key={filter.id}
-                    />
-                  ))}
-                />
-              </div>
-            }
+            <div styleName="collapsibleContainer">
+              <Collapsible
+                align="end"
+                labelCollapsed="More Filter Options"
+                labelExpanded="Fewer Filter Options"
+                renderCallback={() => props.filters.slice(6).map((filter) => (
+                  <FilterOption {...filter}
+                    value={props.filterValues ? props.filterValues[filter.id] : null}
+                    negated={props.filterNegatedKeys && props.negatable ? props.filterNegatedKeys.includes(filter.id) : false}
+                    handleFilterChange={props.handleFilterChange}
+                    negatable={props.negatable}
+                    key={filter.id}
+                  />
+                ))}
+              />
+            </div>
           </>
         )}
     </div>
