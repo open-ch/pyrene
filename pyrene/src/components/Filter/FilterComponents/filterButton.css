@@ -4,14 +4,14 @@
 .filterButton {
   composes: commonFontSettings from '../../../styles/common.css';
   box-sizing: border-box;
-  padding: 0 8px 0 16px;
+  padding: 0 3px 0 9px;
   border: solid 1px var(--border);
   border-radius: 2px;
   height: 32px;
   display: flex;
   align-items: center;
   margin-right: 8px;
-  min-width: 73px;
+  min-width: 63px;
 
   &.noBorder {
     border: none;
