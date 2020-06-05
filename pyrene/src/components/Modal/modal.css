@@ -85,6 +85,11 @@
     min-height: 72px;
     max-height: 512px;
   }
+
+  &.overlay {
+    opacity: 0.5;
+    pointer-events: none;
+  }
 }
 
 .loaderContainer {
