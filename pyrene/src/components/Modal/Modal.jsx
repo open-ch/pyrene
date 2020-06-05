@@ -76,7 +76,7 @@ export default class Modal extends React.Component {
         </div>
       </div>
       <div styleName={classNames('contentContainer', { contentScrolling: this.props.contentScrolling })}>
-        <div styleName={classNames('content', { contentPadding: this.props.contentPadding }, { contentScrolling: this.props.contentScrolling })}>
+        <div styleName={classNames('content', { contentPadding: this.props.contentPadding }, { contentScrolling: this.props.contentScrolling }, { overlay: this.props.processing })}>
           {this.props.renderCallback()}
         </div>
       </div>
@@ -91,6 +91,7 @@ export default class Modal extends React.Component {
 
   createButtonArray = (buttonInfo) => buttonInfo.map((buttonProps) => (
     <Button
+      loading={buttonProps.loading}
       icon={buttonProps.icon}
       type={buttonProps.type}
       label={buttonProps.label}
@@ -127,6 +128,7 @@ Modal.displayName = 'Modal';
 
 Modal.defaultProps = {
   loading: false,
+  processing: false,
   rightButtonBarElements: [],
   leftButtonBarElements: [],
   onPreviousArrowClick: () => null,
@@ -194,6 +196,10 @@ Modal.propTypes = {
    * Called when the user clicks on the previous button.
    */
   onPreviousArrowClick: PropTypes.func,
+  /**
+   * Sets the processing state.
+   */
+  processing: PropTypes.bool,
   /**
    * Sets the content to be rendered inside the component.
    */
