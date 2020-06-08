@@ -48,8 +48,9 @@ export default class BarChartTable extends React.Component {
     });
     const displayedRows = dataAvailable ? this.getDisplayRows(this.props.data.length) : 0;
     const popOverAdditionalRows = 5;
-    const popOverWidth = 448;
-    const rowHeight = 32;
+    const popOverWidth = 448 - 24;
+    const popOverTableWidth = 400;
+    const rowHeight = 34;
     return (
       <div styleName="container">
         <Header
@@ -59,7 +60,7 @@ export default class BarChartTable extends React.Component {
           colors={colors}
         />
         {/* table height: displayedRows + 1 header row + conditional showMoreLink div */}
-        <div style={{ height: dataAvailable ? `${displayedRows * rowHeight + rowHeight + (this.props.data.length > displayedRows && this.props.loading ? 26 : 0)}px` : '90px' }}>
+        <div style={{ height: dataAvailable ? `${displayedRows * rowHeight + (rowHeight - 1) + (this.props.data.length > displayedRows && this.props.loading ? 26 : 0)}px` : '90px' }}>
           <Responsive>
             {(parent) => (
               <SimpleTable
@@ -89,19 +90,24 @@ export default class BarChartTable extends React.Component {
                   <div styleName="popOverContainer" style={{
                     width: popOverWidth,
                     height: `${(displayedRows + popOverAdditionalRows) * rowHeight + rowHeight + rowHeight}px`,
-                  }}>
+                  }}
+                  >
                     {/* popover height: (displayedRows + 5 more rows) * 32px + 32px table header + 32px popover header */}
                     <div styleName="popOverHeader">
                       {this.props.title}
                     </div>
-                    <div styleName="popOverBody" style={{ height: `${(displayedRows + 5) * 32 + 32}px` }}>
-                      <div styleName="tableContainer">
+                    <div styleName="popOverBody" style={{ height: `${(displayedRows + popOverAdditionalRows) * rowHeight + rowHeight}px` }}>
+                      <div style={{
+                        width: popOverTableWidth,
+                        height: `${(displayedRows + popOverAdditionalRows) * rowHeight + rowHeight}px`
+                      }}
+                      >
                         <SimpleTable
                           actions={this.props.actions}
                           columns={getColumns({
                             props: this.props,
                             colors: colors,
-                            width: popOverWidth,
+                            width: popOverTableWidth,
                             isPopOver: true,
                           })}
                           data={sortedData}

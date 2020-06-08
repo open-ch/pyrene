@@ -166,8 +166,11 @@ export const getColumns = ({
       // responsive width = 100% - value columns on the right - all margins = label and bar columns
       // marginLeft {LABEL1 + MARGIN + LABEL2} margin BAR margin value1 margin value2 marginRight
       const responsiveWidth = width - marginLeftRight - margin - margin - primaryValueColumnWidth - margin - secondaryValueColumnWidth - marginLeftRight;
+      if (isPopOver) {
+        console.log(responsiveWidth);
+      }
       const secondaryLabelWidth = hasColumnSecondaryLabel ? secondaryLabelColumnWidth + margin : 0;
-      return [
+      const toReturn = [
         getColumn({
           id: props.title,
           accessor: props.columns.label.accessor,
@@ -175,7 +178,7 @@ export const getColumns = ({
           onClick: props.columns.label.onClick,
           align: 'left',
           cellType: 'link',
-          width: responsiveWidth * labelResponsiveWidthRatio - secondaryLabelWidth,
+          width: responsiveWidth * (isPopOver ? 1 : labelResponsiveWidthRatio) - secondaryLabelWidth,
         }),
         ...(hasColumnSecondaryLabel ? [getColumn({
           id: props.columns.secondaryLabel.title,
@@ -210,6 +213,8 @@ export const getColumns = ({
           width: secondaryValueColumnWidth,
         })] : []),
       ];
+      console.log(toReturn);
+      return toReturn;
     }
     case 'comparison':
       if (props.columns.secondaryValue) {
