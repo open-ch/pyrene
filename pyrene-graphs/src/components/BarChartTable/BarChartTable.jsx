@@ -60,7 +60,7 @@ export default class BarChartTable extends React.Component {
           colors={colors}
         />
         {/* table height: displayedRows + 1 header row + conditional showMoreLink div */}
-        <div style={{ height: dataAvailable ? `${displayedRows * rowHeight + (rowHeight - 1) + (this.props.data.length > displayedRows && this.props.loading ? 26 : 0)}px` : '90px' }}>
+        <div style={{ height: dataAvailable ? `${displayedRows * rowHeight + rowHeight + (this.props.data.length > displayedRows && this.props.loading ? 26 : 0)}px` : '90px' }}>
           <Responsive>
             {(parent) => (
               <SimpleTable
