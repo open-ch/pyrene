@@ -50,7 +50,7 @@ export default class BarChartTable extends React.Component {
     const popOverAdditionalRows = 5;
     const popOverWidth = 448 - 24;
     const popOverTableWidth = 400;
-    const rowHeight = 34;
+    const rowHeight = 32;
     return (
       <div styleName="container">
         <Header
