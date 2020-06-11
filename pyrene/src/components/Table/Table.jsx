@@ -129,6 +129,7 @@ export default class Table extends React.Component {
   };
 
   onManualFilterChange = (values) => {
+    this.resetSelection();
     this.props.onFetchData({
       page: 0, pageCount: 0, filters: values, pageSize: this.state.pageSize, sorting: this.props.defaultSorted,
     });
