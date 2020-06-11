@@ -49,6 +49,12 @@ class TreeTable extends React.Component {
     };
   }
 
+  componentDidMount() {
+    this.setState({
+      scrollBarWidth: this.calculateScrollBarWidth(),
+    });
+  }
+
   componentDidUpdate(prevProps) {
     if (this.props.data !== prevProps.data) {
       const rows = TreeTableUtils.initialiseRootData(this.props.data, this.props.setUniqueRowKey);
@@ -59,10 +65,11 @@ class TreeTable extends React.Component {
       });
     }
 
-    if (prevProps.virtualized !== this.props.virtualized) {
+    const newScrollBarWidth = this.calculateScrollBarWidth();
+    if (this.state.scrollBarWidth !== newScrollBarWidth) {
       // eslint-disable-next-line react/no-did-update-set-state
       this.setState({
-        scrollBarWidth: this.calculateScrollBarWidth(),
+        scrollBarWidth: newScrollBarWidth,
       });
     }
   }
