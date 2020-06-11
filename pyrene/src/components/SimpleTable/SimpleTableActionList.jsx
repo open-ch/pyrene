@@ -26,6 +26,7 @@ const SimpleTableActionList = (props) => {
               onClick={(e) => {
                 if (element.onClick) {
                   e.preventDefault();
+                  e.stopPropagation();
                   element.onClick(props.row);
                   onClose();
                 }
@@ -45,6 +46,7 @@ const SimpleTableActionList = (props) => {
         <div styleName="action" className="action"
           onClick={(e) => {
             e.preventDefault();
+            e.stopPropagation();
             setActiveAction({ displayed: true });
           }}
           onDoubleClick={(e) => { e.stopPropagation(); }}
