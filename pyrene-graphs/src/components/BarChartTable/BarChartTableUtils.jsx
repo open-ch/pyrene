@@ -22,7 +22,7 @@ const getColumn = ({
   const comparisonMargin = 6;
   const bottomBorder = 1;
   const svgHeight = barWeightPrimary + bottomBorder;
-  const svgHeightComparison = barWeightPrimary + barWeightSecondary + comparisonMargin + bottomBorder;
+  const svgHeightComparison = barWeightPrimary + barWeightSecondary + comparisonMargin;
   const direction = 'horizontal';
   return {
     id: getId(id),
@@ -157,16 +157,16 @@ export const getColumns = ({
   const barResponsiveWidthRatio = 1 - labelResponsiveWidthRatio;
 
   const primaryValueColumnWidth = props.columns.primaryValue.width ? props.columns.primaryValue.width : valueColumnWidthDefault;
-  const secondaryValueColumnWidth = (hasColumnSecondaryValue && (props.columns.secondaryValue.width ? props.columns.secondaryValue.width : valueColumnWidthDefault)) || valueColumnWidthDefault;
-  const secondaryLabelColumnWidth = hasColumnSecondaryLabel && (props.columns.secondaryLabel.width ? props.columns.secondaryLabel.width : secondaryLabelColumnWidthDefault);
+  const secondaryValueColumnWidth = (hasColumnSecondaryValue && (props.columns.secondaryValue.width ? props.columns.secondaryValue.width : valueColumnWidthDefault)) || 0;
+  const secondaryLabelColumnWidth = (hasColumnSecondaryLabel && (props.columns.secondaryLabel.width ? props.columns.secondaryLabel.width : secondaryLabelColumnWidthDefault)) || 0;
   const valueColumnWidthDouble = primaryValueColumnWidth + margin + secondaryValueColumnWidth;
 
   switch (props.type) {
     case 'bar': {
       // responsive width = 100% - value columns on the right - all margins = label and bar columns
       // marginLeft {LABEL1 + MARGIN + LABEL2} margin BAR margin value1 margin value2 marginRight
-      const responsiveWidth = width - marginLeftRight - margin - margin - primaryValueColumnWidth - margin - secondaryValueColumnWidth - marginLeftRight;
-      const secondaryLabelWidth = hasColumnSecondaryLabel ? secondaryLabelColumnWidth + margin : 0;
+      const responsiveWidth = width - marginLeftRight - (isPopOver ? 0 : margin) - margin - primaryValueColumnWidth - (hasColumnSecondaryValue ? margin : 0) - secondaryValueColumnWidth - marginLeftRight;
+      const secondaryLabelWidth = hasColumnSecondaryLabel ? (secondaryLabelColumnWidth + margin) : 0;
       return [
         getColumn({
           id: props.title,
@@ -175,7 +175,7 @@ export const getColumns = ({
           onClick: props.columns.label.onClick,
           align: 'left',
           cellType: 'link',
-          width: responsiveWidth * labelResponsiveWidthRatio - secondaryLabelWidth,
+          width: responsiveWidth * (isPopOver ? 1 : labelResponsiveWidthRatio) - secondaryLabelWidth,
         }),
         ...(hasColumnSecondaryLabel ? [getColumn({
           id: props.columns.secondaryLabel.title,
@@ -224,7 +224,7 @@ export const getColumns = ({
             onClick: props.columns.label.onClick,
             align: 'left',
             cellType: 'link',
-            width: responsiveWidth * labelResponsiveWidthRatio,
+            width: responsiveWidth * (isPopOver ? 1 : labelResponsiveWidthRatio),
           }),
           ...(isPopOver ? [] : [getColumn({
             id: `${props.columns.primaryValue.title}_bar`,
@@ -258,7 +258,7 @@ export const getColumns = ({
       if (props.columns.secondaryValue) {
         const verticalLineWidth = 1;
         // responsive width = (100% - value columns - all margins) / 3 = label and bars column width
-        // marginLeft {LABEL + MARGIN + VALUE1} margin BAR margin value2 marginRight
+        // marginLeft {LABEL + MARGIN + VALUE1} margin BAR1 margin line margin BAR2 margin value2 marginRight
         // value2 is twice as big to align with bar charts
         const responsiveWidthLabel = ((width - marginLeftRight - margin - margin - valueColumnWidthDouble - marginLeftRight) * labelResponsiveWidthRatio) - margin - primaryValueColumnWidth;
         // marginLeft responsiveWidthLabel margin BAR1 margin verticalLine margin BAR2 margin value2 marginRight
@@ -271,7 +271,7 @@ export const getColumns = ({
             onClick: props.columns.label.onClick,
             align: 'left',
             cellType: 'link',
-            width: responsiveWidthLabel,
+            width: isPopOver ? (width - margin - primaryValueColumnWidth - secondaryLabelColumnWidth) : responsiveWidthLabel,
           }),
           getColumn({
             id: props.columns.primaryValue.title,
