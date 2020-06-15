@@ -19,10 +19,10 @@ const getColumn = ({
 }) => {
   const barWeightPrimary = 6;
   const barWeightSecondary = 4;
-  const comparisonMargin = 5;
+  const comparisonMargin = 6;
   const bottomBorder = 1;
   const svgHeight = barWeightPrimary + bottomBorder;
-  const svgHeightComparison = barWeightPrimary + barWeightSecondary + comparisonMargin + bottomBorder;
+  const svgHeightComparison = barWeightPrimary + barWeightSecondary + comparisonMargin;
   const direction = 'horizontal';
   return {
     id: getId(id),
