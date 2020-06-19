@@ -1,4 +1,5 @@
 import React from 'react';
+import { mount, shallow } from 'enzyme';
 
 import DropdownButton from './DropdownButton';
 import Popover from '../Popover/Popover';

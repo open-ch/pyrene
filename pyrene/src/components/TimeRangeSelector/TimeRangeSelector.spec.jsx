@@ -1,4 +1,5 @@
 import React from 'react';
+import { mount, shallow } from 'enzyme';
 
 import moment from 'moment-timezone';
 // eslint-disable-next-line no-unused-vars
@@ -106,6 +107,7 @@ describe('<TimeRangeSelector />', () => {
     // Assumes first clickable default preset is 24h
     rendered.find('.horizontalSwitch button').first().simulate('click');
     // We are simulating selecting the 24h preset
+    // @ts-ignore
     const fromMoment = moment(props.to).tz(RWC_TIMEZONE).subtract(rendered.state().durationInMs);
     const toMoment = moment(props.to).tz(RWC_TIMEZONE);
     const timeStringAfterClick = `${fromMoment.format(dateFormat)} - ${toMoment.format(dateFormat)}`;
@@ -144,6 +146,7 @@ describe('<TimeRangeSelector />', () => {
     rendered.find('.horizontalSwitch button').first().simulate('click');
 
     // Initial setup
+    // @ts-ignore
     const fromMoment = moment(props.to).tz(RWC_TIMEZONE).subtract(rendered.state().durationInMs);
     const toMoment = moment(props.to).tz(RWC_TIMEZONE);
     const initialFromString = fromMoment.format(dateFormat);
@@ -151,6 +154,7 @@ describe('<TimeRangeSelector />', () => {
 
     // We are simulating selecting the 24h preset and going 1 day backwards
     const preset24Hours = `${fromMoment.format(dateFormat)} - ${toMoment.format(dateFormat)}`;
+    // @ts-ignore
     const timeRange48to24HoursBack = `${fromMoment.subtract(rendered.state().durationInMs).format(dateFormat)} - ${toMoment.subtract(rendered.state().durationInMs).format(dateFormat)}`;
 
     rendered.find('TimeRangeNavigationBar').find('button').first().simulate('click');

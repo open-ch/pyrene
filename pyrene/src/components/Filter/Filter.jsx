@@ -66,7 +66,7 @@ Filter.propTypes = {
    * values: the users input; for single & multiSelect value contains of both value and label! In case of multiSelect, value can consist of multiple objects {value: , label: } in an array
    * use {} for passing empty filterValues
    * */
-  filterValues: PropTypes.shape().isRequired,
+  filterValues: PropTypes.shape({}).isRequired,
   /**
    * True to enable the visual components to handle negated filters. Defaults to false
    */

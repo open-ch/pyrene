@@ -1,4 +1,5 @@
 import React from 'react';
+import { shallow, mount } from 'enzyme';
 
 import DateHelper from './DateHelper';
 // eslint-disable-next-line no-unused-vars
@@ -40,12 +41,14 @@ describe('<CalendarDateSelector />', () => {
     expect(timeStringBeforeClick).toBe(calculatedValue);
 
     // We are simulating selecting the 24h preset
+    // @ts-ignore
     rendered.find('HorizontalSwitch').props().onClick({ value: 'day', label: 'day', id: 'day' });
     calculatedValue = rendered.find('ArrowSelector .value').render()[0].children[0].data;
     expect(timeStringAfterClick).toBe(calculatedValue);
 
     // We are simulating selecting the year preset
     timeStringAfterClick = currentDate.format(DateHelper.YEAR);
+    // @ts-ignore
     rendered.find('HorizontalSwitch').props().onClick({ value: 'year', label: 'year', id: 'year' });
     calculatedValue = rendered.find('ArrowSelector .value').render()[0].children[0].data;
     expect(timeStringAfterClick).toBe(calculatedValue);
@@ -82,6 +85,7 @@ describe('<CalendarDateSelector />', () => {
     rendered = mount(<CalendarDateSelector {...props} />);
 
     // We are simulating changing a year
+    // @ts-ignore
     rendered.find('HorizontalSwitch').props().onClick({ value: 'year', label: 'year', id: 'year' });
 
     const dateBeforeClick = props.value;
@@ -91,6 +95,7 @@ describe('<CalendarDateSelector />', () => {
     expect(dateBeforeClick).toBe(calculatedValue);
 
     rendered.find('ArrowSelector').find('button').first().simulate('click');
+    // @ts-ignore
     rendered.find('HorizontalSwitch').props().onClick({ value: 'day', label: 'day', id: 'day' });
     calculatedValue = rendered.props().value;
     expect(dateBeforeClick).not.toStrictEqual(calculatedValue);

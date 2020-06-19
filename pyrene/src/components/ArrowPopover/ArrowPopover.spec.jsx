@@ -1,4 +1,5 @@
 import React from 'react';
+import { shallow } from 'enzyme';
 
 import ArrowPopover, { arrowPosition } from './ArrowPopover';
 
@@ -337,7 +338,7 @@ describe('<ArrowPopover />', () => {
         width: 40,
       };
 
-      expect(() => { arrowPosition('test', targetRect, popoverRect); }).toThrow(new Error('Not a valid position:', 'test'));
+      expect(() => { arrowPosition('test', targetRect, popoverRect); }).toThrow(new Error('Not a valid position: test'));
     });
   });
 

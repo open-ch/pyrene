@@ -5,11 +5,17 @@ import SVG from 'react-svg-inline';
 
 import './checkbox.css';
 
+// @ts-ignore
 import iconNormal from './checkbox-blank.svg';
+// @ts-ignore
 import iconNormalHover from './checkbox-hover.svg';
+// @ts-ignore
 import iconSelected from './checkbox-selected.svg';
+// @ts-ignore
 import iconSelectedHover from './checkbox-selected-hover.svg';
+// @ts-ignore
 import iconInvalid from './checkbox-invalid.svg';
+// @ts-ignore
 import iconInvalidHover from './checkbox-invalid-hover.svg';
 import Tooltip from '../Tooltip/Tooltip';
 

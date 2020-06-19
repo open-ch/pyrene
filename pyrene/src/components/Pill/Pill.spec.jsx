@@ -1,4 +1,5 @@
 import React from 'react';
+import { shallow } from 'enzyme';
 
 import Pill from './Pill';
 
@@ -26,6 +27,7 @@ describe('<Pill />', () => {
   it('rendered value does not exceed maximum value', () => {
     const rendered = shallow(<Pill {...props} />);
     expect(rendered.contains('99+')).toBe(true);
+    // @ts-ignore
     expect(rendered.contains(props.value)).toBe(false);
   });
 
@@ -33,6 +35,7 @@ describe('<Pill />', () => {
     props.maxValue = 200;
     const rendered = shallow(<Pill {...props} />);
     expect(rendered.contains(`${props.maxValue}+`)).toBe(false);
+    // @ts-ignore
     expect(rendered.contains(props.value)).toBe(true);
   });
 });

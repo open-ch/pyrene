@@ -53,9 +53,9 @@ export default class ShareDialog extends React.Component {
       <div styleName="shareDialogContainer">
         <Popover
           displayPopover={this.state.displayShareDialog}
-          position={[this.props.position]}
+          preferredPosition={[this.props.position]}
           align={this.props.align}
-          padding={16}
+          distanceToTarget={16}
           onClickOutside={() => this.setState({ displayShareDialog: false })}
           renderPopoverContent={() => (
             <div className="unSelectable" styleName="shareDialog" role="dialog">

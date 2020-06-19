@@ -1,4 +1,5 @@
 import React from 'react';
+import { shallow, mount } from 'enzyme';
 
 import ActionBar, { handleOnClick } from './ActionBar';
 import Icon from '../Icon/Icon';
@@ -132,7 +133,7 @@ describe('<ActionBar />', () => {
 
   describe('<ArrowPopover />', () => {
 
-    const FakePopover = () => (
+    const FakePopover = ({ closePopover }) => ( // eslint-disable-line react/prop-types, no-unused-vars
       <div />
     );
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import { shallow, mount } from 'enzyme';
 
 import Table from './Table';
 
@@ -47,6 +48,7 @@ describe('<Table />', () => {
     const buttonTestProps = { ...props };
     const onClick = jest.fn();
 
+    // @ts-ignore
     buttonTestProps.actions = [{
       icon: 'search',
       label: 'Single',
