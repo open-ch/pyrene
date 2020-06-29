@@ -1,10 +1,37 @@
 import { getDelimitedValues, getCaseInsensitiveDistinctValues } from './delimiterUtil.js';
 
 describe('getDelimitedValues()', () => {
-  it('delimits entries', () => {
-    const rawString = 'Banana\nMango\nBeer\nBeer';
+  it('delimits entries with delimiters', () => {
+    const rawString1 = 'Banana\nMango\nBeer\nBeer';
+    const rawString2 = 'Banana\tMango\tBeer\tBeer';
+    const delimitedValues1 = getDelimitedValues(rawString1);
+    const delimitedValues2 = getDelimitedValues(rawString2);
+    expect(delimitedValues1).toStrictEqual(['Banana', 'Mango', 'Beer', 'Beer']);
+    expect(delimitedValues2).toStrictEqual(['Banana', 'Mango', 'Beer', 'Beer']);
+  });
+
+  it('considers as single entry when there no delimiter is found in string', () => {
+    const rawString = 'A tasty mango';
     const delimitedValues = getDelimitedValues(rawString);
-    expect(delimitedValues).toStrictEqual(['Banana', 'Mango', 'Beer', 'Beer']);
+    expect(delimitedValues).toStrictEqual(['A tasty mango']);
+  });
+
+  it('filters away empty strings', () => {
+    const rawString = 'Banana\n\nMango\n\nBeer';
+    const delimitedValues = getDelimitedValues(rawString);
+    expect(delimitedValues).toStrictEqual(['Banana', 'Mango', 'Beer']);
+  });
+
+  it('returns empty array when string contains nothing', () => {
+    const rawString = '';
+    const delimitedValues = getDelimitedValues(rawString);
+    expect(delimitedValues).toStrictEqual([]);
+  });
+
+  it('returns empty array when string contains only delimiters', () => {
+    const rawString = '\n\n\n\n';
+    const delimitedValues = getDelimitedValues(rawString);
+    expect(delimitedValues).toStrictEqual([]);
   });
 });
 
@@ -14,5 +41,26 @@ describe('getCaseInsensitiveDistinctValues()', () => {
     const delimitedValues = getDelimitedValues(rawString);
     const distinctValues = getCaseInsensitiveDistinctValues(delimitedValues);
     expect(distinctValues).toStrictEqual(['Banana', 'Mango', 'Beer']);
+  });
+
+  it('returns single entry array when string contains repetitive characters but no delimiter', () => {
+    const rawString = 'MangoMangoMango MangoMango';
+    const delimitedValues = getDelimitedValues(rawString);
+    const distinctValues = getCaseInsensitiveDistinctValues(delimitedValues);
+    expect(distinctValues).toStrictEqual(['MangoMangoMango MangoMango']);
+  });
+
+  it('returns empty array when string contains nothing', () => {
+    const rawString = '';
+    const delimitedValues = getDelimitedValues(rawString);
+    const distinctValues = getCaseInsensitiveDistinctValues(delimitedValues);
+    expect(distinctValues).toStrictEqual([]);
+  });
+
+  it('returns empty array when string contains only delimiters', () => {
+    const rawString = '\n\n\n\n';
+    const delimitedValues = getDelimitedValues(rawString);
+    const distinctValues = getCaseInsensitiveDistinctValues(delimitedValues);
+    expect(distinctValues).toStrictEqual([]);
   });
 });
