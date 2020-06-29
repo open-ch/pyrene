@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Select from 'react-select';
@@ -8,6 +8,7 @@ import MultiSelectStyle from './multiSelectCSS';
 import Loader from '../Loader/Loader';
 import MultiSelectMenuWithOptions from './MultiSelectMenuWithOptions';
 import CustomOption from '../SingleSelect/CustomOption';
+import { DEFAULT_DELIMITERS, getCaseInsensitiveDistinctValues, getDelimitedValues } from './delimiterUtil';
 
 const LoadingIndicator = () => <Loader />;
 
@@ -33,12 +34,55 @@ const componentsOptionsInDropdown = {
 export const valueFromOptions = (options, values) => options.filter((o) => values.findIndex((v) => o.value === v.value) > -1);
 
 /**
+ * Return the new value object array. If entries match a given option, use that option.
+ * @param {string[]} values - array of string values
+ * @param {object[]} options - pre-provided options
+ * @returns {object[]} array of value object in same format as the options
+ */
+const createNewValue = (values, options) => {
+  const newValueArray = [];
+  values.filter((v) => v.length > 0).forEach((v) => {
+    const foundOption = options ? options.find((o) => o.label.toLowerCase() === v.toLowerCase()) : null;
+    const newValue = foundOption || { value: v, label: v, invalid: false };
+    newValueArray.push(newValue);
+  });
+  return newValueArray;
+};
+
+/**
  * Multi-Selects are used when the user has to make a choice from a list. It allows the user to select multiple items from a dropdown list.
  */
 const MultiSelect = (props) => {
+  const [hasPastedDuplicates, setHasPastedDuplicates] = useState(false);
   const options = props.sorted ? props.options.sort((a, b) => a.label.localeCompare(b.label)) : props.options;
+
+  const onPaste = (event) => {
+    if (props.creatable) {
+      setHasPastedDuplicates(false);
+      const pastedData = (event.clipboardData || window.clipboardData).getData('text');
+      const delimitedValues = getCaseInsensitiveDistinctValues(getDelimitedValues(pastedData, DEFAULT_DELIMITERS));
+      const newValue = createNewValue(delimitedValues, props.options);
+      if (props.value) {
+        const distinctNewValue = newValue.filter((o) => props.value.findIndex((exO) => exO.label.toLowerCase() === o.label.toLowerCase()) < 0);
+        setHasPastedDuplicates(distinctNewValue.length < delimitedValues.length);
+        props.onChange([...props.value, ...distinctNewValue]);
+      } else {
+        props.onChange(newValue);
+      }
+
+      // Prevents the pasted data from becoming inputValue
+      event.preventDefault();
+    }
+  };
+
+  const formatNoOptionsMessage = (input) => {
+    const existingLabels = props.value.map((v) => v.label);
+    const foundLabel = existingLabels.find((v) => v.toLowerCase() === input.inputValue.toLowerCase());
+    return foundLabel ? `Duplicate tag "${foundLabel}"` : 'No matches found';
+  };
+
   return (
-    <div styleName={classNames('selectContainer', { disabled: props.disabled })}>
+    <div onPaste={onPaste} styleName={classNames('selectContainer', { disabled: props.disabled })}>
       {props.title && <div styleName={classNames('selectTitle', { required: props.required && !props.disabled })}>{props.title}</div>}
       {props.creatable
         ? (
@@ -58,6 +102,7 @@ const MultiSelect = (props) => {
             isLoading={props.loading}
             // wrapping type and key into target so it better reflects the api that input event has (there is also event.target.name)
             onChange={(option) => props.onChange(option, { target: { type: 'multiSelect', name: props.name, value: option } })}
+            onInputChange={() => setHasPastedDuplicates(false)}
             onBlur={props.onBlur}
             onFocus={props.onFocus}
             name={props.name}
@@ -65,7 +110,7 @@ const MultiSelect = (props) => {
             inputId={props.name}
 
             maxMenuHeight={264}
-            noOptionsMessage={() => 'no matches found'}
+            noOptionsMessage={formatNoOptionsMessage}
             formatCreateLabel={(inputValue) => `Create new tag "${inputValue}"`}
 
             closeMenuOnSelect={!props.keepMenuOnSelect}
@@ -109,6 +154,14 @@ const MultiSelect = (props) => {
             backspaceRemovesValue
           />
         )}
+
+      {hasPastedDuplicates && props.creatable && !props.disabled
+      && (
+        <div styleName="warningLabel">
+          <span className="pyreneIcon-warning" styleName="errorIcon" />
+          Duplicates were found and removed
+        </div>
+      )}
 
       {props.invalid && props.invalidLabel && !props.disabled
         ? (

@@ -41,6 +41,10 @@ const examples = {
     options: testOptions,
     onChange: (stateProvider) => (value) => stateProvider.setState({ value }),
     value: (stateProvider) => stateProvider.state.value,
+    rows: 4,
+    creatable: true,
+    invalid: (stateProvider) => stateProvider.state.value && stateProvider.state.value.filter((o) => o.value === 'bacon' || o.value === 'chickenliver').length > 0,
+    invalidLabel: 'Please no bacon or chicken liver',
   },
 };
 
