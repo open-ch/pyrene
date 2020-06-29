@@ -1,4 +1,4 @@
-export const DEFAULT_DELIMITERS = ['\n', '\t'];
+const DEFAULT_DELIMITERS = ['\n', '\t'];
 
 /**
  * Creates a unique array of string case insensitively.
@@ -15,11 +15,10 @@ export const getCaseInsensitiveDistinctValues = (array) => array.reduce((result,
 /**
  * Get delimited string values from a string.
  * @param {string} string - the raw string containing delimiter symbols
- * @param {string[]} delimiters - array of delimiters
  * @returns {string[]}
  */
-export const getDelimitedValues = (string, delimiters) => {
+export const getDelimitedValues = (string) => {
   // If different delimiters are supported, just take the first matching one
-  const delimiterInUse = delimiters.filter((de) => string.includes(de))[0];
+  const delimiterInUse = DEFAULT_DELIMITERS.filter((de) => string.includes(de))[0];
   return string.split(delimiterInUse).filter((v) => v.length > 0);
 };

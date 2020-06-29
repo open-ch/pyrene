@@ -8,7 +8,7 @@ import MultiSelectStyle from './multiSelectCSS';
 import Loader from '../Loader/Loader';
 import MultiSelectMenuWithOptions from './MultiSelectMenuWithOptions';
 import CustomOption from '../SingleSelect/CustomOption';
-import { DEFAULT_DELIMITERS, getCaseInsensitiveDistinctValues, getDelimitedValues } from './delimiterUtil';
+import { getCaseInsensitiveDistinctValues, getDelimitedValues } from './delimiterUtil';
 
 const LoadingIndicator = () => <Loader />;
 
@@ -60,7 +60,7 @@ const MultiSelect = (props) => {
     if (props.creatable) {
       setHasPastedDuplicates(false);
       const pastedData = (event.clipboardData || window.clipboardData).getData('text');
-      const delimitedValues = getCaseInsensitiveDistinctValues(getDelimitedValues(pastedData, DEFAULT_DELIMITERS));
+      const delimitedValues = getCaseInsensitiveDistinctValues(getDelimitedValues(pastedData));
       const newValue = createNewValue(delimitedValues, props.options);
       if (props.value) {
         const distinctNewValue = newValue.filter((o) => props.value.findIndex((exO) => exO.label.toLowerCase() === o.label.toLowerCase()) < 0);
@@ -143,7 +143,7 @@ const MultiSelect = (props) => {
             inputId={props.name}
 
             maxMenuHeight={264}
-            noOptionsMessage={() => 'no matches found'}
+            noOptionsMessage={formatNoOptionsMessage}
 
             closeMenuOnSelect={!props.keepMenuOnSelect}
 
