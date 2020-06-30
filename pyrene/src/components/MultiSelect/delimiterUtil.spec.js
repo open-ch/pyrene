@@ -19,6 +19,12 @@ describe('getDelimitedValues()', () => {
     expect(delimitedValues).toStrictEqual(['A tasty mango']);
   });
 
+  it('removes beginning and trailing spaces', () => {
+    const rawString = '    Ice-cream\nChocolate\t     ';
+    const delimitedValues = getDelimitedValues(rawString);
+    expect(delimitedValues).toStrictEqual(['Ice-cream', 'Chocolate']);
+  });
+
   it('filters away empty strings', () => {
     const rawString = 'Banana\n\tMango\n\tBeer';
     const delimitedValues = getDelimitedValues(rawString);

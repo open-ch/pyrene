@@ -58,6 +58,7 @@ const MultiSelect = (props) => {
       const pastedData = (event.clipboardData || window.clipboardData).getData('text');
       const delimitedValues = getCaseInsensitiveDistinctValues(getDelimitedValues(pastedData));
       const newValue = createNewValue(delimitedValues, props.options);
+      console.log(newValue);
       if (props.value) {
         const distinctNewValue = newValue.filter((o) => props.value.findIndex((exO) => exO.label.toLowerCase() === o.label.toLowerCase()) < 0);
         setHasPastedDuplicates(distinctNewValue.length < delimitedValues.length);
@@ -98,7 +99,11 @@ const MultiSelect = (props) => {
             isLoading={props.loading}
             // wrapping type and key into target so it better reflects the api that input event has (there is also event.target.name)
             onChange={(option) => props.onChange(option, { target: { type: 'multiSelect', name: props.name, value: option } })}
-            onInputChange={() => setHasPastedDuplicates(false)}
+            onInputChange={(input) => {
+              if (input.length > 0) {
+                setHasPastedDuplicates(false);
+              }
+            }}
             onBlur={props.onBlur}
             onFocus={props.onFocus}
             name={props.name}
