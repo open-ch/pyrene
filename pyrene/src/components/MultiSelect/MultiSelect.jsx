@@ -39,15 +39,11 @@ export const valueFromOptions = (options, values) => options.filter((o) => value
  * @param {object[]} options - pre-provided options
  * @returns {object[]} array of value object in same format as the options
  */
-const createNewValue = (values, options) => {
-  const newValueArray = [];
-  values.filter((v) => v.length > 0).forEach((v) => {
+export const createNewValue = (values, options) => values.filter((v) => v.length > 0)
+  .map((v) => {
     const foundOption = options ? options.find((o) => o.label.toLowerCase() === v.toLowerCase()) : null;
-    const newValue = foundOption || { value: v, label: v, invalid: false };
-    newValueArray.push(newValue);
+    return foundOption || { value: v, label: v, invalid: false };
   });
-  return newValueArray;
-};
 
 /**
  * Multi-Selects are used when the user has to make a choice from a list. It allows the user to select multiple items from a dropdown list.

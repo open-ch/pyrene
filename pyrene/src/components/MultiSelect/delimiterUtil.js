@@ -18,7 +18,6 @@ export const getCaseInsensitiveDistinctValues = (array) => array.reduce((result,
  * @returns {string[]}
  */
 export const getDelimitedValues = (string) => {
-  // If different delimiters are supported, just take the first matching one
-  const delimiterInUse = DEFAULT_DELIMITERS.filter((de) => string.includes(de))[0];
-  return string.split(delimiterInUse).filter((v) => v.length > 0);
+  const delimiterRegx = new RegExp('[' + DEFAULT_DELIMITERS.join('|') + ']');
+  return string.split(delimiterRegx).filter((v) => v.length > 0);
 };
