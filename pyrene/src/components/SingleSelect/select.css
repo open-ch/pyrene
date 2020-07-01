@@ -48,3 +48,12 @@
   margin-right: 4px;
   vertical-align: text-top;
 }
+
+.warningLabel {
+  margin-top: 3px;
+  font-size: 11px;
+  line-height: 13px;
+  letter-spacing: -0.3px;
+  text-align: left;
+  color: var(--warning-fg);
+}
