@@ -132,7 +132,7 @@ class TreeTable extends React.Component {
    */
   clearHeightCacheAfterIndex(i) {
     if (this.listRef.current) {
-      this.listRef.current.resetAfterIndex(i, false);
+      this.listRef.current.resetAfterIndex(i);
     }
   }
 
