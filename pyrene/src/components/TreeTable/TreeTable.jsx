@@ -27,8 +27,6 @@ import Loader from '../Loader/Loader';
  */
 class TreeTable extends React.Component {
 
-  rowHeightMap = {};
-
   innerRef = React.createRef();
 
   containerRef = React.createRef();
@@ -74,20 +72,18 @@ class TreeTable extends React.Component {
     }
   }
 
-  updateRowHeight = (index, newHeight) => {
-    const oldHeight = this.rowHeightMap[index];
-    if (this.listRef.current && oldHeight !== newHeight) {
-      this.rowHeightMap[index] = newHeight;
-      this.listRef.current.resetAfterIndex(index);
-    }
+  getItemHeight = (i) => {
+    const row = this.state.rows[i];
+    const size = (row && row.lineCount) || 1;
+    return size * this.props.rowLineHeight;
   };
 
   toggleAllRowsExpansion = () => {
     const { tableFullyExpanded } = this.state;
     const { data } = this.props;
+    this.clearHeightCacheAfterIndex(0); // clear all
     this.setState(() => {
       if (tableFullyExpanded) {
-        this.rowHeightMap = {};
         return {
           rows: TreeTableUtils.initialiseRootData(data, this.props.setUniqueRowKey),
           expanded: {},
@@ -107,18 +103,10 @@ class TreeTable extends React.Component {
     this.setState({ rows, expanded }, () => {
       const indexToScrollTo = rows.findIndex(({ _rowId }) => _rowId === rowId);
       if (this.listRef.current) {
-        this.listRef.current.scrollToItem(indexToScrollTo);
+        this.listRef.current.scrollToItem(indexToScrollTo, 'start');
       }
     });
   };
-
-  calculateScrollBarWidth() {
-    if (this.containerRef.current && this.innerRef.current) {
-      return this.containerRef.current.offsetWidth - this.innerRef.current.offsetWidth;
-    }
-    return 0;
-  }
-
 
   isFullyExpanded(rows, expanded) {
     return rows.filter((r) => r.children && r.children.length)
@@ -127,6 +115,25 @@ class TreeTable extends React.Component {
 
   isFlatTree(rows) {
     return rows.every((row) => row._treeDepth === 0 && !(row.children && row.children.length));
+  }
+
+  calculateScrollBarWidth() {
+    if (this.containerRef.current && this.innerRef.current) {
+      return this.containerRef.current.offsetWidth - this.innerRef.current.offsetWidth;
+    }
+    return 0;
+  }
+
+  /**
+   * clears the inner cache of styles and sizes of VariableSizeList,
+   * which expects the same row index to have the same size.
+   * When expanding we insert rows of different height into existing index space and cache gets dirty.
+   * @param i - index to clear from(inclusive) to the end of the list
+   */
+  clearHeightCacheAfterIndex(i) {
+    if (this.listRef.current) {
+      this.listRef.current.resetAfterIndex(i, false);
+    }
   }
 
   render() {
@@ -164,7 +171,8 @@ class TreeTable extends React.Component {
       </div>
     );
 
-    const onExpandRow = ({ row }) => {
+    const onExpandRow = ({ row, index }) => {
+      this.clearHeightCacheAfterIndex(index);
       this.setState((prevState) => ({ ...TreeTableUtils.handleRowExpandChange(row, prevState), tableFullyExpanded: this.isFullyExpanded(rows, expanded) }));
     };
 
@@ -188,8 +196,6 @@ class TreeTable extends React.Component {
         />
       );
     };
-
-    const rowHeightCallback = (index) => this.rowHeightMap[index] || 32;
 
     const rowKeyCallback = (index) => {
       const rowData = rows[index];
@@ -217,7 +223,6 @@ class TreeTable extends React.Component {
             onRowDoubleClick={props.onRowDoubleClick}
             expandOnParentRowClick={props.expandOnParentRowClick}
             onExpand={onExpandRow}
-            updateRowHeight={props.virtualized ? this.updateRowHeight : undefined}
           />
         </div>
       );
@@ -253,7 +258,7 @@ class TreeTable extends React.Component {
                 itemCount={rows.length}
                 width="100%"
                 innerRef={this.innerRef}
-                itemSize={rowHeightCallback}
+                itemSize={this.getItemHeight}
                 itemKey={rowKeyCallback}
                 ref={this.listRef}
                 overscanCount={10}
@@ -284,6 +289,7 @@ TreeTable.defaultProps = {
   toggleColumns: true,
   onRowDoubleClick: null,
   renderActionBarRightItems: null,
+  rowLineHeight: 32,
   virtualized: false,
   onFilterChange: () => null,
   setUniqueRowKey: () => null,
@@ -345,6 +351,10 @@ TreeTable.propTypes = {
    * Render content on the right side of the action bar of the table
    */
   renderActionBarRightItems: PropTypes.func,
+  /**
+   * default row height for a single line row
+   */
+  rowLineHeight: PropTypes.number,
   /**
    * Sets a function to get a unique key for each row. Params: (rowData)
    */
