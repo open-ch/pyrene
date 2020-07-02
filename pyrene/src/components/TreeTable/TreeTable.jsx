@@ -102,8 +102,17 @@ class TreeTable extends React.Component {
     const { rows, expanded } = TreeTableUtils.handleExpandAllParentsOfRowById(rowId, this.state);
     this.setState({ rows, expanded }, () => {
       const indexToScrollTo = rows.findIndex(({ _rowId }) => _rowId === rowId);
-      if (this.listRef.current) {
+      if (this.props.virtualized && this.listRef.current) {
         this.listRef.current.scrollToItem(indexToScrollTo, 'start');
+      } else if (this.containerRef.current) {
+        // scroll page when non-virtualized
+        const parent = this.containerRef.current;
+        const rowElements = parent.children;
+        const element = rowElements[indexToScrollTo];
+        const viewportTop = element.getBoundingClientRect().top;
+        const pageScrollTop = (document.documentElement.scrollTop || document.body.scrollTop);
+
+        window.scrollTo(0, viewportTop + pageScrollTop);
       }
     });
   };
@@ -277,9 +286,7 @@ class TreeTable extends React.Component {
 TreeTable.displayName = 'TreeTable';
 
 TreeTable.defaultProps = {
-  data: [],
   expandOnParentRowClick: false,
-  columns: [],
   filters: [],
   filterValues: {},
   title: '',
@@ -300,10 +307,14 @@ TreeTable.propTypes = {
    * Sets the Table columns.
    * Type: [{ id: string (required), headerName: string (required), accessor: string (required), headerStyle: object, cellStyle: object, initiallyHidden: bool, width: number }]
    */
+  // eslint-disable-next-line react/require-default-props
   columns: PROPCONSTANTS.COLUMNS,
   /**
-   * Sets the Table data displayed in the rows. Type: JSON
+   * Sets the Table data displayed in the rows.
+   * Type: [{ children: object, lineCount: number, ...row }]
    */
+
+  // eslint-disable-next-line react/require-default-props
   data: PROPCONSTANTS.DATA,
   /**
    * Enables toggle row expansion on the full parent row, instead of the chevron only. Overrides onRowDoubleClick for parent rows.
