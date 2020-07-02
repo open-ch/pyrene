@@ -1,3 +1,6 @@
+:global(.pyreneIcon-copy:before){
+  content: "\26";
+}
 :global(.pyreneIcon-resolved:before){
   content: "\25";
 }
