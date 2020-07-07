@@ -26,7 +26,7 @@
     "test:bamboo": "NODE_ENV=test JEST_FILE=test.json && jest --config=./jest.bamboo.config.js",
     "prerelease": "npm run build && npm run test",
     "release": "release-it",
-    "lint": "eslint --ext .js,.jsx src",
+    "lint": "eslint --max-warnings 0 --ext .js,.jsx src",
     "updateIconfont": "bash -c 'cat $0 | fgrep -A3 .icon- | sed -E '\"'\"' s/\\.icon-(.*):before /:global(.pyreneIcon-\\1:before)/ '\"'\"' >  src/styles/iconfont.css; cp $1 src/fonts/pyrene-iconfont.woff;'"
   },
   "devDependencies": {
