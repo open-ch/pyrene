@@ -22,8 +22,9 @@
     "strictNullChecks": false,
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
-    "sourceMap": true,
-    "module": "es6"
+    "sourceMap": true, 
+    "module": "es6", 
+    "importsNotUsedAsValues": "preserve"
   },
   "include": ["src" ],
 }

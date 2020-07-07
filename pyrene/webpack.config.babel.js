@@ -5,6 +5,8 @@ import TerserPlugin from 'terser-webpack-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+
 
 const production = process.env.NODE_ENV === 'production';
 
@@ -15,10 +17,19 @@ const config = {
   devtool: production ? 'none' : 'source-map',
   resolve: {
     mainFiles: ['index'],
-    extensions: ['.js', '.jsx'],
+    extensions: ['.js', '.jsx', '.ts', '.tsx'],
   },
   module: {
     rules: [
+      {
+        test: /\.tsx?$/,
+        loader: 'ts-loader',
+        exclude: /node_modules/,
+        options: {
+          // disable type checker - we will use it in fork plugin
+          transpileOnly: true
+        }
+      },
       {
         test: /\.js$/,
         include: /node_modules/,
@@ -75,6 +86,11 @@ const config = {
     new CopyWebpackPlugin([
       { from: 'src/styles/colors.css', to: OUTPUT_PATH, flatten: true },
     ]),
+    new ForkTsCheckerWebpackPlugin({
+      eslint: {
+        files: './src/**/*.{ts,tsx,js,jsx}' // required - same as command `eslint ./src/**/*.{ts,tsx,js,jsx} --ext .ts,.tsx,.js,.jsx`
+      }
+    })
   ],
   optimization: {
     minimizer: [
@@ -98,16 +114,16 @@ const config = {
 if (production) {
   console.warn('webpack is running in production mode\n'); // eslint-disable-line no-console
   config.entry = {
-    main: './src/index.js',
-    min: './src/index.js',
+    main: './src/index.ts',
+    min: './src/index.ts',
   };
 } else {
   console.warn('webpack is running in development mode\n'); // eslint-disable-line no-console
 
   config.entry = {
-    main: './src/index.js',
-    min: './src/index.js',
-    dev: './src/index.js',
+    main: './src/index.ts',
+    min: './src/index.ts',
+    dev: './src/index.ts',
     examples: './src/examples/index.js',
   };
 }
