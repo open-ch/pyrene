@@ -1,4 +1,7 @@
-const examples = {};
+import { BadgeProps } from './Badge';
+import { Example } from '../../examples/Example';
+
+const examples: Example<BadgeProps> = {};
 
 examples.props = {
   label: 'Security Alert',

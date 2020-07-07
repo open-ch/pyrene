@@ -4,12 +4,19 @@ import className from 'classnames';
 
 import './badge.css';
 
+export interface BadgeProps {
+  label: string;
+  maxWidth: number;
+  onClick?: (e: MouseEvent) => void;
+  type: 'neutral' | 'info' | 'warning' | 'danger' | 'success' ;
+}
+
 /**
  * Badges are to provide status information about a specific component.
  *
  * Badges have a label and a mandatory type; they can be made clickable.
  */
-const Badge = (props) => (
+const Badge: React.FC<any> = (props) => (
   <div
     styleName={className('badge', { [`type-${props.type}`]: true })}
     style={{ maxWidth: props.maxWidth }}
