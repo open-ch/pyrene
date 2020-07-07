@@ -25,7 +25,7 @@ it('renders its content', () => {
 
   expect(rendered.find('.selectTitle').text()).toBe('Title');
   expect(rendered.find('.selectHelper').text()).toBe('Helper label');
-  expect(rendered.find('.invalidLabel').length).toBe(0);
+  expect(rendered.find('.invalidLabel')).toHaveLength(0);
   expect(invalidRendered.find('.invalidLabel').text()).toBe('Invalid label');
 });
 
@@ -46,11 +46,11 @@ it('warns about duplicates after pasting data', () => {
     testResultValue = v;
   };
   const rendered = mount(<MultiSelect {...props} value={testResultValue} onChange={onChange} creatable />);
-  expect(rendered.find('.warningLabel').length).toBe(0);
+  expect(rendered.find('.warningLabel')).toHaveLength(0);
 
   const pasteEventData = { clipboardData: { getData: jest.fn().mockReturnValueOnce(pastedData), types: ['text/plain'] } };
   rendered.find('.selectContainer').simulate('paste', pasteEventData);
-  expect(rendered.find('.warningLabel').length).toBe(1);
+  expect(rendered.find('.warningLabel')).toHaveLength(1);
   expect(testResultValue).toStrictEqual([{ value: 'bacon', label: 'bacon', invalid: true }, { value: 'Beer', label: 'Beer', invalid: false }, { value: 'Cheese', label: 'Cheese', invalid: false }]);
 });
 
