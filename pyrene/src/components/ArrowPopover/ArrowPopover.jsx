@@ -40,7 +40,7 @@ export const arrowPosition = (position, targetRect, popoverRect) => {
       top = top < arrowWidth ? arrowWidth : top;
       break;
     default:
-      throw new Error('Not a valid position:', position);
+      throw new Error(`Not a valid position: ${position}`);
   }
   return { top, left, lengthSide };
 };
@@ -56,6 +56,7 @@ const ArrowPopover = ({
 
   const handleClick = (e) => {
     // click outside
+    // @ts-ignore
     if (node && node.current && !node.current.contains(e.target)) {
       closePopover();
     }

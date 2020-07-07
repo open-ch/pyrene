@@ -31,7 +31,7 @@ import FilterTag from './FilterTag';
 export default class FilterBar extends React.Component {
 
   constructor(props) {
-    super();
+    super(props);
     this.state = {
       displayFilterPopover: false,
       unAppliedFilters: this.createUnappliedFilters(props),
@@ -237,7 +237,7 @@ FilterBar.propTypes = {
   /**
    * Filter values object.
    * */
-  filterValues: PropTypes.shape().isRequired,
+  filterValues: PropTypes.shape({}).isRequired,
   /**
    * True to enable the visual components to handle negated filters.
    */

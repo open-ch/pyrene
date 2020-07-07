@@ -274,6 +274,7 @@ class TreeTable extends React.Component {
               >
                 {renderRow}
               </List>
+            // @ts-ignore
             ) : rows.map((_, index) => renderRow({ index }))}
           </div>
         </div>

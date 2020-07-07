@@ -22,6 +22,7 @@ const Popover = (props) => (
       boxSizing: 'borderBox',
       backgroundColor: 'white',
       boxShadow: '0 4px 8px -2px rgba(0, 21, 44, 0.2)',
+      // @ts-ignore
       zIndex: 10,
     }}
     onClickOutside={props.onClickOutside}

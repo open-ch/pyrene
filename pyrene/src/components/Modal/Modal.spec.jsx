@@ -1,4 +1,5 @@
 import React from 'react';
+import { shallow } from 'enzyme';
 
 import Modal from './Modal';
 import ButtonBar from '../ButtonBar/ButtonBar';
