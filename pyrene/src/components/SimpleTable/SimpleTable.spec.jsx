@@ -1,4 +1,5 @@
 import React from 'react';
+import { shallow, mount } from 'enzyme';
 
 import SimpleTable from './SimpleTable.jsx';
 import Loader from '../Loader/Loader';
@@ -41,9 +42,11 @@ describe('<SimpleTable />', () => {
     expect(rendered.contains('Age')).toBe(true);
     // first row
     expect(rendered.contains('Meredith Carney')).toBe(true);
+    // @ts-ignore
     expect(rendered.contains(23)).toBe(true);
     // second row
     expect(rendered.contains('Savage Weeks')).toBe(true);
+    // @ts-ignore
     expect(rendered.contains(21)).toBe(true);
   });
 

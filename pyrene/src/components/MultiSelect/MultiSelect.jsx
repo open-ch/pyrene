@@ -55,6 +55,7 @@ const MultiSelect = (props) => {
   const onPaste = (event) => {
     if (props.creatable) {
       setHasPastedDuplicates(false);
+      // @ts-ignore event should be typed as a ClipboardEvent
       const pastedData = (event.clipboardData || window.clipboardData).getData('text');
       const delimitedValues = getCaseInsensitiveDistinctValues(getDelimitedValues(pastedData));
       const newValue = createNewValue(delimitedValues, props.options);

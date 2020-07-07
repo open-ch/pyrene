@@ -47,7 +47,7 @@ FilterPopoverButton.propTypes = {
     sorted: PropTypes.bool,
     type: PropTypes.string,
   })).isRequired,
-  filterValues: PropTypes.shape().isRequired,
+  filterValues: PropTypes.shape({}).isRequired,
   handleFilterChange: PropTypes.func.isRequired,
   label: PropTypes.string.isRequired,
   negatable: PropTypes.bool.isRequired,

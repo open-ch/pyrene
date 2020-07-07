@@ -3,8 +3,11 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import SVG from 'react-svg-inline';
 
+// @ts-ignore
 import DefaultSort from '../images/sort.svg';
+// @ts-ignore
 import AscSort from '../images/sortDown.svg';
+// @ts-ignore
 import DescSort from '../images/sortUp.svg';
 
 import './tableHeaderCell.css';

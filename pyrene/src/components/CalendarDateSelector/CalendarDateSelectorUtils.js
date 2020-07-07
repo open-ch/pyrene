@@ -21,14 +21,14 @@ export const DATE_TYPES = {
 export const convertToInternalMomentJs = (value) => moment().tz('UTC').set({ year: value.year, month: value.month - 1, date: value.day });
 
 /**
- * Converts a dayjs instance to our custom date object format
+ * Converts a momentjs instance to our custom date object format
  * It is passed a date instance and the type of object which is expected to be returned
  * 1. Year - { year }
  * 2. Month - { year, month }
  * 3. Day - { year, month, day }
  * It also increases the month number by 1 so that it is 1-indexed
  *
- * @param {dayjs} date
+ * @param {moment} date
  * @returns {Object}
  */
 const convertToExternalObject = (date) => ({

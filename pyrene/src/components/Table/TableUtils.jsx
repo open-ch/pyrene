@@ -1,5 +1,6 @@
 import React from 'react';
 import Tooltip from '../Tooltip/Tooltip';
+// @ts-ignore
 import styles from './TableUtils.css';
 
 export default class TableUtils {

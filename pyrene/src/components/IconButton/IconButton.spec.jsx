@@ -1,4 +1,6 @@
 import React from 'react';
+import { shallow } from 'enzyme';
+
 import IconButton from './IconButton';
 
 const props = {

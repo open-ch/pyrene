@@ -51,7 +51,6 @@ export default class TimeRangeSelector extends Component {
    * @param newTo                   the new to value in epoch milliseconds
    * @param newUpperBound           the new value of the upperbound synced accordingly
    * @param durationInMs            the duration of the timerange based on the selected preset
-   * @param currentTimeRangeType    the type of the timerange that was selected
    * @private
    */
   _onPresetTimeRangeSelected(newFrom, newTo, newUpperBound, durationInMs) {

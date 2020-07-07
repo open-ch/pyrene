@@ -1,16 +1,23 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import './radioSelection.css';
-
 import SVG from 'react-svg-inline';
 
+import './radioSelection.css';
+
+// @ts-ignore
 import iconNormal from './radio-blank.svg';
+// @ts-ignore
 import iconNormalHover from './radio-hover.svg';
+// @ts-ignore
 import iconSelected from './radio-selected.svg';
+// @ts-ignore
 import iconSelectedHover from './radio-selected-hover.svg';
+// @ts-ignore
 import iconInvalid from './radio-invalid.svg';
+// @ts-ignore
 import iconInvalidHover from './radio-invalid-hover.svg';
+
 
 const iconMap = {
   normal: {

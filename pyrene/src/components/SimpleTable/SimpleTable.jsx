@@ -27,7 +27,7 @@ const SimpleTable = (props) => (
                   </div>
                 </th>
               ))}
-              {!!props.actions.length > 0 && (
+              {props.actions.length > 0 && (
                 <th
                   aria-label="Action"
                   styleName={classNames('tableHeaderCell', 'actionCell')}
@@ -41,7 +41,7 @@ const SimpleTable = (props) => (
         {!props.loading && props.data && props.data.length > 0 && props.data.map((row, rowIndex) => (
           <tr
             styleName={classNames('tableRow', (props.onRowClick || props.onRowDoubleClick) ? 'tableRowWithFunction' : '')}
-            key={Object.values(row)}
+            key={Object.values(row).join()}
             onDoubleClick={() => (props.onRowDoubleClick ? props.onRowDoubleClick(row) : null)}
             onClick={() => (props.onRowClick ? props.onRowClick(row) : null)}
           >
@@ -63,7 +63,7 @@ const SimpleTable = (props) => (
             {!props.loading && props.data && props.data.length > 0 && props.actions && props.actions.length > 0 && (
               <td
                 styleName={classNames('tableCell', 'actionCell')}
-                key={'action'.concat(Object.values(row))}
+                key={`action-${Object.values(row).join('-')}`}
               >
                 {<SimpleTableActionList
                   row={Object.assign(row, { key: row.key ? row.key.toString() : '' })}

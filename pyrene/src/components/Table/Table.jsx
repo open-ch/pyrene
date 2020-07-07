@@ -302,6 +302,7 @@ export default class Table extends React.Component {
 
     const tableToRender = this.props.multiSelect
       ? (
+        // @ts-ignore
         <CheckboxTable
           {...this.commonStaticProps}
           {...commonVariableProps}
