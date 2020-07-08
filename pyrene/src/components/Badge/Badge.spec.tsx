@@ -1,9 +1,9 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import Badge from './Badge';
+import Badge, { BadgeProps } from './Badge';
 
-const props = {
+const props: BadgeProps = {
   label: 'Security Alert',
   maxWidth: 80,
   type: 'danger',

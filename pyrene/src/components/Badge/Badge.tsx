@@ -4,11 +4,13 @@ import className from 'classnames';
 
 import './badge.css';
 
+export type BadgeType = 'neutral' | 'info' | 'warning' | 'danger' | 'success' 
+
 export interface BadgeProps {
   label: string;
   maxWidth: number;
-  onClick?: (e: MouseEvent) => void;
-  type: 'neutral' | 'info' | 'warning' | 'danger' | 'success' ;
+  onClick?: (e: React.MouseEvent) => void;
+  type: BadgeType;
 }
 
 /**
@@ -16,7 +18,7 @@ export interface BadgeProps {
  *
  * Badges have a label and a mandatory type; they can be made clickable.
  */
-const Badge: React.FC<any> = (props) => (
+const Badge: React.FC<BadgeProps> = (props) => (
   <div
     styleName={className('badge', { [`type-${props.type}`]: true })}
     style={{ maxWidth: props.maxWidth }}
@@ -51,7 +53,7 @@ Badge.propTypes = {
   /**
    * Sets the overall style according to the badge type.
    */
-  type: PropTypes.oneOf(['neutral', 'info', 'warning', 'danger', 'success']).isRequired,
+  type: PropTypes.oneOf<BadgeType>(['neutral', 'info', 'warning', 'danger', 'success']).isRequired,
 };
 
 export default Badge;
