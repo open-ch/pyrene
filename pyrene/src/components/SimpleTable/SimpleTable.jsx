@@ -107,7 +107,7 @@ SimpleTable.propTypes = {
   })),
   /**
    * Sets the Table columns.
-   * Type: [{ accessor: ( string | func ) (required), align: , cellRenderCallback: func, headerName: string (required), id: string (required), width: number ]
+   * Type: [{ accessor: ( string | func ) (required), align: , cellRenderCallback: func, headerName: string, id: string (required), width: number ]
    */
   columns: PropTypes.arrayOf(PropTypes.shape({
     accessor: PropTypes.oneOfType([
