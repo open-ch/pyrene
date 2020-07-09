@@ -37,5 +37,5 @@
 }
 
 .spacer {
-  height: 0.001px;
+  overflow: auto;
 }
