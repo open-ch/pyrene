@@ -27,7 +27,7 @@ export default class Modal extends React.Component {
   }
 
   escFunction = (event) => {
-    if (event.key === 'Escape') {
+    if (event.key === 'Escape' && this.props.escape) {
       this.props.onClose();
     }
   };
@@ -141,6 +141,8 @@ Modal.defaultProps = {
   contentPadding: true,
   contentScrolling: true,
 
+  escape: true,
+
   Footer: () => null,
 };
 
@@ -165,6 +167,10 @@ Modal.propTypes = {
    * Whether to display the navigationArrows in the upper right corner.
    */
   displayNavigationArrows: PropTypes.bool,
+  /**
+   * Whether to close modal when escape key is hit.
+   */
+  escape: PropTypes.bool,
   /**
    * Custom Component renderer. Replaces the button bar at the bottom.
    */
