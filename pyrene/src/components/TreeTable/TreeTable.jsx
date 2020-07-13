@@ -102,6 +102,14 @@ class TreeTable extends React.Component {
     const { rows, expanded } = TreeTableUtils.handleExpandAllParentsOfRowById(rowId, this.state);
     this.setState({ rows, expanded }, () => {
       const indexToScrollTo = rows.findIndex(({ _rowId }) => _rowId === rowId);
+      const firstLvlParentRowId = TreeTableUtils.getFirstLevelParentRowId(rowId, this.state);
+      const firstLvlParentRowIndex = rows.findIndex(({ _rowId }) => _rowId === firstLvlParentRowId);
+      /**
+       * we want to clear the cache starting from parent,
+       * since "leaf node" scroll might have sibling or parents that also get inserted into the dataset on expand.
+       * Therefore overlapping the height cache between 1st level parent and scrolled element.
+       */
+      this.clearHeightCacheAfterIndex(firstLvlParentRowIndex);
       if (this.props.virtualized && this.listRef.current) {
         this.listRef.current.scrollToItem(indexToScrollTo, 'start');
       } else if (this.containerRef.current) {

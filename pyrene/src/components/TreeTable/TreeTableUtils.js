@@ -152,4 +152,13 @@ export default class TreeTableUtils {
     return tableState;
   }
 
+  static getFirstLevelParentRowId(rowId, { rows }) {
+    const rowParents = this._getRowParents(this._findRowFromTree(rowId, rows));
+    if (rowParents.length) {
+      // eslint-disable-next-line no-underscore-dangle
+      return rowParents[0]._rowId;
+    }
+    return rowId;
+  }
+
 }
