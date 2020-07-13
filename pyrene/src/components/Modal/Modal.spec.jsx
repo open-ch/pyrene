@@ -37,7 +37,7 @@ describe('<Modal />', () => {
 
   it('does not close modal when escape key is not supported', () => {
     const mockOnClose = jest.fn();
-    shallow(<Modal {...props} onClose={mockOnClose} escape={false} />);
+    shallow(<Modal {...props} onClose={mockOnClose} closeOnEscape={false} />);
     document.dispatchEvent(escapeEvent);
     expect(mockOnClose).toHaveBeenCalledTimes(0);
   });
