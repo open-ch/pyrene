@@ -27,7 +27,7 @@ export default class Modal extends React.Component {
   }
 
   escFunction = (event) => {
-    if (event.key === 'Escape') {
+    if (event.key === 'Escape' && this.props.closeOnEscape) {
       this.props.onClose();
     }
   };
@@ -141,6 +141,8 @@ Modal.defaultProps = {
   contentPadding: true,
   contentScrolling: true,
 
+  closeOnEscape: true,
+
   Footer: () => null,
 };
 
@@ -153,6 +155,10 @@ Modal.propTypes = {
    * Whether interaction with the previous button is allowed.
    */
   canPrevious: PropTypes.bool,
+  /**
+   * Whether to close modal when escape key is hit.
+   */
+  closeOnEscape: PropTypes.bool,
   /**
    * Whether the content is padded with the standard padding.
    */
