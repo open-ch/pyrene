@@ -17,7 +17,7 @@ export default class TreeTableRow extends React.PureComponent {
     const hasExpandAction = this.props.parent && this.props.expandOnParentRowClick;
     return (
       <div
-        styleName={classNames('treeTableRow', { activeAction: hasExpandAction || this.props.onRowDoubleClick !== null })}
+        styleName={classNames('treeTableRow', { activeAction: hasExpandAction || this.props.onRowDoubleClick !== null || this.props.onRowClick !== null })}
       >
 
         {/* Row Elements are rendered here */}
@@ -27,7 +27,7 @@ export default class TreeTableRow extends React.PureComponent {
             { openRootParent: this.props.level === 0 && this.props.isExpanded && this.props.parent },
             { highlighted: this.props.highlighted },
           )}
-          onClick={hasExpandAction ? this.toggleRowExpansion : null}
+          onClick={hasExpandAction ? this.toggleRowExpansion : () => this.props.onRowClick(this.props.data)}
           onDoubleClick={hasExpandAction ? null : () => this.props.onRowDoubleClick(this.props.data)}
         >
           {this.props.columns.map((column, index) => {
@@ -78,6 +78,7 @@ TreeTableRow.defaultProps = {
   data: {},
   highlighted: false,
   onExpand: null,
+  onRowClick: null,
   onRowDoubleClick: null,
   parent: false,
 };
@@ -91,6 +92,7 @@ TreeTableRow.propTypes = {
   isExpanded: PropTypes.bool.isRequired,
   level: PropTypes.number.isRequired,
   onExpand: PropTypes.func,
+  onRowClick: PropTypes.func,
   onRowDoubleClick: PropTypes.func,
   parent: PropTypes.bool,
 };

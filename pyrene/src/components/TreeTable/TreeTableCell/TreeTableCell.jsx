@@ -21,7 +21,7 @@ export default class TreeTableCell extends React.PureComponent {
         {this.props.columnProps.renderCallback
           ? this.props.columnProps.renderCallback(this.props.value, this.props.rowData)
           : (
-            <div styleName="cellDataContainer">
+            <div styleName="cellDataContainer" title={this.props.value}>
               {this.props.value}
             </div>
           )}
