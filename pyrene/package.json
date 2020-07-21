@@ -39,7 +39,6 @@
     "@babel/plugin-transform-object-assign": "^7.2.0",
     "@babel/preset-env": "^7.9.0",
     "@babel/preset-react": "^7.9.1",
-    "@babel/preset-typescript": "^7.10.4",
     "@babel/register": "^7.9.0",
     "@types/enzyme": "^3.10.5",
     "@types/jest": "^26.0.0",
