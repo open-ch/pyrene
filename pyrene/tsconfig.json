@@ -4,6 +4,8 @@
     "target": "esnext",
     // Search under node_modules for non-relative imports.
     "moduleResolution": "node",
+    "declaration": true,
+    "declarationDir": "dist",
     // Process & infer types from .js files.
     "allowJs": true,
     // Don't emit; allow Babel to transform files.
@@ -18,13 +20,16 @@
     "noImplicitAny": false,
     "checkJs": false,
     "jsx": "react",
+    // "declaration": true,
     // "types": ["node", "jest", "react"],
     "strictNullChecks": false,
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
-    "sourceMap": true, 
-    "module": "es6", 
+    "sourceMap": true,
+    "module": "es6",
     "importsNotUsedAsValues": "preserve"
   },
-  "include": ["src" ],
+  "include": [
+    "src"
+  ],
 }

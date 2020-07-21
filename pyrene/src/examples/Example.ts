@@ -1,5 +1,5 @@
 export interface Example<ExampleProps> {
   props?: ExampleProps;
-  examples?: {props: ExampleProps, description: string}[];
+  examples?: { props: ExampleProps, description: string }[];
   category?: string;
 }

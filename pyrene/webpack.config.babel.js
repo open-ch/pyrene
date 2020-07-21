@@ -27,8 +27,8 @@ const config = {
         exclude: /node_modules/,
         options: {
           // disable type checker - we will use it in fork plugin
-          transpileOnly: true
-        }
+          transpileOnly: true,
+        },
       },
       {
         test: /\.js$/,
@@ -86,11 +86,7 @@ const config = {
     new CopyWebpackPlugin([
       { from: 'src/styles/colors.css', to: OUTPUT_PATH, flatten: true },
     ]),
-    new ForkTsCheckerWebpackPlugin({
-      eslint: {
-        files: './src/**/*.{ts,tsx,js,jsx}' // required - same as command `eslint ./src/**/*.{ts,tsx,js,jsx} --ext .ts,.tsx,.js,.jsx`
-      }
-    })
+    new ForkTsCheckerWebpackPlugin(),
   ],
   optimization: {
     minimizer: [
