@@ -13,15 +13,17 @@
   "files": [
     "dist"
   ],
+  "types": "dist/index.d.ts",
   "scripts": {
     "clean": "rm -rf dist node_modules",
     "prebuild": "npm run clean && npm install",
-    "build": "webpack && NODE_ENV=production webpack",
+    "build": "webpack && NODE_ENV=production webpack && NODE_ENV=production npm run build-ts-declarations",
     "build-debug": "NODE_ENV=debug webpack",
     "watch": "webpack -w",
     "expose": "npm link && npm run watch",
     "test": "jest",
     "check-types": "tsc",
+    "build-ts-declarations": "tsc --emitDeclarationOnly true --noEmit false",
     "coverage": "jest --coverage",
     "testWatch": "jest --watch",
     "test:bamboo": "NODE_ENV=test JEST_FILE=test.json && jest --config=./jest.bamboo.config.js",
