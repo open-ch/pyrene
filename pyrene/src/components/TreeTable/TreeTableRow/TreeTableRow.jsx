@@ -8,16 +8,31 @@ import PROPCONSTANTS from '../TreeTablePropTypes';
 
 export default class TreeTableRow extends React.PureComponent {
 
+  handleSingleClick = () => {
+    const {
+      data, onRowClick, parent, expandOnParentRowClick,
+    } = this.props;
+    if (parent && expandOnParentRowClick) {
+      this.toggleRowExpansion();
+    } else {
+      onRowClick(data);
+    }
+  };
+
   toggleRowExpansion = () => {
-    const { data: row, index } = this.props;
+    const {
+      data: row, index,
+    } = this.props;
     this.props.onExpand({ row, index });
   };
 
   render() {
     const hasExpandAction = this.props.parent && this.props.expandOnParentRowClick;
+    const hasSingleClickAction = hasExpandAction || this.props.onRowClick !== null;
+    const hasDoubleClickAction = !hasSingleClickAction && this.props.onRowDoubleClick !== null;
     return (
       <div
-        styleName={classNames('treeTableRow', { activeAction: hasExpandAction || this.props.onRowDoubleClick !== null })}
+        styleName={classNames('treeTableRow', { activeAction: hasSingleClickAction || hasDoubleClickAction })}
       >
 
         {/* Row Elements are rendered here */}
@@ -27,8 +42,8 @@ export default class TreeTableRow extends React.PureComponent {
             { openRootParent: this.props.level === 0 && this.props.isExpanded && this.props.parent },
             { highlighted: this.props.highlighted },
           )}
-          onClick={hasExpandAction ? this.toggleRowExpansion : null}
-          onDoubleClick={hasExpandAction ? null : () => this.props.onRowDoubleClick(this.props.data)}
+          onClick={hasSingleClickAction ? this.handleSingleClick : null}
+          onDoubleClick={hasDoubleClickAction ? () => this.props.onRowDoubleClick(this.props.data) : null}
         >
           {this.props.columns.map((column, index) => {
 
@@ -78,6 +93,7 @@ TreeTableRow.defaultProps = {
   data: {},
   highlighted: false,
   onExpand: null,
+  onRowClick: null,
   onRowDoubleClick: null,
   parent: false,
 };
@@ -91,6 +107,7 @@ TreeTableRow.propTypes = {
   isExpanded: PropTypes.bool.isRequired,
   level: PropTypes.number.isRequired,
   onExpand: PropTypes.func,
+  onRowClick: PropTypes.func,
   onRowDoubleClick: PropTypes.func,
   parent: PropTypes.bool,
 };

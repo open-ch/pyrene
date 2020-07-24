@@ -237,6 +237,7 @@ class TreeTable extends React.Component {
             level={rowData._treeDepth}
             isExpanded={expanded[rowKey] || false}
             columns={columns}
+            onRowClick={props.onRowClick}
             onRowDoubleClick={props.onRowDoubleClick}
             expandOnParentRowClick={props.expandOnParentRowClick}
             onExpand={onExpandRow}
@@ -303,6 +304,7 @@ TreeTable.defaultProps = {
   highlightedRowId: null,
   loading: false,
   toggleColumns: true,
+  onRowClick: null,
   onRowDoubleClick: null,
   renderActionBarRightItems: null,
   rowLineHeight: 32,
@@ -326,7 +328,7 @@ TreeTable.propTypes = {
   // eslint-disable-next-line react/require-default-props
   data: PROPCONSTANTS.DATA,
   /**
-   * Enables toggle row expansion on the full parent row, instead of the chevron only. Overrides onRowDoubleClick for parent rows.
+   * Enables toggle row expansion on the full parent row, instead of the chevron only. Overrides onRowDoubleClick and onRowClick for parent rows.
    */
   expandOnParentRowClick: PropTypes.bool,
   /**
@@ -363,6 +365,10 @@ TreeTable.propTypes = {
    * Called when the filter changes.
    */
   onFilterChange: PropTypes.func,
+  /**
+   * Called when the user clicks on a row.
+   */
+  onRowClick: PropTypes.func,
   /**
    * Called when the user double clicks on a row.
    */
