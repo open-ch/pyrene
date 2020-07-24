@@ -8,19 +8,28 @@ import PROPCONSTANTS from '../TreeTablePropTypes';
 
 export default class TreeTableRow extends React.PureComponent {
 
-  handleSingeClick = (hasExpandAction) => {
-    const { data: row, index, onRowClick } = this.props;
-    if (hasExpandAction) {
-      this.props.onExpand({ row, index });
+  handleSingleClick = () => {
+    const {
+      data, onRowClick, parent, expandOnParentRowClick,
+    } = this.props;
+    if (parent && expandOnParentRowClick) {
+      this.toggleRowExpansion();
     } else {
-      onRowClick(row);
+      onRowClick(data);
     }
+  };
+
+  toggleRowExpansion = () => {
+    const {
+      data: row, index,
+    } = this.props;
+    this.props.onExpand({ row, index });
   };
 
   render() {
     const hasExpandAction = this.props.parent && this.props.expandOnParentRowClick;
     const hasSingleClickAction = hasExpandAction || this.props.onRowClick !== null;
-    const hasDoubleClickAction = !hasExpandAction && this.props.onRowDoubleClick !== null;
+    const hasDoubleClickAction = !hasSingleClickAction && this.props.onRowDoubleClick !== null;
     return (
       <div
         styleName={classNames('treeTableRow', { activeAction: hasSingleClickAction || hasDoubleClickAction })}
@@ -33,7 +42,7 @@ export default class TreeTableRow extends React.PureComponent {
             { openRootParent: this.props.level === 0 && this.props.isExpanded && this.props.parent },
             { highlighted: this.props.highlighted },
           )}
-          onClick={hasSingleClickAction ? () => this.handleSingeClick(hasExpandAction) : null}
+          onClick={hasSingleClickAction ? this.handleSingleClick : null}
           onDoubleClick={hasDoubleClickAction ? () => this.props.onRowDoubleClick(this.props.data) : null}
         >
           {this.props.columns.map((column, index) => {
@@ -65,7 +74,7 @@ export default class TreeTableRow extends React.PureComponent {
                 sectionOpen={this.props.isExpanded}
                 value={this.props.data[column.accessor]}
                 rowData={this.props.data}
-                onExpandClick={hasExpandAction ? () => null : () => this.handleSingeClick(hasExpandAction)}
+                onExpandClick={hasExpandAction ? () => null : this.toggleRowExpansion}
               />
             );
           })}
