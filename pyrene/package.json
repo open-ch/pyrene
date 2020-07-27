@@ -17,7 +17,7 @@
   "scripts": {
     "clean": "rm -rf dist node_modules",
     "prebuild": "npm run clean && npm install",
-    "build": "webpack && NODE_ENV=production webpack && NODE_ENV=production npm run build-ts-declarations",
+    "build": "webpack && NODE_ENV=production webpack && NODE_ENV=production && npm run build-ts-declarations",
     "build-debug": "NODE_ENV=debug webpack",
     "watch": "webpack -w",
     "expose": "npm link && npm run watch",
