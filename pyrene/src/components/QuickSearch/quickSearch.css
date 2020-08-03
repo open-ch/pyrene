@@ -1,0 +1,84 @@
+@import '../../styles/colors.css';
+
+.container {
+  composes: commonFontSettings from '../../styles/common.css';
+  color: #00152c;
+  position: relative;
+
+  &, & * {
+    box-sizing: border-box;
+
+  }
+
+  & .extraElement {
+    display: flex;
+
+    & .separator {
+      width: 1px;
+      height: 16px;
+      box-shadow: inset 1px 0 0 0 #e0e2e5;
+      margin: 7px 4px 7px 0;
+    }
+
+    & .icon {
+      padding: 4px;
+      margin: 3px 0;
+      cursor: pointer;
+
+      &:hover {
+        transition: .15s ease-out background-color;
+        background-color: var(--neutral-030);
+      }
+    }
+
+    & .hits {
+      padding: 7px 8px;
+      color: #b3b8be;
+      font-size: 12px;
+
+      & > span {
+        display: block;
+      }
+    }
+
+  }
+
+
+  & .tooltip {
+    position: absolute;
+    bottom: -8px;
+    transform: translateY(100%);
+    width: 256px;
+    border-radius: 2px;
+    box-shadow: 0 0 2px 0 rgba(29, 39, 59, 0.3), 0 4px 8px -2px rgba(29, 39, 59, 0.2);
+    background-color: var(--neutral-000);
+    z-index: 1;
+
+    & .suggestion {
+      & .label {
+        height: 32px;
+        padding: 7px 8px;
+        font-size: 13px;
+        box-shadow: inset 0 -1px 0 0 #e0e2e5;
+        font-weight: 600;
+      }
+
+      & .member {
+        height: 32px;
+        padding: 7px 8px;
+        font-size: 13px;
+        cursor: pointer;
+
+        &:hover {
+          transition: .15s ease-out background-color;
+          background-color: var(--neutral-030);
+        }
+
+        &.selected {
+          transition: .15s ease-out background-color;
+          background-color: var(--neutral-030);
+        }
+      }
+    }
+  }
+}

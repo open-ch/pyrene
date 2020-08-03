@@ -1,0 +1,48 @@
+@import '../../styles/colors.css';
+
+.inputArea {
+  composes: commonFontSettings from '../../styles/common.css';
+  color: #00152c;
+
+  &, & * {
+    box-sizing: border-box;
+  }
+
+  width: 256px;
+  height: 32px;
+  border-radius: 2px;
+  border: solid 1px #e0e2e5;
+  position: relative;
+  display: flex;
+
+
+  & .icon {
+    padding: 4px;
+    margin: 3px 0 3px 4px;
+    cursor: pointer;
+
+    &:first-of-type {
+      margin-left: 3px;
+      margin-right: 4px;
+    }
+
+    &:last-of-type {
+      margin-left: 0;
+      margin-right: 3px;
+    }
+
+    &:hover {
+      transition: .15s ease-out background-color;
+      background-color: var(--neutral-030);
+    }
+  }
+
+
+  & input {
+    border: none;
+    padding: 7px 0;
+    min-width: 0;
+    outline: none;
+    flex-grow: 1;
+  }
+}
