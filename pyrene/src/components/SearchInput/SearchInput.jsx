@@ -1,5 +1,5 @@
 import React, {
-  useCallback, useRef,
+  useCallback, useRef, forwardRef,
 } from 'react';
 import PropTypes from 'prop-types';
 import styles from './searchInput.css';
@@ -8,9 +8,9 @@ import Icon from '../Icon/Icon';
 /**
  * SearchInput - simple search input area with search and "clear" actions
  */
-const SearchInput = ({
-  containerRef, term, onChange, onSearchClick, onEnter, extraActionElement, onX,
-}) => {
+const SearchInput = forwardRef(({
+  term, onChange, onSearchClick, onEnter, extraActionElement, onX,
+}, ref) => {
   const inputRef = useRef();
   // TODO: UX: hide X when there is no term?
   // TODO: UX: should search icon be interactive? (not clickable seems standard)
@@ -40,12 +40,12 @@ const SearchInput = ({
   }, [onEnter]);
 
   return (
-    <div className={styles.inputArea} ref={containerRef} onKeyDown={onEnter ? handleEnter : null}>
+    <div className={styles.inputArea} ref={ref} onKeyDown={onEnter ? handleEnter : null}>
       <div className={styles.icon} onClick={onSearchClick || focus}>
         <Icon type="standalone" name="search" />
       </div>
       <input ref={inputRef} value={term} onChange={onInputChange} />
-      <div>
+      <div className={styles.extraActionContainer}>
         {extraActionElement}
       </div>
       <div className={styles.icon} onClick={onX || clearTerm}>
@@ -53,12 +53,11 @@ const SearchInput = ({
       </div>
     </div>
   );
-};
+});
 
 SearchInput.displayName = 'SearchInput';
 
 SearchInput.defaultProps = {
-  containerRef: null,
   onSearchClick: null,
   onEnter: null,
   extraActionElement: null,
@@ -66,10 +65,6 @@ SearchInput.defaultProps = {
 };
 
 SearchInput.propTypes = {
-  containerRef: PropTypes.oneOfType([
-    PropTypes.func,
-    PropTypes.shape({ current: PropTypes.elementType }),
-  ]),
   extraActionElement: PropTypes.element,
   onChange: PropTypes.func.isRequired,
   onEnter: PropTypes.func,
