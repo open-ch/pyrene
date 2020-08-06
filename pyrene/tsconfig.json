@@ -30,8 +30,8 @@
     "allowSyntheticDefaultImports": true,
     "noImplicitAny": true,
     "strictPropertyInitialization": true,
-    "noUnusedLocals": false, // Check on CI ? 
-    "noUnusedParameters": false, // Check on CI ? 
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
     "strictNullChecks": true,
     "strictFunctionTypes": true,
     "noImplicitThis": true,
