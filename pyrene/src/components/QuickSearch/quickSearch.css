@@ -2,7 +2,7 @@
 
 .container {
   composes: commonFontSettings from '../../styles/common.css';
-  color: #00152c;
+  color: var(--neutral-500);
   position: relative;
 
   &, & * {
@@ -13,27 +13,35 @@
   & .extraElement {
     display: flex;
 
+    &.disabled {
+      & .icon {
+        pointer-events: none;
+      }
+
+      & .hits {
+        visibility: hidden;
+      }
+    }
     & .separator {
       width: 1px;
       height: 16px;
-      box-shadow: inset 1px 0 0 0 #e0e2e5;
+      box-shadow: inset 1px 0 0 0 var(--neutral-050);
       margin: 7px 4px 7px 0;
     }
 
     & .icon {
-      padding: 4px;
-      margin: 3px 0;
+      margin: 7px 4px;
       cursor: pointer;
+      border-radius: 2px;
 
       &:hover {
-        transition: .15s ease-out background-color;
         background-color: var(--neutral-030);
       }
     }
 
     & .hits {
       padding: 7px 8px;
-      color: #b3b8be;
+      color: var(--neutral-300);
       font-size: 12px;
 
       & > span {
@@ -51,6 +59,7 @@
     width: 256px;
     border-radius: 2px;
     box-shadow: 0 0 2px 0 rgba(29, 39, 59, 0.3), 0 4px 8px -2px rgba(29, 39, 59, 0.2);
+    border: solid 1px var(--neutral-050);
     background-color: var(--neutral-000);
     z-index: 1;
 
@@ -59,7 +68,7 @@
         height: 32px;
         padding: 7px 8px;
         font-size: 13px;
-        box-shadow: inset 0 -1px 0 0 #e0e2e5;
+        box-shadow: inset 0 -1px 0 0 var(--neutral-030);
         font-weight: 600;
       }
 

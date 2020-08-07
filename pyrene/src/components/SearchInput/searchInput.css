@@ -2,7 +2,7 @@
 
 .inputArea {
   composes: commonFontSettings from '../../styles/common.css';
-  color: #00152c;
+  color: var(--neutral-500);
 
   &, & * {
     box-sizing: border-box;
@@ -11,28 +11,42 @@
   width: 256px;
   height: 32px;
   border-radius: 2px;
-  border: solid 1px #e0e2e5;
+  border: solid 1px var(--neutral-200);
   position: relative;
   display: flex;
 
+  &.isFocused {
+    border: solid 1px var(--blue-500);
+  }
 
   & .icon {
-    padding: 4px;
-    margin: 3px 0 3px 4px;
+    margin: 7px 4px 7px 8px;
     cursor: pointer;
+    border-radius: 2px;
+
+    &.passive {
+      cursor: default;
+      &:hover {
+        background-color: var(--neutral-000);
+      }
+    }
+
+    &.disabled {
+      pointer-events: none;
+
+    }
 
     &:first-of-type {
-      margin-left: 3px;
-      margin-right: 4px;
+      margin-left: 7px;
+      margin-right: 8px;
     }
 
     &:last-of-type {
-      margin-left: 0;
-      margin-right: 3px;
+      margin-left: 4px;
+      margin-right: 7px;
     }
 
     &:hover {
-      transition: .15s ease-out background-color;
       background-color: var(--neutral-030);
     }
   }

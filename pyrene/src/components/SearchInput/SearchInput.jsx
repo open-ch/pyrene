@@ -1,7 +1,8 @@
 import React, {
-  useCallback, useRef, forwardRef,
+  useCallback, useRef, forwardRef, useState,
 } from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import styles from './searchInput.css';
 import Icon from '../Icon/Icon';
 
@@ -9,11 +10,10 @@ import Icon from '../Icon/Icon';
  * SearchInput - simple search input area with search and "clear" actions
  */
 const SearchInput = forwardRef(({
-  term, onChange, onSearchClick, onEnter, extraActionElement, onX,
+  term, onChange, onEnter, extraActionElement,
 }, ref) => {
   const inputRef = useRef();
-  // TODO: UX: hide X when there is no term?
-  // TODO: UX: should search icon be interactive? (not clickable seems standard)
+  const [isFocused, setIsFocused] = useState(false);
 
   const focus = useCallback(() => {
     if (inputRef.current) {
@@ -32,7 +32,6 @@ const SearchInput = forwardRef(({
     onChange(e.target.value);
   }, [onChange]);
 
-
   const handleEnter = useCallback((e) => {
     if (e.key === 'Enter') {
       onEnter();
@@ -40,16 +39,16 @@ const SearchInput = forwardRef(({
   }, [onEnter]);
 
   return (
-    <div className={styles.inputArea} ref={ref} onKeyDown={onEnter ? handleEnter : null}>
-      <div className={styles.icon} onClick={onSearchClick || focus}>
+    <div className={classNames(styles.inputArea, { [styles.isFocused]: isFocused })} ref={ref} onKeyDown={onEnter ? handleEnter : null}>
+      <div className={classNames(styles.icon, styles.passive)}>
         <Icon type="standalone" name="search" />
       </div>
-      <input ref={inputRef} value={term} onChange={onInputChange} />
-      <div className={styles.extraActionContainer}>
+      <input ref={inputRef} value={term} onChange={onInputChange} onFocus={() => setIsFocused(true)} onBlur={() => setIsFocused(false)} />
+      <div>
         {extraActionElement}
       </div>
-      <div className={styles.icon} onClick={onX || clearTerm}>
-        <Icon type="standalone" name="delete" />
+      <div className={classNames(styles.icon, { [styles.disabled]: !term.length })} onClick={clearTerm}>
+        <Icon type="standalone" name="delete" color={!term.length ? 'neutral100' : 'neutral500'} />
       </div>
     </div>
   );
@@ -58,18 +57,14 @@ const SearchInput = forwardRef(({
 SearchInput.displayName = 'SearchInput';
 
 SearchInput.defaultProps = {
-  onSearchClick: null,
   onEnter: null,
   extraActionElement: null,
-  onX: null,
 };
 
 SearchInput.propTypes = {
   extraActionElement: PropTypes.element,
   onChange: PropTypes.func.isRequired,
   onEnter: PropTypes.func,
-  onSearchClick: PropTypes.func,
-  onX: PropTypes.func,
   term: PropTypes.string.isRequired,
 };
 

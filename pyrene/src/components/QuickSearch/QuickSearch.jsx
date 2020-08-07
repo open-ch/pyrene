@@ -22,6 +22,7 @@ const QuickSearch = ({
   resultCount,
   currentResult,
   onSelectedResultChange,
+  enableSuggestions,
 }) => {
   const [hideTooltip, setHideTooltip] = useState(false);
   const inputAreaRef = useRef(null);
@@ -77,10 +78,6 @@ const QuickSearch = ({
     };
   }, []);
 
-  // TODO: keyboard
-  // * add esc (for closing tooltip / resetting term? )
-  // * shortcuts for cycling results
-
   const onInputChange = useCallback((value) => {
     if (hideTooltip) {
       setHideTooltip(false);
@@ -95,21 +92,28 @@ const QuickSearch = ({
   }, []);
 
   const onKeyDown = useCallback((e) => {
-    if (e.key === 'ArrowDown') {
+    if (e.key === 'ArrowDown' && enableSuggestions) {
       selectNextSuggestion();
       e.preventDefault();
-    } else if (e.key === 'ArrowUp') {
+    } else if (e.key === 'ArrowUp' && enableSuggestions) {
       selectPreviousSuggestion();
       e.preventDefault();
     } else if (e.key === 'Enter') {
-      onSuggestionSelect(selectedSuggestion);
+      if (enableSuggestions && !hideTooltip) {
+        onSuggestionSelect(selectedSuggestion);
+      } else if (e.shiftKey) {
+        selectPreviousResult();
+      } else {
+        selectNextResult();
+      }
       e.preventDefault();
     }
-  }, [selectedSuggestion]);
+  }, [enableSuggestions, onSuggestionSelect, selectedSuggestion, selectPreviousResult, selectNextResult]);
 
-  const showTooltip = term.length >= MIN_TERM_LENGTH
+  const showTooltip = enableSuggestions && term.length >= MIN_TERM_LENGTH
     && suggestions.length
     && !hideTooltip;
+  const isNoResults = resultCount === 0;
 
   return (
     <div className={styles.container} onKeyDown={onKeyDown}>
@@ -118,7 +122,7 @@ const QuickSearch = ({
         term={term}
         onChange={onInputChange}
         extraActionElement={(
-          <div className={styles.extraElement}>
+          <div className={classNames(styles.extraElement, { [styles.disabled]: isNoResults })}>
             <div className={styles.hits}>
               <span>
                 {`${currentResult}/${resultCount}`}
@@ -126,10 +130,10 @@ const QuickSearch = ({
             </div>
             <div className={styles.separator} />
             <div className={styles.icon} onClick={selectPreviousResult}>
-              <Icon type="standalone" name="chevronUp" />
+              <Icon type="standalone" name="chevronUp" color={isNoResults ? 'neutral100' : 'neutral500'} />
             </div>
             <div className={styles.icon} onClick={selectNextResult}>
-              <Icon type="standalone" name="chevronDown" />
+              <Icon type="standalone" name="chevronDown" color={isNoResults ? 'neutral100' : 'neutral500'} />
             </div>
           </div>
         )}
@@ -164,10 +168,12 @@ QuickSearch.displayName = 'QuickSearch';
 
 QuickSearch.defaultProps = {
   zIndexTooltip: 1,
+  enableSuggestions: false,
 };
 
 QuickSearch.propTypes = {
   currentResult: PropTypes.number.isRequired,
+  enableSuggestions: PropTypes.bool,
   onSelectedResultChange: PropTypes.func.isRequired,
   onTermChange: PropTypes.func.isRequired,
   resultCount: PropTypes.number.isRequired,
