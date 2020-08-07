@@ -76,7 +76,15 @@ const config = {
     new CopyWebpackPlugin([
       { from: 'src/styles/colors.css', to: OUTPUT_PATH, flatten: true },
     ]),
-    new ForkTsCheckerWebpackPlugin(),
+    new ForkTsCheckerWebpackPlugin({
+      // Options as defined in: https://github.com/TypeStrong/fork-ts-checker-webpack-plugin/tree/master/examples/babel-loader
+      typescript: {
+        diagnosticOptions: {
+          semantic: true,
+          syntactic: true,
+        },
+      },
+    }),
   ],
   optimization: {
     minimizer: [
