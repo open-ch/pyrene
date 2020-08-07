@@ -114,6 +114,4 @@ if (production) {
   };
 }
 
-const tsc = spawn('tsc', ['-p', 'src', '--emitDeclarationOnly', '--declaration', '--declarationDir', 'dist/@types', '--skipLibCheck']);
-
 export default config;
