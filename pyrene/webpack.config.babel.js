@@ -7,7 +7,6 @@ import CopyWebpackPlugin from 'copy-webpack-plugin';
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
-
 const production = process.env.NODE_ENV === 'production';
 
 const OUTPUT_PATH = path.resolve(__dirname, 'dist');
@@ -22,22 +21,13 @@ const config = {
   module: {
     rules: [
       {
-        test: /\.tsx?$/,
-        loader: 'ts-loader',
-        exclude: /node_modules/,
-        options: {
-          // disable type checker - we will use it in fork plugin
-          transpileOnly: true,
-        },
-      },
-      {
         test: /\.js$/,
         include: /node_modules/,
         loader: 'strip-sourcemap-loader',
         enforce: 'pre',
       },
       {
-        test: /\.jsx?$/,
+        test: /\.[jt]sx?$/,
         include: path.resolve(__dirname, 'src'),
         use: {
           loader: 'babel-loader',
@@ -123,5 +113,7 @@ if (production) {
     examples: './src/examples/index.js',
   };
 }
+
+const tsc = spawn('tsc', ['-p', 'src', '--emitDeclarationOnly', '--declaration', '--declarationDir', 'dist/@types', '--skipLibCheck']);
 
 export default config;
