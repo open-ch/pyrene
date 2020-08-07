@@ -10,7 +10,7 @@ import Icon from '../Icon/Icon';
  * SearchInput - simple search input area with search and "clear" actions
  */
 const SearchInput = forwardRef(({
-  term, onChange, onEnter, extraActionElement,
+  value, onChange, onEnter, extraActionElement,
 }, ref) => {
   const inputRef = useRef();
   const [isFocused, setIsFocused] = useState(false);
@@ -22,7 +22,7 @@ const SearchInput = forwardRef(({
   }, [inputRef]);
 
   const clearTerm = useCallback(() => {
-    if (term.length) {
+    if (value.length) {
       onChange('');
       focus();
     }
@@ -43,12 +43,12 @@ const SearchInput = forwardRef(({
       <div className={classNames(styles.icon, styles.passive)}>
         <Icon type="standalone" name="search" />
       </div>
-      <input ref={inputRef} value={term} onChange={onInputChange} onFocus={() => setIsFocused(true)} onBlur={() => setIsFocused(false)} />
+      <input ref={inputRef} value={value} onChange={onInputChange} onFocus={() => setIsFocused(true)} onBlur={() => setIsFocused(false)} />
       <div>
         {extraActionElement}
       </div>
-      <div className={classNames(styles.icon, { [styles.disabled]: !term.length })} onClick={clearTerm}>
-        <Icon type="standalone" name="delete" color={!term.length ? 'neutral100' : 'neutral500'} />
+      <div className={classNames(styles.icon, { [styles.disabled]: !value.length })} onClick={clearTerm}>
+        <Icon type="standalone" name="delete" color={!value.length ? 'neutral100' : 'neutral500'} />
       </div>
     </div>
   );
@@ -62,10 +62,22 @@ SearchInput.defaultProps = {
 };
 
 SearchInput.propTypes = {
+  /**
+   * custom element to extend the search bar placed between search input and cross button
+   */
   extraActionElement: PropTypes.element,
+  /**
+   * called when value changes
+   */
   onChange: PropTypes.func.isRequired,
+  /**
+   * custom handler for enter keydown action
+   */
   onEnter: PropTypes.func,
-  term: PropTypes.string.isRequired,
+  /**
+   * input value
+   */
+  value: PropTypes.string.isRequired,
 };
 
 export default SearchInput;

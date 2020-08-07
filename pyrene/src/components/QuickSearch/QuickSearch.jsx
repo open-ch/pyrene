@@ -16,11 +16,11 @@ const MIN_TERM_LENGTH = 3;
  */
 const QuickSearch = ({
   zIndexTooltip,
-  onTermChange,
-  term,
+  onSearchTermChange,
+  searchTerm,
   suggestions,
   resultCount,
-  currentResult,
+  selectedResult,
   onSelectedResultChange,
   enableSuggestions,
 }) => {
@@ -33,18 +33,18 @@ const QuickSearch = ({
   const selectedSuggestion = useMemo(() => flattenedSuggestions[selectedSuggestionI], [selectedSuggestionI]);
 
   const selectNextResult = () => {
-    if (currentResult === resultCount) {
+    if (selectedResult === resultCount) {
       onSelectedResultChange(1);
       return;
     }
-    onSelectedResultChange(currentResult + 1);
+    onSelectedResultChange(selectedResult + 1);
   };
   const selectPreviousResult = () => {
-    if (currentResult === 1) {
+    if (selectedResult === 1) {
       onSelectedResultChange(resultCount);
       return;
     }
-    onSelectedResultChange((currentResult - 1));
+    onSelectedResultChange((selectedResult - 1));
   };
   const selectNextSuggestion = () => {
     if (selectedSuggestionI === flattenedSuggestions.length - 1) {
@@ -82,13 +82,13 @@ const QuickSearch = ({
     if (hideTooltip) {
       setHideTooltip(false);
     }
-    onTermChange(value);
-  }, [onTermChange, hideTooltip]);
+    onSearchTermChange(value);
+  }, [onSearchTermChange, hideTooltip]);
 
   const onSuggestionSelect = useCallback((suggestionString) => {
     setHideTooltip(true);
     setSelectedSuggestionI(-1);
-    onTermChange(suggestionString);
+    onSearchTermChange(suggestionString);
   }, []);
 
   const onKeyDown = useCallback((e) => {
@@ -110,7 +110,7 @@ const QuickSearch = ({
     }
   }, [enableSuggestions, onSuggestionSelect, selectedSuggestion, selectPreviousResult, selectNextResult]);
 
-  const showTooltip = enableSuggestions && term.length >= MIN_TERM_LENGTH
+  const showTooltip = enableSuggestions && searchTerm.length >= MIN_TERM_LENGTH
     && suggestions.length
     && !hideTooltip;
   const isNoResults = resultCount === 0;
@@ -119,13 +119,13 @@ const QuickSearch = ({
     <div className={styles.container} onKeyDown={onKeyDown}>
       <SearchInput
         ref={inputAreaRef}
-        term={term}
+        value={searchTerm}
         onChange={onInputChange}
         extraActionElement={(
           <div className={classNames(styles.extraElement, { [styles.disabled]: isNoResults })}>
             <div className={styles.hits}>
               <span>
-                {`${currentResult}/${resultCount}`}
+                {`${selectedResult}/${resultCount}`}
               </span>
             </div>
             <div className={styles.separator} />
@@ -169,19 +169,44 @@ QuickSearch.displayName = 'QuickSearch';
 QuickSearch.defaultProps = {
   zIndexTooltip: 1,
   enableSuggestions: false,
+  suggestions: [],
 };
 
 QuickSearch.propTypes = {
-  currentResult: PropTypes.number.isRequired,
+  /**
+   * enable auto-complete suggestion tooltip
+   */
   enableSuggestions: PropTypes.bool,
+  /**
+   * called when searchTerm changes
+   */
+  onSearchTermChange: PropTypes.func.isRequired,
+  /**
+   * called when selectedResult changes
+   */
   onSelectedResultChange: PropTypes.func.isRequired,
-  onTermChange: PropTypes.func.isRequired,
+  /**
+   * total number of results
+   */
   resultCount: PropTypes.number.isRequired,
+  /**
+   * displayed in search input
+   */
+  searchTerm: PropTypes.string.isRequired,
+  /**
+   * currently selected result, must be smaller than resultCount.
+   */
+  selectedResult: PropTypes.number.isRequired,
+  /**
+   * autocomplete suggestion list
+   */
   suggestions: PropTypes.arrayOf(PropTypes.shape({
     label: PropTypes.string.isRequired,
     members: PropTypes.arrayOf(PropTypes.string),
-  })).isRequired,
-  term: PropTypes.string.isRequired,
+  })),
+  /**
+   * z-index for autocomplete suggestion tooltip
+   */
   zIndexTooltip: PropTypes.number,
 };
 

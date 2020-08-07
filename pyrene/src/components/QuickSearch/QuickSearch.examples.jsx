@@ -1,12 +1,10 @@
 const examples = {
   props: {
-    onTermChange: (stateProvider) => (searchTerm) => stateProvider.setState({ searchTerm }),
-    term: (stateProvider) => stateProvider.state.searchTerm || '',
-    onSelectedResultChange: (stateProvider) => (currentResult) => stateProvider.setState({ currentResult }),
-    currentResult: (stateProvider) => stateProvider.state.currentResult || 1,
+    onSearchTermChange: (stateProvider) => (searchTerm) => stateProvider.setState({ searchTerm }),
+    searchTerm: (stateProvider) => stateProvider.state.searchTerm || '',
+    onSelectedResultChange: (stateProvider) => (selectedResult) => stateProvider.setState({ selectedResult }),
+    selectedResult: (stateProvider) => stateProvider.state.selectedResult || 1,
     resultCount: 15,
-    suggestions: [{ label: 'Service', members: ['kafka', 'redis'] }, { label: 'Ip Group', members: ['Private IPs', 'JUMP'] }],
-    zIndex: 1,
   },
 };
 
