@@ -59,6 +59,9 @@ class TreeTable extends React.Component {
       // eslint-disable-next-line react/no-did-update-set-state
       this.setState({
         rows,
+        expanded: {},
+        tableFullyExpanded: false,
+        tableKey: Date.now(), // as all rows are closed, we need to recalculate the height for the whole view - a key is the easiest way
         disabledExpandButton: this.isFlatTree(rows),
       });
     }
