@@ -26,7 +26,7 @@ const SearchInput = forwardRef(({
       onChange('');
       focus();
     }
-  }, [onChange]);
+  }, [onChange, value, focus]);
 
   const onInputChange = useCallback((e) => {
     onChange(e.target.value);
