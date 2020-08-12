@@ -1,3 +1,9 @@
+:global(.pyreneIcon-download:before){
+  content: "\28";
+}
+:global(.pyreneIcon-attachment:before){
+  content: "\2f";
+}
 :global(.pyreneIcon-copy:before){
   content: "\26";
 }
