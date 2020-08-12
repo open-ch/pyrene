@@ -1,4 +1,4 @@
-// VERSION: 33
+// VERSION: 35
 const icons = [
   { name: 'share', tags: ['social'] },
   { name: 'filter', tags: ['lines'] },
@@ -9,12 +9,12 @@ const icons = [
   { name: 'collapsDown', tags: ['arrow', 'dropdown', 'down'] },
   { name: 'collapsUp', tags: ['arrow', 'dropdown', 'up'] },
   { name: 'errorOutline', tags: ['problem', 'invalid', 'error', 'outline'] },
-  { name: 'delete', tags: ['clear', 'x', 'remove', 'cross'] },
+  { name: 'clear', tags: ['clear', 'x', 'remove', 'cross'] },
   { name: 'search', tags: ['loupe', 'search', 'find'] },
   { name: 'infoOutline', tags: ['info', 'information', 'banner', 'outline'] },
   { name: 'check', tags: ['checkmark', 'ok', 'done', 'check'] },
   { name: 'warning', tags: ['warning', 'caution', 'attention', 'solid', 'error'] },
-  { name: 'trash', tags: ['delete', 'bin', 'bucket', 'trash'] },
+  { name: 'trash', tags: ['delete', 'bin', 'bucket', 'trash', 'dump', 'junk'] },
   { name: 'info', tags: ['information', 'banner', 'solid', 'info'] },
   { name: 'error', tags: ['wrong', 'banner', 'invalid', 'problem', 'solid', 'error'] },
   { name: 'success', tags: ['correct', 'match', 'true', 'done', 'ok', 'solid', 'success'] },
@@ -39,7 +39,7 @@ const icons = [
   { name: 'block', tags: ['block', 'blocked', 'private', 'not', 'prevent', 'forbidden', 'banned', 'stop'] },
   { name: 'moreHorizontal', tags: ['more', 'options', 'circles', 'dots'] },
   { name: 'moreVertical', tags: ['more', 'options', 'circles', 'dots'] },
-  { name: 'wrench', tags: ['wrench', 'tool', 'settings', 'edit', 'building', 'adjust', 'configure', 'configuration', 'tools', 'repair', 'control'] },
+  { name: 'wrench', tags: ['wrench', 'tool', 'building', 'adjust', 'tool', 'repair'] },
   { name: 'comment', tags: ['comment', 'communication', 'communicate', 'chat', 'talk', 'speak', 'dialog', 'message', 'messages', 'bubble', 'bubbles'] },
   { name: 'email', tags: ['email', 'communication', 'communicate', 'mail', 'send', 'envelope', 'letter', 'mailbox', 'news', 'newsletter'] },
   { name: 'phone', tags: ['phone', 'communication', 'call', 'talk', 'telephone'] },
@@ -63,9 +63,11 @@ const icons = [
   { name: 'visibilityOutline', tags: ['visibility', 'eye', 'watching', 'see', 'follow', 'outline', 'preview', 'vision', 'visible', 'overview', 'watch'] },	
   { name: 'visibilityOffOutline', tags: ['visibility', 'eye', 'watching', 'see', 'unfollow', 'outline', 'preview', 'vision', 'invisible', 'overview', 'watch', 'blind', 'block', 'hidden'] },
   { name: 'chef', tags: ['chef', 'admin', 'cook', 'cooking', 'broil', 'solid', 'restaurant', 'kitchen', 'kitchensink', 'hat', 'food', 'cap', 'roast', 'fry', 'pan'] },
-  { name: 'settings', tags: ['settings', 'gear', 'cogwheel', 'wheel', 'manage', 'set', 'adjust', 'config', 'configure', 'edit', 'tools', 'options', 'control', 'preferences', 'parameter', 'setup', 'cog', 'tools'] },
+  { name: 'settings', tags: ['settings', 'gear', 'cogwheel', 'wheel', 'manage', 'set', 'adjust', 'config', 'configure', 'edit', 'tools', 'options', 'control', 'preferences', 'parameter', 'setup', 'cog', 'tools', 'configuration', 'configurations'] },
   { name: 'resolved', tags: ['resolved', 'check', 'ok', 'approved', 'confirmed', 'checkmark', 'done', 'finished', 'complete', 'accept', 'tools', 'success', 'selected', 'mark', 'tick', 'approve'] },
   { name: 'copy', tags: ['copy', 'duplicate', 'clone', 'copies'] },
+  { name: 'attachment', tags: ['attachment', 'add', 'file', 'attach', 'paperclip', 'include', 'clip', 'attaching', 'editing'] },
+  { name: 'download', tags: ['download', 'load', 'get', 'storage', 'file', 'save', 'bottom', 'downward', 'down'] },
 
 ];
 export default icons;
