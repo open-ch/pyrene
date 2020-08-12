@@ -70,7 +70,7 @@ const config = {
       analyzerMode: process.env.NODE_ENV === 'debug' ? 'server' : 'disabled',
     }),
     new MiniCssExtractPlugin({
-      filename: 'pyrene.css',
+      moduleFilename: ({ name }) => (name === 'main' ? 'pyrene.css' : 'pyrene.[name].css'),
     }),
     new OptimizeCSSAssetsPlugin({}),
     new CopyWebpackPlugin([
