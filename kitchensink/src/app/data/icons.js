@@ -9,7 +9,7 @@ const icons = [
   { name: 'collapsDown', tags: ['arrow', 'dropdown', 'down'] },
   { name: 'collapsUp', tags: ['arrow', 'dropdown', 'up'] },
   { name: 'errorOutline', tags: ['problem', 'invalid', 'error', 'outline'] },
-  { name: 'clear', tags: ['clear', 'x', 'remove', 'cross'] },
+  { name: 'delete', tags: ['clear', 'x', 'remove', 'cross'] },
   { name: 'search', tags: ['loupe', 'search', 'find'] },
   { name: 'infoOutline', tags: ['info', 'information', 'banner', 'outline'] },
   { name: 'check', tags: ['checkmark', 'ok', 'done', 'check'] },
