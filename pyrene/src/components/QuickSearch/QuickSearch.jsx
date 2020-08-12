@@ -8,14 +8,11 @@ import styles from './quickSearch.css';
 import Icon from '../Icon/Icon';
 import SearchInput from '../SearchInput/SearchInput';
 
-const MIN_TERM_LENGTH = 3;
-
 /**
  * Search Input area with suggestion tooltip and cycling between matches.
  * Similar to ctrl+f exact search in browsers, but searching logic can be custom.
  */
 const QuickSearch = ({
-  zIndexTooltip,
   onSearchTermChange,
   searchTerm,
   suggestions,
@@ -25,47 +22,47 @@ const QuickSearch = ({
   enableSuggestions,
 }) => {
   const [hideTooltip, setHideTooltip] = useState(false);
-  const inputAreaRef = useRef(null);
+  const searchInputRef = useRef(null);
   const tooltipRef = useRef(null);
-  const [selectedSuggestionI, setSelectedSuggestionI] = useState(-1);
+  const [selectedSuggestionIndex, setSelectedSuggestionIndex] = useState(-1);
 
   const flattenedSuggestions = useMemo(() => suggestions.reduce((flat, suggestion) => [...flat, ...suggestion.members], []), [suggestions]);
-  const selectedSuggestion = useMemo(() => flattenedSuggestions[selectedSuggestionI], [selectedSuggestionI]);
+  const selectedSuggestion = useMemo(() => flattenedSuggestions[selectedSuggestionIndex], [selectedSuggestionIndex]);
 
   const selectNextResult = () => {
-    if (selectedResult === resultCount) {
+    if (selectedResult >= resultCount) {
       onSelectedResultChange(1);
       return;
     }
     onSelectedResultChange(selectedResult + 1);
   };
   const selectPreviousResult = () => {
-    if (selectedResult === 1) {
+    if (selectedResult <= 1) {
       onSelectedResultChange(resultCount);
       return;
     }
     onSelectedResultChange((selectedResult - 1));
   };
   const selectNextSuggestion = () => {
-    if (selectedSuggestionI === flattenedSuggestions.length - 1) {
-      setSelectedSuggestionI(0);
+    if (selectedSuggestionIndex === flattenedSuggestions.length - 1) {
+      setSelectedSuggestionIndex(0);
       return;
     }
-    setSelectedSuggestionI(selectedSuggestionI + 1);
+    setSelectedSuggestionIndex(selectedSuggestionIndex + 1);
   };
   const selectPreviousSuggestion = () => {
-    if (selectedSuggestionI === 0) {
-      setSelectedSuggestionI(flattenedSuggestions.length - 1);
+    if (selectedSuggestionIndex === 0) {
+      setSelectedSuggestionIndex(flattenedSuggestions.length - 1);
       return;
     }
-    setSelectedSuggestionI(selectedSuggestionI - 1);
+    setSelectedSuggestionIndex(selectedSuggestionIndex - 1);
   };
 
   const onClickOutside = useCallback((e) => {
-    if (!inputAreaRef.current || !tooltipRef.current) {
+    if (!searchInputRef.current || !tooltipRef.current) {
       return;
     }
-    const clickedInside = inputAreaRef.current.contains(e.target) || tooltipRef.current.contains(e.target);
+    const clickedInside = searchInputRef.current.contains(e.target) || tooltipRef.current.contains(e.target);
     if (!clickedInside && !hideTooltip) {
       setHideTooltip(true);
     }
@@ -87,7 +84,7 @@ const QuickSearch = ({
 
   const onSuggestionSelect = useCallback((suggestionString) => {
     setHideTooltip(true);
-    setSelectedSuggestionI(-1);
+    setSelectedSuggestionIndex(-1);
     onSearchTermChange(suggestionString);
   }, []);
 
@@ -110,36 +107,36 @@ const QuickSearch = ({
     }
   }, [enableSuggestions, onSuggestionSelect, selectedSuggestion, selectPreviousResult, selectNextResult]);
 
-  const showTooltip = enableSuggestions && searchTerm.length >= MIN_TERM_LENGTH
-    && suggestions.length
+  const showTooltip = enableSuggestions
+    && suggestions.length > 0
     && !hideTooltip;
-  const isNoResults = resultCount === 0;
+  const disableResultSelector = !searchTerm.length || resultCount < 1;
 
   return (
     <div className={styles.container} onKeyDown={onKeyDown}>
       <SearchInput
-        ref={inputAreaRef}
+        containerRef={searchInputRef}
         value={searchTerm}
         onChange={onInputChange}
         extraActionElement={(
-          <div className={classNames(styles.extraElement, { [styles.disabled]: isNoResults })}>
-            <div className={styles.hits}>
+          <div className={styles.extraElement}>
+            <div className={classNames(styles.hits, { [styles.disabled]: !searchTerm.length })}>
               <span>
                 {`${selectedResult}/${resultCount}`}
               </span>
             </div>
             <div className={styles.separator} />
-            <div className={styles.icon} onClick={selectPreviousResult}>
-              <Icon type="standalone" name="chevronUp" color={isNoResults ? 'neutral100' : 'neutral500'} />
+            <div className={classNames(styles.icon, { [styles.disabled]: disableResultSelector })} onClick={selectPreviousResult}>
+              <Icon type="standalone" name="chevronUp" color={disableResultSelector ? 'neutral100' : 'neutral500'} />
             </div>
-            <div className={styles.icon} onClick={selectNextResult}>
-              <Icon type="standalone" name="chevronDown" color={isNoResults ? 'neutral100' : 'neutral500'} />
+            <div className={classNames(styles.icon, { [styles.disabled]: disableResultSelector })} onClick={selectNextResult}>
+              <Icon type="standalone" name="chevronDown" color={disableResultSelector ? 'neutral100' : 'neutral500'} />
             </div>
           </div>
         )}
       />
       {showTooltip && (
-        <div style={{ zIndex: zIndexTooltip }} className={styles.tooltip} ref={tooltipRef}>
+        <div className={styles.tooltip} ref={tooltipRef}>
           {suggestions.map((suggestion) => (
             <div className={styles.suggestion} key={suggestion.label}>
               <div className={styles.label}>
@@ -167,7 +164,6 @@ const QuickSearch = ({
 QuickSearch.displayName = 'QuickSearch';
 
 QuickSearch.defaultProps = {
-  zIndexTooltip: 1,
   enableSuggestions: false,
   suggestions: [],
 };
@@ -204,10 +200,6 @@ QuickSearch.propTypes = {
     label: PropTypes.string.isRequired,
     members: PropTypes.arrayOf(PropTypes.string),
   })),
-  /**
-   * z-index for autocomplete suggestion tooltip
-   */
-  zIndexTooltip: PropTypes.number,
 };
 
 export default QuickSearch;

@@ -1,5 +1,5 @@
 import React, {
-  useCallback, useRef, forwardRef, useState,
+  useCallback, useRef, useState,
 } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
@@ -9,9 +9,9 @@ import Icon from '../Icon/Icon';
 /**
  * SearchInput - simple search input area with search and "clear" actions
  */
-const SearchInput = forwardRef(({
-  value, onChange, onEnter, extraActionElement,
-}, ref) => {
+const SearchInput = ({
+  value, onChange, onEnter, extraActionElement, containerRef,
+}) => {
   const inputRef = useRef();
   const [isFocused, setIsFocused] = useState(false);
 
@@ -39,7 +39,7 @@ const SearchInput = forwardRef(({
   }, [onEnter]);
 
   return (
-    <div className={classNames(styles.inputArea, { [styles.isFocused]: isFocused })} ref={ref} onKeyDown={onEnter ? handleEnter : null}>
+    <div className={classNames(styles.inputArea, { [styles.isFocused]: isFocused })} ref={containerRef} onKeyDown={onEnter ? handleEnter : null}>
       <div className={classNames(styles.icon, styles.passive)}>
         <Icon type="standalone" name="search" />
       </div>
@@ -52,16 +52,24 @@ const SearchInput = forwardRef(({
       </div>
     </div>
   );
-});
+};
 
 SearchInput.displayName = 'SearchInput';
 
 SearchInput.defaultProps = {
   onEnter: null,
   extraActionElement: null,
+  containerRef: null,
 };
 
 SearchInput.propTypes = {
+  /**
+   * ref of SearchInput container
+   */
+  containerRef: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
+  ]),
   /**
    * custom element to extend the search bar placed between search input and cross button
    */

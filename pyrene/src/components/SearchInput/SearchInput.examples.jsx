@@ -1,7 +1,7 @@
 const examples = {
   props: {
     onChange: (stateProvider) => (searchTerm) => stateProvider.setState({ searchTerm }),
-    value: (stateProvider) => stateProvider.state.searchTerm,
+    value: (stateProvider) => stateProvider.state.searchTerm || '',
   },
 };
 
