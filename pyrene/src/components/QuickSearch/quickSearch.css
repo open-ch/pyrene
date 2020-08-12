@@ -13,15 +13,6 @@
   & .extraElement {
     display: flex;
 
-    &.disabled {
-      & .icon {
-        pointer-events: none;
-      }
-
-      & .hits {
-        visibility: hidden;
-      }
-    }
     & .separator {
       width: 1px;
       height: 16px;
@@ -34,6 +25,10 @@
       cursor: pointer;
       border-radius: 2px;
 
+      &.disabled {
+        pointer-events: none;
+      }
+
       &:hover {
         background-color: var(--neutral-030);
       }
@@ -43,6 +38,10 @@
       padding: 7px 8px;
       color: var(--neutral-300);
       font-size: 12px;
+
+      &.disabled {
+        visibility: hidden;
+      }
 
       & > span {
         display: block;

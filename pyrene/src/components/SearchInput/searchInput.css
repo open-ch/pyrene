@@ -26,6 +26,7 @@
 
     &.passive {
       cursor: default;
+
       &:hover {
         background-color: var(--neutral-000);
       }
