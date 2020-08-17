@@ -1,5 +1,5 @@
 import React, {
-  useCallback, useEffect, useMemo, useRef, useState,
+  useCallback,
 } from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
@@ -9,26 +9,16 @@ import Icon from '../Icon/Icon';
 import SearchInput from '../SearchInput/SearchInput';
 
 /**
- * Search Input area with suggestion tooltip and cycling between matches.
- * Similar to ctrl+f exact search in browsers, but searching logic can be custom.
+ * Search Input area with buttons that cycle between matches.
+ * Similar to ctrl+f exact search in browsers, but searching logic is custom.
  */
 const QuickSearch = ({
   onSearchTermChange,
   searchTerm,
-  suggestions,
   resultCount,
   selectedResult,
   onSelectedResultChange,
-  enableSuggestions,
 }) => {
-  const [hideTooltip, setHideTooltip] = useState(false);
-  const searchInputRef = useRef(null);
-  const tooltipRef = useRef(null);
-  const [selectedSuggestionIndex, setSelectedSuggestionIndex] = useState(-1);
-
-  const flattenedSuggestions = useMemo(() => suggestions.reduce((flat, suggestion) => [...flat, ...suggestion.members], []), [suggestions]);
-  const selectedSuggestion = useMemo(() => flattenedSuggestions[selectedSuggestionIndex], [selectedSuggestionIndex]);
-
   const selectNextResult = () => {
     if (selectedResult >= resultCount) {
       onSelectedResultChange(1);
@@ -43,81 +33,25 @@ const QuickSearch = ({
     }
     onSelectedResultChange((selectedResult - 1));
   };
-  const selectNextSuggestion = () => {
-    if (selectedSuggestionIndex === flattenedSuggestions.length - 1) {
-      setSelectedSuggestionIndex(0);
-      return;
-    }
-    setSelectedSuggestionIndex(selectedSuggestionIndex + 1);
-  };
-  const selectPreviousSuggestion = () => {
-    if (selectedSuggestionIndex === 0) {
-      setSelectedSuggestionIndex(flattenedSuggestions.length - 1);
-      return;
-    }
-    setSelectedSuggestionIndex(selectedSuggestionIndex - 1);
-  };
-
-  const onClickOutside = useCallback((e) => {
-    if (!searchInputRef.current || !tooltipRef.current) {
-      return;
-    }
-    const clickedInside = searchInputRef.current.contains(e.target) || tooltipRef.current.contains(e.target);
-    if (!clickedInside && !hideTooltip) {
-      setHideTooltip(true);
-    }
-  }, []);
-
-  useEffect(() => {
-    document.addEventListener('click', onClickOutside);
-    return () => {
-      document.removeEventListener('click', onClickOutside);
-    };
-  }, []);
-
-  const onInputChange = useCallback((value) => {
-    if (hideTooltip) {
-      setHideTooltip(false);
-    }
-    onSearchTermChange(value);
-  }, [onSearchTermChange, hideTooltip]);
-
-  const onSuggestionSelect = useCallback((suggestionString) => {
-    setHideTooltip(true);
-    setSelectedSuggestionIndex(-1);
-    onSearchTermChange(suggestionString);
-  }, []);
 
   const onKeyDown = useCallback((e) => {
-    if (e.key === 'ArrowDown' && enableSuggestions) {
-      selectNextSuggestion();
-      e.preventDefault();
-    } else if (e.key === 'ArrowUp' && enableSuggestions) {
-      selectPreviousSuggestion();
-      e.preventDefault();
-    } else if (e.key === 'Enter') {
-      if (enableSuggestions && !hideTooltip) {
-        onSuggestionSelect(selectedSuggestion);
-      } else if (e.shiftKey) {
+    if (e.key === 'Enter') {
+      if (e.shiftKey) {
         selectPreviousResult();
       } else {
         selectNextResult();
       }
       e.preventDefault();
     }
-  }, [enableSuggestions, onSuggestionSelect, selectedSuggestion, selectPreviousResult, selectNextResult]);
+  }, [selectPreviousResult, selectNextResult]);
 
-  const showTooltip = enableSuggestions
-    && suggestions.length > 0
-    && !hideTooltip;
   const disableResultSelector = !searchTerm.length || resultCount < 1;
 
   return (
     <div className={styles.container} onKeyDown={onKeyDown}>
       <SearchInput
-        containerRef={searchInputRef}
         value={searchTerm}
-        onChange={onInputChange}
+        onChange={onSearchTermChange}
         extraActionElement={(
           <div className={styles.extraElement}>
             <div className={classNames(styles.hits, { [styles.disabled]: !searchTerm.length })}>
@@ -135,44 +69,13 @@ const QuickSearch = ({
           </div>
         )}
       />
-      {showTooltip && (
-        <div className={styles.tooltip} ref={tooltipRef}>
-          {suggestions.map((suggestion) => (
-            <div className={styles.suggestion} key={suggestion.label}>
-              <div className={styles.label}>
-                {suggestion.label}
-              </div>
-              {suggestion.members.map((member) => (
-                <div
-                  className={classNames(styles.member, {
-                    [styles.selected]: member === selectedSuggestion,
-                  })}
-                  onClick={() => onSuggestionSelect(member)}
-                  key={member}
-                >
-                  {member}
-                </div>
-              ))}
-            </div>
-          ))}
-        </div>
-      )}
     </div>
   );
 };
 
 QuickSearch.displayName = 'QuickSearch';
 
-QuickSearch.defaultProps = {
-  enableSuggestions: false,
-  suggestions: [],
-};
-
 QuickSearch.propTypes = {
-  /**
-   * enable auto-complete suggestion tooltip
-   */
-  enableSuggestions: PropTypes.bool,
   /**
    * called when searchTerm changes
    */
@@ -193,13 +96,6 @@ QuickSearch.propTypes = {
    * currently selected result, must be smaller than resultCount.
    */
   selectedResult: PropTypes.number.isRequired,
-  /**
-   * autocomplete suggestion list
-   */
-  suggestions: PropTypes.arrayOf(PropTypes.shape({
-    label: PropTypes.string.isRequired,
-    members: PropTypes.arrayOf(PropTypes.string),
-  })),
 };
 
 export default QuickSearch;
