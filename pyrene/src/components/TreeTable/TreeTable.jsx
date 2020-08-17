@@ -61,9 +61,9 @@ class TreeTable extends React.Component {
         rows,
         expanded: {},
         tableFullyExpanded: false,
-        tableKey: Date.now(), // as all rows are closed, we need to recalculate the height for the whole view - a key is the easiest way
         disabledExpandButton: this.isFlatTree(rows),
       });
+      this.clearHeightCacheAfterIndex(0);
     }
 
     const newScrollBarWidth = this.calculateScrollBarWidth();
