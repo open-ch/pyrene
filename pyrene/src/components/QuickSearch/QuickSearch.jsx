@@ -17,6 +17,7 @@ const QuickSearch = ({
   searchTerm,
   resultCount,
   selectedResult,
+  placeholder,
   onSelectedResultChange,
 }) => {
   const selectNextResult = () => {
@@ -52,6 +53,7 @@ const QuickSearch = ({
       <SearchInput
         value={searchTerm}
         onChange={onSearchTermChange}
+        placeholder={placeholder}
         extraActionElement={(
           <div className={styles.extraElement}>
             <div className={classNames(styles.hits, { [styles.disabled]: !searchTerm.length })}>
@@ -75,6 +77,10 @@ const QuickSearch = ({
 
 QuickSearch.displayName = 'QuickSearch';
 
+QuickSearch.defaultProps = {
+  placeholder: '',
+};
+
 QuickSearch.propTypes = {
   /**
    * called when searchTerm changes
@@ -84,6 +90,10 @@ QuickSearch.propTypes = {
    * called when selectedResult changes
    */
   onSelectedResultChange: PropTypes.func.isRequired,
+  /**
+   * input placeholder string
+   */
+  placeholder: PropTypes.string,
   /**
    * total number of results
    */

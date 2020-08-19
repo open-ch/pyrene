@@ -10,7 +10,7 @@ import Icon from '../Icon/Icon';
  * SearchInput - simple search input area with search and "clear" actions
  */
 const SearchInput = ({
-  value, onChange, onEnter, extraActionElement, containerRef,
+  value, onChange, onEnter, extraActionElement, containerRef, placeholder,
 }) => {
   const inputRef = useRef();
   const [isFocused, setIsFocused] = useState(false);
@@ -43,7 +43,14 @@ const SearchInput = ({
       <div className={classNames(styles.icon, styles.passive)}>
         <Icon type="standalone" name="search" />
       </div>
-      <input ref={inputRef} value={value} onChange={onInputChange} onFocus={() => setIsFocused(true)} onBlur={() => setIsFocused(false)} />
+      <input
+        ref={inputRef}
+        value={value}
+        onChange={onInputChange}
+        onFocus={() => setIsFocused(true)}
+        onBlur={() => setIsFocused(false)}
+        placeholder={placeholder}
+      />
       <div>
         {extraActionElement}
       </div>
@@ -60,6 +67,7 @@ SearchInput.defaultProps = {
   onEnter: null,
   extraActionElement: null,
   containerRef: null,
+  placeholder: '',
 };
 
 SearchInput.propTypes = {
@@ -82,6 +90,10 @@ SearchInput.propTypes = {
    * custom handler for enter keydown action
    */
   onEnter: PropTypes.func,
+  /**
+   * input placeholder string
+   */
+  placeholder: PropTypes.string,
   /**
    * input value
    */
