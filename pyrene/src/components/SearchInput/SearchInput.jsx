@@ -29,7 +29,7 @@ const SearchInput = ({
   }, [onChange, value, focus]);
 
   const onInputChange = useCallback((e) => {
-    onChange(e.target.value);
+    onChange(e.target.value, e);
   }, [onChange]);
 
   const handleEnter = useCallback((e) => {
