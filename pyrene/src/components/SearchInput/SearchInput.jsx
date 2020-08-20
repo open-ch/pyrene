@@ -61,7 +61,7 @@ const SearchInput = ({
   );
 };
 
-SearchInput.displayName = 'SearchInput';
+SearchInput.displayName = 'Search Input';
 
 SearchInput.defaultProps = {
   onEnter: null,
