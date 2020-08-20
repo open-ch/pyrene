@@ -12,6 +12,7 @@
 
   & .extraElement {
     display: flex;
+    align-items: center;
 
     & .separator {
       width: 1px;
@@ -38,6 +39,7 @@
       padding: 7px 8px;
       color: var(--neutral-300);
       font-size: 12px;
+      cursor: default;
 
       &.disabled {
         visibility: hidden;
@@ -45,48 +47,9 @@
 
       & > span {
         display: block;
+        line-height: 100%;
       }
     }
 
-  }
-
-
-  & .tooltip {
-    position: absolute;
-    bottom: -8px;
-    transform: translateY(100%);
-    width: 256px;
-    border-radius: 2px;
-    box-shadow: 0 0 2px 0 rgba(29, 39, 59, 0.3), 0 4px 8px -2px rgba(29, 39, 59, 0.2);
-    border: solid 1px var(--neutral-050);
-    background-color: var(--neutral-000);
-    z-index: 1;
-
-    & .suggestion {
-      & .label {
-        height: 32px;
-        padding: 7px 8px;
-        font-size: 13px;
-        box-shadow: inset 0 -1px 0 0 var(--neutral-030);
-        font-weight: 600;
-      }
-
-      & .member {
-        height: 32px;
-        padding: 7px 8px;
-        font-size: 13px;
-        cursor: pointer;
-
-        &:hover {
-          transition: .15s ease-out background-color;
-          background-color: var(--neutral-030);
-        }
-
-        &.selected {
-          transition: .15s ease-out background-color;
-          background-color: var(--neutral-030);
-        }
-      }
-    }
   }
 }

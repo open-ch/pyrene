@@ -75,7 +75,7 @@ const QuickSearch = ({
   );
 };
 
-QuickSearch.displayName = 'QuickSearch';
+QuickSearch.displayName = 'Quick Search';
 
 QuickSearch.defaultProps = {
   placeholder: '',

@@ -54,6 +54,7 @@
 
 
   & input {
+    font-size: 12px;
     border: none;
     padding: 7px 0;
     min-width: 0;
