@@ -1,0 +1,64 @@
+@import '../../styles/colors.css';
+
+.inputArea {
+  composes: commonFontSettings from '../../styles/common.css';
+  color: var(--neutral-500);
+
+  &, & * {
+    box-sizing: border-box;
+  }
+
+  width: 256px;
+  height: 32px;
+  border-radius: 2px;
+  border: solid 1px var(--neutral-200);
+  position: relative;
+  display: flex;
+
+  &.isFocused {
+    border: solid 1px var(--blue-500);
+  }
+
+  & .icon {
+    margin: 7px 4px 7px 8px;
+    cursor: pointer;
+    border-radius: 2px;
+
+    &.passive {
+      cursor: default;
+
+      &:hover {
+        background-color: var(--neutral-000);
+      }
+    }
+
+    &.disabled {
+      pointer-events: none;
+
+    }
+
+    &:first-of-type {
+      margin-left: 7px;
+      margin-right: 8px;
+    }
+
+    &:last-of-type {
+      margin-left: 4px;
+      margin-right: 7px;
+    }
+
+    &:hover {
+      background-color: var(--neutral-030);
+    }
+  }
+
+
+  & input {
+    font-size: 12px;
+    border: none;
+    padding: 7px 0;
+    min-width: 0;
+    outline: none;
+    flex-grow: 1;
+  }
+}

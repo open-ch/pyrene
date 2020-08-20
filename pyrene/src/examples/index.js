@@ -25,9 +25,11 @@ import { default as Modal } from '../components/Modal/Modal.examples';
 import { default as Paragraph } from '../components/Paragraph/Paragraph.examples';
 import { default as Pill } from '../components/Pill/Pill.examples';
 import { default as Popover } from '../components/Popover/Popover.examples';
+import { default as QuickSearch } from '../components/QuickSearch/QuickSearch.examples';
 import { default as MultiSelect } from '../components/MultiSelect/MultiSelect.examples';
 import { default as RadioGroup } from '../components/RadioGroup/RadioGroup.examples';
 import { default as RadioPopover } from '../components/RadioPopover/RadioPopover.examples';
+import { default as SearchInput } from '../components/SearchInput/SearchInput.examples';
 import { default as ShareDialog } from '../components/ShareDialog/ShareDialog.examples';
 import { default as SimpleTable } from '../components/SimpleTable/SimpleTable.examples';
 import { default as SingleSelect } from '../components/SingleSelect/SingleSelect.examples';
@@ -68,8 +70,10 @@ const examples = {
   Paragraph,
   Pill,
   Popover,
+  QuickSearch,
   RadioPopover,
   RadioGroup,
+  SearchInput,
   ShareDialog,
   SimpleTable,
   SingleSelect,

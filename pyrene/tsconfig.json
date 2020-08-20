@@ -16,14 +16,14 @@
     "esModuleInterop": true,
     // To compile js files:
     "noImplicitAny": false,
-    "checkJs": true,
+    "checkJs": false,
     "jsx": "react",
     // "types": ["node", "jest", "react"],
     "strictNullChecks": false,
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
-    "sourceMap": true, 
+    "sourceMap": true,
     "module": "es6"
   },
-  "include": ["src" ], 
+  "include": ["src" ],
 }
