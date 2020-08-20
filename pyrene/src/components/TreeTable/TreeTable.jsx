@@ -78,7 +78,7 @@ class TreeTable extends React.Component {
     return size * this.props.rowLineHeight;
   };
 
-  toggleAllRowsExpansion = () => {
+  toggleAllRowsExpansion = (cb = () => {}) => {
     const { tableFullyExpanded } = this.state;
     const { data } = this.props;
     this.clearHeightCacheAfterIndex(0); // clear all
@@ -95,10 +95,15 @@ class TreeTable extends React.Component {
         ...TreeTableUtils.handleAllRowExpansion(data, { rows: data, expanded: {} }),
         tableFullyExpanded: !tableFullyExpanded,
       };
-    });
+    }, cb);
   }
 
   scrollToRow = (rowId) => {
+    if (this.state.tableFullyExpanded) {
+      const indexToScrollTo = this.state.rows.findIndex(({ _rowId }) => _rowId === rowId);
+      this.listRef.current.scrollToItem(indexToScrollTo, 'start');
+      return;
+    }
     const { rows, expanded } = TreeTableUtils.handleExpandAllParentsOfRowById(rowId, this.state);
     this.setState({ rows, expanded }, () => {
       const indexToScrollTo = rows.findIndex(({ _rowId }) => _rowId === rowId);
@@ -205,7 +210,7 @@ class TreeTable extends React.Component {
 
       return (
         <TreeTableActionBar
-          toggleAll={this.toggleAllRowsExpansion}
+          toggleAll={() => { this.toggleAllRowsExpansion(); }}
           displayExpandAll={!tableFullyExpanded}
           columnToggleProps={columnToggleProps}
           renderRightItems={props.renderActionBarRightItems}
@@ -283,7 +288,7 @@ class TreeTable extends React.Component {
               >
                 {renderRow}
               </List>
-            // @ts-ignore
+              // @ts-ignore
             ) : rows.map((_, index) => renderRow({ index }))}
           </div>
         </div>
