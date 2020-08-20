@@ -46,9 +46,12 @@ import { default as Paragraph } from './components/Paragraph/Paragraph';
 import { default as Pill } from './components/Pill/Pill';
 import { default as Popover } from './components/Popover/Popover';
 
+import { default as QuickSearch } from './components/QuickSearch/QuickSearch';
+
 import { default as RadioGroup } from './components/RadioGroup/RadioGroup';
 import { default as RadioPopover } from './components/RadioPopover/RadioPopover';
 
+import { default as SearchInput } from './components/SearchInput/SearchInput';
 import { default as ShareDialog } from './components/ShareDialog/ShareDialog';
 import { default as SimpleTable } from './components/SimpleTable/SimpleTable';
 import { default as SingleSelect } from './components/SingleSelect/SingleSelect';
@@ -92,8 +95,10 @@ const Components = {
   Paragraph,
   Pill,
   Popover,
+  QuickSearch,
   RadioGroup,
   RadioPopover,
+  SearchInput,
   ShareDialog,
   SimpleTable,
   SingleSelect,
@@ -135,8 +140,10 @@ export { MultiSelect };
 export { Paragraph };
 export { Pill };
 export { Popover };
+export { QuickSearch };
 export { RadioGroup };
 export { RadioPopover };
+export { SearchInput };
 export { ShareDialog };
 export { SimpleTable };
 export { SingleSelect };
