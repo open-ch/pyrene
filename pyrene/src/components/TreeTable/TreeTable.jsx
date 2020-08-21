@@ -59,8 +59,11 @@ class TreeTable extends React.Component {
       // eslint-disable-next-line react/no-did-update-set-state
       this.setState({
         rows,
+        expanded: {},
+        tableFullyExpanded: false,
         disabledExpandButton: this.isFlatTree(rows),
       });
+      this.clearHeightCacheAfterIndex(0);
     }
 
     const newScrollBarWidth = this.calculateScrollBarWidth();
