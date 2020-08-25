@@ -20,7 +20,7 @@
   font-weight: 500;
   text-align: left;
   color: var(--neutral-500);
-  height: 12px;
+  line-height: 12px;
   margin-bottom: 4px;
 
   &.required:after {
