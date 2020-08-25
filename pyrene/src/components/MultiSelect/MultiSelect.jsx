@@ -73,7 +73,7 @@ const MultiSelect = (props) => {
   };
 
   const formatNoOptionsMessage = (input) => {
-    const existingLabels = props.value.map((v) => v.label);
+    const existingLabels = (props.value || []).map((v) => v.label);
     const foundLabel = existingLabels.find((v) => v.toLowerCase() === input.inputValue.toLowerCase());
     return foundLabel ? `Duplicate tag "${foundLabel}"` : 'No matches found';
   };
