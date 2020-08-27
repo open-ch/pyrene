@@ -49,7 +49,7 @@ const QuickSearch = ({
   const disableResultSelector = !searchTerm.length || resultCount < 1;
 
   return (
-    <div className={styles.container} onKeyDown={onKeyDown}>
+    <div className={styles.container} onKeyDown={disableResultSelector ? null : onKeyDown}>
       <SearchInput
         value={searchTerm}
         onChange={onSearchTermChange}
