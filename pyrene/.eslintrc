@@ -7,6 +7,19 @@
     "sourceType": "module"
   },
   "rules": {
-    "no-restricted-imports": ["error", "jquery"]
+    "no-restricted-imports": [
+      "error",
+      "jquery"
+    ],
+    "react/jsx-filename-extension": [
+      2,
+      {
+        "extensions": [
+          ".jsx",
+          ".tsx"
+        ]
+      }
+    ],
+    "react/jsx-props-no-spreading": "off"
   }
 }

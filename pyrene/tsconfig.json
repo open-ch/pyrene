@@ -1,29 +1,45 @@
 {
   "compilerOptions": {
-    // Target latest version of ECMAScript.
-    "target": "esnext",
-    // Search under node_modules for non-relative imports.
-    "moduleResolution": "node",
-    // Process & infer types from .js files.
-    "allowJs": true,
-    // Don't emit; allow Babel to transform files.
+    // Compilation ?
+    "target": "es5",
+    "module": "esnext",
+    "lib": [
+      "es2015",
+      "dom"
+    ],
     "noEmit": true,
-    // Enable strictest settings like strictNullChecks & noImplicitAny.
-    "strict": true,
-    // Disallow features that require cross-file information for emit.
-    "isolatedModules": true,
-    // Import non-ES modules as default imports.
-    "esModuleInterop": true,
-    // To compile js files:
-    "noImplicitAny": false,
-    "checkJs": false,
-    "jsx": "react",
-    // "types": ["node", "jest", "react"],
-    "strictNullChecks": false,
-    "resolveJsonModule": true,
-    "allowSyntheticDefaultImports": true,
+    "declaration": true,
+    "emitDeclarationOnly": false,
+    "outDir": "./dist",
     "sourceMap": true,
-    "module": "es6"
+    // External libs
+    "skipLibCheck": true,
+    // React
+    "jsx": "preserve",
+    // JavaScript/other files
+    "resolveJsonModule": true,
+    "allowJs": true,
+    "checkJs": false,
+    // modules and files
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "forceConsistentCasingInFileNames": true,
+    // TS checks
+    "strict": true,
+    "allowSyntheticDefaultImports": true,
+    "noImplicitAny": true,
+    "strictPropertyInitialization": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
   },
-  "include": ["src" ],
+  "include": [
+    "src"
+  ]
 }

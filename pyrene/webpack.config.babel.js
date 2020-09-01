@@ -5,6 +5,7 @@ import TerserPlugin from 'terser-webpack-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
 const production = process.env.NODE_ENV === 'production';
 
@@ -15,7 +16,7 @@ const config = {
   devtool: production ? 'none' : 'source-map',
   resolve: {
     mainFiles: ['index'],
-    extensions: ['.js', '.jsx'],
+    extensions: ['.js', '.jsx', '.ts', '.tsx'],
   },
   module: {
     rules: [
@@ -26,7 +27,7 @@ const config = {
         enforce: 'pre',
       },
       {
-        test: /\.jsx?$/,
+        test: /\.[jt]sx?$/,
         include: path.resolve(__dirname, 'src'),
         use: {
           loader: 'babel-loader',
@@ -69,12 +70,21 @@ const config = {
       analyzerMode: process.env.NODE_ENV === 'debug' ? 'server' : 'disabled',
     }),
     new MiniCssExtractPlugin({
-      filename: 'pyrene.css',
+      moduleFilename: ({ name }) => (name === 'main' ? 'pyrene.css' : 'pyrene.[name].css'),
     }),
     new OptimizeCSSAssetsPlugin({}),
     new CopyWebpackPlugin([
       { from: 'src/styles/colors.css', to: OUTPUT_PATH, flatten: true },
     ]),
+    new ForkTsCheckerWebpackPlugin({
+      // Options as defined in: https://github.com/TypeStrong/fork-ts-checker-webpack-plugin/tree/master/examples/babel-loader
+      typescript: {
+        diagnosticOptions: {
+          semantic: true,
+          syntactic: true,
+        },
+      },
+    }),
   ],
   optimization: {
     minimizer: [
@@ -98,16 +108,16 @@ const config = {
 if (production) {
   console.warn('webpack is running in production mode\n'); // eslint-disable-line no-console
   config.entry = {
-    main: './src/index.js',
-    min: './src/index.js',
+    main: './src/index.ts',
+    min: './src/index.ts',
   };
 } else {
   console.warn('webpack is running in development mode\n'); // eslint-disable-line no-console
 
   config.entry = {
-    main: './src/index.js',
-    min: './src/index.js',
-    dev: './src/index.js',
+    main: './src/index.ts',
+    min: './src/index.ts',
+    dev: './src/index.ts',
     examples: './src/examples/index.js',
   };
 }
