@@ -5,7 +5,7 @@ const icons = [
   { name: 'chevronLeft', tags: ['chevron', 'back', 'arrow', 'left', 'move'] },
   { name: 'chevronRight', tags: ['chevron', 'link', 'right', 'forward', 'move'] },
   { name: 'chevronUp', tags: ['arrow', 'chevron', 'up', 'move'] },
-  { name: 'chevronDown', tags: ['arrow', 'chevron', 'down', 'move'] },		
+  { name: 'chevronDown', tags: ['arrow', 'chevron', 'down', 'move'] },
   { name: 'collapsDown', tags: ['arrow', 'dropdown', 'down'] },
   { name: 'collapsUp', tags: ['arrow', 'dropdown', 'up'] },
   { name: 'errorOutline', tags: ['problem', 'invalid', 'error', 'outline'] },
@@ -60,7 +60,7 @@ const icons = [
   { name: 'star', tags: ['star', 'rating', 'achievement', 'favorite', 'important', 'winner', 'like', 'rate', 'winner', 'review', 'best'] },
   { name: 'visibility', tags: ['visibility', 'eye', 'watching', 'see', 'follow', 'solid', 'preview', 'vision', 'visible', 'overview', 'watch'] },
   { name: 'visibilityOff', tags: ['visibility', 'eye', 'watching', 'see', 'unfollow', 'solid', 'preview', 'vision', 'invisible', 'overview', 'watch', 'blind', 'block', 'hidden'] },
-  { name: 'visibilityOutline', tags: ['visibility', 'eye', 'watching', 'see', 'follow', 'outline', 'preview', 'vision', 'visible', 'overview', 'watch'] },	
+  { name: 'visibilityOutline', tags: ['visibility', 'eye', 'watching', 'see', 'follow', 'outline', 'preview', 'vision', 'visible', 'overview', 'watch'] },
   { name: 'visibilityOffOutline', tags: ['visibility', 'eye', 'watching', 'see', 'unfollow', 'outline', 'preview', 'vision', 'invisible', 'overview', 'watch', 'blind', 'block', 'hidden'] },
   { name: 'chef', tags: ['chef', 'admin', 'cook', 'cooking', 'broil', 'solid', 'restaurant', 'kitchen', 'kitchensink', 'hat', 'food', 'cap', 'roast', 'fry', 'pan'] },
   { name: 'settings', tags: ['settings', 'gear', 'cogwheel', 'wheel', 'manage', 'set', 'adjust', 'config', 'configure', 'edit', 'tools', 'options', 'control', 'preferences', 'parameter', 'setup', 'cog', 'tools', 'configuration', 'configurations'] },
@@ -68,6 +68,6 @@ const icons = [
   { name: 'copy', tags: ['copy', 'duplicate', 'clone', 'copies'] },
   { name: 'attachment', tags: ['attachment', 'add', 'file', 'attach', 'paperclip', 'include', 'clip', 'attaching', 'editing'] },
   { name: 'download', tags: ['download', 'load', 'get', 'storage', 'file', 'save', 'bottom', 'downward', 'down'] },
-
+  { name: 'edit', tags: ['edit', 'pencil', 'adjust', 'change', 'configuration', 'tool'] },
 ];
 export default icons;
