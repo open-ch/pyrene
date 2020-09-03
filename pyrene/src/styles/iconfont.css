@@ -1,6 +1,9 @@
 :global(.pyreneIcon-download:before){
   content: "\28";
 }
+:global(.pyreneIcon-edit:before){
+  content: "\29";
+}
 :global(.pyreneIcon-attachment:before){
   content: "\2f";
 }
