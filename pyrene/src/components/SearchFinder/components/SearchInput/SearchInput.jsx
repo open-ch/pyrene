@@ -4,10 +4,10 @@ import React, {
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import styles from './searchInput.css';
-import Icon from '../Icon/Icon';
+import Icon from '../../../Icon/Icon';
 
 /**
- * SearchInput - simple search input area with search and "clear" actions
+ * SearchInput - private component used as base for other search components.
  */
 const SearchInput = ({
   value, onChange, onEnter, extraActionElement, containerRef, placeholder,
