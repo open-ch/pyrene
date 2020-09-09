@@ -4,15 +4,15 @@ import React, {
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 
-import styles from './quickSearch.css';
+import styles from './searchFinder.css';
 import Icon from '../Icon/Icon';
-import SearchInput from '../SearchInput/SearchInput';
+import SearchInput from './components/SearchInput/SearchInput';
 
 /**
- * Search Input area with buttons that cycle between matches.
+ * Search input area with buttons that cycle between matches.
  * Similar to ctrl+f exact search in browsers, but searching logic is custom.
  */
-const QuickSearch = ({
+const SearchFinder = ({
   onSearchTermChange,
   searchTerm,
   resultCount,
@@ -75,13 +75,13 @@ const QuickSearch = ({
   );
 };
 
-QuickSearch.displayName = 'Quick Search';
+SearchFinder.displayName = 'Search Finder';
 
-QuickSearch.defaultProps = {
+SearchFinder.defaultProps = {
   placeholder: '',
 };
 
-QuickSearch.propTypes = {
+SearchFinder.propTypes = {
   /**
    * called when searchTerm changes
    */
@@ -108,4 +108,4 @@ QuickSearch.propTypes = {
   selectedResult: PropTypes.number.isRequired,
 };
 
-export default QuickSearch;
+export default SearchFinder;

@@ -1,7 +1,7 @@
-@import '../../styles/colors.css';
+@import '../../../../styles/colors.css';
 
 .inputArea {
-  composes: commonFontSettings from '../../styles/common.css';
+  composes: commonFontSettings from '../../../../styles/common.css';
   color: var(--neutral-500);
 
   &, & * {
