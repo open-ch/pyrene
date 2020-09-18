@@ -53,7 +53,7 @@ describe('<ActionBar />', () => {
       const rendered = shallow(<ActionBar {...props} loading={false} disabled />);
 
       // find the wrapper -> container; this container should be disabled
-      expect(rendered.find('.container').props().className).toContain('disabled');
+      expect(rendered.find('.container-horizontal').props().className).toContain('disabled');
 
     });
 
@@ -61,7 +61,7 @@ describe('<ActionBar />', () => {
       const rendered = shallow(<ActionBar {...props} loading disabled />);
 
       // find the wrapper -> container; this container should be disabled
-      expect(rendered.find('.container').props().className).not.toContain('disabled');
+      expect(rendered.find('.container-horizontal').props().className).not.toContain('disabled');
 
     });
   });
