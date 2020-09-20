@@ -5,19 +5,52 @@ import SVG from 'react-svg-inline';
 
 import './radioSelection.css';
 
-// @ts-ignore
 import iconNormal from './radio-blank.svg';
-// @ts-ignore
 import iconNormalHover from './radio-hover.svg';
-// @ts-ignore
 import iconSelected from './radio-selected.svg';
-// @ts-ignore
 import iconSelectedHover from './radio-selected-hover.svg';
-// @ts-ignore
 import iconInvalid from './radio-invalid.svg';
-// @ts-ignore
 import iconInvalidHover from './radio-invalid-hover.svg';
 
+interface RadioGroupOption {
+    label: string,
+    value: number | string,
+}
+
+export interface RadioGroupProps {
+  /**
+   * Sets the orientation of the radio group.
+   */
+  alignment?: 'vertical' | 'horizontal',
+  /**
+   * Disables any interaction with the component.
+   */
+  disabled?: boolean,
+  /**
+   * Sets the visual appearance, to signal that the input is invalid.
+   */
+  invalid?: boolean,
+  /**
+   * Sets the html name property of the form element.
+   */
+  name?: string,
+  /**
+   * Javascript event handler.
+   */
+  onBlur?: () => void, // FixMe
+  /**
+   * Javascript event handler.
+   */
+  onChange?: (value: number | string, event?: React.ChangeEvent<HTMLInputElement>) => void, //FixMe
+  /**
+   * Set the values that the user can choose from.
+   */
+  options?: RadioGroupOption[],
+  /**
+   * Sets the selected choice of the user.
+   */
+  value?: number | string,
+}
 
 const iconMap = {
   normal: {
@@ -34,8 +67,10 @@ const iconMap = {
   },
 };
 
-const getRadioIcon = (options, hovered) => {
-  const { checked, disabled, invalid } = options;
+const getRadioIcon = (
+    { checked, disabled, invalid }: {checked: boolean, disabled: boolean, invalid: boolean}, 
+    hovered?: boolean
+  ) => {
   const iconKey = !disabled && hovered ? 'hover' : 'default';
   let icon = iconMap.normal[iconKey];
   if (invalid) {
@@ -46,87 +81,82 @@ const getRadioIcon = (options, hovered) => {
   return <SVG svg={icon} />;
 };
 
+type HoveredState = {[key: string]: boolean | undefined}
+
 /**
  * Radio buttons allow the user to select an option from a set.
  * Use radio buttons if the user wants to see all available options.
  *
  * If the available options can be collapsed, you should use a drop-down menu because it takes up less space.
  */
-class RadioGroup extends Component {
+const RadioGroup: React.FC<RadioGroupProps> = ({
+    options = [],
+    disabled = false,
+    alignment = 'vertical',
+    value = "",
+    invalid = false,
+    name = "",
+    onChange = () => null,
+    onBlur = () => null,
+}) => {
+  const [hovered, setHovered] = React.useState<HoveredState>({})
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      hovered: {},
-    };
-  }
+  const onMouseEnter = (key: string) => setHovered(prevHovered => ({
+    ...prevHovered,
+    [key]: true,
+  }))
 
-  onMouseEnter = (key) => {
-    this.setState((prevState) => ({
-      hovered: {
-        ...prevState.hovered,
-        [key]: true,
-      },
-    }));
+  const onMouseLeave = (key: string) => {
+    setHovered(({[key]: value, ...prevHovered}) => prevHovered)
   };
 
-  onMouseLeave = (key) => {
-    this.setState((prevState) => ({
-      hovered: {
-        ...prevState.hovered,
-        [key]: undefined,
-      },
-    }));
-  };
-
-  render() {
-    const rand = Math.floor(Math.random() * 1e10);
-    const lastElementIndex = this.props.options.length - 1;
+  const rand = Math.floor(Math.random() * 1e10);
+  const lastElementIndex = options.length - 1;
 
     return (
       <div
-        styleName={classNames('radioSelectionContainer', { [`alignment-${this.props.alignment}`]: true })}
-        onBlur={this.props.onBlur}
-        id={this.props.name}
+        styleName={classNames('radioSelectionContainer', { [`alignment-${alignment}`]: true })}
+        onBlur={onBlur}
+        id={name}
       >
-        {this.props.options.map((option, index) => {
+        {options.map((option, index) => {
           const key = `radio_${option.label}_${option.value}`;
           const htmlId = `${key}_${rand}`;
           return (
             <React.Fragment key={key}>
               <div
                 className="radioContainer"
-                onMouseEnter={() => this.onMouseEnter(key)}
-                onMouseLeave={() => this.onMouseLeave(key)}
+                onMouseEnter={() => onMouseEnter(key)}
+                onMouseLeave={() => onMouseLeave(key)}
               >
                 <input
                   styleName="radioInput"
-                  checked={this.props.value === option.value}
+                  checked={value === option.value}
                   id={htmlId}
-                  onChange={(event) => this.props.onChange(event.target.value, event)}
+                  onChange={(event: React.ChangeEvent<HTMLInputElement>) => onChange(event.target.value, event)}
                   type="radio"
                   value={option.value}
-                  name={this.props.name}
+                  name={name}
                 />
 
                 <label
                   htmlFor={htmlId}
                   styleName={
                     classNames('radioLabel',
-                      { disabled: this.props.disabled })
+                      { disabled: disabled })
                   }
                 >
                   <span styleName="radioIcon">
                     {getRadioIcon({
-                      checked: this.props.value === option.value,
-                      disabled: this.props.disabled,
-                      invalid: this.props.invalid,
-                    }, this.state.hovered[key])}
+                      checked: value === option.value,
+                      disabled: disabled,
+                      invalid: invalid,
+                    }, hovered[key])}
                   </span>
                   {option.label}
                 </label>
               </div>
-              {index !== lastElementIndex && <div styleName={classNames({ [`spacer-${this.props.alignment}`]: true })} />}
+              {index !== lastElementIndex && <div styleName={classNames({ [`spacer-${alignment}`]: true })} />}
             </React.Fragment>
           );
         })}
@@ -134,20 +164,8 @@ class RadioGroup extends Component {
     );
   }
 
-}
-
-RadioGroup.displayName = 'Radio Group';
-
-RadioGroup.defaultProps = {
-  disabled: false,
-  options: [],
-  alignment: 'vertical',
-  value: '',
-  invalid: false,
-  name: '',
-  onChange: () => null,
-  onBlur: () => null,
-};
+ 
+RadioGroup.displayName = 'Radio Group'
 
 RadioGroup.propTypes = {
   /**
@@ -180,7 +198,7 @@ RadioGroup.propTypes = {
   options: PropTypes.arrayOf(PropTypes.shape({
     label: PropTypes.string.isRequired,
     value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-  })),
+  }).isRequired),
   /**
    * Sets the selected choice of the user.
    */

@@ -1,8 +1,11 @@
-const RadioGroup = {};
+import { Example, StateProvider } from "../../examples/Example";
+import { RadioGroupProps } from "./RadioGroup";
+
+const RadioGroup: Example<RadioGroupProps> = {};
 
 RadioGroup.props = {
   options: [{ label: 'Beer 🍺', value: 'beer' }, { label: 'Coffee ☕️', value: 'coffee' }, { label: 'Coffeebeer 🍹😎', value: 'coffeebeer' }],
-  onChange: (stateProvider) => (value) => stateProvider.setState({ value }),
+  onChange: (stateProvider: StateProvider) => (value: string | number) => stateProvider.setState({ value }),
   value: (stateProvider) => stateProvider.state.value,
 };
 
@@ -14,7 +17,7 @@ RadioGroup.examples = [
         { label: 'Coffee', value: 'coffee' },
         { label: 'Whisky', value: 'whisky' },
         { label: 'Irish Coffee', value: 'irishcoffee' }],
-      onChange: (stateProvider) => (value) => stateProvider.setState({ value }),
+      onChange: (stateProvider: StateProvider) => (value: string | number) => stateProvider.setState({ value }),
       value: (stateProvider) => stateProvider.state.value,
     },
     description: '',
@@ -25,7 +28,7 @@ RadioGroup.examples = [
         { label: 'Coffee', value: 'coffee' },
         { label: 'Whisky', value: 'whisky' },
         { label: 'Irish Coffee', value: 'irishcoffee' }],
-      onChange: (stateProvider) => (value) => stateProvider.setState({ value }),
+      onChange: (stateProvider: StateProvider) => (value: string | number) => stateProvider.setState({ value }),
       value: (stateProvider) => stateProvider.state.value,
     },
     description: '',
