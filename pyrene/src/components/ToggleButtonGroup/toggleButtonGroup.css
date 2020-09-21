@@ -1,7 +1,7 @@
-@import '../../../../../src/styles/colors.css';
+@import '../../styles/colors.css';
 
-.horizontalSwitch {
-  composes: commonFontSettings from '../../../../../src/styles/common.css';
+.toggleButtonGroup {
+  composes: commonFontSettings from '../../styles/common.css';
   display: flex;
   align-items: center;
   justify-content: center;

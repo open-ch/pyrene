@@ -63,6 +63,7 @@ import { default as TabView } from './components/TabView/TabView';
 import { default as TextArea } from './components/TextArea/TextArea';
 import { default as TextField } from './components/TextField/TextField';
 import { default as TimeRangeSelector } from './components/TimeRangeSelector/TimeRangeSelector';
+import { default as ToggleButtonGroup } from './components/ToggleButtonGroup/ToggleButtonGroup';
 import { default as Tooltip } from './components/Tooltip/Tooltip';
 import { default as TreeTable } from './components/TreeTable/TreeTable';
 
@@ -109,6 +110,7 @@ const Components = {
   TextArea,
   TextField,
   TimeRangeSelector,
+  ToggleButtonGroup,
   Tooltip,
   TreeTable,
 };
@@ -154,6 +156,7 @@ export { TabView };
 export { TextArea };
 export { TextField };
 export { TimeRangeSelector };
+export {ToggleButtonGroup}
 export { Tooltip };
 export { TreeTable };
 

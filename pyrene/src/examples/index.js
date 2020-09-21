@@ -40,6 +40,7 @@ import { default as TabView } from '../components/TabView/TabView.examples';
 import { default as TextArea } from '../components/TextArea/TextArea.examples';
 import { default as TextField } from '../components/TextField/TextField.examples';
 import { default as TimeRangeSelector } from '../components/TimeRangeSelector/TimeRangeSelector.examples';
+import { default as ToggleButtonGroup } from '../components/ToggleButtonGroup/ToggleButtonGroup.examples';
 import { default as Tooltip } from '../components/Tooltip/Tooltip.examples';
 import { default as TreeTable } from '../components/TreeTable/TreeTable.examples';
 
@@ -84,6 +85,7 @@ const examples = {
   TextArea,
   TextField,
   TimeRangeSelector,
+  ToggleButtonGroup,
   Tooltip,
   TreeTable,
 };
