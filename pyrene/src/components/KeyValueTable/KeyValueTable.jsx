@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './keyValueTable.css';
 
-const KeyValueTable = ({ title, rows }) => (
+const KeyValueTable = ({ title, rows, keyWidth }) => (
   <div styleName="keyValueTable">
     {title && (
       <div styleName="keyValueTableTitle">
@@ -17,7 +17,7 @@ const KeyValueTable = ({ title, rows }) => (
             style={row.rowStyle}
             key={row.key}
           >
-            <td styleName="keyValueCellKey">
+            <td styleName="keyValueCellKey" style={{ width: keyWidth, minWidth: keyWidth, maxWidth: keyWidth }}>
               {row.key}
             </td>
             <td styleName="keyValueCellValue">
@@ -34,11 +34,13 @@ const KeyValueTable = ({ title, rows }) => (
 KeyValueTable.displayName = 'Key Value Table';
 
 KeyValueTable.defaultProps = {
+  keyWidth: 256,
   title: '',
   rows: [{ key: 'key', value: 'value' }],
 };
 
 KeyValueTable.propTypes = {
+  keyWidth: PropTypes.number,
   /**
     * Rows definition: { key: 'key', value: 'value', rowStyle: {} }, where rowStyle is an object with css properties applied to the whole row
     */

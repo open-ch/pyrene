@@ -23,4 +23,11 @@ describe('<KeyValueTable />', () => {
     expect(rendered.contains('keyValue')).toBe(true);
     expect(rendered.contains('dataValue')).toBe(true);
   });
+
+  it('can define key width', () => {
+    const rendered = shallow(<KeyValueTable {...props} keyWidth={100} />);
+    expect(rendered.find('.keyValueCellKey').prop('style').width).toEqual(100);
+    expect(rendered.find('.keyValueCellKey').prop('style').minWidth).toEqual(100);
+    expect(rendered.find('.keyValueCellKey').prop('style').maxWidth).toEqual(100);
+  });
 });
