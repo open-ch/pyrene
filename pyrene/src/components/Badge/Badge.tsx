@@ -30,7 +30,6 @@ const Badge: React.FC<BadgeProps> = (props) => (
   </div>
 );
 
-
 Badge.displayName = 'Badge';
 
 Badge.defaultProps = {

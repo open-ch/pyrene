@@ -156,7 +156,7 @@ export { TabView };
 export { TextArea };
 export { TextField };
 export { TimeRangeSelector };
-export {ToggleButtonGroup}
+export { ToggleButtonGroup };
 export { Tooltip };
 export { TreeTable };
 

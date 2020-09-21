@@ -5,7 +5,7 @@ import ToggleButtonGroup from './ToggleButtonGroup';
 
 const props = {
   values: [{ label: 'one', id: 'one' }, { label: 'two', id: 'two' }],
-  selected: 'one'
+  selected: 'one',
 };
 
 describe('<ToggleButtonGroup />', () => {

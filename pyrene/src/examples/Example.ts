@@ -1,12 +1,12 @@
 export type StateProvider = {
   state: {
-    value: any; 
+    value: any;
   }
-  setState: ({value}: {value: any}) => void
+  setState: ({ value }: {value: any}) => void
 }
 
 type AugmentedProps<T> = {
-  [K in keyof T]:  T[K] | ((stateProvider: StateProvider) => T[K])
+  [K in keyof T]: T[K] | ((stateProvider: StateProvider) => T[K])
 }
 
 export interface Example<ExampleProps> {
