@@ -123,6 +123,7 @@
   --warning-lighter: var(--orange-050);
 
   --information-fg: var(--blue-500);
+  --information-dark: var(--blue-700);
   --information-light: var(--blue-050);
 
   /* ADMIN */

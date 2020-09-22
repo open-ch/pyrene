@@ -1,19 +1,19 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import LabelAndValue from './LabelAndValue';
+import LabelAndValue, { LabelAndValueProps } from './LabelAndValue';
 
 const props = {
   label: 'someLabel',
   value: 'somePath',
 };
 
-const propsTiny = {
+const propsTiny: LabelAndValueProps = {
   ...props,
   size: 'tiny',
 };
 
-const propsLarge = {
+const propsLarge: LabelAndValueProps = {
   ...props,
   size: 'large',
 };
@@ -41,5 +41,11 @@ describe('<LabelAndValue />', () => {
   it('renders large size', () => {
     const rendered = shallow(<LabelAndValue {...propsLarge} />);
     expect(rendered.find('.label-and-value-large .value')).toHaveLength(1);
+  });
+
+  it('renders a neutral badge', () => {
+    const rendered = shallow(<LabelAndValue {...props} />);
+    const valueClassName = rendered.find('.value').prop('className');
+    expect(valueClassName).toContain('type-neutral');
   });
 });
