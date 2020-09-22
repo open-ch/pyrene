@@ -81,7 +81,7 @@ const getRadioIcon = (
   return <SVG svg={icon} />;
 };
 
-type HoveredState = {[key: string]: boolean | undefined}
+type HoveredState = {[key: string]: boolean}
 
 /**
  * Radio buttons allow the user to select an option from a set.
