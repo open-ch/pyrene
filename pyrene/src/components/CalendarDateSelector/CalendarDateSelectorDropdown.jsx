@@ -13,14 +13,14 @@ const TimeUnitSelectionDropdown = (props) => {
     timeUnit,
     onSelect,
   } = props;
-  const values = timeUnits.map((range) => ({ id: range, label: capitalizeFirstLetter(range) }));
+  const values = timeUnits.map((range) => ({ value: range, label: capitalizeFirstLetter(range) }));
 
   return (
     <ToggleButtonGroup
-      values={values}
-      onClick={(value) => onSelect(value.id)}
+      options={values}
+      onChange={onSelect}
       disabled={disabled}
-      selected={timeUnit}
+      value={timeUnit}
     />
   );
 };

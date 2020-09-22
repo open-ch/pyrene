@@ -1,23 +1,23 @@
 import { Example, StateProvider } from '../../examples/Example';
-import { ToggleButtonGroupProps, ToggleButtonGroupValue } from './ToggleButtonGroup';
+import { ToggleButtonGroupProps } from './ToggleButtonGroup';
 
 const ToggleButtonGroup: Example<ToggleButtonGroupProps> = {};
 
 ToggleButtonGroup.props = {
-  values: [{ label: 'Beer 🍺', id: 'beer' }, { label: 'Coffee ☕️', id: 'coffee' }, { label: 'Coffeebeer 🍹😎', id: 'coffeebeer' }],
-  onClick: (stateProvider: StateProvider) => (value: ToggleButtonGroupValue) => stateProvider.setState({ value: value.id }),
-  selected: (stateProvider) => stateProvider.state.value,
+  options: [{ label: 'Beer 🍺', value: 'beer' }, { label: 'Coffee ☕️', value: 'coffee' }, { label: 'Coffeebeer 🍹😎', value: 'coffeebeer' }],
+  onChange: (stateProvider: StateProvider) => (value: string) => stateProvider.setState({ value }),
+  value: (stateProvider) => stateProvider.state.value,
 };
 
 ToggleButtonGroup.examples = [
   {
     props: {
-      values: [
-        { label: 'Coffee', id: 'coffee' },
-        { label: 'Whisky', id: 'whisky' },
-        { label: 'Irish Coffee', id: 'irishcoffee' }],
-      onClick: (stateProvider: StateProvider) => (value: ToggleButtonGroupValue) => stateProvider.setState({ value: value.id }),
-      selected: (stateProvider) => stateProvider.state.value,
+      options: [
+        { label: 'Coffee', value: 'coffee' },
+        { label: 'Whisky', value: 'whisky' },
+        { label: 'Irish Coffee', value: 'irishcoffee' }],
+      onChange: (stateProvider: StateProvider) => (value: string) => stateProvider.setState({ value }),
+      value: (stateProvider) => stateProvider.state.value,
     },
     description: '',
   },

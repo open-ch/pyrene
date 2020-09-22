@@ -4,39 +4,40 @@ import PropTypes from 'prop-types';
 import './toggleButtonGroup.css';
 
 export interface ToggleButtonGroupValue {
-  id: string;
   label: string;
+  value: string;
 }
 
 export interface ToggleButtonGroupProps {
   disabled?: boolean,
-  onClick: (value: ToggleButtonGroupValue) => void,
-  selected: string,
-  values: ToggleButtonGroupValue[],
+  // onChange: (value: ToggleButtonGroupValue) => void,
+  onChange: (value: string, event?: React.ChangeEvent<HTMLInputElement>) => void,
+  value: string,
+  options: ToggleButtonGroupValue[],
 }
 
 const ToggleButtonGroup: React.FC<ToggleButtonGroupProps> = (props) => (
   <div styleName="toggleButtonGroup">
-    {props.values.map((value) => (
+    {props.options.map((option) => (
       <button
-        id={value.id}
-        key={value.id}
+        id={option.value}
+        key={option.value}
         type="button"
         styleName={
           classNames(
             { disabled: props.disabled },
-            { active: props.selected === value.id },
+            { active: props.value === option.value },
           )
         }
         disabled={props.disabled}
         onClick={() => {
-          if (props.selected !== value.id) {
-            props.onClick(value);
+          if (props.value !== option.value) {
+            props.onChange(option.value);
           }
         }}
       >
         <span>
-          {value.label}
+          {option.label}
         </span>
       </button>
     ))}
@@ -51,12 +52,12 @@ ToggleButtonGroup.defaultProps = {
 
 ToggleButtonGroup.propTypes = {
   disabled: PropTypes.bool,
-  onClick: PropTypes.func.isRequired,
-  selected: PropTypes.string.isRequired,
-  values: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  options: PropTypes.arrayOf(PropTypes.shape({
     label: PropTypes.string.isRequired,
+    value: PropTypes.string.isRequired,
   }).isRequired).isRequired,
+  value: PropTypes.string.isRequired,
 };
 
 export default ToggleButtonGroup;

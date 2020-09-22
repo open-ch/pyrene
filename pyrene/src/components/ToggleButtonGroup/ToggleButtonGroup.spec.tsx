@@ -4,19 +4,19 @@ import { shallow } from 'enzyme';
 import ToggleButtonGroup from './ToggleButtonGroup';
 
 const props = {
-  values: [{ label: 'one', id: 'one' }, { label: 'two', id: 'two' }],
-  selected: 'one',
+  options: [{ label: 'one', value: 'one' }, { label: 'two', value: 'two' }],
+  value: 'one',
 };
 
 describe('<ToggleButtonGroup />', () => {
   it('renders without crashing', () => {
     const onClick = jest.fn();
-    shallow(<ToggleButtonGroup {...props} onClick={onClick} />);
+    shallow(<ToggleButtonGroup {...props} onChange={onClick} />);
   });
 
   it('calls onchange on click', () => {
     const onClick = jest.fn();
-    const rendered = shallow(<ToggleButtonGroup {...props} onClick={onClick} />);
+    const rendered = shallow(<ToggleButtonGroup {...props} onChange={onClick} />);
 
     // The selected button cannot be clicked
     rendered.find('button').first().simulate('click');

@@ -5,12 +5,12 @@ import ToggleButtonGroup from '../../ToggleButtonGroup/ToggleButtonGroup';
 
 const PresetTimeRanges = (props) => (
   <ToggleButtonGroup
-    values={props.presetTimeRanges}
-    selected={props.currentTimeRangeType}
+    options={props.presetTimeRanges.map(({ id, label }) => ({ label, value: id }))}
+    value={props.currentTimeRangeType}
     disabled={props.disabled}
-    onClick={({ id }) => {
+    onChange={(value) => {
       PresetTimeRanges.onPresetTimeRangeSelected(
-        id,
+        value,
         props.presetTimeRanges,
         props.lowerBound,
         props.upperBound,
