@@ -44,6 +44,33 @@ ActionBar.examples = [
   },
   {
     props: {
+      actions: [
+        {
+          iconName: 'zoomIn',
+          active: true,
+          color: 'neutral300',
+          onClick: () => alert('Zoom Out'),
+        },
+        {
+          iconName: 'zoomOut',
+          active: true,
+          color: 'neutral300',
+          onClick: () => alert('Zoom In'),
+        },
+        {
+          iconName: 'refresh',
+          active: true,
+          color: 'neutral300',
+          onClick: () => alert('Reset view'),
+        },
+
+      ],
+      orientation: 'vertical',
+    },
+    description: 'Vertical action bar with left and right navigation.',
+  },
+  {
+    props: {
       styling: 'box',
       actions: [
         {
