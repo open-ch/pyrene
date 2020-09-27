@@ -2,9 +2,9 @@
 
 .toggleButtonGroup {
   composes: commonFontSettings from '../../styles/common.css';
-  display: flex;
+  display: grid;
   align-items: center;
-  justify-content: center;
+  grid-auto-columns: 1fr;
 
   & button {
     border: none;
@@ -20,6 +20,14 @@
     margin-left: 0px;
     margin-right: 0px;
     background-color: var(--background-light);
+
+    /* Keep all buttons on the same row*/
+    grid-row: 1;
+
+    /* Keep text in 1 line and keep boxes the same size. */
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 
     &:first-of-type {
       border-left: solid 1px #e1e3e8;
