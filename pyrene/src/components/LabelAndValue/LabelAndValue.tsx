@@ -11,6 +11,9 @@ export interface LabelAndValueProps {
   type?: 'neutral' | 'info' | 'warning' | 'danger' | 'success';
 }
 
+/**
+ * Show a label and its value as a highlight.
+ */
 const LabelAndValue: React.FC<LabelAndValueProps> = ({
   label,
   size,
