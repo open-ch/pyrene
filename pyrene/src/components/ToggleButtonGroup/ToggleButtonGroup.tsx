@@ -14,10 +14,12 @@ export interface ToggleButtonGroupProps {
   onChange: (value: string, event?: React.ChangeEvent<HTMLInputElement>) => void,
   value: string,
   options: ToggleButtonGroupValue[],
+  styling?: 'box' | 'shadow'
 }
 
 const ToggleButtonGroup: React.FC<ToggleButtonGroupProps> = (props) => (
-  <div styleName="toggleButtonGroup">
+
+  <div styleName={classNames('toggleButtonGroup', `box-${props.styling}`)}>
     {props.options.map((option) => (
       <button
         id={option.value}
@@ -48,6 +50,7 @@ ToggleButtonGroup.displayName = 'Toggle Button Group';
 
 ToggleButtonGroup.defaultProps = {
   disabled: false,
+  styling: 'box',
 };
 
 ToggleButtonGroup.propTypes = {
@@ -57,6 +60,7 @@ ToggleButtonGroup.propTypes = {
     label: PropTypes.string.isRequired,
     value: PropTypes.string.isRequired,
   }).isRequired).isRequired,
+  styling: PropTypes.oneOf(['box', 'shadow']),
   value: PropTypes.string.isRequired,
 };
 
