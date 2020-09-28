@@ -82,7 +82,7 @@ ToggleButtonGroup.propTypes = {
    */
   styling: PropTypes.oneOf(['box', 'shadow']),
   /**
-   * The selected value in the option list.s
+   * The selected value in the option list.
    */
   value: PropTypes.string.isRequired,
 };
