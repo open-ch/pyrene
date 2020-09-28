@@ -1,4 +1,7 @@
-const LabelAndValue = {};
+import { Example } from '../../examples/Example';
+import { LabelAndValueProps } from './LabelAndValue';
+
+const LabelAndValue: Example<LabelAndValueProps> = {};
 
 LabelAndValue.props = {
   label: 'bandwidth',
@@ -14,7 +17,9 @@ LabelAndValue.examples = [
     props: { label: 'Bandwidth', value: '461.2 kb/s', size: 'small' },
     description: 'Small size',
   }, {
-    props: { label: 'Volume', value: '89 GB', size: 'large' },
+    props: {
+      label: 'Volume', value: '89 GB', size: 'large', type: 'danger',
+    },
     description: 'Large size',
   },
 ];

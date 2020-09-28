@@ -10,6 +10,25 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+  &.type-neutral {
+    color: var(--neutral-500);
+  }
+
+  &.type-info {
+    color: var(--information-dark);
+  }
+
+  &.type-success {
+    color: var(--ok-dark);
+  }
+
+  &.type-danger {
+    color: var(--danger-dark);
+  }
+
+  &.type-warning {
+    color: var(--warning-dark);
+  }
 }
 
 .label-and-value .label {
