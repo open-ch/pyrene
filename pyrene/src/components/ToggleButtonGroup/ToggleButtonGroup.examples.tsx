@@ -21,6 +21,18 @@ ToggleButtonGroup.examples = [
     },
     description: '',
   },
+  {
+    props: {
+      options: [
+        { label: '1min', value: '1' },
+        { label: '1h', value: '60' },
+        { label: '24h', value: '3600' }],
+      onChange: (stateProvider: StateProvider) => (value: string) => stateProvider.setState({ value }),
+      value: (stateProvider) => stateProvider.state.value,
+      styling: 'shadow',
+    },
+    description: '',
+  },
 ];
 
 ToggleButtonGroup.category = 'Interaction';
