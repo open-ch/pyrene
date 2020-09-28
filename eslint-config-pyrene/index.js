@@ -7,15 +7,15 @@ const jsTsCommonRules = {
     // require function expressions to have a name
     "func-names": 0,
     // this option sets a specific tab width for your code, VariableDeclarator indents are for nice alignment of multi-line var declaration
-    indent: [
+    "indent": [
       2,
       2,
-      { SwitchCase: 1, VariableDeclarator: { var: 2, let: 2, const: 3 } },
+      { "SwitchCase": 1, "VariableDeclarator": { "var": 2, "let": 2, "const": 3 } },
     ],
     // disallow trailing whitespace at the end of lines, except empty lines
     "no-trailing-spaces": 2,
     // No warnings about _ prefixed methods
-    "no-underscore-dangle": [1, { allowAfterThis: true }],
+    "no-underscore-dangle": [1, { "allowAfterThis": true }],
     // No warnings about max length
     "max-len": 0,
     // Warn for templates
@@ -25,7 +25,7 @@ const jsTsCommonRules = {
     "class-methods-use-this": 0,
     "no-pluspls": 0,
     // Require padding on the class level
-    "padded-blocks": [1, { classes: "always" }],
+    "padded-blocks": [1, { "classes": "always" }],
     // Disallow Assignment in return Statement, except if wrapped in parentheses
     "no-return-assign": [2, "except-parens"],
     // Prevent missing displayName in a React component definition
@@ -37,7 +37,7 @@ const jsTsCommonRules = {
     // Do not remove curly braces from children.
     "react/jsx-curly-brace-presence": [
       2,
-      { props: "never", children: "ignore" },
+      { "props": "never", "children": "ignore" },
     ],
     // Prevent duplicate props in JSX
     "react/jsx-no-duplicate-props": 2,
@@ -46,7 +46,7 @@ const jsTsCommonRules = {
     // Prevent usage of dangerous JSX properties
     "react/no-danger": 2,
     // Prevent multiple component definition per file
-    "react/no-multi-comp": [2, { ignoreStateless: true }],
+    "react/no-multi-comp": [2, { "ignoreStateless": true }],
     // Allow props on the same line
     "react/jsx-first-prop-new-line": 0,
     "react/jsx-max-props-per-line": 0,
@@ -55,7 +55,7 @@ const jsTsCommonRules = {
     // short hand props must be listed after all other props (Component, not prop declaration)
     "react/jsx-sort-props": [
       2,
-      { shorthandLast: true, noSortAlphabetically: true },
+      { "shorthandLast": true, "noSortAlphabetically": true },
     ],
     // do not allow deprecated lifecycle methods according to the react version provided above
     "react/no-deprecated": 2,
@@ -85,85 +85,84 @@ const jsTsCommonRules = {
 }
 
 module.exports = {
-  extends: ["eslint-config-airbnb", "airbnb/hooks"],
+  "extends": ["eslint-config-airbnb", "airbnb/hooks"],
 
-  env: {
-    browser: "true",
-    es2017: "true",
-    jest: "true",
+  "env": {
+    "browser": "true",
+    "es2017": "true",
+    "jest": "true",
   },
 
-  globals: {
-    shallow: "true",
-    mount: "true",
+  "globals": {
+    "shallow": "true",
+    "mount": "true",
   },
 
-  parser: "babel-eslint",
+  "parser": "babel-eslint",
 
-  parserOptions: {
-    ecmaFeatures: {
-      jsx: true,
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true,
     },
   },
 
-  settings: {
-    react: {
-      pragma: "React",
-      version: "detect",
+  "settings": {
+    "react": {
+      "pragma": "React",
+      "version": "detect",
     },
   },
 
-  rules: jsTsCommonRules,
+  "rules": jsTsCommonRules,
 
-  overrides: [
+  "plugins": ["jest", "react", "react-hooks"],
+
+  "overrides": [
     {
-      files: ["*.ts", "*.tsx"],
-      // env: {
-      //   browser: true, "es6": true, node: true
-      // },
-      extends: [
-        "eslint-config-airbnb", 
+      "files": ["*.ts", "*.tsx"],
+      "extends": [
+        "airbnb-typescript", 
         "airbnb/hooks",
-        "plugin:@typescript-eslint/eslint-recommended",
-        "plugin:@typescript-eslint/recommended"
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@typescript-eslint/recommended-requiring-type-checking"
       ],
-      // globals: { Atomics: "readonly", SharedArrayBuffer: "readonly" },
-      parser: "@typescript-eslint/parser",
-      parserOptions: {
-        // ecmaFeatures: { "jsx": true },
-        ecmaVersion: 2018,
-        sourceType: "module",
-        project: "./tsconfig.json"
+      "parser": "@typescript-eslint/parser",
+      "parserOptions": {
+        "ecmaVersion": 2018,
+        "sourceType": "module",
+        "project": "./tsconfig.json"
       },
-      plugins: ["react", "@typescript-eslint"],
-      rules: {
+      "plugins": ["react", "@typescript-eslint"],
+      "rules": {
         ...jsTsCommonRules, 
-        // "indent": ["error", 2, { SwitchCase: 1 }],
-        // "linebreak-style": ["error", "unix"],
-        // "quotes": ["error", "single"],
-        // "comma-dangle": ["error", "always-multiline"],
         "no-use-before-define": "off",
         "@typescript-eslint/no-use-before-define": "error",
         "react/jsx-props-no-spreading": "off",
         "react/jsx-filename-extension": [
           2,
           {
-            extensions: [
+            "extensions": [
               ".tsx"
             ]
           }
         ],
         "@typescript-eslint/no-explicit-any": 0,
+        "comma-dangle": "off",
+        "@typescript-eslint/comma-dangle": ["error"],
+        "@typescript-eslint/unbound-method": [
+          "error",
+          {
+            "ignoreStatic": true
+          }
+        ]
       },
-      // settings: { react: { version: "detect" } }
     },
     // Special rules for tests
     {
-      files: ["*.spec.jsx", "*.spec.tsx"],
-      rules: {
+      "files": ["*.spec.jsx", "*.spec.tsx"],
+      "rules": {
         "react/jsx-props-no-spreading": "off",
       },
     },
   ],
-  plugins: ["jest", "react", "react-hooks"],
 };
