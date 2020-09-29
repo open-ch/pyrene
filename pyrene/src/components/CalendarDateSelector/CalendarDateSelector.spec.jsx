@@ -6,6 +6,7 @@ import DateHelper from './DateHelper';
 
 import CalendarDateSelector from './CalendarDateSelector';
 import { getCurrentDate, convertToInternalMomentJs } from './CalendarDateSelectorUtils';
+import ToggleButtonGroup from '../ToggleButtonGroup/ToggleButtonGroup';
 
 let rendered;
 
@@ -35,21 +36,21 @@ describe('<CalendarDateSelector />', () => {
     const timeStringBeforeClick = currentDate.format(DateHelper.MONTH_NAME_WITH_YEAR);
     let timeStringAfterClick = currentDate.format(DateHelper.FULL_DATE);
 
-    expect(rendered.find('HorizontalSwitch')).toHaveLength(1);
+    expect(rendered.find(ToggleButtonGroup)).toHaveLength(1);
 
     let calculatedValue = rendered.find('ArrowSelector .value').render()[0].children[0].data;
     expect(timeStringBeforeClick).toBe(calculatedValue);
 
     // We are simulating selecting the 24h preset
     // @ts-ignore
-    rendered.find('HorizontalSwitch').props().onClick({ value: 'day', label: 'day', id: 'day' });
+    rendered.find(ToggleButtonGroup).props().onChange('day');
     calculatedValue = rendered.find('ArrowSelector .value').render()[0].children[0].data;
     expect(timeStringAfterClick).toBe(calculatedValue);
 
     // We are simulating selecting the year preset
     timeStringAfterClick = currentDate.format(DateHelper.YEAR);
     // @ts-ignore
-    rendered.find('HorizontalSwitch').props().onClick({ value: 'year', label: 'year', id: 'year' });
+    rendered.find(ToggleButtonGroup).props().onChange('year');
     calculatedValue = rendered.find('ArrowSelector .value').render()[0].children[0].data;
     expect(timeStringAfterClick).toBe(calculatedValue);
   });
@@ -86,7 +87,7 @@ describe('<CalendarDateSelector />', () => {
 
     // We are simulating changing a year
     // @ts-ignore
-    rendered.find('HorizontalSwitch').props().onClick({ value: 'year', label: 'year', id: 'year' });
+    rendered.find(ToggleButtonGroup).props().onChange('year');
 
     const dateBeforeClick = props.value;
     const dateAfterClick = { day: 1, month: 1, year: dateBeforeClick.year - 1 };
@@ -96,7 +97,7 @@ describe('<CalendarDateSelector />', () => {
 
     rendered.find('ArrowSelector').find('button').first().simulate('click');
     // @ts-ignore
-    rendered.find('HorizontalSwitch').props().onClick({ value: 'day', label: 'day', id: 'day' });
+    rendered.find(ToggleButtonGroup).props().onChange('day');
     calculatedValue = rendered.props().value;
     expect(dateBeforeClick).not.toStrictEqual(calculatedValue);
     expect(dateAfterClick).toStrictEqual(calculatedValue);

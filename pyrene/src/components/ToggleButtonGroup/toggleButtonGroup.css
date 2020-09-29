@@ -1,10 +1,10 @@
-@import '../../../../../src/styles/colors.css';
+@import '../../styles/colors.css';
 
-.horizontalSwitch {
-  composes: commonFontSettings from '../../../../../src/styles/common.css';
-  display: flex;
+.toggleButtonGroup {
+  composes: commonFontSettings from '../../styles/common.css';
+  display: grid;
   align-items: center;
-  justify-content: center;
+  grid-auto-columns: 1fr;
 
   & button {
     border: none;
@@ -16,10 +16,19 @@
     outline: none;
     cursor: pointer;
     font-size: 12px;
+    font-family: inherit;
     line-height: 16px;
     margin-left: 0px;
     margin-right: 0px;
     background-color: var(--background-light);
+
+    /* Keep all buttons on the same row*/
+    grid-row: 1;
+
+    /* Keep text in 1 line and keep boxes the same size. */
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 
     &:first-of-type {
       border-left: solid 1px #e1e3e8;
@@ -50,4 +59,17 @@
     }
   }
 
+}
+
+.box-shadow {
+  background-color: var(--neutral-000);
+  border-radius: 2px;
+  border: solid 1px var(--neutral-050);
+  box-shadow: 0 4px 8px -2px rgba(0, 21, 44, 0.2);
+}
+
+.box-box {
+  background-color: var(--neutral-000);
+  border-radius: 2px;
+  border: solid 1px var(--neutral-050);
 }

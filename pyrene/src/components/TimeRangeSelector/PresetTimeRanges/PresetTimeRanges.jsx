@@ -1,16 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment-timezone';
-import HorizontalSwitch from './HorizontalSwitch/HorizontalSwitch';
+import ToggleButtonGroup from '../../ToggleButtonGroup/ToggleButtonGroup';
 
 const PresetTimeRanges = (props) => (
-  <HorizontalSwitch
-    values={props.presetTimeRanges}
-    selected={props.currentTimeRangeType}
+  <ToggleButtonGroup
+    options={props.presetTimeRanges.map(({ id, label }) => ({ label, value: id }))}
+    value={props.currentTimeRangeType}
     disabled={props.disabled}
-    onClick={({ id }) => {
+    onChange={(value) => {
       PresetTimeRanges.onPresetTimeRangeSelected(
-        id,
+        value,
         props.presetTimeRanges,
         props.lowerBound,
         props.upperBound,

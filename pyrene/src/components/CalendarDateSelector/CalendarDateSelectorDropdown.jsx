@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import TimeRangeSelectionPropTypes from './CalendarDateSelectorPropTypes';
-import HorizontalSwitch from '../TimeRangeSelector/PresetTimeRanges/HorizontalSwitch/HorizontalSwitch';
+import ToggleButtonGroup from '../ToggleButtonGroup/ToggleButtonGroup';
 
 const capitalizeFirstLetter = (string) => string && string[0].toUpperCase() + string.slice(1);
 
@@ -13,14 +13,14 @@ const TimeUnitSelectionDropdown = (props) => {
     timeUnit,
     onSelect,
   } = props;
-  const values = timeUnits.map((range) => ({ id: range, label: capitalizeFirstLetter(range) }));
+  const values = timeUnits.map((range) => ({ value: range, label: capitalizeFirstLetter(range) }));
 
   return (
-    <HorizontalSwitch
-      values={values}
-      onClick={(value) => onSelect(value.id)}
+    <ToggleButtonGroup
+      options={values}
+      onChange={onSelect}
       disabled={disabled}
-      selected={timeUnit}
+      value={timeUnit}
     />
   );
 };

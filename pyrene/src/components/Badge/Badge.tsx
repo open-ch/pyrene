@@ -4,7 +4,7 @@ import className from 'classnames';
 
 import './badge.css';
 
-export type BadgeType = 'neutral' | 'info' | 'warning' | 'danger' | 'success'
+export type BadgeType = 'neutral' | 'info' | 'warning' | 'danger' | 'success';
 
 export interface BadgeProps {
   label: string;
@@ -29,7 +29,6 @@ const Badge: React.FC<BadgeProps> = (props) => (
     </div>
   </div>
 );
-
 
 Badge.displayName = 'Badge';
 

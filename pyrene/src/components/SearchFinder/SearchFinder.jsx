@@ -20,6 +20,7 @@ const SearchFinder = ({
   placeholder,
   onSelectedResultChange,
 }) => {
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const selectNextResult = () => {
     if (selectedResult >= resultCount) {
       onSelectedResultChange(1);
@@ -27,6 +28,7 @@ const SearchFinder = ({
     }
     onSelectedResultChange(selectedResult + 1);
   };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const selectPreviousResult = () => {
     if (selectedResult <= 1) {
       onSelectedResultChange(resultCount);
