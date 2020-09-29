@@ -13,6 +13,7 @@
     ],
     "react/jsx-props-no-spreading": "off", 
     "react/forbid-prop-types": 0, 
-    "no-multiple-empty-lines": 0
+    "no-multiple-empty-lines": 0,
+    "@typescript-eslint/unbound-method": 0
   } 
 }

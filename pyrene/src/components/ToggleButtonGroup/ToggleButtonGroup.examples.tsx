@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
 import { Example, StateProvider } from '../../examples/Example';
 import { ToggleButtonGroupProps } from './ToggleButtonGroup';
 

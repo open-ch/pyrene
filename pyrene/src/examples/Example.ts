@@ -3,11 +3,11 @@ export type StateProvider = {
     value: any;
   }
   setState: ({ value }: {value: any}) => void
-}
+};
 
 type AugmentedProps<T> = {
   [K in keyof T]: T[K] | ((stateProvider: StateProvider) => T[K])
-}
+};
 
 export interface Example<ExampleProps> {
   props?:AugmentedProps<ExampleProps>;

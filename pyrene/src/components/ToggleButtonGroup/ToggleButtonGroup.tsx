@@ -21,7 +21,7 @@ export interface ToggleButtonGroupProps {
  */
 const ToggleButtonGroup: React.FC<ToggleButtonGroupProps> = (props) => (
 
-  <div styleName={classNames('toggleButtonGroup', `box-${props.styling}`)}>
+  <div styleName={classNames('toggleButtonGroup', `box-${props.styling || 'box'}`)}>
     {props.options.map((option) => (
       <button
         id={option.value}
