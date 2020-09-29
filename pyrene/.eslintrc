@@ -11,15 +11,9 @@
       "error",
       "jquery"
     ],
-    "react/jsx-filename-extension": [
-      2,
-      {
-        "extensions": [
-          ".jsx",
-          ".tsx"
-        ]
-      }
-    ],
-    "react/jsx-props-no-spreading": "off"
-  }
+    "react/jsx-props-no-spreading": "off", 
+    "react/forbid-prop-types": 0, 
+    "no-multiple-empty-lines": 0,
+    "@typescript-eslint/unbound-method": 0
+  } 
 }

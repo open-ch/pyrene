@@ -105,7 +105,7 @@ describe('<TimeRangeSelector />', () => {
     let calculatedValue = rendered.find('.value').render()[0].children[0].data;
     expect(timeStringBeforeClick === calculatedValue).toBeTruthy();
     // Assumes first clickable default preset is 24h
-    rendered.find('.horizontalSwitch button').first().simulate('click');
+    rendered.find('.toggleButtonGroup button').first().simulate('click');
     // We are simulating selecting the 24h preset
     // @ts-ignore
     const fromMoment = moment(props.to).tz(RWC_TIMEZONE).subtract(rendered.state().durationInMs);
@@ -143,7 +143,7 @@ describe('<TimeRangeSelector />', () => {
 
   it('has steppers that are changing the timerange if not disabled and are not exceeding the boundaries', () => {
     rendered = mount(<TimeRangeSelector {...props} />);
-    rendered.find('.horizontalSwitch button').first().simulate('click');
+    rendered.find('.toggleButtonGroup button').first().simulate('click');
 
     // Initial setup
     // @ts-ignore
@@ -178,7 +178,7 @@ describe('<TimeRangeSelector />', () => {
     const lowerBound = rendered.props().lowerBound;
     const expectedBounds = `${moment(lowerBound).tz(RWC_TIMEZONE).format(dateFormat)} - ${moment(upperBound).tz(RWC_TIMEZONE).format(dateFormat)}`;
 
-    rendered.find('.horizontalSwitch button').last().simulate('click'); // Switching to years, since the lowerbound is just 90 days should not go beyond that
+    rendered.find('.toggleButtonGroup button').last().simulate('click'); // Switching to years, since the lowerbound is just 90 days should not go beyond that
     const calculatedValue = rendered.find('.value').render()[0].children[0].data;
     expect(expectedBounds).toBe(calculatedValue);
   });
