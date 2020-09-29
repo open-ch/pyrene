@@ -1,5 +1,6 @@
-import { Example, StateProvider } from "../../examples/Example";
-import { RadioGroupProps } from "./RadioGroup";
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+import { Example, StateProvider } from '../../examples/Example';
+import { RadioGroupProps } from './RadioGroup';
 
 const RadioGroup: Example<RadioGroupProps> = {};
 
