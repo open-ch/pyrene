@@ -2,7 +2,7 @@ export type StateProvider = {
   state: {
     value: any;
   }
-  setState: ({ value }: {value: any}) => void
+  setState: ({ value }: {value: any}) => void;
 };
 
 type AugmentedProps<T> = {
