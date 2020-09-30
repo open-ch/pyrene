@@ -205,3 +205,19 @@
 :global(.pyreneIcon-share:before){
   content: "\30";
 }
+:global(.pyreneIcon-layers:before){
+  content: "\60";
+}
+:global(.pyreneIcon-reset:before){
+  content: "\3f";
+}
+:global(.pyreneIcon-minus:before){
+  content: "\5e";
+}
+:global(.pyreneIcon-isp:before){
+  content: "\27";
+}
+:global(.pyreneIcon-link:before){
+  content: "\3d";
+}
+
