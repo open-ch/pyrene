@@ -31,7 +31,7 @@ The solution is to:
    ```
 3. Use the default props in the functional component
    ```
-   const {label, size, value, type} = { ...props, ...defaultProps };
+   const {label, size, value, type} = { ...defaultProps, ...props };
    ```
 4. Declare the default props as a static attribute of the component (for react-docs): 
    ```

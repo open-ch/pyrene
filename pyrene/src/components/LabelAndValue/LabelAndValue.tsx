@@ -27,7 +27,7 @@ const defaultProps: StrictLabelAndValueProps = {
 const LabelAndValue: React.FC<LabelAndValueProps> = (props: LabelAndValueProps) => {
   const {
     label, size, value, type,
-  } = { ...props, ...defaultProps };
+  } = { ...defaultProps, ...props };
   return (
     <div styleName={`label-and-value label-and-value-${size}`}>
       <div styleName="label">{label}</div>
