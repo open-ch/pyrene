@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unused-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import className from 'classnames';
@@ -11,29 +12,33 @@ export interface LabelAndValueProps {
   type?: 'neutral' | 'info' | 'warning' | 'danger' | 'success';
 }
 
-/**
- * Show a label and its value as a highlight.
- */
-const LabelAndValue: React.FC<LabelAndValueProps> = ({
-  label,
-  size,
-  value,
-  type = 'neutral',
-}: LabelAndValueProps) => (
-  <div styleName={`label-and-value label-and-value-${size}`}>
-    <div styleName="label">{label}</div>
-    <div styleName={className('value', { [`type-${type}`]: true })}>{value}</div>
-  </div>
-);
+type StrictLabelAndValueProps = {[key in keyof LabelAndValueProps]-?: NonNullable<LabelAndValueProps[key]>};
 
-LabelAndValue.displayName = 'Label And Value';
-
-LabelAndValue.defaultProps = {
+const defaultProps: StrictLabelAndValueProps = {
   label: '',
   size: 'small',
   value: '',
   type: 'neutral',
 };
+
+/**
+ * Show a label and its value as a highlight.
+ */
+const LabelAndValue: React.FC<LabelAndValueProps> = (props: LabelAndValueProps) => {
+  const {
+    label, size, value, type,
+  } = { ...props, ...defaultProps };
+  return (
+    <div styleName={`label-and-value label-and-value-${size}`}>
+      <div styleName="label">{label}</div>
+      <div styleName={className('value', { [`type-${type}`]: true })}>{value}</div>
+    </div>
+  );
+};
+
+LabelAndValue.displayName = 'Label And Value';
+
+LabelAndValue.defaultProps = defaultProps;
 
 LabelAndValue.propTypes = {
   /**
