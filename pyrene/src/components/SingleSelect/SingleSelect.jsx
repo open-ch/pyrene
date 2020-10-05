@@ -56,11 +56,9 @@ const SingleSelect = (props) => {
             inputId={props.name}
             autoFocus={props.autoFocus}
             openMenuOnFocus={props.openMenuOnFocus}
-
             maxMenuHeight={props.maxMenuHeight}
             noOptionsMessage={() => 'no matches found'}
             formatCreateLabel={(inputValue) => `Create new tag "${inputValue}"`}
-
             isSearchable
             blurInputOnSelect
             escapeClearsValue
@@ -94,10 +92,8 @@ const SingleSelect = (props) => {
             inputId={props.name}
             autoFocus={props.autoFocus}
             openMenuOnFocus={props.openMenuOnFocus}
-
             maxMenuHeight={props.maxMenuHeight}
             noOptionsMessage={() => 'no matches found'}
-
             blurInputOnSelect
             escapeClearsValue
             captureMenuScroll
