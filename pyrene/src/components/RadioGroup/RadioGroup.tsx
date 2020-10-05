@@ -1,6 +1,4 @@
-/* eslint-disable react/no-unused-prop-types */ /* With the way the assign default props, it doesn't work */
 import React from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import SVG from 'react-svg-inline';
 
@@ -85,37 +83,22 @@ const getRadioIcon = (
 
 type HoveredState = {[key: string]: boolean};
 
-// Make sure that default props are understood by the linter, typescript, react-docgen and proptypes.
-type StrictRadioGroupProps = {[key in keyof RadioGroupProps]-?: NonNullable<RadioGroupProps[key]>};
-
-const defaultProps: StrictRadioGroupProps = {
-  options: [],
-  disabled: false,
-  alignment: 'vertical',
-  value: '',
-  invalid: false,
-  name: '',
-  onChange: () => null,
-  onBlur: () => null,
-};
-
 /**
  * Radio buttons allow the user to select an option from a set.
  * Use radio buttons if the user wants to see all available options.
  *
  * If the available options can be collapsed, you should use a drop-down menu because it takes up less space.
  */
-const RadioGroup: React.FC<RadioGroupProps> = (props) => {
-  const {
-    options,
-    disabled,
-    alignment,
-    value,
-    invalid,
-    name,
-    onChange,
-    onBlur,
-  } = { ...defaultProps, ...props }; // needed so we can use the default props as static too.
+const RadioGroup: React.FC<RadioGroupProps> = ({
+  options = [],
+  disabled = false,
+  alignment = 'vertical',
+  value = '',
+  invalid = false,
+  name = '',
+  onChange = () => null,
+  onBlur = () => null,
+}: RadioGroupProps) => {
 
   const [hovered, setHovered] = React.useState<HoveredState>({});
 
@@ -185,45 +168,5 @@ const RadioGroup: React.FC<RadioGroupProps> = (props) => {
 
 RadioGroup.displayName = 'Radio Group';
 
-// Specify defaultProps for react-docgen and propTypes
-RadioGroup.defaultProps = defaultProps;
-
-RadioGroup.propTypes = {
-  /**
-   * Sets the orientation of the radio group.
-   */
-  alignment: PropTypes.oneOf(['vertical', 'horizontal']),
-  /**
-   * Disables any interaction with the component.
-   */
-  disabled: PropTypes.bool,
-  /**
-   * Sets the visual appearance, to signal that the input is invalid.
-   */
-  invalid: PropTypes.bool,
-  /**
-   * Sets the html name property of the form element.
-   */
-  name: PropTypes.string,
-  /**
-   * Javascript event handler.
-   */
-  onBlur: PropTypes.func,
-  /**
-   * Javascript event handler.
-   */
-  onChange: PropTypes.func,
-  /**
-   * Set the values that the user can choose from.
-   */
-  options: PropTypes.arrayOf(PropTypes.shape({
-    label: PropTypes.string.isRequired,
-    value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-  }).isRequired),
-  /**
-   * Sets the selected choice of the user.
-   */
-  value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-};
 
 export default RadioGroup;

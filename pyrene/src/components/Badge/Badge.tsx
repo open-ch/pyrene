@@ -1,5 +1,4 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
 import className from 'classnames';
 
 import './badge.css';
@@ -30,29 +29,20 @@ export interface BadgeProps {
  *
  * Badges have a label and a mandatory type; they can be made clickable.
  */
-const Badge: React.FC<BadgeProps> = (props: BadgeProps) => (
+const Badge: React.FC<BadgeProps> = ({
+  label, maxWidth, onClick = () => null, type,
+}: BadgeProps) => (
   <div
-    styleName={className('badge', { [`type-${props.type}`]: true })}
-    style={{ maxWidth: props.maxWidth }}
-    onClick={props.onClick}
+    styleName={className('badge', { [`type-${type}`]: true })}
+    style={{ maxWidth: maxWidth }}
+    onClick={onClick}
   >
     <div styleName={className('label')}>
-      {props.label}
+      {label}
     </div>
   </div>
 );
 
 Badge.displayName = 'Badge';
-
-Badge.defaultProps = {
-  onClick: () => null,
-};
-
-// Badge.propTypes = {
-//   label: PropTypes.string.isRequired,
-//   maxWidth: PropTypes.number.isRequired,
-//   onClick: PropTypes.func,
-//   type: PropTypes.oneOf<BadgeType>(['neutral', 'info', 'warning', 'danger', 'success']).isRequired,
-// };
 
 export default Badge;

@@ -1,42 +1,68 @@
 import * as React from 'react';
 import classNames from 'classnames';
-import PropTypes from 'prop-types';
 import './toggleButtonGroup.css';
 
 export interface ToggleButtonGroupValue {
+  /**
+     * The displayed information about the option
+     */
   label: string;
+  /**
+     * The value set when the action is toggled.
+     */
   value: string;
 }
 
 export interface ToggleButtonGroupProps {
+  /**
+   * Disabling all buttons - no onClick and opacity 50%
+   * */
   disabled?: boolean,
+  /**
+   * What happens when one value is toggled
+   */
   onChange: (value: string, event?: React.ChangeEvent<HTMLInputElement>) => void,
-  value: string,
+  /**
+   * All options that can be toggled.
+   */
   options: ToggleButtonGroupValue[],
-  styling?: 'box' | 'shadow'
+  /**
+   * Sets the box style of the toggle group.
+   */
+  styling?: 'box' | 'shadow',
+  /**
+   * The selected value in the option list.
+   */
+  value: string,
 }
 
 /**
  * A group of toggle buttons that can be toggled one at a time.
  */
-const ToggleButtonGroup: React.FC<ToggleButtonGroupProps> = (props) => (
+const ToggleButtonGroup: React.FC<ToggleButtonGroupProps> = ({
+  disabled = false,
+  onChange,
+  options,
+  styling = 'box',
+  value,
+}: ToggleButtonGroupProps) => (
 
-  <div styleName={classNames('toggleButtonGroup', `box-${props.styling || 'box'}`)}>
-    {props.options.map((option) => (
+  <div styleName={classNames('toggleButtonGroup', `box-${styling}`)}>
+    {options.map((option) => (
       <button
         id={option.value}
         key={option.value}
         type="button"
         styleName={
           classNames(
-            { disabled: props.disabled },
-            { active: props.value === option.value },
+            { disabled: disabled },
+            { active: value === option.value },
           )
         }
-        disabled={props.disabled}
+        disabled={disabled}
         onClick={() => {
-          if (props.value !== option.value) {
-            props.onChange(option.value);
+          if (value !== option.value) {
+            onChange(option.value);
           }
         }}
       >
@@ -49,42 +75,5 @@ const ToggleButtonGroup: React.FC<ToggleButtonGroupProps> = (props) => (
 );
 
 ToggleButtonGroup.displayName = 'Toggle Button Group';
-
-ToggleButtonGroup.defaultProps = {
-  disabled: false,
-  styling: 'box',
-};
-
-ToggleButtonGroup.propTypes = {
-  /**
-   * Disabling all buttons - no onClick and opacity 50%
-   * */
-  disabled: PropTypes.bool,
-  /**
-   * What happens when one value is toggled
-   */
-  onChange: PropTypes.func.isRequired,
-  /**
-   * All options that can be toggled.
-   */
-  options: PropTypes.arrayOf(PropTypes.shape({
-    /**
-     * The displayed information about the option
-     */
-    label: PropTypes.string.isRequired,
-    /**
-     * The value set when the action is toggled.
-     */
-    value: PropTypes.string.isRequired,
-  }).isRequired).isRequired,
-  /**
-   * Sets the box style of the toggle group.
-   */
-  styling: PropTypes.oneOf(['box', 'shadow']),
-  /**
-   * The selected value in the option list.
-   */
-  value: PropTypes.string.isRequired,
-};
 
 export default ToggleButtonGroup;
