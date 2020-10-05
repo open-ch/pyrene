@@ -1,7 +1,7 @@
-// VERSION: 35
+// VERSION: 38
 const icons = [
-  { name: 'share', tags: ['social'] },
-  { name: 'filter', tags: ['lines'] },
+  { name: 'share', tags: ['social', 'share', 'send'] },
+  { name: 'filter', tags: ['lines', 'filter', 'filters', 'filtering'] },
   { name: 'chevronLeft', tags: ['chevron', 'back', 'arrow', 'left', 'move'] },
   { name: 'chevronRight', tags: ['chevron', 'link', 'right', 'forward', 'move'] },
   { name: 'chevronUp', tags: ['arrow', 'chevron', 'up', 'move'] },
@@ -68,6 +68,11 @@ const icons = [
   { name: 'copy', tags: ['copy', 'duplicate', 'clone', 'copies'] },
   { name: 'attachment', tags: ['attachment', 'add', 'file', 'attach', 'paperclip', 'include', 'clip', 'attaching', 'editing'] },
   { name: 'download', tags: ['download', 'load', 'get', 'storage', 'file', 'save', 'bottom', 'downward', 'down'] },
-  { name: 'edit', tags: ['edit', 'pencil', 'adjust', 'change', 'configuration', 'tool'] },
+  { name: 'edit', tags: ['edit', 'settings', 'write', 'text', 'pen', 'pencil', 'design', 'draw', 'editor', 'editing','compose'] },
+  { name: 'link', tags: ['link', 'tunnel', 'direction', 'bidirectional', 'bi-directional', 'bi'] },
+  { name: 'isp', tags: ['isp', 'internet provider', 'provider', 'web', 'access point', 'access', 'internet', 'connection', 'radio', 'radio waves','waves'] },
+  { name: 'minus', tags: ['minus', 'decrease', 'remove', 'close', 'less', 'substract', 'ui'] },
+  { name: 'reset', tags: ['reset', 'back', 'rotate', 'undo', 'curve', 'invert', 'arrow', 'backward', 'reload', 'dot','circle', 'refund','rotation'] },
+  { name: 'layers', tags: ['layers', 'stacked', 'stack', 'platform', 'arrange', 'surface', 'floors', 'level'] },
 ];
 export default icons;
