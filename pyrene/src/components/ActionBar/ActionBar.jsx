@@ -56,7 +56,9 @@ const ActionBar = (props) => {
     </div>
   );
 
-  if (!props.actions.length) return null;
+  if (!props.actions.length) {
+    return null;
+  }
   return (
     <div
       styleName={classNames(
