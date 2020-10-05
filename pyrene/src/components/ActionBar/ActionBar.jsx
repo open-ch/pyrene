@@ -56,7 +56,8 @@ const ActionBar = (props) => {
     </div>
   );
 
-  return props.actions.length ? (
+  if (!props.actions.length) return null;
+  return (
     <div
       styleName={classNames(
         `container-${props.orientation}`,
@@ -125,7 +126,7 @@ const ActionBar = (props) => {
         })
       )}
     </div>
-  ) : null;
+  );
 };
 
 ActionBar.displayName = 'Action Bar';
