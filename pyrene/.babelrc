@@ -9,41 +9,38 @@
   "env": {
     "test": {
       "plugins": [
-        ["babel-plugin-typescript-to-proptypes", { "comments": true }],
         [
           "react-css-modules",
-
           {
             "generateScopedName": "[local]"
           }
-        ]
+        ],
       ]
     },
     "development": {
       "plugins": [
-        ["babel-plugin-typescript-to-proptypes", { "comments": true }],
         [
           "react-css-modules",
           {
             "generateScopedName": "pyrene-[name]__[local]--[hash:base64:10]"
           }
         ],
-        "react-docgen"
+        "react-docgen",
       ]
     },
     "production": {
       "plugins": [
-        ["babel-plugin-typescript-to-proptypes", { "comments": true }],
         [
           "react-css-modules",
           {
             "generateScopedName": "pyrene-[name]__[local]--[hash:base64:10]"
           }
-        ]
+        ],
       ]
     }
   },
   "plugins": [
+    ["babel-plugin-typescript-to-proptypes", { "comments": true }], // We build a library so we need these propTypes everywhere
     "@babel/plugin-transform-object-assign",
     "@babel/plugin-proposal-object-rest-spread",
     "@babel/plugin-proposal-class-properties"
