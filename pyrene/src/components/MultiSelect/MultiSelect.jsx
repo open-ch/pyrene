@@ -109,11 +109,9 @@ const MultiSelect = (props) => {
             name={props.name}
             id={props.name}
             inputId={props.name}
-
             maxMenuHeight={264}
             noOptionsMessage={formatNoOptionsMessage}
             formatCreateLabel={(inputValue) => `Create new tag "${inputValue}"`}
-
             closeMenuOnSelect={!props.keepMenuOnSelect}
             isMulti
             isSearchable
@@ -142,12 +140,9 @@ const MultiSelect = (props) => {
             name={props.name}
             id={props.name}
             inputId={props.name}
-
             maxMenuHeight={264}
             noOptionsMessage={formatNoOptionsMessage}
-
             closeMenuOnSelect={!props.keepMenuOnSelect}
-
             isMulti
             isSearchable
             escapeClearsValue

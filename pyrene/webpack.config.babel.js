@@ -73,9 +73,11 @@ const config = {
       moduleFilename: ({ name }) => (name === 'main' ? 'pyrene.css' : 'pyrene.[name].css'),
     }),
     new OptimizeCSSAssetsPlugin({}),
-    new CopyWebpackPlugin([
-      { from: 'src/styles/colors.css', to: OUTPUT_PATH, flatten: true },
-    ]),
+    new CopyWebpackPlugin({
+      patterns: [
+        { from: 'src/styles/colors.css', to: OUTPUT_PATH, flatten: true },
+      ]
+    }),
     new ForkTsCheckerWebpackPlugin({
       // Options as defined in: https://github.com/TypeStrong/fork-ts-checker-webpack-plugin/tree/master/examples/babel-loader
       typescript: {

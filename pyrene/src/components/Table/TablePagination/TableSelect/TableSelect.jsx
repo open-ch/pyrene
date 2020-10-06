@@ -18,9 +18,7 @@ const TableSelect = (props) => (
       isDisabled={props.disabled}
       onChange={props.onChange}
       onBlur={props.onBlur}
-
       noOptionsMessage={() => 'no matches found'}
-
       isSearchable={false}
       isClearable={false}
       blurInputOnSelect
