@@ -1,6 +1,6 @@
 {
   "name": "pyrene",
-  "version": "2.3.0",
+  "version": "2.3.1",
   "description": "Open Systems Component Library",
   "main": "dist/pyrene.js",
   "style": "dist/pyrene.css",
@@ -48,6 +48,7 @@
     "@typescript-eslint/eslint-plugin": "^4.3.0",
     "@typescript-eslint/parser": "^4.3.0",
     "autoprefixer": "^9.8.6",
+    "@types/react-svg-inline": "^2.1.1",
     "babel-eslint": "^10.1.0",
     "babel-jest": "^25.5.1",
     "babel-loader": "^8.1.0",
