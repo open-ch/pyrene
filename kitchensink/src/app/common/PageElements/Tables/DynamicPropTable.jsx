@@ -14,9 +14,32 @@ import Counter from '../Counter/Counter';
 
 export default class DynamicPropTable extends React.Component {
 
-  renderModifierFor(propName, propProps) {
+  // Get the props information from either typescript (if defined) or propTypes
+  getType(propProps) {
+    if (propProps.tsType) {
+      return this.mapTsType(propProps.tsType);
+    }
+    return propProps.type;
+  }
 
-    switch (propProps.type.name) {
+  // map TypeScript type information to information format from propTypes.
+  mapTsType(tsType) {
+    if (tsType.name === 'union' && tsType.elements.every((v) => v.name === 'literal')) {
+      return { value: tsType.elements, name: 'enum' };
+    }
+    if (tsType.name === 'boolean') {
+      return { value: tsType.elements, name: 'bool' };
+    }
+    return {
+      name: tsType.type ? tsType.type : tsType.name,
+      value: tsType.elements,
+    };
+  }
+
+  renderModifierFor(propName, propProps) {
+    const typing = this.getType(propProps);
+
+    switch (typing.name) {
       case 'string':
         return (
           <React.Fragment key={propName}>
@@ -30,14 +53,13 @@ export default class DynamicPropTable extends React.Component {
               )}
           </React.Fragment>
         );
-
       case 'enum': {
         // Special handling for SingleSelect/enum props: single select doesn't just take the prop value, it needs value={value: label:}
         const fieldProps = this.props.initField(propName);
         const processedFieldProps = { ...fieldProps, value: { value: fieldProps.value, label: fieldProps.value }, onChange: (v) => { fieldProps.onChange(v.value); } };
         return (
           <SingleSelect
-            options={propProps.type.value.map((propChoice) => ({ value: propChoice.value.replace(/'/g, ''), label: propChoice.value.replace(/'/g, '') }))}
+            options={typing.value.map((propChoice) => ({ value: propChoice.value.replace(/'/g, ''), label: propChoice.value.replace(/'/g, '') }))}
             {...processedFieldProps}
           />
         );
@@ -83,10 +105,11 @@ export default class DynamicPropTable extends React.Component {
           cellWidthArray={['212px', '106px', '106px', '212px', '']}
           headerElementArray={['property', 'type', 'required', 'default value', 'playground']}
           rowArray={this.props.propDocumentation ? Object.entries(this.props.propDocumentation).map(([propName, propProps]) => {
+            const typing = this.getType(propProps);
             if (typeof propProps.defaultValue === 'undefined' || propProps.defaultValue.value === "''") {
-              return [propName, propProps.type.name, propProps.required, '-', this.renderModifierFor(propName, propProps), propProps.description];
+              return [propName, typing.name, propProps.required, '-', this.renderModifierFor(propName, propProps), propProps.description];
             }
-            return [propName, propProps.type.name, propProps.required, propProps.defaultValue.value, this.renderModifierFor(propName, propProps), propProps.description];
+            return [propName, typing.name, propProps.required, propProps.defaultValue.value, this.renderModifierFor(propName, propProps), propProps.description];
           }) : []}
         />
       </div>
