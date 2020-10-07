@@ -15,6 +15,7 @@
             "generateScopedName": "[local]"
           }
         ],
+        ["babel-plugin-typescript-to-proptypes", { "comments": true }],
       ]
     },
     "development": {
@@ -26,6 +27,7 @@
           }
         ],
         "react-docgen",
+        ["babel-plugin-typescript-to-proptypes", { "comments": true }],
       ]
     },
     "production": {
@@ -40,7 +42,6 @@
     }
   },
   "plugins": [
-    ["babel-plugin-typescript-to-proptypes", { "comments": true }], // We build a library so we need these propTypes everywhere
     "@babel/plugin-transform-object-assign",
     "@babel/plugin-proposal-object-rest-spread",
     "@babel/plugin-proposal-class-properties"
