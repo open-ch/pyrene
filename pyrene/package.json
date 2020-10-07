@@ -54,6 +54,7 @@
     "babel-loader": "^8.1.0",
     "babel-plugin-react-css-modules": "^5.0.0",
     "babel-plugin-react-docgen": "^4.2.0",
+    "babel-plugin-typescript-to-proptypes": "^1.4.1",
     "copy-webpack-plugin": "^6.2.0",
     "css-loader": "^3.6.0",
     "enzyme": "^3.3.0",

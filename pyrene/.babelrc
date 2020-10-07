@@ -15,6 +15,7 @@
             "generateScopedName": "[local]"
           }
         ],
+        ["babel-plugin-typescript-to-proptypes", { "comments": true }],
       ]
     },
     "development": {
@@ -26,6 +27,7 @@
           }
         ],
         "react-docgen",
+        ["babel-plugin-typescript-to-proptypes", { "comments": true }],
       ]
     },
     "production": {

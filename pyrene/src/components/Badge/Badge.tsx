@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import className from 'classnames';
 
 import './badge.css';
@@ -7,9 +6,21 @@ import './badge.css';
 export type BadgeType = 'neutral' | 'info' | 'warning' | 'danger' | 'success';
 
 export interface BadgeProps {
+  /**
+   * Sets the label displayed to the user AND WHOEVER
+   */
   label: string;
+  /**
+   * Sets the max width of the badge.
+   */
   maxWidth: number;
+  /**
+   * Called when the user click on the badge.
+   */
   onClick?: (e: React.MouseEvent) => void;
+  /**
+   * Sets the overall style according to the badge type.
+   */
   type: BadgeType;
 }
 
@@ -18,41 +29,20 @@ export interface BadgeProps {
  *
  * Badges have a label and a mandatory type; they can be made clickable.
  */
-const Badge: React.FC<BadgeProps> = (props) => (
+const Badge: React.FC<BadgeProps> = ({
+  label, maxWidth, onClick = () => null, type,
+}: BadgeProps) => (
   <div
-    styleName={className('badge', { [`type-${props.type}`]: true })}
-    style={{ maxWidth: props.maxWidth }}
-    onClick={props.onClick}
+    styleName={className('badge', { [`type-${type}`]: true })}
+    style={{ maxWidth: maxWidth }}
+    onClick={onClick}
   >
     <div styleName={className('label')}>
-      {props.label}
+      {label}
     </div>
   </div>
 );
 
 Badge.displayName = 'Badge';
-
-Badge.defaultProps = {
-  onClick: () => null,
-};
-
-Badge.propTypes = {
-  /**
-   * Sets the label displayed to the user.
-   */
-  label: PropTypes.string.isRequired,
-  /**
-   * Sets the max width of the badge.
-   */
-  maxWidth: PropTypes.number.isRequired,
-  /**
-   * Called when the user click on the badge.
-   */
-  onClick: PropTypes.func,
-  /**
-   * Sets the overall style according to the badge type.
-   */
-  type: PropTypes.oneOf<BadgeType>(['neutral', 'info', 'warning', 'danger', 'success']).isRequired,
-};
 
 export default Badge;
