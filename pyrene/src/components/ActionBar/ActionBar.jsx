@@ -94,9 +94,10 @@ const ActionBar = (props) => {
             </div>
           );
 
+          const actionIcon = isSvgIcon ? action.svg : action.iconName;
           const actionComponent = action.renderPopover && action.active ? (
             <ArrowPopover
-              key={isSvgIcon ? action.svg : action.iconName}
+              key={actionIcon}
               popoverContent={action.renderPopover(() => setOpenAction(null))}
               displayPopover={openAction === index}
               closePopover={() => setOpenAction(null)}
