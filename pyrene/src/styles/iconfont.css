@@ -1,8 +1,38 @@
-:global(.pyreneIcon-download:before){
-  content: "\28";
+:global(.pyreneIcon-warningSquare:before){
+  content: "\2c";
+}
+:global(.pyreneIcon-moon:before){
+  content: "\2e";
+}
+:global(.pyreneIcon-flag:before){
+  content: "\3b";
+}
+:global(.pyreneIcon-alarmOutline:before){
+  content: "\3a";
+}
+:global(.pyreneIcon-alarmActive:before){
+  content: "\2a";
+}
+:global(.pyreneIcon-layers:before){
+  content: "\60";
+}
+:global(.pyreneIcon-reset:before){
+  content: "\3f";
+}
+:global(.pyreneIcon-minus:before){
+  content: "\5e";
+}
+:global(.pyreneIcon-isp:before){
+  content: "\27";
+}
+:global(.pyreneIcon-link:before){
+  content: "\3d";
 }
 :global(.pyreneIcon-edit:before){
   content: "\29";
+}
+:global(.pyreneIcon-download:before){
+  content: "\28";
 }
 :global(.pyreneIcon-attachment:before){
   content: "\2f";
@@ -205,19 +235,3 @@
 :global(.pyreneIcon-share:before){
   content: "\30";
 }
-:global(.pyreneIcon-layers:before){
-  content: "\60";
-}
-:global(.pyreneIcon-reset:before){
-  content: "\3f";
-}
-:global(.pyreneIcon-minus:before){
-  content: "\5e";
-}
-:global(.pyreneIcon-isp:before){
-  content: "\27";
-}
-:global(.pyreneIcon-link:before){
-  content: "\3d";
-}
-
