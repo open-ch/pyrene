@@ -1,4 +1,4 @@
-// VERSION: 38
+// VERSION: 39
 const icons = [
   { name: 'share', tags: ['social', 'share', 'send'] },
   { name: 'filter', tags: ['lines', 'filter', 'filters', 'filtering'] },
@@ -73,6 +73,11 @@ const icons = [
   { name: 'isp', tags: ['isp', 'internet provider', 'provider', 'web', 'access point', 'access', 'internet', 'connection', 'radio', 'radio waves','waves'] },
   { name: 'minus', tags: ['minus', 'decrease', 'remove', 'close', 'less', 'substract', 'ui'] },
   { name: 'reset', tags: ['reset', 'back', 'rotate', 'undo', 'curve', 'invert', 'arrow', 'backward', 'reload', 'dot','circle', 'refund','rotation'] },
-  { name: 'layers', tags: ['layers', 'stacked', 'stack', 'platform', 'arrange', 'surface', 'floors', 'level'] },
+  { name: 'alarmActive', tags: ['alarm', 'active', 'bell', 'ringing', 'sound', 'alert', 'ring', 'ringtone', 'wake', 'cockpit'] },
+  { name: 'alarmOutline', tags: ['alarm', 'bell', 'outline', 'alert', 'notification', 'ringtone', 'wake', 'ring', 'cockpit'] },
+  { name: 'flag', tags: ['flag', 'banner', 'important', 'tag', 'location', 'cockpit'] },
+  { name: 'moon', tags: ['moon', 'night', 'weather', 'sleeping', 'snooz', 'cockpit'] },
+  { name: 'warningSquare', tags: ['warning', 'hot', 'attention', 'ticketviewer', 'arrange', 'surface', 'floors', 'level', 'cockpit'] },
+
 ];
 export default icons;
