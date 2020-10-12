@@ -1,3 +1,6 @@
+:global(.pyreneIcon-clockFilled:before){
+  content: "\e7";
+}
 :global(.pyreneIcon-warningSquare:before){
   content: "\2c";
 }
