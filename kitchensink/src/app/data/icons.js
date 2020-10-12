@@ -1,11 +1,11 @@
-// VERSION: 39
+// VERSION: 40
 const icons = [
   { name: 'share', tags: ['social', 'share', 'send'] },
   { name: 'filter', tags: ['lines', 'filter', 'filters', 'filtering'] },
   { name: 'chevronLeft', tags: ['chevron', 'back', 'arrow', 'left', 'move'] },
   { name: 'chevronRight', tags: ['chevron', 'link', 'right', 'forward', 'move'] },
   { name: 'chevronUp', tags: ['arrow', 'chevron', 'up', 'move'] },
-  { name: 'chevronDown', tags: ['arrow', 'chevron', 'down', 'move'] },
+  { name: 'chevronDown', tags: ['arrow', 'chevron', 'down', 'move'] },		
   { name: 'collapsDown', tags: ['arrow', 'dropdown', 'down'] },
   { name: 'collapsUp', tags: ['arrow', 'dropdown', 'up'] },
   { name: 'errorOutline', tags: ['problem', 'invalid', 'error', 'outline'] },
@@ -60,7 +60,7 @@ const icons = [
   { name: 'star', tags: ['star', 'rating', 'achievement', 'favorite', 'important', 'winner', 'like', 'rate', 'winner', 'review', 'best'] },
   { name: 'visibility', tags: ['visibility', 'eye', 'watching', 'see', 'follow', 'solid', 'preview', 'vision', 'visible', 'overview', 'watch'] },
   { name: 'visibilityOff', tags: ['visibility', 'eye', 'watching', 'see', 'unfollow', 'solid', 'preview', 'vision', 'invisible', 'overview', 'watch', 'blind', 'block', 'hidden'] },
-  { name: 'visibilityOutline', tags: ['visibility', 'eye', 'watching', 'see', 'follow', 'outline', 'preview', 'vision', 'visible', 'overview', 'watch'] },
+  { name: 'visibilityOutline', tags: ['visibility', 'eye', 'watching', 'see', 'follow', 'outline', 'preview', 'vision', 'visible', 'overview', 'watch'] },	
   { name: 'visibilityOffOutline', tags: ['visibility', 'eye', 'watching', 'see', 'unfollow', 'outline', 'preview', 'vision', 'invisible', 'overview', 'watch', 'blind', 'block', 'hidden'] },
   { name: 'chef', tags: ['chef', 'admin', 'cook', 'cooking', 'broil', 'solid', 'restaurant', 'kitchen', 'kitchensink', 'hat', 'food', 'cap', 'roast', 'fry', 'pan'] },
   { name: 'settings', tags: ['settings', 'gear', 'cogwheel', 'wheel', 'manage', 'set', 'adjust', 'config', 'configure', 'edit', 'tools', 'options', 'control', 'preferences', 'parameter', 'setup', 'cog', 'tools', 'configuration', 'configurations'] },
@@ -73,11 +73,12 @@ const icons = [
   { name: 'isp', tags: ['isp', 'internet provider', 'provider', 'web', 'access point', 'access', 'internet', 'connection', 'radio', 'radio waves','waves'] },
   { name: 'minus', tags: ['minus', 'decrease', 'remove', 'close', 'less', 'substract', 'ui'] },
   { name: 'reset', tags: ['reset', 'back', 'rotate', 'undo', 'curve', 'invert', 'arrow', 'backward', 'reload', 'dot','circle', 'refund','rotation'] },
-  { name: 'alarmActive', tags: ['alarm', 'active', 'bell', 'ringing', 'sound', 'alert', 'ring', 'ringtone', 'wake', 'cockpit'] },
+  { name: 'alarmActive', tags: ['alarm', 'active', 'bell', 'ringing', 'sound', 'alert', 'ring', 'ringtone', 'wake', 'cockpit'] },	
   { name: 'alarmOutline', tags: ['alarm', 'bell', 'outline', 'alert', 'notification', 'ringtone', 'wake', 'ring', 'cockpit'] },
-  { name: 'flag', tags: ['flag', 'banner', 'important', 'tag', 'location', 'cockpit'] },
+  { name: 'flag', tags: ['flag', 'banner', 'important', 'tag', 'location', 'cockpit'] },	
   { name: 'moon', tags: ['moon', 'night', 'weather', 'sleeping', 'snooz', 'cockpit'] },
   { name: 'warningSquare', tags: ['warning', 'hot', 'attention', 'ticketviewer', 'arrange', 'surface', 'floors', 'level', 'cockpit'] },
-
+  { name: 'clockFilled', tags: ['clock', 'time', 'schedule', 'tracking', 'hour', 'history', 'event', 'deadline', 'appointment', 'countdown', 'alarm', 'timer', 'alert', 'wait', 'progress', 'filled', 'cockpit' ] },		
+	
 ];
 export default icons;
