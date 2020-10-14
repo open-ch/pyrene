@@ -2,11 +2,15 @@
 import { Example, StateProvider } from '../../examples/Example';
 import { RadioGroupProps } from './RadioGroup';
 
-const RadioGroup: Example<RadioGroupProps> = {};
+interface State {
+  value: string | number
+}
+
+const RadioGroup: Example<RadioGroupProps, State> = {};
 
 RadioGroup.props = {
   options: [{ label: 'Beer 🍺', value: 'beer' }, { label: 'Coffee ☕️', value: 'coffee' }, { label: 'Coffeebeer 🍹😎', value: 'coffeebeer' }],
-  onChange: (stateProvider: StateProvider) => (value: string | number) => stateProvider.setState({ value }),
+  onChange: (stateProvider: StateProvider<State>) => (value: string | number) => stateProvider.setState({ value }),
   value: (stateProvider) => stateProvider.state.value,
 };
 
@@ -18,7 +22,7 @@ RadioGroup.examples = [
         { label: 'Coffee', value: 'coffee' },
         { label: 'Whisky', value: 'whisky' },
         { label: 'Irish Coffee', value: 'irishcoffee' }],
-      onChange: (stateProvider: StateProvider) => (value: string | number) => stateProvider.setState({ value }),
+      onChange: (stateProvider: StateProvider<State>) => (value: string | number) => stateProvider.setState({ value }),
       value: (stateProvider) => stateProvider.state.value,
     },
     description: '',
@@ -29,7 +33,7 @@ RadioGroup.examples = [
         { label: 'Coffee', value: 'coffee' },
         { label: 'Whisky', value: 'whisky' },
         { label: 'Irish Coffee', value: 'irishcoffee' }],
-      onChange: (stateProvider: StateProvider) => (value: string | number) => stateProvider.setState({ value }),
+      onChange: (stateProvider: StateProvider<State>) => (value: string | number) => stateProvider.setState({ value }),
       value: (stateProvider) => stateProvider.state.value,
     },
     description: '',

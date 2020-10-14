@@ -1,7 +1,12 @@
+/* eslint-disable react/require-default-props */
 import React from 'react';
-import PropTypes from 'prop-types';
 
-const Placeholder = (props) => (
+type Props = {
+  label?: string;
+  width?: number | string;
+};
+
+const Placeholder: React.FC<Props> = ({ label = 'Content', width = '100%' }: Props) => (
   <div className="unSelectable" style={{
     height: 200,
     backgroundColor: 'var(--neutral-020)',
@@ -15,24 +20,11 @@ const Placeholder = (props) => (
     fontWeight: 'bold',
     textTransform: 'uppercase',
     letterSpacing: 1,
-    width: props.width,
+    width: width,
   }}
   >
-    {props.label ? props.label : 'Content'}
+    {label}
   </div>
 );
-
-Placeholder.propTypes = {
-  label: PropTypes.string,
-  width: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string,
-  ]),
-};
-
-Placeholder.defaultProps = {
-  label: 'Content',
-  width: '100%',
-};
 
 export default Placeholder;

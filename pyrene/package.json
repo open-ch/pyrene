@@ -29,6 +29,7 @@
     "prerelease": "npm run build && npm run test",
     "release": "release-it",
     "lint": "eslint --max-warnings 0 --ext .js,.jsx,.ts,.tsx src",
+    "ts-migrate": "ts-migrate",
     "updateIconfont": "bash -c 'cat $0 | fgrep -A3 .icon- | sed -E '\"'\"' s/\\.icon-(.*):before /:global(.pyreneIcon-\\1:before)/ '\"'\"' >  src/styles/iconfont.css; cp $1 src/fonts/pyrene-iconfont.woff;'"
   },
   "devDependencies": {
@@ -45,10 +46,10 @@
     "@types/jest": "^26.0.14",
     "@types/react": "^16.9.50",
     "@types/react-css-modules": "^4.6.2",
+    "@types/react-svg-inline": "^2.1.1",
     "@typescript-eslint/eslint-plugin": "^4.3.0",
     "@typescript-eslint/parser": "^4.3.0",
     "autoprefixer": "^9.8.6",
-    "@types/react-svg-inline": "^2.1.1",
     "babel-eslint": "^10.1.0",
     "babel-jest": "^25.5.1",
     "babel-loader": "^8.1.0",
@@ -90,6 +91,7 @@
     "release-it": "^14.0.3",
     "style-loader": "^1.3.0",
     "terser-webpack-plugin": "^4.2.2",
+    "ts-migrate": "^0.1.7",
     "typescript": "^4.0.3",
     "url-loader": "^4.1.0",
     "webpack": "^4.44.2",

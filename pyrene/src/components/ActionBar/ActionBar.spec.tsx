@@ -1,7 +1,8 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 
-import ActionBar, { handleOnClick } from './ActionBar';
+import { ReactElementLike } from 'prop-types';
+import ActionBar, { ActionBarProps, handleOnClick } from './ActionBar';
 import Icon from '../Icon/Icon';
 import ArrowPopover from '../ArrowPopover/ArrowPopover';
 import Tooltip from '../Tooltip/Tooltip';
@@ -9,7 +10,7 @@ import Tooltip from '../Tooltip/Tooltip';
 
 describe('<ActionBar />', () => {
 
-  const props = {
+  const props: ActionBarProps = {
     styling: 'shadow',
     actions: [
       {
@@ -133,7 +134,9 @@ describe('<ActionBar />', () => {
 
   describe('<ArrowPopover />', () => {
 
-    const FakePopover = ({ closePopover }) => ( // eslint-disable-line react/prop-types, no-unused-vars
+    const FakePopover = ({
+      closePopover,
+    }: any) => ( // eslint-disable-line react/prop-types, no-unused-vars
       <div />
     );
 
@@ -163,7 +166,7 @@ describe('<ActionBar />', () => {
           color: 'neutral300',
           active: false,
           svg: 'pathToSvg',
-          renderPopover: (closeFunc) => <FakePopover closePopover={closeFunc} />, // eslint-disable-line react/display-name
+          renderPopover: (closeFunc: () => void) => <FakePopover closePopover={closeFunc} />, // eslint-disable-line react/display-name
         },
       ];
 
@@ -181,7 +184,7 @@ describe('<ActionBar />', () => {
           color: 'neutral300',
           active: true,
           svg: 'pathToSvg',
-          renderPopover: (closeFunc) => <FakePopover closePopover={closeFunc} />, // eslint-disable-line react/display-name
+          renderPopover: (closeFunc: () => void) => <FakePopover closePopover={closeFunc} />, // eslint-disable-line react/display-name
         },
       ];
 
@@ -258,38 +261,51 @@ describe('<ActionBar />', () => {
 
   describe('<handleOnClick />', () => {
 
-    const values = {
-      onClick: () => jest.fn(),
-      renderPopover: () => jest.fn(),
-      active: true,
-      index: 0,
-      openAction: null,
-      setOpenAction: () => jest.fn(),
-    };
+    const onClick = () => jest.fn();
+    const renderPopover: any = () => jest.fn();
+    const active = true;
+    const index = 0;
+    const openAction = null;
+    const setOpenAction = () => jest.fn();
+
     it('can not define popover and onClick', () => {
       expect(() => {
-        handleOnClick(values);
+        handleOnClick(
+          renderPopover,
+          onClick,
+          active,
+          index,
+          openAction,
+          setOpenAction,
+
+        );
       }).toThrow(new Error('You can not define both renderPopover and onClick'));
     });
     it('calls setOpenAction(null) and onClick() on onClick', () => {
 
-      const setOpenAction = jest.fn();
-      const onClick = jest.fn();
-      handleOnClick({
-        ...values, renderPopover: null, setOpenAction, onClick,
-      });
+      handleOnClick(
+        undefined,
+        onClick,
+        active,
+        index,
+        openAction,
+        setOpenAction,
+      );
 
       expect(setOpenAction).toHaveBeenCalled();
       expect(onClick).toHaveBeenCalled();
     });
 
     it('do not call anything when not active', () => {
+      handleOnClick(
+        undefined,
+        onClick,
+        false,
+        index,
+        openAction,
+        setOpenAction,
 
-      const setOpenAction = jest.fn();
-      const onClick = jest.fn();
-      handleOnClick({
-        ...values, active: false, renderPopover: null, setOpenAction, onClick,
-      });
+      );
 
       expect(setOpenAction).not.toHaveBeenCalled();
       expect(onClick).not.toHaveBeenCalled();
@@ -297,17 +313,27 @@ describe('<ActionBar />', () => {
 
     it('call setOpenAction when renderPopover is defined', () => {
 
-      const renderPopover = jest.fn();
-      const setOpenAction = jest.fn();
-      handleOnClick({
-        ...values, onClick: null, openAction: null, renderPopover, setOpenAction,
-      });
+      handleOnClick(
+        renderPopover,
+        undefined,
+        active,
+        index,
+        null,
+        setOpenAction,
 
-      expect(setOpenAction).toHaveBeenCalledWith(values.index);
+      );
 
-      handleOnClick({
-        ...values, onClick: null, openAction: 0, renderPopover, setOpenAction,
-      });
+      expect(setOpenAction).toHaveBeenCalledWith(index);
+
+      handleOnClick(
+        renderPopover,
+        undefined,
+        active,
+        index,
+        0,
+        setOpenAction,
+      );
+
       expect(setOpenAction).toHaveBeenCalledWith(null);
     });
   });
