@@ -2,7 +2,7 @@
 import { Example, StateProvider } from '../../examples/Example';
 import { ToggleButtonGroupProps } from './ToggleButtonGroup';
 
-interface State {
+export interface State {
   value: string
 }
 

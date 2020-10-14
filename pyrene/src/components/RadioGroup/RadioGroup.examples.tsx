@@ -2,7 +2,7 @@
 import { Example, StateProvider } from '../../examples/Example';
 import { RadioGroupProps } from './RadioGroup';
 
-interface State {
+export interface State {
   value: string | number
 }
 
