@@ -1,12 +1,12 @@
+
+/* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access */
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 
-import { ReactElementLike } from 'prop-types';
 import ActionBar, { ActionBarProps, handleOnClick } from './ActionBar';
 import Icon from '../Icon/Icon';
 import ArrowPopover from '../ArrowPopover/ArrowPopover';
 import Tooltip from '../Tooltip/Tooltip';
-
 
 describe('<ActionBar />', () => {
 
@@ -134,9 +134,7 @@ describe('<ActionBar />', () => {
 
   describe('<ArrowPopover />', () => {
 
-    const FakePopover = ({
-      closePopover,
-    }: any) => ( // eslint-disable-line react/prop-types, no-unused-vars
+    const FakePopover = () => (
       <div />
     );
 
@@ -166,7 +164,7 @@ describe('<ActionBar />', () => {
           color: 'neutral300',
           active: false,
           svg: 'pathToSvg',
-          renderPopover: (closeFunc: () => void) => <FakePopover closePopover={closeFunc} />, // eslint-disable-line react/display-name
+          renderPopover: () => <FakePopover />, // eslint-disable-line react/display-name
         },
       ];
 
@@ -184,7 +182,7 @@ describe('<ActionBar />', () => {
           color: 'neutral300',
           active: true,
           svg: 'pathToSvg',
-          renderPopover: (closeFunc: () => void) => <FakePopover closePopover={closeFunc} />, // eslint-disable-line react/display-name
+          renderPopover: () => <FakePopover />, // eslint-disable-line react/display-name
         },
       ];
 
@@ -261,14 +259,14 @@ describe('<ActionBar />', () => {
 
   describe('<handleOnClick />', () => {
 
-    const onClick = () => jest.fn();
-    const renderPopover: any = () => jest.fn();
-    const active = true;
-    const index = 0;
-    const openAction = null;
-    const setOpenAction = () => jest.fn();
 
     it('can not define popover and onClick', () => {
+      const onClick = jest.fn();
+      const renderPopover = jest.fn();
+      const active = true;
+      const index = 0;
+      const openAction = null;
+      const setOpenAction = jest.fn();
       expect(() => {
         handleOnClick(
           renderPopover,
@@ -277,11 +275,15 @@ describe('<ActionBar />', () => {
           index,
           openAction,
           setOpenAction,
-
         );
       }).toThrow(new Error('You can not define both renderPopover and onClick'));
     });
     it('calls setOpenAction(null) and onClick() on onClick', () => {
+      const onClick = jest.fn();
+      const active = true;
+      const index = 0;
+      const openAction = null;
+      const setOpenAction = jest.fn();
 
       handleOnClick(
         undefined,
@@ -297,6 +299,10 @@ describe('<ActionBar />', () => {
     });
 
     it('do not call anything when not active', () => {
+      const onClick = jest.fn();
+      const index = 0;
+      const openAction = null;
+      const setOpenAction = jest.fn();
       handleOnClick(
         undefined,
         onClick,
@@ -312,6 +318,10 @@ describe('<ActionBar />', () => {
     });
 
     it('call setOpenAction when renderPopover is defined', () => {
+      const renderPopover = jest.fn();
+      const active = true;
+      const index = 0;
+      const setOpenAction = jest.fn();
 
       handleOnClick(
         renderPopover,
