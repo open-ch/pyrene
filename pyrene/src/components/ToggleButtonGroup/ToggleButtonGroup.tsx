@@ -47,7 +47,7 @@ const ToggleButtonGroup: React.FC<ToggleButtonGroupProps> = ({
   value,
 }: ToggleButtonGroupProps) => (
 
-  <div styleName={classNames('toggleButtonGroup', `box-${styling}`)}>
+  <div styleName={classNames('toggleButtonGroup', styling === 'shadow' ? 'box-shadow' : null)}>
     {options.map((option) => (
       <button
         id={option.value}
