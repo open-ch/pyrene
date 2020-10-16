@@ -62,14 +62,5 @@
 }
 
 .box-shadow {
-  background-color: var(--neutral-000);
-  border-radius: 2px;
-  border: solid 1px var(--neutral-050);
   box-shadow: 0 4px 8px -2px rgba(0, 21, 44, 0.2);
-}
-
-.box-box {
-  background-color: var(--neutral-000);
-  border-radius: 2px;
-  border: solid 1px var(--neutral-050);
 }
