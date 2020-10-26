@@ -1,3 +1,18 @@
+:global(.pyreneIcon-location3rdParty:before){
+  content: "\5d";
+}
+:global(.pyreneIcon-locationBig:before){
+  content: "\5b";
+}
+:global(.pyreneIcon-locationMedium:before){
+  content: "\23";
+}
+:global(.pyreneIcon-locationSmall:before){
+  content: "\201c";
+}
+:global(.pyreneIcon-place:before){
+  content: "\b1";
+}
 :global(.pyreneIcon-clockFilled:before){
   content: "\e7";
 }
