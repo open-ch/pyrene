@@ -1,4 +1,4 @@
-// VERSION: 40
+// VERSION: 41
 const icons = [
   { name: 'share', tags: ['social', 'share', 'send'] },
   { name: 'filter', tags: ['lines', 'filter', 'filters', 'filtering'] },
@@ -78,7 +78,14 @@ const icons = [
   { name: 'flag', tags: ['flag', 'banner', 'important', 'tag', 'location', 'cockpit'] },	
   { name: 'moon', tags: ['moon', 'night', 'weather', 'sleeping', 'snooz', 'cockpit'] },
   { name: 'warningSquare', tags: ['warning', 'hot', 'attention', 'ticketviewer', 'arrange', 'surface', 'floors', 'level', 'cockpit'] },
-  { name: 'clockFilled', tags: ['clock', 'time', 'schedule', 'tracking', 'hour', 'history', 'event', 'deadline', 'appointment', 'countdown', 'alarm', 'timer', 'alert', 'wait', 'progress', 'filled', 'cockpit' ] },		
+  { name: 'clockFilled', tags: ['clock', 'time', 'schedule', 'tracking', 'hour', 'history', 'event', 'deadline', 'appointment', 'countdown', 'alarm', 'timer', 'alert', 'wait', 'progress', 'filled', 'cockpit' ] },
+  { name: 'layers', tags: ['layers', 'stack', 'burst', 'platform', 'surface', 'floors', 'levels'] },
+  { name: 'place', tags: ['place', 'city', 'map', 'pin', 'marker', 'position'] },
+  { name: 'locationSmall', tags: ['location', 'small', 'locationSmall', 'city', 'building', 'office'] },
+  { name: 'locationMedium', tags: ['location', 'medium', 'locationMedium', 'city', 'building', 'office'] },
+  { name: 'locationBig', tags: ['location', 'big', 'locationBig', 'city', 'building', 'office'] },
+  { name: 'location3rdParty', tags: ['location', '3rdParty', 'shop', 'retail', 'market', 'store'] },
+	
 	
 ];
 export default icons;
