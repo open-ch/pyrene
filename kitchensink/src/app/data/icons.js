@@ -1,4 +1,4 @@
-// VERSION: 41
+// VERSION: 42
 const icons = [
   { name: 'share', tags: ['social', 'share', 'send'] },
   { name: 'filter', tags: ['lines', 'filter', 'filters', 'filtering'] },
@@ -84,7 +84,7 @@ const icons = [
   { name: 'locationSmall', tags: ['location', 'small', 'locationSmall', 'city', 'building', 'office'] },
   { name: 'locationMedium', tags: ['location', 'medium', 'locationMedium', 'city', 'building', 'office'] },
   { name: 'locationBig', tags: ['location', 'big', 'locationBig', 'city', 'building', 'office'] },
-  { name: 'location3rdParty', tags: ['location', '3rdParty', 'shop', 'retail', 'market', 'store'] },
+  { name: 'locationRetail', tags: ['location', 'shop', 'retail', 'market', 'store'] },
 	
 	
 ];
