@@ -10,8 +10,12 @@ import colorConstants from '../../styles/colorConstants';
 */
 // eslint-disable-next-line react/jsx-props-no-spreading
 const getBackgroundColor = (isSelected, isFocused) => {
-  if (isSelected) { return colorConstants.neutral030; }
-  if (isFocused) { return colorConstants.backgroundTint; }
+  if (isSelected) {
+    return colorConstants.neutral030;
+  }
+  if (isFocused) {
+    return colorConstants.backgroundTint;
+  }
   return colorConstants.neutral000;
 };
 
