@@ -1,9 +1,7 @@
 import { colorConstants } from '../..';
 
 const testOptions = [
-  {
-    value: 'chocolate', label: 'Chocolate', invalid: false, iconProps: { name: 'layers', color: colorConstants.okFg },
-  },
+  { value: 'chocolate', label: 'Chocolate', invalid: false },
   { value: 'strawberry', label: 'Strawberry', invalid: false },
   { value: 'vanilla', label: 'Vanilla', invalid: false },
   { value: 'bacon', label: 'Bacon', invalid: true },
@@ -36,6 +34,11 @@ const testOptions = [
   { value: 'moosetracks', label: 'Moose Tracks', invalid: false },
 ];
 
+const icons = ['place', 'layers', 'clock'];
+const colors = [colorConstants.blue600, colorConstants.red600, colorConstants.orange600, undefined];
+const testOptionsWithIcons = testOptions.map((option, i) => ({ ...option, iconProps: { name: icons[i % 3], color: colors[i % 4] } }));
+
+
 const examples = {
   props: {
     title: 'Single-Select',
@@ -45,6 +48,30 @@ const examples = {
     onChange: (stateProvider) => (value) => stateProvider.setState({ value }),
     value: (stateProvider) => stateProvider.state.value,
   },
+  examples: [
+    {
+      props: {
+        title: 'Single-Select',
+        placeholder: 'Choose your favorite ice cream',
+        helperLabel: 'Ice cream is delicious',
+        options: testOptions,
+        onChange: (stateProvider) => (value) => stateProvider.setState({ value }),
+        value: (stateProvider) => stateProvider.state.value,
+      },
+      description: 'Simple Single Select',
+    },
+    {
+      props: {
+        title: 'Single-Select with Icons',
+        placeholder: 'Choose your favorite ice cream',
+        helperLabel: 'Ice cream is delicious',
+        options: testOptionsWithIcons,
+        onChange: (stateProvider) => (value) => stateProvider.setState({ value }),
+        value: (stateProvider) => stateProvider.state.value,
+      },
+      description: 'Single Select with Icons',
+    },
+  ],
 };
 
 examples.category = 'Form';

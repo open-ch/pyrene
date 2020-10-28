@@ -143,7 +143,9 @@ const selectStyle = {
     maxHeight: 308,
   }),
 
-  option: (base, { isSelected, isFocused }) => ({
+  option: (base, {
+    isSelected, isFocused, data,
+  }) => ({
     ...base,
     ':active': {
       backgroundColor: colorConstants.neutral030,
@@ -155,6 +157,7 @@ const selectStyle = {
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
+    padding: data.iconProps ? '8px 8px 12px 8px;' : base.padding, // Reduce padding if an icon is displayed
   }),
 
   group: () => ({
