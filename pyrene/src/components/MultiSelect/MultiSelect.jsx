@@ -9,6 +9,7 @@ import Loader from '../Loader/Loader';
 import MultiSelectMenuWithOptions from './MultiSelectMenuWithOptions';
 import CustomOption from '../SingleSelect/CustomOption';
 import { getCaseInsensitiveDistinctValues, getDelimitedValues } from './delimiterUtil';
+import Icon from '../Icon/Icon';
 
 const LoadingIndicator = () => <Loader />;
 
@@ -220,6 +221,7 @@ MultiSelect.propTypes = {
    * Sets a preselected options. Type: [ string | number ]
    */
   defaultValue: PropTypes.arrayOf(PropTypes.shape({
+    iconProps: Icon.PropTypes,
     label: PropTypes.string.isRequired,
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool]),
   })),
@@ -267,6 +269,7 @@ MultiSelect.propTypes = {
    * Data input array. Type: [{ value: string (required), label: string (required), invalid: bool }]
    */
   options: PropTypes.arrayOf(PropTypes.shape({
+    iconProps: Icon.PropTypes,
     invalid: PropTypes.bool,
     label: PropTypes.string,
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool]),
@@ -299,6 +302,7 @@ MultiSelect.propTypes = {
    * Sets the value of the input field. Same type as supplied options.
    */
   value: PropTypes.arrayOf(PropTypes.shape({
+    iconProps: Icon.PropTypes,
     label: PropTypes.string.isRequired,
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool]),
   })),

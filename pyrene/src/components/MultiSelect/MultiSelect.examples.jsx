@@ -1,5 +1,9 @@
+import colorConstants from '../../styles/colorConstants';
+
 const testOptions = [
-  { value: 'chocolate', label: 'Chocolate', invalid: false },
+  {
+    value: 'chocolate', label: 'Chocolate', invalid: false, iconProps: { name: 'layers', color: colorConstants.okDark },
+  },
   { value: 'strawberry', label: 'Strawberry', invalid: false },
   { value: 'vanilla', label: 'Vanilla', invalid: false },
   { value: 'bacon', label: 'Bacon', invalid: true },
