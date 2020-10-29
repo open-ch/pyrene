@@ -4,33 +4,26 @@ import { components } from 'react-select';
 import Icon from '../Icon/Icon';
 
 import './customOption.css';
-import colorConstants from '../../styles/colorConstants';
 /*
 * We do really want to pass all props down without intercepting them
 */
 // eslint-disable-next-line react/jsx-props-no-spreading
-const getBackgroundColor = (isSelected, isFocused) => {
+const getIconStyle = (isSelected, isFocused) => {
   if (isSelected) {
-    return colorConstants.neutral030;
+    return 'container selected';
   }
   if (isFocused) {
-    return colorConstants.backgroundTint;
+    return 'container focused';
   }
-  return colorConstants.neutral000;
+  return 'container';
 };
 
-const CustomOption = (props) => {
-  const iconStyle = {
-    backgroundColor: getBackgroundColor(props.isSelected, props.isFocused),
-  };
-
-  return (
-    <div title={props.label} styleName="container" style={iconStyle}>
-      {props.data.iconProps ? <div styleName="icon"><Icon {...props.data.iconProps} /></div> : null}
-      <components.Option {...props} />
-    </div>
-  );
-};
+const CustomOption = (props) => (
+  <div title={props.label} styleName={getIconStyle(props.isSelected, props.isFocused)}>
+    {props.data.iconProps ? <div styleName="icon"><Icon {...props.data.iconProps} /></div> : null}
+    <components.Option {...props} />
+  </div>
+);
 
 CustomOption.propTypes = {
   data: PropTypes.shape({

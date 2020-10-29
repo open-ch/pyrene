@@ -4,6 +4,7 @@
     display: flex; 
     align-items: center;
     justify-content: center;
+    background-color: var(--neutral-000);
 }
 
 .icon {
@@ -15,4 +16,12 @@
 }
 .icon:active { 
     background-color: var(--neutral-030);
+}
+
+.selected {
+    background-color: var(--neutral-030);
+}
+
+.focused {
+    background-color: var(--background-tint)
 }
