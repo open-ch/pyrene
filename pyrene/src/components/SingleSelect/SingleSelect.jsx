@@ -7,6 +7,7 @@ import SelectStyle from './singleSelectCSS';
 import './select.css';
 import Loader from '../Loader/Loader';
 import CustomOption from './CustomOption';
+import Icon from '../Icon/Icon';
 
 const LoadingIndicator = () => <Loader />;
 
@@ -167,6 +168,7 @@ SingleSelect.propTypes = {
    * Sets a preselected option.
    */
   defaultValue: PropTypes.shape({
+    iconProps: Icon.PropTypes,
     label: PropTypes.string.isRequired,
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool, PropTypes.object]),
   }),
@@ -192,6 +194,7 @@ SingleSelect.propTypes = {
     label: PropTypes.string.isRequired,
     // in case options belong to group (- Sad color is heading and black and blue is an option in the example above)
     options: PropTypes.arrayOf(PropTypes.shape({
+      iconProps: Icon.PropTypes,
       label: PropTypes.string.isRequired,
       value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool, PropTypes.object]),
     })),
@@ -243,6 +246,7 @@ SingleSelect.propTypes = {
    * Data input array. Type: [{ value: string (required), label: string (required), invalid: bool }]
    */
   options: PropTypes.arrayOf(PropTypes.shape({
+    iconProps: Icon.PropTypes,
     label: PropTypes.string.isRequired,
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool, PropTypes.object]),
   })),
@@ -270,6 +274,7 @@ SingleSelect.propTypes = {
    * Sets the value of the input field. Same type as supplied options.
    */
   value: PropTypes.shape({
+    iconProps: Icon.PropTypes,
     label: PropTypes.string.isRequired,
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool, PropTypes.object]),
   }),
