@@ -1,3 +1,5 @@
+import colorConstants from '../../styles/colorConstants';
+
 const testOptions = [
   { value: 'chocolate', label: 'Chocolate', invalid: false },
   { value: 'strawberry', label: 'Strawberry', invalid: false },
@@ -32,6 +34,10 @@ const testOptions = [
   { value: 'moosetracks', label: 'Moose Tracks', invalid: false },
 ];
 
+const icons = ['place', 'layers', 'clock'];
+const colors = [colorConstants.blue600, colorConstants.red600, colorConstants.orange600, undefined];
+const testOptionsWithIcons = testOptions.map((option, i) => ({ ...option, iconProps: { name: icons[i % 3], color: colors[i % 4] } }));
+
 const examples = {
   props: {
     title: 'Multi-Select',
@@ -46,6 +52,41 @@ const examples = {
     invalid: (stateProvider) => stateProvider.state.value && stateProvider.state.value.filter((o) => o.value === 'bacon' || o.value === 'chickenliver').length > 0,
     invalidLabel: 'Please no bacon or chicken liver',
   },
+  examples: [
+    {
+      props: {
+        title: 'Multi-Select',
+        placeholder: 'Choose your favorite ice cream',
+        helperLabel: 'Ice cream is delicious',
+        defaultValues: [],
+        options: testOptions,
+        onChange: (stateProvider) => (value) => stateProvider.setState({ value }),
+        value: (stateProvider) => stateProvider.state.value,
+        rows: 4,
+        creatable: true,
+        invalid: (stateProvider) => stateProvider.state.value && stateProvider.state.value.filter((o) => o.value === 'bacon' || o.value === 'chickenliver').length > 0,
+        invalidLabel: 'Please no bacon or chicken liver',
+      },
+      description: 'Multi Select',
+    },
+    {
+      props: {
+        title: 'Multi-Select',
+        placeholder: 'Choose your favorite ice cream',
+        helperLabel: 'Ice cream is delicious',
+        defaultValues: [],
+        options: testOptionsWithIcons,
+        onChange: (stateProvider) => (value) => stateProvider.setState({ value }),
+        value: (stateProvider) => stateProvider.state.value,
+        rows: 4,
+        creatable: true,
+        invalid: (stateProvider) => stateProvider.state.value && stateProvider.state.value.filter((o) => o.value === 'bacon' || o.value === 'chickenliver').length > 0,
+        invalidLabel: 'Please no bacon or chicken liver',
+      },
+      description: 'Multi Select with Icons',
+    },
+
+  ],
 };
 
 examples.category = 'Form';
