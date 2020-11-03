@@ -21,6 +21,16 @@ const MyComponent: React.FC<MyComponentProps>({name = "John}: MyComponentProps)
 
 See the LabelAndValue component for a minimal example.  
 
+## Migrating Components to Typescript
+Migrating a component to Typescript can be summarized as: 
+   - Rename the `.jsx` file to `.tsx`
+   - Create the `MyCompoentProp` interface and copy all properties and comments from PropTypes.
+   - Add the props as a component generic type. For example: 
+      ```MyComponent = React.FC<MyComponentProps> = ({...}) => {}```
+   - See section about "Functional typescript components" above.
+   - Once the component is green, you can safely delete the PropTypes (but not before since the typer will complain if 
+   the Proptypes and the Props are not matching ) 
+
 ## Release
 
 
