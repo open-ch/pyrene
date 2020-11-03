@@ -1,6 +1,7 @@
 import { colorConstants } from '../..';
 import { Example, StateProvider } from '../../examples/Example';
-import { SingleSelectOption, SingleSelectProps } from './SingleSelect';
+import { SingleSelectProps } from './SingleSelect';
+import { SingleSelectOption } from './SingleSelectTypes';
 
 const testOptions: SingleSelectOption[] = [
   { value: 'chocolate', label: 'Chocolate' },

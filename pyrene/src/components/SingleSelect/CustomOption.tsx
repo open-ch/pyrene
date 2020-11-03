@@ -4,7 +4,7 @@ import { components, OptionProps } from 'react-select';
 import Icon from '../Icon/Icon';
 
 import './customOption.css';
-import { SingleSelectOption } from './SingleSelect';
+import { SingleSelectOption } from './SingleSelectTypes';
 /*
 * We do really want to pass all props down without intercepting them
 */

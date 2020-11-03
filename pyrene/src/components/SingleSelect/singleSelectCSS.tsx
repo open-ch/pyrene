@@ -13,6 +13,7 @@
 import React, { CSSProperties } from 'react';
 import { Styles } from 'react-select';
 import colorConstants from '../../styles/colorConstants';
+import { SingleSelectOption } from './SingleSelectTypes';
 
 interface State {
   isFocused: boolean;
@@ -23,6 +24,7 @@ interface State {
     menuIsOpen?: boolean;
     isInvalid?:boolean;
   }
+  data: SingleSelectOption;
 }
 
 const selectStyle: Partial<Styles> = {
