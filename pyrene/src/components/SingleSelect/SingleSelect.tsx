@@ -124,15 +124,15 @@ const SingleSelect: React.FC<SingleSelectProps> = ({
   groupedOptions = [],
   maxMenuHeight = 264,
   openMenuOnFocus = false,
-  defaultValue = null,
+  defaultValue = undefined,
   helperLabel = '',
   invalidLabel = '',
   title = '',
-  value = null,
+  value = undefined,
   onChange = () => null,
   onBlur = () => null,
   onFocus = () => null,
-}) => {
+}: SingleSelectProps) => {
 
   if (sorted) {
     // sorting both
