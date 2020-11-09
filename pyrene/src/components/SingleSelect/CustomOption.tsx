@@ -7,7 +7,6 @@ import { SingleSelectOption } from './SingleSelectTypes';
 /*
 * We do really want to pass all props down without intercepting them
 */
-// eslint-disable-next-line react/jsx-props-no-spreading
 const getIconStyle = (isSelected: boolean | undefined, isFocused: boolean | undefined) => {
   if (isSelected) {
     return 'container selected';
@@ -18,16 +17,18 @@ const getIconStyle = (isSelected: boolean | undefined, isFocused: boolean | unde
   return 'container';
 };
 
-type CustomOptionProps = OptionProps<SingleSelectOption> & {
-  data: SingleSelectOption; // This is infered as any because of a typing issue in OptionProps, hence the lint disable in the component
+type OwnCustomOptionsProps = {
+  data: SingleSelectOption;
   isFocused: boolean;
   isSelected: boolean;
   label: string;
 };
 
+// Make sure we consider all own props before the default props from react-select's options
+type CustomOptionProps = OwnCustomOptionsProps & Omit<OptionProps<SingleSelectOption>, keyof OwnCustomOptionsProps>;
+
 const CustomOption: React.FC<CustomOptionProps> = (props: CustomOptionProps) => (
   <div title={props.label} styleName={getIconStyle(props.isSelected, props.isFocused)}>
-    {/* eslint-disable-next-line @typescript-eslint/no-unsafe-member-access */}
     {props.data.iconProps ? <div styleName="icon"><Icon {...props.data.iconProps} /></div> : null}
     <components.Option {...props} />
   </div>

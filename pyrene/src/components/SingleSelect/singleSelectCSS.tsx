@@ -10,7 +10,7 @@
    }
  */
 
-import React, { CSSProperties } from 'react';
+import { CSSProperties } from 'react';
 import { Styles } from 'react-select';
 import colorConstants from '../../styles/colorConstants';
 import { SingleSelectOption } from './SingleSelectTypes';
@@ -27,6 +27,11 @@ interface State {
   data: SingleSelectOption;
 }
 
+
+// Typescript bindings don't work correctly with this function.
+// The reason is mostly that `& ...` is not a valid React.CSSProperty. The issue might be:
+// 1. The typings for react-select/Styles are incorrect and these properties are indeed used
+// 2. These properties are actually not used
 const selectStyle: Partial<Styles> = {
   container: (base: CSSProperties): CSSProperties => ({
     ...base,
@@ -41,7 +46,7 @@ const selectStyle: Partial<Styles> = {
     color: colorConstants.neutral500,
   }),
 
-  indicatorSeparator: () => ({
+  indicatorSeparator: ():CSSProperties => ({
     display: 'none',
   }),
 
@@ -89,7 +94,7 @@ const selectStyle: Partial<Styles> = {
     },
   }),
 
-  placeholder: (base: CSSProperties) => ({
+  placeholder: (base: CSSProperties): CSSProperties => ({
     ...base,
     color: colorConstants.neutral200,
   }),
@@ -152,7 +157,7 @@ const selectStyle: Partial<Styles> = {
     },
   }),
 
-  menu: (base: React.CSSProperties): React.CSSProperties => ({
+  menu: (base: CSSProperties): CSSProperties => ({
     ...base,
     boxShadow: '0 4px 8px -2px rgba(0, 21, 44, 0.2)',
     borderRadius: 2,
@@ -161,11 +166,11 @@ const selectStyle: Partial<Styles> = {
     maxHeight: 308,
   }),
 
-  option: (base: React.CSSProperties, {
+  option: (base: CSSProperties, {
     isSelected,
     isFocused,
     data,
-  }: State) => ({
+  }: State): any => ({
     ...base,
     ':active': {
       backgroundColor: colorConstants.neutral030,
@@ -180,19 +185,18 @@ const selectStyle: Partial<Styles> = {
     padding: data.iconProps ? '8px 8px 12px 8px;' : base.padding, // Reduce padding if an icon is displayed
   }),
 
-  group: () => ({
+  group: (): CSSProperties => ({
     paddingTop: 0,
     paddingBottom: 0,
   }),
 
-  groupHeading: () => ({
+  groupHeading: (): CSSProperties => ({
     fontFamily: 'FiraGO, Helvetica, sans-serif !important',
     fontWeight: 500,
     color: colorConstants.neutral500,
     padding: '8px 12px',
     borderBottom: '1px solid #e0e2e5',
   }),
-// FixMe: terrible hack since it seems like either typings or implementation is boggus
 } as any as Partial<Styles>;
 
 export default selectStyle;
