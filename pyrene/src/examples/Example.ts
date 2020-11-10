@@ -8,11 +8,12 @@ export type StateProvider<S> = {
 };
 
 type AugmentedProps<T, State> = {
-  [K in keyof T]: ((stateProvider: StateProvider<State>) => T[K]) | T[K]
+  [K in keyof T]: ((stateProvider: StateProvider<State>) => T[K]) | T[K];
 };
 
 export interface Example<ExampleProps, State = void> {
   props?:AugmentedProps<ExampleProps, State>;
-  examples?: { props: AugmentedProps<ExampleProps, State>, description: string }[];
+  examples?: { props: AugmentedProps<ExampleProps, State>, description?: string }[];
   category?: string;
+
 }
