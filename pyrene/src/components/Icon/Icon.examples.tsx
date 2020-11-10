@@ -1,13 +1,16 @@
-const Icon = {};
+import { Example } from '../../examples/Example';
+import { IconProps } from './Icon';
+
+const Icon: Example<IconProps> = {};
 
 Icon.props = {
-  icon: 'home',
+  name: 'home',
 };
 
 Icon.examples = [
   {
     props: {
-      icon: 'home',
+      name: 'home',
     },
     description: 'Icon with default color and default type  ',
   },
