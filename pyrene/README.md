@@ -16,7 +16,7 @@ When using functional components in typescript, make sure to explicitely set the
 interface MyComponentProps {
    name: string
 }
-const MyComponent: React.FC<MyComponentProps>({name = "John}: MyComponentProps)
+const MyComponent: React.FC<MyComponentProps>({name = 'John'}: MyComponentProps)
 ```
 
 See the LabelAndValue component for a minimal example.  
@@ -24,7 +24,7 @@ See the LabelAndValue component for a minimal example.
 ## Migrating Components to Typescript
 Migrating a component to Typescript can be summarized as: 
    - Rename the `.jsx` file to `.tsx`
-   - Create the `MyCompoentProp` interface and copy all properties and comments from PropTypes.
+   - Create the `MyComponentProp` interface and copy all properties and comments from PropTypes.
    - Add the props as a component generic type. For example: 
       ```MyComponent = React.FC<MyComponentProps> = ({...}) => {}```
    - See section about "Functional typescript components" above.
