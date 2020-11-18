@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 
-import Icon from './Icon.jsx';
+import Icon from './Icon';
 
 const props = {
   name: 'home',
@@ -16,7 +16,7 @@ describe('<Icon />', () => {
   it('renders icon font', () => {
     const rendered = shallow(<Icon {...props} />);
     expect(rendered.find('.pyreneIcon-home')).toHaveLength(1);
-    expect(rendered.find('.pyreneIcon-home').prop('style').color).toBe('rgba(229, 0, 255, 0.96)');
+    expect(rendered.find('.pyreneIcon-home').prop('style')?.color).toBe('rgba(229, 0, 255, 0.96)');
   });
 
   it('renders svg icon', () => {
