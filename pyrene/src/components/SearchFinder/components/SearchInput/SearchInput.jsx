@@ -1,5 +1,5 @@
 import React, {
-  useCallback, useRef, useState,
+  useCallback, useEffect, useRef, useState,
 } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
@@ -10,10 +10,14 @@ import Icon from '../../../Icon/Icon';
  * SearchInput - private component used as base for other search components.
  */
 const SearchInput = ({
-  value, onChange, onEnter, extraActionElement, containerRef, placeholder, width,
+  value, onChange, onEnter, onFocus, extraActionElement, containerRef, placeholder, width, isFocused,
 }) => {
   const inputRef = useRef();
-  const [isFocused, setIsFocused] = useState(false);
+  const [isLocalFocused, setIsLocalFocused] = useState(!!isFocused);
+
+  useEffect(() => {
+    setIsLocalFocused(!!isFocused);
+  }, [isFocused]);
 
   const focus = useCallback(() => {
     if (inputRef.current) {
@@ -38,9 +42,21 @@ const SearchInput = ({
     }
   }, [onEnter]);
 
+
+  const handleIsFocused = useCallback((isFocusedValue) => {
+    if (isFocused === null) {
+      setIsLocalFocused(isFocusedValue);
+    }
+  }, [isFocused]);
+
+  const handleFocus = useCallback((e) => {
+    handleIsFocused(true);
+    onFocus(e);
+  }, [handleIsFocused, onFocus]);
+
   return (
     <div
-      className={classNames(styles.inputArea, { [styles.isFocused]: isFocused })}
+      className={classNames(styles.inputArea, { [styles.isFocused]: isLocalFocused })}
       style={{ width: width }}
       ref={containerRef}
       onKeyDown={onEnter ? handleEnter : null}
@@ -52,8 +68,8 @@ const SearchInput = ({
         ref={inputRef}
         value={value}
         onChange={onInputChange}
-        onFocus={() => setIsFocused(true)}
-        onBlur={() => setIsFocused(false)}
+        onFocus={handleFocus}
+        onBlur={() => handleIsFocused(false)}
         placeholder={placeholder}
       />
       <div>
@@ -70,8 +86,10 @@ SearchInput.displayName = 'Search Input';
 
 SearchInput.defaultProps = {
   onEnter: null,
+  onFocus: null,
   extraActionElement: null,
   containerRef: null,
+  isFocused: null,
   placeholder: '',
   width: 256,
 };
@@ -89,6 +107,10 @@ SearchInput.propTypes = {
    */
   extraActionElement: PropTypes.element,
   /**
+   * set Focused state
+   */
+  isFocused: PropTypes.bool,
+  /**
    * called when value changes
    */
   onChange: PropTypes.func.isRequired,
@@ -96,6 +118,10 @@ SearchInput.propTypes = {
    * custom handler for enter keydown action
    */
   onEnter: PropTypes.func,
+  /**
+   * called when input is focused
+   */
+  onFocus: PropTypes.func,
   /**
    * input placeholder string
    */

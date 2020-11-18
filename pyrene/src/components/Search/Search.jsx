@@ -6,7 +6,7 @@ import SearchInput from '../SearchFinder/components/SearchInput/SearchInput';
  * Simple search input area
  */
 const Search = ({
-  value, onChange, onEnter, containerRef, placeholder, width, onFocus, isFocused,
+  value, onChange, onEnter, onFocus, containerRef, placeholder, width, isFocused,
 }) => (
   <SearchInput
     value={value}
