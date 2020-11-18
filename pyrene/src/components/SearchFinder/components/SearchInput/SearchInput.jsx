@@ -10,7 +10,7 @@ import Icon from '../../../Icon/Icon';
  * SearchInput - private component used as base for other search components.
  */
 const SearchInput = ({
-  value, onChange, onEnter, extraActionElement, containerRef, placeholder,
+  value, onChange, onEnter, extraActionElement, containerRef, placeholder, width,
 }) => {
   const inputRef = useRef();
   const [isFocused, setIsFocused] = useState(false);
@@ -39,7 +39,12 @@ const SearchInput = ({
   }, [onEnter]);
 
   return (
-    <div className={classNames(styles.inputArea, { [styles.isFocused]: isFocused })} ref={containerRef} onKeyDown={onEnter ? handleEnter : null}>
+    <div
+      className={classNames(styles.inputArea, { [styles.isFocused]: isFocused })}
+      style={{ width: width }}
+      ref={containerRef}
+      onKeyDown={onEnter ? handleEnter : null}
+    >
       <div className={classNames(styles.icon, styles.passive)}>
         <Icon type="standalone" name="search" />
       </div>
@@ -68,6 +73,7 @@ SearchInput.defaultProps = {
   extraActionElement: null,
   containerRef: null,
   placeholder: '',
+  width: 256,
 };
 
 SearchInput.propTypes = {
@@ -98,6 +104,13 @@ SearchInput.propTypes = {
    * input value
    */
   value: PropTypes.string.isRequired,
+  /**
+   * width
+   */
+  width: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string,
+  ]),
 };
 
 export default SearchInput;
