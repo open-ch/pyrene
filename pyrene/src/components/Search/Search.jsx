@@ -6,12 +6,13 @@ import SearchInput from '../SearchFinder/components/SearchInput/SearchInput';
  * Simple search input area
  */
 const Search = ({
-  value, onChange, onEnter, onFocus, containerRef, placeholder, width, isFocused,
+  value, onChange, onEnter, onFocus, onBlur, containerRef, placeholder, width, isFocused,
 }) => (
   <SearchInput
     value={value}
     onChange={onChange}
     onFocus={onFocus}
+    onBlur={onBlur}
     isFocused={isFocused}
     placeholder={placeholder}
     onEnter={onEnter}
@@ -24,6 +25,7 @@ Search.displayName = 'Search';
 
 Search.defaultProps = {
   isFocused: null,
+  onBlur: null,
   onEnter: null,
   onFocus: null,
   containerRef: null,
@@ -43,6 +45,10 @@ Search.propTypes = {
    * set Focused state
    */
   isFocused: PropTypes.bool,
+  /**
+   * called when input is blured
+   */
+  onBlur: PropTypes.func,
   /**
    * called when value changes
    */

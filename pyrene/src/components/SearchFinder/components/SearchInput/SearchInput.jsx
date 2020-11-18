@@ -10,7 +10,7 @@ import Icon from '../../../Icon/Icon';
  * SearchInput - private component used as base for other search components.
  */
 const SearchInput = ({
-  value, onChange, onEnter, onFocus, extraActionElement, containerRef, placeholder, width, isFocused,
+  value, onChange, onEnter, onBlur, onFocus, extraActionElement, containerRef, placeholder, width, isFocused,
 }) => {
   const inputRef = useRef();
   const [isLocalFocused, setIsLocalFocused] = useState(!!isFocused);
@@ -54,6 +54,11 @@ const SearchInput = ({
     onFocus(e);
   }, [handleIsFocused, onFocus]);
 
+  const handleBlur = useCallback((e) => {
+    handleIsFocused(false);
+    onBlur(e);
+  }, [handleIsFocused, onBlur]);
+
   return (
     <div
       className={classNames(styles.inputArea, { [styles.isFocused]: isLocalFocused })}
@@ -69,7 +74,7 @@ const SearchInput = ({
         value={value}
         onChange={onInputChange}
         onFocus={handleFocus}
-        onBlur={() => handleIsFocused(false)}
+        onBlur={handleBlur}
         placeholder={placeholder}
       />
       <div>
@@ -85,6 +90,7 @@ const SearchInput = ({
 SearchInput.displayName = 'Search Input';
 
 SearchInput.defaultProps = {
+  onBlur: null,
   onEnter: null,
   onFocus: null,
   extraActionElement: null,
@@ -110,6 +116,10 @@ SearchInput.propTypes = {
    * set Focused state
    */
   isFocused: PropTypes.bool,
+  /**
+   * called when input is blured
+   */
+  onBlur: PropTypes.func,
   /**
    * called when value changes
    */
