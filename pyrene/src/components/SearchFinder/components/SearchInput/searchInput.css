@@ -8,10 +8,10 @@
     box-sizing: border-box;
   }
 
-  width: 256px;
   height: 32px;
   border-radius: 2px;
   border: solid 1px var(--neutral-200);
+  background: white; /* same as input default */
   position: relative;
   display: flex;
 
