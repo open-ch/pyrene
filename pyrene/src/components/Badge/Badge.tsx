@@ -13,7 +13,7 @@ export interface BadgeProps {
   /**
    * Sets the max width of the badge.
    */
-  maxWidth: number;
+  maxWidth?: number | string;
   /**
    * Called when the user click on the badge.
    */
