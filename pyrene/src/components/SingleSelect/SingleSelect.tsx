@@ -104,6 +104,31 @@ export type SingleSelectProps = {
 
   value?: SingleSelectOption
 };
+
+const sortOptions = (options: SingleSelectOption[]): SingleSelectOption[] => {
+  const sortedOptions = [...options];
+  sortedOptions.sort((a, b) => a.label.localeCompare(b.label));
+  return sortedOptions;
+};
+
+const getSortedOptionsObj = (options: SingleSelectOption[], groupedOptions: SingleSelectGroupedOption[], sorted: boolean): SingleSelectOption[] | SingleSelectGroupedOption[] => {
+  // grouped options have precedence above the options -> its not possible to pass both!
+  if (groupedOptions.length) {
+    if (sorted) {
+      return groupedOptions.map((o: SingleSelectGroupedOption) => (o.options
+        ? ({ ...o, options: sortOptions(o.options) })
+        : o
+      ));
+    }
+    return groupedOptions;
+  }
+  if (sorted) {
+    return sortOptions(options);
+  }
+  return options;
+
+};
+
 /**
  * Selects are used when the user has to make a selection from a list that is too large to show.
  */
@@ -134,18 +159,7 @@ const SingleSelect: React.FC<SingleSelectProps> = ({
   onFocus = () => null,
 }: SingleSelectProps) => {
 
-  if (sorted) {
-    // sorting both
-    groupedOptions.forEach((o: SingleSelectGroupedOption) => {
-      if (o.options) {
-        o.options.sort((a, b) => a.label.localeCompare(b.label));
-      }
-    });
-    options.sort((a, b) => a.label.localeCompare(b.label));
-  }
-
-  // grouped options have precedence above the options -> its not possible to pass both!
-  const optionsObj = groupedOptions.length > 0 ? groupedOptions : options;
+  const optionsObj = getSortedOptionsObj(options, groupedOptions, sorted);
 
   return (
     <div styleName={classNames('selectContainer', { disabled: disabled })}>
