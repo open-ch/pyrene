@@ -136,12 +136,11 @@ const SingleSelect: React.FC<SingleSelectProps> = ({
 
   if (sorted) {
     // sorting both
-    groupedOptions.forEach((o: SingleSelectGroupedOption) => (o.options
-      ? {
-        label: o.label,
-        options: o.options.sort((a, b) => a.label.localeCompare(b.label)),
+    groupedOptions.forEach((o: SingleSelectGroupedOption) => {
+      if (o.options) {
+        o.options.sort((a, b) => a.label.localeCompare(b.label));
       }
-      : o));
+    });
     options.sort((a, b) => a.label.localeCompare(b.label));
   }
 
