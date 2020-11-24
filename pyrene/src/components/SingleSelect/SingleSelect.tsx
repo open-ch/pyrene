@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import Select from 'react-select';
 import CreatableSelect from 'react-select/creatable';
-import SelectStyle from './singleSelectCSS';
+import selectStyle from './selectStyle';
 import './select.css';
 import Loader from '../Loader/Loader';
 import CustomOption from './CustomOption';
@@ -136,7 +136,12 @@ const SingleSelect: React.FC<SingleSelectProps> = ({
 
   if (sorted) {
     // sorting both
-    groupedOptions.forEach((o: SingleSelectGroupedOption) => (o.options ? { label: o.label, options: o.options.sort((a, b) => a.label.localeCompare(b.label)) } : o));
+    groupedOptions.map((o: SingleSelectGroupedOption) => (o.options
+      ? {
+        label: o.label,
+        options: o.options.sort((a, b) => a.label.localeCompare(b.label)),
+      }
+      : o));
     options.sort((a, b) => a.label.localeCompare(b.label));
   }
 
@@ -151,7 +156,7 @@ const SingleSelect: React.FC<SingleSelectProps> = ({
         ? (
           <CreatableSelect
             className="singleSelect"
-            styles={SelectStyle}
+            styles={selectStyle}
             components={{
               LoadingIndicator,
               Option: CustomOption,
@@ -189,7 +194,7 @@ const SingleSelect: React.FC<SingleSelectProps> = ({
         : (
           <Select
             className="singleSelect"
-            styles={SelectStyle}
+            styles={selectStyle}
             components={{
               LoadingIndicator,
               Option: CustomOption,
