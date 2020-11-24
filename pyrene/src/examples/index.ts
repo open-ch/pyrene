@@ -43,10 +43,11 @@ import { default as TimeRangeSelector } from '../components/TimeRangeSelector/Ti
 import { default as ToggleButtonGroup } from '../components/ToggleButtonGroup/ToggleButtonGroup.examples';
 import { default as Tooltip } from '../components/Tooltip/Tooltip.examples';
 import { default as TreeTable } from '../components/TreeTable/TreeTable.examples';
+import { Example } from './Example';
 
 
 // Sort alphabetically to find stuff easily
-const examples = {
+const examples: {[key: string]: Example<any, any>} = {
   ActionBar,
   Badge,
   Banner,

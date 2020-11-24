@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable no-nested-ternary */
 
 
@@ -9,10 +10,30 @@
    }
  */
 
+import { CSSProperties } from 'react';
+import { Styles } from 'react-select';
 import colorConstants from '../../styles/colorConstants';
+import { SingleSelectOption } from './SingleSelectTypes';
 
-const selectStyle = {
-  container: (base) => ({
+interface State {
+  isFocused: boolean;
+  hasValue: boolean;
+  isDisabled: boolean;
+  isSelected: boolean
+  selectProps: {
+    menuIsOpen?: boolean;
+    isInvalid?:boolean;
+  }
+  data: SingleSelectOption;
+}
+
+
+// Typescript bindings don't work correctly with this function.
+// The reason is mostly that `& ...` is not a valid React.CSSProperty. The issue might be:
+// 1. The typings for react-select/Styles are incorrect and these properties are indeed used
+// 2. These properties are actually not used
+const selectStyle: Partial<Styles> = {
+  container: (base: CSSProperties): CSSProperties => ({
     ...base,
     fontFamily: 'FiraGO, Helvetica, sans-serif !important',
     fontSize: 12,
@@ -25,11 +46,11 @@ const selectStyle = {
     color: colorConstants.neutral500,
   }),
 
-  indicatorSeparator: () => ({
+  indicatorSeparator: ():CSSProperties => ({
     display: 'none',
   }),
 
-  control: (base, state) => ({
+  control: (base: CSSProperties, state: State): any => ({
     boxSizing: 'border-box',
     display: 'flex',
     flexWrap: 'wrap',
@@ -63,21 +84,22 @@ const selectStyle = {
     },
   }),
 
-  valueContainer: (base) => ({
+  valueContainer: (base: CSSProperties): any => ({
     ...base,
     height: 32,
     padding: '2px 4px 2px 7px',
+
     '& :last-child': {
       zIndex: 2,
     },
   }),
 
-  placeholder: (base) => ({
+  placeholder: (base: CSSProperties): CSSProperties => ({
     ...base,
     color: colorConstants.neutral200,
   }),
 
-  clearIndicator: () => ({
+  clearIndicator: (): any => ({
     '& svg': {
       display: 'none',
     },
@@ -103,7 +125,7 @@ const selectStyle = {
     },
   }),
 
-  dropdownIndicator: (base, state) => ({
+  dropdownIndicator: (base: CSSProperties, state: State): any => ({
     '& svg': {
       display: 'none',
     },
@@ -122,8 +144,9 @@ const selectStyle = {
     },
   }),
 
-  input: (base) => ({
+  input: (base: CSSProperties): any => ({
     ...base,
+
     '[type="text"]': {
       fontFamily: 'FiraGO, Helvetica, sans-serif !important',
       fontSize: 12,
@@ -134,7 +157,7 @@ const selectStyle = {
     },
   }),
 
-  menu: (base) => ({
+  menu: (base: CSSProperties): CSSProperties => ({
     ...base,
     boxShadow: '0 4px 8px -2px rgba(0, 21, 44, 0.2)',
     borderRadius: 2,
@@ -143,9 +166,11 @@ const selectStyle = {
     maxHeight: 308,
   }),
 
-  option: (base, {
-    isSelected, isFocused, data,
-  }) => ({
+  option: (base: CSSProperties, {
+    isSelected,
+    isFocused,
+    data,
+  }: State): any => ({
     ...base,
     ':active': {
       backgroundColor: colorConstants.neutral030,
@@ -160,18 +185,18 @@ const selectStyle = {
     padding: data.iconProps ? '8px 8px 12px 8px;' : base.padding, // Reduce padding if an icon is displayed
   }),
 
-  group: () => ({
+  group: (): CSSProperties => ({
     paddingTop: 0,
     paddingBottom: 0,
   }),
 
-  groupHeading: () => ({
+  groupHeading: (): CSSProperties => ({
     fontFamily: 'FiraGO, Helvetica, sans-serif !important',
     fontWeight: 500,
     color: colorConstants.neutral500,
     padding: '8px 12px',
     borderBottom: '1px solid #e0e2e5',
   }),
-};
+} as any as Partial<Styles>;
 
 export default selectStyle;
