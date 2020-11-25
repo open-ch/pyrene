@@ -66,7 +66,7 @@ export interface TextAreaProps {
   /**
    * Sets a fixed width (px) for the input field.
    */
-  width?: number,
+  width?: number | string,
 }
 
 /**
