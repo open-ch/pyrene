@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import Select from 'react-select';
 import CreatableSelect from 'react-select/creatable';
-import SelectStyle from './singleSelectCSS';
+import selectStyle from './selectStyle';
 import './select.css';
 import Loader from '../Loader/Loader';
 import CustomOption from './CustomOption';
@@ -104,6 +104,31 @@ export type SingleSelectProps = {
 
   value?: SingleSelectOption
 };
+
+const sortOptions = (options: SingleSelectOption[]): SingleSelectOption[] => {
+  const sortedOptions = [...options];
+  sortedOptions.sort((a, b) => a.label.localeCompare(b.label));
+  return sortedOptions;
+};
+
+const getOptionsObj = (options: SingleSelectOption[], groupedOptions: SingleSelectGroupedOption[], sorted: boolean): SingleSelectOption[] | SingleSelectGroupedOption[] => {
+  // grouped options have precedence above the options -> its not possible to pass both!
+  if (groupedOptions.length) {
+    if (sorted) {
+      return groupedOptions.map((o: SingleSelectGroupedOption) => (o.options
+        ? ({ ...o, options: sortOptions(o.options) })
+        : o
+      ));
+    }
+    return groupedOptions;
+  }
+  if (sorted) {
+    return sortOptions(options);
+  }
+  return options;
+
+};
+
 /**
  * Selects are used when the user has to make a selection from a list that is too large to show.
  */
@@ -134,14 +159,7 @@ const SingleSelect: React.FC<SingleSelectProps> = ({
   onFocus = () => null,
 }: SingleSelectProps) => {
 
-  if (sorted) {
-    // sorting both
-    groupedOptions.forEach((o: SingleSelectGroupedOption) => (o.options ? { label: o.label, options: o.options.sort((a, b) => a.label.localeCompare(b.label)) } : o));
-    options.sort((a, b) => a.label.localeCompare(b.label));
-  }
-
-  // grouped options have precedence above the options -> its not possible to pass both!
-  const optionsObj = groupedOptions.length > 0 ? groupedOptions : options;
+  const optionsObj = getOptionsObj(options, groupedOptions, sorted);
 
   return (
     <div styleName={classNames('selectContainer', { disabled: disabled })}>
@@ -151,7 +169,7 @@ const SingleSelect: React.FC<SingleSelectProps> = ({
         ? (
           <CreatableSelect
             className="singleSelect"
-            styles={SelectStyle}
+            styles={selectStyle}
             components={{
               LoadingIndicator,
               Option: CustomOption,
@@ -189,7 +207,7 @@ const SingleSelect: React.FC<SingleSelectProps> = ({
         : (
           <Select
             className="singleSelect"
-            styles={SelectStyle}
+            styles={selectStyle}
             components={{
               LoadingIndicator,
               Option: CustomOption,
