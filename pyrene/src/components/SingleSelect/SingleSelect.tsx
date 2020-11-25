@@ -111,7 +111,7 @@ const sortOptions = (options: SingleSelectOption[]): SingleSelectOption[] => {
   return sortedOptions;
 };
 
-const getSortedOptionsObj = (options: SingleSelectOption[], groupedOptions: SingleSelectGroupedOption[], sorted: boolean): SingleSelectOption[] | SingleSelectGroupedOption[] => {
+const getOptionsObj = (options: SingleSelectOption[], groupedOptions: SingleSelectGroupedOption[], sorted: boolean): SingleSelectOption[] | SingleSelectGroupedOption[] => {
   // grouped options have precedence above the options -> its not possible to pass both!
   if (groupedOptions.length) {
     if (sorted) {
@@ -159,7 +159,7 @@ const SingleSelect: React.FC<SingleSelectProps> = ({
   onFocus = () => null,
 }: SingleSelectProps) => {
 
-  const optionsObj = getSortedOptionsObj(options, groupedOptions, sorted);
+  const optionsObj = getOptionsObj(options, groupedOptions, sorted);
 
   return (
     <div styleName={classNames('selectContainer', { disabled: disabled })}>
