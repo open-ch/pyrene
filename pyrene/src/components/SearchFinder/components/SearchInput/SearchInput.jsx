@@ -37,7 +37,7 @@ const SearchInput = ({
   }, [onChange]);
 
   const handleEnter = useCallback((e) => {
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' && onEnter) {
       onEnter();
     }
   }, [onEnter]);
@@ -51,7 +51,9 @@ const SearchInput = ({
 
   const handleFocus = useCallback((e) => {
     handleIsFocused(true);
-    onFocus(e);
+    if (onFocus) {
+      onFocus(e);
+    }
   }, [handleIsFocused, onFocus]);
 
   const handleBlur = useCallback((e) => {
