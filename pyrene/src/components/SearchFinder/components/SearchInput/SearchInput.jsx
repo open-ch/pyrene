@@ -56,7 +56,9 @@ const SearchInput = ({
 
   const handleBlur = useCallback((e) => {
     handleIsFocused(false);
-    onBlur(e);
+    if (onBlur) {
+      onBlur(e);
+    }
   }, [handleIsFocused, onBlur]);
 
   return (
