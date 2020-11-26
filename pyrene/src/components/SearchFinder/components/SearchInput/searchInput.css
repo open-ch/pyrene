@@ -55,6 +55,7 @@
 
   & input {
     font-size: 12px;
+    font-family: FiraGO, Helvetica, sans-serif;
     border: none;
     padding: 7px 0;
     min-width: 0;
