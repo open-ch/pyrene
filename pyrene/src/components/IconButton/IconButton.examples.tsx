@@ -7,6 +7,7 @@ IconButton.props = {
   icon: 'hot',
 };
 
+/* eslint-disable no-alert */
 IconButton.examples = [
   {
     props: {
