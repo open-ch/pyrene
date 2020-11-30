@@ -27,6 +27,7 @@ import { default as Pill } from '../components/Pill/Pill.examples';
 import { default as Popover } from '../components/Popover/Popover.examples';
 import { default as MultiSelect } from '../components/MultiSelect/MultiSelect.examples';
 import { default as RadioGroup } from '../components/RadioGroup/RadioGroup.examples';
+import { default as RadioButton } from '../components/RadioButton/RadioButton.examples';
 import { default as RadioPopover } from '../components/RadioPopover/RadioPopover.examples';
 import { default as Search } from '../components/Search/Search.examples';
 import { default as SearchFinder } from '../components/SearchFinder/SearchFinder.examples';
@@ -74,6 +75,7 @@ const examples: {[key: string]: Example<any, any>} = {
   Popover,
   RadioPopover,
   RadioGroup,
+  RadioButton,
   Search,
   SearchFinder,
   ShareDialog,

@@ -49,6 +49,7 @@ import { default as Popover } from './components/Popover/Popover';
 import { default as SearchFinder } from './components/SearchFinder/SearchFinder';
 
 import { default as RadioGroup } from './components/RadioGroup/RadioGroup';
+import { default as RadioButton } from './components/RadioButton/RadioButton';
 import { default as RadioPopover } from './components/RadioPopover/RadioPopover';
 
 import { default as Search } from './components/Search/Search';
@@ -96,6 +97,7 @@ const Components = {
   Paragraph,
   Pill,
   Popover,
+  RadioButton,
   RadioGroup,
   RadioPopover,
   Search,
@@ -142,6 +144,7 @@ export { MultiSelect };
 export { Paragraph };
 export { Pill };
 export { Popover };
+export { RadioButton };
 export { RadioGroup };
 export { RadioPopover };
 export { Search };
