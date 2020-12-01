@@ -1,10 +1,11 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 
 import RadioGroup from './RadioGroup';
 
 const props = {
-  options: [{ label: 'one', value: 'one' }, { label: 'two', value: 'two' }, { label: 'three', value: 'three', disabled: true }],
+  name: 'testgroup',
+  options: [{ label: 'one', value: 'one' }, { label: 'two', value: 'two' }, { label: 'three', value: 'three' }],
 };
 
 describe('<RadioGroup />', () => {
@@ -12,18 +13,20 @@ describe('<RadioGroup />', () => {
     shallow(<RadioGroup {...props} />);
   });
 
-  it('calls onchange on click', () => {
+  it('renders the expected parent component', () => {
+    const rendered = shallow(<RadioGroup {...props} />);
+    expect(rendered.is('div#testgroup')).toBeTruthy();
+  });
+
+  it('calls onchange on click to test child components', () => {
     const onChange = jest.fn();
-    const rendered = shallow(<RadioGroup {...props} onChange={onChange} />);
+    const rendered = mount(<RadioGroup {...props} onChange={onChange} />);
 
     rendered.find('input[type="radio"]').first().simulate('change', { target: { checked: true } });
     expect(onChange).toHaveBeenCalledTimes(1);
 
-    rendered.find('input[type="radio"]').childAt(1).simulate('change', { target: { checked: true } });
+    rendered.find('input[type="radio"]').at(1).simulate('change', { target: { checked: true } });
     expect(onChange).toHaveBeenCalledTimes(2);
-
-    rendered.find('input[type="radio"]').last().simulate('change', { target: { disabled: false } });
-    expect(onChange).toHaveBeenCalledTimes(3);
   });
 
 });

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import classNames from 'classnames';
 
 import RadioButton, { RadioButtonProps } from '../RadioButton/RadioButton';
@@ -89,7 +89,7 @@ const RadioGroup: React.FC<RadioGroupProps> = ({
               onMouseLeave={() => onMouseLeave(key)}
             >
               <RadioButton
-                checked={value === option.value}
+                checked={option.checked || value === option.value}
                 disabled={option.disabled || disabled}
                 hovered={hovered}
                 invalid={option.invalid || invalid}

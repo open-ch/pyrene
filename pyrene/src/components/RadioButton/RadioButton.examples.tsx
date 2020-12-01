@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unsafe-return */
-import { Example, StateProvider } from '../../examples/Example';
+import { Example } from '../../examples/Example';
 import { RadioButtonProps } from './RadioButton';
 
 export interface State {
@@ -25,7 +25,7 @@ RadioButton.examples = [
       disabled: false,
       invalid: false,
       label: 'one',
-      name: 'zoo',
+      name: 'one',
       readonly: false,
       value: 'one',
     },
@@ -34,9 +34,9 @@ RadioButton.examples = [
     props: {
       checked: false,
       disabled: false,
-      invalid: false,
+      invalid: true,
       label: 'two',
-      name: 'zoo',
+      name: 'two',
       readonly: false,
       value: 'two',
     },
