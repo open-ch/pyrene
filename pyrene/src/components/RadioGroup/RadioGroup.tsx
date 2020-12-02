@@ -60,11 +60,11 @@ export interface RadioGroupProps {
   /**
    * Javascript onBlur event handler.
    */
-  onBlur?: () => void, // FixMe
+  onBlur?: () => void,
   /**
    * Javascript onchange event handler.
    */
-  onChange?: (value: number | string, event: React.ChangeEvent<HTMLInputElement>) => void, // FixMe
+  onChange: (value: number | string, event: React.ChangeEvent<HTMLInputElement>) => void,
   /**
    * Set the values that the user can choose from.
    */

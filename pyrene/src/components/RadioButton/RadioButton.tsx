@@ -43,7 +43,7 @@ export interface RadioButtonProps {
   /**
    * Javascript onchange event handler.
    */
-  onChange?: (value: number | string, event: React.ChangeEvent<HTMLInputElement>) => void, // FixMe
+  onChange?: (value: number | string, event: React.ChangeEvent<HTMLInputElement>) => void,
   /**
    * Sets readonly property of radio button
    */
