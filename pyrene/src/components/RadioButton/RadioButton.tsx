@@ -54,7 +54,6 @@ export interface RadioButtonProps {
   value: number | string,
 }
 
-
 const iconMap = {
   normal: {
     default: iconNormal,
@@ -141,7 +140,6 @@ const RadioButton: React.FC<RadioButtonProps> = ({
     </React.Fragment>
   );
 };
-
 
 RadioButton.displayName = 'Radio Button';
 

@@ -1,9 +1,44 @@
 import React from 'react';
 import classNames from 'classnames';
 
-import RadioButton, { RadioButtonProps } from '../RadioButton/RadioButton';
+import RadioButton from '../RadioButton/RadioButton';
 
 import './radioSelection.css';
+
+export interface RadioOptions {
+  /**
+   * Disables any interaction with the component.
+   */
+  disabled?: boolean,
+  /**
+   * Javascript event handler.
+   */
+  hovered?: {[key: string]: boolean},
+  /**
+   * Sets the visual appearance, to signal that the radio button is invalid.
+   */
+  invalid?: boolean,
+  /**
+   * Sets ID of radio button
+   */
+  id?: string,
+  /**
+   * Sets the label of the radio button
+   */
+  label?: string,
+  /**
+   * Sets the name of the radio button
+   */
+  name?: string,
+  /**
+   * Sets readonly property of radio button
+   */
+  readonly?: boolean,
+  /**
+   * Sets the value of the radio button.
+   */
+  value: number | string,
+}
 
 export interface RadioGroupProps {
   /**
@@ -27,13 +62,13 @@ export interface RadioGroupProps {
    */
   onBlur?: () => void, // FixMe
   /**
-   * Javascript onChange event handler.
+   * Javascript onchange event handler.
    */
-  onChange?: (value: number | string, event?: React.ChangeEvent<HTMLInputElement>) => void, // FixMe
+  onChange?: (value: number | string, event: React.ChangeEvent<HTMLInputElement>) => void, // FixMe
   /**
    * Set the values that the user can choose from.
    */
-  options?: RadioButtonProps[],
+  options?: RadioOptions[],
   /**
    * Sets the selected choice of the user.
    */
@@ -89,7 +124,7 @@ const RadioGroup: React.FC<RadioGroupProps> = ({
               onMouseLeave={() => onMouseLeave(key)}
             >
               <RadioButton
-                checked={option.checked || value === option.value}
+                checked={value === option.value}
                 disabled={option.disabled || disabled}
                 hovered={hovered}
                 invalid={option.invalid || invalid}
@@ -107,7 +142,6 @@ const RadioGroup: React.FC<RadioGroupProps> = ({
     </div>
   );
 };
-
 
 RadioGroup.displayName = 'Radio Group';
 

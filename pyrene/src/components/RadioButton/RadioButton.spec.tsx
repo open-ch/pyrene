@@ -25,11 +25,8 @@ describe('<RadioButton />', () => {
     rendered.find('input[type="radio"]').first().simulate('change', { target: { checked: true } });
     expect(onChange).toHaveBeenCalledTimes(1);
 
-    rendered.find('input[type="radio"]').last().simulate('change', { target: { checked: true } });
-    expect(onChange).toHaveBeenCalledTimes(2);
-
     rendered.find('input[type="radio"]').last().simulate('change', { target: { checked: false } });
-    expect(onChange).toHaveBeenCalledTimes(3);
+    expect(onChange).toHaveBeenCalledTimes(2);
   });
 
 });
