@@ -6,6 +6,7 @@ import RadioGroup from './RadioGroup';
 const props = {
   name: 'testgroup',
   options: [{ label: 'one', value: 'one' }, { label: 'two', value: 'two' }, { label: 'three', value: 'three' }],
+  onChange: jest.fn(),
 };
 
 describe('<RadioGroup />', () => {
