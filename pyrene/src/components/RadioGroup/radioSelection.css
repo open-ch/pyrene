@@ -16,45 +16,6 @@
   }
 }
 
-.radioInput {
-  display: none;
-}
-
-.radioIcon {
-  content: '';
-  display: inline-block;
-  width: 16px;
-  height: 16px;
-  vertical-align: text-top;
-  margin-right: 4px;
-}
-
-.radioLabel {
-  height: 24px;
-  display: flex;
-  align-items: center;
-  font-size: 12px;
-  font-weight: normal;
-  text-transform: capitalize;
-  cursor: pointer;
-  color: var(--text);
-
-  &.checked {
-    &.disabled .radioIcon {
-      opacity: 0.5;
-    }
-  }
-
-  &.disabled {
-    opacity: 0.5;
-    pointer-events: none;
-
-    &.checked {
-      opacity: 1;
-    }
-  }
-}
-
 .spacer-horizontal {
   width: 16px;
 }

@@ -9,7 +9,10 @@ export interface State {
 const RadioGroup: Example<RadioGroupProps, State> = {};
 
 RadioGroup.props = {
-  options: [{ label: 'Beer 🍺', value: 'beer' }, { label: 'Coffee ☕️', value: 'coffee' }, { label: 'Coffeebeer 🍹😎', value: 'coffeebeer' }],
+  options: [
+    { label: 'Beer 🍺', value: 'beer' },
+    { label: 'Coffee ☕️', value: 'coffee' },
+    { label: 'Coffeebeer 🍹😎', value: 'coffeebeer' }],
   onChange: (stateProvider: StateProvider<State>) => (value: string | number) => stateProvider.setState({ value }),
   value: (stateProvider) => stateProvider.state.value,
 };
