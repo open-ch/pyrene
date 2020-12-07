@@ -5,7 +5,7 @@
   "main": "dist/tuktuktwo.js",
   "repository": "https://github.com/open-ch/pyrene.git",
   "author": "pyrene@open-systems.com",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },

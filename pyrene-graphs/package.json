@@ -9,7 +9,7 @@
     "registry": "https://registry.npmjs.org/"
   },
   "author": "pyrene@open-systems.com",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "files": [
     "dist"
   ],
