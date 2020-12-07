@@ -1,3 +1,5 @@
+![pyrene](kitchensink/src/images/pyrene.svg)
+
 # pyrene - Open Systems Component Library
 
 Check it out on [open-ch.github.io/pyrene](https://open-ch.github.io/pyrene).
