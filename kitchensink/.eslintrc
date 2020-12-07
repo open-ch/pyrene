@@ -1,0 +1,10 @@
+{
+  "extends": "eslint-config-pyrene",
+  "env": {
+    "browser": true
+  },
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "sourceType": "module",
+  }
+}
