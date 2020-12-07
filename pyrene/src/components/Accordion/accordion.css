@@ -1,0 +1,118 @@
+@import '../../styles/colors.css';
+
+.accordion {
+  composes: commonFontSettings from '../../styles/common.css';
+
+  width: 100%;
+
+  & .section {
+    border-bottom: 1px solid var(--neutral-050);
+
+    &:first-child {
+      border-top: 1px solid var(--neutral-050);
+    }
+
+    & .header {
+      display: flex;
+      justify-content: space-between;
+      box-sizing: border-box;
+      cursor: pointer;
+
+      & .icon {
+        margin-right: 8px;
+      }
+
+      & .title {
+        flex: 1;
+        line-height: 16px;
+        color: var(--neutral-500);
+
+        &.text-title {
+          line-height: 16px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+      }
+
+    }
+
+    &.collapsed .content {
+      display: none;
+    }
+
+    &.expanded .content {
+      display: block;
+    }
+
+  }
+
+}
+
+.accordion-large {
+
+  & .section {
+    border-left: 1px solid var(--neutral-050);
+    border-right: 1px solid var(--neutral-050);
+
+    &:first-child {
+      border-radius: 2px 2px 0 0;
+    }
+
+    &:last-child {
+      border-radius: 0 0 2px 2px;
+    }
+
+    & .header {
+      min-height: 48px;
+      max-height: 48px;
+      padding: 16px;
+      background-color: var(--neutral-020);
+
+      &:hover {
+        background-color: var(--neutral-030);
+      }
+
+      & .text-title {
+        font-size: 13px;
+        font-weight: 500;
+      }
+
+    }
+
+    & .content {
+      border-top: 1px solid var(--neutral-050);
+      padding: 16px;
+    }
+
+  }
+
+}
+
+.accordion-small {
+
+  & .section {
+
+    & .header {
+      min-height: 24px;
+      max-height: 32px;
+      padding: 8px;
+
+      &:hover {
+        background-color: var(--neutral-020);
+      }
+
+      & .text-title {
+        font-size: 12px;
+        font-weight: 400;
+      }
+
+    }
+
+    &.expanded .header {
+      padding: 8px 8px 0 8px;
+    }
+
+  }
+
+}

@@ -6,6 +6,7 @@ import './styles/colors.css';
 import './styles/fonts.css';
 
 // Sort alphabetically to find stuff easily
+import { default as Accordion } from './components/Accordion/Accordion';
 import { default as ArrowPopover } from './components/ArrowPopover/ArrowPopover';
 
 import { default as Badge } from './components/Badge/Badge';
@@ -70,6 +71,7 @@ import { default as TreeTable } from './components/TreeTable/TreeTable';
 
 // Sort alphabetically to find stuff easily
 const Components = {
+  Accordion,
   ActionBar,
   ArrowPopover,
   Badge,
@@ -118,6 +120,7 @@ const Components = {
 };
 
 // Sort alphabetically to find stuff easily
+export { Accordion };
 export { ActionBar };
 export { ArrowPopover };
 export { Badge };
