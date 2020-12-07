@@ -5,7 +5,7 @@
   "main": "src/index.jsx",
   "repository": "https://github.com/open-ch/pyrene.git",
   "author": "pyrene@open-systems.com",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "private": true,
   "scripts": {
     "clean": "rm -rf dist node_modules",

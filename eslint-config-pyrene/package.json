@@ -3,7 +3,7 @@
   "version": "1.4.0",
   "description": "Pyrene ESLint Configuration",
   "author": "pyrene@open-systems.com",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "main": "index.js",
   "keywords": [
     "eslint",
