@@ -1,5 +1,4 @@
-# pyrene
-Open Systems Component Library
+# pyrene - Open Systems Component Library
 
 ## Development
 
