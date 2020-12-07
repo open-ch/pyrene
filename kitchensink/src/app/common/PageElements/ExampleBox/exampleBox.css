@@ -1,0 +1,30 @@
+.exampleBox {
+  box-sizing: border-box;
+}
+
+.exampleDisplay {
+  display: flex;
+  box-sizing: border-box;
+}
+
+.exampleDescriptionBox {
+  box-sizing: border-box;
+  width: 100%;
+  font-size: 14px;
+  line-height: 1.71;
+  color: var(--neutral-500);
+  position: relative;
+  height: 56px;
+
+  &.placeholder {
+    color: var(--neutral-200);
+    font-style: italic;
+  }
+}
+
+.exampleDescription {
+  min-height: 70px;
+  max-height: 70px;
+  padding: 16px;
+  position: absolute;
+}
