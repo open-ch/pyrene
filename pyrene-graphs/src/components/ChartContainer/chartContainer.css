@@ -1,0 +1,26 @@
+@import 'pyrene/dist/colors.css';
+
+.chartContainer {
+  width: 100%;
+}
+
+.chart {
+  height: 344px;
+  width: 100%;
+}
+
+.chartOverlay {
+  position: absolute;
+  height: 344px;
+  width: 100%;
+}
+
+.unitContainer {
+  font-family: FiraGO, Helvetica, sans-serif;
+  height: 13px;
+  padding-top: 8px;
+  padding-bottom: 3px;
+  font-size: 10px;
+  line-height: 14px;
+  color: var(--neutral-200);
+}

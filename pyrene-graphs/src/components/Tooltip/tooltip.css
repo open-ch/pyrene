@@ -1,0 +1,42 @@
+@import 'pyrene/dist/colors.css';
+
+.tooltip {
+  color: var(--neutral-000);
+  border-radius: 2px;
+  box-shadow: 0 4px 8px -2px rgba(51, 65, 81, 0.3), 0 0 1px 0 rgba(0, 21, 44, 0.3);
+  background-color: var(--neutral-400);
+  padding: 8px;
+  line-height: 18px;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.label {
+  font-weight: 500;
+  line-height: 17px;
+}
+
+.labelPadding {
+  padding-bottom: 8px;
+}
+
+.dataRow {
+  display: flex;
+  height: 16px;
+  align-items: center;
+}
+
+.dataLabel {
+  padding-left: 4px;
+  line-height: 14px;
+}
+
+.data {
+  line-height: 14px;
+  padding-left: 24px;
+  margin-left: auto;
+}
+
+.dataOnly {
+  font-weight: normal;
+}

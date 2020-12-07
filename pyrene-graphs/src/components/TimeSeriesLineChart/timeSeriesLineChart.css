@@ -1,0 +1,9 @@
+.chartContainer {
+  width: 100%;
+  height: 344px;
+  position: relative;
+}
+
+.errorBanner {
+  width: auto;
+}
