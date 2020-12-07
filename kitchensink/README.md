@@ -1,4 +1,4 @@
-# Kitchensink
+# kitchensink - Pyrene Kitchensink
 
 Design principles and demo project for [pyrene](../pyrene).
 
