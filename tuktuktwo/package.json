@@ -1,0 +1,79 @@
+{
+  "name": "tuktuktwo",
+  "version": "1.1.3",
+  "description": "Open Systems Graphs Library",
+  "main": "dist/tuktuktwo.js",
+  "repository": "https://github.com/open-ch/pyrene.git",
+  "author": "pyrene@open-systems.com",
+  "license": "UNLICENSED",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "clean": "rm -rf dist node_modules",
+    "prebuild": "npm run clean && npm install",
+    "build": "webpack && NODE_ENV=production webpack",
+    "build-debug": "NODE_ENV=debug webpack",
+    "watch": "webpack -w",
+    "expose": "npm link && npm run watch",
+    "pretest": "npm install",
+    "test": "jest",
+    "testWatch": "jest --watch",
+    "test:bamboo": "NODE_ENV=test JEST_FILE=test.json && jest --config=./jest.bamboo.config.js",
+    "prerelease": "npm run build && npm run test",
+    "release": "release-it",
+    "prelint": "npm install",
+    "lint": "eslint --ext .js,.jsx src/"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/plugin-proposal-class-properties": "^7.3.0",
+    "@babel/plugin-transform-object-assign": "^7.2.0",
+    "@babel/preset-env": "^7.9.0",
+    "@babel/preset-react": "^7.9.1",
+    "@babel/register": "^7.9.0",
+    "autoprefixer": "^9.4.7",
+    "babel-eslint": "^10.1.0",
+    "babel-jest": "^25.1.0",
+    "babel-loader": "^8.1.0",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.14.0",
+    "eslint": "^6.4.0",
+    "eslint-config-airbnb": "^18.1.0",
+    "eslint-config-pyrene": "^1.3.6",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jest": "^23.8.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.19.0",
+    "eslint-plugin-react-hooks": "^2.5.0",
+    "jest": "^25.1.0",
+    "jest-bamboo-formatter": "^1.0.1",
+    "moment-timezone": "^0.5.28",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "release-it": "^13.1.2",
+    "webpack": "^4.42.0",
+    "webpack-bundle-analyzer": "^3.6.1",
+    "webpack-cli": "^3.3.11"
+  },
+  "dependencies": {
+    "@vx/axis": "^0.0.192",
+    "@vx/drag": "^0.0.192",
+    "@vx/event": "^0.0.192",
+    "@vx/grid": "^0.0.192",
+    "@vx/group": "^0.0.192",
+    "@vx/responsive": "^0.0.192",
+    "@vx/scale": "^0.0.192",
+    "@vx/shape": "^0.0.192",
+    "@vx/tooltip": "^0.0.192",
+    "prop-types": "^15.6.1"
+  },
+  "peerDependencies": {
+    "moment-timezone": ">=0.5.0 < 1.0.0",
+    "react": ">=16.9.0 <17.0.0",
+    "react-dom": ">=16.9.0 <17.0.0"
+  }
+}
