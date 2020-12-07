@@ -1,0 +1,61 @@
+@import 'pyrene/dist/colors.css';
+
+.container {
+  width: 100%;
+}
+
+.labelLink {
+  color: inherit;
+  text-decoration: none;
+}
+
+.labelLink:hover {
+  text-decoration: underline;
+}
+
+.verticalLine {
+  border-left: 1px solid var(--border);
+  height: 16px;
+}
+
+.showMoreLink {
+  margin-top: 12px;
+  line-height: 16px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--primary);
+  cursor: pointer;
+}
+
+.popOverPlaceholder {
+  height: 100%;
+  width: 100%;
+}
+
+.popOverContainer {
+  padding: 24px 0 24px 24px;
+}
+
+.popOverHeader {
+  padding-right: 24px;
+  display: flex;
+  flex-direction: row;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 18px;
+  height: 32px;
+  color: var(--text);
+}
+
+.popOverBody {
+ overflow-y: auto;
+}
+
+.popOverTable {
+  padding-right: 24px;
+  overflow-y: auto;
+}
+
+.footerContainer {
+  margin-top: 16px;
+}
