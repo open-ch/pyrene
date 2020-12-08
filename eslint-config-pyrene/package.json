@@ -1,6 +1,6 @@
 {
   "name": "eslint-config-pyrene",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "Pyrene ESLint Configuration",
   "author": "pyrene@open-systems.com",
   "license": "MIT",
