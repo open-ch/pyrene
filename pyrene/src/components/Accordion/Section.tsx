@@ -31,7 +31,7 @@ const Section: React.FC<SectionProps> = ({
   const [expanded, setExpanded] = useState(false);
 
   return (
-    <div styleName={classNames('section', { expanded, collapsed: !expanded })} key="x">
+    <div styleName={classNames('section', { expanded, collapsed: !expanded })}>
       <div styleName="header" onClick={() => setExpanded(!expanded)}>
         {iconProps && <span styleName="icon"><Icon {...iconProps} type="inline" /></span>}
 
