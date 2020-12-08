@@ -15,6 +15,7 @@
   font-size: 14px;
   text-align: left;
   border: none;
+  table-layout: fixed;
 }
 
 .table_container table th {
@@ -53,6 +54,11 @@
   padding-top: 16px;
   font-weight: normal;
   line-height: 32px;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding-right: 8px;
 }
 
 .propModifierCell {

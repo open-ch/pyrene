@@ -17,7 +17,7 @@ export default class Table extends React.Component {
     if (typeof cell === 'object') {
       return <td key={returnedCell}><div styleName="propModifierCell">{returnedCell}</div></td>;
     }
-    return <td key={returnedCell}><div styleName="cell">{returnedCell}</div></td>;
+    return <td key={returnedCell}><div styleName="cell" title={returnedCell}>{returnedCell}</div></td>;
   }
 
   render() {
