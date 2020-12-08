@@ -161,7 +161,7 @@ const ActionBar: React.FC<ActionBarProps> = ({
               displayPopover={openAction === index}
               closePopover={() => setOpenAction(null)}
             >
-              {}
+              {iconComponent}
             </ArrowPopover>
           ) : (
             iconComponent
