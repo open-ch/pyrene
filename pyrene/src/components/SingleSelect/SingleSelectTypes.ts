@@ -1,13 +1,13 @@
+import { IconProps } from '../Icon/Icon';
 
 export interface SingleSelectOption {
   label: string;
+  /**
+   * Hidden tags to eaze the searching. There are not displayed.
+   */
+  tag?: string[];
   value?: string | number | boolean;
-  iconProps?: { // FixMe: use Icon Props interface one it's converted to typescript
-    color?: string;
-    name?: string;
-    svg?: string;
-    type?: 'standalone' | 'inline'
-  }
+  iconProps?: IconProps
 }
 export interface SingleSelectGroupedOption {
   label: string;

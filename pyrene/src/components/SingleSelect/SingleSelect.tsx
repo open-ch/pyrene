@@ -32,6 +32,13 @@ export type SingleSelectProps = {
    */
   disabled?: boolean;
   /**
+   * Filtration logic: simply declare a new filterOption function that will be passed to react-select.
+   */
+  filterOption?: (
+    option: {label: string, value?: string, data: SingleSelectOption},
+    rawInput: string
+  ) => boolean;
+  /**
    * Data input array for dropdown with groups
    * eg of dropdown:
 
@@ -129,6 +136,16 @@ const getOptionsObj = (options: SingleSelectOption[], groupedOptions: SingleSele
 
 };
 
+const defaultFilterOption = (option: {label: string, value?: string, data: SingleSelectOption}, rawInput: string): boolean => {
+  const lowerInput = rawInput.toLowerCase();
+  const values = [
+    option.value ? option.value.toString() : null,
+    option.label,
+    ...(option.data.tag || []),
+  ];
+  return values.some((tag) => tag && tag.toLowerCase().indexOf(lowerInput) >= 0);
+};
+
 /**
  * Selects are used when the user has to make a selection from a list that is too large to show.
  */
@@ -147,6 +164,7 @@ const SingleSelect: React.FC<SingleSelectProps> = ({
   clearable = false,
   options = [],
   groupedOptions = [],
+  filterOption = defaultFilterOption,
   maxMenuHeight = 264,
   openMenuOnFocus = false,
   defaultValue = undefined,
@@ -198,6 +216,7 @@ const SingleSelect: React.FC<SingleSelectProps> = ({
             maxMenuHeight={maxMenuHeight}
             noOptionsMessage={() => 'no matches found'}
             formatCreateLabel={(inputValue: string) => `Create new tag "${inputValue}"`}
+            filterOption={filterOption}
             isSearchable
             blurInputOnSelect
             escapeClearsValue
@@ -235,6 +254,7 @@ const SingleSelect: React.FC<SingleSelectProps> = ({
             openMenuOnFocus={openMenuOnFocus}
             maxMenuHeight={maxMenuHeight}
             noOptionsMessage={() => 'no matches found'}
+            filterOption={filterOption}
             blurInputOnSelect
             escapeClearsValue
             captureMenuScroll
