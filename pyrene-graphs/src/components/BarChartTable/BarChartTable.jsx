@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Popover, SimpleTable } from 'pyrene';
-import { Responsive } from 'tuktuktwo';
+import { Popover, SimpleTable } from '@osag/pyrene';
+import { Responsive } from '@osag/tuktuktwo';
 import Header from '../Header/Header';
 import { getValueWithAccessor, getColumns, getLegend } from './BarChartTableUtils';
 import './barChartTable.css';

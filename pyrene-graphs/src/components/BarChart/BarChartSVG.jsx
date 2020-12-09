@@ -12,7 +12,7 @@ import {
   scaleValueAxis,
   scaleValueInBounds,
   withTooltip,
-} from 'tuktuktwo';
+} from '@osag/tuktuktwo';
 import Tooltip from '../Tooltip/Tooltip';
 import colorConstants from '../../styles/colorConstants';
 import colorSchemes from '../../styles/colorSchemes';

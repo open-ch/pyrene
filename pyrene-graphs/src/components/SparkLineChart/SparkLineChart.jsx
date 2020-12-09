@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { Banner, Loader } from 'pyrene';
+import { Banner, Loader } from '@osag/pyrene';
 import SparkLineSVG from '../SparkLine/SparkLineSVG';
 import ChartOverlay from '../ChartOverlay/ChartOverlay';
 import colorSchemes from '../../styles/colorSchemes';

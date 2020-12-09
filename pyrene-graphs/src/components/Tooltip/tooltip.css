@@ -1,4 +1,4 @@
-@import 'pyrene/dist/colors.css';
+@import '@osag/pyrene/dist/colors.css';
 
 .tooltip {
   color: var(--neutral-000);

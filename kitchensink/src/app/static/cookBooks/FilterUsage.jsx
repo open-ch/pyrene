@@ -2,7 +2,7 @@ import React from 'react';
 import '../../../css/componentPage.css';
 import {
   Table, createSimpleFilter, createDataFilter,
-} from 'pyrene/dist/pyrene.dev';
+} from '@osag/pyrene/dist/pyrene.dev';
 
 import CodeBox from '../../common/PageElements/HowTo/CodeBox/CodeBox';
 import Paragraph from '../../common/PageElements/Paragraph/Paragraph';

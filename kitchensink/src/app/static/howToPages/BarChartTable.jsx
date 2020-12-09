@@ -1,7 +1,7 @@
 /* eslint-disable react/display-name */
 import React from 'react';
-import { BarChartTable } from 'pyrene-graphs/dist/pyrene-graphs.dev';
-import { exampleData } from 'pyrene-graphs/dist/pyrene-graphs.examples';
+import { BarChartTable } from '@osag/pyrene-graphs/dist/pyrene-graphs.dev';
+import { exampleData } from '@osag/pyrene-graphs/dist/pyrene-graphs.examples';
 
 /* eslint-disable no-alert */
 

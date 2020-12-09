@@ -1,8 +1,8 @@
 import React from 'react';
-import Components from 'pyrene/dist/pyrene.dev';
-import examples from 'pyrene/dist/pyrene.examples';
-import ChartComponents from 'pyrene-graphs/dist/pyrene-graphs.dev';
-import chartExamples from 'pyrene-graphs/dist/pyrene-graphs.examples';
+import Components from '@osag/pyrene/dist/pyrene.dev';
+import examples from '@osag/pyrene/dist/pyrene.examples';
+import ChartComponents from '@osag/pyrene-graphs/dist/pyrene-graphs.dev';
+import chartExamples from '@osag/pyrene-graphs/dist/pyrene-graphs.examples';
 import SideBarMenuSection from './SideBarMenuSection';
 
 import './sideBarMenu.css';

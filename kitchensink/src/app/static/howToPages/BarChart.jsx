@@ -1,8 +1,8 @@
 /* eslint-disable react/display-name */
 import React from 'react';
-import { BarChart, getSITickValue, getSIUnit } from 'pyrene-graphs/dist/pyrene-graphs.dev';
+import { BarChart, getSITickValue, getSIUnit } from '@osag/pyrene-graphs/dist/pyrene-graphs.dev';
 
-import { exampleData } from 'pyrene-graphs/dist/pyrene-graphs.examples';
+import { exampleData } from '@osag/pyrene-graphs/dist/pyrene-graphs.examples';
 
 const barChartHowTo = [{
   title: 'Vertical Bar Chart',

@@ -1,6 +1,6 @@
 import React from 'react';
 import moment from 'moment-timezone';
-import { Loader } from 'pyrene';
+import { Loader } from '@osag/pyrene';
 import SparkLineChart from './SparkLineChart';
 import timeSeriesData from '../../examples/timeSeriesData';
 import colorSchemes from '../../styles/colorSchemes';

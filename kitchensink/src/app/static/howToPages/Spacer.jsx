@@ -2,7 +2,7 @@
 import React from 'react';
 import {
   Card, Spacer, Heading, Paragraph,
-} from 'pyrene/dist/pyrene.dev';
+} from '@osag/pyrene/dist/pyrene.dev';
 
 const spacerHowTo = [{
   title: 'Margins',

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { TooltipWrapper } from 'tuktuktwo';
+import { TooltipWrapper } from '@osag/tuktuktwo';
 import TooltipLegendItem from './TooltipLegendItem';
 import styles from './tooltip.css';
 

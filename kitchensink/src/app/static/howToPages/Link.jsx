@@ -1,6 +1,6 @@
 /* eslint-disable react/display-name */
 import React from 'react';
-import { Link, Container } from 'pyrene/dist/pyrene.dev';
+import { Link, Container } from '@osag/pyrene/dist/pyrene.dev';
 
 const linkHowTo = [
   {

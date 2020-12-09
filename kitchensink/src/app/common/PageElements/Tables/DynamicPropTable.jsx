@@ -1,8 +1,8 @@
 import React from 'react';
 import {
   TextField, SingleSelect, Checkbox,
-} from 'pyrene/dist/pyrene.dev';
-import { exampleData } from 'pyrene-graphs/dist/pyrene-graphs.examples';
+} from '@osag/pyrene/dist/pyrene.dev';
+import { exampleData } from '@osag/pyrene-graphs/dist/pyrene-graphs.examples';
 import PropTypes from 'prop-types';
 import Table from './Table';
 import IconSelect from '../IconSelect/IconSelect';

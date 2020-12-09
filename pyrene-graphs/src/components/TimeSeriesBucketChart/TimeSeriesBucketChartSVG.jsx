@@ -12,7 +12,7 @@ import {
   TimeSeriesZoomable,
   TimeXAxis,
   withTooltip,
-} from 'tuktuktwo';
+} from '@osag/tuktuktwo';
 import ChartArea from '../ChartArea/ChartArea';
 import TimeZoomControls from '../TimeZoomControls/TimeZoomControls';
 import Tooltip from '../Tooltip/Tooltip';

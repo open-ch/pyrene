@@ -14,5 +14,5 @@ Check it out on [open-ch.github.io/pyrene](https://open-ch.github.io/pyrene).
 
 [kitchensink](./kitchensink) - Pyrene Kitchensink
 
-[eslint-config-pyrene](./eslint-config-pyrene) - Pyrene ESLint Configuration
+[eslint-config](./eslint-config) - Pyrene ESLint Configuration
 
