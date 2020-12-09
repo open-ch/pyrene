@@ -9,7 +9,7 @@ import {
   localPoint,
   scaleLinear,
   withTooltip,
-} from 'tuktuktwo';
+} from '@osag/tuktuktwo';
 import ChartArea from '../ChartArea/ChartArea';
 import Tooltip from '../Tooltip/Tooltip';
 import { INDEX_VALUE, INDEX_START_TS } from '../../common/chartConstants';

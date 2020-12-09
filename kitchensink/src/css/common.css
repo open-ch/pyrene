@@ -1,4 +1,4 @@
-@import 'pyrene/dist/pyrene.css';
+@import '@osag/pyrene/dist/pyrene.css';
 
 p {
   margin-top: 1em;

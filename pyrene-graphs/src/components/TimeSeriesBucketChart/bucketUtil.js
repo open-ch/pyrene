@@ -1,4 +1,4 @@
-import { chartConstants } from 'tuktuktwo';
+import { chartConstants } from '@osag/tuktuktwo';
 import { INDEX_START_TS } from '../../common/chartConstants';
 
 /**

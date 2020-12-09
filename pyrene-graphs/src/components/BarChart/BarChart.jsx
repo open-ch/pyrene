@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Banner, Loader } from 'pyrene';
+import { Banner, Loader } from '@osag/pyrene';
 import BarChartSVG from './BarChartSVG';
 import ChartContainer from '../ChartContainer/ChartContainer';
 import ChartOverlay from '../ChartOverlay/ChartOverlay';

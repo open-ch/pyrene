@@ -13,7 +13,7 @@ import {
   TimeXAxis,
   VerticalLine,
   withTooltip,
-} from 'tuktuktwo';
+} from '@osag/tuktuktwo';
 import ChartArea from '../ChartArea/ChartArea';
 import Tooltip from '../Tooltip/Tooltip';
 import { timeFormat } from '../../common/Formats';

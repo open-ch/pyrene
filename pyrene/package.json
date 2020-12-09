@@ -1,5 +1,5 @@
 {
-  "name": "pyrene",
+  "name": "@osag/pyrene",
   "version": "2.3.9",
   "description": "Open Systems Component Library",
   "main": "dist/pyrene.js",
@@ -63,7 +63,7 @@
     "eslint": "^7.10.0",
     "eslint-config-airbnb": "^18.2.0",
     "eslint-config-airbnb-typescript": "^11.0.0",
-    "eslint-config-pyrene": "^1.4.0",
+    "@osag/eslint-config": "^1.4.0",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jest": "^23.20.0",
     "eslint-plugin-jsx-a11y": "^6.3.1",

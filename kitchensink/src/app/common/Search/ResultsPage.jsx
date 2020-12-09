@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import '../../../css/componentPage.css';
-import Components from 'pyrene/dist/pyrene.dev';
-import ChartComponents from 'pyrene-graphs/dist/pyrene-graphs.dev';
-import examples from 'pyrene/dist/pyrene.examples';
-import chartExamples from 'pyrene-graphs/dist/pyrene-graphs.examples';
+import Components from '@osag/pyrene/dist/pyrene.dev';
+import ChartComponents from '@osag/pyrene-graphs/dist/pyrene-graphs.dev';
+import examples from '@osag/pyrene/dist/pyrene.examples';
+import chartExamples from '@osag/pyrene-graphs/dist/pyrene-graphs.examples';
 import SearchUtils from './SearchUtils';
 import SearchResult from './SearchResult/SearchResult';
 import Paragraph from '../PageElements/Paragraph/Paragraph';

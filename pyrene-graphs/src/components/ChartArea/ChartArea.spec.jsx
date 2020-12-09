@@ -1,5 +1,5 @@
 import React from 'react';
-import { chartConstants } from 'tuktuktwo';
+import { chartConstants } from '@osag/tuktuktwo';
 import ChartArea from './ChartArea';
 
 const props = {

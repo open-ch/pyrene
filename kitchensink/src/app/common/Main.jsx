@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Route, Switch } from 'react-router-dom';
-import Components from 'pyrene/dist/pyrene.dev';
-import ChartComponents from 'pyrene-graphs/dist/pyrene-graphs.dev';
-import examples from 'pyrene/dist/pyrene.examples';
-import chartExamples from 'pyrene-graphs/dist/pyrene-graphs.examples';
+import Components from '@osag/pyrene/dist/pyrene.dev';
+import ChartComponents from '@osag/pyrene-graphs/dist/pyrene-graphs.dev';
+import examples from '@osag/pyrene/dist/pyrene.examples';
+import chartExamples from '@osag/pyrene-graphs/dist/pyrene-graphs.examples';
 import packageJson from '../../../package.json';
 import Logo from './Logo';
 import SideBarMenu from './SideBarMenu/SideBarMenu';
@@ -37,7 +37,7 @@ export default class Main extends React.PureComponent {
     return (
       <div styleName="mainContainer">
         <div styleName="leftContainer">
-          <Logo pyreneVersion={packageJson.dependencies.pyrene} />
+          <Logo pyreneVersion={packageJson.dependencies['@osag/pyrene']} />
           <SearchBar value={searchBarValue} />
           <SideBarMenu />
           <div styleName="copyRight">&copy; Open Systems 2019</div>

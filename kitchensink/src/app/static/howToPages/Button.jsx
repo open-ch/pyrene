@@ -1,6 +1,6 @@
 /* eslint-disable react/display-name */
 import React from 'react';
-import { Button, Container } from 'pyrene/dist/pyrene.dev';
+import { Button, Container } from '@osag/pyrene/dist/pyrene.dev';
 
 const buttonHowTo = [{
   title: 'Icon Usage',

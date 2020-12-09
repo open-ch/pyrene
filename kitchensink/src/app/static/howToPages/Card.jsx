@@ -1,6 +1,6 @@
 /* eslint-disable react/display-name */
 import React from 'react';
-import { Card, CalendarDateSelector } from 'pyrene/dist/pyrene.dev';
+import { Card, CalendarDateSelector } from '@osag/pyrene/dist/pyrene.dev';
 
 const cardHowTo = [{
   title: 'Header and Footer',

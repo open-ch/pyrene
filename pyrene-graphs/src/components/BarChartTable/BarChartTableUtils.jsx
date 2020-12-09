@@ -3,7 +3,7 @@ import {
   Bar,
   RelativeBar,
   scaleLinear,
-} from 'tuktuktwo';
+} from '@osag/tuktuktwo';
 import './barChartTable.css';
 
 const getId = (d) => d.trim().toLowerCase();

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Loader } from 'pyrene';
+import { Loader } from '@osag/pyrene';
 import BarChart from './BarChart';
 import { getSITickValue, getSIUnit } from '../..';
 

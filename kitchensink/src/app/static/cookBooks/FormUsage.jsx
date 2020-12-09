@@ -3,7 +3,7 @@ import * as yup from 'yup';
 import '../../../css/componentPage.css';
 import {
   Form, Checkbox, Button, TextField, RadioGroup, SingleSelect, MultiSelect, Link,
-} from 'pyrene/dist/pyrene.dev';
+} from '@osag/pyrene/dist/pyrene.dev';
 import CodeBox from '../../common/PageElements/HowTo/CodeBox/CodeBox';
 import Paragraph from '../../common/PageElements/Paragraph/Paragraph';
 import DescriptionBox from '../../common/PageElements/DescriptionBox/DescriptionBox';

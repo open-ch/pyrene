@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ActionBar } from 'pyrene';
-import { minZoomRangeReached, getBoundedZoomInRange } from 'tuktuktwo';
+import { ActionBar } from '@osag/pyrene';
+import { minZoomRangeReached, getBoundedZoomInRange } from '@osag/tuktuktwo';
 
 /**
  * Checks whether both lowerBound and upperBound has been reached, at which point no zoom-out action should be allowed.

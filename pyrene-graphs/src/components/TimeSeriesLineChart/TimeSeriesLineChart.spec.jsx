@@ -1,6 +1,6 @@
 import React from 'react';
 import moment from 'moment-timezone';
-import { Loader } from 'pyrene';
+import { Loader } from '@osag/pyrene';
 import TimeSeriesLineChart from './TimeSeriesLineChart';
 import { getSITickValueForTimeRange, getSIUnitForTimeRange } from '../..';
 import timeSeriesData from '../../examples/timeSeriesData';

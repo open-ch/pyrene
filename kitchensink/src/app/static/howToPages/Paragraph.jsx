@@ -1,6 +1,6 @@
 /* eslint-disable react/display-name */
 import React from 'react';
-import { Card, Paragraph } from 'pyrene/dist/pyrene.dev';
+import { Card, Paragraph } from '@osag/pyrene/dist/pyrene.dev';
 
 const paragraphHowTo = [{
   title: 'Markup in Paragraphs',

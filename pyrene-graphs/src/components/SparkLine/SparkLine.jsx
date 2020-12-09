@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Responsive } from 'tuktuktwo';
+import { Responsive } from '@osag/tuktuktwo';
 import SparkLineSVG from './SparkLineSVG';
 import colorSchemes from '../../styles/colorSchemes';
 import './sparkLine.css';

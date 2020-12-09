@@ -1,4 +1,4 @@
-import { colorConstants as colorConstantsPyrene } from 'pyrene';
+import { colorConstants as colorConstantsPyrene } from '@osag/pyrene';
 
 const functionalColors = {
   /* DEFAULT */

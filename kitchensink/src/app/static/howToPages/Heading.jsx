@@ -1,6 +1,6 @@
 /* eslint-disable react/display-name */
 import React from 'react';
-import { Card, Heading } from 'pyrene/dist/pyrene.dev';
+import { Card, Heading } from '@osag/pyrene/dist/pyrene.dev';
 
 const headingHowTo = [{
   title: 'Margins',

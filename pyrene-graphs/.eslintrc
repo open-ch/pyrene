@@ -1,5 +1,5 @@
 {
-  "extends": "eslint-config-pyrene",
+  "extends": "@osag/eslint-config",
   "env": {
     "browser": true
   },

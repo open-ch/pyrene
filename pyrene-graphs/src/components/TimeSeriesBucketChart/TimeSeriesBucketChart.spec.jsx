@@ -1,7 +1,7 @@
 import React from 'react';
 import moment from 'moment-timezone';
-import { Banner, Loader } from 'pyrene';
-import { chartConstants, scaleTime } from 'tuktuktwo';
+import { Banner, Loader } from '@osag/pyrene';
+import { chartConstants, scaleTime } from '@osag/tuktuktwo';
 import TimeSeriesBucketChart from './TimeSeriesBucketChart';
 import { getSITickValueForTimeRange, getSIUnitForTimeRange, INDEX_START_TS } from '../..';
 import { getCurrentBucketEndTS, getCurrentBucketIndex, getTimeFrameOfLastBucket } from './bucketUtil';

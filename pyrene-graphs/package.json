@@ -1,5 +1,5 @@
 {
-  "name": "pyrene-graphs",
+  "name": "@osag/pyrene-graphs",
   "version": "1.1.6",
   "description": "Open Systems Graphs Component Library",
   "main": "dist/pyrene-graphs.js",
@@ -50,7 +50,7 @@
     "enzyme-adapter-react-16": "^1.1.1",
     "eslint": "^6.4.0",
     "eslint-config-airbnb": "^18.1.0",
-    "eslint-config-pyrene": "^1.3.6",
+    "@osag/eslint-config": "^1.3.6",
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-jest": "^23.8.2",
     "eslint-plugin-jsx-a11y": "^6.2.3",
@@ -67,7 +67,7 @@
     "postcss-import": "^12.0.1",
     "postcss-loader": "^3.0.0",
     "postcss-nesting": "^7.0.0",
-    "pyrene": "~2.1.0",
+    "@osag/pyrene": "~2.1.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "release-it": "^13.5.1",
@@ -82,7 +82,7 @@
     "d3-interpolate": "^1.4.0",
     "prop-types": "^15.5.7",
     "strip-sourcemap-loader": "0.0.1",
-    "tuktuktwo": "1.1.3"
+    "@osag/tuktuktwo": "1.1.3"
   },
   "peerDependencies": {
     "moment": ">=2.20.0 <3.0.0",
