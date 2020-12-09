@@ -21,10 +21,7 @@ const Counter = (props) => {
     newValue = newValue.match(/\d+/g);
     if (newValue !== null) {
       newValue = parseInt(newValue.join(''), 10);
-    } else {
-      newValue = 0;
     }
-
     props.onChange(adjustBounds(newValue), { target: { name: props.name, value: adjustBounds(newValue), type: 'counter' } });
   };
 
@@ -35,7 +32,7 @@ const Counter = (props) => {
   return (
     <div styleName="counter">
       <div className="unSelectable" styleName="modifier" onClick={() => changeCounterBy(-1)}>-</div>
-      <input styleName="valueDisplay" type="text" onChange={handleInputChange} value={props.value} autoComplete="nope" />
+      <input styleName="valueDisplay" type="text" onChange={handleInputChange} value={props.value ?? ''} autoComplete="nope" />
       <div className="unSelectable" styleName="modifier" onClick={() => changeCounterBy(1)}>+</div>
     </div>
   );
@@ -49,6 +46,7 @@ Counter.defaultProps = {
   minvalue: null,
   maxvalue: null,
   onChange: () => null,
+  value: null,
 };
 
 Counter.propTypes = {
@@ -56,7 +54,7 @@ Counter.propTypes = {
   minvalue: PropTypes.number,
   name: PropTypes.string,
   onChange: PropTypes.func,
-  value: PropTypes.number.isRequired,
+  value: PropTypes.number,
 };
 
 export default Counter;
