@@ -14,8 +14,9 @@ describe('<Pill />', () => {
   });
 
   it('does not render the icon', () => {
+    const icon = 'data';
     const rendered = shallow(<Pill {...props} />);
-    expect(rendered.find(`.pyreneIcon-${props.icon}`)).toHaveLength(0);
+    expect(rendered.find(`.pyreneIcon-${icon}`)).toHaveLength(0);
   });
 
   it('renders the icon', () => {
