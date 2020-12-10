@@ -165,6 +165,10 @@ export { TreeTable };
 
 export { createSimpleFilter, createDataFilter } from './components/Filter/Filter';
 
+import * as SelectTypes from './components/SingleSelect/SingleSelectTypes';
+export type SingleSelectGroupedOption<ValueType> = SelectTypes.SingleSelectGroupedOption<ValueType>
+export type SingleSelectOption<ValueType> = SelectTypes.SingleSelectOption<ValueType>
+
 export { default as colorConstants } from './styles/colorConstants';
 
 export default Components;

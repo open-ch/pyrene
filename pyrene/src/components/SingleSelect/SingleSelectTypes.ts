@@ -1,5 +1,6 @@
 
-export interface SingleSelectOption<ValueType> {
+export type SingleSelectOption<ValueType> = {
+
   label: string;
   value?: ValueType;
   iconProps?: { // FixMe: use Icon Props interface one it's converted to typescript
@@ -8,9 +9,9 @@ export interface SingleSelectOption<ValueType> {
     svg?: string;
     type?: 'standalone' | 'inline'
   }
-}
-export interface SingleSelectGroupedOption<ValueType> {
+};
+export type SingleSelectGroupedOption<ValueType> = {
   label: string;
   options?: SingleSelectOption<ValueType>[];
   value?: ValueType;
-}
+};
