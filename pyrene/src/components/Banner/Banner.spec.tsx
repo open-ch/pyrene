@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import Banner from './Banner.jsx';
+import Banner from './Banner';
 
 const props = {
   label: 'TestMessage',
