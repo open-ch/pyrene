@@ -45,7 +45,7 @@ const Pill: React.FC<PillProps> = ({
   icon = '',
   iconType = 'neutral',
   maxValue = 99,
-  onClick = undefined,
+  onClick,
   type,
   value,
 }: PillProps) => (
@@ -57,7 +57,7 @@ const Pill: React.FC<PillProps> = ({
         <span className={`pyreneIcon-${icon}`} />
       </div>
     )}
-    {((maxValue > 0) && (value <= maxValue))
+    {!maxValue || (value <= maxValue)
       ? <div styleName={className('pill', { [`type-${type}`]: true })}>{value}</div>
       : <div styleName={className('pill', { [`type-${type}`]: true })}>{`${maxValue}+`}</div>}
   </div>
