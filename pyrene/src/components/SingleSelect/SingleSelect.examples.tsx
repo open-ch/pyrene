@@ -4,8 +4,8 @@ import { SingleSelectProps } from './SingleSelect';
 import { SingleSelectOption } from './SingleSelectTypes';
 
 const testOptions: SingleSelectOption[] = [
-  { value: 'chocolate', label: 'Chocolate', tag: ['Favorite'] },
-  { value: 'strawberry', label: 'Strawberry', tag: ['Fruits', 'Favorite'] },
+  { value: 'chocolate', label: 'Chocolate', tags: ['Favorite'] },
+  { value: 'strawberry', label: 'Strawberry', tags: ['Fruits', 'Favorite'] },
   { value: 'vanilla', label: 'Vanilla' },
   { value: 'bacon', label: 'Bacon' },
   { value: 'cookiedough', label: 'Cookie Dough' },
@@ -13,15 +13,15 @@ const testOptions: SingleSelectOption[] = [
   { value: 'cottoncandy', label: 'Cotton Candy' },
   { value: 'crab', label: 'Crab' },
   { value: 'greentea', label: 'Green Tea' },
-  { value: 'mango', label: 'Mango', tag: ['Fruits'] },
-  { value: 'tuttifrutti', label: 'Tutti Frutti', tag: ['Fruits'] },
-  { value: 'grape', label: 'Grape', tag: ['Fruits'] },
+  { value: 'mango', label: 'Mango', tags: ['Fruits'] },
+  { value: 'tuttifrutti', label: 'Tutti Frutti', tags: ['Fruits'] },
+  { value: 'grape', label: 'Grape', tags: ['Fruits'] },
   { value: 'coconutmilk', label: 'Coconut Milk' },
   { value: 'dulce', label: 'Dulce de Leche' },
   { value: 'caramel', label: 'Caramel' },
-  { value: 'banana', label: 'Banana', tag: ['Fruits'] },
+  { value: 'banana', label: 'Banana', tags: ['Fruits'] },
   { value: 'garlic', label: 'Garlic' },
-  { value: 'twix', label: 'Twix', tag: ['Favorite'] },
+  { value: 'twix', label: 'Twix', tags: ['Favorite'] },
   { value: 'mintchocolatechip', label: 'Mint Chocolate Chip' },
   { value: 'spearmint', label: 'Spearmint' },
   { value: 'oyster', label: 'Oyster' },
@@ -33,7 +33,7 @@ const testOptions: SingleSelectOption[] = [
   { value: 'bluemoon', label: 'Blue Moon' },
   { value: 'charcoal', label: 'Charcoal' },
   { value: 'cheesecake', label: 'Cheesecake' },
-  { value: 'rumandraisin', label: 'Rum and Raisin', tag: ['Fruits'] },
+  { value: 'rumandraisin', label: 'Rum and Raisin', tags: ['Fruits'] },
   { value: 'moosetracks', label: 'Moose Tracks' },
 ];
 

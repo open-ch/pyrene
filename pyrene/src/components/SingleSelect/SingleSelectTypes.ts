@@ -5,7 +5,7 @@ export interface SingleSelectOption {
   /**
    * Hidden tags to eaze the searching. There are not displayed.
    */
-  tag?: string[];
+  tags?: string[];
   value?: string | number | boolean;
   iconProps?: IconProps
 }
