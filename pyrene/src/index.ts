@@ -68,7 +68,7 @@ import { default as ToggleButtonGroup } from './components/ToggleButtonGroup/Tog
 import { default as Tooltip } from './components/Tooltip/Tooltip';
 import { default as TreeTable } from './components/TreeTable/TreeTable';
 
-import {SingleSelectOption as _SingleSelectOption, SingleSelectGroupedOption as _SingleSelectGroupedOption} from './components/SingleSelect/SingleSelectTypes';
+import { SingleSelectOption as _SingleSelectOption, SingleSelectGroupedOption as _SingleSelectGroupedOption } from './components/SingleSelect/SingleSelectTypes';
 
 // Sort alphabetically to find stuff easily
 const Components = {
