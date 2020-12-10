@@ -42,7 +42,7 @@ export interface ButtonProps {
  */
 const Button: React.FC<ButtonProps> = ({
   disabled = false,
-  icon = undefined,
+  icon,
   loading = false,
   type = 'primary',
   onClick = () => null,
