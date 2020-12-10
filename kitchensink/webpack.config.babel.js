@@ -9,6 +9,7 @@ import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 
 const production = process.env.NODE_ENV === 'production';
+const BASE_PATH = process.env.BASE_PATH || '/';
 
 const config = {
   mode: production ? 'production' : 'development',
@@ -21,7 +22,7 @@ const config = {
     },
   },
   output: {
-    publicPath: '/',
+    publicPath: BASE_PATH,
   },
   module: {
     rules: [
@@ -84,9 +85,17 @@ const config = {
   },
   plugins: [
     new CleanWebpackPlugin(),
+    new webpack.EnvironmentPlugin({
+        BASE_PATH,
+    }),
     new HtmlWebpackPlugin({
       favicon: 'src/images/favicon.ico',
       filename: 'index.html',
+      template: 'src/index.html',
+    }),
+    new HtmlWebpackPlugin({
+      favicon: 'src/images/favicon.ico',
+      filename: '404.html',
       template: 'src/index.html',
     }),
     new MiniCssExtractPlugin({
