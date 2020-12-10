@@ -7,7 +7,7 @@ import '@osag/pyrene/dist/pyrene.css';
 import '@osag/pyrene-graphs/dist/pyrene-graphs.css';
 
 const App = () => (
-  <Router>
+  <Router basename={process.env.BASE_PATH}>
     <Route component={Main} />
   </Router>
 );
