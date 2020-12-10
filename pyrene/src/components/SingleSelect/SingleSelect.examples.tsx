@@ -41,8 +41,7 @@ const icons = ['place', 'layers', 'clock'];
 const colors = [colorConstants.blue600, colorConstants.red600, colorConstants.orange600, undefined];
 const testOptionsWithIcons = testOptions.map((option, i) => ({ ...option, iconProps: { name: icons[i % 3], color: colors[i % 4] } }));
 
-
-type OptionType = SingleSelectOption<string>
+type OptionType = SingleSelectOption<string>;
 
 interface State {
   value: OptionType

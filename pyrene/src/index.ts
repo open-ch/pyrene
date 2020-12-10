@@ -68,6 +68,8 @@ import { default as ToggleButtonGroup } from './components/ToggleButtonGroup/Tog
 import { default as Tooltip } from './components/Tooltip/Tooltip';
 import { default as TreeTable } from './components/TreeTable/TreeTable';
 
+import * as SelectTypes from './components/SingleSelect/SingleSelectTypes';
+
 // Sort alphabetically to find stuff easily
 const Components = {
   ActionBar,
@@ -165,9 +167,8 @@ export { TreeTable };
 
 export { createSimpleFilter, createDataFilter } from './components/Filter/Filter';
 
-import * as SelectTypes from './components/SingleSelect/SingleSelectTypes';
-export type SingleSelectGroupedOption<ValueType> = SelectTypes.SingleSelectGroupedOption<ValueType>
-export type SingleSelectOption<ValueType> = SelectTypes.SingleSelectOption<ValueType>
+export type SingleSelectGroupedOption<ValueType> = SelectTypes.SingleSelectGroupedOption<ValueType>;
+export type SingleSelectOption<ValueType> = SelectTypes.SingleSelectOption<ValueType>;
 
 export { default as colorConstants } from './styles/colorConstants';
 
