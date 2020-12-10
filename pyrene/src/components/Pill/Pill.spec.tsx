@@ -28,15 +28,13 @@ describe('<Pill />', () => {
   it('rendered value does not exceed maximum value', () => {
     const rendered = shallow(<Pill {...props} />);
     expect(rendered.contains('99+')).toBe(true);
-    // @ts-ignore
     expect(rendered.contains(props.value)).toBe(false);
   });
 
   it('rendered value is props.value when not exceeding maximum value', () => {
     props.maxValue = 200;
     const rendered = shallow(<Pill {...props} />);
-    expect(rendered.contains(`${props.maxValue}+`)).toBe(false);
-    // @ts-ignore
+    expect(rendered.contains(`${props.maxValue as string}+`)).toBe(false);
     expect(rendered.contains(props.value)).toBe(true);
   });
 });
