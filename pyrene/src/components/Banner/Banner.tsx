@@ -52,7 +52,7 @@ const Banner: React.FC<BannerProps> = ({
     role="banner"
   >
     <div styleName="iconMessageContainer">
-      <span styleName="bannerIcon">{type === 'loading' as Type ? <Loader size="small" /> : <span className={`pyreneIcon-${type}`} />}</span>
+      <span styleName="bannerIcon">{type === 'loading' ? <Loader size="small" /> : <span className={`pyreneIcon-${type}`} />}</span>
       <div styleName="spacer" />
       <div styleName="textBox">
         <div styleName="message">{label}</div>
