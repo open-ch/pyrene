@@ -1,0 +1,45 @@
+name: Test
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  pyrene:
+    name: pyrene
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v1
+      with:
+        node-version: '12'
+    - name: Test pyrene
+      run: (cd pyrene && npm install && npm test)
+    - name: Build pyrene
+      run: (cd pyrene && npm run build)
+  tuktuktwo:
+    name: tuktuktwo
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v1
+      with:
+        node-version: '12'
+    - name: Test tuktuktwo
+      run: (cd tuktuktwo && npm install && npm test)
+    - name: Build tuktuktwo
+      run: (cd tuktuktwo && npm run build)
+  pyrene-graphs:
+    name: pyrene-graphs
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v1
+      with:
+        node-version: '12'
+    - name: Test pyrene-graphs
+      run: (cd pyrene-graphs && npm install && npm test)
+    - name: Build pyrene-graphs
+      run: (cd pyrene-graphs && npm run build)
