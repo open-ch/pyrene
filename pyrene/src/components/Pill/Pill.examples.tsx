@@ -1,14 +1,17 @@
-const examples = {};
+import { Example } from '../../examples/Example';
+import { PillProps } from './Pill';
 
-examples.props = {
+const Pill: Example<PillProps> = {};
+
+Pill.props = {
   icon: 'data',
   iconType: 'neutral',
   value: 188,
   type: 'info',
-  onClick: () => alert(`Max value ${examples.props.value} exceeded!`), // eslint-disable-line no-alert
+  onClick: () => alert('You clicked me'), // eslint-disable-line no-alert
 };
 
-examples.examples = [
+Pill.examples = [
   {
     props: {
       icon: 'hot',
@@ -57,6 +60,6 @@ examples.examples = [
   },
 ];
 
-examples.category = 'Other';
+Pill.category = 'Other';
 
-export default examples;
+export default Pill;
