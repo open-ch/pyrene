@@ -1,13 +1,21 @@
-const examples = {};
+import React from 'react';
+import { Example, StateProvider } from '../../examples/Example';
+import { ButtonProps } from './Button';
 
-examples.props = {
-  label: (stateProvider) => (stateProvider.state.count ? `You clicked me ${stateProvider.state.count}` : 'Click me please'),
+export interface State {
+  count: number
+}
+
+const Button: Example<ButtonProps, State> = {};
+
+Button.props = {
+  label: (stateProvider: StateProvider<State>) => (stateProvider.state.count ? `You clicked me ${stateProvider.state.count}` : 'Click me please'),
   type: 'secondary',
   icon: 'filter',
-  onClick: (stateProvider) => () => stateProvider.setState((prevState) => ({ count: prevState.count ? prevState.count + 1 : 1 })),
+  onClick: (stateProvider: StateProvider<State>) => () => stateProvider.setState((prevState: State) => ({ count: prevState.count ? prevState.count + 1 : 1 })),
 };
 
-examples.examples = [{
+Button.examples = [{
   props: { label: 'Primary' },
   description: 'For all principle actions on a page. Used to highlight the most important actions. Avoid overwhelming usage of primary buttons.',
 }, {
@@ -28,8 +36,11 @@ examples.examples = [{
 }, {
   props: { label: 'disabled', type: 'admin', disabled: true },
   description: 'Capitalization is not done automatically!',
+}, {
+  props: { label: (<span style={{ fontStyle: 'italic' }}>fancy</span>), type: 'admin', disabled: false },
+  description: 'React Element as label.',
 }];
 
-examples.category = 'Interaction';
+Button.category = 'Interaction';
 
-export default examples;
+export default Button;
