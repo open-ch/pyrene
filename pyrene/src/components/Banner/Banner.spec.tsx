@@ -5,7 +5,7 @@ import Banner from './Banner.jsx';
 
 const props = {
   label: 'TestMessage',
-  type: 'info',
+  type: 'info' as const,
 };
 
 describe('<Banner />', () => {
