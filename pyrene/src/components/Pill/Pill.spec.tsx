@@ -5,7 +5,7 @@ import Pill from './Pill';
 
 const props = {
   value: 188,
-  type: 'info',
+  type: 'info' as const,
 };
 
 describe('<Pill />', () => {
@@ -32,9 +32,9 @@ describe('<Pill />', () => {
   });
 
   it('rendered value is props.value when not exceeding maximum value', () => {
-    props.maxValue = 200;
-    const rendered = shallow(<Pill {...props} />);
-    expect(rendered.contains(`${props.maxValue as string}+`)).toBe(false);
+    const maxValue = 200;
+    const rendered = shallow(<Pill {...props} maxValue={maxValue} />);
+    expect(rendered.contains(`${maxValue}+`)).toBe(false);
     expect(rendered.contains(props.value)).toBe(true);
   });
 });
