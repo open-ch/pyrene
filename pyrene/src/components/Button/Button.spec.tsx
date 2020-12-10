@@ -1,12 +1,16 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 
-import Button from './Button.jsx';
+import Button from './Button';
 
 describe('<Button />', () => {
 
   it('renders without crashing', () => {
     shallow(<Button label="" />);
+  });
+
+  it('renders with react element label', () => {
+    shallow(<Button label={(<span>fancy span</span>)} />);
   });
 
   it('is clickable', () => {
