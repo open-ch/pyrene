@@ -1,16 +1,55 @@
-import React, { useEffect, useRef } from 'react';
-import PropTypes from 'prop-types';
+import React, { useCallback, useEffect, useRef } from 'react';
+
+// import PropTypes from 'prop-types';
 
 import './arrowPopover.css';
 import Popover from '../Popover/Popover';
 
 
-export const arrowPosition = (position, targetRect, popoverRect) => {
+
+export interface ArrowPopoverProps {
+  /**
+   * Sets the alignment of the popover.
+   */
+  align?: Alignment,
+  /**
+   * Action element
+   */
+  children: JSX.Element,
+
+  /**
+   * Function to close the popover.
+   */
+  closePopover?: ()=>void,
+  /**
+   * Whether to display the popover.
+   */
+  displayPopover: boolean,
+  /**
+   * Sets the distance of the popover to its target.
+   */
+  distanceToTarget?: number,
+  /**
+   * Content rendered in popover
+   */
+  popoverContent: JSX.Element,
+  /**
+   * Sets the preferred position array ordered by priority for auto repositioning.
+   */
+  preferredPosition?: PreferredPos[],
+}
+
+export type PreferredPos = 'top' | 'right' | 'bottom' | 'left';
+export type Alignment = 'start' | 'center' | 'end';
+
+
+export const arrowPosition = (position: string, targetRect: ClientRect, popoverRect: ClientRect) => {
   // Square
   const lengthSide = 20;
   const arrowWidth = (lengthSide * Math.sqrt(2)) / 2;
 
   // Bounding Rect
+
   // https://media.prod.mdn.mozit.cloud/attachments/2017/06/07/15087/8f54d3ea8e5ad0a1f12ddc185fb78052/rect.png
   let top = targetRect.top - popoverRect.top + (targetRect.height / 2) - (lengthSide / 2);
   let left = targetRect.left - popoverRect.left + (targetRect.width / 2) - (lengthSide / 2);
@@ -48,27 +87,31 @@ export const arrowPosition = (position, targetRect, popoverRect) => {
 /**
  *  Popover with Arrow
  */
-const ArrowPopover = ({
-  children, popoverContent, displayPopover, closePopover, preferredPosition, align, distanceToTarget,
-}) => {
+const ArrowPopover: React.FC<ArrowPopoverProps> = ({
+  children,
+  popoverContent,
+  displayPopover,
+  closePopover = () => null,
+  preferredPosition = ['top', 'left'],
+  align = 'center',
+  distanceToTarget = 20,
+}: ArrowPopoverProps) => {
 
-  const node = useRef();
+  const node = useRef<HTMLInputElement>(null);
 
-  const handleClick = (e) => {
-    // click outside
-    // @ts-ignore
-    if (node && node.current && !node.current.contains(e.target)) {
+  const handleClick = (e:Event) => {
+    if (node && node.current && !node.current.contains(e.target as Node)) {
       closePopover();
     }
   };
 
   useEffect(() => {
+
     document.addEventListener('mousedown', handleClick);
     return () => {
       document.removeEventListener('mousedown', handleClick);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  });
 
   return (
     <Popover
@@ -103,47 +146,5 @@ const ArrowPopover = ({
 };
 
 ArrowPopover.displayName = 'Arrow Popover';
-
-ArrowPopover.defaultProps = {
-  align: 'center',
-  closePopover: null,
-  distanceToTarget: 20,
-  preferredPosition: ['top', 'left'],
-};
-
-ArrowPopover.propTypes = {
-  /**
-   * Sets the alignment of the popover.
-   */
-  align: PropTypes.oneOf(['start', 'center', 'end']),
-  /**
-   * Action element
-   */
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node,
-  ]).isRequired,
-
-  /**
-   * Function to close the popover.
-   */
-  closePopover: PropTypes.func,
-  /**
-   * Whether to display the popover.
-   */
-  displayPopover: PropTypes.bool.isRequired,
-  /**
-   * Sets the distance of the popover to its target.
-   */
-  distanceToTarget: PropTypes.number,
-  /**
-   * Content renderd in popover
-   */
-  popoverContent: PropTypes.node.isRequired,
-  /**
-   * Sets the preferred position array ordered by priority for auto repositioning.
-   */
-  preferredPosition: PropTypes.arrayOf(PropTypes.oneOf(['top', 'right', 'bottom', 'left'])),
-};
 
 export default ArrowPopover;

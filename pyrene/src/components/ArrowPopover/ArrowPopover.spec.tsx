@@ -1,9 +1,13 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import ArrowPopover, { arrowPosition } from './ArrowPopover';
+import ArrowPopover, { Alignment, arrowPosition, PreferredPos } from './ArrowPopover';
 
 const props = {
+  align: 'center' as Alignment,
+  closePopover: jest.fn(),
+  distanceToTarget: 12,
+  preferredPosition: ['top' as PreferredPos, 'left' as PreferredPos],
   displayPopover: false,
   popoverContent: <div />,
 };
@@ -25,18 +29,22 @@ describe('<ArrowPopover />', () => {
       const lengthSide = 20;
       const arrowWidth = (lengthSide * Math.sqrt(2)) / 2;
 
-      const popoverRect = {
+      const popoverRect: ClientRect = {
         top: 100,
         left: 100,
         height: 100,
         width: 400,
+        bottom: 0,
+        right: 0,
       };
 
-      const targetRect = {
+      const targetRect: ClientRect = {
         top: 200,
         left: 200,
         height: 40,
         width: 40,
+        bottom: 0,
+        right: 0,
       };
 
       const result = arrowPosition('top', targetRect, popoverRect);
@@ -56,6 +64,8 @@ describe('<ArrowPopover />', () => {
         left: 100,
         height: 100,
         width: 100,
+        bottom: 0,
+        right: 0,
       };
 
       const targetRect = {
@@ -63,6 +73,8 @@ describe('<ArrowPopover />', () => {
         left: 200,
         height: 40,
         width: 40,
+        bottom: 0,
+        right: 0,
       };
 
       const result = arrowPosition('top', targetRect, popoverRect);
@@ -81,6 +93,8 @@ describe('<ArrowPopover />', () => {
         left: 100,
         height: 100,
         width: 100,
+        bottom: 0,
+        right: 0,
       };
 
       const targetRect = {
@@ -88,6 +102,8 @@ describe('<ArrowPopover />', () => {
         left: -10,
         height: 40,
         width: 40,
+        bottom: 0,
+        right: 0,
       };
 
       const result = arrowPosition('top', targetRect, popoverRect);
@@ -105,6 +121,8 @@ describe('<ArrowPopover />', () => {
         left: 100,
         height: 400,
         width: 100,
+        bottom: 0,
+        right: 0,
       };
 
       const targetRect = {
@@ -112,6 +130,8 @@ describe('<ArrowPopover />', () => {
         left: 200,
         height: 40,
         width: 40,
+        bottom: 0,
+        right: 0,
       };
 
       const result = arrowPosition('left', targetRect, popoverRect);
@@ -131,6 +151,8 @@ describe('<ArrowPopover />', () => {
         left: 100,
         height: 100,
         width: 100,
+        bottom: 0,
+        right: 0,
       };
 
       const targetRect = {
@@ -138,6 +160,8 @@ describe('<ArrowPopover />', () => {
         left: 200,
         height: 40,
         width: 40,
+        bottom: 0,
+        right: 0,
       };
 
       const result = arrowPosition('left', targetRect, popoverRect);
@@ -157,6 +181,8 @@ describe('<ArrowPopover />', () => {
         left: 100,
         height: 100,
         width: 100,
+        bottom: 0,
+        right: 0,
       };
 
       const targetRect = {
@@ -164,6 +190,8 @@ describe('<ArrowPopover />', () => {
         left: 200,
         height: 40,
         width: 40,
+        bottom: 0,
+        right: 0,
       };
 
       const result = arrowPosition('left', targetRect, popoverRect);
@@ -181,6 +209,8 @@ describe('<ArrowPopover />', () => {
         left: 100,
         height: 100,
         width: 400,
+        bottom: 0,
+        right: 0,
       };
 
       const targetRect = {
@@ -188,6 +218,8 @@ describe('<ArrowPopover />', () => {
         left: 200,
         height: 40,
         width: 40,
+        bottom: 0,
+        right: 0,
       };
 
       const result = arrowPosition('bottom', targetRect, popoverRect);
@@ -207,6 +239,8 @@ describe('<ArrowPopover />', () => {
         left: 100,
         height: 100,
         width: 100,
+        bottom: 0,
+        right: 0,
       };
 
       const targetRect = {
@@ -214,6 +248,8 @@ describe('<ArrowPopover />', () => {
         left: 200,
         height: 40,
         width: 40,
+        bottom: 0,
+        right: 0,
       };
 
       const result = arrowPosition('bottom', targetRect, popoverRect);
@@ -232,6 +268,8 @@ describe('<ArrowPopover />', () => {
         left: 100,
         height: 100,
         width: 100,
+        bottom: 0,
+        right: 0,
       };
 
       const targetRect = {
@@ -239,6 +277,8 @@ describe('<ArrowPopover />', () => {
         left: -10,
         height: 40,
         width: 40,
+        bottom: 0,
+        right: 0,
       };
 
       const result = arrowPosition('bottom', targetRect, popoverRect);
@@ -256,6 +296,8 @@ describe('<ArrowPopover />', () => {
         left: 100,
         height: 400,
         width: 100,
+        bottom: 0,
+        right: 0,
       };
 
       const targetRect = {
@@ -263,6 +305,8 @@ describe('<ArrowPopover />', () => {
         left: 200,
         height: 40,
         width: 40,
+        bottom: 0,
+        right: 0,
       };
 
       const result = arrowPosition('right', targetRect, popoverRect);
@@ -282,6 +326,8 @@ describe('<ArrowPopover />', () => {
         left: 100,
         height: 100,
         width: 100,
+        bottom: 0,
+        right: 0,
       };
 
       const targetRect = {
@@ -289,6 +335,8 @@ describe('<ArrowPopover />', () => {
         left: 200,
         height: 40,
         width: 40,
+        bottom: 0,
+        right: 0,
       };
 
       const result = arrowPosition('right', targetRect, popoverRect);
@@ -308,6 +356,8 @@ describe('<ArrowPopover />', () => {
         left: 100,
         height: 100,
         width: 100,
+        bottom: 0,
+        right: 0,
       };
 
       const targetRect = {
@@ -315,6 +365,8 @@ describe('<ArrowPopover />', () => {
         left: 200,
         height: 40,
         width: 40,
+        bottom: 0,
+        right: 0,
       };
 
       const result = arrowPosition('right', targetRect, popoverRect);
@@ -329,6 +381,8 @@ describe('<ArrowPopover />', () => {
         left: 100,
         height: 100,
         width: 100,
+        bottom: 0,
+        right: 0,
       };
 
       const targetRect = {
@@ -336,6 +390,8 @@ describe('<ArrowPopover />', () => {
         left: 200,
         height: 40,
         width: 40,
+        bottom: 0,
+        right: 0,
       };
 
       expect(() => { arrowPosition('test', targetRect, popoverRect); }).toThrow(new Error('Not a valid position: test'));
