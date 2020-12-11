@@ -37,8 +37,13 @@ export interface ArrowPopoverProps {
 
 export type PreferredPos = 'top' | 'right' | 'bottom' | 'left';
 export type Alignment = 'start' | 'center' | 'end';
+interface ArrowPosition {
+  top: number,
+  left: number,
+  lengthSide: number,
+}
 
-export const arrowPosition = (position: string, targetRect: ClientRect, popoverRect: ClientRect) => {
+export const arrowPosition = (position: string, targetRect: ClientRect, popoverRect: ClientRect): ArrowPosition => {
   // Square
   const lengthSide = 20;
   const arrowWidth = (lengthSide * Math.sqrt(2)) / 2;
