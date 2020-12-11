@@ -81,7 +81,7 @@ const TextArea: React.FC<TextAreaProps> = ({
   placeholder = '',
   invalidLabel = '',
   name = '',
-  width = 0,
+  width = '100%',
   rows = 3,
   maxLength = 0,
   resizeable = false,
@@ -96,7 +96,7 @@ const TextArea: React.FC<TextAreaProps> = ({
 
   return (
     <div
-      style={{ width: width > 0 ? width : '100%' }}
+      style={{ width: width }}
       styleName={classNames(
         'textAreaContainer',
         { disabled: disabled },
