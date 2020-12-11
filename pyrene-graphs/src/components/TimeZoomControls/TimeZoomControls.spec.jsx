@@ -61,14 +61,6 @@ describe('<TimeZoomControls />', () => {
     shallow(<TimeZoomControls {...props} />);
   });
 
-  it('renders its content', () => {
-    const rendered = shallow(<TimeZoomControls {...props} />);
-    expect(rendered.at(0).props().styling).toBe('shadow');
-    expect(rendered.at(0).props().actions).toHaveLength(2);
-    expect(rendered.at(0).prop('actions')[0].iconName).toBe('zoomOut');
-    expect(rendered.at(0).prop('actions')[1].iconName).toBe('zoomIn');
-  });
-
   it('executes zoom callback', () => {
     const rendered = mount(<TimeZoomControls {...props} />);
     const zoomInBtn = rendered.find('.pyreneIcon-zoomIn');
