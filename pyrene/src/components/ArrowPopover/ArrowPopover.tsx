@@ -1,11 +1,7 @@
-import React, { useCallback, useEffect, useRef } from 'react';
-
-// import PropTypes from 'prop-types';
-
-import './arrowPopover.css';
+import React, { useEffect, useRef } from 'react';
 import Popover from '../Popover/Popover';
 
-
+import './arrowPopover.css';
 
 export interface ArrowPopoverProps {
   /**
@@ -41,7 +37,6 @@ export interface ArrowPopoverProps {
 
 export type PreferredPos = 'top' | 'right' | 'bottom' | 'left';
 export type Alignment = 'start' | 'center' | 'end';
-
 
 export const arrowPosition = (position: string, targetRect: ClientRect, popoverRect: ClientRect) => {
   // Square
