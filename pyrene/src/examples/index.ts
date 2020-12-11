@@ -2,6 +2,7 @@
 /* eslint-disable import/no-named-default */
 
 // Sort alphabetically to find stuff easily
+import { default as ArrowPopover } from '../components/ArrowPopover/ArrowPopover.examples';
 import { default as Badge } from '../components/Badge/Badge.examples';
 import { default as Banner } from '../components/Banner/Banner.examples';
 import { default as Button } from '../components/Button/Button.examples';
@@ -50,6 +51,7 @@ import { Example } from './Example';
 // Sort alphabetically to find stuff easily
 const examples: {[key: string]: Example<any, any>} = {
   ActionBar,
+  ArrowPopover,
   Badge,
   Banner,
   Button,
