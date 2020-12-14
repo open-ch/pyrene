@@ -24,8 +24,9 @@ type OwnCustomOptionsProps<ValueType> = {
   label: string;
 };
 
+type IsMulti = false;
 // Make sure we consider all own props before the default props from react-select's options
-type CustomOptionProps<ValueType> = OwnCustomOptionsProps<ValueType> & Omit<OptionProps<SingleSelectOption<ValueType>>, keyof OwnCustomOptionsProps<ValueType>>;
+type CustomOptionProps<ValueType> = OwnCustomOptionsProps<ValueType> & Omit<OptionProps<SingleSelectOption<ValueType>, IsMulti>, keyof OwnCustomOptionsProps<ValueType>>;
 
 const CustomOption = <ValueType extends unknown>(props: CustomOptionProps<ValueType>): React.ReactElement => (
   <div title={props.label} styleName={getIconStyle(props.isSelected, props.isFocused)}>
