@@ -1,7 +1,15 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import Popover from '../Popover/Popover';
 
 import './arrowPopover.css';
+
+export type PreferredPos = ('top' | 'right' | 'bottom' | 'left')[];
+export type Alignment = 'start' | 'center' | 'end';
+interface ArrowPosition {
+  top: number,
+  left: number,
+  lengthSide: number,
+}
 
 export interface ArrowPopoverProps {
   /**
@@ -11,12 +19,11 @@ export interface ArrowPopoverProps {
   /**
    * Action element
    */
-  children: JSX.Element,
-
+  children: React.ReactElement,
   /**
    * Function to close the popover.
    */
-  closePopover?: ()=>void,
+  closePopover?: () => void,
   /**
    * Whether to display the popover.
    */
@@ -28,19 +35,11 @@ export interface ArrowPopoverProps {
   /**
    * Content rendered in popover
    */
-  popoverContent: JSX.Element,
+  popoverContent: React.ReactElement,
   /**
    * Sets the preferred position array ordered by priority for auto repositioning.
    */
-  preferredPosition?: PreferredPos[],
-}
-
-export type PreferredPos = 'top' | 'right' | 'bottom' | 'left';
-export type Alignment = 'start' | 'center' | 'end';
-interface ArrowPosition {
-  top: number,
-  left: number,
-  lengthSide: number,
+  preferredPosition?: PreferredPos,
 }
 
 export const arrowPosition = (position: string, targetRect: ClientRect, popoverRect: ClientRect): ArrowPosition => {
@@ -91,27 +90,26 @@ const ArrowPopover: React.FC<ArrowPopoverProps> = ({
   children,
   popoverContent,
   displayPopover,
-  closePopover = () => null,
+  closePopover,
   preferredPosition = ['top', 'left'],
   align = 'center',
   distanceToTarget = 20,
 }: ArrowPopoverProps) => {
 
-  const node = useRef<HTMLInputElement>(null);
+  const node = useRef<HTMLDivElement>(null);
 
-  const handleClick = (e:Event) => {
-    if (node && node.current && !node.current.contains(e.target as Node)) {
+  const handleClick = useCallback((e:MouseEvent) => {
+    if (closePopover && node && node.current && !node.current.contains(e.target as Node)) {
       closePopover();
     }
-  };
+  }, [closePopover]);
 
   useEffect(() => {
-
     document.addEventListener('mousedown', handleClick);
     return () => {
       document.removeEventListener('mousedown', handleClick);
     };
-  });
+  }, [handleClick]);
 
   return (
     <Popover
