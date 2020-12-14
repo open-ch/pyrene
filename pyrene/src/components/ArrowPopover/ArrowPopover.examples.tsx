@@ -1,16 +1,16 @@
 import React from 'react';
 import { Example } from '../../examples/Example';
-import { Alignment, ArrowPopoverProps, PreferredPos } from './ArrowPopover';
+import { ArrowPopoverProps } from './ArrowPopover';
 import Placeholder from '../../examples/Placeholder';
 import Button from '../Button/Button';
 
 const ArrowPopover: Example<ArrowPopoverProps> = {};
 
 ArrowPopover.props = {
-  align: 'center' as Alignment,
+  align: 'center',
   closePopover: () => null,
   distanceToTarget: 12,
-  preferredPosition: ['top' as PreferredPos, 'left' as PreferredPos],
+  preferredPosition: ['top', 'left'],
   displayPopover: false,
   popoverContent: <Placeholder width={400} />,
   children: <Placeholder width={200} />,
@@ -19,10 +19,10 @@ ArrowPopover.props = {
 ArrowPopover.examples = [
   {
     props: {
-      align: 'center' as Alignment,
+      align: 'center',
       closePopover: () => null,
       distanceToTarget: 12,
-      preferredPosition: ['top' as PreferredPos, 'left' as PreferredPos],
+      preferredPosition: ['top', 'left'],
       displayPopover: false,
       popoverContent: <Placeholder width={400} />,
       children: <Placeholder width={200} />,
@@ -30,10 +30,10 @@ ArrowPopover.examples = [
   },
   {
     props: {
-      align: 'center' as Alignment,
+      align: 'center',
       closePopover: () => null,
       distanceToTarget: 12,
-      preferredPosition: ['bottom' as PreferredPos, 'right' as PreferredPos],
+      preferredPosition: ['bottom', 'right'],
       displayPopover: false,
       popoverContent:
   <div style={{

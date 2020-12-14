@@ -7,7 +7,7 @@ const props = {
   align: 'center' as Alignment,
   closePopover: jest.fn(),
   distanceToTarget: 12,
-  preferredPosition: ['top' as PreferredPos, 'left' as PreferredPos],
+  preferredPosition: ['top', 'left'] as PreferredPos,
   displayPopover: false,
   popoverContent: <div />,
 };
