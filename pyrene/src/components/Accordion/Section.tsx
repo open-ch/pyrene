@@ -13,19 +13,14 @@ export interface SectionProps {
    */
   renderContent: () => React.ReactNode
   /**
-   * Render prop for the title, for custom titles if a string is not enough
+   * Title string, or render prop for custom titles
    */
-  renderTitle?: () => React.ReactNode
-  /**
-   * Title string
-   */
-  title?: string
+  title: string | (() => React.ReactNode)
 }
 
 const Section: React.FC<SectionProps> = ({
-  iconProps,
   renderContent,
-  renderTitle,
+  iconProps,
   title,
 }: SectionProps) => {
   const [expanded, setExpanded] = useState(false);
@@ -35,15 +30,16 @@ const Section: React.FC<SectionProps> = ({
       <div styleName="header" onClick={() => setExpanded(!expanded)}>
         {iconProps && <span styleName="icon"><Icon {...iconProps} type="inline" /></span>}
 
-        {title && <div styleName="title text-title">{title}</div>}
-        {!(title) && renderTitle && <div styleName="title">{renderTitle()}</div>}
+        <div styleName="title">
+          {typeof title === 'string'
+            ? <div styleName="text-title">{title}</div>
+            : title()}
+        </div>
 
-        {!expanded && <Icon type="inline" name="chevronDown" color="neutral500" />}
-        {expanded && <Icon type="inline" name="chevronUp" color="neutral500" />}
+        <Icon type="inline" name={expanded ? 'chevronUp' : 'chevronDown'} color="neutral500" />
       </div>
-      <div styleName="content">
-        {renderContent()}
-      </div>
+
+      {expanded && <div styleName="content">{renderContent()}</div>}
     </div>
   );
 };

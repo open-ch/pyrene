@@ -5,23 +5,23 @@ import './accordion.css';
 
 export interface AccordionProps {
   /**
-   * The list of sections for the action bar.
+   * The list of sections for the action bar. A section is { iconProps?: IconProps, renderContent: () => React.ReactNode, title: string | (() => React.ReactNode)}
    */
   sections: SectionProps[]
   /**
    * Visual style of the accordion
    */
-  style?: 'large' | 'small'
+  type?: 'regular' | 'custom'
 }
 
 const Accordion: React.FC<AccordionProps> = ({
   sections = [],
-  style = 'large',
+  type = 'regular',
 }: AccordionProps) => (
-  <div styleName={`accordion accordion-${style}`}>
+  <div styleName={`accordion accordion-${type}`}>
     {sections.map((sectionProps, index) => (
       // eslint-disable-next-line react/no-array-index-key
-      <Section key={('title' in sectionProps && sectionProps.title) || ('renderTitle' in sectionProps && sectionProps.renderTitle && btoa(sectionProps.renderTitle.toString())) || index} {...sectionProps} />
+      <Section key={index} {...sectionProps} />
     ))}
   </div>
 );
