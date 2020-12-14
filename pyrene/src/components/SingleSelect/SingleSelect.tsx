@@ -10,7 +10,7 @@ import { SingleSelectGroupedOption, SingleSelectOption } from './SingleSelectTyp
 
 const LoadingIndicator = () => <Loader />;
 
-export type SingleSelectProps = {
+export type SingleSelectProps<ValueType> = {
   /**
    * Focus an element when it mounts.
    */
@@ -26,7 +26,7 @@ export type SingleSelectProps = {
   /**
    * Sets a preselected option.
    */
-  defaultValue?: SingleSelectOption;
+  defaultValue?: SingleSelectOption<ValueType>;
   /**
    * Disables any interaction with the component.
    */
@@ -45,7 +45,7 @@ export type SingleSelectProps = {
    * yellow
    * light green
    */
-  groupedOptions?: SingleSelectGroupedOption[];
+  groupedOptions?: SingleSelectGroupedOption<ValueType>[];
   /**
    * Sets a label below the input field to display additional information for the user.
    */
@@ -77,7 +77,7 @@ export type SingleSelectProps = {
   /**
    * Event Handler. Param option: {value: , label:}
    */
-  onChange?: (option: SingleSelectOption, evt: {target: {type: string; name: string; value: any;}}) => void;
+  onChange?: (option: SingleSelectOption<ValueType>, evt: {target: {type: string; name: string; value: any;}}) => void;
   /**
    * Focus event handler, use this to dynamically fetch options.
    */
@@ -90,7 +90,7 @@ export type SingleSelectProps = {
   /**
    * Data input array. Type: [{ value: string (required), label: string (required), invalid: bool }]
    */
-  options?: SingleSelectOption[];
+  options?: SingleSelectOption<ValueType>[];
 
   placeholder?: string;
 
@@ -102,20 +102,20 @@ export type SingleSelectProps = {
 
   title?: string;
 
-  value?: SingleSelectOption
+  value?: SingleSelectOption<ValueType>
 };
 
-const sortOptions = (options: SingleSelectOption[]): SingleSelectOption[] => {
+const sortOptions = <ValueType extends unknown>(options: SingleSelectOption<ValueType>[]): SingleSelectOption<ValueType>[] => {
   const sortedOptions = [...options];
   sortedOptions.sort((a, b) => a.label.localeCompare(b.label));
   return sortedOptions;
 };
 
-const getOptionsObj = (options: SingleSelectOption[], groupedOptions: SingleSelectGroupedOption[], sorted: boolean): SingleSelectOption[] | SingleSelectGroupedOption[] => {
+const getOptionsObj = <ValueType extends unknown>(options: SingleSelectOption<ValueType>[], groupedOptions: SingleSelectGroupedOption<ValueType>[], sorted: boolean): SingleSelectOption<ValueType>[] | SingleSelectGroupedOption<ValueType>[] => {
   // grouped options have precedence above the options -> its not possible to pass both!
   if (groupedOptions.length) {
     if (sorted) {
-      return groupedOptions.map((o: SingleSelectGroupedOption) => (o.options
+      return groupedOptions.map((o: SingleSelectGroupedOption<ValueType>) => (o.options
         ? ({ ...o, options: sortOptions(o.options) })
         : o
       ));
@@ -129,11 +129,12 @@ const getOptionsObj = (options: SingleSelectOption[], groupedOptions: SingleSele
 
 };
 
+type DefaultValueType = null | undefined | string | number | boolean;
+
 /**
  * Selects are used when the user has to make a selection from a list that is too large to show.
  */
-
-const SingleSelect: React.FC<SingleSelectProps> = ({
+const SingleSelect = <ValueType extends unknown = DefaultValueType>({
   autoFocus = false,
   placeholder = '',
   name = '',
@@ -149,15 +150,15 @@ const SingleSelect: React.FC<SingleSelectProps> = ({
   groupedOptions = [],
   maxMenuHeight = 264,
   openMenuOnFocus = false,
-  defaultValue = undefined,
+  defaultValue,
   helperLabel = '',
   invalidLabel = '',
   title = '',
-  value = undefined,
+  value,
   onChange = () => null,
   onBlur = () => null,
   onFocus = () => null,
-}: SingleSelectProps) => {
+}: SingleSelectProps<ValueType>): React.ReactElement => {
 
   const optionsObj = getOptionsObj(options, groupedOptions, sorted);
 
@@ -169,7 +170,7 @@ const SingleSelect: React.FC<SingleSelectProps> = ({
         ? (
           <CreatableSelect
             className="singleSelect"
-            styles={selectStyle}
+            styles={selectStyle()}
             components={{
               LoadingIndicator,
               Option: CustomOption,
@@ -207,7 +208,7 @@ const SingleSelect: React.FC<SingleSelectProps> = ({
         : (
           <Select
             className="singleSelect"
-            styles={selectStyle}
+            styles={selectStyle()}
             components={{
               LoadingIndicator,
               Option: CustomOption,
