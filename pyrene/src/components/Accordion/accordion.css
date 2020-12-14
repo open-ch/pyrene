@@ -49,7 +49,7 @@
 
 }
 
-.accordion-large {
+.accordion-regular {
 
   & .section {
     border-left: 1px solid var(--neutral-050);
@@ -89,7 +89,7 @@
 
 }
 
-.accordion-small {
+.accordion-custom {
 
   & .section {
 
@@ -109,8 +109,13 @@
 
     }
 
-    &.expanded .header {
-      padding: 8px 8px 0 8px;
+    &.expanded {
+      padding-bottom: 8px;
+
+      & .header {
+        padding: 8px 8px 0 8px;
+      }
+
     }
 
   }

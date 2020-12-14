@@ -1,3 +1,4 @@
+/* eslint-disable react/display-name */
 import React from 'react';
 import { Example } from '../../examples/Example';
 import Placeholder from '../../examples/Placeholder';
@@ -32,44 +33,50 @@ const RowLayout: React.FC<Row> = ({ columns }: Row) => (
 
 const Accordion: Example<AccordionProps, {active: boolean}> = {};
 Accordion.props = {
-  style: 'large',
+  type: 'regular',
   sections: [{
-    title: 'Item 1',
-    renderContent: () => <Placeholder />, // eslint-disable-line react/display-name
+    renderContent: () => <Placeholder />,
+    title: 'Section one',
   }, {
-    title: 'Item 2',
-    renderContent: () => <Placeholder />, // eslint-disable-line react/display-name
+    renderContent: () => <Placeholder />,
+    title: 'Section two',
   }, {
-    title: 'Item 3',
-    renderContent: () => <Placeholder />, // eslint-disable-line react/display-name
+    renderContent: () => <Placeholder />,
+    title: 'Section three',
   }],
 };
 
 Accordion.examples = [
   {
     props: {
-      style: 'large',
-      sections: [{
-        iconProps: ({ name: 'resolved', color: 'green600' }),
-        renderContent: () => <Placeholder />, // eslint-disable-line react/display-name
-        title: 'Section one',
-      }, {
-        iconProps: ({ name: 'info', color: 'blue500' }),
-        renderContent: () => <Placeholder />, // eslint-disable-line react/display-name
-        title: 'Section two',
-      }, {
-        iconProps: ({ name: 'error', color: 'red500' }),
-        renderContent: () => <Placeholder />, // eslint-disable-line react/display-name
-        title: 'Section three',
-      }],
+      ...Accordion.props,
     },
-    description: 'Outer Accordion',
+    description: 'Simple regular accordion',
   },
   {
     props: {
-      style: 'small',
+      type: 'regular',
       sections: [{
-        renderContent: () => ( // eslint-disable-line react/display-name
+        iconProps: ({ name: 'resolved', color: 'green600' }),
+        renderContent: () => <Placeholder />,
+        title: 'Section one',
+      }, {
+        iconProps: ({ name: 'info', color: 'blue500' }),
+        renderContent: () => <Placeholder />,
+        title: 'Section two',
+      }, {
+        iconProps: ({ name: 'error', color: 'red500' }),
+        renderContent: () => <Placeholder />,
+        title: 'Section three',
+      }],
+    },
+    description: 'Regular accordion with icons',
+  },
+  {
+    props: {
+      type: 'custom',
+      sections: [{
+        renderContent: () => (
           <div style={{ padding: '0px 24px 0 8px' }}>
             <RowLayout columns={[{
               width: '50%',
@@ -84,9 +91,21 @@ Accordion.examples = [
             />
           </div>
         ),
-        renderTitle: () => (<div style={{ color: 'red' }}>subsection one</div>), // eslint-disable-line react/display-name
+        title: () => (
+          <RowLayout columns={[{
+            width: '50%',
+            renderContent: () => <div>section one</div>,
+          }, {
+            width: '25%',
+            renderContent: () => 'title two',
+          }, {
+            width: '25%',
+            renderContent: () => 'title three',
+          }]}
+          />
+        ),
       }, {
-        renderContent: () => ( // eslint-disable-line react/display-name
+        renderContent: () => (
           <div style={{ padding: '0px 24px 0 8px' }}>
             <RowLayout columns={[{
               width: '50%',
@@ -101,10 +120,10 @@ Accordion.examples = [
             />
           </div>
         ),
-        renderTitle: () => ( // eslint-disable-line react/display-name
+        title: () => (
           <RowLayout columns={[{
             width: '50%',
-            renderContent: () => <div style={{ color: 'green' }}>subsection two</div>, // eslint-disable-line react/display-name
+            renderContent: () => <div>section two</div>,
           }, {
             width: '25%',
             renderContent: () => 'title two',
@@ -116,7 +135,7 @@ Accordion.examples = [
         ),
       }],
     },
-    description: 'Inner (nested) Accordion',
+    description: 'Custom accordion with render prop title',
   },
 ];
 

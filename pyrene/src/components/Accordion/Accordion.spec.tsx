@@ -14,15 +14,14 @@ const props = {
       name: 'flag',
       color: 'red500',
     },
-    renderTitle: () => 'foo',
     renderContent: () => 'bar',
+    title: 'foo',
   }, {
     iconProps: {
       name: 'check',
     },
-    renderTitle: () => (<div className="never-rendered" />), // eslint-disable-line react/display-name
-    renderContent: () => (<div className="test-class" />), // eslint-disable-line react/display-name
-    title: 'preferred title',
+    renderContent: () => <div className="test-class" />, // eslint-disable-line react/display-name
+    title: () => <div className="custom-title">custom title</div>, // eslint-disable-line react/display-name
   }],
 };
 
@@ -36,14 +35,7 @@ describe('<Accordion />', () => {
   it('renders the titles', () => {
     const rendered = mount(<Accordion {...props} />);
     expect(rendered.find({ title: 'title' })).toHaveLength(1);
-    expect(rendered.find('.test-class')).toHaveLength(1);
-    expect(rendered.find('.test-class')).toHaveLength(1);
-    expect(rendered.find('.never-rendered')).toHaveLength(0);
-  });
-
-  it('doesn\'t crash when title is missing', () => {
-    const rendered = mount(<Accordion sections={[{ renderContent: () => 'content' }]} />);
-    expect(rendered.contains('content')).toBeTruthy();
+    expect(rendered.find('.custom-title')).toHaveLength(1);
   });
 
   it('renders the icons', () => {
@@ -52,14 +44,10 @@ describe('<Accordion />', () => {
     expect(rendered.find(Icon).filterWhere((node) => node.props().name === 'check')).toHaveLength(1);
   });
 
-  it('renders the contents', () => {
-    const rendered = mount(<Accordion {...props} />);
-    expect(rendered.find('.test-class')).toHaveLength(1);
-  });
-
   it('renders all sections initially collapsed', () => {
     const rendered = mount(<Accordion {...props} />);
     expect(rendered.find('.section.collapsed')).toHaveLength(3);
+    expect(rendered.find('.test-class')).toHaveLength(0);
   });
 
   it('expands a section on click', () => {
@@ -69,5 +57,11 @@ describe('<Accordion />', () => {
     expect(rendered.find('.section.collapsed')).toHaveLength(2);
     rendered.find('.header').first().simulate('click');
     expect(rendered.find('.section.collapsed')).toHaveLength(3);
+  });
+
+  it('renders the contents', () => {
+    const rendered = mount(<Accordion {...props} />);
+    rendered.find('.header').forEach((node) => node.simulate('click'));
+    expect(rendered.find('.test-class')).toHaveLength(1);
   });
 });
