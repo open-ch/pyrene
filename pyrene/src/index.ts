@@ -69,6 +69,8 @@ import { default as ToggleButtonGroup } from './components/ToggleButtonGroup/Tog
 import { default as Tooltip } from './components/Tooltip/Tooltip';
 import { default as TreeTable } from './components/TreeTable/TreeTable';
 
+import { SingleSelectOption as _SingleSelectOption, SingleSelectGroupedOption as _SingleSelectGroupedOption } from './components/SingleSelect/SingleSelectTypes';
+
 // Sort alphabetically to find stuff easily
 const Components = {
   Accordion,
@@ -167,6 +169,9 @@ export { Tooltip };
 export { TreeTable };
 
 export { createSimpleFilter, createDataFilter } from './components/Filter/Filter';
+
+export type SingleSelectGroupedOption<ValueType> = _SingleSelectGroupedOption<ValueType>;
+export type SingleSelectOption<ValueType> = _SingleSelectOption<ValueType>;
 
 export { default as colorConstants } from './styles/colorConstants';
 
