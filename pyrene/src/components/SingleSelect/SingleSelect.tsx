@@ -129,6 +129,15 @@ const getOptionsObj = <ValueType extends unknown>(options: SingleSelectOption<Va
 
 };
 
+const defaultFilterOption = <ValueType extends unknown>(option: {label: string, value?: string, data: SingleSelectOption<ValueType>}, rawInput: string): boolean => {
+  const lowerInput = rawInput.toLowerCase();
+  const values = [
+    option.value ? option.value.toString() : null,
+    option.label,
+    ...(option.data.tags || []),
+  ];
+  return values.some((tag) => tag && tag.toLowerCase().indexOf(lowerInput) >= 0);
+};
 type DefaultValueType = null | undefined | string | number | boolean;
 
 /**
@@ -199,6 +208,7 @@ const SingleSelect = <ValueType extends unknown = DefaultValueType>({
             maxMenuHeight={maxMenuHeight}
             noOptionsMessage={() => 'no matches found'}
             formatCreateLabel={(inputValue: string) => `Create new tag "${inputValue}"`}
+            filterOption={defaultFilterOption}
             isSearchable
             blurInputOnSelect
             escapeClearsValue
@@ -236,6 +246,7 @@ const SingleSelect = <ValueType extends unknown = DefaultValueType>({
             openMenuOnFocus={openMenuOnFocus}
             maxMenuHeight={maxMenuHeight}
             noOptionsMessage={() => 'no matches found'}
+            filterOption={defaultFilterOption}
             blurInputOnSelect
             escapeClearsValue
             captureMenuScroll
