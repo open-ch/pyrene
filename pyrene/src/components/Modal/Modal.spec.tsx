@@ -1,14 +1,14 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 
-import Modal from './Modal';
+import Modal, { ModalProps } from './Modal';
 import ButtonBar from '../ButtonBar/ButtonBar';
 
 const props = {
   title: 'titleLabel',
   size: 'large',
-  renderCallback: () => <div>Content</div>, // eslint-disable-line react/display-name
-};
+  renderCallback: () => <div>Content</div>,
+} as ModalProps;
 
 const escapeEvent = new KeyboardEvent('keydown', { key: 'Escape' });
 
@@ -30,7 +30,7 @@ describe('<Modal />', () => {
 
   it('closes modal when escape key is supported', () => {
     const mockOnClose = jest.fn();
-    shallow(<Modal {...props} onClose={mockOnClose} />);
+    mount(<Modal {...props} onClose={mockOnClose} />);
     document.dispatchEvent(escapeEvent);
     expect(mockOnClose).toHaveBeenCalledTimes(1);
   });
