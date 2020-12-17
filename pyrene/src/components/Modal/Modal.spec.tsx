@@ -7,7 +7,9 @@ import ButtonBar from '../ButtonBar/ButtonBar';
 const props = {
   title: 'titleLabel',
   size: 'large',
-  renderCallback: () => <div>Content</div>,
+  renderCallback: function displayPlaceHolder(): React.ReactElement {
+    return (<div>Content</div>);
+  },
 } as ModalProps;
 
 const escapeEvent = new KeyboardEvent('keydown', { key: 'Escape' });
