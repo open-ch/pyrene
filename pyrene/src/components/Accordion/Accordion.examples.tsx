@@ -22,12 +22,51 @@ const RowLayout: React.FC<Row> = ({ columns }: Row) => (
           overflow: 'hidden',
           whiteSpace: 'nowrap',
           textOverflow: 'ellipsis',
+          marginRight: '16px',
+          flexGrow: index === 0 ? 1 : 0,
         }}
         key={index} // eslint-disable-line react/no-array-index-key
       >
         {column.renderContent()}
       </div>
     ))}
+  </div>
+);
+
+const renderCustomAccordionTitle = (column1: string, column2: string, column3: string) => () => (
+  <div style={{ padding: '8px 0' }}>
+    <RowLayout columns={[{
+      width: '38%',
+      renderContent: () => column1,
+    }, {
+      width: '30%',
+      renderContent: () => column2,
+    }, {
+      width: '160px',
+      renderContent: () => column3,
+    }]}
+    />
+  </div>
+);
+
+const renderCustomAccordionContent = () => (
+  <div style={{ margin: '-8px 24px 8px 32px', color: '#6B7282' }}>
+    <RowLayout columns={[{
+      width: '38%',
+      renderContent: () => null,
+    }, {
+      width: '30%',
+      renderContent: () => (
+        <>
+          <div>Categories: Entertainment</div>
+          <div>Blocked: Streaming Media &amp; Downloads</div>
+        </>
+      ),
+    }, {
+      width: '160px',
+      renderContent: () => null,
+    }]}
+    />
   </div>
 );
 
@@ -76,69 +115,26 @@ Accordion.examples = [
     props: {
       type: 'custom',
       sections: [{
-        renderContent: () => (
-          <div style={{ padding: '0px 24px 0 8px' }}>
-            <RowLayout columns={[{
-              width: '50%',
-              renderContent: () => 'column one',
-            }, {
-              width: '25%',
-              renderContent: () => 'column two',
-            }, {
-              width: '25%',
-              renderContent: () => 'column three',
-            }]}
-            />
-          </div>
-        ),
-        title: () => (
-          <RowLayout columns={[{
-            width: '50%',
-            renderContent: () => <div>section one</div>,
-          }, {
-            width: '25%',
-            renderContent: () => 'title two',
-          }, {
-            width: '25%',
-            renderContent: () => 'title three',
-          }]}
-          />
-        ),
+        iconProps: ({ name: 'info', color: 'blue500' }),
+        renderContent: renderCustomAccordionContent,
+        title: renderCustomAccordionTitle('youtu.be:443', 'Excluded by destination domain', 'GET connect'),
       }, {
-        renderContent: () => (
-          <div style={{ padding: '0px 24px 0 8px' }}>
-            <RowLayout columns={[{
-              width: '50%',
-              renderContent: () => 'this could be any content and you can make it as long as you want.',
-            }, {
-              width: '25%',
-              renderContent: () => 'content two',
-            }, {
-              width: '25%',
-              renderContent: () => 'content three',
-            }]}
-            />
-          </div>
-        ),
-        title: () => (
-          <RowLayout columns={[{
-            width: '50%',
-            renderContent: () => <div>section two</div>,
-          }, {
-            width: '25%',
-            renderContent: () => 'title two',
-          }, {
-            width: '25%',
-            renderContent: () => 'title three',
-          }]}
-          />
-        ),
+        iconProps: ({ name: 'info', color: 'blue500' }),
+        renderContent: renderCustomAccordionContent,
+        title: renderCustomAccordionTitle('https://youtu.be/', 'Excluded by destination domain', 'GET something'),
+      }, {
+        iconProps: ({ name: 'error', color: 'red500' }),
+        renderContent: renderCustomAccordionContent,
+        title: renderCustomAccordionTitle('www.youtu.com:443', 'Member of required user group', 'GET anything'),
+      }, {
+        iconProps: ({ name: 'resolved', color: 'green600' }),
+        renderContent: renderCustomAccordionContent,
+        title: renderCustomAccordionTitle('https://control.open.ch/docs', 'Member of required user group', 'GET request'),
       }],
     },
     description: 'Custom accordion with render prop title',
   },
 ];
-
 
 Accordion.category = 'Interaction';
 
