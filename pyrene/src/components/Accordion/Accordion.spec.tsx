@@ -64,4 +64,22 @@ describe('<Accordion />', () => {
     rendered.find('.header').forEach((node) => node.simulate('click'));
     expect(rendered.find('.test-class')).toHaveLength(1);
   });
+
+  it('shows initially expanded sections on render', () => {
+    const rendered = mount(
+      <Accordion
+        sections={[{
+          expanded: true,
+          renderContent: () => 'content',
+          title: 'title',
+        }, {
+          expanded: false,
+          renderContent: () => 'content',
+          title: 'title',
+        }]}
+      />,
+    );
+    expect(rendered.find('.section.expanded')).toHaveLength(1);
+    expect(rendered.find('.section.collapsed')).toHaveLength(1);
+  });
 });

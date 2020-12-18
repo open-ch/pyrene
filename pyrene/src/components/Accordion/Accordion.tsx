@@ -5,7 +5,7 @@ import './accordion.css';
 
 export interface AccordionProps {
   /**
-   * The list of sections for the action bar. A section is { iconProps?: IconProps, renderContent: () => React.ReactNode, title: string | (() => React.ReactNode)}
+   * The list of sections for the accordion. A section is { expanded?: boolean, iconProps?: IconProps, renderContent: () => React.ReactNode, title: string | (() => React.ReactNode)}
    */
   sections: SectionProps[]
   /**
