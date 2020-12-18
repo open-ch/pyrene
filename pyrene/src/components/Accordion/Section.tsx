@@ -5,6 +5,10 @@ import './accordion.css';
 
 export interface SectionProps {
   /**
+   * True to initially display this section as expanded (defaults to false)
+   */
+  expanded?: boolean
+  /**
    * Icon on the left of the section header
    */
   iconProps?: IconProps
@@ -19,11 +23,12 @@ export interface SectionProps {
 }
 
 const Section: React.FC<SectionProps> = ({
+  expanded: initiallyExpanded = false,
   renderContent,
   iconProps,
   title,
 }: SectionProps) => {
-  const [expanded, setExpanded] = useState(false);
+  const [expanded, setExpanded] = useState(initiallyExpanded);
 
   return (
     <div styleName={classNames('section', { expanded, collapsed: !expanded })}>
