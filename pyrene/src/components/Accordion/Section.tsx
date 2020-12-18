@@ -36,7 +36,7 @@ const Section: React.FC<SectionProps> = ({
             : title()}
         </div>
 
-        <Icon type="inline" name={expanded ? 'chevronUp' : 'chevronDown'} color="neutral500" />
+        <span styleName="chevron" className={`pyreneIcon-${expanded ? 'chevronUp' : 'chevronDown'}`} />
       </div>
 
       {expanded && <div styleName="content">{renderContent()}</div>}
