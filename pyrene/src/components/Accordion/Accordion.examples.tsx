@@ -2,7 +2,7 @@
 import React from 'react';
 import { Example } from '../../examples/Example';
 import Placeholder from '../../examples/Placeholder';
-import { AccordionProps } from './Accordion';
+import AccordionComponent, { AccordionProps } from './Accordion';
 
 type Column = {
   width: string,
@@ -80,7 +80,27 @@ Accordion.props = {
     renderContent: () => <Placeholder />,
     title: 'Section two',
   }, {
-    renderContent: () => <Placeholder />,
+    renderContent: () => (
+      <AccordionComponent type="custom"
+        sections={[{
+          iconProps: ({ name: 'info', color: 'blue500' }),
+          renderContent: renderCustomAccordionContent,
+          title: renderCustomAccordionTitle('youtu.be:443', 'Excluded by destination domain', 'GET connect'),
+        }, {
+          iconProps: ({ name: 'info', color: 'blue500' }),
+          renderContent: renderCustomAccordionContent,
+          title: renderCustomAccordionTitle('https://youtu.be/', 'Excluded by destination domain', 'GET something'),
+        }, {
+          iconProps: ({ name: 'error', color: 'red500' }),
+          renderContent: renderCustomAccordionContent,
+          title: renderCustomAccordionTitle('www.youtu.com:443', 'Member of required user group', 'GET anything'),
+        }, {
+          iconProps: ({ name: 'resolved', color: 'green600' }),
+          renderContent: renderCustomAccordionContent,
+          title: renderCustomAccordionTitle('https://control.open.ch/docs', 'Member of required user group', 'GET request'),
+        }]}
+      />
+    ),
     title: 'Section three',
   }],
 };
