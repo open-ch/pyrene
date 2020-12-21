@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import Popover from '../Popover/Popover';
 
 import './arrowPopover.css';
@@ -83,6 +83,12 @@ export const arrowPosition = (position: string, targetRect: ClientRect, popoverR
   return { top, left, lengthSide };
 };
 
+const handleClick = (e:MouseEvent, node:React.RefObject<HTMLDivElement>, closePopover:(() => void) | undefined) => {
+  if (closePopover && node && node.current && !node.current.contains(e.target as Node)) {
+    closePopover();
+  }
+};
+
 /**
  *  Popover with Arrow
  */
@@ -98,18 +104,12 @@ const ArrowPopover: React.FC<ArrowPopoverProps> = ({
 
   const node = useRef<HTMLDivElement>(null);
 
-  const handleClick = useCallback((e:MouseEvent) => {
-    if (closePopover && node && node.current && !node.current.contains(e.target as Node)) {
-      closePopover();
-    }
-  }, [closePopover, node]);
-
   useEffect(() => {
-    document.addEventListener('mousedown', handleClick);
+    document.addEventListener('mousedown', (ev) => { handleClick(ev, node, closePopover); });
     return () => {
-      document.removeEventListener('mousedown', handleClick);
+      document.removeEventListener('mousedown', (ev) => { handleClick(ev, node, closePopover); });
     };
-  }, [handleClick]);
+  }, [closePopover, node]);
 
   return (
     <Popover
