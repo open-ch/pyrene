@@ -102,7 +102,7 @@ const ArrowPopover: React.FC<ArrowPopoverProps> = ({
     if (closePopover && node && node.current && !node.current.contains(e.target as Node)) {
       closePopover();
     }
-  }, [closePopover]);
+  }, [closePopover, node]);
 
   useEffect(() => {
     document.addEventListener('mousedown', handleClick);
