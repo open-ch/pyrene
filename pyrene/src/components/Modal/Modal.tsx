@@ -98,13 +98,13 @@ const Modal: React.FC<ModalProps> = ({
   leftButtonBarElements = [],
   loading = false,
   onClose,
-  onNextArrowClick = () => null,
-  onPreviousArrowClick = () => null,
+  onNextArrowClick,
+  onPreviousArrowClick,
   processing = false,
   renderCallback,
   rightButtonBarElements = [],
-  size = 'small',
-  title = '',
+  size,
+  title,
 }: ModalProps) => {
 
 
@@ -170,7 +170,7 @@ const Modal: React.FC<ModalProps> = ({
       </div>
       <div styleName={classNames('contentContainer', { contentScrolling: contentScrolling })}>
         <div styleName={classNames('content', { contentPadding: contentPadding }, { contentScrolling: contentScrolling }, { overlay: processing })}>
-          { renderCallback && renderCallback() }
+          { renderCallback() }
         </div>
       </div>
     </>
