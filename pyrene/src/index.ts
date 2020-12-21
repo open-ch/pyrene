@@ -6,6 +6,7 @@ import './styles/colors.css';
 import './styles/fonts.css';
 
 // Sort alphabetically to find stuff easily
+import { default as Accordion } from './components/Accordion/Accordion';
 import { default as ArrowPopover } from './components/ArrowPopover/ArrowPopover';
 
 import { default as Badge } from './components/Badge/Badge';
@@ -68,8 +69,11 @@ import { default as ToggleButtonGroup } from './components/ToggleButtonGroup/Tog
 import { default as Tooltip } from './components/Tooltip/Tooltip';
 import { default as TreeTable } from './components/TreeTable/TreeTable';
 
+import { SingleSelectOption as _SingleSelectOption, SingleSelectGroupedOption as _SingleSelectGroupedOption } from './components/SingleSelect/SingleSelectTypes';
+
 // Sort alphabetically to find stuff easily
 const Components = {
+  Accordion,
   ActionBar,
   ArrowPopover,
   Badge,
@@ -118,6 +122,7 @@ const Components = {
 };
 
 // Sort alphabetically to find stuff easily
+export { Accordion };
 export { ActionBar };
 export { ArrowPopover };
 export { Badge };
@@ -164,6 +169,9 @@ export { Tooltip };
 export { TreeTable };
 
 export { createSimpleFilter, createDataFilter } from './components/Filter/Filter';
+
+export type SingleSelectGroupedOption<ValueType> = _SingleSelectGroupedOption<ValueType>;
+export type SingleSelectOption<ValueType> = _SingleSelectOption<ValueType>;
 
 export { default as colorConstants } from './styles/colorConstants';
 

@@ -1,16 +1,14 @@
+import { IconProps } from '../Icon/Icon';
 
-export interface SingleSelectOption {
+export type SingleSelectOption<ValueType> = {
   label: string;
-  value?: string | number | boolean;
-  iconProps?: { // FixMe: use Icon Props interface one it's converted to typescript
-    color?: string;
-    name?: string;
-    svg?: string;
-    type?: 'standalone' | 'inline'
-  }
-}
-export interface SingleSelectGroupedOption {
+  iconProps?: IconProps
+  tags?: string[];
+  value?: ValueType;
+};
+
+export type SingleSelectGroupedOption<ValueType> = {
   label: string;
-  options?: SingleSelectOption[];
-  value?: string | number | boolean;
-}
+  options?: SingleSelectOption<ValueType>[];
+  value?: ValueType;
+};
