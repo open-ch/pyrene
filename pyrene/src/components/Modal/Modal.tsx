@@ -2,9 +2,18 @@ import React, { useCallback, useEffect } from 'react';
 import classNames from 'classnames';
 import './modal.css';
 import ButtonBar from '../ButtonBar/ButtonBar';
-import Button, { ButtonProps } from '../Button/Button';
+import Button, { Type as ButtonType } from '../Button/Button';
 import Loader from '../Loader/Loader';
 import ActionBar from '../ActionBar/ActionBar';
+
+interface ButtonBarElementProps{
+  action: () => void,
+  disabled?: boolean,
+  icon?: string,
+  label: string,
+  loading?: boolean,
+  type: ButtonType,
+}
 
 export interface ModalProps {
   /**
@@ -39,7 +48,7 @@ export interface ModalProps {
    * Sets the buttons that are displayed on the bottom left of the modal.
    * Type: [{ icon: string, type: string (required), label: string (required), onClick: func (required)}]
    */
-  leftButtonBarElements?: ButtonProps[],
+  leftButtonBarElements?: ButtonBarElementProps[],
   /**
    * Disables the component and displays a loader inside of it.
    */
@@ -65,10 +74,18 @@ export interface ModalProps {
    */
   renderCallback: () => React.ReactElement,
   /**
+   * Displays the Footer section of the Modal.
+   */
+  renderFooter?: boolean,
+  /**
+   * Displays the header section of the Modal.
+   */
+  renderHeader?: boolean,
+  /**
    * Sets the buttons that are displayed on the bottom right of the modal.
    * Type: [{ icon: string, type: string (required), label: string (required), onClick: func (required)}]
    */
-  rightButtonBarElements?: ButtonProps[],
+  rightButtonBarElements?: ButtonBarElementProps[],
   /**
    * Sets the size.
    */
@@ -102,11 +119,12 @@ const Modal: React.FC<ModalProps> = ({
   onPreviousArrowClick,
   processing = false,
   renderCallback,
+  renderFooter = true,
+  renderHeader = true,
   rightButtonBarElements = [],
   size,
   title,
 }: ModalProps) => {
-
 
   const escFunction = useCallback((event:KeyboardEvent) => {
     if (onClose && event.key === 'Escape' && closeOnEscape) {
@@ -124,6 +142,18 @@ const Modal: React.FC<ModalProps> = ({
     };
   }, [escFunction]);
 
+  const createButtonArray = (buttonInfo: ButtonBarElementProps[]) => (
+    buttonInfo.map((buttonProps) => (
+      <Button
+        loading={buttonProps.loading}
+        icon={buttonProps.icon}
+        type={buttonProps.type}
+        label={buttonProps.label}
+        disabled={buttonProps.disabled}
+        onClick={buttonProps.action}
+      />
+    ))
+  );
 
   const renderNavigationArrows = () => (
     <ActionBar
@@ -145,7 +175,20 @@ const Modal: React.FC<ModalProps> = ({
     />
   );
 
-  const renderContent = () => (
+  const renderFooterSection = () => (
+    <>
+      {(Footer && Footer()) || (
+        <div styleName="buttonBarContainer">
+          <ButtonBar
+            rightButtonSectionElements={createButtonArray(rightButtonBarElements)}
+            leftButtonSectionElements={createButtonArray(leftButtonBarElements)}
+          />
+        </div>
+      )}
+    </>
+  );
+
+  const renderHeaderSection = () => (
     <>
       <div styleName="titleBar">
         <span styleName="title">
@@ -168,6 +211,12 @@ const Modal: React.FC<ModalProps> = ({
           </div>
         </div>
       </div>
+    </>
+  );
+
+  const renderContent = () => (
+    <>
+      {renderHeader && renderHeaderSection()}
       <div styleName={classNames('contentContainer', { contentScrolling: contentScrolling })}>
         <div styleName={classNames('content', { contentPadding: contentPadding }, { contentScrolling: contentScrolling }, { overlay: processing })}>
           { renderCallback() }
@@ -182,32 +231,12 @@ const Modal: React.FC<ModalProps> = ({
     </div>
   );
 
-  const createButtonArray = (buttonInfo: ButtonProps[]) => (
-    buttonInfo.map((buttonProps) => (
-      <Button
-        loading={buttonProps.loading}
-        icon={buttonProps.icon}
-        type={buttonProps.type}
-        label={buttonProps.label}
-        disabled={buttonProps.disabled}
-        onClick={buttonProps.onClick}
-      />
-    ))
-  );
-
   return (
     <>
       <div styleName="modalOverlay">
         <div styleName={classNames('modalContainer', size)} role="dialog">
           {loading ? renderLoader() : renderContent()}
-          {(Footer && Footer()) || (
-            <div styleName="buttonBarContainer">
-              <ButtonBar
-                rightButtonSectionElements={createButtonArray(rightButtonBarElements)}
-                leftButtonSectionElements={createButtonArray(leftButtonBarElements)}
-              />
-            </div>
-          )}
+          {renderFooter && renderFooterSection()}
         </div>
       </div>
     </>
