@@ -2,16 +2,13 @@ import React from 'react';
 import Section, { SectionProps } from './Section';
 import './accordion.css';
 
+const isCustomAccordion = (sections: SectionProps[]) => sections.some((section) => typeof section.title !== 'string');
 
 export interface AccordionProps {
   /**
    * The list of sections for the accordion. A section is { expanded?: boolean, iconProps?: IconProps, renderContent: () => React.ReactNode, title: string | (() => React.ReactNode)}
    */
   sections: SectionProps[]
-  /**
-   * Visual style of the accordion
-   */
-  type?: 'regular' | 'custom'
 }
 
 /**
@@ -24,9 +21,8 @@ export interface AccordionProps {
  */
 const Accordion: React.FC<AccordionProps> = ({
   sections = [],
-  type = 'regular',
 }: AccordionProps) => (
-  <div styleName={`accordion accordion-${type}`}>
+  <div styleName={`accordion ${isCustomAccordion(sections) ? 'accordion-custom' : 'accordion-regular'}`}>
     {sections.map((sectionProps, index) => (
       // eslint-disable-next-line react/no-array-index-key
       <Section key={index} {...sectionProps} />
