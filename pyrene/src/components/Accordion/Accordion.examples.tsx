@@ -72,7 +72,6 @@ const renderCustomAccordionContent = () => (
 
 const Accordion: Example<AccordionProps, {active: boolean}> = {};
 Accordion.props = {
-  type: 'regular',
   sections: [{
     renderContent: () => <Placeholder />,
     title: 'Section one',
@@ -81,7 +80,7 @@ Accordion.props = {
     title: 'Section two',
   }, {
     renderContent: () => (
-      <AccordionComponent type="custom"
+      <AccordionComponent
         sections={[{
           iconProps: ({ name: 'info', color: 'blue500' }),
           renderContent: renderCustomAccordionContent,
@@ -114,7 +113,6 @@ Accordion.examples = [
   },
   {
     props: {
-      type: 'regular',
       sections: [{
         iconProps: ({ name: 'resolved', color: 'green600' }),
         renderContent: () => <Placeholder />,
@@ -133,7 +131,6 @@ Accordion.examples = [
   },
   {
     props: {
-      type: 'custom',
       sections: [{
         iconProps: ({ name: 'info', color: 'blue500' }),
         renderContent: renderCustomAccordionContent,
