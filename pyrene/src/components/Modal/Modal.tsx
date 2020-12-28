@@ -6,7 +6,7 @@ import Button, { Type as ButtonType } from '../Button/Button';
 import Loader from '../Loader/Loader';
 import ActionBar from '../ActionBar/ActionBar';
 
-interface ButtonBarElementProps{
+interface ButtonBarProps{
   action: () => void,
   disabled?: boolean,
   icon?: string,
@@ -48,7 +48,7 @@ export interface ModalProps {
    * Sets the buttons that are displayed on the bottom left of the modal.
    * Type: [{ icon: string, type: string (required), label: string (required), onClick: func (required)}]
    */
-  leftButtonBarElements?: ButtonBarElementProps[],
+  leftButtonBarElements?: ButtonBarProps[],
   /**
    * Disables the component and displays a loader inside of it.
    */
@@ -85,7 +85,7 @@ export interface ModalProps {
    * Sets the buttons that are displayed on the bottom right of the modal.
    * Type: [{ icon: string, type: string (required), label: string (required), onClick: func (required)}]
    */
-  rightButtonBarElements?: ButtonBarElementProps[],
+  rightButtonBarElements?: ButtonBarProps[],
   /**
    * Sets the size.
    */
@@ -93,7 +93,7 @@ export interface ModalProps {
   /**
    * Sets the title.
    */
-  title: string,
+  title?: string,
 }
 
 
@@ -123,7 +123,7 @@ const Modal: React.FC<ModalProps> = ({
   renderHeader = true,
   rightButtonBarElements = [],
   size,
-  title,
+  title = '',
 }: ModalProps) => {
 
   const escFunction = useCallback((event:KeyboardEvent) => {
@@ -142,7 +142,7 @@ const Modal: React.FC<ModalProps> = ({
     };
   }, [escFunction]);
 
-  const createButtonArray = (buttonInfo: ButtonBarElementProps[]) => (
+  const createButtonArray = (buttonInfo: ButtonBarProps[]) => (
     buttonInfo.map((buttonProps) => (
       <Button
         loading={buttonProps.loading}

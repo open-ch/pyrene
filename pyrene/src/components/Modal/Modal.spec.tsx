@@ -4,8 +4,9 @@ import { mount, shallow } from 'enzyme';
 import Modal, { ModalProps } from './Modal';
 import ButtonBar from '../ButtonBar/ButtonBar';
 
+const title = 'titleLabel';
 const props = {
-  title: 'titleLabel',
+  title: title,
   size: 'large',
   renderCallback: function displayPlaceHolder(): React.ReactElement {
     return (<div>Content</div>);
@@ -23,7 +24,7 @@ describe('<Modal />', () => {
     const rendered = shallow(<Modal {...props} />);
 
     expect(rendered.find('.titleBar')).toHaveLength(1);
-    expect(rendered.contains(props.title)).toBe(true);
+    expect(rendered.contains(title)).toBe(true);
 
     expect(rendered.find('.contentContainer')).toHaveLength(1);
     expect(rendered.contains(props.renderCallback())).toBe(true);
