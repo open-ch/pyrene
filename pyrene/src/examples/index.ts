@@ -3,6 +3,7 @@
 
 // Sort alphabetically to find stuff easily
 import { default as Accordion } from '../components/Accordion/Accordion.examples';
+import { default as ArrowPopover } from '../components/ArrowPopover/ArrowPopover.examples';
 import { default as Badge } from '../components/Badge/Badge.examples';
 import { default as Banner } from '../components/Banner/Banner.examples';
 import { default as Button } from '../components/Button/Button.examples';
@@ -52,6 +53,7 @@ import { Example } from './Example';
 const examples: {[key: string]: Example<any, any>} = {
   Accordion,
   ActionBar,
+  ArrowPopover,
   Badge,
   Banner,
   Button,
