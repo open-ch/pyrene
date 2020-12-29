@@ -17,17 +17,18 @@ const getIconStyle = (isSelected: boolean | undefined, isFocused: boolean | unde
   return 'container';
 };
 
-type OwnCustomOptionsProps = {
-  data: SingleSelectOption;
+type OwnCustomOptionsProps<ValueType> = {
+  data: SingleSelectOption<ValueType>;
   isFocused: boolean;
   isSelected: boolean;
   label: string;
 };
 
+type IsMulti = false;
 // Make sure we consider all own props before the default props from react-select's options
-type CustomOptionProps = OwnCustomOptionsProps & Omit<OptionProps<SingleSelectOption>, keyof OwnCustomOptionsProps>;
+type CustomOptionProps<ValueType> = OwnCustomOptionsProps<ValueType> & Omit<OptionProps<SingleSelectOption<ValueType>, IsMulti>, keyof OwnCustomOptionsProps<ValueType>>;
 
-const CustomOption: React.FC<CustomOptionProps> = (props: CustomOptionProps) => (
+const CustomOption = <ValueType extends unknown>(props: CustomOptionProps<ValueType>): React.ReactElement => (
   <div title={props.label} styleName={getIconStyle(props.isSelected, props.isFocused)}>
     {props.data.iconProps ? <div styleName="icon"><Icon {...props.data.iconProps} /></div> : null}
     <components.Option {...props} />
