@@ -52,6 +52,6 @@ Thanks,
 
 [@nicholas-os](https://github.com/nicholas-os), for contributing to JavaScript until we finally have type safety,
 
-[@neonnoon](https://github.com/neonnoon), ✌️,
+[@neonnoon](https://github.com/neonnoon), for never stop pushing forward and bringing it all together,
 
 and many more.
