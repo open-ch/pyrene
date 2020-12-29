@@ -1,4 +1,4 @@
-name: kitchensink
+name: Kitchensink
 
 on:
   push:
@@ -12,7 +12,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Build
-        run: (cd kitchensink && npm run build)
+        run: (cd kitchensink && BASE_PATH=pyrene/ npm run build)
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
