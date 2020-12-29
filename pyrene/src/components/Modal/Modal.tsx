@@ -216,7 +216,6 @@ const Modal: React.FC<ModalProps> = ({
 
   const renderContent = () => (
     <>
-      {renderHeader && renderHeaderSection()}
       <div styleName={classNames('contentContainer', { contentScrolling: contentScrolling })}>
         <div styleName={classNames('content', { contentPadding: contentPadding }, { contentScrolling: contentScrolling }, { overlay: processing })}>
           { renderCallback() }
@@ -235,6 +234,7 @@ const Modal: React.FC<ModalProps> = ({
     <>
       <div styleName="modalOverlay">
         <div styleName={classNames('modalContainer', size)} role="dialog">
+          {renderHeader && renderHeaderSection()}
           {loading ? renderLoader() : renderContent()}
           {renderFooter && renderFooterSection()}
         </div>
