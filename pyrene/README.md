@@ -1,43 +1,57 @@
 # pyrene - Open Systems Component Library
 
-## Development
+![pyrene](../kitchensink/src/images/pyrene.svg)
 
-For development on pyrene, we recommend to use it together with [kitchensink](../kitchensink), follow the steps there.
+### Usage
 
-## Typescript + Kitchensink integration 
-Pyrene is tightly integrated with kitchensink. PropTypes and default values are used to generate the documentation. 
-
-Kitchensink uses propTypes and typescript types to generate the documentation. 
-
-### Functional typescript components
-When using functional components in typescript, make sure to explicitely set the type of the props: 
+#### Install Dependency
+```sh
+npm install --save @osag/pyrene
 ```
-interface MyComponentProps {
-   name: string
-}
-const MyComponent: React.FC<MyComponentProps>({name = 'John'}: MyComponentProps)
+#### Import Styles
+
+Pyrene comes with its own styles. If you're using something like [style-loader](https://webpack.js.org/loaders/style-loader/), make sure to import them:
+
+```js
+import '@osag/pyrene/dist/pyrene.css';
 ```
 
-See the LabelAndValue component for a minimal example.  
+#### Components
 
-## Migrating Components to Typescript
-Migrating a component to Typescript can be summarized as: 
-   - Rename the `.jsx` file to `.tsx`
-   - Create the `MyComponentProp` interface and copy all properties and comments from PropTypes.
-   - Add the props as a component generic type. For example: 
-      ```MyComponent = React.FC<MyComponentProps> = ({...}) => {}```
-   - See section about "Functional typescript components" above.
-   - Once the component is green, you can safely delete the PropTypes (but not before since the typer will complain if 
-   the Proptypes and the Props are not matching ) 
+A [Button](https://open-ch.github.io/pyrene/Interaction/Button), for example, is used as this:
 
-## Release
-
-
-
-## Icon Font
-
-Updating the icon font:
+```js
+import { Button } from '@osag/pyrene';
 ```
-# yarn updateIconfont [css file] [woff file]
-npm run updateIconfont -- ~/Downloads/pyrene-iconfont-19/style.css  ~/Downloads/pyrene-iconfont-19/fonts/pyrene-iconfont-19.woff
-```
+
+## Contributing
+
+See, [CONTRIBUTING.md](CONTRIBUTING.md) for technical details.
+
+Thanks,
+
+[@ivobaldi](https://github.com/ivobaldi), for those amazing designs and all the carefully placed pixels,
+
+[@OSAGfar](https://github.com/OSAGfar), for your great conceptual and actual contributions from the very beginning,
+
+[@miejs](https://github.com/miejs), for the very first commit, and all the great conceptual contributions even before,
+
+[@lucletruc](https://github.com/lucletruc), for getting it all started during your internship,
+
+[@lucatr](https://github.com/lucatr), for your great contributions, supervision and reviews,
+
+[@sladomic](https://github.com/sladomic), for the amazing graph components,
+
+[@sosostris](https://github.com/sosostris), for bringing those graphs to life,
+
+[@justmejulian](https://github.com/justmejulian), for always having another CSS trick up your sleeve,
+
+[@Leyart](https://github.com/Leyart), for your patience with filters and tables,
+
+[@ekeuus](https://github.com/ekeuus), for making the tree table virtually grow like an actual tree,
+
+[@nicholas-os](https://github.com/nicholas-os), for contributing to JavaScript until we finally have type safety,
+
+[@neonnoon](https://github.com/neonnoon), ✌️,
+
+and many more.
