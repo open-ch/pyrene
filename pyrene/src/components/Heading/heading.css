@@ -38,6 +38,10 @@
   font-weight: 500;
   color: var(--neutral-500);
 
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+
   &:first-child {
     margin-top: 0;
   }

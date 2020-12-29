@@ -21,7 +21,7 @@ const Heading: React.FC<HeadingProps> = ({
   children,
   level = 1,
 }: HeadingProps) => (
-  <div styleName={classNames(`heading${level}`, 'heading')}>
+  <div styleName={classNames(`heading${level}`, 'heading')} title={children}>
     {children}
   </div>
 );
