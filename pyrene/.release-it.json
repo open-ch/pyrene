@@ -18,6 +18,7 @@
     }
   },
   "hooks": {
+    "after:bump": "npm run build && npm run test",
     "after:npm:release": "(cd ../kitchensink && npm run build && git add ../kitchensink/package{,-lock}.json)"
   }
 }
