@@ -2,7 +2,22 @@
   "github": {
     "release": false
   },
+  "git": {
+    "tagName": "pyrene-${version}",
+    "commitMessage": "pyrene release ${version}"
+  },
   "npm": {
     "ping": false
+  },
+  "plugins": {
+    "@release-it/bumper": {
+      "out": {
+        "file": "../kitchensink/package.json",
+        "path": "dependencies.@osag/pyrene"
+      }
+    }
+  },
+  "hooks": {
+    "after:npm:release": "(cd ../kitchensink && npm run build && git add ../kitchensink/package{,-lock}.json)"
   }
 }
