@@ -3,7 +3,7 @@ name: Kitchensink
 on:
   push:
     tags:
-      - pyrene-*
+      - 'pyrene-*'
 
 jobs:
   deploy:
