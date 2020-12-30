@@ -2,7 +2,23 @@
   "github": {
     "release": false
   },
+  "git": {
+    "tagName": "pyrene-graphs-${version}",
+    "commitMessage": "pyrene graphs release ${version}"
+  },
   "npm": {
     "ping": false
+  },
+  "plugins": {
+    "@release-it/bumper": {
+      "out": {
+        "file": "../kitchensink/package.json",
+        "path": "dependencies.@osag/pyrene-graphs"
+      }
+    }
+  },
+  "hooks": {
+    "after:bump": "npm run build && npm run test",
+    "after:npm:release": "(cd ../kitchensink && npm run build && git add ../kitchensink/package{,-lock}.json)"
   }
 }

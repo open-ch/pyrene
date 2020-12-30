@@ -2,6 +2,10 @@
   "github": {
     "release": false
   },
+  "git": {
+    "tagName": "tuktuktwo-${version}",
+    "commitMessage": "tuktuktwo release ${version}"
+  },
   "npm": {
     "ping": false
   }

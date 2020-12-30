@@ -26,7 +26,6 @@
     "coverage": "jest --coverage",
     "testWatch": "jest --watch",
     "test:bamboo": "NODE_ENV=test JEST_FILE=test.json && jest --config=./jest.bamboo.config.js",
-    "prerelease": "npm run build && npm run test",
     "release": "release-it",
     "lint": "eslint --max-warnings 0 --ext .js,.jsx,.ts,.tsx src",
     "updateIconfont": "bash -c 'cat $0 | fgrep -A3 .icon- | sed -E '\"'\"' s/\\.icon-(.*):before /:global(.pyreneIcon-\\1:before)/ '\"'\"' >  src/styles/iconfont.css; cp $1 src/fonts/pyrene-iconfont.woff;'"
@@ -41,6 +40,7 @@
     "@babel/preset-typescript": "^7.12.7",
     "@babel/register": "^7.11.5",
     "@osag/eslint-config": "^1.4.0",
+    "@release-it/bumper": "^2.0.0",
     "@types/classnames": "^2.2.10",
     "@types/enzyme": "^3.10.7",
     "@types/jest": "^26.0.14",
