@@ -25,7 +25,7 @@
     "test": "jest",
     "testWatch": "jest --watch",
     "test:bamboo": "NODE_ENV=test JEST_FILE=test.json && jest --config=./jest.bamboo.config.js",
-    "prerelease": "npm run build && npm run test",
+    "prerelease": "npm install",
     "release": "release-it",
     "prelint": "npm install",
     "lint": "eslint --ext .js,.jsx src/"
