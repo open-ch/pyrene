@@ -2,8 +2,6 @@ import React from 'react';
 import { mount, shallow } from 'enzyme';
 
 import moment from 'moment-timezone';
-// eslint-disable-next-line no-unused-vars
-import classNames from 'classnames';
 
 import TimeRangeSelector from './TimeRangeSelector';
 
