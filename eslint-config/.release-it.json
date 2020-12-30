@@ -1,5 +1,12 @@
 {
   "github": {
     "release": false
+  },
+  "git": {
+    "tagName": "eslint-config-${version}",
+    "commitMessage": "eslint config release ${version}"
+  },
+  "npm": {
+    "ping": false
   }
 }
