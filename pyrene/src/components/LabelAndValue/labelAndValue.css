@@ -10,6 +10,7 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+
   &.type-neutral {
     color: var(--neutral-500);
   }
@@ -32,7 +33,7 @@
 }
 
 .label-and-value .label {
-  font-family: FiraSans;
+  font-family: FiraSans, sans-serif;
   font-size: 12px;
   font-stretch: condensed;
   height: 14px;
@@ -64,7 +65,7 @@
 
 .label-and-value-large .value {
   font-size: 24px;
-  line-height:  32px;
+  line-height: 32px;
 
   font-weight: 500;
 
