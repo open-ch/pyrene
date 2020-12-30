@@ -27,7 +27,7 @@
 }
 
 @font-face {
-  font-family: FiraSans;
+  font-family: FiraSans, sans-serif;
   font-stretch: condensed;
   src: url('../fonts/FiraCondensed-Regular.woff2') format('woff2'), url('../fonts/FiraCondensed-Regular.woff') format('woff');
 }
