@@ -1,7 +1,5 @@
 import React from 'react';
 import moment from 'moment-timezone';
-// eslint-disable-next-line no-unused-vars
-import classNames from 'classnames';
 
 const fontStyle = {
   fontSize: '16px',
