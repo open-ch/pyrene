@@ -237,7 +237,6 @@ Note: This file does not do anything it's just the original css. All the impacti
 .ReactTable .rt-expander {
   display: inline-block;
   position: relative;
-  margin: 0;
   color: transparent;
   margin: 0 10px;
 }
