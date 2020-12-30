@@ -71,7 +71,7 @@
     "postcss-nesting": "^7.0.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "release-it": "^13.5.1",
+    "release-it": "^14.2.2",
     "terser-webpack-plugin": "^2.3.5",
     "webpack": "^4.42.1",
     "webpack-bundle-analyzer": "^3.6.1",
