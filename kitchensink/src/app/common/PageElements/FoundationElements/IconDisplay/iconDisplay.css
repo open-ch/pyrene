@@ -19,7 +19,7 @@
   }
 
   &[type=text] {
-    font-family: AvenirNext;
+    font-family: FiraGO, sans-serif;
     font-size: 13px;
     font-weight: 500;
     font-style: normal;

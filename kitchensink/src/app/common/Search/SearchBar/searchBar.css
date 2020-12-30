@@ -34,7 +34,7 @@
     }
 
     &[type=text] {
-      font-family: FiraGO;
+      font-family: FiraGO, sans-serif;
       font-size: 12px;
       font-weight: 500;
       font-style: normal;

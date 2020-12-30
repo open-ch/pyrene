@@ -15,9 +15,6 @@
 
   box-sizing: border-box;
   border: none;
-  display: flex;
-
-  cursor: pointer;
 
   &:focus {
     outline: 0;
