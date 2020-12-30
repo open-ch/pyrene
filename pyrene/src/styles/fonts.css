@@ -3,25 +3,25 @@
 /**** FONTS ****/
 /* FiraGO */
 @font-face {
-  font-family: FiraGO, sans-serif;
+  font-family: FiraGO;
   font-weight: 400;
   src: url('../fonts/FiraGO-Regular.woff2') format('woff2'), url('../fonts/FiraGO-Regular.woff') format('woff');
 }
 
 @font-face {
-  font-family: FiraGO, sans-serif;
+  font-family: FiraGO;
   font-weight: 500;
   src: url('../fonts/FiraGO-Medium.woff2') format('woff2'), url('../fonts/FiraGO-Medium.woff') format('woff');
 }
 
 @font-face {
-  font-family: FiraGO, sans-serif;
+  font-family: FiraGO;
   font-weight: 600;
   src: url('../fonts/FiraGO-SemiBold.woff2') format('woff2'), url('../fonts/FiraGO-SemiBold.woff') format('woff');
 }
 
 @font-face {
-  font-family: FiraGO, sans-serif;
+  font-family: FiraGO;
   font-weight: 700;
  src: url('../fonts/FiraGO-Bold.woff2') format('woff2'), url('../fonts/FiraGO-Bold.woff') format('woff');
 }
