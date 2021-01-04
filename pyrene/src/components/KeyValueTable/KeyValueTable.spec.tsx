@@ -12,6 +12,11 @@ const props: KeyValueTableProps = {
   title: 'Table header',
 };
 
+const fullProps: KeyValueTableProps = {
+  ...props,
+  keyWidth: 100,
+};
+
 describe('<KeyValueTable />', () => {
   it('renders without crashing', () => {
     shallow(<KeyValueTable {...props} />);
@@ -25,9 +30,10 @@ describe('<KeyValueTable />', () => {
   });
 
   it('can define key width', () => {
-    const rendered = shallow(<KeyValueTable {...props} keyWidth={100} />);
-    expect(rendered.find('.keyValueCellKey').prop('style').width).toEqual(100);
-    expect(rendered.find('.keyValueCellKey').prop('style').minWidth).toEqual(100);
-    expect(rendered.find('.keyValueCellKey').prop('style').maxWidth).toEqual(100);
+    const rendered = shallow(<KeyValueTable {...fullProps} />);
+    const style = rendered.find('.keyValueCellKey').prop('style');
+    expect(style).toHaveProperty('width', 100);
+    expect(style).toHaveProperty('minWidth', 100);
+    expect(style).toHaveProperty('maxWidth', 100);
   });
 });
