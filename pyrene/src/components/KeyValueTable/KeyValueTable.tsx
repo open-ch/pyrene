@@ -1,4 +1,4 @@
-import React, { CSSProperties, FC, ReactNode } from 'react';
+import React, { CSSProperties, ReactNode } from 'react';
 import './keyValueTable.css';
 
 type Row = {
@@ -19,7 +19,7 @@ export interface KeyValueTableProps {
   title?: string;
 }
 
-const KeyValueTable: FC<KeyValueTableProps> = ({
+const KeyValueTable: React.FC<KeyValueTableProps> = ({
   title = '',
   rows = [{ key: 'key', value: 'value' }],
   keyWidth = 256,
