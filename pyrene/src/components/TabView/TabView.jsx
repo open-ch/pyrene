@@ -165,10 +165,6 @@ TabView.defaultProps = {
 
 TabView.propTypes = {
   /**
-   * tab header element between tab content and tabs
-   */
-  tabHeaderElement: PropTypes.element,
-  /**
    * Sets the number of tabs that are displayed before the more tab.
    */
   directAccessTabs: PropTypes.number,
@@ -188,6 +184,10 @@ TabView.propTypes = {
    * Called when the selected tab changes.
    */
   tabChanged: PropTypes.func,
+  /**
+   * tab header element between tab content and tabs
+   */
+  tabHeaderElement: PropTypes.element,
   /**
    * Data input array for the tabs. Type: [{ name: string (required), renderCallback: func (required), disabled: bool }]
    */
