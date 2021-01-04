@@ -23,7 +23,7 @@ const KeyValueTable: FC<KeyValueTableProps> = ({
   title = '',
   rows = [{ key: 'key', value: 'value' }],
   keyWidth = 256,
-}) => (
+}: KeyValueTableProps) => (
   <div styleName="keyValueTable">
     {title && (
       <div styleName="keyValueTableTitle">
