@@ -1,10 +1,10 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import KeyValueTable from './KeyValueTable.jsx';
+import KeyValueTable, { KeyValueTableProps } from './KeyValueTable.jsx';
 
 
-const props = {
+const props: KeyValueTableProps = {
   rows: [{
     key: 'keyValue',
     value: 'dataValue',

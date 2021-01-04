@@ -1,4 +1,7 @@
-const examples = {
+import { KeyValueTableProps } from './KeyValueTable';
+import { Example } from '../../examples/Example';
+
+const examples: Example<KeyValueTableProps> = {
   props: {
     title: 'KeyValue table',
     rows: [
