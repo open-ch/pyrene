@@ -14,15 +14,15 @@ npm run expose
 Link it in kitchensink and fire up the development server (in your kitchensink folder):
 ```bash
 npm install
-npm link pyrene
+npm link @osag/pyrene
 npm run watch
 ```
 
 If you want to use pyrene-graphs instead you can also expose with tuktuktwo:
 ```bash
-cd ~/git/tuktuktwo
+cd ~/git/pyrene-new/tuktuktwo
 npm run expose
-cd ~/git/pyrene-graphs
+cd ~/git/pyrene-new/pyrene-graphs
 npm run expose-tuktuktwo
 ```
 
@@ -33,7 +33,7 @@ npm install
 
 ## Update Pyrene
 
-- `npm install -E pyrene@1.8.1`
+- `npm install -E @osag/pyrene@1.8.1`
 
 ## Release
 
