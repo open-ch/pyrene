@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import KeyValueTable, { KeyValueTableProps } from './KeyValueTable.tsx';
+import KeyValueTable, { KeyValueTableProps } from './KeyValueTable';
 
 
 const props: KeyValueTableProps = {
