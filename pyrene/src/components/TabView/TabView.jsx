@@ -185,7 +185,7 @@ TabView.propTypes = {
    */
   tabChanged: PropTypes.func,
   /**
-   * tab header element between tab content and tabs
+   * Tab header element between tab content and tabs
    */
   tabHeaderElement: PropTypes.element,
   /**
