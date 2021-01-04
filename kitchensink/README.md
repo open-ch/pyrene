@@ -20,10 +20,8 @@ npm run watch
 
 If you want to use pyrene-graphs instead you can also expose with tuktuktwo:
 ```bash
-cd ~/git/pyrene-new/tuktuktwo
-npm run expose
-cd ~/git/pyrene-new/pyrene-graphs
-npm run expose-tuktuktwo
+cd tuktutktwo && npm run expose
+cd pyrene-graphs && npm run expose-tuktuktwo
 ```
 
 If you don't want to use your local copy of pyrene any longer, just do a fresh package install:
