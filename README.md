@@ -24,7 +24,7 @@ Check it out on [open-ch.github.io/pyrene](https://open-ch.github.io/pyrene).
 
 Thanks,
 
-[@ivobaldi](https://github.com/ivobaldi), for those amazing designs and all the carefully placed pixels,
+[@ibaldi](https://github.com/ibaldi), for those amazing designs and all the carefully placed pixels,
 
 [@OSAGfar](https://github.com/OSAGfar), for your great conceptual and actual contributions from the very beginning,
 
