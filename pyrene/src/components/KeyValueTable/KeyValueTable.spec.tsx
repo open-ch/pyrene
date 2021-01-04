@@ -12,11 +12,6 @@ const props: KeyValueTableProps = {
   title: 'Table header',
 };
 
-const fullProps: KeyValueTableProps = {
-  ...props,
-  keyWidth: 100,
-};
-
 describe('<KeyValueTable />', () => {
   it('renders without crashing', () => {
     shallow(<KeyValueTable {...props} />);
@@ -30,7 +25,7 @@ describe('<KeyValueTable />', () => {
   });
 
   it('can define key width', () => {
-    const rendered = shallow(<KeyValueTable {...fullProps} />);
+    const rendered = shallow(<KeyValueTable {...props} keyWidth={100} />);
     const style = rendered.find('.keyValueCellKey').prop('style');
     expect(style).toHaveProperty('width', 100);
     expect(style).toHaveProperty('minWidth', 100);
