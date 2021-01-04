@@ -38,7 +38,7 @@ const KeyValueTable: FC<KeyValueTableProps> = ({
             style={row.rowStyle}
             key={row.key}
           >
-            <td styleName="keyValueCellKey" style={{width: keyWidth, minWidth: keyWidth, maxWidth: keyWidth}}>
+            <td styleName="keyValueCellKey" style={{ width: keyWidth, minWidth: keyWidth, maxWidth: keyWidth }}>
               {row.key}
             </td>
             <td styleName="keyValueCellValue">
