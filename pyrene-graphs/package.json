@@ -20,7 +20,7 @@
     "build-debug": "NODE_ENV=debug webpack",
     "watch": "webpack -w",
     "expose": "npm link && npm run watch",
-    "expose-tuktuktwo": "npm link && npm link tuktuktwo && npm run watch",
+    "expose-tuktuktwo": "npm link && npm link @osag/tuktuktwo && npm run watch",
     "pretest": "npm install",
     "test": "jest",
     "testWatch": "jest --watch",
