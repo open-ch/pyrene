@@ -13,6 +13,7 @@ import TreeTableUtils from './TreeTableUtils';
 import Loader from '../Loader/Loader';
 
 /* eslint-disable no-underscore-dangle */
+
 /* seems to be a design decision to use _ here */
 
 /**
@@ -233,7 +234,12 @@ class TreeTable extends React.Component {
       const { _rowId: rowKey } = rowData;
 
       return (
-        <div style={style} key={rowKey}>
+        <div
+          style={style}
+          key={rowKey}
+          onMouseOver={this.props.onRowHover ? () => this.props.onRowHover(rowData, true) : null}
+          onMouseOut={this.props.onRowHover ? () => this.props.onRowHover(rowData, false) : null}
+        >
           <TreeTableRow
             style={style}
             key={rowKey}
@@ -319,6 +325,7 @@ TreeTable.defaultProps = {
   virtualized: false,
   onFilterChange: () => null,
   setUniqueRowKey: () => null,
+  onRowHover: null,
 };
 
 TreeTable.propTypes = {
@@ -381,6 +388,11 @@ TreeTable.propTypes = {
    * Called when the user double clicks on a row.
    */
   onRowDoubleClick: PropTypes.func,
+  /**
+   * Sets the hover callback for row mouseover.
+   * (rowData: object, isEntering: boolean) => null
+   */
+  onRowHover: PropTypes.func,
   /**
    * Render content on the right side of the action bar of the table
    */

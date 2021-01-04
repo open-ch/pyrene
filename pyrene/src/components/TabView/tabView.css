@@ -1,187 +1,190 @@
 @import '../../styles/colors.css';
 
 .tabView {
-  composes: commonFontSettings from '../../styles/common.css';
-  width: 100%;
+    composes: commonFontSettings from '../../styles/common.css';
+    width: 100%;
 
-  &.disabled {
-    pointer-events: none;
-    opacity: .5;
-  }
+    &.disabled {
+        pointer-events: none;
+        opacity: .5;
+    }
 }
 
 .tabContent {
-  padding-top: 40px;
+    padding-top: 40px;
+
+    &.withHeader {
+        padding-top: 0;
+    }
 }
 
 .tabBar {
-  display: flex;
-  justify-content: flex-start;
-  box-shadow: inset 0 -1px 0 0 var(--border);
+    display: flex;
+    justify-content: flex-start;
+    box-shadow: inset 0 -1px 0 0 var(--border);
 
-  & .tab {
-    box-sizing: border-box;
-    margin-right: 24px;
+    & .tab {
+        box-sizing: border-box;
+        margin-right: 24px;
 
-    line-height: 16px;
-    padding: 16px 0 8px 0;
+        line-height: 16px;
+        padding: 16px 0 8px 0;
 
-    color: var(--text);
-    font-size: 12px;
-    letter-spacing: 0;
+        color: var(--text);
+        font-size: 12px;
+        letter-spacing: 0;
 
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-
-    transition: box-shadow .1s ease-in;
-    cursor: pointer;
-
-    &:hover {
-      box-shadow: inset 0 -2px 0 0 var(--neutral-500);
-    }
-
-    &.selected {
-      font-weight: 500;
-      box-shadow: inset 0 -2px 0 0 var(--neutral-500);
-    }
-
-    &.disabled {
-      pointer-events: none;
-      color: var(--neutral-200);
-    }
-
-  }
-
-  & .moreTab {
-    color: var(--text);
-    font-size: 12px;
-    line-height: 16px;
-    letter-spacing: 0;
-
-    margin-top: 16px;
-    padding-bottom: 8px;
-
-    transition: box-shadow .1s ease-in;
-    cursor: pointer;
-    position: relative;
-
-    &.displayMenu, &.selected {
-      color: var(--text);
-      font-weight: 500;
-    }
-
-    &:hover {
-      box-shadow: inset 0 -2px 0 0 var(--neutral-400);
-    }
-
-    &.selected {
-      box-shadow: inset 0 -2px 0 0 var(--neutral-400);
-    }
-
-    &.hidden {
-      display: none;
-    }
-
-    & .moreArrow {
-      display: inline-block;
-
-      font-size: 16px;
-      height: 16px;
-      width: 16px;
-      vertical-align: sub;
-      margin-left: 2px;
-
-      transition: all 0.4s ease-in-out;
-    }
-
-    & .titleBox {
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-    }
-
-    & .titleBox .title {
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-
-    &.displayMenu .moreArrow {
-      transform: rotate(180deg) translateY(-1px);
-      transition: all 0.4s ease-in-out;
-    }
-
-    &.displayMenu .moreMenu {
-      opacity: 1;
-      visibility: visible;
-      transition: visibility 0.25s step-start, opacity 0.25s ease-in-out;
-    }
-
-    & .moreMenu {
-      position: absolute;
-      z-index: 1;
-      opacity: 0;
-      visibility: hidden;
-      top: -4px;  /* for padding */
-      right: -8px; /* for margin-right */
-      width: 200px;
-      box-sizing: border-box;
-      background-color: var(--background-light);
-      border-radius: 2px;
-      padding: 4px 0;
-      box-shadow:
-        0 4px 8px -2px rgba(0, 21, 44, 0.2),
-        0 0 1px 0 rgba(0, 21, 44, 0.3);
-
-
-      & .titleBox {
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
-        margin-right: 8px;
-      }
-
-      & .titleBox .title {
-        padding-left: 8px;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
-      }
 
-      & .option {
-        box-sizing: border-box;
-        display: flex;
-        align-items: center;
+        transition: box-shadow .1s ease-in;
+        cursor: pointer;
 
-        padding: 8px;
-
-        font-style: normal;
-        font-stretch: normal;
-        line-height: 16px;
-        letter-spacing: normal;
-        color: var(--neutral-500);
-        text-transform: capitalize;
-
-        &.disabled {
-          opacity: .5;
-          cursor: default;
-
-          &:hover {
-            background-color: var(--neutral-020);
-          }
+        &:hover {
+            box-shadow: inset 0 -2px 0 0 var(--neutral-500);
         }
 
-        & .optionLabel {
-          overflow: hidden;
-          text-overflow: ellipsis;
-          white-space: nowrap;
+        &.selected {
+            font-weight: 500;
+            box-shadow: inset 0 -2px 0 0 var(--neutral-500);
+        }
+
+        &.disabled {
+            pointer-events: none;
+            color: var(--neutral-200);
+        }
+
+    }
+
+    & .moreTab {
+        color: var(--text);
+        font-size: 12px;
+        line-height: 16px;
+        letter-spacing: 0;
+
+        margin-top: 16px;
+        padding-bottom: 8px;
+
+        transition: box-shadow .1s ease-in;
+        cursor: pointer;
+        position: relative;
+
+        &.displayMenu, &.selected {
+            color: var(--text);
+            font-weight: 500;
         }
 
         &:hover {
-          background-color: var(--secondary);
+            box-shadow: inset 0 -2px 0 0 var(--neutral-400);
         }
-      }
+
+        &.selected {
+            box-shadow: inset 0 -2px 0 0 var(--neutral-400);
+        }
+
+        &.hidden {
+            display: none;
+        }
+
+        & .moreArrow {
+            display: inline-block;
+
+            font-size: 16px;
+            height: 16px;
+            width: 16px;
+            vertical-align: sub;
+            margin-left: 2px;
+
+            transition: all 0.4s ease-in-out;
+        }
+
+        & .titleBox {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+        }
+
+        & .titleBox .title {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        &.displayMenu .moreArrow {
+            transform: rotate(180deg) translateY(-1px);
+            transition: all 0.4s ease-in-out;
+        }
+
+        &.displayMenu .moreMenu {
+            opacity: 1;
+            visibility: visible;
+            transition: visibility 0.25s step-start, opacity 0.25s ease-in-out;
+        }
+
+        & .moreMenu {
+            position: absolute;
+            z-index: 1;
+            opacity: 0;
+            visibility: hidden;
+            top: -4px; /* for padding */
+            right: -8px; /* for margin-right */
+            width: 200px;
+            box-sizing: border-box;
+            background-color: var(--background-light);
+            border-radius: 2px;
+            padding: 4px 0;
+            box-shadow: 0 4px 8px -2px rgba(0, 21, 44, 0.2),
+            0 0 1px 0 rgba(0, 21, 44, 0.3);
+
+
+            & .titleBox {
+                display: flex;
+                align-items: center;
+                justify-content: flex-end;
+                margin-right: 8px;
+            }
+
+            & .titleBox .title {
+                padding-left: 8px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+
+            & .option {
+                box-sizing: border-box;
+                display: flex;
+                align-items: center;
+
+                padding: 8px;
+
+                font-style: normal;
+                font-stretch: normal;
+                line-height: 16px;
+                letter-spacing: normal;
+                color: var(--neutral-500);
+                text-transform: capitalize;
+
+                &.disabled {
+                    opacity: .5;
+                    cursor: default;
+
+                    &:hover {
+                        background-color: var(--neutral-020);
+                    }
+                }
+
+                & .optionLabel {
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                }
+
+                &:hover {
+                    background-color: var(--secondary);
+                }
+            }
+        }
     }
-  }
 }
