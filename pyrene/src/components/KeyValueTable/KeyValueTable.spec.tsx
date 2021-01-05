@@ -1,10 +1,10 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import KeyValueTable from './KeyValueTable.jsx';
+import KeyValueTable, { KeyValueTableProps } from './KeyValueTable';
 
 
-const props = {
+const props: KeyValueTableProps = {
   rows: [{
     key: 'keyValue',
     value: 'dataValue',
@@ -26,8 +26,9 @@ describe('<KeyValueTable />', () => {
 
   it('can define key width', () => {
     const rendered = shallow(<KeyValueTable {...props} keyWidth={100} />);
-    expect(rendered.find('.keyValueCellKey').prop('style').width).toEqual(100);
-    expect(rendered.find('.keyValueCellKey').prop('style').minWidth).toEqual(100);
-    expect(rendered.find('.keyValueCellKey').prop('style').maxWidth).toEqual(100);
+    const style = rendered.find('.keyValueCellKey').prop('style');
+    expect(style).toHaveProperty('width', 100);
+    expect(style).toHaveProperty('minWidth', 100);
+    expect(style).toHaveProperty('maxWidth', 100);
   });
 });
