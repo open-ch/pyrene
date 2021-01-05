@@ -1,6 +1,6 @@
 {
   "name": "@osag/pyrene",
-  "version": "2.11.0",
+  "version": "2.11.1",
   "description": "Open Systems Component Library",
   "main": "dist/pyrene.js",
   "style": "dist/pyrene.css",
