@@ -12,6 +12,10 @@
 
 .tabContent {
   padding-top: 40px;
+
+  &.withHeader {
+    padding-top: 0;
+  }
 }
 
 .tabBar {
@@ -123,7 +127,7 @@
       z-index: 1;
       opacity: 0;
       visibility: hidden;
-      top: -4px;  /* for padding */
+      top: -4px; /* for padding */
       right: -8px; /* for margin-right */
       width: 200px;
       box-sizing: border-box;
