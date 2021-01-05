@@ -65,7 +65,7 @@
     "moment-timezone": "^0.5.28",
     "optimize-css-assets-webpack-plugin": "^5.0.3",
     "prop-types": "^15.7.2",
-    "@osag/pyrene": "2.10.19",
+    "@osag/pyrene": "2.11.0",
     "@osag/pyrene-graphs": "1.1.9",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
