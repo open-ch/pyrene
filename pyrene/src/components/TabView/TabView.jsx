@@ -142,8 +142,8 @@ export default class TabView extends React.Component {
             </div>
           )}
         </div>
-
-        <div styleName="tabContent" role="tabpanel">
+        {this.props.tabHeaderElement}
+        <div styleName={classNames('tabContent', { withHeader: !!this.props.tabHeaderElement })} role="tabpanel">
           {this.props.tabs[this.state.selectedTabIndex].renderCallback()}
         </div>
 
@@ -153,7 +153,6 @@ export default class TabView extends React.Component {
 
 }
 
-
 TabView.displayName = 'TabView';
 
 TabView.defaultProps = {
@@ -161,6 +160,7 @@ TabView.defaultProps = {
   tabChanged: () => null,
   directAccessTabs: null,
   maxTabWidth: 127,
+  tabHeaderElement: null,
 };
 
 TabView.propTypes = {
@@ -184,6 +184,10 @@ TabView.propTypes = {
    * Called when the selected tab changes.
    */
   tabChanged: PropTypes.func,
+  /**
+   * Tab header element between tab content and tabs
+   */
+  tabHeaderElement: PropTypes.element,
   /**
    * Data input array for the tabs. Type: [{ name: string (required), renderCallback: func (required), disabled: bool }]
    */
