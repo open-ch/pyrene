@@ -1,3 +1,4 @@
+/* eslint-disable react/display-name, react/prop-types */
 import React from 'react';
 
 /**
