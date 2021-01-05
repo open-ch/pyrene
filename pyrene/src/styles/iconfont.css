@@ -1,3 +1,9 @@
+:global(.pyreneIcon-path:before){
+  content: "\7b";
+}
+:global(.pyreneIcon-thumpsUp:before){
+  content: "\7c";
+}
 :global(.pyreneIcon-locationRetail:before){
   content: "\5d";
 }
