@@ -1,7 +1,7 @@
 :global(.pyreneIcon-path:before){
   content: "\7b";
 }
-:global(.pyreneIcon-thumpsUp:before){
+:global(.pyreneIcon-thumbsUp:before){
   content: "\7c";
 }
 :global(.pyreneIcon-locationRetail:before){
