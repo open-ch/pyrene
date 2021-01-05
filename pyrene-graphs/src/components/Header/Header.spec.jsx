@@ -2,7 +2,6 @@ import React from 'react';
 
 import Header from './Header.jsx';
 
-
 const props = {
   title: 'Title',
   description: 'Description',

@@ -108,7 +108,7 @@ export const tableColumns = {
   label: {
     accessor: (d) => d.application,
     linkAccessor: (d) => d.link,
-    onClick: (d) => alert('Link click: ' + d.application),
+    onClick: (d) => alert(`Link click: ${d.application}`), // eslint-disable-line no-alert
   },
   primaryValue: {
     accessor: (d) => d.volume,

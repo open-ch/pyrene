@@ -83,7 +83,8 @@ describe('<TimeSeriesLineChart />', () => {
   it('renders SI tick and unit correctly', () => {
     const rendered = mount(<TimeSeriesLineChart {...SIProps} />);
 
-    expect(rendered.find('.vx-axis-left').find('.vx-axis-tick').children().at(1).text()).toBe('2');
+    expect(rendered.find('.vx-axis-left').find('.vx-axis-tick').children().at(1)
+      .text()).toBe('2');
     expect(rendered.find('.unitContainer').text()).toBe('kB');
   });
 
