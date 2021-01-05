@@ -5,7 +5,6 @@ import CodeBox from '../../common/PageElements/HowTo/CodeBox/CodeBox';
 import Paragraph from '../../common/PageElements/Paragraph/Paragraph';
 import DescriptionBox from '../../common/PageElements/DescriptionBox/DescriptionBox';
 
-
 const ComponentType = `/**
  * Description goes here.
  */

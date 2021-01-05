@@ -18,7 +18,6 @@ const NotFoundPage = (props) => (
   </div>
 );
 
-
 NotFoundPage.displayName = 'NotFoundPage';
 
 NotFoundPage.propTypes = {

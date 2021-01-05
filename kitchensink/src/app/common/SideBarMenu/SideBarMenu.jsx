@@ -60,7 +60,6 @@ const SideBarMenu = () => (
   </div>
 );
 
-
 SideBarMenu.displayName = 'SideBarMenu';
 
 export default SideBarMenu;

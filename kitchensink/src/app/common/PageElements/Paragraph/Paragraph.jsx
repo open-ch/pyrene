@@ -13,7 +13,6 @@ const Paragraph = (props) => (
   </div>
 );
 
-
 Paragraph.displayName = 'Paragraph';
 
 Paragraph.propTypes = {

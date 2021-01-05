@@ -18,7 +18,6 @@ const CodeBox = (props) => (
   </div>
 );
 
-
 CodeBox.displayName = 'CodeBox';
 
 CodeBox.defaultProps = {};

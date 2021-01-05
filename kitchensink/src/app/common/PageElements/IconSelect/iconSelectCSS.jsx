@@ -35,7 +35,6 @@
  *
  */
 
-
 /* Print style to console:
    object: (base, state) => {
     console.log('object');

@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 import { Button } from '@osag/pyrene';
 
-
 export default class ParentButton extends React.Component {
 
   constructor(props) {
@@ -23,7 +22,6 @@ export default class ParentButton extends React.Component {
   handleClick = () => {
     this.toggleComponent();
   };
-
 
   render() {
     return (
