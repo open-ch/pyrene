@@ -11,20 +11,7 @@ const buttonHowTo = [{
       <Button icon="errorOutline" label="Delete" type="danger" />
       <Button icon="filter" label="Filter" type="secondary" />
       <Button icon="search" label="Search" type="ghost" />
-      <Button icon="warning" label="Admin" type="admin" />
     </>
-  ),
-}, {
-  title: 'Admin Button',
-  description: 'Admin buttons have a different visual style and are used, when a certain action or view is accessible for MC Engineers only.',
-  component: () => (
-    <div style={{ width: 320 }}>
-      <Container
-        title="network interfaces"
-        adminAction={{ label: 'Admin', action: () => {} }}
-        renderCallback={() => (<div style={{ height: 120 }} />)}
-      />
-    </div>
   ),
 }];
 
