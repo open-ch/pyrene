@@ -20,16 +20,4 @@ describe('<Container />', () => {
     expect(rendered.contains('ContentDiv')).toBe(true);
   });
 
-  it('renders the admin button and triggers the action onclick', () => {
-    const adminAction = {
-      icon: 'info',
-      label: 'admin',
-      action: jest.fn(),
-    };
-
-    const rendered = mount(<Container {...props} adminAction={adminAction} />);
-    rendered.find('button').simulate('click');
-
-    expect(adminAction.action).toHaveBeenCalledTimes(1);
-  });
 });
