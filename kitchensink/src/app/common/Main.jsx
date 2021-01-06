@@ -40,7 +40,7 @@ export default class Main extends React.PureComponent {
           <Logo pyreneVersion={packageJson.dependencies['@osag/pyrene']} />
           <SearchBar value={searchBarValue} />
           <SideBarMenu />
-          <div styleName="copyRight">&copy; Open Systems 2019</div>
+          <div styleName="footer">Open Systems 2021</div>
         </div>
         <div styleName="pageContainer">
           <Switch>
