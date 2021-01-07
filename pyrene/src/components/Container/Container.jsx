@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Button from '../Button/Button';
 
 import './container.css';
 
@@ -44,18 +43,7 @@ export default class Container extends React.Component {
             {' '}
             {this.props.title}
           </span>
-          <div styleName="adminAndArrowContainer">
-            {this.props.adminAction && (
-              <Button
-                type="admin"
-                label={this.props.adminAction.label}
-                icon={this.props.adminAction.icon}
-                onClick={(event) => {
-                  this.props.adminAction.action(event);
-                  event.stopPropagation();
-                }}
-              />
-            )}
+          <div styleName="arrowContainer">
             {this.props.collapsible && <span className="pyreneIcon-chevronDown" styleName="collapsArrow" />}
           </div>
         </div>
@@ -74,21 +62,12 @@ export default class Container extends React.Component {
 Container.displayName = 'Container';
 
 Container.defaultProps = {
-  adminAction: null,
   defaultExpanded: false,
   onChange: () => null,
   collapsible: false,
 };
 
 Container.propTypes = {
-  /**
-   * Creates an admin type button in the header. Type: { icon: string, label: string (required), action: func (required) }
-   */
-  adminAction: PropTypes.shape({
-    action: PropTypes.func.isRequired,
-    icon: PropTypes.string,
-    label: PropTypes.string.isRequired,
-  }),
   /**
    * Whether the container is collapsible when the user clicks on the header.
    */
