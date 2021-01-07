@@ -117,3 +117,12 @@
   letter-spacing: 0.2px;
   line-height: 18px;
 }
+
+.type-success {
+  background-color: var(--green-600);
+  color: var(--neutral-000);
+}
+
+.type-success:hover {
+  background-color: var(--ok-dark);
+}

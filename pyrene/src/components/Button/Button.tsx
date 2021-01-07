@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import './button.css';
 import Loader from '../Loader/Loader';
 
-export type Type = 'primary' | 'secondary' | 'danger' | 'ghost' | 'action';
+export type Type = 'primary' | 'secondary' | 'danger' | 'ghost' | 'action' | 'success';
 
 export interface ButtonProps {
   /**
@@ -64,7 +64,7 @@ const Button: React.FC<ButtonProps> = ({
       {icon && <span styleName="icon" className={`pyreneIcon-${icon}`} />}
       <span styleName="label">{label}</span>
     </button>
-    {loading && ((type === 'primary' || type === 'danger')
+    {loading && ((type === 'primary' || type === 'danger' || type === 'success')
       ? <span styleName="loader"><Loader size="small" styling="light" /></span>
       : <span styleName="loader"><Loader size="small" styling="dark" /></span>)}
   </div>
