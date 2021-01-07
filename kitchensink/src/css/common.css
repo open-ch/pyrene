@@ -63,7 +63,7 @@ body {
   box-shadow: inset -1px 0 0 var(--neutral-sideBar);
 }
 
-.copyRight {
+.footer {
   position: absolute;
   bottom: 40px;
   left: 50%;
@@ -78,6 +78,16 @@ body {
   font-stretch: normal;
   line-height: normal;
   color: #7f8a95;
+
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  border: 0;
+  height: 32px;
+
+  padding-right: 12px;
 }
 
 .pageContainer {

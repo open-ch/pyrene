@@ -20,6 +20,8 @@ import NotFoundPage from '../static/NotFoundPage';
 import FormUsage from '../static/cookBooks/FormUsage';
 import FilterUsage from '../static/cookBooks/FilterUsage';
 import PyreneTutorial from '../static/cookBooks/PyreneTutorial';
+import GitHubLogo from './../../images/githubLogo.png';
+import OpenSystemsLogo from './../../images/opensystemsLogo.png';
 
 export default class Main extends React.PureComponent {
 
@@ -40,7 +42,14 @@ export default class Main extends React.PureComponent {
           <Logo pyreneVersion={packageJson.dependencies['@osag/pyrene']} />
           <SearchBar value={searchBarValue} />
           <SideBarMenu />
-          <div styleName="copyRight">&copy; Open Systems 2019</div>
+          <div styleName="footer">
+            <a href="https://github.com/open-ch/pyrene">
+              <img alt="GitHub" styleName="logo" src={GitHubLogo} />
+            </a>
+            <a href="https://www.open-systems.com">
+              <img alt="Open Systems" styleName="logo" src={OpenSystemsLogo} />
+            </a>
+          </div>
         </div>
         <div styleName="pageContainer">
           <Switch>
