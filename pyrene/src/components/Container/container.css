@@ -53,7 +53,7 @@
     }
   }
 
-  & .adminAndArrowContainer {
+  & .arrowContainer {
     display: flex;
     align-items: center;
     margin-left: 48px;

@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import './button.css';
 import Loader from '../Loader/Loader';
 
-export type Type = 'primary' | 'secondary' | 'danger' | 'ghost' | 'action' | 'admin';
+export type Type = 'primary' | 'secondary' | 'danger' | 'ghost' | 'action';
 
 export interface ButtonProps {
   /**

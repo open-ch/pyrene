@@ -1,4 +1,3 @@
-import React from 'react';
 import { Example, StateProvider } from '../../examples/Example';
 import { ButtonProps } from './Button';
 
@@ -30,15 +29,6 @@ Button.examples = [{
 }, {
   props: { label: 'Delete', type: 'action', icon: 'errorOutline' },
   description: 'Used for table actions. They are paired with icon and label.',
-}, {
-  props: { label: 'Admin', type: 'admin', icon: 'trash' },
-  description: 'Used when an action is accessible for MC Engineers only.',
-}, {
-  props: { label: 'disabled', type: 'admin', disabled: true },
-  description: 'Capitalization is not done automatically!',
-}, {
-  props: { label: (<span style={{ fontStyle: 'italic' }}>fancy</span>), type: 'admin', disabled: false },
-  description: 'React Element as label.',
 }];
 
 Button.category = 'Interaction';
