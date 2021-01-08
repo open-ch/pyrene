@@ -99,7 +99,7 @@ export default class BarChartTable extends React.Component {
                     <div styleName="popOverBody" style={{ height: `${(displayedRows + popOverAdditionalRows) * rowHeight + rowHeight}px` }}>
                       <div style={{
                         width: popOverTableWidth,
-                        height: `${(displayedRows + popOverAdditionalRows) * rowHeight + rowHeight}px`
+                        height: `${(displayedRows + popOverAdditionalRows) * rowHeight + rowHeight}px`,
                       }}
                       >
                         <SimpleTable

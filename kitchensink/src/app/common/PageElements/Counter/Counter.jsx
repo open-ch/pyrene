@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 import './counter.css';
 
-
 const Counter = (props) => {
 
   const adjustBounds = (value) => {

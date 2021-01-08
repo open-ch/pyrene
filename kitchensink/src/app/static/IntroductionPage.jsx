@@ -5,7 +5,6 @@ import DescriptionBox from '../common/PageElements/DescriptionBox/DescriptionBox
 import DesignSystemBox from '../common/PageElements/IntroductionElements/DesignSystemBox';
 import Principle from '../common/PageElements/IntroductionElements/Principle';
 
-
 const IntroductionPage = () => (
   <div styleName="page">
     <div className="header">

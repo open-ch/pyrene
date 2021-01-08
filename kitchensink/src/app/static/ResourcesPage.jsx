@@ -4,7 +4,6 @@ import Paragraph from '../common/PageElements/Paragraph/Paragraph';
 import DownloadButton from '../common/PageElements/DownloadButton/DownloadButton';
 import downloadResourcePath from '../../images/download.svg';
 
-
 const ResourcesPage = () => (
   <div styleName="page">
     <div className="header">

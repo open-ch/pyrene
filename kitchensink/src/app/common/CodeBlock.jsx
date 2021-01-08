@@ -10,7 +10,6 @@ import '../../css/codeBlock.css';
 
 SyntaxHighlighter.registerLanguage('jsx', jsx);
 
-
 export default class CodeBlock extends React.Component {
 
   constructor(props) {
@@ -20,19 +19,6 @@ export default class CodeBlock extends React.Component {
       displayCopyNotification: false,
     };
   }
-
-  displayCopyNotifier = (displayTimeMS) => {
-    this.setState(() => ({
-      displayCopyNotification: true,
-    }),
-    () => {
-      setTimeout(() => (
-        this.setState(() => ({
-          displayCopyNotification: false,
-        }))
-      ), displayTimeMS);
-    });
-  };
 
   handleCodeBlockStyle() {
     const syntaxHighlighterStyle = {
@@ -53,18 +39,29 @@ export default class CodeBlock extends React.Component {
     return syntaxHighlighterStyle;
   }
 
-
-  copyCodeToClipBoard(code) {
-    this.displayCopyNotifier(500);
-    Utils.copyStringToClipboard(code);
-  }
-
-
   handleExpand() {
     this.setState((prevState) => ({
       expanded: !prevState.expanded,
     }),
     () => this.handleCodeBlockStyle());
+  }
+
+  displayCopyNotifier = (displayTimeMS) => {
+    this.setState(() => ({
+      displayCopyNotification: true,
+    }),
+    () => {
+      setTimeout(() => (
+        this.setState(() => ({
+          displayCopyNotification: false,
+        }))
+      ), displayTimeMS);
+    });
+  };
+
+  copyCodeToClipBoard(code) {
+    this.displayCopyNotifier(500);
+    Utils.copyStringToClipboard(code);
   }
 
   generateCodeForComponent(component, entireCodeWanted) {

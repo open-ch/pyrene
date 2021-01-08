@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary, max-classes-per-file */
 import React from 'react';
 import '../../../css/componentPage.css';
 import {
@@ -39,14 +40,12 @@ const data = [
   },
 ];
 
-
 const columns = [
   { headerName: 'Name', accessor: 'name', id: 'ispName' },
   { headerName: 'Date', accessor: 'date', id: 'date' },
   { headerName: 'City', accessor: 'city', id: 'city' },
   { headerName: 'Country', accessor: 'country', id: 'country' },
 ];
-
 
 class SimpleFilteredTable extends React.Component {
 
@@ -99,7 +98,6 @@ class SimpleFilteredTable extends React.Component {
 
 }
 
-
 class DataFilteredTable extends React.Component {
 
      filters = [{
@@ -129,7 +127,6 @@ class DataFilteredTable extends React.Component {
        };
      }
 
-
      render() {
        const { dataFilterFunc, filterProps } = createDataFilter(this.filters, data);
 
@@ -155,20 +152,20 @@ class NegatedFilters extends React.Component {
     accessor: 'city',
     id: 'city',
     optionsAccessors: { value: (d) => d.city, label: (d) => `City: ${d.city}` },
-    negated: false
+    negated: false,
   }, {
     type: 'singleSelect',
     label: 'Country',
     accessor: 'country',
     id: 'country',
     optionsAccessors: { value: (d) => d.country, label: (d) => (d.country === null ? 'null' : d.country === '' ? 'empty' : d.country === false ? 'false' : d.country) },
-    negated: false
+    negated: false,
   }, {
     type: 'text',
     label: 'Name',
     accessor: 'name',
     id: 'name',
-    negated: false
+    negated: false,
   }];
 
   constructor(props) {
@@ -360,7 +357,6 @@ class NegatedFilters extends React.Component {
   }
 
 }`;
-
 
 const FilterUsage = () => (
   <div styleName="page">

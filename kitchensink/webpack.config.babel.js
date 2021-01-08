@@ -86,7 +86,7 @@ const config = {
   plugins: [
     new CleanWebpackPlugin(),
     new webpack.EnvironmentPlugin({
-        BASE_PATH,
+      BASE_PATH,
     }),
     new HtmlWebpackPlugin({
       favicon: 'src/images/favicon.ico',

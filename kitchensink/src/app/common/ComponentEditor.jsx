@@ -123,7 +123,6 @@ export default class ComponentEditor extends React.Component {
 
 }
 
-
 ComponentEditor.displayName = 'ComponentEditor';
 
 ComponentEditor.defaultProps = {

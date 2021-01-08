@@ -22,7 +22,6 @@ const ColorBox = (props) => (
   </div>
 );
 
-
 ColorBox.displayName = 'ColorBox';
 
 ColorBox.propTypes = {

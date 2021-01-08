@@ -97,7 +97,6 @@ const SmallForm = (
         />
       </>
     )}
-
     initialValues={{
       email: 'blabl@abla.com',
       password: '',
@@ -289,7 +288,6 @@ const BigForm = (
         <Button label="Submit" type="danger" disabled={submitDisabled} loading={isSubmitting} />
       </>
     )}
-
     validationSchema={validationSchema}
     initialValues={{
       email: 'blabl@abla.com',
@@ -387,7 +385,6 @@ const BigFormCode = `<Form
     }
   }}
 />`;
-
 
 const FormUsage = () => (
   <div styleName="page">

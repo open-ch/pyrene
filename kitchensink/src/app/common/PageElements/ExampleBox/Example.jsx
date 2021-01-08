@@ -4,8 +4,11 @@ import Utils from '../../Utils';
 
 import './example.css';
 
-
 export default class Example extends React.Component {
+
+  handleMouseOver(description) {
+    this.props.onMouseOver(description);
+  }
 
   getComponentProps = () => ({
     ...this.props.component.defaultProps,
@@ -15,10 +18,6 @@ export default class Example extends React.Component {
       setState: () => {},
     }),
   })
-
-  handleMouseOver(description) {
-    this.props.onMouseOver(description);
-  }
 
   render() {
     return (

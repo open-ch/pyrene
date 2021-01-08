@@ -14,7 +14,6 @@ const DownloadButton = (props) => (
   </a>
 );
 
-
 DownloadButton.displayName = 'DownloadButton';
 
 DownloadButton.propTypes = {
