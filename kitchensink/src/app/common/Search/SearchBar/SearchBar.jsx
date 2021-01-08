@@ -5,7 +5,6 @@ import { Redirect, withRouter } from 'react-router-dom';
 import classNames from 'classnames';
 import './searchBar.css';
 
-
 class SearchBar extends React.Component {
 
   constructor(props) {
@@ -38,7 +37,6 @@ class SearchBar extends React.Component {
     // No State Change
     return null;
   }
-
 
   componentDidUpdate(prevProps, prevState) {
     // If there is an input and it is different from the one before,
@@ -121,7 +119,6 @@ class SearchBar extends React.Component {
       focused: false,
     }));
   };
-
 
   render() {
     return (

@@ -11,7 +11,6 @@ const DisplayBox = (props) => (
   </div>
 );
 
-
 DisplayBox.displayName = 'DisplayBox';
 
 DisplayBox.defaultProps = {

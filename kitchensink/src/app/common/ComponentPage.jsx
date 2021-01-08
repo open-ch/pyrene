@@ -19,14 +19,11 @@ const ComponentPage = (props) => (
       <ComponentEditor component={props.component} componentOrigin={props.componentOrigin} examples={props.examples} />
     </div>
 
-
     { howToPages[props.component.name] && <HowTo howto={howToPages[props.component.name]} />}
   </div>
 );
 
-
 ComponentPage.displayName = 'ComponentPage';
-
 
 ComponentPage.defaultProps = {
   componentOrigin: 'pyrene',
@@ -46,6 +43,5 @@ ComponentPage.propTypes = {
     props: PropTypes.shape(),
   }),
 };
-
 
 export default ComponentPage;

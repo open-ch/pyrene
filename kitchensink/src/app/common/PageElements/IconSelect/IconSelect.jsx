@@ -35,7 +35,6 @@ const IconSelect = (props) => {
         name={props.name}
         id={props.name}
         inputId={props.name}
-
         closeMenuOnSelect={false}
         maxMenuHeight={264}
         noOptionsMessage={() => 'no matches found'}

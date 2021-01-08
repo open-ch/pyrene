@@ -5,7 +5,6 @@ import classNames from 'classnames';
 import './exampleBox.css';
 import Example from './Example';
 
-
 export default class ExampleBox extends React.Component {
 
   constructor(props) {
@@ -19,8 +18,6 @@ export default class ExampleBox extends React.Component {
     };
   }
 
-  getComponentName = (component) => component.displayName.toLowerCase().replace(/\s/g, '');
-
   handleExampleHover(description) {
     if (typeof description !== 'undefined') {
       this.setState(() => ({
@@ -32,6 +29,8 @@ export default class ExampleBox extends React.Component {
       }));
     }
   }
+
+  getComponentName = (component) => component.displayName.toLowerCase().replace(/\s/g, '');
 
   render() {
     return (

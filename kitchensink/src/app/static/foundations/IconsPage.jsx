@@ -37,7 +37,6 @@ const IconsPage = () => (
         </div>
       </Paragraph>
 
-
     </div>
   </div>
 );

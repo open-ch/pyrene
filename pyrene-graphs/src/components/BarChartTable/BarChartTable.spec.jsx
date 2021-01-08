@@ -8,7 +8,7 @@ const columns = {
   label: {
     accessor: (d) => d.application,
     title: 'Application',
-    onClick: (d) => alert('Link click: ' + d.application),
+    onClick: (d) => alert(`Link click: ${d.application}`), // eslint-disable-line no-alert
   },
   primaryValue: {
     accessor: (d) => d.volume,

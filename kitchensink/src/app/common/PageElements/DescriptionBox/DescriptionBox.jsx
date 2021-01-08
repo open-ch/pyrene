@@ -9,7 +9,6 @@ const DescriptionBox = (props) => (
   </div>
 );
 
-
 DescriptionBox.displayName = 'DescriptionBox';
 
 DescriptionBox.propTypes = {

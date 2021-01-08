@@ -5,7 +5,6 @@ import Utils from '../../../Utils';
 
 import './iconBox.css';
 
-
 export default class IconBox extends React.Component {
 
   constructor(props) {
@@ -50,7 +49,6 @@ export default class IconBox extends React.Component {
   }
 
 }
-
 
 IconBox.displayName = 'iconBox';
 
