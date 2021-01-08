@@ -20,8 +20,8 @@ import NotFoundPage from '../static/NotFoundPage';
 import FormUsage from '../static/cookBooks/FormUsage';
 import FilterUsage from '../static/cookBooks/FilterUsage';
 import PyreneTutorial from '../static/cookBooks/PyreneTutorial';
-import GitHubLogo from './../../images/githubLogo.png';
-import OpenSystemsLogo from './../../images/opensystemsLogo.png';
+import GitHubLogo from '../../images/githubLogo.png';
+import OpenSystemsLogo from '../../images/opensystemsLogo.png';
 
 export default class Main extends React.PureComponent {
 
