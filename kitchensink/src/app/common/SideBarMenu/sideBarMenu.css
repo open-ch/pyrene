@@ -72,7 +72,6 @@ a {
 .sectionContentWrapper {
   background-color: var(--neutral-020);
   color: var(--neutral-500);
-  height: 0;
   overflow: hidden;
   box-shadow: inset 0 -1px 0 var(--neutral-050);
   transition: height .2s ease-out;
@@ -125,6 +124,7 @@ a {
   margin-left: 24px;
   line-height: 42px;
   cursor: pointer;
+  color: var(--neutral-500);
 }
 
 .sectionHead:hover, .sectionSubElement:hover {
@@ -151,4 +151,8 @@ a {
   border-left: 2px solid var(--neutral-050);
   height: 42px;
   margin-left: 22px;
+}
+
+.active {
+  color: var(--blue-500);
 }

@@ -98,10 +98,6 @@ body {
   user-select: none;
 }
 
-:global(.activeSideBar) {
-  color: var(--blue-500);
-}
-
 ::selection {
   background: var(--blue-050);
 }
