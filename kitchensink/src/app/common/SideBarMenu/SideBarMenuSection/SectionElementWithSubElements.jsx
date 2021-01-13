@@ -5,9 +5,14 @@ import classNames from 'classnames';
 
 import '../sideBarMenu.css';
 
+// used to
+import packageJson from '../../../../../package.json';
+
 import SectionSubElement from './SectionSubElement';
 
-const SectionElementWithSubElements = ({ element, isActive, activeSubElement }) => {
+const SectionElementWithSubElements = ({
+  element, isActive, activeSubElement,
+}) => {
 
   const [isOpen, setIsOpen] = useState(isActive);
 
@@ -18,6 +23,7 @@ const SectionElementWithSubElements = ({ element, isActive, activeSubElement }) 
     >
       <div onClick={() => setIsOpen(!isOpen)}>
         {element.name}
+        {element.isChart && ` (${packageJson.dependencies['@osag/pyrene-graphs'].replace(/\^/, '')})`}
       </div>
 
       {isOpen && element.elements.map(
@@ -45,6 +51,7 @@ SectionElementWithSubElements.propTypes = {
       linkToPath: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
     })),
+    isChart: PropTypes.bool,
     name: PropTypes.string.isRequired,
   }).isRequired,
   isActive: PropTypes.bool.isRequired,
