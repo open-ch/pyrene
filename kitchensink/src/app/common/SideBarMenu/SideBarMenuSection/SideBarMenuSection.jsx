@@ -88,7 +88,7 @@ const SideBarMenuSection = ({ title, sectionElements, linkToPath }) => {
         >
           {sectionElements.map((element) => (
             <div key={`${title}${element.name}`}>
-              { (element.elements && element.elements.length > 0)
+              {element?.elements?.length > 0
                 ? (
                   <SectionElementWithSubElements
                     element={element}
