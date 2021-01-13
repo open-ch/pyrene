@@ -41,15 +41,17 @@ const SideBarMenuSection = ({ title, sectionElements, linkToPath }) => {
   const history = useHistory();
   const location = useLocation();
 
-  const [isOpen, setIsOpen] = useState(false);
-  const [currentlyActive, setCurrentlyActive] = useState({});
+  const [isOpen, setIsOpen] = useState(null);
+  const [currentlyActive, setCurrentlyActive] = useState(null);
 
   useEffect(() => {
     setCurrentlyActive(getCurrentlyActive(title, sectionElements, linkToPath, location));
   }, [title, sectionElements, linkToPath, location]);
 
   useEffect(() => {
-    setIsOpen(isOpen || currentlyActive?.section === title);
+    if (currentlyActive) {
+      setIsOpen(isOpen ?? currentlyActive?.section === title);
+    }
   }, [currentlyActive, isOpen, title]);
 
   const handleClick = () => {
