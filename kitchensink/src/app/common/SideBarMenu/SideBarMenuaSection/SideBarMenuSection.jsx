@@ -60,8 +60,17 @@ const SideBarMenuSection = ({ title, sectionElements, linkToPath }) => {
     }
   };
 
+  const hasSectionElements = sectionElements?.length > 0;
+
   return (
-    <div styleName={classNames('section', { open: isOpen, active: currentlyActive?.section === title })}>
+    <div styleName={classNames(
+      'section',
+      {
+        open: isOpen && hasSectionElements,
+        active: currentlyActive?.section === title,
+      },
+    )}
+    >
       <div
         className="unSelectable"
         styleName="sectionHead"
@@ -69,7 +78,7 @@ const SideBarMenuSection = ({ title, sectionElements, linkToPath }) => {
       >
         {title}
       </div>
-      {sectionElements.length > 0 && <div styleName="indicator" />}
+      {hasSectionElements && <div styleName="indicator" />}
 
       {isOpen && (
         <div
