@@ -69,7 +69,7 @@ const SideBarMenuSection = ({ title, sectionElements, linkToPath }) => {
       'section',
       {
         open: isOpen && hasSectionElements,
-        active: currentlyActive?.section === title,
+        active: !hasSectionElements && currentlyActive?.section === title,
       },
     )}
     >

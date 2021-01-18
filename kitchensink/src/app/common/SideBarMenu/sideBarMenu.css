@@ -81,7 +81,7 @@ a {
   margin-top: 16px;
 }
 
-.sectionElement {
+.sectionElement, .sectionElementWithSubElements {
   font-size: 14px;
   font-weight: 600;
   padding-left: 24px;
@@ -89,7 +89,7 @@ a {
   cursor: pointer;
 }
 
-.sectionHead:hover, .sectionElement:hover {
+.sectionHead:hover, .sectionElement:hover, .sectionElementTitle:hover  {
   color: var(--blue-500);
 }
 

@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-import classNames from 'classnames';
-
 import '../sideBarMenu.css';
 
 // used to
@@ -19,9 +17,12 @@ const SectionElementWithSubElements = ({
   return (
     <div
       className="unSelectable"
-      styleName={classNames('sectionElement', { active: isActive })}
+      styleName="sectionElementWithSubElements"
     >
-      <div onClick={() => setIsOpen(!isOpen)}>
+      <div
+        styleName="sectionElementTitle"
+        onClick={() => setIsOpen(!isOpen)}
+      >
         {element.name}
         {element.isChart && ` (${packageJson.dependencies['@osag/pyrene-graphs'].replace(/\^/, '')})`}
       </div>
