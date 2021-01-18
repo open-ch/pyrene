@@ -28,7 +28,7 @@ const SectionElementWithSubElements = ({
           <SectionSubElement
             key={subElement.name}
             element={subElement}
-            isActive={activeSubElement && (activeSubElement === subElement.name)}
+            isActive={!!activeSubElement && (activeSubElement === subElement.name)}
           />
         ),
       )}

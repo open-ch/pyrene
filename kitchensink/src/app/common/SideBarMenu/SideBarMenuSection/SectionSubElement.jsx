@@ -26,16 +26,14 @@ const SectionSubElement = ({ element, isActive }) => {
 
 SectionSubElement.displayName = 'SectionSubElement';
 
-SectionSubElement.defaultProps = {
-  isActive: null,
-};
+SectionSubElement.defaultProps = {};
 
 SectionSubElement.propTypes = {
   element: PropTypes.shape({
     linkToPath: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
   }).isRequired,
-  isActive: PropTypes.bool,
+  isActive: PropTypes.bool.isRequired,
 };
 
 export default SectionSubElement;
