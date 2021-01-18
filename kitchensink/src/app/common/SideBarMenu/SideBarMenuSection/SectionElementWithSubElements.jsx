@@ -3,9 +3,6 @@ import PropTypes from 'prop-types';
 
 import '../sideBarMenu.css';
 
-// used to
-import packageJson from '../../../../../package.json';
-
 import SectionSubElement from './SectionSubElement';
 
 const SectionElementWithSubElements = ({
@@ -24,7 +21,6 @@ const SectionElementWithSubElements = ({
         onClick={() => setIsOpen(!isOpen)}
       >
         {element.name}
-        {element.isChart && ` (${packageJson.dependencies['@osag/pyrene-graphs'].replace(/\^/, '')})`}
       </div>
 
       {isOpen && element.elements.map(

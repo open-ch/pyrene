@@ -39,7 +39,7 @@ export default class Main extends React.PureComponent {
     return (
       <div styleName="mainContainer">
         <div styleName="leftContainer">
-          <Logo pyreneVersion={packageJson.dependencies['@osag/pyrene']} />
+          <Logo pyreneVersion={packageJson.dependencies['@osag/pyrene']} pyreneGraphsVersion={packageJson.dependencies['@osag/pyrene-graphs']} />
           <SearchBar value={searchBarValue} />
           <SideBarMenu />
           <div styleName="footer">
