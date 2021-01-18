@@ -26,6 +26,7 @@ const SectionElementWithSubElements = ({
       {isOpen && element.elements.map(
         (subElement) => (
           <SectionSubElement
+            key={subElement.name}
             element={subElement}
             isActive={activeSubElement && (activeSubElement === subElement.name)}
           />
