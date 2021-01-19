@@ -3,7 +3,7 @@ import Components from '@osag/pyrene/dist/pyrene.dev';
 import examples from '@osag/pyrene/dist/pyrene.examples';
 import ChartComponents from '@osag/pyrene-graphs/dist/pyrene-graphs.dev';
 import chartExamples from '@osag/pyrene-graphs/dist/pyrene-graphs.examples';
-import SideBarMenuSection from './SideBarMenuSection';
+import SideBarMenuSection from './SideBarMenuSection/SideBarMenuSection';
 
 import './sideBarMenu.css';
 

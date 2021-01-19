@@ -1,15 +1,23 @@
 .pyreneLogo {
-  position: relative;
-  height: 152px;
-  background: url('../images/pyrene.svg') no-repeat center center;
   cursor: pointer;
+
+  padding: 16px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.logo {
+  margin-bottom: 16px;
+}
+
+.versionNrContainer {
+  margin-top: 4px;
+  display: flex;
+  justify-content: center;
 }
 
 .versionNr {
-  position: absolute;
-  left: 192px;
-  top: 106px;
-  height: 22px;
   padding: 0 4px;
   border-radius: 2px;
   background-color: var(--neutral-030);
