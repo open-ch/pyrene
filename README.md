@@ -38,11 +38,17 @@ Thanks,
 
 [@sosostris](https://github.com/sosostris), for bringing those graphs to life,
 
+[@Dulcibella](https://github.com/Dulcibella), for always keeping an eye on coverage,
+
 [@justmejulian](https://github.com/justmejulian), for always having another CSS trick up your sleeve,
 
 [@Leyart](https://github.com/Leyart), for your patience with filters and tables,
 
 [@ekeuus](https://github.com/ekeuus), for making the tree table virtually grow like an actual tree,
+
+[@iots09](https://github.com/iots09), for search, and for trimming that tree table,
+
+[@ChrisJamesC](https://github.com/ChrisJamesC), for introducing TypeScript,
 
 [@nicholas-os](https://github.com/nicholas-os), for contributing to JavaScript until we finally have type safety,
 
