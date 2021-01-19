@@ -67,7 +67,7 @@ const selectStyle = {
 
     minHeight: 32,
     height: 32,
-    backgroundColor: (state.hasValue || state.isFocused) ? 'var(--neutral-0)' : 'var(--neutral-020)',
+    backgroundColor: (state.hasValue || state.isFocused) ? 'var(--neutral-000)' : 'var(--neutral-020)',
     border: state.selectProps.isInvalid && !state.isDisabled ? 'solid 1px var(--red-500)' : state.isFocused ? 'solid 1px var(--blue-500)' : 'solid 1px var(--neutral-100)',
     borderRadius: 2,
     cursor: 'pointer',
@@ -78,7 +78,7 @@ const selectStyle = {
     },
 
     '& .singleSelect__single-value': {
-      backgroundColor: state.hasValue && state.isFocused ? 'var(--blue-50)' : 'transparent',
+      backgroundColor: state.hasValue && state.isFocused ? 'var(--blue-050)' : 'transparent',
     },
 
     ':hover': {
@@ -182,7 +182,7 @@ const selectStyle = {
     ':hover': {
       backgroundColor: 'var(--neutral-030)',
     },
-    backgroundColor: (isSelected || isFocused) ? 'var(--neutral-030)' : 'var(--neutral-0)',
+    backgroundColor: (isSelected || isFocused) ? 'var(--neutral-030)' : 'var(--neutral-000)',
     height: 30,
     color: 'var(--neutral-400)',
     cursor: 'pointer',

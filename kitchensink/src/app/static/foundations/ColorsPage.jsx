@@ -8,7 +8,7 @@ import {
 } from '../../data/foundationsData';
 
 const createStackedColors = (data, colorBoxSize) => data.map((element) => (
-  <div key={`${element.colors[0].hex}`}>
+  <div key={`${element.colors[0].name}`}>
     {element.colors.map((color, index) => {
       const title = index === 0 ? element.title : '';
       return (
@@ -22,7 +22,7 @@ const createStackedColors = (data, colorBoxSize) => data.map((element) => (
           bordered={color.bordered}
           stackPosition={color.stack}
           infoLabel={color.infoLabel}
-          key={color.hex}
+          key={color.name}
         />
       );
     })}

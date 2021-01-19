@@ -15,7 +15,7 @@ a {
 .section {
   position: relative;
   width: 100%;
-  box-shadow: inset 0 -1px 0 var(--neutral-sideBar);
+  box-shadow: inset 0 -1px 0 var(--neutral-050);
 }
 
 .section .indicator {
@@ -36,12 +36,12 @@ a {
 
 .main .section:first-child .sectionHead {
   box-shadow:
-    inset 0 1px 0 var(--neutral-sideBar),
-    inset 0 -1px 0 var(--neutral-sideBar);
+    inset 0 1px 0 var(--neutral-050),
+    inset 0 -1px 0 var(--neutral-050);
 }
 
 .main .section.open:first-child .sectionHead {
-  box-shadow: inset 0 1px 0 var(--neutral-sideBar);
+  box-shadow: inset 0 1px 0 var(--neutral-050);
 }
 
 .section.open .sectionHead {
@@ -65,16 +65,15 @@ a {
   cursor: pointer;
   box-sizing: border-box;
   background-color: var(--neutral-000);
-  box-shadow: inset 0 -1px 0 var(--neutral-sideBar);
+  box-shadow: inset 0 -1px 0 var(--neutral-050);
   transition: box-shadow .2s step-end;
 }
 
 .sectionContentWrapper {
-  background-color: var(--neutral-010);
-  color: var(--font-gray);
-  height: 0;
+  background-color: var(--neutral-020);
+  color: var(--neutral-500);
   overflow: hidden;
-  box-shadow: inset 0 -1px 0 var(--neutral-sideBar);
+  box-shadow: inset 0 -1px 0 var(--neutral-050);
   transition: height .2s ease-out;
 }
 
@@ -82,7 +81,7 @@ a {
   margin-top: 16px;
 }
 
-.sectionElement {
+.sectionElement, .sectionElementWithSubElements {
   font-size: 14px;
   font-weight: 600;
   padding-left: 24px;
@@ -90,7 +89,7 @@ a {
   cursor: pointer;
 }
 
-.sectionHead:hover, .sectionElement:hover {
+.sectionHead:hover, .sectionElement:hover, .sectionElementTitle:hover  {
   color: var(--blue-500);
 }
 
@@ -125,6 +124,7 @@ a {
   margin-left: 24px;
   line-height: 42px;
   cursor: pointer;
+  color: var(--neutral-500);
 }
 
 .sectionHead:hover, .sectionSubElement:hover {
@@ -148,7 +148,11 @@ a {
 }
 
 .verticalLine {
-  border-left: 2px solid var(--border);
+  border-left: 2px solid var(--neutral-050);
   height: 42px;
   margin-left: 22px;
+}
+
+.active {
+  color: var(--blue-500);
 }
