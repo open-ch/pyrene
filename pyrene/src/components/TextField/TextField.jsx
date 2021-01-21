@@ -18,7 +18,7 @@ const TextField = (props) => (
 
       <input
         styleName={classNames('textField', { filled: props.value })}
-        type="text"
+        type={props.secret ? 'password' : 'text'}
         name={props.name}
         placeholder={props.placeholder}
         value={props.value}
@@ -71,6 +71,7 @@ TextField.defaultProps = {
   name: '',
   width: -1,
   required: false,
+  secret: false,
   disabled: false,
   invalid: false,
   onBlur: () => null,
@@ -134,6 +135,10 @@ TextField.propTypes = {
    * Adds a visual indication to display that the field is required.
    */
   required: PropTypes.bool,
+  /**
+   * Applies type 'password' to the input field, i.e. entered text will be obscured.
+   */
+  secret: PropTypes.bool,
   /**
    * Sets the title above the input field.
    */
