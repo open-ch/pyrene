@@ -74,8 +74,8 @@ const ShareDialog: React.FC<ShareDialogProps> = ({
             </div>
             <ButtonBar
               rightButtonSectionElements={[
-                { type: 'secondary', label: 'Cancel', onClick: toggleShareDialogDisplay },
-                { type: 'primary', label: 'Copy link', onClick: copyLinkToClipboard },
+                <Button type="secondary" label="Cancel" onClick={toggleShareDialogDisplay} />,
+                <Button type="primary" label="Copy link" onClick={copyLinkToClipboard} />,
               ]}
             />
           </div>
