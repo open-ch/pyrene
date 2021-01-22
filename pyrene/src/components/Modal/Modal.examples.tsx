@@ -20,7 +20,7 @@ const Modal = {
       { type: 'primary', label: 'Apply', action: (): void => {} },
     ],
     defaultExpanded: true,
-    renderFooter: false,
+    renderFooter: true,
     renderHeader: false,
   },
   trigger: true,
