@@ -2,7 +2,7 @@ import React, { useCallback, useEffect } from 'react';
 import classNames from 'classnames';
 import './modal.css';
 import ButtonBar from '../ButtonBar/ButtonBar';
-import Button, { Type as ButtonType } from '../Button/Button';
+import { Type as ButtonType } from '../Button/Button';
 import Loader from '../Loader/Loader';
 import ActionBar from '../ActionBar/ActionBar';
 
@@ -142,19 +142,6 @@ const Modal: React.FC<ModalProps> = ({
     };
   }, [escFunction]);
 
-  const createButtonArray = (buttonInfo: ButtonBarProps[]) => (
-    buttonInfo.map((buttonProps) => (
-      <Button
-        loading={buttonProps.loading}
-        icon={buttonProps.icon}
-        type={buttonProps.type}
-        label={buttonProps.label}
-        disabled={buttonProps.disabled}
-        onClick={buttonProps.action}
-      />
-    ))
-  );
-
   const renderNavigationArrows = () => (
     <ActionBar
       styling="box"
@@ -180,8 +167,8 @@ const Modal: React.FC<ModalProps> = ({
       {(Footer && Footer()) || (
         <div styleName="buttonBarContainer">
           <ButtonBar
-            rightButtonSectionElements={createButtonArray(rightButtonBarElements)}
-            leftButtonSectionElements={createButtonArray(leftButtonBarElements)}
+            rightButtonSectionElements={rightButtonBarElements}
+            leftButtonSectionElements={leftButtonBarElements}
           />
         </div>
       )}
