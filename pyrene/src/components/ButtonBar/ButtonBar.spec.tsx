@@ -2,10 +2,11 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import ButtonBar from './ButtonBar';
+import Button from '../Button/Button';
 
 const props = {
-  rightButtonSectionElements: [{ label: 'Button1' }],
-  leftButtonSectionElements: [{ label: 'Button2' }],
+  rightButtonSectionElements: [<Button label="Button1" />],
+  leftButtonSectionElements: [<Button label="Button2" />],
 };
 
 describe('<ButtonBar />', () => {
