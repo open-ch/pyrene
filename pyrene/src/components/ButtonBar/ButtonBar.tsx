@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React from 'react';
 import classNames from 'classnames';
 import './buttonBar.css';
 import Button, { ButtonProps } from '../Button/Button';
