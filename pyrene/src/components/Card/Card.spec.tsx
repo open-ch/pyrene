@@ -24,6 +24,20 @@ describe('Card', () => {
 
   });
 
+  it('renders multiple children', () => {
+
+    const card = shallow(
+      <Card>
+        <FakeChild />
+        <FakeChild />
+        <FakeChild />
+      </Card>,
+    );
+
+    expect(card.find(FakeChild)).toHaveLength(3);
+
+  });
+
   it('renders error when set', () => {
     const card = shallow(<Card error="Oh no! Not again!"><FakeChild /></Card>);
 
