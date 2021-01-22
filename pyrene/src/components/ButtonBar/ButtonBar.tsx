@@ -17,7 +17,7 @@ const ButtonBar: React.FC<ButtonBarProps> = ({
   <div styleName={classNames('buttonBar', { noPadding: noPadding })}>
     <div styleName="leftButtonSection">
       {leftButtonSectionElements.map((element) => (
-        <React.Fragment key={`${element.type}${element.label}`}>
+        <React.Fragment key={`${element.type || 'primary'}${element.label as string}`}>
           <Button {...element} />
           <div styleName="spacer" />
         </React.Fragment>
@@ -25,7 +25,7 @@ const ButtonBar: React.FC<ButtonBarProps> = ({
     </div>
     <div styleName="rightButtonSection">
       {rightButtonSectionElements.map((element, index) => (
-        <React.Fragment key={`${element.label}${element.type}`}>
+        <React.Fragment key={`${element.type || 'primary'}${element.label as string}`}>
           {index !== 0 && <div styleName="spacer" />}
           <Button {...element} />
         </React.Fragment>
