@@ -83,6 +83,7 @@ export default class Table extends React.Component {
           handleOriginal();
         }
       },
+      overflowAble: !!column.overflowAble,
     }),
 
     onPageChange: () => {
@@ -399,7 +400,6 @@ export default class Table extends React.Component {
 
 }
 
-
 Table.displayName = 'Table';
 
 Table.defaultProps = {
@@ -440,7 +440,7 @@ Table.propTypes = {
   /**
    * Sets the Table columns.
    * Type: [{ accessor: any, cellRenderCallback: One of [React element, callback function to display the cell, string],
-   * cellStyle: object, headerName: string (required), headerStyle: object, id: any, initiallyHidden: bool,
+   * cellStyle: object, headerName: string (required), headerStyle: object, id: any, initiallyHidden: bool, overflowAble: bool,
    * sortable: bool (!!!Overrides disableSorting!!!), sortFunction: function, width: number }]
    * headerTooltip: if defined Pyrene tooltip displayed when hovering over header name
    */
@@ -457,6 +457,7 @@ Table.propTypes = {
     headerTooltip: PropTypes.node,
     id: PropTypes.any,
     initiallyHidden: PropTypes.bool,
+    overflowAble: PropTypes.bool,
     sortable: PropTypes.bool,
     sortFunction: PropTypes.func,
     width: PropTypes.number,
@@ -535,8 +536,8 @@ Table.propTypes = {
    */
   multiSelect: PropTypes.bool,
   /**
-    * Whether multiSorting via shift click is possible.
-    */
+   * Whether multiSorting via shift click is possible.
+   */
   multiSort: PropTypes.bool,
   /**
    * Enables negation support for filters. Defaults to false
@@ -555,21 +556,21 @@ Table.propTypes = {
    */
   onFilterChange: PropTypes.func,
   /**
-    * Called when the user double clicks on a row.
-    */
+   * Called when the user double clicks on a row.
+   */
   onRowDoubleClick: PropTypes.func,
   /**
    * Amount of pages to be shown in React Table (use only with server-side data fetching & pagination).
    */
   pages: PropTypes.number, // eslint-disable-line
   /**
-    * Sets the page sizes that the user can choose from.
-    */
+   * Sets the page sizes that the user can choose from.
+   */
   pageSizeOptions: PropTypes.arrayOf(PropTypes.number),
   /**
-    * Allow toggling wether a row (and checkbox for a checkboxtable) is selectable
-    * @returns {boolean} - enabled = true, disabled = false
-    */
+   * Allow toggling wether a row (and checkbox for a checkboxtable) is selectable
+   * @returns {boolean} - enabled = true, disabled = false
+   */
   rowSelectableCallback: PropTypes.func,
   /**
    * Sets the title.
