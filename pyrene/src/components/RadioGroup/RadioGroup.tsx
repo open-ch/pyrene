@@ -1,44 +1,9 @@
 import React from 'react';
 import classNames from 'classnames';
 
-import RadioButton from '../RadioButton/RadioButton';
+import RadioButton, { RadioButtonBaseProps } from '../RadioButton/RadioButton';
 
 import './radioSelection.css';
-
-export interface RadioOptions {
-  /**
-   * Disables any interaction with the component.
-   */
-  disabled?: boolean,
-  /**
-   * Javascript event handler.
-   */
-  hovered?: {[key: string]: boolean},
-  /**
-   * Sets the visual appearance, to signal that the radio button is invalid.
-   */
-  invalid?: boolean,
-  /**
-   * Sets ID of radio button
-   */
-  id?: string,
-  /**
-   * Sets the label of the radio button
-   */
-  label?: string,
-  /**
-   * Sets the name of the radio button
-   */
-  name?: string,
-  /**
-   * Sets readonly property of radio button
-   */
-  readonly?: boolean,
-  /**
-   * Sets the value of the radio button.
-   */
-  value: number | string,
-}
 
 export interface RadioGroupProps {
   /**
@@ -68,7 +33,7 @@ export interface RadioGroupProps {
   /**
    * Set the values that the user can choose from.
    */
-  options?: RadioOptions[],
+  options?: RadioButtonBaseProps[],
   /**
    * Sets the selected choice of the user.
    */
