@@ -68,7 +68,7 @@
     "moment": "^2.24.0",
     "moment-timezone": "^0.5.28",
     "optimize-css-assets-webpack-plugin": "^5.0.1",
-    "postcss-custom-properties": "^9.1.1",
+    "postcss-custom-properties": "^10.0.0",
     "postcss-import": "^12.0.1",
     "postcss-loader": "^3.0.0",
     "postcss-nesting": "^7.0.0",
