@@ -8,7 +8,6 @@ let rendered;
 
 const props = {
   onChange: (value, timeUnit) => { rendered.setProps({ value: value, timeUnit: timeUnit }); },
-  //  1 August 2019
   value: { day: 17, month: 7, year: 2019 },
   timeUnit: 'month',
 };
