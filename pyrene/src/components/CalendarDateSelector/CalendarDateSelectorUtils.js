@@ -14,6 +14,9 @@ export const DATE_TYPES = {
 
 /**
  * Converts our custom date object to JavaScript Date
+ * Because the month of the internal object is 0-indexed and
+ * externally the dates are passed in as 1-indexed, we need to convert them
+ *
  * @param {Object} value
  * @returns {Date}
  */
@@ -21,6 +24,8 @@ export const convertToJsDate = (value) => new Date(value.year, value.month - 1, 
 
 /**
  * Converts a JavaScript Date object to our custom date object format
+ * Increases the month number by 1 so that it is 1-indexed
+ *
  * @param {Date} date
  * @returns {Object}
  */
