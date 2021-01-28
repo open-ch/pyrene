@@ -1,25 +1,25 @@
-import moment from 'moment';
+import { getTime, add } from 'date-fns';
 
 const PRESET_TIME_RANGES = [
   {
     id: '24h',
     label: '24h',
-    durationInMs: moment.duration(1, 'days').valueOf(),
+    durationInMs: getTime(add(0, { days: 1 })),
   },
   {
     id: '7d',
     label: '7d',
-    durationInMs: moment.duration(7, 'days').valueOf(),
+    durationInMs: getTime(add(0, { days: 7 })),
   },
   {
     id: '30d',
     label: '30d',
-    durationInMs: moment.duration(30, 'days').valueOf(),
+    durationInMs: getTime(add(0, { days: 30 })),
   },
   {
     id: '1y',
     label: '1y',
-    durationInMs: moment.duration(1, 'years').valueOf(),
+    durationInMs: getTime(add(0, { years: 1 })),
   },
 ];
 
