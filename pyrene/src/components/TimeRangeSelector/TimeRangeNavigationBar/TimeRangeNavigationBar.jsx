@@ -1,12 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment-timezone';
+
+import { differenceInMinutes } from 'date-fns';
+import { zonedTimeToUtc, format, utcToZonedTime } from 'date-fns-tz';
 
 import ArrowSelector from './ArrowSelector/ArrowSelector';
 
 const TimeRangeNavigationBar = (props) => {
-  const backInactive = moment(props.from).tz(props.timezone).diff(moment(props.lowerBound).tz(props.timezone), 'minutes') <= 0; // We should not check for milliseconds but minutes changes
-  const forwardInactive = moment(props.to).tz(props.timezone).diff(moment(props.upperBound).tz(props.timezone), 'minutes').valueOf() >= 0; // We should not check for milliseconds but minutes changes
+  const fromUtcDate = zonedTimeToUtc(new Date(props.from), props.timezone);
+  const lowerBoundUtcDate = zonedTimeToUtc(new Date(props.lowerBound), props.timezone);
+  // We should not check for milliseconds but minutes changes
+  const backInactive = differenceInMinutes(fromUtcDate, lowerBoundUtcDate) <= 0;
+
+  const toUtcDate = zonedTimeToUtc(new Date(props.to), props.timezone);
+  const upperBoundUtcDate = zonedTimeToUtc(new Date(props.upperBound), props.timezone);
+  // We should not check for milliseconds but minutes changes
+  const forwardInactive = differenceInMinutes(toUtcDate, upperBoundUtcDate) >= 0;
 
   return (
     <ArrowSelector
@@ -23,10 +32,10 @@ const TimeRangeNavigationBar = (props) => {
 
 /* eslint-disable-next-line react/display-name */
 TimeRangeNavigationBar.renderCurrentTimeRange = (currProps) => {
-  const fromMoment = moment(currProps.from).tz(currProps.timezone);
-  const toMoment = moment(currProps.to).tz(currProps.timezone);
-  const dateFormat = 'DD.MM.YYYY, HH:mm';
-  return `${fromMoment.format(dateFormat)} - ${toMoment.format(dateFormat)}`;
+  const fromZonedDate = utcToZonedTime(currProps.from, currProps.timezone);
+  const toZonedDate = utcToZonedTime(currProps.to, currProps.timezone);
+  const dateFormat = 'dd.MM.yyyy, HH:mm';
+  return `${format(fromZonedDate, dateFormat)} - ${format(toZonedDate, dateFormat)}`;
 };
 
 TimeRangeNavigationBar.displayName = 'TimeRangeNavigationBar';
