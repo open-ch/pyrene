@@ -1,20 +1,15 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 
-import DateHelper from './DateHelper';
-// eslint-disable-next-line no-unused-vars
-
 import CalendarDateSelector from './CalendarDateSelector';
-import { getCurrentDate, convertToInternalMomentJs } from './CalendarDateSelectorUtils';
 import ToggleButtonGroup from '../ToggleButtonGroup/ToggleButtonGroup';
 
 let rendered;
 
 const props = {
   onChange: (value, timeUnit) => { rendered.setProps({ value: value, timeUnit: timeUnit }); },
-  value: {
-    ...getCurrentDate(),
-  },
+  //  1 August 2019
+  value: { day: 17, month: 7, year: 2019 },
   timeUnit: 'month',
 };
 
@@ -32,54 +27,38 @@ describe('<CalendarDateSelector />', () => {
   it('renders the date with the specified formats based on the timeUnitSelector chosen', () => {
     rendered = mount(<CalendarDateSelector {...props} />);
 
-    const currentDate = convertToInternalMomentJs(props.value);
-    const timeStringBeforeClick = currentDate.format(DateHelper.MONTH_NAME_WITH_YEAR);
-    let timeStringAfterClick = currentDate.format(DateHelper.FULL_DATE);
-
     expect(rendered.find(ToggleButtonGroup)).toHaveLength(1);
 
     let calculatedValue = rendered.find('ArrowSelector .value').render()[0].children[0].data;
-    expect(timeStringBeforeClick).toBe(calculatedValue);
+    expect(calculatedValue).toBe('July 2019');
 
     // We are simulating selecting the 24h preset
     // @ts-ignore
     rendered.find(ToggleButtonGroup).props().onChange('day');
     calculatedValue = rendered.find('ArrowSelector .value').render()[0].children[0].data;
-    expect(timeStringAfterClick).toBe(calculatedValue);
+    expect(calculatedValue).toBe('17 July 2019');
 
-    // We are simulating selecting the year preset
-    timeStringAfterClick = currentDate.format(DateHelper.YEAR);
     // @ts-ignore
     rendered.find(ToggleButtonGroup).props().onChange('year');
     calculatedValue = rendered.find('ArrowSelector .value').render()[0].children[0].data;
-    expect(timeStringAfterClick).toBe(calculatedValue);
+    expect(calculatedValue).toBe('2019');
   });
 
   it('has a dropdown that changes the timerange and sets the day to 1 if months or year have been changed', () => {
     rendered = mount(<CalendarDateSelector {...props} />);
 
-    // We are simulating selecting the month preset
-    const dateBeforeClick = props.value;
-    const dateAfterClick = dateBeforeClick.month === 1
-      ? { day: 1, month: 12, year: dateBeforeClick.year - 1 }
-      : { day: 1, month: dateBeforeClick.month - 1, year: dateBeforeClick.year };
-
     let calculatedValue = rendered.props().value;
-    expect(dateBeforeClick).toBe(calculatedValue);
+    expect(calculatedValue).toEqual(props.value);
 
+    //  left
     rendered.find('ArrowSelector').find('button').first().simulate('click');
     calculatedValue = rendered.props().value;
-    expect(dateBeforeClick).not.toStrictEqual(calculatedValue);
-    expect(dateAfterClick).toStrictEqual(calculatedValue);
+    expect(calculatedValue).toEqual({ day: 1, month: 6, year: 2019 });
 
+    // right
     rendered.find('ArrowSelector').find('button').last().simulate('click');
-
-    const dateAfterBackAndForth = dateAfterClick.month === 12
-      ? { day: 1, month: 1, year: dateAfterClick.year + 1 }
-      : { day: 1, month: dateAfterClick.month + 1, year: dateAfterClick.year };
-
     calculatedValue = rendered.props().value;
-    expect(dateAfterBackAndForth).toStrictEqual(calculatedValue);
+    expect(calculatedValue).toEqual({ day: 1, month: 7, year: 2019 });
   });
 
   it('has a dropdown that changes the timerange and sets the day and month to 1 if the year has been changed', () => {
