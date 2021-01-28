@@ -1,0 +1,97 @@
+@import '../../styles/colors.css';
+
+.dateFieldTitle {
+  font-size: 11px;
+  font-weight: 500;
+  text-align: left;
+  color: var(--neutral-500);
+  line-height: 12px;
+  margin-bottom: 4px;
+
+  &.required:after {
+    content: '*';
+    color: var(--danger-fg);
+  }
+}
+
+
+.dateInputArea {
+  composes: commonFontSettings from '../../styles/common.css';
+  color: var(--neutral-500);
+
+  &, & * {
+    box-sizing: border-box;
+  }
+
+  height: 32px;
+  border-radius: 2px;
+  border: solid 1px var(--neutral-200);
+  background: white; /* same as input default */
+  position: relative;
+  display: flex;
+
+  &.isFocused {
+    border: solid 1px var(--blue-500);
+  }
+
+  &:hover {
+    border-color: var(--blue-500);
+    background-color: var(--neutral-020);
+  }  
+
+  & .icon {
+    margin-left: 8px;
+    margin-right: 4px;
+    cursor: pointer;
+    border-radius: 2px;
+
+    &.passive {
+      cursor: default;
+
+      &:hover {
+        background-color: var(--neutral-000);
+      }
+    }
+
+    &.centered {
+      display: flex;
+      align-items: center;    
+    }    
+
+    &.disabled {
+      pointer-events: none;
+
+    }
+
+    &:hover {
+      background-color: var(--neutral-030);
+    }
+  }
+
+  & div:last-child input:last-child{
+    margin-right: 8px;
+  }
+
+  & input {
+    font-size: 12px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: var(--neutral-500);
+    font-family: FiraGO, Helvetica, sans-serif;
+    border: none;
+    padding: 0;
+    min-width: 0;
+    outline: none;
+    flex-grow: 1;
+  }
+
+  & .date{
+    width: 67px;
+  }
+  & .time{
+    width: 38px;
+  }
+}
