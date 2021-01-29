@@ -11,11 +11,7 @@ import iconSelectedHover from './radio-selected-hover.svg';
 import iconInvalid from './radio-invalid.svg';
 import iconInvalidHover from './radio-invalid-hover.svg';
 
-export interface RadioButtonProps {
-  /**
-   * Sets the checked option of the radio button
-   */
-  checked?: boolean,
+export interface RadioButtonBaseProps {
   /**
    * Disables any interaction with the component.
    */
@@ -25,13 +21,13 @@ export interface RadioButtonProps {
    */
   hovered?: {[key: string]: boolean},
   /**
-   * Sets the visual appearance, to signal that the radio button is invalid.
-   */
-  invalid?: boolean,
-  /**
    * Sets ID of radio button
    */
   id?: string,
+  /**
+   * Sets the visual appearance, to signal that the radio button is invalid.
+   */
+  invalid?: boolean,
   /**
    * Sets the label of the radio button
    */
@@ -41,10 +37,6 @@ export interface RadioButtonProps {
    */
   name?: string,
   /**
-   * Javascript onchange event handler.
-   */
-  onChange?: (value: number | string, event: React.ChangeEvent<HTMLInputElement>) => void,
-  /**
    * Sets readonly property of radio button
    */
   readonly?: boolean,
@@ -52,6 +44,17 @@ export interface RadioButtonProps {
    * Sets the value of the radio button.
    */
   value: number | string,
+}
+
+export interface RadioButtonProps extends RadioButtonBaseProps {
+  /**
+   * Sets the checked option of the radio button
+   */
+  checked?: boolean,
+  /**
+   * Javascript onchange event handler.
+   */
+  onChange?: (value: number | string, event: React.ChangeEvent<HTMLInputElement>) => void,
 }
 
 const iconMap = {
