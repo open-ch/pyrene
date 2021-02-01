@@ -24,6 +24,9 @@ const RowLayout: React.FC<Row> = ({ columns }: Row) => (
           textOverflow: 'ellipsis',
           marginRight: '16px',
           flexGrow: index === 0 ? 1 : 0,
+          lineHeight: '16px',
+          fontSize: '12px',
+          fontWeight: 400,
         }}
         key={index} // eslint-disable-line react/no-array-index-key
       >
@@ -34,7 +37,7 @@ const RowLayout: React.FC<Row> = ({ columns }: Row) => (
 );
 
 const renderCustomAccordionTitle = (column1: string, column2: string, column3: string) => () => (
-  <div style={{ padding: '8px 0' }}>
+  <div style={{ padding: '7px 0' }}>
     <RowLayout columns={[{
       width: '38%',
       renderContent: () => column1,
