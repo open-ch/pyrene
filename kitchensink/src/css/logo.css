@@ -2,6 +2,7 @@
   cursor: pointer;
 
   padding: 16px;
+  height: 104px;
 
   display: flex;
   flex-direction: column;
