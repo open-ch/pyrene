@@ -72,16 +72,16 @@
     }
 
     & > .header {
-      min-height: 48px;
-      max-height: 48px;
-      padding: 16px;
+      min-height: 46px;
+      max-height: 46px;
+      padding: 15px;
       background-color: var(--neutral-020);
 
       &:hover {
         background-color: var(--neutral-030);
       }
 
-      & > .text-title {
+      & > .title > .text-title {
         font-size: 13px;
         font-weight: 500;
       }
@@ -114,7 +114,7 @@
     & > .header {
       padding: 0 8px;
 
-      & > .text-title {
+      & > .title > .text-title {
         font-size: 12px;
         font-weight: 400;
       }

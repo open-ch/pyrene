@@ -1,6 +1,6 @@
 {
   "name": "@osag/pyrene",
-  "version": "2.11.3",
+  "version": "2.12.1",
   "description": "Open Systems Component Library",
   "main": "dist/pyrene.js",
   "style": "dist/pyrene.css",
@@ -81,7 +81,7 @@
     "moment-timezone": "^0.5.31",
     "optimize-css-assets-webpack-plugin": "^5.0.4",
     "postcss": "^7.0.35",
-    "postcss-custom-properties": "^9.2.0",
+    "postcss-custom-properties": "^10.0.0",
     "postcss-import": "^12.0.1",
     "postcss-loader": "^3.0.0",
     "postcss-nesting": "^7.0.0",
