@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import Icon from '../Icon/Icon';
 import './dateTime.css';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -13,10 +14,7 @@ const DateTime: React.FC<DateTimeProps> = ({ } : DateTimeProps) => (
       styleName="dateInputArea"
     >
       <div styleName={classNames('centered')}>
-        <div
-          styleName={classNames('icon')}
-          className="pyreneIcon-calendar"
-        />
+        <Icon type="inline" name="calendar" color="neutral-500" />
         <input
           name=""
           placeholder="DD.MM.YYYY"
@@ -25,10 +23,7 @@ const DateTime: React.FC<DateTimeProps> = ({ } : DateTimeProps) => (
         />
       </div>
       <div styleName={classNames('centered')}>
-        <div
-          styleName={classNames('icon')}
-          className="pyreneIcon-clock"
-        />
+        <Icon type="inline" name="clock" color="neutral-500" />
         <input
           name=""
           placeholder="HH:MM"

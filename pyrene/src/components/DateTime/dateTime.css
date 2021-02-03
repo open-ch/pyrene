@@ -47,15 +47,6 @@
     color: var(--neutral-300);
   }
 
-  &.icon {
-    width: 16px;
-    height: 16px;    
-    cursor: default;
-    border-radius: 2px;
-    -webkit-font-smoothing: subpixel-antialiased;
-    font-size: 16px;
-  }
-
   & .centered {
     display: inline-flex;
     align-items: center;    
