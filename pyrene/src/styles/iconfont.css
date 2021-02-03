@@ -1,7 +1,13 @@
+:global(.pyreneIcon-calendar:before){
+  content: "\2260";
+}
+:global(.pyreneIcon-lightbulb:before){
+  content: "\7d";
+}
 :global(.pyreneIcon-path:before){
   content: "\7b";
 }
-:global(.pyreneIcon-thumbsUp:before){
+:global(.pyreneIcon-thumpsUp:before){
   content: "\7c";
 }
 :global(.pyreneIcon-locationRetail:before){
