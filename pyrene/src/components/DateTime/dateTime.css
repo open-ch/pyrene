@@ -5,13 +5,13 @@
   font-weight: 500;
   text-align: left;
   color: var(--neutral-500);
-  line-height: 12px;
+  height: 12px;
   margin-bottom: 4px;
-
-  &.required:after {
-    content: '*';
-    color: var(--danger-fg);
-  }
+  line-height: 1.09;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: normal;
+  font-family: FiraGo;
 }
 
 
@@ -19,79 +19,78 @@
   composes: commonFontSettings from '../../styles/common.css';
   color: var(--neutral-500);
 
-  &, & * {
+  &, & *, & *:before, & *:after {
     box-sizing: border-box;
+    padding: 0px;
   }
 
+  margin: 4px 0 0;
+  padding: 4px 0px;
   height: 32px;
   border-radius: 2px;
-  border: solid 1px var(--neutral-200);
-  background: white; /* same as input default */
+  box-shadow: 0 0 0 1px var(--neutral-200) inset; /* Places the border inside of the div to prevent size jump */
+  background-color: var(--neutral-020); /* same as input default */
   position: relative;
-  display: flex;
+  display: inline-flex;
+  align-items: center;
 
-  &.isFocused {
-    border: solid 1px var(--blue-500);
+  &:focus-within {
+    box-shadow: 0 0 0 1px var(--blue-500) inset;
+    background-color: var(--neutral-000);
   }
 
   &:hover {
-    border-color: var(--blue-500);
-    background-color: var(--neutral-020);
+    box-shadow: 0 0 0 1px var(--blue-500) inset;
   }  
 
-  & .icon {
-    margin-left: 8px;
-    margin-right: 4px;
-    cursor: pointer;
-    border-radius: 2px;
-
-    &.passive {
-      cursor: default;
-
-      &:hover {
-        background-color: var(--neutral-000);
-      }
-    }
-
-    &.centered {
-      display: flex;
-      align-items: center;    
-    }    
-
-    &.disabled {
-      pointer-events: none;
-
-    }
-
-    &:hover {
-      background-color: var(--neutral-030);
-    }
+  &::placeholder{
+    color: var(--neutral-300);
   }
 
-  & div:last-child input:last-child{
+  &.icon {
+    width: 16px;
+    height: 16px;    
+    cursor: default;
+    border-radius: 2px;
+    -webkit-font-smoothing: subpixel-antialiased;
+    font-size: 16px;
+  }
+
+  & .centered {
+    display: inline-flex;
+    align-items: center;    
+    height: 16px;
+  }    
+
+  & .centered:first-of-type { 
+    margin-left: 8px;
+    margin-right: 8px;
+  }
+
+  & .centered:last-of-type {
     margin-right: 8px;
   }
 
   & input {
     font-size: 12px;
+    margin: 4px 0px 4px 4px;
     font-weight: normal;
     font-stretch: normal;
     font-style: normal;
-    line-height: normal;
     letter-spacing: normal;
     color: var(--neutral-500);
-    font-family: FiraGO, Helvetica, sans-serif;
+    font-family: FiraGO;
+    padding: 0px;
     border: none;
-    padding: 0;
-    min-width: 0;
     outline: none;
-    flex-grow: 1;
+    background-color: inherit;
   }
 
-  & .date{
+  & .dateInput {
     width: 67px;
   }
-  & .time{
+
+  & .timeInput{
     width: 38px;
   }
 }

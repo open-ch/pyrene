@@ -1,47 +1,45 @@
 import React from 'react';
 import classNames from 'classnames';
-import Icon from '../Icon/Icon';
 import './dateTime.css';
 
-export interface DateTimeProps{};
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface DateTimeProps{}
 
-const DateTime: React.FC<DateTimeProps> = ({} : DateTimeProps) => {
-
-  const rand = Math.floor(Math.random() * 1e10);
-
-  return(
-    <div>
-      <div styleName='dateFieldTitle'>Date &amp; Time</div>
-      <div
-        styleName='dateInputArea'
-      >
-        <div style={{display: 'inline-flex'}}>
-          <div styleName={classNames('icon', 'passive', 'centered')}>
-            <Icon type="inline" name="search" />
-          </div>
-          <input
-            id={`date_${rand}`}
-            value=''
-            placeholder='DD.MM.YYYY'
-            styleName={classNames('date')}
-          />         
-        </div>
-        <div style={{display: 'inline-flex'}}>
-          <div styleName={classNames('icon', 'passive', 'centered')}>
-            <Icon type="inline" name="clock" />
-          </div>
-          <input
-            id={`time_${rand}`}
-            value=''
-            placeholder='HH:MM'
-            styleName={classNames('time')}
-          />        
-        </div>
-
+// eslint-disable-next-line no-empty-pattern
+const DateTime: React.FC<DateTimeProps> = ({ } : DateTimeProps) => (
+  <div>
+    <div styleName="dateFieldTitle">Date &amp; Time</div>
+    <div
+      styleName="dateInputArea"
+    >
+      <div styleName={classNames('centered')}>
+        <div
+          styleName={classNames('icon')}
+          className="pyreneIcon-calendar"
+        />
+        <input
+          name=""
+          placeholder="DD.MM.YYYY"
+          styleName={classNames('dateInput')}
+          maxLength={10}
+        />
       </div>
+      <div styleName={classNames('centered')}>
+        <div
+          styleName={classNames('icon')}
+          className="pyreneIcon-clock"
+        />
+        <input
+          name=""
+          placeholder="HH:MM"
+          styleName={classNames('timeInput')}
+          maxLength={5}
+        />
+      </div>
+
     </div>
-  );
-};
+  </div>
+);
 
 DateTime.displayName = 'DateTime';
 
