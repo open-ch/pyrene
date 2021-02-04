@@ -73,7 +73,7 @@ const IntroductionPage = () => (
           <Principle
             icon="tailor"
             title="Tailor-Made but Application-Agnostic"
-            description="With pyrene we aim to find the sweet spot of reusability. Leaving out functionality allows our components to be used consistently. Yet, we don’t want them to be so specific that they can only be used in a specific application"
+            description="We aim to find the sweet spot of reusability. Leaving out functionality allows our components to be used consistently. Yet, we don’t want them to be so specific that they can only be used in a specific application"
           />
           <Principle
             icon="extensible"
