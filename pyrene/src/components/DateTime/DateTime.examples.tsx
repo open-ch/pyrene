@@ -1,4 +1,3 @@
-import React from 'react';
 import { Example } from '../../examples/Example';
 import { DateTimeProps } from './DateTime';
 
