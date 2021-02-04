@@ -85,7 +85,7 @@ const icons = [
   { name: 'locationMedium', tags: ['location', 'medium', 'locationMedium', 'city', 'building', 'office'] },
   { name: 'locationBig', tags: ['location', 'big', 'locationBig', 'city', 'building', 'office'] },
   { name: 'locationRetail', tags: ['location', 'shop', 'retail', 'market', 'store'] },
-  { name: 'thumbsUp', tags: ['thumb', 'up', 'positive', 'great', 'yeah', 'plus', 'top'] },	
+  { name: 'thumbsUp', tags: ['thumb', 'up', 'positive', 'great', 'yeah', 'plus', 'top', 'thumbs up'] },	
   { name: 'path', tags: ['path', 'structure', 'way', 'find', 'direction', 'location', 'way', 'navigation', 'shape', 'vector', 'street', 'route', 'journey'] },		
   { name: 'lightbulb', tags: ['bulb', 'idea', 'saver', 'ecology', 'light', 'electric', 'environment', 'green', 'energy', 'lamp'] },		
   { name: 'calendar', tags: ['calendar', 'date', 'day', 'schedule', 'event', 'today', 'week', 'month', 'year'] },	
