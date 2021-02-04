@@ -11,6 +11,6 @@ DateTime.examples = [
   },
 ];
 
-DateTime.category = 'Other';
+DateTime.category = 'Form';
 
 export default DateTime;
