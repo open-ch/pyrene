@@ -1,6 +1,6 @@
 @import '../../styles/colors.css';
 
-.dateFieldTitle {
+.dateTimeFieldTitle {
   font-size: 11px;
   font-weight: 500;
   text-align: left;
@@ -15,7 +15,7 @@
 }
 
 
-.dateInputArea {
+.dateTimeInputArea {
   composes: commonFontSettings from '../../styles/common.css';
   color: var(--neutral-500);
 

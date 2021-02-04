@@ -1,17 +1,17 @@
 import React from 'react';
 import classNames from 'classnames';
 import Icon from '../Icon/Icon';
-import './dateTime.css';
+import './dateTimeInput.css';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface DateTimeProps{}
+export interface DateTimeInputProps{}
 
 // eslint-disable-next-line no-empty-pattern
-const DateTime: React.FC<DateTimeProps> = ({ } : DateTimeProps) => (
+const DateTimeInput: React.FC<DateTimeInputProps> = ({ } : DateTimeInputProps) => (
   <div>
-    <div styleName="dateFieldTitle">Date &amp; Time</div>
+    <div styleName="dateTimeFieldTitle">Date &amp; Time</div>
     <div
-      styleName="dateInputArea"
+      styleName="dateTimeInputArea"
     >
       <div styleName={classNames('centered')}>
         <Icon type="inline" name="calendar" color="neutral-500" />
@@ -36,6 +36,6 @@ const DateTime: React.FC<DateTimeProps> = ({ } : DateTimeProps) => (
   </div>
 );
 
-DateTime.displayName = 'DateTime';
+DateTimeInput.displayName = 'DateTimeInput';
 
-export default DateTime;
+export default DateTimeInput;
