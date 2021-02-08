@@ -8,9 +8,6 @@
   height: 12px;
   margin-bottom: 4px;
   line-height: 1.09;
-  font-stretch: normal;
-  font-style: normal;
-  letter-spacing: normal;
   font-family: FiraGo;
 }
 
@@ -18,14 +15,6 @@
 .dateTimeInputArea {
   composes: commonFontSettings from '../../styles/common.css';
   color: var(--neutral-500);
-
-  &, & *, & *:before, & *:after {
-    box-sizing: border-box;
-    padding: 0px;
-  }
-
-  margin: 4px 0 0;
-  padding: 4px 0px;
   height: 32px;
   border-radius: 2px;
   box-shadow: 0 0 0 1px var(--neutral-200) inset; /* Places the border inside of the div to prevent size jump */
@@ -33,6 +22,7 @@
   position: relative;
   display: inline-flex;
   align-items: center;
+  box-sizing: border-box;
 
   &:focus-within {
     box-shadow: 0 0 0 1px var(--blue-500) inset;
@@ -51,6 +41,7 @@
     display: inline-flex;
     align-items: center;    
     height: 16px;
+    box-sizing: border-box;
   }    
 
   & .centered:first-of-type { 
@@ -65,23 +56,22 @@
   & input {
     font-size: 12px;
     margin: 4px 0px 4px 4px;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    letter-spacing: normal;
     color: var(--neutral-500);
     font-family: FiraGO;
     padding: 0px;
     border: none;
     outline: none;
     background-color: inherit;
+    box-sizing: border-box;
   }
 
   & .dateInput {
     width: 67px;
+    box-sizing: border-box;
   }
 
   & .timeInput{
     width: 38px;
+    box-sizing: border-box;
   }
 }
