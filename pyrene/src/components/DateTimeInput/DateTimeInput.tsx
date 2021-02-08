@@ -36,6 +36,6 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({ } : DateTimeInputProps) =
   </div>
 );
 
-DateTimeInput.displayName = 'DateTimeInput';
+DateTimeInput.displayName = 'DateTime Input';
 
 export default DateTimeInput;
