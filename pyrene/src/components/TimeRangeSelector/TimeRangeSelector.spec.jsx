@@ -142,10 +142,7 @@ describe('<TimeRangeSelector />', () => {
     // 24h
     rendered.find('.toggleButtonGroup button').first().simulate('click');
     calculatedValue = rendered.find('.value').render()[0].children[0].data;
-    //  doing this seems to set the to value to the upperBound value
-    //  and the from value to upperBound - 24h
-    //  that is also what happens when testing it in pyrene
-    //  is that intended?
+
     expect(calculatedValue).toEqual('24.07.1994, 03:59 - 25.07.1994, 03:59');
 
     // left
