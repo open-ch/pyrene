@@ -166,7 +166,7 @@ describe('<TimeRangeSelector />', () => {
     expect(calculatedValue).toBe('24.07.1994, 03:59 - 25.07.1994, 03:59');
   });
 
-  it('has presets do not exceed the boundaries', () => {
+  it('has presets that do not exceed the boundaries', () => {
     rendered = mount(<TimeRangeSelector {...props} />);
 
     // Switching to years, since the lowerbound is just 90 days should not go beyond that
