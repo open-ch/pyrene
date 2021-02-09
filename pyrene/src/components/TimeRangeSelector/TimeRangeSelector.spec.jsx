@@ -40,7 +40,6 @@ let rendered;
 
 // Using date-fns to create the timestamps
 // getTime returns the timestamp in ms
-// eveything can be replaced with the ms vlaue if needed
 const props = {
   timezone: RWC_TIMEZONE,
   lowerBound: getTime(subDays(zonedTimeToUtc(new Date('1994-07-17 02:59'), RWC_TIMEZONE), 90)),
