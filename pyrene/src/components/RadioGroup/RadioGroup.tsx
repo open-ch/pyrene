@@ -35,6 +35,10 @@ export interface RadioGroupProps {
    */
   options?: RadioButtonBaseProps[],
   /**
+   * Sets the title above the input field.
+   */
+  title?: string,
+  /**
    * Sets the selected choice of the user.
    */
   value?: number | string,
@@ -52,6 +56,7 @@ const RadioGroup: React.FC<RadioGroupProps> = ({
   options = [],
   disabled = false,
   alignment = 'vertical',
+  title = '',
   value = '',
   invalid = false,
   name = '',
@@ -74,36 +79,39 @@ const RadioGroup: React.FC<RadioGroupProps> = ({
 
   return (
     <div
-      styleName={classNames('radioSelectionContainer', { [`alignment-${alignment}`]: true })}
+      styleName="radioSelectionContainer"
       onBlur={onBlur}
       id={name}
     >
-      {options.map((option, index) => {
-        const key = `radio_${option.label ?? ''}_${option.value}`;
+      {title && <div styleName="radioGroupTitle">{title}</div>}
+      <div styleName={classNames('radioGroupContainer', { [`alignment-${alignment}`]: true })}>
+        {options.map((option, index) => {
+          const key = `radio_${option.label ?? ''}_${option.value}`;
 
-        return (
-          <React.Fragment key={key}>
-            <div
-              className="radioContainer"
-              onMouseEnter={() => onMouseEnter(key)}
-              onMouseLeave={() => onMouseLeave(key)}
-            >
-              <RadioButton
-                checked={value === option.value}
-                disabled={option.disabled || disabled}
-                hovered={hovered}
-                invalid={option.invalid || invalid}
-                label={option.label}
-                name={name}
-                onChange={((val, event: React.ChangeEvent<HTMLInputElement>) => onChange(event.target.value, event))}
-                readonly={option.readonly}
-                value={option.value}
-              />
-            </div>
-            {index !== lastElementIndex && <div styleName={classNames({ [`spacer-${alignment}`]: true })} />}
-          </React.Fragment>
-        );
-      })}
+          return (
+            <React.Fragment key={key}>
+              <div
+                className="radioContainer"
+                onMouseEnter={() => onMouseEnter(key)}
+                onMouseLeave={() => onMouseLeave(key)}
+              >
+                <RadioButton
+                  checked={value === option.value}
+                  disabled={option.disabled || disabled}
+                  hovered={hovered}
+                  invalid={option.invalid || invalid}
+                  label={option.label}
+                  name={name}
+                  onChange={((val, event: React.ChangeEvent<HTMLInputElement>) => onChange(event.target.value, event))}
+                  readonly={option.readonly}
+                  value={option.value}
+                />
+              </div>
+              {index !== lastElementIndex && <div styleName={classNames({ [`spacer-${alignment}`]: true })} />}
+            </React.Fragment>
+          );
+        })}
+      </div>
     </div>
   );
 };

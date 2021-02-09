@@ -3,7 +3,9 @@
 .radioSelectionContainer {
   composes: commonFontSettings from '../../styles/common.css';
   outline: 0 !important;
+}
 
+.radioGroupContainer {
   &.alignment-vertical {
     display: inline-block;
   }
@@ -14,6 +16,15 @@
     flex-wrap: wrap;
     flex-direction: row;
   }
+}
+
+.radioGroupTitle {
+  font-size: 11px;
+  font-weight: 500;
+  text-align: left;
+  color: var(--neutral-500);
+  line-height: 12px;
+  margin-bottom: 4px;
 }
 
 .spacer-horizontal {
