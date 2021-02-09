@@ -41,9 +41,6 @@ export default class TableUtils {
       headerStyle: {
         rtPropName: 'headerStyle',
       },
-      overflowAble: {
-        rtPropName: 'overflowAble',
-      },
     };
 
     return allColumnProps.map((columnProps) => Object.keys(columnProps).reduce((remappedColumns, key) => {
