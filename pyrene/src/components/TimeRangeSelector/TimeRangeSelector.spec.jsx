@@ -116,41 +116,6 @@ describe('<TimeRangeSelector />', () => {
     expect(calculatedValue).toEqual('16.07.1994, 02:59 - 17.07.1994, 02:59');
   });
 
-  // it('the initial values cannot exceed the defined bounds', () => {
-  //   // The initial values are at the border of the bounds
-  //   const localProps = {
-  //     ...props,
-  //     lowerBound: getTime(zonedTimeToUtc(new Date('1994-07-17 17:00'), RWC_TIMEZONE)),
-  //     from: getTime(zonedTimeToUtc(new Date('1994-07-16 18:00'), RWC_TIMEZONE)),
-  //     to: getTime(zonedTimeToUtc(new Date('1994-07-19 02:59'), RWC_TIMEZONE)),
-  //     upperBound: getTime(zonedTimeToUtc(new Date('1994-07-18 02:59'), RWC_TIMEZONE)),
-  //   };
-
-  //   rendered = mount(<TimeRangeSelector {...localProps} />);
-
-  //   // We are simulating selecting the 24h preset
-  //   expect(rendered.find('PresetTimeRanges')).toHaveLength(1);
-  //   const calculatedValue = rendered.find('.value').render()[0].children[0].data;
-  //   //  value should be set to the lowerBound/upperBound
-  //   expect(calculatedValue).toEqual('17.06.1994, 17:00 - 18.07.1994, 02:59');
-  // });
-
-  //   it('the initial values cannot exceed the defined bounds', () => {
-  //   // The lowerbound is just one year, let's try to reduce the initialFrom value and check we are not exceeding it.
-  //   // The upperbound is now, let's try to increase the initialTo value to 2 years from now and check we are not exceeding it.
-  //   // The initial values are at the border of the bounds
-  //   const outboundFrom = moment(props.from).tz(RWC_TIMEZONE).subtract(2, 'years').valueOf();
-  //   const outboundTo = moment(props.from).tz(RWC_TIMEZONE).add(2, 'years').valueOf();
-  //   rendered = mount(<TimeRangeSelector {...props} initialFrom={outboundFrom} initialTo={outboundTo} />);
-
-  //   // We are simulating selecting the 24h preset
-  //   const initialTimeString = `${moment(props.from).tz(RWC_TIMEZONE).format(dateFormat)} - ${moment(props.to).tz(RWC_TIMEZONE).format(dateFormat)}`;
-
-  //   expect(rendered.find('PresetTimeRanges')).toHaveLength(1);
-  //   const calculatedValue = rendered.find('.value').render()[0].children[0].data;
-  //   expect(initialTimeString === calculatedValue).toBeTruthy();
-  // });
-
   it('has steppers that do not change the timerange if disabled', () => {
     rendered = mount(<TimeRangeSelector {...props} />);
 
