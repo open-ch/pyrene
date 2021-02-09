@@ -72,10 +72,10 @@ const CH_DST_START = {
 };
 
 const CH_DST_END = {
-  from: getTime(zonedTimeToUtc(new Date('2020-10-25 02:59'), ZURICH_TIMEZONE)),
-  to: getTime(addHours(zonedTimeToUtc(new Date('2020-10-25 02:59'), ZURICH_TIMEZONE), 24)),
-  lowerBound: getTime(subDays(zonedTimeToUtc(new Date('2020-10-25 02:59'), ZURICH_TIMEZONE), 80)),
-  upperBound: getTime(zonedTimeToUtc(new Date('2020-10-25 02:59'), ZURICH_TIMEZONE)),
+  from: getTime(zonedTimeToUtc(new Date('2020-10-25 01:59'), ZURICH_TIMEZONE)),
+  to: getTime(addHours(zonedTimeToUtc(new Date('2020-10-25 01:59'), ZURICH_TIMEZONE), 24)),
+  lowerBound: getTime(subDays(zonedTimeToUtc(new Date('2020-10-25 01:59'), ZURICH_TIMEZONE), 80)),
+  upperBound: getTime(zonedTimeToUtc(new Date('2020-10-25 01:59'), ZURICH_TIMEZONE)),
 };
 
 const NO_DST_30_DAYS = {
@@ -208,10 +208,11 @@ describe('<TimeRangeSelector />', () => {
   it('is consistent with DST end', () => {
     const usRendered = mount(<TimeRangeSelector {...props} timezone={RWC_TIMEZONE} from={US_DST_END.from} to={US_DST_END.to} lowerBound={US_DST_END.lowerBound} upperBound={US_DST_END.upperBound} />);
     const chRendered = mount(<TimeRangeSelector {...props} timezone={ZURICH_TIMEZONE} from={CH_DST_END.from} to={CH_DST_END.to} lowerBound={CH_DST_END.lowerBound} upperBound={CH_DST_END.upperBound} />);
+
     const usCalculatedValue = usRendered.find('.value').render()[0].children[0].data;
     const chCalculatedValue = chRendered.find('.value').render()[0].children[0].data;
     expect(usCalculatedValue).toBe('01.11.2020, 01:59 - 02.11.2020, 00:59');
-    expect(chCalculatedValue).toBe('25.10.2020, 02:59 - 26.10.2020, 02:59');
+    expect(chCalculatedValue).toBe('25.10.2020, 01:59 - 26.10.2020, 00:59');
   });
 
 });
