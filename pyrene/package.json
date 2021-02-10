@@ -100,6 +100,8 @@
   },
   "dependencies": {
     "classnames": "^2.2.5",
+    "date-fns": "^2.16.1",
+    "date-fns-tz": "^1.0.12",
     "prop-types": "^15.6.1",
     "react-select": "^3.1.1",
     "react-svg-inline": "^2.1.1",
