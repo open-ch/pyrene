@@ -78,7 +78,6 @@
     "jest-bamboo-formatter": "^1.0.1",
     "mini-css-extract-plugin": "^0.11.3",
     "moment": "^2.29.0",
-    "moment-timezone": "^0.5.31",
     "optimize-css-assets-webpack-plugin": "^5.0.4",
     "postcss": "^7.0.35",
     "postcss-custom-properties": "^10.0.0",
@@ -113,8 +112,6 @@
   },
   "peerDependencies": {
     "react": ">=16.9.0 <17.0.0",
-    "react-dom": ">=16.9.0 <17.0.0",
-    "moment": "^2.24.0",
-    "moment-timezone": "^0.5.26"
+    "react-dom": ">=16.9.0 <17.0.0"
   }
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import moment from 'moment-timezone';
+import { getTime, subYears, subDays } from 'date-fns';
 
 const fontStyle = {
   fontSize: '16px',
@@ -29,13 +29,14 @@ function renderRightSection() {
 
 const TIMEZONE = 'Europe/Zurich';
 
+const todayDateObject = new Date();
 const examples = {
   props: {
     timezone: TIMEZONE,
-    lowerBound: moment().tz(TIMEZONE).subtract(1, 'years').valueOf(),
-    from: (stateProvider) => (stateProvider.state.from === undefined ? moment().tz(TIMEZONE).subtract(40, 'days').valueOf() : stateProvider.state.from),
-    to: (stateProvider) => (stateProvider.state.from === undefined ? moment().tz(TIMEZONE).subtract(10, 'days').valueOf() : stateProvider.state.to),
-    upperBound: moment().tz(TIMEZONE).valueOf(),
+    lowerBound: getTime(subYears(todayDateObject, 1)),
+    from: (stateProvider) => (stateProvider.state.from === undefined ? getTime(subDays(todayDateObject, 40)) : stateProvider.state.from),
+    to: (stateProvider) => (stateProvider.state.from === undefined ? getTime(subDays(todayDateObject, 10)) : stateProvider.state.to),
+    upperBound: getTime(todayDateObject),
     onChange: (stateProvider) => (from, to) => stateProvider.setState({ from, to }),
     renderRightSection: renderRightSection,
   },
