@@ -57,7 +57,7 @@ body {
 .leftContainer {
   position: relative;
   display: block;
-  width: 284px;
+  min-width: 284px;
   background-color: var(--neutral-000);
   padding-right: 1px;
   box-shadow: inset -1px 0 0 var(--neutral-050);
