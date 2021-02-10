@@ -4,7 +4,10 @@ import Paragraph from '../../common/PageElements/Paragraph/Paragraph';
 import ColorBox from '../../common/PageElements/FoundationElements/ColorBox/ColorBox';
 import DescriptionBox from '../../common/PageElements/DescriptionBox/DescriptionBox';
 import {
-  primaryColors, neutralColors, interactionColors, extendedColors,
+  primaryColors,
+  neutralColors,
+  interactionColors,
+  extendedColors,
 } from '../../data/foundationsData';
 
 const createStackedColors = (data, colorBoxSize) => data.map((element) => (
@@ -34,38 +37,56 @@ const ColorsPage = () => (
     <div styleName="header">
       <div styleName="title">Colors</div>
       <div styleName="description">
-        Our color palette contains primary, neutrals, interaction colors as well as qualitative and sequential color schemes used for data visualizations.
-        They’ve been designed to work harmoniously with each other.
-        The color palette starts with a base color (500) and fills in the spectrum to create a complete and usable palette.
+        <p>
+          Maintaining consistent and engaging digital interfaces throughout OPen
+          Systems demands extended guidance around color usage. The following
+          concepts are the foundation as we strive to achieve balance and
+          harmony through our User Interface design.
+        </p>
+        <p>
+          Our color palette contains primary, neutrals, interaction and status
+          colors as well as color schemes used for data visualizations. They’ve
+          been designed to work harmoniously with each other.
+        </p>
+        <p>
+          The Neutral family is dominant in the default themes, making use of
+          subtle shifts in value to help organize content into distinct zones.
+        </p>
       </div>
     </div>
 
     <div styleName="topicContent">
       <Paragraph title="Primary Colors">
         <DescriptionBox>
-          The primary colors give our applications the characteristic look and feel.
-          These colors enjoy priority. White plays an important role in structuring content and the overall impression.
-          Blue is used as accent color while Dark is the main color for type.
+          The primary colors give our applications the characteristic look and
+          feel. These colors enjoy priority. White plays an important role in
+          structuring content and the overall impression. Blue is used as accent
+          color while Dark is the main color for type.
         </DescriptionBox>
         <div className="colorGrid">
           {createStackedColors(primaryColors, 'large')}
         </div>
       </Paragraph>
 
-      <Paragraph title="Neutrals">
+      <Paragraph title="Neutral Colors">
         <DescriptionBox>
-          Neutral colors are used for text, backgrounds, shadows, lines, dividers and borders. Those colors give our elements structure.
+          The neutral colours give a minimalist and clean impression. The
+          neutral colours are mainly used for structuring and weighting the
+          content. Typically they are used for text, icons and subtle
+          backgrounds when we don&apos;t want to draw too much attention to a
+          particular touchpoint or convey information such as inactive or
+          disabled.
         </DescriptionBox>
         <div className="colorGrid">
           {createStackedColors(neutralColors, 'medium')}
         </div>
       </Paragraph>
 
-      <Paragraph title="Interaction Colors">
+      <Paragraph title="Semantic Colors">
         <DescriptionBox>
-          The Interaction colors are used for buttons, alert messages, form elements and status of services/hosts.
-          Interaction colors can have a darker and lighter shade.
-          The darker shades of Green, Red and Orange are used for type to improve readability.
+          Semantic color helps users identify status, see actions, locate help,
+          and understand next steps. The consistent use of color keeps cognitive
+          load low and makes for a unified and engaging user experience.
         </DescriptionBox>
         <div className="colorGrid">
           {createStackedColors(interactionColors, 'medium')}
@@ -75,8 +96,9 @@ const ColorsPage = () => (
       <Paragraph title="Extended Palette">
         <DescriptionBox>
           The extended palette consists of all the useable tints and shades.
-          These palette is also used in graphs and data visualizations.
-          Each grade is derived from the base color (-500), by adjusting saturation and brightness.
+          These palette is also used in graphs and data visualizations. Each
+          grade is derived from the base color (-500), by adjusting saturation
+          and brightness.
         </DescriptionBox>
         <div className="colorGrid">
           {createStackedColors(extendedColors, 'small')}
