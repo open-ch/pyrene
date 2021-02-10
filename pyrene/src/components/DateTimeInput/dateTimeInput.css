@@ -1,28 +1,27 @@
 @import '../../styles/colors.css';
 
+.dateTimeComponent {
+  color: var(--neutral-500);
+}
+
 .dateTimeFieldTitle {
   font-size: 11px;
   font-weight: 500;
-  text-align: left;
-  color: var(--neutral-500);
   height: 12px;
   margin-bottom: 4px;
   line-height: 1.09;
-  font-family: FiraGo;
 }
 
 
-.dateTimeInputArea {
-  composes: commonFontSettings from '../../styles/common.css';
-  color: var(--neutral-500);
+.dateTimeInputArea {    
   height: 32px;
   border-radius: 2px;
   box-shadow: 0 0 0 1px var(--neutral-200) inset; /* Places the border inside of the div to prevent size jump */
   background-color: var(--neutral-020); /* same as input default */
   position: relative;
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  box-sizing: border-box;
+
 
   &:focus-within {
     box-shadow: 0 0 0 1px var(--blue-500) inset;
@@ -31,47 +30,44 @@
 
   &:hover {
     box-shadow: 0 0 0 1px var(--blue-500) inset;
-  }  
+  }   
 
-  &::placeholder{
-    color: var(--neutral-300);
-  }
-
-  & .centered {
-    display: inline-flex;
-    align-items: center;    
-    height: 16px;
-    box-sizing: border-box;
-  }    
-
-  & .centered:first-of-type { 
-    margin-left: 8px;
-    margin-right: 8px;
-  }
-
-  & .centered:last-of-type {
-    margin-right: 8px;
-  }
-
-  & input {
+  & input {   
     font-size: 12px;
     margin: 4px 0px 4px 4px;
-    color: var(--neutral-500);
-    font-family: FiraGO;
+    color: var(--neutral-500);      
+    font-family: inherit;        
     padding: 0px;
     border: none;
     outline: none;
     background-color: inherit;
-    box-sizing: border-box;
-  }
 
-  & .dateInput {
-    width: 67px;
-    box-sizing: border-box;
-  }
-
-  & .timeInput{
-    width: 38px;
-    box-sizing: border-box;
-  }
+    &::placeholder{
+      color: var(--neutral-300);
+    }  
+    
+    &.dateInput {
+      width: 67px;
+    }
+  
+    &.timeInput{
+      width: 38px;
+    }    
+  } 
+  
+  & .iconInputContainer {
+    display: flex;
+    align-items: center;    
+    height: 16px;
+  
+    &:first-of-type { 
+      margin-left: 8px;
+      margin-right: 8px;
+    }
+    
+    &:last-of-type {
+      margin-right: 8px;
+    }  
+  }    
 }
+
