@@ -13,7 +13,6 @@
   line-height: 1.09;
 }
 
-
 .dateTimeInputArea {    
   height: 32px;
   border-radius: 2px;
@@ -21,53 +20,51 @@
   background-color: var(--neutral-020); /* same as input default */
   display: flex;
   align-items: center;
-
-
-  &:focus-within {
-    box-shadow: 0 0 0 1px var(--blue-500) inset;
-    background-color: var(--neutral-000);
-  }
-
-  &:hover {
-    box-shadow: 0 0 0 1px var(--blue-500) inset;
-  }   
-
-  & input {   
-    font-size: 12px;
-    margin: 4px 0px 4px 4px;
-    color: var(--neutral-500);      
-    font-family: inherit;        
-    padding: 0px;
-    border: none;
-    outline: none;
-    background-color: inherit;
-
-    &::placeholder{
-      color: var(--neutral-300);
-    }  
-    
-    &.dateInput {
-      width: 67px;
-    }
-  
-    &.timeInput{
-      width: 38px;
-    }    
-  } 
-  
-  & .iconInputContainer {
-    display: flex;
-    align-items: center;    
-    height: 16px;
-  
-    &:first-of-type { 
-      margin-left: 8px;
-      margin-right: 8px;
-    }
-    
-    &:last-of-type {
-      margin-right: 8px;
-    }  
-  }    
 }
 
+.dateTimeInputArea:focus-within {
+  box-shadow: 0 0 0 1px var(--blue-500) inset;
+  background-color: var(--neutral-000);  
+}
+
+.dateTimeInputArea:hover {
+  box-shadow: 0 0 0 1px var(--blue-500) inset;
+}
+
+.input {   
+  font-size: 12px;
+  margin: 4px 0px 4px 4px;
+  color: var(--neutral-500);      
+  font-family: inherit;        
+  padding: 0px;
+  border: none;
+  outline: none;
+  background-color: inherit;
+}  
+
+.input::placeholder {
+  color: var(--neutral-300);
+}
+
+.dateInput {
+  width: 67px;
+}
+
+.timeInput{
+  width: 38px;  
+}  
+
+.iconInputContainer {
+  display: flex;
+  align-items: center;    
+  height: 16px;
+}  
+
+.calendar { 
+  margin-left: 8px;
+  margin-right: 8px;
+}
+
+.clock {
+  margin-right: 8px;
+}  

@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import Icon from '../Icon/Icon';
 import './dateTimeInput.css';
 
@@ -12,21 +13,21 @@ const DateTimeInput: React.FC<DateTimeInputProps> = () => (
     <div
       styleName="dateTimeInputArea"
     >
-      <div styleName="iconInputContainer">
+      <div styleName={classNames('iconInputContainer', 'calendar')}>
         <Icon type="inline" name="calendar" color="neutral-500" />
         <input
           name=""
           placeholder="DD.MM.YYYY"
-          styleName="dateInput"
+          styleName={classNames('input', 'dateInput')}
           maxLength={10}
         />
       </div>
-      <div styleName="iconInputContainer">
+      <div styleName={classNames('iconInputContainer', 'clock')}>
         <Icon type="inline" name="clock" color="neutral-500" />
         <input
           name=""
           placeholder="HH:MM"
-          styleName="timeInput"
+          styleName={classNames('input', 'timeInput')}
           maxLength={5}
         />
       </div>
