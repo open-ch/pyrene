@@ -1,0 +1,70 @@
+@import '../../styles/colors.css';
+
+.dateTimeComponent {
+  composes: commonFontSettings from '../../styles/common.css';
+  color: var(--neutral-500);
+}
+
+.dateTimeFieldTitle {
+  font-size: 11px;
+  font-weight: 500;
+  height: 12px;
+  margin-bottom: 4px;
+  line-height: 1.09;
+}
+
+.dateTimeInputArea {    
+  height: 32px;
+  border-radius: 2px;
+  box-shadow: 0 0 0 1px var(--neutral-200) inset; /* Places the border inside of the div to prevent size jump */
+  background-color: var(--neutral-020); /* same as input default */
+  display: flex;
+  align-items: center;
+}
+
+.dateTimeInputArea:focus-within {
+  box-shadow: 0 0 0 1px var(--blue-500) inset;
+  background-color: var(--neutral-000);  
+}
+
+.dateTimeInputArea:hover {
+  box-shadow: 0 0 0 1px var(--blue-500) inset;
+}
+
+.input {   
+  font-size: 12px;
+  margin: 4px 0px 4px 4px;
+  color: var(--neutral-500);      
+  font-family: inherit;        
+  padding: 0px;
+  border: none;
+  outline: none;
+  background-color: inherit;
+}  
+
+.input::placeholder {
+  color: var(--neutral-300);
+}
+
+.dateInput {
+  width: 67px;
+}
+
+.timeInput{
+  width: 38px;  
+}  
+
+.iconInputContainer {
+  display: flex;
+  align-items: center;    
+  height: 16px;
+}  
+
+.calendar { 
+  margin-left: 8px;
+  margin-right: 8px;
+}
+
+.clock {
+  margin-right: 8px;
+}  
