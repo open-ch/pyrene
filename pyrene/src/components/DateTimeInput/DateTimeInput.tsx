@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import classNames from 'classnames';
 import Icon from '../Icon/Icon';
 import './dateTimeInput.css';
@@ -9,18 +9,34 @@ export interface DateTimeInputProps{
   onChange?: (value: number | null) => void,
 }
 
-type DateType = {
+export type DateType = {
   day: number,
   month: number,
   year: number,
 } | undefined;
 
-type TimeType = {
+export type TimeType = {
   minutes: number,
   hours: number,
 } | undefined;
 
-export const getTimeStamp = (date:DateType, time:TimeType): number | null => {
+const allowedSeparatorCheck = (valueToCheck: string): boolean => (/[/.:]$/.test(valueToCheck));
+
+export const getDateTypeFromddmmyyyyWithSep = (str: string): DateType => {
+  if (allowedSeparatorCheck(str.charAt(2)) && allowedSeparatorCheck(str.charAt(5))) {
+    return { day: +str.substr(0, 2), month: +str.substr(3, 2), year: +str.substr(6) };
+  }
+  return undefined;
+};
+
+export const getTimeTypeFromhhmmWithSep = (str: string): TimeType => {
+  if (allowedSeparatorCheck(str.charAt(2))) {
+    return { hours: +str.substr(0, 2), minutes: +str.substr(3) };
+  }
+  return undefined;
+};
+
+export const getTimeStamp = (date: DateType, time: TimeType): number | null => {
   if (time === undefined || date === undefined) {
     return null;
   }
@@ -29,17 +45,34 @@ export const getTimeStamp = (date:DateType, time:TimeType): number | null => {
   return timeStamp.valueOf();
 };
 
-export const getDate = (date:DateType): number | null => {
-  if (date === undefined) {
-    return null;
+export const zeroLead = (str: string): string => (str.trim().length < 2 ? `0${str}` : str.trim());
+
+export const standardEUDateformat = (dateStr: DateType): string => {
+  if (dateStr !== undefined) {
+    const day = zeroLead(dateStr.day.toString());
+    const month = zeroLead(dateStr.month.toString());
+    const year = dateStr.year.toString();
+
+    return `${day}.${month}.${year}`;
   }
-  return new Date(date.year, date.month, date.day).valueOf();
+  return '';
+};
+
+export const timeformat = (timeStr: TimeType): string => {
+  if (timeStr !== undefined) {
+    const hours = zeroLead(timeStr.hours.toString());
+    const minutes = zeroLead(timeStr.minutes.toString());
+
+    return `${hours}:${minutes}`;
+  }
+  return '';
 };
 
 const DateTimeInput: React.FC<DateTimeInputProps> = ({
   name,
   onChange,
-} : DateTimeInputProps) => {
+  timeStamp,
+}: DateTimeInputProps) => {
 
   let date: DateType;
   let time: TimeType;
@@ -47,46 +80,22 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
   const [dValue, setDateValue] = useState('');
   const [tValue, setTimeValue] = useState('');
 
-  const allowedSeparatorCheck = (valueToCheck:string) : boolean => (/[/.:]$/.test(valueToCheck));
-
-  const ddmmyyyyWithSep = (str:string): DateType => {
-    if (allowedSeparatorCheck(str.charAt(2)) && allowedSeparatorCheck(str.charAt(5))) {
-      return { day: +dValue.substr(0, 2), month: +dValue.substr(3, 2), year: +dValue.substr(6) };
-    }
-    return undefined;
-  };
-
-  const hhmmWithSep = (str:string): TimeType => {
-    if (allowedSeparatorCheck(str.charAt(2))) {
-      return { hours: +tValue.substr(0, 2), minutes: +tValue.substr(3) };
-    }
-    return undefined;
-  };
-
   const dateChecker = () => {
-    let timestamp = null;
-    if (dValue.length === 10) {
-      timestamp = getDate(ddmmyyyyWithSep(dValue));
-    }
-    console.log('Date', timestamp);
+    if (onChange) onChange(null);
   };
 
   const timeChecker = () => {
     let timestamp = null;
     if (dValue.length === 10 && tValue.length === 5) {
-      date = ddmmyyyyWithSep(dValue);
-      time = hhmmWithSep(tValue);
+      date = getDateTypeFromddmmyyyyWithSep(dValue);
+      time = getTimeTypeFromhhmmWithSep(tValue);
 
       timestamp = getTimeStamp(date, time);
 
-
-      if (onChange) {
+      if (onChange && timestamp !== null && !Number.isNaN(timestamp)) {
         onChange(timestamp);
-        console.log('Parent Called with, ', timestamp);
-      }
+      } else if (onChange) onChange(null);
     }
-
-    console.log('Time', timestamp);
   };
 
   const defOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -99,8 +108,30 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
     }
   };
 
+  const setDateTimeFromTimeStamp = (timestamp: number) => {
+    const dateObj = new Date(timestamp);
+
+    if (!Number.isNaN(dateObj.valueOf())) {
+      // Month shift : JS Date use 0 - 11 to count months
+      const theDate: DateType = { day: dateObj.getDate(), month: dateObj.getMonth() + 1, year: dateObj.getFullYear() };
+
+      const theTime: TimeType = { hours: dateObj.getHours(), minutes: dateObj.getMinutes() };
+      setDateValue(standardEUDateformat(theDate));
+      setTimeValue(timeformat(theTime));
+    } else {
+      setDateValue('');
+      setTimeValue('');
+    }
+  };
+
+  useEffect(() => {
+    if (timeStamp) {
+      setDateTimeFromTimeStamp(timeStamp);
+    }
+  }, [timeStamp]);
+
   return (
-    <div styleName="dateTimeComponent">
+    <div styleName="dateTimeComponent" onBlur={timeChecker}>
       <div styleName="dateTimeFieldTitle">Date &amp; Time</div>
       <div
         styleName="dateTimeInputArea"
