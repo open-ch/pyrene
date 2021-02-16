@@ -41,7 +41,8 @@ export const getTimeStamp = (date: DateType, time: TimeType): number | null => {
     return null;
   }
 
-  const timeStamp = new Date(date.year, date.month, date.day, time.hours, time.minutes);
+  // Month shift : JS Date use 0 - 11 to count months
+  const timeStamp = new Date(date.year, date.month - 1, date.day, time.hours, time.minutes);
   return timeStamp.valueOf();
 };
 
@@ -95,7 +96,7 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
       if (onChange && timestamp !== null && !Number.isNaN(timestamp)) {
         onChange(timestamp);
       } else if (onChange) onChange(null);
-    }
+    } else if (onChange) onChange(timestamp);
   };
 
   const defOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
