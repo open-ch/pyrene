@@ -6,6 +6,7 @@ import './dateTimeInput.css';
 export interface DateTimeInputProps{
   name?: string,
   timeStamp?: number,
+  onBlur?: () => void,
   onChange?: (value: number | null) => void,
 }
 
@@ -71,6 +72,7 @@ export const timeformat = (timeStr: TimeType): string => {
 
 const DateTimeInput: React.FC<DateTimeInputProps> = ({
   name,
+  onBlur,
   onChange,
   timeStamp,
 }: DateTimeInputProps) => {
@@ -81,11 +83,7 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
   const [dateValue, setDateValue] = useState('');
   const [timeValue, setTimeValue] = useState('');
 
-  const dateChecker = () => {
-    if (onChange) onChange(null);
-  };
-
-  const timeChecker = () => {
+  const dateTimeChecker = () => {
     let timestamp = null;
     if (dateValue.length === 10 && timeValue.length === 5) {
       date = getDateTypeFromddmmyyyyWithSep(dateValue);
@@ -95,8 +93,12 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
 
       if (onChange && timestamp !== null && !Number.isNaN(timestamp)) {
         onChange(timestamp);
-      } else if (onChange) onChange(null);
-    } else if (onChange) onChange(timestamp);
+      } else if (onChange) {
+        onChange(null);
+      }
+    } else if (onChange) {
+      onChange(timestamp);
+    }
   };
 
   const handleDateOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -132,7 +134,7 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
   }, [timeStamp]);
 
   return (
-    <div styleName="dateTimeComponent" onBlur={timeChecker}>
+    <div styleName="dateTimeComponent" onBlur={onBlur}>
       <div styleName="dateTimeFieldTitle">Date &amp; Time</div>
       <div
         styleName="dateTimeInputArea"
@@ -146,7 +148,7 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
             maxLength={10}
             onChange={handleDateOnChange}
             value={dateValue}
-            onKeyUp={dateChecker}
+            onKeyUp={dateTimeChecker}
           />
         </div>
         <div styleName={classNames('iconInputContainer', 'clock')}>
@@ -158,7 +160,7 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
             maxLength={5}
             onChange={handleTimeOnChange}
             value={timeValue}
-            onKeyUp={timeChecker}
+            onKeyUp={dateTimeChecker}
           />
         </div>
 
