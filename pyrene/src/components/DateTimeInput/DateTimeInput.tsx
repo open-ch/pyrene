@@ -99,7 +99,7 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
     } else if (onChange) onChange(timestamp);
   };
 
-  const defOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const node = event.target as HTMLInputElement;
 
     if (node.className.includes('dateInput')) {
@@ -144,7 +144,7 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
             placeholder="DD.MM.YYYY"
             styleName={classNames('input', 'dateInput')}
             maxLength={10}
-            onChange={defOnChange}
+            onChange={handleOnChange}
             value={dValue}
             onKeyUp={dateChecker}
           />
@@ -156,7 +156,7 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
             placeholder="HH:MM"
             styleName={classNames('input', 'timeInput')}
             maxLength={5}
-            onChange={defOnChange}
+            onChange={handleOnChange}
             value={tValue}
             onKeyUp={timeChecker}
           />
