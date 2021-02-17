@@ -140,7 +140,7 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
         <div styleName={classNames('iconInputContainer', 'calendar')}>
           <Icon type="inline" name="calendar" color="neutral-500" />
           <input
-            name={name ? `${name}-date` : ''}
+            name={name ? `${name}_date` : 'date_input'}
             placeholder="DD.MM.YYYY"
             styleName={classNames('input', 'dateInput')}
             maxLength={10}
@@ -152,7 +152,7 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
         <div styleName={classNames('iconInputContainer', 'clock')}>
           <Icon type="inline" name="clock" color="neutral-500" />
           <input
-            name={name ? `${name}-time` : ''}
+            name={name ? `${name}_time` : 'time_input'}
             placeholder="HH:MM"
             styleName={classNames('input', 'timeInput')}
             maxLength={5}
