@@ -5,17 +5,18 @@ import DateTimeInput from './DateTimeInput';
 
 describe('<DateTimeInput />', () => {
   it('renders without crashing', () => {
-    shallow(<DateTimeInput />);
+    shallow(<DateTimeInput onChange={jest.fn()} />);
   });
 
   it('renders icon font', () => {
-    const rendered = mount(<DateTimeInput />);
+    const rendered = mount(<DateTimeInput onChange={jest.fn()} />);
     expect(rendered.find('.pyreneIcon-calendar')).toHaveLength(1);
     expect(rendered.find('.pyreneIcon-clock')).toHaveLength(1);
   });
 
   it('Displays correct date.', () => {
     const props = {
+      onChange: jest.fn(),
       timeStamp: 946681199000,
     };
 
@@ -25,6 +26,7 @@ describe('<DateTimeInput />', () => {
 
   it('Invalid timestamp displays placeholder.', () => {
     const props = {
+      onChange: jest.fn(),
       timeStamp: 734587698769878726587236,
     };
 

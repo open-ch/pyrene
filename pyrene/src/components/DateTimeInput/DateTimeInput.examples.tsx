@@ -1,13 +1,18 @@
 import { Example } from '../../examples/Example';
 import { DateTimeInputProps } from './DateTimeInput';
 
+
 const DateTimeInput: Example<DateTimeInputProps> = {};
 
-DateTimeInput.props = {};
+DateTimeInput.props = {
+  onChange: () => {},
+};
 
 DateTimeInput.examples = [
   {
-    props: { },
+    props: {
+      onChange: () => {},
+    },
   },
 ];
 

@@ -7,7 +7,7 @@ export interface DateTimeInputProps{
   name?: string,
   timeStamp?: number,
   onBlur?: () => void,
-  onChange?: (value: number | null) => void,
+  onChange: (value: number | null) => void,
 }
 
 export type DateType = {
