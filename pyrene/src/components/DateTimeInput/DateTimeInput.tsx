@@ -13,12 +13,12 @@ export type DateType = {
   day: number,
   month: number,
   year: number,
-} | undefined;
+} | null;
 
 export type TimeType = {
   minutes: number,
   hours: number,
-} | undefined;
+} | null;
 
 const allowedSeparatorCheck = (valueToCheck: string): boolean => (/[/.:]$/.test(valueToCheck));
 
@@ -26,30 +26,30 @@ export const getDateTypeFromddmmyyyyWithSep = (str: string): DateType => {
   if (allowedSeparatorCheck(str.charAt(2)) && allowedSeparatorCheck(str.charAt(5))) {
     return { day: +str.substr(0, 2), month: +str.substr(3, 2), year: +str.substr(6) };
   }
-  return undefined;
+  return null;
 };
 
 export const getTimeTypeFromhhmmWithSep = (str: string): TimeType => {
   if (allowedSeparatorCheck(str.charAt(2))) {
     return { hours: +str.substr(0, 2), minutes: +str.substr(3) };
   }
-  return undefined;
+  return null;
 };
 
 export const getTimeStamp = (date: DateType, time: TimeType): number | null => {
-  if (time === undefined || date === undefined) {
+  if (!time || !date) {
     return null;
   }
 
   // Month shift : JS Date use 0 - 11 to count months
   const timeStamp = new Date(date.year, date.month - 1, date.day, time.hours, time.minutes);
-  return timeStamp.valueOf();
+  return timeStamp.valueOf() || null;
 };
 
-export const zeroLead = (str: string): string => (str.trim().length < 2 ? `0${str}` : str.trim());
+export const zeroLead = (str: string): string => (str.trim().length < 2 ? `0${str.trim()}` : str.trim());
 
 export const standardEUDateformat = (dateStr: DateType): string => {
-  if (dateStr !== undefined) {
+  if (dateStr) {
     const day = zeroLead(dateStr.day.toString());
     const month = zeroLead(dateStr.month.toString());
     const year = dateStr.year.toString();
@@ -60,7 +60,7 @@ export const standardEUDateformat = (dateStr: DateType): string => {
 };
 
 export const timeformat = (timeStr: TimeType): string => {
-  if (timeStr !== undefined) {
+  if (timeStr) {
     const hours = zeroLead(timeStr.hours.toString());
     const minutes = zeroLead(timeStr.minutes.toString());
 
