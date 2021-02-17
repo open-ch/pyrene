@@ -78,8 +78,8 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
   let date: DateType;
   let time: TimeType;
 
-  const [dValue, setDateValue] = useState('');
-  const [tValue, setTimeValue] = useState('');
+  const [dateValue, setDateValue] = useState('');
+  const [timeValue, setTimeValue] = useState('');
 
   const dateChecker = () => {
     if (onChange) onChange(null);
@@ -87,9 +87,9 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
 
   const timeChecker = () => {
     let timestamp = null;
-    if (dValue.length === 10 && tValue.length === 5) {
-      date = getDateTypeFromddmmyyyyWithSep(dValue);
-      time = getTimeTypeFromhhmmWithSep(tValue);
+    if (dateValue.length === 10 && timeValue.length === 5) {
+      date = getDateTypeFromddmmyyyyWithSep(dateValue);
+      time = getTimeTypeFromhhmmWithSep(timeValue);
 
       timestamp = getTimeStamp(date, time);
 
@@ -145,7 +145,7 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
             styleName={classNames('input', 'dateInput')}
             maxLength={10}
             onChange={handleOnChange}
-            value={dValue}
+            value={dateValue}
             onKeyUp={dateChecker}
           />
         </div>
@@ -157,7 +157,7 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
             styleName={classNames('input', 'timeInput')}
             maxLength={5}
             onChange={handleOnChange}
-            value={tValue}
+            value={timeValue}
             onKeyUp={timeChecker}
           />
         </div>
