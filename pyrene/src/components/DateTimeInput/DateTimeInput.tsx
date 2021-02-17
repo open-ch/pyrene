@@ -43,8 +43,8 @@ export const getTimeStamp = (date: DateType, time: TimeType): number | null => {
   }
 
   // Month shift : JS Date use 0 - 11 to count months
-  const timeStamp = new Date(date.year, date.month - 1, date.day, time.hours, time.minutes);
-  return timeStamp.valueOf() || null;
+  const tStamp = new Date(date.year, date.month - 1, date.day, time.hours, time.minutes);
+  return tStamp.valueOf() || null;
 };
 
 export const zeroLead = (str: string): string => (str.trim().length < 2 ? `0${str.trim()}` : str.trim());
@@ -84,20 +84,20 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
   const [timeValue, setTimeValue] = useState('');
 
   const dateTimeChecker = () => {
-    let timestamp = null;
+    let tStamp = null;
     if (dateValue.length === 10 && timeValue.length === 5) {
       date = getDateTypeFromddmmyyyyWithSep(dateValue);
       time = getTimeTypeFromhhmmWithSep(timeValue);
 
-      timestamp = getTimeStamp(date, time);
+      tStamp = getTimeStamp(date, time);
 
-      if (onChange && timestamp !== null && !Number.isNaN(timestamp)) {
-        onChange(timestamp);
+      if (onChange && tStamp !== null && !Number.isNaN(tStamp)) {
+        onChange(tStamp);
       } else if (onChange) {
         onChange(null);
       }
     } else if (onChange) {
-      onChange(timestamp);
+      onChange(tStamp);
     }
   };
 
@@ -111,8 +111,8 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
     setTimeValue(node.value);
   };
 
-  const setDateTimeFromTimeStamp = (timestamp: number) => {
-    const dateObj = new Date(timestamp);
+  const setDateTimeFromTimeStamp = (tStamp: number) => {
+    const dateObj = new Date(tStamp);
 
     if (!Number.isNaN(dateObj.valueOf())) {
       // Month shift : JS Date use 0 - 11 to count months
