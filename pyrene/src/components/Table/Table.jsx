@@ -355,7 +355,7 @@ export default class Table extends React.Component {
           </div>
         )}
 
-        <div styleName={classNames('filterBar', { loading: this.props.loading }, { disabled: this.props.disabled })}>
+        <div styleName={classNames('filterBar', { loading: this.props.loading, disabled: this.props.disabled })}>
           <div styleName="filterContainer">
             {(this.props.filters.length > 0 || this.props.filterDisabled)
               && (
