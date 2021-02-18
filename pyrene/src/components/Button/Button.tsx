@@ -56,6 +56,7 @@ const Button: React.FC<ButtonProps> = ({
 }: ButtonProps) => (
   <div styleName="buttonContainer">
     <button
+      // eslint-disable-next-line react/button-has-type
       type={actionType}
       className="unSelectable"
       styleName={
