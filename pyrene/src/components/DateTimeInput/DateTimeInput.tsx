@@ -24,14 +24,14 @@ export type TimeType = {
 const allowedSeparatorCheck = (valueToCheck: string): boolean => (/[/.:]$/.test(valueToCheck));
 
 export const getDateTypeFromddmmyyyyWithSep = (str: string): DateType | null => {
-  if (allowedSeparatorCheck(str.charAt(2)) && allowedSeparatorCheck(str.charAt(5))) {
+  if (str.length === 10 && allowedSeparatorCheck(str.charAt(2)) && allowedSeparatorCheck(str.charAt(5))) {
     return { day: +str.substr(0, 2), month: +str.substr(3, 2), year: +str.substr(6) };
   }
   return null;
 };
 
 export const getTimeTypeFromhhmmWithSep = (str: string): TimeType | null => {
-  if (allowedSeparatorCheck(str.charAt(2))) {
+  if (str.length === 5 && allowedSeparatorCheck(str.charAt(2))) {
     return { hours: +str.substr(0, 2), minutes: +str.substr(3) };
   }
   return null;
