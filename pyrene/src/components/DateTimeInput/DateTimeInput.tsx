@@ -70,18 +70,16 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
   const [dateValue, setDateValue] = useState('');
   const [timeValue, setTimeValue] = useState('');
 
-  const dateTimeChecker = () => {
-    let tStamp = null;
-    if (dateValue.length === 10 && timeValue.length === 5) {
-      const date = getDateTypeFromddmmyyyyWithSep(dateValue);
-      const time = getTimeTypeFromhhmmWithSep(timeValue);
+  const dateTimeChecker = (dateStr:string, timeStr:string) => {
+    let tStamp: number | null = null;
+    if (dateStr.length === 10 && timeStr.length === 5) {
+      const date = getDateTypeFromddmmyyyyWithSep(dateStr);
+      const time = getTimeTypeFromhhmmWithSep(timeStr);
 
       tStamp = (date && time) ? getTimeStamp(date, time) : null;
 
-      if (onChange && tStamp !== null && !Number.isNaN(tStamp)) {
+      if (onChange) {
         onChange(tStamp);
-      } else if (onChange) {
-        onChange(null);
       }
     } else if (onChange) {
       onChange(tStamp);
@@ -91,11 +89,15 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
   const handleDateOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const node = event.target as HTMLInputElement;
     setDateValue(node.value);
+
+    dateTimeChecker(node.value, timeValue);
   };
 
   const handleTimeOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const node = event.target as HTMLInputElement;
     setTimeValue(node.value);
+
+    dateTimeChecker(dateValue, node.value);
   };
 
   const setDateTimeFromTimeStamp = (tStamp: number) => {
@@ -135,7 +137,6 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
             maxLength={10}
             onChange={handleDateOnChange}
             value={dateValue}
-            onKeyUp={dateTimeChecker}
           />
         </div>
         <div styleName={classNames('iconInputContainer', 'clock')}>
@@ -147,7 +148,6 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
             maxLength={5}
             onChange={handleTimeOnChange}
             value={timeValue}
-            onKeyUp={dateTimeChecker}
           />
         </div>
 
