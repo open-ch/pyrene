@@ -34,7 +34,8 @@ describe('<DateTimeInput />', () => {
     const dateInput = rendered.find('input').first();
     const timeInput = rendered.find('input').last();
 
-    expect(dateInput.props().placeholder?.includes('DD') && dateInput.props().placeholder?.includes('MM') && dateInput.props().placeholder?.includes('YYYY') && dateInput.props().value === '' && timeInput.props().placeholder?.includes('HH') && timeInput.props().placeholder?.includes('MM') && timeInput.props().value === '').not.toBeFalsy();
+    expect(dateInput.props().placeholder?.includes('DD.MM.YYY') && dateInput.props().value === '').not.toBeFalsy();
+    expect(timeInput.props().placeholder?.includes('HH:MM') && timeInput.props().value === '').not.toBeFalsy();
   });
 
   it('Valid timestamp input calls onChange with timestamp.', () => {
@@ -46,7 +47,7 @@ describe('<DateTimeInput />', () => {
 
     const rendered = mount(<DateTimeInput {...props} />);
     const timeInput = rendered.find('input').last();
-    timeInput.simulate('keyup', { key: 51 });
+    timeInput.simulate('change');
 
     // Minus seconds
     expect(onchange).toBeCalledWith(946681140000);
@@ -71,7 +72,6 @@ describe('<DateTimeInput />', () => {
 
     timeInputDom.value = '23:59';
     timeInput.simulate('change');
-    timeInput.simulate('keyup', { key: 51 });
 
     expect(onchange).toBeCalledWith(946681140000);
   });
@@ -95,7 +95,6 @@ describe('<DateTimeInput />', () => {
 
     timeInputDom.value = 'ee:ff';
     timeInput.simulate('change');
-    timeInput.simulate('keyup', { key: 51 });
 
     expect(onchange).toBeCalledWith(null);
   });
