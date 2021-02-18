@@ -14,23 +14,23 @@ export type DateType = {
   day: number,
   month: number,
   year: number,
-} | null;
+};
 
 export type TimeType = {
   minutes: number,
   hours: number,
-} | null;
+};
 
 const allowedSeparatorCheck = (valueToCheck: string): boolean => (/[/.:]$/.test(valueToCheck));
 
-export const getDateTypeFromddmmyyyyWithSep = (str: string): DateType => {
+export const getDateTypeFromddmmyyyyWithSep = (str: string): DateType | null => {
   if (allowedSeparatorCheck(str.charAt(2)) && allowedSeparatorCheck(str.charAt(5))) {
     return { day: +str.substr(0, 2), month: +str.substr(3, 2), year: +str.substr(6) };
   }
   return null;
 };
 
-export const getTimeTypeFromhhmmWithSep = (str: string): TimeType => {
+export const getTimeTypeFromhhmmWithSep = (str: string): TimeType | null => {
   if (allowedSeparatorCheck(str.charAt(2))) {
     return { hours: +str.substr(0, 2), minutes: +str.substr(3) };
   }
@@ -38,10 +38,6 @@ export const getTimeTypeFromhhmmWithSep = (str: string): TimeType => {
 };
 
 export const getTimeStamp = (date: DateType, time: TimeType): number | null => {
-  if (!time || !date) {
-    return null;
-  }
-
   // Month shift : JS Date use 0 - 11 to count months
   const tStamp = new Date(date.year, date.month - 1, date.day, time.hours, time.minutes);
   return tStamp.valueOf() || null;
@@ -49,25 +45,19 @@ export const getTimeStamp = (date: DateType, time: TimeType): number | null => {
 
 export const zeroLead = (str: string): string => (str.trim().length < 2 ? `0${str.trim()}` : str.trim());
 
-export const standardEUDateformat = (dateStr: DateType): string => {
-  if (dateStr) {
-    const day = zeroLead(dateStr.day.toString());
-    const month = zeroLead(dateStr.month.toString());
-    const year = dateStr.year.toString();
+export const standardEUDateFormat = (dateStr: DateType): string => {
+  const day = zeroLead(dateStr.day.toString());
+  const month = zeroLead(dateStr.month.toString());
+  const year = dateStr.year.toString();
 
-    return `${day}.${month}.${year}`;
-  }
-  return '';
+  return `${day}.${month}.${year}`;
 };
 
-export const timeformat = (timeStr: TimeType): string => {
-  if (timeStr) {
-    const hours = zeroLead(timeStr.hours.toString());
-    const minutes = zeroLead(timeStr.minutes.toString());
+export const timeFormat = (timeStr: TimeType): string => {
+  const hours = zeroLead(timeStr.hours.toString());
+  const minutes = zeroLead(timeStr.minutes.toString());
 
-    return `${hours}:${minutes}`;
-  }
-  return '';
+  return `${hours}:${minutes}`;
 };
 
 const DateTimeInput: React.FC<DateTimeInputProps> = ({
@@ -77,19 +67,16 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
   timeStamp,
 }: DateTimeInputProps) => {
 
-  let date: DateType;
-  let time: TimeType;
-
   const [dateValue, setDateValue] = useState('');
   const [timeValue, setTimeValue] = useState('');
 
   const dateTimeChecker = () => {
     let tStamp = null;
     if (dateValue.length === 10 && timeValue.length === 5) {
-      date = getDateTypeFromddmmyyyyWithSep(dateValue);
-      time = getTimeTypeFromhhmmWithSep(timeValue);
+      const date = getDateTypeFromddmmyyyyWithSep(dateValue);
+      const time = getTimeTypeFromhhmmWithSep(timeValue);
 
-      tStamp = getTimeStamp(date, time);
+      tStamp = (date && time) ? getTimeStamp(date, time) : null;
 
       if (onChange && tStamp !== null && !Number.isNaN(tStamp)) {
         onChange(tStamp);
@@ -119,8 +106,8 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
       const theDate: DateType = { day: dateObj.getDate(), month: dateObj.getMonth() + 1, year: dateObj.getFullYear() };
 
       const theTime: TimeType = { hours: dateObj.getHours(), minutes: dateObj.getMinutes() };
-      setDateValue(standardEUDateformat(theDate));
-      setTimeValue(timeformat(theTime));
+      setDateValue(standardEUDateFormat(theDate));
+      setTimeValue(timeFormat(theTime));
     } else {
       setDateValue('');
       setTimeValue('');
