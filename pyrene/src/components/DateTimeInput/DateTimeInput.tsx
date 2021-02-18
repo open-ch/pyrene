@@ -77,11 +77,9 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
       const time = getTimeTypeFromhhmmWithSep(timeStr);
 
       tStamp = (date && time) ? getTimeStamp(date, time) : null;
+    }
 
-      if (onChange) {
-        onChange(tStamp);
-      }
-    } else if (onChange) {
+    if (onChange) {
       onChange(tStamp);
     }
   };
