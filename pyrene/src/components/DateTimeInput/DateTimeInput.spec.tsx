@@ -3,6 +3,7 @@ import { shallow, mount } from 'enzyme';
 
 import DateTimeInput from './DateTimeInput';
 
+
 describe('<DateTimeInput />', () => {
   it('renders without crashing', () => {
     shallow(<DateTimeInput onChange={jest.fn()} />);
@@ -41,7 +42,7 @@ describe('<DateTimeInput />', () => {
   it('Valid timestamp input calls onChange with timestamp.', () => {
     const onchange = jest.fn();
     const props = {
-      timeStamp: 946681199000,
+      timeStamp: 946681199000, // This timestamp contains seconds
       onChange: onchange,
     };
 
@@ -49,7 +50,7 @@ describe('<DateTimeInput />', () => {
     const timeInput = rendered.find('input').last();
     timeInput.simulate('change');
 
-    // Minus seconds
+    // Timestamp returned should not contain seconds because component is DD.MM.YYYY HH:MM
     expect(onchange).toBeCalledWith(946681140000);
   });
 
