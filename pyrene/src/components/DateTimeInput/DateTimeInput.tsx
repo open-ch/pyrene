@@ -38,7 +38,7 @@ export const getTimeTypeFromhhmmWithSep = (str: string): TimeType | null => {
 };
 
 export const getTimeStamp = (date: DateType, time: TimeType): number | null => {
-  // Month shift : JS Date use 0 - 11 to count months
+  // Month shift : JS Date uses 0 - 11 to count months
   const tStamp = new Date(date.year, date.month - 1, date.day, time.hours, time.minutes);
   return tStamp.valueOf() || null;
 };
@@ -70,7 +70,7 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
   const [dateValue, setDateValue] = useState('');
   const [timeValue, setTimeValue] = useState('');
 
-  const dateTimeChecker = (dateStr:string, timeStr:string) => {
+  const handleOnChange = (dateStr:string, timeStr:string) => {
     let tStamp: number | null = null;
     if (dateStr.length === 10 && timeStr.length === 5) {
       const date = getDateTypeFromddmmyyyyWithSep(dateStr);
@@ -88,26 +88,26 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
     const node = event.target as HTMLInputElement;
     setDateValue(node.value);
 
-    dateTimeChecker(node.value, timeValue);
+    handleOnChange(node.value, timeValue);
   };
 
   const handleTimeOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const node = event.target as HTMLInputElement;
     setTimeValue(node.value);
 
-    dateTimeChecker(dateValue, node.value);
+    handleOnChange(dateValue, node.value);
   };
 
   const setDateTimeFromTimeStamp = (tStamp: number) => {
     const dateObj = new Date(tStamp);
 
     if (!Number.isNaN(dateObj.valueOf())) {
-      // Month shift : JS Date use 0 - 11 to count months
-      const theDate: DateType = { day: dateObj.getDate(), month: dateObj.getMonth() + 1, year: dateObj.getFullYear() };
+      // Month shift : JS Date uses 0 - 11 to count months
+      const date: DateType = { day: dateObj.getDate(), month: dateObj.getMonth() + 1, year: dateObj.getFullYear() };
 
-      const theTime: TimeType = { hours: dateObj.getHours(), minutes: dateObj.getMinutes() };
-      setDateValue(standardEUDateFormat(theDate));
-      setTimeValue(timeFormat(theTime));
+      const time: TimeType = { hours: dateObj.getHours(), minutes: dateObj.getMinutes() };
+      setDateValue(standardEUDateFormat(date));
+      setTimeValue(timeFormat(time));
     } else {
       setDateValue('');
       setTimeValue('');
