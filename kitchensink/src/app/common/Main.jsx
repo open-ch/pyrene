@@ -10,6 +10,7 @@ import Logo from './Logo';
 import SideBarMenu from './SideBarMenu/SideBarMenu';
 import IntroductionPage from '../static/IntroductionPage';
 import ColorsPage from '../static/foundations/ColorsPage';
+import TypographyPage from '../static/foundations/TypographyPage';
 import IconsPage from '../static/foundations/IconsPage';
 import ResourcesPage from '../static/ResourcesPage';
 import ComponentPage from './ComponentPage';
@@ -55,6 +56,7 @@ export default class Main extends React.PureComponent {
           <Switch>
             <Route path="/" component={IntroductionPage} exact />
             <Route path="/colors" component={ColorsPage} />
+            <Route path="/typography" component={TypographyPage} />
             <Route path="/icons" component={IconsPage} />
             <Route path="/resources" component={ResourcesPage} />
             <Route path="/cookbook/form" component={FormUsage} />
