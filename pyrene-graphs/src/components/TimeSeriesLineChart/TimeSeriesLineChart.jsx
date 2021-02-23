@@ -24,6 +24,7 @@ export default class TimeSeriesLineChart extends React.Component {
 
   componentDidUpdate(prevProps) {
     if (prevProps.loading && !this.props.loading) {
+      // eslint-disable-next-line react/no-did-update-set-state
       this.setState(() => ({
         dataDeselected: this.props.data.map((d) => (d.deselected)),
       }));
