@@ -48,7 +48,7 @@ const Banner: React.FC<BannerProps> = ({
   type,
 }: BannerProps) => (
   <div
-    styleName={className('banner', { [`type-${type}`]: type !== 'loading' }, { [`style-${styling}`]: true })}
+    styleName={className('banner',  { [`type-${type}`]: type !== 'loading' }, `style-${styling}`)}
     role="banner"
   >
     <div styleName="iconMessageContainer">
