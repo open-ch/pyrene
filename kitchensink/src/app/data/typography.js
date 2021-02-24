@@ -11,7 +11,7 @@ const fontTypes = [
           + 'Letter spacing: 0.5 px\n'
           + 'color: neutral-200 #979CA8',
         style: {
-          fontFamily: 'FiraSans, sans-serif;',
+          fontFamily: 'FiraSans,sans-serif',
           fontStyle: 'normal',
           fontWeight: 500,
           fontSize: '11px',
