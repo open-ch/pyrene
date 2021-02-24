@@ -6,7 +6,7 @@ import './dateTimeInput.css';
 export interface DateTimeInputProps{
   name?: string,
   timeStamp?: number,
-  onBlur?: () => void,
+  onBlur?: (value: number | null) => void,
   onChange: (value: number | null) => void,
 }
 
@@ -75,7 +75,7 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
     setTimeValue('');
   };
 
-  const handleOnChange = (dateStr:string, timeStr:string) => {
+  const processInputString = (dateStr:string, timeStr:string) => {
     let tStamp: number | null = null;
     if (dateStr.length === 10 && timeStr.length === 5) {
       const date = getDateTypeFromddmmyyyyWithSep(dateStr);
@@ -84,8 +84,18 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
       tStamp = (date && time) ? getTimeStamp(date, time) : null;
     }
 
+    return tStamp;
+  };
+
+  const handleOnBlur = () => {
+    if (onBlur) {
+      onBlur(processInputString(dateValue, timeValue));
+    }
+  };
+
+  const handleOnChange = (dateStr:string, timeStr:string) => {
     if (onChange) {
-      onChange(tStamp);
+      onChange(processInputString(dateStr, timeStr));
     }
   };
 
@@ -127,7 +137,7 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
   }, [timeStamp, setDateTimeFromTimeStamp]);
 
   return (
-    <div styleName="dateTimeComponent" onBlur={onBlur}>
+    <div styleName="dateTimeComponent" onBlur={handleOnBlur}>
       <div styleName="dateTimeFieldTitle">Date &amp; Time</div>
       <div
         styleName="dateTimeInputArea"
