@@ -1,12 +1,13 @@
-import { DATE_TYPES, convertToInternalMomentJs } from './CalendarDateSelectorUtils';
+import { format } from 'date-fns';
+import { DATE_TYPES, convertToJsDate } from './CalendarDateSelectorUtils';
 
 export default class DateHelper {
 
-  static FULL_DATE = 'DD MMMM YYYY';
+  static FULL_DATE = 'dd MMMM yyyy';
 
-  static MONTH_NAME_WITH_YEAR = 'MMMM YYYY';
+  static MONTH_NAME_WITH_YEAR = 'MMMM yyyy';
 
-  static YEAR = 'YYYY';
+  static YEAR = 'yyyy';
 
   static formatTimeRangeText(value, type) {
     switch (type) {
@@ -20,15 +21,15 @@ export default class DateHelper {
   }
 
   static formatYear(value) {
-    return convertToInternalMomentJs(value).format(this.YEAR);
+    return format(convertToJsDate(value), this.YEAR);
   }
 
   static formatMonth(value) {
-    return convertToInternalMomentJs(value).format(this.MONTH_NAME_WITH_YEAR);
+    return format(convertToJsDate(value), this.MONTH_NAME_WITH_YEAR);
   }
 
   static formatFullDate(value) {
-    return convertToInternalMomentJs(value).format(this.FULL_DATE);
+    return format(convertToJsDate(value), this.FULL_DATE);
   }
 
 }

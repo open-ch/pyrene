@@ -31,8 +31,20 @@
       background: url('../../../../images/introduction/efficiency.svg') no-repeat center;
     }
 
-    &.system {
+    &.extensible {
       background: url('../../../../images/introduction/system.svg') no-repeat center;
+    }
+
+    &.simple {
+      background: url('../../../../images/introduction/simple_controlled.svg') no-repeat center;
+    }
+
+    &.extensible {
+     background: url('../../../../images/introduction/extensible.svg') no-repeat center;
+    }
+
+    &.tailor {
+     background: url('../../../../images/introduction/software_layer.svg') no-repeat center;
     }
   }
 

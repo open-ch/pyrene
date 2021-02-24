@@ -2,13 +2,13 @@
   cursor: pointer;
 
   padding: 16px;
-  height: 104px;
 
   display: flex;
   flex-direction: column;
 }
 
 .logo {
+  height: 104px;
   margin-bottom: 16px;
 }
 
