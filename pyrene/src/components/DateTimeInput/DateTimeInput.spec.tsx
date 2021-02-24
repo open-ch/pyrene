@@ -74,7 +74,34 @@ describe('<DateTimeInput />', () => {
     timeInputDom.value = '23:59';
     timeInput.simulate('change');
 
+    // The expected value will change with respect to the Timezone where the test is being run.
     expect(onchange).toBeCalledWith(946681140000);
+  });
+
+  it('number | undefined timestamp test.', () => {
+    // Valid number section
+    const onchange = jest.fn();
+    let ts: number | undefined = 946681140000;
+
+    const props = {
+      timeStamp: ts,
+      onChange: onchange,
+    };
+
+    const rendered = mount(<DateTimeInput {...props} />);
+    let timeInput = rendered.find('input').last();
+    timeInput.simulate('change');
+
+    expect(onchange).toBeCalledWith(946681140000);
+
+    // Invalid undefined section
+    ts = undefined;
+    rendered.setProps({ timeStamp: ts });
+
+    timeInput = rendered.find('input').last();
+    timeInput.simulate('change');
+
+    expect(onchange).toBeCalledWith(null);
   });
 
   it('Invalid text input calls onChange with null.', () => {

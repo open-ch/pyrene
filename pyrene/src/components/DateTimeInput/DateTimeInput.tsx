@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import classNames from 'classnames';
 import Icon from '../Icon/Icon';
 import './dateTimeInput.css';
@@ -70,6 +70,11 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
   const [dateValue, setDateValue] = useState('');
   const [timeValue, setTimeValue] = useState('');
 
+  const clearStateValues = () => {
+    setDateValue('');
+    setTimeValue('');
+  };
+
   const handleOnChange = (dateStr:string, timeStr:string) => {
     let tStamp: number | null = null;
     if (dateStr.length === 10 && timeStr.length === 5) {
@@ -98,7 +103,7 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
     handleOnChange(dateValue, node.value);
   };
 
-  const setDateTimeFromTimeStamp = (tStamp: number) => {
+  const setDateTimeFromTimeStamp = useCallback((tStamp: number) => {
     const dateObj = new Date(tStamp);
 
     if (!Number.isNaN(dateObj.valueOf())) {
@@ -109,16 +114,17 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
       setDateValue(standardEUDateFormat(date));
       setTimeValue(timeFormat(time));
     } else {
-      setDateValue('');
-      setTimeValue('');
+      clearStateValues();
     }
-  };
+  }, []);
 
   useEffect(() => {
-    if (timeStamp) {
+    if (typeof timeStamp === 'number') {
       setDateTimeFromTimeStamp(timeStamp);
+    } else {
+      clearStateValues();
     }
-  }, [timeStamp]);
+  }, [timeStamp, setDateTimeFromTimeStamp]);
 
   return (
     <div styleName="dateTimeComponent" onBlur={onBlur}>
