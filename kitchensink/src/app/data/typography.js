@@ -214,6 +214,23 @@ const fontTypes = [
         },
       },
       {
+        heading: 'Text 200',
+        styleText: 'Font family: Fira Go\n'
+          + 'Font size: 12px\n'
+          + 'Font weight: 400\n'
+          + 'Line height: 14px\n'
+          + 'Letter spacing: 0px\n'
+          + 'color: neutral-200 #979CA8',
+        style: {
+          fontFamily: 'FiraGO,Helvetica,sans-serif',
+          fontSize: '12px',
+          fontWeight: 400,
+          lineHeight: '14px',
+          letterSpacing: '0px',
+          color: '#979CA8',
+        },
+      },
+      {
         heading: 'Text 400',
         styleText: 'Font family: Fira Go\n'
           + 'Font size: 14px\n'
@@ -344,7 +361,9 @@ const fontTypes = [
     title: 'Table',
     examples: [
       {
-        heading: 'Value Left',
+        heading: 'Value Left\n\n'
+        + 'Value Right\n\n'
+        + 'Value Centered',
         styleText: 'Font family: FiraGo\n'
           + 'Font size: 12px\n'
           + 'Font weight: 400\n'
@@ -361,75 +380,9 @@ const fontTypes = [
         },
       },
       {
-        heading: 'Value Right',
-        styleText: 'Font family: Fira Go\n'
-          + 'Font size: 12px\n'
-          + 'Font weight: 400\n'
-          + 'Line height: 16px\n'
-          + 'Letter spacing: 0px\n'
-          + 'color: neutral-500 #1D273B',
-        style: {
-          fontFamily: 'FiraGO,Helvetica,sans-serif',
-          fontSize: '12px',
-          fontWeight: 400,
-          lineHeight: '16px',
-          letterSpacing: 0,
-          color: '#1D273B',
-        },
-      },
-      {
-        heading: 'Value Centered',
-        styleText: 'Font family: Fira Go\n'
-          + 'Font size: 12px\n'
-          + 'Font weight: 400\n'
-          + 'Line height: 16px\n'
-          + 'Letter spacing: 1px\n'
-          + 'color: neutral-500 #1D273B',
-        style: {
-          fontFamily: 'FiraGO,Helvetica,sans-serif',
-          fontSize: '12px',
-          fontWeight: 400,
-          lineHeight: '16px',
-          letterSpacing: '1px',
-          color: '#1D273B',
-        },
-      },
-      {
-        heading: 'Column Left',
-        styleText: 'Font family: Fira Go\n'
-          + 'Font size: 12px\n'
-          + 'Font weight: 500\n'
-          + 'Line height: 10px\n'
-          + 'Letter spacing: 0px\n'
-          + 'color: neutral-500 #1D273B',
-        style: {
-          fontFamily: 'FiraGO,Helvetica,sans-serif',
-          fontSize: '12px',
-          fontWeight: 500,
-          lineHeight: '10px',
-          letterSpacing: 0,
-          color: '#1D273B',
-        },
-      },
-      {
-        heading: 'Column Right',
-        styleText: 'Font family: Fira Go\n'
-          + 'Font size: 12px\n'
-          + 'Font weight: 500\n'
-          + 'Line height: 16px\n'
-          + 'Letter spacing: 1px\n'
-          + 'color: neutral-500 #1D273B',
-        style: {
-          fontFamily: 'FiraGO,Helvetica,sans-serif',
-          fontSize: '12px',
-          fontWeight: 500,
-          lineHeight: '16px',
-          letterSpacing: '1px',
-          color: '#1D273B',
-        },
-      },
-      {
-        heading: 'Column Centered',
+        heading: 'Column Left\n\n'
+        + 'Column Right\n\n'
+        + 'Column Centered',
         styleText: 'Font family: Fira Go\n'
           + 'Font size: 12px\n'
           + 'Font weight: 500\n'
