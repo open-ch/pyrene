@@ -34,9 +34,9 @@ const TypographyPage = () => (
           <span styleName="firaCondensed">Fira Sans Condensed</span>
         </div>
         <div styleName="footnote">
-          Download fonts from github
+          You can download FiraGo and Fira Sans Condensed as zip
           {' '}
-          <a styleName="link" href="https://github.com/mozilla/Fira">here</a>
+          <a styleName="link" href="../../../fonts/Pyrene_Font_Kit_v1.0.zip" download="fonts.zip">here</a>
           .
         </div>
 
