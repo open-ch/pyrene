@@ -220,14 +220,14 @@ const fontTypes = [
           + 'Font weight: 400\n'
           + 'Line height: 14px\n'
           + 'Letter spacing: 0px\n'
-          + 'color: neutral-200 #979CA8',
+          + 'color: neutral-500 #1D273B',
         style: {
           fontFamily: 'FiraGO,Helvetica,sans-serif',
           fontSize: '12px',
           fontWeight: 400,
           lineHeight: '14px',
           letterSpacing: '0px',
-          color: '#979CA8',
+          color: '#1D273B',
         },
       },
       {
