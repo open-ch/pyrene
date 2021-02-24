@@ -71,9 +71,19 @@ const IntroductionPage = () => (
 
         <div className="principlesGrid">
           <Principle
-            icon="system"
-            title="Built with System"
-            description="Our design system is built using modern web component standards. We’re steadily refining our system to keep up with best practices and business requirements."
+            icon="tailor"
+            title="Tailor-Made but Application-Agnostic"
+            description="We aim to find the sweet spot of reusability. Leaving out functionality allows our components to be used consistently. Yet, we don’t want them to be so specific that they can only be used in a specific application"
+          />
+          <Principle
+            icon="extensible"
+            title="Extensible"
+            description="We accept that we can't always get it right the first time, and we know that there will be future use cases that we just couldn't think of yet. That's why we design our components not to be complete, but to be extensible."
+          />
+          <Principle
+            icon="simple"
+            title="Simple but Controlled"
+            description="While we want components to be as easy to use as possible, we understand that hiding complex state handling from their parents is not always the best option. Aspects that are of interest to the parent components, we must allow them to control, rather than consume."
           />
           <Principle
             icon="clarity"
