@@ -1,3 +1,9 @@
+:global(.pyreneIcon-calendar:before){
+  content: "\2260";
+}
+:global(.pyreneIcon-lightbulb:before){
+  content: "\7d";
+}
 :global(.pyreneIcon-path:before){
   content: "\7b";
 }
