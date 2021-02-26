@@ -42,6 +42,7 @@ const SideBarMenu = () => (
         title="Foundations"
         sectionElements={[
           { name: 'Colors', linkToPath: '/colors' },
+          { name: 'Typography', linkToPath: '/typography' },
           { name: 'Icons', linkToPath: '/icons' }]}
       />
       <SideBarMenuSection
