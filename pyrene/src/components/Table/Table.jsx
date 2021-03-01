@@ -355,7 +355,7 @@ export default class Table extends React.Component {
           </div>
         )}
 
-        <div styleName={classNames('filterBar', { loading: this.props.loading })}>
+        <div styleName={classNames('filterBar', { loading: this.props.loading, disabled: this.props.disabled })}>
           <div styleName="filterContainer">
             {(this.props.filters.length > 0 || this.props.filterDisabled)
               && (
@@ -379,7 +379,7 @@ export default class Table extends React.Component {
           )}
         </div>
 
-        <div styleName={classNames('tableAndActions')}>
+        <div styleName={classNames('tableAndActions', { disabled: this.props.disabled })}>
 
           {this.props.actions.length > 0 && (
             <div styleName="toolbar">
@@ -407,6 +407,7 @@ Table.defaultProps = {
   title: '',
   defaultSorted: [],
   defaultPageSize: 20,
+  disabled: false,
   disableSorting: false,
   loading: false,
   manual: false,
@@ -481,6 +482,10 @@ Table.propTypes = {
     desc: PropTypes.bool,
     id: PropTypes.string.isRequired,
   })),
+  /**
+   * Disables table interactions
+   */
+  disabled: PropTypes.bool,
   /**
    * Disable sorting in the table.
    */
