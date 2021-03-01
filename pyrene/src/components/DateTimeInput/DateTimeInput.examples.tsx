@@ -1,13 +1,31 @@
-import { Example } from '../../examples/Example';
+import { Example, StateProvider } from '../../examples/Example';
 import { DateTimeInputProps } from './DateTimeInput';
 
-const DateTimeInput: Example<DateTimeInputProps> = {};
+export interface State {
+  value: number
+}
 
-DateTimeInput.props = {};
+const DateTimeInput: Example<DateTimeInputProps, State> = {};
+
+DateTimeInput.props = {
+  onChange: (stateProvider: StateProvider<State>) => (value: number | null) => {
+    if (value) {
+      stateProvider.setState({ value });
+    }
+  },
+  timeStamp: (stateProvider) => stateProvider.state.value,
+};
 
 DateTimeInput.examples = [
   {
-    props: { },
+    props: {
+      onChange: (stateProvider: StateProvider<State>) => (value: number | null) => {
+        if (value) {
+          stateProvider.setState({ value });
+        }
+      },
+      timeStamp: (stateProvider) => stateProvider.state.value,
+    },
   },
 ];
 
