@@ -27,7 +27,7 @@ const Header = (props) => (
               >
                 {props.legendToggleCallback ? (
                   <>
-                    <span
+                    <div
                       styleName="checkbox"
                       style={{ backgroundColor: item.color }}
                       onClick={() => props.legendToggleCallback(index)}
@@ -38,7 +38,7 @@ const Header = (props) => (
                           className="pyreneIcon-check"
                         />
                       )}
-                    </span>
+                    </div>
                   </>
                 ) : (
                   <span
