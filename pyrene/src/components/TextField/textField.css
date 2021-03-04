@@ -45,7 +45,7 @@
   background-color: var(--background-tint);
   outline: none;
 
-  &[type=text] {
+  &[type=text], &[type=password] {
     padding: 8px 7px;
 
     font-family: FiraGO, Helvetica, sans-serif;

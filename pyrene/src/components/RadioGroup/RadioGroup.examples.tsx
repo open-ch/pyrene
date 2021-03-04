@@ -9,6 +9,7 @@ export interface State {
 const RadioGroup: Example<RadioGroupProps, State> = {};
 
 RadioGroup.props = {
+  title: 'Beverage',
   options: [
     { label: 'Beer 🍺', value: 'beer' },
     { label: 'Coffee ☕️', value: 'coffee' },
