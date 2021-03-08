@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react';
+import React, { useEffect, useRef } from 'react';
 import classNames from 'classnames';
 
 import './collapsible.css';
@@ -40,43 +40,46 @@ const Collapsible: React.FC<CollapsibleProps> = ({
   defaultExpanded = false,
   labelCollapsed = 'Show More',
   labelExpanded = 'Show Less',
-  onChange = (event: React.MouseEvent) => null,
+  onChange = () => null,
   renderCallback,
 }: CollapsibleProps) => {
 
   const [expanded, setExpanded] = React.useState(defaultExpanded);
-  const [contentHeight, setContentHeight] = React.useState();
-  const contentRef = useRef(null);
+  const [contentHeight, setContentHeight] = React.useState(0);
+  const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const height = !!contentRef && !!contentRef.current ? contentRef.current.height : contentHeight;
+    let height = contentHeight;
+    if (contentRef?.current?.clientHeight) {
+      height = contentRef.current.clientHeight;
+    }
     setContentHeight(height);
-  });
+  }, [contentHeight]);
 
   useEffect(() => {
     setExpanded(defaultExpanded);
   }, [defaultExpanded]);
 
   const toggleCollapse = (event:React.MouseEvent) => {
-    setExpanded(prevExpanded => !prevExpanded);
+    setExpanded((prevExpanded) => !prevExpanded);
     onChange(event);
-  }
+  };
 
   return (
     <div styleName={classNames('collapsibleBox', { expanded })}>
       <div styleName={classNames('buttonAlignmentBox', { [`align-${align}`]: true })}>
-        <div styleName='collapsibleButton' className='unSelectable' onClick={(event:React.MouseEvent) => toggleCollapse(event)} role='button' aria-label='Show or hide content'>
-          <div styleName='centeringBox'>
-            <span styleName='label'>
-              {expanded && labelExpanded ? labelExpanded : labelCollapsed}
+        <div styleName="collapsibleButton" className="unSelectable" onClick={(event:React.MouseEvent) => toggleCollapse(event)} role="button" aria-label="Show or hide content">
+          <div styleName="centeringBox">
+            <span styleName="label">
+              { expanded && labelExpanded ? labelExpanded : labelCollapsed }
             </span>
-            <span className='pyreneIcon-chevronDown' styleName='collapsArrow' />
+            <span className="pyreneIcon-chevronDown" styleName="collapsArrow" />
           </div>
         </div>
       </div>
-      <div styleName='collapsibleBody' style={{ height: (expanded && contentHeight) ? contentHeight : undefined }}>
+      <div styleName="collapsibleBody" style={{ height: (expanded && contentHeight) ? contentHeight : undefined }}>
         <div ref={contentRef} style={{ paddingTop: 16 }}>
-          {renderCallback()}
+          { renderCallback() }
         </div>
       </div>
     </div>
