@@ -5,7 +5,7 @@ import Collapsible from './Collapsible';
 
 const props = {
   renderCallback: () => (<div>ContentDiv</div>), // eslint-disable-line react/display-name
-  title: 'Show More',
+  labelCollapsed: 'Show More',
 };
 
 describe('<Collapsible />', () => {
