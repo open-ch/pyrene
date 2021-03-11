@@ -1,0 +1,104 @@
+import {
+  isExists, sub, add, Duration,
+} from 'date-fns';
+
+
+export type DateType = {
+  day: number,
+  month: number,
+  year: number,
+};
+
+export type TimeType = {
+  minutes: number,
+  hours: number,
+};
+
+/**
+ * Converts our custom date object to JavaScript Date
+ * Because the month of the internal object is 0-indexed and
+ * externally the dates are passed in as 1-indexed, we need to convert them
+ *
+ * @param {DateType} value
+ * @returns {Date}
+ */
+export const convertToJsDate = (value: DateType): Date => new Date(value.year, value.month - 1, value.day);
+
+/**
+ * Converts a JavaScript Date object to our custom date object format
+ * Increases the month number by 1 so that it is 1-indexed
+ *
+ * @param {Date} date
+ * @returns {DateType}
+ */
+export const convertToDateTypeObject = (date: Date) : DateType => ({
+  year: date.getFullYear(),
+  month: date.getMonth() + 1,
+  day: date.getDate(),
+});
+
+/**
+ * Returns our custom time object format from a JavaScript Date object
+ *
+ * @param {Date} date
+ * @returns {TimeType}
+ */
+export const convertToTimeTypeObject = (date: Date) : TimeType => ({
+  hours: date.getHours(),
+  minutes: date.getMinutes(),
+});
+
+/**
+ * Converts custom date and time object to unix timestamp
+ *
+ * @param {DateType} date
+ * @param {TimeType} time
+ * @returns {DateType}
+ */
+export const convertToTimeStamp = (date: DateType, time: TimeType): number | null => {
+  // Month shift : JS Date uses 0 - 11 to count months
+  const tStamp = new Date(date.year, date.month - 1, date.day, time.hours, time.minutes);
+  return tStamp.valueOf() || null;
+};
+
+/**
+ * Provides the timestamp of current date/time
+ */
+export const getCurrentDate = (): number => new Date().valueOf();
+
+/**
+ * Returns the timestamp of a point in time in the future relative to now
+ *
+ * @param {Duration} duration
+ */
+export const getFutureDate = (duration: Duration): number => add(getCurrentDate(), duration).valueOf();
+
+/**
+ * Returns the timestamp of a point in time in the past relative to now
+ *
+ * @param {Duration} duration
+ */
+export const getPastDate = (duration: Duration): number => sub(getCurrentDate(), duration).valueOf();
+
+// isExists uses 0 indexed month numbers
+/**
+ * Checks if a timetype is valid
+ * @param {DateType} date
+ */
+export const isValidDate = (date: DateType | null): boolean => {
+  if (date) {
+    return isExists(date.year, date.month - 1, date.day);
+  }
+  return false;
+};
+
+/**
+ * Checks if a timetype is valid
+ * @param {TimeType} time
+ */
+export const isValidTime = (time: TimeType | null): boolean => {
+  if (time && time.hours >= 0 && time.hours <= 23 && time.minutes >= 0 && time.minutes <= 59) {
+    return true;
+  }
+  return false;
+};
