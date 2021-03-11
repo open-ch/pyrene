@@ -23,7 +23,7 @@ export interface CollapsibleProps {
   /**
    * Javascript event handler.
    */
-  onChange?: (event: React.MouseEvent) => null,
+  onChange?: (event: React.MouseEvent) => void,
   /**
    * Sets the content to be rendered inside the component.
    */
@@ -40,7 +40,7 @@ const Collapsible: React.FC<CollapsibleProps> = ({
   defaultExpanded = false,
   labelCollapsed = 'Show More',
   labelExpanded = 'Show Less',
-  onChange = () => null,
+  onChange,
   renderCallback,
 }: CollapsibleProps) => {
 
@@ -62,7 +62,7 @@ const Collapsible: React.FC<CollapsibleProps> = ({
 
   const toggleCollapse = (event:React.MouseEvent) => {
     setExpanded((prevExpanded) => !prevExpanded);
-    onChange(event);
+    if (onChange) onChange(event);
   };
 
   return (
@@ -73,12 +73,12 @@ const Collapsible: React.FC<CollapsibleProps> = ({
             <span styleName="label">
               { expanded && labelExpanded ? labelExpanded : labelCollapsed }
             </span>
-            <span className="pyreneIcon-chevronDown" styleName="collapsArrow" />
+            <span className="pyreneIcon-chevronDown" styleName="collapseArrow" />
           </div>
         </div>
       </div>
       <div styleName="collapsibleBody" style={{ height: (expanded && contentHeight) ? contentHeight : undefined }}>
-        <div ref={contentRef} style={{ paddingTop: 16 }}>
+        <div ref={contentRef} styleName="clientContent">
           { renderCallback() }
         </div>
       </div>
