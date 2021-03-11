@@ -118,12 +118,45 @@ describe('<DateTimeInput />', () => {
     const dateInputDom = dateInput.getDOMNode<HTMLInputElement>();
     const timeInputDom = timeInput.getDOMNode<HTMLInputElement>();
 
-    dateInputDom.value = 'aa.bb.cccc';
+    dateInputDom.value = '33.54.0101';
     dateInput.simulate('change');
 
-    timeInputDom.value = 'ee:ff';
+    timeInputDom.value = '78:90';
     timeInput.simulate('change');
 
     expect(onchange).toBeCalledWith(null);
   });
+
+  it('Maximum time test.', () => {
+    const onchange = jest.fn();
+    const props = {
+      timeStamp: 1614700000000,
+      maxDateTime: 1614696951000,
+      onChange: onchange,
+    };
+
+    const rendered = mount(<DateTimeInput {...props} />);
+    const timeInput = rendered.find('input').last();
+    timeInput.simulate('change');
+    const error = rendered.find('.dateTimeInputErrorMsg');
+
+    expect(error.html()).toContain('Larger than maximum date');
+  });
+
+  it('Minimum time test.', () => {
+    const onchange = jest.fn();
+    const props = {
+      timeStamp: 1614600000000,
+      minDateTime: 1614696951000,
+      onChange: onchange,
+    };
+
+    const rendered = mount(<DateTimeInput {...props} />);
+    const timeInput = rendered.find('input').last();
+    timeInput.simulate('change');
+    const error = rendered.find('.dateTimeInputErrorMsg');
+
+    expect(error.html()).toContain('Less than minimum date');
+  });
+
 });

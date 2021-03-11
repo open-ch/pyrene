@@ -19,6 +19,8 @@ DateTimeInput.props = {
 DateTimeInput.examples = [
   {
     props: {
+      minDateTime: 946684740000,
+      maxDateTime: 1809631865000,
       onChange: (stateProvider: StateProvider<State>) => (value: number | null) => {
         if (value) {
           stateProvider.setState({ value });
@@ -26,6 +28,19 @@ DateTimeInput.examples = [
       },
       timeStamp: (stateProvider) => stateProvider.state.value,
     },
+    description: 'Maximum date: 06.05.2027 19:31,  Minimum date: 31.12.1999 23:59',
+  },
+  {
+    props: {
+      maxDateTime: 1809631865000,
+      onChange: (stateProvider: StateProvider<State>) => (value: number | null) => {
+        if (value) {
+          stateProvider.setState({ value });
+        }
+      },
+      timeStamp: (stateProvider) => stateProvider.state.value,
+    },
+    description: 'Maximum date: 06.05.2027 19:31',
   },
 ];
 
