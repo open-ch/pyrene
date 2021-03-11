@@ -4,7 +4,11 @@ import React, {
 import classNames from 'classnames';
 import Icon from '../Icon/Icon';
 import {
-  DateType, TimeType, convertToTimeStamp, getFutureDate, isValidDate, isValidTime, convertToDateTypeObject, convertToTimeTypeObject,
+  DateType,
+  TimeType,
+  convertToTimeStamp,
+  getFutureDate,
+  isValidDate, isValidTime, convertToDateTypeObject, convertToTimeTypeObject,
 } from '../../utils/DateUtils';
 import './dateTimeInput.css';
 
@@ -16,6 +20,12 @@ export interface DateTimeInputProps{
   onBlur?: (value: number | null) => void,
   onChange: (value: number | null) => void,
 }
+
+type DateValidationObj = {
+  dateValidity: boolean,
+  timeValidity: boolean,
+  tStamp: number | null
+};
 
 const allowedSeparatorCheck = (valueToCheck: string): boolean => (/[/.:]$/.test(valueToCheck));
 const allowedValueCheck = (valueToCheck:string) : boolean => (/^[0-9.:]*$/.test(valueToCheck));
@@ -113,45 +123,57 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
     setTimeValue('');
   };
 
+  const setErrors = (values: DateValidationObj | false) => {
+    if (!values) {
+      setErrorValue('');
+    } else {
+      setErrorValue(getValidityErrorMsg(values.dateValidity, values.timeValidity));
+      if (values.dateValidity && values.timeValidity && values.tStamp) {
+        setErrorValue(getRangeError(minDateTimeValue, maxDateTimeValue, values.tStamp));
+      }
+    }
+  };
+
   const validateInputString = (dateStr:string, timeStr:string) => {
-    let tStamp: number | null = null;
     if (dateStr.length === 10 && timeStr.length === 5) {
       const date = getDateTypeFromddmmyyyyWithSep(dateStr);
       const time = getTimeTypeFromhhmmWithSep(timeStr);
 
-      const validDate = date ? isValidDate(date) : false;
-      const validTime = time ? isValidTime(time) : false;
+      const validDate = isValidDate(date);
+      const validTime = isValidTime(time);
 
-      setErrorValue(getValidityErrorMsg(validDate, validTime));
-
-      if (validDate && validTime && date && time) {
-        tStamp = convertToTimeStamp(date, time);
-
-        if (tStamp) {
-          const errMsg = getRangeError(minDateTimeValue, maxDateTimeValue, tStamp);
-          if (errMsg.length > 0) {
-            tStamp = null;
-          }
-          setErrorValue(errMsg);
-        }
-      }
-    } else {
-      // Set no error if input is incomplete
-      setErrorValue('');
+      return { dateValidity: validDate, timeValidity: validTime, tStamp: (date && time && validDate && validTime) ? convertToTimeStamp(date, time) : null };
     }
+    return false;
+  };
 
-    return tStamp;
+  const getComponentValue = (values: DateValidationObj | false) => {
+    if (!values) {
+      return null;
+    }
+    if (values.dateValidity && values.timeValidity && values.tStamp) {
+      const errMsg = getRangeError(minDateTimeValue, maxDateTimeValue, values.tStamp);
+      if (errMsg.length > 0) {
+        return null;
+      }
+      return values.tStamp;
+    }
+    return null;
   };
 
   const handleOnBlur = () => {
     if (onBlur) {
-      onBlur(validateInputString(dateValue, timeValue));
+      const validObj = validateInputString(dateValue, timeValue);
+      setErrors(validObj);
+      onBlur(getComponentValue(validObj));
     }
   };
 
   const handleOnChange = (dateStr:string, timeStr:string) => {
     if (onChange) {
-      onChange(validateInputString(dateStr, timeStr));
+      const validObj = validateInputString(dateStr, timeStr);
+      setErrors(validObj);
+      onChange(getComponentValue(validObj));
     }
   };
 
@@ -175,7 +197,7 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
     handleOnChange(dateValue, node.value);
   };
 
-  const setDefaultValues = useCallback(() => {
+  const setDefaultDateTimeLimits = useCallback(() => {
     let dateTimeMin = minDateTime;
     let dateTimeMax = maxDateTime;
 
@@ -193,6 +215,10 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
       setMaxDateTimeValue(dateTimeMax);
     }
 
+    return { dateTimeMin, dateTimeMax };
+  }, [maxDateTime, minDateTime]);
+
+  const setDefaultDateTimeValues = useCallback((values: { dateTimeMin: number, dateTimeMax: number}) => {
     if (typeof timeStamp === 'number') {
       const dateObj = new Date(timeStamp);
 
@@ -202,18 +228,18 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
         setDateValue(standardEUDateFormat(date));
         setTimeValue(timeFormat(time));
 
-        setErrorValue(getRangeError(dateTimeMin, dateTimeMax, dateObj.valueOf()));
+        setErrorValue(getRangeError(values.dateTimeMin, values.dateTimeMax, dateObj.valueOf()));
       } else {
         setErrorValue(invalidTimeStampError);
       }
     } else {
       clearInputStateValues();
     }
-  }, [minDateTime, maxDateTime, timeStamp]);
+  }, [timeStamp]);
 
   useEffect(() => {
-    setDefaultValues();
-  }, [timeStamp, setDefaultValues]);
+    setDefaultDateTimeValues(setDefaultDateTimeLimits());
+  }, [setDefaultDateTimeLimits, setDefaultDateTimeValues]);
 
   return (
     <div styleName="dateTimeComponent" onBlur={handleOnBlur}>
