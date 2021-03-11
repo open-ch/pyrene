@@ -23,7 +23,7 @@ describe('<Collapsible />', () => {
     expect(rendered.contains('ContentDiv')).toBe(true);
   });
 
-  it('renders the content when the `expanded` option is selected by default', () => {
+  it('renders the content when the `defaultExpanded` option is selected', () => {
     const defaultExpandedProps = { ...props, defaultExpanded: true };
     const rendered = shallow(<Collapsible {...defaultExpandedProps} />);
 
