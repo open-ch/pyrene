@@ -19,7 +19,7 @@ describe('<Collapsible />', () => {
   it('renders the content', () => {
     const rendered = shallow(<Collapsible {...props} />);
 
-    expect(rendered.contains('More information')).toBe(true);
+    expect(rendered.contains(props.labelCollapsed)).toBe(true);
     expect(rendered.contains('ContentDiv')).toBe(true);
   });
 
@@ -27,7 +27,7 @@ describe('<Collapsible />', () => {
     const defaultExpandedProps = { ...props, defaultExpanded: true };
     const rendered = shallow(<Collapsible {...defaultExpandedProps} />);
 
-    expect(rendered.contains('Less information')).toBe(true);
+    expect(rendered.contains(props.labelExpanded)).toBe(true);
     expect(rendered.contains('ContentDiv')).toBe(true);
   });
 
@@ -35,7 +35,7 @@ describe('<Collapsible />', () => {
     const rendered = shallow(<Collapsible {...props} />);
     rendered.find('.unSelectable').simulate('click');
 
-    expect(rendered.contains('Less information')).toBe(true);
+    expect(rendered.contains(props.labelExpanded)).toBe(true);
     expect(rendered.contains('ContentDiv')).toBe(true);
   });
 
@@ -43,10 +43,10 @@ describe('<Collapsible />', () => {
     const rendered = shallow(<Collapsible {...props} />);
 
     rendered.find('.unSelectable').simulate('click');
-    expect(rendered.contains('Less information')).toBe(true);
+    expect(rendered.contains(props.labelExpanded)).toBe(true);
 
     rendered.find('.unSelectable').simulate('click');
-    expect(rendered.contains('More information')).toBe(true);
+    expect(rendered.contains(props.labelCollapsed)).toBe(true);
   });
 
 });
