@@ -9,7 +9,7 @@ const primaryColors = [
     title: '',
     colors: [
       {
-        colorName: 'blue', name: 'blue-500', darkFont: false, bordered: false, infoLabel: 'For accent and highlight',
+        colorName: 'Blue', name: 'blue-500', darkFont: false, bordered: false, infoLabel: 'Accent and highlight',
       },
     ],
   },
@@ -17,7 +17,7 @@ const primaryColors = [
     title: '',
     colors: [
       {
-        colorName: 'dark', name: 'neutral-500', darkFont: false, bordered: false, infoLabel: 'Main color for type',
+        colorName: 'Dark', name: 'neutral-500', darkFont: false, bordered: false, infoLabel: 'Main color for type',
       },
     ],
   },
@@ -25,7 +25,7 @@ const primaryColors = [
     title: '',
     colors: [
       {
-        colorName: 'white', name: 'neutral-000', darkFont: true, bordered: true, infoLabel: 'For structure',
+        colorName: 'White', name: 'neutral-000', darkFont: true, bordered: true, infoLabel: 'For structure',
       },
     ],
   },

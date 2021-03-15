@@ -104,6 +104,15 @@ const ColorsPage = () => (
           {createStackedColors(extendedColors, 'small')}
         </div>
       </Paragraph>
+
+      <Paragraph title="Data visualizations">
+        <DescriptionBox>
+          The color palette for data visualizations is a selected subset of the Pyrene Design Language color palette. It is designed to maximize accessibility and harmony within a page.
+        </DescriptionBox>
+        <div className="colorGrid">
+          {createStackedColors(interactionColors, 'medium')}
+        </div>
+      </Paragraph>
     </div>
   </div>
 );

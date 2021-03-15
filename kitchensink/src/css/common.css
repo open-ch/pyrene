@@ -104,13 +104,6 @@ body {
 
 /* GRIDS */
 
-:global(.colorGrid) {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-column-gap: 59px;
-  grid-row-gap: 40px;
-}
-
 :global(.iconGrid) {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
