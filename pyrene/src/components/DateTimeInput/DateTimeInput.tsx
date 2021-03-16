@@ -15,13 +15,15 @@ import {
 
 import './dateTimeInput.css';
 
+type OnFunction = (value: number | null) => void;
+
 export interface DateTimeInputProps{
   maxDateTime?: number,
   minDateTime?: number,
   name?: string,
   timeStamp?: number,
-  onBlur?: (value: number | null) => void,
-  onChange: (value: number | null) => void,
+  onBlur?: OnFunction,
+  onChange: OnFunction,
 }
 
 type DateValidationObj = {
