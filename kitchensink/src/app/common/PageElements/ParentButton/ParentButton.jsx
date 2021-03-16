@@ -25,10 +25,11 @@ export default class ParentButton extends React.Component {
 
   render() {
     return (
-      <div onClick={this.handleClick}>
+      <div>
         <Button
           label={`Trigger ${this.props.component.type.displayName}`}
           type="primary"
+          onClick={this.handleClick}
         />
         {this.state.displayComponent && this.props.component}
       </div>
