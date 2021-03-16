@@ -35,11 +35,6 @@ type DateValidationObj = {
 const allowedSeparatorCheck = (valueToCheck: string): boolean => (/[/.:]$/.test(valueToCheck));
 const allowedValueCheck = (valueToCheck:string) : boolean => (/^[0-9.:]*$/.test(valueToCheck));
 
-const invalidDateFormat = 'Invalid date format';
-const invalidTimeFormat = 'Invalid time format';
-const invalidDateandTimeFormat = 'Invalid date & time format';
-
-
 export const getDateTypeFromddmmyyyyWithSep = (str: string): DateType | null => {
   if (str.length === 10 && allowedSeparatorCheck(str.charAt(2)) && allowedSeparatorCheck(str.charAt(5))) {
     const date = { day: +str.substr(0, 2), month: +str.substr(3, 2), year: +str.substr(6) };
@@ -77,21 +72,6 @@ export const timeFormat = (time: TimeType): string => {
   return `${hours}:${minutes}`;
 };
 
-const getValidityErrorMsg = (dateIsValid: boolean, timeIsValid:boolean): string => {
-  if (!dateIsValid && !timeIsValid) {
-    return invalidDateandTimeFormat;
-  }
-
-  if (!dateIsValid) {
-    return invalidDateFormat;
-  }
-
-  if (!timeIsValid) {
-    return invalidTimeFormat;
-  }
-  return '';
-};
-
 // -1 smaller than Range
 // 1 bigger than Range
 // 0 within Range
@@ -105,11 +85,25 @@ const inRange = (timestampToCheck: number, minimumValue: number, maximumValue: n
   return 0;
 };
 
-const displayError = (errorMsg: string) => (<div styleName="dateTimeInputErrorMsg">{errorMsg}</div>);
+const isValidDateValue = (dateValue: string) => {
+  if (dateValue.length === 10) {
+    const date = getDateTypeFromddmmyyyyWithSep(dateValue);
+    return isValidDate(date);
+  }
+  return false;
+};
+
+const isValidTimeValue = (timeValue: string) => {
+  if (timeValue.length === 5) {
+    const time = getTimeTypeFromhhmmWithSep(timeValue);
+    return isValidTime(time);
+  }
+  return false;
+};
 
 const DateTimeInput: React.FC<DateTimeInputProps> = ({
   maxDateTime = getFutureDate({ years: 1 }),
-  minDateTime,
+  minDateTime = 0,
   name,
   onBlur,
   onChange,
@@ -122,112 +116,110 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
 
   const [jsDateObject, setJsDateObject] = useState(timeStamp ? new Date(timeStamp) : null);
 
-  const setErrors = (values: DateValidationObj | false) => {
-    if (!values) {
-      setErrorValue('');
-    } else {
-      setErrorValue(getValidityErrorMsg(values.dateValidity, values.timeValidity));
-      if (values.dateValidity && values.timeValidity && values.tStamp) {
-        console.log('values.dateValidity && values.timeValidity && values.tStamp: ', values.dateValidity && values.timeValidity && values.tStamp);
-        // setErrorValue(getRangeError(minDateTime, maxDateTime, values.tStamp));
+  const handleOn = (dateStr:string, timeStr:string, onFunction: OnFunction) => {
+    if (onFunction) {
+      if (
+        isValidDateValue(dateStr)
+        && isValidTimeValue(timeStr)
+        && jsDateObject
+        && inRange(jsDateObject.valueOf(), minDateTime, maxDateTime)
+      ) {
+        onFunction(jsDateObject.valueOf());
+      } else {
+        onFunction(null);
       }
     }
-  };
-
-  const validateInputString = (dateStr:string, timeStr:string) => {
-    if (dateStr.length === 10 && timeStr.length === 5) {
-      const date = getDateTypeFromddmmyyyyWithSep(dateStr);
-      const time = getTimeTypeFromhhmmWithSep(timeStr);
-
-      const validDate = isValidDate(date);
-      const validTime = isValidTime(time);
-
-      return { dateValidity: validDate, timeValidity: validTime, tStamp: (date && time && validDate && validTime) ? convertToTimeStamp(date, time) : null };
-    }
-    return false;
-  };
-
-  const getComponentValue = (values: DateValidationObj | false) => {
-    if (!values) {
-      return null;
-    }
-    if (values.dateValidity && values.timeValidity && values.tStamp) {
-      if (minDateTime && maxDateTime && (inRange(values.tStamp, minDateTime, maxDateTime) !== 0)) {
-        return null;
-      }
-      return values.tStamp;
-    }
-    return null;
   };
 
   const handleOnBlur = () => {
     if (onBlur) {
-      const validObj = validateInputString(dateValue, timeValue);
-      setErrors(validObj);
-      onBlur(getComponentValue(validObj));
-    }
-  };
-
-  const handleOnChange = (dateStr:string, timeStr:string) => {
-    if (onChange) {
-      const validObj = validateInputString(dateStr, timeStr);
-      setErrors(validObj);
-      onChange(getComponentValue(validObj));
+      handleOn(dateValue, timeValue, onChange);
     }
   };
 
   const handleDateOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const node = event.target as HTMLInputElement;
-    if (!allowedValueCheck(node.value)) {
-      return;
+    if (allowedValueCheck(node.value)) {
+      setDateValue(node.value);
+      handleOn(node.value, timeValue, onChange);
     }
-
-    setDateValue(node.value);
-    handleOnChange(node.value, timeValue);
   };
 
   const handleTimeOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const node = event.target as HTMLInputElement;
-    if (!allowedValueCheck(node.value)) {
-      return;
+    if (allowedValueCheck(node.value)) {
+      setTimeValue(node.value);
+      handleOn(dateValue, node.value, onChange);
     }
-
-    setTimeValue(node.value);
-    handleOnChange(dateValue, node.value);
   };
 
-
-  // new timeStamp
+  // set date and time value
   useEffect(() => {
-    if (typeof timeStamp === 'number') {
+    if (jsDateObject !== null) {
+      const date: DateType = convertToDateTypeObject(jsDateObject);
+      const time: TimeType = convertToTimeTypeObject(jsDateObject);
+      setDateValue(standardEUDateFormat(date));
+      setTimeValue(timeFormat(time));
+    }
+  }, [jsDateObject]);
+
+  // handle timeStamp prop change
+  useEffect(() => {
+    if (timeStamp) {
       const dateObj = new Date(timeStamp);
       if (!Number.isNaN(dateObj.valueOf())) {
-        const date: DateType = convertToDateTypeObject(dateObj);
-        const time: TimeType = convertToTimeTypeObject(dateObj);
-        setDateValue(standardEUDateFormat(date));
-        setTimeValue(timeFormat(time));
         setJsDateObject(dateObj);
       } else {
         setJsDateObject(null);
-        setErrorValue('Invalid timestamp');
+
+        // reset values
+        // wrong timestamp == no input
+        setDateValue('');
+        setTimeValue('');
       }
     } else {
+      // no time timeStamp
       setJsDateObject(null);
     }
   }, [timeStamp]);
 
-  // in range
+  // set errors
   useEffect(() => {
-    if (minDateTime && maxDateTime && jsDateObject !== null) {
-      const rangePositon = inRange(jsDateObject.valueOf(), minDateTime, maxDateTime);
-      if (rangePositon === -1) {
-        setErrorValue('Less than minimum date.');
+    const getError = () => {
+      if (!timeStamp) {
+        return '';
       }
-      if (rangePositon === 1) {
-        setErrorValue('Larger than maximum date.');
+      if (!jsDateObject && timeStamp) {
+        return 'Invalid timestamp';
       }
-    }
-  }, [jsDateObject, minDateTime, maxDateTime]);
+
+      // yeah .... need help here
+      const goodNameForIsValidDateValue = isValidDateValue(dateStr);
+      const goodNameForIsValidTimeValue = isValidTimeValue(dateStr);
+      if (goodNameForIsValidDateValue && goodNameForIsValidTimeValue) {
+        return 'Invalid date & time format';
+      }
+      if (goodNameForIsValidDateValue) {
+        return 'Invalid date format';
+      }
+      if (goodNameForIsValidTimeValue) {
+        return 'Invalid time format';
+      }
+
+      if (minDateTime && maxDateTime && jsDateObject !== null) {
+        const rangePositon = inRange(jsDateObject.valueOf(), minDateTime, maxDateTime);
+        if (rangePositon === -1) {
+          return 'Less than minimum date.';
+        }
+        if (rangePositon === 1) {
+          return 'Larger than maximum date.';
+        }
+      }
+      return '';
+    };
+
+    setErrorValue(getError());
+  }, [jsDateObject, minDateTime, maxDateTime, timeStamp]);
 
   return (
     <div styleName="dateTimeComponent" onBlur={handleOnBlur}>
@@ -258,7 +250,9 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
           />
         </div>
       </div>
-      {errorValue.length > 0 ? displayError(errorValue) : ''}
+      {errorValue.length > 0 && (
+        <div styleName="dateTimeInputErrorMsg">{errorValue}</div>
+      )}
     </div>
   );
 };
