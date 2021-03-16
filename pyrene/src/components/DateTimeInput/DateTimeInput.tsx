@@ -91,11 +91,11 @@ const getValidityErrorMsg = (dateIsValid: boolean, timeIsValid:boolean): string 
 };
 
 const getRangeError = (minimumValue: number, maximumValue: number, timeToCheck: number): string => {
-  if (!Number.isNaN(minimumValue) && timeToCheck < minimumValue) {
+  if (timeToCheck < minimumValue) {
     return lessThanMinDateTime;
   }
 
-  if (!Number.isNaN(maximumValue) && timeToCheck > maximumValue) {
+  if (timeToCheck > maximumValue) {
     return greaterThanMaxDateTime;
   }
   return '';
@@ -104,8 +104,8 @@ const getRangeError = (minimumValue: number, maximumValue: number, timeToCheck: 
 const displayError = (errorMsg: string) => (<div styleName="dateTimeInputErrorMsg">{errorMsg}</div>);
 
 const DateTimeInput: React.FC<DateTimeInputProps> = ({
-  maxDateTime,
-  minDateTime,
+  maxDateTime = getFutureDate({ years: 1 }),
+  minDateTime = 0, // should be fixed, added so no getRangeError changes are needed
   name,
   onBlur,
   onChange,
@@ -115,13 +115,8 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
   const [dateValue, setDateValue] = useState('');
   const [timeValue, setTimeValue] = useState('');
   const [errorValue, setErrorValue] = useState('');
-  const [maxDateTimeValue, setMaxDateTimeValue] = useState(0);
-  const [minDateTimeValue, setMinDateTimeValue] = useState(0);
 
-  const clearInputStateValues = () => {
-    setDateValue('');
-    setTimeValue('');
-  };
+  const [jsDateObject, setJsDateObject] = useState(timeStamp ? new Date(timeStamp) : null);
 
   const setErrors = (values: DateValidationObj | false) => {
     if (!values) {
@@ -129,7 +124,7 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
     } else {
       setErrorValue(getValidityErrorMsg(values.dateValidity, values.timeValidity));
       if (values.dateValidity && values.timeValidity && values.tStamp) {
-        setErrorValue(getRangeError(minDateTimeValue, maxDateTimeValue, values.tStamp));
+        setErrorValue(getRangeError(minDateTime, maxDateTime, values.tStamp));
       }
     }
   };
@@ -152,7 +147,7 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
       return null;
     }
     if (values.dateValidity && values.timeValidity && values.tStamp) {
-      const errMsg = getRangeError(minDateTimeValue, maxDateTimeValue, values.tStamp);
+      const errMsg = getRangeError(minDateTime, maxDateTime, values.tStamp);
       if (errMsg.length > 0) {
         return null;
       }
@@ -197,49 +192,32 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
     handleOnChange(dateValue, node.value);
   };
 
-  const setDefaultDateTimeLimits = useCallback(() => {
-    let dateTimeMin = minDateTime;
-    let dateTimeMax = maxDateTime;
 
-    if (typeof dateTimeMin === 'number' && !Number.isNaN(dateTimeMin)) {
-      setMinDateTimeValue(dateTimeMin);
-    } else {
-      dateTimeMin = NaN;
-      setMinDateTimeValue(dateTimeMin);
-    }
-
-    if (typeof dateTimeMax === 'number' && !Number.isNaN(dateTimeMax)) {
-      setMaxDateTimeValue(dateTimeMax);
-    } else {
-      dateTimeMax = getFutureDate({ years: 1 });
-      setMaxDateTimeValue(dateTimeMax);
-    }
-
-    return { dateTimeMin, dateTimeMax };
-  }, [maxDateTime, minDateTime]);
-
-  const setDefaultDateTimeValues = useCallback((values: { dateTimeMin: number, dateTimeMax: number}) => {
+  // new timeStamp
+  useEffect(() => {
     if (typeof timeStamp === 'number') {
       const dateObj = new Date(timeStamp);
-
       if (!Number.isNaN(dateObj.valueOf())) {
         const date: DateType = convertToDateTypeObject(dateObj);
         const time: TimeType = convertToTimeTypeObject(dateObj);
         setDateValue(standardEUDateFormat(date));
         setTimeValue(timeFormat(time));
-
-        setErrorValue(getRangeError(values.dateTimeMin, values.dateTimeMax, dateObj.valueOf()));
+        setJsDateObject(dateObj);
       } else {
-        setErrorValue(invalidTimeStampError);
+        setJsDateObject(null);
+        setErrorValue('Invalid timestamp');
       }
     } else {
-      clearInputStateValues();
+      setJsDateObject(null);
     }
   }, [timeStamp]);
 
+  // in range
   useEffect(() => {
-    setDefaultDateTimeValues(setDefaultDateTimeLimits());
-  }, [setDefaultDateTimeLimits, setDefaultDateTimeValues]);
+    if (jsDateObject !== null) {
+      console.log('getRangeError: ', getRangeError(minDateTime, maxDateTime, jsDateObject.valueOf()));
+    }
+  }, [jsDateObject, minDateTime, maxDateTime]);
 
   return (
     <div styleName="dateTimeComponent" onBlur={handleOnBlur}>
