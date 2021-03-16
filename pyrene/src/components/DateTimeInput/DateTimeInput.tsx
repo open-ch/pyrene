@@ -2,6 +2,7 @@ import React, {
   useCallback, useEffect, useState,
 } from 'react';
 import classNames from 'classnames';
+
 import Icon from '../Icon/Icon';
 import {
   DateType,
@@ -10,6 +11,8 @@ import {
   getFutureDate,
   isValidDate, isValidTime, convertToDateTypeObject, convertToTimeTypeObject,
 } from '../../utils/DateUtils';
+
+
 import './dateTimeInput.css';
 
 export interface DateTimeInputProps{
@@ -30,12 +33,9 @@ type DateValidationObj = {
 const allowedSeparatorCheck = (valueToCheck: string): boolean => (/[/.:]$/.test(valueToCheck));
 const allowedValueCheck = (valueToCheck:string) : boolean => (/^[0-9.:]*$/.test(valueToCheck));
 
-const invalidTimeStampError = 'Invalid timestamp';
 const invalidDateFormat = 'Invalid date format';
 const invalidTimeFormat = 'Invalid time format';
 const invalidDateandTimeFormat = 'Invalid date & time format';
-const lessThanMinDateTime = 'Less than minimum date.';
-const greaterThanMaxDateTime = 'Larger than maximum date.';
 
 
 export const getDateTypeFromddmmyyyyWithSep = (str: string): DateType | null => {
@@ -90,22 +90,24 @@ const getValidityErrorMsg = (dateIsValid: boolean, timeIsValid:boolean): string 
   return '';
 };
 
-const getRangeError = (minimumValue: number, maximumValue: number, timeToCheck: number): string => {
-  if (timeToCheck < minimumValue) {
-    return lessThanMinDateTime;
+// -1 smaller than Range
+// 1 bigger than Range
+// 0 within Range
+const inRange = (timestampToCheck: number, minimumValue: number, maximumValue: number): number => {
+  if (timestampToCheck < minimumValue) {
+    return -1;
   }
-
-  if (timeToCheck > maximumValue) {
-    return greaterThanMaxDateTime;
+  if (timestampToCheck > maximumValue) {
+    return 1;
   }
-  return '';
+  return 0;
 };
 
 const displayError = (errorMsg: string) => (<div styleName="dateTimeInputErrorMsg">{errorMsg}</div>);
 
 const DateTimeInput: React.FC<DateTimeInputProps> = ({
   maxDateTime = getFutureDate({ years: 1 }),
-  minDateTime = 0, // should be fixed, added so no getRangeError changes are needed
+  minDateTime,
   name,
   onBlur,
   onChange,
@@ -124,7 +126,8 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
     } else {
       setErrorValue(getValidityErrorMsg(values.dateValidity, values.timeValidity));
       if (values.dateValidity && values.timeValidity && values.tStamp) {
-        setErrorValue(getRangeError(minDateTime, maxDateTime, values.tStamp));
+        console.log('values.dateValidity && values.timeValidity && values.tStamp: ', values.dateValidity && values.timeValidity && values.tStamp);
+        // setErrorValue(getRangeError(minDateTime, maxDateTime, values.tStamp));
       }
     }
   };
@@ -147,8 +150,7 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
       return null;
     }
     if (values.dateValidity && values.timeValidity && values.tStamp) {
-      const errMsg = getRangeError(minDateTime, maxDateTime, values.tStamp);
-      if (errMsg.length > 0) {
+      if (minDateTime && maxDateTime && (inRange(values.tStamp, minDateTime, maxDateTime) !== 0)) {
         return null;
       }
       return values.tStamp;
@@ -214,8 +216,14 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
 
   // in range
   useEffect(() => {
-    if (jsDateObject !== null) {
-      console.log('getRangeError: ', getRangeError(minDateTime, maxDateTime, jsDateObject.valueOf()));
+    if (minDateTime && maxDateTime && jsDateObject !== null) {
+      const rangePositon = inRange(jsDateObject.valueOf(), minDateTime, maxDateTime);
+      if (rangePositon === -1) {
+        setErrorValue('Less than minimum date.');
+      }
+      if (rangePositon === 1) {
+        setErrorValue('Larger than maximum date.');
+      }
     }
   }, [jsDateObject, minDateTime, maxDateTime]);
 
