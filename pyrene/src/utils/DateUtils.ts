@@ -2,6 +2,15 @@ import {
   isExists, sub, add, Duration,
 } from 'date-fns';
 
+const DAY = 'day';
+const MONTH = 'month';
+const YEAR = 'year';
+
+export const DATE_UNITS = {
+  DAY,
+  MONTH,
+  YEAR,
+};
 
 export type DateType = {
   day: number,
@@ -55,30 +64,30 @@ export const convertToTimeTypeObject = (date: Date) : TimeType => ({
  * @param {TimeType} time
  * @returns {DateType}
  */
-export const convertToTimeStamp = (date: DateType, time: TimeType): number | null => {
+export const convertToTimeStamp = (date: DateType, time: TimeType): number => {
   // Month shift : JS Date uses 0 - 11 to count months
   const tStamp = new Date(date.year, date.month - 1, date.day, time.hours, time.minutes);
-  return tStamp.valueOf() || null;
+  return tStamp.valueOf();
 };
 
 /**
- * Provides the timestamp of current date/time
+ * Provides the Date Object of current date/time
  */
-export const getCurrentDate = (): number => new Date().valueOf();
+export const getCurrentDateObject = (): Date => new Date();
 
 /**
  * Returns the timestamp of a point in time in the future relative to now
  *
  * @param {Duration} duration
  */
-export const getFutureDate = (duration: Duration): number => add(getCurrentDate(), duration).valueOf();
+export const getFutureDate = (duration: Duration): number => add(getCurrentDateObject(), duration).valueOf();
 
 /**
  * Returns the timestamp of a point in time in the past relative to now
  *
  * @param {Duration} duration
  */
-export const getPastDate = (duration: Duration): number => sub(getCurrentDate(), duration).valueOf();
+export const getPastDate = (duration: Duration): number => sub(getCurrentDateObject(), duration).valueOf();
 
 // isExists uses 0 indexed month numbers
 /**
