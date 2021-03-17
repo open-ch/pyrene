@@ -186,12 +186,12 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
         setJsDateObject(dateObj);
         setInvalidTimestamp(false);
       } else {
-        setJsDateObject(null);
+        setJsDateObject(undefined);
         setInvalidTimestamp(true);
       }
     } else {
       // no time timeStamp
-      setJsDateObject(null);
+      setJsDateObject(undefined);
       setInvalidTimestamp(false);
     }
   }, [timeStamp]);
@@ -265,6 +265,7 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
             styleName={classNames('input', 'dateInput')}
             maxLength={10}
             onChange={handleDateOnChange}
+            disabled={invalidTimestamp}
             value={dateValue}
           />
         </div>
@@ -275,6 +276,7 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
             placeholder="HH:MM"
             styleName={classNames('input', 'timeInput')}
             maxLength={5}
+            disabled={invalidTimestamp}
             onChange={handleTimeOnChange}
             value={timeValue}
           />
