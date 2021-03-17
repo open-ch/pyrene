@@ -85,7 +85,7 @@ export const getPastDate = (duration: Duration): number => sub(getCurrentDate(),
  * Checks if a timetype is valid
  * @param {DateType} date
  */
-export const isValidDate = (date: DateType | null): boolean => {
+export const isValidDate = (date?: DateType): boolean => {
   if (date) {
     return isExists(date.year, date.month - 1, date.day);
   }
@@ -96,7 +96,7 @@ export const isValidDate = (date: DateType | null): boolean => {
  * Checks if a timetype is valid
  * @param {TimeType} time
  */
-export const isValidTime = (time: TimeType | null): boolean => {
+export const isValidTime = (time?: TimeType): boolean => {
   if (time && time.hours >= 0 && time.hours <= 23 && time.minutes >= 0 && time.minutes <= 59) {
     return true;
   }
