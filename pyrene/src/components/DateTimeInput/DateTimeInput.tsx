@@ -105,10 +105,9 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
 
   const [jsDateObject, setJsDateObject] = useState<Date | undefined>(undefined);
 
-  const handleOn = (dateString:string, timeString:string, onFunction?: OnFunction) => {
+  const handleOn = useCallback((dateString:string, timeString:string, onFunction?: OnFunction) => {
     // I know we are doing this twice,
     // but it feels cleaner like this
-
     const isDateLongEnough = dateString.length === 10;
     const isTimeLongEnough = timeString.length === 5;
 
@@ -135,23 +134,23 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
       setInvalidDate(false);
       setInvalidTime(false);
     }
-  };
+  }, []);
 
-  const handleDateOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleDateOnChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const node = event.target as HTMLInputElement;
     if (allowedValueCheck(node.value)) {
       setDateValue(node.value);
       handleOn(node.value, timeValue, onChange);
     }
-  };
+  }, [handleOn, onChange, timeValue]);
 
-  const handleTimeOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleTimeOnChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const node = event.target as HTMLInputElement;
     if (allowedValueCheck(node.value)) {
       setTimeValue(node.value);
       handleOn(dateValue, node.value, onChange);
     }
-  };
+  }, [dateValue, handleOn, onChange]);
 
   // set date and time value
   useEffect(() => {
