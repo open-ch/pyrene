@@ -163,6 +163,7 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
   };
 
   const handleOnBlur = () => {
+    console.log('on blur');
     if (onBlur) {
       const validObj = validateInputString(dateValue, timeValue);
       setErrors(validObj);
@@ -171,6 +172,7 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
   };
 
   const handleOnChange = (dateStr:string, timeStr:string) => {
+    console.log('on change');
     if (onChange) {
       const validObj = validateInputString(dateStr, timeStr);
       setErrors(validObj);
