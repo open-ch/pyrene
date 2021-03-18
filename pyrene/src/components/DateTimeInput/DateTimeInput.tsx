@@ -109,7 +109,7 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
   name,
   onBlur,
   onChange,
-  timeStamp,
+  timeStamp = 1809631865000,
 }: DateTimeInputProps) => {
 
   const [dateValue, setDateValue] = useState('');
@@ -135,6 +135,7 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
   };
 
   const validateInputString = (dateStr:string, timeStr:string) => {
+    console.log('input changed');
     if (dateStr.length === 10 && timeStr.length === 5) {
       const date = getDateTypeFromddmmyyyyWithSep(dateStr);
       const time = getTimeTypeFromhhmmWithSep(timeStr);
@@ -200,6 +201,7 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
   const setDefaultDateTimeLimits = useCallback(() => {
     let dateTimeMin = minDateTime;
     let dateTimeMax = maxDateTime;
+    console.log('set time');
 
     if (typeof dateTimeMin === 'number' && !Number.isNaN(dateTimeMin)) {
       setMinDateTimeValue(dateTimeMin);
@@ -219,6 +221,7 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
   }, [maxDateTime, minDateTime]);
 
   const setDefaultDateTimeValues = useCallback((values: { dateTimeMin: number, dateTimeMax: number}) => {
+    console.log('on load');
     if (typeof timeStamp === 'number') {
       const dateObj = new Date(timeStamp);
 
