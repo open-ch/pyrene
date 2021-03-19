@@ -22,7 +22,7 @@ export type TimeType = {
  * @param {DateType} value
  * @returns {Date}
  */
-export const convertToJsDate = (value: DateType): Date => new Date(value.year, value.month - 1, value.day);
+export const convertToJsDate = (value: DateType, time?:TimeType): Date => new Date(value.year, value.month - 1, value.day, time?.hours, time?.minutes);
 
 /**
  * Converts a JavaScript Date object to our custom date object format
@@ -55,10 +55,10 @@ export const convertToTimeTypeObject = (date: Date) : TimeType => ({
  * @param {TimeType} time
  * @returns {DateType}
  */
-export const convertToTimeStamp = (date: DateType, time: TimeType): number | null => {
+export const convertToTimeStamp = (date: DateType, time: TimeType): number | undefined => {
   // Month shift : JS Date uses 0 - 11 to count months
   const tStamp = new Date(date.year, date.month - 1, date.day, time.hours, time.minutes);
-  return tStamp.valueOf() || null;
+  return tStamp.valueOf() || undefined;
 };
 
 /**

@@ -16,7 +16,7 @@ import {
 
 import './dateTimeInput.css';
 
-type OnFunction = (value: number | null) => void;
+type OnFunction = (value: number | undefined) => void;
 
 export interface DateTimeInputProps{
   maxDateTime?: number,
@@ -127,12 +127,17 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
         if (date && time && validDateState && validTimeState) {
           onFunction(convertToTimeStamp(date, time));
         } else {
-          onFunction(null);
+          onFunction(0);
         }
       }
     } else {
       setInvalidDate(false);
       setInvalidTime(false);
+
+      setJsDateObject(undefined);
+      if (onFunction) {
+        onFunction(0);
+      }
     }
   }, []);
 
@@ -169,6 +174,7 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
       setInvalidDate(!isValidDate(date));
       setInvalidTime(!isValidTime(time));
     }
+
     if (invalidTimestamp) {
       // Reset value
       setDateValue('');
@@ -179,23 +185,6 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
   }, [jsDateObject, invalidTimestamp]);
 
   // handle timeStamp prop change
-  useEffect(() => {
-    if (timeStamp) {
-      const dateObj = new Date(timeStamp);
-      if (!Number.isNaN(dateObj.valueOf())) {
-        setJsDateObject(dateObj);
-        setInvalidTimestamp(false);
-      } else {
-        setJsDateObject(undefined);
-        setInvalidTimestamp(true);
-      }
-    } else {
-      // no time timeStamp
-      setJsDateObject(undefined);
-      setInvalidTimestamp(false);
-    }
-  }, [timeStamp]);
-
   useEffect(() => {
     if (timeStamp) {
       const dateObj = new Date(timeStamp);
@@ -230,7 +219,7 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
       if (invalidTime) {
         return 'Invalid time format';
       }
-      if (minDateTime && maxDateTime && jsDateObject) {
+      if (maxDateTime && jsDateObject) {
         const rangePositon = inRange(jsDateObject.valueOf(), minDateTime, maxDateTime);
         if (rangePositon === -1) {
           return 'Less than minimum date.';
