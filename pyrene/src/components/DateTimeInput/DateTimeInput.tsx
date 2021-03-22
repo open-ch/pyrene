@@ -16,7 +16,7 @@ import {
 
 import './dateTimeInput.css';
 
-type OnFunction = (value: number | undefined) => void;
+type OnFunction = (value?: number) => void;
 
 export interface DateTimeInputProps{
   maxDateTime?: number,
@@ -106,8 +106,6 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
   const [jsDateObject, setJsDateObject] = useState<Date | undefined>(undefined);
 
   const handleOn = useCallback((dateString:string, timeString:string, onFunction?: OnFunction) => {
-    // I know we are doing this twice,
-    // but it feels cleaner like this
     const isDateLongEnough = dateString.length === 10;
     const isTimeLongEnough = timeString.length === 5;
 
@@ -127,16 +125,16 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
         if (date && time && validDateState && validTimeState) {
           onFunction(convertToTimeStamp(date, time));
         } else {
-          onFunction(0);
+          onFunction(undefined);
         }
       }
     } else {
       setInvalidDate(false);
       setInvalidTime(false);
-
       setJsDateObject(undefined);
+
       if (onFunction) {
-        onFunction(0);
+        onFunction(undefined);
       }
     }
   }, []);
@@ -176,7 +174,6 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
     }
 
     if (invalidTimestamp) {
-      // Reset value
       setDateValue('');
       setTimeValue('');
       setInvalidDate(false);
@@ -184,7 +181,6 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
     }
   }, [jsDateObject, invalidTimestamp]);
 
-  // handle timeStamp prop change
   useEffect(() => {
     if (timeStamp) {
       const dateObj = new Date(timeStamp);
@@ -196,16 +192,18 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
         setInvalidTimestamp(true);
       }
     } else {
-      // no time timeStamp
       setJsDateObject(undefined);
       setInvalidTimestamp(false);
+
+
+      setDateValue('');
+      setTimeValue('');
+      setInvalidDate(false);
+      setInvalidTime(false);
     }
   }, [timeStamp]);
 
-  // handle errors
-  // not sure about this
   useEffect(() => {
-    // This could be moved out
     const getError = () => {
       if (invalidTimestamp) {
         return 'Invalid timestamp';

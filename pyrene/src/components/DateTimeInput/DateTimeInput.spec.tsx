@@ -101,10 +101,10 @@ describe('<DateTimeInput />', () => {
     timeInput = rendered.find('input').last();
     timeInput.simulate('change');
 
-    expect(onchange).toBeCalledWith(null);
+    expect(onchange).toBeCalledWith(undefined);
   });
 
-  it('Invalid text input calls onChange with null.', () => {
+  it('Invalid text input calls onChange with undefined.', () => {
     const onchange = jest.fn();
     const props = {
       name: 'test',
@@ -124,7 +124,7 @@ describe('<DateTimeInput />', () => {
     timeInputDom.value = '78:90';
     timeInput.simulate('change');
 
-    expect(onchange).toBeCalledWith(null);
+    expect(onchange).toBeCalledWith(undefined);
   });
 
   it('Maximum time test.', () => {
