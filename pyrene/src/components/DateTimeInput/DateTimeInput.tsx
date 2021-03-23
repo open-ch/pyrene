@@ -16,13 +16,13 @@ import {
 
 import './dateTimeInput.css';
 
-type OnFunction = (value?: number) => void;
+type OnFunction = (value?: number | null) => void;
 
 export interface DateTimeInputProps{
   maxDateTime?: number,
   minDateTime?: number,
   name?: string,
-  timeStamp?: number,
+  timeStamp?: number | null,
   onBlur?: OnFunction,
   onChange: OnFunction,
 }
@@ -60,16 +60,13 @@ export const standardEUDateFormat = (date: DateType): string => {
   return `${day}.${month}.${year}`;
 };
 
-export const timeFormat = (time: TimeType): string => {
+export const standardEUTimeFormat = (time: TimeType): string => {
   const hours = zeroFill(time.hours.toString(), 2);
   const minutes = zeroFill(time.minutes.toString(), 2);
 
   return `${hours}:${minutes}`;
 };
 
-// -1 smaller than Range
-// 1 bigger than Range
-// 0 within Range
 const inRange = (timestampToCheck: number, minimumValue: number, maximumValue: number): number => {
   if (timestampToCheck < minimumValue) {
     return -1;
@@ -92,11 +89,6 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
   const [dateValue, setDateValue] = useState('');
   const [timeValue, setTimeValue] = useState('');
 
-  // I guess these will be needed later for the selector ...
-  // or am I wrong?
-  const [internalDateObject, setInternalDateObject] = useState<DateType | undefined>(undefined);
-  const [internalTimeObject, setInternalTimeObject] = useState<TimeType | undefined>(undefined);
-
   const [errorValue, setErrorValue] = useState('');
 
   const [invalidTimestamp, setInvalidTimestamp] = useState(false);
@@ -113,9 +105,6 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
       const date = getDateTypeFromddmmyyyyWithSep(dateString);
       const time = getTimeTypeFromhhmmWithSep(timeString);
 
-      setInternalDateObject(date);
-      setInternalTimeObject(time);
-
       const validDateState = isValidDate(date);
       const validTimeState = isValidTime(time);
       setInvalidDate(!validDateState);
@@ -125,7 +114,7 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
         if (date && time && validDateState && validTimeState) {
           onFunction(convertToTimeStamp(date, time));
         } else {
-          onFunction(undefined);
+          onFunction(null);
         }
       }
     } else {
@@ -134,7 +123,7 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
       setJsDateObject(undefined);
 
       if (onFunction) {
-        onFunction(undefined);
+        onFunction(null);
       }
     }
   }, []);
@@ -155,16 +144,12 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
     }
   }, [dateValue, handleOn, onChange]);
 
-  // set date and time value
   useEffect(() => {
     if (jsDateObject) {
       const date: DateType = convertToDateTypeObject(jsDateObject);
       const time: TimeType = convertToTimeTypeObject(jsDateObject);
       const dateString = standardEUDateFormat(date);
-      const timeString = timeFormat(time);
-
-      setInternalDateObject(date);
-      setInternalTimeObject(time);
+      const timeString = standardEUTimeFormat(time);
 
       setDateValue(dateString);
       setTimeValue(timeString);
@@ -182,7 +167,7 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
   }, [jsDateObject, invalidTimestamp]);
 
   useEffect(() => {
-    if (timeStamp) {
+    if (typeof timeStamp === 'number') {
       const dateObj = new Date(timeStamp);
       if (!Number.isNaN(dateObj.valueOf())) {
         setJsDateObject(dateObj);
@@ -191,10 +176,9 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
         setJsDateObject(undefined);
         setInvalidTimestamp(true);
       }
-    } else {
+    } else if (typeof timeStamp === 'undefined') {
       setJsDateObject(undefined);
       setInvalidTimestamp(false);
-
 
       setDateValue('');
       setTimeValue('');

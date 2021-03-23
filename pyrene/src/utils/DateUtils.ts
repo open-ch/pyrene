@@ -55,10 +55,10 @@ export const convertToTimeTypeObject = (date: Date) : TimeType => ({
  * @param {TimeType} time
  * @returns {DateType}
  */
-export const convertToTimeStamp = (date: DateType, time: TimeType): number | undefined => {
+export const convertToTimeStamp = (date: DateType, time: TimeType): number => {
   // Month shift : JS Date uses 0 - 11 to count months
   const tStamp = new Date(date.year, date.month - 1, date.day, time.hours, time.minutes);
-  return tStamp.valueOf() || undefined;
+  return tStamp.valueOf();
 };
 
 /**
