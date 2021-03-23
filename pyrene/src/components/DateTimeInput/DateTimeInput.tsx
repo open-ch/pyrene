@@ -9,7 +9,7 @@ import {
   DateType,
   TimeType,
   convertToTimeStamp,
-  getFutureDate,
+  getFutureDate, standardEUDateFormat, standardEUTimeFormat,
   isValidDate, isValidTime, convertToDateTypeObject, convertToTimeTypeObject,
 } from '../../utils/DateUtils';
 
@@ -48,23 +48,6 @@ export const getTimeTypeFromhhmmWithSep = (str: string): TimeType | undefined =>
     }
   }
   return undefined;
-};
-
-export const zeroFill = (num: string, length: number): string => (num.toString().padStart(length, '0'));
-
-export const standardEUDateFormat = (date: DateType): string => {
-  const day = zeroFill(date.day.toString(), 2);
-  const month = zeroFill(date.month.toString(), 2);
-  const year = zeroFill(date.year.toString(), 4);
-
-  return `${day}.${month}.${year}`;
-};
-
-export const standardEUTimeFormat = (time: TimeType): string => {
-  const hours = zeroFill(time.hours.toString(), 2);
-  const minutes = zeroFill(time.minutes.toString(), 2);
-
-  return `${hours}:${minutes}`;
 };
 
 const inRange = (timestampToCheck: number, minimumValue: number, maximumValue: number): number => {
