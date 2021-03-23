@@ -66,7 +66,7 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
   name,
   onBlur,
   onChange,
-  timeStamp,
+  timeStamp = 1809631860000,
 }: DateTimeInputProps) => {
 
   const [dateValue, setDateValue] = useState('');
@@ -131,8 +131,8 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
     if (jsDateObject) {
       const date: DateType = convertToDateTypeObject(jsDateObject);
       const time: TimeType = convertToTimeTypeObject(jsDateObject);
-      const dateString = standardEUDateFormat(date);
-      const timeString = standardEUTimeFormat(time);
+      const dateString = standardEUDateFormat(jsDateObject);
+      const timeString = standardEUTimeFormat(jsDateObject);
 
       setDateValue(dateString);
       setTimeValue(timeString);

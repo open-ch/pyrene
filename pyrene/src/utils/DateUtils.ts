@@ -1,5 +1,5 @@
 import {
-  isExists, sub, add, Duration,
+  isExists, sub, add, Duration, format,
 } from 'date-fns';
 
 
@@ -103,20 +103,6 @@ export const isValidTime = (time?: TimeType): boolean => {
   return false;
 };
 
+export const standardEUDateFormat = (date: Date): string => format(date, 'dd.MM.yyyy');
 
-export const zeroFill = (num: string, length: number): string => (num.toString().padStart(length, '0'));
-
-export const standardEUDateFormat = (date: DateType): string => {
-  const day = zeroFill(date.day.toString(), 2);
-  const month = zeroFill(date.month.toString(), 2);
-  const year = zeroFill(date.year.toString(), 4);
-
-  return `${day}.${month}.${year}`;
-};
-
-export const standardEUTimeFormat = (time: TimeType): string => {
-  const hours = zeroFill(time.hours.toString(), 2);
-  const minutes = zeroFill(time.minutes.toString(), 2);
-
-  return `${hours}:${minutes}`;
-};
+export const standardEUTimeFormat = (date: Date): string => format(date, 'HH:mm');

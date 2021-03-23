@@ -33,9 +33,8 @@ DateTimeInput.examples = [
   {
     props: {
       onChange: (stateProvider: StateProvider<State>) => (value?: number | null) => { stateProvider.setState({ value }); },
-      timeStamp: (stateProvider) => (stateProvider.state.value ? stateProvider.state.value : NaN),
+      timeStamp: (stateProvider) => stateProvider.state.value,
     },
-    description: `Timestamp date: ${new Date(NaN).toString()}`,
   },
 ];
 
