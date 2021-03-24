@@ -2,6 +2,15 @@ import {
   isExists, sub, add, Duration, format,
 } from 'date-fns';
 
+const DAY = 'day';
+const MONTH = 'month';
+const YEAR = 'year';
+
+export const DATE_UNITS = {
+  DAY,
+  MONTH,
+  YEAR,
+};
 
 export type DateType = {
   day: number,
@@ -22,7 +31,12 @@ export type TimeType = {
  * @param {DateType} value
  * @returns {Date}
  */
-export const convertToJsDate = (value: DateType, time?:TimeType): Date => new Date(value.year, value.month - 1, value.day, time?.hours, time?.minutes);
+export const convertToJsDate = (value: DateType, time?:TimeType): Date => {
+  if (time) {
+    return new Date(value.year, value.month - 1, value.day, time.hours, time.minutes);
+  }
+  return new Date(value.year, value.month - 1, value.day);
+};
 
 /**
  * Converts a JavaScript Date object to our custom date object format
@@ -62,23 +76,23 @@ export const convertToTimeStamp = (date: DateType, time: TimeType): number => {
 };
 
 /**
- * Provides the timestamp of current date/time
+ * Provides the Date Object of current date/time
  */
-export const getCurrentDate = (): number => new Date().valueOf();
+export const getCurrentDateObject = (): Date => new Date();
 
 /**
  * Returns the timestamp of a point in time in the future relative to now
  *
  * @param {Duration} duration
  */
-export const getFutureDate = (duration: Duration): number => add(getCurrentDate(), duration).valueOf();
+export const getFutureDate = (duration: Duration): number => add(getCurrentDateObject(), duration).valueOf();
 
 /**
  * Returns the timestamp of a point in time in the past relative to now
  *
  * @param {Duration} duration
  */
-export const getPastDate = (duration: Duration): number => sub(getCurrentDate(), duration).valueOf();
+export const getPastDate = (duration: Duration): number => sub(getCurrentDateObject(), duration).valueOf();
 
 // isExists uses 0 indexed month numbers
 /**
