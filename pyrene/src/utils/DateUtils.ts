@@ -1,5 +1,5 @@
 import {
-  isExists, sub, add, Duration,
+  isExists, sub, add, Duration, format,
 } from 'date-fns';
 
 const DAY = 'day';
@@ -31,7 +31,7 @@ export type TimeType = {
  * @param {DateType} value
  * @returns {Date}
  */
-export const convertToJsDate = (value: DateType): Date => new Date(value.year, value.month - 1, value.day);
+export const convertToJsDate = (value: DateType, time?:TimeType): Date => new Date(value.year, value.month - 1, value.day);
 
 /**
  * Converts a JavaScript Date object to our custom date object format
@@ -111,3 +111,7 @@ export const isValidTime = (time: TimeType | null): boolean => {
   }
   return false;
 };
+
+export const standardEUDateFormat = (date: Date): string => format(date, 'dd.MM.yyyy');
+
+export const standardEUTimeFormat = (date: Date): string => format(date, 'HH:mm');
