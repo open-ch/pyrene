@@ -31,7 +31,7 @@ export type TimeType = {
  * @param {DateType} value
  * @returns {Date}
  */
-export const convertToJsDate = (value: DateType, time?:TimeType): Date => new Date(value.year, value.month - 1, value.day);
+export const convertToJsDate = (value: DateType, time?:TimeType): Date => new Date(value.year, value.month - 1, value.day, time?.hours, time?.minutes);
 
 /**
  * Converts a JavaScript Date object to our custom date object format
