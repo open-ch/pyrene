@@ -127,7 +127,7 @@ describe('<DateTimeInput />', () => {
     expect(onchange).toBeCalledWith(null);
   });
 
-  it('Maximum time test.', () => {
+  it('Maximum date test.', () => {
     const onchange = jest.fn();
     const props = {
       timeStamp: 1614700000000,
@@ -143,7 +143,7 @@ describe('<DateTimeInput />', () => {
     expect(error.html()).toContain('Larger than maximum date');
   });
 
-  it('Minimum time test.', () => {
+  it('Minimum date test.', () => {
     const onchange = jest.fn();
     const props = {
       timeStamp: 1614600000000,
