@@ -1,256 +1,215 @@
 import React, {
-  useCallback, useEffect, useState,
+  useCallback,
+  useEffect, useState,
 } from 'react';
 import classNames from 'classnames';
+
 import Icon from '../Icon/Icon';
 import {
   DateType,
   TimeType,
   convertToTimeStamp,
-  getFutureDate,
+  getFutureDate, standardEUDateFormat, standardEUTimeFormat,
   isValidDate, isValidTime, convertToDateTypeObject, convertToTimeTypeObject,
 } from '../../utils/DateUtils';
+
+
 import './dateTimeInput.css';
+
+type OnFunction = (value?: number | null) => void;
 
 export interface DateTimeInputProps{
   maxDateTime?: number,
   minDateTime?: number,
   name?: string,
-  timeStamp?: number,
-  onBlur?: (value: number | null) => void,
-  onChange: (value: number | null) => void,
+  timeStamp?: number | null,
+  onBlur?: OnFunction,
+  onChange: OnFunction,
 }
-
-type DateValidationObj = {
-  dateValidity: boolean,
-  timeValidity: boolean,
-  tStamp: number | null
-};
 
 const allowedSeparatorCheck = (valueToCheck: string): boolean => (/[/.:]$/.test(valueToCheck));
 const allowedValueCheck = (valueToCheck:string) : boolean => (/^[0-9.:]*$/.test(valueToCheck));
 
-const invalidTimeStampError = 'Invalid timestamp';
-const invalidDateFormat = 'Invalid date format';
-const invalidTimeFormat = 'Invalid time format';
-const invalidDateandTimeFormat = 'Invalid date & time format';
-const lessThanMinDateTime = 'Less than minimum date.';
-const greaterThanMaxDateTime = 'Larger than maximum date.';
-
-
-export const getDateTypeFromddmmyyyyWithSep = (str: string): DateType | null => {
+export const getDateTypeFromddmmyyyyWithSep = (str: string): DateType | undefined => {
   if (str.length === 10 && allowedSeparatorCheck(str.charAt(2)) && allowedSeparatorCheck(str.charAt(5))) {
     const date = { day: +str.substr(0, 2), month: +str.substr(3, 2), year: +str.substr(6) };
     if (!Number.isNaN(date.day) && !Number.isNaN(date.month) && !Number.isNaN(date.year)) {
       return date;
     }
   }
-  return null;
+  return undefined;
 };
 
-export const getTimeTypeFromhhmmWithSep = (str: string): TimeType | null => {
+export const getTimeTypeFromhhmmWithSep = (str: string): TimeType | undefined => {
   if (str.length === 5 && allowedSeparatorCheck(str.charAt(2))) {
     const time = { hours: +str.substr(0, 2), minutes: +str.substr(3) };
     if (!Number.isNaN(time.hours) && !Number.isNaN(time.minutes)) {
       return time;
     }
   }
-  return null;
+  return undefined;
 };
 
-export const zeroFill = (num: string, length: number): string => (num.toString().padStart(length, '0'));
-
-export const standardEUDateFormat = (date: DateType): string => {
-  const day = zeroFill(date.day.toString(), 2);
-  const month = zeroFill(date.month.toString(), 2);
-  const year = zeroFill(date.year.toString(), 4);
-
-  return `${day}.${month}.${year}`;
+const inRange = (timestampToCheck: number, minimumValue: number, maximumValue: number): number => {
+  if (timestampToCheck < minimumValue) {
+    return -1;
+  }
+  if (timestampToCheck > maximumValue) {
+    return 1;
+  }
+  return 0;
 };
-
-export const timeFormat = (time: TimeType): string => {
-  const hours = zeroFill(time.hours.toString(), 2);
-  const minutes = zeroFill(time.minutes.toString(), 2);
-
-  return `${hours}:${minutes}`;
-};
-
-const getValidityErrorMsg = (dateIsValid: boolean, timeIsValid:boolean): string => {
-  if (!dateIsValid && !timeIsValid) {
-    return invalidDateandTimeFormat;
-  }
-
-  if (!dateIsValid) {
-    return invalidDateFormat;
-  }
-
-  if (!timeIsValid) {
-    return invalidTimeFormat;
-  }
-  return '';
-};
-
-const getRangeError = (minimumValue: number, maximumValue: number, timeToCheck: number): string => {
-  if (!Number.isNaN(minimumValue) && timeToCheck < minimumValue) {
-    return lessThanMinDateTime;
-  }
-
-  if (!Number.isNaN(maximumValue) && timeToCheck > maximumValue) {
-    return greaterThanMaxDateTime;
-  }
-  return '';
-};
-
-const displayError = (errorMsg: string) => (<div styleName="dateTimeInputErrorMsg">{errorMsg}</div>);
 
 const DateTimeInput: React.FC<DateTimeInputProps> = ({
-  maxDateTime,
-  minDateTime,
+  maxDateTime = getFutureDate({ years: 1 }),
+  minDateTime = 0,
   name,
   onBlur,
   onChange,
-  timeStamp = 1809631865000,
+  timeStamp,
 }: DateTimeInputProps) => {
 
   const [dateValue, setDateValue] = useState('');
   const [timeValue, setTimeValue] = useState('');
+
   const [errorValue, setErrorValue] = useState('');
-  const [maxDateTimeValue, setMaxDateTimeValue] = useState(0);
-  const [minDateTimeValue, setMinDateTimeValue] = useState(0);
 
-  const clearInputStateValues = () => {
-    setDateValue('');
-    setTimeValue('');
-  };
+  const [invalidTimestamp, setInvalidTimestamp] = useState(false);
+  const [invalidDate, setInvalidDate] = useState(false);
+  const [invalidTime, setInvalidTime] = useState(false);
 
-  const setErrors = (values: DateValidationObj | false) => {
-    if (!values) {
-      setErrorValue('');
+  const [jsDateObject, setJsDateObject] = useState<Date | undefined>(undefined);
+
+  const handleOn = useCallback((dateString:string, timeString:string, onFunction?: OnFunction) => {
+    const isDateLongEnough = dateString.length === 10;
+    const isTimeLongEnough = timeString.length === 5;
+
+    if (isDateLongEnough && isTimeLongEnough) {
+      const date = getDateTypeFromddmmyyyyWithSep(dateString);
+      const time = getTimeTypeFromhhmmWithSep(timeString);
+
+      const validDateState = isValidDate(date);
+      const validTimeState = isValidTime(time);
+      setInvalidDate(!validDateState);
+      setInvalidTime(!validTimeState);
+
+      if (onFunction) {
+        if (date && time && validDateState && validTimeState) {
+          onFunction(convertToTimeStamp(date, time));
+        } else {
+          onFunction(null);
+        }
+      }
     } else {
-      setErrorValue(getValidityErrorMsg(values.dateValidity, values.timeValidity));
-      if (values.dateValidity && values.timeValidity && values.tStamp) {
-        setErrorValue(getRangeError(minDateTimeValue, maxDateTimeValue, values.tStamp));
+      setInvalidDate(false);
+      setInvalidTime(false);
+      setJsDateObject(undefined);
+
+      if (onFunction) {
+        onFunction(null);
       }
     }
-  };
+  }, []);
 
-  const validateInputString = (dateStr:string, timeStr:string) => {
-    console.log('input changed');
-    if (dateStr.length === 10 && timeStr.length === 5) {
-      const date = getDateTypeFromddmmyyyyWithSep(dateStr);
-      const time = getTimeTypeFromhhmmWithSep(timeStr);
-
-      const validDate = isValidDate(date);
-      const validTime = isValidTime(time);
-
-      return { dateValidity: validDate, timeValidity: validTime, tStamp: (date && time && validDate && validTime) ? convertToTimeStamp(date, time) : null };
-    }
-    return false;
-  };
-
-  const getComponentValue = (values: DateValidationObj | false) => {
-    if (!values) {
-      return null;
-    }
-    if (values.dateValidity && values.timeValidity && values.tStamp) {
-      const errMsg = getRangeError(minDateTimeValue, maxDateTimeValue, values.tStamp);
-      if (errMsg.length > 0) {
-        return null;
-      }
-      return values.tStamp;
-    }
-    return null;
-  };
-
-  const handleOnBlur = () => {
-    console.log('on blur');
-    if (onBlur) {
-      const validObj = validateInputString(dateValue, timeValue);
-      setErrors(validObj);
-      onBlur(getComponentValue(validObj));
-    }
-  };
-
-  const handleOnChange = (dateStr:string, timeStr:string) => {
-    console.log('on change');
-    if (onChange) {
-      const validObj = validateInputString(dateStr, timeStr);
-      setErrors(validObj);
-      onChange(getComponentValue(validObj));
-    }
-  };
-
-  const handleDateOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleDateOnChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const node = event.target as HTMLInputElement;
-    if (!allowedValueCheck(node.value)) {
-      return;
+    if (allowedValueCheck(node.value)) {
+      setDateValue(node.value);
+      handleOn(node.value, timeValue, onChange);
     }
+  }, [handleOn, onChange, timeValue]);
 
-    setDateValue(node.value);
-    handleOnChange(node.value, timeValue);
-  };
-
-  const handleTimeOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleTimeOnChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const node = event.target as HTMLInputElement;
-    if (!allowedValueCheck(node.value)) {
-      return;
+    if (allowedValueCheck(node.value)) {
+      setTimeValue(node.value);
+      handleOn(dateValue, node.value, onChange);
+    }
+  }, [dateValue, handleOn, onChange]);
+
+  useEffect(() => {
+    if (jsDateObject) {
+      const date: DateType = convertToDateTypeObject(jsDateObject);
+      const time: TimeType = convertToTimeTypeObject(jsDateObject);
+      const dateString = standardEUDateFormat(jsDateObject);
+      const timeString = standardEUTimeFormat(jsDateObject);
+
+      setDateValue(dateString);
+      setTimeValue(timeString);
+
+      setInvalidDate(!isValidDate(date));
+      setInvalidTime(!isValidTime(time));
     }
 
-    setTimeValue(node.value);
-    handleOnChange(dateValue, node.value);
-  };
-
-  const setDefaultDateTimeLimits = useCallback(() => {
-    let dateTimeMin = minDateTime;
-    let dateTimeMax = maxDateTime;
-    console.log('set time');
-
-    if (typeof dateTimeMin === 'number' && !Number.isNaN(dateTimeMin)) {
-      setMinDateTimeValue(dateTimeMin);
-    } else {
-      dateTimeMin = NaN;
-      setMinDateTimeValue(dateTimeMin);
+    if (invalidTimestamp) {
+      setDateValue('');
+      setTimeValue('');
+      setInvalidDate(false);
+      setInvalidTime(false);
     }
+  }, [jsDateObject, invalidTimestamp]);
 
-    if (typeof dateTimeMax === 'number' && !Number.isNaN(dateTimeMax)) {
-      setMaxDateTimeValue(dateTimeMax);
-    } else {
-      dateTimeMax = getFutureDate({ years: 1 });
-      setMaxDateTimeValue(dateTimeMax);
-    }
-
-    return { dateTimeMin, dateTimeMax };
-  }, [maxDateTime, minDateTime]);
-
-  const setDefaultDateTimeValues = useCallback((values: { dateTimeMin: number, dateTimeMax: number}) => {
-    console.log('on load');
+  useEffect(() => {
     if (typeof timeStamp === 'number') {
       const dateObj = new Date(timeStamp);
-
       if (!Number.isNaN(dateObj.valueOf())) {
-        const date: DateType = convertToDateTypeObject(dateObj);
-        const time: TimeType = convertToTimeTypeObject(dateObj);
-        setDateValue(standardEUDateFormat(date));
-        setTimeValue(timeFormat(time));
-
-        setErrorValue(getRangeError(values.dateTimeMin, values.dateTimeMax, dateObj.valueOf()));
+        setJsDateObject(dateObj);
+        setInvalidTimestamp(false);
       } else {
-        setErrorValue(invalidTimeStampError);
+        setJsDateObject(undefined);
+        setInvalidTimestamp(true);
       }
-    } else {
-      clearInputStateValues();
+    } else if (typeof timeStamp === 'undefined') {
+      setJsDateObject(undefined);
+      setInvalidTimestamp(false);
+
+      setDateValue('');
+      setTimeValue('');
+      setInvalidDate(false);
+      setInvalidTime(false);
     }
   }, [timeStamp]);
 
   useEffect(() => {
-    setDefaultDateTimeValues(setDefaultDateTimeLimits());
-  }, [setDefaultDateTimeLimits, setDefaultDateTimeValues]);
+    const getError = () => {
+      if (invalidTimestamp) {
+        return 'Invalid timestamp';
+      }
+      if (invalidDate && invalidTime) {
+        return 'Invalid date & time format';
+      }
+      if (invalidDate) {
+        return 'Invalid date format';
+      }
+      if (invalidTime) {
+        return 'Invalid time format';
+      }
+      if (maxDateTime && jsDateObject) {
+        const rangePositon = inRange(jsDateObject.valueOf(), minDateTime, maxDateTime);
+        if (rangePositon === -1) {
+          return 'Less than minimum date.';
+        }
+        if (rangePositon === 1) {
+          return 'Larger than maximum date.';
+        }
+      }
+      return '';
+    };
+
+    setErrorValue(getError());
+  }, [invalidDate, invalidTime, invalidTimestamp, jsDateObject, maxDateTime, minDateTime]);
 
   return (
-    <div styleName="dateTimeComponent" onBlur={handleOnBlur}>
+    <div
+      styleName="dateTimeComponent"
+      onBlur={() => handleOn(dateValue, timeValue, onBlur)}
+    >
       <div styleName="dateTimeFieldTitle">Date &amp; Time</div>
       <div
-        styleName={errorValue.length > 0 ? classNames('dateTimeInputError', 'dateTimeInputArea') : 'dateTimeInputArea'}
+        styleName={classNames(
+          'dateTimeInputArea',
+          { dateTimeInputError: errorValue.length > 0 },
+        )}
       >
         <div styleName={classNames('iconInputContainer', 'calendar')}>
           <Icon type="inline" name="calendar" color="neutral-500" />
@@ -260,6 +219,7 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
             styleName={classNames('input', 'dateInput')}
             maxLength={10}
             onChange={handleDateOnChange}
+            disabled={invalidTimestamp}
             value={dateValue}
           />
         </div>
@@ -270,12 +230,15 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
             placeholder="HH:MM"
             styleName={classNames('input', 'timeInput')}
             maxLength={5}
+            disabled={invalidTimestamp}
             onChange={handleTimeOnChange}
             value={timeValue}
           />
         </div>
       </div>
-      {errorValue.length > 0 ? displayError(errorValue) : ''}
+      {errorValue.length > 0 && (
+        <div styleName="dateTimeInputErrorMsg">{errorValue}</div>
+      )}
     </div>
   );
 };

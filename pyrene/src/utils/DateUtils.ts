@@ -1,5 +1,5 @@
 import {
-  isExists, sub, add, Duration,
+  isExists, sub, add, Duration, format,
 } from 'date-fns';
 
 
@@ -22,7 +22,7 @@ export type TimeType = {
  * @param {DateType} value
  * @returns {Date}
  */
-export const convertToJsDate = (value: DateType): Date => new Date(value.year, value.month - 1, value.day);
+export const convertToJsDate = (value: DateType, time?:TimeType): Date => new Date(value.year, value.month - 1, value.day, time?.hours, time?.minutes);
 
 /**
  * Converts a JavaScript Date object to our custom date object format
@@ -55,10 +55,10 @@ export const convertToTimeTypeObject = (date: Date) : TimeType => ({
  * @param {TimeType} time
  * @returns {DateType}
  */
-export const convertToTimeStamp = (date: DateType, time: TimeType): number | null => {
+export const convertToTimeStamp = (date: DateType, time: TimeType): number => {
   // Month shift : JS Date uses 0 - 11 to count months
   const tStamp = new Date(date.year, date.month - 1, date.day, time.hours, time.minutes);
-  return tStamp.valueOf() || null;
+  return tStamp.valueOf();
 };
 
 /**
@@ -85,7 +85,7 @@ export const getPastDate = (duration: Duration): number => sub(getCurrentDate(),
  * Checks if a timetype is valid
  * @param {DateType} date
  */
-export const isValidDate = (date: DateType | null): boolean => {
+export const isValidDate = (date?: DateType): boolean => {
   if (date) {
     return isExists(date.year, date.month - 1, date.day);
   }
@@ -96,9 +96,13 @@ export const isValidDate = (date: DateType | null): boolean => {
  * Checks if a timetype is valid
  * @param {TimeType} time
  */
-export const isValidTime = (time: TimeType | null): boolean => {
+export const isValidTime = (time?: TimeType): boolean => {
   if (time && time.hours >= 0 && time.hours <= 23 && time.minutes >= 0 && time.minutes <= 59) {
     return true;
   }
   return false;
 };
+
+export const standardEUDateFormat = (date: Date): string => format(date, 'dd.MM.yyyy');
+
+export const standardEUTimeFormat = (date: Date): string => format(date, 'HH:mm');
