@@ -78,21 +78,26 @@ export const convertToTimeStamp = (date: DateType, time: TimeType): number => {
 /**
  * Provides the Date Object of current date/time
  */
-export const getCurrentDateObject = (): Date => new Date();
+export const getCurrentJsDateObject = (): Date => new Date();
+
+/**
+ * Provides the DateType object of current date/time
+ */
+export const getCurrentDateTypeObject = (): DateType => convertToDateTypeObject(new Date());
 
 /**
  * Returns the timestamp of a point in time in the future relative to now
  *
  * @param {Duration} duration
  */
-export const getFutureDate = (duration: Duration): number => add(getCurrentDateObject(), duration).valueOf();
+export const getFutureDate = (duration: Duration): number => add(getCurrentJsDateObject(), duration).valueOf();
 
 /**
  * Returns the timestamp of a point in time in the past relative to now
  *
  * @param {Duration} duration
  */
-export const getPastDate = (duration: Duration): number => sub(getCurrentDateObject(), duration).valueOf();
+export const getPastDate = (duration: Duration): number => sub(getCurrentJsDateObject(), duration).valueOf();
 
 // isExists uses 0 indexed month numbers
 /**

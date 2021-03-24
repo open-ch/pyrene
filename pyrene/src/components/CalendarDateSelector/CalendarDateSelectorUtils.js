@@ -29,11 +29,6 @@ export const handleDateChange = (value, change, timeUnit) => {
   return convertToDateTypeObject(conversionDate);
 };
 
-/**
- * Provides the current date object in the `value` prop format
- */
-export const getCurrentDate = () => convertToDateTypeObject(new Date());
-
 export const canNavigateForward = (value, upperBound, timeRange) => {
   const upperBoundDate = convertToJsDate(upperBound);
   const valueDate = convertToJsDate(value);
