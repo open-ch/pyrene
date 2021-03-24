@@ -4,13 +4,11 @@ import PropTypes from 'prop-types';
 import CalendarDateSelectorDropdown from './CalendarDateSelectorDropdown';
 import CalendarDateSelectorPropTypes from './CalendarDateSelectorPropTypes';
 import {
-  canNavigateBackward, canNavigateForward,
+  canNavigateBackward, canNavigateForward, getCurrentDate,
   handleDateChange,
 } from './CalendarDateSelectorUtils';
 import {
   DATE_UNITS,
-  convertToDateTypeObject,
-  getCurrentDateObject,
 } from '../../utils/DateUtils';
 import './calendarDateSelector.css';
 import ArrowSelector from '../TimeRangeSelector/TimeRangeNavigationBar/ArrowSelector/ArrowSelector';
@@ -106,10 +104,10 @@ CalendarDateSelector.propTypes = {
 CalendarDateSelector.defaultProps = {
   isLoading: false,
   lowerBound: CalendarDateSelector.DEFAULT_LOWER_BOUND,
-  upperBound: convertToDateTypeObject(getCurrentDateObject()),
+  upperBound: getCurrentDate(),
   timeUnits: CalendarDateSelector.DEFAULT_TIME_UNITS,
   value: {
-    ...convertToDateTypeObject(getCurrentDateObject()),
+    ...getCurrentDate(),
   },
   onChange: () => {},
   renderRightSection: () => {},
