@@ -2,6 +2,10 @@ import {
   isExists, sub, add, Duration, format,
 } from 'date-fns';
 
+import {
+  zonedTimeToUtc, utcToZonedTime,
+} from 'date-fns-tz';
+
 const DAY = 'day';
 const MONTH = 'month';
 const YEAR = 'year';
@@ -79,6 +83,17 @@ export const convertToTimeStamp = (date: DateType, time: TimeType): number => {
  * Provides the Date Object of current date/time
  */
 export const getCurrentDateObject = (): Date => new Date();
+
+
+/**
+ * Returns the Date Object of provided timestamp in provided timezone
+ */
+export const convertToZonedTime = (timestamp: number, timezone: string): Date => utcToZonedTime(timestamp, timezone);
+
+/**
+ * Returns the Date Object of provided timestamp in UTC
+ */
+export const convertToUTCtime = (timestamp: number, timezone: string): Date => zonedTimeToUtc(timestamp, timezone);
 
 /**
  * Returns the timestamp of a point in time in the future relative to now
