@@ -1,5 +1,7 @@
 const Enzyme = require('enzyme');
-const Adapter = require('enzyme-adapter-react-16');
+
+// TODO: check https://github.com/enzymejs/enzyme/issues/2429 and replace with official adapter once available
+const Adapter = require('@wojtekmaj/enzyme-adapter-react-17');
 
 Enzyme.configure({ adapter: new Adapter() });
 
