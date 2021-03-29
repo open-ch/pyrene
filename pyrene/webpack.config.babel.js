@@ -46,7 +46,6 @@ const config = {
               modules: {
                 localIdentName: 'pyrene-[name]__[local]--[hash:base64:10]',
               },
-              sourceMap: !production,
             },
           },
           'postcss-loader',
