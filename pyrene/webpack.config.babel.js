@@ -88,9 +88,7 @@ const config = {
     minimizer: [
       new TerserPlugin({
         include: 'pyrene.min.js',
-        cache: true,
         parallel: true,
-        sourceMap: !production,
       }),
     ],
   },
