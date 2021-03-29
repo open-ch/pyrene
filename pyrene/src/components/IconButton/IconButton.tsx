@@ -35,20 +35,21 @@ const IconButton: React.FC<IconButtonProps> = ({
   path = '#',
   type = 'neutral',
 }: IconButtonProps) => (
-  <a styleName={classNames('iconbutton', { disabled: disabled }, { [`type-${type}`]: true })}
+  <a styleName={classNames('iconButton', { disabled: disabled }, { [`type-${type}`]: true })}
     href={path}
-    onClick={onClick ? ((event) => {
-      event.preventDefault();
-      onClick(event);
-    }) : (event) => {
-      event.stopPropagation();
-    }}
+    onClick={
+      onClick ? ((event) => {
+        event.preventDefault();
+        onClick(event);
+      }) : (event) => {
+        event.stopPropagation();
+      }
+    }
   >
     <span className={`pyreneIcon-${icon}`} />
   </a>
 );
 
 IconButton.displayName = 'Icon Button';
-
 
 export default IconButton;
