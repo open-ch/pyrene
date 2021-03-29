@@ -66,7 +66,7 @@ const config = {
       analyzerMode: process.env.NODE_ENV === 'debug' ? 'server' : 'disabled',
     }),
     new MiniCssExtractPlugin({
-      moduleFilename: ({ name }) => (name === 'main' ? 'pyrene.css' : 'pyrene.[name].css'),
+      filename: (chunkData) => (chunkData.chunk.name === 'main' ? 'pyrene.css' : 'pyrene.[name].css'),
     }),
     new OptimizeCSSAssetsPlugin({}),
     new CopyWebpackPlugin({
