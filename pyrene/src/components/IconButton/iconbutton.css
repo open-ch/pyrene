@@ -6,6 +6,10 @@
   align-items: center;
   text-decoration: none;
 
+  &:hover {
+    background-color: var(--secondary);
+  }
+
   &.disabled {
     opacity: 0.5;
     pointer-events: none;
