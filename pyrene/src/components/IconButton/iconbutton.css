@@ -1,7 +1,8 @@
 @import '../../styles/colors.css';
 
 .iconButton {
-  padding: 8px;
+  padding: 4px;
+  border-radius: 2px;
   cursor: pointer;
   display: flex;
   align-items: center;
