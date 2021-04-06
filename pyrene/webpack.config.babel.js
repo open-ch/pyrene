@@ -1,6 +1,5 @@
 import path from 'path';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
-import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin';
 import TerserPlugin from 'terser-webpack-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 
@@ -68,7 +67,6 @@ const config = {
     new MiniCssExtractPlugin({
       filename: (chunkData) => (chunkData.chunk.name === 'main' ? 'pyrene.css' : 'pyrene.[name].css'),
     }),
-    new OptimizeCSSAssetsPlugin({}),
     new CopyWebpackPlugin({
       patterns: [
         { from: 'src/styles/colors.css', to: `${OUTPUT_PATH}/[name][ext]` },
