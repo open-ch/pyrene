@@ -8,9 +8,9 @@ import Icon from '../Icon/Icon';
 import {
   DateType,
   TimeType,
-  convertToTimeStamp,
   getFutureDate, standardEUDateFormat, standardEUTimeFormat,
   isValidDate, isValidTime, convertToDateTypeObject, convertToTimeTypeObject,
+  convertToUTCtime, convertToZoneTime, convertDateTypeToString, convertTimeTypeToString,
 } from '../../utils/DateUtils';
 
 
@@ -19,11 +19,33 @@ import './dateTimeInput.css';
 type OnFunction = (value?: number | null) => void;
 
 export interface DateTimeInputProps{
+  /**
+   * This is a timestamp that represents the maximum date allowed by the component
+   */
   maxDateTime?: number,
+  /**
+   * This is a timestamp that represents the minimum date allowed by the component
+   */
   minDateTime?: number,
+  /**
+   * Name that can be used to uniquely identify the component
+   */
   name?: string,
+  /**
+   * This is a unix timestamp, which is the number of seconds that have elapsed since Unix epoch
+   */
   timeStamp?: number | null,
+  /**
+   * This is must be a IANA time zone string
+   */
+  timeZone?: string,
+  /**
+   * Function to handle onBlur event
+   */
   onBlur?: OnFunction,
+  /**
+   * Function to handle onChange event
+   */
   onChange: OnFunction,
 }
 
@@ -67,6 +89,7 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
   onBlur,
   onChange,
   timeStamp,
+  timeZone = 'Europe/Zurich',
 }: DateTimeInputProps) => {
 
   const [dateValue, setDateValue] = useState('');
@@ -95,7 +118,7 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
 
       if (onFunction) {
         if (date && time && validDateState && validTimeState) {
-          onFunction(convertToTimeStamp(date, time));
+          onFunction(convertToUTCtime(`${convertDateTypeToString(date)} ${convertTimeTypeToString(time)}`, timeZone).valueOf());
         } else {
           onFunction(null);
         }
@@ -109,7 +132,7 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
         onFunction(null);
       }
     }
-  }, []);
+  }, [timeZone]);
 
   const handleDateOnChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const node = event.target as HTMLInputElement;
@@ -153,7 +176,7 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
     if (typeof timeStamp === 'number') {
       const dateObj = new Date(timeStamp);
       if (!Number.isNaN(dateObj.valueOf())) {
-        setJsDateObject(dateObj);
+        setJsDateObject(convertToZoneTime(timeStamp, timeZone));
         setInvalidTimestamp(false);
       } else {
         setJsDateObject(undefined);
@@ -168,7 +191,7 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
       setInvalidDate(false);
       setInvalidTime(false);
     }
-  }, [timeStamp]);
+  }, [timeStamp, timeZone]);
 
   useEffect(() => {
     const getError = () => {
