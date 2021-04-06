@@ -16,7 +16,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "clean": "rm -rf dist node_modules",
-    "prebuild": "npm run clean && npm install",
+    "prebuild": "npm ci",
     "build": "webpack && NODE_ENV=production webpack && npm run build-ts-declarations",
     "build-debug": "NODE_ENV=debug webpack",
     "watch": "webpack -w",
