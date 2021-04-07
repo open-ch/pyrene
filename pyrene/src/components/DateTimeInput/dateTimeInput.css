@@ -13,6 +13,18 @@
   line-height: 1.09;
 }
 
+.dateTimeInputError {
+  box-shadow: 0 0 0 1px var(--red-500) inset!important; /* Places the border inside of the div to prevent size jump */
+}
+
+.dateTimeInputErrorMsg {
+  font-size: 11px;
+  color: var(--red-500);
+  height: 13px;
+  margin: 3px 7px 0 0;
+  line-height: 1.18;
+}
+
 .dateTimeInputArea {    
   height: 32px;
   border-radius: 2px;
