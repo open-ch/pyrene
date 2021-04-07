@@ -3,7 +3,7 @@ import { Example } from '../../examples/Example';
 import Placeholder from '../../examples/Placeholder';
 import { ActionBarProps } from './ActionBar';
 
-const ActionBar: Example<ActionBarProps, {active: boolean}> = {};
+const ActionBar: Example<ActionBarProps, { active: boolean }> = {};
 /* eslint-disable no-alert */
 ActionBar.props = {
   actions: [

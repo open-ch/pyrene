@@ -50,7 +50,7 @@ import { Example } from './Example';
 
 
 // Sort alphabetically to find stuff easily
-const examples: {[key: string]: Example<any, any>} = {
+const examples: { [key: string]: Example<any, any> } = {
   Accordion,
   ActionBar,
   ArrowPopover,
