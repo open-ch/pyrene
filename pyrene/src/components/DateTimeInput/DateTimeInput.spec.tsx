@@ -223,6 +223,6 @@ describe('Tests for time zones', () => {
     timeInput2Dom.value = timeStr;
     timeInput2.simulate('change');
 
-    expect((tz1 - tz2)).toBeGreaterThanOrEqual(offset);
+    expect(Math.abs(tz1 - tz2)).toBeGreaterThanOrEqual(offset);
   });
 });
