@@ -9,7 +9,7 @@ import {
   DateType,
   TimeType,
   getFutureDate, standardEUDateFormat, standardEUTimeFormat,
-  isValidDate, isValidTime, convertToDateTypeObject, convertToTimeTypeObject,
+  isValidDate, isValidTime, isValidTimeZone, convertToDateTypeObject, convertToTimeTypeObject,
   convertToUTCtime, convertToZoneTime, convertDateTypeToString, convertTimeTypeToString,
 } from '../../utils/DateUtils';
 
@@ -94,6 +94,7 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
 
   const [dateValue, setDateValue] = useState('');
   const [timeValue, setTimeValue] = useState('');
+  const [timeZoneValue, setTimeZoneValue] = useState(timeZone);
 
   const [errorValue, setErrorValue] = useState('');
 
@@ -118,7 +119,7 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
 
       if (onFunction) {
         if (date && time && validDateState && validTimeState) {
-          onFunction(convertToUTCtime(`${convertDateTypeToString(date)} ${convertTimeTypeToString(time)}`, timeZone).valueOf());
+          onFunction(convertToUTCtime(`${convertDateTypeToString(date)} ${convertTimeTypeToString(time)}`, timeZoneValue).valueOf());
         } else {
           onFunction(null);
         }
@@ -132,7 +133,7 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
         onFunction(null);
       }
     }
-  }, [timeZone]);
+  }, [timeZoneValue]);
 
   const handleDateOnChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const node = event.target as HTMLInputElement;
@@ -176,7 +177,7 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
     if (typeof timeStamp === 'number') {
       const dateObj = new Date(timeStamp);
       if (!Number.isNaN(dateObj.valueOf())) {
-        setJsDateObject(convertToZoneTime(timeStamp, timeZone));
+        setJsDateObject(convertToZoneTime(timeStamp, timeZoneValue));
         setInvalidTimestamp(false);
       } else {
         setJsDateObject(undefined);
@@ -191,7 +192,15 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
       setInvalidDate(false);
       setInvalidTime(false);
     }
-  }, [timeStamp, timeZone]);
+  }, [timeStamp, timeZoneValue]);
+
+  useEffect(() => {
+    if (isValidTimeZone(timeZone)) {
+      setTimeZoneValue(timeZone);
+    } else {
+      setTimeZoneValue('Europe/Zurich');
+    }
+  }, [timeZone]);
 
   useEffect(() => {
     const getError = () => {

@@ -131,6 +131,18 @@ export const isValidTime = (time?: TimeType): boolean => {
   return false;
 };
 
+/** Checks if a timezone string is valid
+* @param {string} timezone
+*/
+export const isValidTimeZone = (timezone: string): boolean => {
+  try {
+    utcToZonedTime(getCurrentDateObject(), timezone);
+    return true;
+  } catch {
+    return false;
+  }
+};
+
 export const zeroFill = (num: string, length: number): string => (num.toString().padStart(length, '0'));
 
 export const convertDateTypeToString = (date: DateType): string => {
