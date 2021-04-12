@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import classNames from 'classnames';
 
 import './radioSelection.css';
@@ -91,7 +91,7 @@ const getRadioIcon = (
  *
  * If the available options can be collapsed, you should use a drop-down menu instead because it takes up less space.
  */
-const RadioButton: React.FC<RadioButtonProps> = ({
+const RadioButton: FunctionComponent<RadioButtonProps> = ({
   checked = false,
   disabled = false,
   invalid = false,
@@ -102,7 +102,7 @@ const RadioButton: React.FC<RadioButtonProps> = ({
   readonly = false,
   value = '',
   onChange = () => null,
-}: RadioButtonProps) => {
+}) => {
 
   const rand = Math.floor(Math.random() * 1e10);
 
@@ -142,7 +142,5 @@ const RadioButton: React.FC<RadioButtonProps> = ({
     </React.Fragment>
   );
 };
-
-RadioButton.displayName = 'Radio Button';
 
 export default RadioButton;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 
 import className from 'classnames';
 
@@ -41,14 +41,14 @@ export interface PillProps {
  * Pills have a numeric number and a type. Both properties are mandatory. Pills can also wrap an icon. Pills are not clickable.
  *
  */
-const Pill: React.FC<PillProps> = ({
+const Pill: FunctionComponent<PillProps> = ({
   icon = '',
   iconType = 'neutral',
   maxValue = 99,
   onClick,
   type,
   value,
-}: PillProps) => (
+}) => (
   <div>
     {(onClick && icon)
       && <div styleName={className('icon')}><IconButton icon={icon} type={iconType} onClick={onClick} /></div>}
@@ -62,7 +62,5 @@ const Pill: React.FC<PillProps> = ({
       : <div styleName={className('pill', { [`type-${type}`]: true })}>{`${maxValue}+`}</div>}
   </div>
 );
-
-Pill.displayName = 'Pill';
 
 export default Pill;

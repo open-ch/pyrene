@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import classNames from 'classnames';
 
 import RadioButton, { RadioButtonBaseProps } from '../RadioButton/RadioButton';
@@ -52,7 +52,7 @@ type HoveredState = { [key: string]: boolean };
  *
  * If the available options can be collapsed, you should use a drop-down menu instead because it takes up less space.
  */
-const RadioGroup: React.FC<RadioGroupProps> = ({
+const RadioGroup: FunctionComponent<RadioGroupProps> = ({
   options = [],
   disabled = false,
   alignment = 'vertical',
@@ -62,7 +62,7 @@ const RadioGroup: React.FC<RadioGroupProps> = ({
   name = '',
   onChange = () => null,
   onBlur = () => null,
-}: RadioGroupProps) => {
+}) => {
 
   const [hovered, setHovered] = React.useState<HoveredState>({});
 
@@ -115,7 +115,5 @@ const RadioGroup: React.FC<RadioGroupProps> = ({
     </div>
   );
 };
-
-RadioGroup.displayName = 'Radio Group';
 
 export default RadioGroup;

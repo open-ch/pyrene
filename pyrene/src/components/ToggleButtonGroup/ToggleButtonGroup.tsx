@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { FunctionComponent } from 'react';
 import classNames from 'classnames';
 import './toggleButtonGroup.css';
 
@@ -39,7 +39,7 @@ export interface ToggleButtonGroupProps {
 /**
  * A group of toggle buttons that can be toggled one at a time.
  */
-const ToggleButtonGroup: React.FC<ToggleButtonGroupProps> = ({
+const ToggleButtonGroup: FunctionComponent<ToggleButtonGroupProps> = ({
   disabled = false,
   onChange,
   options,
@@ -73,7 +73,5 @@ const ToggleButtonGroup: React.FC<ToggleButtonGroupProps> = ({
     ))}
   </div>
 );
-
-ToggleButtonGroup.displayName = 'Toggle Button Group';
 
 export default ToggleButtonGroup;

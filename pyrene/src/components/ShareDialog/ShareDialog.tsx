@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState , FunctionComponent } from 'react';
 import Popover from '../Popover/Popover';
 import ButtonBar from '../ButtonBar/ButtonBar';
 import Button from '../Button/Button';
@@ -23,12 +23,12 @@ export interface ShareDialogProps {
   position?: 'top' | 'right' | 'bottom' | 'left',
 }
 
-const ShareDialog: React.FC<ShareDialogProps> = ({
+const ShareDialog: FunctionComponent<ShareDialogProps> = ({
   align = 'start',
   disabled = false,
   link,
   position = 'bottom',
-}: ShareDialogProps) => {
+}) => {
   const textInput: React.RefObject<HTMLInputElement> = useRef<HTMLInputElement>(null);
 
   const [displayShareDialog, setDisplayShareDialog] = useState(false);
@@ -86,7 +86,5 @@ const ShareDialog: React.FC<ShareDialogProps> = ({
     </div>
   );
 };
-
-ShareDialog.displayName = 'Share Dialog';
 
 export default ShareDialog;

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, FunctionComponent } from 'react';
 import classNames from 'classnames';
 import './modal.css';
 import ButtonBar from '../ButtonBar/ButtonBar';
@@ -104,7 +104,7 @@ export interface ModalProps {
  * A modal is triggered by a action and may contain one ore more buttons or links. A modal is centered in the viewport and can be closed by a button or a close icon.
  */
 
-const Modal: React.FC<ModalProps> = ({
+const Modal: FunctionComponent<ModalProps> = ({
   canNext = false,
   canPrevious = false,
   closeOnEscape = true,
@@ -124,7 +124,7 @@ const Modal: React.FC<ModalProps> = ({
   rightButtonBarElements = [],
   size,
   title = '',
-}: ModalProps) => {
+}) => {
 
   const escFunction = useCallback((event:KeyboardEvent) => {
     if (onClose && event.key === 'Escape' && closeOnEscape) {
@@ -242,7 +242,5 @@ const Modal: React.FC<ModalProps> = ({
     </>
   );
 };
-
-Modal.displayName = 'Modal';
 
 export default Modal;

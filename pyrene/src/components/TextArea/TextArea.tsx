@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import classNames from 'classnames';
 import './textArea.css';
 
@@ -72,7 +72,7 @@ export interface TextAreaProps {
 /**
  * Textareas allow the user to enter several lines of text.
  */
-const TextArea: React.FC<TextAreaProps> = ({
+const TextArea: FunctionComponent<TextAreaProps> = ({
   disabled = false,
   helperLabel = '',
   invalid = false,
@@ -140,7 +140,5 @@ const TextArea: React.FC<TextAreaProps> = ({
     </div>
   );
 };
-
-TextArea.displayName = 'Textarea';
 
 export default TextArea;

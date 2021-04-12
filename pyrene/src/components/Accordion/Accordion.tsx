@@ -1,4 +1,4 @@
-import React from 'react';
+import React , { FunctionComponent } from 'react';
 import Section, { SectionProps } from './Section';
 import './accordion.css';
 
@@ -19,7 +19,7 @@ export interface AccordionProps {
  *
  * There is a regular type for the accordion component that is used in most cases. However, the accordion function can also be used for a custom implementation.
  */
-const Accordion: React.FC<AccordionProps> = ({
+const Accordion: FunctionComponent<AccordionProps> = ({
   sections = [],
 }: AccordionProps) => (
   <div styleName={`accordion ${isCustomAccordion(sections) ? 'accordion-custom' : 'accordion-regular'}`}>
@@ -30,6 +30,5 @@ const Accordion: React.FC<AccordionProps> = ({
   </div>
 );
 
-Accordion.displayName = 'Accordion';
 
 export default Accordion;

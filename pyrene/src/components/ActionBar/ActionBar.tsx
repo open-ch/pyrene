@@ -1,5 +1,4 @@
-/* eslint-disable react/require-default-props */
-import React, { useState } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import classNames from 'classnames';
 import Icon from '../Icon/Icon';
 import Loader from '../Loader/Loader';
@@ -90,7 +89,7 @@ export interface ActionBarProps {
  * Each action element in the action bar can be active or inactive; can have its own color and icon.
  * An icon can be either an icon font or an svg icon
  */
-const ActionBar: React.FC<ActionBarProps> = ({
+const ActionBar: FunctionComponent<ActionBarProps> = ({
   actions,
   disabled = false,
   styling = 'shadow',
@@ -190,7 +189,5 @@ const ActionBar: React.FC<ActionBarProps> = ({
     </div>
   );
 };
-
-ActionBar.displayName = 'Action Bar';
 
 export default ActionBar;
