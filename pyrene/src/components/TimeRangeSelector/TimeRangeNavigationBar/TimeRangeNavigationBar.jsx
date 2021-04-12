@@ -2,24 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { differenceInMinutes } from 'date-fns';
-import { zonedTimeToUtc, format, utcToZonedTime } from 'date-fns-tz';
 
 import ArrowSelector from './ArrowSelector/ArrowSelector';
 
 const TimeRangeNavigationBar = (props) => {
-  const fromUtcDate = zonedTimeToUtc(new Date(props.from), props.timezone);
-  const lowerBoundUtcDate = zonedTimeToUtc(new Date(props.lowerBound), props.timezone);
   // We should not check for milliseconds but minutes changes
-  const backInactive = differenceInMinutes(fromUtcDate, lowerBoundUtcDate) <= 0;
+  const backInactive = differenceInMinutes(props.from, props.lowerBound) <= 0;
 
-  const toUtcDate = zonedTimeToUtc(new Date(props.to), props.timezone);
-  const upperBoundUtcDate = zonedTimeToUtc(new Date(props.upperBound), props.timezone);
   // We should not check for milliseconds but minutes changes
-  const forwardInactive = differenceInMinutes(toUtcDate, upperBoundUtcDate) >= 0;
+  const forwardInactive = differenceInMinutes(props.to, props.upperBound) >= 0;
 
   return (
     <ArrowSelector
-      label={TimeRangeNavigationBar.renderCurrentTimeRange(props)}
+      label={TimeRangeNavigationBar.renderCurrentTimeRange(props.from, props.to, props.timezone)}
       onNavigateForward={props.onNavigateForward}
       backInactive={backInactive}
       forwardInactive={forwardInactive}
@@ -31,14 +26,14 @@ const TimeRangeNavigationBar = (props) => {
 };
 
 /* eslint-disable-next-line react/display-name */
-TimeRangeNavigationBar.renderCurrentTimeRange = (currProps) => {
-  const fromZonedDate = utcToZonedTime(currProps.from, currProps.timezone);
-  const toZonedDate = utcToZonedTime(currProps.to, currProps.timezone);
-  const dateFormat = 'dd.MM.yyyy, HH:mm';
-  return `${format(fromZonedDate, dateFormat)} - ${format(toZonedDate, dateFormat)}`;
-};
+TimeRangeNavigationBar.renderCurrentTimeRange = (from, to, timezone) => {
 
-TimeRangeNavigationBar.displayName = 'TimeRangeNavigationBar';
+  const locale = new Intl.DateTimeFormat('de', {
+    timeZone: timezone, year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit',
+  });
+
+  return `${locale.format(from)} - ${locale.format(to)}`;
+};
 
 TimeRangeNavigationBar.defaultProps = {
   disabled: false,
