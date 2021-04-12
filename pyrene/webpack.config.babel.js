@@ -57,7 +57,7 @@ const config = {
       },
       {
         test: /\.svg$/,
-        loader: 'raw-loader',
+        use: ['@svgr/webpack'],
       },
       {
         test: /\.(woff|woff2)$/,
