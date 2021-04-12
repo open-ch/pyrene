@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {
   addMilliseconds, subMilliseconds, getTime, differenceInMilliseconds,
 } from 'date-fns';
-import { zonedTimeToUtc } from 'date-fns-tz';
+
 import classNames from 'classnames';
 import PresetTimeRanges from './PresetTimeRanges/PresetTimeRanges';
 import TimeRangeNavigationBar from './TimeRangeNavigationBar/TimeRangeNavigationBar';
@@ -66,12 +66,8 @@ export default class TimeRangeSelector extends Component {
   }
 
   _onNavigateBack() {
-    // Use timezone to do time subtraction prevents DST problem
-    const utcFromDate = zonedTimeToUtc(new Date(this.props.from), this.props.timezone);
-    const fromDiff = subMilliseconds(utcFromDate, this.state.durationInMs);
-
-    const utcToDate = zonedTimeToUtc(new Date(this.props.to), this.props.timezone);
-    const toDiff = subMilliseconds(utcToDate, this.state.durationInMs);
+    const fromDiff = subMilliseconds(this.props.from, this.state.durationInMs);
+    const toDiff = subMilliseconds(this.props.to, this.state.durationInMs);
 
     const newFrom = Math.max(getTime(fromDiff), this.props.lowerBound);
 
@@ -83,12 +79,8 @@ export default class TimeRangeSelector extends Component {
   }
 
   _onNavigateForward() {
-    // Use timezone to do time subtraction prevents DST problem
-    const utcFromDate = zonedTimeToUtc(new Date(this.props.from), this.props.timezone);
-    const fromDiff = addMilliseconds(utcFromDate, this.state.durationInMs);
-
-    const utcToDate = zonedTimeToUtc(new Date(this.props.to), this.props.timezone);
-    const toDiff = addMilliseconds(utcToDate, this.state.durationInMs);
+    const fromDiff = addMilliseconds(this.props.from, this.state.durationInMs);
+    const toDiff = addMilliseconds(this.props.to, this.state.durationInMs);
 
     const newTo = Math.min(getTime(toDiff), this.props.upperBound);
 
