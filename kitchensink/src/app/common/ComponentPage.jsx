@@ -11,7 +11,7 @@ const ComponentPage = (props) => (
     <div styleName="header">
       <div styleName="title">{props.component.displayName || props.component.name}</div>
       <div styleName="description">
-        {<Markdown>{props.component.__docgenInfo.description}</Markdown> /* eslint-disable-line no-underscore-dangle */ }
+        <Markdown>{props.component.__docgenInfo.description}</Markdown>
       </div>
     </div>
 

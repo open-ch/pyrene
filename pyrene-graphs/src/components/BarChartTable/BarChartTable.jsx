@@ -84,7 +84,7 @@ export default class BarChartTable extends React.Component {
             {this.state.showPopover && (
               <Popover
                 align="center"
-                children={<div styleName="popOverPlaceholder"></div>} // eslint-disable-line
+                children={<div styleName="popOverPlaceholder"></div>}
                 distanceToTarget={-((popOverAdditionalRows - 2) * rowHeight) - 1.5} // to center the popover vertically, so that 3 rows of the popover table are under and 2 rows over the bar chart table, - 1.5 to align borders
                 renderPopoverContent={() => (
                   <div styleName="popOverContainer" style={{
