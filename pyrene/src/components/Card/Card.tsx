@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, FunctionComponent } from 'react';
 import classNames from 'classnames';
 
 import Loader from '../Loader/Loader';
@@ -33,13 +33,13 @@ export interface CardProps {
  *
  * They take the full width of the enclosing box and the height they need to fit the content.
 */
-const Card:React.FC<CardProps> = ({
+const Card: FunctionComponent<CardProps> = ({
   header,
   footer,
   children,
   loading = false,
   error,
-}: CardProps) => (
+}) => (
 
   <div styleName="container">
     {header && <div styleName="header">{header}</div>}
@@ -57,7 +57,5 @@ const Card:React.FC<CardProps> = ({
     {footer && <div styleName="footer">{footer}</div>}
   </div>
 );
-
-Card.displayName = 'Card';
 
 export default Card;
