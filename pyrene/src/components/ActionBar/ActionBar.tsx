@@ -126,7 +126,7 @@ const ActionBar: FunctionComponent<ActionBarProps> = ({
       )}
     >
       {loading ? loader : (
-        actions.map((action: Action, index: number) => {
+        actions.map((action, index) => {
           const isSvgIcon = action.svg && action.svg.length > 0;
           const iconComponent = (
             <div
