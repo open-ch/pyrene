@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 
 import className from 'classnames';
 
@@ -40,13 +40,13 @@ export interface BannerProps {
  *
  * Banners have an icon, a title and an optional description.
  */
-const Banner: React.FC<BannerProps> = ({
+const Banner: FunctionComponent<BannerProps> = ({
   label,
   children,
   onClear,
   styling = 'standard',
   type,
-}: BannerProps) => (
+}) => (
   <div
     styleName={className('banner', `type-${type}`, `style-${styling}`)}
     role="banner"
@@ -62,8 +62,5 @@ const Banner: React.FC<BannerProps> = ({
     {styling === 'overlay' && onClear && <span className="pyreneIcon-delete" styleName="clearIcon" onClick={onClear} role="button" aria-label="Clear Banner" />}
   </div>
 );
-
-
-Banner.displayName = 'Banner';
 
 export default Banner;
