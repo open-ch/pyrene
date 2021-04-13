@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import classNames from 'classnames';
 
 import './button.css';
@@ -40,14 +40,14 @@ export interface ButtonProps {
  * Do not use Buttons as navigational elements.
  * Instead, use Links because it takes the user to a new page and is not associated with an action.
  */
-const Button: React.FC<ButtonProps> = ({
+const Button: FunctionComponent<ButtonProps> = ({
   disabled = false,
   icon,
   loading = false,
   type = 'primary',
   onClick = () => null,
   label,
-}: ButtonProps) => (
+}) => (
   <div styleName="buttonContainer">
     <button
       type="submit"
@@ -69,7 +69,5 @@ const Button: React.FC<ButtonProps> = ({
       : <span styleName="loader"><Loader size="small" styling="dark" /></span>)}
   </div>
 );
-
-Button.displayName = 'Button';
 
 export default Button;
