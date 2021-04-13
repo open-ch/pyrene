@@ -32,7 +32,7 @@ const KeyValueTable: FunctionComponent<KeyValueTableProps> = ({
     )}
     <table styleName="keyValueBody">
       <tbody>
-        {rows.length > 0 && rows.map((row: Row) => (
+        {rows.map((row) => (
           <tr
             styleName="keyValueRow"
             style={row.rowStyle}
