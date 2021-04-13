@@ -13,7 +13,7 @@ interface Item {
 export interface CheckboxListProps {
   onRestoreDefault: () => void;
   listItems: Array<Item>;
-  onItemClick: (id: Item["id"], value: Item["value"]) => void;
+  onItemClick: (id: Item['id'], value: Item['value']) => void;
 }
 
 const CheckboxList: FunctionComponent<CheckboxListProps> = ({

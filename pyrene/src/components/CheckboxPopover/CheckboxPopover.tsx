@@ -5,7 +5,7 @@ import Popover from '../Popover/Popover';
 import CheckboxList, { CheckboxListProps } from './CheckboxList';
 import './checkboxPopover.css';
 
-export interface CheckboxPopoverProps extends CheckboxListProps { 
+export interface CheckboxPopoverProps extends CheckboxListProps {
   buttonLabel: string;
   disabled?: boolean;
 }
