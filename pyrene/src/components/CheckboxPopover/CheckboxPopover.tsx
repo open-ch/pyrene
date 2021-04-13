@@ -20,7 +20,7 @@ const CheckboxPopover: FunctionComponent<CheckboxPopoverProps> = ({
   const [displayPopover, setDisplayPopover] = useState(false);
 
   const togglePopover = () => {
-    setDisplayPopover((prevDisplayPopover) => !prevDisplayPopover)
+    setDisplayPopover((prevDisplayPopover) => !prevDisplayPopover);
   };
 
   return (
@@ -45,6 +45,6 @@ const CheckboxPopover: FunctionComponent<CheckboxPopoverProps> = ({
       </Popover>
     </div>
   );
-}
+};
 
 export default CheckboxPopover;
