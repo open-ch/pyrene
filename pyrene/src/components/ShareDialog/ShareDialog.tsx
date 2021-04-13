@@ -1,4 +1,6 @@
-import React, { useEffect, useRef, useState , FunctionComponent } from 'react';
+import React, {
+  useEffect, useRef, useState, FunctionComponent,
+} from 'react';
 import Popover from '../Popover/Popover';
 import ButtonBar from '../ButtonBar/ButtonBar';
 import Button from '../Button/Button';

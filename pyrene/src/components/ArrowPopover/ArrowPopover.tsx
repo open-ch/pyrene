@@ -1,4 +1,6 @@
-import React, { useEffect, useRef, useCallback, FunctionComponent } from 'react';
+import React, {
+  useEffect, useRef, useCallback, FunctionComponent,
+} from 'react';
 import Popover from '../Popover/Popover';
 
 import './arrowPopover.css';
