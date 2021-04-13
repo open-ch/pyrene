@@ -1,39 +1,38 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { FunctionComponent } from 'react';
 
-import './checkboxList.css';
 import Checkbox from '../Checkbox/Checkbox';
 import Button from '../Button/Button';
+import './checkboxList.css';
 
-const CheckboxList = (props) => (
+interface Item {
+  id: string;
+  label: string;
+  value: boolean;
+}
+export interface CheckboxListProps {
+  onRestoreDefault: () => void;
+  listItems: Array<Item>;
+  onItemClick: (id: Item["id"], value: Item["value"]) => void;
+}
+
+const CheckboxList: FunctionComponent<CheckboxListProps> = ({
+  onRestoreDefault,
+  listItems,
+  onItemClick,
+}) => (
   <div styleName="checkboxList">
     <div styleName="listHeader">
-      <Button label="Restore default" type="action" onClick={() => props.onRestoreDefault()} />
+      <Button label="Restore default" type="action" onClick={() => onRestoreDefault()} />
     </div>
     <div styleName="list">
-      {props.listItems
+      {listItems
         .map((item) => (
           <div styleName="listItem" key={item.id}>
-            <Checkbox label={item.label} value={item.value} onChange={() => props.onItemClick(item.id, item.value)} />
+            <Checkbox label={item.label} value={item.value} onChange={() => onItemClick(item.id, item.value)} />
           </div>
         ))}
     </div>
   </div>
 );
-
-
-CheckboxList.displayName = 'CheckboxList';
-
-CheckboxList.defaultProps = {};
-
-CheckboxList.propTypes = {
-  listItems: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string,
-    label: PropTypes.string,
-    value: PropTypes.bool,
-  })).isRequired,
-  onItemClick: PropTypes.func.isRequired,
-  onRestoreDefault: PropTypes.func.isRequired,
-};
 
 export default CheckboxList;
