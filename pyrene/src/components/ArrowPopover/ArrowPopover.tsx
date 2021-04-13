@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useCallback } from 'react';
+import React, { useEffect, useRef, useCallback, FunctionComponent } from 'react';
 import Popover from '../Popover/Popover';
 
 import './arrowPopover.css';
@@ -86,7 +86,7 @@ export const arrowPosition = (position: string, targetRect: ClientRect, popoverR
 /**
  *  Popover with Arrow
  */
-const ArrowPopover: React.FC<ArrowPopoverProps> = ({
+const ArrowPopover: FunctionComponent<ArrowPopoverProps> = ({
   children,
   popoverContent,
   displayPopover,
@@ -94,7 +94,7 @@ const ArrowPopover: React.FC<ArrowPopoverProps> = ({
   preferredPosition = ['top', 'left'],
   align = 'center',
   distanceToTarget = 20,
-}: ArrowPopoverProps) => {
+}) => {
 
   const node = useRef<HTMLDivElement>(null);
 
@@ -142,7 +142,5 @@ const ArrowPopover: React.FC<ArrowPopoverProps> = ({
     </Popover>
   );
 };
-
-ArrowPopover.displayName = 'Arrow Popover';
 
 export default ArrowPopover;
