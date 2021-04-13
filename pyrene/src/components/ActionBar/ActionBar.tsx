@@ -95,7 +95,7 @@ const ActionBar: FunctionComponent<ActionBarProps> = ({
   styling = 'shadow',
   loading = false,
   orientation = 'horizontal',
-}: ActionBarProps) => {
+}) => {
   const [openAction, setOpenAction] = useState<number | null>(null);
 
   const loader = orientation === 'horizontal' ? (
