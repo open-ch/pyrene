@@ -9,6 +9,7 @@ interface Item {
   label: string;
   value: boolean;
 }
+
 export interface CheckboxListProps {
   onRestoreDefault: () => void;
   listItems: Array<Item>;

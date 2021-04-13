@@ -1,68 +1,50 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { FunctionComponent, useState } from 'react';
 import classNames from 'classnames';
 
-import './checkboxPopover.css';
 import Popover from '../Popover/Popover';
-import CheckboxList from './CheckboxList';
+import CheckboxList, { CheckboxListProps } from './CheckboxList';
+import './checkboxPopover.css';
 
-
-export default class CheckboxPopover extends React.Component {
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      displayPopover: false,
-    };
-  }
-
-  togglePopover = () => {
-    this.setState((prevState) => ({
-      displayPopover: !prevState.displayPopover,
-    }));
-  };
-
-  render() {
-    return (
-      <div styleName={classNames('checkboxPopover', { disabled: this.props.disabled })}>
-        <Popover
-          preferredPosition={['bottom']}
-          align="end"
-          displayPopover={this.state.displayPopover}
-          distanceToTarget={8}
-          onClickOutside={() => this.setState({ displayPopover: false })}
-          renderPopoverContent={() => <CheckboxList listItems={this.props.listItems} onItemClick={this.props.onItemClick} onRestoreDefault={this.props.onRestoreDefault} />}
-        >
-          <div styleName={classNames('popoverTriggerButton', { popoverOpen: this.state.displayPopover })} onClick={this.togglePopover}>
-            <div styleName="buttonLabel" className="unSelectable">
-              {this.props.buttonLabel}
-            </div>
-            <div
-              styleName="arrowIcon"
-              className={this.state.displayPopover ? 'pyreneIcon-chevronUp' : 'pyreneIcon-chevronDown'}
-            />
-          </div>
-        </Popover>
-      </div>
-    );
-  }
-
+export interface CheckboxPopoverProps extends CheckboxListProps { 
+  buttonLabel: string;
+  disabled?: boolean;
 }
 
-CheckboxPopover.displayName = 'Checkbox Popover';
+const CheckboxPopover: FunctionComponent<CheckboxPopoverProps> = ({
+  onRestoreDefault,
+  listItems,
+  onItemClick,
+  buttonLabel,
+  disabled = false,
+}) => {
+  const [displayPopover, setDisplayPopover] = useState(false);
 
-CheckboxPopover.defaultProps = {
-  disabled: false,
-};
+  const togglePopover = () => {
+    setDisplayPopover((prevDisplayPopover) => !prevDisplayPopover)
+  };
 
-CheckboxPopover.propTypes = {
-  buttonLabel: PropTypes.string.isRequired,
-  disabled: PropTypes.bool,
-  listItems: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string,
-    label: PropTypes.string,
-    value: PropTypes.bool,
-  })).isRequired,
-  onItemClick: PropTypes.func.isRequired,
-  onRestoreDefault: PropTypes.func.isRequired,
-};
+  return (
+    <div styleName={classNames('checkboxPopover', { disabled })}>
+      <Popover
+        preferredPosition={['bottom']}
+        align="end"
+        displayPopover={displayPopover}
+        distanceToTarget={8}
+        onClickOutside={() => setDisplayPopover(false)}
+        renderPopoverContent={() => <CheckboxList listItems={listItems} onItemClick={onItemClick} onRestoreDefault={onRestoreDefault} />}
+      >
+        <div styleName={classNames('popoverTriggerButton', { popoverOpen: displayPopover })} onClick={togglePopover}>
+          <div styleName="buttonLabel" className="unSelectable">
+            {buttonLabel}
+          </div>
+          <div
+            styleName="arrowIcon"
+            className={displayPopover ? 'pyreneIcon-chevronUp' : 'pyreneIcon-chevronDown'}
+          />
+        </div>
+      </Popover>
+    </div>
+  );
+}
+
+export default CheckboxPopover;
