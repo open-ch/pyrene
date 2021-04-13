@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import classNames from 'classnames';
 
 import './heading.css';
@@ -17,15 +17,13 @@ export interface HeadingProps {
 /**
 * Section or page titles.
 */
-const Heading: React.FC<HeadingProps> = ({
+const Heading: FunctionComponent<HeadingProps> = ({
   children,
   level = 1,
-}: HeadingProps) => (
+}) => (
   <div styleName={classNames(`heading${level}`, 'heading')} title={children}>
     {children}
   </div>
 );
-
-Heading.displayName = 'Heading';
 
 export default Heading;
