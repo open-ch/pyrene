@@ -49,5 +49,4 @@ const Section: FunctionComponent<SectionProps> = ({
   );
 };
 
-
 export default Section;
