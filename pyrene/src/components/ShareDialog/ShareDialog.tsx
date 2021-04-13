@@ -5,6 +5,7 @@ import Button from '../Button/Button';
 import './shareDialog.css';
 
 export interface ShareDialogProps {
+
   /**
    * Sets the alignment of the popover.
    */
