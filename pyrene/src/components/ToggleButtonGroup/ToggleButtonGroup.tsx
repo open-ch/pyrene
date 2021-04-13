@@ -45,7 +45,7 @@ const ToggleButtonGroup: FunctionComponent<ToggleButtonGroupProps> = ({
   options,
   styling = 'box',
   value,
-}: ToggleButtonGroupProps) => (
+}) => (
 
   <div styleName={classNames('toggleButtonGroup', styling === 'shadow' ? 'box-shadow' : null)}>
     {options.map((option) => (
