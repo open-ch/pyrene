@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, FunctionComponent } from 'react';
 import classNames from 'classnames';
 import './buttonBar.css';
 import { ButtonProps } from '../Button/Button';
@@ -9,7 +9,7 @@ export interface ButtonBarProps {
   rightButtonSectionElements?: ReactElement<ButtonProps>[],
 }
 
-const ButtonBar: React.FC<ButtonBarProps> = ({
+const ButtonBar: FunctionComponent<ButtonBarProps> = ({
   noPadding = false,
   leftButtonSectionElements = [],
   rightButtonSectionElements = [],
@@ -33,8 +33,5 @@ const ButtonBar: React.FC<ButtonBarProps> = ({
     </div>
   </div>
 );
-
-
-ButtonBar.displayName = 'Button Bar';
 
 export default ButtonBar;
