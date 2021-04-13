@@ -12,7 +12,6 @@ interface ArrowPosition {
 }
 
 export interface ArrowPopoverProps {
-
   /**
    * Sets the alignment of the popover.
    */
