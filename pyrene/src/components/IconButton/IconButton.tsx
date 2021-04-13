@@ -34,7 +34,7 @@ const IconButton: FunctionComponent<IconButtonProps> = ({
   onClick = undefined,
   path = '#',
   type = 'neutral',
-}: IconButtonProps) => (
+}) => (
   <a styleName={classNames('iconbutton', { disabled: disabled }, { [`type-${type}`]: true })}
     href={path}
     onClick={onClick ? ((event) => {
