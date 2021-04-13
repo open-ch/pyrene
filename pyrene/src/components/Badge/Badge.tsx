@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import className from 'classnames';
 
 import './badge.css';
@@ -29,9 +29,9 @@ export interface BadgeProps {
  *
  * Badges have a label and a mandatory type; they can be made clickable.
  */
-const Badge: React.FC<BadgeProps> = ({
+const Badge: FunctionComponent<BadgeProps> = ({
   label, maxWidth, onClick = () => null, type,
-}: BadgeProps) => (
+}) => (
   <div
     styleName={className('badge', { [`type-${type}`]: true })}
     style={{ maxWidth: maxWidth }}
@@ -42,7 +42,5 @@ const Badge: React.FC<BadgeProps> = ({
     </div>
   </div>
 );
-
-Badge.displayName = 'Badge';
 
 export default Badge;
