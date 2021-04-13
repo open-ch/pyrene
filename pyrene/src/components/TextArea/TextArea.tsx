@@ -89,7 +89,7 @@ const TextArea: FunctionComponent<TextAreaProps> = ({
   onBlur = () => null,
   onChange = () => null,
   onFocus = () => null,
-}: TextAreaProps) => {
+}) => {
 
   const characterCount = maxLength - (value !== null ? value.length : 0);
   const characterLimitReached = characterCount < 0;
