@@ -27,7 +27,7 @@ export interface LabelAndValueProps {
  */
 const LabelAndValue: FunctionComponent<LabelAndValueProps> = ({
   label = '', size = 'small', value = '', type = 'neutral',
-}: LabelAndValueProps) => (
+}) => (
   <div styleName={`label-and-value label-and-value-${size}`}>
     <div styleName="label">{label}</div>
     <div styleName={className('value', { [`type-${type}`]: true })}>{value}</div>

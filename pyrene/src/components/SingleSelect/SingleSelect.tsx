@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React from 'react';
 import classNames from 'classnames';
 import Select from 'react-select';
 import CreatableSelect from 'react-select/creatable';
@@ -143,7 +143,7 @@ type DefaultValueType = null | undefined | string | number | boolean;
 /**
  * Selects are used when the user has to make a selection from a list that is too large to show.
  */
-const SingleSelect: FunctionComponent<SingleSelectProps<{} extends unknown = DefaultValueType>>({
+ const SingleSelect = <ValueType extends unknown = DefaultValueType>({
   autoFocus = false,
   placeholder = '',
   name = '',
@@ -167,7 +167,7 @@ const SingleSelect: FunctionComponent<SingleSelectProps<{} extends unknown = Def
   onChange = () => null,
   onBlur = () => null,
   onFocus = () => null,
-}) => {
+}: SingleSelectProps<ValueType>): React.ReactElement => {
 
   const optionsObj = getOptionsObj(options, groupedOptions, sorted);
 
