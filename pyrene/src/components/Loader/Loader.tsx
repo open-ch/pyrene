@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import classNames from 'classnames';
 
 import './loader.css';
@@ -29,11 +29,11 @@ export interface LoaderProps {
  *
  * The Loader is not a progress indicator and should not be used if the load time is to be displayed.
  */
-const Loader: React.FC<LoaderProps> = ({
+const Loader: FunctionComponent<LoaderProps> = ({
   type = 'standalone',
   size = 'medium',
   styling = 'dark',
-}: LoaderProps) => (
+}) => (
   <>
     {type === 'standalone'
       && (
@@ -47,7 +47,5 @@ const Loader: React.FC<LoaderProps> = ({
       )}
   </>
 );
-
-Loader.displayName = 'Loader';
 
 export default Loader;

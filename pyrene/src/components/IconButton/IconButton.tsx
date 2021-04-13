@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import classNames from 'classnames';
 import './iconbutton.css';
 
@@ -28,7 +28,7 @@ export interface IconButtonProps {
 /**
  * An Icon that acts like a Button
  */
-const IconButton: React.FC<IconButtonProps> = ({
+const IconButton: FunctionComponent<IconButtonProps> = ({
   disabled = false,
   icon,
   onClick = undefined,
@@ -47,8 +47,5 @@ const IconButton: React.FC<IconButtonProps> = ({
     <span className={`pyreneIcon-${icon}`} />
   </a>
 );
-
-IconButton.displayName = 'Icon Button';
-
 
 export default IconButton;

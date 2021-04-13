@@ -1,4 +1,4 @@
-import React, { CSSProperties, ReactNode } from 'react';
+import React, { CSSProperties, ReactNode, FunctionComponent } from 'react';
 import './keyValueTable.css';
 
 type Row = {
@@ -19,11 +19,11 @@ export interface KeyValueTableProps {
   title?: string;
 }
 
-const KeyValueTable: React.FC<KeyValueTableProps> = ({
+const KeyValueTable: FunctionComponent<KeyValueTableProps> = ({
   title = '',
   rows = [{ key: 'key', value: 'value' }],
   keyWidth = 256,
-}: KeyValueTableProps) => (
+}) => (
   <div styleName="keyValueTable">
     {title && (
       <div styleName="keyValueTableTitle">
@@ -50,7 +50,5 @@ const KeyValueTable: React.FC<KeyValueTableProps> = ({
     </table>
   </div>
 );
-
-KeyValueTable.displayName = 'Key Value Table';
 
 export default KeyValueTable;

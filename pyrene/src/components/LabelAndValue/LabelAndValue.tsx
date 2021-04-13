@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import className from 'classnames';
 
 import './labelAndValue.css';
@@ -25,7 +25,7 @@ export interface LabelAndValueProps {
 /**
  * Show a label and its value as a highlight.
  */
-const LabelAndValue: React.FC<LabelAndValueProps> = ({
+const LabelAndValue: FunctionComponent<LabelAndValueProps> = ({
   label = '', size = 'small', value = '', type = 'neutral',
 }: LabelAndValueProps) => (
   <div styleName={`label-and-value label-and-value-${size}`}>
@@ -33,7 +33,5 @@ const LabelAndValue: React.FC<LabelAndValueProps> = ({
     <div styleName={className('value', { [`type-${type}`]: true })}>{value}</div>
   </div>
 );
-
-LabelAndValue.displayName = 'Label And Value';
 
 export default LabelAndValue;

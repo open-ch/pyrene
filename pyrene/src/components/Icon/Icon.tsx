@@ -1,5 +1,4 @@
-/* eslint-disable react/require-default-props */
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import classNames from 'classnames';
 import colorConstants from '../../styles/colorConstants';
 import './icon.css';
@@ -26,7 +25,7 @@ export interface IconProps {
 /**
  * IconFont or SVG icon Wrapper. When using icon font, pass Icon color and icon name; when using SVG, pass in file name of the SVG.
  */
-const Icon: React.FC<IconProps> = ({
+const Icon: FunctionComponent<IconProps> = ({
   color = 'neutral300',
   type = 'inline',
   name = '',
@@ -44,8 +43,5 @@ const Icon: React.FC<IconProps> = ({
     />
   )
 );
-
-Icon.displayName = 'Icon';
-
 
 export default Icon;
