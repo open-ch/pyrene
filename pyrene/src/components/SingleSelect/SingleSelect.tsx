@@ -143,7 +143,7 @@ type DefaultValueType = null | undefined | string | number | boolean;
 /**
  * Selects are used when the user has to make a selection from a list that is too large to show.
  */
- const SingleSelect = <ValueType extends unknown = DefaultValueType>({
+const SingleSelect = <ValueType extends unknown = DefaultValueType>({
   autoFocus = false,
   placeholder = '',
   name = '',
@@ -274,5 +274,7 @@ type DefaultValueType = null | undefined | string | number | boolean;
     </div>
   );
 };
+
+SingleSelect.displayName = 'Single Select';
 
 export default SingleSelect;
