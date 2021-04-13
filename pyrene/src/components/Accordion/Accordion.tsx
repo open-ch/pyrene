@@ -1,4 +1,4 @@
-import React , { FunctionComponent } from 'react';
+import React, { FunctionComponent } from 'react';
 import Section, { SectionProps } from './Section';
 import './accordion.css';
 
