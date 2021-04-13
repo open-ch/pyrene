@@ -21,7 +21,7 @@ export interface AccordionProps {
  */
 const Accordion: FunctionComponent<AccordionProps> = ({
   sections = [],
-}: AccordionProps) => (
+}) => (
   <div styleName={`accordion ${isCustomAccordion(sections) ? 'accordion-custom' : 'accordion-regular'}`}>
     {sections.map((sectionProps, index) => (
       // eslint-disable-next-line react/no-array-index-key
