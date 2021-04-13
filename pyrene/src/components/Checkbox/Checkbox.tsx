@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, FunctionComponent } from 'react';
 import classNames from 'classnames';
 import Tooltip from '../Tooltip/Tooltip';
 import './checkbox.css';
@@ -87,7 +87,7 @@ const getCheckboxIcon = (option: Option, hovered: boolean) => {
  *
  * Checkboxes can also be used to turn an option on or off.
  */
-const Checkbox: React.FC<CheckboxProps> = ({
+const Checkbox: FunctionComponent<CheckboxProps> = ({
   disabled = false,
   invalid = false,
   label = '',
@@ -97,7 +97,7 @@ const Checkbox: React.FC<CheckboxProps> = ({
   required = false,
   tooltip = '',
   value = false,
-}: CheckboxProps) => {
+}) => {
   const [hovered, setHovered] = useState(false);
 
   const option: Option = {
@@ -158,9 +158,6 @@ const Checkbox: React.FC<CheckboxProps> = ({
       </label>
     </div>
   );
-
 };
-
-Checkbox.displayName = 'Checkbox';
 
 export default Checkbox;
