@@ -27,7 +27,7 @@ const Section: FunctionComponent<SectionProps> = ({
   renderContent,
   iconProps,
   title,
-}: SectionProps) => {
+}) => {
   const [expanded, setExpanded] = useState(initiallyExpanded);
 
   return (
