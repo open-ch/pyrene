@@ -30,7 +30,7 @@ const Icon: FunctionComponent<IconProps> = ({
   type = 'inline',
   name = '',
   svg = '',
-}: IconProps) => (
+}) => (
   svg.length > 0 ? (
     <div styleName={classNames('icon', `type-${type}`)}>
       <img styleName="svgIcon" src={svg} alt="icon" />
