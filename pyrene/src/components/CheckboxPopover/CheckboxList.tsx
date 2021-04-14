@@ -36,5 +36,7 @@ const CheckboxList: FunctionComponent<CheckboxListProps> = ({
   </div>
 );
 
+CheckboxList.displayName = 'CheckboxList';
+
 export default CheckboxList;
 

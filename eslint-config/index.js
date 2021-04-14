@@ -157,13 +157,6 @@ module.exports = {
         ]
       },
     },
-    // Fixes the 'is missing in props validation' eslint error in JSX files
-    {
-      "files": ["**/*.tsx"],
-      "rules": {
-          "react/prop-types": "off"
-      }
-    },
     // Special rules for tests
     {
       "files": ["*.spec.jsx", "*.spec.tsx"],
@@ -171,5 +164,12 @@ module.exports = {
         "react/jsx-props-no-spreading": "off",
       },
     },
-  ],
+    // Fixes the 'is missing in props validation' eslint error in JSX files
+    {
+      "files": ["**/*.tsx"],
+      "rules": {
+        "react/prop-types": "off"
+      }
+    }
+  ]
 };
