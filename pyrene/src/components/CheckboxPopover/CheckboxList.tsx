@@ -20,7 +20,7 @@ const CheckboxList: FunctionComponent<CheckboxListProps> = ({
   onRestoreDefault,
   listItems,
   onItemClick,
-}) => (
+}: CheckboxListProps) => (
   <div styleName="checkboxList">
     <div styleName="listHeader">
       <Button label="Restore default" type="action" onClick={() => onRestoreDefault()} />

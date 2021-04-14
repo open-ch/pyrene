@@ -16,7 +16,7 @@ const CheckboxPopover: FunctionComponent<CheckboxPopoverProps> = ({
   onItemClick,
   buttonLabel,
   disabled = false,
-}) => {
+}:CheckboxPopoverProps) => {
   const [displayPopover, setDisplayPopover] = useState(false);
 
   const togglePopover = () => {

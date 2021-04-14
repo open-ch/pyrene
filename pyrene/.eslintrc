@@ -15,13 +15,5 @@
     "react/forbid-prop-types": 0, 
     "no-multiple-empty-lines": 0,
     "@typescript-eslint/unbound-method": 0
-  },
-  "overrides": [
-    {
-      "files": ["**/*.tsx"],
-      "rules": {
-        "react/prop-types": "off"
-      }
-    }
-  ]
+  } 
 }
