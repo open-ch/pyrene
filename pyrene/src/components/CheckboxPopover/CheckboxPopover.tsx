@@ -47,4 +47,6 @@ const CheckboxPopover: FunctionComponent<CheckboxPopoverProps> = ({
   );
 };
 
+CheckboxPopover.displayName = 'Checkbox Popover';
+
 export default CheckboxPopover;
