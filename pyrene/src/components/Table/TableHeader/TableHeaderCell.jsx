@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import SVG from 'react-svg-inline';
 
 // @ts-ignore
 import DefaultSort from '../images/sort.svg';
@@ -16,12 +15,12 @@ const stringContains = (haystack, needle) => haystack.indexOf(needle) !== -1;
 
 const getIconComponent = (className) => {
   if (stringContains(className, 'asc')) {
-    return <SVG styleName="inlineSVGFlex" svg={AscSort} />;
+    return <AscSort />;
   }
   if (stringContains(className, 'desc')) {
-    return <SVG styleName="inlineSVGFlex" svg={DescSort} />;
+    return <DescSort />;
   }
-  return <SVG styleName="inlineSVGFlex" svg={DefaultSort} />;
+  return <DefaultSort />;
 };
 
 const TableHeaderCell = (props) => (

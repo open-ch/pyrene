@@ -65,10 +65,10 @@ const SimpleTable = (props) => (
                 styleName={classNames('tableCell', 'actionCell')}
                 key={`action-${Object.values(row).join('-')}`}
               >
-                {<SimpleTableActionList
+                <SimpleTableActionList
                   row={Object.assign(row, { key: row.key ? row.key.toString() : '' })}
                   actions={props.actions}
-                />}
+                />
               </td>
             )}
           </tr>
