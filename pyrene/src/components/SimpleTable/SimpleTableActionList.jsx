@@ -51,9 +51,7 @@ const SimpleTableActionList = (props) => {
           }}
           onDoubleClick={(e) => { e.stopPropagation(); }}
         >
-          {<Icon
-            name="moreHorizontal"
-          />}
+          <Icon name="moreHorizontal" />
         </div>
       </div>
     </Popover>

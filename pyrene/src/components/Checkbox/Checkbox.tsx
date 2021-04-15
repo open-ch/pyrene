@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import classNames from 'classnames';
-import SVG from 'react-svg-inline';
 import Tooltip from '../Tooltip/Tooltip';
 import './checkbox.css';
 
@@ -74,13 +73,13 @@ const iconMap = {
 const getCheckboxIcon = (option: Option, hovered: boolean) => {
   const { checked, disabled, invalid } = option;
   const iconKey = !disabled && hovered ? 'hover' : 'default';
-  let icon = iconMap.normal[iconKey];
+  let Icon = iconMap.normal[iconKey];
   if (invalid) {
-    icon = iconMap.invalid[iconKey];
+    Icon = iconMap.invalid[iconKey];
   } else if (checked) {
-    icon = iconMap.checked[iconKey];
+    Icon = iconMap.checked[iconKey];
   }
-  return <SVG svg={icon} />;
+  return <Icon />;
 };
 
 /**

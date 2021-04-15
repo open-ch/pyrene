@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { zonedTimeToUtc } from 'date-fns-tz';
 import { subMilliseconds, getTime } from 'date-fns';
 import ToggleButtonGroup from '../../ToggleButtonGroup/ToggleButtonGroup';
 
@@ -34,8 +33,7 @@ const PresetTimeRanges = (props) => (
 PresetTimeRanges.onPresetTimeRangeSelected = (presetId, presetTimeRanges, lowerBound, upperBound, timezone, callback) => {
   const selectedPresetTimeRange = presetTimeRanges.filter((preset) => preset.id === presetId).shift();
 
-  const upperBoundUtcDate = zonedTimeToUtc(upperBound, timezone);
-  const newFromDate = subMilliseconds(upperBoundUtcDate, selectedPresetTimeRange.durationInMs);
+  const newFromDate = subMilliseconds(upperBound, selectedPresetTimeRange.durationInMs);
   // convert to milliseconds
   const newFrom = getTime(newFromDate);
 
