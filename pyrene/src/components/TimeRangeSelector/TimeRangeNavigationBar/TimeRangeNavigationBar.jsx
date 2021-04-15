@@ -27,7 +27,7 @@ const TimeRangeNavigationBar = (props) => {
 
 /* eslint-disable-next-line react/display-name */
 TimeRangeNavigationBar.renderCurrentTimeRange = (from, to, timezone) => {
-  // TODO: replace Intl.DateTimeFormat by a formatter which is unified, meant not depending on user's setting.
+  // TODO: replace Intl.DateTimeFormat by a formatter which is unified, means not depending on the user's settings.
   const locale = new Intl.DateTimeFormat('de', {
     timeZone: timezone, year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit',
   });
