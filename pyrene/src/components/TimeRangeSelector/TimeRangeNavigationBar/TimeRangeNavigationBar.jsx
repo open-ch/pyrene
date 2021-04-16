@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { differenceInMinutes, getTime, format } from 'date-fns';
-import { zonedTimeToUtc } from 'date-fns-tz';
+import { utcToZonedTime } from 'date-fns-tz';
 
 
 import ArrowSelector from './ArrowSelector/ArrowSelector';
@@ -27,10 +27,9 @@ const TimeRangeNavigationBar = (props) => {
   );
 };
 
-/* eslint-disable-next-line react/display-name */
 TimeRangeNavigationBar.renderCurrentTimeRange = (from, to, timezone) => {
-  const localFrom = getTime(zonedTimeToUtc(new Date(from), timezone));
-  const localTo = getTime(zonedTimeToUtc(new Date(to), timezone));
+  const localFrom = getTime(utcToZonedTime(new Date(from), timezone));
+  const localTo = getTime(utcToZonedTime(new Date(to), timezone));
   const pattern = 'dd.MM.yyyy, HH:mm';
 
   return `${format(localFrom, pattern)} - ${format(localTo, pattern)}`;
