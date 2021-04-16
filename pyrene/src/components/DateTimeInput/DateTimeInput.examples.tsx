@@ -34,6 +34,7 @@ DateTimeInput.examples = [
     props: {
       onChange: (stateProvider: StateProvider<State>) => (value?: number | null) => { stateProvider.setState({ value }); },
       timeStamp: (stateProvider) => stateProvider.state.value,
+      timeZone: 'America/New_Yamk',
     },
   },
 ];

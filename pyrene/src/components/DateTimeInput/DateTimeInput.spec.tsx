@@ -74,7 +74,7 @@ describe('<DateTimeInput />', () => {
     timeInputDom.value = '23:59';
     timeInput.simulate('change');
 
-    // The expected value will change with respect to the Timezone where the test is being run.
+    // The expected value will change with respect to the default time zone of the component.
     expect(onchange).toBeCalledWith(946681140000);
   });
 
@@ -159,4 +159,70 @@ describe('<DateTimeInput />', () => {
     expect(error.html()).toContain('Less than minimum date');
   });
 
+});
+
+describe('Tests for time zones', () => {
+  it('DateTimeInputs with same date and time string but with different time zones', () => {
+    let tz1 = 0;
+    let tz2 = 0;
+
+    const onchange1 = jest.fn((value: number | null | undefined) => {
+      if (value) {
+        tz1 = value;
+      }
+    });
+    const onchange2 = jest.fn((value: number | null | undefined) => {
+      if (value) {
+        tz2 = value;
+      }
+    });
+
+    const timeZoneOne = 'America/New_York';
+    const timeZoneTwo = 'Europe/Zurich';
+    const dateStr = '18.01.2009';
+    const timeStr = '12:34';
+    const offset = 21600000; // Milliseconds offset between the two timezones
+
+    const props1 = {
+      name: 'test1',
+      onChange: onchange1,
+      timeZone: timeZoneOne,
+    };
+
+    const props2 = {
+      name: 'test2',
+      onChange: onchange2,
+      timeZone: timeZoneTwo,
+    };
+
+
+    const rendered1 = mount(<DateTimeInput {...props1} />);
+    const rendered2 = mount(<DateTimeInput {...props2} />);
+
+    const dateInput1 = rendered1.find('input').first();
+    const timeInput1 = rendered1.find('input').last();
+
+    const dateInput2 = rendered2.find('input').first();
+    const timeInput2 = rendered2.find('input').last();
+
+    const dateInput1Dom = dateInput1.getDOMNode<HTMLInputElement>();
+    const timeInput1Dom = timeInput1.getDOMNode<HTMLInputElement>();
+
+    const dateInput2Dom = dateInput2.getDOMNode<HTMLInputElement>();
+    const timeInput2Dom = timeInput2.getDOMNode<HTMLInputElement>();
+
+    dateInput1Dom.value = dateStr;
+    dateInput1.simulate('change');
+
+    timeInput1Dom.value = timeStr;
+    timeInput1.simulate('change');
+
+    dateInput2Dom.value = dateStr;
+    dateInput2.simulate('change');
+
+    timeInput2Dom.value = timeStr;
+    timeInput2.simulate('change');
+
+    expect(Math.abs(tz1 - tz2)).toBeGreaterThanOrEqual(offset);
+  });
 });

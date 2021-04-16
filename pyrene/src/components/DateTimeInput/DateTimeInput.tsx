@@ -8,9 +8,9 @@ import Icon from '../Icon/Icon';
 import {
   DateType,
   TimeType,
-  convertToTimeStamp,
   getFutureDate, standardEUDateFormat, standardEUTimeFormat,
-  isValidDate, isValidTime, convertToDateTypeObject, convertToTimeTypeObject,
+  isValidDate, isValidTime, isValidTimeZone, convertToDateTypeObject, convertToTimeTypeObject,
+  convertToUTCtime, convertToZoneTime, convertDateTypeToString, convertTimeTypeToString,
 } from '../../utils/DateUtils';
 
 
@@ -19,11 +19,33 @@ import './dateTimeInput.css';
 type OnFunction = (value?: number | null) => void;
 
 export interface DateTimeInputProps{
+  /**
+   * This is a timestamp that represents the maximum date allowed by the component
+   */
   maxDateTime?: number,
+  /**
+   * This is a timestamp that represents the minimum date allowed by the component
+   */
   minDateTime?: number,
+  /**
+   * Name that can be used to uniquely identify the component
+   */
   name?: string,
+  /**
+   * This is a unix timestamp, which is the number of seconds that have elapsed since Unix epoch
+   */
   timeStamp?: number | null,
+  /**
+   * This is must be a IANA time zone string
+   */
+  timeZone?: string,
+  /**
+   * Function to handle onBlur event
+   */
   onBlur?: OnFunction,
+  /**
+   * Function to handle onChange event
+   */
   onChange: OnFunction,
 }
 
@@ -67,18 +89,22 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
   onBlur,
   onChange,
   timeStamp,
+  timeZone = 'Europe/Zurich',
 }: DateTimeInputProps) => {
 
   const [dateValue, setDateValue] = useState('');
   const [timeValue, setTimeValue] = useState('');
 
-  const [errorValue, setErrorValue] = useState('');
-
-  const [invalidTimestamp, setInvalidTimestamp] = useState(false);
-  const [invalidDate, setInvalidDate] = useState(false);
-  const [invalidTime, setInvalidTime] = useState(false);
+  const [timeZoneValue, setTimeZoneValue] = useState(timeZone);
 
   const [jsDateObject, setJsDateObject] = useState<Date | undefined>(undefined);
+
+  const [invalidDate, setInvalidDate] = useState(false);
+  const [invalidTime, setInvalidTime] = useState(false);
+  const [invalidTimestamp, setInvalidTimestamp] = useState(false);
+  const [invalidTimeZone, setInvalidTimeZone] = useState(false);
+
+  const [errorValue, setErrorValue] = useState('');
 
   const handleOn = useCallback((dateString:string, timeString:string, onFunction?: OnFunction) => {
     const isDateLongEnough = dateString.length === 10;
@@ -95,7 +121,7 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
 
       if (onFunction) {
         if (date && time && validDateState && validTimeState) {
-          onFunction(convertToTimeStamp(date, time));
+          onFunction(convertToUTCtime(`${convertDateTypeToString(date)} ${convertTimeTypeToString(time)}`, timeZoneValue).valueOf());
         } else {
           onFunction(null);
         }
@@ -109,7 +135,7 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
         onFunction(null);
       }
     }
-  }, []);
+  }, [timeZoneValue]);
 
   const handleDateOnChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const node = event.target as HTMLInputElement;
@@ -153,7 +179,7 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
     if (typeof timeStamp === 'number') {
       const dateObj = new Date(timeStamp);
       if (!Number.isNaN(dateObj.valueOf())) {
-        setJsDateObject(dateObj);
+        setJsDateObject(convertToZoneTime(timeStamp, timeZoneValue));
         setInvalidTimestamp(false);
       } else {
         setJsDateObject(undefined);
@@ -168,7 +194,16 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
       setInvalidDate(false);
       setInvalidTime(false);
     }
-  }, [timeStamp]);
+  }, [timeStamp, timeZoneValue]);
+
+  useEffect(() => {
+    if (isValidTimeZone(timeZone)) {
+      setTimeZoneValue(timeZone);
+      setInvalidTimeZone(false);
+    } else {
+      setInvalidTimeZone(true);
+    }
+  }, [timeZone]);
 
   useEffect(() => {
     const getError = () => {
@@ -193,11 +228,17 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
           return 'Larger than maximum date.';
         }
       }
+
+      if (invalidTimeZone) {
+        const tz = 'Europe/Zurich';
+        setTimeZoneValue(tz);
+        return `Invalid time zone. ${tz} is being used.`;
+      }
       return '';
     };
 
     setErrorValue(getError());
-  }, [invalidDate, invalidTime, invalidTimestamp, jsDateObject, maxDateTime, minDateTime]);
+  }, [invalidDate, invalidTime, invalidTimestamp, invalidTimeZone, jsDateObject, maxDateTime, minDateTime]);
 
   return (
     <div

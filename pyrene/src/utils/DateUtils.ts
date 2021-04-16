@@ -2,6 +2,10 @@ import {
   isExists, sub, add, Duration, format,
 } from 'date-fns';
 
+import {
+  zonedTimeToUtc, utcToZonedTime,
+} from 'date-fns-tz';
+
 const DAY = 'day';
 const MONTH = 'month';
 const YEAR = 'year';
@@ -86,6 +90,16 @@ export const getCurrentJsDateObject = (): Date => new Date();
 export const getCurrentDateTypeObject = (): DateType => convertToDateTypeObject(new Date());
 
 /**
+ * Returns the Date Object of provided timestamp in provided timezone
+ */
+export const convertToZoneTime = (timestamp: number, timezone: string): Date => utcToZonedTime(timestamp, timezone);
+
+/**
+ * Returns the Date Object of provided timestamp in UTC
+ */
+export const convertToUTCtime = (datetime: string | number, timezone: string): Date => zonedTimeToUtc(datetime, timezone);
+
+/**
  * Returns the timestamp of a point in time in the future relative to now
  *
  * @param {Duration} duration
@@ -120,6 +134,35 @@ export const isValidTime = (time?: TimeType): boolean => {
     return true;
   }
   return false;
+};
+
+/** Checks if a timezone string is valid
+* @param {string} timezone
+*/
+export const isValidTimeZone = (timezone: string): boolean => {
+  try {
+    utcToZonedTime(getCurrentDateObject(), timezone);
+    return true;
+  } catch {
+    return false;
+  }
+};
+
+export const zeroFill = (num: string, length: number): string => (num.toString().padStart(length, '0'));
+
+export const convertDateTypeToString = (date: DateType): string => {
+  const day = zeroFill(date.day.toString(), 2);
+  const month = zeroFill(date.month.toString(), 2);
+  const year = zeroFill(date.year.toString(), 4);
+
+  return `${year}-${month}-${day}`;
+};
+
+export const convertTimeTypeToString = (time: TimeType): string => {
+  const hours = zeroFill(time.hours.toString(), 2);
+  const minutes = zeroFill(time.minutes.toString(), 2);
+
+  return `${hours}:${minutes}`;
 };
 
 export const standardEUDateFormat = (date: Date): string => format(date, 'dd.MM.yyyy');
