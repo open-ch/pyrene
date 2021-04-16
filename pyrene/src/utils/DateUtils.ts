@@ -141,7 +141,7 @@ export const isValidTime = (time?: TimeType): boolean => {
 */
 export const isValidTimeZone = (timezone: string): boolean => {
   try {
-    utcToZonedTime(getCurrentDateObject(), timezone);
+    utcToZonedTime(getCurrentJsDateObject(), timezone);
     return true;
   } catch {
     return false;
