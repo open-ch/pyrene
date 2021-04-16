@@ -33,7 +33,7 @@ TimeRangeNavigationBar.renderCurrentTimeRange = (from, to, timezone) => {
   const localTo = getTime(zonedTimeToUtc(new Date(to), timezone));
   const pattern = 'dd.MM.yyyy, HH:mm';
 
-  return `${format(localFrom, pattern) - format(localTo, pattern)}`;
+  return `${format(localFrom, pattern)} - ${format(localTo, pattern)}`;
 };
 
 TimeRangeNavigationBar.defaultProps = {
