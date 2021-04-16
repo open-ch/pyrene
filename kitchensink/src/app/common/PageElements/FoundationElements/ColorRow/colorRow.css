@@ -1,0 +1,45 @@
+.colorRowContainer{
+  margin: 24px 0; 
+}
+
+.colorRowContainer table {
+  width: 100%;
+  table-layout: fixed;
+
+  & .title {
+    height: 14px;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: var(--neutral-200);
+
+    &.large {
+      font-size: 18px;
+    }
+
+    &.medium{
+      font-size: 16px;
+    }
+
+    &.small {
+      font-size: 12px;
+    }    
+  }   
+
+  & thead th {
+    height: 13px;
+  }
+}
+
+.colorRow {
+  background: #FFFFFF;
+  box-shadow: inset 0px 1px 0px #E1E3E8, inset 0px -1px 0px #E1E3E8;
+}
+
+.descriptionCell {
+  text-transform: none;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: normal;
+  color: var(--neutral-200);
+  padding: 16px 0;
+}

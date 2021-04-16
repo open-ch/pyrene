@@ -5,20 +5,21 @@ import classNames from 'classnames';
 import './colorBox.css';
 
 const ColorBox = (props) => (
-  <div styleName="colorBoxContainer">
-    {props.title && <div styleName="title">{props.title}</div>}
+  <div styleName={classNames('colorBoxContainer', { [`${props.size}`]: true })} style={props.style ?? props.style}>
     <div
       styleName={classNames('colorBox', { [`stack-${props.stackPosition}`]: props.stackPosition }, { [`size-${props.size}`]: true }, { darkFont: props.darkFont }, { bordered: props.bordered })}
       style={{ backgroundColor: `var(--${props.variableName})` }}
-    >
-      {props.colorName && <div styleName="colorName">{props.colorName}</div>}
-      <div styleName="variableName">
-        {' '}
-        {props.variableName}
-      </div>
-      <div styleName="hexValue">{props.hexValue}</div>
-    </div>
-    {props.infoLabel && <div styleName="infoLabel">{props.infoLabel}</div>}
+    ></div>
+
+    {    
+
+      props.infoBox && Object.keys(props.infoBox).length > 0 &&
+        <div styleName={classNames('infoBox', { [`${props.size}`]: true })}>
+          {props.infoBox.infoTitle && <div styleName={classNames('colorName', { [`${props.size}`]: true })}>{props.infoBox.infoTitle}</div>}
+          {props.infoBox.infoText && <div styleName={classNames('variableName', { [`${props.size}`]: true })}>{props.infoBox.infoText}</div> }
+          {props.infoBox.infoLabel && <div styleName={classNames('infoLabel', { [`${props.size}`]: true })}>{props.infoBox.infoLabel}</div>}
+        </div>
+    }
   </div>
 );
 
@@ -29,21 +30,19 @@ ColorBox.propTypes = {
   colorName: PropTypes.string,
   darkFont: PropTypes.bool,
   hexValue: PropTypes.string,
-  infoLabel: PropTypes.string,
+  infoBox: PropTypes.object,
   size: PropTypes.oneOf(['small', 'medium', 'large']),
   stackPosition: PropTypes.oneOf(['top', 'middle', 'bottom', 'single']),
-  title: PropTypes.string,
   variableName: PropTypes.string,
 };
 
 ColorBox.defaultProps = {
   bordered: false,
   darkFont: false,
-  title: '',
   colorName: '',
   variableName: '',
   hexValue: '',
-  infoLabel: '',
+  infoBox: {},
   size: 'large',
   stackPosition: 'single',
 };
