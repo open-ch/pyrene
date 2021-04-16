@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import ColorBox from '../ColorBox/ColorBox';
-import './ColorRow.css';
+import './colorRow.css';
 
 const createStackedColors = (options) => {
   return(
