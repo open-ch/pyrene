@@ -11,7 +11,7 @@ const ColorBox = (props) => (
       style={{ backgroundColor: `var(--${props.variableName})` }}
     ></div>
 
-    {    
+    {
 
       props.infoBox && Object.keys(props.infoBox).length > 0 &&
         <div styleName={classNames('infoBox', { [`${props.size}`]: true })}>
@@ -33,6 +33,7 @@ ColorBox.propTypes = {
   infoBox: PropTypes.object,
   size: PropTypes.oneOf(['small', 'medium', 'large']),
   stackPosition: PropTypes.oneOf(['top', 'middle', 'bottom', 'single']),
+  style: PropTypes.object,
   variableName: PropTypes.string,
 };
 
@@ -45,6 +46,7 @@ ColorBox.defaultProps = {
   infoBox: {},
   size: 'large',
   stackPosition: 'single',
+  style: {},
 };
 
 export default ColorBox;

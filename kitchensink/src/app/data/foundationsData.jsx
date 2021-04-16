@@ -166,7 +166,7 @@ const semanticColors = [
         colorName: 'Danger', name: 'red-500', darkFont: false, bordered: false,
       },
     ],
-  },  
+  },
   {
     title: '',
     colors: [
@@ -174,7 +174,7 @@ const semanticColors = [
         colorName: 'Outage', name: 'neutral-500', darkFont: false, bordered: false,
       },
     ],
-  },  
+  },
 ];
 
 const neutralColors = [
@@ -324,7 +324,7 @@ const informationColors = [
         name: 'blue-700', darkFont: true, bordered: true,
       },
     ],
-  },    
+  },
 ];
 
 const sequentialColors = [
@@ -375,9 +375,8 @@ const sequentialColors = [
         name: 'chart-1-05', darkFont: true, bordered: false,
       },
     ],
-  }, 
+  },
 ];
-
 
 const categoricalColors = [
   {
@@ -403,76 +402,12 @@ const categoricalColors = [
         colorName: 'Chart 4', name: 'chart-4', darkFont: false, bordered: false,
       },
     ],
-  },  
+  },
   {
     title: '',
     colors: [
       {
         colorName: 'Chart 5', name: 'chart-5', darkFont: false, bordered: false,
-      },
-    ],
-  },  
-];
-
-
-const interactionColors = [
-  {
-    title: 'neutral',
-    colors: [
-      {
-        name: 'blue-500', darkFont: false, bordered: false, stack: 'top',
-      },
-      {
-        name: 'blue-600', darkFont: false, bordered: false, stack: 'bottom',
-      },
-    ],
-  },
-  {
-    title: 'success',
-    colors: [
-      {
-        name: 'green-500', darkFont: false, bordered: false, stack: 'top',
-      },
-      {
-        name: 'green-600', darkFont: false, bordered: false, stack: 'bottom',
-      },
-    ],
-  },
-  {
-    title: 'warning',
-    colors: [
-      {
-        name: 'orange-500', darkFont: false, bordered: false, stack: 'top',
-      },
-      {
-        name: 'orange-600', darkFont: false, bordered: false, stack: 'bottom',
-      },
-    ],
-  },
-  {
-    title: 'danger',
-    colors: [
-      {
-        name: 'red-500', darkFont: false, bordered: false, stack: 'top',
-      },
-      {
-        name: 'red-600', darkFont: false, bordered: false, stack: 'bottom',
-      },
-    ],
-  },
-  {
-    title: 'outage',
-    colors: [
-      {
-        name: 'neutral-500', darkFont: false, bordered: false, stack: 'single',
-      },
-    ],
-  },
-  {
-    title: 'inactive',
-    colors: [
-      {
-        name: 'neutral-100', darkFont: true, bordered: false, stack: 'single',
       },
     ],
   },
