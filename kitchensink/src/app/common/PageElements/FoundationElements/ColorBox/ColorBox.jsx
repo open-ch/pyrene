@@ -9,16 +9,18 @@ const ColorBox = (props) => (
     <div
       styleName={classNames('colorBox', { [`stack-${props.stackPosition}`]: props.stackPosition }, { [`size-${props.size}`]: true }, { darkFont: props.darkFont }, { bordered: props.bordered })}
       style={{ backgroundColor: `var(--${props.variableName})` }}
-    ></div>
+    />
 
     {
 
-      props.infoBox && Object.keys(props.infoBox).length > 0 &&
-        <div styleName={classNames('infoBox', { [`${props.size}`]: true })}>
-          {props.infoBox.infoTitle && <div styleName={classNames('colorName', { [`${props.size}`]: true })}>{props.infoBox.infoTitle}</div>}
-          {props.infoBox.infoText && <div styleName={classNames('variableName', { [`${props.size}`]: true })}>{props.infoBox.infoText}</div> }
-          {props.infoBox.infoLabel && <div styleName={classNames('infoLabel', { [`${props.size}`]: true })}>{props.infoBox.infoLabel}</div>}
-        </div>
+      (props.infoBox && Object.keys(props.infoBox).length > 0)
+        && (
+          <div styleName={classNames('infoBox', { [`${props.size}`]: true })}>
+            {props.infoBox.infoTitle && <div styleName={classNames('colorName', { [`${props.size}`]: true })}>{props.infoBox.infoTitle}</div>}
+            {props.infoBox.infoText && <div styleName={classNames('variableName', { [`${props.size}`]: true })}>{props.infoBox.infoText}</div> }
+            {props.infoBox.infoLabel && <div styleName={classNames('infoLabel', { [`${props.size}`]: true })}>{props.infoBox.infoLabel}</div>}
+          </div>
+        )
     }
   </div>
 );
@@ -27,22 +29,22 @@ ColorBox.displayName = 'ColorBox';
 
 ColorBox.propTypes = {
   bordered: PropTypes.bool,
-  colorName: PropTypes.string,
   darkFont: PropTypes.bool,
-  hexValue: PropTypes.string,
-  infoBox: PropTypes.object,
+  infoBox: PropTypes.shape({
+    infoLabel: PropTypes.string,
+    infoText: PropTypes.string,
+    infoTitle: PropTypes.string,
+  }),
   size: PropTypes.oneOf(['small', 'medium', 'large']),
   stackPosition: PropTypes.oneOf(['top', 'middle', 'bottom', 'single']),
-  style: PropTypes.object,
+  style: PropTypes.shape({}),
   variableName: PropTypes.string,
 };
 
 ColorBox.defaultProps = {
   bordered: false,
   darkFont: false,
-  colorName: '',
   variableName: '',
-  hexValue: '',
   infoBox: {},
   size: 'large',
   stackPosition: 'single',

@@ -4,101 +4,98 @@ import classNames from 'classnames';
 import ColorBox from '../ColorBox/ColorBox';
 import './colorRow.css';
 
-const createStackedColors = (options) => (
-  <table>
+const ColorRow = (props) => (
+  <div styleName="colorRowContainer">
     {
-      (options.showInfo && (options.showInfo === 'fullInfo' || options.showInfo === 'onlyTitles'))
+      <table>
+        {
+          (props.showInfo && (props.showInfo === 'fullInfo' || props.showInfo === 'onlyTitles'))
           && (
             <thead>
               <tr>
                 {
-                  options.title.length > 0 && <th key="base-col-header" style={{ width: (options.rowHeader.width ? options.rowHeader.width : 'auto'), textAlign: 'left' }} styleName={classNames('title', { [`${options.rowSize}`]: true })}>{options.title}</th>
+                  props.title.length > 0 && <th key="base-col-header" style={{ width: (props.rowHeader.width ? props.rowHeader.width : 'auto'), textAlign: 'left' }} styleName={classNames('title', { [`${props.rowSize}`]: true })}>{props.title}</th>
                 }
                 {
-                  options.preColumns && options.preColumns > 0
-                && <th colSpan={options.preColumns} />
+                  props.preColumns > 0
+                  && <th colSpan={props.preColumns}>&nbsp;</th>
                 }
                 {
-                  (options.rowHeader && Object.keys(options.rowHeader).length > 0)
-                && options.rowData.map((element) => {
-                  if (options.showInfo && (options.showInfo === 'fullInfo' || options.showInfo === 'onlyTitles')) {
-                    const title = element.title.length > 0 ? element.title : '';
-                    return (
-                      <th key={`${element.colors[0].name}-title`}><div styleName={classNames('title', { [`${options.rowSize}`]: true })}>{`${title}`}</div></th>
-                    );
-                  }
-                })
+                  (props.rowHeader && Object.keys(props.rowHeader).length > 0)
+                  && props.rowData.map((element) => {
+                    if (props.showInfo && (props.showInfo === 'fullInfo' || props.showInfo === 'onlyTitles')) {
+                      const title = element.title.length > 0 ? element.title : '';
+                      return (
+                        <th key={`${element.colors[0].name}-title`}>
+                          <div styleName={classNames('title', { [`${props.rowSize}`]: true })}>{`${title}`}</div>
+                        </th>
+                      );
+                    }
+                  })
                 }
               </tr>
             </thead>
           )
-    }
-    <tbody>
-      <tr styleName="colorRow">
-        {
-          (options.rowHeader && options.rowHeader.colors)
+        }
+        <tbody>
+          <tr styleName="colorRow">
+            {
+              (props.rowHeader && props.rowHeader.colors)
               && (
                 <td key="base-row-header" style={{ paddingLeft: 10 }}>
                   <ColorBox
-                    colorName={options.rowHeader.colors[0].colorName}
-                    variableName={options.rowHeader.colors[0].name}
-                    hexValue={options.rowHeader.colors[0].hex}
-                    size={options.rowSize}
-                    darkFont={options.rowHeader.colors[0].darkFont}
-                    bordered={options.rowHeader.colors[0].bordered}
-                    stackPosition={options.rowHeader.colors[0].stack}
-                    infoBox={{ infoTitle: options.rowHeader.colors[0].colorName, infoLabel: options.rowHeader.colors[0].infoLabel }}
-                    key={options.rowHeader.colors[0].name}
+                    variableName={props.rowHeader.colors[0].name}
+                    hexValue={props.rowHeader.colors[0].hex}
+                    size={props.rowSize}
+                    darkFont={props.rowHeader.colors[0].darkFont}
+                    bordered={props.rowHeader.colors[0].bordered}
+                    stackPosition={props.rowHeader.colors[0].stack}
+                    infoBox={{ infoTitle: props.rowHeader.colors[0].colorName, infoLabel: props.rowHeader.colors[0].infoLabel }}
+                    key={props.rowHeader.colors[0].name}
                     style={{ justifyContent: 'left' }}
                   />
                 </td>
               )
-        }
-        {
-          options.preColumns && options.preColumns > 0
-            && <td colSpan={options.preColumns} />
-        }
-        {
-          options.rowData.map((element) => (
-            <td key={`${element.colors[0].name}`}>
-              {
-                element.colors.map((color) => (
-                  <ColorBox
-                    colorName={color.colorName}
-                    variableName={color.name}
-                    hexValue={color.hex}
-                    size={options.rowSize}
-                    darkFont={color.darkFont}
-                    bordered={color.bordered}
-                    stackPosition={color.stack}
-                    infoBox={(
-                      options.showInfo && (options.showInfo === 'fullInfo')
-                        ? { infoTitle: color.colorName, infoText: color.name, infoLabel: color.infoLabel }
-                        : (options.showInfo === 'onlyTitles')
-                          ? color.colorName ? { infoTitle: color.colorName } : {}
-                          : {}
-                    )}
-                    key={color.name}
-                  />
-                ))
-              }
-            </td>
-          ))
-        }
-        {
-          // This is used to create column padding and is set in props.columns
-          options.columns && (options.columns - (options.rowHeader ? options.rowData.length + 1 : options.rowData) - (options.preColumns ? options.preColumns : 0)) > 0
-            && <td colSpan={(options.columns - (options.rowHeader ? options.rowData.length + 1 : options.rowData) - (options.preColumns ? options.preColumns : 0))} />
-        }
-      </tr>
-    </tbody>
-  </table>
-);
-
-const ColorRow = (props) => (
-  <div styleName="colorRowContainer">
-    {createStackedColors(props)}
-
+            }
+            {
+              props.preColumns > 0
+              && <td colSpan={props.preColumns} />
+            }
+            {
+              props.rowData.map((element) => (
+                <td key={`${element.colors[0].name}`}>
+                  {
+                    element.colors.map((color) => (
+                      <ColorBox
+                        variableName={color.name}
+                        hexValue={color.hex}
+                        size={props.rowSize}
+                        darkFont={color.darkFont}
+                        bordered={color.bordered}
+                        stackPosition={color.stack}
+                        infoBox={(
+                          props.showInfo && (props.showInfo === 'fullInfo')
+                            ? { infoTitle: color.colorName, infoText: color.name, infoLabel: color.infoLabel }
+                            : (props.showInfo === 'onlyTitles')
+                              ? color.colorName ? { infoTitle: color.colorName } : {}
+                              : {}
+                        )}
+                        key={color.name}
+                      />
+                    ))
+                  }
+                </td>
+              ))
+            }
+            {
+              // This is used to create column padding and is set in props.columns
+              (props.columns - (props.rowHeader ? props.rowData.length + 1 : props.rowData) - (props.preColumns ? props.preColumns : 0)) > 0
+              && <td colSpan={(props.columns - (props.rowHeader ? props.rowData.length + 1 : props.rowData) - (props.preColumns ? props.preColumns : 0))} />
+            }
+          </tr>
+        </tbody>
+      </table>
+    }
     {
       (props.description)
       && (
@@ -113,17 +110,48 @@ const ColorRow = (props) => (
 ColorRow.displayName = 'ColorRow';
 
 ColorRow.propTypes = {
-  preColumns: PropTypes.number,
-  title: PropTypes.string,
-  description: PropTypes.any,
-  rowHeader: PropTypes.object,
-  rowData: PropTypes.array,
-  showInfo: PropTypes.string,
-  rowSize: PropTypes.oneOf(['small', 'medium', 'large']),
   columns: PropTypes.number,
+  description: PropTypes.node,
+  preColumns: PropTypes.number,
+  rowData: PropTypes.arrayOf(
+    PropTypes.shape({
+      colors: PropTypes.arrayOf(
+        PropTypes.shape({
+          bordered: PropTypes.bool,
+          colorName: PropTypes.string,
+          darkFont: PropTypes.bool,
+          hex: PropTypes.string,
+          infoLabel: PropTypes.string,
+          name: PropTypes.string,
+          stack: PropTypes.string,
+        }),
+      ),
+      title: PropTypes.string,
+    }),
+  ),
+  rowHeader: PropTypes.shape({
+    colors: PropTypes.arrayOf(
+      PropTypes.shape({
+        bordered: PropTypes.bool,
+        colorName: PropTypes.string,
+        darkFont: PropTypes.bool,
+        hex: PropTypes.string,
+        infoLabel: PropTypes.string,
+        name: PropTypes.string,
+        stack: PropTypes.string,
+      }),
+    ),
+    width: PropTypes.string,
+  }),
+  rowSize: PropTypes.oneOf(['small', 'medium', 'large']),
+  showInfo: PropTypes.string,
+  title: PropTypes.string,
 };
 
 ColorRow.defaultProps = {
+  columns: 0,
+  description: '',
+  preColumns: 0,
   title: '',
   rowHeader: {},
   rowData: [],
