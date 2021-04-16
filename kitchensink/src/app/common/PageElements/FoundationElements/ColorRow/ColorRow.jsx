@@ -31,6 +31,7 @@ const ColorRow = (props) => (
                         </th>
                       );
                     }
+                    return null;
                   })
                 }
               </tr>
@@ -73,13 +74,17 @@ const ColorRow = (props) => (
                         darkFont={color.darkFont}
                         bordered={color.bordered}
                         stackPosition={color.stack}
-                        infoBox={(
-                          props.showInfo && (props.showInfo === 'fullInfo')
-                            ? { infoTitle: color.colorName, infoText: color.name, infoLabel: color.infoLabel }
-                            : (props.showInfo === 'onlyTitles')
-                              ? color.colorName ? { infoTitle: color.colorName } : {}
-                              : {}
-                        )}
+                        infoBox={(function () {
+                          if (props.showInfo && (props.showInfo === 'fullInfo')) {
+                            return { infoTitle: color.colorName, infoText: color.name, infoLabel: color.infoLabel };
+                          }
+                          if (props.showInfo === 'onlyTitles') {
+                            if (color.colorName) {
+                              return { infoTitle: color.colorName };
+                            }
+                          }
+                          return {};
+                        }())}
                         key={color.name}
                       />
                     ))
