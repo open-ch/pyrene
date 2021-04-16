@@ -94,15 +94,17 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
 
   const [dateValue, setDateValue] = useState('');
   const [timeValue, setTimeValue] = useState('');
+
   const [timeZoneValue, setTimeZoneValue] = useState(timeZone);
 
-  const [errorValue, setErrorValue] = useState('');
+  const [jsDateObject, setJsDateObject] = useState<Date | undefined>(undefined);
 
-  const [invalidTimestamp, setInvalidTimestamp] = useState(false);
   const [invalidDate, setInvalidDate] = useState(false);
   const [invalidTime, setInvalidTime] = useState(false);
+  const [invalidTimestamp, setInvalidTimestamp] = useState(false);
+  const [invalidTimeZone, setInvalidTimeZone] = useState(false);
 
-  const [jsDateObject, setJsDateObject] = useState<Date | undefined>(undefined);
+  const [errorValue, setErrorValue] = useState('');
 
   const handleOn = useCallback((dateString:string, timeString:string, onFunction?: OnFunction) => {
     const isDateLongEnough = dateString.length === 10;
@@ -197,8 +199,9 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
   useEffect(() => {
     if (isValidTimeZone(timeZone)) {
       setTimeZoneValue(timeZone);
+      setInvalidTimeZone(false);
     } else {
-      setTimeZoneValue('Europe/Zurich');
+      setInvalidTimeZone(true);
     }
   }, [timeZone]);
 
@@ -225,11 +228,17 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
           return 'Larger than maximum date.';
         }
       }
+
+      if (invalidTimeZone) {
+        const tz = 'Europe/Zurich';
+        setTimeZoneValue(tz);
+        return `Invalid time zone. ${tz} is being used.`;
+      }
       return '';
     };
 
     setErrorValue(getError());
-  }, [invalidDate, invalidTime, invalidTimestamp, jsDateObject, maxDateTime, minDateTime]);
+  }, [invalidDate, invalidTime, invalidTimestamp, invalidTimeZone, jsDateObject, maxDateTime, minDateTime]);
 
   return (
     <div
