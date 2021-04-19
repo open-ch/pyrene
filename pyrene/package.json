@@ -43,7 +43,6 @@
     "@osag/eslint-config": "^1.4.0",
     "@release-it/bumper": "^2.0.0",
     "@svgr/webpack": "^5.5.0",
-    "@types/classnames": "^2.2.10",
     "@types/enzyme": "^3.10.7",
     "@types/jest": "^26.0.14",
     "@types/react": "^16.9.50",
@@ -96,7 +95,7 @@
     "webpack-cli": "^3.3.12"
   },
   "dependencies": {
-    "classnames": "^2.2.5",
+    "clsx": "^1.1.1",
     "date-fns": "^2.16.1",
     "date-fns-tz": "^1.1.4",
     "prop-types": "^15.6.1",
