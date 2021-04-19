@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import './radioPopover.css';
 import Popover from '../Popover/Popover';
@@ -56,7 +56,7 @@ export default class RadioPopover extends React.Component {
             />
           )}
         >
-          <div styleName={classNames('popoverTriggerButton', { popoverOpen: this.state.displayPopover })} onClick={this.togglePopover}>
+          <div styleName={clsx('popoverTriggerButton', { popoverOpen: this.state.displayPopover })} onClick={this.togglePopover}>
             <div styleName="buttonLabel" className="unSelectable">
               {renderLabel(selectedValue)}
             </div>

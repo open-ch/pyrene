@@ -2,7 +2,7 @@ import React, {
   useCallback, useEffect, useRef, useState,
 } from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import styles from './searchInput.css';
 import Icon from '../../../Icon/Icon';
 
@@ -65,12 +65,12 @@ const SearchInput = ({
 
   return (
     <div
-      className={classNames(styles.inputArea, { [styles.isFocused]: isLocalFocused })}
+      className={clsx(styles.inputArea, { [styles.isFocused]: isLocalFocused })}
       style={{ width: width }}
       ref={containerRef}
       onKeyDown={onEnter ? handleEnter : null}
     >
-      <div className={classNames(styles.icon, styles.passive)}>
+      <div className={clsx(styles.icon, styles.passive)}>
         <Icon type="standalone" name="search" />
       </div>
       <input
@@ -84,7 +84,7 @@ const SearchInput = ({
       <div>
         {extraActionElement}
       </div>
-      <div className={classNames(styles.icon, { [styles.disabled]: !value.length })} onClick={clearTerm}>
+      <div className={clsx(styles.icon, { [styles.disabled]: !value.length })} onClick={clearTerm}>
         <Icon type="standalone" name="delete" color={!value.length ? 'neutral100' : 'neutral500'} />
       </div>
     </div>

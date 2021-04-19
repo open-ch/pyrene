@@ -1,6 +1,5 @@
 import React from 'react';
-
-import className from 'classnames';
+import clsx from 'clsx';
 
 import IconButton from '../IconButton/IconButton';
 
@@ -51,15 +50,15 @@ const Pill: React.FC<PillProps> = ({
 }: PillProps) => (
   <div>
     {(onClick && icon)
-      && <div styleName={className('icon')}><IconButton icon={icon} type={iconType} onClick={onClick} /></div>}
+      && <div styleName={clsx('icon')}><IconButton icon={icon} type={iconType} onClick={onClick} /></div>}
     {(!onClick && icon) && (
-      <div styleName={className('icon', { [`type-${iconType}`]: true })}>
+      <div styleName={clsx('icon', { [`type-${iconType}`]: true })}>
         <span className={`pyreneIcon-${icon}`} />
       </div>
     )}
     {!maxValue || (value <= maxValue)
-      ? <div styleName={className('pill', { [`type-${type}`]: true })}>{value}</div>
-      : <div styleName={className('pill', { [`type-${type}`]: true })}>{`${maxValue}+`}</div>}
+      ? <div styleName={clsx('pill', { [`type-${type}`]: true })}>{value}</div>
+      : <div styleName={clsx('pill', { [`type-${type}`]: true })}>{`${maxValue}+`}</div>}
   </div>
 );
 

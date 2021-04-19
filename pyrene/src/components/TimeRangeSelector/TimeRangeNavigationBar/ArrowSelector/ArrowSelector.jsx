@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import TRSStepper from './TRSStepper/TRSStepper';
 import './arrowSelector.css';
@@ -15,7 +15,7 @@ const ArrowSelector = (props) => (
     />
     <div styleName="contentOuter">
       <div styleName="contentInner" style={{ width: props.innerWidth }}>
-        <div styleName={classNames('value', { disabled: props.disabled })}>
+        <div styleName={clsx('value', { disabled: props.disabled })}>
           {props.label}
         </div>
       </div>

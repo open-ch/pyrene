@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import './tableHeader.css';
 
 const TableHeader = (props) => (
-  <div styleName={classNames('tableHeader', { disabled: props.disabled })}>
+  <div styleName={clsx('tableHeader', { disabled: props.disabled })}>
     {props.children}
   </div>
 );

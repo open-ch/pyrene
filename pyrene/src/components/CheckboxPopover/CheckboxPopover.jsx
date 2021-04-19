@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import './checkboxPopover.css';
 import Popover from '../Popover/Popover';
@@ -24,7 +24,7 @@ export default class CheckboxPopover extends React.Component {
 
   render() {
     return (
-      <div styleName={classNames('checkboxPopover', { disabled: this.props.disabled })}>
+      <div styleName={clsx('checkboxPopover', { disabled: this.props.disabled })}>
         <Popover
           preferredPosition={['bottom']}
           align="end"
@@ -33,7 +33,7 @@ export default class CheckboxPopover extends React.Component {
           onClickOutside={() => this.setState({ displayPopover: false })}
           renderPopoverContent={() => <CheckboxList listItems={this.props.listItems} onItemClick={this.props.onItemClick} onRestoreDefault={this.props.onRestoreDefault} />}
         >
-          <div styleName={classNames('popoverTriggerButton', { popoverOpen: this.state.displayPopover })} onClick={this.togglePopover}>
+          <div styleName={clsx('popoverTriggerButton', { popoverOpen: this.state.displayPopover })} onClick={this.togglePopover}>
             <div styleName="buttonLabel" className="unSelectable">
               {this.props.buttonLabel}
             </div>

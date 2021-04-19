@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import Select from 'react-select';
 import CreatableSelect from 'react-select/creatable';
 import selectStyle from './selectStyle';
@@ -172,8 +172,8 @@ const SingleSelect = <ValueType extends unknown = DefaultValueType>({
   const optionsObj = getOptionsObj(options, groupedOptions, sorted);
 
   return (
-    <div styleName={classNames('selectContainer', { disabled: disabled })}>
-      {title && <div styleName={classNames('selectTitle', { required: required && !disabled })}>{title}</div>}
+    <div styleName={clsx('selectContainer', { disabled: disabled })}>
+      {title && <div styleName={clsx('selectTitle', { required: required && !disabled })}>{title}</div>}
 
       {creatable
         ? (

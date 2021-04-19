@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import './collapsible.css';
 
@@ -66,8 +66,8 @@ const Collapsible: React.FC<CollapsibleProps> = ({
   };
 
   return (
-    <div styleName={classNames('collapsibleBox', { expanded })}>
-      <div styleName={classNames('buttonAlignmentBox', { [`align-${align}`]: true })}>
+    <div styleName={clsx('collapsibleBox', { expanded })}>
+      <div styleName={clsx('buttonAlignmentBox', { [`align-${align}`]: true })}>
         <div styleName="collapsibleButton" className="unSelectable" onClick={(event:React.MouseEvent) => toggleCollapse(event)} role="button" aria-label="Show or hide content">
           <div styleName="centeringBox">
             <span styleName="label">
