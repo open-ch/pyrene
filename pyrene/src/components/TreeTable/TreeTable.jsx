@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { VariableSizeList as List } from 'react-window';
 
 import './treeTable.css';
@@ -270,7 +270,7 @@ class TreeTable extends React.Component {
 
         {props.loading && renderLoader()}
 
-        <div styleName={classNames({ loading: props.loading })}>
+        <div styleName={clsx({ loading: props.loading })}>
           {props.filters.length > 0 && (
             <div styleName="filterContainer">
               <Filter
