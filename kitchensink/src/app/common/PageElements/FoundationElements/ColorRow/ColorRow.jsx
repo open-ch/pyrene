@@ -20,7 +20,7 @@ const ColorRow = (props) => (
                 && <th colSpan={props.preColumns}>&nbsp;</th>
               }
               {
-                (Object.keys(props.rowHeader || {} ).length > 0)
+                (Object.keys(props.rowHeader || {}).length > 0)
                 && props.rowData.map((element) => {
                   if (props.showInfo && (props.showInfo === 'fullInfo' || props.showInfo === 'onlyTitles')) {
                     const title = element.title || '';
@@ -83,7 +83,7 @@ const ColorRow = (props) => (
                               return { infoTitle: color.colorName };
                             }
                           }
-                        } 
+                        }
                         return {};
                       }())}
                       key={color.name}
