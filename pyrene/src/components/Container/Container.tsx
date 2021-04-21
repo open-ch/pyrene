@@ -35,7 +35,7 @@ interface ContainerProps {
   title: string,
 }
 
-const Container: FunctionComponent<ContainerProps> = ({
+export const Container: FunctionComponent<ContainerProps> = ({
   collapsible = false,
   defaultExpanded = false,
   onChange = () => null,
@@ -84,8 +84,3 @@ const Container: FunctionComponent<ContainerProps> = ({
 };
 
 Container.displayName = 'Container';
-
-// for retro-compatibility with Kitchensink which partially supports TS
-Container.defaultProps = {};
-
-export default Container;
