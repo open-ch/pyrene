@@ -13,17 +13,14 @@ export interface ContainerProps {
   /**
    * Whether the container is collapsible when the user clicks on the header.
    */
-  // eslint-disable-next-line react/require-default-props
   collapsible?: boolean,
   /**
    * Whether to display the content when the component is first mounted.
    */
-  // eslint-disable-next-line react/require-default-props
   defaultExpanded?: boolean,
   /**
    * Javascript event handler.
    */
-  // eslint-disable-next-line react/require-default-props
   onChange?: (event: MouseEvent<HTMLDivElement>) => void,
   /**
    * Sets the content to be rendered inside the component.
