@@ -60,9 +60,6 @@ const Container: FunctionComponent<ContainerProps> = ({
     }
   };
 
-  // eslint-disable-next-line @typescript-eslint/quotes
-  console.log("render container");
-  
   return (
     <div className={clsx(styles.container, { [styles.expanded]: expanded || !collapsible })}>
       <div className={clsx(styles.header, { [styles.collapsible]: collapsible })} onClick={toggleCollapse} role="button" aria-label="Show or hide container">
