@@ -9,7 +9,7 @@ import styles from './container.css';
  * Container contain content and actions about a single subject.
  */
 
-interface ContainerProps {
+export interface ContainerProps {
   /**
    * Whether the container is collapsible when the user clicks on the header.
    */
@@ -35,7 +35,7 @@ interface ContainerProps {
   title: string,
 }
 
-export const Container: FunctionComponent<ContainerProps> = ({
+const Container: FunctionComponent<ContainerProps> = ({
   collapsible = false,
   defaultExpanded = false,
   onChange = () => null,
@@ -83,4 +83,4 @@ export const Container: FunctionComponent<ContainerProps> = ({
   );
 };
 
-Container.displayName = 'Container';
+export default Container;
