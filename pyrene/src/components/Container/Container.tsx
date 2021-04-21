@@ -13,15 +13,15 @@ interface ContainerProps {
   /**
    * Whether the container is collapsible when the user clicks on the header.
    */
-  collapsible: boolean,
+  collapsible: boolean | undefined,
   /**
    * Whether to display the content when the component is first mounted.
    */
-  defaultExpanded: boolean,
+  defaultExpanded: boolean | undefined,
   /**
    * Javascript event handler.
    */
-  onChange: (event: MouseEvent<HTMLDivElement>) => void,
+  onChange: ((event: MouseEvent<HTMLDivElement>) => void) | undefined,
   /**
    * Sets the content to be rendered inside the component.
    */
@@ -44,19 +44,22 @@ const Container: FunctionComponent<ContainerProps> = ({
   const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (contentRef?.current?.clientHeight) {
+    if (contentRef?.current) {
       setContentHeight(contentRef.current.clientHeight);
     }
   }, []);
 
   const toggleCollapse = (event: MouseEvent<HTMLDivElement>) => {
     event.persist();
-    onChange(event);
     if (collapsible) {
       setExpanded((prevState) => !prevState);
+      onChange(event);
     }
   };
 
+  // eslint-disable-next-line @typescript-eslint/quotes
+  console.log("render container");
+  
   return (
     <div className={clsx(styles.container, { [styles.expanded]: expanded || !collapsible })}>
       <div className={clsx(styles.header, { [styles.collapsible]: collapsible })} onClick={toggleCollapse} role="button" aria-label="Show or hide container">
