@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -6,6 +7,10 @@ import { utcToZonedTime } from 'date-fns-tz';
 
 
 import ArrowSelector from './ArrowSelector/ArrowSelector';
+
+const convertTZ = (date, tzString) => new Date((typeof date === 'string' ? new Date(date) : date).toLocaleString('en-US', { timeZone: tzString }));
+
+const formatDate = (date) => `${(`0${date.getDate()}`).slice(-2)}.${(`0${date.getMonth() + 1}`).slice(-2)}.${date.getFullYear()}, ${(`0${date.getHours()}`).slice(-2)}:${(`0${date.getMinutes()}`).slice(-2)}`;
 
 const TimeRangeNavigationBar = (props) => {
   // We should not check for milliseconds but minutes changes
@@ -28,6 +33,15 @@ const TimeRangeNavigationBar = (props) => {
 };
 
 TimeRangeNavigationBar.renderCurrentTimeRange = (from, to, timezone) => {
+  const localFrom0 = convertTZ(new Date(from), timezone);
+  const formatedLocalForm0 = formatDate(localFrom0);
+
+  const localTo0 = convertTZ(new Date(to), timezone);
+  const formatedLocalTo0 = formatDate(localTo0);
+
+  return `${formatedLocalForm0} - ${formatedLocalTo0}`;
+
+
   const localFrom = getTime(utcToZonedTime(new Date(from), timezone));
   const localTo = getTime(utcToZonedTime(new Date(to), timezone));
   const pattern = 'dd.MM.yyyy, HH:mm';
