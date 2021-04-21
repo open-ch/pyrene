@@ -42,7 +42,6 @@ const Container: FunctionComponent<ContainerProps> = ({
   const [contentHeight, setContentHeight] = useState<number|null>(null);
   const [expanded, setExpanded] = useState<boolean>(defaultExpanded);
   const contentRef = useRef<HTMLDivElement>(null);
-  const clickedEvent = useRef<MouseEvent<HTMLDivElement>|null>(null);
 
   useEffect(() => {
     if (contentRef?.current?.clientHeight) {
@@ -50,19 +49,9 @@ const Container: FunctionComponent<ContainerProps> = ({
     }
   }, []);
 
-  useEffect(() => {
-    if (contentRef?.current) {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      onChange(clickedEvent.current);
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [expanded]);
-
-
   const toggleCollapse = (event: MouseEvent<HTMLDivElement>) => {
     event.persist();
-    clickedEvent.current = event;
+    onChange(event);
     if (collapsible) {
       setExpanded((prevState) => !prevState);
     }
@@ -79,7 +68,10 @@ const Container: FunctionComponent<ContainerProps> = ({
           {collapsible && <span className={clsx('pyreneIcon-chevronDown', styles.collapsArrow)} />}
         </div>
       </div>
-      <div className={styles.contentContainer} style={{ height: (expanded || !collapsible) && contentHeight ? contentHeight : 0 }}>
+      <div
+        className={styles.contentContainer}
+        style={{ ...(expanded || !collapsible) && contentHeight ? { height: contentHeight } : {} }}
+      >
         <div className={styles.innerContentContainer} ref={contentRef}>
           {renderCallback()}
         </div>
