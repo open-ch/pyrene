@@ -85,4 +85,7 @@ const Container: FunctionComponent<ContainerProps> = ({
 
 Container.displayName = 'Container';
 
+// for retro-compatibility with Kitchensink which partially supports TS
+Container.defaultProps = {};
+
 export default Container;
