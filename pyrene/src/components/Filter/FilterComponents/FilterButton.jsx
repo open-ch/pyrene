@@ -1,14 +1,14 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import './filterButton.css';
 
 const FilterButton = (props) => (
-  <div styleName={classNames('filterButton', { noBorder: props.noBorder }, { popoverOpen: props.displayPopover }, { disabled: props.disabled })} onClick={props.onClick}>
+  <div styleName={clsx('filterButton', { noBorder: props.noBorder }, { popoverOpen: props.displayPopover }, { disabled: props.disabled })} onClick={props.onClick}>
     <div styleName="buttonLabel">
       {props.label}
     </div>
-    <div styleName="arrowIcon" className={classNames(props.displayPopover ? 'pyreneIcon-chevronUp' : 'pyreneIcon-chevronDown')} />
+    <div styleName="arrowIcon" className={clsx(props.displayPopover ? 'pyreneIcon-chevronUp' : 'pyreneIcon-chevronDown')} />
   </div>
 );
 

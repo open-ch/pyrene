@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import Tooltip from '../Tooltip/Tooltip';
 import './checkbox.css';
 
@@ -148,7 +148,7 @@ const Checkbox: React.FC<CheckboxProps> = ({
       />
       <label
         className="unSelectable"
-        styleName={classNames('checkboxLabel', { disabled: disabled, required: required })}
+        styleName={clsx('checkboxLabel', { disabled: disabled, required: required })}
         htmlFor={`checkbox_${label}_${rand}`}
         // eslint-disable-next-line jsx-a11y/no-noninteractive-element-to-interactive-role
         role="checkbox"

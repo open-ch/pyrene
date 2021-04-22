@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import Popover from '../Popover/Popover';
 import OptionsList from './OptionsList';
 import './dropdownButton.css';
@@ -31,7 +31,7 @@ const DropdownButton = (props) => {
         <button
           type="submit"
           styleName={
-            classNames('button',
+            clsx('button',
               { disabled: props.disabled },
               { loading: props.loading },
               { openedDropdown: state.displayActions })

@@ -1,5 +1,5 @@
 import React from 'react';
-import className from 'classnames';
+import clsx from 'clsx';
 
 import './badge.css';
 
@@ -33,11 +33,11 @@ const Badge: React.FC<BadgeProps> = ({
   label, maxWidth, onClick = () => null, type,
 }: BadgeProps) => (
   <div
-    styleName={className('badge', { [`type-${type}`]: true })}
+    styleName={clsx('badge', { [`type-${type}`]: true })}
     style={{ maxWidth: maxWidth }}
     onClick={onClick}
   >
-    <div styleName={className('label')}>
+    <div styleName={clsx('label')}>
       {label}
     </div>
   </div>

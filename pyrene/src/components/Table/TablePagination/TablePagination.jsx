@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import Stepper from '../../Stepper/Stepper';
 import TableSelect from './TableSelect/TableSelect';
 
@@ -44,7 +44,7 @@ const TablePagination = (props) => (
     <div styleName="pageNavigation">
       <Stepper direction="left" disabled={!props.canPrevious || !!props.error} onClick={() => props.onPageChange(props.page - 1)} type="minimal" />
       <div styleName="spacer small" />
-      <div styleName={classNames('pageTracker', { disabled: !!props.error })}>
+      <div styleName={clsx('pageTracker', { disabled: !!props.error })}>
         {props.pages > 0 && !props.error ? `${props.page + 1} of ${props.pages}` : '1 of 1'}
       </div>
       <div styleName="spacer small" />

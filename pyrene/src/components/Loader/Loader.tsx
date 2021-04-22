@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import './loader.css';
 
@@ -37,13 +37,13 @@ const Loader: React.FC<LoaderProps> = ({
   <>
     {type === 'standalone'
       && (
-        <div styleName={classNames('canvas', { [`size-${size}`]: true })}>
-          <div styleName={classNames('standaloneLoader', { [`styling-${styling}`]: true }, { [`size-${size}`]: true })} />
+        <div styleName={clsx('canvas', { [`size-${size}`]: true })}>
+          <div styleName={clsx('standaloneLoader', { [`styling-${styling}`]: true }, { [`size-${size}`]: true })} />
         </div>
       )}
     {type === 'inline'
       && (
-        <span styleName={classNames('inlineLoader')} />
+        <span styleName={clsx('inlineLoader')} />
       )}
   </>
 );

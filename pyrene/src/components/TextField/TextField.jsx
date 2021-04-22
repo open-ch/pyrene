@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import './textField.css';
 
 /**
@@ -12,12 +12,12 @@ import './textField.css';
  * In this case, use the date picker, date range selection, or date/time picker. For entering long texts use the textarea component.
  */
 const TextField = (props) => (
-  <div styleName={classNames('textFieldContainer', { disabled: props.disabled }, { invalid: props.invalid && !props.disabled })} style={{ width: (props.width >= 0) ? `${props.width}px` : '100%' }}>
-    {props.title && <div styleName={classNames('textFieldTitle', { required: props.required && !props.disabled })}>{props.title}</div>}
+  <div styleName={clsx('textFieldContainer', { disabled: props.disabled }, { invalid: props.invalid && !props.disabled })} style={{ width: (props.width >= 0) ? `${props.width}px` : '100%' }}>
+    {props.title && <div styleName={clsx('textFieldTitle', { required: props.required && !props.disabled })}>{props.title}</div>}
     <div styleName="textFieldIconLayoutContainer">
 
       <input
-        styleName={classNames('textField', { filled: props.value })}
+        styleName={clsx('textField', { filled: props.value })}
         type={props.secret ? 'password' : 'text'}
         name={props.name}
         placeholder={props.placeholder}

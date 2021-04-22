@@ -1,6 +1,5 @@
 import React from 'react';
-
-import className from 'classnames';
+import clsx from 'clsx';
 
 import Loader from '../Loader/Loader';
 
@@ -48,7 +47,7 @@ const Banner: React.FC<BannerProps> = ({
   type,
 }: BannerProps) => (
   <div
-    styleName={className('banner', `type-${type}`, `style-${styling}`)}
+    styleName={clsx('banner', `type-${type}`, `style-${styling}`)}
     role="banner"
   >
     <div styleName="iconMessageContainer">

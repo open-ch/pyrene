@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
-import classNames from 'classnames';
+import clsx from 'clsx';
 import Loader from '../Loader/Loader';
 import SimpleTableActionList from './SimpleTableActionList';
 import './simpleTable.css';
@@ -30,7 +29,7 @@ const SimpleTable = (props) => (
               {props.actions.length > 0 && (
                 <th
                   aria-label="Action"
-                  styleName={classNames('tableHeaderCell', 'actionCell')}
+                  styleName={clsx('tableHeaderCell', 'actionCell')}
                   key="action"
                 />
               )}
@@ -40,7 +39,7 @@ const SimpleTable = (props) => (
       <tbody styleName="tableBody">
         {!props.loading && props.data && props.data.length > 0 && props.data.map((row, rowIndex) => (
           <tr
-            styleName={classNames('tableRow', (props.onRowClick || props.onRowDoubleClick) ? 'tableRowWithFunction' : '')}
+            styleName={clsx('tableRow', (props.onRowClick || props.onRowDoubleClick) ? 'tableRowWithFunction' : '')}
             key={Object.values(row).join()}
             onDoubleClick={() => (props.onRowDoubleClick ? props.onRowDoubleClick(row) : null)}
             onClick={() => (props.onRowClick ? props.onRowClick(row) : null)}
@@ -62,7 +61,7 @@ const SimpleTable = (props) => (
             })}
             {!props.loading && props.data && props.data.length > 0 && props.actions && props.actions.length > 0 && (
               <td
-                styleName={classNames('tableCell', 'actionCell')}
+                styleName={clsx('tableCell', 'actionCell')}
                 key={`action-${Object.values(row).join('-')}`}
               >
                 <SimpleTableActionList

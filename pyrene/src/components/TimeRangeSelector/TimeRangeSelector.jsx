@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import {
   addMilliseconds, subMilliseconds, getTime, differenceInMilliseconds,
 } from 'date-fns';
-
-import classNames from 'classnames';
+import clsx from 'clsx';
 import PresetTimeRanges from './PresetTimeRanges/PresetTimeRanges';
 import TimeRangeNavigationBar from './TimeRangeNavigationBar/TimeRangeNavigationBar';
 import PRESET_TIME_RANGES from './TimeRangeSelectorDefaultProps';
@@ -111,7 +110,7 @@ export default class TimeRangeSelector extends Component {
     currentTimeRangeType = currentTimeRangeType ? currentTimeRangeType.id : ''; // If we found a match, then let's use the id of the preset, otherwise no default preset has to be selected
 
     return (
-      <div styleName={classNames('timeRangeSelector', { disabled: this.props.disabled })}>
+      <div styleName={clsx('timeRangeSelector', { disabled: this.props.disabled })}>
         <div styleName="timeRangeSelector--left">
           <PresetTimeRanges
             disabled={this.props.disabled}
@@ -135,7 +134,7 @@ export default class TimeRangeSelector extends Component {
             timezone={this.props.timezone}
           />
         </div>
-        <div styleName={classNames('timeRangeSelector--right', { disabled: this.props.disabled })}>
+        <div styleName={clsx('timeRangeSelector--right', { disabled: this.props.disabled })}>
           {this.props.renderRightSection()}
         </div>
       </div>

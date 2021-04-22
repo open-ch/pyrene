@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import './textArea.css';
 
 export interface TextAreaProps {
@@ -97,7 +97,7 @@ const TextArea: React.FC<TextAreaProps> = ({
   return (
     <div
       style={{ width: width }}
-      styleName={classNames(
+      styleName={clsx(
         'textAreaContainer',
         { disabled: disabled },
         { invalid: invalid && !disabled },
@@ -105,11 +105,11 @@ const TextArea: React.FC<TextAreaProps> = ({
       )}
     >
       <div styleName="textAreaTitleBar">
-        {title && <span styleName={classNames('textAreaTitle', { required: required && !disabled })}>{title}</span>}
+        {title && <span styleName={clsx('textAreaTitle', { required: required && !disabled })}>{title}</span>}
         {maxLength > 0 && <span styleName="characterCounter">{characterCount}</span>}
       </div>
       <textarea
-        styleName={classNames('textArea', { resizeable: resizeable }, { filled: value })}
+        styleName={clsx('textArea', { resizeable: resizeable }, { filled: value })}
         name={name}
         placeholder={placeholder}
         rows={rows}

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import './link.css';
 
@@ -15,7 +15,7 @@ import './link.css';
  */
 const Link = (props) => (
   <a
-    styleName={classNames('link', { [`type-${props.type}`]: true }, { disabled: props.disabled })}
+    styleName={clsx('link', { [`type-${props.type}`]: true }, { disabled: props.disabled })}
     href={props.path}
     onClick={props.onClick ? ((event) => {
       event.preventDefault();

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import './stepper.css';
 
@@ -17,7 +17,7 @@ const Stepper = (props) => {
       type="button"
       className="unSelectable"
       styleName={
-        classNames('stepper',
+        clsx('stepper',
           { disabled: props.disabled },
           { [`type-${props.type}`]: true })
       }

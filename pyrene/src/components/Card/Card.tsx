@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import Loader from '../Loader/Loader';
 import Banner from '../Banner/Banner';
@@ -43,7 +43,7 @@ const Card:React.FC<CardProps> = ({
 
   <div styleName="container">
     {header && <div styleName="header">{header}</div>}
-    <div styleName={classNames('content', { 'content--noHeader': !header, 'content--noFooter': !footer })}>
+    <div styleName={clsx('content', { 'content--noHeader': !header, 'content--noFooter': !footer })}>
       {/* eslint-disable-next-line no-nested-ternary */}
       { error ? <div styleName="error"><Banner type="error" styling="standard" label={error} /></div>
         : loading ? (
