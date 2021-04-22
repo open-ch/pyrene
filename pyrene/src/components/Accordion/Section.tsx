@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import Icon, { IconProps } from '../Icon/Icon';
 import './accordion.css';
 
@@ -31,7 +31,7 @@ const Section: React.FC<SectionProps> = ({
   const [expanded, setExpanded] = useState(initiallyExpanded);
 
   return (
-    <div styleName={classNames('section', { expanded, collapsed: !expanded })}>
+    <div styleName={clsx('section', { expanded, collapsed: !expanded })}>
       <div styleName="header" onClick={() => setExpanded(!expanded)}>
         {iconProps && <span styleName="icon"><Icon {...iconProps} type="inline" /></span>}
 

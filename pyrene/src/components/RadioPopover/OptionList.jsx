@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import './optionList.css';
 
@@ -17,11 +17,11 @@ const OptionList = (props) => (
           const selected = item === props.selectedValue;
           return (
             <div
-              styleName={classNames('listItem', { selected })}
+              styleName={clsx('listItem', { selected })}
               key={item.value}
               onClick={() => props.onChange(item)}
             >
-              <span className={classNames({ 'pyreneIcon-check': selected })} styleName="listIcon" aria-label="Item checked" />
+              <span className={clsx({ 'pyreneIcon-check': selected })} styleName="listIcon" aria-label="Item checked" />
               <span styleName="listLabel">{item.label}</span>
             </div>
           );

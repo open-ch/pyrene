@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ReactTable from 'react-table';
 import checkboxHOC from 'react-table/lib/hoc/selectTable';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import './table.css';
 import TablePagination from './TablePagination/TablePagination';
@@ -355,7 +355,7 @@ export default class Table extends React.Component {
           </div>
         )}
 
-        <div styleName={classNames('filterBar', { loading: this.props.loading, disabled: this.props.disabled })}>
+        <div styleName={clsx('filterBar', { loading: this.props.loading, disabled: this.props.disabled })}>
           <div styleName="filterContainer">
             {(this.props.filters.length > 0 || this.props.filterDisabled)
               && (
@@ -379,7 +379,7 @@ export default class Table extends React.Component {
           )}
         </div>
 
-        <div styleName={classNames('tableAndActions', { disabled: this.props.disabled })}>
+        <div styleName={clsx('tableAndActions', { disabled: this.props.disabled })}>
 
           {this.props.actions.length > 0 && (
             <div styleName="toolbar">

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import './trsStepper.css';
 
@@ -15,7 +15,7 @@ const TRSStepper = (props) => {
       type="button"
       className="unSelectable"
       styleName={
-        classNames('stepper',
+        clsx('stepper',
           { disabled: props.disabled },
           { right: props.direction === 'right' },
           { left: props.direction === 'left' })
@@ -24,7 +24,7 @@ const TRSStepper = (props) => {
       disabled={props.disabled}
     >
       <span className={iconName} styleName={
-        classNames('stepperIcon',
+        clsx('stepperIcon',
           { disabledIcon: props.inactive })
       }
       />

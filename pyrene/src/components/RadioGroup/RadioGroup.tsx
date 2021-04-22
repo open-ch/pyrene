@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import RadioButton, { RadioButtonBaseProps } from '../RadioButton/RadioButton';
 
@@ -84,7 +84,7 @@ const RadioGroup: React.FC<RadioGroupProps> = ({
       id={name}
     >
       {title && <div styleName="radioGroupTitle">{title}</div>}
-      <div styleName={classNames('radioGroupContainer', { [`alignment-${alignment}`]: true })}>
+      <div styleName={clsx('radioGroupContainer', { [`alignment-${alignment}`]: true })}>
         {options.map((option, index) => {
           const key = `radio_${option.label ?? ''}_${option.value}`;
 
@@ -107,7 +107,7 @@ const RadioGroup: React.FC<RadioGroupProps> = ({
                   value={option.value}
                 />
               </div>
-              {index !== lastElementIndex && <div styleName={classNames({ [`spacer-${alignment}`]: true })} />}
+              {index !== lastElementIndex && <div styleName={clsx({ [`spacer-${alignment}`]: true })} />}
             </React.Fragment>
           );
         })}

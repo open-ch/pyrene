@@ -1,5 +1,5 @@
 import React from 'react';
-import className from 'classnames';
+import clsx from 'clsx';
 
 import './labelAndValue.css';
 
@@ -30,7 +30,7 @@ const LabelAndValue: React.FC<LabelAndValueProps> = ({
 }: LabelAndValueProps) => (
   <div styleName={`label-and-value label-and-value-${size}`}>
     <div styleName="label">{label}</div>
-    <div styleName={className('value', { [`type-${type}`]: true })}>{value}</div>
+    <div styleName={clsx('value', { [`type-${type}`]: true })}>{value}</div>
   </div>
 );
 

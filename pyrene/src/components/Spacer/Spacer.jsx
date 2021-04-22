@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import './spacer.css';
 
@@ -8,7 +8,7 @@ import './spacer.css';
 * Spacers separate content.
 */
 const Spacer = ({ size }) => (
-  <div styleName={classNames(`spacer-${size}`, 'spacer')} />
+  <div styleName={clsx(`spacer-${size}`, 'spacer')} />
 );
 
 Spacer.displayName = 'Spacer';

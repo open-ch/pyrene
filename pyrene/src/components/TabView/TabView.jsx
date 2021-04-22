@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import './tabView.css';
 
@@ -80,7 +80,7 @@ export default class TabView extends React.Component {
       </div>
       {moreTabs.map((tab, index) => (
         <div
-          styleName={classNames('option', { disabled: tab.disabled })}
+          styleName={clsx('option', { disabled: tab.disabled })}
           onClick={(event) => !tab.disabled && this._tabChanged(tab.name, index + visibleTabs.length, event)}
           key={tab.name}
           role="option"
@@ -95,12 +95,12 @@ export default class TabView extends React.Component {
     const [visibleTabs, moreTabs] = this.computeTabs();
 
     return (
-      <div styleName={classNames('tabView', { disabled: this.props.disabled })}>
+      <div styleName={clsx('tabView', { disabled: this.props.disabled })}>
         <div styleName="tabBar" role="tablist">
           {
             visibleTabs.map((tab, index) => (
               <div
-                styleName={classNames(
+                styleName={clsx(
                   'tab',
                   { selected: index === this.state.selectedTabIndex },
                   { disabled: tab.disabled },
@@ -119,7 +119,7 @@ export default class TabView extends React.Component {
           && (
             <div
               styleName={
-                classNames(
+                clsx(
                   'moreTab',
                   { displayMenu: this.state.displayMoreMenu },
                   { selected: this.state.selectedTabIndex >= visibleTabs.length },
@@ -143,7 +143,7 @@ export default class TabView extends React.Component {
           )}
         </div>
         {this.props.tabHeaderElement}
-        <div styleName={classNames('tabContent', { withHeader: !!this.props.tabHeaderElement })} role="tabpanel">
+        <div styleName={clsx('tabContent', { withHeader: !!this.props.tabHeaderElement })} role="tabpanel">
           {this.props.tabs[this.state.selectedTabIndex].renderCallback()}
         </div>
 

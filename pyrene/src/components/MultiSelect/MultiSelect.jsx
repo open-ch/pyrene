@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import Select from 'react-select';
 import CreatableSelect from 'react-select/creatable';
 import '../SingleSelect/select.css';
@@ -80,8 +80,8 @@ const MultiSelect = (props) => {
   };
 
   return (
-    <div onPaste={onPaste} styleName={classNames('selectContainer', { disabled: props.disabled })}>
-      {props.title && <div styleName={classNames('selectTitle', { required: props.required && !props.disabled })}>{props.title}</div>}
+    <div onPaste={onPaste} styleName={clsx('selectContainer', { disabled: props.disabled })}>
+      {props.title && <div styleName={clsx('selectTitle', { required: props.required && !props.disabled })}>{props.title}</div>}
       {props.creatable
         ? (
           <CreatableSelect
