@@ -8,6 +8,7 @@ import ArrowSelector from './ArrowSelector/ArrowSelector';
 
 const convertTZ = (date, timeZone) => new Date((typeof date === 'string' ? new Date(date) : date).toLocaleString('en-US', { timeZone }));
 
+// format date with such a pattern 'dd.MM.yyyy, HH:mm'
 // eslint-disable-next-line prefer-template
 const formatDate = (date) => ('0' + date.getDate()).slice(-2) + '.' + ('0' + (date.getMonth() + 1)).slice(-2) + '.' + date.getFullYear() + ', ' + ('0' + date.getHours()).slice(-2) + ':' + ('0' + date.getMinutes()).slice(-2);
 
