@@ -31,13 +31,13 @@ const TimeRangeNavigationBar = (props) => {
 };
 
 TimeRangeNavigationBar.renderCurrentTimeRange = (from, to, timezone) => {
-  const localFrom0 = convertTZ(new Date(from), timezone);
-  const formatedLocalForm0 = formatDate(localFrom0);
+  const localFrom = convertTZ(new Date(from), timezone);
+  const localFormFormatted = formatDate(localFrom);
 
-  const localTo0 = convertTZ(new Date(to), timezone);
-  const formatedLocalTo0 = formatDate(localTo0);
+  const localTo = convertTZ(new Date(to), timezone);
+  const localToFormatted = formatDate(localTo);
 
-  return `${formatedLocalForm0} - ${formatedLocalTo0}`;
+  return `${localFormFormatted} - ${localToFormatted}`;
 };
 
 TimeRangeNavigationBar.defaultProps = {
