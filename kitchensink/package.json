@@ -9,7 +9,7 @@
   "private": true,
   "scripts": {
     "clean": "rm -rf dist node_modules",
-    "prebuild": "npm install",
+    "prebuild": "npm ci",
     "build": "webpack",
     "watch": "webpack-dev-server",
     "watchSourceMap": "SOURCE_MAP=true npm run watch",
