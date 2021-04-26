@@ -20,8 +20,8 @@ TabView.props = {
     { name: 'Tab 3', renderCallback: () => <Placeholder label="tab 3" />, disabled: true }, // eslint-disable-line react/display-name
     { name: 'Looooooooooooooooooooooooooooooooooooooong Name', renderCallback: () => <Placeholder label="tab 4" /> }, // eslint-disable-line react/display-name
     {
-      name: 'Tab 5', nameRenderCallback: () => nameRenderCallback('info'), renderCallback: () => <Placeholder label="tab 5" />, disabled: true,
-    }, // eslint-disable-line react/display-name
+      name: 'Tab 5', nameRenderCallback: () => nameRenderCallback('info'), renderCallback: () => <Placeholder label="tab 5" />, disabled: true, // eslint-disable-line react/display-name
+    },
   ],
 };
 
