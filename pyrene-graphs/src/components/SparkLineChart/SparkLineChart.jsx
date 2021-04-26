@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { Banner, Loader } from '@osag/pyrene';
 import SparkLineSVG from '../SparkLine/SparkLineSVG';
 import ChartOverlay from '../ChartOverlay/ChartOverlay';
@@ -21,7 +21,7 @@ const SparkLineChart = (props) => {
           {props.keyFigure}
         </div>
       )}
-      <div styleName={classNames('chart', { noKeyFigure: props.loading || props.keyFigure === null })}>
+      <div styleName={clsx('chart', { noKeyFigure: props.loading || props.keyFigure === null })}>
         {dataAvailable && (
           <SparkLineSVG
             axisLabel={props.axisLabel}
