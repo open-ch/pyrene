@@ -8,6 +8,7 @@ const props = {
   tabs: [
     {
       name: 'Tab 1',
+      nameRenderCallback: () => <div className="nameCallback" />,
       renderCallback: () => <div>Tab1Content</div>, // eslint-disable-line react/display-name
       disabled: false,
     },
@@ -29,6 +30,11 @@ describe('<TabView />', () => {
     expect(rendered.contains('Tab2Content')).toBe(true);
   });
 
+  it('displays the name with custom render callback', () => {
+    const rendered = shallow(<TabView {...props} />);
+    expect(rendered.find('.tabBar').childAt(0).find('.nameCallback')).toHaveLength(1);
+    expect(rendered.find('.tabBar').childAt(1).find('.nameCallback')).toHaveLength(0);
+  });
 
   it('has clickable tabs', () => {
     const rendered = mount(<TabView {...props} />);
