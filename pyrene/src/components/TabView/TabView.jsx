@@ -86,6 +86,7 @@ export default class TabView extends React.Component {
           role="option"
         >
           <span styleName="optionLabel">{tab.name}</span>
+          {tab.nameRenderCallback && tab.nameRenderCallback()}
         </div>
       ))}
     </div>
@@ -112,6 +113,7 @@ export default class TabView extends React.Component {
                 role="tab"
               >
                 {tab.name}
+                {tab.nameRenderCallback && tab.nameRenderCallback()}
               </div>
             ))
           }
@@ -189,11 +191,13 @@ TabView.propTypes = {
    */
   tabHeaderElement: PropTypes.element,
   /**
-   * Data input array for the tabs. Type: [{ name: string (required), renderCallback: func (required), disabled: bool }]
+   * Data input array for the tabs.
+   * Type: [{ name: string (required), nameRenderCallback: func, renderCallback: func (required), disabled: bool }]
    */
   tabs: PropTypes.arrayOf(PropTypes.shape({
     disabled: PropTypes.bool,
     name: PropTypes.string.isRequired,
+    nameRenderCallback: PropTypes.func,
     renderCallback: PropTypes.func.isRequired,
   })).isRequired,
 };
