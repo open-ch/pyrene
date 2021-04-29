@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import './filterOption.css';
+import styles from './filterOption.css';
 import SingleSelect from '../../SingleSelect/SingleSelect';
 import TextField from '../../TextField/TextField';
 import MultiSelect from '../../MultiSelect/MultiSelect';
@@ -67,17 +67,17 @@ export default class FilterOption extends React.Component {
 
     render() {
       return (
-        <div styleName="filterOption">
-          <div styleName="filterOptionWrapper">
-            <div styleName="label">
+        <div className={styles.filterOption}>
+          <div className={styles.filterOptionWrapper}>
+            <div className={styles.label}>
               {this.props.label}
             </div>
-            <div styleName="interface">
+            <div className={styles.interface}>
               {this.getFilterInterface()}
             </div>
           </div>
           {this.props.negatable && (
-            <div styleName="negatedCheckbox">
+            <div className={styles.negatedCheckbox}>
               {this.doesInterfaceSupportNegate() && (
                 <Checkbox
                   value={this.props.negated}

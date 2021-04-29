@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import './FilterBar.css';
+import styles from './FilterBar.css';
 import FilterPopoverButton from '../FilterPopOverButton/FilterPopoverButton';
 import FilterTag from './FilterTag';
 
@@ -172,9 +172,9 @@ export default class FilterBar extends React.Component {
 
       if (tags.some((el) => el !== null)) {
         return (
-          <div styleName="filterTags">
-            <div styleName="filterTagsValues">{tags}</div>
-            <div styleName="clearAllTag" onClick={() => this.onClearAll()}>Clear All</div>
+          <div className={styles.filterTags}>
+            <div className={styles.filterTagsValues}>{tags}</div>
+            <div className={styles.clearAllTag} onClick={() => this.onClearAll()}>Clear All</div>
           </div>
         );
 
@@ -186,7 +186,7 @@ export default class FilterBar extends React.Component {
   render() {
 
     return (
-      <div styleName="filter">
+      <div className={styles.filter}>
         <FilterPopoverButton
           label="Filter"
           displayPopover={this.state.displayFilterPopover}
@@ -199,7 +199,7 @@ export default class FilterBar extends React.Component {
           onFilterClear={this.clearFilter}
           onFilterApply={this.applyFilter}
         />
-        <div styleName="filterTags">
+        <div className={styles.filterTags}>
           {this.getFilterTags()}
         </div>
       </div>
