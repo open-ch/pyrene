@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 
-import './link.css';
+import styles from './link.css';
 
 /**
  * Links are used to navigate users to a different page, files, locations or any other URL.
@@ -15,7 +15,7 @@ import './link.css';
  */
 const Link = (props) => (
   <a
-    styleName={clsx('link', { [`type-${props.type}`]: true }, { disabled: props.disabled })}
+    className={clsx(styles.link, { [styles[`type-${props.type}`]]: true }, { [styles.disabled]: props.disabled })}
     href={props.path}
     onClick={props.onClick ? ((event) => {
       event.preventDefault();
@@ -25,8 +25,8 @@ const Link = (props) => (
     }}
     target={props.target}
   >
-    <span styleName="label">{props.label}</span>
-    {props.type === 'standalone' && <span styleName="icon" className="pyreneIcon-chevronRight" />}
+    <span className={styles.label}>{props.label}</span>
+    {props.type === 'standalone' && <span className={clsx(styles.icon, 'pyreneIcon-chevronRight')} />}
   </a>
 );
 
