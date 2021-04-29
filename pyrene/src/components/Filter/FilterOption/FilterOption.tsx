@@ -6,7 +6,7 @@ import TextField from '../../TextField/TextField';
 import MultiSelect from '../../MultiSelect/MultiSelect';
 import Checkbox from '../../Checkbox/Checkbox';
 
-interface FilterOptionsProps {
+export interface FilterOptionsProps {
   handleFilterChange: (value: any, inputValue: string | boolean, id: string) => void,
   id: string,
   label: string,
