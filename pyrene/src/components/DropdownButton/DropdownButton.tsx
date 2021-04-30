@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import Popover from '../Popover/Popover';
@@ -10,7 +10,38 @@ import Loader from '../Loader/Loader';
  * Dropdown Buttons are used primarily to group actions of a common topic.
  * They have the same appearance and behaviour as the regular Button.
  */
-const DropdownButton = (props) => {
+
+export interface DropdownButton {
+  /**
+   * Array of action objects holding a Label, Icon and its associated Javascript event handler.
+   */
+  actions: Array<{
+    label: string,
+    onClick?: () => void,
+  }>,
+  /**
+   * Sets the alignment of the dropdown relative to the button.
+   */
+  align: 'start' | 'end',
+  /**
+   * Disables any interaction with the component.
+   */
+  disabled?: boolean,
+  /**
+   * Adds an icon to the element.
+   */
+  icon?: string,
+  /**
+   * Sets the label displayed to the user.
+   */
+  label: string,
+  /**
+   * Disables the component and displays a loader inside of it.
+   */
+  loading?: boolean,
+};
+
+const DropdownButton: FunctionComponent<DropdownButton> = (props) => {
 
   const [state, setState] = useState({
     displayActions: false,
@@ -61,36 +92,6 @@ DropdownButton.defaultProps = {
   disabled: false,
   icon: '',
   loading: false,
-};
-
-DropdownButton.propTypes = {
-  /**
-   * Array of action objects holding a Label, Icon and its associated Javascript event handler.
-   */
-  actions: PropTypes.arrayOf(PropTypes.shape({
-    label: PropTypes.string.isRequired,
-    onClick: PropTypes.func,
-  })),
-  /**
-   * Sets the alignment of the dropdown relative to the button.
-   */
-  align: PropTypes.oneOf(['start', 'end']),
-  /**
-   * Disables any interaction with the component.
-   */
-  disabled: PropTypes.bool,
-  /**
-   * Adds an icon to the element.
-   */
-  icon: PropTypes.string,
-  /**
-   * Sets the label displayed to the user.
-   */
-  label: PropTypes.string.isRequired,
-  /**
-   * Disables the component and displays a loader inside of it.
-   */
-  loading: PropTypes.bool,
 };
 
 export default DropdownButton;
