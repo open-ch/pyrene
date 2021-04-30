@@ -25,8 +25,7 @@ export interface FilterOptionsProps {
   value?: InputValue | null,
 }
 
-const doesInterfaceSupportNegate = (inputType: string) =>
-['text', 'singleSelect', 'multiSelect'].indexOf(inputType) !== -1;
+const doesInterfaceSupportNegate = (inputType: string) => ['text', 'singleSelect', 'multiSelect'].indexOf(inputType) !== -1;
 
 const getFilterInterface = ({
   handleFilterChange,
@@ -36,7 +35,7 @@ const getFilterInterface = ({
   negated,
   options,
   value,
-}: Omit<FilterOptionsProps, 'label' | 'negatable' | 'negated'> & { negated: boolean} ) => {
+}: Omit<FilterOptionsProps, 'label' | 'negatable' | 'negated'> & { negated: boolean}) => {
 
   const isValue = !!value;
 
@@ -93,16 +92,16 @@ const FilterOption: FunctionComponent<FilterOptionsProps> = ({
   negated = false,
   options = [],
   value = null,
-}: FilterOptionsProps) => {
-
-  return (
+}: FilterOptionsProps) => (
     <div styleName="filterOption">
       <div styleName="filterOptionWrapper">
         <div styleName="label">
           {label}
         </div>
         <div styleName="interface">
-          {getFilterInterface({ handleFilterChange, id, type, sorted, negated, options, value })}
+          {
+            getFilterInterface({ handleFilterChange, id, type, sorted, negated, options, value })
+          }
         </div>
       </div>
       {negatable && (
@@ -119,7 +118,6 @@ const FilterOption: FunctionComponent<FilterOptionsProps> = ({
       )}
     </div>
   );
-};
 
 
 FilterOption.displayName = 'FilterOption';
