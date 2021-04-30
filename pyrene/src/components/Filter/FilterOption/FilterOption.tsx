@@ -14,7 +14,7 @@ type TextFieldValue = string;
 type InputValue = MultiselectValue | SingleSelectValue| TextFieldValue;
 
 export interface FilterOptionsProps {
-  handleFilterChange: (value: any, inputValue: string | boolean, id: string) => void,
+  handleFilterChange: (value: any, negated: boolean, id: string) => void,
   id: string,
   label: string,
   negatable: boolean,
