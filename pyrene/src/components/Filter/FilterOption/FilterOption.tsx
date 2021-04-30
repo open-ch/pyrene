@@ -25,6 +25,70 @@ export interface FilterOptionsProps {
   value?: InputValue | null,
 }
 
+const doesInterfaceSupportNegate = (inputType: string) => {
+  switch (inputType) {
+    case 'text':
+    case 'singleSelect':
+    case 'multiSelect': return true;
+    default: return false;
+  }
+};
+
+const getFilterInterface = ({
+  handleFilterChange,
+  id,
+  type,
+  sorted,
+  negated,
+  options,
+  value,
+}: Omit<FilterOptionsProps, 'label' | 'negatable' | 'negated'> & { negated: boolean} ) => {
+
+  const isValue = !!value;
+
+  switch (type) {
+    case 'singleSelect':
+      return (
+        <SingleSelect
+          name={id}
+          options={options}
+          onChange={(inputValue) => handleFilterChange(inputValue, negated, id)}
+          value={(isValue ? value : null) as SingleSelectValue}
+          sorted={sorted}
+          clearable
+          searchable
+        />
+      );
+    case 'multiSelect':
+      return (
+        <MultiSelect
+          name={id}
+          options={options}
+          // If multiSelect is empty (empty array) return null to filter instead of []
+          onChange={(inputValue) => handleFilterChange(Array.isArray(inputValue) && inputValue.length === 0 ? null : inputValue, negated, id)}
+          // Pass empty array instead of null to multiSelect component if filterValues are null
+          value={(isValue ? value : []) as MultiselectValue}
+          sorted={sorted}
+          selectedOptionsInDropdown
+          keepMenuOnSelect
+          clearable
+        />
+      );
+    case 'text':
+      return (
+        <TextField
+          name={id}
+          // If textField is empty (empty string) return null instead of ''
+          onChange={(inputValue) => handleFilterChange(inputValue === '' ? null : inputValue, false, id)}
+          // Pass empty string instead of null to textField component if filterValues are null
+          value={(isValue ? value : '') as TextFieldValue}
+        />
+      );
+    default:
+      return null;
+  }
+};
+
 const FilterOption: FunctionComponent<FilterOptionsProps> = ({
   handleFilterChange,
   id,
@@ -37,62 +101,6 @@ const FilterOption: FunctionComponent<FilterOptionsProps> = ({
   value = null,
 }: FilterOptionsProps) => {
 
-  const doesInterfaceSupportNegate = (inputType: string) => {
-    switch (inputType) {
-      case 'text':
-      case 'singleSelect':
-      case 'multiSelect': return true;
-      default: return false;
-    }
-  };
-
-  const getFilterInterface = () => {
-
-    const isValue = !!value;
-
-    switch (type) {
-      case 'singleSelect':
-        return (
-          <SingleSelect
-            name={id}
-            options={options}
-            onChange={(inputValue) => handleFilterChange(inputValue, negated, id)}
-            value={(isValue ? value : null) as SingleSelectValue}
-            sorted={sorted}
-            clearable
-            searchable
-          />
-        );
-      case 'multiSelect':
-        return (
-          <MultiSelect
-            name={id}
-            options={options}
-            // If multiSelect is empty (empty array) return null to filter instead of []
-            onChange={(inputValue) => handleFilterChange(Array.isArray(inputValue) && inputValue.length === 0 ? null : inputValue, negated, id)}
-            // Pass empty array instead of null to multiSelect component if filterValues are null
-            value={(isValue ? value : []) as MultiselectValue}
-            sorted={sorted}
-            selectedOptionsInDropdown
-            keepMenuOnSelect
-            clearable
-          />
-        );
-      case 'text':
-        return (
-          <TextField
-            name={id}
-            // If textField is empty (empty string) return null instead of ''
-            onChange={(inputValue) => handleFilterChange(inputValue === '' ? null : inputValue, false, id)}
-            // Pass empty string instead of null to textField component if filterValues are null
-            value={(isValue ? value : '') as TextFieldValue}
-          />
-        );
-      default:
-        return null;
-    }
-  };
-
   return (
     <div styleName="filterOption">
       <div styleName="filterOptionWrapper">
@@ -100,7 +108,7 @@ const FilterOption: FunctionComponent<FilterOptionsProps> = ({
           {label}
         </div>
         <div styleName="interface">
-          {getFilterInterface()}
+          {getFilterInterface({ handleFilterChange, id, type, sorted, negated, options, value })}
         </div>
       </div>
       {negatable && (
