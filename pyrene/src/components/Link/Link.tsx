@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, MouseEvent } from 'react';
 import clsx from 'clsx';
 
 import './link.css';
@@ -25,7 +25,7 @@ export interface LinkProps {
   /**
    * Javascript event handler. Overrides the redirect functionality (path prop ignored).
    */
-  onClick?: () => void,
+  onClick?: (event: MouseEvent) => void,
   /**
    * Sets the path the user is redirected to.
    */
