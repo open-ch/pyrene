@@ -2,11 +2,11 @@
 import React from 'react';
 import { mount, shallow } from 'enzyme';
 
-import DropdownButton, { DropdownButtonProps } from './DropdownButton';
+import DropdownButton from './DropdownButton';
 import Popover from '../Popover/Popover';
 import Loader from '../Loader/Loader';
 
-const props: DropdownButtonProps = {
+const props = {
   label: 'tbd',
   actions: [{ label: 'sub', onClick: jest.fn() }],
 };
