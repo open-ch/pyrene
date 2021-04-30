@@ -1,10 +1,17 @@
 import React, { FunctionComponent } from 'react';
 
 import './filterOption.css';
-import SingleSelect from '../../SingleSelect/SingleSelect';
+import SingleSelect, { SingleSelectProps } from '../../SingleSelect/SingleSelect';
 import TextField from '../../TextField/TextField';
 import MultiSelect from '../../MultiSelect/MultiSelect';
 import Checkbox from '../../Checkbox/Checkbox';
+import { IconProps } from '../../Icon/Icon';
+
+type SingleSelectValue = SingleSelectProps<unknown>['value'];
+type MultiselectValue = Array<{iconProps?: IconProps, label: string, value?: string | number | boolean}>;
+type TextFieldValue = string;
+
+type InputValue = MultiselectValue | SingleSelectValue| TextFieldValue;
 
 export interface FilterOptionsProps {
   handleFilterChange: (value: any, inputValue: string | boolean, id: string) => void,
@@ -15,7 +22,7 @@ export interface FilterOptionsProps {
   options?: any[],
   sorted?: boolean,
   type: string,
-  value?: any,
+  value?: InputValue,
 }
 
 const FilterOption: FunctionComponent<FilterOptionsProps> = ({
@@ -27,7 +34,7 @@ const FilterOption: FunctionComponent<FilterOptionsProps> = ({
   sorted = true,
   negated = false,
   options = [],
-  value = null,
+  value = undefined,
 }: FilterOptionsProps) => {
 
   const doesInterfaceSupportNegate = (inputType: string) => {
@@ -50,7 +57,7 @@ const FilterOption: FunctionComponent<FilterOptionsProps> = ({
             name={id}
             options={options}
             onChange={(inputValue) => handleFilterChange(inputValue, negated, id)}
-            value={isValue ? value : null}
+            value={(isValue ? value : null)}
             sorted={sorted}
             clearable
             searchable
