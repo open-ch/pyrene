@@ -9,7 +9,7 @@ import AscSort from '../images/sortDown.svg';
 // @ts-ignore
 import DescSort from '../images/sortUp.svg';
 
-import './tableHeaderCell.css';
+import styles from './tableHeaderCell.css';
 
 const stringContains = (haystack, needle) => haystack.indexOf(needle) !== -1;
 
@@ -26,8 +26,7 @@ const getIconComponent = (className) => {
 const TableHeaderCell = (props) => (
   <div
     onClick={(event) => props.toggleSort(event)}
-    styleName={clsx({ multiSelect: props.multiSelect, tableHeaderCell: true })}
-    className={clsx(props.className, 'unSelectable')}
+    className={clsx({ [styles.multiSelect]: props.multiSelect, [styles.tableHeaderCell]: true }, props.className, 'unSelectable')}
     style={props.style}
   >
     {props.children}
