@@ -1,5 +1,4 @@
 import React, { FunctionComponent, useState } from 'react';
-import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import Popover from '../Popover/Popover';
 import OptionsList from './OptionsList';
@@ -15,14 +14,14 @@ export interface DropdownButton {
   /**
    * Array of action objects holding a Label, Icon and its associated Javascript event handler.
    */
-  actions: Array<{
+  actions?: Array<{
     label: string,
     onClick?: () => void,
   }>,
   /**
    * Sets the alignment of the dropdown relative to the button.
    */
-  align: 'start' | 'end',
+  align?: 'start' | 'end',
   /**
    * Disables any interaction with the component.
    */
@@ -41,57 +40,52 @@ export interface DropdownButton {
   loading?: boolean,
 };
 
-const DropdownButton: FunctionComponent<DropdownButton> = (props) => {
-
-  const [state, setState] = useState({
-    displayActions: false,
-  });
-
-  const onClose = () => setState({ displayActions: false });
+const DropdownButton: FunctionComponent<DropdownButton> = ({
+  actions = [{ label: 'tbd', onClick: () => null }],
+  align = 'start',
+  disabled = false,
+  icon = '',
+  label,
+  loading = false,
+}: DropdownButton) => {
+  const [displayActions, setDisplayActions] = useState(false);
+  const onClose = () => setDisplayActions(false);
 
   return (
     <Popover
-      displayPopover={state.displayActions}
+      displayPopover={displayActions}
       onClickOutside={onClose}
-      renderPopoverContent={() => <OptionsList actions={props.actions} onClick={onClose} />}
+      renderPopoverContent={() => <OptionsList actions={actions} onClick={onClose} />}
       preferredPosition={['bottom']}
       distanceToTarget={4}
-      align={props.align}
+      align={align}
     >
       <div className="buttonContainer">
         <button
           type="submit"
           styleName={
             clsx('button',
-              { disabled: props.disabled },
-              { loading: props.loading },
-              { openedDropdown: state.displayActions })
+              { disabled: disabled },
+              { loading: loading },
+              { openedDropdown: displayActions })
           }
-          disabled={props.disabled || props.loading}
-          onClick={() => setState({ displayActions: !state.displayActions })}
+          disabled={disabled || loading}
+          onClick={() => setDisplayActions((prevDisplayActions) => !prevDisplayActions)}
         >
-          {props.icon && <span styleName="icon" className={`pyreneIcon-${props.icon}`} />}
+          {icon && <span styleName="icon" className={`pyreneIcon-${icon}`} />}
 
           <div styleName="label">
-            <span>{props.label}</span>
+            <span>{label}</span>
             <span className="pyreneIcon-chevronDown" styleName="arrow" />
           </div>
 
         </button>
-        {props.loading && <span styleName="loader"><Loader size="small" styling="dark" /></span>}
+        {loading && <span styleName="loader"><Loader size="small" styling="dark" /></span>}
       </div>
     </Popover>
   );
 };
 
 DropdownButton.displayName = 'Dropdown Button';
-
-DropdownButton.defaultProps = {
-  actions: [{ label: 'tbd', onClick: () => null }],
-  align: 'start',
-  disabled: false,
-  icon: '',
-  loading: false,
-};
 
 export default DropdownButton;
