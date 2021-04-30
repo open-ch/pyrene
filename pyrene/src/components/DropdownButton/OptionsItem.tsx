@@ -8,7 +8,7 @@ export interface OptionsItemProps {
   onClick: () => void,
 }
 
-const OptionsItem: FunctionComponent<OptionsItemProps> = ({label, onClick}: OptionsItemProps) =>  (
+const OptionsItem: FunctionComponent<OptionsItemProps> = ({ label, onClick }: OptionsItemProps) => (
   <button
     styleName="container"
     onClick={onClick}

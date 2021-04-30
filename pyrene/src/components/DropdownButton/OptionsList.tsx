@@ -9,7 +9,7 @@ export interface OptiuonsListProps {
   onClick: () => void,
 }
 
-const OptionsList: FunctionComponent<OptiuonsListProps> = ({actions, onClick}: OptiuonsListProps) => (
+const OptionsList: FunctionComponent<OptiuonsListProps> = ({ actions, onClick }: OptiuonsListProps) => (
   <div styleName="actionContainer">
     {actions.map((action) => (
       <OptionsItem
