@@ -22,7 +22,7 @@ export interface FilterOptionsProps {
   options?: any[],
   sorted?: boolean,
   type: string,
-  value?: InputValue,
+  value?: InputValue | null,
 }
 
 const FilterOption: FunctionComponent<FilterOptionsProps> = ({
@@ -34,7 +34,7 @@ const FilterOption: FunctionComponent<FilterOptionsProps> = ({
   sorted = true,
   negated = false,
   options = [],
-  value = undefined,
+  value = null,
 }: FilterOptionsProps) => {
 
   const doesInterfaceSupportNegate = (inputType: string) => {
