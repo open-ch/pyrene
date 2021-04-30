@@ -121,3 +121,5 @@ const FilterOption: FunctionComponent<FilterOptionsProps> = ({
 
 
 FilterOption.displayName = 'FilterOption';
+
+export default FilterOption;
