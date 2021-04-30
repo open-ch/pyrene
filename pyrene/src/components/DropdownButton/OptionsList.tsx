@@ -1,31 +1,30 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { FunctionComponent } from 'react';
 
 import OptionsItem from './OptionsItem';
 
 import './optionsList.css';
 
-const OptionsList = (props) => (
+export interface OptiuonsListProps {
+  actions: Array<{
+    label: string,
+    onClick: () => void,
+  }>,
+  onClick: () => void,
+}
+
+const OptionsList: FunctionComponent<OptiuonsListProps> = ({actions, onClick}: OptiuonsListProps) => (
   <div styleName="actionContainer">
-    {props.actions.map((action) => (
+    {actions.map((action) => (
       <OptionsItem
         key={action.label}
         label={action.label}
         onClick={() => {
           action.onClick();
-          props.onClick();
+          onClick();
         }}
       />
     ))}
   </div>
 );
-
-OptionsList.propTypes = {
-  actions: PropTypes.arrayOf(PropTypes.shape({
-    label: PropTypes.string.isRequired,
-    onClick: PropTypes.func.isRequired,
-  })).isRequired,
-  onClick: PropTypes.func.isRequired,
-};
 
 export default OptionsList;
