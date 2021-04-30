@@ -1,11 +1,12 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-return */
 import React from 'react';
 import { mount, shallow } from 'enzyme';
 
-import DropdownButton from './DropdownButton';
+import DropdownButton, { DropdownButtonProps } from './DropdownButton';
 import Popover from '../Popover/Popover';
 import Loader from '../Loader/Loader';
 
-const props = {
+const props: DropdownButtonProps = {
   label: 'tbd',
   actions: [{ label: 'sub', onClick: jest.fn() }],
 };
