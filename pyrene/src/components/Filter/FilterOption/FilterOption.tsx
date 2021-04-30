@@ -93,31 +93,28 @@ const FilterOption: FunctionComponent<FilterOptionsProps> = ({
   options = [],
   value = null,
 }: FilterOptionsProps) => (
-    <div styleName="filterOption">
-      <div styleName="filterOptionWrapper">
-        <div styleName="label">
-          {label}
-        </div>
-        <div styleName="interface">
-          {
-            getFilterInterface({ handleFilterChange, id, type, sorted, negated, options, value })
-          }
-        </div>
+  <div styleName="filterOption">
+    <div styleName="filterOptionWrapper">
+      <div styleName="label">
+        {label}
       </div>
-      {negatable && (
-        <div styleName="negatedCheckbox">
-          {doesInterfaceSupportNegate(type) && (
-            <Checkbox
-              value={negated}
-              disabled={false}
-              onChange={(inputValue) => handleFilterChange(value, inputValue, id)}
-              tooltip="To negate the filter, check the box."
-            />
-          )}
-        </div>
-      )}
+      <div styleName="interface">{getFilterInterface({ handleFilterChange, id, type, sorted, negated, options, value })}
+      </div>
     </div>
-  );
+    {negatable && (
+      <div styleName="negatedCheckbox">
+        {doesInterfaceSupportNegate(type) && (
+          <Checkbox
+            value={negated}
+            disabled={false}
+            onChange={(inputValue) => handleFilterChange(value, inputValue, id)}
+            tooltip="To negate the filter, check the box."
+          />
+        )}
+      </div>
+    )}
+  </div>
+);
 
 
 FilterOption.displayName = 'FilterOption';
