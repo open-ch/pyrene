@@ -11,7 +11,7 @@ type SingleSelectValue = SingleSelectProps<unknown>['value'];
 type MultiselectValue = Array<{iconProps?: IconProps, label: string, value?: string | number | boolean}>;
 type TextFieldValue = string;
 
-type InputValue = MultiselectValue | SingleSelectValue| TextFieldValue;
+type InputValue = MultiselectValue | SingleSelectValue | TextFieldValue;
 
 export interface FilterOptionsProps {
   handleFilterChange: (value: any, negated: boolean, id: string) => void,
