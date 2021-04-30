@@ -2,21 +2,21 @@ import React, { FunctionComponent, useState } from 'react';
 import clsx from 'clsx';
 import Popover from '../Popover/Popover';
 import OptionsList from './OptionsList';
-import './dropdownButton.css';
 import Loader from '../Loader/Loader';
+import './dropdownButton.css';
 
 /**
  * Dropdown Buttons are used primarily to group actions of a common topic.
  * They have the same appearance and behaviour as the regular Button.
  */
 
-export interface DropdownButton {
+export interface DropdownButtonProps {
   /**
    * Array of action objects holding a Label, Icon and its associated Javascript event handler.
    */
   actions?: Array<{
     label: string,
-    onClick?: () => void,
+    onClick: () => void,
   }>,
   /**
    * Sets the alignment of the dropdown relative to the button.
@@ -38,16 +38,16 @@ export interface DropdownButton {
    * Disables the component and displays a loader inside of it.
    */
   loading?: boolean,
-};
+}
 
-const DropdownButton: FunctionComponent<DropdownButton> = ({
+const DropdownButton: FunctionComponent<DropdownButtonProps> = ({
   actions = [{ label: 'tbd', onClick: () => null }],
   align = 'start',
   disabled = false,
   icon = '',
   label,
   loading = false,
-}: DropdownButton) => {
+}: DropdownButtonProps) => {
   const [displayActions, setDisplayActions] = useState(false);
   const onClose = () => setDisplayActions(false);
 
@@ -73,12 +73,10 @@ const DropdownButton: FunctionComponent<DropdownButton> = ({
           onClick={() => setDisplayActions((prevDisplayActions) => !prevDisplayActions)}
         >
           {icon && <span styleName="icon" className={`pyreneIcon-${icon}`} />}
-
           <div styleName="label">
             <span>{label}</span>
             <span className="pyreneIcon-chevronDown" styleName="arrow" />
           </div>
-
         </button>
         {loading && <span styleName="loader"><Loader size="small" styling="dark" /></span>}
       </div>
