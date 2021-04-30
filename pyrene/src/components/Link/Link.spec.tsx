@@ -1,9 +1,9 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import Link from './Link';
+import Link, { LinkProps } from './Link';
 
-const props = {
+const props: LinkProps = {
   path: 'somePath',
   label: 'someLabel',
 };
