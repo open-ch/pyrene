@@ -98,7 +98,10 @@ const FilterOption: FunctionComponent<FilterOptionsProps> = ({
       <div styleName="label">
         {label}
       </div>
-      <div styleName="interface">{getFilterInterface({ handleFilterChange, id, type, sorted, negated, options, value })}
+      <div styleName="interface">
+        {getFilterInterface({
+          handleFilterChange, id, type, sorted, negated, options, value,
+        })}
       </div>
     </div>
     {negatable && (
