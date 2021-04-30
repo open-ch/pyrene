@@ -26,7 +26,7 @@ export interface FilterOptionsProps {
 }
 
 const doesInterfaceSupportNegate = (inputType: string) =>
-['text', 'singleSelect', 'multiSelect'].indexOf(inputType) != -1;
+['text', 'singleSelect', 'multiSelect'].indexOf(inputType) !== -1;
 
 const getFilterInterface = ({
   handleFilterChange,
