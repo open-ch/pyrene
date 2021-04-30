@@ -57,7 +57,7 @@ const FilterOption: FunctionComponent<FilterOptionsProps> = ({
             name={id}
             options={options}
             onChange={(inputValue) => handleFilterChange(inputValue, negated, id)}
-            value={(isValue ? value : null)}
+            value={(isValue ? value : null) as SingleSelectValue}
             sorted={sorted}
             clearable
             searchable
@@ -71,7 +71,7 @@ const FilterOption: FunctionComponent<FilterOptionsProps> = ({
             // If multiSelect is empty (empty array) return null to filter instead of []
             onChange={(inputValue) => handleFilterChange(Array.isArray(inputValue) && inputValue.length === 0 ? null : inputValue, negated, id)}
             // Pass empty array instead of null to multiSelect component if filterValues are null
-            value={isValue ? value : []}
+            value={(isValue ? value : []) as MultiselectValue}
             sorted={sorted}
             selectedOptionsInDropdown
             keepMenuOnSelect
@@ -85,7 +85,7 @@ const FilterOption: FunctionComponent<FilterOptionsProps> = ({
             // If textField is empty (empty string) return null instead of ''
             onChange={(inputValue) => handleFilterChange(inputValue === '' ? null : inputValue, false, id)}
             // Pass empty string instead of null to textField component if filterValues are null
-            value={isValue ? value : ''}
+            value={(isValue ? value : '') as TextFieldValue}
           />
         );
       default:
