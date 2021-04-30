@@ -1,23 +1,23 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { FunctionComponent } from 'react';
 
 import './optionsItem.css';
 
-const OptionsItem = (props) => (
+
+export interface OptionsItemProps {
+  label: string,
+  onClick: () => void,
+}
+
+const OptionsItem: FunctionComponent<OptionsItemProps> = ({label, onClick}: OptionsItemProps) =>  (
   <button
     styleName="container"
-    onClick={props.onClick}
+    onClick={onClick}
     type="button"
   >
     <span styleName="optionLabel">
-      {props.label}
+      {label}
     </span>
   </button>
 );
-
-OptionsItem.propTypes = {
-  label: PropTypes.string.isRequired,
-  onClick: PropTypes.func.isRequired,
-};
 
 export default OptionsItem;

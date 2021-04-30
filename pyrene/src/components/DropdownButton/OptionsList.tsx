@@ -1,14 +1,11 @@
 import React, { FunctionComponent } from 'react';
 
-import OptionsItem from './OptionsItem';
+import OptionsItem, { OptionsItemProps } from './OptionsItem';
 
 import './optionsList.css';
 
 export interface OptiuonsListProps {
-  actions: Array<{
-    label: string,
-    onClick: () => void,
-  }>,
+  actions: Array<OptionsItemProps>,
   onClick: () => void,
 }
 
