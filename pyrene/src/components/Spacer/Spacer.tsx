@@ -8,6 +8,9 @@ import './spacer.css';
 */
 
 export interface SpacerProps {
+  /**
+  * Size/height of the spacer.
+  */
   size?: 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge' | 'xxlarge' | 'xxxlarge'
 }
 
@@ -16,5 +19,10 @@ const Spacer: FunctionComponent<SpacerProps> = ({ size = 'small' }: SpacerProps)
 );
 
 Spacer.displayName = 'Spacer';
+
+// defaultProps for compatibilty with kitchensink for pyrene documentation
+Spacer.defaultProps = {
+  size: 'small',
+};
 
 export default Spacer;
