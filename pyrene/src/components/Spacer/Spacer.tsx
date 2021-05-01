@@ -1,5 +1,4 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { FunctionComponent } from 'react';
 import clsx from 'clsx';
 
 import './spacer.css';
@@ -7,21 +6,15 @@ import './spacer.css';
 /**
 * Spacers separate content.
 */
-const Spacer = ({ size }) => (
+
+export interface SpacerProps {
+  size?: 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge' | 'xxlarge' | 'xxxlarge'
+}
+
+const Spacer: FunctionComponent<SpacerProps> = ({ size = 'small' }) => (
   <div styleName={clsx(`spacer-${size}`, 'spacer')} />
 );
 
 Spacer.displayName = 'Spacer';
-
-Spacer.defaultProps = {
-  size: 'small',
-};
-
-Spacer.propTypes = {
-  /**
-   * Size/height of the spacer.
-    */
-  size: PropTypes.oneOf(['xsmall', 'small', 'medium', 'large', 'xlarge', 'xxlarge', 'xxxlarge']),
-};
 
 export default Spacer;
