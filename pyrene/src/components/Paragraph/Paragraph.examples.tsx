@@ -1,6 +1,4 @@
-import { Example } from '../../examples/Example';
-
-const examples: Example<{}> = {
+const examples = {
   props: {
     children: 'Paragraph text',
   },

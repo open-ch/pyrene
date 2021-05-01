@@ -6,7 +6,7 @@ import './paragraph.css';
 /**
 * Paragraphs hold text that is not part of other components.
 */
-const Paragraph: FunctionComponent<{}> = ({ children }) => (
+const Paragraph: FunctionComponent<unknown> = ({ children }) => (
   <div styleName="paragraph">
     {children}
   </div>
