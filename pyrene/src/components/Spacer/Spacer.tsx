@@ -11,7 +11,7 @@ export interface SpacerProps {
   size?: 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge' | 'xxlarge' | 'xxxlarge'
 }
 
-const Spacer: FunctionComponent<SpacerProps> = ({ size = 'small' }) => (
+const Spacer: FunctionComponent<SpacerProps> = ({ size = 'small' }: SpacerProps) => (
   <div styleName={clsx(`spacer-${size}`, 'spacer')} />
 );
 
