@@ -42,7 +42,7 @@ const Stepper: FunctionComponent<StepperProps> = ({
       className="unSelectable"
       styleName={
         clsx('stepper',
-          { disabled: disabled },
+          { disabled },
           { [`type-${type}`]: true })
       }
       onClick={onClick}
