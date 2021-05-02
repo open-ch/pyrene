@@ -1,6 +1,6 @@
 const examples = {
-  category: 'Layout',
   props: {},
+  category: 'Layout',
 };
 
 export default examples;
