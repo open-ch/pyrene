@@ -1,6 +1,9 @@
-const examples = {
+import { Example } from '../../examples/Example';
+import { StepperProps } from './Stepper';
+
+const examples: Example<StepperProps> = {
   props: {
-    tyoe: 'bordered',
+    type: 'bordered',
     direction: 'up',
   },
   category: 'Interaction',
