@@ -1,4 +1,7 @@
-const Link = {
+import { Example } from '../../examples/Example';
+import { LinkProps } from './Link';
+
+const Link: Example<LinkProps> = {
   props: {
     label: 'Click Me',
     path: '#',
