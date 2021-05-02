@@ -3,8 +3,7 @@ const examples = {
     tyoe: 'bordered',
     direction: 'up',
   },
+  category: 'Interaction',
 };
-
-examples.category = 'Interaction';
 
 export default examples;
