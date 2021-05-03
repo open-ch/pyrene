@@ -1,9 +1,9 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 
-import Stepper from './Stepper';
+import Stepper, { StepperProps } from './Stepper';
 
-const props = {
+const props: StepperProps = {
   direction: 'up',
 };
 
