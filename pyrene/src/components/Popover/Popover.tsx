@@ -1,6 +1,6 @@
-import React, { FunctionComponent, ReactNode } from 'react';
+import React, { FunctionComponent } from 'react';
 import PropTypes from 'prop-types';
-import TinyPopover from 'react-tiny-popover';
+import TinyPopover, { Position } from 'react-tiny-popover';
 
 /**
  * Pop pop pop.. Is that bubble wrap?
@@ -18,7 +18,7 @@ export interface PopoverProps {
   /**
   * Wrapped component(s) that the popover is using for its positioning.
   */
-  children: ReactNode,
+  children: JSX.Element,
   /**
   * Whether to display the popover.
   */
@@ -38,19 +38,18 @@ export interface PopoverProps {
   /**
   * Sets the content displayed inside the popover.
   */
-  renderPopoverContent: (postion?: { position: string, nudgedLeft: string, nudgedTop: string, targetRect: string, popoverRect: string}) => JSX.Element,
+  renderPopoverContent: (position?: Position, nudgedLeft?: number, nudgedTop?: number, targetRect?: ClientRect, popoverRect?: ClientRect) => JSX.Element,
 }
 
 const Popover: FunctionComponent<PopoverProps> = ({
+  children,
+  renderPopoverContent,
   displayPopover = false,
   preferredPosition = ['top', 'bottom'],
   align = 'start',
   distanceToTarget = 8,
-  renderPopoverContent,
   onClickOutside = () => null,
   autoReposition = false,
-  children,
-
 }: PopoverProps) => (
   <TinyPopover
     isOpen={displayPopover}
