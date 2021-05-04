@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, ReactNode } from 'react';
 import PropTypes from 'prop-types';
 import TinyPopover from 'react-tiny-popover';
 
@@ -18,7 +18,7 @@ export interface PopoverProps {
   /**
   * Wrapped component(s) that the popover is using for its positioning.
   */
-//  children: React.ReactNode,
+  children: ReactNode,
   /**
   * Whether to display the popover.
   */
@@ -34,23 +34,33 @@ export interface PopoverProps {
   /**
   * Sets the preferred position array ordered by priority for auto repositioning.
   */
-  preferredPosition?: 'top' | 'right' | 'bottom' | 'left',
+  preferredPosition?: Array<'top' | 'right' | 'bottom' | 'left'>,
   /**
   * Sets the content displayed inside the popover.
   */
-  renderPopoverContent: () => JSX.Element,
+  renderPopoverContent: (postion?: { position: string, nudgedLeft: string, nudgedTop: string, targetRect: string, popoverRect: string}) => JSX.Element,
 }
 
-const Popover: FunctionComponent<PopoverProps> = (props: PopoverProps) => (
+const Popover: FunctionComponent<PopoverProps> = ({
+  displayPopover = false,
+  preferredPosition = ['top', 'bottom'],
+  align = 'start',
+  distanceToTarget = 8,
+  renderPopoverContent,
+  onClickOutside = () => null,
+  autoReposition = false,
+  children,
+
+}: PopoverProps) => (
   <TinyPopover
-    isOpen={props.displayPopover}
-    position={props.preferredPosition}
-    align={props.align}
-    padding={props.distanceToTarget}
+    isOpen={displayPopover}
+    position={preferredPosition}
+    align={align}
+    padding={distanceToTarget}
     content={({
       position, nudgedLeft, nudgedTop, targetRect, popoverRect,
     }) => (
-      props.renderPopoverContent(position, nudgedLeft, nudgedTop, targetRect, popoverRect)
+      renderPopoverContent(position, nudgedLeft, nudgedTop, targetRect, popoverRect)
     )}
     containerStyle={{
       overflow: 'visible',
@@ -61,10 +71,10 @@ const Popover: FunctionComponent<PopoverProps> = (props: PopoverProps) => (
       // @ts-ignore
       zIndex: 10,
     }}
-    onClickOutside={props.onClickOutside}
-    disableReposition={!props.autoReposition}
+    onClickOutside={onClickOutside}
+    disableReposition={!autoReposition}
   >
-    {props.children}
+    {children}
   </TinyPopover>
 );
 
