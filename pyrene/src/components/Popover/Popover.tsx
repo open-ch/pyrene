@@ -37,7 +37,7 @@ export interface PopoverProps {
   /**
   * Sets the content displayed inside the popover.
   */
-  renderPopoverContent: (position?: Position, nudgedLeft?: number, nudgedTop?: number, targetRect?: ClientRect, popoverRect?: ClientRect) => JSX.Element,
+  renderPopoverContent: (position: Position, nudgedLeft: number, nudgedTop: number, targetRect: ClientRect, popoverRect: ClientRect) => JSX.Element,
 }
 
 const Popover: FunctionComponent<PopoverProps> = ({
@@ -75,6 +75,17 @@ const Popover: FunctionComponent<PopoverProps> = ({
   </TinyPopover>
 );
 
+
 Popover.displayName = 'Popover';
+
+// defaultProps for compatibilty with kitchensink for pyrene documentation
+Popover.defaultProps = {
+  align: 'start',
+  autoReposition: false,
+  displayPopover: false,
+  distanceToTarget: 8,
+  preferredPosition: ['top', 'bottom'],
+  onClickOutside: () => null,
+};
 
 export default Popover;
