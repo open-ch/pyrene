@@ -1,11 +1,47 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import PropTypes from 'prop-types';
 import TinyPopover from 'react-tiny-popover';
 
 /**
  * Pop pop pop.. Is that bubble wrap?
  */
-const Popover = (props) => (
+
+export interface PopoverProps {
+  /**
+   * Sets the alignment of the popover.
+   */
+  align?: 'start' | 'center' | 'end',
+  /**
+  * Whether automatic repositioning is enabled.
+  */
+  autoReposition?: boolean,
+  /**
+  * Wrapped component(s) that the popover is using for its positioning.
+  */
+//  children: React.ReactNode,
+  /**
+  * Whether to display the popover.
+  */
+  displayPopover?: boolean,
+  /**
+  * Sets the distance of the popover to its target.
+  */
+  distanceToTarget?: number,
+  /**
+  * Called when the user clicks outside of the popover. To be used to toggle the displayPopover prop.
+  */
+  onClickOutside?: () => void,
+  /**
+  * Sets the preferred position array ordered by priority for auto repositioning.
+  */
+  preferredPosition?: 'top' | 'right' | 'bottom' | 'left',
+  /**
+  * Sets the content displayed inside the popover.
+  */
+  renderPopoverContent: () => JSX.Element,
+}
+
+const Popover: FunctionComponent<PopoverProps> = (props: PopoverProps) => (
   <TinyPopover
     isOpen={props.displayPopover}
     position={props.preferredPosition}
