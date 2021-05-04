@@ -1,5 +1,4 @@
 import React, { FunctionComponent } from 'react';
-import PropTypes from 'prop-types';
 import TinyPopover, { Position } from 'react-tiny-popover';
 
 /**
@@ -67,8 +66,7 @@ const Popover: FunctionComponent<PopoverProps> = ({
       boxSizing: 'borderBox',
       backgroundColor: 'white',
       boxShadow: '0 4px 8px -2px rgba(0, 21, 44, 0.2)',
-      // @ts-ignore
-      zIndex: 10,
+      zIndex: '10',
     }}
     onClickOutside={onClickOutside}
     disableReposition={!autoReposition}
@@ -77,51 +75,6 @@ const Popover: FunctionComponent<PopoverProps> = ({
   </TinyPopover>
 );
 
-
 Popover.displayName = 'Popover';
-
-Popover.defaultProps = {
-  align: 'start',
-  autoReposition: false,
-  displayPopover: false,
-  distanceToTarget: 8,
-  preferredPosition: ['top', 'bottom'],
-  onClickOutside: () => null,
-};
-
-Popover.propTypes = {
-  /**
-   * Sets the alignment of the popover.
-   */
-  align: PropTypes.oneOf(['start', 'center', 'end']),
-  /**
-   * Whether automatic repositioning is enabled.
-   */
-  autoReposition: PropTypes.bool,
-  /**
-   * Wrapped component(s) that the popover is using for its positioning.
-   */
-  children: PropTypes.element.isRequired,
-  /**
-   * Whether to display the popover.
-   */
-  displayPopover: PropTypes.bool,
-  /**
-   * Sets the distance of the popover to its target.
-   */
-  distanceToTarget: PropTypes.number,
-  /**
-   * Called when the user clicks outside of the popover. To be used to toggle the displayPopover prop.
-   */
-  onClickOutside: PropTypes.func,
-  /**
-   * Sets the preferred position array ordered by priority for auto repositioning.
-   */
-  preferredPosition: PropTypes.arrayOf(PropTypes.oneOf(['top', 'right', 'bottom', 'left'])),
-  /**
-   * Sets the content displayed inside the popover.
-   */
-  renderPopoverContent: PropTypes.func.isRequired,
-};
 
 export default Popover;
