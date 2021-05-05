@@ -176,7 +176,7 @@ class TreeTable extends React.Component {
 
     const isColumnHidden = (hidden) => typeof hidden === 'undefined' || hidden !== true;
 
-    const toggleColumnDisplay = (columnId, hiddenValue) => {
+    const toggleColumnDisplay = (columnId, hiddenValue, callback) => {
       const updatedColumns = columns.map((col) => {
         if (col.id === columnId) {
           return { ...col, hidden: hiddenValue };
@@ -184,7 +184,7 @@ class TreeTable extends React.Component {
         return col;
       });
 
-      this.setState({ columns: updatedColumns });
+      this.setState({ columns: updatedColumns }, callback?.(updatedColumns));
     };
 
     const restoreColumnDefaults = () => {
@@ -204,7 +204,7 @@ class TreeTable extends React.Component {
 
     const getActionBar = () => {
       const listItems = columns.slice(1).map((col) => ({ id: col.id, label: col.headerName, value: isColumnHidden(col.hidden) }));
-      const onItemClick = toggleColumnDisplay;
+      const onItemClick = (columnId, hiddenValue) => toggleColumnDisplay(columnId, hiddenValue, props.toggleColumnsCallback);
       const onRestoreDefault = restoreColumnDefaults;
       const toggleColumns = props.toggleColumns;
 
@@ -325,6 +325,7 @@ TreeTable.defaultProps = {
   virtualized: false,
   onFilterChange: () => null,
   setUniqueRowKey: () => null,
+  toggleColumnsCallback: () => null,
   onRowHover: null,
 };
 
@@ -413,6 +414,10 @@ TreeTable.propTypes = {
    * Whether the columns (hide/show) popover is available to the user.
    */
   toggleColumns: PropTypes.bool,
+  /**
+   * Callback function when the columns of the table are getting toggled.
+   */
+  toggleColumnsCallback: PropTypes.func,
   /**
    * Whether the table should be virtualized (only visible rows rendered - faster) or all rows always rendered. The height prop must also be provided if virtualized is true.
    */
