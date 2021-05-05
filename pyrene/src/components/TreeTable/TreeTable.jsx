@@ -187,8 +187,8 @@ class TreeTable extends React.Component {
       this.setState({ columns: updatedColumns }, callback?.(updatedColumns));
     };
 
-    const restoreColumnDefaults = () => {
-      this.setState({ columns: TreeTableUtils.prepareColumnToggle(props.columns) });
+    const restoreColumnDefaults = (callback) => {
+      this.setState({ columns: TreeTableUtils.prepareColumnToggle(props.columns) }, callback?.(props.columns));
     };
 
     const renderLoader = () => (
@@ -205,7 +205,7 @@ class TreeTable extends React.Component {
     const getActionBar = () => {
       const listItems = columns.slice(1).map((col) => ({ id: col.id, label: col.headerName, value: isColumnHidden(col.hidden) }));
       const onItemClick = (columnId, hiddenValue) => toggleColumnDisplay(columnId, hiddenValue, props.toggleColumnsCallback);
-      const onRestoreDefault = restoreColumnDefaults;
+      const onRestoreDefault = () => restoreColumnDefaults(props.toggleColumnsCallback);
       const toggleColumns = props.toggleColumns;
 
       const columnToggleProps = {
