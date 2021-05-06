@@ -95,6 +95,6 @@ const icons = [
   { name: 'ip', tags: ['ip', 'flower', 'blossom', 'floral', 'pattern'] },	
   { name: 'file', tags: ['file', 'document', 'page', 'item', 'report', 'sheet'] },
   { name: 'files', tags: ['files', 'documents', 'pages', 'items', 'reports', 'sheets'] },
-
 ];
+
 export default icons;
