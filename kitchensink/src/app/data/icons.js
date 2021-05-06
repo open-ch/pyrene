@@ -1,4 +1,4 @@
-// VERSION: 43
+// VERSION: 46
 const icons = [
   { name: 'share', tags: ['social', 'share', 'send'] },
   { name: 'filter', tags: ['lines', 'filter', 'filters', 'filtering'] },
@@ -88,7 +88,13 @@ const icons = [
   { name: 'thumbsUp', tags: ['thumb', 'up', 'positive', 'great', 'yeah', 'plus', 'top', 'thumbs up'] },	
   { name: 'path', tags: ['path', 'structure', 'way', 'find', 'direction', 'location', 'way', 'navigation', 'shape', 'vector', 'street', 'route', 'journey'] },		
   { name: 'lightbulb', tags: ['bulb', 'idea', 'saver', 'ecology', 'light', 'electric', 'environment', 'green', 'energy', 'lamp'] },		
-  { name: 'calendar', tags: ['calendar', 'date', 'day', 'schedule', 'event', 'today', 'week', 'month', 'year'] },	
-	
+  { name: 'calendar', tags: ['calendar', 'date', 'day', 'schedule', 'event', 'today', 'week', 'month', 'year'] },
+  { name: 'application', tags: ['application', 'browser', 'window', 'app', 'apps', 'interface', 'ui', 'frame', 'widget'] },		
+  { name: 'rule', tags: ['rule', 'rules', 'schedule', 'organize', 'process', 'list', 'checklist', 'check', 'task', 'todo', 'tasks', 'item', 'items'] },	
+  { name: 'alert', tags: ['alert', 'ndrAlert', 'mdrAlert', 'ndr', 'mdr'] },
+  { name: 'ip', tags: ['ip', 'flower', 'blossom', 'floral', 'pattern'] },	
+  { name: 'file', tags: ['file', 'document', 'page', 'item', 'report', 'sheet'] },
+  { name: 'files', tags: ['files', 'documents', 'pages', 'items', 'reports', 'sheets'] },
+
 ];
 export default icons;
