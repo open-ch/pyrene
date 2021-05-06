@@ -1,19 +1,19 @@
 /* eslint-disable react/display-name */
-import React from 'react';
+import React, { FunctionComponent, ReactNode } from 'react';
 import { Example } from '../../examples/Example';
 import Placeholder from '../../examples/Placeholder';
 import AccordionComponent, { AccordionProps } from './Accordion';
 
 type Column = {
   width: string,
-  renderContent: () => React.ReactNode
+  renderContent: () => ReactNode
 };
 
 type Row = {
   columns: Column[]
 };
 
-const RowLayout: React.FC<Row> = ({ columns }: Row) => (
+const RowLayout: FunctionComponent<Row> = ({ columns }: Row) => (
   <div style={{ display: 'flex' }}>
     {columns.map((column, index) => (
       <div
@@ -74,37 +74,42 @@ const renderCustomAccordionContent = () => (
 );
 
 const Accordion: Example<AccordionProps, {active: boolean}> = {};
+
 Accordion.props = {
-  sections: [{
-    renderContent: () => <Placeholder />,
-    title: 'Section one',
-  }, {
-    renderContent: () => <Placeholder />,
-    title: 'Section two',
-  }, {
-    renderContent: () => (
-      <AccordionComponent
-        sections={[{
-          iconProps: ({ name: 'info', color: 'blue500' }),
-          renderContent: renderCustomAccordionContent,
-          title: renderCustomAccordionTitle('youtu.be:443', 'Excluded by destination domain', 'GET connect'),
-        }, {
-          iconProps: ({ name: 'info', color: 'blue500' }),
-          renderContent: renderCustomAccordionContent,
-          title: renderCustomAccordionTitle('https://youtu.be/', 'Excluded by destination domain', 'GET something'),
-        }, {
-          iconProps: ({ name: 'error', color: 'red500' }),
-          renderContent: renderCustomAccordionContent,
-          title: renderCustomAccordionTitle('www.youtu.com:443', 'Member of required user group', 'GET anything'),
-        }, {
-          iconProps: ({ name: 'resolved', color: 'green600' }),
-          renderContent: renderCustomAccordionContent,
-          title: renderCustomAccordionTitle('https://control.open.ch/docs', 'Member of required user group', 'GET request'),
-        }]}
-      />
-    ),
-    title: 'Section three',
-  }],
+  sections: [
+    {
+      renderContent: () => <Placeholder />,
+      title: 'Section one',
+    },
+    {
+      renderContent: () => <Placeholder />,
+      title: 'Section two',
+    },
+    {
+      renderContent: () => (
+        <AccordionComponent
+          sections={[{
+            iconProps: { name: 'info', color: 'blue500' },
+            renderContent: renderCustomAccordionContent,
+            title: renderCustomAccordionTitle('youtu.be:443', 'Excluded by destination domain', 'GET connect'),
+          }, {
+            iconProps: { name: 'info', color: 'blue500' },
+            renderContent: renderCustomAccordionContent,
+            title: renderCustomAccordionTitle('https://youtu.be/', 'Excluded by destination domain', 'GET something'),
+          }, {
+            iconProps: { name: 'error', color: 'red500' },
+            renderContent: renderCustomAccordionContent,
+            title: renderCustomAccordionTitle('www.youtu.com:443', 'Member of required user group', 'GET anything'),
+          }, {
+            iconProps: { name: 'resolved', color: 'green600' },
+            renderContent: renderCustomAccordionContent,
+            title: renderCustomAccordionTitle('https://control.open.ch/docs', 'Member of required user group', 'GET request'),
+          }]}
+        />
+      ),
+      title: 'Section three',
+    }
+  ],
 };
 
 Accordion.examples = [

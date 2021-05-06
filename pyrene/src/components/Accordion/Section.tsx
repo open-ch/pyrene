@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, FunctionComponent } from 'react';
 import clsx from 'clsx';
 import Icon, { IconProps } from '../Icon/Icon';
 import './accordion.css';
@@ -22,7 +22,7 @@ export interface SectionProps {
   title: string | (() => React.ReactNode)
 }
 
-const Section: React.FC<SectionProps> = ({
+const Section: FunctionComponent<SectionProps> = ({
   expanded: initiallyExpanded = false,
   renderContent,
   iconProps,
