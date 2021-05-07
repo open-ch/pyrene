@@ -1,5 +1,4 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { FunctionComponent, MouseEvent } from 'react';
 import clsx from 'clsx';
 
 import './link.css';
@@ -13,58 +12,53 @@ import './link.css';
  * A new page should open in the current window unless information may be lost,
  * e.g. when someone is filling out a form or the destination is an external site such as a docs page.
  */
-const Link = (props) => (
+
+export interface LinkProps {
+  /**
+   * Disables any interaction with the component.
+   */
+  disabled?: boolean,
+  /**
+   * Sets the label displayed to the user.
+   */
+  label: string,
+  /**
+   * Javascript event handler. Overrides the redirect functionality (path prop ignored).
+   */
+  onClick?: (event: MouseEvent) => void,
+  /**
+   * Sets the path the user is redirected to.
+   */
+  path?: string,
+  /**
+   * Sets the target.
+   */
+  target?: string,
+  /**
+   * Sets the overall style.
+   */
+  type?: 'standalone' | 'inline',
+}
+
+const Link: FunctionComponent<LinkProps> = ({
+  label, type = 'standalone', disabled = false, path = undefined, target = undefined, onClick = undefined,
+}: LinkProps) => (
   <a
-    styleName={clsx('link', { [`type-${props.type}`]: true }, { disabled: props.disabled })}
-    href={props.path}
-    onClick={props.onClick ? ((event) => {
+    styleName={clsx('link', { [`type-${type}`]: true }, { disabled })}
+    href={path}
+    onClick={onClick ? ((event) => {
       event.preventDefault();
-      props.onClick(event);
+      onClick(event);
     }) : (event) => {
       event.stopPropagation();
     }}
-    target={props.target}
+    target={target}
   >
-    <span styleName="label">{props.label}</span>
-    {props.type === 'standalone' && <span styleName="icon" className="pyreneIcon-chevronRight" />}
+    <span styleName="label">{label}</span>
+    {type === 'standalone' && <span styleName="icon" className="pyreneIcon-chevronRight" />}
   </a>
 );
 
 Link.displayName = 'Link';
-
-Link.defaultProps = {
-  type: 'standalone',
-  disabled: false,
-  onClick: undefined,
-  path: undefined,
-  target: undefined,
-};
-
-Link.propTypes = {
-  /**
-   * Disables any interaction with the component.
-   */
-  disabled: PropTypes.bool,
-  /**
-   * Sets the label displayed to the user.
-   */
-  label: PropTypes.string.isRequired,
-  /**
-   * Javascript event handler. Overrides the redirect functionality (path prop ignored).
-   */
-  onClick: PropTypes.func,
-  /**
-   * Sets the path the user is redirected to.
-   */
-  path: PropTypes.string,
-  /**
-   * Sets the target.
-   */
-  target: PropTypes.string,
-  /**
-   * Sets the overall style.
-   */
-  type: PropTypes.oneOf(['standalone', 'inline']),
-};
 
 export default Link;
