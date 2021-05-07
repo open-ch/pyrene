@@ -54,7 +54,7 @@ class TreeTable extends React.Component {
     });
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps) {;
     if (this.props.data !== prevProps.data) {
       const rows = TreeTableUtils.initialiseRootData(this.props.data, this.props.setUniqueRowKey);
       // eslint-disable-next-line react/no-did-update-set-state
@@ -184,11 +184,11 @@ class TreeTable extends React.Component {
         return col;
       });
 
-      this.setState({ columns: updatedColumns }, callback?.(updatedColumns));
+      this.setState({ columns: updatedColumns }, () => callback?.(updatedColumns));
     };
 
     const restoreColumnDefaults = (callback) => {
-      this.setState({ columns: TreeTableUtils.prepareColumnToggle(props.columns) }, callback?.(props.columns));
+      this.setState({ columns: TreeTableUtils.prepareColumnToggle(props.columns) }, () => callback?.(props.columns));
     };
 
     const renderLoader = () => (
