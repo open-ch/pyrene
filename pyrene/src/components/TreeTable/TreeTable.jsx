@@ -54,7 +54,7 @@ class TreeTable extends React.Component {
     });
   }
 
-  componentDidUpdate(prevProps) {;
+  componentDidUpdate(prevProps) {
     if (this.props.data !== prevProps.data) {
       const rows = TreeTableUtils.initialiseRootData(this.props.data, this.props.setUniqueRowKey);
       // eslint-disable-next-line react/no-did-update-set-state
