@@ -4,6 +4,7 @@ import { SingleSelectProps } from '../../SingleSelect/SingleSelect';
 import FilterPopover from '../FilterPopover/FilterPopover';
 import FilterButton from '../FilterComponents/FilterButton';
 import { IconProps } from '../../Icon/Icon';
+import { Filter } from '../types';
 
 type SingleSelectValue = SingleSelectProps<unknown>['value'];
 type MultiselectValue = Array<{iconProps?: IconProps, label: string, value?: string | number | boolean}>;
@@ -12,14 +13,7 @@ type TextFieldValue = string;
 export interface FilterPopoverButtonProps {
   displayPopover?: boolean,
   filterNegatedKeys: string[],
-  filters:Array<{
-    id?: string,
-    label?: string,
-    negated?: boolean,
-    options?: any[],
-    sorted?: boolean,
-    type?: string,
-  }>,
+  filters:Array<Filter>,
   filterValues: { [key: string]: MultiselectValue | SingleSelectValue | TextFieldValue },
   handleFilterChange: (value: any, negated: boolean, id: string) => void,
   label: string,
