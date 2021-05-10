@@ -1,5 +1,9 @@
-import { Option } from './types';
 import { FilterProps } from './Filter';
+import { Example } from '../../examples/Example';
+export interface State {
+  filters: FilterProps['filters'],
+  filterValues: FilterProps['filterValues']
+}
 
 const testOptions = [
   { value: 'chocolate', label: 'Chocolate' },
@@ -61,7 +65,7 @@ const initialFilters = [{
   label: 'twelfth', type: 'text', id: 'testKey12', options: null,
 }];
 
-const examples = {
+const examples: Example<FilterProps, State> = {
   props: {
     filters: (stateProvider) => (stateProvider.state.filters ? stateProvider.state.filters : initialFilters),
     filterValues: (stateProvider) => (stateProvider.state.filterValues ? stateProvider.state.filterValues : {}),
@@ -79,8 +83,7 @@ const examples = {
     },
     negatable: true,
   },
+  category: 'Data',
 };
-
-examples.category = 'Data';
 
 export default examples;
