@@ -1,3 +1,6 @@
+import { Option } from './types';
+import { FilterProps } from './Filter';
+
 const testOptions = [
   { value: 'chocolate', label: 'Chocolate' },
   { value: 'strawberry', label: 'Strawberry' },

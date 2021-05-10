@@ -39,10 +39,7 @@ const getFilterInterface = ({
         <SingleSelect
           name={id}
           options={options}
-          onChange={(inputValue) => {
-            console.log('singleSelect', inputValue);
-            handleFilterChange(inputValue, negated, id);
-          }}
+          onChange={(inputValue) => handleFilterChange(inputValue, negated, id)}
           value={(isValue ? value : null) as SingleSelectValue}
           sorted={sorted}
           clearable
@@ -55,10 +52,8 @@ const getFilterInterface = ({
           name={id}
           options={options}
           // If multiSelect is empty (empty array) return null to filter instead of []
-          onChange={(inputValue) => {
-              console.log('multiSelect', inputValue);
-              handleFilterChange(Array.isArray(inputValue) && inputValue.length === 0 ? null : inputValue, negated, id);
-            }
+          onChange={(inputValue) => 
+            handleFilterChange(Array.isArray(inputValue) && inputValue.length === 0 ? null : inputValue, negated, id)
           }
           // Pass empty array instead of null to multiSelect component if filterValues are null
           value={(isValue ? value : []) as MultiselectValue}
@@ -73,10 +68,8 @@ const getFilterInterface = ({
         <TextField
           name={id}
           // If textField is empty (empty string) return null instead of ''
-          onChange={(inputValue) => {
-            console.log('TextField', inputValue, 'typeof', typeof inputValue);
+          onChange={(inputValue) => 
             handleFilterChange(inputValue === '' ? null : inputValue, false, id)
-            }
           }
           // Pass empty string instead of null to textField component if filterValues are null
           value={(isValue ? value : '') as TextFieldValue}
