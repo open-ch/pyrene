@@ -176,7 +176,7 @@ class TreeTable extends React.Component {
 
     const isColumnHidden = (hidden) => typeof hidden === 'undefined' || hidden !== true;
 
-    const toggleColumnDisplay = (columnId, hiddenValue, callback) => {
+    const toggleColumnDisplay = (columnId, hiddenValue, handler) => {
       const updatedColumns = columns.map((col) => {
         if (col.id === columnId) {
           return { ...col, hidden: hiddenValue };
@@ -184,11 +184,11 @@ class TreeTable extends React.Component {
         return col;
       });
 
-      this.setState({ columns: updatedColumns }, () => callback?.(updatedColumns));
+      this.setState({ columns: updatedColumns }, () => handler?.(updatedColumns));
     };
 
-    const restoreColumnDefaults = (callback) => {
-      this.setState({ columns: TreeTableUtils.prepareColumnToggle(props.columns) }, () => callback?.(props.columns));
+    const restoreColumnDefaults = (handler) => {
+      this.setState({ columns: TreeTableUtils.prepareColumnToggle(props.columns) }, () => handler?.(props.columns));
     };
 
     const renderLoader = () => (
@@ -204,8 +204,8 @@ class TreeTable extends React.Component {
 
     const getActionBar = () => {
       const listItems = columns.slice(1).map((col) => ({ id: col.id, label: col.headerName, value: isColumnHidden(col.hidden) }));
-      const onItemClick = (columnId, hiddenValue) => toggleColumnDisplay(columnId, hiddenValue, props.toggleColumnsCallback);
-      const onRestoreDefault = () => restoreColumnDefaults(props.toggleColumnsCallback);
+      const onItemClick = (columnId, hiddenValue) => toggleColumnDisplay(columnId, hiddenValue, props.toggleColumnsHandler);
+      const onRestoreDefault = () => restoreColumnDefaults(props.toggleColumnsHandler);
       const toggleColumns = props.toggleColumns;
 
       const columnToggleProps = {
@@ -325,7 +325,7 @@ TreeTable.defaultProps = {
   virtualized: false,
   onFilterChange: () => null,
   setUniqueRowKey: () => null,
-  toggleColumnsCallback: () => null,
+  toggleColumnsHandler: () => null,
   onRowHover: null,
 };
 
@@ -415,9 +415,9 @@ TreeTable.propTypes = {
    */
   toggleColumns: PropTypes.bool,
   /**
-   * Callback function when the columns of the table are getting toggled.
+   * Callback handler function when the columns of the table are getting toggled.
    */
-  toggleColumnsCallback: PropTypes.func,
+  toggleColumnsHandler: PropTypes.func,
   /**
    * Whether the table should be virtualized (only visible rows rendered - faster) or all rows always rendered. The height prop must also be provided if virtualized is true.
    */
