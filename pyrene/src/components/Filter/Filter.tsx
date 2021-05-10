@@ -28,15 +28,15 @@ export interface FilterProps {
   /**
   * Called when the user clicks on the apply button. Contains all the filter information as its argument.
   */
-  onFilterSubmit?: () => void,
+  onFilterSubmit?: (filterValues?: FilterValues, filterNegatedKeys?: string[]) => void,
 }
 
-const Filter: FunctionComponent<FilterProps> = ({ 
+const Filter: FunctionComponent<FilterProps> = ({
   filterValues,
   disabled = false,
   filters = undefined,
   negatable = false,
-  onFilterSubmit = (filterValues?: FilterValues,  filterNegatedKeys?: string[]) => null,
+  onFilterSubmit = () => null,
 }: FilterProps) => {
 
   if (disabled) {
@@ -52,7 +52,7 @@ const Filter: FunctionComponent<FilterProps> = ({
   }
 
   return null;
-}
+};
 
 
 Filter.displayName = 'Filter';

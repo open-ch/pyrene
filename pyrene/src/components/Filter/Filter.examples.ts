@@ -1,5 +1,6 @@
 import { FilterProps } from './Filter';
 import { Example, StateProvider } from '../../examples/Example';
+
 export interface State {
   filters: FilterProps['filters'],
   filterValues: FilterProps['filterValues']
@@ -67,7 +68,7 @@ const initialFilters = [{
 
 const examples: Example<FilterProps, State> = {
   props: {
-    filters: (stateProvider: StateProvider<State) => (stateProvider.state.filters ? stateProvider.state.filters : initialFilters),
+    filters: (stateProvider: StateProvider<State>) => (stateProvider.state.filters ? stateProvider.state.filters : initialFilters),
     filterValues: (stateProvider) => (stateProvider.state.filterValues ? stateProvider.state.filterValues : {}),
     onFilterSubmit: (stateProvider: StateProvider<State>) => (filterValues, negatedFilters) => {
       let filters = stateProvider.state.filters ? stateProvider.state.filters : initialFilters;

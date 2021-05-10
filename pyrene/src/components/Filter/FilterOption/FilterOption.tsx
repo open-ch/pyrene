@@ -5,7 +5,12 @@ import SingleSelect from '../../SingleSelect/SingleSelect';
 import TextField from '../../TextField/TextField';
 import MultiSelect from '../../MultiSelect/MultiSelect';
 import Checkbox from '../../Checkbox/Checkbox';
-import { InputValue, SingleSelectValue, MultiselectValue, TextFieldValue } from '../types';
+import {
+  InputValue,
+  SingleSelectValue,
+  MultiselectValue,
+  TextFieldValue,
+} from '../types';
 
 export interface FilterOptionsProps {
   handleFilterChange: (value: any, negated: boolean, id: string) => void,
