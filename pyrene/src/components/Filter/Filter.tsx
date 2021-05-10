@@ -1,5 +1,4 @@
 import React, { FunctionComponent } from 'react';
-import PropTypes from 'prop-types';
 import FilterBar from './FilterComponents/FilterBar';
 import FilterButton from './FilterComponents/FilterButton';
 import './Filter.css';
@@ -60,3 +59,5 @@ Filter.displayName = 'Filter';
 
 
 export { createSimpleFilter, createDataFilter } from './utils/createFilter';
+
+export default Filter;

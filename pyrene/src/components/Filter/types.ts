@@ -4,8 +4,10 @@ import { IconProps } from '../Icon/Icon';
 export type SingleSelectValue = SingleSelectProps<unknown>['value'];
 export type MultiselectValue = Array<{iconProps?: IconProps, label: string, value?: string | number | boolean}>;
 export type TextFieldValue = string;
+export type InputValue = MultiselectValue | SingleSelectValue | TextFieldValue;
+
 export type FilterValues = {
- [key: string]: MultiselectValue | SingleSelectValue | TextFieldValue
+ [key: string]: InputValue
 }
 
 export type Option = {
