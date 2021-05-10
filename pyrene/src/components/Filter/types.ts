@@ -1,6 +1,7 @@
 import { SingleSelectProps } from '../SingleSelect/SingleSelect';
 import { IconProps } from '../Icon/Icon';
 
+export type InputKind = 'singleSelect' | 'multiSelect' | 'text';
 export type SingleSelectValue = SingleSelectProps<unknown>['value'];
 export type MultiselectValue = Array<{iconProps?: IconProps, label: string, value?: string | number | boolean}>;
 export type TextFieldValue = string;
@@ -23,5 +24,5 @@ export type Filter = {
   negated?: boolean,
   options?: Array<Option>,
   sorted?: boolean,
-  type: 'singleSelect' | 'multiSelect' | 'text',
+  type: InputKind,
 };
