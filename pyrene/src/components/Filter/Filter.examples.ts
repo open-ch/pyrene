@@ -41,31 +41,44 @@ const testOptions: Array<Option> = [
   { value: 'moosetracks', label: 'Moose Tracks' },
 ];
 
-const initialFilters: Array<Filter> = [{
-  label: 'first', type: 'singleSelect', id: 'testKey', options: testOptions,
-}, {
-  label: 'second', type: 'multiSelect', id: 'testKey2', options: testOptions,
-}, {
-  label: 'third', type: 'text', id: 'testKey3', options: null,
-}, {
-  label: 'fourth', type: 'text', id: 'testKey4', options: null,
-}, {
-  label: 'fifth', type: 'text', id: 'testKey5', options: null,
-}, {
-  label: 'sixth', type: 'text', id: 'testKey6', options: null,
-}, {
-  label: 'seventh', type: 'text', id: 'testKey7', options: null,
-}, {
-  label: 'eighth', type: 'text', id: 'testKey8', options: null,
-}, {
-  label: 'ninth', type: 'text', id: 'testKey9', options: null,
-}, {
-  label: 'tenth', type: 'text', id: 'testKey10', options: null,
-}, {
-  label: 'eleventh', type: 'text', id: 'testKey11', options: null,
-}, {
-  label: 'twelfth', type: 'text', id: 'testKey12', options: null,
-}];
+const initialFilters: Array<Filter> = [
+  {
+    label: 'first', type: 'singleSelect', id: 'testKey', options: testOptions,
+  },
+  {
+    label: 'second', type: 'multiSelect', id: 'testKey2', options: testOptions,
+  },
+  {
+    label: 'third', type: 'text', id: 'testKey3', options: null,
+  },
+  {
+    label: 'fourth', type: 'text', id: 'testKey4', options: null,
+  },
+  {
+    label: 'fifth', type: 'text', id: 'testKey5', options: null,
+  },
+  {
+    label: 'sixth', type: 'text', id: 'testKey6', options: null,
+  },
+  {
+    label: 'seventh', type: 'text', id: 'testKey7', options: null,
+  },
+  {
+    label: 'eighth', type: 'text', id: 'testKey8', options: null,
+  },
+  {
+    label: 'ninth', type: 'text', id: 'testKey9', options: null,
+  },
+  {
+    label: 'tenth', type: 'text', id: 'testKey10', options: null,
+  },
+  {
+    label: 'eleventh', type: 'text', id: 'testKey11', options: null,
+  },
+  {
+    label: 'twelfth', type: 'text', id: 'testKey12', options: null,
+  }
+];
 
 const examples: Example<FilterProps, State> = {
   props: {
