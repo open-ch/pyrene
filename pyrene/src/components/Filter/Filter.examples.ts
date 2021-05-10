@@ -77,7 +77,7 @@ const initialFilters: Array<Filter> = [
   },
   {
     label: 'twelfth', type: 'text', id: 'testKey12', options: null,
-  }
+  },
 ];
 
 const examples: Example<FilterProps, State> = {
