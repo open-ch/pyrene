@@ -1,6 +1,7 @@
 import { FilterProps } from './Filter';
-import { Example, StateProvider} from '../../examples/Example';
-import { Filter, Option } from './types' 
+import { Example, StateProvider } from '../../examples/Example';
+import { Filter, Option } from './types';
+
 export interface State {
   filters: FilterProps['filters'],
   filterValues: FilterProps['filterValues']
