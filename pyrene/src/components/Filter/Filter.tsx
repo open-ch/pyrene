@@ -57,7 +57,6 @@ const Filter: FunctionComponent<FilterProps> = ({
 
 Filter.displayName = 'Filter';
 
-
 export { createSimpleFilter, createDataFilter } from './utils/createFilter';
 
 export default Filter;
