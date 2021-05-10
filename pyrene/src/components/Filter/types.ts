@@ -22,7 +22,7 @@ export type Filter = {
   id: string,
   label: string,
   negated?: boolean,
-  options?: Array<Option>,
+  options?: Array<Option> | null,
   sorted?: boolean,
   type: InputKind,
 };

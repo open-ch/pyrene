@@ -1,12 +1,12 @@
 import { FilterProps } from './Filter';
-import { Example, StateProvider } from '../../examples/Example';
-
+import { Example, StateProvider} from '../../examples/Example';
+import { Filter, Option } from './types' 
 export interface State {
   filters: FilterProps['filters'],
   filterValues: FilterProps['filterValues']
 }
 
-const testOptions = [
+const testOptions: Array<Option> = [
   { value: 'chocolate', label: 'Chocolate' },
   { value: 'strawberry', label: 'Strawberry' },
   { value: 'vanilla', label: 'Vanilla' },
@@ -40,7 +40,7 @@ const testOptions = [
   { value: 'moosetracks', label: 'Moose Tracks' },
 ];
 
-const initialFilters = [{
+const initialFilters: Array<Filter> = [{
   label: 'first', type: 'singleSelect', id: 'testKey', options: testOptions,
 }, {
   label: 'second', type: 'multiSelect', id: 'testKey2', options: testOptions,
@@ -70,7 +70,7 @@ const examples: Example<FilterProps, State> = {
   props: {
     filters: (stateProvider: StateProvider<State>) => (stateProvider.state.filters ? stateProvider.state.filters : initialFilters),
     filterValues: (stateProvider) => (stateProvider.state.filterValues ? stateProvider.state.filterValues : {}),
-    onFilterSubmit: (stateProvider: StateProvider<State>) => (filterValues, negatedFilters) => {
+    onFilterSubmit: (stateProvider: StateProvider<State>): FilterProps['onFilterSubmit'] => (filterValues, negatedFilters) => {
       let filters = stateProvider.state.filters ? stateProvider.state.filters : initialFilters;
       filters = filters.map((filter) => ({
         ...filter,
