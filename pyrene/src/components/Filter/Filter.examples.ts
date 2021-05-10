@@ -72,11 +72,11 @@ const examples: Example<FilterProps, State> = {
     filterValues: (stateProvider) => (stateProvider.state.filterValues ? stateProvider.state.filterValues : {}),
     onFilterSubmit: (stateProvider: StateProvider<State>) => (filterValues, negatedFilters) => {
       let filters = stateProvider.state.filters ? stateProvider.state.filters : initialFilters;
-      filters = filters.map((filter) => {
-        const toReturn = filter;
-        toReturn.negated = negatedFilters.includes(filter.id);
-        return toReturn;
-      });
+      filters = filters.map((filter) => ({
+        ...filter,
+        negated: negatedFilters.includes(filter.id),
+      }));
+
       stateProvider.setState({
         filterValues: filterValues,
         filters: filters,
