@@ -37,8 +37,8 @@ const Loader: React.FC<LoaderProps> = ({
   <>
     {type === 'standalone'
       && (
-        <div className={clsx(styles.canvas, { [styles[`size-${size}`]]: true })}>
-          <div className={clsx(styles.standaloneLoader, { [styles[`styling-${styling}`]]: true }, { [styles[`size-${size}`]]: true })} />
+        <div className={clsx(styles.canvas, styles[`size-${size}`])}>
+          <div className={clsx(styles.standaloneLoader, styles[`styling-${styling}`], styles[`size-${size}`])} />
         </div>
       )}
     {type === 'inline'
