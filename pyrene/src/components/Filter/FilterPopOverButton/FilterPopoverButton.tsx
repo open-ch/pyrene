@@ -1,26 +1,15 @@
 import React, { FunctionComponent, MouseEvent } from 'react';
 import Popover from '../../Popover/Popover';
-import { SingleSelectProps } from '../../SingleSelect/SingleSelect';
 import FilterPopover from '../FilterPopover/FilterPopover';
 import FilterButton from '../FilterComponents/FilterButton';
-import { IconProps } from '../../Icon/Icon';
+import { Filter, FilterValues } from '../types';
 
-type SingleSelectValue = SingleSelectProps<unknown>['value'];
-type MultiselectValue = Array<{iconProps?: IconProps, label: string, value?: string | number | boolean}>;
-type TextFieldValue = string;
 
 export interface FilterPopoverButtonProps {
   displayPopover?: boolean,
   filterNegatedKeys: string[],
-  filters:Array<{
-    id?: string,
-    label?: string,
-    negated?: boolean,
-    options?: any[],
-    sorted?: boolean,
-    type?: string,
-  }>,
-  filterValues: { [key: string]: MultiselectValue | SingleSelectValue | TextFieldValue },
+  filters:Array<Filter>,
+  filterValues: FilterValues,
   handleFilterChange: (value: any, negated: boolean, id: string) => void,
   label: string,
   negatable: boolean,
