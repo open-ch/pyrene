@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 
 import OptionsItem from './OptionsItem';
 
-import './optionsList.css';
+import styles from './optionsList.css';
 
 const OptionsList = (props) => (
-  <div styleName="actionContainer">
+  <div className={styles.actionContainer}>
     {props.actions.map((action) => (
       <OptionsItem
         key={action.label}

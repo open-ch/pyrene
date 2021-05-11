@@ -1,15 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import './optionsItem.css';
+import styles from './optionsItem.css';
 
 const OptionsItem = (props) => (
   <button
-    styleName="container"
+    className={styles.container}
     onClick={props.onClick}
     type="button"
   >
-    <span styleName="optionLabel">
+    <span className={styles.optionLabel}>
       {props.label}
     </span>
   </button>

@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import Popover from '../Popover/Popover';
 import OptionsList from './OptionsList';
-import './dropdownButton.css';
 import Loader from '../Loader/Loader';
+
+import styles from './dropdownButton.css';
 
 /**
  * Dropdown Buttons are used primarily to group actions of a common topic.
@@ -27,27 +28,27 @@ const DropdownButton = (props) => {
       distanceToTarget={4}
       align={props.align}
     >
-      <div className="buttonContainer">
+      <div className={styles.buttonContainer}>
         <button
           type="submit"
-          styleName={
-            clsx('button',
-              { disabled: props.disabled },
-              { loading: props.loading },
-              { openedDropdown: state.displayActions })
+          className={
+            clsx(styles.button,
+              { [styles.disabled]: props.disabled },
+              { [styles.loading]: props.loading },
+              { [styles.openedDropdown]: state.displayActions })
           }
           disabled={props.disabled || props.loading}
           onClick={() => setState({ displayActions: !state.displayActions })}
         >
-          {props.icon && <span styleName="icon" className={`pyreneIcon-${props.icon}`} />}
+          {props.icon && <span className={clsx(styles.icon, `pyreneIcon-${props.icon}`)} />}
 
-          <div styleName="label">
+          <div className={styles.label}>
             <span>{props.label}</span>
-            <span className="pyreneIcon-chevronDown" styleName="arrow" />
+            <span className={clsx('pyreneIcon-chevronDown', styles.arrow)} />
           </div>
 
         </button>
-        {props.loading && <span styleName="loader"><Loader size="small" styling="dark" /></span>}
+        {props.loading && <span className={styles.loader}><Loader size="small" styling="dark" /></span>}
       </div>
     </Popover>
   );
