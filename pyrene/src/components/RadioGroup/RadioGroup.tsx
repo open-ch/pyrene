@@ -84,7 +84,7 @@ const RadioGroup: React.FC<RadioGroupProps> = ({
       id={name}
     >
       {title && <div className={styles.radioGroupTitle}>{title}</div>}
-      <div className={clsx(styles.radioGroupContainer, styles[`alignment-${alignment}`] )}>
+      <div className={clsx(styles.radioGroupContainer, styles[`alignment-${alignment}`])}>
         {options.map((option, index) => {
           const key = `radio_${option.label ?? ''}_${option.value}`;
 
