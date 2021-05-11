@@ -53,7 +53,7 @@ const Button: React.FC<ButtonProps> = ({
       type="submit"
       className={
         clsx('unSelectable', styles.button,
-          { [styles[`type-${type}`]]: true },
+          styles[`type-${type}`],
           { [styles.disabled]: disabled },
           { [styles.loading]: loading })
       }
