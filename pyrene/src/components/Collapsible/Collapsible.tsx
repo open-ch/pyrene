@@ -67,7 +67,7 @@ const Collapsible: React.FC<CollapsibleProps> = ({
 
   return (
     <div className={clsx(styles.collapsibleBox, { [styles.expanded]: expanded })}>
-      <div className={clsx(styles.buttonAlignmentBox, { [styles[`align-${align}`]]: true })}>
+      <div className={clsx(styles.buttonAlignmentBox, styles[`align-${align}`])}>
         <div className={clsx(styles.collapsibleButton, 'unSelectable')} onClick={(event:React.MouseEvent) => toggleCollapse(event)} role="button" aria-label="Show or hide content">
           <div className={styles.centeringBox}>
             <span className={styles.label}>
