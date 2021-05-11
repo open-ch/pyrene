@@ -1,4 +1,13 @@
-const testOptions = [
+import { FilterProps } from './Filter';
+import { Example, StateProvider } from '../../examples/Example';
+import { Filter, Option } from './types';
+
+export interface State {
+  filters: FilterProps['filters'],
+  filterValues: FilterProps['filterValues']
+}
+
+const testOptions: Array<Option> = [
   { value: 'chocolate', label: 'Chocolate' },
   { value: 'strawberry', label: 'Strawberry' },
   { value: 'vanilla', label: 'Vanilla' },
@@ -32,43 +41,56 @@ const testOptions = [
   { value: 'moosetracks', label: 'Moose Tracks' },
 ];
 
-const initialFilters = [{
-  label: 'first', type: 'singleSelect', id: 'testKey', options: testOptions,
-}, {
-  label: 'second', type: 'multiSelect', id: 'testKey2', options: testOptions,
-}, {
-  label: 'third', type: 'text', id: 'testKey3', options: null,
-}, {
-  label: 'fourth', type: 'text', id: 'testKey4', options: null,
-}, {
-  label: 'fifth', type: 'text', id: 'testKey5', options: null,
-}, {
-  label: 'sixth', type: 'text', id: 'testKey6', options: null,
-}, {
-  label: 'seventh', type: 'text', id: 'testKey7', options: null,
-}, {
-  label: 'eighth', type: 'text', id: 'testKey8', options: null,
-}, {
-  label: 'ninth', type: 'text', id: 'testKey9', options: null,
-}, {
-  label: 'tenth', type: 'text', id: 'testKey10', options: null,
-}, {
-  label: 'eleventh', type: 'text', id: 'testKey11', options: null,
-}, {
-  label: 'twelfth', type: 'text', id: 'testKey12', options: null,
-}];
+const initialFilters: Array<Filter> = [
+  {
+    label: 'first', type: 'singleSelect', id: 'testKey', options: testOptions,
+  },
+  {
+    label: 'second', type: 'multiSelect', id: 'testKey2', options: testOptions,
+  },
+  {
+    label: 'third', type: 'text', id: 'testKey3', options: null,
+  },
+  {
+    label: 'fourth', type: 'text', id: 'testKey4', options: null,
+  },
+  {
+    label: 'fifth', type: 'text', id: 'testKey5', options: null,
+  },
+  {
+    label: 'sixth', type: 'text', id: 'testKey6', options: null,
+  },
+  {
+    label: 'seventh', type: 'text', id: 'testKey7', options: null,
+  },
+  {
+    label: 'eighth', type: 'text', id: 'testKey8', options: null,
+  },
+  {
+    label: 'ninth', type: 'text', id: 'testKey9', options: null,
+  },
+  {
+    label: 'tenth', type: 'text', id: 'testKey10', options: null,
+  },
+  {
+    label: 'eleventh', type: 'text', id: 'testKey11', options: null,
+  },
+  {
+    label: 'twelfth', type: 'text', id: 'testKey12', options: null,
+  },
+];
 
-const examples = {
+const examples: Example<FilterProps, State> = {
   props: {
-    filters: (stateProvider) => (stateProvider.state.filters ? stateProvider.state.filters : initialFilters),
+    filters: (stateProvider: StateProvider<State>) => (stateProvider.state.filters ? stateProvider.state.filters : initialFilters),
     filterValues: (stateProvider) => (stateProvider.state.filterValues ? stateProvider.state.filterValues : {}),
-    onFilterSubmit: (stateProvider) => (filterValues, negatedFilters) => {
+    onFilterSubmit: (stateProvider: StateProvider<State>): FilterProps['onFilterSubmit'] => (filterValues, negatedFilters) => {
       let filters = stateProvider.state.filters ? stateProvider.state.filters : initialFilters;
-      filters = filters.map((filter) => {
-        const toReturn = filter;
-        toReturn.negated = negatedFilters.includes(filter.id);
-        return toReturn;
-      });
+      filters = filters.map((filter) => ({
+        ...filter,
+        negated: negatedFilters.includes(filter.id),
+      }));
+
       stateProvider.setState({
         filterValues: filterValues,
         filters: filters,
@@ -76,8 +98,7 @@ const examples = {
     },
     negatable: true,
   },
+  category: 'Data',
 };
-
-examples.category = 'Data';
 
 export default examples;
