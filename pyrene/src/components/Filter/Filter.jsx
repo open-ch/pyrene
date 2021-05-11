@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import FilterBar from './FilterComponents/FilterBar';
 import FilterButton from './FilterComponents/FilterButton';
-import './Filter.css';
+import styles from './Filter.css';
 
 export default class Filter extends React.PureComponent {
 
@@ -13,7 +13,7 @@ export default class Filter extends React.PureComponent {
 
     if (disabled) {
       return (
-        <div styleName="filterButtonWrapper">
+        <div className={styles.filterButtonWrapper}>
           <FilterButton label="Filter" disabled />
         </div>
       );
