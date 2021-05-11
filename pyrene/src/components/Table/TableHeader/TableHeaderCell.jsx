@@ -26,7 +26,7 @@ const getIconComponent = (className) => {
 const TableHeaderCell = (props) => (
   <div
     onClick={(event) => props.toggleSort(event)}
-    className={clsx({ [styles.multiSelect]: props.multiSelect, [styles.tableHeaderCell]: true }, props.className, 'unSelectable')}
+    className={clsx({ [styles.multiSelect]: props.multiSelect }, styles.tableHeaderCell, props.className, 'unSelectable')}
     style={props.style}
   >
     {props.children}
