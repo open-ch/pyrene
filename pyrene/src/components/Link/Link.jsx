@@ -15,7 +15,7 @@ import styles from './link.css';
  */
 const Link = (props) => (
   <a
-    className={clsx(styles.link, { [styles[`type-${props.type}`]]: true }, { [styles.disabled]: props.disabled })}
+    className={clsx(styles.link, styles[`type-${props.type}`], { [styles.disabled]: props.disabled })}
     href={props.path}
     onClick={props.onClick ? ((event) => {
       event.preventDefault();
