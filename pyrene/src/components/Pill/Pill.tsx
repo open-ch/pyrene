@@ -52,13 +52,13 @@ const Pill: React.FC<PillProps> = ({
     {(onClick && icon)
       && <div className={styles.icon}><IconButton icon={icon} type={iconType} onClick={onClick} /></div>}
     {(!onClick && icon) && (
-      <div className={clsx(styles.icon, { [styles[`type-${iconType}`]]: true })}>
+      <div className={clsx(styles.icon, styles[`type-${iconType}`])}>
         <span className={`pyreneIcon-${icon}`} />
       </div>
     )}
     {!maxValue || (value <= maxValue)
-      ? <div className={clsx(styles.pill, { [styles[`type-${type}`]]: true })}>{value}</div>
-      : <div className={clsx(styles.pill, { [styles[`type-${type}`]]: true })}>{`${maxValue}+`}</div>}
+      ? <div className={clsx(styles.pill, styles[`type-${type}`])}>{value}</div>
+      : <div className={clsx(styles.pill, styles[`type-${type}`])}>{`${maxValue}+`}</div>}
   </div>
 );
 
