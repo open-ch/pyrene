@@ -41,7 +41,7 @@ const CheckboxPopover: FunctionComponent<CheckboxPopoverProps> = ({
             {buttonLabel}
           </div>
           <div
-            className={clsx('arrowIcon', { 'pyreneIcon-chevronUp': displayPopover, 'pyreneIcon-chevronDown': !displayPopover })}
+            className={clsx(styles.arrowIcon, { 'pyreneIcon-chevronUp': displayPopover, 'pyreneIcon-chevronDown': !displayPopover })}
           />
         </div>
       </Popover>

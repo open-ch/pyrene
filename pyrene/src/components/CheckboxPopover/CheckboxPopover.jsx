@@ -38,7 +38,7 @@ export default class CheckboxPopover extends React.Component {
               {this.props.buttonLabel}
             </div>
             <div
-              className={clsx('arrowIcon', { 'pyreneIcon-chevronUp': this.state.displayPopover, 'pyreneIcon-chevronDown': !this.state.displayPopover })}
+              className={clsx(styles.arrowIcon, { 'pyreneIcon-chevronUp': this.state.displayPopover, 'pyreneIcon-chevronDown': !this.state.displayPopover })}
             />
           </div>
         </Popover>
