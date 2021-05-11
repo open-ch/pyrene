@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 
-import './stepper.css';
+import styles from './stepper.css';
 
 /**
  * Steppers are used for previous/next navigation.
@@ -15,16 +15,11 @@ const Stepper = (props) => {
   return (
     <button
       type="button"
-      className="unSelectable"
-      styleName={
-        clsx('stepper',
-          { disabled: props.disabled },
-          { [`type-${props.type}`]: true })
-      }
+      className={clsx('unSelectable', styles.stepper, { [styles.disabled]: props.disabled }, styles[`type-${props.type}`])}
       onClick={props.onClick}
       disabled={props.disabled}
     >
-      <span className={iconName} styleName="icon" />
+      <span className={clsx(iconName, styles.icon)} />
     </button>
   );
 };
