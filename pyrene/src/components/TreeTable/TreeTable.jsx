@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { VariableSizeList as List } from 'react-window';
 
-import './treeTable.css';
+import styles from './treeTable.css';
 import TreeTableHeader from './TreeTableHeader/TreeTableHeader';
 import TreeTableActionBar from './TreeTableActionBar/TreeTableActionBar';
 import TreeTableRow from './TreeTableRow/TreeTableRow';
@@ -192,7 +192,7 @@ class TreeTable extends React.Component {
     };
 
     const renderLoader = () => (
-      <div styleName="loader">
+      <div className={styles.loader}>
         <Loader size="large" />
       </div>
     );
@@ -261,18 +261,18 @@ class TreeTable extends React.Component {
     };
 
     return (
-      <div styleName="treeTableContainer">
+      <div className={styles.treeTableContainer}>
         {props.title && (
-          <div styleName="treeTableTitle">
+          <div className={styles.treeTableTitle}>
             {props.title}
           </div>
         )}
 
         {props.loading && renderLoader()}
 
-        <div styleName={clsx({ loading: props.loading })}>
+        <div className={clsx({ [styles.loading]: props.loading })}>
           {props.filters.length > 0 && (
-            <div styleName="filterContainer">
+            <div className={styles.filterContainer}>
               <Filter
                 filters={props.filters}
                 filterValues={props.filterValues}
