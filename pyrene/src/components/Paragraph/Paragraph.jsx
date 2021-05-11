@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import './paragraph.css';
+import styles from './paragraph.css';
 
 /**
 * Paragraphs hold text that is not part of other components.
 */
 const Paragraph = ({ children }) => (
-  <div styleName="paragraph">
+  <div className={styles.paragraph}>
     {children}
   </div>
 );
