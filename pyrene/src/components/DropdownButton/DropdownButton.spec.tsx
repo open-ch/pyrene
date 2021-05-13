@@ -55,6 +55,7 @@ describe('<DropdownButton />', () => {
     dropdownButton.update();
 
     // find the first action (passing only one...)
+    // @ts-ignore // ts now knows that renderPopoverContent should be called with arguments (which we then ignore)
     const onClickAction = dropdownButton.find(Popover).props().renderPopoverContent().props.actions[0];
 
     onClickAction.onClick();
