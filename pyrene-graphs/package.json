@@ -47,7 +47,6 @@
     "babel-eslint": "^10.1.0",
     "babel-jest": "^25.1.0",
     "babel-loader": "^8.1.0",
-    "babel-plugin-react-css-modules": "^5.0.0",
     "babel-plugin-react-docgen": "^4.1.0",
     "copy-webpack-plugin": "^5.0.3",
     "css-loader": "^3.0.0",
