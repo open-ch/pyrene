@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import './buttonBar.css';
 import { ButtonProps } from '../Button/Button';
 
@@ -14,7 +14,7 @@ const ButtonBar: React.FC<ButtonBarProps> = ({
   leftButtonSectionElements = [],
   rightButtonSectionElements = [],
 }: ButtonBarProps) => (
-  <div styleName={classNames('buttonBar', { noPadding: noPadding })}>
+  <div styleName={clsx('buttonBar', { noPadding: noPadding })}>
     <div styleName="leftButtonSection">
       {leftButtonSectionElements.map((element) => (
         <React.Fragment key={`${element.props.type || 'undefined'}-${element.props.label as string}`}>

@@ -11,7 +11,7 @@ jobs:
     - uses: actions/checkout@v2
     - uses: actions/setup-node@v1
       with:
-        node-version: '14'
+        node-version: '12'
     - name: Lint pyrene
       run: (cd pyrene && npm install && npm run lint)
   tuktuktwo:
@@ -21,7 +21,7 @@ jobs:
     - uses: actions/checkout@v2
     - uses: actions/setup-node@v1
       with:
-        node-version: '14'
+        node-version: '12'
     - name: Lint tuktuktwo
       run: (cd tuktuktwo && npm install && npm run lint)
   pyrene-graphs:
@@ -31,7 +31,7 @@ jobs:
     - uses: actions/checkout@v2
     - uses: actions/setup-node@v1
       with:
-        node-version: '14'
+        node-version: '12'
     - name: Lint pyrene-graphs
       run: (cd pyrene-graphs && npm install && npm run lint)
   kitchensink:
@@ -41,6 +41,6 @@ jobs:
     - uses: actions/checkout@v2
     - uses: actions/setup-node@v1
       with:
-        node-version: '14'
+        node-version: '12'
     - name: Lint kitchensink
       run: (cd kitchensink && npm install && npm run lint)

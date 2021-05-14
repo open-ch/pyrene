@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import TreeTablePropTypes from '../TreeTablePropTypes';
 
 import './treeTableCell.css';
@@ -12,7 +12,7 @@ export default class TreeTableCell extends React.PureComponent {
       <div style={this.props.style} styleName="treeTableCell">
 
         {this.props.firstColumn && (this.props.parent
-          ? <div styleName={classNames('pivotIcon', { sectionOpen: this.props.sectionOpen })} className="pyreneIcon-chevronDown" onClick={this.props.onExpandClick} />
+          ? <div styleName={clsx('pivotIcon', { sectionOpen: this.props.sectionOpen })} className="pyreneIcon-chevronDown" onClick={this.props.onExpandClick} />
           : <div styleName="iconSpaceholder" />
         )}
 

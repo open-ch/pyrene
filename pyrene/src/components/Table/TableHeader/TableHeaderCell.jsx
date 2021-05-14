@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 // @ts-ignore
 import DefaultSort from '../images/sort.svg';
@@ -26,8 +26,8 @@ const getIconComponent = (className) => {
 const TableHeaderCell = (props) => (
   <div
     onClick={(event) => props.toggleSort(event)}
-    styleName={classNames({ multiSelect: props.multiSelect, tableHeaderCell: true })}
-    className={classNames(props.className, 'unSelectable')}
+    styleName={clsx({ multiSelect: props.multiSelect, tableHeaderCell: true })}
+    className={clsx(props.className, 'unSelectable')}
     style={props.style}
   >
     {props.children}

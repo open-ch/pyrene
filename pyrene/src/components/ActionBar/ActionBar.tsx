@@ -1,6 +1,6 @@
 /* eslint-disable react/require-default-props */
 import React, { useState } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import Icon from '../Icon/Icon';
 import Loader from '../Loader/Loader';
 import Tooltip from '../Tooltip/Tooltip';
@@ -120,7 +120,7 @@ const ActionBar: React.FC<ActionBarProps> = ({
   }
   return (
     <div
-      styleName={classNames(
+      styleName={clsx(
         `container-${orientation}`,
         disabled && !loading ? 'disabled' : '',
         styling === 'none' ? '' : `box-${styling}`,
@@ -131,7 +131,7 @@ const ActionBar: React.FC<ActionBarProps> = ({
           const isSvgIcon = action.svg && action.svg.length > 0;
           const iconComponent = (
             <div
-              styleName={classNames('iconBox', { disabled: !action.active })}
+              styleName={clsx('iconBox', { disabled: !action.active })}
               onClick={() => handleOnClick(
                 action.renderPopover,
                 action.onClick,

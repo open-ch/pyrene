@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import './radioSelection.css';
 
@@ -126,7 +126,7 @@ const RadioButton: React.FC<RadioButtonProps> = ({
       <label
         htmlFor={id != null ? id : htmlId}
         styleName={
-          classNames('radioLabel',
+          clsx('radioLabel',
             { disabled: disabled })
         }
       >

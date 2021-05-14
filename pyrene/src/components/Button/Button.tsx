@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import './button.css';
 import Loader from '../Loader/Loader';
@@ -53,7 +53,7 @@ const Button: React.FC<ButtonProps> = ({
       type="submit"
       className="unSelectable"
       styleName={
-        classNames('button',
+        clsx('button',
           { [`type-${type}`]: true },
           { disabled: disabled },
           { loading: loading })

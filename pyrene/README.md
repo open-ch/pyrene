@@ -1,6 +1,6 @@
 # pyrene - Open Systems Component Library
 
-![pyrene](../kitchensink/src/images/pyrene.svg)
+[![pyrene](https://raw.githubusercontent.com/open-ch/pyrene/main/kitchensink/src/images/pyrene.svg)](https://open-ch.github.io/pyrene/)
 
 ## Usage
 

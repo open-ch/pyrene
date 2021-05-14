@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import './modal.css';
 import ButtonBar from '../ButtonBar/ButtonBar';
 import Button, { Type as ButtonType } from '../Button/Button';
@@ -216,8 +216,8 @@ const Modal: React.FC<ModalProps> = ({
 
   const renderContent = () => (
     <>
-      <div styleName={classNames('contentContainer', { contentScrolling: contentScrolling })}>
-        <div styleName={classNames('content', { contentPadding: contentPadding }, { contentScrolling: contentScrolling }, { overlay: processing })}>
+      <div styleName={clsx('contentContainer', { contentScrolling: contentScrolling })}>
+        <div styleName={clsx('content', { contentPadding: contentPadding }, { contentScrolling: contentScrolling }, { overlay: processing })}>
           { renderCallback() }
         </div>
       </div>
@@ -233,7 +233,7 @@ const Modal: React.FC<ModalProps> = ({
   return (
     <>
       <div styleName="modalOverlay">
-        <div styleName={classNames('modalContainer', size)} role="dialog">
+        <div styleName={clsx('modalContainer', size)} role="dialog">
           {renderHeader && renderHeaderSection()}
           {loading ? renderLoader() : renderContent()}
           {renderFooter && renderFooterSection()}

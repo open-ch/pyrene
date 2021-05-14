@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { components } from 'react-select';
 import './multiSelectMenuWithOptions.css';
 
@@ -11,7 +11,7 @@ const MultiSelectMenuWithOptions = (props) => (
     {props.getValue().length > 0 && (
       <div styleName="selectMenuWithOptions">
         {props.getValue().map((option) => (
-          <div styleName={classNames('selectOption', { invalid: option.invalid })} key={option.value}>
+          <div styleName={clsx('selectOption', { invalid: option.invalid })} key={option.value}>
             <div styleName="optionLabel">{option.label}</div>
             <div styleName="clearBox" onClick={() => props.setValue(props.getValue().filter((e) => e !== option))}>
               <div styleName="clearIcon" className="pyreneIcon-delete" />

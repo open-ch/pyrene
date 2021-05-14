@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import './heading.css';
 
@@ -21,7 +21,7 @@ const Heading: React.FC<HeadingProps> = ({
   children,
   level = 1,
 }: HeadingProps) => (
-  <div styleName={classNames(`heading${level}`, 'heading')} title={children}>
+  <div styleName={clsx(`heading${level}`, 'heading')} title={children}>
     {children}
   </div>
 );

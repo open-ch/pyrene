@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import './container.css';
 
@@ -37,8 +37,8 @@ export default class Container extends React.Component {
 
   render() {
     return (
-      <div styleName={classNames('container', { expanded: this.state.expanded || !this.props.collapsible })}>
-        <div styleName={classNames('header', { collapsible: this.props.collapsible })} onClick={this.toggleCollapse} role="button" aria-label="Show or hide container">
+      <div styleName={clsx('container', { expanded: this.state.expanded || !this.props.collapsible })}>
+        <div styleName={clsx('header', { collapsible: this.props.collapsible })} onClick={this.toggleCollapse} role="button" aria-label="Show or hide container">
           <span styleName="title" className="unSelectable">
             {' '}
             {this.props.title}
