@@ -41,7 +41,7 @@ export interface DropdownButtonProps {
 }
 
 const DropdownButton: FunctionComponent<DropdownButtonProps> = ({
-  actions = [{ label: 'tbd', onClick: () => null }],
+  actions,
   align = 'start',
   disabled = false,
   icon = '',
@@ -55,7 +55,7 @@ const DropdownButton: FunctionComponent<DropdownButtonProps> = ({
     <Popover
       displayPopover={displayActions}
       onClickOutside={onClose}
-      renderPopoverContent={() => <OptionsList actions={actions} onClick={onClose} />}
+      renderPopoverContent={() => <OptionsList actions={actions || [{ label: 'tbd', onClick: () => null }]} onClick={onClose} />}
       preferredPosition={['bottom']}
       distanceToTarget={4}
       align={align}
