@@ -37,7 +37,7 @@ export interface PopoverProps {
   /**
   * Sets the content displayed inside the popover.
   */
-  renderPopoverContent: (position: Position, nudgedLeft: number, nudgedTop: number, targetRect: ClientRect, popoverRect: ClientRect) => JSX.Element,
+  renderPopoverContent: (position?: Position, nudgedLeft?: number, nudgedTop?: number, targetRect?: ClientRect, popoverRect?: ClientRect) => JSX.Element,
 }
 
 const Popover: FunctionComponent<PopoverProps> = ({
