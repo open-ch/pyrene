@@ -37,7 +37,7 @@ export interface PopoverProps {
   /**
   * Sets the content displayed inside the popover.
   */
-  renderPopoverContent: (...args: [Position, number, number, ClientRect, ClientRect]) => JSX.Element,
+  renderPopoverContent: (...args: [Position, number, number, ClientRect, ClientRect] | []) => JSX.Element,
 }
 
 const Popover: FunctionComponent<PopoverProps> = ({
