@@ -9,35 +9,17 @@
   "env": {
     "test": {
       "plugins": [
-        [
-          "react-css-modules",
-          {
-            "generateScopedName": "[local]"
-          }
-        ],
         ["babel-plugin-typescript-to-proptypes", { "comments": true }],
       ]
     },
     "development": {
       "plugins": [
-        [
-          "react-css-modules",
-          {
-            "generateScopedName": "pyrene-[name]__[local]--[hash:base64:10]"
-          }
-        ],
         "react-docgen",
         ["babel-plugin-typescript-to-proptypes", { "comments": true }],
       ]
     },
     "production": {
       "plugins": [
-        [
-          "react-css-modules",
-          {
-            "generateScopedName": "pyrene-[name]__[local]--[hash:base64:10]"
-          }
-        ],
       ]
     }
   },
