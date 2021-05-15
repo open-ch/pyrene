@@ -1,4 +1,5 @@
 import path from 'path';
+import webpack from 'webpack';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import TerserPlugin from 'terser-webpack-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
@@ -62,6 +63,9 @@ const config = {
     ],
   },
   plugins: [
+    new webpack.ProvidePlugin({
+      process: 'process/browser',
+    }),
     new BundleAnalyzerPlugin({
       analyzerMode: process.env.NODE_ENV === 'debug' ? 'server' : 'disabled',
     }),
