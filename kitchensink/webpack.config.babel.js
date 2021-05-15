@@ -42,9 +42,6 @@ const config = {
         ],
         use: {
           loader: 'babel-loader',
-          query: {
-            cacheDirectory: true,
-          },
         },
       },
       {
