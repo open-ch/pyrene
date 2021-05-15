@@ -2,6 +2,7 @@ import path from 'path';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin';
 import TerserPlugin from 'terser-webpack-plugin';
+
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const production = process.env.NODE_ENV === 'production';
@@ -17,7 +18,7 @@ const config = {
   },
   module: {
     rules: [
-{
+      {
         test: /\.js$/,
         include: /node_modules/,
         loader: 'strip-sourcemap-loader',
