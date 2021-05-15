@@ -11,7 +11,7 @@
     "clean": "rm -rf dist node_modules",
     "prebuild": "npm install",
     "build": "webpack",
-    "watch": "webpack-dev-server",
+    "watch": "webpack serve",
     "watchSourceMap": "SOURCE_MAP=true npm run watch",
     "prelint": "npm install",
     "lint": "eslint --ext .js,.jsx src/",
