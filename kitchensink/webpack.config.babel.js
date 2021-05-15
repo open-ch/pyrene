@@ -2,7 +2,6 @@
 import webpack from 'webpack'; // eslint-disable-line no-unused-vars
 import path from 'path';
 
-import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
@@ -80,7 +79,6 @@ const config = {
     ],
   },
   plugins: [
-    new CleanWebpackPlugin(),
     new webpack.EnvironmentPlugin({
       BASE_PATH,
     }),
