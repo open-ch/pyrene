@@ -1,4 +1,5 @@
 import path from 'path';
+
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const production = process.env.NODE_ENV === 'production';
