@@ -77,9 +77,7 @@ const config = {
     minimizer: [
       new TerserPlugin({
         include: 'pyrene-graphs.min.js',
-        cache: true,
         parallel: true,
-        sourceMap: !production,
       }),
     ],
   },
