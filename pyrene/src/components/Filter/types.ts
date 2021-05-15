@@ -2,7 +2,7 @@ import { SingleSelectProps } from '../SingleSelect/SingleSelect';
 import { IconProps } from '../Icon/Icon';
 
 export type SingleSelectValue = SingleSelectProps<unknown>['value'];
-export type MultiselectValue = Array<{iconProps?: IconProps, label: string, value?: string | number | boolean}>;
+export type MultiselectValue = Array<{ iconProps?: IconProps, label: string, value?: string | number | boolean }>;
 export type TextFieldValue = string;
 export type InputValue = MultiselectValue | SingleSelectValue | TextFieldValue;
 
