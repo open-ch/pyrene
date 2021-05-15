@@ -67,7 +67,6 @@
     "mini-css-extract-plugin": "^1.6.0",
     "moment": "^2.24.0",
     "moment-timezone": "^0.5.28",
-    "optimize-css-assets-webpack-plugin": "^5.0.4",
     "postcss": "^8.2.15",
     "postcss-custom-properties": "^11.0.0",
     "postcss-import": "^14.0.2",

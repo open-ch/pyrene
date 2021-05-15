@@ -1,6 +1,5 @@
 import path from 'path';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
-import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin';
 import TerserPlugin from 'terser-webpack-plugin';
 
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
@@ -71,7 +70,6 @@ const config = {
     new MiniCssExtractPlugin({
       filename: 'pyrene-graphs.css',
     }),
-    new OptimizeCSSAssetsPlugin({}),
   ],
   optimization: {
     minimizer: [
