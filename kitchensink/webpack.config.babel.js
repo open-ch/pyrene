@@ -100,10 +100,12 @@ const config = {
     new MiniCssExtractPlugin({
       filename: 'kitchensink.css',
     }),
-    new CopyWebpackPlugin([
-      { from: 'src/app/data/svgs/*', to: 'svgs/', flatten: true },
-      { from: 'src/fonts/Pyrene_Font_Kit_v1.0.zip', to: 'fonts/Pyrene_Font_Kit_v1.0.zip', flatten: true },
-    ]),
+    new CopyWebpackPlugin({
+      patterns: [
+        { from: 'src/app/data/svgs/*', to: 'svgs/[name][ext]' },
+        { from: 'src/fonts/Pyrene_Font_Kit_v1.0.zip', to: 'fonts/Pyrene_Font_Kit_v1.0.zip' },
+      ],
+    }),
   ],
 };
 
