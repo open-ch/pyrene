@@ -6,7 +6,7 @@
 
 Thanks a lot for thinking about contributing to pyrene. Any contributions (code, review, ideas, bug reports) are very welcome.
 
-We understand that there can be a certain resistance to contribute to a large existing project like pyrene. But don't worry, we're firendly people and we encourage you to take the plunge.
+We understand that there can be a certain resistance to contribute to a large existing project like pyrene. But don't worry, we're friendly people and we encourage you to take the plunge.
 
 ### Found a security vulnerability?
 
