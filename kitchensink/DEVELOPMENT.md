@@ -1,4 +1,4 @@
-These are technical details how to start development on pyrene. For more general guidelines, please have a look at [CONTRIBUTING.md](../CONTRIBUTING.md) first.
+These are technical details how to start development on kitchensink. For more general guidelines, please have a look at [CONTRIBUTING.md](../CONTRIBUTING.md) first.
 ## Development
 
 In order to ease development of pyrene, we recommend to use the kitchensink together with your local version of pyrene.
