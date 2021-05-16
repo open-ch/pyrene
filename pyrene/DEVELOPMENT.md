@@ -1,13 +1,14 @@
-# Contributing
+These are technical details how to start development on pyrene. For more general guidelines, please have a look at [CONTRIBUTING.md](../CONTRIBUTING.md) first.
+## Development
 
 For development on pyrene, we recommend to use it together with [kitchensink](../kitchensink), follow the steps there.
 
-## Typescript + Kitchensink integration
+### Typescript + Kitchensink integration
 Pyrene is tightly integrated with kitchensink. PropTypes and default values are used to generate the documentation.
 
 Kitchensink uses propTypes and typescript types to generate the documentation.
 
-### Functional typescript components
+#### Functional typescript components
 When using functional components in typescript, make sure to explicitely set the type of the props:
 ```
 interface MyComponentProps {
@@ -18,7 +19,7 @@ const MyComponent: React.FC<MyComponentProps>({name = 'John'}: MyComponentProps)
 
 See the LabelAndValue component for a minimal example.  
 
-## Migrating Components to Typescript
+### Migrating Components to Typescript
 Migrating a component to Typescript can be summarized as:
    - Rename the `.jsx` file to `.tsx`
    - Create the `MyComponentProp` interface and copy all properties and comments from PropTypes.
@@ -28,11 +29,7 @@ Migrating a component to Typescript can be summarized as:
    - Once the component is green, you can safely delete the PropTypes (but not before since the typer will complain if
    the Proptypes and the Props are not matching )
 
-## Release
-
-
-
-## Icon Font
+### Icon Font
 
 Updating the icon font:
 ```
