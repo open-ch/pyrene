@@ -13,7 +13,7 @@ const ColorRow = (props) => (
           <thead>
             <tr>
               {
-                props.title.length > 0 && <th key="base-col-header" style={{ width: (props.rowHeader.width ? props.rowHeader.width : 'auto'), textAlign: 'left' }} styleName={classNames('title', { [props.rowSize]: true })}>{props.title}</th>
+                props.title.length > 0 && <th key="base-col-header" style={{ width: (props.rowHeader.width ? props.rowHeader.width : 'auto'), textAlign: 'left' }} styleName={classNames('title', props.rowSize)}>{props.title}</th>
               }
               {
                 props.preColumns > 0
@@ -26,7 +26,7 @@ const ColorRow = (props) => (
                     const title = element.title || '';
                     return (
                       <th key={`${element.colors[0].name}-title`}>
-                        <div styleName={classNames('title', { [props.rowSize]: true })}>{title}</div>
+                        <div styleName={classNames('title', props.rowSize)}>{title}</div>
                       </th>
                     );
                   }
