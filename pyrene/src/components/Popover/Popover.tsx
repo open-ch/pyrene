@@ -1,10 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import TinyPopover, { Position } from 'react-tiny-popover';
 
-/**
- * Pop pop pop.. Is that bubble wrap?
- */
-
 export interface PopoverProps {
   /**
    * Sets the alignment of the popover.
@@ -40,6 +36,9 @@ export interface PopoverProps {
   renderPopoverContent: (position: Position, nudgedLeft: number, nudgedTop: number, targetRect: ClientRect, popoverRect: ClientRect) => JSX.Element,
 }
 
+/**
+ * Pop pop pop.. Is that bubble wrap?
+ */
 const Popover: FunctionComponent<PopoverProps> = ({
   children,
   renderPopoverContent,
@@ -78,7 +77,9 @@ const Popover: FunctionComponent<PopoverProps> = ({
 
 Popover.displayName = 'Popover';
 
-// defaultProps for compatibilty with kitchensink for pyrene documentation
+/**
+ * defaultProps for compatibilty with kitchensink for pyrene documentation
+ */
 Popover.defaultProps = {
   align: 'start',
   autoReposition: false,

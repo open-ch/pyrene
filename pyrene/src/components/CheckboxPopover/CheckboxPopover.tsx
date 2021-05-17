@@ -3,7 +3,7 @@ import clsx from 'clsx';
 
 import Popover from '../Popover/Popover';
 import CheckboxList, { Item } from './CheckboxList';
-import './checkboxPopover.css';
+import styles from './checkboxPopover.css';
 
 export interface CheckboxPopoverProps {
   buttonLabel: string;
@@ -27,7 +27,7 @@ const CheckboxPopover: FunctionComponent<CheckboxPopoverProps> = ({
   };
 
   return (
-    <div styleName={clsx('checkboxPopover', { disabled })}>
+    <div className={clsx(styles.checkboxPopover, { [styles.disabled]: disabled })}>
       <Popover
         preferredPosition={['bottom']}
         align="end"
@@ -36,13 +36,12 @@ const CheckboxPopover: FunctionComponent<CheckboxPopoverProps> = ({
         onClickOutside={() => setDisplayPopover(false)}
         renderPopoverContent={() => <CheckboxList listItems={listItems} onItemClick={onItemClick} onRestoreDefault={onRestoreDefault} />}
       >
-        <div styleName={clsx('popoverTriggerButton', { popoverOpen: displayPopover })} onClick={togglePopover}>
-          <div styleName="buttonLabel" className="unSelectable">
+        <div className={clsx(styles.popoverTriggerButton, { [styles.popoverOpen]: displayPopover })} onClick={togglePopover}>
+          <div className={clsx(styles.buttonLabel, 'unSelectable')}>
             {buttonLabel}
           </div>
           <div
-            styleName="arrowIcon"
-            className={displayPopover ? 'pyreneIcon-chevronUp' : 'pyreneIcon-chevronDown'}
+            className={clsx(styles.arrowIcon, { 'pyreneIcon-chevronUp': displayPopover, 'pyreneIcon-chevronDown': !displayPopover })}
           />
         </div>
       </Popover>

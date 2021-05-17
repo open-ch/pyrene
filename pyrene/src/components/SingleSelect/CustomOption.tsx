@@ -1,20 +1,21 @@
 import React from 'react';
 import { components, OptionProps } from 'react-select';
+import clsx from 'clsx';
 import Icon from '../Icon/Icon';
 
-import './customOption.css';
+import styles from './customOption.css';
 import { SingleSelectOption } from './SingleSelectTypes';
 /*
 * We do really want to pass all props down without intercepting them
 */
 const getIconStyle = (isSelected: boolean | undefined, isFocused: boolean | undefined) => {
   if (isSelected) {
-    return 'container selected';
+    return clsx(styles.container, styles.selected);
   }
   if (isFocused) {
-    return 'container focused';
+    return clsx(styles.container, styles.focused);
   }
-  return 'container';
+  return styles.container;
 };
 
 type OwnCustomOptionsProps<ValueType> = {
@@ -29,8 +30,8 @@ type IsMulti = false;
 type CustomOptionProps<ValueType> = OwnCustomOptionsProps<ValueType> & Omit<OptionProps<SingleSelectOption<ValueType>, IsMulti>, keyof OwnCustomOptionsProps<ValueType>>;
 
 const CustomOption = <ValueType extends unknown>(props: CustomOptionProps<ValueType>): React.ReactElement => (
-  <div title={props.label} styleName={getIconStyle(props.isSelected, props.isFocused)}>
-    {props.data.iconProps ? <div styleName="icon"><Icon {...props.data.iconProps} /></div> : null}
+  <div title={props.label} className={getIconStyle(props.isSelected, props.isFocused)}>
+    {props.data.iconProps ? <div className={styles.icon}><Icon {...props.data.iconProps} /></div> : null}
     <components.Option {...props} />
   </div>
 );
