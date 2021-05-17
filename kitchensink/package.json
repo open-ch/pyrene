@@ -9,7 +9,7 @@
   "private": true,
   "scripts": {
     "clean": "rm -rf dist node_modules",
-    "prebuild": "npm ci",
+    "prebuild": "npm install",
     "build": "webpack",
     "watch": "webpack-dev-server",
     "watchSourceMap": "SOURCE_MAP=true npm run watch",
@@ -69,7 +69,7 @@
     "moment-timezone": "^0.5.28",
     "optimize-css-assets-webpack-plugin": "^5.0.3",
     "prop-types": "^15.7.2",
-    "@osag/pyrene": "2.13.1",
+    "@osag/pyrene": "2.13.6",
     "@osag/pyrene-graphs": "1.1.10",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",

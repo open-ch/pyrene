@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-return */
 import React from 'react';
 import { mount, shallow } from 'enzyme';
 
@@ -54,6 +55,8 @@ describe('<DropdownButton />', () => {
     dropdownButton.update();
 
     // find the first action (passing only one...)
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore // ts now knows that renderPopoverContent should be called with arguments (which we then ignore)
     const onClickAction = dropdownButton.find(Popover).props().renderPopoverContent().props.actions[0];
 
     onClickAction.onClick();

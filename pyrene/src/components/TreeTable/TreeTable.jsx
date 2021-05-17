@@ -176,7 +176,7 @@ class TreeTable extends React.Component {
 
     const isColumnHidden = (hidden) => typeof hidden === 'undefined' || hidden !== true;
 
-    const toggleColumnDisplay = (columnId, hiddenValue) => {
+    const toggleColumnDisplay = (columnId, hiddenValue, handler) => {
       const updatedColumns = columns.map((col) => {
         if (col.id === columnId) {
           return { ...col, hidden: hiddenValue };
@@ -184,11 +184,11 @@ class TreeTable extends React.Component {
         return col;
       });
 
-      this.setState({ columns: updatedColumns });
+      this.setState({ columns: updatedColumns }, () => handler?.(updatedColumns));
     };
 
-    const restoreColumnDefaults = () => {
-      this.setState({ columns: TreeTableUtils.prepareColumnToggle(props.columns) });
+    const restoreColumnDefaults = (handler) => {
+      this.setState({ columns: TreeTableUtils.prepareColumnToggle(props.columns) }, () => handler?.(props.columns));
     };
 
     const renderLoader = () => (
@@ -204,8 +204,8 @@ class TreeTable extends React.Component {
 
     const getActionBar = () => {
       const listItems = columns.slice(1).map((col) => ({ id: col.id, label: col.headerName, value: isColumnHidden(col.hidden) }));
-      const onItemClick = toggleColumnDisplay;
-      const onRestoreDefault = restoreColumnDefaults;
+      const onItemClick = (columnId, hiddenValue) => toggleColumnDisplay(columnId, hiddenValue, props.toggleColumnsHandler);
+      const onRestoreDefault = () => restoreColumnDefaults(props.toggleColumnsHandler);
       const toggleColumns = props.toggleColumns;
 
       const columnToggleProps = {
@@ -325,6 +325,7 @@ TreeTable.defaultProps = {
   virtualized: false,
   onFilterChange: () => null,
   setUniqueRowKey: () => null,
+  toggleColumnsHandler: () => null,
   onRowHover: null,
 };
 
@@ -413,6 +414,10 @@ TreeTable.propTypes = {
    * Whether the columns (hide/show) popover is available to the user.
    */
   toggleColumns: PropTypes.bool,
+  /**
+   * Callback handler function when the columns of the table are getting toggled.
+   */
+  toggleColumnsHandler: PropTypes.func,
   /**
    * Whether the table should be virtualized (only visible rows rendered - faster) or all rows always rendered. The height prop must also be provided if virtualized is true.
    */
