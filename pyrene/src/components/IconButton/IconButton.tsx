@@ -1,6 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
-import './iconbutton.css';
+import styles from './iconbutton.css';
 
 export interface IconButtonProps {
   /**
@@ -35,7 +35,7 @@ const IconButton: React.FC<IconButtonProps> = ({
   path = '#',
   type = 'neutral',
 }: IconButtonProps) => (
-  <a styleName={clsx('iconButton', { disabled: disabled }, { [`type-${type}`]: true })}
+  <a className={clsx(styles.iconButton, styles[`type-${type}`], { [styles.disabled]: disabled })}
     href={path}
     onClick={
       onClick ? ((event) => {

@@ -1,11 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import clsx from 'clsx';
-
-import './spacer.css';
-
-/**
-* Spacers separate content.
-*/
+import styles from './spacer.css';
 
 export interface SpacerProps {
   /**
@@ -14,8 +9,11 @@ export interface SpacerProps {
   size?: 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge' | 'xxlarge' | 'xxxlarge'
 }
 
+/**
+ * Spacers separate content.
+ */
 const Spacer: FunctionComponent<SpacerProps> = ({ size = 'small' }: SpacerProps) => (
-  <div styleName={clsx(`spacer-${size}`, 'spacer')} />
+  <div className={clsx(styles[`spacer-${size}`], styles.spacer)} />
 );
 
 Spacer.displayName = 'Spacer';

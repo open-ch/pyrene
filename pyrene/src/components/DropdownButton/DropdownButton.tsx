@@ -3,12 +3,7 @@ import clsx from 'clsx';
 import Popover from '../Popover/Popover';
 import OptionsList from './OptionsList';
 import Loader from '../Loader/Loader';
-import './dropdownButton.css';
-
-/**
- * Dropdown Buttons are used primarily to group actions of a common topic.
- * They have the same appearance and behaviour as the regular Button.
- */
+import styles from './dropdownButton.css';
 
 export interface DropdownButtonProps {
   /**
@@ -40,6 +35,11 @@ export interface DropdownButtonProps {
   loading?: boolean,
 }
 
+
+/**
+ * Dropdown Buttons are used primarily to group actions of a common topic.
+ * They have the same appearance and behaviour as the regular Button.
+ */
 const DropdownButton: FunctionComponent<DropdownButtonProps> = ({
   actions = [{ label: 'tbd', onClick: () => null }],
   align = 'start',
@@ -60,11 +60,11 @@ const DropdownButton: FunctionComponent<DropdownButtonProps> = ({
       distanceToTarget={4}
       align={align}
     >
-      <div className="buttonContainer">
+      <div className={styles.buttonContainer}>
         <button
           type="submit"
-          styleName={
-            clsx('button',
+          className={
+            clsx(styles.button,
               { disabled: disabled },
               { loading: loading },
               { openedDropdown: displayActions })
@@ -72,13 +72,13 @@ const DropdownButton: FunctionComponent<DropdownButtonProps> = ({
           disabled={disabled || loading}
           onClick={() => setDisplayActions((prevDisplayActions) => !prevDisplayActions)}
         >
-          {icon && <span styleName="icon" className={`pyreneIcon-${icon}`} />}
-          <div styleName="label">
+          {icon && <span className={clsx(styles.icon, `pyreneIcon-${icon}`)} />}
+          <div className={styles.label}>
             <span>{label}</span>
-            <span className="pyreneIcon-chevronDown" styleName="arrow" />
+            <span className={clsx('pyreneIcon-chevronDown', styles.arrow)} />
           </div>
         </button>
-        {loading && <span styleName="loader"><Loader size="small" styling="dark" /></span>}
+        {loading && <span className={styles.loader}><Loader size="small" styling="dark" /></span>}
       </div>
     </Popover>
   );
@@ -86,7 +86,9 @@ const DropdownButton: FunctionComponent<DropdownButtonProps> = ({
 
 DropdownButton.displayName = 'Dropdown Button';
 
-// defaultProps for compatibilty with kitchensink for pyrene documentation
+/**
+ * defaultProps for compatibilty with kitchensink for pyrene documentation
+ */
 DropdownButton.defaultProps = {
   align: 'start',
 };

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import clsx from 'clsx';
 import Tooltip from '../Tooltip/Tooltip';
-import './checkbox.css';
+import styles from './checkbox.css';
 
 import iconNormal from './checkbox-blank.svg';
 import iconNormalHover from './checkbox-hover.svg';
@@ -111,8 +111,8 @@ const Checkbox: React.FC<CheckboxProps> = ({
   const renderTooltipWrapper = () => {
     const labelChildren = (
       <div>
-        <span styleName="checkboxIcon">{getCheckboxIcon(option, hovered)}</span>
-        {label && <span styleName="checkboxLabelText">{label}</span>}
+        <span className={styles.checkboxIcon}>{getCheckboxIcon(option, hovered)}</span>
+        {label && <span className={styles.checkboxLabelText}>{label}</span>}
       </div>
     );
     if (tooltip) {
@@ -131,7 +131,7 @@ const Checkbox: React.FC<CheckboxProps> = ({
 
   return (
     <div
-      styleName="checkboxContainer"
+      className={styles.checkboxContainer}
       id={name}
       onBlur={onBlur}
       onMouseEnter={() => setHovered(true)}
@@ -139,7 +139,7 @@ const Checkbox: React.FC<CheckboxProps> = ({
     >
       <input
         id={`checkbox_${label}_${rand}`}
-        styleName="checkbox"
+        className={styles.checkbox}
         type="checkbox"
         checked={value}
         onChange={!disabled ? (event) => onChange(event.target.checked, event) : () => {}}
@@ -147,8 +147,7 @@ const Checkbox: React.FC<CheckboxProps> = ({
         name={name}
       />
       <label
-        className="unSelectable"
-        styleName={clsx('checkboxLabel', { disabled: disabled, required: required })}
+        className={clsx('unSelectable', styles.checkboxLabel, { [styles.disabled]: disabled, [styles.required]: required })}
         htmlFor={`checkbox_${label}_${rand}`}
         // eslint-disable-next-line jsx-a11y/no-noninteractive-element-to-interactive-role
         role="checkbox"

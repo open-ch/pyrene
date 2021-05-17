@@ -1,21 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import clsx from 'clsx';
 
-import './FilterTag.css';
+import styles from './FilterTag.css';
 
 const FilterTag = (props) => {
   const displayText = props.negated ? `Not ${props.filterText}` : props.filterText;
   return (
-    <div styleName="wrapper" title={displayText}>
-      <div styleName="label">
+    <div className={styles.wrapper} title={displayText}>
+      <div className={styles.label}>
         {props.filterLabel}
       </div>
-      <div styleName="text">
-        {props.negated && <div styleName="negated">Not</div>}
+      <div className={styles.text}>
+        {props.negated && <div className={styles.negated}>Not</div>}
         {props.filterText}
       </div>
       <div onClick={() => props.onClose()}>
-        <div styleName="clearIcon" className="pyreneIcon-delete" />
+        <div className={clsx(styles.clearIcon, 'pyreneIcon-delete')} />
       </div>
     </div>
   );

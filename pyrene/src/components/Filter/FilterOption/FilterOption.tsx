@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 
-import './filterOption.css';
+import styles from './filterOption.css';
 import SingleSelect from '../../SingleSelect/SingleSelect';
 import TextField from '../../TextField/TextField';
 import MultiSelect from '../../MultiSelect/MultiSelect';
@@ -92,19 +92,19 @@ const FilterOption: FunctionComponent<FilterOptionsProps> = ({
   options = [],
   value = null,
 }: FilterOptionsProps) => (
-  <div styleName="filterOption">
-    <div styleName="filterOptionWrapper">
-      <div styleName="label">
+  <div className={styles.filterOption}>
+    <div className={styles.filterOptionWrapper}>
+      <div className={styles.label}>
         {label}
       </div>
-      <div styleName="interface">
+      <div className={styles.interface}>
         {getFilterInterface({
           handleFilterChange, id, type, sorted, negated, options, value,
         })}
       </div>
     </div>
     {negatable && (
-      <div styleName="negatedCheckbox">
+      <div className={styles.negatedCheckbox}>
         {doesInterfaceSupportNegate(type) && (
           <Checkbox
             value={negated}
