@@ -10,7 +10,6 @@ const ColorBox = (props) => (
       styleName={classNames('colorBox', { [`stack-${props.stackPosition}`]: props.stackPosition }, `size-${props.size}`, { darkFont: props.darkFont }, { bordered: props.bordered })}
       style={{ backgroundColor: `var(--${props.variableName})` }}
     />
-
     {
 
       (Object.keys(props.infoBox || {}).length > 0)
@@ -37,7 +36,7 @@ ColorBox.propTypes = {
   }),
   size: PropTypes.oneOf(['small', 'medium', 'large']),
   stackPosition: PropTypes.oneOf(['top', 'middle', 'bottom', 'single']),
-  style: PropTypes.object,
+  style: PropTypes.shape({}),
   variableName: PropTypes.string,
 };
 
