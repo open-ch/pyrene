@@ -20,6 +20,10 @@
     margin:16px 0;
   }  
 
+  &.left-box {
+    justify-content: left;
+  }
+
   & .title {
     height: 16px;
     font-weight: bold;

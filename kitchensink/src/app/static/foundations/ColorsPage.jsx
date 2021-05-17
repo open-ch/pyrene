@@ -108,7 +108,7 @@ const ColorsPage = () => (
             colors: [{
               colorName: 'Base', name: 'blue-500', darkFont: false, bordered: false,
             }],
-            width: '200px',
+            width: '150px',
           }}
           rowData={informationColors}
           rowSize="small"
@@ -123,7 +123,7 @@ const ColorsPage = () => (
             colors: [{
               colorName: 'Base', name: 'green-600', darkFont: false, bordered: false,
             }],
-            width: '200px',
+            width: '150px',
           }}
           rowData={successColors}
           rowSize="small"
@@ -138,7 +138,7 @@ const ColorsPage = () => (
             colors: [{
               colorName: 'Base', name: 'orange-600', darkFont: false, bordered: false,
             }],
-            width: '200px',
+            width: '150px',
           }}
           rowData={warningColors}
           rowSize="small"
@@ -153,7 +153,7 @@ const ColorsPage = () => (
             colors: [{
               colorName: 'Base', name: 'red-600', darkFont: false, bordered: false,
             }],
-            width: '200px',
+            width: '150px',
           }}
           rowData={dangerColors}
           rowSize="small"
@@ -169,7 +169,7 @@ const ColorsPage = () => (
             colors: [{
               colorName: 'Base', name: 'neutral-500', darkFont: false, bordered: false,
             }],
-            width: '200px',
+            width: '150px',
           }}
           rowData={outageColors}
           rowSize="small"
@@ -185,7 +185,7 @@ const ColorsPage = () => (
             colors: [{
               colorName: 'Base', name: 'neutral-500', darkFont: false, bordered: false,
             }],
-            width: '200px',
+            width: '150px',
           }}
           rowData={inactiveColors}
           rowSize="small"

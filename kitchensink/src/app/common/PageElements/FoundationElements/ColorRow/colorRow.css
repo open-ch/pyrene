@@ -28,6 +28,10 @@
   & thead th {
     height: 13px;
   }
+
+  & thead tr .base-column {
+    text-align: left;
+  }  
 }
 
 .colorRow {
@@ -42,4 +46,19 @@
   line-height: normal;
   color: var(--neutral-200);
   padding: 16px 0;
+}
+
+.rowHeader {
+ 
+  &.large {
+    padding-left: 18px;
+  }
+
+  &.medium{
+    padding-left: 14px;
+  }
+
+  &.small {
+    padding-left: 10px;
+  }   
 }
