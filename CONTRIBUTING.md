@@ -22,7 +22,7 @@ Even better! Please open a pull request with your fix. See [Code Contributions](
 
 ### Have an idea or suggestion for improvement?
 
-Great! Please have a look at the _Principles_ secion on <https://open-ch.github.io/pyrene/>. Other than most existing component libraries, in many cases we value consistency higher than flexibility. Therefore, we often carefully evaluate whether a specific feature or option is really necessary.
+Great! Please have a look at the _Principles_ secion on <https://open-ch.github.io/pyrene/>. Unlike most existing component libraries, in many cases we value consistency higher than flexibility. Therefore, we often carefully evaluate whether a specific feature or option is really necessary.
 
 Please also understand that there are a lot of things to consider, like consistency, backwards compatibility, future extensibility. Join us in the discussion to balance those requirements.
 
