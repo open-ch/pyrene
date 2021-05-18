@@ -8,10 +8,12 @@ const ColorBox = (props) => (
   <div styleName={classNames('colorBoxContainer', props.size, { 'left-box': !props.centered })}>
     <div
       styleName={classNames('colorBox',
-        { [`stack-${props.stackPosition}`]: props.stackPosition },
         `size-${props.size}`,
-        { darkFont: props.darkFont },
-        { bordered: props.bordered })}
+        {
+          [`stack-${props.stackPosition}`]: props.stackPosition,
+          darkFont: props.darkFont,
+          bordered: props.bordered,
+        })}
       style={{ backgroundColor: `var(--${props.variableName})` }}
     />
     {
