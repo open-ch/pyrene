@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
-import './collapsible.css';
+import styles from './collapsible.css';
 
 export interface CollapsibleProps {
   /**
@@ -66,19 +66,19 @@ const Collapsible: React.FC<CollapsibleProps> = ({
   };
 
   return (
-    <div styleName={classNames('collapsibleBox', { expanded })}>
-      <div styleName={classNames('buttonAlignmentBox', { [`align-${align}`]: true })}>
-        <div styleName="collapsibleButton" className="unSelectable" onClick={(event:React.MouseEvent) => toggleCollapse(event)} role="button" aria-label="Show or hide content">
-          <div styleName="centeringBox">
-            <span styleName="label">
+    <div className={clsx(styles.collapsibleBox, { [styles.expanded]: expanded })}>
+      <div className={clsx(styles.buttonAlignmentBox, styles[`align-${align}`])}>
+        <div className={clsx(styles.collapsibleButton, 'unSelectable')} onClick={(event:React.MouseEvent) => toggleCollapse(event)} role="button" aria-label="Show or hide content">
+          <div className={styles.centeringBox}>
+            <span className={styles.label}>
               { expanded && labelExpanded ? labelExpanded : labelCollapsed }
             </span>
-            <span className="pyreneIcon-chevronDown" styleName="collapseArrow" />
+            <span className={clsx('pyreneIcon-chevronDown', styles.collapseArrow)} />
           </div>
         </div>
       </div>
-      <div styleName="collapsibleBody" style={{ height: (expanded && contentHeight) ? contentHeight : undefined }}>
-        <div ref={contentRef} styleName="clientContent">
+      <div className={styles.collapsibleBody} style={{ height: (expanded && contentHeight) ? contentHeight : undefined }}>
+        <div ref={contentRef} className={styles.clientContent}>
           { renderCallback() }
         </div>
       </div>

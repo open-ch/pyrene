@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import Select from 'react-select';
 import SelectStyle from './tableSelectCSS';
-import './tableSelect.css';
+import styles from './tableSelect.css';
 
 
 const TableSelect = (props) => (
-  <div styleName={classNames('selectContainer', { disabled: props.disabled })}>
+  <div className={clsx(styles.selectContainer, { [styles.disabled]: props.disabled })}>
     <Select
       className="singleSelect"
       styles={SelectStyle}

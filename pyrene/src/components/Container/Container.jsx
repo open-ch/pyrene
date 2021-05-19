@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
-import './container.css';
+import styles from './container.css';
 
 /**
  * Container contain content and actions about a single subject.
@@ -37,18 +37,18 @@ export default class Container extends React.Component {
 
   render() {
     return (
-      <div styleName={classNames('container', { expanded: this.state.expanded || !this.props.collapsible })}>
-        <div styleName={classNames('header', { collapsible: this.props.collapsible })} onClick={this.toggleCollapse} role="button" aria-label="Show or hide container">
-          <span styleName="title" className="unSelectable">
+      <div className={clsx(styles.container, { [styles.expanded]: this.state.expanded || !this.props.collapsible })}>
+        <div className={clsx(styles.header, { [styles.collapsible]: this.props.collapsible })} onClick={this.toggleCollapse} role="button" aria-label="Show or hide container">
+          <span className={clsx(styles.title, 'unSelectable')}>
             {' '}
             {this.props.title}
           </span>
-          <div styleName="arrowContainer">
-            {this.props.collapsible && <span className="pyreneIcon-chevronDown" styleName="collapsArrow" />}
+          <div className={styles.arrowContainer}>
+            {this.props.collapsible && <span className={clsx('pyreneIcon-chevronDown', styles.collapsArrow)} />}
           </div>
         </div>
-        <div styleName="contentContainer" style={{ height: (this.state.expanded || !this.props.collapsible) && this.state.contentHeight ? this.state.contentHeight : null }}>
-          <div styleName="innerContentContainer" ref={(contentRef) => { this.contentRef = contentRef; }}>
+        <div className={styles.contentContainer} style={{ height: (this.state.expanded || !this.props.collapsible) && this.state.contentHeight ? this.state.contentHeight : null }}>
+          <div className={styles.innerContentContainer} ref={(contentRef) => { this.contentRef = contentRef; }}>
             {this.props.renderCallback()}
           </div>
         </div>

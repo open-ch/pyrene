@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
-import './trsStepper.css';
+import styles from './trsStepper.css';
 
 /**
  * Custom steppers for the TRS used for previous/next navigation.
@@ -13,20 +13,17 @@ const TRSStepper = (props) => {
   return (
     <button
       type="button"
-      className="unSelectable"
-      styleName={
-        classNames('stepper',
-          { disabled: props.disabled },
-          { right: props.direction === 'right' },
-          { left: props.direction === 'left' })
-      }
+      className={clsx('unSelectable',
+        styles.stepper,
+        { [styles.disabled]: props.disabled },
+        { [styles.right]: props.direction === 'right' },
+        { [styles.left]: props.direction === 'left' })}
       onClick={props.onClick}
       disabled={props.disabled}
     >
-      <span className={iconName} styleName={
-        classNames('stepperIcon',
-          { disabledIcon: props.inactive })
-      }
+      <span className={clsx(iconName,
+        styles.stepperIcon,
+        { [styles.disabledIcon]: props.inactive })}
       />
     </button>
   );

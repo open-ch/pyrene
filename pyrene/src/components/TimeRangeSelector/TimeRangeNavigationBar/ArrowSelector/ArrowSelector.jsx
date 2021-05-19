@@ -1,21 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import TRSStepper from './TRSStepper/TRSStepper';
-import './arrowSelector.css';
+import styles from './arrowSelector.css';
 
 const ArrowSelector = (props) => (
-  <div styleName="arrowSelector">
+  <div className={styles.arrowSelector}>
     <TRSStepper
       direction="left"
       disabled={props.disabled}
       inactive={props.backInactive}
       onClick={(props.disabled || props.backInactive) ? () => {} : props.onNavigateBack}
     />
-    <div styleName="contentOuter">
-      <div styleName="contentInner" style={{ width: props.innerWidth }}>
-        <div styleName={classNames('value', { disabled: props.disabled })}>
+    <div className={styles.contentOuter}>
+      <div className={styles.contentInner} style={{ width: props.innerWidth }}>
+        <div className={clsx(styles.value, { [styles.disabled]: props.disabled })}>
           {props.label}
         </div>
       </div>

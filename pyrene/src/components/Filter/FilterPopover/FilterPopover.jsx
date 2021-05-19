@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import './filterPopover.css';
+import styles from './filterPopover.css';
 import ButtonBar from '../../ButtonBar/ButtonBar';
 import Button from '../../Button/Button';
 import FilterOption from '../FilterOption/FilterOption';
@@ -10,10 +10,10 @@ import Collapsible from '../../Collapsible/Collapsible';
 /* eslint-disable react/jsx-props-no-spreading */
 
 const FilterPopover = (props) => (
-  <div styleName="filterPopover">
-    <div styleName="title">Select Filter</div>
-    {props.negatable && <div styleName="negateTitle">Negate</div>}
-    <div styleName="filterOptions">
+  <div className={styles.filterPopover}>
+    <div className={styles.title}>Select Filter</div>
+    {props.negatable && <div className={styles.negateTitle}>Negate</div>}
+    <div className={styles.filterOptions}>
       {props.filters.length <= 6
         ? props.filters.map((filter) => (
           <FilterOption {...filter}
@@ -35,7 +35,7 @@ const FilterPopover = (props) => (
                 key={filter.id}
               />
             ))}
-            <div styleName="collapsibleContainer">
+            <div className={styles.collapsibleContainer}>
               <Collapsible
                 align="end"
                 labelCollapsed="More Filter Options"
@@ -54,7 +54,7 @@ const FilterPopover = (props) => (
           </>
         )}
     </div>
-    <div styleName="buttonBarContainer">
+    <div className={styles.buttonBarContainer}>
       <ButtonBar
         rightButtonSectionElements={[
           <Button disabled={Object.keys(props.filterValues).length === 0} label="Clear" type="ghost" onClick={props.onFilterClear} />,

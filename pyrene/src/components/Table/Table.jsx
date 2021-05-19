@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ReactTable from 'react-table';
 import checkboxHOC from 'react-table/lib/hoc/selectTable';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
-import './table.css';
+import styles from './table.css';
 import TablePagination from './TablePagination/TablePagination';
 import Button from '../Button/Button';
 import Loader from '../Loader/Loader';
@@ -22,7 +22,7 @@ import Banner from '../Banner/Banner';
 
 const CheckboxTable = checkboxHOC(ReactTable);
 
-const ErrorComponent = ({ error }) => (<div styleName="customTableBody"><Banner label={error} type="error" styling="inline" /></div>);
+const ErrorComponent = ({ error }) => (<div className={styles.customTableBody}><Banner label={error} type="error" styling="inline" /></div>);
 
 ErrorComponent.defaultProps = {
   error: null,
@@ -33,12 +33,12 @@ ErrorComponent.propTypes = {
 };
 
 const LoaderComponent = () => (
-  <div styleName="loader">
+  <div className={styles.loader}>
     <Loader size="large" type="inline" />
   </div>
 );
 
-const NoDataComponent = () => (<div styleName="customTableBody">No data found.</div>);
+const NoDataComponent = () => (<div className={styles.customTableBody}>No data found.</div>);
 
 /**
  * Tables are used to display tabular data. Tables come with pagination and sorting functionality and also allows the user to toggle columns.
@@ -348,15 +348,15 @@ export default class Table extends React.Component {
   render() {
 
     return (
-      <div styleName="tableContainer">
+      <div className={styles.tableContainer}>
         {this.props.title && (
-          <div styleName="titleBar">
+          <div className={styles.titleBar}>
             {this.props.title}
           </div>
         )}
 
-        <div styleName={classNames('filterBar', { loading: this.props.loading, disabled: this.props.disabled })}>
-          <div styleName="filterContainer">
+        <div className={clsx(styles.filterBar, { [styles.loading]: this.props.loading, [styles.disabled]: this.props.disabled })}>
+          <div className={styles.filterContainer}>
             {(this.props.filters.length > 0 || this.props.filterDisabled)
               && (
                 <Filter
@@ -379,14 +379,14 @@ export default class Table extends React.Component {
           )}
         </div>
 
-        <div styleName={classNames('tableAndActions', { disabled: this.props.disabled })}>
+        <div className={clsx(styles.tableAndActions, { [styles.disabled]: this.props.disabled })}>
 
           {this.props.actions.length > 0 && (
-            <div styleName="toolbar">
+            <div className={styles.toolbar}>
               {this.props.actions.map((action, index) => (
                 <React.Fragment key={action.label}>
                   <Button label={action.label} icon={action.icon ? action.icon : undefined} onClick={() => action.callback(this.state.selection)} type="action" disabled={!this.handleActionAvailability(action.active)} loading={action.loading ? action.loading : false} />
-                  {index + 1 < this.props.actions.length && <div styleName="spacer" />}
+                  {index + 1 < this.props.actions.length && <div className={styles.spacer} />}
                 </React.Fragment>
               ))}
             </div>

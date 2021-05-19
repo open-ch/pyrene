@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
-import './tableCell.css';
+import styles from './tableCell.css';
 
 const TableCell = (props) => (
-  <div styleName="tableCell" className="rt-td" role="gridcell" style={props.style} onClick={props.onClick}>
-    <div styleName={classNames('tableData', { multiSelect: props.multiSelect })} style={{ overflow: props.style.overflow }}>{props.children}</div>
+  <div className={clsx(styles.tableCell, 'rt-td')} role="gridcell" style={props.style} onClick={props.onClick}>
+    <div className={clsx(styles.tableData, { [styles.multiSelect]: props.multiSelect })} style={{ overflow: props.style.overflow }}>{props.children}</div>
   </div>
 );
 

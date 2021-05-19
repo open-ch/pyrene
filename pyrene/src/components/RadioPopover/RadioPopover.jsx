@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
-import './radioPopover.css';
+import styles from './radioPopover.css';
 import Popover from '../Popover/Popover';
 import OptionList from './OptionList';
 
@@ -37,7 +37,7 @@ export default class RadioPopover extends React.Component {
     const selectedValue = options.find((option) => option.value === value);
 
     return (
-      <div styleName="radioPopover">
+      <div className={styles.radioPopover}>
         <Popover
           preferredPosition={['bottom']}
           align="end"
@@ -56,13 +56,12 @@ export default class RadioPopover extends React.Component {
             />
           )}
         >
-          <div styleName={classNames('popoverTriggerButton', { popoverOpen: this.state.displayPopover })} onClick={this.togglePopover}>
-            <div styleName="buttonLabel" className="unSelectable">
+          <div className={clsx(styles.popoverTriggerButton, { [styles.popoverOpen]: this.state.displayPopover })} onClick={this.togglePopover}>
+            <div className={clsx(styles.buttonLabel, 'unSelectable')}>
               {renderLabel(selectedValue)}
             </div>
             <div
-              styleName="arrowIcon"
-              className={this.state.displayPopover ? 'pyreneIcon-chevronUp' : 'pyreneIcon-chevronDown'}
+              className={clsx(styles.arrowIcon, { 'pyreneIcon-chevronUp': this.state.displayPopover, 'pyreneIcon-chevronDown': !this.state.displayPopover })}
             />
           </div>
         </Popover>

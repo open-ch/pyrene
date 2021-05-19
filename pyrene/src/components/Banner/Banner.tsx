@@ -1,10 +1,9 @@
 import React from 'react';
-
-import className from 'classnames';
+import clsx from 'clsx';
 
 import Loader from '../Loader/Loader';
 
-import './banner.css';
+import styles from './banner.css';
 
 export type StylingType = 'standard' | 'inline' | 'overlay';
 
@@ -48,18 +47,18 @@ const Banner: React.FC<BannerProps> = ({
   type,
 }: BannerProps) => (
   <div
-    styleName={className('banner', `type-${type}`, `style-${styling}`)}
+    className={clsx(styles.banner, styles[`type-${type}`], styles[`style-${styling}`])}
     role="banner"
   >
-    <div styleName="iconMessageContainer">
-      <span styleName="bannerIcon">{type === 'loading' ? <Loader size="small" /> : <span className={`pyreneIcon-${type}`} />}</span>
-      <div styleName="spacer" />
-      <div styleName="textBox">
-        <div styleName="message">{label}</div>
-        {styling !== 'inline' && <div styleName="description">{children}</div>}
+    <div className={styles.iconMessageContainer}>
+      <span className={styles.bannerIcon}>{type === 'loading' ? <Loader size="small" /> : <span className={`pyreneIcon-${type}`} />}</span>
+      <div className={styles.spacer} />
+      <div className={styles.textBox}>
+        <div className={styles.message}>{label}</div>
+        {styling !== 'inline' && <div className={styles.description}>{children}</div>}
       </div>
     </div>
-    {styling === 'overlay' && onClear && <span className="pyreneIcon-delete" styleName="clearIcon" onClick={onClear} role="button" aria-label="Clear Banner" />}
+    {styling === 'overlay' && onClear && <span className={clsx('pyreneIcon-delete', styles.clearIcon)} onClick={onClear} role="button" aria-label="Clear Banner" />}
   </div>
 );
 

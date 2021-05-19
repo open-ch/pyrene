@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
-import classNames from 'classnames';
-import './buttonBar.css';
+import clsx from 'clsx';
+import styles from './buttonBar.css';
 import { ButtonProps } from '../Button/Button';
 
 export interface ButtonBarProps {
@@ -14,19 +14,19 @@ const ButtonBar: React.FC<ButtonBarProps> = ({
   leftButtonSectionElements = [],
   rightButtonSectionElements = [],
 }: ButtonBarProps) => (
-  <div styleName={classNames('buttonBar', { noPadding: noPadding })}>
-    <div styleName="leftButtonSection">
+  <div className={clsx(styles.buttonBar, { [styles.noPadding]: noPadding })}>
+    <div className={styles.leftButtonSection}>
       {leftButtonSectionElements.map((element) => (
         <React.Fragment key={`${element.props.type || 'undefined'}-${element.props.label as string}`}>
           {element}
-          <div styleName="spacer" />
+          <div className={styles.spacer} />
         </React.Fragment>
       ))}
     </div>
-    <div styleName="rightButtonSection">
+    <div className={styles.rightButtonSection}>
       {rightButtonSectionElements.map((element, index) => (
         <React.Fragment key={`${element.props.type || 'undefined'}-${element.props.label as string}`}>
-          {index !== 0 && <div styleName="spacer" />}
+          {index !== 0 && <div className={styles.spacer} />}
           {element}
         </React.Fragment>
       ))}

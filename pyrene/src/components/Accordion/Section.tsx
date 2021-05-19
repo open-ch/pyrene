@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import Icon, { IconProps } from '../Icon/Icon';
-import './accordion.css';
+import styles from './accordion.css';
 
 export interface SectionProps {
   /**
@@ -31,20 +31,20 @@ const Section: React.FC<SectionProps> = ({
   const [expanded, setExpanded] = useState(initiallyExpanded);
 
   return (
-    <div styleName={classNames('section', { expanded, collapsed: !expanded })}>
-      <div styleName="header" onClick={() => setExpanded(!expanded)}>
-        {iconProps && <span styleName="icon"><Icon {...iconProps} type="inline" /></span>}
+    <div className={clsx(styles.section, { [styles.expanded]: expanded, [styles.collapsed]: !expanded })}>
+      <div className={styles.header} onClick={() => setExpanded(!expanded)}>
+        {iconProps && <span className={styles.icon}><Icon {...iconProps} type="inline" /></span>}
 
-        <div styleName="title">
+        <div className={styles.title}>
           {typeof title === 'string'
-            ? <div styleName="text-title">{title}</div>
+            ? <div className={styles['text-title']}>{title}</div>
             : title()}
         </div>
 
-        <span styleName="chevron" className={`pyreneIcon-${expanded ? 'chevronUp' : 'chevronDown'}`} />
+        <span className={clsx(styles.chevron, { 'pyreneIcon-chevronUp': expanded, 'pyreneIcon-chevronDown': !expanded })} />
       </div>
 
-      {expanded && <div styleName="content">{renderContent()}</div>}
+      {expanded && <div className={styles.content}>{renderContent()}</div>}
     </div>
   );
 };

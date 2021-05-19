@@ -1,8 +1,7 @@
 import React from 'react';
-import classNames from 'classnames';
-import SVG from 'react-svg-inline';
+import clsx from 'clsx';
 
-import './radioSelection.css';
+import styles from './radioSelection.css';
 
 import iconNormal from './radio-blank.svg';
 import iconNormalHover from './radio-hover.svg';
@@ -77,13 +76,13 @@ const getRadioIcon = (
   hovered?: boolean,
 ) => {
   const iconKey = !disabled && hovered ? 'hover' : 'default';
-  let icon = iconMap.normal[iconKey];
+  let Icon = iconMap.normal[iconKey];
   if (invalid) {
-    icon = iconMap.invalid[iconKey];
+    Icon = iconMap.invalid[iconKey];
   } else if (checked) {
-    icon = iconMap.checked[iconKey];
+    Icon = iconMap.checked[iconKey];
   }
-  return <SVG svg={icon} />;
+  return <Icon />;
 };
 
 /**
@@ -113,7 +112,7 @@ const RadioButton: React.FC<RadioButtonProps> = ({
   return (
     <React.Fragment key={key}>
       <input
-        styleName="radioInput"
+        className={styles.radioInput}
         checked={checked}
         id={id != null ? id : htmlId}
         name={name}
@@ -126,12 +125,11 @@ const RadioButton: React.FC<RadioButtonProps> = ({
 
       <label
         htmlFor={id != null ? id : htmlId}
-        styleName={
-          classNames('radioLabel',
-            { disabled: disabled })
+        className={
+          clsx(styles.radioLabel, { [styles.disabled]: disabled })
         }
       >
-        <span styleName="radioIcon">
+        <span className={styles.radioIcon}>
           {getRadioIcon({
             checked: checked,
             disabled: disabled,

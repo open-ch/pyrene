@@ -1,19 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import TreeTablePropTypes from '../TreeTablePropTypes';
 
-import './treeTableCell.css';
+import styles from './treeTableCell.css';
 
 export default class TreeTableCell extends React.PureComponent {
 
   render() {
     return (
-      <div style={this.props.style} styleName="treeTableCell">
+      <div style={this.props.style} className={styles.treeTableCell}>
 
         {this.props.firstColumn && (this.props.parent
-          ? <div styleName={classNames('pivotIcon', { sectionOpen: this.props.sectionOpen })} className="pyreneIcon-chevronDown" onClick={this.props.onExpandClick} />
-          : <div styleName="iconSpaceholder" />
+          ? <div className={clsx(styles.pivotIcon, { [styles.sectionOpen]: this.props.sectionOpen }, 'pyreneIcon-chevronDown')} onClick={this.props.onExpandClick} />
+          : <div className={styles.iconSpaceholder} />
         )}
 
         {/* Use renderCallback if there is one defined for this column */}
@@ -21,7 +21,7 @@ export default class TreeTableCell extends React.PureComponent {
         {this.props.columnProps.renderCallback
           ? this.props.columnProps.renderCallback(this.props.value, this.props.rowData)
           : (
-            <div styleName="cellDataContainer" title={this.props.value}>
+            <div className={styles.cellDataContainer} title={this.props.value}>
               {this.props.value}
             </div>
           )}

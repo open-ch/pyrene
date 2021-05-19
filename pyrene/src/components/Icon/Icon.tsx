@@ -1,8 +1,8 @@
 /* eslint-disable react/require-default-props */
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import colorConstants from '../../styles/colorConstants';
-import './icon.css';
+import styles from './icon.css';
 
 export interface IconProps {
   /**
@@ -33,13 +33,12 @@ const Icon: React.FC<IconProps> = ({
   svg = '',
 }: IconProps) => (
   svg.length > 0 ? (
-    <div styleName={classNames('icon', `type-${type}`)}>
-      <img styleName="svgIcon" src={svg} alt="icon" />
+    <div className={clsx(styles.icon, styles[`type-${type}`])}>
+      <img className={styles.svgIcon} src={svg} alt="icon" />
     </div>
   ) : (
     <div
-      styleName={classNames('icon', `type-${type}`)}
-      className={`pyreneIcon-${name}`}
+      className={clsx(styles.icon, styles[`type-${type}`], `pyreneIcon-${name}`)}
       style={{ color: color in colorConstants ? colorConstants[color as keyof typeof colorConstants] : color }}
     />
   )

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import './textField.css';
+import clsx from 'clsx';
+import styles from './textField.css';
 
 /**
  * A text field allows the user to enter and edit text or numeric values in one line.
@@ -12,12 +12,12 @@ import './textField.css';
  * In this case, use the date picker, date range selection, or date/time picker. For entering long texts use the textarea component.
  */
 const TextField = (props) => (
-  <div styleName={classNames('textFieldContainer', { disabled: props.disabled }, { invalid: props.invalid && !props.disabled })} style={{ width: (props.width >= 0) ? `${props.width}px` : '100%' }}>
-    {props.title && <div styleName={classNames('textFieldTitle', { required: props.required && !props.disabled })}>{props.title}</div>}
-    <div styleName="textFieldIconLayoutContainer">
+  <div className={clsx(styles.textFieldContainer, { [styles.disabled]: props.disabled }, { [styles.invalid]: (props.invalid && !props.disabled) })} style={{ width: (props.width >= 0) ? `${props.width}px` : '100%' }}>
+    {props.title && <div className={clsx(styles.textFieldTitle, { [styles.required]: (props.required && !props.disabled) })}>{props.title}</div>}
+    <div className={styles.textFieldIconLayoutContainer}>
 
       <input
-        styleName={classNames('textField', { filled: props.value })}
+        className={clsx(styles.textField, { [styles.filled]: props.value })}
         type={props.secret ? 'password' : 'text'}
         name={props.name}
         placeholder={props.placeholder}
@@ -37,13 +37,13 @@ const TextField = (props) => (
         onFocus={props.onFocus}
         autoFocus={props.autoFocus} // eslint-disable-line jsx-a11y/no-autofocus
       />
-      {/* Future use of an api with predefined icons - <span className={`pyreneIcon-${props.icon}`} styleName={'textFieldIcon'} /> */}
+      {/* Future use of an api with predefined icons - <span className={clsx(`pyreneIcon-${props.icon}`, styles.textFieldIcon)} /> */}
     </div>
 
     {props.invalid && props.invalidLabel && !props.disabled
       ? (
-        <div styleName="invalidLabel">
-          <span className="pyreneIcon-errorOutline" styleName="errorIcon" />
+        <div className={styles.invalidLabel}>
+          <span className={clsx('pyreneIcon-errorOutline', styles.errorIcon)} />
           {props.invalidLabel}
         </div>
       )
@@ -51,7 +51,7 @@ const TextField = (props) => (
         <>
           {props.helperLabel
         && (
-          <div styleName="textFieldHelper">
+          <div className={styles.textFieldHelper}>
             {props.helperLabel}
           </div>
         )}

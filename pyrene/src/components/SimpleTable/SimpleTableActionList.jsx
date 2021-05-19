@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Popover from '../Popover/Popover';
-import './simpleTableActionList.css';
+import styles from './simpleTableActionList.css';
 import Icon from '../Icon/Icon';
 
 const SimpleTableActionList = (props) => {
@@ -17,10 +17,10 @@ const SimpleTableActionList = (props) => {
       align="end"
       distanceToTarget={14}
       renderPopoverContent={() => (
-        <div styleName="actionMenuContainer">
+        <div className={styles.actionMenuContainer}>
           {props.actions.map((element) => (
             <a
-              styleName="actionLink"
+              className={styles.actionLink}
               key={`${element.label}_actionLink`}
               href="#"
               onClick={(e) => {
@@ -42,8 +42,8 @@ const SimpleTableActionList = (props) => {
       onClickOutside={onClose}
       autoReposition
     >
-      <div styleName="popOverPlaceholder">
-        <div styleName="action" className="action"
+      <div className={styles.popOverPlaceholder}>
+        <div className={styles.action}
           onClick={(e) => {
             e.preventDefault();
             e.stopPropagation();
@@ -51,9 +51,7 @@ const SimpleTableActionList = (props) => {
           }}
           onDoubleClick={(e) => { e.stopPropagation(); }}
         >
-          {<Icon
-            name="moreHorizontal"
-          />}
+          <Icon name="moreHorizontal" />
         </div>
       </div>
     </Popover>

@@ -1,7 +1,7 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
-import './button.css';
+import styles from './button.css';
 import Loader from '../Loader/Loader';
 
 export type Type = 'primary' | 'secondary' | 'danger' | 'ghost' | 'action' | 'success';
@@ -48,25 +48,24 @@ const Button: React.FC<ButtonProps> = ({
   onClick = () => null,
   label,
 }: ButtonProps) => (
-  <div styleName="buttonContainer">
+  <div className={styles.buttonContainer}>
     <button
       type="submit"
-      className="unSelectable"
-      styleName={
-        classNames('button',
-          { [`type-${type}`]: true },
-          { disabled: disabled },
-          { loading: loading })
+      className={
+        clsx('unSelectable', styles.button,
+          styles[`type-${type}`],
+          { [styles.disabled]: disabled },
+          { [styles.loading]: loading })
       }
       onClick={onClick}
       disabled={disabled}
     >
-      {icon && <span styleName="icon" className={`pyreneIcon-${icon}`} />}
-      <span styleName="label">{label}</span>
+      {icon && <span className={clsx(styles.icon, `pyreneIcon-${icon}`)} />}
+      <span className={styles.label}>{label}</span>
     </button>
     {loading && ((type === 'primary' || type === 'danger' || type === 'success')
-      ? <span styleName="loader"><Loader size="small" styling="light" /></span>
-      : <span styleName="loader"><Loader size="small" styling="dark" /></span>)}
+      ? <span className={styles.loader}><Loader size="small" styling="light" /></span>
+      : <span className={styles.loader}><Loader size="small" styling="dark" /></span>)}
   </div>
 );
 

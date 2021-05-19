@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { TooltipWrapper } from '@osag/tuktuktwo';
 import TooltipLegendItem from './TooltipLegendItem';
 import styles from './tooltip.css';
@@ -13,7 +13,7 @@ const Tooltip = ({
 }) => (
   <TooltipWrapper left={left} top={top} overflow={overflow}>
     <div className={styles.tooltip}>
-      <div className={classNames({ [styles.label]: label && label.length > 0, [styles.labelPadding]: data.length > 0 })}>{label}</div>
+      <div className={clsx({ [styles.label]: label && label.length > 0, [styles.labelPadding]: data.length > 0 })}>{label}</div>
       {
         data.map((e) => <TooltipLegendItem key={e.dataLabel ? e.dataLabel : e.dataValue} dataColor={e.dataColor} dataLabel={e.dataLabel} dataValue={e.dataValue} />)
       }

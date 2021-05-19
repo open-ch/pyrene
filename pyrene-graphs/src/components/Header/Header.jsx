@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import './header.css';
 
@@ -19,7 +19,7 @@ const Header = (props) => (
           </div>
         )}
         {props.legend && props.legend.length > 0 && (
-          <div styleName={classNames('legend', { legendLeft: props.description === '' })}>
+          <div styleName={clsx('legend', { legendLeft: props.description === '' })}>
             {props.legend.map((item, index) => (
               <div
                 key={item.label}

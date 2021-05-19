@@ -1,9 +1,9 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import Stepper from '../../Stepper/Stepper';
 import TableSelect from './TableSelect/TableSelect';
 
-import './tablePagination.css';
+import styles from './tablePagination.css';
 
 const showAmountOfResults = (data, numberOfResults, loading) => {
   if (loading) {
@@ -17,15 +17,15 @@ const showAmountOfResults = (data, numberOfResults, loading) => {
 /* props are controlled by the parent component of react-table */
 
 const TablePagination = (props) => (
-  <div styleName="tablePagination">
-    <div styleName="resultsCounter">
+  <div className={styles.tablePagination}>
+    <div className={styles.resultsCounter}>
       {showAmountOfResults(props.data, props.numberOfResults, props.loading)}
     </div>
 
-    <div styleName="separator" />
+    <div className={styles.separator} />
 
-    <div styleName="pageSizeSelectOptions">
-      <div styleName="pageSizeSelect">
+    <div className={styles.pageSizeSelectOptions}>
+      <div className={styles.pageSizeSelect}>
         <TableSelect
           placeholder={`${props.pageSize}`}
           options={props.pageSizeOptions.map((e) => ({ label: `${e}`, value: `${e}` }))}
@@ -35,19 +35,19 @@ const TablePagination = (props) => (
           disabled={(!(props.data && props.data.length) || !!props.error)}
         />
       </div>
-      <div styleName="spacer small" />
+      <div className={clsx(styles.spacer, styles.small)} />
       per page
     </div>
 
-    <div styleName="separator" />
+    <div className={styles.separator} />
 
-    <div styleName="pageNavigation">
+    <div className={styles.pageNavigation}>
       <Stepper direction="left" disabled={!props.canPrevious || !!props.error} onClick={() => props.onPageChange(props.page - 1)} type="minimal" />
-      <div styleName="spacer small" />
-      <div styleName={classNames('pageTracker', { disabled: !!props.error })}>
+      <div className={clsx(styles.spacer, styles.small)} />
+      <div className={clsx(styles.pageTracker, { [styles.disabled]: !!props.error })}>
         {props.pages > 0 && !props.error ? `${props.page + 1} of ${props.pages}` : '1 of 1'}
       </div>
-      <div styleName="spacer small" />
+      <div className={clsx(styles.spacer, styles.small)} />
       <Stepper direction="right" disabled={!props.canNext || !!props.error} onClick={() => props.onPageChange(props.page + 1)} type="minimal" />
     </div>
   </div>

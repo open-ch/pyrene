@@ -1,6 +1,6 @@
 import React from 'react';
-import classNames from 'classnames';
-import './textArea.css';
+import clsx from 'clsx';
+import styles from './textArea.css';
 
 export interface TextAreaProps {
   /**
@@ -97,19 +97,19 @@ const TextArea: React.FC<TextAreaProps> = ({
   return (
     <div
       style={{ width: width }}
-      styleName={classNames(
-        'textAreaContainer',
-        { disabled: disabled },
-        { invalid: invalid && !disabled },
-        { full: characterLimitReached && !disabled && maxLength > 0 },
+      className={clsx(
+        styles.textAreaContainer,
+        { [styles.disabled]: disabled },
+        { [styles.invalid]: (invalid && !disabled) },
+        { [styles.full]: (characterLimitReached && !disabled && maxLength > 0) },
       )}
     >
-      <div styleName="textAreaTitleBar">
-        {title && <span styleName={classNames('textAreaTitle', { required: required && !disabled })}>{title}</span>}
-        {maxLength > 0 && <span styleName="characterCounter">{characterCount}</span>}
+      <div className={styles.textAreaTitleBar}>
+        {title && <span className={clsx(styles.textAreaTitle, { [styles.required]: (required && !disabled) })}>{title}</span>}
+        {maxLength > 0 && <span className={styles.characterCounter}>{characterCount}</span>}
       </div>
       <textarea
-        styleName={classNames('textArea', { resizeable: resizeable }, { filled: value })}
+        className={clsx(styles.textArea, { [styles.resizeable]: resizeable }, { [styles.filled]: value })}
         name={name}
         placeholder={placeholder}
         rows={rows}
@@ -122,8 +122,8 @@ const TextArea: React.FC<TextAreaProps> = ({
 
       {(invalid && invalidLabel && !disabled)
         ? (
-          <div styleName="invalidLabel">
-            <span className="pyreneIcon-errorOutline" styleName="errorIcon" />
+          <div className={styles.invalidLabel}>
+            <span className={clsx('pyreneIcon-errorOutline', styles.errorIcon)} />
             {invalidLabel}
           </div>
         )
@@ -131,7 +131,7 @@ const TextArea: React.FC<TextAreaProps> = ({
           <>
             {helperLabel
           && (
-            <div styleName="textAreaHelper">
+            <div className={styles.textAreaHelper}>
               {helperLabel}
             </div>
           )}
