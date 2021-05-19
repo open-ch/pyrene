@@ -28,7 +28,6 @@
   font-weight: 500;
   line-height: 16px;
   letter-spacing: 0px;
-  text-transform: capitalize;
   position: relative;
 
   & .icon {

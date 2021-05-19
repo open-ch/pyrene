@@ -7,7 +7,7 @@ Link.props = {
 
 Link.examples = [
   {
-    props: { label: 'standalone', path: '#' },
+    props: { label: 'Standalone', path: '#' },
     description: '',
   }, {
     props: { type: 'inline', label: 'inline link', path: '#' },
