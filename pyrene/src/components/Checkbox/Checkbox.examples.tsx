@@ -7,14 +7,14 @@ export interface State {
 
 const examples: Example<CheckboxProps, State> = {
   props: {
-    label: 'Check me please',
+    label: 'Check Me Please',
     onChange: (stateProvider: StateProvider<State>) => (value: boolean) => stateProvider.setState({ value }),
     value: (stateProvider: StateProvider<State>) => stateProvider.state.value,
   },
   examples: [
     {
       props: {
-        label: 'Hover to show tooltip',
+        label: 'Hover To Show Tooltip',
         tooltip: 'Hovered',
         onChange: (stateProvider: StateProvider<State>) => (value: boolean) => stateProvider.setState({ value }),
         value: (stateProvider: StateProvider<State>) => stateProvider.state.value,
@@ -23,7 +23,7 @@ const examples: Example<CheckboxProps, State> = {
     },
     {
       props: {
-        label: 'Required to check',
+        label: 'Required To Check',
         required: true,
         onChange: (stateProvider: StateProvider<State>) => (value: boolean) => stateProvider.setState({ value }),
         value: (stateProvider: StateProvider<State>) => stateProvider.state.value,
