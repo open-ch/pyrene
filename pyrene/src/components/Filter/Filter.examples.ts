@@ -43,40 +43,40 @@ const testOptions: Array<Option> = [
 
 const initialFilters: Array<Filter> = [
   {
-    label: 'first', type: 'singleSelect', id: 'testKey', options: testOptions,
+    label: 'First', type: 'singleSelect', id: 'testKey', options: testOptions,
   },
   {
-    label: 'second', type: 'multiSelect', id: 'testKey2', options: testOptions,
+    label: 'Second', type: 'multiSelect', id: 'testKey2', options: testOptions,
   },
   {
-    label: 'third', type: 'text', id: 'testKey3', options: null,
+    label: 'Third', type: 'text', id: 'testKey3', options: null,
   },
   {
-    label: 'fourth', type: 'text', id: 'testKey4', options: null,
+    label: 'Fourth', type: 'text', id: 'testKey4', options: null,
   },
   {
-    label: 'fifth', type: 'text', id: 'testKey5', options: null,
+    label: 'Fifth', type: 'text', id: 'testKey5', options: null,
   },
   {
-    label: 'sixth', type: 'text', id: 'testKey6', options: null,
+    label: 'Sixth', type: 'text', id: 'testKey6', options: null,
   },
   {
-    label: 'seventh', type: 'text', id: 'testKey7', options: null,
+    label: 'Seventh', type: 'text', id: 'testKey7', options: null,
   },
   {
-    label: 'eighth', type: 'text', id: 'testKey8', options: null,
+    label: 'Eighth', type: 'text', id: 'testKey8', options: null,
   },
   {
-    label: 'ninth', type: 'text', id: 'testKey9', options: null,
+    label: 'Ninth', type: 'text', id: 'testKey9', options: null,
   },
   {
-    label: 'tenth', type: 'text', id: 'testKey10', options: null,
+    label: 'Tenth', type: 'text', id: 'testKey10', options: null,
   },
   {
-    label: 'eleventh', type: 'text', id: 'testKey11', options: null,
+    label: 'Eleventh', type: 'text', id: 'testKey11', options: null,
   },
   {
-    label: 'twelfth', type: 'text', id: 'testKey12', options: null,
+    label: 'Twelfth', type: 'text', id: 'testKey12', options: null,
   },
 ];
 

@@ -166,7 +166,6 @@
         line-height: 16px;
         letter-spacing: normal;
         color: var(--neutral-500);
-        text-transform: capitalize;
 
         &.disabled {
           opacity: .5;
