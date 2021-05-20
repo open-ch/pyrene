@@ -62,15 +62,15 @@
     "webpack-dev-server": "^3.10.3"
   },
   "dependencies": {
+    "@osag/pyrene": "2.13.6",
+    "@osag/pyrene-graphs": "1.1.10",
     "babel-polyfill": "^6.26.0",
-    "classnames": "^2.2.6",
+    "clsx": "^1.1.1",
     "markdown-to-jsx": "^6.11.0",
     "moment": "^2.24.0",
     "moment-timezone": "^0.5.28",
     "optimize-css-assets-webpack-plugin": "^5.0.3",
     "prop-types": "^15.7.2",
-    "@osag/pyrene": "2.13.6",
-    "@osag/pyrene-graphs": "1.1.10",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-select": "^3.1.0",

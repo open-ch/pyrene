@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
-import './descriptionBox.css';
+import styles from './descriptionBox.css';
 
 const DescriptionBox = (props) => (
-  <div styleName="descriptionBox">
+  <div className={styles.descriptionBox}>
     {props.children}
   </div>
 );

@@ -1,12 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
-
-import './paragraph.css';
+import styles from './paragraph.css';
 
 const Paragraph = (props) => (
-  <div styleName={classNames('paragraph')}>
-    {props.title && <div styleName="title">{props.title}</div>}
+  <div className={styles.paragraph}>
+    {props.title && <div className={styles.title}>{props.title}</div>}
     <div>
       {props.children}
     </div>

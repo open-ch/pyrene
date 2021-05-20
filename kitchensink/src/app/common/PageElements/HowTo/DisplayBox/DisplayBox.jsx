@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
-import './displayBox.css';
+import styles from './displayBox.css';
 
 const DisplayBox = (props) => (
-  <div styleName="displayBox">
-    <div styleName="positioningBox" style={{ width: props.width }}>
+  <div className={styles.displayBox}>
+    <div className={styles.positioningBox} style={{ width: props.width }}>
       {props.children}
     </div>
   </div>

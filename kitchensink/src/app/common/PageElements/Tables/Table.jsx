@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
-import './table.css';
+import styles from './table.css';
 
 export default class Table extends React.Component {
 
@@ -15,15 +14,15 @@ export default class Table extends React.Component {
       returnedCell = cell.replace(/'/g, '');
     }
     if (typeof cell === 'object') {
-      return <td key={returnedCell}><div styleName="propModifierCell">{returnedCell}</div></td>;
+      return <td key={returnedCell}><div className={styles.propModifierCell}>{returnedCell}</div></td>;
     }
-    return <td key={returnedCell}><div styleName="cell" title={returnedCell}>{returnedCell}</div></td>;
+    return <td key={returnedCell}><div className={styles.cell} title={returnedCell}>{returnedCell}</div></td>;
   }
 
   render() {
     return (
-      <div styleName="table_container">
-        <div styleName="title">{this.props.title}</div>
+      <div className={styles.table_container}>
+        <div className={styles.title}>{this.props.title}</div>
         <table cellPadding={0} cellSpacing={0}>
           <colgroup>
             {this.props.cellWidthArray.map((width, index) => <col style={{ width: width }} key={this.props.headerElementArray[index]} />)}
@@ -39,8 +38,8 @@ export default class Table extends React.Component {
                 <tr>
                   {row.slice(0, 5).map((cell) => this.renderCell(cell))}
                 </tr>
-                <tr styleName="descriptionRow">
-                  <td colSpan={5}><div styleName="descriptionCell">{row[5]}</div></td>
+                <tr className={styles.descriptionRow}>
+                  <td colSpan={5}><div className={styles.descriptionCell}>{row[5]}</div></td>
                 </tr>
               </React.Fragment>
             ))}

@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../../css/componentPage.css';
+import styles from '../../../css/componentPage.css';
 import Paragraph from '../../common/PageElements/Paragraph/Paragraph';
 import ColorBox from '../../common/PageElements/FoundationElements/ColorBox/ColorBox';
 import DescriptionBox from '../../common/PageElements/DescriptionBox/DescriptionBox';
@@ -30,17 +30,17 @@ const createStackedColors = (data, colorBoxSize) => data.map((element) => (
 ));
 
 const ColorsPage = () => (
-  <div styleName="page">
-    <div styleName="header">
-      <div styleName="title">Colors</div>
-      <div styleName="description">
+  <div className={styles.page}>
+    <div className={styles.header}>
+      <div className={styles.title}>Colors</div>
+      <div className={styles.description}>
         Our color palette contains primary, neutrals, interaction colors as well as qualitative and sequential color schemes used for data visualizations.
         They’ve been designed to work harmoniously with each other.
         The color palette starts with a base color (500) and fills in the spectrum to create a complete and usable palette.
       </div>
     </div>
 
-    <div styleName="topicContent">
+    <div className={styles.topicContent}>
       <Paragraph title="Primary Colors">
         <DescriptionBox>
           The primary colors give our applications the characteristic look and feel.
