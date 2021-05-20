@@ -1,13 +1,14 @@
 import { FilterProps } from './Filter';
 import { Example, StateProvider } from '../../examples/Example';
-import { Filter, Option } from './types';
+import { Filter } from './types';
+import { SingleSelectOption } from '../SingleSelect/SingleSelectTypes';
 
 export interface State {
   filters: FilterProps['filters'],
   filterValues: FilterProps['filterValues']
 }
 
-const testOptions: Array<Option> = [
+const testOptions: Array<SingleSelectOption<string>> = [
   { value: 'chocolate', label: 'Chocolate' },
   { value: 'strawberry', label: 'Strawberry' },
   { value: 'vanilla', label: 'Vanilla' },
@@ -43,40 +44,40 @@ const testOptions: Array<Option> = [
 
 const initialFilters: Array<Filter> = [
   {
-    label: 'First', type: 'singleSelect', id: 'testKey', options: testOptions,
+    label: 'First', type: 'singleSelect', id: 'testKey', options: testOptions as any,
   },
   {
-    label: 'Second', type: 'multiSelect', id: 'testKey2', options: testOptions,
+    label: 'Second', type: 'multiSelect', id: 'testKey2', options: testOptions as any,
   },
   {
-    label: 'Third', type: 'text', id: 'testKey3', options: null,
+    label: 'Third', type: 'text', id: 'testKey3',
   },
   {
-    label: 'Fourth', type: 'text', id: 'testKey4', options: null,
+    label: 'Fourth', type: 'text', id: 'testKey4',
   },
   {
-    label: 'Fifth', type: 'text', id: 'testKey5', options: null,
+    label: 'Fifth', type: 'text', id: 'testKey5',
   },
   {
-    label: 'Sixth', type: 'text', id: 'testKey6', options: null,
+    label: 'Sixth', type: 'text', id: 'testKey6',
   },
   {
-    label: 'Seventh', type: 'text', id: 'testKey7', options: null,
+    label: 'Seventh', type: 'text', id: 'testKey7',
   },
   {
-    label: 'Eighth', type: 'text', id: 'testKey8', options: null,
+    label: 'Eighth', type: 'text', id: 'testKey8',
   },
   {
-    label: 'Ninth', type: 'text', id: 'testKey9', options: null,
+    label: 'Ninth', type: 'text', id: 'testKey9',
   },
   {
-    label: 'Tenth', type: 'text', id: 'testKey10', options: null,
+    label: 'Tenth', type: 'text', id: 'testKey10',
   },
   {
-    label: 'Eleventh', type: 'text', id: 'testKey11', options: null,
+    label: 'Eleventh', type: 'text', id: 'testKey11',
   },
   {
-    label: 'Twelfth', type: 'text', id: 'testKey12', options: null,
+    label: 'Twelfth', type: 'text', id: 'testKey12',
   },
 ];
 
