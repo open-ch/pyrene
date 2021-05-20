@@ -31,6 +31,7 @@
 
   & thead tr .base-column {
     text-align: left;
+    color: var(--neutral-400);
   }  
 }
 

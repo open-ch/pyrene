@@ -13,7 +13,7 @@ const ColorRow = (props) => (
           <thead>
             <tr>
               {
-                props.title.length > 0 && <th key="base-col-header" style={{ width: (props.rowHeader.width ? props.rowHeader.width : 'auto') }} styleName={classNames('title', props.rowSize, 'base-column')}>{props.title}</th>
+                props.title.length > 0 && <th style={{ width: props.rowHeader.width || 'auto' }} styleName={classNames('title', props.rowSize, 'base-column')}>{props.title}</th>
               }
               {
                 props.preColumns > 0
@@ -42,7 +42,7 @@ const ColorRow = (props) => (
           {
             (props.rowHeader && props.rowHeader.colors)
             && (
-              <td key="base-row-header" styleName={classNames('rowHeader', props.rowSize)}>
+              <td styleName={classNames('rowHeader', props.rowSize)}>
                 <ColorBox
                   variableName={props.rowHeader.colors[0].name}
                   hexValue={props.rowHeader.colors[0].hex}
@@ -51,7 +51,6 @@ const ColorRow = (props) => (
                   bordered={props.rowHeader.colors[0].bordered}
                   stackPosition={props.rowHeader.colors[0].stack}
                   infoBox={{ infoTitle: props.rowHeader.colors[0].colorName, infoLabel: props.rowHeader.colors[0].infoLabel }}
-                  key={props.rowHeader.colors[0].name}
                   centered={false}
                 />
               </td>
