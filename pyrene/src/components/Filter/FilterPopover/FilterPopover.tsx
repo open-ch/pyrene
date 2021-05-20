@@ -18,8 +18,6 @@ export interface FilterPopoverProps {
   onFilterClear: (e: MouseEvent) => void,
 }
 
-/* eslint-disable react/jsx-props-no-spreading */
-
 const FilterPopover: FunctionComponent<FilterPopoverProps> = ({
   handleFilterChange,
   filterValues,

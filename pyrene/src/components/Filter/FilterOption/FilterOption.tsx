@@ -12,10 +12,11 @@ import {
   TextFieldValue,
   SingleSelectOption, 
   MultiSelectOption,
+  HandleFilterChange
 } from '../types';
 
 export interface FilterOptionsProps {
-  handleFilterChange: (value: any, negated: boolean, id: string) => void,
+  handleFilterChange: HandleFilterChange,
   id: string,
   label: string,
   negatable: boolean,
