@@ -10,9 +10,9 @@ import {
   SingleSelectValue,
   MultiselectValue,
   TextFieldValue,
-  SingleSelectOption, 
+  SingleSelectOption,
   MultiSelectOption,
-  HandleFilterChange
+  HandleFilterChange,
 } from '../types';
 
 export interface FilterOptionsProps {
