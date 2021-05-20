@@ -98,7 +98,7 @@ export default class ComponentEditor extends React.Component {
           </Paragraph>
         )}
         <Paragraph title="Props">
-          <div className={clsx(styles.displayContainer, { [styles.pinned]: pinned }, { [styles.darkMode]: darkMode })}>
+          <div className={clsx(styles.displayContainer, { [styles.pinned]: pinned, [styles.darkMode]: darkMode })}>
             <div className={clsx(styles.pin, { [styles.pinned]: pinned })} onClick={() => this.handlePinClick()} />
             <div className={clsx(styles.sun, { [styles.darkMode]: darkMode })} onClick={() => this.handleSunClick()} />
             <div className={styles.componentDisplay}>
