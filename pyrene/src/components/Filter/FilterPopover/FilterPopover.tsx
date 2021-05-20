@@ -1,37 +1,57 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { FunctionComponent, MouseEvent } from 'react';
 
 import styles from './filterPopover.css';
 import ButtonBar from '../../ButtonBar/ButtonBar';
 import Button from '../../Button/Button';
 import FilterOption from '../FilterOption/FilterOption';
 import Collapsible from '../../Collapsible/Collapsible';
+import { Filter, FilterValues, HandleFilterChange } from '../types';
+
+export interface FilterPopoverProps {
+  filterNegatedKeys: string[],
+  filters: Array<Filter>,
+  filterValues: FilterValues,
+  handleFilterChange: HandleFilterChange,
+  negatable: boolean,
+  onClose: (e: MouseEvent) => void,
+  onFilterApply: (e: MouseEvent) => void,
+  onFilterClear: (e: MouseEvent) => void,
+}
 
 /* eslint-disable react/jsx-props-no-spreading */
 
-const FilterPopover = (props) => (
+const FilterPopover: FunctionComponent<FilterPopoverProps> = ({
+  handleFilterChange,
+  filterValues,
+  negatable,
+  filters,
+  filterNegatedKeys,
+  onFilterClear,
+  onFilterApply,
+  onClose = () => null,
+}: FilterPopoverProps) => (
   <div className={styles.filterPopover}>
     <div className={styles.title}>Select Filter</div>
-    {props.negatable && <div className={styles.negateTitle}>Negate</div>}
+    {negatable && <div className={styles.negateTitle}>Negate</div>}
     <div className={styles.filterOptions}>
-      {props.filters.length <= 6
-        ? props.filters.map((filter) => (
+      {filters.length <= 6
+        ? filters.map((filter) => (
           <FilterOption {...filter}
-            value={props.filterValues ? props.filterValues[filter.id] : null}
-            negated={props.negatable ? props.filterNegatedKeys.includes(filter.id) : false}
-            handleFilterChange={props.handleFilterChange}
-            negatable={props.negatable}
+            value={filterValues ? filterValues[filter.id] : null}
+            negated={negatable ? filterNegatedKeys.includes(filter.id) : false}
+            handleFilterChange={handleFilterChange}
+            negatable={negatable}
             key={filter.id}
           />
         ))
         : (
           <>
-            {props.filters.slice(0, 6).map((filter) => (
+            {filters.slice(0, 6).map((filter) => (
               <FilterOption {...filter}
-                value={props.filterValues ? props.filterValues[filter.id] : null}
-                negated={props.filterNegatedKeys && props.negatable ? props.filterNegatedKeys.includes(filter.id) : false}
-                handleFilterChange={props.handleFilterChange}
-                negatable={props.negatable}
+                value={filterValues ? filterValues[filter.id] : null}
+                negated={filterNegatedKeys && negatable ? filterNegatedKeys.includes(filter.id) : false}
+                handleFilterChange={handleFilterChange}
+                negatable={negatable}
                 key={filter.id}
               />
             ))}
@@ -40,12 +60,12 @@ const FilterPopover = (props) => (
                 align="end"
                 labelCollapsed="More Filter Options"
                 labelExpanded="Fewer Filter Options"
-                renderCallback={() => props.filters.slice(6).map((filter) => (
+                renderCallback={() => filters.slice(6).map((filter) => (
                   <FilterOption {...filter}
-                    value={props.filterValues ? props.filterValues[filter.id] : null}
-                    negated={props.filterNegatedKeys && props.negatable ? props.filterNegatedKeys.includes(filter.id) : false}
-                    handleFilterChange={props.handleFilterChange}
-                    negatable={props.negatable}
+                    value={filterValues ? filterValues[filter.id] : null}
+                    negated={filterNegatedKeys && negatable ? filterNegatedKeys.includes(filter.id) : false}
+                    handleFilterChange={handleFilterChange}
+                    negatable={negatable}
                     key={filter.id}
                   />
                 ))}
@@ -57,37 +77,15 @@ const FilterPopover = (props) => (
     <div className={styles.buttonBarContainer}>
       <ButtonBar
         rightButtonSectionElements={[
-          <Button disabled={Object.keys(props.filterValues).length === 0} label="Clear" type="ghost" onClick={props.onFilterClear} />,
-          <Button label="Cancel" type="secondary" onClick={props.onClose} />,
-          <Button disabled={Object.keys(props.filterValues).length === 0} label="Apply" type="primary" onClick={props.onFilterApply} />,
+          <Button disabled={Object.keys(filterValues).length === 0} label="Clear" type="ghost" onClick={onFilterClear} />,
+          <Button label="Cancel" type="secondary" onClick={onClose} />,
+          <Button disabled={Object.keys(filterValues).length === 0} label="Apply" type="primary" onClick={onFilterApply} />,
         ]}
       />
     </div>
   </div>
 );
 
-
 FilterPopover.displayName = 'FilterPopover';
-
-FilterPopover.defaultProps = {
-};
-
-FilterPopover.propTypes = {
-  filterNegatedKeys: PropTypes.arrayOf(PropTypes.string).isRequired,
-  filters: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string,
-    label: PropTypes.string,
-    negated: PropTypes.bool,
-    options: PropTypes.array,
-    sorted: PropTypes.bool,
-    type: PropTypes.string,
-  })).isRequired,
-  filterValues: PropTypes.shape({}).isRequired,
-  handleFilterChange: PropTypes.func.isRequired,
-  negatable: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired,
-  onFilterApply: PropTypes.func.isRequired,
-  onFilterClear: PropTypes.func.isRequired,
-};
 
 export default FilterPopover;

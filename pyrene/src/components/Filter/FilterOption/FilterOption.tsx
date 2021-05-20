@@ -10,6 +10,8 @@ import {
   SingleSelectValue,
   MultiselectValue,
   TextFieldValue,
+  SingleSelectOption, 
+  MultiSelectOption,
 } from '../types';
 
 export interface FilterOptionsProps {
@@ -18,7 +20,7 @@ export interface FilterOptionsProps {
   label: string,
   negatable: boolean,
   negated?: boolean,
-  options?: any[],
+  options?: Array<SingleSelectOption | MultiSelectOption>,
   sorted?: boolean,
   type: string,
   value?: InputValue | null,
@@ -43,7 +45,7 @@ const getFilterInterface = ({
       return (
         <SingleSelect
           name={id}
-          options={options}
+          options={options as SingleSelectOption}
           onChange={(inputValue) => handleFilterChange(inputValue, negated, id)}
           value={(isValue ? value : null) as SingleSelectValue}
           sorted={sorted}
