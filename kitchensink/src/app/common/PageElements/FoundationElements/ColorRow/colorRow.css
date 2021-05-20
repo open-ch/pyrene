@@ -37,7 +37,7 @@
 
 .colorRow {
   background: #FFFFFF;
-  box-shadow: inset 0px 1px 0px #E1E3E8, inset 0px -1px 0px #E1E3E8;
+  box-shadow: inset 0px 1px 0px var(--neutral-050), inset 0px -1px 0px var(--neutral-050);
 }
 
 .descriptionCell {

@@ -111,6 +111,16 @@ const ColorRow = (props) => (
   </div>
 );
 
+const colorType = {
+  bordered: PropTypes.bool,
+  colorName: PropTypes.string,
+  darkFont: PropTypes.bool,
+  hex: PropTypes.string,
+  infoLabel: PropTypes.string,
+  name: PropTypes.string,
+  stack: PropTypes.string,
+};
+
 ColorRow.displayName = 'ColorRow';
 
 ColorRow.propTypes = {
@@ -120,30 +130,14 @@ ColorRow.propTypes = {
   rowData: PropTypes.arrayOf(
     PropTypes.shape({
       colors: PropTypes.arrayOf(
-        PropTypes.shape({
-          bordered: PropTypes.bool,
-          colorName: PropTypes.string,
-          darkFont: PropTypes.bool,
-          hex: PropTypes.string,
-          infoLabel: PropTypes.string,
-          name: PropTypes.string,
-          stack: PropTypes.string,
-        }),
+        PropTypes.shape(colorType),
       ),
       title: PropTypes.string,
     }),
   ),
   rowHeader: PropTypes.shape({
     colors: PropTypes.arrayOf(
-      PropTypes.shape({
-        bordered: PropTypes.bool,
-        colorName: PropTypes.string,
-        darkFont: PropTypes.bool,
-        hex: PropTypes.string,
-        infoLabel: PropTypes.string,
-        name: PropTypes.string,
-        stack: PropTypes.string,
-      }),
+      PropTypes.shape(colorType),
     ),
     width: PropTypes.string,
   }),
