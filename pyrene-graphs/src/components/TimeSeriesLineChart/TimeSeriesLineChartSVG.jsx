@@ -20,7 +20,7 @@ import { timeFormat } from '../../common/Formats';
 import { getMaxValueForTimeRange } from '../../common/dataUtils';
 import { INDEX_VALUE, INDEX_START_TS } from '../../common/chartConstants';
 import colorConstants from '../../styles/colorConstants';
-import './timeSeriesLineChart.css';
+import styles from './timeSeriesLineChart.css';
 
 /**
   *
@@ -86,7 +86,7 @@ const TimeSeriesLineChartSVG = (props) => {
   const hasDataInRange = props.data.find((ds) => ds.data.length > 0);
 
   return (
-    <div styleName="chartContainer">
+    <div className={styles.chartContainer}>
       <Responsive>
         {(parent) => {
           // Get scale function
