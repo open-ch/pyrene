@@ -32,18 +32,6 @@ export interface ContainerProps {
   title: string,
 }
 
-/*
-toggleCollapse = (event) => {
-  event.persist();
-  if (this.props.collapsible) {
-    this.setState((prevState) => ({
-      expanded: !prevState.expanded,
-    }),
-    () => this.props.onChange(event));
-  }
-};
-*/
-
 interface State {
   contentHeight: null | number,
   expanded: boolean
@@ -88,6 +76,7 @@ const reducer = (state: State, action: LoadingAction | TogglingAction | ChangeAc
           onChange: action.payload.onChange,
         },
       });
+
       return { ...state, expanded: action.payload.expanded };
     }
     default: {
