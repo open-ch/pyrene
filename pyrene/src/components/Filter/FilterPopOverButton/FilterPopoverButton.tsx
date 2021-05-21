@@ -2,15 +2,15 @@ import React, { FunctionComponent, MouseEvent } from 'react';
 import Popover from '../../Popover/Popover';
 import FilterPopover from '../FilterPopover/FilterPopover';
 import FilterButton from '../FilterComponents/FilterButton';
-import { Filter, FilterValues } from '../types';
+import { Filter, FilterValues, HandleFilterChange } from '../types';
 
 
 export interface FilterPopoverButtonProps {
   displayPopover?: boolean,
   filterNegatedKeys: string[],
-  filters:Array<Filter>,
+  filters: Array<Filter>,
   filterValues: FilterValues,
-  handleFilterChange: (value: any, negated: boolean, id: string) => void,
+  handleFilterChange: HandleFilterChange,
   label: string,
   negatable: boolean,
   noBorder?: boolean,
