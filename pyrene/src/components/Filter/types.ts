@@ -13,8 +13,8 @@ export type FilterValues = {
 export type SingleSelectOption = SingleSelectProps<unknown>['options'];
 
 export type MultiSelectOption = {
-  iconProps: IconProps,
-  invalid: boolean,
+  iconProps?: IconProps,
+  invalid?: boolean,
   label: string,
   value: string | number | boolean,
 };
@@ -23,7 +23,7 @@ export type Filter = {
   id: string,
   label: string,
   negated?: boolean,
-  options?: Array<SingleSelectOption | MultiSelectOption>,
+  options: Array<SingleSelectOption | MultiSelectOption>,
   sorted?: boolean,
   type: 'singleSelect' | 'multiSelect' | 'text',
 };
