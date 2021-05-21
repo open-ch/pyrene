@@ -38,7 +38,7 @@ interface State {
 }
 
 interface Action {
-  type: 'toggling' | 'loading' | 'change'
+  type: 'toggling' | 'loading' | 'changing'
 }
 
 interface TogglingAction extends Action {
@@ -46,13 +46,13 @@ interface TogglingAction extends Action {
   payload: {
     expanded: boolean,
     event: MouseEvent<HTMLDivElement>,
-    dispatcher: Dispatch<ChangeAction>,
+    dispatcher: Dispatch<ChangingAction>,
     onChange: (event: MouseEvent<HTMLDivElement>) => void,
   }
 }
 
-interface ChangeAction extends Action {
-  type: 'change',
+interface ChangingAction extends Action {
+  type: 'changing',
   payload: {
     event: MouseEvent<HTMLDivElement>,
     onChange: (event: MouseEvent<HTMLDivElement>) => void
@@ -64,20 +64,26 @@ interface LoadingAction extends Action {
   payload: number | null
 }
 
-const reducer = (state: State, action: LoadingAction | TogglingAction | ChangeAction) => {
+const reducer = (state: State, action: LoadingAction | TogglingAction | ChangingAction) => {
   switch (action.type) {
     case 'loading':
-      return { ...state, contentHeight: action.payload };
+      return {
+        ...state,
+        contentHeight: action.payload
+      };
     case 'toggling': {
       action.payload.dispatcher({
-        type: 'change',
+        type: 'changing',
         payload: {
           event: action.payload.event,
           onChange: action.payload.onChange,
         },
       });
 
-      return { ...state, expanded: action.payload.expanded };
+      return {
+        ...state,
+        expanded: action.payload.expanded
+      };
     }
     default: {
       action.payload.onChange(action.payload.event);
