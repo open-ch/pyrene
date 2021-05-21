@@ -1,23 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './chartContainer.css';
+import styles from './chartContainer.css';
 
 /**
  * Chart containers are used to standardize chart layouts.
  * They take care of the correct positioning of headers, charts and chart overlays.
  */
 const ChartContainer = (props) => (
-  <div styleName="chartContainer">
+  <div className={styles.chartContainer}>
     {props.header}
-    <div styleName="unitContainer">
+    <div className={styles.unitContainer}>
       {props.chartUnit}
     </div>
     {props.chartOverlay && (
-      <div styleName="chartOverlay">
+      <div className={styles.chartOverlay}>
         {props.chartOverlay}
       </div>
     )}
-    <div styleName="chart">
+    <div className={styles.chart}>
       {props.chart}
     </div>
   </div>

@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './chartOverlay.css';
+import styles from './chartOverlay.css';
 
 /**
  * Chart overlays are used to display loaders, warnings, errors, etc.
  */
 const ChartOverlay = (props) => (
-  <div styleName="container">
+  <div className={styles.container}>
     {props.children}
   </div>
 );
