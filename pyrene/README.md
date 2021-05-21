@@ -6,7 +6,11 @@
 
 ### Install Dependency
 ```sh
+# npm
 npm install --save @osag/pyrene
+
+# yarn
+yarn @osag/pyrene
 ```
 ### Import Styles
 
