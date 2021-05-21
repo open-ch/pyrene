@@ -11,7 +11,7 @@ Kitchensink uses propTypes and typescript types to generate the documentation.
 #### Functional typescript components
 When using functional components in typescript, make sure to explicitely set the type of the props:
 ```
-interface MyComponentProps {
+export interface MyComponentProps {
    name: string
 }
 const MyComponent: React.FC<MyComponentProps>({name = 'John'}: MyComponentProps)
