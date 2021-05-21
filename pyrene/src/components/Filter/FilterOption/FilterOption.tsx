@@ -29,7 +29,7 @@ export interface FilterOptionsProps {
 
 const doesInterfaceSupportNegate = (inputType: string) => ['text', 'singleSelect', 'multiSelect'].indexOf(inputType) !== -1;
 
-const getFilterInterface = ({
+const renderFilter = ({
   handleFilterChange,
   id,
   type,
@@ -101,7 +101,7 @@ const FilterOption: FunctionComponent<FilterOptionsProps> = ({
         {label}
       </div>
       <div className={styles.interface}>
-        {getFilterInterface({
+        {renderFilter({
           handleFilterChange, id, type, sorted, negated, options, value,
         })}
       </div>
