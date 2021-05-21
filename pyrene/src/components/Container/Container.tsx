@@ -1,5 +1,5 @@
 import React, {
-  FunctionComponent, useEffect, useState, useRef, MouseEvent,
+  FunctionComponent, Dispatch, useEffect, useRef, MouseEvent, useReducer,
 } from 'react';
 import clsx from 'clsx';
 
@@ -32,6 +32,71 @@ export interface ContainerProps {
   title: string,
 }
 
+/*
+toggleCollapse = (event) => {
+  event.persist();
+  if (this.props.collapsible) {
+    this.setState((prevState) => ({
+      expanded: !prevState.expanded,
+    }),
+    () => this.props.onChange(event));
+  }
+};
+*/
+
+interface State {
+  contentHeight: null | number,
+  expanded: boolean
+}
+
+interface Action {
+  type: 'toggling' | 'loading' | 'change'
+}
+
+interface TogglingAction extends Action {
+  type: 'toggling',
+  payload: {
+    expanded: boolean,
+    event: MouseEvent<HTMLDivElement>,
+    dispatcher: Dispatch<ChangeAction>,
+    onChange: (event: MouseEvent<HTMLDivElement>) => void,
+  }
+}
+
+interface ChangeAction extends Action {
+  type: 'change',
+  payload: {
+    event: MouseEvent<HTMLDivElement>,
+    onChange: (event: MouseEvent<HTMLDivElement>) => void
+  }
+}
+
+interface LoadingAction extends Action {
+  type: 'loading',
+  payload: number | null
+}
+
+const reducer = (state: State, action: LoadingAction | TogglingAction | ChangeAction) => {
+  switch (action.type) {
+    case 'loading':
+      return { ...state, contentHeight: action.payload };
+    case 'toggling': {
+      action.payload.dispatcher({
+        type: 'change',
+        payload: {
+          event: action.payload.event,
+          onChange: action.payload.onChange,
+        },
+      });
+      return { ...state, expanded: action.payload.expanded };
+    }
+    default: {
+      action.payload.onChange(action.payload.event);
+      return { ...state };
+    }
+  }
+};
+
 const Container: FunctionComponent<ContainerProps> = ({
   collapsible = false,
   defaultExpanded = false,
@@ -39,26 +104,36 @@ const Container: FunctionComponent<ContainerProps> = ({
   renderCallback,
   title,
 }: ContainerProps) => {
-  const [contentHeight, setContentHeight] = useState<number|null>(null);
-  const [expanded, setExpanded] = useState<boolean>(defaultExpanded);
+  const [state, dispatch] = useReducer(reducer, { contentHeight: null, expanded: defaultExpanded });
+
   const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (contentRef?.current) {
-      setContentHeight(contentRef.current.clientHeight);
+      dispatch({
+        type: 'loading',
+        payload: contentRef.current.clientHeight,
+      });
     }
   }, []);
 
   const toggleCollapse = (event: MouseEvent<HTMLDivElement>) => {
     event.persist();
     if (collapsible) {
-      setExpanded((prevState) => !prevState);
-      onChange(event);
+      dispatch({
+        type: 'toggling',
+        payload: {
+          dispatcher: dispatch,
+          expanded: !state.expanded,
+          onChange,
+          event,
+        },
+      });
     }
   };
 
   return (
-    <div className={clsx(styles.container, { [styles.expanded]: expanded || !collapsible })}>
+    <div className={clsx(styles.container, { [styles.expanded]: state.expanded || !collapsible })}>
       <div className={clsx(styles.header, { [styles.collapsible]: collapsible })} onClick={toggleCollapse} role="button" aria-label="Show or hide container">
         <span className={clsx(styles.title, 'unSelectable')}>
           {' '}
@@ -70,7 +145,7 @@ const Container: FunctionComponent<ContainerProps> = ({
       </div>
       <div
         className={styles.contentContainer}
-        style={{ ...(expanded || !collapsible) && contentHeight ? { height: contentHeight } : {} }}
+        style={{ ...(state.expanded || !collapsible) && state.contentHeight ? { height: state.contentHeight } : {} }}
       >
         <div className={styles.innerContentContainer} ref={contentRef}>
           {renderCallback()}
