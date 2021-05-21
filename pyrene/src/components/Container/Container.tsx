@@ -69,7 +69,7 @@ const reducer = (state: State, action: LoadingAction | TogglingAction | Changing
     case 'loading':
       return {
         ...state,
-        contentHeight: action.payload
+        contentHeight: action.payload,
       };
     case 'toggling': {
       action.payload.dispatcher({
@@ -82,7 +82,7 @@ const reducer = (state: State, action: LoadingAction | TogglingAction | Changing
 
       return {
         ...state,
-        expanded: action.payload.expanded
+        expanded: action.payload.expanded,
       };
     }
     default: {
