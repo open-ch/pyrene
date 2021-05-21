@@ -35,7 +35,7 @@ const FilterPopover: FunctionComponent<FilterPopoverProps> = ({
       {filters.length <= 6
         ? filters.map((filter) => (
           <FilterOption {...filter}
-            value={filterValues ? filterValues[filter.id] : null}
+            value={filterValues?.[filter.id]}
             negated={negatable ? filterNegatedKeys.includes(filter.id) : false}
             handleFilterChange={handleFilterChange}
             negatable={negatable}
@@ -46,7 +46,7 @@ const FilterPopover: FunctionComponent<FilterPopoverProps> = ({
           <>
             {filters.slice(0, 6).map((filter) => (
               <FilterOption {...filter}
-                value={filterValues ? filterValues[filter.id] : null}
+                value={filterValues?.[filter.id]}
                 negated={filterNegatedKeys && negatable ? filterNegatedKeys.includes(filter.id) : false}
                 handleFilterChange={handleFilterChange}
                 negatable={negatable}
@@ -60,7 +60,7 @@ const FilterPopover: FunctionComponent<FilterPopoverProps> = ({
                 labelExpanded="Fewer Filter Options"
                 renderCallback={() => filters.slice(6).map((filter) => (
                   <FilterOption {...filter}
-                    value={filterValues ? filterValues[filter.id] : null}
+                    value={filterValues?.[filter.id]}
                     negated={filterNegatedKeys && negatable ? filterNegatedKeys.includes(filter.id) : false}
                     handleFilterChange={handleFilterChange}
                     negatable={negatable}
