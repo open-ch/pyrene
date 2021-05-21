@@ -24,6 +24,7 @@
   --blue-200: #78a5ff;
   --blue-100: #bad1ff;
   --blue-050: #dbe7ff;
+  --blue-020: #f0f5ff;
 
   /* RED */
   --red-950: #57080f;
@@ -92,6 +93,28 @@
   --teal-200: #90eedf;
   --teal-100: #b6f4ea;
   --teal-050: #daf9f4;
+
+  /* Can chart colors be fetched from pyrene graphs? */
+  /* Chart / 1 */
+  --chart-1: #044BA2;
+  --chart-1-80: #366FB5;
+  --chart-1-60: #6893C7;
+  --chart-1-40: #9BB7DA;
+  --chart-1-20: #CDDBEC;
+  --chart-1-10: #E5EDF5;
+  --chart-1-05: #F2F6FA;
+
+  /* Chart / 2 */
+  --chart-2: #EFDC60;
+
+  /* Chart / 3 */
+  --chart-3: #b8e0dc;
+
+  /* Chart / 4 */
+  --chart-4: #2488D4;
+
+  /* Chart / 5 */
+  --chart-5: #81DB81;
 
   /* FUNCTIONAL COLORS */
   /* DEFAULT */
