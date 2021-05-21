@@ -27,7 +27,7 @@ export interface CollapsibleProps {
   /**
    * Sets the content to be rendered inside the component.
    */
-  renderCallback: () => JSX.Element,
+  renderCallback: () => JSX.Element | Array<JSX.Element>,
 }
 
 /**
