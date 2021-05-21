@@ -93,7 +93,7 @@ const FilterOption: FunctionComponent<FilterOptionsProps> = ({
   sorted = true,
   negated = false,
   options = [],
-  value = null,
+  value = undefined,
 }: FilterOptionsProps) => (
   <div className={styles.filterOption}>
     <div className={styles.filterOptionWrapper}>
@@ -101,9 +101,7 @@ const FilterOption: FunctionComponent<FilterOptionsProps> = ({
         {label}
       </div>
       <div className={styles.interface}>
-        {renderOption({
-          handleFilterChange, id, type, sorted, negated, options, value,
-        })}
+        {renderOption({ handleFilterChange, id, type, sorted, negated, options, value })}
       </div>
     </div>
     {negatable && (
