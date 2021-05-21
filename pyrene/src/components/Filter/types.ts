@@ -28,4 +28,4 @@ export type Filter = {
   type: 'singleSelect' | 'multiSelect' | 'text',
 };
 
-export type HandleFilterChange = (value: any, negated: boolean, id: string) => void;
+export type HandleFilterChange = (option: any, negated: boolean, id: string) => void;
