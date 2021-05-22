@@ -45,9 +45,6 @@ interface TogglingAction extends Action {
   type: 'toggling',
   payload: {
     expanded: boolean,
-    event: MouseEvent<HTMLDivElement>,
-    dispatcher: Dispatch<ChangingAction>,
-    onChange: (event: MouseEvent<HTMLDivElement>) => void,
   }
 }
 
@@ -61,7 +58,9 @@ interface ChangingAction extends Action {
 
 interface LoadingAction extends Action {
   type: 'loading',
-  payload: number | null
+  payload: {
+    contentHeight: number | null
+  }
 }
 
 const reducer = (state: State, action: LoadingAction | TogglingAction | ChangingAction) => {
@@ -69,17 +68,9 @@ const reducer = (state: State, action: LoadingAction | TogglingAction | Changing
     case 'loading':
       return {
         ...state,
-        contentHeight: action.payload,
+        contentHeight: action.payload.contentHeight,
       };
     case 'toggling': {
-      action.payload.dispatcher({
-        type: 'changing',
-        payload: {
-          event: action.payload.event,
-          onChange: action.payload.onChange,
-        },
-      });
-
       return {
         ...state,
         expanded: action.payload.expanded,
@@ -109,7 +100,9 @@ const Container: FunctionComponent<ContainerProps> = ({
     if (contentRef?.current) {
       dispatch({
         type: 'loading',
-        payload: contentRef.current.clientHeight,
+        payload: {
+          contentHeight: contentRef.current.clientHeight,
+        },
       });
     }
   }, []);
@@ -120,10 +113,14 @@ const Container: FunctionComponent<ContainerProps> = ({
       dispatch({
         type: 'toggling',
         payload: {
-          dispatcher: dispatch,
           expanded: !state.expanded,
-          onChange,
+        },
+      });
+      dispatch({
+        type: 'changing',
+        payload: {
           event,
+          onChange,
         },
       });
     }
