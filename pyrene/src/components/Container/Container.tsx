@@ -1,5 +1,5 @@
 import React, {
-  FunctionComponent, Dispatch, useEffect, useRef, MouseEvent, useReducer,
+  FunctionComponent, useEffect, useRef, MouseEvent, useReducer,
 } from 'react';
 import clsx from 'clsx';
 
