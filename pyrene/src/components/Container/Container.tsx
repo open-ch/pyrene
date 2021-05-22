@@ -85,8 +85,10 @@ const reducer = (state: State, action: LoadingAction | TogglingAction | Changing
         expanded: action.payload.expanded,
       };
     }
-    default: {
+    case 'changing':
       action.payload.onChange(action.payload.event);
+      return { ...state };
+    default: {
       return { ...state };
     }
   }
