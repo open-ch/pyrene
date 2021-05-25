@@ -21,7 +21,7 @@ import { INDEX_VALUE, INDEX_START_TS } from '../../common/chartConstants';
 import { getCurrentBucketEndTS, getCurrentBucketIndex, getTimeFrameOfLastBucket } from './bucketUtil';
 import colorSchemes from '../../styles/colorSchemes';
 import colorConstants from '../../styles/colorConstants';
-import './timeSeriesBucketChart.css';
+import styles from './timeSeriesBucketChart.css';
 
 let zoomStartX = null;
 
@@ -100,9 +100,9 @@ const TimeSeriesBucketChartSVG = (props) => {
   } = props;
 
   return (
-    <div styleName="chartContainer">
+    <div className={styles.chartContainer}>
       {props.zoom && (
-        <div styleName="actionBarContainer">
+        <div className={styles.actionBarContainer}>
           <TimeZoomControls
             from={props.from}
             to={props.to}

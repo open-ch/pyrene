@@ -7,7 +7,7 @@ import Header from '../Header/Header';
 import TimeSeriesBucketChartSVG from './TimeSeriesBucketChartSVG';
 import { getMaxValueForTimeRangeBucket } from '../../common/dataUtils';
 import colorSchemes from '../../styles/colorSchemes';
-import './timeSeriesBucketChart.css';
+import styles from './timeSeriesBucketChart.css';
 
 /**
  * A bucket chart for time-data series.
@@ -29,7 +29,7 @@ const TimeSeriesBucketChart = (props) => {
     <ChartOverlay>
       {props.loading && <Loader type="inline" />}
       {!props.loading && !maxValue && (
-        <div styleName="errorBanner">
+        <div className={styles.errorBanner}>
           <Banner styling="inline" type="error" label={props.error} />
         </div>
       )}

@@ -9,7 +9,7 @@ const primaryColors = [
     title: '',
     colors: [
       {
-        colorName: 'blue', name: 'blue-500', darkFont: false, bordered: false, infoLabel: 'For accent and highlight',
+        colorName: 'blue', name: 'blue-500', darkFont: false, bordered: false, infoLabel: 'Accent and highlight',
       },
     ],
   },
@@ -31,20 +31,123 @@ const primaryColors = [
   },
 ];
 
-const neutralColors = [
+const successColors = [
   {
-    title: '',
+    title: 'Light',
+    colors: [
+      {
+        colorName: '', name: 'green-200', darkFont: false, bordered: false,
+      },
+    ],
+  },
+  {
+    title: 'Regular',
+    colors: [
+      {
+        name: 'green-600', darkFont: false, bordered: false,
+      },
+    ],
+  },
+  {
+    title: 'Dark',
+    colors: [
+      {
+        name: 'green-700', darkFont: true, bordered: true,
+      },
+    ],
+  },
+];
+
+const warningColors = [
+  {
+    title: 'Light',
+    colors: [
+      {
+        name: 'orange-200', darkFont: false, bordered: false,
+      },
+    ],
+  },
+  {
+    title: 'Regular',
+    colors: [
+      {
+        name: 'orange-500', darkFont: false, bordered: false,
+      },
+    ],
+  },
+  {
+    title: 'Dark',
+    colors: [
+      {
+        name: 'orange-600', darkFont: true, bordered: true,
+      },
+    ],
+  },
+];
+
+const dangerColors = [
+  {
+    title: 'Light',
+    colors: [
+      {
+        name: 'red-200', darkFont: false, bordered: false,
+      },
+    ],
+  },
+  {
+    title: 'Regular',
+    colors: [
+      {
+        name: 'red-500', darkFont: false, bordered: false,
+      },
+    ],
+  },
+  {
+    title: 'Dark',
+    colors: [
+      {
+        name: 'red-600', darkFont: true, bordered: true,
+      },
+    ],
+  },
+];
+
+const outageColors = [
+  {
+    title: 'Regular',
     colors: [
       {
         name: 'neutral-500', darkFont: false, bordered: false,
       },
     ],
   },
+];
+
+const inactiveColors = [
+  {
+    title: 'Regular',
+    colors: [
+      {
+        name: 'neutral-100', darkFont: false, bordered: false,
+      },
+    ],
+  },
+  {
+    title: 'Dark',
+    colors: [
+      {
+        name: 'neutral-300', darkFont: true, bordered: true,
+      },
+    ],
+  },
+];
+
+const semanticColors = [
   {
     title: '',
     colors: [
       {
-        name: 'neutral-400', darkFont: false, bordered: false,
+        colorName: 'Success', name: 'green-500', darkFont: false, bordered: false,
       },
     ],
   },
@@ -52,7 +155,7 @@ const neutralColors = [
     title: '',
     colors: [
       {
-        name: 'neutral-300', darkFont: false, bordered: false,
+        colorName: 'Warning', name: 'orange-500', darkFont: true, bordered: false,
       },
     ],
   },
@@ -60,12 +163,55 @@ const neutralColors = [
     title: '',
     colors: [
       {
-        name: 'neutral-200', darkFont: false, bordered: false,
+        colorName: 'Danger', name: 'red-500', darkFont: false, bordered: false,
       },
     ],
   },
   {
     title: '',
+    colors: [
+      {
+        colorName: 'Outage', name: 'neutral-500', darkFont: false, bordered: false,
+      },
+    ],
+  },
+];
+
+const neutralColors = [
+  {
+    title: '010',
+    colors: [
+      {
+        name: 'neutral-010', darkFont: false, bordered: true,
+      },
+    ],
+  },
+  {
+    title: '020',
+    colors: [
+      {
+        name: 'neutral-020', darkFont: false, bordered: true,
+      },
+    ],
+  },
+  {
+    title: '030',
+    colors: [
+      {
+        name: 'neutral-030', darkFont: false, bordered: false,
+      },
+    ],
+  },
+  {
+    title: '050',
+    colors: [
+      {
+        name: 'neutral-050', darkFont: false, bordered: false,
+      },
+    ],
+  },
+  {
+    title: '100',
     colors: [
       {
         name: 'neutral-100', darkFont: true, bordered: false,
@@ -73,97 +219,195 @@ const neutralColors = [
     ],
   },
   {
-    title: '',
+    title: '200',
     colors: [
       {
-        name: 'neutral-050', darkFont: true, bordered: false,
+        name: 'neutral-200', darkFont: true, bordered: false,
       },
     ],
   },
   {
-    title: '',
+    title: '300',
     colors: [
       {
-        name: 'neutral-030', darkFont: true, bordered: false,
+        name: 'neutral-300', darkFont: true, bordered: false,
       },
     ],
   },
   {
-    title: '',
+    title: '400',
     colors: [
       {
-        name: 'neutral-020', darkFont: true, bordered: true,
+        name: 'neutral-400', darkFont: true, bordered: false,
       },
     ],
   },
   {
-    title: '',
+    title: '500',
     colors: [
       {
-        name: 'neutral-010', darkFont: true, bordered: true,
+        name: 'neutral-500', darkFont: true, bordered: false,
       },
     ],
   },
 ];
 
-const interactionColors = [
+const informationColors = [
   {
-    title: 'neutral',
+    title: '020',
     colors: [
       {
-        name: 'blue-500', darkFont: false, bordered: false, stack: 'top',
-      },
-      {
-        name: 'blue-600', darkFont: false, bordered: false, stack: 'bottom',
+        name: 'blue-020', darkFont: false, bordered: false,
       },
     ],
   },
   {
-    title: 'success',
+    title: '050',
     colors: [
       {
-        name: 'green-500', darkFont: false, bordered: false, stack: 'top',
-      },
-      {
-        name: 'green-600', darkFont: false, bordered: false, stack: 'bottom',
+        name: 'blue-050', darkFont: false, bordered: false,
       },
     ],
   },
   {
-    title: 'warning',
+    title: '100',
     colors: [
       {
-        name: 'orange-500', darkFont: false, bordered: false, stack: 'top',
-      },
-      {
-        name: 'orange-600', darkFont: false, bordered: false, stack: 'bottom',
+        name: 'blue-100', darkFont: true, bordered: false,
       },
     ],
   },
   {
-    title: 'danger',
+    title: '200',
     colors: [
       {
-        name: 'red-500', darkFont: false, bordered: false, stack: 'top',
-      },
-      {
-        name: 'red-600', darkFont: false, bordered: false, stack: 'bottom',
+        name: 'blue-200', darkFont: true, bordered: false,
       },
     ],
   },
   {
-    title: 'outage',
+    title: '300',
     colors: [
       {
-        name: 'neutral-500', darkFont: false, bordered: false, stack: 'single',
+        name: 'blue-300', darkFont: true, bordered: false,
       },
     ],
   },
   {
-    title: 'inactive',
+    title: '400',
     colors: [
       {
-        name: 'neutral-100', darkFont: true, bordered: false, stack: 'single',
+        name: 'blue-400', darkFont: true, bordered: true,
+      },
+    ],
+  },
+  {
+    title: '500',
+    colors: [
+      {
+        name: 'blue-500', darkFont: true, bordered: true,
+      },
+    ],
+  },
+  {
+    title: '600',
+    colors: [
+      {
+        name: 'blue-600', darkFont: true, bordered: true,
+      },
+    ],
+  },
+  {
+    title: '700',
+    colors: [
+      {
+        name: 'blue-700', darkFont: true, bordered: true,
+      },
+    ],
+  },
+];
+
+const sequentialColors = [
+  {
+    title: '1-80',
+    colors: [
+      {
+        name: 'chart-1-80', darkFont: false, bordered: false,
+      },
+    ],
+  },
+  {
+    title: '1-60',
+    colors: [
+      {
+        name: 'chart-1-60', darkFont: false, bordered: false,
+      },
+    ],
+  },
+  {
+    title: '1-40',
+    colors: [
+      {
+        name: 'chart-1-40', darkFont: true, bordered: false,
+      },
+    ],
+  },
+  {
+    title: '1-20',
+    colors: [
+      {
+        name: 'chart-1-20', darkFont: true, bordered: false,
+      },
+    ],
+  },
+  {
+    title: '1-10',
+    colors: [
+      {
+        name: 'chart-1-10', darkFont: true, bordered: false,
+      },
+    ],
+  },
+  {
+    title: '1-05',
+    colors: [
+      {
+        name: 'chart-1-05', darkFont: true, bordered: false,
+      },
+    ],
+  },
+];
+
+const categoricalColors = [
+  {
+    title: '',
+    colors: [
+      {
+        colorName: 'Chart 2', name: 'chart-2', darkFont: false, bordered: false,
+      },
+    ],
+  },
+  {
+    title: '',
+    colors: [
+      {
+        colorName: 'Chart 3', name: 'chart-3', darkFont: true, bordered: true,
+      },
+    ],
+  },
+  {
+    title: '',
+    colors: [
+      {
+        colorName: 'Chart 4', name: 'chart-4', darkFont: false, bordered: false,
+      },
+    ],
+  },
+  {
+    title: '',
+    colors: [
+      {
+        colorName: 'Chart 5', name: 'chart-5', darkFont: false, bordered: false,
       },
     ],
   },
@@ -425,8 +669,16 @@ const svgs = [
 export {
   primaryColors,
   neutralColors,
-  interactionColors,
+  semanticColors,
+  informationColors,
+  successColors,
+  warningColors,
+  dangerColors,
+  outageColors,
+  inactiveColors,
+  categoricalColors,
   extendedColors,
+  sequentialColors,
   icons,
   svgs,
 };
