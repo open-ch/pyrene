@@ -21,7 +21,7 @@ const Option = (props) => {
 const IconSelect = (props) => {
   const options = icons.map((icon) => ({ value: icon.name, label: icon.name }));
   return (
-    <div className={clsx(styles.selectContainer)}>
+    <div className={styles.selectContainer}>
       {props.title && <div className={clsx(styles.selectTitle, { [styles.required]: props.required && !props.disabled })}>{props.title}</div>}
       <Select
         components={{ Option }}

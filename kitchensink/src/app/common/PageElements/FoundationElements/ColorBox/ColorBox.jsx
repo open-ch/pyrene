@@ -19,7 +19,7 @@ const ColorBox = (props) => (
 
       (props.infoBox && Object.keys(props.infoBox).length > 0)
         && (
-          <div className={clsx(styles.infoBox, props.size)}>
+          <div className={clsx(styles.infoBox, styles[props.size])}>
             {props.infoBox.infoTitle && <div className={clsx(styles.colorName, styles[props.size])}>{props.infoBox.infoTitle}</div>}
             {props.infoBox.infoText && <div className={clsx(styles.variableName, styles[props.size])}>{props.infoBox.infoText}</div> }
             {props.infoBox.infoLabel && <div className={clsx(styles.infoLabel, styles[props.size])}>{props.infoBox.infoLabel}</div>}
