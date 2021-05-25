@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../../css/componentPage.css';
+import styles from '../../../css/componentPage.css';
 import Paragraph from '../../common/PageElements/Paragraph/Paragraph';
 import ColorRow from '../../common/PageElements/FoundationElements/ColorRow/ColorRow';
 import DescriptionBox from '../../common/PageElements/DescriptionBox/DescriptionBox';
@@ -33,10 +33,10 @@ const sequentialText = (
 );
 
 const ColorsPage = () => (
-  <div styleName="page">
-    <div styleName="header">
-      <div styleName="title">Colors</div>
-      <div styleName="description">
+  <div className={styles.page}>
+    <div className={styles.header}>
+      <div className={styles.title}>Colors</div>
+      <div className={styles.description}>
         Maintaining consistent and engaging digital interfaces throughout Open Systems demands extended guidance around color usage. The following concepts are the foundation as we strive to achieve balance and harmony through our User Interface design.
         <br />
         <br />
@@ -48,7 +48,7 @@ const ColorsPage = () => (
       </div>
     </div>
 
-    <div styleName="topicContent">
+    <div className={styles.topicContent}>
       <Paragraph title="Primary Colors">
         <DescriptionBox>
           The primary colors give our applications the characteristic look and feel. These colors enjoy priority. White plays an important role in structuring content and the overall impression. Blue is used as accent color while Dark is the main color for type.

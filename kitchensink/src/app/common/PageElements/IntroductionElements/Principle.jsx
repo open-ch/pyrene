@@ -1,15 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
-
-import './principle.css';
+import clsx from 'clsx';
+import styles from './principle.css';
 
 const Principle = (props) => (
-  <div styleName="principleContainer">
-    <div styleName={classNames('icon', { [`${props.icon}`]: true })} />
-    <div styleName="textArea">
-      <span styleName="title">{props.title}</span>
-      <span styleName="description">{props.description}</span>
+  <div className={styles.principleContainer}>
+    <div className={clsx(styles.icon, styles[`${props.icon}`])} />
+    <div className={styles.textArea}>
+      <span className={styles.title}>{props.title}</span>
+      <span className={styles.description}>{props.description}</span>
     </div>
   </div>
 );

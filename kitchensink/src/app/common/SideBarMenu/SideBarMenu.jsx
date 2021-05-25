@@ -4,8 +4,7 @@ import examples from '@osag/pyrene/dist/pyrene.examples';
 import ChartComponents from '@osag/pyrene-graphs/dist/pyrene-graphs.dev';
 import chartExamples from '@osag/pyrene-graphs/dist/pyrene-graphs.examples';
 import SideBarMenuSection from './SideBarMenuSection/SideBarMenuSection';
-
-import './sideBarMenu.css';
+import styles from './sideBarMenu.css';
 
 function getExamples() {
   const otherSectionName = 'Other';
@@ -35,8 +34,8 @@ function getExamples() {
 }
 
 const SideBarMenu = () => (
-  <div styleName="sideBar_menu_container">
-    <div styleName="main">
+  <div className={styles.sideBar_menu_container}>
+    <div className={styles.main}>
       <SideBarMenuSection title="Introduction" sectionElements={[]} linkToPath="/" />
       <SideBarMenuSection
         title="Foundations"

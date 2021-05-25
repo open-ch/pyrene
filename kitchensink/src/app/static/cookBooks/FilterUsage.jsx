@@ -1,14 +1,13 @@
 /* eslint-disable no-nested-ternary, max-classes-per-file */
 import React from 'react';
-import '../../../css/componentPage.css';
 import {
   Table, createSimpleFilter, createDataFilter,
 } from '@osag/pyrene/dist/pyrene.dev';
-
 import CodeBox from '../../common/PageElements/HowTo/CodeBox/CodeBox';
 import Paragraph from '../../common/PageElements/Paragraph/Paragraph';
 import DescriptionBox from '../../common/PageElements/DescriptionBox/DescriptionBox';
 import DisplayBox from '../../common/PageElements/HowTo/DisplayBox/DisplayBox';
+import styles from '../../../css/componentPage.css';
 
 /* eslint-disable react/no-multi-comp */
 /* eslint max-classes-per-file: ["error", 2] */
@@ -359,15 +358,15 @@ class NegatedFilters extends React.Component {
 }`;
 
 const FilterUsage = () => (
-  <div styleName="page">
-    <div className="header">
-      <div styleName="title">Filter</div>
-      <div styleName="description">
+  <div className={styles.page}>
+    <div className={styles.header}>
+      <div className={styles.title}>Filter</div>
+      <div className={styles.description}>
         <p>
           In order to display filtered data, a filter needs to be connected, with e.g., a Table. There are multiple ways to achieve that, depending on your use case.
         </p>
       </div>
-      <div className="topicContent">
+      <div className={styles.topicContent}>
         <Paragraph title="Simple Filter">
           <DescriptionBox>
             <p>
