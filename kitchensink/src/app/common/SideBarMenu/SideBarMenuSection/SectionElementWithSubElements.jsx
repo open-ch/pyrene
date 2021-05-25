@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-
-import '../sideBarMenu.css';
-
+import clsx from 'clsx';
+import styles from '../sideBarMenu.css';
 import SectionSubElement from './SectionSubElement';
 
 const SectionElementWithSubElements = ({
@@ -13,11 +12,10 @@ const SectionElementWithSubElements = ({
 
   return (
     <div
-      className="unSelectable"
-      styleName="sectionElementWithSubElements"
+      className={clsx('unSelectable', styles.sectionElementWithSubElements)}
     >
       <div
-        styleName="sectionElementTitle"
+        className={styles.sectionElementTitle}
         onClick={() => setIsOpen(!isOpen)}
       >
         {element.name}

@@ -1,15 +1,15 @@
 import React from 'react';
-import '../../../css/componentPage.css';
 import { Link } from '@osag/pyrene/dist/pyrene.dev';
 import CodeBox from '../../common/PageElements/HowTo/CodeBox/CodeBox';
 import Paragraph from '../../common/PageElements/Paragraph/Paragraph';
 import DescriptionBox from '../../common/PageElements/DescriptionBox/DescriptionBox';
+import styles from '../../../css/componentPage.css';
 
 const ComponentType = `/**
  * Description goes here.
  */
 const Component = props => ( // Functionnal component if no state is needed
-  <div styleName="componentContainer"> // Notice: styleName for styling, more in 'Styling'
+  <div className={styles.componentContainer}> // Notice: className for styling, more in 'Styling'
     ...
   </div>
 );
@@ -38,7 +38,7 @@ Component.propTypes = {
 // Do not forget to export..
 export default Component;`;
 
-const CssExample = `@import '../../styles/colors.css';
+const CssExample = `@import styles from '../../styles/colors.css';
 
 .container {
   position: relative;
@@ -83,13 +83,13 @@ const CssExample = `@import '../../styles/colors.css';
 }`;
 
 const PyreneTutorial = () => (
-  <div styleName="page">
-    <div className="header">
-      <div styleName="title">Pyrene Guide</div>
-      <div styleName="description">
+  <div className={styles.page}>
+    <div className={styles.header}>
+      <div className={styles.title}>Pyrene Guide</div>
+      <div className={styles.description}>
         <p>[pahy-reen] noun. A polycyclic, atomic component library, consisting of endless fused brainpower, found in coffee tea and believed to be the secret ingredient in the new stack.</p>
       </div>
-      <div className="topicContent">
+      <div className={styles.topicContent}>
         <Paragraph title="General">
           <DescriptionBox>
             <p>Pyrene is the new React based component library to be used in future portal projects. In order to keep the library consistent there are few concepts that have to be respected when creating a new component.</p>
@@ -119,7 +119,7 @@ const PyreneTutorial = () => (
         <Paragraph title="Styling">
           <DescriptionBox>
             <p>
-              {'To style your component use the styleName tag. If you want to apply reusable styles from the common css file like \'unSelectable\' use the classNames tag. Note that for each styleName a corresponding reference in the css has to exist (crashes otherwise). In the css file you do not need to worry about reusing css names from other components as we use css modules.'}
+              {'To style your component use the className tag. If you want to apply multiple class names use the clsx tag. Note that for each className a corresponding reference in the css has to exist (crashes otherwise). In the css file you do not need to worry about reusing css names from other components as we use css modules.'}
             </p>
             <p>
               Use only class selectors in the css for styling (ie: .classname). Do not use html element selectors like span, p, div, etc. as the css breaks if you later on decide to change an element in your component.

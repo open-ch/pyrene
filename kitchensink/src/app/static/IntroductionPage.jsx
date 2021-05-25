@@ -1,15 +1,15 @@
 import React from 'react';
-import '../../css/componentPage.css';
+import styles from '../../css/componentPage.css';
 import Paragraph from '../common/PageElements/Paragraph/Paragraph';
 import DescriptionBox from '../common/PageElements/DescriptionBox/DescriptionBox';
 import DesignSystemBox from '../common/PageElements/IntroductionElements/DesignSystemBox';
 import Principle from '../common/PageElements/IntroductionElements/Principle';
 
 const IntroductionPage = () => (
-  <div styleName="page">
-    <div className="header">
-      <div styleName="title">Introduction</div>
-      <div styleName="description">
+  <div className={styles.page}>
+    <div className={styles.header}>
+      <div className={styles.title}>Introduction</div>
+      <div className={styles.description}>
         <p>
           Open Systems is growing. As the business evolves, maintaining a coherent and captivating user experience for our interfaces is challenging.
           To keep our user interfaces coherent, we have created
@@ -27,7 +27,7 @@ const IntroductionPage = () => (
       </div>
     </div>
 
-    <div className="topicContent">
+    <div className={styles.topicContent}>
       <Paragraph title="Design System">
         <DescriptionBox>
           Our design system helps us to increase speed and efficiency of how we design and build our products.

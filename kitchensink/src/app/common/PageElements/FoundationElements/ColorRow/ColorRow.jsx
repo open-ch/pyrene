@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import ColorBox from '../ColorBox/ColorBox';
-import './colorRow.css';
+import styles from './colorRow.css';
 
 const ColorRow = (props) => (
-  <div styleName="colorRowContainer">
+  <div className={styles.colorRowContainer}>
     <table>
       {
         props.showInfo
@@ -13,7 +13,7 @@ const ColorRow = (props) => (
           <thead>
             <tr>
               {
-                props.title.length > 0 && <th style={{ width: props.rowHeader.width || 'auto' }} styleName={classNames('title', props.rowSize, 'base-column')}>{props.title}</th>
+                props.title.length > 0 && <th style={{ width: props.rowHeader.width || 'auto' }} className={clsx(styles.title, styles[props.rowSize], styles['base-column'])}>{props.title}</th>
               }
               {
                 props.preColumns > 0
@@ -26,7 +26,7 @@ const ColorRow = (props) => (
                     const title = element.title || '';
                     return (
                       <th key={`${element.colors[0].name}-title`}>
-                        <div styleName={classNames('title', props.rowSize)}>{title}</div>
+                        <div className={clsx(styles.title, styles[props.rowSize])}>{title}</div>
                       </th>
                     );
                   }
@@ -38,11 +38,11 @@ const ColorRow = (props) => (
         )
       }
       <tbody>
-        <tr styleName="colorRow">
+        <tr className={styles.colorRow}>
           {
             (props.rowHeader && props.rowHeader.colors)
             && (
-              <td styleName={classNames('rowHeader', props.rowSize)}>
+              <td className={clsx(styles.rowHeader, styles[props.rowSize])}>
                 <ColorBox
                   variableName={props.rowHeader.colors[0].name}
                   hexValue={props.rowHeader.colors[0].hex}
@@ -103,7 +103,7 @@ const ColorRow = (props) => (
     {
       (props.description)
       && (
-        <div styleName="descriptionCell">
+        <div className={styles.descriptionCell}>
           {props.description}
         </div>
       )

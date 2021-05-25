@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import '../../../css/componentPage.css';
 import Components from '@osag/pyrene/dist/pyrene.dev';
 import ChartComponents from '@osag/pyrene-graphs/dist/pyrene-graphs.dev';
 import examples from '@osag/pyrene/dist/pyrene.examples';
@@ -9,6 +8,7 @@ import SearchUtils from './SearchUtils';
 import SearchResult from './SearchResult/SearchResult';
 import Paragraph from '../PageElements/Paragraph/Paragraph';
 import GalaxyImage from '../../../images/galaxy.svg';
+import styles from '../../../css/componentPage.css';
 
 const exampleComponents = { ...examples, ...chartExamples };
 const components = [...Object.values(Components), ...Object.values(ChartComponents)];
@@ -37,10 +37,10 @@ export default class ResultsPage extends React.Component {
 
   renderSearchResults = () => (
     <>
-      <div styleName="header">
-        <div styleName="title">{`${this.state.matches.length} result${this.state.matches.length > 1 ? 's' : ''} matching \u00AB${this.props.match.params.searchInput}\u00BB`}</div>
+      <div className={styles.header}>
+        <div className={styles.title}>{`${this.state.matches.length} result${this.state.matches.length > 1 ? 's' : ''} matching \u00AB${this.props.match.params.searchInput}\u00BB`}</div>
       </div>
-      <div styleName="topicContent">
+      <div className={styles.topicContent}>
         <Paragraph>
           {this.state.matches.map((result) => {
             const category = exampleComponents[result.name].category;
@@ -61,10 +61,10 @@ export default class ResultsPage extends React.Component {
 
   renderNoResultsPage = () => (
     <>
-      <div styleName="header">
-        <div styleName="title">{`No matches for \u00AB${this.props.match.params.searchInput}\u00BB`}</div>
+      <div className={styles.header}>
+        <div className={styles.title}>{`No matches for \u00AB${this.props.match.params.searchInput}\u00BB`}</div>
       </div>
-      <div styleName="topicContent">
+      <div className={styles.topicContent}>
         <Paragraph>
           We searched far and wide and couldn’t find any content matching your search. Please give it another try.
         </Paragraph>
@@ -75,7 +75,7 @@ export default class ResultsPage extends React.Component {
 
   render() {
     return (
-      <div styleName="page">
+      <div className={styles.page}>
         { this.state.matches && this.state.matches.length > 0 ? this.renderSearchResults() : this.renderNoResultsPage() }
       </div>
     );

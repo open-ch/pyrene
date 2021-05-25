@@ -6,9 +6,8 @@ import { exampleData } from '@osag/pyrene-graphs/dist/pyrene-graphs.examples';
 import PropTypes from 'prop-types';
 import Table from './Table';
 import IconSelect from '../IconSelect/IconSelect';
-
-import './dynamicPropTable.css';
 import Counter from '../Counter/Counter';
+import styles from './dynamicPropTable.css';
 
 /* eslint-disable react/jsx-props-no-spreading */
 
@@ -100,7 +99,7 @@ export default class DynamicPropTable extends React.Component {
 
   render() {
     return (
-      <div styleName="propTableEditor">
+      <div className={styles.propTableEditor}>
         <Table
           cellWidthArray={['212px', '106px', '106px', '212px', '']}
           headerElementArray={['property', 'type', 'required', 'default value', 'playground']}

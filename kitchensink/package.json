@@ -63,7 +63,7 @@
   },
   "dependencies": {
     "babel-polyfill": "^6.26.0",
-    "classnames": "^2.2.6",
+    "clsx": "^1.1.1",
     "markdown-to-jsx": "^6.11.0",
     "moment": "^2.24.0",
     "moment-timezone": "^0.5.28",

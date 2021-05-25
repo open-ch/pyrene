@@ -1,18 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
-
-import './colorBox.css';
+import clsx from 'clsx';
+import styles from './colorBox.css';
 
 const ColorBox = (props) => (
-  <div styleName={classNames('colorBoxContainer', props.size, { 'left-box': !props.centered })}>
+  <div className={clsx(styles.colorBoxContainer, styles[props.size], { [styles['left-box']]: !props.centered })}>
     <div
-      styleName={classNames('colorBox',
-        `size-${props.size}`,
+      className={clsx(styles.colorBox,
+        styles[`size-${props.size}`],
         {
-          [`stack-${props.stackPosition}`]: props.stackPosition,
-          darkFont: props.darkFont,
-          bordered: props.bordered,
+          [styles[`stack-${props.stackPosition}`]]: props.stackPosition,
+          [styles.darkFont]: props.darkFont,
+          [styles.bordered]: props.bordered,
         })}
       style={{ backgroundColor: `var(--${props.variableName})` }}
     />
@@ -20,10 +19,10 @@ const ColorBox = (props) => (
 
       (props.infoBox && Object.keys(props.infoBox).length > 0)
         && (
-          <div styleName={classNames('infoBox', props.size)}>
-            {props.infoBox.infoTitle && <div styleName={classNames('colorName', props.size)}>{props.infoBox.infoTitle}</div>}
-            {props.infoBox.infoText && <div styleName={classNames('variableName', props.size)}>{props.infoBox.infoText}</div> }
-            {props.infoBox.infoLabel && <div styleName={classNames('infoLabel', props.size)}>{props.infoBox.infoLabel}</div>}
+          <div className={clsx(styles.infoBox, styles[props.size])}>
+            {props.infoBox.infoTitle && <div className={clsx(styles.colorName, styles[props.size])}>{props.infoBox.infoTitle}</div>}
+            {props.infoBox.infoText && <div className={clsx(styles.variableName, styles[props.size])}>{props.infoBox.infoText}</div> }
+            {props.infoBox.infoLabel && <div className={clsx(styles.infoLabel, styles[props.size])}>{props.infoBox.infoLabel}</div>}
           </div>
         )
     }

@@ -1,19 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
-
-import './designSystemBox.css';
+import clsx from 'clsx';
+import styles from './designSystemBox.css';
 
 const DesignSystemBox = (props) => (
-  <div styleName="introDesignSystemBox">
-    <div styleName="numberIconTitleContainer">
-      <div styleName="number">{props.number}</div>
-      <div styleName="iconTitle">
-        <span styleName={classNames('icon', { [`${props.icon}`]: true })} />
+  <div className={styles.introDesignSystemBox}>
+    <div className={styles.numberIconTitleContainer}>
+      <div className={styles.number}>{props.number}</div>
+      <div className={styles.iconTitle}>
+        <span className={clsx(styles.icon, styles[`${props.icon}`])} />
         <span>{props.title}</span>
       </div>
     </div>
-    <div styleName="description">
+    <div className={styles.description}>
       {props.description}
     </div>
   </div>
