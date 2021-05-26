@@ -9,7 +9,7 @@ Pyrene is tightly integrated with kitchensink. PropTypes and default values are 
 Kitchensink uses propTypes and TypeScript types to generate the documentation.
 
 #### Functional TypeScript components
-When using functional components in TypeScript, make sure to explicitely set the type of the props. Make also sure you tag a `displayName` to the component for that component to be listed in the Kitchensink :
+When using functional components in TypeScript, make sure to explicitly set the type of the props. Make also sure you tag a `displayName` to the component for that component to be listed in the Kitchensink :
 
 ```
 export interface MyComponentProps {

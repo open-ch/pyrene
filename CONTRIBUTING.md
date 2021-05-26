@@ -32,6 +32,10 @@ Feel free to describe your idea in an issue, or to implement a proof of concept 
 
 Awesome! Please raise the idea in an issue and let's discuss specifics.
 
+### Help and Discussion
+
+The [#Pyrene Design System](https://pyrene.slack.com/) Slack community is our official channel for support and discussion. Please come and join us there!
+
 ### Code Contributions
 
 Rather than defining strict branch naming, commit message or pull request description rules, we want to be open and flexible. We only ask you to use common sense and to be open to suggestions.
