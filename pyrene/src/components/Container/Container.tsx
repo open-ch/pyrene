@@ -32,8 +32,10 @@ export interface ContainerProps {
   title: string,
 }
 
+type ContentHeight = number;
+
 interface State {
-  contentHeight: null | number,
+  contentHeight?: ContentHeight,
   expanded: boolean
 }
 
@@ -52,14 +54,14 @@ interface ChangingAction extends Action {
   type: 'changing',
   payload: {
     event: MouseEvent<HTMLDivElement>,
-    onChange: (event: MouseEvent<HTMLDivElement>) => void
+    onChange?: (event: MouseEvent<HTMLDivElement>) => void
   }
 }
 
 interface LoadingAction extends Action {
   type: 'loading',
   payload: {
-    contentHeight: number | null
+    contentHeight: ContentHeight
   }
 }
 
@@ -77,7 +79,7 @@ const reducer = (state: State, action: LoadingAction | TogglingAction | Changing
       };
     }
     case 'changing':
-      action.payload.onChange(action.payload.event);
+      action.payload?.onChange?.(action.payload.event);
       return { ...state };
     default: {
       return { ...state };
@@ -88,11 +90,11 @@ const reducer = (state: State, action: LoadingAction | TogglingAction | Changing
 const Container: FunctionComponent<ContainerProps> = ({
   collapsible = false,
   defaultExpanded = false,
-  onChange = () => null,
   renderCallback,
   title,
+  onChange,
 }: ContainerProps) => {
-  const [state, dispatch] = useReducer(reducer, { contentHeight: null, expanded: defaultExpanded });
+  const [state, dispatch] = useReducer(reducer, { contentHeight: undefined, expanded: defaultExpanded });
 
   const contentRef = useRef<HTMLDivElement>(null);
 
