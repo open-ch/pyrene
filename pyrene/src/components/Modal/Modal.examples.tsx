@@ -1,6 +1,19 @@
 import React from 'react';
 import Placeholder from '../../examples/Placeholder';
 
+
+const findTriggerButton = () => {
+  const buttons = document.getElementsByTagName('button');
+  const searchText = 'Trigger Modal';
+  const buttonArray = Array.from(buttons);
+
+  return buttonArray.filter((button) => button.textContent === searchText)[0];
+};
+
+const closeModal = (): void => {
+  findTriggerButton()?.click();
+};
+
 const Modal = {
   props: {
     renderCallback: function displayPlaceHolder(): React.ReactElement {
@@ -12,16 +25,17 @@ const Modal = {
     size: 'small',
     title: 'Modal',
     leftButtonBarElements: [
-      { type: 'danger', label: 'Delete', action: ():void => {} },
-      { type: 'ghost', label: 'Disabled', action: (): void => {} },
+      { type: 'danger', label: 'Delete', action: closeModal },
+      { type: 'ghost', label: 'Disabled', action: closeModal },
     ],
     rightButtonBarElements: [
-      { type: 'secondary', label: 'Cancel', action: (): void => {} },
-      { type: 'primary', label: 'Apply', action: (): void => {} },
+      { type: 'secondary', label: 'Cancel', action: closeModal },
+      { type: 'primary', label: 'Apply', action: closeModal },
     ],
-    defaultExpanded: true,
+    defaultExpanded: false,
+    onClose: closeModal,
     renderFooter: true,
-    renderHeader: false,
+    renderHeader: true,
   },
   trigger: true,
   category: '',
