@@ -14,6 +14,9 @@ const closeModal = (): void => {
   findTriggerButton()?.click();
 };
 
+// eslint-disable-next-line no-alert
+function alertClickedButton(buttonLabel:string):void { alert(`${buttonLabel} button clicked`); }
+
 const Modal = {
   props: {
     renderCallback: function displayPlaceHolder(): React.ReactElement {
@@ -25,12 +28,12 @@ const Modal = {
     size: 'small',
     title: 'Modal',
     leftButtonBarElements: [
-      { type: 'danger', label: 'Delete', action: closeModal },
-      { type: 'ghost', label: 'Disabled', action: closeModal },
+      { type: 'danger', label: 'Delete', action: ():void => alertClickedButton('Delete') },
+      { type: 'ghost', label: 'Disabled', action: ():void => alertClickedButton('Disabled') },
     ],
     rightButtonBarElements: [
       { type: 'secondary', label: 'Cancel', action: closeModal },
-      { type: 'primary', label: 'Apply', action: closeModal },
+      { type: 'primary', label: 'Apply', action: ():void => alertClickedButton('Apply') },
     ],
     defaultExpanded: false,
     onClose: closeModal,
