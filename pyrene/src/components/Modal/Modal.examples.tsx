@@ -3,11 +3,9 @@ import Placeholder from '../../examples/Placeholder';
 
 
 const findTriggerButton = () => {
-  const buttons = document.getElementsByTagName('button');
   const searchText = 'Trigger Modal';
-  const buttonArray = Array.from(buttons);
-
-  return buttonArray.filter((button) => button.textContent === searchText)[0];
+  const buttons = Array.from(document.getElementsByTagName('button'));
+  return buttons.find((button) => button.textContent === searchText);
 };
 
 const closeModal = (): void => {
