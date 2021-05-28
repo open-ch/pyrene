@@ -137,8 +137,8 @@ ComponentEditor.propTypes = {
     examples: PropTypes.arrayOf(
       PropTypes.shape(),
     ),
-    props: PropTypes.shape(),
     onClick: PropTypes.func,
+    props: PropTypes.shape(),
     trigger: PropTypes.bool,
   }).isRequired,
 };
