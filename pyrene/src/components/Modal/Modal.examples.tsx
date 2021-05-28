@@ -24,6 +24,7 @@ const Modal = {
     renderHeader: false,
   },
   trigger: true,
+  onClick: () => console.log('thomas'),
   category: '',
 };
 
