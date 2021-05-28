@@ -102,7 +102,10 @@ export default class ComponentEditor extends React.Component {
             <div className={clsx(styles.pin, { [styles.pinned]: pinned })} onClick={() => this.handlePinClick()} />
             <div className={clsx(styles.sun, { [styles.darkMode]: darkMode })} onClick={() => this.handleSunClick()} />
             <div className={styles.componentDisplay}>
-              {this.props.examples.trigger ? <ParentButton onClick={this.props.examples.onClick} component={displayedComponent} /> : displayedComponent}
+              {
+              // this.props.examples.trigger ? <ParentButton onClick={this.props.examples.onClick} component={(action)=>displayedComponent} /> : displayedComponent
+              this.props.examples.trigger ? <ParentButton onClick={this.props.examples.onClick} component={(onClick)=> <button onClick={onClick}>click on me !</button>} /> : displayedComponent
+            }
             </div>
             <CodeBlock
               component={displayedComponent}
@@ -137,7 +140,6 @@ ComponentEditor.propTypes = {
     examples: PropTypes.arrayOf(
       PropTypes.shape(),
     ),
-    onClick: PropTypes.func,
     props: PropTypes.shape(),
     trigger: PropTypes.bool,
   }).isRequired,

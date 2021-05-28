@@ -20,9 +20,7 @@ export default class ParentButton extends React.Component {
   };
 
   handleClick = () => {
-    if(this.props.onClick){
-      this.props.onClick();
-    }
+    console.log('displayComponent', this.state.displayComponent);
     this.toggleComponent();
   };
 
@@ -30,11 +28,16 @@ export default class ParentButton extends React.Component {
     return (
       <div>
         <Button
-          label={`Trigger ${this.props.component.type.displayName}`}
+         // label={`Trigger ${this.props.component.type.displayName}`}
           type="primary"
           onClick={this.handleClick}
         />
-        {this.state.displayComponent && this.props.component}
+        {
+        // this.state.displayComponent && this.props.component
+        }
+        {
+          this.props.component(this.handleClick)
+        }
       </div>
     );
   }
