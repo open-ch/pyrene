@@ -20,7 +20,7 @@ export default class ParentButton extends React.Component {
   };
 
   handleClick = () => {
-    this.onClick?.();
+    this.props.onClick?.();
     this.toggleComponent();
   };
 
