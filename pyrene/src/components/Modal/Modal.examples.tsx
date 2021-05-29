@@ -16,7 +16,7 @@ const Modal = {
       { type: 'ghost', label: 'Disabled', action: (): void => {} },
     ],
     rightButtonBarElements: [
-      { type: 'secondary', label: 'Cancel', action: () => console.log('thomas') },
+      { type: 'secondary', label: 'Cancel', action: (): void => {} },
       { type: 'primary', label: 'Apply', action: (): void => {} },
     ],
     defaultExpanded: true,

@@ -20,7 +20,6 @@ export default class ParentButton extends React.Component {
   };
 
   handleClick = () => {
-    console.log('displayComponent', this.state.displayComponent);
     this.toggleComponent();
   };
 
@@ -49,5 +48,8 @@ ParentButton.defaultProps = {};
 
 ParentButton.propTypes = {
   onClick: PropTypes.func,
-  component: PropTypes.element.isRequired,
+  component: PropTypes.oneOfType([
+      PropTypes.element,
+      PropTypes.func,
+    ]).isRequired
 };
