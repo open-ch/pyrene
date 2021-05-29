@@ -32,9 +32,9 @@ export default class ParentButton extends React.Component {
           onClick={this.handleClick}
         />
         { // check if children is render props or not
-          typeof this.props.render === 'function' ?
-            this.state.displayComponent && this.props.render(this.props.component, this.handleClick) :
-            this.state.displayComponent && this.props.component
+          typeof this.props.render === 'function'
+            ? this.state.displayComponent && this.props.render(this.props.component, this.handleClick)
+            : this.state.displayComponent && this.props.component
         }
       </div>
     );
@@ -44,7 +44,9 @@ export default class ParentButton extends React.Component {
 
 ParentButton.displayName = 'ParentButton';
 
-ParentButton.defaultProps = {};
+ParentButton.defaultProps = {
+  render: undefined,
+};
 
 ParentButton.propTypes = {
   component: PropTypes.element.isRequired,

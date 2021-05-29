@@ -103,12 +103,14 @@ export default class ComponentEditor extends React.Component {
             <div className={clsx(styles.sun, { [styles.darkMode]: darkMode })} onClick={() => this.handleSunClick()} />
             <div className={styles.componentDisplay}>
               {
-              this.props.examples.trigger ?
-                <ParentButton
-                  component={displayedComponent}
-                  render={(ComponentToRender, onClose)=> React.cloneElement(ComponentToRender, { onClose })}
-                /> : displayedComponent
-            }
+                this.props.examples.trigger
+                  ? (
+                    <ParentButton
+                      component={displayedComponent}
+                      render={(ComponentToRender, onClose) => React.cloneElement(ComponentToRender, { onClose })}
+                    />
+                  ) : displayedComponent
+              }
             </div>
             <CodeBlock
               component={displayedComponent}
