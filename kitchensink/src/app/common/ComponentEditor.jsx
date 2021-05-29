@@ -104,7 +104,11 @@ export default class ComponentEditor extends React.Component {
             <div className={styles.componentDisplay}>
               {
               // this.props.examples.trigger ? <ParentButton onClick={this.props.examples.onClick} component={(action)=>displayedComponent} /> : displayedComponent
-              this.props.examples.trigger ? <ParentButton onClick={this.props.examples.onClick} component={(onClick)=> <button onClick={onClick}>click on me !</button>} /> : displayedComponent
+              this.props.examples.trigger ?
+                <ParentButton
+                  onClick={this.props.examples.onClick}
+                  component={(onClick)=> <div> <div>This is a modal component</div><div><button onClick={onClick}>cancel</button></div></div>}
+                /> : displayedComponent
             }
             </div>
             <CodeBlock
