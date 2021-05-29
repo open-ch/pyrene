@@ -47,7 +47,6 @@ ParentButton.displayName = 'ParentButton';
 ParentButton.defaultProps = {};
 
 ParentButton.propTypes = {
-  onClick: PropTypes.func,
   component: PropTypes.oneOfType([
       PropTypes.element,
       PropTypes.func,
