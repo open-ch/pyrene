@@ -103,11 +103,11 @@ export default class ComponentEditor extends React.Component {
             <div className={clsx(styles.sun, { [styles.darkMode]: darkMode })} onClick={() => this.handleSunClick()} />
             <div className={styles.componentDisplay}>
               {
-              // this.props.examples.trigger ? <ParentButton onClick={this.props.examples.onClick} component={(action)=>displayedComponent} /> : displayedComponent
               this.props.examples.trigger ?
                 <ParentButton
+                  componentMeta={Component}
                   onClick={this.props.examples.onClick}
-                  component={(onClick)=> <div> <div>This is a modal component</div><div><button onClick={onClick}>cancel</button></div></div>}
+                  component={(onClose)=> <Component {...mergedComponentProps} onClose={onClose} />}
                 /> : displayedComponent
             }
             </div>

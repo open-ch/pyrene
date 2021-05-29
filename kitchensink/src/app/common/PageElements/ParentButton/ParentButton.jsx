@@ -24,10 +24,11 @@ export default class ParentButton extends React.Component {
   };
 
   render() {
+    console.log('this.props', this.props);
     return (
       <div>
         <Button
-         // label={`Trigger ${this.props.component.type.displayName}`}
+          label={`Trigger ${this.props.component?.type?.displayName || ''}`}
           type="primary"
           onClick={this.handleClick}
         />
@@ -47,6 +48,7 @@ ParentButton.displayName = 'ParentButton';
 ParentButton.defaultProps = {};
 
 ParentButton.propTypes = {
+  componentMeta:PropTypes.element,
   component: PropTypes.oneOfType([
       PropTypes.element,
       PropTypes.func,
