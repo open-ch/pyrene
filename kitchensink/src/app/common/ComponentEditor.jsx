@@ -105,9 +105,8 @@ export default class ComponentEditor extends React.Component {
               {
               this.props.examples.trigger ?
                 <ParentButton
-                  componentMeta={Component}
-                  onClick={this.props.examples.onClick}
-                  component={(onClose)=> <Component {...mergedComponentProps} onClose={onClose} />}
+                  component={displayedComponent}
+                  render={(ComponentToRender, onClose)=> React.cloneElement(ComponentToRender, { onClose })}
                 /> : displayedComponent
             }
             </div>
