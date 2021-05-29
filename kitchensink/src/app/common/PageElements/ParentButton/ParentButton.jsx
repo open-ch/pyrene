@@ -32,11 +32,10 @@ export default class ParentButton extends React.Component {
           type="primary"
           onClick={this.handleClick}
         />
-        {
-        // this.state.displayComponent && this.props.component
-        }
-        {
-          this.props.component(this.handleClick)
+        { // check if children is render props or not
+          typeof this.props.component !== 'function' ?
+            this.state.displayComponent && this.props.component :
+            this.state.displayComponent && this.props.component(this.handleClick)
         }
       </div>
     );
