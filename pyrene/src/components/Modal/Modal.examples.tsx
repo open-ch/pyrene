@@ -3,9 +3,7 @@ import Placeholder from '../../examples/Placeholder';
 
 const Modal = {
   props: {
-    renderCallback: function displayPlaceHolder(): React.ReactElement {
-      return (<Placeholder label="Content" width={392} />);
-    },
+    renderCallback: () => <Placeholder label="Hit ESC to close the Modal" width={392} />,
     canNext: true,
     canPrevious: true,
     displayNavigationArrows: true,
