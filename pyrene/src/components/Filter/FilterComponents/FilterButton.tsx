@@ -18,7 +18,7 @@ const FilterButton: FunctionComponent<FilterButtonProps> = ({
   onClick = () => null,
 }) => (
   <div
-    className={clsx(styles.filterButton, { 
+    className={clsx(styles.filterButton, {
       [styles.noBorder]: noBorder,
       [styles.popoverOpen]: displayPopover,
       [styles.disabled]: disabled,
@@ -34,13 +34,5 @@ const FilterButton: FunctionComponent<FilterButtonProps> = ({
 
 
 FilterButton.displayName = 'FilterButton';
-
-FilterButton.defaultProps = {
-  disabled: false,
-  displayPopover: false,
-  noBorder: false,
-  onClick: () => null,
-};
-
 
 export default FilterButton;

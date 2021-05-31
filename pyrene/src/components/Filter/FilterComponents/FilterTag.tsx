@@ -7,10 +7,12 @@ export interface FilterTagProps {
   filterLabel: string,
   filterText: string,
   negated?: boolean,
-  onClose: () => void,  
+  onClose: () => void,
 }
 
-const FilterTag: FunctionComponent<FilterTagProps> = ({ filterLabel, filterText, negated = false, onClose }) => (
+const FilterTag: FunctionComponent<FilterTagProps> = ({
+  filterLabel, filterText, negated = false, onClose,
+}) => (
   <div className={styles.wrapper} title={negated ? `Not ${filterText}` : filterText}>
     <div className={styles.label}>
       {filterLabel}
