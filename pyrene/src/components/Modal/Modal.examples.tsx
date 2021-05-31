@@ -1,6 +1,9 @@
 import React from 'react';
 import Placeholder from '../../examples/Placeholder';
 
+// eslint-disable-next-line no-alert
+function alertClickedButton(buttonLabel:string):void { alert(`${buttonLabel} button clicked`); }
+
 const Modal = {
   props: {
     renderCallback: function displayPlaceHolder(): React.ReactElement {
@@ -12,16 +15,16 @@ const Modal = {
     size: 'small',
     title: 'Modal',
     leftButtonBarElements: [
-      { type: 'danger', label: 'Delete', action: ():void => {} },
-      { type: 'ghost', label: 'Disabled', action: (): void => {} },
+      { type: 'danger', label: 'Delete', action: ():void => alertClickedButton('Delete') },
+      { type: 'ghost', label: 'Disabled', action: ():void => alertClickedButton('Disabled') },
     ],
     rightButtonBarElements: [
-      { type: 'secondary', label: 'Cancel', action: (): void => {} },
-      { type: 'primary', label: 'Apply', action: (): void => {} },
+      { type: 'secondary', label: 'Cancel', action: ():void => alertClickedButton('Cancel') },
+      { type: 'primary', label: 'Apply', action: ():void => alertClickedButton('Apply') },
     ],
     defaultExpanded: true,
     renderFooter: true,
-    renderHeader: false,
+    renderHeader: true,
   },
   trigger: true,
   category: '',
