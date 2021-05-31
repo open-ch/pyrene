@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, MouseEvent } from 'react';
 import clsx from 'clsx';
 import styles from './filterButton.css';
 
@@ -11,9 +11,9 @@ export interface FilterButtonProps {
 }
 
 const FilterButton: FunctionComponent<FilterButtonProps> = ({
+  label,
   disabled = false,
   displayPopover = false,
-  label,
   noBorder = false,
   onClick = () => null,
 }) => (
