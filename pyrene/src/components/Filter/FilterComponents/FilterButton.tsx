@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { FunctionComponent, MouseEvent } from 'react';
 import clsx from 'clsx';
 import styles from './filterButton.css';
