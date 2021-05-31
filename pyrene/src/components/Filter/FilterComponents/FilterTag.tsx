@@ -1,39 +1,31 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { FunctionComponent } from 'react';
 import clsx from 'clsx';
 
 import styles from './FilterTag.css';
 
-const FilterTag = (props) => {
-  const displayText = props.negated ? `Not ${props.filterText}` : props.filterText;
-  return (
-    <div className={styles.wrapper} title={displayText}>
-      <div className={styles.label}>
-        {props.filterLabel}
-      </div>
-      <div className={styles.text}>
-        {props.negated && <div className={styles.negated}>Not</div>}
-        {props.filterText}
-      </div>
-      <div onClick={() => props.onClose()}>
-        <div className={clsx(styles.clearIcon, 'pyreneIcon-delete')} />
-      </div>
+export interface FilterTagProps {
+  filterLabel: string,
+  filterText: string,
+  negated?: boolean,
+  onClose: () => void,  
+}
+
+const FilterTag: FunctionComponent<FilterTagProps> = ({ filterLabel, filterText, negated = false, onClose }) => (
+  <div className={styles.wrapper} title={negated ? `Not ${filterText}` : filterText}>
+    <div className={styles.label}>
+      {filterLabel}
     </div>
-  );
-};
+    <div className={styles.text}>
+      {negated && <div className={styles.negated}>Not</div>}
+      {filterText}
+    </div>
+    <div onClick={() => onClose()}>
+      <div className={clsx(styles.clearIcon, 'pyreneIcon-delete')} />
+    </div>
+  </div>
+);
 
 
 FilterTag.displayName = 'FilterTag';
-
-FilterTag.defaultProps = {
-  negated: false,
-};
-
-FilterTag.propTypes = {
-  filterLabel: PropTypes.string.isRequired,
-  filterText: PropTypes.string.isRequired,
-  negated: PropTypes.bool,
-  onClose: PropTypes.func.isRequired,
-};
 
 export default FilterTag;
