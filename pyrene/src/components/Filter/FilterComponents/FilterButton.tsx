@@ -7,7 +7,7 @@ export interface FilterButtonProps {
   displayPopover?: boolean,
   label: string,
   noBorder?: boolean,
-  onClick?: () => null,
+  onClick?: (e: MouseEvent) => void,
 }
 
 const FilterButton: FunctionComponent<FilterButtonProps> = ({
