@@ -32,7 +32,6 @@ const FilterButton: FunctionComponent<FilterButtonProps> = ({
   </div>
 );
 
-
 FilterButton.displayName = 'FilterButton';
 
 export default FilterButton;
