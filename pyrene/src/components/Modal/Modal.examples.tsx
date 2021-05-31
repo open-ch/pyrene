@@ -7,7 +7,7 @@ function alertClickedButton(buttonLabel:string):void { alert(`${buttonLabel} but
 const Modal = {
   props: {
     renderCallback: function displayPlaceHolder(): React.ReactElement {
-      return (<Placeholder label="Hit ESC to close the Modal" width={392} />);
+      return (<Placeholder label="Content" width={392} />);
     },
     canNext: true,
     canPrevious: true,
