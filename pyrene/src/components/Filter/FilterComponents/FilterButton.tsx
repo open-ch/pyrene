@@ -1,14 +1,34 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import clsx from 'clsx';
-import PropTypes from 'prop-types';
 import styles from './filterButton.css';
 
-const FilterButton = (props) => (
-  <div className={clsx(styles.filterButton, { [styles.noBorder]: props.noBorder }, { [styles.popoverOpen]: props.displayPopover }, { [styles.disabled]: props.disabled })} onClick={props.onClick}>
+export interface FilterButtonProps {
+  disabled?: boolean,
+  displayPopover?: boolean,
+  label: string,
+  noBorder?: boolean,
+  onClick?: () => null,
+}
+
+const FilterButton: FunctionComponent<FilterButtonProps> = ({
+  disabled = false,
+  displayPopover = false,
+  label,
+  noBorder = false,
+  onClick = () => null,
+}) => (
+  <div
+    className={clsx(styles.filterButton, { 
+      [styles.noBorder]: noBorder,
+      [styles.popoverOpen]: displayPopover,
+      [styles.disabled]: disabled,
+    })}
+    onClick={onClick}
+  >
     <div className={styles.buttonLabel}>
-      {props.label}
+      {label}
     </div>
-    <div className={clsx(styles.arrowIcon, { 'pyreneIcon-chevronUp': props.displayPopover, 'pyreneIcon-chevronDown': !props.displayPopover })} />
+    <div className={clsx(styles.arrowIcon, { 'pyreneIcon-chevronUp': displayPopover, 'pyreneIcon-chevronDown': !displayPopover })} />
   </div>
 );
 
@@ -22,12 +42,5 @@ FilterButton.defaultProps = {
   onClick: () => null,
 };
 
-FilterButton.propTypes = {
-  disabled: PropTypes.bool,
-  displayPopover: PropTypes.bool,
-  label: PropTypes.string.isRequired,
-  noBorder: PropTypes.bool,
-  onClick: PropTypes.func,
-};
 
 export default FilterButton;
