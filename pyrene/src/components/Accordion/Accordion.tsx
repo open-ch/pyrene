@@ -1,6 +1,7 @@
 import React from 'react';
+import clsx from 'clsx';
 import Section, { SectionProps } from './Section';
-import './accordion.css';
+import styles from './accordion.css';
 
 const isCustomAccordion = (sections: SectionProps[]) => sections.some((section) => typeof section.title !== 'string');
 
@@ -22,7 +23,7 @@ export interface AccordionProps {
 const Accordion: React.FC<AccordionProps> = ({
   sections = [],
 }: AccordionProps) => (
-  <div styleName={`accordion ${isCustomAccordion(sections) ? 'accordion-custom' : 'accordion-regular'}`}>
+  <div className={clsx(styles.accordion, { [styles.accordion_custom]: isCustomAccordion(sections), [styles.accordion_regular]: !isCustomAccordion(sections) })}>
     {sections.map((sectionProps, index) => (
       // eslint-disable-next-line react/no-array-index-key
       <Section key={index} {...sectionProps} />

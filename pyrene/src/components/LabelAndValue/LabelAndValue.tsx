@@ -1,7 +1,7 @@
 import React from 'react';
-import className from 'classnames';
+import clsx from 'clsx';
 
-import './labelAndValue.css';
+import styles from './labelAndValue.css';
 
 export interface LabelAndValueProps {
   /**
@@ -28,9 +28,9 @@ export interface LabelAndValueProps {
 const LabelAndValue: React.FC<LabelAndValueProps> = ({
   label = '', size = 'small', value = '', type = 'neutral',
 }: LabelAndValueProps) => (
-  <div styleName={`label-and-value label-and-value-${size}`}>
-    <div styleName="label">{label}</div>
-    <div styleName={className('value', { [`type-${type}`]: true })}>{value}</div>
+  <div className={clsx(styles['label-and-value'], styles[`label-and-value-${size}`])}>
+    <div className={styles.label}>{label}</div>
+    <div className={clsx(styles.value, styles[`type-${type}`])}>{value}</div>
   </div>
 );
 

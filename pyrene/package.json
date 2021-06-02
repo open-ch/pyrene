@@ -1,6 +1,6 @@
 {
   "name": "@osag/pyrene",
-  "version": "2.12.2",
+  "version": "2.13.7",
   "description": "Open Systems Component Library",
   "main": "dist/pyrene.js",
   "style": "dist/pyrene.css",
@@ -16,7 +16,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "clean": "rm -rf dist node_modules",
-    "prebuild": "npm run clean && npm install",
+    "prebuild": "npm ci",
     "build": "webpack && NODE_ENV=production webpack && npm run build-ts-declarations",
     "build-debug": "NODE_ENV=debug webpack",
     "watch": "webpack -w",
@@ -42,13 +42,12 @@
     "@babel/register": "^7.11.5",
     "@osag/eslint-config": "^1.4.0",
     "@release-it/bumper": "^2.0.0",
-    "@types/classnames": "^2.2.10",
+    "@svgr/webpack": "^5.5.0",
     "@types/enzyme": "^3.10.7",
     "@types/jest": "^26.0.14",
     "@types/react": "^16.9.50",
     "@types/react-css-modules": "^4.6.2",
     "@types/react-select": "^3.0.28",
-    "@types/react-svg-inline": "^2.1.1",
     "@typescript-eslint/eslint-plugin": "^4.9.1",
     "@typescript-eslint/parser": "^4.9.1",
     "autoprefixer": "^9.8.6",
@@ -77,15 +76,12 @@
     "jest": "^25.1.0",
     "jest-bamboo-formatter": "^1.0.1",
     "mini-css-extract-plugin": "^0.11.3",
-    "moment": "^2.29.0",
-    "moment-timezone": "^0.5.31",
     "optimize-css-assets-webpack-plugin": "^5.0.4",
-    "postcss": "^7.0.35",
+    "postcss": "^8.2.10",
     "postcss-custom-properties": "^10.0.0",
     "postcss-import": "^12.0.1",
     "postcss-loader": "^3.0.0",
     "postcss-nesting": "^7.0.0",
-    "raw-loader": "^4.0.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "regenerator-runtime": "^0.13.7",
@@ -99,10 +95,11 @@
     "webpack-cli": "^3.3.12"
   },
   "dependencies": {
-    "classnames": "^2.2.5",
+    "clsx": "^1.1.1",
+    "date-fns": "^2.16.1",
+    "date-fns-tz": "^1.1.4",
     "prop-types": "^15.6.1",
     "react-select": "^3.1.1",
-    "react-svg-inline": "^2.1.1",
     "react-table": "^6.8.6",
     "react-tiny-popover": "^4.0.0",
     "react-window": "^1.8.5",
@@ -110,9 +107,7 @@
     "uniqid": "^5.0.3"
   },
   "peerDependencies": {
-    "react": ">=16.9.0 <17.0.0",
-    "react-dom": ">=16.9.0 <17.0.0",
-    "moment": "^2.24.0",
-    "moment-timezone": "^0.5.26"
+    "react": ">=16.9.0 <18.0.0",
+    "react-dom": ">=16.9.0 <18.0.0"
   }
 }

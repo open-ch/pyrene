@@ -1,0 +1,65 @@
+.colorRowContainer{
+  margin: 24px 0; 
+}
+
+.colorRowContainer table {
+  width: 100%;
+  table-layout: fixed;
+
+  & .title {
+    height: 14px;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: var(--neutral-200);
+
+    &.large {
+      font-size: 18px;
+    }
+
+    &.medium{
+      font-size: 16px;
+    }
+
+    &.small {
+      font-size: 12px;
+    }    
+  }   
+
+  & thead th {
+    height: 13px;
+  }
+
+  & thead tr .base-column {
+    text-align: left;
+    color: var(--neutral-400);
+  }  
+}
+
+.colorRow {
+  background: #FFFFFF;
+  box-shadow: inset 0px 1px 0px var(--neutral-050), inset 0px -1px 0px var(--neutral-050);
+}
+
+.descriptionCell {
+  text-transform: none;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: normal;
+  color: var(--neutral-200);
+  padding: 16px 0;
+}
+
+.rowHeader {
+ 
+  &.large {
+    padding-left: 18px;
+  }
+
+  &.medium{
+    padding-left: 14px;
+  }
+
+  &.small {
+    padding-left: 10px;
+  }   
+}

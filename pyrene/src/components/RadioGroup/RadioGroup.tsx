@@ -1,9 +1,9 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import RadioButton, { RadioButtonBaseProps } from '../RadioButton/RadioButton';
 
-import './radioSelection.css';
+import styles from './radioSelection.css';
 
 export interface RadioGroupProps {
   /**
@@ -79,19 +79,19 @@ const RadioGroup: React.FC<RadioGroupProps> = ({
 
   return (
     <div
-      styleName="radioSelectionContainer"
+      className={styles.radioSelectionContainer}
       onBlur={onBlur}
       id={name}
     >
-      {title && <div styleName="radioGroupTitle">{title}</div>}
-      <div styleName={classNames('radioGroupContainer', { [`alignment-${alignment}`]: true })}>
+      {title && <div className={styles.radioGroupTitle}>{title}</div>}
+      <div className={clsx(styles.radioGroupContainer, styles[`alignment-${alignment}`])}>
         {options.map((option, index) => {
           const key = `radio_${option.label ?? ''}_${option.value}`;
 
           return (
             <React.Fragment key={key}>
               <div
-                className="radioContainer"
+                className={styles.radioContainer}
                 onMouseEnter={() => onMouseEnter(key)}
                 onMouseLeave={() => onMouseLeave(key)}
               >
@@ -107,7 +107,7 @@ const RadioGroup: React.FC<RadioGroupProps> = ({
                   value={option.value}
                 />
               </div>
-              {index !== lastElementIndex && <div styleName={classNames({ [`spacer-${alignment}`]: true })} />}
+              {index !== lastElementIndex && <div className={styles[`spacer-${alignment}`]} />}
             </React.Fragment>
           );
         })}

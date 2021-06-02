@@ -1,16 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment-timezone';
+
+import { differenceInMinutes, getTime, format } from 'date-fns';
+import { utcToZonedTime } from 'date-fns-tz';
+
 
 import ArrowSelector from './ArrowSelector/ArrowSelector';
 
 const TimeRangeNavigationBar = (props) => {
-  const backInactive = moment(props.from).tz(props.timezone).diff(moment(props.lowerBound).tz(props.timezone), 'minutes') <= 0; // We should not check for milliseconds but minutes changes
-  const forwardInactive = moment(props.to).tz(props.timezone).diff(moment(props.upperBound).tz(props.timezone), 'minutes').valueOf() >= 0; // We should not check for milliseconds but minutes changes
+  // We should not check for milliseconds but minutes changes
+  const backInactive = differenceInMinutes(props.from, props.lowerBound) <= 0;
+
+  // We should not check for milliseconds but minutes changes
+  const forwardInactive = differenceInMinutes(props.to, props.upperBound) >= 0;
 
   return (
     <ArrowSelector
-      label={TimeRangeNavigationBar.renderCurrentTimeRange(props)}
+      label={TimeRangeNavigationBar.renderCurrentTimeRange(props.from, props.to, props.timezone)}
       onNavigateForward={props.onNavigateForward}
       backInactive={backInactive}
       forwardInactive={forwardInactive}
@@ -21,15 +27,13 @@ const TimeRangeNavigationBar = (props) => {
   );
 };
 
-/* eslint-disable-next-line react/display-name */
-TimeRangeNavigationBar.renderCurrentTimeRange = (currProps) => {
-  const fromMoment = moment(currProps.from).tz(currProps.timezone);
-  const toMoment = moment(currProps.to).tz(currProps.timezone);
-  const dateFormat = 'DD.MM.YYYY, HH:mm';
-  return `${fromMoment.format(dateFormat)} - ${toMoment.format(dateFormat)}`;
-};
+TimeRangeNavigationBar.renderCurrentTimeRange = (from, to, timezone) => {
+  const localFrom = getTime(utcToZonedTime(new Date(from), timezone));
+  const localTo = getTime(utcToZonedTime(new Date(to), timezone));
+  const pattern = 'dd.MM.yyyy, HH:mm';
 
-TimeRangeNavigationBar.displayName = 'TimeRangeNavigationBar';
+  return `${format(localFrom, pattern)} - ${format(localTo, pattern)}`;
+};
 
 TimeRangeNavigationBar.defaultProps = {
   disabled: false,

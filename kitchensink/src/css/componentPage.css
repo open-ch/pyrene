@@ -27,7 +27,55 @@
   }
 }
 
+.link {
+  color: #0055FF;
+}
+
+.firaCondensed {
+  font-family: FiraSans, sans-serif;
+}
+
 .topicContent {}
+
+.fontStack {
+  font-size: 32px;
+  line-height: 64px;
+  letter-spacing: -0.2px;
+  color: #1D273B;
+  background-color: #F0F2F5;
+  border-radius: 4px;
+  padding: 32px;
+}
+
+.subtitle {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: -0.05px;
+  color: #1D273B;
+  border-bottom: 1px solid #E1E3E8;
+  margin-bottom: 16px;
+}
+
+.footnote {
+  font-size: 13px;
+  line-height: 16px;
+  padding-top: 24px;
+}
+
+.twoColumns {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  align-items: center;
+  padding-bottom: 16px;
+}
+
+.styleText {
+  font-size: 13px;
+  line-height: 16px;
+  white-space: pre-line;
+}
 
 .displayContainer {
   background-color: var(--neutral-000);

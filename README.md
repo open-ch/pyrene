@@ -1,10 +1,9 @@
-![pyrene](kitchensink/src/images/pyrene.svg)
+[![pyrene](https://raw.githubusercontent.com/open-ch/pyrene/main/kitchensink/src/images/pyrene.svg)](https://open-ch.github.io/pyrene/)
 
 # pyrene - Open Systems Component Library
 
 [![Tests](https://github.com/open-ch/pyrene/workflows/Test/badge.svg)](https://github.com/open-ch/pyrene/actions?query=workflow%3ATest)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=open-ch_pyrene&metric=alert_status)](https://sonarcloud.io/dashboard?id=open-ch_pyrene)
-
 
 Check it out on [open-ch.github.io/pyrene](https://open-ch.github.io/pyrene).
 
@@ -55,3 +54,7 @@ Thanks,
 [@neonnoon](https://github.com/neonnoon), for never stop pushing forward and bringing it all together,
 
 and many more.
+
+## Contributing
+
+Do you want to contribute to pyrene? Please have a look at [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.

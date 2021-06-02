@@ -76,6 +76,10 @@
   width: 12px;
   margin-right: 6px;
   cursor: pointer;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .checkboxIcon {
@@ -83,6 +87,4 @@
   font-size: 12px;
   font-weight: 600;
   color: white;
-  top: -2px;
-  left: 0.5px;
 }

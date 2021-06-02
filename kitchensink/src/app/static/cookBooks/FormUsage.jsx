@@ -1,9 +1,9 @@
 import React from 'react';
 import * as yup from 'yup';
-import '../../../css/componentPage.css';
 import {
   Form, Checkbox, Button, TextField, RadioGroup, SingleSelect, MultiSelect, Link,
 } from '@osag/pyrene/dist/pyrene.dev';
+import styles from '../../../css/componentPage.css';
 import CodeBox from '../../common/PageElements/HowTo/CodeBox/CodeBox';
 import Paragraph from '../../common/PageElements/Paragraph/Paragraph';
 import DescriptionBox from '../../common/PageElements/DescriptionBox/DescriptionBox';
@@ -387,10 +387,10 @@ const BigFormCode = `<Form
 />`;
 
 const FormUsage = () => (
-  <div styleName="page">
-    <div className="header">
-      <div styleName="title">Form</div>
-      <div styleName="description">
+  <div className={styles.page}>
+    <div className={styles.header}>
+      <div className={styles.title}>Form</div>
+      <div className={styles.description}>
         <p>
           Forms need a central place to keep the state of all the components in order to allow the implementation of important features like dynamic input disabling and to guarantee a
           <strong>single source of truth</strong>
@@ -403,7 +403,7 @@ const FormUsage = () => (
           we try to standardise the general behaviour and logic behind the React way of doing forms with the intent to reduce boilerplate code.
         </p>
       </div>
-      <div className="topicContent">
+      <div className={styles.topicContent}>
         <Paragraph title="Getting started">
           <DescriptionBox>
             <p>

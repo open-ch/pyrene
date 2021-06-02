@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import Select from 'react-select';
 import SelectStyle from './iconSelectCSS';
 import { icons } from '../../../data/foundationsData';
-import './select.css';
+import styles from './select.css';
 
 const Option = (props) => {
   const { getStyles, children, innerProps } = props; // eslint-disable-line react/prop-types
@@ -21,8 +21,8 @@ const Option = (props) => {
 const IconSelect = (props) => {
   const options = icons.map((icon) => ({ value: icon.name, label: icon.name }));
   return (
-    <div styleName={classNames('selectContainer')}>
-      {props.title && <div styleName={classNames('selectTitle', { required: props.required && !props.disabled })}>{props.title}</div>}
+    <div className={styles.selectContainer}>
+      {props.title && <div className={clsx(styles.selectTitle, { [styles.required]: props.required && !props.disabled })}>{props.title}</div>}
       <Select
         components={{ Option }}
         className="singleSelect"
@@ -47,7 +47,7 @@ const IconSelect = (props) => {
 
       {props.helperLabel
       && (
-        <div styleName="selectHelper">
+        <div className={styles.selectHelper}>
           {props.helperLabel}
         </div>
       )}

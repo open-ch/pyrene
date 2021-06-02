@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from 'react';
-import classNames from 'classnames';
-import './modal.css';
+import clsx from 'clsx';
+import styles from './modal.css';
 import ButtonBar from '../ButtonBar/ButtonBar';
 import Button, { Type as ButtonType } from '../Button/Button';
 import Loader from '../Loader/Loader';
@@ -178,7 +178,7 @@ const Modal: React.FC<ModalProps> = ({
   const renderFooterSection = () => (
     <>
       {(Footer && Footer()) || (
-        <div styleName="buttonBarContainer">
+        <div className={styles.buttonBarContainer}>
           <ButtonBar
             rightButtonSectionElements={createButtonArray(rightButtonBarElements)}
             leftButtonSectionElements={createButtonArray(leftButtonBarElements)}
@@ -190,13 +190,13 @@ const Modal: React.FC<ModalProps> = ({
 
   const renderHeaderSection = () => (
     <>
-      <div styleName="titleBar">
-        <span styleName="title">
+      <div className={styles.titleBar}>
+        <span className={styles.title}>
           {title}
         </span>
-        <div styleName="topRightSection">
+        <div className={styles.topRightSection}>
           {displayNavigationArrows && renderNavigationArrows()}
-          <div styleName="closeButtonContainer">
+          <div className={styles.closeButtonContainer}>
             <ActionBar
               styling="none"
               actions={[
@@ -216,8 +216,8 @@ const Modal: React.FC<ModalProps> = ({
 
   const renderContent = () => (
     <>
-      <div styleName={classNames('contentContainer', { contentScrolling: contentScrolling })}>
-        <div styleName={classNames('content', { contentPadding: contentPadding }, { contentScrolling: contentScrolling }, { overlay: processing })}>
+      <div className={clsx(styles.contentContainer, { [styles.contentScrolling]: contentScrolling })}>
+        <div className={clsx(styles.content, { [styles.contentPadding]: contentPadding }, { [styles.contentScrolling]: contentScrolling }, { [styles.overlay]: processing })}>
           { renderCallback() }
         </div>
       </div>
@@ -225,15 +225,15 @@ const Modal: React.FC<ModalProps> = ({
   );
 
   const renderLoader = () => (
-    <div styleName="loaderContainer">
+    <div className={styles.loaderContainer}>
       <Loader size="large" />
     </div>
   );
 
   return (
     <>
-      <div styleName="modalOverlay">
-        <div styleName={classNames('modalContainer', size)} role="dialog">
+      <div className={styles.modalOverlay}>
+        <div className={clsx(styles.modalContainer, styles[size])} role="dialog">
           {renderHeader && renderHeaderSection()}
           {loading ? renderLoader() : renderContent()}
           {renderFooter && renderFooterSection()}

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment-timezone';
+import { subMilliseconds, getTime } from 'date-fns';
 import ToggleButtonGroup from '../../ToggleButtonGroup/ToggleButtonGroup';
 
 const PresetTimeRanges = (props) => (
@@ -32,7 +32,10 @@ const PresetTimeRanges = (props) => (
  */
 PresetTimeRanges.onPresetTimeRangeSelected = (presetId, presetTimeRanges, lowerBound, upperBound, timezone, callback) => {
   const selectedPresetTimeRange = presetTimeRanges.filter((preset) => preset.id === presetId).shift();
-  const newFrom = moment(upperBound).tz(timezone).subtract(selectedPresetTimeRange.durationInMs).valueOf();
+
+  const newFromDate = subMilliseconds(upperBound, selectedPresetTimeRange.durationInMs);
+  // convert to milliseconds
+  const newFrom = getTime(newFromDate);
 
   callback(
     Math.max(newFrom, lowerBound),

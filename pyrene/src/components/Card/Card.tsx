@@ -1,9 +1,9 @@
 import React, { ReactElement } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import Loader from '../Loader/Loader';
 import Banner from '../Banner/Banner';
-import './card.css';
+import styles from './card.css';
 
 export interface CardProps {
   /**
@@ -41,20 +41,20 @@ const Card:React.FC<CardProps> = ({
   error,
 }: CardProps) => (
 
-  <div styleName="container">
-    {header && <div styleName="header">{header}</div>}
-    <div styleName={classNames('content', { 'content--noHeader': !header, 'content--noFooter': !footer })}>
+  <div className={styles.container}>
+    {header && <div className={styles.header}>{header}</div>}
+    <div className={clsx(styles.content, { [styles['content--noHeader']]: !header, [styles['content--noFooter']]: !footer })}>
       {/* eslint-disable-next-line no-nested-ternary */}
-      { error ? <div styleName="error"><Banner type="error" styling="standard" label={error} /></div>
+      { error ? <div className={styles.error}><Banner type="error" styling="standard" label={error} /></div>
         : loading ? (
-          <div styleName="loader">
-            <div styleName="loadingOverlay">
+          <div className={styles.loader}>
+            <div className={styles.loadingOverlay}>
               <Loader size="large" />
             </div>
           </div>
         ) : children}
     </div>
-    {footer && <div styleName="footer">{footer}</div>}
+    {footer && <div className={styles.footer}>{footer}</div>}
   </div>
 );
 

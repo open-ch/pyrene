@@ -1,3 +1,24 @@
+:global(.pyreneIcon-ticket:before){
+  content: "\bf";
+}
+:global(.pyreneIcon-application:before){
+  content: "\2020";
+}
+:global(.pyreneIcon-file:before){
+  content: "\ae";
+}
+:global(.pyreneIcon-files:before){
+  content: "\20ac";
+}
+:global(.pyreneIcon-ip:before){
+  content: "\2211";
+}
+:global(.pyreneIcon-alert:before){
+  content: "\153";
+}
+:global(.pyreneIcon-rule:before){
+  content: "\b4";
+}
 :global(.pyreneIcon-calendar:before){
   content: "\2260";
 }

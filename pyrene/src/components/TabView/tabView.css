@@ -25,6 +25,7 @@
 
   & .tab {
     box-sizing: border-box;
+    display: flex;
     margin-right: 24px;
 
     line-height: 16px;
@@ -165,7 +166,6 @@
         line-height: 16px;
         letter-spacing: normal;
         color: var(--neutral-500);
-        text-transform: capitalize;
 
         &.disabled {
           opacity: .5;

@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
-import './treeTableRow.css';
+import styles from './treeTableRow.css';
 import TreeTableCell from '../TreeTableCell/TreeTableCell';
 import PROPCONSTANTS from '../TreeTablePropTypes';
 
@@ -32,15 +32,15 @@ export default class TreeTableRow extends React.PureComponent {
     const hasDoubleClickAction = !hasSingleClickAction && this.props.onRowDoubleClick !== null;
     return (
       <div
-        styleName={classNames('treeTableRow', { activeAction: hasSingleClickAction || hasDoubleClickAction })}
+        className={clsx(styles.treeTableRow, { [styles.activeAction]: (hasSingleClickAction || hasDoubleClickAction) })}
       >
 
         {/* Row Elements are rendered here */}
         <div
-          styleName={classNames(
-            'rowElementsContainer',
-            { openRootParent: this.props.level === 0 && this.props.isExpanded && this.props.parent },
-            { highlighted: this.props.highlighted },
+          className={clsx(
+            styles.rowElementsContainer,
+            { [styles.openRootParent]: (this.props.level === 0 && this.props.isExpanded && this.props.parent) },
+            { [styles.highlighted]: this.props.highlighted },
           )}
           onClick={hasSingleClickAction ? this.handleSingleClick : null}
           onDoubleClick={hasDoubleClickAction ? () => this.props.onRowDoubleClick(this.props.data) : null}

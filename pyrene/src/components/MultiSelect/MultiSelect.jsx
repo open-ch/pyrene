@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import Select from 'react-select';
 import CreatableSelect from 'react-select/creatable';
-import '../SingleSelect/select.css';
+import styles from '../SingleSelect/select.css';
 import MultiSelectStyle from './multiSelectCSS';
 import Loader from '../Loader/Loader';
 import MultiSelectMenuWithOptions from './MultiSelectMenuWithOptions';
@@ -80,8 +80,8 @@ const MultiSelect = (props) => {
   };
 
   return (
-    <div onPaste={onPaste} styleName={classNames('selectContainer', { disabled: props.disabled })}>
-      {props.title && <div styleName={classNames('selectTitle', { required: props.required && !props.disabled })}>{props.title}</div>}
+    <div onPaste={onPaste} className={clsx(styles.selectContainer, { [styles.disabled]: props.disabled })}>
+      {props.title && <div className={clsx(styles.selectTitle, { [styles.required]: (props.required && !props.disabled) })}>{props.title}</div>}
       {props.creatable
         ? (
           <CreatableSelect
@@ -154,16 +154,16 @@ const MultiSelect = (props) => {
 
       {hasPastedDuplicates && props.creatable && !props.disabled
       && (
-        <div styleName="warningLabel">
-          <span className="pyreneIcon-warning" styleName="errorIcon" />
+        <div className={styles.warningLabel}>
+          <span className={clsx('pyreneIcon-warning', styles.errorIcon)} />
           Duplicates were found and removed
         </div>
       )}
 
       {props.invalid && props.invalidLabel && !props.disabled
         ? (
-          <div styleName="invalidLabel">
-            <span className="pyreneIcon-errorOutline" styleName="errorIcon" />
+          <div className={styles.invalidLabel}>
+            <span className={clsx('pyreneIcon-errorOutline', styles.errorIcon)} />
             {props.invalidLabel}
           </div>
         )
@@ -171,7 +171,7 @@ const MultiSelect = (props) => {
           <>
             {props.helperLabel
         && (
-          <div styleName="selectHelper">
+          <div className={styles.selectHelper}>
             {props.helperLabel}
           </div>
         )}

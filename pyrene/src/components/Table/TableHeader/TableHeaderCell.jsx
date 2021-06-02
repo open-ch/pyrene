@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import SVG from 'react-svg-inline';
+import clsx from 'clsx';
 
 // @ts-ignore
 import DefaultSort from '../images/sort.svg';
@@ -10,25 +9,24 @@ import AscSort from '../images/sortDown.svg';
 // @ts-ignore
 import DescSort from '../images/sortUp.svg';
 
-import './tableHeaderCell.css';
+import styles from './tableHeaderCell.css';
 
 const stringContains = (haystack, needle) => haystack.indexOf(needle) !== -1;
 
 const getIconComponent = (className) => {
   if (stringContains(className, 'asc')) {
-    return <SVG styleName="inlineSVGFlex" svg={AscSort} />;
+    return <AscSort />;
   }
   if (stringContains(className, 'desc')) {
-    return <SVG styleName="inlineSVGFlex" svg={DescSort} />;
+    return <DescSort />;
   }
-  return <SVG styleName="inlineSVGFlex" svg={DefaultSort} />;
+  return <DefaultSort />;
 };
 
 const TableHeaderCell = (props) => (
   <div
     onClick={(event) => props.toggleSort(event)}
-    styleName={classNames({ multiSelect: props.multiSelect, tableHeaderCell: true })}
-    className={classNames(props.className, 'unSelectable')}
+    className={clsx({ [styles.multiSelect]: props.multiSelect }, styles.tableHeaderCell, props.className, 'unSelectable')}
     style={props.style}
   >
     {props.children}

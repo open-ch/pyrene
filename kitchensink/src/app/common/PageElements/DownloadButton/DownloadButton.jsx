@@ -1,15 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
-import './downloadButton.css';
+import styles from './downloadButton.css';
 
 const DownloadButton = (props) => (
   <a href={props.path} download>
-    <div styleName="downloadButton">
-      <div styleName="iconContainer">
-        <div styleName="icon" />
+    <div className={styles.downloadButton}>
+      <div className={styles.iconContainer}>
+        <div className={styles.icon} />
       </div>
-      <div styleName="name">{props.name}</div>
+      <div className={styles.name}>{props.name}</div>
     </div>
   </a>
 );

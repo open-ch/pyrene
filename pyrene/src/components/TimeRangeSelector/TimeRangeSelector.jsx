@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment-timezone';
-import classNames from 'classnames';
+import {
+  addMilliseconds, subMilliseconds, getTime, differenceInMilliseconds,
+} from 'date-fns';
+import clsx from 'clsx';
 import PresetTimeRanges from './PresetTimeRanges/PresetTimeRanges';
 import TimeRangeNavigationBar from './TimeRangeNavigationBar/TimeRangeNavigationBar';
 import PRESET_TIME_RANGES from './TimeRangeSelectorDefaultProps';
-import './timeRangeSelector.css';
+import styles from './timeRangeSelector.css';
 
 /**
  * TimeRangeSelectors are used to provide a certain timerange within a lower and upper limit and change it via timesteps.
@@ -63,21 +65,29 @@ export default class TimeRangeSelector extends Component {
   }
 
   _onNavigateBack() {
-    // Use moment instance to do time subtraction prevents DST problem
-    const fromDiff = moment(this.props.from).tz(this.props.timezone).subtract(this.state.durationInMs).valueOf();
-    const toDiff = moment(this.props.to).tz(this.props.timezone).subtract(this.state.durationInMs).valueOf();
-    const newFrom = Math.max(fromDiff, this.props.lowerBound);
-    const newTo = moment(toDiff).tz(this.props.timezone).subtract(newFrom).valueOf() < this.state.durationInMs ? moment(newFrom).tz(this.props.timezone).add(this.state.durationInMs).valueOf() : toDiff;
-    return this.props.onChange(newFrom, Math.min(newTo, this.props.upperBound));
+    const fromDiff = subMilliseconds(this.props.from, this.state.durationInMs);
+    const toDiff = subMilliseconds(this.props.to, this.state.durationInMs);
+
+    const newFrom = Math.max(getTime(fromDiff), this.props.lowerBound);
+
+    // Keep the selected timespan duration if we reach a bound
+    const newTo = differenceInMilliseconds(toDiff, newFrom) < this.state.durationInMs
+      ? addMilliseconds(newFrom, this.state.durationInMs)
+      : toDiff;
+    return this.props.onChange(newFrom, Math.min(getTime(newTo), this.props.upperBound));
   }
 
   _onNavigateForward() {
-    // Use moment instance to do time addition prevents DST problem
-    const toDiff = moment(this.props.to).tz(this.props.timezone).add(this.state.durationInMs).valueOf();
-    const fromDiff = moment(this.props.from).tz(this.props.timezone).add(this.state.durationInMs).valueOf();
-    const newTo = Math.min(toDiff, this.props.upperBound);
-    const newFrom = moment(newTo).tz(this.props.timezone).subtract(fromDiff).valueOf() < this.state.durationInMs ? moment(newTo).tz(this.props.timezone).subtract(this.state.durationInMs).valueOf() : fromDiff; // Keep the selected timespan duration if we reach a bound
-    return this.props.onChange(Math.max(newFrom, this.props.lowerBound), newTo);
+    const fromDiff = addMilliseconds(this.props.from, this.state.durationInMs);
+    const toDiff = addMilliseconds(this.props.to, this.state.durationInMs);
+
+    const newTo = Math.min(getTime(toDiff), this.props.upperBound);
+
+    // Keep the selected timespan duration if we reach a bound
+    const newFrom = differenceInMilliseconds(newTo, fromDiff) < this.state.durationInMs
+      ? addMilliseconds(newTo, this.state.durationInMs)
+      : fromDiff;
+    return this.props.onChange(Math.max(getTime(newFrom), this.props.lowerBound), newTo);
   }
 
   /**
@@ -100,8 +110,8 @@ export default class TimeRangeSelector extends Component {
     currentTimeRangeType = currentTimeRangeType ? currentTimeRangeType.id : ''; // If we found a match, then let's use the id of the preset, otherwise no default preset has to be selected
 
     return (
-      <div styleName={classNames('timeRangeSelector', { disabled: this.props.disabled })}>
-        <div styleName="timeRangeSelector--left">
+      <div className={clsx(styles.timeRangeSelector, { [styles.disabled]: this.props.disabled })}>
+        <div className={styles['timeRangeSelector--left']}>
           <PresetTimeRanges
             disabled={this.props.disabled}
             lowerBound={this.props.lowerBound}
@@ -112,7 +122,7 @@ export default class TimeRangeSelector extends Component {
             timezone={this.props.timezone}
           />
         </div>
-        <div styleName="timeRangeSelector--center">
+        <div className={styles['timeRangeSelector--center']}>
           <TimeRangeNavigationBar
             disabled={this.props.disabled}
             to={this.props.to}
@@ -124,7 +134,7 @@ export default class TimeRangeSelector extends Component {
             timezone={this.props.timezone}
           />
         </div>
-        <div styleName={classNames('timeRangeSelector--right', { disabled: this.props.disabled })}>
+        <div className={clsx(styles['timeRangeSelector--right'], { [styles.disabled]: this.props.disabled })}>
           {this.props.renderRightSection()}
         </div>
       </div>

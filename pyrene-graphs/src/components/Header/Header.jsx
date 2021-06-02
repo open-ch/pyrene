@@ -1,48 +1,47 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import PropTypes from 'prop-types';
-import './header.css';
+import styles from './header.css';
 
 /**
  * Headers are used to display a title, description and legends along with chart components.
  */
 const Header = (props) => (
-  <div styleName="container">
-    <div styleName="title">
+  <div className={styles.container}>
+    <div className={styles.title}>
       {props.title}
     </div>
     {(props.description || (props.legend && props.legend.length > 0)) && (
-      <div styleName="subContainer">
+      <div className={styles.subContainer}>
         {props.description && (
-          <div styleName="description">
+          <div className={styles.description}>
             {props.description}
           </div>
         )}
         {props.legend && props.legend.length > 0 && (
-          <div styleName={classNames('legend', { legendLeft: props.description === '' })}>
+          <div className={clsx(styles.legend, { [styles.legendLeft]: props.description === '' })}>
             {props.legend.map((item, index) => (
               <div
                 key={item.label}
-                styleName="legendItem"
+                className={styles.legendItem}
               >
                 {props.legendToggleCallback ? (
                   <>
-                    <span
-                      styleName="checkbox"
+                    <div
+                      className={styles.checkbox}
                       style={{ backgroundColor: item.color }}
                       onClick={() => props.legendToggleCallback(index)}
                     >
                       {!item.deselected && (
                         <span
-                          styleName="checkboxIcon"
-                          className="pyreneIcon-check"
+                          className={clsx(styles.checkboxIcon, 'pyreneIcon-check')}
                         />
                       )}
-                    </span>
+                    </div>
                   </>
                 ) : (
                   <span
-                    styleName="circle"
+                    className={styles.circle}
                     style={{ backgroundColor: item.color }}
                   />
                 )}

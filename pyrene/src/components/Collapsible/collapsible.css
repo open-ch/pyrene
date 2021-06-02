@@ -14,7 +14,7 @@
       display: block;
     }
 
-    & .collapsArrow {
+    & .collapseArrow {
       transform: rotate(180deg) translateY(-1px);
     }
   }
@@ -45,7 +45,7 @@
         line-height: 18px;
       }
 
-      & .collapsArrow {
+      & .collapseArrow {
         width: 16px;
         height: 16px;
         font-size: 16px;
@@ -54,6 +54,9 @@
         vertical-align: text-bottom;
 
         transition: all 0.4s ease-in-out;
+      }
+      .clientContent {
+        padding-top: 16px;
       }
     }
   }

@@ -10,10 +10,11 @@ import Logo from './Logo';
 import SideBarMenu from './SideBarMenu/SideBarMenu';
 import IntroductionPage from '../static/IntroductionPage';
 import ColorsPage from '../static/foundations/ColorsPage';
+import TypographyPage from '../static/foundations/TypographyPage';
 import IconsPage from '../static/foundations/IconsPage';
 import ResourcesPage from '../static/ResourcesPage';
 import ComponentPage from './ComponentPage';
-import '../../css/common.css';
+import styles from '../../css/common.css';
 import SearchBar from './Search/SearchBar/SearchBar';
 import ResultsPage from './Search/ResultsPage';
 import NotFoundPage from '../static/NotFoundPage';
@@ -37,24 +38,25 @@ export default class Main extends React.PureComponent {
     const exampleComponents = { ...examples, ...chartExamples };
 
     return (
-      <div styleName="mainContainer">
-        <div styleName="leftContainer">
+      <div className={styles.mainContainer}>
+        <div className={styles.leftContainer}>
           <Logo pyreneVersion={packageJson.dependencies['@osag/pyrene']} pyreneGraphsVersion={packageJson.dependencies['@osag/pyrene-graphs']} />
           <SearchBar value={searchBarValue} />
           <SideBarMenu />
-          <div styleName="footer">
+          <div className={styles.footer}>
             <a href="https://github.com/open-ch/pyrene">
-              <img alt="GitHub" styleName="logo" src={GitHubLogo} />
+              <img alt="GitHub" className={styles.logo} src={GitHubLogo} />
             </a>
             <a href="https://www.open-systems.com">
-              <img alt="Open Systems" styleName="logo" src={OpenSystemsLogo} />
+              <img alt="Open Systems" className={styles.logo} src={OpenSystemsLogo} />
             </a>
           </div>
         </div>
-        <div styleName="pageContainer">
+        <div className={styles.pageContainer}>
           <Switch>
             <Route path="/" component={IntroductionPage} exact />
             <Route path="/colors" component={ColorsPage} />
+            <Route path="/typography" component={TypographyPage} />
             <Route path="/icons" component={IconsPage} />
             <Route path="/resources" component={ResourcesPage} />
             <Route path="/cookbook/form" component={FormUsage} />

@@ -104,6 +104,7 @@ const config = {
     new OptimizeCSSAssetsPlugin({}),
     new CopyWebpackPlugin([
       { from: 'src/app/data/svgs/*', to: 'svgs/', flatten: true },
+      { from: 'src/fonts/Pyrene_Font_Kit_v1.0.zip', to: 'fonts/Pyrene_Font_Kit_v1.0.zip', flatten: true },
     ]),
   ],
 };

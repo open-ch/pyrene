@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import '../../css/componentPage.css';
+import clsx from 'clsx';
+import styles from '../../css/componentPage.css';
 import CodeBlock from './CodeBlock';
 import Utils from './Utils';
 import DynamicPropTable from './PageElements/Tables/DynamicPropTable';
@@ -90,7 +90,7 @@ export default class ComponentEditor extends React.Component {
     /* eslint-disable-next-line react/jsx-props-no-spreading */
     const displayedComponent = <Component {...mergedComponentProps} />;
     return (
-      <div className="componentPlayground">
+      <div className={styles.componentPlayground}>
         {this.props.examples.examples
         && (
           <Paragraph title="Examples">
@@ -98,10 +98,10 @@ export default class ComponentEditor extends React.Component {
           </Paragraph>
         )}
         <Paragraph title="Props">
-          <div styleName={classNames('displayContainer', { pinned }, { darkMode })}>
-            <div styleName={classNames('pin', { pinned })} onClick={() => this.handlePinClick()} />
-            <div styleName={classNames('sun', { darkMode })} onClick={() => this.handleSunClick()} />
-            <div styleName="componentDisplay">
+          <div className={clsx(styles.displayContainer, { [styles.pinned]: pinned, [styles.darkMode]: darkMode })}>
+            <div className={clsx(styles.pin, { [styles.pinned]: pinned })} onClick={() => this.handlePinClick()} />
+            <div className={clsx(styles.sun, { [styles.darkMode]: darkMode })} onClick={() => this.handleSunClick()} />
+            <div className={styles.componentDisplay}>
               {this.props.examples.trigger ? <ParentButton component={displayedComponent} /> : displayedComponent}
             </div>
             <CodeBlock

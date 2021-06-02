@@ -1,11 +1,11 @@
 /* eslint-disable react/require-default-props */
 import React, { useState } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import Icon from '../Icon/Icon';
 import Loader from '../Loader/Loader';
 import Tooltip from '../Tooltip/Tooltip';
 import ArrowPopover from '../ArrowPopover/ArrowPopover';
-import './actionBar.css';
+import styles from './actionBar.css';
 
 export const handleOnClick = (
   renderPopover: undefined | ((a: (() => void)) => React.ReactElement),
@@ -101,14 +101,14 @@ const ActionBar: React.FC<ActionBarProps> = ({
 
   const loader = orientation === 'horizontal' ? (
     <div
-      styleName="loaderBox"
+      className={styles.loaderBox}
       style={{ height: 32, width: actions.length * 33 - 1 }}
     >
       <Loader type="inline" />
     </div>
   ) : (
     <div
-      styleName="loaderBox"
+      className={styles.loaderBox}
       style={{ width: 32, height: actions.length * 33 - 1 }}
     >
       <Loader type="inline" />
@@ -120,10 +120,10 @@ const ActionBar: React.FC<ActionBarProps> = ({
   }
   return (
     <div
-      styleName={classNames(
-        `container-${orientation}`,
-        disabled && !loading ? 'disabled' : '',
-        styling === 'none' ? '' : `box-${styling}`,
+      className={clsx(
+        styles[`container-${orientation}`],
+        { [styles.disabled]: (disabled && !loading) },
+        { [styles[`box-${styling}`]]: (styling !== 'none') },
       )}
     >
       {loading ? loader : (
@@ -131,7 +131,7 @@ const ActionBar: React.FC<ActionBarProps> = ({
           const isSvgIcon = action.svg && action.svg.length > 0;
           const iconComponent = (
             <div
-              styleName={classNames('iconBox', { disabled: !action.active })}
+              className={clsx(styles.iconBox, { [styles.disabled]: !action.active })}
               onClick={() => handleOnClick(
                 action.renderPopover,
                 action.onClick,
@@ -170,7 +170,7 @@ const ActionBar: React.FC<ActionBarProps> = ({
           return (
             <div
               key={isSvgIcon ? action.svg : action.iconName}
-              styleName={`borderContainer-${orientation}`}
+              className={styles[`borderContainer-${orientation}`]}
             >
               {action.tooltip && openAction !== index ? (
                 <Tooltip
@@ -182,7 +182,7 @@ const ActionBar: React.FC<ActionBarProps> = ({
               ) : (
                 actionComponent
               )}
-              {index < actions.length - 1 && <div styleName={`border-${orientation}`} />}
+              {index < actions.length - 1 && <div className={styles[`border-${orientation}`]} />}
             </div>
           );
         })

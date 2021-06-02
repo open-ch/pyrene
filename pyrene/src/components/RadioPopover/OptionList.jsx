@@ -1,28 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
-import './optionList.css';
+import styles from './optionList.css';
 
 const OptionList = (props) => (
-  <div styleName="checkboxList">
+  <div className={styles.checkboxList}>
     {props.renderHelpSection && (
-      <div styleName="listHeader">
+      <div className={styles.listHeader}>
         {props.renderHelpSection()}
       </div>
     )}
-    <div styleName="list">
+    <div className={styles.list}>
       {props.options
         .map((item) => {
           const selected = item === props.selectedValue;
           return (
             <div
-              styleName={classNames('listItem', { selected })}
+              className={clsx(styles.listItem, { [styles.selected]: selected })}
               key={item.value}
               onClick={() => props.onChange(item)}
             >
-              <span className={classNames({ 'pyreneIcon-check': selected })} styleName="listIcon" aria-label="Item checked" />
-              <span styleName="listLabel">{item.label}</span>
+              <span className={clsx({ 'pyreneIcon-check': selected }, styles.listIcon)} aria-label="Item checked" />
+              <span className={styles.listLabel}>{item.label}</span>
             </div>
           );
         })}

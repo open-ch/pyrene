@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { Banner, Loader } from '@osag/pyrene';
 import SparkLineSVG from '../SparkLine/SparkLineSVG';
 import ChartOverlay from '../ChartOverlay/ChartOverlay';
 import colorSchemes from '../../styles/colorSchemes';
-import './sparkLineChart.css';
+import styles from './sparkLineChart.css';
 
 /**
  * Spark Line Charts are used to display data series.
@@ -15,13 +15,13 @@ const SparkLineChart = (props) => {
   const showOverlay = props.loading || !dataAvailable;
 
   return (
-    <div styleName="container">
+    <div className={styles.container}>
       {!props.loading && (props.keyFigure !== null) && (
-        <div styleName="keyFigure">
+        <div className={styles.keyFigure}>
           {props.keyFigure}
         </div>
       )}
-      <div styleName={classNames('chart', { noKeyFigure: props.loading || props.keyFigure === null })}>
+      <div className={clsx(styles.chart, { noKeyFigure: props.loading || props.keyFigure === null })}>
         {dataAvailable && (
           <SparkLineSVG
             axisLabel={props.axisLabel}
@@ -36,7 +36,7 @@ const SparkLineChart = (props) => {
         )}
       </div>
       {showOverlay && (
-        <div styleName="chartOverlay">
+        <div className={styles.chartOverlay}>
           <ChartOverlay>
             {props.loading && <Loader type="inline" />}
             {!props.loading && !dataAvailable && (

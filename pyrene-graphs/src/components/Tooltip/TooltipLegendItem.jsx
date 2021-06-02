@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import styles from './tooltip.css';
 
 /**
@@ -16,7 +16,7 @@ const TooltipLegendItem = ({ dataValue, dataColor, dataLabel }) => (
     {dataLabel && (
       <div className={styles.dataLabel}>{dataLabel}</div>
     )}
-    <div className={classNames({ [styles.data]: dataColor || dataLabel, [styles.dataOnly]: !dataColor && !dataLabel })}>{dataValue}</div>
+    <div className={clsx({ [styles.data]: dataColor || dataLabel, [styles.dataOnly]: !dataColor && !dataLabel })}>{dataValue}</div>
   </div>
 );
 
