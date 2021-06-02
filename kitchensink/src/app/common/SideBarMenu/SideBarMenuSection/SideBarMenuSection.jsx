@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
-
+import clsx from 'clsx';
 import { useHistory, useLocation } from 'react-router-dom';
-
-import '../sideBarMenu.css';
-
+import styles from '../sideBarMenu.css';
 import SectionElement from './SectionElement';
 import SectionElementWithSubElements from './SectionElementWithSubElements';
 
@@ -65,26 +62,25 @@ const SideBarMenuSection = ({ title, sectionElements, linkToPath }) => {
   const hasSectionElements = sectionElements?.length > 0;
 
   return (
-    <div styleName={classNames(
-      'section',
+    <div className={clsx(
+      styles.section,
       {
-        open: isOpen && hasSectionElements,
-        active: !hasSectionElements && currentlyActive?.section === title,
+        [styles.open]: isOpen && hasSectionElements,
+        [styles.active]: !hasSectionElements && currentlyActive?.section === title,
       },
     )}
     >
       <div
-        className="unSelectable"
-        styleName="sectionHead"
+        className={clsx('unSelectable', styles.sectionHead)}
         onClick={handleClick}
       >
         {title}
       </div>
-      {hasSectionElements && <div styleName="indicator" />}
+      {hasSectionElements && <div className={styles.indicator} />}
 
       {isOpen && (
         <div
-          styleName="sectionContentWrapper"
+          className={styles.sectionContentWrapper}
         >
           {sectionElements.map((element) => (
             <div key={`${title}${element.name}`}>

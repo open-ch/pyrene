@@ -1,13 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import clsx from 'clsx';
-
-import './stepper.css';
-
-/**
- * Steppers are used for previous/next navigation.
- *
- * Steppers are often used in the detail view of a data table entry (modal view) to navigate through the table entries without leaving the modal view.
- */
+import styles from './stepper.css';
 
 export interface StepperProps {
   /**
@@ -28,6 +21,11 @@ export interface StepperProps {
   type?: 'bordered' | 'minimal',
 }
 
+/**
+ * Steppers are used for previous/next navigation.
+ *
+ * Steppers are often used in the detail view of a data table entry (modal view) to navigate through the table entries without leaving the modal view.
+ */
 const Stepper: FunctionComponent<StepperProps> = ({
   direction = 'right',
   disabled = false,
@@ -39,23 +37,25 @@ const Stepper: FunctionComponent<StepperProps> = ({
   return (
     <button
       type="button"
-      className="unSelectable"
-      styleName={
-        clsx('stepper',
+      className={
+        clsx('unSelectable',
+          styles.stepper,
           { disabled },
-          { [`type-${type}`]: true })
+          styles[`type-${type}`])
       }
       onClick={onClick}
       disabled={disabled}
     >
-      <span className={iconName} styleName="icon" />
+      <span className={clsx(iconName, styles.icon)} />
     </button>
   );
 };
 
 Stepper.displayName = 'Stepper';
 
-// defaultProps for compatibilty with kitchensink for pyrene documentation
+/**
+ * defaultProps for compatibilty with kitchensink for pyrene documentation
+ */
 Stepper.defaultProps = {
   direction: 'right',
   type: 'bordered',

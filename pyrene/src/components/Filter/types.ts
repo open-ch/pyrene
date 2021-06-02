@@ -10,10 +10,12 @@ export type FilterValues = {
   [key: string]: InputValue
 };
 
-export type Option = {
-  /** text displayed to the user in the filter dropdown */
+export type SingleSelectOption = SingleSelectProps<unknown>['options'];
+
+export type MultiSelectOption = {
+  iconProps?: IconProps,
+  invalid?: boolean,
   label: string,
-  /** key for manipulation */
   value: string | number | boolean,
 };
 
@@ -21,7 +23,9 @@ export type Filter = {
   id: string,
   label: string,
   negated?: boolean,
-  options?: Array<Option> | null,
+  options: Array<SingleSelectOption | MultiSelectOption>,
   sorted?: boolean,
   type: 'singleSelect' | 'multiSelect' | 'text',
 };
+
+export type HandleFilterChange = (option: any, negated: boolean, id: string) => void;

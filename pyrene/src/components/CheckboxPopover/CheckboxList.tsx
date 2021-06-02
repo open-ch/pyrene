@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react';
 
 import Checkbox from '../Checkbox/Checkbox';
 import Button from '../Button/Button';
-import './checkboxList.css';
+import styles from './checkboxList.css';
 
 export interface Item {
   id: string;
@@ -21,14 +21,14 @@ const CheckboxList: FunctionComponent<CheckboxListProps> = ({
   listItems,
   onItemClick,
 }: CheckboxListProps) => (
-  <div styleName="checkboxList">
-    <div styleName="listHeader">
+  <div className={styles.checkboxList}>
+    <div className={styles.listHeader}>
       <Button label="Restore default" type="action" onClick={() => onRestoreDefault()} />
     </div>
-    <div styleName="list">
+    <div className={styles.list}>
       {listItems
         .map((item) => (
-          <div styleName="listItem" key={item.id}>
+          <div className={styles.listItem} key={item.id}>
             <Checkbox label={item.label} value={item.value} onChange={() => onItemClick(item.id, item.value)} />
           </div>
         ))}

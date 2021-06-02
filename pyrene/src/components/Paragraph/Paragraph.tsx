@@ -1,10 +1,7 @@
 import React, { FunctionComponent, ReactNode } from 'react';
 
-import './paragraph.css';
+import styles from './paragraph.css';
 
-/**
-* Paragraphs hold text that is not part of other components.
-*/
 export interface ParagraphProps {
   /**
   * The paragraph text. This can be HTML with <br/> or <b>.
@@ -12,8 +9,11 @@ export interface ParagraphProps {
   children: ReactNode
 }
 
+/**
+ * Paragraphs hold text that is not part of other components.
+ */
 const Paragraph: FunctionComponent<ParagraphProps> = ({ children }: ParagraphProps) => (
-  <div styleName="paragraph">
+  <div className={styles.paragraph}>
     {children}
   </div>
 );

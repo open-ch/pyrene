@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Responsive } from '@osag/tuktuktwo';
 import SparkLineSVG from './SparkLineSVG';
 import colorSchemes from '../../styles/colorSchemes';
-import './sparkLine.css';
+import styles from './sparkLine.css';
 
 /**
  * Spark Lines are used to display data series and can be embedded in another context such as in tables.
@@ -12,8 +12,8 @@ const SparkLine = (props) => {
   const dataAvailable = props.data && props.data.length > 0 && props.data[0] && props.data[0].length > 0;
 
   return (
-    <div styleName="container">
-      <div styleName="chart">
+    <div className={styles.container}>
+      <div className={styles.chart}>
         {dataAvailable && (
           <Responsive>
             {(parent) => (

@@ -57,7 +57,7 @@
 
 }
 
-.accordion-regular {
+.accordion_regular {
 
   & > .section {
     border-left: 1px solid var(--neutral-050);
@@ -103,7 +103,7 @@
 
 }
 
-.accordion-custom {
+.accordion_custom {
 
   & > .section {
 

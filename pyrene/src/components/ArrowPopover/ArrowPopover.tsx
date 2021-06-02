@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useCallback } from 'react';
 import Popover from '../Popover/Popover';
 
-import './arrowPopover.css';
+import styles from './arrowPopover.css';
 
 export type PreferredPos = ('top' | 'right' | 'bottom' | 'left')[];
 export type Alignment = 'start' | 'center' | 'end';
@@ -121,10 +121,10 @@ const ArrowPopover: React.FC<ArrowPopoverProps> = ({
         const { top, left, lengthSide } = arrowPosition(position, targetRect, popoverRect);
 
         return (
-          <div styleName="popover" ref={node}>
-            <div styleName="popoverContent">{popoverContent}</div>
+          <div className={styles.popover} ref={node}>
+            <div className={styles.popoverContent}>{popoverContent}</div>
             <div
-              styleName="triangle"
+              className={styles.triangle}
               style={{
                 left,
                 top,

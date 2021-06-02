@@ -1,12 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
 import jsx from 'react-syntax-highlighter/dist/esm/languages/prism/jsx';
 import osagCodeColorScheme from '../../css/osagCodeColorScheme';
 import Utils from './Utils';
-
-import '../../css/codeBlock.css';
+import styles from '../../css/codeBlock.css';
 
 SyntaxHighlighter.registerLanguage('jsx', jsx);
 
@@ -106,16 +105,16 @@ export default class CodeBlock extends React.Component {
     const displayedCode = this.generateCodeForComponent(this.props.component, this.state.expanded);
     const entireCode = this.generateCodeForComponent(this.props.component, true);
     return (
-      <div styleName={classNames('codeContainer', { pinned: this.state.pinned })}>
+      <div className={clsx(styles.codeContainer, { [styles.pinned]: this.state.pinned })}>
         <SyntaxHighlighter style={osagCodeColorScheme} language="jsx" customStyle={this.handleCodeBlockStyle()}>
           {displayedCode}
         </SyntaxHighlighter>
 
-        <div className="unSelectable" styleName="copyToCBButton" onClick={() => this.copyCodeToClipBoard(entireCode)} />
-        <div styleName={classNames('copyNotification', { display: this.state.displayCopyNotification })}>
-          <div styleName="label">Copied to Clipboard</div>
+        <div className={clsx('unSelectable', styles.copyToCBButton)} onClick={() => this.copyCodeToClipBoard(entireCode)} />
+        <div className={clsx(styles.copyNotification, { [styles.display]: this.state.displayCopyNotification })}>
+          <div className={styles.label}>Copied to Clipboard</div>
         </div>
-        <div className="unSelectable" styleName="expandButton" onClick={() => this.handleExpand()} />
+        <div className={clsx('unSelectable', styles.expandButton)} onClick={() => this.handleExpand()} />
       </div>
     );
   }

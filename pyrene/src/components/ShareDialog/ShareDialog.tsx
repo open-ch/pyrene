@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
+import clsx from 'clsx';
 import Popover from '../Popover/Popover';
 import ButtonBar from '../ButtonBar/ButtonBar';
 import Button from '../Button/Button';
-import './shareDialog.css';
+import styles from './shareDialog.css';
 
 export interface ShareDialogProps {
   /**
@@ -57,7 +58,7 @@ const ShareDialog: React.FC<ShareDialogProps> = ({
   }, [displayShareDialog]);
 
   return (
-    <div styleName="shareDialogContainer">
+    <div className={styles.shareDialogContainer}>
       <Popover
         displayPopover={displayShareDialog}
         preferredPosition={[position]}
@@ -65,12 +66,12 @@ const ShareDialog: React.FC<ShareDialogProps> = ({
         distanceToTarget={16}
         onClickOutside={() => setDisplayShareDialog(false)}
         renderPopoverContent={() => (
-          <div className="unSelectable" styleName="shareDialog" role="dialog">
-            <div styleName="title">
+          <div className={clsx('unSelectable', styles.shareDialog)} role="dialog">
+            <div className={styles.title}>
               Share this link
             </div>
-            <div styleName="content">
-              <input styleName="urlField" type="text" value={link} ref={textInput} readOnly />
+            <div className={styles.content}>
+              <input className={styles.urlField} type="text" value={link} ref={textInput} readOnly />
             </div>
             <ButtonBar
               rightButtonSectionElements={[

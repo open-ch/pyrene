@@ -2,8 +2,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Redirect, withRouter } from 'react-router-dom';
-import classNames from 'classnames';
-import './searchBar.css';
+import clsx from 'clsx';
+import styles from './searchBar.css';
 
 class SearchBar extends React.Component {
 
@@ -122,10 +122,10 @@ class SearchBar extends React.Component {
 
   render() {
     return (
-      <div styleName={classNames('searchBarContainer', { focused: this.state.focused })}>
-        <span className="pyreneIcon-search" styleName="searchIcon" />
+      <div className={clsx(styles.searchBarContainer, { [styles.focused]: this.state.focused })}>
+        <span className={clsx('pyreneIcon-search', styles.searchIcon)} />
         <input
-          styleName="searchInput"
+          className={styles.searchInput}
           type="text"
           placeholder="Type to search"
           onFocus={this.handleFocus}
@@ -133,7 +133,7 @@ class SearchBar extends React.Component {
           onChange={this.handleChange}
           value={this.state.searchInput}
         />
-        {(this.props.value || this.state.searchInput) && <span className="pyreneIcon-delete" styleName="clearIcon" onClick={this.handleClear} />}
+        {(this.props.value || this.state.searchInput) && <span className={clsx('pyreneIcon-delete', styles.clearIcon)} onClick={this.handleClear} />}
 
         {this.handleSearchResultsDisplay()}
       </div>

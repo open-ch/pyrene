@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import FilterBar from './FilterComponents/FilterBar';
 import FilterButton from './FilterComponents/FilterButton';
-import './Filter.css';
+import styles from './Filter.css';
 import { Filter as FilterType, FilterValues } from './types';
 
 export interface FilterProps {
@@ -41,7 +41,7 @@ const Filter: FunctionComponent<FilterProps> = ({
 
   if (disabled) {
     return (
-      <div styleName="filterButtonWrapper">
+      <div className={styles.filterButtonWrapper}>
         <FilterButton label="Filter" disabled />
       </div>
     );

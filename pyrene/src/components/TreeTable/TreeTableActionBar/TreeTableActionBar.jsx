@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import './treeTableActionBar.css';
+import styles from './treeTableActionBar.css';
 import ButtonBar from '../../ButtonBar/ButtonBar';
 import Button from '../../Button/Button';
 import CheckboxPopover from '../../CheckboxPopover/CheckboxPopover';
 
 const TreeTableActionBar = (props) => (
-  <div styleName="treeTableActionBar">
+  <div className={styles.treeTableActionBar}>
     <ButtonBar
       leftButtonSectionElements={[
         <Button
@@ -20,7 +20,7 @@ const TreeTableActionBar = (props) => (
       ]}
       noPadding
     />
-    <div styleName="treeTableRightSideContainer">
+    <div className={styles.treeTableRightSideContainer}>
       {props.renderRightItems && props.renderRightItems()}
       {props.columnToggleProps.toggleColumns && (
         <CheckboxPopover

@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
-
-import './searchResult.css';
+import styles from './searchResult.css';
 import SearchUtils from '../SearchUtils';
 
 export default class SearchResult extends React.Component {
@@ -27,13 +26,13 @@ export default class SearchResult extends React.Component {
 
   render() {
     return (
-      <div styleName="searchResult" onClick={this.handleClick}>
+      <div className={styles.searchResult} onClick={this.handleClick}>
         {this.props.title && (
-          <div styleName="title">
+          <div className={styles.title}>
             {this.props.title}
           </div>
         )}
-        <div styleName="description"
+        <div className={styles.description}
           dangerouslySetInnerHTML={{ __html: this.props.description.replace(RegExp(this.props.searchInput, 'gi'), (s) => `<span class="highlighted">${s}</span>`) }} // eslint-disable-line react/no-danger
         />
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 
-import './radioSelection.css';
+import styles from './radioSelection.css';
 
 import iconNormal from './radio-blank.svg';
 import iconNormalHover from './radio-hover.svg';
@@ -112,7 +112,7 @@ const RadioButton: React.FC<RadioButtonProps> = ({
   return (
     <React.Fragment key={key}>
       <input
-        styleName="radioInput"
+        className={styles.radioInput}
         checked={checked}
         id={id != null ? id : htmlId}
         name={name}
@@ -125,12 +125,11 @@ const RadioButton: React.FC<RadioButtonProps> = ({
 
       <label
         htmlFor={id != null ? id : htmlId}
-        styleName={
-          clsx('radioLabel',
-            { disabled: disabled })
+        className={
+          clsx(styles.radioLabel, { [styles.disabled]: disabled })
         }
       >
-        <span styleName="radioIcon">
+        <span className={styles.radioIcon}>
           {getRadioIcon({
             checked: checked,
             disabled: disabled,

@@ -10,7 +10,7 @@ import {
   handleDateChange,
 } from './CalendarDateSelectorUtils';
 
-import './calendarDateSelector.css';
+import styles from './calendarDateSelector.css';
 import ArrowSelector from '../TimeRangeSelector/TimeRangeNavigationBar/ArrowSelector/ArrowSelector';
 import DateHelper from './DateHelper';
 
@@ -59,8 +59,8 @@ export default class CalendarDateSelector extends React.Component {
     } = this.props;
 
     return (
-      <div styleName="timeUnitSelector">
-        <div styleName="timeUnitSelector--left">
+      <div className={styles.timeUnitSelector}>
+        <div className={styles['timeUnitSelector--left']}>
           <CalendarDateSelectorDropdown
             timeUnits={timeUnits}
             timeUnit={timeUnit}
@@ -68,7 +68,7 @@ export default class CalendarDateSelector extends React.Component {
             disabled={isLoading}
           />
         </div>
-        <div styleName="timeUnitSelector--center">
+        <div className={styles['timeUnitSelector--center']}>
           <ArrowSelector
             label={DateHelper.formatTimeRangeText(value, timeUnit)}
             onNavigateForward={() => this._onNavigate(value, 1)}
@@ -79,7 +79,7 @@ export default class CalendarDateSelector extends React.Component {
             innerWidth={136}
           />
         </div>
-        <div styleName="timeUnitSelector--right">
+        <div className={styles['timeUnitSelector--right']}>
           {renderRightSection()}
         </div>
       </div>
