@@ -32,6 +32,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.14.3",
+    "@babel/eslint-parser": "^7.14.4",
     "@babel/plugin-proposal-class-properties": "^7.13.0",
     "@babel/plugin-proposal-object-rest-spread": "^7.14.4",
     "@babel/plugin-transform-object-assign": "^7.12.13",
@@ -44,7 +45,6 @@
     "@typescript-eslint/eslint-plugin": "^4.26.0",
     "@typescript-eslint/parser": "^4.26.0",
     "autoprefixer": "^10.2.6",
-    "babel-eslint": "^10.1.0",
     "babel-jest": "^27.0.2",
     "babel-loader": "^8.2.2",
     "babel-plugin-react-docgen": "^4.2.1",
