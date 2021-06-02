@@ -4,7 +4,7 @@ import {
   RelativeBar,
   scaleLinear,
 } from '@osag/tuktuktwo';
-import './barChartTable.css';
+import styles from './barChartTable.css';
 
 const getId = (d) => d.trim().toLowerCase();
 
@@ -35,7 +35,7 @@ const getColumn = ({
         if (linkAccessor || onClick) {
           return (
             <a
-              styleName="labelLink"
+              className={styles.labelLink}
               href={onClick ? '#' : getValueWithAccessor(row, linkAccessor)}
               onClick={(e) => {
                 if (onClick) {
@@ -85,7 +85,7 @@ const getColumn = ({
         </div>
       ),
       verticalLine: () => ( // eslint-disable-line react/display-name
-        <div styleName="verticalLine" />
+        <div className={styles.verticalLine} />
       ),
       comparisonBars: (row) => { // eslint-disable-line react/display-name
         const scale = getValueScale(direction, width, maxValue);

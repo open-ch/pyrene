@@ -1,5 +1,5 @@
 import React, { CSSProperties, ReactNode } from 'react';
-import './keyValueTable.css';
+import styles from './keyValueTable.css';
 
 type Row = {
   key: string;
@@ -24,24 +24,24 @@ const KeyValueTable: React.FC<KeyValueTableProps> = ({
   rows = [{ key: 'key', value: 'value' }],
   keyWidth = 256,
 }: KeyValueTableProps) => (
-  <div styleName="keyValueTable">
+  <div className={styles.keyValueTable}>
     {title && (
-      <div styleName="keyValueTableTitle">
+      <div className={styles.keyValueTableTitle}>
         {title}
       </div>
     )}
-    <table styleName="keyValueBody">
+    <table className={styles.keyValueBody}>
       <tbody>
         {rows.length > 0 && rows.map((row: Row) => (
           <tr
-            styleName="keyValueRow"
+            className={styles.keyValueRow}
             style={row.rowStyle}
             key={row.key}
           >
-            <td styleName="keyValueCellKey" style={{ width: keyWidth, minWidth: keyWidth, maxWidth: keyWidth }}>
+            <td className={styles.keyValueCellKey} style={{ width: keyWidth, minWidth: keyWidth, maxWidth: keyWidth }}>
               {row.key}
             </td>
-            <td styleName="keyValueCellValue">
+            <td className={styles.keyValueCellValue}>
               {row.value}
             </td>
           </tr>

@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Utils from '../../Utils';
-
-import './example.css';
+import styles from './example.css';
 
 export default class Example extends React.Component {
 
@@ -22,12 +21,12 @@ export default class Example extends React.Component {
   render() {
     return (
       <div
-        styleName="example"
+        className={styles.example}
         onClick={() => this.props.onExampleClick(this.props.exampleProps)}
         onMouseOver={() => this.handleMouseOver(this.props.description)}
         onMouseLeave={() => this.handleMouseOver()}
       >
-        <div styleName="componentOverlay">
+        <div className={styles.componentOverlay}>
           {/* eslint-disable-next-line react/jsx-props-no-spreading */}
           <this.props.component {...this.getComponentProps()} />
         </div>

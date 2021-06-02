@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Popover from 'react-tiny-popover';
 
-import './tooltip.css';
+import styles from './tooltip.css';
 
 /**
  * A Tooltip is a small piece of contextual information about an element on the screen, which is displayed when a user hovers or focuses on the element it is describing.
@@ -26,7 +26,7 @@ export default class Tooltip extends React.Component {
         content={({
           position, nudgedLeft, nudgedTop, targetRect, popoverRect, // eslint-disable-line no-unused-vars
         }) => (
-          <div styleName="tooltip" style={{ maxWidth: this.props.maxWidth }}>
+          <div className={styles.tooltip} style={{ maxWidth: this.props.maxWidth }}>
             {this.props.label}
           </div>
         )}

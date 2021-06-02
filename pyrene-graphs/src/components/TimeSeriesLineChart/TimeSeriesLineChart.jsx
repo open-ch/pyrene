@@ -6,7 +6,7 @@ import ChartOverlay from '../ChartOverlay/ChartOverlay';
 import Header from '../Header/Header';
 import TimeSeriesLineChartSVG from './TimeSeriesLineChartSVG';
 import colorSchemes from '../../styles/colorSchemes';
-import './timeSeriesLineChart.css';
+import styles from './timeSeriesLineChart.css';
 import { getDataInTimeRange } from '../../common/dataUtils';
 
 /**
@@ -61,7 +61,7 @@ export default class TimeSeriesLineChart extends React.Component {
       <ChartOverlay>
         {this.props.loading && <Loader type="inline" />}
         {!this.props.loading && !hasDataInRange && (
-          <div styleName="errorBanner">
+          <div className={styles.errorBanner}>
             <Banner styling="inline" type="error" label={this.props.error} />
           </div>
         )}

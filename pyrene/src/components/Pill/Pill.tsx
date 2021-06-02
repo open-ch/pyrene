@@ -3,7 +3,7 @@ import clsx from 'clsx';
 
 import IconButton from '../IconButton/IconButton';
 
-import './pill.css';
+import styles from './pill.css';
 
 export type Type = 'neutral' | 'info' | 'warning' | 'danger' | 'success';
 
@@ -50,15 +50,15 @@ const Pill: React.FC<PillProps> = ({
 }: PillProps) => (
   <div>
     {(onClick && icon)
-      && <div styleName={clsx('icon')}><IconButton icon={icon} type={iconType} onClick={onClick} /></div>}
+      && <div className={styles.icon}><IconButton icon={icon} type={iconType} onClick={onClick} /></div>}
     {(!onClick && icon) && (
-      <div styleName={clsx('icon', { [`type-${iconType}`]: true })}>
+      <div className={clsx(styles.icon, styles[`type-${iconType}`])}>
         <span className={`pyreneIcon-${icon}`} />
       </div>
     )}
     {!maxValue || (value <= maxValue)
-      ? <div styleName={clsx('pill', { [`type-${type}`]: true })}>{value}</div>
-      : <div styleName={clsx('pill', { [`type-${type}`]: true })}>{`${maxValue}+`}</div>}
+      ? <div className={clsx(styles.pill, styles[`type-${type}`])}>{value}</div>
+      : <div className={clsx(styles.pill, styles[`type-${type}`])}>{`${maxValue}+`}</div>}
   </div>
 );
 

@@ -1,8 +1,8 @@
 import React from 'react';
 import hash from 'object-hash';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import './exampleBox.css';
+import clsx from 'clsx';
+import styles from './exampleBox.css';
 import Example from './Example';
 
 export default class ExampleBox extends React.Component {
@@ -34,8 +34,8 @@ export default class ExampleBox extends React.Component {
 
   render() {
     return (
-      <div styleName="exampleBox">
-        <div styleName="exampleDisplay">
+      <div className={styles.exampleBox}>
+        <div className={styles.exampleDisplay}>
           {this.props.examples.map((example) => (
             <React.Fragment key={hash(example.props)}>
 
@@ -50,8 +50,8 @@ export default class ExampleBox extends React.Component {
             </React.Fragment>
           ))}
         </div>
-        <div className="unSelectable" styleName={classNames('exampleDescriptionBox', { placeholder: this.state.displayedDescription === this.descriptionPlaceholder })}>
-          <div styleName="exampleDescription">
+        <div className={clsx('unSelectable', styles.exampleDescriptionBox, { [styles.placeholder]: this.state.displayedDescription === this.descriptionPlaceholder })}>
+          <div className={styles.exampleDescription}>
             <div>{this.state.displayedDescription}</div>
           </div>
         </div>

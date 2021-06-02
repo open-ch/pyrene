@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 
-import './tabView.css';
+import styles from './tabView.css';
 
 /**
  * Tabs are used to display multiple contents in a single container.
@@ -69,23 +69,23 @@ export default class TabView extends React.Component {
   }
 
   renderMoreMenu = (moreTabs, visibleTabs) => (
-    <div styleName="moreMenu" ref={(menu) => { this.menuRef = menu; }} role="listbox">
-      <div styleName="titleBox">
-        <span styleName="title">
+    <div className={styles.moreMenu} ref={(menu) => { this.menuRef = menu; }} role="listbox">
+      <div className={styles.titleBox}>
+        <span className={styles.title}>
           {' '}
           {this.state.moreTabLabel}
           {' '}
         </span>
-        <span className="pyreneIcon-chevronDown" styleName="moreArrow" />
+        <span className={clsx('pyreneIcon-chevronDown', styles.moreArrow)} />
       </div>
       {moreTabs.map((tab, index) => (
         <div
-          styleName={clsx('option', { disabled: tab.disabled })}
+          className={clsx(styles.option, { [styles.disabled]: tab.disabled })}
           onClick={(event) => !tab.disabled && this._tabChanged(tab.name, index + visibleTabs.length, event)}
           key={tab.name}
           role="option"
         >
-          <span styleName="optionLabel">{tab.name}</span>
+          <span className={styles.optionLabel}>{tab.name}</span>
           {tab.renderAuxiliaryInfo?.()}
         </div>
       ))}
@@ -96,17 +96,17 @@ export default class TabView extends React.Component {
     const [visibleTabs, moreTabs] = this.computeTabs();
 
     return (
-      <div styleName={clsx('tabView', { disabled: this.props.disabled })}>
-        <div styleName="tabBar" role="tablist">
+      <div className={clsx(styles.tabView, { [styles.disabled]: this.props.disabled })}>
+        <div className={styles.tabBar} role="tablist">
           {
             visibleTabs.map((tab, index) => (
               <div
-                styleName={clsx(
-                  'tab',
-                  { selected: index === this.state.selectedTabIndex },
-                  { disabled: tab.disabled },
+                className={clsx(
+                  styles.tab,
+                  { [styles.selected]: index === this.state.selectedTabIndex },
+                  { [styles.disabled]: tab.disabled },
+                  'unSelectable',
                 )}
-                className="unSelectable"
                 style={{ maxWidth: this.props.maxTabWidth }}
                 onClick={(event) => !tab.disabled && this._tabChanged(tab.name, index, event)}
                 key={tab.name}
@@ -120,32 +120,30 @@ export default class TabView extends React.Component {
           {moreTabs && moreTabs.length > 0
           && (
             <div
-              styleName={
-                clsx(
-                  'moreTab',
-                  { displayMenu: this.state.displayMoreMenu },
-                  { selected: this.state.selectedTabIndex >= visibleTabs.length },
-                  { hidden: !moreTabs.some((element) => (typeof element.disabled === 'undefined' || element.disabled === false)) },
-                )
-              }
-              className="unSelectable"
+              className={clsx(
+                styles.moreTab,
+                { [styles.displayMenu]: this.state.displayMoreMenu },
+                { [styles.selected]: this.state.selectedTabIndex >= visibleTabs.length },
+                { [styles.hidden]: !moreTabs.some((element) => (typeof element.disabled === 'undefined' || element.disabled === false)) },
+                'unSelectable',
+              )}
               style={{ maxWidth: this.props.maxTabWidth }}
               onClick={this.toggleMoreMenu}
             >
-              <div styleName="titleBox">
-                <span styleName="title">
+              <div className={styles.titleBox}>
+                <span className={styles.title}>
                   {' '}
                   {this.state.moreTabLabel}
                   {' '}
                 </span>
-                <span className="pyreneIcon-chevronDown" styleName="moreArrow" />
+                <span className={clsx('pyreneIcon-chevronDown', styles.moreArrow)} />
               </div>
               {this.renderMoreMenu(moreTabs, visibleTabs)}
             </div>
           )}
         </div>
         {this.props.tabHeaderElement}
-        <div styleName={clsx('tabContent', { withHeader: !!this.props.tabHeaderElement })} role="tabpanel">
+        <div className={clsx(styles.tabContent, { [styles.withHeader]: !!this.props.tabHeaderElement })} role="tabpanel">
           {this.props.tabs[this.state.selectedTabIndex].renderCallback()}
         </div>
 

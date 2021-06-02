@@ -35,7 +35,7 @@
   outline: 0;
 }
 
-.button:hover,
+.button:hover, .button:focus,
 .openedDropdown {
   background-color: var(--secondary);
 }
@@ -50,8 +50,6 @@
   font-size: 12px;
   font-weight: 500;
   letter-spacing: normal;
-  text-transform: capitalize;
-
 }
 
 .button.loading {

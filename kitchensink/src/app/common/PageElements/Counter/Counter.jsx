@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
-import './counter.css';
+import clsx from 'clsx';
+import styles from './counter.css';
 
 const Counter = (props) => {
 
@@ -29,10 +29,10 @@ const Counter = (props) => {
   };
 
   return (
-    <div styleName="counter">
-      <div className="unSelectable" styleName="modifier" onClick={() => changeCounterBy(-1)}>-</div>
-      <input styleName="valueDisplay" type="text" onChange={handleInputChange} value={props.value ?? ''} autoComplete="nope" />
-      <div className="unSelectable" styleName="modifier" onClick={() => changeCounterBy(1)}>+</div>
+    <div className={styles.counter}>
+      <div className={clsx('unSelectable', styles.modifier)} onClick={() => changeCounterBy(-1)}>-</div>
+      <input className={styles.valueDisplay} type="text" onChange={handleInputChange} value={props.value ?? ''} autoComplete="nope" />
+      <div className={clsx('unSelectable', styles.modifier)} onClick={() => changeCounterBy(1)}>+</div>
     </div>
   );
 

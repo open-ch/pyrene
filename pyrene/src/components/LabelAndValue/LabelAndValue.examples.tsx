@@ -4,7 +4,7 @@ import { LabelAndValueProps } from './LabelAndValue';
 const LabelAndValue: Example<LabelAndValueProps> = {};
 
 LabelAndValue.props = {
-  label: 'bandwidth',
+  label: 'Bandwidth',
   value: '461.2 kb/s',
   size: 'small',
 };

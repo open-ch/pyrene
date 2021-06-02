@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 
 import PROPCONSTANTS from '../TreeTablePropTypes';
 
-import './treeTableHeader.css';
+import styles from './treeTableHeader.css';
 
 const TreeTableHeader = ({ columns, scrollPadding }) => (
-  <div styleName="treeTableHeader" style={{ paddingRight: scrollPadding }}>
+  <div className={styles.treeTableHeader} style={{ paddingRight: scrollPadding }}>
 
     {columns.map((column) => {
       // Do not display hidden columns
@@ -23,7 +23,7 @@ const TreeTableHeader = ({ columns, scrollPadding }) => (
         flex: colWidth ? `${colWidth} 0 auto` : null,
       };
       return (
-        <div style={{ ...styling, ...column.headerStyle }} styleName="treeTableHeaderCell" key={header}>
+        <div style={{ ...styling, ...column.headerStyle }} className={styles.treeTableHeaderCell} key={header}>
           {header}
         </div>
       );

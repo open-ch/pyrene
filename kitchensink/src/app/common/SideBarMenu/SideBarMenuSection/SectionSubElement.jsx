@@ -1,20 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import { useHistory } from 'react-router-dom';
-import classNames from 'classnames';
-
-import '../sideBarMenu.css';
+import clsx from 'clsx';
+import styles from '../sideBarMenu.css';
 
 const SectionSubElement = ({ element, isActive }) => {
   const history = useHistory();
 
   return (
-    <div styleName="sectionSubElementContainer">
-      <div styleName="verticalLine" />
+    <div className={styles.sectionSubElementContainer}>
+      <div className={styles.verticalLine} />
       <div
-        className="unSelectable"
-        styleName={classNames('sectionSubElement', { active: isActive })}
+        className={clsx('unSelectable', styles.sectionSubElement, { [styles.active]: isActive })}
         onClick={() => history.push(element.linkToPath)}
       >
         {element.name}

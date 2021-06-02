@@ -1,3 +1,6 @@
+:global(.pyreneIcon-ticket:before){
+  content: "\bf";
+}
 :global(.pyreneIcon-application:before){
   content: "\2020";
 }

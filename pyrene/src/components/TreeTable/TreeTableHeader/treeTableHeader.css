@@ -15,7 +15,6 @@
 
 .treeTableHeaderCell {
   box-sizing: border-box;
-  text-transform: capitalize;
   font-size: 12px;
   font-weight: 500;
   line-height: 18px;

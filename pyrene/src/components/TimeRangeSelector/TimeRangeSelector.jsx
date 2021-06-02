@@ -7,7 +7,7 @@ import clsx from 'clsx';
 import PresetTimeRanges from './PresetTimeRanges/PresetTimeRanges';
 import TimeRangeNavigationBar from './TimeRangeNavigationBar/TimeRangeNavigationBar';
 import PRESET_TIME_RANGES from './TimeRangeSelectorDefaultProps';
-import './timeRangeSelector.css';
+import styles from './timeRangeSelector.css';
 
 /**
  * TimeRangeSelectors are used to provide a certain timerange within a lower and upper limit and change it via timesteps.
@@ -110,8 +110,8 @@ export default class TimeRangeSelector extends Component {
     currentTimeRangeType = currentTimeRangeType ? currentTimeRangeType.id : ''; // If we found a match, then let's use the id of the preset, otherwise no default preset has to be selected
 
     return (
-      <div styleName={clsx('timeRangeSelector', { disabled: this.props.disabled })}>
-        <div styleName="timeRangeSelector--left">
+      <div className={clsx(styles.timeRangeSelector, { [styles.disabled]: this.props.disabled })}>
+        <div className={styles['timeRangeSelector--left']}>
           <PresetTimeRanges
             disabled={this.props.disabled}
             lowerBound={this.props.lowerBound}
@@ -122,7 +122,7 @@ export default class TimeRangeSelector extends Component {
             timezone={this.props.timezone}
           />
         </div>
-        <div styleName="timeRangeSelector--center">
+        <div className={styles['timeRangeSelector--center']}>
           <TimeRangeNavigationBar
             disabled={this.props.disabled}
             to={this.props.to}
@@ -134,7 +134,7 @@ export default class TimeRangeSelector extends Component {
             timezone={this.props.timezone}
           />
         </div>
-        <div styleName={clsx('timeRangeSelector--right', { disabled: this.props.disabled })}>
+        <div className={clsx(styles['timeRangeSelector--right'], { [styles.disabled]: this.props.disabled })}>
           {this.props.renderRightSection()}
         </div>
       </div>

@@ -4,7 +4,7 @@ import { Popover, SimpleTable } from '@osag/pyrene';
 import { Responsive } from '@osag/tuktuktwo';
 import Header from '../Header/Header';
 import { getValueWithAccessor, getColumns, getLegend } from './BarChartTableUtils';
-import './barChartTable.css';
+import styles from './barChartTable.css';
 import colorSchemes from '../../styles/colorSchemes';
 
 /**
@@ -52,7 +52,7 @@ export default class BarChartTable extends React.Component {
     const popOverTableWidth = 400;
     const rowHeight = 32;
     return (
-      <div styleName="container">
+      <div className={styles.container}>
         <Header
           title={this.props.title}
           description={description}
@@ -79,24 +79,24 @@ export default class BarChartTable extends React.Component {
           </Responsive>
         </div>
         {dataAvailable && (this.props.data.length > displayedRows) && !this.props.loading && (
-          <div styleName="showMoreLink" onClick={this.togglePopover}>
+          <div className={styles.showMoreLink} onClick={this.togglePopover}>
             {`Show more (${sortedData.length})`}
             {this.state.showPopover && (
               <Popover
                 align="center"
-                children={<div styleName="popOverPlaceholder"></div>} // eslint-disable-line
+                children={<div className={styles.popOverPlaceholder}></div>} // eslint-disable-line
                 distanceToTarget={-((popOverAdditionalRows - 2) * rowHeight) - 1.5} // to center the popover vertically, so that 3 rows of the popover table are under and 2 rows over the bar chart table, - 1.5 to align borders
                 renderPopoverContent={() => (
-                  <div styleName="popOverContainer" style={{
+                  <div className={styles.popOverContainer} style={{
                     width: popOverWidth,
                     height: `${(displayedRows + popOverAdditionalRows) * rowHeight + rowHeight + rowHeight}px`,
                   }}
                   >
                     {/* popover height: (displayedRows + 5 more rows) * 32px + 32px table header + 32px popover header */}
-                    <div styleName="popOverHeader">
+                    <div className={styles.popOverHeader}>
                       {this.props.title}
                     </div>
-                    <div styleName="popOverBody" style={{ height: `${(displayedRows + popOverAdditionalRows) * rowHeight + rowHeight}px` }}>
+                    <div className={styles.popOverBody} style={{ height: `${(displayedRows + popOverAdditionalRows) * rowHeight + rowHeight}px` }}>
                       <div style={{
                         width: popOverTableWidth,
                         height: `${(displayedRows + popOverAdditionalRows) * rowHeight + rowHeight}px`,
@@ -115,7 +115,7 @@ export default class BarChartTable extends React.Component {
                         />
                       </div>
                       {this.props.popoverFooter && (
-                        <div styleName="footerContainer">
+                        <div className={styles.footerContainer}>
                           {this.props.popoverFooter}
                         </div>
                       )}

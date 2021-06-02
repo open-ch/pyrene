@@ -1,24 +1,31 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
-
-import './colorBox.css';
+import clsx from 'clsx';
+import styles from './colorBox.css';
 
 const ColorBox = (props) => (
-  <div styleName="colorBoxContainer">
-    {props.title && <div styleName="title">{props.title}</div>}
+  <div className={clsx(styles.colorBoxContainer, styles[props.size], { [styles['left-box']]: !props.centered })}>
     <div
-      styleName={classNames('colorBox', { [`stack-${props.stackPosition}`]: props.stackPosition }, { [`size-${props.size}`]: true }, { darkFont: props.darkFont }, { bordered: props.bordered })}
+      className={clsx(styles.colorBox,
+        styles[`size-${props.size}`],
+        {
+          [styles[`stack-${props.stackPosition}`]]: props.stackPosition,
+          [styles.darkFont]: props.darkFont,
+          [styles.bordered]: props.bordered,
+        })}
       style={{ backgroundColor: `var(--${props.variableName})` }}
-    >
-      {props.colorName && <div styleName="colorName">{props.colorName}</div>}
-      <div styleName="variableName">
-        {' '}
-        {props.variableName}
-      </div>
-      <div styleName="hexValue">{props.hexValue}</div>
-    </div>
-    {props.infoLabel && <div styleName="infoLabel">{props.infoLabel}</div>}
+    />
+    {
+
+      (props.infoBox && Object.keys(props.infoBox).length > 0)
+        && (
+          <div className={clsx(styles.infoBox, styles[props.size])}>
+            {props.infoBox.infoTitle && <div className={clsx(styles.colorName, styles[props.size])}>{props.infoBox.infoTitle}</div>}
+            {props.infoBox.infoText && <div className={clsx(styles.variableName, styles[props.size])}>{props.infoBox.infoText}</div> }
+            {props.infoBox.infoLabel && <div className={clsx(styles.infoLabel, styles[props.size])}>{props.infoBox.infoLabel}</div>}
+          </div>
+        )
+    }
   </div>
 );
 
@@ -26,24 +33,24 @@ ColorBox.displayName = 'ColorBox';
 
 ColorBox.propTypes = {
   bordered: PropTypes.bool,
-  colorName: PropTypes.string,
+  centered: PropTypes.bool,
   darkFont: PropTypes.bool,
-  hexValue: PropTypes.string,
-  infoLabel: PropTypes.string,
+  infoBox: PropTypes.shape({
+    infoLabel: PropTypes.string,
+    infoText: PropTypes.string,
+    infoTitle: PropTypes.string,
+  }),
   size: PropTypes.oneOf(['small', 'medium', 'large']),
   stackPosition: PropTypes.oneOf(['top', 'middle', 'bottom', 'single']),
-  title: PropTypes.string,
   variableName: PropTypes.string,
 };
 
 ColorBox.defaultProps = {
   bordered: false,
+  centered: true,
   darkFont: false,
-  title: '',
-  colorName: '',
   variableName: '',
-  hexValue: '',
-  infoLabel: '',
+  infoBox: {},
   size: 'large',
   stackPosition: 'single',
 };

@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 
-import './optionsItem.css';
+import styles from './optionsItem.css';
 
 
 export interface OptionsItemProps {
@@ -10,11 +10,11 @@ export interface OptionsItemProps {
 
 const OptionsItem: FunctionComponent<OptionsItemProps> = ({ label, onClick }: OptionsItemProps) => (
   <button
-    styleName="container"
+    className={styles.container}
     onClick={onClick}
     type="button"
   >
-    <span styleName="optionLabel">
+    <span className={styles.optionLabel}>
       {label}
     </span>
   </button>

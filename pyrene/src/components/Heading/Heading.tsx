@@ -1,7 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 
-import './heading.css';
+import styles from './heading.css';
 
 export interface HeadingProps {
   /**
@@ -21,7 +21,7 @@ const Heading: React.FC<HeadingProps> = ({
   children,
   level = 1,
 }: HeadingProps) => (
-  <div styleName={clsx(`heading${level}`, 'heading')} title={children}>
+  <div className={clsx(styles[`heading${level}`], styles.heading)} title={children}>
     {children}
   </div>
 );

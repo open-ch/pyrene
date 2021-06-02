@@ -1,6 +1,6 @@
 import * as React from 'react';
 import clsx from 'clsx';
-import './toggleButtonGroup.css';
+import styles from './toggleButtonGroup.css';
 
 export interface ToggleButtonGroupValue {
   /**
@@ -47,16 +47,16 @@ const ToggleButtonGroup: React.FC<ToggleButtonGroupProps> = ({
   value,
 }: ToggleButtonGroupProps) => (
 
-  <div styleName={clsx('toggleButtonGroup', styling === 'shadow' ? 'box-shadow' : null)}>
+  <div className={clsx(styles.toggleButtonGroup, { [styles['box-shadow']]: (styling === 'shadow') })}>
     {options.map((option) => (
       <button
         id={option.value}
         key={option.value}
         type="button"
-        styleName={
+        className={
           clsx(
-            { disabled: disabled },
-            { active: value === option.value },
+            { [styles.disabled]: disabled },
+            { [styles.active]: value === option.value },
           )
         }
         disabled={disabled}
