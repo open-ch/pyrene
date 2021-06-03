@@ -5,8 +5,13 @@ import styles from './button.css';
 import Loader from '../Loader/Loader';
 
 export type Type = 'primary' | 'secondary' | 'danger' | 'ghost' | 'action' | 'success';
+export type ActionType = 'button' | 'submit' | 'reset';
 
 export interface ButtonProps {
+  /**
+   * Sets the type attribute.
+   */
+  actionType?: ActionType,
   /**
    * Disables any interaction with the component.
    */
@@ -41,6 +46,7 @@ export interface ButtonProps {
  * Instead, use Links because it takes the user to a new page and is not associated with an action.
  */
 const Button: React.FC<ButtonProps> = ({
+  actionType = 'submit',
   disabled = false,
   icon,
   loading = false,
@@ -50,7 +56,8 @@ const Button: React.FC<ButtonProps> = ({
 }: ButtonProps) => (
   <div className={styles.buttonContainer}>
     <button
-      type="submit"
+      // eslint-disable-next-line react/button-has-type
+      type={actionType}
       className={
         clsx('unSelectable', styles.button,
           styles[`type-${type}`],
