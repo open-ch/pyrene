@@ -9,6 +9,7 @@ const Button: Example<ButtonProps, State> = {};
 
 Button.props = {
   label: (stateProvider: StateProvider<State>) => (stateProvider.state.count ? `You clicked me ${stateProvider.state.count}` : 'Click me please'),
+  actionType: 'submit',
   type: 'secondary',
   icon: 'filter',
   onClick: (stateProvider: StateProvider<State>) => () => stateProvider.setState((prevState: State) => ({ count: prevState.count ? prevState.count + 1 : 1 })),
