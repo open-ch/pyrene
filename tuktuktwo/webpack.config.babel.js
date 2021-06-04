@@ -1,4 +1,5 @@
 import path from 'path';
+
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const production = process.env.NODE_ENV === 'production';
@@ -7,7 +8,7 @@ const OUTPUT_PATH = path.resolve(__dirname, 'dist');
 
 const config = {
   mode: production ? 'production' : 'development',
-  devtool: production ? 'none' : 'source-map',
+  devtool: production ? undefined : 'source-map',
   resolve: {
     mainFiles: ['index'],
     extensions: ['.js', '.jsx'],
@@ -21,9 +22,6 @@ const config = {
         ],
         use: {
           loader: 'babel-loader',
-          query: {
-            cacheDirectory: false,
-          },
         },
       },
     ],

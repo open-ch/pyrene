@@ -1,6 +1,6 @@
 import path from 'path';
+import webpack from 'webpack';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
-import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin';
 import TerserPlugin from 'terser-webpack-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 
@@ -13,7 +13,7 @@ const OUTPUT_PATH = path.resolve(__dirname, 'dist');
 
 const config = {
   mode: production ? 'production' : 'development',
-  devtool: production ? 'none' : 'source-map',
+  devtool: production ? undefined : 'source-map',
   resolve: {
     mainFiles: ['index'],
     extensions: ['.js', '.jsx', '.ts', '.tsx'],
@@ -31,9 +31,6 @@ const config = {
         include: path.resolve(__dirname, 'src'),
         use: {
           loader: 'babel-loader',
-          query: {
-            cacheDirectory: false,
-          },
         },
       },
       {
@@ -66,16 +63,18 @@ const config = {
     ],
   },
   plugins: [
+    new webpack.ProvidePlugin({
+      process: 'process/browser',
+    }),
     new BundleAnalyzerPlugin({
       analyzerMode: process.env.NODE_ENV === 'debug' ? 'server' : 'disabled',
     }),
     new MiniCssExtractPlugin({
-      moduleFilename: ({ name }) => (name === 'main' ? 'pyrene.css' : 'pyrene.[name].css'),
+      filename: (chunkData) => (chunkData.chunk.name === 'main' ? 'pyrene.css' : 'pyrene.[name].css'),
     }),
-    new OptimizeCSSAssetsPlugin({}),
     new CopyWebpackPlugin({
       patterns: [
-        { from: 'src/styles/colors.css', to: OUTPUT_PATH, flatten: true },
+        { from: 'src/styles/colors.css', to: `${OUTPUT_PATH}/[name][ext]` },
       ],
     }),
     new ForkTsCheckerWebpackPlugin({
@@ -92,9 +91,7 @@ const config = {
     minimizer: [
       new TerserPlugin({
         include: 'pyrene.min.js',
-        cache: true,
         parallel: true,
-        sourceMap: !production,
       }),
     ],
   },

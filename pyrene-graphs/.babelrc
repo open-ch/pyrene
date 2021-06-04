@@ -6,24 +6,15 @@
   "env": {
     "test": {
       "plugins": [
-        ["react-css-modules", {
-          "generateScopedName": "[local]"
-        }],
       ]
     },
     "development": {
       "plugins": [
-        ["react-css-modules", {
-          "generateScopedName": "pyrene-graphs-[name]__[local]--[hash:base64:10]"
-        }],
-        "react-docgen",
+        "react-docgen"
       ]
     },
     "production": {
       "plugins": [
-        ["react-css-modules", {
-          "generateScopedName": "pyrene-graphs-[name]__[local]--[hash:base64:10]"
-        }],
       ]
     }
   },
