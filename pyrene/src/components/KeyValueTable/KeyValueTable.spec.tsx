@@ -27,8 +27,8 @@ describe('<KeyValueTable />', () => {
   it('can define key width', () => {
     const rendered = shallow(<KeyValueTable {...props} keyWidth={100} />);
     const style = rendered.find('.keyValueCellKey').prop('style');
-    expect(style).toHaveProperty('width', 100);
-    expect(style).toHaveProperty('minWidth', 100);
-    expect(style).toHaveProperty('maxWidth', 100);
+    expect(style?.width).toBe(100);
+    expect(style?.minWidth).toBe(100);
+    expect(style?.maxWidth).toBe(100);
   });
 });

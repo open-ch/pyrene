@@ -1,7 +1,7 @@
 import path from 'path';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
-import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin';
 import TerserPlugin from 'terser-webpack-plugin';
+
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const production = process.env.NODE_ENV === 'production';
@@ -10,14 +10,14 @@ const OUTPUT_PATH = path.resolve(__dirname, 'dist');
 
 const config = {
   mode: production ? 'production' : 'development',
-  devtool: production ? 'none' : 'source-map',
+  devtool: production ? undefined : 'source-map',
   resolve: {
     mainFiles: ['index'],
     extensions: ['.js', '.jsx'],
   },
   module: {
     rules: [
-{
+      {
         test: /\.js$/,
         include: /node_modules/,
         loader: 'strip-sourcemap-loader',
@@ -28,9 +28,6 @@ const config = {
         include: path.resolve(__dirname, 'src'),
         use: {
           loader: 'babel-loader',
-          query: {
-            cacheDirectory: false,
-          },
         },
       },
       {
@@ -73,15 +70,12 @@ const config = {
     new MiniCssExtractPlugin({
       filename: 'pyrene-graphs.css',
     }),
-    new OptimizeCSSAssetsPlugin({}),
   ],
   optimization: {
     minimizer: [
       new TerserPlugin({
         include: 'pyrene-graphs.min.js',
-        cache: true,
         parallel: true,
-        sourceMap: !production,
       }),
     ],
   },

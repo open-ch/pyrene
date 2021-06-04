@@ -73,7 +73,7 @@ const renderCustomAccordionContent = () => (
   </div>
 );
 
-const Accordion: Example<AccordionProps, {active: boolean}> = {};
+const Accordion: Example<AccordionProps, { active: boolean }> = {};
 Accordion.props = {
   sections: [{
     renderContent: () => <Placeholder />,

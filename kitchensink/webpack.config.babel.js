@@ -2,10 +2,8 @@
 import webpack from 'webpack'; // eslint-disable-line no-unused-vars
 import path from 'path';
 
-import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
-import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 
 const production = process.env.NODE_ENV === 'production';
@@ -43,9 +41,6 @@ const config = {
         ],
         use: {
           loader: 'babel-loader',
-          query: {
-            cacheDirectory: true,
-          },
         },
       },
       {
@@ -84,7 +79,6 @@ const config = {
     ],
   },
   plugins: [
-    new CleanWebpackPlugin(),
     new webpack.EnvironmentPlugin({
       BASE_PATH,
     }),
@@ -101,11 +95,12 @@ const config = {
     new MiniCssExtractPlugin({
       filename: 'kitchensink.css',
     }),
-    new OptimizeCSSAssetsPlugin({}),
-    new CopyWebpackPlugin([
-      { from: 'src/app/data/svgs/*', to: 'svgs/', flatten: true },
-      { from: 'src/fonts/Pyrene_Font_Kit_v1.0.zip', to: 'fonts/Pyrene_Font_Kit_v1.0.zip', flatten: true },
-    ]),
+    new CopyWebpackPlugin({
+      patterns: [
+        { from: 'src/app/data/svgs/*', to: 'svgs/[name][ext]' },
+        { from: 'src/fonts/Pyrene_Font_Kit_v1.0.zip', to: 'fonts/Pyrene_Font_Kit_v1.0.zip' },
+      ],
+    }),
   ],
 };
 

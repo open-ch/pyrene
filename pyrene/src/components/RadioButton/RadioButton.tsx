@@ -18,7 +18,7 @@ export interface RadioButtonBaseProps {
   /**
    * Javascript event handler.
    */
-  hovered?: {[key: string]: boolean},
+  hovered?: { [key: string]: boolean },
   /**
    * Sets ID of radio button
    */
@@ -72,7 +72,7 @@ const iconMap = {
 };
 
 const getRadioIcon = (
-  { checked, disabled, invalid }: {checked: boolean, disabled: boolean, invalid: boolean},
+  { checked, disabled, invalid }: { checked: boolean, disabled: boolean, invalid: boolean },
   hovered?: boolean,
 ) => {
   const iconKey = !disabled && hovered ? 'hover' : 'default';
