@@ -59,7 +59,7 @@
   },
   "dependencies": {
     "@osag/pyrene": "2.14.0",
-    "@osag/pyrene-graphs": "1.1.10",
+    "@osag/pyrene-graphs": "1.2.0",
     "babel-polyfill": "^6.26.0",
     "clsx": "^1.1.1",
     "markdown-to-jsx": "^6.11.0",
