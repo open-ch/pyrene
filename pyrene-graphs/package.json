@@ -67,7 +67,6 @@
     "moment": "^2.24.0",
     "moment-timezone": "^0.5.28",
     "postcss": "^8.3.0",
-    "postcss-custom-properties": "^11.0.0",
     "postcss-import": "^14.0.2",
     "postcss-loader": "^5.3.0",
     "postcss-nesting": "^8.0.1",
@@ -89,9 +88,9 @@
     "strip-sourcemap-loader": "0.0.1"
   },
   "peerDependencies": {
+    "@osag/pyrene": ">=2.10.0 <3.0.0",
     "moment": ">=2.20.0 <3.0.0",
     "moment-timezone": ">=0.5.0 < 1.0.0",
-    "@osag/pyrene": ">=2.10.0 <3.0.0",
     "react": ">=16.9.0 <18.0.0",
     "react-dom": ">=16.9.0 <18.0.0"
   }

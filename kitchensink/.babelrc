@@ -1,10 +1,6 @@
 {
     "presets": [
-      ["@babel/preset-env", {
-        "targets": {
-          "browsers": [ ">0.1%", "ie 11", "not op_mini all"]
-        }
-      }],
+      "@babel/preset-env",
       "@babel/preset-react"
     ],
     "plugins": [

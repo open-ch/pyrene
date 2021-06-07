@@ -1,5 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
+import { ThemeProvider } from '@osag/pyrene';
+
 import clsx from 'clsx';
 import styles from '../../css/componentPage.css';
 import CodeBlock from './CodeBlock';
@@ -102,7 +105,9 @@ export default class ComponentEditor extends React.Component {
             <div className={clsx(styles.pin, { [styles.pinned]: pinned })} onClick={() => this.handlePinClick()} />
             <div className={clsx(styles.sun, { [styles.darkMode]: darkMode })} onClick={() => this.handleSunClick()} />
             <div className={styles.componentDisplay}>
-              {this.props.examples.trigger ? <ParentButton component={displayedComponent} /> : displayedComponent}
+              <ThemeProvider colors={{ text: this.state.darkMode ? '#dbe7ff' : '#1d273b' }}>
+                {this.props.examples.trigger ? <ParentButton component={displayedComponent} /> : displayedComponent}
+              </ThemeProvider>
             </div>
             <CodeBlock
               component={displayedComponent}

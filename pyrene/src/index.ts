@@ -175,4 +175,6 @@ export type SingleSelectOption<ValueType> = _SingleSelectOption<ValueType>;
 
 export { default as colorConstants } from './styles/colorConstants';
 
+export { default as ThemeProvider } from './components/ThemeProvider/ThemeProvider';
+
 export default Components;
