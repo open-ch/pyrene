@@ -2,7 +2,7 @@ import React, {
   useCallback,
   useEffect, useState,
 } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import Icon from '../Icon/Icon';
 import {
@@ -14,7 +14,7 @@ import {
 } from '../../utils/DateUtils';
 
 
-import './dateTimeInput.css';
+import styles from './dateTimeInput.css';
 
 type OnFunction = (value?: number | null) => void;
 
@@ -242,34 +242,28 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
 
   return (
     <div
-      styleName="dateTimeComponent"
+      className={styles.dateTimeComponent}
       onBlur={() => handleOn(dateValue, timeValue, onBlur)}
     >
-      <div styleName="dateTimeFieldTitle">Date &amp; Time</div>
-      <div
-        styleName={classNames(
-          'dateTimeInputArea',
-          { dateTimeInputError: errorValue.length > 0 },
-        )}
-      >
-        <div styleName={classNames('iconInputContainer', 'calendar')}>
+      <div className="dateTimeFieldTitle">Date &amp; Time</div>
+      <div className={clsx(styles.dateTimeInputArea, { [styles.dateTimeInputError]: errorValue.length > 0 })} >
+        <div className={clsx(styles.iconInputContainer, styles.calendar)}>
           <Icon type="inline" name="calendar" color="neutral-500" />
           <input
             name={name ? `${name}_date` : 'date_input'}
             placeholder="DD.MM.YYYY"
-            styleName={classNames('input', 'dateInput')}
+            className={clsx(styles.input, styles.dateInput)}
             maxLength={10}
             onChange={handleDateOnChange}
             disabled={invalidTimestamp}
-            value={dateValue}
-          />
+            value={dateValue} />
         </div>
-        <div styleName={classNames('iconInputContainer', 'clock')}>
+        <div className={clsx(styles.iconInputContainer, styles.clock)} >
           <Icon type="inline" name="clock" color="neutral-500" />
           <input
             name={name ? `${name}_time` : 'time_input'}
             placeholder="HH:MM"
-            styleName={classNames('input', 'timeInput')}
+            className={clsx(styles.input, styles.timeInput)}
             maxLength={5}
             disabled={invalidTimestamp}
             onChange={handleTimeOnChange}
@@ -278,7 +272,7 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
         </div>
       </div>
       {errorValue.length > 0 && (
-        <div styleName="dateTimeInputErrorMsg">{errorValue}</div>
+        <div className={styles.dateTimeInputErrorMsg}>{errorValue}</div>
       )}
     </div>
   );
