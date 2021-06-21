@@ -39,9 +39,9 @@ const config = {
           MiniCssExtractPlugin.loader,
           'css-loader',
         ],
-      },      
+      },
       {
-        test: /\.css$/,       
+        test: /\.css$/,
         exclude: [
           /node_modules/,
         ],

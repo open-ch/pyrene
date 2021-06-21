@@ -1,11 +1,7 @@
 import React, {
   useCallback,
   useEffect, useState,
-  useImperativeHandle,
   forwardRef,
-  ReactNode,
-  useRef,
-  ReactElement,  
 } from 'react';
 import clsx from 'clsx';
 
@@ -91,7 +87,7 @@ const inRange = (timestampToCheck: number, minimumValue: number, maximumValue: n
 
 const FwDateTimeInput = forwardRef<HTMLInputElement, DateTimeInputProps>((props: DateTimeInputProps, ref: React.Ref<HTMLInputElement>) => {
   const DateTimeInput = (
-    { 
+    {
       className = '',
       maxDateTime = getFutureDate({ years: 1 }),
       minDateTime = 0,
@@ -101,8 +97,9 @@ const FwDateTimeInput = forwardRef<HTMLInputElement, DateTimeInputProps>((props:
       onClick = () => {},
       timeStamp,
       timeZone = 'Europe/Zurich',
-      // value = '',    
-     }: DateTimeInputProps): any => {
+      // value = '',
+    }: DateTimeInputProps,
+  ): any => {
 
     const [dateValue, setDateValue] = useState('');
     const [timeValue, setTimeValue] = useState('');
@@ -258,7 +255,7 @@ const FwDateTimeInput = forwardRef<HTMLInputElement, DateTimeInputProps>((props:
         onBlur={() => handleOn(dateValue, timeValue, onBlur)}
       >
         <div className="dateTimeFieldTitle">Date &amp; Time</div>
-        <div className={clsx(styles.dateTimeInputArea, { [styles.dateTimeInputError]: errorValue.length > 0 })} >
+        <div className={clsx(styles.dateTimeInputArea, { [styles.dateTimeInputError]: errorValue.length > 0 })}>
           <div className={clsx(styles.iconInputContainer, styles.calendar)}>
             <Icon type="inline" name="calendar" color="neutral-500" />
             <input
@@ -270,11 +267,11 @@ const FwDateTimeInput = forwardRef<HTMLInputElement, DateTimeInputProps>((props:
               onClick={onClick}
               disabled={invalidTimestamp}
               ref={ref}
-              value={dateValue} 
+              value={dateValue}
               autoComplete="off"
             />
           </div>
-          <div className={clsx(styles.iconInputContainer, styles.clock)} >
+          <div className={clsx(styles.iconInputContainer, styles.clock)}>
             <Icon type="inline" name="clock" color="neutral-500" />
             <input
               name={name ? `${name}_time` : 'time_input'}
@@ -282,7 +279,7 @@ const FwDateTimeInput = forwardRef<HTMLInputElement, DateTimeInputProps>((props:
               className={clsx(styles.input, styles.timeInput)}
               maxLength={5}
               disabled={invalidTimestamp}
-              onChange={handleTimeOnChange}        
+              onChange={handleTimeOnChange}
               ref={ref}
               value={timeValue}
             />
@@ -294,8 +291,8 @@ const FwDateTimeInput = forwardRef<HTMLInputElement, DateTimeInputProps>((props:
       </div>
     );
   };
-  DateTimeInput.displayName = 'DateTime Input';
-  return <DateTimeInput {...props}/>;
+  return <DateTimeInput {...props} />;
 });
 
+FwDateTimeInput.displayName = 'DateTime Input';
 export default FwDateTimeInput;

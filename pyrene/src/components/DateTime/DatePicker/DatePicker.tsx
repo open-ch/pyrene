@@ -1,20 +1,15 @@
 import React, {
-  ReactElement,
-  useCallback,
   useEffect, useState,
 } from 'react';
-import clsx from 'clsx';
-import ReactDatepicker, { 
-  CalendarContainer, 
-  registerLocale, 
-  setDefaultLocale, 
+import ReactDatepicker, {
+  CalendarContainer,
+  registerLocale,
+  setDefaultLocale,
   getDefaultLocale,
 } from 'react-datepicker';
 import enGB from 'date-fns/locale/en-GB';
 
-import FwDateTimeInput, {
-  DateTimeInputProps,
-} from '../DateTimeInput/DateTimeInputForward';
+import FwDateTimeInput from '../DateTimeInput/DateTimeInputForward';
 
 import {
   DateType,
@@ -28,13 +23,13 @@ import 'react-datepicker/dist/react-datepicker.css';
 import styles from './datePicker.css';
 
 
-registerLocale("en-GB2", { ...enGB, options: { ...enGB.options, weekStartsOn: 3 } });
-setDefaultLocale("en-GB2");
+registerLocale('en-GB2', { ...enGB, options: { ...enGB.options, weekStartsOn: 3 } });
+setDefaultLocale('en-GB2');
 
 export type OnFunction = (value?: Date | Date[] | null) => void;
 
 export interface DatePickerProps{
-  endDate?: Date,  
+  endDate?: Date,
   /**
    * This is a timestamp that represents the maximum date allowed by the component
    */
@@ -72,17 +67,10 @@ export interface DatePickerProps{
 
 const DatePicker: React.FC<DatePickerProps> = ({
   endDate,
-  maxDate = convertToDateTypeObject(new Date(getFutureDate({ years: 1 }))),
-  minDate = convertToDateTypeObject(new Date(getPastDate({ years: 1 }))),
-  name,
-  onBlur,
-  onChange,
   startDate = new Date(),
-  timeStamp,
-  timeZone = 'Europe/Zurich',
 }: DatePickerProps) => {
 
-  interface calendarContainerProps {
+  interface CalendarContainerProps {
     className?: string;
     children?: React.ReactNode;
     showPopperArrow?: boolean;
@@ -92,91 +80,74 @@ const DatePicker: React.FC<DatePickerProps> = ({
   const [internalDate, setInternalDate] = useState<Date>();
   const [sDate, setStartDate] = useState(startDate);
 
-  useEffect(() => {
-    const jihad = document.getElementsByClassName("react-datepicker__current-month");
-    if (Array.isArray(jihad)) {
-      const text = jihad[0].innerHTML;
-      var year = text.match(/\d/g);
-      var month = text.split(' ')[0];
-      jihad[0].innerHTML = month + ' ' + '<span class="custom-year">' + year + '</span>';
-    }
-  }, []);  
-
   const change = (
     date: Date | [Date, Date] | /* for selectsRange */ null,
     event: React.SyntheticEvent<any> | undefined,
-): void => {
-  
-  if(date) {
-    if (Array.isArray(date)) {
-
-    } else{
-      setInternalDate(date)
+  ): void => {
+    if (date) {
+      if (!Array.isArray(date)) {
+        setInternalDate(date);
+      }
     }
-  }
-  console.log(date, event);
-};
+    console.log(date, event);
+  };
 
-  type Props = {onInputClick?():void, onFocus?(event: React.FocusEvent<HTMLInputElement>): void }
+  type Props = { onInputClick?():void, onFocus?(event: React.FocusEvent<HTMLInputElement>): void };
 
   const ref = React.createRef<HTMLInputElement>();
   // const ref = React.useRef<HTMLInputElement>(null);
-  const calendarContainer = (props: calendarContainerProps) => (<CalendarContainer {...props} showPopperArrow={false} />);
+  const calendarContainer = (props: CalendarContainerProps) => (<CalendarContainer {...props} showPopperArrow={false} />);
   // const RdateTimeInput = <FwDateTimeInput<string> onChange={(date) => console.log(date)} className="ready" ref={ref}/>;
 
-  const nextIcon = (<span className='pyreneIcon-chevronRight' />);
-  const prevIcon = (<span className='pyreneIcon-chevronLeft' />);
+  const nextIcon = (<span className="pyreneIcon-chevronRight" />);
+  const prevIcon = (<span className="pyreneIcon-chevronLeft" />);
 
   return (
     <div className={styles.wrapper}>
       <ReactDatepicker
         calendarContainer={calendarContainer}
-
         renderCustomHeader={({
           date,
           decreaseMonth,
           increaseMonth,
         }) => (
           <div>
+            {/* eslint-disable-next-line react/button-has-type */}
             <button
               aria-label="Previous Month"
-              className={
-                "react-datepicker__navigation react-datepicker__navigation--previous"
-              }
+              className="react-datepicker__navigation react-datepicker__navigation--previous"
               onClick={decreaseMonth}
             >
               {prevIcon}
             </button>
             <span className="react-datepicker__current-month">
-              {date.toLocaleString("en-US", {
-                month: "long"
+              {date.toLocaleString('en-US', {
+                month: 'long',
               })}
               &nbsp;
               <span className="pyrene__current-year">
-                {date.toLocaleString("en-US", {
-                  year: "numeric",
-                })} 
-              </span>             
+                {date.toLocaleString('en-US', {
+                  year: 'numeric',
+                })}
+              </span>
             </span>
+            {/* eslint-disable-next-line react/button-has-type */}
             <button
               aria-label="Next Month"
-              className={
-                "react-datepicker__navigation react-datepicker__navigation--next"
-              }
+              className="react-datepicker__navigation react-datepicker__navigation--next"
               onClick={increaseMonth}
             >
               {nextIcon}
             </button>
           </div>
         )}
-
-        customInput={
+        customInput={(
           <FwDateTimeInput
             timeStamp={internalDate?.valueOf()}
-            onChange={(date) => console.log(date)} 
-            ref={ref} 
+            onChange={(date) => console.log(date)}
+            ref={ref}
           />
-        }
+        )}
         selected={startDate}
         startDate={sDate}
         onChange={change}
@@ -184,7 +155,7 @@ const DatePicker: React.FC<DatePickerProps> = ({
         dateFormat="MMMM d, yyyy h:mm aa"
         showTimeSelect={false}
         nextMonthButtonLabel={nextIcon}
-        formatWeekDay={nameOfDay => nameOfDay.substr(0,1)}
+        formatWeekDay={(nameOfDay) => nameOfDay.substr(0, 1)}
         locale={enGB}
       />
       {console.log(getDefaultLocale())}

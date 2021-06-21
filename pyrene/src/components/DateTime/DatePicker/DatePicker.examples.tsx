@@ -1,11 +1,10 @@
 import { Example, StateProvider } from '../../../examples/Example';
 import { DatePickerProps, OnFunction } from './DatePicker';
 
+type ReturnedDate = Date | Date[] | null | undefined;
 export interface State {
-  value: returnedDate,
+  value: ReturnedDate,
 }
-
-type returnedDate = Date | Date[] | null | undefined;
 
 /*
 props: {
@@ -18,9 +17,9 @@ props: {
 const DatePicker: Example<DatePickerProps, State> = {};
 
 DatePicker.props = {
-  onChange: (stateProvider: StateProvider<State>)  => (value: returnedDate) => stateProvider.setState({ value }),
-  value: (stateProvider: StateProvider<State>) => stateProvider.state.value,  
-}
+  onChange: (stateProvider: StateProvider<State>) => (value: ReturnedDate) => stateProvider.setState({ value }),
+  value: (stateProvider: StateProvider<State>) => stateProvider.state.value,
+};
 
 
 DatePicker.category = 'Form';

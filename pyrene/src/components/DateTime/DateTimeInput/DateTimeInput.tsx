@@ -246,7 +246,7 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
       onBlur={() => handleOn(dateValue, timeValue, onBlur)}
     >
       <div className="dateTimeFieldTitle">Date &amp; Time</div>
-      <div className={clsx(styles.dateTimeInputArea, { [styles.dateTimeInputError]: errorValue.length > 0 })} >
+      <div className={clsx(styles.dateTimeInputArea, { [styles.dateTimeInputError]: errorValue.length > 0 })}>
         <div className={clsx(styles.iconInputContainer, styles.calendar)}>
           <Icon type="inline" name="calendar" color="neutral-500" />
           <input
@@ -256,9 +256,10 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
             maxLength={10}
             onChange={handleDateOnChange}
             disabled={invalidTimestamp}
-            value={dateValue} />
+            value={dateValue}
+          />
         </div>
-        <div className={clsx(styles.iconInputContainer, styles.clock)} >
+        <div className={clsx(styles.iconInputContainer, styles.clock)}>
           <Icon type="inline" name="clock" color="neutral-500" />
           <input
             name={name ? `${name}_time` : 'time_input'}
