@@ -1,5 +1,5 @@
 import React, {
-  useEffect, useState,
+  useState,
 } from 'react';
 import ReactDatepicker, {
   CalendarContainer,
@@ -13,10 +13,6 @@ import FwDateTimeInput from '../DateTimeInput/DateTimeInputForward';
 
 import {
   DateType,
-  TimeType,
-  getFutureDate, standardEUDateFormat, standardEUTimeFormat,
-  isValidDate, isValidTime, isValidTimeZone, convertToDateTypeObject, convertToTimeTypeObject,
-  convertToUTCtime, convertToZoneTime, convertDateTypeToString, convertTimeTypeToString, getPastDate,
 } from '../../../utils/DateUtils';
 
 import 'react-datepicker/dist/react-datepicker.css';
@@ -62,9 +58,6 @@ export interface DatePickerProps{
   value?: Date | Date[] | null,
 }
 
-// reactDatepicker.registerLocale("en-US2", { ...enUS, options: { weekStartsOn: 3 } });
-
-
 const DatePicker: React.FC<DatePickerProps> = ({
   endDate,
   startDate = new Date(),
@@ -78,7 +71,6 @@ const DatePicker: React.FC<DatePickerProps> = ({
   }
 
   const [internalDate, setInternalDate] = useState<Date>();
-  const [sDate, setStartDate] = useState(startDate);
 
   const change = (
     date: Date | [Date, Date] | /* for selectsRange */ null,
@@ -92,12 +84,9 @@ const DatePicker: React.FC<DatePickerProps> = ({
     console.log(date, event);
   };
 
-  type Props = { onInputClick?():void, onFocus?(event: React.FocusEvent<HTMLInputElement>): void };
-
   const ref = React.createRef<HTMLInputElement>();
-  // const ref = React.useRef<HTMLInputElement>(null);
+
   const calendarContainer = (props: CalendarContainerProps) => (<CalendarContainer {...props} showPopperArrow={false} />);
-  // const RdateTimeInput = <FwDateTimeInput<string> onChange={(date) => console.log(date)} className="ready" ref={ref}/>;
 
   const nextIcon = (<span className="pyreneIcon-chevronRight" />);
   const prevIcon = (<span className="pyreneIcon-chevronLeft" />);
@@ -149,7 +138,7 @@ const DatePicker: React.FC<DatePickerProps> = ({
           />
         )}
         selected={startDate}
-        startDate={sDate}
+        startDate={startDate}
         onChange={change}
         endDate={endDate}
         dateFormat="MMMM d, yyyy h:mm aa"
