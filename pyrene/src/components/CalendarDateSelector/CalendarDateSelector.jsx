@@ -12,7 +12,6 @@ import styles from './calendarDateSelector.css';
 import {
   DATE_UNITS, getCurrentDateTypeObject,
 } from '../../utils/DateUtils';
-import './calendarDateSelector.css';
 import ArrowSelector from '../TimeRangeSelector/TimeRangeNavigationBar/ArrowSelector/ArrowSelector';
 import DateHelper from './DateHelper';
 

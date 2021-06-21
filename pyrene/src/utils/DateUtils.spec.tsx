@@ -7,10 +7,6 @@ describe('Test utils functions', () => {
 
   it('Convert to internal Date type', () => {
     const dateobj = Utils.convertToDateTypeObject(new Date());
-    expect(dateobj).toHaveProperty('year');
-    expect(dateobj).toHaveProperty('month');
-    expect(dateobj).toHaveProperty('day');
-
     expect(dateobj.day).toEqual(expect.any(Number));
     expect(dateobj.month).toEqual(expect.any(Number));
     expect(dateobj.year).toEqual(expect.any(Number));
@@ -18,9 +14,6 @@ describe('Test utils functions', () => {
 
   it('Convert to internal Time type', () => {
     const timeobj = Utils.convertToTimeTypeObject(new Date());
-    expect(timeobj).toHaveProperty('hours');
-    expect(timeobj).toHaveProperty('minutes');
-
     expect(timeobj.hours).toEqual(expect.any(Number));
     expect(timeobj.minutes).toEqual(expect.any(Number));
   });
