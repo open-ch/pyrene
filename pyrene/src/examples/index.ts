@@ -13,7 +13,8 @@ import { default as Checkbox } from '../components/Checkbox/Checkbox.examples';
 import { default as CheckboxPopover } from '../components/CheckboxPopover/CheckboxPopover.examples';
 import { default as Collapsible } from '../components/Collapsible/Collapsible.examples';
 import { default as Container } from '../components/Container/Container.examples';
-import { default as DateTimeInput } from '../components/DateTimeInput/DateTimeInput.examples';
+import { default as DateTimeInput } from '../components/DateTime/DateTimeInput/DateTimeInput.examples';
+import { default as DatePicker } from '../components/DateTime/DatePicker/DatePicker.examples';
 import { default as DropdownButton } from '../components/DropdownButton/DropdownButton.examples';
 import { default as Filter } from '../components/Filter/Filter.examples';
 import { default as Icon } from '../components/Icon/Icon.examples';
@@ -64,6 +65,7 @@ const examples: { [key: string]: Example<any, any> } = {
   CheckboxPopover,
   Collapsible,
   Container,
+  DatePicker,
   DateTimeInput,
   DropdownButton,
   Filter,

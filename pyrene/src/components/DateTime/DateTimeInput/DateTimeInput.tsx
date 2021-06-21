@@ -4,14 +4,14 @@ import React, {
 } from 'react';
 import clsx from 'clsx';
 
-import Icon from '../Icon/Icon';
+import Icon from '../../Icon/Icon';
 import {
   DateType,
   TimeType,
   getFutureDate, standardEUDateFormat, standardEUTimeFormat,
   isValidDate, isValidTime, isValidTimeZone, convertToDateTypeObject, convertToTimeTypeObject,
   convertToUTCtime, convertToZoneTime, convertDateTypeToString, convertTimeTypeToString,
-} from '../../utils/DateUtils';
+} from '../../../utils/DateUtils';
 
 
 import styles from './dateTimeInput.css';

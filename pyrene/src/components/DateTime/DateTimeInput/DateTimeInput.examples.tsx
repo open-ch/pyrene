@@ -1,4 +1,4 @@
-import { Example, StateProvider } from '../../examples/Example';
+import { Example, StateProvider } from '../../../examples/Example';
 import { DateTimeInputProps } from './DateTimeInput';
 
 export interface State {
