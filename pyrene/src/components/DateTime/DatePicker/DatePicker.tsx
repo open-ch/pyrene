@@ -63,13 +63,6 @@ const DatePicker: React.FC<DatePickerProps> = ({
   startDate = new Date(),
 }: DatePickerProps) => {
 
-  interface CalendarContainerProps {
-    className?: string;
-    children?: React.ReactNode;
-    showPopperArrow?: boolean;
-    arrowProps?: { [propName: string]: any };
-  }
-
   const [internalDate, setInternalDate] = useState<Date>();
 
   const change = (
@@ -86,15 +79,12 @@ const DatePicker: React.FC<DatePickerProps> = ({
 
   const ref = React.createRef<HTMLInputElement>();
 
-  const calendarContainer = (props: CalendarContainerProps) => (<CalendarContainer {...props} showPopperArrow={false} />);
-
   const nextIcon = (<span className="pyreneIcon-chevronRight" />);
   const prevIcon = (<span className="pyreneIcon-chevronLeft" />);
 
   return (
     <div className={styles.wrapper}>
       <ReactDatepicker
-        calendarContainer={calendarContainer}
         renderCustomHeader={({
           date,
           decreaseMonth,
@@ -139,11 +129,11 @@ const DatePicker: React.FC<DatePickerProps> = ({
         )}
         selected={startDate}
         startDate={startDate}
+        showPopperArrow={false}
         onChange={change}
         endDate={endDate}
         dateFormat="MMMM d, yyyy h:mm aa"
         showTimeSelect={false}
-        nextMonthButtonLabel={nextIcon}
         formatWeekDay={(nameOfDay) => nameOfDay.substr(0, 1)}
         locale={enGB}
       />

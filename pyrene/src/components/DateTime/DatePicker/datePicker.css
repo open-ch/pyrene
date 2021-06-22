@@ -12,6 +12,27 @@
   border-bottom: 1px solid var(--neutral-100);
 }
 
+.wrapper :global .react-datepicker__navigation {
+  width: 24px;
+  height: 24px;
+}
+
+.wrapper :global .react-datepicker__navigation:hover {
+  border-radius: 2px;
+  background-color: var(--neutral-030);
+}
+
+.wrapper :global .react-datepicker__month {
+
+}
+
+.wrapper :global .react-datepicker__day {
+  font-family: FiraGO;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal; 
+}
+
 .wrapper :global .react-datepicker__current-month {
   color: var(--neutral-500);
 }
@@ -66,4 +87,9 @@
 .wrapper :global .react-datepicker__year-text:hover {
   background-color: var(--neutral-030);
   border-radius: 50%;
+}
+
+
+.wrapper :global .react-datepicker__day--outside-month {
+  color: var(--neutral-200);
 }
