@@ -1,5 +1,6 @@
 import React, {
   useState,
+  useRef,
 } from 'react';
 import ReactDatepicker, {
   CalendarContainer,
@@ -19,8 +20,9 @@ import 'react-datepicker/dist/react-datepicker.css';
 import styles from './datePicker.css';
 
 
-registerLocale('en-GB2', { ...enGB, options: { ...enGB.options, weekStartsOn: 3 } });
-setDefaultLocale('en-GB2');
+// registerLocale('en-GB2', { ...enGB, options: { ...enGB.options, weekStartsOn: 3 } });
+// setDefaultLocale('es');
+registerLocale('en-GB', enGB);
 
 export type OnFunction = (value?: Date | Date[] | null) => void;
 
@@ -56,21 +58,27 @@ export interface DatePickerProps{
    */
   onChange: OnFunction,
   value?: Date | Date[] | null,
+  /**
+   * Should display the Time column on the right-hand side
+   */
+  shouldDisplayTimeColumn?: boolean,
+}
+
+interface CalendarContainerProps {
+  className?: string;
+  children?: React.ReactNode;
+  showPopperArrow?: boolean;
+  arrowProps?: { [propName: string]: any };
 }
 
 const DatePicker: React.FC<DatePickerProps> = ({
   endDate,
   startDate = new Date(),
+  shouldDisplayTimeColumn,
 }: DatePickerProps) => {
 
-  interface CalendarContainerProps {
-    className?: string;
-    children?: React.ReactNode;
-    showPopperArrow?: boolean;
-    arrowProps?: { [propName: string]: any };
-  }
-
   const [internalDate, setInternalDate] = useState<Date>();
+  const ref = useRef<HTMLInputElement | null>(null);
 
   const change = (
     date: Date | [Date, Date] | /* for selectsRange */ null,
@@ -83,8 +91,6 @@ const DatePicker: React.FC<DatePickerProps> = ({
     }
     console.log(date, event);
   };
-
-  const ref = React.createRef<HTMLInputElement>();
 
   const calendarContainer = (props: CalendarContainerProps) => (<CalendarContainer {...props} showPopperArrow={false} />);
 
@@ -142,10 +148,10 @@ const DatePicker: React.FC<DatePickerProps> = ({
         onChange={change}
         endDate={endDate}
         dateFormat="MMMM d, yyyy h:mm aa"
-        showTimeSelect={false}
+        showTimeSelect={shouldDisplayTimeColumn}
         nextMonthButtonLabel={nextIcon}
         formatWeekDay={(nameOfDay) => nameOfDay.substr(0, 1)}
-        locale={enGB}
+        locale="en-GB"
       />
       {console.log(getDefaultLocale())}
     </div>
