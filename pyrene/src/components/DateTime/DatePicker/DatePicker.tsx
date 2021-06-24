@@ -19,10 +19,8 @@ import {
 import 'react-datepicker/dist/react-datepicker.css';
 import styles from './datePicker.css';
 
-
-// registerLocale('en-GB2', { ...enGB, options: { ...enGB.options, weekStartsOn: 3 } });
-// setDefaultLocale('es');
-registerLocale('en-GB', enGB);
+registerLocale('en-GB2', { ...enGB, options: { ...enGB.options, weekStartsOn: 3 } });
+setDefaultLocale('en-GB2');
 
 export type OnFunction = (value?: Date | Date[] | null) => void;
 
@@ -151,7 +149,7 @@ const DatePicker: React.FC<DatePickerProps> = ({
         showTimeSelect={shouldDisplayTimeColumn}
         nextMonthButtonLabel={nextIcon}
         formatWeekDay={(nameOfDay) => nameOfDay.substr(0, 1)}
-        locale="en-GB"
+        locale={enGB}
       />
       {console.log(getDefaultLocale())}
     </div>
