@@ -18,6 +18,8 @@ import {
 
 import 'react-datepicker/dist/react-datepicker.css';
 import styles from './datePicker.css';
+
+
 registerLocale('en-GB2', { ...enGB, options: { ...enGB.options, weekStartsOn: 3 } });
 setDefaultLocale('en-GB2');
 
