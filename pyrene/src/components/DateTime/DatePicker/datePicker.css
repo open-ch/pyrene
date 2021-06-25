@@ -89,7 +89,20 @@
   border-radius: 50%;
 }
 
-
 .wrapper :global .react-datepicker__day--outside-month {
   color: var(--neutral-200);
+}
+
+.wrapper :global .react-datepicker__header--time::after {
+  content: '24h';
+  display: block;
+  padding-top: 9px;
+  font-size: 12px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.33;
+  letter-spacing: 1px;
+  text-align: center;
+  color: var(--neutral-100);
 }
