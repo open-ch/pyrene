@@ -1,6 +1,5 @@
 import React, {
   useState,
-  useRef,
 } from 'react';
 import ReactDatepicker, {
   CalendarContainer,
@@ -57,27 +56,21 @@ export interface DatePickerProps{
    */
   onChange: OnFunction,
   value?: Date | Date[] | null,
-  /**
-   * Should display the Time column on the right-hand side
-   */
-  shouldDisplayTimeColumn?: boolean,
-}
-
-interface CalendarContainerProps {
-  className?: string;
-  children?: React.ReactNode;
-  showPopperArrow?: boolean;
-  arrowProps?: { [propName: string]: any };
 }
 
 const DatePicker: React.FC<DatePickerProps> = ({
   endDate,
   startDate = new Date(),
-  shouldDisplayTimeColumn,
 }: DatePickerProps) => {
 
+  interface CalendarContainerProps {
+    className?: string;
+    children?: React.ReactNode;
+    showPopperArrow?: boolean;
+    arrowProps?: { [propName: string]: any };
+  }
+
   const [internalDate, setInternalDate] = useState<Date>();
-  const ref = useRef<HTMLInputElement | null>(null);
 
   const change = (
     date: Date | [Date, Date] | /* for selectsRange */ null,
@@ -90,6 +83,8 @@ const DatePicker: React.FC<DatePickerProps> = ({
     }
     console.log(date, event);
   };
+
+  const ref = React.createRef<HTMLInputElement>();
 
   const calendarContainer = (props: CalendarContainerProps) => (<CalendarContainer {...props} showPopperArrow={false} />);
 
@@ -147,7 +142,7 @@ const DatePicker: React.FC<DatePickerProps> = ({
         onChange={change}
         endDate={endDate}
         dateFormat="MMMM d, yyyy h:mm aa"
-        showTimeSelect={shouldDisplayTimeColumn}
+        showTimeSelect={false}
         nextMonthButtonLabel={nextIcon}
         formatWeekDay={(nameOfDay) => nameOfDay.substr(0, 1)}
         locale={enGB}
