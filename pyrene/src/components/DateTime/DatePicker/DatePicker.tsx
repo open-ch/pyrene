@@ -10,7 +10,7 @@ import ReactDatepicker, {
 } from 'react-datepicker';
 import enGB from 'date-fns/locale/en-GB';
 
-import FwDateTimeInput from '../DateTimeInput/DateTimeInputForward';
+import DateTimeInput from '../DateTimeInput/DateTimeInput';
 
 import {
   DateType,
@@ -136,7 +136,7 @@ const DatePicker: React.FC<DatePickerProps> = ({
           </div>
         )}
         customInput={(
-          <FwDateTimeInput
+          <DateTimeInput
             timeStamp={internalDate?.valueOf()}
             onChange={(date) => console.log(date)}
             ref={ref}

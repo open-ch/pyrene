@@ -1,6 +1,8 @@
 import React, {
   useCallback,
-  useEffect, useState,
+  useEffect,
+  useState,
+  forwardRef,
 } from 'react';
 import clsx from 'clsx';
 
@@ -281,4 +283,4 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
 
 DateTimeInput.displayName = 'DateTime Input';
 
-export default DateTimeInput;
+export default forwardRef<Ref, Props>((props, ref)(DateTimeInput);
