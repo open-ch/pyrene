@@ -77,12 +77,14 @@ const DatePicker: React.FC<DatePickerProps> = ({
 }: DatePickerProps) => {
 
   const [internalDate, setInternalDate] = useState<Date>();
-  const ref = useRef<HTMLInputElement | null>(null);
+  const inputDateRef = useRef<HTMLInputElement | null>(null);
 
   const change = (
     date: Date | [Date, Date] | /* for selectsRange */ null,
     event: React.SyntheticEvent<any> | undefined,
   ): void => {
+    console.log('DatePicker date', date);
+    console.log('DatePicker event', event);
     if (date) {
       if (!Array.isArray(date)) {
         setInternalDate(date);
@@ -137,9 +139,10 @@ const DatePicker: React.FC<DatePickerProps> = ({
         )}
         customInput={(
           <DateTimeInput
+            inputDateRef={inputDateRef}
             timeStamp={internalDate?.valueOf()}
-            onChange={(date) => console.log(date)}
-            ref={ref}
+            onChange={(date) => console.log('thomas')}
+
           />
         )}
         selected={startDate}

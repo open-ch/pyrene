@@ -1,8 +1,10 @@
 import React, {
+  FunctionComponent,
   useCallback,
   useEffect,
   useState,
   forwardRef,
+  MutableRefObject,
 } from 'react';
 import clsx from 'clsx';
 
@@ -49,6 +51,8 @@ export interface DateTimeInputProps{
    * Function to handle onChange event
    */
   onChange: OnFunction,
+
+  inputDateRef: MutableRefObject<HTMLInputElement | null>
 }
 
 const allowedSeparatorCheck = (valueToCheck: string): boolean => (/[/.:]$/.test(valueToCheck));
@@ -84,7 +88,7 @@ const inRange = (timestampToCheck: number, minimumValue: number, maximumValue: n
   return 0;
 };
 
-const DateTimeInput: React.FC<DateTimeInputProps> = ({
+const DateTimeInput: FunctionComponent<DateTimeInputProps> = ({
   maxDateTime = getFutureDate({ years: 1 }),
   minDateTime = 0,
   name,
@@ -92,7 +96,8 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
   onChange,
   timeStamp,
   timeZone = 'Europe/Zurich',
-}: DateTimeInputProps) => {
+  inputDateRef
+}) => {
 
   const [dateValue, setDateValue] = useState('');
   const [timeValue, setTimeValue] = useState('');
@@ -242,6 +247,10 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
     setErrorValue(getError());
   }, [invalidDate, invalidTime, invalidTimestamp, invalidTimeZone, jsDateObject, maxDateTime, minDateTime]);
 
+  const onClick = () => {
+    inputDateRef?.current?.focus?.();
+  };
+
   return (
     <div
       className={styles.dateTimeComponent}
@@ -252,13 +261,17 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
         <div className={clsx(styles.iconInputContainer, styles.calendar)}>
           <Icon type="inline" name="calendar" color="neutral-500" />
           <input
+            ref={inputDateRef}
             name={name ? `${name}_date` : 'date_input'}
             placeholder="DD.MM.YYYY"
             className={clsx(styles.input, styles.dateInput)}
             maxLength={10}
-            onChange={handleDateOnChange}
+            onChange={ ((event) => {
+              console.log('onChange input', event.target.value);
+            }) || handleDateOnChange}
             disabled={invalidTimestamp}
             value={dateValue}
+            onClick={onClick}
           />
         </div>
         <div className={clsx(styles.iconInputContainer, styles.clock)}>
@@ -283,4 +296,4 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
 
 DateTimeInput.displayName = 'DateTime Input';
 
-export default forwardRef<Ref, Props>((props, ref)(DateTimeInput);
+export default DateTimeInput;
