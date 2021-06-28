@@ -2,6 +2,7 @@ import React, {
   useCallback,
   useEffect,
   useState,
+  FunctionComponent,
   forwardRef,
 } from 'react';
 import clsx from 'clsx';
@@ -84,7 +85,7 @@ const inRange = (timestampToCheck: number, minimumValue: number, maximumValue: n
   return 0;
 };
 
-const DateTimeInput = forwardRef<HTMLInputElement, DateTimeInputProps>(({
+const DateTimeInput = forwardRef<any, DateTimeInputProps>(({
   maxDateTime = getFutureDate({ years: 1 }),
   minDateTime = 0,
   name,
@@ -93,6 +94,7 @@ const DateTimeInput = forwardRef<HTMLInputElement, DateTimeInputProps>(({
   timeStamp,
   timeZone = 'Europe/Zurich',
 }, ref) => {
+
   const [dateValue, setDateValue] = useState('');
   const [timeValue, setTimeValue] = useState('');
 

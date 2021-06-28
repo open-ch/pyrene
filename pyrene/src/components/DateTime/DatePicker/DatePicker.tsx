@@ -77,7 +77,6 @@ const DatePicker: React.FC<DatePickerProps> = ({
 }: DatePickerProps) => {
 
   const [internalDate, setInternalDate] = useState<Date>();
-  const dateInputRef = useRef<HTMLInputElement>(null);
 
   const change = (
     date: Date | [Date, Date] | /* for selectsRange */ null,
@@ -137,13 +136,12 @@ const DatePicker: React.FC<DatePickerProps> = ({
             </button>
           </div>
         )}
-        customInput={(
+        customInput={
           <DateTimeInput
             timeStamp={internalDate?.valueOf()}
             onChange={(date) => console.log('datePicker Pyrene', date)}
-            ref={dateInputRef}
           />
-        )}
+        }
         selected={startDate}
         startDate={startDate}
         onChange={change}
