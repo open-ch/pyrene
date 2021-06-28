@@ -140,7 +140,7 @@ const DatePicker: React.FC<DatePickerProps> = ({
         customInput={(
           <DateTimeInput
             timeStamp={internalDate?.valueOf()}
-            onChange={(date) => console.log('thomas')}
+            onChange={(date) => console.log('datePicker Pyrene', date)}
             ref={dateInputRef}
           />
         )}
