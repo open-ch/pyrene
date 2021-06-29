@@ -9,7 +9,7 @@ const DateTimeInput: Example<DateTimeInputProps, State> = {};
 
 DateTimeInput.props = {
   onChange: (stateProvider: StateProvider<State>) => (value?: number | null) => { stateProvider.setState({ value }); },
-  timeStamp: (stateProvider) => stateProvider.state.value || 734587698769878726587236,
+  timeStamp: (stateProvider) => stateProvider.state.value,
 };
 
 DateTimeInput.examples = [

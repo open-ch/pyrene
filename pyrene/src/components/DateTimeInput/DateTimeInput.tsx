@@ -1,7 +1,7 @@
 import React, {
   forwardRef,
   useCallback,
-  useEffect, useImperativeHandle, useRef, useState,
+  useEffect, useState,
 } from 'react';
 import clsx from 'clsx';
 
@@ -147,14 +147,13 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
 
 
   // Old onchange function. It may be kept in case we allow for optional dropdown calendar
-  const handleDateOnChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log('help');
+  /* const handleDateOnChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const node = event.target as HTMLInputElement;
     if (allowedValueCheck(node.value)) {
       setDateValue(node.value);
       handleOn(node.value, timeValue, onChange);
     }
-  }, [handleOn, onChange, timeValue]);
+  }, [handleOn, onChange, timeValue]); */
 
   const handleTimeOnChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const node = event.target as HTMLInputElement;
