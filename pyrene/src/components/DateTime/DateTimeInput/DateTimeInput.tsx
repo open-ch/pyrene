@@ -50,6 +50,8 @@ export interface DateTimeInputProps{
    * Function to handle onChange event
    */
   onChange: OnFunction,
+
+  onClick?: any,
 }
 
 const allowedSeparatorCheck = (valueToCheck: string): boolean => (/[/.:]$/.test(valueToCheck));
@@ -86,6 +88,7 @@ const inRange = (timestampToCheck: number, minimumValue: number, maximumValue: n
 };
 
 const DateTimeInput = forwardRef<any, DateTimeInputProps>(({
+  onClick,
   maxDateTime = getFutureDate({ years: 1 }),
   minDateTime = 0,
   name,
@@ -261,6 +264,7 @@ const DateTimeInput = forwardRef<any, DateTimeInputProps>(({
             onChange={handleDateOnChange}
             disabled={invalidTimestamp}
             value={dateValue}
+            onClick={onClick}
           />
         </div>
         <div className={clsx(styles.iconInputContainer, styles.clock)}>
