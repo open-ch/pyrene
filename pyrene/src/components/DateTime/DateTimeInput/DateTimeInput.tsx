@@ -51,8 +51,10 @@ export interface DateTimeInputProps{
    */
   onChange: OnFunction,
 
-  onClick?: any,
+  onClick?: any
 }
+
+const isDateWellFormatted = (date: string) => /\d\d\.\d\d\.\d\d\d\d/.test(date)
 
 const allowedSeparatorCheck = (valueToCheck: string): boolean => (/[/.:]$/.test(valueToCheck));
 const allowedValueCheck = (valueToCheck:string) : boolean => (/^[0-9.:]*$/.test(valueToCheck));

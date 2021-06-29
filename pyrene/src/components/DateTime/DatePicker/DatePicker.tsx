@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, {
   useState,
   useRef,
@@ -24,6 +25,13 @@ registerLocale('en-GB2', { ...enGB, options: { ...enGB.options, weekStartsOn: 3 
 setDefaultLocale('en-GB2');
 
 export type OnFunction = (value?: Date | Date[] | null) => void;
+
+const ExampleCustomInput = React.forwardRef(({ value, onClick, setSelectedDate, onChange }, ref) => {
+console.log('value', value);
+return (<button className="example-custom-input" onClick={onClick} ref={ref}>
+    {value}
+  </button>);
+} );
 
 export interface DatePickerProps{
   endDate?: Date,
@@ -137,12 +145,12 @@ const DatePicker: React.FC<DatePickerProps> = ({
           </div>
         )}
         customInput={
+          /*  <ExampleCustomInput /> */
           <DateTimeInput
             timeStamp={internalDate?.valueOf()}
-            onChange={(date) => console.log('datePicker Pyrene', date)}
           />
         }
-        selected={startDate}
+        selected={internalDate}
         startDate={startDate}
         onChange={change}
         endDate={endDate}
@@ -151,8 +159,11 @@ const DatePicker: React.FC<DatePickerProps> = ({
         nextMonthButtonLabel={nextIcon}
         formatWeekDay={(nameOfDay) => nameOfDay.substr(0, 1)}
         locale={enGB}
+        value={internalDate}
       />
-      {console.log(getDefaultLocale())}
+      {
+      //console.log(getDefaultLocale())
+      }
     </div>
   );
 };
