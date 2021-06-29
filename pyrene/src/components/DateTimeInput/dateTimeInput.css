@@ -1,7 +1,7 @@
-@import '../../../styles/colors.css';
+@import '../../styles/colors.css';
 
 .dateTimeComponent {
-  composes: commonFontSettings from '../../../styles/common.css';
+  composes: commonFontSettings from '../../styles/common.css';
   color: var(--neutral-500);
 }
 
@@ -32,6 +32,7 @@
   background-color: var(--neutral-020); /* same as input default */
   display: flex;
   align-items: center;
+  display: inline-flex;
 }
 
 .dateTimeInputArea:focus-within {

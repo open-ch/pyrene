@@ -165,6 +165,14 @@ export const convertTimeTypeToString = (time: TimeType): string => {
   return `${hours}:${minutes}`;
 };
 
+export const dateTypeToStandardEUDateFormat = (date: DateType): string => {
+  const day = zeroFill(date.day.toString(), 2);
+  const month = zeroFill(date.month.toString(), 2);
+  const year = zeroFill(date.year.toString(), 4);
+
+  return `${day}.${month}.${year}`;
+};
+
 export const standardEUDateFormat = (date: Date): string => format(date, 'dd.MM.yyyy');
 
 export const standardEUTimeFormat = (date: Date): string => format(date, 'HH:mm');
