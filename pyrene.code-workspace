@@ -1,0 +1,20 @@
+{
+	"folders": [
+		{
+			"path": "kitchensink"
+		},
+		{
+			"path": "pyrene-graphs"
+		},
+		{
+			"path": "tuktuktwo"
+		},
+		{
+			"path": "eslint-config"
+		},
+		{
+			"path": "pyrene"
+		}
+	],
+	"settings": {}
+}
