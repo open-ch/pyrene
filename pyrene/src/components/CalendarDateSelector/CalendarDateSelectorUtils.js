@@ -2,39 +2,11 @@ import {
   isAfter, isBefore, set, add,
 } from 'date-fns';
 
-const DAY = 'day';
-const MONTH = 'month';
-const YEAR = 'year';
-
-export const DATE_TYPES = {
-  DAY,
-  MONTH,
-  YEAR,
-};
-
-/**
- * Converts our custom date object to JavaScript Date
- * Because the month of the internal object is 0-indexed and
- * externally the dates are passed in as 1-indexed, we need to convert them
- *
- * @param {Object} value
- * @returns {Date}
- */
-export const convertToJsDate = (value) => new Date(value.year, value.month - 1, value.day);
-
-/**
- * Converts a JavaScript Date object to our custom date object format
- * Increases the month number by 1 so that it is 1-indexed
- *
- * @param {Date} date
- * @returns {Object}
- */
-const convertToExternalDateObject = (date) => ({
-  year: date.getFullYear(),
-  month: date.getMonth() + 1,
-  day: date.getDate(),
-});
-
+import {
+  DATE_UNITS,
+  convertToDateTypeObject,
+  convertToJsDate,
+} from '../../utils/DateUtils';
 
 /**
  * Handles the date change and returns a incremented/decreased value
@@ -46,29 +18,24 @@ export const handleDateChange = (value, change, timeUnit) => {
   const tempDate = value;
 
   // If we are changing Month or Year, set the date to the first of the month.
-  if (timeUnit === MONTH || timeUnit === YEAR) {
+  if (timeUnit === DATE_UNITS.MONTH || timeUnit === DATE_UNITS.YEAR) {
     tempDate.day = 1;
   }
-  if (timeUnit === YEAR) {
+  if (timeUnit === DATE_UNITS.YEAR) {
     tempDate.month = 1;
   }
 
   const conversionDate = add(convertToJsDate(tempDate), { [`${timeUnit}s`]: change });
-  return convertToExternalDateObject(conversionDate);
+  return convertToDateTypeObject(conversionDate);
 };
-
-/**
- * Provides the current date object in the `value` prop format
- */
-export const getCurrentDate = () => convertToExternalDateObject(new Date());
 
 export const canNavigateForward = (value, upperBound, timeRange) => {
   const upperBoundDate = convertToJsDate(upperBound);
   const valueDate = convertToJsDate(value);
   switch (timeRange) {
-    case DATE_TYPES.YEAR:
+    case DATE_UNITS.YEAR:
       return value.year < upperBound.year;
-    case DATE_TYPES.MONTH:
+    case DATE_UNITS.MONTH:
       return isBefore(valueDate, set(upperBoundDate, { date: 1 }));
     default:
       return isBefore(valueDate, upperBoundDate);
@@ -79,9 +46,9 @@ export const canNavigateBackward = (value, lowerBound, timeRange) => {
   const lowerBoundDate = convertToJsDate(lowerBound);
   const valueDate = convertToJsDate(value);
   switch (timeRange) {
-    case DATE_TYPES.YEAR:
+    case DATE_UNITS.YEAR:
       return value.year > lowerBound.year;
-    case DATE_TYPES.MONTH:
+    case DATE_UNITS.MONTH:
       return isAfter(valueDate, set(lowerBoundDate, { date: 1 }));
     default:
       return isAfter(valueDate, lowerBoundDate);
