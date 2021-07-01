@@ -92,12 +92,9 @@
     "webpack-cli": "^4.7.2"
   },
   "dependencies": {
-    "@elastic/eui": "^34.5.2",
-    "@types/moment": "^2.13.0",
     "clsx": "^1.1.1",
     "date-fns": "^2.16.1",
     "date-fns-tz": "^1.1.4",
-    "moment": "^2.29.1",
     "process": "^0.11.10",
     "prop-types": "^15.7.2",
     "react-select": "^3.1.1",
