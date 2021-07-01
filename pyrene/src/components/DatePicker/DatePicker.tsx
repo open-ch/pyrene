@@ -19,12 +19,14 @@ export interface DatePickerProps {
 const DatePicker: FunctionComponent<DatePickerProps> = ({
     firstName
 }: DatePickerProps) => {
+    const [startDate, setStartDate] = useState(new Date());
 
+    const handleChange = (date: Date) => {
+      setStartDate(date);
+    };
+  
     return (
-        <div>
-            Date picker {firstName}
-            <input value={firstName} />
-        </div>
+        <EuiDatePicker selected={startDate} onChange={handleChange} />
     );
 }
 

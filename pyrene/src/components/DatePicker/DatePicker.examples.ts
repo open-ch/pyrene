@@ -2,7 +2,7 @@ import { Example } from '../../examples/Example';
 import { DatePickerProps } from './DatePicker';
 
 const examples: Example<DatePickerProps> = {
-  props: { firstName: 'Thomas'},
+  props: { firstName: 'Thomas' },
   category: 'Other',
 };
 
