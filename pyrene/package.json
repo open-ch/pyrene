@@ -92,6 +92,7 @@
     "webpack-cli": "^4.7.2"
   },
   "dependencies": {
+    "@elastic/eui": "^34.5.2",
     "clsx": "^1.1.1",
     "date-fns": "^2.16.1",
     "date-fns-tz": "^1.1.4",
