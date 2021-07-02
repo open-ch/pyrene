@@ -34,6 +34,13 @@ const config = {
         },
       },
       {
+        test: /react-datepicker.*\.css$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+        ],
+      },
+      {
         test: /\.css$/,
         exclude: [
           /node_modules/,
