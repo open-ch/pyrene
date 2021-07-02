@@ -8,6 +8,7 @@ import React, {
 import clsx from 'clsx';
 import ReactDatePicker from 'react-datepicker';
 import Icon from '../Icon/Icon';
+
 import 'react-datepicker/dist/react-datepicker.css';
 
 // import styles from './datePicker.css';
@@ -15,7 +16,6 @@ import 'react-datepicker/dist/react-datepicker.css';
 export interface DatePickerProps {
   firstName: string;
 }
-
 
 const DatePicker: FunctionComponent<DatePickerProps> = ({
   firstName,
