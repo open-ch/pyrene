@@ -26,8 +26,7 @@ const DatePicker: FunctionComponent<DatePickerProps> = ({
   };
 
   return (
-    <a href="https://google.com" target="_blank" />
-  /* </img><ReactDatePicker /> */
+    <ReactDatePicker />
   );
 };
 
