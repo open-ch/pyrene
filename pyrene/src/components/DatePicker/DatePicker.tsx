@@ -21,7 +21,7 @@ const DatePicker: FunctionComponent<DatePickerProps> = ({
   const [startDate, setStartDate] = useState(new Date());
 
   const handleChange = (date: Date) => {
-    console.log('typeof date', typeof date);
+    console.log('onchange', date);
     setStartDate(date);
   };
 
