@@ -21,13 +21,14 @@ const DatePicker: FunctionComponent<DatePickerProps> = ({
   const [startDate, setStartDate] = useState(new Date());
 
   const handleChange = (date: Date) => {
+    console.log('typeof date', typeof date);
     setStartDate(date);
   };
 
   return (
     <div>
-      <span>This is a Date picker element {firstName}</span>
-      <ReactDatePicker onChange={ (e: any) => console.log('inputed', e.target.value)} />
+      <div>This is a Date picker element {firstName}</div>
+      <ReactDatePicker selected={startDate} onChange={handleChange} />
     </div>
   );
 };
