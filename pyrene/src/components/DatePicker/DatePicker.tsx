@@ -1,34 +1,35 @@
 import React, {
-    forwardRef,
-    useCallback,
-    useEffect,
-    useState,
-    FunctionComponent,
-  } from 'react';
+  forwardRef,
+  useCallback,
+  useEffect,
+  useState,
+  FunctionComponent,
+} from 'react';
 import clsx from 'clsx';
-import { EuiDatePicker, EuiDatePickerRange } from '@elastic/eui';
+import ReactDatePicker from 'react-datepicker';
 import Icon from '../Icon/Icon';
 
 // import styles from './datePicker.css';
 
 export interface DatePickerProps {
-    firstName: string;
+  firstName: string;
 }
 
-  
+
 const DatePicker: FunctionComponent<DatePickerProps> = ({
-    firstName
+  firstName,
 }: DatePickerProps) => {
-    const [startDate, setStartDate] = useState(new Date());
+  const [startDate, setStartDate] = useState(new Date());
 
-    const handleChange = (date: Date) => {
-      setStartDate(date);
-    };
-  
-    return (
-        <EuiDatePicker selected={startDate} onChange={handleChange} />
-    );
-}
+  const handleChange = (date: Date) => {
+    setStartDate(date);
+  };
+
+  return (
+    <a href="https://google.com" target="_blank" />
+  /* </img><ReactDatePicker /> */
+  );
+};
 
 DatePicker.displayName = 'DatePicker';
 
