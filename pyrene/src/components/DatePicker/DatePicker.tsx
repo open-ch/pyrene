@@ -8,6 +8,7 @@ import React, {
 import clsx from 'clsx';
 import ReactDatePicker from 'react-datepicker';
 import Icon from '../Icon/Icon';
+import 'react-datepicker/dist/react-datepicker.css';
 
 // import styles from './datePicker.css';
 
@@ -26,7 +27,10 @@ const DatePicker: FunctionComponent<DatePickerProps> = ({
   };
 
   return (
-    <ReactDatePicker />
+    <div>
+      <span>This is a Date picker element {firstName}</span>
+      <ReactDatePicker onChange={ (e: any) => console.log('inputed', e.target.value)} />
+    </div>
   );
 };
 
