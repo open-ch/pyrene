@@ -43,11 +43,28 @@
 }
 
 .wrapper :global .react-datepicker__day-name {
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+
   color: var(--neutral-100);
 }
 
+.wrapper :global .react-datepicker__day-name,
+.wrapper :global .react-datepicker__day,
+.wrapper :global .react-datepicker__time-name {
+  width: 28px;
+  height: 28px;
+  line-height: 28px;
+  font-size: 12px;
+  margin: 2px;
+}
+
 .wrapper :global .react-datepicker-popper > div {
-  padding: 16px;
+  padding-left: 16px;
+  padding-right: 8px;
+  padding-top: 16px;
+  padding-bottom: 16px;
   background-color: var(--neutral-000);  
   box-shadow: 0 4px 8px -2px rgba(0, 21, 44, 0.2);
   border: solid 1px var(--neutral-050);    
@@ -85,20 +102,6 @@
   color: var(--neutral-200);
 }
 
-.wrapper :global .react-datepicker__header--time::after {
-  content: '24h';
-  display: block;
-  padding-top: 9px;
-  font-size: 12px;
-  font-weight: 500;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.33;
-  letter-spacing: 1px;
-  text-align: center;
-  color: var(--neutral-100);
-}
-
 
 .wrapper :global .react-datepicker__month-container {
   padding-right: 30px;
@@ -107,7 +110,9 @@
 
 
 .wrapper :global .react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list {
+  padding-right: 11px;
   overflow-y: unset;
+  width: 64px;
 }
 
 .wrapper :global .react-datepicker__header--time {
@@ -134,19 +139,19 @@
 
 
 .wrapper :global .react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box::-webkit-scrollbar {
-  width: 4px;
-  height: 100px;
+  width: 5px;
+  height: 180px;
 }
 .wrapper :global .react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box {
   scrollbar-width: thin;
   scrollbar-color: var(--neutral-500) var(--neutral-500);
 }
 .wrapper :global .react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box::-webkit-scrollbar-track {
-  background: none;
+  background-color: var(--neutral-030);
 }
 .wrapper :global .react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box::-webkit-scrollbar-thumb {
   background-color: var(--neutral-500);
-  border-radius: 6px;
+  border-radius: 1px;
   border: 1px solid var(--neutral-500);
 }
 
@@ -156,6 +161,7 @@
   font-weight: 500;
   font-stretch: normal;
   font-style: normal;
+  font-size: 12px;
   height: 24px;
   line-height: 24px;
   padding: 0;

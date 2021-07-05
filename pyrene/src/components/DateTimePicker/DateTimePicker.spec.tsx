@@ -1,16 +1,16 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 
-import DateTimeInput from './DateTimeInput';
+import DateTimePicker from './DateTimePicker';
 
 
-describe('<DateTimeInput />', () => {
+describe('<DateTimePicker />', () => {
   it('renders without crashing', () => {
-    shallow(<DateTimeInput onChange={jest.fn()} />);
+    shallow(<DateTimePicker onChange={jest.fn()} />);
   });
 
   it('renders icon font', () => {
-    const rendered = mount(<DateTimeInput onChange={jest.fn()} />);
+    const rendered = mount(<DateTimePicker onChange={jest.fn()} />);
     expect(rendered.find('.pyreneIcon-calendar')).toHaveLength(1);
     expect(rendered.find('.pyreneIcon-clock')).toHaveLength(1);
   });
@@ -21,7 +21,7 @@ describe('<DateTimeInput />', () => {
       timeStamp: 946681199000,
     };
 
-    const rendered = mount(<DateTimeInput {...props} />);
+    const rendered = mount(<DateTimePicker {...props} />);
     expect(rendered.find('input').first().props().value).toEqual('31.12.1999');
   });
 
@@ -31,7 +31,7 @@ describe('<DateTimeInput />', () => {
       timeStamp: 734587698769878726587236,
     };
 
-    const rendered = mount(<DateTimeInput {...props} />);
+    const rendered = mount(<DateTimePicker {...props} />);
     const dateInput = rendered.find('input').first();
     const timeInput = rendered.find('input').last();
 
@@ -46,7 +46,7 @@ describe('<DateTimeInput />', () => {
       onChange: onchange,
     };
 
-    const rendered = mount(<DateTimeInput {...props} />);
+    const rendered = mount(<DateTimePicker {...props} />);
     const timeInput = rendered.find('input').last();
     timeInput.simulate('change');
 
@@ -61,7 +61,7 @@ describe('<DateTimeInput />', () => {
       onChange: onchange,
     };
 
-    const rendered = mount(<DateTimeInput {...props} />);
+    const rendered = mount(<DateTimePicker {...props} />);
     const dateInput = rendered.find('input').first();
     const timeInput = rendered.find('input').last();
 
@@ -88,7 +88,7 @@ describe('<DateTimeInput />', () => {
       onChange: onchange,
     };
 
-    const rendered = mount(<DateTimeInput {...props} />);
+    const rendered = mount(<DateTimePicker {...props} />);
     let timeInput = rendered.find('input').last();
     timeInput.simulate('change');
 
@@ -111,7 +111,7 @@ describe('<DateTimeInput />', () => {
       onChange: onchange,
     };
 
-    const rendered = mount(<DateTimeInput {...props} />);
+    const rendered = mount(<DateTimePicker {...props} />);
     const dateInput = rendered.find('input').first();
     const timeInput = rendered.find('input').last();
 
@@ -135,7 +135,7 @@ describe('<DateTimeInput />', () => {
       onChange: onchange,
     };
 
-    const rendered = mount(<DateTimeInput {...props} />);
+    const rendered = mount(<DateTimePicker {...props} />);
     const timeInput = rendered.find('input').last();
     timeInput.simulate('change');
     const error = rendered.find('.dateTimeInputErrorMsg');
@@ -151,7 +151,7 @@ describe('<DateTimeInput />', () => {
       onChange: onchange,
     };
 
-    const rendered = mount(<DateTimeInput {...props} />);
+    const rendered = mount(<DateTimePicker {...props} />);
     const timeInput = rendered.find('input').last();
     timeInput.simulate('change');
     const error = rendered.find('.dateTimeInputErrorMsg');
@@ -196,8 +196,8 @@ describe('Tests for time zones', () => {
     };
 
 
-    const rendered1 = mount(<DateTimeInput {...props1} />);
-    const rendered2 = mount(<DateTimeInput {...props2} />);
+    const rendered1 = mount(<DateTimePicker {...props1} />);
+    const rendered2 = mount(<DateTimePicker {...props2} />);
 
     const dateInput1 = rendered1.find('input').first();
     const timeInput1 = rendered1.find('input').last();

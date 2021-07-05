@@ -1,5 +1,5 @@
 import { Example, StateProvider } from '../../examples/Example';
-import { DateTimeInputProps } from './DateTimeInput';
+import { DateTimeInputProps } from './DateTimePicker';
 
 export interface State {
   value?: number | null
@@ -8,13 +8,14 @@ export interface State {
 const DateTimeInput: Example<DateTimeInputProps, State> = {};
 
 DateTimeInput.props = {
-  onChange: (stateProvider: StateProvider<State>) => (value?: number | null) => { stateProvider.setState({ value }); },
+  onChange: (stateProvider: StateProvider<State>) => (value?: number | null) => { stateProvider.setState({ value }); console.log(value); },
   timeStamp: (stateProvider) => stateProvider.state.value,
 };
 
 DateTimeInput.examples = [
   {
     props: {
+      dateOnly: true,
       minDateTime: 946684740000,
       maxDateTime: 1809631860000,
       onChange: (stateProvider: StateProvider<State>) => (value?: number | null) => { stateProvider.setState({ value }); },
