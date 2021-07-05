@@ -1,6 +1,5 @@
-import ReactDatepicker from 'react-datepicker';
-import enGB from 'date-fns/locale/en-GB';
 import React from 'react';
+import ReactDatepicker from 'react-datepicker';
 
 import {
   DateType,
@@ -8,8 +7,6 @@ import {
 
 import 'react-datepicker/dist/react-datepicker.css';
 import styles from '../datePicker.css';
-
-
 
 export interface DatePickerProps{
   /**
@@ -120,16 +117,16 @@ const ReactDPWrapper: React.FC<DatePickerProps> = ({
           </div>
         )}
         customInput={CustomInput}
+        calendarStartDay={1}
         onKeyDown={onKeyDown}
         onSelect={onSelect}
         selected={selectedDate}
-        timeFormat="HH:mm"
+        timeFormat="HH:mm a"
         showPopperArrow={false}
         showTimeSelect={shouldDisplayTimeColumn}
         onChange={onChange}
         dateFormat="dd.MM.yyyy"
         formatWeekDay={(nameOfDay) => nameOfDay.substr(0, 1)}
-        locale={enGB}
       />
     </div>
   );

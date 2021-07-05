@@ -1,11 +1,12 @@
 import React, {
   forwardRef,
   useCallback,
-  useEffect, useState,
+  useEffect, useRef, useState,
 } from 'react';
 import clsx from 'clsx';
 
 import ReactDPWrapper from './ReactDatePickerWrapper/ReactDatePickerWrapper';
+
 import Icon from '../Icon/Icon';
 import {
   DateType,
@@ -18,9 +19,11 @@ import {
 
 import styles from './dateTimeInput.css';
 
+
 type OnFunction = (value?: number | null) => void;
 
 export interface DateTimeInputProps{
+  dateOnly?: boolean,
   /**
    * This is a timestamp that represents the maximum date allowed by the component
    */
@@ -84,7 +87,116 @@ const inRange = (timestampToCheck: number, minimumValue: number, maximumValue: n
   return 0;
 };
 
+
+
+export interface InputProps {
+  autoFocus?: boolean,
+  dateOnly?: boolean,
+  dateValue: string,
+  errorValue: string,
+  handleOn?: (val1: string, val2: string, func:(event:any) => void) => void
+  invalidTimestamp?: boolean,
+  name?: string,
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void, // From react-datepicker
+  onClick?: () => void,
+  onBlur?: () => void,
+  onFocus?: () => void,
+  setDateValue?: (value: string) => void,
+  setTimeValue?: (value: string) => void,
+  pOnChange?: (event: any) => void, // From parent component
+  timeValue: string,
+  value?: string
+}
+
+const DateInput = forwardRef(({
+  dateOnly = false,
+  dateValue,
+  errorValue,
+  handleOn,
+  invalidTimestamp = false,
+  name = '',
+  onBlur = () => {},
+  onChange = () => {},
+  onClick = () => {},
+  pOnChange = () => {},
+  setDateValue = () => {},
+  setTimeValue = () => {},
+  timeValue,
+}:InputProps, ref:React.Ref<HTMLInputElement>) => {
+
+  const handleDateOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const node = event && event.target as HTMLInputElement;
+    if (allowedValueCheck(node.value)) {
+      setDateValue(node.value);
+      handleOn?.(node.value, timeValue, pOnChange);
+    }
+
+    return onChange(event);
+  };
+
+
+  const handleTimeOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const node = event && event.target as HTMLInputElement;
+    if (allowedValueCheck(node.value)) {
+      setTimeValue(node.value);
+      handleOn?.(dateValue, node.value, pOnChange);
+    }
+  };
+
+
+  return (
+    <div
+      className={styles.dateTimeComponent}
+      onBlur={() => handleOn?.(dateValue, timeValue, onBlur)}
+    >
+      <div className="dateTimeFieldTitle">Date &amp; Time</div>
+      <div className={clsx(styles.dateTimeInputArea, { [styles.dateTimeInputError]: errorValue.length > 0 })}>
+        <div className={clsx(styles.iconInputContainer, styles.calendar)}>
+          <Icon type="inline" name="calendar" color="neutral-500" />
+          <input
+            // {...props}
+            name={name ? `${name}_date` : 'date_input'}
+            placeholder="DD.MM.YYYY"
+            className={clsx(styles.input, styles.dateInput)}
+            maxLength={10}
+            disabled={invalidTimestamp}
+            ref={ref}
+            autoComplete="off"
+            onClick={onClick}
+            onChange={handleDateOnChange}
+            value={dateValue}
+          />
+        </div>
+        {!dateOnly && (
+          <div className={clsx(styles.iconInputContainer, styles.clock)}>
+            <Icon type="inline" name="clock" color="neutral-500" />
+            <input
+              autoComplete="off"
+              name={name ? `${name}_time` : 'time_input'}
+              placeholder="HH:MM"
+              className={clsx(styles.input, styles.timeInput)}
+              maxLength={5}
+              disabled={invalidTimestamp}
+              onChange={handleTimeOnChange}
+              onClick={onClick}
+              value={timeValue}
+            />
+          </div>
+        ) }
+      </div>
+      {errorValue.length > 0 && (
+        <div className={styles.dateTimeInputErrorMsg}>{errorValue}</div>
+      )}
+    </div>
+  );
+});
+
+DateInput.displayName = 'Date Input';
+
+
+
 const DateTimeInput: React.FC<DateTimeInputProps> = ({
+  dateOnly = false,
   maxDateTime = getFutureDate({ years: 1 }),
   minDateTime = 0,
   name,
@@ -143,37 +255,7 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
     }
   }, [timeZoneValue]);
 
-
-
-
-  // Old onchange function. It may be kept in case we allow for optional dropdown calendar
-  /* const handleDateOnChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    const node = event.target as HTMLInputElement;
-    if (allowedValueCheck(node.value)) {
-      setDateValue(node.value);
-      handleOn(node.value, timeValue, onChange);
-    }
-  }, [handleOn, onChange, timeValue]); */
-
-  const handleTimeOnChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    const node = event.target as HTMLInputElement;
-    if (allowedValueCheck(node.value)) {
-      setTimeValue(node.value);
-      handleOn(dateValue, node.value, onChange);
-    }
-  }, [dateValue, handleOn, onChange]);
-
-
-  // This is needed for restricting the allowed input in the react-datepicker
-  const handleKeyDown = (event: React.KeyboardEvent) => {
-    // If event key is not allowed and is not a special key
-    if (!allowedValueCheck(event.key) && event.key.length === 1) {
-      event.stopPropagation();
-      event.preventDefault();
-    }
-  };
-
-  const onChanger = (date: Date | [Date, Date] | null, event: React.SyntheticEvent<any> | undefined): void => {
+  const onChangeReactDP = (date: Date | [Date, Date] | null, event: React.SyntheticEvent<any> | undefined): void => {
     if (date && (event?.type === 'click' || (event?.type === 'keydown' && (event as React.KeyboardEvent).key.length > 1))) {
       if (!Array.isArray(date)) {
         setDateValue(standardEUDateFormat(date));
@@ -293,61 +375,24 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
     setErrorValue(getError());
   }, [invalidDate, invalidTime, invalidTimestamp, invalidTimeZone, jsDateObject, maxDateTime, minDateTime]);
 
-  interface InputProps {
-    autoFocus?: boolean,
-    onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void,
-    onClick?: () => void,
-    onBlur?: () => void,
-    onFocus?: () => void,
-    value?: string
-  }
-
-  const DateInput = forwardRef((props:InputProps, ref:React.Ref<HTMLInputElement>) => (
-    <>
-      <div className={clsx(styles.iconInputContainer, styles.calendar)}>
-        <Icon type="inline" name="calendar" color="neutral-500" />
-        <input
-          {...props}
-          name={name ? `${name}_date` : 'date_input'}
-          placeholder="DD.MM.YYYY"
-          className={clsx(styles.input, styles.dateInput)}
-          maxLength={10}
-          disabled={invalidTimestamp}
-          ref={ref}
-          autoComplete="off"
-        />
-      </div>
-    </>
-  ));
-
-  DateInput.displayName = 'Date Input';
-
   return (
-    <div
-      className={styles.dateTimeComponent}
-      onBlur={() => handleOn(dateValue, timeValue, onBlur)}
-    >
-      <div className="dateTimeFieldTitle">Date &amp; Time</div>
-      <div className={clsx(styles.dateTimeInputArea, { [styles.dateTimeInputError]: errorValue.length > 0 })}>
-        <ReactDPWrapper onChange={onChanger} selectedDate={timeStamp ? jsDateObject : internalDate} CustomInput={<DateInput />} onKeyDown={handleKeyDown} /* shouldDisplayTimeColumn={false} */ />
-        <div className={clsx(styles.iconInputContainer, styles.clock)}>
-          <Icon type="inline" name="clock" color="neutral-500" />
-          <input
-            autoComplete="off"
-            name={name ? `${name}_time` : 'time_input'}
-            placeholder="HH:MM"
-            className={clsx(styles.input, styles.timeInput)}
-            maxLength={5}
-            disabled={invalidTimestamp}
-            onChange={handleTimeOnChange}
-            value={timeValue}
-          />
-        </div>
-      </div>
-      {errorValue.length > 0 && (
-        <div className={styles.dateTimeInputErrorMsg}>{errorValue}</div>
+    <ReactDPWrapper
+      onChange={onChangeReactDP}
+      selectedDate={timeStamp ? jsDateObject : internalDate}
+      shouldDisplayTimeColumn={!dateOnly}
+      CustomInput={(
+        <DateInput
+          dateValue={dateValue}
+          handleOn={handleOn}
+          timeValue={timeValue}
+          errorValue={errorValue}
+          pOnChange={onChange}
+          setDateValue={setDateValue}
+          setTimeValue={setTimeValue}
+          dateOnly={dateOnly}
+        />
       )}
-    </div>
+    />
   );
 };
 
