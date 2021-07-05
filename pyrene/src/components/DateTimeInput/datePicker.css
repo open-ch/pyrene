@@ -85,6 +85,32 @@
   color: var(--neutral-200);
 }
 
+/* the first 24 li elements for the time AM suffix */
+.wrapper :global .react-datepicker__time-list-item:nth-child(-n+24)::after {
+  content: ' AM';
+  display: inline;
+  font-size: 12px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.33;
+  letter-spacing: 1px;
+  color: var(--neutral-100);
+}
+
+/* the remaining li elements for the time PM suffix */
+.wrapper :global .react-datepicker__time-list-item:nth-last-child(-n+24)::after {
+  content: ' PM';
+  display: inline;
+  font-size: 12px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.33;
+  letter-spacing: 1px;
+  color: var(--neutral-100);
+}
+
 .wrapper :global .react-datepicker__month-container {
   padding-right: 30px;
 }
