@@ -73,9 +73,9 @@ const DateTimeInput = forwardRef(({
           <input
             // {...props}
             name={name ? `${name}_date` : 'date_input'}
-            placeholder="DD.MM.YYYY"
+            placeholder={dateOnly ? 'DD.MM.YYYY' : 'DD.MM.YYYY HH:MM'}
             className={clsx(styles.input, styles.dateInput)}
-            maxLength={10}
+            maxLength={dateOnly ? 10 : 16}
             disabled={invalidTimestamp}
             ref={ref}
             autoComplete="off"
@@ -84,7 +84,7 @@ const DateTimeInput = forwardRef(({
             value={dateValue}
           />
         </div>
-        {!dateOnly && (
+        {/* !dateOnly && (
           <div className={clsx(styles.iconInputContainer, styles.clock)}>
             <Icon type="inline" name="clock" color="neutral-500" />
             <input
@@ -99,7 +99,7 @@ const DateTimeInput = forwardRef(({
               value={timeValue}
             />
           </div>
-        ) }
+        ) */}
       </div>
       {errorValue.length > 0 && (
         <div className={styles.dateTimeInputErrorMsg}>{errorValue}</div>
