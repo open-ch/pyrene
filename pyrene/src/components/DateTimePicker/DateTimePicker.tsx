@@ -1,13 +1,11 @@
 import React, {
-  forwardRef,
   useCallback,
-  useEffect, useRef, useState,
+  useEffect, useState,
 } from 'react';
-import clsx from 'clsx';
 
 import ReactDPWrapper from './ReactDatePickerWrapper/ReactDatePickerWrapper';
+import DateTimeInput from './DateTimeInput/DateTimeInput';
 
-import Icon from '../Icon/Icon';
 import {
   DateType,
   TimeType,
@@ -16,8 +14,6 @@ import {
   convertToUTCtime, convertToZoneTime, convertDateTypeToString, convertTimeTypeToString, dateTypeToStandardEUDateFormat,
 } from '../../utils/DateUtils';
 
-
-import styles from './dateTimeInput.css';
 
 
 type OnFunction = (value?: number | null) => void;
@@ -55,7 +51,6 @@ export interface DateTimeInputProps{
 }
 
 const allowedSeparatorCheck = (valueToCheck: string): boolean => (/[/.:]$/.test(valueToCheck));
-const allowedValueCheck = (valueToCheck:string) : boolean => (/^[0-9.:]*$/.test(valueToCheck));
 
 export const getDateTypeFromddmmyyyyWithSep = (str: string): DateType | undefined => {
   if (str.length === 10 && allowedSeparatorCheck(str.charAt(2)) && allowedSeparatorCheck(str.charAt(5))) {
@@ -88,114 +83,7 @@ const inRange = (timestampToCheck: number, minimumValue: number, maximumValue: n
 };
 
 
-
-export interface InputProps {
-  autoFocus?: boolean,
-  dateOnly?: boolean,
-  dateValue: string,
-  errorValue: string,
-  handleOn?: (val1: string, val2: string, func:(event:any) => void) => void
-  invalidTimestamp?: boolean,
-  name?: string,
-  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void, // From react-datepicker
-  onClick?: () => void,
-  onBlur?: () => void,
-  onFocus?: () => void,
-  setDateValue?: (value: string) => void,
-  setTimeValue?: (value: string) => void,
-  pOnChange?: (event: any) => void, // From parent component
-  timeValue: string,
-  value?: string
-}
-
-const DateInput = forwardRef(({
-  dateOnly = false,
-  dateValue,
-  errorValue,
-  handleOn,
-  invalidTimestamp = false,
-  name = '',
-  onBlur = () => {},
-  onChange = () => {},
-  onClick = () => {},
-  pOnChange = () => {},
-  setDateValue = () => {},
-  setTimeValue = () => {},
-  timeValue,
-}:InputProps, ref:React.Ref<HTMLInputElement>) => {
-
-  const handleDateOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const node = event && event.target as HTMLInputElement;
-    if (allowedValueCheck(node.value)) {
-      setDateValue(node.value);
-      handleOn?.(node.value, timeValue, pOnChange);
-    }
-
-    return onChange(event);
-  };
-
-
-  const handleTimeOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const node = event && event.target as HTMLInputElement;
-    if (allowedValueCheck(node.value)) {
-      setTimeValue(node.value);
-      handleOn?.(dateValue, node.value, pOnChange);
-    }
-  };
-
-
-  return (
-    <div
-      className={styles.dateTimeComponent}
-      onBlur={() => handleOn?.(dateValue, timeValue, onBlur)}
-    >
-      <div className="dateTimeFieldTitle">Date &amp; Time</div>
-      <div className={clsx(styles.dateTimeInputArea, { [styles.dateTimeInputError]: errorValue.length > 0 })}>
-        <div className={clsx(styles.iconInputContainer, styles.calendar)}>
-          <Icon type="inline" name="calendar" color="neutral-500" />
-          <input
-            // {...props}
-            name={name ? `${name}_date` : 'date_input'}
-            placeholder="DD.MM.YYYY"
-            className={clsx(styles.input, styles.dateInput)}
-            maxLength={10}
-            disabled={invalidTimestamp}
-            ref={ref}
-            autoComplete="off"
-            onClick={onClick}
-            onChange={handleDateOnChange}
-            value={dateValue}
-          />
-        </div>
-        {!dateOnly && (
-          <div className={clsx(styles.iconInputContainer, styles.clock)}>
-            <Icon type="inline" name="clock" color="neutral-500" />
-            <input
-              autoComplete="off"
-              name={name ? `${name}_time` : 'time_input'}
-              placeholder="HH:MM"
-              className={clsx(styles.input, styles.timeInput)}
-              maxLength={5}
-              disabled={invalidTimestamp}
-              onChange={handleTimeOnChange}
-              onClick={onClick}
-              value={timeValue}
-            />
-          </div>
-        ) }
-      </div>
-      {errorValue.length > 0 && (
-        <div className={styles.dateTimeInputErrorMsg}>{errorValue}</div>
-      )}
-    </div>
-  );
-});
-
-DateInput.displayName = 'Date Input';
-
-
-
-const DateTimeInput: React.FC<DateTimeInputProps> = ({
+const DateTimePicker: React.FC<DateTimeInputProps> = ({
   dateOnly = false,
   maxDateTime = getFutureDate({ years: 1 }),
   minDateTime = 0,
@@ -247,8 +135,6 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
       setInvalidTime(false);
       setJsDateObject(undefined);
 
-      // setInternalDate(undefined);
-
       if (onFunction) {
         onFunction(null);
       }
@@ -261,7 +147,11 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
         setDateValue(standardEUDateFormat(date));
         setInternalDate(date);
 
-        handleOn(standardEUDateFormat(date), timeValue, onChange);
+        if (dateOnly) {
+          handleOn(standardEUDateFormat(date), '00:00', onChange);
+        } else {
+          handleOn(standardEUDateFormat(date), timeValue, onChange);
+        }
       }
     } else if (event?.type === 'change') {
       const node = event?.target as HTMLInputElement;
@@ -274,7 +164,11 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
           setDateValue(dateTypeToStandardEUDateFormat(newdate));
           setInternalDate(convertToUTCtime(convertDateTypeToString(newdate), timeZoneValue));
 
-          handleOn(dateTypeToStandardEUDateFormat(newdate), timeValue, onChange);
+          if (dateOnly) {
+            handleOn(dateTypeToStandardEUDateFormat(newdate), '00:00', onChange);
+          } else {
+            handleOn(dateTypeToStandardEUDateFormat(newdate), timeValue, onChange);
+          }
         }
       }
     } else if (event === undefined && !Array.isArray(date) && date !== null) { // This is relying on the time click event being 'undefined' temporary fix for access to time value
@@ -381,11 +275,14 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
       selectedDate={timeStamp ? jsDateObject : internalDate}
       shouldDisplayTimeColumn={!dateOnly}
       CustomInput={(
-        <DateInput
+        <DateTimeInput
           dateValue={dateValue}
           handleOn={handleOn}
           timeValue={timeValue}
           errorValue={errorValue}
+          invalidTimestamp={invalidTimestamp}
+          name={name}
+          onBlur={onBlur}
           pOnChange={onChange}
           setDateValue={setDateValue}
           setTimeValue={setTimeValue}
@@ -396,6 +293,6 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
   );
 };
 
-DateTimeInput.displayName = 'DateTime Input';
+DateTimePicker.displayName = 'DateTime Picker';
 
-export default DateTimeInput;
+export default DateTimePicker;

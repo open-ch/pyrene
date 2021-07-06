@@ -23,7 +23,7 @@ import { default as CheckboxPopover } from './components/CheckboxPopover/Checkbo
 import { default as Collapsible } from './components/Collapsible/Collapsible';
 import { default as Container } from './components/Container/Container';
 
-import { default as DateTimeInput } from './components/DateTimeInput/DateTimeInput';
+import { default as DateTimePicker } from './components/DateTimePicker/DateTimePicker';
 import { default as DropdownButton } from './components/DropdownButton/DropdownButton';
 
 import { default as Filter } from './components/Filter/Filter';
@@ -88,7 +88,7 @@ const Components = {
   CheckboxPopover,
   Collapsible,
   Container,
-  DateTimeInput,
+  DateTimePicker,
   DropdownButton,
   Filter,
   Form,
@@ -137,7 +137,7 @@ export { Card };
 export { Checkbox };
 export { Collapsible };
 export { Container };
-export { DateTimeInput };
+export { DateTimePicker };
 export { DropdownButton };
 export { Filter };
 export { Form };
