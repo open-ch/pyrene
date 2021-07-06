@@ -5,10 +5,11 @@ import CalendarDateSelectorDropdown from './CalendarDateSelectorDropdown';
 import CalendarDateSelectorPropTypes from './CalendarDateSelectorPropTypes';
 import {
   canNavigateBackward, canNavigateForward,
-  DATE_TYPES,
-  getCurrentDate,
   handleDateChange,
 } from './CalendarDateSelectorUtils';
+import {
+  DATE_UNITS, getCurrentDateTypeObject,
+} from '../../utils/DateUtils';
 
 import styles from './calendarDateSelector.css';
 import ArrowSelector from '../TimeRangeSelector/TimeRangeNavigationBar/ArrowSelector/ArrowSelector';
@@ -31,9 +32,9 @@ export default class CalendarDateSelector extends React.Component {
   };
 
   static DEFAULT_TIME_UNITS = [
-    DATE_TYPES.DAY,
-    DATE_TYPES.MONTH,
-    DATE_TYPES.YEAR,
+    DATE_UNITS.DAY,
+    DATE_UNITS.MONTH,
+    DATE_UNITS.YEAR,
   ];
 
   _onNavigate = (value, direction) => {
@@ -104,10 +105,10 @@ CalendarDateSelector.propTypes = {
 CalendarDateSelector.defaultProps = {
   isLoading: false,
   lowerBound: CalendarDateSelector.DEFAULT_LOWER_BOUND,
-  upperBound: getCurrentDate(),
+  upperBound: getCurrentDateTypeObject(),
   timeUnits: CalendarDateSelector.DEFAULT_TIME_UNITS,
   value: {
-    ...getCurrentDate(),
+    ...getCurrentDateTypeObject(),
   },
   onChange: () => {},
   renderRightSection: () => {},
