@@ -9,7 +9,7 @@ export interface InputProps {
   dateOnly?: boolean,
   dateValue: string,
   errorValue: string,
-  handleOn?: (dateString: string, timeString: string, func:(event:any) => void) => void
+  handleOn?: (dateString: string, timeString: string, func: (event: any) => void) => void
   invalidTimestamp?: boolean,
   label?: string,
   name?: string,
@@ -24,7 +24,7 @@ export interface InputProps {
   value?: string
 }
 
-const allowedValueCheck = (valueToCheck:string) : boolean => (/^[0-9.:]*$/.test(valueToCheck));
+const allowedValueCheck = (valueToCheck: string) => (/^[0-9.:]*$/.test(valueToCheck));
 
 const DateTimeInput = forwardRef(({
   dateOnly = false,
@@ -37,29 +37,29 @@ const DateTimeInput = forwardRef(({
   onBlur = () => {},
   onChange = () => {},
   onClick = () => {},
-  pOnChange = () => {},
+  // pOnChange = () => {},
   setDateValue = () => {},
-  setTimeValue = () => {},
+  // setTimeValue = () => {},
   timeValue,
-}:InputProps, ref:React.Ref<HTMLInputElement>) => {
+} :InputProps, ref:React.Ref<HTMLInputElement>) => {
 
   const handleDateOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const node = event && event.target as HTMLInputElement;
+    const node = event && event.target;
     if (allowedValueCheck(node.value)) {
       setDateValue(node.value);
       onChange(event);
     }
   };
 
-
+  /*
   const handleTimeOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const node = event && event.target as HTMLInputElement;
+    const node = event && event.target;
     if (allowedValueCheck(node.value)) {
       setTimeValue(node.value);
       handleOn?.(dateValue, node.value, pOnChange);
     }
   };
-
+  */
 
   return (
     <div
@@ -101,9 +101,7 @@ const DateTimeInput = forwardRef(({
           </div>
         ) */}
       </div>
-      {errorValue.length > 0 && (
-        <div className={styles.dateTimeInputErrorMsg}>{errorValue}</div>
-      )}
+      {errorValue.length > 0 && <div className={styles.dateTimeInputErrorMsg}>{errorValue}</div>}
     </div>
   );
 });

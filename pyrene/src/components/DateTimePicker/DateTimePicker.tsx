@@ -1,6 +1,7 @@
 import React, {
   useCallback,
-  useEffect, useState,
+  useEffect,
+  useState,
 } from 'react';
 
 import ReactDPWrapper from './ReactDatePickerWrapper/ReactDatePickerWrapper';
@@ -50,7 +51,7 @@ export interface DateTimeInputProps{
   onChange: OnFunction,
 }
 
-const allowedSeparatorCheck = (valueToCheck: string): boolean => (/[/.:]$/.test(valueToCheck));
+const allowedSeparatorCheck = (valueToCheck: string) => (/[/.:]$/.test(valueToCheck));
 
 export const getDateTypeFromddmmyyyyWithSep = (str: string): DateType | undefined => {
   if (str.length === 10 && allowedSeparatorCheck(str.charAt(2)) && allowedSeparatorCheck(str.charAt(5))) {
@@ -72,7 +73,7 @@ export const getTimeTypeFromhhmmWithSep = (str: string): TimeType | undefined =>
   return undefined;
 };
 
-const inRange = (timestampToCheck: number, minimumValue: number, maximumValue: number): number => {
+const isDateInRange = (timestampToCheck: number, minimumValue: number, maximumValue: number) => {
   if (timestampToCheck < minimumValue) {
     return -1;
   }
@@ -110,7 +111,7 @@ const DateTimePicker: React.FC<DateTimeInputProps> = ({
 
   const [errorValue, setErrorValue] = useState('');
 
-  const handleOn = useCallback((dateString:string, timeString:string, onFunction?: OnFunction) => {
+  const handleOn = useCallback((dateString: string, timeString: string, onFunction?: OnFunction) => {
     const isDateLongEnough = dateString.length === 10;
     const isTimeLongEnough = timeString.length === 5;
 
@@ -184,8 +185,8 @@ const DateTimePicker: React.FC<DateTimeInputProps> = ({
 
   useEffect(() => {
     if (jsDateObject) {
-      const date: DateType = convertToDateTypeObject(jsDateObject);
-      const time: TimeType = convertToTimeTypeObject(jsDateObject);
+      const date = convertToDateTypeObject(jsDateObject);
+      const time = convertToTimeTypeObject(jsDateObject);
       const dateString = standardEUDateFormat(jsDateObject);
       const timeString = standardEUTimeFormat(jsDateObject);
 
@@ -249,7 +250,7 @@ const DateTimePicker: React.FC<DateTimeInputProps> = ({
         return 'Invalid time format';
       }
       if (maxDateTime && jsDateObject) {
-        const rangePositon = inRange(jsDateObject.valueOf(), minDateTime, maxDateTime);
+        const rangePositon = isDateInRange(jsDateObject.valueOf(), minDateTime, maxDateTime);
         if (rangePositon === -1) {
           return 'Less than minimum date.';
         }
