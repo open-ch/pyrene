@@ -77,7 +77,7 @@ const isDateInRange = (timestampToCheck: number, minimumValue: number, maximumVa
   if (timestampToCheck < minimumValue) {
     return -1;
   }
-  else if (timestampToCheck > maximumValue) {
+  if (timestampToCheck > maximumValue) {
     return 1;
   }
   return 0;
@@ -275,7 +275,7 @@ const DateTimePicker: React.FC<DateTimeInputProps> = ({
       onChange={onChangeReactDP}
       selectedDate={timeStamp ? jsDateObject : internalDate}
       shouldDisplayTimeColumn={!dateOnly}
-      CustomInput={
+      CustomInput={(
         <DateTimeInput
           dateValue={dateValue}
           handleOn={handleOn}
@@ -289,7 +289,7 @@ const DateTimePicker: React.FC<DateTimeInputProps> = ({
           setTimeValue={setTimeValue}
           dateOnly={dateOnly}
         />
-      }
+      )}
     />
   );
 };

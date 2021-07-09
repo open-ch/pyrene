@@ -87,6 +87,7 @@ const ReactDPWrapper: React.FC<DatePickerProps> = ({
           increaseMonth,
         }) => (
           <div>
+            {/* eslint-disable-next-line react/button-has-type */}
             <button
               aria-label="Previous Month"
               className="react-datepicker__navigation react-datepicker__navigation--previous"
@@ -105,6 +106,7 @@ const ReactDPWrapper: React.FC<DatePickerProps> = ({
                 })}
               </span>
             </span>
+            {/* eslint-disable-next-line react/button-has-type */}
             <button
               aria-label="Next Month"
               className="react-datepicker__navigation react-datepicker__navigation--next"
