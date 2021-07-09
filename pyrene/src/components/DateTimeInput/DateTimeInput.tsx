@@ -124,7 +124,7 @@ const DateInput = forwardRef(({
   setDateValue = () => {},
   setTimeValue = () => {},
   timeValue,
-}:InputProps, ref:React.Ref<HTMLInputElement>) => {
+}: InputProps, ref: React.Ref<HTMLInputElement>) => {
 
   const handleDateOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const node = event && event.target as HTMLInputElement;
