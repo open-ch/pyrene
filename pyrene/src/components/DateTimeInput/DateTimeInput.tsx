@@ -77,14 +77,16 @@ export const getTimeTypeFromhhmmWithSep = (str: string): TimeType | undefined =>
   return undefined;
 };
 
-const inRange = (timestampToCheck: number, minimumValue: number, maximumValue: number): number => {
+const inRange = (timestampToCheck: number, minimumValue: number, maximumValue: number) => {
   if (timestampToCheck < minimumValue) {
     return -1;
   }
-  if (timestampToCheck > maximumValue) {
+  else if (timestampToCheck > maximumValue) {
     return 1;
   }
-  return 0;
+  else {
+    return 0;
+  }
 };
 
 
