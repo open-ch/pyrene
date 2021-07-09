@@ -187,8 +187,8 @@ const DateTimePicker: React.FC<DateTimeInputProps> = ({
 
   useEffect(() => {
     if (jsDateObject) {
-      const date: DateType = convertToDateTypeObject(jsDateObject);
-      const time: TimeType = convertToTimeTypeObject(jsDateObject);
+      const date = convertToDateTypeObject(jsDateObject);
+      const time = convertToTimeTypeObject(jsDateObject);
       const dateString = standardEUDateFormat(jsDateObject);
       const timeString = standardEUTimeFormat(jsDateObject);
 
