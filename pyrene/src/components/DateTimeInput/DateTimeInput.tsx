@@ -54,8 +54,8 @@ export interface DateTimeInputProps{
   onChange: OnFunction,
 }
 
-const allowedSeparatorCheck = (valueToCheck: string): boolean => (/[/.:]$/.test(valueToCheck));
-const allowedValueCheck = (valueToCheck:string) : boolean => (/^[0-9.:]*$/.test(valueToCheck));
+const allowedSeparatorCheck = (valueToCheck: string) => (/[/.:]$/.test(valueToCheck));
+const allowedValueCheck = (valueToCheck:string) => (/^[0-9.:]*$/.test(valueToCheck));
 
 export const getDateTypeFromddmmyyyyWithSep = (str: string): DateType | undefined => {
   if (str.length === 10 && allowedSeparatorCheck(str.charAt(2)) && allowedSeparatorCheck(str.charAt(5))) {
