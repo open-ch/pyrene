@@ -80,9 +80,7 @@ const isDateInRange = (timestampToCheck: number, minimumValue: number, maximumVa
   else if (timestampToCheck > maximumValue) {
     return 1;
   }
-  else {
-    return 0;
-  }
+  return 0;
 };
 
 
@@ -113,7 +111,7 @@ const DateTimePicker: React.FC<DateTimeInputProps> = ({
 
   const [errorValue, setErrorValue] = useState('');
 
-  const handleOn = useCallback((dateString:string, timeString:string, onFunction?: OnFunction) => {
+  const handleOn = useCallback((dateString: string, timeString: string, onFunction?: OnFunction) => {
     const isDateLongEnough = dateString.length === 10;
     const isTimeLongEnough = timeString.length === 5;
 
@@ -277,7 +275,7 @@ const DateTimePicker: React.FC<DateTimeInputProps> = ({
       onChange={onChangeReactDP}
       selectedDate={timeStamp ? jsDateObject : internalDate}
       shouldDisplayTimeColumn={!dateOnly}
-      CustomInput={(
+      CustomInput={
         <DateTimeInput
           dateValue={dateValue}
           handleOn={handleOn}
@@ -291,7 +289,7 @@ const DateTimePicker: React.FC<DateTimeInputProps> = ({
           setTimeValue={setTimeValue}
           dateOnly={dateOnly}
         />
-      )}
+      }
     />
   );
 };

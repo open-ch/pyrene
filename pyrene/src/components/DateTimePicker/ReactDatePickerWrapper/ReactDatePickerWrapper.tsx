@@ -75,8 +75,8 @@ const ReactDPWrapper: React.FC<DatePickerProps> = ({
   onSelect,
 }: DatePickerProps) => {
 
-  const nextIcon = (<span className="pyreneIcon-chevronRight" />);
-  const prevIcon = (<span className="pyreneIcon-chevronLeft" />);
+  const nextIcon = <span className="pyreneIcon-chevronRight" />;
+  const prevIcon = <span className="pyreneIcon-chevronLeft" />;
 
   return (
     <div className={styles.wrapper}>
@@ -87,7 +87,6 @@ const ReactDPWrapper: React.FC<DatePickerProps> = ({
           increaseMonth,
         }) => (
           <div>
-            {/* eslint-disable-next-line react/button-has-type */}
             <button
               aria-label="Previous Month"
               className="react-datepicker__navigation react-datepicker__navigation--previous"
@@ -99,14 +98,13 @@ const ReactDPWrapper: React.FC<DatePickerProps> = ({
               {date.toLocaleString('en-US', {
                 month: 'long',
               })}
-        &nbsp;
+              &nbsp;
               <span className="pyrene__current-year">
                 {date.toLocaleString('en-US', {
                   year: 'numeric',
                 })}
               </span>
             </span>
-            {/* eslint-disable-next-line react/button-has-type */}
             <button
               aria-label="Next Month"
               className="react-datepicker__navigation react-datepicker__navigation--next"
