@@ -37,9 +37,9 @@ const DateTimeInput = forwardRef(({
   onBlur = () => {},
   onChange = () => {},
   onClick = () => {},
-  pOnChange = () => {},
+  // pOnChange = () => {},
   setDateValue = () => {},
-  setTimeValue = () => {},
+  // setTimeValue = () => {},
   timeValue,
 } :InputProps, ref:React.Ref<HTMLInputElement>) => {
 
@@ -51,7 +51,7 @@ const DateTimeInput = forwardRef(({
     }
   };
 
-
+  /*
   const handleTimeOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const node = event && event.target;
     if (allowedValueCheck(node.value)) {
@@ -59,7 +59,7 @@ const DateTimeInput = forwardRef(({
       handleOn?.(dateValue, node.value, pOnChange);
     }
   };
-
+  */
 
   return (
     <div
