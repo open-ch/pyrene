@@ -30,6 +30,7 @@ export interface InputProps {
 const allowedValueCheck = (valueToCheck: string) => /^[0-9.:]*$/.test(valueToCheck);
 
 const DateTimeInput = forwardRef(({
+  onChange,
   dateOnly = false,
   dateValue,
   errorValue,
@@ -38,7 +39,6 @@ const DateTimeInput = forwardRef(({
   label,
   name = '',
   onBlur = () => {},
-  onChange = () => {},
   onClick = () => {},
   // pOnChange = () => {},
   // setTimeValue = () => {},
@@ -47,11 +47,9 @@ const DateTimeInput = forwardRef(({
 
   const handleDateOnChange = (event: ChangeEvent<HTMLInputElement>) => {
     const node = event && event.target;
-    console.log('handleDateOnChange if before the if');
-
     if (node && allowedValueCheck(node.value)) {
-      console.log('handleDateOnChange if is true');
-      onChange(event);
+      console.log('handleDateOnChange value', node.value);
+      onChange?.(event);
     }
   };
 
@@ -70,7 +68,7 @@ const DateTimeInput = forwardRef(({
       className={styles.dateTimeComponent}
       onBlur={() => handleOn?.(dateValue, dateOnly ? '00:00' : timeValue, onBlur)}
     >
-      <div className={styles.dateTimeFieldTitle}>{label || (dateOnly ? 'Date' : 'Date & Time')}</div>
+      <div className={styles.dateTimeFieldTitle}>{label || dateOnly ? 'Date' : 'Date & Time'}</div>
       <div className={clsx(styles.dateTimeInputArea, { [styles.dateTimeInputError]: errorValue.length > 0 })}>
         <div className={clsx(styles.iconInputContainer, styles.calendar)}>
           <Icon type="inline" name="calendar" color="neutral-500" />

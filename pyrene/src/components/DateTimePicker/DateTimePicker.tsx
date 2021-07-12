@@ -283,9 +283,12 @@ const DateTimePicker: React.FC<DateTimeInputProps> = ({
           name={name}
           onBlur={onBlur}
           onChange={(e) => {
+
             const value = e.target.value;
-            console.log('value', value);
-            setDateValue(value);
+            console.log('DateTimePicker value', value);
+            // setDateValue(value);
+
+            onChangeReactDP(null, e);
           }}
           pOnChange={onChange}
           setTimeValue={setTimeValue}
