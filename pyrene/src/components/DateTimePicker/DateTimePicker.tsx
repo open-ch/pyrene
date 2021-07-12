@@ -267,7 +267,7 @@ const DateTimePicker: React.FC<DateTimeInputProps> = ({
 
     setErrorValue(getError());
   }, [invalidDate, invalidTime, invalidTimestamp, invalidTimeZone, jsDateObject, maxDateTime, minDateTime]);
-  console.log('DateTimePicker');
+
   return (
     <ReactDPWrapper
       onChange={onChangeReactDP}
