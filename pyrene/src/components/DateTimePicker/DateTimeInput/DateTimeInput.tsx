@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef, Ref, ChangeEvent } from 'react';
 import clsx from 'clsx';
 
 import Icon from '../../Icon/Icon';
@@ -41,9 +41,9 @@ const DateTimeInput = forwardRef(({
   setDateValue = () => {},
   // setTimeValue = () => {},
   timeValue,
-} :InputProps, ref:React.Ref<HTMLInputElement>) => {
+}: InputProps, ref: Ref<HTMLInputElement>) => {
 
-  const handleDateOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleDateOnChange = (event: ChangeEvent<HTMLInputElement>) => {
     const node = event && event.target;
     if (allowedValueCheck(node.value)) {
       setDateValue(node.value);
