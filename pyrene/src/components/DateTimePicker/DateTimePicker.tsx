@@ -15,8 +15,6 @@ import {
   convertToUTCtime, convertToZoneTime, convertDateTypeToString, convertTimeTypeToString, dateTypeToStandardEUDateFormat,
 } from '../../utils/DateUtils';
 
-
-
 type OnFunction = (value?: number | null) => void;
 
 export interface DateTimeInputProps{
@@ -51,7 +49,7 @@ export interface DateTimeInputProps{
   onChange: OnFunction,
 }
 
-const allowedSeparatorCheck = (valueToCheck: string) => (/[/.:]$/.test(valueToCheck));
+const allowedSeparatorCheck = (valueToCheck: string) => /[/.:]$/.test(valueToCheck);
 
 export const getDateTypeFromddmmyyyyWithSep = (str: string): DateType | undefined => {
   if (str.length === 10 && allowedSeparatorCheck(str.charAt(2)) && allowedSeparatorCheck(str.charAt(5))) {
@@ -284,8 +282,12 @@ const DateTimePicker: React.FC<DateTimeInputProps> = ({
           invalidTimestamp={invalidTimestamp}
           name={name}
           onBlur={onBlur}
+          onChange={(e) => {
+            const value = e.target.value;
+            console.log('value', value);
+            setDateValue(value);
+          }}
           pOnChange={onChange}
-          setDateValue={setDateValue}
           setTimeValue={setTimeValue}
           dateOnly={dateOnly}
         />

@@ -1,4 +1,8 @@
-import React, { forwardRef, Ref, ChangeEvent } from 'react';
+import React, {
+  forwardRef,
+  Ref,
+  ChangeEvent
+} from 'react';
 import clsx from 'clsx';
 
 import Icon from '../../Icon/Icon';
@@ -43,7 +47,10 @@ const DateTimeInput = forwardRef(({
 
   const handleDateOnChange = (event: ChangeEvent<HTMLInputElement>) => {
     const node = event && event.target;
+    console.log('handleDateOnChange if before the if');
+
     if (node && allowedValueCheck(node.value)) {
+      console.log('handleDateOnChange if is true');
       onChange(event);
     }
   };
