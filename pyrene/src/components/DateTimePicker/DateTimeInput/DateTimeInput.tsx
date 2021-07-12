@@ -1,7 +1,8 @@
 import React, {
   forwardRef,
   Ref,
-  ChangeEvent
+  ChangeEvent,
+  Dispatch
 } from 'react';
 import clsx from 'clsx';
 
@@ -24,13 +25,15 @@ export interface InputProps {
   setTimeValue?: (value: string) => void,
   pOnChange?: (event: any) => void, // Handle change function passed from parent component
   timeValue: string,
-  value?: string
+  value?: string,
+  setDateValue: Dispatch<React.SetStateAction<string>>,
 }
 
 const allowedValueCheck = (valueToCheck: string) => /^[0-9.:]*$/.test(valueToCheck);
 
 const DateTimeInput = forwardRef(({
   onChange,
+  setDateValue,
   dateOnly = false,
   dateValue,
   errorValue,
@@ -48,8 +51,7 @@ const DateTimeInput = forwardRef(({
   const handleDateOnChange = (event: ChangeEvent<HTMLInputElement>) => {
     const node = event && event.target;
     if (node && allowedValueCheck(node.value)) {
-      console.log('handleDateOnChange value', node.value);
-      onChange?.(event);
+      setDateValue?.(node.value);
     }
   };
 
