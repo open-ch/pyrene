@@ -282,9 +282,6 @@ const DateTimePicker: React.FC<DateTimeInputProps> = ({
           invalidTimestamp={invalidTimestamp}
           name={name}
           onBlur={onBlur}
-          setDateValue={(value: string) => setDateValue(value)}
-          pOnChange={onChange}
-          setTimeValue={setTimeValue}
           dateOnly={dateOnly}
         />
       )}

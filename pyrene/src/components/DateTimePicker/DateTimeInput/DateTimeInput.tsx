@@ -1,7 +1,6 @@
 import React, {
   forwardRef,
   Ref,
-  ChangeEvent,
 } from 'react';
 import clsx from 'clsx';
 
@@ -17,52 +16,25 @@ export interface InputProps {
   invalidTimestamp?: boolean,
   label?: string,
   name?: string,
-  onChange?: (event: ChangeEvent<HTMLInputElement>) => void, // Handle change function passed from react-datepicker
-  onClick?: () => void,
-  onBlur?: () => void,
-  onFocus?: () => void,
-  setTimeValue?: (value: string) => void,
-  pOnChange?: (event: any) => void, // Handle change function passed from parent component
   timeValue: string,
   value?: string,
-  setDateValue: (date: string) => void,
+  onBlur?: any,
 }
 
 const allowedValueCheck = (valueToCheck: string) => /^[0-9.:]*$/.test(valueToCheck);
 
-const DateTimeInput = forwardRef(({
-  onChange,
-  setDateValue,
-  dateOnly = false,
-  dateValue,
-  errorValue,
-  handleOn,
-  invalidTimestamp = false,
-  label,
-  name = '',
-  onBlur = () => {},
-  onClick = () => {},
-  // pOnChange = () => {},
-  // setTimeValue = () => {},
-  timeValue,
-}: InputProps, ref: Ref<HTMLInputElement>) => {
-
-  const handleDateOnChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const node = event && event.target;
-    if (node && allowedValueCheck(node.value)) {
-      setDateValue?.(node.value);
-    }
-  };
-
-  /*
-  const handleTimeOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const node = event && event.target;
-    if (allowedValueCheck(node.value)) {
-      setTimeValue(node.value);
-      handleOn?.(dateValue, node.value, pOnChange);
-    }
-  };
-  */
+const DateTimeInput = forwardRef((props: InputProps, ref: Ref<HTMLInputElement>) => {
+  const {
+    dateOnly = false,
+    dateValue,
+    errorValue,
+    handleOn,
+    invalidTimestamp = false,
+    label,
+    name = '',
+    timeValue,
+    onBlur,
+  } = props;
 
   return (
     <div
@@ -74,7 +46,7 @@ const DateTimeInput = forwardRef(({
         <div className={clsx(styles.iconInputContainer, styles.calendar)}>
           <Icon type="inline" name="calendar" color="neutral-500" />
           <input
-            // {...props}
+            {...props}
             name={name ? `${name}_date` : 'date_input'}
             placeholder={dateOnly ? 'DD.MM.YYYY' : 'DD.MM.YYYY HH:MM'}
             className={clsx(styles.input, styles.dateInput)}
@@ -82,9 +54,6 @@ const DateTimeInput = forwardRef(({
             disabled={invalidTimestamp}
             ref={ref}
             autoComplete="off"
-            onClick={onClick}
-            onChange={handleDateOnChange}
-            value={dateValue}
           />
         </div>
         {/* !dateOnly && (
