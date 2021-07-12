@@ -2,7 +2,6 @@ import React, {
   forwardRef,
   Ref,
   ChangeEvent,
-  Dispatch
 } from 'react';
 import clsx from 'clsx';
 
@@ -26,7 +25,7 @@ export interface InputProps {
   pOnChange?: (event: any) => void, // Handle change function passed from parent component
   timeValue: string,
   value?: string,
-  setDateValue: Dispatch<React.SetStateAction<string>>,
+  setDateValue: (date: string) => void,
 }
 
 const allowedValueCheck = (valueToCheck: string) => /^[0-9.:]*$/.test(valueToCheck);
