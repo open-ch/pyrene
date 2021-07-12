@@ -13,18 +13,17 @@ export interface InputProps {
   invalidTimestamp?: boolean,
   label?: string,
   name?: string,
-  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void, // Handle change function passed from react-datepicker
+  onChange?: (event: ChangeEvent<HTMLInputElement>) => void, // Handle change function passed from react-datepicker
   onClick?: () => void,
   onBlur?: () => void,
   onFocus?: () => void,
-  setDateValue?: (value: string) => void,
   setTimeValue?: (value: string) => void,
   pOnChange?: (event: any) => void, // Handle change function passed from parent component
   timeValue: string,
   value?: string
 }
 
-const allowedValueCheck = (valueToCheck: string) => (/^[0-9.:]*$/.test(valueToCheck));
+const allowedValueCheck = (valueToCheck: string) => /^[0-9.:]*$/.test(valueToCheck);
 
 const DateTimeInput = forwardRef(({
   dateOnly = false,
@@ -38,15 +37,13 @@ const DateTimeInput = forwardRef(({
   onChange = () => {},
   onClick = () => {},
   // pOnChange = () => {},
-  setDateValue = () => {},
   // setTimeValue = () => {},
   timeValue,
 }: InputProps, ref: Ref<HTMLInputElement>) => {
 
   const handleDateOnChange = (event: ChangeEvent<HTMLInputElement>) => {
     const node = event && event.target;
-    if (allowedValueCheck(node.value)) {
-      setDateValue(node.value);
+    if (node && allowedValueCheck(node.value)) {
       onChange(event);
     }
   };
