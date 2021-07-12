@@ -23,7 +23,7 @@ const allowedValueCheck = (valueToCheck: string) => /^[0-9.:]*$/.test(valueToChe
 
 const DateTimeInput = forwardRef((props: InputProps, ref: Ref<HTMLInputElement>) => {
   const {
-    dateOnly = false,
+    dateOnly,
     value,
     errorValue,
     handleOn,

@@ -10,10 +10,6 @@ import styles from '../datePicker.css';
 
 export interface DatePickerProps{
   /**
- * Replaces the input with any node, for example a button
- */
-  CustomInput: React.ReactNode;
-  /**
    * This is a Date object that represents the end date of a date range
    */
   endDate?: Date,
@@ -63,14 +59,18 @@ export interface DatePickerProps{
    * Should display the Time column on the right-hand side
    */
   shouldDisplayTimeColumn?: boolean,
+
+  dateFormat?: string,
+
+  timeFormat?: string
 }
 
 
 const ReactDPWrapper: React.FC<DatePickerProps> = ({
   onKeyDown,
+  dateFormat,
   selectedDate = undefined,
   shouldDisplayTimeColumn = true,
-  CustomInput = <input />,
   onChange = () => {},
   onSelect,
 }: DatePickerProps) => {
@@ -116,7 +116,6 @@ const ReactDPWrapper: React.FC<DatePickerProps> = ({
             </button>
           </div>
         )}
-        customInput={CustomInput}
         calendarStartDay={1}
         onKeyDown={onKeyDown}
         onSelect={onSelect}
@@ -125,7 +124,7 @@ const ReactDPWrapper: React.FC<DatePickerProps> = ({
         showPopperArrow={false}
         showTimeSelect={shouldDisplayTimeColumn}
         onChange={onChange}
-        dateFormat="dd.MM.yyyy"
+        dateFormat={dateFormat}
         formatWeekDay={(nameOfDay) => nameOfDay.substr(0, 1)}
       />
     </div>

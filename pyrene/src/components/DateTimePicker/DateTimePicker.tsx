@@ -14,6 +14,7 @@ import {
   isValidDate, isValidTime, isValidTimeZone, convertToDateTypeObject, convertToTimeTypeObject,
   convertToUTCtime, convertToZoneTime, convertDateTypeToString, convertTimeTypeToString, dateTypeToStandardEUDateFormat,
 } from '../../utils/DateUtils';
+import styles from './dateTimePicker.css';
 
 type OnFunction = (value?: number | null) => void;
 
@@ -269,22 +270,15 @@ const DateTimePicker: React.FC<DateTimeInputProps> = ({
   }, [invalidDate, invalidTime, invalidTimestamp, invalidTimeZone, jsDateObject, maxDateTime, minDateTime]);
 
   return (
-    <ReactDPWrapper
-      onChange={onChangeReactDP}
-      selectedDate={timeStamp ? jsDateObject : internalDate}
-      shouldDisplayTimeColumn={!dateOnly}
-      CustomInput={(
-        <DateTimeInput
-          handleOn={handleOn}
-          timeValue={timeValue}
-          errorValue={errorValue}
-          invalidTimestamp={invalidTimestamp}
-          name={name}
-          onBlur={onBlur}
-          dateOnly={dateOnly}
-        />
-      )}
-    />
+    <div>
+      <ReactDPWrapper
+        onChange={onChangeReactDP}
+        selectedDate={timeStamp ? jsDateObject : internalDate}
+        shouldDisplayTimeColumn={!dateOnly}
+        dateFormat={dateOnly ? 'dd.MM.yyyy' : 'dd.MM.yyyy HH:MM'}
+      />
+      {errorValue.length > 0 && <div className={styles.thomasInputError}>{errorValue}</div>}
+    </div>
   );
 };
 
