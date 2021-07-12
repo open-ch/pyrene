@@ -8,17 +8,15 @@ import Icon from '../../Icon/Icon';
 import styles from './dateTimeInput.css';
 
 export interface InputProps {
-  autoFocus?: boolean,
   dateOnly?: boolean,
-  dateValue: string,
   errorValue: string,
   handleOn?: (dateString: string, timeString: string, func: (event: any) => void) => void
   invalidTimestamp?: boolean,
   label?: string,
   name?: string,
   timeValue: string,
-  value?: string,
   onBlur?: any,
+  value?: string
 }
 
 const allowedValueCheck = (valueToCheck: string) => /^[0-9.:]*$/.test(valueToCheck);
@@ -26,7 +24,7 @@ const allowedValueCheck = (valueToCheck: string) => /^[0-9.:]*$/.test(valueToChe
 const DateTimeInput = forwardRef((props: InputProps, ref: Ref<HTMLInputElement>) => {
   const {
     dateOnly = false,
-    dateValue,
+    value,
     errorValue,
     handleOn,
     invalidTimestamp = false,
@@ -39,7 +37,7 @@ const DateTimeInput = forwardRef((props: InputProps, ref: Ref<HTMLInputElement>)
   return (
     <div
       className={styles.dateTimeComponent}
-      onBlur={() => handleOn?.(dateValue, dateOnly ? '00:00' : timeValue, onBlur)}
+      onBlur={() => handleOn?.(value as string, dateOnly ? '00:00' : timeValue, onBlur)}
     >
       <div className={styles.dateTimeFieldTitle}>{label || dateOnly ? 'Date' : 'Date & Time'}</div>
       <div className={clsx(styles.dateTimeInputArea, { [styles.dateTimeInputError]: errorValue.length > 0 })}>
@@ -56,22 +54,6 @@ const DateTimeInput = forwardRef((props: InputProps, ref: Ref<HTMLInputElement>)
             autoComplete="off"
           />
         </div>
-        {/* !dateOnly && (
-          <div className={clsx(styles.iconInputContainer, styles.clock)}>
-            <Icon type="inline" name="clock" color="neutral-500" />
-            <input
-              autoComplete="off"
-              name={name ? `${name}_time` : 'time_input'}
-              placeholder="HH:MM"
-              className={clsx(styles.input, styles.timeInput)}
-              maxLength={5}
-              disabled={invalidTimestamp}
-              onChange={handleTimeOnChange}
-              onClick={onClick}
-              value={timeValue}
-            />
-          </div>
-        ) */}
       </div>
       {errorValue.length > 0 && <div className={styles.dateTimeInputErrorMsg}>{errorValue}</div>}
     </div>

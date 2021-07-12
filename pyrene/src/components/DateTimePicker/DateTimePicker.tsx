@@ -275,7 +275,6 @@ const DateTimePicker: React.FC<DateTimeInputProps> = ({
       shouldDisplayTimeColumn={!dateOnly}
       CustomInput={(
         <DateTimeInput
-          dateValue={dateValue}
           handleOn={handleOn}
           timeValue={timeValue}
           errorValue={errorValue}
