@@ -10,12 +10,13 @@ import setHours from 'date-fns/setHours';
 import setMinutes from 'date-fns/setMinutes';
 import styles from './datePicker.css';
 import 'react-datepicker/dist/react-datepicker.css';
+
 export interface DatePickerProps {
-  shouldDisplayTimeColumn?: boolean,
+  dateOnly?: boolean,
 }
 
 const DatePicker: FunctionComponent<DatePickerProps> = ({
-  shouldDisplayTimeColumn = true,
+  dateOnly,
 }: DatePickerProps) => {
 
   const nextIcon = <span className="pyreneIcon-chevronRight" />;
@@ -69,10 +70,10 @@ const DatePicker: FunctionComponent<DatePickerProps> = ({
         calendarStartDay={1}
         selected={startDate}
         showPopperArrow={false}
-        showTimeSelect={shouldDisplayTimeColumn}
+        showTimeSelect={!dateOnly}
         onChange={(date: Date) => setStartDate(date)}
         timeFormat='hh:mm'
-        dateFormat={shouldDisplayTimeColumn ? 'dd.MM.yyyy hh:mm aa' : 'dd.MM.yyyy'}
+        dateFormat={dateOnly ? 'dd.MM.yyyy' : 'dd.MM.yyyy hh:mm aa'}
         formatWeekDay={(nameOfDay) => nameOfDay.substr(0, 1)}
         placeholderText="dd.MM.yyyy hh:mm"
       />

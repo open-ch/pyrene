@@ -4,7 +4,7 @@ import { DatePickerProps } from './DatePicker';
 
 const ReactDatePickerWrapper: Example<DatePickerProps> = {
   props: {
-    shouldDisplayTimeColumn: true,
+    dateOnly: false,
   },
   category: 'Form',
 };
