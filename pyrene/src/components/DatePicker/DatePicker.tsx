@@ -6,10 +6,27 @@ import React, {
 import ReactDatepicker from 'react-datepicker';
 import clsx from 'clsx';
 
+import isValid from 'date-fns/isValid';
 import setHours from 'date-fns/setHours';
 import setMinutes from 'date-fns/setMinutes';
 import styles from './datePicker.css';
 import 'react-datepicker/dist/react-datepicker.css';
+
+
+const ExampleCustomTimeInput: FunctionComponent<any> = ({ date, value, onChange }) => {
+  
+  useEffect( ()=>{
+    console.log('ExampleCustomTimeInput new Rendering');
+  });
+
+  return (
+    <input
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
+      style={{ border: "solid 1px pink" }}
+    />
+    );
+};
 
 export interface DatePickerProps {
   dateOnly?: boolean,
@@ -23,11 +40,6 @@ const DatePicker: FunctionComponent<DatePickerProps> = ({
   const prevIcon = <span className="pyreneIcon-chevronLeft" />;
 
   const [startDate, setStartDate] = useState(new Date());
-  const [hasError, setHasError] = useState(false);
-
-  useEffect(() =>{
-    console.log('useEffect', startDate);
-  }, [startDate]);
 
   return (
     <div className={styles.wrapper}>
@@ -76,8 +88,8 @@ const DatePicker: FunctionComponent<DatePickerProps> = ({
         dateFormat={dateOnly ? 'dd.MM.yyyy' : 'dd.MM.yyyy hh:mm aa'}
         formatWeekDay={(nameOfDay) => nameOfDay.substr(0, 1)}
         placeholderText="dd.MM.yyyy hh:mm"
+        customTimeInput={<ExampleCustomTimeInput />}
       />
-      {hasError && <div>formatting issue</div>}
     </div>
   );
 };
