@@ -1,14 +1,15 @@
 import React, {
   useState,
   FunctionComponent,
+  useEffect,
 } from 'react';
 import ReactDatepicker from 'react-datepicker';
+import clsx from 'clsx';
 
-import 'react-datepicker/dist/react-datepicker.css';
 import setHours from 'date-fns/setHours';
 import setMinutes from 'date-fns/setMinutes';
 import styles from '../datePicker.css';
-
+import 'react-datepicker/dist/react-datepicker.css';
 export interface DatePickerProps {
   shouldDisplayTimeColumn?: boolean,
 }
@@ -21,6 +22,11 @@ const DatePicker: FunctionComponent<DatePickerProps> = ({
   const prevIcon = <span className="pyreneIcon-chevronLeft" />;
 
   const [startDate, setStartDate] = useState(new Date());
+  const [hasError, setHasError] = useState(false);
+
+  useEffect(() =>{
+    console.log('useEffect', startDate);
+  }, [startDate]);
 
   return (
     <div className={styles.wrapper}>
@@ -69,6 +75,7 @@ const DatePicker: FunctionComponent<DatePickerProps> = ({
         formatWeekDay={(nameOfDay) => nameOfDay.substr(0, 1)}
         placeholderText="dd.MM.yyyy hh:mm"
       />
+      {hasError && <div>formatting issue</div>}
     </div>
   );
 };
