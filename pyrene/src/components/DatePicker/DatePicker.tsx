@@ -22,7 +22,11 @@ const ExampleCustomTimeInput: FunctionComponent<any> = ({ date, value, onChange 
   return (
     <input
       value={value}
-      onChange={(e) => onChange(e.target.value)}
+      onChange={(e) => {
+        const value = e.target.value;
+        console.log('new value', value);
+        onChange(value);
+      }}
       style={{ border: "solid 1px pink" }}
     />
   );
