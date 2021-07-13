@@ -39,7 +39,14 @@ const ExampleCustomTimeInput: FunctionComponent<any> = forwardRef(({ value, onCh
   const [internalValue, setInternalValue] = useState(value);
   const [hasError, setHasError] = useState(false);
 
-  console.log('internal', internalValue);
+  useEffect( () => {
+    if(!isValidDate(internalValue)){
+      setHasError(true);
+    }
+    else{
+      setHasError(false);
+    }
+  }, [internalValue]);
 
   return (
     <div>
@@ -51,18 +58,16 @@ const ExampleCustomTimeInput: FunctionComponent<any> = forwardRef(({ value, onCh
           const enterredDate = e.target.value;
           console.log('new value', enterredDate);
           setInternalValue(enterredDate);
+       
+          isValidDate(enterredDate) && onChange(e);
+   
+          /*
+          if(isValidDate(enterredDate)){
 
-          if(!isValidDate(enterredDate)){
-            console.log('NOT valid', enterredDate );
-            setHasError(true);
-          }
-          else{
-            console.log('IS valid', enterredDate );
             const dateFormatted = getDateTypeFromddmmyyyyWithSep(enterredDate);
            // setStartDate(new Date( dateFormatted.year + '-' + dateFormatted.month + '-' + dateFormatted.day));
             onChange(e);
-            setHasError(false);
-          }
+          } */
         }}
         style={{ border: "solid 10px pink !important" }}
       />
