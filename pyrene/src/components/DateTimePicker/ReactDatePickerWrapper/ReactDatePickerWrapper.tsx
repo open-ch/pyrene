@@ -20,7 +20,7 @@ const ReactDatePickerWrapper: React.FC<ReactDatePickerWrapperProps> = ({
   const prevIcon = <span className="pyreneIcon-chevronLeft" />;
 
   const [startDate, setStartDate] = useState(
-    setHours(setMinutes(new Date(), 30), 16)
+    new Date()
   );
 
   return (
@@ -63,13 +63,13 @@ const ReactDatePickerWrapper: React.FC<ReactDatePickerWrapperProps> = ({
         )}
         calendarStartDay={1}
         selected={startDate}
-        timeFormat="HH:mm aa"
+        timeFormat="hh:mm aa"
         showPopperArrow={false}
         showTimeSelect={shouldDisplayTimeColumn}
         onChange={(date: Date) => setStartDate(date) }
-        dateFormat={shouldDisplayTimeColumn ? 'dd.MM.yyyy HH:mm aa' : 'dd.MM.yyyy'}
+        dateFormat={shouldDisplayTimeColumn ? 'dd.MM.yyyy hh:mm aa' : 'dd.MM.yyyy'}
         formatWeekDay={(nameOfDay) => nameOfDay.substr(0, 1)}
-        placeholderText="dd.MM.yyyy HH:mm aa"
+        placeholderText="dd.MM.yyyy hh:mm"
       />
     </div>
   );
