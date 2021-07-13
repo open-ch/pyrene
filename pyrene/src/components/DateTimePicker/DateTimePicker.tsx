@@ -278,15 +278,10 @@ const DateTimePicker: React.FC<DateTimeInputProps> = ({
   return (
     <div>
       <ReactDPWrapper
-        onChange={(date: Date) => setStartDate(date) 
-          //|| onChangeReactDP
-        }
-        selected={startDate
-          // || timeStamp ? jsDateObject : internalDate
-        }
+        onChange={onChangeReactDP}
+        selected={timeStamp ? jsDateObject : internalDate}
         shouldDisplayTimeColumn={!dateOnly}
         dateFormat={dateOnly ? 'dd.MM.yyyy' : 'dd.MM.yyyy HH:mm aa'}
-        placeholder="dd.MM.yyyy HH:mm aa"
       />
       {errorValue.length > 0 && <div className={styles.thomasInputError}>{errorValue}</div>}
     </div>

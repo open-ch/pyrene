@@ -1,89 +1,28 @@
-import React from 'react';
+import React, {
+  useState,
+} from 'react';
 import ReactDatepicker from 'react-datepicker';
-
-import {
-  DateType,
-} from '../../../utils/DateUtils';
 
 import 'react-datepicker/dist/react-datepicker.css';
 import styles from '../datePicker.css';
+import setHours from "date-fns/setHours";
+import setMinutes from "date-fns/setMinutes";
 
-export interface DatePickerProps{
-  /**
-   * This is a Date object that represents the end date of a date range
-   */
-  endDate?: Date,
-  /**
-   * This is a timestamp that represents the maximum date allowed by the component
-   */
-  maxDate?: DateType,
-  /**
-   * This is a timestamp that represents the minimum date allowed by the component
-   */
-  minDate?: DateType,
-  /**
-   * Function to handle date change event
-   */
-  // onChange?: (date: Date | [Date, Date] | null, event: React.SyntheticEvent<any> | undefined) => void,
-  onChange?: (date: any) => void,
-  /**
-   * Name that can be used to uniquely identify the component
-   */
-  name?: string,
-  /**
-   * Exposed to have access to input events
-   */
-  onKeyDown?(event: React.KeyboardEvent<HTMLDivElement>): void;
-  /**
-   * Function to handle date select event
-   */
-  onSelect?(date: Date, event: React.SyntheticEvent<any> | undefined): void;
-  /**
-   * This is a Date object that represents the selected date of the datepicker
-   */
-  selectedDate?: Date,
-  /**
-   * This is a Date object that represents the start date of a date range
-   */
-  startDate?: Date,
-  /**
-   * This is a unix timestamp, which is the number of seconds that have elapsed since Unix epoch
-   */
-  timeStamp?: number | null,
-  /**
-   * This is must be a IANA time zone string
-   */
-  timeZone?: string,
-
-  value?: string,
-  /**
-   * Should display the Time column on the right-hand side
-   */
+export interface ReactDatePickerWrapperProps {
   shouldDisplayTimeColumn?: boolean,
-
-  dateFormat?: string,
-
-  timeFormat?: string,
-
-  selected?: Date,
-
-  placeholder?: string,
 }
 
 
-const ReactDPWrapper: React.FC<DatePickerProps> = ({
-  onKeyDown,
-  dateFormat,
-  selectedDate = undefined,
+const ReactDatePickerWrapper: React.FC<ReactDatePickerWrapperProps> = ({
   shouldDisplayTimeColumn = true,
-  onChange = () => {},
-  onSelect,
-  selected,
-  placeholder,
-}: DatePickerProps) => {
+}: ReactDatePickerWrapperProps) => {
 
   const nextIcon = <span className="pyreneIcon-chevronRight" />;
   const prevIcon = <span className="pyreneIcon-chevronLeft" />;
+
+  const [startDate, setStartDate] = useState(
+    setHours(setMinutes(new Date(), 30), 16)
+  );
 
   return (
     <div className={styles.wrapper}>
@@ -124,19 +63,17 @@ const ReactDPWrapper: React.FC<DatePickerProps> = ({
           </div>
         )}
         calendarStartDay={1}
-        onKeyDown={onKeyDown}
-        onSelect={onSelect}
-        selected={selected || selectedDate}
+        selected={startDate}
         timeFormat="HH:mm aa"
         showPopperArrow={false}
         showTimeSelect={shouldDisplayTimeColumn}
-        onChange={onChange}
-        dateFormat={dateFormat}
+        onChange={(date: Date) => setStartDate(date) }
+        dateFormat={shouldDisplayTimeColumn ? 'dd.MM.yyyy HH:mm aa' : 'dd.MM.yyyy'}
         formatWeekDay={(nameOfDay) => nameOfDay.substr(0, 1)}
-        placeholderText={placeholder}
+        placeholderText="dd.MM.yyyy HH:mm aa"
       />
     </div>
   );
 };
 
-export default ReactDPWrapper;
+export default ReactDatePickerWrapper;
