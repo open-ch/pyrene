@@ -83,6 +83,7 @@ const examples: { [key: string]: Example<any, any> } = {
   RadioPopover,
   RadioGroup,
   RadioButton,
+  ReactDatePickerWrapper,
   Search,
   SearchFinder,
   ShareDialog,
