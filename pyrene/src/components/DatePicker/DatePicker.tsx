@@ -15,7 +15,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 
 const ExampleCustomTimeInput: FunctionComponent<any> = ({ date, value, onChange }) => {
   
-  useEffect( ()=>{
+  useEffect(()=>{
     console.log('ExampleCustomTimeInput new Rendering');
   });
 
@@ -25,7 +25,7 @@ const ExampleCustomTimeInput: FunctionComponent<any> = ({ date, value, onChange 
       onChange={(e) => onChange(e.target.value)}
       style={{ border: "solid 1px pink" }}
     />
-    );
+  );
 };
 
 export interface DatePickerProps {
