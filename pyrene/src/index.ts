@@ -54,6 +54,7 @@ import { default as SearchFinder } from './components/SearchFinder/SearchFinder'
 import { default as RadioGroup } from './components/RadioGroup/RadioGroup';
 import { default as RadioButton } from './components/RadioButton/RadioButton';
 import { default as RadioPopover } from './components/RadioPopover/RadioPopover';
+import { default as ReactDatePickerWrapper } from './components/DateTimePicker/ReactDatePickerWrapper/ReactDatePickerWrapper';
 
 import { default as Search } from './components/Search/Search';
 import { default as ShareDialog } from './components/ShareDialog/ShareDialog';
@@ -107,6 +108,7 @@ const Components = {
   RadioButton,
   RadioGroup,
   RadioPopover,
+  ReactDatePickerWrapper,
   Search,
   SearchFinder,
   ShareDialog,
@@ -156,6 +158,7 @@ export { Popover };
 export { RadioButton };
 export { RadioGroup };
 export { RadioPopover };
+export { ReactDatePickerWrapper };
 export { Search };
 export { SearchFinder };
 export { ShareDialog };
