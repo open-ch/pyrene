@@ -5,8 +5,6 @@ import React, {
 } from 'react';
 
 import ReactDPWrapper from './ReactDatePickerWrapper/ReactDatePickerWrapper';
-import setHours from "date-fns/setHours";
-import setMinutes from "date-fns/setMinutes";
 import DateTimeInput from './DateTimeInput/DateTimeInput';
 
 import {
@@ -16,7 +14,8 @@ import {
   isValidDate, isValidTime, isValidTimeZone, convertToDateTypeObject, convertToTimeTypeObject,
   convertToUTCtime, convertToZoneTime, convertDateTypeToString, convertTimeTypeToString, dateTypeToStandardEUDateFormat,
 } from '../../utils/DateUtils';
-import styles from './dateTimePicker.css';
+
+
 
 type OnFunction = (value?: number | null) => void;
 
@@ -52,7 +51,7 @@ export interface DateTimeInputProps{
   onChange: OnFunction,
 }
 
-const allowedSeparatorCheck = (valueToCheck: string) => /[/.:]$/.test(valueToCheck);
+const allowedSeparatorCheck = (valueToCheck: string) => (/[/.:]$/.test(valueToCheck));
 
 export const getDateTypeFromddmmyyyyWithSep = (str: string): DateType | undefined => {
   if (str.length === 10 && allowedSeparatorCheck(str.charAt(2)) && allowedSeparatorCheck(str.charAt(5))) {
@@ -85,7 +84,7 @@ const isDateInRange = (timestampToCheck: number, minimumValue: number, maximumVa
 };
 
 
-const DateTimePicker: React.FC<DateTimeInputProps> = ({
+const DateTimePicker: any | React.FC<DateTimeInputProps> = ({
   dateOnly = false,
   maxDateTime = getFutureDate({ years: 1 }),
   minDateTime = 0,
@@ -271,21 +270,29 @@ const DateTimePicker: React.FC<DateTimeInputProps> = ({
     setErrorValue(getError());
   }, [invalidDate, invalidTime, invalidTimestamp, invalidTimeZone, jsDateObject, maxDateTime, minDateTime]);
 
-  const [startDate, setStartDate] = useState(
-    setHours(setMinutes(new Date(), 30), 16)
-  );
-  console.log('startDate', startDate);
   return (
-    <div>
-      {/*
-      <ReactDPWrapper
-        onChange={onChangeReactDP}
-        selected={timeStamp ? jsDateObject : internalDate}
-        shouldDisplayTimeColumn={!dateOnly}
-        dateFormat={dateOnly ? 'dd.MM.yyyy' : 'dd.MM.yyyy HH:mm aa'}
-      />
-     */}
-    </div>
+    {/*
+    <ReactDPWrapper
+      onChange={onChangeReactDP}
+      selectedDate={timeStamp ? jsDateObject : internalDate}
+      shouldDisplayTimeColumn={!dateOnly}
+      CustomInput={(
+        <DateTimeInput
+          dateValue={dateValue}
+          handleOn={handleOn}
+          timeValue={timeValue}
+          errorValue={errorValue}
+          invalidTimestamp={invalidTimestamp}
+          name={name}
+          onBlur={onBlur}
+          pOnChange={onChange}
+          setDateValue={setDateValue}
+          setTimeValue={setTimeValue}
+          dateOnly={dateOnly}
+        />
+      )}
+    />
+    */}
   );
 };
 

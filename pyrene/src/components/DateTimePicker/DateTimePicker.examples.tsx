@@ -16,7 +16,6 @@ DateTimeInput.props = {
 };
 
 DateTimeInput.examples = [
-/*
   {
     props: {
       dateOnly: true,
@@ -42,7 +41,6 @@ DateTimeInput.examples = [
       timeZone: 'America/New_Yamk',
     },
   },
-  */
 ];
 
 DateTimeInput.category = 'Form';
