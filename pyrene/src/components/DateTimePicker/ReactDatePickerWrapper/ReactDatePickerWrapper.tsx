@@ -12,7 +12,6 @@ export interface ReactDatePickerWrapperProps {
   shouldDisplayTimeColumn?: boolean,
 }
 
-
 const ReactDatePickerWrapper: React.FC<ReactDatePickerWrapperProps> = ({
   shouldDisplayTimeColumn = true,
 }: ReactDatePickerWrapperProps) => {
@@ -75,5 +74,7 @@ const ReactDatePickerWrapper: React.FC<ReactDatePickerWrapperProps> = ({
     </div>
   );
 };
+
+ReactDatePickerWrapper.displayName = 'ReactDatePickerWrapper';
 
 export default ReactDatePickerWrapper;
