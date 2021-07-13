@@ -71,6 +71,7 @@ const DatePicker: FunctionComponent<DatePickerProps> = ({
         showPopperArrow={false}
         showTimeSelect={shouldDisplayTimeColumn}
         onChange={(date: Date) => setStartDate(date)}
+        timeFormat='hh:mm'
         dateFormat={shouldDisplayTimeColumn ? 'dd.MM.yyyy hh:mm aa' : 'dd.MM.yyyy'}
         formatWeekDay={(nameOfDay) => nameOfDay.substr(0, 1)}
         placeholderText="dd.MM.yyyy hh:mm"
