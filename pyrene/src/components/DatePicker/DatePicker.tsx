@@ -8,7 +8,7 @@ import clsx from 'clsx';
 
 import setHours from 'date-fns/setHours';
 import setMinutes from 'date-fns/setMinutes';
-import styles from '../datePicker.css';
+import styles from './datePicker.css';
 import 'react-datepicker/dist/react-datepicker.css';
 export interface DatePickerProps {
   shouldDisplayTimeColumn?: boolean,
