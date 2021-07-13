@@ -22,7 +22,7 @@ import { default as CheckboxPopover } from './components/CheckboxPopover/Checkbo
 import { default as Collapsible } from './components/Collapsible/Collapsible';
 import { default as Container } from './components/Container/Container';
 
-import { default as DatePicker } from './components/DatePicker';
+import { default as DatePicker } from './components/DatePicker/DatePicker';
 import { default as DropdownButton } from './components/DropdownButton/DropdownButton';
 
 import { default as Filter } from './components/Filter/Filter';
