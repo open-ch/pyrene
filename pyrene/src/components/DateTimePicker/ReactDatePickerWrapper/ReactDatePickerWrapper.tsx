@@ -63,7 +63,6 @@ const ReactDatePickerWrapper: React.FC<ReactDatePickerWrapperProps> = ({
         )}
         calendarStartDay={1}
         selected={startDate}
-        timeFormat="hh:mm aa"
         showPopperArrow={false}
         showTimeSelect={shouldDisplayTimeColumn}
         onChange={(date: Date) => setStartDate(date) }
