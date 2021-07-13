@@ -1,0 +1,47 @@
+@import '../../styles/colors.module.css';
+
+.messageWrapper {
+    height: 13px;
+    margin-top: 3px;
+    font-size: 11px;
+    line-height: 1.18;
+    color: var(--red-500);
+}
+
+.borderError {
+    border: 1px solid var(--red-500);
+}
+
+.borderDefault {
+    border: 1px solid var(--blue-500);
+}
+
+.inputWrapper {
+    height: 32px;
+    display: flex;
+    align-items: center;
+    background: #FFFFFF;
+    padding-left: 10px;
+    border-radius: 2px;
+
+    &.disabled {
+        opacity: .5;
+        cursor: default;
+        pointer-events: none;
+    }
+}
+
+.input {
+    margin-left: 6px;
+    line-height: 14px;
+    font-size: 12px;
+    color: var(--neutral-500);
+    font-family: inherit;
+    border: none;
+    outline: none;
+    background-color: inherit;
+}
+
+.input::placeholder {
+    color: var(--neutral-300);
+}

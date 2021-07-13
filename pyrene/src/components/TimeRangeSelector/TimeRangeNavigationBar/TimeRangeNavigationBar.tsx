@@ -10,6 +10,7 @@ interface TimeRangeNavigationBarProps {
   disabled?: boolean,
   from: number,
   lowerBound: number,
+  onClick?: () => void,
   onNavigateBack: () => void,
   onNavigateForward: () => void,
   timezone: string,
@@ -29,6 +30,7 @@ const TimeRangeNavigationBar: FunctionComponent<TimeRangeNavigationBarProps> = (
   disabled = false,
   from,
   lowerBound,
+  onClick,
   onNavigateBack,
   onNavigateForward,
   timezone,
@@ -50,6 +52,7 @@ const TimeRangeNavigationBar: FunctionComponent<TimeRangeNavigationBarProps> = (
       onNavigateBack={onNavigateBack}
       disabled={disabled}
       innerWidth={248}
+      onClick={onClick}
     />
   );
 };

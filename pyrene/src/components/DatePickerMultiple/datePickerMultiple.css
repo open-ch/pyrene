@@ -1,0 +1,16 @@
+@import '../../styles/colors.module.css';
+
+.DatePickerMultiple {
+  display: flex;
+}
+
+.DateLabel {
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 12px;
+  color: var(--neutral-500);
+}
+
+.DateToWrapper {
+  margin-left: 16px;
+}

@@ -10,6 +10,7 @@ interface ArrowSelectorProps {
   forwardInactive: boolean,
   innerWidth: number,
   label: string,
+  onClick?: () => void,
   onNavigateBack: () => void,
   onNavigateForward: () => void,
 }
@@ -20,6 +21,7 @@ const ArrowSelector: FunctionComponent<ArrowSelectorProps> = ({
   forwardInactive,
   innerWidth,
   label,
+  onClick,
   onNavigateBack,
   onNavigateForward,
 }) => (
@@ -30,7 +32,10 @@ const ArrowSelector: FunctionComponent<ArrowSelectorProps> = ({
       inactive={backInactive}
       onClick={(disabled || backInactive) ? () => {} : onNavigateBack}
     />
-    <div className={styles.contentOuter}>
+    <div
+      className={clsx(styles.contentOuter, { [styles.pointerCursor]: onClick })}
+      onClick={onClick}
+    >
       <div className={styles.contentInner} style={{ width: innerWidth }}>
         <div className={clsx(styles.value, { [styles.disabled]: disabled })}>
           {label}

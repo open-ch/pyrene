@@ -37,3 +37,7 @@
   height: 32px;
   margin: -7px -1px;
 }
+
+.pointerCursor {
+  cursor: pointer;
+}
