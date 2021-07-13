@@ -24,7 +24,8 @@ export interface DatePickerProps{
   /**
    * Function to handle date change event
    */
-  onChange?: (date: Date | [Date, Date] | null, event: React.SyntheticEvent<any> | undefined) => void,
+  // onChange?: (date: Date | [Date, Date] | null, event: React.SyntheticEvent<any> | undefined) => void,
+  onChange?: (date: any) => void,
   /**
    * Name that can be used to uniquely identify the component
    */
@@ -62,7 +63,11 @@ export interface DatePickerProps{
 
   dateFormat?: string,
 
-  timeFormat?: string
+  timeFormat?: string,
+
+  selected?: Date,
+
+  placeholder?: string,
 }
 
 
@@ -73,6 +78,8 @@ const ReactDPWrapper: React.FC<DatePickerProps> = ({
   shouldDisplayTimeColumn = true,
   onChange = () => {},
   onSelect,
+  selected,
+  placeholder,
 }: DatePickerProps) => {
 
   const nextIcon = <span className="pyreneIcon-chevronRight" />;
@@ -119,13 +126,14 @@ const ReactDPWrapper: React.FC<DatePickerProps> = ({
         calendarStartDay={1}
         onKeyDown={onKeyDown}
         onSelect={onSelect}
-        selected={selectedDate}
-        timeFormat="HH:mm"
+        selected={selected || selectedDate}
+        timeFormat="HH:mm aa"
         showPopperArrow={false}
         showTimeSelect={shouldDisplayTimeColumn}
         onChange={onChange}
         dateFormat={dateFormat}
         formatWeekDay={(nameOfDay) => nameOfDay.substr(0, 1)}
+        placeholderText={placeholder}
       />
     </div>
   );

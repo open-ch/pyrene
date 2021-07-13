@@ -103,24 +103,24 @@
 }
 
 /* the first 24 li elements for the time AM suffix */
-.wrapper :global .react-datepicker__time-list-item:nth-child(-n+24)::after {
+/*.wrapper :global .react-datepicker__time-list-item:nth-child(-n+24)::after {
   content: ' AM';
   display: inline;
   font-size: 12px;
   font-weight: 500;
   line-height: 16px;
   color: var(--neutral-100);
-}
+}*/
 
 /* the remaining li elements for the time PM suffix */
-.wrapper :global .react-datepicker__time-list-item:nth-last-child(-n+24)::after {
+/*.wrapper :global .react-datepicker__time-list-item:nth-last-child(-n+24)::after {
   content: ' PM';
   display: inline;
   font-size: 12px;
   font-weight: 500;
   line-height: 16px;
   color: var(--neutral-100);
-}
+}*/
 
 .wrapper :global .react-datepicker__month-container {
   padding-right: 30px;

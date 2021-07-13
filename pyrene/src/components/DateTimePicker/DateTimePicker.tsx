@@ -5,6 +5,8 @@ import React, {
 } from 'react';
 
 import ReactDPWrapper from './ReactDatePickerWrapper/ReactDatePickerWrapper';
+import setHours from "date-fns/setHours";
+import setMinutes from "date-fns/setMinutes";
 import DateTimeInput from './DateTimeInput/DateTimeInput';
 
 import {
@@ -269,13 +271,22 @@ const DateTimePicker: React.FC<DateTimeInputProps> = ({
     setErrorValue(getError());
   }, [invalidDate, invalidTime, invalidTimestamp, invalidTimeZone, jsDateObject, maxDateTime, minDateTime]);
 
+  const [startDate, setStartDate] = useState(
+    setHours(setMinutes(new Date(), 30), 16)
+  );
+  console.log('startDate', startDate);
   return (
     <div>
       <ReactDPWrapper
-        onChange={onChangeReactDP}
-        selectedDate={timeStamp ? jsDateObject : internalDate}
+        onChange={(date: Date) => setStartDate(date) 
+          //|| onChangeReactDP
+        }
+        selected={startDate
+          // || timeStamp ? jsDateObject : internalDate
+        }
         shouldDisplayTimeColumn={!dateOnly}
-        dateFormat={dateOnly ? 'dd.MM.yyyy' : 'dd.MM.yyyy HH:MM'}
+        dateFormat={dateOnly ? 'dd.MM.yyyy' : 'dd.MM.yyyy HH:mm aa'}
+        placeholder="dd.MM.yyyy HH:mm aa"
       />
       {errorValue.length > 0 && <div className={styles.thomasInputError}>{errorValue}</div>}
     </div>
