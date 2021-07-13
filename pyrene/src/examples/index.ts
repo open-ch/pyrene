@@ -32,6 +32,7 @@ import { default as MultiSelect } from '../components/MultiSelect/MultiSelect.ex
 import { default as RadioGroup } from '../components/RadioGroup/RadioGroup.examples';
 import { default as RadioButton } from '../components/RadioButton/RadioButton.examples';
 import { default as RadioPopover } from '../components/RadioPopover/RadioPopover.examples';
+import { default as ReactDatePickerWrapper } from '../components/DateTimePicker/ReactDatePickerWrapper.examples';
 import { default as Search } from '../components/Search/Search.examples';
 import { default as SearchFinder } from '../components/SearchFinder/SearchFinder.examples';
 import { default as ShareDialog } from '../components/ShareDialog/ShareDialog.examples';

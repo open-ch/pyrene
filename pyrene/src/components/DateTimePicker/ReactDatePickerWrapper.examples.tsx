@@ -9,6 +9,4 @@ const ReactDatePickerWrapper: Example<ReactDatePickerWrapperProps> = {
     category: "Form",
 };
 
-
-
 export default ReactDatePickerWrapper;
