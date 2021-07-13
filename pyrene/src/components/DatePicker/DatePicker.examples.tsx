@@ -3,10 +3,10 @@ import { DatePickerProps } from './DatePicker';
 
 
 const ReactDatePickerWrapper: Example<DatePickerProps> = {
-    props : {
-        shouldDisplayTimeColumn: true,
-    },
-    category: "Form",
+  props: {
+    shouldDisplayTimeColumn: true,
+  },
+  category: 'Form',
 };
 
 export default ReactDatePickerWrapper;
