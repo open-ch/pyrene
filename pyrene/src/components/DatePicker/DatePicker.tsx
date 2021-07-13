@@ -14,10 +14,8 @@ import 'react-datepicker/dist/react-datepicker.css';
 
 
 const ExampleCustomTimeInput: FunctionComponent<any> = ({ date, value, onChange }) => {
-  
-  useEffect(()=>{
-    console.log('ExampleCustomTimeInput new Rendering');
-  });
+
+  console.log('rendering of ExampleCustomTimeInput');
 
   return (
     <input
