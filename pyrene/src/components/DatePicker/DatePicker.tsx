@@ -18,20 +18,8 @@ export interface DatePickerProps {
   dateOnly?: boolean,
 }
 
-export const isValidDate = (date: string): boolean => {
+const isValidDate = (date: string): boolean => {
   return date.length === 10;
-};
-
-const allowedSeparatorCheck = (valueToCheck: string) => (/[/.:]$/.test(valueToCheck));
-
-export const getDateTypeFromddmmyyyyWithSep = (str: string): any | undefined => {
-  if (str.length === 10 && allowedSeparatorCheck(str.charAt(2)) && allowedSeparatorCheck(str.charAt(5))) {
-    const date = { day: +str.substr(0, 2), month: +str.substr(3, 2), year: +str.substr(6) };
-    if (!Number.isNaN(date.day) && !Number.isNaN(date.month) && !Number.isNaN(date.year)) {
-      return date;
-    }
-  }
-  return undefined;
 };
 
 const TimeInput: FunctionComponent<any> = forwardRef((props, ref) => {
