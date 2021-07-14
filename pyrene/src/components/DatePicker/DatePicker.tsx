@@ -34,9 +34,9 @@ export const getDateTypeFromddmmyyyyWithSep = (str: string): any | undefined => 
   return undefined;
 };
 
-const ExampleCustomTimeInput: FunctionComponent<any> = forwardRef((props, ref) => {
+const TimeInput: FunctionComponent<any> = forwardRef((props, ref) => {
   console.log('ExampleCustomTimeInput', props);
-  const { value, onChange, onClick, setStartDate } = props;
+  const { onChange, value, ...rest } = props;
 
   const [inputValue, setInputValue] = useState(value);
   const [hasError, setHasError] = useState(false);
@@ -48,7 +48,7 @@ const ExampleCustomTimeInput: FunctionComponent<any> = forwardRef((props, ref) =
 
   // for the validation process
   useEffect( () => {
-    if(!isValidDate(inputValue)){
+    if(!isValidDate(inputValue) && value){
       setHasError(true);
     }
     else{
@@ -59,8 +59,8 @@ const ExampleCustomTimeInput: FunctionComponent<any> = forwardRef((props, ref) =
   return (
     <div>
       <input
+        {...rest}
         ref={ref as any}
-        onClick={onClick}
         value={inputValue}
         onChange={(e) => {
           const enterredDate = e.target.value;
@@ -69,9 +69,6 @@ const ExampleCustomTimeInput: FunctionComponent<any> = forwardRef((props, ref) =
        
           // if enterred date is a valid date, then refect that one in the pop-up calendar
           if(isValidDate(enterredDate)){
-
-            const dateFormatted = getDateTypeFromddmmyyyyWithSep(enterredDate);
-           // setStartDate(new Date( dateFormatted.year + '-' + dateFormatted.month + '-' + dateFormatted.day));
             onChange(e);
           }
         }}
@@ -89,9 +86,8 @@ const DatePicker: FunctionComponent<DatePickerProps> = ({
   const nextIcon = <span className="pyreneIcon-chevronRight" />;
   const prevIcon = <span className="pyreneIcon-chevronLeft" />;
 
-  const [startDate, setStartDate] = useState(new Date());
+  const [startDate, setStartDate] = useState<null | Date>(null);
   
-  console.log('external', startDate);
   return (
     <div className={styles.wrapper}>
       <ReactDatepicker
@@ -139,7 +135,7 @@ const DatePicker: FunctionComponent<DatePickerProps> = ({
         dateFormat={dateOnly ? 'dd.MM.yyyy' : 'dd.MM.yyyy hh:mm aa'}
         formatWeekDay={(nameOfDay) => nameOfDay.substr(0, 1)}
         placeholderText="dd.MM.yyyy hh:mm"
-        customInput={<ExampleCustomTimeInput />}
+        customInput={<TimeInput />}
       />
     </div>
   );
