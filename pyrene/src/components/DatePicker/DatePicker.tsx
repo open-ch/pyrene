@@ -34,40 +34,46 @@ export const getDateTypeFromddmmyyyyWithSep = (str: string): any | undefined => 
   return undefined;
 };
 
-const ExampleCustomTimeInput: FunctionComponent<any> = forwardRef(({ value, onChange, onClick, setStartDate }, ref) => {
+const ExampleCustomTimeInput: FunctionComponent<any> = forwardRef((props, ref) => {
+  console.log('ExampleCustomTimeInput', props);
+  const { value, onChange, onClick, setStartDate } = props;
 
-  const [internalValue, setInternalValue] = useState(value);
+  const [inputValue, setInputValue] = useState(value);
   const [hasError, setHasError] = useState(false);
 
+  // when the user select a date in the pop-up calendar, do update the date in the input
   useEffect( () => {
-    if(!isValidDate(internalValue)){
+    setInputValue(value);
+  }, [value]);
+
+  // for the validation process
+  useEffect( () => {
+    if(!isValidDate(inputValue)){
       setHasError(true);
     }
     else{
       setHasError(false);
     }
-  }, [internalValue]);
+  }, [inputValue]);
 
   return (
     <div>
       <input
         ref={ref as any}
         onClick={onClick}
-        value={internalValue}
+        value={inputValue}
         onChange={(e) => {
           const enterredDate = e.target.value;
           console.log('new value', enterredDate);
-          setInternalValue(enterredDate);
+          setInputValue(enterredDate);
        
-          isValidDate(enterredDate) && onChange(e);
-   
-          /*
+          // if enterred date is a valid date, then refect that one in the pop-up calendar
           if(isValidDate(enterredDate)){
 
             const dateFormatted = getDateTypeFromddmmyyyyWithSep(enterredDate);
            // setStartDate(new Date( dateFormatted.year + '-' + dateFormatted.month + '-' + dateFormatted.day));
             onChange(e);
-          } */
+          }
         }}
         style={{ border: "solid 10px pink !important" }}
       />
@@ -128,12 +134,12 @@ const DatePicker: FunctionComponent<DatePickerProps> = ({
         selected={startDate}
         showPopperArrow={false}
         showTimeSelect={!dateOnly}
-        onChange={(date: Date) => useState(date)}
+        onChange={(date: Date) => setStartDate(date)}
         timeFormat='hh:mm'
         dateFormat={dateOnly ? 'dd.MM.yyyy' : 'dd.MM.yyyy hh:mm aa'}
         formatWeekDay={(nameOfDay) => nameOfDay.substr(0, 1)}
         placeholderText="dd.MM.yyyy hh:mm"
-        customInput={<ExampleCustomTimeInput setStartDate={setStartDate}/>}
+        customInput={<ExampleCustomTimeInput />}
       />
     </div>
   );
