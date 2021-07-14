@@ -4,7 +4,7 @@ import React, {
   useEffect,
   forwardRef,
 } from 'react';
-import ReactDatepicker from 'react-datepicker';
+import ReactDatepicker, { ReactDatePickerProps } from 'react-datepicker';
 import clsx from 'clsx';
 
 import {isExists} from 'date-fns';
@@ -22,7 +22,32 @@ const isValidDate = (date: string): boolean => {
   return date.length === 10;
 };
 
-const TimeInput: FunctionComponent<any> = forwardRef((props, ref) => {
+type CustomTimeInputProps = { 
+  placeholder?: string,
+  ariaInvalid?: string,
+  onClick?: (e: React.MouseEventHandler<HTMLInputElement>) => void,
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void,
+} & Pick<ReactDatePickerProps,
+  'ariaDescribedBy' |
+  'ariaLabelledBy' |
+  'ariaRequired' |
+  'autoComplete' |
+  'autoFocus' |
+  'className' |
+  'disabled' |
+  'id' |
+  'name' |
+  'onBlur' |
+  'onFocus' |
+  'onKeyDown' |
+  'readOnly' |
+  'required' |
+  'tabIndex' |
+  'title' |
+  'value'
+>;
+
+const CustomTimeInput: FunctionComponent<CustomTimeInputProps> = forwardRef((props, ref) => {
   console.log('ExampleCustomTimeInput', props);
   const { onChange, value, ...rest } = props;
 
@@ -36,7 +61,7 @@ const TimeInput: FunctionComponent<any> = forwardRef((props, ref) => {
 
   // for the validation process
   useEffect( () => {
-    if(!isValidDate(inputValue) && value){
+    if(inputValue && !isValidDate(inputValue) && value){
       setHasError(true);
     }
     else{
@@ -47,17 +72,16 @@ const TimeInput: FunctionComponent<any> = forwardRef((props, ref) => {
   return (
     <div>
       <input
-        {...rest}
+        {...rest as any}
         ref={ref as any}
         value={inputValue}
         onChange={(e) => {
           const enterredDate = e.target.value;
-          console.log('new value', enterredDate);
           setInputValue(enterredDate);
        
           // if enterred date is a valid date, then refect that one in the pop-up calendar
           if(isValidDate(enterredDate)){
-            onChange(e);
+            onChange?.(e);
           }
         }}
         style={{ border: "solid 10px pink !important" }}
@@ -122,8 +146,8 @@ const DatePicker: FunctionComponent<DatePickerProps> = ({
         timeFormat='HH:mm'
         dateFormat={dateOnly ? 'dd.MM.yyyy' : 'dd.MM.yyyy HH:mm aa'}
         formatWeekDay={(nameOfDay) => nameOfDay.substr(0, 1)}
-        placeholderText="dd.mm.yyyy hh:mm aa"
-        customInput={<TimeInput />}
+        placeholderText={dateOnly ? "dd.mm.yyyy " : "dd.mm.yyyy hh:mm aa"}
+        customInput={<CustomTimeInput />}
       />
     </div>
   );
