@@ -1,0 +1,14 @@
+@import '../../../styles/colors.css';
+
+
+.rangeHeader {
+  composes: commonFontSettings from '../../../styles/common.css';
+  color: var(--neutral-500);
+  display: flex;
+  padding-top: 16px;
+  border-bottom: 1px solid var(--neutral-050);
+}
+
+.leftbox, .rightbox {
+  margin-left: 16px;
+}

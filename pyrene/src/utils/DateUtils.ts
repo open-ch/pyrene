@@ -27,6 +27,8 @@ export type TimeType = {
   hours: number,
 };
 
+const allowedSeparatorCheck = (valueToCheck: string): boolean => (/[/.:]$/.test(valueToCheck));
+
 /**
  * Converts our custom date object to JavaScript Date
  * Because the month of the internal object is 0-indexed and
@@ -176,3 +178,23 @@ export const dateTypeToStandardEUDateFormat = (date: DateType): string => {
 export const standardEUDateFormat = (date: Date): string => format(date, 'dd.MM.yyyy');
 
 export const standardEUTimeFormat = (date: Date): string => format(date, 'HH:mm');
+
+export const getDateTypeFromddmmyyyyWithSep = (str: string): DateType | undefined => {
+  if (str.length === 10 && allowedSeparatorCheck(str.charAt(2)) && allowedSeparatorCheck(str.charAt(5))) {
+    const date = { day: +str.substr(0, 2), month: +str.substr(3, 2), year: +str.substr(6) };
+    if (!Number.isNaN(date.day) && !Number.isNaN(date.month) && !Number.isNaN(date.year)) {
+      return date;
+    }
+  }
+  return undefined;
+};
+
+export const getTimeTypeFromhhmmWithSep = (str: string): TimeType | undefined => {
+  if (str.length === 5 && allowedSeparatorCheck(str.charAt(2))) {
+    const time = { hours: +str.substr(0, 2), minutes: +str.substr(3) };
+    if (!Number.isNaN(time.hours) && !Number.isNaN(time.minutes)) {
+      return time;
+    }
+  }
+  return undefined;
+};

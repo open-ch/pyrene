@@ -110,7 +110,7 @@ export default class TimeRangeSelector extends Component {
     currentTimeRangeType = currentTimeRangeType ? currentTimeRangeType.id : ''; // If we found a match, then let's use the id of the preset, otherwise no default preset has to be selected
 
     return (
-      <div className={clsx(styles.timeRangeSelector, { [styles.disabled]: this.props.disabled })}>
+      <div className={clsx(styles.timeRangeSelector, { [styles.disabled]: this.props.disabled })} onClick={this.props.onClick}>
         <div className={styles['timeRangeSelector--left']}>
           <PresetTimeRanges
             disabled={this.props.disabled}
@@ -149,6 +149,7 @@ TimeRangeSelector.defaultProps = {
   disabled: false,
   presetTimeRanges: PRESET_TIME_RANGES,
   renderRightSection: () => {},
+  onClick: () => {},
 };
 
 TimeRangeSelector.propTypes = {
@@ -172,6 +173,7 @@ TimeRangeSelector.propTypes = {
    * Type: function(from: number, to: number) (required)
    */
   onChange: PropTypes.func.isRequired,
+  onClick: PropTypes.func,
   /**
    * The preset time ranges to display as preset buttons
    * Type: [{ id: string (required) the id of the preset, label: string (required) label of the preset button displayed to the user, durationInMs: number (required) the duration of the timerange in epoch ms }]

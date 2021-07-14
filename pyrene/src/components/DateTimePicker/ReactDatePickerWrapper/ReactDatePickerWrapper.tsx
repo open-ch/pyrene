@@ -8,11 +8,14 @@ import {
 import 'react-datepicker/dist/react-datepicker.css';
 import styles from '../datePicker.css';
 
+export { CalendarContainer } from 'react-datepicker';
 export interface DatePickerProps{
+  children?: React.ReactNode,
   /**
  * Replaces the input with any node, for example a button
  */
-  CustomInput: React.ReactNode;
+  CustomInput: React.ReactNode,
+  customHeader?(props: { children: React.ReactNode[] }): React.ReactNode,
   /**
    * This is a Date object that represents the end date of a date range
    */
@@ -45,6 +48,9 @@ export interface DatePickerProps{
    * This is a Date object that represents the selected date of the datepicker
    */
   selectedDate?: Date,
+  startRange?: boolean,
+  endRange?: boolean,
+  range?: boolean,
   /**
    * This is a Date object that represents the start date of a date range
    */
@@ -65,14 +71,26 @@ export interface DatePickerProps{
   shouldDisplayTimeColumn?: boolean,
 }
 
+export interface CalendarProps {
+  className?: string,
+  children: React.ReactNode,
+}
+
 
 const ReactDPWrapper: React.FC<DatePickerProps> = ({
+  children,
+  customHeader,
+  endDate = undefined,
   onKeyDown,
   selectedDate = undefined,
+  endRange = false,
+  startRange = false,
+  startDate = undefined,
   shouldDisplayTimeColumn = true,
   CustomInput = <input />,
   onChange = () => {},
   onSelect,
+  range = false,
 }: DatePickerProps) => {
 
   const nextIcon = (<span className="pyreneIcon-chevronRight" />);
@@ -81,6 +99,7 @@ const ReactDPWrapper: React.FC<DatePickerProps> = ({
   return (
     <div className={styles.wrapper}>
       <ReactDatepicker
+        endDate={endDate && endDate}
         renderCustomHeader={({
           date,
           decreaseMonth,
@@ -118,16 +137,23 @@ const ReactDPWrapper: React.FC<DatePickerProps> = ({
         )}
         customInput={CustomInput}
         calendarStartDay={1}
+        calendarContainer={customHeader}
         onKeyDown={onKeyDown}
         onSelect={onSelect}
         selected={selectedDate}
+        startDate={startDate || selectedDate}
         timeFormat="HH:mm"
         showPopperArrow={false}
         showTimeSelect={shouldDisplayTimeColumn}
         onChange={onChange}
-        dateFormat="dd.MM.yyyy"
+        dateFormat="dd.MM.yyyy HH:mm"
         formatWeekDay={(nameOfDay) => nameOfDay.substr(0, 1)}
-      />
+        selectsStart={startRange}
+        selectsEnd={endRange}
+        selectsRange={range}
+      >
+        {children}
+      </ReactDatepicker>
     </div>
   );
 };

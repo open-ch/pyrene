@@ -8,6 +8,7 @@ export interface InputProps {
   autoFocus?: boolean,
   dateOnly?: boolean,
   dateValue: string,
+  endDate?: { dateValue: string, timeValue: string },
   errorValue: string,
   handleOn?: (dateString: string, timeString: string, func:(event:any) => void) => void
   invalidTimestamp?: boolean,
@@ -17,18 +18,26 @@ export interface InputProps {
   onClick?: () => void,
   onBlur?: () => void,
   onFocus?: () => void,
+  range?: boolean,
   setDateValue?: (value: string) => void,
   setTimeValue?: (value: string) => void,
-  pOnChange?: (event: any) => void, // Handle change function passed from parent component
+  startDate?: { dateValue: string, timeValue: string },
   timeValue: string,
   value?: string
 }
 
-const allowedValueCheck = (valueToCheck:string) : boolean => (/^[0-9.:]*$/.test(valueToCheck));
+export interface InputProped {
+  label: string,
+  dateValue: string,
+  timeValue: string,
+}
+
+const allowedValueCheck = (valueToCheck:string) : boolean => (/^[0-9.: APM]*$/.test(valueToCheck));
 
 const DateTimeInput = forwardRef(({
   dateOnly = false,
   dateValue,
+  endDate,
   errorValue,
   handleOn,
   invalidTimestamp = false,
@@ -37,29 +46,50 @@ const DateTimeInput = forwardRef(({
   onBlur = () => {},
   onChange = () => {},
   onClick = () => {},
-  pOnChange = () => {},
+  range = false,
   setDateValue = () => {},
   setTimeValue = () => {},
+  startDate,
   timeValue,
 }:InputProps, ref:React.Ref<HTMLInputElement>) => {
 
+  const mapper = range ? { 'start-Date': { label: 'From', ...startDate }, 'end-Date': { label: 'To', ...endDate } } : { 'current-Date': { label: '', ...endDate } };
+
   const handleDateOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const node = event && event.target as HTMLInputElement;
-    if (allowedValueCheck(node.value)) {
-      setDateValue(node.value);
-      onChange(event);
+
+    console.log(node.value.trim());
+    if (allowedValueCheck(node.value.trim())) {
+      console.log('entered');
+      if (node.value.trim().length > 10) {
+        console.log('big');
+        setDateValue(node.value.substring(0, 10).trim());
+        setTimeValue(node.value.substring(10).trim());
+
+        if (node.value.substring(10).trim().length >= 5) {
+          return onChange(event);
+        }
+      } else {
+        console.log('small');
+        setDateValue(node.value.trim());
+        setTimeValue('');
+        return onChange(event);
+      }
     }
+    return {};
   };
 
-
-  const handleTimeOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const node = event && event.target as HTMLInputElement;
-    if (allowedValueCheck(node.value)) {
-      setTimeValue(node.value);
-      handleOn?.(dateValue, node.value, pOnChange);
+  const formattedTime = (tvalue: string) => {
+    if (!dateOnly) {
+      if (tvalue && tvalue !== '' && tvalue.length === 5) {
+        if (tvalue.localeCompare('12:00') < 0) {
+          return ' AM';
+        }
+        return ' PM';
+      }
     }
+    return '';
   };
-
 
   return (
     <div
@@ -71,35 +101,18 @@ const DateTimeInput = forwardRef(({
         <div className={clsx(styles.iconInputContainer, styles.calendar)}>
           <Icon type="inline" name="calendar" color="neutral-500" />
           <input
-            // {...props}
+            autoComplete="off"
+            className={clsx(styles.input, dateOnly ? styles.dateInput : styles.dateTimeInput)}
+            disabled={invalidTimestamp}
             name={name ? `${name}_date` : 'date_input'}
             placeholder={dateOnly ? 'DD.MM.YYYY' : 'DD.MM.YYYY HH:MM'}
-            className={clsx(styles.input, styles.dateInput)}
-            maxLength={dateOnly ? 10 : 16}
-            disabled={invalidTimestamp}
+            maxLength={dateOnly ? 10 : 19}
             ref={ref}
-            autoComplete="off"
             onClick={onClick}
             onChange={handleDateOnChange}
-            value={dateValue}
+            value={`${dateValue}${timeValue && ` ${timeValue}`}${formattedTime('')}`}
           />
         </div>
-        {/* !dateOnly && (
-          <div className={clsx(styles.iconInputContainer, styles.clock)}>
-            <Icon type="inline" name="clock" color="neutral-500" />
-            <input
-              autoComplete="off"
-              name={name ? `${name}_time` : 'time_input'}
-              placeholder="HH:MM"
-              className={clsx(styles.input, styles.timeInput)}
-              maxLength={5}
-              disabled={invalidTimestamp}
-              onChange={handleTimeOnChange}
-              onClick={onClick}
-              value={timeValue}
-            />
-          </div>
-        ) */}
       </div>
       {errorValue.length > 0 && (
         <div className={styles.dateTimeInputErrorMsg}>{errorValue}</div>

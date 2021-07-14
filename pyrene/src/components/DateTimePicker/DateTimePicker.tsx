@@ -12,7 +12,9 @@ import {
   getFutureDate, standardEUDateFormat, standardEUTimeFormat,
   isValidDate, isValidTime, isValidTimeZone, convertToDateTypeObject, convertToTimeTypeObject,
   convertToUTCtime, convertToZoneTime, convertDateTypeToString, convertTimeTypeToString, dateTypeToStandardEUDateFormat,
+  getDateTypeFromddmmyyyyWithSep, getTimeTypeFromhhmmWithSep,
 } from '../../utils/DateUtils';
+import DateTimeRangeSelector from './DateTimeRangeSelector/DateTimeRangeSelector';
 
 
 
@@ -32,6 +34,7 @@ export interface DateTimeInputProps{
    * Name that can be used to uniquely identify the component
    */
   name?: string,
+  range?: boolean,
   /**
    * This is a unix timestamp, which is the number of seconds that have elapsed since Unix epoch
    */
@@ -49,28 +52,6 @@ export interface DateTimeInputProps{
    */
   onChange: OnFunction,
 }
-
-const allowedSeparatorCheck = (valueToCheck: string): boolean => (/[/.:]$/.test(valueToCheck));
-
-export const getDateTypeFromddmmyyyyWithSep = (str: string): DateType | undefined => {
-  if (str.length === 10 && allowedSeparatorCheck(str.charAt(2)) && allowedSeparatorCheck(str.charAt(5))) {
-    const date = { day: +str.substr(0, 2), month: +str.substr(3, 2), year: +str.substr(6) };
-    if (!Number.isNaN(date.day) && !Number.isNaN(date.month) && !Number.isNaN(date.year)) {
-      return date;
-    }
-  }
-  return undefined;
-};
-
-export const getTimeTypeFromhhmmWithSep = (str: string): TimeType | undefined => {
-  if (str.length === 5 && allowedSeparatorCheck(str.charAt(2))) {
-    const time = { hours: +str.substr(0, 2), minutes: +str.substr(3) };
-    if (!Number.isNaN(time.hours) && !Number.isNaN(time.minutes)) {
-      return time;
-    }
-  }
-  return undefined;
-};
 
 const inRange = (timestampToCheck: number, minimumValue: number, maximumValue: number): number => {
   if (timestampToCheck < minimumValue) {
@@ -90,14 +71,23 @@ const DateTimePicker: React.FC<DateTimeInputProps> = ({
   name,
   onBlur,
   onChange,
+  range = true,
   timeStamp,
   timeZone = 'Europe/Zurich',
 }: DateTimeInputProps) => {
 
   const [internalDate, setInternalDate] = useState<Date | undefined>(undefined);
+  const [endDate, setEndDate] = useState<Date | undefined>(undefined);
+  const [startDate, setStartDate] = useState<Date | undefined>(undefined);
 
   const [dateValue, setDateValue] = useState('');
   const [timeValue, setTimeValue] = useState('');
+
+  const [startDateValue, setStartDateValue] = useState('');
+  const [startTimeValue, setStartTimeValue] = useState('');
+
+  const [endDateValue, setEndDateValue] = useState('');
+  const [endTimeValue, setEndTimeValue] = useState('');
 
   const [timeZoneValue, setTimeZoneValue] = useState(timeZone);
 
@@ -141,11 +131,32 @@ const DateTimePicker: React.FC<DateTimeInputProps> = ({
     }
   }, [timeZoneValue]);
 
-  const onChangeReactDP = (date: Date | [Date, Date] | null, event: React.SyntheticEvent<any> | undefined): void => {
+  const onChangeReactDP = (date: Date | [Date, Date] | null, event: React.SyntheticEvent<any> | undefined, rangePos?:string): void => {
+    console.log(event?.type);
+    console.log(date);
+
+    if (Array.isArray(date)) {
+      const [start, end] = date;
+      setStartDate(start);
+      setEndDate(end);
+    }
+
+
+
+
     if (date && (event?.type === 'click' || (event?.type === 'keydown' && (event as React.KeyboardEvent).key.length > 1))) {
       if (!Array.isArray(date)) {
         setDateValue(standardEUDateFormat(date));
         setInternalDate(date);
+
+        if (rangePos && rangePos === 'start') {
+          setStartDate(date);
+        }
+
+        if (rangePos && rangePos === 'end') {
+          setEndDate(date);
+          setEndDateValue(standardEUDateFormat(date));
+        }
 
         if (dateOnly) {
           handleOn(standardEUDateFormat(date), '00:00', onChange);
@@ -155,24 +166,60 @@ const DateTimePicker: React.FC<DateTimeInputProps> = ({
       }
     } else if (event?.type === 'change') {
       const node = event?.target as HTMLInputElement;
-      const isDateLongEnough = node?.value.length === 10;
+      const isDateLongEnough = node?.value.length >= 10;
+      const isTimeLongEnough = node?.value.length >= 16;
+
+      console.log('value ', node?.value.length);
 
       if (isDateLongEnough) {
-        const newdate = getDateTypeFromddmmyyyyWithSep(node?.value || '');
+        const newdate = getDateTypeFromddmmyyyyWithSep(node?.value.substring(0, 10) || '');
+        console.log('Date  : ', newdate);
 
         if (newdate) {
           setDateValue(dateTypeToStandardEUDateFormat(newdate));
+          console.log('Passed Date  : ', convertToUTCtime(convertDateTypeToString(newdate), timeZoneValue));
           setInternalDate(convertToUTCtime(convertDateTypeToString(newdate), timeZoneValue));
 
           if (dateOnly) {
             handleOn(dateTypeToStandardEUDateFormat(newdate), '00:00', onChange);
-          } else {
-            handleOn(dateTypeToStandardEUDateFormat(newdate), timeValue, onChange);
           }
         }
       }
+
+      if (!dateOnly && isTimeLongEnough) {
+        const newdate = getDateTypeFromddmmyyyyWithSep(node?.value.substring(0, 10) || '');
+        const newtime = getTimeTypeFromhhmmWithSep(node?.value.substring(10).trim() || '');
+
+        console.log('Time  : ', newtime);
+
+        if (newdate && newtime) {
+          setTimeValue(convertTimeTypeToString(newtime));
+
+          console.log('Entered : ', convertToUTCtime(`${convertDateTypeToString(newdate)} ${convertTimeTypeToString(newtime)}`, timeZoneValue));
+          setInternalDate(convertToUTCtime(`${convertDateTypeToString(newdate)} ${convertTimeTypeToString(newtime)}`, timeZoneValue));
+
+          handleOn(dateValue, convertTimeTypeToString(newtime), onChange);
+        }
+
+        console.log('Internal : ', internalDate);
+      }
     } else if (event === undefined && !Array.isArray(date) && date !== null) { // This is relying on the time click event being 'undefined' temporary fix for access to time value
+      console.log(date);
+      console.log(rangePos);
+
+      if (rangePos && rangePos === 'start') {
+        setStartTimeValue(standardEUTimeFormat(date));
+        setStartDateValue(standardEUDateFormat(date));
+      }
+
+      if (rangePos && rangePos === 'end') {
+        setEndTimeValue(standardEUTimeFormat(date));
+        setEndDateValue(standardEUDateFormat(date));
+      }
+
+
       setTimeValue(standardEUTimeFormat(date));
+      setDateValue(standardEUDateFormat(date));
       handleOn(standardEUDateFormat(date), standardEUTimeFormat(date), onChange);
     } else {
       setInvalidDate(false);
@@ -270,26 +317,115 @@ const DateTimePicker: React.FC<DateTimeInputProps> = ({
   }, [invalidDate, invalidTime, invalidTimestamp, invalidTimeZone, jsDateObject, maxDateTime, minDateTime]);
 
   return (
-    <ReactDPWrapper
-      onChange={onChangeReactDP}
-      selectedDate={timeStamp ? jsDateObject : internalDate}
-      shouldDisplayTimeColumn={!dateOnly}
-      CustomInput={(
-        <DateTimeInput
-          dateValue={dateValue}
-          handleOn={handleOn}
-          timeValue={timeValue}
-          errorValue={errorValue}
-          invalidTimestamp={invalidTimestamp}
-          name={name}
-          onBlur={onBlur}
-          pOnChange={onChange}
-          setDateValue={setDateValue}
-          setTimeValue={setTimeValue}
-          dateOnly={dateOnly}
-        />
-      )}
-    />
+    <>
+      <table>
+        <thead>
+          <tr>
+            <th>
+              Testing Dateker.o.0
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <DateTimeRangeSelector
+                endDate={endDate}
+                startDate={startDate}
+                onChange={onChangeReactDP}
+                setEndDateValue={setEndDateValue}
+                setEndTimeValue={setEndTimeValue}
+                setStartDateValue={setStartDateValue}
+                setStartTimeValue={setStartTimeValue}
+                timeZone={timeZone}
+              />
+            </td>
+          </tr>
+          <tr>
+            <td style={{ height: '200px' }}>
+              <ReactDPWrapper
+                endDate={endDate}
+                onChange={(date, event) => onChangeReactDP(date, event, 'start')}
+                startRange={range}
+                selectedDate={startDate}
+                shouldDisplayTimeColumn={!dateOnly}
+                startDate={startDate}
+                CustomInput={(
+                  <DateTimeInput
+                    dateValue={startDateValue}
+                    handleOn={handleOn}
+                    timeValue={startTimeValue}
+                    errorValue={errorValue}
+                    invalidTimestamp={invalidTimestamp}
+                    label="From"
+                    name={name}
+                    onBlur={onBlur}
+                    range={false}
+                    setDateValue={setStartDateValue}
+                    setTimeValue={setStartTimeValue}
+                    dateOnly={dateOnly}
+
+                  />
+                )}
+              />
+
+              <ReactDPWrapper
+                endDate={endDate}
+                onChange={(date, event) => onChangeReactDP(date, event, 'end')}
+                endRange={range}
+                selectedDate={endDate}
+                shouldDisplayTimeColumn={!dateOnly}
+                startDate={startDate}
+                CustomInput={(
+                  <DateTimeInput
+                    dateValue={endDateValue}
+                    handleOn={handleOn}
+                    timeValue={endTimeValue}
+                    errorValue={errorValue}
+                    invalidTimestamp={invalidTimestamp}
+                    label="To"
+                    name={name}
+                    onBlur={onBlur}
+                    range={false}
+                    setDateValue={setEndDateValue}
+                    setTimeValue={setEndTimeValue}
+                    dateOnly={dateOnly}
+
+                  />
+                )}
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <ReactDPWrapper
+                onChange={onChangeReactDP}
+                endRange={range}
+                selectedDate={timeStamp ? jsDateObject : internalDate}
+                shouldDisplayTimeColumn={!dateOnly}
+                CustomInput={(
+                  <DateTimeInput
+                    dateValue={dateValue}
+                    handleOn={handleOn}
+                    timeValue={timeValue}
+                    errorValue={errorValue}
+                    invalidTimestamp={invalidTimestamp}
+                    name={name}
+                    onBlur={onBlur}
+                    range={false}
+                    setDateValue={setDateValue}
+                    setTimeValue={setTimeValue}
+                    dateOnly={dateOnly}
+
+                  />
+                )}
+              />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+    </>
   );
 };
 
