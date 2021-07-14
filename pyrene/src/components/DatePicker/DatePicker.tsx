@@ -122,7 +122,7 @@ const DatePicker: FunctionComponent<DatePickerProps> = ({
         timeFormat='hh:mm'
         dateFormat={dateOnly ? 'dd.MM.yyyy' : 'dd.MM.yyyy hh:mm aa'}
         formatWeekDay={(nameOfDay) => nameOfDay.substr(0, 1)}
-        placeholderText="dd.MM.yyyy hh:mm"
+        placeholderText="dd.mm.yyyy hh:mm aa"
         customInput={<TimeInput />}
       />
     </div>
