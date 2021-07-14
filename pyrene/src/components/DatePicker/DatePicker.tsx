@@ -143,10 +143,10 @@ const DatePicker: FunctionComponent<DatePickerProps> = ({
         showPopperArrow={false}
         showTimeSelect={!dateOnly}
         onChange={(date: Date) => setStartDate(date)}
-        timeFormat='HH:mm'
-        dateFormat={dateOnly ? 'dd.MM.yyyy' : 'dd.MM.yyyy HH:mm aa'}
+        timeFormat="HH:mm"
+        dateFormat={dateOnly ? "dd.MM.yyyy" : "dd.MM.yyyy HH:mm aa"}
         formatWeekDay={(nameOfDay) => nameOfDay.substr(0, 1)}
-        placeholderText={dateOnly ? "dd.mm.yyyy " : "dd.mm.yyyy hh:mm aa"}
+        placeholderText={dateOnly ? "dd.mm.yyyy" : "dd.mm.yyyy hh:mm aa"}
         customInput={<CustomTimeInput />}
       />
     </div>
