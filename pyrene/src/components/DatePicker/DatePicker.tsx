@@ -48,7 +48,6 @@ type CustomTimeInputProps = {
 >;
 
 const CustomTimeInput: FunctionComponent<CustomTimeInputProps> = forwardRef((props, ref) => {
-  console.log('ExampleCustomTimeInput', props);
   const { onChange, value, ...rest } = props;
 
   const [inputValue, setInputValue] = useState(value);
