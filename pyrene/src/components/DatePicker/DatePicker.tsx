@@ -5,13 +5,8 @@ import React, {
   forwardRef,
 } from 'react';
 import ReactDatepicker, { ReactDatePickerProps } from 'react-datepicker';
-import clsx from 'clsx';
-
-import {isExists} from 'date-fns';
 import parse from 'date-fns/parse';
 import isValid from 'date-fns/isValid';
-import setHours from 'date-fns/setHours';
-import setMinutes from 'date-fns/setMinutes';
 import styles from './datePicker.css';
 import 'react-datepicker/dist/react-datepicker.css';
 
