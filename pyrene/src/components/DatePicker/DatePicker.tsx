@@ -10,7 +10,6 @@ import isValid from 'date-fns/isValid';
 import styles from './datePicker.css';
 import 'react-datepicker/dist/react-datepicker.css';
 
-
 const DATE_FORMAT = 'dd.mm.yyyy';
 const DATETIME_FORMAT = 'dd.MM.yyyy hh:mm aa';
 
@@ -61,7 +60,7 @@ const CustomTimeInput: FunctionComponent<CustomTimeInputProps> = forwardRef((pro
 
   // do the validation each time the input is updated
   useEffect( () => {
-    if(inputValue && !isValidDate(inputValue, dateFormatting) && value){
+    if(inputValue && !isValidDate(inputValue, dateFormatting)){
       setHasError(true);
     }
     else{
