@@ -15,6 +15,10 @@ import setMinutes from 'date-fns/setMinutes';
 import styles from './datePicker.css';
 import 'react-datepicker/dist/react-datepicker.css';
 
+
+const DATE_FORMAT = 'dd.mm.yyyy';
+const DATETIME_FORMAT = 'dd.MM.yyyy hh:mm aa';
+
 export interface DatePickerProps {
   dateOnly?: boolean,
 }
@@ -53,7 +57,7 @@ const CustomTimeInput: FunctionComponent<CustomTimeInputProps> = forwardRef((pro
   const [inputValue, setInputValue] = useState(value);
   const [hasError, setHasError] = useState(false);
 
-  const dateFormatting = dateOnly ? 'dd.mm.yyyy' : "dd.MM.yyyy hh:mm aa";
+  const dateFormatting = dateOnly ? DATE_FORMAT : DATETIME_FORMAT;
 
   // when the user select a date in the pop-up calendar, do update the date in the input
   useEffect( () => {
@@ -82,11 +86,7 @@ const CustomTimeInput: FunctionComponent<CustomTimeInputProps> = forwardRef((pro
 
           // if enterred date is a valid date, then refect that one in the pop-up calendar
           if(isValidDate(enterredDate, dateFormatting)){
-            console.log('date is valid');
             onChange?.(e);
-          }
-          else {
-            console.log('date is not valid');
           }
         }}
         style={{ border: "solid 10px pink !important" }}
@@ -149,7 +149,7 @@ const DatePicker: FunctionComponent<DatePickerProps> = ({
         showTimeSelect={!dateOnly}
         onChange={(date: Date) => setStartDate(date)}
         timeFormat="hh:mm"
-        dateFormat={dateOnly ? "dd.MM.yyyy" : "dd.MM.yyyy hh:mm aa"}
+        dateFormat={dateOnly ? DATE_FORMAT : DATETIME_FORMAT}
         formatWeekDay={(nameOfDay) => nameOfDay.substr(0, 1)}
         placeholderText={dateOnly ? "dd.mm.yyyy" : "dd.mm.yyyy hh:mm aa"}
         customInput={<CustomTimeInput dateOnly={dateOnly}/>}
