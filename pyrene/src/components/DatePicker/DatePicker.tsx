@@ -8,6 +8,7 @@ import ReactDatepicker, { ReactDatePickerProps } from 'react-datepicker';
 import clsx from 'clsx';
 
 import {isExists} from 'date-fns';
+import parse from 'date-fns/parse';
 import isValid from 'date-fns/isValid';
 import setHours from 'date-fns/setHours';
 import setMinutes from 'date-fns/setMinutes';
@@ -18,11 +19,10 @@ export interface DatePickerProps {
   dateOnly?: boolean,
 }
 
-const isValidDate = (date: string): boolean => {
-  return date.length === 10;
-};
+const isValidDate = (dateString: string, formatting: string) => isValid(parse(dateString, formatting, new Date()));
 
-type CustomTimeInputProps = { 
+type CustomTimeInputProps = {
+  dateOnly: boolean,
   placeholder?: string,
   ariaInvalid?: string,
   onClick?: (e: React.MouseEventHandler<HTMLInputElement>) => void,
@@ -48,10 +48,12 @@ type CustomTimeInputProps = {
 >;
 
 const CustomTimeInput: FunctionComponent<CustomTimeInputProps> = forwardRef((props, ref) => {
-  const { onChange, value, ...rest } = props;
+  const { onChange, value, dateOnly, ...rest } = props;
 
   const [inputValue, setInputValue] = useState(value);
   const [hasError, setHasError] = useState(false);
+
+  const dateFormatting = dateOnly ? 'dd.mm.yyyy' : "dd.MM.yyyy hh:mm aa";
 
   // when the user select a date in the pop-up calendar, do update the date in the input
   useEffect( () => {
@@ -60,7 +62,7 @@ const CustomTimeInput: FunctionComponent<CustomTimeInputProps> = forwardRef((pro
 
   // for the validation process
   useEffect( () => {
-    if(inputValue && !isValidDate(inputValue) && value){
+    if(inputValue && !isValidDate(inputValue, dateFormatting) && value){
       setHasError(true);
     }
     else{
@@ -77,10 +79,14 @@ const CustomTimeInput: FunctionComponent<CustomTimeInputProps> = forwardRef((pro
         onChange={(e) => {
           const enterredDate = e.target.value;
           setInputValue(enterredDate);
-       
+
           // if enterred date is a valid date, then refect that one in the pop-up calendar
-          if(isValidDate(enterredDate)){
+          if(isValidDate(enterredDate, dateFormatting)){
+            console.log('date is valid');
             onChange?.(e);
+          }
+          else {
+            console.log('date is not valid');
           }
         }}
         style={{ border: "solid 10px pink !important" }}
@@ -91,7 +97,7 @@ const CustomTimeInput: FunctionComponent<CustomTimeInputProps> = forwardRef((pro
 });
 
 const DatePicker: FunctionComponent<DatePickerProps> = ({
-  dateOnly,
+  dateOnly=false,
 }: DatePickerProps) => {
 
   const nextIcon = <span className="pyreneIcon-chevronRight" />;
@@ -142,11 +148,11 @@ const DatePicker: FunctionComponent<DatePickerProps> = ({
         showPopperArrow={false}
         showTimeSelect={!dateOnly}
         onChange={(date: Date) => setStartDate(date)}
-        timeFormat="HH:mm"
-        dateFormat={dateOnly ? "dd.MM.yyyy" : "dd.MM.yyyy HH:mm aa"}
+        timeFormat="hh:mm"
+        dateFormat={dateOnly ? "dd.MM.yyyy" : "dd.MM.yyyy hh:mm aa"}
         formatWeekDay={(nameOfDay) => nameOfDay.substr(0, 1)}
         placeholderText={dateOnly ? "dd.mm.yyyy" : "dd.mm.yyyy hh:mm aa"}
-        customInput={<CustomTimeInput />}
+        customInput={<CustomTimeInput dateOnly={dateOnly}/>}
       />
     </div>
   );
