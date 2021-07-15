@@ -177,3 +177,17 @@
   padding: 0;
   margin-bottom: 4px;
 }
+
+.dateInvalidWrapper {
+  height: 13px;
+  margin: 3px 7px 0 0;
+  font-size: 11px;
+  line-height: 1.18;
+  letter-spacing: normal;
+  color: var(--red-500);
+}
+
+/* for the gap between the invalid date message and the pop-up calendar */
+.wrapper :global .react-datepicker-popper[data-placement^="bottom"] {
+  padding-top: 0px;
+}
