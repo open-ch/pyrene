@@ -8,10 +8,10 @@ export interface InputProps {
   autoFocus?: boolean,
   dateOnly?: boolean,
   dateValue: string,
-  endDate?: { dateValue: string, timeValue: string },
   errorValue: string,
   handleOn?: (dateString: string, timeString: string, func:(event:any) => void) => void
   invalidTimestamp?: boolean,
+  Key?: string
   label?: string,
   name?: string,
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void, // Handle change function passed from react-datepicker
@@ -21,7 +21,6 @@ export interface InputProps {
   range?: boolean,
   setDateValue?: (value: string) => void,
   setTimeValue?: (value: string) => void,
-  startDate?: { dateValue: string, timeValue: string },
   timeValue: string,
   value?: string
 }
@@ -37,10 +36,10 @@ const allowedValueCheck = (valueToCheck:string) : boolean => (/^[0-9.: APM]*$/.t
 const DateTimeInput = forwardRef(({
   dateOnly = false,
   dateValue,
-  endDate,
   errorValue,
   handleOn,
   invalidTimestamp = false,
+  Key = '',
   label,
   name = '',
   onBlur = () => {},
@@ -49,11 +48,8 @@ const DateTimeInput = forwardRef(({
   range = false,
   setDateValue = () => {},
   setTimeValue = () => {},
-  startDate,
   timeValue,
 }:InputProps, ref:React.Ref<HTMLInputElement>) => {
-
-  const mapper = range ? { 'start-Date': { label: 'From', ...startDate }, 'end-Date': { label: 'To', ...endDate } } : { 'current-Date': { label: '', ...endDate } };
 
   const handleDateOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const node = event && event.target as HTMLInputElement;
@@ -98,7 +94,7 @@ const DateTimeInput = forwardRef(({
     >
       <div className={styles.dateTimeFieldTitle}>{label || (dateOnly ? 'Date' : 'Date & Time')}</div>
       <div className={clsx(styles.dateTimeInputArea, { [styles.dateTimeInputError]: errorValue.length > 0 })}>
-        <div className={clsx(styles.iconInputContainer, styles.calendar)}>
+        <div className={clsx(styles.iconInputContainer, styles.calendar)} key={Key}>
           <Icon type="inline" name="calendar" color="neutral-500" />
           <input
             autoComplete="off"

@@ -20,6 +20,7 @@ export interface DatePickerProps{
    * This is a Date object that represents the end date of a date range
    */
   endDate?: Date,
+  inline?: boolean,
   /**
    * This is a timestamp that represents the maximum date allowed by the component
    */
@@ -88,6 +89,7 @@ const ReactDPWrapper: React.FC<DatePickerProps> = ({
   startDate = undefined,
   shouldDisplayTimeColumn = true,
   CustomInput = <input />,
+  inline = false,
   onChange = () => {},
   onSelect,
   range = false,
@@ -152,6 +154,7 @@ const ReactDPWrapper: React.FC<DatePickerProps> = ({
         selectsEnd={endRange}
         selectsRange={range}
         shouldCloseOnSelect={closeOnSelect}
+        inline={inline}
       />
     </div>
   );

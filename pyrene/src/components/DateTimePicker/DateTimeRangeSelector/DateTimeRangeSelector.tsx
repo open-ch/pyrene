@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import Button from '../../Button/Button';
 import { standardEUDateFormat, standardEUTimeFormat } from '../../../utils/DateUtils';
 import TimeRangeSelector from '../../TimeRangeSelector/TimeRangeSelector';
-import DateTimeInput from '../DateTimeInput/DateTimeInput';
+import DateTimeInput, { InputProps } from '../DateTimeInput/DateTimeInputNoRefs';
 import ReactDPWrapper, { CalendarContainer, CalendarProps } from '../ReactDatePickerWrapper/ReactDatePickerWrapper';
 
 import styles from './DateTimeRangeSelector.css';
@@ -23,6 +23,7 @@ export interface DateTimeRangeSelectorProps {
   setStartDateValue?: (value: string) => void,
   setStartTimeValue?: (value: string) => void,
   timeZone: string,
+  inline?: boolean,
   maxDate?: Date,
   minDate?: Date,
   onChange: (date:Date | [Date, Date] | null, event: React.SyntheticEvent<any> | undefined, rangePos?:string) => void
@@ -30,12 +31,43 @@ export interface DateTimeRangeSelectorProps {
   name?: string,
 }
 
+const InputComp = ({
+  dateValue = '',
+  handleOn = () => {},
+  timeValue,
+  errorValue,
+  invalidTimestamp,
+  label,
+  name,
+  onBlur,
+  range,
+  setDateValue,
+  setTimeValue,
+  dateOnly,
+}: InputProps) => (
+  <DateTimeInput
+    dateValue={dateValue}
+    handleOn={handleOn}
+    timeValue={timeValue}
+    errorValue={errorValue}
+    invalidTimestamp={invalidTimestamp}
+    label={label}
+    onBlur={onBlur}
+    range={range}
+    setDateValue={setDateValue}
+    setTimeValue={setTimeValue}
+    dateOnly={dateOnly}
+    // onChange={(event) => onChange(startDate || null, event)}
+  />
+);
+
 const DateTimeRangeSelector: React.FC<DateTimeRangeSelectorProps> = (({
   dateOnly = false,
   endDate,
   errorValue = '',
   handleOn,
   invalidTimestamp,
+  inline = false,
   minDate,
   maxDate,
   name = '',
@@ -52,6 +84,9 @@ const DateTimeRangeSelector: React.FC<DateTimeRangeSelectorProps> = (({
   onBlur,
   onChange,
 }:DateTimeRangeSelectorProps) => {
+
+  const fromRef = useRef<HTMLInputElement>(null);
+  const toRef = useRef<HTMLInputElement>(null);
 
   const range = true;
   const [message, setMessage] = useState('');
@@ -70,65 +105,67 @@ const DateTimeRangeSelector: React.FC<DateTimeRangeSelectorProps> = (({
     </>
   );
 
-  const header = () => (
-    <div className={styles.rangeHeader}>
-      <div className={styles.leftbox}>
-        <DateTimeInput
-          dateValue={startDateValue}
-          handleOn={handleOn}
-          timeValue={startTimeValue}
-          errorValue={errorValue}
-          invalidTimestamp={invalidTimestamp}
-          label="From"
-          name={name}
-          onBlur={onBlur}
-          range={range}
-          setDateValue={setStartDateValue}
-          setTimeValue={setStartTimeValue}
-          dateOnly={dateOnly}
-        />
-      </div>
-      <div className={styles.rightbox}>
-        <DateTimeInput
-          dateValue={endDateValue}
-          handleOn={handleOn}
-          timeValue={endTimeValue}
-          errorValue={errorValue}
-          invalidTimestamp={invalidTimestamp}
-          label="To"
-          name={name}
-          onBlur={onBlur}
-          range={range}
-          setDateValue={setEndDateValue}
-          setTimeValue={setEndTimeValue}
-          dateOnly={dateOnly}
-        />
-      </div>
-    </div>
-  );
-
-  const calendar = ({ className, children }: CalendarProps) => (
-    <>
-      {header()}
-      <CalendarContainer className={className}>
-        <div style={{ position: 'relative' }}>{children}</div>
-      </CalendarContainer>
-      {footer()}
-    </>
-  );
+  function Calendar({ className, children }: CalendarProps) {
+    return (
+      <>
+        <div className={styles.rangeHeader}>
+          <div className={styles.leftbox}>
+            <InputComp
+              dateValue={startDateValue}
+              handleOn={handleOn}
+              timeValue={startTimeValue}
+              errorValue={errorValue}
+              invalidTimestamp={invalidTimestamp}
+              label="From"
+              name={`${name}_from_`}
+              onBlur={onBlur}
+              range={range}
+              setDateValue={setStartDateValue}
+              setTimeValue={setStartTimeValue}
+              dateOnly={dateOnly}
+              // onChange={(event) => onChange(startDate || null, event)}
+            />
+          </div>
+          <div className={styles.rightbox}>
+            <DateTimeInput
+              dateValue={endDateValue}
+              handleOn={handleOn}
+              timeValue={endTimeValue}
+              errorValue={errorValue}
+              invalidTimestamp={invalidTimestamp}
+              label="To"
+              name={`${name}_to_`}
+              onBlur={onBlur}
+              range={range}
+              setDateValue={setEndDateValue}
+              setTimeValue={setEndTimeValue}
+              dateOnly={dateOnly}
+              // onChange={(event) => onChange(endDate || null, event)}
+            />
+          </div>
+        </div>
+        <CalendarContainer className={className}>
+          <div style={{ position: 'relative' }}>{children}</div>
+        </CalendarContainer>
+        {footer()}
+      </>
+    );
+  }
 
   return (
     <>
+      {Calendar({ className: '', children: [] })}
+
       <ReactDPWrapper
         closeOnSelect={false}
-        customCalendar={calendar}
+        customCalendar={({ children }) => Calendar({ className: '', children })}
         endDate={endDate}
         onChange={(date, event) => onChange(date, event, 'start')}
         selectedDate={startDate}
         shouldDisplayTimeColumn={!dateOnly}
         startDate={startDate}
         range={range}
-        CustomInput={(
+        CustomInput={!inline && (
           <TimeRangeSelector
             timezone="Europe/Zurich"
             from={0}
@@ -138,6 +175,7 @@ const DateTimeRangeSelector: React.FC<DateTimeRangeSelectorProps> = (({
             onChange={(val: any) => { console.log(val); }}
           />
         )}
+        inline={inline}
       />
     </>
   );

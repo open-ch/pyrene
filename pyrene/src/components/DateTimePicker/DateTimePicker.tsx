@@ -142,6 +142,8 @@ const DateTimePicker: React.FC<DateTimeInputProps> = ({
   const onChangeReactDP = (date: Date | [Date, Date] | null, event: React.SyntheticEvent<any> | undefined, rangePos?:string): void => {
     console.log(event?.type);
     console.log(date);
+    console.log(rangePos);
+    console.log(startTimeValue);
 
     if (Array.isArray(date)) {
       const [start, end] = date;
@@ -150,18 +152,42 @@ const DateTimePicker: React.FC<DateTimeInputProps> = ({
 
       if (rangePos && rangePos === 'start') {
         setStartDate(start);
+        setStartDateValue(standardEUDateFormat(start));
+
+        if (end !== null) {
+          setEndDate(end);
+          setEndDateValue(standardEUDateFormat(end));
+        }
       }
 
       if (rangePos && rangePos === 'start2') {
         setStartDate2(start);
+        setStartDateValue2(standardEUDateFormat(start));
+
+        if (end !== null) {
+          setEndDate2(end);
+          setEndDateValue2(standardEUDateFormat(end));
+        }
       }
 
       if (rangePos && rangePos === 'end') {
         setEndDate(end);
+        setEndDateValue(standardEUDateFormat(end));
+
+        if (start !== null) {
+          setStartDate(start);
+          setStartDateValue(standardEUDateFormat(start));
+        }
       }
 
       if (rangePos && rangePos === 'end2') {
         setEndDate2(end);
+        setEndDateValue2(standardEUDateFormat(end));
+
+        if (start !== null) {
+          setStartDate2(start);
+          setStartDateValue2(standardEUDateFormat(start));
+        }
       }
     }
 
@@ -472,6 +498,25 @@ const DateTimePicker: React.FC<DateTimeInputProps> = ({
 
                   />
                 )}
+              />
+            </td>
+          </tr>
+          <tr>
+            <td colSpan={2}>
+              <DateTimeRangeSelector
+                endDate={endDate}
+                startDate={startDate}
+                onChange={onChangeReactDP}
+                startDateValue={startDateValue}
+                startTimeValue={startTimeValue}
+                endDateValue={endDateValue}
+                endTimeValue={endTimeValue}
+                setEndDateValue={setEndDateValue}
+                setEndTimeValue={setEndTimeValue}
+                setStartDateValue={setStartDateValue}
+                setStartTimeValue={setStartTimeValue}
+                timeZone={timeZone}
+                inline
               />
             </td>
           </tr>
