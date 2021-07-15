@@ -60,7 +60,7 @@ const CustomTimeInput: FunctionComponent<CustomTimeInputProps> = forwardRef((pro
     setInputValue(value);
   }, [value]);
 
-  // for the validation process
+  // do the validation each time the input is updated
   useEffect( () => {
     if(inputValue && !isValidDate(inputValue, dateFormatting) && value){
       setHasError(true);
