@@ -6,9 +6,30 @@
   color: var(--neutral-500);
   display: flex;
   padding-top: 16px;
+  padding-bottom: 24px;
   border-bottom: 1px solid var(--neutral-050);
 }
 
 .leftbox, .rightbox {
+  margin-left: 16px;
+}
+
+.infoBox {
+  font-size: 12px;
+  line-height: 32px;  
+}
+
+.rangeFooter {
+  height: 32px;
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid var(--neutral-050);
+}
+
+.footerButtonsBox {
+  text-align: right;
+}
+.footerButtonsBox > div {
   margin-left: 16px;
 }

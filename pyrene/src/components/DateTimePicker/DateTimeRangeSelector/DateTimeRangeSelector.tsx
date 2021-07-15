@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Button from '../../Button/Button';
 import { standardEUDateFormat, standardEUTimeFormat } from '../../../utils/DateUtils';
 import TimeRangeSelector from '../../TimeRangeSelector/TimeRangeSelector';
 import DateTimeInput from '../DateTimeInput/DateTimeInput';
@@ -13,6 +14,10 @@ export interface DateTimeRangeSelectorProps {
   handleOn?: (dateString: string, timeString: string, func:(event:any) => void) => void
   invalidTimestamp?: boolean,
   startDate?: Date,
+  startDateValue?: string,
+  endDateValue?: string,
+  startTimeValue?: string,
+  endTimeValue?: string,
   setEndDateValue?: (value: string) => void,
   setEndTimeValue?: (value: string) => void,
   setStartDateValue?: (value: string) => void,
@@ -31,8 +36,14 @@ const DateTimeRangeSelector: React.FC<DateTimeRangeSelectorProps> = (({
   errorValue = '',
   handleOn,
   invalidTimestamp,
+  minDate,
+  maxDate,
   name = '',
   startDate,
+  startDateValue = '',
+  endDateValue = '',
+  startTimeValue = '',
+  endTimeValue = '',
   setEndDateValue,
   setEndTimeValue,
   setStartDateValue,
@@ -45,66 +56,72 @@ const DateTimeRangeSelector: React.FC<DateTimeRangeSelectorProps> = (({
   const range = true;
   const [message, setMessage] = useState('');
 
-  const header = ({ className, children }: CalendarProps) => (
+  const footer = () => (
     <>
-      <div className={styles.rangeHeader}>
-        <div className={styles.leftbox}>
-          <DateTimeInput
-            dateValue={startDate ? standardEUDateFormat(startDate) : ''}
-            handleOn={handleOn}
-            timeValue={startDate ? standardEUTimeFormat(startDate) : ''}
-            errorValue={errorValue}
-            invalidTimestamp={invalidTimestamp}
-            label="From"
-            name={name}
-            onBlur={onBlur}
-            range={range}
-            setDateValue={setStartDateValue}
-            setTimeValue={setStartTimeValue}
-            dateOnly={dateOnly}
-          />
+      <div className={styles.rangeFooter}>
+        <div className={styles.infoBox}>
+          {message || `Max. past date: ${minDate ? standardEUDateFormat(minDate) : standardEUDateFormat(new Date(0))} `}
         </div>
-        <div className={styles.rightbox}>
-          <DateTimeInput
-            dateValue={endDate ? standardEUDateFormat(endDate) : ''}
-            handleOn={handleOn}
-            timeValue={endDate ? standardEUTimeFormat(endDate) : ''}
-            errorValue={errorValue}
-            invalidTimestamp={invalidTimestamp}
-            label="To"
-            name={name}
-            onBlur={onBlur}
-            range={range}
-            setDateValue={setEndDateValue}
-            setTimeValue={setEndTimeValue}
-            dateOnly={dateOnly}
-          />
+        <div className={styles.footerButtonsBox}>
+          <Button label="Discard" type="secondary" />
+          <Button label="Apply" />
         </div>
       </div>
-      <CalendarContainer className={className}>
-        <div style={{ position: 'relative' }}>{children}</div>
-      </CalendarContainer>
-
     </>
   );
 
-  const footer = () => (
-    <>
-      <div>
-        <div>
-          {message && message}
-        </div>
-        <div>
-          <button type="button">Apply</button>
-        </div>
+  const header = () => (
+    <div className={styles.rangeHeader}>
+      <div className={styles.leftbox}>
+        <DateTimeInput
+          dateValue={startDateValue}
+          handleOn={handleOn}
+          timeValue={startTimeValue}
+          errorValue={errorValue}
+          invalidTimestamp={invalidTimestamp}
+          label="From"
+          name={name}
+          onBlur={onBlur}
+          range={range}
+          setDateValue={setStartDateValue}
+          setTimeValue={setStartTimeValue}
+          dateOnly={dateOnly}
+        />
       </div>
+      <div className={styles.rightbox}>
+        <DateTimeInput
+          dateValue={endDateValue}
+          handleOn={handleOn}
+          timeValue={endTimeValue}
+          errorValue={errorValue}
+          invalidTimestamp={invalidTimestamp}
+          label="To"
+          name={name}
+          onBlur={onBlur}
+          range={range}
+          setDateValue={setEndDateValue}
+          setTimeValue={setEndTimeValue}
+          dateOnly={dateOnly}
+        />
+      </div>
+    </div>
+  );
+
+  const calendar = ({ className, children }: CalendarProps) => (
+    <>
+      {header()}
+      <CalendarContainer className={className}>
+        <div style={{ position: 'relative' }}>{children}</div>
+      </CalendarContainer>
+      {footer()}
     </>
   );
 
   return (
     <>
       <ReactDPWrapper
-        customHeader={header}
+        closeOnSelect={false}
+        customCalendar={calendar}
         endDate={endDate}
         onChange={(date, event) => onChange(date, event, 'start')}
         selectedDate={startDate}
@@ -121,9 +138,7 @@ const DateTimeRangeSelector: React.FC<DateTimeRangeSelectorProps> = (({
             onChange={(val: any) => { console.log(val); }}
           />
         )}
-      >
-        {footer()}
-      </ReactDPWrapper>
+      />
     </>
   );
 });

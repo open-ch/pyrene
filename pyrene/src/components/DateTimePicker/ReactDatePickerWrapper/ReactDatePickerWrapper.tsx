@@ -10,12 +10,12 @@ import styles from '../datePicker.css';
 
 export { CalendarContainer } from 'react-datepicker';
 export interface DatePickerProps{
-  children?: React.ReactNode,
+  closeOnSelect?: boolean,
   /**
  * Replaces the input with any node, for example a button
  */
   CustomInput: React.ReactNode,
-  customHeader?(props: { children: React.ReactNode[] }): React.ReactNode,
+  customCalendar?(props: { children: React.ReactNode[] }): React.ReactNode,
   /**
    * This is a Date object that represents the end date of a date range
    */
@@ -78,8 +78,8 @@ export interface CalendarProps {
 
 
 const ReactDPWrapper: React.FC<DatePickerProps> = ({
-  children,
-  customHeader,
+  closeOnSelect = true,
+  customCalendar,
   endDate = undefined,
   onKeyDown,
   selectedDate = undefined,
@@ -137,7 +137,7 @@ const ReactDPWrapper: React.FC<DatePickerProps> = ({
         )}
         customInput={CustomInput}
         calendarStartDay={1}
-        calendarContainer={customHeader}
+        calendarContainer={customCalendar}
         onKeyDown={onKeyDown}
         onSelect={onSelect}
         selected={selectedDate}
@@ -151,9 +151,8 @@ const ReactDPWrapper: React.FC<DatePickerProps> = ({
         selectsStart={startRange}
         selectsEnd={endRange}
         selectsRange={range}
-      >
-        {children}
-      </ReactDatepicker>
+        shouldCloseOnSelect={closeOnSelect}
+      />
     </div>
   );
 };
