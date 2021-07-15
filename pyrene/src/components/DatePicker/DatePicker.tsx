@@ -84,9 +84,10 @@ const CustomTimeInput: FunctionComponent<CustomTimeInputProps> = forwardRef((pro
             onChange?.(e);
           }
         }}
-        style={{ border: "solid 10px pink !important" }}
       />
-      {hasError && <div>issue in the formatting</div>}
+      <div className={styles.dateInvalidWrapper}>
+          <span>{hasError ? 'issue in the formatting' : '\u00A0'}</span>  
+      </div>
     </div>
   )
 });
@@ -100,7 +101,7 @@ const DatePicker: FunctionComponent<DatePickerProps> = ({
 
   const [startDate, setStartDate] = useState<null | Date>(null);
   
-  return (
+  return (  
     <div className={styles.wrapper}>
       <ReactDatepicker
         renderCustomHeader={({
