@@ -9,8 +9,9 @@ import parse from 'date-fns/parse';
 import isValid from 'date-fns/isValid';
 import styles from './datePicker.css';
 import 'react-datepicker/dist/react-datepicker.css';
+import clsx from 'clsx';
 
-const DATE_FORMAT = 'dd.mm.yyyy';
+const DATE_FORMAT = 'dd.MM.yyyy';
 const DATETIME_FORMAT = 'dd.MM.yyyy hh:mm aa';
 
 export interface DatePickerProps {
@@ -46,7 +47,7 @@ type CustomTimeInputProps = {
 >;
 
 const CustomTimeInput: FunctionComponent<CustomTimeInputProps> = forwardRef((props, ref) => {
-  const { onChange, value, dateOnly, ...rest } = props;
+  const { onChange, value, dateOnly, className, ...rest } = props;
 
   const [inputValue, setInputValue] = useState(value);
   const [hasError, setHasError] = useState(false);
@@ -74,6 +75,7 @@ const CustomTimeInput: FunctionComponent<CustomTimeInputProps> = forwardRef((pro
         {...rest as any}
         ref={ref as any}
         value={inputValue}
+        className={clsx(className, { [styles.dateInvalidInput]: hasError })}
         onChange={(e) => {
           const enterredDate = e.target.value;
           setInputValue(enterredDate);
@@ -146,7 +148,7 @@ const DatePicker: FunctionComponent<DatePickerProps> = ({
         timeFormat="hh:mm"
         dateFormat={dateOnly ? DATE_FORMAT : DATETIME_FORMAT}
         formatWeekDay={(nameOfDay) => nameOfDay.substr(0, 1)}
-        placeholderText={dateOnly ? "dd.mm.yyyy" : "dd.mm.yyyy hh:mm aa"}
+        placeholderText={dateOnly ? DATE_FORMAT.toLocaleUpperCase() : DATETIME_FORMAT.toLocaleUpperCase()}
         customInput={<CustomTimeInput dateOnly={dateOnly}/>}
       />
     </div>
