@@ -85,7 +85,7 @@ const CustomTimeInput: FunctionComponent<CustomTimeInputProps> = forwardRef((pro
         }}
       />
       <div className={styles.dateInvalidWrapper}>
-          <span>{hasError ? 'issue in the formatting' : '\u00A0'}</span>  
+          <span>{hasError ? 'issue in the formatting' : ''}</span>
       </div>
     </div>
   )
