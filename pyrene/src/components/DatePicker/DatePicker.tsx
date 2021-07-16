@@ -148,7 +148,7 @@ const DatePicker: FunctionComponent<DatePickerProps> = ({
         timeFormat="hh:mm"
         dateFormat={dateOnly ? DATE_FORMAT : DATETIME_FORMAT}
         formatWeekDay={(nameOfDay) => nameOfDay.substr(0, 1)}
-        placeholderText={dateOnly ? DATE_FORMAT.toLocaleUpperCase() : DATETIME_FORMAT.toLocaleUpperCase()}
+        placeholderText={dateOnly ? DATE_FORMAT.toLowerCase() : DATETIME_FORMAT.toLowerCase()}
         customInput={<CustomTimeInput dateOnly={dateOnly}/>}
       />
     </div>
