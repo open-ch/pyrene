@@ -95,8 +95,8 @@ const ReactDPWrapper: React.FC<DatePickerProps> = ({
   range = false,
 }: DatePickerProps) => {
 
-  const nextIcon = (<span className="pyreneIcon-chevronRight" />);
-  const prevIcon = (<span className="pyreneIcon-chevronLeft" />);
+  const nextIcon = <span className="pyreneIcon-chevronRight" />;
+  const prevIcon = <span className="pyreneIcon-chevronLeft" />;
 
   return (
     <div className={styles.wrapper}>
@@ -120,7 +120,7 @@ const ReactDPWrapper: React.FC<DatePickerProps> = ({
               {date.toLocaleString('en-US', {
                 month: 'long',
               })}
-        &nbsp;
+              &nbsp;
               <span className="pyrene__current-year">
                 {date.toLocaleString('en-US', {
                   year: 'numeric',

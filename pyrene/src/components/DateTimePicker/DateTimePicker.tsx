@@ -1,6 +1,7 @@
 import React, {
   useCallback,
-  useEffect, useState,
+  useEffect,
+  useState,
 } from 'react';
 
 import ReactDPWrapper from './ReactDatePickerWrapper/ReactDatePickerWrapper';
@@ -108,7 +109,7 @@ const DateTimePicker: React.FC<DateTimeInputProps> = ({
 
   const [errorValue, setErrorValue] = useState('');
 
-  const handleOn = useCallback((dateString:string, timeString:string, onFunction?: OnFunction) => {
+  const handleOn = useCallback((dateString: string, timeString: string, onFunction?: OnFunction) => {
     const isDateLongEnough = dateString.length === 10;
     const isTimeLongEnough = timeString.length === 5;
 
@@ -305,8 +306,8 @@ const DateTimePicker: React.FC<DateTimeInputProps> = ({
 
   useEffect(() => {
     if (jsDateObject) {
-      const date: DateType = convertToDateTypeObject(jsDateObject);
-      const time: TimeType = convertToTimeTypeObject(jsDateObject);
+      const date = convertToDateTypeObject(jsDateObject);
+      const time = convertToTimeTypeObject(jsDateObject);
       const dateString = standardEUDateFormat(jsDateObject);
       const timeString = standardEUTimeFormat(jsDateObject);
 
@@ -370,7 +371,7 @@ const DateTimePicker: React.FC<DateTimeInputProps> = ({
         return 'Invalid time format';
       }
       if (maxDateTime && jsDateObject) {
-        const rangePositon = inRange(jsDateObject.valueOf(), minDateTime, maxDateTime);
+        const rangePositon = isDateInRange(jsDateObject.valueOf(), minDateTime, maxDateTime);
         if (rangePositon === -1) {
           return 'Less than minimum date.';
         }

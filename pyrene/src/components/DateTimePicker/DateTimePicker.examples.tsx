@@ -8,7 +8,10 @@ export interface State {
 const DateTimeInput: Example<DateTimeInputProps, State> = {};
 
 DateTimeInput.props = {
-  onChange: (stateProvider: StateProvider<State>) => (value?: number | null) => { stateProvider.setState({ value }); console.log(value); },
+  onChange: (stateProvider: StateProvider<State>) => (value?: number | null) => {
+    stateProvider.setState({ value });
+    // console.log(value);
+  },
   timeStamp: (stateProvider) => stateProvider.state.value,
 };
 

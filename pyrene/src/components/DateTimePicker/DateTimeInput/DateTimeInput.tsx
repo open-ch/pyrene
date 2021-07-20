@@ -9,7 +9,7 @@ export interface InputProps {
   dateOnly?: boolean,
   dateValue: string,
   errorValue: string,
-  handleOn?: (dateString: string, timeString: string, func:(event:any) => void) => void
+  handleOn?: (dateString: string, timeString: string, func: (event: any) => void) => void
   invalidTimestamp?: boolean,
   Key?: string
   label?: string,
@@ -47,9 +47,9 @@ const DateTimeInput = forwardRef(({
   onClick = () => {},
   range = false,
   setDateValue = () => {},
-  setTimeValue = () => {},
+  // setTimeValue = () => {},
   timeValue,
-}:InputProps, ref:React.Ref<HTMLInputElement>) => {
+} :InputProps, ref:React.Ref<HTMLInputElement>) => {
 
   const handleDateOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const node = event && event.target as HTMLInputElement;
@@ -110,9 +110,7 @@ const DateTimeInput = forwardRef(({
           />
         </div>
       </div>
-      {errorValue.length > 0 && (
-        <div className={styles.dateTimeInputErrorMsg}>{errorValue}</div>
-      )}
+      {errorValue.length > 0 && <div className={styles.dateTimeInputErrorMsg}>{errorValue}</div>}
     </div>
   );
 });
