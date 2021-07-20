@@ -1,4 +1,4 @@
-import React, { forwardRef, useState } from 'react';
+import React, { forwardRef } from 'react';
 import clsx from 'clsx';
 
 import Icon from '../../Icon/Icon';
@@ -7,9 +7,9 @@ import styles from './dateTimeInput.css';
 export interface InputProps {
   autoFocus?: boolean,
   dateOnly?: boolean,
-  dateValue?: string,
+  dateValue: string,
   errorValue: string,
-  handleOn?: (dateString: string, timeString: string, func: (event: any) => void) => void
+  handleOn?: (dateString: string, timeString: string, func:(event:any) => void) => void
   invalidTimestamp?: boolean,
   Key?: string
   label?: string,
@@ -21,7 +21,7 @@ export interface InputProps {
   range?: boolean,
   setDateValue?: (value: string) => void,
   setTimeValue?: (value: string) => void,
-  timeValue?: string,
+  timeValue: string,
   value?: string
 }
 
@@ -34,8 +34,8 @@ export interface InputProped {
 const allowedValueCheck = (valueToCheck:string) : boolean => (/^[0-9.: APM]*$/.test(valueToCheck));
 
 const DateTimeInput = forwardRef(({
-  dateValue = '',
   dateOnly = false,
+  dateValue,
   errorValue,
   handleOn,
   invalidTimestamp = false,
@@ -48,11 +48,8 @@ const DateTimeInput = forwardRef(({
   range = false,
   setDateValue = () => {},
   setTimeValue = () => {},
-  timeValue = '',
+  timeValue,
 }:InputProps, ref:React.Ref<HTMLInputElement>) => {
-
-  const [internalDateValue, setInternalDateValue] = useState(dateValue);
-  const [internalTimeValue, setInternalTimeValue] = useState(timeValue);
 
   const handleDateOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const node = event && event.target as HTMLInputElement;
@@ -62,26 +59,16 @@ const DateTimeInput = forwardRef(({
       console.log('entered');
       if (node.value.trim().length > 10) {
         console.log('big');
-
-        const date = node.value.substring(0, 10).trim();
-        const time = node.value.substring(10).trim();
-
-        setDateValue(date);
-        setInternalDateValue(date);
-        setTimeValue(time);
-        setInternalTimeValue(time);
+        setDateValue(node.value.substring(0, 10).trim());
+        setTimeValue(node.value.substring(10).trim());
 
         if (node.value.substring(10).trim().length >= 5) {
           return onChange(event);
         }
       } else {
         console.log('small');
-
-        const date = node.value.trim();
-        setDateValue(date);
-        setInternalDateValue(date);
+        setDateValue(node.value.trim());
         setTimeValue('');
-        setInternalTimeValue('');
         return onChange(event);
       }
     }
@@ -103,7 +90,7 @@ const DateTimeInput = forwardRef(({
   return (
     <div
       className={styles.dateTimeComponent}
-      onBlur={() => handleOn?.(internalDateValue, dateOnly ? '00:00' : internalTimeValue, onBlur)}
+      onBlur={() => handleOn?.(dateValue, dateOnly ? '00:00' : timeValue, onBlur)}
     >
       <div className={styles.dateTimeFieldTitle}>{label || (dateOnly ? 'Date' : 'Date & Time')}</div>
       <div className={clsx(styles.dateTimeInputArea, { [styles.dateTimeInputError]: errorValue.length > 0 })}>
@@ -119,11 +106,13 @@ const DateTimeInput = forwardRef(({
             ref={ref}
             onClick={onClick}
             onChange={handleDateOnChange}
-            value={`${internalDateValue}${internalTimeValue && ` ${internalTimeValue}`}${formattedTime('')}`}
+            value={`${dateValue}${timeValue && ` ${timeValue}`}${formattedTime('')}`}
           />
         </div>
       </div>
-      {errorValue.length > 0 && <div className={styles.dateTimeInputErrorMsg}>{errorValue}</div>}
+      {errorValue.length > 0 && (
+        <div className={styles.dateTimeInputErrorMsg}>{errorValue}</div>
+      )}
     </div>
   );
 });
