@@ -93,6 +93,7 @@ const ReactDPWrapper: React.FC<DatePickerProps> = ({
   onChange = () => {},
   onSelect,
   range = false,
+  value = undefined,
 }: DatePickerProps) => {
 
   const nextIcon = <span className="pyreneIcon-chevronRight" />;
@@ -155,6 +156,7 @@ const ReactDPWrapper: React.FC<DatePickerProps> = ({
         selectsRange={range}
         shouldCloseOnSelect={closeOnSelect}
         inline={inline}
+        value={value}
       />
     </div>
   );

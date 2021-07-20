@@ -1,34 +1,21 @@
 @import '../../../styles/colors.css';
 
-
-.rangeHeader {
-  composes: commonFontSettings from '../../../styles/common.css';
-  color: var(--neutral-500);
-  display: flex;
-  padding-top: 16px;
-  padding-bottom: 24px;
-  border-bottom: 1px solid var(--neutral-050);
-}
-
-.leftbox, .rightbox {
-  margin-left: 16px;
-}
-
 .infoBox {
   font-size: 12px;
   line-height: 32px;  
+  padding: 16px 0 16px 16px;
 }
 
 .rangeFooter {
-  height: 32px;
-  padding: 16px;
-  display: flex;
+  display: inline-flex;
   justify-content: space-between;
+  width: 100%;
   border-top: 1px solid var(--neutral-050);
 }
 
 .footerButtonsBox {
   text-align: right;
+  padding: 16px 16px 16px 0;  
 }
 .footerButtonsBox > div {
   margin-left: 16px;

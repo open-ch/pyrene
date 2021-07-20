@@ -19,7 +19,7 @@ import DateTimeRangeSelector from './DateTimeRangeSelector/DateTimeRangeSelector
 
 
 
-type OnFunction = (value?: number | null) => void;
+type OnFunction = (value?: number | [number, number] | null) => void;
 
 export interface DateTimeInputProps{
   dateOnly?: boolean,
@@ -405,17 +405,7 @@ const DateTimePicker: React.FC<DateTimeInputProps> = ({
           <tr>
             <td colSpan={2}>
               <DateTimeRangeSelector
-                endDate={endDate}
-                startDate={startDate}
-                onChange={onChangeReactDP}
-                startDateValue={startDateValue}
-                startTimeValue={startTimeValue}
-                endDateValue={endDateValue}
-                endTimeValue={endTimeValue}
-                setEndDateValue={setEndDateValue}
-                setEndTimeValue={setEndTimeValue}
-                setStartDateValue={setStartDateValue}
-                setStartTimeValue={setStartTimeValue}
+                onChange={onChange}
                 timeZone={timeZone}
               />
             </td>
@@ -505,17 +495,7 @@ const DateTimePicker: React.FC<DateTimeInputProps> = ({
           <tr>
             <td colSpan={2}>
               <DateTimeRangeSelector
-                endDate={endDate}
-                startDate={startDate}
-                onChange={onChangeReactDP}
-                startDateValue={startDateValue}
-                startTimeValue={startTimeValue}
-                endDateValue={endDateValue}
-                endTimeValue={endTimeValue}
-                setEndDateValue={setEndDateValue}
-                setEndTimeValue={setEndTimeValue}
-                setStartDateValue={setStartDateValue}
-                setStartTimeValue={setStartTimeValue}
+                onChange={onChange}
                 timeZone={timeZone}
                 inline
               />
