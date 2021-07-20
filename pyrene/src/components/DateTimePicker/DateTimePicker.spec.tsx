@@ -166,13 +166,13 @@ describe('Tests for time zones', () => {
     let tz1 = 0;
     let tz2 = 0;
 
-    const onchange1 = jest.fn((value: number | null | undefined) => {
-      if (value) {
+    const onchange1 = jest.fn((value?: number | [number, number] | null) => {
+      if (value && !Array.isArray(value)) {
         tz1 = value;
       }
     });
-    const onchange2 = jest.fn((value: number | null | undefined) => {
-      if (value) {
+    const onchange2 = jest.fn((value?: number | [number, number] | null) => {
+      if (value && !Array.isArray(value)) {
         tz2 = value;
       }
     });

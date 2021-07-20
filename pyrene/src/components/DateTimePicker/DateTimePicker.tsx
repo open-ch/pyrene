@@ -39,7 +39,7 @@ export interface DateTimeInputProps{
   /**
    * This is a unix timestamp, which is the number of seconds that have elapsed since Unix epoch
    */
-  timeStamp?: number | null,
+  timeStamp?: number | [number, number] | null
   /**
    * This is must be a IANA time zone string
    */
@@ -371,7 +371,7 @@ const DateTimePicker: React.FC<DateTimeInputProps> = ({
         return 'Invalid time format';
       }
       if (maxDateTime && jsDateObject) {
-        const rangePositon = isDateInRange(jsDateObject.valueOf(), minDateTime, maxDateTime);
+        const rangePositon = inRange(jsDateObject.valueOf(), minDateTime, maxDateTime);
         if (rangePositon === -1) {
           return 'Less than minimum date.';
         }
