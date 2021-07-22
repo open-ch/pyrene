@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef, useEffect } from 'react';
 import clsx from 'clsx';
 
 import Icon from '../../Icon/Icon';
@@ -11,7 +11,7 @@ export interface InputProps {
   errorValue: string,
   handleOn?: (dateString: string, timeString: string, func:(event:any) => void) => void
   invalidTimestamp?: boolean,
-  Key?: string
+  Key?: number
   label?: string,
   name?: string,
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void, // Handle change function passed from react-datepicker
@@ -39,12 +39,13 @@ const DateTimeInput = forwardRef(({
   errorValue,
   handleOn,
   invalidTimestamp = false,
-  Key = '',
+  Key = 100,
   label,
   name = '',
   onBlur = () => {},
   onChange = () => {},
   onClick = () => {},
+  onFocus,
   range = false,
   setDateValue = () => {},
   setTimeValue = () => {},
@@ -94,7 +95,7 @@ const DateTimeInput = forwardRef(({
     >
       <div className={styles.dateTimeFieldTitle}>{label || (dateOnly ? 'Date' : 'Date & Time')}</div>
       <div className={clsx(styles.dateTimeInputArea, { [styles.dateTimeInputError]: errorValue.length > 0 })}>
-        <div className={clsx(styles.iconInputContainer, styles.calendar)} key={Key}>
+        <div className={clsx(styles.iconInputContainer, styles.calendar)}>
           <Icon type="inline" name="calendar" color="neutral-500" />
           <input
             autoComplete="off"
@@ -102,9 +103,10 @@ const DateTimeInput = forwardRef(({
             disabled={invalidTimestamp}
             name={name ? `${name}_date` : 'date_input'}
             placeholder={dateOnly ? 'DD.MM.YYYY' : 'DD.MM.YYYY HH:MM'}
-            maxLength={dateOnly ? 10 : 19}
+            maxLength={dateOnly ? 10 : 16}
             ref={ref}
             onClick={onClick}
+            onFocus={onFocus}
             onChange={handleDateOnChange}
             value={`${dateValue}${timeValue && ` ${timeValue}`}${formattedTime('')}`}
           />

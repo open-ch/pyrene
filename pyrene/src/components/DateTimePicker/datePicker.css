@@ -28,6 +28,7 @@
   width: 24px;
   height: 24px;
   text-indent: 0;
+  z-index: inherit;
 }
 
 .wrapper :global .react-datepicker__navigation:hover {

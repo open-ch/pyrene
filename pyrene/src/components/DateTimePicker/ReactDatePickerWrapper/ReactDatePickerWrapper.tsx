@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import ReactDatepicker from 'react-datepicker';
 
 import {
@@ -21,6 +21,7 @@ export interface DatePickerProps{
    */
   endDate?: Date,
   inline?: boolean,
+  isOpen?: boolean,
   /**
    * This is a timestamp that represents the maximum date allowed by the component
    */
@@ -90,11 +91,18 @@ const ReactDPWrapper: React.FC<DatePickerProps> = ({
   shouldDisplayTimeColumn = true,
   CustomInput = <input />,
   inline = false,
+  isOpen,
   onChange = () => {},
   onSelect,
   range = false,
   value = undefined,
 }: DatePickerProps) => {
+
+  const rangeRef = useRef<ReactDatepicker>(null);
+
+  useEffect(() => {
+    rangeRef.current?.setOpen(false);
+  }, [isOpen]);
 
   const nextIcon = <span className="pyreneIcon-chevronRight" />;
   const prevIcon = <span className="pyreneIcon-chevronLeft" />;
@@ -157,6 +165,7 @@ const ReactDPWrapper: React.FC<DatePickerProps> = ({
         shouldCloseOnSelect={closeOnSelect}
         inline={inline}
         value={value}
+        ref={rangeRef}
       />
     </div>
   );

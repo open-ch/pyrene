@@ -80,8 +80,6 @@ const DateTimePicker: React.FC<DateTimeInputProps> = ({
   const [internalDate, setInternalDate] = useState<Date | undefined>(undefined);
   const [endDate, setEndDate] = useState<Date | undefined>(undefined);
   const [startDate, setStartDate] = useState<Date | undefined>(undefined);
-  const [endDate2, setEndDate2] = useState<Date | undefined>(undefined);
-  const [startDate2, setStartDate2] = useState<Date | undefined>(undefined);
 
   const [dateValue, setDateValue] = useState('');
   const [timeValue, setTimeValue] = useState('');
@@ -89,14 +87,10 @@ const DateTimePicker: React.FC<DateTimeInputProps> = ({
   const [startDateValue, setStartDateValue] = useState('');
   const [startTimeValue, setStartTimeValue] = useState('');
 
-  const [startDateValue2, setStartDateValue2] = useState('');
-  const [startTimeValue2, setStartTimeValue2] = useState('');
 
   const [endDateValue, setEndDateValue] = useState('');
   const [endTimeValue, setEndTimeValue] = useState('');
 
-  const [endDateValue2, setEndDateValue2] = useState('');
-  const [endTimeValue2, setEndTimeValue2] = useState('');
 
   const [timeZoneValue, setTimeZoneValue] = useState(timeZone);
 
@@ -161,16 +155,6 @@ const DateTimePicker: React.FC<DateTimeInputProps> = ({
         }
       }
 
-      if (rangePos && rangePos === 'start2') {
-        setStartDate2(start);
-        setStartDateValue2(standardEUDateFormat(start));
-
-        if (end !== null) {
-          setEndDate2(end);
-          setEndDateValue2(standardEUDateFormat(end));
-        }
-      }
-
       if (rangePos && rangePos === 'end') {
         setEndDate(end);
         setEndDateValue(standardEUDateFormat(end));
@@ -178,16 +162,6 @@ const DateTimePicker: React.FC<DateTimeInputProps> = ({
         if (start !== null) {
           setStartDate(start);
           setStartDateValue(standardEUDateFormat(start));
-        }
-      }
-
-      if (rangePos && rangePos === 'end2') {
-        setEndDate2(end);
-        setEndDateValue2(standardEUDateFormat(end));
-
-        if (start !== null) {
-          setStartDate2(start);
-          setStartDateValue2(standardEUDateFormat(start));
         }
       }
     }
@@ -217,16 +191,6 @@ const DateTimePicker: React.FC<DateTimeInputProps> = ({
           setEndDate(date);
           setEndDateValue(standardEUDateFormat(date));
         }
-
-        if (rangePos && rangePos === 'start2') {
-          setStartDate2(date);
-          setStartDateValue2(standardEUDateFormat(date));
-        }
-
-        if (rangePos && rangePos === 'end2') {
-          setEndDate2(date);
-          setEndDateValue2(standardEUDateFormat(date));
-        }
       }
     } else if (event?.type === 'change') {
       const node = event?.target as HTMLInputElement;
@@ -244,6 +208,15 @@ const DateTimePicker: React.FC<DateTimeInputProps> = ({
           console.log('Passed Date  : ', convertToUTCtime(convertDateTypeToString(newdate), timeZoneValue));
           setInternalDate(convertToUTCtime(convertDateTypeToString(newdate), timeZoneValue));
 
+
+          if (rangePos && rangePos === 'start') {
+            setStartDateValue(dateTypeToStandardEUDateFormat(newdate));
+          }
+
+          if (rangePos && rangePos === 'end') {
+            setEndDateValue(dateTypeToStandardEUDateFormat(newdate));
+          }
+
           if (dateOnly) {
             handleOn(dateTypeToStandardEUDateFormat(newdate), '00:00', onChange);
           }
@@ -258,6 +231,15 @@ const DateTimePicker: React.FC<DateTimeInputProps> = ({
 
         if (newdate && newtime) {
           setTimeValue(convertTimeTypeToString(newtime));
+
+
+          if (rangePos && rangePos === 'start') {
+            setStartTimeValue(convertTimeTypeToString(newtime));
+          }
+
+          if (rangePos && rangePos === 'end') {
+            setEndTimeValue(convertTimeTypeToString(newtime));
+          }
 
           console.log('Entered : ', convertToUTCtime(`${convertDateTypeToString(newdate)} ${convertTimeTypeToString(newtime)}`, timeZoneValue));
           setInternalDate(convertToUTCtime(`${convertDateTypeToString(newdate)} ${convertTimeTypeToString(newtime)}`, timeZoneValue));
@@ -276,19 +258,10 @@ const DateTimePicker: React.FC<DateTimeInputProps> = ({
         setStartDateValue(standardEUDateFormat(date));
       }
 
-      if (rangePos && rangePos === 'start2') {
-        setStartTimeValue2(standardEUTimeFormat(date));
-        setStartDateValue2(standardEUDateFormat(date));
-      }
 
       if (rangePos && rangePos === 'end') {
         setEndTimeValue(standardEUTimeFormat(date));
         setEndDateValue(standardEUDateFormat(date));
-      }
-
-      if (rangePos && rangePos === 'end2') {
-        setEndTimeValue2(standardEUTimeFormat(date));
-        setEndDateValue2(standardEUDateFormat(date));
       }
 
       if (rangePos === undefined) {
@@ -413,25 +386,25 @@ const DateTimePicker: React.FC<DateTimeInputProps> = ({
           <tr>
             <td style={{ height: '200px' }}>
               <ReactDPWrapper
-                endDate={endDate2}
-                onChange={(date, event) => onChangeReactDP(date, event, 'start2')}
+                endDate={endDate}
+                onChange={(date, event) => onChangeReactDP(date, event, 'start')}
                 startRange={range}
-                selectedDate={startDate2}
+                selectedDate={startDate}
                 shouldDisplayTimeColumn={!dateOnly}
-                startDate={startDate2}
+                startDate={startDate}
                 CustomInput={(
                   <DateTimeInput
-                    dateValue={startDateValue2}
-                    handleOn={handleOn}
-                    timeValue={startTimeValue2}
+                    dateValue={startDateValue}
+                    // handleOn={handleOn}
+                    timeValue={startTimeValue}
                     errorValue={errorValue}
                     invalidTimestamp={invalidTimestamp}
                     label="From"
                     name={name}
                     onBlur={onBlur}
-                    range={false}
-                    setDateValue={setStartDateValue2}
-                    setTimeValue={setStartTimeValue2}
+                    range={range}
+                    setDateValue={setStartDateValue}
+                    setTimeValue={setStartTimeValue}
                     dateOnly={dateOnly}
 
                   />
@@ -440,25 +413,25 @@ const DateTimePicker: React.FC<DateTimeInputProps> = ({
             </td>
             <td>
               <ReactDPWrapper
-                endDate={endDate2}
-                onChange={(date, event) => onChangeReactDP(date, event, 'end2')}
+                endDate={endDate}
+                onChange={(date, event) => onChangeReactDP(date, event, 'end')}
                 endRange={range}
-                selectedDate={endDate2}
+                selectedDate={endDate}
                 shouldDisplayTimeColumn={!dateOnly}
-                startDate={startDate2}
+                startDate={startDate}
                 CustomInput={(
                   <DateTimeInput
-                    dateValue={endDateValue2}
-                    handleOn={handleOn}
-                    timeValue={endTimeValue2}
+                    dateValue={endDateValue}
+                    // handleOn={handleOn}
+                    timeValue={endTimeValue}
                     errorValue={errorValue}
                     invalidTimestamp={invalidTimestamp}
                     label="To"
                     name={name}
                     onBlur={onBlur}
-                    range={false}
-                    setDateValue={setEndDateValue2}
-                    setTimeValue={setEndTimeValue2}
+                    range={range}
+                    setDateValue={setEndDateValue}
+                    setTimeValue={setEndTimeValue}
                     dateOnly={dateOnly}
 
                   />
