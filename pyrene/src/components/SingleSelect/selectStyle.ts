@@ -19,12 +19,12 @@ interface State<D> {
   isFocused: boolean;
   hasValue: boolean;
   isDisabled: boolean;
-  isSelected: boolean
+  isSelected?: boolean
   selectProps: {
     menuIsOpen?: boolean;
     isInvalid?:boolean;
   }
-  data: SingleSelectOption<D>;
+  data?: SingleSelectOption<D>;
 }
 
 
@@ -32,7 +32,7 @@ interface State<D> {
 // The reason is mostly that `& ...` is not a valid React.CSSProperty. The issue might be:
 // 1. The typings for react-select/Styles are incorrect and these properties are indeed used
 // 2. These properties are actually not used
-const selectStyle = <ValueType>():Partial<Styles> => ({
+const selectStyle = <ValueType>(): Partial<Styles<SingleSelectOption<unknown>, false>> => ({
   container: (base: CSSProperties): CSSProperties => ({
     ...base,
     fontFamily: 'FiraGO, Helvetica, sans-serif !important',
@@ -182,7 +182,7 @@ const selectStyle = <ValueType>():Partial<Styles> => ({
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
-    padding: data.iconProps ? '8px 8px 12px 8px;' : base.padding, // Reduce padding if an icon is displayed
+    padding: data?.iconProps ? '8px 8px 12px 8px;' : base.padding, // Reduce padding if an icon is displayed
   }),
 
   group: (): CSSProperties => ({
@@ -197,6 +197,6 @@ const selectStyle = <ValueType>():Partial<Styles> => ({
     padding: '8px 12px',
     borderBottom: '1px solid #e0e2e5',
   }),
-} as any as Partial<Styles>);
+});
 
 export default selectStyle;
