@@ -35,6 +35,11 @@
     background-color: var(--warning-light);
     color: var(--orange-700);
   }
+
+  &.type-outage {
+    background-color: var(--neutral-500);
+    color: var(--neutral-000);
+  }
 }
 
 .label {

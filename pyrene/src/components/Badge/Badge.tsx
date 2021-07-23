@@ -3,7 +3,7 @@ import clsx from 'clsx';
 
 import styles from './badge.css';
 
-export type BadgeType = 'neutral' | 'info' | 'warning' | 'danger' | 'success';
+export type BadgeType = 'neutral' | 'info' | 'warning' | 'danger' | 'success' | 'outage';
 
 export interface BadgeProps {
   /**
