@@ -54,6 +54,13 @@ describe('<Badge />', () => {
     expect(text).toBe('Neutral');
     expect(className).toContain('type-neutral');
   });
+  it('renders an outage badge', () => {
+    const rendered = shallow(<Badge type="outage" label="Outage" maxWidth={100} />);
+    const text = rendered.text();
+    const className = rendered.prop('className');
+    expect(text).toBe('Outage');
+    expect(className).toContain('type-outage');
+  });
 
   it('reacts to clicking', () => {
     const onClick = jest.fn();
