@@ -1,6 +1,7 @@
 /* Custom Section */
 .wrapper {
   position: relative;
+  max-width: max-content;
 }
 
 .wrapper :global .react-datepicker {
