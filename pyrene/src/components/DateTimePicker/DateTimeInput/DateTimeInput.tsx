@@ -5,30 +5,22 @@ import Icon from '../../Icon/Icon';
 import styles from './dateTimeInput.css';
 
 export interface InputProps {
-  autoFocus?: boolean,
   dateOnly?: boolean,
   dateValue: string,
   errorValue: string,
   handleOn?: (dateString: string, timeString: string, func:(event:any) => void) => void
   invalidTimestamp?: boolean,
-  Key?: number
   label?: string,
   name?: string,
+  onBlur?: () => void,
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void, // Handle change function passed from react-datepicker
   onClick?: () => void,
-  onBlur?: () => void,
   onFocus?: () => void,
   range?: boolean,
   setDateValue?: (value: string) => void,
   setTimeValue?: (value: string) => void,
   timeValue: string,
   value?: string
-}
-
-export interface InputProped {
-  label: string,
-  dateValue: string,
-  timeValue: string,
 }
 
 const allowedValueCheck = (valueToCheck:string) : boolean => (/^[0-9.: APM]*$/.test(valueToCheck));
@@ -39,14 +31,12 @@ const DateTimeInput = forwardRef(({
   errorValue,
   handleOn,
   invalidTimestamp = false,
-  Key = 100,
   label,
   name = '',
   onBlur = () => {},
   onChange = () => {},
   onClick = () => {},
   onFocus,
-  range = false,
   setDateValue = () => {},
   setTimeValue = () => {},
   timeValue,
@@ -56,19 +46,16 @@ const DateTimeInput = forwardRef(({
     const node = event && event.target as HTMLInputElement;
 
     console.log(node.value.trim());
-    if (allowedValueCheck(node.value.trim())) {
-      console.log('entered');
-      if (node.value.trim().length > 10) {
-        console.log('big');
+    if (allowedValueCheck(node.value)) {
+      if (node.value.length > 10) {
         setDateValue(node.value.substring(0, 10).trim());
-        setTimeValue(node.value.substring(10).trim());
+        setTimeValue(node.value.substring(10));
 
         if (node.value.substring(10).trim().length >= 5) {
           return onChange(event);
         }
       } else {
-        console.log('small');
-        setDateValue(node.value.trim());
+        setDateValue(node.value);
         setTimeValue('');
         return onChange(event);
       }
@@ -86,6 +73,13 @@ const DateTimeInput = forwardRef(({
       }
     }
     return '';
+  };
+
+  const formatTime = (value: string) => {
+    if (/\s/g.test(value) || value.length < 5) {
+      return value;
+    }
+    return ` ${value}`;
   };
 
   return (
@@ -106,9 +100,9 @@ const DateTimeInput = forwardRef(({
             maxLength={dateOnly ? 10 : 16}
             ref={ref}
             onClick={onClick}
-            onFocus={onFocus}
+            onFocusCapture={onFocus}
             onChange={handleDateOnChange}
-            value={`${dateValue}${timeValue && ` ${timeValue}`}${formattedTime('')}`}
+            value={`${dateValue}${timeValue && formatTime(timeValue)}${formattedTime('')}`}
           />
         </div>
       </div>

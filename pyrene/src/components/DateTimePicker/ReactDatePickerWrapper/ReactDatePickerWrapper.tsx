@@ -25,11 +25,11 @@ export interface DatePickerProps{
   /**
    * This is a timestamp that represents the maximum date allowed by the component
    */
-  maxDate?: DateType,
+  maxDate?: Date,
   /**
    * This is a timestamp that represents the minimum date allowed by the component
    */
-  minDate?: DateType,
+  minDate?: Date,
   /**
    * Function to handle date change event
    */
@@ -83,6 +83,8 @@ const ReactDPWrapper: React.FC<DatePickerProps> = ({
   closeOnSelect = true,
   customCalendar,
   endDate = undefined,
+  maxDate,
+  minDate,
   onKeyDown,
   selectedDate = undefined,
   endRange = false,
@@ -157,6 +159,8 @@ const ReactDPWrapper: React.FC<DatePickerProps> = ({
         showPopperArrow={false}
         showTimeSelect={shouldDisplayTimeColumn}
         onChange={onChange}
+        maxDate={maxDate}
+        minDate={minDate}
         dateFormat="dd.MM.yyyy HH:mm"
         formatWeekDay={(nameOfDay) => nameOfDay.substr(0, 1)}
         selectsStart={startRange}

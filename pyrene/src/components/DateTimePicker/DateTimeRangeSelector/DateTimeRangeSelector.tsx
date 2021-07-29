@@ -3,12 +3,14 @@ import React, {
   useEffect,
   useRef,
   useState,
+  useReducer,
+  ReactNode,
 } from 'react';
 import Button from '../../Button/Button';
 import {
-  DateType, TimeType, getFutureDate, standardEUDateFormat, standardEUTimeFormat,
-  isValidDate, isValidTime, isValidTimeZone, convertToDateTypeObject, convertToTimeTypeObject,
-  convertToUTCtime, convertToZoneTime, convertDateTypeToString, convertTimeTypeToString, dateTypeToStandardEUDateFormat,
+  getFutureDate, standardEUDateFormat, standardEUTimeFormat,
+  isValidDate, isValidTime, isValidTimeZone, convertToDateTypeObject,
+  convertToUTCtime, convertDateTypeToString, convertTimeTypeToString,
   getDateTypeFromddmmyyyyWithSep, getTimeTypeFromhhmmWithSep,
 } from '../../../utils/DateUtils';
 import TimeRangeSelector from '../../TimeRangeSelector/TimeRangeSelector';
@@ -16,6 +18,7 @@ import RangeDateTimeRangeInput from '../RangeDateTimeInput/RangeDateTimeInput';
 import ReactDPWrapper, { CalendarContainer } from '../ReactDatePickerWrapper/ReactDatePickerWrapper';
 
 import styles from './DateTimeRangeSelector.css';
+import { dateRangeReducer } from '../DateStateReducer';
 
 type OnFunction = (value?: number | [number, number] | null) => void;
 export interface DateTimeRangeProps{
@@ -37,7 +40,7 @@ export interface DateTimeRangeProps{
   /**
    * This is a unix timestamp, which is the number of seconds that have elapsed since Unix epoch
    */
-  timeStamp?: number | null,
+  timeStamps?: [number, number],
   /**
    * This is must be a IANA time zone string
    */
@@ -75,18 +78,6 @@ export interface DateTimeRangeSelectorProps {
   timeZone: string,
 }
 
-
-const inRange = (timestampToCheck: number, minimumValue: number, maximumValue: number): number => {
-  if (timestampToCheck < minimumValue) {
-    return -1;
-  }
-  if (timestampToCheck > maximumValue) {
-    return 1;
-  }
-  return 0;
-};
-
-
 const DateTimeRangeSelector: React.FC<DateTimeRangeProps> = (({
   dateOnly = false,
   inline = false,
@@ -96,7 +87,7 @@ const DateTimeRangeSelector: React.FC<DateTimeRangeProps> = (({
   onBlur,
   onChange,
   range = true,
-  timeStamp,
+  timeStamps,
   timeZone = 'Europe/Zurich',
 }:DateTimeRangeProps) => {
 
@@ -113,6 +104,7 @@ const DateTimeRangeSelector: React.FC<DateTimeRangeProps> = (({
 
   const [timeZoneValue, setTimeZoneValue] = useState(timeZone);
 
+  const [internalTimeStamps, setTimestamps] = useState<[number, number] | undefined>(timeStamps);
   const [invalidDate, setInvalidDate] = useState(false);
   const [invalidTime, setInvalidTime] = useState(false);
   const [invalidTimestamp, setInvalidTimestamp] = useState(false);
@@ -121,6 +113,16 @@ const DateTimeRangeSelector: React.FC<DateTimeRangeProps> = (({
   const [isCalOpen, setCalOpen] = useState<boolean | undefined>(undefined);
 
   const [errorValue, setErrorValue] = useState('');
+
+
+  const [reducer, dispatch] = useReducer(dateRangeReducer, {
+    startDate: startDateValue,
+    startTime: startTimeValue,
+    endDate: endDateValue,
+    endTime: endTimeValue,
+  });
+
+
 
   const handleOn = useCallback((dateString:string, timeString:string, onFunction?: OnFunction) => {
     const isDateLongEnough = dateString.length === 10;
@@ -165,63 +167,72 @@ const DateTimeRangeSelector: React.FC<DateTimeRangeProps> = (({
       if (Array.isArray(date)) {
         const [start, end] = date;
 
+
         setStartDate(start);
-        setStartDateValue(start ? standardEUDateFormat(start) : '');
+        // setStartDateValue(start ? standardEUDateFormat(start) : '');
+        // dispatch({ type: 'startDate/changed', payload: { value: standardEUDateFormat(start) } });
 
         setEndDate(end);
-        setEndDateValue(end ? standardEUDateFormat(end) : '');
-        focusedInput.current = 'end';
+        // setEndDateValue(end ? standardEUDateFormat(end) : '');
+        // dispatch({ type: 'endDate/changed', payload: { value: standardEUDateFormat(end) } });
+        // focusedInput.current = 'end';
       }
       console.log('dddd');
     } else if (!Array.isArray(date) && event === undefined) {
       console.log(focusedInput.current);
 
-      if (focusedInput.current === 'start') {
+      if (date && focusedInput.current === 'start') {
         setStartTimeValue(date ? standardEUTimeFormat(date) : '');
+        // dispatch({ type: 'startTime/changed', payload: { value: standardEUTimeFormat(date) } });
       }
 
-      if (focusedInput.current === 'end') {
+      if (date && focusedInput.current === 'end') {
         setEndTimeValue(date ? standardEUTimeFormat(date) : '');
+        // dispatch({ type: 'endTime/changed', payload: { value: standardEUTimeFormat(date) } });
       }
     }
   };
 
   useEffect(() => {
     if (startDate) {
-      const date: DateType = convertToDateTypeObject(startDate);
+      const date = convertToDateTypeObject(startDate);
       const dateString = standardEUDateFormat(startDate);
+      const timeString = standardEUTimeFormat(startDate);
 
-      // setStartDateValue(dateString);
+      setStartDateValue(dateString);
+      // setStartTimeValue(timeString);
+
       setInvalidDate(!isValidDate(date));
-      focusedInput.current = 'start';
-    }
-
-    if (invalidTimestamp) {
+      // focusedInput.current = 'start';
+    } else {
       setStartDateValue('');
       setStartTimeValue('');
 
       setInvalidDate(false);
     }
-  }, [startDate, invalidTimestamp]);
+  }, [startDate]);
 
   useEffect(() => {
     if (endDate) {
-      const date: DateType = convertToDateTypeObject(endDate);
+      const date = convertToDateTypeObject(endDate);
       const dateString = standardEUDateFormat(endDate);
+      const timeString = standardEUTimeFormat(endDate);
 
-      // setEndDateValue(dateString);
+      setEndDateValue(dateString);
+      // setEndTimeValue(timeString);
+
       setInvalidDate(!isValidDate(date));
-      focusedInput.current = 'end';
-    }
-
-    if (invalidTimestamp) {
+      // focusedInput.current = 'end';
+    } else {
       setEndDateValue('');
       setEndTimeValue('');
 
       setInvalidDate(false);
       setInvalidTime(false);
     }
-  }, [endDate, invalidTimestamp]);
+  }, [endDate]);
+
+
 
   useEffect(() => {
     if (invalidTimestamp) {
@@ -239,67 +250,19 @@ const DateTimeRangeSelector: React.FC<DateTimeRangeProps> = (({
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   useEffect(() => {
     if (startTimeValue) {
-      setStartTimeValue(startTimeValue);
+      // setStartTimeValue(startTimeValue);
       setInvalidTime(!isValidTime(getTimeTypeFromhhmmWithSep(startTimeValue)));
     }
-
-    if (endTimeValue) {
-      setEndTimeValue(endTimeValue);
-      setInvalidTime(!isValidTime(getTimeTypeFromhhmmWithSep(endTimeValue)));
-    }
-
-    if (invalidTimestamp) {
-      setStartDateValue('');
-      setStartTimeValue('');
-
-      setEndDateValue('');
-      setEndTimeValue('');
-
-
-      setInvalidDate(false);
-      setInvalidTime(false);
-    }
-  }, [startTimeValue, endTimeValue, invalidTimestamp]);
+  }, [startTimeValue]);
 
   useEffect(() => {
-    if (typeof timeStamp === 'number') {
-      const dateObj = new Date(timeStamp);
-      if (!Number.isNaN(dateObj.valueOf())) {
-        setStartDate(convertToZoneTime(timeStamp, timeZoneValue));
-        setInvalidTimestamp(false);
-      } else {
-        setStartDate(undefined);
-        setInvalidTimestamp(true);
-      }
-    } else if (typeof timeStamp === 'undefined') {
-      setStartDate(undefined);
-      setInvalidTimestamp(false);
-
-      setStartDateValue('');
-      setStartTimeValue('');
-      setInvalidDate(false);
-      setInvalidTime(false);
+    if (endTimeValue) {
+      // setEndTimeValue(endTimeValue);
+      setInvalidTime(!isValidTime(getTimeTypeFromhhmmWithSep(endTimeValue)));
     }
-  }, [timeStamp, timeZoneValue]);
+  }, [endTimeValue]);
 
   useEffect(() => {
     if (isValidTimeZone(timeZone)) {
@@ -311,51 +274,56 @@ const DateTimeRangeSelector: React.FC<DateTimeRangeProps> = (({
   }, [timeZone]);
 
   useEffect(() => {
-    const getError = () => {
-      if (invalidTimestamp) {
-        return 'Invalid timestamp';
-      }
-      if (invalidDate && invalidTime) {
-        return 'Invalid date & time format';
-      }
-      if (invalidDate) {
-        return 'Invalid date format';
-      }
-      if (invalidTime) {
-        return 'Invalid time format';
-      }
-      if (maxDateTime && endDate) {
-        const rangePositon = inRange(endDate.valueOf(), minDateTime, maxDateTime);
-        if (rangePositon === -1) {
-          return 'Less than minimum date.';
-        }
-        if (rangePositon === 1) {
-          return 'Larger than maximum date.';
-        }
+    if (Array.isArray(reducer.range)) {
+      const startDateObj = new Date(reducer.range[0]);
+      const endDateObj = new Date(reducer.range[1]);
+
+      if (!Number.isNaN(startDateObj.valueOf())) {
+        const date = convertToDateTypeObject(startDateObj);
+        const dateString = standardEUDateFormat(startDateObj);
+        const timeString = standardEUTimeFormat(startDateObj);
+
+        setStartDate(startDateObj);
+        setStartTimeValue(timeString);
+        // setInvalidDate(!isValidDate(date));
+      } else {
+        // setInvalidStartTimestamp(true);
       }
 
-      if (invalidTimeZone) {
-        const tz = 'Europe/Zurich';
-        setTimeZoneValue(tz);
-        return `Invalid time zone. ${tz} is being used.`;
+      if (!Number.isNaN(endDateObj.valueOf())) {
+        const date = convertToDateTypeObject(endDateObj);
+        const dateString = standardEUDateFormat(endDateObj);
+        const timeString = standardEUTimeFormat(endDateObj);
+
+        setEndDate(endDateObj);
+        setEndTimeValue(timeString);
+
+        // setInvalidDate(!isValidDate(date));
+      } else {
+        // setInvalidEndTimestamp(true);
       }
-      return '';
-    };
 
-    setErrorValue(getError());
-  }, [invalidDate, invalidTime, invalidTimestamp, invalidTimeZone, endDate, maxDateTime, minDateTime]);
+      if (reducer.range && (typeof reducer.range[0] === 'undefined')) {
+        setStartDateValue('');
+        setStartTimeValue('');
+        // setInvalidStartTimestamp(false);
+      }
 
-  const handleButton = () => {
-    console.log('Start', `${startDateValue} ${startTimeValue}`);
-    console.log('End', `${endDateValue} ${endTimeValue}`);
+      if (reducer.range && (typeof reducer.range[1] === 'undefined')) {
+        setEndDateValue('');
+        setEndTimeValue('');
+        // setInvalidEndTimestamp(false);
+      }
+    }
+  }, [reducer.range, timeZoneValue]);
+
+
+  const handleApplyButton = () => {
+    onChange(reducer.range);
   };
 
-  const handleCancelButton = () => {
+  const handleDiscardButton = () => {
     setCalOpen(!isCalOpen);
-  };
-
-  const handleChange = (value?:number | [number, number] | null) => {
-    console.log('Parent', value);
   };
 
   const handleFocus = (e:string) => {
@@ -363,34 +331,44 @@ const DateTimeRangeSelector: React.FC<DateTimeRangeProps> = (({
     console.log(e);
   };
 
+
+
+  const customCalendar = (props:{
+    children: ReactNode[]
+  }) => {
+    const { children } = props;
+    return (
+      <>
+        <RangeDateTimeRangeInput
+          startDateValue={startDateValue}
+          startTimeValue={startTimeValue}
+          endDateValue={endDateValue}
+          endTimeValue={endTimeValue}
+          onFocus={handleFocus}
+          parentDispatch={dispatch}
+        />
+        <CalendarContainer>
+          <div>{children}</div>
+        </CalendarContainer>
+        <div className={styles.rangeFooter}>
+          <div className={styles.infoBox}>
+            {errorValue || `Max. past date: ${standardEUDateFormat(new Date(minDateTime))} `}
+          </div>
+          <div className={styles.footerButtonsBox}>
+            <Button label="Discard" type="secondary" onClick={handleDiscardButton} />
+            <Button label="Apply" onClick={handleApplyButton} />
+          </div>
+        </div>
+      </>
+    );
+  };
+
+
   return (
     <>
       <ReactDPWrapper
         closeOnSelect={false}
-        customCalendar={({ children }) => (
-          <>
-            <RangeDateTimeRangeInput
-              startDateValue={startDateValue}
-              startTimeValue={startTimeValue}
-              endDateValue={endDateValue}
-              endTimeValue={endTimeValue}
-              onChange={handleChange}
-              onFocus={handleFocus}
-            />
-            <CalendarContainer>
-              <div>{children}</div>
-            </CalendarContainer>
-            <div className={styles.rangeFooter}>
-              <div className={styles.infoBox}>
-                {errorValue || `Max. past date: ${standardEUDateFormat(new Date(minDateTime))} `}
-              </div>
-              <div className={styles.footerButtonsBox}>
-                <Button label="Discard" type="secondary" onClick={handleCancelButton} />
-                <Button label="Apply" onClick={handleButton} />
-              </div>
-            </div>
-          </>
-        )}
+        customCalendar={customCalendar}
         endDate={endDate}
         onChange={(date, event) => onChangeReactDP(date, event, focusedInput.current)}
         // selectedDate={startDate}
@@ -400,15 +378,17 @@ const DateTimeRangeSelector: React.FC<DateTimeRangeProps> = (({
         CustomInput={!inline && (
           <TimeRangeSelector
             timezone="Europe/Zurich"
-            from={0}
-            to={23478903000}
-            lowerBound={-1000}
-            upperBound={33095430000}
-            onChange={(val: any) => { console.log(val); }}
+            from={reducer.range?.[0] || 0}
+            to={reducer.range?.[1] || 23478903000}
+            lowerBound={minDateTime}
+            upperBound={maxDateTime}
+            onChange={(from: number, to: number) => { console.log(from, to); }}
           />
         )}
         inline={inline}
         isOpen={isCalOpen}
+        maxDate={convertToUTCtime(maxDateTime, timeZoneValue)}
+        minDate={convertToUTCtime(minDateTime, timeZoneValue)}
         // value={`${iStartDate}`}
       />
     </>
