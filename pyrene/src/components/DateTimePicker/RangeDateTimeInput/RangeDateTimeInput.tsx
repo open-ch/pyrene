@@ -2,6 +2,7 @@ import React, {
   useCallback,
   useEffect,
   useReducer,
+  useRef,
   useState,
 } from 'react';
 import {
@@ -16,7 +17,7 @@ import {
   isValidDate, isValidTime, isValidTimeZone,
 } from '../../../utils/DateUtils';
 import DateTimeInput from '../DateTimeInput/DateTimeInput';
-import dateReducer, { DateActions } from '../DateStateReducer';
+import dateRangeInputsReducer, { DateActions, State } from '../DateStateReducer';
 
 import styles from './RangeDateTimeRangeInput.css';
 
@@ -49,6 +50,7 @@ export interface RangeProps {
   onChange?: OnFunction,
   onFocus?: (value: string) => void,
   parentDispatch?: React.Dispatch<DateActions>,
+  parentRef?: React.MutableRefObject<[number, number] | undefined>,
   timeZone?: string,
   /**
    * This is a timestamp that represents the maximum date allowed by the component
@@ -67,6 +69,7 @@ const RangeDateTimeRangeInput: React.FC<RangeProps> = ({
   onChange = () => {},
   onFocus = () => {},
   parentDispatch = () => {},
+  parentRef,
   dateOnly = false,
   endDateValue,
   endTimeValue,
@@ -77,7 +80,7 @@ const RangeDateTimeRangeInput: React.FC<RangeProps> = ({
   minDateTime = 0,
 }: RangeProps) => {
 
-  const [reducer, dispatch] = useReducer(dateReducer, {
+  const [reducer, dispatch] = useReducer(dateRangeInputsReducer, {
     startDate: startDateValue,
     startTime: startTimeValue,
     startDateInvalid: false,
@@ -87,6 +90,8 @@ const RangeDateTimeRangeInput: React.FC<RangeProps> = ({
     endDateInvalid: false,
     endTimeInvalid: false,
   });
+
+  const lparent = useRef(parentRef);
 
   const [timeZoneValue, setTimeZoneValue] = useState(timeZone);
 
@@ -144,21 +149,32 @@ const RangeDateTimeRangeInput: React.FC<RangeProps> = ({
     const isStartTimeLongEnough = reducer.startTime?.trim().length === 5;
     const isEndTimeLongEnough = reducer.endTime?.trim().length === 5;
 
-    if (isStartDateLongEnough && isEndDateLongEnough && isStartTimeLongEnough && isEndTimeLongEnough) {
-      const startdate = getDateTypeFromddmmyyyyWithSep(reducer.startDate || '');
-      const enddate = getDateTypeFromddmmyyyyWithSep(reducer.endDate || '');
-      const starttime = getTimeTypeFromhhmmWithSep(reducer.startTime?.trim() || '');
-      const endtime = getTimeTypeFromhhmmWithSep(reducer.endTime?.trim() || '');
+    if (
+      isStartDateLongEnough
+      && isEndDateLongEnough
+      && isStartTimeLongEnough
+      && isEndTimeLongEnough
+      && reducer.startDate
+      && reducer.startTime
+      && reducer.endDate
+      && reducer.endTime
+    ) {
+      const startdate = getDateTypeFromddmmyyyyWithSep(reducer.startDate);
+      const enddate = getDateTypeFromddmmyyyyWithSep(reducer.endDate);
+      const starttime = getTimeTypeFromhhmmWithSep(reducer.startTime?.trim());
+      const endtime = getTimeTypeFromhhmmWithSep(reducer.endTime?.trim());
 
-      dispatch({ type: 'startDate/invalid', payload: { value: !isValidDate(startdate) } });
-      dispatch({ type: 'startTime/invalid', payload: { value: !isValidTime(starttime) } });
+      dispatch({ type: 'startDate/invalid', payload: { value: errorDateBool(reducer.startDate) } });
+      dispatch({ type: 'startTime/invalid', payload: { value: errorDateBool(reducer.startTime?.trim()) } });
 
-      dispatch({ type: 'endDate/invalid', payload: { value: !isValidDate(enddate) } });
-      dispatch({ type: 'endTime/invalid', payload: { value: !isValidTime(endtime) } });
+      dispatch({ type: 'endDate/invalid', payload: { value: errorDateBool(reducer.endDate) } });
+      dispatch({ type: 'endTime/invalid', payload: { value: errorDateBool(reducer.endTime?.trim()) } });
 
       if (onFunction) {
         if (startdate && enddate && starttime && endtime && !reducer.startDateInvalid && !reducer.endDateInvalid && !reducer.startTimeInvalid && !reducer.endTimeInvalid) {
           onFunction([convertToUTCtime(`${convertDateTypeToString(startdate)} ${convertTimeTypeToString(starttime)}`, timeZoneValue).valueOf(), convertToUTCtime(`${convertDateTypeToString(enddate)} ${convertTimeTypeToString(endtime)}`, timeZoneValue).valueOf()]);
+          // eslint-disable-next-line no-param-reassign
+          // if (parentRef?.current) parentRef.current = [convertToUTCtime(`${convertDateTypeToString(startdate)} ${convertTimeTypeToString(starttime)}`, timeZoneValue).valueOf(), convertToUTCtime(`${convertDateTypeToString(enddate)} ${convertTimeTypeToString(endtime)}`, timeZoneValue).valueOf()];
           parentDispatch?.({
             type: 'range/changed',
             payload: {
@@ -167,12 +183,6 @@ const RangeDateTimeRangeInput: React.FC<RangeProps> = ({
           });
         } else {
           onFunction(null);
-          parentDispatch?.({
-            type: 'range/changed',
-            payload: {
-              value: null,
-            },
-          });
         }
       }
     } else {
@@ -186,7 +196,7 @@ const RangeDateTimeRangeInput: React.FC<RangeProps> = ({
         onFunction(null);
       }
     }
-  }, [parentDispatch, reducer.endDate, reducer.endDateInvalid, reducer.endTime, reducer.endTimeInvalid, reducer.startDate, reducer.startDateInvalid, reducer.startTime, reducer.startTimeInvalid, timeZoneValue]);
+  }, [errorDateBool, parentDispatch, reducer.endDate, reducer.endDateInvalid, reducer.endTime, reducer.endTimeInvalid, reducer.startDate, reducer.startDateInvalid, reducer.startTime, reducer.startTimeInvalid, timeZoneValue]);
 
   useEffect(() => {
     if (isValidTimeZone(timeZone)) {

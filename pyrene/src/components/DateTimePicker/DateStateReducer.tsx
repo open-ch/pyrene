@@ -1,7 +1,3 @@
-import React, {
-  FunctionComponent, useEffect, useRef, MouseEvent, useReducer,
-} from 'react';
-
 interface Action {
   type:
   'startDate/changed' |
@@ -102,7 +98,7 @@ InvalidEndDateAction |
 RangeDateChangeAction |
 null;
 
-export default function dateReducer(state: State, action: DateActions): State {
+export default function dateRangeInputsReducer(state: State, action: DateActions): State {
   if (action) {
     switch (action.type) {
       case 'startDate/changed': {
