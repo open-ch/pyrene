@@ -1,5 +1,5 @@
 import { Example, StateProvider } from '../../examples/Example';
-import { DateTimeInputProps } from './DateTimePicker';
+import { DateTimeInputProps } from './DateTimePickerTable';
 
 export interface State {
   value?: number | [number, number] | null

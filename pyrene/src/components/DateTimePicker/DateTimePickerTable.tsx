@@ -1,19 +1,23 @@
 import React, {
   useCallback,
   useEffect,
-  useRef,
   useState,
 } from 'react';
 
 import ReactDPWrapper from './ReactDatePickerWrapper/ReactDatePickerWrapper';
 import DateTimeInput from './DateTimeInput/DateTimeInput';
+import DateTimePicker from './DateTimePicker';
 
 import {
+  DateType,
+  TimeType,
   getFutureDate, standardEUDateFormat, standardEUTimeFormat,
   isValidDate, isValidTime, isValidTimeZone, convertToDateTypeObject, convertToTimeTypeObject,
   convertToUTCtime, convertToZoneTime, convertDateTypeToString, convertTimeTypeToString, dateTypeToStandardEUDateFormat,
   getDateTypeFromddmmyyyyWithSep, getTimeTypeFromhhmmWithSep,
 } from '../../utils/DateUtils';
+import DateTimeRangeSelector from './DateTimeRangeSelector/DateTimeRangeSelector';
+
 
 
 type OnFunction = (value?: number | [number, number] | null) => void;
@@ -62,24 +66,31 @@ const inRange = (timestampToCheck: number, minimumValue: number, maximumValue: n
 };
 
 
-const DateTimePicker: React.FC<DateTimeInputProps> = ({
+const DateTimePickerTable: React.FC<DateTimeInputProps> = ({
   dateOnly = false,
   maxDateTime = getFutureDate({ years: 1 }),
   minDateTime = 0,
   name,
   onBlur,
   onChange,
-  range = false,
+  range = true,
   timeStamp,
   timeZone = 'Europe/Zurich',
 }: DateTimeInputProps) => {
 
-  const compRef = useRef<HTMLDivElement>(null);
-
   const [internalDate, setInternalDate] = useState<Date | undefined>(undefined);
+  const [endDate, setEndDate] = useState<Date | undefined>(undefined);
+  const [startDate, setStartDate] = useState<Date | undefined>(undefined);
 
   const [dateValue, setDateValue] = useState('');
   const [timeValue, setTimeValue] = useState('');
+
+  const [startDateValue, setStartDateValue] = useState('');
+  const [startTimeValue, setStartTimeValue] = useState('');
+
+
+  const [endDateValue, setEndDateValue] = useState('');
+  const [endTimeValue, setEndTimeValue] = useState('');
 
 
   const [timeZoneValue, setTimeZoneValue] = useState(timeZone);
@@ -128,6 +139,35 @@ const DateTimePicker: React.FC<DateTimeInputProps> = ({
     console.log(event?.type);
     console.log(date);
     console.log(rangePos);
+    console.log(startTimeValue);
+
+    if (Array.isArray(date)) {
+      const [start, end] = date;
+      setStartDate(start);
+      setEndDate(end);
+
+      if (rangePos && rangePos === 'start') {
+        setStartDate(start);
+        setStartDateValue(standardEUDateFormat(start));
+
+        if (end !== null) {
+          setEndDate(end);
+          setEndDateValue(standardEUDateFormat(end));
+        }
+      }
+
+      if (rangePos && rangePos === 'end') {
+        setEndDate(end);
+        setEndDateValue(standardEUDateFormat(end));
+
+        if (start !== null) {
+          setStartDate(start);
+          setStartDateValue(standardEUDateFormat(start));
+        }
+      }
+    }
+
+
 
 
     if (date && (event?.type === 'click' || (event?.type === 'keydown' && (event as React.KeyboardEvent).key.length > 1))) {
@@ -141,6 +181,16 @@ const DateTimePicker: React.FC<DateTimeInputProps> = ({
           } else {
             handleOn(standardEUDateFormat(date), timeValue, onChange);
           }
+        }
+
+        if (rangePos && rangePos === 'start') {
+          setStartDate(date);
+          setStartDateValue(standardEUDateFormat(date));
+        }
+
+        if (rangePos && rangePos === 'end') {
+          setEndDate(date);
+          setEndDateValue(standardEUDateFormat(date));
         }
       }
     } else if (event?.type === 'change') {
@@ -159,6 +209,15 @@ const DateTimePicker: React.FC<DateTimeInputProps> = ({
           console.log('Passed Date  : ', convertToUTCtime(convertDateTypeToString(newdate), timeZoneValue));
           setInternalDate(convertToUTCtime(convertDateTypeToString(newdate), timeZoneValue));
 
+
+          if (rangePos && rangePos === 'start') {
+            setStartDateValue(dateTypeToStandardEUDateFormat(newdate));
+          }
+
+          if (rangePos && rangePos === 'end') {
+            setEndDateValue(dateTypeToStandardEUDateFormat(newdate));
+          }
+
           if (dateOnly) {
             handleOn(dateTypeToStandardEUDateFormat(newdate), '00:00', onChange);
           }
@@ -174,6 +233,15 @@ const DateTimePicker: React.FC<DateTimeInputProps> = ({
         if (newdate && newtime) {
           setTimeValue(convertTimeTypeToString(newtime));
 
+
+          if (rangePos && rangePos === 'start') {
+            setStartTimeValue(convertTimeTypeToString(newtime));
+          }
+
+          if (rangePos && rangePos === 'end') {
+            setEndTimeValue(convertTimeTypeToString(newtime));
+          }
+
           console.log('Entered : ', convertToUTCtime(`${convertDateTypeToString(newdate)} ${convertTimeTypeToString(newtime)}`, timeZoneValue));
           setInternalDate(convertToUTCtime(`${convertDateTypeToString(newdate)} ${convertTimeTypeToString(newtime)}`, timeZoneValue));
 
@@ -186,9 +254,22 @@ const DateTimePicker: React.FC<DateTimeInputProps> = ({
       console.log(date);
       console.log(rangePos);
 
-      setTimeValue(standardEUTimeFormat(date));
-      setDateValue(standardEUDateFormat(date));
-      handleOn(standardEUDateFormat(date), standardEUTimeFormat(date), onChange);
+      if (rangePos && rangePos === 'start') {
+        setStartTimeValue(standardEUTimeFormat(date));
+        setStartDateValue(standardEUDateFormat(date));
+      }
+
+
+      if (rangePos && rangePos === 'end') {
+        setEndTimeValue(standardEUTimeFormat(date));
+        setEndDateValue(standardEUDateFormat(date));
+      }
+
+      if (rangePos === undefined) {
+        setTimeValue(standardEUTimeFormat(date));
+        setDateValue(standardEUDateFormat(date));
+        handleOn(standardEUDateFormat(date), standardEUTimeFormat(date), onChange);
+      }
     } else {
       setInvalidDate(false);
       setInvalidTime(false);
@@ -285,34 +366,101 @@ const DateTimePicker: React.FC<DateTimeInputProps> = ({
   }, [invalidDate, invalidTime, invalidTimestamp, invalidTimeZone, jsDateObject, maxDateTime, minDateTime]);
 
   return (
-    <div ref={compRef}>
-      <ReactDPWrapper
-        onChange={onChangeReactDP}
-        endRange={range}
-        selectedDate={timeStamp ? jsDateObject : internalDate}
-        shouldDisplayTimeColumn={!dateOnly}
-        CustomInput={(
-          <DateTimeInput
-            dateValue={dateValue}
-            handleOn={handleOn}
-            timeValue={timeValue}
-            errorValue={errorValue}
-            invalidTimestamp={invalidTimestamp}
-            name={name}
-            onBlur={onBlur}
-            range={false}
-            setDateValue={setDateValue}
-            setTimeValue={setTimeValue}
-            dateOnly={dateOnly}
+    <>
+      <table>
+        <thead>
+          <tr>
+            <th colSpan={2}>
+              Testing Dateker.o.0
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td colSpan={2}>
+              <DateTimeRangeSelector
+                onChange={onChange}
+                timeZone={timeZone}
+              />
+            </td>
+          </tr>
+          <tr>
+            <td style={{ height: '200px' }}>
+              <ReactDPWrapper
+                endDate={endDate}
+                onChange={(date, event) => onChangeReactDP(date, event, 'start')}
+                startRange={range}
+                selectedDate={startDate}
+                shouldDisplayTimeColumn={!dateOnly}
+                startDate={startDate}
+                CustomInput={(
+                  <DateTimeInput
+                    dateValue={startDateValue}
+                    // handleOn={handleOn}
+                    timeValue={startTimeValue}
+                    errorValue={errorValue}
+                    invalidTimestamp={invalidTimestamp}
+                    label="From"
+                    name={name}
+                    onBlur={onBlur}
+                    range={range}
+                    setDateValue={setStartDateValue}
+                    setTimeValue={setStartTimeValue}
+                    dateOnly={dateOnly}
 
-          />
-        )}
-      />
+                  />
+                )}
+              />
+            </td>
+            <td>
+              <ReactDPWrapper
+                endDate={endDate}
+                onChange={(date, event) => onChangeReactDP(date, event, 'end')}
+                endRange={range}
+                selectedDate={endDate}
+                shouldDisplayTimeColumn={!dateOnly}
+                startDate={startDate}
+                CustomInput={(
+                  <DateTimeInput
+                    dateValue={endDateValue}
+                    // handleOn={handleOn}
+                    timeValue={endTimeValue}
+                    errorValue={errorValue}
+                    invalidTimestamp={invalidTimestamp}
+                    label="To"
+                    name={name}
+                    onBlur={onBlur}
+                    range={range}
+                    setDateValue={setEndDateValue}
+                    setTimeValue={setEndTimeValue}
+                    dateOnly={dateOnly}
 
-    </div>
+                  />
+                )}
+              />
+            </td>
+          </tr>
+          <tr>
+            <td colSpan={2} style={{ height: '200px' }}>
+              <DateTimePicker onChange={(value) => console.log('DPicker : ', value)} />
+            </td>
+          </tr>
+          <tr>
+            <td colSpan={2}>
+              <DateTimeRangeSelector
+                onChange={onChange}
+                timeZone={timeZone}
+                inline
+              />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+    </>
   );
 };
 
-DateTimePicker.displayName = 'DateTime Picker';
+DateTimePickerTable.displayName = 'DateTime Picker Examples';
 
-export default DateTimePicker;
+export default DateTimePickerTable;
