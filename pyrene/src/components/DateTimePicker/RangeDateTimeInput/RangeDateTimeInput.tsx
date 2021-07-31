@@ -2,14 +2,11 @@ import React, {
   useCallback,
   useEffect,
   useReducer,
-  useRef,
   useState,
 } from 'react';
 import {
   convertDateTypeToString,
   convertTimeTypeToString,
-  convertToDateTypeObject,
-  convertToTimeTypeObject,
   convertToUTCtime,
   getDateTypeFromddmmyyyyWithSep,
   getFutureDate,
@@ -17,7 +14,7 @@ import {
   isValidDate, isValidTime, isValidTimeZone,
 } from '../../../utils/DateUtils';
 import DateTimeInput from '../DateTimeInput/DateTimeInput';
-import dateRangeInputsReducer, { DateActions, State } from '../DateStateReducer';
+import dateRangeInputsReducer, { DateActions } from '../DateStateReducer';
 
 import styles from './RangeDateTimeRangeInput.css';
 
@@ -69,7 +66,6 @@ const RangeDateTimeRangeInput: React.FC<RangeProps> = ({
   onChange = () => {},
   onFocus = () => {},
   parentDispatch = () => {},
-  parentRef,
   dateOnly = false,
   endDateValue,
   endTimeValue,
@@ -90,8 +86,6 @@ const RangeDateTimeRangeInput: React.FC<RangeProps> = ({
     endDateInvalid: false,
     endTimeInvalid: false,
   });
-
-  const lparent = useRef(parentRef);
 
   const [timeZoneValue, setTimeZoneValue] = useState(timeZone);
 
@@ -173,8 +167,7 @@ const RangeDateTimeRangeInput: React.FC<RangeProps> = ({
       if (onFunction) {
         if (startdate && enddate && starttime && endtime && !reducer.startDateInvalid && !reducer.endDateInvalid && !reducer.startTimeInvalid && !reducer.endTimeInvalid) {
           onFunction([convertToUTCtime(`${convertDateTypeToString(startdate)} ${convertTimeTypeToString(starttime)}`, timeZoneValue).valueOf(), convertToUTCtime(`${convertDateTypeToString(enddate)} ${convertTimeTypeToString(endtime)}`, timeZoneValue).valueOf()]);
-          // eslint-disable-next-line no-param-reassign
-          // if (parentRef?.current) parentRef.current = [convertToUTCtime(`${convertDateTypeToString(startdate)} ${convertTimeTypeToString(starttime)}`, timeZoneValue).valueOf(), convertToUTCtime(`${convertDateTypeToString(enddate)} ${convertTimeTypeToString(endtime)}`, timeZoneValue).valueOf()];
+
           parentDispatch?.({
             type: 'range/changed',
             payload: {

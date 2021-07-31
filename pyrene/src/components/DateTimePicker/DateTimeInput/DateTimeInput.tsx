@@ -1,8 +1,10 @@
-import React, { forwardRef, useEffect } from 'react';
+import React, { forwardRef } from 'react';
 import clsx from 'clsx';
 
 import Icon from '../../Icon/Icon';
 import styles from './dateTimeInput.css';
+
+const allowedValueCheck = (valueToCheck:string) : boolean => (/^[0-9.: APM]*$/.test(valueToCheck));
 
 export interface InputProps {
   dateOnly?: boolean,
@@ -22,8 +24,6 @@ export interface InputProps {
   timeValue: string,
   value?: string
 }
-
-const allowedValueCheck = (valueToCheck:string) : boolean => (/^[0-9.: APM]*$/.test(valueToCheck));
 
 const DateTimeInput = forwardRef(({
   dateOnly = false,
@@ -45,7 +45,6 @@ const DateTimeInput = forwardRef(({
   const handleDateOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const node = event && event.target as HTMLInputElement;
 
-    console.log(node.value.trim());
     if (allowedValueCheck(node.value)) {
       if (node.value.length > 10) {
         setDateValue(node.value.substring(0, 10).trim());
@@ -100,7 +99,7 @@ const DateTimeInput = forwardRef(({
             maxLength={dateOnly ? 10 : 16}
             ref={ref}
             onClick={onClick}
-            onFocusCapture={onFocus}
+            onFocus={onFocus}
             onChange={handleDateOnChange}
             value={`${dateValue}${timeValue && formatTime(timeValue)}${formattedTime('')}`}
           />

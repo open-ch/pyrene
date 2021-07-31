@@ -16,10 +16,12 @@ import {
 } from '../../utils/DateUtils';
 
 
-type OnFunction = (value?: number | [number, number] | null) => void;
+type OnFunction = (value?: number) => void;
 
 export interface DateTimeInputProps{
   dateOnly?: boolean,
+  endDate?: Date,
+  label?: string,
   /**
    * This is a timestamp that represents the maximum date allowed by the component
    */
@@ -44,11 +46,16 @@ export interface DateTimeInputProps{
   /**
    * Function to handle onBlur event
    */
-  onBlur?: OnFunction,
+  onBlur?: () => OnFunction,
   /**
    * Function to handle onChange event
    */
   onChange: OnFunction,
+  selectStart?: boolean,
+  selectEnd?: boolean,
+  startDate?: Date,
+  setStartDate?: (date: Date) => void,
+  setEndDate?: (date: Date) => void,
 }
 
 const inRange = (timestampToCheck: number, minimumValue: number, maximumValue: number): number => {
@@ -64,27 +71,30 @@ const inRange = (timestampToCheck: number, minimumValue: number, maximumValue: n
 
 const DateTimePicker: React.FC<DateTimeInputProps> = ({
   dateOnly = false,
+  endDate,
+  label,
   maxDateTime = getFutureDate({ years: 1 }),
   minDateTime = 0,
   name,
   onBlur,
   onChange,
   range = false,
+  selectEnd = false,
+  selectStart = false,
+  setEndDate = () => {},
+  setStartDate = () => {},
+  startDate,
   timeStamp,
   timeZone = 'Europe/Zurich',
 }: DateTimeInputProps) => {
 
-  const compRef = useRef<HTMLDivElement>(null);
-
-  const [internalDate, setInternalDate] = useState<Date | undefined>(undefined);
+  const [internalDate, setInternalDate] = useState<Date | undefined>(startDate);
 
   const [dateValue, setDateValue] = useState('');
   const [timeValue, setTimeValue] = useState('');
 
 
   const [timeZoneValue, setTimeZoneValue] = useState(timeZone);
-
-  const [jsDateObject, setJsDateObject] = useState<Date | undefined>(undefined);
 
   const [invalidDate, setInvalidDate] = useState(false);
   const [invalidTime, setInvalidTime] = useState(false);
@@ -108,39 +118,36 @@ const DateTimePicker: React.FC<DateTimeInputProps> = ({
 
       if (onFunction) {
         if (date && time && validDateState && validTimeState) {
+          setInternalDate(convertToUTCtime(`${convertDateTypeToString(date)} ${convertTimeTypeToString(time)}`, timeZoneValue));
           onFunction(convertToUTCtime(`${convertDateTypeToString(date)} ${convertTimeTypeToString(time)}`, timeZoneValue).valueOf());
         } else {
-          onFunction(null);
+          onFunction(undefined);
         }
       }
     } else {
       setInvalidDate(false);
       setInvalidTime(false);
-      setJsDateObject(undefined);
+      setInternalDate(undefined);
 
       if (onFunction) {
-        onFunction(null);
+        onFunction(undefined);
       }
     }
   }, [timeZoneValue]);
 
-  const onChangeReactDP = (date: Date | [Date, Date] | null, event: React.SyntheticEvent<any> | undefined, rangePos?:string): void => {
+  const onChangeReactDP = (date: Date | [Date, Date] | null, event: React.SyntheticEvent<any> | undefined): void => {
     console.log(event?.type);
     console.log(date);
-    console.log(rangePos);
 
 
     if (date && (event?.type === 'click' || (event?.type === 'keydown' && (event as React.KeyboardEvent).key.length > 1))) {
       if (!Array.isArray(date)) {
-        if (rangePos === undefined) {
-          setDateValue(standardEUDateFormat(date));
-          setInternalDate(date);
+        setDateValue(standardEUDateFormat(date));
 
-          if (dateOnly) {
-            handleOn(standardEUDateFormat(date), '00:00', onChange);
-          } else {
-            handleOn(standardEUDateFormat(date), timeValue, onChange);
-          }
+        if (dateOnly) {
+          handleOn(standardEUDateFormat(date), '00:00', onChange);
+        } else if (timeValue && timeValue !== '') {
+          handleOn(standardEUDateFormat(date), timeValue, onChange);
         }
       }
     } else if (event?.type === 'change') {
@@ -148,19 +155,16 @@ const DateTimePicker: React.FC<DateTimeInputProps> = ({
       const isDateLongEnough = node?.value.length >= 10;
       const isTimeLongEnough = node?.value.length >= 16;
 
-      console.log('value ', node?.value.length);
-
       if (isDateLongEnough) {
         const newdate = getDateTypeFromddmmyyyyWithSep(node?.value.substring(0, 10) || '');
-        console.log('Date  : ', newdate);
 
         if (newdate) {
           setDateValue(dateTypeToStandardEUDateFormat(newdate));
-          console.log('Passed Date  : ', convertToUTCtime(convertDateTypeToString(newdate), timeZoneValue));
-          setInternalDate(convertToUTCtime(convertDateTypeToString(newdate), timeZoneValue));
 
           if (dateOnly) {
             handleOn(dateTypeToStandardEUDateFormat(newdate), '00:00', onChange);
+          } else if (timeValue && timeValue !== '') {
+            handleOn(dateTypeToStandardEUDateFormat(newdate), timeValue, onChange);
           }
         }
       }
@@ -169,40 +173,31 @@ const DateTimePicker: React.FC<DateTimeInputProps> = ({
         const newdate = getDateTypeFromddmmyyyyWithSep(node?.value.substring(0, 10) || '');
         const newtime = getTimeTypeFromhhmmWithSep(node?.value.substring(10).trim() || '');
 
-        console.log('Time  : ', newtime);
-
         if (newdate && newtime) {
           setTimeValue(convertTimeTypeToString(newtime));
-
-          console.log('Entered : ', convertToUTCtime(`${convertDateTypeToString(newdate)} ${convertTimeTypeToString(newtime)}`, timeZoneValue));
-          setInternalDate(convertToUTCtime(`${convertDateTypeToString(newdate)} ${convertTimeTypeToString(newtime)}`, timeZoneValue));
-
           handleOn(dateValue, convertTimeTypeToString(newtime), onChange);
         }
-
-        console.log('Internal : ', internalDate);
       }
     } else if (event === undefined && !Array.isArray(date) && date !== null) { // This is relying on the time click event being 'undefined' temporary fix for access to time value
-      console.log(date);
-      console.log(rangePos);
-
       setTimeValue(standardEUTimeFormat(date));
-      setDateValue(standardEUDateFormat(date));
-      handleOn(standardEUDateFormat(date), standardEUTimeFormat(date), onChange);
+
+      const ldate = getDateTypeFromddmmyyyyWithSep(dateValue);
+      if (ldate) {
+        handleOn(dateTypeToStandardEUDateFormat(ldate), standardEUTimeFormat(date), onChange);
+      }
     } else {
       setInvalidDate(false);
       setInvalidTime(false);
-      setJsDateObject(undefined);
       setInternalDate(undefined);
     }
   };
 
   useEffect(() => {
-    if (jsDateObject) {
-      const date = convertToDateTypeObject(jsDateObject);
-      const time = convertToTimeTypeObject(jsDateObject);
-      const dateString = standardEUDateFormat(jsDateObject);
-      const timeString = standardEUTimeFormat(jsDateObject);
+    if (internalDate) {
+      const date = convertToDateTypeObject(internalDate);
+      const time = convertToTimeTypeObject(internalDate);
+      const dateString = standardEUDateFormat(internalDate);
+      const timeString = standardEUTimeFormat(internalDate);
 
       setDateValue(dateString);
       setTimeValue(timeString);
@@ -217,20 +212,20 @@ const DateTimePicker: React.FC<DateTimeInputProps> = ({
       setInvalidDate(false);
       setInvalidTime(false);
     }
-  }, [jsDateObject, invalidTimestamp]);
+  }, [internalDate, invalidTimestamp]);
 
   useEffect(() => {
     if (typeof timeStamp === 'number') {
       const dateObj = new Date(timeStamp);
       if (!Number.isNaN(dateObj.valueOf())) {
-        setJsDateObject(convertToZoneTime(timeStamp, timeZoneValue));
+        setInternalDate(convertToZoneTime(timeStamp, timeZoneValue));
         setInvalidTimestamp(false);
       } else {
-        setJsDateObject(undefined);
+        setInternalDate(undefined);
         setInvalidTimestamp(true);
       }
     } else if (typeof timeStamp === 'undefined') {
-      setJsDateObject(undefined);
+      setInternalDate(undefined);
       setInvalidTimestamp(false);
 
       setDateValue('');
@@ -263,8 +258,8 @@ const DateTimePicker: React.FC<DateTimeInputProps> = ({
       if (invalidTime) {
         return 'Invalid time format';
       }
-      if (maxDateTime && jsDateObject) {
-        const rangePositon = inRange(jsDateObject.valueOf(), minDateTime, maxDateTime);
+      if (maxDateTime && internalDate) {
+        const rangePositon = inRange(internalDate.valueOf(), minDateTime, maxDateTime);
         if (rangePositon === -1) {
           return 'Less than minimum date.';
         }
@@ -282,25 +277,29 @@ const DateTimePicker: React.FC<DateTimeInputProps> = ({
     };
 
     setErrorValue(getError());
-  }, [invalidDate, invalidTime, invalidTimestamp, invalidTimeZone, jsDateObject, maxDateTime, minDateTime]);
+  }, [invalidDate, invalidTime, invalidTimestamp, invalidTimeZone, internalDate, maxDateTime, minDateTime]);
 
   return (
-    <div ref={compRef}>
+    <>
       <ReactDPWrapper
+        endDate={endDate}
         onChange={onChangeReactDP}
-        endRange={range}
-        selectedDate={timeStamp ? jsDateObject : internalDate}
+        startRange={selectStart}
+        endRange={selectEnd}
+        selectedDate={selectEnd ? endDate : internalDate}
         shouldDisplayTimeColumn={!dateOnly}
+        startDate={internalDate}
         CustomInput={(
           <DateTimeInput
             dateValue={dateValue}
-            handleOn={handleOn}
+            // handleOn={handleOn}
             timeValue={timeValue}
             errorValue={errorValue}
             invalidTimestamp={invalidTimestamp}
+            label={label}
             name={name}
             onBlur={onBlur}
-            range={false}
+            range={range}
             setDateValue={setDateValue}
             setTimeValue={setTimeValue}
             dateOnly={dateOnly}
@@ -308,8 +307,7 @@ const DateTimePicker: React.FC<DateTimeInputProps> = ({
           />
         )}
       />
-
-    </div>
+    </>
   );
 };
 

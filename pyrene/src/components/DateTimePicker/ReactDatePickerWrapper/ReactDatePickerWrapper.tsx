@@ -1,10 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import ReactDatepicker from 'react-datepicker';
 
-import {
-  DateType,
-} from '../../../utils/DateUtils';
-
 import 'react-datepicker/dist/react-datepicker.css';
 import styles from '../datePicker.css';
 
@@ -46,6 +42,7 @@ export interface DatePickerProps{
    * Function to handle date select event
    */
   onSelect?(date: Date, event: React.SyntheticEvent<any> | undefined): void;
+  openDate?: Date,
   /**
    * This is a Date object that represents the selected date of the datepicker
    */
@@ -96,6 +93,7 @@ const ReactDPWrapper: React.FC<DatePickerProps> = ({
   isOpen,
   onChange = () => {},
   onSelect,
+  openDate,
   range = false,
   value = undefined,
 }: DatePickerProps) => {
@@ -112,18 +110,18 @@ const ReactDPWrapper: React.FC<DatePickerProps> = ({
   return (
     <div className={styles.wrapper}>
       <ReactDatepicker
-        endDate={endDate && endDate}
+        endDate={endDate}
         renderCustomHeader={({
           date,
           decreaseMonth,
           increaseMonth,
         }) => (
           <div>
-            {/* eslint-disable-next-line react/button-has-type */}
             <button
               aria-label="Previous Month"
               className="react-datepicker__navigation react-datepicker__navigation--previous"
               onClick={decreaseMonth}
+              type="button"
             >
               {prevIcon}
             </button>
@@ -138,11 +136,11 @@ const ReactDPWrapper: React.FC<DatePickerProps> = ({
                 })}
               </span>
             </span>
-            {/* eslint-disable-next-line react/button-has-type */}
             <button
               aria-label="Next Month"
               className="react-datepicker__navigation react-datepicker__navigation--next"
               onClick={increaseMonth}
+              type="button"
             >
               {nextIcon}
             </button>
@@ -166,6 +164,7 @@ const ReactDPWrapper: React.FC<DatePickerProps> = ({
         selectsStart={startRange}
         selectsEnd={endRange}
         selectsRange={range}
+        openToDate={openDate}
         shouldCloseOnSelect={closeOnSelect}
         inline={inline}
         value={value}
