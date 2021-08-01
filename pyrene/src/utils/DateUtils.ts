@@ -37,11 +37,14 @@ const allowedSeparatorCheck = (valueToCheck: string): boolean => (/[/.:]$/.test(
  * @param {DateType} value
  * @returns {Date}
  */
-export const convertToJsDate = (value: DateType, time?:TimeType): Date => {
-  if (time) {
-    return new Date(value.year, value.month - 1, value.day, time.hours, time.minutes);
+export const convertToJsDate = (date?: DateType, time?:TimeType): Date | undefined => {
+  if (date) {
+    if (time) {
+      return new Date(date.year, date.month - 1, date.day, time.hours, time.minutes);
+    }
+    return new Date(date.year, date.month - 1, date.day);
   }
-  return new Date(value.year, value.month - 1, value.day);
+  return undefined;
 };
 
 /**
@@ -197,4 +200,61 @@ export const getTimeTypeFromhhmmWithSep = (str: string): TimeType | undefined =>
     }
   }
   return undefined;
+};
+
+export const inRange = (timestampToCheck: number, minimumValue: number, maximumValue: number): number => {
+  if (timestampToCheck < minimumValue) {
+    return -1;
+  }
+  if (timestampToCheck > maximumValue) {
+    return 1;
+  }
+  return 0;
+};
+
+export const getErrors = (dateInvalid?: boolean, timeInvalid?: boolean, dateString?: string, minimumValue?: number, maximumValue?: number, timeZone?: string): string => {
+  if (dateString && timeZone) {
+    const tmpDate = getDateTypeFromddmmyyyyWithSep(dateString);
+    if (tmpDate && isValidDate(tmpDate)) {
+      if (typeof minimumValue !== 'undefined' && typeof maximumValue !== 'undefined') {
+        const rangePositon = inRange(convertToUTCtime(convertDateTypeToString(tmpDate), timeZone).valueOf(), minimumValue, maximumValue);
+        if (rangePositon === -1) {
+          return 'Less than minimum date.';
+        }
+        if (rangePositon === 1) {
+          return 'Larger than maximum date.';
+        }
+      }
+    }
+  }
+
+  if (dateInvalid && timeInvalid) {
+    return 'Invalid date & time format';
+  }
+  if (dateInvalid) {
+    return 'Invalid date format';
+  }
+  if (timeInvalid) {
+    return 'Invalid time format';
+  }
+  return '';
+};
+
+
+export const errorDateBool = (datestring: string, minimumValue?: number, maximumValue?: number, timeZone?: string): boolean => {
+  if (datestring.length <= 10) {
+    if ((datestring.length < 10 || isValidDate(getDateTypeFromddmmyyyyWithSep(datestring))) && getErrors(false, false, datestring, minimumValue, maximumValue, timeZone) === '') {
+      return false;
+    }
+  }
+  return true;
+};
+
+export const errorTimeBool = (timestring: string): boolean => {
+  if (timestring.trim().length <= 5) {
+    if (timestring.trim().length < 5 || isValidTime(getTimeTypeFromhhmmWithSep(timestring.trim()))) {
+      return false;
+    }
+  }
+  return true;
 };

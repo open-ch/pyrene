@@ -4,18 +4,29 @@ import ReactDatepicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import styles from '../datePicker.css';
 
+
+const DATE_FORMAT = 'dd.MM.yyyy';
+const DATETIME_FORMAT = 'dd.MM.yyyy HH:mm';
+
+export interface CalendarProps {
+  className?: string,
+  children: React.ReactNode,
+}
+
+
 export { CalendarContainer } from 'react-datepicker';
 export interface DatePickerProps{
   closeOnSelect?: boolean,
   /**
  * Replaces the input with any node, for example a button
- */
+9 */
   CustomInput: React.ReactNode,
   customCalendar?(props: { children: React.ReactNode[] }): React.ReactNode,
   /**
    * This is a Date object that represents the end date of a date range
    */
   endDate?: Date,
+  dateOnly?: boolean,
   inline?: boolean,
   isOpen?: boolean,
   /**
@@ -70,15 +81,11 @@ export interface DatePickerProps{
   shouldDisplayTimeColumn?: boolean,
 }
 
-export interface CalendarProps {
-  className?: string,
-  children: React.ReactNode,
-}
-
 
 const ReactDPWrapper: React.FC<DatePickerProps> = ({
   closeOnSelect = true,
   customCalendar,
+  dateOnly = false,
   endDate = undefined,
   maxDate,
   minDate,
@@ -99,6 +106,7 @@ const ReactDPWrapper: React.FC<DatePickerProps> = ({
 }: DatePickerProps) => {
 
   const rangeRef = useRef<ReactDatepicker>(null);
+  const dateFormatting = dateOnly ? DATE_FORMAT : DATETIME_FORMAT;
 
   useEffect(() => {
     rangeRef.current?.setOpen(false);
@@ -159,7 +167,7 @@ const ReactDPWrapper: React.FC<DatePickerProps> = ({
         onChange={onChange}
         maxDate={maxDate}
         minDate={minDate}
-        dateFormat="dd.MM.yyyy HH:mm"
+        dateFormat={dateFormatting}
         formatWeekDay={(nameOfDay) => nameOfDay.substr(0, 1)}
         selectsStart={startRange}
         selectsEnd={endRange}

@@ -4,11 +4,11 @@
   composes: commonFontSettings from '../../../styles/common.css';
   color: var(--neutral-500);
   display: flex;
-  padding-top: 16px;
-  padding-bottom: 24px;
+  padding: 16px 16px 24px 16px;
   border-bottom: 1px solid var(--neutral-050);
+  justify-content: space-between;
 }
 
 .leftbox, .rightbox {
-  margin-left: 16px;
+
 }

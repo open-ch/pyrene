@@ -12,13 +12,17 @@ import {
   getFutureDate, standardEUDateFormat, standardEUTimeFormat,
   isValidDate, isValidTime, isValidTimeZone, convertToDateTypeObject, convertToTimeTypeObject,
   convertToUTCtime, convertToZoneTime, convertDateTypeToString, convertTimeTypeToString, dateTypeToStandardEUDateFormat,
-  getDateTypeFromddmmyyyyWithSep, getTimeTypeFromhhmmWithSep,
+  getDateTypeFromddmmyyyyWithSep, getTimeTypeFromhhmmWithSep, getErrors, convertToJsDate,
+  errorDateBool, errorTimeBool,
 } from '../../utils/DateUtils';
 
 
 type OnFunction = (value?: number) => void;
 
 export interface DateTimeInputProps{
+  /**
+   * Boolean to control time display
+   */
   dateOnly?: boolean,
   endDate?: Date,
   label?: string,
@@ -58,17 +62,6 @@ export interface DateTimeInputProps{
   setEndDate?: (date: Date) => void,
 }
 
-const inRange = (timestampToCheck: number, minimumValue: number, maximumValue: number): number => {
-  if (timestampToCheck < minimumValue) {
-    return -1;
-  }
-  if (timestampToCheck > maximumValue) {
-    return 1;
-  }
-  return 0;
-};
-
-
 const DateTimePicker: React.FC<DateTimeInputProps> = ({
   dateOnly = false,
   endDate,
@@ -79,8 +72,8 @@ const DateTimePicker: React.FC<DateTimeInputProps> = ({
   onBlur,
   onChange,
   range = false,
-  selectEnd = false,
-  selectStart = false,
+  selectEnd,
+  selectStart,
   setEndDate = () => {},
   setStartDate = () => {},
   startDate,
@@ -88,7 +81,7 @@ const DateTimePicker: React.FC<DateTimeInputProps> = ({
   timeZone = 'Europe/Zurich',
 }: DateTimeInputProps) => {
 
-  const [internalDate, setInternalDate] = useState<Date | undefined>(startDate);
+  const [internalDate, setInternalDate] = useState<Date | undefined>();
 
   const [dateValue, setDateValue] = useState('');
   const [timeValue, setTimeValue] = useState('');
@@ -96,8 +89,6 @@ const DateTimePicker: React.FC<DateTimeInputProps> = ({
 
   const [timeZoneValue, setTimeZoneValue] = useState(timeZone);
 
-  const [invalidDate, setInvalidDate] = useState(false);
-  const [invalidTime, setInvalidTime] = useState(false);
   const [invalidTimestamp, setInvalidTimestamp] = useState(false);
   const [invalidTimeZone, setInvalidTimeZone] = useState(false);
 
@@ -107,14 +98,14 @@ const DateTimePicker: React.FC<DateTimeInputProps> = ({
     const isDateLongEnough = dateString.length === 10;
     const isTimeLongEnough = timeString.length === 5;
 
+    console.log('choice ', isDateLongEnough, ' ', isTimeLongEnough);
+
     if (isDateLongEnough && isTimeLongEnough) {
       const date = getDateTypeFromddmmyyyyWithSep(dateString);
       const time = getTimeTypeFromhhmmWithSep(timeString);
 
       const validDateState = isValidDate(date);
       const validTimeState = isValidTime(time);
-      setInvalidDate(!validDateState);
-      setInvalidTime(!validTimeState);
 
       if (onFunction) {
         if (date && time && validDateState && validTimeState) {
@@ -125,8 +116,6 @@ const DateTimePicker: React.FC<DateTimeInputProps> = ({
         }
       }
     } else {
-      setInvalidDate(false);
-      setInvalidTime(false);
       setInternalDate(undefined);
 
       if (onFunction) {
@@ -186,33 +175,21 @@ const DateTimePicker: React.FC<DateTimeInputProps> = ({
         handleOn(dateTypeToStandardEUDateFormat(ldate), standardEUTimeFormat(date), onChange);
       }
     } else {
-      setInvalidDate(false);
-      setInvalidTime(false);
       setInternalDate(undefined);
     }
   };
 
   useEffect(() => {
     if (internalDate) {
-      const date = convertToDateTypeObject(internalDate);
-      const time = convertToTimeTypeObject(internalDate);
       const dateString = standardEUDateFormat(internalDate);
       const timeString = standardEUTimeFormat(internalDate);
 
       setDateValue(dateString);
-      setTimeValue(timeString);
-
-      setInvalidDate(!isValidDate(date));
-      setInvalidTime(!isValidTime(time));
+      if (!dateOnly) {
+        setTimeValue(timeString);
+      }
     }
-
-    if (invalidTimestamp) {
-      setDateValue('');
-      setTimeValue('');
-      setInvalidDate(false);
-      setInvalidTime(false);
-    }
-  }, [internalDate, invalidTimestamp]);
+  }, [dateOnly, internalDate]);
 
   useEffect(() => {
     if (typeof timeStamp === 'number') {
@@ -230,8 +207,6 @@ const DateTimePicker: React.FC<DateTimeInputProps> = ({
 
       setDateValue('');
       setTimeValue('');
-      setInvalidDate(false);
-      setInvalidTime(false);
     }
   }, [timeStamp, timeZoneValue]);
 
@@ -245,50 +220,20 @@ const DateTimePicker: React.FC<DateTimeInputProps> = ({
   }, [timeZone]);
 
   useEffect(() => {
-    const getError = () => {
-      if (invalidTimestamp) {
-        return 'Invalid timestamp';
-      }
-      if (invalidDate && invalidTime) {
-        return 'Invalid date & time format';
-      }
-      if (invalidDate) {
-        return 'Invalid date format';
-      }
-      if (invalidTime) {
-        return 'Invalid time format';
-      }
-      if (maxDateTime && internalDate) {
-        const rangePositon = inRange(internalDate.valueOf(), minDateTime, maxDateTime);
-        if (rangePositon === -1) {
-          return 'Less than minimum date.';
-        }
-        if (rangePositon === 1) {
-          return 'Larger than maximum date.';
-        }
-      }
-
-      if (invalidTimeZone) {
-        const tz = 'Europe/Zurich';
-        setTimeZoneValue(tz);
-        return `Invalid time zone. ${tz} is being used.`;
-      }
-      return '';
-    };
-
-    setErrorValue(getError());
-  }, [invalidDate, invalidTime, invalidTimestamp, invalidTimeZone, internalDate, maxDateTime, minDateTime]);
+    setErrorValue(getErrors(errorDateBool(dateValue), errorTimeBool(timeValue), dateValue, minDateTime, maxDateTime, timeZone));
+  }, [invalidTimestamp, invalidTimeZone, maxDateTime, minDateTime, timeZone, dateValue, timeValue]);
 
   return (
     <>
       <ReactDPWrapper
+        dateOnly={dateOnly}
         endDate={endDate}
         onChange={onChangeReactDP}
         startRange={selectStart}
         endRange={selectEnd}
-        selectedDate={selectEnd ? endDate : internalDate}
+        selectedDate={selectEnd ? endDate : startDate}
         shouldDisplayTimeColumn={!dateOnly}
-        startDate={internalDate}
+        startDate={startDate}
         CustomInput={(
           <DateTimeInput
             dateValue={dateValue}

@@ -1,5 +1,4 @@
 import React, {
-  useCallback,
   useEffect,
   useRef,
   useState,
@@ -9,9 +8,8 @@ import React, {
 import Button from '../../Button/Button';
 import {
   getFutureDate, standardEUDateFormat, standardEUTimeFormat,
-  isValidDate, isValidTime, isValidTimeZone, convertToDateTypeObject,
-  convertToUTCtime, convertDateTypeToString, convertTimeTypeToString,
-  getDateTypeFromddmmyyyyWithSep, getTimeTypeFromhhmmWithSep,
+  isValidTimeZone, convertToDateTypeObject,
+  convertToUTCtime,
 } from '../../../utils/DateUtils';
 import TimeRangeSelector from '../../TimeRangeSelector/TimeRangeSelector';
 import RangeDateTimeRangeInput from '../RangeDateTimeInput/RangeDateTimeInput';
@@ -21,7 +19,7 @@ import styles from './DateTimeRangeSelector.css';
 import { dateRangeReducer } from '../DateStateReducer';
 
 type OnFunction = (value?: number | [number, number] | null) => void;
-export interface DateTimeRangeProps{
+export interface DateTimeRangeSelectorProps{
   dateOnly?: boolean,
   /**
    * This is a timestamp that represents the maximum date allowed by the component
@@ -58,31 +56,9 @@ export interface DateTimeRangeProps{
    */
   onChange: OnFunction,
 }
-export interface DateTimeRangeSelectorProps {
-  dateOnly?: boolean,
-  endDate?: Date,
-  endDateValue?: string,
-  endTimeValue?: string,
-  errorValue?: string,
-  handleOn?: (dateString: string, timeString: string, func:(event:any) => void) => void,
-  inline?: boolean,
-  invalidTimestamp?: boolean,
-  maxDate?: Date,
-  minDate?: Date,
-  name?: string,
-  onChange: (date:Date | [Date, Date] | null, event: React.SyntheticEvent<any> | undefined, rangePos?:string) => void
-  onBlur?: OnFunction,
-  startDate?: Date,
-  startDateValue?: string,
-  startTimeValue?: string,
-  setEndDateValue?: (value: string) => void,
-  setEndTimeValue?: (value: string) => void,
-  setStartDateValue?: (value: string) => void,
-  setStartTimeValue?: (value: string) => void,
-  timeZone: string,
-}
 
-const DateTimeRangeSelector: React.FC<DateTimeRangeProps> = (({
+
+const DateTimeRangeSelector: React.FC<DateTimeRangeSelectorProps> = (({
   dateOnly = false,
   inline = false,
   maxDateTime = getFutureDate({ years: 1 }),
@@ -94,10 +70,10 @@ const DateTimeRangeSelector: React.FC<DateTimeRangeProps> = (({
   range = true,
   timeStamps,
   timeZone = 'Europe/Zurich',
-}:DateTimeRangeProps) => {
+}:DateTimeRangeSelectorProps) => {
 
   const focusedInput = useRef('start');
-  const rangedRef = useRef<HTMLInputElement>(null);
+  const rangedRef = useRef<HTMLDivElement>(null);
 
   const [endDate, setEndDate] = useState<Date | undefined>(undefined);
   const [startDate, setStartDate] = useState<Date | undefined>(undefined);
@@ -110,9 +86,7 @@ const DateTimeRangeSelector: React.FC<DateTimeRangeProps> = (({
 
   const [timeZoneValue, setTimeZoneValue] = useState(timeZone);
 
-  const [internalTimeStamps, setTimestamps] = useState<[number, number] | undefined>(timeStamps);
-  const [invalidDate, setInvalidDate] = useState(false);
-  const [invalidTime, setInvalidTime] = useState(false);
+
   const [invalidTimestamp, setInvalidTimestamp] = useState(false);
   const [invalidTimeZone, setInvalidTimeZone] = useState(false);
 
@@ -162,12 +136,9 @@ const DateTimeRangeSelector: React.FC<DateTimeRangeProps> = (({
       const timeString = standardEUTimeFormat(startDate);
 
       setStartDateValue(dateString);
-      setInvalidDate(!isValidDate(date));
     } else {
       setStartDateValue('');
       setStartTimeValue('');
-
-      setInvalidDate(false);
     }
   }, [startDate]);
 
@@ -178,13 +149,9 @@ const DateTimeRangeSelector: React.FC<DateTimeRangeProps> = (({
       const timeString = standardEUTimeFormat(endDate);
 
       setEndDateValue(dateString);
-      setInvalidDate(!isValidDate(date));
     } else {
       setEndDateValue('');
       setEndTimeValue('');
-
-      setInvalidDate(false);
-      setInvalidTime(false);
     }
   }, [endDate]);
 
@@ -197,10 +164,6 @@ const DateTimeRangeSelector: React.FC<DateTimeRangeProps> = (({
 
       setEndDateValue('');
       setEndTimeValue('');
-
-
-      setInvalidDate(false);
-      setInvalidTime(false);
     }
   }, [invalidTimestamp]);
 
@@ -209,14 +172,12 @@ const DateTimeRangeSelector: React.FC<DateTimeRangeProps> = (({
   useEffect(() => {
     if (startTimeValue) {
       setStartTimeValue(startTimeValue);
-      setInvalidTime(!isValidTime(getTimeTypeFromhhmmWithSep(startTimeValue)));
     }
   }, [startTimeValue]);
 
   useEffect(() => {
     if (endTimeValue) {
       setEndTimeValue(endTimeValue);
-      setInvalidTime(!isValidTime(getTimeTypeFromhhmmWithSep(endTimeValue)));
     }
   }, [endTimeValue]);
 
@@ -236,48 +197,31 @@ const DateTimeRangeSelector: React.FC<DateTimeRangeProps> = (({
       const endDateObj = new Date(reducer.range[1]);
 
       if (!Number.isNaN(startDateObj.valueOf())) {
-        const date = convertToDateTypeObject(startDateObj);
-        const dateString = standardEUDateFormat(startDateObj);
         const timeString = standardEUTimeFormat(startDateObj);
 
         setStartDate(startDateObj);
         setStartTimeValue(timeString);
-        // setInvalidDate(!isValidDate(date));
-      } else {
-        // setInvalidStartTimestamp(true);
       }
 
       if (!Number.isNaN(endDateObj.valueOf())) {
-        const date = convertToDateTypeObject(endDateObj);
-        const dateString = standardEUDateFormat(endDateObj);
         const timeString = standardEUTimeFormat(endDateObj);
 
         setEndDate(endDateObj);
         setEndTimeValue(timeString);
-
-        // setInvalidDate(!isValidDate(date));
-      } else {
-        // setInvalidEndTimestamp(true);
       }
 
       if (reducer.range && (typeof reducer.range[0] === 'undefined')) {
         setStartDateValue('');
         setStartTimeValue('');
-        // setInvalidStartTimestamp(false);
       }
 
       if (reducer.range && (typeof reducer.range[1] === 'undefined')) {
         setEndDateValue('');
         setEndTimeValue('');
-        // setInvalidEndTimestamp(false);
       }
     }
   }, [reducer.range, timeZoneValue]);
 
-
-  useEffect(() => {
-    console.log('Lalala ', rangedRef);
-  }, [rangedRef, timeZoneValue]);
 
   const handleApplyButton = () => {
     onChange(reducer.range);
@@ -292,6 +236,10 @@ const DateTimeRangeSelector: React.FC<DateTimeRangeProps> = (({
     console.log(e);
   };
 
+  const onBlurred = () => {
+    rangedRef.current?.click();
+    console.log('did it', rangedRef);
+  };
 
   const customCalendar = (props:{
     children: ReactNode[]
@@ -300,11 +248,13 @@ const DateTimeRangeSelector: React.FC<DateTimeRangeProps> = (({
     return (
       <>
         <RangeDateTimeRangeInput
+          dateOnly={dateOnly}
           startDateValue={startDateValue}
           startTimeValue={startTimeValue}
           endDateValue={endDateValue}
           endTimeValue={endTimeValue}
           labels={labels}
+          onBlur={onBlurred}
           onFocus={handleFocus}
           parentDispatch={dispatch}
         />
@@ -330,6 +280,7 @@ const DateTimeRangeSelector: React.FC<DateTimeRangeProps> = (({
       <ReactDPWrapper
         closeOnSelect={false}
         customCalendar={customCalendar}
+        dateOnly={dateOnly}
         endDate={reducer.range ? convertToUTCtime(reducer.range[1], timeZoneValue) : endDate}
         onChange={(date, event) => onChangeReactDP(date, event, focusedInput.current)}
         selectedDate={reducer.range ? convertToUTCtime(reducer.range[0], timeZoneValue) : startDate}

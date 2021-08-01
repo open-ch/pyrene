@@ -46,7 +46,7 @@ const DateTimeInput = forwardRef(({
     const node = event && event.target as HTMLInputElement;
 
     if (allowedValueCheck(node.value)) {
-      if (node.value.length > 10) {
+      if (!dateOnly && node.value.length > 10) {
         setDateValue(node.value.substring(0, 10).trim());
         setTimeValue(node.value.substring(10));
 
@@ -56,6 +56,7 @@ const DateTimeInput = forwardRef(({
       } else {
         setDateValue(node.value);
         setTimeValue('');
+
         return onChange(event);
       }
     }
@@ -84,7 +85,7 @@ const DateTimeInput = forwardRef(({
   return (
     <div
       className={styles.dateTimeComponent}
-      onBlur={() => handleOn?.(dateValue, dateOnly ? '00:00' : timeValue, onBlur)}
+      onBlur={() => handleOn?.(dateValue, timeValue.trim(), onBlur)}
     >
       <div className={styles.dateTimeFieldTitle}>{label || (dateOnly ? 'Date' : 'Date & Time')}</div>
       <div className={clsx(styles.dateTimeInputArea, { [styles.dateTimeInputError]: errorValue.length > 0 })}>
