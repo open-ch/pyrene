@@ -24,7 +24,13 @@ export interface DateTimeInputProps{
    * Boolean to control time display
    */
   dateOnly?: boolean,
+  /**
+   * This is a Date object that represents the end date of the component
+   */
   endDate?: Date,
+  /**
+   * This is a string that represents the label of the component
+   */
   label?: string,
   /**
    * This is a timestamp that represents the maximum date allowed by the component
@@ -38,6 +44,9 @@ export interface DateTimeInputProps{
    * Name that can be used to uniquely identify the component
    */
   name?: string,
+  /**
+   * This is a string array that represents the start and end labels of the component
+   */
   range?: boolean,
   /**
    * This is a unix timestamp, which is the number of seconds that have elapsed since Unix epoch
@@ -98,8 +107,6 @@ const DateTimePicker: React.FC<DateTimeInputProps> = ({
     const isDateLongEnough = dateString.length === 10;
     const isTimeLongEnough = timeString.length === 5;
 
-    console.log('choice ', isDateLongEnough, ' ', isTimeLongEnough);
-
     if (isDateLongEnough && isTimeLongEnough) {
       const date = getDateTypeFromddmmyyyyWithSep(dateString);
       const time = getTimeTypeFromhhmmWithSep(timeString);
@@ -125,10 +132,6 @@ const DateTimePicker: React.FC<DateTimeInputProps> = ({
   }, [timeZoneValue]);
 
   const onChangeReactDP = (date: Date | [Date, Date] | null, event: React.SyntheticEvent<any> | undefined): void => {
-    console.log(event?.type);
-    console.log(date);
-
-
     if (date && (event?.type === 'click' || (event?.type === 'keydown' && (event as React.KeyboardEvent).key.length > 1))) {
       if (!Array.isArray(date)) {
         setDateValue(standardEUDateFormat(date));
@@ -248,7 +251,6 @@ const DateTimePicker: React.FC<DateTimeInputProps> = ({
             setDateValue={setDateValue}
             setTimeValue={setTimeValue}
             dateOnly={dateOnly}
-
           />
         )}
       />

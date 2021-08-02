@@ -21,20 +21,43 @@ import styles from './RangeDateTimeRangeInput.css';
 type OnFunction = (value?: number | [number, number] | null) => void;
 
 export interface RangeProps {
-  startDate?: Date,
-  startDateValue?: string,
-  endDateValue?: string,
-  startTimeValue?: string,
-  endTimeValue?: string,
-  labels?: [string, string],
+  /**
+   * Boolean to control time display
+   */
   dateOnly?: boolean,
+  /**
+   * This is a Date object that represents the start date of the component
+   */
+  startDate?: Date,
+  /**
+   * This is a string that represents the start date of the component
+   */
+  startDateValue?: string,
+  /**
+   * This is a string that represents the end date of the component
+   */
+  endDateValue?: string,
+  /**
+   * This is a string that represents the start time of the component
+   */
+  startTimeValue?: string,
+  /**
+   * This is a string that represents the end time of the component
+   */
+  endTimeValue?: string,
+  /**
+   * This is a string array that represents the start and end labels of the component
+   */
+  labels?: [string, string],
   errorValue?: string,
   handleOn?: () => void,
-  invalidTimestamp?: boolean,
   name?: string,
   onBlur?: () => void,
   // onChange?: (date: Date | [Date, Date] | null, event: React.SyntheticEvent<any> | undefined, rangePos?: string) => void,
   onChange?: OnFunction,
+  /**
+   * Register input to receive focus
+   */
   onFocus?: (value: string) => void,
   /**
    * Dispatch function to send actions to parent
@@ -191,7 +214,6 @@ const RangeDateTimeRangeInput: React.FC<RangeProps> = ({
             setDateValue={(value) => { dispatch({ type: 'startDate/changed', payload: { value: value } }); dispatch({ type: 'startDate/invalid', payload: { value: errorDateBool(value.trim()) } }); }}
             setTimeValue={(value) => { dispatch({ type: 'startTime/changed', payload: { value: value } }); dispatch({ type: 'startTime/invalid', payload: { value: errorTimeBool(value.trim()) } }); }}
             dateOnly={dateOnly}
-            // onChange={(event) => onChangeReactDP(null, event, 'start')}
             onFocus={() => onFocus('start')}
           />
         </div>
@@ -208,7 +230,6 @@ const RangeDateTimeRangeInput: React.FC<RangeProps> = ({
             setDateValue={(value) => { dispatch({ type: 'endDate/changed', payload: { value: value } }); dispatch({ type: 'endDate/invalid', payload: { value: errorDateBool(value.trim()) } }); }}
             setTimeValue={(value) => { dispatch({ type: 'endTime/changed', payload: { value: value } }); dispatch({ type: 'endTime/invalid', payload: { value: errorTimeBool(value.trim()) } }); }}
             dateOnly={dateOnly}
-            // onChange={(event) => onChangeReactDP(null, event, 'end')}
             onFocus={() => onFocus('end')}
           />
         </div>

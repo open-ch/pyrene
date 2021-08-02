@@ -14,10 +14,10 @@
 }
 
 .wrapper :global .react-datepicker-popper {
-  /* position: absolute!important;
+  position: absolute!important;
   inset: unset!important;
   transform: none!important;
-  top: 48px; */
+  padding: 0px;
 }
 
 .wrapper :global .react-datepicker__header {
