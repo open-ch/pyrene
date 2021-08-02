@@ -11,7 +11,6 @@ import {
 import DateTimeRangeSelector from './DateTimeRangeSelector/DateTimeRangeSelector';
 
 
-
 type OnFunction = (value?: number | [number, number] | null) => void;
 
 export interface DateTimeInputProps{
@@ -49,6 +48,8 @@ export interface DateTimeInputProps{
 
 
 const DateTimePickerTable: React.FC<DateTimeInputProps> = ({
+  maxDateTime,
+  minDateTime,
   timeZone = 'Europe/Zurich',
 }: DateTimeInputProps) => {
 
@@ -92,6 +93,8 @@ const DateTimePickerTable: React.FC<DateTimeInputProps> = ({
                 label="From"
                 endDate={endDate}
                 startDate={startDate}
+                minDateTime={minDateTime}
+                maxDateTime={maxDateTime}
                 onChange={(value) => (value !== undefined ? setStartDate(convertToZoneTime(value, timeZoneValue)) : setStartDate(value))}
                 selectStart
               />
@@ -101,6 +104,8 @@ const DateTimePickerTable: React.FC<DateTimeInputProps> = ({
                 label="To"
                 endDate={endDate}
                 startDate={startDate}
+                minDateTime={minDateTime}
+                maxDateTime={maxDateTime}
                 onChange={(value) => (value !== undefined ? setEndDate(convertToZoneTime(value, timeZoneValue)) : setEndDate(value))}
                 selectEnd
               />
@@ -108,7 +113,12 @@ const DateTimePickerTable: React.FC<DateTimeInputProps> = ({
           </tr>
           <tr>
             <td colSpan={2} style={{ height: '200px' }}>
-              <DateTimePicker onChange={(value) => console.log('DPicker : ', value)} dateOnly />
+              <DateTimePicker
+                onChange={(value) => console.log('DPicker : ', value)}
+                minDateTime={minDateTime}
+                maxDateTime={maxDateTime}
+                dateOnly
+              />
             </td>
           </tr>
         </tbody>

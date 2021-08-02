@@ -167,6 +167,7 @@ const RangeDateTimeRangeInput: React.FC<RangeProps> = ({
     }
   }, [parentDispatch, reducer.endDate, reducer.endDateInvalid, reducer.endTime, reducer.endTimeInvalid, reducer.startDate, reducer.startDateInvalid, reducer.startTime, reducer.startTimeInvalid, timeZoneValue]);
 
+  // Each time component does update, check if the timezone is valid
   useEffect(() => {
     if (isValidTimeZone(timeZone)) {
       setTimeZoneValue(timeZone);
@@ -176,16 +177,18 @@ const RangeDateTimeRangeInput: React.FC<RangeProps> = ({
     }
   }, [timeZone]);
 
-
+  // Upon inputing, check if it s well formatted and meet the constraints (uper or lower time limit) for the from
   useEffect(() => {
     setStartErrorValue(getErrors(errorDateBool(reducer.startDate || ''), errorTimeBool(reducer.startTime || ''), reducer.startDate, minDateTime, maxDateTime, timeZone));
   }, [reducer.startDate, reducer.startTime, timeZone, reducer.startDateInvalid, reducer.startTimeInvalid, minDateTime, maxDateTime]);
 
 
+  // Upon inputing, check if it s well formatted and meet the constraints (uper or lower time limit) for the to
   useEffect(() => {
     setEndErrorValue(getErrors(errorDateBool(reducer.endDate || ''), errorTimeBool(reducer.endTime || ''), reducer.endDate, minDateTime, maxDateTime, timeZone));
   }, [reducer.endDate, reducer.endTime, timeZone, reducer.endDateInvalid, reducer.endTimeInvalid, minDateTime, maxDateTime]);
 
+  // invalidTimeZone is a derived state. Upon that state change, render error message.
   useEffect(() => {
     const getError = () => {
       if (invalidTimeZone) {
@@ -211,7 +214,10 @@ const RangeDateTimeRangeInput: React.FC<RangeProps> = ({
             name={name}
             // onBlur={onBlur}
             range={false}
-            setDateValue={(value) => { dispatch({ type: 'startDate/changed', payload: { value: value } }); dispatch({ type: 'startDate/invalid', payload: { value: errorDateBool(value.trim()) } }); }}
+            setDateValue={(value) => {
+              dispatch({ type: 'startDate/changed', payload: { value: value } });
+              dispatch({ type: 'startDate/invalid', payload: { value: errorDateBool(value.trim()) } });
+            }}
             setTimeValue={(value) => { dispatch({ type: 'startTime/changed', payload: { value: value } }); dispatch({ type: 'startTime/invalid', payload: { value: errorTimeBool(value.trim()) } }); }}
             dateOnly={dateOnly}
             onFocus={() => onFocus('start')}
