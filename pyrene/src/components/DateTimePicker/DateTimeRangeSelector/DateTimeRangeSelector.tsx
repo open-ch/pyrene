@@ -5,10 +5,11 @@ import React, {
   useReducer,
   ReactNode,
 } from 'react';
+import clsx from 'clsx';
 import Button from '../../Button/Button';
 import {
   getFutureDate, standardEUDateFormat, standardEUTimeFormat,
-  isValidTimeZone, convertToUTCtime,
+  convertToUTCtime, getDateTypeFromddmmyyyyWithSep, convertDateTypeToString, convertTimeTypeToString, getTimeTypeFromhhmmWithSep,
 } from '../../../utils/DateUtils';
 import TimeRangeSelector from '../../TimeRangeSelector/TimeRangeSelector';
 import RangeDateTimeRangeInput from '../RangeDateTimeInput/RangeDateTimeInput';
@@ -17,9 +18,21 @@ import ReactDPWrapper, { CalendarContainer } from '../ReactDatePickerWrapper/Rea
 import styles from './DateTimeRangeSelector.css';
 import { dateRangeReducer } from '../DateStateReducer';
 
+
 type OnFunction = (value?: number | [number, number] | null) => void;
 export interface DateTimeRangeSelectorProps{
+  /**
+   * Boolean to control time display
+   */
   dateOnly?: boolean,
+  /**
+   * Display component as dropdown or inline
+   */
+  inline?: boolean,
+  /**
+  * This is a string array that represents the start and end labels of the component
+  */
+  labels?: [string, string]
   /**
    * This is a timestamp that represents the maximum date allowed by the component
    */
@@ -29,13 +42,13 @@ export interface DateTimeRangeSelectorProps{
    */
   minDateTime?: number,
   /**
-   * Name that can be used to uniquely identify the component
+   * Function to handle onBlur event
    */
-  inline?: boolean,
+  onBlur?: OnFunction,
   /**
-   * This is a string array that represents the start and end labels of the component
-   */
-  labels?: [string, string]
+  * Function to handle onChange event
+  */
+  onChange: OnFunction,
   /**
    * This is a unix timestamp, which is the number of seconds that have elapsed since Unix epoch
    */
@@ -44,14 +57,6 @@ export interface DateTimeRangeSelectorProps{
    * This is must be a IANA time zone string
    */
   timeZone?: string,
-  /**
-   * Function to handle onBlur event
-   */
-  onBlur?: OnFunction,
-  /**
-   * Function to handle onChange event
-   */
-  onChange: OnFunction,
 }
 
 
@@ -82,7 +87,6 @@ const DateTimeRangeSelector: React.FC<DateTimeRangeSelectorProps> = (({
 
 
   const [invalidTimestamp, setInvalidTimestamp] = useState(false);
-  const [invalidTimeZone, setInvalidTimeZone] = useState(false);
 
   const [isCalOpen, setCalOpen] = useState<boolean | undefined>(undefined);
 
@@ -97,8 +101,8 @@ const DateTimeRangeSelector: React.FC<DateTimeRangeSelectorProps> = (({
   });
 
 
-
-  const onChangeReactDP = (date: Date | [Date, Date] | null, event: React.SyntheticEvent<any> | undefined, rangePos?:string): void => {
+  // Handle changes from react datepicker
+  const onChangeReactDP = (date: Date | [Date, Date] | null, event: React.SyntheticEvent<any> | undefined): void => {
     if (event?.type === 'click') {
       if (Array.isArray(date)) {
         const [start, end] = date;
@@ -109,12 +113,41 @@ const DateTimeRangeSelector: React.FC<DateTimeRangeSelectorProps> = (({
     } else if (!Array.isArray(date) && event === undefined) {
       if (date && focusedInput.current === 'start') {
         setStartTimeValue(date ? standardEUTimeFormat(date) : '');
+
+        const startdate = getDateTypeFromddmmyyyyWithSep(startDateValue);
+        const starttime = getTimeTypeFromhhmmWithSep(standardEUTimeFormat(date));
+
+        if (startdate && starttime) {
+          setStartDate(convertToUTCtime(`${convertDateTypeToString(startdate)} ${convertTimeTypeToString(starttime)}`, timeZoneValue));
+        }
       }
 
       if (date && focusedInput.current === 'end') {
         setEndTimeValue(date ? standardEUTimeFormat(date) : '');
+
+        const enddate = getDateTypeFromddmmyyyyWithSep(endDateValue);
+        const endtime = getTimeTypeFromhhmmWithSep(standardEUTimeFormat(date));
+
+        if (enddate && endtime) {
+          setEndDate(convertToUTCtime(`${convertDateTypeToString(enddate)} ${convertTimeTypeToString(endtime)}`, timeZoneValue));
+        }
       }
     }
+  };
+
+  const clearValues = () => {
+    setStartDate(undefined);
+    setStartTimeValue('');
+
+    setEndDate(undefined);
+    setEndTimeValue('');
+
+    dispatch({
+      type: 'range/changed',
+      payload: {
+        value: null,
+      },
+    });
   };
 
   useEffect(() => {
@@ -139,51 +172,24 @@ const DateTimeRangeSelector: React.FC<DateTimeRangeSelectorProps> = (({
     }
   }, [endDate]);
 
-
-
   useEffect(() => {
     if (invalidTimestamp) {
-      setStartDateValue('');
-      setStartTimeValue('');
-
-      setEndDateValue('');
-      setEndTimeValue('');
+      clearValues();
     }
   }, [invalidTimestamp]);
 
-
-
-  useEffect(() => {
-    if (startTimeValue) {
-      setStartTimeValue(startTimeValue);
-    }
-  }, [startTimeValue]);
-
-  useEffect(() => {
-    if (endTimeValue) {
-      setEndTimeValue(endTimeValue);
-    }
-  }, [endTimeValue]);
-
-  useEffect(() => {
-    if (isValidTimeZone(timeZone)) {
-      setTimeZoneValue(timeZone);
-      setInvalidTimeZone(false);
-    } else {
-      setInvalidTimeZone(true);
-    }
-  }, [timeZone]);
-
   useEffect(() => {
     if (Array.isArray(reducer.range)) {
-      const startDateObj = new Date(reducer.range[0]);
-      const endDateObj = new Date(reducer.range[1]);
+      const startDateObj = convertToUTCtime(reducer.range[0], timeZoneValue);
+      const endDateObj = convertToUTCtime(reducer.range[1], timeZoneValue);
 
       if (!Number.isNaN(startDateObj.valueOf())) {
         const timeString = standardEUTimeFormat(startDateObj);
 
         setStartDate(startDateObj);
         setStartTimeValue(timeString);
+      } else {
+        setInvalidTimestamp(true);
       }
 
       if (!Number.isNaN(endDateObj.valueOf())) {
@@ -191,26 +197,33 @@ const DateTimeRangeSelector: React.FC<DateTimeRangeSelectorProps> = (({
 
         setEndDate(endDateObj);
         setEndTimeValue(timeString);
-      }
-
-      if (reducer.range && (typeof reducer.range[0] === 'undefined')) {
-        setStartDateValue('');
-        setStartTimeValue('');
-      }
-
-      if (reducer.range && (typeof reducer.range[1] === 'undefined')) {
-        setEndDateValue('');
-        setEndTimeValue('');
+      } else {
+        setInvalidTimestamp(true);
       }
     }
   }, [reducer.range, timeZoneValue]);
 
 
   const handleApplyButton = () => {
-    onChange(reducer.range);
+    const startdate = getDateTypeFromddmmyyyyWithSep(startDateValue);
+    const starttime = getTimeTypeFromhhmmWithSep(startTimeValue);
+
+    const enddate = getDateTypeFromddmmyyyyWithSep(endDateValue);
+    const endtime = getTimeTypeFromhhmmWithSep(endTimeValue);
+
+    if (dateOnly && startdate && enddate) {
+      onChange([convertToUTCtime(`${convertDateTypeToString(startdate)} 00:00`, timeZoneValue).valueOf(), convertToUTCtime(`${convertDateTypeToString(enddate)} 00:00`, timeZoneValue).valueOf()]);
+    } else if (startdate && starttime && enddate && endtime) {
+      onChange([convertToUTCtime(`${convertDateTypeToString(startdate)} ${convertTimeTypeToString(starttime)}`, timeZoneValue).valueOf(), convertToUTCtime(`${convertDateTypeToString(enddate)} ${convertTimeTypeToString(endtime)}`, timeZoneValue).valueOf()]);
+    } else {
+      onChange(null);
+    }
+
+    setCalOpen(!isCalOpen);
   };
 
-  const handleDiscardButton = () => {
+  const handleCancelButton = () => {
+    clearValues();
     setCalOpen(!isCalOpen);
   };
 
@@ -237,19 +250,20 @@ const DateTimeRangeSelector: React.FC<DateTimeRangeSelectorProps> = (({
           endDateValue={endDateValue}
           endTimeValue={endTimeValue}
           labels={labels}
-          onBlur={onBlurred}
+          // onBlur={onBlurred}
           onFocus={handleFocus}
           parentDispatch={dispatch}
+          timeZone={timeZone}
         />
         <CalendarContainer>
           <div ref={rangedRef}>{children}</div>
         </CalendarContainer>
-        <div className={styles.rangeFooter}>
+        <div className={clsx(styles.rangeFooter, { [styles.dateTimeFooter]: !dateOnly })}>
           <div className={styles.infoBox}>
             {errorValue || `Max. past date: ${standardEUDateFormat(new Date(minDateTime))} `}
           </div>
           <div className={styles.footerButtonsBox}>
-            <Button label="Discard" type="secondary" onClick={handleDiscardButton} />
+            <Button label="Cancel" type="secondary" onClick={handleCancelButton} />
             <Button label="Apply" onClick={handleApplyButton} />
           </div>
         </div>
@@ -257,33 +271,32 @@ const DateTimeRangeSelector: React.FC<DateTimeRangeSelectorProps> = (({
     );
   };
 
-
   return (
     <>
       <ReactDPWrapper
         closeOnSelect={false}
         customCalendar={customCalendar}
-        dateOnly={dateOnly}
-        endDate={reducer.range ? convertToUTCtime(reducer.range[1], timeZoneValue) : endDate}
-        onChange={(date, event) => onChangeReactDP(date, event, focusedInput.current)}
-        selectedDate={reducer.range ? convertToUTCtime(reducer.range[0], timeZoneValue) : startDate}
-        shouldDisplayTimeColumn={!dateOnly}
-        startDate={reducer.range ? convertToUTCtime(reducer.range[0], timeZoneValue) : startDate}
         CustomInput={!inline && (
           <TimeRangeSelector
             timezone="Europe/Zurich"
-            from={convertToUTCtime(reducer.range?.[0] || (new Date()).valueOf(), timeZoneValue).valueOf()}
-            to={convertToUTCtime(reducer.range?.[1] || getFutureDate({ months: 4 }), timeZoneValue).valueOf()}
+            from={startDate?.valueOf() || new Date().valueOf()}
+            to={endDate?.valueOf() || convertToUTCtime(getFutureDate({ months: 4 }), timeZoneValue).valueOf()}
             lowerBound={minDateTime}
             upperBound={maxDateTime}
             onChange={(from: number, to: number) => { console.log(from, to); }}
           />
         )}
+        dateOnly={dateOnly}
+        endDate={endDate}
         inline={inline}
         isOpen={isCalOpen}
         maxDate={convertToUTCtime(maxDateTime, timeZoneValue)}
         minDate={convertToUTCtime(minDateTime, timeZoneValue)}
-        openDate={reducer.range ? convertToUTCtime(reducer.range[0], timeZoneValue) : startDate}
+        onChange={(date, event) => onChangeReactDP(date, event)}
+        openDate={startDate}
+        selectedDate={startDate}
+        shouldDisplayTimeColumn={!dateOnly}
+        startDate={startDate}
         range
         // value={`${startDateValue}`}
       />

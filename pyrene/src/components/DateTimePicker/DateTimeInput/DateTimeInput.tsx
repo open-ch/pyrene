@@ -76,10 +76,13 @@ const DateTimeInput = forwardRef(({
   };
 
   const formatTime = (value: string) => {
-    if (/\s/g.test(value) || value.length < 5) {
-      return value;
+    if (!dateOnly) {
+      if (/\s/g.test(value) || value.length < 5) {
+        return value;
+      }
+      return ` ${value}`;
     }
-    return ` ${value}`;
+    return '';
   };
 
   return (

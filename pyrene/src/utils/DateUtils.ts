@@ -213,6 +213,10 @@ export const inRange = (timestampToCheck: number, minimumValue: number, maximumV
 };
 
 export const getErrors = (dateInvalid?: boolean, timeInvalid?: boolean, dateString?: string, minimumValue?: number, maximumValue?: number, timeZone?: string): string => {
+  if (timeZone && !isValidTimeZone(timeZone)) {
+    return 'Invalid time zone.';
+  }
+
   if (dateString && timeZone) {
     const tmpDate = getDateTypeFromddmmyyyyWithSep(dateString);
     if (tmpDate && isValidDate(tmpDate)) {

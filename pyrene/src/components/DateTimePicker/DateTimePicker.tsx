@@ -1,7 +1,6 @@
 import React, {
   useCallback,
   useEffect,
-  useRef,
   useState,
 } from 'react';
 
@@ -10,9 +9,9 @@ import DateTimeInput from './DateTimeInput/DateTimeInput';
 
 import {
   getFutureDate, standardEUDateFormat, standardEUTimeFormat,
-  isValidDate, isValidTime, isValidTimeZone, convertToDateTypeObject, convertToTimeTypeObject,
-  convertToUTCtime, convertToZoneTime, convertDateTypeToString, convertTimeTypeToString, dateTypeToStandardEUDateFormat,
-  getDateTypeFromddmmyyyyWithSep, getTimeTypeFromhhmmWithSep, getErrors, convertToJsDate,
+  isValidDate, isValidTime, convertToUTCtime, convertToZoneTime,
+  convertDateTypeToString, convertTimeTypeToString, dateTypeToStandardEUDateFormat,
+  getDateTypeFromddmmyyyyWithSep, getTimeTypeFromhhmmWithSep, getErrors,
   errorDateBool, errorTimeBool,
 } from '../../utils/DateUtils';
 
@@ -45,9 +44,29 @@ export interface DateTimeInputProps{
    */
   name?: string,
   /**
+   * Function to handle onBlur event
+   */
+  onBlur?: () => OnFunction,
+  /**
+  * Function to handle onChange event
+  */
+  onChange: OnFunction,
+  /**
    * This is a string array that represents the start and end labels of the component
    */
   range?: boolean,
+  /**
+   * Boolean to indicate if this input selects the end date of a range
+   */
+  selectEnd?: boolean,
+  /**
+  * Boolean to indicate if this input selects the start date of a range
+  */
+  selectStart?: boolean,
+  /**
+  * This is a Date object that represents the start date of the component
+  */
+  startDate?: Date,
   /**
    * This is a unix timestamp, which is the number of seconds that have elapsed since Unix epoch
    */
@@ -56,19 +75,6 @@ export interface DateTimeInputProps{
    * This is must be a IANA time zone string
    */
   timeZone?: string,
-  /**
-   * Function to handle onBlur event
-   */
-  onBlur?: () => OnFunction,
-  /**
-   * Function to handle onChange event
-   */
-  onChange: OnFunction,
-  selectStart?: boolean,
-  selectEnd?: boolean,
-  startDate?: Date,
-  setStartDate?: (date: Date) => void,
-  setEndDate?: (date: Date) => void,
 }
 
 const DateTimePicker: React.FC<DateTimeInputProps> = ({
@@ -83,8 +89,6 @@ const DateTimePicker: React.FC<DateTimeInputProps> = ({
   range = false,
   selectEnd,
   selectStart,
-  setEndDate = () => {},
-  setStartDate = () => {},
   startDate,
   timeStamp,
   timeZone = 'Europe/Zurich',
@@ -103,6 +107,7 @@ const DateTimePicker: React.FC<DateTimeInputProps> = ({
 
   const [errorValue, setErrorValue] = useState('');
 
+  // Sets internal date and passes validated value to parent
   const handleOn = useCallback((dateString: string, timeString: string, onFunction?: OnFunction) => {
     const isDateLongEnough = dateString.length === 10;
     const isTimeLongEnough = timeString.length === 5;
@@ -131,6 +136,7 @@ const DateTimePicker: React.FC<DateTimeInputProps> = ({
     }
   }, [timeZoneValue]);
 
+  // Handle changes from react datepicker
   const onChangeReactDP = (date: Date | [Date, Date] | null, event: React.SyntheticEvent<any> | undefined): void => {
     if (date && (event?.type === 'click' || (event?.type === 'keydown' && (event as React.KeyboardEvent).key.length > 1))) {
       if (!Array.isArray(date)) {
@@ -138,7 +144,7 @@ const DateTimePicker: React.FC<DateTimeInputProps> = ({
 
         if (dateOnly) {
           handleOn(standardEUDateFormat(date), '00:00', onChange);
-        } else if (timeValue && timeValue !== '') {
+        } else if (!dateOnly && timeValue && timeValue !== '') {
           handleOn(standardEUDateFormat(date), timeValue, onChange);
         }
       }
@@ -155,7 +161,7 @@ const DateTimePicker: React.FC<DateTimeInputProps> = ({
 
           if (dateOnly) {
             handleOn(dateTypeToStandardEUDateFormat(newdate), '00:00', onChange);
-          } else if (timeValue && timeValue !== '') {
+          } else if (!dateOnly && timeValue && timeValue !== '') {
             handleOn(dateTypeToStandardEUDateFormat(newdate), timeValue, onChange);
           }
         }
@@ -182,6 +188,7 @@ const DateTimePicker: React.FC<DateTimeInputProps> = ({
     }
   };
 
+  // Update date and time string values if internal date object is changed
   useEffect(() => {
     if (internalDate) {
       const dateString = standardEUDateFormat(internalDate);
@@ -194,6 +201,7 @@ const DateTimePicker: React.FC<DateTimeInputProps> = ({
     }
   }, [dateOnly, internalDate]);
 
+  // Update date and time string values if timstamp is changed
   useEffect(() => {
     if (typeof timeStamp === 'number') {
       const dateObj = new Date(timeStamp);
@@ -213,15 +221,7 @@ const DateTimePicker: React.FC<DateTimeInputProps> = ({
     }
   }, [timeStamp, timeZoneValue]);
 
-  useEffect(() => {
-    if (isValidTimeZone(timeZone)) {
-      setTimeZoneValue(timeZone);
-      setInvalidTimeZone(false);
-    } else {
-      setInvalidTimeZone(true);
-    }
-  }, [timeZone]);
-
+  // Set error values on changes in component
   useEffect(() => {
     setErrorValue(getErrors(errorDateBool(dateValue), errorTimeBool(timeValue), dateValue, minDateTime, maxDateTime, timeZone));
   }, [invalidTimestamp, invalidTimeZone, maxDateTime, minDateTime, timeZone, dateValue, timeValue]);
@@ -231,12 +231,7 @@ const DateTimePicker: React.FC<DateTimeInputProps> = ({
       <ReactDPWrapper
         dateOnly={dateOnly}
         endDate={endDate}
-        onChange={onChangeReactDP}
-        startRange={selectStart}
         endRange={selectEnd}
-        selectedDate={selectEnd ? endDate : startDate}
-        shouldDisplayTimeColumn={!dateOnly}
-        startDate={startDate}
         CustomInput={(
           <DateTimeInput
             dateValue={dateValue}
@@ -253,6 +248,13 @@ const DateTimePicker: React.FC<DateTimeInputProps> = ({
             dateOnly={dateOnly}
           />
         )}
+        maxDate={convertToUTCtime(maxDateTime, timeZoneValue)}
+        minDate={convertToUTCtime(minDateTime, timeZoneValue)}
+        onChange={onChangeReactDP}
+        selectedDate={selectEnd ? endDate : startDate}
+        shouldDisplayTimeColumn={!dateOnly}
+        startDate={startDate}
+        startRange={selectStart}
       />
     </>
   );

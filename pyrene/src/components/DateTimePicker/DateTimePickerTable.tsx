@@ -1,12 +1,11 @@
 import React, {
-  useEffect,
   useState,
 } from 'react';
 
 import DateTimePicker from './DateTimePicker';
 
 import {
-  isValidTimeZone, convertToZoneTime,
+  convertToZoneTime,
 } from '../../utils/DateUtils';
 import DateTimeRangeSelector from './DateTimeRangeSelector/DateTimeRangeSelector';
 
@@ -48,6 +47,7 @@ export interface DateTimeInputProps{
 
 
 const DateTimePickerTable: React.FC<DateTimeInputProps> = ({
+  dateOnly,
   maxDateTime,
   minDateTime,
   timeZone = 'Europe/Zurich',
@@ -60,11 +60,11 @@ const DateTimePickerTable: React.FC<DateTimeInputProps> = ({
 
   const [timeZoneValue, setTimeZoneValue] = useState(timeZone);
 
-  useEffect(() => {
+  /* useEffect(() => {
     if (isValidTimeZone(timeZone)) {
       setTimeZoneValue(timeZone);
     }
-  }, [timeZone]);
+  }, [timeZone]); */
 
 
   return (
@@ -82,8 +82,11 @@ const DateTimePickerTable: React.FC<DateTimeInputProps> = ({
             <td colSpan={2}>
               <DateTimeRangeSelector
                 labels={['Start', 'End']}
+                minDateTime={minDateTime}
+                maxDateTime={maxDateTime}
                 onChange={(value) => console.log('DRangeSelector : ', value)}
                 timeZone={timeZone}
+                dateOnly={dateOnly}
               />
             </td>
           </tr>
@@ -96,6 +99,8 @@ const DateTimePickerTable: React.FC<DateTimeInputProps> = ({
                 minDateTime={minDateTime}
                 maxDateTime={maxDateTime}
                 onChange={(value) => (value !== undefined ? setStartDate(convertToZoneTime(value, timeZoneValue)) : setStartDate(value))}
+                timeZone={timeZone}
+                dateOnly={dateOnly}
                 selectStart
               />
             </td>
@@ -107,6 +112,8 @@ const DateTimePickerTable: React.FC<DateTimeInputProps> = ({
                 minDateTime={minDateTime}
                 maxDateTime={maxDateTime}
                 onChange={(value) => (value !== undefined ? setEndDate(convertToZoneTime(value, timeZoneValue)) : setEndDate(value))}
+                timeZone={timeZone}
+                dateOnly={dateOnly}
                 selectEnd
               />
             </td>
@@ -117,6 +124,7 @@ const DateTimePickerTable: React.FC<DateTimeInputProps> = ({
                 onChange={(value) => console.log('DPicker : ', value)}
                 minDateTime={minDateTime}
                 maxDateTime={maxDateTime}
+                timeZone={timeZone}
                 dateOnly
               />
             </td>

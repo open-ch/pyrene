@@ -11,7 +11,7 @@ import {
   getDateTypeFromddmmyyyyWithSep,
   getFutureDate,
   getTimeTypeFromhhmmWithSep,
-  isValidTimeZone, getErrors, errorDateBool, errorTimeBool,
+  getErrors, errorDateBool, errorTimeBool,
 } from '../../../utils/DateUtils';
 import DateTimeInput from '../DateTimeInput/DateTimeInput';
 import dateRangeInputsReducer, { DateActions } from '../DateStateReducer';
@@ -26,21 +26,9 @@ export interface RangeProps {
    */
   dateOnly?: boolean,
   /**
-   * This is a Date object that represents the start date of the component
-   */
-  startDate?: Date,
-  /**
-   * This is a string that represents the start date of the component
-   */
-  startDateValue?: string,
-  /**
    * This is a string that represents the end date of the component
    */
   endDateValue?: string,
-  /**
-   * This is a string that represents the start time of the component
-   */
-  startTimeValue?: string,
   /**
    * This is a string that represents the end time of the component
    */
@@ -49,11 +37,19 @@ export interface RangeProps {
    * This is a string array that represents the start and end labels of the component
    */
   labels?: [string, string],
-  errorValue?: string,
-  handleOn?: () => void,
   name?: string,
+  /**
+   * This is a timestamp that represents the maximum date allowed by the component
+   */
+  maxDateTime?: number,
+  /**
+   * This is a timestamp that represents the minimum date allowed by the component
+   */
+  minDateTime?: number,
   onBlur?: () => void,
-  // onChange?: (date: Date | [Date, Date] | null, event: React.SyntheticEvent<any> | undefined, rangePos?: string) => void,
+  /**
+  * Function to handle onChange event
+  */
   onChange?: OnFunction,
   /**
    * Register input to receive focus
@@ -64,22 +60,26 @@ export interface RangeProps {
    */
   parentDispatch?: React.Dispatch<DateActions>,
   /**
+   * This is a Date object that represents the start date of the component
+   */
+  startDate?: Date,
+  /**
+  * This is a string that represents the start date of the component
+  */
+  startDateValue?: string,
+  /**
+   * This is a string that represents the start time of the component
+   */
+  startTimeValue?: string,
+  /**
    * The timezone used for timestamps
    */
   timeZone?: string,
-  /**
-   * This is a timestamp that represents the maximum date allowed by the component
-   */
-  maxDateTime?: number,
-  /**
-   * This is a timestamp that represents the minimum date allowed by the component
-   */
-  minDateTime?: number,
 }
 
 const RangeDateTimeRangeInput: React.FC<RangeProps> = ({
   name = '',
-  labels = ['Von', 'Bis'],
+  labels = ['From', 'To'],
   onBlur = () => {},
   onChange = () => {},
   onFocus = () => {},
@@ -134,14 +134,13 @@ const RangeDateTimeRangeInput: React.FC<RangeProps> = ({
       const starttime = getTimeTypeFromhhmmWithSep(reducer.startTime?.trim());
       const endtime = getTimeTypeFromhhmmWithSep(reducer.endTime?.trim());
 
-      dispatch({ type: 'startDate/invalid', payload: { value: errorDateBool(reducer.startDate) } });
-      dispatch({ type: 'startTime/invalid', payload: { value: errorDateBool(reducer.startTime?.trim()) } });
-
-      dispatch({ type: 'endDate/invalid', payload: { value: errorDateBool(reducer.endDate) } });
-      dispatch({ type: 'endTime/invalid', payload: { value: errorDateBool(reducer.endTime?.trim()) } });
+      const invalidStartDate = errorDateBool(reducer.startDate);
+      const invalidStartTime = errorDateBool(reducer.startTime?.trim());
+      const invalidEndDate = errorDateBool(reducer.endDate);
+      const invalidEndTime = errorDateBool(reducer.endTime?.trim());
 
       if (onFunction) {
-        if (startdate && enddate && starttime && endtime && !reducer.startDateInvalid && !reducer.endDateInvalid && !reducer.startTimeInvalid && !reducer.endTimeInvalid) {
+        if (startdate && enddate && starttime && endtime && !invalidStartDate && !invalidStartTime && !invalidEndDate && !invalidEndTime) {
           onFunction([convertToUTCtime(`${convertDateTypeToString(startdate)} ${convertTimeTypeToString(starttime)}`, timeZoneValue).valueOf(), convertToUTCtime(`${convertDateTypeToString(enddate)} ${convertTimeTypeToString(endtime)}`, timeZoneValue).valueOf()]);
 
           parentDispatch?.({
@@ -155,56 +154,25 @@ const RangeDateTimeRangeInput: React.FC<RangeProps> = ({
         }
       }
     } else {
-      dispatch({ type: 'startDate/invalid', payload: { value: false } });
-      dispatch({ type: 'startTime/invalid', payload: { value: false } });
-
-      dispatch({ type: 'endDate/invalid', payload: { value: false } });
-      dispatch({ type: 'endTime/invalid', payload: { value: false } });
-
-      if (onFunction) {
-        onFunction(null);
-      }
+      onFunction?.(null);
     }
-  }, [parentDispatch, reducer.endDate, reducer.endDateInvalid, reducer.endTime, reducer.endTimeInvalid, reducer.startDate, reducer.startDateInvalid, reducer.startTime, reducer.startTimeInvalid, timeZoneValue]);
+  }, [parentDispatch, reducer.endDate, reducer.endTime, reducer.startDate, reducer.startTime, timeZoneValue]);
 
-  // Each time component does update, check if the timezone is valid
-  useEffect(() => {
-    if (isValidTimeZone(timeZone)) {
-      setTimeZoneValue(timeZone);
-      setInvalidTimeZone(false);
-    } else {
-      setInvalidTimeZone(true);
-    }
-  }, [timeZone]);
-
-  // Upon inputing, check if it s well formatted and meet the constraints (uper or lower time limit) for the from
+  // Set error values on changes in From input component
   useEffect(() => {
     setStartErrorValue(getErrors(errorDateBool(reducer.startDate || ''), errorTimeBool(reducer.startTime || ''), reducer.startDate, minDateTime, maxDateTime, timeZone));
   }, [reducer.startDate, reducer.startTime, timeZone, reducer.startDateInvalid, reducer.startTimeInvalid, minDateTime, maxDateTime]);
 
 
-  // Upon inputing, check if it s well formatted and meet the constraints (uper or lower time limit) for the to
+  // Set error values on changes in To input component
   useEffect(() => {
     setEndErrorValue(getErrors(errorDateBool(reducer.endDate || ''), errorTimeBool(reducer.endTime || ''), reducer.endDate, minDateTime, maxDateTime, timeZone));
   }, [reducer.endDate, reducer.endTime, timeZone, reducer.endDateInvalid, reducer.endTimeInvalid, minDateTime, maxDateTime]);
 
-  // invalidTimeZone is a derived state. Upon that state change, render error message.
-  useEffect(() => {
-    const getError = () => {
-      if (invalidTimeZone) {
-        const tz = 'Europe/Zurich';
-        setTimeZoneValue(tz);
-        return `Invalid time zone. ${tz} is being used.`;
-      }
-      return '';
-    };
-    setStartErrorValue(getError());
-  }, [invalidTimeZone]);
-
   return (
     <>
       <div className={styles.rangeHeader}>
-        <div className={styles.leftbox} onBlurCapture={() => { handleOn?.(onChange); onBlur(); }}>
+        <div className={styles.leftbox} onBlurCapture={() => { handleOn?.(onChange); }}>
           <DateTimeInput
             dateValue={reducer?.startDate || ''}
             timeValue={reducer?.startTime || ''}
@@ -216,14 +184,15 @@ const RangeDateTimeRangeInput: React.FC<RangeProps> = ({
             range={false}
             setDateValue={(value) => {
               dispatch({ type: 'startDate/changed', payload: { value: value } });
-              dispatch({ type: 'startDate/invalid', payload: { value: errorDateBool(value.trim()) } });
             }}
-            setTimeValue={(value) => { dispatch({ type: 'startTime/changed', payload: { value: value } }); dispatch({ type: 'startTime/invalid', payload: { value: errorTimeBool(value.trim()) } }); }}
+            setTimeValue={(value) => {
+              dispatch({ type: 'startTime/changed', payload: { value: value } });
+            }}
             dateOnly={dateOnly}
             onFocus={() => onFocus('start')}
           />
         </div>
-        <div className={styles.rightbox} onBlurCapture={() => { handleOn?.(onChange); onBlur(); }}>
+        <div className={styles.rightbox} onBlurCapture={() => { handleOn?.(onChange); }}>
           <DateTimeInput
             dateValue={reducer?.endDate || ''}
             timeValue={reducer?.endTime || ''}
@@ -233,8 +202,12 @@ const RangeDateTimeRangeInput: React.FC<RangeProps> = ({
             name={name}
             // onBlur={onBlur}
             range={false}
-            setDateValue={(value) => { dispatch({ type: 'endDate/changed', payload: { value: value } }); dispatch({ type: 'endDate/invalid', payload: { value: errorDateBool(value.trim()) } }); }}
-            setTimeValue={(value) => { dispatch({ type: 'endTime/changed', payload: { value: value } }); dispatch({ type: 'endTime/invalid', payload: { value: errorTimeBool(value.trim()) } }); }}
+            setDateValue={(value) => {
+              dispatch({ type: 'endDate/changed', payload: { value: value } });
+            }}
+            setTimeValue={(value) => {
+              dispatch({ type: 'endTime/changed', payload: { value: value } });
+            }}
             dateOnly={dateOnly}
             onFocus={() => onFocus('end')}
           />
