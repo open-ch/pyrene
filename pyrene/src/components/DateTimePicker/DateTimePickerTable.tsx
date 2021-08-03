@@ -58,7 +58,7 @@ const DateTimePickerTable: React.FC<DateTimePickerTableProps> = ({
 
 
 
-  const [timeZoneValue, setTimeZoneValue] = useState(timeZone);
+  // const [timeZoneValue, setTimeZoneValue] = useState(timeZone);
 
   /* useEffect(() => {
     if (isValidTimeZone(timeZone)) {
@@ -98,7 +98,7 @@ const DateTimePickerTable: React.FC<DateTimePickerTableProps> = ({
                 startDate={startDate}
                 minDateTime={minDateTime}
                 maxDateTime={maxDateTime}
-                onChange={(value) => (value !== undefined ? setStartDate(convertToZoneTime(value, timeZoneValue)) : setStartDate(value))}
+                onChange={(value) => (value !== undefined ? setStartDate(convertToZoneTime(value, timeZone)) : setStartDate(value))}
                 timeZone={timeZone}
                 dateOnly={dateOnly}
                 selectStart
@@ -111,7 +111,7 @@ const DateTimePickerTable: React.FC<DateTimePickerTableProps> = ({
                 startDate={startDate}
                 minDateTime={minDateTime}
                 maxDateTime={maxDateTime}
-                onChange={(value) => (value !== undefined ? setEndDate(convertToZoneTime(value, timeZoneValue)) : setEndDate(value))}
+                onChange={(value) => (value !== undefined ? setEndDate(convertToZoneTime(value, timeZone)) : setEndDate(value))}
                 timeZone={timeZone}
                 dateOnly={dateOnly}
                 selectEnd

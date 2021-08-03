@@ -100,10 +100,10 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
   const [timeValue, setTimeValue] = useState('');
 
 
-  const [timeZoneValue, setTimeZoneValue] = useState(timeZone);
+  // const [timeZoneValue, setTimeZoneValue] = useState(timeZone);
 
   const [invalidTimestamp, setInvalidTimestamp] = useState(false);
-  const [invalidTimeZone, setInvalidTimeZone] = useState(false);
+  // const [invalidTimeZone, setInvalidTimeZone] = useState(false);
 
   const [errorValue, setErrorValue] = useState('');
 
