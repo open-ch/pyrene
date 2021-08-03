@@ -4,12 +4,13 @@ import React, {
   useEffect,
   forwardRef,
 } from 'react';
-import ReactDatepicker, { ReactDatePickerProps } from 'react-datepicker';
+import ReactDatepicker from 'react-datepicker';
+import clsx from 'clsx';
 import parse from 'date-fns/parse';
+import { CustomTimeInputProps } from './types';
 import isValid from 'date-fns/isValid';
 import styles from './datePicker.css';
 import 'react-datepicker/dist/react-datepicker.css';
-import clsx from 'clsx';
 
 const DATE_FORMAT = 'dd.MM.yyyy';
 const DATETIME_FORMAT = 'dd.MM.yyyy hh:mm aa';
@@ -19,32 +20,6 @@ export interface DatePickerProps {
 }
 
 const isValidDate = (dateString: string, formatting: string) => isValid(parse(dateString, formatting, new Date()));
-
-type CustomTimeInputProps = {
-  dateOnly: boolean,
-  placeholder?: string,
-  ariaInvalid?: string,
-  onClick?: (e: React.MouseEventHandler<HTMLInputElement>) => void,
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void,
-} & Pick<ReactDatePickerProps,
-  'ariaDescribedBy' |
-  'ariaLabelledBy' |
-  'ariaRequired' |
-  'autoComplete' |
-  'autoFocus' |
-  'className' |
-  'disabled' |
-  'id' |
-  'name' |
-  'onBlur' |
-  'onFocus' |
-  'onKeyDown' |
-  'readOnly' |
-  'required' |
-  'tabIndex' |
-  'title' |
-  'value'
->;
 
 const CustomTimeInput: FunctionComponent<CustomTimeInputProps> = forwardRef((props, ref) => {
   const { onChange, value, dateOnly, className, ...rest } = props;
