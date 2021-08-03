@@ -1,8 +1,8 @@
 import { Example } from '../../examples/Example';
-import { DatePickerProps } from './DatePicker';
+import { DatePickerSingleProps } from './DatePickerSingle';
 
 
-const ReactDatePickerWrapper: Example<DatePickerProps> = {
+const ReactDatePickerWrapper: Example<DatePickerSingleProps> = {
   props: {
     dateOnly: false,
   },

@@ -6,16 +6,15 @@ import React, {
 } from 'react';
 import ReactDatepicker from 'react-datepicker';
 import clsx from 'clsx';
-import parse from 'date-fns/parse';
+import { parse, isValid } from 'date-fns';
 import { CustomTimeInputProps } from './types';
-import isValid from 'date-fns/isValid';
-import styles from './datePicker.css';
+import styles from './datePickerSingle.css';
 import 'react-datepicker/dist/react-datepicker.css';
 
 const DATE_FORMAT = 'dd.MM.yyyy';
 const DATETIME_FORMAT = 'dd.MM.yyyy hh:mm aa';
 
-export interface DatePickerProps {
+export interface DatePickerSingleProps {
   dateOnly?: boolean,
 }
 
@@ -68,9 +67,9 @@ const CustomTimeInput: FunctionComponent<CustomTimeInputProps> = forwardRef((pro
   )
 });
 
-const DatePicker: FunctionComponent<DatePickerProps> = ({
+const DatePickerSingle: FunctionComponent<DatePickerSingleProps> = ({
   dateOnly=false,
-}: DatePickerProps) => {
+}: DatePickerSingleProps) => {
 
   const nextIcon = <span className="pyreneIcon-chevronRight" />;
   const prevIcon = <span className="pyreneIcon-chevronLeft" />;
@@ -130,6 +129,6 @@ const DatePicker: FunctionComponent<DatePickerProps> = ({
   );
 };
 
-DatePicker.displayName = 'DatePicker';
+DatePickerSingle.displayName = 'DatePickerSingle';
 
-export default DatePicker;
+export default DatePickerSingle;
