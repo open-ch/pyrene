@@ -1,0 +1,16 @@
+.dateInvalidInput:focus-visible {
+    outline: var(--red-500) auto 1px;
+}
+  
+.dateInvalidInput {
+     border-color: var(--red-500);
+}
+  
+.dateInvalidWrapper {
+    height: 13px;
+    margin: 3px 7px 0 0;
+    font-size: 11px;
+    line-height: 1.18;
+    letter-spacing: normal;
+    color: var(--red-500);
+}
