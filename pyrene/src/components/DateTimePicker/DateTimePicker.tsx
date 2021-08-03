@@ -121,8 +121,8 @@ const DateTimePicker: React.FC<DateTimeInputProps> = ({
 
       if (onFunction) {
         if (date && time && validDateState && validTimeState) {
-          setInternalDate(convertToUTCtime(`${convertDateTypeToString(date)} ${convertTimeTypeToString(time)}`, timeZoneValue));
-          onFunction(convertToUTCtime(`${convertDateTypeToString(date)} ${convertTimeTypeToString(time)}`, timeZoneValue).valueOf());
+          setInternalDate(convertToUTCtime(`${convertDateTypeToString(date)} ${convertTimeTypeToString(time)}`, timeZone));
+          onFunction(convertToUTCtime(`${convertDateTypeToString(date)} ${convertTimeTypeToString(time)}`, timeZone).valueOf());
         } else {
           onFunction(undefined);
         }
@@ -134,7 +134,7 @@ const DateTimePicker: React.FC<DateTimeInputProps> = ({
         onFunction(undefined);
       }
     }
-  }, [timeZoneValue]);
+  }, [timeZone]);
 
   // Handle changes from react datepicker
   const onChangeReactDP = (date: Date | [Date, Date] | null, event: React.SyntheticEvent<any> | undefined): void => {
@@ -206,7 +206,7 @@ const DateTimePicker: React.FC<DateTimeInputProps> = ({
     if (typeof timeStamp === 'number') {
       const dateObj = new Date(timeStamp);
       if (!Number.isNaN(dateObj.valueOf())) {
-        setInternalDate(convertToZoneTime(timeStamp, timeZoneValue));
+        setInternalDate(convertToZoneTime(timeStamp, timeZone));
         setInvalidTimestamp(false);
       } else {
         setInternalDate(undefined);
@@ -219,12 +219,12 @@ const DateTimePicker: React.FC<DateTimeInputProps> = ({
       setDateValue('');
       setTimeValue('');
     }
-  }, [timeStamp, timeZoneValue]);
+  }, [timeStamp, timeZone]);
 
   // Set error values on changes in component
   useEffect(() => {
     setErrorValue(getErrors(errorDateBool(dateValue), errorTimeBool(timeValue), dateValue, minDateTime, maxDateTime, timeZone));
-  }, [invalidTimestamp, invalidTimeZone, maxDateTime, minDateTime, timeZone, dateValue, timeValue]);
+  }, [maxDateTime, minDateTime, timeZone, dateValue, timeValue]);
 
   return (
     <>
@@ -248,8 +248,8 @@ const DateTimePicker: React.FC<DateTimeInputProps> = ({
             dateOnly={dateOnly}
           />
         )}
-        maxDate={convertToUTCtime(maxDateTime, timeZoneValue)}
-        minDate={convertToUTCtime(minDateTime, timeZoneValue)}
+        maxDate={convertToUTCtime(maxDateTime, timeZone)}
+        minDate={convertToUTCtime(minDateTime, timeZone)}
         onChange={onChangeReactDP}
         selectedDate={selectEnd ? endDate : startDate}
         shouldDisplayTimeColumn={!dateOnly}

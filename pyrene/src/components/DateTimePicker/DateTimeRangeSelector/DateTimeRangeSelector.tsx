@@ -16,7 +16,7 @@ import RangeDateTimeRangeInput from '../RangeDateTimeInput/RangeDateTimeInput';
 import ReactDPWrapper, { CalendarContainer } from '../ReactDatePickerWrapper/ReactDatePickerWrapper';
 
 import styles from './DateTimeRangeSelector.css';
-import { dateRangeReducer } from '../DateStateReducer';
+import dateRangeInputsReducer from '../DateStateReducer';
 
 
 type OnFunction = (value?: number | [number, number] | null) => void;
@@ -93,7 +93,7 @@ const DateTimeRangeSelector: React.FC<DateTimeRangeSelectorProps> = (({
   const [errorValue, setErrorValue] = useState('');
 
 
-  const [reducer, dispatch] = useReducer(dateRangeReducer, {
+  const [reducer, dispatch] = useReducer(dateRangeInputsReducer, {
     startDate: startDateValue,
     startTime: startTimeValue,
     endDate: endDateValue,
@@ -245,8 +245,6 @@ const DateTimeRangeSelector: React.FC<DateTimeRangeSelectorProps> = (({
       <>
         <RangeDateTimeRangeInput
           dateOnly={dateOnly}
-          startDateValue={startDateValue}
-          startTimeValue={startTimeValue}
           endDateValue={endDateValue}
           endTimeValue={endTimeValue}
           labels={labels}
@@ -254,6 +252,8 @@ const DateTimeRangeSelector: React.FC<DateTimeRangeSelectorProps> = (({
           onFocus={handleFocus}
           parentDispatch={dispatch}
           timeZone={timeZone}
+          startDateValue={startDateValue}
+          startTimeValue={startTimeValue}
         />
         <CalendarContainer>
           <div ref={rangedRef}>{children}</div>

@@ -97,21 +97,14 @@ const RangeDateTimeRangeInput: React.FC<RangeProps> = ({
   const [reducer, dispatch] = useReducer(dateRangeInputsReducer, {
     startDate: startDateValue,
     startTime: startTimeValue,
-    startDateInvalid: false,
-    startTimeInvalid: false,
     endDate: endDateValue,
     endTime: endTimeValue,
-    endDateInvalid: false,
-    endTimeInvalid: false,
   });
-
-  const [timeZoneValue, setTimeZoneValue] = useState(timeZone);
-
-  const [invalidTimeZone, setInvalidTimeZone] = useState(false);
 
   const [startErrorValue, setStartErrorValue] = useState('');
   const [endErrorValue, setEndErrorValue] = useState('');
 
+  // This passes entered values to the parent component
   const handleOn = useCallback((onFunction?: OnFunction) => {
     const isStartDateLongEnough = reducer.startDate?.length === 10;
     const isEndDateLongEnough = reducer.endDate?.length === 10;
@@ -141,12 +134,12 @@ const RangeDateTimeRangeInput: React.FC<RangeProps> = ({
 
       if (onFunction) {
         if (startdate && enddate && starttime && endtime && !invalidStartDate && !invalidStartTime && !invalidEndDate && !invalidEndTime) {
-          onFunction([convertToUTCtime(`${convertDateTypeToString(startdate)} ${convertTimeTypeToString(starttime)}`, timeZoneValue).valueOf(), convertToUTCtime(`${convertDateTypeToString(enddate)} ${convertTimeTypeToString(endtime)}`, timeZoneValue).valueOf()]);
+          onFunction([convertToUTCtime(`${convertDateTypeToString(startdate)} ${convertTimeTypeToString(starttime)}`, timeZone).valueOf(), convertToUTCtime(`${convertDateTypeToString(enddate)} ${convertTimeTypeToString(endtime)}`, timeZone).valueOf()]);
 
           parentDispatch?.({
             type: 'range/changed',
             payload: {
-              value: [convertToUTCtime(`${convertDateTypeToString(startdate)} ${convertTimeTypeToString(starttime)}`, timeZoneValue).valueOf(), convertToUTCtime(`${convertDateTypeToString(enddate)} ${convertTimeTypeToString(endtime)}`, timeZoneValue).valueOf()],
+              value: [convertToUTCtime(`${convertDateTypeToString(startdate)} ${convertTimeTypeToString(starttime)}`, timeZone).valueOf(), convertToUTCtime(`${convertDateTypeToString(enddate)} ${convertTimeTypeToString(endtime)}`, timeZone).valueOf()],
             },
           });
         } else {
@@ -156,18 +149,18 @@ const RangeDateTimeRangeInput: React.FC<RangeProps> = ({
     } else {
       onFunction?.(null);
     }
-  }, [parentDispatch, reducer.endDate, reducer.endTime, reducer.startDate, reducer.startTime, timeZoneValue]);
+  }, [parentDispatch, reducer.endDate, reducer.endTime, reducer.startDate, reducer.startTime, timeZone]);
 
   // Set error values on changes in From input component
   useEffect(() => {
     setStartErrorValue(getErrors(errorDateBool(reducer.startDate || ''), errorTimeBool(reducer.startTime || ''), reducer.startDate, minDateTime, maxDateTime, timeZone));
-  }, [reducer.startDate, reducer.startTime, timeZone, reducer.startDateInvalid, reducer.startTimeInvalid, minDateTime, maxDateTime]);
+  }, [reducer.startDate, reducer.startTime, timeZone, minDateTime, maxDateTime]);
 
 
   // Set error values on changes in To input component
   useEffect(() => {
     setEndErrorValue(getErrors(errorDateBool(reducer.endDate || ''), errorTimeBool(reducer.endTime || ''), reducer.endDate, minDateTime, maxDateTime, timeZone));
-  }, [reducer.endDate, reducer.endTime, timeZone, reducer.endDateInvalid, reducer.endTimeInvalid, minDateTime, maxDateTime]);
+  }, [reducer.endDate, reducer.endTime, timeZone, minDateTime, maxDateTime]);
 
   return (
     <>
