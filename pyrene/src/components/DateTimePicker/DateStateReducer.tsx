@@ -1,13 +1,9 @@
 interface Action {
   type:
   'startDate/changed' |
-  'startDate/invalid' |
   'startTime/changed' |
-  'startTime/invalid' |
   'endDate/changed' |
-  'endDate/invalid' |
   'endTime/changed' |
-  'endTime/invalid' |
   'range/changed'
 }
 

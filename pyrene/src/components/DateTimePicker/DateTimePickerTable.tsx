@@ -12,7 +12,7 @@ import DateTimeRangeSelector from './DateTimeRangeSelector/DateTimeRangeSelector
 
 type OnFunction = (value?: number | [number, number] | null) => void;
 
-export interface DateTimeInputProps{
+export interface DateTimePickerTableProps{
   dateOnly?: boolean,
   /**
    * This is a timestamp that represents the maximum date allowed by the component
@@ -46,12 +46,12 @@ export interface DateTimeInputProps{
 }
 
 
-const DateTimePickerTable: React.FC<DateTimeInputProps> = ({
+const DateTimePickerTable: React.FC<DateTimePickerTableProps> = ({
   dateOnly,
   maxDateTime,
   minDateTime,
   timeZone = 'Europe/Zurich',
-}: DateTimeInputProps) => {
+}: DateTimePickerTableProps) => {
 
   const [endDate, setEndDate] = useState<Date | undefined>(undefined);
   const [startDate, setStartDate] = useState<Date | undefined>(undefined);

@@ -18,7 +18,7 @@ import {
 
 type OnFunction = (value?: number) => void;
 
-export interface DateTimeInputProps{
+export interface DateTimePickerProps{
   /**
    * Boolean to control time display
    */
@@ -77,7 +77,7 @@ export interface DateTimeInputProps{
   timeZone?: string,
 }
 
-const DateTimePicker: React.FC<DateTimeInputProps> = ({
+const DateTimePicker: React.FC<DateTimePickerProps> = ({
   dateOnly = false,
   endDate,
   label,
@@ -92,7 +92,7 @@ const DateTimePicker: React.FC<DateTimeInputProps> = ({
   startDate,
   timeStamp,
   timeZone = 'Europe/Zurich',
-}: DateTimeInputProps) => {
+}: DateTimePickerProps) => {
 
   const [internalDate, setInternalDate] = useState<Date | undefined>();
 

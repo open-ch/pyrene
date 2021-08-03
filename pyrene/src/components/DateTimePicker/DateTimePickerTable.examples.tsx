@@ -1,13 +1,13 @@
 import { Example, StateProvider } from '../../examples/Example';
-import { DateTimeInputProps } from './DateTimePickerTable';
+import { DateTimePickerTableProps } from './DateTimePickerTable';
 
 export interface State {
   value?: number | [number, number] | null
 }
 
-const DateTimeInput: Example<DateTimeInputProps, State> = {};
+const DateTimePickerTable: Example<DateTimePickerTableProps, State> = {};
 
-DateTimeInput.props = {
+DateTimePickerTable.props = {
   onChange: (stateProvider: StateProvider<State>) => (value?: number | [number, number] | null) => {
     stateProvider.setState({ value });
     // console.log(value);
@@ -15,7 +15,7 @@ DateTimeInput.props = {
   timeStamp: (stateProvider) => stateProvider.state.value,
 };
 
-DateTimeInput.examples = [
+DateTimePickerTable.examples = [
   {
     props: {
       dateOnly: true,
@@ -43,6 +43,6 @@ DateTimeInput.examples = [
   },
 ];
 
-DateTimeInput.category = 'Form';
+DateTimePickerTable.category = 'Form';
 
-export default DateTimeInput;
+export default DateTimePickerTable;
