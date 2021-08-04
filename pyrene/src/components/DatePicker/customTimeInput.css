@@ -3,7 +3,7 @@
 }
   
 .dateInvalidInput {
-     border-color: var(--red-500);
+    border-color: var(--red-500);
 }
   
 .dateInvalidWrapper {
