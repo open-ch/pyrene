@@ -1,3 +1,8 @@
+.wrapper {
+  display: flex;
+}
+
+/*
 .wrapper :global .react-datepicker__tab-loop {
   display: inline-block;
-}
+}*/
