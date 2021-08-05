@@ -1,8 +1,8 @@
-.wrapper {
+.Wrapper {
   display: flex;
 }
 
-.DatePickerTo {
+.DatePickerToWrapper {
   margin-left: 16px;
 }
 
