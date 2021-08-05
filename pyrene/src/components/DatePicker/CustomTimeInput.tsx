@@ -1,12 +1,14 @@
 import React, {
-    useState,
-    FunctionComponent,
-    useEffect,
-    forwardRef,
-  } from 'react';
+  useState,
+  FunctionComponent,
+  useEffect,
+  forwardRef,
+  MouseEventHandler,
+  ChangeEvent,
+} from 'react';
 import clsx from 'clsx';
 import { parse, isValid } from 'date-fns';
-import { CustomTimeInputProps } from './types';
+import { ReactDatePickerProps } from 'react-datepicker';
 import styles from './customTimeInput.css';
 
 export const DATE_FORMAT = 'dd.MM.yyyy';
@@ -14,11 +16,42 @@ export const DATETIME_FORMAT = 'dd.MM.yyyy hh:mm aa';
 
 const isValidDate = (dateString: string, formatting: string) => isValid(parse(dateString, formatting, new Date()));
 
+export type CustomTimeInputProps = {
+  dateOnly: boolean,
+  doDateValidation?: {
+    errorMessage: string,
+    validate: (input: string) => boolean,
+  },
+  placeholder?: string,
+  ariaInvalid?: string,
+  onClick?: (e: MouseEventHandler<HTMLInputElement>) => void,
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void,
+} & Pick<ReactDatePickerProps,
+  'ariaDescribedBy' |
+  'ariaLabelledBy' |
+  'ariaRequired' |
+  'autoComplete' |
+  'autoFocus' |
+  'className' |
+  'disabled' |
+  'id' |
+  'name' |
+  'onBlur' |
+  'onFocus' |
+  'onKeyDown' |
+  'readOnly' |
+  'required' |
+  'tabIndex' |
+  'title' |
+  'value'
+>;
+
 const CustomTimeInput: FunctionComponent<CustomTimeInputProps> = forwardRef((props, ref) => {
-  const { onChange, value, dateOnly, className, ...rest } = props;
+  const { doDateValidation, onChange, value, dateOnly, className, ...rest } = props;
 
   const [inputValue, setInputValue] = useState(value);
   const [hasError, setHasError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const dateFormatting = dateOnly ? DATE_FORMAT : DATETIME_FORMAT;
 
@@ -29,10 +62,15 @@ const CustomTimeInput: FunctionComponent<CustomTimeInputProps> = forwardRef((pro
 
   // do the validation each time the input is updated
   useEffect( () => {
-    if(inputValue && !isValidDate(inputValue, dateFormatting)){
+    if (inputValue && !isValidDate(inputValue, dateFormatting)){
       setHasError(true);
+      setErrorMessage('The date is not well formatted.');
     }
-    else{
+    else if (inputValue && doDateValidation && !doDateValidation.validate(inputValue)){
+      setHasError(true);
+      setErrorMessage(doDateValidation.errorMessage);
+    }
+    else {
       setHasError(false);
     }
   }, [inputValue]);
@@ -55,7 +93,7 @@ const CustomTimeInput: FunctionComponent<CustomTimeInputProps> = forwardRef((pro
         }}
       />
       <div className={styles.dateInvalidWrapper}>
-          <span>{hasError ? 'issue in the formatting' : ''}</span>
+        <span>{hasError ? errorMessage : ''}</span>
       </div>
     </div>
   )
