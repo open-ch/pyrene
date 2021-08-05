@@ -20,7 +20,7 @@ const DatePickerMultiple: FunctionComponent<DatePickerMultipleProps> = ({
   
   return (  
     <div className={styles.Wrapper}>
-      <div className={styles.DatePickerFromWrapper}>
+      <div>
         <label>
           From
           <br />
