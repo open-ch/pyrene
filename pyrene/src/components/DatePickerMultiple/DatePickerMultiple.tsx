@@ -17,6 +17,10 @@ const DatePickerMultiple: FunctionComponent<DatePickerMultipleProps> = ({
 
   const [startDate, setStartDate] = useState<null | Date>(null);
   const [endDate, setEndDate] = useState<null | Date>(null);
+
+  const dateValidator = {
+
+  };
   
   return (  
     <div className={styles.Wrapper}>

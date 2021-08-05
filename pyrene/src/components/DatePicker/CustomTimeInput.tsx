@@ -18,9 +18,9 @@ const isValidDate = (dateString: string, formatting: string) => isValid(parse(da
 
 export type CustomTimeInputProps = {
   dateOnly: boolean,
-  doDateValidation?: {
+  dateValidator?: {
     errorMessage: string,
-    validate: (input: string) => boolean,
+    isValidate: (input: string) => boolean,
   },
   placeholder?: string,
   ariaInvalid?: string,
@@ -47,7 +47,7 @@ export type CustomTimeInputProps = {
 >;
 
 const CustomTimeInput: FunctionComponent<CustomTimeInputProps> = forwardRef((props, ref) => {
-  const { doDateValidation, onChange, value, dateOnly, className, ...rest } = props;
+  const { dateValidator, onChange, value, dateOnly, className, ...rest } = props;
 
   const [inputValue, setInputValue] = useState(value);
   const [hasError, setHasError] = useState(false);
@@ -66,9 +66,9 @@ const CustomTimeInput: FunctionComponent<CustomTimeInputProps> = forwardRef((pro
       setHasError(true);
       setErrorMessage('The date is not well formatted.');
     }
-    else if (inputValue && doDateValidation && !doDateValidation.validate(inputValue)){
+    else if (inputValue && dateValidator && !dateValidator.isValidate(inputValue)){
       setHasError(true);
-      setErrorMessage(doDateValidation.errorMessage);
+      setErrorMessage(dateValidator.errorMessage);
     }
     else {
       setHasError(false);
