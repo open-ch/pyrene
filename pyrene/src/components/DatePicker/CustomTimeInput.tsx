@@ -60,8 +60,8 @@ const CustomTimeInput: FunctionComponent<CustomTimeInputProps> = forwardRef((pro
   // do the validation each time the input is updated
   useEffect( () => {
     if (inputValue){
-      const dateInvalid = validators.find( (validator) => !validator.isValid(inputValue, dateFormatting));
-      
+      const dateInvalid = validators.find((validator) => !validator.isValid(inputValue, dateFormatting));
+
       if(dateInvalid){
         setHasError(true);
         setErrorMessage(dateInvalid.errorMessage);
