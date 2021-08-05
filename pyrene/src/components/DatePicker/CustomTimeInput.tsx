@@ -7,21 +7,18 @@ import React, {
   ChangeEvent,
 } from 'react';
 import clsx from 'clsx';
-import { parse, isValid } from 'date-fns';
 import { ReactDatePickerProps } from 'react-datepicker';
+import { isValidDate } from './utils';
+import { DateValidator } from './types';
 import styles from './customTimeInput.css';
 
 export const DATE_FORMAT = 'dd.MM.yyyy';
 export const DATETIME_FORMAT = 'dd.MM.yyyy hh:mm aa';
 
-const isValidDate = (dateString: string, formatting: string) => isValid(parse(dateString, formatting, new Date()));
-
 export type CustomTimeInputProps = {
   dateOnly: boolean,
-  dateValidator?: {
-    errorMessage: string,
-    isValidate: (input: string) => boolean,
-  },
+  dateValidator?: DateValidator,
+  dateValidators?: Array<DateValidator>,
   placeholder?: string,
   ariaInvalid?: string,
   onClick?: (e: MouseEventHandler<HTMLInputElement>) => void,
@@ -66,7 +63,7 @@ const CustomTimeInput: FunctionComponent<CustomTimeInputProps> = forwardRef((pro
       setHasError(true);
       setErrorMessage('The date is not well formatted.');
     }
-    else if (inputValue && dateValidator && !dateValidator.isValidate(inputValue)){
+    else if (inputValue && dateValidator && !dateValidator.isValid(inputValue, dateFormatting)){
       setHasError(true);
       setErrorMessage(dateValidator.errorMessage);
     }

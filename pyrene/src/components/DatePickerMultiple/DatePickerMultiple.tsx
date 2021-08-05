@@ -4,6 +4,7 @@ import React, {
 } from 'react';
 import ReactDatepicker from 'react-datepicker';
 import CustomTimeInput, { DATE_FORMAT, DATETIME_FORMAT } from '../DatePicker/CustomTimeInput';
+import { dateTooForwardValidator } from '../DatePicker/utils';
 import styles from './datePickerMultiple.css';
 import 'react-datepicker/dist/react-datepicker.css';
 
@@ -17,10 +18,6 @@ const DatePickerMultiple: FunctionComponent<DatePickerMultipleProps> = ({
 
   const [startDate, setStartDate] = useState<null | Date>(null);
   const [endDate, setEndDate] = useState<null | Date>(null);
-
-  const dateValidator = {
-
-  };
   
   return (  
     <div className={styles.Wrapper}>
@@ -39,7 +36,7 @@ const DatePickerMultiple: FunctionComponent<DatePickerMultipleProps> = ({
             dateFormat={dateOnly ? DATE_FORMAT : DATETIME_FORMAT}
             formatWeekDay={(nameOfDay) => nameOfDay.substr(0, 1)}
             placeholderText={dateOnly ? DATE_FORMAT.toLowerCase() : DATETIME_FORMAT.toLowerCase()}
-            customInput={<CustomTimeInput dateOnly={dateOnly}/>}
+            customInput={<CustomTimeInput dateOnly={dateOnly} dateValidator={dateTooForwardValidator} />}
           />
         </label>
       </div>
@@ -62,7 +59,7 @@ const DatePickerMultiple: FunctionComponent<DatePickerMultipleProps> = ({
             dateFormat={dateOnly ? DATE_FORMAT : DATETIME_FORMAT}
             formatWeekDay={(nameOfDay) => nameOfDay.substr(0, 1)}
             placeholderText={dateOnly ? DATE_FORMAT.toLowerCase() : DATETIME_FORMAT.toLowerCase()}
-            customInput={<CustomTimeInput dateOnly={dateOnly}/>}
+            customInput={<CustomTimeInput dateOnly={dateOnly} dateValidator={dateTooForwardValidator} />}
           />
         </label>
       </div>
