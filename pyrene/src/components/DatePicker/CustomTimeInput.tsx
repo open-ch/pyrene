@@ -8,7 +8,7 @@ import React, {
 } from 'react';
 import clsx from 'clsx';
 import { ReactDatePickerProps } from 'react-datepicker';
-import { isValidDate } from './utils';
+import { isValidDate, dateValidValidator } from './utils';
 import { DateValidator } from './types';
 import styles from './customTimeInput.css';
 
@@ -17,7 +17,6 @@ export const DATETIME_FORMAT = 'dd.MM.yyyy hh:mm aa';
 
 export type CustomTimeInputProps = {
   dateOnly: boolean,
-  dateValidator?: DateValidator,
   dateValidators?: Array<DateValidator>,
   placeholder?: string,
   ariaInvalid?: string,
@@ -44,7 +43,8 @@ export type CustomTimeInputProps = {
 >;
 
 const CustomTimeInput: FunctionComponent<CustomTimeInputProps> = forwardRef((props, ref) => {
-  const { dateValidator, onChange, value, dateOnly, className, ...rest } = props;
+  const { dateValidators, onChange, value, dateOnly, className, ...rest } = props;
+  const validators = dateValidators || [dateValidValidator];
 
   const [inputValue, setInputValue] = useState(value);
   const [hasError, setHasError] = useState(false);
@@ -59,13 +59,17 @@ const CustomTimeInput: FunctionComponent<CustomTimeInputProps> = forwardRef((pro
 
   // do the validation each time the input is updated
   useEffect( () => {
-    if (inputValue && !isValidDate(inputValue, dateFormatting)){
-      setHasError(true);
-      setErrorMessage('The date is not well formatted.');
-    }
-    else if (inputValue && dateValidator && !dateValidator.isValid(inputValue, dateFormatting)){
-      setHasError(true);
-      setErrorMessage(dateValidator.errorMessage);
+    if (inputValue){
+      const dateInvalid = validators.find( (validator) => !validator.isValid(inputValue, dateFormatting));
+      
+      if(dateInvalid){
+        setHasError(true);
+        setErrorMessage(dateInvalid.errorMessage);
+      }
+      else {
+        setHasError(false);
+        setErrorMessage('');
+      }
     }
     else {
       setHasError(false);

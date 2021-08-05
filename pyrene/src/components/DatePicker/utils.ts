@@ -34,8 +34,8 @@ const dateTooForwardValidator: DateValidator = {
 
 const dateValidators: Array<DateValidator> = [
     dateValidValidator,
+    dateTooBackwardValidator,
     dateTooForwardValidator,
-    dateTooBackwardValidator
 ];
 
 export {
