@@ -34,6 +34,7 @@ const DatePickerMultiple: FunctionComponent<DatePickerMultipleProps> = ({
         customInput={<CustomTimeInput dateOnly={dateOnly}/>}
       />
       <ReactDatepicker
+        className={styles.DatePickerTo}
         calendarStartDay={1}
         selected={endDate}
         showPopperArrow={false}

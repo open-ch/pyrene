@@ -2,6 +2,10 @@
   display: flex;
 }
 
+.DatePickerTo {
+  margin-left: 16px;
+}
+
 /*
 .wrapper :global .react-datepicker__tab-loop {
   display: inline-block;
