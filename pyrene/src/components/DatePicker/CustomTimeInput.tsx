@@ -5,6 +5,7 @@ import React, {
   forwardRef,
   MouseEventHandler,
   ChangeEvent,
+  useReducer,
 } from 'react';
 import clsx from 'clsx';
 import { ReactDatePickerProps } from 'react-datepicker';
@@ -42,38 +43,71 @@ export type CustomTimeInputProps = {
   'value'
 >;
 
+interface State {
+  hasError: boolean,
+  errorMessage: string,
+}
+
+interface Action {
+  type: 'inputValidating'
+}
+
+interface InputValidatingAction extends Action {
+  type: 'inputValidating',
+  payload: {
+    hasError: boolean,
+    errorMessage: string,
+  }
+}
+
+const reducer = (state: State, action: InputValidatingAction) => {
+  switch (action.type) {
+    case 'inputValidating':
+      return {
+        ...action.payload,
+      };
+
+    default: {
+      return { ...state };
+    }
+  }
+};
+
 const CustomTimeInput: FunctionComponent<CustomTimeInputProps> = forwardRef((props, ref) => {
   const { dateValidators, onChange, value, dateOnly, className, ...rest } = props;
   const validators = dateValidators || [dateValidValidator];
 
   const [inputValue, setInputValue] = useState(value);
-  const [hasError, setHasError] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [state, dispatch] = useReducer(reducer, { hasError: false, errorMessage: '' });
 
   const dateFormatting = dateOnly ? DATE_FORMAT : DATETIME_FORMAT;
 
   // when the user select a date in the pop-up calendar, do update the date in the input
-  useEffect( () => {
+  useEffect(() => {
     setInputValue(value);
   }, [value]);
 
   // do the validation each time the input is updated
-  useEffect( () => {
-    if (inputValue){
+  useEffect(() => {
+    if (inputValue) {
       const dateInvalid = validators.find((validator) => !validator.isValid(inputValue, dateFormatting));
-
-      if(dateInvalid){
-        setHasError(true);
-        setErrorMessage(dateInvalid.errorMessage);
-      }
-      else {
-        setHasError(false);
-        setErrorMessage('');
-      }
+      dispatch({
+        type: 'inputValidating',
+        payload: {
+          hasError: !!dateInvalid,
+          errorMessage: dateInvalid ? dateInvalid.errorMessage : '',
+        },
+      });
+    } else {
+      dispatch({
+        type: 'inputValidating',
+        payload: {
+          hasError: false,
+          errorMessage: '',
+        },
+      });
     }
-    else {
-      setHasError(false);
-    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inputValue]);
 
   return (
@@ -82,7 +116,7 @@ const CustomTimeInput: FunctionComponent<CustomTimeInputProps> = forwardRef((pro
         {...rest as any}
         ref={ref as any}
         value={inputValue}
-        className={clsx(className, { [styles.dateInvalidInput]: hasError })}
+        className={clsx(className, { [styles.dateInvalidInput]: state.hasError })}
         onChange={(e) => {
           const enterredDate = e.target.value;
           setInputValue(enterredDate);
@@ -94,10 +128,11 @@ const CustomTimeInput: FunctionComponent<CustomTimeInputProps> = forwardRef((pro
         }}
       />
       <div className={styles.dateInvalidWrapper}>
-        <span>{hasError ? errorMessage : ''}</span>
+        <span>{state.hasError ? state.errorMessage : ''}</span>
       </div>
     </div>
-  )
+  );
 });
 
 export default CustomTimeInput;
+  
