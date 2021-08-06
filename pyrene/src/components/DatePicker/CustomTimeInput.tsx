@@ -60,7 +60,7 @@ interface InputValidatingAction extends Action {
   }
 }
 
-const reducer = (state: State, action: InputValidatingAction) => {
+const reducer = (state: State, action: InputValidatingAction): State=> {
   switch (action.type) {
     case 'inputValidating':
       return {
