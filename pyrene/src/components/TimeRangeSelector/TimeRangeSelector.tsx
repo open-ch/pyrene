@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from 'react';
+import React, { FunctionComponent, useReducer } from 'react';
 import {
   addMilliseconds, subMilliseconds, getTime, differenceInMilliseconds,
 } from 'date-fns';
@@ -70,6 +70,48 @@ export interface TimeRangeSelectorPros {
   upperBound: number,
 }
 
+interface State {
+  durationInMs: number,
+  preserveDuration: boolean
+}
+
+interface Action {
+  type: 'interacting' | 'changing'
+}
+
+interface InteractingAction extends Action {
+  type: 'interacting',
+  payload: {
+    durationInMs: number,
+  }
+}
+
+interface ChangingAction extends Action {
+  type: 'changing',
+  payload: {
+    newFrom: number,
+    newTo: number,
+    onChange: TimeRangeSelectorPros['onChange']
+  }
+}
+
+const reducer = (state: State, action: InteractingAction | ChangingAction): State => {
+  switch (action.type) {
+    case 'interacting':
+      return {
+        ...state,
+        durationInMs: action.payload.durationInMs,
+      };
+    case 'changing':
+      const {newFrom, newTo, onChange} = action.payload;
+      onChange(newFrom, newTo);
+      return { ...state };
+    default: {
+      return { ...state };
+    }
+  }
+};
+
 const TimeRangeSelector: FunctionComponent<TimeRangeSelectorPros> = ({
   disabled = false,
   from,
@@ -81,8 +123,8 @@ const TimeRangeSelector: FunctionComponent<TimeRangeSelectorPros> = ({
   to,
   upperBound,
 }: TimeRangeSelectorPros) => {
-  const [durationInMs, setDurationInMs] = useState( (to - from) - ((to - from) % 10)); // calculate the duration of the timerange minus rounding errors
-  const [preserveDuration, setPreserveDuration] = useState(false);
+  // calculate the duration of the timerange minus rounding errors
+  const [state, dispatch] = useReducer(reducer, { durationInMs: (to - from) - ((to - from) % 10), preserveDuration: false });
 
   /*
   static getDerivedStateFromProps(props, state) {
@@ -107,37 +149,45 @@ const TimeRangeSelector: FunctionComponent<TimeRangeSelectorPros> = ({
    * @param durationInMs            the duration of the timerange based on the selected preset
    * @private
    */
-  const _onPresetTimeRangeSelected = (newFrom, newTo, newUpperBound, durationInMs) => {
-    this.setState({
-      durationInMs: durationInMs, // We need to store it, otherwise if we reach the lower/upper bound we will start to use less milliseconds with the steppers
-    },
-    () => {
-      onChange(newFrom, newTo);
+  const _onPresetTimeRangeSelected = (newFrom: number, newTo: number, newUpperBound: number, durationInMs: number) => {
+    dispatch({
+      type: 'interacting',
+      payload: {
+        durationInMs
+      }
+    });
+    dispatch({
+      type: 'changing',
+      payload: {
+        newFrom,
+        newTo,
+        onChange,
+      }
     });
   };
 
   const _onNavigateBack = () => {
-    const fromDiff = subMilliseconds(from, durationInMs);
-    const toDiff = subMilliseconds(to, durationInMs);
+    const fromDiff = subMilliseconds(from, state.durationInMs);
+    const toDiff = subMilliseconds(to, state.durationInMs);
 
     const newFrom = Math.max(getTime(fromDiff), lowerBound);
 
     // Keep the selected timespan duration if we reach a bound
-    const newTo = differenceInMilliseconds(toDiff, newFrom) < durationInMs
-      ? addMilliseconds(newFrom, durationInMs)
+    const newTo = differenceInMilliseconds(toDiff, newFrom) < state.durationInMs
+      ? addMilliseconds(newFrom, state.durationInMs)
       : toDiff;
     return onChange(newFrom, Math.min(getTime(newTo), upperBound));
   };
 
   const _onNavigateForward = () => {
-    const fromDiff = addMilliseconds(from, durationInMs);
-    const toDiff = addMilliseconds(to, durationInMs);
+    const fromDiff = addMilliseconds(from, state.durationInMs);
+    const toDiff = addMilliseconds(to, state.durationInMs);
 
     const newTo = Math.min(getTime(toDiff), upperBound);
 
     // Keep the selected timespan duration if we reach a bound
-    const newFrom = differenceInMilliseconds(newTo, fromDiff) < durationInMs
-      ? addMilliseconds(newTo, durationInMs)
+    const newFrom = differenceInMilliseconds(newTo, fromDiff) < state.durationInMs
+      ? addMilliseconds(newTo, state.durationInMs)
       : fromDiff;
     return onChange(Math.max(getTime(newFrom), lowerBound), newTo);
   };
@@ -146,8 +196,8 @@ const TimeRangeSelector: FunctionComponent<TimeRangeSelectorPros> = ({
    * Checks whether the component has a preset timerange selected when navigating; if yes, we should preserve the current durationInMs.
    * @private
    */
-  const _preserveDurationForNavigation = (navigateCallback) => {
-    const foundTimeRangeType = presetTimeRanges.find((preset) => preset.durationInMs === durationInMs);
+  const _preserveDurationForNavigation = (navigateCallback: () => void) => {
+    const foundTimeRangeType = presetTimeRanges.find((preset) => preset.durationInMs === state.durationInMs);
     if (foundTimeRangeType) {
       this.setState({ preserveDuration: true }, () => {
         navigateCallback();
@@ -157,7 +207,7 @@ const TimeRangeSelector: FunctionComponent<TimeRangeSelectorPros> = ({
     }
   };
 
-  let currentTimeRangeType = presetTimeRanges.find((preset) => preset.durationInMs === durationInMs); // Try to find if the timerange matches an initial preset
+  let currentTimeRangeType = presetTimeRanges.find((preset) => preset.durationInMs === state.durationInMs); // Try to find if the timerange matches an initial preset
   currentTimeRangeType = currentTimeRangeType ? currentTimeRangeType.id : ''; // If we found a match, then let's use the id of the preset, otherwise no default preset has to be selected
 
   return (
