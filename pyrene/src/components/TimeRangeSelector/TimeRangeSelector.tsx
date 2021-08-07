@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, FunctionComponent, useState } from 'react';
 import PropTypes from 'prop-types';
 import {
   addMilliseconds, subMilliseconds, getTime, differenceInMilliseconds,
@@ -18,23 +18,72 @@ import styles from './timeRangeSelector.css';
  * 30 days
  * 1 year
  */
-export default class TimeRangeSelector extends Component {
 
-  constructor(props) {
-    super(props);
+export interface TimeRangeSelectorPros {
+  /**
+   * Whether or not the component is disabled
+   * Type: boolean
+   */
+  disabled?: boolean,
+  /**
+   * The start value of the range in epoch milliseconds
+   * Type: number (required)
+   */
+  from: number,
+  /**
+   * The oldest queryable starting time point, in epoch milliseconds
+   * Type: number (required)
+   */
+  lowerBound: number,
+  /**
+   * Callback function passed by parent page (usually a GET request to fetch new data)
+   * Type: function(from: number, to: number) (required)
+   */
+  onChange: (newFrom: number, newTo: number) => void,
+  /**
+   * The preset time ranges to display as preset buttons
+   * Type: [{ id: string (required) the id of the preset, label: string (required) label of the preset button displayed to the user, durationInMs: number (required) the duration of the timerange in epoch ms }]
+   */
+  presetTimeRanges?: Array<{
+    durationInMs: number,
+    id: string,
+    label: string,
+  }>,
+  /**
+   * Function called if there is some element to be rendered on the rightmost side
+   * Type: function
+   */
+  renderRightSection?: Function,
+  /**
+   * The timezone that the range selector should use to display the time
+   * Type: string (required)
+   */
+  timezone: string,
+  /**
+   * The end value of the range to in epoch milliseconds
+   * Type: number (required)
+   */
+  to: number,
+  /**
+   * The latest queryable ending time point, in epoch milliseconds
+   * Type: number
+   */
+  upperBound: number,
+}
 
-    const durationInMs = (props.to - props.from) - ((props.to - props.from) % 10); // calculate the duration of the timerange minus rounding errors
-
-    this.state = {
-      durationInMs: durationInMs,
-      preserveDuration: false,
-    };
-
-    this._onPresetTimeRangeSelected = this._onPresetTimeRangeSelected.bind(this);
-    this._preserveDurationForNavigation = this._preserveDurationForNavigation.bind(this);
-    this._onNavigateBack = this._onNavigateBack.bind(this);
-    this._onNavigateForward = this._onNavigateForward.bind(this);
-  }
+const TimeRangeSelector: FunctionComponent<TimeRangeSelectorPros> = ({
+  disabled = false,
+  from,
+  lowerBound,
+  onChange,
+  presetTimeRanges = PRESET_TIME_RANGES,
+  renderRightSection = () => {},
+  timezone,
+  to,
+  upperBound,
+}: TimeRangeSelectorPros) => {
+  const [durationInMs, setDurationInMs] = useState( (to - from) - ((to - from) % 10)); // calculate the duration of the timerange minus rounding errors
+  const [preserveDuration, setPreserveDuration] = useState(false);
 
   static getDerivedStateFromProps(props, state) {
     if (props.to - props.from !== state.durationInMs && !state.preserveDuration) {
@@ -55,47 +104,47 @@ export default class TimeRangeSelector extends Component {
    * @param durationInMs            the duration of the timerange based on the selected preset
    * @private
    */
-  _onPresetTimeRangeSelected(newFrom, newTo, newUpperBound, durationInMs) {
+  const _onPresetTimeRangeSelected = (newFrom, newTo, newUpperBound, durationInMs) => {
     this.setState({
       durationInMs: durationInMs, // We need to store it, otherwise if we reach the lower/upper bound we will start to use less milliseconds with the steppers
     },
     () => {
-      this.props.onChange(newFrom, newTo);
+      onChange(newFrom, newTo);
     });
   }
 
-  _onNavigateBack() {
-    const fromDiff = subMilliseconds(this.props.from, this.state.durationInMs);
-    const toDiff = subMilliseconds(this.props.to, this.state.durationInMs);
+  const _onNavigateBack = () => {
+    const fromDiff = subMilliseconds(from, durationInMs);
+    const toDiff = subMilliseconds(to, durationInMs);
 
-    const newFrom = Math.max(getTime(fromDiff), this.props.lowerBound);
+    const newFrom = Math.max(getTime(fromDiff), lowerBound);
 
     // Keep the selected timespan duration if we reach a bound
-    const newTo = differenceInMilliseconds(toDiff, newFrom) < this.state.durationInMs
-      ? addMilliseconds(newFrom, this.state.durationInMs)
+    const newTo = differenceInMilliseconds(toDiff, newFrom) < durationInMs
+      ? addMilliseconds(newFrom, durationInMs)
       : toDiff;
-    return this.props.onChange(newFrom, Math.min(getTime(newTo), this.props.upperBound));
+    return onChange(newFrom, Math.min(getTime(newTo), upperBound));
   }
 
-  _onNavigateForward() {
-    const fromDiff = addMilliseconds(this.props.from, this.state.durationInMs);
-    const toDiff = addMilliseconds(this.props.to, this.state.durationInMs);
+  const _onNavigateForward = () => {
+    const fromDiff = addMilliseconds(from, durationInMs);
+    const toDiff = addMilliseconds(to, durationInMs);
 
-    const newTo = Math.min(getTime(toDiff), this.props.upperBound);
+    const newTo = Math.min(getTime(toDiff), upperBound);
 
     // Keep the selected timespan duration if we reach a bound
-    const newFrom = differenceInMilliseconds(newTo, fromDiff) < this.state.durationInMs
-      ? addMilliseconds(newTo, this.state.durationInMs)
+    const newFrom = differenceInMilliseconds(newTo, fromDiff) < durationInMs
+      ? addMilliseconds(newTo, durationInMs)
       : fromDiff;
-    return this.props.onChange(Math.max(getTime(newFrom), this.props.lowerBound), newTo);
+    return onChange(Math.max(getTime(newFrom), lowerBound), newTo);
   }
 
   /**
    * Checks whether the component has a preset timerange selected when navigating; if yes, we should preserve the current durationInMs.
    * @private
    */
-  _preserveDurationForNavigation(navigateCallback) {
-    const foundTimeRangeType = this.props.presetTimeRanges.find((preset) => preset.durationInMs === this.state.durationInMs);
+  const _preserveDurationForNavigation = (navigateCallback) => {
+    const foundTimeRangeType = presetTimeRanges.find((preset) => preset.durationInMs === durationInMs);
     if (foundTimeRangeType) {
       this.setState({ preserveDuration: true }, () => {
         navigateCallback();
@@ -105,102 +154,41 @@ export default class TimeRangeSelector extends Component {
     }
   }
 
-  render() {
-    let currentTimeRangeType = this.props.presetTimeRanges.find((preset) => preset.durationInMs === this.state.durationInMs); // Try to find if the timerange matches an initial preset
-    currentTimeRangeType = currentTimeRangeType ? currentTimeRangeType.id : ''; // If we found a match, then let's use the id of the preset, otherwise no default preset has to be selected
+  let currentTimeRangeType = presetTimeRanges.find((preset) => preset.durationInMs === durationInMs); // Try to find if the timerange matches an initial preset
+  currentTimeRangeType = currentTimeRangeType ? currentTimeRangeType.id : ''; // If we found a match, then let's use the id of the preset, otherwise no default preset has to be selected
 
-    return (
-      <div className={clsx(styles.timeRangeSelector, { [styles.disabled]: this.props.disabled })}>
-        <div className={styles['timeRangeSelector--left']}>
-          <PresetTimeRanges
-            disabled={this.props.disabled}
-            lowerBound={this.props.lowerBound}
-            onInteract={this._onPresetTimeRangeSelected}
-            currentTimeRangeType={currentTimeRangeType}
-            presetTimeRanges={this.props.presetTimeRanges}
-            upperBound={this.props.upperBound}
-            timezone={this.props.timezone}
-          />
-        </div>
-        <div className={styles['timeRangeSelector--center']}>
-          <TimeRangeNavigationBar
-            disabled={this.props.disabled}
-            to={this.props.to}
-            from={this.props.from}
-            lowerBound={this.props.lowerBound}
-            onNavigateBack={() => this._preserveDurationForNavigation(this._onNavigateBack)}
-            onNavigateForward={() => this._preserveDurationForNavigation(this._onNavigateForward)}
-            upperBound={this.props.upperBound}
-            timezone={this.props.timezone}
-          />
-        </div>
-        <div className={clsx(styles['timeRangeSelector--right'], { [styles.disabled]: this.props.disabled })}>
-          {this.props.renderRightSection()}
-        </div>
+  return (
+    <div className={clsx(styles.timeRangeSelector, { [styles.disabled]: disabled })}>
+      <div className={styles['timeRangeSelector--left']}>
+        <PresetTimeRanges
+          disabled={disabled}
+          lowerBound={lowerBound}
+          onInteract={this._onPresetTimeRangeSelected}
+          currentTimeRangeType={currentTimeRangeType}
+          presetTimeRanges={presetTimeRanges}
+          upperBound={upperBound}
+          timezone={timezone}
+        />
       </div>
-    );
-  }
-
-}
+      <div className={styles['timeRangeSelector--center']}>
+        <TimeRangeNavigationBar
+          disabled={disabled}
+          to={to}
+          from={from}
+          lowerBound={lowerBound}
+          onNavigateBack={() => _preserveDurationForNavigation(_onNavigateBack)}
+          onNavigateForward={() => _preserveDurationForNavigation(_onNavigateForward)}
+          upperBound={upperBound}
+          timezone={timezone}
+        />
+      </div>
+      <div className={clsx(styles['timeRangeSelector--right'], { [styles.disabled]: disabled })}>
+        {renderRightSection()}
+      </div>
+    </div>
+  );
+};
 
 TimeRangeSelector.displayName = 'Time Range Selector';
 
-TimeRangeSelector.defaultProps = {
-  disabled: false,
-  presetTimeRanges: PRESET_TIME_RANGES,
-  renderRightSection: () => {},
-};
-
-TimeRangeSelector.propTypes = {
-  /**
-   * Whether or not the component is disabled
-   * Type: boolean
-   */
-  disabled: PropTypes.bool,
-  /**
-   * The start value of the range in epoch milliseconds
-   * Type: number (required)
-   */
-  from: PropTypes.number.isRequired,
-  /**
-   * The oldest queryable starting time point, in epoch milliseconds
-   * Type: number (required)
-   */
-  lowerBound: PropTypes.number.isRequired,
-  /**
-   * Callback function passed by parent page (usually a GET request to fetch new data)
-   * Type: function(from: number, to: number) (required)
-   */
-  onChange: PropTypes.func.isRequired,
-  /**
-   * The preset time ranges to display as preset buttons
-   * Type: [{ id: string (required) the id of the preset, label: string (required) label of the preset button displayed to the user, durationInMs: number (required) the duration of the timerange in epoch ms }]
-   */
-  presetTimeRanges: PropTypes.arrayOf(
-    PropTypes.shape({
-      durationInMs: PropTypes.number.isRequired,
-      id: PropTypes.string.isRequired,
-      label: PropTypes.string.isRequired,
-    }),
-  ),
-  /**
-   * Function called if there is some element to be rendered on the rightmost side
-   * Type: function
-   */
-  renderRightSection: PropTypes.func,
-  /**
-   * The timezone that the range selector should use to display the time
-   * Type: string (required)
-   */
-  timezone: PropTypes.string.isRequired,
-  /**
-   * The end value of the range to in epoch milliseconds
-   * Type: number (required)
-   */
-  to: PropTypes.number.isRequired,
-  /**
-   * The latest queryable ending time point, in epoch milliseconds
-   * Type: number
-   */
-  upperBound: PropTypes.number.isRequired,
-};
+export default TimeRangeSelector;
