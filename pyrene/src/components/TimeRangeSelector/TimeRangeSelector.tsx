@@ -85,6 +85,7 @@ const TimeRangeSelector: FunctionComponent<TimeRangeSelectorPros> = ({
   const [durationInMs, setDurationInMs] = useState( (to - from) - ((to - from) % 10)); // calculate the duration of the timerange minus rounding errors
   const [preserveDuration, setPreserveDuration] = useState(false);
 
+  /*
   static getDerivedStateFromProps(props, state) {
     if (props.to - props.from !== state.durationInMs && !state.preserveDuration) {
       const newDuration = (props.to - props.from) - ((props.to - props.from) % 10);
@@ -95,7 +96,10 @@ const TimeRangeSelector: FunctionComponent<TimeRangeSelectorPros> = ({
     }
     return null;
   }
+  */
 
+
+  
   /**
    * Updates the from/to limits, the upperbound and the current preset settings when a preset is selected
    * @param newFrom                 the new from value in epoch milliseconds
@@ -111,7 +115,7 @@ const TimeRangeSelector: FunctionComponent<TimeRangeSelectorPros> = ({
     () => {
       onChange(newFrom, newTo);
     });
-  }
+  };
 
   const _onNavigateBack = () => {
     const fromDiff = subMilliseconds(from, durationInMs);
@@ -124,7 +128,7 @@ const TimeRangeSelector: FunctionComponent<TimeRangeSelectorPros> = ({
       ? addMilliseconds(newFrom, durationInMs)
       : toDiff;
     return onChange(newFrom, Math.min(getTime(newTo), upperBound));
-  }
+  };
 
   const _onNavigateForward = () => {
     const fromDiff = addMilliseconds(from, durationInMs);
@@ -137,7 +141,7 @@ const TimeRangeSelector: FunctionComponent<TimeRangeSelectorPros> = ({
       ? addMilliseconds(newTo, durationInMs)
       : fromDiff;
     return onChange(Math.max(getTime(newFrom), lowerBound), newTo);
-  }
+  };
 
   /**
    * Checks whether the component has a preset timerange selected when navigating; if yes, we should preserve the current durationInMs.
@@ -152,7 +156,7 @@ const TimeRangeSelector: FunctionComponent<TimeRangeSelectorPros> = ({
     } else {
       navigateCallback();
     }
-  }
+  };
 
   let currentTimeRangeType = presetTimeRanges.find((preset) => preset.durationInMs === durationInMs); // Try to find if the timerange matches an initial preset
   currentTimeRangeType = currentTimeRangeType ? currentTimeRangeType.id : ''; // If we found a match, then let's use the id of the preset, otherwise no default preset has to be selected
@@ -163,7 +167,7 @@ const TimeRangeSelector: FunctionComponent<TimeRangeSelectorPros> = ({
         <PresetTimeRanges
           disabled={disabled}
           lowerBound={lowerBound}
-          onInteract={this._onPresetTimeRangeSelected}
+          onInteract={_onPresetTimeRangeSelected}
           currentTimeRangeType={currentTimeRangeType}
           presetTimeRanges={presetTimeRanges}
           upperBound={upperBound}
