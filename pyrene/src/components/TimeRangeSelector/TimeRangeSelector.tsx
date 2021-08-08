@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useReducer } from 'react';
+import React, { FunctionComponent, useReducer, useEffect } from 'react';
 import {
   addMilliseconds, subMilliseconds, getTime, differenceInMilliseconds,
 } from 'date-fns';
@@ -152,24 +152,6 @@ const TimeRangeSelector: FunctionComponent<TimeRangeSelectorPros> = ({
   const durationInMs = (to - from) - ((to - from) % 10); // calculate the duration of the timerange minus rounding errors
   const [state, dispatch] = useReducer(reducer, { durationInMs, preserveDuration: false });
 
-  /*
-  TODO: replace getDerivedStateFromProps by a useEffect
-
-
-  static getDerivedStateFromProps(props, state) {
-    if (props.to - props.from !== state.durationInMs && !state.preserveDuration) {
-      const newDuration = (props.to - props.from) - ((props.to - props.from) % 10);
-      return { durationInMs: newDuration };
-    }
-    if (state.preserveDuration) {
-      return { preserveDuration: false };
-    }
-    return null;
-  }
-  */
-
-
-  
   /**
    * Updates the from/to limits, the upperbound and the current preset settings when a preset is selected
    * @param newFrom                 the new from value in epoch milliseconds
@@ -245,8 +227,42 @@ const TimeRangeSelector: FunctionComponent<TimeRangeSelectorPros> = ({
     }
   };
 
-  let currentTimeRangeType = presetTimeRanges.find((preset) => preset.durationInMs === state.durationInMs); // Try to find if the timerange matches an initial preset
-  currentTimeRangeType = currentTimeRangeType ? currentTimeRangeType.id : ''; // If we found a match, then let's use the id of the preset, otherwise no default preset has to be selected
+
+  /*
+  static getDerivedStateFromProps(props, state) {
+    if (props.to - props.from !== state.durationInMs && !state.preserveDuration) {
+      const newDuration = (props.to - props.from) - ((props.to - props.from) % 10);
+      return { durationInMs: newDuration };
+    }
+    if (state.preserveDuration) {
+      return { preserveDuration: false };
+    }
+    return null;
+  }
+  */
+
+  useEffect(() => {
+    if (to - from !== state.durationInMs && !state.preserveDuration) {
+      const newDuration = (to - from) - ((to - from) % 10);
+      dispatch({
+        type: 'interacting',
+        payload: {
+          durationInMs: newDuration,
+        }
+      });
+    }
+    if (state.preserveDuration) {
+      dispatch({
+        type: 'preserving',
+        payload: {
+          preserveDuration: false,
+        }
+      });
+    }
+  });
+
+  const preset = presetTimeRanges.find((preset) => preset.durationInMs === state.durationInMs); // Try to find if the timerange matches an initial preset
+  const currentTimeRangeType = preset ? preset.id : ''; // If we found a match, then let's use the id of the preset, otherwise no default preset has to be selected
 
   return (
     <div className={clsx(styles.timeRangeSelector, { [styles.disabled]: disabled })}>
