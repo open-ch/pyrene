@@ -76,7 +76,7 @@ interface State {
 }
 
 interface Action {
-  type: 'interacting' | 'changing'
+  type: 'interacting' | 'changing' | 'preserving' | 'navigating'
 }
 
 interface InteractingAction extends Action {
@@ -95,17 +95,43 @@ interface ChangingAction extends Action {
   }
 }
 
-const reducer = (state: State, action: InteractingAction | ChangingAction): State => {
+interface PreservingAction extends Action {
+  type: 'preserving',
+  payload: {
+    preserveDuration: boolean,
+  }
+}
+
+interface NavigatingAction extends Action {
+  type: 'navigating',
+  payload: {
+    callback: () => void
+  }
+}
+
+const reducer = (state: State, action: InteractingAction | ChangingAction | PreservingAction | NavigatingAction): State => {
   switch (action.type) {
     case 'interacting':
       return {
         ...state,
         durationInMs: action.payload.durationInMs,
       };
+
     case 'changing':
       const {newFrom, newTo, onChange} = action.payload;
       onChange(newFrom, newTo);
       return { ...state };
+
+    case 'preserving':
+      return {
+        ...state,
+        preserveDuration: action.payload.preserveDuration,
+      };
+
+    case 'navigating':
+      action.payload.callback();
+      return { ...state };
+
     default: {
       return { ...state };
     }
@@ -127,6 +153,9 @@ const TimeRangeSelector: FunctionComponent<TimeRangeSelectorPros> = ({
   const [state, dispatch] = useReducer(reducer, { durationInMs: (to - from) - ((to - from) % 10), preserveDuration: false });
 
   /*
+  TODO: replace getDerivedStateFromProps by a useEffect
+
+  
   static getDerivedStateFromProps(props, state) {
     if (props.to - props.from !== state.durationInMs && !state.preserveDuration) {
       const newDuration = (props.to - props.from) - ((props.to - props.from) % 10);
@@ -199,8 +228,17 @@ const TimeRangeSelector: FunctionComponent<TimeRangeSelectorPros> = ({
   const _preserveDurationForNavigation = (navigateCallback: () => void) => {
     const foundTimeRangeType = presetTimeRanges.find((preset) => preset.durationInMs === state.durationInMs);
     if (foundTimeRangeType) {
-      this.setState({ preserveDuration: true }, () => {
-        navigateCallback();
+      dispatch({
+        type: 'preserving',
+        payload: {
+          preserveDuration: true,
+        }
+      });
+      dispatch({
+        type: 'navigating',
+        payload: {
+          callback: navigateCallback,
+        }
       });
     } else {
       navigateCallback();
