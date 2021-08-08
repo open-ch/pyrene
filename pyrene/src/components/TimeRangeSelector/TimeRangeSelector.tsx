@@ -149,13 +149,13 @@ const TimeRangeSelector: FunctionComponent<TimeRangeSelectorPros> = ({
   to,
   upperBound,
 }: TimeRangeSelectorPros) => {
-  // calculate the duration of the timerange minus rounding errors
-  const [state, dispatch] = useReducer(reducer, { durationInMs: (to - from) - ((to - from) % 10), preserveDuration: false });
+  const durationInMs = (to - from) - ((to - from) % 10); // calculate the duration of the timerange minus rounding errors
+  const [state, dispatch] = useReducer(reducer, { durationInMs, preserveDuration: false });
 
   /*
   TODO: replace getDerivedStateFromProps by a useEffect
 
-  
+
   static getDerivedStateFromProps(props, state) {
     if (props.to - props.from !== state.durationInMs && !state.preserveDuration) {
       const newDuration = (props.to - props.from) - ((props.to - props.from) % 10);
