@@ -65,7 +65,7 @@ interface LoadingAction extends Action {
   }
 }
 
-const reducer = (state: State, action: LoadingAction | TogglingAction | ChangingAction) => {
+const reducer = (state: State, action: LoadingAction | TogglingAction | ChangingAction): State => {
   switch (action.type) {
     case 'loading':
       return {
