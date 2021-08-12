@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 import Popover from 'react-tiny-popover';
 
 import styles from './tooltip.css';
@@ -55,9 +54,7 @@ const Tooltip: React.FC<TooltipProps> = ({
       position={preferredPosition}
       align={align}
       padding={distanceToTarget}
-      content={({
-        position, nudgedLeft, nudgedTop, targetRect, popoverRect, // eslint-disable-line no-unused-vars
-      }) => (
+      content={() => (
         <div className={styles.tooltip} style={{ maxWidth }}>
           {label}
         </div>
