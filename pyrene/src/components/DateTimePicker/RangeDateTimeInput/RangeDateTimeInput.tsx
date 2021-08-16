@@ -165,7 +165,7 @@ const RangeDateTimeRangeInput: React.FC<RangeProps> = ({
   return (
     <>
       <div className={styles.rangeHeader}>
-        <div className={styles.leftbox} onBlurCapture={() => { handleOn?.(onChange); }}>
+        <div className={styles.leftbox} onKeyUp={() => { handleOn?.(onChange); }}>
           <DateTimeInput
             dateValue={reducer?.startDate || ''}
             timeValue={reducer?.startTime || ''}
@@ -185,7 +185,7 @@ const RangeDateTimeRangeInput: React.FC<RangeProps> = ({
             onFocus={() => onFocus('start')}
           />
         </div>
-        <div className={styles.rightbox} onBlurCapture={() => { handleOn?.(onChange); }}>
+        <div className={styles.rightbox} onKeyUp={() => { handleOn?.(onChange); }}>
           <DateTimeInput
             dateValue={reducer?.endDate || ''}
             timeValue={reducer?.endTime || ''}

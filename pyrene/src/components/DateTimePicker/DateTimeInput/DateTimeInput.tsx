@@ -88,7 +88,7 @@ const DateTimeInput = forwardRef(({
   return (
     <div
       className={styles.dateTimeComponent}
-      onBlur={() => handleOn?.(dateValue, timeValue.trim(), onBlur)}
+      onKeyUp={() => handleOn?.(dateValue, timeValue.trim(), onBlur)}
     >
       <div className={styles.dateTimeFieldTitle}>{label || (dateOnly ? 'Date' : 'Date & Time')}</div>
       <div className={clsx(styles.dateTimeInputArea, { [styles.dateTimeInputError]: errorValue.length > 0 })}>
