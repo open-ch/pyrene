@@ -25,6 +25,7 @@ export interface DateTimeRangeSelectorProps{
    * Boolean to control time display
    */
   dateOnly?: boolean,
+  highlightsOn?: boolean,
   /**
    * Display component as dropdown or inline
    */
@@ -62,6 +63,7 @@ export interface DateTimeRangeSelectorProps{
 
 const DateTimeRangeSelector: React.FC<DateTimeRangeSelectorProps> = (({
   dateOnly = false,
+  highlightsOn = false,
   inline = false,
   maxDateTime = getFutureDate({ years: 1 }),
   minDateTime = 0,
@@ -232,11 +234,6 @@ const DateTimeRangeSelector: React.FC<DateTimeRangeSelectorProps> = (({
     console.log(e);
   };
 
-  const onBlurred = () => {
-    rangedRef.current?.click();
-    console.log('did it', rangedRef);
-  };
-
   const customCalendar = (props:{
     children: ReactNode[]
   }) => {
@@ -248,12 +245,13 @@ const DateTimeRangeSelector: React.FC<DateTimeRangeSelectorProps> = (({
           endDateValue={endDateValue}
           endTimeValue={endTimeValue}
           labels={labels}
-          // onBlur={onBlurred}
+          lastfocused={focusedInput}
           onFocus={handleFocus}
           parentDispatch={dispatch}
           timeZone={timeZone}
           startDateValue={startDateValue}
           startTimeValue={startTimeValue}
+          highlightsOn={highlightsOn}
         />
         <CalendarContainer>
           <div ref={rangedRef}>{children}</div>
@@ -288,6 +286,7 @@ const DateTimeRangeSelector: React.FC<DateTimeRangeSelectorProps> = (({
         )}
         dateOnly={dateOnly}
         endDate={endDate}
+        highlightsOn={highlightsOn}
         inline={inline}
         isOpen={isCalOpen}
         maxDate={convertToUTCtime(maxDateTime, timeZoneValue)}

@@ -3,6 +3,8 @@ import React, {
   useEffect,
   useReducer,
   useState,
+  useRef,
+  MutableRefObject,
 } from 'react';
 import {
   convertDateTypeToString,
@@ -25,6 +27,7 @@ export interface RangeProps {
    * Boolean to control time display
    */
   dateOnly?: boolean,
+  highlightsOn?: boolean,
   /**
    * This is a string that represents the end date of the component
    */
@@ -37,6 +40,7 @@ export interface RangeProps {
    * This is a string array that represents the start and end labels of the component
    */
   labels?: [string, string],
+  lastfocused?: MutableRefObject<string>,
   name?: string,
   /**
    * This is a timestamp that represents the maximum date allowed by the component
@@ -78,8 +82,10 @@ export interface RangeProps {
 }
 
 const RangeDateTimeRangeInput: React.FC<RangeProps> = ({
+  highlightsOn = false,
   name = '',
   labels = ['From', 'To'],
+  lastfocused,
   onBlur = () => {},
   onChange = () => {},
   onFocus = () => {},
@@ -100,6 +106,9 @@ const RangeDateTimeRangeInput: React.FC<RangeProps> = ({
     endDate: endDateValue,
     endTime: endTimeValue,
   });
+
+  const startRef = useRef<HTMLInputElement>(null);
+  const endRef = useRef<HTMLInputElement>(null);
 
   const [startErrorValue, setStartErrorValue] = useState('');
   const [endErrorValue, setEndErrorValue] = useState('');
@@ -132,19 +141,16 @@ const RangeDateTimeRangeInput: React.FC<RangeProps> = ({
       const invalidEndDate = errorDateBool(reducer.endDate);
       const invalidEndTime = errorDateBool(reducer.endTime?.trim());
 
-      if (onFunction) {
-        if (startdate && enddate && starttime && endtime && !invalidStartDate && !invalidStartTime && !invalidEndDate && !invalidEndTime) {
-          onFunction([convertToUTCtime(`${convertDateTypeToString(startdate)} ${convertTimeTypeToString(starttime)}`, timeZone).valueOf(), convertToUTCtime(`${convertDateTypeToString(enddate)} ${convertTimeTypeToString(endtime)}`, timeZone).valueOf()]);
-
-          parentDispatch?.({
-            type: 'range/changed',
-            payload: {
-              value: [convertToUTCtime(`${convertDateTypeToString(startdate)} ${convertTimeTypeToString(starttime)}`, timeZone).valueOf(), convertToUTCtime(`${convertDateTypeToString(enddate)} ${convertTimeTypeToString(endtime)}`, timeZone).valueOf()],
-            },
-          });
-        } else {
-          onFunction(null);
-        }
+      if (startdate && enddate && starttime && endtime && !invalidStartDate && !invalidStartTime && !invalidEndDate && !invalidEndTime) {
+        onFunction?.([convertToUTCtime(`${convertDateTypeToString(startdate)} ${convertTimeTypeToString(starttime)}`, timeZone).valueOf(), convertToUTCtime(`${convertDateTypeToString(enddate)} ${convertTimeTypeToString(endtime)}`, timeZone).valueOf()]);
+        parentDispatch?.({
+          type: 'range/changed',
+          payload: {
+            value: [convertToUTCtime(`${convertDateTypeToString(startdate)} ${convertTimeTypeToString(starttime)}`, timeZone).valueOf(), convertToUTCtime(`${convertDateTypeToString(enddate)} ${convertTimeTypeToString(endtime)}`, timeZone).valueOf()],
+          },
+        });
+      } else {
+        onFunction?.(null);
       }
     } else {
       onFunction?.(null);
@@ -159,8 +165,31 @@ const RangeDateTimeRangeInput: React.FC<RangeProps> = ({
 
   // Set error values on changes in To input component
   useEffect(() => {
+    if (highlightsOn) {
+      const elems = document.getElementsByClassName('react-datepicker__time-list-item');
+      Array.from(elems).some((val) => {
+        const node = val as HTMLUListElement;
+        if (node.innerText.trim() === reducer.endTime?.trim()) {
+          return node.classList.add('end_date_highlight');
+        }
+        return false;
+      });
+    }
+
     setEndErrorValue(getErrors(errorDateBool(reducer.endDate || ''), errorTimeBool(reducer.endTime || ''), reducer.endDate, minDateTime, maxDateTime, timeZone));
-  }, [reducer.endDate, reducer.endTime, timeZone, minDateTime, maxDateTime]);
+  }, [reducer.endDate, reducer.endTime, timeZone, minDateTime, maxDateTime, highlightsOn]);
+
+  useEffect(() => {
+    if (lastfocused?.current === 'start') {
+      console.log('s');
+      startRef.current?.focus();
+    }
+
+    if (lastfocused?.current === 'end') {
+      console.log('e');
+      endRef.current?.focus();
+    }
+  }, [lastfocused]);
 
   return (
     <>
@@ -173,7 +202,6 @@ const RangeDateTimeRangeInput: React.FC<RangeProps> = ({
             // invalidTimestamp={invalidStartTimestamp}
             label={labels?.[0] || 'From'}
             name={name}
-            // onBlur={onBlur}
             range={false}
             setDateValue={(value) => {
               dispatch({ type: 'startDate/changed', payload: { value: value } });
@@ -183,6 +211,7 @@ const RangeDateTimeRangeInput: React.FC<RangeProps> = ({
             }}
             dateOnly={dateOnly}
             onFocus={() => onFocus('start')}
+            ref={startRef}
           />
         </div>
         <div className={styles.rightbox} onKeyUp={() => { handleOn?.(onChange); }}>
@@ -193,7 +222,6 @@ const RangeDateTimeRangeInput: React.FC<RangeProps> = ({
             // invalidTimestamp={invalidEndTimestamp}
             label={labels?.[1] || 'To'}
             name={name}
-            // onBlur={onBlur}
             range={false}
             setDateValue={(value) => {
               dispatch({ type: 'endDate/changed', payload: { value: value } });
@@ -203,6 +231,7 @@ const RangeDateTimeRangeInput: React.FC<RangeProps> = ({
             }}
             dateOnly={dateOnly}
             onFocus={() => onFocus('end')}
+            ref={endRef}
           />
         </div>
       </div>

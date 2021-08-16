@@ -10,11 +10,10 @@ export interface InputProps {
   dateOnly?: boolean,
   dateValue: string,
   errorValue: string,
-  handleOn?: (dateString: string, timeString: string, func:(event:any) => void) => void
+  handleOn?: (dateString: string, timeString: string) => void
   invalidTimestamp?: boolean,
   label?: string,
   name?: string,
-  onBlur?: () => void,
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void, // Handle change function passed from react-datepicker
   onClick?: () => void,
   onFocus?: () => void,
@@ -33,7 +32,6 @@ const DateTimeInput = forwardRef(({
   invalidTimestamp = false,
   label,
   name = '',
-  onBlur = () => {},
   onChange = () => {},
   onClick = () => {},
   onFocus,
@@ -88,7 +86,7 @@ const DateTimeInput = forwardRef(({
   return (
     <div
       className={styles.dateTimeComponent}
-      onKeyUp={() => handleOn?.(dateValue, timeValue.trim(), onBlur)}
+      onKeyUp={() => handleOn?.(dateValue, timeValue.trim())}
     >
       <div className={styles.dateTimeFieldTitle}>{label || (dateOnly ? 'Date' : 'Date & Time')}</div>
       <div className={clsx(styles.dateTimeInputArea, { [styles.dateTimeInputError]: errorValue.length > 0 })}>

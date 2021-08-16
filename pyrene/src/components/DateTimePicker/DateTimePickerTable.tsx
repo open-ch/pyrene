@@ -87,6 +87,7 @@ const DateTimePickerTable: React.FC<DateTimePickerTableProps> = ({
                 onChange={(value) => console.log('DRangeSelector : ', value)}
                 timeZone={timeZone}
                 dateOnly={dateOnly}
+                // highlightsOn
               />
             </td>
           </tr>

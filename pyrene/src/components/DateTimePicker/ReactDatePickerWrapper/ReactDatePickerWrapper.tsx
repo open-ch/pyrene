@@ -27,6 +27,7 @@ export interface DatePickerProps{
    */
   endDate?: Date,
   dateOnly?: boolean,
+  highlightsOn?: boolean,
   inline?: boolean,
   isOpen?: boolean,
   /**
@@ -87,6 +88,7 @@ const ReactDPWrapper: React.FC<DatePickerProps> = ({
   customCalendar,
   dateOnly = false,
   endDate = undefined,
+  highlightsOn,
   maxDate,
   minDate,
   onKeyDown,
@@ -118,7 +120,21 @@ const ReactDPWrapper: React.FC<DatePickerProps> = ({
   return (
     <div className={styles.wrapper}>
       <ReactDatepicker
+        calendarContainer={customCalendar}
+        calendarStartDay={1}
+        customInput={CustomInput}
+        dateFormat={dateFormatting}
         endDate={endDate}
+        formatWeekDay={(nameOfDay) => nameOfDay.substr(0, 1)}
+        highlightDates={(highlightsOn && endDate) ? [endDate] : undefined}
+        inline={inline}
+        maxDate={maxDate}
+        minDate={minDate}
+        onChange={onChange}
+        onKeyDown={onKeyDown}
+        onSelect={onSelect}
+        openToDate={openDate}
+        ref={rangeRef}
         renderCustomHeader={({
           date,
           decreaseMonth,
@@ -154,29 +170,16 @@ const ReactDPWrapper: React.FC<DatePickerProps> = ({
             </button>
           </div>
         )}
-        customInput={CustomInput}
-        calendarStartDay={1}
-        calendarContainer={customCalendar}
-        onKeyDown={onKeyDown}
-        onSelect={onSelect}
         selected={selectedDate}
-        startDate={startDate || selectedDate}
-        timeFormat="HH:mm"
-        showPopperArrow={false}
-        showTimeSelect={shouldDisplayTimeColumn}
-        onChange={onChange}
-        maxDate={maxDate}
-        minDate={minDate}
-        dateFormat={dateFormatting}
-        formatWeekDay={(nameOfDay) => nameOfDay.substr(0, 1)}
-        selectsStart={startRange}
         selectsEnd={endRange}
         selectsRange={range}
-        openToDate={openDate}
+        selectsStart={startRange}
         shouldCloseOnSelect={closeOnSelect}
-        inline={inline}
+        showPopperArrow={false}
+        showTimeSelect={shouldDisplayTimeColumn}
+        startDate={startDate || selectedDate}
+        timeFormat="HH:mm"
         value={value}
-        ref={rangeRef}
       />
     </div>
   );
