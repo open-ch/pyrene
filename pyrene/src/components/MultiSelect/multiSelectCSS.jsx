@@ -204,7 +204,7 @@ const multiSelectStyle = (props) => ({
     overflow: 'hidden',
     whiteSpace: 'nowrap',
     textOverflow: 'ellipsis',
-    maxWidth: '123px',
+    maxWidth: props.maxValueLabelWidth === false ? undefined : `${props.maxValueLabelWidth}px`,
   }),
 
   // "x" next to the label

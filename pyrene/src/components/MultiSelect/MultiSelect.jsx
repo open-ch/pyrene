@@ -189,6 +189,7 @@ MultiSelect.defaultProps = {
   helperLabel: '',
   invalidLabel: '',
   title: '',
+  maxValueLabelWidth: 123,
   name: '',
   defaultValue: [],
   options: [],
@@ -249,6 +250,10 @@ MultiSelect.propTypes = {
    * Displays a loading indicator inside of the input.
    */
   loading: PropTypes.bool,
+  /**
+   * Maximum width of the value label in pixels. Use false to disable a maximum width.
+   */
+  maxValueLabelWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.oneOf([false])]), // eslint-disable-line react/no-unused-prop-types
   /**
    * Sets the html name property of the form element.
    */
