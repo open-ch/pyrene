@@ -20,15 +20,23 @@ const MultiValue = ({ data: { value, label }, getValue }) => ( // eslint-disable
   </>
 );
 
+const MultiValueLabel = ({ innerProps, children }) => ( // eslint-disable-line react/prop-types
+  <div title={typeof children === 'string' ? children : undefined} {...innerProps}>
+    {children}
+  </div>
+);
+
 const componentsNormal = {
   LoadingIndicator,
   Option: CustomOption,
+  MultiValueLabel,
 };
 const componentsOptionsInDropdown = {
   Menu: MultiSelectMenuWithOptions,
   MultiValue,
   LoadingIndicator,
   Option: CustomOption,
+  MultiValueLabel,
 };
 
 // Finds the union of value and options, based on options[].value and values[].value being equal.
