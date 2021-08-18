@@ -8,6 +8,7 @@ import {
   convertToZoneTime,
 } from '../../utils/DateUtils';
 import DateTimeRangeSelector from './DateTimeRangeSelector/DateTimeRangeSelector';
+import Range2 from './Range2/Range2';
 
 
 type OnFunction = (value?: number | [number, number] | null) => void;
@@ -55,17 +56,7 @@ const DateTimePickerTable: React.FC<DateTimePickerTableProps> = ({
 
   const [endDate, setEndDate] = useState<Date | undefined>(undefined);
   const [startDate, setStartDate] = useState<Date | undefined>(undefined);
-
-
-
-  // const [timeZoneValue, setTimeZoneValue] = useState(timeZone);
-
-  /* useEffect(() => {
-    if (isValidTimeZone(timeZone)) {
-      setTimeZoneValue(timeZone);
-    }
-  }, [timeZone]); */
-
+  const [rangeTimeStamps, setRangeTimestamps] = useState<[number, number] | undefined>(undefined);
 
   return (
     <>
@@ -80,11 +71,19 @@ const DateTimePickerTable: React.FC<DateTimePickerTableProps> = ({
         <tbody>
           <tr>
             <td colSpan={2}>
-              <DateTimeRangeSelector
+              <Range2
                 labels={['Start', 'End']}
                 minDateTime={minDateTime}
                 maxDateTime={maxDateTime}
-                onChange={(value) => console.log('DRangeSelector : ', value)}
+                onChange={(value) => {
+                  console.log('Range : ', value);
+                  if (Array.isArray(value)) {
+                    setRangeTimestamps(value);
+                  } else {
+                    setRangeTimestamps(undefined);
+                  }
+                }}
+                timeStamps={rangeTimeStamps}
                 timeZone={timeZone}
                 dateOnly={dateOnly}
                 // highlightsOn
@@ -127,6 +126,19 @@ const DateTimePickerTable: React.FC<DateTimePickerTableProps> = ({
                 maxDateTime={maxDateTime}
                 timeZone={timeZone}
                 dateOnly
+              />
+            </td>
+          </tr>
+          <tr>
+            <td colSpan={2}>
+              <DateTimeRangeSelector
+                labels={['Start', 'End']}
+                minDateTime={minDateTime}
+                maxDateTime={maxDateTime}
+                onChange={(value) => console.log('DRangeSelector : ', value)}
+                timeZone={timeZone}
+                dateOnly={dateOnly}
+                // highlightsOn
               />
             </td>
           </tr>

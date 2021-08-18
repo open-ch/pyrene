@@ -19,6 +19,11 @@ import {
 type OnFunction = (value?: number) => void;
 
 export interface DateTimePickerProps{
+  calendarOpened?: boolean,
+  closeOnSelect?: boolean,
+  customCalendar?: (props:{
+    children: React.ReactNode[]
+  }) => React.ReactNode,
   /**
    * Boolean to control time display
    */
@@ -27,6 +32,7 @@ export interface DateTimePickerProps{
    * This is a Date object that represents the end date of the component
    */
   endDate?: Date,
+  isInline?: boolean,
   /**
    * This is a string that represents the label of the component
    */
@@ -47,6 +53,8 @@ export interface DateTimePickerProps{
    * Function to handle onBlur event
    */
   onBlur?: () => OnFunction,
+  onCalendarOpen?: () => void,
+  onClickOutside?(event: React.MouseEvent<HTMLDivElement>): void,
   /**
   * Function to handle onChange event
   */
@@ -78,14 +86,20 @@ export interface DateTimePickerProps{
 }
 
 const DateTimePicker: React.FC<DateTimePickerProps> = ({
+  calendarOpened,
+  closeOnSelect = true,
+  customCalendar,
   dateOnly = false,
   endDate,
+  isInline = false,
   label,
   maxDateTime = getFutureDate({ years: 1 }),
   minDateTime = 0,
   name,
   onBlur,
+  onCalendarOpen,
   onChange,
+  onClickOutside,
   range = false,
   selectEnd,
   selectStart,
@@ -229,13 +243,15 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
   return (
     <>
       <ReactDPWrapper
+        closeOnSelect={closeOnSelect}
+        customCalendar={customCalendar}
         dateOnly={dateOnly}
         endDate={endDate}
         endRange={selectEnd}
         CustomInput={(
           <DateTimeInput
             dateValue={dateValue}
-            // handleOn={handleOn}
+            handleOn={(datestring, timestring) => handleOn(datestring, timestring, onChange)}
             timeValue={timeValue}
             errorValue={errorValue}
             invalidTimestamp={invalidTimestamp}
@@ -247,9 +263,13 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
             dateOnly={dateOnly}
           />
         )}
+        inline={isInline}
+        isOpen={calendarOpened}
         maxDate={convertToUTCtime(maxDateTime, timeZone)}
         minDate={convertToUTCtime(minDateTime, timeZone)}
+        onCalendarOpen={onCalendarOpen}
         onChange={onChangeReactDP}
+        onClickOutside={onClickOutside}
         selectedDate={selectEnd ? endDate : startDate}
         shouldDisplayTimeColumn={!dateOnly}
         startDate={startDate}

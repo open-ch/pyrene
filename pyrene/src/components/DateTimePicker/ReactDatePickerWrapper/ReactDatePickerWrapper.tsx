@@ -18,8 +18,8 @@ export { CalendarContainer } from 'react-datepicker';
 export interface DatePickerProps{
   closeOnSelect?: boolean,
   /**
- * Replaces the input with any node, for example a button
-9 */
+   * Replaces the input with any node, for example a button
+   */
   CustomInput: React.ReactNode,
   customCalendar?(props: { children: React.ReactNode[] }): React.ReactNode,
   /**
@@ -38,6 +38,7 @@ export interface DatePickerProps{
    * This is a timestamp that represents the minimum date allowed by the component
    */
   minDate?: Date,
+  onCalendarOpen?: () => void,
   /**
    * Function to handle date change event
    */
@@ -46,14 +47,15 @@ export interface DatePickerProps{
    * Name that can be used to uniquely identify the component
    */
   name?: string,
+  onClickOutside?(event: React.MouseEvent<HTMLDivElement>): void,
   /**
    * Exposed to have access to input events
    */
-  onKeyDown?(event: React.KeyboardEvent<HTMLDivElement>): void;
+  onKeyDown?(event: React.KeyboardEvent<HTMLDivElement>): void,
   /**
    * Function to handle date select event
    */
-  onSelect?(date: Date, event: React.SyntheticEvent<any> | undefined): void;
+  onSelect?(date: Date, event: React.SyntheticEvent<any> | undefined): void,
   openDate?: Date,
   /**
    * This is a Date object that represents the selected date of the datepicker
@@ -100,7 +102,9 @@ const ReactDPWrapper: React.FC<DatePickerProps> = ({
   CustomInput = <input />,
   inline = false,
   isOpen,
+  onCalendarOpen,
   onChange = () => {},
+  onClickOutside,
   onSelect,
   openDate,
   range = false,
@@ -111,7 +115,9 @@ const ReactDPWrapper: React.FC<DatePickerProps> = ({
   const dateFormatting = dateOnly ? DATE_FORMAT : DATETIME_FORMAT;
 
   useEffect(() => {
-    rangeRef.current?.setOpen(false);
+    if (isOpen) {
+      rangeRef.current?.setOpen(isOpen);
+    }
   }, [isOpen]);
 
   const nextIcon = <span className="pyreneIcon-chevronRight" />;
@@ -130,7 +136,10 @@ const ReactDPWrapper: React.FC<DatePickerProps> = ({
         inline={inline}
         maxDate={maxDate}
         minDate={minDate}
+        onCalendarOpen={onCalendarOpen}
+        onCalendarClose={() => isOpen && rangeRef.current?.setOpen(isOpen)}
         onChange={onChange}
+        onClickOutside={onClickOutside}
         onKeyDown={onKeyDown}
         onSelect={onSelect}
         openToDate={openDate}
@@ -180,6 +189,7 @@ const ReactDPWrapper: React.FC<DatePickerProps> = ({
         startDate={startDate || selectedDate}
         timeFormat="HH:mm"
         value={value}
+        // open={isOpen}
       />
     </div>
   );
