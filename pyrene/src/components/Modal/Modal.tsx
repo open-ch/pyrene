@@ -29,11 +29,6 @@ export interface ModalProps {
    */
   closeOnEscape?: boolean,
   /**
-   * If true, the content can use the full height of the screen.
-   * If the content does not fully fit on the screen, scrollbars will be displayed.
-   */
-  contentFullHeight?: boolean;
-  /**
    * Whether the content is padded with the standard padding.
    */
   contentPadding?: boolean,
@@ -113,7 +108,6 @@ const Modal: React.FC<ModalProps> = ({
   canNext = false,
   canPrevious = false,
   closeOnEscape = true,
-  contentFullHeight = false,
   contentPadding = true,
   contentScrolling = true,
   displayNavigationArrows = false,
@@ -223,7 +217,7 @@ const Modal: React.FC<ModalProps> = ({
   const renderContent = () => (
     <>
       <div className={clsx(styles.contentContainer, { [styles.contentScrolling]: contentScrolling })}>
-        <div className={clsx(styles.content, { [styles.contentPadding]: contentPadding }, { [styles.contentScrolling]: contentScrolling }, { [styles.contentFullHeight]: contentFullHeight }, { [styles.overlay]: processing })}>
+        <div className={clsx(styles.content, { [styles.contentPadding]: contentPadding }, { [styles.contentScrolling]: contentScrolling }, { [styles.overlay]: processing })}>
           { renderCallback() }
         </div>
       </div>
