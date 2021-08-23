@@ -87,7 +87,7 @@
   }
 
   &.contentFullHeight {
-    /* window height - header - footer - 24px padding on both sides */
+    /* window height - header - footer - 24px spacing on both sides */
     max-height: calc(100vh - 64px - 64px - 48px);
   }
 
