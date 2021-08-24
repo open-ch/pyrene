@@ -20,15 +20,23 @@ const MultiValue = ({ data: { value, label }, getValue }) => ( // eslint-disable
   </>
 );
 
+const MultiValueLabel = ({ innerProps, children }) => ( // eslint-disable-line react/prop-types
+  <div title={typeof children === 'string' ? children : undefined} {...innerProps}>
+    {children}
+  </div>
+);
+
 const componentsNormal = {
   LoadingIndicator,
   Option: CustomOption,
+  MultiValueLabel,
 };
 const componentsOptionsInDropdown = {
   Menu: MultiSelectMenuWithOptions,
   MultiValue,
   LoadingIndicator,
   Option: CustomOption,
+  MultiValueLabel,
 };
 
 // Finds the union of value and options, based on options[].value and values[].value being equal.
@@ -189,6 +197,7 @@ MultiSelect.defaultProps = {
   helperLabel: '',
   invalidLabel: '',
   title: '',
+  maxValueLabelWidth: '123px',
   name: '',
   defaultValue: [],
   options: [],
@@ -249,6 +258,10 @@ MultiSelect.propTypes = {
    * Displays a loading indicator inside of the input.
    */
   loading: PropTypes.bool,
+  /**
+   * Maximum width of the value label in pixels. Use false to disable a maximum width.
+   */
+  maxValueLabelWidth: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
   /**
    * Sets the html name property of the form element.
    */
