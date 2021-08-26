@@ -13,17 +13,16 @@ import {
   convertToUTCtime, getDateTypeFromddmmyyyyWithSep, convertDateTypeToString, convertTimeTypeToString, getTimeTypeFromhhmmWithSep, convertToZoneTime,
 } from '../../../utils/DateUtils';
 import TimeRangeSelector from '../../TimeRangeSelector/TimeRangeSelector';
-import RangeDateTimeRangeInput from '../RangeDateTimeInput/RangeDateTimeInput';
 import ReactDPWrapper, { CalendarContainer } from '../ReactDatePickerWrapper/ReactDatePickerWrapper';
 
-import styles from './Range2.css';
+import styles from './RangeSelector.css';
 import dateRangeInputsReducer from '../DateStateReducer';
 import DateTimePicker from '../DateTimePicker';
 import DetectClickOutside, { DetectClickOutsideProps } from './DetectClickOutside';
 
 
-type OnFunction = (value?: number | [number, number] | null) => void;
-export interface Range2Props{
+type OnFunction = (value?: [number, number] | null) => void;
+export interface RangeSelectorProps{
   /**
    * Boolean to control time display
    */
@@ -64,7 +63,7 @@ export interface Range2Props{
 }
 
 
-const Range2: React.FC<Range2Props> = (({
+const RangeSelector: React.FC<RangeSelectorProps> = (({
   dateOnly = false,
   highlightsOn = false,
   inline = false,
@@ -75,7 +74,7 @@ const Range2: React.FC<Range2Props> = (({
   onChange,
   timeStamps,
   timeZone = 'Europe/Zurich',
-}:Range2Props) => {
+}:RangeSelectorProps) => {
 
   const focusedInput = useRef('start');
   const rangedRef = useRef<HTMLDivElement>(null);
@@ -259,5 +258,5 @@ const Range2: React.FC<Range2Props> = (({
   );
 });
 
-Range2.displayName = 'Time Range Selector';
-export default Range2;
+RangeSelector.displayName = 'Range Selector';
+export default RangeSelector;

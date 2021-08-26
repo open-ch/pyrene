@@ -2,18 +2,15 @@ import React, {
   useState,
 } from 'react';
 
-import DateTimePicker from './DateTimePicker';
+import DateTimePicker from '../DateTimePicker';
 
 import {
   convertToZoneTime,
-} from '../../utils/DateUtils';
-import DateTimeRangeSelector from './DateTimeRangeSelector/DateTimeRangeSelector';
-import Range2 from './Range2/Range2';
+} from '../../../utils/DateUtils';
 
+type OnFunction = (value?: [number, number] | null) => void;
 
-type OnFunction = (value?: number | [number, number] | null) => void;
-
-export interface DateTimePickerTableProps{
+export interface RangeTimePickerProps{
   dateOnly?: boolean,
   /**
    * This is a timestamp that represents the maximum date allowed by the component
@@ -31,7 +28,7 @@ export interface DateTimePickerTableProps{
   /**
    * This is a unix timestamp, which is the number of seconds that have elapsed since Unix epoch
    */
-  timeStamp?: number | [number, number] | null
+  timeStamps?: [number, number] | null
   /**
    * This is must be a IANA time zone string
    */
@@ -47,12 +44,12 @@ export interface DateTimePickerTableProps{
 }
 
 
-const DateTimePickerTable: React.FC<DateTimePickerTableProps> = ({
+const RangeTimePicker: React.FC<RangeTimePickerProps> = ({
   dateOnly,
   maxDateTime,
   minDateTime,
   timeZone = 'Europe/Zurich',
-}: DateTimePickerTableProps) => {
+}: RangeTimePickerProps) => {
 
   const [endDate, setEndDate] = useState<Date | undefined>(undefined);
   const [startDate, setStartDate] = useState<Date | undefined>(undefined);
@@ -61,35 +58,7 @@ const DateTimePickerTable: React.FC<DateTimePickerTableProps> = ({
   return (
     <>
       <table>
-        <thead>
-          <tr>
-            <th colSpan={2}>
-              Testing Dateker.o.0
-            </th>
-          </tr>
-        </thead>
         <tbody>
-          <tr>
-            <td colSpan={2}>
-              <Range2
-                labels={['Start', 'End']}
-                minDateTime={minDateTime}
-                maxDateTime={maxDateTime}
-                onChange={(value) => {
-                  console.log('Range : ', value);
-                  if (Array.isArray(value)) {
-                    setRangeTimestamps(value);
-                  } else {
-                    setRangeTimestamps(undefined);
-                  }
-                }}
-                timeStamps={rangeTimeStamps}
-                timeZone={timeZone}
-                dateOnly={dateOnly}
-                // highlightsOn
-              />
-            </td>
-          </tr>
           <tr>
             <td style={{ height: '200px' }}>
               <DateTimePicker
@@ -118,37 +87,12 @@ const DateTimePickerTable: React.FC<DateTimePickerTableProps> = ({
               />
             </td>
           </tr>
-          <tr>
-            <td colSpan={2} style={{ height: '200px' }}>
-              <DateTimePicker
-                onChange={(value) => console.log('DPicker : ', value)}
-                minDateTime={minDateTime}
-                maxDateTime={maxDateTime}
-                timeZone={timeZone}
-                dateOnly
-              />
-            </td>
-          </tr>
-          <tr>
-            <td colSpan={2}>
-              <DateTimeRangeSelector
-                labels={['Start', 'End']}
-                minDateTime={minDateTime}
-                maxDateTime={maxDateTime}
-                onChange={(value) => console.log('DRangeSelector : ', value)}
-                timeZone={timeZone}
-                dateOnly={dateOnly}
-                // highlightsOn
-              />
-            </td>
-          </tr>
         </tbody>
       </table>
-
     </>
   );
 };
 
-DateTimePickerTable.displayName = 'DateTime Picker Examples';
+RangeTimePicker.displayName = 'Range Picker Example';
 
-export default DateTimePickerTable;
+export default RangeTimePicker;

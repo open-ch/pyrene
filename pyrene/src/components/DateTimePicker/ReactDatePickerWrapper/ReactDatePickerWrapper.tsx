@@ -68,6 +68,7 @@ export interface DatePickerProps{
    * This is a Date object that represents the start date of a date range
    */
   startDate?: Date,
+  tabNum?: number,
   /**
    * This is a unix timestamp, which is the number of seconds that have elapsed since Unix epoch
    */
@@ -108,6 +109,7 @@ const ReactDPWrapper: React.FC<DatePickerProps> = ({
   onSelect,
   openDate,
   range = false,
+  tabNum,
   value = undefined,
 }: DatePickerProps) => {
 
@@ -187,6 +189,7 @@ const ReactDPWrapper: React.FC<DatePickerProps> = ({
         showPopperArrow={false}
         showTimeSelect={shouldDisplayTimeColumn}
         startDate={startDate || selectedDate}
+        tabIndex={tabNum}
         timeFormat="HH:mm"
         value={value}
         // open={isOpen}

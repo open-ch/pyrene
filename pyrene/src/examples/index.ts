@@ -13,7 +13,7 @@ import { default as Checkbox } from '../components/Checkbox/Checkbox.examples';
 import { default as CheckboxPopover } from '../components/CheckboxPopover/CheckboxPopover.examples';
 import { default as Collapsible } from '../components/Collapsible/Collapsible.examples';
 import { default as Container } from '../components/Container/Container.examples';
-import { default as DateTimePickerTable } from '../components/DateTimePicker/DateTimePickerTable.examples';
+import { default as DateTimePicker } from '../components/DateTimePicker/DateTimePicker.examples';
 import { default as DropdownButton } from '../components/DropdownButton/DropdownButton.examples';
 import { default as Filter } from '../components/Filter/Filter.examples';
 import { default as Icon } from '../components/Icon/Icon.examples';
@@ -32,6 +32,8 @@ import { default as MultiSelect } from '../components/MultiSelect/MultiSelect.ex
 import { default as RadioGroup } from '../components/RadioGroup/RadioGroup.examples';
 import { default as RadioButton } from '../components/RadioButton/RadioButton.examples';
 import { default as RadioPopover } from '../components/RadioPopover/RadioPopover.examples';
+import { default as RangeSelector } from '../components/DateTimePicker/RangeSelector/RangeSelector.examples';
+import { default as RangeTimePicker } from '../components/DateTimePicker/RangeTimePicker/RangeTimePicker.examples';
 import { default as Search } from '../components/Search/Search.examples';
 import { default as SearchFinder } from '../components/SearchFinder/SearchFinder.examples';
 import { default as ShareDialog } from '../components/ShareDialog/ShareDialog.examples';
@@ -64,7 +66,7 @@ const examples: { [key: string]: Example<any, any> } = {
   CheckboxPopover,
   Collapsible,
   Container,
-  DateTimePickerTable,
+  DateTimePicker,
   DropdownButton,
   Filter,
   Heading,
@@ -82,6 +84,8 @@ const examples: { [key: string]: Example<any, any> } = {
   RadioPopover,
   RadioGroup,
   RadioButton,
+  RangeSelector,
+  RangeTimePicker,
   Search,
   SearchFinder,
   ShareDialog,

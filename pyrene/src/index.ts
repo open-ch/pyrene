@@ -23,7 +23,7 @@ import { default as CheckboxPopover } from './components/CheckboxPopover/Checkbo
 import { default as Collapsible } from './components/Collapsible/Collapsible';
 import { default as Container } from './components/Container/Container';
 
-import { default as DateTimePickerTable } from './components/DateTimePicker/DateTimePickerTable';
+import { default as DateTimePicker } from './components/DateTimePicker/DateTimePicker';
 import { default as DropdownButton } from './components/DropdownButton/DropdownButton';
 
 import { default as Filter } from './components/Filter/Filter';
@@ -54,6 +54,8 @@ import { default as SearchFinder } from './components/SearchFinder/SearchFinder'
 import { default as RadioGroup } from './components/RadioGroup/RadioGroup';
 import { default as RadioButton } from './components/RadioButton/RadioButton';
 import { default as RadioPopover } from './components/RadioPopover/RadioPopover';
+import { default as RangeSelector } from './components/DateTimePicker/RangeSelector/RangeSelector';
+import { default as RangeTimePicker } from './components/DateTimePicker/RangeTimePicker/RangeTimePicker';
 
 import { default as Search } from './components/Search/Search';
 import { default as ShareDialog } from './components/ShareDialog/ShareDialog';
@@ -88,7 +90,7 @@ const Components = {
   CheckboxPopover,
   Collapsible,
   Container,
-  DateTimePickerTable,
+  DateTimePicker,
   DropdownButton,
   Filter,
   Form,
@@ -107,6 +109,8 @@ const Components = {
   RadioButton,
   RadioGroup,
   RadioPopover,
+  RangeSelector,
+  RangeTimePicker,
   Search,
   SearchFinder,
   ShareDialog,
@@ -137,7 +141,7 @@ export { Card };
 export { Checkbox };
 export { Collapsible };
 export { Container };
-export { DateTimePickerTable };
+export { DateTimePicker };
 export { DropdownButton };
 export { Filter };
 export { Form };
@@ -156,6 +160,8 @@ export { Popover };
 export { RadioButton };
 export { RadioGroup };
 export { RadioPopover };
+export { RangeSelector };
+export { RangeTimePicker };
 export { Search };
 export { SearchFinder };
 export { ShareDialog };

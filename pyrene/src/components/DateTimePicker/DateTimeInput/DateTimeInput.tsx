@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef, useState } from 'react';
 import clsx from 'clsx';
 
 import Icon from '../../Icon/Icon';
@@ -6,10 +6,10 @@ import styles from './dateTimeInput.css';
 
 const allowedValueCheck = (valueToCheck:string) : boolean => (/^[0-9.: APM]*$/.test(valueToCheck));
 
-export interface InputProps {
+export interface DateTimeInputProps {
   dateOnly?: boolean,
-  dateValue: string,
-  errorValue: string,
+  dateValue?: string,
+  errorValue?: string,
   handleOn?: (dateString: string, timeString: string) => void
   invalidTimestamp?: boolean,
   label?: string,
@@ -20,14 +20,15 @@ export interface InputProps {
   range?: boolean,
   setDateValue?: (value: string) => void,
   setTimeValue?: (value: string) => void,
-  timeValue: string,
+  tabNum?: number,
+  timeValue?: string,
   value?: string
 }
 
 const DateTimeInput = forwardRef(({
   dateOnly = false,
-  dateValue,
-  errorValue,
+  dateValue = '',
+  errorValue = '',
   handleOn,
   invalidTimestamp = false,
   label,
@@ -37,8 +38,23 @@ const DateTimeInput = forwardRef(({
   onFocus,
   setDateValue = () => {},
   setTimeValue = () => {},
-  timeValue,
-}:InputProps, ref:React.Ref<HTMLInputElement>) => {
+  tabNum,
+  timeValue = '',
+}:DateTimeInputProps, ref:React.Ref<HTMLInputElement>) => {
+
+  const extended = true;
+  const extendedDate = () => {
+    if (dateOnly) {
+      return 10;
+    }
+    if (extended) {
+      return 19;
+    }
+
+    return 16;
+  };
+
+  const [ampm, setAmPm] = useState('');
 
   const handleDateOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const node = event && event.target as HTMLInputElement;
@@ -48,7 +64,11 @@ const DateTimeInput = forwardRef(({
         setDateValue(node.value.substring(0, 10).trim());
         setTimeValue(node.value.substring(10));
 
-        if (node.value.substring(10).trim().length >= 5) {
+        if (!extended && node.value.substring(10).length === 6) {
+          return onChange(event);
+        }
+
+        if (extended && node.value.substring(10).trim().length === 9) {
           return onChange(event);
         }
       } else {
@@ -98,12 +118,13 @@ const DateTimeInput = forwardRef(({
             disabled={invalidTimestamp}
             name={name ? `${name}_date` : 'date_input'}
             placeholder={dateOnly ? 'DD.MM.YYYY' : 'DD.MM.YYYY HH:MM'}
-            maxLength={dateOnly ? 10 : 16}
+            maxLength={extendedDate()}
             ref={ref}
             onClick={onClick}
             onFocus={onFocus}
             onChange={handleDateOnChange}
-            value={`${dateValue}${timeValue && formatTime(timeValue)}${formattedTime('')}`}
+            tabIndex={tabNum}
+            value={`${dateValue}${timeValue && formatTime(timeValue)}${ampm}`}
           />
         </div>
       </div>
