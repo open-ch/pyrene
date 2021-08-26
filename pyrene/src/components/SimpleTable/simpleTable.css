@@ -1,7 +1,7 @@
-@import '../../styles/colors.css';
+@import '../../styles/colors.module.css';
 
 .container {
-  composes: commonFontSettings from '../../styles/common.css';
+  composes: commonFontSettings from '../../styles/common.module.css';
 
   width: 100%;
   height: 100%;
@@ -102,7 +102,7 @@
 }
 
 .noData {
-  composes: commonFontSettings from '../../styles/common.css';
+  composes: commonFontSettings from '../../styles/common.module.css';
 
   padding: 39px 0 0 8px;
   font-size: 12px;

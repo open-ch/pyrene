@@ -1,7 +1,7 @@
-@import '../../styles/colors.css';
+@import '../../styles/colors.module.css';
 
 .badge {
-  composes: commonFontSettings from '../../styles/common.css';
+  composes: commonFontSettings from '../../styles/common.module.css';
   box-sizing: border-box;
   height: 18px;
   display: flex;

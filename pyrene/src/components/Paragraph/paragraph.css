@@ -1,8 +1,8 @@
-@import '../../styles/colors.css';
+@import '../../styles/colors.module.css';
 
 
 .paragraph {
-  composes: commonFontSettings from '../../styles/common.css';
+  composes: commonFontSettings from '../../styles/common.module.css';
 
   font-size: 13px;
   line-height: 16px;

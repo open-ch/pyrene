@@ -1,4 +1,4 @@
-@import '../../styles/colors.css';
+@import '../../styles/colors.module.css';
 
 .buttonContainer {
   position: relative;
@@ -13,7 +13,7 @@
 }
 
 .button {
-  composes: commonFontSettings from '../../styles/common.css';
+  composes: commonFontSettings from '../../styles/common.module.css';
   box-sizing: border-box;
   height: 32px;
   padding: 8px 8px 6px;

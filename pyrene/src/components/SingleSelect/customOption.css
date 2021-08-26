@@ -1,7 +1,7 @@
-@import '../../styles/colors.css';
+@import '../../styles/colors.module.css';
 
 .container {
-    display: flex; 
+    display: flex;
     align-items: center;
     justify-content: center;
     background-color: var(--neutral-000);
@@ -14,7 +14,7 @@
     box-sizing: border-box;
     height: 30px;
 }
-.icon:active { 
+.icon:active {
     background-color: var(--neutral-030);
 }
 
