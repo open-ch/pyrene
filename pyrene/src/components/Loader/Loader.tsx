@@ -1,7 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 
-import styles from './loader.css';
+import styles from './loader.module.css';
 
 export type Type = 'standalone' | 'inline';
 export type Styling = 'dark' | 'light';

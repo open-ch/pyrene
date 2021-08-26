@@ -1,7 +1,7 @@
-@import '../../styles/colors.css';
+@import '../../styles/colors.module.css';
 
 .popover {
-  composes: commonFontSettings from '../../styles/common.css';
+  composes: commonFontSettings from '../../styles/common.module.css';
 
   position: relative;
   border-radius: 2px;
@@ -12,9 +12,9 @@
 .triangle {
   position: absolute;
 
-  /* 
+  /*
     Would be:
-      0 4px 8px -2px rgba(0, 21, 44, 0.2); 
+      0 4px 8px -2px rgba(0, 21, 44, 0.2);
     But flipped 45deg so:
       l^2 = x^2 +y^2
       x/y = sqrt(8) ~= 2.8
