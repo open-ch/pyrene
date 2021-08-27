@@ -11,16 +11,20 @@ interface IconNames {
   delete: 'delete';
   search: 'search';
   infoOutline: 'infoOutline';
+
   check: 'check';
   warning: 'warning';
+  trash: 'trash';
   info: 'info';
   error: 'error';
   success: 'success';
   home: 'home';
   add: 'add';
+  addCircleOutline: 'addCircleOutline';
   addRound: 'addRound';
   eye: 'eye';
   hot: 'hot';
+
   question: 'question';
   data: 'data';
   notifications: 'notifications';
@@ -33,6 +37,7 @@ interface IconNames {
   zoomIn: 'zoomIn';
   zoomOut: 'zoomOut';
   trusted: 'trusted';
+
   block: 'block';
   moreHorizontal: 'moreHorizontal';
   moreVertical: 'moreVertical';
@@ -45,6 +50,7 @@ interface IconNames {
   protection: 'protection';
   mdr: 'mdr';
   account: 'account';
+
   exit: 'exit';
   sync: 'sync';
   newWindow: 'newWindow';
@@ -57,6 +63,7 @@ interface IconNames {
   star: 'star';
   visibility: 'visibility';
   visibilityOff: 'visibilityOff';
+
   visibilityOutline: 'visibilityOutline';
   visibilityOffOutline: 'visibilityOffOutline';
   chef: 'chef';
@@ -69,6 +76,7 @@ interface IconNames {
   link: 'link';
   isp: 'isp';
   minus: 'minus';
+
   reset: 'reset';
   alarmActive: 'alarmActive';
   alarmOutline: 'alarmOutline';
@@ -81,6 +89,7 @@ interface IconNames {
   locationSmall: 'locationSmall';
   locationMedium: 'locationMedium';
   locationBig: 'locationBig';
+
   locationRetail: 'locationRetail';
   thumbsUp: 'thumbsUp';
   path: 'path';
