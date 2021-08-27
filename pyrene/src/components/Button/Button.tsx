@@ -11,11 +11,11 @@ export interface ButtonProps {
   /**
    * Sets the type attribute.
    */
-  actionType?: ActionType,
+  actionType?: ActionType;
   /**
    * Disables any interaction with the component.
    */
-  disabled?: boolean,
+  disabled?: boolean;
   /**
    * Adds an icon to the element.
    */
@@ -23,11 +23,11 @@ export interface ButtonProps {
   /**
    * Sets the label displayed to the user.
    */
-  label: string | React.ReactElement,
+  label: string | React.ReactElement;
   /**
    * Disables the component and displays a loader inside of it.
    */
-  loading?: boolean,
+  loading?: boolean;
   /**
    * Javascript event handler.
    */
@@ -35,7 +35,7 @@ export interface ButtonProps {
   /**
    * Sets the overall style.
    */
-  type?: Type,
+  type?: Type;
 }
 
 /**
