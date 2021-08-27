@@ -9,7 +9,7 @@ interface IconNames {
 
 type IconName = keyof IconNames;
 
-export {
+export type {
   IconNames,
   IconName,
 };
