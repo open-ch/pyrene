@@ -1,6 +1,7 @@
 @import '../../../styles/colors.css';
 
 .calendar {
+  composes: commonFontSettings from '../../../styles/common.css';
   position: absolute;
   background-color: var(--neutral-000);
   z-index: 1;
@@ -16,7 +17,6 @@
 }
 
 .rangeHeader {
-  composes: commonFontSettings from '../../../styles/common.css';
   color: var(--neutral-500);
   display: flex;
   padding: 16px 16px 0px 16px;

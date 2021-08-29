@@ -1,5 +1,8 @@
+@import '../../styles/colors.css';
+
 /* Custom Section */
 .wrapper {
+  composes: commonFontSettings from '../../styles/common.css';
   position: relative;
   max-width: max-content;
 }
@@ -7,7 +10,7 @@
 .wrapper :global .react-datepicker {
   background-color: var(--neutral-000);
   border-radius: 0;
-  font-family: FiraGo, Helvetica;
+  font-family: FiraGO, Helvetica, sans-serif;
   border: 0;
   display: flex;
   font-size: unset;
@@ -39,7 +42,7 @@
 }
 
 .wrapper :global .react-datepicker__day {
-  font-family: FiraGO, Helvetica;
+  font-family: FiraGO, Helvetica, sans-serif;
   font-weight: 500;
   font-stretch: normal;
   font-style: normal; 
@@ -201,7 +204,7 @@
 }
 
 .wrapper :global .react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list li.react-datepicker__time-list-item {
-  font-family: FiraGO, Helvetica;
+  font-family: FiraGO, Helvetica, sans-serif;
   font-weight: 500;
   font-stretch: normal;
   font-style: normal;
