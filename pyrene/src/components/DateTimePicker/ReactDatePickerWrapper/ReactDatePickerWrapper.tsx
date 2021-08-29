@@ -54,10 +54,6 @@ export interface DatePickerProps{
   name?: string,
   onClickOutside?(event: React.MouseEvent<HTMLDivElement>): void,
   /**
-   * Exposed to have access to input events
-   */
-  onKeyDown?(event: React.KeyboardEvent<HTMLDivElement>): void,
-  /**
    * Function to handle date select event
    */
   onSelect?(date: Date, event: React.SyntheticEvent<any> | undefined): void,
@@ -98,7 +94,6 @@ const ReactDPWrapper: React.FC<DatePickerProps> = ({
   endDate,
   maxDate,
   minDate,
-  onKeyDown,
   selectedDate,
   endRange = false,
   startRange = false,
@@ -145,7 +140,6 @@ const ReactDPWrapper: React.FC<DatePickerProps> = ({
         onCalendarClose={() => isOpen && rangeRef.current?.setOpen(isOpen)}
         onChange={onChange}
         onClickOutside={onClickOutside}
-        onKeyDown={onKeyDown}
         onSelect={onSelect}
         openToDate={openDate}
         ref={rangeRef}

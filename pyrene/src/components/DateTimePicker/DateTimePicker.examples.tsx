@@ -8,7 +8,6 @@ export interface State {
 const DateTimePicker: Example<DateTimePickerProps, State> = {
   props: {
     onChange: (stateProvider: StateProvider<State>) => (value?: number | null) => { stateProvider.setState({ value }); },
-    timeStamp: (stateProvider: StateProvider<State>) => stateProvider.state.value,
   },
 
   examples: [

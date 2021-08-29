@@ -9,7 +9,6 @@ const RangeTimePicker: Example<RangeTimePickerProps, State> = {};
 
 RangeTimePicker.props = {
   onChange: (stateProvider: StateProvider<State>) => (value?: [number, number] | null) => { stateProvider.setState({ value }); },
-  timeStamps: (stateProvider) => stateProvider.state.value,
 };
 
 RangeTimePicker.examples = [
@@ -19,7 +18,6 @@ RangeTimePicker.examples = [
       minDateTime: 946684740000,
       maxDateTime: 1809631860000,
       onChange: (stateProvider: StateProvider<State>) => (value?: [number, number] | null) => { stateProvider.setState({ value }); },
-      timeStamps: (stateProvider) => stateProvider.state.value,
     },
     description: `Maximum date: ${new Date(1809631860000).toString()},  Minimum date: ${new Date(946684740000).toString()}`,
   },
@@ -27,14 +25,12 @@ RangeTimePicker.examples = [
     props: {
       maxDateTime: 1809631860000,
       onChange: (stateProvider: StateProvider<State>) => (value?: [number, number] | null) => { stateProvider.setState({ value }); },
-      timeStamps: (stateProvider) => stateProvider.state.value,
     },
     description: `Maximum date: ${new Date(1809631860000).toString()}`,
   },
   {
     props: {
       onChange: (stateProvider: StateProvider<State>) => (value?: [number, number] | null) => { stateProvider.setState({ value }); },
-      timeStamps: (stateProvider) => stateProvider.state.value,
       timeZone: 'America/New_Yamk',
     },
     description: 'Show error state',

@@ -89,7 +89,7 @@ const RangeSelector: React.FC<RangeSelectorProps> = (({
 
       if (dateOnly && startdate && enddate) {
         onChange([convertToUTCtime(`${convertDateTypeToString(startdate)} 00:00`, timeZone).valueOf(), convertToUTCtime(`${convertDateTypeToString(enddate)} 00:00`, timeZone).valueOf()]);
-      } else if (startdate && starttime && enddate && endtime) {
+      } else if (!dateOnly && startdate && starttime && enddate && endtime) {
         onChange([convertToUTCtime(`${convertDateTypeToString(startdate)} ${convertTimeTypeToString(starttime)}`, timeZone).valueOf(), convertToUTCtime(`${convertDateTypeToString(enddate)} ${convertTimeTypeToString(endtime)}`, timeZone).valueOf()]);
       } else {
         onChange(null);
@@ -140,7 +140,7 @@ const RangeSelector: React.FC<RangeSelectorProps> = (({
     >
       <>
         <TimeRangeSelector
-          timezone="Europe/Zurich"
+          timezone={timeZone}
           from={startDate?.valueOf() || new Date().valueOf()}
           to={endDate?.valueOf() || convertToUTCtime(getFutureDate({ months: 4 }), timeZone).valueOf()}
           lowerBound={minDateTime}
