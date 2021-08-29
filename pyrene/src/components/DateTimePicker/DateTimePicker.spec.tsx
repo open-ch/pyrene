@@ -1,4 +1,4 @@
-/* import React from 'react';
+import React from 'react';
 import { shallow, mount } from 'enzyme';
 
 import DateTimePicker from './DateTimePicker';
@@ -37,7 +37,7 @@ describe('<DateTimePicker />', () => {
     expect(dateInput.props().placeholder?.includes('DD.MM.YYY') && dateInput.props().value === '').not.toBeFalsy();
     expect(timeInput.props().placeholder?.includes('HH:MM') && timeInput.props().value === '').not.toBeFalsy();
   });
-
+/*
   it('Valid timestamp input calls onChange with timestamp.', () => {
     const onchange = jest.fn();
     const changer = (value: any) => {
@@ -157,9 +157,9 @@ describe('<DateTimePicker />', () => {
 
     expect(error.html()).toContain('Less than minimum date');
   });
-
+*/
 });
-
+/*
 describe('Tests for time zones', () => {
   it('DateTimeInputs with same date and time string but with different time zones', () => {
     let tz1 = 0;
@@ -226,4 +226,3 @@ describe('Tests for time zones', () => {
   });
 });
 */
-export {};

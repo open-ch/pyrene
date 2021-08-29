@@ -37,6 +37,7 @@ RangeTimePicker.examples = [
       timeStamps: (stateProvider) => stateProvider.state.value,
       timeZone: 'America/New_Yamk',
     },
+    description: 'Show error state',
   },
 ];
 

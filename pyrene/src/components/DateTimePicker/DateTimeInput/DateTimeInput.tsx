@@ -1,4 +1,4 @@
-import React, { forwardRef, useState } from 'react';
+import React, { forwardRef } from 'react';
 import clsx from 'clsx';
 
 import Icon from '../../Icon/Icon';
@@ -14,7 +14,7 @@ export interface DateTimeInputProps {
   dateValue?: string,
   errorValue?: string,
   handleOn?: (dateString: string, timeString: string) => void
-  invalidTimestamp?: boolean,
+  disabled?: boolean,
   label?: string,
   name?: string,
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void, // Handle change function passed from react-datepicker
@@ -33,7 +33,7 @@ const DateTimeInput = forwardRef(({
   dateValue = '',
   errorValue = '',
   handleOn,
-  invalidTimestamp = false,
+  disabled,
   label,
   name = '',
   onChange = () => {},
@@ -45,22 +45,8 @@ const DateTimeInput = forwardRef(({
   timeValue = '',
 }:DateTimeInputProps, ref:React.Ref<HTMLInputElement>) => {
 
-  /* const extended = true;
-  const extendedDate = () => {
-    if (dateOnly) {
-      return 10;
-    }
-    if (extended) {
-      return 19;
-    }
-
-    return 16;
-  };
-
-  const [ampm, setAmPm] = useState(''); */
-
   const handleDateOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const node = event && event.target as HTMLInputElement;
+    const node = event.target as HTMLInputElement;
 
     if (allowedValueCheck(node.value)) {
       if (!dateOnly && node.value.length > 10) {
@@ -78,18 +64,6 @@ const DateTimeInput = forwardRef(({
       }
     }
     return null;
-  };
-
-  const formattedTime = (tvalue: string) => {
-    if (!dateOnly) {
-      if (tvalue && tvalue !== '' && tvalue.length === 5) {
-        if (tvalue.localeCompare('12:00') < 0) {
-          return ' AM';
-        }
-        return ' PM';
-      }
-    }
-    return '';
   };
 
   const formatTime = (value: string) => {
@@ -114,7 +88,7 @@ const DateTimeInput = forwardRef(({
           <input
             autoComplete="off"
             className={clsx(styles.input, dateOnly ? styles.dateInput : styles.dateTimeInput)}
-            disabled={invalidTimestamp}
+            disabled={disabled}
             name={name ? `${name}_date` : 'date_input'}
             placeholder={dateOnly ? 'DD.MM.YYYY' : 'DD.MM.YYYY HH:MM'}
             maxLength={dateOnly ? 10 : 16}

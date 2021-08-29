@@ -256,10 +256,10 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
         CustomInput={(
           <DateTimeInput
             dateValue={dateValue}
+            disabled={invalidTimestamp}
             handleOn={(datestring, timestring) => handleOn(datestring, timestring, onChange)}
             timeValue={timeValue}
             errorValue={errorValue}
-            invalidTimestamp={invalidTimestamp}
             label={label}
             name={name}
             range={range}

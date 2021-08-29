@@ -7,7 +7,7 @@
 .wrapper :global .react-datepicker {
   background-color: var(--neutral-000);
   border-radius: 0;
-  font-family: FiraGo;
+  font-family: FiraGo, Helvetica;
   border: 0;
   display: flex;
   font-size: unset;
@@ -39,7 +39,7 @@
 }
 
 .wrapper :global .react-datepicker__day {
-  font-family: FiraGO;
+  font-family: FiraGO, Helvetica;
   font-weight: 500;
   font-stretch: normal;
   font-style: normal; 
@@ -201,7 +201,7 @@
 }
 
 .wrapper :global .react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list li.react-datepicker__time-list-item {
-  font-family: FiraGO;
+  font-family: FiraGO, Helvetica;
   font-weight: 500;
   font-stretch: normal;
   font-style: normal;

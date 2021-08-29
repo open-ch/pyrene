@@ -45,7 +45,6 @@ export interface RangeTimePickerProps{
   onChange: OnFunction,
 }
 
-
 const RangeTimePicker: React.FC<RangeTimePickerProps> = ({
   dateOnly,
   maxDateTime,

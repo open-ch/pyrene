@@ -1,6 +1,4 @@
 import React, {
-  useEffect,
-  useRef,
   useState,
   ReactNode,
 } from 'react';
@@ -58,7 +56,6 @@ export interface RangeSelectorProps{
   timeZone?: string,
 }
 
-
 const RangeSelector: React.FC<RangeSelectorProps> = (({
   dateOnly = false,
   maxDateTime = getFutureDate({ years: 1 }),
@@ -69,12 +66,8 @@ const RangeSelector: React.FC<RangeSelectorProps> = (({
   timeZone = 'Europe/Zurich',
 }:RangeSelectorProps) => {
 
-  const clickAreaRef = useRef<HTMLDivElement>(null);
-
   const [endDate, setEndDate] = useState<Date | undefined>(undefined);
   const [startDate, setStartDate] = useState<Date | undefined>(undefined);
-
-  const [invalidTimestamp, setInvalidTimestamp] = useState(false);
 
   const [isCalOpen, setCalOpen] = useState<boolean | undefined>(undefined);
 
@@ -82,13 +75,6 @@ const RangeSelector: React.FC<RangeSelectorProps> = (({
     setStartDate(undefined);
     setEndDate(undefined);
   };
-
-  useEffect(() => {
-    if (invalidTimestamp) {
-      clearValues();
-    }
-  }, [invalidTimestamp]);
-
 
   const handleApplyButton = (event: React.MouseEvent) => {
     event.preventDefault();
@@ -150,7 +136,6 @@ const RangeSelector: React.FC<RangeSelectorProps> = (({
     <DetectClickOutside
       onClick={() => setCalOpen(true)}
       onClickOutside={() => setCalOpen(false)}
-      ref={clickAreaRef}
       listen
     >
       <>
