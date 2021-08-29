@@ -1,11 +1,18 @@
 @import '../../../styles/colors.css';
 
 .calendar {
-  width: 391px;
   position: absolute;
   background-color: var(--neutral-000);
   z-index: 1;
   margin-top: 8px;
+}
+
+.dateOnly {
+  width: 258px;
+}
+
+.dateTime {
+  width: 391px;
 }
 
 .rangeHeader {
@@ -50,9 +57,14 @@
   margin-left: -17px;
 }
 
-.rightbox :global .react-datepicker__tab-loop {
+.dateOnly .rightbox :global .react-datepicker__tab-loop {
+  margin-left: -138px;
+}
+
+.dateTime .rightbox :global .react-datepicker__tab-loop {
   margin-left: -208px;
 }
+
 
 .leftbox :global .react-datepicker__input-container,
 .rightbox :global .react-datepicker__input-container {

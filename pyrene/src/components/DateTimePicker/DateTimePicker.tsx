@@ -25,14 +25,14 @@ export interface DateTimePickerProps{
     children: React.ReactNode[]
   }) => React.ReactNode,
   /**
-   * Boolean to control time display
+   * Boolean to toggle time display
    */
   dateOnly?: boolean,
   /**
    * This is a Date object that represents the end date of the component
    */
   endDate?: Date,
-  isInline?: boolean,
+  inline?: boolean,
   /**
    * This is a string that represents the label of the component
    */
@@ -75,10 +75,11 @@ export interface DateTimePickerProps{
   * This is a Date object that represents the start date of the component
   */
   startDate?: Date,
+  tabNum?: number,
   /**
    * This is a unix timestamp, which is the number of seconds that have elapsed since Unix epoch
    */
-  timeStamp?: number | [number, number] | null
+  timeStamp?: number | null
   /**
    * This is must be a IANA time zone string
    */
@@ -91,12 +92,11 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
   customCalendar,
   dateOnly = false,
   endDate,
-  isInline = false,
+  inline = false,
   label,
   maxDateTime = getFutureDate({ years: 1 }),
   minDateTime = 0,
   name,
-  onBlur,
   onCalendarOpen,
   onChange,
   onClickOutside,
@@ -104,6 +104,7 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
   selectEnd,
   selectStart,
   startDate,
+  tabNum,
   timeStamp,
   timeZone = 'Europe/Zurich',
 }: DateTimePickerProps) => {
@@ -113,33 +114,27 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
   const [dateValue, setDateValue] = useState('');
   const [timeValue, setTimeValue] = useState('');
 
-
-  // const [timeZoneValue, setTimeZoneValue] = useState(timeZone);
-
   const [invalidTimestamp, setInvalidTimestamp] = useState(false);
-  // const [invalidTimeZone, setInvalidTimeZone] = useState(false);
-
   const [errorValue, setErrorValue] = useState('');
 
   // Sets internal date and passes validated value to parent
   const handleOn = useCallback((dateString: string, timeString: string, onFunction?: OnFunction) => {
-    const isDateLongEnough = dateString.length === 10;
-    const isTimeLongEnough = timeString.length === 5;
+    const date = getDateTypeFromddmmyyyyWithSep(dateString);
+    const time = getTimeTypeFromhhmmWithSep(timeString);
 
-    if (isDateLongEnough && isTimeLongEnough) {
-      const date = getDateTypeFromddmmyyyyWithSep(dateString);
-      const time = getTimeTypeFromhhmmWithSep(timeString);
+    const validDateState = isValidDate(date);
+    const validTimeState = isValidTime(time);
 
-      const validDateState = isValidDate(date);
-      const validTimeState = isValidTime(time);
 
+    if (dateOnly && date && validDateState) {
+      setInternalDate(convertToUTCtime(`${convertDateTypeToString(date)}`, timeZone));
       if (onFunction) {
-        if (date && time && validDateState && validTimeState) {
-          setInternalDate(convertToUTCtime(`${convertDateTypeToString(date)} ${convertTimeTypeToString(time)}`, timeZone));
-          onFunction(convertToUTCtime(`${convertDateTypeToString(date)} ${convertTimeTypeToString(time)}`, timeZone).valueOf());
-        } else {
-          onFunction(undefined);
-        }
+        onFunction(convertToUTCtime(`${convertDateTypeToString(date)}`, timeZone).valueOf());
+      }
+    } else if (!dateOnly && date && time && validDateState && validTimeState) {
+      setInternalDate(convertToUTCtime(`${convertDateTypeToString(date)} ${convertTimeTypeToString(time)}`, timeZone));
+      if (onFunction) {
+        onFunction(convertToUTCtime(`${convertDateTypeToString(date)} ${convertTimeTypeToString(time)}`, timeZone).valueOf());
       }
     } else {
       setInternalDate(undefined);
@@ -148,7 +143,7 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
         onFunction(undefined);
       }
     }
-  }, [timeZone]);
+  }, [dateOnly, timeZone]);
 
   // Handle changes from react datepicker
   const onChangeReactDP = (date: Date | [Date, Date] | null, event: React.SyntheticEvent<any> | undefined): void => {
@@ -240,6 +235,16 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
     setErrorValue(getErrors(errorDateBool(dateValue), errorTimeBool(timeValue), dateValue, minDateTime, maxDateTime, timeZone));
   }, [maxDateTime, minDateTime, timeZone, dateValue, timeValue]);
 
+  const selectedDate = () => {
+    if (selectEnd) {
+      return endDate;
+    }
+    if (startDate) {
+      return startDate;
+    }
+    return internalDate;
+  };
+
   return (
     <>
       <ReactDPWrapper
@@ -260,17 +265,18 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
             range={range}
             setDateValue={setDateValue}
             setTimeValue={setTimeValue}
+            tabNum={tabNum}
             dateOnly={dateOnly}
           />
         )}
-        inline={isInline}
+        inline={inline}
         isOpen={calendarOpened}
         maxDate={convertToUTCtime(maxDateTime, timeZone)}
         minDate={convertToUTCtime(minDateTime, timeZone)}
         onCalendarOpen={onCalendarOpen}
         onChange={onChangeReactDP}
         onClickOutside={onClickOutside}
-        selectedDate={selectEnd ? endDate : startDate}
+        selectedDate={selectedDate()}
         shouldDisplayTimeColumn={!dateOnly}
         startDate={startDate}
         startRange={selectStart}

@@ -8,10 +8,7 @@ export interface State {
 const RangeTimePicker: Example<RangeTimePickerProps, State> = {};
 
 RangeTimePicker.props = {
-  onChange: (stateProvider: StateProvider<State>) => (value?: [number, number] | null) => {
-    stateProvider.setState({ value });
-    // console.log(value);
-  },
+  onChange: (stateProvider: StateProvider<State>) => (value?: [number, number] | null) => { stateProvider.setState({ value }); },
   timeStamps: (stateProvider) => stateProvider.state.value,
 };
 

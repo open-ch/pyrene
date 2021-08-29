@@ -23,11 +23,13 @@ export interface DatePickerProps{
   CustomInput: React.ReactNode,
   customCalendar?(props: { children: React.ReactNode[] }): React.ReactNode,
   /**
+   * Boolean to toggle time display
+   */
+  dateOnly?: boolean,
+  /**
    * This is a Date object that represents the end date of a date range
    */
   endDate?: Date,
-  dateOnly?: boolean,
-  highlightsOn?: boolean,
   inline?: boolean,
   isOpen?: boolean,
   /**
@@ -38,6 +40,9 @@ export interface DatePickerProps{
    * This is a timestamp that represents the minimum date allowed by the component
    */
   minDate?: Date,
+  /**
+   * Do something when calendar opens
+   */
   onCalendarOpen?: () => void,
   /**
    * Function to handle date change event
@@ -90,15 +95,14 @@ const ReactDPWrapper: React.FC<DatePickerProps> = ({
   closeOnSelect = true,
   customCalendar,
   dateOnly = false,
-  endDate = undefined,
-  highlightsOn,
+  endDate,
   maxDate,
   minDate,
   onKeyDown,
-  selectedDate = undefined,
+  selectedDate,
   endRange = false,
   startRange = false,
-  startDate = undefined,
+  startDate,
   shouldDisplayTimeColumn = true,
   CustomInput = <input />,
   inline = false,
@@ -110,7 +114,7 @@ const ReactDPWrapper: React.FC<DatePickerProps> = ({
   openDate,
   range = false,
   tabNum,
-  value = undefined,
+  value,
 }: DatePickerProps) => {
 
   const rangeRef = useRef<ReactDatepicker>(null);
@@ -134,7 +138,6 @@ const ReactDPWrapper: React.FC<DatePickerProps> = ({
         dateFormat={dateFormatting}
         endDate={endDate}
         formatWeekDay={(nameOfDay) => nameOfDay.substr(0, 1)}
-        highlightDates={(highlightsOn && endDate) ? [endDate] : undefined}
         inline={inline}
         maxDate={maxDate}
         minDate={minDate}
@@ -192,7 +195,6 @@ const ReactDPWrapper: React.FC<DatePickerProps> = ({
         tabIndex={tabNum}
         timeFormat="HH:mm"
         value={value}
-        // open={isOpen}
       />
     </div>
   );

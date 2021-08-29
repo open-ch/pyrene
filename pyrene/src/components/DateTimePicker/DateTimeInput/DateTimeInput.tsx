@@ -7,6 +7,9 @@ import styles from './dateTimeInput.css';
 const allowedValueCheck = (valueToCheck:string) : boolean => (/^[0-9.: APM]*$/.test(valueToCheck));
 
 export interface DateTimeInputProps {
+  /**
+   * Boolean to toggle time display
+   */
   dateOnly?: boolean,
   dateValue?: string,
   errorValue?: string,
@@ -42,7 +45,7 @@ const DateTimeInput = forwardRef(({
   timeValue = '',
 }:DateTimeInputProps, ref:React.Ref<HTMLInputElement>) => {
 
-  const extended = true;
+  /* const extended = true;
   const extendedDate = () => {
     if (dateOnly) {
       return 10;
@@ -54,7 +57,7 @@ const DateTimeInput = forwardRef(({
     return 16;
   };
 
-  const [ampm, setAmPm] = useState('');
+  const [ampm, setAmPm] = useState(''); */
 
   const handleDateOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const node = event && event.target as HTMLInputElement;
@@ -64,11 +67,7 @@ const DateTimeInput = forwardRef(({
         setDateValue(node.value.substring(0, 10).trim());
         setTimeValue(node.value.substring(10));
 
-        if (!extended && node.value.substring(10).length === 6) {
-          return onChange(event);
-        }
-
-        if (extended && node.value.substring(10).trim().length === 9) {
+        if (node.value.substring(10).trim().length >= 5) {
           return onChange(event);
         }
       } else {
@@ -78,7 +77,7 @@ const DateTimeInput = forwardRef(({
         return onChange(event);
       }
     }
-    return {};
+    return null;
   };
 
   const formattedTime = (tvalue: string) => {
@@ -118,13 +117,13 @@ const DateTimeInput = forwardRef(({
             disabled={invalidTimestamp}
             name={name ? `${name}_date` : 'date_input'}
             placeholder={dateOnly ? 'DD.MM.YYYY' : 'DD.MM.YYYY HH:MM'}
-            maxLength={extendedDate()}
+            maxLength={dateOnly ? 10 : 16}
             ref={ref}
             onClick={onClick}
             onFocus={onFocus}
             onChange={handleDateOnChange}
             tabIndex={tabNum}
-            value={`${dateValue}${timeValue && formatTime(timeValue)}${ampm}`}
+            value={`${dateValue}${timeValue && formatTime(timeValue)}`}
           />
         </div>
       </div>

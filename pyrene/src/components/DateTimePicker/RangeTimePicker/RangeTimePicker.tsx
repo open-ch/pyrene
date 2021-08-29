@@ -11,6 +11,9 @@ import {
 type OnFunction = (value?: [number, number] | null) => void;
 
 export interface RangeTimePickerProps{
+  /**
+   * Boolean to toggle time display
+   */
   dateOnly?: boolean,
   /**
    * This is a timestamp that represents the maximum date allowed by the component
@@ -24,7 +27,6 @@ export interface RangeTimePickerProps{
    * Name that can be used to uniquely identify the component
    */
   name?: string,
-  range?: boolean,
   /**
    * This is a unix timestamp, which is the number of seconds that have elapsed since Unix epoch
    */
@@ -53,7 +55,6 @@ const RangeTimePicker: React.FC<RangeTimePickerProps> = ({
 
   const [endDate, setEndDate] = useState<Date | undefined>(undefined);
   const [startDate, setStartDate] = useState<Date | undefined>(undefined);
-  const [rangeTimeStamps, setRangeTimestamps] = useState<[number, number] | undefined>(undefined);
 
   return (
     <>

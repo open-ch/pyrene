@@ -8,10 +8,7 @@ export interface State {
 const RangeSelector: Example<RangeSelectorProps, State> = {
   props: {
     labels: ['Start', 'End'],
-    onChange: (stateProvider: StateProvider<State>) => (value?: [number, number] | null) => {
-      stateProvider.setState({ value });
-      // console.log(value);
-    },
+    onChange: (stateProvider: StateProvider<State>) => (value?: [number, number] | null) => { stateProvider.setState({ value }); },
     timeStamps: (stateProvider) => (stateProvider.state.value ? stateProvider.state.value : undefined),
   },
 
@@ -19,6 +16,7 @@ const RangeSelector: Example<RangeSelectorProps, State> = {
     {
       props: {
         dateOnly: true,
+        labels: ['Begin', 'End'],
         minDateTime: 946684740000,
         maxDateTime: 1809631860000,
         onChange: (stateProvider: StateProvider<State>) => (value?: [number, number] | null) => { stateProvider.setState({ value }); },
