@@ -171,7 +171,7 @@ const semanticColors = [
     title: '',
     colors: [
       {
-        colorName: 'Outage', name: 'neutral-500', darkFont: false, bordered: false,
+        colorName: 'Critical', name: 'neutral-500', darkFont: false, bordered: false,
       },
     ],
   },
