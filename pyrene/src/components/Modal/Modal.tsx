@@ -5,7 +5,7 @@ import ButtonBar from '../ButtonBar/ButtonBar';
 import Button, { Type as ButtonType } from '../Button/Button';
 import Loader from '../Loader/Loader';
 import ActionBar from '../ActionBar/ActionBar';
-import { IconNames } from '../types/icon';
+import { IconNames } from '../types';
 
 interface ButtonBarProps{
   action: () => void;

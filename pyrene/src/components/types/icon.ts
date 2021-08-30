@@ -1,4 +1,4 @@
-export interface IconNames {
+export type IconNames = {
   account: 'account';
   add: 'add';
   addCircleOutline: 'addCircleOutline';
@@ -95,4 +95,4 @@ export interface IconNames {
   wrench: 'wrench';
   zoomIn: 'zoomIn';
   zoomOut: 'zoomOut';
-}
+};

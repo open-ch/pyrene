@@ -1,7 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import styles from './iconbutton.css';
-import { IconNames } from '../types/icon';
+import { IconNames } from '../types';
 
 export interface IconButtonProps {
   /**
