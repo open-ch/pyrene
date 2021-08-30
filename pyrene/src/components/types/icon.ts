@@ -1,4 +1,5 @@
 export type IconNames = {
+  a: 'totoo';
   account: 'account';
   add: 'add';
   addCircleOutline: 'addCircleOutline';
