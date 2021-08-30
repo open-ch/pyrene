@@ -1,4 +1,4 @@
-interface IconNames {
+export interface IconNames {
   account: 'account';
   add: 'add';
   addCircleOutline: 'addCircleOutline';
@@ -96,10 +96,3 @@ interface IconNames {
   zoomIn: 'zoomIn';
   zoomOut: 'zoomOut';
 }
-
-type IconName = keyof IconNames;
-
-export type {
-  IconNames,
-  IconName,
-};

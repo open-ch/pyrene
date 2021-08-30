@@ -1,1 +1,1 @@
-export type { IconNames, IconName } from './icon';
+export type { IconNames } from './icon';

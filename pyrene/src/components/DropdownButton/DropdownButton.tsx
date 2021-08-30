@@ -4,7 +4,7 @@ import Popover from '../Popover/Popover';
 import OptionsList from './OptionsList';
 import Loader from '../Loader/Loader';
 import styles from './dropdownButton.css';
-import { IconName } from '../types/icon';
+import { IconNames } from '../types/icon';
 
 export interface DropdownButtonProps {
   /**
@@ -25,7 +25,7 @@ export interface DropdownButtonProps {
   /**
    * Adds an icon to the element.
    */
-  icon?: IconName,
+  icon?: keyof IconNames;
   /**
    * Sets the label displayed to the user.
    */

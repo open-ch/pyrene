@@ -5,15 +5,15 @@ import ButtonBar from '../ButtonBar/ButtonBar';
 import Button, { Type as ButtonType } from '../Button/Button';
 import Loader from '../Loader/Loader';
 import ActionBar from '../ActionBar/ActionBar';
-import { IconName } from '../types/icon';
+import { IconNames } from '../types/icon';
 
 interface ButtonBarProps{
-  action: () => void,
-  disabled?: boolean,
-  icon?: IconName,
-  label: string,
-  loading?: boolean,
-  type: ButtonType,
+  action: () => void;
+  disabled?: boolean;
+  icon?: keyof IconNames;
+  label: string;
+  loading?: boolean;
+  type: ButtonType;
 }
 
 export interface ModalProps {
