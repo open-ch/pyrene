@@ -38,7 +38,7 @@ Component.propTypes = {
 // Do not forget to export..
 export default Component;`;
 
-const CssExample = `@import styles from '../../styles/colors.css';
+const CssExample = `@import styles from '../../styles/colors.module.css';
 
 .container {
   position: relative;

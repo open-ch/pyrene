@@ -3,7 +3,7 @@ import clsx from 'clsx';
 
 import styles from './button.module.css';
 import Loader from '../Loader/Loader';
-import { IconNames } from '../types/icon';
+import { IconNames } from '../types';
 
 export type Type = 'primary' | 'secondary' | 'danger' | 'ghost' | 'action' | 'success';
 export type ActionType = 'button' | 'submit' | 'reset';
