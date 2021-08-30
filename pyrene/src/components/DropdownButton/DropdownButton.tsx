@@ -4,7 +4,7 @@ import Popover from '../Popover/Popover';
 import OptionsList from './OptionsList';
 import Loader from '../Loader/Loader';
 import styles from './dropdownButton.css';
-import { IconNames } from '../types/icon';
+import { IconNames } from '../types';
 
 export interface DropdownButtonProps {
   /**
