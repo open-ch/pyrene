@@ -1,12 +1,11 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import IconButton from './IconButton';
+import IconButton, { IconButtonProps } from './IconButton';
 
-const props = {
+const props: IconButtonProps = {
   icon: 'info',
   path: 'xPath',
-  label: 'xLabel',
 };
 
 describe('<IconButton />', () => {
@@ -21,7 +20,7 @@ describe('<IconButton />', () => {
 
   it('has path corresponding to prop', () => {
     const rendered = shallow(<IconButton {...props} />);
-    expect(rendered.find('a').props().href).toMatch(props.path);
+    expect(rendered.find('a').props().href).toMatch(props.path as string);
   });
 
   it('forwards clicks to the click handler if not path is set', () => {

@@ -6,7 +6,7 @@
 }
 
 .value {
-  composes: commonFontSettings from '../../../../../src/styles/common.css';
+  composes: commonFontSettings from '../../../../styles/common.module.css';
   width: 100%;
   display: flex;
   align-items: center;

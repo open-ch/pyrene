@@ -1,9 +1,9 @@
-@import '../../styles/colors.css';
+@import '../../styles/colors.module.css';
 
 .shareDialogContainer {}
 
 .shareDialog {
-  composes: commonFontSettings from '../../styles/common.css';
+  composes: commonFontSettings from '../../styles/common.module.css';
   padding: 16px 16px 0 16px;
 
   border-radius: 4px;

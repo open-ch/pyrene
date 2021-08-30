@@ -1,4 +1,4 @@
-@import '../../styles/colors.css';
+@import '../../styles/colors.module.css';
 
 .link {
   cursor: pointer;
@@ -21,8 +21,8 @@
 }
 
 .type-standalone {
-  composes: commonFontSettings from '../../styles/common.css';
-  
+  composes: commonFontSettings from '../../styles/common.module.css';
+
   height: 24px;
   font-size: 12px;
   font-weight: 500;

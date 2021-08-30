@@ -1,4 +1,4 @@
-@import './colors.css';
+@import './colors.module.css';
 
 :global(.unSelectable) {
   user-select: none;

@@ -74,7 +74,7 @@ const config = {
     }),
     new CopyWebpackPlugin({
       patterns: [
-        { from: 'src/styles/colors.css', to: `${OUTPUT_PATH}/[name][ext]` },
+        { from: 'src/styles/colors.module.css', to: `${OUTPUT_PATH}/[name][ext]` },
       ],
     }),
     new ForkTsCheckerWebpackPlugin({

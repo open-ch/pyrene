@@ -1,5 +1,5 @@
 .container {
-  composes: commonFontSettings from '../../styles/common.css';
+  composes: commonFontSettings from '../../styles/common.module.css';
 
   height: 32px;
   font-size: 12px;
