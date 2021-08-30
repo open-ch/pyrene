@@ -4,6 +4,7 @@ import clsx from 'clsx';
 import IconButton from '../IconButton/IconButton';
 
 import styles from './pill.css';
+import { IconNames } from '../types/icon';
 
 export type Type = 'neutral' | 'info' | 'warning' | 'danger' | 'success';
 
@@ -11,7 +12,7 @@ export interface PillProps {
   /**
    * Set the icon underneath the pill.
    */
-  icon?: string;
+  icon?: keyof IconNames;
   /**
    * Sets the color of the icon.
    */
@@ -41,7 +42,7 @@ export interface PillProps {
  *
  */
 const Pill: React.FC<PillProps> = ({
-  icon = '',
+  icon,
   iconType = 'neutral',
   maxValue = 99,
   onClick,

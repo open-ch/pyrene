@@ -3,6 +3,7 @@ import clsx from 'clsx';
 
 import styles from './button.module.css';
 import Loader from '../Loader/Loader';
+import { IconNames } from '../types';
 
 export type Type = 'primary' | 'secondary' | 'danger' | 'ghost' | 'action' | 'success';
 export type ActionType = 'button' | 'submit' | 'reset';
@@ -19,7 +20,7 @@ export interface ButtonProps {
   /**
    * Adds an icon to the element.
    */
-  icon?: string;
+  icon?: keyof IconNames;
   /**
    * Sets the label displayed to the user.
    */
