@@ -5,11 +5,12 @@ import ButtonBar from '../ButtonBar/ButtonBar';
 import Button, { Type as ButtonType } from '../Button/Button';
 import Loader from '../Loader/Loader';
 import ActionBar from '../ActionBar/ActionBar';
+import { IconNames } from '../types';
 
 interface ButtonBarProps{
   action: () => void,
   disabled?: boolean,
-  icon?: string,
+  icon?: keyof IconNames,
   label: string,
   loading?: boolean,
   type: ButtonType,

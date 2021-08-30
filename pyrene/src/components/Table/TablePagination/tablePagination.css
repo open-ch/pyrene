@@ -1,8 +1,8 @@
-@import '../../../styles/colors.css';
+@import '../../../styles/colors.module.css';
 
 
 .tablePagination {
-  composes: commonFontSettings from '../../../styles/common.css';
+  composes: commonFontSettings from '../../../styles/common.module.css';
   height: 48px;
   display: flex;
   justify-content: flex-end;

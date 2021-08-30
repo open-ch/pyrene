@@ -1,4 +1,4 @@
-@import '../../styles/colors.css';
+@import '../../styles/colors.module.css';
 
 .container {
   width: 100%;

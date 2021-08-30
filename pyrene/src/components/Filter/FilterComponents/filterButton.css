@@ -1,8 +1,8 @@
-@import '../../../styles/colors.css';
+@import '../../../styles/colors.module.css';
 
 
 .filterButton {
-  composes: commonFontSettings from '../../../styles/common.css';
+  composes: commonFontSettings from '../../../styles/common.module.css';
   box-sizing: border-box;
   padding: 0 3px 0 9px;
   border: solid 1px var(--border);
