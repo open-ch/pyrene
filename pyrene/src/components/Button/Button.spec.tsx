@@ -36,6 +36,6 @@ describe('<Button />', () => {
 
   it('renders the html for icons', () => {
     const rendered = shallow(<Button icon="share" label="" />);
-    expect(rendered.find('.pyreneIcon-someIcon')).toHaveLength(1);
+    expect(rendered.find('.pyreneIcon-share')).toHaveLength(1);
   });
 });
