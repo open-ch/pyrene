@@ -163,7 +163,7 @@ const ColorsPage = () => (
         <ColorRow
           preColumns={1}
           columns={10}
-          title="Outage"
+          title="Critical"
           description=""
           rowHeader={{
             colors: [{
