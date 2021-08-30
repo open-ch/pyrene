@@ -44,7 +44,7 @@
 
 [class^="pyreneIcon-"], [class*=" pyreneIcon-"] {
   /* use !important to prevent issues with browser extensions that change fonts */
-  font-family: PyreneIconFont !important;
+  font-family: PyreneIconFont, Helvetica, sans-serif !important;
   speak: none;
   font-style: normal;
   font-weight: normal;
