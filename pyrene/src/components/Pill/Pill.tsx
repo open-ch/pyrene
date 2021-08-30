@@ -2,7 +2,7 @@ import React from 'react';
 import clsx from 'clsx';
 import IconButton from '../IconButton/IconButton';
 import styles from './pill.css';
-import { IconName } from '../types/icon';
+import { IconNames } from '../types/icon';
 
 export type Type = 'neutral' | 'info' | 'warning' | 'danger' | 'success';
 
@@ -10,7 +10,7 @@ export interface PillProps {
   /**
    * Set the icon underneath the pill.
    */
-  icon?: IconName;
+  icon?: keyof IconNames;
   /**
    * Sets the color of the icon.
    */
