@@ -57,6 +57,7 @@ const Button: React.FC<ButtonProps> = ({
 }: ButtonProps) => (
   <div className={styles.buttonContainer}>
     <button
+      // eslint-disable-next-line react/button-has-type
       type={actionType}
       className={
         clsx('unSelectable', styles.button,
