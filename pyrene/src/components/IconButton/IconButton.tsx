@@ -1,7 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
 import styles from './iconbutton.css';
-import { IconNames } from '../types';
 
 export interface IconButtonProps {
   /**
@@ -11,7 +10,7 @@ export interface IconButtonProps {
   /**
    * Sets the icon shown
    */
-  icon: keyof IconNames;
+  icon: string,
   /**
    * Javascript event handler. Overrides the redirect functionality (path prop ignored).
    */

@@ -5,15 +5,14 @@ import ButtonBar from '../ButtonBar/ButtonBar';
 import Button, { Type as ButtonType } from '../Button/Button';
 import Loader from '../Loader/Loader';
 import ActionBar from '../ActionBar/ActionBar';
-import { IconNames } from '../types';
 
 interface ButtonBarProps{
-  action: () => void;
-  disabled?: boolean;
-  icon?: keyof IconNames;
-  label: string;
-  loading?: boolean;
-  type: ButtonType;
+  action: () => void,
+  disabled?: boolean,
+  icon?: string,
+  label: string,
+  loading?: boolean,
+  type: ButtonType,
 }
 
 export interface ModalProps {
@@ -147,11 +146,11 @@ const Modal: React.FC<ModalProps> = ({
     buttonInfo.map((buttonProps) => (
       <Button
         loading={buttonProps.loading}
+        icon={buttonProps.icon}
         type={buttonProps.type}
         label={buttonProps.label}
         disabled={buttonProps.disabled}
         onClick={buttonProps.action}
-        {...(buttonProps.icon ? { icon: buttonProps.icon } : {})}
       />
     ))
   );
