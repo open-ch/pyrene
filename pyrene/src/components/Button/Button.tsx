@@ -1,9 +1,8 @@
 import React from 'react';
 import clsx from 'clsx';
 
-import styles from './button.module.css';
+import styles from './button.css';
 import Loader from '../Loader/Loader';
-import { IconNames } from '../types';
 
 export type Type = 'primary' | 'secondary' | 'danger' | 'ghost' | 'action' | 'success';
 export type ActionType = 'button' | 'submit' | 'reset';
@@ -12,23 +11,23 @@ export interface ButtonProps {
   /**
    * Sets the type attribute.
    */
-  actionType?: ActionType;
+  actionType?: ActionType,
   /**
    * Disables any interaction with the component.
    */
-  disabled?: boolean;
+  disabled?: boolean,
   /**
    * Adds an icon to the element.
    */
-  icon?: keyof IconNames;
+  icon?: string;
   /**
    * Sets the label displayed to the user.
    */
-  label: string | React.ReactElement;
+  label: string | React.ReactElement,
   /**
    * Disables the component and displays a loader inside of it.
    */
-  loading?: boolean;
+  loading?: boolean,
   /**
    * Javascript event handler.
    */
@@ -36,7 +35,7 @@ export interface ButtonProps {
   /**
    * Sets the overall style.
    */
-  type?: Type;
+  type?: Type,
 }
 
 /**
