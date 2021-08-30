@@ -151,7 +151,7 @@ const Modal: React.FC<ModalProps> = ({
         label={buttonProps.label}
         disabled={buttonProps.disabled}
         onClick={buttonProps.action}
-        {...(buttonProps.icon ? { icon : buttonProps.icon } : {})}
+        {...(buttonProps.icon ? { icon: buttonProps.icon } : {})}
       />
     ))
   );
