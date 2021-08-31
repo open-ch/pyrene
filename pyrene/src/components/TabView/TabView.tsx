@@ -82,8 +82,8 @@ const TabView: FunctionComponent<TabViewProps> = ({
     }
   };
 
-  const handleClickOutside = (event: React.MouseEvent<HTMLDocument>) => {
-    if (menuRef.current && !menuRef.current.contains(event.target as any) && displayMoreMenu) {
+  const handleClickOutside = (event: React.MouseEvent<any>) => {
+    if (menuRef.current && !menuRef.current.contains(event.target) && displayMoreMenu) {
       toggleMoreMenu();
     }
     document.removeEventListener('mousedown', handleClickOutside);
