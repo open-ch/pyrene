@@ -98,9 +98,10 @@ const reducer = (state: State, action: TogglingMoreAction | ClickingTabAction | 
         displayMoreMenu: action.payload.displayMoreMenu,
       };
     }
-    case 'changingTab':
+    case 'changingTab': {
       action.payload?.tabChanged?.(action.payload.tabName, action.payload.index);
       return { ...state };
+    }
     case 'updatingLabel': {
       return {
         ...state,
