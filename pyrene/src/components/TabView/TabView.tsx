@@ -1,87 +1,125 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { FunctionComponent, useState, useRef } from 'react';
 import clsx from 'clsx';
 
 import styles from './tabView.css';
+
+interface Tab {
+  disabled?: boolean,
+  name: string,
+  renderAuxiliaryInfo?: () => void,
+  renderCallback: () => JSX.Element,
+}
+
+interface TabViewProps {
+  /**
+   * Sets the number of tabs that are displayed before the more tab.
+   */
+  directAccessTabs?: number,
+  /**
+   * Disables any interaction with the component.
+   */
+  disabled?: boolean,
+  /**
+   * Sets the tab to preselect when the component is first mounted.
+   */
+  initialTabName: string,
+  /**
+   * Sets a maximum allowed width for the tabs.
+   */
+  maxTabWidth?: number,
+  /**
+   * Called when the selected tab changes.
+   */
+  tabChanged?: () => void,
+  /**
+   * Tab header element between tab content and tabs
+   */
+  tabHeaderElement?: React.ReactNode,
+  /**
+   * Data input array for the tabs.
+   * Type: [{ name: string (required), renderAuxiliaryInfo: func, renderCallback: func (required), disabled: bool }]
+   */
+  tabs: Array<Tab>,
+}
 
 /**
  * Tabs are used to display multiple contents in a single container.
  *
  * Tabs are useful for displaying different contexts without having to navigate to other pages.
  */
-export default class TabView extends React.Component {
+const TabView: FunctionComponent<TabViewProps> = ({
+  tabs,
+  initialTabName,
+  tabChanged: () => null,
+  directAccessTabs = null,
+  disabled = false,
+  maxTabWidth = 127,
+  tabHeaderElement = null,
+}: TabViewProps) => {
 
-  constructor(props) {
-    super(props);
+  const [selectedTabIndex, setSelectedTabIndex] = useState(tabs.map((t) => t.name).indexOf(initialTabName));
+  const [displayMoreMenu, setDisplayMoreMenu] = useState(false);
+  const [moreTabLabel, setMoreTabLabel] = useState('More');
+  const menuRef = useRef<HTMLDivElement | null>(null);
 
-    this.state = {
-      selectedTabIndex: props.tabs.map((t) => t.name).indexOf(props.initialTabName),
-      displayMoreMenu: false,
-      moreTabLabel: 'More',
-    };
-  }
 
-  computeTabs = () => (this.props.directAccessTabs && this.props.tabs.length > this.props.directAccessTabs
+  const computeTabs = () => directAccessTabs && tabs.length > directAccessTabs
     ? [
-      this.props.tabs.slice(0, this.props.directAccessTabs),
-      this.props.tabs.slice(this.props.directAccessTabs),
+      tabs.slice(0, directAccessTabs),
+      tabs.slice(directAccessTabs),
     ]
     : [
-      this.props.tabs,
+      tabs,
       null,
-    ]);
+    ];
 
-  handleClickOutside = (event) => {
-    if (this.menuRef && !this.menuRef.contains(event.target) && this.state.displayMoreMenu) {
-      this.toggleMoreMenu();
+    const toggleMoreMenu = () => {
+      const displayMenu = !displayMoreMenu;
+      setDisplayMoreMenu(displayMenu);
+      if (displayMenu) {
+        document.addEventListener('mousedown', handleClickOutside);
+      }
+    };
+    
+  const handleClickOutside = (event: any) => {
+    if (menuRef.current && !menuRef.current.contains(event.target) && displayMoreMenu) {
+      toggleMoreMenu();
     }
-    document.removeEventListener('mousedown', this.handleClickOutside);
+    document.removeEventListener('mousedown', handleClickOutside);
   };
 
-  toggleMoreMenu = () => {
-    const displayMenu = !this.state.displayMoreMenu;
-    this.setState(() => ({
-      displayMoreMenu: displayMenu,
-    }));
-    if (displayMenu) {
-      document.addEventListener('mousedown', this.handleClickOutside);
-    }
-  };
-
-  _tabChanged(tabName, index, event) {
+  const tabChanged = (tabName, index, event) => {
     event.stopPropagation();
-    if (!this.props.disabled) {
+    if (!disabled) {
+      /*
       this.setState(() => ({
         selectedTabIndex: index,
         displayMoreMenu: false,
       }),
-      () => this.props.tabChanged(tabName, index));
+      () => tabChanged(tabName, index));
+      */
     }
-    if (this.props.directAccessTabs && index >= this.props.directAccessTabs) {
-      this.setState(() => ({
-        moreTabLabel: tabName,
-      }));
+    if (directAccessTabs && index >= directAccessTabs) {
+      setMoreTabLabel(tabName);
     } else {
-      this.setState(() => ({
-        moreTabLabel: 'More',
-      }));
+      setMoreTabLabel('More');
     }
-  }
+  };
 
-  renderMoreMenu = (moreTabs, visibleTabs) => (
-    <div className={styles.moreMenu} ref={(menu) => { this.menuRef = menu; }} role="listbox">
+  const renderMoreMenu = (moreTabs : null | Array<Tab>, visibleTabs: null | Array<Tab>) => (
+    <div className={styles.moreMenu} ref={menuRef} role="listbox">
       <div className={styles.titleBox}>
         <span className={styles.title}>
           {' '}
-          {this.state.moreTabLabel}
+          {moreTabLabel}
           {' '}
         </span>
         <span className={clsx('pyreneIcon-chevronDown', styles.moreArrow)} />
       </div>
-      {moreTabs.map((tab, index) => (
+      {moreTabs?.map?.((tab, index) => (
         <div
           className={clsx(styles.option, { [styles.disabled]: tab.disabled })}
-          onClick={(event) => !tab.disabled && this._tabChanged(tab.name, index + visibleTabs.length, event)}
+          onClick={(event) => !tab.disabled && tabChanged(tab.name, index + (visibleTabs?.length || 0), event)}
           key={tab.name}
           role="option"
         >
@@ -92,110 +130,64 @@ export default class TabView extends React.Component {
     </div>
   );
 
-  render() {
-    const [visibleTabs, moreTabs] = this.computeTabs();
+  const [visibleTabs, moreTabs] = computeTabs();
 
-    return (
-      <div className={clsx(styles.tabView, { [styles.disabled]: this.props.disabled })}>
-        <div className={styles.tabBar} role="tablist">
-          {
-            visibleTabs.map((tab, index) => (
-              <div
-                className={clsx(
-                  styles.tab,
-                  { [styles.selected]: index === this.state.selectedTabIndex },
-                  { [styles.disabled]: tab.disabled },
-                  'unSelectable',
-                )}
-                style={{ maxWidth: this.props.maxTabWidth }}
-                onClick={(event) => !tab.disabled && this._tabChanged(tab.name, index, event)}
-                key={tab.name}
-                role="tab"
-              >
-                {tab.name}
-                {tab.renderAuxiliaryInfo?.()}
-              </div>
-            ))
-          }
-          {moreTabs && moreTabs.length > 0
-          && (
+  return (
+    <div className={clsx(styles.tabView, { [styles.disabled]: disabled })}>
+      <div className={styles.tabBar} role="tablist">
+        {
+          visibleTabs?.map?.((tab, index) => (
             <div
               className={clsx(
-                styles.moreTab,
-                { [styles.displayMenu]: this.state.displayMoreMenu },
-                { [styles.selected]: this.state.selectedTabIndex >= visibleTabs.length },
-                { [styles.hidden]: !moreTabs.some((element) => (typeof element.disabled === 'undefined' || element.disabled === false)) },
+                styles.tab,
+                { [styles.selected]: index === selectedTabIndex },
+                { [styles.disabled]: tab.disabled },
                 'unSelectable',
               )}
-              style={{ maxWidth: this.props.maxTabWidth }}
-              onClick={this.toggleMoreMenu}
+              style={{ maxWidth: maxTabWidth }}
+              onClick={(event) => !tab.disabled && tabChanged(tab.name, index, event)}
+              key={tab.name}
+              role="tab"
             >
-              <div className={styles.titleBox}>
-                <span className={styles.title}>
-                  {' '}
-                  {this.state.moreTabLabel}
-                  {' '}
-                </span>
-                <span className={clsx('pyreneIcon-chevronDown', styles.moreArrow)} />
-              </div>
-              {this.renderMoreMenu(moreTabs, visibleTabs)}
+              {tab.name}
+              {tab.renderAuxiliaryInfo?.()}
             </div>
-          )}
-        </div>
-        {this.props.tabHeaderElement}
-        <div className={clsx(styles.tabContent, { [styles.withHeader]: !!this.props.tabHeaderElement })} role="tabpanel">
-          {this.props.tabs[this.state.selectedTabIndex].renderCallback()}
-        </div>
-
+          ))
+        }
+        {moreTabs && moreTabs.length > 0
+        && (
+          <div
+            className={clsx(
+              styles.moreTab,
+              { [styles.displayMenu]: displayMoreMenu },
+              { [styles.selected]: selectedTabIndex >= (!!visibleTabs && visibleTabs.length) },
+              { [styles.hidden]: !moreTabs.some((element) => (typeof element.disabled === 'undefined' || element.disabled === false)) },
+              'unSelectable',
+            )}
+            style={{ maxWidth: maxTabWidth }}
+            onClick={toggleMoreMenu}
+          >
+            <div className={styles.titleBox}>
+              <span className={styles.title}>
+                {' '}
+                {moreTabLabel}
+                {' '}
+              </span>
+              <span className={clsx('pyreneIcon-chevronDown', styles.moreArrow)} />
+            </div>
+            {renderMoreMenu(moreTabs, visibleTabs)}
+          </div>
+        )}
       </div>
-    );
-  }
+      {tabHeaderElement}
+      <div className={clsx(styles.tabContent, { [styles.withHeader]: !!tabHeaderElement })} role="tabpanel">
+        {tabs[selectedTabIndex].renderCallback()}
+      </div>
 
+    </div>
+  );
 }
 
 TabView.displayName = 'TabView';
 
-TabView.defaultProps = {
-  disabled: false,
-  tabChanged: () => null,
-  directAccessTabs: null,
-  maxTabWidth: 127,
-  tabHeaderElement: null,
-};
-
-TabView.propTypes = {
-  /**
-   * Sets the number of tabs that are displayed before the more tab.
-   */
-  directAccessTabs: PropTypes.number,
-  /**
-   * Disables any interaction with the component.
-   */
-  disabled: PropTypes.bool,
-  /**
-   * Sets the tab to preselect when the component is first mounted.
-   */
-  initialTabName: PropTypes.string.isRequired,
-  /**
-   * Sets a maximum allowed width for the tabs.
-   */
-  maxTabWidth: PropTypes.number,
-  /**
-   * Called when the selected tab changes.
-   */
-  tabChanged: PropTypes.func,
-  /**
-   * Tab header element between tab content and tabs
-   */
-  tabHeaderElement: PropTypes.element,
-  /**
-   * Data input array for the tabs.
-   * Type: [{ name: string (required), renderAuxiliaryInfo: func, renderCallback: func (required), disabled: bool }]
-   */
-  tabs: PropTypes.arrayOf(PropTypes.shape({
-    disabled: PropTypes.bool,
-    name: PropTypes.string.isRequired,
-    renderAuxiliaryInfo: PropTypes.func,
-    renderCallback: PropTypes.func.isRequired,
-  })).isRequired,
-};
+export default TabView;
