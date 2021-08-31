@@ -144,11 +144,13 @@ const TabView: FunctionComponent<TabViewProps> = ({
     const displayMenu = !state.displayMoreMenu;
     dispatch({ type: 'togglingMore', payload: { displayMoreMenu: displayMenu } });
     if (displayMenu) {
+      // eslint-disable-next-line @typescript-eslint/no-use-before-define
       document.addEventListener('mousedown', handleClickOutside);
     }
   };
 
-  const handleClickOutside = (event: React.MouseEvent<any>) => {
+  const handleClickOutside = (event: any) => {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     if (menuRef.current && !menuRef.current.contains(event.target) && state.displayMoreMenu) {
       toggleMoreMenu();
     }
