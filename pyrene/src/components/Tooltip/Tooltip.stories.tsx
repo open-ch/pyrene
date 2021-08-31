@@ -12,7 +12,7 @@ export default {
   component: ToolTipComponent.default,
 } as Meta;
 
-const Template: Story<ToolTipComponent.TooltipProps> = (args) => <Component {...args} />;
+const Template: Story<ToolTipComponent.TooltipProps> = (args) => <Component {...args}><Placeholder label="Hover me" /></Component>;
 
 export const Tooltip = Template.bind({});
 
@@ -20,5 +20,4 @@ Tooltip.args = {
   label: 'Tooltip Label',
   preferredPosition: ['top', 'bottom'],
   align: 'center',
-  children: <Placeholder width={320} label="Hover me" />,
 };
