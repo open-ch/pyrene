@@ -50,7 +50,7 @@ interface State {
 }
 
 interface Action {
-  type: 'togglingMore' | 'clickingTab' | 'changingTab'
+  type: 'togglingMore' | 'clickingTab' | 'changingTab' | 'updatingLabel'
 }
 
 interface TogglingMoreAction extends Action {
@@ -76,8 +76,14 @@ interface ChangingTabAction extends Action {
     tabChanged?: TabViewProps['tabChanged'],
   }
 }
+interface UpdatingLabelAction extends Action {
+  type: 'updatingLabel',
+  payload: {
+    moreTabLabel: string,
+  }
+}
 
-const reducer = (state: State, action: TogglingMoreAction | ClickingTabAction | ChangingTabAction): State => {
+const reducer = (state: State, action: TogglingMoreAction | ClickingTabAction | ChangingTabAction | UpdatingLabelAction): State => {
   switch (action.type) {
     case 'togglingMore': {
       return {
@@ -95,6 +101,12 @@ const reducer = (state: State, action: TogglingMoreAction | ClickingTabAction | 
     case 'changingTab':
       action.payload?.tabChanged?.(action.payload.tabName, action.payload.index);
       return { ...state };
+    case 'updatingLabel': {
+      return {
+        ...state,
+        moreTabLabel: action.payload.moreTabLabel,
+      };
+    }
     default: {
       return { ...state };
     }
@@ -148,9 +160,9 @@ const TabView: FunctionComponent<TabViewProps> = ({
       dispatch({ type: 'changingTab', payload: { tabName, index, tabChanged } });
     }
     if (directAccessTabs && index >= directAccessTabs) {
-      setMoreTabLabel(tabName);
+      dispatch({ type: 'updatingLabel', payload: { moreTabLabel: tabName } });
     } else {
-      setMoreTabLabel('More');
+      dispatch({ type: 'updatingLabel', payload: { moreTabLabel: 'More' } });
     }
   };
 
