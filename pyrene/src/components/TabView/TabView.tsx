@@ -76,6 +76,7 @@ interface ChangingTabAction extends Action {
     tabChanged?: TabViewProps['tabChanged'],
   }
 }
+
 interface UpdatingLabelAction extends Action {
   type: 'updatingLabel',
   payload: {
@@ -215,8 +216,7 @@ const TabView: FunctionComponent<TabViewProps> = ({
             </div>
           ))
         }
-        {moreTabs && moreTabs.length > 0
-        && (
+        {moreTabs && moreTabs.length > 0 && (
           <div
             className={clsx(
               styles.moreTab,
@@ -244,7 +244,6 @@ const TabView: FunctionComponent<TabViewProps> = ({
       <div className={clsx(styles.tabContent, { [styles.withHeader]: !!tabHeaderElement })} role="tabpanel">
         {tabs[state.selectedTabIndex].renderCallback()}
       </div>
-
     </div>
   );
 };
