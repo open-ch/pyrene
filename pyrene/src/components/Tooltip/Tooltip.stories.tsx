@@ -2,17 +2,15 @@ import React from 'react';
 
 import { Story, Meta } from '@storybook/react';
 
-import * as ToolTipComponent from './Tooltip';
+import ToolTipComponent, { TooltipProps } from './Tooltip';
 import Placeholder from '../../examples/Placeholder';
-
-const Component = ToolTipComponent.default;
 
 export default {
   title: 'Components/Other/Tooltip',
-  component: ToolTipComponent.default,
+  component: ToolTipComponent,
 } as Meta;
 
-const Template: Story<ToolTipComponent.TooltipProps> = (args) => <Component {...args}><Placeholder label="Hover me" /></Component>;
+const Template: Story<TooltipProps> = (args) => <ToolTipComponent {...args}><Placeholder label="Hover me" /></ToolTipComponent>;
 
 export const Tooltip = Template.bind({});
 
