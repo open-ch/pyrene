@@ -2,16 +2,17 @@ import React from 'react';
 
 import { Story, Meta } from '@storybook/react';
 
-// eslint-disable-next-line import/no-named-default
-import { default as ToolTipComponent, TooltipProps } from './Tooltip';
+import * as ToolTipComponent from './Tooltip';
 import Placeholder from '../../examples/Placeholder';
+
+const Component = ToolTipComponent.default;
 
 export default {
   title: 'Components/Other/Tooltip',
-  component: ToolTipComponent,
+  component: ToolTipComponent.default,
 } as Meta;
 
-const Template: Story<TooltipProps> = (args) => <ToolTipComponent {...args} />;
+const Template: Story<ToolTipComponent.TooltipProps> = (args) => <Component {...args} />;
 
 export const Tooltip = Template.bind({});
 
