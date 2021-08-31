@@ -1,5 +1,5 @@
 /* eslint-disable react/require-default-props */
-import React, { FunctionComponent, useState, useRef, useReducer } from 'react';
+import React, { FunctionComponent, useRef, useReducer } from 'react';
 import clsx from 'clsx';
 
 import styles from './tabView.css';
@@ -31,7 +31,7 @@ interface TabViewProps {
   /**
    * Called when the selected tab changes.
    */
-  tabChanged?: () => void,
+  tabChanged?: (tabName: string, index: number) => void,
   /**
    * Tab header element between tab content and tabs
    */
@@ -50,53 +50,56 @@ interface State {
 }
 
 interface Action {
-  type: 'toggling' | 'loading' | 'changing'
+  type: 'togglingMore' | 'clickingTab' | 'changingTab'
 }
 
-interface TogglingAction extends Action {
-  type: 'toggling',
+interface TogglingMoreAction extends Action {
+  type: 'togglingMore',
   payload: {
-    expanded: boolean,
+    displayMoreMenu: boolean,
   }
 }
 
-interface ChangingAction extends Action {
-  type: 'changing',
+interface ClickingTabAction extends Action {
+  type: 'clickingTab',
   payload: {
-    event: MouseEvent<HTMLDivElement>,
-    onChange?: (event: MouseEvent<HTMLDivElement>) => void
+    selectedTabIndex: number,
+    displayMoreMenu: boolean,
   }
 }
 
-interface LoadingAction extends Action {
-  type: 'loading',
+interface ChangingTabAction extends Action {
+  type: 'changingTab',
   payload: {
-    contentHeight: ContentHeight
+    index: number,
+    tabName: string,
+    tabChanged?: TabViewProps['tabChanged'],
   }
 }
 
-const reducer = (state: State, action: LoadingAction | TogglingAction | ChangingAction): State => {
+const reducer = (state: State, action: TogglingMoreAction | ClickingTabAction | ChangingTabAction): State => {
   switch (action.type) {
-    case 'loading':
+    case 'togglingMore': {
       return {
         ...state,
-        contentHeight: action.payload.contentHeight,
-      };
-    case 'toggling': {
-      return {
-        ...state,
-        expanded: action.payload.expanded,
+        displayMoreMenu: action.payload.displayMoreMenu,
       };
     }
-    case 'changing':
-      action.payload?.onChange?.(action.payload.event);
+    case 'clickingTab': {
+      return {
+        ...state,
+        selectedTabIndex: action.payload.selectedTabIndex,
+        displayMoreMenu: action.payload.displayMoreMenu,
+      };
+    }
+    case 'changingTab':
+      action.payload?.tabChanged?.(action.payload.tabName, action.payload.index);
       return { ...state };
     default: {
       return { ...state };
     }
   }
 };
-
 
 /**
  * Tabs are used to display multiple contents in a single container.
@@ -120,20 +123,12 @@ const TabView: FunctionComponent<TabViewProps> = ({
 
   const menuRef = useRef<HTMLDivElement | null>(null);
 
-
-  const computeTabs = () => (directAccessTabs && tabs.length > directAccessTabs
-    ? [
-      tabs.slice(0, directAccessTabs),
-      tabs.slice(directAccessTabs),
-    ]
-    : [
-      tabs,
-      null,
-    ]);
+  const computeTabs = () => (directAccessTabs && tabs.length > directAccessTabs ? [tabs.slice(0, directAccessTabs), tabs.slice(directAccessTabs)]
+    : [tabs, null]);
 
   const toggleMoreMenu = () => {
     const displayMenu = !state.displayMoreMenu;
-    setDisplayMoreMenu(displayMenu);
+    dispatch({ type: 'togglingMore', payload: { displayMoreMenu: displayMenu } });
     if (displayMenu) {
       document.addEventListener('mousedown', handleClickOutside);
     }
@@ -149,13 +144,8 @@ const TabView: FunctionComponent<TabViewProps> = ({
   const doChangeTab = (tabName: string, index: number, event: React.MouseEvent<HTMLDivElement>) => {
     event.stopPropagation();
     if (!disabled) {
-      /*
-      this.setState(() => ({
-        selectedTabIndex: index,
-        displayMoreMenu: false,
-      }),
-      () => tabChanged(tabName, index));
-      */
+      dispatch({ type: 'clickingTab', payload: { selectedTabIndex: index, displayMoreMenu: false } });
+      dispatch({ type: 'changingTab', payload: { tabName, index, tabChanged } });
     }
     if (directAccessTabs && index >= directAccessTabs) {
       setMoreTabLabel(tabName);
