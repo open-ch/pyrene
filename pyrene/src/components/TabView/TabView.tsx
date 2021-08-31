@@ -1,3 +1,4 @@
+/* eslint-disable react/require-default-props */
 import React, { FunctionComponent, useState, useRef } from 'react';
 import clsx from 'clsx';
 
@@ -50,11 +51,11 @@ interface TabViewProps {
 const TabView: FunctionComponent<TabViewProps> = ({
   tabs,
   initialTabName,
-  tabChanged: () => null,
-  directAccessTabs = null,
+  directAccessTabs = 0,
   disabled = false,
   maxTabWidth = 127,
   tabHeaderElement = null,
+  tabChanged = () => null,
 }: TabViewProps) => {
 
   const [selectedTabIndex, setSelectedTabIndex] = useState(tabs.map((t) => t.name).indexOf(initialTabName));
@@ -63,7 +64,7 @@ const TabView: FunctionComponent<TabViewProps> = ({
   const menuRef = useRef<HTMLDivElement | null>(null);
 
 
-  const computeTabs = () => directAccessTabs && tabs.length > directAccessTabs
+  const computeTabs = () => (directAccessTabs && tabs.length > directAccessTabs
     ? [
       tabs.slice(0, directAccessTabs),
       tabs.slice(directAccessTabs),
@@ -71,24 +72,24 @@ const TabView: FunctionComponent<TabViewProps> = ({
     : [
       tabs,
       null,
-    ];
+    ]);
 
-    const toggleMoreMenu = () => {
-      const displayMenu = !displayMoreMenu;
-      setDisplayMoreMenu(displayMenu);
-      if (displayMenu) {
-        document.addEventListener('mousedown', handleClickOutside);
-      }
-    };
-    
-  const handleClickOutside = (event: any) => {
-    if (menuRef.current && !menuRef.current.contains(event.target) && displayMoreMenu) {
+  const toggleMoreMenu = () => {
+    const displayMenu = !displayMoreMenu;
+    setDisplayMoreMenu(displayMenu);
+    if (displayMenu) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+  };
+
+  const handleClickOutside = (event: React.MouseEvent<HTMLDocument>) => {
+    if (menuRef.current && !menuRef.current.contains(event.target as any) && displayMoreMenu) {
       toggleMoreMenu();
     }
     document.removeEventListener('mousedown', handleClickOutside);
   };
 
-  const tabChanged = (tabName, index, event) => {
+  const doChangeTab = (tabName: string, index: number, event: React.MouseEvent<HTMLDivElement>) => {
     event.stopPropagation();
     if (!disabled) {
       /*
@@ -119,7 +120,7 @@ const TabView: FunctionComponent<TabViewProps> = ({
       {moreTabs?.map?.((tab, index) => (
         <div
           className={clsx(styles.option, { [styles.disabled]: tab.disabled })}
-          onClick={(event) => !tab.disabled && tabChanged(tab.name, index + (visibleTabs?.length || 0), event)}
+          onClick={(event) => !tab.disabled && doChangeTab(tab.name, index + (visibleTabs?.length || 0), event)}
           key={tab.name}
           role="option"
         >
@@ -145,7 +146,7 @@ const TabView: FunctionComponent<TabViewProps> = ({
                 'unSelectable',
               )}
               style={{ maxWidth: maxTabWidth }}
-              onClick={(event) => !tab.disabled && tabChanged(tab.name, index, event)}
+              onClick={(event) => !tab.disabled && doChangeTab(tab.name, index, event)}
               key={tab.name}
               role="tab"
             >
@@ -186,7 +187,7 @@ const TabView: FunctionComponent<TabViewProps> = ({
 
     </div>
   );
-}
+};
 
 TabView.displayName = 'TabView';
 
