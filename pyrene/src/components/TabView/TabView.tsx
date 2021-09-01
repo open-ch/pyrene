@@ -1,8 +1,8 @@
 /* eslint-disable react/require-default-props */
-import React, { FunctionComponent, useRef, useReducer } from 'react';
+import React from 'react';
 import clsx from 'clsx';
 
-import styles from './tabView.css';
+import styles from './tabView.module.css';
 
 interface Tab {
   disabled?: boolean,
@@ -43,147 +43,91 @@ interface TabViewProps {
   tabs: Array<Tab>,
 }
 
-interface State {
+interface TabViewState {
   selectedTabIndex: number,
   displayMoreMenu: boolean,
   moreTabLabel: string,
 }
-
-interface Action {
-  type: 'togglingMore' | 'clickingTab' | 'changingTab' | 'updatingLabel'
-}
-
-interface TogglingMoreAction extends Action {
-  type: 'togglingMore',
-  payload: {
-    displayMoreMenu: boolean,
-  }
-}
-
-interface ClickingTabAction extends Action {
-  type: 'clickingTab',
-  payload: {
-    selectedTabIndex: number,
-    displayMoreMenu: boolean,
-  }
-}
-
-interface ChangingTabAction extends Action {
-  type: 'changingTab',
-  payload: {
-    index: number,
-    tabName: string,
-    tabChanged?: TabViewProps['tabChanged'],
-  }
-}
-
-interface UpdatingLabelAction extends Action {
-  type: 'updatingLabel',
-  payload: {
-    moreTabLabel: string,
-  }
-}
-
-const reducer = (state: State, action: TogglingMoreAction | ClickingTabAction | ChangingTabAction | UpdatingLabelAction): State => {
-  switch (action.type) {
-    case 'togglingMore': {
-      return {
-        ...state,
-        displayMoreMenu: action.payload.displayMoreMenu,
-      };
-    }
-    case 'clickingTab': {
-      return {
-        ...state,
-        selectedTabIndex: action.payload.selectedTabIndex,
-        displayMoreMenu: action.payload.displayMoreMenu,
-      };
-    }
-    case 'changingTab': {
-      action.payload?.tabChanged?.(action.payload.tabName, action.payload.index);
-      return { ...state };
-    }
-    case 'updatingLabel': {
-      return {
-        ...state,
-        moreTabLabel: action.payload.moreTabLabel,
-      };
-    }
-    default: {
-      return { ...state };
-    }
-  }
-};
 
 /**
  * Tabs are used to display multiple contents in a single container.
  *
  * Tabs are useful for displaying different contexts without having to navigate to other pages.
  */
-const TabView: FunctionComponent<TabViewProps> = ({
-  tabs,
-  initialTabName,
-  directAccessTabs = 0,
-  disabled = false,
-  maxTabWidth = 127,
-  tabHeaderElement = null,
-  tabChanged = () => null,
-}: TabViewProps) => {
-  const [state, dispatch] = useReducer(reducer, {
-    selectedTabIndex: tabs.map((t) => t.name).indexOf(initialTabName),
-    displayMoreMenu: false,
-    moreTabLabel: 'More',
-  });
 
-  const menuRef = useRef<HTMLDivElement | null>(null);
+export default class TabView extends React.Component<TabViewProps, TabViewState> {
 
-  const computeTabs = () => (directAccessTabs && tabs.length > directAccessTabs ? [tabs.slice(0, directAccessTabs), tabs.slice(directAccessTabs)]
-    : [tabs, null]);
+  constructor(props) {
+    super(props);
 
-  const toggleMoreMenu = () => {
-    const displayMenu = !state.displayMoreMenu;
-    dispatch({ type: 'togglingMore', payload: { displayMoreMenu: displayMenu } });
+    this.state = {
+      selectedTabIndex: props.tabs.map((t) => t.name).indexOf(props.initialTabName),
+      displayMoreMenu: false,
+      moreTabLabel: 'More',
+    };
+  }
+
+  computeTabs = () => (this.props.directAccessTabs && this.props.tabs.length > this.props.directAccessTabs
+    ? [
+      this.props.tabs.slice(0, this.props.directAccessTabs),
+      this.props.tabs.slice(this.props.directAccessTabs),
+    ]
+    : [
+      this.props.tabs,
+      null,
+    ]);
+
+  handleClickOutside = (event) => {
+    if (this.menuRef && !this.menuRef.contains(event.target) && this.state.displayMoreMenu) {
+      this.toggleMoreMenu();
+    }
+    document.removeEventListener('mousedown', this.handleClickOutside);
+  };
+
+  toggleMoreMenu = () => {
+    const displayMenu = !this.state.displayMoreMenu;
+    this.setState(() => ({
+      displayMoreMenu: displayMenu,
+    }));
     if (displayMenu) {
-      // eslint-disable-next-line @typescript-eslint/no-use-before-define
-      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener('mousedown', this.handleClickOutside);
     }
   };
 
-  const handleClickOutside = (event: any) => {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    if (menuRef.current && !menuRef.current.contains(event.target) && state.displayMoreMenu) {
-      toggleMoreMenu();
-    }
-    document.removeEventListener('mousedown', handleClickOutside);
-  };
-
-  const doChangeTab = (tabName: string, index: number, event: React.MouseEvent<HTMLDivElement>) => {
+  _tabChanged(tabName, index, event) {
     event.stopPropagation();
-    if (!disabled) {
-      dispatch({ type: 'clickingTab', payload: { selectedTabIndex: index, displayMoreMenu: false } });
-      dispatch({ type: 'changingTab', payload: { tabName, index, tabChanged } });
+    if (!this.props.disabled) {
+      this.setState(() => ({
+        selectedTabIndex: index,
+        displayMoreMenu: false,
+      }),
+      () => this.props.tabChanged(tabName, index));
     }
-    if (directAccessTabs && index >= directAccessTabs) {
-      dispatch({ type: 'updatingLabel', payload: { moreTabLabel: tabName } });
+    if (this.props.directAccessTabs && index >= this.props.directAccessTabs) {
+      this.setState(() => ({
+        moreTabLabel: tabName,
+      }));
     } else {
-      dispatch({ type: 'updatingLabel', payload: { moreTabLabel: 'More' } });
+      this.setState(() => ({
+        moreTabLabel: 'More',
+      }));
     }
-  };
+  }
 
-  const renderMoreMenu = (moreTabs : null | Array<Tab>, visibleTabs: null | Array<Tab>) => (
-    <div className={styles.moreMenu} ref={menuRef} role="listbox">
+  renderMoreMenu = (moreTabs, visibleTabs) => (
+    <div className={styles.moreMenu} ref={(menu) => { this.menuRef = menu; }} role="listbox">
       <div className={styles.titleBox}>
         <span className={styles.title}>
           {' '}
-          {state.moreTabLabel}
+          {this.state.moreTabLabel}
           {' '}
         </span>
         <span className={clsx('pyreneIcon-chevronDown', styles.moreArrow)} />
       </div>
-      {moreTabs?.map?.((tab, index) => (
+      {moreTabs.map((tab, index) => (
         <div
           className={clsx(styles.option, { [styles.disabled]: tab.disabled })}
-          onClick={(event) => !tab.disabled && doChangeTab(tab.name, index + (visibleTabs?.length || 0), event)}
+          onClick={(event) => !tab.disabled && this._tabChanged(tab.name, index + visibleTabs.length, event)}
           key={tab.name}
           role="option"
         >
@@ -194,62 +138,65 @@ const TabView: FunctionComponent<TabViewProps> = ({
     </div>
   );
 
-  const [visibleTabs, moreTabs] = computeTabs();
+  render() {
+    const [visibleTabs, moreTabs] = this.computeTabs();
 
-  return (
-    <div className={clsx(styles.tabView, { [styles.disabled]: disabled })}>
-      <div className={styles.tabBar} role="tablist">
-        {
-          visibleTabs?.map?.((tab, index) => (
+    return (
+      <div className={clsx(styles.tabView, { [styles.disabled]: this.props.disabled })}>
+        <div className={styles.tabBar} role="tablist">
+          {
+            visibleTabs.map((tab, index) => (
+              <div
+                className={clsx(
+                  styles.tab,
+                  { [styles.selected]: index === this.state.selectedTabIndex },
+                  { [styles.disabled]: tab.disabled },
+                  'unSelectable',
+                )}
+                style={{ maxWidth: this.props.maxTabWidth }}
+                onClick={(event) => !tab.disabled && this._tabChanged(tab.name, index, event)}
+                key={tab.name}
+                role="tab"
+              >
+                {tab.name}
+                {tab.renderAuxiliaryInfo?.()}
+              </div>
+            ))
+          }
+          {moreTabs && moreTabs.length > 0
+          && (
             <div
               className={clsx(
-                styles.tab,
-                { [styles.selected]: index === state.selectedTabIndex },
-                { [styles.disabled]: tab.disabled },
+                styles.moreTab,
+                { [styles.displayMenu]: this.state.displayMoreMenu },
+                { [styles.selected]: this.state.selectedTabIndex >= visibleTabs.length },
+                { [styles.hidden]: !moreTabs.some((element) => (typeof element.disabled === 'undefined' || element.disabled === false)) },
                 'unSelectable',
               )}
-              style={{ maxWidth: maxTabWidth }}
-              onClick={(event) => !tab.disabled && doChangeTab(tab.name, index, event)}
-              key={tab.name}
-              role="tab"
+              style={{ maxWidth: this.props.maxTabWidth }}
+              onClick={this.toggleMoreMenu}
             >
-              {tab.name}
-              {tab.renderAuxiliaryInfo?.()}
+              <div className={styles.titleBox}>
+                <span className={styles.title}>
+                  {' '}
+                  {this.state.moreTabLabel}
+                  {' '}
+                </span>
+                <span className={clsx('pyreneIcon-chevronDown', styles.moreArrow)} />
+              </div>
+              {this.renderMoreMenu(moreTabs, visibleTabs)}
             </div>
-          ))
-        }
-        {moreTabs && moreTabs.length > 0 && (
-          <div
-            className={clsx(
-              styles.moreTab,
-              { [styles.displayMenu]: state.displayMoreMenu },
-              { [styles.selected]: state.selectedTabIndex >= (!!visibleTabs && visibleTabs.length) },
-              { [styles.hidden]: !moreTabs.some((element) => (typeof element.disabled === 'undefined' || element.disabled === false)) },
-              'unSelectable',
-            )}
-            style={{ maxWidth: maxTabWidth }}
-            onClick={toggleMoreMenu}
-          >
-            <div className={styles.titleBox}>
-              <span className={styles.title}>
-                {' '}
-                {state.moreTabLabel}
-                {' '}
-              </span>
-              <span className={clsx('pyreneIcon-chevronDown', styles.moreArrow)} />
-            </div>
-            {renderMoreMenu(moreTabs, visibleTabs)}
-          </div>
-        )}
+          )}
+        </div>
+        {this.props.tabHeaderElement}
+        <div className={clsx(styles.tabContent, { [styles.withHeader]: !!this.props.tabHeaderElement })} role="tabpanel">
+          {this.props.tabs[this.state.selectedTabIndex].renderCallback()}
+        </div>
+
       </div>
-      {tabHeaderElement}
-      <div className={clsx(styles.tabContent, { [styles.withHeader]: !!tabHeaderElement })} role="tabpanel">
-        {tabs[state.selectedTabIndex].renderCallback()}
-      </div>
-    </div>
-  );
-};
+    );
+  }
+
+}
 
 TabView.displayName = 'TabView';
-
-export default TabView;
