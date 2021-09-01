@@ -1,4 +1,4 @@
-/* eslint-disable react/require-default-props */
+/* eslint-disable react/static-property-placement */
 import React, { createRef } from 'react';
 import clsx from 'clsx';
 
@@ -59,6 +59,16 @@ export default class TabView extends React.Component<TabViewProps, TabViewState>
 
   menuRef = createRef<HTMLDivElement>();
 
+  static displayName = 'TabView';
+
+  static defaultProps = {
+    disabled: false,
+    tabChanged: (): null => null,
+    directAccessTabs: null,
+    maxTabWidth: 127,
+    tabHeaderElement: null,
+  };
+
   constructor(props: TabViewProps) {
     super(props);
 
@@ -79,7 +89,8 @@ export default class TabView extends React.Component<TabViewProps, TabViewState>
       null,
     ]);
 
-  handleClickOutside = (event) => {
+  handleClickOutside = (event: any) => {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     if (this.menuRef.current && !this.menuRef.current.contains(event.target) && this.state.displayMoreMenu) {
       this.toggleMoreMenu();
     }
@@ -97,7 +108,7 @@ export default class TabView extends React.Component<TabViewProps, TabViewState>
   };
 
   _tabChanged(tabName: string, index: number, event: any) {
-    event.stopPropagation();
+//    event.stopPropagation();
     if (!this.props.disabled) {
       this.setState(() => ({
         selectedTabIndex: index,
@@ -194,19 +205,7 @@ export default class TabView extends React.Component<TabViewProps, TabViewState>
         <div className={clsx(styles.tabContent, { [styles.withHeader]: !!this.props.tabHeaderElement })} role="tabpanel">
           {this.props.tabs[this.state.selectedTabIndex].renderCallback()}
         </div>
-
       </div>
     );
   }
-
 }
-
-TabView.displayName = 'TabView';
-
-TabView.defaultProps = {
-  disabled: false,
-  tabChanged: () => null,
-  directAccessTabs: null,
-  maxTabWidth: 127,
-  tabHeaderElement: null,
-};
