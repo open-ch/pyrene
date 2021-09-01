@@ -1,5 +1,5 @@
 /* eslint-disable react/require-default-props */
-import React from 'react';
+import React, { createRef } from 'react';
 import clsx from 'clsx';
 
 import styles from './tabView.module.css';
@@ -57,7 +57,9 @@ interface TabViewState {
 
 export default class TabView extends React.Component<TabViewProps, TabViewState> {
 
-  constructor(props) {
+  menuRef = createRef<HTMLDivElement>();
+
+  constructor(props: TabViewProps) {
     super(props);
 
     this.state = {
@@ -78,13 +80,13 @@ export default class TabView extends React.Component<TabViewProps, TabViewState>
     ]);
 
   handleClickOutside = (event) => {
-    if (this.menuRef && !this.menuRef.contains(event.target) && this.state.displayMoreMenu) {
+    if (this.menuRef.current && !this.menuRef.current.contains(event.target) && this.state.displayMoreMenu) {
       this.toggleMoreMenu();
     }
     document.removeEventListener('mousedown', this.handleClickOutside);
   };
 
-  toggleMoreMenu = () => {
+  toggleMoreMenu = (): void => {
     const displayMenu = !this.state.displayMoreMenu;
     this.setState(() => ({
       displayMoreMenu: displayMenu,
@@ -94,14 +96,14 @@ export default class TabView extends React.Component<TabViewProps, TabViewState>
     }
   };
 
-  _tabChanged(tabName, index, event) {
+  _tabChanged(tabName: string, index: number, event: any) {
     event.stopPropagation();
     if (!this.props.disabled) {
       this.setState(() => ({
         selectedTabIndex: index,
         displayMoreMenu: false,
       }),
-      () => this.props.tabChanged(tabName, index));
+      () => this.props?.tabChanged?.(tabName, index));
     }
     if (this.props.directAccessTabs && index >= this.props.directAccessTabs) {
       this.setState(() => ({
@@ -114,8 +116,8 @@ export default class TabView extends React.Component<TabViewProps, TabViewState>
     }
   }
 
-  renderMoreMenu = (moreTabs, visibleTabs) => (
-    <div className={styles.moreMenu} ref={(menu) => { this.menuRef = menu; }} role="listbox">
+  renderMoreMenu = (moreTabs: null | Array<Tab>, visibleTabs: null | Array<Tab>): JSX.Element => (
+    <div className={styles.moreMenu} ref={this.menuRef} role="listbox">
       <div className={styles.titleBox}>
         <span className={styles.title}>
           {' '}
@@ -124,10 +126,10 @@ export default class TabView extends React.Component<TabViewProps, TabViewState>
         </span>
         <span className={clsx('pyreneIcon-chevronDown', styles.moreArrow)} />
       </div>
-      {moreTabs.map((tab, index) => (
+      {moreTabs?.map?.((tab, index) => (
         <div
           className={clsx(styles.option, { [styles.disabled]: tab.disabled })}
-          onClick={(event) => !tab.disabled && this._tabChanged(tab.name, index + visibleTabs.length, event)}
+          onClick={(event) => !tab.disabled && this._tabChanged(tab.name, index + (visibleTabs?.length || 0), event)}
           key={tab.name}
           role="option"
         >
@@ -145,7 +147,7 @@ export default class TabView extends React.Component<TabViewProps, TabViewState>
       <div className={clsx(styles.tabView, { [styles.disabled]: this.props.disabled })}>
         <div className={styles.tabBar} role="tablist">
           {
-            visibleTabs.map((tab, index) => (
+            visibleTabs?.map?.((tab, index) => (
               <div
                 className={clsx(
                   styles.tab,
@@ -169,7 +171,7 @@ export default class TabView extends React.Component<TabViewProps, TabViewState>
               className={clsx(
                 styles.moreTab,
                 { [styles.displayMenu]: this.state.displayMoreMenu },
-                { [styles.selected]: this.state.selectedTabIndex >= visibleTabs.length },
+                { [styles.selected]: this.state.selectedTabIndex >= (visibleTabs?.length || 0) },
                 { [styles.hidden]: !moreTabs.some((element) => (typeof element.disabled === 'undefined' || element.disabled === false)) },
                 'unSelectable',
               )}
@@ -200,3 +202,11 @@ export default class TabView extends React.Component<TabViewProps, TabViewState>
 }
 
 TabView.displayName = 'TabView';
+
+TabView.defaultProps = {
+  disabled: false,
+  tabChanged: () => null,
+  directAccessTabs: null,
+  maxTabWidth: 127,
+  tabHeaderElement: null,
+};
