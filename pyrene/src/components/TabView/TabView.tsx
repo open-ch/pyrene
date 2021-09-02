@@ -1,5 +1,5 @@
 /* eslint-disable react/static-property-placement */
-import React, { createRef } from 'react';
+import React, { createRef, MouseEvent } from 'react';
 import clsx from 'clsx';
 
 import styles from './tabView.module.css';
@@ -89,9 +89,9 @@ export default class TabView extends React.Component<TabViewProps, TabViewState>
       null,
     ]);
 
-  handleClickOutside = (event: any) => {
+  handleClickOutside = (event: MouseEvent | any): void => {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    if (this.menuRef.current && !this.menuRef.current.contains(event.target) && this.state.displayMoreMenu) {
+    if (this.menuRef.current && !this.menuRef.current.contains(event.target as Element) && this.state.displayMoreMenu) {
       this.toggleMoreMenu();
     }
     document.removeEventListener('mousedown', this.handleClickOutside);
@@ -107,8 +107,8 @@ export default class TabView extends React.Component<TabViewProps, TabViewState>
     }
   };
 
-  _tabChanged(tabName: string, index: number, event: any) {
-//    event.stopPropagation();
+  _tabChanged(tabName: string, index: number, event: MouseEvent<HTMLElement>): void {
+    event.stopPropagation();
     if (!this.props.disabled) {
       this.setState(() => ({
         selectedTabIndex: index,
