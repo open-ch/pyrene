@@ -79,7 +79,7 @@ export default class TabView extends React.Component<TabViewProps, TabViewState>
     };
   }
 
-  computeTabs = () => (this.props.directAccessTabs && this.props.tabs.length > this.props.directAccessTabs
+  computeTabs = ():[Array<Tab>, Array<Tab> | null] => (this.props.directAccessTabs && this.props.tabs.length > this.props.directAccessTabs
     ? [
       this.props.tabs.slice(0, this.props.directAccessTabs),
       this.props.tabs.slice(this.props.directAccessTabs),
@@ -151,7 +151,7 @@ export default class TabView extends React.Component<TabViewProps, TabViewState>
     </div>
   );
 
-  render() {
+  render(): JSX.Element {
     const [visibleTabs, moreTabs] = this.computeTabs();
 
     return (
@@ -208,4 +208,5 @@ export default class TabView extends React.Component<TabViewProps, TabViewState>
       </div>
     );
   }
+
 }
