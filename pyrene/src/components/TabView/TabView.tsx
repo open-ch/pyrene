@@ -13,7 +13,7 @@ interface Tab {
   renderCallback: () => JSX.Element,
 }
 
-interface TabViewProps {
+export interface TabViewProps {
   /**
    * Sets the number of tabs that are displayed before the more tab.
    */
