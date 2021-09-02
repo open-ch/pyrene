@@ -56,7 +56,6 @@ interface TabViewState {
  *
  * Tabs are useful for displaying different contexts without having to navigate to other pages.
  */
-
 export default class TabView extends Component<TabViewProps, TabViewState> {
 
   menuRef = createRef<HTMLDivElement>();
