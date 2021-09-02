@@ -1,5 +1,5 @@
 /* eslint-disable react/static-property-placement */
-import React, { createRef, MouseEvent } from 'react';
+import React, { createRef, MouseEvent, ReactNode, Component } from 'react';
 import clsx from 'clsx';
 
 import styles from './tabView.module.css';
@@ -35,7 +35,7 @@ interface TabViewProps {
   /**
    * Tab header element between tab content and tabs
    */
-  tabHeaderElement?: React.ReactNode,
+  tabHeaderElement?: ReactNode,
   /**
    * Data input array for the tabs.
    * Type: [{ name: string (required), renderAuxiliaryInfo: func, renderCallback: func (required), disabled: bool }]
@@ -55,7 +55,7 @@ interface TabViewState {
  * Tabs are useful for displaying different contexts without having to navigate to other pages.
  */
 
-export default class TabView extends React.Component<TabViewProps, TabViewState> {
+export default class TabView extends Component<TabViewProps, TabViewState> {
 
   menuRef = createRef<HTMLDivElement>();
 
