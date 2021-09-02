@@ -11,14 +11,14 @@ const renderAuxiliaryIcon = (name: string) => (
 );
 
 interface State {
-  tabName: string
+  tabName: number;
 }
 
 const TabView: Example<TabViewProps, State> = {
   props: {
     initialTabName: 'Tab 1',
     directAccessTabs: 3,
-    tabChanged: (stateProvider: StateProvider<State>) => () => stateProvider.setState((prevState) => ({ tabName: prevState.tabName ? `${prevState.tabName} ${1}` : '1' })),
+    tabChanged: (stateProvider: StateProvider<State>) => () => stateProvider.setState((prevState) => ({ tabName: prevState.tabName ? prevState.tabName + 1 : 1 })),
     tabs: (stateProvider) => [
       { name: 'Tab 1', renderAuxiliaryInfo: () => renderAuxiliaryIcon('home'), renderCallback: () => <Placeholder label="tab 1" /> }, // eslint-disable-line react/display-name
       { name: 'Tab 2', renderCallback: () => <Placeholder label={`Tab ${stateProvider.state.tabName}`} />, disabled: false }, // eslint-disable-line react/display-name
