@@ -1,5 +1,7 @@
 /* eslint-disable react/static-property-placement */
-import React, { createRef, MouseEvent, ReactNode, Component } from 'react';
+import React, {
+  createRef, MouseEvent, ReactNode, Component,
+} from 'react';
 import clsx from 'clsx';
 
 import styles from './tabView.module.css';
