@@ -127,7 +127,7 @@ export default class TabView extends React.Component<TabViewProps, TabViewState>
     }
   }
 
-  renderMoreMenu = (moreTabs: null | Array<Tab>, visibleTabs: null | Array<Tab>): JSX.Element => (
+  renderMoreMenu = (moreTabs: null | Array<Tab>, visibleTabs: Array<Tab>): JSX.Element => (
     <div className={styles.moreMenu} ref={this.menuRef} role="listbox">
       <div className={styles.titleBox}>
         <span className={styles.title}>
@@ -140,7 +140,7 @@ export default class TabView extends React.Component<TabViewProps, TabViewState>
       {moreTabs?.map?.((tab, index) => (
         <div
           className={clsx(styles.option, { [styles.disabled]: tab.disabled })}
-          onClick={(event) => !tab.disabled && this._tabChanged(tab.name, index + (visibleTabs?.length || 0), event)}
+          onClick={(event) => !tab.disabled && this._tabChanged(tab.name, index + visibleTabs.length, event)}
           key={tab.name}
           role="option"
         >
