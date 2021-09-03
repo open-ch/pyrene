@@ -11,9 +11,9 @@ interface Props<P, S> {
 }
 
 /**
- * StateProvider is a react component acting as a container passing its state as props to other components.
+ * StateProvider is a react component acting as a container passing its state as props to sub components.
  *
- * StateProvider is needed to demo a component which needs state from parent. For example in Storybook.
+ * StateProvider is needed to demo a component which expects state from parent. For example in Storybook.
  */
 class StateProvider<P, S> extends React.Component<Props<P, S>, S> {
 
