@@ -10,7 +10,6 @@ interface Props<P, S> {
   children: (state: S, setState: React.Component['setState']) => RenderPropsReturnValue<P>;
 }
 
-
 /**
  * StateProvider is a react component acting as a container passing its state as props to other components.
  *
