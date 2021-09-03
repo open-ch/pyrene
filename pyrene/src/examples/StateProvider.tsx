@@ -10,7 +10,6 @@ interface Props<P, S> {
   children: (state: S, setState: React.Component['setState']) => RenderPropsReturnValue<P>;
 }
 
-
 class StateProvider<P, S> extends React.Component<Props<P, S>, S> {
 
   constructor(props: Props<P, S>) {
