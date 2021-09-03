@@ -9,7 +9,7 @@ import styles from './tabView.module.css';
 interface Tab {
   disabled?: boolean,
   name: string,
-  renderAuxiliaryInfo?: () => void,
+  renderAuxiliaryInfo?: () => JSX.Element,
   renderCallback: () => JSX.Element,
 }
 
