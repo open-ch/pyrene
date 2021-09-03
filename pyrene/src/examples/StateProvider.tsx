@@ -1,14 +1,14 @@
 import React from 'react';
 
-interface RenderPropsReturnValue<P> {
-  component: React.ComponentType<P>,
-  props: P,
-}
-
 interface Props<P, S> {
   initState: S;
-  children: (state: S, setState: React.Component['setState']) => RenderPropsReturnValue<P>;
+  children: (state: S, setState: React.Component['setState']) => React.ReactElement<P>;
 }
+
+export type GenerateProps<P, S> = (stateProvider : {
+  state: S,
+  setState: React.Component['setState'],
+}) => P
 
 /**
  * StateProvider is a react component acting as a container passing its state as props to sub components.
@@ -22,10 +22,9 @@ class StateProvider<P, S> extends React.Component<Props<P, S>, S> {
     this.state = props.initState;
   }
 
-  render(): JSX.Element {
+  render(){
     const setState = this.setState.bind(this);
-    const { component: Component, props } = this.props.children(this.state, setState);
-    return <Component {...props} />;
+    return this.props.children(this.state, setState);
   }
 
 }
