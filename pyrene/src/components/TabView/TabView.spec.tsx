@@ -1,9 +1,9 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 
-import TabView from './TabView';
+import TabView, { TabViewProps } from './TabView';
 
-const props = {
+const props: TabViewProps = {
   initialTabName: 'Tab 2',
   tabs: [
     {
