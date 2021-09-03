@@ -64,8 +64,7 @@ export default class TabView extends Component<TabViewProps, TabViewState> {
 
   static defaultProps = {
     disabled: false,
-    tabChanged: (): null => null,
-    directAccessTabs: null,
+    directAccessTabs: undefined,
     maxTabWidth: 127,
     tabHeaderElement: null,
   };

@@ -18,7 +18,7 @@ const renderAuxiliaryIcon = (name: string) => (
 );
 
 type ProviderState = {
-  tabName: number | undefined;
+  tabName?: number | undefined;
 };
 
 const Template: Story<TabViewProps> = () => (
