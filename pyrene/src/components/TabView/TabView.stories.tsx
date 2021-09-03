@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 
 import { Story, Meta } from '@storybook/react';
@@ -19,10 +18,10 @@ const renderAuxiliaryIcon = (name: string) => (
 );
 
 type ProviderState = {
-  tabName: number;
+  tabName: number | undefined;
 };
 
-const Template: Story<TabViewProps> = (args) => (
+const Template: Story<TabViewProps> = () => (
   <StateProvider<TabViewProps, ProviderState> initState={{ tabName: undefined }}>
     {
       (state, setState) => ({
