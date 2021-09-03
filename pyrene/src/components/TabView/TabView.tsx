@@ -204,7 +204,7 @@ export default class TabView extends Component<TabViewProps, TabViewState> {
         {this.props.tabHeaderElement}
         <div className={clsx(styles.tabContent, { [styles.withHeader]: !!this.props.tabHeaderElement })} role="tabpanel">
           {
-            this.props.tabs[this.state.selectedTabIndex]?.renderCallback?.()
+            this.props.tabs[this.state.selectedTabIndex].renderCallback()
           }
         </div>
       </div>
