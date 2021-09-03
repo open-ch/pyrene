@@ -8,7 +8,7 @@ interface Props<P, S> {
 export type GenerateProps<P, S> = (stateProvider : {
   state: S,
   setState: React.Component['setState'],
-}) => P
+}) => P;
 
 /**
  * StateProvider is a react component acting as a container passing its state as props to sub components.
@@ -22,7 +22,7 @@ class StateProvider<P, S> extends React.Component<Props<P, S>, S> {
     this.state = props.initState;
   }
 
-  render(){
+  render() {
     const setState = this.setState.bind(this);
     return this.props.children(this.state, setState);
   }
