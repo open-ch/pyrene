@@ -22,7 +22,7 @@ class StateProvider<P, S> extends React.Component<Props<P, S>, S> {
     this.state = props.initState;
   }
 
-  render() {
+  render(): React.ReactElement<P> {
     const setState = this.setState.bind(this);
     return this.props.children(this.state, setState);
   }
