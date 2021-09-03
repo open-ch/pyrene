@@ -5,7 +5,7 @@ interface Props<P, S> {
   children: (state: S, setState: React.Component['setState']) => React.ReactElement<P>;
 }
 
-export type GenerateProps<P, S> = (stateProvider : {
+export type GenerateProps<P, S> = (stateProvider: {
   state: S,
   setState: React.Component['setState'],
 }) => P;
