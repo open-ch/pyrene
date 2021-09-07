@@ -8,7 +8,7 @@ import Loader from '../Loader/Loader';
 import SimpleTableActionList from './SimpleTableActionList';
 import styles from './simpleTable.css';
 
-type Row = Record<string, any>;
+export type Row = Record<string, any>;
 
 export interface SimpleTableProps {
   /**
@@ -23,9 +23,9 @@ export interface SimpleTableProps {
    * Type: [{ accessor: ( string | func ) (required), align: string, cellRenderCallback: func, headerName: string, id: string (required), width: number ]
    */
   columns: Array<{
-    accessor: string | ((row: Row, rowIndex: number, columnIndex: number) => string),
+    accessor: string | ((row: Row, rowIndex: number, columnIndex: number) => string | number),
     align?: string,
-    cellRenderCallback?: (row: Row, rowIndex: number, columnIndex: number) => string | JSX.Element,
+    cellRenderCallback?: (row: Row, rowIndex: number, columnIndex: number) => string | JSX.Element | number,
     headerName?: string,
     id: string,
     width?: number,

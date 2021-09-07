@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 import { Example } from '../../examples/Example';
-import { SimpleTableProps } from './SimpleTable';
+import { SimpleTableProps, Row } from './SimpleTable';
 
 const tableData = [
   {
@@ -63,13 +63,13 @@ const tableColumns = [
   {
     id: 'friendName',
     headerName: 'Friend Name',
-    accessor: (d) => d.friend.name,
+    accessor: (d: Row): string => d.friend.name,
   },
   {
     id: 'friendAge',
     headerName: 'Friend Age',
-    accessor: (d) => d.friend.age,
-    cellRenderCallback: (d) => `Friend's age is ${d.value}`,
+    accessor: (d: Row): number => d.friend.age,
+    cellRenderCallback: (d: Row): string => `Friend's age is ${d.value}`,
   },
 ];
 
@@ -87,8 +87,8 @@ const examples: Example<SimpleTableProps> = {
     ],
     columns: tableColumns,
     data: tableData,
-    onRowClick: (row: any) => alert(`Single click: ${row.value}`), // eslint-disable-line no-alert
-    onRowDoubleClick: (row: any) => alert(`Double click: ${row.value}`), // eslint-disable-line no-alert
+    onRowClick: (row: Row) => alert(`Single click: ${row.value}`), // eslint-disable-line no-alert
+    onRowDoubleClick: (row: Row) => alert(`Double click: ${row.value}`), // eslint-disable-line no-alert
   },
   category: 'Data',
 };
