@@ -10,13 +10,13 @@ import styles from './simpleTable.css';
 
 type Row = Record<string, any>;
 
-interface SimpleTableProps {
+export interface SimpleTableProps {
   /**
    * Allows the definition of row actions Type: [{ label: [ string ], onClick: [ function ] }, ...]
    */
   actions?: Array<{
     label: string,
-    onClick: () => void,
+    onClick: (row: Row) => void,
   }>,
   /**
    * Sets the Table columns.
