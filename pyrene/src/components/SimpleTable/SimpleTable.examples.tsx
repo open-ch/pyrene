@@ -2,7 +2,8 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 import { Example } from '../../examples/Example';
-import { SimpleTableProps, Row } from './types';
+import { SimpleTableProps } from './SimpleTable';
+import { Row } from './types';
 
 const tableData = [
   {
