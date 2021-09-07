@@ -1,3 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
+import { Example } from '../../examples/Example';
+import { SimpleTableProps } from './SimpleTable';
+
 const tableData = [
   {
     name: 'Meredith Carney',
@@ -67,7 +73,7 @@ const tableColumns = [
   },
 ];
 
-const examples = {
+const examples: Example<SimpleTableProps> = {
   props: {
     actions: [
       {
@@ -81,11 +87,10 @@ const examples = {
     ],
     columns: tableColumns,
     data: tableData,
-    onRowClick: (row) => alert(`Single click: ${row.value}`), // eslint-disable-line no-alert
-    onRowDoubleClick: (row) => alert(`Double click: ${row.value}`), // eslint-disable-line no-alert
+    onRowClick: (row: any) => alert(`Single click: ${row.value}`), // eslint-disable-line no-alert
+    onRowDoubleClick: (row: any) => alert(`Double click: ${row.value}`), // eslint-disable-line no-alert
   },
+  category: 'Data',
 };
-
-examples.category = 'Data';
 
 export default examples;
