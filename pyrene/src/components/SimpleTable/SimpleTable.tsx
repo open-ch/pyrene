@@ -98,7 +98,7 @@ const SimpleTable: FunctionComponent<SimpleTableProps> = ({
                 <td
                   className={styles.tableCell}
                   style={{ maxWidth: column.width }}
-                  key={column.id.concat(JSON.stringify(valueRow))}
+                  key={column.id.concat(Object.values(valueRow).join('-'))}
                 >
                   <div className={styles.tableCellContent} style={{ textAlign: column.align }}>
                     {(column?.cellRenderCallback?.(valueRow, rowIndex, columnIndex) || valueRow.value) as React.ReactNode}
