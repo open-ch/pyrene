@@ -1,5 +1,5 @@
+/* eslint-disable react/require-default-props */
 import React, { FunctionComponent } from 'react';
-import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import Loader from '../Loader/Loader';
 import SimpleTableActionList from './SimpleTableActionList';
@@ -99,7 +99,7 @@ const SimpleTable: FunctionComponent<SimpleTableProps> = ({
                   key={column.id.concat(Object.values(valueRow))}
                 >
                   <div className={styles.tableCellContent} style={{ textAlign: column.align }}>
-                    {column.cellRenderCallback ? column.cellRenderCallback(valueRow, rowIndex, columnIndex) : valueRow.value}
+                    {column?.cellRenderCallback?.(valueRow, rowIndex, columnIndex) || valueRow.value}
                   </div>
                 </td>
               );
@@ -136,53 +136,5 @@ const SimpleTable: FunctionComponent<SimpleTableProps> = ({
 );
 
 SimpleTable.displayName = 'Simple Table';
-
-SimpleTable.defaultProps = {
-  actions: [],
-  loading: false,
-  onRowClick: null,
-  onRowDoubleClick: null,
-};
-
-SimpleTable.propTypes = {
-  /**
-   * Allows the definition of row actions Type: [{ label: [ string ], onClick: [ function ] }, ...]
-   */
-  actions: PropTypes.arrayOf(PropTypes.shape({
-    label: PropTypes.string.isRequired,
-    onClick: PropTypes.func.isRequired,
-  })),
-  /**
-   * Sets the Table columns.
-   * Type: [{ accessor: ( string | func ) (required), align: , cellRenderCallback: func, headerName: string, id: string (required), width: number ]
-   */
-  columns: PropTypes.arrayOf(PropTypes.shape({
-    accessor: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.func,
-    ]),
-    align: PropTypes.string,
-    cellRenderCallback: PropTypes.func,
-    headerName: PropTypes.string,
-    id: PropTypes.string,
-    width: PropTypes.number,
-  })).isRequired,
-  /**
-   * Sets the Table data displayed in the rows. Type: [ JSON ]
-   */
-  data: PropTypes.arrayOf(PropTypes.object).isRequired,
-  /**
-   * Disables the component and displays a loader inside of it.
-   */
-  loading: PropTypes.bool,
-  /**
-   * Called when the user clicks on a row.
-   */
-  onRowClick: PropTypes.func,
-  /**
-   * Called when the user double clicks on a row.
-   */
-  onRowDoubleClick: PropTypes.func,
-};
 
 export default SimpleTable;
