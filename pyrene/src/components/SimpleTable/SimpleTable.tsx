@@ -1,4 +1,4 @@
-import React,{ FunctionComponent } from 'react';
+import React, { FunctionComponent } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import Loader from '../Loader/Loader';
@@ -18,7 +18,7 @@ interface SimpleTableProps {
    * Type: [{ accessor: ( string | func ) (required), align: string, cellRenderCallback: func, headerName: string, id: string (required), width: number ]
    */
   columns: Array<{
-    accessor?: string | ((key: string) => string),
+    accessor?: string | ((row: unknown, rowIndex: number, columnIndex: number) => string),
     align?: string,
     cellRenderCallback?: (valueRow: unknown, rowIndex: number, columnIndex: number) => void,
     headerName?: string,
@@ -110,7 +110,12 @@ const SimpleTable: FunctionComponent<SimpleTableProps> = ({
                 key={`action-${Object.values(row).join('-')}`}
               >
                 <SimpleTableActionList
-                  row={Object.assign(row, { key: row.key ? row.key.toString() : '' })}
+                  row={
+                    {
+                      ...row,
+                      key: row.key ? row.key.toString() : '',
+                    }
+                  }
                   actions={actions}
                 />
               </td>
