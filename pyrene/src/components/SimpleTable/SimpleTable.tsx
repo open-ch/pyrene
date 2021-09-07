@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable react/require-default-props */
 import React, { FunctionComponent } from 'react';
 import clsx from 'clsx';
@@ -5,7 +8,7 @@ import Loader from '../Loader/Loader';
 import SimpleTableActionList from './SimpleTableActionList';
 import styles from './simpleTable.css';
 
-type Row = Record<string, unknown>;
+type Row = Record<string, any>;
 
 interface SimpleTableProps {
   /**
@@ -68,7 +71,7 @@ const SimpleTable: FunctionComponent<SimpleTableProps> = ({
                   style={{ maxWidth: column && column.width && column.width > 0 ? `${column.width}px` : undefined }}
                   key={column.id}
                 >
-                  <div className={styles.tableCellContent} style={{ textAlign: column.align }}>
+                  <div className={styles.tableCellContent} style={{ textAlign: column.align as any }}>
                     {column.headerName}
                   </div>
                 </th>
@@ -100,7 +103,7 @@ const SimpleTable: FunctionComponent<SimpleTableProps> = ({
                   style={{ maxWidth: column.width }}
                   key={column.id.concat(Object.values(valueRow).join('-'))}
                 >
-                  <div className={styles.tableCellContent} style={{ textAlign: column.align }}>
+                  <div className={styles.tableCellContent} style={{ textAlign: column.align as any }}>
                     {(column?.cellRenderCallback?.(valueRow, rowIndex, columnIndex) || valueRow.value) as React.ReactNode}
                   </div>
                 </td>
@@ -114,7 +117,7 @@ const SimpleTable: FunctionComponent<SimpleTableProps> = ({
                 <SimpleTableActionList
                   row={{
                     ...row,
-                    key: row?.key?.toString?.() || '',
+                    key: (row && row.key && row.key.toString && row.key.toString()) || '',
                   }}
                   actions={actions}
                 />
