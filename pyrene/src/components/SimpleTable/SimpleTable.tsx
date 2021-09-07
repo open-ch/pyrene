@@ -110,12 +110,10 @@ const SimpleTable: FunctionComponent<SimpleTableProps> = ({
                 key={`action-${Object.values(row).join('-')}`}
               >
                 <SimpleTableActionList
-                  row={
-                    {
-                      ...row,
-                      key: row.key ? row.key.toString() : '',
-                    }
-                  }
+                  row={{
+                    ...row,
+                    key: row.key ? row.key.toString() : '',
+                  }}
                   actions={actions}
                 />
               </td>
