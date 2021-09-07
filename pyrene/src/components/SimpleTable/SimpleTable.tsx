@@ -56,7 +56,7 @@ const SimpleTable: FunctionComponent<SimpleTableProps> = ({
 }: SimpleTableProps) => (
   <div className={styles.container}>
     <table className={styles.table}>
-      {columns.length > 0 && columns.some((column) => typeof column.headerName !== 'undefined' && column.headerName !== '')
+      {columns.some((column) => typeof column.headerName !== 'undefined' && column.headerName !== '')
         && (
           <thead className={styles.tableHeader}>
             <tr className={styles.tableHeaderRow}>
@@ -112,7 +112,7 @@ const SimpleTable: FunctionComponent<SimpleTableProps> = ({
                 <SimpleTableActionList
                   row={{
                     ...row,
-                    key: row.key ? row.key.toString() : '',
+                    key: row?.key?.toString?.() || '',
                   }}
                   actions={actions}
                 />
