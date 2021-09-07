@@ -20,7 +20,7 @@ interface SimpleTableProps {
   columns: Array<{
     accessor?: string | ((key: string) => string),
     align?: string,
-    cellRenderCallback?: () => void,
+    cellRenderCallback?: (valueRow: unknown, rowIndex: number, columnIndex: number) => void,
     headerName?: string,
     id?: string,
     width?: number,
@@ -28,7 +28,7 @@ interface SimpleTableProps {
   /**
    * Sets the Table data displayed in the rows. Type: [ JSON ]
    */
-  data: Array<unknown>,
+  data: Array<any>,
   /**
    * Disables the component and displays a loader inside of it.
    */
@@ -36,11 +36,11 @@ interface SimpleTableProps {
   /**
    * Called when the user clicks on a row.
    */
-  onRowClick?: () => void,
+  onRowClick?: (row: unknown) => void,
   /**
    * Called when the user double clicks on a row.
    */
-  onRowDoubleClick?: () => void,
+  onRowDoubleClick?: (row: unknown) => void,
 }
 
 /**
@@ -82,7 +82,7 @@ const SimpleTable: FunctionComponent<SimpleTableProps> = ({
           </thead>
         )}
       <tbody className={styles.tableBody}>
-        {!loading && data && data.length > 0 && data.map((row, rowIndex) => (
+        {!loading && data.map((row, rowIndex) => (
           <tr
             className={clsx(styles.tableRow, { [styles.tableRowWithFunction]: onRowClick || onRowDoubleClick })}
             key={Object.values(row).join()}
