@@ -20,7 +20,7 @@ interface SimpleTableProps {
   columns: Array<{
     accessor?: string | ((row: unknown, rowIndex: number, columnIndex: number) => string),
     align?: string,
-    cellRenderCallback?: (valueRow: unknown, rowIndex: number, columnIndex: number) => void,
+    cellRenderCallback?: (row: unknown, rowIndex: number, columnIndex: number) => void,
     headerName?: string,
     id?: string,
     width?: number,
