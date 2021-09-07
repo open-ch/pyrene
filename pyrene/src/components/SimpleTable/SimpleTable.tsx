@@ -28,7 +28,7 @@ interface SimpleTableProps {
   /**
    * Sets the Table data displayed in the rows. Type: [ JSON ]
    */
-  data: Array<any>,
+  data: Array<unknown>,
   /**
    * Disables the component and displays a loader inside of it.
    */
