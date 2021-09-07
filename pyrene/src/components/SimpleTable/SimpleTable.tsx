@@ -5,6 +5,8 @@ import Loader from '../Loader/Loader';
 import SimpleTableActionList from './SimpleTableActionList';
 import styles from './simpleTable.css';
 
+type Row = Record<string, unknown>;
+
 interface SimpleTableProps {
   /**
    * Allows the definition of row actions Type: [{ label: [ string ], onClick: [ function ] }, ...]
@@ -18,17 +20,17 @@ interface SimpleTableProps {
    * Type: [{ accessor: ( string | func ) (required), align: string, cellRenderCallback: func, headerName: string, id: string (required), width: number ]
    */
   columns: Array<{
-    accessor?: string | ((row: unknown, rowIndex: number, columnIndex: number) => string),
+    accessor: string | ((row: Row, rowIndex: number, columnIndex: number) => string),
     align?: string,
-    cellRenderCallback?: (row: unknown, rowIndex: number, columnIndex: number) => void,
+    cellRenderCallback?: (row: Row, rowIndex: number, columnIndex: number) => string | JSX.Element,
     headerName?: string,
-    id?: string,
+    id: string,
     width?: number,
   }>,
   /**
    * Sets the Table data displayed in the rows. Type: [ JSON ]
    */
-  data: Array<unknown>,
+  data: Array<Row>,
   /**
    * Disables the component and displays a loader inside of it.
    */
@@ -36,11 +38,11 @@ interface SimpleTableProps {
   /**
    * Called when the user clicks on a row.
    */
-  onRowClick?: (row: unknown) => void,
+  onRowClick?: (row: Row) => void,
   /**
    * Called when the user double clicks on a row.
    */
-  onRowDoubleClick?: (row: unknown) => void,
+  onRowDoubleClick?: (row: Row) => void,
 }
 
 /**
@@ -96,10 +98,10 @@ const SimpleTable: FunctionComponent<SimpleTableProps> = ({
                 <td
                   className={styles.tableCell}
                   style={{ maxWidth: column.width }}
-                  key={column.id.concat(Object.values(valueRow))}
+                  key={column.id.concat(JSON.stringify(valueRow))}
                 >
                   <div className={styles.tableCellContent} style={{ textAlign: column.align }}>
-                    {column?.cellRenderCallback?.(valueRow, rowIndex, columnIndex) || valueRow.value}
+                    {(column?.cellRenderCallback?.(valueRow, rowIndex, columnIndex) || valueRow.value) as React.ReactNode}
                   </div>
                 </td>
               );

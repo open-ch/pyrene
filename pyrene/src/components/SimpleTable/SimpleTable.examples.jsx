@@ -41,27 +41,30 @@ const tableData = [
   },
 ];
 
-const tableColumns = [{
-  id: 'name',
-  headerName: 'Name',
-  accessor: 'name',
-}, {
-  id: 'age',
-  headerName: 'Age',
-  accessor: 'age',
-  align: 'right',
-  width: 26,
-}, {
-  id: 'friendName',
-  headerName: 'Friend Name',
-  accessor: (d) => d.friend.name,
-},
-{
-  id: 'friendAge',
-  headerName: 'Friend Age',
-  accessor: (d) => d.friend.age,
-  cellRenderCallback: (d) => `Friend's age is ${d.value}`,
-},
+const tableColumns = [
+  {
+    id: 'name',
+    headerName: 'Name',
+    accessor: 'name',
+  },
+  {
+    id: 'age',
+    headerName: 'Age',
+    accessor: 'age',
+    align: 'right',
+    width: 26,
+  },
+  {
+    id: 'friendName',
+    headerName: 'Friend Name',
+    accessor: (d) => d.friend.name,
+  },
+  {
+    id: 'friendAge',
+    headerName: 'Friend Age',
+    accessor: (d) => d.friend.age,
+    cellRenderCallback: (d) => `Friend's age is ${d.value}`,
+  },
 ];
 
 const examples = {
