@@ -63,7 +63,7 @@ const SimpleTable: FunctionComponent<SimpleTableProps> = ({
               {columns.map((column) => (
                 <th
                   className={styles.tableHeaderCell}
-                  style={{ maxWidth: column.width > 0 ? `${column.width}px` : null }}
+                  style={{ maxWidth: column && column.width && column.width > 0 ? `${column.width}px` : undefined }}
                   key={column.id}
                 >
                   <div className={styles.tableCellContent} style={{ textAlign: column.align }}>
@@ -89,7 +89,7 @@ const SimpleTable: FunctionComponent<SimpleTableProps> = ({
             onDoubleClick={() => (onRowDoubleClick ? onRowDoubleClick(row) : null)}
             onClick={() => (onRowClick ? onRowClick(row) : null)}
           >
-            {columns.length > 0 && columns.map((column, columnIndex) => {
+            {columns.map((column, columnIndex) => {
               const valueRow = row;
               valueRow.value = typeof column.accessor === 'string' ? row[column.accessor] : column.accessor(row, rowIndex, columnIndex);
               return (
