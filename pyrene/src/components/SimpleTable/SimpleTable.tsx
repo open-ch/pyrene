@@ -34,11 +34,11 @@ export interface SimpleTableProps<R> {
   /**
    * Called when the user clicks on a row.
    */
-  onRowClick?: (row: ExtendsRow<R> ) => void,
+  onRowClick?: (row: ExtendsRow<R>) => void,
   /**
    * Called when the user double clicks on a row.
    */
-  onRowDoubleClick?: (row: ExtendsRow<R> ) => void,
+  onRowDoubleClick?: (row: ExtendsRow<R>) => void,
 }
 
 /**
@@ -51,11 +51,10 @@ const SimpleTable = <R extends {}>({
   loading = false,
   onRowClick,
   onRowDoubleClick,
-  }: SimpleTableProps<R>) => {
-  return (
-    <div className={styles.container}>
+}: SimpleTableProps<R>) => (
+  <div className={styles.container}>
       <table className={styles.table}>
-        {columns.some((column) => typeof column.headerName !== 'undefined' && column.headerName !== '')
+      {columns.some((column) => typeof column.headerName !== 'undefined' && column.headerName !== '')
           && (
             <thead className={styles.tableHeader}>
               <tr className={styles.tableHeaderRow}>
@@ -80,55 +79,54 @@ const SimpleTable = <R extends {}>({
               </tr>
             </thead>
           )}
-        <tbody className={styles.tableBody}>
+      <tbody className={styles.tableBody}>
           {!loading && data.map((row, rowIndex) => (
-            <tr
+          <tr
               className={clsx(styles.tableRow, { [styles.tableRowWithFunction]: onRowClick || onRowDoubleClick })}
               key={Object.values(row).join()}
               onDoubleClick={() => (onRowDoubleClick ? onRowDoubleClick(row) : null)}
               onClick={() => (onRowClick ? onRowClick(row) : null)}
             >
               {columns.map((column, columnIndex) => {
-                const valueRow: R & { value?: number | string } = row;
-                // @ts-ignore
-                valueRow.value = typeof column.accessor === 'string' ? row[column.accessor] : column.accessor(row, rowIndex, columnIndex);
-                return (
+              const valueRow: R & { value?: number | string } = row;
+              // @ts-ignore
+              valueRow.value = typeof column.accessor === 'string' ? row[column.accessor] : column.accessor(row, rowIndex, columnIndex);
+              return (
                   <td
-                    className={styles.tableCell}
-                    style={{ maxWidth: column.width }}
-                    key={column.id.concat(Object.values(valueRow).join('-'))}
-                  >
-                    <div className={styles.tableCellContent} style={{ textAlign: column.align as any }}>
+                  className={styles.tableCell}
+                  style={{ maxWidth: column.width }}
+                  key={column.id.concat(Object.values(valueRow).join('-'))}
+                >
+                  <div className={styles.tableCellContent} style={{ textAlign: column.align as any }}>
                       {column.cellRenderCallback ? column.cellRenderCallback(valueRow, rowIndex, columnIndex) : valueRow.value}
                     </div>
-                  </td>
-                );
-              })}
+                </td>
+              );
+            })}
               {!loading && data.length > 0 && actions && actions.length > 0 && (
-                <td
+            <td
                   className={clsx(styles.tableCell, styles.actionCell)}
                   key={`action-${Object.values(row).join('-')}`}
                 >
                   <SimpleTableActionList<R> row={row} actions={actions} />
                 </td>
-              )}
+            )}
             </tr>
-          ))}
+        ))}
         </tbody>
-      </table>
+    </table>
       {loading && (
-        <div className={styles.loader}>
+    <div className={styles.loader}>
           <Loader type="inline" />
         </div>
-      )}
+    )}
       {!loading && (!data || !(data.length > 0)) && (
-        <div className={styles.noData}>
+    <div className={styles.noData}>
           No data found.
         </div>
-      )}
+    )}
     </div>
   );
-}
 
 // SimpleTable written without blank, because Storybook crashes otherwise
 SimpleTable.displayName = 'SimpleTable';

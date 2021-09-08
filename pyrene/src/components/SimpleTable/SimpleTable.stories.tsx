@@ -9,12 +9,12 @@ export default {
 } as Meta;
 
 interface Row {
+  name: string;
+  age: number;
+  friend: {
     name: string;
     age: number;
-    friend: {
-      name: string;
-      age: number;
-    };
+  };
 }
 
 const Template: Story<SimpleTableProps<Row>> = (args) => <SimpleTableComponent {...args} />;
@@ -56,7 +56,7 @@ SimpleTable.args = {
       id: 'friendAge',
       headerName: 'Friend Age',
       accessor: (d) => d.friend.age,
-      cellRenderCallback: (d)=> `Friend's age is ${d.value}`,
+      cellRenderCallback: (d) => `Friend's age is ${d.value}`,
     },
   ],
   data: [
