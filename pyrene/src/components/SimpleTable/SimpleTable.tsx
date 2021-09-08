@@ -5,7 +5,7 @@ import React, { FunctionComponent } from 'react';
 import clsx from 'clsx';
 import Loader from '../Loader/Loader';
 import SimpleTableActionList from './SimpleTableActionList';
-import styles from './simpleTable.css';
+import styles from './simpleTable.module.css';
 import { Row, Action } from './types';
 
 export interface SimpleTableProps {
@@ -134,7 +134,7 @@ const SimpleTable: FunctionComponent<SimpleTableProps> = ({
     )}
   </div>
 );
-
-SimpleTable.displayName = 'Simple Table';
+// SimpleTable written without blank, because Storybook crashes otherwise
+SimpleTable.displayName = 'SimpleTable';
 
 export default SimpleTable;
