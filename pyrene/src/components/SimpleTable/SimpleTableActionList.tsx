@@ -1,24 +1,21 @@
-/* eslint-disable react/prop-types */
-import React, { useState, FunctionComponent } from 'react';
+import React, { useState } from 'react';
 import Popover from '../Popover/Popover';
 import styles from './simpleTableActionList.module.css';
 import Icon from '../Icon/Icon';
 import { Action } from './types';
 
-interface SimpleTableActionListProps {
-  actions: Array<Action>,
-  row: {
+interface SimpleTableActionListProps<R> {
+  actions: Array<Action<R>>,
+  row: R & {
     key?: string,
     rowStyle?: any,
     value?: React.ReactNode,
   },
 }
-
-const SimpleTableActionList: FunctionComponent<SimpleTableActionListProps> = ({
+const SimpleTableActionList: <R extends {}>(p: SimpleTableActionListProps<R>) => React.ReactElement<SimpleTableActionListProps<R>> = ({
   actions,
   row,
 }) => {
-
   const [activeAction, setActiveAction] = useState({
     displayed: false,
   });
