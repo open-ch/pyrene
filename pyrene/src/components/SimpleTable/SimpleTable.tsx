@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable react/require-default-props */
 import React, { FunctionComponent } from 'react';
 import clsx from 'clsx';
 import Loader from '../Loader/Loader';
@@ -113,7 +112,7 @@ const SimpleTable: FunctionComponent<SimpleTableProps> = ({
                 <SimpleTableActionList
                   row={{
                     ...row,
-                    key: (row && row.key && row.key.toString && row.key.toString()) || '',
+                    key: row?.key?.toString?.() || '',
                   }}
                   actions={actions}
                 />

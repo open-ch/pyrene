@@ -3,8 +3,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 
-import SimpleTable from './SimpleTable';
-import { SimpleTableProps } from './types';
+import SimpleTable, { SimpleTableProps } from './SimpleTable';
 import Loader from '../Loader/Loader';
 
 const selectedActionClick = jest.fn();
