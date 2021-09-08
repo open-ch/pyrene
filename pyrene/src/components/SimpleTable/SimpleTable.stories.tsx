@@ -1,20 +1,23 @@
-/* eslint-disable no-alert */
-/* eslint-disable @typescript-eslint/no-unsafe-return */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
 import React from 'react';
 
 import { Story, Meta } from '@storybook/react';
 import SimpleTableComponent, { SimpleTableProps } from './SimpleTable';
-import { Row } from './types';
 
 export default {
   title: 'Components/Data/Simple Table',
   component: SimpleTableComponent,
 } as Meta;
 
+interface Row {
+    name: string;
+    age: number;
+    friend: {
+      name: string;
+      age: number;
+    };
+}
 
-const Template: Story<SimpleTableProps> = (args) => <SimpleTableComponent {...args} />;
+const Template: Story<SimpleTableProps<Row>> = (args) => <SimpleTableComponent {...args} />;
 
 export const SimpleTable = Template.bind({});
 
@@ -29,8 +32,8 @@ SimpleTable.args = {
       onClick: (rowData) => alert(rowData.age),
     },
   ],
-  onRowClick: (row: Row) => alert(`Single click: ${row.value}`),
-  onRowDoubleClick: (row: Row) => alert(`Double click: ${row.value}`),
+  onRowClick: (row) => alert(`Single click: ${row.value}`),
+  onRowDoubleClick: (row) => alert(`Double click: ${row.value}`),
   columns: [
     {
       id: 'name',
@@ -47,13 +50,13 @@ SimpleTable.args = {
     {
       id: 'friendName',
       headerName: 'Friend Name',
-      accessor: (d: Row): string => d.friend.name,
+      accessor: (d) => d.friend.name,
     },
     {
       id: 'friendAge',
       headerName: 'Friend Age',
-      accessor: (d: Row): number => d.friend.age,
-      cellRenderCallback: (d: Row): string => `Friend's age is ${d.value}`,
+      accessor: (d) => d.friend.age,
+      cellRenderCallback: (d)=> `Friend's age is ${d.value}`,
     },
   ],
   data: [

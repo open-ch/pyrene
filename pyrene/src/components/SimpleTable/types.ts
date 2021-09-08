@@ -1,6 +1,9 @@
-export type Row = Record<string, any>;
-
-export interface Action {
+export interface Action <R>{
   label: string,
-  onClick: (row: Row) => void,
+  onClick: (row: R) => void,
+}
+
+
+export type ExtendsRow<R> = R & {
+  value?: string | number;
 }

@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
-/* eslint-disable @typescript-eslint/no-unsafe-return */
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 
@@ -8,7 +6,12 @@ import Loader from '../Loader/Loader';
 
 const selectedActionClick = jest.fn();
 
-const props: SimpleTableProps = {
+interface Row {
+  name: string;
+  age: number;
+}
+
+const props: SimpleTableProps<Row> = {
   actions: [
     {
       label: 'Name',
