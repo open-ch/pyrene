@@ -5,7 +5,6 @@ import SimpleTableActionList from './SimpleTableActionList';
 import styles from './simpleTable.module.css';
 import { Action, ExtendsRow } from './types';
 
-
 export interface SimpleTableProps<R> {
   /**
    * Allows the definition of row actions Type: [{ label: [ string ], onClick: [ function ] }, ...]
