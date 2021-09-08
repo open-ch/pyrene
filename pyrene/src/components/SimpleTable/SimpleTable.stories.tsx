@@ -9,7 +9,7 @@ import SimpleTableComponent, { SimpleTableProps } from './SimpleTable';
 import { Row } from './types';
 
 export default {
-  title: 'Components/Data/SimpleTable',
+  title: 'Components/Data/Simple Table',
   component: SimpleTableComponent,
 } as Meta;
 
