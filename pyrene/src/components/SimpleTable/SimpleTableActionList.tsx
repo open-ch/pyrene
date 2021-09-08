@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import Popover from '../Popover/Popover';
 import styles from './simpleTableActionList.module.css';
 import Icon from '../Icon/Icon';
-import { Action, ExtendsRow } from './types';
+import { Action } from './types';
 
 interface SimpleTableActionListProps<R> {
   actions: Array<Action<R>>,
-  row: ExtendsRow<R>,
+  row: R,
 }
 const SimpleTableActionList: <R extends {}>(p: SimpleTableActionListProps<R>) => React.ReactElement<SimpleTableActionListProps<R>> = ({
   actions,

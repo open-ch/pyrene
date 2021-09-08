@@ -87,32 +87,33 @@ const SimpleTable = <R extends {}>({
               onClick={() => (onRowClick ? onRowClick(row) : null)}
             >
               {columns.map((column, columnIndex) => {
-              const valueRow: R & { value?: number | string } = row;
-              // @ts-ignore
-              valueRow.value = typeof column.accessor === 'string' ? row[column.accessor] : column.accessor(row, rowIndex, columnIndex);
-              return (
-                  <td
-                  className={styles.tableCell}
-                  style={{ maxWidth: column.width }}
-                  key={column.id.concat(Object.values(valueRow).join('-'))}
-                >
-                  <div className={styles.tableCellContent} style={{ textAlign: column.align as any }}>
-                      {column.cellRenderCallback ? column.cellRenderCallback(valueRow, rowIndex, columnIndex) : valueRow.value}
-                    </div>
-                </td>
-              );
-            })}
+                const valueRow: ExtendsRow<R> = row;
+                // @ts-ignore
+                valueRow.value = typeof column.accessor === 'string' ? row[column.accessor] : column.accessor(row, rowIndex, columnIndex);
+                return (
+                    <td
+                    className={styles.tableCell}
+                    style={{ maxWidth: column.width }}
+                    key={column.id.concat(Object.values(valueRow).join('-'))}
+                  >
+                    <div className={styles.tableCellContent} style={{ textAlign: column.align as any }}>
+                        {column.cellRenderCallback ? column.cellRenderCallback(valueRow, rowIndex, columnIndex) : valueRow.value}
+                      </div>
+                  </td>
+                );
+              })
+            }
               {!loading && data.length > 0 && actions && actions.length > 0 && (
             <td
                   className={clsx(styles.tableCell, styles.actionCell)}
                   key={`action-${Object.values(row).join('-')}`}
                 >
                   <SimpleTableActionList<R> row={row} actions={actions} />
-                </td>
+              </td>
             )}
-            </tr>
+          </tr>
         ))}
-        </tbody>
+      </tbody>
     </table>
       {loading && (
     <div className={styles.loader}>
