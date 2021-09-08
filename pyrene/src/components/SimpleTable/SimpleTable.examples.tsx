@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
@@ -79,17 +80,17 @@ const examples: Example<SimpleTableProps> = {
     actions: [
       {
         label: 'Name',
-        onClick: (rowData) => alert(rowData.name), // eslint-disable-line no-alert
+        onClick: (rowData) => alert(rowData.name),
       },
       {
         label: 'Age',
-        onClick: (rowData) => alert(rowData.age), // eslint-disable-line no-alert
+        onClick: (rowData) => alert(rowData.age),
       },
     ],
     columns: tableColumns,
     data: tableData,
-    onRowClick: (row: Row) => alert(`Single click: ${row.value}`), // eslint-disable-line no-alert
-    onRowDoubleClick: (row: Row) => alert(`Double click: ${row.value}`), // eslint-disable-line no-alert
+    onRowClick: (row: Row) => alert(`Single click: ${row.value}`),
+    onRowDoubleClick: (row: Row) => alert(`Double click: ${row.value}`),
   },
   category: 'Data',
 };
