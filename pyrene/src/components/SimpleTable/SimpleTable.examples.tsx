@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 import { Example } from '../../examples/Example';
 import { SimpleTableProps } from './SimpleTable';
 import { ExtendsRow } from './types';
