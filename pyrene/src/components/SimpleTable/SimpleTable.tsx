@@ -89,8 +89,7 @@ function SimpleTable<R = {}>({
               onClick={() => (onRowClick ? onRowClick(row) : null)}
             >
               {columns.map((column, columnIndex) => {
-                const valueRow: ExtendsRow<R> = row;
-                // @ts-ignore
+                const valueRow = row;
                 valueRow.value = typeof column.accessor === 'string' ? row[column.accessor] : column.accessor(row, rowIndex, columnIndex);
                 return (
                   <td
