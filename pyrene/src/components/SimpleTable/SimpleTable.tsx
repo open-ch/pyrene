@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-types */
 import React from 'react';
 import clsx from 'clsx';
 import Loader from '../Loader/Loader';
@@ -43,44 +44,45 @@ export interface SimpleTableProps<R> {
 /**
  * Simple Tables are used to display tabular data without the overhead of pagination, sorting and filtering.
  */
-const SimpleTable = <R extends {}>({
+function SimpleTable<R = {}>({
   actions = [],
   columns,
   data,
   loading = false,
   onRowClick,
   onRowDoubleClick,
-}: SimpleTableProps<R>) => (
-  <div className={styles.container}>
+}: SimpleTableProps<R>): React.ReactElement<SimpleTableProps<R>> {
+  return (
+    <div className={styles.container}>
       <table className={styles.table}>
-      {columns.some((column) => typeof column.headerName !== 'undefined' && column.headerName !== '')
-          && (
-            <thead className={styles.tableHeader}>
-              <tr className={styles.tableHeaderRow}>
-                {columns.map((column) => (
-                  <th
-                    className={styles.tableHeaderCell}
-                    style={{ maxWidth: column && column.width && column.width > 0 ? `${column.width}px` : undefined }}
-                    key={column.id}
-                  >
-                    <div className={styles.tableCellContent} style={{ textAlign: column.align as any }}>
-                      {column.headerName}
-                    </div>
-                  </th>
-                ))}
-                {actions.length > 0 && (
-                  <th
-                    aria-label="Action"
-                    className={clsx(styles.tableHeaderCell, styles.actionCell)}
-                    key="action"
-                  />
-                )}
-              </tr>
-            </thead>
-          )}
-      <tbody className={styles.tableBody}>
+        {columns.some((column) => typeof column.headerName !== 'undefined' && column.headerName !== '')
+            && (
+              <thead className={styles.tableHeader}>
+                <tr className={styles.tableHeaderRow}>
+                  {columns.map((column) => (
+                    <th
+                      className={styles.tableHeaderCell}
+                      style={{ maxWidth: column && column.width && column.width > 0 ? `${column.width}px` : undefined }}
+                      key={column.id}
+                    >
+                      <div className={styles.tableCellContent} style={{ textAlign: column.align }}>
+                        {column.headerName}
+                      </div>
+                    </th>
+                  ))}
+                  {actions.length > 0 && (
+                    <th
+                      aria-label="Action"
+                      className={clsx(styles.tableHeaderCell, styles.actionCell)}
+                      key="action"
+                    />
+                  )}
+                </tr>
+              </thead>
+            )}
+        <tbody className={styles.tableBody}>
           {!loading && data.map((row, rowIndex) => (
-          <tr
+            <tr
               className={clsx(styles.tableRow, { [styles.tableRowWithFunction]: onRowClick || onRowDoubleClick })}
               key={Object.values(row).join()}
               onDoubleClick={() => (onRowDoubleClick ? onRowDoubleClick(row) : null)}
@@ -91,42 +93,42 @@ const SimpleTable = <R extends {}>({
                 // @ts-ignore
                 valueRow.value = typeof column.accessor === 'string' ? row[column.accessor] : column.accessor(row, rowIndex, columnIndex);
                 return (
-                    <td
+                  <td
                     className={styles.tableCell}
                     style={{ maxWidth: column.width }}
                     key={column.id.concat(Object.values(valueRow).join('-'))}
                   >
-                    <div className={styles.tableCellContent} style={{ textAlign: column.align as any }}>
-                        {column.cellRenderCallback ? column.cellRenderCallback(valueRow, rowIndex, columnIndex) : valueRow.value}
-                      </div>
+                    <div className={styles.tableCellContent} style={{ textAlign: column.align }}>
+                      {column.cellRenderCallback ? column.cellRenderCallback(valueRow, rowIndex, columnIndex) : valueRow.value}
+                    </div>
                   </td>
                 );
-              })
-            }
+              })}
               {!loading && data.length > 0 && actions && actions.length > 0 && (
-            <td
+                <td
                   className={clsx(styles.tableCell, styles.actionCell)}
                   key={`action-${Object.values(row).join('-')}`}
                 >
                   <SimpleTableActionList<R> row={row} actions={actions} />
-              </td>
-            )}
-          </tr>
-        ))}
-      </tbody>
-    </table>
+                </td>
+              )}
+            </tr>
+          ))}
+        </tbody>
+      </table>
       {loading && (
-    <div className={styles.loader}>
+        <div className={styles.loader}>
           <Loader type="inline" />
         </div>
-    )}
+      )}
       {!loading && (!data || !(data.length > 0)) && (
-    <div className={styles.noData}>
+        <div className={styles.noData}>
           No data found.
         </div>
-    )}
+      )}
     </div>
   );
+}
 
 // SimpleTable written without blank, because Storybook crashes otherwise
 SimpleTable.displayName = 'SimpleTable';

@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 import React from 'react';
 
 import { Story, Meta } from '@storybook/react';
@@ -17,7 +18,7 @@ interface Row {
   };
 }
 
-const Template: Story<SimpleTableProps<Row>> = (args) => <SimpleTableComponent {...args} />;
+const Template: Story<SimpleTableProps<Row>> = (args) => <SimpleTableComponent<Row> {...args} />;
 
 export const SimpleTable = Template.bind({});
 

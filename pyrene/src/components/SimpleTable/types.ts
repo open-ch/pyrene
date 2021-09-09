@@ -5,5 +5,5 @@ export interface Action <R>{
 
 
 export type ExtendsRow<R> = R & {
-  value?: string | number;
+  value: string | number;
 };

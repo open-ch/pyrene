@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 import Popover from '../Popover/Popover';
@@ -9,6 +10,7 @@ interface SimpleTableActionListProps<R> {
   actions: Array<Action<R>>,
   row: R,
 }
+
 const SimpleTableActionList: <R = {}>(p: SimpleTableActionListProps<R>) => React.ReactElement<SimpleTableActionListProps<R>> = ({
   actions,
   row,
