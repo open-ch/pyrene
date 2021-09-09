@@ -3,19 +3,19 @@
     "@babel/preset-env",
     "@babel/preset-react", 
     ["@babel/preset-typescript", {
-      "onlyRemoveTypeImports": true // this is important for proper files watching
+      "onlyRemoveTypeImports": true
     }]
   ],
   "env": {
     "test": {
       "plugins": [
-        ["babel-plugin-typescript-to-proptypes", { "comments": true }],
+        ["babel-plugin-typescript-to-proptypes", { "comments": true }]
       ]
     },
     "development": {
       "plugins": [
         "react-docgen",
-        ["babel-plugin-typescript-to-proptypes", { "comments": true }],
+        ["babel-plugin-typescript-to-proptypes", { "comments": true }]
       ]
     },
     "production": {
