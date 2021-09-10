@@ -6,7 +6,9 @@ import SimpleTableActionList from './SimpleTableActionList';
 import styles from './simpleTable.module.css';
 import { Action, ExtendsRow } from './types';
 
-export interface SimpleTableProps<R> {
+
+
+export interface SimpleTableProps<R, X = ExtendsRow<R>> {
   /**
    * Allows the definition of row actions Type: [{ label: [ string ], onClick: [ function ] }, ...]
    */
@@ -16,9 +18,9 @@ export interface SimpleTableProps<R> {
    * Type: [{ accessor: ( string | func ) (required), align: string, cellRenderCallback: func, headerName: string, id: string (required), width: number ]
    */
   columns: Array<{
-    accessor: string | ((row: R, rowIndex: number, columnIndex: number) => string | number),
+    accessor: keyof R | ((row: R, rowIndex: number, columnIndex: number) => string | number),
     align?: string,
-    cellRenderCallback?: (row: ExtendsRow<R>, rowIndex: number, columnIndex: number) => string | JSX.Element | number,
+    cellRenderCallback?: (row: X, rowIndex: number, columnIndex: number) => string | JSX.Element | number,
     headerName?: string,
     id: string,
     width?: number,
@@ -34,11 +36,11 @@ export interface SimpleTableProps<R> {
   /**
    * Called when the user clicks on a row.
    */
-  onRowClick?: (row: ExtendsRow<R>) => void,
+  onRowClick?: (row: X) => void,
   /**
    * Called when the user double clicks on a row.
    */
-  onRowDoubleClick?: (row: ExtendsRow<R>) => void,
+  onRowDoubleClick?: (row: X | R) => void,
 }
 
 /**
