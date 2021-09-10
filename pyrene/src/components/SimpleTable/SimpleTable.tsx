@@ -64,7 +64,7 @@ function SimpleTable<R = {}>({
                   {columns.map((column) => (
                     <th
                       className={styles.tableHeaderCell}
-                      style={{ maxWidth: column && column.width && column.width > 0 ? `${column.width}px` : undefined }}
+                      style={{ maxWidth: column?.width && column.width > 0 ? `${column.width}px` : undefined }}
                       key={column.id}
                     >
                       <div className={styles.tableCellContent} style={{ textAlign: column.align }}>
@@ -91,8 +91,11 @@ function SimpleTable<R = {}>({
               onClick={() => (onRowClick ? onRowClick(row) : null)}
             >
               {columns.map((column, columnIndex) => {
-                const valueRow = row;
-                valueRow.value = typeof column.accessor === 'string' ? row[column.accessor] : column.accessor(row, rowIndex, columnIndex);
+                const valueRow = {
+                  ...row,
+                  value: (typeof column.accessor === 'string' ? row[column.accessor] : column.accessor(row, rowIndex, columnIndex)) as (string | number),
+                };
+
                 return (
                   <td
                     className={styles.tableCell}
