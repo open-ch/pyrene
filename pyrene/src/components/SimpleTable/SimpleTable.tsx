@@ -8,8 +8,6 @@ import SimpleTableActionList from './SimpleTableActionList';
 import styles from './simpleTable.module.css';
 import { Action, ExtendsRow } from './types';
 
-
-
 export interface SimpleTableProps<R, X = ExtendsRow<R>> {
   /**
    * Allows the definition of row actions Type: [{ label: [ string ], onClick: [ function ] }, ...]
@@ -20,10 +18,9 @@ export interface SimpleTableProps<R, X = ExtendsRow<R>> {
    * Type: [{ accessor: ( string | func ) (required), align: string, cellRenderCallback: func, headerName: string, id: string (required), width: number ]
    */
   columns: Array<{
-    accessor: keyof R
-    | ((row: R, rowIndex: number, columnIndex: number) => string | number),
+    accessor: keyof R | ((row: R, rowIndex: number, columnIndex: number) => string | number),
     align?: string,
-    cellRenderCallback?: (row: X, rowIndex: number, columnIndex: number) => string | JSX.Element | number,
+    cellRenderCallback?: (row: R & { value: number | string }, rowIndex: number, columnIndex: number) => string | JSX.Element | number,
     headerName?: string,
     id: string,
     width?: number,
@@ -39,7 +36,7 @@ export interface SimpleTableProps<R, X = ExtendsRow<R>> {
   /**
    * Called when the user clicks on a row.
    */
-  onRowClick?: (row: X) => void,
+  onRowClick?: (row: X | R) => void,
   /**
    * Called when the user double clicks on a row.
    */
@@ -49,7 +46,7 @@ export interface SimpleTableProps<R, X = ExtendsRow<R>> {
 /**
  * Simple Tables are used to display tabular data without the overhead of pagination, sorting and filtering.
  */
-function SimpleTable<R = {}, X = ExtendsRow<R>>({
+function SimpleTable<R = {}>({
   actions = [],
   columns,
   data,
@@ -70,7 +67,7 @@ function SimpleTable<R = {}, X = ExtendsRow<R>>({
                       style={{ maxWidth: column?.width && column.width > 0 ? `${column.width}px` : undefined }}
                       key={column.id}
                     >
-                      <div className={styles.tableCellContent} style={{ textAlign: column.align }}>
+                      <div className={styles.tableCellContent} style={{ textAlign: column.align as any }}>
                         {column.headerName}
                       </div>
                     </th>
@@ -91,7 +88,7 @@ function SimpleTable<R = {}, X = ExtendsRow<R>>({
               className={clsx(styles.tableRow, { [styles.tableRowWithFunction]: onRowClick || onRowDoubleClick })}
               key={Object.values(row).join()}
               onDoubleClick={() => (onRowDoubleClick ? onRowDoubleClick(row) : null)}
-              onClick={() => (onRowClick ? onRowClick(row) : null)}
+              onClick={() => (onRowClick ? onRowClick(row as R) : null)}
             >
               {columns.map((column, columnIndex) => {
                 const valueRow = {
@@ -107,7 +104,7 @@ function SimpleTable<R = {}, X = ExtendsRow<R>>({
                     style={{ maxWidth: column.width }}
                     key={column.id.concat(Object.values(valueRow).join('-'))}
                   >
-                    <div className={styles.tableCellContent} style={{ textAlign: column.align }}>
+                    <div className={styles.tableCellContent} style={{ textAlign: column.align as any }}>
                       {column.cellRenderCallback ? column.cellRenderCallback(valueRow as any, rowIndex, columnIndex) : valueRow.value}
                     </div>
                   </td>
