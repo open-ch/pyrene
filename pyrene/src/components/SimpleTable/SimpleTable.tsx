@@ -20,7 +20,7 @@ export interface SimpleTableProps<R, X = ExtendsRow<R>> {
   columns: Array<{
     accessor: keyof R | ((row: R, rowIndex: number, columnIndex: number) => string | number),
     align?: string,
-    cellRenderCallback?: (row: R & { value: number | string }, rowIndex: number, columnIndex: number) => string | JSX.Element | number,
+    cellRenderCallback?: (row: X, rowIndex: number, columnIndex: number) => string | JSX.Element | number,
     headerName?: string,
     id: string,
     width?: number,

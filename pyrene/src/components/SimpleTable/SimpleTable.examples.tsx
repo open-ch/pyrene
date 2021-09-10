@@ -24,7 +24,7 @@ const examples: Example<SimpleTableProps<Row>> = {
         onClick: (rowData) => alert(rowData.age),
       },
     ],
-    onRowClick: (row: as ExtendsRow<Row>) => alert(`Single click: ${row.value}`),
+    onRowClick: (row: ExtendsRow<Row>) => alert(`Single click: ${row.value}`),
     onRowDoubleClick: (row) => alert(`Double click: ${row.value}`),
     columns: [
       {
