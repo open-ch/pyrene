@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unnecessary-type-assertion */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/ban-types */
 import React from 'react';
 import clsx from 'clsx';
@@ -18,7 +20,8 @@ export interface SimpleTableProps<R, X = ExtendsRow<R>> {
    * Type: [{ accessor: ( string | func ) (required), align: string, cellRenderCallback: func, headerName: string, id: string (required), width: number ]
    */
   columns: Array<{
-    accessor: keyof R | ((row: R, rowIndex: number, columnIndex: number) => string | number),
+    accessor: keyof R
+    | ((row: R, rowIndex: number, columnIndex: number) => string | number),
     align?: string,
     cellRenderCallback?: (row: X, rowIndex: number, columnIndex: number) => string | JSX.Element | number,
     headerName?: string,
@@ -46,7 +49,7 @@ export interface SimpleTableProps<R, X = ExtendsRow<R>> {
 /**
  * Simple Tables are used to display tabular data without the overhead of pagination, sorting and filtering.
  */
-function SimpleTable<R = {}>({
+function SimpleTable<R = {}, X = ExtendsRow<R>>({
   actions = [],
   columns,
   data,
@@ -93,7 +96,9 @@ function SimpleTable<R = {}>({
               {columns.map((column, columnIndex) => {
                 const valueRow = {
                   ...row,
-                  value: (typeof column.accessor === 'string' ? row[column.accessor] : column.accessor(row, rowIndex, columnIndex)) as (string | number),
+                  value: typeof column.accessor === 'function'
+                    ? column.accessor(row, rowIndex, columnIndex)
+                    : row[column.accessor],
                 };
 
                 return (
@@ -103,7 +108,7 @@ function SimpleTable<R = {}>({
                     key={column.id.concat(Object.values(valueRow).join('-'))}
                   >
                     <div className={styles.tableCellContent} style={{ textAlign: column.align }}>
-                      {column.cellRenderCallback ? column.cellRenderCallback(valueRow, rowIndex, columnIndex) : valueRow.value}
+                      {column.cellRenderCallback ? column.cellRenderCallback(valueRow as any, rowIndex, columnIndex) : valueRow.value}
                     </div>
                   </td>
                 );
