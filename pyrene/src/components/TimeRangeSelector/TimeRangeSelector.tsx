@@ -124,7 +124,7 @@ export default class TimeRangeSelector extends Component<TimeRangeSelectorProps,
    */
   _onPresetTimeRangeSelected(newFrom: number, newTo: number, newUpperBound: number, durationInMs: number, presetId: string) {
     this.setState({
-      durationInMs: durationInMs, // We need to store it, otherwise if we reach the lower/upper bound we will start to use less milliseconds with the steppers
+      durationInMs, // We need to store it, otherwise if we reach the lower/upper bound we will start to use less milliseconds with the steppers
     },
     () => {
       this.props.onChange(newFrom, newTo);
@@ -161,7 +161,7 @@ export default class TimeRangeSelector extends Component<TimeRangeSelectorProps,
    * Checks whether the component has a preset timerange selected when navigating; if yes, we should preserve the current durationInMs.
    * @private
    */
-  _preserveDurationForNavigation(navigateCallback) {
+  _preserveDurationForNavigation(navigateCallback: () => void) {
     const foundTimeRangeType = this.props?.presetTimeRanges?.find?.((preset) => preset.durationInMs === this.state.durationInMs);
     if (foundTimeRangeType) {
       this.setState({ preserveDuration: true }, () => {
