@@ -1,5 +1,5 @@
+/* eslint-disable react/static-property-placement */
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import {
   addMilliseconds, subMilliseconds, getTime, differenceInMilliseconds,
 } from 'date-fns';
@@ -10,55 +10,60 @@ import PRESET_TIME_RANGES from './TimeRangeSelectorDefaultProps';
 import styles from './timeRangeSelector.css';
 
 interface TimeRangeSelectorProps {
-    /**
+  /**
    * Whether or not the component is disabled
    * Type: boolean
    */
-     disabled?: boolean,
-     /**
-      * The start value of the range in epoch milliseconds
-      * Type: number (required)
-      */
-     from: number,
-     /**
-      * The oldest queryable starting time point, in epoch milliseconds
-      * Type: number (required)
-      */
-     lowerBound: number,
-     /**
-      * Callback function passed by parent page (usually a GET request to fetch new data)
-      * Type: function(from: number, to: number) (required)
-      */
-     onChange: (from: number, to: number) => void,
-     /**
+  disabled?: boolean,
+  /**
+   * The start value of the range in epoch milliseconds
+   * Type: number (required)
+   */
+  from: number,
+  /**
+   * The oldest queryable starting time point, in epoch milliseconds
+   * Type: number (required)
+   */
+  lowerBound: number,
+  /**
+   * Callback function passed by parent page (usually a GET request to fetch new data)
+   * Type: function(from: number, to: number) (required)
+   */
+  onChange: (from: number, to: number) => void,
+  /**
       * The preset time ranges to display as preset buttons
       * Type: [{ id: string (required) the id of the preset, label: string (required) label of the preset button displayed to the user, durationInMs: number (required) the duration of the timerange in epoch ms }]
       */
-     presetTimeRanges?: Array<{
-        durationInMs: number,
-        id: string,
-        label: string,
-      }>,
-     /**
-      * Function called if there is some element to be rendered on the rightmost side
-      * Type: function
-      */
-     renderRightSection?: () => JSX.Element,
-     /**
+  presetTimeRanges?: Array<{
+    durationInMs: number,
+    id: string,
+    label: string,
+  }>,
+  /**
+  * Function called if there is some element to be rendered on the rightmost side
+  * Type: function
+  */
+  renderRightSection?: () => JSX.Element,
+  /**
       * The timezone that the range selector should use to display the time
       * Type: string (required)
       */
-     timezone: string,
-     /**
+  timezone: string,
+  /**
       * The end value of the range to in epoch milliseconds
       * Type: number (required)
       */
-     to: number,
-     /**
+  to: number,
+  /**
       * The latest queryable ending time point, in epoch milliseconds
       * Type: number
       */
-     upperBound: number,
+  upperBound: number,
+}
+
+interface TimeRangeSelectorState {
+  durationInMs: number,
+  preserveDuration: boolean,
 }
 
 /**
@@ -70,7 +75,15 @@ interface TimeRangeSelectorProps {
  * 30 days
  * 1 year
  */
-export default class TimeRangeSelector extends Component<TimeRangeSelectorProps> {
+export default class TimeRangeSelector extends Component<TimeRangeSelectorProps, TimeRangeSelectorState> {
+
+  static displayName = 'Time Range Selector';
+
+  static defaultProps = {
+    disabled: false,
+    presetTimeRanges: PRESET_TIME_RANGES,
+    renderRightSection: () => {},
+  };
 
   constructor(props: TimeRangeSelectorProps) {
     super(props);
@@ -88,7 +101,7 @@ export default class TimeRangeSelector extends Component<TimeRangeSelectorProps>
     this._onNavigateForward = this._onNavigateForward.bind(this);
   }
 
-  static getDerivedStateFromProps(props, state) {
+  static getDerivedStateFromProps(props: TimeRangeSelectorProps, state: TimeRangeSelectorState) {
     if (props.to - props.from !== state.durationInMs && !state.preserveDuration) {
       const newDuration = (props.to - props.from) - ((props.to - props.from) % 10);
       return { durationInMs: newDuration };
@@ -194,65 +207,3 @@ export default class TimeRangeSelector extends Component<TimeRangeSelectorProps>
   }
 
 }
-
-TimeRangeSelector.displayName = 'Time Range Selector';
-
-TimeRangeSelector.defaultProps = {
-  disabled: false,
-  presetTimeRanges: PRESET_TIME_RANGES,
-  renderRightSection: () => {},
-};
-
-TimeRangeSelector.propTypes = {
-  /**
-   * Whether or not the component is disabled
-   * Type: boolean
-   */
-  disabled: PropTypes.bool,
-  /**
-   * The start value of the range in epoch milliseconds
-   * Type: number (required)
-   */
-  from: PropTypes.number.isRequired,
-  /**
-   * The oldest queryable starting time point, in epoch milliseconds
-   * Type: number (required)
-   */
-  lowerBound: PropTypes.number.isRequired,
-  /**
-   * Callback function passed by parent page (usually a GET request to fetch new data)
-   * Type: function(from: number, to: number) (required)
-   */
-  onChange: PropTypes.func.isRequired,
-  /**
-   * The preset time ranges to display as preset buttons
-   * Type: [{ id: string (required) the id of the preset, label: string (required) label of the preset button displayed to the user, durationInMs: number (required) the duration of the timerange in epoch ms }]
-   */
-  presetTimeRanges: PropTypes.arrayOf(
-    PropTypes.shape({
-      durationInMs: PropTypes.number.isRequired,
-      id: PropTypes.string.isRequired,
-      label: PropTypes.string.isRequired,
-    }),
-  ),
-  /**
-   * Function called if there is some element to be rendered on the rightmost side
-   * Type: function
-   */
-  renderRightSection: PropTypes.func,
-  /**
-   * The timezone that the range selector should use to display the time
-   * Type: string (required)
-   */
-  timezone: PropTypes.string.isRequired,
-  /**
-   * The end value of the range to in epoch milliseconds
-   * Type: number (required)
-   */
-  to: PropTypes.number.isRequired,
-  /**
-   * The latest queryable ending time point, in epoch milliseconds
-   * Type: number
-   */
-  upperBound: PropTypes.number.isRequired,
-};
