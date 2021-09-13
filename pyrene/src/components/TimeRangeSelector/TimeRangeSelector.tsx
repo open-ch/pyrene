@@ -32,33 +32,33 @@ interface TimeRangeSelectorProps {
    */
   onChange: (from: number, to: number) => void,
   /**
-      * The preset time ranges to display as preset buttons
-      * Type: [{ id: string (required) the id of the preset, label: string (required) label of the preset button displayed to the user, durationInMs: number (required) the duration of the timerange in epoch ms }]
-      */
+   * The preset time ranges to display as preset buttons
+   * Type: [{ id: string (required) the id of the preset, label: string (required) label of the preset button displayed to the user, durationInMs: number (required) the duration of the timerange in epoch ms }]
+   */
   presetTimeRanges?: Array<{
     durationInMs: number,
     id: string,
     label: string,
   }>,
   /**
-  * Function called if there is some element to be rendered on the rightmost side
-  * Type: function
-  */
+   * Function called if there is some element to be rendered on the rightmost side
+   * Type: function
+   */
   renderRightSection?: () => JSX.Element,
   /**
-      * The timezone that the range selector should use to display the time
-      * Type: string (required)
-      */
+   * The timezone that the range selector should use to display the time
+   * Type: string (required)
+   */
   timezone: string,
   /**
-      * The end value of the range to in epoch milliseconds
-      * Type: number (required)
-      */
+   * The end value of the range to in epoch milliseconds
+   * Type: number (required)
+   */
   to: number,
   /**
-      * The latest queryable ending time point, in epoch milliseconds
-      * Type: number
-      */
+   * The latest queryable ending time point, in epoch milliseconds
+   * Type: number
+   */
   upperBound: number,
 }
 
@@ -119,9 +119,10 @@ export default class TimeRangeSelector extends Component<TimeRangeSelectorProps,
    * @param newTo                   the new to value in epoch milliseconds
    * @param newUpperBound           the new value of the upperbound synced accordingly
    * @param durationInMs            the duration of the timerange based on the selected preset
+   * @param presetId                the id of the preset
    * @private
    */
-  _onPresetTimeRangeSelected(newFrom, newTo, newUpperBound, durationInMs) {
+  _onPresetTimeRangeSelected(newFrom: number, newTo: number, newUpperBound: number, durationInMs: number, presetId: string) {
     this.setState({
       durationInMs: durationInMs, // We need to store it, otherwise if we reach the lower/upper bound we will start to use less milliseconds with the steppers
     },
@@ -161,7 +162,7 @@ export default class TimeRangeSelector extends Component<TimeRangeSelectorProps,
    * @private
    */
   _preserveDurationForNavigation(navigateCallback) {
-    const foundTimeRangeType = this.props.presetTimeRanges.find((preset) => preset.durationInMs === this.state.durationInMs);
+    const foundTimeRangeType = this.props?.presetTimeRanges?.find?.((preset) => preset.durationInMs === this.state.durationInMs);
     if (foundTimeRangeType) {
       this.setState({ preserveDuration: true }, () => {
         navigateCallback();
@@ -172,8 +173,8 @@ export default class TimeRangeSelector extends Component<TimeRangeSelectorProps,
   }
 
   render() {
-    let currentTimeRangeType = this.props.presetTimeRanges.find((preset) => preset.durationInMs === this.state.durationInMs); // Try to find if the timerange matches an initial preset
-    currentTimeRangeType = currentTimeRangeType ? currentTimeRangeType.id : ''; // If we found a match, then let's use the id of the preset, otherwise no default preset has to be selected
+    const currentTimeRangeType = this.props?.presetTimeRanges?.find?.((preset) => preset.durationInMs === this.state.durationInMs); // Try to find if the timerange matches an initial preset
+    const id = currentTimeRangeType ? currentTimeRangeType.id : ''; // If we found a match, then let's use the id of the preset, otherwise no default preset has to be selected
 
     return (
       <div className={clsx(styles.timeRangeSelector, { [styles.disabled]: this.props.disabled })}>
@@ -182,8 +183,8 @@ export default class TimeRangeSelector extends Component<TimeRangeSelectorProps,
             disabled={this.props.disabled}
             lowerBound={this.props.lowerBound}
             onInteract={this._onPresetTimeRangeSelected}
-            currentTimeRangeType={currentTimeRangeType}
-            presetTimeRanges={this.props.presetTimeRanges}
+            currentTimeRangeType={id}
+            presetTimeRanges={this.props?.presetTimeRanges || []}
             upperBound={this.props.upperBound}
             timezone={this.props.timezone}
           />
