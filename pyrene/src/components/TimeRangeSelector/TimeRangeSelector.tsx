@@ -92,7 +92,7 @@ export default class TimeRangeSelector extends Component<TimeRangeSelectorProps,
     const durationInMs = (props.to - props.from) - ((props.to - props.from) % 10); // calculate the duration of the timerange minus rounding errors
 
     this.state = {
-      durationInMs: durationInMs,
+      durationInMs,
       preserveDuration: false,
     };
 
@@ -175,7 +175,7 @@ export default class TimeRangeSelector extends Component<TimeRangeSelectorProps,
 
   render(): JSX.Element {
     const currentTimeRangeType = this.props?.presetTimeRanges?.find?.((preset) => preset.durationInMs === this.state.durationInMs); // Try to find if the timerange matches an initial preset
-    const id = currentTimeRangeType ? currentTimeRangeType.id : ''; // If we found a match, then let's use the id of the preset, otherwise no default preset has to be selected
+    const timeRangeId = currentTimeRangeType ? currentTimeRangeType.id : ''; // If we found a match, then let's use the id of the preset, otherwise no default preset has to be selected
 
     return (
       <div className={clsx(styles.timeRangeSelector, { [styles.disabled]: this.props.disabled })}>
@@ -184,7 +184,7 @@ export default class TimeRangeSelector extends Component<TimeRangeSelectorProps,
             disabled={this.props.disabled}
             lowerBound={this.props.lowerBound}
             onInteract={this._onPresetTimeRangeSelected}
-            currentTimeRangeType={id}
+            currentTimeRangeType={timeRangeId}
             presetTimeRanges={this.props?.presetTimeRanges || []}
             upperBound={this.props.upperBound}
             timezone={this.props.timezone}
