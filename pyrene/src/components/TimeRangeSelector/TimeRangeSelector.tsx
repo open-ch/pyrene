@@ -1,8 +1,9 @@
 /* eslint-disable react/static-property-placement */
 import React, { Component } from 'react';
-import {
-  addMilliseconds, subMilliseconds, getTime, differenceInMilliseconds,
-} from 'date-fns';
+import addMilliseconds from 'date-fns/addMilliseconds';
+import subMilliseconds from 'date-fns/subMilliseconds';
+import getTime from 'date-fns/getTime';
+import differenceInMilliseconds from 'date-fns/differenceInMilliseconds';
 import clsx from 'clsx';
 import PresetTimeRanges from './PresetTimeRanges/PresetTimeRanges';
 import TimeRangeNavigationBar from './TimeRangeNavigationBar/TimeRangeNavigationBar';
@@ -200,7 +201,7 @@ export default class TimeRangeSelector extends Component<TimeRangeSelectorProps,
           />
         </div>
         <div className={clsx(styles['timeRangeSelector--right'], { [styles.disabled]: this.props.disabled })}>
-          {this.props.renderRightSection()}
+          {this.props?.renderRightSection?.()}
         </div>
       </div>
     );
