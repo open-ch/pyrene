@@ -36,11 +36,11 @@ export interface SimpleTableProps<R, X = ExtendsRow<R>> {
   /**
    * Called when the user clicks on a row.
    */
-  onRowClick?: (row: X | R) => void,
+  onRowClick?: (row: X) => void,
   /**
    * Called when the user double clicks on a row.
    */
-  onRowDoubleClick?: (row: X | R) => void,
+  onRowDoubleClick?: (row: X) => void,
 }
 
 /**
@@ -87,7 +87,7 @@ function SimpleTable<R = {}>({
               className={clsx(styles.tableRow, { [styles.tableRowWithFunction]: onRowClick || onRowDoubleClick })}
               key={Object.values(row).join()}
               onDoubleClick={() => (onRowDoubleClick ? onRowDoubleClick(row) : null)}
-              onClick={() => (onRowClick ? onRowClick(row as R) : null)}
+              onClick={() => (onRowClick ? onRowClick(row as ExtendsRow<R>) : null)}
             >
               {columns.map((column, columnIndex) => {
                 const valueRow = {
@@ -104,7 +104,7 @@ function SimpleTable<R = {}>({
                     key={column.id.concat(Object.values(valueRow).join('-'))}
                   >
                     <div className={styles.tableCellContent} style={{ textAlign: column.align as any }}>
-                      {column.cellRenderCallback ? column.cellRenderCallback(valueRow as any, rowIndex, columnIndex) : valueRow.value}
+                      {column.cellRenderCallback ? column.cellRenderCallback(valueRow as ExtendsRow<R>, rowIndex, columnIndex) : valueRow.value}
                     </div>
                   </td>
                 );

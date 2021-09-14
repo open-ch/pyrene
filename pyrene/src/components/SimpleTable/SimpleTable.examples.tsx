@@ -1,6 +1,7 @@
 /* eslint-disable no-alert */
 import { Example } from '../../examples/Example';
 import { SimpleTableProps } from './SimpleTable';
+import { ExtendsRow } from './types';
 
 interface Row {
   name: string;
@@ -23,8 +24,8 @@ const examples: Example<SimpleTableProps<Row>> = {
         onClick: (rowData) => alert(rowData.age),
       },
     ],
-    onRowClick: (row) => alert(`Single click: ${row.value}`),
-    onRowDoubleClick: (row) => alert(`Double click: ${row.value}`),
+    onRowClick: (row: ExtendsRow<Row>) => alert(`Single click: ${row?.value || ''}`),
+    onRowDoubleClick: (row: ExtendsRow<Row>) => alert(`Double click: ${row?.value || ''}`),
     columns: [
       {
         id: 'name',
@@ -47,7 +48,7 @@ const examples: Example<SimpleTableProps<Row>> = {
         id: 'friendAge',
         headerName: 'Friend Age',
         accessor: (d) => d.friend.age,
-        cellRenderCallback: (d) => `Friend's age is ${d.value}`,
+        cellRenderCallback: (d: ExtendsRow<Row>) => `Friend's age is ${d.value || ''}`,
       },
     ],
     data: [
