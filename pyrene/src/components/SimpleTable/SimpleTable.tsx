@@ -89,12 +89,8 @@ function SimpleTable<R = {}>({
               onClick={() => (onRowClick ? onRowClick(row as ExtendsRow<R>) : null)}
             >
               {columns.map((column, columnIndex) => {
-                const valueRow = {
-                  ...row,
-                  value: typeof column.accessor === 'function'
-                    ? column.accessor(row, rowIndex, columnIndex)
-                    : row[column.accessor],
-                };
+                const valueRow: ExtendsRow<R> = row;
+                valueRow.value = (typeof column.accessor === 'function' ? column.accessor(row, rowIndex, columnIndex) : row[column.accessor] as any);
 
                 return (
                   <td
@@ -103,7 +99,7 @@ function SimpleTable<R = {}>({
                     key={column.id.concat(Object.values(valueRow).join('-'))}
                   >
                     <div className={styles.tableCellContent} style={{ textAlign: column.align as any }}>
-                      {column.cellRenderCallback ? column.cellRenderCallback(valueRow as ExtendsRow<R>, rowIndex, columnIndex) : valueRow.value}
+                      {column.cellRenderCallback ? column.cellRenderCallback(valueRow as any, rowIndex, columnIndex) : valueRow.value}
                     </div>
                   </td>
                 );
