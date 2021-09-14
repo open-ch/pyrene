@@ -22,9 +22,7 @@ const CheckboxPopover: FunctionComponent<CheckboxPopoverProps> = ({
 }:CheckboxPopoverProps) => {
   const [displayPopover, setDisplayPopover] = useState(false);
 
-  const togglePopover = () => {
-    setDisplayPopover((prevDisplayPopover) => !prevDisplayPopover);
-  };
+  const togglePopover = () => setDisplayPopover((prevDisplayPopover) => !prevDisplayPopover);
 
   return (
     <div className={clsx(styles.checkboxPopover, { [styles.disabled]: disabled })}>
