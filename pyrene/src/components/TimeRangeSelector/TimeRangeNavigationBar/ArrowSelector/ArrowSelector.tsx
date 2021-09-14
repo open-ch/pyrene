@@ -46,6 +46,4 @@ const ArrowSelector: FunctionComponent<ArrowSelectorProps> = ({
   </div>
 );
 
-ArrowSelector.displayName = 'ArrowSelector';
-
 export default ArrowSelector;
