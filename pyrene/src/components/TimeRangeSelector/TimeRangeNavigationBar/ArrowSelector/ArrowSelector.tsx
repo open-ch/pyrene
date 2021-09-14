@@ -1,48 +1,51 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+/* eslint-disable react/prop-types */
+import React, { FunctionComponent } from 'react';
 import clsx from 'clsx';
-
 import TRSStepper from './TRSStepper/TRSStepper';
 import styles from './arrowSelector.css';
 
-const ArrowSelector = (props) => (
+interface ArrowSelectorProps {
+  backInactive: boolean,
+  disabled?: boolean,
+  forwardInactive: boolean,
+  innerWidth: number,
+  label: string,
+  onNavigateBack: () => void,
+  onNavigateForward: () => void,
+}
+
+const ArrowSelector: FunctionComponent<ArrowSelectorProps> = ({
+  disabled = false,
+  backInactive,
+  forwardInactive,
+  innerWidth,
+  label,
+  onNavigateBack,
+  onNavigateForward,
+}) => (
   <div className={styles.arrowSelector}>
     <TRSStepper
       direction="left"
-      disabled={props.disabled}
-      inactive={props.backInactive}
-      onClick={(props.disabled || props.backInactive) ? () => {} : props.onNavigateBack}
+      disabled={disabled}
+      inactive={backInactive}
+      onClick={(disabled || backInactive) ? () => {} : onNavigateBack}
     />
     <div className={styles.contentOuter}>
-      <div className={styles.contentInner} style={{ width: props.innerWidth }}>
-        <div className={clsx(styles.value, { [styles.disabled]: props.disabled })}>
-          {props.label}
+      <div className={styles.contentInner} style={{ width: innerWidth }}>
+        <div className={clsx(styles.value, { [styles.disabled]: disabled })}>
+          {label}
         </div>
       </div>
     </div>
     <TRSStepper
       direction="right"
-      disabled={props.disabled}
-      inactive={props.forwardInactive}
-      onClick={(props.disabled || props.forwardInactive) ? () => {} : props.onNavigateForward}
+      disabled={disabled}
+      inactive={forwardInactive}
+      onClick={(disabled || forwardInactive) ? () => {} : onNavigateForward}
     />
   </div>
 );
 
 ArrowSelector.displayName = 'ArrowSelector';
-
-ArrowSelector.defaultProps = {
-  disabled: false,
-};
-
-ArrowSelector.propTypes = {
-  backInactive: PropTypes.bool.isRequired,
-  disabled: PropTypes.bool,
-  forwardInactive: PropTypes.bool.isRequired,
-  innerWidth: PropTypes.number.isRequired,
-  label: PropTypes.string.isRequired,
-  onNavigateBack: PropTypes.func.isRequired,
-  onNavigateForward: PropTypes.func.isRequired,
-};
 
 export default ArrowSelector;
