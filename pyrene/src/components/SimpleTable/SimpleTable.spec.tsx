@@ -31,7 +31,7 @@ const props: SimpleTableProps<Row> = {
       id: 'customAge',
       headerName: 'Custom Age',
       accessor: (d) => d.age,
-      cellRenderCallback: (d) => `Custom age is ${d.value}`,
+      cellRenderCallback: (d) => `Custom age is ${d?.value || ''}`,
     },
   ],
 };

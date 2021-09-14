@@ -48,7 +48,7 @@ const examples: Example<SimpleTableProps<Row>> = {
         id: 'friendAge',
         headerName: 'Friend Age',
         accessor: (d) => d.friend.age,
-        cellRenderCallback: (d: ExtendsRow<Row>) => `Friend's age is ${d.value || ''}`,
+        cellRenderCallback: (d) => `Friend's age is ${d.value || ''}`,
       },
     ],
     data: [
