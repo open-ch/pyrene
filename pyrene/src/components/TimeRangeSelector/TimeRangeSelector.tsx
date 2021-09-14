@@ -7,7 +7,7 @@ import differenceInMilliseconds from 'date-fns/differenceInMilliseconds';
 import clsx from 'clsx';
 import PresetTimeRanges from './PresetTimeRanges/PresetTimeRanges';
 import TimeRangeNavigationBar from './TimeRangeNavigationBar/TimeRangeNavigationBar';
-import PRESET_TIME_RANGES from './TimeRangeSelectorDefaultProps';
+import PRESET_TIME_RANGES, { TimeRange } from './TimeRangeSelectorDefaultProps';
 import styles from './timeRangeSelector.css';
 
 export interface TimeRangeSelectorProps {
@@ -35,11 +35,7 @@ export interface TimeRangeSelectorProps {
    * The preset time ranges to display as preset buttons
    * Type: [{ id: string (required) the id of the preset, label: string (required) label of the preset button displayed to the user, durationInMs: number (required) the duration of the timerange in epoch ms }]
    */
-  presetTimeRanges?: Array<{
-    durationInMs: number,
-    id: string,
-    label: string,
-  }>,
+  presetTimeRanges?: Array<TimeRange>,
   /**
    * Function called if there is some element to be rendered on the rightmost side
    * Type: function
