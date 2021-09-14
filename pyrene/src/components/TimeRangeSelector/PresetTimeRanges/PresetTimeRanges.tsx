@@ -1,25 +1,31 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { subMilliseconds, getTime } from 'date-fns';
+/* eslint-disable react/prop-types */
+import React, { FunctionComponent } from 'react';
+import subMilliseconds from 'date-fns/subMilliseconds';
+import getTime from 'date-fns/getTime';
 import ToggleButtonGroup from '../../ToggleButtonGroup/ToggleButtonGroup';
 
-const PresetTimeRanges = (props) => (
-  <ToggleButtonGroup
-    options={props.presetTimeRanges.map(({ id, label }) => ({ label, value: id }))}
-    value={props.currentTimeRangeType}
-    disabled={props.disabled}
-    onChange={(value) => {
-      PresetTimeRanges.onPresetTimeRangeSelected(
-        value,
-        props.presetTimeRanges,
-        props.lowerBound,
-        props.upperBound,
-        props.timezone,
-        props.onInteract,
-      );
-    }}
-  />
-);
+
+type OnChangeHandler = (newFrom: number, newTo: number, newUpperBound: number, durationInMs: number, presetId: string) => void;
+
+type TimeRange = {
+  durationInMs: number,
+  label: string,
+  id: string,
+};
+
+interface PresetTimeRangesProps {
+  currentTimeRangeType?: string,
+  disabled?: boolean,
+  lowerBound: number,
+  onInteract: OnChangeHandler,
+  presetTimeRanges: Array<{
+    durationInMs: number,
+    id: string,
+    label: string,
+  }>,
+  timezone: string,
+  upperBound: number,
+}
 
 /**
  * Updates the from/to limits, the upperbound and the stepper ranges based on the selected preset
@@ -30,10 +36,17 @@ const PresetTimeRanges = (props) => (
  * @param timezone the timezone that we are currently using
  * @param callback the callback to update the parent component
  */
-PresetTimeRanges.onPresetTimeRangeSelected = (presetId, presetTimeRanges, lowerBound, upperBound, timezone, callback) => {
+const onPresetTimeRangeSelected = (
+  presetId: string,
+  presetTimeRanges: Array<TimeRange>,
+  lowerBound: number,
+  upperBound: number,
+  timezone: string,
+  callback: OnChangeHandler,
+) => {
   const selectedPresetTimeRange = presetTimeRanges.filter((preset) => preset.id === presetId).shift();
 
-  const newFromDate = subMilliseconds(upperBound, selectedPresetTimeRange.durationInMs);
+  const newFromDate = selectedPresetTimeRange ? subMilliseconds(upperBound, selectedPresetTimeRange.durationInMs) : 0;
   // convert to milliseconds
   const newFrom = getTime(newFromDate);
 
@@ -41,32 +54,35 @@ PresetTimeRanges.onPresetTimeRangeSelected = (presetId, presetTimeRanges, lowerB
     Math.max(newFrom, lowerBound),
     upperBound,
     upperBound,
-    selectedPresetTimeRange.durationInMs,
-    selectedPresetTimeRange.id,
+    selectedPresetTimeRange?.durationInMs || 0,
+    selectedPresetTimeRange?.id || '',
   );
 };
 
-PresetTimeRanges.displayName = 'PresetTimeRanges';
-
-PresetTimeRanges.defaultProps = {
-  disabled: false,
-  currentTimeRangeType: null,
-};
-
-PresetTimeRanges.propTypes = {
-  currentTimeRangeType: PropTypes.string,
-  disabled: PropTypes.bool,
-  lowerBound: PropTypes.number.isRequired,
-  onInteract: PropTypes.func.isRequired,
-  presetTimeRanges: PropTypes.arrayOf(
-    PropTypes.shape({
-      durationInMs: PropTypes.number.isRequired,
-      id: PropTypes.string.isRequired,
-      label: PropTypes.string.isRequired,
-    }),
-  ).isRequired,
-  timezone: PropTypes.string.isRequired,
-  upperBound: PropTypes.number.isRequired,
-};
+const PresetTimeRanges: FunctionComponent<PresetTimeRangesProps> = ({
+  currentTimeRangeType = '',
+  disabled = false,
+  lowerBound,
+  onInteract,
+  presetTimeRanges,
+  timezone,
+  upperBound,
+}) => (
+  <ToggleButtonGroup
+    options={presetTimeRanges.map(({ id, label }) => ({ label, value: id }))}
+    value={currentTimeRangeType}
+    disabled={disabled}
+    onChange={(value) => {
+      onPresetTimeRangeSelected(
+        value,
+        presetTimeRanges,
+        lowerBound,
+        upperBound,
+        timezone,
+        onInteract,
+      );
+    }}
+  />
+);
 
 export default PresetTimeRanges;
