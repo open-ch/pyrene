@@ -30,7 +30,10 @@ export interface BadgeProps {
  * Badges have a label and a mandatory type; they can be made clickable.
  */
 const Badge: React.FC<BadgeProps> = ({
-  label, maxWidth, onClick = () => null, type,
+  label,
+  maxWidth,
+  onClick = () => null,
+  type,
 }: BadgeProps) => (
   <div
     className={clsx(styles.badge, styles[`type-${type}`])}
