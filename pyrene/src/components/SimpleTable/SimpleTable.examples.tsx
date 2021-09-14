@@ -1,7 +1,6 @@
 /* eslint-disable no-alert */
 import { Example } from '../../examples/Example';
 import { SimpleTableProps } from './SimpleTable';
-import { ExtendsRow } from './types';
 
 interface Row {
   name: string;
@@ -24,7 +23,7 @@ const examples: Example<SimpleTableProps<Row>> = {
         onClick: (rowData) => alert(rowData.age),
       },
     ],
-    onRowClick: (row: ExtendsRow<Row>) => alert(`Single click: ${row.value}`),
+    onRowClick: (row) => alert(`Single click: ${row.value}`),
     onRowDoubleClick: (row) => alert(`Double click: ${row.value}`),
     columns: [
       {

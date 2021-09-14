@@ -57,31 +57,30 @@ function SimpleTable<R = {}>({
   return (
     <div className={styles.container}>
       <table className={styles.table}>
-        {columns.some((column) => typeof column.headerName !== 'undefined' && column.headerName !== '')
-            && (
-              <thead className={styles.tableHeader}>
-                <tr className={styles.tableHeaderRow}>
-                  {columns.map((column) => (
-                    <th
-                      className={styles.tableHeaderCell}
-                      style={{ maxWidth: column?.width && column.width > 0 ? `${column.width}px` : undefined }}
-                      key={column.id}
-                    >
-                      <div className={styles.tableCellContent} style={{ textAlign: column.align as any }}>
-                        {column.headerName}
-                      </div>
-                    </th>
-                  ))}
-                  {actions.length > 0 && (
-                    <th
-                      aria-label="Action"
-                      className={clsx(styles.tableHeaderCell, styles.actionCell)}
-                      key="action"
-                    />
-                  )}
-                </tr>
-              </thead>
-            )}
+        {columns.some((column) => typeof column.headerName !== 'undefined' && column.headerName !== '') && (
+          <thead className={styles.tableHeader}>
+            <tr className={styles.tableHeaderRow}>
+              {columns.map((column) => (
+                <th
+                  className={styles.tableHeaderCell}
+                  style={{ maxWidth: column?.width && column.width > 0 ? `${column.width}px` : undefined }}
+                  key={column.id}
+                >
+                  <div className={styles.tableCellContent} style={{ textAlign: column.align as any }}>
+                    {column.headerName}
+                  </div>
+                </th>
+              ))}
+              {actions.length > 0 && (
+                <th
+                  aria-label="Action"
+                  className={clsx(styles.tableHeaderCell, styles.actionCell)}
+                  key="action"
+                />
+              )}
+            </tr>
+          </thead>
+        )}
         <tbody className={styles.tableBody}>
           {!loading && data.map((row, rowIndex) => (
             <tr
