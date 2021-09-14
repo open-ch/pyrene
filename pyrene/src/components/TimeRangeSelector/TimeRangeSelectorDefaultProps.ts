@@ -1,24 +1,38 @@
-import { getTime, add } from 'date-fns';
+import getTime from 'date-fns/getTime';
+import add from 'date-fns/add';
 
-const PRESET_TIME_RANGES = [
+export type TimeRange = {
+  durationInMs: number,
+  label: string,
+  id: string,
+};
+
+export enum Ranges {
+  DAY = '24h',
+  WEEK = '7d',
+  MONTH = '30d',
+  YEAR = '1y',
+}
+
+const PRESET_TIME_RANGES: Array<TimeRange> = [
   {
-    id: '24h',
-    label: '24h',
+    id: Ranges.DAY,
+    label: Ranges.DAY,
     durationInMs: getTime(add(0, { days: 1 })),
   },
   {
-    id: '7d',
-    label: '7d',
+    id: Ranges.WEEK,
+    label: Ranges.WEEK,
     durationInMs: getTime(add(0, { days: 7 })),
   },
   {
-    id: '30d',
-    label: '30d',
+    id: Ranges.MONTH,
+    label: Ranges.MONTH,
     durationInMs: getTime(add(0, { days: 30 })),
   },
   {
-    id: '1y',
-    label: '1y',
+    id: Ranges.YEAR,
+    label: Ranges.YEAR,
     durationInMs: getTime(add(0, { years: 1 })),
   },
 ];
