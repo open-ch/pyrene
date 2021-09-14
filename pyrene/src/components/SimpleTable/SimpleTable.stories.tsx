@@ -3,7 +3,6 @@ import React from 'react';
 
 import { Story, Meta } from '@storybook/react';
 import SimpleTableComponent, { SimpleTableProps } from './SimpleTable';
-import { ExtendsRow } from './types';
 
 export default {
   title: 'Components/Data/Simple Table',
