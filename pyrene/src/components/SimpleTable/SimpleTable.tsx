@@ -1,6 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unnecessary-type-assertion */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/ban-types */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import React from 'react';
 import clsx from 'clsx';
 import Loader from '../Loader/Loader';
