@@ -178,7 +178,7 @@ const Modal: React.FC<ModalProps> = ({
 
   const renderFooterSection = () => (
     <>
-      {(Footer && Footer()) || (
+      {(Footer?.()) || (
         <div className={styles.buttonBarContainer}>
           <ButtonBar
             rightButtonSectionElements={createButtonArray(rightButtonBarElements)}
@@ -190,39 +190,35 @@ const Modal: React.FC<ModalProps> = ({
   );
 
   const renderHeaderSection = () => (
-    <>
-      <div className={styles.titleBar}>
-        <span className={styles.title}>
-          {title}
-        </span>
-        <div className={styles.topRightSection}>
-          {displayNavigationArrows && renderNavigationArrows()}
-          <div className={styles.closeButtonContainer}>
-            <ActionBar
-              styling="none"
-              actions={[
-                {
-                  iconName: 'delete',
-                  color: 'neutral300',
-                  active: true,
-                  onClick: onClose,
-                },
-              ]}
-            />
-          </div>
+    <div className={styles.titleBar}>
+      <span className={styles.title}>
+        {title}
+      </span>
+      <div className={styles.topRightSection}>
+        {displayNavigationArrows && renderNavigationArrows()}
+        <div className={styles.closeButtonContainer}>
+          <ActionBar
+            styling="none"
+            actions={[
+              {
+                iconName: 'delete',
+                color: 'neutral300',
+                active: true,
+                onClick: onClose,
+              },
+            ]}
+          />
         </div>
       </div>
-    </>
+    </div>
   );
 
   const renderContent = () => (
-    <>
-      <div className={clsx(styles.contentContainer, { [styles.contentScrolling]: contentScrolling })}>
-        <div className={clsx(styles.content, { [styles.contentPadding]: contentPadding }, { [styles.contentScrolling]: contentScrolling }, { [styles.overlay]: processing })}>
-          { renderCallback() }
-        </div>
+    <div className={clsx(styles.contentContainer, { [styles.contentScrolling]: contentScrolling })}>
+      <div className={clsx(styles.content, { [styles.contentPadding]: contentPadding }, { [styles.contentScrolling]: contentScrolling }, { [styles.overlay]: processing })}>
+        { renderCallback() }
       </div>
-    </>
+    </div>
   );
 
   const renderLoader = () => (
