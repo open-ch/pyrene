@@ -38,11 +38,11 @@ const props: SimpleTableProps<Row> = {
 
 describe('<SimpleTable />', () => {
   it('renders without crashing', () => {
-    shallow(<SimpleTable {...props} />);
+    shallow(<SimpleTable<Row> {...props} />);
   });
 
   it('renders its content', () => {
-    const rendered = shallow(<SimpleTable {...props} />);
+    const rendered = shallow(<SimpleTable<Row> {...props} />);
     // header
     expect(rendered.contains('Name')).toBe(true);
     expect(rendered.contains('Age')).toBe(true);
@@ -57,29 +57,29 @@ describe('<SimpleTable />', () => {
   });
 
   it('renders the cellRenderCallback correctly', () => {
-    const rendered = shallow(<SimpleTable {...props} />);
+    const rendered = shallow(<SimpleTable<Row> {...props} />);
     expect(rendered.contains('Custom age is 23')).toBe(true);
     expect(rendered.contains('Custom age is 21')).toBe(true);
   });
 
   it('should contain a loader while loading', () => {
-    const rendered = mount(<SimpleTable {...props} loading />);
+    const rendered = mount(<SimpleTable<Row> {...props} loading />);
     expect(rendered.find(Loader)).toHaveLength(1);
   });
 
   it('should show "No data found" when there is no data', () => {
-    const rendered = mount(<SimpleTable {...{ ...props, data: [] }} />);
+    const rendered = mount(<SimpleTable<Row> {...{ ...props, data: [] }} />);
     expect(rendered.contains('No data found.')).toBe(true);
   });
 
   it('does not render an action button if no action has been passed', () => {
-    const rendered = mount(<SimpleTable {...{ ...props, actions: [] }} />);
+    const rendered = mount(<SimpleTable<Row> {...{ ...props, actions: [] }} />);
     const actionButtonsFound = rendered.find('div .action').length;
     expect(actionButtonsFound).toBe(0);
   });
 
   it('renders an action menu with clickable links when the action button is pressed.', () => {
-    const rendered = mount(<SimpleTable {...props} />);
+    const rendered = mount(<SimpleTable<Row> {...props} />);
     let actionMenuContainerFound = rendered.find('.actionMenuContainer').length;
     const lastActionButton = rendered.find('div .action').last();
     // We have no action list yet since we have not clicked the action button
