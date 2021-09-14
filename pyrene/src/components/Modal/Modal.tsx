@@ -232,15 +232,13 @@ const Modal: React.FC<ModalProps> = ({
   );
 
   return (
-    <>
-      <div className={styles.modalOverlay}>
-        <div className={clsx(styles.modalContainer, styles[size])} role="dialog">
-          {renderHeader && renderHeaderSection()}
-          {loading ? renderLoader() : renderContent()}
-          {renderFooter && renderFooterSection()}
-        </div>
+    <div className={styles.modalOverlay}>
+      <div className={clsx(styles.modalContainer, styles[size])} role="dialog">
+        {renderHeader && renderHeaderSection()}
+        {loading ? renderLoader() : renderContent()}
+        {renderFooter && renderFooterSection()}
       </div>
-    </>
+    </div>
   );
 };
 
