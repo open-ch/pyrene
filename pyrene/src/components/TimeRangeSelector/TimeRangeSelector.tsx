@@ -91,11 +91,6 @@ export default class TimeRangeSelector extends Component<TimeRangeSelectorProps,
       durationInMs,
       preserveDuration: false,
     };
-
-    this._onPresetTimeRangeSelected = this._onPresetTimeRangeSelected.bind(this);
-    this._preserveDurationForNavigation = this._preserveDurationForNavigation.bind(this);
-    this._onNavigateBack = this._onNavigateBack.bind(this);
-    this._onNavigateForward = this._onNavigateForward.bind(this);
   }
 
   static getDerivedStateFromProps(props: TimeRangeSelectorProps, state: TimeRangeSelectorState): Partial<TimeRangeSelectorState> | null {
@@ -119,16 +114,16 @@ export default class TimeRangeSelector extends Component<TimeRangeSelectorProps,
    * @private
    */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  _onPresetTimeRangeSelected(newFrom: number, newTo: number, newUpperBound: number, durationInMs: number, presetId: string): void {
+  _onPresetTimeRangeSelected = (newFrom: number, newTo: number, newUpperBound: number, durationInMs: number, presetId: string): void => {
     this.setState({
       durationInMs, // We need to store it, otherwise if we reach the lower/upper bound we will start to use less milliseconds with the steppers
     },
     () => {
       this.props.onChange(newFrom, newTo);
     });
-  }
+  };
 
-  _onNavigateBack(): void {
+  _onNavigateBack = (): void => {
     const fromDiff = subMilliseconds(this.props.from, this.state.durationInMs);
     const toDiff = subMilliseconds(this.props.to, this.state.durationInMs);
 
@@ -139,9 +134,9 @@ export default class TimeRangeSelector extends Component<TimeRangeSelectorProps,
       ? addMilliseconds(newFrom, this.state.durationInMs)
       : toDiff;
     return this.props.onChange(newFrom, Math.min(getTime(newTo), this.props.upperBound));
-  }
+  };
 
-  _onNavigateForward(): void {
+  _onNavigateForward = (): void => {
     const fromDiff = addMilliseconds(this.props.from, this.state.durationInMs);
     const toDiff = addMilliseconds(this.props.to, this.state.durationInMs);
 
@@ -152,13 +147,13 @@ export default class TimeRangeSelector extends Component<TimeRangeSelectorProps,
       ? addMilliseconds(newTo, this.state.durationInMs)
       : fromDiff;
     return this.props.onChange(Math.max(getTime(newFrom), this.props.lowerBound), newTo);
-  }
+  };
 
   /**
    * Checks whether the component has a preset timerange selected when navigating; if yes, we should preserve the current durationInMs.
    * @private
    */
-  _preserveDurationForNavigation(navigateCallback: () => void): void {
+  _preserveDurationForNavigation = (navigateCallback: () => void): void => {
     const foundTimeRangeType = this.props?.presetTimeRanges?.find?.((preset) => preset.durationInMs === this.state.durationInMs);
     if (foundTimeRangeType) {
       this.setState({ preserveDuration: true }, () => {
@@ -167,7 +162,7 @@ export default class TimeRangeSelector extends Component<TimeRangeSelectorProps,
     } else {
       navigateCallback();
     }
-  }
+  };
 
   render(): JSX.Element {
     const currentTimeRangeType = this.props?.presetTimeRanges?.find?.((preset) => preset.durationInMs === this.state.durationInMs); // Try to find if the timerange matches an initial preset
