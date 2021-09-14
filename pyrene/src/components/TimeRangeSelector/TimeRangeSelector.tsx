@@ -10,7 +10,7 @@ import TimeRangeNavigationBar from './TimeRangeNavigationBar/TimeRangeNavigation
 import PRESET_TIME_RANGES from './TimeRangeSelectorDefaultProps';
 import styles from './timeRangeSelector.css';
 
-interface TimeRangeSelectorProps {
+export interface TimeRangeSelectorProps {
   /**
    * Whether or not the component is disabled
    * Type: boolean
