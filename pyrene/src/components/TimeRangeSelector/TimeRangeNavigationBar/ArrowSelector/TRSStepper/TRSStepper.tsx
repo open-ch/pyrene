@@ -31,7 +31,6 @@ const TRSStepper: FunctionComponent<TRSStepperProps> = ({
   onClick,
 }: TRSStepperProps) => {
   const capitalisedDirection = direction.charAt(0).toUpperCase() + direction.slice(1);
-  const iconName = `pyreneIcon-chevron${capitalisedDirection}`;
   return (
     <button
       type="button"
@@ -43,7 +42,7 @@ const TRSStepper: FunctionComponent<TRSStepperProps> = ({
       onClick={onClick}
       disabled={disabled}
     >
-      <span className={clsx(iconName,
+      <span className={clsx(`pyreneIcon-chevron${capitalisedDirection}`,
         styles.stepperIcon,
         { [styles.disabledIcon]: inactive })}
       />
