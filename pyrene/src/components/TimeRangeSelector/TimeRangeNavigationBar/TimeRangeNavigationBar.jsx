@@ -28,8 +28,8 @@ const TimeRangeNavigationBar = (props) => {
 };
 
 TimeRangeNavigationBar.renderCurrentTimeRange = (from, to, timezone) => {
-  const localFrom = getTime(utcToZonedTime(new Date(from), timezone));
-  const localTo = getTime(utcToZonedTime(new Date(to), timezone));
+  const localFrom = getTime(utcToZonedTime(from, timezone));
+  const localTo = getTime(utcToZonedTime(to, timezone));
   const pattern = 'dd.MM.yyyy, HH:mm';
 
   return `${format(localFrom, pattern)} - ${format(localTo, pattern)}`;
