@@ -1,5 +1,9 @@
 import React from 'react';
-import { getTime, subYears, subDays } from 'date-fns';
+import getTime from 'date-fns/getTime';
+import subYears from 'date-fns/subYears';
+import subDays from 'date-fns/subDays';
+import { TimeRangeSelectorProps } from './TimeRangeSelector';
+import { Example, StateProvider } from '../../examples/Example';
 
 const fontStyle = {
   fontSize: '16px',
@@ -18,7 +22,9 @@ const wrapperStyle = {
   alignItems: 'center',
 };
 
-function renderRightSection() {
+const TIMEZONE = 'Europe/Zurich';
+
+function renderRightSection(): JSX.Element {
   return (
     <div style={wrapperStyle}>
       <span className="pyreneIcon-data" style={fontStyle} />
@@ -27,21 +33,24 @@ function renderRightSection() {
   );
 }
 
-const TIMEZONE = 'Europe/Zurich';
+interface State {
+  from: number;
+  to: number;
+}
 
-const todayDateObject = new Date();
-const examples = {
+const today = new Date();
+
+const examples: Example<TimeRangeSelectorProps, State> = {
   props: {
     timezone: TIMEZONE,
-    lowerBound: getTime(subYears(todayDateObject, 1)),
-    from: (stateProvider) => (stateProvider.state.from === undefined ? getTime(subDays(todayDateObject, 40)) : stateProvider.state.from),
-    to: (stateProvider) => (stateProvider.state.from === undefined ? getTime(subDays(todayDateObject, 10)) : stateProvider.state.to),
-    upperBound: getTime(todayDateObject),
-    onChange: (stateProvider) => (from, to) => stateProvider.setState({ from, to }),
-    renderRightSection: renderRightSection,
+    lowerBound: getTime(subYears(today, 1)),
+    from: (stateProvider: StateProvider<State>) => (stateProvider.state.from === undefined ? getTime(subDays(today, 40)) : stateProvider.state.from),
+    to: (stateProvider: StateProvider<State>) => (stateProvider.state.to === undefined ? getTime(subDays(today, 10)) : stateProvider.state.to),
+    upperBound: getTime(today),
+    onChange: (stateProvider: StateProvider<State>) => (from: number, to: number) => stateProvider.setState({ from, to }),
+    renderRightSection,
   },
+  category: 'Other',
 };
-
-examples.category = 'Other';
 
 export default examples;
