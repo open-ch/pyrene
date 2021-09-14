@@ -32,7 +32,7 @@ const Icon: React.FC<IconProps> = ({
   name = '',
   svg = '',
 }: IconProps) => (
-  svg.length > 0 ? (
+  svg?.length > 0 ? (
     <div className={clsx(styles.icon, styles[`type-${type}`])}>
       <img className={styles.svgIcon} src={svg} alt="icon" />
     </div>
