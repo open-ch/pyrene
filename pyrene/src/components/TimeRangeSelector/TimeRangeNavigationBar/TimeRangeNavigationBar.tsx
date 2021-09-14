@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { FunctionComponent } from 'react';
 import differenceInMinutes from 'date-fns/differenceInMinutes';
 import getTime from 'date-fns/getTime';
