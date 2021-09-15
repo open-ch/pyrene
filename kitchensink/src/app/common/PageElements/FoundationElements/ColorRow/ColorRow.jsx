@@ -75,7 +75,7 @@ const ColorRow = (props) => (
                       infoBox={(function () {
                         if (props.showInfo) {
                           if (props.showInfo === 'fullInfo') {
-                            return { infoTitle: color.colorName, infoText: color.infoText || color.name, infoLabel: color.infoLabel };
+                            return { infoTitle: color.colorName, infoText: color.infoText, infoLabel: color.infoLabel };
                           }
                           if (props.showInfo === 'onlyTitles') {
                             if (color.colorName) {
