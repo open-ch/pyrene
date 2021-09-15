@@ -18,9 +18,4 @@ const Spacer: FunctionComponent<SpacerProps> = ({ size = 'small' }: SpacerProps)
 
 Spacer.displayName = 'Spacer';
 
-// defaultProps for compatibilty with kitchensink for pyrene documentation
-Spacer.defaultProps = {
-  size: 'small',
-};
-
 export default Spacer;

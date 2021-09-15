@@ -3,26 +3,16 @@ import React, { FunctionComponent } from 'react';
 import subMilliseconds from 'date-fns/subMilliseconds';
 import getTime from 'date-fns/getTime';
 import ToggleButtonGroup from '../../ToggleButtonGroup/ToggleButtonGroup';
-
+import { TimeRange } from '../TimeRangeSelectorDefaultProps';
 
 type OnChangeHandler = (newFrom: number, newTo: number, newUpperBound: number, durationInMs: number, presetId: string) => void;
-
-type TimeRange = {
-  durationInMs: number,
-  label: string,
-  id: string,
-};
 
 interface PresetTimeRangesProps {
   currentTimeRangeType?: string,
   disabled?: boolean,
   lowerBound: number,
   onInteract: OnChangeHandler,
-  presetTimeRanges: Array<{
-    durationInMs: number,
-    id: string,
-    label: string,
-  }>,
+  presetTimeRanges: Array<TimeRange>,
   timezone: string,
   upperBound: number,
 }
