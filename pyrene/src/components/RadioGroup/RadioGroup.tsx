@@ -71,9 +71,7 @@ const RadioGroup: React.FC<RadioGroupProps> = ({
     [key]: true,
   }));
 
-  const onMouseLeave = (key: string) => {
-    setHovered(({ [key]: prev, ...prevHovered }) => prevHovered);
-  };
+  const onMouseLeave = (key: string) => setHovered(({ [key]: prev, ...prevHovered }) => prevHovered);
 
   const lastElementIndex = options.length - 1;
 

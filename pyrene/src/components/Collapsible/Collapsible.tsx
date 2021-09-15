@@ -62,7 +62,7 @@ const Collapsible: React.FC<CollapsibleProps> = ({
 
   const toggleCollapse = (event:React.MouseEvent) => {
     setExpanded((prevExpanded) => !prevExpanded);
-    if (onChange) onChange(event);
+    onChange?.(event);
   };
 
   return (

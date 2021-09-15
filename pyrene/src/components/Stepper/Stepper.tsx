@@ -53,14 +53,4 @@ const Stepper: FunctionComponent<StepperProps> = ({
 
 Stepper.displayName = 'Stepper';
 
-/**
- * defaultProps for compatibilty with kitchensink for pyrene documentation
- */
-Stepper.defaultProps = {
-  direction: 'right',
-  type: 'bordered',
-  disabled: false,
-  onClick: () => null,
-};
-
 export default Stepper;

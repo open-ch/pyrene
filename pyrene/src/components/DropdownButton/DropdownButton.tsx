@@ -87,11 +87,4 @@ const DropdownButton: FunctionComponent<DropdownButtonProps> = ({
 
 DropdownButton.displayName = 'Dropdown Button';
 
-/**
- * defaultProps for compatibilty with kitchensink for pyrene documentation
- */
-DropdownButton.defaultProps = {
-  align: 'start',
-};
-
 export default DropdownButton;
