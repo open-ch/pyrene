@@ -1,11 +1,20 @@
+/* eslint-disable @typescript-eslint/ban-types */
+/* eslint-disable react/prop-types */
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 import Popover from '../Popover/Popover';
-import styles from './simpleTableActionList.css';
+import styles from './simpleTableActionList.module.css';
 import Icon from '../Icon/Icon';
+import { Action } from './types';
 
-const SimpleTableActionList = (props) => {
+interface SimpleTableActionListProps<R> {
+  actions: Array<Action<R>>,
+  row: R,
+}
 
+const SimpleTableActionList: <R = {}>(p: SimpleTableActionListProps<R>) => React.ReactElement<SimpleTableActionListProps<R>> = ({
+  actions,
+  row,
+}) => {
   const [activeAction, setActiveAction] = useState({
     displayed: false,
   });
@@ -18,7 +27,7 @@ const SimpleTableActionList = (props) => {
       distanceToTarget={14}
       renderPopoverContent={() => (
         <div className={styles.actionMenuContainer}>
-          {props.actions.map((element) => (
+          {actions.map((element) => (
             <a
               className={styles.actionLink}
               key={`${element.label}_actionLink`}
@@ -27,7 +36,7 @@ const SimpleTableActionList = (props) => {
                 if (element.onClick) {
                   e.preventDefault();
                   e.stopPropagation();
-                  element.onClick(props.row);
+                  element.onClick(row);
                   onClose();
                 }
               }}
@@ -56,18 +65,6 @@ const SimpleTableActionList = (props) => {
       </div>
     </Popover>
   );
-};
-
-SimpleTableActionList.propTypes = {
-  actions: PropTypes.arrayOf(PropTypes.shape({
-    label: PropTypes.string.isRequired,
-    onClick: PropTypes.func.isRequired,
-  })).isRequired,
-  row: PropTypes.shape({
-    key: PropTypes.string,
-    rowStyle: PropTypes.shape({}),
-    value: PropTypes.node,
-  }).isRequired,
 };
 
 export default SimpleTableActionList;
