@@ -391,7 +391,7 @@ const categoricalColors = [
     title: '',
     colors: [
       {
-        colorName: 'Chart 3', name: 'chart-3', darkFont: true, bordered: true,
+        colorName: 'Chart 3', name: 'chart-3', darkFont: true, bordered: false,
       },
     ],
   },
