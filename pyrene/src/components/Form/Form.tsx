@@ -10,9 +10,6 @@ export interface FormProps {
   validationSchema?: Record<string, any>,
 }
 
-/**
- * You can call me Form. Form Form.
- */
 class Form extends React.Component {
 
   getTouchedState = (initialValues) => { // eslint-disable-line react/sort-comp
