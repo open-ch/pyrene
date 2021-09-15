@@ -1,6 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+export interface FormProps {
+  initialValues?: Record<string, any>,
+  onChange?: () => void,
+  onSubmit?: () => void,
+  render: () => JSX.Element,
+  validateOnFirstTouch?: boolean,
+  validationSchema?: Record<string, any>,
+}
 
 /**
  * You can call me Form. Form Form.
