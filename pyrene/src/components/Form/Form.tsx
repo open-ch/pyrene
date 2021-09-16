@@ -1,19 +1,31 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export interface FormProps {
-  initialValues?: Record<string, any>,
-  onChange?: () => void,
-  onSubmit?: () => void,
-  render: () => JSX.Element,
-  validateOnFirstTouch?: boolean,
-  validationSchema?: Record<string, any>,
-}
+type FormValues = Record<string, any>;
+type Error = Record<string, any>;
 
 export interface FormState {
-  values: Record<string, any>,
+  values: FormValues,
   touched: boolean[],
-  isSubmitting: Record<string, boolean>,
+  isSubmitting: boolean,
+}
+
+type RenderPropsArgs = {
+  values: FormValues,
+  errors: Error,
+  touched: FormState['touched'],
+  isSubmitting: FormState['isSubmitting'],
+  submitDisabled: boolean,
+  initField: (fieldName: string) => Record<string, any>,
+};
+
+export interface FormProps {
+  initialValues?: FormValues,
+  onChange?: () => void,
+  onSubmit?: () => void,
+  render: (args: RenderPropsArgs) => JSX.Element,
+  validateOnFirstTouch?: boolean,
+  validationSchema?: Record<string, any>,
 }
 
 const getTouchedState = (initialValues: FormProps['initialValues']) => Object.keys(initialValues).reduce((allValues, value) => ({
@@ -21,15 +33,19 @@ const getTouchedState = (initialValues: FormProps['initialValues']) => Object.ke
   [value]: false,
 }), {});
 
+const anyError = (errors: Error) => Object.keys(errors).some((x) => errors[x]);
+
 class Form extends React.Component<FormProps, FormState> {
 
+  constructor(props: FormProps) {
+    super(props);
 
-  // eslint-disable-next-line react/state-in-constructor
-  state = {
-    values: this.props.initialValues,
-    touched: getTouchedState(this.props.initialValues),
-    isSubmitting: false,
-  };
+    this.state = {
+      values: this.props.initialValues,
+      touched: getTouchedState(this.props.initialValues),
+      isSubmitting: false,
+    };
+  }
 
   validateYupSchema = (values) => {
     try {
@@ -48,11 +64,9 @@ class Form extends React.Component<FormProps, FormState> {
     return {};
   };
 
-  anyError = (errors) => Object.keys(errors).some((x) => errors[x]);
-
   canBeSubmitted() {
     const errors = this.validate(this.state.values);
-    const isDisabled = this.anyError(errors);
+    const isDisabled = anyError(errors);
     return !isDisabled;
   }
 
@@ -161,7 +175,7 @@ class Form extends React.Component<FormProps, FormState> {
     }
   };
 
-  initField = (fieldName, error) => {
+  initField = (fieldName: string, error: string) => {
     // Standard boilerplate
     const fieldProps = {
       name: fieldName,
@@ -182,7 +196,7 @@ class Form extends React.Component<FormProps, FormState> {
 
   render() {
     const errors = { ...this.validate(this.state.values) };
-    const submitDisabled = this.anyError(errors);
+    const submitDisabled = anyError(errors);
     const initField = (name) => this.initField(name, errors[name]);
     return (
       <form onSubmit={this.handleSubmit}>
