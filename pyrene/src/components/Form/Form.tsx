@@ -10,7 +10,13 @@ export interface FormProps {
   validationSchema?: Record<string, any>,
 }
 
-class Form extends React.Component {
+export interface FormState {
+  values: Record<string, any>,
+  touched: boolean[],
+  isSubmitting: Record<string, boolean>,
+}
+
+class Form extends React.Component<FormProps, FormState> {
 
   getTouchedState = (initialValues) => { // eslint-disable-line react/sort-comp
     const touchedState = Object.keys(initialValues).reduce((allValues, value) => {
