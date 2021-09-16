@@ -11,7 +11,7 @@ export interface FormState {
 }
 
 type RenderPropsArgs = {
-  values: FormValues,
+  values?: FormValues,
   errors: Error,
   touched: FormState['touched'],
   isSubmitting: FormState['isSubmitting'],
@@ -197,7 +197,7 @@ class Form extends React.Component<FormProps, FormState> {
   render() {
     const errors = { ...this.validate(this.state.values) };
     const submitDisabled = anyError(errors);
-    const initField = (name) => this.initField(name, errors[name]);
+    const initField = (name: string) => this.initField(name, errors[name]);
     return (
       <form onSubmit={this.handleSubmit}>
         {this.props.render({
