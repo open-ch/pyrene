@@ -16,20 +16,18 @@ export interface FormState {
   isSubmitting: Record<string, boolean>,
 }
 
+const getTouchedState = (initialValues: FormProps['initialValues']) => Object.keys(initialValues).reduce((allValues, value) => ({
+  ...allValues,
+  [value]: false,
+}), {});
+
 class Form extends React.Component<FormProps, FormState> {
 
-  getTouchedState = (initialValues) => { // eslint-disable-line react/sort-comp
-    const touchedState = Object.keys(initialValues).reduce((allValues, value) => {
-      allValues[value] = false; // eslint-disable-line no-param-reassign
-      return allValues;
-    }, {});
-    return { ...touchedState };
-  };
 
   // eslint-disable-next-line react/state-in-constructor
   state = {
     values: this.props.initialValues,
-    touched: this.getTouchedState(this.props.initialValues),
+    touched: getTouchedState(this.props.initialValues),
     isSubmitting: false,
   };
 
