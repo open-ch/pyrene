@@ -38,7 +38,7 @@ const icons = ['place', 'layers', 'clock'];
 const colors = [colorConstants.blue600, colorConstants.red600, colorConstants.orange600, undefined];
 const testOptionsWithIcons = testOptions.map((option, i) => ({ ...option, iconProps: { name: icons[i % 3], color: colors[i % 4] } }));
 
-const makeDefaultExample = (options) => ({
+const makeExample = (options) => ({
   title: 'Multi-Select',
   placeholder: 'Choose your favorite ice cream',
   helperLabel: 'Ice cream is delicious',
@@ -53,14 +53,14 @@ const makeDefaultExample = (options) => ({
 });
 
 const examples = {
-  props: makeDefaultExample(testOptions),
+  props: makeExample(testOptions),
   examples: [
     {
-      props: makeDefaultExample(testOptions),
+      props: makeExample(testOptions),
       description: 'Multi Select',
     },
     {
-      props: makeDefaultExample(testOptionsWithIcons),
+      props: makeExample(testOptionsWithIcons),
       description: 'Multi Select with Icons',
     },
   ],
