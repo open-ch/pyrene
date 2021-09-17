@@ -26,7 +26,4 @@ const MultiSelectMenuWithOptions: FunctionComponent<MenuProps<Option, boolean>> 
   </components.Menu>
 );
 
-
-MultiSelectMenuWithOptions.displayName = 'MultiSelectMenuWithOptions';
-
 export default MultiSelectMenuWithOptions;
