@@ -1,4 +1,4 @@
-import { getDelimitedValues, getCaseInsensitiveDistinctValues } from './delimiterUtil.js';
+import { getDelimitedValues, getCaseInsensitiveDistinctValues } from './delimiterUtil';
 
 describe('getDelimitedValues()', () => {
   it('delimits entries with multiple delimiters', () => {
