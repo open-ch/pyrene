@@ -38,54 +38,31 @@ const icons = ['place', 'layers', 'clock'];
 const colors = [colorConstants.blue600, colorConstants.red600, colorConstants.orange600, undefined];
 const testOptionsWithIcons = testOptions.map((option, i) => ({ ...option, iconProps: { name: icons[i % 3], color: colors[i % 4] } }));
 
+const makeDefaultExample = (options) => ({
+  title: 'Multi-Select',
+  placeholder: 'Choose your favorite ice cream',
+  helperLabel: 'Ice cream is delicious',
+  defaultValues: [],
+  options,
+  onChange: (stateProvider) => (value) => stateProvider.setState({ value }),
+  value: (stateProvider) => stateProvider.state.value,
+  rows: 4,
+  creatable: true,
+  invalid: (stateProvider) => stateProvider.state.value && stateProvider.state.value.filter((o) => o.value === 'bacon' || o.value === 'chickenliver').length > 0,
+  invalidLabel: 'Please no bacon or chicken liver',
+});
+
 const examples = {
-  props: {
-    title: 'Multi-Select',
-    placeholder: 'Choose your favorite ice cream',
-    helperLabel: 'Ice cream is delicious',
-    defaultValues: [],
-    options: testOptions,
-    onChange: (stateProvider) => (value) => stateProvider.setState({ value }),
-    value: (stateProvider) => stateProvider.state.value,
-    rows: 4,
-    creatable: true,
-    invalid: (stateProvider) => stateProvider.state.value && stateProvider.state.value.filter((o) => o.value === 'bacon' || o.value === 'chickenliver').length > 0,
-    invalidLabel: 'Please no bacon or chicken liver',
-  },
+  props: makeDefaultExample(testOptions),
   examples: [
     {
-      props: {
-        title: 'Multi-Select',
-        placeholder: 'Choose your favorite ice cream',
-        helperLabel: 'Ice cream is delicious',
-        defaultValues: [],
-        options: testOptions,
-        onChange: (stateProvider) => (value) => stateProvider.setState({ value }),
-        value: (stateProvider) => stateProvider.state.value,
-        rows: 4,
-        creatable: true,
-        invalid: (stateProvider) => stateProvider.state.value && stateProvider.state.value.filter((o) => o.value === 'bacon' || o.value === 'chickenliver').length > 0,
-        invalidLabel: 'Please no bacon or chicken liver',
-      },
+      props: makeDefaultExample(testOptions),
       description: 'Multi Select',
     },
     {
-      props: {
-        title: 'Multi-Select',
-        placeholder: 'Choose your favorite ice cream',
-        helperLabel: 'Ice cream is delicious',
-        defaultValues: [],
-        options: testOptionsWithIcons,
-        onChange: (stateProvider) => (value) => stateProvider.setState({ value }),
-        value: (stateProvider) => stateProvider.state.value,
-        rows: 4,
-        creatable: true,
-        invalid: (stateProvider) => stateProvider.state.value && stateProvider.state.value.filter((o) => o.value === 'bacon' || o.value === 'chickenliver').length > 0,
-        invalidLabel: 'Please no bacon or chicken liver',
-      },
+      props: makeDefaultExample(testOptionsWithIcons),
       description: 'Multi Select with Icons',
     },
-
   ],
 };
 
