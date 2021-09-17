@@ -92,7 +92,7 @@ const ColorsPage = () => (
           description=""
           rowHeader={{
             colors: [{
-              colorName: 'Information', name: 'blue-500', darkFont: false, bordered: false,
+              colorName: 'Information', name: 'blue-500', darkFont: false, bordered: false, infoText: 'blue-500',
             }],
             width: '200px',
           }}

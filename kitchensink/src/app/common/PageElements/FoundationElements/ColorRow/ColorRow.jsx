@@ -50,7 +50,7 @@ const ColorRow = (props) => (
                   darkFont={props.rowHeader.colors[0].darkFont}
                   bordered={props.rowHeader.colors[0].bordered}
                   stackPosition={props.rowHeader.colors[0].stack}
-                  infoBox={{ infoTitle: props.rowHeader.colors[0].colorName, infoLabel: props.rowHeader.colors[0].infoLabel }}
+                  infoBox={{ infoTitle: props.rowHeader.colors[0].colorName, infoText: props.rowHeader.colors[0].infoText, infoLabel: props.rowHeader.colors[0].infoLabel }}
                   centered={false}
                 />
               </td>
@@ -75,7 +75,7 @@ const ColorRow = (props) => (
                       infoBox={(function () {
                         if (props.showInfo) {
                           if (props.showInfo === 'fullInfo') {
-                            return { infoTitle: color.colorName, infoText: color.name, infoLabel: color.infoLabel };
+                            return { infoTitle: color.colorName, infoText: color.infoText, infoLabel: color.infoLabel };
                           }
                           if (props.showInfo === 'onlyTitles') {
                             if (color.colorName) {
@@ -117,6 +117,7 @@ const colorType = {
   darkFont: PropTypes.bool,
   hex: PropTypes.string,
   infoLabel: PropTypes.string,
+  infoText: PropTypes.string,
   name: PropTypes.string,
   stack: PropTypes.string,
 };

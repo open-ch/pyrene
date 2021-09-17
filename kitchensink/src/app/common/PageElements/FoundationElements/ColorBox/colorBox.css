@@ -96,9 +96,9 @@
     }
 
     &.small {
-      font-size: 12px;
-      height: 12px;
-      line-height: 12px; 
+      font-size: 13px;
+      height: 13px;
+      line-height: 13px; 
       margin-bottom: 2px;       
     }    
   }
@@ -123,9 +123,9 @@
     }
 
     &.small {
-      font-size: 12px;
-      height: 12px;
-      line-height: 12px;
+      font-size: 13px;
+      height: 13px;
+      line-height: 13px;
       margin-bottom: 2px;         
     }
   }  
