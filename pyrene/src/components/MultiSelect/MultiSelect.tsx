@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useState } from 'react';
 import clsx from 'clsx';
 import Select from 'react-select';
-import CreatableSelect from 'react-select/creatable';
+import CreatableSelect, { Props } from 'react-select/creatable';
 import styles from '../SingleSelect/select.css';
 import MultiSelectStyle from './multiSelectCSS';
 import Loader from '../Loader/Loader';
@@ -9,8 +9,9 @@ import MultiSelectMenuWithOptions from './MultiSelectMenuWithOptions';
 import CustomOption from '../SingleSelect/CustomOption';
 import { getCaseInsensitiveDistinctValues, getDelimitedValues } from './delimiterUtil';
 import { IconProps } from '../Icon/Icon';
+import { Option } from './types';
 
-interface Option {
+interface Opt {
   iconProps?: IconProps,
   label: string,
   value?: string | number | boolean,
@@ -28,7 +29,7 @@ export interface MultiSelectProps {
   /**
    * Sets a preselected options. Type: [ string | number ]
    */
-  defaultValue?: Array<Option>,
+  defaultValue?: Array<Opt>,
   /**
    * Disables any interaction with the component.
    */
@@ -104,7 +105,7 @@ export interface MultiSelectProps {
   /**
    * Sets the value of the input field. Same type as supplied options.
    */
-  value?: Array<Option>,
+  value?: Array<Opt>,
 }
 
 const LoadingIndicator = () => <Loader />;
