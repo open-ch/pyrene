@@ -9,12 +9,12 @@ import MultiSelectMenuWithOptions from './MultiSelectMenuWithOptions';
 import CustomOption from '../SingleSelect/CustomOption';
 import { getCaseInsensitiveDistinctValues, getDelimitedValues } from './delimiterUtil';
 import { IconProps } from '../Icon/Icon';
-import { Option } from './types';
 
-interface Opt {
+interface Option {
   iconProps?: IconProps,
   label: string,
   value?: string | number | boolean,
+  invalid?: boolean,
 }
 
 export interface MultiSelectProps {
@@ -29,7 +29,7 @@ export interface MultiSelectProps {
   /**
    * Sets a preselected options. Type: [ string | number ]
    */
-  defaultValue?: Array<Opt>,
+  defaultValue?: Array<Option>,
   /**
    * Disables any interaction with the component.
    */
@@ -69,7 +69,7 @@ export interface MultiSelectProps {
   /**
    * Custom event handler, returns selected options from the options array.
    */
-  onChange?: () => void,
+  onChange?: (options: Array<Option>, op: { target: { type: string, name: string, value: Option } }) => void,
   /**
    * Focus event handler, use this to dynamically fetch options.
    */
@@ -77,7 +77,7 @@ export interface MultiSelectProps {
   /**
    * Data input array. Type: [{ value: string (required), label: string (required), invalid: bool }]
    */
-  options?: Array<Partial<Option> & { invalid?: boolean }>,
+  options?: Array<Partial<Option>>,
   /**
    * Sets the placeholder label.
    */
@@ -105,7 +105,7 @@ export interface MultiSelectProps {
   /**
    * Sets the value of the input field. Same type as supplied options.
    */
-  value?: Array<Opt>,
+  value?: Array<Option>,
 }
 
 const LoadingIndicator = () => <Loader />;
