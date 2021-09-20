@@ -10,6 +10,12 @@ import CustomOption from '../SingleSelect/CustomOption';
 import { getCaseInsensitiveDistinctValues, getDelimitedValues } from './delimiterUtil';
 import { IconProps } from '../Icon/Icon';
 
+interface Option {
+  iconProps?: IconProps,
+  label: string,
+  value?: string | number | boolean,
+}
+
 export interface MultiSelect {
   /**
    * Whether the selection is clearable.
@@ -22,11 +28,7 @@ export interface MultiSelect {
   /**
    * Sets a preselected options. Type: [ string | number ]
    */
-  defaultValue?: Array<{
-    iconProps?: IconProps,
-    label: string,
-    value?: string | number | boolean,
-  }>,
+  defaultValue?: Array<Option>,
   /**
    * Disables any interaction with the component.
    */
@@ -74,12 +76,7 @@ export interface MultiSelect {
   /**
    * Data input array. Type: [{ value: string (required), label: string (required), invalid: bool }]
    */
-  options: Array<{
-    iconProps?: IconProps,
-    invalid?: boolean,
-    label?: string,
-    value?: string | number | boolean,
-  }>,
+  options?: Array<Partial<Option> & { invalid?: boolean }>,
   /**
    * Sets the placeholder label.
    */
@@ -107,11 +104,7 @@ export interface MultiSelect {
   /**
    * Sets the value of the input field. Same type as supplied options.
    */
-  value: Array<{
-    iconProps?: IconProps,
-    label: string,
-    value?: string | number | boolean,
-  }>,
+  value?: Array<Option>,
 }
 
 const LoadingIndicator = () => <Loader />;
@@ -160,7 +153,30 @@ export const createNewValue = (values, options) => values.filter((v) => v.length
 /**
  * Multi-Selects are used when the user has to make a choice from a list. It allows the user to select multiple items from a dropdown list.
  */
-const MultiSelect = (props) => {
+const MultiSelect = ({
+  clearable = false,
+  creatable = false,
+  defaultValue = [],
+  disabled = false,
+  helperLabel = '',
+  invalid = false,
+  invalidLabel = '',
+  keepMenuOnSelect = false,
+  loading = false,
+  maxValueLabelWidth = '123px',
+  name = '',
+  onBlur = () => null,
+  onChange = () => null,
+  onFocus= () => null,
+  option = [],
+  placeholder = '',
+  required = false,
+  rows = -1,
+  selectedOptionsInDropdown = false,
+  sorted = true,
+  title = '',
+  value = null,
+}) => {
   const [hasPastedDuplicates, setHasPastedDuplicates] = useState(false);
   const options = props.sorted ? props.options.sort((a, b) => a.label.localeCompare(b.label)) : props.options;
 
@@ -294,30 +310,5 @@ const MultiSelect = (props) => {
 };
 
 MultiSelect.displayName = 'Multi Select';
-
-MultiSelect.defaultProps = {
-  placeholder: '',
-  helperLabel: '',
-  invalidLabel: '',
-  title: '',
-  maxValueLabelWidth: '123px',
-  name: '',
-  defaultValue: [],
-  options: [],
-  rows: -1,
-  selectedOptionsInDropdown: false,
-  creatable: false,
-  disabled: false,
-  invalid: false,
-  loading: false,
-  required: false,
-  clearable: false,
-  keepMenuOnSelect: false,
-  sorted: true,
-  value: null,
-  onChange: () => null,
-  onBlur: () => null,
-  onFocus: () => null,
-};
 
 export default MultiSelect;
