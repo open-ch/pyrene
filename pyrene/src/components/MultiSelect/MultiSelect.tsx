@@ -13,7 +13,7 @@ import { IconProps } from '../Icon/Icon';
 interface Option {
   iconProps?: IconProps,
   label: string,
-  value?: string | number | boolean,
+  value?: string,
   invalid?: boolean,
 }
 
@@ -211,7 +211,7 @@ const MultiSelect: FunctionComponent<MultiSelectProps> = (props: MultiSelectProp
       {title && <div className={clsx(styles.selectTitle, { [styles.required]: required && !disabled })}>{title}</div>}
       {creatable
         ? (
-          <CreatableSelect
+          <CreatableSelect<Option, boolean>
             className="multiSelect"
             styles={MultiSelectStyle(props) as any}
             components={selectedOptionsInDropdown ? componentsOptionsInDropdown : componentsNormal}
@@ -248,7 +248,7 @@ const MultiSelect: FunctionComponent<MultiSelectProps> = (props: MultiSelectProp
           />
         )
         : (
-          <Select
+          <Select<Option, boolean>
             className="multiSelect"
             styles={MultiSelectStyle(props) as any}
             components={selectedOptionsInDropdown ? componentsOptionsInDropdown : componentsNormal}
