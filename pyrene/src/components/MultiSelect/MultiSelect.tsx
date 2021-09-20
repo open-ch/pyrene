@@ -225,7 +225,7 @@ const MultiSelect: FunctionComponent<MultiSelectProps> = (props: MultiSelectProp
             isInvalid={invalid}
             isLoading={loading}
             // wrapping type and key into target so it better reflects the api that input event has (there is also event.target.name)
-            onChange={(option) => nChange(option, { target: { type: 'multiSelect', name: name, value: option } })}
+            onChange={(option) => onChange(option, { target: { type: 'multiSelect', name: name, value: option } })}
             onInputChange={(input) => {
               if (input.length > 0) {
                 setHasPastedDuplicates(false);
