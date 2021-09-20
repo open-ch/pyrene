@@ -9,7 +9,6 @@ import MultiSelectMenuWithOptions from './MultiSelectMenuWithOptions';
 import CustomOption from '../SingleSelect/CustomOption';
 import { getCaseInsensitiveDistinctValues, getDelimitedValues } from './delimiterUtil';
 import { IconProps } from '../Icon/Icon';
-import { optionalCallExpression } from '@babel/types';
 
 interface Option {
   iconProps?: IconProps,
@@ -142,9 +141,9 @@ const componentsOptionsInDropdown = {
  * @param {object[]} options - pre-provided options
  * @returns {object[]} array of value object in same format as the options
  */
-export const createNewValue = (values, options) => values.filter((v) => v.length > 0)
+export const createNewValue = (values: string[], options: Required<MultiSelectProps['options']>) => values.filter((v) => v.length > 0)
   .map((v) => {
-    const foundOption = options ? options.find((o) => o.label.toLowerCase() === v.toLowerCase()) : null;
+    const foundOption = options ? options.find((o) => o?.label?.toLowerCase?.() === v.toLowerCase()) : null;
     return foundOption || { value: v, label: v, invalid: false };
   });
 
@@ -186,7 +185,7 @@ const MultiSelect: FunctionComponent<MultiSelectProps> = (props: MultiSelectProp
       // @ts-ignore event should be typed as a ClipboardEvent
       const pastedData = (event.clipboardData || window.clipboardData).getData('text');
       const delimitedValues = getCaseInsensitiveDistinctValues(getDelimitedValues(pastedData));
-      const newValue = createNewValue(delimitedValues, options);
+      const newValue = createNewValue(delimitedValues, opts);
       if (value.length > 0) {
         const distinctNewValue = newValue.filter((o) => value.findIndex((exO) => exO.label.toLowerCase() === o.label.toLowerCase()) < 0);
         setHasPastedDuplicates(distinctNewValue.length < delimitedValues.length);
