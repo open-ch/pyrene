@@ -177,7 +177,7 @@ const MultiSelect: FunctionComponent<MultiSelectProps> = (props: MultiSelectProp
   } = props;
 
   const [hasPastedDuplicates, setHasPastedDuplicates] = useState(false);
-  const opts = sorted ? options.sort((a, b) => a.label.localeCompare(b.label)) : options;
+  const opts = sorted ? [...options].sort((a, b) => a.label.localeCompare(b.label)) : options;
 
   const onPaste = (event) => {
     if (creatable) {
