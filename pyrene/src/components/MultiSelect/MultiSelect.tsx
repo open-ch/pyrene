@@ -69,7 +69,7 @@ export interface MultiSelectProps {
   /**
    * Custom event handler, returns selected options from the options array.
    */
-  onChange?: (options: Array<Option>, op: { target: { type: string, name: string, value: Option } }) => void,
+  onChange?: (options: Array<Option>, op?: { target: { type: string, name: string, value: Option } }) => void,
   /**
    * Focus event handler, use this to dynamically fetch options.
    */
@@ -77,7 +77,7 @@ export interface MultiSelectProps {
   /**
    * Data input array. Type: [{ value: string (required), label: string (required), invalid: bool }]
    */
-  options?: Array<Partial<Option>>,
+  options: Array<Option>,
   /**
    * Sets the placeholder label.
    */
@@ -167,7 +167,6 @@ const MultiSelect: FunctionComponent<MultiSelectProps> = (props: MultiSelectProp
     onBlur = () => null,
     onChange = () => null,
     onFocus = () => null,
-    options = [],
     placeholder = '',
     required = false,
     rows = -1,
@@ -175,6 +174,7 @@ const MultiSelect: FunctionComponent<MultiSelectProps> = (props: MultiSelectProp
     sorted = true,
     title = '',
     value = [],
+    options,
   } = props;
 
   const [hasPastedDuplicates, setHasPastedDuplicates] = useState(false);
@@ -213,7 +213,7 @@ const MultiSelect: FunctionComponent<MultiSelectProps> = (props: MultiSelectProp
         ? (
           <CreatableSelect
             className="multiSelect"
-            styles={MultiSelectStyle(props)}
+            styles={MultiSelectStyle(props) as any}
             components={selectedOptionsInDropdown ? componentsOptionsInDropdown : componentsNormal}
             // Sets the internal value to "" in case of null or undefined
             getOptionValue={(option) => ((option.value !== null && typeof option.value !== 'undefined') ? option.value : '')}
@@ -250,7 +250,7 @@ const MultiSelect: FunctionComponent<MultiSelectProps> = (props: MultiSelectProp
         : (
           <Select
             className="multiSelect"
-            styles={MultiSelectStyle(props)}
+            styles={MultiSelectStyle(props) as any}
             components={selectedOptionsInDropdown ? componentsOptionsInDropdown : componentsNormal}
             // Sets the internal value to "" in case of null or undefined
             getOptionValue={(option) => ((option.value !== null && typeof option.value !== 'undefined') ? option.value : '')}
