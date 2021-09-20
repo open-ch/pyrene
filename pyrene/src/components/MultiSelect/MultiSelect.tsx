@@ -179,7 +179,7 @@ const MultiSelect: FunctionComponent<MultiSelectProps> = (props: MultiSelectProp
   const [hasPastedDuplicates, setHasPastedDuplicates] = useState(false);
   const opts = sorted ? [...options].sort((a, b) => a.label.localeCompare(b.label)) : options;
 
-  const onPaste = (event) => {
+  const onPaste = (event: React.ClipboardEventHandler<HTMLDivElement>) => {
     if (creatable) {
       setHasPastedDuplicates(false);
       // @ts-ignore event should be typed as a ClipboardEvent
