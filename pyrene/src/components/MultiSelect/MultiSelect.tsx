@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import clsx from 'clsx';
 import Select from 'react-select';
 import CreatableSelect from 'react-select/creatable';
@@ -16,7 +16,7 @@ interface Option {
   value?: string | number | boolean,
 }
 
-export interface MultiSelect {
+export interface MultiSelectProps {
   /**
    * Whether the selection is clearable.
    */
@@ -153,46 +153,48 @@ export const createNewValue = (values, options) => values.filter((v) => v.length
 /**
  * Multi-Selects are used when the user has to make a choice from a list. It allows the user to select multiple items from a dropdown list.
  */
-const MultiSelect = ({
-  clearable = false,
-  creatable = false,
-  defaultValue = [],
-  disabled = false,
-  helperLabel = '',
-  invalid = false,
-  invalidLabel = '',
-  keepMenuOnSelect = false,
-  loading = false,
-  maxValueLabelWidth = '123px',
-  name = '',
-  onBlur = () => null,
-  onChange = () => null,
-  onFocus= () => null,
-  option = [],
-  placeholder = '',
-  required = false,
-  rows = -1,
-  selectedOptionsInDropdown = false,
-  sorted = true,
-  title = '',
-  value = null,
-}) => {
+const MultiSelect: FunctionComponent<MultiSelectProps> = (props: MultiSelectProps) => {
+  const {
+    clearable = false,
+    creatable = false,
+    defaultValue = [],
+    disabled = false,
+    helperLabel = '',
+    invalid = false,
+    invalidLabel = '',
+    keepMenuOnSelect = false,
+    loading = false,
+    maxValueLabelWidth = '123px',
+    name = '',
+    onBlur = () => null,
+    onChange = () => null,
+    onFocus = () => null,
+    options = [],
+    placeholder = '',
+    required = false,
+    rows = -1,
+    selectedOptionsInDropdown = false,
+    sorted = true,
+    title = '',
+    value = [],
+  } = props;
+
   const [hasPastedDuplicates, setHasPastedDuplicates] = useState(false);
-  const options = props.sorted ? props.options.sort((a, b) => a.label.localeCompare(b.label)) : props.options;
+  const opts = sorted ? options.sort((a, b) => a.label.localeCompare(b.label)) : options;
 
   const onPaste = (event) => {
-    if (props.creatable) {
+    if (creatable) {
       setHasPastedDuplicates(false);
       // @ts-ignore event should be typed as a ClipboardEvent
       const pastedData = (event.clipboardData || window.clipboardData).getData('text');
       const delimitedValues = getCaseInsensitiveDistinctValues(getDelimitedValues(pastedData));
-      const newValue = createNewValue(delimitedValues, props.options);
-      if (props.value) {
-        const distinctNewValue = newValue.filter((o) => props.value.findIndex((exO) => exO.label.toLowerCase() === o.label.toLowerCase()) < 0);
+      const newValue = createNewValue(delimitedValues, options);
+      if (value.length > 0) {
+        const distinctNewValue = newValue.filter((o) => value.findIndex((exO) => exO.label.toLowerCase() === o.label.toLowerCase()) < 0);
         setHasPastedDuplicates(distinctNewValue.length < delimitedValues.length);
-        props.onChange([...props.value, ...distinctNewValue]);
+        onChange([...value, ...distinctNewValue]);
       } else {
-        props.onChange(newValue);
+        onChange(newValue);
       }
 
       // Prevents the pasted data from becoming inputValue
@@ -201,46 +203,46 @@ const MultiSelect = ({
   };
 
   const formatNoOptionsMessage = (input) => {
-    const existingLabels = (props.value || []).map((v) => v.label);
+    const existingLabels = (value || []).map((v) => v.label);
     const foundLabel = existingLabels.find((v) => v.toLowerCase() === input.inputValue.toLowerCase());
     return foundLabel ? `Duplicate tag "${foundLabel}"` : 'No matches found';
   };
 
   return (
-    <div onPaste={onPaste} className={clsx(styles.selectContainer, { [styles.disabled]: props.disabled })}>
-      {props.title && <div className={clsx(styles.selectTitle, { [styles.required]: (props.required && !props.disabled) })}>{props.title}</div>}
-      {props.creatable
+    <div onPaste={onPaste} className={clsx(styles.selectContainer, { [styles.disabled]: disabled })}>
+      {title && <div className={clsx(styles.selectTitle, { [styles.required]: required && !disabled })}>{title}</div>}
+      {creatable
         ? (
           <CreatableSelect
             className="multiSelect"
             styles={MultiSelectStyle(props)}
-            components={props.selectedOptionsInDropdown ? componentsOptionsInDropdown : componentsNormal}
+            components={selectedOptionsInDropdown ? componentsOptionsInDropdown : componentsNormal}
             // Sets the internal value to "" in case of null or undefined
             getOptionValue={(option) => ((option.value !== null && typeof option.value !== 'undefined') ? option.value : '')}
-            placeholder={props.placeholder}
-            options={options}
-            value={props.value}
-            defaultValue={props.defaultValue}
-            isClearable={props.clearable}
-            isDisabled={props.disabled}
-            isInvalid={props.invalid}
-            isLoading={props.loading}
+            placeholder={placeholder}
+            options={opts}
+            value={value}
+            defaultValue={defaultValue}
+            isClearable={clearable}
+            isDisabled={disabled}
+            isInvalid={invalid}
+            isLoading={loading}
             // wrapping type and key into target so it better reflects the api that input event has (there is also event.target.name)
-            onChange={(option) => props.onChange(option, { target: { type: 'multiSelect', name: props.name, value: option } })}
+            onChange={(option) => nChange(option, { target: { type: 'multiSelect', name: name, value: option } })}
             onInputChange={(input) => {
               if (input.length > 0) {
                 setHasPastedDuplicates(false);
               }
             }}
-            onBlur={props.onBlur}
-            onFocus={props.onFocus}
-            name={props.name}
-            id={props.name}
-            inputId={props.name}
+            onBlur={onBlur}
+            onFocus={onFocus}
+            name={name}
+            id={name}
+            inputId={name}
             maxMenuHeight={264}
             noOptionsMessage={formatNoOptionsMessage}
             formatCreateLabel={(inputValue) => `Create new tag "${inputValue}"`}
-            closeMenuOnSelect={!props.keepMenuOnSelect}
+            closeMenuOnSelect={!keepMenuOnSelect}
             isMulti
             isSearchable
             escapeClearsValue
@@ -251,26 +253,26 @@ const MultiSelect = ({
           <Select
             className="multiSelect"
             styles={MultiSelectStyle(props)}
-            components={props.selectedOptionsInDropdown ? componentsOptionsInDropdown : componentsNormal}
+            components={selectedOptionsInDropdown ? componentsOptionsInDropdown : componentsNormal}
             // Sets the internal value to "" in case of null or undefined
             getOptionValue={(option) => ((option.value !== null && typeof option.value !== 'undefined') ? option.value : '')}
-            placeholder={props.placeholder}
-            options={options}
-            value={props.value}
-            defaultValue={props.defaultValue}
-            isClearable={props.clearable}
-            isDisabled={props.disabled}
-            isInvalid={props.invalid}
-            isLoading={props.loading}
-            onChange={(option) => props.onChange(option, { target: { type: 'multiSelect', name: props.name, value: option } })}
-            onBlur={props.onBlur}
-            onFocus={props.onFocus}
-            name={props.name}
-            id={props.name}
-            inputId={props.name}
+            placeholder={placeholder}
+            options={opts}
+            value={value}
+            defaultValue={defaultValue}
+            isClearable={clearable}
+            isDisabled={disabled}
+            isInvalid={invalid}
+            isLoading={loading}
+            onChange={(option) => onChange(option, { target: { type: 'multiSelect', name: name, value: option } })}
+            onBlur={onBlur}
+            onFocus={onFocus}
+            name={name}
+            id={name}
+            inputId={name}
             maxMenuHeight={264}
             noOptionsMessage={formatNoOptionsMessage}
-            closeMenuOnSelect={!props.keepMenuOnSelect}
+            closeMenuOnSelect={!keepMenuOnSelect}
             isMulti
             isSearchable
             escapeClearsValue
@@ -279,7 +281,7 @@ const MultiSelect = ({
           />
         )}
 
-      {hasPastedDuplicates && props.creatable && !props.disabled
+      {hasPastedDuplicates && creatable && !disabled
       && (
         <div className={styles.warningLabel}>
           <span className={clsx('pyreneIcon-warning', styles.errorIcon)} />
@@ -287,21 +289,20 @@ const MultiSelect = ({
         </div>
       )}
 
-      {props.invalid && props.invalidLabel && !props.disabled
+      {invalid && invalidLabel && !disabled
         ? (
           <div className={styles.invalidLabel}>
             <span className={clsx('pyreneIcon-errorOutline', styles.errorIcon)} />
-            {props.invalidLabel}
+            {invalidLabel}
           </div>
         )
         : (
           <>
-            {props.helperLabel
-        && (
-          <div className={styles.selectHelper}>
-            {props.helperLabel}
-          </div>
-        )}
+            {helperLabel && (
+              <div className={styles.selectHelper}>
+                {helperLabel}
+              </div>
+            )}
           </>
         )}
 
