@@ -185,7 +185,7 @@ const MultiSelect: FunctionComponent<MultiSelectProps> = (props: MultiSelectProp
       // @ts-ignore event should be typed as a ClipboardEvent
       const pastedData = (event.clipboardData || window.clipboardData).getData('text');
       const delimitedValues = getCaseInsensitiveDistinctValues(getDelimitedValues(pastedData));
-      const newValue = createNewValue(delimitedValues, opts);
+      const newValue = createNewValue(delimitedValues, options);
       if (value.length > 0) {
         const distinctNewValue = newValue.filter((o) => value.findIndex((exO) => exO.label.toLowerCase() === o.label.toLowerCase()) < 0);
         setHasPastedDuplicates(distinctNewValue.length < delimitedValues.length);
