@@ -9,6 +9,7 @@ import MultiSelectMenuWithOptions from './MultiSelectMenuWithOptions';
 import CustomOption from '../SingleSelect/CustomOption';
 import { getCaseInsensitiveDistinctValues, getDelimitedValues } from './delimiterUtil';
 import { IconProps } from '../Icon/Icon';
+import { optionalCallExpression } from '@babel/types';
 
 interface Option {
   iconProps?: IconProps,
@@ -135,9 +136,6 @@ const componentsOptionsInDropdown = {
   MultiValueLabel,
 };
 
-// Finds the union of value and options, based on options[].value and values[].value being equal.
-export const valueFromOptions = (options, values) => options.filter((o) => values.findIndex((v) => o.value === v.value) > -1);
-
 /**
  * Return the new value object array. If entries match a given option, use that option.
  * @param {string[]} values - array of string values
@@ -203,7 +201,7 @@ const MultiSelect: FunctionComponent<MultiSelectProps> = (props: MultiSelectProp
   };
 
   const formatNoOptionsMessage = (input) => {
-    const existingLabels = (value || []).map((v) => v.label);
+    const existingLabels = value.map((v) => v.label);
     const foundLabel = existingLabels.find((v) => v.toLowerCase() === input.inputValue.toLowerCase());
     return foundLabel ? `Duplicate tag "${foundLabel}"` : 'No matches found';
   };
@@ -305,7 +303,6 @@ const MultiSelect: FunctionComponent<MultiSelectProps> = (props: MultiSelectProp
             )}
           </>
         )}
-
     </div>
   );
 };
