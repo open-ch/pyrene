@@ -143,7 +143,7 @@ const componentsOptionsInDropdown = {
  */
 export const createNewValue = (values: string[], options: Required<MultiSelectProps['options']>) => values.filter((v) => v.length > 0)
   .map((v) => {
-    const foundOption = options ? options.find((o) => o?.label?.toLowerCase?.() === v.toLowerCase()) : null;
+    const foundOption = options ? options.find((option) => option?.label?.toLowerCase?.() === v.toLowerCase()) : null;
     return foundOption || { value: v, label: v, invalid: false };
   });
 
