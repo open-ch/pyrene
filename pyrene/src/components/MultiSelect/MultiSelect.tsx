@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import Select from 'react-select';
 import CreatableSelect from 'react-select/creatable';
