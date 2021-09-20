@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import React, { FunctionComponent, useState } from 'react';
 import clsx from 'clsx';
 import Select from 'react-select';
