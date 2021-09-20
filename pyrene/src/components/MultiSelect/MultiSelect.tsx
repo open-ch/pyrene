@@ -9,7 +9,111 @@ import Loader from '../Loader/Loader';
 import MultiSelectMenuWithOptions from './MultiSelectMenuWithOptions';
 import CustomOption from '../SingleSelect/CustomOption';
 import { getCaseInsensitiveDistinctValues, getDelimitedValues } from './delimiterUtil';
-import Icon from '../Icon/Icon';
+import { IconProps } from '../Icon/Icon';
+
+export interface MultiSelect {
+  /**
+   * Whether the selection is clearable.
+   */
+  clearable?: boolean,
+  /**
+   * Whether the user can create new options.
+   */
+  creatable?: boolean,
+  /**
+   * Sets a preselected options. Type: [ string | number ]
+   */
+  defaultValue?: Array<{
+    iconProps?: IconProps,
+    label: string,
+    value?: string | number | boolean,
+  }>,
+  /**
+   * Disables any interaction with the component.
+   */
+  disabled?: boolean,
+  /**
+   * Sets a label below the input field to display additional information for the user.
+   */
+  helperLabel?: string,
+  /**
+   * Sets the visual appearance, to signal that the input is invalid.
+   */
+  invalid?: boolean,
+  /**
+   * Sets the label displayed instead of the helperLabel when the input is invalid.
+   */
+  invalidLabel?: string,
+  /**
+   * Whether to keep the menu open on select.
+   */
+  keepMenuOnSelect?: boolean,
+  /**
+   * Displays a loading indicator inside of the input.
+   */
+  loading?: boolean,
+  /**
+   * Maximum width of the value label in pixels. Use false to disable a maximum width.
+   */
+  maxValueLabelWidth?: string, // eslint-disable-line react/no-unused-prop-types
+  /**
+   * Sets the html name property of the form element.
+   */
+  name?: string,
+  /**
+   * Javascript event handler.
+   */
+  onBlur?: () => void,
+  /**
+   * Custom event handler, returns selected options from the options array.
+   */
+  onChange?: () => void,
+  /**
+   * Focus event handler, use this to dynamically fetch options.
+   */
+  onFocus?: () => void,
+  /**
+   * Data input array. Type: [{ value: string (required), label: string (required), invalid: bool }]
+   */
+  options: Array<{
+    iconProps?: IconProps,
+    invalid?: boolean,
+    label?: string,
+    value?: string | number | boolean,
+  }>,
+  /**
+   * Sets the placeholder label.
+   */
+  placeholder?: string,
+  /**
+   * Adds a visual indication to display that the field is required.
+   */
+  required?: boolean,
+  /**
+   * Sets a fixed height for the input field. Default behaviour is one row expanding up to 3, then starts scrolling.
+   */
+  rows?: number, // eslint-disable-line react/no-unused-prop-types
+  /**
+   * Displays the selected options in the dropdown and prevents the input from growing vertically.
+   */
+  selectedOptionsInDropdown?: boolean,
+  /**
+   * Whether the options are automatically sorted by the label or not.
+   */
+  sorted?: boolean,
+  /**
+   * Sets the title above the input field.
+   */
+  title?: string,
+  /**
+   * Sets the value of the input field. Same type as supplied options.
+   */
+  value: Array<{
+    iconProps?: IconProps,
+    label: string,
+    value?: string | number | boolean,
+  }>,
+}
 
 const LoadingIndicator = () => <Loader />;
 
@@ -215,110 +319,6 @@ MultiSelect.defaultProps = {
   onChange: () => null,
   onBlur: () => null,
   onFocus: () => null,
-};
-
-MultiSelect.propTypes = {
-  /**
-   * Whether the selection is clearable.
-   */
-  clearable: PropTypes.bool,
-  /**
-   * Whether the user can create new options.
-   */
-  creatable: PropTypes.bool,
-  /**
-   * Sets a preselected options. Type: [ string | number ]
-   */
-  defaultValue: PropTypes.arrayOf(PropTypes.shape({
-    iconProps: Icon.PropTypes,
-    label: PropTypes.string.isRequired,
-    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool]),
-  })),
-  /**
-   * Disables any interaction with the component.
-   */
-  disabled: PropTypes.bool,
-  /**
-   * Sets a label below the input field to display additional information for the user.
-   */
-  helperLabel: PropTypes.string,
-  /**
-   * Sets the visual appearance, to signal that the input is invalid.
-   */
-  invalid: PropTypes.bool,
-  /**
-   * Sets the label displayed instead of the helperLabel when the input is invalid.
-   */
-  invalidLabel: PropTypes.string,
-  /**
-   * Whether to keep the menu open on select.
-   */
-  keepMenuOnSelect: PropTypes.bool,
-  /**
-   * Displays a loading indicator inside of the input.
-   */
-  loading: PropTypes.bool,
-  /**
-   * Maximum width of the value label in pixels. Use false to disable a maximum width.
-   */
-  maxValueLabelWidth: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
-  /**
-   * Sets the html name property of the form element.
-   */
-  name: PropTypes.string,
-  /**
-   * Javascript event handler.
-   */
-  onBlur: PropTypes.func,
-  /**
-   * Custom event handler, returns selected options from the options array.
-   */
-  onChange: PropTypes.func,
-  /**
-   * Focus event handler, use this to dynamically fetch options.
-   */
-  onFocus: PropTypes.func,
-  /**
-   * Data input array. Type: [{ value: string (required), label: string (required), invalid: bool }]
-   */
-  options: PropTypes.arrayOf(PropTypes.shape({
-    iconProps: Icon.PropTypes,
-    invalid: PropTypes.bool,
-    label: PropTypes.string,
-    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool]),
-  })),
-  /**
-   * Sets the placeholder label.
-   */
-  placeholder: PropTypes.string,
-  /**
-   * Adds a visual indication to display that the field is required.
-   */
-  required: PropTypes.bool,
-  /**
-   * Sets a fixed height for the input field. Default behaviour is one row expanding up to 3, then starts scrolling.
-   */
-  rows: PropTypes.number, // eslint-disable-line react/no-unused-prop-types
-  /**
-   * Displays the selected options in the dropdown and prevents the input from growing vertically.
-   */
-  selectedOptionsInDropdown: PropTypes.bool,
-  /**
-   * Whether the options are automatically sorted by the label or not.
-   */
-  sorted: PropTypes.bool,
-  /**
-   * Sets the title above the input field.
-   */
-  title: PropTypes.string,
-  /**
-   * Sets the value of the input field. Same type as supplied options.
-   */
-  value: PropTypes.arrayOf(PropTypes.shape({
-    iconProps: Icon.PropTypes,
-    label: PropTypes.string.isRequired,
-    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool]),
-  })),
 };
 
 export default MultiSelect;
