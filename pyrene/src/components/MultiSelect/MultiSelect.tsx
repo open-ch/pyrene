@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useState } from 'react';
 import clsx from 'clsx';
 import Select from 'react-select';
-import CreatableSelect, { Props } from 'react-select/creatable';
+import CreatableSelect from 'react-select/creatable';
 import styles from '../SingleSelect/select.css';
 import MultiSelectStyle from './multiSelectCSS';
 import Loader from '../Loader/Loader';
