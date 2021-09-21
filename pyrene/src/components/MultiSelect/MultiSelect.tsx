@@ -209,7 +209,7 @@ const MultiSelect: FunctionComponent<MultiSelectProps> = (props: MultiSelectProp
             styles={MultiSelectStyle(props) as any}
             components={(selectedOptionsInDropdown ? componentsOptionsInDropdown : componentsNormal) as SelectComponentsConfig<Option, true>}
             // Sets the internal value to "" in case of null or undefined
-            getOptionValue={(option) => ((option.value !== null && typeof option.value !== 'undefined') ? option.value : '')}
+            getOptionValue={(option) => (option.value !== null && typeof option.value !== 'undefined' ? option.value : '')}
             placeholder={placeholder}
             options={opts}
             value={value}
