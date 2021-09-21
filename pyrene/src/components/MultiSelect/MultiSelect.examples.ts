@@ -1,6 +1,12 @@
 import colorConstants from '../../styles/colorConstants';
+import { MultiSelectProps } from './MultiSelect';
+import { Example, StateProvider } from '../../examples/Example';
 
-const testOptions = [
+export interface State {
+  value: MultiSelectProps['options'];
+}
+
+const testOptions: MultiSelectProps['options'] = [
   { value: 'chocolate', label: 'Chocolate', invalid: false },
   { value: 'strawberry', label: 'Strawberry', invalid: false },
   { value: 'vanilla', label: 'Vanilla', invalid: false },
@@ -38,21 +44,19 @@ const icons = ['place', 'layers', 'clock'];
 const colors = [colorConstants.blue600, colorConstants.red600, colorConstants.orange600, undefined];
 const testOptionsWithIcons = testOptions.map((option, i) => ({ ...option, iconProps: { name: icons[i % 3], color: colors[i % 4] } }));
 
-const makeExample = (options) => ({
+const makeExample = (options: MultiSelectProps['options']) => ({
   title: 'Multi-Select',
   placeholder: 'Choose your favorite ice cream',
   helperLabel: 'Ice cream is delicious',
-  defaultValues: [],
   options,
-  onChange: (stateProvider) => (value) => stateProvider.setState({ value }),
-  value: (stateProvider) => stateProvider.state.value,
-  rows: 4,
+  onChange: (stateProvider: StateProvider<State>) => (value) => stateProvider.setState({ value }),
+  value: (stateProvider: StateProvider<State>) => stateProvider.state.value,
   creatable: true,
-  invalid: (stateProvider) => stateProvider.state.value && stateProvider.state.value.filter((o) => o.value === 'bacon' || o.value === 'chickenliver').length > 0,
+  invalid: (stateProvider: StateProvider<State>) => stateProvider.state.value && stateProvider.state.value.filter((o) => o.value === 'bacon' || o.value === 'chickenliver').length > 0,
   invalidLabel: 'Please no bacon or chicken liver',
 });
 
-const examples = {
+const examples: Example<MultiSelectProps, State> = {
   props: makeExample(testOptions),
   examples: [
     {
@@ -64,8 +68,7 @@ const examples = {
       description: 'Multi Select with Icons',
     },
   ],
+  category: 'Form',
 };
-
-examples.category = 'Form';
 
 export default examples;
