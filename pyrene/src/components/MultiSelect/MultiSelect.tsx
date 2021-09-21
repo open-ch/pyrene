@@ -16,7 +16,7 @@ import { IconProps } from '../Icon/Icon';
 interface Option {
   iconProps?: IconProps,
   label: string,
-  value?: string,
+  value: string,
   invalid?: boolean,
 }
 
