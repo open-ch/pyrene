@@ -1,8 +1,9 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import React, { FunctionComponent, useState, ComponentType } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import clsx from 'clsx';
-import Select, { Props as SelectPros, MultiValueProps } from 'react-select';
+import Select, { Props as SelectProps, SelectComponentsConfig } from 'react-select';
 import CreatableSelect from 'react-select/creatable';
 import styles from '../SingleSelect/select.css';
 import MultiSelectStyle from './multiSelectCSS';
@@ -112,14 +113,14 @@ export interface MultiSelectProps {
 
 const LoadingIndicator = () => <Loader />;
 
-const MultiValue = ({ data: { value, label }, getValue }) => ( // eslint-disable-line react/prop-types
+const MultiValue: SelectComponentsConfig<Option, true>['MultiValue'] = ({ data: { value, label }, getValue }) => (
   <>
     {label}
     {value !== getValue()[getValue().length - 1].value ? ', ' : ' '}
   </>
 );
 
-const MultiValueLabel = ({ innerProps, children }) => ( // eslint-disable-line react/prop-types
+const MultiValueLabel: SelectComponentsConfig<Option, true>['MultiValueLabel'] = ({ innerProps, children }) => (
   <div title={typeof children === 'string' ? children : undefined} {...innerProps}>
     {children}
   </div>
@@ -202,7 +203,7 @@ const MultiSelect: FunctionComponent<MultiSelectProps> = (props: MultiSelectProp
     }
   };
 
-  const formatNoOptionsMessage: SelectPros<Option, true>['noOptionsMessage'] = (input) => {
+  const formatNoOptionsMessage: SelectProps<Option, true>['noOptionsMessage'] = (input) => {
     const existingLabels = value.map((v) => v.label);
     const foundLabel = existingLabels.find((v) => v.toLowerCase() === input.inputValue.toLowerCase());
     return foundLabel ? `Duplicate tag "${foundLabel}"` : 'No matches found';
