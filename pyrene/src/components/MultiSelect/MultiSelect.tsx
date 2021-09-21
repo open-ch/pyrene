@@ -217,7 +217,7 @@ const MultiSelect: FunctionComponent<MultiSelectProps> = (props: MultiSelectProp
           <CreatableSelect<Option, true>
             className="multiSelect"
             styles={MultiSelectStyle(props) as any}
-            components={(selectedOptionsInDropdown ? componentsOptionsInDropdown : componentsNormal) as any}
+            components={(selectedOptionsInDropdown ? componentsOptionsInDropdown : componentsNormal) as SelectComponentsConfig<Option, true>}
             // Sets the internal value to "" in case of null or undefined
             getOptionValue={(option) => ((option.value !== null && typeof option.value !== 'undefined') ? option.value : '')}
             placeholder={placeholder}
@@ -258,7 +258,7 @@ const MultiSelect: FunctionComponent<MultiSelectProps> = (props: MultiSelectProp
           <Select<Option, true>
             className="multiSelect"
             styles={MultiSelectStyle(props) as any}
-            components={(selectedOptionsInDropdown ? componentsOptionsInDropdown : componentsNormal) as any}
+            components={(selectedOptionsInDropdown ? componentsOptionsInDropdown : componentsNormal) as SelectComponentsConfig<Option, true>}
             // Sets the internal value to "" in case of null or undefined
             getOptionValue={(option) => ((option.value !== null && typeof option.value !== 'undefined') ? option.value : '')}
             placeholder={placeholder}
