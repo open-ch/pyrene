@@ -70,7 +70,7 @@ export interface MultiSelectProps {
   /**
    * Custom event handler, returns selected options from the options array.
    */
-  onChange?: (options: Array<Option>, op?: { target: { type: string, name: string, value: Option } }) => void,
+  onChange?: (options: ReadonlyArray<Option> | Option, op?: { target: { type: string, name: string, value: ReadonlyArray<Option> | Option } }) => void,
   /**
    * Focus event handler, use this to dynamically fetch options.
    */
@@ -143,7 +143,7 @@ const componentsOptionsInDropdown = {
  * @param {object[]} options - pre-provided options
  * @returns {object[]} array of value object in same format as the options
  */
-export const createNewValue = (values: string[], options: Required<MultiSelectProps['options']>) => values.filter((v) => v.length > 0)
+export const createNewValue = (values: string[], options: MultiSelectProps['options']) => values.filter((v) => v.length > 0)
   .map((v) => {
     const foundOption = options ? options.find((option) => option?.label?.toLowerCase?.() === v.toLowerCase()) : null;
     return foundOption || { value: v, label: v, invalid: false };
@@ -201,7 +201,7 @@ const MultiSelect: FunctionComponent<MultiSelectProps> = (props: MultiSelectProp
     }
   };
 
-  const formatNoOptionsMessage: SelectPros<Option, boolean>['noOptionsMessage'] = (input) => {
+  const formatNoOptionsMessage: SelectPros<Option, true>['noOptionsMessage'] = (input) => {
     const existingLabels = value.map((v) => v.label);
     const foundLabel = existingLabels.find((v) => v.toLowerCase() === input.inputValue.toLowerCase());
     return foundLabel ? `Duplicate tag "${foundLabel}"` : 'No matches found';
@@ -212,7 +212,7 @@ const MultiSelect: FunctionComponent<MultiSelectProps> = (props: MultiSelectProp
       {title && <div className={clsx(styles.selectTitle, { [styles.required]: required && !disabled })}>{title}</div>}
       {creatable
         ? (
-          <CreatableSelect<Option, boolean>
+          <CreatableSelect<Option, true>
             className="multiSelect"
             styles={MultiSelectStyle(props) as any}
             components={selectedOptionsInDropdown ? componentsOptionsInDropdown : componentsNormal}
@@ -227,7 +227,11 @@ const MultiSelect: FunctionComponent<MultiSelectProps> = (props: MultiSelectProp
             isInvalid={invalid}
             isLoading={loading}
             // wrapping type and key into target so it better reflects the api that input event has (there is also event.target.name)
-            onChange={(option) => onChange(option, { target: { type: 'multiSelect', name: name, value: option } })}
+            onChange={(option) => {
+              if (option) {
+                onChange(option, { target: { type: 'multiSelect', name: name, value: option } });
+              }
+            }}
             onInputChange={(input) => {
               if (input.length > 0) {
                 setHasPastedDuplicates(false);
@@ -249,7 +253,7 @@ const MultiSelect: FunctionComponent<MultiSelectProps> = (props: MultiSelectProp
           />
         )
         : (
-          <Select<Option, boolean>
+          <Select<Option, true>
             className="multiSelect"
             styles={MultiSelectStyle(props) as any}
             components={selectedOptionsInDropdown ? componentsOptionsInDropdown : componentsNormal}
@@ -263,7 +267,11 @@ const MultiSelect: FunctionComponent<MultiSelectProps> = (props: MultiSelectProp
             isDisabled={disabled}
             isInvalid={invalid}
             isLoading={loading}
-            onChange={(option) => onChange(option, { target: { type: 'multiSelect', name: name, value: option } })}
+            onChange={(option) => {
+              if (option) {
+                onChange(option, { target: { type: 'multiSelect', name: name, value: option } });
+              }
+            }}
             onBlur={onBlur}
             onFocus={onFocus}
             name={name}
