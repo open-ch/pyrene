@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import React, { FunctionComponent, useState } from 'react';
 import clsx from 'clsx';
-import Select from 'react-select';
+import Select, { Props as SelectPros } from 'react-select';
 import CreatableSelect from 'react-select/creatable';
 import styles from '../SingleSelect/select.css';
 import MultiSelectStyle from './multiSelectCSS';
@@ -201,7 +201,7 @@ const MultiSelect: FunctionComponent<MultiSelectProps> = (props: MultiSelectProp
     }
   };
 
-  const formatNoOptionsMessage = (input) => {
+  const formatNoOptionsMessage: SelectPros<Option, boolean>['noOptionsMessage'] = (input) => {
     const existingLabels = value.map((v) => v.label);
     const foundLabel = existingLabels.find((v) => v.toLowerCase() === input.inputValue.toLowerCase());
     return foundLabel ? `Duplicate tag "${foundLabel}"` : 'No matches found';
