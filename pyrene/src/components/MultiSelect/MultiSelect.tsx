@@ -58,10 +58,6 @@ export interface MultiSelectProps {
    */
   loading?: boolean,
   /**
-   * Maximum width of the value label in pixels. Use false to disable a maximum width.
-   */
-  maxValueLabelWidth?: string, // eslint-disable-line react/no-unused-prop-types
-  /**
    * Sets the html name property of the form element.
    */
   name?: string,
@@ -89,10 +85,6 @@ export interface MultiSelectProps {
    * Adds a visual indication to display that the field is required.
    */
   required?: boolean,
-  /**
-   * Sets a fixed height for the input field. Default behaviour is one row expanding up to 3, then starts scrolling.
-   */
-  rows?: number, // eslint-disable-line react/no-unused-prop-types
   /**
    * Displays the selected options in the dropdown and prevents the input from growing vertically.
    */
@@ -165,14 +157,12 @@ const MultiSelect: FunctionComponent<MultiSelectProps> = (props: MultiSelectProp
     invalidLabel = '',
     keepMenuOnSelect = false,
     loading = false,
-    maxValueLabelWidth = '123px',
     name = '',
     onBlur = () => null,
     onChange = () => null,
     onFocus = () => null,
     placeholder = '',
     required = false,
-    rows = -1,
     selectedOptionsInDropdown = false,
     sorted = true,
     title = '',
