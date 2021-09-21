@@ -12,14 +12,7 @@ import Loader from '../Loader/Loader';
 import MultiSelectMenuWithOptions from './MultiSelectMenuWithOptions';
 import CustomOption from '../SingleSelect/CustomOption';
 import { getCaseInsensitiveDistinctValues, getDelimitedValues } from './delimiterUtil';
-import { IconProps } from '../Icon/Icon';
-
-export interface Option {
-  iconProps?: IconProps,
-  label: string,
-  value: string,
-  invalid?: boolean,
-}
+import { Option } from './types';
 
 export interface MultiSelectProps {
   /**

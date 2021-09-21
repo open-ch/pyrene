@@ -1,6 +1,7 @@
 import colorConstants from '../../styles/colorConstants';
-import { MultiSelectProps, Option } from './MultiSelect';
+import { MultiSelectProps } from './MultiSelect';
 import { Example, StateProvider } from '../../examples/Example';
+import { Option } from './types';
 
 export interface State {
   value: ReadonlyArray<Option>;
