@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import React, { FunctionComponent, useState } from 'react';
+import React, { FunctionComponent, useState, ComponentType } from 'react';
 import clsx from 'clsx';
-import Select, { Props as SelectPros } from 'react-select';
+import Select, { Props as SelectPros, MultiValueProps } from 'react-select';
 import CreatableSelect from 'react-select/creatable';
 import styles from '../SingleSelect/select.css';
 import MultiSelectStyle from './multiSelectCSS';
@@ -215,7 +216,7 @@ const MultiSelect: FunctionComponent<MultiSelectProps> = (props: MultiSelectProp
           <CreatableSelect<Option, true>
             className="multiSelect"
             styles={MultiSelectStyle(props) as any}
-            components={selectedOptionsInDropdown ? componentsOptionsInDropdown : componentsNormal}
+            components={(selectedOptionsInDropdown ? componentsOptionsInDropdown : componentsNormal) as any}
             // Sets the internal value to "" in case of null or undefined
             getOptionValue={(option) => ((option.value !== null && typeof option.value !== 'undefined') ? option.value : '')}
             placeholder={placeholder}
@@ -256,7 +257,7 @@ const MultiSelect: FunctionComponent<MultiSelectProps> = (props: MultiSelectProp
           <Select<Option, true>
             className="multiSelect"
             styles={MultiSelectStyle(props) as any}
-            components={selectedOptionsInDropdown ? componentsOptionsInDropdown : componentsNormal}
+            components={(selectedOptionsInDropdown ? componentsOptionsInDropdown : componentsNormal) as any}
             // Sets the internal value to "" in case of null or undefined
             getOptionValue={(option) => ((option.value !== null && typeof option.value !== 'undefined') ? option.value : '')}
             placeholder={placeholder}
