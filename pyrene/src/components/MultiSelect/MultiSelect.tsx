@@ -280,8 +280,7 @@ const MultiSelect: FunctionComponent<MultiSelectProps> = (props: MultiSelectProp
           />
         )}
 
-      {hasPastedDuplicates && creatable && !disabled
-      && (
+      {hasPastedDuplicates && creatable && !disabled && (
         <div className={styles.warningLabel}>
           <span className={clsx('pyreneIcon-warning', styles.errorIcon)} />
           Duplicates were found and removed
