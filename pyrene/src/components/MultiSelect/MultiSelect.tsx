@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable react/prop-types */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import React, { FunctionComponent, useState } from 'react';
+import React, { FunctionComponent, useState, ClipboardEvent } from 'react';
 import clsx from 'clsx';
 import Select, { Props as SelectProps, SelectComponentsConfig } from 'react-select';
 import CreatableSelect from 'react-select/creatable';
@@ -173,11 +174,10 @@ const MultiSelect: FunctionComponent<MultiSelectProps> = (props: MultiSelectProp
   const [hasPastedDuplicates, setHasPastedDuplicates] = useState(false);
   const opts = sorted ? [...options].sort((a, b) => a.label.localeCompare(b.label)) : options;
 
-  const onPaste = (event: React.ClipboardEventHandler<HTMLDivElement>) => {
+  const onPaste = (event: ClipboardEvent<HTMLDivElement>) => {
     if (creatable) {
       setHasPastedDuplicates(false);
-      // @ts-ignore event should be typed as a ClipboardEvent
-      const pastedData = (event.clipboardData || window.clipboardData).getData('text');
+      const pastedData = (event.clipboardData || (window as any).clipboardData).getData('text');
       const delimitedValues = getCaseInsensitiveDistinctValues(getDelimitedValues(pastedData));
       const newValue = createNewValue(delimitedValues, options);
       if (value.length > 0) {
