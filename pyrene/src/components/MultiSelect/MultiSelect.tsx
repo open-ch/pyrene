@@ -14,7 +14,7 @@ import CustomOption from '../SingleSelect/CustomOption';
 import { getCaseInsensitiveDistinctValues, getDelimitedValues } from './delimiterUtil';
 import { IconProps } from '../Icon/Icon';
 
-interface Option {
+export interface Option {
   iconProps?: IconProps,
   label: string,
   value: string,
@@ -69,7 +69,7 @@ export interface MultiSelectProps {
   /**
    * Custom event handler, returns selected options from the options array.
    */
-  onChange?: (options: ReadonlyArray<Option> | Option, op?: { target: { type: string, name: string, value: ReadonlyArray<Option> | Option } }) => void,
+  onChange?: (options: ReadonlyArray<Option>, op?: { target: { type: string, name: string, value: ReadonlyArray<Option> } }) => void,
   /**
    * Focus event handler, use this to dynamically fetch options.
    */

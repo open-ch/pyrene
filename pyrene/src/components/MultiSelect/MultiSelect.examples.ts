@@ -1,9 +1,9 @@
 import colorConstants from '../../styles/colorConstants';
-import { MultiSelectProps } from './MultiSelect';
+import { MultiSelectProps, Option } from './MultiSelect';
 import { Example, StateProvider } from '../../examples/Example';
 
 export interface State {
-  value: MultiSelectProps['options'];
+  value: ReadonlyArray<Option>;
 }
 
 const testOptions: MultiSelectProps['options'] = [
@@ -44,12 +44,12 @@ const icons = ['place', 'layers', 'clock'];
 const colors = [colorConstants.blue600, colorConstants.red600, colorConstants.orange600, undefined];
 const testOptionsWithIcons = testOptions.map((option, i) => ({ ...option, iconProps: { name: icons[i % 3], color: colors[i % 4] } }));
 
-const makeExample = (options: MultiSelectProps['options']) => ({
+const makeExample = (options: Array<Option>) => ({
   title: 'Multi-Select',
   placeholder: 'Choose your favorite ice cream',
   helperLabel: 'Ice cream is delicious',
   options,
-  onChange: (stateProvider: StateProvider<State>) => (value) => stateProvider.setState({ value }),
+  onChange: (stateProvider: StateProvider<State>) => (value: Array<Option>) => stateProvider.setState({ value }),
   value: (stateProvider: StateProvider<State>) => stateProvider.state.value,
   creatable: true,
   invalid: (stateProvider: StateProvider<State>) => stateProvider.state.value && stateProvider.state.value.filter((o) => o.value === 'bacon' || o.value === 'chickenliver').length > 0,
@@ -57,10 +57,12 @@ const makeExample = (options: MultiSelectProps['options']) => ({
 });
 
 const examples: Example<MultiSelectProps, State> = {
-  props: makeExample(testOptions),
+  // eslint-disable-next-line
+  props: makeExample(testOptions) as any,
   examples: [
     {
-      props: makeExample(testOptions),
+      // eslint-disable-next-line
+      props: makeExample(testOptions) as any,
       description: 'Multi Select',
     },
     {
