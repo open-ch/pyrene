@@ -113,7 +113,7 @@ export default class FilterBar extends React.Component<FilterBarProps, FilterBar
         negatedKeys: [],
       },
     }));
-  };
+  }
 
   createUnappliedFilters = (props: FilterBarProps) => {
     const negatedFiltersKeys = this.getNegatedFilterKeys(props, Object.keys(this.getValidFilterEntries(props.filterValues)));
@@ -145,8 +145,7 @@ export default class FilterBar extends React.Component<FilterBarProps, FilterBar
     .filter(([key, value]) => value !== null) // eslint-disable-line no-unused-vars
     .reduce((merged, [key, value]) => ({ ...merged, [key]: value }), {});
 
-  applyFilter = () => {
-
+  applyFilter() {
     const filtered = this.getValidFilterEntries(this.state.unAppliedFilters.values);
 
     const filteredKeys = Object.keys(filtered);
@@ -157,7 +156,7 @@ export default class FilterBar extends React.Component<FilterBarProps, FilterBar
       displayFilterPopover: false,
     }),
     () => this.props.onFilterSubmit(filtered, negatedFiltersKeys));
-  };
+  }
 
   // onFilterTagClose removes only one tag - only one filter entry from filters Object should be removed, other filters have to stay
   onFilterTagClose(filter: Filter) {
@@ -193,7 +192,9 @@ export default class FilterBar extends React.Component<FilterBarProps, FilterBar
     if (filterValues) {
 
       const tags = Object.entries(filterValues).map(([key, value]) => {
-        if (value === undefined || value === null || value.length === 0) { return null; }
+        if (value === undefined || value === null || value.length === 0) {
+          return null;
+        }
 
         const filter = this.props.filters.find((f) => f.id === key);
         if (!filter) {
@@ -277,4 +278,5 @@ export default class FilterBar extends React.Component<FilterBarProps, FilterBar
       </div>
     );
   }
+
 }
