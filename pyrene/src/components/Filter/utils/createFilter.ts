@@ -11,7 +11,7 @@ export const isNullFilter = (type: string, value: any) => {
     case 'singleSelect':
       return !value;
     case 'multiSelect':
-      return !!value;
+      return value ? true : (value as string | Array<any>).length === 0;
     default:
       return true;
   }
