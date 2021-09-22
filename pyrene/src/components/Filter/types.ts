@@ -1,8 +1,10 @@
 import { SingleSelectProps } from '../SingleSelect/SingleSelect';
-import { IconProps } from '../Icon/Icon';
+import { Option } from '../MultiSelect/types';
+
+export type MultiSelectOption = Option;
 
 export type SingleSelectValue = SingleSelectProps<unknown>['value'];
-export type MultiselectValue = Array<{ iconProps?: IconProps, label: string, value?: string | number | boolean }>;
+export type MultiselectValue = Array<MultiSelectOption>;
 export type TextFieldValue = string;
 export type InputValue = MultiselectValue | SingleSelectValue | TextFieldValue;
 
@@ -11,13 +13,6 @@ export type FilterValues = {
 };
 
 export type SingleSelectOption = SingleSelectProps<unknown>['options'];
-
-export type MultiSelectOption = {
-  iconProps?: IconProps,
-  invalid?: boolean,
-  label: string,
-  value: string | number | boolean,
-};
 
 export type Filter = {
   id: string,

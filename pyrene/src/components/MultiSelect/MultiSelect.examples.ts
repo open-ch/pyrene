@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
 import colorConstants from '../../styles/colorConstants';
 import { MultiSelectProps } from './MultiSelect';
 import { Example, StateProvider } from '../../examples/Example';
