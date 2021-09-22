@@ -6,16 +6,18 @@ import styles from './FilterBar.css';
 import FilterPopoverButton from '../FilterPopOverButton/FilterPopoverButton';
 import FilterTag from './FilterTag';
 
+interface Option {
+  /** text displayed to the user in the filter dropdown */
+  label: string,
+  /** key for manipulation */
+  value?: string | number | boolean,
+}
+
 interface Filter {
   id: string,
   label: string,
   negated?: boolean,
-  options: Array<{
-    /** text displayed to the user in the filter dropdown */
-    label: string,
-    /** key for manipulation */
-    value?: string | number | boolean,
-  }>,
+  options: Array<Option>,
   sorted?: boolean,
   type: 'singleSelect' | 'multiSelect' | 'text',
 }
@@ -29,7 +31,7 @@ export interface FilterBarProps {
   /**
    * Filter values object.
    * */
-  filterValues: Record<string, any>,
+  filterValues: Record<string, Array<Option> | Option>,
   /**
    * True to enable the visual components to handle negated filters.
    */
@@ -117,7 +119,10 @@ export default class FilterBar extends React.Component<FilterBarProps, FilterBar
   };
 
   createUnappliedFilters = (props) => {
+    console.log('props.filterValues', props.filterValues);
     const negatedFiltersKeys = this.getNegatedFilterKeys(props, Object.keys(this.getValidFilterEntries(props.filterValues)));
+    console.log('negatedFiltersKeys', negatedFiltersKeys);
+
     return {
       values: props.filterValues, // Object with keys equal to the id of the filter and value the value of the filter
       negatedKeys: negatedFiltersKeys, // Array of filtered keys to be negated
@@ -129,7 +134,7 @@ export default class FilterBar extends React.Component<FilterBarProps, FilterBar
     .reduce((negatedKeys, newKey) => {
       negatedKeys.push(newKey);
       return negatedKeys;
-    }, [] as string[]);
+    }, [] as Array<Filter['id']>);
 
   getNegatedFilterKeysForChange = (prevState, negated, key) => {
     let toReturn = prevState.unAppliedFilters.negatedKeys;
