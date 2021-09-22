@@ -87,26 +87,26 @@ export default class FilterBar extends React.Component<FilterBarProps, FilterBar
   }
 
   // eslint-disable-next-line react/sort-comp
-  toggleFilterPopover = () => {
+  toggleFilterPopover() {
     if (!this.state.displayFilterPopover) {
       this.setState({ unAppliedFilters: this.createUnappliedFilters(this.props) });
     }
     this.setState((prevState) => ({
       displayFilterPopover: !prevState.displayFilterPopover,
     }));
-  };
+  }
 
-  filterDidChange = (value, negated, key) => {
+  filterDidChange(value, negated, key) {
     this.setState((prevState) => ({
       unAppliedFilters: {
         values: { ...prevState.unAppliedFilters.values, [key]: value },
         negatedKeys: this.getNegatedFilterKeysForChange(prevState, negated, key),
       },
     }));
-  };
+  }
 
   // Clear button in popover dropdown clears the users input
-  clearFilter = () => {
+  clearFilter() {
     this.setState(() => ({
       unAppliedFilters: {
         values: {},
