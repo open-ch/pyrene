@@ -3,10 +3,10 @@
 import React, { FunctionComponent } from 'react';
 import clsx from 'clsx';
 import { components, MenuProps } from 'react-select';
-import { MultiSelectOption } from './types';
+import { Option } from './types';
 import styles from './multiSelectMenuWithOptions.css';
 
-const MultiSelectMenuWithOptions: FunctionComponent<MenuProps<MultiSelectOption, boolean>> = (props) => (
+const MultiSelectMenuWithOptions: FunctionComponent<MenuProps<Option, boolean>> = (props) => (
   <components.Menu {...props}>
     <>
       {props.getValue().length > 0 && (
