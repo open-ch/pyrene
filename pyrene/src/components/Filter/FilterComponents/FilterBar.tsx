@@ -116,13 +116,13 @@ export default class FilterBar extends React.Component<FilterBarProps, FilterBar
     }));
   }
 
-  createUnappliedFilters = (props: FilterBarProps) => {
+  createUnappliedFilters(props: FilterBarProps) {
     const negatedFiltersKeys = this.getNegatedFilterKeys(props, Object.keys(this.getValidFilterEntries(props.filterValues)));
     return {
       values: props.filterValues, // Object with keys equal to the id of the filter and value the value of the filter
       negatedKeys: negatedFiltersKeys, // Array of filtered keys to be negated
     };
-  };
+  }
 
   getNegatedFilterKeys = (props: FilterBarProps, filteredKeys) => props.filters.filter((filter) => filter.negated && filteredKeys.includes(filter.id))
     .map((filter) => filter.id)
