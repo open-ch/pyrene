@@ -69,7 +69,6 @@ export default class FilterBar extends React.Component<FilterBarProps> {
     onFilterSubmit: () => null,
   };
 
-
   constructor(props: FilterBarProps) {
     super(props);
     this.state = {
