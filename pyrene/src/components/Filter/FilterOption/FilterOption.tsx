@@ -58,7 +58,7 @@ const renderOption = ({
       return (
         <MultiSelect
           name={id}
-          options={options}
+          options={options as Array<MultiSelectOption>}
           // If multiSelect is empty (empty array) return null to filter instead of []
           onChange={(option) => handleFilterChange(Array.isArray(option) && option.length === 0 ? null : option, negated, id)}
           // Pass empty array instead of null to multiSelect component if filterValues are null
