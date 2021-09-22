@@ -29,7 +29,7 @@ export interface FilterBarProps {
   /**
    * Filter values object.
    * */
-  filterValues: any,
+  filterValues: Record<string, any>,
   /**
    * True to enable the visual components to handle negated filters.
    */
@@ -124,12 +124,12 @@ export default class FilterBar extends React.Component<FilterBarProps, FilterBar
     };
   }
 
-  getNegatedFilterKeys = (props: FilterBarProps, filteredKeys) => props.filters.filter((filter) => filter.negated && filteredKeys.includes(filter.id))
+  getNegatedFilterKeys = (props: FilterBarProps, filteredKeys: string[]) => props.filters.filter((filter) => filter.negated && filteredKeys.includes(filter.id))
     .map((filter) => filter.id)
     .reduce((negatedKeys, newKey) => {
       negatedKeys.push(newKey);
       return negatedKeys;
-    }, []);
+    }, [] as string[]);
 
   getNegatedFilterKeysForChange = (prevState, negated, key) => {
     let toReturn = prevState.unAppliedFilters.negatedKeys;
