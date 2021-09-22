@@ -19,6 +19,7 @@ interface Filter {
   sorted?: boolean,
   type: 'singleSelect' | 'multiSelect' | 'text',
 }
+
 export interface FilterBarProps {
   /**
    * Sets the available filters.
