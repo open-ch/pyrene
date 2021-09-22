@@ -12,7 +12,7 @@ export const isNullFilter = (type: string, value: any) => {
     case 'singleSelect':
       return !value;
     case 'multiSelect':
-      return value ? true : (value as string | Array<any>).length === 0;
+      return value ? (value as string | Array<any>).length === 0 : true;
     default:
       return true;
   }
@@ -21,7 +21,7 @@ export const isNullFilter = (type: string, value: any) => {
 /*
  * Returns a function that filters datum.accessor for substrings (case-insensitive).
  */
-export const getSubstringFunc = (accessor, negated) => (value, datum) => {
+export const getSubstringFunc = (accessor: string, negated = false) => (value: null | string, datum: object) => {
   if (typeof datum[accessor] !== 'undefined' && datum[accessor] !== null) {
     return negated ? !datum[accessor].toString().toLowerCase().includes(value.toString().toLowerCase())
       : datum[accessor].toString().toLowerCase().includes(value.toString().toLowerCase());
