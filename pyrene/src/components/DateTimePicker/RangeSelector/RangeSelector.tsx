@@ -1,12 +1,13 @@
 import React, {
   useState,
   ReactNode,
+  useEffect,
 } from 'react';
 import clsx from 'clsx';
 import Button from '../../Button/Button';
 import {
   getFutureDate, standardEUDateFormat, standardEUTimeFormat,
-  convertToUTCtime, getDateTypeFromddmmyyyyWithSep, convertDateTypeToString, convertTimeTypeToString, getTimeTypeFromhhmmWithSep, convertToZoneTime,
+  convertToUTCtime, getDateTypeFromddmmyyyyWithSep, convertDateTypeToString, convertTimeTypeToString, getTimeTypeFromhhmmWithSep, convertToZoneTime, getClientTimeZone,
 } from '../../../utils/DateUtils';
 import TimeRangeSelector from '../../TimeRangeSelector/TimeRangeSelector';
 import { CalendarContainer } from '../ReactDatePickerWrapper/ReactDatePickerWrapper';
@@ -63,13 +64,18 @@ const RangeSelector: React.FC<RangeSelectorProps> = (({
   labels = ['From', 'To'],
   onChange,
   timeStamps,
-  timeZone = 'Europe/Zurich',
+  timeZone,
 }:RangeSelectorProps) => {
 
   const [endDate, setEndDate] = useState<Date | undefined>(undefined);
   const [startDate, setStartDate] = useState<Date | undefined>(undefined);
 
   const [isCalOpen, setCalOpen] = useState<boolean | undefined>(undefined);
+  const [internaltTz, setTimezone] = useState('');
+
+  useEffect(() => {
+    setTimezone(timeZone || getClientTimeZone())
+  }, [timeZone])
 
   const clearValues = () => {
     setStartDate(undefined);
@@ -88,9 +94,9 @@ const RangeSelector: React.FC<RangeSelectorProps> = (({
       const endtime = getTimeTypeFromhhmmWithSep(standardEUTimeFormat(endDate));
 
       if (dateOnly && startdate && enddate) {
-        onChange([convertToUTCtime(`${convertDateTypeToString(startdate)} 00:00`, timeZone).valueOf(), convertToUTCtime(`${convertDateTypeToString(enddate)} 00:00`, timeZone).valueOf()]);
+        onChange([convertToUTCtime(`${convertDateTypeToString(startdate)} 00:00`, internaltTz).valueOf(), convertToUTCtime(`${convertDateTypeToString(enddate)} 00:00`, internaltTz).valueOf()]);
       } else if (!dateOnly && startdate && starttime && enddate && endtime) {
-        onChange([convertToUTCtime(`${convertDateTypeToString(startdate)} ${convertTimeTypeToString(starttime)}`, timeZone).valueOf(), convertToUTCtime(`${convertDateTypeToString(enddate)} ${convertTimeTypeToString(endtime)}`, timeZone).valueOf()]);
+        onChange([convertToUTCtime(`${convertDateTypeToString(startdate)} ${convertTimeTypeToString(starttime)}`, internaltTz).valueOf(), convertToUTCtime(`${convertDateTypeToString(enddate)} ${convertTimeTypeToString(endtime)}`, internaltTz).valueOf()]);
       } else {
         onChange(null);
       }
@@ -140,11 +146,12 @@ const RangeSelector: React.FC<RangeSelectorProps> = (({
     >
       <>
         <TimeRangeSelector
-          timezone={timeZone}
+          timezone={internaltTz}
           from={startDate?.valueOf() || new Date().valueOf()}
-          to={endDate?.valueOf() || convertToUTCtime(getFutureDate({ months: 4 }), timeZone).valueOf()}
+          to={endDate?.valueOf() || convertToUTCtime(getFutureDate({ months: 4 }), internaltTz).valueOf()}
           lowerBound={minDateTime}
           upperBound={maxDateTime}
+          onChange={(from, to) => console.log('From : ', from, ' To : ', to)}
         />
         {
           isCalOpen && (
@@ -159,8 +166,8 @@ const RangeSelector: React.FC<RangeSelectorProps> = (({
                     startDate={startDate}
                     minDateTime={minDateTime}
                     maxDateTime={maxDateTime}
-                    onChange={(value) => (value !== undefined ? setStartDate(convertToZoneTime(value, timeZone)) : setStartDate(value))}
-                    timeZone={timeZone}
+                    onChange={(value) => (value !== undefined ? setStartDate(convertToZoneTime(value, internaltTz)) : setStartDate(value))}
+                    timeZone={internaltTz}
                     dateOnly={dateOnly}
                     timeStamp={timeStamps?.[0]}
                     calendarOpened
@@ -176,8 +183,8 @@ const RangeSelector: React.FC<RangeSelectorProps> = (({
                     startDate={startDate}
                     minDateTime={minDateTime}
                     maxDateTime={maxDateTime}
-                    onChange={(value) => (value !== undefined ? setEndDate(convertToZoneTime(value, timeZone)) : setEndDate(value))}
-                    timeZone={timeZone}
+                    onChange={(value) => (value !== undefined ? setEndDate(convertToZoneTime(value, internaltTz)) : setEndDate(value))}
+                    timeZone={internaltTz}
                     dateOnly={dateOnly}
                     timeStamp={timeStamps?.[1]}
                     selectEnd

@@ -1,11 +1,12 @@
 import React, {
+  useEffect,
   useState,
 } from 'react';
 
 import DateTimePicker from '../DateTimePicker';
 
 import {
-  convertToZoneTime,
+  convertToZoneTime, getClientTimeZone,
 } from '../../../utils/DateUtils';
 
 type OnFunction = (value?: [number, number] | null) => void;
@@ -49,11 +50,16 @@ const RangeTimePicker: React.FC<RangeTimePickerProps> = ({
   dateOnly,
   maxDateTime,
   minDateTime,
-  timeZone = 'Europe/Zurich',
+  timeZone,
 }: RangeTimePickerProps) => {
 
   const [endDate, setEndDate] = useState<Date | undefined>(undefined);
   const [startDate, setStartDate] = useState<Date | undefined>(undefined);
+  const [internaltTz, setTimezone] = useState('');
+
+  useEffect(() => {
+    setTimezone(timeZone || getClientTimeZone())
+  }, [timeZone])
 
   return (
     <>
@@ -67,8 +73,8 @@ const RangeTimePicker: React.FC<RangeTimePickerProps> = ({
                 startDate={startDate}
                 minDateTime={minDateTime}
                 maxDateTime={maxDateTime}
-                onChange={(value) => (value !== undefined ? setStartDate(convertToZoneTime(value, timeZone)) : setStartDate(value))}
-                timeZone={timeZone}
+                onChange={(value) => (value !== undefined ? setStartDate(convertToZoneTime(value, internaltTz)) : setStartDate(value))}
+                timeZone={internaltTz}
                 dateOnly={dateOnly}
                 selectStart
               />
@@ -80,8 +86,8 @@ const RangeTimePicker: React.FC<RangeTimePickerProps> = ({
                 startDate={startDate}
                 minDateTime={minDateTime}
                 maxDateTime={maxDateTime}
-                onChange={(value) => (value !== undefined ? setEndDate(convertToZoneTime(value, timeZone)) : setEndDate(value))}
-                timeZone={timeZone}
+                onChange={(value) => (value !== undefined ? setEndDate(convertToZoneTime(value, internaltTz)) : setEndDate(value))}
+                timeZone={internaltTz}
                 dateOnly={dateOnly}
                 selectEnd
               />

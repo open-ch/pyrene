@@ -12,7 +12,7 @@ import {
   isValidDate, isValidTime, convertToUTCtime, convertToZoneTime,
   convertDateTypeToString, convertTimeTypeToString, dateTypeToStandardEUDateFormat,
   getDateTypeFromddmmyyyyWithSep, getTimeTypeFromhhmmWithSep, getErrors,
-  errorDateBool, errorTimeBool,
+  errorDateBool, errorTimeBool, getClientTimeZone,
 } from '../../utils/DateUtils';
 
 
@@ -106,7 +106,7 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
   startDate,
   tabNum,
   timeStamp,
-  timeZone = 'Europe/Zurich',
+  timeZone,
 }: DateTimePickerProps) => {
 
   const [internalDate, setInternalDate] = useState<Date | undefined>();
@@ -116,6 +116,12 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
 
   const [invalidTimestamp, setInvalidTimestamp] = useState(false);
   const [errorValue, setErrorValue] = useState('');
+
+  const [internaltTz, setTimezone] = useState('');
+
+  useEffect(() => {
+    setTimezone(timeZone || getClientTimeZone())
+  }, [timeZone])
 
   // Sets internal date and passes validated value to parent
   const handleOn = useCallback((dateString: string, timeString: string, onFunction?: OnFunction) => {
@@ -127,14 +133,14 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
 
 
     if (dateOnly && date && validDateState) {
-      setInternalDate(convertToUTCtime(`${convertDateTypeToString(date)}`, timeZone));
+      setInternalDate(convertToUTCtime(`${convertDateTypeToString(date)}`, internaltTz));
       if (onFunction) {
-        onFunction(convertToUTCtime(`${convertDateTypeToString(date)}`, timeZone).valueOf());
+        onFunction(convertToUTCtime(`${convertDateTypeToString(date)}`, internaltTz).valueOf());
       }
     } else if (!dateOnly && date && time && validDateState && validTimeState) {
-      setInternalDate(convertToUTCtime(`${convertDateTypeToString(date)} ${convertTimeTypeToString(time)}`, timeZone));
+      setInternalDate(convertToUTCtime(`${convertDateTypeToString(date)} ${convertTimeTypeToString(time)}`, internaltTz));
       if (onFunction) {
-        onFunction(convertToUTCtime(`${convertDateTypeToString(date)} ${convertTimeTypeToString(time)}`, timeZone).valueOf());
+        onFunction(convertToUTCtime(`${convertDateTypeToString(date)} ${convertTimeTypeToString(time)}`, internaltTz).valueOf());
       }
     } else {
       setInternalDate(undefined);
@@ -143,7 +149,7 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
         onFunction(undefined);
       }
     }
-  }, [dateOnly, timeZone]);
+  }, [dateOnly, internaltTz]);
 
   // Handle changes from react datepicker
   const onChangeReactDP = (date: Date | [Date, Date] | null, event: React.SyntheticEvent<any> | undefined): void => {
@@ -215,7 +221,7 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
     if (typeof timeStamp === 'number') {
       const dateObj = new Date(timeStamp);
       if (!Number.isNaN(dateObj.valueOf())) {
-        setInternalDate(convertToZoneTime(timeStamp, timeZone));
+        setInternalDate(convertToZoneTime(timeStamp, internaltTz));
         setInvalidTimestamp(false);
       } else {
         setInternalDate(undefined);
@@ -228,12 +234,12 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
       setDateValue('');
       setTimeValue('');
     }
-  }, [timeStamp, timeZone]);
+  }, [timeStamp, internaltTz]);
 
   // Set error values on changes in component
   useEffect(() => {
-    setErrorValue(getErrors(errorDateBool(dateValue), errorTimeBool(timeValue), dateValue, minDateTime, maxDateTime, timeZone));
-  }, [maxDateTime, minDateTime, timeZone, dateValue, timeValue]);
+    setErrorValue(getErrors(errorDateBool(dateValue), errorTimeBool(timeValue), dateValue, minDateTime, maxDateTime, internaltTz));
+  }, [maxDateTime, minDateTime, internaltTz, dateValue, timeValue]);
 
   const selectedDate = () => {
     if (selectEnd) {
@@ -271,8 +277,8 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
         )}
         inline={inline}
         isOpen={calendarOpened}
-        maxDate={convertToUTCtime(maxDateTime, timeZone)}
-        minDate={convertToUTCtime(minDateTime, timeZone)}
+        maxDate={convertToUTCtime(maxDateTime, internaltTz)}
+        minDate={convertToUTCtime(minDateTime, internaltTz)}
         onCalendarOpen={onCalendarOpen}
         onChange={onChangeReactDP}
         onClickOutside={onClickOutside}

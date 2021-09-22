@@ -1,8 +1,8 @@
-@import '../../styles/colors.css';
+@import '../../styles/colors.module.css';
 
 /* Custom Section */
 .wrapper {
-  composes: commonFontSettings from '../../styles/common.css';
+  composes: commonFontSettings from '../../styles/common.module.css';
   position: relative;
   max-width: max-content;
 }

@@ -1,7 +1,7 @@
-@import '../../../styles/colors.css';
+@import '../../../styles/colors.module.css';
 
 .dateTimeComponent {
-  composes: commonFontSettings from '../../../styles/common.css';
+  composes: commonFontSettings from '../../../styles/common.module.css';
   color: var(--neutral-500);
 }
 

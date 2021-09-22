@@ -74,11 +74,6 @@ export interface DatePickerProps{
    * This is a unix timestamp, which is the number of seconds that have elapsed since Unix epoch
    */
   timeStamp?: number | null,
-  /**
-   * This is must be a IANA time zone string
-   */
-  timeZone?: string,
-
   value?: string,
   /**
    * Should display the Time column on the right-hand side
