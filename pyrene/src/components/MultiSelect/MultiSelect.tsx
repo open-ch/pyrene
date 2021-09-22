@@ -94,7 +94,7 @@ export interface MultiSelectProps {
   /**
    * Sets the value of the input field. Same type as supplied options.
    */
-  value?: Array<Option>,
+  value?: ReadonlyArray<Option>,
 }
 
 const LoadingIndicator = () => <Loader />;
