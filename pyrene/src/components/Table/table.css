@@ -1,7 +1,7 @@
-@import '../../styles/colors.css';
+@import '../../styles/colors.module.css';
 
 .tableContainer {
-  composes: commonFontSettings from '../../styles/common.css';
+  composes: commonFontSettings from '../../styles/common.module.css';
   width: 100%;
   position: relative;
 
@@ -58,7 +58,7 @@
 }
 
 .customTableBody {
-  composes: commonFontSettings from '../../styles/common.css';
+  composes: commonFontSettings from '../../styles/common.module.css';
 
   padding: 39px 0 0 8px;
   font-size: 12px;

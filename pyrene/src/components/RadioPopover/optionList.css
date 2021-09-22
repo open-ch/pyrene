@@ -1,14 +1,14 @@
-@import '../../styles/colors.css';
+@import '../../styles/colors.module.css';
 
 .checkboxList {
-  composes: commonFontSettings from '../../styles/common.css';
+  composes: commonFontSettings from '../../styles/common.module.css';
 
   box-sizing: border-box;
   width: 152px;
 }
 
 .listHeader {
-  composes: commonFontSettings from '../../styles/common.css';
+  composes: commonFontSettings from '../../styles/common.module.css';
 
   box-sizing: border-box;
   border-bottom: solid 1px var(--border);
@@ -47,7 +47,7 @@
 }
 
 .listLabel {
-  composes: commonFontSettings from '../../styles/common.css';
+  composes: commonFontSettings from '../../styles/common.module.css';
 
   padding-left: 4px;
   font-size: 12px;

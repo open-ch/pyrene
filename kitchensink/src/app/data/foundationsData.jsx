@@ -9,7 +9,7 @@ const primaryColors = [
     title: '',
     colors: [
       {
-        colorName: 'blue', name: 'blue-500', darkFont: false, bordered: false, infoLabel: 'Accent and highlight',
+        colorName: 'blue', name: 'blue-500', darkFont: false, bordered: false, infoText: 'blue-500', infoLabel: 'Accent and highlight',
       },
     ],
   },
@@ -17,7 +17,7 @@ const primaryColors = [
     title: '',
     colors: [
       {
-        colorName: 'dark', name: 'neutral-500', darkFont: false, bordered: false, infoLabel: 'Main color for type',
+        colorName: 'dark', name: 'neutral-500', darkFont: false, bordered: false, infoText: 'neutral-500', infoLabel: 'Main color for type',
       },
     ],
   },
@@ -25,7 +25,7 @@ const primaryColors = [
     title: '',
     colors: [
       {
-        colorName: 'white', name: 'neutral-000', darkFont: true, bordered: true, infoLabel: 'For structure',
+        colorName: 'white', name: 'neutral-000', darkFont: true, bordered: true, infoText: 'neutral-000', infoLabel: 'For structure',
       },
     ],
   },
@@ -147,7 +147,7 @@ const semanticColors = [
     title: '',
     colors: [
       {
-        colorName: 'Success', name: 'green-500', darkFont: false, bordered: false,
+        colorName: 'Success', name: 'green-500', darkFont: false, bordered: false, infoText: 'green-500',
       },
     ],
   },
@@ -155,7 +155,7 @@ const semanticColors = [
     title: '',
     colors: [
       {
-        colorName: 'Warning', name: 'orange-500', darkFont: true, bordered: false,
+        colorName: 'Warning', name: 'orange-500', darkFont: true, bordered: false, infoText: 'orange-500',
       },
     ],
   },
@@ -163,7 +163,7 @@ const semanticColors = [
     title: '',
     colors: [
       {
-        colorName: 'Danger', name: 'red-500', darkFont: false, bordered: false,
+        colorName: 'Danger', name: 'red-500', darkFont: false, bordered: false, infoText: 'red-500',
       },
     ],
   },
@@ -171,7 +171,7 @@ const semanticColors = [
     title: '',
     colors: [
       {
-        colorName: 'Outage', name: 'neutral-500', darkFont: false, bordered: false,
+        colorName: 'Critical', name: 'neutral-500', darkFont: false, bordered: false, infoText: 'neutral-500',
       },
     ],
   },
@@ -383,7 +383,7 @@ const categoricalColors = [
     title: '',
     colors: [
       {
-        colorName: 'Chart 2', name: 'chart-2', darkFont: false, bordered: false,
+        colorName: 'Chart 2', name: 'chart-2', darkFont: false, bordered: false, infoText: 'chart-2',
       },
     ],
   },
@@ -391,7 +391,7 @@ const categoricalColors = [
     title: '',
     colors: [
       {
-        colorName: 'Chart 3', name: 'chart-3', darkFont: true, bordered: true,
+        colorName: 'Chart 3', name: 'chart-3', darkFont: true, bordered: false, infoText: 'chart-3',
       },
     ],
   },
@@ -399,7 +399,7 @@ const categoricalColors = [
     title: '',
     colors: [
       {
-        colorName: 'Chart 4', name: 'chart-4', darkFont: false, bordered: false,
+        colorName: 'Chart 4', name: 'chart-4', darkFont: false, bordered: false, infoText: 'chart-4',
       },
     ],
   },
@@ -407,7 +407,7 @@ const categoricalColors = [
     title: '',
     colors: [
       {
-        colorName: 'Chart 5', name: 'chart-5', darkFont: false, bordered: false,
+        colorName: 'Chart 5', name: 'chart-5', darkFont: false, bordered: false, infoText: 'chart-5',
       },
     ],
   },

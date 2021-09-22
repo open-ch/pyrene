@@ -1,4 +1,4 @@
-@import '../../styles/colors.css';
+@import '../../styles/colors.module.css';
 
 
 .heading1 {
@@ -33,7 +33,7 @@
 }
 
 .heading {
-  composes: commonFontSettings from '../../styles/common.css';
+  composes: commonFontSettings from '../../styles/common.module.css';
 
   font-weight: 500;
   color: var(--neutral-500);

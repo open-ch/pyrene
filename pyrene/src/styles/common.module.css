@@ -1,0 +1,11 @@
+@import './colors.module.css';
+
+:global(.unSelectable) {
+  user-select: none;
+}
+
+.commonFontSettings {
+  font-family: FiraGO, Helvetica, sans-serif !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

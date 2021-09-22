@@ -1,10 +1,10 @@
-@import '../../styles/colors.css';
+@import '../../styles/colors.module.css';
 
 .timeRangeSelector {
   display: flex;
   align-items: center;
   width: 100%;
-  composes: commonFontSettings from '../../styles/common.css';
+  composes: commonFontSettings from '../../styles/common.module.css';
   font-size: 12px;
   flex-wrap: wrap;
   color: var(--neutral-500);

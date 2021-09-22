@@ -26,7 +26,10 @@ export interface LabelAndValueProps {
  * Show a label and its value as a highlight.
  */
 const LabelAndValue: React.FC<LabelAndValueProps> = ({
-  label = '', size = 'small', value = '', type = 'neutral',
+  label = '',
+  size = 'small',
+  value = '',
+  type = 'neutral',
 }: LabelAndValueProps) => (
   <div className={clsx(styles['label-and-value'], styles[`label-and-value-${size}`])}>
     <div className={styles.label}>{label}</div>

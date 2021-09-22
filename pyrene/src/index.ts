@@ -1,9 +1,9 @@
 /* eslint-disable import/prefer-default-export */
 /* eslint-disable import/no-named-default */
 
-import './styles/common.css';
-import './styles/colors.css';
-import './styles/fonts.css';
+import './styles/common.module.css';
+import './styles/colors.module.css';
+import './styles/fonts.module.css';
 
 
 // Sort alphabetically to find stuff easily

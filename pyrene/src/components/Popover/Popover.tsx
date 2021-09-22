@@ -77,16 +77,4 @@ const Popover: FunctionComponent<PopoverProps> = ({
 
 Popover.displayName = 'Popover';
 
-/**
- * defaultProps for compatibilty with kitchensink for pyrene documentation
- */
-Popover.defaultProps = {
-  align: 'start',
-  autoReposition: false,
-  displayPopover: false,
-  distanceToTarget: 8,
-  preferredPosition: ['top', 'bottom'],
-  onClickOutside: () => null,
-};
-
 export default Popover;

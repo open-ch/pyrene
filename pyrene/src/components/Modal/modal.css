@@ -1,7 +1,7 @@
-@import '../../styles/colors.css';
+@import '../../styles/colors.module.css';
 
 .modalOverlay {
-  composes: commonFontSettings from '../../styles/common.css';
+  composes: commonFontSettings from '../../styles/common.module.css';
 
   position: fixed;
   width: 100%;
@@ -9,15 +9,21 @@
   left: 0;
   right: 0;
   bottom: 0;
+  padding: 24px;
   background-color: rgba(29, 39, 59, 0.5);
   z-index: 2;
 
   display: flex;
   align-items: center;
   justify-content: center;
+  box-sizing: border-box;
 }
 
 .modalContainer {
+  display: flex;
+  flex-direction: column;
+  max-height: 100%;
+  overflow: auto;
   box-sizing: border-box;
 
   background-color: var(--background-light);
@@ -68,6 +74,7 @@
   box-sizing: border-box;
 
   &.contentScrolling {
+    overflow: auto;
     border-top: solid 1px var(--border);
     border-bottom: solid 1px var(--border);
   }
@@ -81,9 +88,7 @@
   }
 
   &.contentScrolling {
-    overflow: auto;
     min-height: 72px;
-    max-height: 512px;
   }
 
   &.overlay {

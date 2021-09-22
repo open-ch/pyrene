@@ -4,6 +4,7 @@ import Popover from '../Popover/Popover';
 import OptionsList from './OptionsList';
 import Loader from '../Loader/Loader';
 import styles from './dropdownButton.css';
+import { IconNames } from '../types';
 
 export interface DropdownButtonProps {
   /**
@@ -24,7 +25,7 @@ export interface DropdownButtonProps {
   /**
    * Adds an icon to the element.
    */
-  icon?: string,
+  icon?: keyof IconNames;
   /**
    * Sets the label displayed to the user.
    */
@@ -44,7 +45,7 @@ const DropdownButton: FunctionComponent<DropdownButtonProps> = ({
   actions = [{ label: 'tbd', onClick: () => null }],
   align = 'start',
   disabled = false,
-  icon = '',
+  icon,
   label,
   loading = false,
 }: DropdownButtonProps) => {
@@ -85,12 +86,5 @@ const DropdownButton: FunctionComponent<DropdownButtonProps> = ({
 };
 
 DropdownButton.displayName = 'Dropdown Button';
-
-/**
- * defaultProps for compatibilty with kitchensink for pyrene documentation
- */
-DropdownButton.defaultProps = {
-  align: 'start',
-};
 
 export default DropdownButton;

@@ -1,0 +1,47 @@
+@import '../../styles/colors.module.css';
+
+.action {
+  width: 16px;
+  height: 16px;
+  color: var(--neutral-300);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.action:hover {
+  background-color: var(--neutral-030);
+  border-radius: 1px;
+}
+
+.actionLink:hover {
+  text-decoration: none;
+  background-color: var(--neutral-030);
+}
+
+.actionLink {
+  font-family: FiraGO, Helvetica, sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  padding-left: 8px;
+  color: var(--neutral-500);
+  text-decoration: none;
+  height: 24px;
+  width: 98px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.actionMenuContainer {
+  margin-top: 4px;
+  margin-bottom: 4px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.popOverPlaceholder {
+  height: 100%;
+  width: 100%;
+}

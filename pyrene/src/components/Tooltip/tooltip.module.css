@@ -1,0 +1,14 @@
+@import '../../styles/colors.module.css';
+
+.tooltip {
+  composes: commonFontSettings from '../../styles/common.module.css';
+  background-color: var(--neutral-400);
+  border-radius: 2px;
+
+  padding: 8px 8px;
+
+  color: var(--neutral-000);
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 500;
+}

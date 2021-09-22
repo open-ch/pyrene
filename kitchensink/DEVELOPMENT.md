@@ -3,27 +3,14 @@ These are technical details how to start development on kitchensink. For more ge
 
 In order to ease development of pyrene, we recommend to use the kitchensink together with your local version of pyrene.
 
-Make pyrene available and keep watching it (in your pyrene folder):
+Start kitchensink with pyrene in development mode (run in your `kitchensink` folder):
 ```bash
-npm run expose
+npm run develop:pyrene
 ```
 
-Link it in kitchensink and fire up the development server (in your kitchensink folder):
+If you are working on `pyrene-graphs`, `tuktuktwo` or `eslint-config`, best fire up everything (again, run in your `kitchensink` folder):
 ```bash
-npm install
-npm link @osag/pyrene
-npm run watch
-```
-
-If you want to use pyrene-graphs instead you can also expose with tuktuktwo:
-```bash
-cd tuktutktwo && npm run expose
-cd pyrene-graphs && npm run expose-tuktuktwo
-```
-
-If you don't want to use your local copy of pyrene any longer, just do a fresh package install:
-```bash
-npm install
+npm run develop:all
 ```
 
 ## Update Pyrene
