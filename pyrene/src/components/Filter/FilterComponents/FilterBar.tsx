@@ -5,6 +5,38 @@ import styles from './FilterBar.css';
 import FilterPopoverButton from '../FilterPopOverButton/FilterPopoverButton';
 import FilterTag from './FilterTag';
 
+export interface FilterBarProps {
+  /**
+   * Sets the available filters.
+   * Type: [{ label: string (required), type: oneOf('singleSelect', 'multiSelect', 'text') (required), key: string (required), options: array of values from which user can choose in single/multiSelect}]
+   */
+  filters: Array<{
+    id: string,
+    label: string,
+    negated?: boolean,
+    options: Array<{
+      /** text displayed to the user in the filter dropdown */
+      label: string,
+      /** key for manipulation */
+      value?: string | number | boolean,
+    }>,
+    sorted?: boolean,
+    type: 'singleSelect' | 'multiSelect' | 'text',
+  }>,
+  /**
+   * Filter values object.
+   * */
+  filterValues: any,
+  /**
+   * True to enable the visual components to handle negated filters.
+   */
+  negatable: boolean,
+  /**
+   * Called when the user clicks on the apply button. Exposes two parameters: filterValues and negatedFilterKeys (contains an array of the keys of the filters that are negated).
+   */
+  onFilterSubmit?: () => void,
+}
+
 /**
  * The filter is there to display large amounts of data in manageable portions.
  *
