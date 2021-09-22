@@ -120,8 +120,8 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
   const [internaltTz, setTimezone] = useState('');
 
   useEffect(() => {
-    setTimezone(timeZone || getClientTimeZone())
-  }, [timeZone])
+    setTimezone(timeZone || getClientTimeZone());
+  }, [timeZone]);
 
   // Sets internal date and passes validated value to parent
   const handleOn = useCallback((dateString: string, timeString: string, onFunction?: OnFunction) => {

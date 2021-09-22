@@ -263,4 +263,4 @@ export const errorTimeBool = (timestring: string): boolean => {
   return true;
 };
 
-export const getClientTimeZone = () => Intl.DateTimeFormat().resolvedOptions().timeZone;
+export const getClientTimeZone = (): string => Intl.DateTimeFormat().resolvedOptions().timeZone;

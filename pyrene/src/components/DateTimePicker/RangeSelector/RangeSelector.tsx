@@ -74,8 +74,8 @@ const RangeSelector: React.FC<RangeSelectorProps> = (({
   const [internaltTz, setTimezone] = useState('');
 
   useEffect(() => {
-    setTimezone(timeZone || getClientTimeZone())
-  }, [timeZone])
+    setTimezone(timeZone || getClientTimeZone());
+  }, [timeZone]);
 
   const clearValues = () => {
     setStartDate(undefined);
