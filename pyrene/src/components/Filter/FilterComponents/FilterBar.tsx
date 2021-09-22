@@ -31,7 +31,7 @@ export interface FilterBarProps {
   /**
    * Filter values object.
    * */
-  filterValues: Record<string, Array<Option> | Option>,
+  filterValues: Record<string, Array<Option> | Option> | string,
   /**
    * True to enable the visual components to handle negated filters.
    */
