@@ -1,16 +1,17 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable import/prefer-default-export */
 
 /*
  * Determines whether the value returned by a filter is to be ignored as it implies that the filter is not defined.
  */
-export const isNullFilter = (type, value) => {
+export const isNullFilter = (type: string, value: any) => {
   switch (type) {
     case 'text':
       return value === null || value === '';
     case 'singleSelect':
       return !value;
     case 'multiSelect':
-      return typeof value === 'undefined' || value.length === 0;
+      return !!value;
     default:
       return true;
   }
