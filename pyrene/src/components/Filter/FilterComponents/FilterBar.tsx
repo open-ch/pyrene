@@ -88,41 +88,41 @@ export default class FilterBar extends React.Component<FilterBarProps, FilterBar
   }
 
   // eslint-disable-next-line react/sort-comp
-  toggleFilterPopover() {
+  toggleFilterPopover = () => {
     if (!this.state.displayFilterPopover) {
       this.setState({ unAppliedFilters: this.createUnappliedFilters(this.props) });
     }
     this.setState((prevState) => ({
       displayFilterPopover: !prevState.displayFilterPopover,
     }));
-  }
+  };
 
-  filterDidChange(value, negated, key) {
+  filterDidChange = (value, negated, key) => {
     this.setState((prevState) => ({
       unAppliedFilters: {
         values: { ...prevState.unAppliedFilters.values, [key]: value },
         negatedKeys: this.getNegatedFilterKeysForChange(prevState, negated, key),
       },
     }));
-  }
+  };
 
   // Clear button in popover dropdown clears the users input
-  clearFilter() {
+  clearFilter = () => {
     this.setState(() => ({
       unAppliedFilters: {
         values: {},
         negatedKeys: [],
       },
     }));
-  }
+  };
 
-  createUnappliedFilters(props: FilterBarProps) {
+  createUnappliedFilters = (props) => {
     const negatedFiltersKeys = this.getNegatedFilterKeys(props, Object.keys(this.getValidFilterEntries(props.filterValues)));
     return {
       values: props.filterValues, // Object with keys equal to the id of the filter and value the value of the filter
       negatedKeys: negatedFiltersKeys, // Array of filtered keys to be negated
     };
-  }
+  };
 
   getNegatedFilterKeys = (props: FilterBarProps, filteredKeys: string[]) => props.filters.filter((filter) => filter.negated && filteredKeys.includes(filter.id))
     .map((filter) => filter.id)
@@ -146,7 +146,7 @@ export default class FilterBar extends React.Component<FilterBarProps, FilterBar
     .filter(([key, value]) => value !== null) // eslint-disable-line no-unused-vars
     .reduce((merged, [key, value]) => ({ ...merged, [key]: value }), {});
 
-  applyFilter() {
+  applyFilter = () => {
     const filtered = this.getValidFilterEntries(this.state.unAppliedFilters.values);
 
     const filteredKeys = Object.keys(filtered);
@@ -157,7 +157,7 @@ export default class FilterBar extends React.Component<FilterBarProps, FilterBar
       displayFilterPopover: false,
     }),
     () => this.props.onFilterSubmit(filtered, negatedFiltersKeys));
-  }
+  };
 
   // onFilterTagClose removes only one tag - only one filter entry from filters Object should be removed, other filters have to stay
   onFilterTagClose(filter: Filter) {
