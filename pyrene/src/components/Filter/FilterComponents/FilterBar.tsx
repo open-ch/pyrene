@@ -6,24 +6,25 @@ import styles from './FilterBar.css';
 import FilterPopoverButton from '../FilterPopOverButton/FilterPopoverButton';
 import FilterTag from './FilterTag';
 
+interface Filter {
+  id: string,
+  label: string,
+  negated?: boolean,
+  options: Array<{
+    /** text displayed to the user in the filter dropdown */
+    label: string,
+    /** key for manipulation */
+    value?: string | number | boolean,
+  }>,
+  sorted?: boolean,
+  type: 'singleSelect' | 'multiSelect' | 'text',
+}
 export interface FilterBarProps {
   /**
    * Sets the available filters.
    * Type: [{ label: string (required), type: oneOf('singleSelect', 'multiSelect', 'text') (required), key: string (required), options: array of values from which user can choose in single/multiSelect}]
    */
-  filters: Array<{
-    id: string,
-    label: string,
-    negated?: boolean,
-    options: Array<{
-      /** text displayed to the user in the filter dropdown */
-      label: string,
-      /** key for manipulation */
-      value?: string | number | boolean,
-    }>,
-    sorted?: boolean,
-    type: 'singleSelect' | 'multiSelect' | 'text',
-  }>,
+  filters: Array<Filter>,
   /**
    * Filter values object.
    * */
@@ -36,6 +37,14 @@ export interface FilterBarProps {
    * Called when the user clicks on the apply button. Exposes two parameters: filterValues and negatedFilterKeys (contains an array of the keys of the filters that are negated).
    */
   onFilterSubmit?: () => void,
+}
+
+interface FilterBarState {
+  displayFilterPopover: false,
+  unAppliedFilters: {
+    values: FilterBarProps['filterValues'],
+    negatedKeys: string[]
+  };
 }
 
 /**
@@ -61,7 +70,7 @@ export interface FilterBarProps {
  *          |- MultiSelect: type of Filter input, expects [{value:, label: }, {valueX:, labelX: }...]
  */
 
-export default class FilterBar extends React.Component<FilterBarProps> {
+export default class FilterBar extends React.Component<FilterBarProps, FilterBarState> {
 
   static displayName = 'FilterBar';
 
@@ -106,7 +115,7 @@ export default class FilterBar extends React.Component<FilterBarProps> {
     }));
   };
 
-  createUnappliedFilters = (props) => {
+  createUnappliedFilters = (props: FilterBarProps) => {
     const negatedFiltersKeys = this.getNegatedFilterKeys(props, Object.keys(this.getValidFilterEntries(props.filterValues)));
     return {
       values: props.filterValues, // Object with keys equal to the id of the filter and value the value of the filter
@@ -114,7 +123,7 @@ export default class FilterBar extends React.Component<FilterBarProps> {
     };
   };
 
-  getNegatedFilterKeys = (props, filteredKeys) => props.filters.filter((filter) => filter.negated && filteredKeys.includes(filter.id))
+  getNegatedFilterKeys = (props: FilterBarProps, filteredKeys) => props.filters.filter((filter) => filter.negated && filteredKeys.includes(filter.id))
     .map((filter) => filter.id)
     .reduce((negatedKeys, newKey) => {
       negatedKeys.push(newKey);
@@ -132,7 +141,7 @@ export default class FilterBar extends React.Component<FilterBarProps> {
   };
 
   // ignore all entries with null value - if input is empty, remove the whole entry (id: value) from object that is passed to parent component
-  getValidFilterEntries = (filterValues) => Object.entries(filterValues)
+  getValidFilterEntries = (filterValues: FilterBarProps['filterValues']) => Object.entries(filterValues)
     .filter(([key, value]) => value !== null) // eslint-disable-line no-unused-vars
     .reduce((merged, [key, value]) => ({ ...merged, [key]: value }), {});
 
@@ -151,7 +160,7 @@ export default class FilterBar extends React.Component<FilterBarProps> {
   };
 
   // onFilterTagClose removes only one tag - only one filter entry from filters Object should be removed, other filters have to stay
-  onFilterTagClose(filter) {
+  onFilterTagClose(filter: Filter) {
     const filtered = Object.entries(this.props.filterValues)
       .filter(([key]) => key !== filter.id)
       .reduce((merged, [key, value]) => ({ ...merged, [key]: value }), {});
@@ -193,12 +202,36 @@ export default class FilterBar extends React.Component<FilterBarProps> {
 
         switch (filter.type) {
           case 'text':
-            return <FilterTag key={filter.id} filterLabel={filter.label} filterText={value} negated={this.props.negatable && filter.negated} onClose={() => this.onFilterTagClose(filter)} />;
+            return (
+              <FilterTag
+                key={filter.id}
+                filterLabel={filter.label}
+                filterText={value}
+                negated={this.props.negatable && filter.negated}
+                onClose={() => this.onFilterTagClose(filter)}
+              />
+            );
           case 'singleSelect':
-            return <FilterTag key={filter.id} filterLabel={filter.label} filterText={value.label} negated={this.props.negatable && filter.negated} onClose={() => this.onFilterTagClose(filter)} />;
+            return (
+              <FilterTag
+                key={filter.id}
+                filterLabel={filter.label}
+                filterText={value.label}
+                negated={this.props.negatable && filter.negated}
+                onClose={() => this.onFilterTagClose(filter)}
+              />
+            );
           case 'multiSelect':
             if (value.length > 0) {
-              return <FilterTag key={filter.id} filterLabel={filter.label} filterText={value.map((option) => option.label).join('; ')} negated={this.props.negatable && filter.negated} onClose={() => this.onFilterTagClose(filter)} />;
+              return (
+                <FilterTag
+                  key={filter.id}
+                  filterLabel={filter.label}
+                  filterText={value.map((option) => option.label).join('; ')}
+                  negated={this.props.negatable && filter.negated}
+                  onClose={() => this.onFilterTagClose(filter)}
+                />
+              );
             }
             break;
           default:
@@ -242,8 +275,6 @@ export default class FilterBar extends React.Component<FilterBarProps> {
           {this.getFilterTags()}
         </div>
       </div>
-
     );
   }
-
 }
