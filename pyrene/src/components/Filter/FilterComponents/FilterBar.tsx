@@ -39,7 +39,7 @@ export interface FilterBarProps {
   /**
    * Called when the user clicks on the apply button. Exposes two parameters: filterValues and negatedFilterKeys (contains an array of the keys of the filters that are negated).
    */
-  onFilterSubmit?: () => void,
+  onFilterSubmit?: (filterValues: FilterBarProps['filterValues'], negatedKeys: string[]) => void,
 }
 
 interface FilterBarState {
@@ -141,7 +141,7 @@ export default class FilterBar extends React.Component<FilterBarProps, FilterBar
   };
 
   // ignore all entries with null value - if input is empty, remove the whole entry (id: value) from object that is passed to parent component
-  getValidFilterEntries = (filterValues: FilterBarProps['filterValues']) => Object.entries(filterValues)
+  getValidFilterEntries = (filterValues: FilterBarProps['filterValues']): FilterBarProps['filterValues'] => Object.entries(filterValues)
     .filter(([key, value]) => value !== null) // eslint-disable-line no-unused-vars
     .reduce((merged, [key, value]) => ({ ...merged, [key]: value }), {});
 
