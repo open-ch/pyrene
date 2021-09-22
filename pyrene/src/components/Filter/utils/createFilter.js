@@ -1,18 +1,16 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-/* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable import/prefer-default-export */
 
 /*
  * Determines whether the value returned by a filter is to be ignored as it implies that the filter is not defined.
  */
-export const isNullFilter = (type: string, value: any) => {
+export const isNullFilter = (type, value) => {
   switch (type) {
     case 'text':
       return value === null || value === '';
     case 'singleSelect':
       return !value;
     case 'multiSelect':
-      return value ? (value as string | Array<any>).length === 0 : true;
+      return typeof value === 'undefined' || value.length === 0;
     default:
       return true;
   }
@@ -21,7 +19,7 @@ export const isNullFilter = (type: string, value: any) => {
 /*
  * Returns a function that filters datum.accessor for substrings (case-insensitive).
  */
-export const getSubstringFunc = (accessor: string, negated = false) => (value: null | string, datum: object) => {
+export const getSubstringFunc = (accessor, negated) => (value, datum) => {
   if (typeof datum[accessor] !== 'undefined' && datum[accessor] !== null) {
     return negated ? !datum[accessor].toString().toLowerCase().includes(value.toString().toLowerCase())
       : datum[accessor].toString().toLowerCase().includes(value.toString().toLowerCase());
