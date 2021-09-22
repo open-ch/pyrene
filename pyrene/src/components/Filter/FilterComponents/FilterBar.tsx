@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable react/static-property-placement */
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -60,9 +62,16 @@ export interface FilterBarProps {
  *          |- MultiSelect: type of Filter input, expects [{value:, label: }, {valueX:, labelX: }...]
  */
 
-export default class FilterBar extends React.Component {
+export default class FilterBar extends React.Component<FilterBarProps> {
 
-  constructor(props) {
+  static displayName = 'FilterBar';
+
+  static defaultProps = {
+    onFilterSubmit: () => null,
+  };
+
+
+  constructor(props: FilterBarProps) {
     super(props);
     this.state = {
       displayFilterPopover: false,
@@ -240,42 +249,3 @@ export default class FilterBar extends React.Component {
   }
 
 }
-
-
-FilterBar.displayName = 'FilterBar';
-
-FilterBar.defaultProps = {
-  onFilterSubmit: () => null,
-};
-
-FilterBar.propTypes = {
-  /**
-   * Sets the available filters.
-   * Type: [{ label: string (required), type: oneOf('singleSelect', 'multiSelect', 'text') (required), key: string (required), options: array of values from which user can choose in single/multiSelect}]
-   */
-  filters: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    label: PropTypes.string.isRequired,
-    negated: PropTypes.bool,
-    options: PropTypes.arrayOf(PropTypes.shape({
-      /** text displayed to the user in the filter dropdown */
-      label: PropTypes.string.isRequired,
-      /** key for manipulation */
-      value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool]),
-    })),
-    sorted: PropTypes.bool,
-    type: PropTypes.oneOf(['singleSelect', 'multiSelect', 'text']).isRequired,
-  })).isRequired,
-  /**
-   * Filter values object.
-   * */
-  filterValues: PropTypes.shape({}).isRequired,
-  /**
-   * True to enable the visual components to handle negated filters.
-   */
-  negatable: PropTypes.bool.isRequired,
-  /**
-   * Called when the user clicks on the apply button. Exposes two parameters: filterValues and negatedFilterKeys (contains an array of the keys of the filters that are negated).
-   */
-  onFilterSubmit: PropTypes.func,
-};
