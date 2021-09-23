@@ -1,18 +1,38 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-
-import TimeRangeSelectionPropTypes from './CalendarDateSelectorPropTypes';
+/* eslint-disable react/prop-types */
+import React, { FunctionComponent } from 'react';
 import ToggleButtonGroup from '../ToggleButtonGroup/ToggleButtonGroup';
 
-const capitalizeFirstLetter = (string) => string && string[0].toUpperCase() + string.slice(1);
+export enum DateTypes {
+  day = 'day',
+  month = 'month',
+  year = 'year',
+}
 
-const TimeUnitSelectionDropdown = (props) => {
-  const {
-    disabled,
-    timeUnits,
-    timeUnit,
-    onSelect,
-  } = props;
+interface DateTime {
+  YEAR_MONTH_DAY?: {
+    day?: number,
+    month?: number,
+    year?: number,
+  },
+  TIMEUNIT_OPTIONS?: string[],
+  TIMEUNIT_OPTION: keyof typeof DateTypes,
+}
+
+export interface TimeUnitSelectionDropdownProps {
+  disabled?: boolean,
+  onSelect?: () => void,
+  timeUnit?: DateTime['TIMEUNIT_OPTION'],
+  timeUnits: DateTime['TIMEUNIT_OPTIONS'],
+}
+
+const capitalizeFirstLetter = (word: string) => word && word[0].toUpperCase() + word.slice(1);
+
+const TimeUnitSelectionDropdown: FunctionComponent<TimeUnitSelectionDropdownProps> = ({
+  disabled = false,
+  timeUnits = [],
+  timeUnit = '',
+  onSelect = () => {},
+}) => {
   const values = timeUnits.map((range) => ({ value: range, label: capitalizeFirstLetter(range) }));
 
   return (
@@ -25,16 +45,4 @@ const TimeUnitSelectionDropdown = (props) => {
   );
 };
 
-TimeUnitSelectionDropdown.defaultProps = {
-  disabled: false,
-  onSelect: () => {},
-  timeUnit: undefined,
-};
-
-TimeUnitSelectionDropdown.propTypes = {
-  disabled: PropTypes.bool,
-  onSelect: PropTypes.func,
-  timeUnit: TimeRangeSelectionPropTypes.TIMEUNIT_OPTION,
-  timeUnits: TimeRangeSelectionPropTypes.TIMEUNIT_OPTIONS.isRequired,
-};
 export default TimeUnitSelectionDropdown;
