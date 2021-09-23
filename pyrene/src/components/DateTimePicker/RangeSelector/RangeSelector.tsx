@@ -151,7 +151,10 @@ const RangeSelector: React.FC<RangeSelectorProps> = (({
           to={endDate?.valueOf() || convertToUTCtime(getFutureDate({ months: 4 }), internaltTz).valueOf()}
           lowerBound={minDateTime}
           upperBound={maxDateTime}
-          onChange={(from, to) => console.log('From : ', from, ' To : ', to)}
+          onChange={(from, to) => {
+            setStartDate(convertToZoneTime(from, internaltTz));
+            setEndDate(convertToZoneTime(to, internaltTz));
+          }}
         />
         {
           isCalOpen && (
@@ -169,7 +172,7 @@ const RangeSelector: React.FC<RangeSelectorProps> = (({
                     onChange={(value) => (value !== undefined ? setStartDate(convertToZoneTime(value, internaltTz)) : setStartDate(value))}
                     timeZone={internaltTz}
                     dateOnly={dateOnly}
-                    timeStamp={timeStamps?.[0]}
+                    timeStamp={startDate?.valueOf() || timeStamps?.[0]}
                     calendarOpened
                     selectStart
                   />
@@ -186,7 +189,7 @@ const RangeSelector: React.FC<RangeSelectorProps> = (({
                     onChange={(value) => (value !== undefined ? setEndDate(convertToZoneTime(value, internaltTz)) : setEndDate(value))}
                     timeZone={internaltTz}
                     dateOnly={dateOnly}
-                    timeStamp={timeStamps?.[1]}
+                    timeStamp={endDate?.valueOf() || timeStamps?.[1]}
                     selectEnd
                   />
                 </div>
