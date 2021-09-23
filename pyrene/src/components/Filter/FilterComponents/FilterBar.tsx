@@ -194,7 +194,7 @@ export default class FilterBar extends React.Component<FilterBarProps, FilterBar
     if (filterValues) {
 
       const tags = Object.entries(filterValues).map(([key, value]) => {
-        if (value === undefined || value === null || value.length === 0) {
+        if (value === undefined || value === null || (value as Array<Option>).length === 0) {
           return null;
         }
 
@@ -209,7 +209,7 @@ export default class FilterBar extends React.Component<FilterBarProps, FilterBar
               <FilterTag
                 key={filter.id}
                 filterLabel={filter.label}
-                filterText={value}
+                filterText={value as string}
                 negated={negatable && filter.negated}
                 onClose={() => this.onFilterTagClose(filter)}
               />
@@ -219,18 +219,18 @@ export default class FilterBar extends React.Component<FilterBarProps, FilterBar
               <FilterTag
                 key={filter.id}
                 filterLabel={filter.label}
-                filterText={value.label}
+                filterText={(value as Option).label}
                 negated={negatable && filter.negated}
                 onClose={() => this.onFilterTagClose(filter)}
               />
             );
           case 'multiSelect':
-            if (value.length > 0) {
+            if ((value as Array<Option>).length > 0) {
               return (
                 <FilterTag
                   key={filter.id}
                   filterLabel={filter.label}
-                  filterText={value.map((option) => option.label).join('; ')}
+                  filterText={(value as Array<Option>).map((option) => option.label).join('; ')}
                   negated={negatable && filter.negated}
                   onClose={() => this.onFilterTagClose(filter)}
                 />
