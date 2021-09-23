@@ -45,7 +45,7 @@ export interface FilterBarProps {
 }
 
 interface FilterBarState {
-  displayFilterPopover: false,
+  displayFilterPopover: boolean,
   unAppliedFilters: {
     values: FilterBarProps['filterValues'],
     negatedKeys: Array<Filter['id']>
