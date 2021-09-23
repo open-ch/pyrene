@@ -54,9 +54,7 @@ const CalendarDateSelector: FunctionComponent<CalendarDateSelectorProps> = ({
   lowerBound = DEFAULT_LOWER_BOUND,
   upperBound = getCurrentDate(),
   timeUnits = DEFAULT_TIME_UNITS,
-  value = {
-    ...getCurrentDate(),
-  },
+  value = getCurrentDate(),
 }: CalendarDateSelectorProps) => {
 
   const onNavigate = (newValue: DayMonthYear, direction: -1 | 1) => {
