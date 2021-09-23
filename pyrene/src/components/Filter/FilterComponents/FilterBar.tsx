@@ -132,7 +132,7 @@ export default class FilterBar extends React.Component<FilterBarProps, FilterBar
     .filter((filter) => filter.negated && filteredKeys.includes(filter.id))
     .map((filter) => filter.id);
 
-  getNegatedFilterKeysForChange = (prevState: FilterBarState, negated: boolean, key: string) => {
+  getNegatedFilterKeysForChange = (prevState: FilterBarState, negated: boolean, key: Filter['id']) => {
     let toReturn = prevState.unAppliedFilters.negatedKeys;
     if (negated && !toReturn.includes(key)) {
       toReturn.push(key);
@@ -189,7 +189,7 @@ export default class FilterBar extends React.Component<FilterBarProps, FilterBar
 
 
   getFilterTags() {
-    const { filterValues } = this.props;
+    const { filterValues, filters, negatable } = this.props;
 
     if (filterValues) {
 
@@ -198,7 +198,7 @@ export default class FilterBar extends React.Component<FilterBarProps, FilterBar
           return null;
         }
 
-        const filter = this.props.filters.find((f) => f.id === key);
+        const filter = filters.find((f) => f.id === key);
         if (!filter) {
           return null;
         }
@@ -210,7 +210,7 @@ export default class FilterBar extends React.Component<FilterBarProps, FilterBar
                 key={filter.id}
                 filterLabel={filter.label}
                 filterText={value}
-                negated={this.props.negatable && filter.negated}
+                negated={negatable && filter.negated}
                 onClose={() => this.onFilterTagClose(filter)}
               />
             );
@@ -220,7 +220,7 @@ export default class FilterBar extends React.Component<FilterBarProps, FilterBar
                 key={filter.id}
                 filterLabel={filter.label}
                 filterText={value.label}
-                negated={this.props.negatable && filter.negated}
+                negated={negatable && filter.negated}
                 onClose={() => this.onFilterTagClose(filter)}
               />
             );
@@ -231,7 +231,7 @@ export default class FilterBar extends React.Component<FilterBarProps, FilterBar
                   key={filter.id}
                   filterLabel={filter.label}
                   filterText={value.map((option) => option.label).join('; ')}
-                  negated={this.props.negatable && filter.negated}
+                  negated={negatable && filter.negated}
                   onClose={() => this.onFilterTagClose(filter)}
                 />
               );
