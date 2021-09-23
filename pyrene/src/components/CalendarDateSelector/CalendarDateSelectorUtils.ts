@@ -4,6 +4,12 @@ import isBefore from 'date-fns/isBefore';
 import set from 'date-fns/set';
 import add from 'date-fns/add';
 
+export enum DateTypes {
+  day = 'day',
+  month = 'month',
+  year = 'year',
+}
+
 export interface DateTime {
   yearMonthDay?: {
     day?: number,
@@ -15,12 +21,6 @@ export interface DateTime {
 }
 
 type DayMonthYear = Required<Required<DateTime>['yearMonthDay']>;
-
-export enum DateTypes {
-  day = 'day',
-  month = 'month',
-  year = 'year',
-}
 
 /**
  * Converts our custom date object to JavaScript Date
