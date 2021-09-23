@@ -1,8 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-
+import React, { FunctionComponent } from 'react';
 import CalendarDateSelectorDropdown from './CalendarDateSelectorDropdown';
-import CalendarDateSelectorPropTypes from './CalendarDateSelectorPropTypes';
 import {
   canNavigateBackward,
   canNavigateForward,
@@ -20,8 +17,8 @@ import DateHelper from './DateHelper';
 interface CalendarDateSelectorProps {
   isLoading?: boolean,
   lowerBound?: DayMonthYear,
-  onChange?: () => void,
-  renderRightSection?: () => void,
+  onChange?: (newDate: DayMonthYear, unit: DateTime['timeunitOption']) => void,
+  renderRightSection?: () => React.ReactNode,
   timeUnit: DateTime['timeunitOption'],
   timeUnits?: DateTime['timeunitOptions'],
   upperBound?: DayMonthYear,
@@ -49,81 +46,55 @@ const DEFAULT_TIME_UNITS = [
   DateTypes.year,
 ];
 
-export default class CalendarDateSelector extends React.Component<CalendarDateSelectorProps> {
+const CalendarDateSelector: FunctionComponent<CalendarDateSelectorProps> = ({
+  timeUnit,
+  onChange,
+  renderRightSection,
+  isLoading = false,
+  lowerBound = DEFAULT_LOWER_BOUND,
+  upperBound = getCurrentDate(),
+  timeUnits = DEFAULT_TIME_UNITS,
+  value = {
+    ...getCurrentDate(),
+  },
+}: CalendarDateSelectorProps) => {
 
-  _onNavigate = (value, direction) => {
-    const { onChange, timeUnit } = this.props;
+  const onNavigate = (value: DayMonthYear, direction: -1 | 1) => {
     const newDate = handleDateChange(value, direction, timeUnit);
-    onChange(newDate, timeUnit);
+    onChange?.(newDate, timeUnit);
   };
 
-  _onSelect = (timeUnit) => {
-    const { onChange, value } = this.props;
-    onChange(value, timeUnit);
+  const onSelect = (timeUnit: DateTime['timeunitOption']) => {
+    onChange?.(value, timeUnit);
   };
 
-  render() {
-    const {
-      isLoading,
-      timeUnits,
-      timeUnit,
-      lowerBound,
-      upperBound,
-      value,
-      renderRightSection,
-    } = this.props;
-
-    return (
-      <div className={styles.timeUnitSelector}>
-        <div className={styles['timeUnitSelector--left']}>
-          <CalendarDateSelectorDropdown
-            timeUnits={timeUnits}
-            timeUnit={timeUnit}
-            onSelect={this._onSelect}
-            disabled={isLoading}
-          />
-        </div>
-        <div className={styles['timeUnitSelector--center']}>
-          <ArrowSelector
-            label={DateHelper.formatTimeRangeText(value, timeUnit)}
-            onNavigateForward={() => this._onNavigate(value, 1)}
-            backInactive={isLoading || !canNavigateBackward(value, lowerBound, timeUnit)}
-            forwardInactive={isLoading || !canNavigateForward(value, upperBound, timeUnit)}
-            onNavigateBack={() => this._onNavigate(value, -1)}
-            disabled={isLoading}
-            innerWidth={136}
-          />
-        </div>
-        <div className={styles['timeUnitSelector--right']}>
-          {renderRightSection()}
-        </div>
+  return (
+    <div className={styles.timeUnitSelector}>
+      <div className={styles['timeUnitSelector--left']}>
+        <CalendarDateSelectorDropdown
+          timeUnits={timeUnits}
+          timeUnit={timeUnit}
+          onSelect={onSelect}
+          disabled={isLoading}
+        />
       </div>
-    );
-  }
+      <div className={styles['timeUnitSelector--center']}>
+        <ArrowSelector
+          label={DateHelper.formatTimeRangeText(value, timeUnit)}
+          onNavigateForward={() => onNavigate(value, 1)}
+          backInactive={isLoading || !canNavigateBackward(value, lowerBound, timeUnit)}
+          forwardInactive={isLoading || !canNavigateForward(value, upperBound, timeUnit)}
+          onNavigateBack={() => onNavigate(value, -1)}
+          disabled={isLoading}
+          innerWidth={136}
+        />
+      </div>
+      <div className={styles['timeUnitSelector--right']}>
+        {renderRightSection?.()}
+      </div>
+    </div>
+  );
 
 }
 
 CalendarDateSelector.displayName = 'Calendar Date Selector';
-
-CalendarDateSelector.propTypes = {
-  isLoading: PropTypes.bool,
-  lowerBound: CalendarDateSelectorPropTypes.YEAR_MONTH_DAY,
-  onChange: PropTypes.func,
-  renderRightSection: PropTypes.func,
-  timeUnit: CalendarDateSelectorPropTypes.TIMEUNIT_OPTION.isRequired,
-  timeUnits: CalendarDateSelectorPropTypes.TIMEUNIT_OPTIONS,
-  upperBound: CalendarDateSelectorPropTypes.YEAR_MONTH_DAY,
-  value: CalendarDateSelectorPropTypes.YEAR_MONTH_DAY,
-};
-
-CalendarDateSelector.defaultProps = {
-  isLoading: false,
-  lowerBound: CalendarDateSelector.DEFAULT_LOWER_BOUND,
-  upperBound: getCurrentDate(),
-  timeUnits: CalendarDateSelector.DEFAULT_TIME_UNITS,
-  value: {
-    ...getCurrentDate(),
-  },
-  onChange: () => {},
-  renderRightSection: () => {},
-};
