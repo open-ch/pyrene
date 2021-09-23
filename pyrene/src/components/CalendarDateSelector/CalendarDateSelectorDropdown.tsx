@@ -1,40 +1,29 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-
-import TimeRangeSelectionPropTypes from './CalendarDateSelectorPropTypes';
+/* eslint-disable react/prop-types */
+import React, { FunctionComponent } from 'react';
 import ToggleButtonGroup from '../ToggleButtonGroup/ToggleButtonGroup';
+import { DateTime } from './CalendarDateSelectorUtils';
 
-const capitalizeFirstLetter = (string) => string && string[0].toUpperCase() + string.slice(1);
+export interface TimeUnitSelectionDropdownProps {
+  disabled?: boolean,
+  onSelect?: () => void,
+  timeUnit?: DateTime['timeunitOption'],
+  timeUnits: DateTime['timeunitOptions'],
+}
 
-const TimeUnitSelectionDropdown = (props) => {
-  const {
-    disabled,
-    timeUnits,
-    timeUnit,
-    onSelect,
-  } = props;
-  const values = timeUnits.map((range) => ({ value: range, label: capitalizeFirstLetter(range) }));
+const capitalizeFirstLetter = (word: string) => word && word[0].toUpperCase() + word.slice(1);
 
-  return (
-    <ToggleButtonGroup
-      options={values}
-      onChange={onSelect}
-      disabled={disabled}
-      value={timeUnit}
-    />
-  );
-};
+const TimeUnitSelectionDropdown: FunctionComponent<TimeUnitSelectionDropdownProps> = ({
+  disabled = false,
+  timeUnits = [],
+  timeUnit = '',
+  onSelect = () => {},
+}) => (
+  <ToggleButtonGroup
+    options={timeUnits.map((range) => ({ value: range, label: capitalizeFirstLetter(range) }))}
+    onChange={onSelect}
+    disabled={disabled}
+    value={timeUnit}
+  />
+);
 
-TimeUnitSelectionDropdown.defaultProps = {
-  disabled: false,
-  onSelect: () => {},
-  timeUnit: undefined,
-};
-
-TimeUnitSelectionDropdown.propTypes = {
-  disabled: PropTypes.bool,
-  onSelect: PropTypes.func,
-  timeUnit: TimeRangeSelectionPropTypes.TIMEUNIT_OPTION,
-  timeUnits: TimeRangeSelectionPropTypes.TIMEUNIT_OPTIONS.isRequired,
-};
 export default TimeUnitSelectionDropdown;
