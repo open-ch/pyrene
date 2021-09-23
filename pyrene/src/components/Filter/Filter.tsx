@@ -34,7 +34,7 @@ export interface FilterProps {
 const Filter: FunctionComponent<FilterProps> = ({
   filterValues,
   disabled = false,
-  filters = undefined,
+  filters = [],
   negatable = false,
   onFilterSubmit = () => null,
 }: FilterProps) => {
