@@ -5,24 +5,7 @@ import React from 'react';
 import styles from './FilterBar.css';
 import FilterPopoverButton from '../FilterPopOverButton/FilterPopoverButton';
 import FilterTag from './FilterTag';
-
-interface Option {
-  /** text displayed to the user in the filter dropdown */
-  label: string,
-  /** key for manipulation */
-  value?: string | number | boolean,
-}
-
-interface Filter {
-  id: string,
-  label: string,
-  negated?: boolean,
-  options: Array<Option>,
-  sorted?: boolean,
-  type: 'singleSelect' | 'multiSelect' | 'text',
-}
-
-type FilterValue = Array<Option> | Option | string;
+import { FilterValue, Filter, MultiSelectOption as Option } from '../types';
 
 export interface FilterBarProps {
   /**

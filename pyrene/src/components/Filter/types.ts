@@ -8,10 +8,6 @@ export type MultiselectValue = Array<MultiSelectOption>;
 export type TextFieldValue = string;
 export type InputValue = MultiselectValue | SingleSelectValue | TextFieldValue;
 
-export type FilterValues = {
-  [key: string]: InputValue
-};
-
 export type SingleSelectOption = SingleSelectProps<unknown>['options'];
 
 export type Filter = {
@@ -24,3 +20,9 @@ export type Filter = {
 };
 
 export type HandleFilterChange = (option: any, negated: boolean, id: string) => void;
+
+export type FilterValue = Array<MultiSelectOption> | MultiSelectOption | TextFieldValue;
+
+export type FilterValues = {
+  [key: string]: FilterValue
+};
