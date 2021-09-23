@@ -9,10 +9,9 @@ import {
   getCurrentDate,
   handleDateChange,
 } from './CalendarDateSelectorUtils';
-
-import styles from './calendarDateSelector.css';
 import ArrowSelector from '../TimeRangeSelector/TimeRangeNavigationBar/ArrowSelector/ArrowSelector';
 import DateHelper from './DateHelper';
+import styles from './calendarDateSelector.css';
 
 interface CalendarDateSelectorProps {
   isLoading?: boolean,
@@ -59,8 +58,8 @@ const CalendarDateSelector: FunctionComponent<CalendarDateSelectorProps> = ({
   },
 }: CalendarDateSelectorProps) => {
 
-  const onNavigate = (value: DayMonthYear, direction: -1 | 1) => {
-    const newDate = handleDateChange(value, direction, timeUnit);
+  const onNavigate = (newValue: DayMonthYear, direction: -1 | 1) => {
+    const newDate = handleDateChange(newValue, direction, timeUnit);
     onChange?.(newDate, timeUnit);
   };
 
