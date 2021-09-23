@@ -4,16 +4,22 @@ import isBefore from 'date-fns/isBefore';
 import set from 'date-fns/set';
 import add from 'date-fns/add';
 
+export interface DateTime {
+  yearMonthDay?: {
+    day?: number,
+    month?: number,
+    year?: number,
+  },
+  timeunitOptions?: string[],
+  timeunitOption?: keyof typeof DateTypes,
+}
+
+type DayMonthYear = Required<Required<DateTime>['yearMonthDay']>;
+
 export enum DateTypes {
   day = 'day',
   month = 'month',
   year = 'year',
-}
-
-interface DateType {
-  day: number,
-  month: number,
-  year: number,
 }
 
 /**
@@ -24,7 +30,7 @@ interface DateType {
  * @param {Object} value
  * @returns {Date}
  */
-export const convertToJsDate = (value: DateType) => new Date(value.year, value.month - 1, value.day);
+export const convertToJsDate = (value: DayMonthYear) => new Date(value.year, value.month - 1, value.day);
 
 /**
  * Converts a JavaScript Date object to our custom date object format
@@ -39,15 +45,14 @@ const convertToExternalDateObject = (date: Date) => ({
   day: date.getDate(),
 });
 
-
 /**
  * Handles the date change and returns a incremented/decreased value
  * @param {*} value to be changed
  * @param {*} change change direction +1/-1
  * @param timeUnit which timeUnit we are currently changing: YEAR, MONTH or DAY
  */
-export const handleDateChange = (value: DateType, change: -1 | 1, timeUnit: keyof typeof DateTypes) => {
-  const tempDate = value;
+export const handleDateChange = (value: DayMonthYear, change: -1 | 1, timeUnit: keyof typeof DateTypes) => {
+  const tempDate = { ...value };
 
   // If we are changing Month or Year, set the date to the first of the month.
   if (timeUnit === DateTypes.month || timeUnit === DateTypes.year) {
@@ -66,7 +71,7 @@ export const handleDateChange = (value: DateType, change: -1 | 1, timeUnit: keyo
  */
 export const getCurrentDate = () => convertToExternalDateObject(new Date());
 
-export const canNavigateForward = (value: DateType, upperBound: DateType, timeRange: keyof typeof DateTypes) => {
+export const canNavigateForward = (value: DayMonthYear, upperBound: DayMonthYear, timeRange: keyof typeof DateTypes) => {
   const upperBoundDate = convertToJsDate(upperBound);
   const valueDate = convertToJsDate(value);
   switch (timeRange) {
@@ -79,7 +84,7 @@ export const canNavigateForward = (value: DateType, upperBound: DateType, timeRa
   }
 };
 
-export const canNavigateBackward = (value: DateType, lowerBound: DateType, timeRange: keyof typeof DateTypes) => {
+export const canNavigateBackward = (value: DayMonthYear, lowerBound: DayMonthYear, timeRange: keyof typeof DateTypes) => {
   const lowerBoundDate = convertToJsDate(lowerBound);
   const valueDate = convertToJsDate(value);
   switch (timeRange) {
