@@ -4,8 +4,11 @@ import PropTypes from 'prop-types';
 import CalendarDateSelectorDropdown from './CalendarDateSelectorDropdown';
 import CalendarDateSelectorPropTypes from './CalendarDateSelectorPropTypes';
 import {
-  canNavigateBackward, canNavigateForward,
-  DATE_TYPES,
+  canNavigateBackward,
+  canNavigateForward,
+  DateTypes,
+  DateTime,
+  DayMonthYear,
   getCurrentDate,
   handleDateChange,
 } from './CalendarDateSelectorUtils';
@@ -13,6 +16,17 @@ import {
 import styles from './calendarDateSelector.css';
 import ArrowSelector from '../TimeRangeSelector/TimeRangeNavigationBar/ArrowSelector/ArrowSelector';
 import DateHelper from './DateHelper';
+
+interface CalendarDateSelectorProps {
+  isLoading?: boolean,
+  lowerBound?: DayMonthYear,
+  onChange?: () => void,
+  renderRightSection?: () => void,
+  timeUnit: DateTime['timeunitOption'],
+  timeUnits?: DateTime['timeunitOptions'],
+  upperBound?: DayMonthYear,
+  value?: DayMonthYear,
+}
 
 /**
  * Component for selecting a timeUnit and a range forwards and backwards.
@@ -22,19 +36,20 @@ import DateHelper from './DateHelper';
  * Time units are defined as follows:
  * year, month, day
  */
-export default class CalendarDateSelector extends React.Component {
 
-  static DEFAULT_LOWER_BOUND = {
-    year: 2015,
-    month: 1,
-    day: 1,
-  };
+const DEFAULT_LOWER_BOUND = {
+  year: 2015,
+  month: 1,
+  day: 1,
+};
 
-  static DEFAULT_TIME_UNITS = [
-    DATE_TYPES.DAY,
-    DATE_TYPES.MONTH,
-    DATE_TYPES.YEAR,
-  ];
+const DEFAULT_TIME_UNITS = [
+  DateTypes.day,
+  DateTypes.month,
+  DateTypes.year,
+];
+
+export default class CalendarDateSelector extends React.Component<CalendarDateSelectorProps> {
 
   _onNavigate = (value, direction) => {
     const { onChange, timeUnit } = this.props;

@@ -20,7 +20,7 @@ export interface DateTime {
   timeunitOption?: keyof typeof DateTypes,
 }
 
-type DayMonthYear = Required<Required<DateTime>['yearMonthDay']>;
+export type DayMonthYear = Required<Required<DateTime>['yearMonthDay']>;
 
 /**
  * Converts our custom date object to JavaScript Date
