@@ -247,18 +247,18 @@ export default class FilterBar extends React.Component<FilterBarProps, FilterBar
   }
 
   render() {
-
+    const [{ negatable, filters }, { displayFilterPopover, unAppliedFilters }] = [this.props, this.state];
     return (
       <div className={styles.filter}>
         <FilterPopoverButton
           label="Filter"
-          displayPopover={this.state.displayFilterPopover}
+          displayPopover={displayFilterPopover}
           onClick={this.toggleFilterPopover}
-          filters={this.props.filters}
+          filters={filters}
           handleFilterChange={this.filterDidChange}
-          negatable={this.props.negatable}
-          filterValues={this.state.unAppliedFilters.values}
-          filterNegatedKeys={this.state.unAppliedFilters.negatedKeys}
+          negatable={negatable}
+          filterValues={unAppliedFilters.values}
+          filterNegatedKeys={unAppliedFilters.negatedKeys}
           onFilterClear={this.clearFilter}
           onFilterApply={this.applyFilter}
         />
