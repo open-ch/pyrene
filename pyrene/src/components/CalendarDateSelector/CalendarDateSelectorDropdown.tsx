@@ -1,12 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { FunctionComponent } from 'react';
 import ToggleButtonGroup from '../ToggleButtonGroup/ToggleButtonGroup';
-
-export enum DateTypes {
-  day = 'day',
-  month = 'month',
-  year = 'year',
-}
+import { DateTypes } from './CalendarDateSelectorUtils';
 
 interface DateTime {
   YEAR_MONTH_DAY?: {
