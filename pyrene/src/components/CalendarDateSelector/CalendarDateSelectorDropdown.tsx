@@ -5,7 +5,7 @@ import { DateTime } from './CalendarDateSelectorUtils';
 
 export interface TimeUnitSelectionDropdownProps {
   disabled?: boolean,
-  onSelect?: (timeUnit: DateTime['timeunitOption']) => void,
+  onSelect?: (unit: string) => void,
   timeUnit?: DateTime['timeunitOption'],
   timeUnits: DateTime['timeunitOptions'],
 }

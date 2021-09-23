@@ -17,7 +17,7 @@ import DateHelper from './DateHelper';
 interface CalendarDateSelectorProps {
   isLoading?: boolean,
   lowerBound?: DayMonthYear,
-  onChange?: (newDate: DayMonthYear, unit: DateTime['timeunitOption']) => void,
+  onChange?: (newDate: DayMonthYear, unit: string) => void,
   renderRightSection?: () => React.ReactNode,
   timeUnit: DateTime['timeunitOption'],
   timeUnits?: DateTime['timeunitOptions'],
@@ -64,7 +64,7 @@ const CalendarDateSelector: FunctionComponent<CalendarDateSelectorProps> = ({
     onChange?.(newDate, timeUnit);
   };
 
-  const onSelect = (timeUnit: DateTime['timeunitOption']) => {
+  const onSelect = (timeUnit: string) => {
     onChange?.(value, timeUnit);
   };
 
