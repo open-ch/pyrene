@@ -1,40 +1,12 @@
-import React, { FunctionComponent } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import TimeRangeSelectionPropTypes from './CalendarDateSelectorPropTypes';
 import ToggleButtonGroup from '../ToggleButtonGroup/ToggleButtonGroup';
 
-export enum DATE_TYPES {
-  DAY = 'day',
-  MONTH = 'month',
-  YEAR = 'year',
-};
-
-interface DateTime {
-  YEAR_MONTH_DAY?: {
-    day?: number,
-    month?: number,
-    year?: number,
-  },
-  TIMEUNIT_OPTIONS?: string[],
-  TIMEUNIT_OPTION: DATE_TYPES,  
-}
-
-export interface TimeUnitSelectionDropdownProps {
-  disabled?: boolean,
-  onSelect?: ( ) => void,
-  timeUnit?: DateTime['TIMEUNIT_OPTION'],
-  timeUnits: DateTime['TIMEUNIT_OPTIONS'],
-}
-
 const capitalizeFirstLetter = (string) => string && string[0].toUpperCase() + string.slice(1);
 
-const TimeUnitSelectionDropdown: FunctionComponent<TimeUnitSelectionDropdownProps> = ({
-  disabled,
-  timeUnits,
-  timeUnit,
-  onSelect,
-}: TimeUnitSelectionDropdownProps) => {
+const TimeUnitSelectionDropdown = (props) => {
   const {
     disabled,
     timeUnits,
