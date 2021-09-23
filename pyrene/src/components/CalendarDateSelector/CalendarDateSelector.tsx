@@ -1,3 +1,4 @@
+/* eslint-disable react/require-default-props */
 import React, { FunctionComponent } from 'react';
 import CalendarDateSelectorDropdown from './CalendarDateSelectorDropdown';
 import {
@@ -63,8 +64,8 @@ const CalendarDateSelector: FunctionComponent<CalendarDateSelectorProps> = ({
     onChange?.(newDate, timeUnit);
   };
 
-  const onSelect = (timeUnit: string) => {
-    onChange?.(value, timeUnit);
+  const onSelect = (newTimeUnit: string) => {
+    onChange?.(value, newTimeUnit);
   };
 
   return (
