@@ -28,7 +28,7 @@ export interface FilterProps {
   /**
   * Called when the user clicks on the apply button. Contains all the filter information as its argument.
   */
-  onFilterSubmit?: (filterValues: FilterValues, filterNegatedKeys: string[]) => void,
+  onFilterSubmit?: (filterValues: FilterValues, filterNegatedKeys: Array<FilterType['id']>) => void,
 }
 
 const Filter: FunctionComponent<FilterProps> = ({

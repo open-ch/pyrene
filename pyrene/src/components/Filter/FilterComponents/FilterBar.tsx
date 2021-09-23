@@ -5,7 +5,12 @@ import React from 'react';
 import styles from './FilterBar.css';
 import FilterPopoverButton from '../FilterPopOverButton/FilterPopoverButton';
 import FilterTag from './FilterTag';
-import { FilterValue, Filter, MultiSelectOption as Option } from '../types';
+import {
+  FilterValues,
+  FilterValue,
+  Filter,
+  MultiSelectOption as Option,
+} from '../types';
 
 export interface FilterBarProps {
   /**
@@ -16,7 +21,7 @@ export interface FilterBarProps {
   /**
    * Filter values object.
    * */
-  filterValues: Record<string, FilterValue>,
+  filterValues: FilterValues,
   /**
    * True to enable the visual components to handle negated filters.
    */
