@@ -48,7 +48,7 @@ interface FilterBarState {
   displayFilterPopover: false,
   unAppliedFilters: {
     values: FilterBarProps['filterValues'],
-    negatedKeys: string[]
+    negatedKeys: Array<Filter['id']>
   };
 }
 
@@ -101,7 +101,7 @@ export default class FilterBar extends React.Component<FilterBarProps, FilterBar
     }));
   };
 
-  filterDidChange = (value: FilterValue, negated: boolean, key: string) => {
+  filterDidChange = (value: FilterValue, negated: boolean, key: Filter['id']) => {
     this.setState((prevState) => ({
       unAppliedFilters: {
         values: { ...prevState.unAppliedFilters.values, [key]: value },
@@ -128,7 +128,7 @@ export default class FilterBar extends React.Component<FilterBarProps, FilterBar
     };
   };
 
-  getNegatedFilterKeys = (props: FilterBarProps, filteredKeys: string[]) => props.filters
+  getNegatedFilterKeys = (props: FilterBarProps, filteredKeys: Array<Filter['id']>) => props.filters
     .filter((filter) => filter.negated && filteredKeys.includes(filter.id))
     .map((filter) => filter.id);
 
