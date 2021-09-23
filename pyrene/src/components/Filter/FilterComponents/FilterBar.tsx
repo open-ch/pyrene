@@ -157,7 +157,7 @@ export default class FilterBar extends React.Component<FilterBarProps, FilterBar
     this.setState(() => ({
       displayFilterPopover: false,
     }),
-    () => this.props.onFilterSubmit(filtered, negatedFiltersKeys));
+    () => this.props?.onFilterSubmit?.(filtered, negatedFiltersKeys));
   };
 
   // onFilterTagClose removes only one tag - only one filter entry from filters Object should be removed, other filters have to stay
