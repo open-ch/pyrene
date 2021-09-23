@@ -113,8 +113,9 @@ const ReactDPWrapper: React.FC<DatePickerProps> = ({
   useEffect(() => {
     if (isOpen) {
       rangeRef.current?.setOpen(isOpen);
+      rangeRef.current?.setState({ preSelection: selectedDate });
     }
-  }, [isOpen]);
+  }, [isOpen, selectedDate]);
 
   const nextIcon = <span className="pyreneIcon-chevronRight" />;
   const prevIcon = <span className="pyreneIcon-chevronLeft" />;
