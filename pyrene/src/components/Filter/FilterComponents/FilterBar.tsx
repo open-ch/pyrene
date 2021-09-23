@@ -144,7 +144,7 @@ export default class FilterBar extends React.Component<FilterBarProps, FilterBar
 
   // ignore all entries with null value - if input is empty, remove the whole entry (id: value) from object that is passed to parent component
   getValidFilterEntries = (filterValues: FilterBarProps['filterValues']): FilterBarProps['filterValues'] => Object.entries(filterValues)
-    .filter(([key, value]) => value !== null) // eslint-disable-line no-unused-vars
+    .filter(([, value]) => value !== null) // eslint-disable-line no-unused-vars
     .reduce((merged, [key, value]) => ({ ...merged, [key]: value }), {});
 
   applyFilter = () => {
