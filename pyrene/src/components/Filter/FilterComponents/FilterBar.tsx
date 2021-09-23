@@ -22,6 +22,8 @@ interface Filter {
   type: 'singleSelect' | 'multiSelect' | 'text',
 }
 
+type FilterValue = Array<Option> | Option | string;
+
 export interface FilterBarProps {
   /**
    * Sets the available filters.
@@ -31,7 +33,7 @@ export interface FilterBarProps {
   /**
    * Filter values object.
    * */
-  filterValues: Record<string, Array<Option> | Option> | string,
+  filterValues: Record<string, FilterValue>,
   /**
    * True to enable the visual components to handle negated filters.
    */
@@ -39,7 +41,7 @@ export interface FilterBarProps {
   /**
    * Called when the user clicks on the apply button. Exposes two parameters: filterValues and negatedFilterKeys (contains an array of the keys of the filters that are negated).
    */
-  onFilterSubmit?: (filterValues: FilterBarProps['filterValues'], negatedKeys: string[]) => void,
+  onFilterSubmit?: (filterValues: FilterBarProps['filterValues'], negatedKeys: Array<Filter['id']>) => void,
 }
 
 interface FilterBarState {
@@ -99,7 +101,7 @@ export default class FilterBar extends React.Component<FilterBarProps, FilterBar
     }));
   };
 
-  filterDidChange = (value, negated, key) => {
+  filterDidChange = (value: FilterValue, negated: boolean, key: string) => {
     this.setState((prevState) => ({
       unAppliedFilters: {
         values: { ...prevState.unAppliedFilters.values, [key]: value },
