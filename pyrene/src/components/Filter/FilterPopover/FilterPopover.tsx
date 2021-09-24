@@ -8,7 +8,7 @@ import Collapsible from '../../Collapsible/Collapsible';
 import { Filter, FilterValues, HandleFilterChange } from '../types';
 
 export interface FilterPopoverProps {
-  filterNegatedKeys: string[],
+  filterNegatedKeys: Array<Filter['id']>,
   filters: Array<Filter>,
   filterValues: FilterValues,
   handleFilterChange: HandleFilterChange,
