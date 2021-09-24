@@ -14,7 +14,7 @@ import ArrowSelector from '../TimeRangeSelector/TimeRangeNavigationBar/ArrowSele
 import DateHelper from './DateHelper';
 import styles from './calendarDateSelector.css';
 
-interface CalendarDateSelectorProps {
+export interface CalendarDateSelectorProps {
   isLoading?: boolean,
   lowerBound?: DayMonthYear,
   onChange?: (newDate: DayMonthYear, unit: string) => void,
