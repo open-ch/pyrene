@@ -29,13 +29,13 @@ export interface FilterBarProps {
   /**
    * Called when the user clicks on the apply button. Exposes two parameters: filterValues and negatedFilterKeys (contains an array of the keys of the filters that are negated).
    */
-  onFilterSubmit?: (filterValues: FilterBarProps['filterValues'], negatedKeys: Array<Filter['id']>) => void,
+  onFilterSubmit?: (filterValues: FilterValues, negatedKeys: Array<Filter['id']>) => void,
 }
 
 interface FilterBarState {
   displayFilterPopover: boolean,
   unAppliedFilters: {
-    values: FilterBarProps['filterValues'],
+    values: FilterValues,
     negatedKeys: Array<Filter['id']>
   };
 }
@@ -131,7 +131,7 @@ export default class FilterBar extends React.Component<FilterBarProps, FilterBar
   };
 
   // ignore all entries with null value - if input is empty, remove the whole entry (id: value) from object that is passed to parent component
-  getValidFilterEntries = (filterValues: FilterBarProps['filterValues']): FilterBarProps['filterValues'] => Object.entries(filterValues)
+  getValidFilterEntries = (filterValues: FilterValues): FilterValues => Object.entries(filterValues)
     .filter(([, value]) => value !== null)
     .reduce((merged, [key, value]) => ({ ...merged, [key]: value }), {});
 
