@@ -16,7 +16,7 @@ const TimeUnitSelectionDropdown: FunctionComponent<TimeUnitSelectionDropdownProp
   disabled = false,
   timeUnits = [],
   timeUnit = '',
-  onSelect = () => {},
+  onSelect,
 }) => (
   <ToggleButtonGroup
     options={timeUnits.map((range) => ({ value: range, label: capitalizeFirstLetter(range) }))}

@@ -21,7 +21,7 @@ export interface ToggleButtonGroupProps {
   /**
    * What happens when one value is toggled
    */
-  onChange: (value: string, event?: React.ChangeEvent<HTMLInputElement>) => void,
+  onChange?: (value: string, event?: React.ChangeEvent<HTMLInputElement>) => void,
   /**
    * All options that can be toggled.
    */
@@ -61,7 +61,7 @@ const ToggleButtonGroup: React.FC<ToggleButtonGroupProps> = ({
         disabled={disabled}
         onClick={() => {
           if (value !== option.value) {
-            onChange(option.value);
+            onChange?.(option.value);
           }
         }}
       >
