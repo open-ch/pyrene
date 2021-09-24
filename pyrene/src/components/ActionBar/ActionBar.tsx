@@ -122,8 +122,8 @@ const ActionBar: React.FC<ActionBarProps> = ({
     <div
       className={clsx(
         styles[`container-${orientation}`],
-        { [styles.disabled]: (disabled && !loading) },
-        { [styles[`box-${styling}`]]: (styling !== 'none') },
+        { [styles.disabled]: disabled && !loading },
+        { [styles[`box-${styling}`]]: styling !== 'none' },
       )}
     >
       {loading ? loader : (
@@ -142,7 +142,11 @@ const ActionBar: React.FC<ActionBarProps> = ({
               )}
             >
               {isSvgIcon ? (
-                <Icon color={action.color} svg={action.svg} type="inline" />
+                <Icon
+                  color={action.color}
+                  svg={action.svg}
+                  type="inline"
+                />
               ) : (
                 <Icon
                   color={action.color}
