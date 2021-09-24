@@ -1,9 +1,44 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable react/static-property-placement */
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import styles from './FilterBar.css';
 import FilterPopoverButton from '../FilterPopOverButton/FilterPopoverButton';
 import FilterTag from './FilterTag';
+import {
+  FilterValues,
+  FilterValue,
+  Filter,
+  MultiSelectOption as Option,
+} from '../types';
+
+export interface FilterBarProps {
+  /**
+   * Sets the available filters.
+   * Type: [{ label: string (required), type: oneOf('singleSelect', 'multiSelect', 'text') (required), key: string (required), options: array of values from which user can choose in single/multiSelect}]
+   */
+  filters: Array<Filter>,
+  /**
+   * Filter values object.
+   * */
+  filterValues: FilterValues,
+  /**
+   * True to enable the visual components to handle negated filters.
+   */
+  negatable: boolean,
+  /**
+   * Called when the user clicks on the apply button. Exposes two parameters: filterValues and negatedFilterKeys (contains an array of the keys of the filters that are negated).
+   */
+  onFilterSubmit?: (filterValues: FilterValues, negatedKeys: Array<Filter['id']>) => void,
+}
+
+interface FilterBarState {
+  displayFilterPopover: boolean,
+  unAppliedFilters: {
+    values: FilterValues,
+    negatedKeys: Array<Filter['id']>
+  };
+}
 
 /**
  * The filter is there to display large amounts of data in manageable portions.
@@ -28,9 +63,11 @@ import FilterTag from './FilterTag';
  *          |- MultiSelect: type of Filter input, expects [{value:, label: }, {valueX:, labelX: }...]
  */
 
-export default class FilterBar extends React.Component {
+export default class FilterBar extends React.Component<FilterBarProps, FilterBarState> {
 
-  constructor(props) {
+  static displayName = 'FilterBar';
+
+  constructor(props: FilterBarProps) {
     super(props);
     this.state = {
       displayFilterPopover: false,
@@ -48,7 +85,7 @@ export default class FilterBar extends React.Component {
     }));
   };
 
-  filterDidChange = (value, negated, key) => {
+  filterDidChange = (value: FilterValue, negated: boolean, key: Filter['id']) => {
     this.setState((prevState) => ({
       unAppliedFilters: {
         values: { ...prevState.unAppliedFilters.values, [key]: value },
@@ -67,7 +104,7 @@ export default class FilterBar extends React.Component {
     }));
   };
 
-  createUnappliedFilters = (props) => {
+  createUnappliedFilters = (props: FilterBarProps) => {
     const negatedFiltersKeys = this.getNegatedFilterKeys(props, Object.keys(this.getValidFilterEntries(props.filterValues)));
     return {
       values: props.filterValues, // Object with keys equal to the id of the filter and value the value of the filter
@@ -75,14 +112,11 @@ export default class FilterBar extends React.Component {
     };
   };
 
-  getNegatedFilterKeys = (props, filteredKeys) => props.filters.filter((filter) => filter.negated && filteredKeys.includes(filter.id))
-    .map((filter) => filter.id)
-    .reduce((negatedKeys, newKey) => {
-      negatedKeys.push(newKey);
-      return negatedKeys;
-    }, []);
+  getNegatedFilterKeys = (props: FilterBarProps, filteredKeys: Array<Filter['id']>) => props.filters
+    .filter((filter) => filter.negated && filteredKeys.includes(filter.id))
+    .map((filter) => filter.id);
 
-  getNegatedFilterKeysForChange = (prevState, negated, key) => {
+  getNegatedFilterKeysForChange = (prevState: FilterBarState, negated: boolean, key: Filter['id']) => {
     let toReturn = prevState.unAppliedFilters.negatedKeys;
     if (negated && !toReturn.includes(key)) {
       toReturn.push(key);
@@ -93,12 +127,11 @@ export default class FilterBar extends React.Component {
   };
 
   // ignore all entries with null value - if input is empty, remove the whole entry (id: value) from object that is passed to parent component
-  getValidFilterEntries = (filterValues) => Object.entries(filterValues)
-    .filter(([key, value]) => value !== null) // eslint-disable-line no-unused-vars
+  getValidFilterEntries = (filterValues: FilterValues): FilterValues => Object.entries(filterValues)
+    .filter(([, value]) => value !== null)
     .reduce((merged, [key, value]) => ({ ...merged, [key]: value }), {});
 
   applyFilter = () => {
-
     const filtered = this.getValidFilterEntries(this.state.unAppliedFilters.values);
 
     const filteredKeys = Object.keys(filtered);
@@ -108,14 +141,15 @@ export default class FilterBar extends React.Component {
     this.setState(() => ({
       displayFilterPopover: false,
     }),
-    () => this.props.onFilterSubmit(filtered, negatedFiltersKeys));
+    () => this.props?.onFilterSubmit?.(filtered, negatedFiltersKeys));
   };
 
   // onFilterTagClose removes only one tag - only one filter entry from filters Object should be removed, other filters have to stay
-  onFilterTagClose(filter) {
+  onFilterTagClose(filter: Filter) {
     const filtered = Object.entries(this.props.filterValues)
       .filter(([key]) => key !== filter.id)
       .reduce((merged, [key, value]) => ({ ...merged, [key]: value }), {});
+
     const negatedFiltersKeys = this.state.unAppliedFilters.negatedKeys.filter((negatedKey) => negatedKey !== filter.id);
     this.setState(() => ({
       unAppliedFilters: {
@@ -140,26 +174,52 @@ export default class FilterBar extends React.Component {
 
 
   getFilterTags() {
-    const { filterValues } = this.props;
+    const { filterValues, filters, negatable } = this.props;
 
     if (filterValues) {
 
       const tags = Object.entries(filterValues).map(([key, value]) => {
-        if (value === undefined || value === null || value.length === 0) { return null; }
+        if (value === undefined || value === null || (value as Array<Option>).length === 0) {
+          return null;
+        }
 
-        const filter = this.props.filters.find((f) => f.id === key);
+        const filter = filters.find((f) => f.id === key);
         if (!filter) {
           return null;
         }
 
         switch (filter.type) {
           case 'text':
-            return <FilterTag key={filter.id} filterLabel={filter.label} filterText={value} negated={this.props.negatable && filter.negated} onClose={() => this.onFilterTagClose(filter)} />;
+            return (
+              <FilterTag
+                key={filter.id}
+                filterLabel={filter.label}
+                filterText={value as string}
+                negated={negatable && filter.negated}
+                onClose={() => this.onFilterTagClose(filter)}
+              />
+            );
           case 'singleSelect':
-            return <FilterTag key={filter.id} filterLabel={filter.label} filterText={value.label} negated={this.props.negatable && filter.negated} onClose={() => this.onFilterTagClose(filter)} />;
+            return (
+              <FilterTag
+                key={filter.id}
+                filterLabel={filter.label}
+                filterText={(value as Option).label}
+                negated={negatable && filter.negated}
+                onClose={() => this.onFilterTagClose(filter)}
+              />
+            );
           case 'multiSelect':
-            if (value.length > 0) {
-              return <FilterTag key={filter.id} filterLabel={filter.label} filterText={value.map((option) => option.label).join('; ')} negated={this.props.negatable && filter.negated} onClose={() => this.onFilterTagClose(filter)} />;
+            if ((value as Array<Option>).length > 0) {
+              return (
+                <FilterTag
+                  key={filter.id}
+                  filterLabel={filter.label}
+                  filterText={(value as Array<Option>).map((option) => option.label).join('; ')}
+                  negated={negatable && filter.negated}
+                  onClose={() => this.onFilterTagClose(filter)}
+                />
+              );
             }
             break;
           default:
@@ -184,18 +244,18 @@ export default class FilterBar extends React.Component {
   }
 
   render() {
-
+    const [{ negatable, filters }, { displayFilterPopover, unAppliedFilters }] = [this.props, this.state];
     return (
       <div className={styles.filter}>
         <FilterPopoverButton
           label="Filter"
-          displayPopover={this.state.displayFilterPopover}
+          displayPopover={displayFilterPopover}
           onClick={this.toggleFilterPopover}
-          filters={this.props.filters}
+          filters={filters}
           handleFilterChange={this.filterDidChange}
-          negatable={this.props.negatable}
-          filterValues={this.state.unAppliedFilters.values}
-          filterNegatedKeys={this.state.unAppliedFilters.negatedKeys}
+          negatable={negatable}
+          filterValues={unAppliedFilters.values}
+          filterNegatedKeys={unAppliedFilters.negatedKeys}
           onFilterClear={this.clearFilter}
           onFilterApply={this.applyFilter}
         />
@@ -203,47 +263,7 @@ export default class FilterBar extends React.Component {
           {this.getFilterTags()}
         </div>
       </div>
-
     );
   }
 
 }
-
-
-FilterBar.displayName = 'FilterBar';
-
-FilterBar.defaultProps = {
-  onFilterSubmit: () => null,
-};
-
-FilterBar.propTypes = {
-  /**
-   * Sets the available filters.
-   * Type: [{ label: string (required), type: oneOf('singleSelect', 'multiSelect', 'text') (required), key: string (required), options: array of values from which user can choose in single/multiSelect}]
-   */
-  filters: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    label: PropTypes.string.isRequired,
-    negated: PropTypes.bool,
-    options: PropTypes.arrayOf(PropTypes.shape({
-      /** text displayed to the user in the filter dropdown */
-      label: PropTypes.string.isRequired,
-      /** key for manipulation */
-      value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool]),
-    })),
-    sorted: PropTypes.bool,
-    type: PropTypes.oneOf(['singleSelect', 'multiSelect', 'text']).isRequired,
-  })).isRequired,
-  /**
-   * Filter values object.
-   * */
-  filterValues: PropTypes.shape({}).isRequired,
-  /**
-   * True to enable the visual components to handle negated filters.
-   */
-  negatable: PropTypes.bool.isRequired,
-  /**
-   * Called when the user clicks on the apply button. Exposes two parameters: filterValues and negatedFilterKeys (contains an array of the keys of the filters that are negated).
-   */
-  onFilterSubmit: PropTypes.func,
-};
