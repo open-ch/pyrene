@@ -62,9 +62,7 @@ const CalendarDateSelector: FunctionComponent<CalendarDateSelectorProps> = ({
     onChange?.(newDate, timeUnit);
   };
 
-  const onSelect = (newTimeUnit: string) => {
-    onChange?.(value, newTimeUnit);
-  };
+  const onSelect = (newTimeUnit: string) => onChange?.(value, newTimeUnit);
 
   return (
     <div className={styles.timeUnitSelector}>
