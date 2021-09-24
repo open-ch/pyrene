@@ -11,20 +11,20 @@ export interface CardProps {
    */
   children: ReactElement[] | ReactElement,
   /**
-       * An error to be shown rather than the content.
-       */
+   * An error to be shown rather than the content.
+   */
   error?: string,
   /**
-       * An optional footer component.
-       */
+   * An optional footer component.
+   */
   footer?: ReactElement,
   /**
-       * An optional header component, e.g., a time range selector.
-       */
+    * An optional header component, e.g., a time range selector.
+    */
   header?: ReactElement,
   /**
-       * Indicates whether the card is loading. Displays an overlay loader.
-       */
+   * Indicates whether the card is loading. Displays an overlay loader.
+   */
   loading?: boolean,
 }
 
