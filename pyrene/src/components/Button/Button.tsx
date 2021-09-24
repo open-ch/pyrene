@@ -5,7 +5,16 @@ import styles from './button.module.css';
 import Loader from '../Loader/Loader';
 import { IconNames } from '../types';
 
-export type Type = 'primary' | 'secondary' | 'danger' | 'ghost' | 'action' | 'success';
+export enum ButtonKind {
+  primary = 'primary',
+  secondary = 'secondary',
+  danger = 'danger',
+  ghost = 'ghost',
+  action = 'action',
+  success = 'success',
+}
+
+export type Type = keyof typeof ButtonKind;
 export type ActionType = 'button' | 'submit' | 'reset';
 
 export interface ButtonProps {
@@ -51,7 +60,7 @@ const Button: React.FC<ButtonProps> = ({
   disabled = false,
   icon,
   loading = false,
-  type = 'primary',
+  type = ButtonKind.primary,
   onClick,
   label,
 }: ButtonProps) => (
@@ -71,7 +80,7 @@ const Button: React.FC<ButtonProps> = ({
       {icon && <span className={clsx(styles.icon, `pyreneIcon-${icon}`)} />}
       <span className={styles.label}>{label}</span>
     </button>
-    {loading && ((type === 'primary' || type === 'danger' || type === 'success')
+    {loading && ((type === ButtonKind.primary || type === ButtonKind.danger || type === ButtonKind.success)
       ? <span className={styles.loader}><Loader size="small" styling="light" /></span>
       : <span className={styles.loader}><Loader size="small" styling="dark" /></span>)}
   </div>
