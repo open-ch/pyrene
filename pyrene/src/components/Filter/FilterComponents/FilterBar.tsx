@@ -95,14 +95,12 @@ export default class FilterBar extends React.Component<FilterBarProps, FilterBar
   };
 
   // Clear button in popover dropdown clears the users input
-  clearFilter = () => {
-    this.setState(() => ({
-      unAppliedFilters: {
-        values: {},
-        negatedKeys: [],
-      },
-    }));
-  };
+  clearFilter = () => this.setState({
+    unAppliedFilters: {
+      values: {},
+      negatedKeys: [],
+    },
+  });
 
   createUnappliedFilters = (props: FilterBarProps) => {
     const negatedFiltersKeys = this.getNegatedFilterKeys(props, Object.keys(this.getValidFilterEntries(props.filterValues)));
