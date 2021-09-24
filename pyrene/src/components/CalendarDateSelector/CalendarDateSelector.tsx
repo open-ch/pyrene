@@ -25,15 +25,6 @@ export interface CalendarDateSelectorProps {
   value?: DayMonthYear,
 }
 
-/**
- * Component for selecting a timeUnit and a range forwards and backwards.
- *
- * 'onChange({ year: number, month: number | undefined, day: number | undefined }, timeUnit)' callback function can be registered via props, to handle range changes.
- *
- * Time units are defined as follows:
- * year, month, day
- */
-
 const DEFAULT_LOWER_BOUND = {
   year: 2015,
   month: 1,
@@ -46,6 +37,14 @@ const DEFAULT_TIME_UNITS = [
   DateTypes.year,
 ];
 
+/**
+ * Component for selecting a timeUnit and a range forwards and backwards.
+ *
+ * 'onChange({ year: number, month: number | undefined, day: number | undefined }, timeUnit)' callback function can be registered via props, to handle range changes.
+ *
+ * Time units are defined as follows:
+ * year, month, day
+ */
 const CalendarDateSelector: FunctionComponent<CalendarDateSelectorProps> = ({
   timeUnit,
   onChange,
