@@ -40,10 +40,13 @@ const Card:React.FC<CardProps> = ({
   loading = false,
   error,
 }: CardProps) => (
-
   <div className={styles.container}>
     {header && <div className={styles.header}>{header}</div>}
-    <div className={clsx(styles.content, { [styles['content--noHeader']]: !header, [styles['content--noFooter']]: !footer })}>
+    <div className={clsx(styles.content, {
+      [styles['content--noHeader']]: !header,
+      [styles['content--noFooter']]: !footer,
+    })}
+    >
       {/* eslint-disable-next-line no-nested-ternary */}
       { error ? <div className={styles.error}><Banner type="error" styling="standard" label={error} /></div>
         : loading ? (
