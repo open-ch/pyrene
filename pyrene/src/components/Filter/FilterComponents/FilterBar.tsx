@@ -67,10 +67,6 @@ export default class FilterBar extends React.Component<FilterBarProps, FilterBar
 
   static displayName = 'FilterBar';
 
-  static defaultProps = {
-    onFilterSubmit: () => null,
-  };
-
   constructor(props: FilterBarProps) {
     super(props);
     this.state = {
@@ -153,6 +149,7 @@ export default class FilterBar extends React.Component<FilterBarProps, FilterBar
     const filtered = Object.entries(this.props.filterValues)
       .filter(([key]) => key !== filter.id)
       .reduce((merged, [key, value]) => ({ ...merged, [key]: value }), {});
+
     const negatedFiltersKeys = this.state.unAppliedFilters.negatedKeys.filter((negatedKey) => negatedKey !== filter.id);
     this.setState(() => ({
       unAppliedFilters: {
