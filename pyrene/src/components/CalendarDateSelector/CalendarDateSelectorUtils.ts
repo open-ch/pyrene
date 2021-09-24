@@ -51,7 +51,7 @@ const convertToExternalDateObject = (date: Date) => ({
  * @param {*} change change direction +1/-1
  * @param timeUnit which timeUnit we are currently changing: YEAR, MONTH or DAY
  */
-export const handleDateChange = (value: DayMonthYear, change: -1 | 1, timeUnit: DateTime['timeunitOption']) => {
+export const handleDateChange = (value: DayMonthYear, change: -1 | 1, timeUnit: keyof typeof DateTypes) => {
   const tempDate = { ...value };
 
   // If we are changing Month or Year, set the date to the first of the month.
