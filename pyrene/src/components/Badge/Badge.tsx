@@ -37,7 +37,7 @@ const Badge: React.FC<BadgeProps> = ({
 }: BadgeProps) => (
   <div
     className={clsx(styles.badge, styles[`type-${type}`])}
-    style={{ maxWidth: maxWidth }}
+    style={{ maxWidth }}
     onClick={onClick}
   >
     <div className={clsx(styles.label)}>
