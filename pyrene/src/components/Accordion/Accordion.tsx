@@ -23,7 +23,11 @@ export interface AccordionProps {
 const Accordion: React.FC<AccordionProps> = ({
   sections,
 }: AccordionProps) => (
-  <div className={clsx(styles.accordion, { [styles.accordion_custom]: isCustomAccordion(sections), [styles.accordion_regular]: !isCustomAccordion(sections) })}>
+  <div className={clsx(styles.accordion, {
+    [styles.accordion_custom]: isCustomAccordion(sections),
+    [styles.accordion_regular]: !isCustomAccordion(sections),
+  })}
+  >
     {sections.map((sectionProps, index) => (
       // eslint-disable-next-line react/no-array-index-key
       <Section key={index} {...sectionProps} />
