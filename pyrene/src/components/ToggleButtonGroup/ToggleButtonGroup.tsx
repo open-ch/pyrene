@@ -4,12 +4,12 @@ import styles from './toggleButtonGroup.css';
 
 export interface ToggleButtonGroupValue {
   /**
-     * The displayed information about the option
-     */
+   * The displayed information about the option
+   */
   label: string;
   /**
-     * The value set when the action is toggled.
-     */
+   * The value set when the action is toggled.
+   */
   value: string;
 }
 
@@ -21,7 +21,7 @@ export interface ToggleButtonGroupProps {
   /**
    * What happens when one value is toggled
    */
-  onChange: (value: string, event?: React.ChangeEvent<HTMLInputElement>) => void,
+  onChange?: (value: string, event?: React.ChangeEvent<HTMLInputElement>) => void,
   /**
    * All options that can be toggled.
    */
@@ -46,7 +46,6 @@ const ToggleButtonGroup: React.FC<ToggleButtonGroupProps> = ({
   styling = 'box',
   value,
 }: ToggleButtonGroupProps) => (
-
   <div className={clsx(styles.toggleButtonGroup, { [styles['box-shadow']]: (styling === 'shadow') })}>
     {options.map((option) => (
       <button
@@ -62,7 +61,7 @@ const ToggleButtonGroup: React.FC<ToggleButtonGroupProps> = ({
         disabled={disabled}
         onClick={() => {
           if (value !== option.value) {
-            onChange(option.value);
+            onChange?.(option.value);
           }
         }}
       >
