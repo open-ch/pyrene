@@ -145,27 +145,26 @@ export default class FilterBar extends React.Component<FilterBarProps, FilterBar
       .filter(([key]) => key !== filter.id)
       .reduce((merged, [key, value]) => ({ ...merged, [key]: value }), {});
 
-    const negatedFiltersKeys = this.state.unAppliedFilters.negatedKeys.filter((negatedKey) => negatedKey !== filter.id);
-    this.setState(() => ({
-      unAppliedFilters: {
-        values: filtered,
-        negatedKeys: negatedFiltersKeys,
-      },
-      displayFilterPopover: false,
-    }), () => this.applyFilter());
-
+    this.setState((prevState) => {
+      const negatedFiltersKeys = prevState.unAppliedFilters.negatedKeys.filter((negatedKey) => negatedKey !== filter.id);
+      return {
+        unAppliedFilters: {
+          values: filtered,
+          negatedKeys: negatedFiltersKeys,
+        },
+        displayFilterPopover: false,
+      };
+    }, () => this.applyFilter());
   }
 
   // clearAll button next to tags resets the filter to default state
-  onClearAll = () => {
-    this.setState(() => ({
-      unAppliedFilters: {
-        values: {},
-        negatedKeys: [],
-      },
-      displayFilterPopover: false,
-    }), () => this.applyFilter());
-  };
+  onClearAll = () => this.setState({
+    unAppliedFilters: {
+      values: {},
+      negatedKeys: [],
+    },
+    displayFilterPopover: false,
+  }, () => this.applyFilter());
 
 
   getFilterTags() {
@@ -220,6 +219,7 @@ export default class FilterBar extends React.Component<FilterBarProps, FilterBar
           default:
             // eslint-disable-next-line no-console
             console.error('Unsupported filter type');
+            return null;
         }
 
         return null;
