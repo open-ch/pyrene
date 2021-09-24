@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 import React, { useCallback, useEffect } from 'react';
 import clsx from 'clsx';
 import styles from './modal.css';
@@ -144,8 +145,9 @@ const Modal: React.FC<ModalProps> = ({
   }, [escFunction]);
 
   const createButtonArray = (buttonInfo: ButtonBarProps[]) => (
-    buttonInfo.map((buttonProps) => (
+    buttonInfo.map((buttonProps, index) => (
       <Button
+        key={index}
         loading={buttonProps.loading}
         icon={buttonProps.icon}
         type={buttonProps.type}
