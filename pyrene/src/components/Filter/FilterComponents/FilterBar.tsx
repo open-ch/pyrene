@@ -20,7 +20,7 @@ export interface FilterBarProps {
   filters: Array<Filter>,
   /**
    * Filter values object.
-   * */
+   */
   filterValues: FilterValues,
   /**
    * True to enable the visual components to handle negated filters.
@@ -138,10 +138,7 @@ export default class FilterBar extends React.Component<FilterBarProps, FilterBar
 
     const negatedFiltersKeys = this.state.unAppliedFilters.negatedKeys.filter((negatedKey) => filteredKeys.includes(negatedKey));
 
-    this.setState(() => ({
-      displayFilterPopover: false,
-    }),
-    () => this.props?.onFilterSubmit?.(filtered, negatedFiltersKeys));
+    this.setState({ displayFilterPopover: false }, () => this.props?.onFilterSubmit?.(filtered, negatedFiltersKeys));
   };
 
   // onFilterTagClose removes only one tag - only one filter entry from filters Object should be removed, other filters have to stay
