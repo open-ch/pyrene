@@ -16,11 +16,9 @@ export default class RadioPopover extends React.Component {
     };
   }
 
-  togglePopover = () => {
-    this.setState((prevState) => ({
-      displayPopover: !prevState.displayPopover,
-    }));
-  };
+  togglePopover = () => this.setState((prevState) => ({
+    displayPopover: !prevState.displayPopover,
+  }));
 
   closePopover = () => this.setState({ displayPopover: false });
 
@@ -56,7 +54,12 @@ export default class RadioPopover extends React.Component {
             />
           )}
         >
-          <div className={clsx(styles.popoverTriggerButton, { [styles.popoverOpen]: this.state.displayPopover })} onClick={this.togglePopover}>
+          <div
+            className={clsx(styles.popoverTriggerButton, {
+              [styles.popoverOpen]: this.state.displayPopover,
+            })}
+            onClick={this.togglePopover}
+          >
             <div className={clsx(styles.buttonLabel, 'unSelectable')}>
               {renderLabel(selectedValue)}
             </div>
