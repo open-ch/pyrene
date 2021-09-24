@@ -52,7 +52,7 @@ const Button: React.FC<ButtonProps> = ({
   icon,
   loading = false,
   type = 'primary',
-  onClick = () => null,
+  onClick,
   label,
 }: ButtonProps) => (
   <div className={styles.buttonContainer}>
