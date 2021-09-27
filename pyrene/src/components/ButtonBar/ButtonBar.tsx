@@ -5,8 +5,8 @@ import { ButtonProps } from '../Button/Button';
 
 export interface ButtonBarProps {
   noPadding?: boolean,
-  leftButtonSectionElements?: ReactElement<ButtonProps>[],
-  rightButtonSectionElements?: ReactElement<ButtonProps>[],
+  leftButtonSectionElements?: Array<ReactElement<ButtonProps>>,
+  rightButtonSectionElements?: Array<ReactElement<ButtonProps>>,
 }
 
 const ButtonBar: React.FC<ButtonBarProps> = ({

@@ -11,20 +11,20 @@ export interface CardProps {
    */
   children: ReactElement[] | ReactElement,
   /**
-       * An error to be shown rather than the content.
-       */
+   * An error to be shown rather than the content.
+   */
   error?: string,
   /**
-       * An optional footer component.
-       */
+   * An optional footer component.
+   */
   footer?: ReactElement,
   /**
-       * An optional header component, e.g., a time range selector.
-       */
+    * An optional header component, e.g., a time range selector.
+    */
   header?: ReactElement,
   /**
-       * Indicates whether the card is loading. Displays an overlay loader.
-       */
+   * Indicates whether the card is loading. Displays an overlay loader.
+   */
   loading?: boolean,
 }
 
@@ -40,10 +40,13 @@ const Card:React.FC<CardProps> = ({
   loading = false,
   error,
 }: CardProps) => (
-
   <div className={styles.container}>
     {header && <div className={styles.header}>{header}</div>}
-    <div className={clsx(styles.content, { [styles['content--noHeader']]: !header, [styles['content--noFooter']]: !footer })}>
+    <div className={clsx(styles.content, {
+      [styles['content--noHeader']]: !header,
+      [styles['content--noFooter']]: !footer,
+    })}
+    >
       {/* eslint-disable-next-line no-nested-ternary */}
       { error ? <div className={styles.error}><Banner type="error" styling="standard" label={error} /></div>
         : loading ? (

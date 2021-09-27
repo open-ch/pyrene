@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Story, Meta } from '@storybook/react';
 
-import Button, { ButtonProps } from './Button';
+import Button, { ButtonProps, ButtonKind } from './Button';
 
 export default {
   title: 'Components/Interaction/Button',
@@ -23,7 +23,7 @@ export const Secondary = Template.bind({});
 
 Secondary.args = {
   label: 'Button',
-  type: 'secondary',
+  type: ButtonKind.secondary,
 };
 
 // Ghost button
@@ -31,7 +31,7 @@ export const Ghost = Template.bind({});
 
 Ghost.args = {
   label: 'Button',
-  type: 'ghost',
+  type: ButtonKind.ghost,
 };
 
 // Danger button
@@ -39,7 +39,7 @@ export const Danger = Template.bind({});
 
 Danger.args = {
   label: 'Button',
-  type: 'danger',
+  type: ButtonKind.danger,
   icon: 'errorOutline',
 };
 
@@ -48,6 +48,6 @@ export const Delete = Template.bind({});
 
 Delete.args = {
   label: 'Button',
-  type: 'action',
+  type: ButtonKind.action,
   icon: 'errorOutline',
 };

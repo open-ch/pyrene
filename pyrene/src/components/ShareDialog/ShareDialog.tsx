@@ -30,14 +30,13 @@ const ShareDialog: React.FC<ShareDialogProps> = ({
   link,
   position = 'bottom',
 }: ShareDialogProps) => {
-  const textInput: React.RefObject<HTMLInputElement> = useRef<HTMLInputElement>(null);
-
+  const inputRef = useRef<HTMLInputElement>(null);
   const [displayShareDialog, setDisplayShareDialog] = useState(false);
 
   const focusAndSelectInput = (): void => {
-    if (textInput.current) {
-      textInput.current.focus();
-      textInput.current.select();
+    if (inputRef.current) {
+      inputRef.current.focus();
+      inputRef.current.select();
     }
   };
 
@@ -71,7 +70,7 @@ const ShareDialog: React.FC<ShareDialogProps> = ({
               Share this link
             </div>
             <div className={styles.content}>
-              <input className={styles.urlField} type="text" value={link} ref={textInput} readOnly />
+              <input className={styles.urlField} type="text" value={link} ref={inputRef} readOnly />
             </div>
             <ButtonBar
               rightButtonSectionElements={[

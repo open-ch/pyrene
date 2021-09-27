@@ -86,9 +86,9 @@ const TextArea: React.FC<TextAreaProps> = ({
   maxLength = 0,
   resizeable = false,
   required = false,
-  onBlur = () => null,
-  onChange = () => null,
-  onFocus = () => null,
+  onBlur,
+  onChange,
+  onFocus,
 }: TextAreaProps) => {
 
   const characterCount = maxLength - (value !== null ? value.length : 0);
@@ -96,16 +96,16 @@ const TextArea: React.FC<TextAreaProps> = ({
 
   return (
     <div
-      style={{ width: width }}
+      style={{ width }}
       className={clsx(
         styles.textAreaContainer,
         { [styles.disabled]: disabled },
-        { [styles.invalid]: (invalid && !disabled) },
-        { [styles.full]: (characterLimitReached && !disabled && maxLength > 0) },
+        { [styles.invalid]: invalid && !disabled },
+        { [styles.full]: characterLimitReached && !disabled && maxLength > 0 },
       )}
     >
       <div className={styles.textAreaTitleBar}>
-        {title && <span className={clsx(styles.textAreaTitle, { [styles.required]: (required && !disabled) })}>{title}</span>}
+        {title && <span className={clsx(styles.textAreaTitle, { [styles.required]: required && !disabled })}>{title}</span>}
         {maxLength > 0 && <span className={styles.characterCounter}>{characterCount}</span>}
       </div>
       <textarea
@@ -116,11 +116,11 @@ const TextArea: React.FC<TextAreaProps> = ({
         value={value}
         wrap="hard"
         onBlur={onBlur}
-        onChange={(event) => onChange(event.target.value, event)}
+        onChange={(event) => onChange?.(event.target.value, event)}
         onFocus={onFocus}
       />
 
-      {(invalid && invalidLabel && !disabled)
+      {invalid && invalidLabel && !disabled
         ? (
           <div className={styles.invalidLabel}>
             <span className={clsx('pyreneIcon-errorOutline', styles.errorIcon)} />
@@ -129,12 +129,11 @@ const TextArea: React.FC<TextAreaProps> = ({
         )
         : (
           <>
-            {helperLabel
-          && (
-            <div className={styles.textAreaHelper}>
-              {helperLabel}
-            </div>
-          )}
+            {helperLabel && (
+              <div className={styles.textAreaHelper}>
+                {helperLabel}
+              </div>
+            )}
           </>
         )}
     </div>
