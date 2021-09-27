@@ -9,21 +9,46 @@ const allowedValueCheck = (valueToCheck:string) : boolean => (/^[0-9.: APM]*$/.t
 export interface DateTimeInputProps {
   /**
    * Boolean to toggle time display
-   */
+  */
   dateOnly?: boolean,
+  /**
+   * Init date value
+  */
   dateValue?: string,
+  /**
+   * Input error
+  */
   errorValue?: string,
+  /**
+   * Function to call when valid value is entered
+  */
   handleOn?: (dateString: string, timeString: string) => void
+  /**
+   * Component is disabled
+  */
   disabled?: boolean,
+  /**
+   * Input field label
+  */
   label?: string,
+  /**
+   * Input field name
+  */
   name?: string,
-  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void, // Handle change function passed from react-datepicker
+  /**
+   * Onchange from parent. Currently this handles onchange function passed from react-datepicker
+  */
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void,
+  /**
+   * Onclick from parent. Currently this handles onclick function passed from react-datepicker
+  */
   onClick?: () => void,
+  /**
+   * Onfocus from parent.
+  */
   onFocus?: () => void,
-  range?: boolean,
   setDateValue?: (value: string) => void,
   setTimeValue?: (value: string) => void,
-  tabNum?: number,
   timeValue?: string,
   value?: string
 }
@@ -41,7 +66,6 @@ const DateTimeInput = forwardRef(({
   onFocus,
   setDateValue = () => {},
   setTimeValue = () => {},
-  tabNum,
   timeValue = '',
 }:DateTimeInputProps, ref:React.Ref<HTMLInputElement>) => {
 
@@ -96,7 +120,6 @@ const DateTimeInput = forwardRef(({
             onClick={onClick}
             onFocus={onFocus}
             onChange={handleDateOnChange}
-            tabIndex={tabNum}
             value={`${dateValue}${timeValue && formatTime(timeValue)}`}
           />
         </div>

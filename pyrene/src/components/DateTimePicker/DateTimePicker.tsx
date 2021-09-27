@@ -75,7 +75,6 @@ export interface DateTimePickerProps{
   * This is a Date object that represents the start date of the component
   */
   startDate?: Date,
-  tabNum?: number,
   /**
    * This is a unix timestamp, which is the number of seconds that have elapsed since Unix epoch
    */
@@ -100,11 +99,9 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
   onCalendarOpen,
   onChange,
   onClickOutside,
-  range = false,
   selectEnd,
   selectStart,
   startDate,
-  tabNum,
   timeStamp,
   timeZone,
 }: DateTimePickerProps) => {
@@ -187,7 +184,7 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
       const node = event?.target as HTMLInputElement;
 
       handleDateChange(node.value.substring(0, 10));
-      handleTimeChange(node.value.substring(10).trim());
+      handleTimeChange(node.value.substring(9));
     } else if (event === undefined && !Array.isArray(date) && date !== null) {
       /** reactdatepicker currently emits an undefined event when the time list is clicked on.
        * Here we are relying on the time click event being 'undefined' as a temporary means to access time value
@@ -253,10 +250,8 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
             errorValue={errorValue}
             label={label}
             name={name}
-            range={range}
             setDateValue={setDateValue}
             setTimeValue={setTimeValue}
-            tabNum={tabNum}
             dateOnly={dateOnly}
           />
         )}

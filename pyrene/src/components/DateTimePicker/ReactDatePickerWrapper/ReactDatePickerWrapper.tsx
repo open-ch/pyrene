@@ -4,15 +4,8 @@ import ReactDatepicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import styles from '../datePicker.css';
 
-
 const DATE_FORMAT = 'dd.MM.yyyy';
 const DATETIME_FORMAT = 'dd.MM.yyyy HH:mm';
-
-export interface CalendarProps {
-  className?: string,
-  children: React.ReactNode,
-}
-
 
 export { CalendarContainer } from 'react-datepicker';
 export interface DatePickerProps{
@@ -80,7 +73,6 @@ export interface DatePickerProps{
    */
   shouldDisplayTimeColumn?: boolean,
 }
-
 
 const ReactDPWrapper: React.FC<DatePickerProps> = ({
   closeOnSelect = true,

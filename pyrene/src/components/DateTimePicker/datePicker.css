@@ -189,6 +189,7 @@
 
 .wrapper :global .react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box {
   width: unset;
+  border-radius: 0!important;
 }
 
 .wrapper :global .react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list{
@@ -201,7 +202,6 @@
 }
 .wrapper :global .react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list::-webkit-scrollbar-thumb {
   background-color: var(--neutral-500);
-  border-radius: 1px;
   border: 1px solid var(--neutral-500);
 }
 
