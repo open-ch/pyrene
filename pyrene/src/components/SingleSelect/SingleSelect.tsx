@@ -228,12 +228,11 @@ const SingleSelect = <ValueType extends unknown = DefaultValueType>({
         )
         : (
           <>
-            {helperLabel
-              && (
-                <div className={styles.selectHelper}>
-                  {helperLabel}
-                </div>
-              )}
+            {helperLabel && (
+              <div className={styles.selectHelper}>
+                {helperLabel}
+              </div>
+            )}
           </>
         )}
 
