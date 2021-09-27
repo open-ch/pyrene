@@ -32,14 +32,14 @@ export default class TreeTableRow extends React.PureComponent {
     const hasDoubleClickAction = !hasSingleClickAction && this.props.onRowDoubleClick !== null;
     return (
       <div
-        className={clsx(styles.treeTableRow, { [styles.activeAction]: (hasSingleClickAction || hasDoubleClickAction) })}
+        className={clsx(styles.treeTableRow, { [styles.activeAction]: hasSingleClickAction || hasDoubleClickAction })}
       >
 
         {/* Row Elements are rendered here */}
         <div
           className={clsx(
             styles.rowElementsContainer,
-            { [styles.openRootParent]: (this.props.level === 0 && this.props.isExpanded && this.props.parent) },
+            { [styles.openRootParent]: this.props.level === 0 && this.props.isExpanded && this.props.parent },
             { [styles.highlighted]: this.props.highlighted },
           )}
           onClick={hasSingleClickAction ? this.handleSingleClick : null}
