@@ -16,7 +16,7 @@ const FilterButton: FunctionComponent<FilterButtonProps> = ({
   disabled = false,
   displayPopover = false,
   noBorder = false,
-  onClick = () => null,
+  onClick,
 }) => (
   <div
     className={clsx(styles.filterButton, {
@@ -29,7 +29,11 @@ const FilterButton: FunctionComponent<FilterButtonProps> = ({
     <div className={styles.buttonLabel}>
       {label}
     </div>
-    <div className={clsx(styles.arrowIcon, { 'pyreneIcon-chevronUp': displayPopover, 'pyreneIcon-chevronDown': !displayPopover })} />
+    <div className={clsx(styles.arrowIcon, {
+      'pyreneIcon-chevronUp': displayPopover,
+      'pyreneIcon-chevronDown': !displayPopover,
+    })}
+    />
   </div>
 );
 

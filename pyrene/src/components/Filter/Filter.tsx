@@ -47,7 +47,7 @@ const Filter: FunctionComponent<FilterProps> = ({
     );
   }
 
-  if (filters && filters.length > 0 && disabled === false) {
+  if (filters && filters.length > 0 && !disabled) {
     return <FilterBar filters={filters} onFilterSubmit={onFilterSubmit} filterValues={filterValues} negatable={negatable} />;
   }
 

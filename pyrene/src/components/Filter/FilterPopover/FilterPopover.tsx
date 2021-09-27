@@ -13,7 +13,7 @@ export interface FilterPopoverProps {
   filterValues: FilterValues,
   handleFilterChange: HandleFilterChange,
   negatable: boolean,
-  onClose: (e: MouseEvent) => void,
+  onClose?: (e: MouseEvent) => void,
   onFilterApply: (e: MouseEvent) => void,
   onFilterClear: (e: MouseEvent) => void,
 }
@@ -26,7 +26,7 @@ const FilterPopover: FunctionComponent<FilterPopoverProps> = ({
   filterNegatedKeys,
   onFilterClear,
   onFilterApply,
-  onClose = () => null,
+  onClose,
 }: FilterPopoverProps) => (
   <div className={styles.filterPopover}>
     <div className={styles.title}>Select Filter</div>

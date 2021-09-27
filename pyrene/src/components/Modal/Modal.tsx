@@ -177,18 +177,14 @@ const Modal: React.FC<ModalProps> = ({
     />
   );
 
-  const renderFooterSection = () => (
-    <>
-      {(Footer?.()) || (
-        <div className={styles.buttonBarContainer}>
-          <ButtonBar
-            rightButtonSectionElements={createButtonArray(rightButtonBarElements)}
-            leftButtonSectionElements={createButtonArray(leftButtonBarElements)}
-          />
-        </div>
-      )}
-    </>
-  );
+  const renderFooterSection = () => (typeof Footer === 'function' ? Footer() : (
+    <div className={styles.buttonBarContainer}>
+      <ButtonBar
+        rightButtonSectionElements={createButtonArray(rightButtonBarElements)}
+        leftButtonSectionElements={createButtonArray(leftButtonBarElements)}
+      />
+    </div>
+  ));
 
   const renderHeaderSection = () => (
     <div className={styles.titleBar}>
@@ -216,7 +212,12 @@ const Modal: React.FC<ModalProps> = ({
 
   const renderContent = () => (
     <div className={clsx(styles.contentContainer, { [styles.contentScrolling]: contentScrolling })}>
-      <div className={clsx(styles.content, { [styles.contentPadding]: contentPadding }, { [styles.contentScrolling]: contentScrolling }, { [styles.overlay]: processing })}>
+      <div className={clsx(styles.content, {
+        [styles.contentPadding]: contentPadding,
+        [styles.contentScrolling]: contentScrolling,
+        [styles.overlay]: processing,
+      })}
+      >
         { renderCallback() }
       </div>
     </div>

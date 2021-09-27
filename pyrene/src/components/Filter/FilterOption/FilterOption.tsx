@@ -93,7 +93,7 @@ const FilterOption: FunctionComponent<FilterOptionsProps> = ({
   sorted = true,
   negated = false,
   options = [],
-  value = undefined,
+  value,
 }: FilterOptionsProps) => (
   <div className={styles.filterOption}>
     <div className={styles.filterOptionWrapper}>
