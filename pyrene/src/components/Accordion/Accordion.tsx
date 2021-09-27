@@ -21,9 +21,13 @@ export interface AccordionProps {
  * There is a regular type for the accordion component that is used in most cases. However, the accordion function can also be used for a custom implementation.
  */
 const Accordion: React.FC<AccordionProps> = ({
-  sections = [],
+  sections,
 }: AccordionProps) => (
-  <div className={clsx(styles.accordion, { [styles.accordion_custom]: isCustomAccordion(sections), [styles.accordion_regular]: !isCustomAccordion(sections) })}>
+  <div className={clsx(styles.accordion, {
+    [styles.accordion_custom]: isCustomAccordion(sections),
+    [styles.accordion_regular]: !isCustomAccordion(sections),
+  })}
+  >
     {sections.map((sectionProps, index) => (
       // eslint-disable-next-line react/no-array-index-key
       <Section key={index} {...sectionProps} />

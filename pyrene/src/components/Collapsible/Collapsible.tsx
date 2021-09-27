@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
 
 import styles from './collapsible.css';
@@ -44,8 +44,8 @@ const Collapsible: React.FC<CollapsibleProps> = ({
   renderCallback,
 }: CollapsibleProps) => {
 
-  const [expanded, setExpanded] = React.useState(defaultExpanded);
-  const [contentHeight, setContentHeight] = React.useState(0);
+  const [expanded, setExpanded] = useState(defaultExpanded);
+  const [contentHeight, setContentHeight] = useState(0);
   const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -60,7 +60,7 @@ const Collapsible: React.FC<CollapsibleProps> = ({
     setExpanded(defaultExpanded);
   }, [defaultExpanded]);
 
-  const toggleCollapse = (event:React.MouseEvent) => {
+  const toggleCollapse = (event: React.MouseEvent) => {
     setExpanded((prevExpanded) => !prevExpanded);
     onChange?.(event);
   };
@@ -68,7 +68,12 @@ const Collapsible: React.FC<CollapsibleProps> = ({
   return (
     <div className={clsx(styles.collapsibleBox, { [styles.expanded]: expanded })}>
       <div className={clsx(styles.buttonAlignmentBox, styles[`align-${align}`])}>
-        <div className={clsx(styles.collapsibleButton, 'unSelectable')} onClick={(event:React.MouseEvent) => toggleCollapse(event)} role="button" aria-label="Show or hide content">
+        <div
+          className={clsx(styles.collapsibleButton, 'unSelectable')}
+          onClick={(event: React.MouseEvent) => toggleCollapse(event)}
+          role="button"
+          aria-label="Show or hide content"
+        >
           <div className={styles.centeringBox}>
             <span className={styles.label}>
               { expanded && labelExpanded ? labelExpanded : labelCollapsed }

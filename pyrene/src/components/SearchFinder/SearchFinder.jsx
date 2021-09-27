@@ -1,6 +1,4 @@
-import React, {
-  useCallback,
-} from 'react';
+import React, { useCallback } from 'react';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 

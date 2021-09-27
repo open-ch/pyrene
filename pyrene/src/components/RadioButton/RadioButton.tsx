@@ -95,13 +95,13 @@ const RadioButton: React.FC<RadioButtonProps> = ({
   checked = false,
   disabled = false,
   invalid = false,
-  id = undefined,
+  id,
   hovered = { '': false },
   label = '',
   name = '',
   readonly = false,
   value = '',
-  onChange = () => null,
+  onChange,
 }: RadioButtonProps) => {
 
   const rand = Math.floor(Math.random() * 1e10);
@@ -120,7 +120,7 @@ const RadioButton: React.FC<RadioButtonProps> = ({
         value={value}
         disabled={disabled}
         readOnly={readonly}
-        onChange={(event: React.ChangeEvent<HTMLInputElement>) => onChange(event.target.value, event)}
+        onChange={(event: React.ChangeEvent<HTMLInputElement>) => onChange?.(event.target.value, event)}
       />
 
       <label

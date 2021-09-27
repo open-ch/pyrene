@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import clsx from 'clsx';
 
 import RadioButton, { RadioButtonBaseProps } from '../RadioButton/RadioButton';
@@ -60,11 +60,11 @@ const RadioGroup: React.FC<RadioGroupProps> = ({
   value = '',
   invalid = false,
   name = '',
-  onChange = () => null,
-  onBlur = () => null,
+  onChange,
+  onBlur,
 }: RadioGroupProps) => {
 
-  const [hovered, setHovered] = React.useState<HoveredState>({});
+  const [hovered, setHovered] = useState<HoveredState>({});
 
   const onMouseEnter = (key: string) => setHovered((prevHovered) => ({
     ...prevHovered,

@@ -130,7 +130,14 @@ const Container: FunctionComponent<ContainerProps> = ({
 
   return (
     <div className={clsx(styles.container, { [styles.expanded]: state.expanded || !collapsible })}>
-      <div className={clsx(styles.header, { [styles.collapsible]: collapsible })} onClick={toggleCollapse} role="button" aria-label="Show or hide container">
+      <div
+        className={clsx(styles.header, {
+          [styles.collapsible]: collapsible,
+        })}
+        onClick={toggleCollapse}
+        role="button"
+        aria-label="Show or hide container"
+      >
         <span className={clsx(styles.title, 'unSelectable')}>
           {' '}
           {title}

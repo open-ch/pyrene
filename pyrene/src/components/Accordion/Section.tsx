@@ -33,7 +33,11 @@ const Section: React.FC<SectionProps> = ({
   return (
     <div className={clsx(styles.section, { [styles.expanded]: expanded, [styles.collapsed]: !expanded })}>
       <div className={styles.header} onClick={() => setExpanded(!expanded)}>
-        {iconProps && <span className={styles.icon}><Icon {...iconProps} type="inline" /></span>}
+        {iconProps && (
+          <span className={styles.icon}>
+            <Icon {...iconProps} type="inline" />
+          </span>
+        )}
 
         <div className={styles.title}>
           {typeof title === 'string'

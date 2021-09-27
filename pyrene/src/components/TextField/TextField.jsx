@@ -12,10 +12,15 @@ import styles from './textField.css';
  * In this case, use the date picker, date range selection, or date/time picker. For entering long texts use the textarea component.
  */
 const TextField = (props) => (
-  <div className={clsx(styles.textFieldContainer, { [styles.disabled]: props.disabled }, { [styles.invalid]: (props.invalid && !props.disabled) })} style={{ width: (props.width >= 0) ? `${props.width}px` : '100%' }}>
-    {props.title && <div className={clsx(styles.textFieldTitle, { [styles.required]: (props.required && !props.disabled) })}>{props.title}</div>}
+  <div
+    className={clsx(styles.textFieldContainer, {
+      [styles.disabled]: props.disabled,
+      [styles.invalid]: props.invalid && !props.disabled,
+    })}
+    style={{ width: props.width >= 0 ? `${props.width}px` : '100%' }}
+  >
+    {props.title && <div className={clsx(styles.textFieldTitle, { [styles.required]: props.required && !props.disabled })}>{props.title}</div>}
     <div className={styles.textFieldIconLayoutContainer}>
-
       <input
         className={clsx(styles.textField, { [styles.filled]: props.value })}
         type={props.secret ? 'password' : 'text'}
@@ -49,12 +54,11 @@ const TextField = (props) => (
       )
       : (
         <>
-          {props.helperLabel
-        && (
-          <div className={styles.textFieldHelper}>
-            {props.helperLabel}
-          </div>
-        )}
+          {props.helperLabel && (
+            <div className={styles.textFieldHelper}>
+              {props.helperLabel}
+            </div>
+          )}
         </>
       )}
   </div>
