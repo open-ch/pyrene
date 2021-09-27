@@ -16,7 +16,7 @@ const FilterButton: FunctionComponent<FilterButtonProps> = ({
   disabled = false,
   displayPopover = false,
   noBorder = false,
-  onClick = () => null,
+  onClick,
 }) => (
   <div
     className={clsx(styles.filterButton, {
