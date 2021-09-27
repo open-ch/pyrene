@@ -110,20 +110,16 @@ export default class TabView extends Component<TabViewProps, TabViewState> {
   _tabChanged(tabName: string, index: number, event: MouseEvent<HTMLElement>): void {
     event.stopPropagation();
     if (!this.props.disabled) {
-      this.setState(() => ({
+      this.setState({
         selectedTabIndex: index,
         displayMoreMenu: false,
-      }),
+      },
       () => this.props?.tabChanged?.(tabName, index));
     }
     if (this.props.directAccessTabs && index >= this.props.directAccessTabs) {
-      this.setState(() => ({
-        moreTabLabel: tabName,
-      }));
+      this.setState({ moreTabLabel: tabName });
     } else {
-      this.setState(() => ({
-        moreTabLabel: 'More',
-      }));
+      this.setState({ moreTabLabel: 'More' });
     }
   }
 
@@ -176,8 +172,7 @@ export default class TabView extends Component<TabViewProps, TabViewState> {
               </div>
             ))
           }
-          {moreTabs && moreTabs.length > 0
-          && (
+          {moreTabs && moreTabs.length > 0 && (
             <div
               className={clsx(
                 styles.moreTab,
