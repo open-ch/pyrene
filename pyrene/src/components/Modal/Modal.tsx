@@ -177,18 +177,14 @@ const Modal: React.FC<ModalProps> = ({
     />
   );
 
-  const renderFooterSection = () => (
-    <>
-      {(Footer?.()) || (
-        <div className={styles.buttonBarContainer}>
-          <ButtonBar
-            rightButtonSectionElements={createButtonArray(rightButtonBarElements)}
-            leftButtonSectionElements={createButtonArray(leftButtonBarElements)}
-          />
-        </div>
-      )}
-    </>
-  );
+  const renderFooterSection = () => (typeof Footer === 'function' ? Footer() : (
+    <div className={styles.buttonBarContainer}>
+      <ButtonBar
+        rightButtonSectionElements={createButtonArray(rightButtonBarElements)}
+        leftButtonSectionElements={createButtonArray(leftButtonBarElements)}
+      />
+    </div>
+  ));
 
   const renderHeaderSection = () => (
     <div className={styles.titleBar}>
