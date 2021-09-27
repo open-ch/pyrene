@@ -2,9 +2,9 @@ import { SingleSelectProps } from '../SingleSelect/SingleSelect';
 import { Option } from '../MultiSelect/types';
 
 export type MultiSelectOption = Option;
-export type SingleSelectOption = SingleSelectProps<unknown>['options'];
+export type SingleSelectOption = SingleSelectProps['options'];
 
-export type SingleSelectValue = SingleSelectProps<unknown>['value'];
+export type SingleSelectValue = SingleSelectProps['value'];
 export type MultiselectValue = Array<MultiSelectOption>;
 export type TextFieldValue = string;
 export type InputValue = MultiselectValue | SingleSelectValue | TextFieldValue;
@@ -20,8 +20,6 @@ export type Filter = {
 
 export type FilterValue = Array<MultiSelectOption> | MultiSelectOption | TextFieldValue;
 
-export type FilterValues = {
-  [key: string]: FilterValue
-};
+export type FilterValues = Record<string, FilterValue>;
 
 export type HandleFilterChange = (option: any, negated: boolean, id: Filter['id']) => void;

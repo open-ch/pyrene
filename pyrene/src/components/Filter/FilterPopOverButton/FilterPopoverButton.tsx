@@ -27,7 +27,7 @@ const FilterPopoverButton: FunctionComponent<FilterPopoverButtonProps> = ({
   onFilterClear,
   onFilterApply,
   label,
-  onClick = () => null,
+  onClick,
   displayPopover = false,
   noBorder = false,
 }: FilterPopoverButtonProps) => (

@@ -85,15 +85,18 @@ const examples: Example<FilterProps, State> = {
     filters: (stateProvider: StateProvider<State>) => (stateProvider.state.filters ? stateProvider.state.filters : initialFilters),
     filterValues: (stateProvider) => (stateProvider.state.filterValues ? stateProvider.state.filterValues : {}),
     onFilterSubmit: (stateProvider: StateProvider<State>): FilterProps['onFilterSubmit'] => (filterValues, negatedFilters) => {
-      let filters = stateProvider.state.filters ? stateProvider.state.filters : initialFilters;
-      filters = filters.map((filter) => ({
-        ...filter,
-        negated: negatedFilters.includes(filter.id),
-      }));
 
-      stateProvider.setState({
-        filterValues: filterValues,
-        filters: filters,
+      stateProvider.setState((prevState) => {
+        let filters = prevState.filters ? prevState.filters : initialFilters;
+        filters = filters.map((filter) => ({
+          ...filter,
+          negated: negatedFilters.includes(filter.id),
+        }));
+
+        return {
+          filterValues: filterValues,
+          filters: filters,
+        };
       });
     },
     negatable: true,
