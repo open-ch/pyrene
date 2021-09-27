@@ -169,7 +169,7 @@ const SingleSelect = <ValueType extends unknown = DefaultValueType>({
   invalidLabel = '',
   title = '',
   value,
-  onChange = () => null,
+  onChange,
   onBlur = () => null,
   onFocus = () => null,
 }: SingleSelectProps<ValueType>): React.ReactElement => {
@@ -199,7 +199,7 @@ const SingleSelect = <ValueType extends unknown = DefaultValueType>({
         isLoading={loading}
         // wrapping type and key into target so it better reflects the api that input event has (there is also event.target.name)
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-assignment
-        onChange={(option: any) => onChange(option, { target: { type: 'singleSelect', name: name, value: option } })}
+        onChange={(option: any) => onChange?.(option, { target: { type: 'singleSelect', name: name, value: option } })}
         onBlur={onBlur}
         onFocus={onFocus}
         name={name}
