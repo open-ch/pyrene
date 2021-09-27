@@ -24,7 +24,7 @@ const FilterTag: FunctionComponent<FilterTagProps> = ({
       {negated && <div className={styles.negated}>Not</div>}
       {filterText}
     </div>
-    <div onClick={() => onClose()}>
+    <div onClick={onClose}>
       <div className={clsx(styles.clearIcon, 'pyreneIcon-delete')} />
     </div>
   </div>
