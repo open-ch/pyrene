@@ -212,7 +212,12 @@ const Modal: React.FC<ModalProps> = ({
 
   const renderContent = () => (
     <div className={clsx(styles.contentContainer, { [styles.contentScrolling]: contentScrolling })}>
-      <div className={clsx(styles.content, { [styles.contentPadding]: contentPadding }, { [styles.contentScrolling]: contentScrolling }, { [styles.overlay]: processing })}>
+      <div className={clsx(styles.content, {
+        [styles.contentPadding]: contentPadding,
+        [styles.contentScrolling]: contentScrolling,
+        [styles.overlay]: processing,
+      })}
+      >
         { renderCallback() }
       </div>
     </div>
