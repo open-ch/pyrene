@@ -179,7 +179,7 @@ const SingleSelect = <ValueType extends unknown = DefaultValueType>({
 
   const optionsObj = getOptionsObj(options, groupedOptions, sorted);
 
-  const selectComponentProps = {
+  const props = {
     className: 'singleSelect',
     styles: selectStyle(),
     components: {
@@ -217,7 +217,7 @@ const SingleSelect = <ValueType extends unknown = DefaultValueType>({
     <div className={clsx(styles.selectContainer, { [styles.disabled]: disabled })}>
       {title && <div className={clsx(styles.selectTitle, { [styles.required]: (required && !disabled) })}>{title}</div>}
 
-      {creatable ? <CreatableSelect {...selectComponentProps} /> : <Select {...selectComponentProps} /> }
+      {creatable ? <CreatableSelect {...props} /> : <Select {...props} /> }
 
       {invalid && invalidLabel && !disabled
         ? (
