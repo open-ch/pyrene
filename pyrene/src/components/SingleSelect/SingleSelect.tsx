@@ -110,7 +110,7 @@ export type SingleSelectProps<ValueType = DefaultValueType> = {
   value?: SingleSelectOption<ValueType>
 };
 
-const sortOptions = <ValueType extends unknown>(options: SingleSelectOption<ValueType>[]): SingleSelectOption<ValueType>[] => {
+const sortOptions = <ValueType extends unknown>(options: SingleSelectOption<ValueType>[]) => {
   const sortedOptions = [...options];
   sortedOptions.sort((a, b) => a.label.localeCompare(b.label));
   return sortedOptions;
