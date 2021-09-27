@@ -29,7 +29,7 @@ export interface StepperProps {
 const Stepper: FunctionComponent<StepperProps> = ({
   direction = 'right',
   disabled = false,
-  onClick = () => null,
+  onClick,
   type = 'bordered',
 }: StepperProps) => {
   const capitalisedDirection = direction.charAt(0).toUpperCase() + direction.slice(1);
