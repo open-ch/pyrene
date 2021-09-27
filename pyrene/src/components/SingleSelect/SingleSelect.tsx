@@ -133,7 +133,7 @@ const getOptionsObj = <ValueType extends unknown>(
 
 };
 
-const defaultFilterOption = <ValueType extends unknown>(option: { label: string, value?: string, data: SingleSelectOption<ValueType> }, rawInput: string): boolean => {
+const defaultFilterOption = <ValueType extends unknown>(option: { label: string, value?: string, data: SingleSelectOption<ValueType> }, rawInput: string) => {
   const lowerInput = rawInput.toLowerCase();
   const values = [
     option.value ? option.value.toString() : null,
@@ -142,6 +142,7 @@ const defaultFilterOption = <ValueType extends unknown>(option: { label: string,
   ];
   return values.some((tag) => tag && tag.toLowerCase().indexOf(lowerInput) >= 0);
 };
+
 type DefaultValueType = null | undefined | string | number | boolean;
 
 /**
