@@ -179,84 +179,43 @@ const SingleSelect = <ValueType extends unknown = DefaultValueType>({
   return (
     <div className={clsx(styles.selectContainer, { [styles.disabled]: disabled })}>
       {title && <div className={clsx(styles.selectTitle, { [styles.required]: (required && !disabled) })}>{title}</div>}
-
-      {creatable
-        ? (
-          <CreatableSelect
-            className="singleSelect"
-            styles={selectStyle()}
-            components={{
-              LoadingIndicator,
-              Option: CustomOption,
-            }}
-            // Sets the internal value to "" in case of null or undefined
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-return
-            getOptionValue={(option: any) => ((option.value !== null && typeof option.value !== 'undefined') ? option.value : '')}
-            placeholder={placeholder}
-            options={optionsObj}
-            value={value}
-            defaultValue={defaultValue}
-            isClearable={clearable}
-            isDisabled={disabled}
-            isInvalid={invalid}
-            isLoading={loading}
-            // wrapping type and key into target so it better reflects the api that input event has (there is also event.target.name)
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-assignment
-            onChange={(option: any) => onChange(option, { target: { type: 'singleSelect', name: name, value: option } })}
-            onBlur={onBlur}
-            onFocus={onFocus}
-            name={name}
-            id={name}
-            inputId={name}
-            autoFocus={autoFocus}
-            openMenuOnFocus={openMenuOnFocus}
-            maxMenuHeight={maxMenuHeight}
-            noOptionsMessage={() => 'no matches found'}
-            formatCreateLabel={(inputValue: string) => `Create new tag "${inputValue}"`}
-            filterOption={defaultFilterOption}
-            isSearchable
-            blurInputOnSelect
-            escapeClearsValue
-            captureMenuScroll
-          />
-        )
-        : (
-          <Select
-            className="singleSelect"
-            styles={selectStyle()}
-            components={{
-              LoadingIndicator,
-              Option: CustomOption,
-            }}
-            // Sets the internal value to "" in case of null or undefined
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-assignment
-            getOptionValue={(option: any) => ((option.value !== null && typeof option.value !== 'undefined') ? option.value : '')}
-            placeholder={placeholder}
-            options={optionsObj}
-            value={value}
-            defaultValue={defaultValue}
-            isClearable={clearable}
-            isSearchable={searchable}
-            isDisabled={disabled}
-            isInvalid={invalid}
-            isLoading={loading}
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-            onChange={(option: any) => onChange(option, { target: { type: 'singleSelect', name: name, value: option } })}
-            onBlur={onBlur}
-            onFocus={onFocus}
-            name={name}
-            id={name}
-            inputId={name}
-            autoFocus={autoFocus}
-            openMenuOnFocus={openMenuOnFocus}
-            maxMenuHeight={maxMenuHeight}
-            noOptionsMessage={() => 'no matches found'}
-            filterOption={defaultFilterOption}
-            blurInputOnSelect
-            escapeClearsValue
-            captureMenuScroll
-          />
-        )}
+      <CreatableSelect
+        className="singleSelect"
+        styles={selectStyle()}
+        components={{
+          LoadingIndicator,
+          Option: CustomOption,
+        }}
+        // Sets the internal value to "" in case of null or undefined
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-return
+        getOptionValue={(option: any) => ((option.value !== null && typeof option.value !== 'undefined') ? option.value : '')}
+        placeholder={placeholder}
+        options={optionsObj}
+        value={value}
+        defaultValue={defaultValue}
+        isClearable={clearable}
+        isDisabled={disabled}
+        isInvalid={invalid}
+        isLoading={loading}
+        // wrapping type and key into target so it better reflects the api that input event has (there is also event.target.name)
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-assignment
+        onChange={(option: any) => onChange(option, { target: { type: 'singleSelect', name: name, value: option } })}
+        onBlur={onBlur}
+        onFocus={onFocus}
+        name={name}
+        id={name}
+        inputId={name}
+        autoFocus={autoFocus}
+        openMenuOnFocus={openMenuOnFocus}
+        maxMenuHeight={maxMenuHeight}
+        noOptionsMessage={() => 'no matches found'}
+        filterOption={defaultFilterOption}
+        formatCreateLabel={creatable ? (inputValue: string) => `Create new tag "${inputValue}"` : undefined}
+        isSearchable={creatable ? true : searchable}
+        blurInputOnSelect
+        escapeClearsValue
+        captureMenuScroll
+      />
 
       {invalid && invalidLabel && !disabled
         ? (
