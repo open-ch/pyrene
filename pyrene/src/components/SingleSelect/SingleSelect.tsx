@@ -111,11 +111,15 @@ const sortOptions = <ValueType extends unknown>(options: SingleSelectOption<Valu
   return sortedOptions;
 };
 
-const getOptionsObj = <ValueType extends unknown>(options: SingleSelectOption<ValueType>[], groupedOptions: SingleSelectGroupedOption<ValueType>[], sorted: boolean): SingleSelectOption<ValueType>[] | SingleSelectGroupedOption<ValueType>[] => {
+const getOptionsObj = <ValueType extends unknown>(
+  options: SingleSelectOption<ValueType>[],
+  groupedOptions: SingleSelectGroupedOption<ValueType>[],
+  sorted: boolean,
+): SingleSelectOption<ValueType>[] | SingleSelectGroupedOption<ValueType>[] => {
   // grouped options have precedence above the options -> its not possible to pass both!
   if (groupedOptions.length) {
     if (sorted) {
-      return groupedOptions.map((o: SingleSelectGroupedOption<ValueType>) => (o.options
+      return groupedOptions.map((o) => (o.options
         ? ({ ...o, options: sortOptions(o.options) })
         : o
       ));
