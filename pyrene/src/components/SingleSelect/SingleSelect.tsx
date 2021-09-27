@@ -13,7 +13,9 @@ import { SingleSelectGroupedOption, SingleSelectOption } from './SingleSelectTyp
 
 const LoadingIndicator = () => <Loader />;
 
-export type SingleSelectProps<ValueType> = {
+type DefaultValueType = null | undefined | string | number | boolean;
+
+export type SingleSelectProps<ValueType = DefaultValueType> = {
   /**
    * Focus an element when it mounts.
    */
@@ -145,8 +147,6 @@ const defaultFilterOption = <ValueType extends unknown>(option: { label: string,
   ];
   return values.some((tag) => tag && tag.toLowerCase().indexOf(lowerInput) >= 0);
 };
-
-type DefaultValueType = null | undefined | string | number | boolean;
 
 /**
  * Selects are used when the user has to make a selection from a list that is too large to show.
