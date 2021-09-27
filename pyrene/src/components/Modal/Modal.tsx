@@ -145,9 +145,9 @@ const Modal: React.FC<ModalProps> = ({
   }, [escFunction]);
 
   const createButtonArray = (buttonInfo: ButtonBarProps[]) => (
-    buttonInfo.map((buttonProps, index) => (
+    buttonInfo.map((buttonProps) => (
       <Button
-        key={index}
+        key={buttonProps.label}
         loading={buttonProps.loading}
         icon={buttonProps.icon}
         type={buttonProps.type}
