@@ -1,4 +1,3 @@
-/* eslint-disable react/no-array-index-key */
 import React, { useCallback, useEffect } from 'react';
 import clsx from 'clsx';
 import styles from './modal.css';
