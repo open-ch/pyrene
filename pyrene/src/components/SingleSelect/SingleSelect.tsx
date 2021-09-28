@@ -82,7 +82,7 @@ export type SingleSelectProps<ValueType = DefaultValueType> = {
   /**
    * Event Handler. Param option: {value: , label:}
    */
-  onChange?: (option: SingleSelectOption<ValueType>, evt: { target: { type: string; name: string; value: any; } }) => void;
+  onChange?: (option: SingleSelectOption<ValueType>, evt: { target: { type: string; name: string; value: SingleSelectOption<ValueType> } }) => void;
   /**
    * Focus event handler, use this to dynamically fetch options.
    */
@@ -186,7 +186,7 @@ const SingleSelect = <ValueType extends unknown = DefaultValueType>({
       LoadingIndicator,
       Option: CustomOption,
     },
-    getOptionValue: (option: any) => ((option.value !== null && typeof option.value !== 'undefined') ? option.value : ''),
+    getOptionValue: (option: any) => option.value ?? '',
     placeholder: placeholder,
     options: optionsObj,
     value: value,
@@ -215,7 +215,7 @@ const SingleSelect = <ValueType extends unknown = DefaultValueType>({
 
   return (
     <div className={clsx(styles.selectContainer, { [styles.disabled]: disabled })}>
-      {title && <div className={clsx(styles.selectTitle, { [styles.required]: (required && !disabled) })}>{title}</div>}
+      {title && <div className={clsx(styles.selectTitle, { [styles.required]: required && !disabled })}>{title}</div>}
 
       {creatable ? <CreatableSelect {...selectProps} /> : <Select {...selectProps} /> }
 

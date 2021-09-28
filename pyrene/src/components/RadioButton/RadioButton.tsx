@@ -18,7 +18,7 @@ export interface RadioButtonBaseProps {
   /**
    * Javascript event handler.
    */
-  hovered?: { [key: string]: boolean },
+  hovered?: Record<string, boolean>,
   /**
    * Sets ID of radio button
    */

@@ -36,7 +36,7 @@ const Filter: FunctionComponent<FilterProps> = ({
   disabled = false,
   filters = [],
   negatable = false,
-  onFilterSubmit = () => null,
+  onFilterSubmit,
 }: FilterProps) => {
 
   if (disabled) {

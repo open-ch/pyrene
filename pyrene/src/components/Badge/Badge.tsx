@@ -32,7 +32,7 @@ export interface BadgeProps {
 const Badge: React.FC<BadgeProps> = ({
   label,
   maxWidth,
-  onClick = () => null,
+  onClick,
   type,
 }: BadgeProps) => (
   <div
