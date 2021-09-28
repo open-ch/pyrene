@@ -82,7 +82,7 @@ export type SingleSelectProps<ValueType = DefaultValueType> = {
   /**
    * Event Handler. Param option: {value: , label:}
    */
-  onChange?: (option: SingleSelectOption<ValueType>, evt: { target: { type: string; name: string; value: any; } }) => void;
+  onChange?: (option: SingleSelectOption<ValueType>, evt: { target: { type: string; name: string; value: SingleSelectOption<ValueType> } }) => void;
   /**
    * Focus event handler, use this to dynamically fetch options.
    */
