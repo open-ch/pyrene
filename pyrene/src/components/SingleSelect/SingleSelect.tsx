@@ -186,7 +186,7 @@ const SingleSelect = <ValueType extends unknown = DefaultValueType>({
       LoadingIndicator,
       Option: CustomOption,
     },
-    getOptionValue: (option: any) => ((option.value !== null && typeof option.value !== 'undefined') ? option.value : ''),
+    getOptionValue: (option: any) => option.value ?? '',
     placeholder: placeholder,
     options: optionsObj,
     value: value,
