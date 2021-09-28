@@ -6,35 +6,26 @@
   background-color: var(--neutral-000);
   z-index: 1;
   margin-top: 8px;
+
+  border-radius: 2px;
+  box-shadow: 0 4px 8px -2px rgba(0, 21, 44, 0.2);
+  border: solid 1px var(--neutral-050);
 }
 
-.dateOnly {
-  width: 258px;
-}
-
-.dateTime {
-  width: 391px;
+.dateOnly, .dateTime {
+  width: auto;
 }
 
 .rangeHeader {
   color: var(--neutral-500);
   display: flex;
-  padding: 16px 16px 0px 16px;
-  border-bottom: 1px solid var(--neutral-050);
-  justify-content: space-between;  
-
-  box-shadow: 0 4px 8px -2px rgba(0, 21, 44, 0.2);
-  border: solid 1px var(--neutral-050);    
+  padding: 16px 0px 0px 16px;
 }
 
 .infoBox {
   font-size: 12px;
   line-height: 32px;  
   padding: 16px 0 16px 16px;
-}
-
-.rangeFooter {
-  border-top: 1px solid var(--neutral-050);
 }
 
 .dateTimeFooter {
@@ -52,22 +43,44 @@
   margin-left: 16px;
 }
 
-
-.leftbox :global .react-datepicker__tab-loop {
-  margin-left: -17px;
+.calendar :global .react-datepicker-wrapper {
+  width: unset;
 }
 
-.dateOnly .rightbox :global .react-datepicker__tab-loop {
-  margin-left: -138px;
+.leftbox :global .react-datepicker__tab-loop {
+  margin-left: -16px;
 }
 
 .dateTime .rightbox :global .react-datepicker__tab-loop {
-  margin-left: -208px;
+  margin-left: -207px;
 }
 
+.dateOnly .rightbox :global .react-datepicker__tab-loop {
+  margin-left: -137px;
+}
+
+.rightbox {
+  position: absolute;
+  right: 0;
+}
+
+.rightbox :global .react-datepicker-wrapper {
+  display: flex;
+  padding-right: 16px;
+}
 
 .leftbox :global .react-datepicker__input-container,
 .rightbox :global .react-datepicker__input-container {
   padding-bottom: 8px;
 }
 
+.calendar :global .react-datepicker-popper {
+  position: unset!important;
+}
+
+.calendar :global .react-datepicker-popper > div {
+  box-shadow: unset;
+  border: 0px;
+  border-top: solid 1px var(--neutral-050);
+  border-bottom: solid 1px var(--neutral-050);  
+}

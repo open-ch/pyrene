@@ -1,6 +1,5 @@
 import React, {
   useState,
-  ReactNode,
   useEffect,
 } from 'react';
 import clsx from 'clsx';
@@ -10,7 +9,6 @@ import {
   convertToUTCtime, getDateTypeFromddmmyyyyWithSep, convertDateTypeToString, convertTimeTypeToString, getTimeTypeFromhhmmWithSep, convertToZoneTime, getClientTimeZone,
 } from '../../../utils/DateUtils';
 import TimeRangeSelector from '../../TimeRangeSelector/TimeRangeSelector';
-import { CalendarContainer } from '../ReactDatePickerWrapper/ReactDatePickerWrapper';
 
 import styles from './RangeSelector.css';
 import DateTimePicker from '../DateTimePicker';
@@ -115,29 +113,6 @@ const RangeSelector: React.FC<RangeSelectorProps> = (({
     setCalOpen(false);
   };
 
-
-  const customCalendar = (props:{
-    children: ReactNode[]
-  }) => {
-    const { children } = props;
-    return (
-      <>
-        <CalendarContainer>
-          <div>{children}</div>
-        </CalendarContainer>
-        <div className={clsx(styles.rangeFooter, { [styles.dateTimeFooter]: !dateOnly })}>
-          <div className={styles.infoBox}>
-            {`Max. past date: ${standardEUDateFormat(new Date(minDateTime))} `}
-          </div>
-          <div className={styles.footerButtonsBox}>
-            <Button label="Cancel" type="secondary" onClick={handleCancelButton} />
-            <Button label="Apply" onClick={handleApplyButton} />
-          </div>
-        </div>
-      </>
-    );
-  };
-
   return (
     <DetectClickOutside
       onClick={() => setCalOpen(true)}
@@ -163,7 +138,6 @@ const RangeSelector: React.FC<RangeSelectorProps> = (({
                 <div className={styles.leftbox}>
                   <DateTimePicker
                     closeOnSelect={false}
-                    customCalendar={customCalendar}
                     label={labels[0]}
                     endDate={endDate}
                     startDate={startDate}
@@ -180,7 +154,6 @@ const RangeSelector: React.FC<RangeSelectorProps> = (({
                 <div className={styles.rightbox}>
                   <DateTimePicker
                     closeOnSelect={false}
-                    customCalendar={customCalendar}
                     label={labels[1]}
                     endDate={endDate}
                     startDate={startDate}
@@ -192,6 +165,15 @@ const RangeSelector: React.FC<RangeSelectorProps> = (({
                     timeStamp={endDate?.valueOf() || timeStamps?.[1]}
                     selectEnd
                   />
+                </div>
+              </div>
+              <div className={clsx({ [styles.dateTimeFooter]: !dateOnly })}>
+                <div className={styles.infoBox}>
+                  {`Max. past date: ${standardEUDateFormat(new Date(minDateTime))} `}
+                </div>
+                <div className={styles.footerButtonsBox}>
+                  <Button label="Cancel" type="secondary" onClick={handleCancelButton} />
+                  <Button label="Apply" onClick={handleApplyButton} />
                 </div>
               </div>
             </div>
