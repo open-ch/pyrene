@@ -1,4 +1,4 @@
- import React, { CSSProperties, ReactNode } from 'react';
+import React, { CSSProperties, ReactNode } from 'react';
 import styles from './keyValueTable.css';
 
 type Row = {
