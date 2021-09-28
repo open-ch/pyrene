@@ -97,6 +97,19 @@ export interface ModalProps {
   title?: string,
 }
 
+const createButtonArray = (buttonInfo: ButtonBarProps[]) => (
+  buttonInfo.map((buttonProps) => (
+    <Button
+      key={buttonProps.label}
+      loading={buttonProps.loading}
+      icon={buttonProps.icon}
+      type={buttonProps.type}
+      label={buttonProps.label}
+      disabled={buttonProps.disabled}
+      onClick={buttonProps.action}
+    />
+  ))
+);
 
 /**
  * The modal view is used when full attention on an action or a process is required. The modal has an invasive experience and no other interactions on the main page can be accessed while active.
@@ -127,7 +140,7 @@ const Modal: React.FC<ModalProps> = ({
   title = '',
 }: ModalProps) => {
 
-  const escFunction = useCallback((event:KeyboardEvent) => {
+  const escFunction = useCallback((event: KeyboardEvent) => {
     if (onClose && event.key === 'Escape' && closeOnEscape) {
       onClose();
     }
@@ -142,20 +155,6 @@ const Modal: React.FC<ModalProps> = ({
       document.removeEventListener('keydown', escFunction, false);
     };
   }, [escFunction]);
-
-  const createButtonArray = (buttonInfo: ButtonBarProps[]) => (
-    buttonInfo.map((buttonProps) => (
-      <Button
-        key={buttonProps.label}
-        loading={buttonProps.loading}
-        icon={buttonProps.icon}
-        type={buttonProps.type}
-        label={buttonProps.label}
-        disabled={buttonProps.disabled}
-        onClick={buttonProps.action}
-      />
-    ))
-  );
 
   const renderNavigationArrows = () => (
     <ActionBar
