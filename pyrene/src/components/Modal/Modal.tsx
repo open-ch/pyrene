@@ -7,7 +7,7 @@ import Loader from '../Loader/Loader';
 import ActionBar from '../ActionBar/ActionBar';
 import { IconNames } from '../types';
 
-interface ButtonBarProps{
+interface ButtonBarProps {
   action: () => void,
   disabled?: boolean,
   icon?: keyof IconNames,
