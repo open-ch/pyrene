@@ -215,7 +215,7 @@ const SingleSelect = <ValueType extends unknown = DefaultValueType>({
 
   return (
     <div className={clsx(styles.selectContainer, { [styles.disabled]: disabled })}>
-      {title && <div className={clsx(styles.selectTitle, { [styles.required]: (required && !disabled) })}>{title}</div>}
+      {title && <div className={clsx(styles.selectTitle, { [styles.required]: required && !disabled })}>{title}</div>}
 
       {creatable ? <CreatableSelect {...selectProps} /> : <Select {...selectProps} /> }
 
