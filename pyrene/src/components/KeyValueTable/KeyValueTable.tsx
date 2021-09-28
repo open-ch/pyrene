@@ -32,7 +32,7 @@ const KeyValueTable: React.FC<KeyValueTableProps> = ({
     )}
     <table className={styles.keyValueBody}>
       <tbody>
-        {rows && rows.map((row: Row) => (
+        {rows && rows.map((row) => (
           <tr
             className={styles.keyValueRow}
             style={row.rowStyle}

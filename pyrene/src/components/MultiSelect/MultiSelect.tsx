@@ -152,9 +152,9 @@ const MultiSelect: FunctionComponent<MultiSelectProps> = (props: MultiSelectProp
     keepMenuOnSelect = false,
     loading = false,
     name = '',
-    onBlur = () => null,
-    onChange = () => null,
-    onFocus = () => null,
+    onBlur,
+    onChange,
+    onFocus,
     placeholder = '',
     required = false,
     selectedOptionsInDropdown = false,
@@ -176,9 +176,9 @@ const MultiSelect: FunctionComponent<MultiSelectProps> = (props: MultiSelectProp
       if (value.length > 0) {
         const distinctNewValue = newValue.filter((o) => value.findIndex((exO) => exO.label.toLowerCase() === o.label.toLowerCase()) < 0);
         setHasPastedDuplicates(distinctNewValue.length < delimitedValues.length);
-        onChange([...value, ...distinctNewValue]);
+        onChange?.([...value, ...distinctNewValue]);
       } else {
-        onChange(newValue);
+        onChange?.(newValue);
       }
 
       // Prevents the pasted data from becoming inputValue
@@ -212,11 +212,7 @@ const MultiSelect: FunctionComponent<MultiSelectProps> = (props: MultiSelectProp
             isInvalid={invalid}
             isLoading={loading}
             // wrapping type and key into target so it better reflects the api that input event has (there is also event.target.name)
-            onChange={(option) => {
-              if (option) {
-                onChange(option, { target: { type: 'multiSelect', name: name, value: option } });
-              }
-            }}
+            onChange={(option: any) => onChange?.(option, { target: { type: 'multiSelect', name: name, value: option } })}
             onInputChange={(input) => {
               if (input.length > 0) {
                 setHasPastedDuplicates(false);
@@ -252,11 +248,7 @@ const MultiSelect: FunctionComponent<MultiSelectProps> = (props: MultiSelectProp
             isDisabled={disabled}
             isInvalid={invalid}
             isLoading={loading}
-            onChange={(option) => {
-              if (option) {
-                onChange(option, { target: { type: 'multiSelect', name: name, value: option } });
-              }
-            }}
+            onChange={(option: any) => onChange?.(option, { target: { type: 'multiSelect', name: name, value: option } })}
             onBlur={onBlur}
             onFocus={onFocus}
             name={name}

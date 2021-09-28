@@ -44,7 +44,7 @@ export interface RadioGroupProps {
   value?: number | string,
 }
 
-type HoveredState = { [key: string]: boolean };
+type HoveredState = Record<string, boolean>;
 
 /**
  * RadioGroup creates a collection of radio buttons that allow the user to select an option from a set.
@@ -100,7 +100,7 @@ const RadioGroup: React.FC<RadioGroupProps> = ({
                   invalid={option.invalid || invalid}
                   label={option.label}
                   name={name}
-                  onChange={((val, event: React.ChangeEvent<HTMLInputElement>) => onChange(event.target.value, event))}
+                  onChange={(val, event: React.ChangeEvent<HTMLInputElement>) => onChange(event.target.value, event)}
                   readonly={option.readonly}
                   value={option.value}
                 />

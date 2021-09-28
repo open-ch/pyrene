@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { FunctionComponent } from 'react';
 
 import Checkbox from '../Checkbox/Checkbox';
@@ -20,7 +21,7 @@ const CheckboxList: FunctionComponent<CheckboxListProps> = ({
   onRestoreDefault,
   listItems,
   onItemClick,
-}: CheckboxListProps) => (
+}) => (
   <div className={styles.checkboxList}>
     <div className={styles.listHeader}>
       <Button label="Restore default" type="action" onClick={() => onRestoreDefault()} />
