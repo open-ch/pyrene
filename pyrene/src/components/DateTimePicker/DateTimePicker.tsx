@@ -20,7 +20,13 @@ type OnFunction = (value?: number) => void;
 
 export interface DateTimePickerProps{
   calendarOpened?: boolean,
+  /**
+   * Close calendar on date select
+   */
   closeOnSelect?: boolean,
+  /**
+   * Customized calendar dropdown
+   */
   customCalendar?: (props:{
     children: React.ReactNode[]
   }) => React.ReactNode,
@@ -32,6 +38,9 @@ export interface DateTimePickerProps{
    * This is a Date object that represents the end date of the component
    */
   endDate?: Date,
+  /**
+   * Display the component inline
+   */
   inline?: boolean,
   /**
    * This is a string that represents the label of the component
@@ -53,7 +62,13 @@ export interface DateTimePickerProps{
    * Function to handle onBlur event
    */
   onBlur?: () => OnFunction,
+  /**
+   * Calendar open callback
+   */
   onCalendarOpen?: () => void,
+  /**
+   * Click outside componet callback
+   */
   onClickOutside?(event: React.MouseEvent<HTMLDivElement>): void,
   /**
   * Function to handle onChange event
@@ -265,7 +280,7 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
         openDate={internalDate}
         selectedDate={internalDate}
         shouldDisplayTimeColumn={!dateOnly}
-        startDate={startDate}
+        startDate={startDate || internalDate}
         startRange={selectStart}
       />
     </>
