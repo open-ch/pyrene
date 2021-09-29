@@ -9,7 +9,6 @@ import {
   Options,
   SingleSelectValue,
   MultiselectValue,
-  TextFieldValue,
   SingleSelectOption,
   MultiSelectOption,
   HandleFilterChange,
@@ -58,9 +57,9 @@ const renderOption = ({
       return (
         <MultiSelect
           name={id}
-          options={options as Array<MultiSelectOption>}
+          options={options as MultiselectValue}
           // If multiSelect is empty (empty array) return null to filter instead of []
-          onChange={(option) => handleFilterChange(Array.isArray(option) && option.length === 0 ? null : option, negated, id)}
+          onChange={(option: MultiselectValue) => handleFilterChange(Array.isArray(option) && option.length === 0 ? null : option, negated, id)}
           // Pass empty array instead of null to multiSelect component if filterValues are null
           value={(isValue ? value : []) as MultiselectValue}
           sorted={sorted}
@@ -76,7 +75,7 @@ const renderOption = ({
           // If textField is empty (empty string) return null instead of ''
           onChange={(option) => handleFilterChange(option === '' ? null : option, false, id)}
           // Pass empty string instead of null to textField component if filterValues are null
-          value={(isValue ? value : '') as TextFieldValue}
+          value={(isValue ? value : '') as string}
         />
       );
     default:

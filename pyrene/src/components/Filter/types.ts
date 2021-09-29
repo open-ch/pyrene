@@ -1,13 +1,13 @@
-import { SingleSelectProps } from '../SingleSelect/SingleSelect';
+import { SingleSelectOption as SingleSelectOpt } from '../SingleSelect/SingleSelectTypes';
+import { DefaultValueType } from '../SingleSelect/SingleSelect';
 import { Option } from '../MultiSelect/types';
 
 export type MultiSelectOption = Option;
-export type SingleSelectOption = SingleSelectProps['options'];
+export type SingleSelectOption = Array<SingleSelectOpt<DefaultValueType>>;
 
-export type SingleSelectValue = SingleSelectProps['value'];
-export type MultiselectValue = Array<MultiSelectOption>;
-export type TextFieldValue = string;
-export type InputValue = MultiselectValue | SingleSelectValue | TextFieldValue;
+export type SingleSelectValue = SingleSelectOpt<DefaultValueType>;
+export type MultiselectValue = ReadonlyArray<MultiSelectOption>;
+export type InputFieldValue = DefaultValueType;
 
 export type Filter = {
   id: string,
@@ -18,8 +18,8 @@ export type Filter = {
   type: 'singleSelect' | 'multiSelect' | 'text',
 };
 
-export type Options = Array<MultiSelectOption> | MultiSelectOption | SingleSelectOption | TextFieldValue;
+export type Options = MultiselectValue | SingleSelectValue | InputFieldValue;
 
 export type FilterValues = Record<Filter['id'], Options>;
 
-export type HandleFilterChange = (option: any, negated: boolean, id: Filter['id']) => void;
+export type HandleFilterChange = (option: Options, negated: boolean, id: Filter['id']) => void;

@@ -1,6 +1,6 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable react/prop-types */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import React, { FunctionComponent, useState, ClipboardEvent } from 'react';
 import clsx from 'clsx';
@@ -70,7 +70,7 @@ export interface MultiSelectProps {
   /**
    * Data input array. Type: [{ value: string (required), label: string (required), invalid: bool }]
    */
-  options: Array<Option>,
+  options: ReadonlyArray<Option>,
   /**
    * Sets the placeholder label.
    */
@@ -94,7 +94,7 @@ export interface MultiSelectProps {
   /**
    * Sets the value of the input field. Same type as supplied options.
    */
-  value?: Array<Option>,
+  value?: ReadonlyArray<Option>,
 }
 
 const LoadingIndicator = () => <Loader />;
