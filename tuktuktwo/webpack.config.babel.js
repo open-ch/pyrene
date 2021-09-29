@@ -1,6 +1,7 @@
 import path from 'path';
 
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
 const production = process.env.NODE_ENV === 'production';
 
@@ -11,12 +12,12 @@ const config = {
   devtool: production ? undefined : 'source-map',
   resolve: {
     mainFiles: ['index'],
-    extensions: ['.js', '.jsx'],
+    extensions: ['.js', '.jsx', '.ts', '.tsx'],
   },
   module: {
     rules: [
       {
-        test: /\.jsx?$/,
+        test: /\.[jt]sx?$/,
         include: [
           path.resolve(__dirname, 'src'),
         ],
@@ -37,6 +38,15 @@ const config = {
     new BundleAnalyzerPlugin({
       analyzerMode: process.env.NODE_ENV === 'debug' ? 'server' : 'disabled',
     }),
+    new ForkTsCheckerWebpackPlugin({
+      // Options as defined in: https://github.com/TypeStrong/fork-ts-checker-webpack-plugin/tree/master/examples/babel-loader
+      typescript: {
+        diagnosticOptions: {
+          semantic: true,
+          syntactic: true,
+        },
+      },
+    }),
   ],
 };
 
@@ -46,9 +56,9 @@ if (production) {
   console.warn('webpack is running in development mode\n'); // eslint-disable-line no-console
 
   config.entry = {
-    main: './src/index.js',
-    min: './src/index.js',
-    dev: './src/index.js',
+    main: './src/index.ts',
+    min: './src/index.ts',
+    dev: './src/index.ts',
   };
 }
 
