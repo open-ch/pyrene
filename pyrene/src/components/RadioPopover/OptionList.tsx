@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import clsx from 'clsx';
 
 import styles from './optionList.css';
+import { Option } from './types';
 
 const OptionList = (props) => (
   <div className={styles.checkboxList}>

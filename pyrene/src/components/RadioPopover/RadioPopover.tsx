@@ -5,11 +5,7 @@ import clsx from 'clsx';
 import styles from './radioPopover.css';
 import Popover from '../Popover/Popover';
 import OptionList from './OptionList';
-
-interface Option {
-  label: string,
-  value: number | string,
-}
+import { Option } from './types';
 
 interface RadioPopoverProps {
   /**
@@ -23,7 +19,7 @@ interface RadioPopoverProps {
   /**
    * Render callback for the help section above the options
    */
-  renderHelpSection?: () => string | JSX.Element,
+  renderHelpSection?: () => JSX.Element,
   /**
    * Render callback for the label for custom formatting
    */
