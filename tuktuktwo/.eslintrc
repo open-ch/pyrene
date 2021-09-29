@@ -1,9 +1,0 @@
-{
-  "extends": "@osag/eslint-config",
-  "env": {
-    "browser": true
-  },
-  "parserOptions": {
-    "sourceType": "module"
-  }
-}

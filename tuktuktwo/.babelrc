@@ -1,15 +1,55 @@
 {
-    "presets": [
-      ["@babel/preset-env", {
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
         "targets": {
-          "browsers": [ ">0.1%", "ie 11", "not op_mini all"]
+          "browsers": [
+            ">0.1%",
+            "ie 11",
+            "not op_mini all"
+          ]
         }
-      }],
-      "@babel/preset-react"
+      }
     ],
-    "plugins": [
-      "@babel/plugin-transform-object-assign",
-      "@babel/plugin-proposal-object-rest-spread",
-      "@babel/plugin-proposal-class-properties"
+    "@babel/preset-react",
+    [
+      "@babel/preset-typescript",
+      {
+        "onlyRemoveTypeImports": true
+      }
     ]
+  ],
+  "env": {
+    "test": {
+      "plugins": [
+        [
+          "babel-plugin-typescript-to-proptypes",
+          {
+            "comments": true
+          }
+        ]
+      ]
+    },
+    "development": {
+      "plugins": [
+        "react-docgen",
+        [
+          "babel-plugin-typescript-to-proptypes",
+          {
+            "comments": true
+          }
+        ]
+      ]
+    },
+    "production": {
+      "plugins": [
+      ]
+    }
+  },
+  "plugins": [
+    "@babel/plugin-transform-object-assign",
+    "@babel/plugin-proposal-object-rest-spread",
+    "@babel/plugin-proposal-class-properties"
+  ]
 }
