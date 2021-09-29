@@ -58,11 +58,9 @@ const makeExample = (options: ReadonlyArray<Option>) => ({
 });
 
 const examples: Example<MultiSelectProps, State> = {
-  // eslint-disable-next-line
   props: makeExample(testOptions),
   examples: [
     {
-      // eslint-disable-next-line
       props: makeExample(testOptions),
       description: 'Multi Select',
     },
