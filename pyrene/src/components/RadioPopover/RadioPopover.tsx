@@ -23,7 +23,7 @@ interface RadioPopoverProps {
   /**
    * Render callback for the label for custom formatting
    */
-  renderLabel?: (option: Option) => string,
+  renderLabel?: (option: Option) => string | undefined,
   /**
    * selected value - should match the `value` key in one of the `options`
    */
@@ -34,7 +34,7 @@ const RadioPopover: FunctionComponent<RadioPopoverProps> = ({
   onChange,
   renderHelpSection,
   options = [],
-  renderLabel = (value) => value && value.label,
+  renderLabel = (option) => option?.label,
   value = null,
 }: RadioPopoverProps) => {
   const [displayPopover, setDisplayPopover] = useState(false);

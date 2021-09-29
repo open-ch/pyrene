@@ -1,55 +1,45 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+/* eslint-disable react/prop-types */
+import React, { FunctionComponent } from 'react';
 import clsx from 'clsx';
 
 import styles from './optionList.css';
 import { Option } from './types';
 
-const OptionList = (props) => (
+interface OptionListProps {
+  onChange: (option: Option) => void,
+  options: Array<Option>,
+  renderHelpSection?: () => JSX.Element,
+  selectedValue?: Option,
+}
+
+const OptionList: FunctionComponent<OptionListProps> = ({
+  onChange,
+  options,
+  renderHelpSection,
+  selectedValue,
+}) => (
   <div className={styles.checkboxList}>
-    {props.renderHelpSection && (
+    {renderHelpSection && (
       <div className={styles.listHeader}>
-        {props.renderHelpSection()}
+        {renderHelpSection()}
       </div>
     )}
     <div className={styles.list}>
-      {props.options
-        .map((item) => {
-          const selected = item === props.selectedValue;
-          return (
-            <div
-              className={clsx(styles.listItem, { [styles.selected]: selected })}
-              key={item.value}
-              onClick={() => props.onChange(item)}
-            >
-              <span className={clsx({ 'pyreneIcon-check': selected }, styles.listIcon)} aria-label="Item checked" />
-              <span className={styles.listLabel}>{item.label}</span>
-            </div>
-          );
-        })}
+      {options.map((item) => {
+        const selected = item === selectedValue;
+        return (
+          <div
+            className={clsx(styles.listItem, { [styles.selected]: selected })}
+            key={item.value}
+            onClick={() => onChange(item)}
+          >
+            <span className={clsx({ 'pyreneIcon-check': selected }, styles.listIcon)} aria-label="Item checked" />
+            <span className={styles.listLabel}>{item.label}</span>
+          </div>
+        );
+      })}
     </div>
   </div>
 );
-
-
-OptionList.displayName = 'OptionList';
-
-OptionList.defaultProps = {
-  renderHelpSection: null,
-  selectedValue: null,
-};
-
-OptionList.propTypes = {
-  onChange: PropTypes.func.isRequired,
-  options: PropTypes.arrayOf(PropTypes.shape({
-    label: PropTypes.string,
-    value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-  })).isRequired,
-  renderHelpSection: PropTypes.func,
-  selectedValue: PropTypes.shape({
-    label: PropTypes.string,
-    value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-  }),
-};
 
 export default OptionList;
