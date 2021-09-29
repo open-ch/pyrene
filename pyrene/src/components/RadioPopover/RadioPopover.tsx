@@ -7,7 +7,7 @@ import Popover from '../Popover/Popover';
 import OptionList from './OptionList';
 import { Option } from './types';
 
-interface RadioPopoverProps {
+export interface RadioPopoverProps {
   /**
    * Sets the selected choice of the user.
    */
