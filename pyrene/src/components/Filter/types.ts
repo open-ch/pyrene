@@ -18,8 +18,8 @@ export type Filter = {
   type: 'singleSelect' | 'multiSelect' | 'text',
 };
 
-export type Options = MultiselectValue | SingleSelectValue | InputFieldValue;
+export type Values = MultiselectValue | SingleSelectValue | InputFieldValue;
 
-export type FilterValues = Record<Filter['id'], Options>;
+export type FilterValues = Record<Filter['id'], Values>;
 
-export type HandleFilterChange = (option: Options, negated: boolean, id: Filter['id']) => void;
+export type HandleFilterChange = (value: Values, negated: boolean, id: Filter['id']) => void;
