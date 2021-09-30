@@ -1,7 +1,6 @@
-import React, { FunctionComponent } from 'react';
-import PropTypes from 'prop-types';
-import clsx from 'clsx';
-import styles from './textField.css';
+import React, { FunctionComponent } from "react";
+import clsx from "clsx";
+import styles from "./textField.css";
 
 interface TextFieldProps {
   /**
@@ -83,12 +82,12 @@ interface TextFieldProps {
  * In this case, use the date picker, date range selection, or date/time picker. For entering long texts use the textarea component.
  */
 const TextField: FunctionComponent<TextFieldProps> = ({
-  title = '',
-  value = '',
-  placeholder = '',
-  helperLabel = '',
-  invalidLabel = '',
-  name = '',
+  title = "",
+  value = "",
+  placeholder = "",
+  helperLabel = "",
+  invalidLabel = "",
+  name = "",
   width = -1,
   required = false,
   secret = false,
@@ -106,7 +105,7 @@ const TextField: FunctionComponent<TextFieldProps> = ({
       [styles.disabled]: disabled,
       [styles.invalid]: invalid && !disabled,
     })}
-    style={{ width: width >= 0 ? `${width}px` : '100%' }}
+    style={{ width: width >= 0 ? `${width}px` : "100%" }}
   >
     {title && (
       <div
@@ -120,13 +119,13 @@ const TextField: FunctionComponent<TextFieldProps> = ({
     <div className={styles.textFieldIconLayoutContainer}>
       <input
         className={clsx(styles.textField, { [styles.filled]: value })}
-        type={secret ? 'password' : 'text'}
+        type={secret ? "password" : "text"}
         name={name}
         placeholder={placeholder}
         value={value}
         onChange={(event) => onChange(event.target.value, event)}
         onKeyDown={(event) => {
-          if (event.key === 'Enter' && onSubmit) {
+          if (event.key === "Enter" && onSubmit) {
             onSubmit(value);
             return;
           }
@@ -144,7 +143,7 @@ const TextField: FunctionComponent<TextFieldProps> = ({
 
     {invalid && invalidLabel && !disabled ? (
       <div className={styles.invalidLabel}>
-        <span className={clsx('pyreneIcon-errorOutline', styles.errorIcon)} />
+        <span className={clsx("pyreneIcon-errorOutline", styles.errorIcon)} />
         {invalidLabel}
       </div>
     ) : (
@@ -157,15 +156,15 @@ const TextField: FunctionComponent<TextFieldProps> = ({
   </div>
 );
 
-TextField.displayName = 'Textfield';
+TextField.displayName = "Textfield";
 
 TextField.defaultProps = {
-  title: '',
-  value: '',
-  placeholder: '',
-  helperLabel: '',
-  invalidLabel: '',
-  name: '',
+  title: "",
+  value: "",
+  placeholder: "",
+  helperLabel: "",
+  invalidLabel: "",
+  name: "",
   width: -1,
   required: false,
   secret: false,
