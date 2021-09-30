@@ -1,4 +1,4 @@
-import React, { useCallback, FunctionComponent, KeyboardEventHandler } from 'react';
+import React, { useCallback, FunctionComponent, KeyboardEvent } from 'react';
 import clsx from 'clsx';
 import styles from './searchFinder.css';
 import Icon from '../Icon/Icon';
@@ -60,7 +60,7 @@ const SearchFinder: FunctionComponent<SearchFinderProps> = ({
     onSelectedResultChange((selectedResult - 1));
   };
 
-  const onKeyDown = useCallback((e: KeyboardEventHandler<HTMLDivElement>) => {
+  const onKeyDown = useCallback((e: KeyboardEvent<HTMLDivElement>) => {
     if (e.key === 'Enter') {
       if (e.shiftKey) {
         selectPreviousResult();
@@ -74,7 +74,7 @@ const SearchFinder: FunctionComponent<SearchFinderProps> = ({
   const disableResultSelector = !searchTerm.length || resultCount < 1;
 
   return (
-    <div className={styles.container} onKeyDown={disableResultSelector ? null : onKeyDown}>
+    <div className={styles.container} onKeyDown={disableResultSelector ? undefined : onKeyDown}>
       <SearchInput
         value={searchTerm}
         onChange={onSearchTermChange}
