@@ -3,7 +3,7 @@ import React, { FunctionComponent, ChangeEvent } from 'react';
 import clsx from 'clsx';
 import styles from './textField.css';
 
-interface TextFieldProps {
+export interface TextFieldProps {
   /**
    * Focus an element when it mounts.
    */
