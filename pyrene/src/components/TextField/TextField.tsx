@@ -147,13 +147,7 @@ const TextField: FunctionComponent<TextFieldProps> = ({
         <span className={clsx('pyreneIcon-errorOutline', styles.errorIcon)} />
         {invalidLabel}
       </div>
-    ) : (
-      <>
-        {helperLabel && (
-          <div className={styles.textFieldHelper}>{helperLabel}</div>
-        )}
-      </>
-    )}
+    ) : helperLabel && <div className={styles.textFieldHelper}>{helperLabel}</div>}
   </div>
 );
 
