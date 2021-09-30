@@ -1,10 +1,9 @@
 /* eslint-disable react/require-default-props */
 import React, { FunctionComponent, useState } from 'react';
 import clsx from 'clsx';
-
-import styles from './radioPopover.css';
 import Popover from '../Popover/Popover';
 import OptionList from './OptionList';
+import styles from './radioPopover.css';
 import { Option } from './types';
 
 export interface RadioPopoverProps {
@@ -20,7 +19,6 @@ export interface RadioPopoverProps {
    * Render callback for the help section above the options
    */
   renderHelpSection?: () => JSX.Element,
-  selectedValue?: Option,
   /**
    * Render callback for the label for custom formatting
    */
