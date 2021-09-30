@@ -7,9 +7,10 @@ import FilterPopoverButton from '../FilterPopOverButton/FilterPopoverButton';
 import FilterTag from './FilterTag';
 import {
   FilterValues,
-  FilterValue,
+  Value,
   Filter,
-  MultiSelectOption as Option,
+  MultiselectValue,
+  SingleSelectValue,
 } from '../types';
 
 export interface FilterBarProps {
@@ -85,7 +86,7 @@ export default class FilterBar extends React.Component<FilterBarProps, FilterBar
     }));
   };
 
-  filterDidChange = (value: FilterValue, negated: boolean, key: Filter['id']) => {
+  filterDidChange = (value: Value, negated: boolean, key: Filter['id']) => {
     this.setState((prevState) => ({
       unAppliedFilters: {
         values: { ...prevState.unAppliedFilters.values, [key]: value },
@@ -173,7 +174,7 @@ export default class FilterBar extends React.Component<FilterBarProps, FilterBar
     if (filterValues) {
 
       const tags = Object.entries(filterValues).map(([key, value]) => {
-        if (value === undefined || value === null || (value as Array<Option>).length === 0) {
+        if (value === undefined || value === null || (value as MultiselectValue).length === 0) {
           return null;
         }
 
@@ -198,18 +199,18 @@ export default class FilterBar extends React.Component<FilterBarProps, FilterBar
               <FilterTag
                 key={filter.id}
                 filterLabel={filter.label}
-                filterText={(value as Option).label}
+                filterText={(value as SingleSelectValue).label}
                 negated={negatable && filter.negated}
                 onClose={() => this.onFilterTagClose(filter)}
               />
             );
           case 'multiSelect':
-            if ((value as Array<Option>).length > 0) {
+            if ((value as MultiselectValue).length > 0) {
               return (
                 <FilterTag
                   key={filter.id}
                   filterLabel={filter.label}
-                  filterText={(value as Array<Option>).map((option) => option.label).join('; ')}
+                  filterText={(value as MultiselectValue).map((option) => option.label).join('; ')}
                   negated={negatable && filter.negated}
                   onClose={() => this.onFilterTagClose(filter)}
                 />
