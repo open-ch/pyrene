@@ -59,7 +59,7 @@ const DateTimeInput = forwardRef(({
   errorValue = '',
   handleOn,
   disabled,
-  label,
+  label = dateOnly ? 'Date' : 'Date & Time',
   name = '',
   onChange = () => {},
   onClick = () => {},
@@ -105,7 +105,7 @@ const DateTimeInput = forwardRef(({
       className={styles.dateTimeComponent}
       onKeyUp={() => handleOn?.(dateValue, timeValue.trim())}
     >
-      <div className={styles.dateTimeFieldTitle}>{label || (dateOnly ? 'Date' : 'Date & Time')}</div>
+      <div className={styles.dateTimeFieldTitle}>{label}</div>
       <div className={clsx(styles.dateTimeInputArea, { [styles.dateTimeInputError]: errorValue.length > 0 })}>
         <div className={clsx(styles.iconInputContainer, styles.calendar)}>
           <Icon type="inline" name="calendar" color="neutral-500" />
@@ -113,7 +113,7 @@ const DateTimeInput = forwardRef(({
             autoComplete="off"
             className={clsx(styles.input, dateOnly ? styles.dateInput : styles.dateTimeInput)}
             disabled={disabled}
-            name={name ? `${name}_date` : 'date_input'}
+            name={name && `${name}`}
             placeholder={dateOnly ? 'DD.MM.YYYY' : 'DD.MM.YYYY HH:MM'}
             maxLength={dateOnly ? 10 : 16}
             ref={ref}
