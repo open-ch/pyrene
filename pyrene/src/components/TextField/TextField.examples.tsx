@@ -17,5 +17,4 @@ const examples: Example<TextFieldProps, State> = {
   category: 'Form',
 };
 
-
 export default examples;
