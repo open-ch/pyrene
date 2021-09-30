@@ -1,4 +1,6 @@
-import React, { useCallback, FunctionComponent, KeyboardEvent } from 'react';
+import React, {
+  useCallback, FunctionComponent, KeyboardEvent, ChangeEventHandler,
+} from 'react';
 import clsx from 'clsx';
 import styles from './searchFinder.css';
 import Icon from '../Icon/Icon';
@@ -8,7 +10,7 @@ export interface SearchFinderProps {
   /**
    * called when searchTerm changes
    */
-  onSearchTermChange: () => void,
+  onSearchTermChange: (value: string, e?: ChangeEventHandler<HTMLInputElement>) => void,
   /**
    * called when selectedResult changes
    */
