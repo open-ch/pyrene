@@ -5,9 +5,18 @@ import clsx from 'clsx';
 import styles from './optionList.css';
 import { Option } from './types';
 
-interface OptionListProps {
+export interface OptionListProps {
+  /**
+   * Sets the selected choice of the user.
+   */
   onChange: (option: Option) => void,
+  /**
+   * Set the values that the user can choose from.
+   */
   options: Array<Option>,
+  /**
+   * Render callback for the help section above the options
+   */
   renderHelpSection?: () => JSX.Element,
   selectedValue?: Option,
 }

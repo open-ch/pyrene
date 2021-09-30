@@ -4,22 +4,10 @@ import clsx from 'clsx';
 
 import styles from './radioPopover.css';
 import Popover from '../Popover/Popover';
-import OptionList from './OptionList';
+import OptionList, { OptionListProps } from './OptionList';
 import { Option } from './types';
 
-export interface RadioPopoverProps {
-  /**
-   * Sets the selected choice of the user.
-   */
-  onChange: (option: Option) => void,
-  /**
-   * Set the values that the user can choose from.
-   */
-  options?: Array<Option>,
-  /**
-   * Render callback for the help section above the options
-   */
-  renderHelpSection?: () => JSX.Element,
+export interface RadioPopoverProps extends OptionListProps {
   /**
    * Render callback for the label for custom formatting
    */
