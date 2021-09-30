@@ -13,7 +13,7 @@ import { SingleSelectGroupedOption, SingleSelectOption } from './SingleSelectTyp
 
 const LoadingIndicator = () => <Loader />;
 
-type DefaultValueType = null | undefined | string | number | boolean;
+export type DefaultValueType = null | undefined | string | number | boolean;
 
 export type SingleSelectProps<ValueType = DefaultValueType> = {
   /**

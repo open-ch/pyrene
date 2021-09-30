@@ -6,10 +6,9 @@ import TextField from '../../TextField/TextField';
 import MultiSelect from '../../MultiSelect/MultiSelect';
 import Checkbox from '../../Checkbox/Checkbox';
 import {
-  InputValue,
+  Value,
   SingleSelectValue,
   MultiselectValue,
-  TextFieldValue,
   SingleSelectOption,
   MultiSelectOption,
   HandleFilterChange,
@@ -24,7 +23,7 @@ export interface FilterOptionsProps {
   options?: Array<SingleSelectOption | MultiSelectOption>,
   sorted?: boolean,
   type: string,
-  value?: InputValue,
+  value?: Value,
 }
 
 const doesInterfaceSupportNegate = (inputType: string) => ['text', 'singleSelect', 'multiSelect'].indexOf(inputType) !== -1;
@@ -47,7 +46,7 @@ const renderOption = ({
         <SingleSelect
           name={id}
           options={options as SingleSelectOption}
-          onChange={(option) => handleFilterChange(option, negated, id)}
+          onChange={(val) => handleFilterChange(val, negated, id)}
           value={(isValue ? value : null) as SingleSelectValue}
           sorted={sorted}
           clearable
@@ -58,9 +57,9 @@ const renderOption = ({
       return (
         <MultiSelect
           name={id}
-          options={options as Array<MultiSelectOption>}
+          options={options as MultiselectValue}
           // If multiSelect is empty (empty array) return null to filter instead of []
-          onChange={(option) => handleFilterChange(Array.isArray(option) && option.length === 0 ? null : option, negated, id)}
+          onChange={(val: MultiselectValue) => handleFilterChange(Array.isArray(val) && val.length === 0 ? null : val, negated, id)}
           // Pass empty array instead of null to multiSelect component if filterValues are null
           value={(isValue ? value : []) as MultiselectValue}
           sorted={sorted}
@@ -74,9 +73,9 @@ const renderOption = ({
         <TextField
           name={id}
           // If textField is empty (empty string) return null instead of ''
-          onChange={(option) => handleFilterChange(option === '' ? null : option, false, id)}
+          onChange={(val) => handleFilterChange(val === '' ? null : val, false, id)}
           // Pass empty string instead of null to textField component if filterValues are null
-          value={(isValue ? value : '') as TextFieldValue}
+          value={(isValue ? value : '') as string}
         />
       );
     default:
@@ -112,7 +111,7 @@ const FilterOption: FunctionComponent<FilterOptionsProps> = ({
           <Checkbox
             value={negated}
             disabled={false}
-            onChange={(option) => handleFilterChange(value, option, id)}
+            onChange={(val) => handleFilterChange(value, val, id)}
             tooltip="To negate the filter, check the box."
           />
         )}
