@@ -11,7 +11,7 @@ export interface RadioPopoverProps extends OptionListProps {
   /**
    * Render callback for the label for custom formatting
    */
-  renderLabel?: (option: Option) => string | undefined,
+  renderLabel?: (option: Option) => string | undefined | JSX.Element,
   /**
    * selected value - should match the `value` key in one of the `options`
    */
