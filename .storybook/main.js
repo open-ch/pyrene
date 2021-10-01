@@ -1,7 +1,7 @@
 module.exports = {
   stories: [
-    '/**/src/**/*.stories.mdx',
-    '/**/src/**/*.stories.@(js|jsx|ts|tsx)'
+    '../pyrene/src/**/*.stories.mdx',
+    '../pyrene/src/**/*.stories.@(js|jsx|ts|tsx)'
   ],
   addons: [
     '@storybook/addon-links',
