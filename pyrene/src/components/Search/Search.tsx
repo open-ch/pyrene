@@ -1,13 +1,60 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import React, { RefObject } from 'react';
 import SearchInput from '../SearchFinder/components/SearchInput/SearchInput';
+
+export interface SearchProps {
+  /**
+   * ref of SearchInput container
+   */
+  containerRef?: (() => void) | RefObject<HTMLDivElement>,
+  /**
+   * set Focused state
+   */
+  isFocused?: boolean,
+  /**
+   * called when input is blured
+   */
+  onBlur?: () => void,
+  /**
+   * called when value changes
+   */
+  onChange: () => void,
+  /**
+   * custom handler for enter keydown action
+   */
+  onEnter?: () => void,
+  /**
+   * called when input is focused
+   */
+  onFocus: () => void,
+  /**
+   * input placeholder string
+   */
+  placeholder?: string,
+  /**
+   * input value
+   */
+  value: string,
+  /**
+   * width
+   */
+  width: number | string,
+}
 
 /**
  * Simple search input area
  */
 const Search = ({
-  value, onChange, onEnter, onFocus, onBlur, containerRef, placeholder, width, isFocused,
-}) => (
+  value,
+  onChange,
+  isFocused,
+  onBlur,
+  onEnter,
+  onFocus,
+  containerRef,
+  placeholder = '',
+  width,
+}: SearchProps) => (
   <SearchInput
     value={value}
     onChange={onChange}
@@ -22,60 +69,5 @@ const Search = ({
 );
 
 Search.displayName = 'Search';
-
-Search.defaultProps = {
-  isFocused: null,
-  onBlur: null,
-  onEnter: null,
-  onFocus: null,
-  containerRef: null,
-  placeholder: '',
-  width: null,
-};
-
-Search.propTypes = {
-  /**
-   * ref of SearchInput container
-   */
-  containerRef: PropTypes.oneOfType([
-    PropTypes.func,
-    PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
-  ]),
-  /**
-   * set Focused state
-   */
-  isFocused: PropTypes.bool,
-  /**
-   * called when input is blured
-   */
-  onBlur: PropTypes.func,
-  /**
-   * called when value changes
-   */
-  onChange: PropTypes.func.isRequired,
-  /**
-   * custom handler for enter keydown action
-   */
-  onEnter: PropTypes.func,
-  /**
-   * called when input is focused
-   */
-  onFocus: PropTypes.func,
-  /**
-   * input placeholder string
-   */
-  placeholder: PropTypes.string,
-  /**
-   * input value
-   */
-  value: PropTypes.string.isRequired,
-  /**
-   * width
-   */
-  width: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string,
-  ]),
-};
 
 export default Search;
