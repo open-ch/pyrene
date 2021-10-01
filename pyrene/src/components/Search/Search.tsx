@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import React, { RefObject } from 'react';
+import React, { FunctionComponent, RefObject } from 'react';
 import SearchInput from '../SearchFinder/components/SearchInput/SearchInput';
 
 export interface SearchProps {
@@ -44,7 +43,7 @@ export interface SearchProps {
 /**
  * Simple search input area
  */
-const Search = ({
+const Search: FunctionComponent<SearchProps> = ({
   value,
   onChange,
   isFocused,
