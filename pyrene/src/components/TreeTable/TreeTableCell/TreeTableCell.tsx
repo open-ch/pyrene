@@ -1,35 +1,64 @@
-import React from 'react';
+import React, { FunctionComponent, CSSProperties } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import TreeTablePropTypes from '../TreeTablePropTypes';
 
 import styles from './treeTableCell.css';
 
-export default class TreeTableCell extends React.PureComponent {
+type AllowedValues = string | number | Array<any> | boolean | Function;
 
-  render() {
-    return (
-      <div style={this.props.style} className={styles.treeTableCell}>
-
-        {this.props.firstColumn && (this.props.parent
-          ? <div className={clsx(styles.pivotIcon, { [styles.sectionOpen]: this.props.sectionOpen }, 'pyreneIcon-chevronDown')} onClick={this.props.onExpandClick} />
-          : <div className={styles.iconSpaceholder} />
-        )}
-
-        {/* Use renderCallback if there is one defined for this column */}
-
-        {this.props.columnProps.renderCallback
-          ? this.props.columnProps.renderCallback(this.props.value, this.props.rowData)
-          : (
-            <div className={styles.cellDataContainer} title={this.props.value}>
-              {this.props.value}
-            </div>
-          )}
-      </div>
-    );
-  }
-
+interface Column {
+  accessor: string,
+  cellStyle?: object,
+  headerName?: string,
+  headerStyle?: object,
+  initiallyHidden?: boolean,
+  width?: number,
+  renderCallback?: (value: AllowedValues, rowData: Array<AllowedValues>) => JSX.Element,
 }
+
+interface TreeTableCellProps {
+  columnProps: Column,
+  firstColumn?: boolean,
+  onExpandClick: () => void,
+  parent?: boolean,
+  rowData?: Array<AllowedValues>,
+  sectionOpen?: boolean,
+  style?: CSSProperties,
+  value?: AllowedValues,
+}
+
+const TreeTableCell: FunctionComponent<TreeTableCellProps> = ({
+  onExpandClick,
+  value = '',
+  columnProps = {},
+  parent = false,
+  sectionOpen = false,
+  firstColumn = false,
+  style = {},
+  rowData = {},
+}) => (
+  <div style={style} className={styles.treeTableCell}>
+
+    {firstColumn && parent
+      ? <div
+          className={clsx(styles.pivotIcon, { [styles.sectionOpen]: sectionOpen }, 'pyreneIcon-chevronDown')}
+          onClick={onExpandClick}
+        />
+      : <div className={styles.iconSpaceholder} />
+    }
+
+    {/* Use renderCallback if there is one defined for this column */}
+
+    {columnProps.renderCallback
+      ? columnProps.renderCallback(value, rowData)
+      : (
+        <div className={styles.cellDataContainer} title={value}>
+          {value}
+        </div>
+      )}
+  </div>
+);
 
 
 TreeTableCell.displayName = 'TreeTableCell';
