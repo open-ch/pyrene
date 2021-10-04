@@ -1,18 +1,70 @@
 import React, {
-  useCallback, useEffect, useRef, useState,
+  useCallback, useEffect, useRef, useState, FunctionComponent, RefObject, ChangeEvent, KeyboardEvent, FocusEvent,
 } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import styles from './searchInput.css';
 import Icon from '../../../Icon/Icon';
 
+export interface SearchInputProps {
+  /**
+   * ref of SearchInput container
+   */
+  containerRef?: (() => void) | RefObject<HTMLDivElement>,
+  /**
+   * custom element to extend the search bar placed between search input and cross button
+   */
+  extraActionElement: JSX.Element,
+  /**
+   * set Focused state
+   */
+  isFocused?: boolean,
+  /**
+   * called when input is blured
+   */
+  onBlur?: (e?: FocusEvent<HTMLInputElement>) => void,
+  /**
+   * called when value changes
+   */
+  onChange: (value : string, e?: ChangeEvent<HTMLInputElement>) => void,
+  /**
+   * custom handler for enter keydown action
+   */
+  onEnter?: (e?: KeyboardEvent<HTMLDivElement>) => void,
+  /**
+   * called when input is focused
+   */
+  onFocus?: (e?: FocusEvent<HTMLInputElement>) => void,
+  /**
+   * input placeholder string
+   */
+  placeholder?: string,
+  /**
+   * input value
+   */
+  value: string,
+  /**
+   * width
+   */
+  width?: number | string,
+}
+
 /**
  * SearchInput - private component used as base for other search components.
  */
-const SearchInput = ({
-  value, onChange, onEnter, onBlur, onFocus, extraActionElement, containerRef, placeholder, width, isFocused,
+const SearchInput: FunctionComponent<SearchInputProps> = ({
+  value,
+  onChange,
+  onEnter,
+  onBlur,
+  onFocus,
+  extraActionElement,
+  containerRef,
+  placeholder = '',
+  width = 256,
+  isFocused,
 }) => {
-  const inputRef = useRef();
+  const inputRef = useRef<HTMLInputElement | null>(null);
   const [isLocalFocused, setIsLocalFocused] = useState(!!isFocused);
 
   useEffect(() => {
@@ -32,11 +84,11 @@ const SearchInput = ({
     }
   }, [onChange, value, focus]);
 
-  const onInputChange = useCallback((e) => {
+  const onInputChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     onChange(e.target.value, e);
   }, [onChange]);
 
-  const handleEnter = useCallback((e) => {
+  const handleEnter = useCallback((e: KeyboardEvent<HTMLDivElement>) => {
     if (e.key === 'Enter' && onEnter) {
       onEnter();
     }
@@ -49,14 +101,14 @@ const SearchInput = ({
     }
   }, [isFocused]);
 
-  const handleFocus = useCallback((e) => {
+  const handleFocus = useCallback((e: FocusEvent<HTMLInputElement>) => {
     handleIsFocused(true);
     if (onFocus) {
       onFocus(e);
     }
   }, [handleIsFocused, onFocus]);
 
-  const handleBlur = useCallback((e) => {
+  const handleBlur = useCallback((e: FocusEvent<HTMLInputElement>) => {
     handleIsFocused(false);
     if (onBlur) {
       onBlur(e);
