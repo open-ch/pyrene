@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable react/prop-types */
 import React, { FunctionComponent } from 'react';
 import clsx from 'clsx';
@@ -31,7 +32,7 @@ const TableSelect: FunctionComponent<TableSelectProps> = ({
   <div className={clsx(styles.selectContainer, { [styles.disabled]: disabled })}>
     <Select
       className="singleSelect"
-      style={SelectStyle}
+      styles={SelectStyle as any}
       placeholder={placeholder}
       options={options}
       value={value ? options.filter((o) => o.value === value).pop() : null}
