@@ -1,5 +1,5 @@
 import React, {
-  FunctionComponent, RefObject, ChangeEvent, FocusEvent
+  FunctionComponent, RefObject, ChangeEvent, FocusEvent,
 } from 'react';
 import SearchInput from '../SearchFinder/components/SearchInput/SearchInput';
 
