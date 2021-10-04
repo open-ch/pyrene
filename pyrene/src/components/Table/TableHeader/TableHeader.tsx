@@ -1,25 +1,18 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+/* eslint-disable react/prop-types */
+import React, { ReactNode, FunctionComponent } from 'react';
 import clsx from 'clsx';
 
 import styles from './tableHeader.css';
 
-const TableHeader = (props) => (
-  <div className={clsx(styles.tableHeader, { [styles.disabled]: props.disabled })}>
-    {props.children}
+interface TableHeaderProps {
+  children: ReactNode,
+  disabled?: boolean
+}
+
+const TableHeader: FunctionComponent<TableHeaderProps> = ({ children, disabled = false }) => (
+  <div className={clsx(styles.tableHeader, { [styles.disabled]: disabled })}>
+    {children}
   </div>
 );
-
-
-TableHeader.displayName = 'TableHeader';
-
-TableHeader.defaultProps = {
-  disabled: false,
-};
-
-TableHeader.propTypes = {
-  children: PropTypes.node.isRequired,
-  disabled: PropTypes.bool,
-};
 
 export default TableHeader;
