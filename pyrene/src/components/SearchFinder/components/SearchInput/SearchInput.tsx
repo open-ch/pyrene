@@ -89,8 +89,8 @@ const SearchInput: FunctionComponent<SearchInputProps> = ({
   }, [onChange]);
 
   const handleEnter = useCallback((e: KeyboardEvent<HTMLDivElement>) => {
-    if (e.key === 'Enter' && onEnter) {
-      onEnter();
+    if (e.key === 'Enter') {
+      onEnter?.();
     }
   }, [onEnter]);
 
@@ -103,16 +103,12 @@ const SearchInput: FunctionComponent<SearchInputProps> = ({
 
   const handleFocus = useCallback((e: FocusEvent<HTMLInputElement>) => {
     handleIsFocused(true);
-    if (onFocus) {
-      onFocus(e);
-    }
+    onFocus?.(e);
   }, [handleIsFocused, onFocus]);
 
   const handleBlur = useCallback((e: FocusEvent<HTMLInputElement>) => {
     handleIsFocused(false);
-    if (onBlur) {
-      onBlur(e);
-    }
+    onBlur?.(e);
   }, [handleIsFocused, onBlur]);
 
   return (
