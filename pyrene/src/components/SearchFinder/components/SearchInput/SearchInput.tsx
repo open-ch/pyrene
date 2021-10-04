@@ -120,7 +120,7 @@ const SearchInput: FunctionComponent<SearchInputProps> = ({
       className={clsx(styles.inputArea, { [styles.isFocused]: isLocalFocused })}
       style={{ width: width }}
       ref={containerRef}
-      onKeyDown={onEnter ? handleEnter : null}
+      onKeyDown={onEnter ? handleEnter : undefined}
     >
       <div className={clsx(styles.icon, styles.passive)}>
         <Icon type="standalone" name="search" />
