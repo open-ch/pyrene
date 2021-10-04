@@ -1,7 +1,7 @@
+/* eslint-disable react/prop-types */
 import React, {
   useCallback, useEffect, useRef, useState, FunctionComponent, RefObject, ChangeEvent, KeyboardEvent, FocusEvent,
 } from 'react';
-import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import styles from './searchInput.css';
 import Icon from '../../../Icon/Icon';
@@ -144,65 +144,5 @@ const SearchInput: FunctionComponent<SearchInputProps> = ({
 };
 
 SearchInput.displayName = 'Search Input';
-
-SearchInput.defaultProps = {
-  onBlur: null,
-  onEnter: null,
-  onFocus: null,
-  extraActionElement: null,
-  containerRef: null,
-  isFocused: null,
-  placeholder: '',
-  width: 256,
-};
-
-SearchInput.propTypes = {
-  /**
-   * ref of SearchInput container
-   */
-  containerRef: PropTypes.oneOfType([
-    PropTypes.func,
-    PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
-  ]),
-  /**
-   * custom element to extend the search bar placed between search input and cross button
-   */
-  extraActionElement: PropTypes.element,
-  /**
-   * set Focused state
-   */
-  isFocused: PropTypes.bool,
-  /**
-   * called when input is blured
-   */
-  onBlur: PropTypes.func,
-  /**
-   * called when value changes
-   */
-  onChange: PropTypes.func.isRequired,
-  /**
-   * custom handler for enter keydown action
-   */
-  onEnter: PropTypes.func,
-  /**
-   * called when input is focused
-   */
-  onFocus: PropTypes.func,
-  /**
-   * input placeholder string
-   */
-  placeholder: PropTypes.string,
-  /**
-   * input value
-   */
-  value: PropTypes.string.isRequired,
-  /**
-   * width
-   */
-  width: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string,
-  ]),
-};
 
 export default SearchInput;
