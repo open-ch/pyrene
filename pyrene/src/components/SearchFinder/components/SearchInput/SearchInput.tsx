@@ -30,7 +30,7 @@ export interface SearchInputProps {
   /**
    * custom handler for enter keydown action
    */
-  onEnter?: (e?: KeyboardEvent<HTMLDivElement>) => void,
+  onEnter?: () => void,
   /**
    * called when input is focused
    */
