@@ -14,7 +14,7 @@ export interface SearchInputProps {
   /**
    * custom element to extend the search bar placed between search input and cross button
    */
-  extraActionElement: JSX.Element,
+  extraActionElement?: JSX.Element,
   /**
    * set Focused state
    */
