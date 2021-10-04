@@ -1,4 +1,6 @@
-import React, { FunctionComponent, RefObject, ChangeEvent } from 'react';
+import React, {
+  FunctionComponent, RefObject, ChangeEvent, FocusEvent,
+} from 'react';
 import SearchInput from '../SearchFinder/components/SearchInput/SearchInput';
 
 export interface SearchProps {
@@ -13,7 +15,7 @@ export interface SearchProps {
   /**
    * called when input is blured
    */
-  onBlur?: () => void,
+  onBlur?: (e?: FocusEvent<HTMLInputElement>) => void,
   /**
    * called when value changes
    */
@@ -25,7 +27,7 @@ export interface SearchProps {
   /**
    * called when input is focused
    */
-  onFocus?: () => void,
+  onFocus?: (e?: FocusEvent<HTMLInputElement>) => void,
   /**
    * input placeholder string
    */
