@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, {
-  ReactNode, FunctionComponent, CSSProperties, MouseEvent
+  ReactNode, FunctionComponent, CSSProperties, MouseEvent,
 } from 'react';
 import clsx from 'clsx';
 import DefaultSort from '../images/sort.svg';
