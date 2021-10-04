@@ -118,7 +118,7 @@ const SearchInput: FunctionComponent<SearchInputProps> = ({
   return (
     <div
       className={clsx(styles.inputArea, { [styles.isFocused]: isLocalFocused })}
-      style={{ width: width }}
+      style={{ width }}
       ref={containerRef}
       onKeyDown={onEnter ? handleEnter : undefined}
     >
