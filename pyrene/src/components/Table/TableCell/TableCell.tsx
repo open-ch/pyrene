@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { CSSProperties, ReactNode, FunctionComponent } from 'react';
 import clsx from 'clsx';
 
