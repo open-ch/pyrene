@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React, { CSSProperties, ReactNode, FunctionComponent } from 'react';
 import clsx from 'clsx';
 
@@ -6,7 +5,7 @@ import styles from './tableCell.css';
 
 export interface TableCellProps {
   children: ReactNode,
-  multiSelect: boolean,
+  multiSelect?: boolean,
   onClick: () => void,
   style?: CSSProperties
 }
