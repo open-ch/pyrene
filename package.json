@@ -20,7 +20,6 @@
     "@storybook/manager-webpack5": "^6.3.9",
     "@storybook/react": "^6.3.9",
     "postcss": "file:pyrene/node_modules/postcss",
-    "postcss-import": "file:pyrene/node_modules/postcss-import",
     "postcss-loader": "file:pyrene/node_modules/postcss-loader",
     "postcss-nesting": "file:pyrene/node_modules/postcss-nesting",
     "react": "file:pyrene/node_modules/react",
