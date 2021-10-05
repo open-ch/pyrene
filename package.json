@@ -20,7 +20,6 @@
     "@storybook/manager-webpack5": "file:pyrene/node_modules/@storybook/manager-webpack5",
     "@storybook/react": "file:pyrene/node_modules/@storybook/react",
     "postcss": "file:pyrene/node_modules/postcss",
-    "postcss-import": "file:pyrene/node_modules/postcss-import",
     "storybook-css-modules-preset": "file:pyrene/node_modules/storybook-css-modules-preset",
     "react": "file:pyrene/node_modules/react",
     "react-dom": "file:pyrene/node_modules/react-dom"
