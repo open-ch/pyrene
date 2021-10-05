@@ -21,9 +21,9 @@ type RowData<R> = Row<R> & {
 
 interface Column<R> {
   accessor: keyof R,
-  cellStyle?: any,
+  cellStyle?: CSSProperties,
   headerName?: string,
-  headerStyle?: any,
+  headerStyle?: CSSProperties,
   initiallyHidden?: boolean,
   width?: number,
   renderCallback?: (value?: AllowedValues, rowData?: RowData<R>) => JSX.Element,
