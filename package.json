@@ -1,7 +1,7 @@
 {
   "name": "main",
   "version": "1.0.0",
-  "description": "Main folder for having storybook accross the whole monorepo",
+  "description": "Main folder for having storybook across the whole monorepo",
   "scripts": {
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
@@ -20,8 +20,6 @@
     "@storybook/manager-webpack5": "file:pyrene/node_modules/@storybook/manager-webpack5",
     "@storybook/react": "file:pyrene/node_modules/@storybook/react",
     "postcss": "file:pyrene/node_modules/postcss",
-    "storybook-css-modules-preset": "file:pyrene/node_modules/storybook-css-modules-preset",
-    "react": "file:pyrene/node_modules/react",
-    "react-dom": "file:pyrene/node_modules/react-dom"
+    "storybook-css-modules-preset": "file:pyrene/node_modules/storybook-css-modules-preset"
   }
 }
