@@ -1,12 +1,11 @@
 import React, { forwardRef } from 'react';
 import clsx from 'clsx';
 
-import { DateLength } from '../../../utils/DateUtils';
+import { DateLength, allowedValueCheck } from '../../../utils/DateUtils';
 
 import Icon from '../../Icon/Icon';
 import styles from './dateTimeInput.css';
 
-const allowedValueCheck = (valueToCheck:string) : boolean => (/^[0-9.: APM]*$/.test(valueToCheck));
 
 export interface DateTimeInputProps {
   /**

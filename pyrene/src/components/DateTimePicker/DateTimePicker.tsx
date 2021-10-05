@@ -2,7 +2,6 @@ import React, {
   useCallback,
   useEffect,
   useState,
-  useRef,
 } from 'react';
 
 import ReactDPWrapper from './ReactDatePickerWrapper/ReactDatePickerWrapper';
@@ -126,8 +125,6 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
   timeStamp,
   timeZone,
 }: DateTimePickerProps) => {
-
-  const picker = useRef<HTMLDivElement>(null);
 
   const [internalDate, setInternalDate] = useState<Date | undefined>();
 
@@ -266,7 +263,7 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
   }, [maxDateTime, minDateTime, internaltTz, dateValue, timeValue, dateFormat, timeFormat]);
 
   return (
-    <div ref={picker}>
+    <>
       <ReactDPWrapper
         closeOnSelect={closeOnSelect}
         customCalendar={customCalendar}
@@ -304,7 +301,7 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
         startRange={selectStart}
         timeFormat={timeFormat}
       />
-    </div>
+    </>
   );
 };
 

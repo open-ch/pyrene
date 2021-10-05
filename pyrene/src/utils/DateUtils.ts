@@ -43,7 +43,7 @@ export type TimeType = {
   hours: number,
 };
 
-const allowedSeparatorCheck = (valueToCheck: string): boolean => (/[/.:]$/.test(valueToCheck));
+export const allowedValueCheck = (valueToCheck:string) : boolean => (/^[0-9.: APM]*$/.test(valueToCheck));
 
 /**
  * Converts our custom date object to JavaScript Date
