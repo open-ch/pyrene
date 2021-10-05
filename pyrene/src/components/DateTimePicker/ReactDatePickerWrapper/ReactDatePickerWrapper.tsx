@@ -4,9 +4,6 @@ import ReactDatepicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import styles from '../datePicker.css';
 
-const DATE_FORMAT = 'dd.MM.yyyy';
-const DATETIME_FORMAT = 'dd.MM.yyyy HH:mm';
-
 export { CalendarContainer } from 'react-datepicker';
 export interface DatePickerProps{
   closeOnSelect?: boolean,
@@ -15,6 +12,10 @@ export interface DatePickerProps{
    */
   CustomInput: React.ReactNode,
   customCalendar?(props: { children: React.ReactNode[] }): React.ReactNode,
+  /**
+   * Date format used by component
+   */
+  dateFormat?: string,
   /**
    * Boolean to toggle time display
    */
@@ -45,29 +46,42 @@ export interface DatePickerProps{
    * Name that can be used to uniquely identify the component
    */
   name?: string,
+  /**
+   * Callback for when user clicks outside component
+   */
   onClickOutside?(event: React.MouseEvent<HTMLDivElement>): void,
   /**
    * Function to handle date select event
    */
   onSelect?(date: Date, event: React.SyntheticEvent<any> | undefined): void,
+  /**
+   * Move calender to specific date
+   */
   openDate?: Date,
   /**
    * This is a Date object that represents the selected date of the datepicker
    */
   selectedDate?: Date,
+  /**
+   * Is calendar starting a range
+   */
   startRange?: boolean,
+  /**
+   * Is calendar ending a range
+   */
   endRange?: boolean,
+  /**
+   * Is calendar selecting a range
+   */
   range?: boolean,
   /**
    * This is a Date object that represents the start date of a date range
    */
   startDate?: Date,
-  tabNum?: number,
   /**
-   * This is a unix timestamp, which is the number of seconds that have elapsed since Unix epoch
+   * Time format used by component
    */
-  timeStamp?: number | null,
-  value?: string,
+  timeFormat?: string,
   /**
    * Should display the Time column on the right-hand side
    */
@@ -77,7 +91,7 @@ export interface DatePickerProps{
 const ReactDPWrapper: React.FC<DatePickerProps> = ({
   closeOnSelect = true,
   customCalendar,
-  dateOnly = false,
+  dateFormat = 'dd.MM.yyyy',
   endDate,
   maxDate,
   minDate,
@@ -95,12 +109,10 @@ const ReactDPWrapper: React.FC<DatePickerProps> = ({
   onSelect,
   openDate,
   range = false,
-  tabNum,
-  value,
+  timeFormat = 'HH:mm',
 }: DatePickerProps) => {
 
   const rangeRef = useRef<ReactDatepicker>(null);
-  const dateFormatting = dateOnly ? DATE_FORMAT : DATETIME_FORMAT;
 
   useEffect(() => {
     if (isOpen) {
@@ -118,7 +130,7 @@ const ReactDPWrapper: React.FC<DatePickerProps> = ({
         calendarContainer={customCalendar}
         calendarStartDay={1}
         customInput={CustomInput}
-        dateFormat={dateFormatting}
+        dateFormat={dateFormat}
         endDate={endDate}
         formatWeekDay={(nameOfDay) => nameOfDay.substr(0, 1)}
         inline={inline}
@@ -174,9 +186,7 @@ const ReactDPWrapper: React.FC<DatePickerProps> = ({
         showPopperArrow={false}
         showTimeSelect={shouldDisplayTimeColumn}
         startDate={startDate || selectedDate}
-        tabIndex={tabNum}
-        timeFormat="HH:mm"
-        value={value}
+        timeFormat={timeFormat}
       />
     </div>
   );

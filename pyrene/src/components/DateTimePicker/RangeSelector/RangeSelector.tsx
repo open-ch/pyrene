@@ -5,8 +5,8 @@ import React, {
 import clsx from 'clsx';
 import Button from '../../Button/Button';
 import {
-  getFutureDate, standardEUDateFormat, standardEUTimeFormat,
-  convertToUTCtime, getDateTypeFromddmmyyyyWithSep, convertDateTypeToString, convertTimeTypeToString, getTimeTypeFromhhmmWithSep, convertToZoneTime, getClientTimeZone,
+  getFutureDate, customDateFormat,
+  convertToUTCtime, convertToZoneTime, getClientTimeZone,
 } from '../../../utils/DateUtils';
 import TimeRangeSelector from '../../TimeRangeSelector/TimeRangeSelector';
 
@@ -17,6 +17,10 @@ import DetectClickOutside from './DetectClickOutside';
 
 type OnFunction = (value?: [number, number] | null) => void;
 export interface RangeSelectorProps{
+  /**
+   * Date format used by component
+   */
+  dateFormat?: string,
   /**
    * Boolean to toggle time display
    */
@@ -46,6 +50,10 @@ export interface RangeSelectorProps{
   */
   onChange: OnFunction,
   /**
+   * Date format used by component
+   */
+  timeFormat?: string,
+  /**
    * This is a unix timestamp, which is the number of seconds that have elapsed since Unix epoch
    */
   timeStamps?: [number, number],
@@ -56,11 +64,13 @@ export interface RangeSelectorProps{
 }
 
 const RangeSelector: React.FC<RangeSelectorProps> = (({
+  dateFormat = 'dd.MM.yyyy',
   dateOnly = false,
   maxDateTime = getFutureDate({ years: 1 }),
   minDateTime = 0,
   labels = ['From', 'To'],
   onChange,
+  timeFormat = ' HH:mm',
   timeStamps,
   timeZone,
 }:RangeSelectorProps) => {
@@ -85,19 +95,7 @@ const RangeSelector: React.FC<RangeSelectorProps> = (({
     event.stopPropagation();
 
     if (startDate && endDate) {
-      const startdate = getDateTypeFromddmmyyyyWithSep(standardEUDateFormat(startDate));
-      const starttime = getTimeTypeFromhhmmWithSep(standardEUTimeFormat(startDate));
-
-      const enddate = getDateTypeFromddmmyyyyWithSep(standardEUDateFormat(endDate));
-      const endtime = getTimeTypeFromhhmmWithSep(standardEUTimeFormat(endDate));
-
-      if (dateOnly && startdate && enddate) {
-        onChange([convertToUTCtime(`${convertDateTypeToString(startdate)} 00:00`, internaltTz).valueOf(), convertToUTCtime(`${convertDateTypeToString(enddate)} 00:00`, internaltTz).valueOf()]);
-      } else if (!dateOnly && startdate && starttime && enddate && endtime) {
-        onChange([convertToUTCtime(`${convertDateTypeToString(startdate)} ${convertTimeTypeToString(starttime)}`, internaltTz).valueOf(), convertToUTCtime(`${convertDateTypeToString(enddate)} ${convertTimeTypeToString(endtime)}`, internaltTz).valueOf()]);
-      } else {
-        onChange(null);
-      }
+      onChange([convertToUTCtime(startDate, internaltTz).valueOf(), convertToUTCtime(endDate, internaltTz).valueOf()]);
     } else {
       onChange(null);
     }
@@ -138,14 +136,16 @@ const RangeSelector: React.FC<RangeSelectorProps> = (({
                 <div className={styles.leftbox}>
                   <DateTimePicker
                     closeOnSelect={false}
+                    dateFormat={dateFormat}
                     label={labels[0]}
                     endDate={endDate}
                     startDate={startDate}
                     minDateTime={minDateTime}
                     maxDateTime={maxDateTime}
-                    onChange={(value) => (value !== undefined ? setStartDate(convertToZoneTime(value, internaltTz)) : setStartDate(value))}
+                    onChange={(value) => value && setStartDate(convertToZoneTime(value, internaltTz))}
                     timeZone={internaltTz}
                     dateOnly={dateOnly}
+                    timeFormat={timeFormat}
                     timeStamp={startDate?.valueOf() || timeStamps?.[0]}
                     calendarOpened
                     selectStart
@@ -154,14 +154,16 @@ const RangeSelector: React.FC<RangeSelectorProps> = (({
                 <div className={styles.rightbox}>
                   <DateTimePicker
                     closeOnSelect={false}
+                    dateFormat={dateFormat}
                     label={labels[1]}
                     endDate={endDate}
                     startDate={startDate}
                     minDateTime={minDateTime}
                     maxDateTime={maxDateTime}
-                    onChange={(value) => (value !== undefined ? setEndDate(convertToZoneTime(value, internaltTz)) : setEndDate(value))}
+                    onChange={(value) => value && setEndDate(convertToZoneTime(value, internaltTz))}
                     timeZone={internaltTz}
                     dateOnly={dateOnly}
+                    timeFormat={timeFormat}
                     timeStamp={endDate?.valueOf() || timeStamps?.[1]}
                     selectEnd
                   />
@@ -169,7 +171,7 @@ const RangeSelector: React.FC<RangeSelectorProps> = (({
               </div>
               <div className={clsx({ [styles.dateTimeFooter]: !dateOnly })}>
                 <div className={styles.infoBox}>
-                  {`Max. past date: ${standardEUDateFormat(new Date(minDateTime))} `}
+                  {`Max. past date: ${customDateFormat(new Date(minDateTime), dateFormat)} `}
                 </div>
                 <div className={styles.footerButtonsBox}>
                   <Button label="Cancel" type="secondary" onClick={handleCancelButton} />
