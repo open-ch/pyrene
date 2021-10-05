@@ -10,7 +10,7 @@ import {
 
 import styles from './calendarDateSelector.css';
 import {
-  DATE_UNITS, getCurrentDateTypeObject,
+  DateUnits, getCurrentDateTypeObject,
 } from '../../utils/DateUtils';
 import ArrowSelector from '../TimeRangeSelector/TimeRangeNavigationBar/ArrowSelector/ArrowSelector';
 import DateHelper from './DateHelper';
@@ -32,9 +32,9 @@ export default class CalendarDateSelector extends React.Component {
   };
 
   static DEFAULT_TIME_UNITS = [
-    DATE_UNITS.DAY,
-    DATE_UNITS.MONTH,
-    DATE_UNITS.YEAR,
+    DateUnits.DAY,
+    DateUnits.MONTH,
+    DateUnits.YEAR,
   ];
 
   _onNavigate = (value, direction) => {

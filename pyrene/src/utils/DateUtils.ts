@@ -1,20 +1,36 @@
-import {
-  isExists, sub, add, Duration, format,
-} from 'date-fns';
+import isExists from 'date-fns/isExists';
+import sub from 'date-fns/sub';
+import add from 'date-fns/add';
+import format from 'date-fns/format';
+import parse from 'date-fns/parse';
+import Duration from 'date-fns';
 
 import {
   zonedTimeToUtc, utcToZonedTime,
 } from 'date-fns-tz';
 
-const DAY = 'day';
-const MONTH = 'month';
-const YEAR = 'year';
+export enum DateUnits {
+  DAY = 'day',
+  MONTH = 'month',
+  YEAR = 'year',
+}
 
-export const DATE_UNITS = {
-  DAY,
-  MONTH,
-  YEAR,
-};
+export enum DateLength {
+  DATE_ONLY = 10,
+  DATE_WITH_TIME = 16,
+  TIME_VALUE = DATE_WITH_TIME - DATE_ONLY,
+}
+
+
+export interface DateValidationObject {
+  dateString?: string,
+  isDateInvalid?: boolean,
+  isTimeInvalid?: boolean,
+  minimumValue?: number,
+  maximumValue?: number,
+  timeZone?: string,
+  dateFormat?: string,
+}
 
 export type DateType = {
   day: number,
@@ -100,9 +116,9 @@ export const getCurrentDateTypeObject = (): DateType => convertToDateTypeObject(
 export const convertToZoneTime = (timestamp: number, timezone: string): Date => utcToZonedTime(timestamp, timezone);
 
 /**
- * Returns the Date Object of provided timestamp in UTC
+ * Returns the Date Object of provided datetime parameter in UTC
  */
-export const convertToUTCtime = (datetime: string | number, timezone: string): Date => zonedTimeToUtc(datetime, timezone);
+export const convertToUTCtime = (datetime: string | number | Date, timezone: string): Date => zonedTimeToUtc(datetime, timezone);
 
 /**
  * Returns the timestamp of a point in time in the future relative to now
@@ -153,50 +169,33 @@ export const isValidTimeZone = (timezone: string): boolean => {
   }
 };
 
-export const zeroFill = (num: string, length: number): string => (num.toString().padStart(length, '0'));
+export const customDateFormat = (date: Date | string, pattern: string): string => {
+  if (typeof date === 'string') {
+    const parsed = parse(date, pattern, new Date());
+    return format(parsed, pattern);
+  }
 
-export const convertDateTypeToString = (date: DateType): string => {
-  const day = zeroFill(date.day.toString(), 2);
-  const month = zeroFill(date.month.toString(), 2);
-  const year = zeroFill(date.year.toString(), 4);
-
-  return `${year}-${month}-${day}`;
+  return format(date, pattern);
 };
 
-export const convertTimeTypeToString = (time: TimeType): string => {
-  const hours = zeroFill(time.hours.toString(), 2);
-  const minutes = zeroFill(time.minutes.toString(), 2);
+export const customStringToDate = (datestring: string, pattern: string): Date => parse(datestring, pattern, new Date());
 
-  return `${hours}:${minutes}`;
-};
-
-export const dateTypeToStandardEUDateFormat = (date: DateType): string => {
-  const day = zeroFill(date.day.toString(), 2);
-  const month = zeroFill(date.month.toString(), 2);
-  const year = zeroFill(date.year.toString(), 4);
-
-  return `${day}.${month}.${year}`;
-};
-
-export const standardEUDateFormat = (date: Date): string => format(date, 'dd.MM.yyyy');
-
-export const standardEUTimeFormat = (date: Date): string => format(date, 'HH:mm');
-
-export const getDateTypeFromddmmyyyyWithSep = (str: string): DateType | undefined => {
-  if (str.length === 10 && allowedSeparatorCheck(str.charAt(2)) && allowedSeparatorCheck(str.charAt(5))) {
-    const date = { day: +str.substr(0, 2), month: +str.substr(3, 2), year: +str.substr(6) };
-    if (!Number.isNaN(date.day) && !Number.isNaN(date.month) && !Number.isNaN(date.year)) {
-      return date;
+export const getDateType = (datestring: string, pattern: string): DateType | undefined => {
+  if (datestring.length === DateLength.DATE_ONLY) {
+    const parsed = parse(datestring, pattern, new Date());
+    if (!Number.isNaN(parsed.valueOf())) {
+      return { day: parsed.getDate(), month: parsed.getMonth() + 1, year: parsed.getFullYear() };
     }
   }
+
   return undefined;
 };
 
-export const getTimeTypeFromhhmmWithSep = (str: string): TimeType | undefined => {
-  if (str.length === 5 && allowedSeparatorCheck(str.charAt(2))) {
-    const time = { hours: +str.substr(0, 2), minutes: +str.substr(3) };
-    if (!Number.isNaN(time.hours) && !Number.isNaN(time.minutes)) {
-      return time;
+export const getTimeType = (timestring: string, pattern: string): TimeType | undefined => {
+  if (timestring.length === DateLength.TIME_VALUE) {
+    const parsed = parse(timestring, pattern, new Date());
+    if (!Number.isNaN(parsed.valueOf())) {
+      return { hours: parsed.getHours(), minutes: parsed.getMinutes() };
     }
   }
   return undefined;
@@ -212,16 +211,16 @@ export const inRange = (timestampToCheck: number, minimumValue: number, maximumV
   return 0;
 };
 
-export const getErrors = (dateInvalid?: boolean, timeInvalid?: boolean, dateString?: string, minimumValue?: number, maximumValue?: number, timeZone?: string): string => {
-  if (timeZone && !isValidTimeZone(timeZone)) {
+export const getErrors = (dateValObj: DateValidationObject): string => {
+  if (dateValObj.timeZone && !isValidTimeZone(dateValObj.timeZone)) {
     return 'Invalid time zone.';
   }
 
-  if (dateString && timeZone) {
-    const tmpDate = getDateTypeFromddmmyyyyWithSep(dateString);
+  if (dateValObj.dateString && dateValObj.timeZone && dateValObj.dateFormat) {
+    const tmpDate = getDateType(dateValObj.dateString, dateValObj.dateFormat);
     if (tmpDate && isValidDate(tmpDate)) {
-      if (typeof minimumValue !== 'undefined' && typeof maximumValue !== 'undefined') {
-        const rangePositon = inRange(convertToUTCtime(convertDateTypeToString(tmpDate), timeZone).valueOf(), minimumValue, maximumValue);
+      if (dateValObj.minimumValue != null && dateValObj.maximumValue != null) {
+        const rangePositon = inRange(convertToUTCtime(customStringToDate(dateValObj.dateString, dateValObj.dateFormat), dateValObj.timeZone).valueOf(), dateValObj.minimumValue, dateValObj.maximumValue);
         if (rangePositon === -1) {
           return 'Less than minimum date.';
         }
@@ -232,31 +231,34 @@ export const getErrors = (dateInvalid?: boolean, timeInvalid?: boolean, dateStri
     }
   }
 
-  if (dateInvalid && timeInvalid) {
+  if (dateValObj.isDateInvalid && dateValObj.isTimeInvalid) {
     return 'Invalid date & time format';
   }
-  if (dateInvalid) {
+  if (dateValObj.isDateInvalid) {
     return 'Invalid date format';
   }
-  if (timeInvalid) {
+  if (dateValObj.isTimeInvalid) {
     return 'Invalid time format';
   }
   return '';
 };
 
+export const hasErrorDate = (dateValObj: DateValidationObject): boolean => {
+  if (dateValObj && dateValObj.dateString != null) {
 
-export const errorDateBool = (datestring: string, minimumValue?: number, maximumValue?: number, timeZone?: string): boolean => {
-  if (datestring.length <= 10) {
-    if ((datestring.length < 10 || isValidDate(getDateTypeFromddmmyyyyWithSep(datestring))) && getErrors(false, false, datestring, minimumValue, maximumValue, timeZone) === '') {
-      return false;
+    if (dateValObj.dateString.length <= DateLength.DATE_ONLY && dateValObj.dateFormat) {
+      if ((dateValObj.dateString.length < DateLength.DATE_ONLY || isValidDate(getDateType(dateValObj.dateString, dateValObj.dateFormat))) && getErrors(dateValObj) === '') {
+        return false;
+      }
     }
   }
+
   return true;
 };
 
-export const errorTimeBool = (timestring: string): boolean => {
-  if (timestring.trim().length <= 5) {
-    if (timestring.trim().length < 5 || isValidTime(getTimeTypeFromhhmmWithSep(timestring.trim()))) {
+export const hasTimeBool = (timestring: string, timeFormat: string): boolean => {
+  if (timestring.trim().length <= DateLength.TIME_VALUE) {
+    if (timestring.trim().length < DateLength.TIME_VALUE || isValidTime(getTimeType(timestring.trim(), timeFormat))) {
       return false;
     }
   }

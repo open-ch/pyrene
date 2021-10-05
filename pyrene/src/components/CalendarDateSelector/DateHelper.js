@@ -1,5 +1,5 @@
 import { format } from 'date-fns';
-import { DATE_UNITS, convertToJsDate } from '../../utils/DateUtils';
+import { DateUnits, convertToJsDate } from '../../utils/DateUtils';
 
 export default class DateHelper {
 
@@ -11,9 +11,9 @@ export default class DateHelper {
 
   static formatTimeRangeText(value, type) {
     switch (type) {
-      case DATE_UNITS.YEAR:
+      case DateUnits.YEAR:
         return this.formatYear(value);
-      case DATE_UNITS.MONTH:
+      case DateUnits.MONTH:
         return this.formatMonth(value);
       default:
         return this.formatFullDate(value);

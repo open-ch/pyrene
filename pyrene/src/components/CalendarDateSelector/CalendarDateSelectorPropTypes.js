@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-import { DATE_UNITS } from '../../utils/DateUtils';
+import { DateUnits } from '../../utils/DateUtils';
 
 export default {
   YEAR_MONTH_DAY: PropTypes.shape({
@@ -9,5 +9,5 @@ export default {
     year: PropTypes.number,
   }),
   TIMEUNIT_OPTIONS: PropTypes.arrayOf(PropTypes.string),
-  TIMEUNIT_OPTION: PropTypes.oneOf([DATE_UNITS.DAY, DATE_UNITS.MONTH, DATE_UNITS.YEAR]),
+  TIMEUNIT_OPTION: PropTypes.oneOf([DateUnits.DAY, DateUnits.MONTH, DateUnits.YEAR]),
 };
