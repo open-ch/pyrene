@@ -1,33 +1,12 @@
-/* eslint-disable react/require-default-props */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
+/* eslint-disable react/require-default-props */
 /* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import React, { CSSProperties } from 'react';
 import clsx from 'clsx';
 
 import styles from './treeTableCell.css';
-
-type AllowedValues = string | number | boolean;
-
-type Row<R> = R & {
-  _getParent: () => string,
-  _rowId: string,
-  _treeDepth: number,
-};
-
-type RowData<R> = Row<R> & {
-  children: Array<Row<R>>
-};
-
-interface Column<R> {
-  accessor: keyof R,
-  cellStyle?: CSSProperties,
-  headerName?: string,
-  headerStyle?: CSSProperties,
-  initiallyHidden?: boolean,
-  width?: number,
-  renderCallback?: (value?: AllowedValues, rowData?: RowData<R>) => JSX.Element,
-}
+import { Column, RowData, CellValue } from '../types';
 
 interface TreeTableCellProps<R> {
   columnProps: Column<R>,
@@ -37,7 +16,7 @@ interface TreeTableCellProps<R> {
   rowData?: RowData<R>,
   sectionOpen?: boolean,
   style?: CSSProperties,
-  value?: AllowedValues,
+  value?: CellValue,
 }
 
 function TreeTableCell <R extends object={}>({
