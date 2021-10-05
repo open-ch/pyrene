@@ -134,7 +134,7 @@ const DateTimeInput = forwardRef(({
         </div>
       </div>
       <div className={styles.dateTimeInputErrorMsg}>
-        {errorValue && errorValue}
+        {errorValue && `${errorValue}`}
       </div>
     </div>
   );

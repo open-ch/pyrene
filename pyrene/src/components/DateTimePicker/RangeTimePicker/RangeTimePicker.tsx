@@ -73,7 +73,7 @@ const RangeTimePicker: React.FC<RangeTimePickerProps> = ({
                 startDate={startDate}
                 minDateTime={minDateTime}
                 maxDateTime={maxDateTime}
-                onChange={(value) => (value !== undefined ? setStartDate(convertToZoneTime(value, internaltTz)) : setStartDate(value))}
+                onChange={(value) => (value && setStartDate(convertToZoneTime(value, internaltTz)))}
                 timeZone={internaltTz}
                 dateOnly={dateOnly}
                 selectStart
@@ -86,7 +86,7 @@ const RangeTimePicker: React.FC<RangeTimePickerProps> = ({
                 startDate={startDate}
                 minDateTime={minDateTime}
                 maxDateTime={maxDateTime}
-                onChange={(value) => (value !== undefined ? setEndDate(convertToZoneTime(value, internaltTz)) : setEndDate(value))}
+                onChange={(value) => (value && setEndDate(convertToZoneTime(value, internaltTz)))}
                 timeZone={internaltTz}
                 dateOnly={dateOnly}
                 selectEnd

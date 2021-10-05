@@ -243,7 +243,7 @@ export const getErrors = (dateValObj: DateValidationObject): string => {
   return '';
 };
 
-export const hasErrorDate = (dateValObj: DateValidationObject): boolean => {
+export const hasDateError = (dateValObj: DateValidationObject): boolean => {
   if (dateValObj && dateValObj.dateString != null) {
 
     if (dateValObj.dateString.length <= DateLength.DATE_ONLY && dateValObj.dateFormat) {
@@ -256,7 +256,7 @@ export const hasErrorDate = (dateValObj: DateValidationObject): boolean => {
   return true;
 };
 
-export const hasTimeBool = (timestring: string, timeFormat: string): boolean => {
+export const hasTimeError = (timestring: string, timeFormat: string): boolean => {
   if (timestring.trim().length <= DateLength.TIME_VALUE) {
     if (timestring.trim().length < DateLength.TIME_VALUE || isValidTime(getTimeType(timestring.trim(), timeFormat))) {
       return false;

@@ -11,24 +11,21 @@ import {
   getFutureDate, customDateFormat,
   isValidDate, isValidTime, convertToUTCtime, convertToZoneTime,
   customStringToDate, getDateType, getTimeType, getErrors,
-  hasErrorDate, hasTimeBool, getClientTimeZone, DateLength,
+  hasDateError, hasTimeError, getClientTimeZone, DateLength,
 } from '../../utils/DateUtils';
 
 
 type OnFunction = (value?: number) => void;
 
 export interface DateTimePickerProps{
+  /**
+   * Calendar is opened on input component render
+   */
   calendarOpened?: boolean,
   /**
    * Close calendar on date select
    */
   closeOnSelect?: boolean,
-  /**
-   * Customized calendar dropdown
-   */
-  customCalendar?: (props:{
-    children: React.ReactNode[]
-  }) => React.ReactNode,
   /**
    * Date format used by component
    */
@@ -106,7 +103,6 @@ export interface DateTimePickerProps{
 const DateTimePicker: React.FC<DateTimePickerProps> = ({
   calendarOpened,
   closeOnSelect = true,
-  customCalendar,
   dateFormat = 'dd.MM.yyyy',
   dateOnly = false,
   endDate,
@@ -252,8 +248,8 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
   useEffect(() => {
     const dateValObj = {
       dateString: dateValue,
-      isDateInvalid: hasErrorDate({ dateString: dateValue, dateFormat: dateFormat }),
-      isTimeInvalid: hasTimeBool(timeValue, timeFormat),
+      isDateInvalid: hasDateError({ dateString: dateValue, dateFormat: dateFormat }),
+      isTimeInvalid: hasTimeError(timeValue, timeFormat),
       minimumValue: minDateTime,
       maximumValue: maxDateTime,
       timeZone: internaltTz,
@@ -266,7 +262,6 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
     <>
       <ReactDPWrapper
         closeOnSelect={closeOnSelect}
-        customCalendar={customCalendar}
         dateFormat={dateFormat}
         dateOnly={dateOnly}
         endDate={endDate}
@@ -277,7 +272,6 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
             dateOnly={dateOnly}
             dateValue={dateValue}
             disabled={invalidTimestamp}
-            handleOn={(datestring, timestring) => handleOn(datestring, timestring, onChange)}
             timeValue={timeValue}
             errorValue={errorValue}
             label={label}
@@ -297,7 +291,7 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
         openDate={internalDate}
         selectedDate={internalDate}
         shouldDisplayTimeColumn={!dateOnly}
-        startDate={startDate || internalDate}
+        startDate={startDate}
         startRange={selectStart}
         timeFormat={timeFormat}
       />

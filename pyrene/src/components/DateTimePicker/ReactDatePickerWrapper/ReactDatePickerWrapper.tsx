@@ -4,14 +4,12 @@ import ReactDatepicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import styles from '../datePicker.css';
 
-export { CalendarContainer } from 'react-datepicker';
 export interface DatePickerProps{
   closeOnSelect?: boolean,
   /**
    * Replaces the input with any node, for example a button
    */
   CustomInput: React.ReactNode,
-  customCalendar?(props: { children: React.ReactNode[] }): React.ReactNode,
   /**
    * Date format used by component
    */
@@ -25,6 +23,9 @@ export interface DatePickerProps{
    */
   endDate?: Date,
   inline?: boolean,
+  /**
+   * Calendar is opened on input component render
+   */
   isOpen?: boolean,
   /**
    * This is a timestamp that represents the maximum date allowed by the component
@@ -90,7 +91,6 @@ export interface DatePickerProps{
 
 const ReactDPWrapper: React.FC<DatePickerProps> = ({
   closeOnSelect = true,
-  customCalendar,
   dateFormat = 'dd.MM.yyyy',
   endDate,
   maxDate,
@@ -109,7 +109,7 @@ const ReactDPWrapper: React.FC<DatePickerProps> = ({
   onSelect,
   openDate,
   range = false,
-  timeFormat = 'HH:mm',
+  timeFormat = ' HH:mm',
 }: DatePickerProps) => {
 
   const rangeRef = useRef<ReactDatepicker>(null);
@@ -127,10 +127,9 @@ const ReactDPWrapper: React.FC<DatePickerProps> = ({
   return (
     <div className={styles.wrapper}>
       <ReactDatepicker
-        calendarContainer={customCalendar}
         calendarStartDay={1}
         customInput={CustomInput}
-        dateFormat={dateFormat}
+        dateFormat={`${dateFormat}${timeFormat}`}
         endDate={endDate}
         formatWeekDay={(nameOfDay) => nameOfDay.substr(0, 1)}
         inline={inline}
