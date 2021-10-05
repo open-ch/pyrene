@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable no-nested-ternary */
 
 
@@ -9,10 +11,12 @@
    }
  */
 
+import { CSSProperties } from 'react';
+import { ControlProps, OptionProps } from 'react-select';
 import colorConstants from '../../../../styles/colorConstants';
 
 const selectStyle = {
-  container: (base) => ({
+  container: (base: CSSProperties) => ({
     ...base,
     fontFamily: 'FiraGO, Helvetica, sans-serif !important',
     fontSize: 12,
@@ -24,7 +28,7 @@ const selectStyle = {
     display: 'none',
   }),
 
-  control: (base, state) => ({
+  control: (base: CSSProperties, state: ControlProps<any, boolean>) => ({
     boxSizing: 'border-box',
     display: 'flex',
     flexWrap: 'wrap',
@@ -54,7 +58,7 @@ const selectStyle = {
     },
   }),
 
-  valueContainer: (base) => ({
+  valueContainer: (base: CSSProperties) => ({
     ...base,
     display: 'flex',
     padding: '0 4px 0 0',
@@ -65,7 +69,7 @@ const selectStyle = {
     },
   }),
 
-  placeholder: (base) => ({
+  placeholder: (base: CSSProperties) => ({
     ...base,
     color: colorConstants.neutral200,
   }),
@@ -93,7 +97,7 @@ const selectStyle = {
     },
   }),
 
-  input: (base) => ({
+  input: (base: CSSProperties) => ({
     ...base,
     '[type="text"]': {
       fontFamily: 'FiraGO, Helvetica, sans-serif !important',
@@ -105,13 +109,13 @@ const selectStyle = {
     },
   }),
 
-  singleValue: (base) => ({
+  singleValue: (base: CSSProperties) => ({
     ...base,
     lineHeight: '18px',
     right: 4,
   }),
 
-  menu: (base) => ({
+  menu: (base: CSSProperties) => ({
     ...base,
     boxShadow: '0 4px 8px -2px rgba(0, 21, 44, 0.2), 0 0 1px 0 rgba(0, 21, 44, 0.3)',
     borderRadius: 2,
@@ -119,7 +123,7 @@ const selectStyle = {
     maxHeight: 308,
   }),
 
-  option: (base, { isSelected, isFocused }) => ({
+  option: (base: CSSProperties, { isSelected, isFocused }: OptionProps<any, boolean>) => ({
     ...base,
     ':active': {
       backgroundColor: colorConstants.neutral030,
