@@ -4,10 +4,9 @@ import FilterPopover from '../FilterPopover/FilterPopover';
 import FilterButton from '../FilterComponents/FilterButton';
 import { Filter, FilterValues, HandleFilterChange } from '../types';
 
-
 export interface FilterPopoverButtonProps {
   displayPopover?: boolean,
-  filterNegatedKeys: string[],
+  filterNegatedKeys: Array<Filter['id']>,
   filters: Array<Filter>,
   filterValues: FilterValues,
   handleFilterChange: HandleFilterChange,
@@ -28,7 +27,7 @@ const FilterPopoverButton: FunctionComponent<FilterPopoverButtonProps> = ({
   onFilterClear,
   onFilterApply,
   label,
-  onClick = () => null,
+  onClick,
   displayPopover = false,
   noBorder = false,
 }: FilterPopoverButtonProps) => (

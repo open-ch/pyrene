@@ -1,23 +1,13 @@
-import { SingleSelectProps } from '../SingleSelect/SingleSelect';
-import { IconProps } from '../Icon/Icon';
+import { SingleSelectOption as SingleSelectOpt } from '../SingleSelect/SingleSelectTypes';
+import { DefaultValueType } from '../SingleSelect/SingleSelect';
+import { Option } from '../MultiSelect/types';
 
-export type SingleSelectValue = SingleSelectProps<unknown>['value'];
-export type MultiselectValue = Array<{ iconProps?: IconProps, label: string, value?: string | number | boolean }>;
-export type TextFieldValue = string;
-export type InputValue = MultiselectValue | SingleSelectValue | TextFieldValue;
+export type MultiSelectOption = Option;
+export type SingleSelectOption = Array<SingleSelectOpt<DefaultValueType>>;
 
-export type FilterValues = {
-  [key: string]: InputValue
-};
-
-export type SingleSelectOption = SingleSelectProps<unknown>['options'];
-
-export type MultiSelectOption = {
-  iconProps?: IconProps,
-  invalid?: boolean,
-  label: string,
-  value: string | number | boolean,
-};
+export type SingleSelectValue = SingleSelectOpt<DefaultValueType>;
+export type MultiselectValue = ReadonlyArray<MultiSelectOption>;
+export type InputFieldValue = DefaultValueType;
 
 export type Filter = {
   id: string,
@@ -28,4 +18,8 @@ export type Filter = {
   type: 'singleSelect' | 'multiSelect' | 'text',
 };
 
-export type HandleFilterChange = (option: any, negated: boolean, id: string) => void;
+export type Value = MultiselectValue | SingleSelectValue | InputFieldValue;
+
+export type FilterValues = Record<Filter['id'], Value>;
+
+export type HandleFilterChange = (value: Value, negated: boolean, id: Filter['id']) => void;

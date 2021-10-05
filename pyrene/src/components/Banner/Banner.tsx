@@ -58,10 +58,16 @@ const Banner: React.FC<BannerProps> = ({
         {styling !== 'inline' && <div className={styles.description}>{children}</div>}
       </div>
     </div>
-    {styling === 'overlay' && onClear && <span className={clsx('pyreneIcon-delete', styles.clearIcon)} onClick={onClear} role="button" aria-label="Clear Banner" />}
+    {styling === 'overlay' && onClear && (
+      <span
+        className={clsx('pyreneIcon-delete', styles.clearIcon)}
+        onClick={onClear}
+        role="button"
+        aria-label="Clear Banner"
+      />
+    )}
   </div>
 );
-
 
 Banner.displayName = 'Banner';
 

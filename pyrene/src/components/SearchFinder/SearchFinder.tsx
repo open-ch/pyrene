@@ -1,25 +1,50 @@
 import React, {
-  useCallback,
+  useCallback, FunctionComponent, KeyboardEvent, ChangeEvent,
 } from 'react';
 import clsx from 'clsx';
-import PropTypes from 'prop-types';
-
 import styles from './searchFinder.css';
 import Icon from '../Icon/Icon';
 import SearchInput from './components/SearchInput/SearchInput';
+
+export interface SearchFinderProps {
+  /**
+   * called when searchTerm changes
+   */
+  onSearchTermChange: (value: string, e?: ChangeEvent<HTMLInputElement>) => void,
+  /**
+   * called when selectedResult changes
+   */
+  onSelectedResultChange: (selectedItem: number) => void,
+  /**
+   * input placeholder string
+   */
+  placeholder?: string,
+  /**
+   * total number of results
+   */
+  resultCount: number,
+  /**
+   * displayed in search input
+   */
+  searchTerm: string,
+  /**
+   * currently selected result, must be smaller than resultCount.
+   */
+  selectedResult: number,
+}
 
 /**
  * Search input area with buttons that cycle between matches.
  * Similar to ctrl+f exact search in browsers, but searching logic is custom.
  */
-const SearchFinder = ({
+const SearchFinder: FunctionComponent<SearchFinderProps> = ({
   onSearchTermChange,
   searchTerm,
   resultCount,
   selectedResult,
-  placeholder,
+  placeholder = '',
   onSelectedResultChange,
-}) => {
+}: SearchFinderProps) => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const selectNextResult = () => {
     if (selectedResult >= resultCount) {
@@ -37,7 +62,7 @@ const SearchFinder = ({
     onSelectedResultChange((selectedResult - 1));
   };
 
-  const onKeyDown = useCallback((e) => {
+  const onKeyDown = useCallback((e: KeyboardEvent<HTMLDivElement>) => {
     if (e.key === 'Enter') {
       if (e.shiftKey) {
         selectPreviousResult();
@@ -51,7 +76,7 @@ const SearchFinder = ({
   const disableResultSelector = !searchTerm.length || resultCount < 1;
 
   return (
-    <div className={styles.container} onKeyDown={disableResultSelector ? null : onKeyDown}>
+    <div className={styles.container} onKeyDown={disableResultSelector ? undefined : onKeyDown}>
       <SearchInput
         value={searchTerm}
         onChange={onSearchTermChange}
@@ -78,36 +103,5 @@ const SearchFinder = ({
 };
 
 SearchFinder.displayName = 'Search Finder';
-
-SearchFinder.defaultProps = {
-  placeholder: '',
-};
-
-SearchFinder.propTypes = {
-  /**
-   * called when searchTerm changes
-   */
-  onSearchTermChange: PropTypes.func.isRequired,
-  /**
-   * called when selectedResult changes
-   */
-  onSelectedResultChange: PropTypes.func.isRequired,
-  /**
-   * input placeholder string
-   */
-  placeholder: PropTypes.string,
-  /**
-   * total number of results
-   */
-  resultCount: PropTypes.number.isRequired,
-  /**
-   * displayed in search input
-   */
-  searchTerm: PropTypes.string.isRequired,
-  /**
-   * currently selected result, must be smaller than resultCount.
-   */
-  selectedResult: PropTypes.number.isRequired,
-};
 
 export default SearchFinder;

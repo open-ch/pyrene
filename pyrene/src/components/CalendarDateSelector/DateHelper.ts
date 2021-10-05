@@ -1,5 +1,6 @@
-import { format } from 'date-fns';
-import { DateUnits, convertToJsDate } from '../../utils/DateUtils';
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import format from 'date-fns/format';
+import { DateTypes, DayMonthYear, convertToJsDate } from './CalendarDateSelectorUtils';
 
 export default class DateHelper {
 
@@ -9,26 +10,26 @@ export default class DateHelper {
 
   static YEAR = 'yyyy';
 
-  static formatTimeRangeText(value, type) {
+  static formatTimeRangeText(value: DayMonthYear, type: keyof typeof DateTypes) {
     switch (type) {
-      case DateUnits.YEAR:
+      case DateTypes.year:
         return this.formatYear(value);
-      case DateUnits.MONTH:
+      case DateTypes.month:
         return this.formatMonth(value);
       default:
         return this.formatFullDate(value);
     }
   }
 
-  static formatYear(value) {
+  static formatYear(value: DayMonthYear) {
     return format(convertToJsDate(value), this.YEAR);
   }
 
-  static formatMonth(value) {
+  static formatMonth(value: DayMonthYear) {
     return format(convertToJsDate(value), this.MONTH_NAME_WITH_YEAR);
   }
 
-  static formatFullDate(value) {
+  static formatFullDate(value: DayMonthYear) {
     return format(convertToJsDate(value), this.FULL_DATE);
   }
 

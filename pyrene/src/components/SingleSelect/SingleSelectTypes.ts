@@ -1,8 +1,8 @@
 import { IconProps } from '../Icon/Icon';
 
 export type SingleSelectOption<ValueType> = {
-  label: string;
   iconProps?: IconProps
+  label: string;
   tags?: string[];
   value?: ValueType;
 };

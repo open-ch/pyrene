@@ -32,7 +32,7 @@ export interface IconButtonProps {
 const IconButton: React.FC<IconButtonProps> = ({
   disabled = false,
   icon,
-  onClick = undefined,
+  onClick,
   path = '#',
   type = 'neutral',
 }: IconButtonProps) => (

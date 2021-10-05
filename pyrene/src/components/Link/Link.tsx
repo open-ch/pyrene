@@ -42,9 +42,9 @@ const Link: FunctionComponent<LinkProps> = ({
   label,
   type = 'standalone',
   disabled = false,
-  path = undefined,
-  target = undefined,
-  onClick = undefined,
+  path,
+  target,
+  onClick,
 }: LinkProps) => (
   <a
     className={clsx(styles.link, styles[`type-${type}`], { [styles.disabled]: disabled })}

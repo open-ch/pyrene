@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { FunctionComponent } from 'react';
 import clsx from 'clsx';
 import styles from './trsStepper.css';
@@ -29,7 +30,7 @@ const TRSStepper: FunctionComponent<TRSStepperProps> = ({
   disabled = false,
   inactive = false,
   onClick,
-}: TRSStepperProps) => {
+}) => {
   const capitalisedDirection = direction.charAt(0).toUpperCase() + direction.slice(1);
   return (
     <button

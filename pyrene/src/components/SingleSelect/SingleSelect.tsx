@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-return */
 import React from 'react';
 import clsx from 'clsx';
 import Select from 'react-select';
@@ -10,7 +13,9 @@ import { SingleSelectGroupedOption, SingleSelectOption } from './SingleSelectTyp
 
 const LoadingIndicator = () => <Loader />;
 
-export type SingleSelectProps<ValueType> = {
+export type DefaultValueType = null | undefined | string | number | boolean;
+
+export type SingleSelectProps<ValueType = DefaultValueType> = {
   /**
    * Focus an element when it mounts.
    */
@@ -77,7 +82,7 @@ export type SingleSelectProps<ValueType> = {
   /**
    * Event Handler. Param option: {value: , label:}
    */
-  onChange?: (option: SingleSelectOption<ValueType>, evt: { target: { type: string; name: string; value: any; } }) => void;
+  onChange?: (option: SingleSelectOption<ValueType>, evt: { target: { type: string; name: string; value: SingleSelectOption<ValueType> } }) => void;
   /**
    * Focus event handler, use this to dynamically fetch options.
    */
@@ -105,17 +110,21 @@ export type SingleSelectProps<ValueType> = {
   value?: SingleSelectOption<ValueType>
 };
 
-const sortOptions = <ValueType extends unknown>(options: SingleSelectOption<ValueType>[]): SingleSelectOption<ValueType>[] => {
+const sortOptions = <ValueType extends unknown>(options: SingleSelectOption<ValueType>[]) => {
   const sortedOptions = [...options];
   sortedOptions.sort((a, b) => a.label.localeCompare(b.label));
   return sortedOptions;
 };
 
-const getOptionsObj = <ValueType extends unknown>(options: SingleSelectOption<ValueType>[], groupedOptions: SingleSelectGroupedOption<ValueType>[], sorted: boolean): SingleSelectOption<ValueType>[] | SingleSelectGroupedOption<ValueType>[] => {
+const getOptionsObj = <ValueType extends unknown>(
+  options: SingleSelectOption<ValueType>[],
+  groupedOptions: SingleSelectGroupedOption<ValueType>[],
+  sorted: boolean,
+): SingleSelectOption<ValueType>[] | SingleSelectGroupedOption<ValueType>[] => {
   // grouped options have precedence above the options -> its not possible to pass both!
   if (groupedOptions.length) {
     if (sorted) {
-      return groupedOptions.map((o: SingleSelectGroupedOption<ValueType>) => (o.options
+      return groupedOptions.map((o) => (o.options
         ? ({ ...o, options: sortOptions(o.options) })
         : o
       ));
@@ -129,7 +138,7 @@ const getOptionsObj = <ValueType extends unknown>(options: SingleSelectOption<Va
 
 };
 
-const defaultFilterOption = <ValueType extends unknown>(option: { label: string, value?: string, data: SingleSelectOption<ValueType> }, rawInput: string): boolean => {
+const defaultFilterOption = <ValueType extends unknown>(option: { label: string, value?: string, data: SingleSelectOption<ValueType> }, rawInput: string) => {
   const lowerInput = rawInput.toLowerCase();
   const values = [
     option.value ? option.value.toString() : null,
@@ -138,7 +147,6 @@ const defaultFilterOption = <ValueType extends unknown>(option: { label: string,
   ];
   return values.some((tag) => tag && tag.toLowerCase().indexOf(lowerInput) >= 0);
 };
-type DefaultValueType = null | undefined | string | number | boolean;
 
 /**
  * Selects are used when the user has to make a selection from a list that is too large to show.
@@ -164,94 +172,52 @@ const SingleSelect = <ValueType extends unknown = DefaultValueType>({
   invalidLabel = '',
   title = '',
   value,
-  onChange = () => null,
+  onChange,
   onBlur = () => null,
   onFocus = () => null,
 }: SingleSelectProps<ValueType>): React.ReactElement => {
 
   const optionsObj = getOptionsObj(options, groupedOptions, sorted);
 
+  const selectProps = {
+    className: 'singleSelect',
+    styles: selectStyle(),
+    components: {
+      LoadingIndicator,
+      Option: CustomOption,
+    },
+    getOptionValue: (option: any) => option.value ?? '',
+    placeholder: placeholder,
+    options: optionsObj,
+    value: value,
+    defaultValue: defaultValue,
+    isClearable: clearable,
+    isDisabled: disabled,
+    isInvalid: invalid,
+    isLoading: loading,
+    onChange: (option: any) => onChange?.(option, { target: { type: 'singleSelect', name: name, value: option } }),
+    onBlur: onBlur,
+    onFocus: onFocus,
+    name: name,
+    id: name,
+    inputId: name,
+    autoFocus: autoFocus,
+    openMenuOnFocus: openMenuOnFocus,
+    maxMenuHeight: maxMenuHeight,
+    noOptionsMessage: () => 'no matches found',
+    filterOption: defaultFilterOption,
+    formatCreateLabel: creatable ? (inputValue: string) => `Create new tag "${inputValue}"` : undefined,
+    isSearchable: creatable ? true : searchable,
+    blurInputOnSelect: true,
+    escapeClearsValue: true,
+    captureMenuScroll: true,
+  };
+
   return (
     <div className={clsx(styles.selectContainer, { [styles.disabled]: disabled })}>
-      {title && <div className={clsx(styles.selectTitle, { [styles.required]: (required && !disabled) })}>{title}</div>}
+      {title && <div className={clsx(styles.selectTitle, { [styles.required]: required && !disabled })}>{title}</div>}
 
-      {creatable
-        ? (
-          <CreatableSelect
-            className="singleSelect"
-            styles={selectStyle()}
-            components={{
-              LoadingIndicator,
-              Option: CustomOption,
-            }}
-            // Sets the internal value to "" in case of null or undefined
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-return
-            getOptionValue={(option: any) => ((option.value !== null && typeof option.value !== 'undefined') ? option.value : '')}
-            placeholder={placeholder}
-            options={optionsObj}
-            value={value}
-            defaultValue={defaultValue}
-            isClearable={clearable}
-            isDisabled={disabled}
-            isInvalid={invalid}
-            isLoading={loading}
-            // wrapping type and key into target so it better reflects the api that input event has (there is also event.target.name)
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-assignment
-            onChange={(option: any) => onChange(option, { target: { type: 'singleSelect', name: name, value: option } })}
-            onBlur={onBlur}
-            onFocus={onFocus}
-            name={name}
-            id={name}
-            inputId={name}
-            autoFocus={autoFocus}
-            openMenuOnFocus={openMenuOnFocus}
-            maxMenuHeight={maxMenuHeight}
-            noOptionsMessage={() => 'no matches found'}
-            formatCreateLabel={(inputValue: string) => `Create new tag "${inputValue}"`}
-            filterOption={defaultFilterOption}
-            isSearchable
-            blurInputOnSelect
-            escapeClearsValue
-            captureMenuScroll
-          />
-        )
-        : (
-          <Select
-            className="singleSelect"
-            styles={selectStyle()}
-            components={{
-              LoadingIndicator,
-              Option: CustomOption,
-            }}
-            // Sets the internal value to "" in case of null or undefined
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-assignment
-            getOptionValue={(option: any) => ((option.value !== null && typeof option.value !== 'undefined') ? option.value : '')}
-            placeholder={placeholder}
-            options={optionsObj}
-            value={value}
-            defaultValue={defaultValue}
-            isClearable={clearable}
-            isSearchable={searchable}
-            isDisabled={disabled}
-            isInvalid={invalid}
-            isLoading={loading}
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-            onChange={(option: any) => onChange(option, { target: { type: 'singleSelect', name: name, value: option } })}
-            onBlur={onBlur}
-            onFocus={onFocus}
-            name={name}
-            id={name}
-            inputId={name}
-            autoFocus={autoFocus}
-            openMenuOnFocus={openMenuOnFocus}
-            maxMenuHeight={maxMenuHeight}
-            noOptionsMessage={() => 'no matches found'}
-            filterOption={defaultFilterOption}
-            blurInputOnSelect
-            escapeClearsValue
-            captureMenuScroll
-          />
-        )}
+      {creatable ? <CreatableSelect {...selectProps} /> : <Select {...selectProps} /> }
 
       {invalid && invalidLabel && !disabled
         ? (
@@ -262,12 +228,11 @@ const SingleSelect = <ValueType extends unknown = DefaultValueType>({
         )
         : (
           <>
-            {helperLabel
-              && (
-                <div className={styles.selectHelper}>
-                  {helperLabel}
-                </div>
-              )}
+            {helperLabel && (
+              <div className={styles.selectHelper}>
+                {helperLabel}
+              </div>
+            )}
           </>
         )}
 

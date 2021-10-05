@@ -7,7 +7,7 @@ import Loader from '../Loader/Loader';
 import ActionBar from '../ActionBar/ActionBar';
 import { IconNames } from '../types';
 
-interface ButtonBarProps{
+interface ButtonBarProps {
   action: () => void,
   disabled?: boolean,
   icon?: keyof IconNames,
@@ -97,6 +97,19 @@ export interface ModalProps {
   title?: string,
 }
 
+const createButtonArray = (buttonInfo: ButtonBarProps[]) => (
+  buttonInfo.map((buttonProps) => (
+    <Button
+      key={buttonProps.label}
+      loading={buttonProps.loading}
+      icon={buttonProps.icon}
+      type={buttonProps.type}
+      label={buttonProps.label}
+      disabled={buttonProps.disabled}
+      onClick={buttonProps.action}
+    />
+  ))
+);
 
 /**
  * The modal view is used when full attention on an action or a process is required. The modal has an invasive experience and no other interactions on the main page can be accessed while active.
@@ -127,7 +140,7 @@ const Modal: React.FC<ModalProps> = ({
   title = '',
 }: ModalProps) => {
 
-  const escFunction = useCallback((event:KeyboardEvent) => {
+  const escFunction = useCallback((event: KeyboardEvent) => {
     if (onClose && event.key === 'Escape' && closeOnEscape) {
       onClose();
     }
@@ -142,19 +155,6 @@ const Modal: React.FC<ModalProps> = ({
       document.removeEventListener('keydown', escFunction, false);
     };
   }, [escFunction]);
-
-  const createButtonArray = (buttonInfo: ButtonBarProps[]) => (
-    buttonInfo.map((buttonProps) => (
-      <Button
-        loading={buttonProps.loading}
-        icon={buttonProps.icon}
-        type={buttonProps.type}
-        label={buttonProps.label}
-        disabled={buttonProps.disabled}
-        onClick={buttonProps.action}
-      />
-    ))
-  );
 
   const renderNavigationArrows = () => (
     <ActionBar
@@ -176,18 +176,14 @@ const Modal: React.FC<ModalProps> = ({
     />
   );
 
-  const renderFooterSection = () => (
-    <>
-      {(Footer?.()) || (
-        <div className={styles.buttonBarContainer}>
-          <ButtonBar
-            rightButtonSectionElements={createButtonArray(rightButtonBarElements)}
-            leftButtonSectionElements={createButtonArray(leftButtonBarElements)}
-          />
-        </div>
-      )}
-    </>
-  );
+  const renderFooterSection = () => (typeof Footer === 'function' ? Footer() : (
+    <div className={styles.buttonBarContainer}>
+      <ButtonBar
+        rightButtonSectionElements={createButtonArray(rightButtonBarElements)}
+        leftButtonSectionElements={createButtonArray(leftButtonBarElements)}
+      />
+    </div>
+  ));
 
   const renderHeaderSection = () => (
     <div className={styles.titleBar}>
@@ -215,7 +211,12 @@ const Modal: React.FC<ModalProps> = ({
 
   const renderContent = () => (
     <div className={clsx(styles.contentContainer, { [styles.contentScrolling]: contentScrolling })}>
-      <div className={clsx(styles.content, { [styles.contentPadding]: contentPadding }, { [styles.contentScrolling]: contentScrolling }, { [styles.overlay]: processing })}>
+      <div className={clsx(styles.content, {
+        [styles.contentPadding]: contentPadding,
+        [styles.contentScrolling]: contentScrolling,
+        [styles.overlay]: processing,
+      })}
+      >
         { renderCallback() }
       </div>
     </div>

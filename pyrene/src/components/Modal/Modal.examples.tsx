@@ -1,18 +1,17 @@
+/* eslint-disable react/display-name */
 import React from 'react';
 import Placeholder from '../../examples/Placeholder';
 
 const Modal = {
   props: {
-    renderCallback: function displayPlaceHolder(): React.ReactElement {
-      return (<Placeholder label="Content" width={392} />);
-    },
+    renderCallback: (): React.ReactElement => <Placeholder label="Content" width={392} />,
     canNext: true,
     canPrevious: true,
     displayNavigationArrows: true,
     size: 'small',
     title: 'Modal',
     leftButtonBarElements: [
-      { type: 'danger', label: 'Delete', action: ():void => {} },
+      { type: 'danger', label: 'Delete', action: (): void => {} },
       { type: 'ghost', label: 'Disabled', action: (): void => {} },
     ],
     rightButtonBarElements: [

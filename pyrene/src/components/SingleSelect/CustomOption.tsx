@@ -8,7 +8,7 @@ import { SingleSelectOption } from './SingleSelectTypes';
 /*
 * We do really want to pass all props down without intercepting them
 */
-const getIconStyle = (isSelected: boolean | undefined, isFocused: boolean | undefined) => {
+const getIconStyle = (isSelected: boolean, isFocused: boolean) => {
   if (isSelected) {
     return clsx(styles.container, styles.selected);
   }
