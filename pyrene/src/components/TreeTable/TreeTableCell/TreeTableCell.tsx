@@ -5,14 +5,14 @@ import React, { CSSProperties } from 'react';
 import clsx from 'clsx';
 
 import styles from './treeTableCell.css';
-import { Column, RowData, CellValue } from '../types';
+import { Column, ExtendedRow, CellValue } from '../types';
 
 interface TreeTableCellProps<R> {
   columnProps: Column<R>,
   firstColumn?: boolean,
   onExpandClick: () => void,
   parent?: boolean,
-  rowData?: RowData<R>,
+  rowData?: ExtendedRow<R>,
   sectionOpen?: boolean,
   style?: CSSProperties,
   value?: CellValue,
