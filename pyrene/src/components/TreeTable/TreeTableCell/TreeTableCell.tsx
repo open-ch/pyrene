@@ -40,7 +40,7 @@ interface TreeTableCellProps<R> {
   value?: AllowedValues,
 }
 
-function TreeTableCell <R extends object>({
+function TreeTableCell <R extends object={}>({
   onExpandClick,
   value = '',
   columnProps,
