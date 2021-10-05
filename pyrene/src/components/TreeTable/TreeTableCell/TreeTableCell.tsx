@@ -75,6 +75,6 @@ function TreeTableCell <R extends object>({
   );
 }
 
-export default TreeTableCell;
-
 TreeTableCell.displayName = 'TreeTableCell';
+
+export default TreeTableCell;
