@@ -12,14 +12,19 @@
   "author": "pyrene@open-systems.com",
   "license": "MIT",
   "devDependencies": {
-    "@storybook/addon-actions": "file:pyrene/node_modules/@storybook/addon-actions",
-    "@storybook/addon-essentials": "file:pyrene/node_modules/@storybook/addon-essentials",
-    "@storybook/addon-links": "file:pyrene/node_modules/@storybook/addon-links",
-    "@storybook/addon-postcss": "file:pyrene/node_modules/@storybook/addon-postcss",
-    "@storybook/builder-webpack5": "file:pyrene/node_modules/@storybook/builder-webpack5",
-    "@storybook/manager-webpack5": "file:pyrene/node_modules/@storybook/manager-webpack5",
-    "@storybook/react": "file:pyrene/node_modules/@storybook/react",
+    "@storybook/addon-actions": "^6.3.9",
+    "@storybook/addon-essentials": "^6.3.9",
+    "@storybook/addon-links": "^6.3.9",
+    "@storybook/addon-postcss": "^2.0.0",
+    "@storybook/builder-webpack5": "^6.3.9",
+    "@storybook/manager-webpack5": "^6.3.9",
+    "@storybook/react": "^6.3.9",
     "postcss": "file:pyrene/node_modules/postcss",
-    "storybook-css-modules-preset": "file:pyrene/node_modules/storybook-css-modules-preset"
+    "postcss-import": "file:pyrene/node_modules/postcss-import",
+    "postcss-loader": "file:pyrene/node_modules/postcss-loader",
+    "postcss-nesting": "file:pyrene/node_modules/postcss-nesting",
+    "react": "file:pyrene/node_modules/react",
+    "react-dom": "file:pyrene/node_modules/react-dom",
+    "storybook-css-modules-preset": "^1.1.1"
   }
 }
