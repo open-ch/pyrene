@@ -3,7 +3,7 @@ import { CSSProperties } from 'react';
 export type CellValue = string | number | boolean;
 
 export type ExtendedRow<R> = R & {
-  _getParent: () => string,
+  _getParent: () => ExtendedRow<R>,
   _rowId: string,
   _treeDepth: number,
 };
