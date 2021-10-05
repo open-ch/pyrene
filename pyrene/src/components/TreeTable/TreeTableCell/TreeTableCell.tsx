@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
-/* eslint-disable react/require-default-props */
 /* eslint-disable @typescript-eslint/ban-types */
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable react/require-default-props */
 import React, { CSSProperties } from 'react';
 import clsx from 'clsx';
 
@@ -19,7 +18,7 @@ interface TreeTableCellProps<R> {
   value?: CellValue,
 }
 
-function TreeTableCell <R extends object={}>({
+function TreeTableCell<R extends object = {}>({
   onExpandClick,
   value = '',
   columnProps,
@@ -28,7 +27,7 @@ function TreeTableCell <R extends object={}>({
   firstColumn = false,
   style,
   rowData,
-}: TreeTableCellProps<R>) {
+}: TreeTableCellProps<R>): React.ReactElement<TreeTableCellProps<R>> {
   return (
     <div style={style} className={styles.treeTableCell}>
 
