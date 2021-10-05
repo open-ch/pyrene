@@ -1,7 +1,7 @@
 {
   "name": "main",
   "version": "1.0.0",
-  "description": "Main folder for storybook",
+  "description": "Main folder for having storybook accross the whole monorepo",
   "scripts": {
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
