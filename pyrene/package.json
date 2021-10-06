@@ -43,6 +43,7 @@
     "@babel/register": "^7.14.5",
     "@osag/eslint-config": "^1.6.0",
     "@release-it/bumper": "^2.0.0",
+    "@storybook/react": "file:../node_modules/@storybook/react",
     "@svgr/webpack": "^5.5.0",
     "@types/enzyme": "^3.10.9",
     "@types/jest": "^26.0.23",
