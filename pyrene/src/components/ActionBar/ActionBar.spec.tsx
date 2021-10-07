@@ -10,7 +10,6 @@ import Tooltip from '../Tooltip/Tooltip';
 
 describe('<ActionBar />', () => {
 
-  
   const props: ActionBarProps = {
     styling: 'shadow',
     actions: [
