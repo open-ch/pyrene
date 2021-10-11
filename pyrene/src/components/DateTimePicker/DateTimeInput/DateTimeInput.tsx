@@ -1,7 +1,7 @@
 import React, { forwardRef } from 'react';
 import clsx from 'clsx';
 
-import { DateLength, allowedValueCheck } from '../../../utils/DateUtils';
+import { allowedValueCheck } from '../../../utils/DateUtils';
 
 import Icon from '../../Icon/Icon';
 import styles from './dateTimeInput.css';
@@ -24,10 +24,6 @@ export interface DateTimeInputProps {
    * Input error
   */
   errorValue?: string,
-  /**
-   * Function to call when valid value is entered
-  */
-  handleOn?: (dateString: string, timeString: string) => void
   /**
    * Component is disabled
   */
@@ -75,7 +71,6 @@ const DateTimeInput = forwardRef(({
   dateOnly = false,
   dateValue = '',
   errorValue,
-  handleOn,
   disabled,
   label = dateOnly ? 'Date' : 'Date & Time',
   name,
@@ -92,11 +87,11 @@ const DateTimeInput = forwardRef(({
     const node = event.target as HTMLInputElement;
 
     if (allowedValueCheck(node.value)) {
-      if (!dateOnly && node.value.length > DateLength.DATE_ONLY) {
-        setDateValue?.(node.value.substring(0, DateLength.DATE_ONLY));
-        setTimeValue?.(node.value.substring(DateLength.DATE_ONLY));
+      if (!dateOnly && node.value.length > dateFormat.length) {
+        setDateValue?.(node.value.substring(0, dateFormat.length));
+        setTimeValue?.(node.value.substring(dateFormat.length));
 
-        if (node.value.substring(DateLength.DATE_ONLY).length === DateLength.TIME_VALUE) {
+        if (node.value.length === (dateFormat.length + timeFormat.length)) {
           return onChange?.(event);
         }
       } else {
@@ -112,7 +107,6 @@ const DateTimeInput = forwardRef(({
   return (
     <div
       className={styles.dateTimeComponent}
-      onKeyUp={() => handleOn?.(dateValue, timeValue)}
     >
       <div className={styles.dateTimeFieldTitle}>{label}</div>
       <div className={clsx(styles.dateTimeInputArea, { [styles.dateTimeInputError]: errorValue })}>
@@ -124,7 +118,7 @@ const DateTimeInput = forwardRef(({
             disabled={disabled}
             name={name && `${name}`}
             placeholder={dateOnly ? dateFormat.toUpperCase() : `${dateFormat.toUpperCase()}${timeFormat.toUpperCase()}`}
-            maxLength={dateOnly ? DateLength.DATE_ONLY : DateLength.DATE_WITH_TIME}
+            maxLength={dateOnly ? dateFormat.length : dateFormat.length + timeFormat.length}
             ref={ref}
             onClick={onClick}
             onFocus={onFocus}

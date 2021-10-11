@@ -8,12 +8,10 @@ import ReactDPWrapper from './ReactDatePickerWrapper/ReactDatePickerWrapper';
 import DateTimeInput from './DateTimeInput/DateTimeInput';
 
 import {
-  getFutureDate, customDateFormat,
-  isValidDate, isValidTime, convertToUTCtime, convertToZoneTime,
-  customStringToDate, getDateType, getTimeType, getErrors,
-  hasDateError, hasTimeError, getClientTimeZone, DateLength,
+  getFutureDate, customDateFormat, convertToUTCtime,
+  convertToZoneTime, customStringToDate, getErrors,
+  hasDateError, hasTimeError, getClientTimeZone,
 } from '../../utils/DateUtils';
-
 
 type OnFunction = (value?: number) => void;
 
@@ -138,18 +136,15 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
 
   // Sets internal date and passes validated value to parent
   const handleOn = useCallback((dateString: string, timeString: string, onFunction?: OnFunction) => {
-    const date = getDateType(dateString, dateFormat);
-    const time = getTimeType(timeString, timeFormat);
+    const date = customStringToDate(dateString, dateFormat);
+    const time = customStringToDate(timeString, timeFormat);
 
-    const validDateState = isValidDate(date);
-    const validTimeState = isValidTime(time);
-
-    if (dateOnly && date && validDateState) {
-      setInternalDate(convertToUTCtime(customStringToDate(dateString, dateFormat), internaltTz));
+    if (dateOnly && date) {
+      setInternalDate(convertToUTCtime(date, internaltTz));
       if (onFunction) {
-        onFunction(convertToUTCtime(customStringToDate(dateString, dateFormat), internaltTz).valueOf());
+        onFunction(convertToUTCtime(date, internaltTz).valueOf());
       }
-    } else if (!dateOnly && date && time && validDateState && validTimeState) {
+    } else if (!dateOnly && date && time) {
       setInternalDate(convertToUTCtime(customStringToDate(`${dateString}${timeString}`, `${dateFormat}${timeFormat}`), internaltTz));
       if (onFunction) {
         onFunction(convertToUTCtime(customStringToDate(`${dateString}${timeString}`, `${dateFormat}${timeFormat}`), internaltTz).valueOf());
@@ -164,27 +159,35 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
   }, [dateFormat, dateOnly, internaltTz, timeFormat]);
 
   const handleDateChange = (dateString: string) => {
-    if (dateString.length === DateLength.DATE_ONLY) {
-      const newdate = getDateType(dateString, dateFormat);
-      if (newdate) {
-        setDateValue(dateString);
+    if (dateString.length === dateFormat.length) {
+      try {
+        if (customStringToDate(dateString, dateFormat)) {
+          setDateValue(dateString);
 
-        if (dateOnly) {
-          handleOn(dateString, '00:00', onChange);
-        } else if (!dateOnly && timeValue != null) {
-          handleOn(dateString, timeValue, onChange);
+          if (dateOnly) {
+            handleOn(dateString, '', onChange);
+          } else if (!dateOnly && timeValue.length === timeFormat.length) {
+            handleOn(dateString, timeValue, onChange);
+          }
         }
+      } catch (error) {
+        setErrorValue('Error in date handler. Date value.');
       }
     }
   };
 
   const handleTimeChange = (timeString: string) => {
-    if (timeString.length === DateLength.TIME_VALUE) {
-      const newtime = getTimeType(timeString, timeFormat);
+    if (timeString.length === timeFormat.length) {
+      try {
+        if (customStringToDate(timeString, timeFormat)) {
+          setTimeValue(timeString);
 
-      if (newtime) {
-        setTimeValue(timeString);
-        handleOn(dateValue, timeString, onChange);
+          if (!dateOnly && dateValue.length === dateFormat.length) {
+            handleOn(dateValue, timeString, onChange);
+          }
+        }
+      } catch (error) {
+        setErrorValue('Error in time handler.');
       }
     }
   };
@@ -193,19 +196,21 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
   const onChangeReactDP = (date: Date | [Date, Date] | null, event: React.SyntheticEvent<any> | undefined): void => {
     if (date && (event?.type === 'click' || (event?.type === 'keydown' && (event as React.KeyboardEvent).key.length > 1))) {
       if (!Array.isArray(date)) {
-        handleDateChange(customDateFormat(date, dateFormat));
+        handleDateChange(customDateFormat(date, dateFormat) || '');
       }
     } else if (event?.type === 'change') {
       // This gets triggered when typing in the DateTimeInput component attached to the reactdatepicker calendar
       const node = event?.target as HTMLInputElement;
 
-      handleDateChange(node.value.substring(0, DateLength.DATE_ONLY));
-      handleTimeChange(node.value.substring(DateLength.DATE_ONLY));
+      handleDateChange(node.value.substring(0, dateFormat.length));
+      handleTimeChange(node.value.substring(dateFormat.length));
     } else if (event === undefined && !Array.isArray(date) && date !== null) {
       /** reactdatepicker currently emits an undefined event when the time list is clicked on.
        * Here we are relying on the time click event being 'undefined' as a temporary means to access time value
       */
-      handleTimeChange(customDateFormat(date, timeFormat));
+
+      // console.log(customDateFormat(date, timeFormat));
+      handleTimeChange(customDateFormat(date, timeFormat) || '');
     } else {
       setInternalDate(undefined);
     }
@@ -217,9 +222,11 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
       const dateString = customDateFormat(internalDate, dateFormat);
       const timeString = customDateFormat(internalDate, timeFormat);
 
-      setDateValue(dateString);
-      if (!dateOnly) {
-        setTimeValue(timeString);
+      if (dateString) {
+        setDateValue(dateString);
+        if (!dateOnly && timeString) {
+          setTimeValue(timeString);
+        }
       }
     }
   }, [dateFormat, dateOnly, internalDate, timeFormat]);
@@ -254,6 +261,8 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
       maximumValue: maxDateTime,
       timeZone: internaltTz,
       dateFormat: dateFormat,
+      timeString: timeValue,
+      timeFormat: timeFormat,
     };
     setErrorValue(getErrors(dateValObj));
   }, [maxDateTime, minDateTime, internaltTz, dateValue, timeValue, dateFormat, timeFormat]);
