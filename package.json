@@ -30,6 +30,7 @@
     "@storybook/builder-webpack5": "^6.3.9",
     "@storybook/manager-webpack5": "^6.3.9",
     "babel-loader": "^8.2.2",
+    "babel-plugin-typescript-to-proptypes": "file:pyrene/node_modules/babel-plugin-typescript-to-proptypes",
     "postcss": "file:pyrene/node_modules/postcss",
     "postcss-custom-properties": "file:pyrene/node_modules/postcss-custom-properties",
     "postcss-import": "file:pyrene/node_modules/postcss-import",
