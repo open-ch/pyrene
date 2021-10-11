@@ -20,22 +20,8 @@
   },
   "homepage": "https://github.com/open-ch/pyrene#readme",
   "devDependencies": {
-    "@babel/core": "^7.15.8",
-    "@storybook/addon-actions": "^6.3.10",
-    "@storybook/addon-essentials": "^6.3.10",
-    "@storybook/addon-links": "^6.3.10",
-    "@storybook/addon-postcss": "^2.0.0",
-    "@storybook/builder-webpack5": "^6.3.10",
-    "@storybook/manager-webpack5": "^6.3.10",
-    "@storybook/react": "^6.3.10",
-    "babel-loader": "^8.2.2",
-    "postcss": "^8.3.9",
-    "postcss-custom-properties": "^12.0.0",
-    "postcss-import": "^14.0.2",
-    "postcss-nesting": "^8.0.1",
     "react": "file:pyrene/node_modules/react",
     "react-dom": "file:pyrene/node_modules/react-dom",
-    "storybook-css-modules-preset": "^1.1.1",
     "typescript": "^4.3.4"
   },
   "dependencies": {}
