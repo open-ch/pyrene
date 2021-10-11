@@ -10,7 +10,6 @@
       "noEmit": true,
       "declaration": true,
       "emitDeclarationOnly": false,
-      "outDir": "./dist",
       "sourceMap": true,
       // External libs
       "skipLibCheck": true,
@@ -40,6 +39,6 @@
       "noFallthroughCasesInSwitch": true,
     },
     "include": [
-      "src"
+      "./pyrene/src"
     ]
   }

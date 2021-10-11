@@ -1,0 +1,34 @@
+{
+  "name": "pyrene",
+  "version": "1.0.0",
+  "description": "[![pyrene](https://raw.githubusercontent.com/open-ch/pyrene/main/kitchensink/src/images/pyrene.svg)](https://open-ch.github.io/pyrene/)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/open-ch/pyrene.git"
+  },
+  "keywords": [],
+  "author": "toma",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/open-ch/pyrene/issues"
+  },
+  "homepage": "https://github.com/open-ch/pyrene#readme",
+  "devDependencies": {
+    "@babel/core": "^7.15.8",
+    "@babel/plugin-transform-object-assign": "file:pyrene/node_modules/@babel/plugin-transform-object-assign",
+    "@storybook/addon-actions": "^6.3.10",
+    "@storybook/addon-essentials": "^6.3.10",
+    "@storybook/addon-links": "^6.3.10",
+    "@storybook/react": "^6.3.10",
+    "babel-loader": "^8.2.2",
+    "react": "file:pyrene/node_modules/react",
+    "react-dom": "file:pyrene/node_modules/react-dom"
+  },
+  "dependencies": {}
+}
