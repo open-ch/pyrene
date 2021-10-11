@@ -171,7 +171,7 @@ const RangeSelector: React.FC<RangeSelectorProps> = (({
               </div>
               <div className={clsx({ [styles.dateTimeFooter]: !dateOnly })}>
                 <div className={styles.infoBox}>
-                  {`Max. past date: ${customDateFormat(new Date(minDateTime), dateFormat)} `}
+                  {`Max. past date: ${customDateFormat(new Date(minDateTime), `${dateFormat}, ${timeFormat}`) || ''} `}
                 </div>
                 <div className={styles.footerButtonsBox}>
                   <Button label="Cancel" type="secondary" onClick={handleCancelButton} />
