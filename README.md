@@ -56,5 +56,5 @@ Thanks,
 and many more.
 
 ## Contributing
-
+Thanks
 Do you want to contribute to pyrene? Please have a look at [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
