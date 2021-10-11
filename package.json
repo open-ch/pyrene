@@ -20,9 +20,12 @@
   },
   "homepage": "https://github.com/open-ch/pyrene#readme",
   "devDependencies": {
+    "css-loader": "file:pyrene/node_modules/css-loader",
+    "postcss": "file:pyrene/node_modules/postcss",
     "react": "file:pyrene/node_modules/react",
     "react-dom": "file:pyrene/node_modules/react-dom",
-    "typescript": "^4.3.4"
+    "typescript": "file:pyrene/node_modules/typescript",
+    "webpack": "file:pyrene/node_modules/webpack"
   },
   "dependencies": {}
 }
