@@ -26,9 +26,18 @@
     "@storybook/addon-essentials": "^6.3.10",
     "@storybook/addon-links": "^6.3.10",
     "@storybook/react": "^6.3.10",
+    "@storybook/addon-postcss": "^2.0.0",
+    "@storybook/builder-webpack5": "^6.3.9",
+    "@storybook/manager-webpack5": "^6.3.9",
     "babel-loader": "^8.2.2",
+    "postcss": "file:pyrene/node_modules/postcss",
+    "postcss-custom-properties": "file:pyrene/node_modules/postcss-custom-properties",
+    "postcss-import": "file:pyrene/node_modules/postcss-import",
+    "postcss-loader": "file:pyrene/node_modules/postcss-loader",
+    "postcss-nesting": "file:pyrene/node_modules/postcss-nesting",
     "react": "file:pyrene/node_modules/react",
-    "react-dom": "file:pyrene/node_modules/react-dom"
+    "react-dom": "file:pyrene/node_modules/react-dom",
+    "storybook-css-modules-preset": "^1.1.1"
   },
   "dependencies": {}
 }
