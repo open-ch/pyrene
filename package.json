@@ -21,10 +21,10 @@
   "homepage": "https://github.com/open-ch/pyrene#readme",
   "devDependencies": {
     "css-loader": "file:pyrene/node_modules/css-loader",
-    "mini-css-extract-plugin": "file:pyrene/node_modules/mini-css-extract-plugin",
     "postcss": "file:pyrene/node_modules/postcss",
     "react": "file:pyrene/node_modules/react",
     "react-dom": "file:pyrene/node_modules/react-dom",
+    "style-loader": "file:pyrene/node_modules/style-loader",
     "typescript": "file:pyrene/node_modules/typescript",
     "webpack": "file:pyrene/node_modules/webpack"
   },
