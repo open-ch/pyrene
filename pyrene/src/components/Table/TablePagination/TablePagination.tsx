@@ -64,7 +64,7 @@ function TablePagination <R extends unknown={}>({
             onChange={(e: Option) => onPageSizeChange(parseInt(e?.value || '0', 10))}
             value={`${pageSize}`}
             // Use two exclamation marks to convert a value to boolean - !!props.error = true if string has a value, false if empty
-            disabled={(!(data.length) || !!error)}
+            disabled={(!(data && data.length) || !!error)}
           />
         </div>
         <div className={clsx(styles.spacer, styles.small)} />
