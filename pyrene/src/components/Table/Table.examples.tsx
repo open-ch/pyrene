@@ -32,31 +32,108 @@ interface Action<R> {
 }
 
 interface TableProps<R, X = ExtendsRow<R>> {
+  /**
+   * Sets the table actions. Type: [{ icon: string, label: string (required), callback: func (required), active: oneOf('single', 'multi', 'always') (required) }]
+   */
   actions?: Array<Action<R>>,
+  /**
+   * Sets the Table columns.
+   * Type: [{ accessor: any, cellRenderCallback: One of [React element, callback function to display the cell, string],
+   * cellStyle: object, headerName: string (required), headerStyle: object, id: any, initiallyHidden: bool,
+   * sortable: bool (!!!Overrides disableSorting!!!), sortFunction: function, width: number }]
+   * headerTooltip: if defined Pyrene tooltip displayed when hovering over header name
+   */
   columns: Array<Column<R>>,
+  /**
+   * Page to display by the Table (use only with server-side data fetching & pagination).
+   */
   currentPage?: number,
+  /**
+   * Sets the Table data displayed in the rows. Type: JSON
+   */
   data: Array<R>,
+  /**
+   * Sets the page size when the component is first mounted.
+   */
   defaultPageSize?: number,
+  /**
+   * Sets the default sorting columns and order when the component is first mounted.
+   * Type: [{ id: string (required), desc: bool }]
+   */
   defaultSorted?: Array<{
     desc?: boolean,
     id: string,
   }>,
+  /**
+   * Disables table interactions
+   */
   disabled?: boolean,
+  /**
+   * Disable sorting in the table.
+   */
   disableSorting?: boolean,
+  /**
+   * Sets the error message to be displayed
+   */
   error?: string,
+  /**
+   * True if filter should be displayed but in disabled state (filters might be still undefined)
+   */
   filterDisabled?: boolean,
+  /**
+   * Sets the available filters.
+   * Type: [{ label: string (required) label of the filter input displayed to the user, type: oneOf('singleSelect', 'multiSelect', 'text') (required),
+   * id: string (required) - key for the one filter input, options: array }]
+   */
   filters?: Array<Filter>,
+  /**
+   * values to be filtered & displayed in filter dropdown
+   * use {} for passing empty filterValues
+   * */
   filterValues?: FilterValues,
+  /**
+   * Sets the data key for each row. Should be unique. Is used for selections.
+   */
   keyField: string,
+  /**
+   * Disables the component and displays a loader inside of it.
+   */
   loading?: boolean,
+  /**
+   * Set to true to be able to handle sorting and pagination server-side (use only with server-side data fetching & pagination).
+   */
   manual?: boolean,
+  /**
+   * Changes the overall appearance of the table to become multi-selectable (checkbox table). Requires keyField prop.
+   */
   multiSelect?: boolean,
+  /**
+    * Whether multiSorting via shift click is possible.
+    */
   multiSort?: boolean,
+  /**
+   * Enables negation support for filters. Defaults to false
+   */
   negatable?: boolean,
+  /**
+   * Amount of results to be displayed in Table Header (use only with server-side data fetching & pagination).
+   */
   numberOfResults?: number,
+  /**
+   * Called initially when the table loads & any time sorting, pagination or filterting is changed in the table (use only with server-side data fetching & pagination).
+   */
   onFetchData?: () => void,
+  /**
+   * Called when the filter changes.
+   */
   onFilterChange?: () => void,
+  /**
+    * Called when the user double clicks on a row.
+    */
   onRowDoubleClick?: (row: X) => void,
+  /**
+   * Amount of pages to be shown in React Table (use only with server-side data fetching & pagination).
+   */
   pages?: number,
   /**
   * Sets the page sizes that the user can choose from.
