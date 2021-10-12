@@ -2,6 +2,7 @@
 /* eslint-disable react/display-name, no-nested-ternary */
 import React from 'react';
 import { TableRow } from '../../examples/TableRowExample';
+import { Filter, FilterValues } from '../Filter/types';
 
 // TODO: place the following types into the right spots
 type ExtendsRow<R> = R & {
@@ -42,11 +43,38 @@ interface TableProps<R, X = ExtendsRow<R>> {
   }>,
   disabled?: boolean,
   disableSorting?: boolean,
-
-  
+  error?: string,
+  filterDisabled?: boolean,
+  filters?: Array<Filter>,
+  filterValues?: FilterValues,
+  keyField: string,
   loading?: boolean,
-  onRowClick?: (row: X) => void,
+  manual?: boolean,
+  multiSelect?: boolean,
+  multiSort?: boolean,
+  negatable?: boolean,
+  numberOfResults?: number,
+  onFetchData?: () => void,
+  onFilterChange?: () => void,
   onRowDoubleClick?: (row: X) => void,
+  pages?: number,
+  /**
+  * Sets the page sizes that the user can choose from.
+  */
+  pageSizeOptions?: number[],
+  /**
+  * Allow toggling wether a row (and checkbox for a checkboxtable) is selectable
+  * @returns {boolean} - enabled = true, disabled = false
+  */
+  rowSelectableCallback: (row: R) => boolean,
+  /**
+  * Sets the title.
+  */
+  title?: string,
+  /**
+  * Whether the columns (hide/show) popover is available to the user.
+  */
+  toggleColumns?: boolean,
 }
 
 const tableData: Array<TableRow> = [
