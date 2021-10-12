@@ -3,6 +3,61 @@
 import React from 'react';
 import { TableRow } from '../../examples/TableRowExample';
 
+// TODO: place the following types into the right spots
+type ExtendsRow<R> = R & {
+  value?: string | number;
+};
+
+interface Column<R, X=ExtendsRow<R>> {
+  accessor: keyof R | ((row: R, rowIndex: number, columnIndex: number) => string | number),
+  cellRenderCallback?: string | JSX.Element | ((row: X, rowIndex: number, columnIndex: number) => string | JSX.Element | number),
+  cellStyle?: React.CSSProperties,
+  headerName: string,
+  headerStyle?: React.CSSProperties,
+  headerTooltip?: React.ReactNode,
+  id: string,
+  initiallyHidden?: boolean,
+  sortable?: boolean,
+  sortFunction?: (a: string, b: string) => boolean | number,
+  width?: number,
+}
+
+interface Action<R> {
+  active: 'single' | 'multi' | 'always',
+  callback: (row: R) => void,
+  icon?: string,
+  label: string,
+  loading?: boolean,
+}
+
+interface TableProps<R, X = ExtendsRow<R>> {
+  /**
+   * Allows the definition of row actions Type: [{ label: [ string ], onClick: [ function ] }, ...]
+   */
+  actions?: Array<Action<R>>,
+  /**
+   * Sets the Table columns.
+   * Type: [{ accessor: ( string | func ) (required), align: string, cellRenderCallback: func, headerName: string, id: string (required), width: number ]
+   */
+  columns: Array<Column<R>>,
+  /**
+   * Sets the Table data displayed in the rows. Type: [ JSON ]
+   */
+  data: Array<R>,
+  /**
+   * Disables the component and displays a loader inside of it.
+   */
+  loading?: boolean,
+  /**
+   * Called when the user clicks on a row.
+   */
+  onRowClick?: (row: X) => void,
+  /**
+   * Called when the user double clicks on a row.
+   */
+  onRowDoubleClick?: (row: X) => void,
+}
+
 const tableData: Array<TableRow> = [
   {
     name: 'Meredith Carney',
