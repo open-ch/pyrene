@@ -649,8 +649,8 @@ const testOptions = [
 ];
 
 interface State<R> {
-  tableData: Array<R>,
-  filterValues: FilterValues,
+  tableData?: Array<R>,
+  filterValues?: FilterValues,
 }
 
 const examples: Example<TableProps<TableRow>> = {
@@ -660,8 +660,7 @@ const examples: Example<TableProps<TableRow>> = {
     pivotBy: ['age'],
     title: 'Table',
     keyField: 'name',
-    // eslint-disable-next-line no-confusing-arrow
-    data: (stateProvider: StateProvider<State<TableRow>>): Array<TableRow> => stateProvider.state.tableData || tableData,
+    data: (stateProvider: StateProvider<State<TableRow>>) => stateProvider.state.tableData || tableData,
     columns: tableColumns,
     onRowDoubleClick: (rowInfo: ExtendsRow<TableRow>) => console.log(rowInfo),
     actions: [{
@@ -683,7 +682,7 @@ const examples: Example<TableProps<TableRow>> = {
         ? tableData.filter((row) => row.name.includes(filters.name)) : tableData,
       filterValues: filters,
     })),
-    filterValues: (stateProvider: StateProvider<State<TableRow>>) => (stateProvider.state.filterValues || {}),
+    filterValues: (stateProvider: StateProvider<State<TableRow>>) => stateProvider.state.filterValues || {},
   },
 };
 
