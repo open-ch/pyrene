@@ -46,7 +46,7 @@ const TablePagination = <R extends unknown={}>({
   onPageSizeChange,
   onPageChange,
   pageSizeOptions,
-}: TablePaginationProps<R>): React.ReactElement<R> => {
+}: TablePaginationProps<R>): React.ReactElement<TablePaginationProps<R>> => {
   console.log('data', data);
   console.log('pageSizeOptions', pageSizeOptions);
 
