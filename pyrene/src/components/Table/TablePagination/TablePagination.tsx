@@ -15,12 +15,12 @@ interface TablePaginationProps {
   canNext: boolean,
   canPrevious: boolean,
   error: boolean,
-  onPageSizeChange: (val: string) => void,
+  onPageSizeChange: (newPage: number) => void,
   onPageChange: (page: number) => void
   pageSizeOptions: number[],
 }
 
-const showAmountOfResults = (data, numberOfResults, loading) => {
+const showAmountOfResults = (data: any[], numberOfResults: number, loading: boolean) => {
   if (loading) {
     return '';
   }

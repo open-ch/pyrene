@@ -10,7 +10,7 @@ interface TableSelectProps {
   defaultValue?: string,
   disabled?: boolean,
   onBlur?: () => void,
-  onChange?: () => void,
+  onChange?: (event: any) => void,
   options?: Array<{
     invalid?: boolean,
     label?: string,
