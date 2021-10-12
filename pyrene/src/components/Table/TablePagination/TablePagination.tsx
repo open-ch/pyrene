@@ -1,7 +1,5 @@
-/* eslint-disable react/jsx-indent */
 /* eslint-disable @typescript-eslint/ban-types */
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-/* eslint-disable react/prop-types */
+/* eslint-disable react/require-default-props */
 import React from 'react';
 import clsx from 'clsx';
 import Stepper from '../../Stepper/Stepper';
@@ -18,7 +16,7 @@ interface TablePaginationProps<R extends unknown> {
   pageSize: number,
   canNext: boolean,
   canPrevious: boolean,
-  error: string,
+  error?: string,
   onPageSizeChange: (newPage: number) => void,
   onPageChange: (page: number) => void,
   pageSizeOptions: number[],
