@@ -17,7 +17,7 @@ interface TablePaginationProps<R extends unknown> {
   pageSize: number,
   canNext: boolean,
   canPrevious: boolean,
-  error: boolean,
+  error: string,
   onPageSizeChange: (newPage: number) => void,
   onPageChange: (page: number) => void,
   pageSizeOptions: number[],

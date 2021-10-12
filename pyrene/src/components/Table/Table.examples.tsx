@@ -33,7 +33,17 @@ interface Action<R> {
 interface TableProps<R, X = ExtendsRow<R>> {
   actions?: Array<Action<R>>,
   columns: Array<Column<R>>,
+  currentPage?: number,
   data: Array<R>,
+  defaultPageSize?: number,
+  defaultSorted?: Array<{
+    desc?: boolean,
+    id: string,
+  }>,
+  disabled?: boolean,
+  disableSorting?: boolean,
+
+  
   loading?: boolean,
   onRowClick?: (row: X) => void,
   onRowDoubleClick?: (row: X) => void,
