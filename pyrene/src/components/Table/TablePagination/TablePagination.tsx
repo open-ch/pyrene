@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable react/prop-types */
 import React, { FunctionComponent } from 'react';
 import clsx from 'clsx';
 import Stepper from '../../Stepper/Stepper';
@@ -29,7 +29,6 @@ const showAmountOfResults = (data: any[], numberOfResults: number, loading: bool
   return `${resultAmount === 0 ? 'No' : resultAmount} result${resultAmount === 1 ? '' : 's'} found`;
 };
 
-/* eslint-disable react/prop-types */
 /* props are controlled by the parent component of react-table */
 
 const TablePagination: FunctionComponent<TablePaginationProps> = ({
