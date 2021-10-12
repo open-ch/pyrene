@@ -2,20 +2,22 @@
 /* eslint-disable react/prop-types */
 import React, { FunctionComponent } from 'react';
 import clsx from 'clsx';
-import Select, { Props } from 'react-select';
+import Select from 'react-select';
 import SelectStyle from './tableSelectCSS';
 import styles from './tableSelect.css';
+
+interface Option {
+  invalid?: boolean,
+  label?: string,
+  value?: string,
+}
 
 interface TableSelectProps {
   defaultValue?: string,
   disabled?: boolean,
   onBlur?: () => void,
-  onChange?: Props['onChange'],
-  options?: Array<{
-    invalid?: boolean,
-    label?: string,
-    value?: string,
-  }>,
+  onChange?: (option: Option) => void,
+  options?: Array<Option>,
   placeholder?: string,
   value?: string,
 }

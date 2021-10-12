@@ -47,40 +47,40 @@ const TablePagination = <R extends unknown={}>({
   onPageChange,
   pageSizeOptions,
 }: TablePaginationProps<R>): React.ReactElement<TablePaginationProps<R>> => (
-  <div className={styles.tablePagination}>
-    <div className={styles.resultsCounter}>
-      {showAmountOfResults(data, numberOfResults, loading)}
-    </div>
-
-    <div className={styles.separator} />
-
-    <div className={styles.pageSizeSelectOptions}>
-      <div className={styles.pageSizeSelect}>
-        <TableSelect
-          placeholder={`${pageSize}`}
-          options={pageSizeOptions.map((e) => ({ label: `${e}`, value: `${e}` }))}
-          onChange={(e: any) => onPageSizeChange(parseInt(e.value, 10))}
-          value={`${pageSize}`}
-          // Use two exclamation marks to convert a value to boolean - !!props.error = true if string has a value, false if empty
-          disabled={(!(data.length) || !!error)}
-        />
+    <div className={styles.tablePagination}>
+      <div className={styles.resultsCounter}>
+        {showAmountOfResults(data, numberOfResults, loading)}
       </div>
-      <div className={clsx(styles.spacer, styles.small)} />
-      per page
-    </div>
 
-    <div className={styles.separator} />
+      <div className={styles.separator} />
 
-    <div className={styles.pageNavigation}>
-      <Stepper direction="left" disabled={!canPrevious || !!error} onClick={() => onPageChange(page - 1)} type="minimal" />
-      <div className={clsx(styles.spacer, styles.small)} />
-      <div className={clsx(styles.pageTracker, { [styles.disabled]: !!error })}>
-        {pages > 0 && !error ? `${page + 1} of ${pages}` : '1 of 1'}
+      <div className={styles.pageSizeSelectOptions}>
+        <div className={styles.pageSizeSelect}>
+          <TableSelect
+            placeholder={`${pageSize}`}
+            options={pageSizeOptions.map((e) => ({ label: `${e}`, value: `${e}` }))}
+            onChange={(e: { label?: string, value?: string }) => onPageSizeChange(parseInt(e?.value || '0', 10))}
+            value={`${pageSize}`}
+            // Use two exclamation marks to convert a value to boolean - !!props.error = true if string has a value, false if empty
+            disabled={(!(data.length) || !!error)}
+          />
+        </div>
+        <div className={clsx(styles.spacer, styles.small)} />
+        per page
       </div>
-      <div className={clsx(styles.spacer, styles.small)} />
-      <Stepper direction="right" disabled={!canNext || !!error} onClick={() => onPageChange(page + 1)} type="minimal" />
+
+      <div className={styles.separator} />
+
+      <div className={styles.pageNavigation}>
+        <Stepper direction="left" disabled={!canPrevious || !!error} onClick={() => onPageChange(page - 1)} type="minimal" />
+        <div className={clsx(styles.spacer, styles.small)} />
+        <div className={clsx(styles.pageTracker, { [styles.disabled]: !!error })}>
+          {pages > 0 && !error ? `${page + 1} of ${pages}` : '1 of 1'}
+        </div>
+        <div className={clsx(styles.spacer, styles.small)} />
+        <Stepper direction="right" disabled={!canNext || !!error} onClick={() => onPageChange(page + 1)} type="minimal" />
+      </div>
     </div>
-  </div>
-);
+  );
 
 export default TablePagination;
