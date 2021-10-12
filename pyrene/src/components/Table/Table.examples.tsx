@@ -31,30 +31,11 @@ interface Action<R> {
 }
 
 interface TableProps<R, X = ExtendsRow<R>> {
-  /**
-   * Allows the definition of row actions Type: [{ label: [ string ], onClick: [ function ] }, ...]
-   */
   actions?: Array<Action<R>>,
-  /**
-   * Sets the Table columns.
-   * Type: [{ accessor: ( string | func ) (required), align: string, cellRenderCallback: func, headerName: string, id: string (required), width: number ]
-   */
   columns: Array<Column<R>>,
-  /**
-   * Sets the Table data displayed in the rows. Type: [ JSON ]
-   */
   data: Array<R>,
-  /**
-   * Disables the component and displays a loader inside of it.
-   */
   loading?: boolean,
-  /**
-   * Called when the user clicks on a row.
-   */
   onRowClick?: (row: X) => void,
-  /**
-   * Called when the user double clicks on a row.
-   */
   onRowDoubleClick?: (row: X) => void,
 }
 
