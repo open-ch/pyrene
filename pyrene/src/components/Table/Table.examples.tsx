@@ -34,7 +34,7 @@ interface Action<R> {
   loading?: boolean,
 }
 
-interface TableProps<R extends unknown={}, X = ExtendsRow<R>> {
+interface TableProps<R extends unknown={}, X=ExtendsRow<R>> {
   /**
    * Sets the table actions. Type: [{ icon: string, label: string (required), callback: func (required), active: oneOf('single', 'multi', 'always') (required) }]
    */
@@ -590,12 +590,13 @@ const tableColumns: Array<Column<TableRow>> = [{
     >
       <div
         style={{
-          width: `${((row?.value - 20) / 20) * 100}%`,
+
+          width: `${(((typeof row?.value === 'number' ? row.value : 0) - 20) / 20) * 100}%`,
           height: '100%',
           backgroundColor:
-            ((row.value - 20) / 20) * 100 > 66
+            (((typeof row?.value === 'number' ? row.value : 0) - 20) / 20) * 100 > 66
               ? 'var(--acqua-300)'
-              : ((row.value - 20) / 20) * 100 > 33
+              : (((typeof row?.value === 'number' ? row.value : 0) - 20) / 20) * 100 > 33
                 ? 'var(--teal-300)'
                 : 'var(--red-200)',
           transition: 'all .2s ease-out',
