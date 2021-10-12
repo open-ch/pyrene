@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable react/display-name, no-nested-ternary */
 import React from 'react';
+import { Example } from '../../examples/Example';
 import { TableRow } from '../../examples/TableRowExample';
 import { Filter, FilterValues } from '../Filter/types';
 
@@ -19,7 +20,7 @@ interface Column<R, X=ExtendsRow<R>> {
   id: string,
   initiallyHidden?: boolean,
   sortable?: boolean,
-  sortFunction?: (a: string, b: string) => boolean | number,
+  sortMethod?: (a: string, b: string) => boolean | number,
   width?: number,
 }
 
@@ -557,7 +558,7 @@ const tableData: Array<TableRow> = [
   },
 ];
 
-const tableColumns = [{
+const tableColumns: Array<Column<TableRow>> = [{
   id: 'name',
   headerName: 'Name',
   accessor: 'name',
@@ -577,7 +578,6 @@ const tableColumns = [{
   id: 'age',
   headerName: 'Age',
   accessor: 'age',
-  resizable: false,
   cellRenderCallback: (row) => (
     <div
       style={{
@@ -610,7 +610,7 @@ const tableColumns = [{
   id: 'friendAge',
   headerName: 'Friend Age',
   headerTooltip: 'Pyrene tooltip to this nice header name',
-  accessor: 'friend.age',
+  accessor: (d) => d.friend.age,
 }];
 
 const testOptions = [
@@ -647,7 +647,7 @@ const testOptions = [
   { value: 'moosetracks', label: 'Moose Tracks', invalid: false },
 ];
 
-const examples = {
+const examples: Example<TableProps<TableRow>> = {
   props: {
     toggleColumns: true,
     resizable: true,
