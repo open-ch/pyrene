@@ -1,9 +1,24 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import clsx from 'clsx';
 import Stepper from '../../Stepper/Stepper';
 import TableSelect from './TableSelect/TableSelect';
 
 import styles from './tablePagination.css';
+
+interface TablePaginationProps {
+  pages: number,
+  page: number,
+  data: any[],
+  numberOfResults: number,
+  loading: boolean,
+  pageSize: number,
+  canNext: boolean,
+  canPrevious: boolean,
+  error: boolean,
+  onPageSizeChange: (val: string) => void,
+  onPageChange: (page: number) => void
+  pageSizeOptions: number[],
+}
 
 const showAmountOfResults = (data, numberOfResults, loading) => {
   if (loading) {
@@ -16,7 +31,7 @@ const showAmountOfResults = (data, numberOfResults, loading) => {
 /* eslint-disable react/prop-types */
 /* props are controlled by the parent component of react-table */
 
-const TablePagination = (props) => (
+const TablePagination: FunctionComponent<TablePaginationProps> = (props) => (
   <div className={styles.tablePagination}>
     <div className={styles.resultsCounter}>
       {showAmountOfResults(props.data, props.numberOfResults, props.loading)}
@@ -42,13 +57,23 @@ const TablePagination = (props) => (
     <div className={styles.separator} />
 
     <div className={styles.pageNavigation}>
-      <Stepper direction="left" disabled={!props.canPrevious || !!props.error} onClick={() => props.onPageChange(props.page - 1)} type="minimal" />
+      <Stepper
+        direction="left"
+        disabled={!props.canPrevious || !!props.error}
+        onClick={() => props.onPageChange(props.page - 1)}
+        type="minimal"
+      />
       <div className={clsx(styles.spacer, styles.small)} />
       <div className={clsx(styles.pageTracker, { [styles.disabled]: !!props.error })}>
         {props.pages > 0 && !props.error ? `${props.page + 1} of ${props.pages}` : '1 of 1'}
       </div>
       <div className={clsx(styles.spacer, styles.small)} />
-      <Stepper direction="right" disabled={!props.canNext || !!props.error} onClick={() => props.onPageChange(props.page + 1)} type="minimal" />
+      <Stepper
+        direction="right"
+        disabled={!props.canNext || !!props.error}
+        onClick={() => props.onPageChange(props.page + 1)}
+        type="minimal"
+      />
     </div>
   </div>
 );
