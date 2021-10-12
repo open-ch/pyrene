@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { FunctionComponent } from 'react';
 import clsx from 'clsx';
 import Stepper from '../../Stepper/Stepper';
@@ -16,7 +17,7 @@ interface TablePaginationProps {
   canPrevious: boolean,
   error: boolean,
   onPageSizeChange: (newPage: number) => void,
-  onPageChange: (page: number) => void
+  onPageChange: (page: number) => void,
   pageSizeOptions: number[],
 }
 
@@ -31,10 +32,23 @@ const showAmountOfResults = (data: any[], numberOfResults: number, loading: bool
 /* eslint-disable react/prop-types */
 /* props are controlled by the parent component of react-table */
 
-const TablePagination: FunctionComponent<TablePaginationProps> = (props) => (
+const TablePagination: FunctionComponent<TablePaginationProps> = ({
+  pages,
+  page,
+  data,
+  numberOfResults,
+  loading,
+  pageSize,
+  canNext,
+  canPrevious,
+  error,
+  onPageSizeChange,
+  onPageChange,
+  pageSizeOptions,
+}) => (
   <div className={styles.tablePagination}>
     <div className={styles.resultsCounter}>
-      {showAmountOfResults(props.data, props.numberOfResults, props.loading)}
+      {showAmountOfResults(data, numberOfResults, loading)}
     </div>
 
     <div className={styles.separator} />
@@ -42,12 +56,12 @@ const TablePagination: FunctionComponent<TablePaginationProps> = (props) => (
     <div className={styles.pageSizeSelectOptions}>
       <div className={styles.pageSizeSelect}>
         <TableSelect
-          placeholder={`${props.pageSize}`}
-          options={props.pageSizeOptions.map((e) => ({ label: `${e}`, value: `${e}` }))}
-          onChange={(e) => props.onPageSizeChange(parseInt(e.value, 10))}
-          value={`${props.pageSize}`}
+          placeholder={`${pageSize}`}
+          options={pageSizeOptions.map((e) => ({ label: `${e}`, value: `${e}` }))}
+          onChange={(e) => onPageSizeChange(parseInt(e.value, 10))}
+          value={`${pageSize}`}
           // Use two exclamation marks to convert a value to boolean - !!props.error = true if string has a value, false if empty
-          disabled={(!(props.data && props.data.length) || !!props.error)}
+          disabled={(!(data && data.length) || !!error)}
         />
       </div>
       <div className={clsx(styles.spacer, styles.small)} />
@@ -59,19 +73,19 @@ const TablePagination: FunctionComponent<TablePaginationProps> = (props) => (
     <div className={styles.pageNavigation}>
       <Stepper
         direction="left"
-        disabled={!props.canPrevious || !!props.error}
-        onClick={() => props.onPageChange(props.page - 1)}
+        disabled={!canPrevious || !!error}
+        onClick={() => onPageChange(page - 1)}
         type="minimal"
       />
       <div className={clsx(styles.spacer, styles.small)} />
-      <div className={clsx(styles.pageTracker, { [styles.disabled]: !!props.error })}>
-        {props.pages > 0 && !props.error ? `${props.page + 1} of ${props.pages}` : '1 of 1'}
+      <div className={clsx(styles.pageTracker, { [styles.disabled]: !!error })}>
+        {pages > 0 && !error ? `${page + 1} of ${pages}` : '1 of 1'}
       </div>
       <div className={clsx(styles.spacer, styles.small)} />
       <Stepper
         direction="right"
-        disabled={!props.canNext || !!props.error}
-        onClick={() => props.onPageChange(props.page + 1)}
+        disabled={!canNext || !!error}
+        onClick={() => onPageChange(page + 1)}
         type="minimal"
       />
     </div>
