@@ -1,8 +1,9 @@
-import React from 'react';
-
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable react/display-name, no-nested-ternary */
+import React from 'react';
+import { TableRow } from '../../examples/TableRowExample';
 
-const tableData = [
+const tableData: Array<TableRow> = [
   {
     name: 'Meredith Carney',
     age: 23,
@@ -409,7 +410,7 @@ const tableColumns = [{
   id: 'name',
   headerName: 'Name',
   accessor: 'name',
-  sortMethod: (a, b) => {
+  sortMethod: (a: string, b: string) => {
     const lastA = a.charAt(a.length - 1);
     const lastB = b.charAt(b.length - 1);
     if (lastA > lastB) {
