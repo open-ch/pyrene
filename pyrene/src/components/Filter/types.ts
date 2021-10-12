@@ -5,21 +5,21 @@ import { Option } from '../MultiSelect/types';
 export type MultiSelectOption = Option;
 export type SingleSelectOption = Array<SingleSelectOpt<DefaultValueType>>;
 
-export type SingleSelectValue = SingleSelectOpt<DefaultValueType>;
 export type MultiselectValue = ReadonlyArray<MultiSelectOption>;
+export type SingleSelectValue = SingleSelectOpt<DefaultValueType>;
 export type InputFieldValue = DefaultValueType;
+
+export type Options = MultiselectValue | SingleSelectValue | InputFieldValue;
 
 export type Filter = {
   id: string,
   label: string,
   negated?: boolean,
-  options?: Array<SingleSelectOption | MultiSelectOption>,
+  options?: Options,
   sorted?: boolean,
   type: 'singleSelect' | 'multiSelect' | 'text',
 };
 
-export type Value = MultiselectValue | SingleSelectValue | InputFieldValue;
+export type Filters = Record<Filter['id'], Options>;
 
-export type FilterValues = Record<Filter['id'], Value>;
-
-export type HandleFilterChange = (value: Value, negated: boolean, id: Filter['id']) => void;
+export type HandleFilterChange = (value: Options, negated: boolean, id: Filter['id']) => void;

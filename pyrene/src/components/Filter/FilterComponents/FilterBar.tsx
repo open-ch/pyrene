@@ -6,8 +6,8 @@ import styles from './FilterBar.css';
 import FilterPopoverButton from '../FilterPopOverButton/FilterPopoverButton';
 import FilterTag from './FilterTag';
 import {
-  FilterValues,
-  Value,
+  Filters,
+  Options,
   Filter,
   MultiselectValue,
   SingleSelectValue,
@@ -22,7 +22,7 @@ export interface FilterBarProps {
   /**
    * Filter values object.
    */
-  filterValues: FilterValues,
+  filterValues: Filters,
   /**
    * True to enable the visual components to handle negated filters.
    */
@@ -30,13 +30,13 @@ export interface FilterBarProps {
   /**
    * Called when the user clicks on the apply button. Exposes two parameters: filterValues and negatedFilterKeys (contains an array of the keys of the filters that are negated).
    */
-  onFilterSubmit?: (filterValues: FilterValues, negatedKeys: Array<Filter['id']>) => void,
+  onFilterSubmit?: (filterValues: Filters, negatedKeys: Array<Filter['id']>) => void,
 }
 
 interface FilterBarState {
   displayFilterPopover: boolean,
   unAppliedFilters: {
-    values: FilterValues,
+    values: Filters,
     negatedKeys: Array<Filter['id']>
   };
 }
@@ -86,7 +86,7 @@ export default class FilterBar extends React.Component<FilterBarProps, FilterBar
     }));
   };
 
-  filterDidChange = (value: Value, negated: boolean, key: Filter['id']) => {
+  filterDidChange = (value: Options, negated: boolean, key: Filter['id']) => {
     this.setState((prevState) => ({
       unAppliedFilters: {
         values: { ...prevState.unAppliedFilters.values, [key]: value },
@@ -126,7 +126,7 @@ export default class FilterBar extends React.Component<FilterBarProps, FilterBar
   };
 
   // ignore all entries with null value - if input is empty, remove the whole entry (id: value) from object that is passed to parent component
-  getValidFilterEntries = (filterValues: FilterValues): FilterValues => Object.entries(filterValues)
+  getValidFilterEntries = (filterValues: Filters): Filters => Object.entries(filterValues)
     .filter(([, value]) => value !== null)
     .reduce((merged, [key, value]) => ({ ...merged, [key]: value }), {});
 
