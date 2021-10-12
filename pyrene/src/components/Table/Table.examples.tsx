@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable react/display-name, no-nested-ternary */
 import React from 'react';
@@ -649,6 +650,7 @@ const testOptions = [
 
 interface State<R> {
   tableData: Array<R>,
+  filterValues: FilterValues,
 }
 
 const examples: Example<TableProps<TableRow>> = {
@@ -660,13 +662,13 @@ const examples: Example<TableProps<TableRow>> = {
     keyField: 'name',
     data: (stateProvider: StateProvider<State<TableRow>>) => stateProvider.state.tableData ? stateProvider.state.tableData : tableData,
     columns: tableColumns,
-    onRowDoubleClick: (rowInfo) => console.log(rowInfo), // eslint-disable-line no-console
+    onRowDoubleClick: (rowInfo: ExtendsRow<TableRow>) => console.log(rowInfo),
     actions: [{
-      icon: 'search', label: 'Single', callback: () => console.log('single'), active: 'single', // eslint-disable-line no-console
+      icon: 'search', label: 'Single', callback: () => console.log('single'), active: 'single',
     }, {
-      icon: 'delete', label: 'Multi', callback: () => console.log('multi'), active: 'multi', // eslint-disable-line no-console
+      icon: 'delete', label: 'Multi', callback: () => console.log('multi'), active: 'multi',
     }, {
-      icon: 'info', label: 'Always', callback: () => console.log('always'), active: 'always', // eslint-disable-line no-console
+      icon: 'info', label: 'Always', callback: () => console.log('always'), active: 'always',
     }],
     filters: [{
       label: 'Free Text', type: 'text', id: 'name',
@@ -675,11 +677,11 @@ const examples: Example<TableProps<TableRow>> = {
     }, {
       label: 'second column', type: 'multiSelect', id: 'testKey2', options: testOptions,
     }],
-    onFilterChange: (stateProvider) => (filters) => stateProvider.setState(() => ({
+    onFilterChange: (stateProvider: StateProvider<State<TableRow>>) => (filters) => stateProvider.setState(() => ({
       tableData: filters && Object.keys(filters).length > 0 ?
         tableData.filter((row) => row.name.includes(filters.name)) : tableData, filterValues: filters
     })),
-    filterValues: (stateProvider) => (stateProvider.state.filterValues ? stateProvider.state.filterValues : {}),
+    filterValues: (stateProvider: StateProvider<State<TableRow>>) => (stateProvider.state.filterValues ? stateProvider.state.filterValues : {}),
   },
 };
 
