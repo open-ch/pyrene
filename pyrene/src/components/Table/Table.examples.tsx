@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable react/display-name, no-nested-ternary */
@@ -33,7 +34,7 @@ interface Action<R> {
   loading?: boolean,
 }
 
-interface TableProps<R, X = ExtendsRow<R>> {
+interface TableProps<R extends unknown={}, X = ExtendsRow<R>> {
   /**
    * Sets the table actions. Type: [{ icon: string, label: string (required), callback: func (required), active: oneOf('single', 'multi', 'always') (required) }]
    */
@@ -145,7 +146,7 @@ interface TableProps<R, X = ExtendsRow<R>> {
   * Allow toggling wether a row (and checkbox for a checkboxtable) is selectable
   * @returns {boolean} - enabled = true, disabled = false
   */
-  rowSelectableCallback: (row: R) => boolean,
+  rowSelectableCallback?: (row: R) => boolean,
   /**
   * Sets the title.
   */
@@ -675,9 +676,9 @@ const examples: Example<TableProps<TableRow>, State<TableRow>> = {
     }, {
       label: 'second column', type: 'multiSelect', id: 'testKey2', options: testOptions,
     }],
-    onFilterChange: (stateProvider: StateProvider<State<TableRow>>) => (filters) => stateProvider.setState(() => ({
+    onFilterChange: (stateProvider: StateProvider<State<TableRow>>): TableProps['onFilterChange'] => (filters) => stateProvider.setState(() => ({
       tableData: filters && Object.keys(filters).length > 0
-        ? tableData.filter((row) => row.name.includes(filters.name)) : tableData,
+        ? tableData.filter((row) => row.name.includes(filters.name as string)) : tableData,
       filterValues: filters,
     })),
     filterValues: (stateProvider: StateProvider<State<TableRow>>) => stateProvider.state.filterValues || {},
