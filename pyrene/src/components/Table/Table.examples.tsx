@@ -653,14 +653,12 @@ interface State<R> {
   filterValues?: FilterValues,
 }
 
-const examples: Example<TableProps<TableRow>> = {
+const examples: Example<TableProps<TableRow>, State<TableRow>> = {
   props: {
     toggleColumns: true,
-    resizable: true,
-    pivotBy: ['age'],
     title: 'Table',
     keyField: 'name',
-    data: (stateProvider: StateProvider<State<TableRow>>) => stateProvider.state.tableData || tableData,
+    data: (stateProvider) => stateProvider.state.tableData || tableData,
     columns: tableColumns,
     onRowDoubleClick: (rowInfo: ExtendsRow<TableRow>) => console.log(rowInfo),
     actions: [{
