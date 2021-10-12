@@ -660,7 +660,8 @@ const examples: Example<TableProps<TableRow>> = {
     pivotBy: ['age'],
     title: 'Table',
     keyField: 'name',
-    data: (stateProvider: StateProvider<State<TableRow>>) => stateProvider.state.tableData ? stateProvider.state.tableData : tableData,
+    // eslint-disable-next-line no-confusing-arrow
+    data: (stateProvider: StateProvider<State<TableRow>>) => stateProvider.state.tableData || tableData,
     columns: tableColumns,
     onRowDoubleClick: (rowInfo: ExtendsRow<TableRow>) => console.log(rowInfo),
     actions: [{
@@ -681,7 +682,7 @@ const examples: Example<TableProps<TableRow>> = {
       tableData: filters && Object.keys(filters).length > 0 ?
         tableData.filter((row) => row.name.includes(filters.name)) : tableData, filterValues: filters
     })),
-    filterValues: (stateProvider: StateProvider<State<TableRow>>) => (stateProvider.state.filterValues ? stateProvider.state.filterValues : {}),
+    filterValues: (stateProvider: StateProvider<State<TableRow>>) => (stateProvider.state.filterValues || {}),
   },
 };
 
