@@ -6,7 +6,7 @@ import Select from 'react-select';
 import SelectStyle from './tableSelectCSS';
 import styles from './tableSelect.css';
 
-interface Option {
+export interface Option {
   invalid?: boolean,
   label?: string,
   value?: string,

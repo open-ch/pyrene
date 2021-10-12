@@ -5,7 +5,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import Stepper from '../../Stepper/Stepper';
-import TableSelect from './TableSelect/TableSelect';
+import TableSelect, { Option } from './TableSelect/TableSelect';
 
 import styles from './tablePagination.css';
 
@@ -60,7 +60,7 @@ const TablePagination = <R extends unknown={}>({
           <TableSelect
             placeholder={`${pageSize}`}
             options={pageSizeOptions.map((e) => ({ label: `${e}`, value: `${e}` }))}
-            onChange={(e: { label?: string, value?: string }) => onPageSizeChange(parseInt(e?.value || '0', 10))}
+            onChange={(e: Option) => onPageSizeChange(parseInt(e?.value || '0', 10))}
             value={`${pageSize}`}
             // Use two exclamation marks to convert a value to boolean - !!props.error = true if string has a value, false if empty
             disabled={(!(data.length) || !!error)}
