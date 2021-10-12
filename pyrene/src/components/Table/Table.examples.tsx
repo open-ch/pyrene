@@ -661,7 +661,7 @@ const examples: Example<TableProps<TableRow>> = {
     title: 'Table',
     keyField: 'name',
     // eslint-disable-next-line no-confusing-arrow
-    data: (stateProvider: StateProvider<State<TableRow>>) => stateProvider.state.tableData || tableData,
+    data: (stateProvider: StateProvider<State<TableRow>>): Array<TableRow> => stateProvider.state.tableData || tableData,
     columns: tableColumns,
     onRowDoubleClick: (rowInfo: ExtendsRow<TableRow>) => console.log(rowInfo),
     actions: [{
@@ -679,8 +679,9 @@ const examples: Example<TableProps<TableRow>> = {
       label: 'second column', type: 'multiSelect', id: 'testKey2', options: testOptions,
     }],
     onFilterChange: (stateProvider: StateProvider<State<TableRow>>) => (filters) => stateProvider.setState(() => ({
-      tableData: filters && Object.keys(filters).length > 0 ?
-        tableData.filter((row) => row.name.includes(filters.name)) : tableData, filterValues: filters
+      tableData: filters && Object.keys(filters).length > 0
+        ? tableData.filter((row) => row.name.includes(filters.name)) : tableData,
+      filterValues: filters,
     })),
     filterValues: (stateProvider: StateProvider<State<TableRow>>) => (stateProvider.state.filterValues || {}),
   },
