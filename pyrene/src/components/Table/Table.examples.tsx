@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable react/display-name, no-nested-ternary */
 import React from 'react';
-import { Example } from '../../examples/Example';
+import { Example, StateProvider } from '../../examples/Example';
 import { TableRow } from '../../examples/TableRowExample';
 import { Filter, FilterValues } from '../Filter/types';
 
@@ -127,7 +127,7 @@ interface TableProps<R, X = ExtendsRow<R>> {
   /**
    * Called when the filter changes.
    */
-  onFilterChange?: () => void,
+  onFilterChange?: (filterValues: FilterValues, filterNegatedKeys: Array<Filter['id']>) => void,
   /**
     * Called when the user double clicks on a row.
     */
@@ -578,7 +578,7 @@ const tableColumns: Array<Column<TableRow>> = [{
   id: 'age',
   headerName: 'Age',
   accessor: 'age',
-  cellRenderCallback: (row) => (
+  cellRenderCallback: (row: ExtendsRow<TableRow>) => (
     <div
       style={{
         width: '100%',
@@ -588,7 +588,7 @@ const tableColumns: Array<Column<TableRow>> = [{
     >
       <div
         style={{
-          width: `${((row.value - 20) / 20) * 100}%`,
+          width: `${((row?.value - 20) / 20) * 100}%`,
           height: '100%',
           backgroundColor:
             ((row.value - 20) / 20) * 100 > 66
@@ -647,6 +647,10 @@ const testOptions = [
   { value: 'moosetracks', label: 'Moose Tracks', invalid: false },
 ];
 
+interface State<R> {
+  tableData: Array<R>,
+}
+
 const examples: Example<TableProps<TableRow>> = {
   props: {
     toggleColumns: true,
@@ -654,7 +658,7 @@ const examples: Example<TableProps<TableRow>> = {
     pivotBy: ['age'],
     title: 'Table',
     keyField: 'name',
-    data: (stateProvider) => (stateProvider.state.tableData ? stateProvider.state.tableData : tableData),
+    data: (stateProvider: StateProvider<State<TableRow>>) => stateProvider.state.tableData ? stateProvider.state.tableData : tableData,
     columns: tableColumns,
     onRowDoubleClick: (rowInfo) => console.log(rowInfo), // eslint-disable-line no-console
     actions: [{
@@ -671,7 +675,10 @@ const examples: Example<TableProps<TableRow>> = {
     }, {
       label: 'second column', type: 'multiSelect', id: 'testKey2', options: testOptions,
     }],
-    onFilterChange: (stateProvider) => (filters) => stateProvider.setState(() => ({ tableData: filters && Object.keys(filters).length > 0 ? tableData.filter((row) => row.name.includes(filters.name)) : tableData, filterValues: filters })),
+    onFilterChange: (stateProvider) => (filters) => stateProvider.setState(() => ({
+      tableData: filters && Object.keys(filters).length > 0 ?
+        tableData.filter((row) => row.name.includes(filters.name)) : tableData, filterValues: filters
+    })),
     filterValues: (stateProvider) => (stateProvider.state.filterValues ? stateProvider.state.filterValues : {}),
   },
 };
