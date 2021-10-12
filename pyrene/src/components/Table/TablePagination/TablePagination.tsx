@@ -34,7 +34,7 @@ const showAmountOfResults = <R extends unknown>(data: Array<R>, numberOfResults:
 
 /* props are controlled by the parent component of react-table */
 
-const TablePagination = <R extends unknown={}>({
+function TablePagination <R extends unknown={}>({
   pages,
   page,
   data,
@@ -47,7 +47,8 @@ const TablePagination = <R extends unknown={}>({
   onPageSizeChange,
   onPageChange,
   pageSizeOptions,
-}: TablePaginationProps<R>): React.ReactElement<TablePaginationProps<R>> => (
+}: TablePaginationProps<R>): React.ReactElement<TablePaginationProps<R>> {
+  return (
     <div className={styles.tablePagination}>
       <div className={styles.resultsCounter}>
         {showAmountOfResults(data, numberOfResults, loading)}
@@ -83,5 +84,6 @@ const TablePagination = <R extends unknown={}>({
       </div>
     </div>
   );
+}
 
 export default TablePagination;
