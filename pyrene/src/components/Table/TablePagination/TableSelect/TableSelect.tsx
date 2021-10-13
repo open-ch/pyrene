@@ -6,16 +6,18 @@ import Select from 'react-select';
 import SelectStyle from './tableSelectCSS';
 import styles from './tableSelect.css';
 
+export interface Option {
+  invalid?: boolean,
+  label?: string,
+  value?: string,
+}
+
 interface TableSelectProps {
   defaultValue?: string,
   disabled?: boolean,
   onBlur?: () => void,
-  onChange?: () => void,
-  options?: Array<{
-    invalid?: boolean,
-    label?: string,
-    value?: string,
-  }>,
+  onChange: (option: Option) => void,
+  options?: Array<Option>,
   placeholder?: string,
   value?: string,
 }
@@ -38,7 +40,7 @@ const TableSelect: FunctionComponent<TableSelectProps> = ({
       value={value ? options.filter((o) => o.value === value).pop() : null}
       defaultValue={options.filter((o) => o.value === defaultValue).pop()}
       isDisabled={disabled}
-      onChange={onChange}
+      onChange={onChange as any}
       onBlur={onBlur}
       noOptionsMessage={() => 'no matches found'}
       isSearchable={false}

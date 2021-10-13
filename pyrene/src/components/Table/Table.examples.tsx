@@ -1,8 +1,163 @@
-import React from 'react';
-
+/* eslint-disable @typescript-eslint/ban-types */
+/* eslint-disable no-console */
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable react/display-name, no-nested-ternary */
+import React from 'react';
+import { Example, StateProvider } from '../../examples/Example';
+import { TableRow } from '../../examples/TableRowExample';
+import { Filter, FilterValues } from '../Filter/types';
 
-const tableData = [
+// TODO: place the following types into the right spots
+type ExtendsRow<R> = R & {
+  value?: string | number;
+};
+
+interface Column<R, X=ExtendsRow<R>> {
+  accessor: keyof R | ((row: R, rowIndex: number, columnIndex: number) => string | number),
+  cellRenderCallback?: string | JSX.Element | ((row: X, rowIndex: number, columnIndex: number) => string | JSX.Element | number),
+  cellStyle?: React.CSSProperties,
+  headerName: string,
+  headerStyle?: React.CSSProperties,
+  headerTooltip?: React.ReactNode,
+  id: string,
+  initiallyHidden?: boolean,
+  sortable?: boolean,
+  sortMethod?: (a: string, b: string) => boolean | number,
+  width?: number,
+}
+
+interface Action<R> {
+  active: 'single' | 'multi' | 'always',
+  callback: (row: R) => void,
+  icon?: string,
+  label: string,
+  loading?: boolean,
+}
+
+interface TableProps<R extends unknown={}, X=ExtendsRow<R>> {
+  /**
+   * Sets the table actions. Type: [{ icon: string, label: string (required), callback: func (required), active: oneOf('single', 'multi', 'always') (required) }]
+   */
+  actions?: Array<Action<R>>,
+  /**
+   * Sets the Table columns.
+   * Type: [{ accessor: any, cellRenderCallback: One of [React element, callback function to display the cell, string],
+   * cellStyle: object, headerName: string (required), headerStyle: object, id: any, initiallyHidden: bool,
+   * sortable: bool (!!!Overrides disableSorting!!!), sortFunction: function, width: number }]
+   * headerTooltip: if defined Pyrene tooltip displayed when hovering over header name
+   */
+  columns: Array<Column<R>>,
+  /**
+   * Page to display by the Table (use only with server-side data fetching & pagination).
+   */
+  currentPage?: number,
+  /**
+   * Sets the Table data displayed in the rows. Type: JSON
+   */
+  data: Array<R>,
+  /**
+   * Sets the page size when the component is first mounted.
+   */
+  defaultPageSize?: number,
+  /**
+   * Sets the default sorting columns and order when the component is first mounted.
+   * Type: [{ id: string (required), desc: bool }]
+   */
+  defaultSorted?: Array<{
+    desc?: boolean,
+    id: string,
+  }>,
+  /**
+   * Disables table interactions
+   */
+  disabled?: boolean,
+  /**
+   * Disable sorting in the table.
+   */
+  disableSorting?: boolean,
+  /**
+   * Sets the error message to be displayed
+   */
+  error?: string,
+  /**
+   * True if filter should be displayed but in disabled state (filters might be still undefined)
+   */
+  filterDisabled?: boolean,
+  /**
+   * Sets the available filters.
+   * Type: [{ label: string (required) label of the filter input displayed to the user, type: oneOf('singleSelect', 'multiSelect', 'text') (required),
+   * id: string (required) - key for the one filter input, options: array }]
+   */
+  filters?: Array<Filter>,
+  /**
+   * values to be filtered & displayed in filter dropdown
+   * use {} for passing empty filterValues
+   * */
+  filterValues?: FilterValues,
+  /**
+   * Sets the data key for each row. Should be unique. Is used for selections.
+   */
+  keyField: string,
+  /**
+   * Disables the component and displays a loader inside of it.
+   */
+  loading?: boolean,
+  /**
+   * Set to true to be able to handle sorting and pagination server-side (use only with server-side data fetching & pagination).
+   */
+  manual?: boolean,
+  /**
+   * Changes the overall appearance of the table to become multi-selectable (checkbox table). Requires keyField prop.
+   */
+  multiSelect?: boolean,
+  /**
+    * Whether multiSorting via shift click is possible.
+    */
+  multiSort?: boolean,
+  /**
+   * Enables negation support for filters. Defaults to false
+   */
+  negatable?: boolean,
+  /**
+   * Amount of results to be displayed in Table Header (use only with server-side data fetching & pagination).
+   */
+  numberOfResults?: number,
+  /**
+   * Called initially when the table loads & any time sorting, pagination or filterting is changed in the table (use only with server-side data fetching & pagination).
+   */
+  onFetchData?: () => void,
+  /**
+   * Called when the filter changes.
+   */
+  onFilterChange?: (filterValues: FilterValues, filterNegatedKeys: Array<Filter['id']>) => void,
+  /**
+    * Called when the user double clicks on a row.
+    */
+  onRowDoubleClick?: (row: X) => void,
+  /**
+   * Amount of pages to be shown in React Table (use only with server-side data fetching & pagination).
+   */
+  pages?: number,
+  /**
+  * Sets the page sizes that the user can choose from.
+  */
+  pageSizeOptions?: number[],
+  /**
+  * Allow toggling wether a row (and checkbox for a checkboxtable) is selectable
+  * @returns {boolean} - enabled = true, disabled = false
+  */
+  rowSelectableCallback?: (row: R) => boolean,
+  /**
+  * Sets the title.
+  */
+  title?: string,
+  /**
+  * Whether the columns (hide/show) popover is available to the user.
+  */
+  toggleColumns?: boolean,
+}
+
+const tableData: Array<TableRow> = [
   {
     name: 'Meredith Carney',
     age: 23,
@@ -405,11 +560,11 @@ const tableData = [
   },
 ];
 
-const tableColumns = [{
+const tableColumns: Array<Column<TableRow>> = [{
   id: 'name',
   headerName: 'Name',
   accessor: 'name',
-  sortMethod: (a, b) => {
+  sortMethod: (a: string, b: string) => {
     const lastA = a.charAt(a.length - 1);
     const lastB = b.charAt(b.length - 1);
     if (lastA > lastB) {
@@ -425,8 +580,7 @@ const tableColumns = [{
   id: 'age',
   headerName: 'Age',
   accessor: 'age',
-  resizable: false,
-  cellRenderCallback: (row) => (
+  cellRenderCallback: (row: ExtendsRow<TableRow>) => (
     <div
       style={{
         width: '100%',
@@ -436,12 +590,13 @@ const tableColumns = [{
     >
       <div
         style={{
-          width: `${((row.value - 20) / 20) * 100}%`,
+
+          width: `${(((typeof row?.value === 'number' ? row.value : 0) - 20) / 20) * 100}%`,
           height: '100%',
           backgroundColor:
-            ((row.value - 20) / 20) * 100 > 66
+            (((typeof row?.value === 'number' ? row.value : 0) - 20) / 20) * 100 > 66
               ? 'var(--acqua-300)'
-              : ((row.value - 20) / 20) * 100 > 33
+              : (((typeof row?.value === 'number' ? row.value : 0) - 20) / 20) * 100 > 33
                 ? 'var(--teal-300)'
                 : 'var(--red-200)',
           transition: 'all .2s ease-out',
@@ -458,7 +613,7 @@ const tableColumns = [{
   id: 'friendAge',
   headerName: 'Friend Age',
   headerTooltip: 'Pyrene tooltip to this nice header name',
-  accessor: 'friend.age',
+  accessor: (d) => d.friend.age,
 }];
 
 const testOptions = [
@@ -495,22 +650,25 @@ const testOptions = [
   { value: 'moosetracks', label: 'Moose Tracks', invalid: false },
 ];
 
-const examples = {
+interface State<R> {
+  tableData?: Array<R>,
+  filterValues?: FilterValues,
+}
+
+const examples: Example<TableProps<TableRow>, State<TableRow>> = {
   props: {
     toggleColumns: true,
-    resizable: true,
-    pivotBy: ['age'],
     title: 'Table',
     keyField: 'name',
-    data: (stateProvider) => (stateProvider.state.tableData ? stateProvider.state.tableData : tableData),
+    data: (stateProvider) => stateProvider.state.tableData || tableData,
     columns: tableColumns,
-    onRowDoubleClick: (rowInfo) => console.log(rowInfo), // eslint-disable-line no-console
+    onRowDoubleClick: (rowInfo: ExtendsRow<TableRow>) => console.log(rowInfo),
     actions: [{
-      icon: 'search', label: 'Single', callback: () => console.log('single'), active: 'single', // eslint-disable-line no-console
+      icon: 'search', label: 'Single', callback: () => console.log('single'), active: 'single',
     }, {
-      icon: 'delete', label: 'Multi', callback: () => console.log('multi'), active: 'multi', // eslint-disable-line no-console
+      icon: 'delete', label: 'Multi', callback: () => console.log('multi'), active: 'multi',
     }, {
-      icon: 'info', label: 'Always', callback: () => console.log('always'), active: 'always', // eslint-disable-line no-console
+      icon: 'info', label: 'Always', callback: () => console.log('always'), active: 'always',
     }],
     filters: [{
       label: 'Free Text', type: 'text', id: 'name',
@@ -519,8 +677,12 @@ const examples = {
     }, {
       label: 'second column', type: 'multiSelect', id: 'testKey2', options: testOptions,
     }],
-    onFilterChange: (stateProvider) => (filters) => stateProvider.setState(() => ({ tableData: filters && Object.keys(filters).length > 0 ? tableData.filter((row) => row.name.includes(filters.name)) : tableData, filterValues: filters })),
-    filterValues: (stateProvider) => (stateProvider.state.filterValues ? stateProvider.state.filterValues : {}),
+    onFilterChange: (stateProvider: StateProvider<State<TableRow>>): TableProps['onFilterChange'] => (filters) => stateProvider.setState(() => ({
+      tableData: filters && Object.keys(filters).length > 0
+        ? tableData.filter((row) => row.name.includes(filters.name as string)) : tableData,
+      filterValues: filters,
+    })),
+    filterValues: (stateProvider: StateProvider<State<TableRow>>) => stateProvider.state.filterValues || {},
   },
 };
 
