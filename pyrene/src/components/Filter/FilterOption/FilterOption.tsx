@@ -7,9 +7,8 @@ import MultiSelect from '../../MultiSelect/MultiSelect';
 import Checkbox from '../../Checkbox/Checkbox';
 import {
   Options,
-  SingleSelectValue,
-  MultiselectValue,
   SingleSelectOption,
+  MultiselectOption,
   HandleFilterChange,
 } from '../types';
 
@@ -44,9 +43,9 @@ const renderOption = ({
       return (
         <SingleSelect
           name={id}
-          options={options as SingleSelectOption}
+          options={options as Array<SingleSelectOption>}
           onChange={(val) => handleFilterChange(val, negated, id)}
-          value={(isValue ? value : null) as SingleSelectValue}
+          value={(isValue ? value : null) as SingleSelectOption}
           sorted={sorted}
           clearable
           searchable
@@ -56,11 +55,11 @@ const renderOption = ({
       return (
         <MultiSelect
           name={id}
-          options={options as MultiselectValue}
+          options={options as MultiselectOption}
           // If multiSelect is empty (empty array) return null to filter instead of []
-          onChange={(val: MultiselectValue) => handleFilterChange(Array.isArray(val) && val.length === 0 ? null : val, negated, id)}
+          onChange={(val: MultiselectOption) => handleFilterChange(Array.isArray(val) && val.length === 0 ? null : val, negated, id)}
           // Pass empty array instead of null to multiSelect component if filterValues are null
-          value={(isValue ? value : []) as MultiselectValue}
+          value={(isValue ? value : []) as MultiselectOption}
           sorted={sorted}
           selectedOptionsInDropdown
           keepMenuOnSelect

@@ -9,8 +9,8 @@ import {
   Filters,
   Options,
   Filter,
-  MultiselectValue,
-  SingleSelectValue,
+  MultiselectOption,
+  SingleSelectOption,
 } from '../types';
 
 export interface FilterBarProps {
@@ -174,7 +174,7 @@ export default class FilterBar extends React.Component<FilterBarProps, FilterBar
     if (filterValues) {
 
       const tags = Object.entries(filterValues).map(([key, value]) => {
-        if (value === undefined || value === null || (value as MultiselectValue).length === 0) {
+        if (value === undefined || value === null || (value as MultiselectOption).length === 0) {
           return null;
         }
 
@@ -199,18 +199,18 @@ export default class FilterBar extends React.Component<FilterBarProps, FilterBar
               <FilterTag
                 key={filter.id}
                 filterLabel={filter.label}
-                filterText={(value as SingleSelectValue).label}
+                filterText={(value as SingleSelectOption).label}
                 negated={negatable && filter.negated}
                 onClose={() => this.onFilterTagClose(filter)}
               />
             );
           case 'multiSelect':
-            if ((value as MultiselectValue).length > 0) {
+            if ((value as MultiselectOption).length > 0) {
               return (
                 <FilterTag
                   key={filter.id}
                   filterLabel={filter.label}
-                  filterText={(value as MultiselectValue).map((option) => option.label).join('; ')}
+                  filterText={(value as MultiselectOption).map((option) => option.label).join('; ')}
                   negated={negatable && filter.negated}
                   onClose={() => this.onFilterTagClose(filter)}
                 />
