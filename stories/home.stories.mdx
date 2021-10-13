@@ -2,6 +2,7 @@ import { Meta } from '@storybook/addon-docs';
 import Paragraph from '../kitchensink/src/app/common/PageElements/Paragraph/Paragraph';
 import DescriptionBox from '../kitchensink/src/app/common/PageElements/DescriptionBox/DescriptionBox';
 import DesignSystemBox from '../kitchensink/src/app/common/PageElements/IntroductionElements/DesignSystemBox';
+import Principle from '../kitchensink/src/app/common/PageElements/IntroductionElements/Principle';
 import Code from './assets/code-brackets.svg';
 import Colors from './assets/colors.svg';
 import Comments from './assets/comments.svg';
@@ -138,12 +139,12 @@ import StackAlt from './assets/stackalt.svg';
     line-height: 1.5;
   }
 
-  .topicContent { }
+  .header, .topicContent { }
 
 `}</style>
 
 <div>
-  <div>
+  <div className="header">
     <div className="title">Introduction</div>
     <div className="description">
       <p>
