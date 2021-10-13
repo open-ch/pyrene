@@ -1,4 +1,6 @@
 import { Meta } from '@storybook/addon-docs';
+import DescriptionBox from '../kitchensink/src/app/common/PageElements/DescriptionBox/DescriptionBox';
+import DesignSystemBox from '../kitchensink/src/app/common/PageElements/IntroductionElements/DesignSystemBox';
 import Code from './assets/code-brackets.svg';
 import Colors from './assets/colors.svg';
 import Comments from './assets/comments.svg';
@@ -8,7 +10,7 @@ import Plugin from './assets/plugin.svg';
 import Repo from './assets/repo.svg';
 import StackAlt from './assets/stackalt.svg';
 
-<Meta title="Example/Introduction" />
+<Meta title="Pyrene/Introduction" />
 
 <style>{`
   .subheading {
@@ -111,8 +113,85 @@ import StackAlt from './assets/stackalt.svg';
     display: inline-block;
   }
 
-  
+  .description {
+    font-size: 18px;
+    line-height: 24px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    letter-spacing: normal;
+    text-align: left;
+
+    & strong {
+      font-weight: 600;
+    }
+  }
+
+  .title {
+    margin-left: 0;
+    margin-bottom: 24px;
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 1.5;
+  }
+
 `}</style>
+
+<div>
+  <div>
+    <div className="title">Introduction</div>
+    <div className="description">
+      <p>
+        Open Systems is growing. As the business evolves, maintaining a coherent and captivating user experience for our interfaces is challenging.
+        To keep our user interfaces coherent, we have created
+        {' '}
+        <strong>pyrene</strong>
+        , a collection of components and the underlying design principles and foundations.
+      </p>
+      <p>
+        It’s a place for people familiar with our design system and for anyone wishing to learn more about our work.
+        It provides our engineers a collection of reusable components to build user interfaces.
+      </p>
+      <p>
+        This is a living place that will be updated as we continue to develop and explore the specifics of our user-facing products.
+      </p>
+    </div>
+  </div>
+
+  <Paragraph title="Design System">
+    <DescriptionBox>
+      Our design system helps us to increase speed and efficiency of how we design and build our products.
+      Understanding the system and adopting the library will help us to use up-to-date and consistent markup, styles and behavior in prototype or production work.
+      It also improves and keeps the quality of our user experiences.
+    </DescriptionBox>
+    <div className="designSystemGrid">
+      <DesignSystemBox
+        number={4}
+        icon="pages"
+        title="pages"
+        description="Pages are the final stage and show what a user interfaces looks like with real representative content in place."
+      />
+      <DesignSystemBox
+        number={3}
+        icon="templates"
+        title="templates"
+        description="Templates are page-level objects that place components into a layout and visualize the underlying content structure."
+      />
+      <DesignSystemBox
+        number={2}
+        icon="components"
+        title="components"
+        description="Components are the UI building blocks. Components can be single UI elements like a Button or acting together as a unit. Some examples include Buttons, Inputs, Selects, Modals etc."
+      />
+      <DesignSystemBox
+        number={1}
+        icon="foundations"
+        title="foundations"
+        description="Foundations are the underlying parameters and variables which drive the general appearance, expression and behavior. Those elements can’t be broken down any further and do include fonts, colors, shapes, icons, grids, writing etc."
+      />
+    </div>
+  </Paragraph>
+</div>
 
 # Welcome to Storybook
 
