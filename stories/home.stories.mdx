@@ -12,7 +12,7 @@ import Plugin from './assets/plugin.svg';
 import Repo from './assets/repo.svg';
 import StackAlt from './assets/stackalt.svg';
 
-<Meta title="Pyrene/Introduction" />
+<Meta title="About Pyrene/Introduction" />
 
 <style>{`
   .subheading {
@@ -115,22 +115,6 @@ import StackAlt from './assets/stackalt.svg';
     display: inline-block;
   }
 
-
-
-  .description {
-    font-size: 18px;
-    line-height: 24px;
-    font-weight: normal;
-    font-style: normal;
-    font-stretch: normal;
-    letter-spacing: normal;
-    text-align: left;
-
-    & strong {
-      font-weight: 600;
-    }
-  }
-
   .title {
     margin-left: 0;
     margin-bottom: 24px;
@@ -146,22 +130,19 @@ import StackAlt from './assets/stackalt.svg';
 <div>
   <div className="header">
     <div className="title">Introduction</div>
-    <div className="description">
-      <p>
+    <Paragraph>
+      <DescriptionBox>
         Open Systems is growing. As the business evolves, maintaining a coherent and captivating user experience for our interfaces is challenging.
-        To keep our user interfaces coherent, we have created
-        {' '}
-        <strong>pyrene</strong>
-        , a collection of components and the underlying design principles and foundations.
-      </p>
-      <p>
+        To keep our user interfaces coherent, we have created <strong>pyrene</strong>, a collection of components and the underlying design principles and foundations.
+      </DescriptionBox>
+      <DescriptionBox>
         It’s a place for people familiar with our design system and for anyone wishing to learn more about our work.
         It provides our engineers a collection of reusable components to build user interfaces.
-      </p>
-      <p>
+      </DescriptionBox>
+      <DescriptionBox>
         This is a living place that will be updated as we continue to develop and explore the specifics of our user-facing products.
-      </p>
-    </div>
+      </DescriptionBox>
+    </Paragraph>
   </div>
   <div className="topicContent">
     <Paragraph title="Design System">
