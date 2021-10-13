@@ -1,161 +1,13 @@
-/* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable react/display-name, no-nested-ternary */
 import React from 'react';
+import {
+  TableProps, Column, MappedColumn, ExtendsRow, RowInfo,
+} from './Table';
 import { Example, StateProvider } from '../../examples/Example';
 import { TableRow } from '../../examples/TableRowExample';
-import { Filter, Filters } from '../Filter/types';
-
-// TODO: place the following types into the right spots
-type ExtendsRow<R> = R & {
-  value?: string | number;
-};
-
-interface Column<R, X=ExtendsRow<R>> {
-  accessor: keyof R | ((row: R, rowIndex: number, columnIndex: number) => string | number),
-  cellRenderCallback?: string | JSX.Element | ((row: X, rowIndex: number, columnIndex: number) => string | JSX.Element | number),
-  cellStyle?: React.CSSProperties,
-  headerName: string,
-  headerStyle?: React.CSSProperties,
-  headerTooltip?: React.ReactNode,
-  id: string,
-  initiallyHidden?: boolean,
-  sortable?: boolean,
-  sortMethod?: (a: string, b: string) => boolean | number,
-  width?: number,
-}
-
-interface Action<R> {
-  active: 'single' | 'multi' | 'always',
-  callback: (row: R) => void,
-  icon?: string,
-  label: string,
-  loading?: boolean,
-}
-
-interface TableProps<R extends unknown={}, X=ExtendsRow<R>> {
-  /**
-   * Sets the table actions. Type: [{ icon: string, label: string (required), callback: func (required), active: oneOf('single', 'multi', 'always') (required) }]
-   */
-  actions?: Array<Action<R>>,
-  /**
-   * Sets the Table columns.
-   * Type: [{ accessor: any, cellRenderCallback: One of [React element, callback function to display the cell, string],
-   * cellStyle: object, headerName: string (required), headerStyle: object, id: any, initiallyHidden: bool,
-   * sortable: bool (!!!Overrides disableSorting!!!), sortFunction: function, width: number }]
-   * headerTooltip: if defined Pyrene tooltip displayed when hovering over header name
-   */
-  columns: Array<Column<R>>,
-  /**
-   * Page to display by the Table (use only with server-side data fetching & pagination).
-   */
-  currentPage?: number,
-  /**
-   * Sets the Table data displayed in the rows. Type: JSON
-   */
-  data: Array<R>,
-  /**
-   * Sets the page size when the component is first mounted.
-   */
-  defaultPageSize?: number,
-  /**
-   * Sets the default sorting columns and order when the component is first mounted.
-   * Type: [{ id: string (required), desc: bool }]
-   */
-  defaultSorted?: Array<{
-    desc?: boolean,
-    id: string,
-  }>,
-  /**
-   * Disables table interactions
-   */
-  disabled?: boolean,
-  /**
-   * Disable sorting in the table.
-   */
-  disableSorting?: boolean,
-  /**
-   * Sets the error message to be displayed
-   */
-  error?: string,
-  /**
-   * True if filter should be displayed but in disabled state (filters might be still undefined)
-   */
-  filterDisabled?: boolean,
-  /**
-   * Sets the available filters.
-   * Type: [{ label: string (required) label of the filter input displayed to the user, type: oneOf('singleSelect', 'multiSelect', 'text') (required),
-   * id: string (required) - key for the one filter input, options: array }]
-   */
-  filters?: Array<Filter>,
-  /**
-   * values to be filtered & displayed in filter dropdown
-   * use {} for passing empty filterValues
-   * */
-  filterValues?: Filters,
-  /**
-   * Sets the data key for each row. Should be unique. Is used for selections.
-   */
-  keyField: string,
-  /**
-   * Disables the component and displays a loader inside of it.
-   */
-  loading?: boolean,
-  /**
-   * Set to true to be able to handle sorting and pagination server-side (use only with server-side data fetching & pagination).
-   */
-  manual?: boolean,
-  /**
-   * Changes the overall appearance of the table to become multi-selectable (checkbox table). Requires keyField prop.
-   */
-  multiSelect?: boolean,
-  /**
-    * Whether multiSorting via shift click is possible.
-    */
-  multiSort?: boolean,
-  /**
-   * Enables negation support for filters. Defaults to false
-   */
-  negatable?: boolean,
-  /**
-   * Amount of results to be displayed in Table Header (use only with server-side data fetching & pagination).
-   */
-  numberOfResults?: number,
-  /**
-   * Called initially when the table loads & any time sorting, pagination or filterting is changed in the table (use only with server-side data fetching & pagination).
-   */
-  onFetchData?: () => void,
-  /**
-   * Called when the filter changes.
-   */
-  onFilterChange?: (filterValues: Filters, filterNegatedKeys: Array<Filter['id']>) => void,
-  /**
-    * Called when the user double clicks on a row.
-    */
-  onRowDoubleClick?: (row: X) => void,
-  /**
-   * Amount of pages to be shown in React Table (use only with server-side data fetching & pagination).
-   */
-  pages?: number,
-  /**
-  * Sets the page sizes that the user can choose from.
-  */
-  pageSizeOptions?: number[],
-  /**
-  * Allow toggling wether a row (and checkbox for a checkboxtable) is selectable
-  * @returns {boolean} - enabled = true, disabled = false
-  */
-  rowSelectableCallback?: (row: R) => boolean,
-  /**
-  * Sets the title.
-  */
-  title?: string,
-  /**
-  * Whether the columns (hide/show) popover is available to the user.
-  */
-  toggleColumns?: boolean,
-}
+import { Filters } from '../Filter/types';
 
 const tableData: Array<TableRow> = [
   {
@@ -560,7 +412,7 @@ const tableData: Array<TableRow> = [
   },
 ];
 
-const tableColumns: Array<Column<TableRow>> = [{
+const tableColumns: Array<Column<TableRow> | MappedColumn<TableRow>> = [{
   id: 'name',
   headerName: 'Name',
   accessor: 'name',
@@ -662,7 +514,7 @@ const examples: Example<TableProps<TableRow>, State<TableRow>> = {
     keyField: 'name',
     data: (stateProvider) => stateProvider.state.tableData || tableData,
     columns: tableColumns,
-    onRowDoubleClick: (rowInfo: ExtendsRow<TableRow>) => console.log(rowInfo),
+    onRowDoubleClick: (rowInfo: RowInfo<TableRow>) => console.log(rowInfo),
     actions: [{
       icon: 'search', label: 'Single', callback: () => console.log('single'), active: 'single',
     }, {
