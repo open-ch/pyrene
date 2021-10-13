@@ -310,6 +310,7 @@ export default class Table extends React.Component {
           {...this.commonStaticProps}
           {...commonVariableProps}
           {...multiTableProps}
+          key={this.props.numberOfResults}
         />
       )
       : (
