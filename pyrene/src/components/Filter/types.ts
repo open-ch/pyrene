@@ -3,13 +3,12 @@ import { DefaultValueType } from '../SingleSelect/SingleSelect';
 import { Option } from '../MultiSelect/types';
 
 export type MultiSelectOption = Option;
-export type SingleSelectOption = Array<SingleSelectOpt<DefaultValueType>>;
 
-export type MultiselectValue = ReadonlyArray<MultiSelectOption>;
-export type SingleSelectValue = SingleSelectOpt<DefaultValueType>;
-export type InputFieldValue = DefaultValueType;
+export type MultiselectOption = ReadonlyArray<MultiSelectOption>;
+export type SingleSelectOption = SingleSelectOpt<DefaultValueType>;
+export type InputFieldOption = DefaultValueType;
 
-export type Options = MultiselectValue | SingleSelectValue | InputFieldValue;
+export type Options = MultiselectOption | SingleSelectOption | InputFieldOption;
 
 export type Filter = {
   id: string,
