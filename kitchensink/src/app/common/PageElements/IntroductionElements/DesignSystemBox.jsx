@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
-import styles from './designSystemBox.css';
+import styles from './designSystemBox.module.css';
 
 const DesignSystemBox = (props) => (
   <div className={styles.introDesignSystemBox}>
