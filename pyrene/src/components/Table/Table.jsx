@@ -55,6 +55,12 @@ export default class Table extends React.Component {
     pageSize: this.props.defaultPageSize,
   };
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.numberOfResults !== this.props.numberOfResults) {
+      this.resetSelection();
+    }
+  }
+
   commonStaticProps = {
     getTrProps: (state, rowInfo) => {
       // no row selected yet
@@ -121,8 +127,8 @@ export default class Table extends React.Component {
     // Server-side props
     manual: this.props.manual,
 
+    // this is only called once in componentDidMount cycle of react-table with first page load
     onFetchData: (rts) => {
-      this.resetSelection();
       return ((this.state.pageSize !== rts.pageSize) ? this.props.onFetchData({
         page: 0, pageCount: 0, pageSize: rts.pageSize, sorting: rts.sorted, filters: this.props.filterValues,
       }) : this.props.onFetchData({
