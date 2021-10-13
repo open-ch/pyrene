@@ -6,11 +6,10 @@ import TextField from '../../TextField/TextField';
 import MultiSelect from '../../MultiSelect/MultiSelect';
 import Checkbox from '../../Checkbox/Checkbox';
 import {
-  Value,
+  Options,
   SingleSelectValue,
   MultiselectValue,
   SingleSelectOption,
-  MultiSelectOption,
   HandleFilterChange,
 } from '../types';
 
@@ -20,10 +19,10 @@ export interface FilterOptionsProps {
   label: string,
   negatable: boolean,
   negated?: boolean,
-  options?: Array<SingleSelectOption | MultiSelectOption>,
+  options?: Options,
   sorted?: boolean,
   type: string,
-  value?: Value,
+  value?: Options,
 }
 
 const doesInterfaceSupportNegate = (inputType: string) => ['text', 'singleSelect', 'multiSelect'].indexOf(inputType) !== -1;

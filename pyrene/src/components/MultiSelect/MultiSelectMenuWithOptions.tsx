@@ -1,5 +1,4 @@
 /* eslint-disable react/prop-types */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import React, { FunctionComponent } from 'react';
 import clsx from 'clsx';
 import { components, MenuProps } from 'react-select';

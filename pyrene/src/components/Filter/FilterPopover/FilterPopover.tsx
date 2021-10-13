@@ -5,12 +5,12 @@ import ButtonBar from '../../ButtonBar/ButtonBar';
 import Button from '../../Button/Button';
 import FilterOption from '../FilterOption/FilterOption';
 import Collapsible from '../../Collapsible/Collapsible';
-import { Filter, FilterValues, HandleFilterChange } from '../types';
+import { Filter, Filters, HandleFilterChange } from '../types';
 
 export interface FilterPopoverProps {
   filterNegatedKeys: Array<Filter['id']>,
   filters: Array<Filter>,
-  filterValues: FilterValues,
+  filterValues: Filters,
   handleFilterChange: HandleFilterChange,
   negatable: boolean,
   onClose?: (e: MouseEvent) => void,

@@ -5,7 +5,7 @@
 import React from 'react';
 import { Example, StateProvider } from '../../examples/Example';
 import { TableRow } from '../../examples/TableRowExample';
-import { Filter, FilterValues } from '../Filter/types';
+import { Filter, Filters } from '../Filter/types';
 
 // TODO: place the following types into the right spots
 type ExtendsRow<R> = R & {
@@ -93,7 +93,7 @@ interface TableProps<R extends unknown={}, X=ExtendsRow<R>> {
    * values to be filtered & displayed in filter dropdown
    * use {} for passing empty filterValues
    * */
-  filterValues?: FilterValues,
+  filterValues?: Filters,
   /**
    * Sets the data key for each row. Should be unique. Is used for selections.
    */
@@ -129,7 +129,7 @@ interface TableProps<R extends unknown={}, X=ExtendsRow<R>> {
   /**
    * Called when the filter changes.
    */
-  onFilterChange?: (filterValues: FilterValues, filterNegatedKeys: Array<Filter['id']>) => void,
+  onFilterChange?: (filterValues: Filters, filterNegatedKeys: Array<Filter['id']>) => void,
   /**
     * Called when the user double clicks on a row.
     */
@@ -652,7 +652,7 @@ const testOptions = [
 
 interface State<R> {
   tableData?: Array<R>,
-  filterValues?: FilterValues,
+  filterValues?: Filters,
 }
 
 const examples: Example<TableProps<TableRow>, State<TableRow>> = {
