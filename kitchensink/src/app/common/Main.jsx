@@ -18,6 +18,7 @@ import styles from '../../css/common.css';
 import SearchBar from './Search/SearchBar/SearchBar';
 import ResultsPage from './Search/ResultsPage';
 import NotFoundPage from '../static/NotFoundPage';
+import DateUsage from '../static/cookBooks/DateUsage';
 import FormUsage from '../static/cookBooks/FormUsage';
 import FilterUsage from '../static/cookBooks/FilterUsage';
 import PyreneTutorial from '../static/cookBooks/PyreneTutorial';
@@ -59,6 +60,7 @@ export default class Main extends React.PureComponent {
             <Route path="/typography" component={TypographyPage} />
             <Route path="/icons" component={IconsPage} />
             <Route path="/resources" component={ResourcesPage} />
+            <Route path="/cookbook/date" component={DateUsage} />
             <Route path="/cookbook/form" component={FormUsage} />
             <Route path="/cookbook/filter" component={FilterUsage} />
             <Route path="/cookbook/pyrene" component={PyreneTutorial} />
