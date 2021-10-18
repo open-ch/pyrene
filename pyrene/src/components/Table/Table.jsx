@@ -121,15 +121,19 @@ export default class Table extends React.Component {
     // Server-side props
     manual: this.props.manual,
 
-    onFetchData: (rts) => {
-      this.resetSelection();
-      return ((this.state.pageSize !== rts.pageSize) ? this.props.onFetchData({
-        page: 0, pageCount: 0, pageSize: rts.pageSize, sorting: rts.sorted, filters: this.props.filterValues,
-      }) : this.props.onFetchData({
-        page: rts.page, pageCount: this.props.pages, pageSize: rts.pageSize, sorting: rts.sorted, filters: this.props.filterValues,
-      }));
-    },
+    // this is only called once in componentDidMount cycle of react-table with first page load
+    onFetchData: (rts) => ((this.state.pageSize !== rts.pageSize) ? this.props.onFetchData({
+      page: 0, pageCount: 0, pageSize: rts.pageSize, sorting: rts.sorted, filters: this.props.filterValues,
+    }) : this.props.onFetchData({
+      page: rts.page, pageCount: this.props.pages, pageSize: rts.pageSize, sorting: rts.sorted, filters: this.props.filterValues,
+    })),
   };
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.numberOfResults !== this.props.numberOfResults) {
+      this.resetSelection();
+    }
+  }
 
   onManualFilterChange = (values) => {
     this.resetSelection();
