@@ -86,10 +86,10 @@ const description = () => {
 };
 
 const DateUsage = ({
-  dateOnly = false,
-  minDateTime = 0,
-  maxDateTime = 10236782323493,
-  timeZone = 'Europe/Zurich',
+  dateOnly,
+  minDateTime,
+  maxDateTime,
+  timeZone,
 }) => {
 
   const [endDate, setEndDate] = useState();
@@ -129,6 +129,13 @@ const DateUsage = ({
       </tbody>
     </table>
   );
+};
+
+DateUsage.defaultProps = {
+  dateOnly: false,
+  minDateTime: 0,
+  maxDateTime: 10236782323493,
+  timeZone: 'Europe/Zurich',
 };
 
 DateUsage.propTypes = {
