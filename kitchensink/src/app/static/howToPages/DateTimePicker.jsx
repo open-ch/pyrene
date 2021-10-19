@@ -9,15 +9,7 @@ import Paragraph from '../../common/PageElements/Paragraph/Paragraph';
 import DescriptionBox from '../../common/PageElements/DescriptionBox/DescriptionBox';
 import DisplayBox from '../../common/PageElements/HowTo/DisplayBox/DisplayBox';
 
-const DateUsage = ({
-  minDateTime,
-  maxDateTime,
-  dateOnly,
-  timeZone,
-}) => {
-
-  const [endDate, setEndDate] = useState();
-  const [startDate, setStartDate] = useState();
+const description = () => {
 
   const datepickercode = `
 
@@ -41,7 +33,7 @@ const DateUsage = ({
                 minDateTime={minDateTime}
                 maxDateTime={maxDateTime}
                 onChange={(value) => (value && setStartDate(new Date(value)))}
-                timeZone="${timeZone}"
+                timeZone="Europe/Zurich"
                 dateOnly={dateOnly}
                 selectStart
               />
@@ -54,7 +46,7 @@ const DateUsage = ({
                 minDateTime={minDateTime}
                 maxDateTime={maxDateTime}
                 onChange={(value) => (value && setEndDate(new Date(value)))}
-                timeZone="${timeZone}"
+                timeZone="Europe/Zurich"
                 dateOnly={dateOnly}
                 selectEnd
               />
@@ -66,7 +58,47 @@ const DateUsage = ({
   );
   `;
 
-  const datepickers = (
+  return (
+    <>
+      <div className={styles.description}>
+        <p>
+          The DateTimePicker component allows you to select a single date or a range (i.e a From date and To date).
+        </p>
+        <p>
+          This page is to document how you would implement a From and To DateTimePicker coupling.
+        </p>
+      </div>
+      <div className={styles.topicContent}>
+        <Paragraph title="Getting started">
+          <DescriptionBox>
+            <div>
+              <ul>
+                <li>Import the DateTimePicker component.</li>
+                <li>Create your state hooks for storing the Start Date (From) and End Date (To).</li>
+                <li>selectStart and selectEnd are props that should be set. These activate the highlighting of the days when selecting the dates in the calendar dropdown.</li>
+              </ul>
+            </div>
+          </DescriptionBox>
+          <CodeBox>
+            {datepickercode}
+          </CodeBox>
+        </Paragraph>
+      </div>
+    </>
+  );
+}
+
+const DateUsage = ({
+  minDateTime,
+  maxDateTime,
+  dateOnly,
+  timeZone,
+}) => {
+
+  const [endDate, setEndDate] = useState();
+  const [startDate, setStartDate] = useState();
+
+  return (
     <>
       <table>
         <tbody>
@@ -102,44 +134,6 @@ const DateUsage = ({
       </table>
     </>
   );
-
-  return (
-    <div className={styles.page}>
-      <div className={styles.header}>
-        <div className={styles.title}>Date</div>
-        <div className={styles.description}>
-          <p>
-            The DateTimePicker component allows you to select a single date or a range (i.e a From date and To date).
-          </p>
-          <p>
-            This page is to document how you would implement a From and To DateTimePicker coupling.
-          </p>
-        </div>
-        <div className={styles.topicContent}>
-          <Paragraph title="Getting started">
-            <DescriptionBox>
-              <div>
-                <ul>
-                  <li>Import the DateTimePicker component.</li>
-                  <li>Create your state hooks for storing the Start Date (From) and End Date (To).</li>
-                  <li>selectStart and selectEnd are props that should be set. These activate the highlighting of the days when selecting the dates in the calendar dropdown.</li>
-                </ul>
-              </div>
-            </DescriptionBox>
-            <CodeBox>
-              {datepickercode}
-            </CodeBox>
-            <DescriptionBox>
-              {'Let\'s have a look at that beauty. ✨'}
-            </DescriptionBox>
-            <DisplayBox>
-              {datepickers}
-            </DisplayBox>
-          </Paragraph>
-        </div>
-      </div>
-    </div>
-  );
 };
 
 DateUsage.defaultProps = {
@@ -156,4 +150,10 @@ DateUsage.propTypes = {
   timeZone: PropTypes.string,
 };
 
-export default DateUsage;
+const datetimepickerhowto = [{
+  title: 'Date Range',
+  description: description(),
+  component: () => (<DateUsage />),
+}];
+
+export default datetimepickerhowto;
