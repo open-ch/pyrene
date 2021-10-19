@@ -55,7 +55,6 @@ import { default as RadioGroup } from './components/RadioGroup/RadioGroup';
 import { default as RadioButton } from './components/RadioButton/RadioButton';
 import { default as RadioPopover } from './components/RadioPopover/RadioPopover';
 import { default as RangeSelector } from './components/DateTimePicker/RangeSelector/RangeSelector';
-import { default as RangeTimePicker } from './components/DateTimePicker/RangeTimePicker/RangeTimePicker';
 
 import { default as Search } from './components/Search/Search';
 import { default as ShareDialog } from './components/ShareDialog/ShareDialog';
@@ -110,7 +109,6 @@ const Components = {
   RadioGroup,
   RadioPopover,
   RangeSelector,
-  RangeTimePicker,
   Search,
   SearchFinder,
   ShareDialog,
@@ -161,7 +159,6 @@ export { RadioButton };
 export { RadioGroup };
 export { RadioPopover };
 export { RangeSelector };
-export { RangeTimePicker };
 export { Search };
 export { SearchFinder };
 export { ShareDialog };
