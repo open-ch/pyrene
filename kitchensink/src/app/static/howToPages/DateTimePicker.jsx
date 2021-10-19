@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import {
   DateTimePicker,
 } from '@osag/pyrene/dist/pyrene.dev';
@@ -128,6 +129,13 @@ const DateUsage = ({
       </tbody>
     </table>
   );
+};
+
+DateUsage.propTypes = {
+  dateOnly: PropTypes.bool,
+  maxDateTime: PropTypes.number,
+  minDateTime: PropTypes.number,
+  timeZone: PropTypes.string,
 };
 
 const datetimepickerHowTo = [{
