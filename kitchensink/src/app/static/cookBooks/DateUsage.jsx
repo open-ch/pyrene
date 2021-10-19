@@ -101,7 +101,7 @@ const DateUsage = ({
         </tbody>
       </table>
     </>
-  );  
+  );
 
   return (
     <div className={styles.page}>
@@ -112,11 +112,7 @@ const DateUsage = ({
             The DateTimePicker component allows you to select a single date or a range (i.e a From date and To date).
           </p>
           <p>
-            This page is to document how you would implement a&nbsp;
-            <strong>From</strong>&nbsp;
-            and&nbsp;
-            <strong>To</strong>&nbsp;
-            DateTimePicker coupling.
+            This page is to document how you would implement a From and To DateTimePicker coupling.
           </p>
         </div>
         <div className={styles.topicContent}>
@@ -127,7 +123,7 @@ const DateUsage = ({
                   <li>Import the DateTimePicker component.</li>
                   <li>Create your state hooks for storing the Start Date (From) and End Date (To).</li>
                   <li>selectStart and selectEnd are props that should be set. These activate the highlighting of the days when selecting the dates in the calendar dropdown.</li>
-                </ul>     
+                </ul>
               </div>
             </DescriptionBox>
             <CodeBox>
