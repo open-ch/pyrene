@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import {
-  DateTimePicker
+  DateTimePicker,
 } from '@osag/pyrene/dist/pyrene.dev';
 import styles from '../../../css/componentPage.css';
 import CodeBox from '../../common/PageElements/HowTo/CodeBox/CodeBox';
@@ -9,11 +9,15 @@ import Paragraph from '../../common/PageElements/Paragraph/Paragraph';
 import DescriptionBox from '../../common/PageElements/DescriptionBox/DescriptionBox';
 import DisplayBox from '../../common/PageElements/HowTo/DisplayBox/DisplayBox';
 
+const DateUsage = ({
+  minDateTime,
+  maxDateTime,
+  dateOnly,
+  timeZone,
+}) => {
 
-const DateUsage = ({ minDateTime, maxDateTime, dateOnly, timeZone }) => {
-
-  const [endDate, setEndDate] = useState(undefined);
-  const [startDate, setStartDate] = useState(undefined);
+  const [endDate, setEndDate] = useState();
+  const [startDate, setStartDate] = useState();
 
   const datepickercode = `
 
@@ -21,8 +25,8 @@ const DateUsage = ({ minDateTime, maxDateTime, dateOnly, timeZone }) => {
 
   ...
 
-  const [endDate, setEndDate] = useState<Date | undefined>(undefined);
-  const [startDate, setStartDate] = useState<Date | undefined>(undefined);
+  const [endDate, setEndDate] = useState<Date | undefined>();
+  const [startDate, setStartDate] = useState<Date | undefined>();
   
   return (
     <>
@@ -61,7 +65,7 @@ const DateUsage = ({ minDateTime, maxDateTime, dateOnly, timeZone }) => {
     </>
   );
   `;
-  
+
   const datepickers = (
     <>
       <table>
@@ -99,7 +103,6 @@ const DateUsage = ({ minDateTime, maxDateTime, dateOnly, timeZone }) => {
     </>
   );  
 
-
   return (
     <div className={styles.page}>
       <div className={styles.header}>
@@ -109,7 +112,11 @@ const DateUsage = ({ minDateTime, maxDateTime, dateOnly, timeZone }) => {
             The DateTimePicker component allows you to select a single date or a range (i.e a From date and To date).
           </p>
           <p>
-            This page is to document how you would implement a <strong>From</strong> and <strong>To</strong> DateTimePicker coupling.
+            This page is to document how you would implement a&nbsp;
+            <strong>From</strong>&nbsp;
+            and&nbsp;
+            <strong>To</strong>&nbsp;
+            DateTimePicker coupling.
           </p>
         </div>
         <div className={styles.topicContent}>
@@ -139,10 +146,8 @@ const DateUsage = ({ minDateTime, maxDateTime, dateOnly, timeZone }) => {
   );
 };
 
-
 DateUsage.defaultProps = {
   dateOnly: false,
-  timeZone: '',
   minDateTime: 0,
   maxDateTime: 10236782323493,
   timeZone: 'Europe/Zurich',
