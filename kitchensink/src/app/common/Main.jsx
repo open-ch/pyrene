@@ -60,7 +60,7 @@ export default class Main extends React.PureComponent {
             <Route path="/typography" component={TypographyPage} />
             <Route path="/icons" component={IconsPage} />
             <Route path="/resources" component={ResourcesPage} />
-            <Route path="/cookbook/date" component={DateUsage} />
+            <Route path="/cookbook/daterange" component={DateUsage} />
             <Route path="/cookbook/form" component={FormUsage} />
             <Route path="/cookbook/filter" component={FilterUsage} />
             <Route path="/cookbook/pyrene" component={PyreneTutorial} />
