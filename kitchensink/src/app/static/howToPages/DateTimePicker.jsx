@@ -148,7 +148,7 @@ DateUsage.propTypes = {
 const datetimepickerHowTo = [{
   title: 'Date Range',
   description: description(),
-  component: () => <DateUsage />,
+  component: DateUsage,
 }];
 
 export default datetimepickerHowTo;
