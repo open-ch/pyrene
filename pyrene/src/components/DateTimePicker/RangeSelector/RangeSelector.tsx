@@ -14,7 +14,6 @@ import styles from './RangeSelector.css';
 import DateTimePicker from '../DateTimePicker';
 import DetectClickOutside from './DetectClickOutside';
 
-
 type OnFunction = (value?: [number, number] | null) => void;
 export interface RangeSelectorProps{
   /**
@@ -25,10 +24,6 @@ export interface RangeSelectorProps{
    * Boolean to toggle time display
    */
   dateOnly?: boolean,
-  /**
-   * Display component as dropdown or inline
-   */
-  inline?: boolean,
   /**
   * This is a string array that represents the start and end labels of the component
   */
@@ -63,6 +58,9 @@ export interface RangeSelectorProps{
   timeZone?: string,
 }
 
+/**
+ * A component for selecting a date and time range.
+ */
 const RangeSelector: React.FC<RangeSelectorProps> = (({
   dateFormat = 'dd.MM.yyyy',
   dateOnly = false,
@@ -75,15 +73,11 @@ const RangeSelector: React.FC<RangeSelectorProps> = (({
   timeZone,
 }:RangeSelectorProps) => {
 
-  const [endDate, setEndDate] = useState<Date | undefined>(undefined);
-  const [startDate, setStartDate] = useState<Date | undefined>(undefined);
+  const [endDate, setEndDate] = useState<Date | undefined>();
+  const [startDate, setStartDate] = useState<Date | undefined>();
 
-  const [isCalOpen, setCalOpen] = useState<boolean | undefined>(undefined);
+  const [isCalOpen, setCalOpen] = useState<boolean | undefined>();
   const [internaltTz, setTimezone] = useState('');
-
-  useEffect(() => {
-    setTimezone(timeZone || getClientTimeZone());
-  }, [timeZone]);
 
   const clearValues = () => {
     setStartDate(undefined);
@@ -110,6 +104,10 @@ const RangeSelector: React.FC<RangeSelectorProps> = (({
     onChange(null);
     setCalOpen(false);
   };
+
+  useEffect(() => {
+    setTimezone(timeZone || getClientTimeZone());
+  }, [timeZone]);
 
   return (
     <DetectClickOutside
