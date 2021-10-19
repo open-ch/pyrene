@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 import {
   DateTimePicker,
 } from '@osag/pyrene/dist/pyrene.dev';
@@ -7,7 +6,6 @@ import styles from '../../../css/componentPage.css';
 import CodeBox from '../../common/PageElements/HowTo/CodeBox/CodeBox';
 import Paragraph from '../../common/PageElements/Paragraph/Paragraph';
 import DescriptionBox from '../../common/PageElements/DescriptionBox/DescriptionBox';
-import DisplayBox from '../../common/PageElements/HowTo/DisplayBox/DisplayBox';
 
 const description = () => {
 
@@ -21,40 +19,38 @@ const description = () => {
   const [startDate, setStartDate] = useState<Date | undefined>();
   
   return (
-    <>
-      <table>
-        <tbody>
-          <tr>
-            <td>
-              <DateTimePicker
-                label="From"
-                endDate={endDate}
-                startDate={startDate}
-                minDateTime={minDateTime}
-                maxDateTime={maxDateTime}
-                onChange={(value) => (value && setStartDate(new Date(value)))}
-                timeZone="Europe/Zurich"
-                dateOnly={dateOnly}
-                selectStart
-              />
-            </td>
-            <td>
-              <DateTimePicker
-                label="To"
-                endDate={endDate}
-                startDate={startDate}
-                minDateTime={minDateTime}
-                maxDateTime={maxDateTime}
-                onChange={(value) => (value && setEndDate(new Date(value)))}
-                timeZone="Europe/Zurich"
-                dateOnly={dateOnly}
-                selectEnd
-              />
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </>
+    <table>
+      <tbody>
+        <tr>
+          <td>
+            <DateTimePicker
+              label="From"
+              endDate={endDate}
+              startDate={startDate}
+              minDateTime={minDateTime}
+              maxDateTime={maxDateTime}
+              onChange={(value) => (value && setStartDate(new Date(value)))}
+              timeZone="Europe/Zurich"
+              dateOnly={dateOnly}
+              selectStart
+            />
+          </td>
+          <td>
+            <DateTimePicker
+              label="To"
+              endDate={endDate}
+              startDate={startDate}
+              minDateTime={minDateTime}
+              maxDateTime={maxDateTime}
+              onChange={(value) => (value && setEndDate(new Date(value)))}
+              timeZone="Europe/Zurich"
+              dateOnly={dateOnly}
+              selectEnd
+            />
+          </td>
+        </tr>
+      </tbody>
+    </table>
   );
   `;
 
@@ -65,7 +61,7 @@ const description = () => {
           The DateTimePicker component allows you to select a single date or a range (i.e a From date and To date).
         </p>
         <p>
-          This page is to document how you would implement a From and To DateTimePicker coupling.
+          This section is to demonstrate how you would implement a From and To DateTimePicker coupling.
         </p>
       </div>
       <div className={styles.topicContent}>
@@ -86,74 +82,58 @@ const description = () => {
       </div>
     </>
   );
-}
+};
 
 const DateUsage = ({
-  minDateTime,
-  maxDateTime,
-  dateOnly,
-  timeZone,
+  dateOnly = false,
+  minDateTime = 0,
+  maxDateTime = 10236782323493,
+  timeZone = 'Europe/Zurich',
 }) => {
 
   const [endDate, setEndDate] = useState();
   const [startDate, setStartDate] = useState();
 
   return (
-    <>
-      <table>
-        <tbody>
-          <tr>
-            <td style={{ height: '200px' }}>
-              <DateTimePicker
-                label="From"
-                endDate={endDate}
-                startDate={startDate}
-                minDateTime={minDateTime}
-                maxDateTime={maxDateTime}
-                onChange={(value) => (value && setStartDate(new Date(value)))}
-                timeZone={timeZone}
-                dateOnly={dateOnly}
-                selectStart
-              />
-            </td>
-            <td>
-              <DateTimePicker
-                label="To"
-                endDate={endDate}
-                startDate={startDate}
-                minDateTime={minDateTime}
-                maxDateTime={maxDateTime}
-                onChange={(value) => (value && setEndDate(new Date(value)))}
-                timeZone={timeZone}
-                dateOnly={dateOnly}
-                selectEnd
-              />
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </>
+    <table>
+      <tbody>
+        <tr>
+          <td style={{ height: '200px' }}>
+            <DateTimePicker
+              label="From"
+              endDate={endDate}
+              startDate={startDate}
+              minDateTime={minDateTime}
+              maxDateTime={maxDateTime}
+              onChange={(value) => (value && setStartDate(new Date(value)))}
+              timeZone={timeZone}
+              dateOnly={dateOnly}
+              selectStart
+            />
+          </td>
+          <td>
+            <DateTimePicker
+              label="To"
+              endDate={endDate}
+              startDate={startDate}
+              minDateTime={minDateTime}
+              maxDateTime={maxDateTime}
+              onChange={(value) => (value && setEndDate(new Date(value)))}
+              timeZone={timeZone}
+              dateOnly={dateOnly}
+              selectEnd
+            />
+          </td>
+        </tr>
+      </tbody>
+    </table>
   );
 };
 
-DateUsage.defaultProps = {
-  dateOnly: false,
-  minDateTime: 0,
-  maxDateTime: 10236782323493,
-  timeZone: 'Europe/Zurich',
-};
-
-DateUsage.propTypes = {
-  dateOnly: PropTypes.bool,
-  maxDateTime: PropTypes.number,
-  minDateTime: PropTypes.number,
-  timeZone: PropTypes.string,
-};
-
-const datetimepickerhowto = [{
+const datetimepickerHowTo = [{
   title: 'Date Range',
   description: description(),
-  component: () => (<DateUsage />),
+  component: () => <DateUsage />,
 }];
 
-export default datetimepickerhowto;
+export default datetimepickerHowTo;
