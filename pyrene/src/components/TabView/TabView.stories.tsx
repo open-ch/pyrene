@@ -6,7 +6,7 @@ import TabViewComponent, { TabViewProps } from './TabView';
 import Placeholder from '../../examples/Placeholder';
 
 export default {
-  title: 'Components/Layout/TabView',
+  title: 'Components/TabView',
   component: TabViewComponent,
 } as Meta;
 
