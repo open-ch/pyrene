@@ -306,7 +306,7 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
     manual: this.props.manual,
 
     // this is only called once in componentDidMount cycle of react-table with first page load
-    onFetchData: (rts) => this.state.pageSize !== rts.pageSize ? this.props.onFetchData({
+    onFetchData: (rts) => (this.state.pageSize !== rts.pageSize ? this.props.onFetchData({
       page: 0,
       pageCount: 0,
       pageSize: rts.pageSize,
@@ -318,7 +318,7 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
       pageSize: rts.pageSize,
       sorting: rts.sorted,
       filters: this.props.filterValues,
-    })
+    })),
   };
 
   componentDidUpdate(prevProps: TableProps<R>) {
@@ -502,7 +502,7 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
           {...this.commonStaticProps}
           {...commonVariableProps}
           {...multiTableProps}
-          ref={ (r) => this.i = r }
+          ref={(r) => this.i = r}
         />
       )
       : (
@@ -571,7 +571,7 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
                 .map((col) => ({
                   id: col.id,
                   label: col.headerName,
-                  value: typeof this.state.columnsVisibility[col.id] !== 'undefined' ? this.state.columnsVisibility[col.id] : !col.initiallyHidden
+                  value: typeof this.state.columnsVisibility[col.id] !== 'undefined' ? this.state.columnsVisibility[col.id] : !col.initiallyHidden,
                 }))}
               onItemClick={(item, value) => this.toggleColumnDisplay(item, value)}
               onRestoreDefault={() => this.restoreColumnDefaults()}
