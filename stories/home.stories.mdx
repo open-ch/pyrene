@@ -4,7 +4,16 @@ import DescriptionBox from '../kitchensink/src/app/common/PageElements/Descripti
 import DesignSystemBox from '../kitchensink/src/app/common/PageElements/IntroductionElements/DesignSystemBox';
 import Principle from '../kitchensink/src/app/common/PageElements/IntroductionElements/Principle';
 
-<Meta title="About Pyrene/Introduction" />
+<Meta
+  title="Introduction"
+  hidden={true}
+  parameters={{
+    viewMode: 'docs',
+    previewTabs: {
+      canvas: { hidden: true }
+    },
+  }}
+/>
 
 <style>{`
   .title {
