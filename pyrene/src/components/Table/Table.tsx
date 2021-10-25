@@ -153,7 +153,7 @@ export interface TableProps<R={}> {
   /**
    * Sets the data key for each row. Should be unique. Is used for selections.
    */
-  keyField: keyof R,
+  keyField: keyof R & string,
   /**
    * Disables the component and displays a loader inside of it.
    */
@@ -213,16 +213,16 @@ export interface TableProps<R={}> {
   toggleColumns?: boolean,
 }
 
-export interface TableState {
-  selection: Array<string | number>,
+export interface TableState<R> {
+  selection: Array<keyof R>,
   selectAll: boolean,
   columnsVisibility: { [key: string]: boolean },
   pageSize?: number,
 }
 
-export interface Action {
+export interface Action<R> {
   active: 'single' | 'multi' | 'always',
-  callback: (row: Array<string | number>) => void,
+  callback: (row: Array<keyof R>) => void,
   icon?: keyof IconNames,
   label: string,
   loading?: boolean,
@@ -233,7 +233,7 @@ export interface Action {
  *
  * Tables support multi sorting for columns.
  */
-export default class Table<R> extends React.Component<TableProps<R>, TableState> {
+export default class Table<R> extends React.Component<TableProps<R>, TableState<R>> {
 
   checkboxTable: React.LegacyRef<ReactTable<TableProps<R>>> = null;
 
@@ -243,10 +243,10 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
     selectAll: false,
     columnsVisibility: {},
     pageSize: this.props.defaultPageSize,
-  } as TableState;
+  } as TableState<R>;
 
   commonStaticProps = {
-    getTrProps: (state: TableState, rowInfo: RowInfo<R>) => {
+    getTrProps: (state: TableState<R>, rowInfo: RowInfo<R>) => {
       // no row selected yet
       const key = rowInfo && rowInfo.original[this.props.keyField];
       const selected = this.isSelected(key);
@@ -259,7 +259,7 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
       };
     },
 
-    getTdProps: (state: TableState, rowInfo: RowInfo<R>, column: Column<R>) => ({
+    getTdProps: (state: TableState<R>, rowInfo: RowInfo<R>, column: Column<R>) => ({
       onClick: (e, handleOriginal) => {
         if (column.id !== '_selector' && typeof rowInfo !== 'undefined') {
           this.singleRowSelection?.(rowInfo.original[this.props.keyField], rowInfo.original);
@@ -351,7 +351,7 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
   toggleAll = () => {
     // Only selects what is visible to the user (page size matters)
     const selectAll = !this.state.selectAll;
-    const selection: Array<string | number> = [];
+    const selection: Array<keyof R> = [];
 
     if (selectAll) {
       // we need to get at the internals of ReactTable
@@ -378,7 +378,7 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
     }));
   };
 
-  isSelected = (key: string | number) => this.state.selection.includes(key);
+  isSelected = (key: keyof R) => this.state.selection.includes(key);
 
   resetSelection = () => {
     this.setState(() => ({
@@ -387,7 +387,7 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
     }));
   };
 
-  handleActionAvailability = (actionType: Action['active']) => {
+  handleActionAvailability = (actionType: Action<R>['active']) => {
     if (this.props.error) {
       return false;
     }
@@ -406,7 +406,7 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
 
   };
 
-  singleRowSelection = (key: string | number, row: R) => {
+  singleRowSelection = (key: keyof R, row: R) => {
     const enabled = this.props.rowSelectableCallback?.(row);
     if (enabled) {
       this.setState({
@@ -416,7 +416,7 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
     }
   };
 
-  toggleSelection = (key: string | number, row: R) => {
+  toggleSelection = (key: keyof R, row: R) => {
     // start off with the existing state
     let selection = [...this.state.selection];
     const enabled = this.props.rowSelectableCallback?.(row);
@@ -542,6 +542,7 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
   };
 
   render() {
+    console.log('state', this.state);
     return (
       <div className={styles.tableContainer}>
         {this.props.title && (
