@@ -327,7 +327,7 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
     }
   }
 
-  onManualFilterChange = (values) => {
+  onManualFilterChange = (values: Filters) => {
     this.resetSelection();
     this.props.onFetchData?.({
       page: 0,
