@@ -306,18 +306,18 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
     manual: this.props.manual,
 
     // this is only called once in componentDidMount cycle of react-table with first page load
-    onFetchData: (rts) => (this.state.pageSize !== rts.pageSize ? this.props.onFetchData({
+    onFetchData: (rts) => (this.state.pageSize !== rts.pageSize ? this.props?.onFetchData?.({
       page: 0,
       pageCount: 0,
       pageSize: rts.pageSize,
       sorting: rts.sorted,
-      filters: this.props.filterValues,
-    }) : this.props.onFetchData({
+      filters: this.props.filterValues || {},
+    }) : this.props?.onFetchData?.({
       page: rts.page,
-      pageCount: this.props.pages,
+      pageCount: this.props.pages || 0,
       pageSize: rts.pageSize,
       sorting: rts.sorted,
-      filters: this.props.filterValues,
+      filters: this.props.filterValues || {},
     })),
   };
 
