@@ -41,7 +41,7 @@ const LoaderComponent = () => (
 const NoDataComponent = () => <div className={styles.customTableBody}>No data found.</div>;
 
 export type ExtendsRow<R> = R & {
-  value?: string | number;
+  value?: keyof R & string;
 };
 
 export interface Column<R, X=ExtendsRow<R>> {
@@ -92,7 +92,7 @@ export interface RowInfo<R> {
 }
 
 export interface TableState<R> {
-  selection: Array<keyof R>,
+  selection: Array<keyof R & string>,
   selectAll: boolean,
   columnsVisibility: { [key: string]: boolean },
   pageSize?: number,
@@ -100,7 +100,7 @@ export interface TableState<R> {
 
 export interface Action<R> {
   active: 'single' | 'multi' | 'always',
-  callback: (row: Array<keyof R>) => void,
+  callback: (row: Array<keyof R & string>) => void,
   icon?: keyof IconNames,
   label: string,
   loading?: boolean,
@@ -379,7 +379,7 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState<
   toggleAll = () => {
     // Only selects what is visible to the user (page size matters)
     const selectAll = !this.state.selectAll;
-    const selection: Array<keyof R> = [];
+    const selection: Array<keyof R & string> = [];
 
     if (selectAll) {
       // we need to get at the internals of ReactTable
@@ -406,7 +406,7 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState<
     }));
   };
 
-  isSelected = (key: keyof R) => this.state.selection.includes(key);
+  isSelected = (key: keyof R & string) => this.state.selection.includes(key);
 
   resetSelection = () => {
     this.setState(() => ({
@@ -434,7 +434,7 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState<
 
   };
 
-  singleRowSelection = (key: keyof R, row: R) => {
+  singleRowSelection = (key: keyof R & string, row: R) => {
     const enabled = this.props.rowSelectableCallback?.(row);
     if (enabled) {
       this.setState({
@@ -444,7 +444,7 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState<
     }
   };
 
-  toggleSelection = (key: keyof R, row: R) => {
+  toggleSelection = (key: keyof R & string, row: R) => {
     // start off with the existing state
     let selection = [...this.state.selection];
     const enabled = this.props.rowSelectableCallback?.(row);
