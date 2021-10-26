@@ -1,3 +1,4 @@
+/* eslint-disable react/static-property-placement */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
@@ -90,11 +91,25 @@ export interface RowInfo<R> {
   viewIndex: number,
 }
 
+export interface TableState<R> {
+  selection: Array<keyof R>,
+  selectAll: boolean,
+  columnsVisibility: { [key: string]: boolean },
+  pageSize?: number,
+}
+
+export interface Action<R> {
+  active: 'single' | 'multi' | 'always',
+  callback: (row: Array<keyof R>) => void,
+  icon?: keyof IconNames,
+  label: string,
+  loading?: boolean,
+}
 export interface TableProps<R={}> {
   /**
    * Sets the table actions. Type: [{ icon: string, label: string (required), callback: func (required), active: oneOf('single', 'multi', 'always') (required) }]
    */
-  actions?: Array<Action>,
+  actions?: Array<Action<R>>,
   /**
    * Sets the Table columns.
    * Type: [{ accessor: any, cellRenderCallback: One of [React element, callback function to display the cell, string],
@@ -213,27 +228,40 @@ export interface TableProps<R={}> {
   toggleColumns?: boolean,
 }
 
-export interface TableState<R> {
-  selection: Array<keyof R>,
-  selectAll: boolean,
-  columnsVisibility: { [key: string]: boolean },
-  pageSize?: number,
-}
-
-export interface Action<R> {
-  active: 'single' | 'multi' | 'always',
-  callback: (row: Array<keyof R>) => void,
-  icon?: keyof IconNames,
-  label: string,
-  loading?: boolean,
-}
-
 /**
  * Tables are used to display tabular data. Tables come with pagination and sorting functionality and also allows the user to toggle columns.
  *
  * Tables support multi sorting for columns.
  */
 export default class Table<R> extends React.Component<TableProps<R>, TableState<R>> {
+
+  static displayName = 'Table';
+
+  static defaultProps = {
+    actions: [],
+    title: '',
+    defaultSorted: [],
+    defaultPageSize: 20,
+    disabled: false,
+    disableSorting: false,
+    loading: false,
+    manual: false,
+    multiSort: true,
+    multiSelect: false,
+    numberOfResults: 0,
+    rowSelectableCallback: () => true,
+    toggleColumns: false,
+    pageSizeOptions: [10, 20, 50, 100, 250],
+    filterDisabled: false,
+    filters: [],
+    filterValues: {},
+    negatable: false,
+    onFetchData: () => null,
+    onRowDoubleClick: () => null,
+    onFilterChange: () => null,
+    error: null,
+  };
+
 
   checkboxTable: React.LegacyRef<ReactTable<TableProps<R>>> = null;
 
@@ -607,31 +635,3 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState<
   }
 
 }
-
-
-Table.displayName = 'Table';
-
-Table.defaultProps = {
-  actions: [],
-  title: '',
-  defaultSorted: [],
-  defaultPageSize: 20,
-  disabled: false,
-  disableSorting: false,
-  loading: false,
-  manual: false,
-  multiSort: true,
-  multiSelect: false,
-  numberOfResults: 0,
-  rowSelectableCallback: () => true,
-  toggleColumns: false,
-  pageSizeOptions: [10, 20, 50, 100, 250],
-  filterDisabled: false,
-  filters: [],
-  filterValues: {},
-  negatable: false,
-  onFetchData: () => null,
-  onRowDoubleClick: () => null,
-  onFilterChange: () => null,
-  error: null,
-};
