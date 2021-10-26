@@ -3,7 +3,7 @@
 /* eslint-disable react/display-name, no-nested-ternary */
 import React from 'react';
 import {
-  TableProps, Column, MappedColumn, ExtendsRow, RowInfo,
+  TableProps, Column, MappedColumn, CellInfo, RowInfo,
 } from './Table';
 import { Example, StateProvider } from '../../examples/Example';
 import { TableRow } from '../../examples/TableRowExample';
@@ -432,7 +432,7 @@ const tableColumns: Array<Column<TableRow> | MappedColumn<TableRow>> = [{
   id: 'age',
   headerName: 'Age',
   accessor: 'age',
-  cellRenderCallback: (row: ExtendsRow<TableRow>) => (
+  cellRenderCallback: (cell: CellInfo<TableRow>) => (
     <div
       style={{
         width: '100%',
@@ -442,13 +442,12 @@ const tableColumns: Array<Column<TableRow> | MappedColumn<TableRow>> = [{
     >
       <div
         style={{
-
-          width: `${(((typeof row?.value === 'number' ? row.value : 0) - 20) / 20) * 100}%`,
+          width: `${((cell.value - 20) / 20) * 100}%`,
           height: '100%',
           backgroundColor:
-            (((typeof row?.value === 'number' ? row.value : 0) - 20) / 20) * 100 > 66
+            ((cell.value - 20) / 20) * 100 > 66
               ? 'var(--acqua-300)'
-              : (((typeof row?.value === 'number' ? row.value : 0) - 20) / 20) * 100 > 33
+              : ((cell.value - 20) / 20) * 100 > 33
                 ? 'var(--teal-300)'
                 : 'var(--red-200)',
           transition: 'all .2s ease-out',

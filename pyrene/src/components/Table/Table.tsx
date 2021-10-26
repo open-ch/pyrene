@@ -46,7 +46,7 @@ export type ExtendsRow<R> = R & {
 
 export interface Column<R, X=ExtendsRow<R>> {
   accessor: keyof R | ((row: R, rowIndex: number, columnIndex: number) => string | number),
-  cellRenderCallback?: string | JSX.Element | ((row: X, rowIndex: number, columnIndex: number) => string | JSX.Element | number),
+  cellRenderCallback?: string | JSX.Element | ((row: X & CellInfo<R>, rowIndex: number, columnIndex: number) => string | JSX.Element | number),
   cellStyle?: CSSProperties,
   headerName: string,
   headerStyle?: CSSProperties,
@@ -69,6 +69,33 @@ export interface MappedColumn<R, X=ExtendsRow<R>> {
   sortable?: boolean,
   sortMethod?: (a: string, b: string) => boolean | number,
   width?: number,
+}
+
+export interface CellInfo<R> {
+  aggregated: undefined,
+  classes: Array<undefined | string>,
+  column: any,
+  columnProps: any,
+  expander: undefined,
+  groupedByPivot: undefined,
+  index: number,
+  isExpanded: boolean | undefined,
+  level: number,
+  maxWidth: undefined,
+  nestingPath: number[],
+  original: R,
+  page: number,
+  pageSize: number,
+  pivoted: undefined,
+  resized: number[],
+  row: RowInfo<R>['row'],
+  show: boolean,
+  styles: {},
+  subRows: undefined,
+  tdProps: any,
+  value: number,
+  viewIndex: number,
+  width: number,
 }
 
 export interface RowInfo<R> {
