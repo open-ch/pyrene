@@ -509,7 +509,6 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
   createTableColumnsObject = () => TableUtils.mapColumnProps(this.props.columns).map((col: MappedColumn<R>) => ({
     ...col,
     ...(typeof this.state.columnsVisibility[col.id] !== 'undefined') ? { show: this.state.columnsVisibility[col.id] } : {},
-    toto: console.log('col', col),
   }));
 
   renderTable = () => {
