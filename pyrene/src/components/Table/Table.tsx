@@ -41,7 +41,7 @@ const LoaderComponent = () => (
 const NoDataComponent = () => <div className={styles.customTableBody}>No data found.</div>;
 
 export type ExtendsRow<R> = R & {
-  value?: keyof R & string;
+  value?: string | number;
 };
 
 export interface Column<R, X=ExtendsRow<R>> {
