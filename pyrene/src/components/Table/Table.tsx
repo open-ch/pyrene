@@ -41,7 +41,7 @@ const LoaderComponent = () => (
 const NoDataComponent = () => <div className={styles.customTableBody}>No data found.</div>;
 
 export type ExtendsRow<R> = R & {
-  value?: R[keyof R];
+  value: R[keyof R];
 };
 
 export interface Column<R, X=ExtendsRow<R>> {
@@ -394,15 +394,13 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
     });
   };
 
-  toggleColumnDisplay = (columnId: string, showValue: boolean) => {
-
+  toggleColumnDisplay = (columnId: string, showValue: boolean) =>
     this.setState((prevState) => ({
       columnsVisibility: {
         ...prevState.columnsVisibility,
         [columnId]: !showValue,
       },
     }));
-  };
 
   toggleAll = () => {
     // Only selects what is visible to the user (page size matters)
