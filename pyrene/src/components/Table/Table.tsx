@@ -317,7 +317,7 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
     },
 
     getTdProps: (state: TableState, rowInfo: RowInfo<R>, column: Column<R>) => ({
-      onClick: (e, handleOriginal) => {
+      onClick: (e, handleOriginal?: () => void) => {
         if (column.id !== '_selector' && typeof rowInfo !== 'undefined') {
           // @ts-ignore
           this.singleRowSelection?.(rowInfo.original[this.props.keyField], rowInfo.original);
@@ -576,15 +576,11 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
     }
     // Inject LoaderComponent while loading to table body
     if (this.props.loading) {
-      return (
-        React.cloneElement(tableToRender, { TbodyComponent: LoaderComponent })
-      );
+      return React.cloneElement(tableToRender, { TbodyComponent: LoaderComponent });
     }
     // Inject NoDataComponent when there is no data present to table body
     if (!commonVariableProps.data.length) {
-      return (
-        React.cloneElement(tableToRender, { TbodyComponent: NoDataComponent })
-      );
+      return React.cloneElement(tableToRender, { TbodyComponent: NoDataComponent });
     }
     return (
       tableToRender
