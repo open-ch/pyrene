@@ -111,6 +111,7 @@ export interface RowInfo<R> {
     _index: number,
     _nestingLevel: number,
     _original: R,
+    _selector?: string,
     _subRows: undefined,
     _viewIndex: number,
   },
@@ -303,7 +304,7 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
   commonStaticProps = {
     getTrProps: (state: TableState, rowInfo: RowInfo<R>) => {
       // no row selected yet
-      const key = rowInfo && rowInfo.original[this.props.keyField];
+      const key = rowInfo && rowInfo?.original?.[this.props.keyField];
       const selected = this.isSelected(key);
 
       return {
@@ -410,13 +411,13 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
 
     if (selectAll) {
       // we need to get at the internals of ReactTable
-      const resolvedState = this.checkboxTable.getWrappedInstance().getResolvedState();
+      const resolvedState = this.checkboxTable?.getWrappedInstance?.().getResolvedState?.();
       // the 'sortedData' property contains the currently accessible records based on the filter and sort
 
-      const currentPageSize = resolvedState.pageSize;
-      const currentPage = resolvedState.page;
+      const currentPageSize = resolvedState?.pageSize || 0;
+      const currentPage = resolvedState?.page || 0;
 
-      const currentRecords = resolvedState.sortedData.slice(currentPage * currentPageSize, currentPage * currentPageSize + currentPageSize);
+      const currentRecords = resolvedState?.sortedData?.slice?.(currentPage * currentPageSize, currentPage * currentPageSize + currentPageSize) || [];
 
       // we just push all the IDs onto the selection array
       currentRecords.forEach((item) => {
@@ -492,7 +493,7 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
     }
 
     // if the current selection array has the same length as the pageSize then all the visible elements have to be selected
-    const isWholePageSelected = selection.length === this.checkboxTable.getWrappedInstance().getResolvedState().pageSize;
+    const isWholePageSelected = selection.length === this.checkboxTable?.getWrappedInstance?.().getResolvedState?.()?.pageSize;
     const areAllOptionsSelected = selection.length === this.props.data.length;
 
     this.setState(() => ({
@@ -550,7 +551,7 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
       },
     };
 
-    const tableToRender = this.props.multiSelect
+    const tableToRender = (this.props.multiSelect || true) 
       ? (
         // @ts-ignore
         <CheckboxTable
