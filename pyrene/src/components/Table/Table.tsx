@@ -449,11 +449,9 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
     }));
   };
 
-  restoreColumnDefaults = () => {
-    this.setState(() => ({
-      columnsVisibility: {},
-    }));
-  };
+  restoreColumnDefaults = () => this.setState({
+    columnsVisibility: {},
+  });
 
   createTableColumnsObject = () => TableUtils.mapColumnProps(this.props.columns).map((col: MappedColumn<R>) => ({
     ...col,
