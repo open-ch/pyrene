@@ -304,6 +304,7 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
   commonStaticProps = {
     getTrProps: (state: TableState, rowInfo: RowInfo<R>) => {
       // no row selected yet
+      // @ts-ignore
       const key = rowInfo && rowInfo?.original?.[this.props.keyField];
       const selected = this.isSelected(key);
 
@@ -318,6 +319,7 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
     getTdProps: (state: TableState, rowInfo: RowInfo<R>, column: Column<R>) => ({
       onClick: (e, handleOriginal) => {
         if (column.id !== '_selector' && typeof rowInfo !== 'undefined') {
+          // @ts-ignore
           this.singleRowSelection?.(rowInfo.original[this.props.keyField], rowInfo.original);
         }
         // IMPORTANT! React-Table uses onClick internally to trigger
@@ -394,13 +396,12 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
     });
   };
 
-  toggleColumnDisplay = (columnId: string, showValue: boolean) =>
-    this.setState((prevState) => ({
-      columnsVisibility: {
-        ...prevState.columnsVisibility,
-        [columnId]: !showValue,
-      },
-    }));
+  toggleColumnDisplay = (columnId: string, showValue: boolean) => this.setState((prevState) => ({
+    columnsVisibility: {
+      ...prevState.columnsVisibility,
+      [columnId]: !showValue,
+    },
+  }));
 
   toggleAll = () => {
     // Only selects what is visible to the user (page size matters)
@@ -434,12 +435,10 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
 
   isSelected = (key: string | number) => this.state.selection.includes(key);
 
-  resetSelection = () => {
-    this.setState(() => ({
-      selection: [],
-      selectAll: false,
-    }));
-  };
+  resetSelection = () => this.setState(() => ({
+    selection: [],
+    selectAll: false,
+  }));
 
   handleActionAvailability = (actionType: Action['active']) => {
     if (this.props.error) {
@@ -521,7 +520,6 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
       page: this.props.manual && this.props.currentPage && this.props.currentPage >= 0 ? this.props.currentPage : undefined,
       pages: this.props.manual ? this.props.pages : undefined,
       showPaginationBottom: !!(this.props.data && this.props.data.length && !this.props.error && !this.props.loading),
-
       multiSort: this.props.multiSort,
     };
 
@@ -549,14 +547,13 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
       },
     };
 
-    const tableToRender = (this.props.multiSelect || true) 
+    const tableToRender = (this.props.multiSelect || true)
       ? (
         // @ts-ignore
         <CheckboxTable
           {...this.commonStaticProps}
           {...commonVariableProps}
           {...multiTableProps}
-          ref={(r) => this.i = r}
         />
       )
       : (
