@@ -69,6 +69,7 @@ export interface MappedColumn<R, X=ExtendsRow<R>> {
   sortable?: boolean,
   sortMethod?: (a: string, b: string) => boolean | number,
   width?: number,
+  show?: boolean,
 }
 
 export interface CellInfo<R> {
@@ -291,7 +292,7 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
     error: null,
   };
 
-  checkboxTable: React.LegacyRef<ReactTable<TableProps<R>>> = null;
+  checkboxTable: React.LegacyRef<ReactTable<TableProps<R>> | typeof CheckboxTable> = null;
 
   // eslint-disable-next-line react/state-in-constructor
   state = {
@@ -508,6 +509,7 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
   createTableColumnsObject = () => TableUtils.mapColumnProps(this.props.columns).map((col: MappedColumn<R>) => ({
     ...col,
     ...(typeof this.state.columnsVisibility[col.id] !== 'undefined') ? { show: this.state.columnsVisibility[col.id] } : {},
+    toto: console.log('col', col),
   }));
 
   renderTable = () => {
