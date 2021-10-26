@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+/* eslint-disable @typescript-eslint/restrict-plus-operands */
 /* eslint-disable react/static-property-placement */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
@@ -7,7 +9,14 @@
 /* eslint-disable react/require-default-props */
 /* eslint-disable @typescript-eslint/ban-types */
 import React, { CSSProperties } from 'react';
-import ReactTable, { Instance, RowInfo, CellInfo } from 'react-table';
+import ReactTable, {
+  Instance,
+  RowInfo,
+  CellInfo,
+  SortingRule,
+  Column,
+  SortFunction,
+} from 'react-table';
 import checkboxHOC from 'react-table/lib/hoc/selectTable';
 import clsx from 'clsx';
 
@@ -44,33 +53,19 @@ export type ExtendsRow<R> = R & {
   value: R[keyof R];
 };
 
-export interface Column<R, X=ExtendsRow<R>> {
-  accessor: keyof R | ((row: R, rowIndex: number, columnIndex: number) => string | number),
+export type Col<R, X = ExtendsRow<R>> = Column<R> & {
   cellRenderCallback?: string | JSX.Element | ((row: X & CellInfo, rowIndex: number, columnIndex: number) => string | JSX.Element | number),
   cellStyle?: CSSProperties,
   headerName: string,
-  headerStyle?: CSSProperties,
   headerTooltip?: string,
-  id: string,
   initiallyHidden?: boolean,
-  sortable?: boolean,
-  sortFunction?: (a: string, b: string) => boolean | number,
-  width?: number,
-}
+  sortFunction?: SortFunction,
+};
 
-export interface MappedColumn<R, X=ExtendsRow<R>> {
-  accessor: keyof R | ((row: R, rowIndex: number, columnIndex: number) => string | number),
-  Cell?: string | JSX.Element | ((row: X, rowIndex: number, columnIndex: number) => string | JSX.Element | number),
-  style?: CSSProperties,
-  Header: React.ReactElement | string,
-  headerStyle?: CSSProperties,
-  id: string,
+export type MappedColumn<R> = Column<R> & {
   initiallyHidden?: boolean,
-  sortable?: boolean,
-  sortMethod?: (a: string, b: string) => boolean | number,
-  width?: number,
-  show?: boolean,
-}
+  sortMethod?: SortFunction,
+};
 
 export interface TableState {
   selection: Array<string | number>,
@@ -99,7 +94,7 @@ export interface TableProps<R={}> {
    * sortable: bool (!!!Overrides disableSorting!!!), sortFunction: function, width: number }]
    * headerTooltip: if defined Pyrene tooltip displayed when hovering over header name
    */
-  columns: Array<Column<R> | MappedColumn<R>>,
+  columns: Array<Col<R> | MappedColumn<R>>,
   /**
    * Page to display by the Table (use only with server-side data fetching & pagination).
    */
@@ -116,10 +111,7 @@ export interface TableProps<R={}> {
    * Sets the default sorting columns and order when the component is first mounted.
    * Type: [{ id: string (required), desc: bool }]
    */
-  defaultSorted?: Array<{
-    desc?: boolean,
-    id: string,
-  }>,
+  defaultSorted?: Array<SortingRule>,
   /**
    * Disables table interactions
    */
@@ -252,7 +244,7 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
   } as TableState;
 
   commonStaticProps = {
-    getTrProps: (state: TableState, rowInfo: RowInfo) => {
+    getTrProps: (state: any, rowInfo: RowInfo) => {
       // no row selected yet
       // @ts-ignore
       const key = rowInfo && rowInfo?.original?.[this.props.keyField];
@@ -266,7 +258,7 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
       };
     },
 
-    getTdProps: (state: TableState, rowInfo: RowInfo, column: Column<R>) => ({
+    getTdProps: (state: any, rowInfo: RowInfo, column: Column<R>) => ({
       onClick: (e, handleOriginal?: () => void) => {
         if (column.id !== '_selector' && typeof rowInfo !== 'undefined') {
           // @ts-ignore
@@ -455,7 +447,7 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
 
   createTableColumnsObject = () => TableUtils.mapColumnProps(this.props.columns).map((col: MappedColumn<R>) => ({
     ...col,
-    ...(typeof this.state.columnsVisibility[col.id] !== 'undefined') ? { show: this.state.columnsVisibility[col.id] } : {},
+    ...(col?.id && typeof this.state.columnsVisibility[col.id] !== 'undefined') ? { show: this.state.columnsVisibility[col.id] } : {},
   }));
 
   renderTable = () => {
@@ -495,7 +487,7 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
       },
     };
 
-    const tableToRender = (this.props.multiSelect || true)
+    const tableToRender = this.props.multiSelect
       ? (
         // @ts-ignore
         <CheckboxTable
@@ -505,6 +497,7 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
         />
       )
       : (
+        // @ts-ignore
         <ReactTable
           {...this.commonStaticProps}
           {...commonVariableProps}
@@ -561,12 +554,12 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
           {this.props.toggleColumns && (
             <CheckboxPopover
               buttonLabel="Columns"
-              listItems={(this.props.columns as Array<Column<R>>)
+              listItems={(this.props.columns as Array<Col<R> & { id: string }>)
                 .filter((col) => col.headerName)
                 .map((col) => ({
                   id: col.id,
                   label: col.headerName,
-                  value: typeof this.state.columnsVisibility[col.id] !== 'undefined' ? this.state.columnsVisibility[col.id] : !col.initiallyHidden,
+                  value: col?.id && typeof this.state.columnsVisibility[col.id] !== 'undefined' ? this.state.columnsVisibility[col.id] : !col.initiallyHidden,
                 }))}
               onItemClick={(item, value) => this.toggleColumnDisplay(item, value)}
               onRestoreDefault={() => this.restoreColumnDefaults()}
