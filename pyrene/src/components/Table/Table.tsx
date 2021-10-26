@@ -90,7 +90,7 @@ export interface CellInfo<R> {
   resized: number[],
   row: RowInfo<R>['row'],
   show: boolean,
-  styles: {},
+  styles: CSSProperties,
   subRows: undefined,
   tdProps: any,
   value: number,
