@@ -7,7 +7,7 @@
 /* eslint-disable react/require-default-props */
 /* eslint-disable @typescript-eslint/ban-types */
 import React, { CSSProperties } from 'react';
-import ReactTable from 'react-table';
+import ReactTable, { Instance, RowInfo, CellInfo } from 'react-table';
 import checkboxHOC from 'react-table/lib/hoc/selectTable';
 import clsx from 'clsx';
 
@@ -46,7 +46,7 @@ export type ExtendsRow<R> = R & {
 
 export interface Column<R, X=ExtendsRow<R>> {
   accessor: keyof R | ((row: R, rowIndex: number, columnIndex: number) => string | number),
-  cellRenderCallback?: string | JSX.Element | ((row: X & CellInfo<R>, rowIndex: number, columnIndex: number) => string | JSX.Element | number),
+  cellRenderCallback?: string | JSX.Element | ((row: X & CellInfo, rowIndex: number, columnIndex: number) => string | JSX.Element | number),
   cellStyle?: CSSProperties,
   headerName: string,
   headerStyle?: CSSProperties,
@@ -70,54 +70,6 @@ export interface MappedColumn<R, X=ExtendsRow<R>> {
   sortMethod?: (a: string, b: string) => boolean | number,
   width?: number,
   show?: boolean,
-}
-
-export interface CellInfo<R> {
-  aggregated: undefined,
-  classes: Array<undefined | string>,
-  column: any,
-  columnProps: any,
-  expander: undefined,
-  groupedByPivot: undefined,
-  index: number,
-  isExpanded: boolean | undefined,
-  level: number,
-  maxWidth: undefined,
-  nestingPath: number[],
-  original: R,
-  page: number,
-  pageSize: number,
-  pivoted: undefined,
-  resized: number[],
-  row: RowInfo<R>['row'],
-  show: boolean,
-  styles: CSSProperties,
-  subRows: undefined,
-  tdProps: any,
-  value: number,
-  viewIndex: number,
-  width: number,
-}
-
-export interface RowInfo<R> {
-  aggregated: undefined,
-  groupedByPivot: undefined,
-  index: number,
-  level: number,
-  nestingPath: number[],
-  original: R,
-  page: number,
-  pageSize: number,
-  row: Partial<R> & {
-    _index: number,
-    _nestingLevel: number,
-    _original: R,
-    _selector?: string,
-    _subRows: undefined,
-    _viewIndex: number,
-  },
-  subRows: undefined,
-  viewIndex: number,
 }
 
 export interface TableState {
@@ -234,7 +186,7 @@ export interface TableProps<R={}> {
   /**
     * Called when the user double clicks on a row.
     */
-  onRowDoubleClick?: (rowInfo: RowInfo<R>) => void,
+  onRowDoubleClick?: (rowInfo: RowInfo) => void,
   /**
    * Amount of pages to be shown in React Table (use only with server-side data fetching & pagination).
    */
@@ -289,7 +241,7 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
     error: null,
   };
 
-  checkboxTable: React.RefCallback<ReactTable<TableProps<R>> | typeof CheckboxTable> | null = null;
+  checkboxTable: React.RefCallback<Instance<TableProps<R>>> | null = null;
 
   // eslint-disable-next-line react/state-in-constructor
   state = {
@@ -300,7 +252,7 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
   } as TableState;
 
   commonStaticProps = {
-    getTrProps: (state: TableState, rowInfo: RowInfo<R>) => {
+    getTrProps: (state: TableState, rowInfo: RowInfo) => {
       // no row selected yet
       // @ts-ignore
       const key = rowInfo && rowInfo?.original?.[this.props.keyField];
@@ -314,7 +266,7 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
       };
     },
 
-    getTdProps: (state: TableState, rowInfo: RowInfo<R>, column: Column<R>) => ({
+    getTdProps: (state: TableState, rowInfo: RowInfo, column: Column<R>) => ({
       onClick: (e, handleOriginal?: () => void) => {
         if (column.id !== '_selector' && typeof rowInfo !== 'undefined') {
           // @ts-ignore

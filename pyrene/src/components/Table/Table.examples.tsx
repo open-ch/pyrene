@@ -2,8 +2,9 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable react/display-name, no-nested-ternary */
 import React from 'react';
+import { RowInfo, CellInfo } from 'react-table';
 import {
-  TableProps, Column, MappedColumn, CellInfo, RowInfo,
+  TableProps, Column, MappedColumn, ExtendsRow,
 } from './Table';
 import { Example, StateProvider } from '../../examples/Example';
 import { TableRow } from '../../examples/TableRowExample';
@@ -432,7 +433,7 @@ const tableColumns: Array<Column<TableRow> | MappedColumn<TableRow>> = [{
   id: 'age',
   headerName: 'Age',
   accessor: 'age',
-  cellRenderCallback: (cell: CellInfo<TableRow>) => (
+  cellRenderCallback: (cell: ExtendsRow<TableRow> & CellInfo) => (
     <div
       style={{
         width: '100%',
@@ -513,7 +514,7 @@ const examples: Example<TableProps<TableRow>, State<TableRow>> = {
     keyField: 'name',
     data: (stateProvider) => stateProvider.state.tableData || tableData,
     columns: tableColumns,
-    onRowDoubleClick: (rowInfo: RowInfo<TableRow>) => console.log(rowInfo),
+    onRowDoubleClick: (rowInfo: RowInfo) => console.log(rowInfo),
     actions: [{
       icon: 'search', label: 'Single', callback: () => console.log('single'), active: 'single',
     }, {
