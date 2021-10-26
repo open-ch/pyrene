@@ -286,13 +286,10 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
     filters: [],
     filterValues: {},
     negatable: false,
-    onFetchData: () => null,
-    onRowDoubleClick: () => null,
-    onFilterChange: () => null,
     error: null,
   };
 
-  checkboxTable: React.LegacyRef<ReactTable<TableProps<R>> | typeof CheckboxTable> = null;
+  checkboxTable: React.RefCallback<ReactTable<TableProps<R>> | typeof CheckboxTable> | null = null;
 
   // eslint-disable-next-line react/state-in-constructor
   state = {
