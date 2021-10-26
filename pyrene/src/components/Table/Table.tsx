@@ -41,7 +41,7 @@ const LoaderComponent = () => (
 const NoDataComponent = () => <div className={styles.customTableBody}>No data found.</div>;
 
 export type ExtendsRow<R> = R & {
-  value?: R[keyof R & string];
+  value?: R[keyof R];
 };
 
 export interface Column<R, X=ExtendsRow<R>> {
@@ -91,16 +91,16 @@ export interface RowInfo<R> {
   viewIndex: number,
 }
 
-export interface TableState<R> {
-  selection: Array<R[keyof R & string]>,
+export interface TableState {
+  selection: Array<string | number>,
   selectAll: boolean,
   columnsVisibility: { [key: string]: boolean },
   pageSize?: number,
 }
 
-export interface Action<R> {
+export interface Action {
   active: 'single' | 'multi' | 'always',
-  callback: (row: Array<R[keyof R & string]>) => void,
+  callback: (row: Array<string | number>) => void,
   icon?: keyof IconNames,
   label: string,
   loading?: boolean,
@@ -110,7 +110,7 @@ export interface TableProps<R={}> {
   /**
    * Sets the table actions. Type: [{ icon: string, label: string (required), callback: func (required), active: oneOf('single', 'multi', 'always') (required) }]
    */
-  actions?: Array<Action<R>>,
+  actions?: Array<Action>,
   /**
    * Sets the Table columns.
    * Type: [{ accessor: any, cellRenderCallback: One of [React element, callback function to display the cell, string],
@@ -169,7 +169,7 @@ export interface TableProps<R={}> {
   /**
    * Sets the data key for each row. Should be unique. Is used for selections.
    */
-  keyField: keyof R & string,
+  keyField: string | number,
   /**
    * Disables the component and displays a loader inside of it.
    */
@@ -234,7 +234,7 @@ export interface TableProps<R={}> {
  *
  * Tables support multi sorting for columns.
  */
-export default class Table<R> extends React.Component<TableProps<R>, TableState<R>> {
+export default class Table<R> extends React.Component<TableProps<R>, TableState> {
 
   static displayName = 'Table';
 
@@ -271,10 +271,10 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState<
     selectAll: false,
     columnsVisibility: {},
     pageSize: this.props.defaultPageSize,
-  } as TableState<R>;
+  } as TableState;
 
   commonStaticProps = {
-    getTrProps: (state: TableState<R>, rowInfo: RowInfo<R>) => {
+    getTrProps: (state: TableState, rowInfo: RowInfo<R>) => {
       // no row selected yet
       const key = rowInfo && rowInfo.original[this.props.keyField];
       const selected = this.isSelected(key);
@@ -287,7 +287,7 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState<
       };
     },
 
-    getTdProps: (state: TableState<R>, rowInfo: RowInfo<R>, column: Column<R>) => ({
+    getTdProps: (state: TableState, rowInfo: RowInfo<R>, column: Column<R>) => ({
       onClick: (e, handleOriginal) => {
         if (column.id !== '_selector' && typeof rowInfo !== 'undefined') {
           this.singleRowSelection?.(rowInfo.original[this.props.keyField], rowInfo.original);
@@ -379,7 +379,7 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState<
   toggleAll = () => {
     // Only selects what is visible to the user (page size matters)
     const selectAll = !this.state.selectAll;
-    const selection: Array<R[keyof R & string]> = [];
+    const selection: Array<string | number> = [];
 
     if (selectAll) {
       // we need to get at the internals of ReactTable
@@ -406,7 +406,7 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState<
     }));
   };
 
-  isSelected = (key: R[keyof R & string]) => this.state.selection.includes(key);
+  isSelected = (key: string | number) => this.state.selection.includes(key);
 
   resetSelection = () => {
     this.setState(() => ({
@@ -415,7 +415,7 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState<
     }));
   };
 
-  handleActionAvailability = (actionType: Action<R>['active']) => {
+  handleActionAvailability = (actionType: Action['active']) => {
     if (this.props.error) {
       return false;
     }
@@ -434,7 +434,7 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState<
 
   };
 
-  singleRowSelection = (key: R[keyof R & string], row: R) => {
+  singleRowSelection = (key: string | number, row: R) => {
     const enabled = this.props.rowSelectableCallback?.(row);
     if (enabled) {
       this.setState({
@@ -444,7 +444,7 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState<
     }
   };
 
-  toggleSelection = (key: R[keyof R & string], row: R) => {
+  toggleSelection = (key: string | number, row: R) => {
     // start off with the existing state
     let selection = [...this.state.selection];
     const enabled = this.props.rowSelectableCallback?.(row);
