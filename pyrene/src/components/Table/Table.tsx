@@ -649,7 +649,7 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
                     disabled={!this.handleActionAvailability(action.active)}
                     loading={action.loading ? action.loading : false}
                   />
-                  {index + 1 < this.props.actions.length && <div className={styles.spacer} />}
+                  {index + 1 < (Array.isArray(this.props.actions) && this.props.actions.length) && <div className={styles.spacer} />}
                 </React.Fragment>
               ))}
             </div>
