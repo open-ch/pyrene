@@ -26,7 +26,7 @@ import Button from '../Button/Button';
 import Loader from '../Loader/Loader';
 import Filter from '../Filter/Filter';
 import TableHeaderCell from './TableHeader/TableHeaderCell';
-import TableHeader from './TableHeader/TableHeader';
+import TableHeader, { TableHeaderProps } from './TableHeader/TableHeader';
 import colorConstants from '../../styles/colorConstants';
 import Checkbox from '../Checkbox/Checkbox';
 import TableCell from './TableCell/TableCell';
@@ -295,7 +295,7 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
     minRows: 1,
 
     // Use two exclamation marks to convert a value to boolean - disabled={!!this.props.error} = true if string has a value, false if empty
-    TheadComponent: (props) => <TableHeader {...props} multiSelect={this.props.multiSelect} disabled={!!this.props.error} />,
+    TheadComponent: (props: TableHeaderProps) => <TableHeader {...props} disabled={!!this.props.error} />,
     ThComponent: (props) => <TableHeaderCell {...props} multiSelect={this.props.multiSelect} />,
     TdComponent: (props) => <TableCell {...props} multiSelect={this.props.multiSelect} />,
     PaginationComponent: (props) => <TablePagination {...props} loading={this.props.loading} error={this.props.error} numberOfResults={this.props.numberOfResults} />,
