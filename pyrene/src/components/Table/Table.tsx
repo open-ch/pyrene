@@ -250,7 +250,6 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
   commonStaticProps = {
     getTrProps: (state: any, rowInfo: RowInfo) => {
       // no row selected yet
-      // @ts-ignore
       const key = rowInfo && rowInfo?.original?.[this.props.keyField];
       const selected = this.isSelected(key);
 
@@ -265,7 +264,6 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
     getTdProps: (state: any, rowInfo: RowInfo, column: Column<R>) => ({
       onClick: (e, handleOriginal?: () => void) => {
         if (column.id !== '_selector' && typeof rowInfo !== 'undefined') {
-          // @ts-ignore
           this.singleRowSelection?.(rowInfo.original[this.props.keyField], rowInfo.original);
         }
         // IMPORTANT! React-Table uses onClick internally to trigger
