@@ -9,7 +9,7 @@ import DescSort from '../images/sortUp.svg';
 
 import styles from './tableHeaderCell.css';
 
-interface TableHeaderCellProps {
+export interface TableHeaderCellProps {
   children: ReactNode,
   className?: string,
   multiSelect?: boolean,

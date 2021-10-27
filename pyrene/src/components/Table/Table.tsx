@@ -21,15 +21,15 @@ import checkboxHOC from 'react-table/lib/hoc/selectTable';
 import clsx from 'clsx';
 
 import styles from './table.css';
-import TablePagination from './TablePagination/TablePagination';
+import TablePagination, { TablePaginationProps } from './TablePagination/TablePagination';
 import Button from '../Button/Button';
 import Loader from '../Loader/Loader';
 import Filter from '../Filter/Filter';
-import TableHeaderCell from './TableHeader/TableHeaderCell';
+import TableHeaderCell, { TableHeaderCellProps } from './TableHeader/TableHeaderCell';
 import TableHeader, { TableHeaderProps } from './TableHeader/TableHeader';
 import colorConstants from '../../styles/colorConstants';
 import Checkbox from '../Checkbox/Checkbox';
-import TableCell from './TableCell/TableCell';
+import TableCell, { TableCellProps } from './TableCell/TableCell';
 import CheckboxPopover from '../CheckboxPopover/CheckboxPopover';
 import TableUtils from './TableUtils';
 import Banner from '../Banner/Banner';
@@ -296,10 +296,17 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
 
     // Use two exclamation marks to convert a value to boolean - disabled={!!this.props.error} = true if string has a value, false if empty
     TheadComponent: (props: TableHeaderProps) => <TableHeader {...props} disabled={!!this.props.error} />,
-    ThComponent: (props) => <TableHeaderCell {...props} multiSelect={this.props.multiSelect} />,
-    TdComponent: (props) => <TableCell {...props} multiSelect={this.props.multiSelect} />,
-    PaginationComponent: (props) => <TablePagination {...props} loading={this.props.loading} error={this.props.error} numberOfResults={this.props.numberOfResults} />,
-    TfootComponent: (props) => <TablePagination {...props} />,
+    ThComponent: (props: TableHeaderCellProps) => <TableHeaderCell {...props} multiSelect={this.props.multiSelect} />,
+    TdComponent: (props: TableCellProps) => <TableCell {...props} multiSelect={this.props.multiSelect} />,
+    PaginationComponent: (props: TablePaginationProps<R>) => (
+      <TablePagination
+        {...props}
+        loading={!!this.props.loading}
+        error={this.props.error}
+        numberOfResults={this.props.numberOfResults || 0}
+      />
+    ),
+    TfootComponent: (props: TablePaginationProps<R>) => <TablePagination {...props} />,
     resizable: false,
     showPagination: true,
     showPaginationTop: true,

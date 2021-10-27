@@ -7,7 +7,7 @@ import TableSelect, { Option } from './TableSelect/TableSelect';
 
 import styles from './tablePagination.css';
 
-interface TablePaginationProps<R extends unknown> {
+export interface TablePaginationProps<R extends unknown> {
   pages: number,
   page: number,
   data: Array<R>,
