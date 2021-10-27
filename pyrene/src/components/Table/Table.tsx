@@ -39,7 +39,11 @@ import { IconNames } from '../types';
 
 const CheckboxTable = checkboxHOC(ReactTable);
 
-const ErrorComponent = ({ error = '' }: { error?: string }) => <div className={styles.customTableBody}><Banner label={error} type="error" styling="inline" /></div>;
+const ErrorComponent = ({ error = '' }: { error?: string }) => (
+  <div className={styles.customTableBody}>
+    <Banner label={error} type="error" styling="inline" />
+  </div>
+);
 
 const LoaderComponent = () => (
   <div className={styles.loader}>
