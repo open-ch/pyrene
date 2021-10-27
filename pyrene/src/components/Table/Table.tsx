@@ -28,7 +28,7 @@ import Filter from '../Filter/Filter';
 import TableHeaderCell, { TableHeaderCellProps } from './TableHeader/TableHeaderCell';
 import TableHeader, { TableHeaderProps } from './TableHeader/TableHeader';
 import colorConstants from '../../styles/colorConstants';
-import Checkbox from '../Checkbox/Checkbox';
+import Checkbox, { CheckboxProps } from '../Checkbox/Checkbox';
 import TableCell, { TableCellProps } from './TableCell/TableCell';
 import CheckboxPopover from '../CheckboxPopover/CheckboxPopover';
 import TableUtils from './TableUtils';
@@ -480,8 +480,8 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
       toggleSelection: this.toggleSelection,
       toggleAll: this.toggleAll,
       keyField: this.props.keyField,
-      SelectAllInputComponent: (props) => <Checkbox value={props.checked} onChange={props.onClick} />,
-      SelectInputComponent: (props) => {
+      SelectAllInputComponent: (props: CheckboxProps) => <Checkbox value={props.checked} onChange={props.onClick} />,
+      SelectInputComponent: (props: CheckboxProps) => {
         const enabled = this.props.rowSelectableCallback?.(props.row);
         return (
           <Checkbox
