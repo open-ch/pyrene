@@ -4,7 +4,7 @@
 import React from 'react';
 import { RowInfo, CellInfo } from 'react-table';
 import {
-  TableProps, Column, MappedColumn, ExtendsRow,
+  TableProps, MappedColumn, ExtendsRow, Col,
 } from './Table';
 import { Example, StateProvider } from '../../examples/Example';
 import { TableRow } from '../../examples/TableRowExample';
@@ -413,7 +413,7 @@ const tableData: Array<TableRow> = [
   },
 ];
 
-const tableColumns: Array<Column<TableRow> | MappedColumn<TableRow>> = [{
+const tableColumns: Array<Col<TableRow> | MappedColumn<TableRow>> = [{
   id: 'name',
   headerName: 'Name',
   accessor: 'name',
