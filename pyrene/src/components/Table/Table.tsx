@@ -240,6 +240,7 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
 
   checkboxTable: React.RefCallback<Instance<R>> | null = null;
 
+  // eslint-disable-next-line react/state-in-constructor
   state = {
     selection: [],
     selectAll: false,
@@ -262,7 +263,7 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
     },
 
     getTdProps: (state: any, rowInfo: RowInfo, column: Column<R>) => ({
-      onClick: (e, handleOriginal?: () => void) => {
+      onClick: (e: any, handleOriginal?: () => void) => {
         if (column.id !== '_selector' && typeof rowInfo !== 'undefined') {
           this.singleRowSelection?.(rowInfo.original[this.props.keyField], rowInfo.original);
         }
@@ -442,6 +443,7 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
     }
 
     // if the current selection array has the same length as the pageSize then all the visible elements have to be selected
+    // @ts-ignore
     const isWholePageSelected = selection.length === this.checkboxTable?.getWrappedInstance?.().getResolvedState?.()?.pageSize;
     const areAllOptionsSelected = selection.length === this.props.data.length;
 
@@ -498,7 +500,7 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
       },
     };
 
-    const tableToRender = (this.props.multiSelect || true)
+    const tableToRender = this.props.multiSelect
       ? (
         // @ts-ignore
         <CheckboxTable
