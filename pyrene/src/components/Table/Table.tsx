@@ -16,8 +16,9 @@ import ReactTable, {
   SortingRule,
   Column,
   SortFunction,
+  DerivedDataObject,
 } from 'react-table';
-import checkboxHOC from 'react-table/lib/hoc/selectTable';
+import selectTableHOC, { SelectInputComponentProps } from 'react-table/lib/hoc/selectTable';
 import clsx from 'clsx';
 
 import styles from './table.css';
@@ -28,7 +29,7 @@ import Filter from '../Filter/Filter';
 import TableHeaderCell, { TableHeaderCellProps } from './TableHeader/TableHeaderCell';
 import TableHeader, { TableHeaderProps } from './TableHeader/TableHeader';
 import colorConstants from '../../styles/colorConstants';
-import Checkbox, { CheckboxProps } from '../Checkbox/Checkbox';
+import Checkbox from '../Checkbox/Checkbox';
 import TableCell, { TableCellProps } from './TableCell/TableCell';
 import CheckboxPopover from '../CheckboxPopover/CheckboxPopover';
 import TableUtils from './TableUtils';
@@ -37,7 +38,7 @@ import Banner from '../Banner/Banner';
 import { Filter as FilterType, Filters } from '../Filter/types';
 import { IconNames } from '../types';
 
-const CheckboxTable = checkboxHOC(ReactTable);
+const CheckboxTable = selectTableHOC(ReactTable);
 
 const ErrorComponent = ({ error = '' }: { error?: string }) => (
   <div className={styles.customTableBody}>
@@ -237,9 +238,8 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
     error: null,
   };
 
-  checkboxTable: React.RefCallback<Instance<TableProps<R>>> | null = null;
+  checkboxTable: React.RefCallback<Instance<R>> | null = null;
 
-  // eslint-disable-next-line react/state-in-constructor
   state = {
     selection: [],
     selectAll: false,
@@ -361,13 +361,14 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
 
     if (selectAll) {
       // we need to get at the internals of ReactTable
+      // @ts-ignore
       const resolvedState = this.checkboxTable?.getWrappedInstance?.().getResolvedState?.();
       // the 'sortedData' property contains the currently accessible records based on the filter and sort
 
       const currentPageSize = resolvedState?.pageSize || 0;
       const currentPage = resolvedState?.page || 0;
 
-      const currentRecords = resolvedState?.sortedData?.slice?.(currentPage * currentPageSize, currentPage * currentPageSize + currentPageSize) || [];
+      const currentRecords: Array<DerivedDataObject> = resolvedState?.sortedData?.slice?.(currentPage * currentPageSize, currentPage * currentPageSize + currentPageSize) || [];
 
       // we just push all the IDs onto the selection array
       currentRecords.forEach((item) => {
@@ -473,6 +474,7 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
     };
 
     const multiTableProps = {
+      // @ts-ignore
       ref: (r) => (this.checkboxTable = r),
       selectType: 'checkbox',
       selectAll: this.state.selectAll,
@@ -480,8 +482,8 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
       toggleSelection: this.toggleSelection,
       toggleAll: this.toggleAll,
       keyField: this.props.keyField,
-      SelectAllInputComponent: (props: CheckboxProps) => <Checkbox value={props.checked} onChange={props.onClick} />,
-      SelectInputComponent: (props: CheckboxProps) => {
+      SelectAllInputComponent: (props: SelectInputComponentProps) => <Checkbox value={props.checked} onChange={props.onClick as any} />,
+      SelectInputComponent: (props: SelectInputComponentProps) => {
         const enabled = this.props.rowSelectableCallback?.(props.row);
         return (
           <Checkbox
@@ -496,7 +498,7 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
       },
     };
 
-    const tableToRender = this.props.multiSelect
+    const tableToRender = (this.props.multiSelect || true)
       ? (
         // @ts-ignore
         <CheckboxTable
