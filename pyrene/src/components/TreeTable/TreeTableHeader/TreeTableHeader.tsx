@@ -4,32 +4,41 @@ import PropTypes from 'prop-types';
 import PROPCONSTANTS from '../TreeTablePropTypes';
 
 import styles from './treeTableHeader.css';
+import { Column, ExtendedRow, CellValue } from '../types';
 
-const TreeTableHeader = ({ columns, scrollPadding }) => (
-  <div className={styles.treeTableHeader} style={{ paddingRight: scrollPadding }}>
+export interface TreeTableHeaderProps<R> {
+  columns: Column<R>,
+  scrollPadding: number,
+}
 
-    {columns.map((column) => {
-      // Do not display hidden columns
-      if (column.hidden) {
-        return null;
-      }
+function TreeTableCell<R extends object = {}>({
+  columns,
+  scrollPadding,
+}): TreeTableHeaderProps<R>): React.ReactElement<TreeTableHeaderProps<R>> {
+  return (
+    <div className={styles.treeTableHeader} style={{ paddingRight: scrollPadding }}>
 
-      const header = column.headerName ? column.headerName : column.accessor;
+      {columns.map((column) => {
+        // Do not display hidden columns
+        if (column.hidden) {
+          return null;
+        }
 
-      const colWidth = (typeof column.width !== 'undefined' || column.width !== 0) ? column.width : null;
+        const header = column.headerName ? column.headerName : column.accessor;
 
-      const styling = {
-        width: colWidth,
-        flex: colWidth ? `${colWidth} 0 auto` : null,
-      };
-      return (
-        <div style={{ ...styling, ...column.headerStyle }} className={styles.treeTableHeaderCell} key={header}>
-          {header}
-        </div>
-      );
-    })}
+        const colWidth = (typeof column.width !== 'undefined' || column.width !== 0) ? column.width : null;
 
-  </div>
+        const styling = {
+          width: colWidth,
+          flex: colWidth ? `${colWidth} 0 auto` : null,
+        };
+        return (
+          <div style={{ ...styling, ...column.headerStyle }} className={styles.treeTableHeaderCell} key={header}>
+            {header}
+          </div>
+        );
+      })}
+    </div>
 );
 
 
