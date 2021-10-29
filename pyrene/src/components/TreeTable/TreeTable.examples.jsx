@@ -1,5 +1,21 @@
 import treeTableData from './data.json';
 
+/*
+TODO: when converting the present file to tsx
+treeTableData is of type TableRow
+
+interface TableRow {
+  id: string;
+  name: string;
+  phone: string;
+  children: Array<{
+    id: string;
+    name: string;
+    phone: string;
+  }>;
+}
+*/
+
 const testOptions = [
   { value: 'chocolate', label: 'Chocolate', invalid: false },
   { value: 'strawberry', label: 'Strawberry', invalid: false },
