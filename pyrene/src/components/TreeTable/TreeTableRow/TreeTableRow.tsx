@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable @typescript-eslint/ban-types */
 import React from 'react';
 import clsx from 'clsx';
@@ -84,12 +85,13 @@ function TreeTableRow<R extends object = {}>({
           return (
             <TreeTableCell
               style={{ ...styling, ...column.cellStyle }}
-              key={column.accessor}
+              key={column.accessor as string}
               columnProps={column}
               firstColumn={firstColumn}
               parent={parent}
               sectionOpen={isExpanded}
-              value={data?.[column.accessor]}
+              // @ts-ignore
+              value={data[column.accessor]}
               rowData={data}
               onExpandClick={hasExpandAction ? () => null : toggleRowExpansion}
             />

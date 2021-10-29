@@ -12,7 +12,7 @@ export type ExtendedRow<R> = R & {
 };
 
 export interface Column<R> {
-  accessor: keyof R & string,
+  accessor: keyof R,
   cellStyle?: CSSProperties,
   headerName?: string,
   hidden?: boolean,
