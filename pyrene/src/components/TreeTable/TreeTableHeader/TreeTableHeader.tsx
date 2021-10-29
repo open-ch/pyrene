@@ -24,13 +24,14 @@ function TreeTableHeader<R extends object = {}>({
 
         const header = column.headerName ? column.headerName : column.accessor;
 
-        const colWidth = (typeof column.width !== 'undefined' || column.width !== 0) ? column.width : null;
+        const colWidth = typeof column.width !== 'undefined' || column.width !== 0 ? column.width : null;
 
         const styling = {
           width: colWidth,
           flex: colWidth ? `${colWidth} 0 auto` : null,
         };
         return (
+          // @ts-ignore
           <div style={{ ...styling, ...column.headerStyle }} className={styles.treeTableHeaderCell} key={header}>
             {header}
           </div>
