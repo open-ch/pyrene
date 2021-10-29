@@ -14,10 +14,10 @@ interface Item {
 
 export interface TreeTableActionBarProps {
   columnToggleProps: {
-    listItems?: Array<Item>,
-    onItemClick?: () => void,
-    onRestoreDefault?: () => void,
-    toggleColumns?: boolean,
+    listItems: Array<Item>,
+    onItemClick: () => void,
+    onRestoreDefault: () => void,
+    toggleColumns: boolean,
   },
   disabledExpand: boolean,
   displayExpandAll: boolean,
