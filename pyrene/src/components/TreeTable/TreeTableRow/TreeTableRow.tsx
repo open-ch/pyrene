@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable @typescript-eslint/ban-types */
 import React from 'react';
 import clsx from 'clsx';
@@ -17,7 +16,7 @@ export interface TreeTableRowProps<R>{
   level: number,
   onExpand?: (args: { row?: RowData<R>, index: number }) => void,
   onRowClick?: (row?: RowData<R>) => void,
-  onRowDoubleClick?: () => void,
+  onRowDoubleClick?: (row?: RowData<R>) => void,
   parent?: boolean,
 }
 
@@ -52,7 +51,9 @@ function TreeTableRow<R extends object = {}>({
   const hasDoubleClickAction = !hasSingleClickAction && onRowDoubleClick !== null;
   return (
     <div
-      className={clsx(styles.treeTableRow, { [styles.activeAction]: hasSingleClickAction || hasDoubleClickAction })}
+      className={clsx(styles.treeTableRow, {
+        [styles.activeAction]: hasSingleClickAction || hasDoubleClickAction,
+      })}
     >
 
       {/* Row Elements are rendered here */}
@@ -62,10 +63,10 @@ function TreeTableRow<R extends object = {}>({
           { [styles.openRootParent]: level === 0 && isExpanded && parent },
           { [styles.highlighted]: highlighted },
         )}
-        onClick={hasSingleClickAction ? handleSingleClick : null}
-        onDoubleClick={hasDoubleClickAction ? () => onRowDoubleClick(data) : null}
+        onClick={hasSingleClickAction ? handleSingleClick : undefined}
+        onDoubleClick={hasDoubleClickAction ? () => onRowDoubleClick?.(data) : undefined}
       >
-        {columns.map((column, index) => {
+        {columns.map((column, i) => {
 
           // Do not display column if it is hidden
           if (column.hidden) {
@@ -76,13 +77,9 @@ function TreeTableRow<R extends object = {}>({
           const styling = {
             width: colWidth,
             flex: colWidth ? `${colWidth} 0 auto` : '100 0 auto',
+            paddingLeft: i === 0 ? level * 24 + 8 : 0,
           };
-
-          let firstColumn = false;
-          if (index === 0) {
-            styling.paddingLeft = level * 24 + 8;
-            firstColumn = true;
-          }
+          const firstColumn = i === 0;
 
           return (
             <TreeTableCell
@@ -92,7 +89,7 @@ function TreeTableRow<R extends object = {}>({
               firstColumn={firstColumn}
               parent={parent}
               sectionOpen={isExpanded}
-              value={data[column.accessor]}
+              value={data?.[column.accessor]}
               rowData={data}
               onExpandClick={hasExpandAction ? () => null : toggleRowExpansion}
             />
