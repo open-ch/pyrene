@@ -7,7 +7,7 @@ import TableSelect, { Option } from './TableSelect/TableSelect';
 
 import styles from './tablePagination.css';
 
-interface TablePaginationProps<R extends unknown> {
+export interface TablePaginationProps<R extends unknown> {
   pages: number,
   page: number,
   data: Array<R>,
@@ -22,7 +22,11 @@ interface TablePaginationProps<R extends unknown> {
   pageSizeOptions: number[],
 }
 
-const showAmountOfResults = <R extends unknown>(data: Array<R>, numberOfResults: number, loading: boolean) => {
+const showAmountOfResults = <R extends unknown>(
+  data: TablePaginationProps<R>['data'],
+  numberOfResults: number,
+  loading: boolean,
+) => {
   if (loading) {
     return '';
   }
@@ -59,10 +63,10 @@ function TablePagination <R extends unknown={}>({
           <TableSelect
             placeholder={`${pageSize}`}
             options={pageSizeOptions.map((e) => ({ label: `${e}`, value: `${e}` }))}
-            onChange={(e: Option) => onPageSizeChange(parseInt(e?.value || '0', 10))}
+            onChange={(option: Option) => onPageSizeChange(parseInt(option?.value || '0', 10))}
             value={`${pageSize}`}
             // Use two exclamation marks to convert a value to boolean - !!props.error = true if string has a value, false if empty
-            disabled={(!(data && data.length) || !!error)}
+            disabled={data.length === 0 || !!error}
           />
         </div>
         <div className={clsx(styles.spacer, styles.small)} />
@@ -72,13 +76,23 @@ function TablePagination <R extends unknown={}>({
       <div className={styles.separator} />
 
       <div className={styles.pageNavigation}>
-        <Stepper direction="left" disabled={!canPrevious || !!error} onClick={() => onPageChange(page - 1)} type="minimal" />
+        <Stepper
+          direction="left"
+          disabled={!canPrevious || !!error}
+          onClick={() => onPageChange(page - 1)}
+          type="minimal"
+        />
         <div className={clsx(styles.spacer, styles.small)} />
         <div className={clsx(styles.pageTracker, { [styles.disabled]: !!error })}>
           {pages > 0 && !error ? `${page + 1} of ${pages}` : '1 of 1'}
         </div>
         <div className={clsx(styles.spacer, styles.small)} />
-        <Stepper direction="right" disabled={!canNext || !!error} onClick={() => onPageChange(page + 1)} type="minimal" />
+        <Stepper
+          direction="right"
+          disabled={!canNext || !!error}
+          onClick={() => onPageChange(page + 1)}
+          type="minimal"
+        />
       </div>
     </div>
   );
