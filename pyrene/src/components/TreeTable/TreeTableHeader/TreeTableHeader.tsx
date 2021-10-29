@@ -1,20 +1,18 @@
+/* eslint-disable @typescript-eslint/ban-types */
 import React from 'react';
-import PropTypes from 'prop-types';
-
-import PROPCONSTANTS from '../TreeTablePropTypes';
 
 import styles from './treeTableHeader.css';
-import { Column, ExtendedRow, CellValue } from '../types';
+import { Column } from '../types';
 
 export interface TreeTableHeaderProps<R> {
-  columns: Column<R>,
+  columns: Array<Column<R>>,
   scrollPadding: number,
 }
 
-function TreeTableCell<R extends object = {}>({
+function TreeTableHeader<R extends object = {}>({
   columns,
   scrollPadding,
-}): TreeTableHeaderProps<R>): React.ReactElement<TreeTableHeaderProps<R>> {
+}: TreeTableHeaderProps<R>): React.ReactElement<TreeTableHeaderProps<R>> {
   return (
     <div className={styles.treeTableHeader} style={{ paddingRight: scrollPadding }}>
 
@@ -39,18 +37,7 @@ function TreeTableCell<R extends object = {}>({
         );
       })}
     </div>
-);
-
-
-TreeTableHeader.displayName = 'TreeTableHeader';
-
-TreeTableHeader.defaultProps = {
-  columns: [],
-};
-
-TreeTableHeader.propTypes = {
-  columns: PROPCONSTANTS.COLUMNS,
-  scrollPadding: PropTypes.number.isRequired,
-};
+  );
+}
 
 export default TreeTableHeader;
