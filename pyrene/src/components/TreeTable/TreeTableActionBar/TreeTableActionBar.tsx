@@ -21,7 +21,7 @@ export interface TreeTableActionBarProps {
   },
   disabledExpand: boolean,
   displayExpandAll: boolean,
-  renderRightItems?: () => void,
+  renderRightItems?: () => JSX.Element,
   toggleAll: () => void,
 }
 
