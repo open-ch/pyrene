@@ -5,17 +5,12 @@ import styles from './treeTableActionBar.css';
 import ButtonBar from '../../ButtonBar/ButtonBar';
 import Button from '../../Button/Button';
 import CheckboxPopover from '../../CheckboxPopover/CheckboxPopover';
-
-interface Item {
-  id: string,
-  label: string,
-  value: boolean
-}
+import { Item, OnItemClick } from '../../CheckboxPopover/CheckboxList';
 
 export interface TreeTableActionBarProps {
   columnToggleProps: {
     listItems: Array<Item>,
-    onItemClick: () => void,
+    onItemClick: OnItemClick,
     onRestoreDefault: () => void,
     toggleColumns: boolean,
   },

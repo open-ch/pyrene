@@ -2,14 +2,14 @@ import React, { FunctionComponent, useState } from 'react';
 import clsx from 'clsx';
 
 import Popover from '../Popover/Popover';
-import CheckboxList, { Item } from './CheckboxList';
+import CheckboxList, { Item, OnItemClick } from './CheckboxList';
 import styles from './checkboxPopover.css';
 
 export interface CheckboxPopoverProps {
   buttonLabel: string;
   disabled?: boolean;
   listItems: Array<Item>;
-  onItemClick: (id: Item['id'], value: Item['value']) => void;
+  onItemClick: OnItemClick;
   onRestoreDefault: () => void;
 }
 
