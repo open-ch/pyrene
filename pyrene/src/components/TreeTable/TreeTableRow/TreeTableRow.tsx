@@ -5,6 +5,21 @@ import clsx from 'clsx';
 import styles from './treeTableRow.css';
 import TreeTableCell from '../TreeTableCell/TreeTableCell';
 import PROPCONSTANTS from '../TreeTablePropTypes';
+import { Column, RowData } from '../types';
+
+export interface TreeTableRowProps <R>{
+  columns: Array<Column<R>>,
+  data: RowData<R>,
+  expandOnParentRowClick: boolean,
+  highlighted?: boolean,
+  index: number,
+  isExpanded: boolean,
+  level: number,
+  onExpand?: () => void,
+  onRowClick?: () => void,
+  onRowDoubleClick?: () => void,
+  parent?: boolean,
+}
 
 export default class TreeTableRow extends React.PureComponent {
 
@@ -52,7 +67,7 @@ export default class TreeTableRow extends React.PureComponent {
               return null;
             }
 
-            const colWidth = (typeof column.width !== 'undefined' || column.width !== 0) ? column.width : 100;
+            const colWidth = typeof column.width !== 'undefined' || column.width !== 0 ? column.width : 100;
             const styling = {
               width: colWidth,
               flex: colWidth ? `${colWidth} 0 auto` : '100 0 auto',
@@ -60,7 +75,7 @@ export default class TreeTableRow extends React.PureComponent {
 
             let firstColumn = false;
             if (index === 0) {
-              styling.paddingLeft = (this.props.level * 24) + 8;
+              styling.paddingLeft = this.props.level * 24 + 8;
               firstColumn = true;
             }
 

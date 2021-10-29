@@ -19,3 +19,5 @@ export interface Column<R> {
   width?: number,
   renderCallback?: (value?: CellValue, rowData?: ExtendedRow<R>) => JSX.Element,
 }
+
+export type RowData<R> = ExtendedRow<R>;
