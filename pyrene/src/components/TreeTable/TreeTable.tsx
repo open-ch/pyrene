@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
@@ -11,6 +12,102 @@ import PROPCONSTANTS from './TreeTablePropTypes';
 import Filter from '../Filter/Filter';
 import TreeTableUtils from './TreeTableUtils';
 import Loader from '../Loader/Loader';
+import { Column, RowData } from './types';
+
+export interface TreeTableProps <R>{
+  /**
+   * Sets the Table columns.
+   * Type: [{ id: string (required), headerName: string (required), accessor: string (required), headerStyle: object, cellStyle: object, initiallyHidden: bool, width: number }]
+   */
+  // eslint-disable-next-line react/require-default-props
+  columns: Array<Column<R>>,
+  /**
+   * Sets the Table data displayed in the rows.
+   * Type: [{ children: object, lineCount: number, ...row }]
+   */
+
+  // eslint-disable-next-line react/require-default-props
+  data: RowData<R>,
+  /**
+   * Enables toggle row expansion on the full parent row, instead of the chevron only. Overrides onRowDoubleClick and onRowClick for parent rows.
+   */
+  expandOnParentRowClick?: boolean,
+  /**
+   * Sets the available filters.
+   * Type: [{ label: string (required), type: oneOf('singleSelect', 'multiSelect', 'text') (required), key: string (required), options: array }]
+   */
+  filters: Array<{
+    id: string,
+    label: string,
+    options?: Array<any>,
+    type: 'singleSelect' | 'multiSelect' | 'text',
+  }>,
+  /**
+   * values to be filtered & displayed in filter dropdown
+   * use {} for passing empty filterValues
+   * */
+  filterValues: {
+    id?: string,
+    value: string | Array<any> | object,
+  },
+  /**
+   * Sets the height for the table. This is only needed when the virtualized prop is true.
+   */
+  height?: number,
+  /**
+   * Highlights a rule in the table. Should be the same value that is calculated by using the `setUniqueRowKey` method.
+   */
+  highlightedRowId?: string,
+  /**
+   * Disables the component and displays a loader inside of it.
+   */
+  loading?: boolean,
+  /**
+   * Called when the filter changes.
+   */
+  onFilterChange?: () => void,
+  /**
+   * Called when the user clicks on a row.
+   */
+  onRowClick?: () => void,
+  /**
+   * Called when the user double clicks on a row.
+   */
+  onRowDoubleClick?: () => void,
+  /**
+   * Sets the hover callback for row mouseover.
+   * (rowData: object, isEntering: boolean) => null
+   */
+  onRowHover?: () => void,
+  /**
+   * Render content on the right side of the action bar of the table
+   */
+  renderActionBarRightItems?: () => void,
+  /**
+   * default row height for a single line row
+   */
+  rowLineHeight?: number,
+  /**
+   * Sets a function to get a unique key for each row. Params: (rowData)
+   */
+  setUniqueRowKey?: () => void,
+  /**
+   * Sets the title.
+   */
+  title?: string,
+  /**
+   * Whether the columns (hide/show) popover is available to the user.
+   */
+  toggleColumns?: boolean,
+  /**
+   * Callback handler function when the columns of the table are getting toggled.
+   */
+  toggleColumnsHandler?: () => void,
+  /**
+   * Whether the table should be virtualized (only visible rows rendered - faster) or all rows always rendered. The height prop must also be provided if virtualized is true.
+   */
+  virtualized?: boolean,
+}
 
 /* eslint-disable no-underscore-dangle */
 
@@ -26,7 +123,7 @@ import Loader from '../Loader/Loader';
  *
  * For simple tables with few data, avoid the virtualized and height props. For tables with thousands of items, those two options are worth looking into.
  */
-class TreeTable extends React.Component {
+class TreeTable <R = {}> extends React.Component<TreeTableProps<R>> {
 
   innerRef = React.createRef();
 
@@ -34,7 +131,7 @@ class TreeTable extends React.Component {
 
   listRef = React.createRef();
 
-  constructor(props) {
+  constructor(props: TreeTableProps) {
     super(props);
     const rows = TreeTableUtils.initialiseRootData(props.data, props.setUniqueRowKey);
     this.state = {
