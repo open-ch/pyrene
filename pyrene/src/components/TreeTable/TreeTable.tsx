@@ -48,7 +48,7 @@ export interface TreeTableProps<R>{
    * */
   filterValues: {
     id?: string,
-    value: string | Array<any> | object,
+    value?: string | Array<any> | object,
   },
   /**
    * Sets the height for the table. This is only needed when the virtualized prop is true.
