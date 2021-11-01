@@ -13,6 +13,7 @@ import Filter from '../Filter/Filter';
 import TreeTableUtils from './TreeTableUtils';
 import Loader from '../Loader/Loader';
 import { Column, RowData } from './types';
+import { Filters } from '../Filter/types';
 
 export interface TreeTableProps<R>{
   /**
@@ -46,10 +47,7 @@ export interface TreeTableProps<R>{
    * values to be filtered & displayed in filter dropdown
    * use {} for passing empty filterValues
    * */
-  filterValues: {
-    id?: string,
-    value?: string | Array<any> | object,
-  },
+  filterValues: Filters,
   /**
    * Sets the height for the table. This is only needed when the virtualized prop is true.
    */

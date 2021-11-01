@@ -103,3 +103,5 @@ function TreeTableRow<R extends object = {}>({
 }
 
 TreeTableRow.displayName = 'TreeTableRow';
+
+export default TreeTableRow;
