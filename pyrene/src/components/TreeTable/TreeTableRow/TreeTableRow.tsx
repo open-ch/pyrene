@@ -50,6 +50,7 @@ function TreeTableRow<R extends object = {}>({
   const hasExpandAction = parent && expandOnParentRowClick;
   const hasSingleClickAction = hasExpandAction || onRowClick !== null;
   const hasDoubleClickAction = !hasSingleClickAction && onRowDoubleClick !== null;
+
   return (
     <div
       className={clsx(styles.treeTableRow, {
