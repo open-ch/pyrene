@@ -4,7 +4,7 @@ import React, {
   useState,
 } from 'react';
 
-import ReactDPWrapper from './ReactDatePickerWrapper/ReactDatePickerWrapper';
+import ReactDatePickerWrapper from './ReactDatePickerWrapper/ReactDatePickerWrapper';
 import DateTimeInput from './DateTimeInput/DateTimeInput';
 
 import {
@@ -278,43 +278,41 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
   }, [timeZone]);
 
   return (
-    <>
-      <ReactDPWrapper
-        closeOnSelect={closeOnSelect}
-        dateFormat={dateFormat}
-        dateOnly={dateOnly}
-        endDate={endDate}
-        endRange={selectEnd}
-        CustomInput={(
-          <DateTimeInput
-            dateFormat={dateFormat}
-            dateOnly={dateOnly}
-            dateValue={dateValue}
-            disabled={invalidTimestamp}
-            timeValue={timeValue}
-            errorValue={errorValue}
-            label={label}
-            name={name}
-            setDateValue={setDateValue}
-            setTimeValue={setTimeValue}
-            timeFormat={timeFormat}
-          />
-        )}
-        inline={inline}
-        isOpen={calendarOpened}
-        maxDate={convertToUTCtime(maxDateTime, internaltTz)}
-        minDate={convertToUTCtime(minDateTime, internaltTz)}
-        onCalendarOpen={onCalendarOpen}
-        onChange={onChangeReactDP}
-        onClickOutside={onClickOutside}
-        openDate={internalDate}
-        selectedDate={internalDate}
-        shouldDisplayTimeColumn={!dateOnly}
-        startDate={startDate}
-        startRange={selectStart}
-        timeFormat={timeFormat}
-      />
-    </>
+    <ReactDatePickerWrapper
+      closeOnSelect={closeOnSelect}
+      dateFormat={dateFormat}
+      dateOnly={dateOnly}
+      endDate={endDate}
+      endRange={selectEnd}
+      CustomInput={(
+        <DateTimeInput
+          dateFormat={dateFormat}
+          dateOnly={dateOnly}
+          dateValue={dateValue}
+          disabled={invalidTimestamp}
+          timeValue={timeValue}
+          errorValue={errorValue}
+          label={label}
+          name={name}
+          setDateValue={setDateValue}
+          setTimeValue={setTimeValue}
+          timeFormat={timeFormat}
+        />
+      )}
+      inline={inline}
+      isOpen={calendarOpened}
+      maxDate={convertToUTCtime(maxDateTime, internaltTz)}
+      minDate={convertToUTCtime(minDateTime, internaltTz)}
+      onCalendarOpen={onCalendarOpen}
+      onChange={onChangeReactDP}
+      onClickOutside={onClickOutside}
+      openDate={internalDate}
+      selectedDate={internalDate}
+      shouldDisplayTimeColumn={!dateOnly}
+      startDate={startDate}
+      startRange={selectStart}
+      timeFormat={timeFormat}
+    />
   );
 };
 
