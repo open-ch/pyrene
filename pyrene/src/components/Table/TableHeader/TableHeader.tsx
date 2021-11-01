@@ -4,7 +4,7 @@ import clsx from 'clsx';
 
 import styles from './tableHeader.css';
 
-interface TableHeaderProps {
+export interface TableHeaderProps {
   children: ReactNode,
   disabled?: boolean
 }

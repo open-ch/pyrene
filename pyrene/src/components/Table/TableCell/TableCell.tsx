@@ -8,7 +8,7 @@ export interface TableCellProps {
   children: ReactNode,
   multiSelect?: boolean,
   onClick: () => void,
-  style?: CSSProperties
+  style?: CSSProperties,
 }
 
 const TableCell: FunctionComponent<TableCellProps> = ({

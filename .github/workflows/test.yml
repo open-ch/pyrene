@@ -16,7 +16,7 @@ jobs:
       with:
         node-version: '12'
     - name: Test pyrene
-      run: (cd pyrene && npm install && npm test)
+      run: (npm install && cd pyrene && npm install && npm test)
     - name: Build pyrene
       run: (cd pyrene && npm run build)
   tuktuktwo:

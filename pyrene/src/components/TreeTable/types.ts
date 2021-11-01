@@ -13,6 +13,7 @@ export interface Column<R> {
   accessor: keyof R,
   cellStyle?: CSSProperties,
   headerName?: string,
+  hidden?: boolean,
   headerStyle?: CSSProperties,
   initiallyHidden?: boolean,
   width?: number,

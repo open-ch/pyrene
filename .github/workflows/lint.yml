@@ -13,7 +13,7 @@ jobs:
       with:
         node-version: '12'
     - name: Lint pyrene
-      run: (cd pyrene && npm install && npm run lint)
+      run: (npm install && cd pyrene && npm install && npm run lint)
   tuktuktwo:
     name: tuktuktwo
     runs-on: ubuntu-latest

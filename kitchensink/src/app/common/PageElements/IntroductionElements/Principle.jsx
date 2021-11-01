@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
-import styles from './principle.css';
+import styles from './principle.module.css';
 
 const Principle = (props) => (
   <div className={styles.principleContainer}>

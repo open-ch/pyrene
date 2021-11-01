@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styles from './paragraph.css';
+import styles from './paragraph.module.css';
 
 const Paragraph = (props) => (
   <div className={styles.paragraph}>

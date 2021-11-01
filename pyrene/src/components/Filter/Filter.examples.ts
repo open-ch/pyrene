@@ -1,13 +1,13 @@
 import { FilterProps } from './Filter';
 import { Example, StateProvider } from '../../examples/Example';
-import { Filter, MultiSelectOption, SingleSelectOption } from './types';
+import { Filter, MultiselectOption } from './types';
 
 export interface State {
   filters: FilterProps['filters'],
   filterValues: FilterProps['filterValues']
 }
 
-const testOptions: Array<MultiSelectOption | SingleSelectOption> = [
+const testOptions: MultiselectOption = [
   { value: 'chocolate', label: 'Chocolate' },
   { value: 'strawberry', label: 'Strawberry' },
   { value: 'vanilla', label: 'Vanilla' },

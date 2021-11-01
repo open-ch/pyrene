@@ -1,8 +1,16 @@
-import React from 'react';
-
+/* eslint-disable no-console */
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable react/display-name, no-nested-ternary */
+import React from 'react';
+import { RowInfo, CellInfo } from 'react-table';
+import {
+  TableProps, MappedColumn, ExtendsRow, Col,
+} from './Table';
+import { Example, StateProvider } from '../../examples/Example';
+import { TableRow } from '../../examples/TableRowExample';
+import { Filters } from '../Filter/types';
 
-const tableData = [
+const tableData: Array<TableRow> = [
   {
     name: 'Meredith Carney',
     age: 23,
@@ -405,11 +413,11 @@ const tableData = [
   },
 ];
 
-const tableColumns = [{
+const tableColumns: Array<Col<TableRow> | MappedColumn<TableRow>> = [{
   id: 'name',
   headerName: 'Name',
   accessor: 'name',
-  sortMethod: (a, b) => {
+  sortMethod: (a: string, b: string) => {
     const lastA = a.charAt(a.length - 1);
     const lastB = b.charAt(b.length - 1);
     if (lastA > lastB) {
@@ -425,8 +433,7 @@ const tableColumns = [{
   id: 'age',
   headerName: 'Age',
   accessor: 'age',
-  resizable: false,
-  cellRenderCallback: (row) => (
+  cellRenderCallback: (cell: ExtendsRow<TableRow> & CellInfo) => (
     <div
       style={{
         width: '100%',
@@ -436,12 +443,12 @@ const tableColumns = [{
     >
       <div
         style={{
-          width: `${((row.value - 20) / 20) * 100}%`,
+          width: `${((cell.value - 20) / 20) * 100}%`,
           height: '100%',
           backgroundColor:
-            ((row.value - 20) / 20) * 100 > 66
+            ((cell.value - 20) / 20) * 100 > 66
               ? 'var(--acqua-300)'
-              : ((row.value - 20) / 20) * 100 > 33
+              : ((cell.value - 20) / 20) * 100 > 33
                 ? 'var(--teal-300)'
                 : 'var(--red-200)',
           transition: 'all .2s ease-out',
@@ -458,7 +465,7 @@ const tableColumns = [{
   id: 'friendAge',
   headerName: 'Friend Age',
   headerTooltip: 'Pyrene tooltip to this nice header name',
-  accessor: 'friend.age',
+  accessor: (d) => d.friend.age,
 }];
 
 const testOptions = [
@@ -495,22 +502,25 @@ const testOptions = [
   { value: 'moosetracks', label: 'Moose Tracks', invalid: false },
 ];
 
-const examples = {
+interface State<R> {
+  tableData?: Array<R>,
+  filterValues?: Filters,
+}
+
+const examples: Example<TableProps<TableRow>, State<TableRow>> = {
   props: {
     toggleColumns: true,
-    resizable: true,
-    pivotBy: ['age'],
     title: 'Table',
     keyField: 'name',
-    data: (stateProvider) => (stateProvider.state.tableData ? stateProvider.state.tableData : tableData),
+    data: (stateProvider) => stateProvider.state.tableData || tableData,
     columns: tableColumns,
-    onRowDoubleClick: (rowInfo) => console.log(rowInfo), // eslint-disable-line no-console
+    onRowDoubleClick: (rowInfo: RowInfo) => console.log(rowInfo),
     actions: [{
-      icon: 'search', label: 'Single', callback: () => console.log('single'), active: 'single', // eslint-disable-line no-console
+      icon: 'search', label: 'Single', callback: () => console.log('single'), active: 'single',
     }, {
-      icon: 'delete', label: 'Multi', callback: () => console.log('multi'), active: 'multi', // eslint-disable-line no-console
+      icon: 'delete', label: 'Multi', callback: () => console.log('multi'), active: 'multi',
     }, {
-      icon: 'info', label: 'Always', callback: () => console.log('always'), active: 'always', // eslint-disable-line no-console
+      icon: 'info', label: 'Always', callback: () => console.log('always'), active: 'always',
     }],
     filters: [{
       label: 'Free Text', type: 'text', id: 'name',
@@ -519,8 +529,12 @@ const examples = {
     }, {
       label: 'second column', type: 'multiSelect', id: 'testKey2', options: testOptions,
     }],
-    onFilterChange: (stateProvider) => (filters) => stateProvider.setState(() => ({ tableData: filters && Object.keys(filters).length > 0 ? tableData.filter((row) => row.name.includes(filters.name)) : tableData, filterValues: filters })),
-    filterValues: (stateProvider) => (stateProvider.state.filterValues ? stateProvider.state.filterValues : {}),
+    onFilterChange: (stateProvider: StateProvider<State<TableRow>>): TableProps['onFilterChange'] => (filters) => stateProvider.setState(() => ({
+      tableData: filters && Object.keys(filters).length > 0
+        ? tableData.filter((row) => row.name.includes(filters.name as string)) : tableData,
+      filterValues: filters,
+    })),
+    filterValues: (stateProvider: StateProvider<State<TableRow>>) => stateProvider.state.filterValues || {},
   },
 };
 

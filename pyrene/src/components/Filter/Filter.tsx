@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react';
 import FilterBar from './FilterComponents/FilterBar';
 import FilterButton from './FilterComponents/FilterButton';
 import styles from './Filter.css';
-import { Filter as FilterType, FilterValues } from './types';
+import { Filter as FilterType, Filters } from './types';
 
 export interface FilterProps {
   /**
@@ -20,7 +20,7 @@ export interface FilterProps {
   * values: the users input; for single & multiSelect value contains of both value and label! In case of multiSelect, value can consist of multiple objects {value: , label: } in an array
   * use {} for passing empty filterValues
   * */
-  filterValues: FilterValues,
+  filterValues: Filters,
   /**
   * True to enable the visual components to handle negated filters. Defaults to false
   */
@@ -28,7 +28,7 @@ export interface FilterProps {
   /**
   * Called when the user clicks on the apply button. Contains all the filter information as its argument.
   */
-  onFilterSubmit?: (filterValues: FilterValues, filterNegatedKeys: Array<FilterType['id']>) => void,
+  onFilterSubmit?: (filterValues: Filters, filterNegatedKeys: Array<FilterType['id']>) => void,
 }
 
 const Filter: FunctionComponent<FilterProps> = ({

@@ -1,18 +1,10 @@
 /* eslint-disable no-alert */
 import { Example } from '../../examples/Example';
+import { TableRow } from '../../examples/TableRowExample';
 import { SimpleTableProps } from './SimpleTable';
 import { ExtendsRow } from './types';
 
-interface Row {
-  name: string;
-  age: number;
-  friend: {
-    name: string;
-    age: number;
-  };
-}
-
-const examples: Example<SimpleTableProps<Row>> = {
+const examples: Example<SimpleTableProps<TableRow>> = {
   props: {
     actions: [
       {
@@ -24,8 +16,8 @@ const examples: Example<SimpleTableProps<Row>> = {
         onClick: (rowData) => alert(rowData.age),
       },
     ],
-    onRowClick: (row: ExtendsRow<Row>) => alert(`Single click: ${row?.value || ''}`),
-    onRowDoubleClick: (row: ExtendsRow<Row>) => alert(`Double click: ${row?.value || ''}`),
+    onRowClick: (row: ExtendsRow<TableRow>) => alert(`Single click: ${row?.value || ''}`),
+    onRowDoubleClick: (row: ExtendsRow<TableRow>) => alert(`Double click: ${row?.value || ''}`),
     columns: [
       {
         id: 'name',

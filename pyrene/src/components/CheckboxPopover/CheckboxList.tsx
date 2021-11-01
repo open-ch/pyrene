@@ -11,6 +11,8 @@ export interface Item {
   value: boolean;
 }
 
+export type OnItemClick = (id: Item['id'], value: Item['value']) => void;
+
 export interface CheckboxListProps {
   onRestoreDefault: () => void;
   listItems: Array<Item>;

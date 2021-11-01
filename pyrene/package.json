@@ -29,9 +29,7 @@
     "prerelease": "npm install",
     "release": "release-it",
     "lint": "eslint --max-warnings 0 --ext .js,.jsx,.ts,.tsx src",
-    "updateIconfont": "bash -c 'cat $0 | fgrep -A3 .icon- | sed -E '\\\"'\\\"' s/\\\\.icon-(.*):before /:global(.pyreneIcon-\\\\1:before)/ '\\\"'\\\"' >  src/styles/iconfont.module.css; cp $1 src/fonts/pyrene-iconfont.woff;'",
-    "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "updateIconfont": "bash -c 'cat $0 | fgrep -A3 .icon- | sed -E '\\\"'\\\"' s/\\\\.icon-(.*):before /:global(.pyreneIcon-\\\\1:before)/ '\\\"'\\\"' >  src/styles/iconfont.module.css; cp $1 src/fonts/pyrene-iconfont.woff;'"
   },
   "devDependencies": {
     "@babel/core": "^7.14.6",
@@ -45,13 +43,6 @@
     "@babel/register": "^7.14.5",
     "@osag/eslint-config": "^1.6.0",
     "@release-it/bumper": "^2.0.0",
-    "@storybook/addon-actions": "^6.3.7",
-    "@storybook/addon-essentials": "^6.3.7",
-    "@storybook/addon-links": "^6.3.7",
-    "@storybook/addon-postcss": "^2.0.0",
-    "@storybook/builder-webpack5": "^6.3.7",
-    "@storybook/manager-webpack5": "^6.3.7",
-    "@storybook/react": "^6.3.7",
     "@svgr/webpack": "^5.5.0",
     "@types/enzyme": "^3.10.9",
     "@types/jest": "^26.0.23",
@@ -93,7 +84,6 @@
     "react-dom": "^16.13.1",
     "regenerator-runtime": "^0.13.8",
     "release-it": "^14.10.0",
-    "storybook-css-modules-preset": "^1.1.1",
     "style-loader": "^3.0.0",
     "terser-webpack-plugin": "^5.1.4",
     "typescript": "^4.3.4",
