@@ -14,7 +14,7 @@ import TreeTableUtils from './TreeTableUtils';
 import Loader from '../Loader/Loader';
 import { Column, RowData } from './types';
 
-export interface TreeTableProps <R>{
+export interface TreeTableProps<R>{
   /**
    * Sets the Table columns.
    * Type: [{ id: string (required), headerName: string (required), accessor: string (required), headerStyle: object, cellStyle: object, initiallyHidden: bool, width: number }]
@@ -123,7 +123,7 @@ export interface TreeTableProps <R>{
  *
  * For simple tables with few data, avoid the virtualized and height props. For tables with thousands of items, those two options are worth looking into.
  */
-class TreeTable <R = {}> extends React.Component<TreeTableProps<R>> {
+class TreeTable<R = {}> extends React.Component<TreeTableProps<R>> {
 
   innerRef = React.createRef();
 
