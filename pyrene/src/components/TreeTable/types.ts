@@ -9,6 +9,8 @@ export type ExtendedRow<R> = R & {
   children?: Array<ExtendedRow<R>>
 };
 
+export type RowData<R> = ExtendedRow<R>;
+
 export interface Column<R> {
   accessor: keyof R,
   cellStyle?: CSSProperties,
@@ -17,5 +19,5 @@ export interface Column<R> {
   headerStyle?: CSSProperties,
   initiallyHidden?: boolean,
   width?: number,
-  renderCallback?: (value?: CellValue, rowData?: ExtendedRow<R>) => JSX.Element,
+  renderCallback?: (value?: CellValue, rowData?: RowData<R>) => JSX.Element,
 }
