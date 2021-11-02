@@ -126,7 +126,7 @@ export interface TreeTableState<R> {
  *
  * For simple tables with few data, avoid the virtualized and height props. For tables with thousands of items, those two options are worth looking into.
  */
-class TreeTable<R = {}> extends React.Component<TreeTableProps<R>, TreeTableState<R>> {
+class TreeTable<R extends {} = {}> extends React.Component<TreeTableProps<R>, TreeTableState<R>> {
 
   static displayName = 'TreeTable';
 
@@ -258,7 +258,7 @@ class TreeTable<R = {}> extends React.Component<TreeTableProps<R>, TreeTableStat
     });
   };
 
-  isFullyExpanded(rows, expanded: Record<string, boolean>) {
+  isFullyExpanded(rows: Array<RowData<R>>, expanded: Record<string, boolean>) {
     return rows.filter((r) => r.children && r.children.length)
       .every((r) => expanded[r._rowId]);
   }
