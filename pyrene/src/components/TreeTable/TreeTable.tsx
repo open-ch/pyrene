@@ -1,3 +1,4 @@
+/* eslint-disable react/static-property-placement */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/ban-types */
 import React from 'react';
@@ -127,6 +128,28 @@ export interface TreeTableState<R> {
  */
 class TreeTable<R = {}> extends React.Component<TreeTableProps<R>, TreeTableState<R>> {
 
+  static displayName = 'TreeTable';
+
+  static defaultProps = {
+    expandOnParentRowClick: false,
+    filters: [],
+    filterValues: {},
+    title: '',
+    height: 300,
+    highlightedRowId: null,
+    loading: false,
+    toggleColumns: true,
+    onRowClick: null,
+    onRowDoubleClick: null,
+    renderActionBarRightItems: null,
+    rowLineHeight: 32,
+    virtualized: false,
+    onFilterChange: () => null,
+    setUniqueRowKey: () => null,
+    toggleColumnsHandler: () => null,
+    onRowHover: null,
+  };
+
   innerRef = React.createRef();
 
   containerRef = React.createRef<HTMLDivElement>();
@@ -177,10 +200,9 @@ class TreeTable<R = {}> extends React.Component<TreeTableProps<R>, TreeTableStat
   }
 
   getItemHeight = (i: number) => {
-    const row = this.state.rows[i];
-    console.log('row getItemHeight', row);
-    const size = row && row.lineCount || 1;
-    return size * this.props.rowLineHeight;
+    const row = this.state.rows[i] as RowData<R> & { lineCount?: number };
+    const size = (row && row.lineCount) || 1;
+    return size * (this.props.rowLineHeight as number);
   };
 
   toggleAllRowsExpansion = (cb = () => {}) => {
@@ -408,27 +430,5 @@ class TreeTable<R = {}> extends React.Component<TreeTableProps<R>, TreeTableStat
   }
 
 }
-
-TreeTable.displayName = 'TreeTable';
-
-TreeTable.defaultProps = {
-  expandOnParentRowClick: false,
-  filters: [],
-  filterValues: {},
-  title: '',
-  height: 300,
-  highlightedRowId: null,
-  loading: false,
-  toggleColumns: true,
-  onRowClick: null,
-  onRowDoubleClick: null,
-  renderActionBarRightItems: null,
-  rowLineHeight: 32,
-  virtualized: false,
-  onFilterChange: () => null,
-  setUniqueRowKey: () => null,
-  toggleColumnsHandler: () => null,
-  onRowHover: null,
-};
 
 export default TreeTable;
