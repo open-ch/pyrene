@@ -105,7 +105,7 @@ export interface TreeTableProps<R>{
 export interface TreeTableState<R> {
   tableFullyExpanded: boolean,
   columns: Array<Column<R>>,
-  expanded: {},
+  expanded: Record<string, boolean>,
   rows: Array<RowData<R>>,
   tableKey: number,
   disabledExpandButton: boolean,
@@ -206,22 +206,22 @@ class TreeTable<R = {}> extends React.Component<TreeTableProps<R>, TreeTableStat
   };
 
   toggleAllRowsExpansion = (cb = () => {}) => {
-    const { tableFullyExpanded } = this.state;
     const { data } = this.props;
     this.clearHeightCacheAfterIndex(0); // clear all
-    this.setState(() => {
-      if (tableFullyExpanded) {
+    // @ts-ignore
+    this.setState((prevState) => {
+      if (prevState.tableFullyExpanded) {
         return {
           rows: TreeTableUtils.initialiseRootData(data, this.props.setUniqueRowKey) as Array<RowData<R>>,
           expanded: {},
-          tableFullyExpanded: !tableFullyExpanded,
+          tableFullyExpanded: !prevState.tableFullyExpanded,
           tableKey: Date.now(), // as all rows are closed, we need to recalculate the height for the whole view - a key is the easiest way
         };
       }
 
       return {
-        ...TreeTableUtils.handleAllRowExpansion(data, { rows: data, expanded: {} }),
-        tableFullyExpanded: !tableFullyExpanded,
+        ...TreeTableUtils.handleAllRowExpansion(data, { rows: data, expanded: {} }) as { expended: Record<string, boolean>, rows: Array<RowData<R>> },
+        tableFullyExpanded: !prevState.tableFullyExpanded,
       };
     }, cb);
   };
@@ -258,7 +258,7 @@ class TreeTable<R = {}> extends React.Component<TreeTableProps<R>, TreeTableStat
     });
   };
 
-  isFullyExpanded(rows, expanded) {
+  isFullyExpanded(rows, expanded: Record<string, boolean>) {
     return rows.filter((r) => r.children && r.children.length)
       .every((r) => expanded[r._rowId]);
   }
@@ -281,7 +281,7 @@ class TreeTable<R = {}> extends React.Component<TreeTableProps<R>, TreeTableStat
    * @param i - index to clear from(inclusive) to the end of the list
    */
   clearHeightCacheAfterIndex(i: number) {
-    if (this.listRef.current) {
+    if (this.listRef?.current) {
       this.listRef.current.resetAfterIndex(i);
     }
   }
