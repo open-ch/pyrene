@@ -95,7 +95,7 @@ export interface TreeTableProps<R>{
   /**
    * Callback handler function when the columns of the table are getting toggled.
    */
-  toggleColumnsHandler?: () => void,
+  toggleColumnsHandler?: (columns?: Array<Column<R>>) => void,
   /**
    * Whether the table should be virtualized (only visible rows rendered - faster) or all rows always rendered. The height prop must also be provided if virtualized is true.
    */
@@ -208,20 +208,20 @@ class TreeTable<R extends {} = {}> extends React.Component<TreeTableProps<R>, Tr
   toggleAllRowsExpansion = (cb = () => {}) => {
     const { data } = this.props;
     this.clearHeightCacheAfterIndex(0); // clear all
-    // @ts-ignore
-    this.setState((prevState) => {
-      if (prevState.tableFullyExpanded) {
+
+    this.setState(({ tableFullyExpanded }) => {
+      if (tableFullyExpanded) {
         return {
           rows: TreeTableUtils.initialiseRootData(data, this.props.setUniqueRowKey) as Array<RowData<R>>,
           expanded: {},
-          tableFullyExpanded: !prevState.tableFullyExpanded,
+          tableFullyExpanded: !tableFullyExpanded,
           tableKey: Date.now(), // as all rows are closed, we need to recalculate the height for the whole view - a key is the easiest way
         };
       }
 
       return {
-        ...TreeTableUtils.handleAllRowExpansion(data, { rows: data, expanded: {} }) as { expended: Record<string, boolean>, rows: Array<RowData<R>> },
-        tableFullyExpanded: !prevState.tableFullyExpanded,
+        ...TreeTableUtils.handleAllRowExpansion(data, { rows: data, expanded: {} }) as { expanded: Record<string, boolean>, rows: Array<RowData<R>> },
+        tableFullyExpanded: !tableFullyExpanded,
       };
     }, cb);
   };
@@ -232,7 +232,7 @@ class TreeTable<R extends {} = {}> extends React.Component<TreeTableProps<R>, Tr
       this.listRef.current.scrollToItem(indexToScrollTo, align);
       return;
     }
-    const { rows, expanded } = TreeTableUtils.handleExpandAllParentsOfRowById(rowId, this.state);
+    const { rows, expanded } = TreeTableUtils.handleExpandAllParentsOfRowById(rowId, this.state) as { expanded: Record<string, boolean>, rows: Array<RowData<R>> };
     this.setState({ rows, expanded }, () => {
       const indexToScrollTo = rows.findIndex(({ _rowId }) => _rowId === rowId);
       const firstLvlParentRowId = TreeTableUtils.getFirstLevelParentRowId(rowId, this.state);
@@ -300,7 +300,7 @@ class TreeTable<R extends {} = {}> extends React.Component<TreeTableProps<R>, Tr
 
     const isColumnHidden = (hidden: undefined | boolean) => typeof hidden === 'undefined' || hidden !== true;
 
-    const toggleColumnDisplay = (columnId, hiddenValue, handler) => {
+    const toggleColumnDisplay = (columnId: string, hiddenValue: boolean, handler: TreeTableProps<R>['toggleColumnsHandler']) => {
       const updatedColumns = columns.map((col) => {
         if (col.id === columnId) {
           return { ...col, hidden: hiddenValue };
@@ -312,7 +312,7 @@ class TreeTable<R extends {} = {}> extends React.Component<TreeTableProps<R>, Tr
     };
 
     const restoreColumnDefaults = (handler) => {
-      this.setState({ columns: TreeTableUtils.prepareColumnToggle(props.columns) }, () => handler?.(props.columns));
+      this.setState({ columns: TreeTableUtils.prepareColumnToggle(props.columns) as Array<Column<R>> }, () => handler?.(props.columns));
     };
 
     const renderLoader = () => (
