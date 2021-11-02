@@ -156,7 +156,7 @@ class TreeTable<R = {}> extends React.Component<TreeTableProps<R>, TreeTableStat
 
   componentDidUpdate(prevProps: TreeTableProps<R>) {
     if (this.props.data !== prevProps.data) {
-      const rows = TreeTableUtils.initialiseRootData(this.props.data, this.props.setUniqueRowKey);
+      const rows = TreeTableUtils.initialiseRootData(this.props.data, this.props.setUniqueRowKey) as Array<RowData<R>>;
       // eslint-disable-next-line react/no-did-update-set-state
       this.setState({
         rows,
@@ -178,6 +178,7 @@ class TreeTable<R = {}> extends React.Component<TreeTableProps<R>, TreeTableStat
 
   getItemHeight = (i: number) => {
     const row = this.state.rows[i];
+    console.log('row getItemHeight', row);
     const size = row && row.lineCount || 1;
     return size * this.props.rowLineHeight;
   };
@@ -189,12 +190,13 @@ class TreeTable<R = {}> extends React.Component<TreeTableProps<R>, TreeTableStat
     this.setState(() => {
       if (tableFullyExpanded) {
         return {
-          rows: TreeTableUtils.initialiseRootData(data, this.props.setUniqueRowKey),
+          rows: TreeTableUtils.initialiseRootData(data, this.props.setUniqueRowKey) as Array<RowData<R>>,
           expanded: {},
           tableFullyExpanded: !tableFullyExpanded,
           tableKey: Date.now(), // as all rows are closed, we need to recalculate the height for the whole view - a key is the easiest way
         };
       }
+
       return {
         ...TreeTableUtils.handleAllRowExpansion(data, { rows: data, expanded: {} }),
         tableFullyExpanded: !tableFullyExpanded,
