@@ -1,7 +1,7 @@
 /* eslint-disable react/static-property-placement */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/ban-types */
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import clsx from 'clsx';
 import { VariableSizeList as List } from 'react-window';
 
@@ -71,7 +71,7 @@ export interface TreeTableProps<R>{
    * Sets the hover callback for row mouseover.
    * (rowData: object, isEntering: boolean) => null
    */
-  onRowHover?: () => void,
+  onRowHover?: (row: RowData<R>, h: boolean) => void,
   /**
    * Render content on the right side of the action bar of the table
    */
@@ -147,7 +147,6 @@ class TreeTable<R extends {} = {}> extends React.Component<TreeTableProps<R>, Tr
     onFilterChange: () => null,
     setUniqueRowKey: () => null,
     toggleColumnsHandler: () => null,
-    onRowHover: null,
   };
 
   innerRef = React.createRef();
@@ -347,13 +346,13 @@ class TreeTable<R extends {} = {}> extends React.Component<TreeTableProps<R>, Tr
       );
     };
 
-    const rowKeyCallback = (index) => {
+    const rowKeyCallback = (index: number) => {
       const rowData = rows[index];
       // eslint-disable-next-line no-underscore-dangle
       return rowData._rowId;
     };
 
-    const renderRow = ({ index, style }) => {
+    const renderRow = ({ index, style }: { index: number, style?: CSSProperties }) => {
       const rowData = rows[index];
       const { _rowId: rowKey } = rowData;
 
@@ -361,8 +360,8 @@ class TreeTable<R extends {} = {}> extends React.Component<TreeTableProps<R>, Tr
         <div
           style={style}
           key={rowKey}
-          onMouseOver={this.props.onRowHover ? () => this.props.onRowHover(rowData, true) : null}
-          onMouseOut={this.props.onRowHover ? () => this.props.onRowHover(rowData, false) : null}
+          onMouseOver={() => this.props?.onRowHover?.(rowData, true)}
+          onMouseOut={() => this.props?.onRowHover?.(rowData, false)}
         >
           <TreeTableRow
             style={style}
@@ -395,7 +394,7 @@ class TreeTable<R extends {} = {}> extends React.Component<TreeTableProps<R>, Tr
         {props.loading && renderLoader()}
 
         <div className={clsx({ [styles.loading]: props.loading })}>
-          {props.filters.length > 0 && (
+          {props.filters && props.filters.length > 0 && (
             <div className={styles.filterContainer}>
               <Filter
                 filters={props.filters}
@@ -410,7 +409,7 @@ class TreeTable<R extends {} = {}> extends React.Component<TreeTableProps<R>, Tr
             {props.virtualized ? (
               <List
                 key={tableKey}
-                height={props.height}
+                height={props.height as number}
                 itemCount={rows.length}
                 width="100%"
                 innerRef={this.innerRef}
@@ -421,7 +420,6 @@ class TreeTable<R extends {} = {}> extends React.Component<TreeTableProps<R>, Tr
               >
                 {renderRow}
               </List>
-              // @ts-ignore
             ) : rows.map((_, index) => renderRow({ index }))}
           </div>
         </div>
