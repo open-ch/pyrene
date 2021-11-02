@@ -135,11 +135,11 @@ class TreeTable<R = {}> extends React.Component<TreeTableProps<R>, TreeTableStat
 
   constructor(props: TreeTableProps<R>) {
     super(props);
-    const rows = TreeTableUtils.initialiseRootData(props.data, props.setUniqueRowKey);
+    const rows = TreeTableUtils.initialiseRootData(props.data, props.setUniqueRowKey) as Array<RowData<R>>;
 
     this.state = {
       tableFullyExpanded: false,
-      columns: TreeTableUtils.prepareColumnToggle(props.columns),
+      columns: TreeTableUtils.prepareColumnToggle(props.columns) as Array<Column<R>>,
       expanded: {},
       rows,
       tableKey: Date.now(),
