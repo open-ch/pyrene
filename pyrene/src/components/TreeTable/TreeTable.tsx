@@ -321,7 +321,7 @@ class TreeTable<R extends {} = {}> extends React.Component<TreeTableProps<R>, Tr
 
     const getActionBar = () => (
       <TreeTableActionBar
-        toggleAll={() => { this.toggleAllRowsExpansion(); }}
+        toggleAll={() => this.toggleAllRowsExpansion()}
         displayExpandAll={!tableFullyExpanded}
         columnToggleProps={{
           listItems: columns.slice(1).map((col) => ({ id: col.id, label: col.headerName, value: isColumnHidden(col.hidden) })),
