@@ -6,9 +6,9 @@ import Button from '../Button/Button';
 import styles from './checkboxList.css';
 
 export interface Item {
-  id: string;
-  label: string;
-  value: boolean;
+  id?: string;
+  label?: string;
+  value?: boolean;
 }
 
 export type OnItemClick = (id: Item['id'], value: Item['value']) => void;

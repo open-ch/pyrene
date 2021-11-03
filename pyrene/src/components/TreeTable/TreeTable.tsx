@@ -7,7 +7,7 @@ import { VariableSizeList as List } from 'react-window';
 
 import styles from './treeTable.css';
 import TreeTableHeader from './TreeTableHeader/TreeTableHeader';
-import TreeTableActionBar from './TreeTableActionBar/TreeTableActionBar';
+import TreeTableActionBar, { TreeTableActionBarProps } from './TreeTableActionBar/TreeTableActionBar';
 import TreeTableRow, { TreeTableRowProps } from './TreeTableRow/TreeTableRow';
 import Filter from '../Filter/Filter';
 import TreeTableUtils from './TreeTableUtils';
@@ -75,7 +75,7 @@ export interface TreeTableProps<R>{
   /**
    * Render content on the right side of the action bar of the table
    */
-  renderActionBarRightItems?: () => void,
+  renderActionBarRightItems?: TreeTableActionBarProps['renderRightItems'],
   /**
    * default row height for a single line row
    */
@@ -141,7 +141,6 @@ class TreeTable<R extends {} = {}> extends React.Component<TreeTableProps<R>, Tr
     toggleColumns: true,
     onRowClick: null,
     onRowDoubleClick: null,
-    renderActionBarRightItems: null,
     rowLineHeight: 32,
     virtualized: false,
     onFilterChange: () => null,
@@ -325,7 +324,7 @@ class TreeTable<R extends {} = {}> extends React.Component<TreeTableProps<R>, Tr
         displayExpandAll={!tableFullyExpanded}
         columnToggleProps={{
           listItems: columns.slice(1).map((col) => ({ id: col.id, label: col.headerName, value: isColumnHidden(col.hidden) })),
-          onItemClick: (columnId, hiddenValue) => toggleColumnDisplay(columnId, hiddenValue, props.toggleColumnsHandler),
+          onItemClick: (columnId: string, hiddenValue: boolean) => toggleColumnDisplay(columnId, hiddenValue, props.toggleColumnsHandler),
           onRestoreDefault: () => restoreColumnDefaults(props.toggleColumnsHandler),
           toggleColumns: props.toggleColumns as boolean,
         }}
