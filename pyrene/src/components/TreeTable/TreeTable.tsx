@@ -1,8 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable react/static-property-placement */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/ban-types */
-/* eslint-disable @typescript-eslint/ban-ts-comment */
+/* eslint-disable react/static-property-placement */
 import React, { CSSProperties } from 'react';
 import clsx from 'clsx';
 import { VariableSizeList, Align } from 'react-window';
@@ -106,7 +105,7 @@ export interface TreeTableState<R> {
   columns: Array<Column<R>>,
   expanded: Record<string, boolean>,
   rows: Array<RowData<R>>,
-  tableKey: number,
+  tableKey?: number,
   disabledExpandButton: boolean,
   scrollBarWidth: number,
 }
@@ -144,7 +143,7 @@ class TreeTable<R extends {} = {}> extends React.Component<TreeTableProps<R>, Tr
 
   containerRef = React.createRef<HTMLDivElement>();
 
-  listRef = React.createRef<typeof VariableSizeList>();
+  listRef = React.createRef<any>();
 
   constructor(props: TreeTableProps<R>) {
     super(props);
@@ -198,7 +197,7 @@ class TreeTable<R extends {} = {}> extends React.Component<TreeTableProps<R>, Tr
   toggleAllRowsExpansion = (cb = () => {}) => {
     const { data } = this.props;
     this.clearHeightCacheAfterIndex(0); // clear all
-    // @ts-ignore
+
     this.setState(({ tableFullyExpanded }) => {
       if (tableFullyExpanded) {
         return {
@@ -219,7 +218,7 @@ class TreeTable<R extends {} = {}> extends React.Component<TreeTableProps<R>, Tr
   scrollToRow = (rowId: string, align: Align = 'start') => {
     if (this.state.tableFullyExpanded) {
       const indexToScrollTo = this.state.rows.findIndex(({ _rowId }) => _rowId === rowId);
-      // @ts-ignore
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       this.listRef.current.scrollToItem(indexToScrollTo, align);
       return;
     }
@@ -235,7 +234,7 @@ class TreeTable<R extends {} = {}> extends React.Component<TreeTableProps<R>, Tr
        */
       this.clearHeightCacheAfterIndex(firstLvlParentRowIndex);
       if (this.props.virtualized && this.listRef.current) {
-        // @ts-ignore
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         this.listRef.current.scrollToItem(indexToScrollTo, 'start');
       } else if (this.containerRef.current) {
         // scroll page when non-virtualized
@@ -273,7 +272,7 @@ class TreeTable<R extends {} = {}> extends React.Component<TreeTableProps<R>, Tr
    * @param i - index to clear from(inclusive) to the end of the list
    */
   clearHeightCacheAfterIndex(i: number) {
-    // @ts-ignore
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     this.listRef?.current?.resetAfterIndex?.(i);
   }
 
@@ -397,8 +396,7 @@ class TreeTable<R extends {} = {}> extends React.Component<TreeTableProps<R>, Tr
                 innerRef={this.innerRef}
                 itemSize={this.getItemHeight}
                 itemKey={rowKeyCallback}
-                // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-                ref={this.listRef as any}
+                ref={this.listRef}
                 overscanCount={10}
               >
                 {renderRow}
