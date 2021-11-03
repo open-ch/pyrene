@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable @typescript-eslint/ban-types */
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import clsx from 'clsx';
 
 import styles from './treeTableRow.css';
@@ -19,6 +19,7 @@ export interface TreeTableRowProps<R>{
   onRowClick?: (row?: RowData<R>) => void,
   onRowDoubleClick?: (row?: RowData<R>) => void,
   parent?: boolean,
+  style?: CSSProperties,
 }
 
 function TreeTableRow<R extends object = {}>({

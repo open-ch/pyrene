@@ -272,9 +272,7 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
         // By default a custom 'onClick' handler will override this functionality.
         // If you want to fire the original onClick handler, call the
         // 'handleOriginal' function.
-        if (handleOriginal) {
-          handleOriginal();
-        }
+        handleOriginal?.();
       },
     }),
 
@@ -348,7 +346,7 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
     });
   };
 
-  toggleColumnDisplay = (columnId: string, showValue: boolean) => this.setState((prevState) => ({
+  toggleColumnDisplay = (columnId: string, showValue?: boolean) => this.setState((prevState) => ({
     columnsVisibility: {
       ...prevState.columnsVisibility,
       [columnId]: !showValue,
@@ -574,7 +572,7 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
                   label: col.headerName,
                   value: col?.id && typeof this.state.columnsVisibility[col.id] !== 'undefined' ? this.state.columnsVisibility[col.id] : !col.initiallyHidden,
                 }))}
-              onItemClick={(item, value) => this.toggleColumnDisplay(item, value)}
+              onItemClick={(item, value) => item && this.toggleColumnDisplay(item, value)}
               onRestoreDefault={() => this.restoreColumnDefaults()}
               disabled={!!this.props.error}
             />
