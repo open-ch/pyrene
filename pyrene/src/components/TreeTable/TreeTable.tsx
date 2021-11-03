@@ -233,7 +233,7 @@ class TreeTable<R extends {} = {}> extends React.Component<TreeTableProps<R>, Tr
     const { rows, expanded } = TreeTableUtils.handleExpandAllParentsOfRowById(rowId, this.state) as { expanded: Record<string, boolean>, rows: Array<RowData<R>> };
     this.setState({ rows, expanded }, () => {
       const indexToScrollTo = rows.findIndex(({ _rowId }) => _rowId === rowId);
-      const firstLvlParentRowId = TreeTableUtils.getFirstLevelParentRowId(rowId, this.state);
+      const firstLvlParentRowId = TreeTableUtils.getFirstLevelParentRowId(rowId, this.state) as string;
       const firstLvlParentRowIndex = rows.findIndex(({ _rowId }) => _rowId === firstLvlParentRowId);
       /**
        * we want to clear the cache starting from parent,
