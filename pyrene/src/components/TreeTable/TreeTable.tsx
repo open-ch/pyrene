@@ -310,21 +310,6 @@ class TreeTable<R extends {} = {}> extends React.Component<TreeTableProps<R>, Tr
       this.setState((prevState) => ({ ...TreeTableUtils.handleRowExpandChange(row, prevState), tableFullyExpanded: this.isFullyExpanded(rows, expanded) }));
     };
 
-    const getActionBar = () => (
-      <TreeTableActionBar
-        toggleAll={() => this.toggleAllRowsExpansion()}
-        displayExpandAll={!tableFullyExpanded}
-        columnToggleProps={{
-          listItems: columns.slice(1).map((col) => ({ id: col.id, label: col.headerName, value: isColumnHidden(col.hidden) })),
-          onItemClick: (columnId?: string, hiddenValue?: boolean) => toggleColumnDisplay(columnId, hiddenValue, props.toggleColumnsHandler),
-          onRestoreDefault: () => restoreColumnDefaults(props.toggleColumnsHandler),
-          toggleColumns: props.toggleColumns as boolean,
-        }}
-        renderRightItems={props.renderActionBarRightItems}
-        disabledExpand={disabledExpandButton}
-      />
-    );
-
     const rowKeyCallback = (index: number) => {
       const rowData = rows[index];
       return rowData._rowId;
@@ -384,7 +369,18 @@ class TreeTable<R extends {} = {}> extends React.Component<TreeTableProps<R>, Tr
               />
             </div>
           )}
-          {getActionBar()}
+          <TreeTableActionBar
+            toggleAll={() => this.toggleAllRowsExpansion()}
+            displayExpandAll={!tableFullyExpanded}
+            columnToggleProps={{
+              listItems: columns.slice(1).map((col) => ({ id: col.id, label: col.headerName, value: isColumnHidden(col.hidden) })),
+              onItemClick: (columnId?: string, hiddenValue?: boolean) => toggleColumnDisplay(columnId, hiddenValue, props.toggleColumnsHandler),
+              onRestoreDefault: () => restoreColumnDefaults(props.toggleColumnsHandler),
+              toggleColumns: props.toggleColumns as boolean,
+            }}
+            renderRightItems={props.renderActionBarRightItems}
+            disabledExpand={disabledExpandButton}
+          />
           <TreeTableHeader columns={columns} scrollPadding={scrollBarWidth} />
           <div ref={this.containerRef} className="scrollable">
             {props.virtualized ? (
