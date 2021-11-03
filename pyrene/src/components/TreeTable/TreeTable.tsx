@@ -8,7 +8,7 @@ import { VariableSizeList as List } from 'react-window';
 import styles from './treeTable.css';
 import TreeTableHeader from './TreeTableHeader/TreeTableHeader';
 import TreeTableActionBar from './TreeTableActionBar/TreeTableActionBar';
-import TreeTableRow from './TreeTableRow/TreeTableRow';
+import TreeTableRow, { TreeTableRowProps } from './TreeTableRow/TreeTableRow';
 import Filter from '../Filter/Filter';
 import TreeTableUtils from './TreeTableUtils';
 import Loader from '../Loader/Loader';
@@ -62,11 +62,11 @@ export interface TreeTableProps<R>{
   /**
    * Called when the user clicks on a row.
    */
-  onRowClick?: () => void,
+  onRowClick?: TreeTableRowProps<R>['onRowClick'],
   /**
    * Called when the user double clicks on a row.
    */
-  onRowDoubleClick?: () => void,
+  onRowDoubleClick?: TreeTableRowProps<R>['onRowDoubleClick'],
   /**
    * Sets the hover callback for row mouseover.
    * (rowData: object, isEntering: boolean) => null
@@ -320,7 +320,7 @@ class TreeTable<R extends {} = {}> extends React.Component<TreeTableProps<R>, Tr
       </div>
     );
 
-    const onExpandRow = ({ row, index }) => {
+    const onExpandRow: TreeTableRowProps<R>['onExpand'] = ({ row, index }) => {
       this.clearHeightCacheAfterIndex(index);
       this.setState((prevState) => ({ ...TreeTableUtils.handleRowExpandChange(row, prevState), tableFullyExpanded: this.isFullyExpanded(rows, expanded) }));
     };
@@ -348,7 +348,6 @@ class TreeTable<R extends {} = {}> extends React.Component<TreeTableProps<R>, Tr
 
     const rowKeyCallback = (index: number) => {
       const rowData = rows[index];
-      // eslint-disable-next-line no-underscore-dangle
       return rowData._rowId;
     };
 
@@ -370,13 +369,12 @@ class TreeTable<R extends {} = {}> extends React.Component<TreeTableProps<R>, Tr
             data={rowData}
             parent={rowData.children ? rowData.children.length > 0 : false}
             highlighted={props.highlightedRowId === rowKey}
-            // eslint-disable-next-line no-underscore-dangle
             level={rowData._treeDepth}
             isExpanded={expanded[rowKey] || false}
             columns={columns}
             onRowClick={props.onRowClick}
             onRowDoubleClick={props.onRowDoubleClick}
-            expandOnParentRowClick={props.expandOnParentRowClick}
+            expandOnParentRowClick={props.expandOnParentRowClick as boolean}
             onExpand={onExpandRow}
           />
         </div>
