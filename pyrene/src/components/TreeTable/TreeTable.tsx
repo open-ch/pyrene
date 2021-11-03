@@ -327,7 +327,7 @@ class TreeTable<R extends {} = {}> extends React.Component<TreeTableProps<R>, Tr
           listItems: columns.slice(1).map((col) => ({ id: col.id, label: col.headerName, value: isColumnHidden(col.hidden) })),
           onItemClick: (columnId, hiddenValue) => toggleColumnDisplay(columnId, hiddenValue, props.toggleColumnsHandler),
           onRestoreDefault: () => restoreColumnDefaults(props.toggleColumnsHandler),
-          toggleColumns: props.toggleColumns,
+          toggleColumns: props.toggleColumns as boolean,
         }}
         renderRightItems={props.renderActionBarRightItems}
         disabledExpand={disabledExpandButton}
