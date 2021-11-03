@@ -26,7 +26,7 @@ export interface TreeTableProps<R>{
    * Sets the Table data displayed in the rows.
    * Type: [{ children: object, lineCount: number, ...row }]
    */
-  data: Array<RowData<R>>,
+  data: Array<R>,
   /**
    * Enables toggle row expansion on the full parent row, instead of the chevron only. Overrides onRowDoubleClick and onRowClick for parent rows.
    */
@@ -310,10 +310,7 @@ class TreeTable<R extends {} = {}> extends React.Component<TreeTableProps<R>, Tr
       this.setState((prevState) => ({ ...TreeTableUtils.handleRowExpandChange(row, prevState), tableFullyExpanded: this.isFullyExpanded(rows, expanded) }));
     };
 
-    const rowKeyCallback = (index: number) => {
-      const rowData = rows[index];
-      return rowData._rowId;
-    };
+    const rowKeyCallback = (index: number) => rows[index]._rowId;
 
     const renderRow = ({ index, style }: { index: number, style?: CSSProperties }) => {
       const rowData = rows[index];

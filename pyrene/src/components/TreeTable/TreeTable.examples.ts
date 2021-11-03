@@ -1,8 +1,6 @@
 import treeTableData from './data.json';
-
-/*
-TODO: when converting the present file to tsx
-treeTableData is of type TableRow
+import { Example } from '../../examples/Example';
+import { TreeTableProps } from './TreeTable';
 
 interface TableRow {
   id: string;
@@ -14,7 +12,6 @@ interface TableRow {
     phone: string;
   }>;
 }
-*/
 
 const testOptions = [
   { value: 'chocolate', label: 'Chocolate', invalid: false },
@@ -74,7 +71,7 @@ const treeTableColumns = [
   },
 ];
 
-const examples = {
+const examples: Example<TreeTableProps<TableRow>> = {
   props: {
     defaultExpandedSection: '0.0.0',
     columns: treeTableColumns,
@@ -89,8 +86,7 @@ const examples = {
     setUniqueRowKey: (row) => row.id,
     filterValues: {},
   },
+  category: 'Data',
 };
-
-examples.category = 'Data';
 
 export default examples;
