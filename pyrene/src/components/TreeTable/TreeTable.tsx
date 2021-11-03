@@ -81,7 +81,7 @@ export interface TreeTableProps<R>{
   /**
    * Sets a function to get a unique key for each row. Params: (rowData)
    */
-  setUniqueRowKey?: () => void,
+  setUniqueRowKey?: (row: RowData<R>) => string | number,
   /**
    * Sets the title.
    */
