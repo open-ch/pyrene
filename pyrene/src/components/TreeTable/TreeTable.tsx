@@ -298,7 +298,7 @@ class TreeTable<R extends {} = {}> extends React.Component<TreeTableProps<R>, Tr
 
     const isColumnHidden = (hidden: undefined | boolean) => typeof hidden === 'undefined' || hidden !== true;
 
-    const toggleColumnDisplay = (columnId: string, hiddenValue: boolean, handler: TreeTableProps<R>['toggleColumnsHandler']) => {
+    const toggleColumnDisplay = (columnId?: string, hiddenValue?: boolean, handler?: TreeTableProps<R>['toggleColumnsHandler']) => {
       const updatedColumns = columns.map((col) => {
         if (col.id === columnId) {
           return { ...col, hidden: hiddenValue };
@@ -324,7 +324,7 @@ class TreeTable<R extends {} = {}> extends React.Component<TreeTableProps<R>, Tr
         displayExpandAll={!tableFullyExpanded}
         columnToggleProps={{
           listItems: columns.slice(1).map((col) => ({ id: col.id, label: col.headerName, value: isColumnHidden(col.hidden) })),
-          onItemClick: (columnId: string, hiddenValue: boolean) => toggleColumnDisplay(columnId, hiddenValue, props.toggleColumnsHandler),
+          onItemClick: (columnId?: string, hiddenValue?: boolean) => toggleColumnDisplay(columnId, hiddenValue, props.toggleColumnsHandler),
           onRestoreDefault: () => restoreColumnDefaults(props.toggleColumnsHandler),
           toggleColumns: props.toggleColumns as boolean,
         }}
