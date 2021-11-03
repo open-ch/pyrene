@@ -314,37 +314,25 @@ class TreeTable<R extends {} = {}> extends React.Component<TreeTableProps<R>, Tr
       this.setState({ columns: TreeTableUtils.prepareColumnToggle(props.columns) as Array<Column<R>> }, () => handler?.(props.columns));
     };
 
-    const renderLoader = () => (
-      <div className={styles.loader}>
-        <Loader size="large" />
-      </div>
-    );
-
     const onExpandRow: TreeTableRowProps<R>['onExpand'] = ({ row, index }) => {
       this.clearHeightCacheAfterIndex(index);
       this.setState((prevState) => ({ ...TreeTableUtils.handleRowExpandChange(row, prevState), tableFullyExpanded: this.isFullyExpanded(rows, expanded) }));
     };
 
-    const getActionBar = () => {
-      const listItems = columns.slice(1).map((col) => ({ id: col.id, label: col.headerName, value: isColumnHidden(col.hidden) }));
-      const onItemClick = (columnId, hiddenValue) => toggleColumnDisplay(columnId, hiddenValue, props.toggleColumnsHandler);
-      const onRestoreDefault = () => restoreColumnDefaults(props.toggleColumnsHandler);
-      const toggleColumns = props.toggleColumns;
-
-      const columnToggleProps = {
-        listItems: listItems, onItemClick: onItemClick, onRestoreDefault: onRestoreDefault, toggleColumns: toggleColumns,
-      };
-
-      return (
-        <TreeTableActionBar
-          toggleAll={() => { this.toggleAllRowsExpansion(); }}
-          displayExpandAll={!tableFullyExpanded}
-          columnToggleProps={columnToggleProps}
-          renderRightItems={props.renderActionBarRightItems}
-          disabledExpand={disabledExpandButton}
-        />
-      );
-    };
+    const getActionBar = () => (
+      <TreeTableActionBar
+        toggleAll={() => { this.toggleAllRowsExpansion(); }}
+        displayExpandAll={!tableFullyExpanded}
+        columnToggleProps={{
+          listItems: columns.slice(1).map((col) => ({ id: col.id, label: col.headerName, value: isColumnHidden(col.hidden) })),
+          onItemClick: (columnId, hiddenValue) => toggleColumnDisplay(columnId, hiddenValue, props.toggleColumnsHandler),
+          onRestoreDefault: () => restoreColumnDefaults(props.toggleColumnsHandler),
+          toggleColumns: props.toggleColumns,
+        }}
+        renderRightItems={props.renderActionBarRightItems}
+        disabledExpand={disabledExpandButton}
+      />
+    );
 
     const rowKeyCallback = (index: number) => {
       const rowData = rows[index];
@@ -389,7 +377,11 @@ class TreeTable<R extends {} = {}> extends React.Component<TreeTableProps<R>, Tr
           </div>
         )}
 
-        {props.loading && renderLoader()}
+        {props.loading && (
+          <div className={styles.loader}>
+            <Loader size="large" />
+          </div>
+        )}
 
         <div className={clsx({ [styles.loading]: props.loading })}>
           {props.filters && props.filters.length > 0 && (
