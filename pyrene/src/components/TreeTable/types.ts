@@ -14,6 +14,7 @@ export type RowData<R> = ExtendedRow<R>;
 export interface Column<R> {
   accessor: keyof R,
   cellStyle?: CSSProperties,
+  id?: string,
   headerName?: string,
   hidden?: boolean,
   headerStyle?: CSSProperties,
