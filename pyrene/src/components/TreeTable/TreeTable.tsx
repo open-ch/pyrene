@@ -27,6 +27,7 @@ export interface TreeTableProps<R>{
    * Type: [{ children: object, lineCount: number, ...row }]
    */
   data: Array<R>,
+  defaultExpandedSection?: string,
   /**
    * Enables toggle row expansion on the full parent row, instead of the chevron only. Overrides onRowDoubleClick and onRowClick for parent rows.
    */

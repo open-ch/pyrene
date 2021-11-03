@@ -1,6 +1,8 @@
-import treeTableData from './data.json';
 import { Example } from '../../examples/Example';
 import { TreeTableProps } from './TreeTable';
+import { Column } from './types';
+
+import treeTableData from './data.json';
 
 interface TableRow {
   id: string;
@@ -47,7 +49,7 @@ const testOptions = [
   { value: 'moosetracks', label: 'Moose Tracks', invalid: false },
 ];
 
-const treeTableColumns = [
+const treeTableColumns: Array<Column<TableRow>> = [
   {
     id: 'name',
     headerName: 'Name',
