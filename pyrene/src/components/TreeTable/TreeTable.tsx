@@ -22,14 +22,11 @@ export interface TreeTableProps<R>{
    * Sets the Table columns.
    * Type: [{ id: string (required), headerName: string (required), accessor: string (required), headerStyle: object, cellStyle: object, initiallyHidden: bool, width: number }]
    */
-  // eslint-disable-next-line react/require-default-props
   columns: Array<Column<R>>,
   /**
    * Sets the Table data displayed in the rows.
    * Type: [{ children: object, lineCount: number, ...row }]
    */
-
-  // eslint-disable-next-line react/require-default-props
   data: Array<RowData<R>>,
   /**
    * Enables toggle row expansion on the full parent row, instead of the chevron only. Overrides onRowDoubleClick and onRowClick for parent rows.
