@@ -2,6 +2,7 @@
 /* eslint-disable react/static-property-placement */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/ban-types */
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import React, { CSSProperties } from 'react';
 import clsx from 'clsx';
 import { VariableSizeList, Align } from 'react-window';
