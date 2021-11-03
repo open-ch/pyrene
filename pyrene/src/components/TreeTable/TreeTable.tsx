@@ -310,7 +310,7 @@ class TreeTable<R extends {} = {}> extends React.Component<TreeTableProps<R>, Tr
       this.setState({ columns: updatedColumns }, () => handler?.(updatedColumns));
     };
 
-    const restoreColumnDefaults = (handler) => {
+    const restoreColumnDefaults = (handler: TreeTableProps<R>['toggleColumnsHandler']) => {
       this.setState({ columns: TreeTableUtils.prepareColumnToggle(props.columns) as Array<Column<R>> }, () => handler?.(props.columns));
     };
 
