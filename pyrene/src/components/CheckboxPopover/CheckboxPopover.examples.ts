@@ -1,5 +1,6 @@
 import { Example, StateProvider } from '../../examples/Example';
 import { CheckboxPopoverProps } from './CheckboxPopover';
+import { OnItemClick } from './CheckboxList';
 
 export interface State {
   listItems: CheckboxPopoverProps['listItems']
@@ -11,23 +12,22 @@ const initListItems = [
   { id: 'tea', label: 'Tea', value: false },
 ];
 
-const examples: Example<CheckboxPopoverProps, State> = {};
-
-examples.props = {
-  buttonLabel: 'Drinks',
-  disabled: false,
-  listItems: (stateProvider) => stateProvider.state.listItems || initListItems,
-  onItemClick: (stateProvider: StateProvider<State>) => (id: string) => {
-    const listItems = stateProvider.state.listItems || initListItems;
-    const newItemList = listItems.map((item) => ({
-      ...item,
-      value: item.id === id ? !item.value : item.value,
-    }));
-    stateProvider.setState({ listItems: newItemList });
+const examples: Example<CheckboxPopoverProps, State> = {
+  props: {
+    buttonLabel: 'Drinks',
+    disabled: false,
+    listItems: (stateProvider) => stateProvider.state.listItems || initListItems,
+    onItemClick: (stateProvider: StateProvider<State>): OnItemClick => (id) => {
+      const listItems = stateProvider.state.listItems || initListItems;
+      const newItemList = listItems.map((item) => ({
+        ...item,
+        value: item.id === id ? !item.value : item.value,
+      }));
+      stateProvider.setState({ listItems: newItemList });
+    },
+    onRestoreDefault: () => {},
   },
-  onRestoreDefault: () => {},
+  category: 'Form',
 };
-
-examples.category = 'Form';
 
 export default examples;
