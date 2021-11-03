@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable react/static-property-placement */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/ban-types */
 import React, { CSSProperties } from 'react';
 import clsx from 'clsx';
-import { VariableSizeList as List } from 'react-window';
+import { VariableSizeList, Align } from 'react-window';
 
 import styles from './treeTable.css';
 import TreeTableHeader from './TreeTableHeader/TreeTableHeader';
@@ -133,26 +134,19 @@ class TreeTable<R extends {} = {}> extends React.Component<TreeTableProps<R>, Tr
   static defaultProps = {
     expandOnParentRowClick: false,
     filters: [],
-    filterValues: {},
     title: '',
     height: 300,
-    highlightedRowId: null,
     loading: false,
     toggleColumns: true,
-    onRowClick: null,
-    onRowDoubleClick: null,
     rowLineHeight: 32,
     virtualized: false,
-    onFilterChange: () => null,
-    setUniqueRowKey: () => null,
-    toggleColumnsHandler: () => null,
   };
 
-  innerRef = React.createRef();
+  innerRef = React.createRef<HTMLDivElement>();
 
   containerRef = React.createRef<HTMLDivElement>();
 
-  listRef = React.createRef();
+  listRef = React.createRef<typeof VariableSizeList>();
 
   constructor(props: TreeTableProps<R>) {
     super(props);
@@ -206,7 +200,7 @@ class TreeTable<R extends {} = {}> extends React.Component<TreeTableProps<R>, Tr
   toggleAllRowsExpansion = (cb = () => {}) => {
     const { data } = this.props;
     this.clearHeightCacheAfterIndex(0); // clear all
-
+    // @ts-ignore
     this.setState(({ tableFullyExpanded }) => {
       if (tableFullyExpanded) {
         return {
@@ -224,9 +218,10 @@ class TreeTable<R extends {} = {}> extends React.Component<TreeTableProps<R>, Tr
     }, cb);
   };
 
-  scrollToRow = (rowId: string, align = 'start') => {
+  scrollToRow = (rowId: string, align: Align = 'start') => {
     if (this.state.tableFullyExpanded) {
       const indexToScrollTo = this.state.rows.findIndex(({ _rowId }) => _rowId === rowId);
+      // @ts-ignore
       this.listRef.current.scrollToItem(indexToScrollTo, align);
       return;
     }
@@ -242,6 +237,7 @@ class TreeTable<R extends {} = {}> extends React.Component<TreeTableProps<R>, Tr
        */
       this.clearHeightCacheAfterIndex(firstLvlParentRowIndex);
       if (this.props.virtualized && this.listRef.current) {
+        // @ts-ignore
         this.listRef.current.scrollToItem(indexToScrollTo, 'start');
       } else if (this.containerRef.current) {
         // scroll page when non-virtualized
@@ -279,9 +275,8 @@ class TreeTable<R extends {} = {}> extends React.Component<TreeTableProps<R>, Tr
    * @param i - index to clear from(inclusive) to the end of the list
    */
   clearHeightCacheAfterIndex(i: number) {
-    if (this.listRef?.current) {
-      this.listRef.current.resetAfterIndex(i);
-    }
+    // @ts-ignore
+    this.listRef?.current?.resetAfterIndex?.(i);
   }
 
   render() {
@@ -396,7 +391,7 @@ class TreeTable<R extends {} = {}> extends React.Component<TreeTableProps<R>, Tr
           <TreeTableHeader columns={columns} scrollPadding={scrollBarWidth} />
           <div ref={this.containerRef} className="scrollable">
             {props.virtualized ? (
-              <List
+              <VariableSizeList
                 key={tableKey}
                 height={props.height as number}
                 itemCount={rows.length}
@@ -404,11 +399,12 @@ class TreeTable<R extends {} = {}> extends React.Component<TreeTableProps<R>, Tr
                 innerRef={this.innerRef}
                 itemSize={this.getItemHeight}
                 itemKey={rowKeyCallback}
-                ref={this.listRef}
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+                ref={this.listRef as any}
                 overscanCount={10}
               >
                 {renderRow}
-              </List>
+              </VariableSizeList>
             ) : rows.map((_, index) => renderRow({ index }))}
           </div>
         </div>
