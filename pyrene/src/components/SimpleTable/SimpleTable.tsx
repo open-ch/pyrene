@@ -109,7 +109,7 @@ function SimpleTable<R = {}>({
                   className={clsx(styles.tableCell, styles.actionCell)}
                   key={`action-${Object.values(row).join('-')}`}
                 >
-                  <SimpleTableActionList<R> row={row} actions={actions} />
+                  <SimpleTableActionList row={row} actions={actions} />
                 </td>
               )}
             </tr>
