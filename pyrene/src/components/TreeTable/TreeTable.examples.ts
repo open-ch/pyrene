@@ -1,8 +1,8 @@
-import treeTableData from './data.json';
+import { Example } from '../../examples/Example';
+import { TreeTableProps } from './TreeTable';
+import { Column, RowData } from './types';
 
-/*
-TODO: when converting the present file to tsx
-treeTableData is of type TableRow
+import treeTableData from './data.json';
 
 interface TableRow {
   id: string;
@@ -14,7 +14,6 @@ interface TableRow {
     phone: string;
   }>;
 }
-*/
 
 const testOptions = [
   { value: 'chocolate', label: 'Chocolate', invalid: false },
@@ -50,7 +49,7 @@ const testOptions = [
   { value: 'moosetracks', label: 'Moose Tracks', invalid: false },
 ];
 
-const treeTableColumns = [
+const treeTableColumns: Array<Column<TableRow>> = [
   {
     id: 'name',
     headerName: 'Name',
@@ -74,23 +73,21 @@ const treeTableColumns = [
   },
 ];
 
-const examples = {
+const examples: Example<TreeTableProps<TableRow>> = {
   props: {
-    defaultExpandedSection: '0.0.0',
     columns: treeTableColumns,
     data: treeTableData,
     title: 'Tree Table',
-    onRowDoubleClick: (data) => console.log(data), // eslint-disable-line no-console
+    onRowDoubleClick: (row?: RowData<TableRow>) => console.log(row), // eslint-disable-line no-console
     filters: [{
       label: 'First Column', type: 'singleSelect', id: 'testKey', options: testOptions,
     }, {
       label: 'Second Column', type: 'multiSelect', id: 'testKey2', options: testOptions,
     }],
-    setUniqueRowKey: (row) => row.id,
+    setUniqueRowKey: (row: RowData<TableRow>) => row.id,
     filterValues: {},
   },
+  category: 'Data',
 };
-
-examples.category = 'Data';
 
 export default examples;

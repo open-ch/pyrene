@@ -534,9 +534,7 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
     if (!commonVariableProps.data.length) {
       return React.cloneElement(tableToRender, { TbodyComponent: NoDataComponent });
     }
-    return (
-      tableToRender
-    );
+    return tableToRender;
 
   };
 

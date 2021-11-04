@@ -49,8 +49,8 @@ function TreeTableRow<R extends object = {}>({
   };
 
   const hasExpandAction = parent && expandOnParentRowClick;
-  const hasSingleClickAction = hasExpandAction || onRowClick !== null;
-  const hasDoubleClickAction = !hasSingleClickAction && onRowDoubleClick !== null;
+  const hasSingleClickAction = hasExpandAction || onRowClick;
+  const hasDoubleClickAction = !hasSingleClickAction && onRowDoubleClick;
 
   return (
     <div
