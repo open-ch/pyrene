@@ -29,7 +29,7 @@ export interface PopoverProps {
   /**
   * Sets the preferred position array ordered by priority for auto repositioning.
   */
-  preferredPosition?: Array<Position>,
+  preferredPosition?: TinyPopoverProps['position'],
   /**
   * Sets the content displayed inside the popover.
   */
