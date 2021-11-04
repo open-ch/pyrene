@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
-import Popover from '../Popover/Popover';
+import Popover, { PopoverProps } from '../Popover/Popover';
 import ButtonBar from '../ButtonBar/ButtonBar';
 import Button from '../Button/Button';
 import styles from './shareDialog.css';
