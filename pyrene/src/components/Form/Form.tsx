@@ -5,8 +5,8 @@ type FormValues = Record<string, any>;
 type Error = Record<string, any>;
 
 export interface FormState {
-  values: FormValues,
-  touched: boolean[],
+  values?: FormValues,
+  touched: Record<string, boolean>,
   isSubmitting: boolean,
 }
 
@@ -28,10 +28,12 @@ export interface FormProps {
   validationSchema?: Record<string, any>,
 }
 
-const getTouchedState = (initialValues: FormProps['initialValues']) => Object.keys(initialValues).reduce((allValues, value) => ({
-  ...allValues,
-  [value]: false,
-}), {});
+const getTouchedState = (initialValues: FormValues) => (
+  Object.keys(initialValues).reduce((allValues, value) => ({
+    ...allValues,
+    [value]: false,
+  }), {})
+);
 
 const anyError = (errors: Error) => Object.keys(errors).some((x) => errors[x]);
 
@@ -42,7 +44,7 @@ class Form extends React.Component<FormProps, FormState> {
 
     this.state = {
       values: this.props.initialValues,
-      touched: getTouchedState(this.props.initialValues),
+      touched: getTouchedState(this.props.initialValues || {}),
       isSubmitting: false,
     };
   }
