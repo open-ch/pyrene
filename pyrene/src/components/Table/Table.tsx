@@ -228,6 +228,7 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
     multiSort: true,
     multiSelect: false,
     numberOfResults: 0,
+    rowSelectableCallback: () => true,
     toggleColumns: false,
     pageSizeOptions: [10, 20, 50, 100, 250],
     filterDisabled: false,
