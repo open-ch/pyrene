@@ -75,7 +75,6 @@ const treeTableColumns: Array<Column<TableRow>> = [
 
 const examples: Example<TreeTableProps<TableRow>> = {
   props: {
-    defaultExpandedSection: '0.0.0',
     columns: treeTableColumns,
     data: treeTableData,
     title: 'Tree Table',
