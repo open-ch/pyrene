@@ -5,7 +5,7 @@ import subMilliseconds from 'date-fns/subMilliseconds';
 import getTime from 'date-fns/getTime';
 import differenceInMilliseconds from 'date-fns/differenceInMilliseconds';
 import clsx from 'clsx';
-import PresetTimeRanges from './PresetTimeRanges/PresetTimeRanges';
+import PresetTimeRanges, { PresetTimeRangesProps } from './PresetTimeRanges/PresetTimeRanges';
 import TimeRangeNavigationBar from './TimeRangeNavigationBar/TimeRangeNavigationBar';
 import PRESET_TIME_RANGES, { TimeRange } from './TimeRangeSelectorDefaultProps';
 import styles from './timeRangeSelector.css';
@@ -114,7 +114,7 @@ export default class TimeRangeSelector extends Component<TimeRangeSelectorProps,
    * @private
    */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  _onPresetTimeRangeSelected = (newFrom: number, newTo: number, newUpperBound: number, durationInMs: number, presetId: string): void => {
+  _onPresetTimeRangeSelected: PresetTimeRangesProps['onInteract'] = (newFrom, newTo, newUpperBound, durationInMs, presetId) => {
     this.setState({
       durationInMs, // We need to store it, otherwise if we reach the lower/upper bound we will start to use less milliseconds with the steppers
     },

@@ -4,14 +4,14 @@ import differenceInMinutes from 'date-fns/differenceInMinutes';
 import getTime from 'date-fns/getTime';
 import format from 'date-fns/format';
 import utcToZonedTime from 'date-fns-tz/utcToZonedTime';
-import ArrowSelector from './ArrowSelector/ArrowSelector';
+import ArrowSelector, { ArrowSelectorProps } from './ArrowSelector/ArrowSelector';
 
 interface TimeRangeNavigationBarProps {
-  disabled?: boolean,
+  disabled?: ArrowSelectorProps['disabled'],
   from: number,
   lowerBound: number,
-  onNavigateBack: () => void,
-  onNavigateForward: () => void,
+  onNavigateBack: ArrowSelectorProps['onNavigateBack'],
+  onNavigateForward: ArrowSelectorProps['onNavigateForward'],
   timezone: string,
   to: number,
   upperBound: number,
