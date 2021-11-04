@@ -1,19 +1,20 @@
 import React, { useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
+import { Position } from 'react-tiny-popover';
 import Popover, { PopoverProps } from '../Popover/Popover';
 import ButtonBar from '../ButtonBar/ButtonBar';
-import Button from '../Button/Button';
+import Button, { ButtonProps } from '../Button/Button';
 import styles from './shareDialog.css';
 
 export interface ShareDialogProps {
   /**
    * Sets the alignment of the popover.
    */
-  align?: 'start' | 'center' | 'end',
+  align?: PopoverProps['align'],
   /**
    * Disables any interaction with the share popover.
    */
-  disabled?: boolean,
+  disabled?: ButtonProps['disabled'],
   /**
    * Sets the link to be shared via the popover.
    */
@@ -21,7 +22,7 @@ export interface ShareDialogProps {
   /**
    * Sets the position of the popover relative to the share button.
    */
-  position?: 'top' | 'right' | 'bottom' | 'left',
+  position?: Position,
 }
 
 const ShareDialog: React.FC<ShareDialogProps> = ({
@@ -34,10 +35,8 @@ const ShareDialog: React.FC<ShareDialogProps> = ({
   const [displayShareDialog, setDisplayShareDialog] = useState(false);
 
   const focusAndSelectInput = (): void => {
-    if (inputRef.current) {
-      inputRef.current.focus();
-      inputRef.current.select();
-    }
+    inputRef?.current?.focus?.();
+    inputRef?.current?.select?.();
   };
 
   const copyLinkToClipboard = (): void => {
@@ -46,9 +45,7 @@ const ShareDialog: React.FC<ShareDialogProps> = ({
     focusAndSelectInput();
   };
 
-  const toggleShareDialogDisplay = (): void => {
-    setDisplayShareDialog(!displayShareDialog);
-  };
+  const toggleShareDialogDisplay = (): void => setDisplayShareDialog(!displayShareDialog);
 
   useEffect(() => {
     if (displayShareDialog) {
