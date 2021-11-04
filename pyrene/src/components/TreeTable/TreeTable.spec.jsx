@@ -29,7 +29,6 @@ describe('TreeTable', () => {
   const getRowKey = (row) => row.key;
 
   const props = {
-    defaultExpandedSection: '0.0.0',
     columns: [{
       id: 'key',
       headerName: 'Key',
