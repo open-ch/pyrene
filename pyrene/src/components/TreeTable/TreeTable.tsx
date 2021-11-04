@@ -133,7 +133,6 @@ class TreeTable<R extends {} = {}> extends React.Component<TreeTableProps<R>, Tr
 
   static defaultProps = {
     expandOnParentRowClick: false,
-    filters: [],
     title: '',
     height: 300,
     loading: false,
@@ -271,6 +270,36 @@ class TreeTable<R extends {} = {}> extends React.Component<TreeTableProps<R>, Tr
   // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
   clearHeightCacheAfterIndex = (i: number) => this.listRef?.current?.resetAfterIndex?.(i);
 
+  renderRow = (onExpandRow: TreeTableRowProps<R>['onExpand']) => ({ index, style }: { index: number, style?: CSSProperties }) => {
+    const rowData = this.state.rows[index];
+    const { _rowId: rowKey } = rowData;
+
+    return (
+      <div
+        style={style}
+        key={rowKey}
+        onMouseOver={() => this.props?.onRowHover?.(rowData, true)}
+        onMouseOut={() => this.props?.onRowHover?.(rowData, false)}
+      >
+        <TreeTableRow
+          style={style}
+          key={rowKey}
+          index={index}
+          data={rowData}
+          parent={rowData.children ? rowData.children.length > 0 : false}
+          highlighted={this.props.highlightedRowId === rowKey}
+          level={rowData._treeDepth}
+          isExpanded={this.state.expanded[rowKey] || false}
+          columns={this.state.columns}
+          onRowClick={this.props.onRowClick}
+          onRowDoubleClick={this.props.onRowDoubleClick}
+          expandOnParentRowClick={this.props.expandOnParentRowClick as boolean}
+          onExpand={onExpandRow}
+        />
+      </div>
+    );
+  };
+
   render() {
     const { props } = this;
     const {
@@ -307,36 +336,6 @@ class TreeTable<R extends {} = {}> extends React.Component<TreeTableProps<R>, Tr
 
     const rowKeyCallback = (index: number) => rows[index]._rowId;
 
-    const renderRow = ({ index, style }: { index: number, style?: CSSProperties }) => {
-      const rowData = rows[index];
-      const { _rowId: rowKey } = rowData;
-
-      return (
-        <div
-          style={style}
-          key={rowKey}
-          onMouseOver={() => this.props?.onRowHover?.(rowData, true)}
-          onMouseOut={() => this.props?.onRowHover?.(rowData, false)}
-        >
-          <TreeTableRow
-            style={style}
-            key={rowKey}
-            index={index}
-            data={rowData}
-            parent={rowData.children ? rowData.children.length > 0 : false}
-            highlighted={props.highlightedRowId === rowKey}
-            level={rowData._treeDepth}
-            isExpanded={expanded[rowKey] || false}
-            columns={columns}
-            onRowClick={props.onRowClick}
-            onRowDoubleClick={props.onRowDoubleClick}
-            expandOnParentRowClick={props.expandOnParentRowClick as boolean}
-            onExpand={onExpandRow}
-          />
-        </div>
-      );
-    };
-
     return (
       <div className={styles.treeTableContainer}>
         {props.title && (
@@ -352,7 +351,7 @@ class TreeTable<R extends {} = {}> extends React.Component<TreeTableProps<R>, Tr
         )}
 
         <div className={clsx({ [styles.loading]: props.loading })}>
-          {props.filters && props.filters.length > 0 && (
+          {Array.isArray(props.filters) && props.filters.length > 0 && (
             <div className={styles.filterContainer}>
               <Filter
                 filters={props.filters}
@@ -387,9 +386,9 @@ class TreeTable<R extends {} = {}> extends React.Component<TreeTableProps<R>, Tr
                 ref={this.listRef}
                 overscanCount={10}
               >
-                {renderRow}
+                {this.renderRow(onExpandRow)}
               </VariableSizeList>
-            ) : rows.map((_, index) => renderRow({ index }))}
+            ) : rows.map((_, index) => this.renderRow(onExpandRow)({ index }))}
           </div>
         </div>
       </div>
