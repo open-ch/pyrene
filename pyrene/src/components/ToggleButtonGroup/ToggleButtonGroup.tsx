@@ -21,7 +21,7 @@ export interface ToggleButtonGroupProps {
   /**
    * What happens when one value is toggled
    */
-  onChange?: (value: string, event?: React.ChangeEvent<HTMLInputElement>) => void,
+  onChange?: (value: string) => void,
   /**
    * All options that can be toggled.
    */
