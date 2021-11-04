@@ -79,7 +79,7 @@ const examples: Example<TreeTableProps<TableRow>> = {
     columns: treeTableColumns,
     data: treeTableData,
     title: 'Tree Table',
-    onRowDoubleClick: (row: RowData<TableRow>) => console.log(row), // eslint-disable-line no-console
+    onRowDoubleClick: (row?: RowData<TableRow>) => console.log(row), // eslint-disable-line no-console
     filters: [{
       label: 'First Column', type: 'singleSelect', id: 'testKey', options: testOptions,
     }, {
