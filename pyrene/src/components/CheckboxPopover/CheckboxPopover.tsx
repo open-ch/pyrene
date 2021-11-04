@@ -2,15 +2,15 @@ import React, { FunctionComponent, useState } from 'react';
 import clsx from 'clsx';
 
 import Popover from '../Popover/Popover';
-import CheckboxList, { Item, OnItemClick } from './CheckboxList';
+import CheckboxList, { CheckboxListProps } from './CheckboxList';
 import styles from './checkboxPopover.css';
 
 export interface CheckboxPopoverProps {
   buttonLabel: string;
   disabled?: boolean;
-  listItems: Array<Item>;
-  onItemClick: OnItemClick;
-  onRestoreDefault: () => void;
+  listItems: CheckboxListProps['listItems'];
+  onItemClick: CheckboxListProps['onItemClick'];
+  onRestoreDefault: CheckboxListProps['onRestoreDefault'];
 }
 
 const CheckboxPopover: FunctionComponent<CheckboxPopoverProps> = ({
@@ -32,14 +32,26 @@ const CheckboxPopover: FunctionComponent<CheckboxPopoverProps> = ({
         displayPopover={displayPopover}
         distanceToTarget={8}
         onClickOutside={() => setDisplayPopover(false)}
-        renderPopoverContent={() => <CheckboxList listItems={listItems} onItemClick={onItemClick} onRestoreDefault={onRestoreDefault} />}
+        renderPopoverContent={() => (
+          <CheckboxList
+            listItems={listItems}
+            onItemClick={onItemClick}
+            onRestoreDefault={onRestoreDefault}
+          />
+        )}
       >
-        <div className={clsx(styles.popoverTriggerButton, { [styles.popoverOpen]: displayPopover })} onClick={togglePopover}>
+        <div
+          className={clsx(styles.popoverTriggerButton, { [styles.popoverOpen]: displayPopover })}
+          onClick={togglePopover}
+        >
           <div className={clsx(styles.buttonLabel, 'unSelectable')}>
             {buttonLabel}
           </div>
           <div
-            className={clsx(styles.arrowIcon, { 'pyreneIcon-chevronUp': displayPopover, 'pyreneIcon-chevronDown': !displayPopover })}
+            className={clsx(styles.arrowIcon, {
+              'pyreneIcon-chevronUp': displayPopover,
+              'pyreneIcon-chevronDown': !displayPopover,
+            })}
           />
         </div>
       </Popover>

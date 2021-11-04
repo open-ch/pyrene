@@ -3,21 +3,20 @@ import React, { FunctionComponent } from 'react';
 
 import styles from './treeTableActionBar.css';
 import ButtonBar from '../../ButtonBar/ButtonBar';
-import Button from '../../Button/Button';
-import CheckboxPopover from '../../CheckboxPopover/CheckboxPopover';
-import { Item, OnItemClick } from '../../CheckboxPopover/CheckboxList';
+import Button, { ButtonProps } from '../../Button/Button';
+import CheckboxPopover, { CheckboxPopoverProps } from '../../CheckboxPopover/CheckboxPopover';
 
 export interface TreeTableActionBarProps {
   columnToggleProps: {
-    listItems: Array<Item>,
-    onItemClick: OnItemClick,
-    onRestoreDefault: () => void,
+    listItems: CheckboxPopoverProps['listItems'],
+    onItemClick: CheckboxPopoverProps['onItemClick'],
+    onRestoreDefault: CheckboxPopoverProps['onRestoreDefault'],
     toggleColumns: boolean,
   },
   disabledExpand: boolean,
   displayExpandAll: boolean,
   renderRightItems?: () => JSX.Element,
-  toggleAll: () => void,
+  toggleAll: ButtonProps['onClick'],
 }
 
 const TreeTableActionBar: FunctionComponent<TreeTableActionBarProps> = ({
