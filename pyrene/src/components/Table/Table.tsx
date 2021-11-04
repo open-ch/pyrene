@@ -228,7 +228,6 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
     multiSort: true,
     multiSelect: false,
     numberOfResults: 0,
-    rowSelectableCallback: () => true,
     toggleColumns: false,
     pageSizeOptions: [10, 20, 50, 100, 250],
     filterDisabled: false,
@@ -534,9 +533,7 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
     if (!commonVariableProps.data.length) {
       return React.cloneElement(tableToRender, { TbodyComponent: NoDataComponent });
     }
-    return (
-      tableToRender
-    );
+    return tableToRender;
 
   };
 

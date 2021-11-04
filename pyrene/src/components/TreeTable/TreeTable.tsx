@@ -1,3 +1,5 @@
+/* eslint-disable no-confusing-arrow */
+/* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/ban-types */
@@ -196,13 +198,13 @@ class TreeTable<R extends {} = {}> extends React.Component<TreeTableProps<R>, Tr
   };
 
   toggleAllRowsExpansion = (cb = () => {}) => {
-    const { data } = this.props;
+    const { data, setUniqueRowKey } = this.props;
     this.clearHeightCacheAfterIndex(0); // clear all
 
     this.setState(({ tableFullyExpanded }) => {
       if (tableFullyExpanded) {
         return {
-          rows: TreeTableUtils.initialiseRootData(data, this.props.setUniqueRowKey) as Array<RowData<R>>,
+          rows: TreeTableUtils.initialiseRootData(data, setUniqueRowKey) as Array<RowData<R>>,
           expanded: {},
           tableFullyExpanded: !tableFullyExpanded,
           tableKey: Date.now(), // as all rows are closed, we need to recalculate the height for the whole view - a key is the easiest way
@@ -250,21 +252,15 @@ class TreeTable<R extends {} = {}> extends React.Component<TreeTableProps<R>, Tr
     });
   };
 
-  isFullyExpanded(rows: Array<RowData<R>>, expanded: Record<string, boolean>) {
-    return rows.filter((r) => r.children && r.children.length)
-      .every((r) => expanded[r._rowId]);
-  }
+  isFullyExpanded = (rows: Array<RowData<R>>, expanded: Record<string, boolean>) => rows
+    .filter((r) => r.children && r.children.length)
+    .every((r) => expanded[r._rowId]);
 
-  isFlatTree(rows: Array<RowData<R>>) {
-    return rows.every((row) => row._treeDepth === 0 && !(row.children && row.children.length));
-  }
+  isFlatTree = (rows: Array<RowData<R>>) => rows
+    .every((row) => row._treeDepth === 0 && !(row.children && row.children.length));
 
-  calculateScrollBarWidth() {
-    if (this.containerRef.current && this.innerRef.current) {
-      return this.containerRef.current.offsetWidth - this.innerRef.current.offsetWidth;
-    }
-    return 0;
-  }
+  calculateScrollBarWidth = () => (this.containerRef.current && this.innerRef.current)
+    ? this.containerRef.current.offsetWidth - this.innerRef.current.offsetWidth : 0;
 
   /**
    * clears the inner cache of styles and sizes of VariableSizeList,
@@ -272,10 +268,8 @@ class TreeTable<R extends {} = {}> extends React.Component<TreeTableProps<R>, Tr
    * When expanding we insert rows of different height into existing index space and cache gets dirty.
    * @param i - index to clear from(inclusive) to the end of the list
    */
-  clearHeightCacheAfterIndex(i: number) {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    this.listRef?.current?.resetAfterIndex?.(i);
-  }
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+  clearHeightCacheAfterIndex = (i: number) => this.listRef?.current?.resetAfterIndex?.(i);
 
   render() {
     const { props } = this;
