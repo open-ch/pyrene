@@ -74,7 +74,7 @@ class Form extends React.Component<FormProps, FormState> {
     return {};
   };
 
-  validate = (values) => {
+  validate = (values: FormState['values']) => {
     if (this.props.validationSchema) {
       return this.validateYupSchema(values);
     }
