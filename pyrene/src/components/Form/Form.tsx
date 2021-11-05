@@ -36,7 +36,7 @@ type InputComponentProps = {
   name: KeysOf<FormState['values']>,
   value: ValuesOf<FormState['values']>,
   invalid: boolean,
-  invalidLabel: boolean,
+  invalidLabel: string,
   onChange: (value: string, event: React.ChangeEvent<HTMLInputElement>) => void,
   onBlur: (event: React.FocusEvent<HTMLInputElement>) => void,
 };
