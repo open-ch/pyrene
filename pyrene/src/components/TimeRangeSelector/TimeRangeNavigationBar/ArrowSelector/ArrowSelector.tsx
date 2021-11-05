@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import TRSStepper from './TRSStepper/TRSStepper';
 import styles from './arrowSelector.css';
 
-interface ArrowSelectorProps {
+export interface ArrowSelectorProps {
   backInactive: boolean,
   disabled?: boolean,
   forwardInactive: boolean,

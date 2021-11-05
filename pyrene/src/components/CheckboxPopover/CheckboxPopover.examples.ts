@@ -1,6 +1,5 @@
 import { Example, StateProvider } from '../../examples/Example';
 import { CheckboxPopoverProps } from './CheckboxPopover';
-import { OnItemClick } from './CheckboxList';
 
 export interface State {
   listItems: CheckboxPopoverProps['listItems']
@@ -17,7 +16,7 @@ const examples: Example<CheckboxPopoverProps, State> = {
     buttonLabel: 'Drinks',
     disabled: false,
     listItems: (stateProvider) => stateProvider.state.listItems || initListItems,
-    onItemClick: (stateProvider: StateProvider<State>): OnItemClick => (id) => {
+    onItemClick: (stateProvider: StateProvider<State>): CheckboxPopoverProps['onItemClick'] => (id) => {
       const listItems = stateProvider.state.listItems || initListItems;
       const newItemList = listItems.map((item) => ({
         ...item,

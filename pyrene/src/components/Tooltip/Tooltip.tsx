@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Popover from 'react-tiny-popover';
+import Popover, { PopoverProps } from 'react-tiny-popover';
 
 import styles from './tooltip.module.css';
 
@@ -7,11 +7,11 @@ export interface TooltipProps {
   /**
    * Sets the alignment of the tooltip.
    */
-  align?: 'start' | 'center' | 'end';
+  align?: PopoverProps['align'];
   /**
    * Whether automatic repositioning is enabled.
    */
-  autoReposition?: boolean;
+  autoReposition?: PopoverProps['disableReposition'];
   /**
    * Wrapped component(s) that the tooltip is using for its positioning.
    */
@@ -19,7 +19,7 @@ export interface TooltipProps {
   /**
    * Sets the distance of the tooltip to its target.
    */
-  distanceToTarget?: number;
+  distanceToTarget?: PopoverProps['padding'];
   /**
    * Sets the label displayed inside of the tooltip.
    */
@@ -31,7 +31,7 @@ export interface TooltipProps {
   /**
    * Sets the preferred position array ordered by priority for auto repositioning.
    */
-  preferredPosition?: ('top' | 'right' | 'bottom' | 'left')[];
+  preferredPosition?: PopoverProps['position'];
 }
 
 /**

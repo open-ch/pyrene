@@ -1,16 +1,14 @@
-import React, {
-  useCallback, FunctionComponent, KeyboardEvent, ChangeEvent,
-} from 'react';
+import React, { useCallback, FunctionComponent, KeyboardEvent } from 'react';
 import clsx from 'clsx';
 import styles from './searchFinder.css';
 import Icon from '../Icon/Icon';
-import SearchInput from './components/SearchInput/SearchInput';
+import SearchInput, { SearchInputProps } from './components/SearchInput/SearchInput';
 
 export interface SearchFinderProps {
   /**
    * called when searchTerm changes
    */
-  onSearchTermChange: (value: string, e?: ChangeEvent<HTMLInputElement>) => void,
+  onSearchTermChange: SearchInputProps['onChange'],
   /**
    * called when selectedResult changes
    */
@@ -18,7 +16,7 @@ export interface SearchFinderProps {
   /**
    * input placeholder string
    */
-  placeholder?: string,
+  placeholder?: SearchInputProps['placeholder'],
   /**
    * total number of results
    */
