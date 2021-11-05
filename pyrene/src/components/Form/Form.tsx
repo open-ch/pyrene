@@ -1,11 +1,21 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 
-type FormValues = Record<string, any>;
+type FormValues = Record<string, string | number | boolean>;
 type Error = Record<string, any>;
 
+export interface FormProps {
+  initialValues?: FormValues,
+  onChange?: () => void,
+  onSubmit?: () => void,
+  render: (args: RenderPropsArgs) => JSX.Element,
+  validateOnFirstTouch?: boolean,
+  validationSchema?: Record<string, any>,
+}
+
 export interface FormState {
-  values?: FormValues,
+  values: FormValues,
   touched: Record<string, boolean>,
   isSubmitting: boolean,
 }
@@ -19,14 +29,19 @@ type RenderPropsArgs = {
   initField: (fieldName: string) => Record<string, any>,
 };
 
-export interface FormProps {
-  initialValues?: FormValues,
-  onChange?: () => void,
-  onSubmit?: () => void,
-  render: (args: RenderPropsArgs) => JSX.Element,
-  validateOnFirstTouch?: boolean,
-  validationSchema?: Record<string, any>,
-}
+type ValuesOf<T> = T[keyof T];
+type KeysOf<T> = keyof T;
+
+type InputComponentProps = {
+  name: KeysOf<FormState['values']>,
+  value: ValuesOf<FormState['values']>,
+  invalid: boolean,
+  invalidLabel: boolean,
+  onChange: (value: string, event: React.ChangeEvent<HTMLInputElement>) => void,
+  onBlur: (event: React.FocusEvent<HTMLInputElement>) => void,
+};
+
+
 
 const getTouchedState = (initialValues: FormValues) => (
   Object.keys(initialValues).reduce((allValues, value) => ({
@@ -43,7 +58,7 @@ class Form extends React.Component<FormProps, FormState> {
     super(props);
 
     this.state = {
-      values: this.props.initialValues,
+      values: this.props.initialValues || {},
       touched: getTouchedState(this.props.initialValues || {}),
       isSubmitting: false,
     };
@@ -72,7 +87,7 @@ class Form extends React.Component<FormProps, FormState> {
     return !isDisabled;
   }
 
-  shouldMarkError = (fieldName, error) => {
+  shouldMarkError = (fieldName: string, error: string) => {
     const shouldShow = this.state.touched[fieldName];
     return error ? shouldShow : false;
   };
@@ -116,20 +131,20 @@ class Form extends React.Component<FormProps, FormState> {
     }
   };
 
-  handleBlur = (event) => {
+  handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
     const inputName = event.target.name ? event.target.name : event.target.id;
     this.setState((prevState) => ({
       touched: { ...prevState.touched, [inputName]: true },
     }));
   };
 
-  setFieldValue = (fieldName, value) => {
+  setFieldValue = (fieldName: KeysOf<FormState['values']>, value: string | number | boolean) => {
     this.setState((prevState) => ({
       values: { ...prevState.values, [fieldName]: value },
     }));
   };
 
-  handleInputChange = (value, key, type) => {
+  handleInputChange = (value, key: string, type: string) => {
     if (this.props.validateOnFirstTouch) {
       this.setState((prevState) => ({
         touched: { ...prevState.touched, [key]: true },
@@ -177,9 +192,10 @@ class Form extends React.Component<FormProps, FormState> {
     }
   };
 
-  initField = (fieldName: string, error: string) => {
+  // generate props to be passed to specialized input component
+  initField = (fieldName: KeysOf<FormState['values']>, error: string) => {
     // Standard boilerplate
-    const fieldProps = {
+    const fieldProps: InputComponentProps = {
       name: fieldName,
       value: this.state.values[fieldName],
       invalid: this.shouldMarkError(fieldName, error),
@@ -190,7 +206,10 @@ class Form extends React.Component<FormProps, FormState> {
 
     // Overriding state of all inputs for special cases
     if (this.state.isSubmitting) {
-      fieldProps.disabled = this.state.isSubmitting;
+      return {
+        ...fieldProps,
+        disabled: this.state.isSubmitting,
+      };
     }
 
     return fieldProps;
