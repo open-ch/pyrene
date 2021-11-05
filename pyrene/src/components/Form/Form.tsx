@@ -64,7 +64,7 @@ class Form extends React.Component<FormProps, FormState> {
     };
   }
 
-  validateYupSchema = (values) => {
+  validateYupSchema = (values: FormState['values']) => {
     try {
       this.props.validationSchema.validateSync(values, { abortEarly: false });
     } catch (err) {
