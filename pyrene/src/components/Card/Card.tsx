@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React, { ReactNode, FunctionComponent } from 'react';
 import clsx from 'clsx';
 
 import Loader from '../Loader/Loader';
@@ -9,7 +9,7 @@ export interface CardProps {
   /**
    The content enclosed in the card.
    */
-  children: ReactElement[] | ReactElement,
+  children: ReactNode,
   /**
    * An error to be shown rather than the content.
    */
@@ -17,11 +17,11 @@ export interface CardProps {
   /**
    * An optional footer component.
    */
-  footer?: ReactElement,
+  footer?: ReactNode,
   /**
     * An optional header component, e.g., a time range selector.
     */
-  header?: ReactElement,
+  header?: ReactNode,
   /**
    * Indicates whether the card is loading. Displays an overlay loader.
    */
@@ -33,7 +33,7 @@ export interface CardProps {
  *
  * They take the full width of the enclosing box and the height they need to fit the content.
 */
-const Card:React.FC<CardProps> = ({
+const Card: FunctionComponent<CardProps> = ({
   header,
   footer,
   children,

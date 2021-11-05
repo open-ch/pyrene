@@ -7,7 +7,7 @@ import { TimeRange } from '../TimeRangeSelectorDefaultProps';
 
 type OnChangeHandler = (newFrom: number, newTo: number, newUpperBound: number, durationInMs: number, presetId: string) => void;
 
-interface PresetTimeRangesProps {
+export interface PresetTimeRangesProps {
   currentTimeRangeType?: string,
   disabled?: boolean,
   lowerBound: number,

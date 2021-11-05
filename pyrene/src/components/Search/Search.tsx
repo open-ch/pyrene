@@ -1,45 +1,43 @@
-import React, {
-  FunctionComponent, RefObject, ChangeEvent, FocusEvent,
-} from 'react';
-import SearchInput from '../SearchFinder/components/SearchInput/SearchInput';
+import React, { FunctionComponent } from 'react';
+import SearchInput, { SearchInputProps } from '../SearchFinder/components/SearchInput/SearchInput';
 
 export interface SearchProps {
   /**
    * ref of SearchInput container
    */
-  containerRef?: (() => void) | RefObject<HTMLDivElement>,
+  containerRef?: SearchInputProps['containerRef'],
   /**
    * set Focused state
    */
-  isFocused?: boolean,
+  isFocused?: SearchInputProps['isFocused'],
   /**
    * called when input is blured
    */
-  onBlur?: (e?: FocusEvent<HTMLInputElement>) => void,
+  onBlur?: SearchInputProps['onBlur'],
   /**
    * called when value changes
    */
-  onChange: (value : string, e?: ChangeEvent<HTMLInputElement>) => void,
+  onChange: SearchInputProps['onChange'],
   /**
    * custom handler for enter keydown action
    */
-  onEnter?: () => void,
+  onEnter?: SearchInputProps['onEnter'],
   /**
    * called when input is focused
    */
-  onFocus?: (e?: FocusEvent<HTMLInputElement>) => void,
+  onFocus?: SearchInputProps['onFocus'],
   /**
    * input placeholder string
    */
-  placeholder?: string,
+  placeholder?: SearchInputProps['placeholder'],
   /**
    * input value
    */
-  value: string,
+  value: SearchInputProps['value'],
   /**
    * width
    */
-  width?: number | string,
+  width?: SearchInputProps['width'],
 }
 
 /**

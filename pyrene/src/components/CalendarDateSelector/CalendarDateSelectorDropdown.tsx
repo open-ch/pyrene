@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types */
 import React, { FunctionComponent } from 'react';
-import ToggleButtonGroup from '../ToggleButtonGroup/ToggleButtonGroup';
+import ToggleButtonGroup, { ToggleButtonGroupProps } from '../ToggleButtonGroup/ToggleButtonGroup';
 import { DateTime } from './CalendarDateSelectorUtils';
 
 export interface TimeUnitSelectionDropdownProps {
-  disabled?: boolean,
-  onSelect?: (unit: string) => void,
+  disabled?: ToggleButtonGroupProps['disabled'],
+  onSelect?: ToggleButtonGroupProps['onChange'],
   timeUnit?: DateTime['timeunitOption'],
   timeUnits: DateTime['timeunitOptions'],
 }

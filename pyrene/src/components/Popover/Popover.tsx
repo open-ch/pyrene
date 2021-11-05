@@ -1,15 +1,15 @@
 import React, { FunctionComponent } from 'react';
-import TinyPopover, { Position } from 'react-tiny-popover';
+import TinyPopover, { Position, PopoverProps as TinyPopoverProps } from 'react-tiny-popover';
 
 export interface PopoverProps {
   /**
    * Sets the alignment of the popover.
    */
-  align?: 'start' | 'center' | 'end',
+  align?: TinyPopoverProps['align'],
   /**
   * Whether automatic repositioning is enabled.
   */
-  autoReposition?: boolean,
+  autoReposition?: TinyPopoverProps['disableReposition'],
   /**
   * Wrapped component(s) that the popover is using for its positioning.
   */
@@ -17,19 +17,19 @@ export interface PopoverProps {
   /**
   * Whether to display the popover.
   */
-  displayPopover?: boolean,
+  displayPopover?: TinyPopoverProps['isOpen'],
   /**
   * Sets the distance of the popover to its target.
   */
-  distanceToTarget?: number,
+  distanceToTarget?: TinyPopoverProps['padding'],
   /**
   * Called when the user clicks outside of the popover. To be used to toggle the displayPopover prop.
   */
-  onClickOutside?: () => void,
+  onClickOutside?: TinyPopoverProps['onClickOutside'],
   /**
   * Sets the preferred position array ordered by priority for auto repositioning.
   */
-  preferredPosition?: Array<'top' | 'right' | 'bottom' | 'left'>,
+  preferredPosition?: TinyPopoverProps['position'],
   /**
   * Sets the content displayed inside the popover.
   */
