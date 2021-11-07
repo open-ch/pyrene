@@ -1,11 +1,12 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import React, { ChangeEvent } from 'react';
 import PropTypes from 'prop-types';
+import { MultiselectOption, Filters, Options } from '../Filter/types';
 
 type ValuesOf<T> = T[keyof T];
 type KeysOf<T> = keyof T;
 
-type FormValues = Record<string, string | number | boolean>;
+type FormValues = Filters;
 type ToucheValues = {
   [K in KeysOf<FormValues>]: boolean
 };
@@ -143,7 +144,7 @@ class Form extends React.Component<FormProps, FormState> {
     }));
   };
 
-  handleInputChange = (value: string | boolean, key: KeysOf<FormState['values']>, type: string) => {
+  handleInputChange = (value: Options, key: string, type: string) => {
     if (this.props.validateOnFirstTouch) {
       this.setState((prevState) => ({
         touched: { ...prevState.touched, [key]: true },
@@ -164,7 +165,7 @@ class Form extends React.Component<FormProps, FormState> {
     }
   };
 
-  validateMultiSelectOption = (multiSelectName, selectedOption) => {
+  validateMultiSelectOption = (multiSelectName: string, selectedOption: { label: string, value: any }) => {
     if (this.props.validationSchema && (typeof this.props.validationSchema.fields[multiSelectName] !== 'undefined')) {
       try {
         this.props.validationSchema.fields[multiSelectName].validateSync([selectedOption], { abortEarly: false });
@@ -177,14 +178,16 @@ class Form extends React.Component<FormProps, FormState> {
     return false;
   };
 
-  getValueFromInput = (value, key, type: string) => {
+  getValueFromInput = (value: Options, key: KeysOf<FormState['values']>, type: string) => {
     switch (type) {
       case 'multiSelect': {
-        const selectedOptions = value || [];
+        const selectedOptions = (value || []) as MultiselectOption;
         const multiSelectName = key;
-        return selectedOptions.map((selectedOption) => (
-          { value: selectedOption.value, label: selectedOption.label, invalid: this.validateMultiSelectOption(multiSelectName, selectedOption) }
-        ));
+        return selectedOptions.map((selectedOption) => ({
+          value: selectedOption.value,
+          label: selectedOption.label,
+          invalid: this.validateMultiSelectOption(multiSelectName, selectedOption)
+        }));
       }
       default:
         return value;
@@ -192,14 +195,14 @@ class Form extends React.Component<FormProps, FormState> {
   };
 
   // generate props to be passed to specialized input component
-  initField = (fieldName: KeysOf<FormState['values']>, error: string) => {
+  initField = (fieldName: string, error: string) => {
     // Standard boilerplate
     const fieldProps: InputComponentProps = {
       name: fieldName,
       value: this.state.values[fieldName],
       invalid: this.shouldMarkError(fieldName, error),
       invalidLabel: error,
-      onChange: (value: string | boolean, event: ChangeEvent<HTMLInputElement>) => (
+      onChange: (value: string | boolean, event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => (
         this.handleInputChange(value, fieldName, event.target.type)
       ),
       onBlur: this.handleBlur,
