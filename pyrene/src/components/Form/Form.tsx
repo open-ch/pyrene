@@ -22,7 +22,7 @@ export interface FormProps {
   onSubmit?: (formState: FormValues) => Promise<void>,
   render: (args: RenderPropsArgs) => JSX.Element,
   validateOnFirstTouch?: boolean,
-  validationSchema?: any | ObjectSchema<any> | null,
+  validationSchema?: ObjectSchema<any> | null,
 }
 
 export interface FormState {

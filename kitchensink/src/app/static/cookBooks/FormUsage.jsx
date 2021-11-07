@@ -414,8 +414,6 @@ const FormUsage = () => (
             {' '}
             The initField function needs to be called with the spread operator and as the *LAST* prop of the element.
           </DescriptionBox>
-          {
-            /*
           <CodeBox>
             {SmallFormCode}
           </CodeBox>
@@ -425,7 +423,6 @@ const FormUsage = () => (
           <DisplayBox>
             {SmallForm}
           </DisplayBox>
-          */}
         </Paragraph>
 
         <Paragraph title="Forms with validation">
