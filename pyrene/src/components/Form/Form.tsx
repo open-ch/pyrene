@@ -96,6 +96,7 @@ class Form extends React.Component<FormProps, FormState> {
   };
 
   regroupErrors = (errors: { inner: Array<any> }) => {
+    console.log('thomas errors', errors.inner);
     // regroups the errors from beeing an array of error objects to an object of errors grouped by field name
     // the path for multiselect options points out the exact object inside the multiselect like 'multiselect[x]'
     // to group all of these errors together under multiselect the .split("[") function is used
