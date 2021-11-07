@@ -14,7 +14,7 @@ type Errors = Record<string, any>;
 
 export interface FormProps {
   initialValues?: FormValues,
-  onChange?: () => void,
+  onChange: (value: FormValues, setter: (fieldName: KeysOf<FormState['values']>, value: Options) => void) => void,
   onSubmit: (formState: FormValues) => Promise<any>,
   render: (args: RenderPropsArgs) => JSX.Element,
   validateOnFirstTouch?: boolean,
@@ -138,7 +138,7 @@ class Form extends React.Component<FormProps, FormState> {
     }));
   };
 
-  setFieldValue = (fieldName: KeysOf<FormState['values']>, value: string | number | boolean) => {
+  setFieldValue = (fieldName: KeysOf<FormState['values']>, value: Options) => {
     this.setState((prevState) => ({
       values: { ...prevState.values, [fieldName]: value },
     }));
@@ -165,7 +165,7 @@ class Form extends React.Component<FormProps, FormState> {
     }
   };
 
-  validateMultiSelectOption = (multiSelectName: string, selectedOption: { label: string, value: any }) => {
+  validateMultiSelectOption = (multiSelectName: string, selectedOption: Options) => {
     if (this.props.validationSchema && (typeof this.props.validationSchema.fields[multiSelectName] !== 'undefined')) {
       try {
         this.props.validationSchema.fields[multiSelectName].validateSync([selectedOption], { abortEarly: false });
@@ -202,7 +202,7 @@ class Form extends React.Component<FormProps, FormState> {
       value: this.state.values[fieldName],
       invalid: this.shouldMarkError(fieldName, error),
       invalidLabel: error,
-      onChange: (value: string | boolean, event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => (
+      onChange: (value: Options, event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => (
         this.handleInputChange(value, fieldName, event.target.type)
       ),
       onBlur: this.handleBlur,
