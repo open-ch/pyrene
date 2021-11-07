@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import React, { ChangeEvent } from 'react';
 import PropTypes from 'prop-types';
@@ -15,7 +16,7 @@ type Errors = Record<string, any>;
 export interface FormProps {
   initialValues?: FormValues,
   onChange: (value: FormValues, setter: (fieldName: KeysOf<FormState['values']>, value: Options) => void) => void,
-  onSubmit: (formState: FormValues) => Promise<any>,
+  onSubmit: (formState: FormValues) => Promise<void>,
   render: (args: RenderPropsArgs) => JSX.Element,
   validateOnFirstTouch?: boolean,
   validationSchema?: Record<string, any>,
@@ -83,29 +84,31 @@ class Form extends React.Component<FormProps, FormState> {
     return {};
   };
 
-  canBeSubmitted() {
+  canBeSubmitted = () => {
     const errors = this.validate(this.state.values);
     const isDisabled = anyError(errors);
     return !isDisabled;
-  }
+  };
 
   shouldMarkError = (fieldName: KeysOf<ToucheValues>, error: string) => {
     const shouldShow = this.state.touched[fieldName];
     return error ? shouldShow : false;
   };
 
-  regroupErrors = (errors) => {
+  regroupErrors = (errors: { inner: Array<any> }) => {
     // regroups the errors from beeing an array of error objects to an object of errors grouped by field name
     // the path for multiselect options points out the exact object inside the multiselect like 'multiselect[x]'
     // to group all of these errors together under multiselect the .split("[") function is used
     // for other elements like a checkbox that do not have "[" in their name, the name remains unchanged
-    const groupedErrors = errors.inner.map((validationError) => ({ [validationError.path.split(/\[|\./)[0]]: validationError.errors })).reduce((acc, obj) => {
-      Object.keys(obj).forEach((k) => {
-        acc[k] = (acc[k] || []).concat(obj[k]);
-        acc[k] = acc[k].filter((d, i) => acc[k].indexOf(d) === i);
-      });
-      return acc;
-    }, {});
+    const groupedErrors = errors.inner
+      .map((validationError) => ({ [validationError.path.split(/\[|\./)[0]]: validationError.errors }))
+      .reduce((acc, obj) => {
+        Object.keys(obj).forEach((k) => {
+          acc[k] = (acc[k] || []).concat(obj[k]);
+          acc[k] = acc[k].filter((d, i) => acc[k].indexOf(d) === i);
+        });
+        return acc;
+      }, {});
 
     const flatGroupedErrors = Object.keys(groupedErrors).reduce((flatErrors, key) => {
       flatErrors[key] = groupedErrors[key].join(' '); // eslint-disable-line no-param-reassign
@@ -126,8 +129,7 @@ class Form extends React.Component<FormProps, FormState> {
       this.setState({ isSubmitting: true });
 
       // Should use promise for onSubmit
-      this.props.onSubmit(this.state.values)
-        .then(() => this.setState({ isSubmitting: false }));
+      this.props.onSubmit(this.state.values).then(() => this.setState({ isSubmitting: false }));
     }
   };
 
@@ -165,7 +167,7 @@ class Form extends React.Component<FormProps, FormState> {
     }
   };
 
-  validateMultiSelectOption = (multiSelectName: string, selectedOption: Options) => {
+  validateMultiSelectOption = (multiSelectName: KeysOf<FormState['values']>, selectedOption: Options) => {
     if (this.props.validationSchema && (typeof this.props.validationSchema.fields[multiSelectName] !== 'undefined')) {
       try {
         this.props.validationSchema.fields[multiSelectName].validateSync([selectedOption], { abortEarly: false });
@@ -178,7 +180,7 @@ class Form extends React.Component<FormProps, FormState> {
     return false;
   };
 
-  getValueFromInput = (value: Options, key: KeysOf<FormState['values']>, type: string) => {
+  getValueFromInput = (value: Options, key: string, type: string) => {
     switch (type) {
       case 'multiSelect': {
         const selectedOptions = (value || []) as MultiselectOption;
@@ -186,7 +188,7 @@ class Form extends React.Component<FormProps, FormState> {
         return selectedOptions.map((selectedOption) => ({
           value: selectedOption.value,
           label: selectedOption.label,
-          invalid: this.validateMultiSelectOption(multiSelectName, selectedOption)
+          invalid: this.validateMultiSelectOption(multiSelectName, selectedOption),
         }));
       }
       default:
@@ -224,7 +226,7 @@ class Form extends React.Component<FormProps, FormState> {
     console.log('this.state', this.state);
     console.log('errors', errors);
     const submitDisabled = anyError(errors);
-    const initField = (name: KeysOf<Errors>) => this.initField(name, errors[name]);
+    const initField = (name: string) => this.initField(name, errors[name]);
     return (
       <form onSubmit={this.handleSubmit}>
         {this.props.render({
