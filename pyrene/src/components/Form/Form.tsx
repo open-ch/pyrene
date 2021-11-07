@@ -32,7 +32,7 @@ type RenderPropsArgs = {
   touched: FormState['touched'],
   isSubmitting: FormState['isSubmitting'],
   submitDisabled: boolean,
-  initField: (fieldName: string) => Record<string, any>,
+  initField: (fieldName: KeysOf<Errors>) => InputComponentProps,
 };
 
 type InputComponentProps = {
