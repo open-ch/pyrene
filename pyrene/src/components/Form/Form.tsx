@@ -1,8 +1,10 @@
+/* eslint-disable react/static-property-placement */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import React, { ChangeEvent } from 'react';
-import PropTypes from 'prop-types';
-import { ValidationError } from 'yup';
+import React from 'react';
+import { ValidationError, ObjectSchema } from 'yup';
 import { MultiselectOption, Filters, Options } from '../Filter/types';
 
 type ValuesOf<T> = T[keyof T];
@@ -17,10 +19,10 @@ type Errors = Record<string, any>;
 export interface FormProps {
   initialValues?: FormValues,
   onChange: (value: FormValues, setter: (fieldName: KeysOf<FormState['values']>, value: Options) => void) => void,
-  onSubmit: (formState: FormValues) => Promise<void>,
+  onSubmit?: (formState: FormValues) => Promise<void>,
   render: (args: RenderPropsArgs) => JSX.Element,
   validateOnFirstTouch?: boolean,
-  validationSchema?: Record<string, any>,
+  validationSchema?: any | ObjectSchema<any> | null,
 }
 
 export interface FormState {
@@ -58,6 +60,14 @@ const anyError = (errors: Errors) => Object.keys(errors).some((x) => errors[x]);
 
 class Form extends React.Component<FormProps, FormState> {
 
+  static displayName = 'Form';
+
+  static defaultProps = {
+    validationSchema: null,
+    initialValues: {},
+    validateOnFirstTouch: false,
+  };
+
   constructor(props: FormProps) {
     super(props);
 
@@ -70,8 +80,8 @@ class Form extends React.Component<FormProps, FormState> {
 
   validateYupSchema = (values: FormState['values']) => {
     try {
-      this.props.validationSchema.validateSync(values, { abortEarly: false });
-    } catch (err) {
+      this.props.validationSchema?.validateSync?.(values, { abortEarly: false });
+    } catch (err: any) {
       return this.regroupErrors(err);
     }
     // No errors return empty error
@@ -135,7 +145,7 @@ class Form extends React.Component<FormProps, FormState> {
       this.setState({ isSubmitting: true });
 
       // Should use promise for onSubmit
-      this.props.onSubmit(this.state.values).then(() => this.setState({ isSubmitting: false }));
+      this.props.onSubmit?.(this.state.values).then(() => this.setState({ isSubmitting: false }));
     }
   };
 
@@ -210,9 +220,7 @@ class Form extends React.Component<FormProps, FormState> {
       value: this.state.values[fieldName],
       invalid: this.shouldMarkError(fieldName, error),
       invalidLabel: error,
-      onChange: (value: Options, event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => (
-        this.handleInputChange(value, fieldName, event.target.type)
-      ),
+      onChange: (value: Options, event: any) => this.handleInputChange(value, fieldName, event.target.type),
       onBlur: this.handleBlur,
     };
 
@@ -229,8 +237,6 @@ class Form extends React.Component<FormProps, FormState> {
 
   render() {
     const errors = { ...this.validate(this.state.values) };
-    console.log('this.state', this.state);
-    console.log('errors', errors);
     const submitDisabled = anyError(errors);
     const initField = (name: string) => this.initField(name, errors[name]);
     return (
@@ -248,24 +254,5 @@ class Form extends React.Component<FormProps, FormState> {
   }
 
 }
-
-Form.displayName = 'Form';
-
-Form.defaultProps = {
-  onChange: null,
-  onSubmit: () => {},
-  validationSchema: null,
-  initialValues: {},
-  validateOnFirstTouch: false,
-};
-
-Form.propTypes = {
-  initialValues: PropTypes.object, // eslint-disable-line react/forbid-prop-types
-  onChange: PropTypes.func,
-  onSubmit: PropTypes.func,
-  render: PropTypes.func.isRequired,
-  validateOnFirstTouch: PropTypes.bool,
-  validationSchema: PropTypes.object, // eslint-disable-line react/forbid-prop-types
-};
 
 export default Form;
