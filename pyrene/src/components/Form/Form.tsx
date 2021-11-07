@@ -1,14 +1,20 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import PropTypes from 'prop-types';
 
+type ValuesOf<T> = T[keyof T];
+type KeysOf<T> = keyof T;
+
 type FormValues = Record<string, string | number | boolean>;
-type Error = Record<string, any>;
+type ToucheValues = {
+  [K in KeysOf<FormValues>]: boolean
+};
+type Errors = Record<string, any>;
 
 export interface FormProps {
   initialValues?: FormValues,
   onChange?: () => void,
-  onSubmit?: () => void,
+  onSubmit: (formState: FormValues) => Promise<any>,
   render: (args: RenderPropsArgs) => JSX.Element,
   validateOnFirstTouch?: boolean,
   validationSchema?: Record<string, any>,
@@ -16,21 +22,18 @@ export interface FormProps {
 
 export interface FormState {
   values: FormValues,
-  touched: Record<string, boolean>,
+  touched: ToucheValues,
   isSubmitting: boolean,
 }
 
 type RenderPropsArgs = {
   values?: FormValues,
-  errors: Error,
+  errors: Errors,
   touched: FormState['touched'],
   isSubmitting: FormState['isSubmitting'],
   submitDisabled: boolean,
   initField: (fieldName: string) => Record<string, any>,
 };
-
-type ValuesOf<T> = T[keyof T];
-type KeysOf<T> = keyof T;
 
 type InputComponentProps = {
   name: KeysOf<FormState['values']>,
@@ -41,8 +44,6 @@ type InputComponentProps = {
   onBlur: (event: React.FocusEvent<HTMLInputElement>) => void,
 };
 
-
-
 const getTouchedState = (initialValues: FormValues) => (
   Object.keys(initialValues).reduce((allValues, value) => ({
     ...allValues,
@@ -50,7 +51,7 @@ const getTouchedState = (initialValues: FormValues) => (
   }), {})
 );
 
-const anyError = (errors: Error) => Object.keys(errors).some((x) => errors[x]);
+const anyError = (errors: Errors) => Object.keys(errors).some((x) => errors[x]);
 
 class Form extends React.Component<FormProps, FormState> {
 
@@ -74,7 +75,7 @@ class Form extends React.Component<FormProps, FormState> {
     return {};
   };
 
-  validate = (values: FormState['values']) => {
+  validate = (values: FormState['values']): Errors => {
     if (this.props.validationSchema) {
       return this.validateYupSchema(values);
     }
@@ -87,7 +88,7 @@ class Form extends React.Component<FormProps, FormState> {
     return !isDisabled;
   }
 
-  shouldMarkError = (fieldName: string, error: string) => {
+  shouldMarkError = (fieldName: KeysOf<ToucheValues>, error: string) => {
     const shouldShow = this.state.touched[fieldName];
     return error ? shouldShow : false;
   };
@@ -113,7 +114,7 @@ class Form extends React.Component<FormProps, FormState> {
     return flatGroupedErrors;
   };
 
-  handleSubmit = (event) => {
+  handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
 
     if (!this.canBeSubmitted()) {
@@ -121,9 +122,7 @@ class Form extends React.Component<FormProps, FormState> {
       alert('Submit not possible, check validation!'); // eslint-disable-line no-alert
     } else {
 
-      this.setState(() => ({
-        isSubmitting: true,
-      }));
+      this.setState({ isSubmitting: true });
 
       // Should use promise for onSubmit
       this.props.onSubmit(this.state.values)
@@ -144,7 +143,7 @@ class Form extends React.Component<FormProps, FormState> {
     }));
   };
 
-  handleInputChange = (value, key: string, type: string) => {
+  handleInputChange = (value: string | boolean, key: KeysOf<FormState['values']>, type: string) => {
     if (this.props.validateOnFirstTouch) {
       this.setState((prevState) => ({
         touched: { ...prevState.touched, [key]: true },
@@ -178,7 +177,7 @@ class Form extends React.Component<FormProps, FormState> {
     return false;
   };
 
-  getValueFromInput = (value, key, type) => {
+  getValueFromInput = (value, key, type: string) => {
     switch (type) {
       case 'multiSelect': {
         const selectedOptions = value || [];
@@ -200,7 +199,9 @@ class Form extends React.Component<FormProps, FormState> {
       value: this.state.values[fieldName],
       invalid: this.shouldMarkError(fieldName, error),
       invalidLabel: error,
-      onChange: (value, event) => this.handleInputChange(value, fieldName, event.target.type),
+      onChange: (value: string | boolean, event: ChangeEvent<HTMLInputElement>) => (
+        this.handleInputChange(value, fieldName, event.target.type)
+      ),
       onBlur: this.handleBlur,
     };
 
@@ -217,8 +218,10 @@ class Form extends React.Component<FormProps, FormState> {
 
   render() {
     const errors = { ...this.validate(this.state.values) };
+    console.log('this.state', this.state);
+    console.log('errors', errors);
     const submitDisabled = anyError(errors);
-    const initField = (name: string) => this.initField(name, errors[name]);
+    const initField = (name: KeysOf<Errors>) => this.initField(name, errors[name]);
     return (
       <form onSubmit={this.handleSubmit}>
         {this.props.render({
