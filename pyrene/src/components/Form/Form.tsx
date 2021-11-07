@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import React, { ChangeEvent } from 'react';
 import PropTypes from 'prop-types';
+import { ValidationError } from 'yup';
 import { MultiselectOption, Filters, Options } from '../Filter/types';
 
 type ValuesOf<T> = T[keyof T];
@@ -95,14 +96,18 @@ class Form extends React.Component<FormProps, FormState> {
     return error ? shouldShow : false;
   };
 
-  regroupErrors = (errors: { inner: Array<any> }) => {
-    console.log('thomas errors', errors.inner);
+  regroupErrors = (errors: ValidationError) => {
     // regroups the errors from beeing an array of error objects to an object of errors grouped by field name
     // the path for multiselect options points out the exact object inside the multiselect like 'multiselect[x]'
     // to group all of these errors together under multiselect the .split("[") function is used
     // for other elements like a checkbox that do not have "[" in their name, the name remains unchanged
     const groupedErrors = errors.inner
-      .map((validationError) => ({ [validationError.path.split(/\[|\./)[0]]: validationError.errors }))
+      .map((validationError) => {
+        if (validationError?.path) {
+          return { [validationError.path.split(/\[|\./)[0]]: validationError.errors };
+        }
+        return {};
+      })
       .reduce((acc, obj) => {
         Object.keys(obj).forEach((k) => {
           acc[k] = (acc[k] || []).concat(obj[k]);
@@ -111,10 +116,10 @@ class Form extends React.Component<FormProps, FormState> {
         return acc;
       }, {});
 
-    const flatGroupedErrors = Object.keys(groupedErrors).reduce((flatErrors, key) => {
-      flatErrors[key] = groupedErrors[key].join(' '); // eslint-disable-line no-param-reassign
-      return flatErrors;
-    }, {});
+    const flatGroupedErrors = Object.keys(groupedErrors).reduce((flatErrors, key) => ({
+      ...flatErrors,
+      [key]: groupedErrors[key].join(' '),
+    }), {});
 
     return flatGroupedErrors;
   };
@@ -168,7 +173,7 @@ class Form extends React.Component<FormProps, FormState> {
     }
   };
 
-  validateMultiSelectOption = (multiSelectName: KeysOf<FormState['values']>, selectedOption: Options) => {
+  validateMultiSelectOption = (multiSelectName: string, selectedOption: Options) => {
     if (this.props.validationSchema && (typeof this.props.validationSchema.fields[multiSelectName] !== 'undefined')) {
       try {
         this.props.validationSchema.fields[multiSelectName].validateSync([selectedOption], { abortEarly: false });
