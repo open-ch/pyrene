@@ -237,7 +237,6 @@ class Form extends React.Component<FormProps, FormState> {
 
   render() {
     const errors = { ...this.validate(this.state.values) };
-    console.log('errors', errors);
     const submitDisabled = anyError(errors);
     const initField = (name: string) => this.initField(name, errors[name]);
     return (
