@@ -14,7 +14,7 @@ type FormValues = Filters;
 type ToucheValues = {
   [K in KeysOf<FormValues>]: boolean
 };
-type Errors = Record<string, any>;
+type Errors = Record<string, string>;
 
 export interface FormProps {
   initialValues?: FormValues,
@@ -45,8 +45,8 @@ type InputComponentProps = {
   value: ValuesOf<FormState['values']>,
   invalid: boolean,
   invalidLabel: string,
-  onChange: (value: string, event: React.ChangeEvent<HTMLInputElement>) => void,
-  onBlur: (event: React.FocusEvent<HTMLInputElement>) => void,
+  onChange: (value: string, event: React.ChangeEvent<any>) => void,
+  onBlur: (event: React.FocusEvent<any>) => void,
 };
 
 const getTouchedState = (initialValues: FormValues) => (
@@ -220,7 +220,7 @@ class Form extends React.Component<FormProps, FormState> {
       value: this.state.values[fieldName],
       invalid: this.shouldMarkError(fieldName, error),
       invalidLabel: error,
-      onChange: (value: Options, event: any) => this.handleInputChange(value, fieldName, event.target.type),
+      onChange: (value: Options, event: React.ChangeEvent<any>) => this.handleInputChange(value, fieldName, event.target.type),
       onBlur: this.handleBlur,
     };
 
@@ -237,17 +237,18 @@ class Form extends React.Component<FormProps, FormState> {
 
   render() {
     const errors = { ...this.validate(this.state.values) };
+    console.log('errors', errors);
     const submitDisabled = anyError(errors);
     const initField = (name: string) => this.initField(name, errors[name]);
     return (
       <form onSubmit={this.handleSubmit}>
         {this.props.render({
           values: this.state.values,
-          errors: errors,
           touched: this.state.touched,
           isSubmitting: this.state.isSubmitting,
-          submitDisabled: submitDisabled,
-          initField: initField,
+          submitDisabled,
+          errors,
+          initField,
         })}
       </form>
     );
