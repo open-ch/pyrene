@@ -101,7 +101,7 @@ class Form extends React.Component<FormProps, FormState> {
     return !isDisabled;
   };
 
-  shouldMarkError = (fieldName: KeysOf<ToucheValues>, error: string) => {
+  shouldMarkError = (fieldName: string, error: string) => {
     const shouldShow = this.state.touched[fieldName];
     return error ? shouldShow : false;
   };
