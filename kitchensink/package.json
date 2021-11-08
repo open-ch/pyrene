@@ -25,7 +25,7 @@
     "watch:kitchensink-pyrene": "concurrently --kill-others npm:watch:pyrene npm:watch:kitchensink",
     "watch:all": "concurrently --kill-others npm:watch:tuktuktwo npm:watch:pyrene npm:watch:pyrene-graphs npm:watch:kitchensink",
     "develop:all": "npm install && npm run expose:all && npm run link:all && npm run watch:all",
-    "develop:pyrene": "cd .. && npm i && cd - && npm install && npm run expose:pyrene && npm link @osag/pyrene && npm run watch:kitchensink-pyrene",
+    "develop:pyrene": "npm i --prefix ../pyrene && npm i --prefix .. && npm install && npm run expose:pyrene && npm link @osag/pyrene && npm run watch:kitchensink-pyrene",
     "clean": "rm -rf dist node_modules",
     "prebuild": "npm install",
     "build": "webpack",
