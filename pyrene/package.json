@@ -103,7 +103,8 @@
     "react-tiny-popover": "^4.0.0",
     "react-window": "^1.8.5",
     "strip-sourcemap-loader": "0.0.1",
-    "uniqid": "^5.0.3"
+    "uniqid": "^5.0.3",
+    "yup": "^0.32.11"
   },
   "peerDependencies": {
     "react": ">=16.9.0 <18.0.0",

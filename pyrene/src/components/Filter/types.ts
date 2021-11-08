@@ -2,9 +2,7 @@ import { SingleSelectOption as SingleSelectOpt } from '../SingleSelect/SingleSel
 import { DefaultValueType } from '../SingleSelect/SingleSelect';
 import { Option } from '../MultiSelect/types';
 
-export type MultiSelectOption = Option;
-
-export type MultiselectOption = ReadonlyArray<MultiSelectOption>;
+export type MultiselectOption = ReadonlyArray<Option>;
 export type SingleSelectOption = SingleSelectOpt<DefaultValueType>;
 export type InputFieldOption = DefaultValueType;
 
