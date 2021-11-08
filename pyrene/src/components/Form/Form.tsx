@@ -11,7 +11,7 @@ type ValuesOf<T> = T[keyof T];
 type KeysOf<T> = keyof T;
 
 type FormValues = Filters;
-type ToucheValues = {
+type TouchedValues = {
   [K in KeysOf<FormValues>]: boolean
 };
 type Errors = Record<string, string>;
@@ -27,7 +27,7 @@ export interface FormProps {
 
 export interface FormState {
   values: FormValues,
-  touched: ToucheValues,
+  touched: TouchedValues,
   isSubmitting: boolean,
 }
 
@@ -49,7 +49,7 @@ type InputComponentProps = {
   onBlur: (event: React.FocusEvent<any>) => void,
 };
 
-const getTouchedState = (initialValues: FormValues) => (
+const getInitialTouchedState = (initialValues: FormValues) => (
   Object.keys(initialValues).reduce((allValues, value) => ({
     ...allValues,
     [value]: false,
@@ -73,7 +73,7 @@ class Form extends React.Component<FormProps, FormState> {
 
     this.state = {
       values: this.props.initialValues || {},
-      touched: getTouchedState(this.props.initialValues || {}),
+      touched: getInitialTouchedState(this.props.initialValues || {}),
       isSubmitting: false,
     };
   }
