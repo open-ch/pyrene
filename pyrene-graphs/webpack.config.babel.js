@@ -51,7 +51,7 @@ const config = {
         ],
       },
       {
-        test: /(node_modules).*\.css$/,
+        test: /(node_modules).*(\.css|\.module\.css)$/,
         use: ['style-loader', 'css-loader'],
       },
       {
