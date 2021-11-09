@@ -61,9 +61,9 @@ export interface DateTimePickerProps{
    */
   onCalendarOpen?: () => void,
   /**
-   * Click outside componet callback
+   * Click outside component callback
    */
-  onClickOutside?(event: React.MouseEvent<HTMLDivElement>): void,
+  onClickOutside?: (event: React.MouseEvent<HTMLDivElement>) => void,
   /**
   * Function to handle onChange event
   */

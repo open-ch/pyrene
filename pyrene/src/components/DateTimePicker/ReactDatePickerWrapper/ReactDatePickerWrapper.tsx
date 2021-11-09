@@ -53,11 +53,11 @@ export interface DatePickerProps{
   /**
    * Callback for when user clicks outside component
    */
-  onClickOutside?(event: React.MouseEvent<HTMLDivElement>): void,
+  onClickOutside?: (event: React.MouseEvent<HTMLDivElement>) => void,
   /**
    * Function to handle date select event
    */
-  onSelect?(date: Date, event: React.SyntheticEvent<any> | undefined): void,
+  onSelect?: (date: Date, event: React.SyntheticEvent<any> | undefined) => void,
   /**
    * Move calender to specific date
    */
