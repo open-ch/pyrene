@@ -1,4 +1,4 @@
-@import '@osag/pyrene/dist/colors.css';
+@import '@osag/pyrene/dist/colors.module.css';
 
 .container {
   width: 100%;
