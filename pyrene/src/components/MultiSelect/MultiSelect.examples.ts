@@ -2,6 +2,7 @@ import colorConstants from '../../styles/colorConstants';
 import { MultiSelectProps } from './MultiSelect';
 import { Example, StateProvider } from '../../examples/Example';
 import { Option } from './types';
+import { IconNames } from '../types';
 
 export interface State {
   value: ReadonlyArray<Option>;
@@ -41,7 +42,7 @@ const testOptions: MultiSelectProps['options'] = [
   { value: 'moosetracks', label: 'Moose Tracks', invalid: false },
 ];
 
-const icons = ['place', 'layers', 'clock'];
+const icons: Array<keyof IconNames> = ['place', 'layers', 'clock'];
 const colors = [colorConstants.blue600, colorConstants.red600, colorConstants.orange600, undefined];
 const testOptionsWithIcons = testOptions.map((option, i) => ({ ...option, iconProps: { name: icons[i % 3], color: colors[i % 4] } }));
 
