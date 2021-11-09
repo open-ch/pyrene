@@ -4,7 +4,7 @@ import React from 'react';
 import clsx from 'clsx';
 import Loader from '../Loader/Loader';
 import SimpleTableActionList from './SimpleTableActionList';
-import styles from './simpleTable.module.css';
+import styles from './simpleTable.css';
 import { Action, ExtendsRow } from './types';
 
 export interface SimpleTableProps<R, X = ExtendsRow<R>> {
