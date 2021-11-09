@@ -1,19 +1,10 @@
-import isExists from 'date-fns/isExists';
 import sub from 'date-fns/sub';
 import add from 'date-fns/add';
 import format from 'date-fns/format';
 import parse from 'date-fns/parse';
 import Duration from 'date-fns';
-
-import {
-  zonedTimeToUtc, utcToZonedTime,
-} from 'date-fns-tz';
-
-export enum DateUnits {
-  DAY = 'day',
-  MONTH = 'month',
-  YEAR = 'year',
-}
+import zonedTimeToUtc from 'date-fns-tz/zonedTimeToUtc';
+import utcToZonedTime from 'date-fns-tz/utcToZonedTime';
 
 export interface DateValidationObject {
   dateString?: string,
@@ -26,17 +17,6 @@ export interface DateValidationObject {
   timeString?: string,
   timeFormat?: string,
 }
-
-export type DateType = {
-  day: number,
-  month: number,
-  year: number,
-};
-
-export type TimeType = {
-  minutes: number,
-  hours: number,
-};
 
 export const allowedValueCheck = (valueToCheck:string) : boolean => (/^[0-9.: APM]*$/.test(valueToCheck));
 
@@ -76,28 +56,6 @@ export const isValidTimeZone = (timezone: string): boolean => {
   } catch {
     return false;
   }
-};
-
-/**
- * Checks if a timetype is valid
- * @param {DateType} date
- */
-export const isValidDate = (date?: DateType): boolean => {
-  if (date) {
-    return isExists(date.year, date.month - 1, date.day);
-  }
-  return false;
-};
-
-/**
- * Checks if a timetype is valid
- * @param {TimeType} time
- */
-export const isValidTime = (time?: TimeType): boolean => {
-  if (time && time.hours >= 0 && time.hours <= 23 && time.minutes >= 0 && time.minutes <= 59) {
-    return true;
-  }
-  return false;
 };
 
 /**
