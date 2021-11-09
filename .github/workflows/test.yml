@@ -32,7 +32,6 @@ jobs:
     - name: Build tuktuktwo
       run: (cd tuktuktwo && npm run build)
   pyrene-graphs:
-    needs: pyrene
     name: pyrene-graphs
     runs-on: ubuntu-latest
     steps:
