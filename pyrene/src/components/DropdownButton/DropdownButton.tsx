@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useState } from 'react';
 import clsx from 'clsx';
 import Popover from '../Popover/Popover';
-import OptionsList from './OptionsList';
+import OptionsList, { OptionsListProps } from './OptionsList';
 import Loader from '../Loader/Loader';
 import styles from './dropdownButton.css';
 import { IconNames } from '../types';
@@ -10,10 +10,7 @@ export interface DropdownButtonProps {
   /**
    * Array of action objects holding a Label, Icon and its associated Javascript event handler.
    */
-  actions?: Array<{
-    label: string,
-    onClick: () => void,
-  }>,
+  actions?: OptionsListProps['actions'],
   /**
    * Sets the alignment of the dropdown relative to the button.
    */
