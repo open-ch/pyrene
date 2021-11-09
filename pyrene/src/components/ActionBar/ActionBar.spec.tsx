@@ -76,7 +76,7 @@ describe('<ActionBar />', () => {
 
   describe('<Icon />', () => {
     it('doesn\' render svg if there is none, but renders an iconName', () => {
-      const actionWithEmptytSvg = [
+      const actionWithEmptytSvg: ActionBarProps['actions'] = [
         {
           iconName: 'chevronLeft',
           color: 'neutral300',
@@ -94,7 +94,7 @@ describe('<ActionBar />', () => {
     });
 
     it('doesn\' render svg if lenght is 0, but renders an iconName', () => {
-      const actionWithoutSvg = [
+      const actionWithoutSvg: ActionBarProps['actions'] = [
         {
           iconName: 'chevronLeft',
           color: 'neutral300',
@@ -113,7 +113,7 @@ describe('<ActionBar />', () => {
     });
 
     it('renders svg if defined instead of an iconName', () => {
-      const actionWithSvg = [
+      const actionWithSvg: ActionBarProps['actions'] = [
         {
           iconName: 'chevronLeft',
           color: 'neutral300',
@@ -140,7 +140,7 @@ describe('<ActionBar />', () => {
 
     it('renders no arrow popover if action doesn\'t contain one', () => {
 
-      const actionWithoutPopover = [
+      const actionWithoutPopover: ActionBarProps['actions'] = [
         {
           iconName: 'chevronLeft',
           color: 'neutral300',
@@ -158,7 +158,7 @@ describe('<ActionBar />', () => {
 
     it('renders no arrow popover if action does contain one but its not active', () => {
 
-      const inactiveAction = [
+      const inactiveAction: ActionBarProps['actions'] = [
         {
           iconName: 'chevronLeft',
           color: 'neutral300',
@@ -176,7 +176,7 @@ describe('<ActionBar />', () => {
 
     it('renders arrow popover if action contains one', () => {
 
-      const actionWithPopover = [
+      const actionWithPopover: ActionBarProps['actions'] = [
         {
           iconName: 'chevronLeft',
           color: 'neutral300',
@@ -197,7 +197,7 @@ describe('<ActionBar />', () => {
 
     it('doesn\'t render tooltip if there is none', () => {
 
-      const actionsWithoutTooltips = [
+      const actionsWithoutTooltips: ActionBarProps['actions'] = [
         {
           iconName: 'chevronLeft',
           color: 'neutral300',
@@ -219,7 +219,7 @@ describe('<ActionBar />', () => {
 
     it('renders one tooltip if one action has one', () => {
 
-      const actionsWithoutTooltips = [
+      const actionsWithoutTooltips: ActionBarProps['actions'] = [
         {
           iconName: 'chevronLeft',
           color: 'neutral300',
@@ -244,7 +244,7 @@ describe('<ActionBar />', () => {
 
   it('can be interacted with correctly', () => {
     const mockCallBack = jest.fn();
-    const props1 = {
+    const props1: ActionBarProps = {
       actions: [{
         iconName: 'chevronLeft',
         active: true,
