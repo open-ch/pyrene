@@ -1,4 +1,3 @@
-
 import React, { forwardRef } from 'react';
 import clsx from 'clsx';
 import { allowedValueCheck } from '../../../utils/DateUtils';
@@ -65,7 +64,7 @@ export interface DateTimeInputProps {
   timeValue?: string,
 }
 
-const DateTimeInput = forwardRef(({
+const DateTimeInput = forwardRef<HTMLInputElement, DateTimeInputProps>(({
   dateFormat = 'dd.MM.yyyy',
   dateOnly = false,
   dateValue = '',
