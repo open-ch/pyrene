@@ -131,7 +131,7 @@ export const getErrors = (dateValObj: DateValidationObject): string => {
           datetimeformatstring = dateValObj.dateFormat;
         }
 
-        const rangePositon = inRange(convertToUTCtime(customStringToDate(datetimestring, datetimeformatstring), dateValObj.timeZone).valueOf(), dateValObj.minimumValue, dateValObj.maximumValue);
+        const rangePositon = inRange(convertToUTCtime(customStringToDate(datetimestring, datetimeformatstring), dateValObj.timeZone).getTime(), dateValObj.minimumValue, dateValObj.maximumValue);
         if (rangePositon === -1) {
           return 'Less than minimum date.';
         }
@@ -154,7 +154,7 @@ export const hasDateError = (dateValObj: DateValidationObject): boolean => {
   if (dateValObj && dateValObj.dateString != null) {
 
     if (dateValObj.dateFormat && dateValObj.dateString.length <= dateValObj.dateFormat.length) {
-      if ((dateValObj.dateString.length < dateValObj.dateFormat.length || (dateValObj.dateString.length === dateValObj.dateFormat.length && !Number.isNaN(customStringToDate(dateValObj.dateString, dateValObj.dateFormat).valueOf())))) {
+      if ((dateValObj.dateString.length < dateValObj.dateFormat.length || (dateValObj.dateString.length === dateValObj.dateFormat.length && !Number.isNaN(customStringToDate(dateValObj.dateString, dateValObj.dateFormat).getTime())))) {
         return false;
       }
     }
@@ -171,7 +171,7 @@ export const hasDateError = (dateValObj: DateValidationObject): boolean => {
  */
 export const hasTimeError = (timestring: string, timeFormat: string): boolean => {
   if (timestring.length <= timeFormat.length) {
-    if (timestring.length < timeFormat.length || (timestring.length === timeFormat.length && !Number.isNaN(customStringToDate(timestring, timeFormat).valueOf()))) {
+    if (timestring.length < timeFormat.length || (timestring.length === timeFormat.length && !Number.isNaN(customStringToDate(timestring, timeFormat).getTime()))) {
       return false;
     }
   }
