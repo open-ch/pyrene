@@ -27,16 +27,30 @@
 .wrapper :global .react-datepicker__header {
   background-color: var(--neutral-000);
   border-bottom: 1px solid var(--neutral-100);
+  padding-top: 0;
 }
 
-.wrapper :global .react-datepicker__navigation {
-  width: 24px;
-  height: 24px;
+.wrapper :global .react-datepicker__header .pyrene_datepicker_nav_bar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.wrapper :global .react-datepicker__header button {
+  width: 32px;
+  height: 32px;
   text-indent: 0;
   z-index: inherit;
+  justify-content: center;
+  display: inline-flex;
+  padding: 0;
+  border: none;
+  align-items: center;
+  background: none;
 }
 
-.wrapper :global .react-datepicker__navigation:hover {
+.wrapper :global .react-datepicker__header button:hover {
   border-radius: 2px;
   background-color: var(--neutral-030);
 }
@@ -125,6 +139,7 @@
 
 .wrapper :global .react-datepicker__month-container {
   padding: 16px;
+  height: 252px;
 }
 
 .wrapper :global .react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list {

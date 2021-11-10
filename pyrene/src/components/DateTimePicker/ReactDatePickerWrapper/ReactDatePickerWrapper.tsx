@@ -147,16 +147,16 @@ const ReactDatePickerWrapper: React.FC<DatePickerProps> = ({
           decreaseMonth,
           increaseMonth,
         }) => (
-          <div>
+          <div className="pyrene_datepicker_nav_bar">
             <button
               aria-label="Previous Month"
-              className="react-datepicker__navigation react-datepicker__navigation--previous"
+              className="react-datepicker__navigation--previous"
               onClick={decreaseMonth}
               type="button"
             >
               <Icon type="inline" name="chevronLeft" color="neutral-500" />
             </button>
-            <span className="react-datepicker__current-month">
+            <div className="react-datepicker__current-month">
               {date.toLocaleString('en-US', {
                 month: 'long',
               })}
@@ -166,10 +166,10 @@ const ReactDatePickerWrapper: React.FC<DatePickerProps> = ({
                   year: 'numeric',
                 })}
               </span>
-            </span>
+            </div>
             <button
               aria-label="Next Month"
-              className="react-datepicker__navigation react-datepicker__navigation--next"
+              className="react-datepicker__navigation--next"
               onClick={increaseMonth}
               type="button"
             >
