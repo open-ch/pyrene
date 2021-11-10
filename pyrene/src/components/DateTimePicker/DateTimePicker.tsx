@@ -21,10 +21,6 @@ export interface DateTimePickerProps{
    */
   calendarOpened?: boolean,
   /**
-   * Close calendar on date select
-   */
-  closeOnSelect?: boolean,
-  /**
    * Date format used by component
    */
   dateFormat?: string,
@@ -36,10 +32,6 @@ export interface DateTimePickerProps{
    * Date object that represents the end date of the component
    */
   endDate?: Date,
-  /**
-   * Display the component inline
-   */
-  inline?: boolean,
   /**
    * String label of the component
    */
@@ -99,11 +91,9 @@ export interface DateTimePickerProps{
  */
 const DateTimePicker: React.FC<DateTimePickerProps> = ({
   calendarOpened,
-  closeOnSelect = true,
   dateFormat = 'dd.MM.yyyy',
   dateOnly = false,
   endDate,
-  inline = false,
   label,
   maxDateTime = getFutureDate({ years: 1 }),
   minDateTime = 0,
@@ -262,7 +252,6 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
 
   return (
     <ReactDatePickerWrapper
-      closeOnSelect={closeOnSelect}
       dateFormat={dateFormat}
       dateOnly={dateOnly}
       endDate={endDate}
@@ -281,7 +270,6 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
           timeFormat={timeFormat}
         />
       )}
-      inline={inline}
       isOpen={calendarOpened}
       maxDate={convertToUTCtime(maxDateTime, timeZone)}
       minDate={convertToUTCtime(minDateTime, timeZone)}

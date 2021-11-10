@@ -7,10 +7,6 @@ import styles from '../datePicker.css';
 
 export interface DatePickerProps{
   /**
-   * Close the calendar dropdown on date select
-   */
-  closeOnSelect?: boolean,
-  /**
    * Replaces the input with any node, for example a button
    */
   customInput: React.ReactNode,
@@ -26,10 +22,6 @@ export interface DatePickerProps{
    * This is a Date object that represents the end date of a date range
    */
   endDate?: Date,
-  /**
-   * Display the component inline
-   */
-  inline?: boolean,
   /**
    * Calendar is opened on input component render
    */
@@ -75,10 +67,6 @@ export interface DatePickerProps{
    */
   endRange?: boolean,
   /**
-   * Is calendar selecting a range
-   */
-  range?: boolean,
-  /**
    * This is a Date object that represents the start date of a date range
    */
   startDate?: Date,
@@ -93,7 +81,6 @@ export interface DatePickerProps{
 }
 
 const ReactDatePickerWrapper: React.FC<DatePickerProps> = ({
-  closeOnSelect = true,
   dateFormat = 'dd.MM.yyyy',
   endDate,
   maxDate,
@@ -104,14 +91,12 @@ const ReactDatePickerWrapper: React.FC<DatePickerProps> = ({
   startDate,
   shouldDisplayTimeColumn = true,
   customInput = <input />,
-  inline = false,
   isOpen,
   onCalendarOpen,
   onChange = () => {},
   onClickOutside,
   onSelect,
   openDate,
-  range = false,
   timeFormat = ' HH:mm',
 }: DatePickerProps) => {
 
@@ -132,7 +117,6 @@ const ReactDatePickerWrapper: React.FC<DatePickerProps> = ({
         dateFormat={`${dateFormat}${timeFormat}`}
         endDate={endDate}
         formatWeekDay={(nameOfDay) => nameOfDay.substr(0, 1)}
-        inline={inline}
         maxDate={maxDate}
         minDate={minDate}
         onCalendarOpen={onCalendarOpen}
@@ -179,9 +163,7 @@ const ReactDatePickerWrapper: React.FC<DatePickerProps> = ({
         )}
         selected={selectedDate}
         selectsEnd={endRange}
-        selectsRange={range}
         selectsStart={startRange}
-        shouldCloseOnSelect={closeOnSelect}
         showPopperArrow={false}
         showTimeSelect={shouldDisplayTimeColumn}
         startDate={startDate || selectedDate}
