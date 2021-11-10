@@ -84,7 +84,7 @@ const reducer = (state: State, action: LoadingAction | TogglingAction | Changing
         expanded: action.payload.expanded,
       };
     }
-    // Actions.changing
+    // ActionTypes.changing
     default:
       action.payload?.onChange?.(action.payload.event);
       return { ...state };
@@ -100,7 +100,7 @@ const Container: FunctionComponent<ContainerProps> = ({
 }: ContainerProps) => {
   const [state, dispatch] = useReducer(reducer, { contentHeight: undefined, expanded: defaultExpanded });
 
-  const contentRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     if (contentRef?.current) {
