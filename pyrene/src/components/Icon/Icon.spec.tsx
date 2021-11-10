@@ -1,10 +1,11 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
+import { IconNames } from '../types';
 
 import Icon from './Icon';
 
 const props = {
-  name: 'home',
+  name: 'home' as keyof IconNames,
   color: 'rgba(229, 0, 255, 0.96)',
 };
 

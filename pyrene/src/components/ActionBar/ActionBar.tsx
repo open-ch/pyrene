@@ -6,6 +6,7 @@ import Loader from '../Loader/Loader';
 import Tooltip from '../Tooltip/Tooltip';
 import ArrowPopover from '../ArrowPopover/ArrowPopover';
 import styles from './actionBar.css';
+import { IconNames } from '../types';
 
 export const handleOnClick = (
   renderPopover: undefined | ((a: (() => void)) => React.ReactElement),
@@ -42,7 +43,7 @@ interface Action {
   /**
    * The name of the icon font.
    */
-  iconName?: string;
+  iconName?: keyof IconNames;
   /**
    * Function called when user clicks the icon.
    */
