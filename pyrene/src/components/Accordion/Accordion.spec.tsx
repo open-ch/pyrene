@@ -1,11 +1,11 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
-import Accordion from './Accordion';
+import Accordion, { AccordionProps } from './Accordion';
 import Section from './Section';
 import Icon from '../Icon/Icon';
 
-const props = {
+const props: AccordionProps = {
   sections: [{
     renderContent: () => 'content',
     title: 'title',

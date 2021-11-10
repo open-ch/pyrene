@@ -4,13 +4,14 @@ import { Story, Meta } from '@storybook/react';
 import Icon from '../Icon/Icon';
 import TabViewComponent, { TabViewProps } from './TabView';
 import Placeholder from '../../examples/Placeholder';
+import { IconNames } from '../types';
 
 export default {
   title: 'Components/TabView',
   component: TabViewComponent,
 } as Meta;
 
-const renderAuxiliaryIcon = (name: string) => (
+const renderAuxiliaryIcon = (name: keyof IconNames) => (
   <div style={{ marginLeft: 4 }}>
     <Icon name={name} />
   </div>

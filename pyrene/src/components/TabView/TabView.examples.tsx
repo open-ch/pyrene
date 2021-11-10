@@ -3,8 +3,9 @@ import Icon from '../Icon/Icon';
 import Placeholder from '../../examples/Placeholder';
 import { TabViewProps } from './TabView';
 import { Example, StateProvider } from '../../examples/Example';
+import { IconNames } from '../types';
 
-const renderAuxiliaryIcon = (name: string) => (
+const renderAuxiliaryIcon = (name: keyof IconNames) => (
   <div style={{ marginLeft: 4 }}>
     <Icon name={name} />
   </div>

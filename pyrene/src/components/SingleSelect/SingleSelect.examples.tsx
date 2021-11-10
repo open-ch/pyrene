@@ -2,6 +2,7 @@ import { colorConstants } from '../..';
 import { Example, StateProvider } from '../../examples/Example';
 import { SingleSelectProps } from './SingleSelect';
 import { SingleSelectOption } from './SingleSelectTypes';
+import { IconNames } from '../types';
 
 const testOptions: SingleSelectOption<string>[] = [
   { value: 'chocolate', label: 'Chocolate', tags: ['Favorite'] },
@@ -39,7 +40,7 @@ const testOptions: SingleSelectOption<string>[] = [
   { value: 'moosetracks', label: 'Moose Tracks' },
 ];
 
-const icons = ['place', 'layers', 'clock'];
+const icons: Array<keyof IconNames> = ['place', 'layers', 'clock'];
 const colors = [colorConstants.blue600, colorConstants.red600, colorConstants.orange600, undefined];
 const testOptionsWithIcons = testOptions.map((option, i) => ({ ...option, iconProps: { name: icons[i % 3], color: colors[i % 4] } }));
 

@@ -3,6 +3,7 @@ import React from 'react';
 import clsx from 'clsx';
 import colorConstants from '../../styles/colorConstants';
 import styles from './icon.css';
+import { IconNames } from '../types';
 
 export interface IconProps {
   /**
@@ -12,7 +13,7 @@ export interface IconProps {
   /**
    * Sets the name of the icon font.
    */
-  name?: string;
+  name?: keyof IconNames;
   /**
    * Sets the URL of the svg file.
    */
@@ -29,7 +30,7 @@ export interface IconProps {
 const Icon: React.FC<IconProps> = ({
   color = 'neutral300',
   type = 'inline',
-  name = '',
+  name,
   svg = '',
 }: IconProps) => (
   svg?.length > 0 ? (
@@ -38,7 +39,7 @@ const Icon: React.FC<IconProps> = ({
     </div>
   ) : (
     <div
-      className={clsx(styles.icon, styles[`type-${type}`], `pyreneIcon-${name}`)}
+      className={clsx(styles.icon, styles[`type-${type}`], { [`pyreneIcon-${name || ''}`]: name })}
       style={{ color: color in colorConstants ? colorConstants[color as keyof typeof colorConstants] : color }}
     />
   )
