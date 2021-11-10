@@ -18,7 +18,7 @@ type Errors = Record<string, string>;
 
 export interface FormProps {
   initialValues?: FormValues,
-  onChange: (value: FormValues, setter: (fieldName: KeysOf<FormState['values']>, value: Options) => void) => void,
+  onChange?: (value: FormValues, setter: (fieldName: KeysOf<FormState['values']>, value: Options) => void) => void,
   onSubmit?: (formState: FormValues) => Promise<void>,
   render: (args: RenderPropsArgs) => JSX.Element,
   validateOnFirstTouch?: boolean,
@@ -175,7 +175,7 @@ class Form extends React.Component<FormProps, FormState> {
       this.setState((prevState) => ({
         values: { ...prevState.values, [key]: newValue },
       }),
-      () => this.props.onChange(this.state.values, this.setFieldValue));
+      () => this.props.onChange?.(this.state.values, this.setFieldValue));
     } else {
       this.setState((prevState) => ({
         values: { ...prevState.values, [key]: newValue },
