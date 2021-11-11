@@ -86,11 +86,11 @@ export const customStringToDate = (datestring: string, pattern: string): Date =>
  * @param {number} maximumValue
  * @returns {number}
  */
-export const inRange = (timestampToCheck: number, minimumValue: number, maximumValue: number): number => {
-  if (timestampToCheck < minimumValue) {
+export const inRange = (timestampToCheck: number, minimumValue?: number, maximumValue?: number): number => {
+  if (minimumValue != null && timestampToCheck < minimumValue) {
     return -1;
   }
-  if (timestampToCheck > maximumValue) {
+  if (maximumValue != null && timestampToCheck > maximumValue) {
     return 1;
   }
   return 0;
@@ -119,25 +119,23 @@ export const getErrors = (dateValObj: DateValidationObject): string => {
   if (dateValObj.dateString && dateValObj.dateString.length === dateValObj.dateFormat?.length && dateValObj.timeZone && dateValObj.dateFormat) {
     const tmpDate = customStringToDate(dateValObj.dateString, dateValObj.dateFormat);
     if (tmpDate) {
-      if (dateValObj.minimumValue != null && dateValObj.maximumValue != null) {
-        let datetimestring;
-        let datetimeformatstring;
+      let datetimestring;
+      let datetimeformatstring;
 
-        if (dateValObj.timeFormat && dateValObj.timeString && dateValObj.timeString.length === dateValObj.timeFormat.length) {
-          datetimestring = `${dateValObj.dateString}${dateValObj.timeString}`;
-          datetimeformatstring = `${dateValObj.dateFormat}${dateValObj.timeFormat}`;
-        } else {
-          datetimestring = dateValObj.dateString;
-          datetimeformatstring = dateValObj.dateFormat;
-        }
+      if (dateValObj.timeFormat && dateValObj.timeString && dateValObj.timeString.length === dateValObj.timeFormat.length) {
+        datetimestring = `${dateValObj.dateString}${dateValObj.timeString}`;
+        datetimeformatstring = `${dateValObj.dateFormat}${dateValObj.timeFormat}`;
+      } else {
+        datetimestring = dateValObj.dateString;
+        datetimeformatstring = dateValObj.dateFormat;
+      }
 
-        const rangePositon = inRange(convertToUTCtime(customStringToDate(datetimestring, datetimeformatstring), dateValObj.timeZone).getTime(), dateValObj.minimumValue, dateValObj.maximumValue);
-        if (rangePositon === -1) {
-          return 'Less than minimum date.';
-        }
-        if (rangePositon === 1) {
-          return 'Larger than maximum date.';
-        }
+      const rangePositon = inRange(convertToUTCtime(customStringToDate(datetimestring, datetimeformatstring), dateValObj.timeZone).getTime(), dateValObj.minimumValue, dateValObj.maximumValue);
+      if (rangePositon === -1) {
+        return 'Less than minimum date.';
+      }
+      if (rangePositon === 1) {
+        return 'Larger than maximum date.';
       }
     }
   }

@@ -1,16 +1,13 @@
 import React, {
-  useCallback,
-  useEffect,
-  useState,
+  useCallback, useEffect, useState,
 } from 'react';
 
 import ReactDatePickerWrapper from './ReactDatePickerWrapper/ReactDatePickerWrapper';
 import DateTimeInput from './DateTimeInput/DateTimeInput';
 
 import {
-  getFutureDate, customDateFormat, convertToUTCtime,
-  convertToZoneTime, customStringToDate, getErrors,
-  hasDateError, hasTimeError, getClientTimeZone,
+  customDateFormat, convertToUTCtime, convertToZoneTime, customStringToDate,
+  getErrors, hasDateError, hasTimeError, getClientTimeZone,
 } from '../../utils/DateUtils';
 
 type OnFunction = (value?: number) => void;
@@ -95,8 +92,8 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
   dateOnly = false,
   endDate,
   label,
-  maxDateTime = getFutureDate({ years: 1 }),
-  minDateTime = 0,
+  maxDateTime,
+  minDateTime,
   name,
   onCalendarOpen,
   onChange,
@@ -271,8 +268,8 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
         />
       )}
       isOpen={calendarOpened}
-      maxDate={convertToUTCtime(maxDateTime, timeZone)}
-      minDate={convertToUTCtime(minDateTime, timeZone)}
+      maxDate={maxDateTime != null ? convertToUTCtime(maxDateTime, timeZone) : maxDateTime}
+      minDate={minDateTime != null ? convertToUTCtime(minDateTime, timeZone) : minDateTime}
       onCalendarOpen={onCalendarOpen}
       onChange={onChangeReactDP}
       onClickOutside={onClickOutside}
