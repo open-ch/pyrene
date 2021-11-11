@@ -34,24 +34,30 @@ export interface ContainerProps {
 
 type ContentHeight = number;
 
+enum ActionTypes {
+  toggling = 'toggling',
+  loading = 'loading',
+  changing = 'changing',
+}
+
 interface State {
   contentHeight?: ContentHeight,
   expanded: boolean
 }
 
 interface Action {
-  type: 'toggling' | 'loading' | 'changing'
+  type: ActionTypes
 }
 
 interface TogglingAction extends Action {
-  type: 'toggling',
+  type: ActionTypes.toggling,
   payload: {
     expanded: boolean,
   }
 }
 
 interface ChangingAction extends Action {
-  type: 'changing',
+  type: ActionTypes.changing,
   payload: {
     event: MouseEvent<HTMLDivElement>,
     onChange?: (event: MouseEvent<HTMLDivElement>) => void
@@ -59,7 +65,7 @@ interface ChangingAction extends Action {
 }
 
 interface LoadingAction extends Action {
-  type: 'loading',
+  type: ActionTypes.loading,
   payload: {
     contentHeight: ContentHeight
   }
@@ -67,23 +73,21 @@ interface LoadingAction extends Action {
 
 const reducer = (state: State, action: LoadingAction | TogglingAction | ChangingAction): State => {
   switch (action.type) {
-    case 'loading':
+    case ActionTypes.loading:
       return {
         ...state,
         contentHeight: action.payload.contentHeight,
       };
-    case 'toggling': {
+    case ActionTypes.toggling: {
       return {
         ...state,
         expanded: action.payload.expanded,
       };
     }
-    case 'changing':
+    // ActionTypes.changing
+    default:
       action.payload?.onChange?.(action.payload.event);
       return { ...state };
-    default: {
-      return { ...state };
-    }
   }
 };
 
@@ -96,12 +100,12 @@ const Container: FunctionComponent<ContainerProps> = ({
 }: ContainerProps) => {
   const [state, dispatch] = useReducer(reducer, { contentHeight: undefined, expanded: defaultExpanded });
 
-  const contentRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     if (contentRef?.current) {
       dispatch({
-        type: 'loading',
+        type: ActionTypes.loading,
         payload: {
           contentHeight: contentRef.current.clientHeight,
         },
@@ -113,13 +117,13 @@ const Container: FunctionComponent<ContainerProps> = ({
     event.persist();
     if (collapsible) {
       dispatch({
-        type: 'toggling',
+        type: ActionTypes.toggling,
         payload: {
           expanded: !state.expanded,
         },
       });
       dispatch({
-        type: 'changing',
+        type: ActionTypes.changing,
         payload: {
           event,
           onChange,
