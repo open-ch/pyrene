@@ -121,7 +121,7 @@ const DateTimeInput = forwardRef<HTMLInputElement, DateTimeInputProps>(({
             onClick={onClick}
             onFocus={onFocus}
             onChange={handleDateOnChange}
-            value={`${dateValue}${timeValue}`}
+            value={`${dateValue}${!dateOnly ? timeValue : ''}`}
           />
         </div>
       </div>
