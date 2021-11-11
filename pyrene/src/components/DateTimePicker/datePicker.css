@@ -38,8 +38,8 @@
 }
 
 .wrapper :global .react-datepicker__header button {
-  width: 32px;
-  height: 32px;
+  width: 24px;
+  height: 24px;
   text-indent: 0;
   z-index: inherit;
   justify-content: center;
