@@ -58,6 +58,10 @@ export interface DateTimePickerProps{
   */
   onChange: OnFunction,
   /**
+   * Move calender to specific date
+   */
+  openDate?: Date,
+  /**
    * Input selects the end date of a range
    */
   selectEnd?: boolean,
@@ -98,6 +102,7 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
   onCalendarOpen,
   onChange,
   onClickOutside,
+  openDate,
   selectEnd,
   selectStart,
   startDate,
@@ -113,6 +118,8 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
 
   const [errorValue, setErrorValue] = useState('');
 
+  const [closeDrop, setCloseDrop] = useState<boolean>();
+
   // Sets internal date and passes validated value to parent
   const handleOn = useCallback((dateString: string, timeString: string, callback?: OnFunction) => {
     const date = customStringToDate(dateString, dateFormat);
@@ -120,14 +127,16 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
 
     if (dateOnly && !Number.isNaN(date.getTime())) {
       const validDate = convertToUTCtime(date, timeZone);
-
       setInternalDate(validDate);
       callback?.(validDate.getTime());
+
+      setCloseDrop(true);
     } else if (!dateOnly && !Number.isNaN(date.getTime()) && !Number.isNaN(time.getTime())) {
       const validDate = convertToUTCtime(customStringToDate(`${dateString}${timeString}`, `${dateFormat}${timeFormat}`), timeZone);
-
       setInternalDate(validDate);
       callback?.(validDate.getTime());
+
+      setCloseDrop(true);
     } else {
       setInternalDate(undefined);
       callback?.(undefined);
@@ -249,6 +258,7 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
 
   return (
     <ReactDatePickerWrapper
+      closeDropdown={closeDrop}
       dateFormat={dateFormat}
       dateOnly={dateOnly}
       endDate={endDate}
@@ -273,7 +283,7 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
       onCalendarOpen={onCalendarOpen}
       onChange={onChangeReactDP}
       onClickOutside={onClickOutside}
-      openDate={internalDate}
+      openDate={openDate}
       selectedDate={internalDate}
       shouldDisplayTimeColumn={!dateOnly}
       startDate={startDate}

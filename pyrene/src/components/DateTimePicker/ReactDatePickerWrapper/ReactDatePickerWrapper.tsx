@@ -1,11 +1,13 @@
 import React, { useEffect, useRef } from 'react';
 import ReactDatepicker from 'react-datepicker';
+import clsx from 'clsx';
 import Icon from '../../Icon/Icon';
 
 import 'react-datepicker/dist/react-datepicker.css';
 import styles from '../datePicker.css';
 
 export interface DatePickerProps{
+  closeDropdown?: boolean,
   /**
    * Replaces the input with any node, for example a button
    */
@@ -81,6 +83,7 @@ export interface DatePickerProps{
 }
 
 const ReactDatePickerWrapper: React.FC<DatePickerProps> = ({
+  closeDropdown,
   dateFormat = 'dd.MM.yyyy',
   endDate,
   maxDate,
@@ -90,7 +93,7 @@ const ReactDatePickerWrapper: React.FC<DatePickerProps> = ({
   startRange = false,
   startDate,
   shouldDisplayTimeColumn = true,
-  customInput = <input />,
+  customInput,
   isOpen,
   onCalendarOpen,
   onChange = () => {},
@@ -107,10 +110,14 @@ const ReactDatePickerWrapper: React.FC<DatePickerProps> = ({
       rangeRef.current?.setOpen(isOpen);
       rangeRef.current?.setState({ preSelection: selectedDate });
     }
-  }, [isOpen, selectedDate]);
+
+    if (closeDropdown) {
+      rangeRef.current?.setOpen(false);
+    }
+  }, [isOpen, selectedDate, closeDropdown]);
 
   return (
-    <div className={styles.wrapper}>
+    <div className={clsx(styles.wrapper, { [styles.noneselected]: !selectedDate })}>
       <ReactDatepicker
         calendarStartDay={1}
         customInput={customInput}
@@ -164,9 +171,10 @@ const ReactDatePickerWrapper: React.FC<DatePickerProps> = ({
         selected={selectedDate}
         selectsEnd={endRange}
         selectsStart={startRange}
+        shouldCloseOnSelect={false}
         showPopperArrow={false}
         showTimeSelect={shouldDisplayTimeColumn}
-        startDate={startDate || selectedDate}
+        startDate={startDate}
         timeFormat={timeFormat}
       />
     </div>
