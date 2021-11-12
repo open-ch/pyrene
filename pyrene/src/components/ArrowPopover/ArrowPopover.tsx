@@ -1,25 +1,26 @@
 import React, { useEffect, useRef, useCallback } from 'react';
-import Popover from '../Popover/Popover';
+import { Position } from 'react-tiny-popover';
+import Popover, { PopoverProps } from '../Popover/Popover';
 
 import styles from './arrowPopover.css';
 
-export type PreferredPos = ('top' | 'right' | 'bottom' | 'left')[];
-export type Alignment = 'start' | 'center' | 'end';
 interface ArrowPosition {
   top: number,
   left: number,
   lengthSide: number,
 }
 
+type TargetRect = Omit<DOMRect, 'x' | 'y'>
+
 export interface ArrowPopoverProps {
   /**
    * Sets the alignment of the popover.
    */
-  align?: Alignment,
+  align?: PopoverProps['align'],
   /**
    * Action element
    */
-  children: React.ReactElement,
+  children: React.ReactNode,
   /**
    * Function to close the popover.
    */
@@ -27,22 +28,22 @@ export interface ArrowPopoverProps {
   /**
    * Whether to display the popover.
    */
-  displayPopover: boolean,
+  displayPopover: PopoverProps['displayPopover'],
   /**
    * Sets the distance of the popover to its target.
    */
-  distanceToTarget?: number,
+  distanceToTarget?: PopoverProps['distanceToTarget'],
   /**
    * Content rendered in popover
    */
-  popoverContent: React.ReactElement,
+  popoverContent: React.ReactNode,
   /**
    * Sets the preferred position array ordered by priority for auto repositioning.
    */
-  preferredPosition?: PreferredPos,
+  preferredPosition?: Array<Position>,
 }
 
-export const arrowPosition = (position: string, targetRect: ClientRect, popoverRect: ClientRect): ArrowPosition => {
+export const arrowPosition = (position: Position, targetRect: TargetRect, popoverRect: TargetRect): ArrowPosition => {
   // Square
   const lengthSide = 20;
   const arrowWidth = (lengthSide * Math.sqrt(2)) / 2;
@@ -72,13 +73,11 @@ export const arrowPosition = (position: string, targetRect: ClientRect, popoverR
       left = left + arrowWidth > widthOverflowPoint ? widthOverflowPoint - arrowWidth : left;
       left = left < arrowWidth ? arrowWidth : left;
       break;
-    case 'right':
+    // right
+    default:
       left = -lengthSide / 2;
       top = top + arrowWidth > heightOverflowPoint ? heightOverflowPoint - arrowWidth : top;
       top = top < arrowWidth ? arrowWidth : top;
-      break;
-    default:
-      throw new Error(`Not a valid position: ${position}`);
   }
   return { top, left, lengthSide };
 };
@@ -96,7 +95,7 @@ const ArrowPopover: React.FC<ArrowPopoverProps> = ({
   distanceToTarget = 20,
 }: ArrowPopoverProps) => {
 
-  const node = useRef<HTMLDivElement>(null);
+  const node = useRef<HTMLDivElement | null>(null);
 
   const handleClick = useCallback((e:MouseEvent) => {
     if (closePopover && node && node.current && !node.current.contains(e.target as Node)) {
