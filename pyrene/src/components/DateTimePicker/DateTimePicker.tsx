@@ -197,6 +197,8 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
         if (t) {
           handleTimeChange(t, d);
         }
+      } else if (node.value.length === 0) {
+        setInternalDate(undefined);
       }
     } else if (event === undefined && !Array.isArray(date) && date !== null) {
       /** reactdatepicker currently emits an undefined event when the time list is clicked on.
