@@ -13,7 +13,7 @@ export interface PopoverProps {
   /**
   * Wrapped component(s) that the popover is using for its positioning.
   */
-  children: JSX.Element,
+  children: React.ReactNode,
   /**
   * Whether to display the popover.
   */

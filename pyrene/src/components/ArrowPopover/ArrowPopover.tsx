@@ -10,7 +10,7 @@ interface ArrowPosition {
   lengthSide: number,
 }
 
-type TargetRect = Omit<DOMRect, 'x' | 'y'>
+type TargetRect = Omit<DOMRect, 'x' | 'y' | 'toJSON'>;
 
 export interface ArrowPopoverProps {
   /**

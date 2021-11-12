@@ -1,15 +1,16 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import ArrowPopover, { Alignment, arrowPosition, PreferredPos } from './ArrowPopover';
+import ArrowPopover, { ArrowPopoverProps, arrowPosition } from './ArrowPopover';
 
-const props = {
-  align: 'center' as Alignment,
+const props: ArrowPopoverProps = {
+  align: 'center',
   closePopover: jest.fn(),
   distanceToTarget: 12,
-  preferredPosition: ['top', 'left'] as PreferredPos,
+  preferredPosition: ['top', 'left'],
   displayPopover: false,
   popoverContent: <div />,
+  children: <div />,
 };
 
 const children = <div />;
@@ -29,7 +30,7 @@ describe('<ArrowPopover />', () => {
       const lengthSide = 20;
       const arrowWidth = (lengthSide * Math.sqrt(2)) / 2;
 
-      const popoverRect: ClientRect = {
+      const popoverRect = {
         top: 100,
         left: 100,
         height: 100,
@@ -38,7 +39,7 @@ describe('<ArrowPopover />', () => {
         right: 0,
       };
 
-      const targetRect: ClientRect = {
+      const targetRect = {
         top: 200,
         left: 200,
         height: 40,
@@ -372,29 +373,6 @@ describe('<ArrowPopover />', () => {
       const result = arrowPosition('right', targetRect, popoverRect);
 
       expect(result).toEqual({ top: arrowWidth, left: -10, lengthSide });
-    });
-
-    it('unvalid position', () => {
-
-      const popoverRect = {
-        top: 100,
-        left: 100,
-        height: 100,
-        width: 100,
-        bottom: 0,
-        right: 0,
-      };
-
-      const targetRect = {
-        top: 200,
-        left: 200,
-        height: 40,
-        width: 40,
-        bottom: 0,
-        right: 0,
-      };
-
-      expect(() => { arrowPosition('test', targetRect, popoverRect); }).toThrow(new Error('Not a valid position: test'));
     });
   });
 
