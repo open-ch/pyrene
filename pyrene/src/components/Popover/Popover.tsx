@@ -1,6 +1,8 @@
 import React, { FunctionComponent } from 'react';
 import TinyPopover, { Position, PopoverProps as TinyPopoverProps } from 'react-tiny-popover';
 
+type TargetRect = Omit<DOMRect, 'x' | 'y' | 'toJSON'>;
+
 export interface PopoverProps {
   /**
    * Sets the alignment of the popover.
@@ -13,7 +15,7 @@ export interface PopoverProps {
   /**
   * Wrapped component(s) that the popover is using for its positioning.
   */
-  children: React.ReactNode,
+  children: JSX.Element,
   /**
   * Whether to display the popover.
   */
@@ -33,7 +35,7 @@ export interface PopoverProps {
   /**
   * Sets the content displayed inside the popover.
   */
-  renderPopoverContent: (position: Position, nudgedLeft: number, nudgedTop: number, targetRect: ClientRect, popoverRect: ClientRect) => JSX.Element,
+  renderPopoverContent: (position: Position, nudgedLeft: number, nudgedTop: number, targetRect: TargetRect, popoverRect: TargetRect) => JSX.Element,
 }
 
 /**

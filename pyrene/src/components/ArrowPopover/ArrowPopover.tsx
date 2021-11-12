@@ -20,7 +20,7 @@ export interface ArrowPopoverProps {
   /**
    * Action element
    */
-  children: React.ReactNode,
+  children: React.ReactElement,
   /**
    * Function to close the popover.
    */
