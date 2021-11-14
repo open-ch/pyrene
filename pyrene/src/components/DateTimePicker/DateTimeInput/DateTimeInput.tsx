@@ -108,7 +108,7 @@ const DateTimeInput = forwardRef<HTMLInputElement, DateTimeInputProps>(({
     >
       <div className={styles.dateTimeFieldTitle}>{label}</div>
       <div className={clsx(styles.dateTimeInputArea, { [styles.dateTimeInputError]: errorValue })}>
-        <div className={clsx(styles.iconInputContainer, styles.calendar)}>
+        <div className={clsx(styles.iconInputContainer, styles.calendar)} onClick={onClick}>
           <Icon type="inline" name="calendar" color="neutral-500" />
           <input
             autoComplete="off"
@@ -118,7 +118,6 @@ const DateTimeInput = forwardRef<HTMLInputElement, DateTimeInputProps>(({
             placeholder={dateOnly ? dateFormat.toUpperCase() : `${dateFormat.toUpperCase()}${timeFormat.toUpperCase()}`}
             maxLength={dateOnly ? dateFormat.length : dateFormat.length + timeFormat.length}
             ref={ref}
-            onClick={onClick}
             onFocus={onFocus}
             onChange={handleDateOnChange}
             value={`${dateValue}${!dateOnly ? timeValue : ''}`}
