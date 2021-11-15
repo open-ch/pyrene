@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import ReactDatepicker, { ReactDatePickerProps } from 'react-datepicker';
 import clsx from 'clsx';
-import Icon from '../../Icon/Icon';
+import IconButton from '../../IconButton/IconButton';
 
 import 'react-datepicker/dist/react-datepicker.css';
 import styles from '../datePicker.css';
@@ -149,14 +149,11 @@ const ReactDatePickerWrapper: React.FC<DatePickerProps> = ({
           increaseMonth,
         }) => (
           <div className="pyrene_datepicker_nav_bar">
-            <button
-              aria-label="Previous Month"
+            <div
               className="react-datepicker__navigation--previous"
-              onClick={decreaseMonth}
-              type="button"
             >
-              <Icon type="inline" name="chevronLeft" color="neutral-500" />
-            </button>
+              <IconButton type="neutral" icon="chevronLeft" onClick={decreaseMonth} aria-label="Previous Month" />
+            </div>
             <div className="react-datepicker__current-month">
               {date.toLocaleString('en-US', {
                 month: 'long',
@@ -168,14 +165,11 @@ const ReactDatePickerWrapper: React.FC<DatePickerProps> = ({
                 })}
               </span>
             </div>
-            <button
-              aria-label="Next Month"
+            <div
               className="react-datepicker__navigation--next"
-              onClick={increaseMonth}
-              type="button"
             >
-              <Icon type="inline" name="chevronRight" color="neutral-500" />
-            </button>
+              <IconButton type="neutral" icon="chevronRight" onClick={increaseMonth} aria-label="Next Month" />
+            </div>
           </div>
         )}
         selected={selectedDate}

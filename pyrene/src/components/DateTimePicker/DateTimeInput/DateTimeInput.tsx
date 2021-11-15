@@ -1,8 +1,8 @@
 import React, { forwardRef } from 'react';
 import clsx from 'clsx';
+import IconButton from '../../IconButton/IconButton';
 import { allowedValueCheck } from '../../../utils/DateUtils';
 
-import Icon from '../../Icon/Icon';
 import styles from './dateTimeInput.css';
 
 export interface DateTimeInputProps {
@@ -108,8 +108,8 @@ const DateTimeInput = forwardRef<HTMLInputElement, DateTimeInputProps>(({
     >
       <div className={styles.dateTimeFieldTitle}>{label}</div>
       <div className={clsx(styles.dateTimeInputArea, { [styles.dateTimeInputError]: errorValue })}>
-        <div className={clsx(styles.iconInputContainer, styles.calendar)} onClick={onClick}>
-          <Icon type="inline" name="calendar" color="neutral-500" />
+        <div className={clsx(styles.iconInputContainer, styles.calendar)}>
+          <IconButton type="neutral" icon="calendar" onClick={onClick} />
           <input
             autoComplete="off"
             className={clsx(styles.input, dateOnly ? styles.dateInput : styles.dateTimeInput)}
@@ -120,6 +120,7 @@ const DateTimeInput = forwardRef<HTMLInputElement, DateTimeInputProps>(({
             ref={ref}
             onFocus={onFocus}
             onChange={handleDateOnChange}
+            onClick={onClick}
             value={`${dateValue}${!dateOnly ? timeValue : ''}`}
           />
         </div>
