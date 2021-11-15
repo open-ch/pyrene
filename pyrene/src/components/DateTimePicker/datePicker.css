@@ -17,11 +17,7 @@
 }
 
 .wrapper :global .react-datepicker-popper {
-  position: absolute!important;
-  inset: unset!important;
-  transform: none!important;
   padding: 0px;
-  width: max-content;
 }
 
 .wrapper :global .react-datepicker__header {
@@ -144,13 +140,11 @@
 
 .wrapper :global .react-datepicker__month-container {
   padding: 16px;
-  height: 252px;
 }
 
 .wrapper :global .react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list {
   padding-right: 16px;
   width: 56px;
-  height: 252px!important;
 }
 
 .wrapper :global .react-datepicker__header--time {
