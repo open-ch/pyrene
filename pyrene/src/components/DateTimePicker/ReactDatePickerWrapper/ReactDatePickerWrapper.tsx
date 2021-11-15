@@ -142,6 +142,15 @@ const ReactDatePickerWrapper: React.FC<DatePickerProps> = ({
         onClickOutside={onClickOutside}
         onSelect={onSelect}
         openToDate={openDate}
+        popperPlacement="bottom-start"
+        popperModifiers={[
+          {
+            name: 'offset',
+            options: {
+              offset: [0, 2],
+            },
+          },
+        ]}
         ref={rangeRef}
         renderCustomHeader={({
           date,
