@@ -145,32 +145,26 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
 
   const handleDateChange = (dateString?: string, timeString?: string) => {
     if (dateString && dateString.length === dateFormat.length) {
-      try {
-        if (customDateFormat(dateString, dateFormat)) {
-          setDateValue(dateString);
+      if (customDateFormat(dateString, dateFormat)) {
+        setDateValue(dateString);
 
-          if (timeString && (timeString.length + dateString.length) === (dateFormat.length + timeFormat.length)) {
-            handleCallback(dateString, timeString, onChange);
-          }
+        if (dateOnly) {
+          handleCallback(dateString, '', onChange);
+        } else if (timeString) {
+          handleCallback(dateString, timeString, onChange);
         }
-      } catch (error) {
-        setErrorValue('Error in date handler. Date value.');
       }
     }
   };
 
   const handleTimeChange = (timeString?: string, dateString?: string) => {
     if (timeString && timeString.length === timeFormat.length) {
-      try {
-        if (customDateFormat(timeString, timeFormat)) {
-          setTimeValue(timeString);
-        }
+      if (customDateFormat(timeString, timeFormat)) {
+        setTimeValue(timeString);
 
-        if (dateString && (dateString.length + timeString.length) === (dateFormat.length + timeFormat.length)) {
+        if (dateString) {
           handleCallback(dateString, timeString, onChange);
         }
-      } catch (error) {
-        setErrorValue('Error in time handler.');
       }
     }
   };
@@ -200,11 +194,12 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
       } else if (node.value.length === 0) {
         setInternalDate(undefined);
       }
+
     } else if (event === undefined && !Array.isArray(date) && date !== null) {
       /** reactdatepicker currently emits an undefined event when the time list is clicked on.
        * Here we are relying on the time click event being 'undefined' as a temporary means to access time value
       */
-      handleTimeChange(customDateFormat(date, timeFormat), dateValue);
+      handleTimeChange(customDateFormat(date, timeFormat), dateValue || customDateFormat(date, dateFormat));
     } else {
       setInternalDate(undefined);
     }

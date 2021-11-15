@@ -65,15 +65,17 @@ export const isValidTimeZone = (timezone: string): boolean => {
  * @returns {string | undefined}
  */
 export const customDateFormat = (date: Date | string, pattern: string): string | undefined => {
-  if (typeof date === 'string') {
-    const parsed = parse(date, pattern, new Date());
-    return format(parsed, pattern);
+  try {
+    if (typeof date === 'string') {
+      const parsed = parse(date, pattern, new Date());
+      return format(parsed, pattern);
+    }
+    if (date instanceof Date && date.getTime() != null) {
+      return format(date, pattern);
+    }
+  } catch {
+    return undefined;
   }
-
-  if (date instanceof Date && date.getTime() != null) {
-    return format(date, pattern);
-  }
-
   return undefined;
 };
 
