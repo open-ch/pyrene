@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import ReactDatepicker from 'react-datepicker';
+import ReactDatepicker, { ReactDatePickerProps } from 'react-datepicker';
 import clsx from 'clsx';
 import Icon from '../../Icon/Icon';
 
@@ -43,7 +43,7 @@ export interface DatePickerProps{
   /**
    * Function to handle date change event
    */
-  onChange?: (date: Date | [Date, Date] | null, event: React.SyntheticEvent<any> | undefined) => void,
+  onChange?: ReactDatePickerProps['onChange'],
   /**
    * Callback for when user clicks outside component
    */
