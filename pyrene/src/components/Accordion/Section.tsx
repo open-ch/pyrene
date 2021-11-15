@@ -7,19 +7,19 @@ export interface SectionProps {
   /**
    * True to initially display this section as expanded (defaults to false)
    */
-  expanded?: boolean
+  expanded?: boolean;
   /**
    * Icon on the left of the section header
    */
-  iconProps?: IconProps
+  iconProps?: IconProps;
   /**
    * Render prop for the section content
    */
-  renderContent: () => React.ReactNode
+  renderContent: () => React.ReactNode;
   /**
    * Title string, or render prop for custom titles
    */
-  title: string | (() => React.ReactNode)
+  title: string | (() => React.ReactNode);
 }
 
 const Section: React.FC<SectionProps> = ({
