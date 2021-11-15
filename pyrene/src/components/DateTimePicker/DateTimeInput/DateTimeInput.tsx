@@ -81,7 +81,7 @@ const DateTimeInput = forwardRef<HTMLInputElement, DateTimeInputProps>(({
   timeValue = '',
 }:DateTimeInputProps, ref:React.Ref<HTMLInputElement>) => {
 
-  const handleDateOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const node = event.target as HTMLInputElement;
 
     if (allowedValueCheck(node.value)) {
@@ -119,7 +119,7 @@ const DateTimeInput = forwardRef<HTMLInputElement, DateTimeInputProps>(({
             maxLength={dateOnly ? dateFormat.length : dateFormat.length + timeFormat.length}
             ref={ref}
             onFocus={onFocus}
-            onChange={handleDateOnChange}
+            onChange={handleOnChange}
             onClick={onClick}
             value={`${dateValue}${!dateOnly ? timeValue : ''}`}
           />
