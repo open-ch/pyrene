@@ -1,6 +1,5 @@
 @import '../../styles/colors.module.css';
 
-/* Custom Section */
 .wrapper {
   composes: commonFontSettings from '../../styles/common.module.css';
   position: relative;
@@ -89,12 +88,8 @@
 }
 
 .wrapper :global .react-datepicker-popper > div {
-  background-color: var(--neutral-000);  
   box-shadow: 0 4px 8px -2px rgba(0, 21, 44, 0.2);
-  border: solid 1px var(--neutral-050);  
-  
-  display: flex;
-  flex-direction: column;
+  border: solid 1px var(--neutral-050);
 }
 
 .wrapper :global .react-datepicker__day--keyboard-selected, 
