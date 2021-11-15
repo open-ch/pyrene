@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import ReactDatepicker from 'react-datepicker';
 import clsx from 'clsx';
 import Icon from '../../Icon/Icon';
@@ -104,6 +104,7 @@ const ReactDatePickerWrapper: React.FC<DatePickerProps> = ({
 }: DatePickerProps) => {
 
   const rangeRef = useRef<ReactDatepicker>(null);
+  const [hasInput, setHasInput] = useState<boolean>(false);
 
   useEffect(() => {
     if (isOpen) {
@@ -114,10 +115,18 @@ const ReactDatePickerWrapper: React.FC<DatePickerProps> = ({
     if (closeDropdown) {
       rangeRef.current?.setOpen(false);
     }
-  }, [isOpen, selectedDate, closeDropdown]);
+  }, [isOpen, selectedDate, closeDropdown, hasInput]);
+
+  const handleChangeRaw = (event: React.FocusEvent<HTMLInputElement>) => {
+    if (event?.target.value !== '') {
+      setHasInput(true);
+    } else {
+      setHasInput(false);
+    }
+  };
 
   return (
-    <div className={clsx(styles.wrapper, { [styles.noneselected]: !selectedDate })}>
+    <div className={clsx(styles.wrapper, { [styles.noneselected]: !hasInput })}>
       <ReactDatepicker
         calendarStartDay={1}
         customInput={customInput}
@@ -129,6 +138,7 @@ const ReactDatePickerWrapper: React.FC<DatePickerProps> = ({
         onCalendarOpen={onCalendarOpen}
         onCalendarClose={() => isOpen && rangeRef.current?.setOpen(isOpen)}
         onChange={onChange}
+        onChangeRaw={handleChangeRaw}
         onClickOutside={onClickOutside}
         onSelect={onSelect}
         openToDate={openDate}
