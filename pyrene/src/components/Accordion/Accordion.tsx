@@ -9,7 +9,7 @@ export interface AccordionProps {
   /**
    * The list of sections for the accordion. A section is { expanded?: boolean, iconProps?: IconProps, renderContent: () => React.ReactNode, title: string | (() => React.ReactNode)}
    */
-  sections: SectionProps[]
+  sections: SectionProps[];
 }
 
 /**
