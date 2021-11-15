@@ -121,7 +121,7 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
   const [closeDrop, setCloseDrop] = useState<boolean>();
 
   // Sets internal date and passes validated value to parent
-  const handleOn = useCallback((dateString: string, timeString: string, callback?: OnFunction) => {
+  const handleCallback = useCallback((dateString: string, timeString: string, callback?: OnFunction) => {
     const date = customStringToDate(dateString, dateFormat);
     const time = customStringToDate(timeString, timeFormat);
 
@@ -150,7 +150,7 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
           setDateValue(dateString);
 
           if (timeString && (timeString.length + dateString.length) === (dateFormat.length + timeFormat.length)) {
-            handleOn(dateString, timeString, onChange);
+            handleCallback(dateString, timeString, onChange);
           }
         }
       } catch (error) {
@@ -167,7 +167,7 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
         }
 
         if (dateString && (dateString.length + timeString.length) === (dateFormat.length + timeFormat.length)) {
-          handleOn(dateString, timeString, onChange);
+          handleCallback(dateString, timeString, onChange);
         }
       } catch (error) {
         setErrorValue('Error in time handler.');
