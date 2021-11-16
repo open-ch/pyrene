@@ -104,7 +104,7 @@ function SimpleTable<R = {}>({
                   </td>
                 );
               })}
-              {!loading && data.length > 0 && actions && actions.length > 0 && (
+              {!loading && data.length > 0 && actions.length > 0 && (
                 <td
                   className={clsx(styles.tableCell, styles.actionCell)}
                   key={`action-${Object.values(row).join('-')}`}
@@ -121,7 +121,7 @@ function SimpleTable<R = {}>({
           <Loader type="inline" />
         </div>
       )}
-      {!loading && (!data || !(data.length > 0)) && (
+      {!loading && !(data.length > 0) && (
         <div className={styles.noData}>
           No data found.
         </div>
