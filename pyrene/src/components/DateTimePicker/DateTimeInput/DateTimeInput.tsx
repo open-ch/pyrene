@@ -9,7 +9,7 @@ export interface DateTimeInputProps {
   /**
    * Date format used by component
    */
-  dateFormat?: string,
+  dateFormat: string,
   /**
    * Boolean to toggle time display
   */
@@ -61,7 +61,7 @@ export interface DateTimeInputProps {
   /**
    * Time format used by component
    */
-  timeFormat?: string,
+  timeFormat: string,
   /**
    * Input time value
   */
@@ -69,7 +69,7 @@ export interface DateTimeInputProps {
 }
 
 const DateTimeInput = forwardRef<HTMLInputElement, DateTimeInputProps>(({
-  dateFormat = 'dd.MM.yyyy',
+  dateFormat,
   dateOnly = false,
   dateValue = '',
   errorValue,
@@ -82,9 +82,9 @@ const DateTimeInput = forwardRef<HTMLInputElement, DateTimeInputProps>(({
   required,
   setDateValue,
   setTimeValue,
-  timeFormat = ' HH:mm',
+  timeFormat,
   timeValue = '',
-}:DateTimeInputProps, ref:React.Ref<HTMLInputElement>) => {
+}: DateTimeInputProps, ref: React.Ref<HTMLInputElement>) => {
 
   const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const node = event.target as HTMLInputElement;
@@ -93,10 +93,7 @@ const DateTimeInput = forwardRef<HTMLInputElement, DateTimeInputProps>(({
       if (!dateOnly && node.value.length > dateFormat.length) {
         setDateValue?.(node.value.substring(0, dateFormat.length));
         setTimeValue?.(node.value.substring(dateFormat.length));
-
-        if (node.value.length === (dateFormat.length + timeFormat.length)) {
-          return onChange?.(event);
-        }
+        return onChange?.(event);
       } else {
         setDateValue?.(node.value);
         setTimeValue?.('');

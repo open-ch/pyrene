@@ -18,7 +18,14 @@ export interface DateValidationObject {
   timeFormat?: string,
 }
 
-export const allowedValueCheck = (valueToCheck:string) : boolean => (/^[0-9.: APM]*$/.test(valueToCheck));
+export type DateTimeLocale = 'eu' | 'us';
+
+export interface Format {
+  date: string;
+  time: string;
+}
+
+export const allowedValueCheck = (valueToCheck: string): boolean => (/^[0-9.\/: APM]*$/.test(valueToCheck));
 
 /**
  * Returns the Date Object of provided timestamp in provided timezone
@@ -183,3 +190,18 @@ export const hasTimeError = (timestring: string, timeFormat: string): boolean =>
  * @returns {string}
  */
 export const getClientTimeZone = (): string => Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+
+export const getFormat = (format: DateTimeLocale): Format => {
+  const dateTimeFormats = {
+    eu: {
+      date: 'dd.MM.yyyy',
+      time: ' HH:mm'
+    },
+    us: {
+      date: 'MM/dd/yyyy',
+      time: ' HH:mm'
+    }
+  }
+  return dateTimeFormats[format]
+}

@@ -7,20 +7,20 @@ import DateTimeInput from './DateTimeInput/DateTimeInput';
 
 import {
   customDateFormat, convertToUTCtime, convertToZoneTime, customStringToDate,
-  getErrors, hasDateError, hasTimeError, getClientTimeZone,
+  getErrors, hasDateError, hasTimeError, getClientTimeZone, DateTimeLocale, getFormat
 } from '../../utils/DateUtils';
 
 type OnFunction = (value?: number) => void;
 
-export interface DateTimePickerProps{
+export interface DateTimePickerProps {
   /**
    * Calendar is opened on input component render
    */
   calendarOpened?: boolean,
   /**
-   * Date format used by component
+   * Locale used by component for date and time
    */
-  dateFormat?: string,
+  locale?: DateTimeLocale,
   /**
    * Boolean to toggle time display
    */
@@ -78,10 +78,6 @@ export interface DateTimePickerProps{
   */
   startDate?: Date,
   /**
-   * Date format used by component
-   */
-  timeFormat?: string,
-  /**
    * Unix timestamp to initialize component with
    */
   timeStamp?: number,
@@ -96,7 +92,7 @@ export interface DateTimePickerProps{
  */
 const DateTimePicker: React.FC<DateTimePickerProps> = ({
   calendarOpened,
-  dateFormat = 'dd.MM.yyyy',
+  locale = 'eu',
   dateOnly = false,
   endDate,
   label,
@@ -111,7 +107,6 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
   selectEnd,
   selectStart,
   startDate,
-  timeFormat = ' HH:mm',
   timeStamp,
   timeZone = getClientTimeZone(),
 }: DateTimePickerProps) => {
@@ -124,11 +119,12 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
   const [errorValue, setErrorValue] = useState('');
 
   const [closeDrop, setCloseDrop] = useState<boolean>();
+  const format = getFormat(locale);
 
   // Sets internal date and passes validated value to parent
   const handleCallback = useCallback((dateString: string, timeString: string, callback?: OnFunction) => {
-    const date = customStringToDate(dateString, dateFormat);
-    const time = customStringToDate(timeString, timeFormat);
+    const date = customStringToDate(dateString, format.date);
+    const time = customStringToDate(timeString, format.time);
 
     if (dateOnly && !Number.isNaN(date.getTime())) {
       const validDate = convertToUTCtime(date, timeZone);
@@ -137,7 +133,7 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
 
       setCloseDrop(true);
     } else if (!dateOnly && !Number.isNaN(date.getTime()) && !Number.isNaN(time.getTime())) {
-      const validDate = convertToUTCtime(customStringToDate(`${dateString}${timeString}`, `${dateFormat}${timeFormat}`), timeZone);
+      const validDate = convertToUTCtime(customStringToDate(`${dateString}${timeString}`, `${format.date}${format.time}`), timeZone);
       setInternalDate(validDate);
       callback?.(validDate.getTime());
 
@@ -146,11 +142,11 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
       setInternalDate(undefined);
       callback?.(undefined);
     }
-  }, [dateFormat, dateOnly, timeZone, timeFormat]);
+  }, [format, dateOnly, timeZone]);
 
   const handleDateChange = (dateString?: string, timeString?: string) => {
-    if (dateString && dateString.length === dateFormat.length) {
-      if (customDateFormat(dateString, dateFormat)) {
+    if (dateString && dateString.length === format.date.length) {
+      if (customDateFormat(dateString, format.date)) {
         setDateValue(dateString);
 
         if (dateOnly) {
@@ -163,8 +159,8 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
   };
 
   const handleTimeChange = (timeString?: string, dateString?: string) => {
-    if (timeString && timeString.length === timeFormat.length) {
-      if (customDateFormat(timeString, timeFormat)) {
+    if (timeString && timeString.length === format.time.length) {
+      if (customDateFormat(timeString, format.time)) {
         setTimeValue(timeString);
 
         if (dateString) {
@@ -176,18 +172,18 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
 
   // Handle changes from react datepicker
   const onChangeReactDP = (date: Date | [Date, Date] | null, event: React.SyntheticEvent<any> | undefined): void => {
-    if (date && (event?.type === 'click' || (event?.type === 'keydown' && (event as React.KeyboardEvent).key.length > 1))) {
+    if (date && event?.type === 'click') {
       if (!Array.isArray(date)) {
-        handleDateChange(customDateFormat(date, dateFormat), timeValue);
+        handleDateChange(customDateFormat(date, format.date), timeValue);
       }
     } else if (event?.type === 'change') {
       // This gets triggered when typing in the DateTimeInput component attached to the reactdatepicker calendar
       const node = event?.target as HTMLInputElement;
 
-      if (node.value.length === (dateFormat.length + timeFormat.length)) {
-        const datetime = customStringToDate(node.value, `${dateFormat}${timeFormat}`);
-        const d = customDateFormat(datetime, dateFormat);
-        const t = customDateFormat(datetime, timeFormat);
+      if (node.value.length === (format.date.length + format.time.length)) {
+        const datetime = customStringToDate(node.value, `${format.date}${format.time}`);
+        const d = customDateFormat(datetime, format.date);
+        const t = customDateFormat(datetime, format.time);
 
         if (d) {
           handleDateChange(d, t);
@@ -204,7 +200,7 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
       /** reactdatepicker currently emits an undefined event when the time list is clicked on.
        * Here we are relying on the time click event being 'undefined' as a temporary means to access time value
       */
-      handleTimeChange(customDateFormat(date, timeFormat), dateValue || customDateFormat(date, dateFormat));
+      handleTimeChange(customDateFormat(date, format.time), dateValue || customDateFormat(date, format.date));
     } else {
       setInternalDate(undefined);
     }
@@ -213,8 +209,8 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
   // Update date and time string values if internal date object is changed
   useEffect(() => {
     if (internalDate) {
-      const dateString = customDateFormat(internalDate, dateFormat);
-      const timeString = customDateFormat(internalDate, timeFormat);
+      const dateString = customDateFormat(internalDate, format.date);
+      const timeString = customDateFormat(internalDate, format.time);
 
       if (dateString) {
         setDateValue(dateString);
@@ -223,7 +219,7 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
         }
       }
     }
-  }, [dateFormat, dateOnly, internalDate, timeFormat]);
+  }, [format, dateOnly, internalDate]);
 
   // Update date and time string values if timstamp is changed
   useEffect(() => {
@@ -246,28 +242,28 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
   useEffect(() => {
     const dateValObj = {
       dateString: dateValue,
-      isDateInvalid: hasDateError({ dateString: dateValue, dateFormat: dateFormat }),
-      isTimeInvalid: hasTimeError(timeValue, timeFormat),
+      isDateInvalid: hasDateError({ dateString: dateValue, dateFormat: format.date }),
+      isTimeInvalid: hasTimeError(timeValue, format.time),
       minimumValue: minDateTime,
       maximumValue: maxDateTime,
       timeZone: timeZone,
-      dateFormat: dateFormat,
+      dateFormat: format.date,
       timeString: timeValue,
-      timeFormat: timeFormat,
+      timeFormat: format.time,
     };
     setErrorValue(getErrors(dateValObj));
-  }, [maxDateTime, minDateTime, timeZone, dateValue, timeValue, dateFormat, timeFormat]);
+  }, [maxDateTime, minDateTime, timeZone, dateValue, timeValue, format]);
 
   return (
     <ReactDatePickerWrapper
       closeDropdown={closeDrop}
-      dateFormat={dateFormat}
+      dateFormat={format.date}
       dateOnly={dateOnly}
       endDate={endDate}
       endRange={selectEnd}
       customInput={(
         <DateTimeInput
-          dateFormat={dateFormat}
+          dateFormat={format.date}
           dateOnly={dateOnly}
           dateValue={dateValue}
           timeValue={timeValue}
@@ -276,7 +272,7 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
           name={name}
           setDateValue={setDateValue}
           setTimeValue={setTimeValue}
-          timeFormat={timeFormat}
+          timeFormat={format.time}
         />
       )}
       isOpen={calendarOpened}
@@ -291,7 +287,7 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
       shouldDisplayTimeColumn={!dateOnly}
       startDate={startDate}
       startRange={selectStart}
-      timeFormat={timeFormat}
+      timeFormat={format.time}
     />
   );
 };
