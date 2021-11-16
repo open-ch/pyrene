@@ -62,6 +62,10 @@ export interface DateTimePickerProps{
    */
   openDate?: Date,
   /**
+   * Component must be filled
+   */
+  required?: boolean,
+  /**
    * Input selects the end date of a range
    */
   selectEnd?: boolean,
@@ -103,6 +107,7 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
   onChange,
   onClickOutside,
   openDate,
+  required,
   selectEnd,
   selectStart,
   startDate,
@@ -281,6 +286,7 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
       onChange={onChangeReactDP}
       onClickOutside={onClickOutside}
       openDate={openDate}
+      required={required}
       selectedDate={internalDate}
       shouldDisplayTimeColumn={!dateOnly}
       startDate={startDate}

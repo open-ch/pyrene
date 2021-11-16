@@ -57,6 +57,10 @@ export interface DatePickerProps{
    */
   openDate?: Date,
   /**
+   * Component must be filled
+   */
+  required?: boolean,
+  /**
    * This is a Date object that represents the selected date of the datepicker
    */
   selectedDate?: Date,
@@ -100,6 +104,7 @@ const ReactDatePickerWrapper: React.FC<DatePickerProps> = ({
   onClickOutside,
   onSelect,
   openDate,
+  required,
   timeFormat = ' HH:mm',
 }: DatePickerProps) => {
 
@@ -107,10 +112,10 @@ const ReactDatePickerWrapper: React.FC<DatePickerProps> = ({
   const [hasInput, setHasInput] = useState<boolean>(false);
 
   useEffect(() => {
-    if (isOpen) {
+    /* if (isOpen) {
       rangeRef.current?.setOpen(isOpen);
       rangeRef.current?.setState({ preSelection: selectedDate });
-    }
+    } */
 
     if (closeDropdown) {
       rangeRef.current?.setOpen(false);
@@ -158,9 +163,7 @@ const ReactDatePickerWrapper: React.FC<DatePickerProps> = ({
           increaseMonth,
         }) => (
           <div className="pyrene_datepicker_nav_bar">
-            <div
-              className="react-datepicker__navigation--previous"
-            >
+            <div className="react-datepicker__navigation--previous">
               <IconButton type="neutral" icon="chevronLeft" onClick={decreaseMonth} aria-label="Previous Month" />
             </div>
             <div className="react-datepicker__current-month">
@@ -174,13 +177,12 @@ const ReactDatePickerWrapper: React.FC<DatePickerProps> = ({
                 })}
               </span>
             </div>
-            <div
-              className="react-datepicker__navigation--next"
-            >
+            <div className="react-datepicker__navigation--next">
               <IconButton type="neutral" icon="chevronRight" onClick={increaseMonth} aria-label="Next Month" />
             </div>
           </div>
         )}
+        required={required}
         selected={selectedDate}
         selectsEnd={endRange}
         selectsStart={startRange}

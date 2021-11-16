@@ -47,6 +47,10 @@ export interface DateTimeInputProps {
   */
   onFocus?: () => void,
   /**
+   * Component must be filled
+   */
+  required?: boolean,
+  /**
    * Callback to set Date value in parent
    */
   setDateValue?: (value: string) => void,
@@ -75,6 +79,7 @@ const DateTimeInput = forwardRef<HTMLInputElement, DateTimeInputProps>(({
   onChange,
   onClick,
   onFocus,
+  required,
   setDateValue,
   setTimeValue,
   timeFormat = ' HH:mm',
@@ -118,6 +123,7 @@ const DateTimeInput = forwardRef<HTMLInputElement, DateTimeInputProps>(({
             placeholder={dateOnly ? dateFormat.toUpperCase() : `${dateFormat.toUpperCase()}${timeFormat.toUpperCase()}`}
             maxLength={dateOnly ? dateFormat.length : dateFormat.length + timeFormat.length}
             ref={ref}
+            required={required}
             onFocus={onFocus}
             onChange={handleOnChange}
             onClick={onClick}
