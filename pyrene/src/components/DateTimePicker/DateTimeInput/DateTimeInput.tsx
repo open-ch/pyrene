@@ -9,7 +9,7 @@ export interface DateTimeInputProps {
   /**
    * Date format used by component
    */
-  dateFormat?: string,
+  dateFormat: string,
   /**
    * Boolean to toggle time display
   */
@@ -61,7 +61,7 @@ export interface DateTimeInputProps {
   /**
    * Time format used by component
    */
-  timeFormat?: string,
+  timeFormat: string,
   /**
    * Input time value
   */
@@ -69,7 +69,7 @@ export interface DateTimeInputProps {
 }
 
 const DateTimeInput = forwardRef<HTMLInputElement, DateTimeInputProps>(({
-  dateFormat = 'dd.MM.yyyy',
+  dateFormat,
   dateOnly = false,
   dateValue = '',
   errorValue,
@@ -82,7 +82,7 @@ const DateTimeInput = forwardRef<HTMLInputElement, DateTimeInputProps>(({
   required,
   setDateValue,
   setTimeValue,
-  timeFormat = ' HH:mm',
+  timeFormat,
   timeValue = '',
 }:DateTimeInputProps, ref:React.Ref<HTMLInputElement>) => {
 
