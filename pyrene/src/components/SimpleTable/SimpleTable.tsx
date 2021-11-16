@@ -99,7 +99,7 @@ function SimpleTable<R = {}>({
                     key={column.id.concat(Object.values(valueRow).join('-'))}
                   >
                     <div className={styles.tableCellContent} style={{ textAlign: column.align as any }}>
-                      {column.cellRenderCallback ? column.cellRenderCallback(valueRow as any, rowIndex, columnIndex) : valueRow.value}
+                      {column.cellRenderCallback ? column.cellRenderCallback(valueRow, rowIndex, columnIndex) : valueRow.value}
                     </div>
                   </td>
                 );
