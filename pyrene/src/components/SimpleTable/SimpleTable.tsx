@@ -121,7 +121,7 @@ function SimpleTable<R = {}>({
           <Loader type="inline" />
         </div>
       )}
-      {!loading && !(data.length > 0) && (
+      {!loading && data.length === 0 && (
         <div className={styles.noData}>
           No data found.
         </div>
