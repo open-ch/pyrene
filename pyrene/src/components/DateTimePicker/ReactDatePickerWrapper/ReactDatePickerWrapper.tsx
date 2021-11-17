@@ -7,6 +7,9 @@ import 'react-datepicker/dist/react-datepicker.css';
 import styles from '../datePicker.css';
 
 export interface DatePickerProps{
+  /**
+   * Trigger close of calendar dropdown
+   */
   closeDropdown?: boolean,
   /**
    * Replaces the input with any node, for example a button
@@ -25,10 +28,6 @@ export interface DatePickerProps{
    */
   endDate?: Date,
   /**
-   * Calendar is opened on input component render
-   */
-  isOpen?: boolean,
-  /**
    * This is a Date object that represents the maximum date allowed by the component
    */
   maxDate?: Date,
@@ -36,6 +35,10 @@ export interface DatePickerProps{
    * This is a Date object that represents the minimum date allowed by the component
    */
   minDate?: Date,
+  /**
+   * Do something when calendar opens
+   */
+  onCalendarClose?: () => void,
   /**
    * Do something when calendar opens
    */
@@ -98,7 +101,7 @@ const ReactDatePickerWrapper: React.FC<DatePickerProps> = ({
   startDate,
   shouldDisplayTimeColumn = true,
   customInput,
-  isOpen,
+  onCalendarClose,
   onCalendarOpen,
   onChange = () => {},
   onClickOutside,
@@ -111,17 +114,6 @@ const ReactDatePickerWrapper: React.FC<DatePickerProps> = ({
   const rangeRef = useRef<ReactDatepicker>(null);
   const [hasInput, setHasInput] = useState<boolean>(false);
 
-  useEffect(() => {
-    /* if (isOpen) {
-      rangeRef.current?.setOpen(isOpen);
-      rangeRef.current?.setState({ preSelection: selectedDate });
-    } */
-
-    if (closeDropdown) {
-      rangeRef.current?.setOpen(false);
-    }
-  }, [isOpen, selectedDate, closeDropdown, hasInput]);
-
   const handleChangeRaw = (event: React.FocusEvent<HTMLInputElement>) => {
     if (event?.target.value !== '') {
       setHasInput(true);
@@ -129,6 +121,12 @@ const ReactDatePickerWrapper: React.FC<DatePickerProps> = ({
       setHasInput(false);
     }
   };
+
+  useEffect(() => {
+    if (closeDropdown) {
+      rangeRef.current?.setOpen(false);
+    }
+  }, [selectedDate, closeDropdown]);
 
   return (
     <div className={clsx(styles.wrapper, { [styles.noneselected]: !hasInput })}>
@@ -141,7 +139,7 @@ const ReactDatePickerWrapper: React.FC<DatePickerProps> = ({
         maxDate={maxDate}
         minDate={minDate}
         onCalendarOpen={onCalendarOpen}
-        onCalendarClose={() => isOpen && rangeRef.current?.setOpen(isOpen)}
+        onCalendarClose={onCalendarClose}
         onChange={onChange}
         onChangeRaw={handleChangeRaw}
         onClickOutside={onClickOutside}
@@ -186,11 +184,11 @@ const ReactDatePickerWrapper: React.FC<DatePickerProps> = ({
         selected={selectedDate}
         selectsEnd={endRange}
         selectsStart={startRange}
-        shouldCloseOnSelect={false}
         showPopperArrow={false}
         showTimeSelect={shouldDisplayTimeColumn}
         startDate={startDate}
         timeFormat={timeFormat}
+        shouldCloseOnSelect
       />
     </div>
   );

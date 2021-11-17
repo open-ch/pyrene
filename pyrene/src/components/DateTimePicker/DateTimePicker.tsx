@@ -92,7 +92,6 @@ export interface DateTimePickerProps{
  */
 const DateTimePicker: React.FC<DateTimePickerProps> = ({
   locale = 'eu',
-  calendarOpened,
   dateOnly = false,
   endDate,
   label,
@@ -114,10 +113,8 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
   const format = getFormat(locale);
 
   const [internalDate, setInternalDate] = useState<Date | undefined>();
-
   const [dateValue, setDateValue] = useState('');
   const [timeValue, setTimeValue] = useState('');
-
   const [errorValue, setErrorValue] = useState('');
 
   const [closeDrop, setCloseDrop] = useState<boolean>();
@@ -137,11 +134,11 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
       const validDate = convertToUTCtime(customStringToDate(`${dateString}${timeString}`, `${format.dateFormat}${format.timeFormat}`), timeZone);
       setInternalDate(validDate);
       callback?.(validDate.getTime());
-
-      setCloseDrop(true);
     } else {
       setInternalDate(undefined);
       callback?.(undefined);
+
+      setCloseDrop(true);
     }
   }, [dateOnly, timeZone, format]);
 
@@ -193,6 +190,8 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
         if (t) {
           handleTimeChange(t, d);
         }
+      } else if (node.value.length === 0) {
+        setInternalDate(undefined);
       }
     } else if (event === undefined && !Array.isArray(date) && date !== null) {
       /** reactdatepicker currently emits an undefined event when the time list is clicked on.
@@ -200,6 +199,12 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
       */
       handleTimeChange(customDateFormat(date, format.timeFormat), dateValue || customDateFormat(date, format.dateFormat));
     } else {
+      setInternalDate(undefined);
+    }
+  };
+
+  const resetOnClose = () => {
+    if (`${dateValue}${timeValue}`.trim() === '') {
       setInternalDate(undefined);
     }
   };
@@ -273,9 +278,9 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
           timeFormat={format.timeFormat}
         />
       )}
-      isOpen={calendarOpened}
       maxDate={maxDateTime != null ? convertToUTCtime(maxDateTime, timeZone) : maxDateTime}
       minDate={minDateTime != null ? convertToUTCtime(minDateTime, timeZone) : minDateTime}
+      onCalendarClose={resetOnClose}
       onCalendarOpen={onCalendarOpen}
       onChange={onChangeReactDP}
       onClickOutside={onClickOutside}
