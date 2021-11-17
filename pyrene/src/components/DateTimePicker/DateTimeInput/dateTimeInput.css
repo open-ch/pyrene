@@ -63,6 +63,7 @@
 }  
 
 .input::placeholder {
+  font-size: 11px;
   color: var(--neutral-300);
 }
 
