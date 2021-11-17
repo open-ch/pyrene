@@ -134,11 +134,11 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
       const validDate = convertToUTCtime(customStringToDate(`${dateString}${timeString}`, `${format.dateFormat}${format.timeFormat}`), timeZone);
       setInternalDate(validDate);
       callback?.(validDate.getTime());
+
+      setCloseDrop(true);
     } else {
       setInternalDate(undefined);
       callback?.(undefined);
-
-      setCloseDrop(true);
     }
   }, [dateOnly, timeZone, format]);
 
@@ -177,11 +177,11 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
     } else if (event?.type === 'change') {
       // This gets triggered when typing in the DateTimeInput component attached to the reactdatepicker calendar
       const node = event?.target as HTMLInputElement;
+      const formatlength = dateOnly ? format.dateFormat.length : (format.dateFormat.length + format.timeFormat.length);
 
-      if (node.value.length === (format.dateFormat.length + format.timeFormat.length)) {
-        const datetime = customStringToDate(node.value, `${format.dateFormat}${format.timeFormat}`);
-        const d = customDateFormat(datetime, format.dateFormat);
-        const t = customDateFormat(datetime, format.timeFormat);
+      if (node.value.length === formatlength) {
+        const d = customDateFormat(node.value.substring(0, format.dateFormat.length), format.dateFormat);
+        const t = customDateFormat(node.value.substring(format.dateFormat.length), format.timeFormat);
 
         if (d) {
           handleDateChange(d, t);
