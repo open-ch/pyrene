@@ -25,7 +25,7 @@ export interface Format {
 
 export type DateTimeLocale = 'eu' | 'us';
 
-export const allowedValueCheck = (valueToCheck:string) : boolean => (/^[0-9./: ]*$/.test(valueToCheck));
+export const allowedValueCheck = (valueToCheck: string): boolean => (/^[0-9./: ]*$/.test(valueToCheck));
 
 /**
  * Returns the Date Object of provided timestamp in provided timezone
