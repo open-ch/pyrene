@@ -142,29 +142,17 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
     }
   }, [dateOnly, timeZone, format]);
 
-  const handleDateChange = (dateString?: string, timeString?: string) => {
-    if (dateString && dateString.length === format.dateFormat.length) {
-      if (customDateFormat(dateString, format.dateFormat)) {
-        setDateValue(dateString);
-
-        if (dateOnly) {
-          handleCallback(dateString, '', onChange);
-        } else if (timeString) {
-          handleCallback(dateString, timeString, onChange);
-        }
-      }
+  const handleDateAndTimeChange = (customDateString?: string, customTimeString?: string) => {
+    if (customTimeString) {
+      setTimeValue(customTimeString);
     }
-  };
 
-  const handleTimeChange = (timeString?: string, dateString?: string) => {
-    if (timeString && timeString.length === format.timeFormat.length) {
-      if (customDateFormat(timeString, format.timeFormat)) {
-        setTimeValue(timeString);
+    if (customDateString) {
+      setDateValue(customDateString);
 
-        if (dateString) {
-          handleCallback(dateString, timeString, onChange);
-        }
-      }
+      if (dateOnly) {
+        handleCallback(customDateString, '', onChange);
+      } else if (customTimeString) handleCallback(customDateString, customTimeString, onChange);
     }
   };
 
@@ -172,24 +160,18 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
   const onChangeReactDP = (date: Date | [Date, Date] | null, event: React.SyntheticEvent<any> | undefined): void => {
     if (date && (event?.type === 'click' || (event?.type === 'keydown' && (event as React.KeyboardEvent).key.length > 1))) {
       if (!Array.isArray(date)) {
-        handleDateChange(customDateFormat(date, format.dateFormat), timeValue);
+        handleDateAndTimeChange(customDateFormat(date, format.dateFormat), timeValue);
       }
     } else if (event?.type === 'change') {
       // This gets triggered when typing in the DateTimeInput component attached to the reactdatepicker calendar
       const node = event?.target as HTMLInputElement;
-      const formatlength = dateOnly ? format.dateFormat.length : (format.dateFormat.length + format.timeFormat.length);
+      const formatLength = dateOnly ? format.dateFormat.length : (format.dateFormat.length + format.timeFormat.length);
 
-      if (node.value.length === formatlength) {
+      if (node.value.length === formatLength) {
         const d = customDateFormat(node.value.substring(0, format.dateFormat.length), format.dateFormat);
         const t = customDateFormat(node.value.substring(format.dateFormat.length), format.timeFormat);
 
-        if (d) {
-          handleDateChange(d, t);
-        }
-
-        if (t) {
-          handleTimeChange(t, d);
-        }
+        handleDateAndTimeChange(d, t);
       } else if (node.value.length === 0) {
         setInternalDate(undefined);
       }
@@ -197,7 +179,7 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
       /** reactdatepicker currently emits an undefined event when the time list is clicked on.
        * Here we are relying on the time click event being 'undefined' as a temporary means to access time value
       */
-      handleTimeChange(customDateFormat(date, format.timeFormat), dateValue || customDateFormat(date, format.dateFormat));
+      handleDateAndTimeChange(dateValue || customDateFormat(date, format.dateFormat), customDateFormat(date, format.timeFormat));
     } else {
       setInternalDate(undefined);
     }
