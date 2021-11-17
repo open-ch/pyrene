@@ -203,6 +203,31 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
     }
   };
 
+  const getMaximumDate = useCallback(() => {
+
+    if (selectStart && endDate) {
+      return endDate;
+    }
+
+    if (maxDateTime != null) {
+      return convertToUTCtime(maxDateTime, timeZone);
+    }
+
+    return maxDateTime;
+  }, [endDate, maxDateTime, selectStart, timeZone]);
+
+  const getMinimumDate = useCallback(() => {
+    if (selectEnd && startDate) {
+      return startDate;
+    }
+
+    if (minDateTime != null) {
+      return convertToUTCtime(minDateTime, timeZone);
+    }
+
+    return minDateTime;
+  }, [minDateTime, selectEnd, startDate, timeZone]);
+
   const resetOnClose = () => {
     if (`${dateValue}${timeValue}`.trim() === '') {
       setInternalDate(undefined);
@@ -247,15 +272,15 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
       dateString: dateValue,
       isDateInvalid: hasDateError({ dateString: dateValue, dateFormat: format.dateFormat }),
       isTimeInvalid: hasTimeError(timeValue, format.timeFormat),
-      minimumValue: minDateTime,
-      maximumValue: maxDateTime,
+      minimumValue: getMinimumDate()?.getTime(),
+      maximumValue: getMaximumDate()?.getTime(),
       timeZone: timeZone,
       dateFormat: format.dateFormat,
       timeString: timeValue,
       timeFormat: format.timeFormat,
     };
     setErrorValue(getErrors(dateValObj));
-  }, [maxDateTime, minDateTime, timeZone, dateValue, timeValue, format]);
+  }, [timeZone, dateValue, timeValue, format, getMinimumDate, getMaximumDate]);
 
   return (
     <ReactDatePickerWrapper
@@ -278,8 +303,8 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
           timeFormat={format.timeFormat}
         />
       )}
-      maxDate={maxDateTime != null ? convertToUTCtime(maxDateTime, timeZone) : maxDateTime}
-      minDate={minDateTime != null ? convertToUTCtime(minDateTime, timeZone) : minDateTime}
+      maxDate={getMaximumDate()}
+      minDate={getMinimumDate()}
       onCalendarClose={resetOnClose}
       onCalendarOpen={onCalendarOpen}
       onChange={onChangeReactDP}
