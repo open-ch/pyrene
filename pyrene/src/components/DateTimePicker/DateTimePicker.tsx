@@ -7,12 +7,12 @@ import DateTimeInput from './DateTimeInput/DateTimeInput';
 
 import {
   customDateFormat, convertToUTCtime, convertToZoneTime, customStringToDate,
-  getErrors, hasDateError, hasTimeError, getClientTimeZone, getFormat, DateTimeLocale,
+  getErrors, hasDateError, hasTimeError, getClientTimeZone, getFormat, DateTimeLocale, Format,
 } from '../../utils/DateUtils';
 
 type OnFunction = (value?: number) => void;
 
-export interface DateTimePickerProps{
+export interface DateTimePickerProps {
   /**
    * Calendar is opened on input component render
    */
@@ -110,7 +110,7 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
   timeZone = getClientTimeZone(),
 }: DateTimePickerProps) => {
 
-  const format = getFormat(locale);
+  const format: Format = getFormat(locale);
 
   const [internalDate, setInternalDate] = useState<Date | undefined>();
   const [dateValue, setDateValue] = useState('');
