@@ -18,7 +18,7 @@ export interface DatePickerProps{
   /**
    * Date format used by component
    */
-  dateFormat?: string,
+  dateFormat: string,
   /**
    * Boolean to toggle time display
    */
@@ -82,7 +82,7 @@ export interface DatePickerProps{
   /**
    * Time format used by component
    */
-  timeFormat?: string,
+  timeFormat: string,
   /**
    * Should display the Time column on the right-hand side
    */
@@ -91,7 +91,7 @@ export interface DatePickerProps{
 
 const ReactDatePickerWrapper: React.FC<DatePickerProps> = ({
   closeDropdown,
-  dateFormat = 'dd.MM.yyyy',
+  dateFormat,
   endDate,
   maxDate,
   minDate,
@@ -108,7 +108,7 @@ const ReactDatePickerWrapper: React.FC<DatePickerProps> = ({
   onSelect,
   openDate,
   required,
-  timeFormat = ' HH:mm',
+  timeFormat,
 }: DatePickerProps) => {
 
   const rangeRef = useRef<ReactDatepicker>(null);
@@ -126,7 +126,7 @@ const ReactDatePickerWrapper: React.FC<DatePickerProps> = ({
     if (closeDropdown) {
       rangeRef.current?.setOpen(false);
     }
-  }, [selectedDate, closeDropdown]);
+  }, [closeDropdown]);
 
   return (
     <div className={clsx(styles.wrapper, { [styles.noneselected]: !hasInput })}>
