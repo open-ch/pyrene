@@ -196,7 +196,7 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
     }
 
     if (maxDateTime != null) {
-      return convertToUTCtime(maxDateTime, timeZone);
+      return convertToZoneTime(maxDateTime, timeZone);
     }
 
     return maxDateTime;
@@ -208,7 +208,7 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
     }
 
     if (minDateTime != null) {
-      return convertToUTCtime(minDateTime, timeZone);
+      return convertToZoneTime(minDateTime, timeZone);
     }
 
     return minDateTime;
