@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import {
-  DateTimePicker,
+  DateTimePicker, Link
 } from '@osag/pyrene/dist/pyrene.dev';
 import styles from '../../../css/componentPage.css';
 import CodeBox from '../../common/PageElements/HowTo/CodeBox/CodeBox';
@@ -30,7 +30,7 @@ const description = () => {
               onChange={(value) => (value && setStartDate(new Date(value)))}
               timeZone="Europe/Zurich"
               dateOnly={dateOnly}
-              selectStart
+              selectsStart
             />
           </td>
           <td>
@@ -43,7 +43,7 @@ const description = () => {
               onChange={(value) => (value && setEndDate(new Date(value)))}
               timeZone="Europe/Zurich"
               dateOnly={dateOnly}
-              selectEnd
+              selectsEnd
             />
           </td>
         </tr>
@@ -69,7 +69,7 @@ const description = () => {
               <ul>
                 <li>Import the DateTimePicker component.</li>
                 <li>Create your state hooks for storing the Start Date (From) and End Date (To).</li>
-                <li>selectStart and selectEnd are props that should be set. These activate the highlighting of the days when selecting the dates in the calendar dropdown.</li>
+                <li>selectsStart and selectsEnd are props that should be set. These activate the highlighting of the days when selecting the dates in the calendar dropdown. You can check <Link label='here' path='https://reactdatepicker.com/#example-date-range' target='_blank' type='inline' /> for more information on this.</li>
               </ul>
             </div>
           </DescriptionBox>
@@ -106,7 +106,7 @@ const DateUsage = ({
               onChange={(value) => (value && setStartDate(new Date(value)))}
               timeZone={timeZone}
               dateOnly={dateOnly}
-              selectStart
+              selectsStart
             />
           </td>
           <td>
@@ -119,7 +119,7 @@ const DateUsage = ({
               onChange={(value) => (value && setEndDate(new Date(value)))}
               timeZone={timeZone}
               dateOnly={dateOnly}
-              selectEnd
+              selectsEnd
             />
           </td>
         </tr>
