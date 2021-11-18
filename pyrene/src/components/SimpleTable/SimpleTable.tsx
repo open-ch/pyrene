@@ -99,12 +99,12 @@ function SimpleTable<R = {}>({
                     key={column.id.concat(Object.values(valueRow).join('-'))}
                   >
                     <div className={styles.tableCellContent} style={{ textAlign: column.align as any }}>
-                      {column.cellRenderCallback ? column.cellRenderCallback(valueRow as any, rowIndex, columnIndex) : valueRow.value}
+                      {column.cellRenderCallback ? column.cellRenderCallback(valueRow, rowIndex, columnIndex) : valueRow.value}
                     </div>
                   </td>
                 );
               })}
-              {!loading && data.length > 0 && actions && actions.length > 0 && (
+              {!loading && data.length > 0 && actions.length > 0 && (
                 <td
                   className={clsx(styles.tableCell, styles.actionCell)}
                   key={`action-${Object.values(row).join('-')}`}
@@ -121,7 +121,7 @@ function SimpleTable<R = {}>({
           <Loader type="inline" />
         </div>
       )}
-      {!loading && (!data || !(data.length > 0)) && (
+      {!loading && data.length === 0 && (
         <div className={styles.noData}>
           No data found.
         </div>

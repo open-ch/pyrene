@@ -126,15 +126,10 @@ const TextArea: React.FC<TextAreaProps> = ({
             <span className={clsx('pyreneIcon-errorOutline', styles.errorIcon)} />
             {invalidLabel}
           </div>
-        )
-        : (
-          <>
-            {helperLabel && (
-              <div className={styles.textAreaHelper}>
-                {helperLabel}
-              </div>
-            )}
-          </>
+        ) : helperLabel && (
+          <div className={styles.textAreaHelper}>
+            {helperLabel}
+          </div>
         )}
     </div>
   );
