@@ -20,6 +20,10 @@ export interface DatePickerProps{
    */
   dateFormat: string,
   /**
+   * Component is disabled
+  */
+  disabled?: boolean,
+  /**
    * This is a Date object that represents the end date of a date range
    */
   endDate?: Date,
@@ -89,6 +93,7 @@ const ReactDatePickerWrapper: React.FC<DatePickerProps> = ({
   closeDropdown,
   customInput,
   dateFormat,
+  disabled,
   endDate,
   maxDate,
   minDate,
@@ -130,6 +135,7 @@ const ReactDatePickerWrapper: React.FC<DatePickerProps> = ({
         calendarStartDay={1}
         customInput={customInput}
         dateFormat={`${dateFormat}${timeFormat}`}
+        disabled={disabled}
         endDate={endDate}
         formatWeekDay={(nameOfDay) => nameOfDay.substr(0, 1)}
         maxDate={maxDate}

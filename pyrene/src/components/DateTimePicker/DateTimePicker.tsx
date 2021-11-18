@@ -18,6 +18,10 @@ export interface DateTimePickerProps {
    */
   dateOnly?: boolean,
   /**
+   * Component is disabled
+  */
+  disabled?: boolean,
+  /**
    * Date object that represents the end date of the component
    */
   endDate?: Date,
@@ -88,6 +92,7 @@ export interface DateTimePickerProps {
  */
 const DateTimePicker: React.FC<DateTimePickerProps> = ({
   dateOnly = false,
+  disabled,
   endDate,
   label,
   locale = 'eu',
@@ -272,6 +277,7 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
           dateFormat={format.dateFormat}
           dateOnly={dateOnly}
           dateValue={dateValue}
+          disabled={disabled}
           errorValue={errorValue}
           label={label}
           name={name}
@@ -282,6 +288,7 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
         />
       )}
       dateFormat={format.dateFormat}
+      disabled={disabled}
       endDate={endDate}
       maxDate={getMaximumDate()}
       minDate={getMinimumDate()}

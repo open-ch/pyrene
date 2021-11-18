@@ -114,7 +114,7 @@ const DateTimeInput = forwardRef<HTMLInputElement, DateTimeInputProps>(({
       <div className={styles.dateTimeFieldTitle}>{label}</div>
       <div className={clsx(styles.dateTimeInputArea, { [styles.dateTimeInputError]: errorValue })}>
         <div className={clsx(styles.iconInputContainer, styles.calendar)}>
-          <IconButton icon="calendar" onClick={onClick} type="neutral" />
+          <IconButton icon="calendar" disabled={disabled} onClick={onClick} type="neutral" />
           <input
             autoComplete="off"
             className={clsx(styles.input, dateOnly ? styles.dateInput : styles.dateTimeInput)}
