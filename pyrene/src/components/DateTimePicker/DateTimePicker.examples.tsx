@@ -22,13 +22,16 @@ const DateTimePicker: Example<DateTimePickerProps, State> = {
     },
     {
       props: {
+        locale: 'us',
         maxDateTime: 1809631860000,
         onChange: (stateProvider: StateProvider<State>) => (value?: number | null) => { stateProvider.setState({ value }); },
+        timeStamp: 946684740000,
       },
       description: `Maximum date: ${new Date(1809631860000).toString()}`,
     },
     {
       props: {
+        disabled: true,
         onChange: (stateProvider: StateProvider<State>) => (value?: number | null) => { stateProvider.setState({ value }); },
         timeZone: 'America/New_Yamk',
       },
