@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import {
-  DateTimePicker, Link
+  DateTimePicker, Link,
 } from '@osag/pyrene/dist/pyrene.dev';
 import styles from '../../../css/componentPage.css';
 import CodeBox from '../../common/PageElements/HowTo/CodeBox/CodeBox';
