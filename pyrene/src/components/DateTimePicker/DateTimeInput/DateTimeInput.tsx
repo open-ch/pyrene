@@ -19,13 +19,13 @@ export interface DateTimeInputProps {
   */
   dateValue?: string,
   /**
-   * Input error
-  */
-  errorValue?: string,
-  /**
    * Component is disabled
   */
   disabled?: boolean,
+  /**
+   * Input error
+  */
+  errorValue?: string,
   /**
    * Input field label
   */
@@ -72,8 +72,8 @@ const DateTimeInput = forwardRef<HTMLInputElement, DateTimeInputProps>(({
   dateFormat,
   dateOnly = false,
   dateValue = '',
-  errorValue,
   disabled,
+  errorValue,
   label = dateOnly ? 'Date' : 'Date & Time',
   name,
   onChange,
@@ -114,19 +114,19 @@ const DateTimeInput = forwardRef<HTMLInputElement, DateTimeInputProps>(({
       <div className={styles.dateTimeFieldTitle}>{label}</div>
       <div className={clsx(styles.dateTimeInputArea, { [styles.dateTimeInputError]: errorValue })}>
         <div className={clsx(styles.iconInputContainer, styles.calendar)}>
-          <IconButton type="neutral" icon="calendar" onClick={onClick} />
+          <IconButton icon="calendar" onClick={onClick} type="neutral" />
           <input
             autoComplete="off"
             className={clsx(styles.input, dateOnly ? styles.dateInput : styles.dateTimeInput)}
             disabled={disabled}
-            name={name && `${name}`}
-            placeholder={dateOnly ? dateFormat.toUpperCase() : `${dateFormat.toUpperCase()}${timeFormat.toUpperCase()}`}
             maxLength={dateOnly ? dateFormat.length : dateFormat.length + timeFormat.length}
-            ref={ref}
-            required={required}
-            onFocus={onFocus}
+            name={name && `${name}`}
             onChange={handleOnChange}
             onClick={onClick}
+            onFocus={onFocus}
+            placeholder={dateOnly ? dateFormat.toUpperCase() : `${dateFormat.toUpperCase()}${timeFormat.toUpperCase()}`}
+            ref={ref}
+            required={required}
             value={`${dateValue}${!dateOnly ? timeValue : ''}`}
           />
         </div>

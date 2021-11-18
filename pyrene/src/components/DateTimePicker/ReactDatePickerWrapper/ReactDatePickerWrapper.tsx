@@ -20,10 +20,6 @@ export interface DatePickerProps{
    */
   dateFormat: string,
   /**
-   * Boolean to toggle time display
-   */
-  dateOnly?: boolean,
-  /**
    * This is a Date object that represents the end date of a date range
    */
   endDate?: Date,
@@ -68,13 +64,17 @@ export interface DatePickerProps{
    */
   selectedDate?: Date,
   /**
-   * Is calendar starting a range
-   */
-  startRange?: boolean,
-  /**
    * Is calendar ending a range
    */
-  endRange?: boolean,
+  selectsEnd?: boolean,
+  /**
+   * Is calendar starting a range
+   */
+  selectsStart?: boolean,
+  /**
+   * Should display the Time column on the right-hand side
+   */
+  shouldDisplayTimeColumn?: boolean,
   /**
    * This is a Date object that represents the start date of a date range
    */
@@ -83,24 +83,15 @@ export interface DatePickerProps{
    * Time format used by component
    */
   timeFormat: string,
-  /**
-   * Should display the Time column on the right-hand side
-   */
-  shouldDisplayTimeColumn?: boolean,
 }
 
 const ReactDatePickerWrapper: React.FC<DatePickerProps> = ({
   closeDropdown,
+  customInput,
   dateFormat,
   endDate,
   maxDate,
   minDate,
-  selectedDate,
-  endRange = false,
-  startRange = false,
-  startDate,
-  shouldDisplayTimeColumn = true,
-  customInput,
   onCalendarClose,
   onCalendarOpen,
   onChange = () => {},
@@ -108,6 +99,11 @@ const ReactDatePickerWrapper: React.FC<DatePickerProps> = ({
   onSelect,
   openDate,
   required,
+  selectedDate,
+  selectsEnd = false,
+  selectsStart = false,
+  shouldDisplayTimeColumn = true,
+  startDate,
   timeFormat,
 }: DatePickerProps) => {
 
@@ -115,7 +111,7 @@ const ReactDatePickerWrapper: React.FC<DatePickerProps> = ({
   const [hasInput, setHasInput] = useState<boolean>(false);
 
   const handleChangeRaw = (event: React.FocusEvent<HTMLInputElement>) => {
-    if (event?.target.value !== '') {
+    if (event?.target.value?.trim() !== '') {
       setHasInput(true);
     } else {
       setHasInput(false);
@@ -124,7 +120,7 @@ const ReactDatePickerWrapper: React.FC<DatePickerProps> = ({
 
   useEffect(() => {
     if (closeDropdown) {
-      rangeRef.current?.setOpen(false);
+      rangeRef.current?.setOpen(!closeDropdown);
     }
   }, [closeDropdown]);
 
@@ -138,14 +134,13 @@ const ReactDatePickerWrapper: React.FC<DatePickerProps> = ({
         formatWeekDay={(nameOfDay) => nameOfDay.substr(0, 1)}
         maxDate={maxDate}
         minDate={minDate}
-        onCalendarOpen={onCalendarOpen}
         onCalendarClose={onCalendarClose}
+        onCalendarOpen={onCalendarOpen}
         onChange={onChange}
         onChangeRaw={handleChangeRaw}
         onClickOutside={onClickOutside}
         onSelect={onSelect}
         openToDate={openDate}
-        popperPlacement="bottom-start"
         popperModifiers={[
           {
             name: 'offset',
@@ -154,6 +149,7 @@ const ReactDatePickerWrapper: React.FC<DatePickerProps> = ({
             },
           },
         ]}
+        popperPlacement="bottom-start"
         ref={rangeRef}
         renderCustomHeader={({
           date,
@@ -182,8 +178,8 @@ const ReactDatePickerWrapper: React.FC<DatePickerProps> = ({
         )}
         required={required}
         selected={selectedDate}
-        selectsEnd={endRange}
-        selectsStart={startRange}
+        selectsEnd={selectsEnd}
+        selectsStart={selectsStart}
         showPopperArrow={false}
         showTimeSelect={shouldDisplayTimeColumn}
         startDate={startDate}
