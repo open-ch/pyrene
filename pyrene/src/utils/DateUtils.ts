@@ -86,6 +86,12 @@ export const customDateFormat = (date: Date | string, pattern: string): string |
   return undefined;
 };
 
+/**
+ * Returns a JS Date object from a date string matching a provided pattern
+ * @param {string} datestring
+ * @param {string} pattern
+ * @returns {Date}
+ */
 export const customStringToDate = (datestring: string, pattern: string): Date => parse(datestring, pattern, new Date());
 
 /**
