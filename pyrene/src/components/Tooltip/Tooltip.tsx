@@ -23,7 +23,7 @@ export interface TooltipProps {
   /**
    * Sets the label displayed inside of the tooltip.
    */
-  label: React.ReactNode;
+  label: React.ReactNode | string;
   /**
    * Sets the Tooltip width. Only to be used to enforce line breaks.
    */
