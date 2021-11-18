@@ -126,15 +126,18 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
     const time = customStringToDate(timeString, format.timeFormat);
 
     if (dateOnly && !Number.isNaN(date.getTime())) {
-      const validDate = convertToUTCtime(date, timeZone);
-      setInternalDate(validDate);
-      callback?.(validDate.getTime());
+      const zoneDate = convertToZoneTime(date, timeZone);
+      const utcDate = convertToUTCtime(date, timeZone);
+      setInternalDate(zoneDate);
+      callback?.(utcDate.getTime());
 
       setCloseDrop(true);
     } else if (!dateOnly && !Number.isNaN(date.getTime()) && !Number.isNaN(time.getTime())) {
-      const validDate = convertToUTCtime(customStringToDate(`${dateString}${timeString}`, `${format.dateFormat}${format.timeFormat}`), timeZone);
-      setInternalDate(validDate);
-      callback?.(validDate.getTime());
+      const dateTime = customStringToDate(`${dateString}${timeString}`, `${format.dateFormat}${format.timeFormat}`);
+      const zoneDateTime = convertToZoneTime(dateTime, timeZone);
+      const utcDateTime = convertToUTCtime(dateTime, timeZone);
+      setInternalDate(zoneDateTime);
+      callback?.(utcDateTime.getTime());
 
       setCloseDrop(true);
     } else {

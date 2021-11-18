@@ -29,10 +29,10 @@ export const allowedValueCheck = (valueToCheck: string): boolean => (/^[0-9./: ]
 
 /**
  * Returns the Date Object of provided timestamp in provided timezone
- * @param {number} timestamp
+ * @param {string | number | Date} datetime
  * @param {string} timezone
  */
-export const convertToZoneTime = (timestamp: number, timezone: string): Date => utcToZonedTime(timestamp, timezone);
+export const convertToZoneTime = (datetime: string | number | Date, timezone: string): Date => utcToZonedTime(datetime, timezone);
 
 /**
  * Returns the Date Object of provided datetime parameter in UTC
