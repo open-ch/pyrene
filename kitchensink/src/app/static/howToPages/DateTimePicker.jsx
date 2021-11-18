@@ -69,7 +69,7 @@ const description = () => {
               <ul>
                 <li>Import the DateTimePicker component.</li>
                 <li>Create your state hooks for storing the Start Date (From) and End Date (To).</li>
-                <li>selectsStart and selectsEnd are props that should be set. These activate the highlighting of the days when selecting the dates in the calendar dropdown. You can check <Link label='here' path='https://reactdatepicker.com/#example-date-range' target='_blank' type='inline' /> for more information on this.</li>
+                <li>selectsStart and selectsEnd are props that should be set. They activate the highlighting of range days in the calendar dropdown. Visit this <Link label='link' path='https://reactdatepicker.com/#example-date-range' target='_blank' type='inline' /> for more information on this.</li>
               </ul>
             </div>
           </DescriptionBox>
