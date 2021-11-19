@@ -6,7 +6,7 @@ export interface ParagraphProps {
   /**
   * The paragraph text. This can be HTML with <br/> or <b>.
   */
-  children: ReactNode
+  children: ReactNode,
 }
 
 /**

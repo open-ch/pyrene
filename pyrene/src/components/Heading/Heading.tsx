@@ -7,11 +7,11 @@ export interface HeadingProps {
   /**
    * The title string.
    */
-  children: string
+  children: string,
   /**
    * Size level, corresponds to h1 - h4.
    */
-  level?: 1 | 2 | 3 | 4
+  level?: 1 | 2 | 3 | 4,
 }
 
 /**
