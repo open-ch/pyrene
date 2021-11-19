@@ -33,7 +33,7 @@ export interface ButtonProps {
   /**
    * Sets the label displayed to the user.
    */
-  label: string | React.ReactElement,
+  label: React.ReactNode,
   /**
    * Disables the component and displays a loader inside of it.
    */
