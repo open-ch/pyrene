@@ -22,7 +22,7 @@ export interface LinkProps {
   /**
    * Sets the target.
    */
-  target?: string,
+  target?: '_blank' | '_self' | '_parent' | '_top',
   /**
    * Sets the overall style.
    */
