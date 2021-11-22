@@ -130,7 +130,7 @@ const ReactDatePickerWrapper: React.FC<DatePickerProps> = ({
   }, [closeDropdown]);
 
   return (
-    <div className={clsx(styles.wrapper, { [styles.noneselected]: !hasInput })}>
+    <div className={clsx(styles.wrapper, { [styles.noneselected]: !hasInput, [styles.disabled]: disabled })}>
       <ReactDatepicker
         calendarStartDay={1}
         customInput={customInput}

@@ -4,6 +4,11 @@
   composes: commonFontSettings from '../../styles/common.module.css';
   position: relative;
   max-width: max-content;
+
+  &.disabled {
+    opacity: .5;
+    pointer-events: none;
+  }    
 }
 
 .wrapper :global .react-datepicker {
