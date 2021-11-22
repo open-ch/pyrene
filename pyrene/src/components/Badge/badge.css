@@ -40,6 +40,14 @@
     background-color: var(--neutral-500);
     color: var(--neutral-000);
   }
+
+  &.cursor-pointer {
+    cursor: pointer;
+  }
+
+  &.cursor-default {
+    cursor: default
+  }
 }
 
 .label {

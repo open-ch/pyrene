@@ -34,17 +34,20 @@ const Badge: React.FC<BadgeProps> = ({
   maxWidth,
   onClick,
   type,
-}: BadgeProps) => (
-  <div
-    className={clsx(styles.badge, styles[`type-${type}`])}
-    style={{ maxWidth }}
-    onClick={onClick}
-  >
-    <div className={clsx(styles.label)}>
-      {label}
+}: BadgeProps) => {
+  const cursorClass = onClick ? 'cursor-pointer' : 'cursor-default';
+  return (
+    <div
+      className={clsx(styles.badge, styles[`type-${type}`], styles[cursorClass])}
+      style={{ maxWidth }}
+      onClick={onClick}
+    >
+      <div className={clsx(styles.label)}>
+        {label}
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 Badge.displayName = 'Badge';
 
