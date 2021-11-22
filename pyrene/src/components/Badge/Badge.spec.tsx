@@ -69,4 +69,17 @@ describe('<Badge />', () => {
     expect(onClick).toHaveBeenCalledTimes(1);
   });
 
+  it('shows pointer default when not clickable', () => {
+    const rendered = shallow(<Badge {...props} />);
+    const className = rendered.prop('className');
+    expect(className).toContain('cursor-default');
+  });
+
+  it('shows pointer cursor when clickable', () => {
+    const onClick = jest.fn();
+    const rendered = shallow(<Badge {...props} onClick={onClick} />);
+    const className = rendered.prop('className');
+    expect(className).toContain('cursor-pointer');
+  });
+
 });
