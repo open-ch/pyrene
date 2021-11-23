@@ -126,34 +126,26 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
     const date = customStringToDate(dateString, format.dateFormat);
     const time = customStringToDate(timeString, format.timeFormat);
 
-    if (dateOnly) {
-      if (!Number.isNaN(date.getTime())) {
-        const zoneDate = convertToZoneTime(date, timeZone);
-        const utcDate = convertToUTCtime(date, timeZone);
-        setInternalDate(zoneDate);
-        callback?.(utcDate.getTime());
+    if (dateOnly && !Number.isNaN(date.getTime())) {
+      const zoneDate = convertToZoneTime(date, timeZone);
+      const utcDate = convertToUTCtime(date, timeZone);
+      setInternalDate(zoneDate);
+      callback?.(utcDate.getTime());
 
-        setCloseDrop(true);
-      }
+      setCloseDrop(true);
+    } else if (!dateOnly && !Number.isNaN(date.getTime()) && !Number.isNaN(time.getTime())) {
+      const dateTime = customStringToDate(`${dateString}${timeString}`, `${format.dateFormat}${format.timeFormat}`);
+      const zoneDateTime = convertToZoneTime(dateTime, timeZone);
+      const utcDateTime = convertToUTCtime(dateTime, timeZone);
+      setInternalDate(zoneDateTime);
+      callback?.(utcDateTime.getTime());
+
+      setCloseDrop(true);
     } else {
-      if (!Number.isNaN(date.getTime()) && Number.isNaN(time.getTime())) {
-        setErrorValue('Error');
-        setCloseDrop(true);
-      }
-      if (!Number.isNaN(date.getTime()) && !Number.isNaN(time.getTime())) {
-        const dateTime = customStringToDate(`${dateString}${timeString}`, `${format.dateFormat}${format.timeFormat}`);
-        const zoneDateTime = convertToZoneTime(dateTime, timeZone);
-        const utcDateTime = convertToUTCtime(dateTime, timeZone);
-        setInternalDate(zoneDateTime);
-        callback?.(utcDateTime.getTime());
+      setInternalDate(undefined);
+      callback?.(undefined);
 
-        setCloseDrop(true);
-      } else {
-        setInternalDate(undefined);
-        callback?.(undefined);
-
-        setCloseDrop(undefined);
-      }
+      setCloseDrop(undefined);
     }
   }, [dateOnly, timeZone, format]);
 
