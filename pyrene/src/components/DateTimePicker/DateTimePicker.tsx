@@ -126,15 +126,18 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
     const time = customStringToDate(timeString, format.timeFormat);
 
     if (dateOnly && !Number.isNaN(date.getTime())) {
-      const validDate = convertToUTCtime(date, timeZone);
-      setInternalDate(validDate);
-      callback?.(validDate.getTime());
+      const zoneDate = convertToZoneTime(date, timeZone);
+      const utcDate = convertToUTCtime(date, timeZone);
+      setInternalDate(zoneDate);
+      callback?.(utcDate.getTime());
 
       setCloseDrop(true);
     } else if (!dateOnly && !Number.isNaN(date.getTime()) && !Number.isNaN(time.getTime())) {
-      const validDate = convertToUTCtime(customStringToDate(`${dateString}${timeString}`, `${format.dateFormat}${format.timeFormat}`), timeZone);
-      setInternalDate(validDate);
-      callback?.(validDate.getTime());
+      const dateTime = customStringToDate(`${dateString}${timeString}`, `${format.dateFormat}${format.timeFormat}`);
+      const zoneDateTime = convertToZoneTime(dateTime, timeZone);
+      const utcDateTime = convertToUTCtime(dateTime, timeZone);
+      setInternalDate(zoneDateTime);
+      callback?.(utcDateTime.getTime());
 
       setCloseDrop(true);
     } else {
@@ -153,9 +156,9 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
     if (customDateString) {
       setDateValue(customDateString);
 
-      if (dateOnly) {
+      if (dateOnly && format.dateRegex.test(customDateString)) {
         handleCallback(customDateString, '', onChange);
-      } else if (customTimeString) {
+      } else if (customTimeString && format.timeRegex.test(customTimeString) && format.dateRegex.test(customDateString)) {
         handleCallback(customDateString, customTimeString, onChange);
       }
     }
@@ -262,14 +265,13 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
   useEffect(() => {
     const dateValObj = {
       dateString: dateValue,
-      isDateInvalid: hasDateError({ dateString: dateValue, dateFormat: format.dateFormat }),
-      isTimeInvalid: hasTimeError(timeValue, format.timeFormat),
+      isDateInvalid: hasDateError({ dateString: dateValue, format: format }),
+      isTimeInvalid: hasTimeError(timeValue, format),
       minimumValue: getMinimumDate()?.getTime(),
       maximumValue: getMaximumDate()?.getTime(),
       timeZone: timeZone,
-      dateFormat: format.dateFormat,
       timeString: timeValue,
-      timeFormat: format.timeFormat,
+      format: format,
     };
     setErrorValue(getErrors(dateValObj));
   }, [timeZone, dateValue, timeValue, format, getMinimumDate, getMaximumDate]);

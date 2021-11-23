@@ -6,6 +6,13 @@ import Duration from 'date-fns';
 import zonedTimeToUtc from 'date-fns-tz/zonedTimeToUtc';
 import utcToZonedTime from 'date-fns-tz/utcToZonedTime';
 
+export interface Format {
+  dateFormat: string,
+  dateRegex: RegExp,
+  timeFormat: string,
+  timeRegex: RegExp,
+}
+
 export interface DateValidationObject {
   dateString?: string,
   isDateInvalid?: boolean,
@@ -13,14 +20,8 @@ export interface DateValidationObject {
   minimumValue?: number,
   maximumValue?: number,
   timeZone?: string,
-  dateFormat?: string,
   timeString?: string,
-  timeFormat?: string,
-}
-
-export interface Format {
-  dateFormat: string,
-  timeFormat: string,
+  format?: Format,
 }
 
 export type DateTimeLocale = 'eu' | 'us';
@@ -131,18 +132,18 @@ export const getErrors = (dateValObj: DateValidationObject): string => {
     return 'Invalid time format';
   }
 
-  if (dateValObj.dateString && dateValObj.dateString.length === dateValObj.dateFormat?.length && dateValObj.timeZone && dateValObj.dateFormat) {
-    const tmpDate = customStringToDate(dateValObj.dateString, dateValObj.dateFormat);
+  if (dateValObj.dateString && dateValObj.timeZone && dateValObj.format && dateValObj.format.dateRegex.test(dateValObj.dateString)) {
+    const tmpDate = customStringToDate(dateValObj.dateString, dateValObj.format.dateFormat);
     if (tmpDate) {
       let datetimestring;
       let datetimeformatstring;
 
-      if (dateValObj.timeFormat && dateValObj.timeString && dateValObj.timeString.length === dateValObj.timeFormat.length) {
+      if (dateValObj.timeString && dateValObj.format.timeRegex.test(dateValObj.timeString)) {
         datetimestring = `${dateValObj.dateString}${dateValObj.timeString}`;
-        datetimeformatstring = `${dateValObj.dateFormat}${dateValObj.timeFormat}`;
+        datetimeformatstring = `${dateValObj.format.dateFormat}${dateValObj.format.timeFormat}`;
       } else {
         datetimestring = dateValObj.dateString;
-        datetimeformatstring = dateValObj.dateFormat;
+        datetimeformatstring = dateValObj.format.dateFormat;
       }
 
       const rangePositon = inRange(convertToUTCtime(customStringToDate(datetimestring, datetimeformatstring), dateValObj.timeZone).getTime(), dateValObj.minimumValue, dateValObj.maximumValue);
@@ -166,8 +167,8 @@ export const getErrors = (dateValObj: DateValidationObject): string => {
 export const hasDateError = (dateValObj: DateValidationObject): boolean => {
   if (dateValObj && dateValObj.dateString != null) {
 
-    if (dateValObj.dateFormat && dateValObj.dateString.length <= dateValObj.dateFormat.length) {
-      if ((dateValObj.dateString.length < dateValObj.dateFormat.length || (dateValObj.dateString.length === dateValObj.dateFormat.length && !Number.isNaN(customStringToDate(dateValObj.dateString, dateValObj.dateFormat).getTime())))) {
+    if (dateValObj.format && dateValObj.dateString.length <= dateValObj.format.dateFormat.length) {
+      if ((dateValObj.dateString.length < dateValObj.format.dateFormat.length || (dateValObj.format.dateRegex.test(dateValObj.dateString) && !Number.isNaN(customStringToDate(dateValObj.dateString, dateValObj.format.dateFormat).getTime())))) {
         return false;
       }
     }
@@ -182,9 +183,9 @@ export const hasDateError = (dateValObj: DateValidationObject): boolean => {
  * @param timeFormat
  * @returns {boolean}
  */
-export const hasTimeError = (timestring: string, timeFormat: string): boolean => {
-  if (timestring.length <= timeFormat.length) {
-    if (timestring.length < timeFormat.length || (timestring.length === timeFormat.length && !Number.isNaN(customStringToDate(timestring, timeFormat).getTime()))) {
+export const hasTimeError = (timestring: string, formatObj: Format): boolean => {
+  if (timestring.length <= formatObj.timeFormat.length) {
+    if (timestring.length < formatObj.timeFormat.length || (formatObj.timeRegex.test(timestring) && !Number.isNaN(customStringToDate(timestring, formatObj.timeFormat).getTime()))) {
       return false;
     }
   }
@@ -206,11 +207,15 @@ export const getFormat = (locale: DateTimeLocale): Format => {
   const dateTimeFormats = {
     eu: {
       dateFormat: 'dd.MM.yyyy',
+      dateRegex: /^\d{2}\.\d{2}\.\d{4}$/,
       timeFormat: ' HH:mm',
+      timeRegex: /^\s\d{2}:\d{2}$/,
     },
     us: {
       dateFormat: 'MM/dd/yyyy',
+      dateRegex: /^\d{2}\/\d{2}\/\d{4}$/,
       timeFormat: ' HH:mm',
+      timeRegex: /^\s\d{2}:\d{2}$/,
     },
   };
   return dateTimeFormats[locale];
