@@ -114,6 +114,7 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
   const format: Format = getFormat(locale);
 
   const [internalDate, setInternalDate] = useState<Date | undefined>();
+  const [selectedDate, setSelectedDate] = useState<Date | undefined>();
   const [dateValue, setDateValue] = useState('');
   const [timeValue, setTimeValue] = useState('');
   const [errorValue, setErrorValue] = useState('');
@@ -125,26 +126,34 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
     const date = customStringToDate(dateString, format.dateFormat);
     const time = customStringToDate(timeString, format.timeFormat);
 
-    if (dateOnly && !Number.isNaN(date.getTime())) {
-      const zoneDate = convertToZoneTime(date, timeZone);
-      const utcDate = convertToUTCtime(date, timeZone);
-      setInternalDate(zoneDate);
-      callback?.(utcDate.getTime());
+    if (dateOnly) {
+      if (!Number.isNaN(date.getTime())) {
+        const zoneDate = convertToZoneTime(date, timeZone);
+        const utcDate = convertToUTCtime(date, timeZone);
+        setInternalDate(zoneDate);
+        callback?.(utcDate.getTime());
 
-      setCloseDrop(true);
-    } else if (!dateOnly && !Number.isNaN(date.getTime()) && !Number.isNaN(time.getTime())) {
-      const dateTime = customStringToDate(`${dateString}${timeString}`, `${format.dateFormat}${format.timeFormat}`);
-      const zoneDateTime = convertToZoneTime(dateTime, timeZone);
-      const utcDateTime = convertToUTCtime(dateTime, timeZone);
-      setInternalDate(zoneDateTime);
-      callback?.(utcDateTime.getTime());
-
-      setCloseDrop(true);
+        setCloseDrop(true);
+      }
     } else {
-      setInternalDate(undefined);
-      callback?.(undefined);
+      if (!Number.isNaN(date.getTime()) && Number.isNaN(time.getTime())) {
+        setErrorValue('Error');
+        setCloseDrop(true);
+      }
+      if (!Number.isNaN(date.getTime()) && !Number.isNaN(time.getTime())) {
+        const dateTime = customStringToDate(`${dateString}${timeString}`, `${format.dateFormat}${format.timeFormat}`);
+        const zoneDateTime = convertToZoneTime(dateTime, timeZone);
+        const utcDateTime = convertToUTCtime(dateTime, timeZone);
+        setInternalDate(zoneDateTime);
+        callback?.(utcDateTime.getTime());
 
-      setCloseDrop(undefined);
+        setCloseDrop(true);
+      } else {
+        setInternalDate(undefined);
+        callback?.(undefined);
+
+        setCloseDrop(undefined);
+      }
     }
   }, [dateOnly, timeZone, format]);
 
@@ -152,10 +161,8 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
     if (customTimeString) {
       setTimeValue(customTimeString);
     }
-
     if (customDateString) {
       setDateValue(customDateString);
-
       if (dateOnly) {
         handleCallback(customDateString, '', onChange);
       } else if (customTimeString) {
@@ -164,10 +171,15 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
     }
   };
 
+  const selectDate = () => {
+    setInternalDate(selectedDate);
+  };
+
   // Handle changes from react datepicker
   const onChangeReactDP = (date: Date | [Date, Date] | null, event: React.SyntheticEvent<any> | undefined): void => {
     if (date && (event?.type === 'click' || (event?.type === 'keydown' && (event as React.KeyboardEvent).key.length > 1))) {
       if (!Array.isArray(date)) {
+        setSelectedDate(date);
         handleDateAndTimeChange(customDateFormat(date, format.dateFormat), timeValue);
       }
     } else if (event?.type === 'change') {
@@ -239,7 +251,7 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
     }
   }, [dateOnly, format.dateFormat, format.timeFormat, internalDate]);
 
-  // Update date and time string values if timstamp is changed
+  // Update date and time string values if timestamp is changed
   useEffect(() => {
     if (timeStamp != null) {
       const dateObj = new Date(timeStamp);
@@ -298,7 +310,7 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
       onCalendarClose={resetOnClose}
       onCalendarOpen={onCalendarOpen}
       onChange={onChangeReactDP}
-      onClickOutside={onClickOutside}
+      onClickOutside={onClickOutside || selectDate}
       openDate={openDate}
       required={required}
       selectedDate={internalDate}

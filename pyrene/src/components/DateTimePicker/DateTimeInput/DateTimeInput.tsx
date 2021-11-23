@@ -1,7 +1,7 @@
 import React, { forwardRef } from 'react';
 import clsx from 'clsx';
 import IconButton from '../../IconButton/IconButton';
-import { allowedValueCheck } from '../../../utils/DateUtils';
+import { allowedValueCheck, DateTimeLocale } from '../../../utils/DateUtils';
 
 import styles from './dateTimeInput.css';
 
@@ -84,7 +84,7 @@ const DateTimeInput = forwardRef<HTMLInputElement, DateTimeInputProps>(({
   setTimeValue,
   timeFormat,
   timeValue = '',
-}:DateTimeInputProps, ref:React.Ref<HTMLInputElement>) => {
+}: DateTimeInputProps, ref: React.Ref<HTMLInputElement>) => {
 
   const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const node = event.target as HTMLInputElement;
