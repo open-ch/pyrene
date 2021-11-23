@@ -1,7 +1,7 @@
 import React, { forwardRef } from 'react';
 import clsx from 'clsx';
 import IconButton from '../../IconButton/IconButton';
-import { allowedValueCheck, DateTimeLocale } from '../../../utils/DateUtils';
+import { allowedValueCheck } from '../../../utils/DateUtils';
 
 import styles from './dateTimeInput.css';
 
