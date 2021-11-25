@@ -24,7 +24,7 @@ const examples: Example<CheckboxPopoverProps, State> = {
       }));
       stateProvider.setState({ listItems: newItemList });
     },
-    onRestoreDefault: () => {},
+    onRestoreDefault: (stateProvider: StateProvider<State>) => () => stateProvider.setState({ listItems: initListItems }),
   },
   category: 'Form',
 };
