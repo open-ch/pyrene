@@ -15,11 +15,9 @@ const SimpleTableActionList: <R = {}>(p: SimpleTableActionListProps<R>) => React
   actions,
   row,
 }) => {
-  const [activeAction, setActiveAction] = useState({
-    displayed: false,
-  });
+  const [isVisible, setIsVisible] = useState(false);
 
-  const onClose = () => setActiveAction({ displayed: false });
+  const onClose = () => setIsVisible(false);
 
   return (
     <Popover
@@ -47,7 +45,7 @@ const SimpleTableActionList: <R = {}>(p: SimpleTableActionListProps<R>) => React
         </div>
       )}
       preferredPosition={['bottom']}
-      displayPopover={activeAction.displayed}
+      displayPopover={isVisible}
       onClickOutside={onClose}
       autoReposition
     >
@@ -56,7 +54,7 @@ const SimpleTableActionList: <R = {}>(p: SimpleTableActionListProps<R>) => React
           onClick={(e) => {
             e.preventDefault();
             e.stopPropagation();
-            setActiveAction({ displayed: true });
+            setIsVisible(true);
           }}
           onDoubleClick={(e) => { e.stopPropagation(); }}
         >
