@@ -70,7 +70,7 @@ export interface MultiSelectProps {
   /**
    * Data input array. Type: [{ value: string (required), label: string (required), invalid: bool }]
    */
-  options: ReadonlyArray<Option>,
+  options?: ReadonlyArray<Option>,
   /**
    * Sets the placeholder label.
    */
@@ -161,7 +161,7 @@ const MultiSelect: FunctionComponent<MultiSelectProps> = (props: MultiSelectProp
     sorted = true,
     title = '',
     value = [],
-    options,
+    options = [],
   } = props;
 
   const [hasPastedDuplicates, setHasPastedDuplicates] = useState(false);
