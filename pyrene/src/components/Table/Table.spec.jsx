@@ -64,6 +64,11 @@ describe('<Table />', () => {
       label: 'Always',
       callback: onClick,
       active: 'always',
+    }, {
+      icon: 'filter',
+      label: 'Disabled',
+      callback: () => null,
+      active: 'disabled',
     }];
 
     const wrapper = shallow(<Table {...buttonTestProps} />);
@@ -82,6 +87,8 @@ describe('<Table />', () => {
       .simulate('click');
     expect(onClick)
       .toHaveBeenCalledTimes(3);
+
+    expect(wrapper.find('Button[label="Disabled"]').props().disabled).toBe(true);
   });
 
 });
