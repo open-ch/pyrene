@@ -80,7 +80,7 @@ export interface TableState {
 }
 
 export interface Action {
-  active: 'single' | 'multi' | 'always',
+  active: 'single' | 'multi' | 'always' | 'disabled',
   callback: (row: Array<string | number>) => void,
   icon?: keyof IconNames,
   label: string,
@@ -89,7 +89,7 @@ export interface Action {
 
 export interface TableProps<R={}> {
   /**
-   * Sets the table actions. Type: [{ icon: string, label: string (required), callback: func (required), active: oneOf('single', 'multi', 'always') (required) }]
+   * Sets the table actions. Type: [{ icon: string, label: string (required), callback: func (required), active: oneOf('single', 'multi', 'always', 'disabled') (required) }]
    */
   actions?: Array<Action>,
   /**
@@ -396,7 +396,11 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
       return false;
     }
 
-    // enable actions based on selection length and actionTypex
+    if (actionType === 'disabled') {
+      return false;
+    }
+
+    // enable actions based on selection length and actionType
     if (actionType === 'always') {
       return true;
     }
