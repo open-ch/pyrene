@@ -24,7 +24,7 @@ HowTo.propTypes = {
   howto: PropTypes.arrayOf(
     PropTypes.shape({
       component: PropTypes.func.isRequired,
-      description: PropTypes.string.isRequired,
+      description: PropTypes.node.isRequired,
       title: PropTypes.node.isRequired,
     }),
   ).isRequired,
