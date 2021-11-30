@@ -18,7 +18,7 @@ export default class TreeTableUtils {
       // eslint-disable-next-line
       sr._treeDepth = treeDepth + 1;
       // eslint-disable-next-line
-      sr._rowId = getRowKey(sr) || uniqid();
+      sr._rowId = getRowKey && getRowKey(sr) || uniqid();
       // eslint-disable-next-line
       sr._getParent = () => row;
 
@@ -33,7 +33,7 @@ export default class TreeTableUtils {
       // eslint-disable-next-line
       row._treeDepth = 0;
       // eslint-disable-next-line
-      row._rowId = getRowKey(row) || uniqid();
+      row._rowId = getRowKey && getRowKey(row) || uniqid();
       // eslint-disable-next-line
       row._getParent = () => null;
 
