@@ -16,6 +16,7 @@ const multiSelectStyle = (props) => ({
     fontFamily: 'FiraGO, Helvetica, sans-serif !important',
     fontSize: 12,
     width: '100%',
+    lineHeight: 1.33,
   }),
 
   indicatorSeparator: () => ({
