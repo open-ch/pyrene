@@ -6,7 +6,7 @@ import IconButton from '../../IconButton/IconButton';
 import 'react-datepicker/dist/react-datepicker.css';
 import styles from '../datePicker.css';
 
-export interface DatePickerProps{
+export interface DatePickerProps {
   /**
    * Trigger close of calendar dropdown
    */
@@ -56,7 +56,7 @@ export interface DatePickerProps{
    */
   onSelect?: (date: Date, event: React.SyntheticEvent<any> | undefined) => void,
   /**
-   * Move calender to specific date
+   * Move calendar to specific date
    */
   openDate?: Date,
   /**
@@ -99,7 +99,7 @@ const ReactDatePickerWrapper: React.FC<DatePickerProps> = ({
   minDate,
   onCalendarClose,
   onCalendarOpen,
-  onChange = () => {},
+  onChange = () => { },
   onClickOutside,
   onSelect,
   openDate,
