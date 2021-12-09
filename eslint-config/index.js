@@ -121,7 +121,7 @@ module.exports = {
     {
       "files": ["*.ts", "*.tsx"],
       "extends": [
-        "airbnb-typescript", 
+        "airbnb-typescript",
         "airbnb/hooks",
         "plugin:@typescript-eslint/recommended",
         "plugin:@typescript-eslint/recommended-requiring-type-checking"
@@ -134,7 +134,7 @@ module.exports = {
       },
       "plugins": ["react", "@typescript-eslint"],
       "rules": {
-        ...jsTsCommonRules, 
+        ...jsTsCommonRules,
         "no-use-before-define": "off",
         "@typescript-eslint/no-use-before-define": "error",
         "react/jsx-props-no-spreading": "off",
@@ -146,6 +146,7 @@ module.exports = {
             ]
           }
         ],
+        "react/prop-types": "off",
         "@typescript-eslint/no-explicit-any": 0,
         "comma-dangle": "off",
         "@typescript-eslint/comma-dangle": ["error"],
