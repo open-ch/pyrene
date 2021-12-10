@@ -1,6 +1,6 @@
 {
   "name": "@osag/eslint-config",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "description": "Pyrene ESLint Configuration",
   "author": "pyrene@open-systems.com",
   "license": "MIT",
