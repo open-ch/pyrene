@@ -64,17 +64,18 @@ The instance of the component in the component's page is done through the `examp
 
 This `PropTypes` object is generates thanks to a Babel plugin, called `babel-plugin-typescript-to-proptypes`. Indeed, components written in TyppeScript do not have any `PropTypes` object.
 
-## Kitchensink CI / CD
-The CI / CD of Kitchenink is handled with GitHub Actions, means by the following file :
+----
+
+## CI / CD
+The CI  of Kitchenink is handled with GitHub Actions, means by the following file :
 
 ```
 .github/workflows/kitchensink.yml
 ```
 
-Upon a Pyrene PR merge a new deployment of Kitchensink is triggered thanks to the GitHub Actions mentioned right above.
+Upon a commit or merge, the CI is triggered thanks to the GitHub Actions mentioned right above.
 
-
-----
+The CD is done upon release.
 
 
 ## Pyrene possible improvements
