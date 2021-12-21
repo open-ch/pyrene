@@ -28,6 +28,8 @@ Kitchensink use pyrene as npm dependency. See on that regard the `package.json` 
 ## How does Kitchensink work ?
 Kitchensink analyses the `PropTypes` object of each Pyrene component. Base on that object, Kitchensink generates the documentation for each component, means the `props`, the `type` of these props, etc.
 
+The instance of component in the component's page is done through the example file of each component.
+
 This `PropType` object is generates thanks to a Babel plugin. Indeed, component written in TyppeScript do not have any PropType object.
 
 ## Kitchensink CI / CD
