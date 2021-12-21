@@ -47,7 +47,7 @@ Kitchensink analyses the `PropTypes` object of each Pyrene component. Base on th
 
 The instance of the component in the component's page is done through the `example` file of each component.
 
-This `PropType` object is generates thanks to a Babel plugin, called `babel-plugin-typescript-to-proptypes`. Indeed, components written in TyppeScript do not have any `PropType` object.
+This `PropTypes` object is generates thanks to a Babel plugin, called `babel-plugin-typescript-to-proptypes`. Indeed, components written in TyppeScript do not have any `PropTypes` object.
 
 ## Kitchensink CI / CD
 The CI / CD of Kitchenink is handled with GitHub Actions, means by the the following file :
