@@ -543,6 +543,8 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
   };
 
   render() {
+    // eslint-disable-next-line no-console
+    console.log('test on 21 Dec 2021 at 23:05');
     return (
       <div className={styles.tableContainer}>
         {this.props.title && (
