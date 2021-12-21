@@ -543,6 +543,7 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
   };
 
   render() {
+    console.log('test 21th Dec 2021 at 18:17');
     return (
       <div className={styles.tableContainer}>
         {this.props.title && (
