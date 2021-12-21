@@ -37,7 +37,7 @@ const Accordion: React.FC<AccordionProps> = ({
 
 ----
 ## What is Kitchensink ?
-Kitchensink is a React application hosted on [GitHub Pages](https://pages.github.com/). 
+Kitchensink is a React application hosted on [GitHub Pages](https://pages.github.com/), at the [url](https://open-ch.github.io/pyrene/).
 
 Kitchensink uses pyrene as npm dependency. See on that regard the `package.json` of kitchensink.
 
