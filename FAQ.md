@@ -4,13 +4,19 @@
 ## What is Pyrene ?
 Pyrene is a monorepo made of different sub-projects.
 
+These sub-projects are :
+1. `Pyrene` React UI components.
+2. `Kitchensink` demo web site.
+3. `Pyrene-graphs` React UI components.
+4. `Tuktuktwo` React UI components (svg) used by Pyrene-graphs.
+
 ## Where is Pyrene hosted ?
 [npmjs.com](https://www.npmjs.com/package/@osag/pyrene).
 
 ## Requirements for using Pyrene ?
 The requirements are set as a `peerDepenencies` in the `package.json`. Users of Pyrene have to have `react` and `react-dom` imported as npm dependencies.
 
-## Npm dependencies in Pyrene ?
+## Shared npm dependencies in Pyrene
 The npm dependencies at the root of the project are for Storybook only. Indeed, the npm dependencies for having Pyrene related dependencies shared among the various sub-projects.
 
 In case a refactoring of the Pyrene architecture might happen, it would be better to have a dedicated tool such as Lerna. Lerna can handle better npm denpencies across sub-project better than the way it is currently done.
@@ -21,7 +27,7 @@ The Pyrene TypScript source code is compiled down to JS with Babel and not tsc (
 
 The process of transpilation is hand over to webpack. In the webpack configuration, you can see that the lodader is responsible for that process is
 
-## Why does Pyrene use Babel ?
+## Why does Pyrene compile TS with Babel ?
 Th.
 
 
@@ -50,24 +56,22 @@ The instance of the component in the component's page is done through the `examp
 This `PropTypes` object is generates thanks to a Babel plugin, called `babel-plugin-typescript-to-proptypes`. Indeed, components written in TyppeScript do not have any `PropTypes` object.
 
 ## Kitchensink CI / CD
-The CI / CD of Kitchenink is handled with GitHub Actions, means by the the following file :
+The CI / CD of Kitchenink is handled with GitHub Actions, means by the following file :
 
 ```
 .github/workflows/kitchensink.yml
 ```
 
-Upon a Puyrene PR merge a new deployment is triggered thanks to the GitHub Actions mentioned right above.
+Upon a Pyrene PR merge a new deployment of Kitchensink is triggered thanks to the GitHub Actions mentioned right above.
 
 
 ----
 
 
-## Pyrene possible improvement
-Kitchensink's goal is to document the UI component of Pyrene like Storybook does.
+## Pyrene possible improvements
 
-The issue of Kitchensink are multiple :
-1) See hacks
-2)
+1) Replace Kitchensink by Storybook
+2) Pyrene bundle should be split up by file per component
 3) Generated propType make the code bigger
 4) Use Lerna for managing dependencies across sub-projects
 
