@@ -16,6 +16,15 @@ These sub-projects are :
 ## Requirements for using Pyrene ?
 The requirements are set as a `peerDepenencies` in the `package.json`. Users of Pyrene have to have `react` and `react-dom` imported as npm dependencies.
 
+## How to use Pyrene ?
+1. Install the library by using npm or yan.
+2. Import Pyrene style at the entry point of your application :
+
+```
+import '@osag/pyrene/dist/pyrene.css';
+import '@osag/pyrene-graphs/dist/pyrene-graphs.css';
+```
+
 ## Shared npm dependencies in Pyrene
 The npm dependencies at the root of the project are for Storybook only. Indeed, the npm dependencies for having Pyrene related dependencies shared among the various sub-projects.
 
@@ -71,6 +80,7 @@ Upon a Pyrene PR merge a new deployment of Kitchensink is triggered thanks to th
 ## Pyrene possible improvements
 
 1) Replace Kitchensink by Storybook
+2) Remove hacks done for Kitchensink
 2) Pyrene bundle should be split up by file per component
 3) Generated propType make the code bigger
 4) Use Lerna for managing dependencies across sub-projects
