@@ -16,7 +16,7 @@ These sub-projects are :
 The requirements are set as a `peerDepenencies` in the `package.json`. Users of Pyrene have to have `react` and `react-dom` imported as npm dependencies.
 
 ## How to use Pyrene ?
-1. Install the library by using npm or yan.
+1. Install the library by using npm or yarn.
 2. Import Pyrene's style at the entry point of your application :
 
 ```
