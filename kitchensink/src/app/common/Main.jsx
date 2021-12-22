@@ -28,6 +28,7 @@ export default class Main extends React.PureComponent {
 
   render() {
 
+    console.log('Components', Components);
     // Prefill the searchbar with the searched input from the url if the site is directly accessed via a .../search/somesearchinput link
     let searchBarValue = '';
     if (this.props.location.pathname.includes('search')) {

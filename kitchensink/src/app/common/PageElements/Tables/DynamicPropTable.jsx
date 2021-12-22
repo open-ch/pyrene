@@ -98,6 +98,7 @@ export default class DynamicPropTable extends React.Component {
   }
 
   render() {
+    console.log('thomasTest propDocumentation', this.propTypes.propDocumentation);
     return (
       <div className={styles.propTableEditor}>
         <Table
