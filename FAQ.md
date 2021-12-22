@@ -6,10 +6,9 @@ Pyrene is a monorepo made of different sub-projects.
 
 These sub-projects are :
 1. `Pyrene` React UI components.
-2. `Kitchensink` demo web site.
-3. `Pyrene-graphs` React UI components.
-4. `Tuktuktwo` React UI components (svg) used by Pyrene-graphs.
-
+2. `Pyrene-graphs` React UI components.
+3. `Tuktuktwo` React UI components (svg) used by Pyrene-graphs.
+4. `Kitchensink` web site which documents components.
 ## Where is Pyrene hosted ?
 [npmjs.com](https://www.npmjs.com/package/@osag/pyrene).
 
@@ -18,7 +17,7 @@ The requirements are set as a `peerDepenencies` in the `package.json`. Users of 
 
 ## How to use Pyrene ?
 1. Install the library by using npm or yan.
-2. Import Pyrene style at the entry point of your application :
+2. Import Pyrene's style at the entry point of your application :
 
 ```
 import '@osag/pyrene/dist/pyrene.css';
@@ -32,9 +31,9 @@ In case a refactoring of the Pyrene architecture might happen, it would be bette
 
 
 ## How is the Pyrene TS transpiled ?
-The Pyrene TypScript source code is compiled down to JS with Babel and not tsc (typescript compiler).
+The Pyrene TypeScript source code is compiled down to JS with Babel and not tsc (typescript compiler).
 
-The process of transpilation is hand over to webpack. In the webpack configuration, you can see that the lodader is responsible for that process is
+The process of transpilation is hand over to webpack. In the webpack configuration, you can see that the webpack lodader `babel-loader` is responsible for that process.
 
 ## Why does Pyrene compile TS with Babel ?
 Th.
@@ -52,13 +51,13 @@ const Accordion: React.FC<AccordionProps> = ({
 
 ----
 ## What is Kitchensink ?
-Kitchensink is a React application hosted on [GitHub Pages](https://pages.github.com/), at the [url](https://open-ch.github.io/pyrene/).
+`Kitchensink` is a React application hosted on [GitHub Pages](https://pages.github.com/), at the [url](https://open-ch.github.io/pyrene/).
 
-Kitchensink uses pyrene as npm dependency. See on that regard the `package.json` of kitchensink.
+`Kitchensink` uses Pyrene as npm dependency. See on that regard the `package.json` of `kitchensink`.
 
 
 ## How does Kitchensink work ?
-Kitchensink analyses the `PropTypes` object of each Pyrene component. Base on that object, Kitchensink generates the documentation for each component, means the `props`, the `type` of these props, if those are `required` or not, etc.
+`Kitchensink` analyses the `PropTypes` object of each Pyrene component. Base on that object, `Kitchensink` generates the documentation for each component, means the `props`, the `type` of these props, if those are `required` or not, etc.
 
 The instance of the component in the component's page is done through the `example` file of each component.
 
@@ -67,7 +66,7 @@ This `PropTypes` object is generates thanks to a Babel plugin, called `babel-plu
 ----
 
 ## CI / CD
-The CI  of Kitchenink is handled with GitHub Actions, means by the following file :
+The CI is managed by GitHub Actions, it means by the following files :
 
 ```
 .github/workflows/kitchensink.yml
