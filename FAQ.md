@@ -113,7 +113,7 @@ CD for `Kitchensink` is managed by GitHub Actions, by the following file:
 ```
 That action is automatically triggered upon a Pyrene release.
 
-You can also manually trigger a `Kitchensink` deployment in GitHub website, under Actions, Workflows, select `Kitchensink`. Click on the `Run workflow` button.
+You can also manually trigger a `Kitchensink` deployment in GitHub website, under Actions, Workflows, select `Kitchensink`. Click on the `Run workflow` button. This manual trigger is possible thanks to the `workflow_dispatch` property in the GitHub Actions file.
 
 ----
 
