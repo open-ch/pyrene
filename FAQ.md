@@ -36,7 +36,7 @@ The Pyrene TypeScript source code is compiled down to JS with Babel.
 The process of transpilation is hand over to webpack. In the webpack configuration, you can see that the webpack loader `babel-loader` is responsible for that process.
 
 ## Why does Pyrene compile TS with Babel ?
-TypeScript code base is compile to JS with Babel and not tsc (typescript compiler). The reason for that is that we need to 
+TypeScript code base is compiled to JS with Babel and not tsc (typescript compiler). The reason for that is that we need to access to the compiler for converting type of component in TypeScipt to PropType of component in JavaScript. See point.
 
 
 ## Hacks in Pyrene
@@ -56,11 +56,26 @@ type MyButtonProps = MyButtonBase & {
 const MyButton: React.FC<MyButtonProps> = ...
 ```
 
-3. 
+2. The proper way of using React generics is the following:
+
 ```
-const Accordion: React.FC<AccordionProps> = ({
-  sections,
-}: AccordionProps)
+const Card: React.FC<CardProps> = ({
+  title,
+  content,
+}) => (
+  <div>...</div>
+);
+```
+
+However, in order to have the Kitcheninsik properly working, we have to use generics in the following way (type duplication) :
+
+```
+const Card: React.FC<CardProps> = ({
+  title,
+  content,
+}: CardProps) => (
+  <div>...</div>
+);
 ```
 
 
@@ -73,7 +88,7 @@ const Accordion: React.FC<AccordionProps> = ({
 
 ## How does Kitchensink work ?
 
-Firstly, Kichensink extracts all Pyrene comoponent out of the Pyrene bundle.
+Firstly, Kichensink extracts all Pyrene comoponents out of the Pyrene bundle.
 
 Secondly, `Kitchensink` analyses the `PropTypes` object of each Pyrene component. Based on that object, `Kitchensink` generates the documentation for each component, means the `props`, the `type` of these props, if those are `required` or not, etc.
 
@@ -90,7 +105,7 @@ CI is managed by GitHub Actions, by the following files:
 .github/workflows/lint.yml
 .github/workflows/test.yml
 ```
-Those two actions are triggered upon a commit or merge.
+Those two actions are automatically triggered upon a commit and a PR merge.
 
 CD for `Kitchensink` is managed by GitHub Actions, by the following file:
 ```
@@ -98,16 +113,16 @@ CD for `Kitchensink` is managed by GitHub Actions, by the following file:
 ```
 That action is automatically triggered upon a Pyrene release.
 
-You can also manually trigger a Kitchensink deployment in GitHub website, under Actions, Workflows, select `Kitchensink`.
+You can also manually trigger a `Kitchensink` deployment in GitHub website, under Actions, Workflows, select `Kitchensink`. Click on the `Run workflow` button.
 
 ----
 
 ## Pyrene possible improvements
 
 1) Replace Kitchensink by Storybook.
-2) Remove hacks done for Kitchensink.
-2) Pyrene bundle should be split up by file per component. Indeed, the users of Pyrene will have the entire Pyrene code in their app's bundle even if they use just some of the available Pyrene components.
-3) Generated propType make the code bigger.
+2) Remove hacks done for Kitchensink to work properly.
+2) Pyrene bundle should be split up by file per component. Indeed, the users of Pyrene will have the entire Pyrene source in their app's bundle even if they use just some of the available Pyrene components.
+3) PropType generation for each component is not pertinent. That makes the code bigger just for Kitchensink purpose.
 4) Use Lerna for managing dependencies across sub-projects.
 5) All components could have a `className` props for overriding style.
 
