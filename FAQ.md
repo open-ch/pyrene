@@ -41,7 +41,7 @@ TypeScript code base is compiled to JS with Babel and not tsc (typescript compil
 
 ## Hacks in Pyrene
 
-1. As mentioned TypeScript is handle by Babel. The problem is that the Babel plugin does not support TypeScript syntax properly, for example, we cannot do type extension like this.
+1. As mentioned TypeScript is handled by Babel. The problem is that the Babel plugin does not support TypeScript syntax properly, for example, we cannot do type extension like this.
 
 ```
 
