@@ -36,7 +36,7 @@ The Pyrene TypeScript source code is compiled down to JS with Babel.
 The process of transpilation is hand over to webpack. In the webpack configuration, you can see that the webpack loader `babel-loader` is responsible for that process.
 
 ## Why does Pyrene compile TS with Babel ?
-TypeScript code base is compiled to JS with Babel and not tsc (typescript compiler). The reason for that is that we need to access to the compiler for converting type of component in TypeScipt to PropType of component in JavaScript. See point.
+TypeScript code base is compiled to JS with Babel and not tsc (typescript compiler). The reason for that is that we need to access to the compiler for converting type of component in TypeScript to PropType of component in JavaScript. See point.
 
 
 ## Hacks in Pyrene
