@@ -43,7 +43,7 @@ The reason for that is that we need to access the parser during the compilation 
 
 ## Hacks in Pyrene
 
-1. As mentioned [here](#why-does-pyrene-compile-ts-with-baze), TypeScript is handled by Babel. The problem is that the Babel plugin does not support TypeScript syntax properly, for example, we cannot do type extension like this.
+1. As mentioned [here](#why-does-pyrene-compile-ts-with-bazel), TypeScript is handled by Babel. The problem is that the Babel plugin does not support TypeScript syntax properly, for example, we cannot do type extension like this.
 
 ```
 
