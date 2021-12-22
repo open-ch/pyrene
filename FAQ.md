@@ -40,8 +40,23 @@ TypeScript code base is compile to JS with Babel and not tsc (typescript compile
 
 
 ## Hacks in Pyrene
-not supporting well TS
 
+1. As mentioned TypeScript is handle by Babel. The problem is that the Babel plugin does not support TypeScript syntax properly, for example, we cannot do type extension like this.
+
+```
+
+type MyButtonBaseProps = MyButtonBase & {
+  label: string,
+}
+
+type MyButtonProps = MyButtonBase & {
+  onClick: () => void,
+}
+
+const MyButton: React.FC<MyButtonProps> = ...
+```
+
+3. 
 ```
 const Accordion: React.FC<AccordionProps> = ({
   sections,
@@ -57,7 +72,10 @@ const Accordion: React.FC<AccordionProps> = ({
 
 
 ## How does Kitchensink work ?
-`Kitchensink` analyses the `PropTypes` object of each Pyrene component. Base on that object, `Kitchensink` generates the documentation for each component, means the `props`, the `type` of these props, if those are `required` or not, etc.
+
+Firstly, Kichensink extracts all Pyrene comoponent out of the Pyrene bundle.
+
+Secondly, `Kitchensink` analyses the `PropTypes` object of each Pyrene component. Based on that object, `Kitchensink` generates the documentation for each component, means the `props`, the `type` of these props, if those are `required` or not, etc.
 
 The instance of the component in the component's page is done through the `example` file of each component.
 
