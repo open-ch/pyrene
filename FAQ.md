@@ -31,12 +31,12 @@ In case a refactoring of the Pyrene architecture might happen, it would be bette
 
 
 ## How is the Pyrene TS transpiled ?
-The Pyrene TypeScript source code is compiled down to JS with Babel and not tsc (typescript compiler).
+The Pyrene TypeScript source code is compiled down to JS with Babel.
 
-The process of transpilation is hand over to webpack. In the webpack configuration, you can see that the webpack lodader `babel-loader` is responsible for that process.
+The process of transpilation is hand over to webpack. In the webpack configuration, you can see that the webpack loader `babel-loader` is responsible for that process.
 
 ## Why does Pyrene compile TS with Babel ?
-Th.
+TypeScript code base is compile to JS with Babel and not tsc (typescript compiler). The reason for that is that we need to 
 
 
 ## Hacks in Pyrene
@@ -66,27 +66,32 @@ This `PropTypes` object is generates by a Babel plugin, called `babel-plugin-typ
 ----
 
 ## CI / CD
-Upon a commit or merge, CI is triggered by GitHub Actions, by the following files:
+CI is managed by GitHub Actions, by the following files:
 
 ```
 .github/workflows/lint.yml
 .github/workflows/test.yml
 ```
+Those two actions are triggered upon a commit or merge.
 
 CD for `Kitchensink` is managed by GitHub Actions, by the following file:
 ```
 .github/workflows/kitchensink.yml
 ```
-That action is triggered on a Kitchensink release.
+That action is automatically triggered upon a Pyrene release.
+
+You can also manually trigger a Kitchensink deployment manually in GitHub website, under Actions, Workflows, select `Kitchensink`.
+
+----
 
 ## Pyrene possible improvements
 
 1) Replace Kitchensink by Storybook
 2) Remove hacks done for Kitchensink
-2) Pyrene bundle should be split up by file per component
+2) Pyrene bundle should be split up by file per component. Indeed, the users of Pyrene will have the entire Pyrene code in their app's bundle even if they use just some of the available Pyrene components.
 3) Generated propType make the code bigger
 4) Use Lerna for managing dependencies across sub-projects
 
 ----
 
-Document created on the 21th December 2021 
+Document created on the 22th December 2021 
