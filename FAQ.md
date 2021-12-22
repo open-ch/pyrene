@@ -86,11 +86,12 @@ You can also manually trigger a Kitchensink deployment in GitHub website, under 
 
 ## Pyrene possible improvements
 
-1) Replace Kitchensink by Storybook
-2) Remove hacks done for Kitchensink
+1) Replace Kitchensink by Storybook.
+2) Remove hacks done for Kitchensink.
 2) Pyrene bundle should be split up by file per component. Indeed, the users of Pyrene will have the entire Pyrene code in their app's bundle even if they use just some of the available Pyrene components.
-3) Generated propType make the code bigger
-4) Use Lerna for managing dependencies across sub-projects
+3) Generated propType make the code bigger.
+4) Use Lerna for managing dependencies across sub-projects.
+5) All components could have a `className` props for overriding style.
 
 ----
 
