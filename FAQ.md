@@ -80,7 +80,7 @@ CD for `Kitchensink` is managed by GitHub Actions, by the following file:
 ```
 That action is automatically triggered upon a Pyrene release.
 
-You can also manually trigger a Kitchensink deployment manually in GitHub website, under Actions, Workflows, select `Kitchensink`.
+You can also manually trigger a Kitchensink deployment in GitHub website, under Actions, Workflows, select `Kitchensink`.
 
 ----
 
