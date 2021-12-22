@@ -35,13 +35,15 @@ The Pyrene TypeScript source code is compiled down to JS with Babel.
 
 The process of transpilation is hand over to webpack. In the webpack configuration, you can see that the webpack loader `babel-loader` is responsible for that process.
 
-## Why does Pyrene compile TS with Babel ?
-TypeScript code base is compiled to JS with Babel and not tsc (typescript compiler). The reason for that is that we need to access to the compiler for converting type of component in TypeScript to PropType of component in JavaScript. See point.
+## <a name="why-does-pyrene-compile-ts-with-bazel"></a> Why does Pyrene compile TS with Bazel ?
+TypeScript code base is compiled to JS with Babel and not tsc (typescript compiler).
+
+The reason for that is that we need to access the parser during the compilation process for converting type of component in TypeScript to PropType of component in JavaScript. See [here](#proptypes-generation).
 
 
 ## Hacks in Pyrene
 
-1. As mentioned TypeScript is handled by Babel. The problem is that the Babel plugin does not support TypeScript syntax properly, for example, we cannot do type extension like this.
+1. As mentioned [here](#why-does-pyrene-compile-ts-with-baze), TypeScript is handled by Babel. The problem is that the Babel plugin does not support TypeScript syntax properly, for example, we cannot do type extension like this.
 
 ```
 
@@ -67,7 +69,7 @@ const Card: React.FC<CardProps> = ({
 );
 ```
 
-However, in order to have the Kitcheninsik properly working, we have to use generics in the following way (type duplication) :
+However, in order to have the Kitchensink properly working, we have to use generics in the following way (type duplication) :
 
 ```
 const Card: React.FC<CardProps> = ({
@@ -94,7 +96,7 @@ Secondly, `Kitchensink` analyses the `PropTypes` object of each Pyrene component
 
 The instance of the component in the component's page is done through the `example` file of each component.
 
-This `PropTypes` object is generates by a Babel plugin, called `babel-plugin-typescript-to-proptypes`. Indeed, components written in TypeScript do not have any `PropTypes` object.
+<a name="proptypes-generation"></a> This `PropTypes` object is generates by a Babel plugin, called `babel-plugin-typescript-to-proptypes`. Indeed, components written in TypeScript do not have any `PropTypes` object.
 
 ----
 
