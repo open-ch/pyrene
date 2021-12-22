@@ -8,7 +8,7 @@ These sub-projects are :
 1. `Pyrene` React UI components.
 2. `Pyrene-graphs` React UI components.
 3. `Tuktuktwo` React UI components (svg) used by Pyrene-graphs.
-4. `Kitchensink` web site which documents components.
+4. `Kitchensink` web site which documents the components of `1.` and `2.` right above.
 ## Where is Pyrene hosted ?
 [npmjs.com](https://www.npmjs.com/package/@osag/pyrene).
 
@@ -61,21 +61,23 @@ const Accordion: React.FC<AccordionProps> = ({
 
 The instance of the component in the component's page is done through the `example` file of each component.
 
-This `PropTypes` object is generates thanks to a Babel plugin, called `babel-plugin-typescript-to-proptypes`. Indeed, components written in TyppeScript do not have any `PropTypes` object.
+This `PropTypes` object is generates by a Babel plugin, called `babel-plugin-typescript-to-proptypes`. Indeed, components written in TypeScript do not have any `PropTypes` object.
 
 ----
 
 ## CI / CD
-The CI is managed by GitHub Actions, it means by the following files :
+Upon a commit or merge, CI is triggered by GitHub Actions, by the following files:
 
+```
+.github/workflows/lint.yml
+.github/workflows/test.yml
+```
+
+CD for `Kitchensink` is managed by GitHub Actions, by the following file:
 ```
 .github/workflows/kitchensink.yml
 ```
-
-Upon a commit or merge, the CI is triggered thanks to the GitHub Actions mentioned right above.
-
-The CD is done upon release.
-
+That action is triggered on a Kitchensink release.
 
 ## Pyrene possible improvements
 
