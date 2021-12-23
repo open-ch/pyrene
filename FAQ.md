@@ -116,6 +116,7 @@ For running Storybook. At the root of the monorepo:
 ```
 npm run storybook
 ```
+Browse http://localhost:6006
 
 ----
 ## What is the Kitchensink ?
