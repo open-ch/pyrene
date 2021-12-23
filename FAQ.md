@@ -48,7 +48,7 @@ import '@osag/pyrene-graphs/dist/pyrene-graphs.css';
 1. `npm install @osag/tuktuktwo`.
 
 ## Shared npm dependencies in Pyrene
-The npm dependencies at the root of the monorepo are for Storybook only. Indeed, the npm dependencies for having Storybook related dependencies are shared among the various subprojects.
+The npm dependencies at the root of the monorepo are for Storybook only. Indeed, the npm dependencies related to Storybook are shared among the various subprojects.
 
 In case a refactoring of the Pyrene architecture happens, it would be better to have a dedicated tool such as Lerna. Lerna can handle better npm denpencies across subprojects better than the way it is currently done.
 
