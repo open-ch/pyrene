@@ -83,6 +83,8 @@ const Card: React.FC<CardProps> = ({
 );
 ```
 
+## Input components
+Some component in Pyrene are not intended to by used in a standalone way. These input components can by used only by parent passing state and state setter props to them. That's the reason why we have a `StateProvider` component in `Kitchensink` to demonstrate them.
 
 ----
 ## What is Kitchensink ?
