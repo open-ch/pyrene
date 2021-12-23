@@ -109,7 +109,7 @@ CI is managed by GitHub Actions, by the following files:
 .github/workflows/lint.yml
 .github/workflows/test.yml
 ```
-Those two actions are automatically triggered upon a commit and a PR merge.
+Those two actions are automatically triggered upon a commit or a PR merge.
 
 CD for `Kitchensink` is managed by GitHub Actions, by the following file:
 ```
