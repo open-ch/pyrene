@@ -2,7 +2,7 @@
 
 ----
 ## What is Pyrene ?
-Pyrene is a monorepo made of different sub-projects.
+Pyrene is a monorepo made of different subprojects.
 
 These sub-projects are :
 1. `Pyrene` React UI components.
@@ -10,15 +10,23 @@ These sub-projects are :
 3. `Tuktuktwo` React UI components (svg) used by Pyrene-graphs.
 4. `Kitchensink` web site which documents the components of `1.` and `2.` right above.
 
+The `Pyrene` subproject and the `Pyrene-graphs` subproject are separated npm module. The `Kitchensink` subproject is not meant to be reused.
+
 ## Where is Pyrene hosted ?
-[npmjs.com](https://www.npmjs.com/package/@osag/pyrene).
+[Pyrene subproject](https://www.npmjs.com/package/@osag/pyrene).
+
+[Pyrene-graphs subproject](https://www.npmjs.com/package/@osag/pyrene-graphs).
 
 ## Requirements for using Pyrene ?
-The requirements are set as a `peerDepenencies` in the `pyrene/package.json`.
+The requirements for using the `Pyrene` subproject set as a `peerDepenencies` in the Pyrene sub-project `package.json`.
 
-Users of Pyrene have to have `react` and `react-dom` imported as npm dependencies.
+The requirements for using the `Pyrene-graphs` subproject set as a `peerDepenencies` in the Pyrene sub-project `package.json`.
+
 
 ## How to use Pyrene ?
+
+`Pyrene` and `Pyrene-graphs` are separated npm module.
+
 1. Install the library by using npm or yarn.
 2. Import Pyrene's style at the entry point of your application :
 
@@ -28,21 +36,22 @@ import '@osag/pyrene-graphs/dist/pyrene-graphs.css';
 ```
 
 ## Shared npm dependencies in Pyrene
-The npm dependencies at the root of the project are for Storybook only. Indeed, the npm dependencies for having Pyrene related dependencies shared among the various sub-projects.
+The npm dependencies at the root of the monorepo are for Storybook only. Indeed, the npm dependencies for having Storybook related dependencies are shared among the various subprojects.
 
-In case a refactoring of the Pyrene architecture might happen, it would be better to have a dedicated tool such as Lerna. Lerna can handle better npm denpencies across sub-project better than the way it is currently done.
+In case a refactoring of the Pyrene architecture might happen, it would be better to have a dedicated tool such as Lerna. Lerna can handle better npm denpencies across subprojects better than the way it is currently done.
 
 
 ## How is the Pyrene TS transpiled ?
-The Pyrene TypeScript source code is compiled down to JS with Babel.
+The Pyrene TypeScript source code is compiled down to JS with Babel. We do not use tsc (typescript compiler).
 
 The process of transpilation is hand over to webpack. In the webpack configuration, you can see that the webpack loader `babel-loader` is responsible for that process.
 
-## <a name="why-does-pyrene-compile-ts-with-bazel"></a>Why does Pyrene compile TS with Bazel ?
-TypeScript code base is compiled to JS with Babel and not tsc (typescript compiler).
+## <a name="why-does-pyrene-compile-ts-with-bazel"></a>Why does Pyrene compile TypeScript with Bazel ?
+The reason why we compile the TypeScript code through Babel, is that we need to access the parser during the compilation process for converting the typing of props' component done in TypeScript into a PropTypes object in JavaScript. See [here](#proptypes-generation).
 
-The reason for that is that we need to access the parser during the compilation process for converting the typing of props' component done in TypeScript into a PropTypes object in JavaScript. See [here](#proptypes-generation).
 
+## Why do we need TypeScript as dev dependency ?
+This is a fair question given that we compile TypeScript down to JavaScript with Babel and not with the tsc (typescript compiler). Babel does only compile and not type-checking. You have thereby the answer to your question.
 
 ## <a name="hacks-in-pyrene"></a>Hacks in Pyrene
 
@@ -126,6 +135,15 @@ CD for `Kitchensink` is managed by GitHub Actions, by the following file:
 That action is automatically triggered upon a Pyrene release.
 
 You can also manually trigger a `Kitchensink` deployment in GitHub website, under Actions, Workflows, select `Kitchensink`. Click on the `Run workflow` button. This manual trigger is possible thanks to the `workflow_dispatch` property in the GitHub Actions file.
+
+____
+
+## Pyrene development
+Refer to the guideline for launching a development [environment](https://github.com/open-ch/pyrene/blob/main/kitchensink/DEVELOPMENT.md) with Pyrene. 
+
+If you create a new component in the Pyrene subproject, you need to import it in the index fie.
+
+If you add a third party library, you need to load the css with the `css-loader` in the webpack configuration.
 
 ----
 
