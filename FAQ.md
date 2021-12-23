@@ -46,11 +46,11 @@ The reason for that is that we need to access the parser during the compilation 
 
 ## <a name="hacks-in-pyrene"></a>Hacks in Pyrene
 
-1. As mentioned [here](#why-does-pyrene-compile-ts-with-bazel), TypeScript is handled by Babel. The problem is that the Babel plugin we are using, does not support TypeScript syntax properly, for example, we cannot do type extension like this.
+1. As mentioned [here](#why-does-pyrene-compile-ts-with-bazel), TypeScript is handled by Babel. The problem is that the [Babel plugin](#proptypes-generation) we are using, does not support TypeScript syntax properly, for example, we cannot do type extension like this.
 
 ```
 
-type MyButtonBaseProps = MyButtonBase & {
+type MyButtonBase = {
   label: string,
 }
 
@@ -72,7 +72,7 @@ const Card: React.FC<CardProps> = ({
 );
 ```
 
-However, in order to have the Babel plugin properly working, we have to use generics in the following way (type duplication) :
+However, in order to have the [Babel plugin](#proptypes-generation) properly working, we have to use generics in the following way (type duplication) :
 
 ```
 const Card: React.FC<CardProps> = ({
