@@ -47,7 +47,7 @@ The npm dependencies at the root of the monorepo are for Storybook only. Indeed,
 In case a refactoring of the Pyrene architecture happens, it would be better to have a dedicated tool such as Lerna. Lerna can handle better npm denpencies across subprojects better than the way it is currently done.
 
 
-## How is the Pyrene TS transpiled ?
+## How is the Pyrene TypeScript transpiled ?
 The `Pyrene` TypeScript source code is compiled down to JavaScript with Babel. We do not use `tsc` (TypeScript compiler).
 
 The process of transpilation is hand over to webpack. In the webpack configuration, you can see that the webpack loader `babel-loader` is responsible for that process.
@@ -107,6 +107,15 @@ const Card: React.FC<CardProps> = ({
 Some components in the `Pyrene` subproject are not standalone compoents (`Textfield`, `Checkbox`, etc.).
 
 These input components can by used only by a parent passing a `state` - a value - and a `state setter` - a `onChange` function - props to those one. In order to demonstrate those components either in the `Kitchensink` subproject (see any example file) or in Storybook, you have to provide a `StateProvider`.
+
+## Storybook
+The migration to Storybook is still ongoing. The reason for migrating from Kitchensink to Storybook was due to the lack of scale of Kitchensink.
+
+
+For running Storybook. At the root of the monorepo:
+```
+npm run storybook
+```
 
 ----
 ## What is the Kitchensink ?
