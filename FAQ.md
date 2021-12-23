@@ -52,13 +52,18 @@ The reason for that is that we need to access the parser during the compilation 
 
 type MyButtonBase = {
   label: string,
+  lodading: boolean,
 }
 
 type MyButtonProps = MyButtonBase & {
   onClick: () => void,
 }
 
-const MyButton: React.FC<MyButtonProps> = ...
+const MyButton: React.FC<MyButtonProps> = (props) => (
+  <div>
+    <button>...</button>
+  </div>
+);
 ```
 
 2. The proper way of using React generics is the following:
@@ -84,7 +89,7 @@ const Card: React.FC<CardProps> = ({
 ```
 
 ## Input components
-Some component in Pyrene are not intended to by used in a standalone way (`Textfield`, `Checkbox`, etc.). These input components can by used only by a parent passing a `state` and `state setter` in form of a `onChange` props to them. That's the reason why we have a `StateProvider` component in `Kitchensink` to demonstrate them.
+Some components in Pyrene are not intended to by used in a standalone way (`Textfield`, `Checkbox`, etc.). These input components can by used only by a parent passing a `state` - a value - and a `state setter` - a `onChange` function - props to them. That's the reason why we have a `StateProvider` system in `Kitchensink` to interact with those components.
 
 ----
 ## What is Kitchensink ?
@@ -129,9 +134,10 @@ You can also manually trigger a `Kitchensink` deployment in GitHub website, unde
 1) Replace Kitchensink by Storybook.
 2) Remove the [hacks](#hacks-in-pyrene) done for Kitchensink to work properly.
 2) Pyrene bundle should be split up by file per component. Indeed, the users of Pyrene will have the entire Pyrene source in their app's bundle even if they use just some of the available Pyrene components.
-3) [PropType generation](#proptypes-generation) for each component is not pertinent. This is done for only for `Kitchensink` to do his job. PropType in each component, makes the code bigger. **Static type checking** is enough at a library level. In other words, do not do run time type checking in Pyrene and thus do not generate PropType for each component.
+3) [PropType generation](#proptypes-generation) for each component is not pertinent in a production environment. This is done for only for `Kitchensink` to do his job. PropType in each component, makes the code bigger. **Static type checking** is enough at a library level. In other words, do not support run time type checking in Pyrene and thus do not generate PropType for each component.
 4) Use Lerna for managing dependencies across sub-projects.
-5) All components could have a `className` props for overriding style.
+5) Add [snapshot testing](https://jestjs.io/docs/snapshot-testing) for mitigating regression.
+6) All components could have a `className` props for overriding style.
 
 ----
 
