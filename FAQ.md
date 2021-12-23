@@ -156,7 +156,7 @@ CI is managed by GitHub Actions, by the following files:
 Those two actions are automatically triggered upon a commit or a PR merge on all subprojects.
 
 ## Release
-Since `Pyrene` subproject, `Pyrene-graphs` subproject and `Tuktuktwo` subproject are separated npm modules, release are done separately.
+Since `Pyrene` subproject, `Pyrene-graphs` subproject and `Tuktuktwo` subproject are separated npm modules, releases are done separately per project.
 
 Go into the subproject you'd like to release:
 
@@ -164,15 +164,16 @@ Go into the subproject you'd like to release:
 > npm run release
 ```
 
+A new release automatically trigers a Kitchensink CD, see [here](#cd-for-kitchensink).
 
-## CD for Kitchensink
+## <a name="cd-for-kitchensink"></a>CD for Kitchensink
 CD for `Kitchensink` means build and deploy of `Kitchensink`.
 
 This is managed by GitHub Actions, by the following file:
 ```
 .github/workflows/kitchensink.yml
 ```
-That action is automatically triggered upon a Pyrene release. It is also possible to manually trigger it in GitHub website, under Actions, Workflows, select `Kitchensink`. Click on the `Run workflow` button. You could also do it by running the following commands:
+That action is automatically triggered upon a Pyrene release. It is also possible to manually trigger it in GitHub website, under Actions, Workflows, select `Kitchensink`. Click on the `Run workflow` button. You can as well do it by running the following commands:
 
 ```
 > git push github main
