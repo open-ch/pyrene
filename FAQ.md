@@ -42,7 +42,7 @@ In case a refactoring of the Pyrene architecture might happen, it would be bette
 
 
 ## How is the Pyrene TS transpiled ?
-The Pyrene TypeScript source code is compiled down to JS with Babel. We do not use tsc (typescript compiler).
+The Pyrene TypeScript source code is compiled down to JS with Babel. We do not use `tsc` (TypeScript compiler).
 
 The process of transpilation is hand over to webpack. In the webpack configuration, you can see that the webpack loader `babel-loader` is responsible for that process.
 
@@ -51,7 +51,7 @@ The reason why we compile the TypeScript code through Babel, is that we need to 
 
 
 ## Why do we need TypeScript as dev dependency ?
-This is a fair question given that we compile TypeScript down to JavaScript with Babel and not with the tsc (typescript compiler). Babel does only compile and not type-checking. You have thereby the answer to your question.
+This is a fair question given that we compile TypeScript down to JavaScript with Babel and not with the `tsc` (TypeScript compiler). Babel does only compile and not type-checking. You have thereby the answer to your question.
 
 ## <a name="hacks-in-pyrene"></a>Hacks in Pyrene
 
@@ -152,14 +152,14 @@ If you add a third party library, you need to load the css with the `css-loader`
 ## Pyrene possible improvements
 
 1) Replace `Kitchensink` - which does not scale - by Storybook (ongoing).
-2) Remove the [hacks](#hacks-in-pyrene) done for Kitchensink to work properly.
-2) `Pyrene` bundle should be split up by file per component. Indeed, the users of `Pyrene` will have the entire `Pyrene` source in their app's bundle even if they are using just a few of the available Pyrene components.
-3) [PropTypes generation](#proptypes-generation) for each component is not pertinent in a production environment. This `PropTypes` generation is done for for `Kitchensink` to do his job. PropTypes in each component, makes the code larger and **Static type checking** is enough at a library level.
-5) Do the compilation with tsc (TypeScript compiler) and not Babel.
+2) Remove the [hacks](#hacks-in-pyrene) done for `Kitchensink` to work properly.
+2) `Pyrene` bundle should be split up by file per component. Indeed, the users of `Pyrene` will have the entire `Pyrene` source in their app's bundle even if they are using just a few of the available `Pyrene` components.
+3) [PropTypes generation](#proptypes-generation) for each component is not pertinent in a production environment. This `PropTypes` generation is done for for `Kitchensink` to do his job. `PropTypes` in each component, makes the code larger and **Static type checking** is enough at a library level.
+5) Do the compilation with `tsc` (TypeScript compiler) and not Babel.
 6) Use Lerna for managing dependencies across sub-projects.
 7) Add [snapshot testing](https://jestjs.io/docs/snapshot-testing) for mitigating regression.
 8) All components could have a `className` props for overriding style.
-9) Do not change a component's internal state from parent by using ref.
+9) Do not change a component's internal state from parent by using React `ref`.
 
 ----
 
