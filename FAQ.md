@@ -42,7 +42,7 @@ In case a refactoring of the Pyrene architecture might happen, it would be bette
 
 
 ## How is the Pyrene TS transpiled ?
-The Pyrene TypeScript source code is compiled down to JS with Babel. We do not use `tsc` (TypeScript compiler).
+The Pyrene TypeScript source code is compiled down to JavaScript with Babel. We do not use `tsc` (TypeScript compiler).
 
 The process of transpilation is hand over to webpack. In the webpack configuration, you can see that the webpack loader `babel-loader` is responsible for that process.
 
