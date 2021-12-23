@@ -131,13 +131,14 @@ You can also manually trigger a `Kitchensink` deployment in GitHub website, unde
 
 ## Pyrene possible improvements
 
-1) Replace Kitchensink by Storybook.
+1) Replace Kitchensink by Storybook (ongoing).
 2) Remove the [hacks](#hacks-in-pyrene) done for Kitchensink to work properly.
 2) Pyrene bundle should be split up by file per component. Indeed, the users of Pyrene will have the entire Pyrene source in their app's bundle even if they use just some of the available Pyrene components.
 3) [PropTypes generation](#proptypes-generation) for each component is not pertinent in a production environment. This is done for only for `Kitchensink` to do his job. PropType in each component, makes the code bigger. **Static type checking** is enough at a library level. In other words, do not support run time type checking in Pyrene and thus do not generate PropType for each component.
 4) Use Lerna for managing dependencies across sub-projects.
 5) Add [snapshot testing](https://jestjs.io/docs/snapshot-testing) for mitigating regression.
 6) All components could have a `className` props for overriding style.
+7) Do not change a component's internal state from parent by using ref.
 
 ----
 
