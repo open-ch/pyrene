@@ -98,10 +98,12 @@ const Card: React.FC<CardProps> = ({
 ```
 
 ## Input components
-Some components in Pyrene are not intended to by used in a standalone way (`Textfield`, `Checkbox`, etc.). These input components can by used only by a parent passing a `state` - a value - and a `state setter` - a `onChange` function - props to them. That's the reason why we have a `StateProvider` system in `Kitchensink` to interact with those components.
+Some components in the `Pyrene` subproject are not standalone compoents (`Textfield`, `Checkbox`, etc.).
+
+These input components can by used only by a parent passing a `state` - a value - and a `state setter` - a `onChange` function - props to those one. In order to demonstrate those components either in the `Kitchensink` subproject (see any example file) or in Storybook, you have to provide a `StateProvider`.
 
 ----
-## What is Kitchensink ?
+## What is the Kitchensink ?
 `Kitchensink` is a React application hosted on [GitHub Pages](https://pages.github.com/), at the [url](https://open-ch.github.io/pyrene/).
 
 `Kitchensink`'s goal is to demonstrate how do the components work and how to use them. On that purpose, `Kitchensink` uses Pyrene as npm dependency. See on that regard the `kitchensink/package.json`.
@@ -149,14 +151,15 @@ If you add a third party library, you need to load the css with the `css-loader`
 
 ## Pyrene possible improvements
 
-1) Replace Kitchensink by Storybook (ongoing).
+1) Replace `Kitchensink` - which does not scale - by Storybook (ongoing).
 2) Remove the [hacks](#hacks-in-pyrene) done for Kitchensink to work properly.
-2) Pyrene bundle should be split up by file per component. Indeed, the users of Pyrene will have the entire Pyrene source in their app's bundle even if they are using just a few of the available Pyrene components.
+2) `Pyrene` bundle should be split up by file per component. Indeed, the users of `Pyrene` will have the entire `Pyrene` source in their app's bundle even if they are using just a few of the available Pyrene components.
 3) [PropTypes generation](#proptypes-generation) for each component is not pertinent in a production environment. This `PropTypes` generation is done for for `Kitchensink` to do his job. PropTypes in each component, makes the code larger and **Static type checking** is enough at a library level.
-4) Use Lerna for managing dependencies across sub-projects.
-5) Add [snapshot testing](https://jestjs.io/docs/snapshot-testing) for mitigating regression.
-6) All components could have a `className` props for overriding style.
-7) Do not change a component's internal state from parent by using ref.
+5) Do the compilation with tsc (TypeScript compiler) and not Babel.
+6) Use Lerna for managing dependencies across sub-projects.
+7) Add [snapshot testing](https://jestjs.io/docs/snapshot-testing) for mitigating regression.
+8) All components could have a `className` props for overriding style.
+9) Do not change a component's internal state from parent by using ref.
 
 ----
 
