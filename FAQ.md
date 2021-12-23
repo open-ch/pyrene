@@ -29,7 +29,7 @@ The requirements for using the `Pyrene` subproject, the `Pyrene-graphs` subproje
 
 ### Pyrene subproject
 1. `npm install @osag/pyrene`.
-2. Import `Pyrene` subproject's style at the entry point of your application :
+2. Import `Pyrene` subproject's style at the entry point of your application:
 
 ```
 import '@osag/pyrene/dist/pyrene.css';
@@ -38,7 +38,7 @@ import '@osag/pyrene/dist/pyrene.css';
 ### Pyrene-graphs subproject
 
 1. `npm install @osag/pyrene-graphs`.
-2. Import `Pyrene-graphs` subproject's style at the entry point of your application :
+2. Import `Pyrene-graphs` subproject's style at the entry point of your application:
 
 ```
 import '@osag/pyrene-graphs/dist/pyrene-graphs.css';
@@ -54,7 +54,7 @@ In case a refactoring of the Pyrene architecture happens, it would be better to 
 
 
 ## How is the Pyrene TypeScript transpiled ?
-The `Pyrene` TypeScript source code is compiled down to JavaScript with Babel. We do not use `tsc` (TypeScript compiler).
+The Pyrene TypeScript source code is compiled down to JavaScript with Babel. We do not use `tsc` (TypeScript compiler).
 
 The process of transpilation is hand over to webpack. In the webpack configuration, you can see that the webpack loader `babel-loader` is responsible for that process.
 
@@ -63,7 +63,7 @@ The reason why we compile the TypeScript code through Babel, is that we need to 
 
 
 ## Why do we need TypeScript as dev dependency ?
-This is a fair question given that we compile TypeScript down to JavaScript with Babel and not with `tsc` (TypeScript compiler). Babel does only compile and does not do any type-checking. You have thereby the answer to your question.
+This is a fair question given that Pyrene compiles TypeScript down to JavaScript with Babel and not with `tsc` (TypeScript compiler). Babel does only compile and does not do any type-checking. You have thereby the answer to your question.
 
 ## <a name="hacks-in-pyrene"></a>Hacks in Pyrene
 
@@ -117,7 +117,7 @@ These input components can by used only when the parent is passing a `state` - a
 For demonstrating those components, you have to provide a `StateProvider`. `Kitchensink` does support this `StateProvider` feature.
 
 ## Storybook
-The migration to Storybook is still ongoing. The reason for migrating from Kitchensink to Storybook was due to the lack of scale of `Kitchensink`.
+The migration to Storybook is still ongoing. The reason for migrating from `Kitchensink` to Storybook was due to the lack of scale of `Kitchensink`.
 
 For running Storybook. At the root of the monorepo:
 ```
@@ -130,12 +130,12 @@ Browse http://localhost:6006
 ## What is the Kitchensink ?
 `Kitchensink` is a React application hosted on [GitHub Pages](https://pages.github.com/), at the [url](https://open-ch.github.io/pyrene/).
 
-`Kitchensink`'s goal is to demonstrate how do the components work and how to use them. On that purpose, `Kitchensink` uses Pyrene as npm dependency. See on that regard the `kitchensink/package.json`.
+`Kitchensink`'s goal is to demonstrate how do the components work and how to use them. On that purpose, `Kitchensink` uses `Pyrene` and `Pyrene-graphs` subprojects as npm dependencies. See on that regard the `kitchensink/package.json`.
 
 
 ## How does Kitchensink work ?
 
-Firstly, Kichensink extracts all Pyrene comoponents out of the `Pyrene` bundle.
+Firstly, Kichensink extracts all Pyrene comoponents out of the Pyrene bundle.
 
 Secondly, `Kitchensink` analyses the `PropTypes` object of each Pyrene component. Based on that object, `Kitchensink` generates the documentation for each component, means the `props`, the `type` of these props, if those are `required` or not, etc.
 
@@ -177,8 +177,8 @@ If you add a third party library, you need to load the CSS of that latter, with 
 
 1) Replace `Kitchensink` - which does not scale - by Storybook (ongoing).
 2) Remove the [hacks](#hacks-in-pyrene) done for `Kitchensink` to work properly.
-2) `Pyrene` bundle should be split up by file per component. Indeed, the users of `Pyrene` will have the entire `Pyrene` source in their app's bundle even if they are using just a few of the available `Pyrene` components.
-3) [PropTypes generation](#proptypes-generation) for each component is not pertinent in a production environment. This `PropTypes` generation makes sense only for `Kitchensink`. `PropTypes` in each component, makes the code larger and **Static type checking** is enough for a library such `Pyrene`.
+2) Pyrene bundle should be split up by file per component. Indeed, the users of Pyrene will have the entire Pyrene source in their app's bundle even if they are using just a few of the available Pyrene components.
+3) [PropTypes generation](#proptypes-generation) for each component is not pertinent in a production environment. This `PropTypes` generation makes sense only for `Kitchensink`. `PropTypes` in each component, makes the code larger and **Static type checking** is enough for a library such Pyrene.
 5) Do the compilation with `tsc` (TypeScript compiler) and not Babel.
 6) Use Lerna for managing dependencies across subprojects.
 7) Add [snapshot testing](https://jestjs.io/docs/snapshot-testing) for mitigating regression.
