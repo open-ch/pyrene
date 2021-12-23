@@ -13,7 +13,9 @@ These sub-projects are :
 [npmjs.com](https://www.npmjs.com/package/@osag/pyrene).
 
 ## Requirements for using Pyrene ?
-The requirements are set as a `peerDepenencies` in the `package.json`. Users of Pyrene have to have `react` and `react-dom` imported as npm dependencies.
+The requirements are set as a `peerDepenencies` in the `pyrene/package.json`.
+
+Users of Pyrene have to have `react` and `react-dom` imported as npm dependencies.
 
 ## How to use Pyrene ?
 1. Install the library by using npm or yarn.
@@ -43,7 +45,7 @@ The reason for that is that we need to access the parser during the compilation 
 
 ## Hacks in Pyrene
 
-1. As mentioned [here](#why-does-pyrene-compile-ts-with-bazel), TypeScript is handled by Babel. The problem is that the Babel plugin does not support TypeScript syntax properly, for example, we cannot do type extension like this.
+1. As mentioned [here](#why-does-pyrene-compile-ts-with-bazel), TypeScript is handled by Babel. The problem is that the Babel plugin we are using, does not support TypeScript syntax properly, for example, we cannot do type extension like this.
 
 ```
 
@@ -69,7 +71,7 @@ const Card: React.FC<CardProps> = ({
 );
 ```
 
-However, in order to have the Kitchensink properly working, we have to use generics in the following way (type duplication) :
+However, in order to have the Babel plugin properly working, we have to use generics in the following way (type duplication) :
 
 ```
 const Card: React.FC<CardProps> = ({
@@ -85,7 +87,7 @@ const Card: React.FC<CardProps> = ({
 ## What is Kitchensink ?
 `Kitchensink` is a React application hosted on [GitHub Pages](https://pages.github.com/), at the [url](https://open-ch.github.io/pyrene/).
 
-`Kitchensink` uses Pyrene as npm dependency. See on that regard the `package.json` of `kitchensink`.
+`Kitchensink`'s goal is to demonstrate how do the components work and how to use them. On that purpose, `Kitchensink` uses Pyrene as npm dependency. See on that regard the `kitchensink/package.json`.
 
 
 ## How does Kitchensink work ?
