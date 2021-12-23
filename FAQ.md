@@ -41,7 +41,7 @@ The process of transpilation is hand over to webpack. In the webpack configurati
 ## <a name="why-does-pyrene-compile-ts-with-bazel"></a>Why does Pyrene compile TS with Bazel ?
 TypeScript code base is compiled to JS with Babel and not tsc (typescript compiler).
 
-The reason for that is that we need to access the parser during the compilation process for converting the typing of component done in TypeScript into a PropType object in JavaScript. See [here](#proptypes-generation).
+The reason for that is that we need to access the parser during the compilation process for converting the typing of props' component done in TypeScript into a PropTypes object in JavaScript. See [here](#proptypes-generation).
 
 
 ## <a name="hacks-in-pyrene"></a>Hacks in Pyrene
@@ -52,11 +52,11 @@ The reason for that is that we need to access the parser during the compilation 
 
 type MyButtonBase = {
   label: string,
-  lodading: boolean,
+  onClick: () => void,
 }
 
 type MyButtonProps = MyButtonBase & {
-  onClick: () => void,
+  lodading: boolean,
 }
 
 const MyButton: React.FC<MyButtonProps> = (props) => (
@@ -134,7 +134,7 @@ You can also manually trigger a `Kitchensink` deployment in GitHub website, unde
 1) Replace Kitchensink by Storybook.
 2) Remove the [hacks](#hacks-in-pyrene) done for Kitchensink to work properly.
 2) Pyrene bundle should be split up by file per component. Indeed, the users of Pyrene will have the entire Pyrene source in their app's bundle even if they use just some of the available Pyrene components.
-3) [PropType generation](#proptypes-generation) for each component is not pertinent in a production environment. This is done for only for `Kitchensink` to do his job. PropType in each component, makes the code bigger. **Static type checking** is enough at a library level. In other words, do not support run time type checking in Pyrene and thus do not generate PropType for each component.
+3) [PropTypes generation](#proptypes-generation) for each component is not pertinent in a production environment. This is done for only for `Kitchensink` to do his job. PropType in each component, makes the code bigger. **Static type checking** is enough at a library level. In other words, do not support run time type checking in Pyrene and thus do not generate PropType for each component.
 4) Use Lerna for managing dependencies across sub-projects.
 5) Add [snapshot testing](https://jestjs.io/docs/snapshot-testing) for mitigating regression.
 6) All components could have a `className` props for overriding style.
