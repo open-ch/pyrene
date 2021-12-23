@@ -4,18 +4,21 @@
 ## What is Pyrene ?
 Pyrene is a monorepo made of different subprojects.
 
-These subprojects are :
+The subprojects are:
 1. `Pyrene` React UI components.
 2. `Pyrene-graphs` React UI components.
 3. `Tuktuktwo` React UI components (svg) used by `Pyrene-graphs`.
 4. `Kitchensink` web application which demonstrates the components of the `Pyrene` subproject and `Pyrene-graphs` subproject.
 
-The `Pyrene` subproject and the `Pyrene-graphs` subproject are separated npm module. The `Kitchensink` subproject is not meant to be reused.
+The `Pyrene` subproject, `Pyrene-graphs` subproject and `Tuktuktwo` subproject are separated npm modules. The `Kitchensink` subproject is not meant to be reused.
 
 ## Where is Pyrene hosted ?
 [Pyrene subproject](https://www.npmjs.com/package/@osag/pyrene).
 
 [Pyrene-graphs subproject](https://www.npmjs.com/package/@osag/pyrene-graphs).
+
+[Tuktuktwo subproject](https://www.npmjs.com/package/@osag/tuktuktwo).
+
 
 ## Requirements for using Pyrene ?
 The requirements for using the `Pyrene` subproject set as a `peerDepenencies` in the `Pyrene` subproject `package.json`.
@@ -25,8 +28,7 @@ The requirements for using the `Pyrene-graphs` subproject are set as a `peerDepe
 
 ## How to use Pyrene ?
 
-`Pyrene` and `Pyrene-graphs` are separated npm module.
-
+### Pyrene subproject
 1. `npm install @osag/pyrene`.
 2. Import `Pyrene` subproject 's style at the entry point of your application :
 
@@ -34,12 +36,17 @@ The requirements for using the `Pyrene-graphs` subproject are set as a `peerDepe
 import '@osag/pyrene/dist/pyrene.css';
 ```
 
-1. `npm install -S @osag/pyrene-graphs`.
+### Pyrene-graphs subproject
+
+1. `npm install @osag/pyrene-graphs`.
 2. Import `Pyrene-graphs` subproject 's style at the entry point of your application :
 
 ```
 import '@osag/pyrene-graphs/dist/pyrene-graphs.css';
 ```
+
+### Pyrene-graphs subproject
+1. `npm install @osag/tuktuktwo`.
 
 ## Shared npm dependencies in Pyrene
 The npm dependencies at the root of the monorepo are for Storybook only. Indeed, the npm dependencies for having Storybook related dependencies are shared among the various subprojects.
@@ -111,10 +118,10 @@ These input components can by used only by a parent passing a `state` - a value 
 ## Storybook
 The migration to Storybook is still ongoing. The reason for migrating from Kitchensink to Storybook was due to the lack of scale of Kitchensink.
 
-
 For running Storybook. At the root of the monorepo:
 ```
-npm run storybook
+> npm install
+> npm run storybook
 ```
 Browse http://localhost:6006
 
