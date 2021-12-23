@@ -145,27 +145,44 @@ The instance of the component in the component's page is done through the `examp
 
 ----
 
-## CI / CD
+## CI for all subprojects
 CI is managed by GitHub Actions, by the following files:
 
 ```
 .github/workflows/lint.yml
 .github/workflows/test.yml
 ```
-Those two actions are automatically triggered upon a commit or a PR merge.
 
-CD for `Kitchensink` is managed by GitHub Actions, by the following file:
+Those two actions are automatically triggered upon a commit or a PR merge on all subprojects.
+
+## Release
+Since `Pyrene` subproject, `Pyrene-graphs` subproject and `Tuktuktwo` subproject are separated npm modules, release are done separately.
+
+Go into the subproject you'd like to release:
+
+```
+> npm run release
+```
+
+
+## CD for Kitchensink
+CD for `Kitchensink` means build and deploy of `Kitchensink`.
+
+This is managed by GitHub Actions, by the following file:
 ```
 .github/workflows/kitchensink.yml
 ```
-That action is automatically triggered upon a Pyrene release.
+That action is automatically triggered upon a Pyrene release. It is also possible to manually trigger it in GitHub website, under Actions, Workflows, select `Kitchensink`. Click on the `Run workflow` button. You could also do it by running the following commands:
 
-You can also manually trigger a `Kitchensink` deployment in GitHub website, under Actions, Workflows, select `Kitchensink`. Click on the `Run workflow` button. This manual trigger is possible thanks to the `workflow_dispatch` property in the GitHub Actions file.
+```
+> git push github main
+> git push github --tags
+```
 
 ____
 
 ## Pyrene development
-Refer to the guideline for launching a development [environment](https://github.com/open-ch/pyrene/blob/main/kitchensink/DEVELOPMENT.md) with Pyrene. 
+Please, refer to the guideline for launching a development [environment](https://github.com/open-ch/pyrene/blob/main/kitchensink/DEVELOPMENT.md) with Pyrene. 
 
 If you create a new component in the `Pyrene` subproject or in the `Pyrene-graphs` subproject, or in the `Tuktuktwo` subproject, you need to import it in the index fie.
 
