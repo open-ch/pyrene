@@ -10,7 +10,9 @@ The subprojects are:
 3. `Tuktuktwo` React UI components (svg) used by `Pyrene-graphs`.
 4. `Kitchensink` web application which demonstrates the components of the `Pyrene` subproject and `Pyrene-graphs` subproject.
 
-The `Pyrene` subproject, `Pyrene-graphs` subproject and `Tuktuktwo` subproject are separated npm modules. The `Kitchensink` subproject is not meant to be reused.
+The `Pyrene` subproject, `Pyrene-graphs` subproject and `Tuktuktwo` subproject are separated npm modules.
+
+The `Kitchensink` subproject is not a library but an application. Thus, this subproject is not meant to be reused.
 
 ## Where is Pyrene hosted ?
 [Pyrene subproject](https://www.npmjs.com/package/@osag/pyrene).
@@ -21,16 +23,13 @@ The `Pyrene` subproject, `Pyrene-graphs` subproject and `Tuktuktwo` subproject a
 
 
 ## Requirements for using Pyrene ?
-The requirements for using the `Pyrene` subproject set as a `peerDepenencies` in the `Pyrene` subproject `package.json`.
-
-The requirements for using the `Pyrene-graphs` subproject are set as a `peerDepenencies` in the `Pyrene-graphs` subproject `package.json`.
-
+The requirements for using the `Pyrene` subproject, the `Pyrene-graphs` subproject and the `Tuktuktwo` subproject are set as a `peerDepenencies` in their own `package.json`, each.
 
 ## How to use Pyrene ?
 
 ### Pyrene subproject
 1. `npm install @osag/pyrene`.
-2. Import `Pyrene` subproject 's style at the entry point of your application :
+2. Import `Pyrene` subproject's style at the entry point of your application :
 
 ```
 import '@osag/pyrene/dist/pyrene.css';
@@ -39,13 +38,13 @@ import '@osag/pyrene/dist/pyrene.css';
 ### Pyrene-graphs subproject
 
 1. `npm install @osag/pyrene-graphs`.
-2. Import `Pyrene-graphs` subproject 's style at the entry point of your application :
+2. Import `Pyrene-graphs` subproject's style at the entry point of your application :
 
 ```
 import '@osag/pyrene-graphs/dist/pyrene-graphs.css';
 ```
 
-### Pyrene-graphs subproject
+### Tuktuktwo subproject
 1. `npm install @osag/tuktuktwo`.
 
 ## Shared npm dependencies in Pyrene
@@ -59,8 +58,8 @@ The `Pyrene` TypeScript source code is compiled down to JavaScript with Babel. W
 
 The process of transpilation is hand over to webpack. In the webpack configuration, you can see that the webpack loader `babel-loader` is responsible for that process.
 
-## <a name="why-does-pyrene-compile-ts-with-bazel"></a>Why does Pyrene compile TypeScript with Bazel ?
-The reason why we compile the TypeScript code through Babel, is that we need to access the parser during the compilation process for converting the typing of props' component done in TypeScript into a PropTypes object in JavaScript. See [here](#proptypes-generation).
+## <a name="why-does-pyrene-compile-ts-with-babel"></a>Why does Pyrene compile TypeScript with Babel ?
+The reason why we compile the TypeScript code through Babel, is that we need to access the parser during the compilation process for converting the typing of props' component done in TypeScript into a `PropTypes` object in JavaScript. See [here](#proptypes-generation).
 
 
 ## Why do we need TypeScript as dev dependency ?
@@ -68,7 +67,7 @@ This is a fair question given that we compile TypeScript down to JavaScript with
 
 ## <a name="hacks-in-pyrene"></a>Hacks in Pyrene
 
-1. As mentioned [here](#why-does-pyrene-compile-ts-with-bazel), TypeScript is handled by Babel. The problem is that the [Babel plugin](#proptypes-generation) we are using, does not support TypeScript syntax properly, for example, we cannot do type extension like this.
+1. As mentioned [here](#why-does-pyrene-compile-ts-with-babel), TypeScript is compiled by Babel. The problem is that the [Babel plugin](#proptypes-generation) we are using, does not support TypeScript syntax properly, for example, we cannot do type extension like this:
 
 ```
 
@@ -99,7 +98,7 @@ const Card: React.FC<CardProps> = ({
 );
 ```
 
-However, in order to have the [Babel plugin](#proptypes-generation) properly working, we have to use generics in the following way (type duplication) :
+However, in order to have the [Babel plugin](#proptypes-generation) properly working, we have to use generics in the following way - which means type duplication - :
 
 ```
 const Card: React.FC<CardProps> = ({
@@ -111,12 +110,14 @@ const Card: React.FC<CardProps> = ({
 ```
 
 ## Input components
-Some components in the `Pyrene` subproject are not standalone compoents (`Textfield`, `Checkbox`, etc.).
+Some components in the `Pyrene` subproject are not standalone components (`Textfield`, `Checkbox`, etc.).
 
-These input components can by used only by a parent passing a `state` - a value - and a `state setter` - a `onChange` function - props to those one. In order to demonstrate those components either in the `Kitchensink` subproject (see any example file) or in Storybook, you have to provide a `StateProvider`.
+These input components can by used only when the parent is passing a `state` - a value - and a `state setter` - a `onChange` function - as props to those one.
+
+For demonstrating those components, you have to provide a `StateProvider`. `Kitchensink` does support this `StateProvider` feature.
 
 ## Storybook
-The migration to Storybook is still ongoing. The reason for migrating from Kitchensink to Storybook was due to the lack of scale of Kitchensink.
+The migration to Storybook is still ongoing. The reason for migrating from Kitchensink to Storybook was due to the lack of scale of `Kitchensink`.
 
 For running Storybook. At the root of the monorepo:
 ```
@@ -166,7 +167,7 @@ ____
 ## Pyrene development
 Refer to the guideline for launching a development [environment](https://github.com/open-ch/pyrene/blob/main/kitchensink/DEVELOPMENT.md) with Pyrene. 
 
-If you create a new component in the `Pyrene` subproject or in the `Pyrene-graphs` subproject, you need to import it in the index fie.
+If you create a new component in the `Pyrene` subproject or in the `Pyrene-graphs` subproject, or in the `Tuktuktwo` subproject, you need to import it in the index fie.
 
 If you add a third party library, you need to load the CSS of that latter, with the `css-loader` in the webpack configuration.
 
