@@ -48,6 +48,10 @@ import '@osag/pyrene-graphs/dist/pyrene-graphs.css';
 1. `npm install @osag/tuktuktwo`.
 
 ## Architecture
+
+
+
+
 The npm dependencies at the root of the monorepo are for Storybook only. Indeed, the npm dependencies related to Storybook are shared among the various subprojects.
 
 See this [remark](#better-achitecture) about the current architecture.
