@@ -23,7 +23,7 @@ The item `4.`, is not a library but an application. Thus, this subproject is not
 
 
 ## Requirements for using Pyrene ?
-The requirements for using the `Pyrene` subproject, the `Pyrene-graphs` subproject and the `Tuktuktwo` subproject are set as a `peerDepenencies` in their own `package.json`, each.
+The requirements for using the `Pyrene`, `Pyrene-graphs` and `Tuktuktwo` subprojects are set as a `peerDepenencies` in their own `package.json`, each.
 
 ## How to use Pyrene ?
 
@@ -47,11 +47,10 @@ import '@osag/pyrene-graphs/dist/pyrene-graphs.css';
 ### Tuktuktwo subproject
 1. `npm install @osag/tuktuktwo`.
 
-## Shared npm dependencies in Pyrene
+## Architecture
 The npm dependencies at the root of the monorepo are for Storybook only. Indeed, the npm dependencies related to Storybook are shared among the various subprojects.
 
-In case a refactoring of the Pyrene architecture happens, it would be better to have a dedicated tool such as Lerna. Lerna can handle better npm denpencies across subprojects better than the way it is currently done.
-
+See this [remark](#better-achitecture) about the current architecture.
 
 ## How is the Pyrene TypeScript transpiled ?
 The Pyrene TypeScript source code is compiled down to JavaScript with Babel. We do not use `tsc` (TypeScript compiler).
@@ -117,7 +116,12 @@ These input components can by used only when the parent is passing a `state` - a
 For demonstrating those components, you have to provide a `StateProvider`. `Kitchensink` does support this `StateProvider` feature.
 
 ## Storybook
-The migration to Storybook is still ongoing. The reason for migrating from `Kitchensink` to Storybook was due to the lack of scale of `Kitchensink`.
+The migration to Storybook is still ongoing. The reasons for migrating from `Kitchensink` to Storybook were the following:
+
+1. In the `Pyrene`, `Pyrene-grpahs` and `Tuktuktwo` subprojects, the components cannot be properly be written in TypeScript, see [Hacks](#hacks-in-pyrene).
+2. Storybook does a better job.
+3. `PropTypes` is originally intended for run time type-checking. It is [misued](#proptypes-misused) in the current setup.
+
 
 For running Storybook. At the root of the monorepo:
 ```
@@ -156,7 +160,7 @@ CI is managed by GitHub Actions, by the following files:
 Those two actions are automatically triggered upon a commit or a PR merge on all subprojects.
 
 ## Release
-Since `Pyrene` subproject, `Pyrene-graphs` subproject and `Tuktuktwo` subproject are separated npm modules, releases are done separately per project.
+Since `Pyrene`, `Pyrene-graphs` and `Tuktuktwo` subprojects are separated npm modules, releases are done separately per project.
 
 Go into the subproject you'd like to release:
 
@@ -185,20 +189,20 @@ ____
 ## Pyrene development
 Please, refer to the guideline for launching a development [environment](https://github.com/open-ch/pyrene/blob/main/kitchensink/DEVELOPMENT.md) with Pyrene. 
 
-If you create a new component in the `Pyrene` subproject or in the `Pyrene-graphs` subproject, or in the `Tuktuktwo` subproject, you need to import it in the index fie.
+If you create a new component in the `Pyrene`, `Pyrene-graphs` or `Tuktuktwo` subproject, you need to import it in the index fie.
 
 If you add a third party library, you need to load the CSS of that latter, with the `css-loader` in the webpack configuration.
 
 ----
 
-## Pyrene possible improvements
+## Pyrene further improvements
 
-1) Replace `Kitchensink` - which does not scale - by Storybook (ongoing).
+1) Replace `Kitchensink` by Storybook (ongoing).
 2) Remove the [hacks](#hacks-in-pyrene) done for `Kitchensink` to work properly.
 2) Pyrene bundle should be split up by file per component. Indeed, the users of Pyrene will have the entire Pyrene source in their app's bundle even if they are using just a few of the available Pyrene components.
-3) [PropTypes generation](#proptypes-generation) for each component is not pertinent in a production environment. This `PropTypes` generation makes sense only for `Kitchensink`. `PropTypes` in each component, makes the code larger and **Static type checking** is enough for a library such Pyrene.
+3) <a name="proptypes-misused"></a>[PropTypes generation](#proptypes-generation) for each component is not pertinent in a production environment. This `PropTypes` are generated for documentation purpose only in `Kitchensink`. The originnal purpose of `PropTypes` is run time type-checking but is misused, since the type-checking is covered already by TypeScript.
 5) Do the compilation with `tsc` (TypeScript compiler) and not Babel.
-6) Use Lerna for managing dependencies across subprojects.
+6) <a name="better-architecture"></a>Design a better architecture, sharing common npm dependencies across all subprojects with [Lerna](https://github.com/lerna/lerna). Right now, same npm dependencies are all over the place.
 7) Add [snapshot testing](https://jestjs.io/docs/snapshot-testing) for mitigating regression.
 8) All components could have a `className` props for overriding style.
 9) Do not change a component's internal state from parent by using React `ref`.
