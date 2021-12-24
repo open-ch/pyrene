@@ -10,9 +10,9 @@ The subprojects are:
 3. `Tuktuktwo` React UI components (svg) used by `Pyrene-graphs`.
 4. `Kitchensink` web application which demonstrates the components of the `Pyrene` subproject and `Pyrene-graphs` subproject.
 
-The `Pyrene` subproject, `Pyrene-graphs` subproject and `Tuktuktwo` subproject are separated npm modules.
+The item `1.`, `2.`, `3`. are separated npm modules.
 
-The `Kitchensink` subproject is not a library but an application. Thus, this subproject is not meant to be reused.
+The item `4.`, is not a library but an application. Thus, this subproject is not meant to be reused.
 
 ## Where is Pyrene hosted ?
 [Pyrene subproject](https://www.npmjs.com/package/@osag/pyrene).
