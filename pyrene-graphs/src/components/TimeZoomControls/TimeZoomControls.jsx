@@ -101,7 +101,7 @@ TimeZoomControls.displayName = 'TimeZoomControls';
 
 TimeZoomControls.defaultProps = {
   disabled: false,
-  onZoom: () => {},
+  onZoom: () => { },
 };
 
 TimeZoomControls.propTypes = {
