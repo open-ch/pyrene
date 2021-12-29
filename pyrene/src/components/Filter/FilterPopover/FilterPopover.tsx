@@ -1,6 +1,6 @@
 import React, { FunctionComponent, MouseEvent } from 'react';
 
-import styles from './filterPopover.css';
+import styles from './FilterPopover.module.css';
 import ButtonBar from '../../ButtonBar/ButtonBar';
 import Button from '../../Button/Button';
 import FilterOption from '../FilterOption/FilterOption';

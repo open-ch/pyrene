@@ -1,7 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import Section, { SectionProps } from './Section';
-import styles from './accordion.css';
+import styles from './Accordion.module.css';
 
 const isCustomAccordion = (sections: SectionProps[]) => sections.some((section) => typeof section.title !== 'string');
 

@@ -2,7 +2,7 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 import Popover from '../Popover/Popover';
-import styles from './simpleTableActionList.css';
+import styles from './SimpleTableActionList.module.css';
 import Icon from '../Icon/Icon';
 import { Action } from './types';
 

@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { FunctionComponent } from 'react';
 import clsx from 'clsx';
-import styles from './FilterTag.css';
+import styles from './FilterTag.modulecss';
 
 export interface FilterTagProps {
   filterLabel: string,
