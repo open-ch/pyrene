@@ -53,6 +53,6 @@ const Section: React.FC<SectionProps> = ({
   );
 };
 
-Section.displayName = 'Accordion.Section';
+Section.displayName = 'AccordionSection';
 
 export default Section;

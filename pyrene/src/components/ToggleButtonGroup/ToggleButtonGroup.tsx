@@ -73,6 +73,6 @@ const ToggleButtonGroup: React.FC<ToggleButtonGroupProps> = ({
   </div>
 );
 
-ToggleButtonGroup.displayName = 'Toggle Button Group';
+ToggleButtonGroup.displayName = 'ToggleButtonGroup';
 
 export default ToggleButtonGroup;

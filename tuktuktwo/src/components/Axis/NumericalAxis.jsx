@@ -76,7 +76,7 @@ const NumericalAxis = (props) => {
   );
 };
 
-NumericalAxis.displayName = 'Numerical Axis';
+NumericalAxis.displayName = 'NumericalAxis';
 
 NumericalAxis.defaultProps = {
   height: 0,

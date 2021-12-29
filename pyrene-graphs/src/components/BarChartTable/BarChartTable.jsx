@@ -135,7 +135,7 @@ export default class BarChartTable extends React.Component {
 
 }
 
-BarChartTable.displayName = 'Bar Chart Table';
+BarChartTable.displayName = 'BarChartTable';
 
 BarChartTable.defaultProps = {
   actions: [],
@@ -143,7 +143,7 @@ BarChartTable.defaultProps = {
   description: '',
   displayedRows: 10,
   loading: false,
-  onRowDoubleClick: () => {},
+  onRowDoubleClick: () => { },
   popoverFooter: null,
   type: 'bar',
 };

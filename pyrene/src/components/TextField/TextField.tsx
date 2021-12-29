@@ -151,6 +151,6 @@ const TextField: FunctionComponent<TextFieldProps> = ({
   </div>
 );
 
-TextField.displayName = 'Textfield';
+TextField.displayName = 'TextField';
 
 export default TextField;

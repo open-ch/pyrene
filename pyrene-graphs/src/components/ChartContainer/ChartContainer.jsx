@@ -23,7 +23,7 @@ const ChartContainer = (props) => (
   </div>
 );
 
-ChartContainer.displayName = 'Chart Container';
+ChartContainer.displayName = 'ChartContainer';
 
 ChartContainer.defaultProps = {
   chartOverlay: null,

@@ -51,6 +51,6 @@ const KeyValueTable: React.FC<KeyValueTableProps> = ({
   </div>
 );
 
-KeyValueTable.displayName = 'Key Value Table';
+KeyValueTable.displayName = 'KeyValueTable';
 
 export default KeyValueTable;

@@ -114,6 +114,6 @@ const RadioGroup: React.FC<RadioGroupProps> = ({
   );
 };
 
-RadioGroup.displayName = 'Radio Group';
+RadioGroup.displayName = 'RadioGroup';
 
 export default RadioGroup;
