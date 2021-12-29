@@ -1,6 +1,5 @@
 @import '../../../styles/colors.module.css';
 
-
 .filterButton {
   composes: commonFontSettings from '../../../styles/common.module.css';
   box-sizing: border-box;
