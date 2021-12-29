@@ -11,10 +11,10 @@ export default {
 
 const Template: Story<BadgeProps> = (args) => <Badge {...args} />;
 
-// Dangerous
-export const Dangerous = Template.bind({});
+// Clickable badge alerting danger.
+export const Danger = Template.bind({});
 
-Dangerous.args = {
+Danger.args = {
   label: 'Security Alert',
   maxWidth: 120,
   type: 'danger',
@@ -30,7 +30,7 @@ Unclickable.args = {
   type: 'neutral',
 };
 
-// Success badge: Clickable badge alerting success.
+// Clickable badge alerting success.
 export const Success = Template.bind({});
 
 Success.args = {
@@ -40,21 +40,11 @@ Success.args = {
   onClick: () => alert('This is a success!'),
 };
 
-// Warning badge.
+// Unclickable badge alerting warning.
 export const Warning = Template.bind({});
 
 Warning.args = {
   label: 'Warning',
   maxWidth: 100,
   type: 'warning',
-};
-
-// Danger badge: Clickable badge alerting success.
-export const Danger = Template.bind({});
-
-Danger.args = {
-  label: 'Danger',
-  maxWidth: 100,
-  type: 'danger',
-  onClick: () => alert('Dangerous!'),
 };
