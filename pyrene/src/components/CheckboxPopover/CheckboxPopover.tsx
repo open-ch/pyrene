@@ -19,7 +19,7 @@ const CheckboxPopover: FunctionComponent<CheckboxPopoverProps> = ({
   onItemClick,
   buttonLabel,
   disabled = false,
-}:CheckboxPopoverProps) => {
+}: CheckboxPopoverProps) => {
   const [displayPopover, setDisplayPopover] = useState(false);
 
   const togglePopover = () => setDisplayPopover((prevDisplayPopover) => !prevDisplayPopover);
@@ -59,6 +59,6 @@ const CheckboxPopover: FunctionComponent<CheckboxPopoverProps> = ({
   );
 };
 
-CheckboxPopover.displayName = 'Checkbox Popover';
+CheckboxPopover.displayName = 'CheckboxPopover';
 
 export default CheckboxPopover;

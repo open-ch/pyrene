@@ -91,6 +91,6 @@ const CalendarDateSelector: FunctionComponent<CalendarDateSelectorProps> = ({
   );
 };
 
-CalendarDateSelector.displayName = 'Calendar Date Selector';
+CalendarDateSelector.displayName = 'CalendarDateSelector';
 
 export default CalendarDateSelector;

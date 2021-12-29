@@ -99,7 +99,7 @@ export default class TimeSeriesLineChart extends React.Component {
 
 }
 
-TimeSeriesLineChart.displayName = 'Time Series Line Chart';
+TimeSeriesLineChart.displayName = 'TimeSeriesLineChart';
 
 TimeSeriesLineChart.defaultProps = {
   colorScheme: colorSchemes.colorSchemeDefault,

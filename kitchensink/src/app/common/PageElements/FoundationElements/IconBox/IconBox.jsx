@@ -49,7 +49,7 @@ export default class IconBox extends React.Component {
 
 }
 
-IconBox.displayName = 'iconBox';
+IconBox.displayName = 'IconBox';
 
 IconBox.propTypes = {
   disabled: PropTypes.bool,

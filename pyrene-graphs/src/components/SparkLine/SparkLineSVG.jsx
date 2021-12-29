@@ -133,7 +133,7 @@ const SparkLineSVG = (props) => {
   );
 };
 
-SparkLineSVG.displayName = 'Spark Line SVG';
+SparkLineSVG.displayName = 'SparkLineSVG';
 
 SparkLineSVG.defaultProps = {
   axisLabel: null,

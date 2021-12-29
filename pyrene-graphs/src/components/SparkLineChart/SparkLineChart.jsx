@@ -51,7 +51,7 @@ const SparkLineChart = (props) => {
   );
 };
 
-SparkLineChart.displayName = 'Spark Line Chart';
+SparkLineChart.displayName = 'SparkLineChart';
 
 SparkLineChart.defaultProps = {
   axisLabel: '',

@@ -74,7 +74,7 @@ const BarStack = (props) => {
   );
 };
 
-BarStack.displayName = 'Bar Stack';
+BarStack.displayName = 'BarStack';
 
 BarStack.defaultProps = {
   barWeight: chartConstants.barWeight,

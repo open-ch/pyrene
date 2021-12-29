@@ -37,6 +37,6 @@ const LabelAndValue: React.FC<LabelAndValueProps> = ({
   </div>
 );
 
-LabelAndValue.displayName = 'Label And Value';
+LabelAndValue.displayName = 'LabelAndValue';
 
 export default LabelAndValue;

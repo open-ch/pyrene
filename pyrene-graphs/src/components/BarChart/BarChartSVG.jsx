@@ -172,7 +172,7 @@ const BarChartSVG = (props) => {
   );
 };
 
-BarChartSVG.displayName = 'Bar Chart SVG';
+BarChartSVG.displayName = 'BarChartSVG';
 
 BarChartSVG.defaultProps = {
   colorScheme: colorSchemes.colorSchemeDefault,

@@ -17,7 +17,7 @@ const SparkLine = (props) => (
   </svg>
 );
 
-SparkLine.displayName = 'Spark Line';
+SparkLine.displayName = 'SparkLine';
 
 SparkLine.defaultProps = {
   borderStrokeWidth: 1,

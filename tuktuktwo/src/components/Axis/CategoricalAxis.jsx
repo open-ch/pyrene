@@ -32,7 +32,7 @@ const CategoricalAxis = (props) => (
   )
 );
 
-CategoricalAxis.displayName = 'Categorical Axis';
+CategoricalAxis.displayName = 'CategoricalAxis';
 
 CategoricalAxis.defaultProps = {
   left: 0,

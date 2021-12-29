@@ -126,7 +126,7 @@ const TimeSeriesBucketChartSVG = (props) => {
             // If there is a single bucket, just use a default bar weight
             if (labels.length === 1) {
               return chartConstants.barWeight;
-            // If it is the last bucket, we do not know its endTS, just use the bar weight of the second last bucket
+              // If it is the last bucket, we do not know its endTS, just use the bar weight of the second last bucket
             }
             if (index === labels.length - 1) {
               return barWeightFunction(index - 1, labels);
@@ -173,10 +173,10 @@ const TimeSeriesBucketChartSVG = (props) => {
                     className="hoverArea"
                     onMouseMove={(e) => onMouseMove(e, props.data.data, xScale, showTooltip, hideTooltip)}
                     onMouseOut={hideTooltip}
-                    onMouseDown={props.zoom ? (e) => onMouseDown(e) : () => {}}
-                    onMouseUp={props.zoom ? () => onMouseUp(hideTooltip) : () => {}}
-                    onTouchStart={props.zoom ? (e) => onMouseDown(e) : () => {}}
-                    onTouchEnd={props.zoom ? () => onMouseUp(hideTooltip) : () => {}}
+                    onMouseDown={props.zoom ? (e) => onMouseDown(e) : () => { }}
+                    onMouseUp={props.zoom ? () => onMouseUp(hideTooltip) : () => { }}
+                    onTouchStart={props.zoom ? (e) => onMouseDown(e) : () => { }}
+                    onTouchEnd={props.zoom ? () => onMouseUp(hideTooltip) : () => { }}
                     onTouchMove={(e) => onMouseMove(e, props.data.data, xScale, showTooltip, hideTooltip)}
                   >
                     <Bars
@@ -227,7 +227,7 @@ const TimeSeriesBucketChartSVG = (props) => {
   );
 };
 
-TimeSeriesBucketChartSVG.displayName = 'Time Series Bucket Chart SVG';
+TimeSeriesBucketChartSVG.displayName = 'TimeSeriesBucketChartSVG';
 
 TimeSeriesBucketChartSVG.defaultProps = {
   colorScheme: colorSchemes.colorSchemeDefault,

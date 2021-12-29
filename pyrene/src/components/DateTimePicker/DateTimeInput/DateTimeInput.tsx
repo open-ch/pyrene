@@ -138,6 +138,6 @@ const DateTimeInput = forwardRef<HTMLInputElement, DateTimeInputProps>(({
   );
 });
 
-DateTimeInput.displayName = 'Date Input';
+DateTimeInput.displayName = 'DateInput';
 
 export default DateTimeInput;

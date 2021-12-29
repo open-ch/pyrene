@@ -196,6 +196,6 @@ const ActionBar: React.FC<ActionBarProps> = ({
   );
 };
 
-ActionBar.displayName = 'Action Bar';
+ActionBar.displayName = 'ActionBar';
 
 export default ActionBar;
