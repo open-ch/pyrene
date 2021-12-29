@@ -3,7 +3,7 @@ import clsx from 'clsx';
 
 import Loader from '../Loader/Loader';
 
-import styles from './banner.css';
+import styles from './banner.module.css';
 
 export type StylingType = 'standard' | 'inline' | 'overlay';
 

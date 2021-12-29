@@ -1,7 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 
-import styles from './badge.css';
+import styles from './badge.module.css';
 
 export type BadgeType = 'neutral' | 'info' | 'warning' | 'danger' | 'success' | 'outage';
 

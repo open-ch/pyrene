@@ -1,7 +1,5 @@
 import React from 'react';
-
 import { Story, Meta } from '@storybook/react';
-
 import Badge, { BadgeProps } from './Badge';
 
 export default {
@@ -11,7 +9,7 @@ export default {
 
 const Template: Story<BadgeProps> = (args) => <Badge {...args} />;
 
-// Clickable badge alerting danger.
+// Clickable badge alerting danger
 export const Danger = Template.bind({});
 
 Danger.args = {
@@ -21,7 +19,7 @@ Danger.args = {
   onClick: () => alert('Dangerous!'),
 };
 
-// Unclickable badge.
+// Unclickable badge
 export const Unclickable = Template.bind({});
 
 Unclickable.args = {
@@ -30,7 +28,7 @@ Unclickable.args = {
   type: 'neutral',
 };
 
-// Clickable badge alerting success.
+// Clickable badge alerting success
 export const Success = Template.bind({});
 
 Success.args = {
@@ -40,7 +38,7 @@ Success.args = {
   onClick: () => alert('This is a success!'),
 };
 
-// Unclickable badge alerting warning.
+// Unclickable badge alerting warning
 export const Warning = Template.bind({});
 
 Warning.args = {
