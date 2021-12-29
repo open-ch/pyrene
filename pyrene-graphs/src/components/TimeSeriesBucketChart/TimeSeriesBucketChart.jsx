@@ -65,7 +65,7 @@ const TimeSeriesBucketChart = (props) => {
   );
 };
 
-TimeSeriesBucketChart.displayName = 'Time Series Bucket Chart';
+TimeSeriesBucketChart.displayName = 'TimeSeriesBucketChart';
 
 TimeSeriesBucketChart.defaultProps = {
   colorScheme: colorSchemes.colorSchemeDefault,

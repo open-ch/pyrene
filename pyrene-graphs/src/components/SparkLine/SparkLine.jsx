@@ -32,7 +32,7 @@ const SparkLine = (props) => {
   );
 };
 
-SparkLine.displayName = 'Spark Line';
+SparkLine.displayName = 'SparkLine';
 
 SparkLine.defaultProps = {
   colorScheme: colorSchemes.colorSchemeDefault,

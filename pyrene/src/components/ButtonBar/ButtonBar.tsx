@@ -35,6 +35,6 @@ const ButtonBar: React.FC<ButtonBarProps> = ({
 );
 
 
-ButtonBar.displayName = 'Button Bar';
+ButtonBar.displayName = 'ButtonBar';
 
 export default ButtonBar;

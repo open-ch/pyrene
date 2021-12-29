@@ -100,6 +100,6 @@ const SearchFinder: FunctionComponent<SearchFinderProps> = ({
   );
 };
 
-SearchFinder.displayName = 'Search Finder';
+SearchFinder.displayName = 'SearchFinder';
 
 export default SearchFinder;

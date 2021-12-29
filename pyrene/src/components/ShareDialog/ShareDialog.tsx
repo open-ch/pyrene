@@ -84,6 +84,6 @@ const ShareDialog: React.FC<ShareDialogProps> = ({
   );
 };
 
-ShareDialog.displayName = 'Share Dialog';
+ShareDialog.displayName = 'ShareDialog';
 
 export default ShareDialog;

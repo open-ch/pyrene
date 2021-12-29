@@ -56,7 +56,7 @@ const BarChart = (props) => {
   );
 };
 
-BarChart.displayName = 'Bar Chart';
+BarChart.displayName = 'BarChart';
 
 BarChart.defaultProps = {
   colorScheme: colorSchemes.colorSchemeDefault,

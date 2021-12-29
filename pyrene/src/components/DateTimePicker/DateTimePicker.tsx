@@ -315,6 +315,6 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
   );
 };
 
-DateTimePicker.displayName = 'DateTime Picker';
+DateTimePicker.displayName = 'DateTimePicker';
 
 export default DateTimePicker;

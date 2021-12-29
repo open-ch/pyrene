@@ -97,7 +97,7 @@ const ArrowPopover: React.FC<ArrowPopoverProps> = ({
 
   const node = useRef<HTMLDivElement | null>(null);
 
-  const handleClick = useCallback((e:MouseEvent) => {
+  const handleClick = useCallback((e: MouseEvent) => {
     if (closePopover && node && node.current && !node.current.contains(e.target as Node)) {
       closePopover();
     }
@@ -142,6 +142,6 @@ const ArrowPopover: React.FC<ArrowPopoverProps> = ({
   );
 };
 
-ArrowPopover.displayName = 'Arrow Popover';
+ArrowPopover.displayName = 'ArrowPopover';
 
 export default ArrowPopover;

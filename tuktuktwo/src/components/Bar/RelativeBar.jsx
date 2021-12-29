@@ -54,7 +54,7 @@ const RelativeBar = (props) => {
   return null;
 };
 
-RelativeBar.displayName = 'Relative Bar';
+RelativeBar.displayName = 'RelativeBar';
 
 RelativeBar.defaultProps = {
   barWeight: 6,

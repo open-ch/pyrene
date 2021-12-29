@@ -135,6 +135,6 @@ const TextArea: React.FC<TextAreaProps> = ({
   );
 };
 
-TextArea.displayName = 'Textarea';
+TextArea.displayName = 'TextArea';
 
 export default TextArea;

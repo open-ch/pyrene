@@ -292,6 +292,6 @@ const MultiSelect: FunctionComponent<MultiSelectProps> = (props: MultiSelectProp
   );
 };
 
-MultiSelect.displayName = 'Multi Select';
+MultiSelect.displayName = 'MultiSelect';
 
 export default MultiSelect;
