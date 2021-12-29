@@ -182,7 +182,7 @@ const TimeSeriesLineChartSVG = (props) => {
   );
 };
 
-TimeSeriesLineChartSVG.displayName = 'Time Series Line Chart SVG';
+TimeSeriesLineChartSVG.displayName = 'TimeSeriesLineChartSVG';
 
 TimeSeriesLineChartSVG.defaultProps = {
   data: [],

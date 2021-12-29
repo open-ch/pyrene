@@ -26,7 +26,7 @@ export interface SearchInputProps {
   /**
    * called when value changes
    */
-  onChange: (value : string, e?: ChangeEvent<HTMLInputElement>) => void,
+  onChange: (value: string, e?: ChangeEvent<HTMLInputElement>) => void,
   /**
    * custom handler for enter keydown action
    */
@@ -139,6 +139,6 @@ const SearchInput: FunctionComponent<SearchInputProps> = ({
   );
 };
 
-SearchInput.displayName = 'Search Input';
+SearchInput.displayName = 'SearchInput';
 
 export default SearchInput;

@@ -82,6 +82,6 @@ const DropdownButton: FunctionComponent<DropdownButtonProps> = ({
   );
 };
 
-DropdownButton.displayName = 'Dropdown Button';
+DropdownButton.displayName = 'DropdownButton';
 
 export default DropdownButton;

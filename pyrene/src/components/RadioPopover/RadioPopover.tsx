@@ -85,6 +85,6 @@ const RadioPopover: FunctionComponent<RadioPopoverProps> = ({
   );
 };
 
-RadioPopover.displayName = 'Radio Popover';
+RadioPopover.displayName = 'RadioPopover';
 
 export default RadioPopover;

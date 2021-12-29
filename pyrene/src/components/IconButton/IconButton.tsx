@@ -51,6 +51,6 @@ const IconButton: React.FC<IconButtonProps> = ({
   </a>
 );
 
-IconButton.displayName = 'Icon Button';
+IconButton.displayName = 'IconButton';
 
 export default IconButton;

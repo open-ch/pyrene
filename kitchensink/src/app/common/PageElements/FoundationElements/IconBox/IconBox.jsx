@@ -24,13 +24,13 @@ export default class IconBox extends React.Component {
     this.setState(() => ({
       displayCopyNotification: true,
     }),
-    () => {
-      setTimeout(() => (
-        this.setState(() => ({
-          displayCopyNotification: false,
-        }))
-      ), displayTime);
-    });
+      () => {
+        setTimeout(() => (
+          this.setState(() => ({
+            displayCopyNotification: false,
+          }))
+        ), displayTime);
+      });
   };
 
   render() {
@@ -49,7 +49,7 @@ export default class IconBox extends React.Component {
 
 }
 
-IconBox.displayName = 'iconBox';
+IconBox.displayName = 'IconBox';
 
 IconBox.propTypes = {
   disabled: PropTypes.bool,

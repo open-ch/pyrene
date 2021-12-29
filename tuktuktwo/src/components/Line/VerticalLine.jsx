@@ -16,7 +16,7 @@ const VerticalLine = (props) => {
   );
 };
 
-VerticalLine.displayName = 'Vertical Line';
+VerticalLine.displayName = 'VerticalLine';
 
 VerticalLine.defaultProps = {
   strokeWidth: 1,

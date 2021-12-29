@@ -11,7 +11,7 @@ const ChartOverlay = (props) => (
   </div>
 );
 
-ChartOverlay.displayName = 'Chart Overlay';
+ChartOverlay.displayName = 'ChartOverlay';
 
 ChartOverlay.propTypes = {
   /**

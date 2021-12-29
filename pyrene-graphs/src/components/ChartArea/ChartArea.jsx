@@ -15,7 +15,7 @@ const ChartArea = (props) => (
   />
 );
 
-ChartArea.displayName = 'Chart Area';
+ChartArea.displayName = 'ChartArea';
 
 ChartArea.defaultProps = {
   left: 0,

@@ -217,7 +217,7 @@ const SingleSelect = <ValueType extends unknown = DefaultValueType>({
     <div className={clsx(styles.selectContainer, { [styles.disabled]: disabled })}>
       {title && <div className={clsx(styles.selectTitle, { [styles.required]: required && !disabled })}>{title}</div>}
 
-      {creatable ? <CreatableSelect {...selectProps} /> : <Select {...selectProps} /> }
+      {creatable ? <CreatableSelect {...selectProps} /> : <Select {...selectProps} />}
 
       {invalid && invalidLabel && !disabled
         ? (
@@ -240,6 +240,6 @@ const SingleSelect = <ValueType extends unknown = DefaultValueType>({
   );
 };
 
-SingleSelect.displayName = 'Single Select';
+SingleSelect.displayName = 'SingleSelect';
 
 export default SingleSelect;
