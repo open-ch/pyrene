@@ -14,7 +14,7 @@ const Template: Story<KeyValueTableProps> = (args) => <KeyValueTable {...args} /
 export const Simple = Template.bind({});
 
 Simple.args = {
-  title: 'KeyValue Table',
+  title: 'Key-value Table',
   rows: [
     { key: 'Key1', value: 'value1' },
     { key: 'Key2', value: 'value2' },

@@ -3,7 +3,7 @@ import { Example } from '../../examples/Example';
 
 const examples: Example<KeyValueTableProps> = {
   props: {
-    title: 'Key-value Table',
+    title: 'KeyValue Table',
     rows: [
       { key: 'Key1', value: 'value1' },
       { key: 'Key2', value: 'value2' },
