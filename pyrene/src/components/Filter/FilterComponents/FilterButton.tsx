@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { FunctionComponent, MouseEvent } from 'react';
 import clsx from 'clsx';
-import styles from './FilterButton.css';
+import styles from './FilterButton.module.css';
 
 export interface FilterButtonProps {
   disabled?: boolean,
