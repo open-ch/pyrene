@@ -7,7 +7,7 @@ import Placeholder from '../../examples/Placeholder';
 import { IconNames } from '../types';
 
 export default {
-  title: 'Components/TabView',
+  title: 'Components/Layout/TabView',
   component: TabViewComponent,
 } as Meta;
 
