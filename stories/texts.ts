@@ -94,6 +94,34 @@ export const Texts = {
           description: 'The color palette for data visualizations is a selected subset of the Pyrene Design Language color palette. It is designed to maximize accessibility and harmony within a page.'
         }
       ]
+    },
+    typography: {
+      title: 'Typography',
+      description: ['Typography is at the core of Open Systems Product Design Language. We have chosen <strong>FiraGo</strong> as our primary font. It was designed to be incredibly versatile with lots of range in terms of tone and playfulness. It can be quirky and expressive when it needs to be, or neutral when the situation calls for something a bit more serious. On rare occasions, we also use <strong>Fira Sans Condensed</strong> for selected elements.'],
+      sections: [
+        {
+          title: 'Font Stack',
+          description: 'For web projects, the best format is our icon font. Explore or search for an icon and copy the reference by clicking on a icon to use it in your project.'
+        },
+        {
+          title: 'Styles',
+          description: 'Consistent typography and attention to logical hierarchies ensure that UI elements are clear and easy to recognise when scanning the page. Text sizes, styles and layouts have been chosen to balance content and UI.'
+        },
+      ]
+    },
+    icons: {
+      title: 'Icons',
+      description: ['Icons are used to communicate with users and serve a functional purpose. They draw attention and help to anticipate what to expect. Icons also help visually impaired users and enhance usability.'],
+      sections: [
+        {
+          title: 'Icon Font',
+          description: 'For web projects, the best format is our icon font. Explore or search for an icon and copy the reference by clicking on a icon to use it in your project.'
+        },
+        {
+          title: 'Two-Tone And Multi-Color Icons',
+          description: 'Two-tone and multi-color icons are not available in the icon font. These icons are available as SVG assets.'
+        },
+      ]
     }
   }
 }

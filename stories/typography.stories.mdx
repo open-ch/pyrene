@@ -1,0 +1,54 @@
+import { Meta } from '@storybook/addon-docs';
+import Paragraph from '../kitchensink/src/app/common/PageElements/Paragraph/Paragraph';
+import DescriptionBox from '../kitchensink/src/app/common/PageElements/DescriptionBox/DescriptionBox';
+import { Texts } from './texts';
+
+<Meta
+  title="Typography"
+  hidden={false}
+  parameters={{
+    viewMode: 'docs',
+    previewTabs: {
+      canvas: { hidden: true }
+    },
+  }}
+/>
+
+<style>{`
+  .title {
+    margin-left: 0;
+    margin-bottom: 24px;
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 1.5;
+  }
+
+  .principlesGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-row-gap: 40px;
+  }
+
+  .designSystemGrid {
+    display: grid;
+    grid-gap: 24px;
+  }
+`}</style>
+
+<div>
+  <div>
+    <div className="title">{Texts.pages.typography.title}</div>
+    <DescriptionBox>
+      {Texts.pages.typography.description.map(row => <span key={row}>{row}<br/><br/></span>)}
+    </DescriptionBox>
+  </div>
+  <div>
+    { Texts.pages.typography.sections.map(section => 
+      <Paragraph title={section.title} key={section.title}>
+        <DescriptionBox>
+          {section.description}
+        </DescriptionBox>
+      </Paragraph>
+    )}
+  </div>
+</div>

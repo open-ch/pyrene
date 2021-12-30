@@ -41,7 +41,7 @@ import { Texts } from './texts';
   <div>
     <div className="title">{Texts.pages.introduction.title}</div>
     <DescriptionBox>
-      {Texts.pages.introduction.description.map(row => <span>{row}<br/><br/></span>)}
+      {Texts.pages.introduction.description.map(row => <span key={row}>{row}<br/><br/></span>)}
     </DescriptionBox>
   </div>
   <div>
