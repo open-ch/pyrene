@@ -114,7 +114,7 @@ export default class TabView extends Component<TabViewProps, TabViewState> {
         selectedTabIndex: index,
         displayMoreMenu: false,
       },
-      () => this.props?.tabChanged?.(tabName, index));
+        () => this.props?.tabChanged?.(tabName, index));
     }
     if (this.props.directAccessTabs && index >= this.props.directAccessTabs) {
       this.setState({ moreTabLabel: tabName });
