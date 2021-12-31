@@ -16,13 +16,13 @@ The items `1.`, `2.`, `3`. are separated npm modules.
 The item `4.`, is not a library but an application. Thus, this subproject is not meant to be reused.
 
 ## Where is Pyrene hosted ?
-Pyrene subproject on [npmjs](https://www.npmjs.com/package/@osag/pyrene).
+`Pyrene` subproject on [npmjs](https://www.npmjs.com/package/@osag/pyrene).
 
-Pyrene-graphs subproject on [npmjs](https://www.npmjs.com/package/@osag/pyrene-grpahs).
+`Pyrene-graphs` subproject on [npmjs](https://www.npmjs.com/package/@osag/pyrene-grpahs).
 
-Tuktuktwo subproject on [npmjs](https://www.npmjs.com/package/@osag/tuktuktwo).
+`Tuktuktwo` subproject on [npmjs](https://www.npmjs.com/package/@osag/tuktuktwo).
 
-Kitchensink subproject on [GitHub Paages](https://open-ch.github.io/pyrene/).
+`Kitchensink` subproject on [GitHub Pages](https://open-ch.github.io/pyrene/).
 
 ## Requirements for using Pyrene ?
 The requirements for using the `Pyrene`, `Pyrene-graphs` and `Tuktuktwo` subprojects are set as a `peerDepenencies` in their own `package.json`, each.
