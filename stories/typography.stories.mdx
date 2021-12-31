@@ -62,11 +62,12 @@ import { Texts } from './texts';
           {section.description}
         </DescriptionBox>
         
-        <div className='fontStack'>
-          FiraGo
-          <br />
-          <span className='firaCondensed'>Fira Sans Condensed</span>
-        </div>
+        { section.subDescription &&
+          <div className='fontStack'>
+            {section.subDescription.header}<br />
+            <span className='firaCondensed'>{section.subDescription.text}</span>
+          </div>
+        }
       </Paragraph>
     )}
   </div>
