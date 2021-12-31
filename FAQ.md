@@ -25,7 +25,9 @@ The item `4.`, is not a library but an application. Thus, this subproject is not
 `Kitchensink` subproject on [GitHub Pages](https://open-ch.github.io/pyrene/).
 
 ## Requirements for using Pyrene ?
-The requirements for using the `Pyrene`, `Pyrene-graphs` and `Tuktuktwo` subprojects are set as a `peerDepenencies` in their own `package.json`, each.
+1. The requirements for using the `Pyrene`, `Pyrene-graphs` and `Tuktuktwo` subprojects are set as a `peerDepenencies` in their own `package.json`, each.
+
+2. nodejs 12.
 
 ## How to use Pyrene ?
 
@@ -68,7 +70,7 @@ This is a fair question given that Pyrene compiles TypeScript down to JavaScript
 
 ## <a name="hacks-in-pyrene"></a>Hacks in Pyrene
 
-1. As mentioned [here](#why-does-pyrene-compile-ts-with-babel), TypeScript is compiled by Babel. The problem is that the [Babel plugin](#proptypes-generation) we are using, does not support TypeScript syntax properly, for example, we cannot do type extension like this:
+1. As mentioned [here](#why-does-pyrene-compile-ts-with-babel), TypeScript is compiled by Babel. The problem is that the [Babel plugin](#proptypes-generation) we are using, does not support TypeScript syntax properly, for example, we cannot do **type extension** like this:
 
 ```
 
@@ -88,7 +90,7 @@ const MyButton: React.FC<MyButtonProps> = (props) => (
 );
 ```
 
-2. The proper way of using TypeScript generics in React is the following:
+2. The proper way of using TypeScript **generics** in React is the following:
 
 ```
 const Card: React.FC<CardProps> = ({
@@ -213,7 +215,7 @@ If you add a third party library, you need to load the CSS of that library, with
 6) Add [snapshot testing](https://jestjs.io/docs/snapshot-testing) for mitigating regression.
 7) All components could have a `className` props for overriding style.
 8) Pyrene bundle should be split up by component. Indeed, the users of Pyrene will have the entire Pyrene source in their app's bundle even if they are using just a few of the available Pyrene components.
-9) Do not change a component's internal state from the parent by using React `ref`.
+9) Do not change a component's internal state from the parent by using React `ref`, example [here](https://github.com/open-ch/pyrene/blob/main/pyrene/src/components/DateTimePicker/ReactDatePickerWrapper/ReactDatePickerWrapper.tsx#L128).
 
 ----
 ----
