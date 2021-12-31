@@ -117,7 +117,7 @@ These input components can by used only when the parent is passing a `state` and
 
 For demonstrating those components with `Kitchensink`, you have to provide a `StateProvider` in the example file for `Kitchensink` to re-render the component.
 
-For demonstrating those components with Storybook, you can use the `useState` in the story - see this [resource](https://medium.com/urbandataanalytics/changing-args-values-state-in-storybook-without-usestate-hook-15cc096716f7) - for the component to be re-rendered.
+For demonstrating those components with Storybook, you can use the `useState` in the story - see this [resource](https://medium.com/urbandataanalytics/changing-args-values-state-in-storybook-without-usestate-hook-15cc096716f7) - for the component to re-render.
 
 ----
 ----
