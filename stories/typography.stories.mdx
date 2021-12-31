@@ -22,6 +22,25 @@ import { Texts } from './texts';
     font-weight: 600;
     line-height: 1.5;
   }
+  .footnote {
+    font-size: 13px;
+    line-height: 16px;
+    padding-top: 24px;
+  }
+
+  .firaCondensed {
+    font-family: FiraSans, sans-serif;
+  }
+
+  .fontStack {
+    font-size: 32px;
+    line-height: 64px;
+    letter-spacing: -0.2px;
+    color: #1D273B;
+    background-color: #F0F2F5;
+    border-radius: 4px;
+    padding: 32px;
+  }
 `}</style>
 
 <div>
@@ -42,6 +61,12 @@ import { Texts } from './texts';
         <DescriptionBox>
           {section.description}
         </DescriptionBox>
+        
+        <div className='fontStack'>
+          FiraGo
+          <br />
+          <span className='firaCondensed'>Fira Sans Condensed</span>
+        </div>
       </Paragraph>
     )}
   </div>
