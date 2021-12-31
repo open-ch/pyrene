@@ -4,7 +4,7 @@ import React, {
 } from 'react';
 import clsx from 'clsx';
 
-import styles from './tabView.module.css';
+import styles from './TabView.module.css';
 
 interface Tab {
   disabled?: boolean,
@@ -79,7 +79,7 @@ export default class TabView extends Component<TabViewProps, TabViewState> {
     };
   }
 
-  computeTabs = ():[Array<Tab>, Array<Tab> | null] => (this.props.directAccessTabs && this.props.tabs.length > this.props.directAccessTabs
+  computeTabs = (): [Array<Tab>, Array<Tab> | null] => (this.props.directAccessTabs && this.props.tabs.length > this.props.directAccessTabs
     ? [
       this.props.tabs.slice(0, this.props.directAccessTabs),
       this.props.tabs.slice(this.props.directAccessTabs),
@@ -114,7 +114,7 @@ export default class TabView extends Component<TabViewProps, TabViewState> {
         selectedTabIndex: index,
         displayMoreMenu: false,
       },
-      () => this.props?.tabChanged?.(tabName, index));
+        () => this.props?.tabChanged?.(tabName, index));
     }
     if (this.props.directAccessTabs && index >= this.props.directAccessTabs) {
       this.setState({ moreTabLabel: tabName });

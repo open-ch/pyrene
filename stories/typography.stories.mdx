@@ -4,7 +4,7 @@ import DescriptionBox from '../kitchensink/src/app/common/PageElements/Descripti
 import { Texts } from './texts';
 
 <Meta
-  title="Typography"
+  title="Foundations/Typography"
   hidden={false}
   parameters={{
     viewMode: 'docs',
@@ -22,24 +22,18 @@ import { Texts } from './texts';
     font-weight: 600;
     line-height: 1.5;
   }
-
-  .principlesGrid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-row-gap: 40px;
-  }
-
-  .designSystemGrid {
-    display: grid;
-    grid-gap: 24px;
-  }
 `}</style>
 
 <div>
   <div>
     <div className="title">{Texts.pages.typography.title}</div>
     <DescriptionBox>
-      {Texts.pages.typography.description.map(row => <span key={row}>{row}<br/><br/></span>)}
+      {Texts.pages.typography.description.map(row => 
+        <span key={row.text}>
+          { row.format !== 'strong' ? <>{row.text}</> : <strong>{row.text}</strong> }
+        </span>
+        )
+      }
     </DescriptionBox>
   </div>
   <div>

@@ -97,7 +97,13 @@ export const Texts = {
     },
     typography: {
       title: 'Typography',
-      description: ['Typography is at the core of Open Systems Product Design Language. We have chosen <strong>FiraGo</strong> as our primary font. It was designed to be incredibly versatile with lots of range in terms of tone and playfulness. It can be quirky and expressive when it needs to be, or neutral when the situation calls for something a bit more serious. On rare occasions, we also use <strong>Fira Sans Condensed</strong> for selected elements.'],
+      description: [
+        { text: 'Typography is at the core of Open Systems Product Design Language. We have chosen ', format: 'standard' },
+        { text: 'FiraGo', format: 'strong' },
+        { text: ' as our primary font. It was designed to be incredibly versatile with lots of range in terms of tone and playfulness. It can be quirky and expressive when it needs to be, or neutral when the situation calls for something a bit more serious. On rare occasions, we also use ', format: 'standard' },
+        { text: 'Fira Sans Condensed', format: 'strong' },
+        { text: ' for selected elements.', format: 'standard' }
+      ],
       sections: [
         {
           title: 'Font Stack',
