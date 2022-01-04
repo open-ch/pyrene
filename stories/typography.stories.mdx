@@ -41,6 +41,15 @@ import { Texts } from './texts';
     border-radius: 4px;
     padding: 32px;
   }
+
+  .footer  {
+    padding-top: 24px;
+  }
+
+  .link {
+    font-size: 16px;
+    color: #0055FF;
+  }
 `}</style>
 
 <div>
@@ -63,9 +72,18 @@ import { Texts } from './texts';
         </DescriptionBox>
         
         { section.subDescription &&
+        <div>
           <div className='fontStack'>
             {section.subDescription.header}<br />
             <span className='firaCondensed'>{section.subDescription.text}</span>
+          </div>
+          <div className='footer'>
+            { section.subDescription.footer.map(row =>
+              <>
+                {row.link && <a className='link' href={row.link} download='fonts.zip'>{row.text}</a>}
+                {!row.link && <span>{row.text}</span>}
+              </>)}
+          </div>
           </div>
         }
       </Paragraph>
