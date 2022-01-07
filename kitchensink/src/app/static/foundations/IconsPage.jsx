@@ -17,7 +17,7 @@ const IconsPage = () => (
       </div>
     </div>
 
-    <div className={styles.topicContent}>
+    <div>
       <Paragraph title="Icon Font">
         <DescriptionBox>
           For web projects, the best format is our icon font.
@@ -32,7 +32,7 @@ const IconsPage = () => (
           Two-tone and multi-color icons are not available in the icon font. These icons are available as SVG assets.
         </DescriptionBox>
 
-        <div className="iconGrid">
+        <div>
           {svgs.map((svg) => <IconBox name={svg.name} key={svg.name} path={svg.path} downloadable />)}
         </div>
       </Paragraph>

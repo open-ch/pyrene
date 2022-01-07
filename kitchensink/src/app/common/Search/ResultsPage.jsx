@@ -40,7 +40,7 @@ export default class ResultsPage extends React.Component {
       <div className={styles.header}>
         <div className={styles.title}>{`${this.state.matches.length} result${this.state.matches.length > 1 ? 's' : ''} matching \u00AB${this.props.match.params.searchInput}\u00BB`}</div>
       </div>
-      <div className={styles.topicContent}>
+      <div>
         <Paragraph>
           {this.state.matches.map((result) => {
             const category = exampleComponents[result.name].category;
@@ -64,7 +64,7 @@ export default class ResultsPage extends React.Component {
       <div className={styles.header}>
         <div className={styles.title}>{`No matches for \u00AB${this.props.match.params.searchInput}\u00BB`}</div>
       </div>
-      <div className={styles.topicContent}>
+      <div>
         <Paragraph>
           We searched far and wide and couldn’t find any content matching your search. Please give it another try.
         </Paragraph>

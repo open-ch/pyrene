@@ -89,7 +89,7 @@ const PyreneTutorial = () => (
       <div className={styles.description}>
         <p>[pahy-reen] noun. A polycyclic, atomic component library, consisting of endless fused brainpower, found in coffee tea and believed to be the secret ingredient in the new stack.</p>
       </div>
-      <div className={styles.topicContent}>
+      <div>
         <Paragraph title="General">
           <DescriptionBox>
             <p>Pyrene is the new React based component library to be used in future portal projects. In order to keep the library consistent there are few concepts that have to be respected when creating a new component.</p>
