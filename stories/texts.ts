@@ -117,8 +117,19 @@ export const Texts = {
             ]},
         }, {
           title: 'Styles',
-          description: 'Consistent typography and attention to logical hierarchies ensure that UI elements are clear and easy to recognise when scanning the page. Text sizes, styles and layouts have been chosen to balance content and UI.'
-        },
+          description: 'Consistent typography and attention to logical hierarchies ensure that UI elements are clear and easy to recognise when scanning the page. Text sizes, styles and layouts have been chosen to balance content and UI.',
+          styles: [
+            {
+              header: 'Heading'
+            },
+            {
+              header: 'Text'
+            },
+            {
+              header: 'Chart'
+            }
+          ]
+        }
       ]
     },
     icons: {
@@ -127,11 +138,13 @@ export const Texts = {
       sections: [
         {
           title: 'Icon Font',
-          description: 'For web projects, the best format is our icon font. Explore or search for an icon and copy the reference by clicking on a icon to use it in your project.'
+          description: 'For web projects, the best format is our icon font. Explore or search for an icon and copy the reference by clicking on a icon to use it in your project.',
+          iconDisplay: true,
         },
         {
           title: 'Two-Tone And Multi-Color Icons',
-          description: 'Two-tone and multi-color icons are not available in the icon font. These icons are available as SVG assets.'
+          description: 'Two-tone and multi-color icons are not available in the icon font. These icons are available as SVG assets.',
+          iconGrid: true,
         },
       ]
     }

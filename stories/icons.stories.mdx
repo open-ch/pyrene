@@ -1,6 +1,9 @@
 import { Meta } from '@storybook/addon-docs';
 import Paragraph from '../kitchensink/src/app/common/PageElements/Paragraph/Paragraph';
 import DescriptionBox from '../kitchensink/src/app/common/PageElements/DescriptionBox/DescriptionBox';
+import IconBox from '../kitchensink/src/app/common/PageElements/FoundationElements/IconBox/IconBox';
+import IconDisplay from '../kitchensink/src/app/common/PageElements/FoundationElements/IconDisplay/IconDisplay';
+import { icons, svgs } from '../kitchensink/src/app/data/foundationsData';
 import { Texts } from './texts';
 
 <Meta
@@ -33,6 +36,10 @@ import { Texts } from './texts';
     display: grid;
     grid-gap: 24px;
   }
+
+  .topicContent {
+    
+  }
 `}</style>
 
 <div>
@@ -48,6 +55,13 @@ import { Texts } from './texts';
         <DescriptionBox>
           {section.description}
         </DescriptionBox>
+        <>
+          {section.iconDisplay && <div> <IconDisplay data={icons} /> </div>}
+          
+          {section.iconGrid && <div>
+            {svgs.map((svg) => <IconBox name={svg.name} key={svg.name} path={svg.path} downloadable />)}
+          </div> }
+        </>
       </Paragraph>
     )}
   </div>
