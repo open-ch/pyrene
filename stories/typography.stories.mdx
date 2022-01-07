@@ -1,6 +1,7 @@
 import { Meta } from '@storybook/addon-docs';
 import Paragraph from '../kitchensink/src/app/common/PageElements/Paragraph/Paragraph';
 import DescriptionBox from '../kitchensink/src/app/common/PageElements/DescriptionBox/DescriptionBox';
+import fontTypes from '../kitchensink/src/app/data/typography';
 import { Texts } from './texts';
 
 <Meta
@@ -22,6 +23,17 @@ import { Texts } from './texts';
     font-weight: 600;
     line-height: 1.5;
   }
+
+  .subtitle{
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: -0.05px;
+    color: #1D273B;
+    border-bottom: 1px solid #E1E3E8;
+    margin-bottom: 16px;
+  }
+
   .footnote {
     font-size: 13px;
     line-height: 16px;
@@ -50,6 +62,20 @@ import { Texts } from './texts';
     font-size: 16px;
     color: #0055FF;
   }
+
+  .twoColumns {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    align-items: center;
+    padding-bottom: 16px;
+  }
+
+  .styleText {
+    font-size: 13px;
+    line-height: 16px;
+    white-space: pre-line;
+  }
 `}</style>
 
 <div>
@@ -73,18 +99,40 @@ import { Texts } from './texts';
         
         { section.subDescription &&
         <div>
-          <div className='fontStack'>
-            {section.subDescription.header}<br />
-            <span className='firaCondensed'>{section.subDescription.text}</span>
-          </div>
-          <div className='footer'>
-            { section.subDescription.footer.map(row =>
-              <>
-                {row.link && <a className='link' href={row.link} download='fonts.zip'>{row.text}</a>}
-                {!row.link && <span>{row.text}</span>}
-              </>)}
-          </div>
-          </div>
+          { section.subDescription.fonts && 
+          <>
+            <div className='fontStack'>
+              {section.subDescription.fonts.header}<br />
+              <span className='firaCondensed'>{section.subDescription.fonts.text}</span>
+            </div>
+            <div className='footer'>
+              { section.subDescription.fonts.footer && section.subDescription.fonts.footer.map(row =>
+                <span key={row.text}>
+                  {row.link && <a className='link' href={row.link} download='fonts.zip'>{row.text}</a>}
+                  {!row.link && <span>{row.text}</span>}
+                </span>)}
+            </div>
+          </>}
+          {section.subDescription.styles && 
+            <>
+            {fontTypes.map((style) => (
+              <div key={style.title}>
+                <div className='subtitle'>
+                  {style.title}
+                </div>
+                {style.examples.map((font) => (
+                  <div className='twoColumns' key={font.heading}>
+                    <div style={{ ...font.style, width: 200, whiteSpace: 'pre-line' }}>
+                      {font.heading}
+                    </div>
+                    <div className='styleText'>
+                      {font.styleText}
+                    </div>
+                  </div>
+                ))}
+            </div>))}
+            </>}
+        </div>
         }
       </Paragraph>
     )}

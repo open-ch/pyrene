@@ -109,26 +109,21 @@ export const Texts = {
           title: 'Font Stack',
           description: 'For web projects, the best format is our icon font. Explore or search for an icon and copy the reference by clicking on a icon to use it in your project.',
           subDescription: {
-            header: 'FiraGo'  , text: 'Fira Sans Condensed',
-            footer: [
-              { text: 'You can download FiraGo and Fira Sans Condensed as zip ' },
-              { text: 'here', link: '../../../fonts/Pyrene_Font_Kit_v1.0.zip' },
-              { text: '.' }
-            ]},
+            fonts: {
+              header: 'FiraGo', text: 'Fira Sans Condensed',
+              footer: [
+                { text: 'You can download FiraGo and Fira Sans Condensed as zip ' },
+                { text: 'here', link: '../../../fonts/Pyrene_Font_Kit_v1.0.zip' },
+                { text: '.' }
+              ]
+            },
+          }
         }, {
           title: 'Styles',
           description: 'Consistent typography and attention to logical hierarchies ensure that UI elements are clear and easy to recognise when scanning the page. Text sizes, styles and layouts have been chosen to balance content and UI.',
-          styles: [
-            {
-              header: 'Heading'
-            },
-            {
-              header: 'Text'
-            },
-            {
-              header: 'Chart'
-            }
-          ]
+          subDescription: {
+            styles: true
+          }
         }
       ]
     },
