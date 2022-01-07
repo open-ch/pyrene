@@ -76,24 +76,26 @@ export const Texts = {
       description: ['Maintaining consistent and engaging digital interfaces throughout Open Systems demands extended guidance around color usage. The following concepts are the foundation as we strive to achieve balance and harmony through our User Interface design.',
         'Our color palette contains primary, neutrals, interaction and status colors as well as color schemes used for data visualizations. They have been designed to work harmoniously with each other.',
         'The Neutral family is dominant in the default themes, making use of subtle shifts in value to help organize content into distinct zones.'],
-      sections: [
-        {
+      sections: {
+        primary: {
           title: 'Primary Colors',
           description: 'The primary colors give our applications the characteristic look and feel. These colors enjoy priority. White plays an important role in structuring content and the overall impression. Blue is used as accent color while Dark is the main color for type.'
         },
-        {
+        neutral: {
           title: 'Neutral Colors',
           description: 'The neutral colours give a minimalist and clean impression. The neutral colours are mainly used for structuring and weighting the content. Typically they are used for text, icons and subtle backgrounds when we don\'t want to draw too much attention to a particular touchpoint or convey information such as inactive or disabled.'
         },
-        {
+        semantic: {
           title: 'Semantic Colors',
           description: 'Semantic color helps users identify status, see actions, locate help, and understand next steps. The consistent use of color keeps cognitive load low and makes for a unified and engaging user experience.'
         },
-        {
+        visualizations: {
           title: 'Data Visualizations',
-          description: 'The color palette for data visualizations is a selected subset of the Pyrene Design Language color palette. It is designed to maximize accessibility and harmony within a page.'
+          description: 'The color palette for data visualizations is a selected subset of the Pyrene Design Language color palette. It is designed to maximize accessibility and harmony within a page.',
+          sequential: 'Sequential (or monochromatic) palettes are good for relationship charts and trend charts. Typically the darkest color denotes the largest values.'
+
         }
-      ]
+      }
     },
     typography: {
       title: 'Typography',

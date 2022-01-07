@@ -1,6 +1,20 @@
 import { Meta } from '@storybook/addon-docs';
 import Paragraph from '../kitchensink/src/app/common/PageElements/Paragraph/Paragraph';
 import DescriptionBox from '../kitchensink/src/app/common/PageElements/DescriptionBox/DescriptionBox';
+import ColorRow from '../kitchensink/src/app/common/PageElements/FoundationElements/ColorRow/ColorRow';
+import {
+  primaryColors,
+  neutralColors,
+  semanticColors,
+  informationColors,
+  successColors,
+  warningColors,
+  dangerColors,
+  outageColors,
+  inactiveColors,
+  categoricalColors,
+  sequentialColors,
+} from '../kitchensink/src/app/data/foundationsData';
 import { Texts } from './texts';
 
 <Meta
@@ -42,13 +56,178 @@ import { Texts } from './texts';
       {Texts.pages.colors.description.map(row => <span key={row}>{row}<br/><br/></span>)}
     </DescriptionBox>
   </div>
+  
   <div>
-    { Texts.pages.colors.sections.map(section => 
-      <Paragraph title={section.title} key={section.title}>
-        <DescriptionBox>
-          {section.description}
-        </DescriptionBox>
-      </Paragraph>
-    )}
+    <Paragraph title={Texts.pages.colors.sections.primary.title} key={Texts.pages.colors.sections.primary.title}>
+      <DescriptionBox>
+        {Texts.pages.colors.sections.primary.description}
+      </DescriptionBox>
+    </Paragraph>
+    
+    <ColorRow
+      rowData={primaryColors}
+      rowSize="large"
+      showInfo="fullInfo"
+    />
+  </div>
+
+  <div>
+    <Paragraph title={Texts.pages.colors.sections.neutral.title} key={Texts.pages.colors.sections.neutral.title}>
+      <DescriptionBox>
+        {Texts.pages.colors.sections.neutral.description}
+      </DescriptionBox>
+    </Paragraph>
+    
+    <ColorRow
+      title="Neutral"
+      description=""
+      rowHeader={{
+        colors: [{
+          colorName: 'Primary Dark', name: 'neutral-500', darkFont: false, bordered: false,
+        }],
+        width: '30%',
+      }}
+      rowData={neutralColors}
+      rowSize="small"
+      showInfo="onlyTitles"
+    />
+  </div>
+
+  <div>
+    <Paragraph title={Texts.pages.colors.sections.semantic.title} key={Texts.pages.colors.sections.semantic.title}>
+      <DescriptionBox>
+        {Texts.pages.colors.sections.semantic.description}
+      </DescriptionBox>
+    </Paragraph>
+    
+    <div>
+      <ColorRow
+        title="Semantic Scheme"
+        description=""
+        rowHeader={{
+          colors: [{
+            colorName: 'Information', name: 'blue-500', darkFont: false, bordered: false, infoText: 'blue-500',
+          }],
+          width: '200px',
+        }}
+        rowData={semanticColors}
+        rowSize="small"
+        showInfo="fullInfo"
+      />
+    </div>
+    <div>
+      <ColorRow
+        title="Information"
+        description=""
+        rowHeader={{
+          colors: [{
+            colorName: 'Base', name: 'blue-500', darkFont: false, bordered: false,
+          }],
+          width: '150px',
+        }}
+        rowData={informationColors}
+        rowSize="small"
+        showInfo="onlyTitles"
+      />
+      <ColorRow
+        columns={10}
+        title="Success"
+        description=""
+        rowHeader={{
+          colors: [{
+            colorName: 'Base', name: 'green-600', darkFont: false, bordered: false,
+          }],
+          width: '150px',
+        }}
+        rowData={successColors}
+        rowSize="small"
+        showInfo="onlyTitles"
+      />
+    </div>
+    <div>
+      <ColorRow
+        columns={10}
+        title="Warning"
+        description=""
+        rowHeader={{
+          colors: [{
+            colorName: 'Base', name: 'orange-600', darkFont: false, bordered: false,
+          }],
+          width: '150px',
+        }}
+        rowData={warningColors}
+        rowSize="small"
+        showInfo="onlyTitles"
+      />
+      <ColorRow
+        columns={10}
+        title="Danger"
+        description=""
+        rowHeader={{
+          colors: [{
+            colorName: 'Base', name: 'red-600', darkFont: false, bordered: false,
+          }],
+          width: '150px',
+        }}
+        rowData={dangerColors}
+        rowSize="small"
+        showInfo="onlyTitles"
+      />
+    </div>
+    <div>
+      <ColorRow
+        preColumns={1}
+        columns={10}
+        title="Critical"
+        description=""
+        rowHeader={{
+          colors: [{
+            colorName: 'Base', name: 'neutral-500', darkFont: false, bordered: false,
+          }],
+          width: '150px',
+        }}
+        rowData={outageColors}
+        rowSize="small"
+        showInfo="onlyTitles"
+      />
+      <ColorRow
+        preColumns={1}
+        columns={10}
+        title="Inactive"
+        description=""
+        rowHeader={{
+          colors: [{
+            colorName: 'Base', name: 'neutral-500', darkFont: false, bordered: false,
+          }],
+          width: '150px',
+        }}
+        rowData={inactiveColors}
+        rowSize="small"
+        showInfo="onlyTitles"
+      />
+    </div>
+  </div>
+
+  <div>
+    <Paragraph title={Texts.pages.colors.sections.visualizations.title} key={Texts.pages.colors.sections.visualizations.title}>
+      <DescriptionBox>
+        {Texts.pages.colors.sections.visualizations.description}
+      </DescriptionBox>
+    </Paragraph>
+    
+    <ColorRow
+      columns={10}
+      title="Sequential"
+      description={Texts.pages.colors.sections.visualizations.Sequential}
+      rowHeader={{
+        colors: [{
+          colorName: 'Chart 1', name: 'chart-1', darkFont: false, bordered: false,
+        }],
+        width: '200px',
+      }}
+      rowData={sequentialColors}
+      rowSize="small"
+      showInfo="onlyTitles"
+    />
   </div>
 </div>
