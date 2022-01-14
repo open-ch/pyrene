@@ -37,7 +37,7 @@ export default class ResultsPage extends React.Component {
 
   renderSearchResults = () => (
     <>
-      <div className={styles.header}>
+      <div>
         <div className={styles.title}>{`${this.state.matches.length} result${this.state.matches.length > 1 ? 's' : ''} matching \u00AB${this.props.match.params.searchInput}\u00BB`}</div>
       </div>
       <div>
@@ -61,7 +61,7 @@ export default class ResultsPage extends React.Component {
 
   renderNoResultsPage = () => (
     <>
-      <div className={styles.header}>
+      <div>
         <div className={styles.title}>{`No matches for \u00AB${this.props.match.params.searchInput}\u00BB`}</div>
       </div>
       <div>
@@ -76,7 +76,7 @@ export default class ResultsPage extends React.Component {
   render() {
     return (
       <div className={styles.page}>
-        { this.state.matches && this.state.matches.length > 0 ? this.renderSearchResults() : this.renderNoResultsPage() }
+        {this.state.matches && this.state.matches.length > 0 ? this.renderSearchResults() : this.renderNoResultsPage()}
       </div>
     );
   }

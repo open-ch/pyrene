@@ -32,7 +32,7 @@ const IconsPage = () => (
           Two-tone and multi-color icons are not available in the icon font. These icons are available as SVG assets.
         </DescriptionBox>
 
-        <div>
+        <div className="iconGrid">
           {svgs.map((svg) => <IconBox name={svg.name} key={svg.name} path={svg.path} downloadable />)}
         </div>
       </Paragraph>
