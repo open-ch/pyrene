@@ -37,8 +37,10 @@ import { Texts } from './texts';
     grid-gap: 24px;
   }
 
-  .topicContent {
-    
+  .iconGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-gap: 16px;
   }
 `}</style>
 
@@ -55,13 +57,13 @@ import { Texts } from './texts';
         <DescriptionBox>
           {section.description}
         </DescriptionBox>
-        <>
+        <div>
           {section.iconDisplay && <div> <IconDisplay data={icons} /> </div>}
           
-          {section.iconGrid && <div>
+          {section.iconGrid && <div className="iconGrid">
             {svgs.map((svg) => <IconBox name={svg.name} key={svg.name} path={svg.path} downloadable />)}
           </div> }
-        </>
+        </div>
       </Paragraph>
     )}
   </div>

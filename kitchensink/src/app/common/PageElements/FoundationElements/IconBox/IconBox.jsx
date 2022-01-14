@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import Utils from '../../../Utils';
-import styles from './iconBox.css';
+import styles from './IconBox.module.css';
 
 export default class IconBox extends React.Component {
 
@@ -24,13 +24,13 @@ export default class IconBox extends React.Component {
     this.setState(() => ({
       displayCopyNotification: true,
     }),
-    () => {
-      setTimeout(() => (
-        this.setState(() => ({
-          displayCopyNotification: false,
-        }))
-      ), displayTime);
-    });
+      () => {
+        setTimeout(() => (
+          this.setState(() => ({
+            displayCopyNotification: false,
+          }))
+        ), displayTime);
+      });
   };
 
   render() {

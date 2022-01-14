@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import IconBox from '../IconBox/IconBox';
-import styles from './iconDisplay.css';
+import styles from './IconDisplay.module.css';
 
 export default class IconDisplay extends React.Component {
 

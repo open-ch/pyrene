@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import ColorBox from '../ColorBox/ColorBox';
-import styles from './colorRow.css';
+import styles from './ColorRow.module.css';
 
 const ColorRow = (props) => (
   <div className={styles.colorRowContainer}>
