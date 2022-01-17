@@ -1,3 +1,4 @@
+/* eslint-disable react/display-name */
 import React from 'react';
 import { Story, Meta } from '@storybook/react';
 import Accordion, { AccordionProps } from './Accordion';

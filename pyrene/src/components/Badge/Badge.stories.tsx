@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 import React from 'react';
 import { Story, Meta } from '@storybook/react';
 import Badge, { BadgeProps } from './Badge';
