@@ -11,7 +11,6 @@ export default {
 const Template: Story<AccordionProps> = (args) => <Accordion {...args} />;
 
 export const Simple = Template.bind({});
-export const WithIcons = Template.bind({});
 
 Simple.args = {
   sections:
@@ -21,6 +20,8 @@ Simple.args = {
       { renderContent: () => <Placeholder label="Content" />, title: 'Section three' },
     ],
 };
+
+export const WithIcons = Template.bind({});
 
 WithIcons.args = {
   sections: [

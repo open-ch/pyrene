@@ -53,7 +53,7 @@ Table.args = {
   onFilterChange: () => null,
   onRowDoubleClick: () => null,
   pageSizeOptions: [10, 20, 50, 100, 250],
-  rowSelectableCallback: (row) => false,
+  rowSelectableCallback: () => false,
   title: 'Table',
   toggleColumns: true,
 };
