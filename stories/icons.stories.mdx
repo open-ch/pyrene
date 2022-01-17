@@ -61,7 +61,7 @@ import { Texts } from './texts';
           {section.iconDisplay && <div> <IconDisplay data={icons} /> </div>}
           
           {section.iconGrid && <div className="iconGrid">
-            {svgs.map((svg) => <IconBox name={svg.name} key={svg.name} path={svg.path} downloadable />)}
+            {svgs.map((svg) => <IconBox name={svg.name} key={svg.name} path={'https://open-ch.github.io/pyrene'+svg.path.substr(1)} downloadable />)}
           </div> }
         </div>
       </Paragraph>
