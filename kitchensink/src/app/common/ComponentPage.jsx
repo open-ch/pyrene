@@ -15,7 +15,7 @@ const ComponentPage = (props) => (
       </div>
     </div>
 
-    <div className={styles.topicContent}>
+    <div>
       <ComponentEditor component={props.component} componentOrigin={props.componentOrigin} examples={props.examples} />
     </div>
 

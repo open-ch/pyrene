@@ -62,7 +62,7 @@ const description = () => {
           This section is to demonstrate how you would implement a From and To DateTimePicker coupling.
         </p>
       </div>
-      <div className={styles.topicContent}>
+      <div>
         <Paragraph title="Getting started">
           <DescriptionBox>
             <div>
