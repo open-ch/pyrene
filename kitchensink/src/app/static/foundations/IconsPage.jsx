@@ -17,7 +17,7 @@ const IconsPage = () => (
       </div>
     </div>
 
-    <div className={styles.topicContent}>
+    <div>
       <Paragraph title="Icon Font">
         <DescriptionBox>
           For web projects, the best format is our icon font.

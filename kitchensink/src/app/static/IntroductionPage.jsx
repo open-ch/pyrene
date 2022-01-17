@@ -27,7 +27,7 @@ const IntroductionPage = () => (
       </div>
     </div>
 
-    <div className={styles.topicContent}>
+    <div>
       <Paragraph title="Design System">
         <DescriptionBox>
           Our design system helps us to increase speed and efficiency of how we design and build our products.

@@ -23,7 +23,7 @@ const ResourcesPage = () => (
       </div>
     </div>
 
-    <div className={styles.topicContent}>
+    <div>
       <Paragraph title="Adobe Photoshop and Illustrator">
         <DownloadButton path={downloadResourcePath} name="Download Arrow.svg" />
       </Paragraph>

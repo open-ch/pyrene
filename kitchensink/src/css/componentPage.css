@@ -3,8 +3,6 @@
   padding: 0 40px 0 40px;
 }
 
-.header {}
-
 .title {
   margin-left: 0;
   margin-bottom: 24px;
@@ -34,8 +32,6 @@
 .firaCondensed {
   font-family: FiraSans, sans-serif;
 }
-
-.topicContent {}
 
 .fontStack {
   font-size: 32px;

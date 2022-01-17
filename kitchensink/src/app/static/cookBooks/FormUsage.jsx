@@ -403,7 +403,7 @@ const FormUsage = () => (
           we try to standardise the general behaviour and logic behind the React way of doing forms with the intent to reduce boilerplate code.
         </p>
       </div>
-      <div className={styles.topicContent}>
+      <div>
         <Paragraph title="Getting started">
           <DescriptionBox>
             <p>

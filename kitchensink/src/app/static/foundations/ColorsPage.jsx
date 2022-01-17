@@ -48,7 +48,7 @@ const ColorsPage = () => (
       </div>
     </div>
 
-    <div className={styles.topicContent}>
+    <div>
       <Paragraph title="Primary Colors">
         <DescriptionBox>
           The primary colors give our applications the characteristic look and feel. These colors enjoy priority. White plays an important role in structuring content and the overall impression. Blue is used as accent color while Dark is the main color for type.

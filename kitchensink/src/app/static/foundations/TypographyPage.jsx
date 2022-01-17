@@ -21,7 +21,7 @@ const TypographyPage = () => (
       </div>
     </div>
 
-    <div className={styles.topicContent}>
+    <div>
       <Paragraph title="Font stack">
         <DescriptionBox>
           For web projects, the best format is our icon font.

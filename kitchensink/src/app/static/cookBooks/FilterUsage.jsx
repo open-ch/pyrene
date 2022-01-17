@@ -366,7 +366,7 @@ const FilterUsage = () => (
           In order to display filtered data, a filter needs to be connected, with e.g., a Table. There are multiple ways to achieve that, depending on your use case.
         </p>
       </div>
-      <div className={styles.topicContent}>
+      <div>
         <Paragraph title="Simple Filter">
           <DescriptionBox>
             <p>
