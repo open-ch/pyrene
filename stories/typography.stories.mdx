@@ -1,0 +1,144 @@
+import { Meta } from '@storybook/addon-docs';
+import Paragraph from '../kitchensink/src/app/common/PageElements/Paragraph/Paragraph';
+import DescriptionBox from '../kitchensink/src/app/common/PageElements/DescriptionBox/DescriptionBox';
+import fontTypes from '../kitchensink/src/app/data/typography';
+import { Texts } from './texts';
+
+<Meta
+  title="Foundations/Typography"
+  hidden={false}
+  parameters={{
+    viewMode: 'docs',
+    previewTabs: {
+      canvas: { hidden: true }
+    },
+  }}
+/>
+
+<style>{`
+  .title {
+    margin-left: 0;
+    margin-bottom: 24px;
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 1.5;
+  }
+
+  .subtitle{
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: -0.05px;
+    color: #1D273B;
+    border-bottom: 1px solid #E1E3E8;
+    margin-bottom: 16px;
+  }
+
+  .footnote {
+    font-size: 13px;
+    line-height: 16px;
+    padding-top: 24px;
+  }
+
+  .firaCondensed {
+    font-size: 32px;
+    line-height: 64px;
+    letter-spacing: -0.2px;
+    font-family: FiraSans, sans-serif;
+  }
+
+  .fontStack {
+    font-size: 32px;
+    line-height: 64px;
+    letter-spacing: -0.2px;
+    color: #1D273B;
+    background-color: #F0F2F5;
+    border-radius: 4px;
+    padding: 32px;
+    font-family: FiraGo;
+  }
+
+  .footer  {
+    padding-top: 24px;
+  }
+
+  .link {
+    font-size: 16px;
+    color: #0055FF;
+  }
+
+  .twoColumns {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    align-items: center;
+    padding-bottom: 16px;
+  }
+
+  .styleText {
+    font-size: 13px;
+    line-height: 16px;
+    white-space: pre-line;
+  }
+`}</style>
+
+<div>
+  <div>
+    <div className="title">{Texts.pages.typography.title}</div>
+    <DescriptionBox>
+      {Texts.pages.typography.description.map(row => 
+        <span key={row.text}>
+          { row.format !== 'strong' ? <>{row.text}</> : <strong>{row.text}</strong> }
+        </span>
+        )
+      }
+    </DescriptionBox>
+  </div>
+  <div>
+    { Texts.pages.typography.sections.map(section => 
+      <Paragraph title={section.title} key={section.title}>
+        <DescriptionBox>
+          {section.description}
+        </DescriptionBox>
+        
+        { section.subDescription &&
+        <div>
+          { section.subDescription.fonts && 
+          <>
+            <div className='fontStack'>
+              {section.subDescription.fonts.header}<br />
+              <span className='firaCondensed'>{section.subDescription.fonts.text}</span>
+            </div>
+            <div className='footer'>
+              { section.subDescription.fonts.footer && section.subDescription.fonts.footer.map(row =>
+                <span key={row.text}>
+                  {row.link && <a className='link' href={row.link} download='fonts.zip'>{row.text}</a>}
+                  {!row.link && <span>{row.text}</span>}
+                </span>)}
+            </div>
+          </>}
+          {section.subDescription.styles && 
+            <>
+            {fontTypes.map((style) => (
+              <div key={style.title}>
+                <div className='subtitle'>
+                  {style.title}
+                </div>
+                {style.examples.map((font) => (
+                  <div className='twoColumns' key={font.heading}>
+                    <div style={{ ...font.style, width: 200, whiteSpace: 'pre-line' }}>
+                      {font.heading}
+                    </div>
+                    <div className='styleText'>
+                      {font.styleText}
+                    </div>
+                  </div>
+                ))}
+            </div>))}
+            </>}
+        </div>
+        }
+      </Paragraph>
+    )}
+  </div>
+</div>
