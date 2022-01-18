@@ -1,0 +1,70 @@
+import { Meta } from '@storybook/addon-docs';
+import Paragraph from '../kitchensink/src/app/common/PageElements/Paragraph/Paragraph';
+import DescriptionBox from '../kitchensink/src/app/common/PageElements/DescriptionBox/DescriptionBox';
+import IconBox from '../kitchensink/src/app/common/PageElements/FoundationElements/IconBox/IconBox';
+import IconDisplay from '../kitchensink/src/app/common/PageElements/FoundationElements/IconDisplay/IconDisplay';
+import { icons, svgs } from '../kitchensink/src/app/data/foundationsData';
+import { Texts } from './texts';
+
+<Meta
+  title="Foundations/Icons"
+  hidden={false}
+  parameters={{
+    viewMode: 'docs',
+    previewTabs: {
+      canvas: { hidden: true }
+    },
+  }}
+/>
+
+<style>{`
+  .title {
+    margin-left: 0;
+    margin-bottom: 24px;
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 1.5;
+  }
+
+  .principlesGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-row-gap: 40px;
+  }
+
+  .designSystemGrid {
+    display: grid;
+    grid-gap: 24px;
+  }
+
+  .iconGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-gap: 16px;
+  }
+`}</style>
+
+<div>
+  <div>
+    <div className="title">{Texts.pages.icons.title}</div>
+    <DescriptionBox>
+      {Texts.pages.icons.description.map(row => <span key={row}>{row}<br/><br/></span>)}
+    </DescriptionBox>
+  </div>
+  <div>
+    { Texts.pages.icons.sections.map(section => 
+      <Paragraph title={section.title} key={section.title}>
+        <DescriptionBox>
+          {section.description}
+        </DescriptionBox>
+        <div>
+          {section.iconDisplay && <div> <IconDisplay data={icons} /> </div>}
+          
+          {section.iconGrid && <div className="iconGrid">
+            {svgs.map((svg) => <IconBox name={svg.name} key={svg.name} path={'https://open-ch.github.io/pyrene'+svg.path.substr(1)} downloadable />)}
+          </div> }
+        </div>
+      </Paragraph>
+    )}
+  </div>
+</div>

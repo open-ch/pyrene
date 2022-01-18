@@ -9,3 +9,4 @@ dist
 jest.json
 coverage/
 *.tgz
+storybook-static/
