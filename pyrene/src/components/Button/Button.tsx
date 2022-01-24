@@ -47,7 +47,7 @@ export interface ButtonProps {
    */
   type?: Type,
   /**
-   * Set button width
+   * Sets button width
    */
   width?: number,
 }
