@@ -46,6 +46,10 @@ export interface ButtonProps {
    * Sets the overall style.
    */
   type?: Type,
+  /**
+   * Sets button width
+   */
+  width?: number,
 }
 
 /**
@@ -63,8 +67,9 @@ const Button: React.FC<ButtonProps> = ({
   type = ButtonKind.primary,
   onClick,
   label,
+  width,
 }: ButtonProps) => (
-  <div className={styles.buttonContainer}>
+  <div className={styles.buttonContainer} title={width ? label?.toString() : undefined}>
     <button
       // eslint-disable-next-line react/button-has-type
       type={actionType}
@@ -76,6 +81,7 @@ const Button: React.FC<ButtonProps> = ({
       }
       onClick={onClick}
       disabled={disabled}
+      style={{ width: width }}
     >
       {icon && <span className={clsx(styles.icon, `pyreneIcon-${icon}`)} />}
       <span className={styles.label}>{label}</span>
