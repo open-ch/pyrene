@@ -69,7 +69,7 @@ const Button: React.FC<ButtonProps> = ({
   label,
   width,
 }: ButtonProps) => (
-  <div className={styles.buttonContainer}>
+  <div className={styles.buttonContainer} title={width ? label?.toString() : undefined}>
     <button
       // eslint-disable-next-line react/button-has-type
       type={actionType}
