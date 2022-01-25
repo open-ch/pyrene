@@ -16,10 +16,6 @@ import { Option } from './types';
 
 export interface MultiSelectProps {
   /**
-   * Custom new tag label. Sets the text for the "create new ..." option in the menu.
-   */
-  addNewTagLabel?: string,
-  /**
    * Whether the selection is clearable.
    */
   clearable?: boolean,
@@ -27,6 +23,10 @@ export interface MultiSelectProps {
    * Whether the user can create new options.
    */
   creatable?: boolean,
+  /**
+   * Create new tag label. Sets the text for the "create new ..." option in the menu.
+   */
+  createTagLabel?: string,
   /**
    * Sets a preselected options. Type: [ string | number ]
    */
@@ -146,9 +146,9 @@ export const createNewValue = (values: string[], options: MultiSelectProps['opti
  */
 const MultiSelect: FunctionComponent<MultiSelectProps> = (props: MultiSelectProps) => {
   const {
-    addNewTagLabel = 'Create new tag',
     clearable = false,
     creatable = false,
+    createTagLabel = 'Create new tag',
     defaultValue = [],
     disabled = false,
     helperLabel = '',
@@ -230,7 +230,7 @@ const MultiSelect: FunctionComponent<MultiSelectProps> = (props: MultiSelectProp
             inputId={name}
             maxMenuHeight={264}
             noOptionsMessage={formatNoOptionsMessage}
-            formatCreateLabel={(inputValue) => `${addNewTagLabel} "${inputValue}"`}
+            formatCreateLabel={(inputValue) => `${createTagLabel} "${inputValue}"`}
             closeMenuOnSelect={!keepMenuOnSelect}
             isMulti
             isSearchable
