@@ -29,6 +29,10 @@ export type SingleSelectProps<ValueType = DefaultValueType> = {
    */
   creatable?: boolean;
   /**
+   * Create new tag label. Sets the text for the "create new ..." option in the menu.
+   */
+  createTagLabel?: string,
+  /**
    * Sets a preselected option.
    */
   defaultValue?: SingleSelectOption<ValueType>;
@@ -156,6 +160,7 @@ const SingleSelect = <ValueType extends unknown = DefaultValueType>({
   placeholder = '',
   name = '',
   creatable = false,
+  createTagLabel = 'Create new tag',
   disabled = false,
   invalid = false,
   loading = false,
@@ -206,7 +211,7 @@ const SingleSelect = <ValueType extends unknown = DefaultValueType>({
     maxMenuHeight: maxMenuHeight,
     noOptionsMessage: () => 'no matches found',
     filterOption: defaultFilterOption,
-    formatCreateLabel: creatable ? (inputValue: string) => `Create new tag "${inputValue}"` : undefined,
+    formatCreateLabel: creatable ? (inputValue: string) => `${createTagLabel} "${inputValue}"` : undefined,
     isSearchable: creatable ? true : searchable,
     blurInputOnSelect: true,
     escapeClearsValue: true,
