@@ -24,6 +24,10 @@ export interface MultiSelectProps {
    */
   creatable?: boolean,
   /**
+   * Create new tag label. Sets the text for the "create new ..." option in the menu.
+   */
+  createTagLabel?: string,
+  /**
    * Sets a preselected options. Type: [ string | number ]
    */
   defaultValue?: Array<Option>,
@@ -144,6 +148,7 @@ const MultiSelect: FunctionComponent<MultiSelectProps> = (props: MultiSelectProp
   const {
     clearable = false,
     creatable = false,
+    createTagLabel = 'Create new tag',
     defaultValue = [],
     disabled = false,
     helperLabel = '',
@@ -225,7 +230,7 @@ const MultiSelect: FunctionComponent<MultiSelectProps> = (props: MultiSelectProp
             inputId={name}
             maxMenuHeight={264}
             noOptionsMessage={formatNoOptionsMessage}
-            formatCreateLabel={(inputValue) => `Create new tag "${inputValue}"`}
+            formatCreateLabel={(inputValue) => `${createTagLabel} "${inputValue}"`}
             closeMenuOnSelect={!keepMenuOnSelect}
             isMulti
             isSearchable
