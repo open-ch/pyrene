@@ -26,6 +26,10 @@ export interface CardProps {
    * Indicates whether the card is loading. Displays an overlay loader.
    */
   loading?: boolean,
+  /**
+   * Sets spacing between card content and edge
+   */
+  paddingSize?: 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge',
 }
 
 /**
@@ -39,8 +43,9 @@ const Card: FunctionComponent<CardProps> = ({
   children,
   loading = false,
   error,
+  paddingSize = 'large',
 }: CardProps) => (
-  <div className={styles.container}>
+  <div className={clsx(styles.container, styles[paddingSize])}>
     {header && <div className={styles.header}>{header}</div>}
     <div className={clsx(styles.content, {
       [styles['content--noHeader']]: !header,
