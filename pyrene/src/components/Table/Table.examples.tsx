@@ -521,6 +521,8 @@ const examples: Example<TableProps<TableRow>, State<TableRow>> = {
       icon: 'delete', label: 'Multi', callback: () => console.log('multi'), active: 'multi',
     }, {
       icon: 'info', label: 'Always', callback: () => console.log('always'), active: 'always',
+    }, {
+      icon: 'data', label: 'No Select', callback: () => console.log('no Selection'), active: 'no_selection',
     }],
     filters: [{
       label: 'Free Text', type: 'text', id: 'name',

@@ -65,6 +65,11 @@ describe('<Table />', () => {
       callback: onClick,
       active: 'always',
     }, {
+      icon: 'data',
+      label: 'No Selection',
+      callback: onClick,
+      active: 'no_selection',
+    }, {
       icon: 'filter',
       label: 'Disabled',
       callback: () => null,
@@ -87,6 +92,11 @@ describe('<Table />', () => {
       .simulate('click');
     expect(onClick)
       .toHaveBeenCalledTimes(3);
+
+    wrapper.find('Button[label="No Selection"]')
+      .simulate('click');
+    expect(onClick)
+      .toHaveBeenCalledTimes(4);
 
     expect(wrapper.find('Button[label="Disabled"]').props().disabled).toBe(true);
   });
