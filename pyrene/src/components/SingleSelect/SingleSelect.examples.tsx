@@ -47,7 +47,7 @@ const testOptionsWithIcons = testOptions.map((option, i) => ({ ...option, iconPr
 type OptionType = SingleSelectOption<string>;
 
 interface State {
-  value: OptionType
+  value: OptionType | null;
 }
 
 const examples: Example<SingleSelectProps<string>, State> = {
@@ -56,8 +56,8 @@ const examples: Example<SingleSelectProps<string>, State> = {
     placeholder: 'Choose your favorite ice cream',
     helperLabel: 'Ice cream is delicious',
     options: testOptions,
-    onChange: (stateProvider: StateProvider<State>) => (value: OptionType) => stateProvider.setState({ value }),
-    value: (stateProvider: StateProvider<State>): OptionType => stateProvider.state.value,
+    onChange: (stateProvider: StateProvider<State>) => (value: OptionType | null) => value && stateProvider.setState({ value }),
+    value: (stateProvider: StateProvider<State>): OptionType | null => stateProvider.state.value,
   },
   examples: [
     {
@@ -66,8 +66,8 @@ const examples: Example<SingleSelectProps<string>, State> = {
         placeholder: 'Choose your favorite ice cream',
         helperLabel: 'Ice cream is delicious',
         options: testOptions,
-        onChange: (stateProvider: StateProvider<State>) => (value: OptionType) => stateProvider.setState({ value }),
-        value: (stateProvider: StateProvider<State>): OptionType => stateProvider.state.value,
+        onChange: (stateProvider: StateProvider<State>) => (value: OptionType | null) => value && stateProvider.setState({ value }),
+        value: (stateProvider: StateProvider<State>): OptionType | null => stateProvider.state.value,
       },
       description: 'Simple Single Select',
     },
@@ -77,8 +77,8 @@ const examples: Example<SingleSelectProps<string>, State> = {
         placeholder: 'Choose your favorite ice cream',
         helperLabel: 'Ice cream is delicious',
         options: testOptionsWithIcons,
-        onChange: (stateProvider: StateProvider<State>) => (value: OptionType) => stateProvider.setState({ value }),
-        value: (stateProvider: StateProvider<State>): OptionType => stateProvider.state.value,
+        onChange: (stateProvider: StateProvider<State>) => (value: OptionType | null) => stateProvider.setState({ value }),
+        value: (stateProvider: StateProvider<State>): OptionType | null => stateProvider.state.value,
       },
       description: 'Single Select with Icons',
     },
@@ -89,8 +89,8 @@ const examples: Example<SingleSelectProps<string>, State> = {
         helperLabel: 'Ice cream is delicious',
         options: testOptions,
         searchable: true,
-        onChange: (stateProvider: StateProvider<State>) => (value: SingleSelectOption<string>) => stateProvider.setState({ value }),
-        value: (stateProvider: StateProvider<State>): SingleSelectOption<string> => stateProvider.state.value,
+        onChange: (stateProvider: StateProvider<State>) => (value: SingleSelectOption<string> | null) => stateProvider.setState({ value }),
+        value: (stateProvider: StateProvider<State>): SingleSelectOption<string> | null => stateProvider.state.value,
       },
       description: 'Single Select with search',
     },
