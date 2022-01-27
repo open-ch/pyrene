@@ -80,7 +80,7 @@ export interface TableState {
 }
 
 export interface Action {
-  active: 'single' | 'multi' | 'always' | 'disabled',
+  active: 'single' | 'multi' | 'always' | 'disabled' | 'no_selection',
   callback: (row: Array<string | number>) => void,
   icon?: keyof IconNames,
   label: string,
@@ -410,6 +410,11 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
     if (this.state.selection.length >= 1 && actionType === 'multi') {
       return true;
     }
+
+    if (this.state.selection.length === 0 && actionType === 'no_selection') {
+      return true;
+    }
+
     return false;
 
   };
