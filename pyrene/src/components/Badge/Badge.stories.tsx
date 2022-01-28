@@ -17,7 +17,7 @@ export const Danger = Template.bind({});
 
 Danger.args = {
   label: 'Security Alert',
-  maxWidth: 120,
+  maxWidth: 80,
   type: 'danger',
   onClick: () => alert('Dangerous!'),
 };
@@ -29,7 +29,7 @@ export const Unclickable = Template.bind({});
 
 Unclickable.args = {
   label: 'Release Notes',
-  maxWidth: 100,
+  maxWidth: 85,
   type: 'neutral',
 };
 
@@ -40,7 +40,7 @@ export const Success = Template.bind({});
 
 Success.args = {
   label: 'Success',
-  maxWidth: 100,
+  maxWidth: 55,
   type: 'success',
   onClick: () => alert('This is a success!'),
 };
@@ -52,6 +52,6 @@ export const Warning = Template.bind({});
 
 Warning.args = {
   label: 'Warning',
-  maxWidth: 100,
+  maxWidth: 55,
   type: 'warning',
 };
