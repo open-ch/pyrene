@@ -72,6 +72,10 @@ export interface TextAreaProps {
    */
   adaptToContent?: boolean,
   /**
+   * Min number of rows, useful when combined with adaptToContent prop
+   */
+  minRows?: number,
+  /**
    * Max number of rows, useful when combined with adaptToContent prop
    */
   maxRows?: number,
@@ -98,6 +102,7 @@ const TextArea: React.FC<TextAreaProps> = ({
   onChange,
   onFocus,
   adaptToContent = false,
+  minRows = 1,
   maxRows = 10,
 }: TextAreaProps) => {
 
@@ -105,20 +110,26 @@ const TextArea: React.FC<TextAreaProps> = ({
   const characterCount = maxLength - (value !== null ? value.length : 0);
   const characterLimitReached = characterCount < 0;
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
-  const [currentRows, setCurrentRows] = useState(rows);
+  const [currentRows, setCurrentRows] = useState(minRows);
   const [text, setText] = useState(value);
 
   useEffect(() => {
     if (adaptToContent && textAreaRef.current) {
       // eslint-disable-next-line no-bitwise
       const rowsFromHeight = ~~(textAreaRef.current.scrollHeight / textAreaLineHeight);
-      setCurrentRows(rowsFromHeight >= maxRows ? maxRows : rowsFromHeight);
+      if (rowsFromHeight >= maxRows) {
+        setCurrentRows(maxRows);
+      } else if (rowsFromHeight <= minRows) {
+        setCurrentRows(minRows);
+      } else {
+        setCurrentRows(rowsFromHeight);
+      }
     }
-  }, [text, adaptToContent, maxRows]);
+  }, [text, adaptToContent, maxRows, minRows]);
 
   const onChangeHandler = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     if (adaptToContent) {
-      setCurrentRows(rows); // we need to reset the row number to make sure we don't build up indefinitely
+      setCurrentRows(minRows); // we need to reset the row number to make sure we don't build up indefinitely
       setText(event.target.value);
     }
     onChange?.(event.target.value, event);
