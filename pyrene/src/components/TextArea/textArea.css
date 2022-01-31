@@ -69,11 +69,11 @@
   background-color: var(--background-tint);
   outline: none;
 
-  padding: 8px 7px;
+  padding: 7px 7px;
 
   font-family: FiraGO, Helvetica, sans-serif;
   font-size: 12px;
-  line-height: 14px;
+  line-height: 16px;
   text-align: left;
   color: var(--text);
 
