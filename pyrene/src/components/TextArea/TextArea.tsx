@@ -109,9 +109,9 @@ const TextArea: React.FC<TextAreaProps> = ({
   const [text, setText] = useState(value);
 
   useEffect(() => {
-    if (adaptToContent) {
+    if (adaptToContent && textAreaRef.current) {
       // eslint-disable-next-line no-bitwise
-      const rowsFromHeight = ~~(textAreaRef.current!.scrollHeight / textAreaLineHeight);
+      const rowsFromHeight = ~~(textAreaRef.current.scrollHeight / textAreaLineHeight);
       setCurrentRows(rowsFromHeight >= maxRows ? maxRows : rowsFromHeight);
     }
   }, [text, adaptToContent, maxRows]);
