@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import clsx from 'clsx';
 import styles from './textArea.css';
 
@@ -67,6 +67,15 @@ export interface TextAreaProps {
    * Sets a fixed width (px) for the input field.
    */
   width?: number | string,
+  /**
+   * Whether the text area automatically adjusts to the content
+   */
+  adaptToContent?: boolean,
+  /**
+   * Max number of rows, useful sense combined with adaptToContent prop
+   */
+  maxRows?: number,
+
 }
 
 /**
@@ -86,13 +95,32 @@ const TextArea: React.FC<TextAreaProps> = ({
   maxLength = 0,
   resizeable = false,
   required = false,
+  adaptToContent = false,
+  maxRows = 10,
   onBlur,
   onChange,
   onFocus,
 }: TextAreaProps) => {
 
+  const textAreaLineHeight = 12;
   const characterCount = maxLength - (value !== null ? value.length : 0);
   const characterLimitReached = characterCount < 0;
+  const handleChange = (event: React.FormEvent<HTMLTextAreaElement>) => {
+
+    if (adaptToContent) {
+      event.target.rows = rows; // reset number of rows in textarea
+
+      const rowsFromHeight = ~~(event.target.scrollHeight / textAreaLineHeight); // get int number of rows
+
+      if (rowsFromHeight >= maxRows) {
+        event.target.rows = maxRows;
+        event.target.scrollTop = event.target.scrollHeight;
+      } else {
+        event.target.rows = rowsFromHeight;
+      }
+    }
+    onChange?.(event.target.value, event);
+  };
 
   return (
     <div
@@ -109,6 +137,7 @@ const TextArea: React.FC<TextAreaProps> = ({
         {maxLength > 0 && <span className={styles.characterCounter}>{characterCount}</span>}
       </div>
       <textarea
+        style={{lineHeight: `${textAreaLineHeight}px`,}}
         className={clsx(styles.textArea, { [styles.resizeable]: resizeable }, { [styles.filled]: value })}
         name={name}
         placeholder={placeholder}
@@ -116,7 +145,7 @@ const TextArea: React.FC<TextAreaProps> = ({
         value={value}
         wrap="hard"
         onBlur={onBlur}
-        onChange={(event) => onChange?.(event.target.value, event)}
+        onChange={(event) => handleChange(event)}
         onFocus={onFocus}
       />
 
