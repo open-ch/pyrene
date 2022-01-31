@@ -1,6 +1,5 @@
 @import '../../../styles/colors.module.css';
 
-
 .filter, .filterTags {
   composes: commonFontSettings from '../../../styles/common.module.css';
   display: flex;

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import clsx from 'clsx';
 import Tooltip from '../Tooltip/Tooltip';
-import styles from './checkbox.css';
+import styles from './Checkbox.module.css';
 
 import iconNormal from './checkbox-blank.svg';
 import iconNormalHover from './checkbox-hover.svg';
