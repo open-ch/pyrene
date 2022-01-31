@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import clsx from 'clsx';
 import styles from './textArea.css';
 
@@ -67,6 +67,14 @@ export interface TextAreaProps {
    * Sets a fixed width (px) for the input field.
    */
   width?: number | string,
+  /**
+   * Whether the text area automatically adjusts to the content
+   */
+  adaptToContent?: boolean,
+  /**
+   * Max number of rows, useful when combined with adaptToContent prop
+   */
+  maxRows?: number,
 }
 
 /**
@@ -89,10 +97,32 @@ const TextArea: React.FC<TextAreaProps> = ({
   onBlur,
   onChange,
   onFocus,
+  adaptToContent = false,
+  maxRows = 10,
 }: TextAreaProps) => {
 
+  const textAreaLineHeight = 16;
   const characterCount = maxLength - (value !== null ? value.length : 0);
   const characterLimitReached = characterCount < 0;
+  const textAreaRef = useRef<HTMLTextAreaElement>(null);
+  const [currentRows, setCurrentRows] = useState(rows);
+  const [text, setText] = useState(value);
+
+  useEffect(() => {
+    if (adaptToContent) {
+      // eslint-disable-next-line no-bitwise
+      const rowsFromHeight = ~~(textAreaRef.current!.scrollHeight / textAreaLineHeight);
+      setCurrentRows(rowsFromHeight >= maxRows ? maxRows : rowsFromHeight);
+    }
+  }, [text, adaptToContent, maxRows]);
+
+  const onChangeHandler = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    if (adaptToContent) {
+      setCurrentRows(rows); // we need to reset the row number to make sure we don't build up indefinitely
+      setText(event.target.value);
+    }
+    onChange?.(event.target.value, event);
+  };
 
   return (
     <div
@@ -109,17 +139,18 @@ const TextArea: React.FC<TextAreaProps> = ({
         {maxLength > 0 && <span className={styles.characterCounter}>{characterCount}</span>}
       </div>
       <textarea
+        ref={textAreaRef}
+        style={{ lineHeight: `${textAreaLineHeight}px` }}
         className={clsx(styles.textArea, { [styles.resizeable]: resizeable }, { [styles.filled]: value })}
         name={name}
         placeholder={placeholder}
-        rows={Math.max(1, rows)}
+        rows={Math.max(1, currentRows)}
         value={value}
         wrap="hard"
         onBlur={onBlur}
-        onChange={(event) => onChange?.(event.target.value, event)}
+        onChange={(event) => onChangeHandler(event)}
         onFocus={onFocus}
       />
-
       {invalid && invalidLabel && !disabled
         ? (
           <div className={styles.invalidLabel}>
