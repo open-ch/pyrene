@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import FilterBar from './FilterComponents/FilterBar';
 import FilterButton from './FilterComponents/FilterButton';
-import styles from './Filter.css';
+import styles from './Filter.module.css';
 import { Filter as FilterType, Filters } from './types';
 
 export interface FilterProps {

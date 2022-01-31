@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Popover, { PopoverProps } from 'react-tiny-popover';
 
-import styles from './tooltip.module.css';
+import styles from './Tooltip.module.css';
 
 export interface TooltipProps {
   /**

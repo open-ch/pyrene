@@ -3,7 +3,7 @@ import clsx from 'clsx';
 
 import Loader from '../Loader/Loader';
 import Banner from '../Banner/Banner';
-import styles from './card.css';
+import styles from './Card.module.css';
 
 export interface CardProps {
   /**
@@ -53,7 +53,7 @@ const Card: FunctionComponent<CardProps> = ({
     })}
     >
       {/* eslint-disable-next-line no-nested-ternary */}
-      { error ? <div className={styles.error}><Banner type="error" styling="standard" label={error} /></div>
+      {error ? <div className={styles.error}><Banner type="error" styling="standard" label={error} /></div>
         : loading ? (
           <div className={styles.loader}>
             <div className={styles.loadingOverlay}>

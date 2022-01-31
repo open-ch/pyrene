@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import clsx from 'clsx';
 import Icon, { IconProps } from '../Icon/Icon';
-import styles from './accordion.css';
+import styles from './Accordion.module.css';
 
 export interface SectionProps {
   /**

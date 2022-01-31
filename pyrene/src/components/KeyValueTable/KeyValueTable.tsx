@@ -1,5 +1,5 @@
 import React, { CSSProperties, ReactNode } from 'react';
-import styles from './keyValueTable.css';
+import styles from './KeyValueTable.module.css';
 
 type Row = {
   key: string;

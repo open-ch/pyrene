@@ -6,7 +6,7 @@ import ToolTipComponent, { TooltipProps } from './Tooltip';
 import Placeholder from '../../examples/Placeholder';
 
 export default {
-  title: 'Components/Tooltip',
+  title: 'Components/Other/Tooltip',
   component: ToolTipComponent,
 } as Meta;
 

@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 
-import styles from './filterOption.css';
+import styles from './FilterOption.module.css';
 import SingleSelect from '../../SingleSelect/SingleSelect';
 import TextField from '../../TextField/TextField';
 import MultiSelect from '../../MultiSelect/MultiSelect';

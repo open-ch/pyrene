@@ -31,6 +31,5 @@
     "storybook-css-modules-preset": "^1.1.1",
     "typescript": "file:pyrene/node_modules/typescript",
     "webpack": "file:pyrene/node_modules/webpack"
-  },
-  "dependencies": {}
+  }
 }

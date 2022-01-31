@@ -2,7 +2,7 @@
 /* eslint-disable react/static-property-placement */
 import React from 'react';
 
-import styles from './FilterBar.css';
+import styles from './FilterBar.module.css';
 import FilterPopoverButton from '../FilterPopOverButton/FilterPopoverButton';
 import FilterTag from './FilterTag';
 import {
