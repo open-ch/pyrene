@@ -192,10 +192,15 @@ const MultiSelect: FunctionComponent<MultiSelectProps> = (props: MultiSelectProp
   };
 
   const formatNoOptionsMessage: SelectProps<Option, true>['noOptionsMessage'] = (input) => {
-    if (value && value.length > 0) {
+    if (value) {
       const existingLabels = value.map((v) => v.label);
       const foundLabel = existingLabels.find((v) => v.toLowerCase() === input.inputValue.toLowerCase());
-      return foundLabel ? `Duplicate tag "${foundLabel}"` : 'No matches found';
+      if (foundLabel) {
+        return `Duplicate tag "${foundLabel}"`;
+      }
+    }
+    if (options.length > 0) {
+      return 'No matches found';
     }
     return null;
   };
