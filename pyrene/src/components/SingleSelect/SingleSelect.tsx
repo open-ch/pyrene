@@ -209,7 +209,7 @@ const SingleSelect = <ValueType extends unknown = DefaultValueType>({
     autoFocus: autoFocus,
     openMenuOnFocus: openMenuOnFocus,
     maxMenuHeight: maxMenuHeight,
-    noOptionsMessage: () => (value ? 'no matches found' : null),
+    noOptionsMessage: () => (options.length > 0 ? 'no matches found' : null),
     filterOption: defaultFilterOption,
     formatCreateLabel: creatable ? (inputValue: string) => `${createTagLabel} "${inputValue}"` : undefined,
     isSearchable: creatable ? true : searchable,
