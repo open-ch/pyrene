@@ -113,11 +113,6 @@ export const Texts = {
           subDescription: {
             fonts: {
               header: 'FiraGo', text: 'Fira Sans Condensed',
-              footer: [
-                { text: 'You can download FiraGo and Fira Sans Condensed as zip ' },
-                { text: 'here', link: '../../../fonts/Pyrene_Font_Kit_v1.0.zip' },
-                { text: '.' }
-              ]
             },
           }
         }, {
