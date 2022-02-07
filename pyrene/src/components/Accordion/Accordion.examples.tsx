@@ -99,7 +99,7 @@ Accordion.props = {
         }, {
           iconProps: ({ name: 'resolved', color: 'green600' }),
           renderContent: renderCustomAccordionContent,
-          title: renderCustomAccordionTitle('https://control.open.ch/docs', 'Member of required user group', 'GET request'),
+          title: renderCustomAccordionTitle('SCRUBBED-URL', 'Member of required user group', 'GET request'),
         }]}
       />
     ),
@@ -149,7 +149,7 @@ Accordion.examples = [
       }, {
         iconProps: ({ name: 'resolved', color: 'green600' }),
         renderContent: renderCustomAccordionContent,
-        title: renderCustomAccordionTitle('https://control.open.ch/docs', 'Member of required user group', 'GET request'),
+        title: renderCustomAccordionTitle('SCRUBBED-URL', 'Member of required user group', 'GET request'),
       }],
     },
     description: 'Custom accordion with render prop title',

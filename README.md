@@ -58,3 +58,7 @@ and many more.
 ## Contributing
 
 Do you want to contribute to pyrene? Please have a look at [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+
+## FAQ
+
+[FAQ.md](FAQ.md)

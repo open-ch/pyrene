@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-return */
-import React, { useState } from 'react';
+import React from 'react';
 import clsx from 'clsx';
-import Select, { InputActionMeta } from 'react-select';
+import Select from 'react-select';
 import CreatableSelect from 'react-select/creatable';
 import selectStyle from './selectStyle';
 import styles from './select.css';
@@ -183,7 +183,6 @@ const SingleSelect = <ValueType extends unknown = DefaultValueType>({
 }: SingleSelectProps<ValueType>): React.ReactElement => {
 
   const optionsObj = getOptionsObj(options, groupedOptions, sorted);
-  const [inputValue, setInputValue] = useState('');
 
   const selectProps = {
     className: 'singleSelect',
@@ -202,11 +201,6 @@ const SingleSelect = <ValueType extends unknown = DefaultValueType>({
     isInvalid: invalid,
     isLoading: loading,
     onChange: (option: any) => onChange?.(option, { target: { type: 'singleSelect', name: name, value: option } }),
-    onInputChange: (input: string, action: InputActionMeta) => {
-      if (action.action !== 'input-blur' && action.action !== 'menu-close') {
-        setInputValue(input);
-      }
-    },
     onBlur: onBlur,
     onFocus: onFocus,
     name: name,
@@ -217,7 +211,7 @@ const SingleSelect = <ValueType extends unknown = DefaultValueType>({
     maxMenuHeight: maxMenuHeight,
     noOptionsMessage: () => (options.length > 0 ? 'no matches found' : null),
     filterOption: defaultFilterOption,
-    formatCreateLabel: creatable ? (newValue: string) => `${createTagLabel} "${newValue}"` : undefined,
+    formatCreateLabel: creatable ? (inputValue: string) => `${createTagLabel} "${inputValue}"` : undefined,
     isSearchable: creatable ? true : searchable,
     blurInputOnSelect: true,
     escapeClearsValue: true,
@@ -228,7 +222,7 @@ const SingleSelect = <ValueType extends unknown = DefaultValueType>({
     <div className={clsx(styles.selectContainer, { [styles.disabled]: disabled })}>
       {title && <div className={clsx(styles.selectTitle, { [styles.required]: required && !disabled })}>{title}</div>}
 
-      {creatable ? <CreatableSelect {...selectProps} inputValue={inputValue} /> : <Select {...selectProps} />}
+      {creatable ? <CreatableSelect {...selectProps} /> : <Select {...selectProps} />}
 
       {invalid && invalidLabel && !disabled
         ? (
