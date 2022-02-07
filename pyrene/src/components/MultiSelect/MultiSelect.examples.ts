@@ -48,6 +48,7 @@ const testOptionsWithIcons = testOptions.map((option, i) => ({ ...option, iconPr
 
 const makeExample = (options: ReadonlyArray<Option>) => ({
   title: 'Multi-Select',
+  customDelimiters: ['\\s', ',', ';', '?'],
   placeholder: 'Choose your favorite ice cream',
   helperLabel: 'Ice cream is delicious',
   options,
