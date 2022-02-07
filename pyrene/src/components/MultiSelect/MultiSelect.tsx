@@ -2,20 +2,16 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import React, {
-  FunctionComponent, useState, useEffect, ClipboardEvent,
-} from 'react';
+import React, { FunctionComponent, useState, ClipboardEvent } from 'react';
 import clsx from 'clsx';
-import Select, { InputActionMeta, Props as SelectProps, SelectComponentsConfig } from 'react-select';
+import Select, { Props as SelectProps, SelectComponentsConfig } from 'react-select';
 import CreatableSelect from 'react-select/creatable';
 import styles from '../SingleSelect/select.css';
 import MultiSelectStyle from './multiSelectCSS';
 import Loader from '../Loader/Loader';
 import MultiSelectMenuWithOptions from './MultiSelectMenuWithOptions';
 import CustomOption from '../SingleSelect/CustomOption';
-import {
-  DEFAULT_DELIMITERS, delimiterCheck, getCaseInsensitiveDistinctValues, getDelimitedValues, getRegExp,
-} from './delimiterUtil';
+import { getCaseInsensitiveDistinctValues, getDelimitedValues } from './delimiterUtil';
 import { Option } from './types';
 
 export interface MultiSelectProps {
@@ -31,10 +27,6 @@ export interface MultiSelectProps {
    * Create new tag label. Sets the text for the "create new ..." option in the menu.
    */
   createTagLabel?: string,
-  /**
-   * Sets delimiters for entered values
-   */
-  customDelimiters?: Array<string>,
   /**
    * Sets a preselected options. Type: [ string | number ]
    */
@@ -157,7 +149,6 @@ const MultiSelect: FunctionComponent<MultiSelectProps> = (props: MultiSelectProp
     clearable = false,
     creatable = false,
     createTagLabel = 'Create new tag',
-    customDelimiters,
     defaultValue = [],
     disabled = false,
     helperLabel = '',
@@ -180,28 +171,14 @@ const MultiSelect: FunctionComponent<MultiSelectProps> = (props: MultiSelectProp
 
   const [hasPastedDuplicates, setHasPastedDuplicates] = useState(false);
   const opts = sorted ? [...options].sort((a, b) => a.label.localeCompare(b.label)) : options;
-  const [inputValue, setInputValue] = useState('');
-
-  const [delimiters, setDelimiters] = useState<Array<string>>(DEFAULT_DELIMITERS);
-  const [regexObj, setRegexObj] = useState(getRegExp(delimiters));
-
-  useEffect(() => {
-    if (customDelimiters) {
-      setDelimiters([...DEFAULT_DELIMITERS, ...customDelimiters]);
-    }
-  }, [customDelimiters]);
-
-  useEffect(() => {
-    setRegexObj(getRegExp(delimiters));
-  }, [delimiters]);
 
   const onPaste = (event: ClipboardEvent<HTMLDivElement>) => {
     if (creatable) {
       setHasPastedDuplicates(false);
       const pastedData = (event.clipboardData || (window as any).clipboardData).getData('text');
-      const delimitedValues = getCaseInsensitiveDistinctValues(getDelimitedValues(pastedData, regexObj));
+      const delimitedValues = getCaseInsensitiveDistinctValues(getDelimitedValues(pastedData));
       const newValue = createNewValue(delimitedValues, options);
-      if (value?.length > 0) {
+      if (value.length > 0) {
         const distinctNewValue = newValue.filter((o) => value.findIndex((exO) => exO.label.toLowerCase() === o.label.toLowerCase()) < 0);
         setHasPastedDuplicates(distinctNewValue.length < delimitedValues.length);
         onChange?.([...value, ...distinctNewValue]);
@@ -247,27 +224,21 @@ const MultiSelect: FunctionComponent<MultiSelectProps> = (props: MultiSelectProp
             isDisabled={disabled}
             isInvalid={invalid}
             isLoading={loading}
-            inputValue={inputValue}
             // wrapping type and key into target so it better reflects the api that input event has (there is also event.target.name)
             onChange={(option: any) => onChange?.(option, { target: { type: 'multiSelect', name: name, value: option } })}
-            onInputChange={(input: string, action: InputActionMeta) => {
+            onInputChange={(input) => {
               if (input.length > 0) {
                 setHasPastedDuplicates(false);
-              }
-
-              if (action.action !== 'input-blur' && action.action !== 'menu-close') {
-                setInputValue(input);
               }
             }}
             onBlur={onBlur}
             onFocus={onFocus}
-            onKeyDown={(key: React.KeyboardEvent<HTMLElement>) => delimiterCheck(key, regexObj)}
             name={name}
             id={name}
             inputId={name}
             maxMenuHeight={264}
             noOptionsMessage={formatNoOptionsMessage}
-            formatCreateLabel={(newValue) => `${createTagLabel} "${newValue}"`}
+            formatCreateLabel={(inputValue) => `${createTagLabel} "${inputValue}"`}
             closeMenuOnSelect={!keepMenuOnSelect}
             isMulti
             isSearchable
