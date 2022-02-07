@@ -98,7 +98,6 @@ const config = {
     new CopyWebpackPlugin({
       patterns: [
         { from: 'src/app/data/svgs/*', to: 'svgs/[name][ext]' },
-        { from: 'src/fonts/Pyrene_Font_Kit_v1.0.zip', to: 'fonts/Pyrene_Font_Kit_v1.0.zip' },
       ],
     }),
   ],

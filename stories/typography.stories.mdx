@@ -58,10 +58,6 @@ import { Texts } from './texts';
     font-family: FiraGo;
   }
 
-  .footer  {
-    padding-top: 24px;
-  }
-
   .link {
     font-size: 16px;
     color: #0055FF;
@@ -104,19 +100,10 @@ import { Texts } from './texts';
         { section.subDescription &&
         <div>
           { section.subDescription.fonts && 
-          <>
             <div className='fontStack'>
               {section.subDescription.fonts.header}<br />
               <span className='firaCondensed'>{section.subDescription.fonts.text}</span>
-            </div>
-            <div className='footer'>
-              { section.subDescription.fonts.footer && section.subDescription.fonts.footer.map(row =>
-                <span key={row.text}>
-                  {row.link && <a className='link' href={row.link} download='fonts.zip'>{row.text}</a>}
-                  {!row.link && <span>{row.text}</span>}
-                </span>)}
-            </div>
-          </>}
+            </div>}
           {section.subDescription.styles && 
             <>
             {fontTypes.map((style) => (
