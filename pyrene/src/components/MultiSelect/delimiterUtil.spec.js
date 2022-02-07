@@ -15,6 +15,19 @@ describe('getDelimitedValues()', () => {
     expect(delimitedValues3).toStrictEqual(['Banana', 'Mango', 'Beer', 'Beer']);
   });
 
+  it('delimits entries with custom delimiters', () => {
+    const customDelimiters = ['\\s', ',', '?', ';'];
+    const rawString1 = 'Banana Mango, Beer?Beer';
+    const rawString2 = 'Banana, Mango, Beer, Beer';
+    const rawString3 = 'Banana;Mango;Beer;Beer';
+    const delimitedValues1 = getDelimitedValues(rawString1, getRegExp(customDelimiters));
+    const delimitedValues2 = getDelimitedValues(rawString2, getRegExp(customDelimiters));
+    const delimitedValues3 = getDelimitedValues(rawString3, getRegExp(customDelimiters));
+    expect(delimitedValues1).toStrictEqual(['Banana', 'Mango', 'Beer', 'Beer']);
+    expect(delimitedValues2).toStrictEqual(['Banana', 'Mango', 'Beer', 'Beer']);
+    expect(delimitedValues3).toStrictEqual(['Banana', 'Mango', 'Beer', 'Beer']);
+  });
+
   it('considers as single entry when there no delimiter is found in string', () => {
     const rawString = 'A tasty mango';
     const delimitedValues = getDelimitedValues(rawString, getRegExp(DEFAULT_DELIMITERS));
