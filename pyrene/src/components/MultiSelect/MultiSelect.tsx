@@ -2,7 +2,9 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import React, { FunctionComponent, useState, ClipboardEvent } from 'react';
+import React, {
+  FunctionComponent, useState, useEffect, ClipboardEvent,
+} from 'react';
 import clsx from 'clsx';
 import Select, { Props as SelectProps, SelectComponentsConfig } from 'react-select';
 import CreatableSelect from 'react-select/creatable';
@@ -11,7 +13,9 @@ import MultiSelectStyle from './multiSelectCSS';
 import Loader from '../Loader/Loader';
 import MultiSelectMenuWithOptions from './MultiSelectMenuWithOptions';
 import CustomOption from '../SingleSelect/CustomOption';
-import { getCaseInsensitiveDistinctValues, getDelimitedValues } from './delimiterUtil';
+import {
+  DEFAULT_DELIMITERS, delimiterCheck, getCaseInsensitiveDistinctValues, getDelimitedValues, getRegExp,
+} from './delimiterUtil';
 import { Option } from './types';
 
 export interface MultiSelectProps {
@@ -27,6 +31,10 @@ export interface MultiSelectProps {
    * Create new tag label. Sets the text for the "create new ..." option in the menu.
    */
   createTagLabel?: string,
+  /**
+   * Sets delimiters for entered values
+   */
+  customDelimiters?: Array<string>,
   /**
    * Sets a preselected options. Type: [ string | number ]
    */
@@ -149,6 +157,7 @@ const MultiSelect: FunctionComponent<MultiSelectProps> = (props: MultiSelectProp
     clearable = false,
     creatable = false,
     createTagLabel = 'Create new tag',
+    customDelimiters,
     defaultValue = [],
     disabled = false,
     helperLabel = '',
@@ -171,14 +180,26 @@ const MultiSelect: FunctionComponent<MultiSelectProps> = (props: MultiSelectProp
 
   const [hasPastedDuplicates, setHasPastedDuplicates] = useState(false);
   const opts = sorted ? [...options].sort((a, b) => a.label.localeCompare(b.label)) : options;
+  const [delimiters, setDelimiters] = useState<Array<string>>(DEFAULT_DELIMITERS);
+  const [regexObj, setRegexObj] = useState(getRegExp(delimiters));
+
+  useEffect(() => {
+    if (customDelimiters) {
+      setDelimiters([...DEFAULT_DELIMITERS, ...customDelimiters]);
+    }
+  }, [customDelimiters]);
+
+  useEffect(() => {
+    setRegexObj(getRegExp(delimiters));
+  }, [delimiters]);
 
   const onPaste = (event: ClipboardEvent<HTMLDivElement>) => {
     if (creatable) {
       setHasPastedDuplicates(false);
       const pastedData = (event.clipboardData || (window as any).clipboardData).getData('text');
-      const delimitedValues = getCaseInsensitiveDistinctValues(getDelimitedValues(pastedData));
+      const delimitedValues = getCaseInsensitiveDistinctValues(getDelimitedValues(pastedData, regexObj));
       const newValue = createNewValue(delimitedValues, options);
-      if (value.length > 0) {
+      if (value?.length > 0) {
         const distinctNewValue = newValue.filter((o) => value.findIndex((exO) => exO.label.toLowerCase() === o.label.toLowerCase()) < 0);
         setHasPastedDuplicates(distinctNewValue.length < delimitedValues.length);
         onChange?.([...value, ...distinctNewValue]);
@@ -233,6 +254,7 @@ const MultiSelect: FunctionComponent<MultiSelectProps> = (props: MultiSelectProp
             }}
             onBlur={onBlur}
             onFocus={onFocus}
+            onKeyDown={(key: React.KeyboardEvent<HTMLElement>) => delimiterCheck(key, regexObj)}
             name={name}
             id={name}
             inputId={name}
