@@ -20,7 +20,6 @@ export const getCaseInsensitiveDistinctValues = (words: string[]) => words.reduc
  */
 export const getRegExp = (regexStringArray: Array<string>) => new RegExp(`\\s*[${regexStringArray.join('|')}]\\s*`);
 
-
 /**
  * Get delimited string values from a string.
  * @param {string} text - the raw string containing delimiter symbols
@@ -32,13 +31,13 @@ export const getDelimitedValues = (text: string, delimiterRegx: RegExp) => text.
 /**
  * Checks if a KeyboardEvent contains a delimiter and returns an Enter key event if it does.
  * @param {RegExp} delimiterRegexObj - Delimiter regex used for testing
- * @param {React.KeyboardEvent<HTMLElement>} key - KeyboardEvent to check
+ * @param {React.KeyboardEvent<HTMLElement>} keyEvent - KeyboardEvent to check
  * @returns {React.KeyboardEvent<HTMLElement>}
  */
-export const delimiterCheck = (key: React.KeyboardEvent<HTMLElement>, delimiterRegexObj: RegExp) => {
-  if (delimiterRegexObj.test(key.key)) {
-    key.preventDefault();
-    key.currentTarget.dispatchEvent(new KeyboardEvent('keydown', {
+export const delimiterCheck = (keyEvent: React.KeyboardEvent<HTMLElement>, delimiterRegexObj: RegExp) => {
+  if (delimiterRegexObj.test(keyEvent.key)) {
+    keyEvent.preventDefault();
+    keyEvent.currentTarget.dispatchEvent(new KeyboardEvent('keydown', {
       code: 'Enter',
       key: 'Enter',
       charCode: 13,
@@ -47,5 +46,5 @@ export const delimiterCheck = (key: React.KeyboardEvent<HTMLElement>, delimiterR
       bubbles: true,
     }));
   }
-  return key;
+  return keyEvent;
 };
