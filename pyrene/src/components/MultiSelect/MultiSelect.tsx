@@ -6,7 +6,7 @@ import React, {
   FunctionComponent, useState, useEffect, ClipboardEvent,
 } from 'react';
 import clsx from 'clsx';
-import Select, { Props as SelectProps, SelectComponentsConfig } from 'react-select';
+import Select, { InputActionMeta, Props as SelectProps, SelectComponentsConfig } from 'react-select';
 import CreatableSelect from 'react-select/creatable';
 import styles from '../SingleSelect/select.css';
 import MultiSelectStyle from './multiSelectCSS';
@@ -180,6 +180,8 @@ const MultiSelect: FunctionComponent<MultiSelectProps> = (props: MultiSelectProp
 
   const [hasPastedDuplicates, setHasPastedDuplicates] = useState(false);
   const opts = sorted ? [...options].sort((a, b) => a.label.localeCompare(b.label)) : options;
+  const [inputValue, setInputValue] = useState('');
+
   const [delimiters, setDelimiters] = useState<Array<string>>(DEFAULT_DELIMITERS);
   const [regexObj, setRegexObj] = useState(getRegExp(delimiters));
 
@@ -245,11 +247,16 @@ const MultiSelect: FunctionComponent<MultiSelectProps> = (props: MultiSelectProp
             isDisabled={disabled}
             isInvalid={invalid}
             isLoading={loading}
+            inputValue={inputValue}
             // wrapping type and key into target so it better reflects the api that input event has (there is also event.target.name)
             onChange={(option: any) => onChange?.(option, { target: { type: 'multiSelect', name: name, value: option } })}
-            onInputChange={(input) => {
+            onInputChange={(input: string, action: InputActionMeta) => {
               if (input.length > 0) {
                 setHasPastedDuplicates(false);
+              }
+
+              if (action.action !== 'input-blur' && action.action !== 'menu-close') {
+                setInputValue(input);
               }
             }}
             onBlur={onBlur}
@@ -260,7 +267,7 @@ const MultiSelect: FunctionComponent<MultiSelectProps> = (props: MultiSelectProp
             inputId={name}
             maxMenuHeight={264}
             noOptionsMessage={formatNoOptionsMessage}
-            formatCreateLabel={(inputValue) => `${createTagLabel} "${inputValue}"`}
+            formatCreateLabel={(newValue) => `${createTagLabel} "${newValue}"`}
             closeMenuOnSelect={!keepMenuOnSelect}
             isMulti
             isSearchable
