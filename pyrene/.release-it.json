@@ -3,8 +3,8 @@
     "release": false
   },
   "git": {
-    "tagName": "pyrene-${version}",
-    "commitMessage": "pyrene release ${version}"
+    "commitMessage": "[release] pyrene ${version}",
+    "requireUpstream": false
   },
   "npm": {
     "ping": false
