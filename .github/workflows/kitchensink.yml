@@ -3,8 +3,8 @@ name: Kitchensink
 on:
   workflow_dispatch:
   push:
-    tags:
-      - 'pyrene-*'
+    branches:
+      - 'main'
 
 jobs:
   deploy:
