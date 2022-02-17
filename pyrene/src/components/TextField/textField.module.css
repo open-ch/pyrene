@@ -29,7 +29,6 @@
   }
 }
 
-
 .textFieldIconLayoutContainer {
   position: relative;
 }
@@ -47,15 +46,14 @@
 
   &[type=text], &[type=password] {
     padding: 8px 7px;
-
     font-family: FiraGO, Helvetica, sans-serif;
     font-size: 12px;
     text-align: left;
     color: var(--text);
   }
 
-  &.hasIcon[type=text] {
-    padding-right: 22px;
+  &.hasIcon {
+    padding-left: 28px;
   }
 
   &.filled {
@@ -76,11 +74,11 @@
 }
 
 .textFieldIcon {
-  font-size: 11px;
+  font-size: 12px;
   color: var(--neutral-300);
   position: absolute;
-  right: 8px;
-  top: 10px;
+  left: 8px;
+  top: 11px;
 }
 
 .textFieldHelper {

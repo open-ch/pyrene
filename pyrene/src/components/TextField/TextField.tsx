@@ -1,7 +1,8 @@
 /* eslint-disable react/require-default-props */
 import React, { FunctionComponent, ChangeEvent } from 'react';
 import clsx from 'clsx';
-import styles from './textField.css';
+import styles from './textField.module.css';
+import { IconNames } from '../types';
 
 export interface TextFieldProps {
   /**
@@ -72,6 +73,10 @@ export interface TextFieldProps {
    * Sets a fixed width (px) for the input field.
    */
   width?: number;
+  /**
+   * Adds an icon in the left end of the input field.
+   */
+  iconName?: keyof IconNames;
 }
 
 /**
@@ -100,6 +105,7 @@ const TextField: FunctionComponent<TextFieldProps> = ({
   onFocus,
   onSubmit,
   autoFocus = false,
+  iconName,
 }: TextFieldProps) => (
   <div
     className={clsx(styles.textFieldContainer, {
@@ -117,9 +123,10 @@ const TextField: FunctionComponent<TextFieldProps> = ({
         {title}
       </div>
     )}
-    <div className={styles.textFieldIconLayoutContainer}>
+    <div className={clsx(styles.textFieldIconLayoutContainer)}>
+      {iconName && <span className={clsx(`pyreneIcon-${iconName}`, styles.textFieldIcon)} />}
       <input
-        className={clsx(styles.textField, { [styles.filled]: value })}
+        className={clsx(styles.textField, { [styles.filled]: value, [styles.hasIcon]: !!iconName })}
         type={secret ? 'password' : 'text'}
         name={name}
         placeholder={placeholder}
@@ -139,7 +146,6 @@ const TextField: FunctionComponent<TextFieldProps> = ({
         onFocus={onFocus}
         autoFocus={autoFocus} // eslint-disable-line jsx-a11y/no-autofocus
       />
-      {/* Future use of an api with predefined icons - <span className={clsx(`pyreneIcon-${props.icon}`, styles.textFieldIcon)} /> */}
     </div>
 
     {invalid && invalidLabel && !disabled ? (
