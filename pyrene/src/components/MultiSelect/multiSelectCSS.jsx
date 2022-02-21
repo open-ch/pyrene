@@ -171,14 +171,14 @@ const multiSelectStyle = (props) => ({
     marginTop: 4,
   }),
 
-  option: (base, { isSelected, isFocused }) => ({
+  option: (base, { isSelected, isFocused, isDisabled }) => ({
     ...base,
     ':active': {
       backgroundColor: colorConstants.neutral030,
     },
     backgroundColor: isSelected ? colorConstants.neutral030 : isFocused ? colorConstants.backgroundTint : colorConstants.neutral000,
     height: 32,
-    color: colorConstants.neutral400,
+    color: isDisabled ? colorConstants.neutral100 : colorConstants.neutral400,
     cursor: 'pointer',
     overflow: 'hidden',
     textOverflow: 'ellipsis',

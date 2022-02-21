@@ -169,6 +169,7 @@ const selectStyle = <ValueType>(): Partial<Styles<SingleSelectOption<unknown>, f
   option: (base: CSSProperties, {
     isSelected,
     isFocused,
+    isDisabled,
     data,
   }: State<ValueType>): any => ({
     ...base,
@@ -177,7 +178,7 @@ const selectStyle = <ValueType>(): Partial<Styles<SingleSelectOption<unknown>, f
     },
     backgroundColor: isSelected ? colorConstants.neutral030 : isFocused ? colorConstants.backgroundTint : colorConstants.neutral000,
     height: 30,
-    color: colorConstants.neutral500,
+    color: isDisabled ? colorConstants.neutral100 : colorConstants.neutral500,
     cursor: 'pointer',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
