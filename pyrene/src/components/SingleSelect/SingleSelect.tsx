@@ -108,10 +108,16 @@ export type SingleSelectProps<ValueType = DefaultValueType> = {
   searchable?: boolean;
 
   sorted?: boolean;
-
+  /**
+   * Sets the title above the Select field.
+   */
   title?: ReactNode;
 
   value?: SingleSelectOption<ValueType> | null;
+  /**
+   * Sets a fixed width (px) for the Select field.
+   */
+  width?: number,
 };
 
 const sortOptions = <ValueType extends unknown>(options: SingleSelectOption<ValueType>[]) => {
@@ -177,6 +183,7 @@ const SingleSelect = <ValueType extends unknown = DefaultValueType>({
   invalidLabel = '',
   title = '',
   value,
+  width,
   onChange,
   onBlur = () => null,
   onFocus = () => null,
@@ -225,7 +232,7 @@ const SingleSelect = <ValueType extends unknown = DefaultValueType>({
   };
 
   return (
-    <div className={clsx(styles.selectContainer, { [styles.disabled]: disabled })}>
+    <div className={clsx(styles.selectContainer, { [styles.disabled]: disabled })} style={width ? { width: width, flexShrink: 0 } : {}}>
       {title && <div className={clsx(styles.selectTitle, { [styles.required]: required && !disabled })}>{title}</div>}
 
       {creatable ? <CreatableSelect {...selectProps} inputValue={inputValue} /> : <Select {...selectProps} />}
