@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-return */
-import React, { useState } from 'react';
+import React, { ReactNode, useState } from 'react';
 import clsx from 'clsx';
 import Select, { InputActionMeta } from 'react-select';
 import CreatableSelect from 'react-select/creatable';
@@ -109,7 +109,7 @@ export type SingleSelectProps<ValueType = DefaultValueType> = {
 
   sorted?: boolean;
 
-  title?: string;
+  title?: ReactNode;
 
   value?: SingleSelectOption<ValueType> | null;
 };
