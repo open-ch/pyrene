@@ -1,6 +1,6 @@
 {
   "name": "@osag/pyrene",
-  "version": "3.1.6",
+  "version": "3.1.7",
   "description": "Open Systems Component Library",
   "main": "dist/pyrene.js",
   "style": "dist/pyrene.css",
@@ -17,7 +17,7 @@
   "scripts": {
     "clean": "rm -rf dist node_modules",
     "prebuild": "npm ci",
-    "build": "webpack && NODE_ENV=production webpack && npm run build-ts-declarations",
+    "build": "webpack --config webpack.config.babel.js && NODE_ENV=production webpack",
     "build-debug": "NODE_ENV=debug webpack",
     "watch": "webpack -w",
     "expose": "npm link && npm run watch",
