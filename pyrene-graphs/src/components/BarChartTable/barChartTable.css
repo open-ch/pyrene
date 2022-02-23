@@ -1,4 +1,4 @@
-@import '@osag/pyrene/dist/colors.css';
+@import "@osag/pyrene/dist/colors.module.css";
 
 .container {
   width: 100%;
@@ -48,7 +48,7 @@
 }
 
 .popOverBody {
- overflow-y: auto;
+  overflow-y: auto;
 }
 
 .popOverTable {

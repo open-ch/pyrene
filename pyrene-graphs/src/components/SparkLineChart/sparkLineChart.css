@@ -1,39 +1,39 @@
-@import '@osag/pyrene/dist/colors.css';
+@import "@osag/pyrene/dist/colors.module.css";
 
 .container {
-    width: 100%;
-    height: 120px;
+  width: 100%;
+  height: 120px;
 }
 
 .keyFigure {
-    font-family: FiraGO, Helvetica, sans-serif;
-    font-size: 24px;
-    line-height: 32px;
-    letter-spacing: -0.2px;
-    color: var(--text);
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+  font-family: FiraGO, Helvetica, sans-serif;
+  font-size: 24px;
+  line-height: 32px;
+  letter-spacing: -0.2px;
+  color: var(--text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .chart {
-    margin-top: 24px;
-    height: 86px;
+  margin-top: 24px;
+  height: 86px;
 }
 
 .noKeyFigure {
-    margin-top: 58px;
+  margin-top: 58px;
 }
 
 .sparkLine {
-    position: relative;
-    top: -91px;
+  position: relative;
+  top: -91px;
 }
 
 .chartOverlay {
-    position: relative;
-    height: 64px;
-    width: 100%;
-    top: -86px;
-    left: 0px;
+  position: relative;
+  height: 64px;
+  width: 100%;
+  top: -86px;
+  left: 0px;
 }
