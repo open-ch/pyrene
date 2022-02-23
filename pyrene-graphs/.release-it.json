@@ -3,8 +3,8 @@
     "release": false
   },
   "git": {
-    "tagName": "pyrene-graphs-${version}",
-    "commitMessage": "pyrene graphs release ${version}"
+    "commitMessage": "[release] pyrene-graphs ${version}",
+    "requireUpstream": false
   },
   "npm": {
     "ping": false
