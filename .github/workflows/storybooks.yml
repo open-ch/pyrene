@@ -1,4 +1,4 @@
-name: Kitchensink
+name: Storybooks
 
 on:
   workflow_dispatch:
@@ -13,10 +13,10 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Build
-        run: (cd kitchensink && BASE_PATH=/pyrene npm run build)
+        run: (npm ci --prefix pyrene && npm ci --prefix pyrene-graphs && npm ci && npm run build-storybook)
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./kitchensink/dist
+          publish_dir: ./storybook-static
