@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { TooltipWrapper } from '@osag/tuktuktwo';
 import TooltipLegendItem from './TooltipLegendItem';
-import styles from './tooltip.css';
+import styles from './tooltip.module.css';
 
 /**
  * Tooltip

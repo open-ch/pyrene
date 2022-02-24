@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Responsive } from '@osag/tuktuktwo';
 import SparkLineSVG from './SparkLineSVG';
 import colorSchemes from '../../styles/colorSchemes';
-import styles from './sparkLine.css';
+import styles from './sparkLine.module.css';
 
 /**
  * Spark Lines are used to display data series and can be embedded in another context such as in tables.
