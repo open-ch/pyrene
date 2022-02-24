@@ -8,7 +8,7 @@ import React, {
 import clsx from 'clsx';
 import Select, { InputActionMeta, Props as SelectProps, SelectComponentsConfig } from 'react-select';
 import CreatableSelect from 'react-select/creatable';
-import styles from '../SingleSelect/select.css';
+import styles from '../SingleSelect/select.module.css';
 import MultiSelectStyle from './multiSelectCSS';
 import Loader from '../Loader/Loader';
 import MultiSelectMenuWithOptions from './MultiSelectMenuWithOptions';

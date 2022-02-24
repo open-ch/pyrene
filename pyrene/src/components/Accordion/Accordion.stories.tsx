@@ -5,7 +5,7 @@ import Accordion, { AccordionProps } from './Accordion';
 import Placeholder from '../../examples/Placeholder';
 
 export default {
-  title: 'Components/Interaction/Accodion',
+  title: 'Components/Interaction/Accordion',
   component: Accordion,
 } as Meta;
 

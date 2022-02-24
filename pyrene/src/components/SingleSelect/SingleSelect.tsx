@@ -6,7 +6,7 @@ import clsx from 'clsx';
 import Select, { InputActionMeta } from 'react-select';
 import CreatableSelect from 'react-select/creatable';
 import selectStyle from './selectStyle';
-import styles from './select.css';
+import styles from './select.module.css';
 import Loader from '../Loader/Loader';
 import CustomOption from './CustomOption';
 import { SingleSelectGroupedOption, SingleSelectOption } from './SingleSelectTypes';
