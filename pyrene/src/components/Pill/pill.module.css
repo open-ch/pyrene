@@ -12,6 +12,7 @@
   border-radius: 8px;
   padding: 0 4px 0 4px;
   z-index: 2;
+  max-width: 20px;
 
   &.type-neutral {
     background-color: var(--neutral-050);

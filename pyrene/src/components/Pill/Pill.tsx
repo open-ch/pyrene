@@ -3,7 +3,7 @@ import clsx from 'clsx';
 
 import IconButton from '../IconButton/IconButton';
 
-import styles from './pill.css';
+import styles from './pill.module.css';
 import { IconNames } from '../types';
 
 export type Type = 'neutral' | 'info' | 'warning' | 'danger' | 'success';
