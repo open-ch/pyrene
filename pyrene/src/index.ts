@@ -8,6 +8,7 @@ import './styles/fonts.module.css';
 // Sort alphabetically to find stuff easily
 import { default as Accordion } from './components/Accordion/Accordion';
 import { default as ArrowPopover } from './components/ArrowPopover/ArrowPopover';
+import { default as AttachmentField } from './components/AttachmentField/AttachmentField';
 
 import { default as Badge } from './components/Badge/Badge';
 import { default as Banner } from './components/Banner/Banner';
@@ -77,6 +78,7 @@ const Components = {
   Accordion,
   ActionBar,
   ArrowPopover,
+  AttachmentField,
   Badge,
   Banner,
   Button,
@@ -127,6 +129,7 @@ const Components = {
 export { Accordion };
 export { ActionBar };
 export { ArrowPopover };
+export { AttachmentField };
 export { Badge };
 export { Banner };
 export { Button };
