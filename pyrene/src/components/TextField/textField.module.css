@@ -1,10 +1,10 @@
-@import '../../styles/colors.module.css';
+@import "../../styles/colors.module.css";
 
 .textFieldContainer {
-  composes: commonFontSettings from '../../styles/common.module.css';
+  composes: commonFontSettings from "../../styles/common.module.css";
 
   &.disabled {
-    opacity: .5;
+    opacity: 0.5;
     pointer-events: none;
   }
 
@@ -24,7 +24,7 @@
   margin-bottom: 4px;
 
   &.required:after {
-    content: '*';
+    content: "*";
     color: var(--danger-fg);
   }
 }
@@ -44,7 +44,8 @@
   background-color: var(--background-tint);
   outline: none;
 
-  &[type=text], &[type=password] {
+  &[type="text"],
+  &[type="password"] {
     padding: 8px 7px;
     font-family: FiraGO, Helvetica, sans-serif;
     font-size: 12px;
@@ -62,14 +63,15 @@
     border: solid 1px var(--neutral-500);
   }
 
-  &:hover, &:focus {
+  &:hover,
+  &:focus {
     border-color: var(--primary);
     background-color: var(--background-light);
   }
 
   &::placeholder {
     font-size: 12px;
-    color: var(--neutral-300);
+    color: var(--neutral-200);
   }
 }
 

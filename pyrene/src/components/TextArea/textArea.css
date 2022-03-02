@@ -1,12 +1,12 @@
-@import '../../styles/colors.module.css';
+@import "../../styles/colors.module.css";
 
 .textAreaContainer {
-  composes: commonFontSettings from '../../styles/common.module.css';
+  composes: commonFontSettings from "../../styles/common.module.css";
 
   min-width: 72px;
 
   &.disabled {
-    opacity: .5;
+    opacity: 0.5;
     pointer-events: none;
   }
 
@@ -27,7 +27,6 @@
   margin-bottom: 4px;
   line-height: 12px;
 
-
   & .textAreaTitle {
     float: left;
     font-size: 11px;
@@ -35,7 +34,7 @@
     color: var(--neutral-500);
 
     &.required:after {
-      content: '*';
+      content: "*";
       color: var(--danger-fg);
     }
   }
@@ -88,16 +87,16 @@
     border: solid 1px var(--neutral-500);
   }
 
-  &:hover, &:focus {
+  &:hover,
+  &:focus {
     border-color: var(--primary);
     background-color: var(--background-tint);
   }
 
   &::placeholder {
     font-size: 12px;
-    color: var(--neutral-300);
+    color: var(--neutral-200);
   }
-
 }
 
 .textAreaHelper {
