@@ -15,7 +15,7 @@ export interface SectionProps {
   /**
    * Render prop for the section content
    */
-  renderContent: () => React.ReactNode;
+  renderContent?: () => React.ReactNode;
   /**
    * Title string, or render prop for custom titles
    */
@@ -45,10 +45,10 @@ const Section: React.FC<SectionProps> = ({
             : title()}
         </div>
 
-        <span className={clsx(styles.chevron, { 'pyreneIcon-chevronUp': expanded, 'pyreneIcon-chevronDown': !expanded })} />
+        {renderContent && <span className={clsx(styles.chevron, { 'pyreneIcon-chevronUp': expanded, 'pyreneIcon-chevronDown': !expanded })} />}
       </div>
 
-      {expanded && <div className={styles.content}>{renderContent()}</div>}
+      {expanded && renderContent && <div className={styles.content}>{renderContent()}</div>}
     </div>
   );
 };
