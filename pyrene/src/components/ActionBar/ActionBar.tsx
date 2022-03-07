@@ -5,7 +5,7 @@ import Icon from '../Icon/Icon';
 import Loader from '../Loader/Loader';
 import Tooltip from '../Tooltip/Tooltip';
 import ArrowPopover from '../ArrowPopover/ArrowPopover';
-import styles from './actionBar.css';
+import styles from './actionBar.module.css';
 import { IconNames } from '../types';
 
 export const handleOnClick = (
