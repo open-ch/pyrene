@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useCallback } from 'react';
 import { Position } from 'react-tiny-popover';
 import Popover, { PopoverProps } from '../Popover/Popover';
 
-import styles from './arrowPopover.css';
+import styles from './arrowPopover.module.css';
 
 interface ArrowPosition {
   top: number,
