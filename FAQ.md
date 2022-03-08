@@ -27,7 +27,9 @@ The item `4.`, is not a library but an application. Thus, this subproject is not
 ## Requirements for using Pyrene ?
 1. The requirements for using the `Pyrene`, `Pyrene-graphs` and `Tuktuktwo` subprojects are set as a `peerDepenencies` in their own `package.json`, each.
 
-2. nodejs 12.
+2. nodejs 12 or higher
+
+3. npm not higher than 6
 
 ## How to use Pyrene ?
 
@@ -145,7 +147,7 @@ The migration to Storybook is still ongoing. The reasons for migrating from `Kit
 2. Storybook does a better job.
 3. `PropTypes` is originally intended for run time type-checking. See [here](#pyrene-further-improvements) why `PropTypes` is currently misused.
 
-
+Make sure to run `npm install` in the subpackages (tuktuktwo and pyrene-graphs).
 For running Storybook. At the root of the monorepo:
 ```
 > npm install
