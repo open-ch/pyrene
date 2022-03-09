@@ -1,4 +1,4 @@
-@import '../../styles/colors.module.css';
+@import "../../styles/colors.module.css";
 
 .container-horizontal {
   height: 32px;
@@ -80,9 +80,4 @@
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-img {
-  width: 16px;
-  height: 16px;
 }

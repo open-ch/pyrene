@@ -1,6 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
-import styles from './iconbutton.css';
+import styles from './IconButton.module.css';
 import { IconNames } from '../types';
 
 export interface IconButtonProps {

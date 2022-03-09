@@ -2,7 +2,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import colorConstants from '../../styles/colorConstants';
-import styles from './icon.css';
+import styles from './Icon.module.css';
 import { IconNames } from '../types';
 
 export interface IconProps {
