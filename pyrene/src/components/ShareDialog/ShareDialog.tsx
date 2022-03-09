@@ -4,25 +4,25 @@ import { Position } from 'react-tiny-popover';
 import Popover, { PopoverProps } from '../Popover/Popover';
 import ButtonBar from '../ButtonBar/ButtonBar';
 import Button, { ButtonProps } from '../Button/Button';
-import styles from './shareDialog.css';
+import styles from './ShareDialog.module.css';
 
 export interface ShareDialogProps {
   /**
    * Sets the alignment of the popover.
    */
-  align?: PopoverProps['align'],
+  align?: PopoverProps['align'];
   /**
    * Disables any interaction with the share popover.
    */
-  disabled?: ButtonProps['disabled'],
+  disabled?: ButtonProps['disabled'];
   /**
    * Sets the link to be shared via the popover.
    */
-  link: string,
+  link: string;
   /**
    * Sets the position of the popover relative to the share button.
    */
-  position?: Position,
+  position?: Position;
 }
 
 const ShareDialog: React.FC<ShareDialogProps> = ({
@@ -63,9 +63,7 @@ const ShareDialog: React.FC<ShareDialogProps> = ({
         onClickOutside={() => setDisplayShareDialog(false)}
         renderPopoverContent={() => (
           <div className={clsx('unSelectable', styles.shareDialog)} role="dialog">
-            <div className={styles.title}>
-              Share this link
-            </div>
+            <div className={styles.title}>Share this link</div>
             <div className={styles.content}>
               <input className={styles.urlField} type="text" value={link} ref={inputRef} readOnly />
             </div>
@@ -78,7 +76,13 @@ const ShareDialog: React.FC<ShareDialogProps> = ({
           </div>
         )}
       >
-        <Button label="Share" type="action" icon="share" onClick={toggleShareDialogDisplay} disabled={disabled} />
+        <Button
+          label="Share"
+          type="action"
+          icon="share"
+          onClick={toggleShareDialogDisplay}
+          disabled={disabled}
+        />
       </Popover>
     </div>
   );
