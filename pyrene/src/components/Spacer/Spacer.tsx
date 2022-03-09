@@ -1,12 +1,12 @@
 import React, { FunctionComponent } from 'react';
 import clsx from 'clsx';
-import styles from './spacer.css';
+import styles from './Spacer.module.css';
 
 export interface SpacerProps {
   /**
-  * Size/height of the spacer.
-  */
-  size?: 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge' | 'xxlarge' | 'xxxlarge'
+   * Size/height of the spacer.
+   */
+  size?: 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge' | 'xxlarge' | 'xxxlarge';
 }
 
 /**
