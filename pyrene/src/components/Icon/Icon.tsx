@@ -21,18 +21,19 @@ export interface IconProps {
   /**
    * Sets the overall style.
    */
-  type?: 'standalone' | 'inline'
+  type?: 'standalone' | 'inline';
 }
 
 /**
- * IconFont or SVG icon Wrapper. When using icon font, pass Icon color and icon name; when using SVG, pass in file name of the SVG.
+ * IconFont or SVG icon Wrapper. When using icon font, pass Icon color and icon
+ * name; when using SVG, pass in file name of the SVG.
  */
 const Icon: React.FC<IconProps> = ({
   color = 'neutral300',
   type = 'inline',
   name,
   svg = '',
-}: IconProps) => (
+}: IconProps) =>
   svg?.length > 0 ? (
     <div className={clsx(styles.icon, styles[`type-${type}`])}>
       <img className={styles.svgIcon} src={svg} alt="icon" />
@@ -40,10 +41,12 @@ const Icon: React.FC<IconProps> = ({
   ) : (
     <div
       className={clsx(styles.icon, styles[`type-${type}`], { [`pyreneIcon-${name || ''}`]: name })}
-      style={{ color: color in colorConstants ? colorConstants[color as keyof typeof colorConstants] : color }}
+      style={{
+        color:
+          color in colorConstants ? colorConstants[color as keyof typeof colorConstants] : color,
+      }}
     />
-  )
-);
+  );
 
 Icon.displayName = 'Icon';
 
