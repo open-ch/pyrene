@@ -1,7 +1,7 @@
-@import '../../styles/colors.module.css';
+@import "../../styles/colors.module.css";
 
 .banner {
-  composes: commonFontSettings from '../../styles/common.module.css';
+  composes: commonFontSettings from "../../styles/common.module.css";
   box-sizing: border-box;
   width: 100%;
   display: flex;
@@ -15,7 +15,8 @@
   background-color: var(--background-light);
   position: relative;
 
-  &.style-standard {
+  &.style-standard,
+  &.style-inline-label {
     border: solid 1px var(--border);
   }
 
@@ -24,7 +25,9 @@
     margin-bottom: 8px;
   }
 
-  &.style-standard, &.style-overlay {
+  &.style-standard,
+  &.style-inline-label,
+  &.style-overlay {
     padding: 15px 16px 14px 16px;
     min-height: 48px;
 
@@ -42,6 +45,7 @@
   }
 
   &.style-standard::before,
+  &.style-inline-label::before,
   &.style-overlay::before {
     content: "";
     width: 3px;
@@ -54,8 +58,8 @@
   }
 
   &.type-info {
-
     &.style-standard::before,
+    &.style-inline-label::before,
     &.style-overlay::before {
       background-color: var(--information-fg);
     }
@@ -66,8 +70,8 @@
     }
 
     &.style-overlay {
-      border: solid 1px #E1E3E8;
-      box-shadow: 0px 4px 8px -2px rgba(0, 21, 44, 0.2)
+      border: solid 1px #e1e3e8;
+      box-shadow: 0px 4px 8px -2px rgba(0, 21, 44, 0.2);
     }
 
     & .bannerIcon {
@@ -76,8 +80,8 @@
   }
 
   &.type-success {
-
     &.style-standard::before,
+    &.style-inline-label::before,
     &.style-overlay::before {
       background-color: var(--ok-fg);
     }
@@ -88,7 +92,8 @@
     }
 
     &.style-overlay {
-      box-shadow: 0 0 0 0 rgba(0, 21, 44, 0.3), 0 2px 8px -2px rgba(0, 21, 44, 0.2);
+      box-shadow: 0 0 0 0 rgba(0, 21, 44, 0.3),
+        0 2px 8px -2px rgba(0, 21, 44, 0.2);
     }
 
     & .bannerIcon {
@@ -97,8 +102,8 @@
   }
 
   &.type-error {
-
     &.style-standard::before,
+    &.style-inline-label::before,
     &.style-overlay::before {
       background-color: var(--danger-fg);
     }
@@ -109,7 +114,8 @@
     }
 
     &.style-overlay {
-      box-shadow: 0 0 0 0 rgba(0, 21, 44, 0.3), 0 2px 8px -2px rgba(0, 21, 44, 0.2);
+      box-shadow: 0 0 0 0 rgba(0, 21, 44, 0.3),
+        0 2px 8px -2px rgba(0, 21, 44, 0.2);
     }
 
     & .bannerIcon {
@@ -118,8 +124,8 @@
   }
 
   &.type-warning {
-
     &.style-standard::before,
+    &.style-inline-label::before,
     &.style-overlay::before {
       background-color: var(--warning-fg);
     }
@@ -130,7 +136,8 @@
     }
 
     &.style-overlay {
-      box-shadow: 0 0 0 0 rgba(0, 21, 44, 0.3), 0 2px 8px -2px rgba(0, 21, 44, 0.2);
+      box-shadow: 0 0 0 0 rgba(0, 21, 44, 0.3),
+        0 2px 8px -2px rgba(0, 21, 44, 0.2);
     }
 
     & .bannerIcon {
@@ -139,14 +146,32 @@
   }
 
   &.type-loading {
-
     &.style-inline {
       border: none;
       align-items: center;
     }
 
     &.style-overlay {
-      box-shadow: 0 0 0 0 rgba(0, 21, 44, 0.3), 0 2px 8px -2px rgba(0, 21, 44, 0.2);
+      box-shadow: 0 0 0 0 rgba(0, 21, 44, 0.3),
+        0 2px 8px -2px rgba(0, 21, 44, 0.2);
+    }
+  }
+
+  &.style-inline-label {
+    & .bannerIcon {
+      align-self: center;
+    }
+
+    & .message {
+      width: 30%;
+    }
+    & .description {
+      width: 100%;
+    }
+
+    & .textBox {
+      display: flex;
+      align-items: center;
     }
   }
 }

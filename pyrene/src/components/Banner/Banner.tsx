@@ -5,7 +5,7 @@ import Loader from '../Loader/Loader';
 
 import styles from './Banner.module.css';
 
-export type StylingType = 'standard' | 'inline' | 'overlay';
+export type StylingType = 'standard' | 'inline' | 'overlay' | 'inline-label';
 
 export type Type = 'info' | 'success' | 'error' | 'warning' | 'loading';
 
@@ -55,6 +55,7 @@ const Banner: React.FC<BannerProps> = ({
       <div className={styles.spacer} />
       <div className={styles.textBox}>
         <div className={styles.message}>{label}</div>
+        {styling === 'inline-label' && <div className={styles.spacer} />}
         {styling !== 'inline' && <div className={styles.description}>{children}</div>}
       </div>
     </div>
