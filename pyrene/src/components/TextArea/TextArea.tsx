@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import clsx from 'clsx';
-import styles from './textArea.css';
+import styles from './TextArea.module.css';
 
 export interface TextAreaProps {
   /**
