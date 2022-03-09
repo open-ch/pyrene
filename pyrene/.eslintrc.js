@@ -22,4 +22,12 @@ module.exports = {
     'no-multiple-empty-lines': 0,
     '@typescript-eslint/unbound-method': 0,
   },
+  overrides: [
+    {
+      files: ['*.ts', '*.tsx'],
+      rules: {
+        'react/require-default-props': 'off',
+      },
+    },
+  ],
 };
