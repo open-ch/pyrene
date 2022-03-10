@@ -20,4 +20,19 @@ module.exports = {
   core: {
     builder: 'webpack5',
   },
+  webpackFinal: async (config, { configType }) => {
+    // modify storybook's file-loader rule to avoid conflicts with svgr
+    const fileLoaderRule = config.module.rules.find(
+        (rule) => rule.test && rule.test.test(".svg")
+    );
+    fileLoaderRule.exclude = /\.svg$/;
+
+    config.module.rules.push({
+      test: /\.svg$/,
+      use: ['@svgr/webpack'],
+    });
+
+    // Return the altered config
+    return config;
+  },
 }
