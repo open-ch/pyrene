@@ -1,22 +1,22 @@
 /* eslint-disable react/prop-types */
 import React, { FunctionComponent } from 'react';
 
-import styles from './treeTableActionBar.css';
+import styles from './TreeTableActionBar.module.css';
 import ButtonBar from '../../ButtonBar/ButtonBar';
 import Button, { ButtonProps } from '../../Button/Button';
 import CheckboxPopover, { CheckboxPopoverProps } from '../../CheckboxPopover/CheckboxPopover';
 
 export interface TreeTableActionBarProps {
   columnToggleProps: {
-    listItems: CheckboxPopoverProps['listItems'],
-    onItemClick: CheckboxPopoverProps['onItemClick'],
-    onRestoreDefault: CheckboxPopoverProps['onRestoreDefault'],
-    toggleColumns: boolean,
-  },
-  disabledExpand: boolean,
-  displayExpandAll: boolean,
-  renderRightItems?: () => JSX.Element,
-  toggleAll: ButtonProps['onClick'],
+    listItems: CheckboxPopoverProps['listItems'];
+    onItemClick: CheckboxPopoverProps['onItemClick'];
+    onRestoreDefault: CheckboxPopoverProps['onRestoreDefault'];
+    toggleColumns: boolean;
+  };
+  disabledExpand: boolean;
+  displayExpandAll: boolean;
+  renderRightItems?: () => JSX.Element;
+  toggleAll: ButtonProps['onClick'];
 }
 
 const TreeTableActionBar: FunctionComponent<TreeTableActionBarProps> = ({

@@ -1,20 +1,18 @@
 /* eslint-disable react/prop-types */
-import React, {
-  ReactNode, FunctionComponent, CSSProperties, MouseEvent,
-} from 'react';
+import React, { ReactNode, FunctionComponent, CSSProperties, MouseEvent } from 'react';
 import clsx from 'clsx';
 import DefaultSort from '../images/sort.svg';
 import AscSort from '../images/sortDown.svg';
 import DescSort from '../images/sortUp.svg';
 
-import styles from './tableHeaderCell.css';
+import styles from './TableHeaderCell.module.css';
 
 export interface TableHeaderCellProps {
-  children: ReactNode,
-  className?: string,
-  multiSelect?: boolean,
-  style?: CSSProperties,
-  toggleSort: (e: MouseEvent<HTMLDivElement>) => void,
+  children: ReactNode;
+  className?: string;
+  multiSelect?: boolean;
+  style?: CSSProperties;
+  toggleSort: (e: MouseEvent<HTMLDivElement>) => void;
 }
 
 const getIconComponent = (className: string) => {

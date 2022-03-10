@@ -3,7 +3,7 @@ import React, { FunctionComponent } from 'react';
 import clsx from 'clsx';
 import { components, MenuProps } from 'react-select';
 import { Option } from './types';
-import styles from './multiSelectMenuWithOptions.css';
+import styles from './MultiSelectMenuWithOptions.module.css';
 
 const MultiSelectMenuWithOptions: FunctionComponent<MenuProps<Option, boolean>> = (props) => (
   <components.Menu {...props}>

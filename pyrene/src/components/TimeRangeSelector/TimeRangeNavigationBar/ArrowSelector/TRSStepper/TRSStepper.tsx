@@ -1,25 +1,25 @@
 /* eslint-disable react/prop-types */
 import React, { FunctionComponent } from 'react';
 import clsx from 'clsx';
-import styles from './trsStepper.css';
+import styles from './TrsStepper.module.css';
 
 export interface TRSStepperProps {
   /**
    * Sets the direction of the arrow.
    */
-  direction?: 'right' | 'left',
+  direction?: 'right' | 'left';
   /**
    * Disables any interaction with the component.
    */
-  disabled?: boolean,
+  disabled?: boolean;
   /**
    * The component is inactive due to constraints.
    */
-  inactive?: boolean,
+  inactive?: boolean;
   /**
    * Javascript event handler.
    */
-  onClick: () => void,
+  onClick: () => void;
 }
 
 /**

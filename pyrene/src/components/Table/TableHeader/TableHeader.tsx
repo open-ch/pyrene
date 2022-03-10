@@ -2,17 +2,15 @@
 import React, { ReactNode, FunctionComponent } from 'react';
 import clsx from 'clsx';
 
-import styles from './tableHeader.css';
+import styles from './TableHeader.module.css';
 
 export interface TableHeaderProps {
-  children: ReactNode,
-  disabled?: boolean
+  children: ReactNode;
+  disabled?: boolean;
 }
 
 const TableHeader: FunctionComponent<TableHeaderProps> = ({ children, disabled = false }) => (
-  <div className={clsx(styles.tableHeader, { [styles.disabled]: disabled })}>
-    {children}
-  </div>
+  <div className={clsx(styles.tableHeader, { [styles.disabled]: disabled })}>{children}</div>
 );
 
 export default TableHeader;

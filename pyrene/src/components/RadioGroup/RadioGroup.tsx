@@ -3,45 +3,45 @@ import clsx from 'clsx';
 
 import RadioButton, { RadioButtonBaseProps } from '../RadioButton/RadioButton';
 
-import styles from './radioSelection.css';
+import styles from './RadioSelection.module.css';
 
 export interface RadioGroupProps {
   /**
    * Sets the orientation of the radio group.
    */
-  alignment?: 'vertical' | 'horizontal',
+  alignment?: 'vertical' | 'horizontal';
   /**
    * Disables any interaction with the component.
    */
-  disabled?: boolean,
+  disabled?: boolean;
   /**
    * Sets the visual appearance, to signal that the radio group is invalid.
    */
-  invalid?: boolean,
+  invalid?: boolean;
   /**
    * Sets the html name property of the form element.
    */
-  name?: string,
+  name?: string;
   /**
    * Javascript onBlur event handler.
    */
-  onBlur?: () => void,
+  onBlur?: () => void;
   /**
    * Javascript onchange event handler.
    */
-  onChange: (value: number | string, event: React.ChangeEvent<HTMLInputElement>) => void,
+  onChange: (value: number | string, event: React.ChangeEvent<HTMLInputElement>) => void;
   /**
    * Set the values that the user can choose from.
    */
-  options?: RadioButtonBaseProps[],
+  options?: RadioButtonBaseProps[];
   /**
    * Sets the title above the input field.
    */
-  title?: string,
+  title?: string;
   /**
    * Sets the selected choice of the user.
    */
-  value?: number | string,
+  value?: number | string;
 }
 
 type HoveredState = Record<string, boolean>;
@@ -63,7 +63,6 @@ const RadioGroup: React.FC<RadioGroupProps> = ({
   onChange,
   onBlur,
 }: RadioGroupProps) => {
-
   const [hovered, setHovered] = useState<HoveredState>({});
 
   const onMouseEnter = (key: string) => setHovered((prevHovered) => ({

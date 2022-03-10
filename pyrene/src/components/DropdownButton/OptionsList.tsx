@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types */
 import React, { FunctionComponent } from 'react';
 import OptionsItem, { OptionsItemProps } from './OptionsItem';
-import styles from './optionsList.css';
+import styles from './OptionsList.module.css';
 
 export interface OptionsListProps {
-  actions: Array<OptionsItemProps>,
-  onClick: () => void,
+  actions: Array<OptionsItemProps>;
+  onClick: () => void;
 }
 
 const OptionsList: FunctionComponent<OptionsListProps> = ({ actions, onClick }) => (

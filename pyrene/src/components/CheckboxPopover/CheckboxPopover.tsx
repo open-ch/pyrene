@@ -3,7 +3,7 @@ import clsx from 'clsx';
 
 import Popover from '../Popover/Popover';
 import CheckboxList, { CheckboxListProps } from './CheckboxList';
-import styles from './checkboxPopover.css';
+import styles from './CheckboxPopover.module.css';
 
 export interface CheckboxPopoverProps {
   buttonLabel: string;
@@ -44,9 +44,7 @@ const CheckboxPopover: FunctionComponent<CheckboxPopoverProps> = ({
           className={clsx(styles.popoverTriggerButton, { [styles.popoverOpen]: displayPopover })}
           onClick={togglePopover}
         >
-          <div className={clsx(styles.buttonLabel, 'unSelectable')}>
-            {buttonLabel}
-          </div>
+          <div className={clsx(styles.buttonLabel, 'unSelectable')}>{buttonLabel}</div>
           <div
             className={clsx(styles.arrowIcon, {
               'pyreneIcon-chevronUp': displayPopover,

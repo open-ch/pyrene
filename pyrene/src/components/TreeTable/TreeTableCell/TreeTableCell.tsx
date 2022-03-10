@@ -4,18 +4,18 @@
 import React, { CSSProperties } from 'react';
 import clsx from 'clsx';
 
-import styles from './treeTableCell.css';
+import styles from './TreeTableCell.module.css';
 import { Column, CellValue, RowData } from '../types';
 
 interface TreeTableCellProps<R> {
-  columnProps: Column<R>,
-  firstColumn?: boolean,
-  onExpandClick: () => void,
-  parent?: boolean,
-  rowData?: RowData<R>,
-  sectionOpen?: boolean,
-  style?: CSSProperties,
-  value?: CellValue,
+  columnProps: Column<R>;
+  firstColumn?: boolean;
+  onExpandClick: () => void;
+  parent?: boolean;
+  rowData?: RowData<R>;
+  sectionOpen?: boolean;
+  style?: CSSProperties;
+  value?: CellValue;
 }
 
 function TreeTableCell<R extends object = {}>({

@@ -1,52 +1,60 @@
 /* eslint-disable react/prop-types */
 import React, {
-  useCallback, useEffect, useRef, useState, FunctionComponent, RefObject, ChangeEvent, KeyboardEvent, FocusEvent,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  FunctionComponent,
+  RefObject,
+  ChangeEvent,
+  KeyboardEvent,
+  FocusEvent,
 } from 'react';
 import clsx from 'clsx';
-import styles from './searchInput.css';
+import styles from './SearchInput.module.css';
 import Icon from '../../../Icon/Icon';
 
 export interface SearchInputProps {
   /**
    * ref of SearchInput container
    */
-  containerRef?: (() => void) | RefObject<HTMLDivElement>,
+  containerRef?: (() => void) | RefObject<HTMLDivElement>;
   /**
    * custom element to extend the search bar placed between search input and cross button
    */
-  extraActionElement?: JSX.Element,
+  extraActionElement?: JSX.Element;
   /**
    * set Focused state
    */
-  isFocused?: boolean,
+  isFocused?: boolean;
   /**
    * called when input is blured
    */
-  onBlur?: (e?: FocusEvent<HTMLInputElement>) => void,
+  onBlur?: (e?: FocusEvent<HTMLInputElement>) => void;
   /**
    * called when value changes
    */
-  onChange: (value: string, e?: ChangeEvent<HTMLInputElement>) => void,
+  onChange: (value: string, e?: ChangeEvent<HTMLInputElement>) => void;
   /**
    * custom handler for enter keydown action
    */
-  onEnter?: () => void,
+  onEnter?: () => void;
   /**
    * called when input is focused
    */
-  onFocus?: (e?: FocusEvent<HTMLInputElement>) => void,
+  onFocus?: (e?: FocusEvent<HTMLInputElement>) => void;
   /**
    * input placeholder string
    */
-  placeholder?: string,
+  placeholder?: string;
   /**
    * input value
    */
-  value: string,
+  value: string;
   /**
    * width
    */
-  width?: number | string,
+  width?: number | string;
 }
 
 /**

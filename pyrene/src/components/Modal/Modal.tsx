@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from 'react';
 import clsx from 'clsx';
-import styles from './modal.css';
+import styles from './Modal.module.css';
 import ButtonBar from '../ButtonBar/ButtonBar';
 import Button, { Type as ButtonType } from '../Button/Button';
 import Loader from '../Loader/Loader';
@@ -8,96 +8,96 @@ import ActionBar from '../ActionBar/ActionBar';
 import { IconNames } from '../types';
 
 interface ButtonBarProps {
-  action: () => void,
-  disabled?: boolean,
-  icon?: keyof IconNames,
-  label: string,
-  loading?: boolean,
-  type: ButtonType,
+  action: () => void;
+  disabled?: boolean;
+  icon?: keyof IconNames;
+  label: string;
+  loading?: boolean;
+  type: ButtonType;
 }
 
 export interface ModalProps {
   /**
    * Whether interaction with the next button is allowed.
    */
-  canNext?: boolean,
+  canNext?: boolean;
   /**
    * Whether interaction with the previous button is allowed.
    */
-  canPrevious?: boolean,
+  canPrevious?: boolean;
   /**
    * Whether to close modal when escape key is hit.
    */
-  closeOnEscape?: boolean,
+  closeOnEscape?: boolean;
   /**
    * Whether the content is padded with the standard padding.
    */
-  contentPadding?: boolean,
+  contentPadding?: boolean;
   /**
    * Whether the content is scrollable.
    */
-  contentScrolling?: boolean,
+  contentScrolling?: boolean;
   /**
    * Whether to display the navigationArrows in the upper right corner.
    */
-  displayNavigationArrows?: boolean,
+  displayNavigationArrows?: boolean;
   /**
    * Custom Component renderer. Replaces the button bar at the bottom.
    */
-  Footer?: () => React.ReactElement,
+  Footer?: () => React.ReactElement;
   /**
    * Sets the buttons that are displayed on the bottom left of the modal.
    * Type: [{ icon: string, type: string (required), label: string (required), onClick: func (required)}]
    */
-  leftButtonBarElements?: ButtonBarProps[],
+  leftButtonBarElements?: ButtonBarProps[];
   /**
    * Disables the component and displays a loader inside of it.
    */
-  loading?: boolean,
+  loading?: boolean;
   /**
    * Called when the user hits the close button or the escape key.
    */
-  onClose?: () => void,
+  onClose?: () => void;
   /**
    * Called when the user clicks on the next button.
    */
-  onNextArrowClick?: () => void,
+  onNextArrowClick?: () => void;
   /**
    * Called when the user clicks on the previous button.
    */
-  onPreviousArrowClick?: () => void,
+  onPreviousArrowClick?: () => void;
   /**
    * Sets the processing state.
    */
-  processing?: boolean,
+  processing?: boolean;
   /**
    * Sets the content to be rendered inside the component.
    */
-  renderCallback: () => React.ReactElement,
+  renderCallback: () => React.ReactElement;
   /**
    * Displays the Footer section of the Modal.
    */
-  renderFooter?: boolean,
+  renderFooter?: boolean;
   /**
    * Displays the header section of the Modal.
    */
-  renderHeader?: boolean,
+  renderHeader?: boolean;
   /**
    * Sets the buttons that are displayed on the bottom right of the modal.
    * Type: [{ icon: string, type: string (required), label: string (required), onClick: func (required)}]
    */
-  rightButtonBarElements?: ButtonBarProps[],
+  rightButtonBarElements?: ButtonBarProps[];
   /**
    * Sets the size.
    */
-  size: 'small' | 'large' | 'xlarge',
+  size: 'small' | 'large' | 'xlarge';
   /**
    * Sets the title.
    */
-  title?: string,
+  title?: string;
 }
 
-const createButtonArray = (buttonInfo: ButtonBarProps[]) => (
+const createButtonArray = (buttonInfo: ButtonBarProps[]) =>
   buttonInfo.map((buttonProps) => (
     <Button
       key={buttonProps.label}
@@ -108,8 +108,7 @@ const createButtonArray = (buttonInfo: ButtonBarProps[]) => (
       disabled={buttonProps.disabled}
       onClick={buttonProps.action}
     />
-  ))
-);
+  ));
 
 /**
  * The modal view is used when full attention on an action or a process is required. The modal has an invasive experience and no other interactions on the main page can be accessed while active.

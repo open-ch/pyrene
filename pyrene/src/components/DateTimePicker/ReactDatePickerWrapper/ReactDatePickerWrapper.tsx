@@ -4,89 +4,89 @@ import clsx from 'clsx';
 import IconButton from '../../IconButton/IconButton';
 
 import 'react-datepicker/dist/react-datepicker.css';
-import styles from '../datePicker.css';
+import styles from '../DatePicker.module.css';
 
 export interface DatePickerProps {
   /**
    * Trigger close of calendar dropdown
    */
-  closeDropdown?: boolean,
+  closeDropdown?: boolean;
   /**
    * Replaces the input with any node, for example a button
    */
-  customInput: React.ReactNode,
+  customInput: React.ReactNode;
   /**
    * Date format used by component
    */
-  dateFormat: string,
+  dateFormat: string;
   /**
    * Component is disabled
-  */
-  disabled?: boolean,
+   */
+  disabled?: boolean;
   /**
    * This is a Date object that represents the end date of a date range
    */
-  endDate?: Date,
+  endDate?: Date;
   /**
    * This is a Date object that represents the maximum date allowed by the component
    */
-  maxDate?: Date,
+  maxDate?: Date;
   /**
    * This is a Date object that represents the minimum date allowed by the component
    */
-  minDate?: Date,
+  minDate?: Date;
   /**
    * Do something when calendar opens
    */
-  onCalendarClose?: () => void,
+  onCalendarClose?: () => void;
   /**
    * Do something when calendar opens
    */
-  onCalendarOpen?: () => void,
+  onCalendarOpen?: () => void;
   /**
    * Function to handle date change event
    */
-  onChange?: ReactDatePickerProps['onChange'],
+  onChange?: ReactDatePickerProps['onChange'];
   /**
    * Callback for when user clicks outside component
    */
-  onClickOutside?: (event: React.MouseEvent<HTMLDivElement>) => void,
+  onClickOutside?: (event: React.MouseEvent<HTMLDivElement>) => void;
   /**
    * Function to handle date select event
    */
-  onSelect?: (date: Date, event: React.SyntheticEvent<any> | undefined) => void,
+  onSelect?: (date: Date, event: React.SyntheticEvent<any> | undefined) => void;
   /**
    * Move calendar to specific date
    */
-  openDate?: Date,
+  openDate?: Date;
   /**
    * Component must be filled
    */
-  required?: boolean,
+  required?: boolean;
   /**
    * This is a Date object that represents the selected date of the datepicker
    */
-  selectedDate?: Date,
+  selectedDate?: Date;
   /**
    * Is calendar ending a range
    */
-  selectsEnd?: boolean,
+  selectsEnd?: boolean;
   /**
    * Is calendar starting a range
    */
-  selectsStart?: boolean,
+  selectsStart?: boolean;
   /**
    * Should display the Time column on the right-hand side
    */
-  shouldDisplayTimeColumn?: boolean,
+  shouldDisplayTimeColumn?: boolean;
   /**
    * This is a Date object that represents the start date of a date range
    */
-  startDate?: Date,
+  startDate?: Date;
   /**
    * Time format used by component
    */
-  timeFormat: string,
+  timeFormat: string;
 }
 
 const ReactDatePickerWrapper: React.FC<DatePickerProps> = ({
@@ -99,7 +99,7 @@ const ReactDatePickerWrapper: React.FC<DatePickerProps> = ({
   minDate,
   onCalendarClose,
   onCalendarOpen,
-  onChange = () => { },
+  onChange = () => {},
   onClickOutside,
   onSelect,
   openDate,
@@ -111,7 +111,6 @@ const ReactDatePickerWrapper: React.FC<DatePickerProps> = ({
   startDate,
   timeFormat,
 }: DatePickerProps) => {
-
   const rangeRef = useRef<ReactDatepicker>(null);
   const [hasInput, setHasInput] = useState<boolean>(false);
 

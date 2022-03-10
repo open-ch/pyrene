@@ -3,69 +3,69 @@ import clsx from 'clsx';
 import IconButton from '../../IconButton/IconButton';
 import { allowedValueCheck } from '../../../utils/DateUtils';
 
-import styles from './dateTimeInput.css';
+import styles from './DateTimeInput.module.css';
 
 export interface DateTimeInputProps {
   /**
    * Date format used by component
    */
-  dateFormat: string,
+  dateFormat: string;
   /**
    * Boolean to toggle time display
-  */
-  dateOnly?: boolean,
+   */
+  dateOnly?: boolean;
   /**
    * Input date value
-  */
-  dateValue?: string,
+   */
+  dateValue?: string;
   /**
    * Component is disabled
-  */
-  disabled?: boolean,
+   */
+  disabled?: boolean;
   /**
    * Input error
-  */
-  errorValue?: string,
+   */
+  errorValue?: string;
   /**
    * Input field label
-  */
-  label?: string,
+   */
+  label?: string;
   /**
    * Input field name
-  */
-  name?: string,
+   */
+  name?: string;
   /**
    * Onchange from parent. Currently this handles onchange function passed from react-datepicker
-  */
-  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void,
+   */
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   /**
    * Onclick from parent. Currently this handles onclick function passed from react-datepicker
-  */
-  onClick?: () => void,
+   */
+  onClick?: () => void;
   /**
    * Onfocus from parent.
-  */
-  onFocus?: () => void,
+   */
+  onFocus?: () => void;
   /**
    * Component must be filled
    */
-  required?: boolean,
+  required?: boolean;
   /**
    * Callback to set Date value in parent
    */
-  setDateValue?: (value: string) => void,
+  setDateValue?: (value: string) => void;
   /**
    * Callback to set Time value in parent
    */
-  setTimeValue?: (value: string) => void,
+  setTimeValue?: (value: string) => void;
   /**
    * Time format used by component
    */
-  timeFormat: string,
+  timeFormat: string;
   /**
    * Input time value
-  */
-  timeValue?: string,
+   */
+  timeValue?: string;
 }
 
 const DateTimeInput = forwardRef<HTMLInputElement, DateTimeInputProps>(({

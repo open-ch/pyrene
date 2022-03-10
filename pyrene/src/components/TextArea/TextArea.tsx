@@ -6,79 +6,79 @@ export interface TextAreaProps {
   /**
    * Disables any interaction with the component.
    */
-  disabled?: boolean,
+  disabled?: boolean;
   /**
    * Sets a label below the input field to display additional information for the user.
    */
-  helperLabel?: string,
+  helperLabel?: string;
   /**
    * Sets the visual appearance, to signal that the input is invalid.
    */
-  invalid?: boolean,
+  invalid?: boolean;
   /**
    * Sets the label displayed instead of the helperLabel when the input is invalid.
    */
-  invalidLabel?: string,
+  invalidLabel?: string;
   /**
    * Sets a maximum allowed number of characters.
    */
-  maxLength?: number,
+  maxLength?: number;
   /**
    * Sets the html name property of the form element.
    */
-  name?: string,
+  name?: string;
   /**
    * Javascript event handler.
    */
-  onBlur?: (event: React.FocusEvent<HTMLTextAreaElement>) => void,
+  onBlur?: (event: React.FocusEvent<HTMLTextAreaElement>) => void;
   /**
    * Javascript event handler.
    */
-  onChange?: (updatedValue: string, event: React.FormEvent<HTMLTextAreaElement>) => void,
+  onChange?: (updatedValue: string, event: React.FormEvent<HTMLTextAreaElement>) => void;
   /**
    * Javascript event handler.
    */
-  onFocus?: (event: React.FocusEvent<HTMLTextAreaElement>) => void,
+  onFocus?: (event: React.FocusEvent<HTMLTextAreaElement>) => void;
   /**
    * Sets the placeholder label.
    */
-  placeholder?: string,
+  placeholder?: string;
   /**
    * Adds a visual indication to display that the field is required.
    */
-  required?: boolean,
+  required?: boolean;
   /**
    * Whether the user can resize the text area's height.
    */
-  resizeable?: boolean,
+  resizeable?: boolean;
   /**
    * Sets a fixed height for the input field.
    */
-  rows?: number,
+  rows?: number;
   /**
    * Sets the title above the input field.
    */
-  title?: string,
+  title?: string;
   /**
    * Sets the value of the input field.
    */
-  value?: string,
+  value?: string;
   /**
    * Sets a fixed width (px) for the input field.
    */
-  width?: number | string,
+  width?: number | string;
   /**
    * Whether the text area automatically adjusts to the content
    */
-  adaptToContent?: boolean,
+  adaptToContent?: boolean;
   /**
    * Min number of rows, useful when combined with adaptToContent prop
    */
-  minRows?: number,
+  minRows?: number;
   /**
    * Max number of rows, useful when combined with adaptToContent prop
    */
-  maxRows?: number,
+  maxRows?: number;
 }
 
 /**
@@ -105,7 +105,6 @@ const TextArea: React.FC<TextAreaProps> = ({
   minRows = 1,
   maxRows = 10,
 }: TextAreaProps) => {
-
   const textAreaLineHeight = 16;
   const characterCount = maxLength - (value !== null ? value.length : 0);
   const characterLimitReached = characterCount < 0;

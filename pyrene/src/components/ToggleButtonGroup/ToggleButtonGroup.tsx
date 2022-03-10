@@ -1,6 +1,6 @@
 import * as React from 'react';
 import clsx from 'clsx';
-import styles from './toggleButtonGroup.css';
+import styles from './ToggleButtonGroup.module.css';
 
 export interface ToggleButtonGroupValue {
   /**
@@ -17,23 +17,23 @@ export interface ToggleButtonGroupProps {
   /**
    * Disabling all buttons - no onClick and opacity 50%
    * */
-  disabled?: boolean,
+  disabled?: boolean;
   /**
    * What happens when one value is toggled
    */
-  onChange?: (value: string) => void,
+  onChange?: (value: string) => void;
   /**
    * All options that can be toggled.
    */
-  options: ToggleButtonGroupValue[],
+  options: ToggleButtonGroupValue[];
   /**
    * Sets the box style of the toggle group.
    */
-  styling?: 'box' | 'shadow',
+  styling?: 'box' | 'shadow';
   /**
    * The selected value in the option list.
    */
-  value: string,
+  value: string;
 }
 
 /**

@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types */
 import React, { FunctionComponent } from 'react';
 
-import styles from './optionsItem.css';
+import styles from './OptionsItem.module.css';
 
 export interface OptionsItemProps {
-  label: string,
-  onClick: () => void,
+  label: string;
+  onClick: () => void;
 }
 
 const OptionsItem: FunctionComponent<OptionsItemProps> = ({ label, onClick }) => (

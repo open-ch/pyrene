@@ -3,23 +3,23 @@
 import React, { CSSProperties } from 'react';
 import clsx from 'clsx';
 
-import styles from './treeTableRow.css';
+import styles from './TreeTableRow.module.css';
 import TreeTableCell from '../TreeTableCell/TreeTableCell';
 import { Column, RowData } from '../types';
 
-export interface TreeTableRowProps<R>{
-  columns: Array<Column<R>>,
-  data?: RowData<R>,
-  expandOnParentRowClick: boolean,
-  highlighted?: boolean,
-  index: number,
-  isExpanded: boolean,
-  level: number,
-  onExpand?: (args: { row?: RowData<R>, index: number }) => void,
-  onRowClick?: (row?: RowData<R>) => void,
-  onRowDoubleClick?: (row?: RowData<R>) => void,
-  parent?: boolean,
-  style?: CSSProperties,
+export interface TreeTableRowProps<R> {
+  columns: Array<Column<R>>;
+  data?: RowData<R>;
+  expandOnParentRowClick: boolean;
+  highlighted?: boolean;
+  index: number;
+  isExpanded: boolean;
+  level: number;
+  onExpand?: (args: { row?: RowData<R>; index: number }) => void;
+  onRowClick?: (row?: RowData<R>) => void;
+  onRowDoubleClick?: (row?: RowData<R>) => void;
+  parent?: boolean;
+  style?: CSSProperties;
 }
 
 function TreeTableRow<R extends object = {}>({

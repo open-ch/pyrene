@@ -12,17 +12,17 @@ import {
 } from './CalendarDateSelectorUtils';
 import ArrowSelector from '../TimeRangeSelector/TimeRangeNavigationBar/ArrowSelector/ArrowSelector';
 import DateHelper from './DateHelper';
-import styles from './calendarDateSelector.css';
+import styles from './CalendarDateSelector.module.css';
 
 export interface CalendarDateSelectorProps {
-  isLoading?: boolean,
-  lowerBound?: DayMonthYear,
-  onChange?: (newDate: DayMonthYear, unit: string) => void,
-  renderRightSection?: () => React.ReactNode,
-  timeUnit: DateTime['timeunitOption'],
-  timeUnits?: DateTime['timeunitOptions'],
-  upperBound?: DayMonthYear,
-  value?: DayMonthYear,
+  isLoading?: boolean;
+  lowerBound?: DayMonthYear;
+  onChange?: (newDate: DayMonthYear, unit: string) => void;
+  renderRightSection?: () => React.ReactNode;
+  timeUnit: DateTime['timeunitOption'];
+  timeUnits?: DateTime['timeunitOptions'];
+  upperBound?: DayMonthYear;
+  value?: DayMonthYear;
 }
 
 const DEFAULT_LOWER_BOUND = {
@@ -31,11 +31,7 @@ const DEFAULT_LOWER_BOUND = {
   day: 1,
 };
 
-const DEFAULT_TIME_UNITS = [
-  DateTypes.day,
-  DateTypes.month,
-  DateTypes.year,
-];
+const DEFAULT_TIME_UNITS = [DateTypes.day, DateTypes.month, DateTypes.year];
 
 /**
  * Component for selecting a timeUnit and a range forwards and backwards.
@@ -55,7 +51,6 @@ const CalendarDateSelector: FunctionComponent<CalendarDateSelectorProps> = ({
   timeUnits = DEFAULT_TIME_UNITS,
   value = getCurrentDate(),
 }: CalendarDateSelectorProps) => {
-
   const onNavigate = (newValue: DayMonthYear, direction: -1 | 1) => {
     const newDate = handleDateChange(newValue, direction, timeUnit);
     onChange?.(newDate, timeUnit);
@@ -84,9 +79,7 @@ const CalendarDateSelector: FunctionComponent<CalendarDateSelectorProps> = ({
           innerWidth={136}
         />
       </div>
-      <div className={styles['timeUnitSelector--right']}>
-        {renderRightSection?.()}
-      </div>
+      <div className={styles['timeUnitSelector--right']}>{renderRightSection?.()}</div>
     </div>
   );
 };

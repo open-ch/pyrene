@@ -2,14 +2,14 @@
 import React, { FunctionComponent } from 'react';
 import clsx from 'clsx';
 
-import styles from './optionList.css';
+import styles from './OptionList.module.css';
 import { Option } from './types';
 
 export interface OptionListProps {
-  onChange: (option: Option) => void,
-  options: Array<Option>,
-  renderHelpSection?: () => JSX.Element,
-  selectedValue?: Option,
+  onChange: (option: Option) => void;
+  options: Array<Option>;
+  renderHelpSection?: () => JSX.Element;
+  selectedValue?: Option;
 }
 
 const OptionList: FunctionComponent<OptionListProps> = ({

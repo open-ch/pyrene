@@ -5,27 +5,27 @@ import clsx from 'clsx';
 import Stepper from '../../Stepper/Stepper';
 import TableSelect, { Option } from './TableSelect/TableSelect';
 
-import styles from './tablePagination.css';
+import styles from './TablePagination.module.css';
 
 export interface TablePaginationProps<R extends unknown> {
-  pages: number,
-  page: number,
-  data: Array<R>,
-  numberOfResults: number,
-  loading: boolean,
-  pageSize: number,
-  canNext: boolean,
-  canPrevious: boolean,
-  error?: string,
-  onPageSizeChange: (newPage: number) => void,
-  onPageChange: (page: number) => void,
-  pageSizeOptions: number[],
+  pages: number;
+  page: number;
+  data: Array<R>;
+  numberOfResults: number;
+  loading: boolean;
+  pageSize: number;
+  canNext: boolean;
+  canPrevious: boolean;
+  error?: string;
+  onPageSizeChange: (newPage: number) => void;
+  onPageChange: (page: number) => void;
+  pageSizeOptions: number[];
 }
 
 const showAmountOfResults = <R extends unknown>(
   data: TablePaginationProps<R>['data'],
   numberOfResults: number,
-  loading: boolean,
+  loading: boolean
 ) => {
   if (loading) {
     return '';
@@ -36,7 +36,7 @@ const showAmountOfResults = <R extends unknown>(
 
 /* props are controlled by the parent component of react-table */
 
-function TablePagination <R extends unknown={}>({
+function TablePagination<R extends unknown = {}>({
   pages,
   page,
   data,

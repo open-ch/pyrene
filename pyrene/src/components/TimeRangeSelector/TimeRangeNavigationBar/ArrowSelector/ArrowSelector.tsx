@@ -2,16 +2,16 @@
 import React, { FunctionComponent } from 'react';
 import clsx from 'clsx';
 import TRSStepper from './TRSStepper/TRSStepper';
-import styles from './arrowSelector.css';
+import styles from './ArrowSelector.module.css';
 
 export interface ArrowSelectorProps {
-  backInactive: boolean,
-  disabled?: boolean,
-  forwardInactive: boolean,
-  innerWidth: number,
-  label: string,
-  onNavigateBack: () => void,
-  onNavigateForward: () => void,
+  backInactive: boolean;
+  disabled?: boolean;
+  forwardInactive: boolean;
+  innerWidth: number;
+  label: string;
+  onNavigateBack: () => void;
+  onNavigateForward: () => void;
 }
 
 const ArrowSelector: FunctionComponent<ArrowSelectorProps> = ({

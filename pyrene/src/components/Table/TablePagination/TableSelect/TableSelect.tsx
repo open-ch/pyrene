@@ -4,22 +4,22 @@ import React, { FunctionComponent } from 'react';
 import clsx from 'clsx';
 import Select from 'react-select';
 import SelectStyle from './tableSelectCSS';
-import styles from './tableSelect.css';
+import styles from './TableSelect.module.css';
 
 export interface Option {
-  invalid?: boolean,
-  label?: string,
-  value?: string,
+  invalid?: boolean;
+  label?: string;
+  value?: string;
 }
 
 interface TableSelectProps {
-  defaultValue?: string,
-  disabled?: boolean,
-  onBlur?: () => void,
-  onChange: (option: Option) => void,
-  options?: Array<Option>,
-  placeholder?: string,
-  value?: string,
+  defaultValue?: string;
+  disabled?: boolean;
+  onBlur?: () => void;
+  onChange: (option: Option) => void;
+  options?: Array<Option>;
+  placeholder?: string;
+  value?: string;
 }
 
 const TableSelect: FunctionComponent<TableSelectProps> = ({

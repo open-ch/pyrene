@@ -2,13 +2,13 @@
 import React, { CSSProperties, ReactNode, FunctionComponent } from 'react';
 import clsx from 'clsx';
 
-import styles from './tableCell.css';
+import styles from './TableCell.module.css';
 
 export interface TableCellProps {
-  children: ReactNode,
-  multiSelect?: boolean,
-  onClick: () => void,
-  style?: CSSProperties,
+  children: ReactNode;
+  multiSelect?: boolean;
+  onClick: () => void;
+  style?: CSSProperties;
 }
 
 const TableCell: FunctionComponent<TableCellProps> = ({

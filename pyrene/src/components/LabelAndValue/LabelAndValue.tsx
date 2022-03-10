@@ -1,7 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 
-import styles from './labelAndValue.css';
+import styles from './LabelAndValue.module.css';
 
 export interface LabelAndValueProps {
   /**

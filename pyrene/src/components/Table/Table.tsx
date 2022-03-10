@@ -21,7 +21,7 @@ import ReactTable, {
 import selectTableHOC, { SelectInputComponentProps } from 'react-table/lib/hoc/selectTable';
 import clsx from 'clsx';
 
-import styles from './table.css';
+import styles from './Table.module.css';
 import TablePagination, { TablePaginationProps } from './TablePagination/TablePagination';
 import Button from '../Button/Button';
 import Loader from '../Loader/Loader';
@@ -59,39 +59,42 @@ export type ExtendsRow<R> = R & {
 };
 
 export type Col<R, X = ExtendsRow<R>> = Column<R> & {
-  cellRenderCallback?: string | JSX.Element | ((row: X & CellInfo, rowIndex: number, columnIndex: number) => string | JSX.Element | number),
-  cellStyle?: CSSProperties,
-  headerName: string,
-  headerTooltip?: string,
-  initiallyHidden?: boolean,
-  sortFunction?: SortFunction,
+  cellRenderCallback?:
+    | string
+    | JSX.Element
+    | ((row: X & CellInfo, rowIndex: number, columnIndex: number) => string | JSX.Element | number);
+  cellStyle?: CSSProperties;
+  headerName: string;
+  headerTooltip?: string;
+  initiallyHidden?: boolean;
+  sortFunction?: SortFunction;
 };
 
 export type MappedColumn<R> = Column<R> & {
-  initiallyHidden?: boolean,
-  sortMethod?: SortFunction,
+  initiallyHidden?: boolean;
+  sortMethod?: SortFunction;
 };
 
 export interface TableState {
-  selection: Array<string | number>,
-  selectAll: boolean,
-  columnsVisibility: { [key: string]: boolean },
-  pageSize?: number,
+  selection: Array<string | number>;
+  selectAll: boolean;
+  columnsVisibility: { [key: string]: boolean };
+  pageSize?: number;
 }
 
 export interface Action {
-  active: 'single' | 'multi' | 'always' | 'disabled' | 'no_selection',
-  callback: (row: Array<string | number>) => void,
-  icon?: keyof IconNames,
-  label: string,
-  loading?: boolean,
+  active: 'single' | 'multi' | 'always' | 'disabled' | 'no_selection';
+  callback: (row: Array<string | number>) => void;
+  icon?: keyof IconNames;
+  label: string;
+  loading?: boolean;
 }
 
-export interface TableProps<R={}> {
+export interface TableProps<R = {}> {
   /**
    * Sets the table actions. Type: [{ icon: string, label: string (required), callback: func (required), active: oneOf('single', 'multi', 'always', 'disabled') (required) }]
    */
-  actions?: Array<Action>,
+  actions?: Array<Action>;
   /**
    * Sets the Table columns.
    * Type: [{ accessor: any, cellRenderCallback: One of [React element, callback function to display the cell, string],
@@ -99,112 +102,118 @@ export interface TableProps<R={}> {
    * sortable: bool (!!!Overrides disableSorting!!!), sortFunction: function, width: number }]
    * headerTooltip: if defined Pyrene tooltip displayed when hovering over header name
    */
-  columns: Array<Col<R> | MappedColumn<R>>,
+  columns: Array<Col<R> | MappedColumn<R>>;
   /**
    * Page to display by the Table (use only with server-side data fetching & pagination).
    */
-  currentPage?: number,
+  currentPage?: number;
   /**
    * Sets the Table data displayed in the rows. Type: JSON
    */
-  data: Array<R>,
+  data: Array<R>;
   /**
    * Sets the page size when the component is first mounted.
    */
-  defaultPageSize?: number,
+  defaultPageSize?: number;
   /**
    * Sets the default sorting columns and order when the component is first mounted.
    * Type: [{ id: string (required), desc: bool }]
    */
-  defaultSorted?: Array<SortingRule>,
+  defaultSorted?: Array<SortingRule>;
   /**
    * Disables table interactions
    */
-  disabled?: boolean,
+  disabled?: boolean;
   /**
    * Disable sorting in the table.
    */
-  disableSorting?: boolean,
+  disableSorting?: boolean;
   /**
    * Sets the error message to be displayed
    */
-  error?: string,
+  error?: string;
   /**
    * True if filter should be displayed but in disabled state (filters might be still undefined)
    */
-  filterDisabled?: boolean,
+  filterDisabled?: boolean;
   /**
    * Sets the available filters.
    * Type: [{ label: string (required) label of the filter input displayed to the user, type: oneOf('singleSelect', 'multiSelect', 'text') (required),
    * id: string (required) - key for the one filter input, options: array }]
    */
-  filters?: Array<FilterType>,
+  filters?: Array<FilterType>;
   /**
    * values to be filtered & displayed in filter dropdown
    * use {} for passing empty filterValues
    * */
-  filterValues?: Filters,
+  filterValues?: Filters;
   /**
    * Sets the data key for each row. Should be unique. Is used for selections.
    */
-  keyField: string | number,
+  keyField: string | number;
   /**
    * Disables the component and displays a loader inside of it.
    */
-  loading?: boolean,
+  loading?: boolean;
   /**
    * Set to true to be able to handle sorting and pagination server-side (use only with server-side data fetching & pagination).
    */
-  manual?: boolean,
+  manual?: boolean;
   /**
    * Changes the overall appearance of the table to become multi-selectable (checkbox table). Requires keyField prop.
    */
-  multiSelect?: boolean,
+  multiSelect?: boolean;
   /**
-    * Whether multiSorting via shift click is possible.
-    */
-  multiSort?: boolean,
+   * Whether multiSorting via shift click is possible.
+   */
+  multiSort?: boolean;
   /**
    * Enables negation support for filters. Defaults to false
    */
-  negatable?: boolean,
+  negatable?: boolean;
   /**
    * Amount of results to be displayed in Table Header (use only with server-side data fetching & pagination).
    */
-  numberOfResults?: number,
+  numberOfResults?: number;
   /**
    * Called initially when the table loads & any time sorting, pagination or filterting is changed in the table (use only with server-side data fetching & pagination).
    */
-  onFetchData?: (args: { page: number, pageCount: number, filters: Filters, pageSize?: number, sorting: TableProps<R>['defaultSorted'] }) => void,
+  onFetchData?: (args: {
+    page: number;
+    pageCount: number;
+    filters: Filters;
+    pageSize?: number;
+    sorting: TableProps<R>['defaultSorted'];
+  }) => void;
   /**
    * Called when the filter changes.
    */
-  onFilterChange?: (filterValues: Filters, filterNegatedKeys: Array<FilterType['id']>) => void,
+  onFilterChange?: (filterValues: Filters, filterNegatedKeys: Array<FilterType['id']>) => void;
   /**
-    * Called when the user double clicks on a row.
-    */
-  onRowDoubleClick?: (rowInfo: RowInfo) => void,
+   * Called when the user double clicks on a row.
+   */
+  onRowDoubleClick?: (rowInfo: RowInfo) => void;
   /**
    * Amount of pages to be shown in React Table (use only with server-side data fetching & pagination).
    */
-  pages?: number,
+  pages?: number;
   /**
-  * Sets the page sizes that the user can choose from.
-  */
-  pageSizeOptions?: number[],
+   * Sets the page sizes that the user can choose from.
+   */
+  pageSizeOptions?: number[];
   /**
-  * Allow toggling wether a row (and checkbox for a checkboxtable) is selectable
-  * @returns {boolean} - enabled = true, disabled = false
-  */
-  rowSelectableCallback?: (row: R) => boolean,
+   * Allow toggling wether a row (and checkbox for a checkboxtable) is selectable
+   * @returns {boolean} - enabled = true, disabled = false
+   */
+  rowSelectableCallback?: (row: R) => boolean;
   /**
-  * Sets the title.
-  */
-  title?: string,
+   * Sets the title.
+   */
+  title?: string;
   /**
-  * Whether the columns (hide/show) popover is available to the user.
-  */
-  toggleColumns?: boolean,
+   * Whether the columns (hide/show) popover is available to the user.
+   */
+  toggleColumns?: boolean;
 }
 
 /**

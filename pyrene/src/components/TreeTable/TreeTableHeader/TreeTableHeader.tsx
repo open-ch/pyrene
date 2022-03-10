@@ -2,12 +2,12 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import React from 'react';
 
-import styles from './treeTableHeader.css';
+import styles from './TreeTableHeader.module.css';
 import { Column } from '../types';
 
 export interface TreeTableHeaderProps<R> {
-  columns: Array<Column<R>>,
-  scrollPadding: number,
+  columns: Array<Column<R>>;
+  scrollPadding: number;
 }
 
 function TreeTableHeader<R extends object = {}>({
@@ -16,7 +16,6 @@ function TreeTableHeader<R extends object = {}>({
 }: TreeTableHeaderProps<R>): React.ReactElement<TreeTableHeaderProps<R>> {
   return (
     <div className={styles.treeTableHeader} style={{ paddingRight: scrollPadding }}>
-
       {columns.map((column) => {
         // Do not display hidden columns
         if (column.hidden) {

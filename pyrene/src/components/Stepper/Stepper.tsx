@@ -5,20 +5,20 @@ import styles from './Stepper.module.css';
 export interface StepperProps {
   /**
    * Sets the direction of the arrow.
-  */
-  direction?: 'up' | 'down' | 'right' | 'left',
+   */
+  direction?: 'up' | 'down' | 'right' | 'left';
   /**
-  * Disables any interaction with the component.
-  */
-  disabled?: boolean,
+   * Disables any interaction with the component.
+   */
+  disabled?: boolean;
   /**
-  * Javascript event handler.
-  */
-  onClick?: () => void,
+   * Javascript event handler.
+   */
+  onClick?: () => void;
   /**
-  * Sets the overall style.
-  */
-  type?: 'bordered' | 'minimal',
+   * Sets the overall style.
+   */
+  type?: 'bordered' | 'minimal';
 }
 
 /**

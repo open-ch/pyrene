@@ -3,22 +3,22 @@ import clsx from 'clsx';
 import Popover from '../Popover/Popover';
 import OptionsList, { OptionsListProps } from './OptionsList';
 import Loader from '../Loader/Loader';
-import styles from './dropdownButton.css';
+import styles from './DropdownButton.module.css';
 import { IconNames } from '../types';
 
 export interface DropdownButtonProps {
   /**
    * Array of action objects holding a Label, Icon and its associated Javascript event handler.
    */
-  actions?: OptionsListProps['actions'],
+  actions?: OptionsListProps['actions'];
   /**
    * Sets the alignment of the dropdown relative to the button.
    */
-  align?: 'start' | 'end',
+  align?: 'start' | 'end';
   /**
    * Disables any interaction with the component.
    */
-  disabled?: boolean,
+  disabled?: boolean;
   /**
    * Adds an icon to the element.
    */
@@ -26,13 +26,12 @@ export interface DropdownButtonProps {
   /**
    * Sets the label displayed to the user.
    */
-  label: string,
+  label: string;
   /**
    * Disables the component and displays a loader inside of it.
    */
-  loading?: boolean,
+  loading?: boolean;
 }
-
 
 /**
  * Dropdown Buttons are used primarily to group actions of a common topic.

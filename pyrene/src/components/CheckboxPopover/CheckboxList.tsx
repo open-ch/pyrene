@@ -3,7 +3,7 @@ import React, { FunctionComponent } from 'react';
 
 import Checkbox from '../Checkbox/Checkbox';
 import Button from '../Button/Button';
-import styles from './checkboxList.css';
+import styles from './CheckboxList.module.css';
 
 export interface Item {
   id?: string;
@@ -27,12 +27,15 @@ const CheckboxList: FunctionComponent<CheckboxListProps> = ({
       <Button label="Restore default" type="action" onClick={() => onRestoreDefault()} />
     </div>
     <div className={styles.list}>
-      {listItems
-        .map((item) => (
-          <div className={styles.listItem} key={item.id}>
-            <Checkbox label={item.label} value={item.value} onChange={() => onItemClick(item.id, item.value)} />
-          </div>
-        ))}
+      {listItems.map((item) => (
+        <div className={styles.listItem} key={item.id}>
+          <Checkbox
+            label={item.label}
+            value={item.value}
+            onChange={() => onItemClick(item.id, item.value)}
+          />
+        </div>
+      ))}
     </div>
   </div>
 );

@@ -8,9 +8,11 @@ import React, { CSSProperties } from 'react';
 import clsx from 'clsx';
 import { VariableSizeList, Align } from 'react-window';
 
-import styles from './treeTable.css';
+import styles from './TreeTable.module.css';
 import TreeTableHeader from './TreeTableHeader/TreeTableHeader';
-import TreeTableActionBar, { TreeTableActionBarProps } from './TreeTableActionBar/TreeTableActionBar';
+import TreeTableActionBar, {
+  TreeTableActionBarProps,
+} from './TreeTableActionBar/TreeTableActionBar';
 import TreeTableRow, { TreeTableRowProps } from './TreeTableRow/TreeTableRow';
 import Filter from '../Filter/Filter';
 import TreeTableUtils from './TreeTableUtils';
@@ -18,98 +20,98 @@ import Loader from '../Loader/Loader';
 import { Column, RowData } from './types';
 import { Filter as FilterType, Filters } from '../Filter/types';
 
-export interface TreeTableProps<R>{
+export interface TreeTableProps<R> {
   /**
    * Sets the Table columns.
    * Type: [{ id: string (required), headerName: string (required), accessor: string (required), headerStyle: object, cellStyle: object, initiallyHidden: bool, width: number }]
    */
-  columns: Array<Column<R>>,
+  columns: Array<Column<R>>;
   /**
    * Sets the Table data displayed in the rows.
    * Type: [{ children: object, lineCount: number, ...row }]
    */
-  data: Array<R>,
+  data: Array<R>;
   /**
    * Enables toggle row expansion on the full parent row, instead of the chevron only. Overrides onRowDoubleClick and onRowClick for parent rows.
    */
-  expandOnParentRowClick?: boolean,
+  expandOnParentRowClick?: boolean;
   /**
    * Sets the available filters.
    * Type: [{ label: string (required), type: oneOf('singleSelect', 'multiSelect', 'text') (required), key: string (required), options: array }]
    */
-  filters?: Array<FilterType>,
+  filters?: Array<FilterType>;
   /**
    * values to be filtered & displayed in filter dropdown
    * use {} for passing empty filterValues
    * */
-  filterValues: Filters,
+  filterValues: Filters;
   /**
    * Sets the height for the table. This is only needed when the virtualized prop is true.
    */
-  height?: number,
+  height?: number;
   /**
    * Highlights a rule in the table. Should be the same value that is calculated by using the `setUniqueRowKey` method.
    */
-  highlightedRowId?: string,
+  highlightedRowId?: string;
   /**
    * Disables the component and displays a loader inside of it.
    */
-  loading?: boolean,
+  loading?: boolean;
   /**
    * Called when the filter changes.
    */
-  onFilterChange?: () => void,
+  onFilterChange?: () => void;
   /**
    * Called when the user clicks on a row.
    */
-  onRowClick?: TreeTableRowProps<R>['onRowClick'],
+  onRowClick?: TreeTableRowProps<R>['onRowClick'];
   /**
    * Called when the user double clicks on a row.
    */
-  onRowDoubleClick?: TreeTableRowProps<R>['onRowDoubleClick'],
+  onRowDoubleClick?: TreeTableRowProps<R>['onRowDoubleClick'];
   /**
    * Sets the hover callback for row mouseover.
    * (rowData: object, isEntering: boolean) => null
    */
-  onRowHover?: (row: RowData<R>, h: boolean) => void,
+  onRowHover?: (row: RowData<R>, h: boolean) => void;
   /**
    * Render content on the right side of the action bar of the table
    */
-  renderActionBarRightItems?: TreeTableActionBarProps['renderRightItems'],
+  renderActionBarRightItems?: TreeTableActionBarProps['renderRightItems'];
   /**
    * default row height for a single line row
    */
-  rowLineHeight?: number,
+  rowLineHeight?: number;
   /**
    * Sets a function to get a unique key for each row. Params: (rowData)
    */
-  setUniqueRowKey?: (row: RowData<R>) => string | number,
+  setUniqueRowKey?: (row: RowData<R>) => string | number;
   /**
    * Sets the title.
    */
-  title?: string,
+  title?: string;
   /**
    * Whether the columns (hide/show) popover is available to the user.
    */
-  toggleColumns?: boolean,
+  toggleColumns?: boolean;
   /**
    * Callback handler function when the columns of the table are getting toggled.
    */
-  toggleColumnsHandler?: (columns?: Array<Column<R>>) => void,
+  toggleColumnsHandler?: (columns?: Array<Column<R>>) => void;
   /**
    * Whether the table should be virtualized (only visible rows rendered - faster) or all rows always rendered. The height prop must also be provided if virtualized is true.
    */
-  virtualized?: boolean,
+  virtualized?: boolean;
 }
 
 export interface TreeTableState<R> {
-  tableFullyExpanded: boolean,
-  columns: Array<Column<R>>,
-  expanded: Record<string, boolean>,
-  rows: Array<RowData<R>>,
-  tableKey?: number,
-  disabledExpandButton: boolean,
-  scrollBarWidth: number,
+  tableFullyExpanded: boolean;
+  columns: Array<Column<R>>;
+  expanded: Record<string, boolean>;
+  rows: Array<RowData<R>>;
+  tableKey?: number;
+  disabledExpandButton: boolean;
+  scrollBarWidth: number;
 }
 
 /* eslint-disable no-underscore-dangle */

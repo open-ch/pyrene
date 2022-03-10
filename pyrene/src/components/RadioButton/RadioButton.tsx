@@ -1,7 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 
-import styles from './radioSelection.css';
+import styles from './RadioSelection.module.css';
 
 import iconNormal from './radio-blank.svg';
 import iconNormalHover from './radio-hover.svg';
@@ -14,46 +14,46 @@ export interface RadioButtonBaseProps {
   /**
    * Disables any interaction with the component.
    */
-  disabled?: boolean,
+  disabled?: boolean;
   /**
    * Javascript event handler.
    */
-  hovered?: Record<string, boolean>,
+  hovered?: Record<string, boolean>;
   /**
    * Sets ID of radio button
    */
-  id?: string,
+  id?: string;
   /**
    * Sets the visual appearance, to signal that the radio button is invalid.
    */
-  invalid?: boolean,
+  invalid?: boolean;
   /**
    * Sets the label of the radio button
    */
-  label?: string,
+  label?: string;
   /**
    * Sets the name of the radio button
    */
-  name?: string,
+  name?: string;
   /**
    * Sets readonly property of radio button
    */
-  readonly?: boolean,
+  readonly?: boolean;
   /**
    * Sets the value of the radio button.
    */
-  value: number | string,
+  value: number | string;
 }
 
 export interface RadioButtonProps extends RadioButtonBaseProps {
   /**
    * Sets the checked option of the radio button
    */
-  checked?: boolean,
+  checked?: boolean;
   /**
    * Javascript onchange event handler.
    */
-  onChange?: (value: number | string, event: React.ChangeEvent<HTMLInputElement>) => void,
+  onChange?: (value: number | string, event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const iconMap = {
@@ -72,8 +72,8 @@ const iconMap = {
 };
 
 const getRadioIcon = (
-  { checked, disabled, invalid }: { checked: boolean, disabled: boolean, invalid: boolean },
-  hovered?: boolean,
+  { checked, disabled, invalid }: { checked: boolean; disabled: boolean; invalid: boolean },
+  hovered?: boolean
 ) => {
   const iconKey = !disabled && hovered ? 'hover' : 'default';
   let Icon = iconMap.normal[iconKey];
@@ -103,7 +103,6 @@ const RadioButton: React.FC<RadioButtonProps> = ({
   value = '',
   onChange,
 }: RadioButtonProps) => {
-
   const rand = Math.floor(Math.random() * 1e10);
 
   const key = `radio_${label}_${value}`;

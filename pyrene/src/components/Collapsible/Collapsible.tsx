@@ -1,33 +1,33 @@
 import React, { useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
 
-import styles from './collapsible.css';
+import styles from './Collapsible.module.css';
 
 export interface CollapsibleProps {
   /**
    * Sets the alignment of the popover.
    */
-  align?: 'start' | 'center' | 'end',
+  align?: 'start' | 'center' | 'end';
   /**
    * Whether to display the content when the component is first mounted.
    */
-  defaultExpanded?: boolean,
+  defaultExpanded?: boolean;
   /**
-  * Sets the label displayed to the user when the component is collapsed.
-  */
-  labelCollapsed?: string,
+   * Sets the label displayed to the user when the component is collapsed.
+   */
+  labelCollapsed?: string;
   /**
    * Sets the label displayed to the user when the component is expanded.
    */
-  labelExpanded?: string,
+  labelExpanded?: string;
   /**
    * Javascript event handler.
    */
-  onChange?: (event: React.MouseEvent) => void,
+  onChange?: (event: React.MouseEvent) => void;
   /**
    * Sets the content to be rendered inside the component.
    */
-  renderCallback: () => JSX.Element | Array<JSX.Element>,
+  renderCallback: () => JSX.Element | Array<JSX.Element>;
 }
 
 /**
@@ -43,7 +43,6 @@ const Collapsible: React.FC<CollapsibleProps> = ({
   onChange,
   renderCallback,
 }: CollapsibleProps) => {
-
   const [expanded, setExpanded] = useState(defaultExpanded);
   const [contentHeight, setContentHeight] = useState(0);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -76,15 +75,18 @@ const Collapsible: React.FC<CollapsibleProps> = ({
         >
           <div className={styles.centeringBox}>
             <span className={styles.label}>
-              { expanded && labelExpanded ? labelExpanded : labelCollapsed }
+              {expanded && labelExpanded ? labelExpanded : labelCollapsed}
             </span>
             <span className={clsx('pyreneIcon-chevronDown', styles.collapseArrow)} />
           </div>
         </div>
       </div>
-      <div className={styles.collapsibleBody} style={{ height: (expanded && contentHeight) ? contentHeight : undefined }}>
+      <div
+        className={styles.collapsibleBody}
+        style={{ height: expanded && contentHeight ? contentHeight : undefined }}
+      >
         <div ref={contentRef} className={styles.clientContent}>
-          { renderCallback() }
+          {renderCallback()}
         </div>
       </div>
     </div>
