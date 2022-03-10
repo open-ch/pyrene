@@ -1,11 +1,11 @@
-@import '../../styles/colors.module.css';
+@import "../../styles/colors.module.css";
 
 .radioInput {
   display: none;
 }
 
 .radioIcon {
-  content: '';
+  content: "";
   display: inline-block;
   width: 16px;
   height: 16px;
@@ -14,6 +14,7 @@
 }
 
 .radioLabel {
+  composes: commonFontSettings from "../../styles/common.module.css";
   height: 24px;
   display: flex;
   align-items: center;
