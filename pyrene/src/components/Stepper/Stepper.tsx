@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import clsx from 'clsx';
-import styles from './stepper.css';
+import styles from './Stepper.module.css';
 
 export interface StepperProps {
   /**
