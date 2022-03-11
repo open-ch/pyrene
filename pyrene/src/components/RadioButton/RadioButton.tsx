@@ -15,16 +15,13 @@ export interface RadioButtonBaseProps {
    * Disables any interaction with the component.
    */
   disabled?: boolean;
-  /**
-   * Javascript event handler.
-   */
   hovered?: Record<string, boolean>;
   /**
    * Sets ID of radio button
    */
   id?: string;
   /**
-   * Sets the visual appearance, to signal that the radio button is invalid.
+   * Sets the visual appearance to signal that the radio button is invalid.
    */
   invalid?: boolean;
   /**
@@ -71,10 +68,7 @@ const iconMap = {
   },
 };
 
-const getRadioIcon = (
-  { checked, disabled, invalid }: { checked: boolean; disabled: boolean; invalid: boolean },
-  hovered?: boolean
-) => {
+const getRadioIcon = (checked: boolean, disabled: boolean, invalid: boolean, hovered?: boolean) => {
   const iconKey = !disabled && hovered ? 'hover' : 'default';
   let Icon = iconMap.normal[iconKey];
   if (invalid) {
@@ -119,21 +113,17 @@ const RadioButton: React.FC<RadioButtonProps> = ({
         value={value}
         disabled={disabled}
         readOnly={readonly}
-        onChange={(event: React.ChangeEvent<HTMLInputElement>) => onChange?.(event.target.value, event)}
+        onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+          onChange?.(event.target.value, event)
+        }
       />
 
       <label
         htmlFor={id != null ? id : htmlId}
-        className={
-          clsx(styles.radioLabel, { [styles.disabled]: disabled })
-        }
+        className={clsx(styles.radioLabel, { [styles.disabled]: disabled })}
       >
         <span className={styles.radioIcon}>
-          {getRadioIcon({
-            checked: checked,
-            disabled: disabled,
-            invalid: invalid,
-          }, hovered[key])}
+          {getRadioIcon(checked, disabled, invalid, hovered[key])}
         </span>
         {label}
       </label>
