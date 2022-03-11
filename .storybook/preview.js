@@ -1,7 +1,6 @@
 import '../pyrene/src/styles/common.module.css';
 import '../pyrene/src/styles/colors.module.css';
 import '../pyrene/src/styles/fonts.module.css';
-import '../pyrene/dist/pyrene.css';
 import kitchensinkTheme from './KitchensinkTheme';
 
 export const parameters = {
