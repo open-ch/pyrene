@@ -31,7 +31,7 @@ const DEFAULT_LOWER_BOUND = {
   day: 1,
 };
 
-const DEFAULT_TIME_UNITS = [DateTypes.day, DateTypes.month, DateTypes.year];
+export const DEFAULT_TIME_UNITS = [DateTypes.day, DateTypes.month, DateTypes.year];
 
 /**
  * Component for selecting a timeUnit and a range forwards and backwards.
