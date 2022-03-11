@@ -17,7 +17,7 @@
   "scripts": {
     "clean": "rm -rf dist node_modules",
     "prebuild": "npm ci",
-    "build": "webpack --config webpack.config.babel.js && NODE_ENV=production webpack",
+    "build": "NODE_ENV=production webpack",
     "build-debug": "NODE_ENV=debug webpack",
     "watch": "webpack -w",
     "expose": "npm link && npm run watch",
