@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styles from './chartOverlay.css';
+import styles from './ChartOverlay.module.css';
 
 /**
  * Chart overlays are used to display loaders, warnings, errors, etc.

@@ -6,6 +6,7 @@ import ChartContainer from '../ChartContainer/ChartContainer';
 import ChartOverlay from '../ChartOverlay/ChartOverlay';
 import Header from '../Header/Header';
 import colorSchemes from '../../styles/colorSchemes';
+import '@osag/pyrene/dist/pyrene.css';
 
 /**
  * Bar Charts are used to display numerical values.

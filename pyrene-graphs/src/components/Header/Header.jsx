@@ -1,7 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
-import styles from './header.css';
+import styles from './Header.module.css';
 
 /**
  * Headers are used to display a title, description and legends along with chart components.

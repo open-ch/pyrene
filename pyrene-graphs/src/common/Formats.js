@@ -92,7 +92,7 @@ export const getSIUnitForTimeRange = (data, from, to, unit, isBucket) => {
 /**
  * Gets the SI scaled tick value.
  * @param {number}value - The raw value
- * @param {[{data?: Number[], label?: String}]}data - The data series
+ * @param {{data?: Number[], label?: String}[]}data - The data series
  * @returns {string}
  */
 export const getSITickValue = (value, data) => {
@@ -103,7 +103,7 @@ export const getSITickValue = (value, data) => {
 
 /**
  * Gets the SI scaled unit.
- * @param {[{data?: Number[], label?: String}]}data - The data series
+ * @param {{data?: Number[], label?: String}[]}data - The data series
  * @param {string}unit - the unit
  * @returns {string}
  */

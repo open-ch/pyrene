@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styles from './chartContainer.css';
+import styles from './ChartContainer.module.css';
 
 /**
  * Chart containers are used to standardize chart layouts.
