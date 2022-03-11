@@ -4,7 +4,7 @@ import {
   RelativeBar,
   scaleLinear,
 } from '@osag/tuktuktwo';
-import styles from './barChartTable.css';
+import styles from './BarChartTable.module.css';
 
 const getId = (d) => d.trim().toLowerCase();
 

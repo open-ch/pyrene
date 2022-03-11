@@ -4,8 +4,9 @@ import { Popover, SimpleTable } from '@osag/pyrene';
 import { Responsive } from '@osag/tuktuktwo';
 import Header from '../Header/Header';
 import { getValueWithAccessor, getColumns, getLegend } from './BarChartTableUtils';
-import styles from './barChartTable.css';
+import styles from './BarChartTable.module.css';
 import colorSchemes from '../../styles/colorSchemes';
+import '@osag/pyrene/dist/pyrene.css';
 
 /**
  * Bar Chart Tables are used to display tabular data without the overhead of pagination, sorting and filtering.
