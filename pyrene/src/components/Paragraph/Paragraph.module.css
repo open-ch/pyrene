@@ -1,6 +1,5 @@
 @import '../../styles/colors.module.css';
 
-
 .paragraph {
   composes: commonFontSettings from '../../styles/common.module.css';
 
