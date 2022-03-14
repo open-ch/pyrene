@@ -5,8 +5,13 @@ import Popover from '../Popover/Popover';
 import OptionList from './OptionList';
 import styles from './RadioPopover.module.css';
 import { Option } from './types';
+import { PopoverProps as TinyPopoverProps } from 'react-tiny-popover';
 
 export interface RadioPopoverProps {
+  /**
+   * Sets the alignment of the popover.
+   */
+  align?: TinyPopoverProps['align'],
   /**
    * Sets the selected choice of the user.
    */
@@ -35,6 +40,7 @@ const RadioPopover: FunctionComponent<RadioPopoverProps> = ({
   options = [],
   renderLabel = (option) => option?.label,
   value = null,
+  align = 'end'
 }: RadioPopoverProps) => {
   const [displayPopover, setDisplayPopover] = useState(false);
 
@@ -48,7 +54,7 @@ const RadioPopover: FunctionComponent<RadioPopoverProps> = ({
     <div className={styles.radioPopover}>
       <Popover
         preferredPosition={['bottom']}
-        align="end"
+        align={align}
         displayPopover={displayPopover}
         distanceToTarget={8}
         onClickOutside={closePopover}
