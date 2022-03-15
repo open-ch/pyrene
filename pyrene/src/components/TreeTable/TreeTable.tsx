@@ -119,8 +119,6 @@ export interface TreeTableState<R> {
 /* seems to be a design decision to use _ here */
 
 /**
- *  [🌳 • ┬─┬]
- *
  * A tree table contains a hierarchical set of data structured in rows and columns and grouped into nodes.
  * Trees are used to display and work with large amounts of hierarchical data.
  * They have a high data density and therefore convey an immediate feeling of complexity.
