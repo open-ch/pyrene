@@ -32,7 +32,7 @@ const CheckboxList: FunctionComponent<CheckboxListProps> = ({
           <Checkbox
             label={item.label}
             value={item.value}
-            onChange={() => onItemClick(item.id, item.value)}
+            onChange={(checked) => onItemClick(item.id, checked)}
           />
         </div>
       ))}
