@@ -1,24 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Banner, Loader } from '@osag/pyrene';
+import '@osag/pyrene/dist/pyrene.css';
+
 import ChartContainer from '../ChartContainer/ChartContainer';
 import ChartOverlay from '../ChartOverlay/ChartOverlay';
 import Header from '../Header/Header';
 import TimeSeriesLineChartSVG from './TimeSeriesLineChartSVG';
 import colorSchemes from '../../styles/colorSchemes';
-import styles from './timeSeriesLineChart.css';
+import styles from './TimeSeriesLineChart.module.css';
 import { getDataInTimeRange } from '../../common/dataUtils';
 
 /**
  * A line chart for time-data series.
  */
 export default class TimeSeriesLineChart extends React.Component {
-
   constructor(props) {
     super(props);
 
     this.state = {
-      dataDeselected: this.props.data.map((d) => (d.deselected)),
+      dataDeselected: this.props.data.map((d) => d.deselected),
     };
   }
 
@@ -27,7 +28,7 @@ export default class TimeSeriesLineChart extends React.Component {
       // The react/no-did-update-set-state rule does not apply here because the setState, guarded by an if-statement, is a valid usage in componentDidUpdate
       // eslint-disable-next-line react/no-did-update-set-state
       this.setState(() => ({
-        dataDeselected: this.props.data.map((d) => (d.deselected)),
+        dataDeselected: this.props.data.map((d) => d.deselected),
       }));
     }
   }
@@ -96,7 +97,6 @@ export default class TimeSeriesLineChart extends React.Component {
       />
     );
   }
-
 }
 
 TimeSeriesLineChart.displayName = 'TimeSeriesLineChart';

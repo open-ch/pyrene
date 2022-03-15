@@ -13,15 +13,20 @@ import {
   TimeXAxis,
   withTooltip,
 } from '@osag/tuktuktwo';
+
 import ChartArea from '../ChartArea/ChartArea';
 import TimeZoomControls from '../TimeZoomControls/TimeZoomControls';
 import Tooltip from '../Tooltip/Tooltip';
 import { explicitTimeRangeFormat, timeRangeFormat } from '../../common/Formats';
 import { INDEX_VALUE, INDEX_START_TS } from '../../common/chartConstants';
-import { getCurrentBucketEndTS, getCurrentBucketIndex, getTimeFrameOfLastBucket } from './bucketUtil';
+import {
+  getCurrentBucketEndTS,
+  getCurrentBucketIndex,
+  getTimeFrameOfLastBucket,
+} from './bucketUtil';
 import colorSchemes from '../../styles/colorSchemes';
 import colorConstants from '../../styles/colorConstants';
-import styles from './timeSeriesBucketChart.css';
+import styles from './TimeSeriesBucketChart.module.css';
 
 let zoomStartX = null;
 

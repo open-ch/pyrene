@@ -14,23 +14,24 @@ import {
   VerticalLine,
   withTooltip,
 } from '@osag/tuktuktwo';
+
 import ChartArea from '../ChartArea/ChartArea';
 import Tooltip from '../Tooltip/Tooltip';
 import { timeFormat } from '../../common/Formats';
 import { getMaxValueForTimeRange } from '../../common/dataUtils';
 import { INDEX_VALUE, INDEX_START_TS } from '../../common/chartConstants';
 import colorConstants from '../../styles/colorConstants';
-import styles from './timeSeriesLineChart.css';
+import styles from './TimeSeriesLineChart.module.css';
 
 /**
-  *
-  * @param {object} event - The mouseMove event
-  * @param {array} data - The array of data series with timestamp and value
-  * @param {function} xScale - The scale function that linearly maps x-coordinate to timestamp in epoch milliseconds
-  * @param {function} yScale - The scale function that linearly maps y-coordinate to value
-  * @param {number} top - The vertical offset from the top
-  * @param {boolean} showTooltip - The function that passes tooltip position and data to the tooltip component
-  */
+ *
+ * @param {object} event - The mouseMove event
+ * @param {array} data - The array of data series with timestamp and value
+ * @param {function} xScale - The scale function that linearly maps x-coordinate to timestamp in epoch milliseconds
+ * @param {function} yScale - The scale function that linearly maps y-coordinate to value
+ * @param {number} top - The vertical offset from the top
+ * @param {boolean} showTooltip - The function that passes tooltip position and data to the tooltip component
+ */
 const onMouseMove = (event, data, xScale, yScale, top, showTooltip, hideTooltip) => {
   // If there is no data in range, just return
   if (!data.find((ds) => ds.data.length > 0)) {

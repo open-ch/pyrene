@@ -2,10 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { Banner, Loader } from '@osag/pyrene';
+import '@osag/pyrene/dist/pyrene.css';
+
 import SparkLineSVG from '../SparkLine/SparkLineSVG';
 import ChartOverlay from '../ChartOverlay/ChartOverlay';
 import colorSchemes from '../../styles/colorSchemes';
-import styles from './sparkLineChart.css';
+import styles from './SparkLineChart.module.css';
 
 /**
  * Spark Line Charts are used to display data series.
@@ -91,8 +93,8 @@ SparkLineChart.propTypes = {
    */
   keyFigure: PropTypes.string,
   /**
-    * If set, a loader is shown instead of axis tick labels, grid and bars.
-    */
+   * If set, a loader is shown instead of axis tick labels, grid and bars.
+   */
   loading: PropTypes.bool,
   /**
    * Sets the data formatting functions for the tooltip.

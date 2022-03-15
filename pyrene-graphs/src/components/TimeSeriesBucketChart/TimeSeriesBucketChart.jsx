@@ -1,13 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Banner, Loader } from '@osag/pyrene';
+import '@osag/pyrene/dist/pyrene.css';
+
 import ChartContainer from '../ChartContainer/ChartContainer';
 import ChartOverlay from '../ChartOverlay/ChartOverlay';
 import Header from '../Header/Header';
 import TimeSeriesBucketChartSVG from './TimeSeriesBucketChartSVG';
 import { getMaxValueForTimeRangeBucket } from '../../common/dataUtils';
 import colorSchemes from '../../styles/colorSchemes';
-import styles from './timeSeriesBucketChart.css';
+import styles from './TimeSeriesBucketChart.module.css';
 
 /**
  * A bucket chart for time-data series.
@@ -17,12 +19,7 @@ const TimeSeriesBucketChart = (props) => {
   const maxValue = getMaxValueForTimeRangeBucket(props.data, props.from, props.to);
 
   // Render the header
-  const header = (
-    <Header
-      title={props.title}
-      description={props.description}
-    />
-  );
+  const header = <Header title={props.title} description={props.description} />;
 
   // Render the overlay
   const chartOverlay = (

@@ -1,19 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Popover, SimpleTable } from '@osag/pyrene';
+import '@osag/pyrene/dist/pyrene.css';
 import { Responsive } from '@osag/tuktuktwo';
+
 import Header from '../Header/Header';
 import { getValueWithAccessor, getColumns, getLegend } from './BarChartTableUtils';
 import styles from './BarChartTable.module.css';
 import colorSchemes from '../../styles/colorSchemes';
-import '@osag/pyrene/dist/pyrene.css';
 
 /**
  * Bar Chart Tables are used to display tabular data without the overhead of pagination, sorting and filtering.
  * The primaryValue is automatically being sorted in descending order and then displayed as a bar chart.
  */
 export default class BarChartTable extends React.Component {
-
   constructor(props) {
     super(props);
 
@@ -144,16 +144,18 @@ BarChartTable.defaultProps = {
   description: '',
   displayedRows: 10,
   loading: false,
-  onRowDoubleClick: () => { },
+  onRowDoubleClick: () => {},
   popoverFooter: null,
   type: 'bar',
 };
 
 BarChartTable.propTypes = {
-  actions: PropTypes.arrayOf(PropTypes.shape({
-    label: PropTypes.string.isRequired,
-    onClick: PropTypes.func.isRequired,
-  })),
+  actions: PropTypes.arrayOf(
+    PropTypes.shape({
+      label: PropTypes.string.isRequired,
+      onClick: PropTypes.func.isRequired,
+    })
+  ),
   /**
    * Sets the colors of the bar chart. Type: { comparison: [ string ], valueGround: [ string ] }
    */

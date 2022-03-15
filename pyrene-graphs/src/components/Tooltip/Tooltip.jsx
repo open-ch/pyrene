@@ -2,21 +2,32 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { TooltipWrapper } from '@osag/tuktuktwo';
+
 import TooltipLegendItem from './TooltipLegendItem';
-import styles from './tooltip.module.css';
+import styles from './Tooltip.module.css';
 
 /**
  * Tooltip
  */
-const Tooltip = ({
-  data, label, left, top, overflow,
-}) => (
+const Tooltip = ({ data, label, left, top, overflow }) => (
   <TooltipWrapper left={left} top={top} overflow={overflow}>
     <div className={styles.tooltip}>
-      <div className={clsx({ [styles.label]: label && label.length > 0, [styles.labelPadding]: data.length > 0 })}>{label}</div>
-      {
-        data.map((e) => <TooltipLegendItem key={e.dataLabel ? e.dataLabel : e.dataValue} dataColor={e.dataColor} dataLabel={e.dataLabel} dataValue={e.dataValue} />)
-      }
+      <div
+        className={clsx({
+          [styles.label]: label && label.length > 0,
+          [styles.labelPadding]: data.length > 0,
+        })}
+      >
+        {label}
+      </div>
+      {data.map((e) => (
+        <TooltipLegendItem
+          key={e.dataLabel ? e.dataLabel : e.dataValue}
+          dataColor={e.dataColor}
+          dataLabel={e.dataLabel}
+          dataValue={e.dataValue}
+        />
+      ))}
     </div>
   </TooltipWrapper>
 );
@@ -30,23 +41,24 @@ Tooltip.defaultProps = {
 };
 
 Tooltip.propTypes = {
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      /**
+       * The color of the data series
+       */
+      dataColor: PropTypes.string,
 
-  data: PropTypes.arrayOf(PropTypes.shape({
-    /**
-     * The color of the data series
-     */
-    dataColor: PropTypes.string,
+      /**
+       * The label of the data series
+       */
+      dataLabel: PropTypes.string,
 
-    /**
-     * The label of the data series
-     */
-    dataLabel: PropTypes.string,
-
-    /**
-     * The actual value of the data series
-     */
-    dataValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-  })),
+      /**
+       * The actual value of the data series
+       */
+      dataValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    })
+  ),
 
   /**
    * The label of the data series

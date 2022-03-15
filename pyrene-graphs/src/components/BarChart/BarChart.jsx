@@ -1,18 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Banner, Loader } from '@osag/pyrene';
+import '@osag/pyrene/dist/pyrene.css';
+
 import BarChartSVG from './BarChartSVG';
 import ChartContainer from '../ChartContainer/ChartContainer';
 import ChartOverlay from '../ChartOverlay/ChartOverlay';
 import Header from '../Header/Header';
 import colorSchemes from '../../styles/colorSchemes';
-import '@osag/pyrene/dist/pyrene.css';
 
 /**
  * Bar Charts are used to display numerical values.
  */
 const BarChart = (props) => {
-  const dataAvailable = props.data && props.data.length > 0 && props.data[0].data && props.data[0].data.length > 0;
+  const dataAvailable =
+    props.data && props.data.length > 0 && props.data[0].data && props.data[0].data.length > 0;
 
   const header = (
     <Header
@@ -97,12 +99,12 @@ BarChart.propTypes = {
    */
   error: PropTypes.string,
   /**
-    * Sets the legend. Type: [ string ]
-    */
+   * Sets the legend. Type: [ string ]
+   */
   legend: PropTypes.arrayOf(PropTypes.string).isRequired,
   /**
-    * If set, a loader is shown instead of axis tick labels, grid and bars.
-    */
+   * If set, a loader is shown instead of axis tick labels, grid and bars.
+   */
   loading: PropTypes.bool,
   /**
    * Sets the formatting function for the ticks on the numerical axis.

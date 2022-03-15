@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { ActionBar } from '@osag/pyrene';
+import '@osag/pyrene/dist/pyrene.css';
 import { minZoomRangeReached, getBoundedZoomInRange } from '@osag/tuktuktwo';
 
 /**
@@ -27,7 +28,13 @@ const zoomIn = (from, to, minZoomRange, lowerBound, upperBound, onZoom) => {
   const timeShift = zoomStep / 2;
 
   // Make sure zoom does not exceed bounds
-  const boundedTimeRange = getBoundedZoomInRange(from + timeShift, to - timeShift, minZoomRange, lowerBound, upperBound);
+  const boundedTimeRange = getBoundedZoomInRange(
+    from + timeShift,
+    to - timeShift,
+    minZoomRange,
+    lowerBound,
+    upperBound
+  );
 
   onZoom(boundedTimeRange.from, boundedTimeRange.to);
 };
@@ -92,16 +99,14 @@ const TimeZoomControls = ({
     },
   ];
 
-  return (
-    <ActionBar actions={zoomActions} />
-  );
+  return <ActionBar actions={zoomActions} />;
 };
 
 TimeZoomControls.displayName = 'TimeZoomControls';
 
 TimeZoomControls.defaultProps = {
   disabled: false,
-  onZoom: () => { },
+  onZoom: () => {},
 };
 
 TimeZoomControls.propTypes = {
