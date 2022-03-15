@@ -13,17 +13,18 @@ import styles from './SparkLineChart.module.css';
  * Spark Line Charts are used to display data series.
  */
 const SparkLineChart = (props) => {
-  const dataAvailable = props.data && props.data.length > 0 && props.data[0] && props.data[0].length > 0;
+  const dataAvailable =
+    props.data && props.data.length > 0 && props.data[0] && props.data[0].length > 0;
   const showOverlay = props.loading || !dataAvailable;
 
   return (
     <div className={styles.container}>
-      {!props.loading && (props.keyFigure !== null) && (
-        <div className={styles.keyFigure}>
-          {props.keyFigure}
-        </div>
+      {!props.loading && props.keyFigure !== null && (
+        <div className={styles.keyFigure}>{props.keyFigure}</div>
       )}
-      <div className={clsx(styles.chart, { noKeyFigure: props.loading || props.keyFigure === null })}>
+      <div
+        className={clsx(styles.chart, { noKeyFigure: props.loading || props.keyFigure === null })}
+      >
         {dataAvailable && (
           <SparkLineSVG
             axisLabel={props.axisLabel}
