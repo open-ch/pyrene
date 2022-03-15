@@ -22,3 +22,5 @@ export const genDownloadedVolumes = (
 
   return data;
 };
+
+export const formatDownloadVolumeTooltip = (d: number) => `${(d / 10.0).toFixed(2)}GB`;

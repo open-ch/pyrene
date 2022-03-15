@@ -2,7 +2,7 @@ import React from 'react';
 import { Story, Meta } from '@storybook/react';
 import moment from 'moment-timezone';
 
-import { genDownloadedVolumes } from '../../common/storyHelpers';
+import { formatDownloadVolumeTooltip, genDownloadedVolumes } from '../../common/storyHelpers';
 import SparkLineChart from './SparkLineChart';
 
 export default {
@@ -24,7 +24,7 @@ Simple.args = {
   keyFigure: '1000GB',
   enableTooltip: true,
   data: genDownloadedVolumes(initialFrom, initialTo, 42).data,
-  tooltipFormat: (d: number) => `${(d / 10.0).toFixed(2)}GB`,
+  tooltipFormat: formatDownloadVolumeTooltip,
 };
 
 export const Loading = Template.bind({});
