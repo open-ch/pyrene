@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
-import styles from './tooltip.module.css';
+import styles from './Tooltip.module.css';
 
 /**
  * Time series Tooltip Legend Item
