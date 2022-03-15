@@ -74,7 +74,7 @@ interface TimeRangeSelectorState {
  */
 export default class TimeRangeSelector extends Component<TimeRangeSelectorProps, TimeRangeSelectorState> {
 
-  static displayName = 'Time Range Selector';
+  static displayName = 'TimeRangeSelector';
 
   static defaultProps = {
     disabled: false,
