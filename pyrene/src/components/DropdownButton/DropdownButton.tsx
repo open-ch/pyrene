@@ -60,12 +60,12 @@ const DropdownButton: FunctionComponent<DropdownButtonProps> = ({
       <div className={styles.buttonContainer}>
         <button
           type="submit"
-          className={
-            clsx(styles.button,
-              { disabled: disabled },
-              { loading: loading },
-              { openedDropdown: displayActions })
-          }
+          className={clsx(
+            styles.button,
+            { disabled: disabled },
+            { loading: loading },
+            { openedDropdown: displayActions }
+          )}
           disabled={disabled || loading}
           onClick={() => setDisplayActions((prevDisplayActions) => !prevDisplayActions)}
         >
@@ -75,7 +75,11 @@ const DropdownButton: FunctionComponent<DropdownButtonProps> = ({
             <span className={clsx('pyreneIcon-chevronDown', styles.arrow)} />
           </div>
         </button>
-        {loading && <span className={styles.loader}><Loader size="small" styling="dark" /></span>}
+        {loading && (
+          <span className={styles.loader}>
+            <Loader size="small" styling="dark" />
+          </span>
+        )}
       </div>
     </Popover>
   );
