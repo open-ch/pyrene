@@ -34,13 +34,3 @@ jobs:
         node-version: '12'
     - name: Lint pyrene-graphs
       run: (cd pyrene-graphs && npm install && npm run lint)
-  kitchensink:
-    name: kitchensink
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v1
-      with:
-        node-version: '12'
-    - name: Lint kitchensink
-      run: (cd kitchensink && npm install && npm run lint)
