@@ -17,7 +17,6 @@ const entry = production ? {
   main: './src/index.ts',
   min: './src/index.ts',
   dev: './src/index.ts',
-  examples: './src/examples/index.ts',
 }
 
 module.exports = () => ({
