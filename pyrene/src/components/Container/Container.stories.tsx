@@ -2,7 +2,7 @@ import React from 'react';
 import { Story, Meta } from '@storybook/react';
 
 import Container, { ContainerProps } from './Container';
-import Placeholder from '../../examples/Placeholder';
+import Placeholder from '../../utils/storybook/Placeholder';
 
 export default {
   title: 'Components/Layout/Container',

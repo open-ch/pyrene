@@ -1,7 +1,7 @@
 /* eslint-disable no-alert, no-console */
 import React from 'react';
 import { Story, Meta } from '@storybook/react';
-import Placeholder from '../../examples/Placeholder';
+import Placeholder from '../../utils/storybook/Placeholder';
 import ActionBar, { ActionBarProps } from './ActionBar';
 
 export default {

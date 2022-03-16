@@ -3,7 +3,7 @@ import React from 'react';
 import { Story, Meta } from '@storybook/react';
 import Icon from '../Icon/Icon';
 import TabViewComponent, { TabViewProps } from './TabView';
-import Placeholder from '../../examples/Placeholder';
+import Placeholder from '../../utils/storybook/Placeholder';
 import { IconNames } from '../types';
 
 export default {

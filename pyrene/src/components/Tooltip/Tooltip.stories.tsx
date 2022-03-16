@@ -3,7 +3,7 @@ import React from 'react';
 import { Story, Meta } from '@storybook/react';
 
 import ToolTipComponent, { TooltipProps } from './Tooltip';
-import Placeholder from '../../examples/Placeholder';
+import Placeholder from '../../utils/storybook/Placeholder';
 
 export default {
   title: 'Components/Other/Tooltip',
