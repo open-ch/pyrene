@@ -10,14 +10,16 @@ const production = process.env.NODE_ENV === 'production';
 
 const OUTPUT_PATH = path.resolve(__dirname, 'dist');
 
-const entry = production ? {
-  main: './src/index.ts',
-  min: './src/index.ts',
-} : {
-  main: './src/index.ts',
-  min: './src/index.ts',
-  dev: './src/index.ts',
-}
+const entry = production
+  ? {
+      main: './src/index.ts',
+      min: './src/index.ts',
+    }
+  : {
+      main: './src/index.ts',
+      min: './src/index.ts',
+      dev: './src/index.ts',
+    };
 
 module.exports = () => ({
   mode: production ? 'production' : 'development',
@@ -43,16 +45,11 @@ module.exports = () => ({
       },
       {
         test: /react-datepicker.*\.css$/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          'css-loader',
-        ],
+        use: [MiniCssExtractPlugin.loader, 'css-loader'],
       },
       {
         test: /\.css$/,
-        exclude: [
-          /node_modules/,
-        ],
+        exclude: [/node_modules/],
         use: [
           MiniCssExtractPlugin.loader,
           {
@@ -85,12 +82,11 @@ module.exports = () => ({
       analyzerMode: process.env.NODE_ENV === 'debug' ? 'server' : 'disabled',
     }),
     new MiniCssExtractPlugin({
-      filename: (chunkData) => (chunkData.chunk.name === 'main' ? 'pyrene.css' : 'pyrene.[name].css'),
+      filename: (chunkData) =>
+        chunkData.chunk.name === 'main' ? 'pyrene.css' : 'pyrene.[name].css',
     }),
     new CopyWebpackPlugin({
-      patterns: [
-        { from: 'src/styles/colors.module.css', to: `${OUTPUT_PATH}/[name][ext]` },
-      ],
+      patterns: [{ from: 'src/styles/colors.module.css', to: `${OUTPUT_PATH}/[name][ext]` }],
     }),
   ],
   optimization: {
@@ -107,7 +103,6 @@ module.exports = () => ({
     library: 'pyrene',
     libraryTarget: 'umd',
   },
-  externals: ['react', 'react-dom', 'moment', 'moment-timezone'],
-  entry
+  externals: ['react', 'react-dom'],
+  entry,
 });
-
