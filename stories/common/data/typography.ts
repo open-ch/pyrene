@@ -4,12 +4,13 @@ const fontTypes = [
     examples: [
       {
         heading: 'Heading 100',
-        styleText: 'Font family: Fira Sans Condensed\n'
-          + 'Font size: 11px\n'
-          + 'Font weight: 500\n'
-          + 'Line height: 13px\n'
-          + 'Letter spacing: 0.5 px\n'
-          + 'color: neutral-200 #979CA8',
+        styleText:
+          'Font family: Fira Sans Condensed\n' +
+          'Font size: 11px\n' +
+          'Font weight: 500\n' +
+          'Line height: 13px\n' +
+          'Letter spacing: 0.5 px\n' +
+          'color: neutral-200 #979CA8',
         style: {
           fontFamily: 'FiraSans,sans-serif',
           fontStyle: 'normal',
@@ -22,12 +23,13 @@ const fontTypes = [
       },
       {
         heading: 'Heading 200',
-        styleText: 'Font family: Fira Go\n'
-          + 'Font size: 11px\n'
-          + 'Font weight: 600\n'
-          + 'Line height: 16px\n'
-          + 'Letter spacing: -0.03px\n'
-          + 'color: neutral-500 #1D273B',
+        styleText:
+          'Font family: Fira Go\n' +
+          'Font size: 11px\n' +
+          'Font weight: 600\n' +
+          'Line height: 16px\n' +
+          'Letter spacing: -0.03px\n' +
+          'color: neutral-500 #1D273B',
         style: {
           fontFamily: 'FiraGO,Helvetica,sans-serif',
           fontSize: '11px',
@@ -39,12 +41,13 @@ const fontTypes = [
       },
       {
         heading: 'Heading 250',
-        styleText: 'Font family: Fira Go\n'
-          + 'Font size: 12px\n'
-          + 'Font weight: 500\n'
-          + 'Line height: 16px\n'
-          + 'Letter spacing: 0px\n'
-          + 'color: neutral-500 #1D273B',
+        styleText:
+          'Font family: Fira Go\n' +
+          'Font size: 12px\n' +
+          'Font weight: 500\n' +
+          'Line height: 16px\n' +
+          'Letter spacing: 0px\n' +
+          'color: neutral-500 #1D273B',
         style: {
           fontFamily: 'FiraGO,Helvetica,sans-serif',
           fontSize: '12px',
@@ -56,12 +59,13 @@ const fontTypes = [
       },
       {
         heading: 'Heading 300',
-        styleText: 'Font family: Fira Go\n'
-          + 'Font size: 12px\n'
-          + 'Font weight: 500\n'
-          + 'Line height: 16px\n'
-          + 'Letter spacing: 1px\n'
-          + 'color: neutral-500 #1D273B',
+        styleText:
+          'Font family: Fira Go\n' +
+          'Font size: 12px\n' +
+          'Font weight: 500\n' +
+          'Line height: 16px\n' +
+          'Letter spacing: 1px\n' +
+          'color: neutral-500 #1D273B',
         style: {
           fontFamily: 'FiraGO,Helvetica,sans-serif',
           fontSize: '12px',
@@ -72,14 +76,14 @@ const fontTypes = [
         },
       },
       {
-        heading: 'Heading 300\n'
-          + 'Muted',
-        styleText: 'Font family: Fira Go\n'
-          + 'Font size: 12px\n'
-          + 'Font weight: 500\n'
-          + 'Line height: 16px\n'
-          + 'Letter spacing: 1px\n'
-          + 'color: neutral-200 #979CA8',
+        heading: 'Heading 300\n' + 'Muted',
+        styleText:
+          'Font family: Fira Go\n' +
+          'Font size: 12px\n' +
+          'Font weight: 500\n' +
+          'Line height: 16px\n' +
+          'Letter spacing: 1px\n' +
+          'color: neutral-200 #979CA8',
         style: {
           fontFamily: 'FiraGO,Helvetica,sans-serif',
           fontSize: '12px',
@@ -91,12 +95,13 @@ const fontTypes = [
       },
       {
         heading: 'Heading 400',
-        styleText: 'Font family: Fira Go\n'
-          + 'Font size: 13px\n'
-          + 'Font weight: 500\n'
-          + 'Line height: 16px\n'
-          + 'Letter spacing: 0px\n'
-          + 'color: neutral-500 #1D273B',
+        styleText:
+          'Font family: Fira Go\n' +
+          'Font size: 13px\n' +
+          'Font weight: 500\n' +
+          'Line height: 16px\n' +
+          'Letter spacing: 0px\n' +
+          'color: neutral-500 #1D273B',
         style: {
           fontFamily: 'FiraGO,Helvetica,sans-serif',
           fontSize: '13px',
@@ -108,12 +113,13 @@ const fontTypes = [
       },
       {
         heading: 'Heading 500',
-        styleText: 'Font family: Fira Go\n'
-          + 'Font size: 14px\n'
-          + 'Font weight: 500\n'
-          + 'Line height: 24px\n'
-          + 'Letter spacing: -0.05px\n'
-          + 'color: neutral-500 #1D273B',
+        styleText:
+          'Font family: Fira Go\n' +
+          'Font size: 14px\n' +
+          'Font weight: 500\n' +
+          'Line height: 24px\n' +
+          'Letter spacing: -0.05px\n' +
+          'color: neutral-500 #1D273B',
         style: {
           fontFamily: 'FiraGO,Helvetica,sans-serif',
           fontSize: '14px',
@@ -125,12 +131,13 @@ const fontTypes = [
       },
       {
         heading: 'Heading 600',
-        styleText: 'Font family: Fira Go\n'
-          + 'Font size: 16px\n'
-          + 'Font weight: 500\n'
-          + 'Line height: 24px\n'
-          + 'Letter spacing: -0.05px\n'
-          + 'color: neutral-500 #1D273B',
+        styleText:
+          'Font family: Fira Go\n' +
+          'Font size: 16px\n' +
+          'Font weight: 500\n' +
+          'Line height: 24px\n' +
+          'Letter spacing: -0.05px\n' +
+          'color: neutral-500 #1D273B',
         style: {
           fontFamily: 'FiraGO,Helvetica,sans-serif',
           fontSize: '16px',
@@ -142,12 +149,13 @@ const fontTypes = [
       },
       {
         heading: 'Heading 800',
-        styleText: 'Font family: Fira Go\n'
-          + 'Font size: 20px\n'
-          + 'Font weight: 500\n'
-          + 'Line height: 24px\n'
-          + 'Letter spacing: 0px\n'
-          + 'color: neutral-500 #1D273B',
+        styleText:
+          'Font family: Fira Go\n' +
+          'Font size: 20px\n' +
+          'Font weight: 500\n' +
+          'Line height: 24px\n' +
+          'Letter spacing: 0px\n' +
+          'color: neutral-500 #1D273B',
         style: {
           fontFamily: 'FiraGO,Helvetica,sans-serif',
           fontSize: '20px',
@@ -159,12 +167,13 @@ const fontTypes = [
       },
       {
         heading: 'Heading 900',
-        styleText: 'Font family: Fira Go\n'
-          + 'Font size: 24px\n'
-          + 'Font weight: 500\n'
-          + 'Line height: 32px\n'
-          + 'Letter spacing: -0.2px\n'
-          + 'color: neutral-500 #1D273B',
+        styleText:
+          'Font family: Fira Go\n' +
+          'Font size: 24px\n' +
+          'Font weight: 500\n' +
+          'Line height: 32px\n' +
+          'Letter spacing: -0.2px\n' +
+          'color: neutral-500 #1D273B',
         style: {
           fontFamily: 'FiraGO,Helvetica,sans-serif',
           fontSize: '24px',
@@ -176,12 +185,13 @@ const fontTypes = [
       },
       {
         heading: 'Display',
-        styleText: 'Font family: Fira Go\n'
-          + 'Font size: 32px\n'
-          + 'Font weight: 500\n'
-          + 'Line height: 40px\n'
-          + 'Letter spacing: -0.2px\n'
-          + 'color: neutral-500 #1D273B',
+        styleText:
+          'Font family: Fira Go\n' +
+          'Font size: 32px\n' +
+          'Font weight: 500\n' +
+          'Line height: 40px\n' +
+          'Letter spacing: -0.2px\n' +
+          'color: neutral-500 #1D273B',
         style: {
           fontFamily: 'FiraGO,Helvetica,sans-serif',
           fontSize: '32px',
@@ -198,12 +208,13 @@ const fontTypes = [
     examples: [
       {
         heading: 'Text 100',
-        styleText: 'Font family: Fira Go\n'
-          + 'Font size: 10px\n'
-          + 'Font weight: 400\n'
-          + 'Line height: 12px\n'
-          + 'Letter spacing: 0.2px\n'
-          + 'color: neutral-200 #979CA8',
+        styleText:
+          'Font family: Fira Go\n' +
+          'Font size: 10px\n' +
+          'Font weight: 400\n' +
+          'Line height: 12px\n' +
+          'Letter spacing: 0.2px\n' +
+          'color: neutral-200 #979CA8',
         style: {
           fontFamily: 'FiraGO,Helvetica,sans-serif',
           fontSize: '10px',
@@ -215,12 +226,13 @@ const fontTypes = [
       },
       {
         heading: 'Text 200',
-        styleText: 'Font family: Fira Go\n'
-          + 'Font size: 12px\n'
-          + 'Font weight: 400\n'
-          + 'Line height: 14px\n'
-          + 'Letter spacing: 0px\n'
-          + 'color: neutral-500 #1D273B',
+        styleText:
+          'Font family: Fira Go\n' +
+          'Font size: 12px\n' +
+          'Font weight: 400\n' +
+          'Line height: 14px\n' +
+          'Letter spacing: 0px\n' +
+          'color: neutral-500 #1D273B',
         style: {
           fontFamily: 'FiraGO,Helvetica,sans-serif',
           fontSize: '12px',
@@ -232,12 +244,13 @@ const fontTypes = [
       },
       {
         heading: 'Text 400',
-        styleText: 'Font family: Fira Go\n'
-          + 'Font size: 14px\n'
-          + 'Font weight: 400\n'
-          + 'Line height: 18px\n'
-          + 'Letter spacing: 0px\n'
-          + 'color: neutral-500 #1D273B',
+        styleText:
+          'Font family: Fira Go\n' +
+          'Font size: 14px\n' +
+          'Font weight: 400\n' +
+          'Line height: 18px\n' +
+          'Letter spacing: 0px\n' +
+          'color: neutral-500 #1D273B',
         style: {
           fontFamily: 'FiraGO,Helvetica,sans-serif',
           fontSize: '14px',
@@ -249,12 +262,13 @@ const fontTypes = [
       },
       {
         heading: 'Paragraph',
-        styleText: 'Font family: Fira Go\n'
-          + 'Font size: 13px\n'
-          + 'Font weight: 400\n'
-          + 'Line height: 16px\n'
-          + 'Letter spacing: 0px\n'
-          + 'color: neutral-500 #1D273B',
+        styleText:
+          'Font family: Fira Go\n' +
+          'Font size: 13px\n' +
+          'Font weight: 400\n' +
+          'Line height: 16px\n' +
+          'Letter spacing: 0px\n' +
+          'color: neutral-500 #1D273B',
         style: {
           fontFamily: 'FiraGO,Helvetica,sans-serif',
           fontSize: '13px',
@@ -266,12 +280,13 @@ const fontTypes = [
       },
       {
         heading: 'Pagraph Muted',
-        styleText: 'Font family: Fira Go\n'
-          + 'Font size: 13px\n'
-          + 'Font weight: 400\n'
-          + 'Line height: 16px\n'
-          + 'Letter spacing: 0px\n'
-          + 'color: neutral-200 #979CA8',
+        styleText:
+          'Font family: Fira Go\n' +
+          'Font size: 13px\n' +
+          'Font weight: 400\n' +
+          'Line height: 16px\n' +
+          'Letter spacing: 0px\n' +
+          'color: neutral-200 #979CA8',
         style: {
           fontFamily: 'FiraGO,Helvetica,sans-serif',
           fontSize: '13px',
@@ -283,12 +298,13 @@ const fontTypes = [
       },
       {
         heading: 'Paragraph Strong',
-        styleText: 'Font family: Fira Go\n'
-          + 'Font size: 13px\n'
-          + 'Font weight: 500\n'
-          + 'Line height: 16px\n'
-          + 'Letter spacing: 0px\n'
-          + 'color: neutral-500 #1D273B',
+        styleText:
+          'Font family: Fira Go\n' +
+          'Font size: 13px\n' +
+          'Font weight: 500\n' +
+          'Line height: 16px\n' +
+          'Letter spacing: 0px\n' +
+          'color: neutral-500 #1D273B',
         style: {
           fontFamily: 'FiraGO,Helvetica,sans-serif',
           fontSize: '13px',
@@ -304,14 +320,14 @@ const fontTypes = [
     title: 'Chart',
     examples: [
       {
-        heading: 'Value\n\n'
-          + 'Timestamp',
-        styleText: 'Font family: Fira Go\n'
-          + 'Font size: 11px\n'
-          + 'Font weight: 400\n'
-          + 'Line height: 13px\n'
-          + 'Letter spacing: 0px\n'
-          + 'color: neutral-200 #979CA8',
+        heading: 'Value\n\n' + 'Timestamp',
+        styleText:
+          'Font family: Fira Go\n' +
+          'Font size: 11px\n' +
+          'Font weight: 400\n' +
+          'Line height: 13px\n' +
+          'Letter spacing: 0px\n' +
+          'color: neutral-200 #979CA8',
         style: {
           fontFamily: 'FiraGO,Helvetica,sans-serif',
           fontSize: '11px',
@@ -323,12 +339,13 @@ const fontTypes = [
       },
       {
         heading: 'Description',
-        styleText: 'Font family: Fira Go\n'
-          + 'Font size: 12px\n'
-          + 'Font weight: 400\n'
-          + 'Line height: 16px\n'
-          + 'Letter spacing: 0px\n'
-          + 'color: neutral-300 #6B7282',
+        styleText:
+          'Font family: Fira Go\n' +
+          'Font size: 12px\n' +
+          'Font weight: 400\n' +
+          'Line height: 16px\n' +
+          'Letter spacing: 0px\n' +
+          'color: neutral-300 #6B7282',
         style: {
           fontFamily: 'FiraGO,Helvetica,sans-serif',
           fontSize: '12px',
@@ -340,12 +357,13 @@ const fontTypes = [
       },
       {
         heading: 'Heading',
-        styleText: 'Font family: Fira Go\n'
-          + 'Font size: 13px\n'
-          + 'Font weight: 500\n'
-          + 'Line height: 18px\n'
-          + 'Letter spacing: 0px\n'
-          + 'color: neutral-500 #1D273B',
+        styleText:
+          'Font family: Fira Go\n' +
+          'Font size: 13px\n' +
+          'Font weight: 500\n' +
+          'Line height: 18px\n' +
+          'Letter spacing: 0px\n' +
+          'color: neutral-500 #1D273B',
         style: {
           fontFamily: 'FiraGO,Helvetica,sans-serif',
           fontSize: '13px',
@@ -361,15 +379,14 @@ const fontTypes = [
     title: 'Table',
     examples: [
       {
-        heading: 'Value Left\n\n'
-        + 'Value Right\n\n'
-        + 'Value Centered',
-        styleText: 'Font family: FiraGo\n'
-          + 'Font size: 12px\n'
-          + 'Font weight: 400\n'
-          + 'Line height: 16px\n'
-          + 'Letter spacing: 0 px\n'
-          + 'color: neutral-500 #1D273B',
+        heading: 'Value Left\n\n' + 'Value Right\n\n' + 'Value Centered',
+        styleText:
+          'Font family: FiraGo\n' +
+          'Font size: 12px\n' +
+          'Font weight: 400\n' +
+          'Line height: 16px\n' +
+          'Letter spacing: 0 px\n' +
+          'color: neutral-500 #1D273B',
         style: {
           fontFamily: 'FiraGO,Helvetica,sans-serif',
           fontSize: '12px',
@@ -380,15 +397,14 @@ const fontTypes = [
         },
       },
       {
-        heading: 'Column Left\n\n'
-        + 'Column Right\n\n'
-        + 'Column Centered',
-        styleText: 'Font family: Fira Go\n'
-          + 'Font size: 12px\n'
-          + 'Font weight: 500\n'
-          + 'Line height: 18px\n'
-          + 'Letter spacing: 0px\n'
-          + 'color: neutral-500 #1D273B',
+        heading: 'Column Left\n\n' + 'Column Right\n\n' + 'Column Centered',
+        styleText:
+          'Font family: Fira Go\n' +
+          'Font size: 12px\n' +
+          'Font weight: 500\n' +
+          'Line height: 18px\n' +
+          'Letter spacing: 0px\n' +
+          'color: neutral-500 #1D273B',
         style: {
           fontFamily: 'FiraGO,Helvetica,sans-serif',
           fontSize: '12px',

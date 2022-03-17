@@ -1,9 +1,15 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import clsx from 'clsx';
-import styles from './principle.module.css';
 
-const Principle = (props) => (
+import styles from './Principle.module.css';
+
+interface PrincipleProps {
+  description: string;
+  icon: string;
+  title: string;
+}
+
+const Principle: React.FC<PrincipleProps> = (props) => (
   <div className={styles.principleContainer}>
     <div className={clsx(styles.icon, styles[`${props.icon}`])} />
     <div className={styles.textArea}>
@@ -14,13 +20,5 @@ const Principle = (props) => (
 );
 
 Principle.displayName = 'Principle';
-
-Principle.propTypes = {
-  description: PropTypes.string.isRequired,
-  icon: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-};
-
-Principle.defaultProps = {};
 
 export default Principle;
