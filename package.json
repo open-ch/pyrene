@@ -12,7 +12,7 @@
   "author": "pyrene@open-systems.com",
   "license": "MIT",
   "devDependencies": {
-    "@babel/plugin-transform-object-assign": "file:pyrene/node_modules/@babel/plugin-transform-object-assign",
+    "@babel/plugin-transform-object-assign": "^7.14.5",
     "@storybook/addon-actions": "^6.3.9",
     "@storybook/addon-essentials": "^6.3.9",
     "@storybook/addon-links": "^6.3.9",
@@ -20,17 +20,17 @@
     "@storybook/builder-webpack5": "^6.3.9",
     "@storybook/manager-webpack5": "^6.3.9",
     "@storybook/react": "^6.3.9",
-    "@svgr/webpack": "file:pyrene/node_modules/@svgr/webpack",
-    "babel-plugin-typescript-to-proptypes": "file:pyrene/node_modules/babel-plugin-typescript-to-proptypes",
-    "postcss": "file:pyrene/node_modules/postcss",
-    "postcss-custom-properties": "file:pyrene/node_modules/postcss-custom-properties",
-    "postcss-import": "file:pyrene/node_modules/postcss-import",
-    "postcss-loader": "file:pyrene/node_modules/postcss-loader",
-    "postcss-nesting": "file:pyrene/node_modules/postcss-nesting",
-    "react": "file:pyrene/node_modules/react",
-    "react-dom": "file:pyrene/node_modules/react-dom",
+    "@svgr/webpack": "^5.5.0",
+    "babel-plugin-typescript-to-proptypes": "^1.4.2",
+    "postcss": "^8.3.5",
+    "postcss-custom-properties": "^11.0.0",
+    "postcss-import": "^14.0.2",
+    "postcss-loader": "^6.1.0",
+    "postcss-nesting": "^8.0.1",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
     "storybook-css-modules-preset": "^1.1.1",
-    "typescript": "file:pyrene/node_modules/typescript",
-    "webpack": "file:pyrene/node_modules/webpack"
+    "typescript": "^4.3.4",
+    "webpack": "^5.41.1"
   }
 }
