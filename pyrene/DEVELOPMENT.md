@@ -1,32 +1,7 @@
 These are technical details how to start development on pyrene. For more general guidelines, please have a look at [CONTRIBUTING.md](../CONTRIBUTING.md) first.
 ## Development
 
-For development on pyrene, we recommend to use it together with [kitchensink](../kitchensink), follow the steps there.
-
-### TypeScript + Kitchensink integration
-Pyrene is tightly integrated with kitchensink. PropTypes and default values are used to generate the documentation.
-
-Kitchensink uses propTypes and TypeScript types to generate the documentation.
-
-#### Functional TypeScript components
-When using functional components in TypeScript, make sure to explicitly set the type of the props. Make also sure you tag a `displayName` to the component for that component to be listed in the Kitchensink :
-
-```
-export interface MyComponentProps {
-   name: string
-}
-const MyComponent: React.FC<MyComponentProps>({name = 'John'}: MyComponentProps) => {
-   // component logic
-}
-
-
-MyComponent.displayName = 'MyComponent';
-
-export default MyComponent;
-
-```
-
-See the LabelAndValue component for a minimal example.  
+For development on pyrene, we recommend to use it together with storybooks, follow the steps in the [FAQ file](../FAQ.md).
 
 ### Migrating Components to TypeScript
 Migrating a component to TypeScript can be summarized as:
