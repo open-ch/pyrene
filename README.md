@@ -15,8 +15,6 @@ Check it out on [open-ch.github.io/pyrene](https://open-ch.github.io/pyrene).
 
 [tuktuktwo](./tuktuktwo) - Open Systems Graphs Library
 
-[kitchensink](./kitchensink) - Pyrene Kitchensink
-
 [eslint-config](./eslint-config) - Pyrene ESLint Configuration
 
 ## Thanks
