@@ -22,9 +22,7 @@ The items `1.`, `2.`, `3`. are separated npm modules.
 ## Requirements for using Pyrene ?
 1. The requirements for using the `Pyrene`, `Pyrene-graphs` and `Tuktuktwo` subprojects are set as a `peerDepenencies` in their own `package.json`, each.
 
-2. nodejs 12 or higher
-
-3. npm not higher than 6
+2. nodejs 12 or higher with npm
 
 ## How to use Pyrene ?
 
