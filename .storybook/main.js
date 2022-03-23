@@ -20,6 +20,7 @@ module.exports = {
   core: {
     builder: 'webpack5',
   },
+  staticDirs: ['../stories/common/images/'],
   webpackFinal: async (config, { configType }) => {
     // modify storybook's file-loader rule to avoid conflicts with svgr
     const fileLoaderRule = config.module.rules.find(
