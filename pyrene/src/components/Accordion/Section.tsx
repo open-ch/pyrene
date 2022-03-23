@@ -45,7 +45,7 @@ const Section: React.FC<SectionProps> = ({
             : title()}
         </div>
 
-        {renderContent && <span className={clsx(styles.chevron, { 'pyreneIcon-chevronUp': expanded, 'pyreneIcon-chevronDown': !expanded })} />}
+        <span className={clsx(styles.chevron, renderContent ? { 'pyreneIcon-chevronUp': expanded, 'pyreneIcon-chevronDown': !expanded } : {})} />
       </div>
 
       {expanded && renderContent && <div className={styles.content}>{renderContent()}</div>}
