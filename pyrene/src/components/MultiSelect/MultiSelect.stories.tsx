@@ -45,8 +45,16 @@ const testOptions: MultiSelectProps['options'] = [
 ];
 
 const icons: Array<keyof IconNames> = ['place', 'layers', 'clock'];
-const colors = [colorConstants.blue600, colorConstants.red600, colorConstants.orange600, undefined];
-const testOptionsWithIcons = testOptions.map((option, i) => ({ ...option, iconProps: { name: icons[i % 3], color: colors[i % 4] } }));
+const colors = [
+  colorConstants.blue600,
+  colorConstants.red600,
+  colorConstants.orange600,
+  undefined,
+];
+const testOptionsWithIcons = testOptions.map((option, i) => ({
+  ...option,
+  iconProps: { name: icons[i % 3], color: colors[i % 4] },
+}));
 
 const Template: Story<MultiSelectProps> = (args) => {
   const [selection, setSelection] = useState([]);
@@ -70,7 +78,6 @@ Simple.args = {
   invalidLabel: 'Please no bacon or chicken liver',
 };
 
-
 export const WithIcons = Template.bind({});
 
 WithIcons.args = {
@@ -81,4 +88,17 @@ WithIcons.args = {
   options: testOptionsWithIcons,
   creatable: true,
   invalidLabel: 'Please no bacon or chicken liver',
+};
+
+export const withoutOptions = Template.bind({});
+withoutOptions.args = {
+  title: 'New Entries',
+  placeholder: 'Choose your favorite ice cream',
+  helperLabel: 'Ice cream is delicious',
+  invalidLabel: 'Invalid entry format.',
+  createTagLabel: 'Enter to create a new entry',
+  customDelimiters: [',', '\\s'],
+  required: true,
+  clearable: true,
+  creatable: true,
 };
