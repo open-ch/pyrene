@@ -131,7 +131,7 @@ const Template: Story<FilterProps> = (args) => {
       onFilterSubmit={(filterValues, negatedKeys) =>
         setArgs({
           filterValues,
-          filters: args.filters.map((filter) => ({
+          filters: args.filters?.map((filter) => ({
             ...filter,
             negated: negatedKeys.includes(filter.id),
           })),
@@ -143,11 +143,11 @@ const Template: Story<FilterProps> = (args) => {
 
 export const Normal = Template.bind({});
 Normal.args = {
-  filters: initialFilters,
   filterValues: {},
 };
 
 export const Disabled = Template.bind({});
 Disabled.args = {
+  filterValues: {},
   disabled: true,
 };
