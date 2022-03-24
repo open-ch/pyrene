@@ -20,6 +20,10 @@ export interface LabelAndValueProps {
    * The value.
    */
   value?: string;
+    /**
+   * Sets whether line breaks appear wherever the text would otherwise overflow its content box.
+   */
+  wordBreak?: boolean;
 }
 
 /**
@@ -30,13 +34,15 @@ const LabelAndValue: React.FC<LabelAndValueProps> = ({
   size = 'small',
   value = '',
   type = 'neutral',
+  wordBreak = false
 }: LabelAndValueProps) => (
   <div className={clsx(styles['label-and-value'], styles[`label-and-value-${size}`])}>
     <div className={styles.label}>{label}</div>
-    <div className={clsx(styles.value, styles[`type-${type}`])}>{value}</div>
+    <div className={clsx(styles.value, styles[`type-${type}`], wordBreak && styles['word-break'])}>{value}</div>
   </div>
 );
 
 LabelAndValue.displayName = 'LabelAndValue';
 
 export default LabelAndValue;
+
