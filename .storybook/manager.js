@@ -30,3 +30,7 @@ addons.register('TitleAddon', api => {
   setTitle();
   api.on(STORY_RENDERED, setTitle);
 });
+
+addons.setConfig({
+  enableShortcuts: false,
+});
