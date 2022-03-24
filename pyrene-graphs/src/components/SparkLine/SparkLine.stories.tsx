@@ -5,13 +5,21 @@ import moment from 'moment-timezone';
 
 import SparkLine from './SparkLine';
 import { genDownloadedVolumes } from '../../common/storyHelpers';
+import colorSchemes from '../../styles/colorSchemes';
 
 export default {
   title: 'Components/Chart/SparkLine',
   component: SparkLine,
 } as Meta;
 
-const Template: Story<any> = (args) => <SparkLine {...args} />;
+const Template: Story<any> = (args) => (
+  <SparkLine
+    {...args}
+    colorScheme={
+      args.colorScheme?.valueGroundLight ? args.colorScheme : colorSchemes.colorSchemeDefault
+    }
+  />
+);
 
 export const Simple = Template.bind({});
 

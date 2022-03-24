@@ -4,6 +4,7 @@ import moment from 'moment-timezone';
 
 import { formatDownloadVolumeTooltip, genDownloadedVolumes } from '../../common/storyHelpers';
 import SparkLineChart from './SparkLineChart';
+import colorSchemes from '../../styles/colorSchemes';
 
 export default {
   title: 'Components/Chart/SparkLineChart',
@@ -13,7 +14,14 @@ export default {
   },
 } as Meta;
 
-const Template: Story<any> = (args) => <SparkLineChart {...args} />;
+const Template: Story<any> = (args) => (
+  <SparkLineChart
+    {...args}
+    colorScheme={
+      args.colorScheme?.valueGroundLight ? args.colorScheme : colorSchemes.colorSchemeDefault
+    }
+  />
+);
 
 const timezone = 'Asia/Shanghai';
 const initialFrom = moment.tz('2019-10-01 00:00', timezone).valueOf();

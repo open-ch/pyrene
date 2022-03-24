@@ -21,21 +21,21 @@ const Template: Story<BarChartProps> = (args) => (
 );
 
 const VerticalTemplate: Story<BarChartProps> = (args) => {
-    const data = applications.data.map((d) => ({
-      label: d.label,
-      data: d.data.map((e) => e * 100),
-    }));
-    return (
-      <BarChart
-        data={data}
-        tickFormat={(value) => getSITickValue(value, data)}
-        title="Applications"
-        description="Optional description and explanation on how to read the chart"
-        legend={applications.legend}
-        direction={args.direction}
-        unit={getSIUnit(data, 'B')}
-      />
-    );
+  const data = applications.data.map((d) => ({
+    label: d.label,
+    data: d.data.map((e) => e * 100),
+  }));
+  return (
+    <BarChart
+      data={data}
+      tickFormat={(value) => getSITickValue(value, data)}
+      title="Applications"
+      description="Optional description and explanation on how to read the chart"
+      legend={applications.legend}
+      direction={args.direction}
+      unit={getSIUnit(data, 'B')}
+    />
+  );
 };
 
 const HorizontalTemplate: Story<BarChartProps> = (args) => (
@@ -76,37 +76,36 @@ export const VerticalBarChart = VerticalTemplate.bind({});
 VerticalBarChart.args = {
   data: applications.data,
   tickFormat: (value: number) => getSITickValue(value, applications.data),
-  title: "Applications",
-  description: "Optional description and explanation on how to read the chart",
+  title: 'Applications',
+  description: 'Optional description and explanation on how to read the chart',
   legend: applications.legend,
-  direction: "vertical",
+  direction: 'vertical',
   unit: getSIUnit(applications.data, 'B'),
-
 };
 
 export const HorizontalBarChart = HorizontalTemplate.bind({});
 HorizontalBarChart.args = {
   data: applications.data,
-  title: "Applications",
-  description: "Optional description and explanation on how to read the chart",
+  title: 'Applications',
+  description: 'Optional description and explanation on how to read the chart',
   legend: applications.legend,
-  direction: "horizontal",
+  direction: 'horizontal',
 };
 
 export const VerticalStackedBarChart = StackedVerticalTemplate.bind({});
 VerticalStackedBarChart.args = {
   data: stacked.data,
-  title: "Vertical Stacked Bar Chart",
-  description: "Optional description and explanation on how to read the chart",
+  title: 'Vertical Stacked Bar Chart',
+  description: 'Optional description and explanation on how to read the chart',
   legend: stacked.legend,
-  direction: "vertical",
+  direction: 'vertical',
 };
 
 export const HorizontalStackedChart = StackedHorizontalTemplate.bind({});
-HorizontalStackedChart. args ={
+HorizontalStackedChart.args = {
   data: stacked.data,
-  title: "Horizontal Stacked Bar Chart",
-  description: "Optional description and explanation on how to read the chart",
+  title: 'Horizontal Stacked Bar Chart',
+  description: 'Optional description and explanation on how to read the chart',
   legend: stacked.legend,
-  direction: "horizontal",
+  direction: 'horizontal',
 };

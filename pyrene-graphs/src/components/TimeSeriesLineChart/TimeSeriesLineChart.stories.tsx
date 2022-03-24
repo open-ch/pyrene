@@ -3,6 +3,7 @@ import { Story, Meta } from '@storybook/react';
 import moment from 'moment-timezone';
 import timeSeriesData from '../../examples/timeSeriesData';
 import TimeSeriesLineChart from './TimeSeriesLineChart';
+import colorSchemes from '../../styles/colorSchemes';
 
 type TimeSeriesLineChartProps = ComponentProps<typeof TimeSeriesLineChart>;
 
@@ -17,7 +18,10 @@ export default {
 } as Meta;
 
 const Template: Story<TimeSeriesLineChartProps> = (args) => (
-  <TimeSeriesLineChart {...args} />
+  <TimeSeriesLineChart
+    {...args}
+    colorScheme={args.colorScheme?.categorical ? args.colorScheme : colorSchemes.colorSchemeDefault}
+  />
 );
 
 export const Sample = Template.bind({});
