@@ -1,14 +1,21 @@
 /* eslint-disable react/display-name */
 import React, { useState } from 'react';
-import { Story, Meta } from '@storybook/react';
+import { Story, Meta, ArgTypes } from '@storybook/react';
 import SingleSelect, { SingleSelectProps } from './SingleSelect';
 import { SingleSelectOption } from './SingleSelectTypes';
 import { IconNames } from '../types';
 import colorConstants from '../../styles/colorConstants';
 
+const storyWrapper = (SimpleStory: Story, { args }: ArgTypes) => <div style={{ height: 300 }}><SimpleStory {...args} /></div>;
+
 export default {
   title: 'Components/Form/SingleSelect',
   component: SingleSelect,
+  parameters: {
+    docs: {
+      prepareForInline: storyWrapper,
+    },
+  }
 } as Meta;
 
 const testOptions: SingleSelectOption<string>[] = [
