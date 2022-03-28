@@ -1,6 +1,6 @@
-import path from 'path';
-import MiniCssExtractPlugin from 'mini-css-extract-plugin';
-import TerserPlugin from 'terser-webpack-plugin';
+const path = require('path');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
@@ -9,7 +9,17 @@ const production = process.env.NODE_ENV === 'production';
 
 const OUTPUT_PATH = path.resolve(__dirname, 'dist');
 
-const config = {
+const entry = production ? {
+    main: './src/index.ts',
+    min: './src/index.ts',
+}: {
+  main: './src/index.ts',
+  min: './src/index.ts',
+  dev: './src/index.ts',
+  examples: './src/examples/index.js',
+};
+
+module.exports = () => ({
   mode: production ? 'production' : 'development',
   devtool: production ? undefined : 'source-map',
   resolve: {
@@ -96,19 +106,5 @@ const config = {
     libraryTarget: 'umd',
   },
   externals: ['react', 'react-dom', 'moment-timezone', 'pyrene'],
-};
-
-if (production) {
-  console.warn('webpack is running in production mode\n'); // eslint-disable-line no-console
-} else {
-  console.warn('webpack is running in development mode\n'); // eslint-disable-line no-console
-
-  config.entry = {
-    main: './src/index.ts',
-    min: './src/index.ts',
-    dev: './src/index.ts',
-    examples: './src/examples/index.js',
-  };
-}
-
-export default config;
+  entry,
+});
