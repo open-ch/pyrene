@@ -1,5 +1,6 @@
-import { ComponentProps } from 'react';
+import { ComponentProps, useEffect } from 'react';
 import { Story, Meta } from '@storybook/react';
+import { useArgs } from '@storybook/client-api';
 import {
   tableData,
   tableColumns,
@@ -20,16 +21,27 @@ export default {
   component: BarChartTable,
 } as Meta;
 
-const Template: Story<BarChartTableProps> = (args) => (
-  <BarChartTable
-    {...args}
-    colorScheme={
-      args.colorScheme?.categorical && args.colorScheme?.valueGround
-        ? args.colorScheme
-        : colorSchemes.colorSchemeDefault
+const Template: Story<BarChartTableProps> = (args) => {
+  const [arg, updateArgs] = useArgs();
+
+  useEffect(() => {
+    if (arg?.type === 'butterfly') {
+      updateArgs({ data: tableDataUpDown, columns: tableColumnsUpDown });
+    } else {
+      updateArgs({ ...arg });
     }
-  />
-);
+  }, [arg?.type]);
+  return (
+    <BarChartTable
+      {...args}
+      colorScheme={
+        args.colorScheme?.categorical && args.colorScheme?.valueGround
+          ? args.colorScheme
+          : colorSchemes.colorSchemeDefault
+      }
+    />
+  );
+};
 
 export const barChartTable = Template.bind({});
 barChartTable.args = {
