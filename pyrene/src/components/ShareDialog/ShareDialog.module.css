@@ -11,8 +11,7 @@
 }
 
 .content {
-  height: 32px;
-  padding-bottom: 16px;
+  padding-bottom: 8px;
   width: 350px;
 
   & .urlField[type="text"] {
