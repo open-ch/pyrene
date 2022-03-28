@@ -9,15 +9,16 @@ const production = process.env.NODE_ENV === 'production';
 
 const OUTPUT_PATH = path.resolve(__dirname, 'dist');
 
-const entry = production ? {
-    main: './src/index.ts',
-    min: './src/index.ts',
-}: {
-  main: './src/index.ts',
-  min: './src/index.ts',
-  dev: './src/index.ts',
-  examples: './src/examples/index.js',
-};
+const entry = production
+  ? {
+      main: './src/index.ts',
+      min: './src/index.ts',
+    }
+  : {
+      main: './src/index.ts',
+      min: './src/index.ts',
+      dev: './src/index.ts',
+    };
 
 module.exports = () => ({
   mode: production ? 'production' : 'development',
@@ -43,9 +44,7 @@ module.exports = () => ({
       },
       {
         test: /\.css$/,
-        exclude: [
-          /node_modules/,
-        ],
+        exclude: [/node_modules/],
         use: [
           MiniCssExtractPlugin.loader,
           {
@@ -101,7 +100,8 @@ module.exports = () => ({
   },
   output: {
     path: OUTPUT_PATH,
-    filename: (chunkData) => (chunkData.chunk.name === 'main' ? 'pyrene-graphs.js' : 'pyrene-graphs.[name].js'),
+    filename: (chunkData) =>
+      chunkData.chunk.name === 'main' ? 'pyrene-graphs.js' : 'pyrene-graphs.[name].js',
     library: 'pyrene-graphs',
     libraryTarget: 'umd',
   },
