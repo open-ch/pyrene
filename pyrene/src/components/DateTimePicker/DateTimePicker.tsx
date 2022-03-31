@@ -7,10 +7,15 @@ import DateTimeInput from './DateTimeInput/DateTimeInput';
 
 import {
   customDateFormat, convertToUTCtime, convertToZoneTime, customStringToDate,
-  getErrors, hasDateError, hasTimeError, getClientTimeZone, getFormat, DateTimeLocale, Format,
+  getErrors, hasDateError, hasTimeError, hasSeparatorError, getClientTimeZone, getFormat, DateTimeLocale, Format,
 } from '../../utils/DateUtils';
 
 type OnFunction = (value?: number) => void;
+interface DateObject {
+  dateString: string;
+  separatorString: string;
+  timeString: string;
+}
 
 export interface DateTimePickerProps {
   /**
@@ -116,14 +121,17 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
   const [internalDate, setInternalDate] = useState<Date | undefined>();
   const [dateValue, setDateValue] = useState('');
   const [timeValue, setTimeValue] = useState('');
+  const [separatorValue, setSeparatorValue] = useState('');
   const [errorValue, setErrorValue] = useState('');
 
   const [closeDrop, setCloseDrop] = useState<boolean>();
 
+  const containsSeparator = (s: string) => s.includes(format.separatorFormat);
+
   // Sets internal date and passes validated value to parent
-  const handleCallback = useCallback((dateString: string, timeString: string, callback?: OnFunction) => {
-    const date = customStringToDate(dateString, format.dateFormat);
-    const time = customStringToDate(timeString, format.timeFormat);
+  const handleCallback = useCallback((dateObj: DateObject, callback?: OnFunction) => {
+    const date = customStringToDate(dateObj.dateString, format.dateFormat);
+    const time = customStringToDate(dateObj.timeString, format.timeFormat);
 
     if (dateOnly && !Number.isNaN(date.getTime())) {
       const zoneDate = convertToZoneTime(date, timeZone);
@@ -133,7 +141,7 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
 
       setCloseDrop(true);
     } else if (!dateOnly && !Number.isNaN(date.getTime()) && !Number.isNaN(time.getTime())) {
-      const dateTime = customStringToDate(`${dateString}${timeString}`, `${format.dateFormat}${format.timeFormat}`);
+      const dateTime = customStringToDate(`${dateObj.dateString}${dateObj.separatorString}${dateObj.timeString}`, `${format.dateFormat}${format.separatorFormat}${format.timeFormat}`);
       const zoneDateTime = convertToZoneTime(dateTime, timeZone);
       const utcDateTime = convertToUTCtime(dateTime, timeZone);
       setInternalDate(zoneDateTime);
@@ -148,18 +156,18 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
     }
   }, [dateOnly, timeZone, format]);
 
-  const handleDateAndTimeChange = (customDateString?: string, customTimeString?: string) => {
-    if (customTimeString) {
+  const handleDateAndTimeChange = (customDateString?: string, customSeparatorString?: string, customTimeString?: string) => {
+    if (customTimeString && customSeparatorString) {
+      setSeparatorValue(customSeparatorString);
       setTimeValue(customTimeString);
     }
 
     if (customDateString) {
       setDateValue(customDateString);
-
-      if (dateOnly && format.dateRegex.test(customDateString)) {
-        handleCallback(customDateString, '', onChange);
-      } else if (customTimeString && format.timeRegex.test(customTimeString) && format.dateRegex.test(customDateString)) {
-        handleCallback(customDateString, customTimeString, onChange);
+      if (dateOnly) {
+        handleCallback({ dateString: customDateString, timeString: '', separatorString: '' }, onChange);
+      } else if (customTimeString && format.timeRegex.test(customTimeString) && format.dateRegex.test(customDateString) && (customSeparatorString && !hasSeparatorError(customSeparatorString, format))) {
+        handleCallback({ dateString: customDateString, timeString: customTimeString, separatorString: customSeparatorString }, onChange);
       }
     }
   };
@@ -168,18 +176,21 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
   const onChangeReactDP = (date: Date | [Date, Date] | null, event: React.SyntheticEvent<any> | undefined): void => {
     if (date && (event?.type === 'click' || (event?.type === 'keydown' && (event as React.KeyboardEvent).key.length > 1))) {
       if (!Array.isArray(date)) {
-        handleDateAndTimeChange(customDateFormat(date, format.dateFormat), timeValue);
+        const dateString = customDateFormat(date, format.dateFormat);
+        const timeString = (!dateOnly && timeValue.length > 0 && customDateFormat(date, format.timeFormat)?.includes(timeValue)) ?  customDateFormat(date, format.timeFormat) : timeValue;
+        handleDateAndTimeChange(dateString, format.separatorFormat, timeString);
       }
     } else if (event?.type === 'change') {
       // This gets triggered when typing in the DateTimeInput component attached to the reactdatepicker calendar
       const node = event?.target as HTMLInputElement;
-      const formatLength = dateOnly ? format.dateFormat.length : (format.dateFormat.length + format.timeFormat.length);
+      const formatLength = dateOnly ? format.dateFormat.length : (format.dateFormat.length + format.separatorFormat.length + format.timeFormat.length);
 
       if (node.value.length === formatLength) {
         const dateString = customDateFormat(node.value.substring(0, format.dateFormat.length), format.dateFormat);
-        const timeString = customDateFormat(node.value.substring(format.dateFormat.length), format.timeFormat);
+        const timeString = customDateFormat(node.value.substring(format.dateFormat.length + format.separatorFormat.length), format.timeFormat);
+        const separatorString = node.value.substring(format.dateFormat.length, format.dateFormat.length + format.separatorFormat.length);
 
-        handleDateAndTimeChange(dateString, timeString);
+        handleDateAndTimeChange(dateString, separatorString, timeString);
       } else if (node.value.length === 0) {
         setInternalDate(undefined);
       }
@@ -187,7 +198,8 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
       /** reactdatepicker currently emits an undefined event when the time list is clicked on.
        * Here we are relying on the time click event being 'undefined' as a temporary means to access time value
       */
-      handleDateAndTimeChange(dateValue || customDateFormat(date, format.dateFormat), customDateFormat(date, format.timeFormat));
+      const separator = containsSeparator(dateValue) ? '' : format.separatorFormat;
+      handleDateAndTimeChange(dateValue || customDateFormat(date, format.dateFormat), separator, customDateFormat(date, format.timeFormat));
     } else {
       setInternalDate(undefined);
     }
@@ -220,10 +232,14 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
   const resetOnClose = () => {
     if (`${dateValue}${timeValue}`.trim() === '') {
       setInternalDate(undefined);
+      onChange?.(undefined);
     } else if (!dateOnly && !timeValue && customDateFormat(dateValue, format.dateFormat)) {
       const selectedDate = customDateFormat(dateValue, format.dateFormat);
       if (selectedDate) {
-        setInternalDate(convertToZoneTime(customStringToDate(selectedDate, format.dateFormat), timeZone));
+        const timeInput = customDateFormat(selectedDate, format.timeFormat);
+        handleDateAndTimeChange(selectedDate, format.separatorFormat, timeInput || '00:00');
+      } else if (!dateOnly && dateValue && timeValue && separatorValue) {
+        handleDateAndTimeChange(dateValue, separatorValue, timeValue);
       }
     }
     setCloseDrop(undefined);
@@ -238,11 +254,12 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
       if (dateString) {
         setDateValue(dateString);
         if (!dateOnly && timeString) {
+          setSeparatorValue(format.separatorFormat);
           setTimeValue(timeString);
         }
       }
     }
-  }, [dateOnly, format.dateFormat, format.timeFormat, internalDate]);
+  }, [dateOnly, format.separatorFormat, format.dateFormat, format.timeFormat, internalDate]);
 
   // Update date and time string values if timestamp is changed
   useEffect(() => {
@@ -257,40 +274,46 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
       setInternalDate(undefined);
 
       setDateValue('');
+      setSeparatorValue('');
       setTimeValue('');
     }
   }, [timeStamp, timeZone]);
 
   // Set error values on changes in component
   useEffect(() => {
+    const minDateValue = getMinimumDate();
+    const maxDateValue = getMaximumDate();
     const dateValObj = {
       dateString: dateValue,
       isDateInvalid: hasDateError({ dateString: dateValue, format: format }),
       isTimeInvalid: hasTimeError(timeValue, format),
-      minimumValue: getMinimumDate()?.getTime(),
-      maximumValue: getMaximumDate()?.getTime(),
+      isSeparatorInvalid: hasSeparatorError(separatorValue, format),
+      minimumValue: (minDateValue instanceof Date) ? minDateValue.getTime() : minDateValue,
+      maximumValue: (maxDateValue instanceof Date) ? maxDateValue.getTime() : maxDateValue,
+      separator: separatorValue,
       timeZone: timeZone,
       timeString: timeValue,
       format: format,
     };
     setErrorValue(getErrors(dateValObj));
-  }, [timeZone, dateValue, timeValue, format, getMinimumDate, getMaximumDate]);
+  }, [timeZone, dateValue, timeValue, format, getMinimumDate, getMaximumDate, separatorValue]);
 
   return (
     <ReactDatePickerWrapper
       closeDropdown={closeDrop}
       customInput={(
         <DateTimeInput
-          dateFormat={format.dateFormat}
           dateOnly={dateOnly}
+          dateTimeFormat={format}
           dateValue={dateValue}
           disabled={disabled}
           errorValue={errorValue}
           label={label}
           name={name}
+          separatorValue={separatorValue}
           setDateValue={setDateValue}
+          setSeparatorValue={setSeparatorValue}
           setTimeValue={setTimeValue}
-          timeFormat={format.timeFormat}
           timeValue={timeValue}
         />
       )}
@@ -310,7 +333,7 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
       selectsStart={selectsStart}
       shouldDisplayTimeColumn={!dateOnly}
       startDate={startDate}
-      timeFormat={format.timeFormat}
+      timeFormat={`${format.separatorFormat}${format.timeFormat}`}
     />
   );
 };

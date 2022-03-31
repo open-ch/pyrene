@@ -54,7 +54,7 @@ const FromToTemplate: Story<DateRangeProps> = (args) => {
             <DateTimePicker
               {...args}
               label="From"
-              onChange={(value) => (value && updateArgs({ startDate: convertToZoneTime(new Date(value), args.timeZone || defaultTimezone) }))}
+              onChange={(value) => (updateArgs({ startDate: convertToZoneTime(new Date(value), args.timeZone || defaultTimezone) }))}
               timeStamp={args.startDate?.getTime()}
               selectsStart
             />
@@ -63,7 +63,7 @@ const FromToTemplate: Story<DateRangeProps> = (args) => {
             <DateTimePicker
               {...args}
               label="To"
-              onChange={(value) => (value && updateArgs({ endDate: convertToZoneTime(new Date(value), args.timeZone || defaultTimezone) }))}
+              onChange={(value) => (updateArgs({ endDate: convertToZoneTime(new Date(value), args.timeZone || defaultTimezone) }))}
               timeStamp={args.endDate?.getTime()}
               selectsEnd
             />

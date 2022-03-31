@@ -7,21 +7,24 @@ import zonedTimeToUtc from 'date-fns-tz/zonedTimeToUtc';
 import utcToZonedTime from 'date-fns-tz/utcToZonedTime';
 
 export interface Format {
-  dateFormat: string,
-  dateRegex: RegExp,
-  timeFormat: string,
-  timeRegex: RegExp,
+  dateFormat: string;
+  dateRegex: RegExp;
+  timeFormat: string;
+  timeRegex: RegExp;
+  separatorFormat: string;
 }
 
 export interface DateValidationObject {
-  dateString?: string,
-  isDateInvalid?: boolean,
-  isTimeInvalid?: boolean,
-  minimumValue?: number,
-  maximumValue?: number,
-  timeZone?: string,
-  timeString?: string,
-  format?: Format,
+  dateString?: string;
+  isDateInvalid?: boolean;
+  isSeparatorInvalid?: boolean;
+  isTimeInvalid?: boolean;
+  minimumValue?: number;
+  maximumValue?: number;
+  timeZone?: string;
+  timeString?: string;
+  separator?: string;
+  format?: Format;
 }
 
 export type DateTimeLocale = 'eu' | 'us';
@@ -59,11 +62,13 @@ export const getPastDate = (duration: Duration): number => sub(new Date(), durat
 */
 export const isValidTimeZone = (timezone: string): boolean => {
   try {
-    utcToZonedTime(new Date(), timezone);
-    return true;
+    if (Number.isNaN(utcToZonedTime(new Date(), timezone).getTime())) {
+      return false;
+    }
   } catch {
     return false;
   }
+  return true;
 };
 
 /**
@@ -122,6 +127,9 @@ export const getErrors = (dateValObj: DateValidationObject): string => {
     return 'Invalid time zone.';
   }
 
+  if (dateValObj.isSeparatorInvalid) {
+    return 'Invalid format';
+  }
   if (dateValObj.isDateInvalid && dateValObj.isTimeInvalid) {
     return 'Invalid date & time format';
   }
@@ -139,8 +147,8 @@ export const getErrors = (dateValObj: DateValidationObject): string => {
       let datetimeformatstring;
 
       if (dateValObj.timeString && dateValObj.format.timeRegex.test(dateValObj.timeString)) {
-        datetimestring = `${dateValObj.dateString}${dateValObj.timeString}`;
-        datetimeformatstring = `${dateValObj.format.dateFormat}${dateValObj.format.timeFormat}`;
+        datetimestring = `${dateValObj.dateString}${dateValObj.separator || ''}${dateValObj.timeString}`;
+        datetimeformatstring = `${dateValObj.format.dateFormat}${dateValObj.format.separatorFormat}${dateValObj.format.timeFormat}`;
       } else {
         datetimestring = dateValObj.dateString;
         datetimeformatstring = dateValObj.format.dateFormat;
@@ -178,14 +186,22 @@ export const hasDateError = (dateValObj: DateValidationObject): boolean => {
 };
 
 /**
+ * Checks if separator has errors
+ * @param separator
+ * @param formatObj
+ * @returns {boolean}
+ */
+export const hasSeparatorError = (separator: string, formatObj: Format): boolean => separator.length === formatObj.separatorFormat.length && separator !== formatObj.separatorFormat;
+
+/**
  * Checks if a time string has errors
  * @param timestring
- * @param timeFormat
+ * @param formatObj
  * @returns {boolean}
  */
 export const hasTimeError = (timestring: string, formatObj: Format): boolean => {
   if (timestring.length <= formatObj.timeFormat.length) {
-    if (timestring.length < formatObj.timeFormat.length || (formatObj.timeRegex.test(timestring) && !Number.isNaN(customStringToDate(timestring, formatObj.timeFormat).getTime()))) {
+    if (timestring.length < formatObj.timeFormat.length || ((formatObj.timeRegex.test(timestring) && !Number.isNaN(customStringToDate(timestring, formatObj.timeFormat).getTime())))) {
       return false;
     }
   }
@@ -208,14 +224,16 @@ export const getFormat = (locale: DateTimeLocale): Format => {
     eu: {
       dateFormat: 'dd.MM.yyyy',
       dateRegex: /^\d{2}\.\d{2}\.\d{4}$/,
-      timeFormat: ' HH:mm',
-      timeRegex: /^\s\d{2}:\d{2}$/,
+      timeFormat: 'HH:mm',
+      timeRegex: /^\d{2}:\d{2}$/,
+      separatorFormat: ' ',
     },
     us: {
       dateFormat: 'MM/dd/yyyy',
       dateRegex: /^\d{2}\/\d{2}\/\d{4}$/,
-      timeFormat: ' HH:mm',
-      timeRegex: /^\s\d{2}:\d{2}$/,
+      timeFormat: 'HH:mm',
+      timeRegex: /^\d{2}:\d{2}$/,
+      separatorFormat: ' ',
     },
   };
   return dateTimeFormats[locale];

@@ -1,15 +1,11 @@
 import React, { forwardRef } from 'react';
 import clsx from 'clsx';
 import IconButton from '../../IconButton/IconButton';
-import { allowedValueCheck } from '../../../utils/DateUtils';
+import { allowedValueCheck, Format, getFormat } from '../../../utils/DateUtils';
 
 import styles from './DateTimeInput.module.css';
 
 export interface DateTimeInputProps {
-  /**
-   * Date format used by component
-   */
-  dateFormat: string;
   /**
    * Boolean to toggle time display
    */
@@ -18,6 +14,10 @@ export interface DateTimeInputProps {
    * Input date value
    */
   dateValue?: string;
+  /**
+   * DateTime format
+   */
+  dateTimeFormat: Format;
   /**
    * Component is disabled
    */
@@ -51,17 +51,21 @@ export interface DateTimeInputProps {
    */
   required?: boolean;
   /**
+   * Input separator value
+   */
+  separatorValue?: string;
+  /**
    * Callback to set Date value in parent
    */
   setDateValue?: (value: string) => void;
   /**
+   * Callback to set Separator value in parent
+   */
+  setSeparatorValue?: (value: string) => void;
+  /**
    * Callback to set Time value in parent
    */
   setTimeValue?: (value: string) => void;
-  /**
-   * Time format used by component
-   */
-  timeFormat: string;
   /**
    * Input time value
    */
@@ -69,8 +73,8 @@ export interface DateTimeInputProps {
 }
 
 const DateTimeInput = forwardRef<HTMLInputElement, DateTimeInputProps>(({
-  dateFormat,
   dateOnly = false,
+  dateTimeFormat = getFormat('eu'),
   dateValue = '',
   disabled,
   errorValue,
@@ -80,29 +84,36 @@ const DateTimeInput = forwardRef<HTMLInputElement, DateTimeInputProps>(({
   onClick,
   onFocus,
   required,
+  separatorValue = '',
   setDateValue,
+  setSeparatorValue,
   setTimeValue,
-  timeFormat,
   timeValue = '',
 }: DateTimeInputProps, ref: React.Ref<HTMLInputElement>) => {
+
+  const dateLength = dateTimeFormat.dateFormat.length;
+  const dateAndSeparatorLength = dateLength + dateTimeFormat.separatorFormat.length;
+  const dateTimeLength = dateAndSeparatorLength + dateTimeFormat.timeFormat.length;
 
   const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const node = event.target as HTMLInputElement;
 
     if (allowedValueCheck(node.value)) {
-      if (!dateOnly && node.value.length > dateFormat.length) {
-        setDateValue?.(node.value.substring(0, dateFormat.length));
-        setTimeValue?.(node.value.substring(dateFormat.length));
-
-        if (node.value.length === (dateFormat.length + timeFormat.length)) {
-          return onChange?.(event);
-        }
+      if (!dateOnly && node.value.length > dateAndSeparatorLength) {
+        setDateValue?.(node.value.substring(0, dateLength));
+        setSeparatorValue?.(node.value.substring(dateLength, dateAndSeparatorLength));
+        setTimeValue?.(node.value.substring(dateAndSeparatorLength));
+      } else if (!dateOnly && node.value.length > dateLength) {
+        setDateValue?.(node.value.substring(0, dateLength));
+        setSeparatorValue?.(node.value.substring(dateLength, dateAndSeparatorLength));
+        setTimeValue?.('');
       } else {
         setDateValue?.(node.value);
         setTimeValue?.('');
-
-        return onChange?.(event);
+        setSeparatorValue?.('');
       }
+
+      return onChange?.(event);
     }
     return null;
   };
@@ -119,15 +130,15 @@ const DateTimeInput = forwardRef<HTMLInputElement, DateTimeInputProps>(({
             autoComplete="off"
             className={clsx(styles.input, dateOnly ? styles.dateInput : styles.dateTimeInput)}
             disabled={disabled}
-            maxLength={dateOnly ? dateFormat.length : dateFormat.length + timeFormat.length}
+            maxLength={dateOnly ? dateLength : dateTimeLength}
             name={name && `${name}`}
             onChange={handleOnChange}
             onClick={onClick}
             onFocus={onFocus}
-            placeholder={dateOnly ? dateFormat.toUpperCase() : `${dateFormat.toUpperCase()}${timeFormat.toUpperCase()}`}
+            placeholder={dateOnly ? dateTimeFormat.dateFormat.toUpperCase() : `${dateTimeFormat.dateFormat.toUpperCase()}${dateTimeFormat.separatorFormat.toUpperCase()}${dateTimeFormat.timeFormat.toUpperCase()}`}
             ref={ref}
             required={required}
-            value={`${dateValue}${!dateOnly ? timeValue : ''}`}
+            value={`${dateValue}${!dateOnly ? separatorValue : ''}${!dateOnly ? timeValue : ''}`}
           />
         </div>
       </div>

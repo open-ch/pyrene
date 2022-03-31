@@ -114,6 +114,10 @@ const ReactDatePickerWrapper: React.FC<DatePickerProps> = ({
   const rangeRef = useRef<ReactDatepicker>(null);
   const [hasInput, setHasInput] = useState<boolean>(false);
 
+  /** The function, useEffect and some css are to provide a calendar without a selected date.
+   * At the moment such functionality is not provided in reactdatepicker
+   * https://github.com/Hacker0x01/react-datepicker/issues/1009
+   */
   const handleChangeRaw = (event: React.FocusEvent<HTMLInputElement>) => {
     if (event?.target.value?.trim() !== '') {
       setHasInput(true);
@@ -121,6 +125,12 @@ const ReactDatePickerWrapper: React.FC<DatePickerProps> = ({
       setHasInput(false);
     }
   };
+
+  useEffect(() => {
+    if (selectedDate != null) {
+      setHasInput(true);
+    }
+  }, [selectedDate]);
 
   useEffect(() => {
     if (closeDropdown) {
