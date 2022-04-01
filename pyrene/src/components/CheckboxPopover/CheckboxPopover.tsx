@@ -1,4 +1,5 @@
 import React, { FunctionComponent, useState } from 'react';
+import { PopoverProps } from 'react-tiny-popover';
 import clsx from 'clsx';
 
 import Popover from '../Popover/Popover';
@@ -10,6 +11,10 @@ export interface CheckboxPopoverProps {
   buttonLabel: string;
   /** Whether the component is disabled or not. */
   disabled?: boolean;
+  /**
+   * Sets the alignment of the popover.
+   */
+  align?: PopoverProps['align'];
   /**
    * Items that can be checked or unchecked.
    * The value indicates whether the item is checked.
@@ -37,6 +42,7 @@ const CheckboxPopover: FunctionComponent<CheckboxPopoverProps> = ({
   onItemClick,
   buttonLabel,
   disabled = false,
+  align = 'end'
 }) => {
   const [displayPopover, setDisplayPopover] = useState(false);
 
@@ -46,7 +52,7 @@ const CheckboxPopover: FunctionComponent<CheckboxPopoverProps> = ({
     <div className={clsx(styles.checkboxPopover, { [styles.disabled]: disabled })}>
       <Popover
         preferredPosition={['bottom']}
-        align="end"
+        align={align}
         displayPopover={displayPopover}
         distanceToTarget={8}
         onClickOutside={() => setDisplayPopover(false)}

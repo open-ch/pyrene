@@ -12,7 +12,11 @@ const initialItems = [
 export default {
   title: 'Components/Form/CheckboxPopover',
   component: CheckboxPopover,
-  args: { buttonLabel: 'Choose Fruits', listItems: initialItems },
+  args: {
+    buttonLabel: 'Choose Fruits',
+    listItems: initialItems,
+    align: 'start',
+  },
 } as Meta;
 
 const Template: Story<CheckboxPopoverProps> = (args) => {
@@ -22,7 +26,9 @@ const Template: Story<CheckboxPopoverProps> = (args) => {
       {...args}
       onItemClick={(id, value) =>
         setArgs({
-          listItems: args.listItems.map((i) => (i.id === id ? { ...i, value } : i)),
+          listItems: args.listItems.map((i) =>
+            i.id === id ? { ...i, value } : i
+          ),
         })
       }
       onRestoreDefault={() => setArgs({ listItems: initialItems })}
