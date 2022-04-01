@@ -128,10 +128,8 @@ export interface MultiSelectProps {
 
 const LoadingIndicator = () => <Loader />;
 
-const MultiValue: SelectComponentsConfig<Option, true>['MultiValue'] = ({
-  data: { value, label },
-  getValue,
-}) => (
+
+const MultiValue: SelectComponentsConfig<Option, true>['MultiValue'] = ({ data: { value, label }, getValue }) => (
   <>
     {label}
     {/* Add comma between two labels */}
@@ -145,26 +143,20 @@ const MultiValue: SelectComponentsConfig<Option, true>['MultiValue'] = ({
  * @param {object[]} options - pre-provided options
  * @returns {object[]} array of value object in same format as the options
  */
-export const createNewValue = (
-  values: string[],
-  options: MultiSelectProps['options']
-) =>
-  values
-    .filter((v) => v.length > 0)
-    .map((v) => {
-      const foundOption = options
-        ? options.find(
-            (option) => option?.label?.toLowerCase?.() === v.toLowerCase()
-          )
-        : null;
-      return foundOption || { value: v, label: v, invalid: false };
-    });
+export const createNewValue = (values: string[], options: MultiSelectProps['options']) => values
+  .filter((v) => v.length > 0)
+  .map((v) => {
+    const foundOption = options
+      ? options.find((option) => option?.label?.toLowerCase?.() === v.toLowerCase())
+      : null;
+    return foundOption || { value: v, label: v, invalid: false };
+  });
 
 /**
  * Multi-Selects are used when the user has to make a choice from a list. It allows the user to select multiple items from a dropdown list.
  */
 const MultiSelect: FunctionComponent<MultiSelectProps> = (
-  props: MultiSelectProps
+  props: MultiSelectProps,
 ) => {
   const {
     clearable = false,
@@ -192,14 +184,10 @@ const MultiSelect: FunctionComponent<MultiSelectProps> = (
   } = props;
 
   const [hasPastedDuplicates, setHasPastedDuplicates] = useState(false);
-  const opts = sorted
-    ? [...options].sort((a, b) => a.label.localeCompare(b.label))
-    : options;
+  const opts = sorted ? [...options].sort((a, b) => a.label.localeCompare(b.label)) : options;
   const [inputValue, setInputValue] = useState('');
 
-  const [delimiters, setDelimiters] = useState<Array<string>>(
-    DEFAULT_DELIMITERS
-  );
+  const [delimiters, setDelimiters] = useState<Array<string>>(DEFAULT_DELIMITERS);
   const [regexObj, setRegexObj] = useState(getRegExp(delimiters));
 
   useEffect(() => {
@@ -215,23 +203,12 @@ const MultiSelect: FunctionComponent<MultiSelectProps> = (
   const onPaste = (event: ClipboardEvent<HTMLDivElement>) => {
     if (creatable) {
       setHasPastedDuplicates(false);
-      const pastedData = (
-        event.clipboardData || (window as any).clipboardData
-      ).getData('text');
-      const delimitedValues = getCaseInsensitiveDistinctValues(
-        getDelimitedValues(pastedData, regexObj)
-      );
+      const pastedData = (event.clipboardData || (window as any).clipboardData).getData('text');
+      const delimitedValues = getCaseInsensitiveDistinctValues(getDelimitedValues(pastedData, regexObj));
       const newValue = createNewValue(delimitedValues, options);
       if (value?.length > 0) {
-        const distinctNewValue = newValue.filter(
-          (o) =>
-            value.findIndex(
-              (exO) => exO.label.toLowerCase() === o.label.toLowerCase()
-            ) < 0
-        );
-        setHasPastedDuplicates(
-          distinctNewValue.length < delimitedValues.length
-        );
+        const distinctNewValue = newValue.filter((o) => value.findIndex((exO) => exO.label.toLowerCase() === o.label.toLowerCase()) < 0);
+        setHasPastedDuplicates(distinctNewValue.length < delimitedValues.length);
         onChange?.([...value, ...distinctNewValue]);
       } else {
         onChange?.(newValue);
@@ -242,20 +219,12 @@ const MultiSelect: FunctionComponent<MultiSelectProps> = (
     }
   };
 
-  const hasDuplicates = useCallback(
-    (input: string) => {
-      const existingLabels = value?.map((v) => v.label);
-      return existingLabels?.some(
-        (v) => v.toLowerCase() === input.toLowerCase()
-      );
-    },
-    [value]
-  );
+  const hasDuplicates = useCallback((input: string) => {
+    const existingLabels = value?.map((v) => v.label);
+    return existingLabels?.find((v) => v.toLowerCase() === input.toLowerCase());
+  }, [value]);
 
-  const formatNoOptionsMessage: SelectProps<
-    Option,
-    true
-  >['noOptionsMessage'] = (input) => {
+  const formatNoOptionsMessage: SelectProps<Option, true>['noOptionsMessage'] = (input) => {
     const foundLabel = hasDuplicates(input.inputValue);
     if (value && foundLabel) {
       return `Duplicate tag "${foundLabel}"`;
@@ -266,14 +235,15 @@ const MultiSelect: FunctionComponent<MultiSelectProps> = (
     return null;
   };
 
-  const MultiValueLabel: SelectComponentsConfig<
-    Option,
-    true
-  >['MultiValueLabel'] = ({ innerProps, children }) => (
+  const editExistingValue = useCallback((editedValue: string) => {
+    const newInputValue = inputValue + editedValue;
+    setInputValue(newInputValue ?? '');
+    onChange?.(value.filter((option) => option.label !== editedValue));
+  }, [inputValue, onChange, value]);
+
+  const MultiValueLabel: SelectComponentsConfig<Option, true>['MultiValueLabel'] = ({ innerProps, children }) => (
     <div
-      onDoubleClick={() =>
-        creatable ? editExistingValue(children) : undefined
-      }
+      onDoubleClick={() => (creatable ? editExistingValue(children) : undefined)}
       title={typeof children === 'string' ? children : undefined}
       {...innerProps}
     >
@@ -295,15 +265,6 @@ const MultiSelect: FunctionComponent<MultiSelectProps> = (
     MultiValueLabel,
   };
 
-  const editExistingValue = useCallback(
-    (editedValue: string) => {
-      const newInputValue = inputValue + editedValue;
-      setInputValue(newInputValue ?? '');
-      onChange?.(value.filter((option) => option.label !== editedValue));
-    },
-    [value, onChange]
-  );
-
   const onBlurHandle = useCallback(() => {
     onBlur?.();
     const foundLabel = hasDuplicates(inputValue);
@@ -312,19 +273,12 @@ const MultiSelect: FunctionComponent<MultiSelectProps> = (
       onChange?.(value ? [...value, ...newValue] : newValue);
       setInputValue('');
     }
-  }, [onChange, value, createNewValue, onBlur, inputValue, options]);
+  }, [onBlur, hasDuplicates, inputValue, options, onChange, value]);
 
   return (
-    <div
-      onPaste={onPaste}
-      className={clsx(styles.selectContainer, { [styles.disabled]: disabled })}
-    >
+    <div onPaste={onPaste} className={clsx(styles.selectContainer, { [styles.disabled]: disabled })}>
       {title && (
-        <div
-          className={clsx(styles.selectTitle, {
-            [styles.required]: required && !disabled,
-          })}
-        >
+        <div className={clsx(styles.selectTitle, { [styles.required]: required && !disabled })}>
           {title}
         </div>
       )}
@@ -333,16 +287,10 @@ const MultiSelect: FunctionComponent<MultiSelectProps> = (
           className="multiSelect"
           styles={MultiSelectStyle(props) as any}
           components={
-            (selectedOptionsInDropdown
-              ? componentsOptionsInDropdown
-              : componentsNormal) as SelectComponentsConfig<Option, true>
+            (selectedOptionsInDropdown ? componentsOptionsInDropdown : componentsNormal) as SelectComponentsConfig<Option, true>
           }
           // Sets the internal value to "" in case of null or undefined
-          getOptionValue={(option) =>
-            option.value !== null && typeof option.value !== 'undefined'
-              ? option.value
-              : ''
-          }
+          getOptionValue={(option) => (option.value !== null && typeof option.value !== 'undefined' ? option.value : '')}
           placeholder={placeholder}
           options={opts}
           value={value}
@@ -353,28 +301,21 @@ const MultiSelect: FunctionComponent<MultiSelectProps> = (
           isLoading={loading}
           inputValue={inputValue}
           // wrapping type and key into target so it better reflects the api that input event has (there is also event.target.name)
-          onChange={(option: any) =>
-            onChange?.(option, {
-              target: { type: 'multiSelect', name: name, value: option },
-            })
-          }
+          onChange={(option: any) => onChange?.(option, {
+            target: { type: 'multiSelect', name: name, value: option },
+          })}
           onInputChange={(input: string, action: InputActionMeta) => {
             if (input.length > 0) {
               setHasPastedDuplicates(false);
             }
 
-            if (
-              action.action !== 'input-blur' &&
-              action.action !== 'menu-close'
-            ) {
+            if (action.action !== 'input-blur' && action.action !== 'menu-close') {
               setInputValue(input);
             }
           }}
           onBlur={onBlurHandle}
           onFocus={onFocus}
-          onKeyDown={(key: React.KeyboardEvent<HTMLElement>) =>
-            delimiterCheck(key, regexObj)
-          }
+          onKeyDown={(key: React.KeyboardEvent<HTMLElement>) => delimiterCheck(key, regexObj)}
           name={name}
           id={name}
           inputId={name}
@@ -392,16 +333,10 @@ const MultiSelect: FunctionComponent<MultiSelectProps> = (
           className="multiSelect"
           styles={MultiSelectStyle(props) as any}
           components={
-            (selectedOptionsInDropdown
-              ? componentsOptionsInDropdown
-              : componentsNormal) as SelectComponentsConfig<Option, true>
+            (selectedOptionsInDropdown ? componentsOptionsInDropdown : componentsNormal) as SelectComponentsConfig<Option, true>
           }
           // Sets the internal value to "" in case of null or undefined
-          getOptionValue={(option) =>
-            option.value !== null && typeof option.value !== 'undefined'
-              ? option.value
-              : ''
-          }
+          getOptionValue={(option) => (option.value !== null && typeof option.value !== 'undefined' ? option.value : '')}
           placeholder={placeholder}
           options={opts}
           value={value}
@@ -410,11 +345,9 @@ const MultiSelect: FunctionComponent<MultiSelectProps> = (
           isDisabled={disabled}
           isInvalid={invalid}
           isLoading={loading}
-          onChange={(option: any) =>
-            onChange?.(option, {
-              target: { type: 'multiSelect', name: name, value: option },
-            })
-          }
+          onChange={(option: any) => onChange?.(option, {
+            target: { type: 'multiSelect', name: name, value: option },
+          })}
           onBlur={onBlur}
           onFocus={onFocus}
           name={name}
@@ -454,6 +387,8 @@ const MultiSelect: FunctionComponent<MultiSelectProps> = (
   );
 };
 
-MultiSelect.displayName = 'MultiSelect';
+// Storybook fix
+// https://github.com/storybookjs/storybook/issues/9493
+// MultiSelect.displayName = 'MultiSelect';
 
 export default MultiSelect;

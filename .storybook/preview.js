@@ -1,6 +1,14 @@
 import '../pyrene/src/styles/common.module.css';
 import '../pyrene/src/styles/colors.module.css';
 import '../pyrene/src/styles/fonts.module.css';
+
+import {
+  Title,
+  Subtitle,
+  Description,
+  ArgsTable,
+} from '@storybook/addon-docs';
+
 import kitchensinkTheme from './KitchensinkTheme';
 
 export const parameters = {
@@ -13,5 +21,13 @@ export const parameters = {
   },
   docs: {
     theme: kitchensinkTheme,
+    page: () => (
+      <>
+        <Title />
+        <Subtitle />
+        <Description />
+        <ArgsTable />
+      </>
+    ),
   },
 }
