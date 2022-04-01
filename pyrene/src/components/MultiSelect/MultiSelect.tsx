@@ -128,7 +128,6 @@ export interface MultiSelectProps {
 
 const LoadingIndicator = () => <Loader />;
 
-
 const MultiValue: SelectComponentsConfig<Option, true>['MultiValue'] = ({
   data: { value, label },
   getValue,
@@ -245,8 +244,8 @@ const MultiSelect: FunctionComponent<MultiSelectProps> = (
 
   const hasDuplicates = useCallback(
     (input: string) => {
-      const existingLabels = value.map((v) => v.label);
-      return existingLabels.some(
+      const existingLabels = value?.map((v) => v.label);
+      return existingLabels?.some(
         (v) => v.toLowerCase() === input.toLowerCase()
       );
     },
@@ -266,7 +265,6 @@ const MultiSelect: FunctionComponent<MultiSelectProps> = (
     }
     return null;
   };
-
 
   const MultiValueLabel: SelectComponentsConfig<
     Option,
@@ -309,9 +307,9 @@ const MultiSelect: FunctionComponent<MultiSelectProps> = (
   const onBlurHandle = useCallback(() => {
     onBlur?.();
     const foundLabel = hasDuplicates(inputValue);
-    if (!foundLabel) {
+    if (!foundLabel && inputValue) {
       const newValue = createNewValue([inputValue], options);
-      onChange?.([...value, ...newValue]);
+      onChange?.(value ? [...value, ...newValue] : newValue);
       setInputValue('');
     }
   }, [onChange, value, createNewValue, onBlur, inputValue, options]);
