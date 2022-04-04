@@ -358,7 +358,7 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
   toggleColumnDisplay = (columnId: string, showValue?: boolean) => this.setState((prevState) => ({
     columnsVisibility: {
       ...prevState.columnsVisibility,
-      [columnId]: !showValue,
+      [columnId]: !!showValue,
     },
   }));
 
