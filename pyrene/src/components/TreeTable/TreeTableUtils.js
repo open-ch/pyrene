@@ -74,24 +74,25 @@ export default class TreeTableUtils {
       rows,
     } = tableState;
     let newRows = [...rows];
+    const newExpanded = { ...expanded };
     const { _rowId: rowKey } = row;
     const isExpanded = expanded[rowKey];
     const subRows = row.children;
     const index = rows.indexOf(row);
     if (!isExpanded) {
-      expanded[rowKey] = true;
+      newExpanded[rowKey] = true;
       newRows.splice(index + 1, 0, ...subRows);
     } else {
-      delete expanded[rowKey];
+      delete newExpanded[rowKey];
       // eslint-disable-next-line no-underscore-dangle
       const rowChildren = TreeTableUtils._getRowChildren(row);
       newRows = rows.filter((oldRow) => !rowChildren.includes(oldRow));
       // eslint-disable-next-line no-underscore-dangle
-      rowChildren.forEach((child) => delete expanded[child._rowId]);
+      rowChildren.forEach((child) => delete newExpanded[child._rowId]);
     }
 
     return {
-      expanded,
+      expanded: newExpanded,
       rows: newRows,
     };
   }
