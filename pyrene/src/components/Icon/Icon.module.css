@@ -1,16 +1,4 @@
-@import "../../styles/colors.module.css";
-
-.icon {
-  font-size: 16px;
-  width: 16px;
-  height: 16px;
-}
-
-.svgIcon {
-  height: 16px;
-  width: 16px;
-}
-
+@import '../../styles/colors.module.css';
 .type-standalone {
   width: 16px;
   height: 16px;
@@ -18,4 +6,49 @@
 
 .type-inline {
   display: inline;
+}
+
+.xsmall.icon {
+  font-size: 4px;
+}
+
+.small.icon {
+  font-size: 8px;
+}
+
+.medium.icon {
+  font-size: 16px;
+}
+
+.large.icon {
+  font-size: 24px;
+}
+
+.xlarge.icon {
+  font-size: 32px;
+}
+
+.xsmall .svgIcon {
+  height: 4px;
+  width: 4px;
+}
+
+.small .svgIcon {
+  height: 8px;
+  width: 8px;
+}
+
+.medium .svgIcon {
+  height: 16px;
+  width: 16px;
+}
+
+.large .svgIcon {
+  height: 24px;
+  width: 24px;
+}
+
+.xlarge .svgIcon {
+  height: 32px;
+  width: 32px;
 }
