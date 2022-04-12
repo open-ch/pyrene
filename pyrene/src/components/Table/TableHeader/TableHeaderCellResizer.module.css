@@ -1,0 +1,23 @@
+@import "../../../styles/colors.module.css";
+
+.resizer {
+  display: inline-block;
+  /* background: var(--neutral-100) ; */
+  width: 16px;
+  /* height: calc(100% - 8px); */
+  position: relative;
+  margin-left: auto;
+  z-index: 1;
+
+  touch-action: none;
+  cursor: col-resize;
+  box-sizing: border-box;
+  stroke: var(--neutral-050);
+  margin-right: 4px;
+}
+
+.resizer > svg {
+  pointer-events: none;
+  display: block;
+  margin: auto;
+}

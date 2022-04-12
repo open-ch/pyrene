@@ -37,6 +37,8 @@ import Banner from '../Banner/Banner';
 
 import { Filter as FilterType, Filters } from '../Filter/types';
 import { IconNames } from '../types';
+import Icon from '../Icon/Icon';
+import TableHeaderCellResizer, { TableHeaderCellResizerProps } from './TableHeader/TableHeaderCellResizer';
 
 const CheckboxTable = selectTableHOC(ReactTable);
 
@@ -202,6 +204,10 @@ export interface TableProps<R = {}> {
    */
   pageSizeOptions?: number[];
   /**
+   * Wheter the columns are resizable by the user or not
+   */
+  resizable?: boolean;
+  /**
    * Allow toggling wether a row (and checkbox for a checkboxtable) is selectable
    * @returns {boolean} - enabled = true, disabled = false
    */
@@ -245,6 +251,7 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
     filterValues: {},
     negatable: false,
     error: null,
+    resizable: false,
   };
 
   checkboxTable: React.RefCallback<Instance<R>> | null = null;
@@ -285,6 +292,12 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
       },
     }),
 
+    getResizerProps: (state: any, rowInfo: RowInfo, column: Column<R>) => {
+      //if show is unset, it means that by default it's shown
+      const visibleColumns = this.createTableColumnsObject().filter((c: any) => c.show === undefined || c.show)
+      return {resizableColumn: !(column?.id === visibleColumns.pop()?.id)}
+    },
+
     onPageChange: () => this.resetSelection(),
     onPageSizeChange: (size: number) => {
       this.setState({ pageSize: size });
@@ -304,6 +317,7 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
     TheadComponent: (props: TableHeaderProps) => <TableHeader {...props} disabled={!!this.props.error} />,
     ThComponent: (props: TableHeaderCellProps) => <TableHeaderCell {...props} multiSelect={this.props.multiSelect} />,
     TdComponent: (props: TableCellProps) => <TableCell {...props} multiSelect={this.props.multiSelect} />,
+    ResizerComponent: (props: TableHeaderCellResizerProps) => <TableHeaderCellResizer {...props} />,
     PaginationComponent: (props: TablePaginationProps<R>) => (
       <TablePagination
         {...props}
@@ -313,7 +327,7 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
       />
     ),
     TfootComponent: (props: TablePaginationProps<R>) => <TablePagination {...props} />,
-    resizable: false,
+    resizable: this.props.resizable,
     showPagination: true,
     showPaginationTop: true,
     showPageSizeOptions: true,

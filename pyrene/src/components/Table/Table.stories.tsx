@@ -81,7 +81,7 @@ const baseArgs: TableProps<Row> = {
     {
       label: 'Show name',
       callback: (keys) => alert(friends[keys[0] as number].name),
-      active: 'single',
+      active: 'single'
     },
     {
       label: 'Show age',
@@ -122,6 +122,7 @@ const baseArgs: TableProps<Row> = {
       headerName: 'Age',
       accessor: 'age',
       width: 100,
+      resizable: false
     },
     {
       id: 'ageBar',
@@ -153,23 +154,24 @@ const baseArgs: TableProps<Row> = {
       ),
     },
     {
-      id: 'friendName',
-      headerName: 'Friend Name',
-      accessor: (d) => d.friend.name,
-      initiallyHidden: true,
-    },
-    {
       id: 'friendAge',
       headerName: 'Friend Age',
       accessor: (d) => d.friend.age,
       cellRenderCallback: (d) => `Friend's age is ${d?.value as number || ''}`,
       headerTooltip: 'Pyrene tooltip to this nice header name',
     },
+    {
+      id: 'friendName',
+      headerName: 'Friend Name',
+      accessor: (d) => d.friend.name,
+      initiallyHidden: true,
+    },
   ],
   data: friends,
   keyField: 'id',
   title: 'Friends list',
   multiSelect: true,
+  resizable: true
 };
 
 export const TableTemplate = Template.bind({});

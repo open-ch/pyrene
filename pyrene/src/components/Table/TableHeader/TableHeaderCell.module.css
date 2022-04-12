@@ -1,8 +1,7 @@
-@import '../../../styles/colors.module.css';
-
+@import "../../../styles/colors.module.css";
 
 .tableHeaderCell {
-  composes: commonFontSettings from '../../../styles/common.module.css';
+  composes: commonFontSettings from "../../../styles/common.module.css";
   display: flex;
   align-items: center;
 
@@ -19,15 +18,18 @@
     padding-right: 8px;
   }
 
-  &.-hidden {}
+  &.-hidden {
+  }
 
-  &.rt-header-pivot {}
+  &.rt-header-pivot {
+  }
 
-  &.-cursor-pointer {}
+  &.-cursor-pointer {
+  }
 }
 
 /* ensure that the inner div-> the heading text has correct wrapping */
-.tableHeaderCell>div {
+.tableHeaderCell > div {
   display: inline;
   overflow: hidden;
   white-space: nowrap;

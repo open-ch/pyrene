@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { ReactNode, FunctionComponent, CSSProperties, MouseEvent } from 'react';
+import React, { ReactNode, FunctionComponent, CSSProperties, MouseEvent, Children } from 'react';
 import clsx from 'clsx';
 import DefaultSort from '../images/sort.svg';
 import AscSort from '../images/sortDown.svg';
@@ -37,8 +37,10 @@ const TableHeaderCell: FunctionComponent<TableHeaderCellProps> = ({
     className={clsx({ [styles.multiSelect]: multiSelect }, styles.tableHeaderCell, className, 'unSelectable')}
     style={style}
   >
-    {children}
+    {/* Children is [column name, resizer] and we want to have the sorting icon next to name, so we put in between children */}
+    {Children.toArray(children)[0]}
     {className && getIconComponent(className)}
+    {Children.toArray(children)[1]}
   </div>
 );
 

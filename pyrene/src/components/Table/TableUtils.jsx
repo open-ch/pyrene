@@ -45,6 +45,9 @@ export default class TableUtils {
       headerStyle: {
         rtPropName: 'headerStyle',
       },
+      resizable: {
+        rtPropName: 'resizable',
+      },
     };
 
     return allColumnProps.map((columnProps) => Object.keys(columnProps).reduce((remappedColumns, key) => {
