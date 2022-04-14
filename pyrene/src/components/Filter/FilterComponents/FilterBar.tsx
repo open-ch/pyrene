@@ -96,9 +96,10 @@ export default class FilterBar extends React.Component<FilterBarProps, FilterBar
   };
 
   // ignore all entries with null value - if input is empty, remove the whole entry (id: value) from object that is passed to parent component
+  // if text filter, trim it before returning it
   getValidFilterEntries = (filterValues: Filters): Filters => Object.entries(filterValues)
     .filter(([, value]) => value !== null)
-    .reduce((merged, [key, value]) => ({ ...merged, [key]: value }), {});
+    .reduce((merged, [key, value]) => ({ ...merged, [key]: this.props.filters.find(e => e.id === key)?.type === 'text' ? (value as string).trim() : value }), {});
 
   applyFilter = () => {
     const filtered = this.getValidFilterEntries(this.state.unAppliedFilters.values);
