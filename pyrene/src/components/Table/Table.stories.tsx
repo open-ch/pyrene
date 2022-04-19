@@ -179,6 +179,12 @@ TableTemplate.storyName = 'Table';
 
 TableTemplate.args = baseArgs;
 
+
+export const MultiPageTable = Template.bind({});
+MultiPageTable.storyName = 'MultiPageTable';
+
+MultiPageTable.args = {...baseArgs, defaultPageSize: 2, pageSizeOptions: [2,3,4,5,10]};
+
 const TemplateFilterable: Story<TableProps<Row>> = ({
   filterValues,
   ...args

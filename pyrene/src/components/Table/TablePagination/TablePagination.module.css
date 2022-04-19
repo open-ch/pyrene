@@ -1,8 +1,7 @@
-@import '../../../styles/colors.module.css';
-
+@import "../../../styles/colors.module.css";
 
 .tablePagination {
-  composes: commonFontSettings from '../../../styles/common.module.css';
+  composes: commonFontSettings from "../../../styles/common.module.css";
   height: 48px;
   display: flex;
   justify-content: flex-end;
@@ -59,4 +58,24 @@
   margin: 0 8px;
 }
 
-.resultsCounter {}
+.resultsCounter {
+}
+
+.clearSelectionButton {
+  width: 16px;
+  height: 16px;
+  font-size: 16px;
+  margin-left: 4px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--neutral-030);
+    border-radius: 2px;
+  }
+}
+
+.selectedCountDiv {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}

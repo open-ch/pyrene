@@ -264,6 +264,26 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
     pageSize: this.props.defaultPageSize,
   } as TableState;
 
+  currentDataForPage = (resolvedState:any, currentPageSize: number, currentPage: number) =>  (this.props.manual ? resolvedState?.sortedData : resolvedState?.sortedData?.slice?.(currentPage * currentPageSize, currentPage * currentPageSize + currentPageSize)) || []
+
+  evaluateSelectAllState = (selection: Array<any> = this.state.selection) => {
+    // we need to get at the internals of ReactTable
+    // @ts-ignore
+    const resolvedState = this.checkboxTable?.getWrappedInstance?.().getResolvedState?.();
+    // the 'sortedData' property contains the currently accessible records based on the filter and sort
+
+    const currentPageSize = resolvedState?.pageSize || 0;
+    const currentPage = resolvedState?.page || 0;
+
+    const currentRecords: Array<DerivedDataObject> = this.currentDataForPage(resolvedState,currentPageSize, currentPage);
+
+    // if the current selection array contains all the elements of the page
+    // @ts-ignore
+
+    const isWholePageSelected = currentRecords.filter(item => this.props.rowSelectableCallback?.(item._original)).map(item => item._original[this.props.keyField]).every(id => selection.includes(id));
+    return isWholePageSelected
+  }
+
   commonStaticProps = {
     getTrProps: (state: any, rowInfo: RowInfo) => {
       // no row selected yet
@@ -281,7 +301,7 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
     getTdProps: (state: any, rowInfo: RowInfo, column: Column<R>) => ({
       onClick: (e: any, handleOriginal?: () => void) => {
         if (column.id !== '_selector' && typeof rowInfo !== 'undefined') {
-          this.singleRowSelection?.(rowInfo.original[this.props.keyField], rowInfo.original);
+          this.toggleSelection?.(rowInfo.original[this.props.keyField], rowInfo.original);
         }
         // IMPORTANT! React-Table uses onClick internally to trigger
         // events like expanding SubComponents and pivots.
@@ -298,12 +318,25 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
       return {resizableColumn: !(column?.id === visibleColumns.pop()?.id)}
     },
 
-    onPageChange: () => this.resetSelection(),
+    onPageChange: () => {
+      const newSelectAllState = this.evaluateSelectAllState()
+      this.setState(() => ({
+        selectAll: newSelectAllState,
+      }));
+    },
     onPageSizeChange: (size: number) => {
       this.setState({ pageSize: size });
-      this.resetSelection();
+      const newSelectAllState = this.evaluateSelectAllState()
+      this.setState(() => ({
+        selectAll: newSelectAllState,
+      }));
     },
-    onSortedChange: () => this.resetSelection(),
+    onSortedChange: () => {
+      const newSelectAllState = this.evaluateSelectAllState()
+      this.setState(() => ({
+        selectAll: newSelectAllState,
+      }));
+    },
     onFilteredChange: () => this.resetSelection(),
 
     // Removes React Table 'No rows found'
@@ -324,6 +357,10 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
         loading={!!this.props.loading}
         error={this.props.error}
         numberOfResults={this.props.numberOfResults || 0}
+        numberOfSelected={this.state.selection.length || 0}
+        onClearSelection={() => {
+          this.resetSelection()
+        }}
       />
     ),
     TfootComponent: (props: TablePaginationProps<R>) => <TablePagination {...props} />,
@@ -356,6 +393,12 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
     if (prevProps.numberOfResults !== this.props.numberOfResults) {
       this.resetSelection();
     }
+    const newSelectAllState = this.evaluateSelectAllState()
+    if (this.state.selectAll !== newSelectAllState){
+      this.setState(() => ({
+        selectAll: newSelectAllState,
+      }));
+    }
   }
 
   onManualFilterChange = (values: Filters) => {
@@ -379,9 +422,8 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
   toggleAll = () => {
     // Only selects what is visible to the user (page size matters)
     const selectAll = !this.state.selectAll;
-    const selection: Array<string | number> = [];
+    const selection: Array<string | number> = [...this.state.selection]; //We add the whole page to existing selection
 
-    if (selectAll) {
       // we need to get at the internals of ReactTable
       // @ts-ignore
       const resolvedState = this.checkboxTable?.getWrappedInstance?.().getResolvedState?.();
@@ -390,16 +432,24 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
       const currentPageSize = resolvedState?.pageSize || 0;
       const currentPage = resolvedState?.page || 0;
 
-      const currentRecords: Array<DerivedDataObject> = resolvedState?.sortedData?.slice?.(currentPage * currentPageSize, currentPage * currentPageSize + currentPageSize) || [];
+      const currentRecords: Array<DerivedDataObject> = this.currentDataForPage(resolvedState,currentPageSize, currentPage);
 
       // we just push all the IDs onto the selection array
       currentRecords.forEach((item) => {
         const enabled = this.props.rowSelectableCallback?.(item._original); // eslint-disable-line no-underscore-dangle
         if (enabled) {
-          selection.push(item._original[this.props.keyField]); // eslint-disable-line no-underscore-dangle
+          const idx = selection.findIndex(e => e === item._original[this.props.keyField]);
+          if (selectAll) {
+            if (idx === -1) { //Don't add duplicates
+              selection.push(item._original[this.props.keyField]); // eslint-disable-line no-underscore-dangle
+            }
+          }else {
+            if (idx !== -1){
+              selection.splice(idx, 1);
+            }
+          }
         }
       });
-    }
 
     this.setState(() => ({
       selection: selection,
@@ -442,16 +492,6 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
 
   };
 
-  singleRowSelection = (key: string | number, row: R) => {
-    const enabled = this.props.rowSelectableCallback?.(row);
-    if (enabled) {
-      this.setState({
-        selection: [key],
-        selectAll: false,
-      });
-    }
-  };
-
   toggleSelection = (key: string | number, row: R) => {
     // start off with the existing state
     let selection = [...this.state.selection];
@@ -472,14 +512,11 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
       }
     }
 
-    // if the current selection array has the same length as the pageSize then all the visible elements have to be selected
-    // @ts-ignore
-    const isWholePageSelected = selection.length === this.checkboxTable?.getWrappedInstance?.().getResolvedState?.()?.pageSize;
-    const areAllOptionsSelected = selection.length === this.props.data.length;
+    const newSelectAllState = this.evaluateSelectAllState(selection)
 
     this.setState(() => ({
       selection: selection,
-      selectAll: isWholePageSelected || areAllOptionsSelected,
+      selectAll: newSelectAllState,
     }));
   };
 

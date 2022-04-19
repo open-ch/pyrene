@@ -6,12 +6,15 @@ import Stepper from '../../Stepper/Stepper';
 import TableSelect, { Option } from './TableSelect/TableSelect';
 
 import styles from './TablePagination.module.css';
+import IconButton from '../../IconButton/IconButton';
 
 export interface TablePaginationProps<R extends unknown> {
   pages: number;
   page: number;
   data: Array<R>;
   numberOfResults: number;
+  numberOfSelected: number;
+  onClearSelection: () => void;
   loading: boolean;
   pageSize: number;
   canNext: boolean;
@@ -27,11 +30,26 @@ const showAmountOfResults = <R extends unknown>(
   numberOfResults: number,
   loading: boolean
 ) => {
-  if (loading) {
-    return '';
-  }
   const resultAmount = numberOfResults || data.length;
   return `${resultAmount === 0 ? 'No' : resultAmount} result${resultAmount === 1 ? '' : 's'} found`;
+};
+
+const showAmountOfSelected = (
+  numberOfSelected: number,
+  loading: boolean,
+  onClearSelection: () => void
+) => {
+  return (
+    <div
+      className={styles.selectedCountDiv}
+    >
+      <span>{`${numberOfSelected} selected`}</span>
+      <span
+        className={clsx("pyreneIcon-delete", styles.clearSelectionButton)}
+        onClick={onClearSelection}
+      />
+    </div>
+  );
 };
 
 /* props are controlled by the parent component of react-table */
@@ -41,6 +59,8 @@ function TablePagination<R extends unknown = {}>({
   page,
   data,
   numberOfResults,
+  numberOfSelected,
+  onClearSelection,
   loading,
   pageSize,
   canNext,
@@ -52,18 +72,35 @@ function TablePagination<R extends unknown = {}>({
 }: TablePaginationProps<R>): React.ReactElement<TablePaginationProps<R>> {
   return (
     <div className={styles.tablePagination}>
-      <div className={styles.resultsCounter}>
-        {showAmountOfResults(data, numberOfResults, loading)}
-      </div>
+      {!loading && (
+        <>
+          <div className={styles.resultsCounter}>
+            {showAmountOfResults(data, numberOfResults, loading)}
+          </div>
 
-      <div className={styles.separator} />
+          <div className={styles.separator} />
+        </>
+      )}
+      {!loading && numberOfSelected && (
+        <>
+          <div className={styles.resultsCounter}>
+            {showAmountOfSelected(numberOfSelected, loading, onClearSelection)}
+          </div>
 
+          <div className={styles.separator} />
+        </>
+      )}
       <div className={styles.pageSizeSelectOptions}>
         <div className={styles.pageSizeSelect}>
           <TableSelect
             placeholder={`${pageSize}`}
-            options={pageSizeOptions.map((e) => ({ label: `${e}`, value: `${e}` }))}
-            onChange={(option: Option) => onPageSizeChange(parseInt(option?.value || '0', 10))}
+            options={pageSizeOptions.map((e) => ({
+              label: `${e}`,
+              value: `${e}`,
+            }))}
+            onChange={(option: Option) =>
+              onPageSizeChange(parseInt(option?.value || "0", 10))
+            }
             value={`${pageSize}`}
             // Use two exclamation marks to convert a value to boolean - !!props.error = true if string has a value, false if empty
             disabled={data.length === 0 || !!error}
@@ -83,8 +120,10 @@ function TablePagination<R extends unknown = {}>({
           type="minimal"
         />
         <div className={clsx(styles.spacer, styles.small)} />
-        <div className={clsx(styles.pageTracker, { [styles.disabled]: !!error })}>
-          {pages > 0 && !error ? `${page + 1} of ${pages}` : '1 of 1'}
+        <div
+          className={clsx(styles.pageTracker, { [styles.disabled]: !!error })}
+        >
+          {pages > 0 && !error ? `${page + 1} of ${pages}` : "1 of 1"}
         </div>
         <div className={clsx(styles.spacer, styles.small)} />
         <Stepper
