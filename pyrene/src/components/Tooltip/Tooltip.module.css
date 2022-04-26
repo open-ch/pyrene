@@ -1,7 +1,7 @@
-@import '../../styles/colors.module.css';
+@import "../../styles/colors.module.css";
 
 .tooltip {
-  composes: commonFontSettings from '../../styles/common.module.css';
+  composes: commonFontSettings from "../../styles/common.module.css";
   background-color: var(--neutral-400);
   border-radius: 2px;
 
@@ -11,4 +11,5 @@
   font-size: 12px;
   line-height: 16px;
   font-weight: 500;
+  overflow-wrap: anywhere;
 }
