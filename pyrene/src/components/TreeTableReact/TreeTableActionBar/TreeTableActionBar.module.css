@@ -1,0 +1,16 @@
+@import '../../../styles/colors.module.css';
+
+.treeTableActionBar {
+  box-sizing: border-box;
+  padding-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.treeTableRightSideContainer {
+  display: flex;
+
+  &> :not(:first-child) {
+    margin-left: 16px;
+  }
+}

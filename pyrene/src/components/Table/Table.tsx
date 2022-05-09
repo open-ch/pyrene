@@ -204,7 +204,7 @@ export interface TableProps<R = {}> {
    */
   pageSizeOptions?: number[];
   /**
-   * Wheter the columns are resizable by the user or not
+   * Whether the columns are resizable by the user or not
    */
   resizable?: boolean;
   /**

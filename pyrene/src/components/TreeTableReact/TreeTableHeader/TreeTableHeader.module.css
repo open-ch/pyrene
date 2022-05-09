@@ -1,0 +1,50 @@
+@import '../../../styles/colors.module.css';
+
+.treeTableHeader {
+  composes: commonFontSettings from '../../../styles/common.module.css';
+  box-sizing: border-box;
+  height: 32px;
+  border-top: solid 1px var(--border);
+  border-bottom: solid 1px var(--border);
+  padding: 8px 6px 7px 28px;
+  min-width: 100%;
+}
+
+.treeTableHeaderCell {
+  box-sizing: border-box;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 18px;
+  letter-spacing: 0;
+  display: flex;
+  color: var(--text);
+}
+
+.resizer {
+  display: inline-block;
+  /* background: var(--neutral-100) ; */
+  width: 16px;
+  /* height: calc(100% - 8px); */
+  margin-left: auto;
+  width: 10px;
+  height: 100%;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transform: translateX(50%);
+  z-index: 1;
+  touch-action: none;
+  cursor: col-resize;
+  box-sizing: border-box;
+  stroke: var(--neutral-050);
+  margin-right: 16px;
+  margin-left: 8px;
+  display: flex;
+  align-items: center;
+}
+
+.resizer > svg {
+  pointer-events: none;
+  display: block;
+  margin: auto;
+}

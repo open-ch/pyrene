@@ -1,0 +1,36 @@
+@import '../../../styles/colors.module.css';
+
+.rowElementsContainer {
+  box-sizing: border-box;
+  border-bottom: solid 1px var(--border);
+  padding: 8px 0 7px 28px;
+  width: 100%;
+  composes: commonFontSettings from '../../../styles/common.module.css';
+
+  cursor: default;
+
+  &.activeAction {
+    cursor: pointer;
+  }
+  &:hover {
+    background-color: var(--background-tint);
+  }
+
+  &.openRootParent {
+    background-color: var(--secondary);
+  }
+
+  &.highlighted {
+    background-color: rgba(240, 211, 24, 0.15);
+  }
+}
+
+.childrenRowsContainer {
+  visibility: hidden;
+  display: none;
+
+  &.display {
+    visibility: visible;
+    display: block;
+  }
+}

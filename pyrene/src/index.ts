@@ -71,6 +71,7 @@ import { default as TimeRangeSelector } from './components/TimeRangeSelector/Tim
 import { default as ToggleButtonGroup } from './components/ToggleButtonGroup/ToggleButtonGroup';
 import { default as Tooltip } from './components/Tooltip/Tooltip';
 import { default as TreeTable } from './components/TreeTable/TreeTable';
+import { default as TreeTableReact } from './components/TreeTableReact/TreeTableReact';
 
 import { SingleSelectOption as _SingleSelectOption, SingleSelectGroupedOption as _SingleSelectGroupedOption } from './components/SingleSelect/SingleSelectTypes';
 
@@ -126,6 +127,7 @@ const Components = {
   ToggleButtonGroup,
   Tooltip,
   TreeTable,
+  TreeTableReact
 };
 
 // Sort alphabetically to find stuff easily
@@ -177,6 +179,7 @@ export { TimeRangeSelector };
 export { ToggleButtonGroup };
 export { Tooltip };
 export { TreeTable };
+export { TreeTableReact };
 
 export { createSimpleFilter, createDataFilter } from './components/Filter/Filter';
 
