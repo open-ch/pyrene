@@ -74,6 +74,7 @@ import { default as TreeTable } from './components/TreeTable/TreeTable';
 import { default as TreeTableReact } from './components/TreeTableReact/TreeTableReact';
 
 import { SingleSelectOption as _SingleSelectOption, SingleSelectGroupedOption as _SingleSelectGroupedOption } from './components/SingleSelect/SingleSelectTypes';
+import { Column as _Column } from './components/TreeTable/types';
 
 
 // Sort alphabetically to find stuff easily
@@ -185,6 +186,7 @@ export { createSimpleFilter, createDataFilter } from './components/Filter/Filter
 
 export type SingleSelectGroupedOption<ValueType> = _SingleSelectGroupedOption<ValueType>;
 export type SingleSelectOption<ValueType> = _SingleSelectOption<ValueType>;
+export type Column<ValueType> = _Column<ValueType>;
 
 export { default as colorConstants } from './styles/colorConstants';
 
