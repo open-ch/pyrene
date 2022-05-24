@@ -93,7 +93,6 @@ module.exports = () => ({
   optimization: {
     minimizer: [
       new TerserPlugin({
-        include: 'pyrene.min.js',
         parallel: true,
       }),
       new CssMinimizerPlugin({
