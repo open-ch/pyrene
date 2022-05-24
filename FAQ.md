@@ -24,6 +24,12 @@ The items `1.`, `2.`, `3`. are separated npm modules.
 
 2. nodejs 12 or higher with npm
 
+3. To use pyrene in your apps, you will require some fonts. Pyrene relies on FiraGo and FiraSans font. You can import them through a CDN easily or host them yourself. For example, you can add these two imports in your CSS:
+```
+@import url('https://free.bboxtype.com/embedfonts/?family=FiraGO:400,500,600,700');
+@import url('https://free.bboxtype.com/embedfonts/?family=FiraSans+Condensed:400');
+```
+
 ## How to use Pyrene ?
 
 ### Pyrene subproject
@@ -31,7 +37,7 @@ The items `1.`, `2.`, `3`. are separated npm modules.
 2. Import `Pyrene` subproject's style at the entry point of your application:
 
 ```
-import '@osag/pyrene/dist/pyrene.css';
+import '@osag/pyrene/dist/pyrene.min.css';
 ```
 
 ### Pyrene-graphs subproject

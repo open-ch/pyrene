@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { ActionBar } from '@osag/pyrene';
-import '@osag/pyrene/dist/pyrene.css';
+import '@osag/pyrene/dist/pyrene.min.css';
 import { minZoomRangeReached, getBoundedZoomInRange } from '@osag/tuktuktwo';
 
 /**

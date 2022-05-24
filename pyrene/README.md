@@ -17,7 +17,7 @@ yarn @osag/pyrene
 Pyrene comes with its own styles. If you're using something like [style-loader](https://webpack.js.org/loaders/style-loader/) or [css-loader](https://webpack.js.org/loaders/css-loader/), make sure to import them:
 
 ```js
-import '@osag/pyrene/dist/pyrene.css';
+import '@osag/pyrene/dist/pyrene.min.css';
 ```
 
 ### Components

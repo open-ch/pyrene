@@ -5,6 +5,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 
 const production = process.env.NODE_ENV === 'production';
 
@@ -95,7 +96,11 @@ module.exports = () => ({
         include: 'pyrene.min.js',
         parallel: true,
       }),
+      new CssMinimizerPlugin({
+        include: 'pyrene.min.css',
+      }),
     ],
+    minimize: true,
   },
   output: {
     path: OUTPUT_PATH,
