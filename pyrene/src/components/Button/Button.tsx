@@ -27,9 +27,13 @@ export interface ButtonProps {
    */
   disabled?: boolean,
   /**
-   * Adds an icon to the element.
+   * Adds an icon to the element before the label.
    */
   icon?: keyof IconNames;
+  /**
+   * Adds an icon to the element after the label
+   */
+  rightIcon?: keyof IconNames;
   /**
    * Sets the label displayed to the user.
    */
@@ -63,6 +67,7 @@ const Button: React.FC<ButtonProps> = ({
   actionType = 'submit',
   disabled = false,
   icon,
+  rightIcon,
   loading = false,
   type = ButtonKind.primary,
   onClick,
@@ -85,6 +90,7 @@ const Button: React.FC<ButtonProps> = ({
     >
       {icon && <span className={clsx(styles.icon, `pyreneIcon-${icon}`)} />}
       <span className={styles.label}>{label}</span>
+      {rightIcon && <span className={clsx(styles.icon, `pyreneIcon-${rightIcon}`)} />}
     </button>
     {loading && ((type === ButtonKind.primary || type === ButtonKind.danger || type === ButtonKind.success)
       ? <span className={styles.loader}><Loader size="small" styling="light" /></span>
