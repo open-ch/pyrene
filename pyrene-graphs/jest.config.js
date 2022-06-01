@@ -61,9 +61,9 @@ module.exports = {
 
   // An array of directory names to be searched recursively up from the requiring module's location
   // This is needed so that only the root node_modules is used, not the closest one
-  moduleDirectories: [
-    '<rootDir>/node_modules',
-  ],
+  // moduleDirectories: [
+  //   '<rootDir>/node_modules',
+  // ],
 
   // An array of file extensions your modules use
   // moduleFileExtensions: [

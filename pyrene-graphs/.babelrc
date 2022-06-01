@@ -14,7 +14,6 @@
     },
     "development": {
       "plugins": [
-        "react-docgen",
         ["babel-plugin-typescript-to-proptypes", { "comments": true }]
       ]
     },
