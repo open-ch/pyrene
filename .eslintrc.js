@@ -1,7 +1,7 @@
 const path = require('path');
 
 module.exports = {
-  extends: '@osag/eslint-config',
+  extends: ['@osag/eslint-config', 'prettier'],
   parserOptions: {
     babelOptions: {
       configFile: path.resolve(__dirname, 'babel.config.json'),
