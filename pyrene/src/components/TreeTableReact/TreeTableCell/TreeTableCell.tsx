@@ -20,23 +20,23 @@ function TreeTableCell<R extends object = {}>({
   cell,
 }: TreeTableCellProps<R>): React.ReactElement<TreeTableCellProps<R>> {
   return (
-      <div
-        {...cell.getCellProps({style})}
-        className={styles.treeTableCell}
-        title={`${cell?.value ?? cell.column.id}`}
-      >
-        {canExpand && (
-          <div
-            className={clsx(
-              styles.pivotIcon,
-              { [styles.sectionOpen]: sectionOpen },
-              'pyreneIcon-chevronDown'
-            )}
-            onClick={onExpandClick}
-          />
-        )}
-        {cell.render('Cell')}
-      </div>
+    <div
+      {...cell.getCellProps({ style })}
+      className={styles.treeTableCell}
+      title={`${cell?.value ?? cell.column.id}`}
+    >
+      {canExpand && (
+        <div
+          className={clsx(
+            styles.pivotIcon,
+            { [styles.sectionOpen]: sectionOpen },
+            'pyreneIcon-chevronDown'
+          )}
+          onClick={onExpandClick}
+        />
+      )}
+      {cell.render('Cell')}
+    </div>
   );
 }
 

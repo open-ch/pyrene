@@ -48,7 +48,7 @@ import { default as MultiSelect } from './components/MultiSelect/MultiSelect';
 import { default as Paragraph } from './components/Paragraph/Paragraph';
 import { default as Pill } from './components/Pill/Pill';
 import { default as Popover } from './components/Popover/Popover';
-import { default as ProgressBar } from "./components/ProgressBar/ProgressBar";
+import { default as ProgressBar } from './components/ProgressBar/ProgressBar';
 
 import { default as SearchFinder } from './components/SearchFinder/SearchFinder';
 
@@ -73,9 +73,11 @@ import { default as Tooltip } from './components/Tooltip/Tooltip';
 import { default as TreeTable } from './components/TreeTable/TreeTable';
 import { default as TreeTableReact } from './components/TreeTableReact/TreeTableReact';
 
-import { SingleSelectOption as _SingleSelectOption, SingleSelectGroupedOption as _SingleSelectGroupedOption } from './components/SingleSelect/SingleSelectTypes';
+import {
+  SingleSelectOption as _SingleSelectOption,
+  SingleSelectGroupedOption as _SingleSelectGroupedOption,
+} from './components/SingleSelect/SingleSelectTypes';
 import { Column as _Column } from './components/TreeTable/types';
-
 
 // Sort alphabetically to find stuff easily
 const Components = {
@@ -128,7 +130,7 @@ const Components = {
   ToggleButtonGroup,
   Tooltip,
   TreeTable,
-  TreeTableReact
+  TreeTableReact,
 };
 
 // Sort alphabetically to find stuff easily

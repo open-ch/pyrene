@@ -12,7 +12,7 @@ import {
   useTable,
   useExpanded,
   Column,
-  useBlockLayout,
+  useFlexLayout,
   useResizeColumns,
   useRowSelect,
   Row,
@@ -74,9 +74,8 @@ export interface TreeTableReactProps<R> {
   filters?: FilterType[];
   /**
    * values to be filtered & displayed in filter dropdown
-   * use {} for passing empty filterValues
    * */
-  filterValues: Filters;
+  filterValues?: Filters;
   /**
    * Sets the height for the table. This is only needed when the virtualized prop is true.
    */
@@ -169,7 +168,7 @@ function InnerTreeTableReact<R extends object = {}>(
     onFilterChange,
     renderActionBarRightItems,
     filters,
-    filterValues,
+    filterValues = {},
     setUniqueRowKey,
     setSubRowsKey,
   }: TreeTableReactProps<R>,
@@ -222,7 +221,7 @@ function InnerTreeTableReact<R extends object = {}>(
       },
     },
     useExpanded,
-    useBlockLayout,
+    useFlexLayout,
     useResizeColumns,
     useRowSelect,
     (hooks) => {
@@ -261,9 +260,13 @@ function InnerTreeTableReact<R extends object = {}>(
     toggleColumnsHandler?.(currentColumns);
   }, [currentColumns, toggleColumnsHandler]);
 
+  useEffect(() => {
+    listRef?.current?.resetAfterIndex?.(0);
+  }, [isAllRowsExpanded]);
+
   const getItemHeight = useCallback(
     (i: number) => {
-      const row = rows[i];
+      const row = rows[i]?.original as { lineCount?: number };
       const size = (row && row?.lineCount) || 1;
       return size * rowLineHeight;
     },
@@ -280,9 +283,7 @@ function InnerTreeTableReact<R extends object = {}>(
       handleExpandAllParentsOfRowById(toggleRowExpanded as any, rowId);
       const indexToScrollTo = rows.findIndex(({ id }) => id === rowId);
       const firstLvlParentRowId = getFirstLevelParentRowId(rowId);
-      const firstLvlParentRowIndex = rows.findIndex(
-        ({ id }) => id === firstLvlParentRowId
-      );
+      const firstLvlParentRowIndex = rows.findIndex(({ id }) => id === firstLvlParentRowId);
       /**
        * we want to clear the cache starting from parent,
        * since "leaf node" scroll might have sibling or parents that also get inserted into the dataset on expand.
@@ -298,8 +299,7 @@ function InnerTreeTableReact<R extends object = {}>(
         const rowElements = parent.children;
         const element = rowElements[indexToScrollTo];
         const viewportTop = element.getBoundingClientRect().top;
-        const pageScrollTop =
-          document.documentElement.scrollTop || document.body.scrollTop;
+        const pageScrollTop = document.documentElement.scrollTop || document.body.scrollTop;
 
         window.scrollTo(0, viewportTop + pageScrollTop);
       }
@@ -309,13 +309,12 @@ function InnerTreeTableReact<R extends object = {}>(
 
   const toggleAllRowsExpansion = useCallback(
     (cb = () => {}) => {
-      listRef?.current?.resetAfterIndex?.(0);
       if (!isAllRowsExpanded) {
         toggleAllRowsExpanded();
       }
       cb();
     },
-    [isAllRowsExpanded, listRef, virtualized, containerRef]
+    [isAllRowsExpanded, listRef]
   );
 
   useImperativeHandle(ref, () => ({
@@ -325,13 +324,7 @@ function InnerTreeTableReact<R extends object = {}>(
     selectedRows: selectedFlatRows,
   }));
 
-  const renderRow = ({
-    index,
-    style,
-  }: {
-    index: number;
-    style?: CSSProperties;
-  }) => {
+  const renderRow = ({ index, style }: { index: number; style?: CSSProperties }) => {
     const row = rows[index];
     prepareRow(row);
     initializeRootData(row);
@@ -363,11 +356,7 @@ function InnerTreeTableReact<R extends object = {}>(
       <div className={clsx({ [styles.loading]: loading })}>
         {Array.isArray(filters) && filters.length > 0 && (
           <div className={styles.filterContainer}>
-            <Filter
-              filters={filters}
-              filterValues={filterValues}
-              onFilterSubmit={onFilterChange}
-            />
+            <Filter filters={filters} filterValues={filterValues} onFilterSubmit={onFilterChange} />
           </div>
         )}
         <TreeTableActionBar
@@ -390,11 +379,7 @@ function InnerTreeTableReact<R extends object = {}>(
         />
         <div {...getTableProps()} className={styles.table}>
           <TreeTableHeader headerGroups={headerGroups} resizable={resizable} />
-          <div
-            ref={containerRef}
-            className="scrollable"
-            {...getTableBodyProps()}
-          >
+          <div ref={containerRef} className={styles.tableBody} {...getTableBodyProps()}>
             {virtualized ? (
               <VariableSizeList
                 height={height}
@@ -405,14 +390,12 @@ function InnerTreeTableReact<R extends object = {}>(
                 itemKey={(index) => rows[index].id}
                 ref={listRef}
                 overscanCount={10}
-                style={{ minWidth: '100%' }}
+                style={{ minWidth: '100%', width: 'auto' }}
               >
                 {renderRow}
               </VariableSizeList>
             ) : (
-              rows.map((_, index) =>
-                renderRow({ index, style: { minWidth: '100%' } })
-              )
+              rows.map((_, index) => renderRow({ index, style: { minWidth: '100%' } }))
             )}
           </div>
         </div>

@@ -20,29 +20,23 @@ function TreeTableHeader<R extends object = {}>({
           .map((col) => col.isVisible + '')
           .lastIndexOf('true');
         return (
-            <div className={styles.treeTableHeader} {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column, index) => {
-                return (
-                  <div
-                    style={column?.headerStyle}
-                    className={styles.treeTableHeaderCell}
-                    {...column.getHeaderProps()}
-                  >
-                    {column.render('Header')}
-                    {column.canResize &&
-                      resizable &&
-                      index !== lastNotHiddenIndex && (
-                        <div
-                          {...column.getResizerProps()}
-                          className={styles.resizer}
-                        >
-                          <ResizeIcon />
-                        </div>
-                      )}
-                  </div>
-                );
-              })}
-            </div>
+          <div className={styles.treeTableHeader} {...headerGroup.getHeaderGroupProps()}>
+            {headerGroup.headers.map((column, index) => {
+              return (
+                <div
+                  className={styles.treeTableHeaderCell}
+                  {...column.getHeaderProps({ style: column?.headerStyle })}
+                >
+                  {column.render('Header')}
+                  {column.canResize && resizable && index !== lastNotHiddenIndex && (
+                    <div {...column.getResizerProps()} className={styles.resizer}>
+                      <ResizeIcon />
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
         );
       })}
     </>

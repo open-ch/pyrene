@@ -1,14 +1,14 @@
 @import '../../../styles/colors.module.css';
 
 .rowElementsContainer {
-  box-sizing: border-box;
-  border-bottom: solid 1px var(--border);
-  padding: 8px 0 7px 28px;
   width: 100%;
+  border-bottom: solid 1px var(--border);
+  padding: 8px 6px 7px 28px;
+  box-sizing: border-box;
+  overflow-y: auto;
+  overflow-x: hidden;
   composes: commonFontSettings from '../../../styles/common.module.css';
-
   cursor: default;
-
   &.activeAction {
     cursor: pointer;
   }
@@ -22,15 +22,5 @@
 
   &.highlighted {
     background-color: rgba(240, 211, 24, 0.15);
-  }
-}
-
-.childrenRowsContainer {
-  visibility: hidden;
-  display: none;
-
-  &.display {
-    visibility: visible;
-    display: block;
   }
 }

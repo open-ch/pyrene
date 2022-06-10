@@ -79,17 +79,11 @@ function TreeTableRow<R extends object = {}>({
         { [styles.highlighted]: highlighted }
       )}
       onClick={hasSingleClickAction ? handleSingleClick : undefined}
-      onDoubleClick={
-        hasDoubleClickAction
-          ? () => onRowDoubleClick?.(row.original)
-          : undefined
-      }
+      onDoubleClick={hasDoubleClickAction ? () => onRowDoubleClick?.(row.original) : undefined}
       onMouseOver={() => onRowHover?.(row.original, true)}
       onMouseOut={() => onRowHover?.(row.original, false)}
     >
       {row.cells.map((cell, i) => {
-        const shouldReplaceExpander =
-          cell.column.id === 'expander' && !row?.canExpand && multiSelect;
         const styling = {
           marginLeft: i === 0 ? cell.row.depth * 24 : 0,
           // adjust column indent onExpand
@@ -99,8 +93,10 @@ function TreeTableRow<R extends object = {}>({
               cell.row.depth * 24 +
               (!row?.canExpand && multiSelect ? 16 : 0),
           }),
-          // when there is no expander and we have multiselect leave the expander as a margin
-          ...(shouldReplaceExpander && { width: 4 }),
+          // when there is no expander and we have multSelect do not leave empty space
+          ...(!row?.canExpand &&
+            multiSelect &&
+            cell.column.id === 'expander' && { minWidth: 5, width: 5, paddingRight: 0 }),
         };
         return (
           <TreeTableCell

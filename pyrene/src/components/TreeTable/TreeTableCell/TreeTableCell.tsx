@@ -30,25 +30,29 @@ function TreeTableCell<R extends object = {}>({
 }: TreeTableCellProps<R>): React.ReactElement<TreeTableCellProps<R>> {
   return (
     <div style={style} className={styles.treeTableCell}>
-
-      {firstColumn && (parent
-        ? (
+      {firstColumn &&
+        (parent ? (
           <div
-            className={clsx(styles.pivotIcon, { [styles.sectionOpen]: sectionOpen }, 'pyreneIcon-chevronDown')}
+            className={clsx(
+              styles.pivotIcon,
+              { [styles.sectionOpen]: sectionOpen },
+              'pyreneIcon-chevronDown'
+            )}
             onClick={onExpandClick}
           />
-        )
-        : <div className={styles.iconSpaceholder} />)}
+        ) : (
+          <div className={styles.iconSpaceholder} />
+        ))}
 
       {/* Use renderCallback if there is one defined for this column */}
 
-      {columnProps.renderCallback
-        ? columnProps.renderCallback(value, rowData)
-        : (
-          <div className={styles.cellDataContainer} title={`${value}`}>
-            {value}
-          </div>
-        )}
+      {columnProps.renderCallback ? (
+        columnProps.renderCallback(value, rowData)
+      ) : (
+        <div className={styles.cellDataContainer} title={`${value}`}>
+          {value}
+        </div>
+      )}
     </div>
   );
 }
