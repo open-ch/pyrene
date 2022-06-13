@@ -16,18 +16,36 @@
 }
 
 .keyValueRow {
-  border-bottom: 1px solid var(--border);
   background-color: #ffffff;
   display: flex;
-  padding-top: 7px;
-  padding-bottom: 6px;
   font-size: 12px;
   letter-spacing: 0;
+  &.row-greyLabel {
+    padding-top: 8px;
+    align-items: baseline;
+  }
+  &.row-border {
+    border-bottom: 1px solid var(--border);
+    padding-top: 7px;
+    padding-bottom: 6px;
+  }
 }
 
 .keyValueRow:first-child {
-  border-top: 1px solid var(--border);
   padding-top: 6px;
+
+  &.row-border {
+    border-top: 1px solid var(--border);
+  }
+}
+.keyValueRow:last-child {
+  &.row.greyLabel {
+    padding-bottom: 0px;
+  }
+
+  &.row-border {
+    padding-bottom: 6px;
+  }
 }
 
 .keyValueCellKey {
@@ -37,8 +55,16 @@
   overflow: hidden;
   text-overflow: ellipsis;
   vertical-align: top;
-  line-height: 18px;
-  font-weight: 500;
+
+  &.key-border {
+    line-height: 18px;
+    font-weight: 500;
+  }
+  &.key-greyLabel {
+    font-weight: 400;
+    color: var(--neutral-200);
+    line-height: 16px;
+  }
 }
 
 .keyValueCellValue {
@@ -52,9 +78,16 @@
 }
 
 .keyValueTableTitle {
-  margin-bottom: 16px;
-  font-size: 16px;
-  font-weight: 600;
   line-height: 1.5;
   color: var(--text);
+  &.title-border {
+    margin-bottom: 16px;
+    font-size: 16px;
+    font-weight: 600;
+  }
+  &.title-greyLabel {
+    font-size: 12px;
+    margin: 0 0 8px 8px;
+    font-weight: 500;
+  }
 }
