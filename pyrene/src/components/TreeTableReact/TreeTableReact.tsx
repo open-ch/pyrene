@@ -16,6 +16,7 @@ import {
   useResizeColumns,
   useRowSelect,
   Row,
+  TableRowProps,
 } from 'react-table-7';
 import { VariableSizeList, Align } from 'react-window';
 import clsx from 'clsx';
@@ -51,6 +52,12 @@ type ManipulateTable = {
   tableFullyExpanded: boolean;
   selectedRows?: Row[];
 };
+
+export interface CustomSubRowProps {
+  row?: Row;
+  rowProps?: TableRowProps;
+  listRef?: React.MutableRefObject<any>;
+}
 
 export interface TreeTableReactProps<R> {
   /**
@@ -134,7 +141,7 @@ export interface TreeTableReactProps<R> {
    */
   toggleColumnsHandler?: (columns?: Array<Column>) => void;
   /**
-   * Whether the table should be virtualized (only visible rows rendered - faster) or all rows always rendered. The height prop must also be provided if virtualized is true.
+   * Whether the table should be virtualized (only visible rows rendered - faster) or all rows always rendered. The height prop must also be provided if virtualized is true. Not available when passing `renderSubRowComponent`
    */
   virtualized?: boolean;
   /**
@@ -145,6 +152,10 @@ export interface TreeTableReactProps<R> {
    * Whether the columns are resizable by the user or not
    */
   resizable?: boolean;
+  /**
+   * Custom sub row component
+   */
+  renderSubRowComponent?: ({ row, rowProps, listRef }: CustomSubRowProps) => JSX.Element;
 }
 
 function InnerTreeTableReact<R extends object = {}>(
@@ -171,6 +182,7 @@ function InnerTreeTableReact<R extends object = {}>(
     filterValues = {},
     setUniqueRowKey,
     setSubRowsKey,
+    renderSubRowComponent,
   }: TreeTableReactProps<R>,
   ref: React.ForwardedRef<ManipulateTable>
 ) {
@@ -290,7 +302,7 @@ function InnerTreeTableReact<R extends object = {}>(
        * Therefore overlapping the height cache between 1st level parent and scrolled element.
        */
       listRef?.current?.resetAfterIndex?.(firstLvlParentRowIndex);
-      if (virtualized && listRef.current) {
+      if (virtualized && !renderSubRowComponent && listRef.current) {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         listRef.current.scrollToItem(indexToScrollTo, 'start');
       } else if (containerRef.current) {
@@ -341,6 +353,7 @@ function InnerTreeTableReact<R extends object = {}>(
         onRowHover={onRowHover}
         style={style}
         multiSelect={multiSelect}
+        customSubRow={renderSubRowComponent}
       />
     );
   };
@@ -362,7 +375,7 @@ function InnerTreeTableReact<R extends object = {}>(
         <TreeTableActionBar
           toggleAll={() => toggleAllRowsExpanded()}
           displayExpandAll={!isAllRowsExpanded}
-          disabledExpand={isFlatTree(rows, setSubRowsKey)}
+          disabledExpand={isFlatTree(rows, setSubRowsKey) && !renderSubRowComponent}
           columnToggleProps={{
             listItems: currentColumns.slice(1).map((col: Column) => ({
               id: col.id,
@@ -380,7 +393,7 @@ function InnerTreeTableReact<R extends object = {}>(
         <div {...getTableProps()} className={styles.table}>
           <TreeTableHeader headerGroups={headerGroups} resizable={resizable} />
           <div ref={containerRef} className={styles.tableBody} {...getTableBodyProps()}>
-            {virtualized ? (
+            {virtualized && !renderSubRowComponent ? (
               <VariableSizeList
                 height={height}
                 itemCount={rows.length}

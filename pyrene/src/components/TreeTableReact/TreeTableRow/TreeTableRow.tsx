@@ -4,6 +4,7 @@ import { Row } from 'react-table-7';
 
 import styles from './TreeTableRow.module.css';
 import TreeTableCell from '../TreeTableCell/TreeTableCell';
+import { CustomSubRowProps } from '../TreeTableReact';
 
 export type CellValue = string | number | boolean;
 
@@ -18,6 +19,7 @@ export interface TreeTableRowProps {
   listRef: React.MutableRefObject<any>;
   expandOnParentRowClick?: boolean;
   multiSelect?: boolean;
+  customSubRow?: ({ row, rowProps, listRef }: CustomSubRowProps) => JSX.Element;
 }
 
 function TreeTableRow<R extends object = {}>({
@@ -31,6 +33,7 @@ function TreeTableRow<R extends object = {}>({
   expandOnParentRowClick,
   style,
   multiSelect,
+  customSubRow,
 }: TreeTableRowProps): React.ReactElement<TreeTableRowProps> {
   const toggleRowExpansion = useCallback(() => {
     /**
@@ -52,7 +55,7 @@ function TreeTableRow<R extends object = {}>({
   }, [row.canExpand]);
 
   const hasExpandAction = useMemo(
-    () => row.canExpand && expandOnParentRowClick,
+    () => (row.canExpand || !!customSubRow) && expandOnParentRowClick,
     [row.canExpand, expandOnParentRowClick]
   );
   const hasSingleClickAction = useMemo(
@@ -66,50 +69,59 @@ function TreeTableRow<R extends object = {}>({
 
   const nextToExpanderColumnIndex =
     row.cells.findIndex((cell) => cell.column.id === 'expander') + 1;
+  const canExpand = useMemo(() => row?.canExpand || !!customSubRow, [row, customSubRow]);
+  const rowProps = row.getRowProps({
+    style: { ...style, ...(row.isExpanded && { width: '100%' }) },
+  });
 
   return (
-    <div
-      {...row.getRowProps({ style })}
-      className={clsx(
-        styles.rowElementsContainer,
-        {
-          [styles.openRootParent]: row.depth === 0 && row?.isExpanded && parent,
-          [styles.activeAction]: hasSingleClickAction || hasDoubleClickAction,
-        },
-        { [styles.highlighted]: highlighted }
-      )}
-      onClick={hasSingleClickAction ? handleSingleClick : undefined}
-      onDoubleClick={hasDoubleClickAction ? () => onRowDoubleClick?.(row.original) : undefined}
-      onMouseOver={() => onRowHover?.(row.original, true)}
-      onMouseOut={() => onRowHover?.(row.original, false)}
-    >
-      {row.cells.map((cell, i) => {
-        const styling = {
-          marginLeft: i === 0 ? cell.row.depth * 24 : 0,
-          // adjust column indent onExpand
-          ...(i === nextToExpanderColumnIndex && {
-            width:
-              (cell.column.width as number) -
-              cell.row.depth * 24 +
-              (!row?.canExpand && multiSelect ? 16 : 0),
-          }),
-          // when there is no expander and we have multSelect do not leave empty space
-          ...(!row?.canExpand &&
-            multiSelect &&
-            cell.column.id === 'expander' && { minWidth: 5, width: 5, paddingRight: 0 }),
-        };
-        return (
-          <TreeTableCell
-            style={{ ...styling, ...cell?.column?.cellStyle }}
-            key={cell.column.id}
-            cell={cell}
-            sectionOpen={row?.canExpand && row?.isExpanded}
-            canExpand={row?.canExpand && cell.column.id === 'expander'}
-            onExpandClick={hasExpandAction ? () => null : toggleRowExpansion}
-          />
-        );
-      })}
-    </div>
+    <>
+      <div
+        {...rowProps}
+        className={clsx(
+          styles.rowElementsContainer,
+          {
+            [styles.openRootParent]: row.depth === 0 && row?.isExpanded && parent,
+            [styles.activeAction]: hasSingleClickAction || hasDoubleClickAction,
+          },
+          { [styles.highlighted]: highlighted }
+        )}
+        onClick={hasSingleClickAction ? handleSingleClick : undefined}
+        onDoubleClick={hasDoubleClickAction ? () => onRowDoubleClick?.(row.original) : undefined}
+        onMouseOver={() => onRowHover?.(row.original, true)}
+        onMouseOut={() => onRowHover?.(row.original, false)}
+      >
+        {row.cells.map((cell, i) => {
+          const styling = !customSubRow
+            ? {
+                // adjust column indent onExpand
+                marginLeft: i === 0 ? cell.row.depth * 24 : 0,
+                ...(i === nextToExpanderColumnIndex && {
+                  width:
+                    (cell.column.width as number) -
+                    cell.row.depth * 24 +
+                    (!row?.canExpand && multiSelect ? 16 : 0),
+                }),
+                // when there is no expander and we have multSelect do not leave empty space
+                ...(!row?.canExpand &&
+                  multiSelect &&
+                  cell.column.id === 'expander' && { minWidth: 5, width: 5, paddingRight: 0 }),
+              }
+            : {};
+          return (
+            <TreeTableCell
+              style={{ ...styling, ...cell?.column?.cellStyle }}
+              key={cell.column.id}
+              cell={cell}
+              sectionOpen={canExpand && row?.isExpanded}
+              canExpand={canExpand && cell.column.id === 'expander'}
+              onExpandClick={hasExpandAction ? () => null : toggleRowExpansion}
+            />
+          );
+        })}
+      </div>
+      {row?.isExpanded && customSubRow && customSubRow({ rowProps, row, listRef })}
+    </>
   );
 }
 
