@@ -1,0 +1,326 @@
+import React, { FunctionComponent, useState, useEffect, useCallback } from 'react';
+import clsx from 'clsx';
+import { InputActionMeta, SelectComponentsConfig, components } from 'react-select';
+import CreatableSelect from 'react-select/creatable';
+
+import styles from '../SingleSelect/select.module.css';
+import MultiSelectStyle from './multiSelectCSS';
+import Loader from '../Loader/Loader';
+import CustomOption from '../SingleSelect/CustomOption';
+
+import {
+  DEFAULT_DELIMITERS,
+  delimiterCheck,
+  getRegExp,
+  createNewValue,
+  findValueIndex,
+} from './utils';
+import { Option, Tag } from './types';
+import Icon from '../Icon/Icon';
+import styles2 from './SearchWithTags.module.css';
+import ResultCount from './ResultCount';
+
+export interface MultiSelectProps {
+  /**
+   * Whether the selection is clearable.
+   */
+  clearable?: boolean;
+  /**
+   * Whether the user can create new options.
+   */
+  creatable?: boolean;
+  /**
+   * Sets delimiters for entered values
+   */
+  customDelimiters?: Array<string>;
+  /**
+   * Sets tags array
+   */
+  tags?: Tag[];
+  /**
+   * Sets a preselected options. Type: [ string | number ]
+   */
+  defaultValue?: Array<Option>;
+  /**
+   * Sets a label below the input field to display additional information for the user.
+   */
+  helperLabel?: string;
+  /**
+   * Sets the visual appearance, to signal that the input is invalid.
+   */
+  invalid?: boolean;
+  /**
+   * Sets the label displayed instead of the helperLabel when the input is invalid.
+   */
+  invalidLabel?: string;
+  /**
+   * Whether to keep the menu open on select.
+   */
+  keepMenuOnSelect?: boolean;
+  /**
+   * Displays a loading indicator inside of the input.
+   */
+  loading?: boolean;
+  /**
+   * Javascript event handler.
+   */
+  onBlur?: () => void;
+  /**
+   * Custom event handler, returns selected options from the options array.
+   */
+  onChange?: (options: ReadonlyArray<Option>) => void;
+  /**
+   * Focus event handler, use this to dynamically fetch options.
+   */
+  onFocus?: () => void;
+  /**
+   * Data input array. Type: [{ value: string (required), label: string (required), invalid: bool }]
+   */
+  options?: ReadonlyArray<Option>;
+  /**
+   * Sets the placeholder label.
+   */
+  placeholder?: string;
+  /**
+   * Whether the options are automatically sorted by the label or not.
+   */
+  sorted?: boolean;
+  /**
+   * Sets the value of the input field. Same type as supplied options.
+   */
+  value?: ReadonlyArray<Option>;
+  /**
+   * Total number of results.
+   */
+  resultCount?: number;
+  /**
+   * Currently selected result, must be smaller than resultCount.
+   */
+  selectedResult?: number;
+  /**
+   * SelectResult handler return selectedItem number.
+   */
+  onSelectedResultChange?: (selectedItem?: number) => void;
+  /**
+   * Whether to show result count component.
+   */
+  showResultCount?: boolean;
+}
+
+const LoadingIndicator = () => <Loader />;
+
+/**
+ * Multi-Selects are used when the user has to make a choice from a list. It allows the user to select multiple items from a dropdown list.
+ */
+const SearchWithTags: FunctionComponent<MultiSelectProps> = (props: MultiSelectProps) => {
+  const {
+    clearable = true,
+    creatable = false,
+    customDelimiters,
+    defaultValue = [],
+    helperLabel = '',
+    invalid = false,
+    invalidLabel = '',
+    keepMenuOnSelect = false,
+    loading = false,
+    onBlur,
+    onChange,
+    onFocus,
+    placeholder = '',
+    sorted = true,
+    value = [],
+    options = [],
+    tags,
+    resultCount,
+    onSelectedResultChange,
+    selectedResult,
+    showResultCount,
+  } = props;
+
+  const selectNextResult = useCallback(() => {
+    if (selectedResult && resultCount && selectedResult >= resultCount) {
+      onSelectedResultChange?.(1);
+      return;
+    }
+    onSelectedResultChange?.(selectedResult ?? 0 + 1);
+  }, [selectedResult, resultCount, onSelectedResultChange]);
+  const selectPreviousResult = useCallback(() => {
+    if (selectedResult && selectedResult <= 1) {
+      onSelectedResultChange?.(resultCount);
+      return;
+    }
+    onSelectedResultChange?.(selectedResult ?? 0 - 1);
+  }, [selectedResult, resultCount, onSelectedResultChange]);
+
+  const [hasPastedDuplicates, setHasPastedDuplicates] = useState(false);
+  const opts = sorted ? [...options].sort((a, b) => a.label.localeCompare(b.label)) : options;
+  const [inputValue, setInputValue] = useState('');
+
+  const [delimiters, setDelimiters] = useState<Array<string>>(DEFAULT_DELIMITERS);
+  const [regexObj, setRegexObj] = useState(getRegExp(delimiters));
+
+  useEffect(() => {
+    if (customDelimiters) {
+      setDelimiters([...DEFAULT_DELIMITERS, ...customDelimiters]);
+    }
+  }, [customDelimiters]);
+
+  // set initial input value
+  useEffect(() => {
+    const searchInputIndex = findValueIndex(value);
+    if (searchInputIndex > -1 && value[searchInputIndex].label.trim() !== inputValue.trim()) {
+      setInputValue(value[searchInputIndex].label);
+    }
+  }, []);
+
+  const Control = useCallback(
+    ({ children, ...props }: any) => {
+      const clearValue = () => {
+        if (props.selectProps.inputValue) {
+          setInputValue('');
+        }
+        props.clearValue();
+      };
+
+      return (
+        <components.Control {...props}>
+          <div className={styles2.search}>
+            <Icon type="standalone" name="search" />
+          </div>
+          {children}
+          {showResultCount ? (
+            <ResultCount
+              resultCount={resultCount}
+              selectNextResult={selectNextResult}
+              selectPreviousResult={selectPreviousResult}
+              selectedResult={selectedResult}
+              hasValue={props.hasValue}
+              clearValue={clearValue}
+              input={props.selectProps.inputValue}
+            />
+          ) : null}
+        </components.Control>
+      );
+    },
+    [
+      resultCount,
+      selectedResult,
+      onSelectedResultChange,
+      selectNextResult,
+      selectPreviousResult,
+      showResultCount,
+    ]
+  );
+
+  useEffect(() => {
+    setRegexObj(getRegExp(delimiters));
+  }, [delimiters]);
+
+  const editExistingValue = useCallback(
+    (editedValue: string) => {
+      const newInputValue = inputValue + ' ' + editedValue;
+      setInputValue(newInputValue ?? '');
+      onChange?.(value.filter((option) => option.label !== editedValue));
+    },
+    [inputValue, onChange, value]
+  );
+
+  const MultiValueLabel: SelectComponentsConfig<Option, true>['MultiValueLabel'] = ({
+    innerProps,
+    children,
+  }) => (
+    <div
+      onDoubleClick={() => (creatable ? editExistingValue(children) : undefined)}
+      title={typeof children === 'string' ? children : undefined}
+      {...innerProps}
+    >
+      {children}
+    </div>
+  );
+
+  const componentsNormal = {
+    LoadingIndicator,
+    Option: CustomOption,
+    MultiValueLabel,
+    Control: Control,
+    DropdownIndicator: null,
+    ClearIndicator: showResultCount ? null : undefined,
+  };
+
+  const onChangeHandle = useCallback(
+    (updatedOptions?: Option[], isRemove?: boolean) => {
+      if (isRemove && updatedOptions !== undefined) {
+        onChange?.(updatedOptions);
+      } else if (inputValue) {
+        onChange?.(createNewValue(inputValue, value, setInputValue, tags));
+      }
+    },
+    [inputValue, options, onChange, value, tags]
+  );
+
+  const onBlurHandle = useCallback(() => {
+    onBlur?.();
+    onChangeHandle();
+  }, [onBlur, onChangeHandle]);
+
+  return (
+    <div className={styles.selectContainer}>
+      <CreatableSelect<Option, true>
+        className="multiSelect"
+        styles={MultiSelectStyle(props) as any}
+        components={componentsNormal as SelectComponentsConfig<Option, true>}
+        // Sets the internal value to "" in case of null or undefined
+        getOptionValue={(option) =>
+          option.value !== null && typeof option.value !== 'undefined' ? option.value : ''
+        }
+        placeholder={placeholder}
+        options={opts}
+        value={value}
+        defaultValue={defaultValue}
+        isClearable={clearable}
+        isInvalid={invalid}
+        isLoading={loading}
+        inputValue={inputValue}
+        onChange={(options: any, v: any) => {
+          onChangeHandle(options, v.action === 'remove-value' || v.action === 'clear');
+        }}
+        onInputChange={(input: string, action: InputActionMeta) => {
+          if (input.length > 0) {
+            setHasPastedDuplicates(false);
+          }
+
+          if (action.action !== 'input-blur' && action.action !== 'menu-close') {
+            setInputValue(input);
+          }
+        }}
+        onBlur={onBlurHandle}
+        onFocus={onFocus}
+        onKeyDown={(key: React.KeyboardEvent<HTMLElement>) => delimiterCheck(key, regexObj)}
+        maxMenuHeight={264}
+        closeMenuOnSelect={!keepMenuOnSelect}
+        formatCreateLabel={(newValue) => `Search for "${newValue}"`}
+        isMulti
+        isSearchable
+        escapeClearsValue
+        captureMenuScroll
+      />
+
+      {hasPastedDuplicates && creatable && (
+        <div className={styles.warningLabel}>
+          <span className={clsx('pyreneIcon-warning', styles.errorIcon)} />
+          Duplicates were found and removed
+        </div>
+      )}
+      {invalid && invalidLabel ? (
+        <div className={styles.invalidLabel}>
+          <span className={clsx('pyreneIcon-errorOutline', styles.errorIcon)} />
+          {invalidLabel}
+        </div>
+      ) : (
+        <>{helperLabel && <div className={styles.selectHelper}>{helperLabel}</div>}</>
+      )}
+    </div>
+  );
+};
+
+export default SearchWithTags;

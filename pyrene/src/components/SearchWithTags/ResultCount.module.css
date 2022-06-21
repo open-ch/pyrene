@@ -1,0 +1,43 @@
+.extraElement {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  & .separator {
+    width: 1px;
+    height: 16px;
+    box-shadow: inset 1px 0 0 0 var(--neutral-050);
+    margin: 7px 4px 7px 0;
+  }
+
+  & .icon {
+    margin: 7px 4px;
+    cursor: pointer;
+    border-radius: 2px;
+
+    &.disabled {
+      pointer-events: none;
+    }
+
+    &:hover {
+      background-color: var(--neutral-030);
+    }
+  }
+
+  & .hits {
+    padding: 7px 8px;
+    color: var(--neutral-300);
+    font-size: 12px;
+    cursor: default;
+    color: var(--neutral-200);
+
+    &.disabled {
+      visibility: hidden;
+    }
+
+    & > span {
+      display: block;
+      line-height: 100%;
+    }
+  }
+}

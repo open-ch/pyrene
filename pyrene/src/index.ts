@@ -57,6 +57,8 @@ import { default as RadioButton } from './components/RadioButton/RadioButton';
 import { default as RadioPopover } from './components/RadioPopover/RadioPopover';
 
 import { default as Search } from './components/Search/Search';
+import { default as SearchWithTags } from './components/SearchWithTags/SearchWithTags';
+
 import { default as ShareDialog } from './components/ShareDialog/ShareDialog';
 import { default as SimpleTable } from './components/SimpleTable/SimpleTable';
 import { default as SingleSelect } from './components/SingleSelect/SingleSelect';
@@ -117,6 +119,7 @@ const Components = {
   RadioPopover,
   Search,
   SearchFinder,
+  SearchWithTags,
   ShareDialog,
   SimpleTable,
   SingleSelect,
@@ -169,6 +172,7 @@ export { RadioGroup };
 export { RadioPopover };
 export { Search };
 export { SearchFinder };
+export { SearchWithTags };
 export { ShareDialog };
 export { SimpleTable };
 export { SingleSelect };
