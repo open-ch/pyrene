@@ -8,7 +8,6 @@ export default {
   component: Search,
   args: {
     value: '',
-    isFocused: true,
     placeholder: 'Search for...',
   },
 } as Meta;

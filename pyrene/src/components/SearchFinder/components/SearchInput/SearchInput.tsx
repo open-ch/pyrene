@@ -92,32 +92,43 @@ const SearchInput: FunctionComponent<SearchInputProps> = ({
     }
   }, [onChange, value, focus]);
 
-  const onInputChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    onChange(e.target.value, e);
-  }, [onChange]);
+  const onInputChange = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      onChange(e.target.value, e);
+    },
+    [onChange]
+  );
 
-  const handleEnter = useCallback((e: KeyboardEvent<HTMLDivElement>) => {
-    if (e.key === 'Enter') {
-      onEnter?.();
-    }
-  }, [onEnter]);
-
+  const handleEnter = useCallback(
+    (e: KeyboardEvent<HTMLDivElement>) => {
+      if (e.key === 'Enter') {
+        onEnter?.();
+      }
+    },
+    [onEnter]
+  );
 
   const handleIsFocused = useCallback((isFocusedValue) => {
-    if (isFocused === null) {
+    if (isFocused === undefined) {
       setIsLocalFocused(isFocusedValue);
     }
-  }, [isFocused]);
+  }, []);
 
-  const handleFocus = useCallback((e: FocusEvent<HTMLInputElement>) => {
-    handleIsFocused(true);
-    onFocus?.(e);
-  }, [handleIsFocused, onFocus]);
+  const handleFocus = useCallback(
+    (e: FocusEvent<HTMLInputElement>) => {
+      handleIsFocused(true);
+      onFocus?.(e);
+    },
+    [handleIsFocused, onFocus]
+  );
 
-  const handleBlur = useCallback((e: FocusEvent<HTMLInputElement>) => {
-    handleIsFocused(false);
-    onBlur?.(e);
-  }, [handleIsFocused, onBlur]);
+  const handleBlur = useCallback(
+    (e: FocusEvent<HTMLInputElement>) => {
+      handleIsFocused(false);
+      onBlur?.(e);
+    },
+    [handleIsFocused, onBlur]
+  );
 
   return (
     <div
@@ -137,9 +148,7 @@ const SearchInput: FunctionComponent<SearchInputProps> = ({
         onBlur={handleBlur}
         placeholder={placeholder}
       />
-      <div>
-        {extraActionElement}
-      </div>
+      <div>{extraActionElement}</div>
       <div className={clsx(styles.icon, { [styles.disabled]: !value.length })} onClick={clearTerm}>
         <Icon type="standalone" name="delete" color={!value.length ? 'neutral100' : 'neutral500'} />
       </div>

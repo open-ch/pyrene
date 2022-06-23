@@ -5,39 +5,39 @@ export interface SearchProps {
   /**
    * ref of SearchInput container
    */
-  containerRef?: SearchInputProps['containerRef'],
+  containerRef?: SearchInputProps['containerRef'];
   /**
-   * set Focused state
+   * set Focused state manually
    */
-  isFocused?: SearchInputProps['isFocused'],
+  isFocused?: SearchInputProps['isFocused'];
   /**
    * called when input is blured
    */
-  onBlur?: SearchInputProps['onBlur'],
+  onBlur?: SearchInputProps['onBlur'];
   /**
    * called when value changes
    */
-  onChange: SearchInputProps['onChange'],
+  onChange: SearchInputProps['onChange'];
   /**
    * custom handler for enter keydown action
    */
-  onEnter?: SearchInputProps['onEnter'],
+  onEnter?: SearchInputProps['onEnter'];
   /**
    * called when input is focused
    */
-  onFocus?: SearchInputProps['onFocus'],
+  onFocus?: SearchInputProps['onFocus'];
   /**
    * input placeholder string
    */
-  placeholder?: SearchInputProps['placeholder'],
+  placeholder?: SearchInputProps['placeholder'];
   /**
    * input value
    */
-  value: SearchInputProps['value'],
+  value: SearchInputProps['value'];
   /**
    * width
    */
-  width?: SearchInputProps['width'],
+  width?: SearchInputProps['width'];
 }
 
 /**

@@ -1,8 +1,9 @@
 import React, { useCallback, FunctionComponent, KeyboardEvent } from 'react';
 import clsx from 'clsx';
-import styles from './SearchFinder.module.css';
 import Icon from '../Icon/Icon';
 import SearchInput, { SearchInputProps } from './components/SearchInput/SearchInput';
+
+import styles from './SearchFinder.module.css';
 
 export interface SearchFinderProps {
   /**
@@ -57,19 +58,22 @@ const SearchFinder: FunctionComponent<SearchFinderProps> = ({
       onSelectedResultChange(resultCount);
       return;
     }
-    onSelectedResultChange((selectedResult - 1));
+    onSelectedResultChange(selectedResult - 1);
   };
 
-  const onKeyDown = useCallback((e: KeyboardEvent<HTMLDivElement>) => {
-    if (e.key === 'Enter') {
-      if (e.shiftKey) {
-        selectPreviousResult();
-      } else {
-        selectNextResult();
+  const onKeyDown = useCallback(
+    (e: KeyboardEvent<HTMLDivElement>) => {
+      if (e.key === 'Enter') {
+        if (e.shiftKey) {
+          selectPreviousResult();
+        } else {
+          selectNextResult();
+        }
+        e.preventDefault();
       }
-      e.preventDefault();
-    }
-  }, [selectPreviousResult, selectNextResult]);
+    },
+    [selectPreviousResult, selectNextResult]
+  );
 
   const disableResultSelector = !searchTerm.length || resultCount < 1;
 
@@ -79,22 +83,34 @@ const SearchFinder: FunctionComponent<SearchFinderProps> = ({
         value={searchTerm}
         onChange={onSearchTermChange}
         placeholder={placeholder}
-        extraActionElement={(
+        extraActionElement={
           <div className={styles.extraElement}>
             <div className={clsx(styles.hits, { [styles.disabled]: !searchTerm.length })}>
-              <span>
-                {`${selectedResult}/${resultCount}`}
-              </span>
+              <span>{`${selectedResult}/${resultCount}`}</span>
             </div>
             <div className={styles.separator} />
-            <div className={clsx(styles.icon, { [styles.disabled]: disableResultSelector })} onClick={selectPreviousResult}>
-              <Icon type="standalone" name="chevronUp" color={disableResultSelector ? 'neutral100' : 'neutral500'} />
+            <div
+              className={clsx(styles.icon, { [styles.disabled]: disableResultSelector })}
+              onClick={selectPreviousResult}
+            >
+              <Icon
+                type="standalone"
+                name="chevronUp"
+                color={disableResultSelector ? 'neutral100' : 'neutral500'}
+              />
             </div>
-            <div className={clsx(styles.icon, { [styles.disabled]: disableResultSelector })} onClick={selectNextResult}>
-              <Icon type="standalone" name="chevronDown" color={disableResultSelector ? 'neutral100' : 'neutral500'} />
+            <div
+              className={clsx(styles.icon, { [styles.disabled]: disableResultSelector })}
+              onClick={selectNextResult}
+            >
+              <Icon
+                type="standalone"
+                name="chevronDown"
+                color={disableResultSelector ? 'neutral100' : 'neutral500'}
+              />
             </div>
           </div>
-        )}
+        }
       />
     </div>
   );
