@@ -47,7 +47,7 @@ function TreeTableRow<R extends object = {}>({
   }, [index]);
 
   const handleSingleClick = useCallback(() => {
-    if (row.canExpand && expandOnParentRowClick) {
+    if ((row.canExpand || customSubRow) && expandOnParentRowClick) {
       toggleRowExpansion();
     } else {
       onRowClick?.(row.original);
