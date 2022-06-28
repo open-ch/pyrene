@@ -56,7 +56,7 @@ export const delimiterCheck = (
 };
 
 export const validateTag = (tag: string, value: string, tags: Tag[], currentValue: TagValue[]) =>
-  tags.find((availableTag) => availableTag.value === tag)?.validate?.(value, currentValue);
+  !!tags.find((availableTag) => availableTag.value === tag)?.validate?.(value, currentValue);
 
 export const hasDuplicates = (input: string, value: TagValue[]) => {
   const existingLabels = value?.map((v) => v.label);
@@ -89,12 +89,14 @@ const getNewTags = (
   const valueRegex = new RegExp(`(?<=(${type})\\s*:).*$`, 'i');
   let value = string?.match(valueRegex)?.[0].trim();
 
-  let leftovers = '';
+  let leftovers = value;
 
   // check if there is other filter in value
   const type2 = value?.match(typeRegex)?.[0].trim();
+  // check if the first word after detected tag is another tag = detected tag is empty
+  const isEmptyTag = value?.split(' ')?.[0]?.split(':')?.[0] === type2;
 
-  if (type2 && value) {
+  if (type2 && value && !isEmptyTag) {
     // get just the first tag value
     const valueRegex2 = new RegExp(`.+?(?=${type2})`);
     value = value.match(valueRegex2)?.[0].trim();
@@ -105,6 +107,7 @@ const getNewTags = (
   }
   const label = `${type}: ${value}`;
   value &&
+    !isEmptyTag &&
     !hasDuplicates(label, results) &&
     results.push({
       value: value,
@@ -137,6 +140,7 @@ export const detectTag = (
     setInput(string);
     return existingValues;
   }
+  //everything that is before first tag
   const beforeTagRegex = new RegExp(`.*?(?=${type}\\s*:)`);
   const beforeValue = string.match(beforeTagRegex)?.[0];
   setInput(beforeValue ?? '');
@@ -180,15 +184,9 @@ export const checkLastTag = (input: string, tags: Tag[]) => {
 /**
  * Return the current value of last tag to match with available options.
  * @param {string} input - current input state
- * @param {Tag[]} tags - tags
+ * @param {string} lastTag - current last tag
  * @returns {string} current value of tag
  */
-export const checkLastTagValue = (input: string, tags: Tag[]) => {
-  const lastTag = checkLastTag(input, tags);
-  // tag value
-  return getLastTagValue(input, lastTag);
-};
-
 export const getLastTagValue = (input: string, lastTag?: string) =>
   lastTag
     ? input

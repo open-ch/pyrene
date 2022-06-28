@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Story, Meta, ArgTypes } from '@storybook/react';
 
 import SearchWithTags, { MultiSelectProps } from './SearchWithTags';
-import { Tag, OptionType, Option } from './types';
+import { Tag, OptionType, TagValue } from './types';
 
 const storyWrapper = (SimpleStory: Story, { args }: ArgTypes) => (
   <div style={{ height: 300 }}>
@@ -47,7 +47,7 @@ const tagOptions: Tag[] = [
 ];
 
 const Template: Story<MultiSelectProps> = (args) => {
-  const [tagsValue, setTagsValue] = useState<Option[]>([]);
+  const [tagsValue, setTagsValue] = useState<TagValue[]>([]);
   const [searchValue, setSearchValue] = useState<string>();
   const compArgs: MultiSelectProps = {
     ...args,

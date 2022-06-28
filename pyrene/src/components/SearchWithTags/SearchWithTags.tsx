@@ -21,7 +21,6 @@ import {
   createNewValue,
   findValueIndex,
   checkLastTag,
-  checkLastTagValue,
   getLastTagValue,
   getStartedValue,
 } from './utils';
@@ -367,7 +366,7 @@ const SearchWithTags: FunctionComponent<MultiSelectProps> = (props: MultiSelectP
         escapeClearsValue
         captureMenuScroll
         filterOption={(candidate, input) => {
-          const currentValue = tags && checkLastTagValue(input, tags);
+          const currentValue = getLastTagValue(input, tag);
           return currentValue ? candidate.label.includes(currentValue) : true;
         }}
       />
