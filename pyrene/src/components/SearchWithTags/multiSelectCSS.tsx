@@ -1,8 +1,19 @@
-import colorConstants from '../../styles/colorConstants';
+import { CSSProperties } from 'react';
+import {
+  ControlProps,
+  IndicatorProps,
+  MultiValueProps,
+  OptionProps,
+  Props as SelectProps,
+  ValueContainerProps,
+} from 'react-select';
 
-// TODO add types
-const multiSelectStyle = (props: any) => ({
-  container: (base: any) => ({
+import colorConstants from '../../styles/colorConstants';
+import { TagValue } from './types';
+
+type Props = SelectProps<TagValue, true>;
+const multiSelectStyle = (props: Props) => ({
+  container: (base: CSSProperties) => ({
     ...base,
     fontFamily: 'FiraGO, Helvetica, sans-serif !important',
     fontSize: 12,
@@ -14,13 +25,13 @@ const multiSelectStyle = (props: any) => ({
     display: 'none',
   }),
 
-  indicatorsContainer: (base: any) => ({
+  indicatorsContainer: (base: CSSProperties) => ({
     ...base,
     alignItems: 'flex-start',
     paddingTop: 7,
   }),
 
-  control: (base: any, state: any) => ({
+  control: (base: CSSProperties, state: ControlProps<TagValue, true>) => ({
     boxSizing: 'border-box',
     display: 'flex',
     flexWrap: 'wrap',
@@ -64,7 +75,7 @@ const multiSelectStyle = (props: any) => ({
   }),
 
   // whole "text area" input, without border (that's why 7 and not 8px...)
-  valueContainer: (base: any, state: any) => {
+  valueContainer: (base: CSSProperties, state: ValueContainerProps<TagValue, true>) => {
     if (props.selectedOptionsInDropdown) {
       return {
         ...base,
@@ -89,7 +100,7 @@ const multiSelectStyle = (props: any) => ({
     };
   },
 
-  placeholder: (base: any) => ({
+  placeholder: (base: CSSProperties) => ({
     ...base,
     color: colorConstants.neutral200,
     height: '100%',
@@ -125,7 +136,7 @@ const multiSelectStyle = (props: any) => ({
     },
   }),
 
-  dropdownIndicator: (base: any, state: any) => ({
+  dropdownIndicator: (base: CSSProperties, state: IndicatorProps<TagValue, true>) => ({
     '& svg': {
       display: 'none',
     },
@@ -149,11 +160,11 @@ const multiSelectStyle = (props: any) => ({
     },
   }),
 
-  input: (base: any) => ({
+  input: (base: CSSProperties) => ({
     ...base,
     // same margin as for the grey box from top & bottom; if selectedOptionsInDropdown additional 2px padding needed between text and |
     margin:
-      props.selectedOptionsInDropdown && props.value?.length > 0
+      (props.selectedOptionsInDropdown && props?.value?.length) ?? 0 > 0
         ? '2px 0 2px 2px'
         : '2px 0 2px 0px',
     padding: 0,
@@ -167,7 +178,7 @@ const multiSelectStyle = (props: any) => ({
     },
   }),
 
-  menu: (base: any) => ({
+  menu: (base: CSSProperties) => ({
     ...base,
     boxShadow: '0 4px 8px -2px rgba(0, 21, 44, 0.2)',
     borderRadius: 2,
@@ -175,7 +186,10 @@ const multiSelectStyle = (props: any) => ({
     marginTop: 4,
   }),
 
-  option: (base: any, { isSelected, isFocused, isDisabled }: any) => ({
+  TagValue: (
+    base: CSSProperties,
+    { isSelected, isFocused, isDisabled }: OptionProps<TagValue, true>
+  ) => ({
     ...base,
     ':active': {
       backgroundColor: colorConstants.neutral030,
@@ -194,7 +208,7 @@ const multiSelectStyle = (props: any) => ({
   }),
 
   // the grey boxes
-  multiValue: (base: any, { data }: any) => {
+  multiValue: (base: CSSProperties, { data }: MultiValueProps<TagValue>) => {
     return {
       ...base,
       alignItems: 'center',
@@ -207,7 +221,7 @@ const multiSelectStyle = (props: any) => ({
   },
 
   // text in the grey boxes - options label
-  multiValueLabel: (base: any, { data }: any) => ({
+  multiValueLabel: (base: CSSProperties, { data }: MultiValueProps<TagValue>) => ({
     // eslint-disable-line no-unused-vars
     ...base,
     boxSizing: 'border-box',
@@ -221,7 +235,7 @@ const multiSelectStyle = (props: any) => ({
   }),
 
   // "x" next to the label
-  multiValueRemove: (base: any, { data }: any) => ({
+  multiValueRemove: (base: CSSProperties, { data }: MultiValueProps<TagValue>) => ({
     display: 'flex',
     paddingLeft: 4,
     paddingRight: 4,
@@ -249,7 +263,7 @@ const multiSelectStyle = (props: any) => ({
     },
   }),
 
-  noOptionsMessage: (base: any) => ({
+  noOptionsMessage: (base: CSSProperties) => ({
     ...base,
     fontStyle: 'italic',
     color: colorConstants.neutral200,

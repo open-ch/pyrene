@@ -1,0 +1,25 @@
+.dropdownMenuContainer {
+  padding: 16px;
+}
+.title {
+  font-weight: 500;
+  margin-bottom: 16px;
+}
+.tagRow {
+  display: flex;
+  flex-flow: row;
+}
+.tag {
+  padding: 2px 4px;
+  margin-right: 8px;
+  border-radius: 2px;
+  cursor: pointer;
+}
+.hint {
+  color: var(--neutral-200);
+  margin-bottom: 16px;
+}
+.searchLabel {
+  color: var(--neutral-500);
+  margin-bottom: 16px;
+}

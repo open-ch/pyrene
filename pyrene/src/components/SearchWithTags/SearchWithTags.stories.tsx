@@ -1,9 +1,8 @@
-/* eslint-disable react/display-name */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Story, Meta, ArgTypes } from '@storybook/react';
 
 import SearchWithTags, { MultiSelectProps } from './SearchWithTags';
-import { Tag, Option } from './types';
+import { Tag, OptionType, Option } from './types';
 
 const storyWrapper = (SimpleStory: Story, { args }: ArgTypes) => (
   <div style={{ height: 300 }}>
@@ -20,25 +19,44 @@ export default {
     },
   },
 } as Meta;
+const typeOptions: OptionType[] = [
+  { label: 'good', value: 'good' },
+  { label: 'bad', value: 'bad' },
+  { label: 'excellent', value: 'excellent' },
+  { label: 'unknown', value: 'unknown' },
+  { label: 'unknown2', value: 'unknown2' },
+];
 
+const sourceOptions: OptionType[] = [
+  { label: 'global', value: 'global' },
+  { label: 'local', value: 'local' },
+  { label: 'policy-1', value: 'policy-1' },
+  { label: 'policy-2', value: 'policy-2' },
+  { label: 'policy-3', value: 'policy-3' },
+];
 const tagOptions: Tag[] = [
-  { value: 'type', style: { backgroundColor: '#C0EDC0', color: '#4F815E' } },
+  { value: 'type', style: { backgroundColor: '#C0EDC0', color: '#4F815E' }, options: typeOptions },
   { value: 'section', style: { backgroundColor: '#E5EDF5', color: '#454D61' } },
-  { value: 'source', style: { backgroundColor: '#A5EAE3', color: '#357E81' } },
+  {
+    value: 'source',
+    style: { backgroundColor: '#A5EAE3', color: '#357E81' },
+    options: sourceOptions,
+  },
   { value: 'destination', style: { backgroundColor: '#91C3EA', color: '#215888' } },
   { value: 'rule', style: { backgroundColor: '#F7EEAF', color: '#86824E' } },
 ];
 
 const Template: Story<MultiSelectProps> = (args) => {
-  const [selection, setSelection] = useState<readonly Option[]>([]);
+  const [tagsValue, setTagsValue] = useState<Option[]>([]);
+  const [searchValue, setSearchValue] = useState<string>();
   const compArgs: MultiSelectProps = {
     ...args,
     onChange: (sel) => {
-      setSelection(sel);
+      setTagsValue(sel);
     },
-    value: selection,
+    tagsValue: tagsValue,
   };
-  return <SearchWithTags {...compArgs} />;
+  return <SearchWithTags {...compArgs} setSearchValue={setSearchValue} searchValue={searchValue} />;
 };
 
 export const Simple = Template.bind({});

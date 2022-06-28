@@ -1,6 +1,12 @@
-import React, { FunctionComponent, useState, useEffect, useCallback } from 'react';
+import React, { FunctionComponent, useState, useEffect, useCallback, useMemo } from 'react';
 import clsx from 'clsx';
-import { InputActionMeta, SelectComponentsConfig, components } from 'react-select';
+import {
+  InputActionMeta,
+  SelectComponentsConfig,
+  components,
+  ControlProps,
+  Props,
+} from 'react-select';
 import CreatableSelect from 'react-select/creatable';
 
 import styles from '../SingleSelect/select.module.css';
@@ -14,11 +20,16 @@ import {
   getRegExp,
   createNewValue,
   findValueIndex,
+  checkLastTag,
+  checkLastTagValue,
+  getLastTagValue,
+  getStartedValue,
 } from './utils';
-import { Option, Tag } from './types';
+import { OptionType, Tag, TagValue } from './types';
 import Icon from '../Icon/Icon';
 import styles2 from './SearchWithTags.module.css';
 import ResultCount from './ResultCount';
+import DropdownMenu from './DropdownMenu';
 
 export interface MultiSelectProps {
   /**
@@ -32,7 +43,7 @@ export interface MultiSelectProps {
   /**
    * Sets delimiters for entered values
    */
-  customDelimiters?: Array<string>;
+  customDelimiters?: string[];
   /**
    * Sets tags array
    */
@@ -40,7 +51,7 @@ export interface MultiSelectProps {
   /**
    * Sets a preselected options. Type: [ string | number ]
    */
-  defaultValue?: Array<Option>;
+  defaultValue?: TagValue[];
   /**
    * Sets a label below the input field to display additional information for the user.
    */
@@ -54,10 +65,6 @@ export interface MultiSelectProps {
    */
   invalidLabel?: string;
   /**
-   * Whether to keep the menu open on select.
-   */
-  keepMenuOnSelect?: boolean;
-  /**
    * Displays a loading indicator inside of the input.
    */
   loading?: boolean;
@@ -68,15 +75,11 @@ export interface MultiSelectProps {
   /**
    * Custom event handler, returns selected options from the options array.
    */
-  onChange?: (options: ReadonlyArray<Option>) => void;
+  onChange?: (options: TagValue[]) => void;
   /**
    * Focus event handler, use this to dynamically fetch options.
    */
   onFocus?: () => void;
-  /**
-   * Data input array. Type: [{ value: string (required), label: string (required), invalid: bool }]
-   */
-  options?: ReadonlyArray<Option>;
   /**
    * Sets the placeholder label.
    */
@@ -86,9 +89,9 @@ export interface MultiSelectProps {
    */
   sorted?: boolean;
   /**
-   * Sets the value of the input field. Same type as supplied options.
+   * Sets the tags value of the input field.
    */
-  value?: ReadonlyArray<Option>;
+  tagsValue?: TagValue[];
   /**
    * Total number of results.
    */
@@ -105,6 +108,14 @@ export interface MultiSelectProps {
    * Whether to show result count component.
    */
   showResultCount?: boolean;
+  /**
+   * Set search string
+   */
+  setSearchValue: (search: string) => void;
+  /**
+   * String without a tag
+   */
+  searchValue?: string;
 }
 
 const LoadingIndicator = () => <Loader />;
@@ -121,21 +132,28 @@ const SearchWithTags: FunctionComponent<MultiSelectProps> = (props: MultiSelectP
     helperLabel = '',
     invalid = false,
     invalidLabel = '',
-    keepMenuOnSelect = false,
     loading = false,
     onBlur,
     onChange,
     onFocus,
     placeholder = '',
     sorted = true,
-    value = [],
-    options = [],
+    tagsValue = [],
     tags,
     resultCount,
     onSelectedResultChange,
     selectedResult,
     showResultCount,
+    setSearchValue,
+    searchValue = '',
   } = props;
+
+  const [tag, setTag] = useState<string>();
+  const [options, setOptions] = useState<OptionType[]>([]);
+
+  useEffect(() => {
+    setOptions(tags?.filter((tagName) => tagName?.value === tag)?.[0]?.options ?? []);
+  }, [tag]);
 
   const selectNextResult = useCallback(() => {
     if (selectedResult && resultCount && selectedResult >= resultCount) {
@@ -152,11 +170,12 @@ const SearchWithTags: FunctionComponent<MultiSelectProps> = (props: MultiSelectP
     onSelectedResultChange?.(selectedResult ?? 0 - 1);
   }, [selectedResult, resultCount, onSelectedResultChange]);
 
-  const [hasPastedDuplicates, setHasPastedDuplicates] = useState(false);
-  const opts = sorted ? [...options].sort((a, b) => a.label.localeCompare(b.label)) : options;
-  const [inputValue, setInputValue] = useState('');
+  const opts = useMemo(
+    () => (sorted ? [...options].sort((a, b) => a.label.localeCompare(b.label)) : options),
+    [options, sorted]
+  );
 
-  const [delimiters, setDelimiters] = useState<Array<string>>(DEFAULT_DELIMITERS);
+  const [delimiters, setDelimiters] = useState<string[]>(DEFAULT_DELIMITERS);
   const [regexObj, setRegexObj] = useState(getRegExp(delimiters));
 
   useEffect(() => {
@@ -167,17 +186,17 @@ const SearchWithTags: FunctionComponent<MultiSelectProps> = (props: MultiSelectP
 
   // set initial input value
   useEffect(() => {
-    const searchInputIndex = findValueIndex(value);
-    if (searchInputIndex > -1 && value[searchInputIndex].label.trim() !== inputValue.trim()) {
-      setInputValue(value[searchInputIndex].label);
+    const searchInputIndex = findValueIndex(tagsValue);
+    if (searchInputIndex > -1 && tagsValue[searchInputIndex].label.trim() !== searchValue.trim()) {
+      setSearchValue(tagsValue[searchInputIndex].label);
     }
   }, []);
 
   const Control = useCallback(
-    ({ children, ...props }: any) => {
+    ({ children, ...props }: ControlProps<TagValue, true>) => {
       const clearValue = () => {
         if (props.selectProps.inputValue) {
-          setInputValue('');
+          setSearchValue('');
         }
         props.clearValue();
       };
@@ -218,14 +237,14 @@ const SearchWithTags: FunctionComponent<MultiSelectProps> = (props: MultiSelectP
 
   const editExistingValue = useCallback(
     (editedValue: string) => {
-      const newInputValue = inputValue + ' ' + editedValue;
-      setInputValue(newInputValue ?? '');
-      onChange?.(value.filter((option) => option.label !== editedValue));
+      const newInputValue = searchValue + ' ' + editedValue;
+      setSearchValue(newInputValue ?? '');
+      onChange?.(tagsValue.filter((option) => option.label !== editedValue));
     },
-    [inputValue, onChange, value]
+    [searchValue, onChange, tagsValue]
   );
 
-  const MultiValueLabel: SelectComponentsConfig<Option, true>['MultiValueLabel'] = ({
+  const MultiValueLabel: SelectComponentsConfig<TagValue, true>['MultiValueLabel'] = ({
     innerProps,
     children,
   }) => (
@@ -238,6 +257,19 @@ const SearchWithTags: FunctionComponent<MultiSelectProps> = (props: MultiSelectP
     </div>
   );
 
+  const handleTagSelect = useCallback(
+    (tag: string) => {
+      // check if the last word is a started tag
+      const trimmedInput = searchValue.trim();
+      const beforeTag = getStartedValue(searchValue, tag);
+      const newInput =
+        beforeTag !== undefined ? `${beforeTag}${tag}: ` : `${trimmedInput} ${tag}: `;
+      setSearchValue(newInput);
+      setTag?.(tag);
+    },
+    [searchValue]
+  );
+
   const componentsNormal = {
     LoadingIndicator,
     Option: CustomOption,
@@ -245,17 +277,33 @@ const SearchWithTags: FunctionComponent<MultiSelectProps> = (props: MultiSelectP
     Control: Control,
     DropdownIndicator: null,
     ClearIndicator: showResultCount ? null : undefined,
+    Menu: (props: any) =>
+      DropdownMenu({
+        ...props,
+        children: props.children,
+        tags,
+        handleOnTagClick: handleTagSelect,
+        showOptions: !!tag,
+      }),
   };
 
   const onChangeHandle = useCallback(
-    (updatedOptions?: Option[], isRemove?: boolean) => {
+    (updatedOptions?: TagValue[], isRemove?: boolean, select?: TagValue) => {
       if (isRemove && updatedOptions !== undefined) {
-        onChange?.(updatedOptions);
-      } else if (inputValue) {
-        onChange?.(createNewValue(inputValue, value, setInputValue, tags));
+        onChange?.([]);
+      } else if (select) {
+        // check if last string is started selected value
+        const beforeSelect = getStartedValue(searchValue, select.label);
+        const newSelect = beforeSelect
+          ? `${beforeSelect} ${select.label}`
+          : `${searchValue} ${select.label}`;
+        onChange?.(createNewValue(newSelect, tagsValue, setSearchValue, tags));
+      } else if (searchValue) {
+        onChange?.(createNewValue(searchValue, tagsValue, setSearchValue, tags));
       }
+      setTag?.(undefined);
     },
-    [inputValue, options, onChange, value, tags]
+    [searchValue, options, onChange, tagsValue, tags]
   );
 
   const onBlurHandle = useCallback(() => {
@@ -263,54 +311,67 @@ const SearchWithTags: FunctionComponent<MultiSelectProps> = (props: MultiSelectP
     onChangeHandle();
   }, [onBlur, onChangeHandle]);
 
+  const formatNoOptionsMessage = useCallback(
+    (newValue: string) => {
+      if (tag) {
+        let optionResults = getLastTagValue(newValue, tag);
+        return `Add tag "${tag}: ${optionResults ?? ''}"`;
+      }
+      return `Search for "${newValue}"`;
+    },
+    [tag]
+  );
   return (
     <div className={styles.selectContainer}>
-      <CreatableSelect<Option, true>
+      <CreatableSelect<TagValue, true>
         className="multiSelect"
-        styles={MultiSelectStyle(props) as any}
-        components={componentsNormal as SelectComponentsConfig<Option, true>}
+        styles={MultiSelectStyle(props as Props<TagValue, true>) as any}
+        components={componentsNormal as SelectComponentsConfig<TagValue, true>}
         // Sets the internal value to "" in case of null or undefined
         getOptionValue={(option) =>
           option.value !== null && typeof option.value !== 'undefined' ? option.value : ''
         }
+        blurInputOnSelect={false}
         placeholder={placeholder}
         options={opts}
-        value={value}
+        value={tagsValue}
         defaultValue={defaultValue}
         isClearable={clearable}
         isInvalid={invalid}
         isLoading={loading}
-        inputValue={inputValue}
+        inputValue={searchValue}
         onChange={(options: any, v: any) => {
-          onChangeHandle(options, v.action === 'remove-value' || v.action === 'clear');
+          onChangeHandle(
+            options,
+            v.action === 'remove-value' || v.action === 'clear',
+            v.action === 'select-option' && v.option
+          );
         }}
         onInputChange={(input: string, action: InputActionMeta) => {
-          if (input.length > 0) {
-            setHasPastedDuplicates(false);
-          }
-
           if (action.action !== 'input-blur' && action.action !== 'menu-close') {
-            setInputValue(input);
+            setSearchValue(input);
+            if (tags) {
+              setTag?.(checkLastTag(input, tags));
+            }
           }
         }}
         onBlur={onBlurHandle}
         onFocus={onFocus}
         onKeyDown={(key: React.KeyboardEvent<HTMLElement>) => delimiterCheck(key, regexObj)}
         maxMenuHeight={264}
-        closeMenuOnSelect={!keepMenuOnSelect}
-        formatCreateLabel={(newValue) => `Search for "${newValue}"`}
+        closeMenuOnSelect={false}
+        formatCreateLabel={(newValue) => formatNoOptionsMessage(newValue)}
+        noOptionsMessage={(input) => formatNoOptionsMessage(input.inputValue)}
         isMulti
         isSearchable
         escapeClearsValue
         captureMenuScroll
+        filterOption={(candidate, input) => {
+          const currentValue = tags && checkLastTagValue(input, tags);
+          return currentValue ? candidate.label.includes(currentValue) : true;
+        }}
       />
 
-      {hasPastedDuplicates && creatable && (
-        <div className={styles.warningLabel}>
-          <span className={clsx('pyreneIcon-warning', styles.errorIcon)} />
-          Duplicates were found and removed
-        </div>
-      )}
       {invalid && invalidLabel ? (
         <div className={styles.invalidLabel}>
           <span className={clsx('pyreneIcon-errorOutline', styles.errorIcon)} />

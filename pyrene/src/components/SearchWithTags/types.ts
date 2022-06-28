@@ -5,7 +5,7 @@ export interface OptionStyle {
   backgroundColor: CSSProperties['backgroundColor'];
 }
 
-export interface Option {
+export interface TagValue {
   invalid?: boolean;
   label: string;
   value: string;
@@ -13,6 +13,12 @@ export interface Option {
   style?: OptionStyle;
 }
 
-export interface Tag extends Omit<Option, 'label' | 'invalid'> {
-  validate?: (tagValue: string, currentValue: Option[]) => boolean;
+export interface Tag extends Omit<TagValue, 'label' | 'invalid' | 'tag'> {
+  validate?: (tagValue: string, currentValue: TagValue[]) => boolean;
+  options?: OptionType[];
+}
+
+export interface OptionType {
+  value: string;
+  label: string;
 }

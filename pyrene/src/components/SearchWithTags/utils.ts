@@ -1,17 +1,6 @@
-import { Option, Tag } from './types';
+import { TagValue, Tag } from './types';
 
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 export const DEFAULT_DELIMITERS = ['\n', '\t'];
-
-export const updateExistingValue = (newInput: string, existingValues: readonly Option[]) => {
-  const updatedValues = [...existingValues];
-  const valueIndex = findValueIndex(existingValues);
-  const newValueObject = { value: newInput, label: newInput, invalid: false };
-  if (valueIndex > -1) {
-    updatedValues[valueIndex] = newValueObject;
-    return updatedValues;
-  } else return [...existingValues, newValueObject];
-};
 
 /**
  * Get tag style
@@ -37,7 +26,7 @@ export const getTagsRegex = (tags?: Tag[]) => {
  * @param {string[]} regexStringArray - Array of regex string delimiters
  * @returns {RegExp}
  */
-export const getRegExp = (regexStringArray: Array<string>) =>
+export const getRegExp = (regexStringArray: string[]) =>
   new RegExp(`\\s*[${regexStringArray.join('|')}]\\s*`);
 
 /**
@@ -66,17 +55,17 @@ export const delimiterCheck = (
   return keyEvent;
 };
 
-export const validateTag = (tag: string, value: string, tags: Tag[], currentValue: Option[]) =>
+export const validateTag = (tag: string, value: string, tags: Tag[], currentValue: TagValue[]) =>
   tags.find((availableTag) => availableTag.value === tag)?.validate?.(value, currentValue);
 
-export const hasDuplicates = (input: string, value: readonly Option[] | Option[]) => {
+export const hasDuplicates = (input: string, value: TagValue[]) => {
   const existingLabels = value?.map((v) => v.label);
   return existingLabels?.find(
     (v) => v.toLowerCase().replace(/\s/g, '') === input.toLowerCase().replace(/\s/g, '')
   );
 };
 
-export const findValueIndex = (values?: Option[] | readonly Option[]) =>
+export const findValueIndex = (values?: TagValue[]) =>
   values?.findIndex((v) => v?.tag === undefined) ?? -1;
 
 /**
@@ -85,16 +74,16 @@ export const findValueIndex = (values?: Option[] | readonly Option[]) =>
  * @param {string} type - array of string values
  * @param {RegExp} typeRegex - array of string values
  * @param {Tag[]} tags - array of string values
- * @param {Option[]} options - array of string values
- * @returns {Option[]}
+ * @param {TagValue[]} options - array of string values
+ * @returns {TagValue[]}
  */
 const getNewTags = (
   string: string,
   type: string,
   typeRegex: RegExp,
   tags: Tag[],
-  options: Option[]
-): Option[] => {
+  options: TagValue[]
+): TagValue[] => {
   const results = [...options];
   // everything after tag
   const valueRegex = new RegExp(`(?<=(${type})\\s*:).*$`, 'i');
@@ -131,38 +120,35 @@ const getNewTags = (
 };
 
 /**
- * Create Option[] values from input
+ * Create TagValue[] values from input
  * @param {string} string - input value
  * @param {Tag[]} tags - tags
- * @returns {Option[]}
+ * @returns {TagValue[]}
  */
 export const detectTag = (
   string: string,
-  existingValues: readonly Option[],
+  existingValues: TagValue[],
   setInput: (input: string) => void,
   tags?: Tag[]
-): Option[] | readonly Option[] => {
+): TagValue[] => {
   const typeRegex = getTagsRegex(tags);
   const type = string?.match(typeRegex)?.[0].trim();
-
   if (!type || !tags) {
     setInput(string);
-    return updateExistingValue(string, existingValues);
+    return existingValues;
   }
   const beforeTagRegex = new RegExp(`.*?(?=${type}\\s*:)`);
   const beforeValue = string.match(beforeTagRegex)?.[0];
   setInput(beforeValue ?? '');
-  let options = beforeValue
-    ? updateExistingValue(beforeValue.trim(), existingValues)
-    : [...existingValues];
+  let options = existingValues;
 
-  //everything that is before first tag
+  // everything that is before first tag
   const leftovers = beforeValue ? string.replace(beforeValue, '').trim() : string;
   return getNewTags(leftovers, type, typeRegex, tags, options);
 };
 
 /**
- * Return the new value object array. If entries match a given option, use that option.
+ * Return the new value object array.
  * @param {string[]} values - array of string values
  * @param {object[]} options - pre-provided options
  * @param {object[]} existingValues - current values in the input
@@ -171,7 +157,54 @@ export const detectTag = (
  */
 export const createNewValue = (
   value: string,
-  existingValues: readonly Option[],
+  existingValues: TagValue[],
   setInput: (input: string) => void,
   tags?: Tag[]
 ) => detectTag(value, existingValues, setInput, tags).flatMap((v) => v);
+
+/**
+ * Return the current tag in the input.
+ * @param {string} input - current input state
+ * @param {Tag[]} tags - tags
+ * @returns {string} current last tag in the input
+ */
+export const checkLastTag = (input: string, tags: Tag[]) => {
+  const tagsValues = tags?.flatMap((tag) => tag.value);
+  const tagsOptions = tagsValues?.join('|');
+  // last tag in string
+  const lastTag = new RegExp(`((${tagsOptions})\\s*:\\s*)(?!.*((${tagsOptions})\\s*:\\s*))`, 'i');
+  const optionTag = input?.match(lastTag)?.[0].replace(':', '').trim();
+  return optionTag;
+};
+
+/**
+ * Return the current value of last tag to match with available options.
+ * @param {string} input - current input state
+ * @param {Tag[]} tags - tags
+ * @returns {string} current value of tag
+ */
+export const checkLastTagValue = (input: string, tags: Tag[]) => {
+  const lastTag = checkLastTag(input, tags);
+  // tag value
+  return getLastTagValue(input, lastTag);
+};
+
+export const getLastTagValue = (input: string, lastTag?: string) =>
+  lastTag
+    ? input
+        .match(new RegExp(`(?<=(${lastTag}\\s*:\\s*)(?!.*((${lastTag})\\s*:\\s*))).*$`, 'i'))?.[0]
+        .trimStart()
+    : undefined;
+/**
+ * Return before string of another string if match otherwise return undefined.
+ * @param {string} input - current input state
+ * @param {string} matchedString - tags
+ * @returns {string} marched part
+ */
+export const getStartedValue = (input: string, matchedString: string): string | undefined => {
+  const lastWord = input.match(/\b(\w+)$/)?.[0];
+  const beforeLastWord = new RegExp(`.*?(?=${lastWord})`);
+  return lastWord && matchedString.includes(lastWord)
+    ? input.match(beforeLastWord)?.[0]
+    : undefined;
+};
