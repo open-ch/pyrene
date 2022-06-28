@@ -1,7 +1,7 @@
-@import "../../styles/colors.module.css";
+@import '../../styles/colors.module.css';
 
 .textFieldContainer {
-  composes: commonFontSettings from "../../styles/common.module.css";
+  composes: commonFontSettings from '../../styles/common.module.css';
 
   &.disabled {
     opacity: 0.5;
@@ -24,8 +24,14 @@
   margin-bottom: 4px;
 
   &.required:after {
-    content: "*";
+    content: '*';
     color: var(--danger-fg);
+  }
+
+  &.titleWithIcon {
+    display: flex;
+    gap: 4px;
+    align-items: center;
   }
 }
 
@@ -44,8 +50,8 @@
   background-color: var(--background-tint);
   outline: none;
 
-  &[type="text"],
-  &[type="password"] {
+  &[type='text'],
+  &[type='password'] {
     padding: 8px 7px;
     font-family: FiraGO, Helvetica, sans-serif;
     font-size: 12px;

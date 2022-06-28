@@ -9,7 +9,7 @@
   display: inline-block;
 }
 
-.dateTimeChild:nth-child(n+2) {
+.dateTimeChild:nth-child(n + 2) {
   margin-left: 16px;
 }
 
@@ -22,7 +22,7 @@
 }
 
 .dateTimeInputError {
-  box-shadow: 0 0 0 1px var(--red-500) inset!important; /* Places the border inside of the div to prevent size jump */
+  box-shadow: 0 0 0 1px var(--red-500) inset !important; /* Places the border inside of the div to prevent size jump */
 }
 
 .dateTimeInputErrorMsg {
@@ -33,34 +33,35 @@
   line-height: 1.18;
 }
 
-.dateTimeInputArea {    
+.dateTimeInputArea {
   height: 32px;
   border-radius: 2px;
   box-shadow: 0 0 0 1px var(--neutral-200) inset; /* Places the border inside of the div to prevent size jump */
   background-color: var(--neutral-020); /* same as input default */
   align-items: center;
   display: inline-flex;
+  width: 100%;
 }
 
 .dateTimeInputArea:focus-within {
   box-shadow: 0 0 0 1px var(--blue-500) inset;
-  background-color: var(--neutral-000);  
+  background-color: var(--neutral-000);
 }
 
 .dateTimeInputArea:hover {
   box-shadow: 0 0 0 1px var(--blue-500) inset;
 }
 
-.input {   
+.input {
   font-size: 12px;
   margin: 4px 0px 4px 4px;
-  color: var(--neutral-500);      
-  font-family: inherit;        
+  color: var(--neutral-500);
+  font-family: inherit;
   padding: 0px;
   border: none;
   outline: none;
   background-color: inherit;
-}  
+}
 
 .input::placeholder {
   font-size: 11px;
@@ -68,24 +69,25 @@
 }
 
 .dateInput {
-  width: 70px;
+  width: 100%;
 }
 
 .dateTimeInput {
-  width: 110px;
+  width: 100%;
 }
 
-.timeInput{
-  width: 38px;  
-}  
+.timeInput {
+  width: 100%;
+}
 
 .iconInputContainer {
   display: flex;
-  align-items: center;    
+  align-items: center;
   height: 16px;
-}  
+  width: 100%;
+}
 
-.calendar { 
+.calendar {
   margin-left: 8px;
   margin-right: 8px;
 }

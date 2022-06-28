@@ -77,6 +77,10 @@ export interface TextFieldProps {
    * Adds an icon in the left end of the input field.
    */
   iconName?: keyof IconNames;
+  /**
+   * Adds an icon before the title (pass a loaded svg src)
+   */
+  iconTitle?: string;
 }
 
 /**
@@ -106,6 +110,7 @@ const TextField: FunctionComponent<TextFieldProps> = ({
   onSubmit,
   autoFocus = false,
   iconName,
+  iconTitle,
 }: TextFieldProps) => (
   <div
     className={clsx(styles.textFieldContainer, {
@@ -118,8 +123,10 @@ const TextField: FunctionComponent<TextFieldProps> = ({
       <div
         className={clsx(styles.textFieldTitle, {
           [styles.required]: required && !disabled,
+          [styles.titleWithIcon]: !!iconTitle,
         })}
       >
+        {iconTitle && <img width="11px" height="11px" alt="icon for title" src={iconTitle} />}
         {title}
       </div>
     )}
@@ -153,7 +160,9 @@ const TextField: FunctionComponent<TextFieldProps> = ({
         <span className={clsx('pyreneIcon-errorOutline', styles.errorIcon)} />
         {invalidLabel}
       </div>
-    ) : helperLabel && <div className={styles.textFieldHelper}>{helperLabel}</div>}
+    ) : (
+      helperLabel && <div className={styles.textFieldHelper}>{helperLabel}</div>
+    )}
   </div>
 );
 
