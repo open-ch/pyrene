@@ -40,6 +40,8 @@ import {
   prepareColumnToggle,
   scrollbarWidth,
 } from './utils';
+import { IconNames } from '../types';
+import { ActionActiveOption } from '../../utils/TableUtils';
 
 const defaultColumn = {
   minWidth: 30,
@@ -59,7 +61,19 @@ export interface CustomSubRowProps {
   listRef?: React.MutableRefObject<any>;
 }
 
+export interface Action {
+  active: ActionActiveOption;
+  callback: (rows: Row<{}>[]) => void;
+  icon?: keyof IconNames;
+  label: string;
+  loading?: boolean;
+}
+
 export interface TreeTableReactProps<R> {
+  /**
+   * Sets the table actions. Type: [{ icon: string, label: string (required), callback: func (required), active: oneOf('single', 'multi', 'always', 'disabled') (required) }]
+   */
+  actions?: Array<Action>;
   /**
    * Sets the Table columns.
    * Type: [{ id: string (required), headerName: string (required), accessor: string (required), headerStyle: object, cellStyle: object, initiallyHidden: bool, width: number }]
@@ -160,6 +174,7 @@ export interface TreeTableReactProps<R> {
 
 function InnerTreeTableReact<R extends object = {}>(
   {
+    actions = [],
     data,
     columns,
     expandOnParentRowClick = false,
@@ -216,8 +231,8 @@ function InnerTreeTableReact<R extends object = {}>(
     {
       columns: memoizedColumns,
       data: memoizedData,
-      //For multiSelect nested data option to select children
-      //data format must contain subRows https://github.com/TanStack/react-table/issues/2609
+      // For multiSelect nested data option to select children
+      // data format must contain subRows https://github.com/TanStack/react-table/issues/2609
       ...(!multiSelect &&
         setSubRowsKey && {
           getSubRows: (row) => setSubRowsKey(row as Row) || [],
@@ -373,6 +388,8 @@ function InnerTreeTableReact<R extends object = {}>(
           </div>
         )}
         <TreeTableActionBar
+          actions={actions}
+          selection={selectedFlatRows}
           toggleAll={() => toggleAllRowsExpanded()}
           displayExpandAll={!isAllRowsExpanded}
           disabledExpand={isFlatTree(rows, setSubRowsKey) && !renderSubRowComponent}

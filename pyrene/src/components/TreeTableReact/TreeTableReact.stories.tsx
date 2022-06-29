@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from 'react';
 import { Story, Meta } from '@storybook/react';
-import { Column } from 'react-table-7';
+import { Column, Row } from 'react-table-7';
 
 import TreeTableReact, { TreeTableReactProps } from './TreeTableReact';
 import treeTableData from './data.json';
@@ -43,6 +43,32 @@ export const Standard = DefaultTemplate.bind({});
 Standard.args = {
   ...baseArgs,
   data: treeTableData,
+};
+
+const actions = [
+  {
+    label: 'Show name',
+    callback: (rows: Row<{}>[]) => alert(rows[0].original.name),
+    active: 'single',
+  },
+  {
+    label: 'Show phone',
+    callback: (rows: Row<{}>[]) => alert(rows[0].original.phone),
+    active: 'single',
+  },
+  {
+    label: 'Show concat of names of selected',
+    callback: (rows: Row<{}>[]) => alert(rows.map((r) => r.original.name).join(', ')),
+    icon: 'add',
+    active: 'multi',
+  },
+];
+
+export const WithActions = DefaultTemplate.bind({});
+WithActions.args = {
+  ...baseArgs,
+  data: treeTableData,
+  actions,
 };
 
 function LazyComponent({ listRef }: any) {

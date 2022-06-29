@@ -1,13 +1,17 @@
 import React from 'react';
 
+import { Row } from 'react-table-7';
 import styles from './TreeTableActionBar.module.css';
 import ButtonBar from '../../ButtonBar/ButtonBar';
 import Button, { ButtonProps } from '../../Button/Button';
-import CheckboxPopover, {
-  CheckboxPopoverProps,
-} from '../../CheckboxPopover/CheckboxPopover';
+import CheckboxPopover, { CheckboxPopoverProps } from '../../CheckboxPopover/CheckboxPopover';
+// eslint-disable-next-line import/no-cycle
+import { Action } from '../TreeTableReact';
+import { handleActionAvailability } from '../../../utils/TableUtils';
 
 export interface TreeTableActionBarProps {
+  actions: Array<Action>;
+  selection: Row<{}>[];
   columnToggleProps?: {
     listItems: CheckboxPopoverProps['listItems'];
     onItemClick: CheckboxPopoverProps['onItemClick'];
@@ -21,6 +25,8 @@ export interface TreeTableActionBarProps {
 }
 
 function TreeTableActionBar({
+  actions,
+  selection,
   columnToggleProps,
   disabledExpand,
   displayExpandAll,
@@ -38,6 +44,15 @@ function TreeTableActionBar({
             onClick={toggleAll}
             disabled={disabledExpand}
           />,
+          ...actions.map((ac) => (
+            <Button
+              label={ac.label}
+              icon={ac.icon}
+              type="action"
+              onClick={() => ac.callback(selection)}
+              disabled={!handleActionAvailability(selection.length, ac.active)}
+            />
+          )),
         ]}
         noPadding
       />

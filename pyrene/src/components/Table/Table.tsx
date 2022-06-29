@@ -38,7 +38,10 @@ import Banner from '../Banner/Banner';
 import { Filter as FilterType, Filters } from '../Filter/types';
 import { IconNames } from '../types';
 import Icon from '../Icon/Icon';
-import TableHeaderCellResizer, { TableHeaderCellResizerProps } from './TableHeader/TableHeaderCellResizer';
+import TableHeaderCellResizer, {
+  TableHeaderCellResizerProps,
+} from './TableHeader/TableHeaderCellResizer';
+import { ActionActiveOption, handleActionAvailability } from '../../utils/TableUtils';
 
 const CheckboxTable = selectTableHOC(ReactTable);
 
@@ -85,7 +88,7 @@ export interface TableState {
 }
 
 export interface Action {
-  active: 'single' | 'multi' | 'always' | 'disabled' | 'no_selection';
+  active: ActionActiveOption;
   callback: (row: Array<string | number>) => void;
   icon?: keyof IconNames;
   label: string;
@@ -228,7 +231,6 @@ export interface TableProps<R = {}> {
  * Tables support multi sorting for columns.
  */
 export default class Table<R> extends React.Component<TableProps<R>, TableState> {
-
   static displayName = 'Table';
 
   static defaultProps = {
@@ -264,7 +266,13 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
     pageSize: this.props.defaultPageSize,
   } as TableState;
 
-  currentDataForPage = (resolvedState:any, currentPageSize: number, currentPage: number) =>  (this.props.manual ? resolvedState?.sortedData : resolvedState?.sortedData?.slice?.(currentPage * currentPageSize, currentPage * currentPageSize + currentPageSize)) || []
+  currentDataForPage = (resolvedState: any, currentPageSize: number, currentPage: number) =>
+    (this.props.manual
+      ? resolvedState?.sortedData
+      : resolvedState?.sortedData?.slice?.(
+          currentPage * currentPageSize,
+          currentPage * currentPageSize + currentPageSize
+        )) || [];
 
   evaluateSelectAllState = (selection: Array<any> = this.state.selection) => {
     // we need to get at the internals of ReactTable
@@ -275,14 +283,21 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
     const currentPageSize = resolvedState?.pageSize || 0;
     const currentPage = resolvedState?.page || 0;
 
-    const currentRecords: Array<DerivedDataObject> = this.currentDataForPage(resolvedState,currentPageSize, currentPage);
+    const currentRecords: Array<DerivedDataObject> = this.currentDataForPage(
+      resolvedState,
+      currentPageSize,
+      currentPage
+    );
 
     // if the current selection array contains all the elements of the page
     // @ts-ignore
 
-    const isWholePageSelected = currentRecords.filter(item => this.props.rowSelectableCallback?.(item._original)).map(item => item._original[this.props.keyField]).every(id => selection.includes(id));
-    return isWholePageSelected
-  }
+    const isWholePageSelected = currentRecords
+      .filter((item) => this.props.rowSelectableCallback?.(item._original))
+      .map((item) => item._original[this.props.keyField])
+      .every((id) => selection.includes(id));
+    return isWholePageSelected;
+  };
 
   commonStaticProps = {
     getTrProps: (state: any, rowInfo: RowInfo) => {
@@ -291,7 +306,9 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
       const selected = this.isSelected(key);
 
       return {
-        onDoubleClick: () => { this.props?.onRowDoubleClick?.(rowInfo); },
+        onDoubleClick: () => {
+          this.props?.onRowDoubleClick?.(rowInfo);
+        },
         style: {
           background: selected ? colorConstants.neutral030 : '',
         },
@@ -313,26 +330,28 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
     }),
 
     getResizerProps: (state: any, rowInfo: RowInfo, column: Column<R>) => {
-      //if show is unset, it means that by default it's shown
-      const visibleColumns = this.createTableColumnsObject().filter((c: any) => c.show === undefined || c.show)
-      return {resizableColumn: !(column?.id === visibleColumns.pop()?.id)}
+      // if show is unset, it means that by default it's shown
+      const visibleColumns = this.createTableColumnsObject().filter(
+        (c: any) => c.show === undefined || c.show
+      );
+      return { resizableColumn: !(column?.id === visibleColumns.pop()?.id) };
     },
 
     onPageChange: () => {
-      const newSelectAllState = this.evaluateSelectAllState()
+      const newSelectAllState = this.evaluateSelectAllState();
       this.setState(() => ({
         selectAll: newSelectAllState,
       }));
     },
     onPageSizeChange: (size: number) => {
       this.setState({ pageSize: size });
-      const newSelectAllState = this.evaluateSelectAllState()
+      const newSelectAllState = this.evaluateSelectAllState();
       this.setState(() => ({
         selectAll: newSelectAllState,
       }));
     },
     onSortedChange: () => {
-      const newSelectAllState = this.evaluateSelectAllState()
+      const newSelectAllState = this.evaluateSelectAllState();
       this.setState(() => ({
         selectAll: newSelectAllState,
       }));
@@ -347,9 +366,15 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
     minRows: 1,
 
     // Use two exclamation marks to convert a value to boolean - disabled={!!this.props.error} = true if string has a value, false if empty
-    TheadComponent: (props: TableHeaderProps) => <TableHeader {...props} disabled={!!this.props.error} />,
-    ThComponent: (props: TableHeaderCellProps) => <TableHeaderCell {...props} multiSelect={this.props.multiSelect} />,
-    TdComponent: (props: TableCellProps) => <TableCell {...props} multiSelect={this.props.multiSelect} />,
+    TheadComponent: (props: TableHeaderProps) => (
+      <TableHeader {...props} disabled={!!this.props.error} />
+    ),
+    ThComponent: (props: TableHeaderCellProps) => (
+      <TableHeaderCell {...props} multiSelect={this.props.multiSelect} />
+    ),
+    TdComponent: (props: TableCellProps) => (
+      <TableCell {...props} multiSelect={this.props.multiSelect} />
+    ),
     ResizerComponent: (props: TableHeaderCellResizerProps) => <TableHeaderCellResizer {...props} />,
     PaginationComponent: (props: TablePaginationProps<R>) => (
       <TablePagination
@@ -359,7 +384,7 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
         numberOfResults={this.props.numberOfResults || 0}
         numberOfSelected={this.state.selection.length || 0}
         onClearSelection={() => {
-          this.resetSelection()
+          this.resetSelection();
         }}
       />
     ),
@@ -374,27 +399,30 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
     manual: this.props.manual,
 
     // this is only called once in componentDidMount cycle of react-table with first page load
-    onFetchData: (rts: any) => (this.state.pageSize !== rts.pageSize ? this.props?.onFetchData?.({
-      page: 0,
-      pageCount: 0,
-      pageSize: rts.pageSize,
-      sorting: rts.sorted,
-      filters: this.props.filterValues || {},
-    }) : this.props?.onFetchData?.({
-      page: rts.page,
-      pageCount: this.props.pages || 0,
-      pageSize: rts.pageSize,
-      sorting: rts.sorted,
-      filters: this.props.filterValues || {},
-    })),
+    onFetchData: (rts: any) =>
+      this.state.pageSize !== rts.pageSize
+        ? this.props?.onFetchData?.({
+            page: 0,
+            pageCount: 0,
+            pageSize: rts.pageSize,
+            sorting: rts.sorted,
+            filters: this.props.filterValues || {},
+          })
+        : this.props?.onFetchData?.({
+            page: rts.page,
+            pageCount: this.props.pages || 0,
+            pageSize: rts.pageSize,
+            sorting: rts.sorted,
+            filters: this.props.filterValues || {},
+          }),
   };
 
   componentDidUpdate(prevProps: TableProps<R>) {
     if (prevProps.numberOfResults !== this.props.numberOfResults) {
       this.resetSelection();
     }
-    const newSelectAllState = this.evaluateSelectAllState()
-    if (this.state.selectAll !== newSelectAllState){
+    const newSelectAllState = this.evaluateSelectAllState();
+    if (this.state.selectAll !== newSelectAllState) {
       this.setState(() => ({
         selectAll: newSelectAllState,
       }));
@@ -412,44 +440,48 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
     });
   };
 
-  toggleColumnDisplay = (columnId: string, showValue?: boolean) => this.setState((prevState) => ({
-    columnsVisibility: {
-      ...prevState.columnsVisibility,
-      [columnId]: !!showValue,
-    },
-  }));
+  toggleColumnDisplay = (columnId: string, showValue?: boolean) =>
+    this.setState((prevState) => ({
+      columnsVisibility: {
+        ...prevState.columnsVisibility,
+        [columnId]: !!showValue,
+      },
+    }));
 
   toggleAll = () => {
     // Only selects what is visible to the user (page size matters)
     const selectAll = !this.state.selectAll;
-    const selection: Array<string | number> = [...this.state.selection]; //We add the whole page to existing selection
+    const selection: Array<string | number> = [...this.state.selection]; // We add the whole page to existing selection
 
-      // we need to get at the internals of ReactTable
-      // @ts-ignore
-      const resolvedState = this.checkboxTable?.getWrappedInstance?.().getResolvedState?.();
-      // the 'sortedData' property contains the currently accessible records based on the filter and sort
+    // we need to get at the internals of ReactTable
+    // @ts-ignore
+    const resolvedState = this.checkboxTable?.getWrappedInstance?.().getResolvedState?.();
+    // the 'sortedData' property contains the currently accessible records based on the filter and sort
 
-      const currentPageSize = resolvedState?.pageSize || 0;
-      const currentPage = resolvedState?.page || 0;
+    const currentPageSize = resolvedState?.pageSize || 0;
+    const currentPage = resolvedState?.page || 0;
 
-      const currentRecords: Array<DerivedDataObject> = this.currentDataForPage(resolvedState,currentPageSize, currentPage);
+    const currentRecords: Array<DerivedDataObject> = this.currentDataForPage(
+      resolvedState,
+      currentPageSize,
+      currentPage
+    );
 
-      // we just push all the IDs onto the selection array
-      currentRecords.forEach((item) => {
-        const enabled = this.props.rowSelectableCallback?.(item._original); // eslint-disable-line no-underscore-dangle
-        if (enabled) {
-          const idx = selection.findIndex(e => e === item._original[this.props.keyField]);
-          if (selectAll) {
-            if (idx === -1) { //Don't add duplicates
-              selection.push(item._original[this.props.keyField]); // eslint-disable-line no-underscore-dangle
-            }
-          }else {
-            if (idx !== -1){
-              selection.splice(idx, 1);
-            }
+    // we just push all the IDs onto the selection array
+    currentRecords.forEach((item) => {
+      const enabled = this.props.rowSelectableCallback?.(item._original); // eslint-disable-line no-underscore-dangle
+      if (enabled) {
+        const idx = selection.findIndex((e) => e === item._original[this.props.keyField]);
+        if (selectAll) {
+          if (idx === -1) {
+            // Don't add duplicates
+            selection.push(item._original[this.props.keyField]); // eslint-disable-line no-underscore-dangle
           }
+        } else if (idx !== -1) {
+          selection.splice(idx, 1);
         }
-      });
+      }
+    });
 
     this.setState(() => ({
       selection: selection,
@@ -459,38 +491,11 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
 
   isSelected = (key: string | number) => this.state.selection.includes(key);
 
-  resetSelection = () => this.setState(() => ({
-    selection: [],
-    selectAll: false,
-  }));
-
-  handleActionAvailability = (actionType: Action['active']) => {
-    if (this.props.error) {
-      return false;
-    }
-
-    if (actionType === 'disabled') {
-      return false;
-    }
-
-    // enable actions based on selection length and actionType
-    if (actionType === 'always') {
-      return true;
-    }
-    if (this.state.selection.length === 1 && actionType === 'single') {
-      return true;
-    }
-    if (this.state.selection.length >= 1 && actionType === 'multi') {
-      return true;
-    }
-
-    if (this.state.selection.length === 0 && actionType === 'no_selection') {
-      return true;
-    }
-
-    return false;
-
-  };
+  resetSelection = () =>
+    this.setState(() => ({
+      selection: [],
+      selectAll: false,
+    }));
 
   toggleSelection = (key: string | number, row: R) => {
     // start off with the existing state
@@ -512,7 +517,7 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
       }
     }
 
-    const newSelectAllState = this.evaluateSelectAllState(selection)
+    const newSelectAllState = this.evaluateSelectAllState(selection);
 
     this.setState(() => ({
       selection: selection,
@@ -520,14 +525,18 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
     }));
   };
 
-  restoreColumnDefaults = () => this.setState({
-    columnsVisibility: {},
-  });
+  restoreColumnDefaults = () =>
+    this.setState({
+      columnsVisibility: {},
+    });
 
-  createTableColumnsObject = () => TableUtils.mapColumnProps(this.props.columns).map((col: MappedColumn<R>) => ({
-    ...col,
-    ...(col?.id && typeof this.state.columnsVisibility[col.id] !== 'undefined') ? { show: this.state.columnsVisibility[col.id] } : {},
-  }));
+  createTableColumnsObject = () =>
+    TableUtils.mapColumnProps(this.props.columns).map((col: MappedColumn<R>) => ({
+      ...col,
+      ...(col?.id && typeof this.state.columnsVisibility[col.id] !== 'undefined'
+        ? { show: this.state.columnsVisibility[col.id] }
+        : {}),
+    }));
 
   renderTable = () => {
     const commonVariableProps = {
@@ -536,9 +545,17 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
       defaultPageSize: this.props.defaultPageSize,
       data: this.props.data,
       pageSizeOptions: this.props.pageSizeOptions,
-      page: this.props.manual && this.props.currentPage && this.props.currentPage >= 0 ? this.props.currentPage : undefined,
+      page:
+        this.props.manual && this.props.currentPage && this.props.currentPage >= 0
+          ? this.props.currentPage
+          : undefined,
       pages: this.props.manual ? this.props.pages : undefined,
-      showPaginationBottom: !!(this.props.data && this.props.data.length && !this.props.error && !this.props.loading),
+      showPaginationBottom: !!(
+        this.props.data &&
+        this.props.data.length &&
+        !this.props.error &&
+        !this.props.loading
+      ),
       multiSort: this.props.multiSort,
     };
 
@@ -551,7 +568,9 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
       toggleSelection: this.toggleSelection,
       toggleAll: this.toggleAll,
       keyField: this.props.keyField,
-      SelectAllInputComponent: (props: SelectInputComponentProps) => <Checkbox value={props.checked} onChange={props.onClick as any} />,
+      SelectAllInputComponent: (props: SelectInputComponentProps) => (
+        <Checkbox value={props.checked} onChange={props.onClick as any} />
+      ),
       SelectInputComponent: (props: SelectInputComponentProps) => {
         const enabled = this.props.rowSelectableCallback?.(props.row);
         return (
@@ -567,33 +586,19 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
       },
     };
 
-    const tableToRender = this.props.multiSelect
-      ? (
-        // @ts-ignore
-        <CheckboxTable
-          {...this.commonStaticProps}
-          {...commonVariableProps}
-          {...multiTableProps}
-        />
-      )
-      : (
-        // @ts-ignore
-        <ReactTable
-          {...this.commonStaticProps}
-          {...commonVariableProps}
-        />
-      );
+    const tableToRender = this.props.multiSelect ? (
+      // @ts-ignore
+      <CheckboxTable {...this.commonStaticProps} {...commonVariableProps} {...multiTableProps} />
+    ) : (
+      // @ts-ignore
+      <ReactTable {...this.commonStaticProps} {...commonVariableProps} />
+    );
 
     // Inject ErrorComponent when an error prop is present to table body
     if (this.props.error) {
-      return (
-        React.cloneElement(tableToRender, {
-          TbodyComponent: () => (
-            <ErrorComponent
-              error={this.props.error}
-            />
-          ),
-        }));
+      return React.cloneElement(tableToRender, {
+        TbodyComponent: () => <ErrorComponent error={this.props.error} />,
+      });
     }
     // Inject LoaderComponent while loading to table body
     if (this.props.loading) {
@@ -604,30 +609,34 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
       return React.cloneElement(tableToRender, { TbodyComponent: NoDataComponent });
     }
     return tableToRender;
-
   };
 
   render() {
     return (
       <div className={styles.tableContainer}>
-        {this.props.title && (
-          <div className={styles.titleBar}>
-            {this.props.title}
-          </div>
-        )}
+        {this.props.title && <div className={styles.titleBar}>{this.props.title}</div>}
 
-        <div className={clsx(styles.filterBar, { [styles.loading]: this.props.loading, [styles.disabled]: this.props.disabled })}>
+        <div
+          className={clsx(styles.filterBar, {
+            [styles.loading]: this.props.loading,
+            [styles.disabled]: this.props.disabled,
+          })}
+        >
           <div className={styles.filterContainer}>
-            {((Array.isArray(this.props.filters) && this.props.filters.length > 0) || this.props.filterDisabled)
-              && (
-                <Filter
-                  filters={this.props.filters}
-                  onFilterSubmit={this.props.manual ? (values) => this.onManualFilterChange(values) : this.props.onFilterChange}
-                  disabled={this.props.error ? true : this.props.filterDisabled}
-                  filterValues={this.props.filterValues || {}}
-                  negatable={this.props.negatable}
-                />
-              )}
+            {((Array.isArray(this.props.filters) && this.props.filters.length > 0) ||
+              this.props.filterDisabled) && (
+              <Filter
+                filters={this.props.filters}
+                onFilterSubmit={
+                  this.props.manual
+                    ? (values) => this.onManualFilterChange(values)
+                    : this.props.onFilterChange
+                }
+                disabled={this.props.error ? true : this.props.filterDisabled}
+                filterValues={this.props.filterValues || {}}
+                negatable={this.props.negatable}
+              />
+            )}
           </div>
           {this.props.toggleColumns && (
             <CheckboxPopover
@@ -637,7 +646,10 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
                 .map((col) => ({
                   id: col.id,
                   label: col.headerName,
-                  value: col?.id && typeof this.state.columnsVisibility[col.id] !== 'undefined' ? this.state.columnsVisibility[col.id] : !col.initiallyHidden,
+                  value:
+                    col?.id && typeof this.state.columnsVisibility[col.id] !== 'undefined'
+                      ? this.state.columnsVisibility[col.id]
+                      : !col.initiallyHidden,
                 }))}
               onItemClick={(item, value) => item && this.toggleColumnDisplay(item, value)}
               onRestoreDefault={() => this.restoreColumnDefaults()}
@@ -647,7 +659,6 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
         </div>
 
         <div className={clsx(styles.tableAndActions, { [styles.disabled]: this.props.disabled })}>
-
           {Array.isArray(this.props.actions) && this.props.actions.length > 0 && (
             <div className={styles.toolbar}>
               {this.props.actions.map((action, index) => (
@@ -657,10 +668,12 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
                     icon={action.icon ? action.icon : undefined}
                     onClick={() => action.callback(this.state.selection)}
                     type="action"
-                    disabled={!this.handleActionAvailability(action.active)}
+                    disabled={!handleActionAvailability(this.state.selection.length, action.active)}
                     loading={action.loading ? action.loading : false}
                   />
-                  {index + 1 < (Array.isArray(this.props.actions) && this.props.actions.length) && <div className={styles.spacer} />}
+                  {index + 1 < (Array.isArray(this.props.actions) && this.props.actions.length) && (
+                    <div className={styles.spacer} />
+                  )}
                 </React.Fragment>
               ))}
             </div>
@@ -670,5 +683,4 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
       </div>
     );
   }
-
 }
