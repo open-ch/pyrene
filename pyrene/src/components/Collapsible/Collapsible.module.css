@@ -20,9 +20,6 @@
   }
 
   & .collapsibleButton {
-
-    padding: 0 4px 0 8px;
-    border-radius: 2px;
     display: inline-block;
 
     font-size: 12px;
@@ -31,10 +28,6 @@
     color: var(--primary);
 
     cursor: pointer;
-
-    &:hover {
-      background-color: var(--secondary);
-    }
 
     & .centeringBox {
       height: 32px;
