@@ -90,7 +90,7 @@
 }
 
 .actionCell {
-  max-width: 20px;
+  /* max-width: fit-content; */
 }
 
 .tableCellContent {

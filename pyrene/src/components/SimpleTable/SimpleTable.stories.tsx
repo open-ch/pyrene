@@ -3,6 +3,7 @@ import React from 'react';
 
 import { Story, Meta } from '@storybook/react';
 import SimpleTableComponent, { SimpleTableProps } from './SimpleTable';
+import { IconNames } from '../types';
 
 export default {
   title: 'Components/Data/Simple Table',
@@ -26,6 +27,7 @@ SimpleTable.args = {
   actions: [
     {
       label: 'Name',
+      icon: 'edit' as keyof IconNames,
       onClick: (rowData) => alert(rowData.name),
     },
     {

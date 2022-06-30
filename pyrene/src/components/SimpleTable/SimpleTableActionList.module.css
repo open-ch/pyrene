@@ -1,5 +1,12 @@
 @import '../../styles/colors.module.css';
 
+.actionBar {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: flex-end;
+}
+
 .action {
   width: 16px;
   height: 16px;
@@ -39,9 +46,4 @@
   display: flex;
   justify-content: center;
   flex-direction: column;
-}
-
-.popOverPlaceholder {
-  height: 100%;
-  width: 100%;
 }
