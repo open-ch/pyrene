@@ -12,28 +12,31 @@
 .keyValueBody {
   border-collapse: collapse;
   width: 100%;
-  table-layout: fixed;
 }
 
 .keyValueRow {
   background-color: #ffffff;
-  display: flex;
   font-size: 12px;
   letter-spacing: 0;
   &.row-greyLabel {
-    padding-top: 8px;
+    padding-top: 6px;
     align-items: baseline;
+    line-height: 22px;
   }
   &.row-border {
+    display: flex;
     border-bottom: 1px solid var(--border);
     padding-top: 7px;
     padding-bottom: 6px;
+    line-height: 18px;
   }
 }
 
 .keyValueRow:first-child {
   padding-top: 6px;
-
+  &.row-greyLabel {
+    padding-top: 0px;
+  }
   &.row-border {
     border-top: 1px solid var(--border);
   }
@@ -52,18 +55,16 @@
   /* IE needs it to correctly overflow */
   padding: 0 16px 0 8px;
   white-space: nowrap;
-  overflow: hidden;
   text-overflow: ellipsis;
   vertical-align: top;
-
   &.key-border {
-    line-height: 18px;
     font-weight: 500;
+    overflow: hidden;
   }
   &.key-greyLabel {
     font-weight: 400;
     color: var(--neutral-200);
-    line-height: 16px;
+    padding-left: 0;
   }
 }
 
@@ -71,9 +72,7 @@
   width: 100%;
   word-wrap: break-word;
   right: 8px;
-  /* 1px extra top/bottom for value cell only = 8px */
-  padding: 1px 8px 1px 0;
-  line-height: 16px;
+  padding: 0 8px 0 0;
   font-weight: 400;
 }
 
@@ -87,7 +86,7 @@
   }
   &.title-greyLabel {
     font-size: 12px;
-    margin: 0 0 8px 8px;
+    margin-bottom: 8px;
     font-weight: 500;
   }
 }

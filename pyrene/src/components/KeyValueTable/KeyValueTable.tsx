@@ -10,6 +10,9 @@ type Row = {
 };
 
 export interface KeyValueTableProps {
+  /**
+   * Width of key column - only applied for 'border' theme
+   */
   keyWidth?: number;
   /**
    * Rows definition: { key: 'key', value: 'value', rowStyle: {} }, where rowStyle is an object with css properties applied to the whole row
@@ -46,7 +49,11 @@ const KeyValueTable: React.FC<KeyValueTableProps> = ({
             >
               <td
                 className={clsx(styles.keyValueCellKey, styles[`key-${theme}`])}
-                style={{ width: keyWidth, minWidth: keyWidth, maxWidth: keyWidth }}
+                style={
+                  theme === 'border'
+                    ? { width: keyWidth, minWidth: keyWidth, maxWidth: keyWidth }
+                    : undefined
+                }
               >
                 {row.key}
               </td>

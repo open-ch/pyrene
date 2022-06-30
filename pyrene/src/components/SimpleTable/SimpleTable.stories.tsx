@@ -6,7 +6,7 @@ import SimpleTableComponent, { SimpleTableProps } from './SimpleTable';
 import { IconNames } from '../types';
 
 export default {
-  title: 'Components/Data/Simple Table',
+  title: 'Components/Data/SimpleTable',
   component: SimpleTableComponent,
 } as Meta;
 
