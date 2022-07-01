@@ -15,6 +15,12 @@
   text-overflow: ellipsis;
 }
 
+.cellContent {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
 .pivotIcon {
   width: 16px;
   height: 16px;

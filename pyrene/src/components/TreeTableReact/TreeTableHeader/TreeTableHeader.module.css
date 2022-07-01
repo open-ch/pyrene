@@ -6,7 +6,7 @@
   height: 32px;
   border-top: solid 1px var(--border);
   border-bottom: solid 1px var(--border);
-  padding: 8px 6px 7px 28px;
+  padding: 6px;
   display: flex;
   overflow-y: auto;
   overflow-x: hidden;

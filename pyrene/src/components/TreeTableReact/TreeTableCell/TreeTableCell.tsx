@@ -35,7 +35,9 @@ function TreeTableCell<R extends object = {}>({
           onClick={onExpandClick}
         />
       )}
-      {cell.render('Cell')}
+      <div className={cell.column.id !== 'selection' ? styles.cellContent : styles.checkbox}>
+        {cell.render('Cell')}
+      </div>
     </div>
   );
 }

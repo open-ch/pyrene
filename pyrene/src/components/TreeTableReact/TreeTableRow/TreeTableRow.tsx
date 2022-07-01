@@ -95,7 +95,7 @@ function TreeTableRow<R extends object = {}>({
           const styling = !customSubRow
             ? {
                 // adjust column indent onExpand
-                marginLeft: i === 0 ? cell.row.depth * 24 : 0,
+                marginLeft: i === 0 ? cell.row.depth * 22 : 0,
                 ...(i === nextToExpanderColumnIndex && {
                   width:
                     (cell.column.width as number) -

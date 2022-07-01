@@ -85,6 +85,11 @@ export interface TreeTableReactProps<R> {
    */
   data: Array<R>;
   /**
+   * Is expand all button visible
+   * Defaults to true
+   */
+  expandAllVisible?: boolean;
+  /**
    * Enables toggle row expansion on the full parent row, instead of the chevron only. Overrides onRowDoubleClick and onRowClick for parent rows.
    */
   expandOnParentRowClick?: boolean;
@@ -175,6 +180,7 @@ export interface TreeTableReactProps<R> {
 function InnerTreeTableReact<R extends object = {}>(
   {
     actions = [],
+    expandAllVisible = true,
     data,
     columns,
     expandOnParentRowClick = false,
@@ -258,9 +264,9 @@ function InnerTreeTableReact<R extends object = {}>(
               {
                 id: 'selection',
                 disableResizing: true,
-                minWidth: 20,
-                width: 20,
-                maxWidth: 20,
+                minWidth: 24,
+                width: 24,
+                maxWidth: 24,
                 // @ts-ignore
                 Header: ({ getToggleAllRowsSelectedProps }) => (
                   <Checkbox {...getToggleAllRowsSelectedProps()} />
@@ -393,6 +399,7 @@ function InnerTreeTableReact<R extends object = {}>(
           toggleAll={() => toggleAllRowsExpanded()}
           displayExpandAll={!isAllRowsExpanded}
           disabledExpand={isFlatTree(rows, setSubRowsKey) && !renderSubRowComponent}
+          expandAllVisible={expandAllVisible}
           columnToggleProps={{
             listItems: currentColumns.slice(1).map((col: Column) => ({
               id: col.id,

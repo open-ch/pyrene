@@ -69,6 +69,7 @@ WithActions.args = {
   ...baseArgs,
   data: treeTableData,
   actions,
+  expandAllVisible: false,
 };
 
 function LazyComponent({ listRef }: any) {

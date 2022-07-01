@@ -11,6 +11,7 @@ import { handleActionAvailability } from '../../../utils/TableUtils';
 
 export interface TreeTableActionBarProps {
   actions: Array<Action>;
+  expandAllVisible: boolean;
   selection: Row<{}>[];
   columnToggleProps?: {
     listItems: CheckboxPopoverProps['listItems'];
@@ -26,6 +27,7 @@ export interface TreeTableActionBarProps {
 
 function TreeTableActionBar({
   actions,
+  expandAllVisible,
   selection,
   columnToggleProps,
   disabledExpand,
@@ -37,13 +39,17 @@ function TreeTableActionBar({
     <div className={styles.treeTableActionBar}>
       <ButtonBar
         leftButtonSectionElements={[
-          <Button
-            label={displayExpandAll ? 'Expand All' : 'Collapse All'}
-            icon={displayExpandAll ? 'chevronDown' : 'chevronUp'}
-            type="action"
-            onClick={toggleAll}
-            disabled={disabledExpand}
-          />,
+          ...(expandAllVisible
+            ? [
+                <Button
+                  label={displayExpandAll ? 'Expand All' : 'Collapse All'}
+                  icon={displayExpandAll ? 'chevronDown' : 'chevronUp'}
+                  type="action"
+                  onClick={toggleAll}
+                  disabled={disabledExpand}
+                />,
+              ]
+            : []),
           ...actions.map((ac) => (
             <Button
               label={ac.label}
