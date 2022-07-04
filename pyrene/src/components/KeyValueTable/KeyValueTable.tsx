@@ -54,10 +54,16 @@ const KeyValueTable: React.FC<KeyValueTableProps> = ({
                     ? { width: keyWidth, minWidth: keyWidth, maxWidth: keyWidth }
                     : undefined
                 }
+                title={row.key}
               >
                 {row.key}
               </td>
-              <td className={styles.keyValueCellValue}>{row.value}</td>
+              <td
+                title={row.value + ''}
+                className={clsx(styles.keyValueCellValue, styles[`value-${theme}`])}
+              >
+                {row.value}
+              </td>
             </tr>
           ))}
       </tbody>
