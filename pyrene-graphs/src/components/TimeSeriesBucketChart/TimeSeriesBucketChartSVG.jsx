@@ -29,7 +29,7 @@ import colorConstants from '../../styles/colorConstants';
 import styles from './TimeSeriesBucketChart.module.css';
 
 let zoomStartX = null;
-
+const DEFAULT_MAX_Y_AXIS_VALUE = 10;
 /**
  * Get tooltip position and data when mouse is moving over the chart.
  * @param {object}event - The mouseMove event
@@ -60,7 +60,8 @@ const onMouseMove = (event, data, xScale, showTooltip, hideTooltip) => {
   }
 
   // Show normal tooltip when it is within time range
-  const lastBucketEndTS = data[data.length - 1][INDEX_START_TS] + getTimeFrameOfLastBucket(data, xScale);
+  const lastBucketEndTS =
+    data[data.length - 1][INDEX_START_TS] + getTimeFrameOfLastBucket(data, xScale);
   const currentBucketIndex = getCurrentBucketIndex(currentTS, lastBucketEndTS, data);
   if (currentBucketIndex < 0) {
     hideTooltip();
@@ -69,7 +70,11 @@ const onMouseMove = (event, data, xScale, showTooltip, hideTooltip) => {
     showTooltip({
       tooltipLeft: x,
       tooltipTop: y,
-      tooltipData: [[data[currentBucketIndex][INDEX_START_TS], currentBucketEndTS], data[currentBucketIndex][INDEX_VALUE], currentBucketIndex],
+      tooltipData: [
+        [data[currentBucketIndex][INDEX_START_TS], currentBucketEndTS],
+        data[currentBucketIndex][INDEX_VALUE],
+        currentBucketIndex,
+      ],
     });
   }
 };
@@ -95,14 +100,7 @@ const getTimeFormat = (timezone, timeFormat) => {
  * The pure SVG chart part of the time series bucket chart.
  */
 const TimeSeriesBucketChartSVG = (props) => {
-  const {
-    hideTooltip,
-    showTooltip,
-    tooltipData,
-    tooltipLeft,
-    tooltipOpen,
-    tooltipTop,
-  } = props;
+  const { hideTooltip, showTooltip, tooltipData, tooltipLeft, tooltipOpen, tooltipTop } = props;
 
   return (
     <div className={styles.chartContainer}>
@@ -123,9 +121,23 @@ const TimeSeriesBucketChartSVG = (props) => {
       <Responsive>
         {(parent) => {
           // Get scale function
-          const xScale = scaleTime(props.from, props.to, chartConstants.marginLeftNumerical, parent.width, 'horizontal');
-          const valueScale = scaleValueInBounds(parent, props.maxValue ? props.maxValue : 0, 'vertical');
-          const valueAxisScale = scaleValueAxis(parent, props.maxValue ? props.maxValue : 0, 'vertical');
+          const xScale = scaleTime(
+            props.from,
+            props.to,
+            chartConstants.marginLeftNumerical,
+            parent.width,
+            'horizontal'
+          );
+          const valueScale = scaleValueInBounds(
+            parent,
+            props.maxValue ? props.maxValue : DEFAULT_MAX_Y_AXIS_VALUE,
+            'vertical'
+          );
+          const valueAxisScale = scaleValueAxis(
+            parent,
+            props.maxValue ? props.maxValue : DEFAULT_MAX_Y_AXIS_VALUE,
+            'vertical'
+          );
 
           const barWeightFunction = (index, labels) => {
             // If there is a single bucket, just use a default bar weight
@@ -138,7 +150,11 @@ const TimeSeriesBucketChartSVG = (props) => {
             }
             // Calculate the bar weight by applying the scale function on the current time frame defined by the time difference between current startTS and next startTS
             const timeFrame = labels[index + 1] - labels[index];
-            return xScale(props.from + timeFrame) - chartConstants.marginLeftNumerical - chartConstants.barSpacing;
+            return (
+              xScale(props.from + timeFrame) -
+              chartConstants.marginLeftNumerical -
+              chartConstants.barSpacing
+            );
           };
           let highlightSection;
           if (tooltipOpen && !zoomStartX) {
@@ -157,7 +173,10 @@ const TimeSeriesBucketChartSVG = (props) => {
                   width={parent.width}
                   height={parent.height}
                   strokeColor={colorConstants.strokeColor}
-                  tickLabelColors={[colorConstants.tickLabelColor, colorConstants.tickLabelColorDark]}
+                  tickLabelColors={[
+                    colorConstants.tickLabelColor,
+                    colorConstants.tickLabelColorDark,
+                  ]}
                   showTickLabels={!props.loading && !!props.maxValue}
                   timezone={props.timezone}
                   scale={xScale}
@@ -173,16 +192,20 @@ const TimeSeriesBucketChartSVG = (props) => {
                   showGrid={false}
                   scale={valueAxisScale}
                 />
-                {!props.loading && props.maxValue && (
+                {!props.loading && props.data.data && props.data.data.length > 0 && (
                   <g
                     className="hoverArea"
-                    onMouseMove={(e) => onMouseMove(e, props.data.data, xScale, showTooltip, hideTooltip)}
+                    onMouseMove={(e) =>
+                      onMouseMove(e, props.data.data, xScale, showTooltip, hideTooltip)
+                    }
                     onMouseOut={hideTooltip}
-                    onMouseDown={props.zoom ? (e) => onMouseDown(e) : () => { }}
-                    onMouseUp={props.zoom ? () => onMouseUp(hideTooltip) : () => { }}
-                    onTouchStart={props.zoom ? (e) => onMouseDown(e) : () => { }}
-                    onTouchEnd={props.zoom ? () => onMouseUp(hideTooltip) : () => { }}
-                    onTouchMove={(e) => onMouseMove(e, props.data.data, xScale, showTooltip, hideTooltip)}
+                    onMouseDown={props.zoom ? (e) => onMouseDown(e) : () => {}}
+                    onMouseUp={props.zoom ? () => onMouseUp(hideTooltip) : () => {}}
+                    onTouchStart={props.zoom ? (e) => onMouseDown(e) : () => {}}
+                    onTouchEnd={props.zoom ? () => onMouseUp(hideTooltip) : () => {}}
+                    onTouchMove={(e) =>
+                      onMouseMove(e, props.data.data, xScale, showTooltip, hideTooltip)
+                    }
                   >
                     <Bars
                       barWeight={barWeightFunction}
@@ -197,7 +220,11 @@ const TimeSeriesBucketChartSVG = (props) => {
                       top={chartConstants.marginMaxValueToBorder}
                     />
                     {/* ChartArea makes sure the outer <g> element where all mouse event listeners are attached always covers the whole chart area so that there is no tooltip flickering issue */}
-                    <ChartArea width={parent.width} height={parent.height - chartConstants.marginBottom} left={chartConstants.marginLeftNumerical} />
+                    <ChartArea
+                      width={parent.width}
+                      height={parent.height - chartConstants.marginBottom}
+                      left={chartConstants.marginLeftNumerical}
+                    />
                     {props.zoom && (
                       <TimeSeriesZoomable
                         from={props.from}
@@ -215,15 +242,27 @@ const TimeSeriesBucketChartSVG = (props) => {
                   </g>
                 )}
               </svg>
-              {
-                tooltipOpen && !props.loading && (
-                  <Tooltip
-                    data={zoomStartX ? [] : [{ dataColor: props.colorScheme.categorical[0], dataLabel: props.data.label, dataValue: props.tooltipFormat(tooltipData[1]) }]}
-                    label={getTimeFormat(props.timezone, props.timeFormat)((zoomStartX ? tooltipData : tooltipData[0]))}
-                    left={tooltipLeft} top={tooltipTop}
-                  />
-                )
-              }
+              {tooltipOpen && !props.loading && (
+                <Tooltip
+                  data={
+                    zoomStartX
+                      ? []
+                      : [
+                          {
+                            dataColor: props.colorScheme.categorical[0],
+                            dataLabel: props.data.label,
+                            dataValue: props.tooltipFormat(tooltipData[1]),
+                          },
+                        ]
+                  }
+                  label={getTimeFormat(
+                    props.timezone,
+                    props.timeFormat
+                  )(zoomStartX ? tooltipData : tooltipData[0])}
+                  left={tooltipLeft}
+                  top={tooltipTop}
+                />
+              )}
             </>
           );
         }}
@@ -302,7 +341,9 @@ TimeSeriesBucketChartSVG.propTypes = {
   /**
    * The tooltip data prop provided by the withTooltip enhancer. Value time(range), value, dataIdx
    */
-  tooltipData: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.number), PropTypes.number]).isRequired),
+  tooltipData: PropTypes.arrayOf(
+    PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.number), PropTypes.number]).isRequired
+  ),
   /**
    * Sets the data formatting function for the tooltip.
    */

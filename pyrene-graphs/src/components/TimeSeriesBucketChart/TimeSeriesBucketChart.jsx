@@ -20,12 +20,12 @@ const TimeSeriesBucketChart = (props) => {
 
   // Render the header
   const header = <Header title={props.title} description={props.description} />;
-
   // Render the overlay
   const chartOverlay = (
     <ChartOverlay>
-      {props.loading && <Loader type="inline" />}
-      {!props.loading && !maxValue && (
+      {props.loading ? (
+        <Loader type="inline" />
+      ) : (
         <div className={styles.errorBanner}>
           <Banner styling="inline" type="error" label={props.error} />
         </div>
@@ -51,7 +51,8 @@ const TimeSeriesBucketChart = (props) => {
   );
 
   // Render the component
-  const showOverlay = props.loading || !maxValue;
+  const showOverlay =
+    props.loading || !props.data.data || (props.data.data && props.data.data.length < 1);
   return (
     <ChartContainer
       header={header}

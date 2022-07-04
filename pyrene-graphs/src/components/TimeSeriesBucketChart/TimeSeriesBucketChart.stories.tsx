@@ -17,6 +17,7 @@ const timezone = 'Asia/Shanghai';
 const initialFrom = moment.tz('2019-10-01 00:00', timezone).valueOf();
 const initialTo = moment.tz('2019-10-08 00:00', timezone).valueOf();
 const initialData = genDownloadedVolumes(initialFrom, initialTo, 42);
+const zeroData = genDownloadedVolumes(initialFrom, initialTo, 42, 0);
 
 const DefaultTemplate: Story<any> = (args) => {
   const [, updateArgs] = useArgs();
@@ -41,9 +42,7 @@ const DefaultTemplate: Story<any> = (args) => {
   );
 };
 
-export const Standard = DefaultTemplate.bind({});
-
-Standard.args = {
+const DefaultArgs = {
   data: initialData,
   description: 'Downloaded volume',
   error: 'There was an error while loading data.',
@@ -53,4 +52,19 @@ Standard.args = {
   timezone: timezone,
   tooltipFormat: formatDownloadVolumeTooltip,
   unit: getSIUnitForTimeRange(initialData, initialFrom, initialTo, yUnit, true),
+};
+
+export const Standard = DefaultTemplate.bind({});
+Standard.args = DefaultArgs;
+
+const ZerosTemplate: Story<any> = (args) => (
+  <TimeSeriesBucketChart
+    {...args}
+    colorScheme={args.colorScheme?.categorical ? args.colorScheme : colorSchemes.colorSchemeDefault}
+  />
+);
+export const Zeros = ZerosTemplate.bind({});
+Zeros.args = {
+  ...DefaultArgs,
+  data: zeroData,
 };

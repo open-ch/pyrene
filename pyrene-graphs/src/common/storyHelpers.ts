@@ -8,7 +8,8 @@
 export const genDownloadedVolumes = (
   from: number,
   to: number,
-  number: number
+  number: number,
+  constValue?: number
 ): { label: string; data: number[][] } => {
   const data = {
     label: 'Volume',
@@ -17,7 +18,7 @@ export const genDownloadedVolumes = (
 
   const timeFrame = (to - from) / number;
   for (let i = 0; i < number; i += 1) {
-    data.data.push([from + i * timeFrame, Math.random() * 10000 + 1]);
+    data.data.push([from + i * timeFrame, constValue ?? Math.random() * 10000 + 1]);
   }
 
   return data;
