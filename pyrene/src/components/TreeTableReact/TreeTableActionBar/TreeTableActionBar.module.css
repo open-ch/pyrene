@@ -5,12 +5,20 @@
   padding-bottom: 8px;
   display: flex;
   justify-content: space-between;
+  align-items: flex-end;
 }
 
 .treeTableRightSideContainer {
   display: flex;
+  width: 100%;
 
-  &> :not(:first-child) {
+  & > :not(:first-child) {
     margin-left: 16px;
   }
+}
+.columnsPaginationContainer {
+  display: flex;
+  margin-left: auto;
+  flex-flow: column-reverse nowrap;
+  align-items: flex-end;
 }

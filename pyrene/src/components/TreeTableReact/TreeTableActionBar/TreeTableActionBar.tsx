@@ -10,9 +10,9 @@ import { Action } from '../TreeTableReact';
 import { handleActionAvailability } from '../../../utils/TableUtils';
 
 export interface TreeTableActionBarProps {
-  actions: Array<Action>;
+  actions: Action[];
   expandAllVisible: boolean;
-  selection: Row<{}>[];
+  selection: Row<{}>[] | string[];
   columnToggleProps?: {
     listItems: CheckboxPopoverProps['listItems'];
     onItemClick: CheckboxPopoverProps['onItemClick'];
@@ -21,6 +21,7 @@ export interface TreeTableActionBarProps {
   };
   disabledExpand: boolean;
   displayExpandAll: boolean;
+  renderPagination?: () => false | undefined | JSX.Element;
   renderRightItems?: () => JSX.Element;
   toggleAll: ButtonProps['onClick'];
 }
@@ -33,6 +34,7 @@ function TreeTableActionBar({
   disabledExpand,
   displayExpandAll,
   renderRightItems,
+  renderPagination,
   toggleAll,
 }: TreeTableActionBarProps) {
   return (
@@ -64,14 +66,17 @@ function TreeTableActionBar({
       />
       <div className={styles.treeTableRightSideContainer}>
         {renderRightItems?.()}
-        {columnToggleProps?.toggleColumns && (
-          <CheckboxPopover
-            buttonLabel="Columns"
-            listItems={columnToggleProps.listItems}
-            onItemClick={columnToggleProps.onItemClick}
-            onRestoreDefault={columnToggleProps.onRestoreDefault}
-          />
-        )}
+        <div className={styles.columnsPaginationContainer}>
+          {renderPagination?.()}
+          {columnToggleProps?.toggleColumns && (
+            <CheckboxPopover
+              buttonLabel="Columns"
+              listItems={columnToggleProps.listItems}
+              onItemClick={columnToggleProps.onItemClick}
+              onRestoreDefault={columnToggleProps.onRestoreDefault}
+            />
+          )}
+        </div>
       </div>
     </div>
   );

@@ -15,6 +15,7 @@ import {
   useFlexLayout,
   useResizeColumns,
   useRowSelect,
+  usePagination,
   Row,
   TableRowProps,
 } from 'react-table-7';
@@ -42,6 +43,7 @@ import {
 } from './utils';
 import { IconNames } from '../types';
 import { ActionActiveOption } from '../../utils/TableUtils';
+import TablePagination from './TablePagination/TablePagination';
 
 const defaultColumn = {
   minWidth: 30,
@@ -52,7 +54,7 @@ type ManipulateTable = {
   scrollToRow: (rowId: string, align?: Align) => void;
   toggleAllRowsExpansion: (cb?: any) => void;
   tableFullyExpanded: boolean;
-  selectedRows?: Row[];
+  selectedRows?: Row[] | string[];
 };
 
 export interface CustomSubRowProps {
@@ -63,7 +65,7 @@ export interface CustomSubRowProps {
 
 export interface Action {
   active: ActionActiveOption;
-  callback: (rows: Row<{}>[]) => void;
+  callback: (rows: Row<{}>[] | string[]) => void;
   icon?: keyof IconNames;
   label: string;
   loading?: boolean;
@@ -140,7 +142,7 @@ export interface TreeTableReactProps<R> {
    */
   rowLineHeight?: number;
   /**
-   * Sets a function to get a unique key for each row. Params: (Row)
+   * Sets a function to get a unique key for each row. Necessary for Selected Rows with Server Side Pagination. Params: (Row)
    */
   setUniqueRowKey?: (row: Row) => string;
   /**
@@ -175,6 +177,38 @@ export interface TreeTableReactProps<R> {
    * Custom sub row component
    */
   renderSubRowComponent?: ({ row, rowProps, listRef }: CustomSubRowProps) => JSX.Element;
+  /**
+   * Show pagination footer
+   */
+  paginated?: boolean;
+  /**
+   * Sets the page sizes that the user can choose from.
+   */
+  pageSizeOptions?: number[];
+  /**
+   * Sets the page size when the component is first mounted.
+   */
+  defaultPageSize?: number;
+  /**
+   * Set to true to be able to handle sorting and pagination server-side (use only with server-side data fetching & pagination).
+   */
+  manual?: boolean;
+  /**
+   * Called initially when the table loads & any time sorting, pagination or filterting is changed in the table (use only with server-side data fetching & pagination).
+   */
+  onFetchData?: (args: { pageIndex: number; pageCount: number; pageSize?: number }) => void;
+  /**
+   * Amount of pages to be shown in React Table (use only with server-side data fetching & pagination).
+   */
+  pages?: number;
+  /**
+   * Page to display by the Table (use only with server-side data fetching & pagination).
+   */
+  currentPage?: number;
+  /**
+   * Amount of results to be displayed in Table Footer (use only with server-side data fetching & pagination).
+   */
+  numberOfResults?: number;
 }
 
 function InnerTreeTableReact<R extends object = {}>(
@@ -204,6 +238,14 @@ function InnerTreeTableReact<R extends object = {}>(
     setUniqueRowKey,
     setSubRowsKey,
     renderSubRowComponent,
+    pageSizeOptions = [10, 20, 50, 100, 250],
+    defaultPageSize = 10,
+    manual,
+    onFetchData,
+    pages,
+    currentPage,
+    numberOfResults = 0,
+    paginated,
   }: TreeTableReactProps<R>,
   ref: React.ForwardedRef<ManipulateTable>
 ) {
@@ -223,20 +265,34 @@ function InnerTreeTableReact<R extends object = {}>(
   const {
     getTableProps,
     getTableBodyProps,
-    rows,
     prepareRow,
     toggleAllRowsExpanded,
     toggleRowExpanded,
+    toggleAllRowsSelected,
     isAllRowsExpanded,
     headerGroups,
     toggleHideColumn,
     columns: currentColumns,
     selectedFlatRows,
     totalColumnsWidth,
+    page: rows, // Instead of using 'rows', we'll use page,
+    // which has only the rows for the active page
+    canPreviousPage,
+    canNextPage,
+    pageCount,
+    setPageSize,
+    nextPage,
+    previousPage,
+    state: { pageIndex, pageSize, selectedRowIds },
   } = useTable(
     {
       columns: memoizedColumns,
       data: memoizedData,
+      manualPagination: manual,
+      pageCount: manual ? pages : undefined,
+      // TODO: fix when pagination and select ->  children are selected but button is not checked
+      paginateExpandedRows: paginated ? false : true,
+      autoResetSelectedRows: manual ? false : true,
       // For multiSelect nested data option to select children
       // data format must contain subRows https://github.com/TanStack/react-table/issues/2609
       ...(!multiSelect &&
@@ -248,6 +304,9 @@ function InnerTreeTableReact<R extends object = {}>(
         getRowId: (row) => setUniqueRowKey(row as Row),
       }),
       initialState: {
+        // if there is no pagination show all data
+        pageSize: paginated ? defaultPageSize : data.length,
+        pageIndex: manual ? currentPage : 0,
         hiddenColumns: columns
           .filter((col: Column) => col.initiallyHidden === true)
           .map((col) => col.id || col.accessor) as any,
@@ -256,6 +315,7 @@ function InnerTreeTableReact<R extends object = {}>(
     useExpanded,
     useFlexLayout,
     useResizeColumns,
+    usePagination,
     useRowSelect,
     (hooks) => {
       hooks.visibleColumns.push((columns) => [
@@ -290,12 +350,16 @@ function InnerTreeTableReact<R extends object = {}>(
   );
 
   useEffect(() => {
+    manual && onFetchData?.({ pageIndex, pageCount, pageSize });
+  }, [onFetchData, pageIndex, pageSize, manual]);
+
+  useEffect(() => {
     toggleColumnsHandler?.(currentColumns);
   }, [currentColumns, toggleColumnsHandler]);
 
   useEffect(() => {
-    listRef?.current?.resetAfterIndex?.(0);
-  }, [isAllRowsExpanded]);
+    virtualized && listRef?.current?.resetAfterIndex?.(0);
+  }, [isAllRowsExpanded, rows]);
 
   const getItemHeight = useCallback(
     (i: number) => {
@@ -305,7 +369,6 @@ function InnerTreeTableReact<R extends object = {}>(
     },
     [rows]
   );
-
   const scrollToRow = useCallback(
     (rowId: string, align: Align = 'start') => {
       if (isAllRowsExpanded) {
@@ -349,36 +412,88 @@ function InnerTreeTableReact<R extends object = {}>(
     },
     [isAllRowsExpanded, listRef]
   );
-
+  const selectedRowIdsArr = useMemo(() => Object.keys(selectedRowIds), [selectedFlatRows]);
   useImperativeHandle(ref, () => ({
     scrollToRow,
     toggleAllRowsExpansion,
     tableFullyExpanded: isAllRowsExpanded,
-    selectedRows: selectedFlatRows,
+    selectedRows: manual ? selectedRowIdsArr : selectedFlatRows,
   }));
 
-  const renderRow = ({ index, style }: { index: number; style?: CSSProperties }) => {
-    const row = rows[index];
-    prepareRow(row);
-    initializeRootData(row);
-    return (
-      <TreeTableRow
-        key={row.id}
-        row={row}
-        highlighted={highlightedRowId === row.id}
-        index={index}
-        listRef={listRef}
-        expandOnParentRowClick={expandOnParentRowClick}
-        onRowDoubleClick={onRowDoubleClick}
-        onRowClick={onRowClick}
-        onRowHover={onRowHover}
-        style={style}
-        multiSelect={multiSelect}
-        customSubRow={renderSubRowComponent}
-      />
-    );
-  };
+  const renderRow = useCallback(
+    ({ index, style }: { index: number; style?: CSSProperties }) => {
+      const row = rows[index];
+      prepareRow(row);
+      initializeRootData(row);
+      return (
+        <TreeTableRow
+          key={row.id}
+          row={row}
+          highlighted={highlightedRowId === row.id}
+          index={index}
+          listRef={listRef}
+          expandOnParentRowClick={expandOnParentRowClick}
+          onRowDoubleClick={onRowDoubleClick}
+          onRowClick={onRowClick}
+          onRowHover={onRowHover}
+          style={style}
+          multiSelect={multiSelect}
+          customSubRow={renderSubRowComponent}
+        />
+      );
+    },
+    [
+      rows,
+      listRef,
+      multiSelect,
+      expandOnParentRowClick,
+      onRowDoubleClick,
+      onRowClick,
+      onRowHover,
+      renderSubRowComponent,
+    ]
+  );
 
+  const renderPagination = useCallback(
+    () =>
+      paginated && (
+        <TablePagination
+          canNext={canNextPage}
+          canPrevious={canPreviousPage}
+          pages={pageCount}
+          pageSizeOptions={pageSizeOptions}
+          page={pageIndex}
+          loading={loading}
+          onPageSizeChange={setPageSize}
+          numberOfResults={manual ? numberOfResults : data.length}
+          pageSize={pageSize}
+          onClearSelection={() => toggleAllRowsSelected(false)}
+          // TODO: count just parent row
+          numberOfSelected={manual ? selectedRowIdsArr?.length : selectedFlatRows.length}
+          nextPage={nextPage}
+          previousPage={previousPage}
+        />
+      ),
+    [
+      canNextPage,
+      canPreviousPage,
+      pageSizeOptions,
+      pageSize,
+      selectedRowIds,
+      selectedFlatRows,
+      pageCount,
+      pageIndex,
+      loading,
+      setPageSize,
+      nextPage,
+      previousPage,
+      toggleAllRowsSelected,
+      manual,
+      data,
+      numberOfResults,
+      paginated,
+    ]
+  );
   return (
     <div className={styles.treeTableContainer}>
       {title && <div className={styles.treeTableTitle}>{title}</div>}
@@ -395,7 +510,7 @@ function InnerTreeTableReact<R extends object = {}>(
         )}
         <TreeTableActionBar
           actions={actions}
-          selection={selectedFlatRows}
+          selection={manual ? selectedRowIdsArr : selectedFlatRows}
           toggleAll={() => toggleAllRowsExpanded()}
           displayExpandAll={!isAllRowsExpanded}
           disabledExpand={isFlatTree(rows, setSubRowsKey) && !renderSubRowComponent}
@@ -413,6 +528,7 @@ function InnerTreeTableReact<R extends object = {}>(
             toggleColumns: toggleColumns,
           }}
           renderRightItems={renderActionBarRightItems}
+          renderPagination={renderPagination}
         />
         <div {...getTableProps()} className={styles.table}>
           <TreeTableHeader headerGroups={headerGroups} resizable={resizable} />
@@ -436,6 +552,7 @@ function InnerTreeTableReact<R extends object = {}>(
             )}
           </div>
         </div>
+        {renderPagination()}
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Story, Meta } from '@storybook/react';
 import { Column, Row } from 'react-table-7';
 
@@ -110,3 +110,49 @@ const LazyLoadingTemplate: Story<TreeTableReactProps<TableRow>> = (args) => {
 export const LazyLoading = LazyLoadingTemplate.bind({});
 LazyLoading.storyName = 'Lazy SubRows';
 LazyLoading.args = { ...baseArgs, data: flatData };
+
+export const PaginatedTable = DefaultTemplate.bind({});
+PaginatedTable.storyName = 'Paginated Table';
+PaginatedTable.args = { ...baseArgs, paginated: true, virtualized: false, data: treeTableData };
+
+const ServerPaginatedTemplate: Story<TreeTableReactProps<TableRow>> = (args) => {
+  const [data, setData] = useState<any>();
+  const fetchData = useCallback(({ pageSize, pageIndex }) => {
+    const fetchId = ++fetchIdRef.current;
+    setLoading(true);
+    setTimeout(() => {
+      // Only update the data if this is the latest fetch
+      if (fetchId === fetchIdRef.current) {
+        const startRow = pageSize * (pageIndex ?? 0);
+        const endRow = startRow + pageSize;
+        setData(treeTableData.slice(startRow, endRow));
+        setPageCount(Math.ceil(treeTableData.length / pageSize));
+        setLoading(false);
+      }
+    }, 1000);
+  }, []);
+  const fetchIdRef = useRef(0);
+  const [loading, setLoading] = useState(false);
+  const [pageCount, setPageCount] = useState(0);
+  return (
+    <TreeTableReact
+      {...args}
+      numberOfResults={treeTableData.length}
+      data={data ?? []}
+      manual={true}
+      onFetchData={fetchData}
+      pages={pageCount}
+      currentPage={fetchIdRef.current}
+      loading={loading}
+    />
+  );
+};
+
+export const ServerPaginatedTable = ServerPaginatedTemplate.bind({});
+ServerPaginatedTable.storyName = 'Server Paginated Table';
+ServerPaginatedTable.args = {
+  ...baseArgs,
+  paginated: true,
+  virtualized: false,
+  setUniqueRowKey: (row) => row.id,
+};

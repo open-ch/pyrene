@@ -15,6 +15,9 @@ import {
   UseRowSelectOptions,
   UseRowSelectRowProps,
   UseRowSelectState,
+  UsePaginationInstanceProps,
+  UsePaginationOptions,
+  UsePaginationState,
 } from 'react-table';
 
 declare module 'react-table-7' {
@@ -22,6 +25,7 @@ declare module 'react-table-7' {
     extends UseExpandedOptions<D>,
       UseResizeColumnsOptions<D>,
       UseRowSelectOptions<D>,
+      UsePaginationOptions<D>,
       Record<string, any> {}
 
   export interface Hooks<D extends Record<string, unknown> = Record<string, unknown>>
@@ -32,12 +36,17 @@ declare module 'react-table-7' {
     extends UseExpandedInstanceProps<D>,
       UseRowSelectInstanceProps<D>,
       toggleAllRowsExpanded<D>,
+      UsePaginationInstanceProps<D>,
       isAllRowsExpanded<D> {}
-
   export interface TableState<D extends Record<string, unknown> = Record<string, unknown>>
     extends UseExpandedState<D>,
-      UseResizeColumnsState<D> {}
+      UseResizeColumnsState<D>,
+      SelectedRowState,
+      UsePaginationState<D> {}
 
+  interface SelectedRowState {
+    selectedRowIds: { [key: string]: boolean };
+  }
   export type CustomColumn = {
     initiallyHidden?: boolean;
     cellStyle?: CSSProperties;

@@ -1,0 +1,81 @@
+@import '../../../styles/colors.module.css';
+
+.tablePagination {
+  composes: commonFontSettings from '../../../styles/common.module.css';
+  height: 32px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  font-size: 12px;
+  font-weight: 400;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 16px;
+  letter-spacing: normal;
+  color: var(--neutral-200);
+}
+
+.pageNavigation {
+  display: flex;
+  align-items: center;
+}
+
+.pageTracker {
+  color: var(--text);
+  white-space: nowrap;
+
+  &.disabled {
+    color: var(--neutral-200);
+  }
+}
+
+.pageSizeSelectOptions {
+  display: flex;
+  align-items: center;
+}
+
+.pageSizeSelect {
+  width: 57px;
+  height: 32px;
+  margin-left: -8px;
+}
+
+.spacer {
+  &.small {
+    width: 8px;
+  }
+
+  &.medium {
+    width: 24px;
+  }
+}
+
+.separator {
+  width: 1px;
+  height: 24px;
+  background-color: var(--border);
+  margin: 0 8px;
+}
+
+.resultsCounter {
+}
+
+.clearSelectionButton {
+  width: 16px;
+  height: 16px;
+  font-size: 16px;
+  margin-left: 4px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--neutral-030);
+    border-radius: 2px;
+  }
+}
+
+.selectedCountDiv {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}

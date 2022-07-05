@@ -1,0 +1,50 @@
+@import '../../../../styles/colors.module.css';
+
+.selectContainer {
+  composes: commonFontSettings from '../../../../styles/common.module.css';
+  width: 100%;
+
+  &.disabled {
+    opacity: .5;
+    pointer-events: none;
+  }
+}
+
+.selectTitle {
+  font-size: 13px;
+  font-weight: 600;
+  text-align: left;
+  color: var(--neutral-400);
+  margin-bottom: 3px;
+
+  &.required:after {
+    content: '*';
+    color: var(--danger-fg);
+  }
+}
+
+.selectHelper {
+  margin-top: 4px;
+  font-size: 12px;
+  line-height: 16px;
+  height: 16px;
+  font-weight: 600;
+  text-align: left;
+  color: var(--neutral-100);
+}
+
+.invalidLabel {
+  margin-top: 4px;
+  font-size: 12px;
+  line-height: 16px;
+  height: 16px;
+  font-weight: 600;
+  text-align: left;
+  color: var(--danger-fg);
+}
+
+.errorIcon {
+  font-size: 14px;
+  margin-right: 4px;
+  vertical-align: text-top;
+}
