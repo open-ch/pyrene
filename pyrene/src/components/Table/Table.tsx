@@ -42,6 +42,7 @@ import TableHeaderCellResizer, {
   TableHeaderCellResizerProps,
 } from './TableHeader/TableHeaderCellResizer';
 import { ActionActiveOption, handleActionAvailability } from '../../utils/TableUtils';
+import ShareDialog from '../ShareDialog/ShareDialog';
 
 const CheckboxTable = selectTableHOC(ReactTable);
 
@@ -215,6 +216,10 @@ export interface TableProps<R = {}> {
    * @returns {boolean} - enabled = true, disabled = false
    */
   rowSelectableCallback?: (row: R) => boolean;
+  /**
+   * Sets share link value.
+   */
+  shareLink?: string;
   /**
    * Sets the title.
    */
@@ -661,6 +666,12 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
         <div className={clsx(styles.tableAndActions, { [styles.disabled]: this.props.disabled })}>
           {Array.isArray(this.props.actions) && this.props.actions.length > 0 && (
             <div className={styles.toolbar}>
+              {this.props.shareLink && (
+                <>
+                  <ShareDialog position="bottom" align="start" link={this.props.shareLink} />
+                  <div className={styles.spacer} />
+                </>
+              )}
               {this.props.actions.map((action, index) => (
                 <React.Fragment key={action.label}>
                   <Button

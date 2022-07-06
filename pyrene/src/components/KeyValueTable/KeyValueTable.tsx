@@ -2,6 +2,16 @@ import React, { CSSProperties, ReactNode } from 'react';
 import clsx from 'clsx';
 
 import styles from './KeyValueTable.module.css';
+import Banner from '../Banner/Banner';
+import Loader from '../Loader/Loader';
+
+const getNodeText = (node: ReactNode): string => {
+  if (['string', 'number'].includes(typeof node)) return node as string;
+  if (node instanceof Array) return node.map(getNodeText).join(' ');
+  // @ts-ignore
+  if (typeof node === 'object' && node) return getNodeText(node.props.children);
+  return '';
+};
 
 type Row = {
   key: string;
@@ -59,7 +69,7 @@ const KeyValueTable: React.FC<KeyValueTableProps> = ({
                 {row.key}
               </td>
               <td
-                title={row.value + ''}
+                title={getNodeText(row.value)}
                 className={clsx(styles.keyValueCellValue, styles[`value-${theme}`])}
               >
                 {row.value}
