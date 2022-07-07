@@ -1,6 +1,8 @@
 import { ComponentProps, useEffect } from 'react';
 import { Story, Meta } from '@storybook/react';
+import { Banner } from '@osag/pyrene';
 import { useArgs } from '@storybook/client-api';
+
 import {
   tableData,
   tableColumns,
@@ -62,6 +64,7 @@ barChartTable.args = {
   description: 'Optional description and explanation on how to read the chart',
   onRowDoubleClick: (row: any) => alert(row.volume), // eslint-disable-line no-alert
   displayedRows: 10,
+  popoverFooter: <Banner type="info" label={`1000 results of shown.`} styling="inline" />,
 };
 
 export const BarChart = Template.bind({});

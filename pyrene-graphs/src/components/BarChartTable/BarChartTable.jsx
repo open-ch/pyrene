@@ -41,12 +41,23 @@ export default class BarChartTable extends React.Component {
   render() {
     const dataAvailable = this.props.data && this.props.data.length > 0;
 
-    const colors = (this.props.type === 'comparison' ? this.props.colorScheme.comparison : this.props.colorScheme.valueGround);
+    const colors =
+      this.props.type === 'comparison'
+        ? this.props.colorScheme.comparison
+        : this.props.colorScheme.valueGround;
     const description = this.props.type === 'bar' ? '' : this.props.description;
-    const sortedData = dataAvailable && this.props.data.sort((a, b) => {
-      const sortPrimaryValue = getValueWithAccessor(b, this.props.columns.primaryValue.accessor) - getValueWithAccessor(a, this.props.columns.primaryValue.accessor);
-      return this.props.columns.secondaryValue ? sortPrimaryValue || (getValueWithAccessor(b, this.props.columns.secondaryValue.accessor) - getValueWithAccessor(a, this.props.columns.secondaryValue.accessor)) : sortPrimaryValue;
-    });
+    const sortedData =
+      dataAvailable &&
+      this.props.data.sort((a, b) => {
+        const sortPrimaryValue =
+          getValueWithAccessor(b, this.props.columns.primaryValue.accessor) -
+          getValueWithAccessor(a, this.props.columns.primaryValue.accessor);
+        return this.props.columns.secondaryValue
+          ? sortPrimaryValue ||
+              getValueWithAccessor(b, this.props.columns.secondaryValue.accessor) -
+                getValueWithAccessor(a, this.props.columns.secondaryValue.accessor)
+          : sortPrimaryValue;
+      });
     const displayedRows = dataAvailable ? this.getDisplayRows(this.props.data.length) : 0;
     const popOverAdditionalRows = 5;
     const popOverWidth = 448 - 24;
@@ -61,7 +72,17 @@ export default class BarChartTable extends React.Component {
           colors={colors}
         />
         {/* table height: displayedRows + 1 header row + conditional showMoreLink div */}
-        <div style={{ height: dataAvailable ? `${displayedRows * rowHeight + rowHeight + (this.props.data.length > displayedRows && this.props.loading ? 26 : 0)}px` : '90px' }}>
+        <div
+          style={{
+            height: dataAvailable
+              ? `${
+                  displayedRows * rowHeight +
+                  rowHeight +
+                  (this.props.data.length > displayedRows && this.props.loading ? 26 : 0)
+                }px`
+              : '90px',
+          }}
+        >
           <Responsive>
             {(parent) => (
               <SimpleTable
@@ -79,29 +100,41 @@ export default class BarChartTable extends React.Component {
             )}
           </Responsive>
         </div>
-        {dataAvailable && (this.props.data.length > displayedRows) && !this.props.loading && (
+        {dataAvailable && this.props.data.length > displayedRows && !this.props.loading && (
           <div className={styles.showMoreLink} onClick={this.togglePopover}>
             {`Show more (${sortedData.length})`}
             {this.state.showPopover && (
               <Popover
                 align="center"
                 children={<div className={styles.popOverPlaceholder}></div>} // eslint-disable-line
-                distanceToTarget={-((popOverAdditionalRows - 2) * rowHeight) - 1.5} // to center the popover vertically, so that 3 rows of the popover table are under and 2 rows over the bar chart table, - 1.5 to align borders
+                distanceToTarget={
+                  -((popOverAdditionalRows - 2) * rowHeight) -
+                  1.5 -
+                  (this.props.popoverFooter ? 30 : 0)
+                } // to center the popover vertically, so that 3 rows of the popover table are under and 2 rows over the bar chart table, - 1.5 to align borders, -15 to align footer
                 renderPopoverContent={() => (
-                  <div className={styles.popOverContainer} style={{
-                    width: popOverWidth,
-                    height: `${(displayedRows + popOverAdditionalRows) * rowHeight + rowHeight + rowHeight}px`,
-                  }}
+                  <div
+                    className={styles.popOverContainer}
+                    style={{
+                      width: popOverWidth,
+                    }}
                   >
-                    {/* popover height: (displayedRows + 5 more rows) * 32px + 32px table header + 32px popover header */}
-                    <div className={styles.popOverHeader}>
-                      {this.props.title}
-                    </div>
-                    <div className={styles.popOverBody} style={{ height: `${(displayedRows + popOverAdditionalRows) * rowHeight + rowHeight}px` }}>
-                      <div style={{
-                        width: popOverTableWidth,
-                        height: `${(displayedRows + popOverAdditionalRows) * rowHeight + rowHeight}px`,
+                    <div className={styles.popOverHeader}>{this.props.title}</div>
+                    <div
+                      className={styles.popOverBody}
+                      style={{
+                        height: `${
+                          (displayedRows + popOverAdditionalRows) * rowHeight + rowHeight
+                        }px`,
                       }}
+                    >
+                      <div
+                        style={{
+                          width: popOverTableWidth,
+                          height: `${
+                            (displayedRows + popOverAdditionalRows) * rowHeight + rowHeight
+                          }px`,
+                        }}
                       >
                         <SimpleTable
                           actions={this.props.actions}
@@ -115,12 +148,10 @@ export default class BarChartTable extends React.Component {
                           onRowDoubleClick={this.props.onRowDoubleClick}
                         />
                       </div>
-                      {this.props.popoverFooter && (
-                        <div className={styles.footerContainer}>
-                          {this.props.popoverFooter}
-                        </div>
-                      )}
                     </div>
+                    {this.props.popoverFooter && (
+                      <div className={styles.footerContainer}>{this.props.popoverFooter}</div>
+                    )}
                   </div>
                 )}
                 displayPopover={this.state.showPopover}
@@ -129,11 +160,9 @@ export default class BarChartTable extends React.Component {
             )}
           </div>
         )}
-
       </div>
     );
   }
-
 }
 
 BarChartTable.displayName = 'BarChartTable';
@@ -169,38 +198,23 @@ BarChartTable.propTypes = {
    */
   columns: PropTypes.shape({
     label: PropTypes.shape({
-      accessor: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.func,
-      ]).isRequired,
-      linkAccessor: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.func,
-      ]),
+      accessor: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
+      linkAccessor: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
       onClick: PropTypes.func,
     }),
     primaryValue: PropTypes.shape({
-      accessor: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.func,
-      ]).isRequired,
+      accessor: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
       dataFormat: PropTypes.func,
       title: PropTypes.string.isRequired,
       width: PropTypes.number,
     }).isRequired,
     secondaryLabel: PropTypes.shape({
-      accessor: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.func,
-      ]).isRequired,
+      accessor: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
       title: PropTypes.string.isRequired,
       width: PropTypes.number,
     }),
     secondaryValue: PropTypes.shape({
-      accessor: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.func,
-      ]).isRequired,
+      accessor: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
       dataFormat: PropTypes.func,
       title: PropTypes.string.isRequired,
       width: PropTypes.number,
