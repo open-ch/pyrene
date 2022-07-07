@@ -1,7 +1,7 @@
-@import "../../styles/colors.module.css";
+@import '../../styles/colors.module.css';
 
 .banner {
-  composes: commonFontSettings from "../../styles/common.module.css";
+  composes: commonFontSettings from '../../styles/common.module.css';
   box-sizing: border-box;
   width: 100%;
   display: flex;
@@ -47,7 +47,7 @@
   &.style-standard::before,
   &.style-inline-label::before,
   &.style-overlay::before {
-    content: "";
+    content: '';
     width: 3px;
     height: 100%;
     position: absolute;
@@ -92,12 +92,32 @@
     }
 
     &.style-overlay {
-      box-shadow: 0 0 0 0 rgba(0, 21, 44, 0.3),
-        0 2px 8px -2px rgba(0, 21, 44, 0.2);
+      box-shadow: 0 0 0 0 rgba(0, 21, 44, 0.3), 0 2px 8px -2px rgba(0, 21, 44, 0.2);
     }
 
     & .bannerIcon {
       color: var(--ok-fg);
+    }
+  }
+
+  &.type-block {
+    &.style-standard::before,
+    &.style-inline-label::before,
+    &.style-overlay::before {
+      background-color: var(--danger-fg);
+    }
+
+    &.style-inline {
+      border: none;
+      align-items: center;
+    }
+
+    &.style-overlay {
+      box-shadow: 0 0 0 0 rgba(0, 21, 44, 0.3), 0 2px 8px -2px rgba(0, 21, 44, 0.2);
+    }
+
+    & .bannerIcon {
+      color: var(--danger-fg);
     }
   }
 
@@ -114,8 +134,7 @@
     }
 
     &.style-overlay {
-      box-shadow: 0 0 0 0 rgba(0, 21, 44, 0.3),
-        0 2px 8px -2px rgba(0, 21, 44, 0.2);
+      box-shadow: 0 0 0 0 rgba(0, 21, 44, 0.3), 0 2px 8px -2px rgba(0, 21, 44, 0.2);
     }
 
     & .bannerIcon {
@@ -136,8 +155,7 @@
     }
 
     &.style-overlay {
-      box-shadow: 0 0 0 0 rgba(0, 21, 44, 0.3),
-        0 2px 8px -2px rgba(0, 21, 44, 0.2);
+      box-shadow: 0 0 0 0 rgba(0, 21, 44, 0.3), 0 2px 8px -2px rgba(0, 21, 44, 0.2);
     }
 
     & .bannerIcon {
@@ -152,8 +170,7 @@
     }
 
     &.style-overlay {
-      box-shadow: 0 0 0 0 rgba(0, 21, 44, 0.3),
-        0 2px 8px -2px rgba(0, 21, 44, 0.2);
+      box-shadow: 0 0 0 0 rgba(0, 21, 44, 0.3), 0 2px 8px -2px rgba(0, 21, 44, 0.2);
     }
   }
 

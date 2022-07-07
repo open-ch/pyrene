@@ -664,15 +664,16 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
         </div>
 
         <div className={clsx(styles.tableAndActions, { [styles.disabled]: this.props.disabled })}>
-          {Array.isArray(this.props.actions) && this.props.actions.length > 0 && (
-            <div className={styles.toolbar}>
-              {this.props.shareLink && (
-                <>
-                  <ShareDialog position="bottom" align="start" link={this.props.shareLink} />
-                  <div className={styles.spacer} />
-                </>
-              )}
-              {this.props.actions.map((action, index) => (
+          <div className={styles.toolbar}>
+            {this.props.shareLink && (
+              <>
+                <ShareDialog position="bottom" align="start" link={this.props.shareLink} />
+                <div className={styles.spacer} />
+              </>
+            )}
+            {Array.isArray(this.props.actions) &&
+              this.props.actions.length > 0 &&
+              this.props.actions.map((action, index) => (
                 <React.Fragment key={action.label}>
                   <Button
                     label={action.label}
@@ -687,8 +688,7 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
                   )}
                 </React.Fragment>
               ))}
-            </div>
-          )}
+          </div>
           {this.renderTable()}
         </div>
       </div>

@@ -36,6 +36,14 @@ export interface KeyValueTableProps {
    * Theme of the table.
    */
   theme?: 'greyLabel' | 'border';
+  /**
+   * Disables the component and displays a loader inside of it.
+   */
+  loading?: boolean;
+  /**
+   * Sets the error message to be displayed
+   */
+  error?: string;
 }
 
 const KeyValueTable: React.FC<KeyValueTableProps> = ({
@@ -43,41 +51,49 @@ const KeyValueTable: React.FC<KeyValueTableProps> = ({
   rows = [{ key: 'key', value: 'value' }],
   keyWidth = 256,
   theme = 'border',
+  error,
+  loading,
 }: KeyValueTableProps) => (
   <div className={styles.keyValueTable}>
     {title && (
       <div className={clsx(styles.keyValueTableTitle, styles[`title-${theme}`])}>{title}</div>
     )}
-    <table className={styles.keyValueBody}>
-      <tbody>
-        {rows &&
-          rows.map((row) => (
-            <tr
-              className={clsx(styles.keyValueRow, styles[`row-${theme}`])}
-              style={row.rowStyle}
-              key={row.key}
-            >
-              <td
-                className={clsx(styles.keyValueCellKey, styles[`key-${theme}`])}
-                style={
-                  theme === 'border'
-                    ? { width: keyWidth, minWidth: keyWidth, maxWidth: keyWidth }
-                    : undefined
-                }
-                title={row.key}
+    {error ? (
+      <Banner label={error} type="error" styling="inline" />
+    ) : loading ? (
+      <Loader size="large" />
+    ) : (
+      <table className={styles.keyValueBody}>
+        <tbody>
+          {rows &&
+            rows.map((row) => (
+              <tr
+                className={clsx(styles.keyValueRow, styles[`row-${theme}`])}
+                style={row.rowStyle}
+                key={row.key}
               >
-                {row.key}
-              </td>
-              <td
-                title={getNodeText(row.value)}
-                className={clsx(styles.keyValueCellValue, styles[`value-${theme}`])}
-              >
-                {row.value}
-              </td>
-            </tr>
-          ))}
-      </tbody>
-    </table>
+                <td
+                  className={clsx(styles.keyValueCellKey, styles[`key-${theme}`])}
+                  style={
+                    theme === 'border'
+                      ? { width: keyWidth, minWidth: keyWidth, maxWidth: keyWidth }
+                      : undefined
+                  }
+                  title={row.key}
+                >
+                  {row.key}
+                </td>
+                <td
+                  title={getNodeText(row.value)}
+                  className={clsx(styles.keyValueCellValue, styles[`value-${theme}`])}
+                >
+                  {row.value}
+                </td>
+              </tr>
+            ))}
+        </tbody>
+      </table>
+    )}
   </div>
 );
 

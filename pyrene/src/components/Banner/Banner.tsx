@@ -7,7 +7,7 @@ import styles from './Banner.module.css';
 
 export type StylingType = 'standard' | 'inline' | 'overlay' | 'inline-label';
 
-export type Type = 'info' | 'success' | 'error' | 'warning' | 'loading';
+export type Type = 'info' | 'success' | 'error' | 'warning' | 'loading' | 'block';
 
 export interface BannerProps {
   /**
@@ -18,6 +18,10 @@ export interface BannerProps {
    * Sets the label displayed to the user.
    */
   label: string;
+  /**
+   * Overrides default min-height value for banner.
+   */
+  minHeight?: number;
   /**
    * Called when the user click on the clear icon. Only available for overlay banners.
    */
@@ -45,13 +49,17 @@ const Banner: React.FC<BannerProps> = ({
   onClear,
   styling = 'standard',
   type,
+  minHeight,
 }: BannerProps) => (
   <div
     className={clsx(styles.banner, styles[`type-${type}`], styles[`style-${styling}`])}
+    style={{ minHeight }}
     role="banner"
   >
     <div className={styles.iconMessageContainer}>
-      <span className={styles.bannerIcon}>{type === 'loading' ? <Loader size="small" /> : <span className={`pyreneIcon-${type}`} />}</span>
+      <span className={styles.bannerIcon}>
+        {type === 'loading' ? <Loader size="small" /> : <span className={`pyreneIcon-${type}`} />}
+      </span>
       <div className={styles.spacer} />
       <div className={styles.textBox}>
         <div className={styles.message}>{label}</div>
