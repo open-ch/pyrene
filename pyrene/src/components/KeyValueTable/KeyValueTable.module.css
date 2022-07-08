@@ -98,3 +98,9 @@
     font-weight: 500;
   }
 }
+
+.centeredElement {
+  display: flex;
+  justify-content: center;
+  padding-top: 16px;
+}

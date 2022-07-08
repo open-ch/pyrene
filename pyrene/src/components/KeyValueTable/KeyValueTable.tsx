@@ -59,9 +59,13 @@ const KeyValueTable: React.FC<KeyValueTableProps> = ({
       <div className={clsx(styles.keyValueTableTitle, styles[`title-${theme}`])}>{title}</div>
     )}
     {error ? (
-      <Banner label={error} type="error" styling="inline" />
+      <div className={styles.centeredElement}>
+        <Banner label={error} type="error" styling="inline" />
+      </div>
     ) : loading ? (
-      <Loader size="large" />
+      <div className={styles.centeredElement}>
+        <Loader size="large" />
+      </div>
     ) : (
       <table className={styles.keyValueBody}>
         <tbody>
