@@ -1,6 +1,5 @@
 @import '../../styles/colors.module.css';
 
-
 .heading1 {
   font-size: 24px;
   line-height: 32px;
@@ -13,7 +12,7 @@
   font-size: 20px;
   line-height: 24px;
   margin-top: 24px;
-  margin-bottom: 24px;
+  margin-bottom: 16px;
 }
 
 .heading3 {
@@ -21,7 +20,7 @@
   line-height: 24px;
   letter-spacing: -0.1px;
   margin-top: 24px;
-  margin-bottom: 24px;
+  margin-bottom: 16px;
 }
 
 .heading4 {
@@ -48,5 +47,11 @@
 
   &:last-child {
     margin-bottom: 0;
+  }
+
+  &.withIcon {
+    display: flex;
+    align-items: center;
+    gap: 4px;
   }
 }

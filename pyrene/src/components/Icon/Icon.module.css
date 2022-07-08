@@ -2,6 +2,22 @@
 .type-standalone {
   width: 16px;
   height: 16px;
+  &.xsmall {
+    width: 4px;
+    height: 4px;
+  }
+  &.small {
+    width: 8px;
+    height: 8px;
+  }
+  &.large {
+    width: 24px;
+    height: 24px;
+  }
+  &.xlarge {
+    width: 32px;
+    height: 32px;
+  }
 }
 
 .type-inline {
