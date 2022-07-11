@@ -627,9 +627,9 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
             [styles.disabled]: this.props.disabled,
           })}
         >
-          <div className={styles.filterContainer}>
-            {((Array.isArray(this.props.filters) && this.props.filters.length > 0) ||
-              this.props.filterDisabled) && (
+          {((Array.isArray(this.props.filters) && this.props.filters.length > 0) ||
+            this.props.filterDisabled) && (
+            <div className={styles.filterContainer}>
               <Filter
                 filters={this.props.filters}
                 onFilterSubmit={
@@ -641,8 +641,8 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
                 filterValues={this.props.filterValues || {}}
                 negatable={this.props.negatable}
               />
-            )}
-          </div>
+            </div>
+          )}
           {this.props.toggleColumns && (
             <CheckboxPopover
               buttonLabel="Columns"
