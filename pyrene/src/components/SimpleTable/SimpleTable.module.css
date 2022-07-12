@@ -38,6 +38,9 @@
   min-width: 0;
   margin-right: 16px;
   padding: 0;
+  position: relative;
+  min-height: 16px;
+  text-align: left;
 }
 
 .tableHeaderCell:first-child {
@@ -79,6 +82,8 @@
   flex: 1 0 0%;
   min-width: 0;
   margin-right: 16px;
+  position: relative;
+  min-height: 16px;
 }
 
 .tableCell:first-child {
@@ -89,16 +94,14 @@
   margin-right: 8px;
 }
 
-.actionCell {
-  /* max-width: fit-content; */
-}
-
 .tableCellContent {
-  min-height: 16px;
+  position: relative;
+  position: absolute;
+  left: 0;
+  right: 0;
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
-  text-align: left;
 }
 
 .noData {
