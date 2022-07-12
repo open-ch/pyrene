@@ -119,6 +119,7 @@ function SimpleTable<R = {}>({
                       <div
                         className={styles.tableCellContent}
                         style={{ textAlign: column.align as any }}
+                        title={valueRow.value?.toString()}
                       >
                         {column.cellRenderCallback
                           ? column.cellRenderCallback(valueRow, rowIndex, columnIndex)

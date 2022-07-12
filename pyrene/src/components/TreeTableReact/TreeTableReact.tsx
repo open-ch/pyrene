@@ -280,6 +280,7 @@ function InnerTreeTableReact<R extends object = {}>(
     canPreviousPage,
     canNextPage,
     pageCount,
+    gotoPage,
     setPageSize,
     nextPage,
     previousPage,
@@ -349,9 +350,25 @@ function InnerTreeTableReact<R extends object = {}>(
     }
   );
 
+  const tableStateUpdateRef = useRef(false);
   useEffect(() => {
-    manual && onFetchData?.({ pageIndex, pageCount, pageSize });
+    if (manual && onFetchData) {
+      tableStateUpdateRef.current = true;
+      onFetchData({ pageIndex, pageCount, pageSize });
+    }
   }, [onFetchData, pageIndex, pageSize, manual]);
+  /* reset the page index to 0 when the table data updates due to something
+other than internal table state changes
+ */
+  useEffect(() => {
+    if (!tableStateUpdateRef.current) {
+      gotoPage(0);
+    }
+  }, [data, gotoPage]);
+  // clear our ref when the data is loaded, after we perform any side effects
+  useEffect(() => {
+    tableStateUpdateRef.current = false;
+  }, [data]);
 
   useEffect(() => {
     toggleColumnsHandler?.(currentColumns);
@@ -481,6 +498,7 @@ function InnerTreeTableReact<R extends object = {}>(
       pageSize,
       selectedRowIds,
       selectedFlatRows,
+      selectedRowIdsArr,
       pageCount,
       pageIndex,
       loading,
