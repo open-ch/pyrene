@@ -54,7 +54,7 @@ const ErrorComponent = ({ error = '' }: { error?: string }) => (
 
 const LoaderComponent = () => (
   <div className={styles.loader}>
-    <Loader size="large" type="inline" />
+    <Loader size="large" />
   </div>
 );
 

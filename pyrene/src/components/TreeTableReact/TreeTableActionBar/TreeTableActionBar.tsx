@@ -8,6 +8,7 @@ import CheckboxPopover, { CheckboxPopoverProps } from '../../CheckboxPopover/Che
 // eslint-disable-next-line import/no-cycle
 import { Action } from '../TreeTableReact';
 import { handleActionAvailability } from '../../../utils/TableUtils';
+import ShareDialog from '../../ShareDialog/ShareDialog';
 
 export interface TreeTableActionBarProps {
   actions: Action[];
@@ -24,6 +25,7 @@ export interface TreeTableActionBarProps {
   renderPagination?: () => false | undefined | JSX.Element;
   renderRightItems?: () => JSX.Element;
   toggleAll: ButtonProps['onClick'];
+  shareLink?: string;
 }
 
 function TreeTableActionBar({
@@ -36,6 +38,7 @@ function TreeTableActionBar({
   renderRightItems,
   renderPagination,
   toggleAll,
+  shareLink,
 }: TreeTableActionBarProps) {
   return (
     <div className={styles.treeTableActionBar}>
@@ -49,9 +52,11 @@ function TreeTableActionBar({
                   type="action"
                   onClick={toggleAll}
                   disabled={disabledExpand}
+                  width={103}
                 />,
               ]
             : []),
+          ...(shareLink ? [<ShareDialog position="bottom" align="start" link={shareLink} />] : []),
           ...actions.map((ac) => (
             <Button
               label={ac.label}

@@ -44,6 +44,7 @@ import {
 import { IconNames } from '../types';
 import { ActionActiveOption } from '../../utils/TableUtils';
 import TablePagination from './TablePagination/TablePagination';
+import Banner from '../Banner/Banner';
 
 const defaultColumn = {
   minWidth: 30,
@@ -178,6 +179,10 @@ export interface TreeTableReactProps<R> {
    */
   renderSubRowComponent?: ({ row, rowProps, listRef }: CustomSubRowProps) => JSX.Element;
   /**
+   * Sets share link value.
+   */
+  shareLink?: string;
+  /**
    * Show pagination footer
    */
   paginated?: boolean;
@@ -239,13 +244,14 @@ function InnerTreeTableReact<R extends object = {}>(
     setSubRowsKey,
     renderSubRowComponent,
     pageSizeOptions = [10, 20, 50, 100, 250],
-    defaultPageSize = 10,
+    defaultPageSize = 20,
     manual,
     onFetchData,
     pages,
     currentPage,
     numberOfResults = 0,
     paginated,
+    shareLink,
   }: TreeTableReactProps<R>,
   ref: React.ForwardedRef<ManipulateTable>
 ) {
@@ -528,6 +534,7 @@ other than internal table state changes
         )}
         <TreeTableActionBar
           actions={actions}
+          shareLink={shareLink}
           selection={manual ? selectedRowIdsArr : selectedFlatRows}
           toggleAll={() => toggleAllRowsExpanded()}
           displayExpandAll={!isAllRowsExpanded}
