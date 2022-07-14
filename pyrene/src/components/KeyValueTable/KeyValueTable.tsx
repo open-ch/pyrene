@@ -17,6 +17,7 @@ type Row = {
   key: string;
   rowStyle?: CSSProperties;
   value: ReactNode;
+  multiLine?: boolean;
 };
 
 export interface KeyValueTableProps {
@@ -89,7 +90,11 @@ const KeyValueTable: React.FC<KeyValueTableProps> = ({
                 </td>
                 <td
                   title={getNodeText(row.value)}
-                  className={clsx(styles.keyValueCellValue, styles[`value-${theme}`])}
+                  className={clsx(
+                    styles.keyValueCellValue,
+                    styles[`value-${theme}`],
+                    row.multiLine && styles.multiLine
+                  )}
                 >
                   {row.value}
                 </td>

@@ -19,9 +19,8 @@
   font-size: 12px;
   letter-spacing: 0;
   &.row-greyLabel {
-    padding-top: 6px;
     align-items: baseline;
-    line-height: 22px;
+    line-height: 24px;
   }
   &.row-border {
     display: flex;
@@ -83,7 +82,12 @@
     word-wrap: break-word;
   }
 }
-
+.multiLine {
+  line-height: 18px;
+  & > *:first-child {
+    margin-top: 6px;
+  }
+}
 .keyValueTableTitle {
   line-height: 1.5;
   color: var(--text);
