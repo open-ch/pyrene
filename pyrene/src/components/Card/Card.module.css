@@ -36,32 +36,27 @@
   border-bottom-left-radius: 4px;
 }
 
-.content--loading {
-  min-height: 160px;
-}
-
 .error,
 .loader {
-  min-height: 160px;
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
 }
 
+.error {
+  align-items: flex-start;
+}
 .loadingOverlay {
   position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: rgba(255, 255, 255, 0.6);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 3;
 }
-
 .xsmall .header,
 .xsmall .content,
 .xsmall .footer {

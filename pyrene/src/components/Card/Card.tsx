@@ -4,6 +4,8 @@ import clsx from 'clsx';
 import Loader from '../Loader/Loader';
 import Banner from '../Banner/Banner';
 import styles from './Card.module.css';
+import Heading, { HeadingProps } from '../Heading/Heading';
+import { IconNames } from '../types';
 
 export interface CardProps {
   /**
@@ -30,6 +32,30 @@ export interface CardProps {
    * Sets spacing between card content and edge
    */
   paddingSize?: 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge';
+  /**
+   * Sets the title.
+   */
+  title?: string;
+  /**
+   * Sets the title level.
+   */
+  titleLevel?: HeadingProps['level'];
+  /**
+   * Sets min card height.
+   */
+  minHeight?: number;
+  /**
+   * Icon that goes before the text
+   */
+  titleIcon?: keyof IconNames;
+  /**
+   * Sets the URL of the svg file.
+   */
+  titleSvg?: string;
+  /**
+   * Sets the icon color. ( Hint: see colorConstants.js)
+   */
+  titleIconColor?: string;
 }
 
 /**
@@ -39,7 +65,20 @@ export interface CardProps {
  */
 const Card = forwardRef<HTMLDivElement, CardProps>(
   (
-    { header, footer, children, loading = false, error, paddingSize = 'large' },
+    {
+      header,
+      footer,
+      children,
+      loading = false,
+      error,
+      paddingSize = 'large',
+      title,
+      titleLevel = 2,
+      minHeight,
+      titleIcon,
+      titleSvg,
+      titleIconColor,
+    },
     ref
   ) => (
     <div ref={ref} className={clsx(styles.container, styles[paddingSize])}>
@@ -49,11 +88,17 @@ const Card = forwardRef<HTMLDivElement, CardProps>(
           [styles['content--noHeader']]: !header,
           [styles['content--noFooter']]: !footer,
         })}
+        style={{ minHeight: minHeight }}
       >
+        {title && (
+          <Heading svg={titleSvg} icon={titleIcon} iconColor={titleIconColor} level={titleLevel}>
+            {title}
+          </Heading>
+        )}
         {/* eslint-disable-next-line no-nested-ternary */}
         {error ? (
           <div className={styles.error}>
-            <Banner type="error" styling="standard" label={error} />
+            <Banner type="error" styling="inline" label={error} />
           </div>
         ) : loading ? (
           <div className={styles.loader}>
