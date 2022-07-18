@@ -74,11 +74,13 @@ import { default as Tooltip } from './components/Tooltip/Tooltip';
 import { default as TreeTable } from './components/TreeTable/TreeTable';
 import { default as TreeTableReact } from './components/TreeTableReact/TreeTableReact';
 
+// Type imports, also sorted alphabetically
+import { Column as _Column } from './components/TreeTable/types';
+import { IconNames as _IconNames } from './components/types/icon';
 import {
   SingleSelectOption as _SingleSelectOption,
   SingleSelectGroupedOption as _SingleSelectGroupedOption,
 } from './components/SingleSelect/SingleSelectTypes';
-import { Column as _Column } from './components/TreeTable/types';
 
 // Sort alphabetically to find stuff easily
 const Components = {
@@ -189,9 +191,10 @@ export { TreeTableReact };
 
 export { createSimpleFilter, createDataFilter } from './components/Filter/Filter';
 
+export type Column<ValueType> = _Column<ValueType>;
+export type IconNames = _IconNames;
 export type SingleSelectGroupedOption<ValueType> = _SingleSelectGroupedOption<ValueType>;
 export type SingleSelectOption<ValueType> = _SingleSelectOption<ValueType>;
-export type Column<ValueType> = _Column<ValueType>;
 
 export { default as colorConstants } from './styles/colorConstants';
 
