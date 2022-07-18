@@ -37,6 +37,5 @@
 .tableBody {
   min-width: 215px;
   display: block;
-  overflow-y: scroll;
-  overflow-x: hidden;
+  overflow: hidden;
 }

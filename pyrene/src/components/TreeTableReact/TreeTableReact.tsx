@@ -281,6 +281,8 @@ function InnerTreeTableReact<R extends object = {}>(
     columns: currentColumns,
     selectedFlatRows,
     totalColumnsWidth,
+    // used for virtualized table
+    rows: allRows,
     page: rows, // Instead of using 'rows', we'll use page,
     // which has only the rows for the active page
     canPreviousPage,
@@ -382,27 +384,28 @@ other than internal table state changes
 
   useEffect(() => {
     virtualized && listRef?.current?.resetAfterIndex?.(0);
-  }, [isAllRowsExpanded, rows]);
+  }, [isAllRowsExpanded, allRows]);
 
   const getItemHeight = useCallback(
     (i: number) => {
-      const row = rows[i]?.original as { lineCount?: number };
+      const row = allRows[i]?.original as { lineCount?: number };
       const size = (row && row?.lineCount) || 1;
       return size * rowLineHeight;
     },
-    [rows]
+    [allRows]
   );
   const scrollToRow = useCallback(
     (rowId: string, align: Align = 'start') => {
+      const currentRows = virtualized ? allRows : rows;
       if (isAllRowsExpanded) {
-        const indexToScrollTo = rows.findIndex(({ id }) => id === rowId);
+        const indexToScrollTo = currentRows.findIndex(({ id }) => id === rowId);
         listRef.current.scrollToItem(indexToScrollTo, align);
         return;
       }
       handleExpandAllParentsOfRowById(toggleRowExpanded as any, rowId);
-      const indexToScrollTo = rows.findIndex(({ id }) => id === rowId);
+      const indexToScrollTo = currentRows.findIndex(({ id }) => id === rowId);
       const firstLvlParentRowId = getFirstLevelParentRowId(rowId);
-      const firstLvlParentRowIndex = rows.findIndex(({ id }) => id === firstLvlParentRowId);
+      const firstLvlParentRowIndex = currentRows.findIndex(({ id }) => id === firstLvlParentRowId);
       /**
        * we want to clear the cache starting from parent,
        * since "leaf node" scroll might have sibling or parents that also get inserted into the dataset on expand.
@@ -423,18 +426,19 @@ other than internal table state changes
         window.scrollTo(0, viewportTop + pageScrollTop);
       }
     },
-    [isAllRowsExpanded, rows, listRef]
+    [isAllRowsExpanded, rows, allRows, virtualized, listRef]
   );
 
   const toggleAllRowsExpansion = useCallback(
     (cb = () => {}) => {
       if (!isAllRowsExpanded) {
-        toggleAllRowsExpanded();
+        toggleAllRowsExpanded(isAllRowsExpanded ? false : true);
       }
       cb();
     },
     [isAllRowsExpanded, listRef]
   );
+
   const selectedRowIdsArr = useMemo(() => Object.keys(selectedRowIds), [selectedFlatRows]);
   useImperativeHandle(ref, () => ({
     scrollToRow,
@@ -445,7 +449,7 @@ other than internal table state changes
 
   const renderRow = useCallback(
     ({ index, style }: { index: number; style?: CSSProperties }) => {
-      const row = rows[index];
+      const row = virtualized ? allRows[index] : rows[index];
       prepareRow(row);
       initializeRootData(row);
       return (
@@ -467,6 +471,7 @@ other than internal table state changes
     },
     [
       rows,
+      allRows,
       listRef,
       multiSelect,
       expandOnParentRowClick,
@@ -536,9 +541,11 @@ other than internal table state changes
           actions={actions}
           shareLink={shareLink}
           selection={manual ? selectedRowIdsArr : selectedFlatRows}
-          toggleAll={() => toggleAllRowsExpanded()}
+          toggleAll={() => toggleAllRowsExpanded(isAllRowsExpanded ? false : true)}
           displayExpandAll={!isAllRowsExpanded}
-          disabledExpand={isFlatTree(rows, setSubRowsKey) && !renderSubRowComponent}
+          disabledExpand={
+            isFlatTree(virtualized ? allRows : rows, setSubRowsKey) && !renderSubRowComponent
+          }
           expandAllVisible={expandAllVisible}
           columnToggleProps={{
             listItems: currentColumns.slice(1).map((col: Column) => ({
@@ -561,11 +568,11 @@ other than internal table state changes
             {virtualized && !renderSubRowComponent ? (
               <VariableSizeList
                 height={height}
-                itemCount={rows.length}
+                itemCount={allRows.length}
                 width={totalColumnsWidth + scrollBarSize}
                 innerRef={innerRef}
                 itemSize={getItemHeight}
-                itemKey={(index) => rows[index].id}
+                itemKey={(index) => allRows[index].id}
                 ref={listRef}
                 overscanCount={10}
                 style={{ minWidth: '100%', width: 'auto' }}
