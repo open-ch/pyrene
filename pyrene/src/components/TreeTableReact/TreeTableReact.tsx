@@ -44,12 +44,13 @@ import {
 import { IconNames } from '../types';
 import { ActionActiveOption } from '../../utils/TableUtils';
 import TablePagination from './TablePagination/TablePagination';
-import Banner from '../Banner/Banner';
 
 const defaultColumn = {
   minWidth: 30,
   width: 130,
 };
+
+const defaultVirtualizedTableHeight = 300;
 
 type ManipulateTable = {
   scrollToRow: (rowId: string, align?: Align) => void;
@@ -106,7 +107,7 @@ export interface TreeTableReactProps<R> {
    * */
   filterValues?: Filters;
   /**
-   * Sets the height for the table. This is only needed when the virtualized prop is true.
+   * Sets the fixed height for the table.
    */
   height?: number;
   /**
@@ -224,7 +225,7 @@ function InnerTreeTableReact<R extends object = {}>(
     columns,
     expandOnParentRowClick = false,
     title = '',
-    height = 300,
+    height,
     loading = false,
     toggleColumns = true,
     toggleColumnsHandler,
@@ -300,7 +301,7 @@ function InnerTreeTableReact<R extends object = {}>(
       manualPagination: manual,
       pageCount: manual ? pages : undefined,
       // TODO: fix when pagination and select ->  children are selected but button is not checked
-      paginateExpandedRows: paginated ? false : true,
+      paginateExpandedRows: false,
       autoResetSelectedRows: manual ? false : true,
       // For multiSelect nested data option to select children
       // data format must contain subRows https://github.com/TanStack/react-table/issues/2609
@@ -383,8 +384,8 @@ other than internal table state changes
   }, [currentColumns, toggleColumnsHandler]);
 
   useEffect(() => {
-    virtualized && listRef?.current?.resetAfterIndex?.(0);
-  }, [isAllRowsExpanded, allRows]);
+    listRef?.current?.resetAfterIndex?.(0);
+  }, [isAllRowsExpanded, allRows, rows]);
 
   const getItemHeight = useCallback(
     (i: number) => {
@@ -564,10 +565,15 @@ other than internal table state changes
         />
         <div {...getTableProps()} className={styles.table}>
           <TreeTableHeader headerGroups={headerGroups} resizable={resizable} />
-          <div ref={containerRef} className={styles.tableBody} {...getTableBodyProps()}>
+          <div
+            ref={containerRef}
+            className={styles.tableBody}
+            style={!virtualized && height ? { height: height, overflow: 'auto' } : undefined}
+            {...getTableBodyProps()}
+          >
             {virtualized && !renderSubRowComponent ? (
               <VariableSizeList
-                height={height}
+                height={height ?? defaultVirtualizedTableHeight}
                 itemCount={allRows.length}
                 width={totalColumnsWidth + scrollBarSize}
                 innerRef={innerRef}
