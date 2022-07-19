@@ -221,6 +221,10 @@ export interface TableProps<R = {}> {
    */
   shareLink?: string;
   /**
+   * Whether to show pagination in the top of the table
+   */
+  showPaginationTop?: boolean;
+  /**
    * Sets the title.
    */
   title?: string;
@@ -259,6 +263,7 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
     negatable: false,
     error: null,
     resizable: false,
+    showPaginationTop: true,
   };
 
   checkboxTable: React.RefCallback<Instance<R>> | null = null;
@@ -396,7 +401,7 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
     TfootComponent: (props: TablePaginationProps<R>) => <TablePagination {...props} />,
     resizable: this.props.resizable,
     showPagination: true,
-    showPaginationTop: true,
+    showPaginationTop: this.props.showPaginationTop,
     showPageSizeOptions: true,
     sortable: !this.props.disableSorting,
 
@@ -664,7 +669,9 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
         </div>
 
         <div className={clsx(styles.tableAndActions, { [styles.disabled]: this.props.disabled })}>
-          <div className={styles.toolbar}>
+          <div
+            className={clsx(styles.toolbar, !this.props.showPaginationTop && styles.onlyActions)}
+          >
             {this.props.shareLink && (
               <>
                 <ShareDialog position="bottom" align="start" link={this.props.shareLink} />
