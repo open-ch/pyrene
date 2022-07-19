@@ -301,7 +301,7 @@ function InnerTreeTableReact<R extends object = {}>(
       manualPagination: manual,
       pageCount: manual ? pages : undefined,
       // TODO: fix when pagination and select ->  children are selected but button is not checked
-      paginateExpandedRows: false,
+      paginateExpandedRows: virtualized ? true : false,
       autoResetSelectedRows: manual ? false : true,
       // For multiSelect nested data option to select children
       // data format must contain subRows https://github.com/TanStack/react-table/issues/2609
