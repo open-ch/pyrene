@@ -101,7 +101,7 @@ const Card = forwardRef<HTMLDivElement, CardProps>(
             <Banner type="error" styling="inline" label={error} />
           </div>
         ) : loading ? (
-          <div className={styles.loader}>
+          <div className={styles.loader} style={!minHeight ? { minHeight: 160 } : undefined}>
             <div className={styles.loadingOverlay}>
               <Loader size="large" />
             </div>
