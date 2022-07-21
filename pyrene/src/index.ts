@@ -185,6 +185,7 @@ export { Table };
 export { TabView };
 export { TextArea };
 export { TextField };
+export { TextWithIcon };
 export { TimeRangeSelector };
 export { ToggleButtonGroup };
 export { Tooltip };
