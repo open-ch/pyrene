@@ -48,7 +48,7 @@ import { default as MultiSelect } from './components/MultiSelect/MultiSelect';
 import { default as Paragraph } from './components/Paragraph/Paragraph';
 import { default as Pill } from './components/Pill/Pill';
 import { default as Popover } from './components/Popover/Popover';
-import { default as ProgressBar } from './components/ProgressBar/ProgressBar';
+import { default as PercentageBar } from './components/PercentageBar/PercentageBar';
 
 import { default as SearchFinder } from './components/SearchFinder/SearchFinder';
 
@@ -115,7 +115,7 @@ const Components = {
   Paragraph,
   Pill,
   Popover,
-  ProgressBar,
+  PercentageBar,
   RadioButton,
   RadioGroup,
   RadioPopover,
@@ -169,7 +169,7 @@ export { MultiSelect };
 export { Paragraph };
 export { Pill };
 export { Popover };
-export { ProgressBar };
+export { PercentageBar };
 export { RadioButton };
 export { RadioGroup };
 export { RadioPopover };

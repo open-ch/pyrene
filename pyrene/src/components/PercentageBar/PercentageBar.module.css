@@ -1,0 +1,19 @@
+.container {
+  composes: commonFontSettings from '../../styles/common.module.css';
+  font-size: 14px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.barContainer {
+  height: 6px;
+  width: 100%;
+  border-radius: 1px;
+  background-color: var(--neutral-050);
+}
+
+.bar {
+  height: 100%;
+  border-radius: inherit;
+}
