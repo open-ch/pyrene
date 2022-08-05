@@ -64,6 +64,7 @@ function TreeTableActionBar({
               type="action"
               onClick={() => ac.callback(selection)}
               disabled={!handleActionAvailability(selection.length, ac.active)}
+              loading={!!ac.loading}
             />
           )),
         ]}
