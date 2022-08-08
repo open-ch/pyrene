@@ -14,7 +14,7 @@ const getNodeText = (node: ReactNode): string => {
 };
 
 type Row = {
-  key: string;
+  key: ReactNode;
   rowStyle?: CSSProperties;
   value: ReactNode;
   multiLine?: boolean;
@@ -75,7 +75,7 @@ const KeyValueTable: React.FC<KeyValueTableProps> = ({
               <tr
                 className={clsx(styles.keyValueRow, styles[`row-${theme}`])}
                 style={row.rowStyle}
-                key={row.key}
+                key={getNodeText(row.key)}
               >
                 <td
                   className={clsx(styles.keyValueCellKey, styles[`key-${theme}`])}
@@ -84,7 +84,7 @@ const KeyValueTable: React.FC<KeyValueTableProps> = ({
                       ? { width: keyWidth, minWidth: keyWidth, maxWidth: keyWidth }
                       : undefined
                   }
-                  title={row.key}
+                  title={getNodeText(row.key)}
                 >
                   {row.key}
                 </td>
