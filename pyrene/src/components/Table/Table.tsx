@@ -221,9 +221,9 @@ export interface TableProps<R = {}> {
    */
   shareLink?: string;
   /**
-   * Whether to show pagination in the top of the table
+   * Where to show pagination, top, bottom or both. Will do both if not set
    */
-  showPaginationTop?: boolean;
+  showPagination?: 'both' | 'top' | 'bottom';
   /**
    * Sets the title.
    */
@@ -263,7 +263,7 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
     negatable: false,
     error: null,
     resizable: false,
-    showPaginationTop: true,
+    showPagination: 'both',
   };
 
   checkboxTable: React.RefCallback<Instance<R>> | null = null;
@@ -401,7 +401,7 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
     TfootComponent: (props: TablePaginationProps<R>) => <TablePagination {...props} />,
     resizable: this.props.resizable,
     showPagination: true,
-    showPaginationTop: this.props.showPaginationTop,
+    showPaginationTop: this.props.showPagination === 'both' || this.props.showPagination === 'top',
     showPageSizeOptions: true,
     sortable: !this.props.disableSorting,
 
@@ -560,12 +560,9 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
           ? this.props.currentPage
           : undefined,
       pages: this.props.manual ? this.props.pages : undefined,
-      showPaginationBottom: !!(
-        this.props.data &&
-        this.props.data.length &&
-        !this.props.error &&
-        !this.props.loading
-      ),
+      showPaginationBottom:
+        (this.props.showPagination === 'bottom' || this.props.showPagination === 'both') &&
+        !!(this.props.data && this.props.data.length && !this.props.error && !this.props.loading),
       multiSort: this.props.multiSort,
     };
 
@@ -670,7 +667,11 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
 
         <div className={clsx(styles.tableAndActions, { [styles.disabled]: this.props.disabled })}>
           <div
-            className={clsx(styles.toolbar, !this.props.showPaginationTop && styles.onlyActions)}
+            className={clsx(
+              styles.toolbar,
+              !(this.props.showPagination === 'top' || this.props.showPagination === 'both') &&
+                styles.onlyActions
+            )}
           >
             {this.props.shareLink && (
               <>

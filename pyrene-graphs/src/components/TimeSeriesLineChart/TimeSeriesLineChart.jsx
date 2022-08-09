@@ -48,11 +48,15 @@ export default class TimeSeriesLineChart extends React.Component {
       <Header
         title={this.props.title}
         description={this.props.description}
-        legend={!this.props.loading ? this.state.dataDeselected.map((d, i) => ({
-          color: this.props.colorScheme.categorical[i],
-          deselected: d,
-          label: this.props.data[i].label,
-        })) : []}
+        legend={
+          !this.props.loading
+            ? this.state.dataDeselected.map((d, i) => ({
+                color: this.props.colorScheme.categorical[i],
+                deselected: d,
+                label: this.props.data[i].label,
+              }))
+            : []
+        }
         legendToggleCallback={(index) => this.toggleLegendItem(index)}
       />
     );
@@ -72,11 +76,13 @@ export default class TimeSeriesLineChart extends React.Component {
     // Render the line chart
     const lineChart = (
       <TimeSeriesLineChartSVG
-        data={dataInRange.map((d, i) => ({
-          color: this.props.colorScheme.categorical[i],
-          data: d.data,
-          label: d.label,
-        })).filter((_, i) => !this.state.dataDeselected[i])}
+        data={dataInRange
+          .map((d, i) => ({
+            color: this.props.colorScheme.categorical[i],
+            data: d.data,
+            label: d.label,
+          }))
+          .filter((_, i) => !this.state.dataDeselected[i])}
         from={this.props.from}
         to={this.props.to}
         loading={this.props.loading}
@@ -90,7 +96,7 @@ export default class TimeSeriesLineChart extends React.Component {
     const showOverlay = this.props.loading || !hasDataInRange;
     return (
       <ChartContainer
-        header={header}
+        header={this.props.renderHeader ? header : undefined}
         chart={lineChart}
         chartOverlay={showOverlay && chartOverlay}
         chartUnit={this.props.unit}
@@ -112,6 +118,7 @@ TimeSeriesLineChart.defaultProps = {
   title: '',
   tooltipFormat: (d) => d,
   unit: '',
+  renderHeader: true,
 };
 
 TimeSeriesLineChart.propTypes = {
@@ -124,11 +131,13 @@ TimeSeriesLineChart.propTypes = {
   /**
    * Sets the data series. A data series consists of an array of objects, which consist of a label and an array of data. Each data item contains a timestamp and a value.
    */
-  data: PropTypes.arrayOf(PropTypes.shape({
-    data: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
-    deselected: PropTypes.bool,
-    label: PropTypes.string.isRequired,
-  })),
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      data: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
+      deselected: PropTypes.bool,
+      label: PropTypes.string.isRequired,
+    })
+  ),
   /**
    * Sets the description of the chart excluding the unit part.
    */
@@ -145,6 +154,10 @@ TimeSeriesLineChart.propTypes = {
    * Sets the loading state of the chart.
    */
   loading: PropTypes.bool,
+  /**
+   * Defines if we need to render a header (legend with checkbox to select timseries)
+   */
+  renderHeader: PropTypes.bool,
   /**
    * Sets the formatting function for the ticks on the y axis.
    */

@@ -37,7 +37,7 @@
   height: 32px;
   border-radius: 2px;
   box-shadow: 0 0 0 1px var(--neutral-200) inset; /* Places the border inside of the div to prevent size jump */
-  background-color: var(--neutral-020); /* same as input default */
+  background-color: var(--background-light);
   align-items: center;
   display: inline-flex;
   width: 100%;

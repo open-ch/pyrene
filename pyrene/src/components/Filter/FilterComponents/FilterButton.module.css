@@ -11,6 +11,7 @@
   align-items: center;
   margin-right: 8px;
   min-width: 63px;
+  background-color: var(--background-light);
 
   &.noBorder {
     border: none;
@@ -45,7 +46,7 @@
 }
 
 .disabled {
-  opacity: .5;
+  opacity: 0.5;
   cursor: default;
   pointer-events: none;
   /* deactivate hover */
