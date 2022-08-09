@@ -457,6 +457,7 @@ other than internal table state changes
         <TreeTableRow
           key={row.id}
           row={row}
+          disabled={row.values?.disabled}
           highlighted={highlightedRowId === row.id}
           index={index}
           listRef={listRef}

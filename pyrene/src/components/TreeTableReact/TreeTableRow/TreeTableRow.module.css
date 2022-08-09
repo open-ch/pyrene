@@ -24,4 +24,8 @@
   &.highlighted {
     background-color: rgba(240, 211, 24, 0.15);
   }
+
+   &.disabled {
+      opacity: 0.5;
+  }
 }

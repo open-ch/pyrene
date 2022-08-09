@@ -11,6 +11,7 @@ export type CellValue = string | number | boolean;
 export interface TreeTableRowProps {
   row: Row;
   highlighted?: boolean;
+  disabled?: boolean;
   onRowClick?: (row?: Row['original']) => void;
   onRowDoubleClick?: (row?: Row['original']) => void;
   onRowHover?: ((row: {}, h: boolean) => void) | undefined;
@@ -25,6 +26,7 @@ export interface TreeTableRowProps {
 function TreeTableRow<R extends object = {}>({
   row,
   highlighted,
+  disabled,
   onRowClick,
   onRowDoubleClick,
   onRowHover,
@@ -78,14 +80,12 @@ function TreeTableRow<R extends object = {}>({
     <>
       <div
         {...rowProps}
-        className={clsx(
-          styles.rowElementsContainer,
-          {
-            [styles.openRootParent]: row.depth === 0 && row?.isExpanded && parent,
-            [styles.activeAction]: hasSingleClickAction || hasDoubleClickAction,
-          },
-          { [styles.highlighted]: highlighted }
-        )}
+        className={clsx(styles.rowElementsContainer, {
+          [styles.openRootParent]: row.depth === 0 && row?.isExpanded && parent,
+          [styles.activeAction]: hasSingleClickAction || hasDoubleClickAction,
+          [styles.disabled]: disabled,
+          [styles.highlighted]: highlighted,
+        })}
         onClick={hasSingleClickAction ? handleSingleClick : undefined}
         onDoubleClick={hasDoubleClickAction ? () => onRowDoubleClick?.(row.original) : undefined}
         onMouseOver={() => onRowHover?.(row.original, true)}
