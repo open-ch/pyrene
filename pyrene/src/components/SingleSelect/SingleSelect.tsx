@@ -31,7 +31,7 @@ export type SingleSelectProps<ValueType = DefaultValueType> = {
   /**
    * Create new tag label. Sets the text for the "create new ..." option in the menu.
    */
-  createTagLabel?: string,
+  createTagLabel?: string;
   /**
    * Sets a preselected option.
    */
@@ -86,7 +86,10 @@ export type SingleSelectProps<ValueType = DefaultValueType> = {
   /**
    * Event Handler. Param option: {value: , label:}
    */
-  onChange?: (option: SingleSelectOption<ValueType> | null, evt: { target: { type: string; name: string; value: SingleSelectOption<ValueType> } }) => void;
+  onChange?: (
+    option: SingleSelectOption<ValueType> | null,
+    evt: { target: { type: string; name: string; value: SingleSelectOption<ValueType> } }
+  ) => void;
   /**
    * Focus event handler, use this to dynamically fetch options.
    */
@@ -117,7 +120,7 @@ export type SingleSelectProps<ValueType = DefaultValueType> = {
   /**
    * Sets a fixed width (px) for the Select field.
    */
-  width?: number,
+  width?: number;
 };
 
 const sortOptions = <ValueType extends unknown>(options: SingleSelectOption<ValueType>[]) => {
@@ -129,15 +132,12 @@ const sortOptions = <ValueType extends unknown>(options: SingleSelectOption<Valu
 const getOptionsObj = <ValueType extends unknown>(
   options: SingleSelectOption<ValueType>[],
   groupedOptions: SingleSelectGroupedOption<ValueType>[],
-  sorted: boolean,
+  sorted: boolean
 ): SingleSelectOption<ValueType>[] | SingleSelectGroupedOption<ValueType>[] => {
   // grouped options have precedence above the options -> its not possible to pass both!
   if (groupedOptions.length) {
     if (sorted) {
-      return groupedOptions.map((o) => (o.options
-        ? ({ ...o, options: sortOptions(o.options) })
-        : o
-      ));
+      return groupedOptions.map((o) => (o.options ? { ...o, options: sortOptions(o.options) } : o));
     }
     return groupedOptions;
   }
@@ -145,10 +145,12 @@ const getOptionsObj = <ValueType extends unknown>(
     return sortOptions(options);
   }
   return options;
-
 };
 
-const defaultFilterOption = <ValueType extends unknown>(option: { label: string, value?: string, data: SingleSelectOption<ValueType> }, rawInput: string) => {
+const defaultFilterOption = <ValueType extends unknown>(
+  option: { label: string; value?: string; data: SingleSelectOption<ValueType> },
+  rawInput: string
+) => {
   const lowerInput = rawInput.toLowerCase();
   const values = [
     option.value ? option.value.toString() : null,
@@ -188,7 +190,6 @@ const SingleSelect = <ValueType extends unknown = DefaultValueType>({
   onBlur = () => null,
   onFocus = () => null,
 }: SingleSelectProps<ValueType>): React.ReactElement => {
-
   const optionsObj = getOptionsObj(options, groupedOptions, sorted);
   const [inputValue, setInputValue] = useState('');
 
@@ -208,7 +209,8 @@ const SingleSelect = <ValueType extends unknown = DefaultValueType>({
     isDisabled: disabled,
     isInvalid: invalid,
     isLoading: loading,
-    onChange: (option: any) => onChange?.(option, { target: { type: 'singleSelect', name: name, value: option } }),
+    onChange: (option: any) =>
+      onChange?.(option, { target: { type: 'singleSelect', name: name, value: option } }),
     onInputChange: (input: string, action: InputActionMeta) => {
       if (action.action !== 'input-blur' && action.action !== 'menu-close') {
         setInputValue(input);
@@ -224,36 +226,41 @@ const SingleSelect = <ValueType extends unknown = DefaultValueType>({
     maxMenuHeight: maxMenuHeight,
     noOptionsMessage: () => (options.length > 0 ? 'no matches found' : null),
     filterOption: defaultFilterOption,
-    formatCreateLabel: creatable ? (newValue: string) => `${createTagLabel} "${newValue}"` : undefined,
+    formatCreateLabel: creatable
+      ? (newValue: string) => `${createTagLabel} "${newValue}"`
+      : undefined,
     isSearchable: creatable ? true : searchable,
+    isOptionDisabled: (option: any) => option?.disabled ?? false,
     blurInputOnSelect: true,
     escapeClearsValue: true,
     captureMenuScroll: true,
   };
 
   return (
-    <div className={clsx(styles.selectContainer, { [styles.disabled]: disabled })} style={width ? { width: width, flexShrink: 0 } : {}}>
-      {title && <div className={clsx(styles.selectTitle, { [styles.required]: required && !disabled })}>{title}</div>}
+    <div
+      className={clsx(styles.selectContainer, { [styles.disabled]: disabled })}
+      style={width ? { width: width, flexShrink: 0 } : {}}
+    >
+      {title && (
+        <div className={clsx(styles.selectTitle, { [styles.required]: required && !disabled })}>
+          {title}
+        </div>
+      )}
 
-      {creatable ? <CreatableSelect {...selectProps} inputValue={inputValue} /> : <Select {...selectProps} />}
+      {creatable ? (
+        <CreatableSelect {...selectProps} inputValue={inputValue} />
+      ) : (
+        <Select {...selectProps} />
+      )}
 
-      {invalid && invalidLabel && !disabled
-        ? (
-          <div className={styles.invalidLabel}>
-            <span className={clsx('pyreneIcon-errorOutline', styles.errorIcon)} />
-            {invalidLabel}
-          </div>
-        )
-        : (
-          <>
-            {helperLabel && (
-              <div className={styles.selectHelper}>
-                {helperLabel}
-              </div>
-            )}
-          </>
-        )}
-
+      {invalid && invalidLabel && !disabled ? (
+        <div className={styles.invalidLabel}>
+          <span className={clsx('pyreneIcon-errorOutline', styles.errorIcon)} />
+          {invalidLabel}
+        </div>
+      ) : (
+        <>{helperLabel && <div className={styles.selectHelper}>{helperLabel}</div>}</>
+      )}
     </div>
   );
 };
