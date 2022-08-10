@@ -52,6 +52,7 @@ declare module 'react-table-7' {
     cellStyle?: CSSProperties;
     headerStyle?: CSSProperties;
     isVisible?: boolean;
+    title?: (value?: any) => string;
   };
 
   export interface ColumnInterface<D extends Record<string, unknown> = Record<string, unknown>>

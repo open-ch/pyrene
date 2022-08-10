@@ -335,12 +335,15 @@ function InnerTreeTableReact<R extends object = {}>(
                 id: 'selection',
                 disableResizing: true,
                 minWidth: 24,
-                width: 24,
-                maxWidth: 24,
+                width: 44,
+                maxWidth: 44,
                 // @ts-ignore
                 Header: ({ getToggleAllRowsSelectedProps }) => (
                   <Checkbox {...getToggleAllRowsSelectedProps()} />
                 ),
+                headerStyle: {
+                  maxWidth: 24,
+                },
                 Cell: ({ row }: { row: Row }) => (
                   // @ts-ignore
                   <Checkbox {...row.getToggleRowSelectedProps()} />
@@ -348,12 +351,6 @@ function InnerTreeTableReact<R extends object = {}>(
               },
             ]
           : []),
-        {
-          id: 'expander',
-          disableResizing: true,
-          minWidth: 20,
-          width: 20,
-        },
         ...columns,
       ]);
     }

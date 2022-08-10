@@ -23,7 +23,7 @@ function TreeTableCell<R extends object = {}>({
     <div
       {...cell.getCellProps({ style })}
       className={styles.treeTableCell}
-      title={`${cell?.value ?? cell.column.id}`}
+      title={cell?.column?.title ? `${cell.column.title?.(cell.value)}` : undefined}
     >
       {canExpand && (
         <div

@@ -3,7 +3,7 @@
 .treeTableHeader {
   composes: commonFontSettings from '../../../styles/common.module.css';
   box-sizing: border-box;
-  height: 32px;
+  min-height: 32px;
   border-top: solid 1px var(--border);
   border-bottom: solid 1px var(--border);
   padding: 6px;

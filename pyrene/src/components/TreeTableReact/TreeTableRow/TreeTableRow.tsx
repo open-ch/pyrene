@@ -69,8 +69,6 @@ function TreeTableRow<R extends object = {}>({
     [hasSingleClickAction, onRowDoubleClick]
   );
 
-  const nextToExpanderColumnIndex =
-    row.cells.findIndex((cell) => cell.column.id === 'expander') + 1;
   const canExpand = useMemo(() => row?.canExpand || !!customSubRow, [row, customSubRow]);
   const rowProps = row.getRowProps({
     style: { ...style, ...(row.isExpanded && { width: '100%' }) },
@@ -96,16 +94,14 @@ function TreeTableRow<R extends object = {}>({
             ? {
                 // adjust column indent onExpand
                 marginLeft: i === 0 ? cell.row.depth * 22 : 0,
-                ...(i === nextToExpanderColumnIndex && {
-                  width:
-                    (cell.column.width as number) -
-                    cell.row.depth * 24 +
-                    (!row?.canExpand && multiSelect ? 16 : 0),
-                }),
-                // when there is no expander and we have multSelect do not leave empty space
-                ...(!row?.canExpand &&
-                  multiSelect &&
-                  cell.column.id === 'expander' && { minWidth: 5, width: 5, paddingRight: 0 }),
+                ...(i === (multiSelect ? 1 : 0) &&
+                  cell.row.depth && { width: (cell.column.width as number) - cell.row.depth * 22 }),
+                ...(!canExpand &&
+                  i === 1 &&
+                  multiSelect && {
+                    width: (cell.column.width as number) + 16 - cell.row.depth * 22,
+                    marginLeft: -16,
+                  }),
               }
             : {};
           return (
@@ -114,7 +110,7 @@ function TreeTableRow<R extends object = {}>({
               key={cell.column.id}
               cell={cell}
               sectionOpen={canExpand && row?.isExpanded}
-              canExpand={canExpand && cell.column.id === 'expander'}
+              canExpand={canExpand && i === 0}
               onExpandClick={hasExpandAction ? () => null : toggleRowExpansion}
             />
           );

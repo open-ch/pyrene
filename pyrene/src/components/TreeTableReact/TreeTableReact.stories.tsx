@@ -27,7 +27,7 @@ interface TableRow {
 const treeTableColumns: Array<Column<object>> = [
   { Header: 'First Name', accessor: 'name', id: 'name' },
   { Header: 'Phone', accessor: 'phone', id: 'phone' },
-  { Header: 'Hobby', accessor: 'hobby', id: 'hobby' },
+  { Header: 'Hobby', accessor: 'hobby', id: 'hobby', title: (value) => value },
 ];
 const baseArgs = {
   columns: treeTableColumns,
