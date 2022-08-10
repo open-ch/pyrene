@@ -453,11 +453,13 @@ other than internal table state changes
       const row = virtualized ? allRows[index] : rows[index];
       prepareRow(row);
       initializeRootData(row);
+      const rowWithDisabled = row.original as { disabled?: boolean };
+      const isRowDisabled = rowWithDisabled?.disabled;
       return (
         <TreeTableRow
           key={row.id}
           row={row}
-          disabled={row.values?.disabled}
+          disabled={isRowDisabled}
           highlighted={highlightedRowId === row.id}
           index={index}
           listRef={listRef}
