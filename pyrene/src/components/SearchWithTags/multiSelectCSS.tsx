@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import { CSSProperties } from 'react';
 import {
   ControlProps,
@@ -164,6 +165,7 @@ const multiSelectStyle = (props: Props) => ({
     ...base,
     // same margin as for the grey box from top & bottom; if selectedOptionsInDropdown additional 2px padding needed between text and |
     margin:
+      // eslint-disable-next-line no-self-compare
       (props.selectedOptionsInDropdown && props?.value?.length) ?? 0 > 0
         ? '2px 0 2px 2px'
         : '2px 0 2px 0px',
@@ -184,6 +186,7 @@ const multiSelectStyle = (props: Props) => ({
     borderRadius: 2,
     border: `solid 1px ${colorConstants.border}`,
     marginTop: 4,
+    zIndex: 10,
   }),
 
   TagValue: (
@@ -208,17 +211,15 @@ const multiSelectStyle = (props: Props) => ({
   }),
 
   // the grey boxes
-  multiValue: (base: CSSProperties, { data }: MultiValueProps<TagValue>) => {
-    return {
-      ...base,
-      alignItems: 'center',
-      backgroundColor: data.invalid ? colorConstants.red100 : data?.style?.backgroundColor,
-      paddingLeft: 3,
-      margin: '2px 4px 2px 0px',
-      height: '18px',
-      ...(!data?.tag && { display: 'none' }),
-    };
-  },
+  multiValue: (base: CSSProperties, { data }: MultiValueProps<TagValue>) => ({
+    ...base,
+    alignItems: 'center',
+    backgroundColor: data.invalid ? colorConstants.red100 : data?.style?.backgroundColor,
+    paddingLeft: 3,
+    margin: '2px 4px 2px 0px',
+    height: '18px',
+    ...(!data?.tag && { display: 'none' }),
+  }),
 
   // text in the grey boxes - options label
   multiValueLabel: (base: CSSProperties, { data }: MultiValueProps<TagValue>) => ({
@@ -231,6 +232,7 @@ const multiSelectStyle = (props: Props) => ({
     overflow: 'hidden',
     whiteSpace: 'nowrap',
     textOverflow: 'ellipsis',
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     maxWidth: props.maxValueLabelWidth,
   }),
 

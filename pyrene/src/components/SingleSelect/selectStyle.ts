@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable no-nested-ternary */
 
-
 /* Print style to console:
    object: (base, state) => {
     console.log('object');
@@ -19,14 +18,13 @@ interface State<D> {
   isFocused: boolean;
   hasValue: boolean;
   isDisabled: boolean;
-  isSelected?: boolean
+  isSelected?: boolean;
   selectProps: {
     menuIsOpen?: boolean;
-    isInvalid?:boolean;
-  }
+    isInvalid?: boolean;
+  };
   data?: SingleSelectOption<D>;
 }
-
 
 // Typescript bindings don't work correctly with this function.
 // The reason is mostly that `& ...` is not a valid React.CSSProperty. The issue might be:
@@ -46,7 +44,7 @@ const selectStyle = <ValueType>(): Partial<Styles<SingleSelectOption<unknown>, f
     color: colorConstants.neutral500,
   }),
 
-  indicatorSeparator: ():CSSProperties => ({
+  indicatorSeparator: (): CSSProperties => ({
     display: 'none',
   }),
 
@@ -61,8 +59,16 @@ const selectStyle = <ValueType>(): Partial<Styles<SingleSelectOption<unknown>, f
 
     minHeight: 32,
     height: 32,
-    backgroundColor: (state.isFocused || state.hasValue) ? colorConstants.neutral000 : colorConstants.neutral020,
-    border: state.selectProps.isInvalid && !state.isDisabled ? `solid 1px ${colorConstants.red500}` : state.isFocused ? `solid 1px ${colorConstants.blue500}` : state.hasValue ? `solid 1px ${colorConstants.neutral500}` : `solid 1px ${colorConstants.neutral100}`,
+    backgroundColor:
+      state.isFocused || state.hasValue ? colorConstants.neutral000 : colorConstants.neutral020,
+    border:
+      state.selectProps.isInvalid && !state.isDisabled
+        ? `solid 1px ${colorConstants.red500}`
+        : state.isFocused
+        ? `solid 1px ${colorConstants.blue500}`
+        : state.hasValue
+        ? `solid 1px ${colorConstants.neutral500}`
+        : `solid 1px ${colorConstants.neutral100}`,
     borderRadius: 2,
     cursor: 'pointer',
 
@@ -164,19 +170,22 @@ const selectStyle = <ValueType>(): Partial<Styles<SingleSelectOption<unknown>, f
     border: `solid 1px ${colorConstants.border}`,
     marginTop: 4,
     maxHeight: 308,
+    zIndex: 10,
   }),
 
-  option: (base: CSSProperties, {
-    isSelected,
-    isFocused,
-    isDisabled,
-    data,
-  }: State<ValueType>): any => ({
+  option: (
+    base: CSSProperties,
+    { isSelected, isFocused, isDisabled, data }: State<ValueType>
+  ): any => ({
     ...base,
     ':active': {
       backgroundColor: colorConstants.neutral030,
     },
-    backgroundColor: isSelected ? colorConstants.neutral030 : isFocused ? colorConstants.backgroundTint : colorConstants.neutral000,
+    backgroundColor: isSelected
+      ? colorConstants.neutral030
+      : isFocused
+      ? colorConstants.backgroundTint
+      : colorConstants.neutral000,
     height: 30,
     color: isDisabled ? colorConstants.neutral100 : colorConstants.neutral500,
     cursor: 'pointer',

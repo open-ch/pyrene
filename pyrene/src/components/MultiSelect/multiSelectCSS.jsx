@@ -39,8 +39,18 @@ const multiSelectStyle = (props) => ({
     alignItems: props.rows <= 0 ? 'center' : 'flex-start',
     overflow: 'hidden',
 
-    backgroundColor: (state.isFocused || state.hasValue) ? colorConstants.backgroundLight : colorConstants.backgroundTint,
-    border: state.selectProps.isInvalid && !state.isDisabled ? `solid 1px ${colorConstants.red500}` : state.isFocused ? `solid 1px ${colorConstants.blue500}` : state.hasValue ? `solid 1px ${colorConstants.neutral500}` : `solid 1px ${colorConstants.neutral100}`,
+    backgroundColor:
+      state.isFocused || state.hasValue
+        ? colorConstants.backgroundLight
+        : colorConstants.backgroundTint,
+    border:
+      state.selectProps.isInvalid && !state.isDisabled
+        ? `solid 1px ${colorConstants.red500}`
+        : state.isFocused
+        ? `solid 1px ${colorConstants.blue500}`
+        : state.hasValue
+        ? `solid 1px ${colorConstants.neutral500}`
+        : `solid 1px ${colorConstants.neutral100}`,
     borderRadius: 2,
     cursor: 'pointer',
 
@@ -79,10 +89,10 @@ const multiSelectStyle = (props) => ({
     return {
       ...base,
       minHeight: 30,
-      height: props.rows <= 0 ? 'inherit' : (props.rows * 22) + 8,
+      height: props.rows <= 0 ? 'inherit' : props.rows * 22 + 8,
       overflow: state.hasValue ? 'auto' : 'hidden',
       padding: '4px 4px 4px 7px',
-      maxHeight: props.rows <= 0 ? 74 : (props.rows * 22) + 8,
+      maxHeight: props.rows <= 0 ? 74 : props.rows * 22 + 8,
       alignItems: 'flex-start',
       alignContent: 'flex-start',
     };
@@ -151,7 +161,10 @@ const multiSelectStyle = (props) => ({
   input: (base) => ({
     ...base,
     // same margin as for the grey box from top & bottom; if selectedOptionsInDropdown additional 2px padding needed between text and |
-    margin: props.selectedOptionsInDropdown && props.value?.length > 0 ? '2px 0 2px 2px' : '2px 0 2px 0px',
+    margin:
+      props.selectedOptionsInDropdown && props.value?.length > 0
+        ? '2px 0 2px 2px'
+        : '2px 0 2px 0px',
     padding: 0,
     lineHeight: '18px',
     '[type="text"]': {
@@ -169,6 +182,7 @@ const multiSelectStyle = (props) => ({
     borderRadius: 2,
     border: `solid 1px ${colorConstants.border}`,
     marginTop: 4,
+    zIndex: 10,
   }),
 
   option: (base, { isSelected, isFocused, isDisabled }) => ({
@@ -176,7 +190,11 @@ const multiSelectStyle = (props) => ({
     ':active': {
       backgroundColor: colorConstants.neutral030,
     },
-    backgroundColor: isSelected ? colorConstants.neutral030 : isFocused ? colorConstants.backgroundTint : colorConstants.neutral000,
+    backgroundColor: isSelected
+      ? colorConstants.neutral030
+      : isFocused
+      ? colorConstants.backgroundTint
+      : colorConstants.neutral000,
     height: 32,
     color: isDisabled ? colorConstants.neutral100 : colorConstants.neutral400,
     cursor: 'pointer',
@@ -196,7 +214,8 @@ const multiSelectStyle = (props) => ({
   }),
 
   // text in the grey boxes - options label
-  multiValueLabel: (base, { data }) => ({ // eslint-disable-line no-unused-vars
+  // eslint-disable-next-line no-unused-vars
+  multiValueLabel: (base, { data }) => ({
     ...base,
     boxSizing: 'border-box',
     paddingLeft: 8,
@@ -243,7 +262,6 @@ const multiSelectStyle = (props) => ({
     color: colorConstants.neutral200,
     textAlign: 'left',
   }),
-
 });
 
 export default multiSelectStyle;
