@@ -1,10 +1,20 @@
-import React, { FunctionComponent, useState, useEffect, useCallback, useMemo } from 'react';
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+import React, {
+  FunctionComponent,
+  useState,
+  useEffect,
+  useCallback,
+  useMemo,
+  ReactNode,
+  useRef,
+} from 'react';
 import clsx from 'clsx';
 import {
   InputActionMeta,
   SelectComponentsConfig,
   components,
   ControlProps,
+  IndicatorContainerProps,
   Props,
 } from 'react-select';
 import CreatableSelect from 'react-select/creatable';
@@ -151,22 +161,26 @@ const SearchWithTags: FunctionComponent<MultiSelectProps> = (props: MultiSelectP
   const [options, setOptions] = useState<OptionType[]>([]);
 
   useEffect(() => {
-    setOptions(tags?.filter((tagName) => tagName?.value === tag)?.[0]?.options ?? []);
-  }, [tag]);
+    setOptions(
+      tags?.filter((tagName) => tagName?.value?.toLowerCase() === tag?.toLowerCase())?.[0]
+        ?.options ?? []
+    );
+  }, [tag, tags]);
 
   const selectNextResult = useCallback(() => {
     if (selectedResult && resultCount && selectedResult >= resultCount) {
       onSelectedResultChange?.(1);
       return;
     }
-    onSelectedResultChange?.(selectedResult ?? 0 + 1);
+    onSelectedResultChange?.((selectedResult ?? 0) + 1);
   }, [selectedResult, resultCount, onSelectedResultChange]);
+
   const selectPreviousResult = useCallback(() => {
-    if (selectedResult && selectedResult <= 1) {
+    if ((selectedResult ?? 0) <= 1) {
       onSelectedResultChange?.(resultCount);
       return;
     }
-    onSelectedResultChange?.(selectedResult ?? 0 - 1);
+    onSelectedResultChange?.((selectedResult ?? 0) - 1);
   }, [selectedResult, resultCount, onSelectedResultChange]);
 
   const opts = useMemo(
@@ -189,44 +203,58 @@ const SearchWithTags: FunctionComponent<MultiSelectProps> = (props: MultiSelectP
     if (searchInputIndex > -1 && tagsValue[searchInputIndex].label.trim() !== searchValue.trim()) {
       setSearchValue(tagsValue[searchInputIndex].label);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const selectRef = useRef<any>(null);
+  const openMenu = () => {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+    selectRef.current?.setState({ ...selectRef.current.state, menuIsOpen: true });
+  };
   const Control = useCallback(
-    ({ children, ...props }: ControlProps<TagValue, true>) => {
-      const clearValue = () => {
-        if (props.selectProps.inputValue) {
-          setSearchValue('');
-        }
-        props.clearValue();
-      };
-
-      return (
-        <components.Control {...props}>
+    ({ children, ...rest }: ControlProps<TagValue, true>) => (
+      <div onClick={openMenu}>
+        <components.Control {...rest}>
           <div className={styles2.search}>
             <Icon type="standalone" name="search" />
           </div>
           {children}
+        </components.Control>
+      </div>
+    ),
+
+    []
+  );
+  const IndicatorsContainer = useCallback(
+    ({ ...rest }: IndicatorContainerProps<TagValue, true>) => {
+      const clearValue = () => {
+        if (rest.selectProps.inputValue) {
+          setSearchValue('');
+        }
+        rest.clearValue();
+      };
+      return (
+        <components.IndicatorsContainer {...rest}>
           {showResultCount ? (
             <ResultCount
               resultCount={resultCount}
               selectNextResult={selectNextResult}
               selectPreviousResult={selectPreviousResult}
               selectedResult={selectedResult}
-              hasValue={props.hasValue}
+              hasValue={!!rest.selectProps.inputValue ?? rest.hasValue}
               clearValue={clearValue}
-              input={props.selectProps.inputValue}
             />
           ) : null}
-        </components.Control>
+        </components.IndicatorsContainer>
       );
     },
     [
       resultCount,
       selectedResult,
-      onSelectedResultChange,
       selectNextResult,
       selectPreviousResult,
       showResultCount,
+      setSearchValue,
     ]
   );
 
@@ -236,73 +264,83 @@ const SearchWithTags: FunctionComponent<MultiSelectProps> = (props: MultiSelectP
 
   const editExistingValue = useCallback(
     (editedValue: string) => {
-      const newInputValue = searchValue + ' ' + editedValue;
+      const newInputValue = `${searchValue} ${editedValue}`;
       setSearchValue(newInputValue ?? '');
       onChange?.(tagsValue.filter((option) => option.label !== editedValue));
     },
-    [searchValue, onChange, tagsValue]
+    [searchValue, onChange, tagsValue, setSearchValue]
   );
 
-  const MultiValueLabel: SelectComponentsConfig<TagValue, true>['MultiValueLabel'] = ({
-    innerProps,
-    children,
-  }) => (
-    <div
-      onDoubleClick={() => (creatable ? editExistingValue(children) : undefined)}
-      title={typeof children === 'string' ? children : undefined}
-      {...innerProps}
-    >
-      {children}
-    </div>
+  const MultiValueLabel: SelectComponentsConfig<TagValue, true>['MultiValueLabel'] = useMemo(
+    () =>
+      // eslint-disable-next-line react/display-name
+      ({ innerProps, children }) =>
+        (
+          <div
+            onDoubleClick={() => (creatable ? editExistingValue(children) : undefined)}
+            title={typeof children === 'string' ? children : undefined}
+            {...innerProps}
+          >
+            {children}
+          </div>
+        ),
+    [creatable, editExistingValue]
   );
 
   const handleTagSelect = useCallback(
-    (tag: string) => {
+    (selectedTag: string) => {
       // check if the last word is a started tag
       const trimmedInput = searchValue.trim();
-      const beforeTag = getStartedValue(searchValue, tag);
+      const beforeTag = getStartedValue(searchValue, selectedTag);
       const newInput =
-        beforeTag !== undefined ? `${beforeTag}${tag}: ` : `${trimmedInput} ${tag}: `;
+        beforeTag !== undefined
+          ? `${beforeTag}${selectedTag}: `
+          : `${trimmedInput} ${selectedTag}: `;
       setSearchValue(newInput);
-      setTag?.(tag);
+      setTag?.(selectedTag);
     },
-    [searchValue]
+    [searchValue, setSearchValue]
   );
 
-  const componentsNormal = {
-    LoadingIndicator,
-    Option: CustomOption,
-    MultiValueLabel,
-    Control: Control,
-    DropdownIndicator: null,
-    ClearIndicator: showResultCount ? null : undefined,
-    Menu: (props: any) =>
-      DropdownMenu({
-        ...props,
-        children: props.children,
-        tags,
-        handleOnTagClick: handleTagSelect,
-        showOptions: !!tag,
+  const componentsNormal = useMemo(
+    () => ({
+      LoadingIndicator,
+      Option: CustomOption,
+      MultiValueLabel,
+      Control: Control,
+      IndicatorsContainer,
+      DropdownIndicator: null,
+      ClearIndicator: showResultCount ? null : undefined,
+      ...(!tag && {
+        Menu: (menuProps: any) =>
+          DropdownMenu({
+            ...menuProps,
+            children: menuProps.children as ReactNode,
+            tags,
+            handleOnTagClick: handleTagSelect,
+          }),
       }),
-  };
-
+    }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [tags, tag, showResultCount, resultCount, selectedResult]
+  );
   const onChangeHandle = useCallback(
     (updatedOptions?: TagValue[], isRemove?: boolean, select?: TagValue) => {
-      if (isRemove && updatedOptions !== undefined) {
-        onChange?.([]);
+      if (isRemove) {
+        onChange?.(updatedOptions ?? []);
       } else if (select) {
         // check if last string is started selected value
         const beforeSelect = getStartedValue(searchValue, select.label);
         const newSelect = beforeSelect
           ? `${beforeSelect} ${select.label}`
           : `${searchValue} ${select.label}`;
-        onChange?.(createNewValue(newSelect, tagsValue, setSearchValue, tags));
+        onChange?.(createNewValue(newSelect, tagsValue, setSearchValue, tags, creatable));
       } else if (searchValue) {
-        onChange?.(createNewValue(searchValue, tagsValue, setSearchValue, tags));
+        onChange?.(createNewValue(searchValue, tagsValue, setSearchValue, tags, creatable));
       }
       setTag?.(undefined);
     },
-    [searchValue, options, onChange, tagsValue, tags]
+    [searchValue, onChange, tagsValue, tags, setSearchValue, creatable]
   );
 
   const onBlurHandle = useCallback(() => {
@@ -313,17 +351,19 @@ const SearchWithTags: FunctionComponent<MultiSelectProps> = (props: MultiSelectP
   const formatNoOptionsMessage = useCallback(
     (newValue: string) => {
       if (tag) {
-        let optionResults = getLastTagValue(newValue, tag);
-        return `Add tag "${tag}: ${optionResults ?? ''}"`;
+        const optionResults = getLastTagValue(newValue, tag);
+        return creatable ? `Add tag "${tag}: ${optionResults ?? ''}"` : 'No options found';
       }
       return `Search for "${newValue}"`;
     },
-    [tag]
+    [tag, creatable]
   );
+
   return (
     <div className={styles.selectContainer}>
       <CreatableSelect<TagValue, true>
         className="multiSelect"
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         styles={MultiSelectStyle(props as Props<TagValue, true>) as any}
         components={componentsNormal as SelectComponentsConfig<TagValue, true>}
         // Sets the internal value to "" in case of null or undefined
@@ -339,6 +379,7 @@ const SearchWithTags: FunctionComponent<MultiSelectProps> = (props: MultiSelectP
         isInvalid={invalid}
         isLoading={loading}
         inputValue={searchValue}
+        // eslint-disable-next-line @typescript-eslint/no-shadow
         onChange={(options: any, v: any) => {
           onChangeHandle(
             options,
@@ -358,19 +399,25 @@ const SearchWithTags: FunctionComponent<MultiSelectProps> = (props: MultiSelectP
         onFocus={onFocus}
         onKeyDown={(key: React.KeyboardEvent<HTMLElement>) => delimiterCheck(key, regexObj)}
         maxMenuHeight={264}
+        onSelectResetsInput={false}
         closeMenuOnSelect={false}
         formatCreateLabel={(newValue) => formatNoOptionsMessage(newValue)}
+        // workaround to not display 'create' option in dropdown when not creatable
+        isValidNewOption={() => creatable}
         noOptionsMessage={(input) => formatNoOptionsMessage(input.inputValue)}
+        filterOption={(candidate, input) => {
+          const currentValue = getLastTagValue(input, tag);
+          return currentValue
+            ? candidate.label.toLowerCase().includes(currentValue.toLowerCase())
+            : true;
+        }}
+        openMenuOnClick={false}
+        ref={selectRef}
         isMulti
         isSearchable
         escapeClearsValue
         captureMenuScroll
-        filterOption={(candidate, input) => {
-          const currentValue = getLastTagValue(input, tag);
-          return currentValue ? candidate.label.includes(currentValue) : true;
-        }}
       />
-
       {invalid && invalidLabel ? (
         <div className={styles.invalidLabel}>
           <span className={clsx('pyreneIcon-errorOutline', styles.errorIcon)} />

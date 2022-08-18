@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Story, Meta, ArgTypes } from '@storybook/react';
+import { useArgs } from '@storybook/client-api';
 
 import SearchWithTags, { MultiSelectProps } from './SearchWithTags';
 import { Tag, OptionType, TagValue } from './types';
@@ -28,11 +29,11 @@ const typeOptions: OptionType[] = [
 ];
 
 const sourceOptions: OptionType[] = [
-  { label: 'global', value: 'global' },
-  { label: 'local', value: 'local' },
-  { label: 'policy-1', value: 'policy-1' },
-  { label: 'policy-2', value: 'policy-2' },
-  { label: 'policy-3', value: 'policy-3' },
+  { label: 'global', value: '1' },
+  { label: 'local', value: '2' },
+  { label: 'policy-1', value: '3' },
+  { label: 'policy-2', value: '4' },
+  { label: 'policy-3', value: '5' },
 ];
 const tagOptions: Tag[] = [
   { value: 'type', style: { backgroundColor: '#C0EDC0', color: '#4F815E' }, options: typeOptions },
@@ -49,11 +50,14 @@ const tagOptions: Tag[] = [
 const Template: Story<MultiSelectProps> = (args) => {
   const [tagsValue, setTagsValue] = useState<TagValue[]>([]);
   const [searchValue, setSearchValue] = useState<string>();
+  const [, updateArgs] = useArgs();
+
   const compArgs: MultiSelectProps = {
     ...args,
     onChange: (sel) => {
       setTagsValue(sel);
     },
+    onSelectedResultChange: (number) => updateArgs({ selectedResult: number }),
     tagsValue: tagsValue,
   };
   return <SearchWithTags {...compArgs} setSearchValue={setSearchValue} searchValue={searchValue} />;

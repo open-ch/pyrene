@@ -27,7 +27,7 @@ export const getTagsRegex = (tags?: Tag[]) => {
  * @returns {RegExp}
  */
 export const getRegExp = (regexStringArray: string[]) =>
-  new RegExp(`\\s*[${regexStringArray.join('|')}]\\s*`);
+  new RegExp(`\\s*[${regexStringArray.join('|')}]\\s*`, 'i');
 
 /**
  * Checks if a KeyboardEvent contains a delimiter and returns an Enter key event if it does.
@@ -68,6 +68,10 @@ export const hasDuplicates = (input: string, value: TagValue[]) => {
 export const findValueIndex = (values?: TagValue[]) =>
   values?.findIndex((v) => v?.tag === undefined) ?? -1;
 
+const getOptionValue = (label?: string, options?: TagValue[], creatable?: boolean) => {
+  const value = options?.find((o) => o.label === label)?.value;
+  return creatable ? value ?? label : value;
+};
 /**
  * Create new values from string based on tags
  * @param {string} string - string to get values from
@@ -82,7 +86,8 @@ const getNewTags = (
   type: string,
   typeRegex: RegExp,
   tags: Tag[],
-  options: TagValue[]
+  options: TagValue[],
+  creatable?: boolean
 ): TagValue[] => {
   const results = [...options];
   // everything after tag
@@ -98,26 +103,31 @@ const getNewTags = (
 
   if (type2 && value && !isEmptyTag) {
     // get just the first tag value
-    const valueRegex2 = new RegExp(`.+?(?=${type2})`);
+    const valueRegex2 = new RegExp(`.+?(?=${type2})`, 'i');
     value = value.match(valueRegex2)?.[0].trim();
 
     // remaining string to check
-    const replace = new RegExp(`(?<=${type}\\s*:\\s*${value}).*$`);
+    const replace = new RegExp(`(?<=${type}\\s*:\\s*${value}).*$`, 'i');
     leftovers = string.match(replace)?.[0].trim() ?? '';
   }
+  const optionValue = getOptionValue(value, tags.find((t) => t.value === type)?.options, creatable);
+
   const label = `${type}: ${value}`;
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-expressions
   value &&
     !isEmptyTag &&
     !hasDuplicates(label, results) &&
+    optionValue &&
     results.push({
-      value: value,
+      value: optionValue,
       label: label,
       tag: type,
       invalid: validateTag(type, value, tags, options),
       style: getStyle(tags, type),
     });
   if (leftovers && type2) {
-    return getNewTags(leftovers, type2, typeRegex, tags, results);
+    return getNewTags(leftovers, type2, typeRegex, tags, results, creatable);
   }
   return results;
 };
@@ -132,23 +142,27 @@ export const detectTag = (
   string: string,
   existingValues: TagValue[],
   setInput: (input: string) => void,
-  tags?: Tag[]
+  tags?: Tag[],
+  creatable?: boolean
 ): TagValue[] => {
   const typeRegex = getTagsRegex(tags);
-  const type = string?.match(typeRegex)?.[0].trim();
+
+  let type = string?.match(typeRegex)?.[0].trim();
+  // get orginal format of the tag type
+  type = tags?.find((tag) => tag.value.toLowerCase() === type?.toLowerCase())?.value;
   if (!type || !tags) {
     setInput(string);
     return existingValues;
   }
-  //everything that is before first tag
-  const beforeTagRegex = new RegExp(`.*?(?=${type}\\s*:)`);
+  // everything that is before first tag
+  const beforeTagRegex = new RegExp(`.*?(?=${type}\\s*:)`, 'i');
   const beforeValue = string.match(beforeTagRegex)?.[0];
   setInput(beforeValue ?? '');
-  let options = existingValues;
+  const options = existingValues;
 
   // everything that is before first tag
   const leftovers = beforeValue ? string.replace(beforeValue, '').trim() : string;
-  return getNewTags(leftovers, type, typeRegex, tags, options);
+  return getNewTags(leftovers, type, typeRegex, tags, options, creatable);
 };
 
 /**
@@ -163,8 +177,9 @@ export const createNewValue = (
   value: string,
   existingValues: TagValue[],
   setInput: (input: string) => void,
-  tags?: Tag[]
-) => detectTag(value, existingValues, setInput, tags).flatMap((v) => v);
+  tags?: Tag[],
+  creatable?: boolean
+): TagValue[] => detectTag(value, existingValues, setInput, tags, creatable).flatMap((v) => v);
 
 /**
  * Return the current tag in the input.
@@ -172,7 +187,7 @@ export const createNewValue = (
  * @param {Tag[]} tags - tags
  * @returns {string} current last tag in the input
  */
-export const checkLastTag = (input: string, tags: Tag[]) => {
+export const checkLastTag = (input: string, tags: Tag[]): string | undefined => {
   const tagsValues = tags?.flatMap((tag) => tag.value);
   const tagsOptions = tagsValues?.join('|');
   // last tag in string
@@ -187,10 +202,10 @@ export const checkLastTag = (input: string, tags: Tag[]) => {
  * @param {string} lastTag - current last tag
  * @returns {string} current value of tag
  */
-export const getLastTagValue = (input: string, lastTag?: string) =>
+export const getLastTagValue = (input: string, lastTag?: string): string | undefined =>
   lastTag
-    ? input
-        .match(new RegExp(`(?<=(${lastTag}\\s*:\\s*)(?!.*((${lastTag})\\s*:\\s*))).*$`, 'i'))?.[0]
+    ? new RegExp(`(?<=(${lastTag}\\s*:\\s*)(?!.*((${lastTag})\\s*:\\s*))).*$`, 'i')
+        .exec(input)?.[0]
         .trimStart()
     : undefined;
 /**
@@ -200,8 +215,8 @@ export const getLastTagValue = (input: string, lastTag?: string) =>
  * @returns {string} marched part
  */
 export const getStartedValue = (input: string, matchedString: string): string | undefined => {
-  const lastWord = input.match(/\b(\w+)$/)?.[0];
-  const beforeLastWord = new RegExp(`.*?(?=${lastWord})`);
+  const lastWord = /\b(\w+)$/.exec(input)?.[0];
+  const beforeLastWord = new RegExp(`.*?(?=${lastWord})`, 'i');
   return lastWord && matchedString.includes(lastWord)
     ? input.match(beforeLastWord)?.[0]
     : undefined;

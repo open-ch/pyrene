@@ -29,7 +29,6 @@ const multiSelectStyle = (props: Props) => ({
   indicatorsContainer: (base: CSSProperties) => ({
     ...base,
     alignItems: 'flex-start',
-    paddingTop: 7,
   }),
 
   control: (base: CSSProperties, state: ControlProps<TagValue, true>) => ({
@@ -232,8 +231,7 @@ const multiSelectStyle = (props: Props) => ({
     overflow: 'hidden',
     whiteSpace: 'nowrap',
     textOverflow: 'ellipsis',
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    maxWidth: props.maxValueLabelWidth,
+    maxWidth: props.maxValueLabelWidth as number,
   }),
 
   // "x" next to the label

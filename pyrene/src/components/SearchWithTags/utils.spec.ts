@@ -57,10 +57,10 @@ describe('createNewValue()', () => {
   it('values with tags', () => {
     const rawString1 = 'amande: eth0 (10.236.50.24) source : LABS_ZONE_APPS type: eth:blabla';
     const rawString2 = '10.236.50.24 destination: wtf-cvp001 : eth0 (10.236.41.11)';
-    const rawString3 = 'MGMT_ACCESS [65684] destination: ANY type: MGMT_ACCESS [65684]';
-    const value1 = createNewValue(rawString1, [], setInput, tagOptions);
-    const value2 = createNewValue(rawString2, [], setInput, tagOptions);
-    const value3 = createNewValue(rawString3, [], setInput, tagOptions);
+    const rawString3 = 'MGMT_ACCESS [65684] Destination: ANY type: MGMT_ACCESS [65684]';
+    const value1 = createNewValue(rawString1, [], setInput, tagOptions, true);
+    const value2 = createNewValue(rawString2, [], setInput, tagOptions, true);
+    const value3 = createNewValue(rawString3, [], setInput, tagOptions, true);
     expect(value1).toEqual([
       {
         value: 'LABS_ZONE_APPS',
@@ -106,7 +106,7 @@ describe('createNewValue()', () => {
 
   it('only tags', () => {
     const rawString = 'type: cool source: LABS_ZONE_APPS SSL';
-    const value = createNewValue(rawString, [], setInput, tagOptions);
+    const value = createNewValue(rawString, [], setInput, tagOptions, true);
     expect(value).toStrictEqual([
       {
         value: 'cool',
@@ -126,13 +126,13 @@ describe('createNewValue()', () => {
   });
   it('only empty space', () => {
     const rawString = '      ';
-    const value = createNewValue(rawString, [], setInput, tagOptions);
+    const value = createNewValue(rawString, [], setInput, tagOptions, true);
     expect(value).toStrictEqual([]);
   });
 
   it('filter empty tag', () => {
     const rawString = 'type: source: LABS_ZONE_APPS SSL   ';
-    const value = createNewValue(rawString, [], setInput, tagOptions);
+    const value = createNewValue(rawString, [], setInput, tagOptions, true);
     expect(value).toEqual([
       {
         value: 'LABS_ZONE_APPS SSL',
@@ -147,7 +147,7 @@ describe('createNewValue()', () => {
   it('filter duplicates', () => {
     const rawString =
       'amande: eth0 (10.236.50.24) source : LABS_ZONE_APPS type: eth:blabla type: eth:blabla';
-    const value = createNewValue(rawString, [], setInput, tagOptions);
+    const value = createNewValue(rawString, [], setInput, tagOptions, true);
     expect(value).toStrictEqual([
       {
         value: 'LABS_ZONE_APPS',

@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import Icon from '../Icon/Icon';
 
@@ -12,7 +12,6 @@ interface ResultCountProps {
   selectedResult?: number;
   hasValue: boolean;
   clearValue: () => void;
-  input?: string;
 }
 
 function ResultCount({
@@ -22,11 +21,19 @@ function ResultCount({
   selectedResult = 0,
   hasValue,
   clearValue,
-  input,
-}: ResultCountProps) {
-  const disableResultSelector = resultCount < 1;
+}: ResultCountProps): JSX.Element {
+  const disableResultSelector = useMemo(
+    () => resultCount < 1 || !hasValue,
+    [resultCount, hasValue]
+  );
   return (
-    <div className={styles.extraElement}>
+    <div
+      className={styles.extraElement}
+      onClick={(e) => {
+        e.stopPropagation();
+        e.preventDefault();
+      }}
+    >
       <div className={clsx(styles.hits, { [styles.disabled]: !hasValue })}>
         <span>{`${selectedResult}/${resultCount}`}</span>
       </div>
@@ -51,15 +58,8 @@ function ResultCount({
           color={disableResultSelector ? 'neutral100' : 'neutral500'}
         />
       </div>
-      <div
-        className={clsx(styles.icon, { [styles.disabled]: !(input || hasValue) })}
-        onClick={clearValue}
-      >
-        <Icon
-          type="standalone"
-          name="delete"
-          color={!(input || hasValue) ? 'neutral100' : 'neutral500'}
-        />
+      <div className={clsx(styles.icon, { [styles.disabled]: !hasValue })} onClick={clearValue}>
+        <Icon type="standalone" name="delete" color={!hasValue ? 'neutral100' : 'neutral500'} />
       </div>
     </div>
   );
