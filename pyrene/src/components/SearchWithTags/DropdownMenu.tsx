@@ -8,10 +8,11 @@ interface DropdownMenuProps {
   tags?: Tag[];
   children: JSX.Element;
   handleOnTagClick: (tag: string) => void;
+  showSearching?: boolean;
 }
 const DropdownMenu: FC<
   DropdownMenuProps & SelectComponentsConfig<TagValue, true>['Menu'] & CommonProps<TagValue, true>
-> = ({ tags, handleOnTagClick, children, ...props }) => (
+> = ({ tags, handleOnTagClick, children, showSearching, ...props }) => (
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   <components.Menu {...props}>
@@ -19,7 +20,9 @@ const DropdownMenu: FC<
       {!props.selectProps?.inputValue?.trim() ? (
         <div className={styles.hint}>Type anything you want to search for...</div>
       ) : (
-        <div className={styles.searchLabel}>{`Search for "${props.selectProps.inputValue}"`}</div>
+        showSearching && (
+          <div className={styles.searchLabel}>{`Search for "${props.selectProps.inputValue}"`}</div>
+        )
       )}
       {(tags?.length ?? 0) > 0 && (
         <>

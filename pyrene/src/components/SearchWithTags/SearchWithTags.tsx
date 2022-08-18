@@ -118,6 +118,10 @@ export interface MultiSelectProps {
    */
   showResultCount?: boolean;
   /**
+   * Whether to show "search for" message while searching.
+   */
+  showSearching?: boolean;
+  /**
    * Set search string
    */
   setSearchValue: (search: string) => void;
@@ -155,6 +159,7 @@ const SearchWithTags: FunctionComponent<MultiSelectProps> = (props: MultiSelectP
     showResultCount,
     setSearchValue,
     searchValue = '',
+    showSearching = false,
   } = props;
 
   const [tag, setTag] = useState<string>();
@@ -317,6 +322,7 @@ const SearchWithTags: FunctionComponent<MultiSelectProps> = (props: MultiSelectP
             ...menuProps,
             children: menuProps.children as ReactNode,
             tags,
+            showSearching,
             handleOnTagClick: handleTagSelect,
           }),
       }),
@@ -354,9 +360,9 @@ const SearchWithTags: FunctionComponent<MultiSelectProps> = (props: MultiSelectP
         const optionResults = getLastTagValue(newValue, tag);
         return creatable ? `Add tag "${tag}: ${optionResults ?? ''}"` : 'No options found';
       }
-      return `Search for "${newValue}"`;
+      return showSearching ? `Search for "${newValue}"` : null;
     },
-    [tag, creatable]
+    [tag, creatable, showSearching]
   );
 
   return (
