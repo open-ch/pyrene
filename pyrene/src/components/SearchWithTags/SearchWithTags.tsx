@@ -216,6 +216,10 @@ const SearchWithTags: FunctionComponent<MultiSelectProps> = (props: MultiSelectP
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     selectRef.current?.setState({ ...selectRef.current.state, menuIsOpen: true });
   };
+  const closeMenu = () => {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+    selectRef.current?.setState({ ...selectRef.current.state, menuIsOpen: false });
+  };
   const Control = useCallback(
     ({ children, ...rest }: ControlProps<TagValue, true>) => (
       <div onClick={openMenu}>
@@ -327,8 +331,16 @@ const SearchWithTags: FunctionComponent<MultiSelectProps> = (props: MultiSelectP
           }),
       }),
     }),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [tags, tag, showResultCount, resultCount, selectedResult]
+    [
+      tags,
+      tag,
+      showResultCount,
+      handleTagSelect,
+      Control,
+      IndicatorsContainer,
+      MultiValueLabel,
+      showSearching,
+    ]
   );
   const onChangeHandle = useCallback(
     (updatedOptions?: TagValue[], isRemove?: boolean, select?: TagValue) => {
@@ -403,7 +415,15 @@ const SearchWithTags: FunctionComponent<MultiSelectProps> = (props: MultiSelectP
         }}
         onBlur={onBlurHandle}
         onFocus={onFocus}
-        onKeyDown={(key: React.KeyboardEvent<HTMLElement>) => delimiterCheck(key, regexObj)}
+        onKeyDown={(key: React.KeyboardEvent<HTMLElement>) => {
+          if (key.key === 'Enter') {
+            if (resultCount && showResultCount) {
+              // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+              key.shiftKey ? selectPreviousResult() : selectNextResult();
+            }
+            closeMenu();
+          } else delimiterCheck(key, regexObj);
+        }}
         maxMenuHeight={264}
         onSelectResetsInput={false}
         closeMenuOnSelect={false}
