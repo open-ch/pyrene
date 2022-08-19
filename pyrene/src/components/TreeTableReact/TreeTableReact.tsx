@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 import React, {
   useRef,
   useMemo,
@@ -301,8 +302,8 @@ function InnerTreeTableReact<R extends object = {}>(
       manualPagination: manual,
       pageCount: manual ? pages : undefined,
       // TODO: fix when pagination and select ->  children are selected but button is not checked
-      paginateExpandedRows: virtualized ? true : false,
-      autoResetSelectedRows: manual ? false : true,
+      paginateExpandedRows: !!virtualized,
+      autoResetSelectedRows: !manual,
       // For multiSelect nested data option to select children
       // data format must contain subRows https://github.com/TanStack/react-table/issues/2609
       ...(!multiSelect &&
@@ -362,7 +363,7 @@ function InnerTreeTableReact<R extends object = {}>(
       tableStateUpdateRef.current = true;
       onFetchData({ pageIndex, pageCount, pageSize });
     }
-  }, [onFetchData, pageIndex, pageSize, manual]);
+  }, [onFetchData, pageIndex, pageSize, manual, pageCount]);
   /* reset the page index to 0 when the table data updates due to something
 other than internal table state changes
  */
@@ -390,7 +391,7 @@ other than internal table state changes
       const size = (row && row?.lineCount) || 1;
       return size * rowLineHeight;
     },
-    [allRows]
+    [allRows, rowLineHeight]
   );
   const scrollToRow = useCallback(
     (rowId: string, align: Align = 'start') => {
@@ -424,20 +425,29 @@ other than internal table state changes
         window.scrollTo(0, viewportTop + pageScrollTop);
       }
     },
-    [isAllRowsExpanded, rows, allRows, virtualized, listRef]
+    [
+      isAllRowsExpanded,
+      rows,
+      allRows,
+      virtualized,
+      listRef,
+      renderSubRowComponent,
+      toggleRowExpanded,
+      containerRef,
+    ]
   );
 
   const toggleAllRowsExpansion = useCallback(
     (cb = () => {}) => {
       if (!isAllRowsExpanded) {
-        toggleAllRowsExpanded(isAllRowsExpanded ? false : true);
+        toggleAllRowsExpanded(!isAllRowsExpanded);
       }
       cb();
     },
-    [isAllRowsExpanded, listRef]
+    [isAllRowsExpanded, toggleAllRowsExpanded]
   );
 
-  const selectedRowIdsArr = useMemo(() => Object.keys(selectedRowIds), [selectedFlatRows]);
+  const selectedRowIdsArr = useMemo(() => Object.keys(selectedRowIds), [selectedRowIds]);
   useImperativeHandle(ref, () => ({
     scrollToRow,
     toggleAllRowsExpansion,
@@ -480,6 +490,9 @@ other than internal table state changes
       onRowClick,
       onRowHover,
       renderSubRowComponent,
+      virtualized,
+      highlightedRowId,
+      prepareRow,
     ]
   );
 
@@ -508,7 +521,6 @@ other than internal table state changes
       canPreviousPage,
       pageSizeOptions,
       pageSize,
-      selectedRowIds,
       selectedFlatRows,
       selectedRowIdsArr,
       pageCount,
@@ -542,7 +554,7 @@ other than internal table state changes
           actions={actions}
           shareLink={shareLink}
           selection={manual ? selectedRowIdsArr : selectedFlatRows}
-          toggleAll={() => toggleAllRowsExpanded(isAllRowsExpanded ? false : true)}
+          toggleAll={() => toggleAllRowsExpanded(!isAllRowsExpanded)}
           displayExpandAll={!isAllRowsExpanded}
           disabledExpand={
             isFlatTree(virtualized ? allRows : rows, setSubRowsKey) && !renderSubRowComponent
@@ -552,7 +564,7 @@ other than internal table state changes
             listItems: currentColumns.slice(1).map((col: Column) => ({
               id: col.id,
               label: col.Header as string,
-              value: col.isVisible,
+              value: col.isVisible as boolean,
             })),
             onItemClick: (columnId?: string) => {
               toggleHideColumn(columnId ?? '');

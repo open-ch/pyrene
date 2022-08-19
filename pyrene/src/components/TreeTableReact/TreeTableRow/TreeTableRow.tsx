@@ -46,7 +46,7 @@ function TreeTableRow<R extends object = {}>({
      */
     listRef?.current?.resetAfterIndex?.(index);
     row.toggleRowExpanded();
-  }, [index]);
+  }, [index, listRef, row]);
 
   const handleSingleClick = useCallback(() => {
     if ((row.canExpand || customSubRow) && expandOnParentRowClick) {
@@ -54,11 +54,11 @@ function TreeTableRow<R extends object = {}>({
     } else {
       onRowClick?.(row.original);
     }
-  }, [row.canExpand]);
+  }, [customSubRow, expandOnParentRowClick, toggleRowExpansion, onRowClick, row]);
 
   const hasExpandAction = useMemo(
     () => (row.canExpand || !!customSubRow) && expandOnParentRowClick,
-    [row.canExpand, expandOnParentRowClick]
+    [row.canExpand, expandOnParentRowClick, customSubRow]
   );
   const hasSingleClickAction = useMemo(
     () => hasExpandAction || onRowClick,
@@ -79,7 +79,7 @@ function TreeTableRow<R extends object = {}>({
       <div
         {...rowProps}
         className={clsx(styles.rowElementsContainer, {
-          [styles.openRootParent]: row.depth === 0 && row?.isExpanded && parent,
+          [styles.openRootParent]: row.depth === 0 && row?.isExpanded,
           [styles.activeAction]: hasSingleClickAction || hasDoubleClickAction,
           [styles.disabled]: disabled,
           [styles.highlighted]: highlighted,
@@ -95,18 +95,22 @@ function TreeTableRow<R extends object = {}>({
                 // adjust column indent onExpand
                 marginLeft: i === 0 ? cell.row.depth * 22 : 0,
                 ...(i === (multiSelect ? 1 : 0) &&
-                  cell.row.depth && { width: (cell.column.width as number) - cell.row.depth * 22 }),
+                  (multiSelect || cell.row.depth) && {
+                    width:
+                      (cell.column.width as number) - (multiSelect ? 22 : 0) - cell.row.depth * 22,
+                  }),
                 ...(!canExpand &&
                   i === 1 &&
                   multiSelect && {
-                    width: (cell.column.width as number) + 16 - cell.row.depth * 22,
-                    marginLeft: -16,
+                    width: (cell.column.width as number) - cell.row.depth * 22,
+                    marginLeft: -20,
                   }),
+                ...(multiSelect && i === 0 && !canExpand && { marginLeft: 42 }),
               }
-            : {};
+            : ({} as CSSProperties);
           return (
             <TreeTableCell
-              style={{ ...styling, ...cell?.column?.cellStyle }}
+              style={{ ...styling, ...(cell?.column?.cellStyle as CSSProperties) }}
               key={cell.column.id}
               cell={cell}
               sectionOpen={canExpand && row?.isExpanded}
