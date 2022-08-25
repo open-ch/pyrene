@@ -372,7 +372,7 @@ const SearchWithTags: FunctionComponent<MultiSelectProps> = (props: MultiSelectP
         const optionResults = getLastTagValue(newValue, tag);
         return creatable ? `Add tag "${tag}: ${optionResults ?? ''}"` : 'No options found';
       }
-      return showSearching ? `Search for "${newValue}"` : null;
+      return showSearching ? `Search for "${newValue}"` : undefined;
     },
     [tag, creatable, showSearching]
   );
@@ -430,6 +430,8 @@ const SearchWithTags: FunctionComponent<MultiSelectProps> = (props: MultiSelectP
         formatCreateLabel={(newValue) => formatNoOptionsMessage(newValue)}
         // workaround to not display 'create' option in dropdown when not creatable
         isValidNewOption={() => creatable}
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         noOptionsMessage={(input) => formatNoOptionsMessage(input.inputValue)}
         filterOption={(candidate, input) => {
           const currentValue = getLastTagValue(input, tag);
@@ -442,6 +444,7 @@ const SearchWithTags: FunctionComponent<MultiSelectProps> = (props: MultiSelectP
         isMulti
         isSearchable
         escapeClearsValue
+        openMenuOnFocus
         captureMenuScroll
       />
       {invalid && invalidLabel ? (
