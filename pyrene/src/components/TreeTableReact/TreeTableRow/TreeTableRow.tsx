@@ -1,4 +1,4 @@
-import React, { CSSProperties, useCallback, useMemo } from 'react';
+import React, { CSSProperties, useCallback, useMemo, forwardRef } from 'react';
 import clsx from 'clsx';
 import { Row } from 'react-table-7';
 
@@ -23,20 +23,23 @@ export interface TreeTableRowProps {
   customSubRow?: ({ row, rowProps, listRef }: CustomSubRowProps) => JSX.Element;
 }
 
-function TreeTableRow<R extends object = {}>({
-  row,
-  highlighted,
-  disabled,
-  onRowClick,
-  onRowDoubleClick,
-  onRowHover,
-  index,
-  listRef,
-  expandOnParentRowClick,
-  style,
-  multiSelect,
-  customSubRow,
-}: TreeTableRowProps): React.ReactElement<TreeTableRowProps> {
+function TreeTableRow<R extends object = {}>(
+  {
+    row,
+    highlighted,
+    disabled,
+    onRowClick,
+    onRowDoubleClick,
+    onRowHover,
+    index,
+    listRef,
+    expandOnParentRowClick,
+    style,
+    multiSelect,
+    customSubRow,
+  }: TreeTableRowProps,
+  ref: React.ForwardedRef<HTMLDivElement>
+) {
   const toggleRowExpansion = useCallback(() => {
     /**
      * clears the inner cache of styles and sizes of VariableSizeList,
@@ -88,6 +91,7 @@ function TreeTableRow<R extends object = {}>({
         onDoubleClick={hasDoubleClickAction ? () => onRowDoubleClick?.(row.original) : undefined}
         onMouseOver={() => onRowHover?.(row.original, true)}
         onMouseOut={() => onRowHover?.(row.original, false)}
+        ref={ref}
       >
         {row.cells.map((cell, i) => {
           const styling = !customSubRow
@@ -127,4 +131,4 @@ function TreeTableRow<R extends object = {}>({
 
 TreeTableRow.displayName = 'TreeTableRow';
 
-export default TreeTableRow;
+export default forwardRef(TreeTableRow);

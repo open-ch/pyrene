@@ -54,7 +54,7 @@ const defaultColumn = {
 const defaultVirtualizedTableHeight = 300;
 
 type ManipulateTable = {
-  scrollToRow: (rowId: string, align?: Align) => void;
+  scrollToRow: (rowId: string, align?: ScrollLogicalPosition) => void;
   toggleAllRowsExpansion: (cb?: any) => void;
   tableFullyExpanded: boolean;
   selectedRows?: Row[] | string[];
@@ -365,8 +365,8 @@ function InnerTreeTableReact<R extends object = {}>(
     }
   }, [onFetchData, pageIndex, pageSize, manual, pageCount]);
   /* reset the page index to 0 when the table data updates due to something
-other than internal table state changes
- */
+  other than internal table state changes
+  */
   useEffect(() => {
     if (!tableStateUpdateRef.current) {
       gotoPage(0);
@@ -393,36 +393,54 @@ other than internal table state changes
     },
     [allRows, rowLineHeight]
   );
-  const scrollToRow = useCallback(
-    (rowId: string, align: Align = 'start') => {
-      const currentRows = virtualized ? allRows : rows;
-      if (isAllRowsExpanded) {
-        const indexToScrollTo = currentRows.findIndex(({ id }) => id === rowId);
-        listRef.current.scrollToItem(indexToScrollTo, align);
-        return;
-      }
-      handleExpandAllParentsOfRowById(toggleRowExpanded as any, rowId);
-      const indexToScrollTo = currentRows.findIndex(({ id }) => id === rowId);
-      const firstLvlParentRowId = getFirstLevelParentRowId(rowId);
-      const firstLvlParentRowIndex = currentRows.findIndex(({ id }) => id === firstLvlParentRowId);
-      /**
-       * we want to clear the cache starting from parent,
-       * since "leaf node" scroll might have sibling or parents that also get inserted into the dataset on expand.
-       * Therefore overlapping the height cache between 1st level parent and scrolled element.
-       */
-      listRef?.current?.resetAfterIndex?.(firstLvlParentRowIndex);
-      if (virtualized && !renderSubRowComponent && listRef.current) {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-        listRef.current.scrollToItem(indexToScrollTo, 'start');
-      } else if (containerRef.current) {
-        // scroll page when non-virtualized
-        const parent = containerRef.current;
-        const rowElements = parent.children;
-        const element = rowElements[indexToScrollTo];
-        const viewportTop = element.getBoundingClientRect().top;
-        const pageScrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+  const listRefs = useMemo(
+    () =>
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-return
+      rows.map(() => React.createRef<HTMLDivElement>()),
+    [rows]
+  );
 
-        window.scrollTo(0, viewportTop + pageScrollTop);
+  const scrollToRow = useCallback(
+    (rowId: string, align: ScrollLogicalPosition = 'start') => {
+      const currentRows = virtualized ? allRows : rows;
+      const indexToScrollTo = currentRows?.findIndex(({ id }) => id === rowId);
+
+      const scrollToNotVirtualized = () => {
+        // @ts-ignore
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
+        listRefs?.[indexToScrollTo]?.current?.scrollIntoView({
+          behavior: 'smooth',
+          block: align,
+        });
+      };
+
+      if (isAllRowsExpanded) {
+        if (virtualized) {
+          listRef.current.scrollToItem(indexToScrollTo, align);
+        } else {
+          scrollToNotVirtualized();
+        }
+      } else {
+        handleExpandAllParentsOfRowById(toggleRowExpanded as any, rowId);
+        const firstLvlParentRowId = getFirstLevelParentRowId(rowId);
+        const firstLvlParentRowIndex = currentRows.findIndex(
+          ({ id }) => id === firstLvlParentRowId
+        );
+        /**
+         * we want to clear the cache starting from parent,
+         * since "leaf node" scroll might have sibling or parents that also get inserted into the dataset on expand.
+         * Therefore overlapping the height cache between 1st level parent and scrolled element.
+         */
+        listRef?.current?.resetAfterIndex?.(firstLvlParentRowIndex);
+        if (virtualized && !renderSubRowComponent && listRef.current) {
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+          listRef.current.scrollToItem(indexToScrollTo, 'start');
+        } else {
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+          toggleAllRowsExpanded(true);
+          scrollToNotVirtualized();
+        }
       }
     },
     [
@@ -433,7 +451,8 @@ other than internal table state changes
       listRef,
       renderSubRowComponent,
       toggleRowExpanded,
-      containerRef,
+      toggleAllRowsExpanded,
+      listRefs,
     ]
   );
 
@@ -462,10 +481,13 @@ other than internal table state changes
       initializeRootData(row);
       const rowWithDisabled = row.original as { disabled?: boolean };
       const isRowDisabled = rowWithDisabled?.disabled;
+
       return (
         <TreeTableRow
           key={row.id}
           row={row}
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+          ref={listRefs?.[index]}
           disabled={isRowDisabled}
           highlighted={highlightedRowId === row.id}
           index={index}
