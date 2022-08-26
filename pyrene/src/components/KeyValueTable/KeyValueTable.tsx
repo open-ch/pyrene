@@ -45,6 +45,10 @@ export interface KeyValueTableProps {
    * Sets the error message to be displayed
    */
   error?: string;
+  /**
+   * Sets the value that should be used when row value is empty
+   */
+  emptyValue?: string;
 }
 
 const KeyValueTable: React.FC<KeyValueTableProps> = ({
@@ -54,6 +58,7 @@ const KeyValueTable: React.FC<KeyValueTableProps> = ({
   theme = 'border',
   error,
   loading,
+  emptyValue = '',
 }: KeyValueTableProps) => (
   <div className={styles.keyValueTable}>
     {title && (
@@ -96,7 +101,7 @@ const KeyValueTable: React.FC<KeyValueTableProps> = ({
                     row.multiLine && styles.multiLine
                   )}
                 >
-                  {row.value}
+                  {row.value || emptyValue}
                 </td>
               </tr>
             ))}
