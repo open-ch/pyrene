@@ -86,3 +86,14 @@
 .xlarge .footer {
   padding: 32px;
 }
+
+.titleContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.shareLink {
+  margin-left: auto;
+}

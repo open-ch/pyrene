@@ -6,6 +6,7 @@ import Banner from '../Banner/Banner';
 import styles from './Card.module.css';
 import Heading, { HeadingProps } from '../Heading/Heading';
 import { IconNames } from '../types';
+import ShareDialog from '../ShareDialog/ShareDialog';
 
 export interface CardProps {
   /**
@@ -56,6 +57,10 @@ export interface CardProps {
    * Sets the icon color. ( Hint: see colorConstants.js)
    */
   titleIconColor?: string;
+  /**
+   * Share link to add to the card
+   */
+  shareLink?: string;
 }
 
 /**
@@ -78,6 +83,7 @@ const Card = forwardRef<HTMLDivElement, CardProps>(
       titleIcon,
       titleSvg,
       titleIconColor,
+      shareLink,
     },
     ref
   ) => (
@@ -90,10 +96,31 @@ const Card = forwardRef<HTMLDivElement, CardProps>(
         })}
         style={{ minHeight: minHeight }}
       >
-        {title && (
-          <Heading svg={titleSvg} icon={titleIcon} iconColor={titleIconColor} level={titleLevel}>
-            {title}
-          </Heading>
+        {(title || shareLink) && (
+          <div className={styles.titleContainer}>
+            {title && (
+              <div>
+                <Heading
+                  svg={titleSvg}
+                  icon={titleIcon}
+                  iconColor={titleIconColor}
+                  level={titleLevel}
+                >
+                  {title}
+                </Heading>
+              </div>
+            )}
+            {shareLink && (
+              <div className={styles.shareLink}>
+                <ShareDialog
+                  position="bottom"
+                  align="end"
+                  disabled={!!(error || loading)}
+                  link={shareLink}
+                />
+              </div>
+            )}
+          </div>
         )}
         {/* eslint-disable-next-line no-nested-ternary */}
         {error ? (
