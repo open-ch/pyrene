@@ -20,7 +20,7 @@ import {
   Row,
   TableRowProps,
 } from 'react-table-7';
-import { VariableSizeList, Align } from 'react-window';
+import { VariableSizeList } from 'react-window';
 import clsx from 'clsx';
 
 import Loader from '../Loader/Loader';
@@ -94,6 +94,11 @@ export interface TreeTableReactProps<R> {
    * Defaults to true
    */
   expandAllVisible?: boolean;
+  /**
+   * Weather all rows should initally be expanded
+   * Defaults to false
+   */
+  expanded?: boolean;
   /**
    * Enables toggle row expansion on the full parent row, instead of the chevron only. Overrides onRowDoubleClick and onRowClick for parent rows.
    */
@@ -254,6 +259,7 @@ function InnerTreeTableReact<R extends object = {}>(
     numberOfResults = 0,
     paginated,
     shareLink,
+    expanded = false,
   }: TreeTableReactProps<R>,
   ref: React.ForwardedRef<ManipulateTable>
 ) {
@@ -301,6 +307,7 @@ function InnerTreeTableReact<R extends object = {}>(
       data: memoizedData,
       manualPagination: manual,
       pageCount: manual ? pages : undefined,
+      autoResetExpanded: false,
       // TODO: fix when pagination and select ->  children are selected but button is not checked
       paginateExpandedRows: !!virtualized,
       autoResetSelectedRows: !manual,
@@ -382,8 +389,17 @@ function InnerTreeTableReact<R extends object = {}>(
   }, [currentColumns, toggleColumnsHandler]);
 
   useEffect(() => {
-    listRef?.current?.resetAfterIndex?.(0);
+    if (virtualized) {
+      listRef?.current?.resetAfterIndex?.(0);
+    }
   }, [isAllRowsExpanded, allRows, rows]);
+
+  useEffect(() => {
+    if (expanded) {
+      toggleAllRowsExpanded(true);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const getItemHeight = useCallback(
     (i: number) => {
@@ -515,6 +531,7 @@ function InnerTreeTableReact<R extends object = {}>(
       virtualized,
       highlightedRowId,
       prepareRow,
+      listRefs,
     ]
   );
 
