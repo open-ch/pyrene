@@ -49,6 +49,10 @@ export interface KeyValueTableProps {
    * Sets the value that should be used when row value is empty
    */
   emptyValue?: string;
+  /**
+   * Weather elipsis the values or display in multiple lines
+   */
+  ellipsis?: boolean;
 }
 
 const KeyValueTable: React.FC<KeyValueTableProps> = ({
@@ -59,11 +63,13 @@ const KeyValueTable: React.FC<KeyValueTableProps> = ({
   error,
   loading,
   emptyValue = '',
+  ellipsis = false,
 }: KeyValueTableProps) => (
   <div className={styles.keyValueTable}>
     {title && (
       <div className={clsx(styles.keyValueTableTitle, styles[`title-${theme}`])}>{title}</div>
     )}
+    {/* eslint-disable-next-line no-nested-ternary */}
     {error ? (
       <div className={styles.centeredElement}>
         <Banner label={error} type="error" styling="inline" />
@@ -98,7 +104,8 @@ const KeyValueTable: React.FC<KeyValueTableProps> = ({
                   className={clsx(
                     styles.keyValueCellValue,
                     styles[`value-${theme}`],
-                    row.multiLine && styles.multiLine
+                    row.multiLine && styles.multiLine,
+                    ellipsis && styles.ellipsis
                   )}
                 >
                   {row.value || emptyValue}

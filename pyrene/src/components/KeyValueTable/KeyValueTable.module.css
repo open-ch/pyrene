@@ -72,14 +72,12 @@
   right: 8px;
   padding: 0 8px 0 0;
   font-weight: 400;
-  &.value-greyLabel {
+  word-wrap: break-word;
+  &.ellipsis {
     max-width: 0;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-  }
-  &.value-border {
-    word-wrap: break-word;
   }
 }
 .multiLine {
