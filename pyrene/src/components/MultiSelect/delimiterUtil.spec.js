@@ -1,5 +1,8 @@
 import {
-  getDelimitedValues, getCaseInsensitiveDistinctValues, getRegExp, DEFAULT_DELIMITERS,
+  getDelimitedValues,
+  getCaseInsensitiveDistinctValues,
+  getRegExp,
+  DEFAULT_DELIMITERS,
 } from './delimiterUtil';
 
 describe('getDelimitedValues()', () => {
@@ -17,13 +20,13 @@ describe('getDelimitedValues()', () => {
 
   it('delimits entries with custom delimiters', () => {
     const customDelimiters = ['\\s', ',', '?', ';'];
-    const rawString1 = 'Banana Mango, Beer?Beer';
+    const rawString1 = 'Banana Mango, Beer?Beer whatever|another'; // pipe character test
     const rawString2 = 'Banana, Mango, Beer, Beer';
     const rawString3 = 'Banana;Mango;Beer;Beer';
     const delimitedValues1 = getDelimitedValues(rawString1, getRegExp(customDelimiters));
     const delimitedValues2 = getDelimitedValues(rawString2, getRegExp(customDelimiters));
     const delimitedValues3 = getDelimitedValues(rawString3, getRegExp(customDelimiters));
-    expect(delimitedValues1).toStrictEqual(['Banana', 'Mango', 'Beer', 'Beer']);
+    expect(delimitedValues1).toStrictEqual(['Banana', 'Mango', 'Beer', 'Beer', 'whatever|another']);
     expect(delimitedValues2).toStrictEqual(['Banana', 'Mango', 'Beer', 'Beer']);
     expect(delimitedValues3).toStrictEqual(['Banana', 'Mango', 'Beer', 'Beer']);
   });
