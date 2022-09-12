@@ -22,6 +22,7 @@ import {
 } from 'react-table-7';
 import { VariableSizeList } from 'react-window';
 import clsx from 'clsx';
+import { AutoSizer, List, CellMeasurer, CellMeasurerCache } from 'react-virtualized';
 
 import Loader from '../Loader/Loader';
 import TreeTableHeader from './TreeTableHeader/TreeTableHeader';
@@ -276,6 +277,12 @@ function InnerTreeTableReact<R extends object = {}>(
   const memoizedColumns = useMemo(() => userColumns, [userColumns]);
   const scrollBarSize = useMemo(() => scrollbarWidth(), []);
 
+  const cache = useRef(
+    new CellMeasurerCache({
+      minHeight: 32,
+      fixedWidth: true,
+    })
+  );
   const {
     getTableProps,
     getTableBodyProps,
@@ -390,9 +397,10 @@ function InnerTreeTableReact<R extends object = {}>(
 
   useEffect(() => {
     if (virtualized) {
-      listRef?.current?.resetAfterIndex?.(0);
+      // listRef?.current?.resetAfterIndex?.(0);
+      cache.current.clearAll();
     }
-  }, [isAllRowsExpanded, allRows, rows]);
+  }, [allRows, rows]);
 
   useEffect(() => {
     if (expanded) {
@@ -433,12 +441,12 @@ function InnerTreeTableReact<R extends object = {}>(
 
       if (isAllRowsExpanded) {
         if (virtualized) {
-          listRef.current.scrollToItem(indexToScrollTo, align);
+          listRef.current.scrollToRow(indexToScrollTo);
         } else {
           scrollToNotVirtualized();
         }
       } else {
-        handleExpandAllParentsOfRowById(toggleRowExpanded as any, rowId);
+        toggleAllRowsExpanded(true);
         const firstLvlParentRowId = getFirstLevelParentRowId(rowId);
         const firstLvlParentRowIndex = currentRows.findIndex(
           ({ id }) => id === firstLvlParentRowId
@@ -451,7 +459,7 @@ function InnerTreeTableReact<R extends object = {}>(
         listRef?.current?.resetAfterIndex?.(firstLvlParentRowIndex);
         if (virtualized && !renderSubRowComponent && listRef.current) {
           // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-          listRef.current.scrollToItem(indexToScrollTo, 'start');
+          listRef.current.scrollToRow(indexToScrollTo);
         } else {
           // eslint-disable-next-line @typescript-eslint/no-unsafe-call
           toggleAllRowsExpanded(true);
@@ -466,7 +474,6 @@ function InnerTreeTableReact<R extends object = {}>(
       virtualized,
       listRef,
       renderSubRowComponent,
-      toggleRowExpanded,
       toggleAllRowsExpanded,
       listRefs,
     ]
@@ -491,7 +498,7 @@ function InnerTreeTableReact<R extends object = {}>(
   }));
 
   const renderRow = useCallback(
-    ({ index, style }: { index: number; style?: CSSProperties }) => {
+    ({ index, style, ...rest }: { index: number; style?: CSSProperties }) => {
       const row = virtualized ? allRows[index] : rows[index];
       prepareRow(row);
       initializeRootData(row);
@@ -499,23 +506,28 @@ function InnerTreeTableReact<R extends object = {}>(
       const isRowDisabled = rowWithDisabled?.disabled;
 
       return (
-        <TreeTableRow
-          key={row.id}
-          row={row}
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
-          ref={listRefs?.[index]}
-          disabled={isRowDisabled}
-          highlighted={highlightedRowId === row.id}
-          index={index}
-          listRef={listRef}
-          expandOnParentRowClick={expandOnParentRowClick}
-          onRowDoubleClick={onRowDoubleClick}
-          onRowClick={onRowClick}
-          onRowHover={onRowHover}
-          style={style}
-          multiSelect={multiSelect}
-          customSubRow={renderSubRowComponent}
-        />
+        // @ts-ignore
+        <CellMeasurer {...rest} cache={cache.current} columnIndex={0} rowIndex={index}>
+          {({ registerChild }) => (
+            <TreeTableRow
+              key={row.id}
+              row={row}
+              // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+              ref={registerChild as unknown as React.Ref<HTMLDivElement>}
+              disabled={isRowDisabled}
+              highlighted={highlightedRowId === row.id}
+              index={index}
+              listRef={listRef}
+              expandOnParentRowClick={expandOnParentRowClick}
+              onRowDoubleClick={onRowDoubleClick}
+              onRowClick={onRowClick}
+              onRowHover={onRowHover}
+              style={style}
+              multiSelect={multiSelect}
+              customSubRow={renderSubRowComponent}
+            />
+          )}
+        </CellMeasurer>
       );
     },
     [
@@ -531,7 +543,6 @@ function InnerTreeTableReact<R extends object = {}>(
       virtualized,
       highlightedRowId,
       prepareRow,
-      listRefs,
     ]
   );
 
@@ -619,23 +630,30 @@ function InnerTreeTableReact<R extends object = {}>(
           <div
             ref={containerRef}
             className={styles.tableBody}
-            style={!virtualized && height ? { height: height, overflow: 'auto' } : undefined}
+            style={
+              !virtualized && height
+                ? { height: height, overflow: 'auto', width: '100%' }
+                : undefined
+            }
             {...getTableBodyProps()}
           >
             {virtualized && !renderSubRowComponent ? (
-              <VariableSizeList
-                height={height ?? defaultVirtualizedTableHeight}
-                itemCount={allRows.length}
-                width={totalColumnsWidth + scrollBarSize}
-                innerRef={innerRef}
-                itemSize={getItemHeight}
-                itemKey={(index) => allRows[index].id}
-                ref={listRef}
-                overscanCount={10}
-                style={{ minWidth: '100%', width: 'auto' }}
-              >
-                {renderRow}
-              </VariableSizeList>
+              <AutoSizer disableHeight>
+                {({ width }) => (
+                  <List
+                    height={height ?? defaultVirtualizedTableHeight}
+                    rowCount={allRows.length}
+                    width={width}
+                    innerRef={innerRef}
+                    rowHeight={cache.current.rowHeight}
+                    ref={listRef}
+                    overscanRowCount={10}
+                    rowRenderer={renderRow}
+                    deferredMeasurementCache={cache.current}
+                    scrollToAlignment="center"
+                  />
+                )}
+              </AutoSizer>
             ) : (
               rows.map((_, index) => renderRow({ index, style: { minWidth: '100%' } }))
             )}
