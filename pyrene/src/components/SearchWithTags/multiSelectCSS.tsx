@@ -41,10 +41,7 @@ const multiSelectStyle = (props: Props) => ({
     alignItems: props.rows <= 0 ? 'center' : 'flex-start',
     overflow: 'hidden',
 
-    backgroundColor:
-      state.isFocused || state.hasValue
-        ? colorConstants.backgroundLight
-        : colorConstants.backgroundTint,
+    backgroundColor: colorConstants.backgroundLight,
     border:
       state.selectProps.isInvalid && !state.isDisabled
         ? `solid 1px ${colorConstants.red500}`
