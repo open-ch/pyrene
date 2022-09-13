@@ -94,27 +94,31 @@
   --teal-100: #b6f4ea;
   --teal-050: #daf9f4;
 
+  /* Color of highligted elements */
+  --highlight-bg: var(--blue-020);
+  --highlight-fg: var(--blue-500);
+
   /* Can chart colors be fetched from pyrene graphs? */
   /* Chart / 1 */
-  --chart-1: #044BA2;
-  --chart-1-80: #366FB5;
-  --chart-1-60: #6893C7;
-  --chart-1-40: #9BB7DA;
-  --chart-1-20: #CDDBEC;
-  --chart-1-10: #E5EDF5;
-  --chart-1-05: #F2F6FA;
+  --chart-1: #044ba2;
+  --chart-1-80: #366fb5;
+  --chart-1-60: #6893c7;
+  --chart-1-40: #9bb7da;
+  --chart-1-20: #cddbec;
+  --chart-1-10: #e5edf5;
+  --chart-1-05: #f2f6fa;
 
   /* Chart / 2 */
-  --chart-2: #EFDC60;
+  --chart-2: #efdc60;
 
   /* Chart / 3 */
-  --chart-3: #4CD4C6;
+  --chart-3: #4cd4c6;
 
   /* Chart / 4 */
-  --chart-4: #2488D4;
+  --chart-4: #2488d4;
 
   /* Chart / 5 */
-  --chart-5: #81DB81;
+  --chart-5: #81db81;
 
   /* FUNCTIONAL COLORS */
   /* DEFAULT */

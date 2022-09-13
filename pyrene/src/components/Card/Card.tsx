@@ -61,6 +61,18 @@ export interface CardProps {
    * Share link to add to the card
    */
   shareLink?: string;
+  /**
+   * Changes the element styling to highlighted
+   */
+  highlight?: boolean;
+  /**
+   * Changes the highlight's border color
+   */
+  highlightBorderColor?: string;
+  /**
+   * Changes the highlight's background color
+   */
+  highlightBackgroundColor?: string;
 }
 
 /**
@@ -84,62 +96,77 @@ const Card = forwardRef<HTMLDivElement, CardProps>(
       titleSvg,
       titleIconColor,
       shareLink,
+      highlight,
+      highlightBorderColor = 'var(--highlight-fg)',
+      highlightBackgroundColor = 'var(--highlight-bg)',
     },
     ref
-  ) => (
-    <div ref={ref} className={clsx(styles.container, styles[paddingSize])}>
-      {header && <div className={styles.header}>{header}</div>}
-      <div
-        className={clsx(styles.content, {
-          [styles['content--noHeader']]: !header,
-          [styles['content--noFooter']]: !footer,
-        })}
-        style={{ minHeight: minHeight }}
-      >
-        {(title || shareLink) && (
-          <div className={styles.titleContainer}>
-            {title && (
-              <div>
-                <Heading
-                  svg={titleSvg}
-                  icon={titleIcon}
-                  iconColor={titleIconColor}
-                  level={titleLevel}
-                >
-                  {title}
-                </Heading>
-              </div>
-            )}
-            {shareLink && (
-              <div className={styles.shareLink}>
-                <ShareDialog
-                  position="bottom"
-                  align="end"
-                  disabled={!!(error || loading)}
-                  link={shareLink}
-                />
-              </div>
-            )}
-          </div>
-        )}
-        {/* eslint-disable-next-line no-nested-ternary */}
-        {error ? (
-          <div className={styles.error}>
-            <Banner type="error" styling="inline" label={error} />
-          </div>
-        ) : loading ? (
-          <div className={styles.loader} style={!minHeight ? { minHeight: 160 } : undefined}>
-            <div className={styles.loadingOverlay}>
-              <Loader size="large" />
+  ) => {
+    const style = {
+      minHeight,
+      ...(highlight && {
+        borderLeftColor: highlightBorderColor,
+        borderRightColor: highlightBorderColor,
+        backgroundColor: highlightBackgroundColor,
+      }),
+    };
+
+    return (
+      <div ref={ref} className={clsx(styles.container, styles[paddingSize])}>
+        {header && <div className={styles.header}>{header}</div>}
+        <div
+          className={clsx(styles.content, {
+            [styles.highlight]: highlight,
+            [styles['content--noHeader']]: !header,
+            [styles['content--noFooter']]: !footer,
+          })}
+          style={style}
+        >
+          {(title || shareLink) && (
+            <div className={styles.titleContainer}>
+              {title && (
+                <div>
+                  <Heading
+                    svg={titleSvg}
+                    icon={titleIcon}
+                    iconColor={titleIconColor}
+                    level={titleLevel}
+                  >
+                    {title}
+                  </Heading>
+                </div>
+              )}
+              {shareLink && (
+                <div className={styles.shareLink}>
+                  <ShareDialog
+                    position="bottom"
+                    align="end"
+                    disabled={!!(error || loading)}
+                    link={shareLink}
+                  />
+                </div>
+              )}
             </div>
-          </div>
-        ) : (
-          children
-        )}
+          )}
+          {/* eslint-disable-next-line no-nested-ternary */}
+          {error ? (
+            <div className={styles.error}>
+              <Banner type="error" styling="inline" label={error} />
+            </div>
+          ) : loading ? (
+            <div className={styles.loader} style={!minHeight ? { minHeight: 160 } : undefined}>
+              <div className={styles.loadingOverlay}>
+                <Loader size="large" />
+              </div>
+            </div>
+          ) : (
+            children
+          )}
+        </div>
+        {footer && <div className={styles.footer}>{footer}</div>}
       </div>
-      {footer && <div className={styles.footer}>{footer}</div>}
-    </div>
-  )
+    );
+  }
 );
 
 Card.displayName = 'Card';

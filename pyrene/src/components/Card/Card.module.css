@@ -22,8 +22,15 @@
 
 .content {
   background-color: #ffffff;
+  /* 1 px border default */
   border: solid 1px var(--border);
   position: relative;
+
+  /* 4px highlight  */
+  &.highlight {
+    border-left-width: 4px;
+    border-right-width: 4px;
+  }
 }
 
 .content--noHeader {
@@ -46,6 +53,7 @@
 .error {
   align-items: flex-start;
 }
+
 .loadingOverlay {
   position: absolute;
   top: 0;
@@ -57,34 +65,61 @@
   justify-content: center;
   z-index: 3;
 }
+
 .xsmall .header,
 .xsmall .content,
 .xsmall .footer {
   padding: 4px;
+
+  &.highlight {
+    padding-left: 1px;
+    padding-right: 1px;
+  }
 }
 
 .small .header,
 .small .content,
 .small .footer {
   padding: 8px;
+
+  &.highlight {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
 }
 
 .medium .header,
 .medium .content,
 .medium .footer {
   padding: 16px;
+
+  &.highlight {
+    padding-left: 13px;
+    padding-right: 13px;
+  }
 }
 
 .large .header,
 .large .content,
 .large .footer {
   padding: 24px;
+
+  &.highlight {
+    padding-left: 21px;
+    padding-right: 21px;
+  }
 }
 
 .xlarge .header,
 .xlarge .content,
 .xlarge .footer {
   padding: 32px;
+
+  /* 4px border - 1px default = 32px - 3px = 29px */
+  &.highlight {
+    padding-left: 29px;
+    padding-right: 29px;
+  }
 }
 
 .titleContainer {
