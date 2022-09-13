@@ -2,7 +2,7 @@ module.exports = {
   stories: [
     '../**/*.stories.mdx',
     '../**/src/**/*.stories.mdx',
-    '../**/src/**/*.stories.@(js|jsx|ts|tsx)'
+    '../**/src/**/*.stories.@(js|jsx|ts|tsx)',
   ],
   addons: [
     '@storybook/addon-links',
@@ -23,17 +23,23 @@ module.exports = {
   staticDirs: ['../stories/common/images/'],
   webpackFinal: async (config, { configType }) => {
     // modify storybook's file-loader rule to avoid conflicts with svgr
-    const fileLoaderRule = config.module.rules.find(
-        (rule) => rule.test && rule.test.test(".svg")
-    );
-    fileLoaderRule.exclude = /\.svg$/;
+    const fileLoaderRule = config.module.rules.find((rule) => rule.test && rule.test.test('.svg'));
+    fileLoaderRule.exclude = /\.svg$/i;
 
-    config.module.rules.push({
-      test: /\.svg$/,
-      use: ['@svgr/webpack'],
-    });
+    config.module.rules.push(
+      {
+        test: /\.svg$/i,
+        resourceQuery: { not: [/url/] },
+        use: ['@svgr/webpack'],
+      },
+      {
+        test: /\.svg$/i,
+        type: 'asset',
+        resourceQuery: /url/, // *.svg?url
+      }
+    );
 
     // Return the altered config
     return config;
   },
-}
+};

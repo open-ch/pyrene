@@ -5,7 +5,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 
 const production = process.env.NODE_ENV === 'production';
 
@@ -66,8 +66,14 @@ module.exports = () => ({
         ],
       },
       {
-        test: /\.svg$/,
+        test: /\.svg$/i,
+        resourceQuery: { not: [/url/] },
         use: ['@svgr/webpack'],
+      },
+      {
+        test: /\.svg$/i,
+        type: 'asset',
+        resourceQuery: /url/, // *.svg?url
       },
       {
         test: /\.(woff|woff2)$/,

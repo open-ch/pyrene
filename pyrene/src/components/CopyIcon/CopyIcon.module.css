@@ -1,0 +1,9 @@
+/* This serves as both padding (especially on the left) and a bounding box to increase click target */
+.icon {
+  padding-left: 4px;
+  padding-right: 4px;
+
+  &:hover {
+    cursor: pointer;
+  }
+}

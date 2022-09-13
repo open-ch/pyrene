@@ -5,13 +5,7 @@ import styles from './KeyValueTable.module.css';
 import Banner from '../Banner/Banner';
 import Loader from '../Loader/Loader';
 
-const getNodeText = (node: ReactNode): string => {
-  if (['string', 'number'].includes(typeof node)) return node as string;
-  if (node instanceof Array) return node.map(getNodeText).join(' ');
-  // @ts-ignore
-  if (typeof node === 'object' && node) return getNodeText(node.props.children);
-  return '';
-};
+import { getNodeText } from '../../utils/ReactNodeUtils';
 
 type Row = {
   key: ReactNode;
