@@ -232,6 +232,18 @@ export interface TableProps<R = {}> {
    * Whether the columns (hide/show) popover is available to the user.
    */
   toggleColumns?: boolean;
+  /**
+   * Highlight rows in the table. Should be an array of the id from the objects avaialbe in the data array.
+   */
+  highlightedRowIds?: any[];
+  /**
+   * Changes the highlight's border color
+   */
+  highlightBorderColor?: string;
+  /**
+   * Changes the highlight's background color
+   */
+  highlightBackgroundColor?: string;
 }
 
 /**
@@ -264,6 +276,9 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
     error: null,
     resizable: false,
     showPagination: 'both',
+    highlightedRowIds: [],
+    highlightBorderColor: colorConstants.highlightFg,
+    highlightBackgroundColor: colorConstants.highlightBg,
   };
 
   checkboxTable: React.RefCallback<Instance<R>> | null = null;
@@ -315,13 +330,28 @@ export default class Table<R> extends React.Component<TableProps<R>, TableState>
       const key = rowInfo && rowInfo?.original?.[this.props.keyField];
       const selected = this.isSelected(key);
 
+      const highlighted = this.props.highlightedRowIds?.includes(key);
+
+      const style = {
+        ...(selected && { background: colorConstants.neutral030 }),
+        ...(highlighted && {
+          background: this.props.highlightBackgroundColor,
+          borderLeftColor: this.props.highlightBorderColor,
+          borderRightColor: this.props.highlightBorderColor,
+          borderLeftWidth: 4,
+          borderRightWidth: 4,
+          borderLeftStyle: 'solid',
+          borderRightStyle: 'solid',
+          paddingLeft: 0,
+          paddingRight: 0,
+        }),
+      };
+
       return {
         onDoubleClick: () => {
           this.props?.onRowDoubleClick?.(rowInfo);
         },
-        style: {
-          background: selected ? colorConstants.neutral030 : '',
-        },
+        style,
       };
     },
 

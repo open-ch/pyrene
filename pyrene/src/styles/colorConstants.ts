@@ -29,6 +29,7 @@ const colorPalette = {
   blue200: '#78a5ff',
   blue100: '#bad1ff',
   blue050: '#dbe7ff',
+  blue020: '#f0f5ff',
 
   /* RED */
   red950: '#57080f',
@@ -136,6 +137,9 @@ const functionalColors = {
 
   informationFg: colorPalette.blue500,
   informationLight: colorPalette.blue050,
+
+  highlightBg: colorPalette.blue020,
+  highlightFg: colorPalette.blue500,
 
   /* ADMIN */
   adminFg: colorPalette.red500,

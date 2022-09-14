@@ -276,6 +276,8 @@
   flex: 1 0 auto;
   display: inline-flex;
   min-height: 31px;
+  padding-left: 4px;
+  padding-right: 4px;
 }
 
 :global(.ReactTable .rt-th, .ReactTable .rt-td) {
