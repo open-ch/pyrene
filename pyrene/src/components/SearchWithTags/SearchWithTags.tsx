@@ -290,14 +290,14 @@ const SearchWithTags: FunctionComponent<MultiSelectProps> = (props: MultiSelectP
       ({ innerProps, children }) =>
         (
           <div
-            onDoubleClick={() => (creatable ? editExistingValue(children) : undefined)}
+            onDoubleClick={() => editExistingValue(children)}
             title={typeof children === 'string' ? children : undefined}
             {...innerProps}
           >
             {children}
           </div>
         ),
-    [creatable, editExistingValue]
+    [editExistingValue]
   );
 
   const handleTagSelect = useCallback(
