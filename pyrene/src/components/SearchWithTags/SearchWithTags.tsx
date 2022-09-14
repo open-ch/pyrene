@@ -131,8 +131,6 @@ export interface MultiSelectProps {
   searchValue?: string;
 }
 
-const LoadingIndicator = () => <Loader />;
-
 /**
  * Multi-Selects are used when the user has to make a choice from a list. It allows the user to select multiple items from a dropdown list.
  */
@@ -242,9 +240,15 @@ const SearchWithTags: FunctionComponent<MultiSelectProps> = (props: MultiSelectP
         }
         rest.clearValue();
       };
+
       return (
         <components.IndicatorsContainer {...rest}>
-          {showResultCount ? (
+          {/* eslint-disable-next-line no-nested-ternary */}
+          {rest.selectProps.isLoading ? (
+            <div className={styles2.loading}>
+              <Loader />
+            </div>
+          ) : showResultCount ? (
             <ResultCount
               resultCount={resultCount}
               selectNextResult={selectNextResult}
@@ -313,7 +317,6 @@ const SearchWithTags: FunctionComponent<MultiSelectProps> = (props: MultiSelectP
 
   const componentsNormal = useMemo(
     () => ({
-      LoadingIndicator,
       Option: CustomOption,
       MultiValueLabel,
       Control: Control,

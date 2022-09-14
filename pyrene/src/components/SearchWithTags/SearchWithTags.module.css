@@ -2,3 +2,10 @@
   align-self: center;
   margin-left: 7px;
 }
+
+.loading {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  margin-right: 7px
+}
