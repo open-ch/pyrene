@@ -5,9 +5,9 @@ import styles from './CopyIcon.module.css';
 import Tooltip from '../Tooltip/Tooltip';
 import Icon, { IconProps } from '../Icon/Icon';
 
-//@ts-ignore
+// @ts-ignore
 import CopyIconSvg from '../../icons/copy.svg?url';
-//@ts-ignore
+// @ts-ignore
 import CopyIconSvgHovered from '../../icons/copy_hover.svg?url';
 
 export interface CopyIconProps {
@@ -30,7 +30,7 @@ export interface CopyIconProps {
  */
 const CopyIcon: React.FC<CopyIconProps> = ({
   valueToCc,
-  size,
+  size = 'small',
   customLabel = `Copy '${valueToCc}' to Clipboard`,
 }) => {
   const [isClicked, setIsClicked] = useState<boolean>(false);
