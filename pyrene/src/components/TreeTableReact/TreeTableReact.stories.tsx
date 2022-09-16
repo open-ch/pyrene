@@ -34,6 +34,7 @@ const baseArgs = {
   multiSelect: true,
   resizable: true,
   virtualized: true,
+  highlightedRowIds: ['0', '1', '0.3', '3', '1.2'],
 };
 const DefaultTemplate: Story<TreeTableReactProps<TableRow>> = (args) => (
   <TreeTableReact {...args} />

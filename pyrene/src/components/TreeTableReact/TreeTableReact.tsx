@@ -118,9 +118,17 @@ export interface TreeTableReactProps<R> {
    */
   height?: number;
   /**
-   * Highlights a rule in the table. Should be the same value that is calculated by using the `setUniqueRowKey` method.
+   * Highlight rules in the table. Values should be the same that is calculated by using the `setUniqueRowKey` method.
    */
-  highlightedRowId?: string;
+  highlightedRowIds?: string[];
+  /**
+   * Changes the highlight's border color
+   */
+  highlightBorderColor?: string;
+  /**
+   * Changes the highlight's background color
+   */
+  highlightBackgroundColor?: string;
   /**
    * Disables the component and displays a loader inside of it.
    */
@@ -238,7 +246,9 @@ function InnerTreeTableReact<R extends object = {}>(
     toggleColumnsHandler,
     rowLineHeight = 32,
     virtualized = false,
-    highlightedRowId,
+    highlightedRowIds = [],
+    highlightBorderColor,
+    highlightBackgroundColor,
     multiSelect,
     resizable,
     onRowHover,
@@ -515,7 +525,9 @@ function InnerTreeTableReact<R extends object = {}>(
               // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
               ref={registerChild as unknown as React.Ref<HTMLDivElement>}
               disabled={isRowDisabled}
-              highlighted={highlightedRowId === row.id}
+              highlighted={highlightedRowIds.includes(row.id)}
+              highlightBorderColor={highlightBorderColor}
+              highlightBackgroundColor={highlightBackgroundColor}
               index={index}
               listRef={listRef}
               expandOnParentRowClick={expandOnParentRowClick}
@@ -541,7 +553,9 @@ function InnerTreeTableReact<R extends object = {}>(
       onRowHover,
       renderSubRowComponent,
       virtualized,
-      highlightedRowId,
+      highlightedRowIds,
+      highlightBackgroundColor,
+      highlightBorderColor,
       prepareRow,
     ]
   );

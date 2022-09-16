@@ -22,10 +22,15 @@
   }
 
   &.highlighted {
-    background-color: rgba(240, 211, 24, 0.15);
+    border-left-style: solid;
+    border-right-style: solid;
+    border-left-width: 4px;
+    border-right-width: 4px;
+    padding-left: 2px;
+    padding-right: 2px;
   }
 
-   &.disabled {
-      opacity: 0.5;
+  &.disabled {
+    opacity: 0.5;
   }
 }

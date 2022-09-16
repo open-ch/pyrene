@@ -11,6 +11,8 @@ export type CellValue = string | number | boolean;
 export interface TreeTableRowProps {
   row: Row;
   highlighted?: boolean;
+  highlightBorderColor?: string;
+  highlightBackgroundColor?: string;
   disabled?: boolean;
   onRowClick?: (row?: Row['original']) => void;
   onRowDoubleClick?: (row?: Row['original']) => void;
@@ -27,6 +29,8 @@ function TreeTableRow<R extends object = {}>(
   {
     row,
     highlighted,
+    highlightBorderColor = 'var(--highlight-fg)',
+    highlightBackgroundColor = 'var(--highlight-bg)',
     disabled,
     onRowClick,
     onRowDoubleClick,
@@ -73,8 +77,19 @@ function TreeTableRow<R extends object = {}>(
   );
 
   const canExpand = useMemo(() => row?.canExpand || !!customSubRow, [row, customSubRow]);
+
+  const rowStyle = {
+    ...style,
+    ...(highlighted && {
+      borderLeftColor: highlightBorderColor,
+      borderRightColor: highlightBorderColor,
+      backgroundColor: highlightBackgroundColor,
+    }),
+    ...(row.isExpanded && { width: '100%' }),
+  };
+
   const rowProps = row.getRowProps({
-    style: { ...style, ...(row.isExpanded && { width: '100%' }) },
+    style: { ...rowStyle },
   });
 
   return (
