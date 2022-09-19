@@ -9,12 +9,13 @@ export type InputFieldOption = DefaultValueType;
 export type Options = MultiselectOption | SingleSelectOption | InputFieldOption;
 
 export type Filter = {
-  id: string,
-  label: string,
-  negated?: boolean,
-  options?: Options,
-  sorted?: boolean,
-  type: 'singleSelect' | 'multiSelect' | 'text',
+  id: string;
+  label: string;
+  negated?: boolean;
+  options?: Options;
+  sorted?: boolean;
+  type: 'singleSelect' | 'multiSelect' | 'text';
+  creatable?: boolean;
 };
 
 export type Filters = Record<Filter['id'], Options>;

@@ -5,26 +5,23 @@ import SingleSelect from '../../SingleSelect/SingleSelect';
 import TextField from '../../TextField/TextField';
 import MultiSelect from '../../MultiSelect/MultiSelect';
 import Checkbox from '../../Checkbox/Checkbox';
-import {
-  Options,
-  SingleSelectOption,
-  MultiselectOption,
-  HandleFilterChange,
-} from '../types';
+import { Options, SingleSelectOption, MultiselectOption, HandleFilterChange } from '../types';
 
 export interface FilterOptionsProps {
-  handleFilterChange: HandleFilterChange,
-  id: string,
-  label: string,
-  negatable: boolean,
-  negated?: boolean,
-  options?: Options,
-  sorted?: boolean,
-  type: string,
-  value?: Options,
+  handleFilterChange: HandleFilterChange;
+  id: string;
+  label: string;
+  negatable: boolean;
+  negated?: boolean;
+  options?: Options;
+  sorted?: boolean;
+  type: string;
+  value?: Options;
+  creatable?: boolean;
 }
 
-const doesInterfaceSupportNegate = (inputType: string) => ['text', 'singleSelect', 'multiSelect'].indexOf(inputType) !== -1;
+const doesInterfaceSupportNegate = (inputType: string) =>
+  ['text', 'singleSelect', 'multiSelect'].indexOf(inputType) !== -1;
 
 const renderOption = ({
   handleFilterChange,
@@ -34,8 +31,8 @@ const renderOption = ({
   negated,
   options,
   value,
+  creatable,
 }: Omit<FilterOptionsProps, 'label' | 'negatable' | 'negated'> & { negated: boolean }) => {
-
   const isValue = !!value;
 
   switch (type) {
@@ -47,6 +44,7 @@ const renderOption = ({
           onChange={(val) => handleFilterChange(val, negated, id)}
           value={(isValue ? value : null) as SingleSelectOption}
           sorted={sorted}
+          creatable={creatable}
           clearable
           searchable
         />
@@ -57,10 +55,13 @@ const renderOption = ({
           name={id}
           options={options as MultiselectOption}
           // If multiSelect is empty (empty array) return null to filter instead of []
-          onChange={(val: MultiselectOption) => handleFilterChange(Array.isArray(val) && val.length === 0 ? null : val, negated, id)}
+          onChange={(val: MultiselectOption) =>
+            handleFilterChange(Array.isArray(val) && val.length === 0 ? null : val, negated, id)
+          }
           // Pass empty array instead of null to multiSelect component if filterValues are null
           value={(isValue ? value : []) as MultiselectOption}
           sorted={sorted}
+          creatable={creatable}
           selectedOptionsInDropdown
           keepMenuOnSelect
           clearable
@@ -91,15 +92,21 @@ const FilterOption: FunctionComponent<FilterOptionsProps> = ({
   negated = false,
   options = [],
   value,
+  creatable,
 }: FilterOptionsProps) => (
   <div className={styles.filterOption}>
     <div className={styles.filterOptionWrapper}>
-      <div className={styles.label}>
-        {label}
-      </div>
+      <div className={styles.label}>{label}</div>
       <div className={styles.interface}>
         {renderOption({
-          handleFilterChange, id, type, sorted, negated, options, value,
+          handleFilterChange,
+          id,
+          type,
+          sorted,
+          negated,
+          options,
+          value,
+          creatable,
         })}
       </div>
     </div>
@@ -117,7 +124,6 @@ const FilterOption: FunctionComponent<FilterOptionsProps> = ({
     )}
   </div>
 );
-
 
 FilterOption.displayName = 'FilterOption';
 
