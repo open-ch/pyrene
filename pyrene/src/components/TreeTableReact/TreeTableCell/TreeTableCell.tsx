@@ -1,4 +1,4 @@
-import React, { CSSProperties } from 'react';
+import React, { CSSProperties, useRef } from 'react';
 import clsx from 'clsx';
 import { Cell } from 'react-table-7';
 
@@ -10,6 +10,7 @@ interface TreeTableCellProps<R> {
   sectionOpen?: boolean;
   style?: CSSProperties;
   cell: Cell;
+  showCellTitle?: boolean;
 }
 
 function TreeTableCell<R extends object = {}>({
@@ -18,12 +19,22 @@ function TreeTableCell<R extends object = {}>({
   sectionOpen = false,
   style,
   cell,
+  showCellTitle,
 }: TreeTableCellProps<R>): React.ReactElement<TreeTableCellProps<R>> {
+  const contentRef = useRef<HTMLDivElement>(null);
+
   return (
     <div
       {...cell.getCellProps({ style })}
       className={styles.treeTableCell}
-      title={cell?.column?.title ? `${cell.column.title?.(cell.value)}` : undefined}
+      title={
+        // eslint-disable-next-line no-nested-ternary
+        cell?.column?.title
+          ? `${cell.column.title?.(cell.value)}`
+          : showCellTitle
+          ? contentRef.current?.innerText ?? contentRef.current?.textContent ?? undefined
+          : undefined
+      }
     >
       {canExpand && (
         <div
@@ -35,7 +46,11 @@ function TreeTableCell<R extends object = {}>({
           onClick={onExpandClick}
         />
       )}
-      <div className={cell.column.id !== 'selection' ? styles.cellContent : styles.checkbox}>
+      <div
+        className={cell.column.id !== 'selection' ? styles.cellContent : styles.checkbox}
+        // @ts-ignore
+        ref={(element) => (contentRef?.current = element)}
+      >
         {cell.render('Cell')}
       </div>
     </div>

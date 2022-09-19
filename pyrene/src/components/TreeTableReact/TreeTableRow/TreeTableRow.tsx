@@ -23,6 +23,7 @@ export interface TreeTableRowProps {
   expandOnParentRowClick?: boolean;
   multiSelect?: boolean;
   customSubRow?: ({ row, rowProps, listRef }: CustomSubRowProps) => JSX.Element;
+  showCellTitle?: boolean;
 }
 
 function TreeTableRow<R extends object = {}>(
@@ -41,6 +42,7 @@ function TreeTableRow<R extends object = {}>(
     style,
     multiSelect,
     customSubRow,
+    showCellTitle,
   }: TreeTableRowProps,
   ref: React.ForwardedRef<HTMLDivElement>
 ) {
@@ -129,6 +131,7 @@ function TreeTableRow<R extends object = {}>(
             : ({} as CSSProperties);
           return (
             <TreeTableCell
+              showCellTitle={showCellTitle}
               style={{ ...styling, ...(cell?.column?.cellStyle as CSSProperties) }}
               key={cell.column.id}
               cell={cell}

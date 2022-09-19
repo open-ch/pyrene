@@ -20,7 +20,6 @@ import {
   Row,
   TableRowProps,
 } from 'react-table-7';
-import { VariableSizeList } from 'react-window';
 import clsx from 'clsx';
 import { AutoSizer, List, CellMeasurer, CellMeasurerCache } from 'react-virtualized';
 
@@ -37,7 +36,6 @@ import { Filter as FilterType, Filters } from '../Filter/types';
 import styles from './TreeTableReact.module.css';
 import {
   getFirstLevelParentRowId,
-  handleExpandAllParentsOfRowById,
   initializeRootData,
   isFlatTree,
   prepareColumnToggle,
@@ -199,6 +197,10 @@ export interface TreeTableReactProps<R> {
    */
   shareLink?: string;
   /**
+   * Weather to show tooltips titles on cell hover
+   */
+  showCellTitle?: boolean;
+  /**
    * Show pagination footer
    */
   paginated?: boolean;
@@ -271,6 +273,7 @@ function InnerTreeTableReact<R extends object = {}>(
     paginated,
     shareLink,
     expanded = false,
+    showCellTitle = false,
   }: TreeTableReactProps<R>,
   ref: React.ForwardedRef<ManipulateTable>
 ) {
@@ -285,7 +288,6 @@ function InnerTreeTableReact<R extends object = {}>(
   // https://github.com/TanStack/react-table/issues/1994
   const memoizedData = useMemo(() => data, [data]);
   const memoizedColumns = useMemo(() => userColumns, [userColumns]);
-  const scrollBarSize = useMemo(() => scrollbarWidth(), []);
 
   const cache = useRef(
     new CellMeasurerCache({
@@ -298,14 +300,12 @@ function InnerTreeTableReact<R extends object = {}>(
     getTableBodyProps,
     prepareRow,
     toggleAllRowsExpanded,
-    toggleRowExpanded,
     toggleAllRowsSelected,
     isAllRowsExpanded,
     headerGroups,
     toggleHideColumn,
     columns: currentColumns,
     selectedFlatRows,
-    totalColumnsWidth,
     // used for virtualized table
     rows: allRows,
     page: rows, // Instead of using 'rows', we'll use page,
@@ -419,14 +419,6 @@ function InnerTreeTableReact<R extends object = {}>(
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const getItemHeight = useCallback(
-    (i: number) => {
-      const row = allRows[i]?.original as { lineCount?: number };
-      const size = (row && row?.lineCount) || 1;
-      return size * rowLineHeight;
-    },
-    [allRows, rowLineHeight]
-  );
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const listRefs = useMemo(
     () =>
@@ -537,6 +529,7 @@ function InnerTreeTableReact<R extends object = {}>(
               style={style}
               multiSelect={multiSelect}
               customSubRow={renderSubRowComponent}
+              showCellTitle={showCellTitle}
             />
           )}
         </CellMeasurer>
@@ -557,6 +550,7 @@ function InnerTreeTableReact<R extends object = {}>(
       highlightBackgroundColor,
       highlightBorderColor,
       prepareRow,
+      showCellTitle,
     ]
   );
 
