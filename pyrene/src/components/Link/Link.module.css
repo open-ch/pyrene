@@ -52,3 +52,12 @@
     pointer-events: none;
   }
 }
+
+.iconContainer {
+  display: flex;
+  align-items: center;
+}
+
+.extraIcon {
+  margin-left: 7px;
+}

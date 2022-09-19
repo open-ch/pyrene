@@ -1,6 +1,7 @@
 import React, { FunctionComponent, MouseEvent } from 'react';
 import clsx from 'clsx';
 import styles from './Link.module.css';
+import { IconNames } from '../types';
 
 export interface LinkProps {
   /**
@@ -27,6 +28,10 @@ export interface LinkProps {
    * Sets the overall style.
    */
   type?: 'standalone' | 'inline';
+  /**
+   * Sets the icon.
+   */
+  icon?: keyof IconNames;
 }
 
 /**
@@ -48,9 +53,12 @@ const Link: FunctionComponent<LinkProps> = ({
   path,
   target,
   onClick,
+  icon,
 }: LinkProps) => (
   <a
-    className={clsx(styles.link, styles[`type-${type}`], { [styles.disabled]: disabled })}
+    className={clsx(styles.link, icon && styles.iconContainer, styles[`type-${type}`], {
+      [styles.disabled]: disabled,
+    })}
     href={path}
     onClick={
       onClick
@@ -65,7 +73,14 @@ const Link: FunctionComponent<LinkProps> = ({
     target={target}
   >
     <span className={styles.label}>{label}</span>
-    {type === 'standalone' && <span className={clsx(styles.icon, 'pyreneIcon-chevronRight')} />}
+    {(type === 'standalone' || icon) && (
+      <span
+        className={clsx(
+          icon ? styles.extraIcon : styles.icon,
+          `pyreneIcon-${icon ?? 'chevronRight'}`
+        )}
+      />
+    )}
   </a>
 );
 
