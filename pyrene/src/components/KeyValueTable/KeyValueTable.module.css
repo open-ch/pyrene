@@ -15,7 +15,6 @@
 }
 
 .keyValueRow {
-  background-color: #ffffff;
   font-size: 12px;
   letter-spacing: 0;
   &.row-greyLabel {
@@ -23,6 +22,7 @@
     line-height: 24px;
   }
   &.row-border {
+    background-color: #ffffff;
     display: flex;
     border-bottom: 1px solid var(--border);
     padding-top: 7px;
