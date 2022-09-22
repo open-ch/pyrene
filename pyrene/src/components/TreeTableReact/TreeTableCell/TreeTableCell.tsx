@@ -21,7 +21,7 @@ function TreeTableCell<R extends object = {}>({
   cell,
   showCellTitle,
 }: TreeTableCellProps<R>): React.ReactElement<TreeTableCellProps<R>> {
-  const contentRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement | null>(null);
 
   return (
     <div
@@ -48,8 +48,7 @@ function TreeTableCell<R extends object = {}>({
       )}
       <div
         className={cell.column.id !== 'selection' ? styles.cellContent : styles.checkbox}
-        // @ts-ignore
-        ref={(element) => (contentRef?.current = element)}
+        ref={(element) => (contentRef.current = element)}
       >
         {cell.render('Cell')}
       </div>
