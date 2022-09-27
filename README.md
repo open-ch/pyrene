@@ -2,6 +2,8 @@
 
 # pyrene - Open Systems Component Library
 
+This repository is now archived.
+
 [![Tests](https://github.com/open-ch/pyrene/workflows/Test/badge.svg)](https://github.com/open-ch/pyrene/actions?query=workflow%3ATest)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=open-ch_pyrene&metric=alert_status)](https://sonarcloud.io/dashboard?id=open-ch_pyrene)
 
